@@ -242,6 +242,95 @@ const CONTENT = {
       'Informational content. This article does not replace professional advice. If you’re going through a difficult time, don’t hesitate to talk to a healthcare professional.',
     shareMessage: 'Moving through grief, emotionally — AWA',
   },
+  es: {
+    badge: 'DESPUÉS DE UNA PÉRDIDA DEL EMBARAZO • APOYO EMOCIONAL',
+    title: 'Atravesar el duelo\nemocionalmente',
+    metaDuration: '7 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido informativo',
+    intro:
+      'No existe una forma correcta de vivir esta prueba. Cada una la atraviesa a su manera, a su propio ritmo.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Un duelo real y legítimo',
+      'Emociones que varían según cada persona',
+      'Lo que puede ayudar en el día a día',
+      'El apoyo del entorno',
+      'Cuándo pedir ayuda profesional',
+      'Para recordar',
+    ],
+    section1Body:
+      'La tristeza, la rabia o la sensación de vacío son reacciones normales ante esta pérdida, sea cual sea la etapa del embarazo. Lo que sientes merece ser reconocido.',
+    section1InfoTitle: 'Para recordar',
+    section1InfoText:
+      'No existe una forma correcta o incorrecta de vivir esta prueba. Cada emoción que sientes es legítima.',
+    section2Body:
+      'Algunas personas pueden sentir uno o varios de estos estados, a veces al mismo tiempo:',
+    feelings: [
+      {
+        title: 'Tristeza',
+        text: 'Una pena que puede ir y venir, a veces de forma inesperada.',
+      },
+      {
+        title: 'Rabia',
+        text: 'Hacia una misma, hacia la situación o un sentimiento de injusticia, sin que eso sea un problema.',
+      },
+      {
+        title: 'Sensación de vacío',
+        text: 'Una impresión de vacío o de incomprensión ante lo que acaba de ocurrir.',
+      },
+    ],
+    section3Body:
+      'Concederte tiempo, sin presión ni comparación, forma parte integral de la sanación.',
+    dailySupport: [
+      {
+        title: 'Concederte tiempo',
+        text: 'Sin presión ni fecha límite para «estar mejor».',
+      },
+      {
+        title: 'No compararte',
+        text: 'Cada duelo es único; no hay una forma correcta de vivirlo.',
+      },
+      {
+        title: 'Ponerle palabras',
+        text: 'Escribir o hablar sobre lo que sientes puede aliviar el peso de las emociones.',
+      },
+    ],
+    section4Body:
+      'Hablar con alguien cercano, un grupo de apoyo o un profesional puede aliviar este peso. Esto es cómo el entorno puede ayudar:',
+    supportTitle: 'Cómo puede apoyar una persona cercana',
+    howToSupport: [
+      'Escuchar sin juzgar, incluso sin tener las palabras perfectas',
+      'Evitar minimizar lo ocurrido («no era grave», «podrás volver a intentarlo»)',
+      'Ofrecer presencia en lugar de soluciones',
+      'Seguir preguntando cómo está en las semanas siguientes',
+    ],
+    section5Body:
+      'Algunas señales pueden indicar que un acompañamiento profesional sería beneficioso:',
+    warningTitle: 'Señales a las que prestar atención',
+    attentionSigns: [
+      'La tristeza persiste durante mucho tiempo y se intensifica en lugar de disminuir',
+      'Se vuelve difícil funcionar en el día a día',
+      'Se instala un aislamiento importante',
+      'Aparecen pensamientos invasivos o una sensación de malestar importante',
+    ],
+    section5InfoTitle: 'Un acompañamiento es posible',
+    section5InfoText:
+      'Una matrona, un médico, un psicólogo o un grupo de apoyo pueden escucharte y acompañarte, sin juzgar.',
+    tipTitle: 'DATO ÚTIL',
+    tipText:
+      'Pedir ayuda no es un signo de debilidad: es una forma de cuidarte durante este periodo.',
+    summaryPoints: [
+      'No existe una forma correcta o incorrecta de vivir esta prueba.',
+      'La tristeza, la rabia o la sensación de vacío son reacciones normales.',
+      'Concederte tiempo, sin presión ni comparación, forma parte de la sanación.',
+      'Hablar con alguien cercano, un grupo de apoyo o un profesional puede aliviar este peso.',
+    ],
+    disclaimerText:
+      'Contenido informativo. Este artículo no sustituye un asesoramiento profesional. Si estás atravesando un periodo difícil, no dudes en hablarlo con un profesional de la salud.',
+    shareMessage: 'Atravesar el duelo emocionalmente — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -258,7 +347,7 @@ export default function MiscarriageGriefArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

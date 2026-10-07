@@ -94,7 +94,7 @@ async function renderScreen(Component: React.ComponentType<any>) {
 const textsOf = (renderer: ReactTestRenderer.ReactTestRenderer) =>
   renderer.root.findAllByType(Text).map(node => [node.props.children].flat(Infinity).join(''));
 
-async function switchLanguage(lang: 'fr' | 'en') {
+async function switchLanguage(lang: 'fr' | 'en' | 'es') {
   await act(async () => {
     await setAppLanguage(lang);
     await i18n.changeLanguage(lang);
@@ -256,8 +256,10 @@ describe('TEST 11-18 — article identity is unaffected by the language switch',
       expect(source).toMatch(/fr:\s*\{/);
       expect(source).toMatch(/en:\s*\{/);
       // Every translated article must derive its content reactively from
-      // i18n.language, never a module-level constant resolved once.
-      expect(source).toMatch(/i18n\.language === 'en'/);
+      // i18n.language, never a module-level constant resolved once. French
+      // is the explicit branch (English is the fallback — also used for
+      // Spanish, since there is no Spanish Library content yet).
+      expect(source).toMatch(/i18n\.language === 'fr'/);
     }
   });
 });
@@ -322,6 +324,245 @@ describe('TEST 19-23 — pregnancyWeekData.ts bilingual behavior', () => {
   });
 });
 
+describe('TEST ES1-ES12 — pregnancyWeekData.ts Spanish coverage (closes the former fallback-to-English gap)', () => {
+  it('TEST ES1 — dataset contains exactly 41 weeks', () => {
+    for (let week = 1; week <= 41; week += 1) {
+      expect(getPregnancyWeekData(week, 'fr')).toBeDefined();
+    }
+    expect(getPregnancyWeekData(42, 'fr')).toBeUndefined();
+  });
+
+  it('TEST ES2 — every week (1-41) has fr content (re-verifies TEST 23 still holds)', () => {
+    for (let week = 1; week <= 41; week += 1) {
+      const fr = getPregnancyWeekData(week, 'fr');
+      expect(fr).toBeDefined();
+      expect(fr!.babyDescription!.length).toBeGreaterThan(0);
+    }
+  });
+
+  it('TEST ES3 — every week (1-41) has en content (re-verifies TEST 23 still holds)', () => {
+    for (let week = 1; week <= 41; week += 1) {
+      const en = getPregnancyWeekData(week, 'en');
+      expect(en).toBeDefined();
+      expect(en!.babyDescription!.length).toBeGreaterThan(0);
+    }
+  });
+
+  it('TEST ES4/ES5 — every week (1-41) has es content; no reachable week lacks Spanish', () => {
+    const missingWeeks: number[] = [];
+    for (let week = 1; week <= 41; week += 1) {
+      const es = getPregnancyWeekData(week, 'es');
+      if (!es || !es.babyDescription || es.babyDescription.length === 0) {
+        missingWeeks.push(week);
+      }
+    }
+    expect(missingWeeks).toEqual([]);
+  });
+
+  it('TEST ES6 — sourceRefs are identical across fr/en/es for a representative set of weeks', () => {
+    for (const week of [1, 12, 24, 41]) {
+      const fr = getPregnancyWeekData(week, 'fr')!;
+      const en = getPregnancyWeekData(week, 'en')!;
+      const es = getPregnancyWeekData(week, 'es')!;
+      expect(es.sourceRefs).toEqual(fr.sourceRefs);
+      expect(es.sourceRefs).toEqual(en.sourceRefs);
+    }
+  });
+
+  it('TEST ES7 — babyImage identity is unchanged across fr/en/es for a representative set of weeks', () => {
+    for (const week of [1, 12, 24, 41]) {
+      const fr = getPregnancyWeekData(week, 'fr')!;
+      const en = getPregnancyWeekData(week, 'en')!;
+      const es = getPregnancyWeekData(week, 'es')!;
+      expect(es.babyImage).toBe(fr.babyImage);
+      expect(es.babyImage).toBe(en.babyImage);
+    }
+  });
+
+  it('TEST ES8 — week 1 (es) renders genuine Spanish text, distinct from fr and en', () => {
+    const fr = getPregnancyWeekData(1, 'fr')!;
+    const en = getPregnancyWeekData(1, 'en')!;
+    const es = getPregnancyWeekData(1, 'es')!;
+    expect(es.babyDescription).not.toBe(fr.babyDescription);
+    expect(es.babyDescription).not.toBe(en.babyDescription);
+    expect(es.babyDescription).toContain('embarazo se calcula a partir del primer día de tu última regla');
+  });
+
+  it('TEST ES9 — a representative first-trimester week (10) renders Spanish', () => {
+    const es = getPregnancyWeekData(10, 'es')!;
+    expect(es.babyDescription).toContain('más reconocible');
+    expect(es.length).toBe('Aproximadamente 30 mm');
+  });
+
+  it('TEST ES10 — a representative second-trimester week (20) renders Spanish', () => {
+    const es = getPregnancyWeekData(20, 'es')!;
+    expect(es.babyDescription).toContain('cabeza a los talones');
+    expect(es.length).toBe('Aproximadamente 25,6 cm');
+  });
+
+  it('TEST ES11 — a representative third-trimester week (32) renders Spanish', () => {
+    const es = getPregnancyWeekData(32, 'es')!;
+    expect(es.babyDescription).toContain('cabeza hacia abajo');
+    expect(es.length).toBe('Aproximadamente 42,4 cm');
+  });
+
+  it('TEST ES12a — week 40 (es) renders Spanish', () => {
+    const es = getPregnancyWeekData(40, 'es')!;
+    expect(es.babyDescription).toContain('totalmente desarrollado');
+    expect(es.length).toBe('Aproximadamente 51,2 cm');
+  });
+
+  it('TEST ES12b — week 41 (es) renders Spanish', () => {
+    const es = getPregnancyWeekData(41, 'es')!;
+    expect(es.babyDescription).toContain('sigue totalmente desarrollado');
+    expect(es.length).toBeUndefined();
+  });
+
+  it('TEST ES13 — no Spanish week silently falls back to English (sample weeks: babyDescription genuinely differs)', () => {
+    for (const week of [1, 4, 10, 12, 20, 24, 32, 40, 41]) {
+      const en = getPregnancyWeekData(week, 'en')!;
+      const es = getPregnancyWeekData(week, 'es')!;
+      expect(es.babyDescription).not.toBe(en.babyDescription);
+    }
+  });
+
+  it('TEST ES14 — runtime EN -> ES switching inside PregnancyWeekScreen shows Spanish, not English', async () => {
+    await switchLanguage('en');
+    const PregnancyWeekScreen = require('../../pregnancy/PregnancyWeekScreen').default;
+    const renderer = await renderScreen(PregnancyWeekScreen);
+    const enTexts = textsOf(renderer);
+    expect(enTexts.some(text => /week/i.test(text))).toBe(true);
+
+    await switchLanguage('es');
+    const esTexts = textsOf(renderer);
+    expect(esTexts.some(text => /semana/i.test(text))).toBe(true);
+  });
+
+  it('TEST ES15 — runtime ES -> FR switching inside PregnancyWeekScreen shows French, not Spanish', async () => {
+    await switchLanguage('es');
+    const PregnancyWeekScreen = require('../../pregnancy/PregnancyWeekScreen').default;
+    const renderer = await renderScreen(PregnancyWeekScreen);
+    const esTexts = textsOf(renderer);
+    expect(esTexts.some(text => /semana/i.test(text))).toBe(true);
+
+    await switchLanguage('fr');
+    const frTexts = textsOf(renderer);
+    expect(frTexts.some(text => /semaine/i.test(text))).toBe(true);
+  });
+
+  it('TEST ES16 — runtime FR -> EN switching still works (re-verifies pre-existing round-trip)', async () => {
+    await switchLanguage('fr');
+    const PregnancyWeekScreen = require('../../pregnancy/PregnancyWeekScreen').default;
+    const renderer = await renderScreen(PregnancyWeekScreen);
+    const frTexts = textsOf(renderer);
+    expect(frTexts.some(text => /semaine/i.test(text))).toBe(true);
+
+    await switchLanguage('en');
+    const enTexts = textsOf(renderer);
+    expect(enTexts.some(text => /week/i.test(text))).toBe(true);
+  });
+
+  it('TEST ES17 — unknown/missing language resolves to English, never French (matches Phase7M TEST 15 pattern)', () => {
+    const week12NoArg = getPregnancyWeekData(12);
+    expect(week12NoArg?.length).toBe('About 5.4 cm');
+
+    const week12Invalid = getPregnancyWeekData(12, 'xx' as unknown as 'en');
+    expect(week12Invalid?.length).toBe('About 5.4 cm');
+  });
+
+  it('TEST ES18 — numeric integrity: every numeric figure in fr text is preserved (comma/period-normalized) in es text, for all 41 weeks', () => {
+    const extractNumbers = (text?: string): string[] => {
+      if (!text) {
+        return [];
+      }
+      return (text.match(/\d+(?:[.,]\d+)?/g) || []).map(n => n.replace(',', '.'));
+    };
+    const mismatches: string[] = [];
+
+    for (let week = 1; week <= 41; week += 1) {
+      const fr = getPregnancyWeekData(week, 'fr')!;
+      const es = getPregnancyWeekData(week, 'es')!;
+
+      const checkField = (label: string, frText?: string, esText?: string) => {
+        const frNumbers = extractNumbers(frText);
+        const esNumbers = new Set(extractNumbers(esText));
+        for (const num of frNumbers) {
+          if (!esNumbers.has(num)) {
+            mismatches.push(`week ${week} ${label}: "${num}" missing from es (fr="${frText}" es="${esText}")`);
+          }
+        }
+      };
+
+      checkField('babyDescription', fr.babyDescription, es.babyDescription);
+      checkField('length', fr.length, es.length);
+      checkField('bodyChanges', (fr.bodyChanges || []).join(' | '), (es.bodyChanges || []).join(' | '));
+      checkField('toKnow', (fr.toKnow || []).join(' | '), (es.toKnow || []).join(' | '));
+    }
+
+    expect(mismatches).toEqual([]);
+  });
+
+  it('TEST ES19 — residual-language self-check: no French or English leftover, no usted/vosotros register, across all 41 es weeks', () => {
+    const frenchTells = [
+      'vous', 'votre', 'vos', 'être', 'avec', 'dans', 'pour', 'très', 'après',
+      'cette', 'ces', 'leur', 'leurs', 'ainsi', 'donc', 'chez', 'mais', 'cela',
+    ];
+    const englishTells = ['the ', ' and ', 'your ', ' with ', 'during '];
+    const formalRegisterTells = ['usted', 'ustedes', 'vos', 'vosotros', 'vosotras'];
+
+    const offenders: string[] = [];
+    for (let week = 1; week <= 41; week += 1) {
+      const es = getPregnancyWeekData(week, 'es')!;
+      const allText = [es.babyDescription, es.comparison, ...(es.bodyChanges || []), ...(es.toKnow || [])]
+        .filter(Boolean)
+        .join(' \n ');
+      const lower = allText.toLowerCase();
+
+      for (const word of frenchTells) {
+        if (new RegExp(`\\b${word}\\b`, 'i').test(lower)) {
+          offenders.push(`week ${week}: French tell "${word}"`);
+        }
+      }
+      for (const word of englishTells) {
+        if (lower.includes(word)) {
+          offenders.push(`week ${week}: English tell "${word}"`);
+        }
+      }
+      for (const word of formalRegisterTells) {
+        if (new RegExp(`\\b${word}\\b`, 'i').test(lower)) {
+          offenders.push(`week ${week}: formal-register tell "${word}"`);
+        }
+      }
+    }
+
+    expect(offenders).toEqual([]);
+  });
+
+  it('TEST ES20 — field-presence parity: es has comparison iff fr has comparison, for every week (weeks 1-3/41 omit it)', () => {
+    const mismatches: number[] = [];
+    for (let week = 1; week <= 41; week += 1) {
+      const fr = getPregnancyWeekData(week, 'fr')!;
+      const es = getPregnancyWeekData(week, 'es')!;
+      const frHasComparison = fr.comparison !== undefined;
+      const esHasComparison = es.comparison !== undefined;
+      if (frHasComparison !== esHasComparison) {
+        mismatches.push(week);
+      }
+    }
+    expect(mismatches).toEqual([]);
+    for (const week of [1, 2, 3, 41]) {
+      expect(getPregnancyWeekData(week, 'es')!.comparison).toBeUndefined();
+    }
+  });
+
+  it('TEST ES21 — no week has a fabricated `weight` field in es (matches fr/en — intentionally never populated)', () => {
+    for (let week = 1; week <= 41; week += 1) {
+      const es = getPregnancyWeekData(week, 'es')!;
+      expect(es.weight).toBeUndefined();
+    }
+  });
+});
+
 describe('Structural completeness audit — full 72-article reachable inventory', () => {
   it('classifies every bespoke article screen as translated (72) / dead (1) — FRENCH-ONLY REACHABLE = 0', () => {
     const dir = path.resolve(__dirname, '..');
@@ -340,7 +581,7 @@ describe('Structural completeness audit — full 72-article reachable inventory'
       const componentName = file.replace(/\.tsx$/, '');
       const isWiredIntoReader = reader.includes(componentName);
       const source = fs.readFileSync(path.join(dir, file), 'utf8');
-      const isBilingual = /const CONTENT = \{/.test(source) && /i18n\.language === 'en'/.test(source);
+      const isBilingual = /const CONTENT = \{/.test(source) && /i18n\.language === 'fr'/.test(source);
 
       if (dead.has(file)) {
         deadCount += 1;

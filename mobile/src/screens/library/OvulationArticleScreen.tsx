@@ -126,6 +126,47 @@ const CONTENT = {
       'No single sign is perfectly reliable on its own: combining them gives a better idea of your most fertile time.',
     shareMessage: 'Understanding ovulation — AWA',
   },
+  es: {
+    badge: 'OVULACIÓN',
+    title: 'Comprender\nla ovulación',
+    metaDuration: '6 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'El momento clave de tu ciclo, y cómo detectarlo.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      '¿Qué es la ovulación?',
+      'Las señales que pueden acompañarla',
+      'Identificar tu propio ritmo',
+      'Para recordar',
+    ],
+    body1:
+      'La ovulación corresponde a la liberación de un óvulo por uno de los ovarios. Suele ocurrir unos 14 días antes de la siguiente regla, sea cual sea la duración total del ciclo.',
+    tip1Title: 'Dato útil',
+    tip1Text:
+      'Es la fecha de la siguiente regla la que varía de una mujer a otra, mucho más que el tiempo entre la ovulación y su llegada.',
+    body2:
+      'Algunas señales físicas pueden acompañar la proximidad de la ovulación, en grados variables según cada mujer.',
+    visualTitle: 'Un moco más fluido',
+    visualText:
+      'Cerca de la ovulación, el moco cervical se vuelve más claro, filante y elástico.',
+    otherSigns: [
+      'Un ligero dolor en un lado del bajo vientre («mittelschmerz»)',
+      'Sensibilidad en los senos',
+      'Una ligera subida de la temperatura basal después de la ovulación',
+      'Un aumento de energía en algunas mujeres',
+    ],
+    body3:
+      'Observar estas señales durante varios ciclos ayuda a conocer mejor tu propio ritmo, que puede diferir de los promedios generales.',
+    alertTitle: 'A tener en cuenta',
+    alertText:
+      'Un ciclo sin ovulación puede ocurrir ocasionalmente, sin que eso sea sistemáticamente preocupante. Si la regla falta durante mucho tiempo o tienes dudas, se recomienda una opinión médica.',
+    tip2Title: 'Dato útil',
+    tip2Text:
+      'Ninguna señal aislada es perfectamente fiable por sí sola: combinarlas da una mejor idea de tu momento más fértil.',
+    shareMessage: 'Comprender la ovulación — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -134,7 +175,7 @@ export default function OvulationArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

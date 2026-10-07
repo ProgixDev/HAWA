@@ -306,6 +306,121 @@ const CONTENT = {
       'Informational content. The medical information presented here is general and doesn’t replace the advice of a healthcare professional. For specific religious questions, it’s recommended to refer to a qualified religious source.',
     shareMessage: 'Nifas: medical aspects — AWA',
   },
+  es: {
+    badge: 'POSPARTO • NIFÁS',
+    title: 'El nifás:\naspectos médicos',
+    metaDuration: '5 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido informativo',
+    intro:
+      'Después del nacimiento, el cuerpo atraviesa un período de recuperación progresiva. Comprender las pérdidas posparto, su evolución y los signos que deben llamar la atención puede ayudar a vivir este período con más referencias.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Comprender el término nifás',
+      'El esquema médico después del nacimiento',
+      'La evolución de los loquios',
+      'Cuidarte a ti misma',
+      '¿Cuándo pedir consejo?',
+      'Lo esencial',
+    ],
+    h2Section1: '1. Comprender el término «nifás»',
+    body1a:
+      'El término «nifás» pertenece al vocabulario religioso y designa el período relacionado con los sangrados que siguen al parto según las reglas de la jurisprudencia islámica.',
+    body1b:
+      'A nivel médico, las pérdidas observadas después del parto se denominan «loquios». Estas dos nociones pueden estudiarse por separado: una pertenece a un marco religioso, la otra describe un fenómeno fisiológico.',
+    distinction: {
+      nifasTitle: 'Nifás',
+      nifasText: 'Noción que pertenece al marco religioso después del parto.',
+      lochiaTitle: 'Loquios',
+      lochiaText: 'Término médico utilizado para las pérdidas posparto.',
+    },
+    h2Section2: '2. El esquema médico después del nacimiento',
+    body2:
+      'La recuperación posparto se produce de forma progresiva. Las pérdidas posparto evolucionan generalmente con el tiempo mientras el útero continúa su retorno a su estado habitual.',
+    schemaTitle: 'Evolución posparto',
+    schemaSubtitle: 'Referencia médica simplificada',
+    stages: [
+      {
+        title: 'Después del parto',
+        subtitle: 'Inicio del posparto',
+        text: 'El cuerpo comienza progresivamente su recuperación después del nacimiento.',
+      },
+      {
+        title: 'Los loquios',
+        subtitle: 'Pérdidas posparto',
+        text: 'Las pérdidas evolucionan progresivamente en cantidad y en color.',
+      },
+      {
+        title: 'Disminución progresiva',
+        subtitle: 'A lo largo de varias semanas',
+        text: 'Las pérdidas generalmente disminuyen con el tiempo.',
+      },
+      {
+        title: 'Retorno progresivo',
+        subtitle: 'Hacia el ciclo habitual',
+        text: 'El ciclo menstrual puede entonces reanudarse progresivamente.',
+      },
+    ],
+    h2Section3: '3. La evolución de los loquios',
+    body3:
+      'Los loquios generalmente cambian de color de forma progresiva y disminuyen en cantidad. Sin embargo, su evolución puede variar de una persona a otra.',
+    lochiaEvolution: [
+      {
+        title: 'Loquios rojos',
+        period: 'Primeros días',
+        text: 'Las pérdidas son generalmente rojas y pueden ser más abundantes al principio.',
+      },
+      {
+        title: 'Loquios rosados / parduzcos',
+        period: 'Después de algunos días',
+        text: 'El color puede volverse más claro o parduzco mientras el flujo disminuye.',
+      },
+      {
+        title: 'Loquios blanquecinos',
+        period: 'Semanas siguientes',
+        text: 'Las pérdidas se vuelven progresivamente más claras y menos abundantes.',
+      },
+    ],
+    infoTitle: 'Lo esencial',
+    infoText:
+      'El color y la cantidad de los loquios pueden evolucionar progresivamente. La evolución exacta no es idéntica en todas las personas.',
+    h2Section4: '4. Cuidarte a ti misma',
+    body4:
+      'Durante este período, algunos hábitos sencillos pueden contribuir al confort y acompañar la recuperación del cuerpo.',
+    careTips: [
+      {title: 'Higiene suave', text: 'Mantén una higiene diaria sencilla y cómoda.'},
+      {title: 'Descanso', text: 'Dale a tu cuerpo tiempo para recuperarse.'},
+      {title: 'Hidratación', text: 'Recuerda beber con regularidad según tus necesidades.'},
+      {title: 'Alimentación', text: 'Una alimentación variada acompaña la recuperación.'},
+    ],
+    h2Section5: '5. ¿Cuándo pedir consejo?',
+    body5:
+      'Algunas situaciones requieren pedir consejo rápidamente a un profesional de la salud, especialmente cuando un cambio parece importante, repentino o inusual.',
+    warningTitle: 'Signos que no hay que ignorar',
+    warningSubtitle: 'Pide un consejo profesional si es necesario',
+    warningSigns: [
+      'Un olor fuerte o inusual de las pérdidas',
+      'Fiebre o un estado general que empeora',
+      'Un sangrado que se vuelve repentinamente muy abundante',
+      'Un dolor importante, persistente o inusual',
+      'Un síntoma nuevo que te preocupa',
+    ],
+    tipTitle: 'DATO ÚTIL',
+    tipText:
+      'Cada recuperación posparto es diferente. La información de este artículo está destinada a dar referencias generales y no sustituye una consulta médica.',
+    summaryHeading: 'Lo esencial',
+    summary: [
+      'El nifás es un término utilizado en el marco religioso después del parto.',
+      'A nivel médico, las pérdidas posparto se denominan loquios.',
+      'Los loquios evolucionan progresivamente en color y en cantidad.',
+      'El descanso, la higiene suave y una buena hidratación acompañan la recuperación.',
+      'Un cambio inusual o preocupante merece un consejo profesional.',
+    ],
+    disclaimerText:
+      'Contenido informativo. La información médica presentada aquí es general y no sustituye el consejo de un profesional de la salud. Para preguntas religiosas específicas, se recomienda remitirse a una fuente religiosa cualificada.',
+    shareMessage: 'El nifás: aspectos médicos — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -325,7 +440,7 @@ export default function NifasMedicalArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

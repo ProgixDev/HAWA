@@ -261,6 +261,112 @@ const CONTENT = {
       'This article is intended for information purposes and does not replace personalized medical advice. If you have a significant or unusual symptom, seek advice from a healthcare professional.',
     shareMessage: 'Recognizing possible side effects — AWA',
   },
+  es: {
+    badge: 'EFECTOS SECUNDARIOS',
+    title: 'Reconoce los posibles\nefectos secundarios',
+    metaDuration: '8 min de lectura',
+    metaType: 'Artículo',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenido validado',
+    intro:
+      'Algunos efectos pueden ser frecuentes y temporales. Otros requieren más atención. Aprende a distinguir las reacciones habituales de los signos que deben evaluarse.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Efectos frecuentes y leves',
+      'El tiempo de adaptación del cuerpo',
+      'Observar lo que cambia',
+      'Cuándo pedir un consejo médico',
+      'Cuándo consultar rápidamente',
+      'Lo esencial',
+    ],
+    body1:
+      'Cuando una persona empieza una nueva anticoncepción hormonal, el cuerpo puede necesitar un tiempo de adaptación. Pueden aparecer pequeños cambios en el ciclo, el estado de ánimo o el confort físico.',
+    body2:
+      'Estas manifestaciones suelen ser moderadas y pueden disminuir progresivamente. Su presencia no significa automáticamente que el método sea peligroso o que deba interrumpirse.',
+    commonEffects: [
+      {
+        title: 'Pequeños sangrados',
+        text: 'Pueden aparecer sangrados irregulares, especialmente al inicio de un nuevo método.',
+      },
+      {
+        title: 'Sensibilidad en los senos',
+        text: 'Puede sentirse tensión o sensibilidad en los senos de forma temporal.',
+      },
+      {
+        title: 'Estado de ánimo',
+        text: 'Algunas personas notan variaciones del estado de ánimo o una mayor sensibilidad emocional.',
+      },
+      {
+        title: 'Dolores de cabeza',
+        text: 'Pueden surgir ligeros dolores de cabeza durante el período de adaptación.',
+      },
+    ],
+    body3:
+      'Las primeras semanas o los primeros ciclos pueden ser diferentes de lo que conocías antes. El cuerpo puede adaptarse progresivamente al nuevo funcionamiento hormonal.',
+    tip1Title: 'DATO ÚTIL',
+    tip1Text:
+      'Un efecto que aparece poco después de empezar un método merece observarse con el tiempo. Si se vuelve molesto o persiste, habla con un profesional de la salud.',
+    body4:
+      'Puede ser útil anotar los síntomas en tu aplicación para ver mejor su evolución de un ciclo a otro.',
+    trackingTitle: 'Observa la evolución',
+    trackingSubtitle: 'Algunas referencias pueden ser útiles',
+    trackingLines: [
+      'Anota la fecha de aparición del síntoma.',
+      'Indica su intensidad y su duración.',
+      'Observa si mejora o empeora.',
+    ],
+    body5:
+      'No todos los síntomas están necesariamente relacionados con la anticoncepción. El estrés, el sueño, la alimentación, el ciclo u otros tratamientos también pueden influir en cómo te sientes.',
+    body6:
+      'Para entender la situación, intenta fijarte en el contexto general en lugar de considerar un síntoma aislado.',
+    worthMentioning: [
+      'Cambios de humor marcados y persistentes',
+      'Una disminución de la libido que te molesta',
+      'Sangrados irregulares que duran más de 3 ciclos',
+      'Náuseas o dolores de cabeza que siguen siendo molestos',
+    ],
+    questionsTitle: 'Algunas preguntas útiles',
+    questions: [
+      '¿Desde cuándo comenzaron estos síntomas?',
+      '¿Aparecieron después de empezar o cambiar de anticoncepción?',
+      '¿Son leves, molestos o realmente inusuales para ti?',
+      '¿Mejoran con el tiempo o se vuelven más frecuentes?',
+    ],
+    body7:
+      'Incluso cuando un síntoma no es urgente, puede ser útil hablar de él si se vuelve molesto, persiste o modifica realmente tu calidad de vida.',
+    infoTitle: 'Puede ser útil pedir consejo si…',
+    infoText:
+      'los síntomas persisten, se vuelven más importantes o te impiden vivir con normalidad.',
+    body8:
+      'Un médico, una matrona o un farmacéutico puede ayudarte a determinar si los síntomas pueden estar relacionados con el método utilizado y si es necesario adaptarlo.',
+    body9:
+      'Algunos signos son inusuales y requieren una evaluación médica rápida. No significan necesariamente que haya una complicación, pero no deben ignorarse.',
+    alertTitle: 'Consultar rápidamente',
+    alertIntro: 'Pide rápidamente un consejo médico si presentas, en particular:',
+    urgentSigns: [
+      'Dolor torácico importante o inusual',
+      'Dificultad repentina para respirar',
+      'Hinchazón o dolor inusual en una pierna',
+      'Dolor de cabeza brusco, muy intenso o inusual',
+      'Trastorno repentino de la visión, del habla o de la fuerza',
+    ],
+    emergencyTitle: 'En caso de situación grave',
+    emergencyText:
+      'Si los síntomas son repentinos, muy importantes o se acompañan de dificultad para respirar, malestar u otro signo grave, busca ayuda médica urgente.',
+    summaryTitle: 'Lo esencial',
+    summaryItems: [
+      'Algunos efectos pueden aparecer al inicio de una nueva anticoncepción hormonal.',
+      'Muchas manifestaciones son temporales y pueden disminuir con el tiempo.',
+      'Un síntoma molesto o persistente merece hablarse con un profesional.',
+      'Algunos signos inusuales requieren un consejo médico rápido.',
+    ],
+    finalTipTitle: 'Para recordar',
+    finalTipText:
+      'Escuchar tu cuerpo no significa necesariamente dejar un método de inmediato. Anota lo que sientes, observa su evolución y pide consejo cuando un síntoma te preocupe.',
+    disclaimerText:
+      'Este artículo tiene una finalidad informativa y no sustituye un consejo médico personalizado. En caso de síntoma importante o inusual, pide consejo a un profesional de la salud.',
+    shareMessage: 'Reconoce los posibles efectos secundarios — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -269,7 +375,7 @@ export default function SideEffectsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -152,6 +152,52 @@ const CONTENT = {
       'If symptoms are very intense and affect your daily life, it may be premenstrual dysphoric disorder (PMDD). Don’t hesitate to consult a healthcare professional.',
     shareMessage: 'Premenstrual syndrome (PMS): understanding it better — AWA',
   },
+  es: {
+    badge: 'CICLO Y BIENESTAR',
+    title: 'Síndrome premenstrual (SPM):\nentenderlo mejor',
+    metaDuration: '4 min de lectura',
+    metaValidated: 'Contenido verificado',
+    intro:
+      'El SPM afecta hasta a 8 de cada 10 mujeres. Fatiga, irritabilidad, hinchazón... Entender sus causas y adoptar los hábitos adecuados puede mejorar mucho esta etapa.',
+    contentsTitle: 'En este artículo',
+    contents: [
+      '¿Qué es el SPM?',
+      'Síntomas comunes',
+      'Posibles causas',
+      'Consejos para vivirlo mejor',
+      '¿Cuándo consultar?',
+    ],
+    section1Body:
+      'El síndrome premenstrual agrupa síntomas físicos y emocionales que suelen aparecer entre 5 y 10 días antes del período y desaparecen al inicio del ciclo menstrual.',
+    visual1Title: 'Una etapa ligada al ciclo',
+    visual1Text:
+      'Los síntomas aparecen antes del período y suelen disminuir cuando este llega.',
+    tip1Title: 'Dato útil',
+    tip1Text:
+      'La intensidad y el tipo de síntomas pueden ser muy diferentes de una mujer a otra y de un ciclo a otro.',
+    symptoms: [
+      {title: 'Emociones', text: 'Irritabilidad, ansiedad, tristeza, cambios de humor'},
+      {title: 'Físicos', text: 'Hinchazón, dolores, fatiga, dolores de cabeza'},
+      {title: 'Comportamiento', text: 'Antojo de azúcar, cambios de apetito, fatiga'},
+      {title: 'Sueño', text: 'Dificultad para dormir o sueño menos reparador'},
+    ],
+    section3Body:
+      'Las variaciones hormonales, en particular de la progesterona y los estrógenos, afectan a los neurotransmisores del cerebro (serotonina, dopamina), lo que puede explicar los síntomas emocionales y físicos del SPM.',
+    tip2Title: 'Las hormonas desempeñan un papel clave',
+    tip2Text:
+      'Las variaciones hormonales pueden influir en el estado de ánimo, la energía, el sueño y ciertas sensaciones físicas.',
+    tips: [
+      {title: 'Hidrátate', text: 'Beber suficiente agua ayuda a reducir la hinchazón.'},
+      {title: 'Lleva una alimentación equilibrada', text: 'Da prioridad a los alimentos ricos en magnesio, omega-3 y vitaminas del grupo B.'},
+      {title: 'Muévete con regularidad', text: 'La actividad física libera endorfinas y reduce el estrés.'},
+      {title: 'Gestiona tu estrés', text: 'Respiración, meditación, diario personal... Encuentra lo que te hace sentir bien.'},
+      {title: 'Duerme lo suficiente', text: 'Un sueño de calidad favorece el equilibrio hormonal.'},
+    ],
+    consultTitle: '¿Cuándo pedir una opinión médica?',
+    consultText:
+      'Si los síntomas son muy intensos y afectan tu vida diaria, podría tratarse de un trastorno disfórico premenstrual (TDPM). No dudes en consultar a un profesional de la salud.',
+    shareMessage: 'Síndrome premenstrual (SPM): entenderlo mejor — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -163,7 +209,7 @@ export default function PmsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

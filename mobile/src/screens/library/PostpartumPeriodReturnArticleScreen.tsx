@@ -183,6 +183,65 @@ const CONTENT = {
     ],
     disclaimerText: 'Informational content. Timelines may vary depending on each situation and do not replace medical advice.',
   },
+  es: {
+    badge: 'FREEMIUM • POSPARTO',
+    title: 'El regreso de la regla tras el parto,\nqué esperar',
+    metaDuration: '5 min de lectura',
+    metaType: 'Guía',
+    intro: 'Después del parto, el regreso de la regla puede tardar un tiempo. El plazo varía sobre todo según la lactancia, y cada persona puede vivir este periodo de forma diferente.',
+    shareMessage: 'El regreso de la regla tras el parto, qué esperar — AWA',
+    h2_1: '1. ¿Qué es el regreso de la regla tras el parto?',
+    body1: 'El «regreso de la regla» designa el regreso de las reglas después del parto. El ciclo menstrual no retoma necesariamente de inmediato su ritmo habitual.',
+    highlightTitle: 'Para recordar',
+    highlightText: 'No existe una fecha única válida para todas las personas.',
+    h2_2: '2. ¿Cuándo pueden volver las reglas?',
+    body2: 'El plazo depende sobre todo de la lactancia. Sin lactancia, el regreso puede producirse generalmente entre las 6 y las 8 semanas. Con lactancia exclusiva, puede retrasarse varios meses.',
+    simpleInfoTitle1: 'Sin lactancia',
+    simpleInfoText1: 'Generalmente entre las 6 y las 8 semanas.',
+    simpleInfoTitle2: 'Con lactancia exclusiva',
+    simpleInfoText2: 'El regreso puede retrasarse varios meses.',
+    h2_3: '3. El esquema del regreso del ciclo',
+    body3: 'El regreso del ciclo se produce progresivamente después del parto. La lactancia puede influir en el momento en que reaparecen las reglas.',
+    schemaTitle: 'Regreso progresivo del ciclo',
+    schemaSubtitle: 'Una referencia general, paso a paso',
+    cycleStages: [
+      {title: 'Después del parto', text: 'El ciclo menstrual se interrumpe temporalmente después del nacimiento.'},
+      {title: 'Periodo posparto', text: 'El cuerpo se recupera progresivamente y el ritmo hormonal evoluciona.'},
+      {title: 'Lactancia', text: 'La lactancia puede retrasar el regreso de las reglas, pero su efecto varía según cada persona.'},
+      {title: 'Regreso de las reglas', text: 'Las primeras reglas pueden volver después de algunas semanas o varios meses.'},
+      {title: 'Primeros ciclos', text: 'Los ciclos pueden ser irregulares antes de recuperar progresivamente su ritmo habitual.'},
+    ],
+    schemaNoteText: 'No existe un calendario idéntico para todo el mundo. El momento del regreso de las reglas puede variar según la persona, especialmente en función de la lactancia.',
+    h2_4: '4. Los primeros ciclos',
+    body4: 'Cuando vuelven las reglas, los primeros ciclos pueden ser diferentes a los de antes del embarazo. En particular, pueden ser irregulares al principio.',
+    card1Title: 'Ritmo variable',
+    card1Text: 'El ciclo puede tardar en recuperar un ritmo familiar.',
+    card2Title: 'Flujo diferente',
+    card2Text: 'El flujo puede ser diferente del observado antes del embarazo.',
+    h2_5: '5. ¿Qué puedes observar?',
+    body5: 'Un seguimiento simple permite observar mejor la evolución del ciclo a lo largo del tiempo.',
+    observations: [
+      {title: 'Las fechas', text: 'Anota el primer día de las reglas.'},
+      {title: 'El ritmo', text: 'Observa progresivamente el intervalo entre ciclos.'},
+      {title: 'El flujo', text: 'Observa simplemente los cambios respecto a lo que es habitual para ti.'},
+    ],
+    h2_6: '6. ¿Cuándo pedir consejo?',
+    body6: 'Si algo te parece inusual, persistente o preocupante, pide consejo a un profesional de la salud.',
+    warningSigns: [
+      'Un sangrado que te parezca inusual',
+      'Un dolor importante o persistente',
+      'Fiebre o un malestar importante',
+      'Un síntoma nuevo que te preocupe',
+    ],
+    summaryTitle: 'Para recordar',
+    summaryPoints: [
+      'El regreso de la regla corresponde al regreso de las reglas después del parto.',
+      'La lactancia puede retrasar el regreso de las reglas.',
+      'Los primeros ciclos pueden ser irregulares.',
+      'Anotar las fechas puede ayudar a seguir la evolución del ciclo.',
+    ],
+    disclaimerText: 'Contenido informativo. Los plazos pueden variar según cada situación y no sustituyen una opinión médica.',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -202,7 +261,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

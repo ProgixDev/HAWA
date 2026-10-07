@@ -195,6 +195,70 @@ const CONTENT = {
     ],
     shareMessage: 'Nutrition and your cycle: what your body loves — AWA',
   },
+  es: {
+    badge: 'CICLO MENSTRUAL',
+    titleLine1: 'Alimentación y ciclo:',
+    titleLine2: 'lo que le gusta a tu cuerpo',
+    metaDuration: '4 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro:
+      'Tu alimentación influye en tu energía, tu estado de ánimo, tus hormonas y tu bienestar general a lo largo de todo tu ciclo.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Las necesidades nutricionales según la fase',
+      'Los alimentos que debes priorizar',
+      'Los alimentos que debes limitar',
+      'Ejemplos de comidas equilibradas',
+    ],
+    section1Body:
+      'Tu cuerpo no tiene las mismas necesidades a lo largo del ciclo. Adaptar tu alimentación puede marcar una verdadera diferencia.',
+    phases: [
+      {
+        title: 'Fase menstrual',
+        days: 'Días 1 a 5',
+        body: 'Prioriza el hierro, el magnesio y las vitaminas del grupo B.',
+      },
+      {
+        title: 'Fase folicular',
+        days: 'Días 6 a 14',
+        body: 'Apuesta por las proteínas magras y las verduras frescas.',
+      },
+      {
+        title: 'Fase ovulatoria',
+        days: 'Alrededor del día 14',
+        body: 'Elige antioxidantes y omega-3.',
+      },
+      {
+        title: 'Fase lútea',
+        days: 'Días 15 a 28',
+        body: 'Apoya tu sistema nervioso y limita la inflamación.',
+      },
+    ],
+    foods: [
+      {title: 'Hierro', body: 'Lentejas, espinacas, carnes magras, garbanzos.'},
+      {title: 'Magnesio', body: 'Almendras, semillas de calabaza, chocolate negro, plátano.'},
+      {title: 'Omega-3', body: 'Salmón, sardinas, nueces, semillas de lino.'},
+      {title: 'Proteínas', body: 'Huevos, tofu, aves, yogur griego, quinoa.'},
+      {title: 'Fibra y antioxidantes', body: 'Frutos rojos, aguacate, brócoli, zanahorias.'},
+    ],
+    limits: [
+      {title: 'Exceso de sal'},
+      {title: 'Productos azucarados'},
+      {title: 'Ultraprocesados'},
+      {title: 'Exceso de cafeína'},
+      {title: 'Alcohol'},
+    ],
+    limitText: 'Consume con moderación para preservar tu equilibrio.',
+    meals: [
+      {tag: 'Desayuno', body: 'Porridge, frutos rojos, almendras y chía'},
+      {tag: 'Almuerzo', body: 'Salmón, quinoa, brócoli al vapor y aceite de oliva'},
+      {tag: 'Merienda', body: 'Yogur natural, arándanos y semillas de lino'},
+      {tag: 'Cena', body: 'Sopa de lentejas, verduras asadas y pan integral'},
+    ],
+    shareMessage: 'Alimentación y ciclo: lo que le gusta a tu cuerpo — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -206,7 +270,7 @@ export default function NutritionCycleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

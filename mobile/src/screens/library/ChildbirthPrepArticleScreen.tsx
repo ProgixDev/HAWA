@@ -134,6 +134,49 @@ const CONTENT = {
       'Preparing doesn’t mean controlling everything: it’s mainly about giving yourself the means to approach the big day with more confidence and less uncertainty.',
     shareMessage: 'Preparing calmly for childbirth — AWA',
   },
+  es: {
+    badge: 'EMBARAZO • PARTO',
+    title: 'Prepararte con calma\npara el parto',
+    metaDuration: '7 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Tres pilares para afrontar el gran día con más confianza.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Prepararte en 3 pasos',
+      'La bolsa de maternidad',
+      'Redactar tu plan de parto',
+      'Para tener en cuenta',
+      'Para recordar',
+    ],
+    prepSteps: [
+      'Clases de preparación al parto',
+      'Técnicas de respiración y relajación',
+      'Bolsa de maternidad lista desde el 8.º mes',
+    ],
+    body1:
+      'Las clases de preparación al parto te ayudan a comprender las etapas del trabajo de parto y las técnicas de respiración que te acompañarán el gran día.',
+    body2:
+      'Preparar tu bolsa de maternidad desde el 8.º mes te evita el estrés de última hora. Generalmente incluye:',
+    bagItems: [
+      'Documentos administrativos y tu cartilla de embarazo',
+      'Ropa cómoda para ti y para el bebé',
+      'Artículos de aseo y compresas posparto',
+      'Un conjunto de salida para el bebé',
+    ],
+    birthPlanPoints: [
+      'Tus preferencias para manejar el dolor',
+      'La presencia deseada durante el trabajo de parto',
+      'Tus expectativas respecto al contacto piel con piel',
+    ],
+    neutralText:
+      'Un plan de parto sencillo te ayuda a expresar tus deseos al equipo médico, manteniéndote abierta: el desarrollo real puede cambiar según la situación.',
+    tipTitle: 'DATO ÚTIL',
+    tipText:
+      'Prepararte no significa controlarlo todo: se trata sobre todo de darte los medios para afrontar el gran día con más confianza y menos incertidumbre.',
+    shareMessage: 'Prepararte con calma para el parto — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -142,7 +185,7 @@ export default function ChildbirthPrepArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

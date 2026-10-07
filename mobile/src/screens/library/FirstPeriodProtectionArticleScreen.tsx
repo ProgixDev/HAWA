@@ -145,6 +145,47 @@ const CONTENT = {
     ],
     shareMessage: 'Which protection should I choose for my first period? — AWA',
   },
+  es: {
+    badge: 'PRIMERA MENSTRUACIÓN',
+    title: '¿Qué protección elegir para\nmi primera menstruación?',
+    metaDuration: '6 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Existen varias formas de protegerte durante la menstruación. Ninguna es mejor que otra: la comodidad personal es lo que guía la elección.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Los distintos tipos de protección',
+      'Cómo elegir según tu comodidad',
+      'Cómo cambiar tu protección',
+    ],
+    body1: 'Para la primera menstruación, la compresa suele ser la protección más sencilla de usar, ya que se coloca directamente en la ropa interior. Las bragas menstruales y los tampones son otras opciones que puedes probar más adelante, si te apetece.',
+    options: [
+      {
+        title: 'Compresas',
+        text: 'Fáciles de usar, se colocan en la ropa interior y se cambian con regularidad.',
+      },
+      {
+        title: 'Bragas menstruales',
+        text: 'Una braga absorbente y lavable, cómoda para el uso diario.',
+      },
+      {
+        title: 'Tampones',
+        text: 'Se insertan por dentro; su uso se elige con el tiempo y a tu propio ritmo.',
+      },
+    ],
+    body2: 'No existe una protección buena ni una mala: cada una se adapta de forma diferente según el cuerpo, los hábitos y el nivel de comodidad de cada persona. Los tampones, por ejemplo, se insertan por dentro y requieren algo más de familiaridad con tu cuerpo; nada te obliga a usarlos desde tu primera menstruación.',
+    tipTitle: 'DATO ÚTIL',
+    tipText: 'Probar distintas protecciones con el tiempo te permite encontrar la que mejor te conviene, sin ninguna presión.',
+    body3: 'Una protección se cambia, en promedio, cada 4 a 6 horas, con más frecuencia los días de flujo más abundante. Cambiarla con regularidad te ayuda a sentirte cómoda y a mantener una buena higiene íntima.',
+    relatedTitle: '♥  También te podría gustar',
+    related: [
+      {title: 'Comprende tu flujo menstrual', meta: '7 min  ·  Guía'},
+      {title: '¿Cómo gestionar tu primera menstruación en el día a día?', meta: '5 min  ·  Guía'},
+      {title: 'Tu primera menstruación: qué esperar', meta: '5 min  ·  Guía'},
+    ],
+    shareMessage: '¿Qué protección elegir para mi primera menstruación? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -153,7 +194,7 @@ export default function FirstPeriodProtectionArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -159,6 +159,57 @@ const CONTENT = {
     tip2Text: 'Each trimester brings its own changes: knowing them in advance helps you experience each stage better, without replacing regular follow-up with your midwife or doctor.',
     shareMessage: 'Your pregnancy, week by week — AWA',
   },
+  es: {
+    badge: 'EMBARAZO • VISIÓN GENERAL',
+    title: 'Tu embarazo,\nsemana a semana',
+    metaDuration: '8 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Las grandes etapas, del primer al tercer trimestre, para que sepas qué esperar en cada periodo.',
+    introSecondary: 'Cada embarazo sigue su propio ritmo: estas referencias son generales y pueden variar de una mujer a otra.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'El primer trimestre: los cimientos',
+      'El segundo trimestre: más comodidad',
+      'El tercer trimestre: prepararte',
+      'Los grandes hitos por trimestre',
+      'Síntomas frecuentes en cada etapa',
+      'Cuándo consultar rápidamente',
+      'Para recordar',
+    ],
+    body1: 'El primer trimestre sienta las bases: todos los órganos principales del bebé se forman progresivamente. También es un periodo en el que la fatiga y las náuseas son frecuentes, en grados muy variables según cada mujer.',
+    tip1Title: 'DATO ÚTIL',
+    tip1Text: 'Estos síntomas, aunque a veces incómodos, son una señal de que el cuerpo se está adaptando activamente al embarazo.',
+    body2: 'El segundo trimestre suele ser el más cómodo, con la aparición de los primeros movimientos del bebé.',
+    highlightTitle: 'Los primeros movimientos',
+    highlightText: 'Generalmente se sienten entre la semana 18 y la semana 22, un poco antes si no es tu primer embarazo.',
+    body3: 'El tercer trimestre prepara el cuerpo para el parto, con un aumento de peso y una fatiga más marcados. También pueden aparecer contracciones de entrenamiento (llamadas de Braxton Hicks).',
+    neutralText: 'Estas contracciones suelen ser irregulares y poco dolorosas; son diferentes de las contracciones del parto.',
+    trimesters: [
+      '1.er trimestre: formación de los órganos',
+      '2.º trimestre: primeros movimientos',
+      '3.er trimestre: preparación para el nacimiento',
+      'Un seguimiento médico en cada etapa',
+    ],
+    commonSymptoms: [
+      'Náuseas y fatiga, sobre todo en el primer trimestre',
+      'Tirones abdominales relacionados con el estiramiento de los ligamentos',
+      'Falta de aire leve al final del embarazo',
+      'Problemas de sueño al final del tercer trimestre',
+    ],
+    consultIntro: 'Algunos signos justifican una consulta médica rápida, sea cual sea el trimestre:',
+    urgentSigns: [
+      'Sangrado, incluso leve',
+      'Dolor abdominal intenso',
+      'Ausencia de movimientos percibidos',
+      'Dolores de cabeza intensos o alteraciones de la vista',
+      'Fiebre inusual',
+    ],
+    tip2Title: 'DATO ÚTIL',
+    tip2Text: 'Cada trimestre trae sus propios cambios: conocerlos de antemano ayuda a vivir mejor cada etapa, sin reemplazar el seguimiento regular de tu partera o tu médico.',
+    shareMessage: 'Tu embarazo, semana a semana — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -167,7 +218,7 @@ export default function PregnancyWeeklyArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

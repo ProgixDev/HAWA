@@ -300,6 +300,122 @@ const CONTENT = {
       'Informational content. This article does not replace medical advice or an examination. If in doubt or if you notice a concerning symptom, seek advice from a healthcare professional.',
     shareMessage: 'Understanding lochia after birth — AWA',
   },
+  es: {
+    badgeText: 'POSPARTO • LOQUIOS',
+    title: 'Entender los loquios después \ndel parto',
+    metaDuration: '6 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido informativo',
+    intro:
+      'Después del parto, los loquios son las pérdidas vaginales relacionadas con el proceso natural de recuperación del útero. Su color y su cantidad evolucionan progresivamente a lo largo de los días y las semanas.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      '¿Qué son los loquios?',
+      '¿Cómo evolucionan?',
+      'Lo que puede ser normal',
+      'Consejos de confort',
+      '¿Cuándo consultar?',
+      'Para recordar',
+    ],
+    section1Heading: '1. ¿Qué son los loquios?',
+    section1Body1:
+      'Los loquios son pérdidas vaginales que aparecen después del parto. Corresponden principalmente a la eliminación progresiva de sangre, secreciones y tejidos procedentes del útero durante su recuperación.',
+    section1Body2:
+      'Son diferentes de las reglas habituales. Su presencia es esperada durante el periodo posparto y generalmente disminuyen progresivamente.',
+    infoTitle: 'Para recordar',
+    infoText:
+      'Los loquios no significan que la regla ya haya vuelto. El regreso de la regla es un fenómeno diferente que ocurre más tarde.',
+    section2Heading: '2. ¿Cómo evolucionan los loquios?',
+    section2Body:
+      'Su aspecto suele cambiar durante las primeras semanas. El color se vuelve progresivamente más claro y la cantidad tiende a disminuir.',
+    evolutionTitle: 'Una evolución progresiva',
+    evolutionSubtitle: 'Las etapas pueden variar según cada persona',
+    evolution: [
+      {
+        label: 'Rojo vivo',
+        period: 'Los primeros días',
+        text: 'Las pérdidas suelen ser rojas y pueden ser más abundantes al principio.',
+      },
+      {
+        label: 'Rosado / parduzco',
+        period: 'Después de unos días',
+        text: 'El color se vuelve progresivamente más claro y puede tender hacia el rosa o el marrón.',
+      },
+      {
+        label: 'Blanco amarillento',
+        period: 'A lo largo de las semanas',
+        text: 'Las pérdidas suelen volverse más claras, amarillentas o blanquecinas antes de disminuir.',
+      },
+    ],
+    section3Heading: '3. Lo que puede ser normal',
+    section3Body:
+      'La evolución de los loquios no es exactamente igual para todo el mundo. Algunos cambios pueden acompañar naturalmente la recuperación después del parto.',
+    normalPoints: [
+      {
+        title: 'Una cantidad variable',
+        text: 'La abundancia puede cambiar durante los primeros días y luego disminuir progresivamente.',
+      },
+      {
+        title: 'Un color que evoluciona',
+        text: 'Los loquios suelen pasar del rojo a tonos más claros con el paso del tiempo.',
+      },
+      {
+        title: 'Una duración variable',
+        text: 'Pueden persistir varias semanas y su evolución difiere según cada persona.',
+      },
+    ],
+    section4Heading: '4. Consejos de confort y de seguimiento',
+    section4Body:
+      'Durante este periodo, un seguimiento sencillo puede ayudarte a observar la evolución de tu cuerpo sin buscar comparar tu experiencia con la de otra persona.',
+    comfortTips: [
+      {
+        title: 'Higiene suave',
+        text: 'Prioriza un aseo suave y regular sin productos irritantes.',
+      },
+      {
+        title: 'Observa la evolución',
+        text: 'Puedes anotar el color, la cantidad y la evolución de las pérdidas si eso te ayuda a hacer un seguimiento de tu recuperación.',
+      },
+      {
+        title: 'Concédete descanso',
+        text: 'El periodo posparto requiere tiempo. Escucha tu cuerpo y respeta tus necesidades de recuperación.',
+      },
+    ],
+    section5Heading: '5. ¿Loquios o regreso de la regla?',
+    section5Body:
+      'Los loquios aparecen tras el parto y disminuyen progresivamente. El regreso de la regla, por su parte, corresponde a la reanudación del ciclo menstrual después de este periodo.',
+    compareLochiaTitle: 'Loquios',
+    compareLochiaText:
+      'Pérdidas relacionadas con la recuperación del útero después del parto.',
+    compareReturnTitle: 'Regreso de la regla',
+    compareReturnText:
+      'Reanudación del ciclo menstrual, en un momento variable según cada persona.',
+    section6Heading: '6. ¿Cuándo consultar?',
+    section6Body:
+      'Si la evolución te parece inusual o si tu estado general empeora, es importante pedir consejo a un profesional de la salud.',
+    warningTitle: 'Señales que merecen un aviso médico',
+    warningSigns: [
+      'Un olor fuerte o inusual',
+      'Fiebre o un estado general que empeora',
+      'Un flujo que de repente se vuelve mucho más abundante',
+      'Dolores importantes, persistentes o inusuales',
+      'Un síntoma nuevo que te preocupa',
+    ],
+    tipTitle: 'DATO ÚTIL',
+    tipText:
+      'Los loquios suelen evolucionar progresivamente: pueden ser rojos al principio, y luego volverse más claros antes de disminuir. Sin embargo, cada recuperación es individual.',
+    summaryHeading: 'Para recordar',
+    summaryPoints: [
+      'Los loquios son pérdidas normales después del parto.',
+      'Suelen evolucionar en color y en cantidad a lo largo de las semanas.',
+      'Su duración y su evolución pueden variar según cada persona.',
+      'Un olor inusual, fiebre, dolores importantes o un sangrado repentinamente muy abundante requieren un aviso médico.',
+    ],
+    disclaimerText:
+      'Contenido informativo. Este artículo no sustituye un aviso o un examen médico. En caso de duda o de síntoma preocupante, pide consejo a un profesional de la salud.',
+    shareMessage: 'Entender los loquios después del parto — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -319,7 +435,7 @@ export default function LochiaArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -129,6 +129,46 @@ const CONTENT = {
     tip2Text: 'Calcium, vitamin D, and weight-bearing physical activity remain the most useful everyday habits for preserving bone strength in the long run.',
     shareMessage: 'Taking care of your bone health — AWA',
   },
+  es: {
+    badge: 'SALUD ÓSEA',
+    title: 'Cuidar de\ntu salud ósea',
+    metaDuration: '6 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenido validado',
+    intro: 'Por qué la menopausia aumenta el riesgo de osteoporosis, y cómo proteger tus huesos en el día a día.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Por qué la menopausia debilita los huesos',
+      'Osteopenia y osteoporosis',
+      'La detección mediante densitometría ósea',
+      'Los pilares de la prevención',
+      'Factores que aumentan el riesgo',
+      'Para recordar',
+    ],
+    body1: 'Los estrógenos protegen naturalmente la densidad ósea al frenar la renovación del hueso. Su disminución durante la menopausia acelera la pérdida ósea, sobre todo durante los primeros años después de que cesen las reglas.',
+    body2: 'La osteopenia designa una densidad ósea más baja de lo normal, sin llegar al umbral de la osteoporosis. La osteoporosis corresponde a una fragilidad ósea más marcada, que aumenta el riesgo de fractura, en particular en caso de caída.',
+    tip1Title: 'DATO ÚTIL',
+    tip1Text: 'Estos dos términos describen una pérdida de densidad ósea, no una fractura ya presente: invitan a la prevención, no a la preocupación.',
+    body3: 'Este examen indoloro mide la densidad mineral ósea. Puede proponerse según tu edad, tus antecedentes personales y familiares, u otros factores de riesgo identificados con tu médico.',
+    preventionHabits: [
+      'Calcio (lácteos, verduras de hoja verde)',
+      'Vitamina D (sol moderado, alimentación)',
+      'Ejercicios con carga de peso (caminar, fortalecimiento)',
+      'Limitar el tabaco y el alcohol',
+    ],
+    riskFactors: [
+      'Antecedentes familiares de osteoporosis',
+      'Una menopausia precoz (antes de los 45 años)',
+      'Tabaquismo actual o pasado',
+      'Una complexión muy delgada o una actividad física muy baja',
+    ],
+    alertTitle: 'A tener en cuenta',
+    alertText: 'Tener uno o varios de estos factores no significa que vayas a desarrollar osteoporosis: sirven sobre todo para orientar la conversación con tu médico sobre una posible detección.',
+    tip2Title: 'DATO ÚTIL',
+    tip2Text: 'El calcio, la vitamina D y la actividad física con carga de peso siguen siendo los gestos más útiles en el día a día para preservar la solidez de tus huesos a largo plazo.',
+    shareMessage: 'Cuidar de tu salud ósea — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -137,7 +177,7 @@ export default function BoneHealthArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

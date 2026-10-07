@@ -116,6 +116,44 @@ const CONTENT = {
       'Implantation happens discreetly, with or without a visible sign. A little patience before testing saves you from an unreliable result.',
     shareMessage: 'Understanding implantation — AWA',
   },
+  es: {
+    badge: 'NIDACIÓN',
+    title: 'Comprende\nla nidación',
+    metaDuration: '5 min de lectura',
+    metaType: 'Artículo',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenido validado',
+    intro:
+      'Lo que ocurre entre la fecundación y una prueba de embarazo positiva.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'De la fecundación a la nidación',
+      'Posibles señales, sin certeza',
+      'Cuándo una prueba se vuelve fiable',
+      'Para recordar',
+    ],
+    body1:
+      'Después de la fecundación, el óvulo fecundado suele tardar de 6 a 10 días en llegar al útero e implantarse en él: esto es la nidación. Esta etapa marca el verdadero punto de partida del embarazo.',
+    body2:
+      'Un ligero sangrado o algunos tirones pueden a veces acompañar la nidación, sin que esto sea sistemático ni una señal fiable por sí sola.',
+    possibleSigns: [
+      'Un sangrado muy ligero, a veces llamado "spotting"',
+      'Ligeras tensiones en la parte baja del vientre',
+      'Ninguna señal en particular, para muchas mujeres',
+    ],
+    tip1Title: 'DATO ÚTIL',
+    tip1Text:
+      'La ausencia de señales no significa nada: muchos embarazos comienzan sin ningún síntoma perceptible en esta etapa.',
+    body3:
+      'Solo después de la implantación comienza a producirse la hormona hCG, que se vuelve detectable mediante una prueba de embarazo. Hacerte la prueba demasiado pronto puede dar un resultado falsamente negativo.',
+    alertTitle: 'Nota',
+    alertText:
+      'Esperar hasta el día presunto de tu período antes de hacerte la prueba da un resultado más fiable que una prueba realizada demasiado pronto.',
+    tip2Title: 'DATO ÚTIL',
+    tip2Text:
+      'La nidación ocurre de forma discreta, con o sin señales visibles. Un poco de paciencia antes de hacerte la prueba te evita un resultado poco fiable.',
+    shareMessage: 'Comprende la nidación — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -124,7 +162,7 @@ export default function NidationArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

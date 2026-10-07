@@ -135,6 +135,41 @@ const CONTENT = {
     ],
     shareMessage: 'Early signs before your first period — AWA',
   },
+  es: {
+    badge: 'PRIMERA MENSTRUACIÓN',
+    title: 'Las primeras señales\nantes de la menstruación',
+    metaDuration: '5 min de lectura',
+    metaType: 'Artículo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Tu cuerpo suele enviar señales antes de la llegada de tu primera menstruación. Reconocerlas te ayuda a no sentirte sorprendida.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Cambios progresivos',
+      'Las señales que debes observar',
+      'Qué significa todo esto',
+    ],
+    body1: 'En los meses previos a la primera menstruación, el cuerpo cambia poco a poco: la silueta evoluciona, aparece vello en algunas zonas y la transpiración cambia. Son los efectos normales de la pubertad, que prepara el cuerpo con suavidad.',
+    tip1Title: 'DATO ÚTIL',
+    tip1Text: 'Estos cambios no ocurren todos al mismo tiempo ni al mismo ritmo en cada persona: es normal.',
+    signs: [
+      {title: 'Cambios corporales', text: 'El cuerpo evoluciona poco a poco: silueta, vello, transpiración.'},
+      {title: 'Secreción vaginal', text: 'Suele aparecer una ligera secreción blanquecina unos meses antes.'},
+      {title: 'Dolores o tirones', text: 'Pueden sentirse pequeñas tensiones en la parte baja del vientre.'},
+      {title: 'Cambios de humor', text: 'Es habitual sentirse más sensible o irritable de lo normal.'},
+      {title: 'Sensibilidad en el pecho', text: 'Puede aparecer una ligera sensibilidad o hinchazón.'},
+    ],
+    body2: 'Estas señales suelen anunciar la llegada de la primera menstruación en los meses siguientes, aunque no se pueda predecir una fecha exacta. Tener protección a mano se convierte entonces en un buen hábito.',
+    alertTitle: 'Ten en cuenta',
+    alertText: 'Estas señales son solo indicios generales, nunca una predicción exacta. Cada cuerpo sigue su propio ritmo.',
+    relatedTitle: '♥  También te podría gustar',
+    related: [
+      {title: 'Tu primera menstruación: qué esperar', meta: '5 min  ·  Guía'},
+      {title: '¿Cómo saber si se acerca mi primera menstruación?', meta: '5 min  ·  Guía'},
+      {title: 'Las distintas fases del ciclo', meta: '5 min  ·  Artículo'},
+    ],
+    shareMessage: 'Las primeras señales antes de la menstruación — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -143,7 +178,7 @@ export default function FirstPeriodSignsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

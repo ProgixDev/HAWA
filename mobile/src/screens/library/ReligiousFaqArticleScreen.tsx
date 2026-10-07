@@ -214,6 +214,93 @@ const CONTENT = {
     ],
     shareMessage: 'Frequently asked questions on women’s fiqh — AWA',
   },
+  es: {
+    badge: 'PREGUNTAS FRECUENTES',
+    title: 'Preguntas frecuentes\nde fiqh femenino',
+    metaDuration: '8 min de lectura',
+    metaType: 'Preguntas frecuentes',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Las preguntas más frecuentes sobre el fiqh femenino, reunidas en un solo lugar con respuestas claras.',
+    disclaimerTitle: 'Información importante',
+    disclaimerText: 'Este contenido es puramente educativo. Las preguntas religiosas deben ser validadas por eruditos cualificados. AWA no emite fatuas ni decisiones religiosas personalizadas.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Las preguntas que más se repiten',
+      'Escuelas jurídicas que pueden variar',
+      'En caso de duda persistente',
+      'Puntos clave para recordar',
+    ],
+    section1Body: 'Muchas preguntas en torno al ciclo, la oración y el ayuno se repiten con regularidad de una mujer a otra. Aquí tienes respuestas generales a las más frecuentes; para profundizar, cada tema también se desarrolla en un artículo dedicado.',
+    faqItems: [
+      [
+        '¿Qué es el fiqh femenino?',
+        'El fiqh femenino reúne las normas prácticas que conciernen específicamente al cuerpo y al culto de las mujeres: ciclo, pureza, oración, ayuno, nifas e istihada.',
+      ],
+      [
+        '¿Cuáles son los grandes temas abarcados por el fiqh femenino?',
+        'Aborda en particular la menstruación y el ciclo, la pureza ritual, el gusl, la oración y el ayuno durante y después de la menstruación, el nifas y la istihada.',
+      ],
+      [
+        '¿Cuál es la diferencia entre la menstruación, los sangrados posparto y los sangrados irregulares?',
+        'La menstruación (hayd) sigue el ciclo habitual, el nifas se produce después del parto, y la Istihada designa un sangrado irregular, fuera del ciclo. Cada uno sigue un estatus diferente.',
+      ],
+      [
+        '¿Qué ocurre con la oración durante la menstruación?',
+        'La oración queda suspendida durante este periodo: se trata de una dispensa reconocida, que se vive sin culpa.',
+      ],
+      [
+        '¿Qué ocurre con el ayuno durante la menstruación?',
+        'El ayuno también queda suspendido; los días no ayunados se recuperan más tarde (qadaa), fuera del Ramadán.',
+      ],
+      [
+        '¿Por qué las oraciones no realizadas generalmente no se recuperan, a diferencia del ayuno?',
+        'Esta diferencia se debe a la naturaleza de los dos actos: la oración es diaria y repetida, mientras que el ayuno es anual y se concentra en un mes. Seguir la dispensa forma plenamente parte de la práctica religiosa.',
+      ],
+      [
+        '¿Cuándo se reanuda la oración después de la menstruación?',
+        'En cuanto termina la menstruación y se ha realizado el gusl, la oración se reanuda con normalidad, sin demora.',
+      ],
+      [
+        '¿Cuál es la función del gusl?',
+        'El gusl es la ablución mayor que permite recuperar el estado de pureza ritual necesario para reanudar la oración y otros actos de adoración.',
+      ],
+      [
+        '¿Qué hacer si no se está segura de que la menstruación ha terminado?',
+        'Observar la ausencia total de sangrado durante un tiempo suficiente, en lugar de fiarse de una impresión puntual, ayuda a aclarar la situación.',
+      ],
+      [
+        '¿Se pueden practicar otras formas de adoración durante la menstruación?',
+        'Sí: el dhikr, las invocaciones, la caridad, el aprendizaje religioso y otros gestos de bondad siguen siendo accesibles.',
+      ],
+      [
+        '¿Por qué algunas respuestas pueden variar según la situación?',
+        'El fiqh es un campo de interpretación: las opiniones pueden variar según las escuelas jurídicas y las circunstancias personales, sin que ninguna opinión sea por sí sola absoluta.',
+      ],
+    ],
+    section2Body1: 'El fiqh islámico incluye diferencias de interpretación reconocidas en ciertos puntos de detalle. Estas diferencias existen desde hace siglos y se consideran legítimas dentro de la tradición religiosa.',
+    section2Body2: 'Según la fuente consultada, una misma pregunta puede recibir así respuestas ligeramente diferentes. Esto no significa que una respuesta sea automáticamente errónea: refleja metodologías y lecturas diferentes de las mismas fuentes.',
+    tip1Title: 'Bueno saberlo',
+    tip1Text: 'Seguir una fuente cualificada de manera coherente, en lugar de cambiar constantemente de opinión según las respuestas encontradas, ayuda a mantener una práctica clara y serena.',
+    section3Body: 'Algunas situaciones siguen siendo difíciles de resolver a partir de una sola explicación general. Este es el caso, en particular, cuando:',
+    doubtSituations: [
+      'Existe incertidumbre sobre el fin real de la menstruación',
+      'La naturaleza de un sangrado sigue siendo incierta (menstruación, istihada, otro)',
+      'Persiste una duda sobre la necesidad de realizar el gusl',
+      'La cuestión de la reanudación de la oración sigue siendo incierta',
+      'Se ha encontrado información contradictoria en internet',
+    ],
+    alert2Title: 'Información importante',
+    alert2Text: 'Cuando una situación es personal, compleja o persistente, no puede resolverse con información general. Recurrir a un erudito o una erudita cualificada, capaz de tener en cuenta tu situación precisa, sigue siendo entonces el mejor enfoque. AWA no emite fatuas ni decisiones religiosas personalizadas.',
+    keyPoints: [
+      'El fiqh femenino abarca numerosos aspectos de la práctica religiosa de las mujeres',
+      'Algunos detalles pueden variar legítimamente según las escuelas',
+      'Una información general no sustituye un consejo religioso personalizado',
+      'Una duda persistente merece plantearse a un erudito cualificado',
+      'El papel de AWA es educativo, no el de emitir fatuas',
+    ],
+    shareMessage: 'Preguntas frecuentes de fiqh femenino — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -222,7 +309,7 @@ export default function ReligiousFaqArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

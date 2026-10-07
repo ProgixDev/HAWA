@@ -157,6 +157,56 @@ const CONTENT = {
     shareTitle: 'Intimate hygiene · AWA',
     shareMessage: 'Taking care of your intimate hygiene during your period · AWA',
   },
+  es: {
+    badge: 'FLUJO MENSTRUAL',
+    title: 'Cuidar bien tu higiene íntima\ndurante el período',
+    metaDuration: '6 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Cuidar tu intimidad es respetar tu cuerpo y su equilibrio natural.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Por qué es importante',
+      'Las buenas prácticas',
+      'Qué evitar',
+      'Cuándo consultar',
+      'Consejos prácticos',
+    ],
+    body: 'Durante el período, tu cuerpo cambia y se vuelve más sensible. Adoptar las buenas prácticas ayuda a prevenir irritaciones e infecciones, y te permite sentirte cómoda en tu día a día.',
+    goodPractices: [
+      'Lávate con suavidad: un simple lavado con agua limpia, de adelante hacia atrás, basta para preservar tu flora natural.',
+      'Cambia tus protecciones con regularidad: cada 4 a 6 horas para evitar la humedad y los malos olores.',
+      'Elige el algodón: la ropa interior de algodón deja que la piel respire y reduce el riesgo de irritación.',
+    ],
+    thingsToAvoid: [
+      'Los jabones agresivos y los productos perfumados',
+      'Las duchas vaginales, que alteran la flora natural',
+      'Mantener una protección húmeda demasiado tiempo',
+    ],
+    consultReasons: [
+      'Irritaciones, picor o ardor persistentes',
+      'Olor inusual o flujo diferente de lo habitual en ti',
+      'Dolores intensos o síntomas que te preocupan',
+    ],
+    tipTitle: 'Consejo AWA',
+    tipText: 'Tu cuerpo ya cuenta con un mecanismo natural de equilibrio. Por lo general, un lavado suave es suficiente.',
+    takeawaysTitle: 'Para recordar',
+    takeaways: [
+      'Lavado suave con agua limpia',
+      'Cambiar con regularidad',
+      'Evitar los productos perfumados',
+      'Elegir el algodón',
+    ],
+    relatedTitle: '♥  También te puede interesar',
+    related: [
+      {title: 'Entender los dolores menstruales', meta: '7 min  ·  Guía'},
+      {title: 'Elegir la protección adecuada para tu cuerpo', meta: '5 min  ·  Guía'},
+      {title: 'Cómo aliviar los cólicos de forma natural', meta: '6 min  ·  Guía'},
+    ],
+    shareTitle: 'Higiene íntima · AWA',
+    shareMessage: 'Cuidar bien tu higiene íntima durante el período · AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -165,7 +215,7 @@ export default function FlowMenstrualArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

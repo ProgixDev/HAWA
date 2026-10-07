@@ -119,6 +119,41 @@ const CONTENT = {
     tip2Text: 'Generally balanced habits, without excess or perfectionism, are the best everyday support.',
     shareMessage: 'Lifestyle habits and conception journey — AWA',
   },
+  es: {
+    badge: 'ESTILO DE VIDA',
+    title: 'Estilo de vida y\ntu camino hacia la concepción',
+    metaDuration: '5 min de lectura',
+    metaType: 'Artículo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Hábitos sencillos que pueden acompañar tu camino, sin presión.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Lo que puede favorecer la fertilidad',
+      'El estrés, un factor que no hay que descuidar',
+      'Lo que es mejor limitar',
+      'Para recordar',
+    ],
+    body1: 'Algunos hábitos de vida sencillos pueden acompañar un camino hacia la concepción, aunque no garantizan un resultado por sí solos.',
+    supportiveHabits: [
+      'Una alimentación equilibrada',
+      'Una actividad física moderada',
+      'Un sueño de calidad',
+      'Momentos de relajación',
+    ],
+    body2: 'El estrés crónico puede influir en el equilibrio hormonal y, en algunas mujeres, en la regularidad del ciclo. Reservarte momentos de calma forma plenamente parte del camino.',
+    tip1Title: 'Dato útil',
+    tip1Text: 'Querer «hacerlo todo bien» puede convertirse en sí mismo en una fuente de estrés: basta con apuntar a hábitos globalmente saludables, sin perfeccionismo.',
+    toLimit: [
+      'El tabaco, que puede afectar la fertilidad de ambos miembros de la pareja',
+      'Un consumo excesivo de alcohol',
+      'Un entrenamiento deportivo intenso y prolongado, que por el contrario puede frenar la fertilidad',
+      'El azúcar refinado en exceso, que puede alterar el equilibrio hormonal',
+    ],
+    tip2Title: 'Dato útil',
+    tip2Text: 'Unos hábitos globalmente equilibrados, sin excesos ni perfeccionismo, son el mejor acompañamiento en el día a día.',
+    shareMessage: 'Estilo de vida y camino hacia la concepción — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -127,7 +162,7 @@ export default function ConceptionLifestyleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

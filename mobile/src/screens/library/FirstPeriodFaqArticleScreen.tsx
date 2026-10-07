@@ -154,6 +154,52 @@ const CONTENT = {
     ],
     shareMessage: 'Frequently asked questions about your first period — AWA',
   },
+  es: {
+    badge: 'PRIMERA MENSTRUACIÓN',
+    title: 'Preguntas frecuentes\nsobre la primera menstruación',
+    metaDuration: '4 min de lectura',
+    metaType: 'FAQ',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Respuestas sencillas a las preguntas más habituales sobre la primera menstruación.',
+    contentsTitle: 'En este artículo',
+    faq: [
+      {
+        question: '«¿Es normal tener poca sangre?»',
+        answer:
+          'Sí. Los primerísimos ciclos suelen tener un flujo ligero. El flujo puede variar de un ciclo a otro, sobre todo al principio.',
+      },
+      {
+        question: '«¿Es normal tener mucha sangre?»',
+        answer:
+          'Un flujo más abundante también puede ocurrir, especialmente los dos primeros días. Si necesitas cambiar de protección más de una vez por hora durante varias horas seguidas, es buena idea hablarlo con un profesional de la salud.',
+      },
+      {
+        question: '«¿Es normal tener dolor?»',
+        answer:
+          'Los cólicos leves en la parte baja del vientre son frecuentes y, por lo general, no tienen importancia. Una bolsa de agua caliente o un poco de descanso pueden ayudar. Un dolor muy intenso merece ser comentado con alguien.',
+      },
+      {
+        question: '«¿Puedo hacer deporte?»',
+        answer:
+          'Sí, puedes seguir haciendo deporte durante la menstruación. Basta con adaptar la intensidad a lo que tu cuerpo sienta ese día.',
+      },
+      {
+        question: '«¿Puedo bañarme?»',
+        answer:
+          'Sí, puedes bañarte con una protección adecuada. Muchas personas simplemente prefieren esperar a sentirse más cómodas con la idea.',
+      },
+    ],
+    tipTitle: 'DATO ÚTIL',
+    tipText: 'No existen las preguntas incómodas: cada cuerpo es diferente, y siempre puedes hablar de ello con una persona de confianza.',
+    relatedTitle: '♥  También te podría gustar',
+    related: [
+      {title: 'Tu primera menstruación: qué esperar', meta: '5 min  ·  Guía'},
+      {title: '¿Qué protección elegir para mi primera menstruación?', meta: '6 min  ·  Guía'},
+      {title: 'Gestionar los dolores menstruales', meta: '7 min  ·  Guía'},
+    ],
+    shareMessage: 'Preguntas frecuentes sobre la primera menstruación — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -162,7 +208,7 @@ export default function FirstPeriodFaqArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

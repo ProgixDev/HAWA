@@ -235,6 +235,92 @@ const CONTENT = {
       'This article is for general information only and does not replace a medical consultation. If in doubt or if symptoms persist, seek advice from a healthcare professional.',
     shareMessage: 'Understanding hormonal acne — AWA',
   },
+  es: {
+    badge: 'SOP • ACNÉ HORMONAL',
+    title: 'Comprender\nel acné hormonal',
+    metaDuration: '7 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido educativo',
+    intro:
+      'Por qué puede aparecer acné hormonal con el SOP, cómo reconocerlo y qué soluciones pueden ayudar a manejarlo.',
+    introSecondary:
+      'Afecta a muchas mujeres y no es ni una falta de higiene ni una fatalidad: comprender su origen ayuda a manejarlo mejor.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      '¿Qué es el acné hormonal?',
+      '¿Por qué el SOP puede provocar acné?',
+      'Cómo reconocer el acné hormonal',
+      'Acné hormonal y ciclo menstrual',
+      'Lo que puede ayudar',
+      '¿Cuándo consultar?',
+      'Para recordar',
+    ],
+    h1: '¿Qué es el acné hormonal?',
+    body1a:
+      'El acné hormonal es una forma de acné directamente relacionada con fluctuaciones o un desequilibrio de las hormonas, especialmente de los andrógenos. A diferencia del acné más habitual de la adolescencia, afecta a menudo a mujeres adultas y puede persistir o aparecer después de esa etapa.',
+    body1b:
+      'También se distingue por su localización, su profundidad y su tendencia a reaparecer en los mismos lugares a pesar de cuidados habituales bien seguidos.',
+    tip1Title: 'Dato útil',
+    tip1Text:
+      'El acné hormonal no está relacionado con una falta de higiene: lavarse más el rostro no lo hace desaparecer, e incluso puede irritar la piel.',
+    h2Title: '¿Por qué el SOP puede provocar acné?',
+    body2:
+      'En el SOP, un exceso relativo de andrógenos estimula las glándulas sebáceas, que producen entonces más sebo. Algunas pieles también son más sensibles a estas hormonas, lo que explica por qué el acné puede ser notable incluso sin un desequilibrio importante medido en laboratorio.',
+    neutralText:
+      'No es una cuestión de voluntad: esta sensibilidad varía de una persona a otra y no depende de tus hábitos de vida.',
+    h3Title: 'Cómo reconocer el acné hormonal',
+    body3:
+      'Algunas características se repiten a menudo, sin ser sistemáticas:',
+    recognizeSigns: [
+      'Parte baja del rostro: mandíbula, mentón',
+      'Granos más profundos, a veces dolorosos',
+      'Reaparición frecuente en los mismos lugares',
+      'Enrojecimientos o marcas que persisten',
+    ],
+    h4Title: 'Acné hormonal y ciclo menstrual',
+    body4:
+      'El acné hormonal puede fluctuar a lo largo del ciclo. Muchas mujeres notan un brote en los días previos a la regla, cuando la progesterona aumenta y luego cae bruscamente, estimulando temporalmente la producción de sebo.',
+    highlightTitle: 'Seguir tus brotes',
+    highlightText:
+      'Anotar las fechas de aparición de los granos en relación con tu ciclo puede ayudarte, a ti y a tu dermatólogo, a comprender mejor el vínculo hormonal.',
+    h5Title: 'Lo que puede ayudar',
+    body5a:
+      'Algunos hábitos de cuidado sencillos pueden limitar los brotes, sin hacerlos desaparecer por completo por sí solos:',
+    careHabits: [
+      'Limpiar la piel con suavidad, mañana y noche',
+      'Evitar productos agresivos o resecantes',
+      'Proteger tu piel del sol a diario',
+      'No pinchar ni manipular los granos',
+    ],
+    body5b:
+      'Según la situación, un dermatólogo o un ginecólogo puede proponer tratamientos locales (cremas, geles) o, si es necesario, un tratamiento hormonal adecuado.',
+    alertTitle: 'Sin automedicación',
+    alertText:
+      'Los tratamientos contra el acné hormonal (locales u hormonales) deben ser recetados y supervisados por un profesional de salud, en particular en caso de deseo de embarazo.',
+    h6Title: '¿Cuándo consultar?',
+    body6:
+      'Una opinión médica resulta especialmente útil en ciertas situaciones:',
+    consultReasons: [
+      'Acné que persiste a pesar de cuidados adecuados',
+      'Granos dolorosos o profundos (nódulos, quistes)',
+      'Acné grave o que empeora rápidamente',
+      'Marcas o cicatrices que se instalan',
+    ],
+    h7Title: 'Para recordar',
+    summaryTitle: 'Los puntos esenciales',
+    keyPoints: [
+      'El acné hormonal tiene una causa identificable, relacionada con los andrógenos.',
+      'Afecta a menudo la parte baja del rostro y puede empeorar antes de la regla.',
+      'No es ni una falta de higiene ni una fatalidad.',
+      'Cuidados suaves y, si es necesario, un tratamiento adecuado pueden mejorarlo.',
+      'Un dermatólogo o un ginecólogo puede acompañarte en caso de persistencia.',
+    ],
+    finalNoteTitle: 'Una guía para comprender mejor',
+    finalNoteText:
+      'Este artículo tiene fines de información general y no sustituye una consulta médica. En caso de duda o de síntomas persistentes, pide consejo a un profesional de salud.',
+    shareMessage: 'Comprender el acné hormonal — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -243,7 +329,7 @@ export default function PcosHormonalAcneArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

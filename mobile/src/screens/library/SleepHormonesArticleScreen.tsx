@@ -159,6 +159,59 @@ const CONTENT = {
     disclaimerText: 'Informational content. This article does not replace personalized medical advice. If in doubt, seek guidance from a healthcare professional.',
     shareMessage: 'Sleep and hormones: the little-known link — AWA',
   },
+  es: {
+    badge: 'CICLO MENSTRUAL • SUEÑO',
+    title: 'Sueño y hormonas:\nel vínculo poco conocido',
+    metaDuration: '6 min de lectura',
+    metaType: 'Artículo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Por qué tu sueño varía según la fase del ciclo, y en la menopausia.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Por qué las hormonas influyen en el sueño',
+      'El sueño según las fases del ciclo',
+      'Estrés y calidad del sueño',
+      'Una rutina nocturna relajante',
+      'Cuándo consultar',
+      'Para recordar',
+    ],
+    section1Body: 'La progesterona tiene un ligero efecto sedante; su descenso al final del ciclo puede alterar el sueño, haciéndolo más ligero o más fragmentado.',
+    infoCard1Title: 'Dato útil',
+    infoCard1Text: 'La ligera subida de la temperatura corporal después de la ovulación también puede dificultar un poco más conciliar el sueño en algunas personas.',
+    phaseSleep: [
+      {title: 'Durante la regla', text: 'La incomodidad física y el cansancio pueden hacer que el sueño sea más ligero.'},
+      {title: 'Alrededor de la ovulación', text: 'El sueño suele ser más estable para la mayoría de las personas.'},
+      {title: 'Antes de la regla', text: 'El descenso de progesterona puede hacer que el sueño sea más ligero, con posibles despertares.'},
+    ],
+    section2Body: 'En la menopausia, los sofocos nocturnos son una causa frecuente de despertares, por razones hormonales similares.',
+    section3Body: 'El estrés puede amplificar las alteraciones del sueño durante las fases del ciclo que ya son más sensibles. Algunas técnicas de relajación sencillas (respiración, estiramientos suaves) pueden ayudar a calmarte antes de acostarte.',
+    section4Body: 'Una rutina de sueño estable y una habitación fresca ayudan a limitar estas alteraciones, a cualquier edad.',
+    eveningRoutine: [
+      {title: 'Horarios regulares', text: 'Acostarse y levantarse a horas estables ayuda a regular el reloj interno.'},
+      {title: 'Menos pantallas por la noche', text: 'La luz azul puede retrasar el sueño; una pausa de pantallas ayuda a relajarte.'},
+      {title: 'Una habitación fresca', text: 'Una temperatura moderada facilita conciliar el sueño, a cualquier edad.'},
+    ],
+    section5Body: 'Los buenos hábitos no siempre son suficientes. Puede ser útil hablar con un profesional si:',
+    warningTitle: 'Señales que merecen una consulta',
+    consultSigns: [
+      'Los problemas de sueño duran desde hace varias semanas',
+      'El cansancio afecta fuertemente a tu vida diaria',
+      'El insomnio persiste a pesar de tener buenos hábitos',
+    ],
+    infoCard2Title: 'Prepararte para esa consulta',
+    infoCard2Text: 'Anotar desde cuándo duran los problemas y qué parece influir en ellos puede ayudar a tu profesional de la salud a orientarte mejor.',
+    tipTitle: 'Dato útil',
+    tipText: 'Estas variaciones del sueño son frecuentes y suelen ser temporales: no significan que haya un problema.',
+    summaryPoints: [
+      'La progesterona tiene un ligero efecto sedante; su descenso al final del ciclo puede alterar el sueño.',
+      'En la menopausia, los sofocos nocturnos son una causa frecuente de despertares.',
+      'Una rutina de sueño estable y una habitación fresca ayudan a limitar estas alteraciones, a cualquier edad.',
+      'Los problemas de sueño que persisten merecen comentarse con un profesional de la salud.',
+    ],
+    disclaimerText: 'Contenido informativo. Este artículo no sustituye una opinión médica personalizada. Si tienes dudas, consulta a un profesional de la salud.',
+    shareMessage: 'Sueño y hormonas: el vínculo poco conocido — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -175,7 +228,7 @@ export default function SleepHormonesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

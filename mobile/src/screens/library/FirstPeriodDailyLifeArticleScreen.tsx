@@ -141,6 +141,47 @@ const CONTENT = {
     ],
     shareMessage: 'How to manage your first period day to day? — AWA',
   },
+  es: {
+    badge: 'PRIMERA MENSTRUACIÓN',
+    title: '¿Cómo gestionar tu primera\nmenstruación en el día a día?',
+    metaDuration: '5 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Con algunos pequeños hábitos, la primera menstruación se integra fácilmente en tu día a día, tanto en la escuela como fuera de ella.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Organizarte en el día a día',
+      'Preparar un pequeño kit de emergencia',
+      'Si la menstruación llega de forma inesperada',
+    ],
+    body1: 'Escuela, deporte, sueño: la menstruación no te impide seguir con tus actividades habituales. Basta con adaptar algunos hábitos para sentirte cómoda durante todo el día.',
+    dailyTips: [
+      'Escuela o actividades: lleva una protección en tu mochila',
+      'Deporte: hacer deporte sigue siendo posible, solo adapta tu ritmo',
+      'Sueño: una protección nocturna adecuada es suficiente',
+    ],
+    body2: 'Un pequeño kit con una o dos protecciones, una braga de recambio y toallitas cabe fácilmente en una mochila escolar o deportiva. Te permite estar tranquila en cualquier circunstancia.',
+    tip1Title: 'DATO ÚTIL',
+    tip1Text: 'Llevar siempre una protección contigo evita el estrés de que te pille desprevenida.',
+    body3: 'Esto ocurre a menudo, sobre todo al principio. Una enfermera escolar, una profesora o una amiga casi siempre tienen algo que puede ayudarte. Una prenda anudada alrededor de la cintura también puede servir mientras encuentras una protección.',
+    relatedTitle: '♥  También te podría gustar',
+    related: [
+      {
+        title: '¿Qué protección elegir para mi primera menstruación?',
+        meta: '6 min  ·  Guía',
+      },
+      {
+        title: 'Gestionar los dolores menstruales',
+        meta: '7 min  ·  Guía',
+      },
+      {
+        title: 'Mi primera menstruación es irregular: ¿es normal?',
+        meta: '5 min  ·  Guía',
+      },
+    ],
+    shareMessage: '¿Cómo gestionar tu primera menstruación en el día a día? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -149,7 +190,7 @@ export default function FirstPeriodDailyLifeArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

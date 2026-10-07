@@ -125,6 +125,44 @@ const CONTENT = {
     tip2Text: 'Each stage of the baby’s development follows its own pace; regular medical check-ups help confirm that everything is progressing normally.',
     shareMessage: 'Baby’s development in utero — AWA',
   },
+  es: {
+    badge: 'EMBARAZO • DESARROLLO',
+    title: 'El desarrollo\ndel bebé en el útero',
+    metaDuration: '6 min de lectura',
+    metaType: 'Artículo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Cómo crece tu bebé, trimestre tras trimestre.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'El primer trimestre: los inicios',
+      'El segundo trimestre: los sentidos despiertan',
+      'El tercer trimestre: la recta final',
+      'Los grandes hitos de un vistazo',
+      'Ideas falsas',
+      'Para recordar',
+    ],
+    body1: 'Ya desde la semana 6, un corazón diminuto empieza a latir. A lo largo de este primer trimestre, los órganos principales se van formando progresivamente.',
+    tip1Title: 'DATO ÚTIL',
+    tip1Text: 'El ritmo cardíaco del bebé es una de las primeras señales visibles en la ecografía, a menudo un momento destacado del seguimiento.',
+    body2: 'Hacia la semana 20, generalmente puedes sentir los primeros movimientos del bebé. También es el periodo en el que sus sentidos empiezan a desarrollarse.',
+    body3: 'A partir del 3.er trimestre, el bebé gana peso rápidamente y se va colocando progresivamente para el nacimiento.',
+    neutralText: 'El ritmo de desarrollo varía de un bebé a otro: estas referencias siguen siendo promedios generales.',
+    milestones: [
+      'Desde las 6 semanas: el corazón empieza a latir',
+      'Hacia las 20 semanas: primeros movimientos percibidos',
+      'Hacia las 24-26 semanas: se desarrolla la audición',
+      'Hacia las 28 semanas: los ojos se abren progresivamente',
+    ],
+    myths: [
+      'El bebé «lo oye todo» desde el principio: la audición solo se desarrolla realmente a partir del 2.º trimestre',
+      'La forma de la barriga indica el sexo del bebé: ninguna prueba científica lo confirma',
+      'Un bebé activo es necesariamente más sano: el nivel de actividad varía mucho de un bebé a otro',
+    ],
+    tip2Title: 'DATO ÚTIL',
+    tip2Text: 'Cada etapa del desarrollo del bebé sigue su propio ritmo; el seguimiento médico regular permite comprobar que todo evoluciona con normalidad.',
+    shareMessage: 'El desarrollo del bebé en el útero — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -133,7 +171,7 @@ export default function BabyDevelopmentArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -203,6 +203,77 @@ const CONTENT = {
     tip3Text: 'Women’s fiqh is a living field of interpretation, with opinions that sometimes differ between schools. AWA helps you understand the basics and structure your questions, but the opinion of a qualified scholar remains the reference for any personal religious decision.',
     shareMessage: 'Women’s fiqh, an introduction — AWA',
   },
+  es: {
+    badge: 'FIQH FEMENINO',
+    title: 'El fiqh femenino,\nuna introducción',
+    metaDuration: '7 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Una visión completa de los grandes temas abordados en el fiqh femenino, entre la práctica religiosa y la vida cotidiana.',
+    disclaimerTitle: 'Información importante',
+    disclaimerText: 'Este contenido es puramente educativo. Las preguntas religiosas deben ser validadas por eruditos cualificados. AWA no emite fatuas ni decisiones religiosas personalizadas.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Qué abarca el fiqh femenino',
+      '¿Por qué es importante el fiqh femenino?',
+      'Las escuelas jurídicas (madhab)',
+      'Fiqh, salud y práctica cotidiana',
+      'El papel educativo de AWA',
+      '¿Cuándo pedir consejo a una persona cualificada?',
+      'Para recordar',
+    ],
+    section1Body: 'El fiqh femenino es el campo de la jurisprudencia islámica (fiqh) que se ocupa de las cuestiones prácticas relacionadas con el cuerpo y el culto de las mujeres. Ayuda a comprender cómo conciliar la vida religiosa cotidiana con las distintas etapas del ciclo femenino.',
+    dailyTopics: [
+      'La menstruación y el ciclo menstrual',
+      'La sangre menstrual y su estatus',
+      'La pureza ritual',
+      'El gusl después de la menstruación',
+      'La oración durante y después de la menstruación',
+      'El ayuno del Ramadán y los días por recuperar',
+      'Los sangrados particulares (istihada)',
+      'El nifas después del parto',
+      'La vida cotidiana y la práctica religiosa',
+    ],
+    section1Body2: 'El fiqh es un campo de interpretación jurídica: algunas cuestiones son objeto de opiniones distintas según los eruditos y las escuelas de pensamiento, sin que ninguna opinión sea por sí sola absoluta.',
+    section2Body: 'Comprender el fiqh femenino permite vivir la propia práctica religiosa con más serenidad, sin confusión, en los momentos en que el cuerpo atraviesa etapas específicas (menstruación, embarazo, posparto, menopausia). Esto también ayuda a distinguir lo que corresponde a una obligación, a una dispensa o a una simple recomendación.',
+    visual1Title: 'Una práctica religiosa serena',
+    visual1Text: 'Saber qué se espera en cada etapa del ciclo permite vivir la fe con más confianza.',
+    section3Body: 'Un madhab designa una escuela de pensamiento jurídico, es decir, un método estructurado que los eruditos utilizan para interpretar las fuentes religiosas (Corán, Sunna, consenso, razonamiento) y responder a las cuestiones prácticas de la vida cotidiana. Existen varias escuelas porque los eruditos no siempre han seguido la misma metodología ni han interpretado los mismos textos de la misma manera.',
+    section3Body2: 'Por eso, algunas cuestiones relacionadas con la menstruación, la pureza ritual, la oración o el ayuno pueden ser objeto de opiniones distintas según los eruditos consultados. Una divergencia de opinión no significa que una opinión sea «falsa»: refleja metodologías y lecturas diferentes de las mismas fuentes.',
+    tip1Title: 'Bueno saberlo',
+    tip1Text: 'Es habitual seguir el enfoque o el madhab que tradicionalmente se sigue en la propia familia o comunidad.',
+    noteTitle: 'Para tener en cuenta',
+    noteText: 'Cuando una situación religiosa concreta permanece incierta, es totalmente apropiado pedir la opinión de un erudito o una erudita cualificada.',
+    section4Body: 'La información médica sobre el ciclo (duración, síntomas, fases hormonales) y las normas religiosas que de ella se derivan (pureza, oración, ayuno) responden a dos lógicas diferentes: una describe un fenómeno biológico, la otra define un marco de práctica espiritual. Ambas pueden complementarse, pero no deben confundirse.',
+    visual2Title: 'Dos miradas complementarias',
+    visual2Text: 'El seguimiento médico del ciclo y las referencias religiosas que de él se derivan aportan cada uno una perspectiva útil.',
+    tip2Title: 'Bueno saberlo',
+    tip2Text: 'Un profesional de la salud puede responder a las preguntas médicas; un erudito cualificado sigue siendo la referencia para las preguntas religiosas.',
+    section5Body: 'AWA acompaña a las usuarias en la comprensión de su ciclo, en la intersección entre la salud y la práctica religiosa, con un enfoque pedagógico y respetuoso de las diferencias entre escuelas.',
+    awaRole: [
+      'Comprender las nociones básicas del fiqh femenino',
+      'Entender mejor su ciclo, desde un punto de vista médico y religioso',
+      'Identificar las preguntas que requieren la opinión de un erudito cualificado',
+      'Orientarse entre las diferencias de madhahib sin confusión',
+      'Acceder a explicaciones educativas claras y neutrales',
+      'Distinguir una información médica de una decisión religiosa',
+      'Seguir la información útil para su práctica religiosa, si lo necesita',
+      'Preparar preguntas precisas para plantear a un erudito cualificado',
+    ],
+    alert3Title: 'Información importante',
+    alert3Text: 'AWA es una herramienta educativa e informativa: no sustituye en ningún caso la opinión de un erudito o una autoridad religiosa cualificada.',
+    section6Body: 'Algunas situaciones merecen plantearse directamente a un erudito o una erudita de confianza, en particular cuando:',
+    whenToAsk: [
+      'Una situación personal no corresponde a ningún caso clásico (sangrado inusual, duda prolongada...)',
+      'Varias opiniones parecen contradecirse y no sabes cuál seguir',
+      'Una decisión religiosa tiene un impacto importante en tu práctica cotidiana',
+      'Sientes la necesidad de un acompañamiento adaptado a tu situación personal',
+    ],
+    tip3Title: 'Bueno saberlo',
+    tip3Text: 'El fiqh femenino es un campo vivo de interpretación, con opiniones a veces distintas según las escuelas. AWA te ayuda a comprender las bases y a estructurar tus preguntas, pero la opinión de un erudito cualificado sigue siendo la referencia para cualquier decisión religiosa personal.',
+    shareMessage: 'El fiqh femenino, una introducción — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -211,7 +282,7 @@ export default function FiqhWomenIntroArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

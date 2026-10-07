@@ -132,6 +132,52 @@ const CONTENT = {
     finalTipText: 'If you’re considering contraception or your current method isn’t working for you, don’t hesitate to talk to a doctor, midwife, or another healthcare professional.',
     shareMessage: 'Understanding the birth control pill — AWA',
   },
+  es: {
+    badge: 'PÍLDORA ANTICONCEPTIVA',
+    title: 'Entender la\npíldora anticonceptiva',
+    metaDuration: '7 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Cómo actúa la píldora, cómo tomarla cada día y cuáles son sus principales ventajas y límites.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Cómo actúa la píldora',
+      'Tomarla correctamente cada día',
+      'Ventajas y límites',
+      'Lo esencial',
+    ],
+    body1: 'La píldora contiene hormonas, estrógenos y/o progestágeno según el tipo, que actúan principalmente impidiendo o bloqueando la ovulación. También modifica el moco cervical, lo que dificulta el paso de los espermatozoides.',
+    tip1Title: 'DATO ÚTIL',
+    tip1Text: 'Existen varios tipos de píldoras, entre ellas las píldoras combinadas y las que contienen únicamente un progestágeno. Su composición y su forma de uso pueden variar.',
+    body2: 'La regularidad en la toma es importante. Según el tipo de píldora, la actuación a seguir en caso de olvido puede ser diferente: por eso es esencial consultar el prospecto de tu medicamento.',
+    routineTips: [
+      'Elige un momento del día fácil de recordar (una comida, la hora de dormir...)',
+      'Usa un recordatorio o una aplicación si lo necesitas',
+      'Ten el prospecto a mano en caso de duda',
+    ],
+    sectionIntro: 'Como todo método anticonceptivo, la píldora tiene ventajas, pero también ciertos límites que conviene conocer antes de elegirla.',
+    advantagesTitle: 'Ventajas',
+    advantagesSubtitle: 'Lo que puede aportar',
+    advantages: [
+      'Reduce considerablemente el riesgo de embarazo cuando se usa correctamente',
+      'Puede hacer que las reglas sean más regulares y predecibles',
+      'Puede disminuir el dolor y el sangrado en algunas personas',
+      'Puede adaptarse o cambiarse si no resulta adecuada',
+    ],
+    limitationsTitle: 'Límites',
+    limitationsSubtitle: 'Los puntos que hay que conocer',
+    limitations: [
+      'Requiere una toma regular según el tipo de píldora',
+      'Los olvidos pueden disminuir su eficacia',
+      'Pueden aparecer efectos indeseados en algunas personas',
+      'No protege contra las infecciones de transmisión sexual (ITS)',
+    ],
+    takeawayTitle: 'Un método que conviene conocer',
+    takeawayText: 'La píldora es un método anticonceptivo hormonal eficaz cuando se usa correctamente. Su toma regular, sus posibles efectos indeseados y la ausencia de protección frente a las ITS son aspectos importantes que hay que conocer.',
+    finalTipText: 'Si estás considerando una anticoncepción o tu método actual no te resulta adecuado, no dudes en hablarlo con un médico, una matrona u otro profesional de la salud.',
+    shareMessage: 'Entender la píldora anticonceptiva — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -140,7 +186,7 @@ export default function BirthControlPillsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

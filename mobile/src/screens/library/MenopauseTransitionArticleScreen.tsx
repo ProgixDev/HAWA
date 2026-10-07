@@ -199,6 +199,81 @@ const CONTENT = {
       'Perimenopause and menopause are natural stages, not an illness. Many solutions exist to help you go through this transition more comfortably: a healthcare professional remains the best resource to adapt them to your situation.',
     shareMessage: 'Understanding the menopause transition — AWA',
   },
+  es: {
+    badge: 'PERIMENOPAUSIA Y MENOPAUSIA',
+    title: 'Entender la transición menopáusica',
+    metaDuration: '10 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro:
+      'Lo que cambia progresivamente, años antes de que cesen las reglas, y cómo abordar esta etapa con más claridad.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Perimenopausia y menopausia: las definiciones',
+      'Ciclos cada vez más irregulares',
+      'Sueño y estado de ánimo',
+      'Vida íntima y sequedad vaginal',
+      'Peso y metabolismo',
+      'Ideas falsas sobre la menopausia',
+      'Síntomas normales y señales a vigilar',
+      'Consejos prácticos para el día a día',
+      'Para recordar',
+    ],
+    h1: '1. Perimenopausia y menopausia: las definiciones',
+    body1a:
+      'La perimenopausia designa el periodo de transición hormonal que precede a la menopausia: puede empezar varios años antes, generalmente a partir de los cuarenta, con niveles de estrógenos que fluctúan de forma irregular.',
+    body1b:
+      'La menopausia, por su parte, es un momento preciso: se confirma después de 12 meses consecutivos sin regla, en ausencia de otra causa. En Francia, ocurre de media alrededor de los 51 años, aunque esta edad varía naturalmente de una mujer a otra.',
+    tip1Title: 'DATO ÚTIL',
+    tip1Text:
+      'Cada mujer vive esta transición de forma diferente, tanto en duración como en intensidad de los síntomas. Hablar de ello abiertamente ayuda a anticiparla mejor.',
+    h2: '2. Ciclos cada vez más irregulares',
+    body2:
+      'Una de las primeras señales de la perimenopausia suele ser un cambio en el ritmo de los ciclos: pueden volverse más cortos, más largos, más espaciados, o con un flujo diferente de un mes a otro.',
+    alert1Title: 'A tener en cuenta',
+    alert1Text:
+      'Un sangrado muy abundante, muy seguido, o que ocurre después de un año sin regla, justifica un aviso médico, ya que no se consideran señales habituales de la transición.',
+    h3: '3. Sueño y estado de ánimo',
+    body3a:
+      'La disminución y las fluctuaciones de estrógenos y progesterona pueden alterar el sueño (dificultad para dormirse, despertares nocturnos) y acompañarse de irritabilidad, ansiedad o cambios de humor inusuales.',
+    body3b:
+      'Estos cambios tienen una explicación biológica real: no reflejan ni una falta de voluntad ni un problema psicológico aislado.',
+    h4: '4. Vida íntima y sequedad vaginal',
+    body4:
+      'La disminución de estrógenos puede provocar sequedad vaginal, a veces fuente de incomodidad o dolor durante las relaciones. El deseo también puede evolucionar, al alza o a la baja, según la mujer.',
+    tip2Title: 'DATO ÚTIL',
+    tip2Text:
+      'Existen soluciones sencillas (lubricantes, hidratantes vaginales, tratamientos locales): hablarlo con un profesional de la salud permite encontrar una respuesta adecuada, sin tabúes.',
+    h5: '5. Peso y metabolismo',
+    body5:
+      'El metabolismo puede ralentizarse ligeramente durante este periodo, y la distribución de la grasa tiende a desplazarse hacia el abdomen. Estos cambios son frecuentes y no dependen únicamente de la voluntad.',
+    h6: '6. Ideas falsas sobre la menopausia',
+    myths: [
+      'La menopausia «llega de golpe» — en realidad, está precedida de varios años de transición (perimenopausia)',
+      'Todos los síntomas son graves para todo el mundo — su intensidad varía enormemente de una mujer a otra',
+      'No se puede hacer nada — existen numerosas soluciones, hormonales o no, para aliviar los síntomas molestos',
+      'La vida íntima se detiene — evoluciona, pero sigue siendo totalmente posible y satisfactoria con los ajustes adecuados',
+    ],
+    h7: '7. Síntomas normales y señales a vigilar',
+    body7:
+      'La gran mayoría de los cambios descritos aquí son manifestaciones normales de la transición. Sin embargo, algunas señales merecen una consulta más rápida.',
+    alert2Title: 'Consultar si',
+    alert2Text:
+      'Sangrado después de una menopausia confirmada, dolor pélvico inusual, síntomas que alteran fuertemente el día a día, o cualquier duda persistente.',
+    h8: '8. Consejos prácticos para el día a día',
+    dailyHabits: [
+      'Una alimentación rica en calcio y fibra',
+      'Una actividad física regular',
+      'Una rutina de sueño estable',
+      'Momentos de relajación en el día a día',
+    ],
+    h9: '9. Para recordar',
+    tip3Title: 'DATO ÚTIL',
+    tip3Text:
+      'La perimenopausia y la menopausia son etapas naturales, no una enfermedad. Existen numerosas soluciones para atravesar esta transición con más comodidad: un profesional de la salud sigue siendo el mejor recurso para adaptarlas a tu situación.',
+    shareMessage: 'Entender la transición menopáusica — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -207,7 +282,7 @@ export default function MenopauseTransitionArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

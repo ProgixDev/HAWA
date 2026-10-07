@@ -151,6 +151,59 @@ const CONTENT = {
     tip2Text: 'These markers are general educational reminders. Each situation can have its own particularities: in case of doubt, dialogue with a qualified scholar remains the best resource for an answer suited to your situation.',
     shareMessage: 'Purity status: the basics — AWA',
   },
+  es: {
+    badge: 'MENSTRUACIÓN Y PUREZA',
+    title: 'Estatus de pureza:\nlo esencial',
+    metaDuration: '6 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Comprender la relación entre el ciclo y el estado de pureza ritual, para vivir este periodo con más claridad.',
+    disclaimerTitle: 'Información importante',
+    disclaimerText: 'Este contenido es puramente educativo. Las preguntas religiosas deben ser validadas por eruditos cualificados. AWA no emite fatuas ni decisiones religiosas personalizadas.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Comprender qué significa la pureza ritual',
+      'Menstruación y dispensa de adoración',
+      'Después de la menstruación: reconocer el regreso a la pureza',
+      'El gusl: comprender su función',
+      '¿Qué hacer cuando no se está segura?',
+      'Para recordar',
+    ],
+    section1Body: 'En la tradición islámica, la pureza ritual (tahara) designa el estado necesario para realizar ciertos actos de adoración, como la oración. No se refiere a una noción de limpieza en el sentido habitual, sino a un estado específico reconocido por el fiqh, que cambia según las etapas del ciclo femenino.',
+    section2Body: 'Durante la menstruación, la mujer está dispensada de ciertos actos de adoración, en particular la oración y el ayuno del Ramadán, que podrá recuperarse más tarde. Esta dispensa se reconoce como una facilidad, y no como una sanción.',
+    checkList1Title: 'Lo que sigue estando accesible durante la menstruación',
+    duringPeriod: [
+      'El dhikr (evocación de Dios) y las invocaciones (dua)',
+      'Escuchar o leer contenidos educativos y espirituales',
+      'Apoyar la práctica religiosa de las personas cercanas',
+      'La reflexión y el aprendizaje religioso',
+    ],
+    noteTitle: 'Para tener en cuenta',
+    noteText: 'Algunos detalles (como la lectura directa del Corán o el acceso a la mezquita) pueden variar según las escuelas jurídicas; es preferible referirse a la opinión que se suele seguir o a un erudito cualificado para estos casos concretos.',
+    section3Body: 'El fin de la menstruación marca el regreso progresivo al estado de pureza ritual. En el plano físico, esto corresponde al cese del sangrado, una referencia que distintas tradiciones eruditas pueden definir con matices ligeramente diferentes.',
+    visual1Title: 'Un proceso fisiológico',
+    visual1Text: 'Comprender las etapas del ciclo ayuda a identificar mejor el momento en que la menstruación termina realmente.',
+    section3Body2: 'Una vez observada esta referencia, el gusl (ablución mayor) permite retomar la pureza ritual y reanudar los actos de adoración suspendidos.',
+    section4Body: 'El gusl es una ablución ritual mayor que consiste en lavar todo el cuerpo con la intención de purificarse. Marca el fin del estado de dispensa y permite reanudar la oración con normalidad, sin que sea necesario recuperar las oraciones no realizadas durante la menstruación.',
+    visual2Title: 'Un ritual de purificación',
+    visual2Text: 'El desarrollo preciso del gusl puede variar ligeramente según las escuelas jurídicas seguidas.',
+    tip1Title: 'Bueno saberlo',
+    tip1Text: 'Si no conoces los pasos exactos que se siguen en tu escuela, una persona de confianza o un erudito cualificado podrá explicártelos con claridad.',
+    section5Body: 'Es frecuente sentir dudas sobre el fin real de la menstruación, sobre todo cuando el sangrado disminuye progresivamente en lugar de detenerse de golpe.',
+    checkList2Title: 'Algunas referencias útiles',
+    doubtMarkers: [
+      'Observar la ausencia total de sangrado, y no una simple disminución',
+      'Dejar pasar un tiempo suficiente antes de concluir que la menstruación ha terminado',
+      'Basarte en una observación clara en lugar de en una simple impresión',
+      'Tener en cuenta tu propio ritmo habitual, que puede variar de un ciclo a otro',
+    ],
+    alert2Title: 'Información importante',
+    alert2Text: 'En caso de sangrados prolongados, irregulares o de duda persistente, estas situaciones merecen comentarse con un erudito cualificado, que podrá orientarte según tu situación personal. Este contenido sigue siendo informativo y no sustituye un consejo religioso individualizado.',
+    tip2Title: 'Bueno saberlo',
+    tip2Text: 'Estas referencias son recordatorios educativos generales. Cada situación puede tener sus particularidades: en caso de duda, el diálogo con un erudito o una erudita cualificada sigue siendo el mejor recurso para obtener una respuesta adaptada.',
+    shareMessage: 'Estatus de pureza: lo esencial — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -159,7 +212,7 @@ export default function MenstruationPurityArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
