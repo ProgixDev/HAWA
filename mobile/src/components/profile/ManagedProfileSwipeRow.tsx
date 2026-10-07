@@ -4,7 +4,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 // Right-to-left swipe-to-reveal for ONE managed (daughter) profile row inside "Gérer
 // les profils" (see ProfileScreen.tsx). Deliberately scoped: the mother's own row is
@@ -18,11 +18,27 @@ import {pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaTheme
 // it only reveals a trash button; the caller (ProfileScreen.tsx) opens a confirmation
 // dialog from `onDeletePress`.
 
-const DELETE_WIDTH = 76;
+const DELETE_WIDTH = 82;
 const OPEN_THRESHOLD = -DELETE_WIDTH * 0.45;
 const FLING_VELOCITY = -0.5;
 const HORIZONTAL_CLAIM_DISTANCE = 10;
 const SPRING = {damping: 20, stiffness: 220, useNativeDriver: true} as const;
+// Same radius as the row content itself (ProfileScreen.tsx's objectiveOption).
+// The delete capsule (deleteButton below) is rounded on ALL FOUR corners —
+// not just the two facing the outer edge — so it reads as a genuine rounded
+// capsule sitting BEHIND the sliding card (z-order: capsule first/back, card
+// second/front — see the render tree below), rather than a rectangle whose
+// only rounded side happens to be the one against the wrapper's own clipped
+// edge. The capsule's LEFT corners stay progressively hidden under the
+// sliding card until the swipe fully opens, at which point the card's own
+// (flat) trailing edge lands exactly on the capsule's rounded left edge —
+// that's what makes it read as "emerging from behind" instead of a hard cut.
+const CARD_RADIUS = 19;
+// Insets the capsule a few dp above/below the row's own edges so it reads as
+// nested behind the card rather than exactly matching (and so visually
+// competing with) the row's own full-height silhouette.
+const DELETE_VERTICAL_INSET = 4;
+const ICON_CIRCLE_SIZE = 32;
 
 // Pure decision logic, exported separately so it can be unit-tested directly —
 // PanResponder's own touch-responder machinery (TouchHistoryMath) cannot be driven
@@ -107,7 +123,9 @@ export default function ManagedProfileSwipeRow({
           accessibilityRole="button"
           onPress={onDeletePress}
           style={({pressed}) => [styles.deleteButton, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={pickReadableTextColor(theme.colors.danger)} name="trash-can-outline" size={21} />
+          <View style={styles.iconCircle}>
+            <MaterialDesignIcons color={pickReadableTextColor(theme.colors.danger)} name="trash-can-outline" size={19} />
+          </View>
           <Text style={styles.deleteText}>{t('profile.managedProfiles.swipeDeleteLabel')}</Text>
         </Pressable>
       </View>
@@ -120,20 +138,45 @@ export default function ManagedProfileSwipeRow({
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
+  const destructiveText = pickReadableTextColor(theme.colors.danger);
   return StyleSheet.create({
-    // Same radius as the row content itself (objectiveOption, in ProfileScreen.tsx) —
-    // clipping the revealed delete area to it is what makes the reveal "visually
-    // integrate with the rounded profile card" instead of looking like a separate box.
-    wrapper: {borderRadius: 19, overflow: 'hidden'},
+    // Clips the sliding row itself to the same rounded shape as its content
+    // (objectiveOption, in ProfileScreen.tsx) — a secondary safety net; the
+    // capsule itself (deleteButton below) is independently rounded on all
+    // four corners regardless of this clip, since Android doesn't always
+    // honor overflow:'hidden' clipping for an absolutely-positioned child's
+    // background color.
+    wrapper: {borderRadius: CARD_RADIUS, overflow: 'hidden'},
     deleteLayer: {...StyleSheet.absoluteFillObject, flexDirection: 'row', justifyContent: 'flex-end'},
     deleteButton: {
       width: DELETE_WIDTH,
+      marginVertical: DELETE_VERTICAL_INSET,
       alignItems: 'center',
       justifyContent: 'center',
-      gap: 4,
+      gap: 7,
       backgroundColor: theme.colors.danger,
+      // ALL FOUR corners rounded — a genuine capsule, not a rectangle with
+      // only its outer-facing side rounded. The left corners stay hidden
+      // under the sliding card until fully revealed (see the CARD_RADIUS
+      // comment above for why that reads as "emerging from behind").
+      borderRadius: CARD_RADIUS,
     },
-    deleteText: {color: pickReadableTextColor(theme.colors.danger), fontSize: 10.5, fontWeight: '700'},
+    // Subtle, theme-derived circular backdrop for the icon — same idea as
+    // the 56dp icon circle in ManagedProfileDeleteConfirmModal.tsx/
+    // QadaaDeleteConfirmModal.tsx (a translucent ring around the trash
+    // icon), scaled down for this compact capsule and tinted from the
+    // computed readable-text color (never a new hardcoded color) since the
+    // surrounding fill here is theme.colors.danger itself, not a neutral
+    // surface.
+    iconCircle: {
+      width: ICON_CIRCLE_SIZE,
+      height: ICON_CIRCLE_SIZE,
+      borderRadius: ICON_CIRCLE_SIZE / 2,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: withAlpha(destructiveText, 0.16),
+    },
+    deleteText: {color: destructiveText, fontSize: 11, fontWeight: '600'},
     rowLayer: {backgroundColor: theme.colors.surface},
     pressed: {opacity: 0.85},
   });
