@@ -12,6 +12,8 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import JournalTemperatureScreen from '../JournalTemperatureScreen';
 import JournalLHTestScreen from '../JournalLHTestScreen';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // DateTimePicker `onChange` is deprecated (9.x): the Temperature and Test LH
 // screens (2 pickers each: the Android native clock and the iOS spinner) now use
@@ -73,6 +75,12 @@ async function openPicker(renderer: ReactTestRenderer.ReactTestRenderer, label: 
 beforeEach(async () => {
   await AsyncStorage.clear();
   jest.useFakeTimers({advanceTimers: true, now: NOW});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's accessibility-label lookups ('Choisir l’heure de mesure', 'Choisir
+  // l’heure du test') were written against the French default. Pinning
+  // French here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 afterEach(() => {
   act(() => {

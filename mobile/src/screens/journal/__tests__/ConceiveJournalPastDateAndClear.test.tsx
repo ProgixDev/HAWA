@@ -11,6 +11,8 @@ import JournalTemperatureScreen from '../JournalTemperatureScreen';
 import JournalLHTestScreen from '../JournalLHTestScreen';
 import JournalCervicalMucusScreen from '../JournalCervicalMucusScreen';
 import {getJournalEntry, saveJournalSection} from '../../../state/dailyJournalStore';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // M21 (past-day entry via the optional `date` route param) and M25 (a saved
 // Conceive observation can be cleared) for the three general fertility
@@ -89,6 +91,12 @@ async function press(renderer: ReactTestRenderer.ReactTestRenderer, label: strin
 beforeEach(async () => {
   await AsyncStorage.clear();
   jest.useFakeTimers({advanceTimers: true, now: NOW});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text/accessibility-label assertions were written against the
+  // French default. Pinning French explicitly here preserves every test's
+  // original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

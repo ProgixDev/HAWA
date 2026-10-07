@@ -20,6 +20,8 @@ import {setActiveObjective} from '../../../state/onboardingPreferences';
 import {unlockIntimacy} from '../../../state/privateSectionAuthStore';
 import {encryptIntimacySection} from '../../../services/privateJournalEncryption';
 import {encryptNoteSection} from '../../../services/privateNotesEncryption';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // M25 - a saved Cycle / Conceive journal value can be cleared: the shared
 // "Effacer cette saisie" action (components/journal/ClearEntryButton) removes
@@ -91,6 +93,12 @@ beforeEach(async () => {
   jest.useFakeTimers({advanceTimers: true, now});
   await setActiveObjective('cycle');
   unlockIntimacy();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's accessibility-label assertions ("Effacer cette saisie", ...) were
+  // written against the French default. Pinning French explicitly here
+  // preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

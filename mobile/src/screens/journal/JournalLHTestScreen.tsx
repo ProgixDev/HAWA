@@ -71,7 +71,7 @@ import {
   type ResolvedAwaTheme,
 } from '../../theme/awaThemeTokens';
 
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import '../../i18n';
 
 /* ============================================================
@@ -1063,7 +1063,7 @@ export default function JournalLHTestScreen(): React.JSX.Element {
                 <DateTimePicker
                   display="spinner"
                   is24Hour
-                  locale={getAppLanguage() === 'en' ? 'en-US' : 'fr-FR'}
+                  locale={dateFormatLocale()}
                   mode="time"
                   onValueChange={(
                     _event,

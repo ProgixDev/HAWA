@@ -14,7 +14,7 @@ import {copyPrivatePhotoToAppStorage, deletePrivatePhotoFile, isAppOwnedPrivateP
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 import {JournalSaveToast, useJournalSaveToast} from '../../components/journal/JournalSaveToast';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import i18n from '../../i18n';
 
@@ -132,7 +132,7 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
   // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
   // loads and saves the CURRENT day, never the day the screen opened.
   const {today, todayKey} = useToday();
-  const dateLabel = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {weekday: 'long', day: 'numeric', month: 'long'}).format(today);
+  const dateLabel = new Intl.DateTimeFormat(dateFormatLocale(), {weekday: 'long', day: 'numeric', month: 'long'}).format(today);
   const canAddMore = draftPhotos.length < MAX_PRIVATE_PHOTOS_PER_DAY;
   const selectedPhoto = draftPhotos.find(photo => photo.id === selectedPhotoId) ?? null;
   const selectedPhotoFailed = selectedPhoto ? failedIds.has(selectedPhoto.id) : false;

@@ -26,7 +26,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import '../../i18n';
 import {
   deleteJournalSection,
@@ -610,7 +610,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
               <View style={styles.pickerContainer}>
                 <DateTimePicker
                   display="spinner"
-                  locale={getAppLanguage() === 'en' ? 'en-US' : 'fr-FR'}
+                  locale={dateFormatLocale()}
                   mode="time"
                   onValueChange={(
                     _event,
@@ -677,7 +677,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
 
 function formatTime(date: Date): string {
   return new Intl.DateTimeFormat(
-    getAppLanguage() === 'en' ? 'en-US' : 'fr-FR',
+    dateFormatLocale(),
     {
       hour: '2-digit',
       minute: '2-digit',

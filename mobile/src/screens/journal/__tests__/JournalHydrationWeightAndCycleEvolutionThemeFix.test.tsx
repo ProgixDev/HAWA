@@ -8,7 +8,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 import {getCyclePreferences, setCyclePreferences} from '../../../state/onboardingPreferences';
 
 // Dark Mode audit PARTIAL remediation: these two screens previously had zero
@@ -152,6 +153,13 @@ function flattenStyleTest(style: unknown): Record<string, unknown> {
 }
 
 describe('JournalCycleEvolutionScreen — day circle readability (Light/Dark/True Black)', () => {
+  beforeEach(async () => {
+    // These assertions locate the day label by its French text ("jour");
+    // pin the language explicitly since the app default is now English.
+    await setAppLanguage('fr');
+    await i18n.changeLanguage('fr');
+  });
+
   it('static guard: the inner circle no longer hardcodes a fixed white background', () => {
     const source = fs.readFileSync(path.resolve(__dirname, '../JournalCycleEvolutionScreen.tsx'), 'utf8');
     expect(source).not.toMatch(/ringInner:\s*\{[^}]*'#FFFFFF'/s);

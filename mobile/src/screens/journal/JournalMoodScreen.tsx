@@ -27,7 +27,7 @@ import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import type {MoodLevel} from '../../types/journal';
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import '../../i18n';
 
@@ -96,7 +96,7 @@ export default function JournalMoodScreen(): React.JSX.Element {
   // Null (no "Jour N du cycle" in the header) when this objective/state has
   // no valid menstrual cycle day - see journalCycleDayFor().
   const cycleDay = useJournalCycleDay(today);
-  const dateLabel = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+  const dateLabel = new Intl.DateTimeFormat(dateFormatLocale(), {
     weekday: 'long',
     day: 'numeric',
     month: 'short',

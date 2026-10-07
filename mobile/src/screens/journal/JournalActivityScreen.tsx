@@ -30,7 +30,7 @@ import {
   TOP_SPACING_EXTRA_COMPACT,
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import '../../i18n';
@@ -185,7 +185,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
   // no valid menstrual cycle day - see journalCycleDayFor().
   const cycleDay = useJournalCycleDay(today);
 
-  const dateLabel = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+  const dateLabel = new Intl.DateTimeFormat(dateFormatLocale(), {
     weekday: 'long',
     day: 'numeric',
     month: 'short',

@@ -8,6 +8,7 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 import {AwaThemeProvider, useAwaTheme} from '../../../theme/AwaThemeProvider';
 
 import i18n from '../../../i18n';
+import {setAppLanguage} from '../../../state/themePreferences';
 import PrivateIntimacyUnlockScreen, {unifiedPurposeCopy} from '../PrivateIntimacyUnlockScreen';
 import PrivateIntimacyPinScreen from '../PrivateIntimacyPinScreen';
 import PrivateIntimacyFaceIdScreen from '../PrivateIntimacyFaceIdScreen';
@@ -99,6 +100,15 @@ async function renderScreen(Screen: React.ComponentType<any>, target: string | u
   activeRenderers.push(renderer!);
   return renderer!;
 }
+
+beforeEach(async () => {
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's accessibility-label assertion ("Retour...") was written against
+  // the French default. Pinning French explicitly here preserves the test's
+  // original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
+});
 
 afterEach(() => {
   act(() => {
