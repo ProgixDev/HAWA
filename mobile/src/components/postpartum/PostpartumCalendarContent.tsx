@@ -30,6 +30,7 @@ import {
 } from '../../state/personalInformationStore';
 import {
   capitalize,
+  dateFormatLocale,
   diffDays,
   formatFullDate,
   formatHijriDate,
@@ -67,10 +68,7 @@ import {
   subscribePostpartumLochia,
   type PostpartumLochiaEntry,
 } from '../../state/postpartumLochiaStore';
-import {getAppLanguage} from '../../state/themePreferences';
 import '../../i18n';
-
-const dateFormatLocale = (): string => (getAppLanguage() === 'en' ? 'en-US' : 'fr-FR');
 
 // Postpartum Calendar — a dedicated content branch for the ONE global
 // Calendar tab (see ObjectiveAwareCalendarScreen.tsx). Same premium HAWA

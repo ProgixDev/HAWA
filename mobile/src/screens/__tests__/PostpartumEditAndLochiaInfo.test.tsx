@@ -34,6 +34,8 @@ import {
 } from '../../state/postpartumLochiaStore';
 import {getAllPostpartumJournalEntries, savePostpartumJournalField} from '../../state/postpartumJournalStore';
 import {getArticleById} from '../../data/libraryContent';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 const Stack = createNativeStackNavigator();
 const navRef = createNavigationContainerRef();
@@ -166,6 +168,11 @@ afterAll(() => {
 beforeEach(async () => {
   resetPremiumStateForTests();
   visited.length = 0;
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's UI-text assertions were written against the French default.
+  // Pinning French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   await confirmDelivery(new Date(2026, 8, 1)); // September 1
   await clearFirstPostpartumPeriod();
   await reopenPostpartumLochiaTracking();

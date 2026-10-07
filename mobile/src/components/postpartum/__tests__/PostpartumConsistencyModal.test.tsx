@@ -5,8 +5,9 @@ import ReactTestRenderer, {act} from 'react-test-renderer';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
 import {PostpartumConsistencyModal} from '../PostpartumConsistencyModal';
+import i18n from '../../../i18n';
 
 // Phase 3 root-cause fix — PostpartumConsistencyModal.tsx (the shared
 // implementation behind Postpartum's "Date à vérifier" alert on
@@ -54,6 +55,13 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // Every prop this file passes in (title/message/infoText/primaryLabel) is
+  // French, and the "Annuler" assertion relies on the component's own
+  // i18n-driven secondaryLabel fallback (t('common.cancel')) also resolving
+  // to French — pin French explicitly now that English, not French, is the
+  // app's default (Phase 7M).
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

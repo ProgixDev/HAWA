@@ -56,12 +56,12 @@ describe('groupByMonth / averageByMonth — the mood trend mechanism', () => {
       {date: '2026-08-05', mood: 'Très bien'}, // 5
     ];
     const result = averageByMonth(entries, valueOf);
-    expect(result).toEqual([{date: '2026-08', label: 'Août 2026', value: 4.5}]);
+    expect(result).toEqual([{date: '2026-08', label: 'August 2026', value: 4.5}]);
   });
 
   it('respects a real 1-month window (only entries the caller already filtered)', () => {
     const oneMonth: Entry[] = [{date: '2026-08-10', mood: 'Neutre'}];
-    expect(averageByMonth(oneMonth, valueOf)).toEqual([{date: '2026-08', label: 'Août 2026', value: 3}]);
+    expect(averageByMonth(oneMonth, valueOf)).toEqual([{date: '2026-08', label: 'August 2026', value: 3}]);
   });
 
   it('respects a real 3-month window', () => {

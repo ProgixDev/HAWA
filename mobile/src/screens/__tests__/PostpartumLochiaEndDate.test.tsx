@@ -6,6 +6,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 import PostpartumLochiaScreen from '../PostpartumLochiaScreen';
 import PostpartumCycleReturnScreen from '../PostpartumCycleReturnScreen';
 import InlineCalendarPickerModal from '../../components/onboarding/InlineCalendarPickerModal';
@@ -138,6 +140,12 @@ beforeEach(async () => {
   await confirmDelivery(new Date(2026, 8, 1)); // September 1
   await clearFirstPostpartumPeriod();
   await reopenPostpartumLochiaTracking();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's button-label/text assertions were written against the French
+  // default. Pinning French explicitly here preserves every test's
+  // original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

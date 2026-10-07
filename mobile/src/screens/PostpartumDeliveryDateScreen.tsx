@@ -22,22 +22,18 @@ import {spacing, getTopPadding} from '../theme/spacing';
 import {confirmDelivery, getPostpartumPreferences, setDeliveryDate} from '../state/postpartumPreferences';
 import {getPostpartumLochiaTracking, hydratePostpartumLochia} from '../state/postpartumLochiaStore';
 import {belongsToCurrentDelivery, validateDeliveryDate} from '../utils/postpartumLossDateValidation';
-import {diffDays, startOfDay} from '../utils/cycleMath';
+import {dateFormatLocale, diffDays, localizedWeekDays, startOfDay} from '../utils/cycleMath';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
-import {getAppLanguage} from '../state/themePreferences';
 import '../i18n';
-
-const WEEK_DAYS_FR = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
-const WEEK_DAYS_EN = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostpartumDeliveryDate'>;
 
 const formatFullDate = (date: Date): string =>
-  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
+  new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
 
 const formatMonthYear = (date: Date): string => {
-  const label = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {month: 'long', year: 'numeric'}).format(date);
+  const label = new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(date);
   return label.charAt(0).toUpperCase() + label.slice(1);
 };
 
@@ -224,7 +220,7 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
             </View>
 
             <View style={styles.weekRow}>
-              {(getAppLanguage() === 'en' ? WEEK_DAYS_EN : WEEK_DAYS_FR).map((day, index) => (
+              {localizedWeekDays().map((day, index) => (
                 <Text key={`${day}-${index}`} style={styles.weekDay}>{day}</Text>
               ))}
             </View>

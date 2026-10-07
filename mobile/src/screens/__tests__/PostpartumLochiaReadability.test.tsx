@@ -6,7 +6,8 @@ import ReactTestRenderer, {act} from 'react-test-renderer';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
+import i18n from '../../i18n';
 import {getPostpartumLochiaEntry} from '../../state/postpartumLochiaStore';
 
 import PostpartumLochiaScreen from '../PostpartumLochiaScreen';
@@ -62,6 +63,8 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

@@ -10,7 +10,8 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import {resolveAwaTheme} from '../../../theme/awaThemeTokens';
 import {getFloatingTabBarClearance} from '../../../theme/spacing';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 import {PostpartumSuccessToast} from '../PostpartumSuccessToast';
 import PostpartumJournalEntryScreen from '../../../screens/PostpartumJournalEntryScreen';
 import {
@@ -110,6 +111,8 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   await hydratePostpartumJournal();
   // Answers saved by earlier tests must not leak into the next one.
   for (const category of ['fatigue', 'sleep', 'mood', 'pain', 'physicalRecovery'] as const) {
