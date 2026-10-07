@@ -84,12 +84,17 @@ afterEach(() => {
 });
 
 describe('ProfileScreen — localization (chrome)', () => {
-  it('renders header and menu chrome in French by default', async () => {
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // test originally asserted French without ever selecting a language,
+  // which was correct under the old French default. Flipped to assert the
+  // now-correct English default; French-when-selected is covered by the
+  // Phase7E*LanguageSwitch.test.tsx suite.
+  it('renders header and menu chrome in English by default', async () => {
     const texts = textsOf(await renderScreen());
-    expect(texts).toContain('Profil');
-    expect(texts).toContain('Gère tes informations et préférences');
-    expect(texts).toContain('Mes informations');
-    expect(texts).toContain('Se déconnecter');
+    expect(texts).toContain('Profile');
+    expect(texts).toContain('Manage your information and preferences');
+    expect(texts).toContain('My information');
+    expect(texts).toContain('Sign out');
   });
 
   it('renders header and menu chrome in English when the app language is English', async () => {
@@ -168,5 +173,45 @@ describe('ProfileScreen — localization (managed profiles)', () => {
     expect(texts).toContain('My daughter');
     expect(texts).not.toContain('Gérer les profils');
     expect(texts).not.toContain('Ma fille');
+  });
+});
+
+// LOCALIZATION FIX — the avatar-edit button's accessibilityLabel was a
+// hardcoded French ternary (never routed through t()), so a screen reader
+// always announced French regardless of the app language. Now localized via
+// profile.editAvatarAccessibility / profile.editAnonymousAvatarAccessibility.
+describe('ProfileScreen — localization (avatar-edit accessibility)', () => {
+  it('announces the French label in French, for both the normal and anonymous-mode avatar button', async () => {
+    await setAppLanguage('fr');
+    const renderer = await renderScreen();
+    expect(renderer.root.findAll(node => node.props.accessibilityLabel === 'Changer la photo de profil').length).toBeGreaterThan(0);
+
+    updatePrivacySecuritySettings({anonymousMode: true});
+    const anonymousRenderer = await renderScreen();
+    expect(anonymousRenderer.root.findAll(node => node.props.accessibilityLabel === 'Personnaliser mon avatar anonyme').length).toBeGreaterThan(0);
+  });
+
+  it('announces the English label in English, never the French one, for both avatar-button variants', async () => {
+    await setAppLanguage('en');
+    const renderer = await renderScreen();
+    expect(renderer.root.findAll(node => node.props.accessibilityLabel === 'Change profile photo').length).toBeGreaterThan(0);
+    expect(renderer.root.findAll(node => node.props.accessibilityLabel === 'Changer la photo de profil').length).toBe(0);
+
+    updatePrivacySecuritySettings({anonymousMode: true});
+    const anonymousRenderer = await renderScreen();
+    expect(anonymousRenderer.root.findAll(node => node.props.accessibilityLabel === 'Customize my anonymous avatar').length).toBeGreaterThan(0);
+    expect(anonymousRenderer.root.findAll(node => node.props.accessibilityLabel === 'Personnaliser mon avatar anonyme').length).toBe(0);
+  });
+
+  it('announces the Spanish label in Spanish, never the French one, for both avatar-button variants', async () => {
+    await setAppLanguage('es');
+    const renderer = await renderScreen();
+    expect(renderer.root.findAll(node => node.props.accessibilityLabel === 'Cambiar la foto de perfil').length).toBeGreaterThan(0);
+    expect(renderer.root.findAll(node => node.props.accessibilityLabel === 'Changer la photo de profil').length).toBe(0);
+
+    updatePrivacySecuritySettings({anonymousMode: true});
+    const anonymousRenderer = await renderScreen();
+    expect(anonymousRenderer.root.findAll(node => node.props.accessibilityLabel === 'Personalizar mi avatar anónimo').length).toBeGreaterThan(0);
+    expect(anonymousRenderer.root.findAll(node => node.props.accessibilityLabel === 'Personnaliser mon avatar anonyme').length).toBe(0);
   });
 });

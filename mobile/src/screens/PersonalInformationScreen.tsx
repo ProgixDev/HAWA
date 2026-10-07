@@ -155,7 +155,12 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
   // otherwise always show "Français" even after switching the app to
   // English. This reads the live language fresh, fixing a real display bug,
   // without touching the store's own field/migration logic at all.
-  const languageDisplayValue = getAppLanguage() === 'en' ? t('appearance.language.englishName') : t('appearance.language.frenchName');
+  const languageDisplayValue =
+    getAppLanguage() === 'en'
+      ? t('appearance.language.englishName')
+      : getAppLanguage() === 'es'
+        ? t('appearance.language.spanishName')
+        : t('appearance.language.frenchName');
 
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.safe}>

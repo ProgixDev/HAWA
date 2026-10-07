@@ -106,6 +106,7 @@ import {
   formatFullDate,
   formatHijriDate,
   startOfDay as canonicalStartOfDay,
+  dateFormatLocale,
 } from '../utils/cycleMath';
 
 import { lockIntimacy } from '../state/privateSectionAuthStore';
@@ -159,7 +160,6 @@ import ManagedProfileSwipeRow from '../components/profile/ManagedProfileSwipeRow
 import ManagedProfileDeleteConfirmModal from '../components/profile/ManagedProfileDeleteConfirmModal';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {interpolateHex, onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
-import {getAppLanguage} from '../state/themePreferences';
 import '../i18n';
 
 // Default illustration for a managed (daughter) profile row in "Gérer les profils"
@@ -393,7 +393,7 @@ function spiritualFeatures(t: (key: string) => string) {
 const formatShortDate = (date: Date): string | null =>
   Number.isNaN(date.getTime())
     ? null
-    : new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+    : new Intl.DateTimeFormat(dateFormatLocale(), {
         day: 'numeric',
         month: 'long',
       }).format(date);
@@ -1762,8 +1762,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                     <Pressable
                       accessibilityLabel={
                         anonymousMode
-                          ? 'Personnaliser mon avatar anonyme'
-                          : 'Changer la photo de profil'
+                          ? t('profile.editAnonymousAvatarAccessibility')
+                          : t('profile.editAvatarAccessibility')
                       }
                       hitSlop={8}
                       onPress={() =>

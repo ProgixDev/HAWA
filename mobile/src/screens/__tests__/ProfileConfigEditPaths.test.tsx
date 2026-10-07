@@ -22,6 +22,8 @@ import {getConfirmedPeriodHistory, recordConfirmedPeriodEnd} from '../../state/c
 import {getIrregularPreferences, setIrregularPreferences} from '../../state/irregularPreferences';
 import {getContraceptionPreferences, setContraceptionPreferences} from '../../state/contraceptionPreferences';
 import {updatePrivacySecuritySettings} from '../../state/securityPreferences';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 // M11 — post-onboarding edit paths for the Cycle / Conceive / SOPK /
 // Contraception configuration. Profile rows open the SAME onboarding screens
@@ -127,10 +129,16 @@ const currentRoute = () => navRef.getCurrentRoute() as {name: string; params?: R
 
 const dayKey = (date: Date) => date.toLocaleDateString('en-CA');
 
-beforeEach(() => {
+beforeEach(async () => {
   visited.length = 0;
   resetPremiumStateForTests();
   updatePrivacySecuritySettings({anonymousMode: false});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's button-label/accessibility-label assertions were written against
+  // the French default. Pinning French explicitly here preserves every
+  // test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
