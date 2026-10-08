@@ -8,7 +8,6 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../theme/awaThemeTokens';
-import type {AwaAppLanguage} from '../state/themePreferences';
 
 type LegalSection = {title: string; body: string};
 
@@ -23,7 +22,11 @@ type LegalSection = {title: string; body: string};
 // Exported for TERMS/PRIVACY structural-parity and content-leak tests
 // (Phase7J1LegalDocumentLanguageSwitch.test.tsx) — never imported by any
 // other screen/component.
-export const TERMS: Record<AwaAppLanguage, LegalSection[]> = {
+// Languages that actually have legal placeholder text. Deliberately narrower than
+// AwaAppLanguage: Italian is not translated here yet (explicit English fallback).
+type LegalLanguage = 'fr' | 'en' | 'es';
+
+export const TERMS: Record<LegalLanguage, LegalSection[]> = {
   fr: [
     {title: 'Objet', body: 'Ce document présente la structure provisoire des conditions d’utilisation de l’application AWA.'},
     {title: 'Utilisation de l’application', body: 'AWA propose des outils de suivi personnel et de bien-être. Le contenu définitif décrivant les droits et responsabilités des utilisatrices sera ajouté après validation juridique.'},
@@ -44,7 +47,7 @@ export const TERMS: Record<AwaAppLanguage, LegalSection[]> = {
   ],
 };
 
-export const PRIVACY: Record<AwaAppLanguage, LegalSection[]> = {
+export const PRIVACY: Record<LegalLanguage, LegalSection[]> = {
   fr: [
     {title: 'Données concernées', body: 'Cette section décrira précisément les données traitées par AWA et leur finalité après validation juridique.'},
     {title: 'Stockage et sécurité', body: 'La documentation définitive précisera les mesures de stockage, de protection et les durées de conservation.'},
@@ -67,9 +70,10 @@ export const PRIVACY: Record<AwaAppLanguage, LegalSection[]> = {
 
 /** Resolves the app's current language to one of the 3 legal-content keys —
  * the single place this screen decides fr/en/es, so body and chrome can never
- * drift apart. Unknown/invalid language (e.g. not yet loaded) falls back to
- * English, never to French. */
-function resolveLegalLanguage(language: string): AwaAppLanguage {
+ * drift apart. Italian ('it') has no legal placeholder text yet, so it — like
+ * any unknown/invalid language (e.g. not yet loaded) — falls back to English,
+ * never to French or Spanish. */
+function resolveLegalLanguage(language: string): LegalLanguage {
   if (language === 'fr') {return 'fr';}
   if (language === 'es') {return 'es';}
   return 'en';

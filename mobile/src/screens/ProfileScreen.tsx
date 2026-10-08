@@ -42,6 +42,7 @@ import {
   getCyclePreferences,
   getHasConfirmedCycleData,
   getHasConfirmedCycleDuration,
+  getHasRecordedFirstPeriod,
   getRecordedPeriodHistory,
   hydrateCyclePreferences,
   subscribeCyclePreferences,
@@ -102,6 +103,7 @@ import {
 import {
   computeCyclePredictionStatus,
   describeAverageCycle,
+  effectiveRegularityFor,
   formatDateRange as formatCanonicalDateRange,
   formatFullDate,
   formatHijriDate,
@@ -111,6 +113,7 @@ import {
 
 import { lockIntimacy } from '../state/privateSectionAuthStore';
 import { switchToObjective } from '../services/objectiveSwitch';
+import { deleteManagedProfileCompletely } from '../services/managedProfileDeletion';
 import {
   ensureAnonymousAccount,
   getAnonymousAccount,
@@ -140,7 +143,6 @@ import {getDemoPartnerState} from '../state/awaADeuxDemoStore';
 import {awaADeuxEntryRoute} from './awaADeux/awaADeuxNavigation';
 import {
   consumeReopenManageProfilesSheetRequest,
-  deleteManagedProfile,
   getManagedProfiles,
   hydrateManagedProfiles,
   subscribeManagedProfiles,
@@ -1099,13 +1101,16 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   const confirmDeleteManagedProfile = async (profile: ManagedProfile) => {
     // Never leave activeProfileId pointing at a profile that's about to stop
     // existing — switch back to the mother FIRST, then delete.
-    if (getActiveProfileId() === profile.id) {
-      await setActiveProfileId(OWNER_PROFILE_ID);
-    }
-    await deleteManagedProfile(profile.id);
+    // Removes the profile record AND everything that belonged to her (tracking data,
+    // journal, reminders, notifications) — see services/managedProfileDeletion.ts. When a
+    // step fails the profile is kept, so the deletion can simply be retried.
+    const result = await deleteManagedProfileCompletely(profile.id);
     setManagedProfiles(getManagedProfiles());
     setOpenSwipeProfileId(null);
     setProfileToDelete(null);
+    if (!result.deleted) {
+      Alert.alert(t('managedProfile.deleteModal.failedTitle'), t('managedProfile.deleteModal.failedBody'));
+    }
   };
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
@@ -1507,11 +1512,15 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     contraception.method,
     contraception.remindersEnabled,
   );
+  // A managed daughter's prediction never runs on the internal placeholder cycle
+  // (see effectiveRegularityFor, same rule as the Dashboard and Calendar), and with
+  // no recorded period at all there is nothing to predict from.
+  const predictionRegularity = effectiveRegularityFor(cycle.regularity, getHasConfirmedCycleDuration());
   const nextPeriodStatus = useMemo(
     () =>
       computeCyclePredictionStatus(
         cycle,
-        cycle.regularity,
+        predictionRegularity,
         getRecordedPeriodHistory()
           .map(record => new Date(`${record.startDate}T12:00:00`))
           .filter(date => !Number.isNaN(date.getTime())),
@@ -1519,10 +1528,16 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
         canonicalStartOfDay(new Date()),
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps -- day-change trigger
-    [cycle, todayKey],
+    [cycle, todayKey, predictionRegularity],
   );
 
   const nextPeriodValue = (() => {
+    if (!getHasRecordedFirstPeriod()) {
+      return t('cycleHome.notEstimable');
+    }
+    if (nextPeriodStatus.mode === 'observing' && !getHasConfirmedCycleDuration()) {
+      return t('profile.predictionsUnavailable');
+    }
     if (nextPeriodStatus.mode === 'exact') {
       return formatShortDate(nextPeriodStatus.date) ?? t('profile.notProvidedFeminine');
     }
