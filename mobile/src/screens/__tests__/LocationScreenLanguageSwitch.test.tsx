@@ -192,3 +192,59 @@ describe('TEST 12 — a language switch never mutates location data', () => {
     expect(textsOf(renderer)).toContain('Paris, France');
   });
 });
+
+// LOCATION DEFAULT MUST ALWAYS BE LONDON — the app language is a UI
+// preference, never evidence of geographic location (no FR→France/Algeria,
+// no ES→Spain, no EN→United Kingdom inference). These guard the two halves
+// of that rule explicitly for all three shipped languages, extending TEST 1/
+// 2/12 above (which only exercised FR/EN) to also cover Spanish.
+describe('No saved location → London, unconditionally, in every shipped language', () => {
+  it.each(['en', 'fr', 'es', 'it'] as const)('AWA language = %s + no saved location → London, United Kingdom', async language => {
+    await setAppLanguage(language);
+    await i18n.changeLanguage(language);
+
+    const {renderer} = await renderLocationScreen();
+
+    expect(textsOf(renderer)).toContain('London, United Kingdom');
+    expect(mockDetectCountryCode).not.toHaveBeenCalled();
+  });
+});
+
+describe('A saved location (Annaba, Algeria) wins over London, in every shipped language', () => {
+  const annaba = {city: 'Annaba', country: 'Algeria', latitude: 36.9, longitude: 7.7667};
+
+  it.each(['en', 'fr', 'es', 'it'] as const)('AWA language = %s + saved Annaba → Annaba, Algeria (never reset to London)', async language => {
+    await setSelectedLocation(annaba);
+    await setAppLanguage(language);
+    await i18n.changeLanguage(language);
+
+    const {renderer} = await renderLocationScreen('edit');
+
+    expect(textsOf(renderer)).toContain('Annaba, Algeria');
+    expect(textsOf(renderer)).not.toContain('London, United Kingdom');
+  });
+});
+
+describe('An invalid/corrupt app-language value never affects the location fallback', () => {
+  it('a runtime-invalid language value still resolves no-saved-location to London', async () => {
+    // Deliberately bypasses the AwaAppLanguage type to simulate a corrupted
+    // runtime value (e.g. a future/unknown value from an old install) — the
+    // location-resolution path has zero dependency on the language value at
+    // all, so this must behave exactly like any other language.
+    await setAppLanguage('xx-not-a-real-language' as never);
+
+    const {renderer} = await renderLocationScreen();
+
+    expect(textsOf(renderer)).toContain('London, United Kingdom');
+    expect(mockDetectCountryCode).not.toHaveBeenCalled();
+  });
+
+  it('a runtime-invalid language value still lets a saved location win', async () => {
+    await setSelectedLocation({city: 'Annaba', country: 'Algeria', latitude: 36.9, longitude: 7.7667});
+    await setAppLanguage('xx-not-a-real-language' as never);
+
+    const {renderer} = await renderLocationScreen('edit');
+
+    expect(textsOf(renderer)).toContain('Annaba, Algeria');
+  });
+});

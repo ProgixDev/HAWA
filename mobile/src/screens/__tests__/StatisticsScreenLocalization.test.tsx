@@ -82,6 +82,9 @@ describe('StatisticsScreen — localization', () => {
   // which was correct under the old French default. Flipped to assert the
   // now-correct English default; French-when-selected remains covered below.
   it('renders empty states in English by default', async () => {
+    // Phase 8: with NO data at all the screen shows one global empty state; a mood-only day keeps the
+    // per-section empty states (no flow, no symptoms, no cycles) under test.
+    await saveJournalSection('2026-09-20', 'mood', {level: 'good', energy: 3, stress: 2, irritability: 1, motivation: 3});
     const texts = allTexts(await renderScreen());
     expect(texts).toContain('Statistics');
     expect(texts).toContain('No flow recorded this month');
@@ -90,6 +93,7 @@ describe('StatisticsScreen — localization', () => {
   });
 
   it('renders empty states in English when the app language is English', async () => {
+    await saveJournalSection('2026-09-20', 'mood', {level: 'good', energy: 3, stress: 2, irritability: 1, motivation: 3});
     await setAppLanguage('en');
     const texts = allTexts(await renderScreen());
     expect(texts).toContain('Statistics');

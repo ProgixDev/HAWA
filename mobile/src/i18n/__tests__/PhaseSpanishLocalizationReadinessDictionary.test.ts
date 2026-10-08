@@ -40,16 +40,25 @@ const enPathSet = new Set(enPaths);
 const esPathSet = new Set(esPaths);
 
 describe('TEST — Spanish dictionary leaf-key parity with fr/en (cases 16-18)', () => {
-  it('16. es has exactly 6080 leaf keys, matching fr and en 1:1 (no missing, no extra)', () => {
+  it('16. es has exactly 6144 leaf keys, matching fr and en 1:1 (no missing, no extra)', () => {
     // Grown from the original 6064 across several localization fix passes
     // (dataPrivacy.*, profile.managedProfiles.swipeDeleteLabel,
     // profile.editAvatarAccessibility/editAnonymousAvatarAccessibility,
     // pregnancyEvent.form.deleting/deleteModalCloseAccessibility for the
-    // AWA-styled delete confirmation modal) — always added identically to
-    // all 3 languages, which is exactly what the checks below verify.
-    expect(esPaths.length).toBe(6084);
-    expect(frPaths.length).toBe(6084);
-    expect(enPaths.length).toBe(6084);
+    // AWA-styled delete confirmation modal — net +20), minus 3 for the
+    // language-selector self-localization fix (appearance.language.
+    // frenchSubtitle/englishSubtitle/spanishSubtitle removed: that text is
+    // now fixed, self-localized metadata in AppearanceScreen.tsx, never
+    // routed through t(), so it no longer belongs in the per-language
+    // dictionaries) — always added/removed identically to all 3 languages,
+    // which is exactly what the checks below verify. The AWA Together invitation
+    // rework later removed the share-sheet/QR keys (6044), and the Italian integration
+    // added appearance.language.italianName to every dictionary (6045). The managed
+    // daughter calendar fix then added calendar.predictionsPendingFirstPeriod and
+    // calendar.predictionsPendingMoreData to every dictionary (6144).
+    expect(esPaths.length).toBe(6144);
+    expect(frPaths.length).toBe(6144);
+    expect(enPaths.length).toBe(6144);
 
     const missingFromEsVsFr = frPaths.filter(p => !esPathSet.has(p));
     const extraInEsVsFr = esPaths.filter(p => !frPathSet.has(p));

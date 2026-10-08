@@ -129,18 +129,24 @@ describe('TEST 7/8 — runtime switching still works, no restart required', () =
   });
 });
 
-describe('TEST 11/12 — Appearance language selector marks English (not French) as the default', () => {
-  it('TEST 11 — English UI: the English option is described as the default language', () => {
-    expect(en.appearance.language.englishSubtitle).toBe('Default language');
-  });
-
-  it('TEST 12 — the French option is no longer described as the default, in either language dictionary', () => {
-    expect(en.appearance.language.frenchSubtitle).not.toBe('Default language');
-    expect(fr.appearance.language.frenchSubtitle).not.toBe('Langue par défaut');
-    // French UI: English is described as the default ("Langue par défaut"),
-    // French is described as the one you actively switch to.
-    expect(fr.appearance.language.englishSubtitle).toBe('Langue par défaut');
-    expect(fr.appearance.language.frenchSubtitle).toBe('Utiliser AWA en français');
+// SUPERSEDED PRODUCT DECISION — TEST 11/12 used to assert that the English
+// card was specially marked "Default language"/"Langue par défaut" (varying
+// with the active UI language) while French was not. AWA's language
+// selector was later redesigned so every card self-describes in its OWN
+// language regardless of which language is currently active — English no
+// longer gets a special "this is the default" subtitle; it uses the exact
+// same "Use AWA in English" pattern as French/Spanish. The behavioral proof
+// (cards stay identical across FR/EN/ES active language; English stays the
+// production default elsewhere) now lives in
+// PhaseSpanishLocalizationReadinessAppearance.test.tsx. This structural
+// guard only confirms the old per-language subtitle keys were actually
+// removed, not left orphaned.
+describe('TEST 11/12 — superseded: English is no longer specially marked as "the default language" in its card subtitle', () => {
+  it('the old frenchSubtitle/englishSubtitle/spanishSubtitle i18n keys no longer exist in either dictionary', () => {
+    expect((en.appearance.language as Record<string, unknown>).englishSubtitle).toBeUndefined();
+    expect((en.appearance.language as Record<string, unknown>).frenchSubtitle).toBeUndefined();
+    expect((fr.appearance.language as Record<string, unknown>).englishSubtitle).toBeUndefined();
+    expect((fr.appearance.language as Record<string, unknown>).frenchSubtitle).toBeUndefined();
   });
 });
 
