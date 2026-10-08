@@ -32,6 +32,10 @@ type Props = {
    * historical fact, so it is replaced by an honest "nothing recorded" line. */
   periodUnrecorded?: boolean;
   onEditPeriod: () => void;
+  /** Hides the "Modifier" button: a managed daughter with no recorded period has
+   * nothing to edit, and the editor would open on the internal placeholder
+   * period instead. Defaults to false so every existing caller is unaffected. */
+  hideEditPeriod?: boolean;
   editingPeriod?: boolean;
   /** Opens the same period-start confirmation sheet the Dashboard uses,
    * pre-filled with `date`. Omit to hide the CTA entirely (e.g. while
@@ -174,6 +178,7 @@ function SelectedDayCard({
   periodDuration,
   periodUnrecorded = false,
   onEditPeriod,
+  hideEditPeriod = false,
   editingPeriod = false,
   onDeclarePeriodStart,
   phaseUnavailableSubtitle,
@@ -230,7 +235,7 @@ function SelectedDayCard({
         ))}
       </View>
 
-      <View style={styles.periodSectionHeader}><Text style={styles.periodSectionTitle}>{t('calendar.dayCard.periodSectionTitle')}</Text><Pressable accessibilityRole="button" onPress={onEditPeriod} style={({pressed}) => [styles.editPeriodButton, pressed && styles.pressed]}><MaterialDesignIcons color={theme.colors.primary} name={editingPeriod ? 'pencil-off-outline' : 'pencil-outline'} size={15} /><Text style={styles.editPeriodText}>{editingPeriod ? t('calendar.dayCard.editing') : t('calendar.dayCard.edit')}</Text></Pressable></View>
+      <View style={styles.periodSectionHeader}><Text style={styles.periodSectionTitle}>{t('calendar.dayCard.periodSectionTitle')}</Text>{hideEditPeriod ? null : <Pressable accessibilityRole="button" onPress={onEditPeriod} style={({pressed}) => [styles.editPeriodButton, pressed && styles.pressed]}><MaterialDesignIcons color={theme.colors.primary} name={editingPeriod ? 'pencil-off-outline' : 'pencil-outline'} size={15} /><Text style={styles.editPeriodText}>{editingPeriod ? t('calendar.dayCard.editing') : t('calendar.dayCard.edit')}</Text></Pressable>}</View>
       {periodUnrecorded ? (
         <Text style={styles.periodUnrecordedText}>{t('calendar.dayCard.periodUnrecorded')}</Text>
       ) : (

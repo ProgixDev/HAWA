@@ -44,10 +44,12 @@ const CHEVRON_ICON = require('../assets/images/cycle-chevron-icon.png');
 const WEEK_DAYS_FR = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 const WEEK_DAYS_EN = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 const WEEK_DAYS_ES = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+const WEEK_DAYS_IT = ['L', 'M', 'M', 'G', 'V', 'S', 'D'];
 const localizedSingleLetterWeekDays = (): string[] => {
   const language = getAppLanguage();
   if (language === 'en') {return WEEK_DAYS_EN;}
   if (language === 'es') {return WEEK_DAYS_ES;}
+  if (language === 'it') {return WEEK_DAYS_IT;}
   return WEEK_DAYS_FR;
 };
 const PERIOD_DURATIONS = Array.from({length: 9}, (_, index) => index + 2);

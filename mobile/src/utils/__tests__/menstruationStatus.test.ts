@@ -101,7 +101,10 @@ describe('H14 — unknown / provisional (observing)', () => {
 describe('H14 — the store-backed helper feeds the purity hook and MenstrualFlow', () => {
   it('isCurrentlyMenstruating reads regularity from the cycle preferences', () => {
     const {isCurrentlyMenstruating} = require('../menstruationStatus');
+    const {setCyclePreferences} = require('../../state/onboardingPreferences');
     const basics = {lastPeriodStart: at(8, 30, 0), cycleDuration: 28, periodDuration: 5};
+    // The helper only speaks for a profile that really recorded a period with real lengths.
+    setCyclePreferences({...basics, regularity: 'yes'});
     expect(isCurrentlyMenstruating(at(9, 28), {...basics, regularity: 'no'}, null)).toBe(false);
     expect(isCurrentlyMenstruating(at(9, 28), {...basics, regularity: 'yes'}, null)).toBe(true);
   });

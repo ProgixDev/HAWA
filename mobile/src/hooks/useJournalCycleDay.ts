@@ -4,11 +4,13 @@ import {
   getCycleObservationStartedAt,
   getCyclePreferences,
   getHasConfirmedCycleData,
+  getHasConfirmedCycleDuration,
   getRecordedPeriodHistory,
   subscribeActiveObjective,
   subscribeCyclePreferences,
 } from '../state/onboardingPreferences';
 import {journalCycleDayFor} from '../utils/journalCycleDay';
+import {effectiveRegularityFor} from '../utils/cycleMath';
 
 const computeFor = (today: Date): number | null => {
   const preferences = getCyclePreferences();
@@ -16,7 +18,7 @@ const computeFor = (today: Date): number | null => {
     objective: getActiveObjective(),
     hasConfirmedCycleData: getHasConfirmedCycleData(),
     basics: preferences,
-    regularity: preferences.regularity,
+    regularity: effectiveRegularityFor(preferences.regularity, getHasConfirmedCycleDuration()),
     periodStartDates: getRecordedPeriodHistory().map(record => new Date(`${record.startDate}T12:00:00`)),
     observationStartedAt: getCycleObservationStartedAt(),
     today,

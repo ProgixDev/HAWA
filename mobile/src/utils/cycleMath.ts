@@ -21,10 +21,12 @@ export type CycleBasics = {
 export const WEEK_DAYS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 export const WEEK_DAYS_EN = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 export const WEEK_DAYS_ES = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+export const WEEK_DAYS_IT = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
 export const localizedWeekDays = (): string[] => {
   const language = getAppLanguage();
   if (language === 'en') {return WEEK_DAYS_EN;}
   if (language === 'es') {return WEEK_DAYS_ES;}
+  if (language === 'it') {return WEEK_DAYS_IT;}
   return WEEK_DAYS;
 };
 
@@ -68,6 +70,7 @@ export const dateFormatLocale = (): string => {
   const language = getAppLanguage();
   if (language === 'en') {return 'en-US';}
   if (language === 'es') {return 'es-ES';}
+  if (language === 'it') {return 'it-IT';}
   return 'fr-FR';
 };
 
@@ -521,15 +524,22 @@ export const isBeforeCurrentProjectedCycle = (
  * are the truthful source, including a period edited longer than the habitual
  * duration); and once a recorded period was ended earlier than the habitual
  * duration, its remaining projected days are no longer painted. Without
- * `today` the original projection is returned unchanged. */
+ * `today` the original projection is returned unchanged.
+ *
+ * `canProject` (default true, so every existing caller is unchanged) is false
+ * when the cycle length behind `status` is not a real one (see
+ * canProjectCycle()). It then behaves exactly like 'window' above: only the
+ * periods that were really RECORDED are painted — never a projected period,
+ * fertile window or ovulation day. */
 export const calendarDayKindFor = (
   date: Date,
   basics: CycleBasics,
   status: CyclePredictionStatus,
   recordedPeriods: readonly RecordedPeriod[],
   today?: Date,
+  canProject: boolean = true,
 ): DayKind => {
-  if (status.mode === 'window') {
+  if (status.mode === 'window' || !canProject) {
     return isWithinRecordedPeriod(date, recordedPeriods) ? 'period' : 'normal';
   }
   const effective = status.mode === 'exact' ? {...basics, cycleDuration: status.averageCycleLength} : basics;
@@ -638,4 +648,73 @@ export const describeAverageCycle = (
     value: i18n.t('averageCycle.days', {count: basics.cycleDuration}),
     subtitle: i18n.t('averageCycle.estimatedSubtitle'),
   };
+};
+
+// ===========================================================================
+// MANAGED-PROFILE PROJECTION TRUST
+// ===========================================================================
+// A managed (daughter) profile starts from the neutral, UNCONFIRMED placeholder
+// cycle described in onboardingPreferences.ts (period start = today − 5 days,
+// 5-day period, 28-day cycle, regularity 'yes') — values nobody entered. These
+// helpers never change HOW a trusted cycle is predicted; they only decide
+// whether a projection may be built at all, so that placeholder values are
+// never painted on the calendar or worded as if they were hers.
+
+/** The regularity a managed profile's prediction runs under. A declared-regular
+ * ('yes') cycle whose habitual lengths nobody actually provided
+ * (`hasConfirmedCycleDuration` false — e.g. a first period recorded without
+ * asking about her usual cycle) has no real cycle length to repeat: the
+ * placeholder 28 days would otherwise drive an 'exact' projection. It is
+ * OBSERVED instead (computeCyclePredictionStatus's 'unknown' branch, i.e.
+ * 'observing' until enough real periods exist). Every other combination is
+ * returned unchanged. */
+export const effectiveRegularityFor = (
+  regularity: CycleRegularity,
+  hasConfirmedCycleDuration: boolean,
+): CycleRegularity => (regularity === 'yes' && !hasConfirmedCycleDuration ? 'unknown' : regularity);
+
+/** Why (or whether) a profile's cycle may be predicted — the ONE answer every
+ * consumer (Home, Calendar, Profile, reminders, purity status…) shares:
+ * - 'loading'      its stored data has not been read yet: memory holds the
+ *                  placeholder, so nothing may be shown or scheduled from it;
+ * - 'no-period'    no period was ever recorded;
+ * - 'irregular'    declared / observed irregular — recorded periods only, the
+ *                  existing 26–32 day window is the prediction;
+ * - 'insufficient' periods exist but no REAL cycle length (none provided, none
+ *                  measured yet);
+ * - 'ready'        a real cycle length stands behind the prediction. */
+export type PredictionEligibility = 'loading' | 'no-period' | 'irregular' | 'insufficient' | 'ready';
+
+export const predictionEligibilityFor = (input: {
+  dataReady: boolean;
+  recordedPeriodCount: number;
+  hasConfirmedCycleDuration: boolean;
+  status: CyclePredictionStatus;
+}): PredictionEligibility => {
+  if (!input.dataReady) {return 'loading';}
+  if (input.recordedPeriodCount === 0) {return 'no-period';}
+  if (input.status.mode === 'window') {return 'irregular';}
+  return canProjectCycle(input.status, input.hasConfirmedCycleDuration, input.recordedPeriodCount) ? 'ready' : 'insufficient';
+};
+
+/** Whether `status` may be projected FORWARD (predicted period days, fertile
+ * window, ovulation). Requires, in order:
+ * - at least one period that was really recorded — with none there is no real
+ *   start to project from;
+ * - a single usable cycle length — 'window' (irregular) never has one;
+ * - a REAL cycle length: measured from the recorded history itself ('exact'
+ *   with a regular-looking observed pattern), or explicitly provided
+ *   (`hasConfirmedCycleDuration`). The internal placeholder is neither. */
+export const canProjectCycle = (
+  status: CyclePredictionStatus,
+  hasConfirmedCycleDuration: boolean,
+  recordedPeriodCount: number,
+): boolean => {
+  if (recordedPeriodCount === 0 || status.mode === 'window') {
+    return false;
+  }
+  if (status.mode === 'exact' && status.observedPattern === 'regular-looking') {
+    return true;
+  }
+  return hasConfirmedCycleDuration;
 };
