@@ -28,9 +28,11 @@ jest.mock('../../state/onboardingPreferences', () => ({
   getHasConfirmedCycleData: jest.fn(() => true),
   getHasConfirmedCycleDuration: jest.fn(() => true),
   getRecordedPeriodHistory: jest.fn(),
+  hydrateCyclePreferences: jest.fn(() => Promise.resolve()),
 }));
 jest.mock('../../state/cycleReminderPreferences', () => ({
   getCycleReminderPreferences: jest.fn(),
+  hydrateCycleReminderPreferences: jest.fn(() => Promise.resolve()),
 }));
 
 const mockSchedule = scheduleLocalNotification as jest.Mock;

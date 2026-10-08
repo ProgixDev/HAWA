@@ -20,9 +20,11 @@ jest.mock('../../state/onboardingPreferences', () => ({
   getHasConfirmedCycleData: jest.fn(() => true),
   getHasConfirmedCycleDuration: jest.fn(() => true),
   getRecordedPeriodHistory: jest.fn(),
+  hydrateCyclePreferences: jest.fn(() => Promise.resolve()),
 }));
 jest.mock('../../state/cycleReminderPreferences', () => ({
   getCycleReminderPreferences: jest.fn(),
+  hydrateCycleReminderPreferences: jest.fn(() => Promise.resolve()),
 }));
 
 const mockScheduleLocalNotification = scheduleLocalNotification as jest.Mock;
@@ -56,7 +58,14 @@ function regularBasics(lastPeriodStart: string, cycleDuration = 28, periodDurati
   };
 }
 
+// The fixtures below predict specific September 2026 dates (last period 2026-08-13 + 28 days =
+// 2026-09-10, reminder 2 days before). computeNextPeriod() rolls forward from the CURRENT day, so
+// the tests only mean what they say when "today" is pinned before those dates: Tue 1 Sep 2026,
+// 12:00 local. Without this they failed as soon as the real date passed Sep 8 2026.
+const PINNED_NOW = new Date(2026, 8, 1, 12, 0, 0);
+
 beforeEach(async () => {
+  jest.useFakeTimers({now: PINNED_NOW});
   jest.clearAllMocks();
   mockScheduleLocalNotification.mockResolvedValue(true);
   mockCancelLocalNotification.mockResolvedValue(undefined);
@@ -69,6 +78,10 @@ beforeEach(async () => {
   // French explicitly here preserves every test's original intent.
   await setAppLanguage('fr');
   await i18n.changeLanguage('fr');
+});
+
+afterEach(() => {
+  jest.useRealTimers();
 });
 
 describe('syncCycleReminders — upcoming period reminder', () => {
