@@ -89,6 +89,10 @@ const cycleListeners = new Set<() => void>();
 let cycleHydrated = false;
 let cycleHydratedForProfileId: string | null = null;
 let cycleHydration: Promise<CyclePreferences> | null = null;
+let cycleHydrationProfileId: string | null = null;
+// Bumped for every read started: a read whose number is no longer the latest
+// was superseded by a newer profile switch and must not apply its result.
+let cycleHydrationRequest = 0;
 let periodHistory: PeriodHistoryRecord[] = [];
 // Provenance flag: true only once the user has gone through a legitimate
 // cycle-confirmation flow (CycleInformationScreen/setCyclePreferences(),
@@ -157,6 +161,25 @@ const discardUnconfirmedPeriodSeed = (): void => {
   if (!hasConfirmedCycleData) {
     periodHistory = [];
   }
+};
+
+// The neutral, UNCONFIRMED state every profile starts from: no recorded period,
+// placeholder durations (period start = today − 5 days, 5-day period, 28-day
+// cycle, regularity 'yes'), nothing confirmed. It is what a profile with no
+// stored cycle data holds — and what the previous profile's data is replaced by
+// the moment the active profile changes, before the new profile's own data has
+// been read.
+const resetCycleStateToNeutral = (): void => {
+  cyclePreferences = {
+    lastPeriodStart: new Date(new Date().getFullYear(), new Date().getMonth(), Math.max(1, new Date().getDate() - 5)),
+    periodDuration: 5,
+    cycleDuration: 28,
+    regularity: 'yes',
+  };
+  periodHistory = [];
+  hasConfirmedCycleData = false;
+  hasConfirmedCycleDuration = false;
+  cycleObservationStartedAt = null;
 };
 
 const notifyCycleListeners = () =>
@@ -738,6 +761,20 @@ export const getPeriodHistory = (): PeriodHistoryRecord[] =>
 export const getRecordedPeriodHistory = (): PeriodHistoryRecord[] =>
   hasConfirmedCycleData ? getPeriodHistory() : [];
 
+/** True once the ACTIVE profile has at least one period that was really
+ * recorded (never the placeholder hydrateCyclePreferences() seeds). THE answer
+ * to "has she recorded her first period?": derived from the recorded history
+ * itself — not from cyclePreferences being non-null (it always holds a neutral
+ * placeholder) and not from a prediction object. Dashboard and Calendar both
+ * gate a managed daughter's pre-first-period state on this. */
+export const getHasRecordedFirstPeriod = (): boolean => realHistory().length > 0;
+
+/** False from a profile switch until that profile's own stored cycle data has
+ * been read: memory then holds the neutral placeholder, not her data — so "no
+ * period recorded" can't yet be told apart from "not loaded yet". */
+export const getIsCycleStateReady = (): boolean =>
+  cycleHydrated && cycleHydratedForProfileId === getActiveProfileId();
+
 /** True only when `date` falls within a REAL confirmed period record
  * (inclusive start/end) — never a predicted/estimated window. Compares
  * calendar days only (via the same 'YYYY-MM-DD' key every periodHistory
@@ -770,25 +807,40 @@ export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
   if (cycleHydrated && cycleHydratedForProfileId === profileId) {
     return Promise.resolve(getCyclePreferences());
   }
-  cycleHydration = AsyncStorage.getItem(currentCycleStorageKey())
+  // One read per profile at a time: every screen hydrates on mount, and each
+  // extra read would re-apply — and re-notify — the same stored data.
+  if (cycleHydration && cycleHydrationProfileId === profileId) {
+    return cycleHydration;
+  }
+  cycleHydrationRequest += 1;
+  const request = cycleHydrationRequest;
+  cycleHydrationProfileId = profileId;
+  // True once a newer profile switch (or read) has taken over the in-memory
+  // cycle state while this read was in flight: its result then belongs to a
+  // profile that is no longer the active one and must never overwrite the
+  // current profile's state — the newer read's result is awaited instead (never
+  // a new read: that could only ever supersede the newer one in turn).
+  const isSuperseded = (): boolean => request !== cycleHydrationRequest || getActiveProfileId() !== profileId;
+  const newerRead = (): Promise<CyclePreferences> => {
+    if (cycleHydration === read) {
+      cycleHydration = null; // nothing newer is in flight: a later call must be free to read again
+    }
+    return cycleHydration ?? Promise.resolve(getCyclePreferences());
+  };
+  const read: Promise<CyclePreferences> = AsyncStorage.getItem(currentCycleStorageKey())
     .then(raw => {
+      if (isSuperseded()) {
+        return newerRead();
+      }
       cycleHydrated = true;
       cycleHydratedForProfileId = profileId;
+      cycleHydration = null;
       let migratedFromUnflaggedRecord = false;
         // A clean slate before applying anything found under this profile's own
         // key — otherwise a profile with no persisted data yet (e.g. a freshly
         // switched-to daughter) would keep showing whichever profile's cycle
         // data happened to be in memory just before the switch.
-        cyclePreferences = {
-          lastPeriodStart: new Date(new Date().getFullYear(), new Date().getMonth(), Math.max(1, new Date().getDate() - 5)),
-          periodDuration: 5,
-          cycleDuration: 28,
-          regularity: 'yes',
-        };
-        periodHistory = [];
-        hasConfirmedCycleData = false;
-        hasConfirmedCycleDuration = false;
-        cycleObservationStartedAt = null;
+        resetCycleStateToNeutral();
         if (raw) {
           const parsed = JSON.parse(raw) as {
             preferences?: Partial<CyclePreferences> & {
@@ -869,19 +921,48 @@ export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
         return getCyclePreferences();
       })
       .catch(() => {
+        if (isSuperseded()) {
+          return newerRead();
+        }
         cycleHydrated = true;
         cycleHydratedForProfileId = profileId;
+        cycleHydration = null;
         return getCyclePreferences();
       });
-  return cycleHydration;
+  cycleHydration = read;
+  return read;
+};
+
+/** Drops the ACTIVE profile's in-memory cycle state and re-reads it from
+ * storage — for the flows that rewrite or delete the persisted data behind this
+ * store's back (a backup restore, "delete tracking data"). Without it the
+ * screens would keep showing — and the next edit would write back — cycle data
+ * that no longer exists. A read already in flight is superseded: it may have
+ * started before the storage changed. */
+export const reloadCycleStateFromStorage = (): Promise<CyclePreferences> => {
+  cycleHydrated = false;
+  cycleHydratedForProfileId = null;
+  cycleHydration = null;
+  cycleHydrationRequest += 1;
+  resetCycleStateToNeutral();
+  return hydrateCyclePreferences();
 };
 
 // Re-reads (and re-notifies) from the newly active profile's own cycle data
-// whenever the active profile changes — the reset-to-defaults at the top of
-// hydrateCyclePreferences()'s .then() above guarantees no stale profile's cycle
-// data lingers in memory for even one render after switching.
+// whenever the active profile changes. The previous profile's data is dropped in
+// the same tick, and a read that finishes after a newer switch is discarded (see
+// hydrateCyclePreferences()), so no stale profile's cycle data lingers in memory
+// — not even for one render — after switching.
 subscribeActiveProfileId(() => {
+  // Ahead of every screen's own listener (this one is registered at module
+  // load): until the new profile's data has been read, memory holds the neutral
+  // state, never the previous profile's periods. Nothing is notified here on
+  // purpose — cycle listeners such as the reminder scheduler re-run on every
+  // notification and must only ever see real data, which the read below
+  // announces when it lands.
   cycleHydrated = false;
+  cycleHydratedForProfileId = null;
+  resetCycleStateToNeutral();
   hydrateCyclePreferences().catch(() => {});
 });
 
@@ -1052,7 +1133,7 @@ export const subscribePeriodEndDateTime = (listener: () => void) => {
   };
 };
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '../services/secureAsyncStorage';
 import {
   getConfirmedPeriodHistory,
   removeConfirmedPeriodOccurrence,

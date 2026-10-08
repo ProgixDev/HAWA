@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '../services/secureAsyncStorage';
 
 import {getActiveProfileId, subscribeActiveProfileId} from './activeProfileStore';
 import {profileScopedKey} from './profileScopedStorage';

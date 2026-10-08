@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '../services/secureAsyncStorage';
 
 // Canonical onboarding + reminder preferences for the "Cycles irréguliers /
 // SOPK" objective (ObjectiveId 'irregular'). Deliberately isolated from

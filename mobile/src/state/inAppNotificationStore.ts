@@ -335,6 +335,19 @@ export const clearAllInAppNotifications = (): Promise<void> =>
     emit();
   });
 
+/** Removes ONLY the notifications that belong to one (deleted) managed
+ * profile — never the owner's, never another profile's, and never notifications
+ * carrying no profileId. One key per notification, so this touches exactly those
+ * keys. Idempotent. */
+export const clearInAppNotificationsForProfile = (profileId: string): Promise<void> =>
+  enqueue(async () => {
+    const items = await readPersistedNotifications();
+    const own = items.filter(item => item.profileId === profileId);
+    await Promise.all(own.map(item => AsyncStorage.removeItem(keyFor(item.id))));
+    notifications = await readPersistedNotifications();
+    emit();
+  });
+
 /** Same as clearAllInAppNotifications(), but scoped to ONLY the currently
  * active profile's own notifications — "Effacer tout" from the notification
  * bell/center must never also delete the mother's (or another daughter's)

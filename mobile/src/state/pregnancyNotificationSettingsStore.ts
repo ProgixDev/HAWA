@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '../services/secureAsyncStorage';
 import type {PregnancyReminderOffset} from './pregnancyMedicalEventsStore';
 
 // Preferences for the "Notifications & rappels" screen — general

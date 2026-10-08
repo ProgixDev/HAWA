@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '../services/secureAsyncStorage';
 
 // LEGACY, READ-ONLY. Before the Qadaa ledger existed, the number of Ramadan
 // qadaa days the user had made up was a single integer stored here. It is now

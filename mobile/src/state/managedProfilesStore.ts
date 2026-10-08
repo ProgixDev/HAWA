@@ -291,6 +291,33 @@ export const recordManagedProfileFirstPeriod = async (
   return updated;
 };
 
+/**
+ * Forgets the first-period / cycle-setup facts a profile carries (the ones
+ * recordManagedProfileFirstPeriod / profile creation wrote) — used by "delete
+ * tracking data". Those fields are the SEED seedManagedProfileCycleIfNeeded()
+ * rebuilds a daughter's cycle from the first time she is active with none: left
+ * in place, the deleted first period would come back at the next profile switch
+ * or app restart. Identity (name, birth date, photo) is untouched. id-scoped;
+ * a no-op (null) when the profile no longer exists.
+ */
+export const resetManagedProfileFirstPeriod = async (id: string): Promise<ManagedProfile | null> => {
+  await ensureWritable();
+  const index = profiles.findIndex(profile => profile.id === id);
+  if (index === -1) {return null;}
+  const updated: ManagedProfile = {
+    ...profiles[index],
+    hasHadFirstPeriod: false,
+    lastPeriodDate: null,
+    periodLength: null,
+    cycleLength: null,
+    regularity: null,
+  };
+  profiles = [...profiles.slice(0, index), updated, ...profiles.slice(index + 1)];
+  notifyListeners();
+  await persist();
+  return updated;
+};
+
 /** Test-only reset — mirrors the reset helpers other AsyncStorage-backed stores in
  * this codebase expose for test isolation. */
 export const resetManagedProfilesForTests = async (): Promise<void> => {

@@ -93,7 +93,7 @@ export function getTrueBlackEnabled(): boolean {
 // app/device, unaffected by owner/managed-daughter profile switching. Only
 // selects a language for now; the actual string translation is a separate,
 // later i18n migration (this store/UI does not translate anything yet).
-export type AwaAppLanguage = 'fr' | 'en' | 'es';
+export type AwaAppLanguage = 'fr' | 'en' | 'es' | 'it';
 
 const LANGUAGE_STORAGE_KEY = '@awa/appearance/language-v1';
 // PHASE 7M: English is now AWA's default/fallback language — a brand-new
@@ -101,12 +101,13 @@ const LANGUAGE_STORAGE_KEY = '@awa/appearance/language-v1';
 // on English, never French. French remains fully supported: an explicitly
 // persisted 'fr' value (set via the Appearance language sheet) always wins —
 // see isValidAppLanguage()'s hydration check below, which only ever
-// overwrites this default with a persisted 'fr', 'en' or 'es', never anything
-// else. Spanish ('es') was added later, following this exact same pattern.
+// overwrites this default with a persisted 'fr', 'en', 'es' or 'it', never
+// anything else. Spanish ('es') and Italian ('it') were added later, following
+// this exact same pattern.
 const DEFAULT_APP_LANGUAGE: AwaAppLanguage = 'en';
 
 const isValidAppLanguage = (value: unknown): value is AwaAppLanguage =>
-  value === 'fr' || value === 'en' || value === 'es';
+  value === 'fr' || value === 'en' || value === 'es' || value === 'it';
 
 let appLanguage: AwaAppLanguage = DEFAULT_APP_LANGUAGE;
 

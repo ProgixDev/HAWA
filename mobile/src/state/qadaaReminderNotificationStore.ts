@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '../services/secureAsyncStorage';
 
 // Persisted scheduling state for the post-Ramadan Qadaa local notification —
 // mirrors postpartumNifasReminderStore.ts's shape/idioms. Kept strictly

@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '../services/secureAsyncStorage';
 
 import {hydrateQadaaProgress, type QadaaProgressState} from './qadaaProgressStore';
 import {getActiveProfileId, isOwnerActive, subscribeActiveProfileId} from './activeProfileStore';
