@@ -26,13 +26,16 @@ import {
   deleteTrackedData,
   deleteTrackedDataForProfile,
   formatBytes,
-  getBackupSnapshot,
-  getBackupSnapshotForProfile,
   restoreBackup,
+  getLocalBackupStatus,
+  getLocalBackupStatusForProfile,
   restoreBackupForProfile,
   type BackupSnapshot,
 } from '../services/backupService';
-import {getActiveProfileIdentity} from '../state/activeProfileStore';
+import {getActiveProfileIdentity, reloadActiveProfileData} from '../state/activeProfileStore';
+import {runStructuredMigration} from '../services/structuredDataMigration';
+import {resetManagedProfileFirstPeriod} from '../state/managedProfilesStore';
+import {syncManagedProfileRecordFromCycle} from '../state/managedProfileCycleSeed';
 
 import {exportRequiresPrivateUnlock, getExportConfigurationForObjective} from '../config/objectiveExportConfig';
 import {isIntimacyUnlocked} from '../state/privateSectionAuthStore';
@@ -44,6 +47,7 @@ import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomShe
 import {
   getActiveObjective,
   hydrateActiveObjective,
+  reloadCycleStateFromStorage,
   subscribeActiveObjective,
   type ObjectiveId,
 } from '../state/onboardingPreferences';
@@ -284,11 +288,19 @@ export function RestoreBackupScreen({
   ] = useState<'success' | 'error' | null>(null);
 
   useEffect(() => {
+    // "Cannot be read" is not "there is no backup": say so (the slot itself is never touched by merely looking at it).
     (activeIdentity.isManagedProfile
-      ? getBackupSnapshotForProfile(activeIdentity.id)
-      : getBackupSnapshot()
-    ).then(setSnapshot);
-  }, [activeIdentity.id, activeIdentity.isManagedProfile]);
+      ? getLocalBackupStatusForProfile(activeIdentity.id)
+      : getLocalBackupStatus()
+    ).then(status => {
+      if (status.status === 'ok') {
+        setSnapshot(status.snapshot);
+      } else if (status.status === 'unreadable' || status.status === 'corrupted') {
+        setMessage(t('backupUtility.restore.unreadableBackup'));
+        setMessageKind('error');
+      }
+    });
+  }, [activeIdentity.id, activeIdentity.isManagedProfile, t]);
 
   const restore = async () => {
     if (
@@ -304,8 +316,18 @@ export function RestoreBackupScreen({
     try {
       if (activeIdentity.isManagedProfile) {
         await restoreBackupForProfile(snapshot, activeIdentity.id);
+        // Her stored data was just rewritten behind the stores' back.
+        reloadActiveProfileData();
+        await reloadCycleStateFromStorage();
+        // …and her profile record must agree with the restored history.
+        await syncManagedProfileRecordFromCycle(activeIdentity.id);
       } else {
         await restoreBackup(snapshot);
+        // The stores still hold the data from before the restore: make them read what was just written (and settle any
+        // record an older, unencrypted backup brought back as plaintext).
+        reloadActiveProfileData();
+        await reloadCycleStateFromStorage();
+        runStructuredMigration().catch(() => undefined);
       }
 
       setMessage(
@@ -1278,6 +1300,16 @@ export function DeleteTrackedDataScreen({
 
     if (activeIdentity.isManagedProfile) {
       await deleteTrackedDataForProfile(activeIdentity.id);
+      // The first period her profile record still carries is the seed her cycle is
+      // rebuilt from at the next switch: forget it too, or the deleted history
+      // comes back. Identity (name, birth date, photo) stays.
+      await resetManagedProfileFirstPeriod(activeIdentity.id);
+      // Her recorded periods, reminders and confirmed history are gone from
+      // storage: drop them from memory too (every profile-scoped store re-reads),
+      // so nothing — period, prediction or reminder — lingers on screen or is
+      // written back by a later edit.
+      reloadActiveProfileData();
+      await reloadCycleStateFromStorage();
     } else {
       await deleteTrackedData();
     }
