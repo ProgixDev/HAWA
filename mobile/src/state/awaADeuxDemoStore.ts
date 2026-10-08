@@ -9,8 +9,10 @@ import {useEffect, useState} from 'react';
 // they are the (already saved) choices of src/state/awaADeuxSharingStore.ts.
 //
 // Three states, one linear demo progression:
-//   not_invited  — nothing sent yet (the association screen, "Associer votre partenaire").
-//   pending      — "Continuer" simulated sending an invitation; waiting for an acceptance.
+//   not_invited  — nothing sent yet (the invite screen, "Inviter votre partenaire").
+//   pending      — "Envoyer l'invitation" simulated sending an invitation by email;
+//                  waiting for an acceptance. partnerEmail holds the address it was
+//                  (simulated as) sent to.
 //   connected    — the invitation was (simulated as) accepted.
 // The transition pending → connected only ever happens through an explicit action (the
 // partner-preview "Accepter l'invitation" button) — never a timer, never automatically.
@@ -26,14 +28,17 @@ type DemoPartnerState = {
    * new code — it is a derived projection, not a second source of truth.
    */
   partnerConnected: boolean;
+  /** The address the (simulated) invitation email was sent to; null while not_invited. */
+  partnerEmail: string | null;
 };
 
-const deriveState = (connectionStatus: AwaADeuxDemoConnectionStatus): DemoPartnerState => ({
+const deriveState = (connectionStatus: AwaADeuxDemoConnectionStatus, partnerEmail: string | null): DemoPartnerState => ({
   connectionStatus,
   partnerConnected: connectionStatus === 'connected',
+  partnerEmail,
 });
 
-let state: DemoPartnerState = deriveState('not_invited');
+let state: DemoPartnerState = deriveState('not_invited', null);
 const listeners = new Set<() => void>();
 
 const setState = (next: DemoPartnerState) => {
@@ -48,24 +53,24 @@ export const subscribeDemoPartner = (listener: () => void) => {
   return () => {listeners.delete(listener);};
 };
 
-/** "Continuer" on the association screen (AwaADeuxPairingScreen): simulates sending the invitation. */
-export const simulateInvitationSent = () => setState(deriveState('pending'));
+/** "Envoyer l'invitation" on the invite screen (AwaADeuxPairingScreen): simulates sending the invitation email. */
+export const simulateInvitationSent = (email: string) => setState(deriveState('pending', email));
 
 /** "Annuler l'invitation" on AwaADeuxPendingScreen: back to not having invited anyone. */
-export const cancelInvitation = () => setState(deriveState('not_invited'));
+export const cancelInvitation = () => setState(deriveState('not_invited', null));
 
 /** The invited partner's "Accepter l'invitation" (AwaADeuxAcceptInvitationScreen): pending → connected. */
-export const simulatePartnerAccepted = () => setState(deriveState('connected'));
+export const simulatePartnerAccepted = () => setState(deriveState('connected', state.partnerEmail));
 
 /**
  * Test / back-compat convenience: jumps straight from any state to 'connected', skipping
  * 'pending'. Existing tests and fixtures that only need "a partner is already connected"
  * (not the invitation mechanics themselves) use this; it is not called by the sharing UI.
  */
-export const simulatePartnerConnected = () => setState(deriveState('connected'));
+export const simulatePartnerConnected = () => setState(deriveState('connected', state.partnerEmail));
 
 /** "Arrêter le partage" (frontend only, from the connected screen): back to not_invited. No backend action. */
-export const stopDemoSharing = () => setState(deriveState('not_invited'));
+export const stopDemoSharing = () => setState(deriveState('not_invited', null));
 
 export function useDemoPartner(): DemoPartnerState {
   const [current, setCurrent] = useState(getDemoPartnerState);

@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '../services/secureAsyncStorage';
 
 // Contraception's own single-daily-action tracking store — one record per
 // calendar day, kept separate from contraceptionPreferences.ts (onboarding

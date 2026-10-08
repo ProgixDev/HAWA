@@ -1,5 +1,13 @@
 import {getManagedProfiles, recordManagedProfileFirstPeriod as recordFirstPeriodOnProfile} from './managedProfilesStore';
-import {getHasConfirmedCycleData, hydrateCyclePreferences, recordFirstEverPeriod, setCyclePreferences} from './onboardingPreferences';
+import {
+  getCyclePreferences,
+  getHasConfirmedCycleData,
+  getHasConfirmedCycleDuration,
+  getRecordedPeriodHistory,
+  hydrateCyclePreferences,
+  recordFirstEverPeriod,
+  setCyclePreferences,
+} from './onboardingPreferences';
 
 // Initializes a managed (daughter) profile's own cycle context from whatever she
 // declared during creation (ManagedProfileCycleSetupScreen — lastPeriodDate/
@@ -82,6 +90,28 @@ export async function seedManagedProfileCycleIfNeeded(profileId: string): Promis
  * (still unknown) and regularity `'unknown'`, so the two stay in sync — that
  * record is otherwise stale/read by e.g. any future export/edit feature.
  */
+/**
+ * Mirrors the ACTIVE daughter's recorded cycle onto her ManagedProfile record
+ * (what a restored backup brings back), so record and cycle never disagree: the
+ * record is only a seed, and a restored history must not leave it saying "no first
+ * period". The cycle store stays the source of truth — this only copies from it,
+ * never the other way round, and writes nothing when no period is recorded.
+ */
+export async function syncManagedProfileRecordFromCycle(profileId: string): Promise<void> {
+  await hydrateCyclePreferences();
+  const recorded = getRecordedPeriodHistory();
+  if (recorded.length === 0) {return;}
+  const latest = recorded[recorded.length - 1].startDate;
+  const cycle = getCyclePreferences();
+  const lengthsProvided = getHasConfirmedCycleDuration();
+  await recordFirstPeriodOnProfile(profileId, {
+    lastPeriodDate: latest,
+    periodLength: lengthsProvided ? cycle.periodDuration : null,
+    cycleLength: lengthsProvided ? cycle.cycleDuration : null,
+    regularity: cycle.regularity,
+  });
+}
+
 export async function recordManagedProfileFirstPeriod(profileId: string, date: Date): Promise<void> {
   await hydrateCyclePreferences();
   recordFirstEverPeriod(date, 'unknown');

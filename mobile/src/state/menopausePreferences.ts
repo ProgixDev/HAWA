@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '../services/secureAsyncStorage';
 
 // Canonical onboarding/tracking data for the "Post-ménopause / Ménopause"
 // objective (ObjectiveId === 'menopause'). Deliberately isolated from

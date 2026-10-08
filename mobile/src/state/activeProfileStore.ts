@@ -118,6 +118,15 @@ export const getActiveProfileIdentity = (): ActiveProfileIdentity => {
   return {id: activeProfileId, type: 'daughter', isOwnerProfile: false, isManagedProfile: true, managedProfile};
 };
 
+/** Re-announces the active profile WITHOUT changing it, so every profile-scoped
+ * store re-reads its own storage. For flows that rewrite or delete the active
+ * profile's persisted data behind the stores' backs (a backup restore, "delete
+ * tracking data"): without it their in-memory copies keep serving data that no
+ * longer exists, and the next edit writes it back. */
+export const reloadActiveProfileData = (): void => {
+  notifyListeners();
+};
+
 /** Test-only reset. */
 export const resetActiveProfileForTests = async (): Promise<void> => {
   activeProfileId = OWNER_PROFILE_ID;

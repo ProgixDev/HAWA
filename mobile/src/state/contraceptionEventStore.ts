@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '../services/secureAsyncStorage';
 
 // Contraception's ring/patch event-tracking store — a SEPARATE store from
 // contraceptionIntakeHistoryStore.ts (pill/other's single-status-per-day

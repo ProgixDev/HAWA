@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '../services/secureAsyncStorage';
 
 // Postpartum tracking configuration — created the moment a real pregnancy
 // delivery is confirmed (see confirmDelivery() below). Deliberately isolated

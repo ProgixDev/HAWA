@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '../services/secureAsyncStorage';
 
 export type ConceptionTryingDuration = 'starting_now' | 'under_3_months' | '3_to_6_months' | '6_to_12_months' | 'over_1_year';
 export type OvulationAwareness = 'often' | 'sometimes' | 'not_really';

@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '../services/secureAsyncStorage';
 
 // Pregnancy dating configuration, collected during onboarding for the
 // `pregnancy` objective only. Deliberately isolated from cyclePreferences /

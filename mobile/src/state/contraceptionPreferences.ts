@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '../services/secureAsyncStorage';
 
 export type ContraceptionMethod = 'pill' | 'ring' | 'patch' | 'other';
 
