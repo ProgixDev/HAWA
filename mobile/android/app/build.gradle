@@ -117,3 +117,11 @@ dependencies {
         implementation jscFlavor
     }
 }
+
+// react-native-documents/picker ships a TurboModule spec. Its native codegen output (a CMake directory the app's native
+// build includes through autolinking) is produced by the library's own Gradle task, and nothing in the app's task graph
+// guaranteed it ran BEFORE CMake configured the app — a first build on a fresh checkout failed with "add_subdirectory given
+// source ... codegen/jni/ which is not an existing directory". Make the ordering explicit.
+tasks.matching { it.name.startsWith('configureCMake') || it.name.startsWith('buildCMake') }.configureEach {
+    dependsOn(':react-native-documents_picker:generateCodegenArtifactsFromSchema')
+}

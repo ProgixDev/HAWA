@@ -9,9 +9,9 @@ module.exports = {
   // likewise ESM source, not a pre-built CJS file — it needs the same
   // transformation to be `require()`-able from the mock factory.
   transformIgnorePatterns: [
-    'node_modules/(?!((@)?react-native|react-native-reanimated|react-native-linear-gradient|@react-native|@react-navigation|@noble|@notifee)/)',
+    'node_modules/(?!((@)?react-native|react-native-reanimated|react-native-linear-gradient|@react-native|@react-navigation|@noble|@notifee|@react-native-documents)/)',
   ],
   moduleNameMapper: {
-    '\\.(png|ttf)$': '<rootDir>/__mocks__/fileMock.js',
+    '\\.(png|webp|ttf)$': '<rootDir>/__mocks__/fileMock.js',
   },
 };

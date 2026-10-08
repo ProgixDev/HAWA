@@ -148,3 +148,30 @@ jest.mock('react-native-keychain', () => ({
   }),
   getSupportedBiometryType: jest.fn(async () => null),
 }));
+
+// Structured-health-data encryption (src/services/secureAsyncStorage.ts) is OFF by default under Jest so the store/screen tests
+// keep asserting on plain values; its own suites switch it on explicitly. AWA_STRUCTURED_ENCRYPTION=1 runs everything encrypted.
+if (process.env.AWA_STRUCTURED_ENCRYPTION !== '1') {
+  globalThis.__AWA_STRUCTURED_ENCRYPTION_DEFAULT__ = false;
+}
+
+// react-native-aes-crypto is a native module (PBKDF2 for the portable-backup passphrase). In Jest it is backed by Node's
+// own PBKDF2 — the same algorithm and the same encoding the Android module uses (UTF-8 bytes of password and salt) — so
+// tests exercise a REAL key derivation, not a stub.
+jest.mock('react-native-aes-crypto', () => {
+  const nodeCrypto = require('crypto');
+  const pbkdf2 = async (password, salt, cost, lengthBits, algorithm) =>
+    nodeCrypto.pbkdf2Sync(Buffer.from(password, 'utf8'), Buffer.from(salt, 'utf8'), cost, lengthBits / 8, algorithm).toString('hex');
+  return {__esModule: true, default: {pbkdf2}, pbkdf2};
+});
+
+// @react-native-documents/picker is a native module (file chooser for restoring a backup file); the file-handling service
+// that uses it is mocked wherever a test exercises it.
+jest.mock('@react-native-documents/picker', () => ({
+  __esModule: true,
+  pick: jest.fn(),
+  keepLocalCopy: jest.fn(),
+  types: {allFiles: '*/*'},
+  errorCodes: {OPERATION_CANCELED: 'OPERATION_CANCELED'},
+  isErrorWithCode: jest.fn(() => false),
+}));
