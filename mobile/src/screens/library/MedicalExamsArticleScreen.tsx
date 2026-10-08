@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'medicalexams-suivi-medical';
 
@@ -177,6 +178,45 @@ const CONTENT = {
       'No dudes en anotar tus preguntas antes de cada cita para no olvidar nada en el momento: ninguna pregunta es demasiado pequeña para hacerla.',
     shareMessage: 'El calendario de los exámenes del embarazo — AWA',
   },
+  it: {
+    badge: 'GRAVIDANZA • CONTROLLI MEDICI',
+    title: 'Il calendario degli esami\nin gravidanza',
+    metaDuration: '6 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Ecografie ed esami essenziali, trimestre per trimestre.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Ecografie di controllo',
+      'Esami del sangue essenziali',
+      'Prepararsi a ogni appuntamento',
+      'Da notare',
+      'Punti chiave',
+    ],
+    body1: 'La gravidanza prevede in genere tre ecografie principali, una per trimestre, ciascuna con uno scopo diverso.',
+    ultrasounds: [
+      'Primo trimestre: datazione e translucenza nucale',
+      'Secondo trimestre: ecografia morfologica',
+      'Terzo trimestre: crescita e posizione del bambino',
+    ],
+    body2: 'Esami del sangue regolari monitorano diversi parametri chiave durante la gravidanza:',
+    bloodTests: [
+      'Livelli di ferro, per individuare una possibile anemia',
+      'Screening del diabete gestazionale, in genere intorno al secondo trimestre',
+      'Gruppo sanguigno e ricerca degli anticorpi irregolari',
+      'Esami sierologici (toxoplasmosi, rosolia) in base al tuo stato immunitario',
+    ],
+    prepTips: [
+      'Scrivi le tue domande man mano che ti vengono in mente, prima di dimenticarle',
+      'Porta con te il libretto di gravidanza a ogni appuntamento',
+      'Segnala qualsiasi nuovo sintomo, anche se sembra di poco conto',
+    ],
+    neutralText: 'Il numero esatto e il calendario degli esami possono variare in base alla tua assistenza, al tuo profilo di rischio e alle pratiche del tuo Paese o della struttura sanitaria.',
+    tipTitle: 'Da sapere',
+    tipText: 'Non esitare a scrivere le tue domande prima di ogni appuntamento per non dimenticare nulla sul momento: nessuna domanda è troppo piccola per essere posta.',
+    shareMessage: 'Il calendario degli esami in gravidanza — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -185,7 +225,7 @@ export default function MedicalExamsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

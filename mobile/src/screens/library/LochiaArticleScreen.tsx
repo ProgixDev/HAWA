@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -416,6 +417,109 @@ const CONTENT = {
       'Contenido informativo. Este artículo no sustituye un aviso o un examen médico. En caso de duda o de síntoma preocupante, pide consejo a un profesional de la salud.',
     shareMessage: 'Entender los loquios después del parto — AWA',
   },
+  it: {
+    badgeText: 'POST-PARTUM • LOCHIAZIONI',
+    title: 'Capire le lochiazioni\ndopo il parto',
+    metaDuration: '6 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto informativo',
+    intro: 'Dopo il parto, le lochiazioni sono le perdite vaginali legate al naturale processo di recupero dell’utero. Il loro colore e la loro quantità cambiano gradualmente nei giorni e nelle settimane successive.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Che cosa sono le lochiazioni?',
+      'Come cambiano nel tempo?',
+      'Cosa può essere normale',
+      'Consigli per stare meglio',
+      'Quando chiedere un parere medico?',
+      'Punti chiave',
+    ],
+    section1Heading: '1. Che cosa sono le lochiazioni?',
+    section1Body1: 'Le lochiazioni sono perdite vaginali che compaiono dopo il parto. Consistono principalmente nella graduale eliminazione di sangue, secrezioni e tessuto dall’utero mentre si riprende.',
+    section1Body2: 'Sono diverse dalle normali mestruazioni. Sono previste durante il post-partum e in genere diminuiscono progressivamente.',
+    infoTitle: 'Punti chiave',
+    infoText: 'Le lochiazioni non significano che le mestruazioni siano già tornate. Il ritorno delle mestruazioni è un evento distinto, che avviene più tardi.',
+    section2Heading: '2. Come cambiano le lochiazioni nel tempo?',
+    section2Body: 'Il loro aspetto cambia di solito nelle prime settimane. Il colore diventa gradualmente più chiaro e la quantità tende a diminuire.',
+    evolutionTitle: 'Una progressione graduale',
+    evolutionSubtitle: 'Le fasi possono variare da donna a donna',
+    evolution: [
+      {
+        label: 'Rosso vivo',
+        period: 'I primi giorni',
+        text: 'Le perdite sono di solito rosse e possono essere più abbondanti all’inizio.',
+      },
+      {
+        label: 'Rosa / brunastro',
+        period: 'Dopo qualche giorno',
+        text: 'Il colore diventa gradualmente più chiaro e può virare verso il rosa o il marrone.',
+      },
+      {
+        label: 'Bianco-giallastro',
+        period: 'Nelle settimane successive',
+        text: 'Le perdite di solito diventano più leggere, giallastre o biancastre, prima di esaurirsi.',
+      },
+    ],
+    section3Heading: '3. Cosa può essere normale',
+    section3Body: 'L’evoluzione delle lochiazioni non è esattamente la stessa per tutte. Alcuni cambiamenti possono accompagnare naturalmente il recupero dopo il parto.',
+    normalPoints: [
+      {
+        title: 'Una quantità variabile',
+        text: 'La quantità può cambiare nei primi giorni e poi diminuire gradualmente.',
+      },
+      {
+        title: 'Un colore che cambia',
+        text: 'Le lochiazioni passano di solito dal rosso a sfumature più chiare con il passare del tempo.',
+      },
+      {
+        title: 'Una durata variabile',
+        text: 'Possono persistere per diverse settimane, e la loro evoluzione differisce da donna a donna.',
+      },
+    ],
+    section4Heading: '4. Consigli per il comfort e il monitoraggio',
+    section4Body: 'In questo periodo, un semplice monitoraggio può aiutarti a osservare come sta cambiando il tuo corpo, senza confrontare la tua esperienza con quella di un’altra donna.',
+    comfortTips: [
+      {
+        title: 'Igiene delicata',
+        text: 'Privilegia un lavaggio delicato e regolare, senza prodotti irritanti.',
+      },
+      {
+        title: 'Osserva l’evoluzione',
+        text: 'Puoi annotare il colore, la quantità e la progressione delle perdite se ti aiuta a seguire il tuo recupero.',
+      },
+      {
+        title: 'Concediti del riposo',
+        text: 'Il post-partum richiede tempo. Ascolta il tuo corpo e rispetta il tuo bisogno di recuperare.',
+      },
+    ],
+    section5Heading: '5. Lochiazioni o ritorno delle mestruazioni?',
+    section5Body: 'Le lochiazioni compaiono nei giorni successivi al parto e diminuiscono gradualmente. Il ritorno delle mestruazioni, invece, corrisponde alla ripresa del ciclo mestruale dopo questo periodo.',
+    compareLochiaTitle: 'Lochiazioni',
+    compareLochiaText: 'Perdite legate al recupero dell’utero dopo il parto.',
+    compareReturnTitle: 'Ritorno delle mestruazioni',
+    compareReturnText: 'Ripresa del ciclo mestruale, in un momento che varia da donna a donna.',
+    section6Heading: '6. Quando chiedere un parere medico?',
+    section6Body: 'Se l’evoluzione ti sembra insolita, o se le tue condizioni generali peggiorano, è importante chiedere il parere di un professionista sanitario.',
+    warningTitle: 'Segnali che richiedono un parere medico',
+    warningSigns: [
+      'Un odore forte o insolito',
+      'Febbre o un peggioramento delle condizioni generali',
+      'Un flusso che diventa improvvisamente molto più abbondante',
+      'Dolore intenso, persistente o insolito',
+      'Un nuovo sintomo che ti preoccupa',
+    ],
+    tipTitle: 'Da sapere',
+    tipText: 'Le lochiazioni di solito evolvono gradualmente: possono essere rosse all’inizio, poi diventare più chiare prima di esaurirsi. Tuttavia, ogni recupero è individuale.',
+    summaryHeading: 'Punti chiave',
+    summaryPoints: [
+      'Le lochiazioni sono perdite normali dopo il parto.',
+      'Di solito cambiano di colore e di quantità nel corso delle settimane.',
+      'La loro durata e la loro progressione possono variare da donna a donna.',
+      'Un odore insolito, febbre, dolore intenso o un sanguinamento improvviso e molto abbondante richiedono un parere medico.',
+    ],
+    disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce un parere medico né una visita. In caso di dubbio o se noti un sintomo preoccupante, chiedi il parere di un professionista sanitario.',
+    shareMessage: 'Capire le lochiazioni dopo il parto — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -435,7 +539,7 @@ export default function LochiaArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

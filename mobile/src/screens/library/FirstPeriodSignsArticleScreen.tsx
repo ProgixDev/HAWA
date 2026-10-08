@@ -29,6 +29,8 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
 
 const ID = 'firstperiod-premiers-signes';
 
@@ -54,7 +56,7 @@ const RELATED_IMAGES = [
     articleId: 'firstperiod-comment-savoir',
   },
   {
-    image: require('../../assets/images/library/cycle-phases-hero.png'),
+    image: CYCLE_PHASES_HERO,
     articleId: 'cycle-phases-expliquees',
   },
 ] as const;
@@ -170,6 +172,65 @@ const CONTENT = {
     ],
     shareMessage: 'Las primeras señales antes de la menstruación — AWA',
   },
+  it: {
+    badge: 'PRIMO CICLO',
+    title: 'I primi segnali\ndel tuo primo ciclo',
+    metaDuration: '5 min di lettura',
+    metaType: 'Articolo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Il tuo corpo dà spesso dei segnali prima che arrivi il primissimo ciclo. Riconoscerli può aiutarti a sentirti meno sorpresa.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Cambiamenti graduali',
+      'Segnali a cui fare attenzione',
+      'Cosa significano',
+    ],
+    body1: 'Nei mesi che precedono il primo ciclo, il tuo corpo cambia dolcemente: la tua figura si modifica, i peli compaiono in nuove zone e cambia anche la sudorazione. Sono effetti normali della pubertà, che prepara con delicatezza il tuo corpo.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Questi cambiamenti non avvengono per tutte nello stesso momento né con lo stesso ritmo: è del tutto normale.',
+    signs: [
+      {
+        title: 'Cambiamenti del corpo',
+        text: 'Il tuo corpo cambia gradualmente: la figura, i peli e la sudorazione possono modificarsi.',
+      },
+      {
+        title: 'Perdite vaginali',
+        text: 'Perdite leggere e biancastre compaiono spesso qualche mese prima del primo ciclo.',
+      },
+      {
+        title: 'Fastidi o fitte',
+        text: 'Puoi avvertire una leggera tensione o delle fitte nella parte bassa del ventre.',
+      },
+      {
+        title: 'Cambiamenti d’umore',
+        text: 'È comune sentirsi più sensibili o irritabili del solito.',
+      },
+      {
+        title: 'Tensione al seno',
+        text: 'Puoi notare una lieve sensibilità o un gonfiore.',
+      },
+    ],
+    body2: 'Questi segnali indicano di solito che il primo ciclo arriverà nei mesi successivi, anche se è impossibile prevedere una data esatta. Tenere a portata di mano una protezione diventa a questo punto una buona abitudine.',
+    alertTitle: 'Attenzione',
+    alertText: 'Questi segnali sono indicazioni generali, mai una previsione precisa. Ogni corpo segue il proprio ritmo.',
+    relatedTitle: '♥  Potrebbe interessarti anche',
+    related: [
+      {
+        title: 'Il tuo primo ciclo: cosa aspettarti',
+        meta: '5 min  ·  Guida',
+      },
+      {
+        title: 'Come capisco se sta per arrivare il primo ciclo?',
+        meta: '5 min  ·  Guida',
+      },
+      {
+        title: 'Le diverse fasi del ciclo',
+        meta: '5 min  ·  Articolo',
+      },
+    ],
+    shareMessage: 'I primi segnali prima del primo ciclo — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -178,7 +239,7 @@ export default function FirstPeriodSignsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -403,7 +464,7 @@ export default function FirstPeriodSignsArticleScreen({
               }
               style={styles.relatedCard}>
               <Image
-                source={RELATED_IMAGES[index].image}
+                source={resolveEditorialImage(RELATED_IMAGES[index].image, lang)}
                 resizeMode="cover"
                 style={styles.relatedImage}
               />

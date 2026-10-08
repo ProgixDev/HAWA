@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'pcos-acne-hormonale';
 
@@ -321,6 +322,77 @@ const CONTENT = {
       'Este artículo tiene fines de información general y no sustituye una consulta médica. En caso de duda o de síntomas persistentes, pide consejo a un profesional de salud.',
     shareMessage: 'Comprender el acné hormonal — AWA',
   },
+  it: {
+    badge: 'PCOS • ACNE ORMONALE',
+    title: 'Capire\nl’acne ormonale',
+    metaDuration: '7 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto educativo',
+    intro: 'Perché l’acne ormonale può comparire con la PCOS, come riconoscerla e quali soluzioni possono aiutare a gestirla.',
+    introSecondary: 'Riguarda molte donne e non dipende da una scarsa igiene né è inevitabile: capirne l’origine aiuta a gestirla meglio.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Che cos’è l’acne ormonale?',
+      'Perché la PCOS può causare acne?',
+      'Come riconoscere l’acne ormonale',
+      'Acne ormonale e ciclo mestruale',
+      'Che cosa può aiutare',
+      'Quando rivolgersi al medico?',
+      'Punti chiave',
+    ],
+    h1: 'Che cos’è l’acne ormonale?',
+    body1a: 'L’acne ormonale è una forma di acne direttamente legata a fluttuazioni o a uno squilibrio ormonale, in particolare degli androgeni. A differenza della più tipica acne dell’adolescenza, colpisce spesso le donne adulte e può persistere o comparire dopo quel periodo.',
+    body1b: 'Si distingue anche per la sede, la profondità e la tendenza a ripresentarsi negli stessi punti nonostante una routine di cura della pelle regolare e seguita con attenzione.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'L’acne ormonale non è legata a una scarsa igiene: lavare il viso più spesso non la fa scomparire e può addirittura irritare la pelle.',
+    h2Title: 'Perché la PCOS può causare acne?',
+    body2: 'Nella PCOS, un eccesso relativo di androgeni stimola le ghiandole sebacee, che producono quindi più sebo. Inoltre, alcune pelli sono più sensibili a questi ormoni, il che spiega perché l’acne può essere marcata anche senza un grande squilibrio misurato in laboratorio.',
+    neutralText: 'Non è una questione di forza di volontà: questa sensibilità varia da persona a persona e non dipende dalle tue abitudini di vita.',
+    h3Title: 'Come riconoscere l’acne ormonale',
+    body3: 'Alcune caratteristiche si ripetono spesso, anche se non sempre:',
+    recognizeSigns: [
+      'Parte inferiore del viso: linea della mandibola, mento',
+      'Eruzioni più profonde, a volte dolorose',
+      'Ricompare spesso negli stessi punti',
+      'Rossori o segni che persistono',
+    ],
+    h4Title: 'Acne ormonale e ciclo mestruale',
+    body4: 'L’acne ormonale può variare nel corso del ciclo. Molte donne notano un peggioramento nei giorni che precedono le mestruazioni, quando il progesterone aumenta e poi cala bruscamente, stimolando temporaneamente la produzione di sebo.',
+    highlightTitle: 'Tenere traccia dei peggioramenti',
+    highlightText: 'Annotare quando compaiono le eruzioni rispetto al tuo ciclo può aiutare te e la tua dermatologa o il tuo dermatologo a comprendere meglio il legame con gli ormoni.',
+    h5Title: 'Che cosa può aiutare',
+    body5a: 'Alcune semplici abitudini di cura possono aiutare a limitare i peggioramenti, senza però eliminarli del tutto da sole:',
+    careHabits: [
+      'Detergere delicatamente la pelle mattina e sera',
+      'Evitare prodotti aggressivi o troppo sgrassanti',
+      'Proteggere ogni giorno la pelle dal sole',
+      'Evitare di schiacciare o grattare le eruzioni',
+    ],
+    body5b: 'A seconda della situazione, un o una dermatologa o una ginecologa o un ginecologo possono suggerire trattamenti topici (creme, gel) o, se necessario, una terapia ormonale adeguata.',
+    alertTitle: 'Niente automedicazione',
+    alertText: 'I trattamenti per l’acne ormonale (topici od ormonali) devono essere prescritti e monitorati da un o una professionista sanitario/a, in particolare se speri di avere un figlio o una figlia.',
+    h6Title: 'Quando rivolgersi al medico?',
+    body6: 'Un parere medico è particolarmente utile in alcune situazioni:',
+    consultReasons: [
+      'Acne che persiste nonostante cure adeguate',
+      'Eruzioni dolorose o profonde (noduli, cisti)',
+      'Acne grave o che peggiora rapidamente',
+      'Segni o cicatrici che si stanno stabilizzando',
+    ],
+    h7Title: 'Punti chiave',
+    summaryTitle: 'I punti essenziali',
+    keyPoints: [
+      'L’acne ormonale ha una causa identificabile, legata agli androgeni.',
+      'Colpisce spesso la parte inferiore del viso e può peggiorare prima delle mestruazioni.',
+      'Non dipende da una scarsa igiene né è inevitabile.',
+      'Cure delicate e, se necessario, un trattamento adeguato possono migliorarla.',
+      'Un o una dermatologa o una ginecologa o un ginecologo possono accompagnarti se persiste.',
+    ],
+    finalNoteTitle: 'Una guida per capire meglio',
+    finalNoteText: 'Questo articolo ha solo scopo informativo generale e non sostituisce una visita medica. In caso di dubbi o se i sintomi persistono, chiedi consiglio a un o una professionista sanitario/a.',
+    shareMessage: 'Capire l’acne ormonale — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -329,7 +401,7 @@ export default function PcosHormonalAcneArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

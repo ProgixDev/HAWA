@@ -25,6 +25,7 @@ import {
 import {getBottomPadding, getTopPadding, READING_CONTROLS_SPACE} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'flow-comprendre-flux';
 
@@ -233,6 +234,77 @@ const CONTENT = {
       'El descanso, el calor y una actividad suave pueden ser útiles. Si el dolor sigue siendo muy fuerte o inusual, pide una opinión médica.',
     shareMessage: 'Entender el período: qué es lo que realmente pasa — AWA',
   },
+  it: {
+    badge: 'CICLO MESTRUALE',
+    title: 'Capire il tuo periodo mestruale:\ncosa succede davvero',
+    metaDuration: '5 min di lettura',
+    metaValidated: 'Contenuto validato',
+    intro: 'Il tuo periodo mestruale fa parte di un processo naturale essenziale per la salute ormonale e riproduttiva. Capire cosa succede nel tuo corpo può aiutarti a sentirti più serena a ogni ciclo.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Cos’è il periodo mestruale?',
+      'Come si svolge il periodo mestruale',
+      'Cosa è normale (e cosa no)',
+      'Alleviare il dolore in modo naturale',
+    ],
+    body1: 'Il periodo mestruale è l’eliminazione del rivestimento dell’utero quando non c’è stato il concepimento. Avviene in media una volta al mese.',
+    knowTitle: 'Da sapere',
+    knowText: 'Ogni donna è unica: durata, intensità e sensazioni possono variare da un ciclo all’altro.',
+    body2: 'Il flusso non è lo stesso per tutto il periodo mestruale. Di solito cambia di giorno in giorno, per intensità, colore e consistenza.',
+    flowSteps: [
+      {
+        title: 'Inizio del periodo mestruale',
+        text: 'Il flusso è spesso più abbondante nei primi giorni.',
+      },
+      {
+        title: 'Metà del periodo mestruale',
+        text: 'Il flusso in genere comincia a diminuire gradualmente.',
+      },
+      {
+        title: 'Fine del periodo mestruale',
+        text: 'Il flusso diventa più leggero e può assumere un colore più scuro.',
+      },
+    ],
+    softInfoTitle: 'Tieni presente',
+    softInfoText: 'Questo può variare da un ciclo all’altro. Ciò che conta di più è conoscere il tuo ritmo abituale.',
+    body3: 'Durante il periodo mestruale alcune variazioni sono comuni. Altri segnali meritano maggiore attenzione, soprattutto se sono nuovi o molto intensi.',
+    normalSigns: [
+      {
+        title: 'Durata',
+        text: 'Un periodo mestruale che di solito dura qualche giorno.',
+      },
+      {
+        title: 'Flusso variabile',
+        text: 'Flusso più abbondante all’inizio, poi più leggero.',
+      },
+      {
+        title: 'Colore',
+        text: 'Dal rosso vivo al rosso scuro o al marrone verso la fine del periodo mestruale.',
+      },
+      {
+        title: 'Sensazioni',
+        text: 'Si possono avvertire crampi da lievi a moderati.',
+      },
+    ],
+    warningTitle: 'Quando chiedere un parere medico?',
+    warningSigns: [
+      'Dolore molto intenso o insolito',
+      'Sanguinamento che inzuppa un assorbente o un tampone molto rapidamente',
+      'Forte stanchezza, sensazione di svenimento o capogiri',
+      'Un cambiamento improvviso e persistente rispetto al tuo andamento abituale',
+    ],
+    body4: 'Semplici abitudini possono aiutare ad alleviare il disagio e a rendere più confortevoli i primi giorni del periodo mestruale.',
+    tipsTitle: 'Consigli pratici',
+    tips: [
+      'Bevi abbastanza\nacqua per aiutare\na limitare la stanchezza.',
+      'Applica calore\nsul basso ventre\nse necessario.',
+      'Prova un’attività\ndolce: camminare,\nyoga, stretching.',
+      'Concediti riposo\ne un sonno\ndi buona qualità.',
+    ],
+    reliefTitle: 'Ascolta il tuo corpo',
+    reliefText: 'Riposo, calore e attività dolce possono aiutare. Se il dolore resta molto intenso o insolito, chiedi un parere medico.',
+    shareMessage: 'Capire il tuo periodo mestruale: cosa succede davvero — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -244,7 +316,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

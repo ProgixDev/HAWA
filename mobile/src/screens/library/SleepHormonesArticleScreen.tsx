@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -212,6 +213,77 @@ const CONTENT = {
     disclaimerText: 'Contenido informativo. Este artículo no sustituye una opinión médica personalizada. Si tienes dudas, consulta a un profesional de la salud.',
     shareMessage: 'Sueño y hormonas: el vínculo poco conocido — AWA',
   },
+  it: {
+    badge: 'CICLO MESTRUALE • SONNO',
+    title: 'Sonno e ormoni:\nil legame poco noto',
+    metaDuration: '6 min di lettura',
+    metaType: 'Articolo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Perché il tuo sonno cambia a seconda della fase del ciclo e in menopausa.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Perché gli ormoni influenzano il sonno',
+      'Il sonno nelle fasi del ciclo',
+      'Stress e qualità del sonno',
+      'Una routine serale rilassante',
+      'Quando rivolgersi a un professionista',
+      'I punti essenziali',
+    ],
+    section1Body: 'Il progesterone ha un lieve effetto sedativo; il suo calo alla fine del ciclo può disturbare il sonno, rendendolo più leggero o più frammentato.',
+    infoCard1Title: 'Da sapere',
+    infoCard1Text: 'Anche il leggero aumento della temperatura corporea dopo l’ovulazione può rendere l’addormentamento un po’ più difficile per alcune persone.',
+    phaseSleep: [
+      {
+        title: 'Durante il periodo mestruale',
+        text: 'Il disagio fisico e la stanchezza possono rendere il sonno più leggero.',
+      },
+      {
+        title: 'Intorno all’ovulazione',
+        text: 'Il sonno è generalmente più stabile per la maggior parte delle persone.',
+      },
+      {
+        title: 'Prima del periodo mestruale',
+        text: 'Il calo del progesterone può rendere il sonno più leggero, con possibili risvegli.',
+      },
+    ],
+    section2Body: 'In menopausa, le sudorazioni notturne sono una causa frequente di risveglio, per ragioni ormonali simili.',
+    section3Body: 'Lo stress può amplificare i disturbi del sonno nelle fasi del ciclo che sono già più sensibili. Semplici tecniche di rilassamento (respirazione, stretching dolce) possono aiutarti a distenderti prima di dormire.',
+    section4Body: 'Una routine regolare prima di andare a letto e una camera fresca aiutano a limitare questi disturbi, a qualsiasi età.',
+    eveningRoutine: [
+      {
+        title: 'Orari regolari',
+        text: 'Andare a letto e svegliarsi a orari stabili aiuta a regolare il tuo orologio interno.',
+      },
+      {
+        title: 'Meno schermi la sera',
+        text: 'La luce blu può ritardare l’addormentamento; una pausa dagli schermi aiuta a rilassarsi.',
+      },
+      {
+        title: 'Una camera fresca',
+        text: 'Una temperatura moderata facilita l’addormentamento, a qualsiasi età.',
+      },
+    ],
+    section5Body: 'Le buone abitudini non sempre bastano. Può essere utile parlarne con un professionista se:',
+    warningTitle: 'Segnali da far controllare',
+    consultSigns: [
+      'I problemi di sonno durano da diverse settimane',
+      'La stanchezza incide fortemente sulla vita quotidiana',
+      'L’insonnia persiste nonostante le buone abitudini',
+    ],
+    infoCard2Title: 'Prepararsi a questa visita',
+    infoCard2Text: 'Annotare da quanto tempo durano i problemi e che cosa sembra influenzarli può aiutare il tuo professionista sanitario a orientarti meglio.',
+    tipTitle: 'Da sapere',
+    tipText: 'Questi cambiamenti del sonno sono comuni e di solito temporanei: non significano che ci sia qualcosa che non va.',
+    summaryPoints: [
+      'Il progesterone ha un lieve effetto sedativo; il suo calo alla fine del ciclo può disturbare il sonno.',
+      'In menopausa, le sudorazioni notturne sono una causa frequente di risveglio.',
+      'Una routine regolare prima di andare a letto e una camera fresca aiutano a limitare questi disturbi, a qualsiasi età.',
+      'I problemi di sonno persistenti meritano di essere discussi con un professionista sanitario.',
+    ],
+    disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce un parere medico personalizzato. In caso di dubbi, rivolgiti a un professionista sanitario.',
+    shareMessage: 'Sonno e ormoni: il legame poco noto — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -228,7 +300,7 @@ export default function SleepHormonesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

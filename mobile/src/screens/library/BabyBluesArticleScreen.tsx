@@ -31,6 +31,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'emotionalhealth-baby-blues';
 
@@ -434,6 +435,113 @@ const CONTENT = {
     shareMessage:
       'Baby blues y salud emocional posparto — AWA\n\nUna guía para comprender los cambios emocionales frecuentes después del parto.',
   },
+  it: {
+    badgeText: 'POST-PARTUM • BENESSERE EMOTIVO',
+    title: 'Baby blues e benessere\nemotivo nel post-partum',
+    subtitle: 'Capire cosa può cambiare a livello emotivo dopo il parto e sapere quando cercare sostegno.',
+    metaItems: [
+      '10 min di lettura',
+      'Articolo',
+      'Principiante',
+      'Contenuto validato',
+    ],
+    introTitle: 'Da sapere',
+    introText: 'Dopo il parto è comune attraversare un periodo di maggiore sensibilità emotiva. Il baby blues di solito è passeggero, ma un malessere che persiste o si intensifica merita l’attenzione di un professionista.',
+    contentsEyebrow: 'GUIDA',
+    contentsTitle: 'In questo articolo',
+    contents: [
+      'Capire il baby blues',
+      'I segni più comuni',
+      'Cosa aiuta ogni giorno',
+      'Baby blues o depressione post-partum?',
+      'Quando chiedere aiuto',
+      'Punti chiave',
+    ],
+    section1Kicker: 'CAPIRE',
+    section1Title: 'Che cos’è il baby blues?',
+    section1Body1: 'Il baby blues è un periodo di cambiamenti emotivi che può comparire nei primi giorni dopo il parto. Gli sbalzi ormonali, la stanchezza, la mancanza di sonno e l’adattamento a questa nuova fase possono contribuire a questa sensibilità.',
+    section1Body2: 'Non è un fallimento e non significa che sei una cattiva madre. Ognuna vive i primi giorni del post-partum a modo suo.',
+    statTitle: 'Un’esperienza comune',
+    statText: 'Il baby blues è comune dopo il parto e tende a migliorare da solo nel giro di qualche giorno.',
+    section2Kicker: 'I SEGNI',
+    section2Title: 'Cosa potresti provare',
+    section2Body: 'Ciò che si vive varia da persona a persona. Alcune avvertono soprattutto stanchezza e sensibilità, altre possono avere sbalzi d’umore più evidenti.',
+    commonSigns: [
+      {
+        title: 'Emotività',
+        description: 'Piangere più facilmente o sentirsi particolarmente sensibili.',
+      },
+      {
+        title: 'Ipersensibilità',
+        description: 'Le emozioni possono sembrare più forti e cambiare rapidamente.',
+      },
+      {
+        title: 'Sbalzi d’umore',
+        description: 'Una sensazione di fragilità può alternarsi a momenti di benessere.',
+      },
+      {
+        title: 'Stanchezza',
+        description: 'La stanchezza dei primi giorni può amplificare le emozioni.',
+      },
+    ],
+    section3Kicker: 'OGNI GIORNO',
+    section3Title: 'Cosa può aiutare',
+    section3Body: 'In questo periodo il bisogno di riposo è importante. Piccole cose semplici possono rendere le giornate più confortevoli.',
+    dailySupport: [
+      {
+        title: 'Riposare',
+        description: 'Approfittare di ogni momento libero per recuperare le forze.',
+      },
+      {
+        title: 'Accettare aiuto',
+        description: 'Non esitare a chiedere sostegno alle persone intorno a te.',
+      },
+      {
+        title: 'Bere regolarmente',
+        description: 'Mantenersi sufficientemente idratata durante la giornata.',
+      },
+      {
+        title: 'Mangiare abbastanza',
+        description: 'Privilegiare pasti regolari e semplici.',
+      },
+    ],
+    quoteText: '“Chiedere aiuto nel post-partum è un modo per prenderti cura di te e del tuo bambino.”',
+    section4Kicker: 'DISTINGUERE',
+    section4Title: 'Baby blues o depressione post-partum?',
+    section4Body: 'Il baby blues di solito è breve e migliora gradualmente. La depressione post-partum è diversa: può essere più persistente, più intensa e avere un impatto significativo sulla vita quotidiana.',
+    compareTitle: 'Due situazioni da distinguere',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText: 'Spesso breve, con un miglioramento graduale nei giorni successivi.',
+    comparePostpartumTitle: 'Depressione post-partum',
+    comparePostpartumText: 'Può durare più a lungo, intensificarsi e richiedere un sostegno professionale.',
+    section5Kicker: 'RESTARE ATTENTE',
+    section5Title: 'Quando chiedere aiuto?',
+    section5Body: 'È importante parlare con un professionista sanitario se il malessere emotivo non migliora, diventa più intenso o inizia a rendere più difficile la vita quotidiana.',
+    attentionTitle: 'Segnali a cui prestare attenzione',
+    attentionSubtitle: 'Parlane con un professionista se…',
+    attentionSigns: [
+      'I sintomi durano più di due settimane.',
+      'La tristezza o l’ansia diventano più intense.',
+      'Diventa difficile prenderti cura di te o del tuo bambino.',
+      'Compare una forte sensazione di sofferenza.',
+    ],
+    professionalTitle: 'Un sostegno è disponibile',
+    professionalText: 'Un’ostetrica, un medico, una psicologa o un altro professionista sanitario può ascoltarti, valutare la situazione e proporti un sostegno adeguato.',
+    tipTitle: 'Da sapere',
+    tipText: 'Le emozioni del post-partum non misurano quanto sei una brava madre. Hai il diritto di avere bisogno di riposo, di essere ascoltata e di essere sostenuta.',
+    section6Kicker: 'PUNTI CHIAVE',
+    section6Title: 'Punti chiave',
+    takeaways: [
+      'Il baby blues è comune dopo il parto.',
+      'La stanchezza e i cambiamenti ormonali possono influire sull’umore.',
+      'Il sostegno delle persone che ti circondano può rendere questo periodo più facile.',
+      'Un malessere persistente o importante merita una valutazione professionale.',
+    ],
+    disclaimerText: 'Questo articolo ha scopo informativo e non sostituisce un parere medico personalizzato. In caso di dubbi o di forte sofferenza, parlane con un professionista sanitario.',
+    endText: 'Prendersi cura di sé fa parte anche del post-partum.',
+    shareTitle: 'Baby blues e benessere emotivo nel post-partum',
+    shareMessage: 'Baby blues e benessere emotivo nel post-partum — AWA\n\nUna guida per capire i cambiamenti emotivi comuni dopo il parto.',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -450,7 +558,7 @@ export default function BabyBluesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

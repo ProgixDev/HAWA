@@ -24,6 +24,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
+import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../i18n/editorialImages';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {
@@ -407,7 +408,7 @@ function getCategories(t: TranslateFn): CategoryCard[] {
 const POPULAR = [
   {
     id: 'cycle-phases-expliquees',
-    image: require('../assets/images/library/cycle-phases-hero.png'),
+    image: CYCLE_PHASES_HERO,
     duration: 6,
   },
   {
@@ -459,7 +460,7 @@ function SectionTitle({
 function LibraryScreen({
   navigation,
 }: Props): React.JSX.Element {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(
     () => createStyles(theme),
@@ -1352,7 +1353,7 @@ function LibraryScreen({
                 styles.articleRow
               }>
               <Image
-                source={item.image}
+                source={resolveEditorialImage(item.image, i18n.language)}
                 style={
                   styles.articleThumb
                 }

@@ -29,6 +29,8 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
 
 const ID = 'firstperiod-comment-savoir';
 
@@ -52,7 +54,7 @@ const RELATED_IMAGES = [
     articleId: 'firstperiod-choisir-protection',
   },
   {
-    image: require('../../assets/images/library/cycle-phases-hero.png'),
+    image: CYCLE_PHASES_HERO,
     articleId: 'firstperiod-premieres-regles',
   },
 ] as const;
@@ -162,6 +164,57 @@ const CONTENT = {
     ],
     shareMessage: '¿Cómo saber si se acerca mi primera menstruación? — AWA',
   },
+  it: {
+    badge: 'PRIMO CICLO',
+    title: 'Come capire se sta per\narrivare il mio primo ciclo?',
+    metaDuration: '5 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Alcuni segnali concreti possono aiutarti a riconoscere che il tuo primo ciclo sta davvero per arrivare.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Segnali da osservare',
+      'Prime perdite: che aspetto hanno?',
+      'Perdite vaginali o sangue mestruale?',
+      'Quando parlarne con un adulto?',
+    ],
+    observe: [
+      {
+        title: 'Perdite biancastre',
+        text: 'Perdite leggere e trasparenti compaiono spesso qualche mese prima.',
+      },
+      {
+        title: 'Sviluppo del seno',
+        text: 'Un segnale comune che di solito compare ben prima del ciclo.',
+      },
+      {
+        title: 'Lievi fitte alla pancia',
+        text: 'Piccole sensazioni come queste possono indicare che il ciclo sta per arrivare.',
+      },
+    ],
+    body2: 'Prima che arrivi il tuo primissimo ciclo, è comune notare nelle mutandine perdite leggere biancastre o leggermente giallastre. È un fenomeno normale, legato all’attività ormonale che si sta avviando nel tuo corpo.',
+    body3: 'Le perdite vaginali sono trasparenti o biancastre, senza odore forte. Il sangue mestruale, invece, è di colore da rosso a brunastro e segna il vero inizio del tuo ciclo. Se hai dei dubbi, parlarne non è mai un problema.',
+    tipTitle: 'Da sapere',
+    tipText: 'Non c’è modo di prevedere il giorno esatto. Tenere con te un assorbente fin dai primi segnali è la migliore abitudine da avere.',
+    body4: 'Non appena noti questi segnali, o ogni volta che hai una domanda o una preoccupazione, puoi parlarne con tua madre, una sorella, una persona a te vicina o un professionista sanitario di cui ti fidi. Non c’è mai un momento sbagliato per chiedere aiuto.',
+    relatedTitle: '♥  Potrebbe interessarti anche',
+    related: [
+      {
+        title: 'I primi segnali prima del ciclo',
+        meta: '5 min  ·  Articolo',
+      },
+      {
+        title: 'Quale protezione scegliere per il mio primo ciclo?',
+        meta: '6 min  ·  Guida',
+      },
+      {
+        title: 'Il tuo primo ciclo: cosa aspettarti',
+        meta: '5 min  ·  Guida',
+      },
+    ],
+    shareMessage: 'Come capire se sta per arrivare il mio primo ciclo? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -170,7 +223,7 @@ export default function FirstPeriodComingArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -402,7 +455,7 @@ export default function FirstPeriodComingArticleScreen({
               }
               style={styles.relatedCard}>
               <Image
-                source={item.image}
+                source={resolveEditorialImage(item.image, lang)}
                 resizeMode="cover"
                 style={styles.relatedImage}
               />

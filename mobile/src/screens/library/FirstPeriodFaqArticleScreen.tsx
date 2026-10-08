@@ -29,6 +29,8 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
 
 const ID = 'firstperiod-questions-frequentes';
 
@@ -45,7 +47,7 @@ const FAQ_IMAGES = [
 ] as const;
 
 const RELATED_IMAGES = [
-  require('../../assets/images/library/cycle-phases-hero.png'),
+  CYCLE_PHASES_HERO,
   require('../../assets/images/library/featured-flow.png'),
   require('../../assets/images/library/pain-hero.png'),
 ] as const;
@@ -200,6 +202,56 @@ const CONTENT = {
     ],
     shareMessage: 'Preguntas frecuentes sobre la primera menstruación — AWA',
   },
+  it: {
+    badge: 'PRIMO CICLO',
+    title: 'Domande frequenti\nsul tuo primo ciclo',
+    metaDuration: '4 min di lettura',
+    metaType: 'FAQ',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Risposte semplici alle domande più comuni sul tuo primo ciclo.',
+    contentsTitle: 'In questo articolo',
+    faq: [
+      {
+        question: '«È normale avere pochissimo sangue?»',
+        answer: 'Sì. I primissimi cicli hanno spesso un flusso leggero. Il flusso può variare da un ciclo all’altro, soprattutto all’inizio.',
+      },
+      {
+        question: '«È normale avere molto sangue?»',
+        answer: 'Può capitare anche un flusso più abbondante, soprattutto nei primi due giorni. Se hai bisogno di cambiare l’assorbente più di una volta all’ora per diverse ore di seguito, è una buona idea parlarne con un operatore sanitario.',
+      },
+      {
+        question: '«È normale avere i crampi?»',
+        answer: 'I crampi lievi nella parte bassa del ventre sono comuni e di solito non c’è nulla di cui preoccuparsi. Una borsa dell’acqua calda o un po’ di riposo possono aiutare. Un dolore molto intenso merita di essere comunicato a qualcuno.',
+      },
+      {
+        question: '«Posso fare sport?»',
+        answer: 'Sì, puoi continuare a fare sport durante il ciclo. Basta adattare l’intensità a come si sente il tuo corpo quel giorno.',
+      },
+      {
+        question: '«Posso andare a nuotare?»',
+        answer: 'Sì, puoi continuare ad andare a nuotare con la protezione adatta. Molte persone scelgono semplicemente di aspettare di sentirsi più a proprio agio con l’idea.',
+      },
+    ],
+    tipTitle: 'Da sapere',
+    tipText: 'Non esistono domande imbarazzanti: ogni corpo è diverso e puoi sempre parlarne con qualcuno di cui ti fidi.',
+    relatedTitle: '♥  Potrebbe interessarti anche',
+    related: [
+      {
+        title: 'Il tuo primo ciclo: cosa aspettarti',
+        meta: '5 min  ·  Guida',
+      },
+      {
+        title: 'Quale protezione scegliere per il mio primo ciclo?',
+        meta: '6 min  ·  Guida',
+      },
+      {
+        title: 'Gestire il dolore mestruale',
+        meta: '7 min  ·  Guida',
+      },
+    ],
+    shareMessage: 'Domande frequenti sul tuo primo ciclo — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -208,7 +260,7 @@ export default function FirstPeriodFaqArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -423,7 +475,7 @@ export default function FirstPeriodFaqArticleScreen({
               }
               style={styles.relatedCard}>
               <Image
-                source={RELATED_IMAGES[index]}
+                source={resolveEditorialImage(RELATED_IMAGES[index], lang)}
                 resizeMode="cover"
                 style={styles.relatedImage}
               />

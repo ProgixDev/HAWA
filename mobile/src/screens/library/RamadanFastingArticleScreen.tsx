@@ -29,10 +29,12 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
 
 const ID = 'ramadan-jeune-et-regles';
 
-const HERO = require('../../assets/images/library/cycle-phases-hero.png');
+const HERO = CYCLE_PHASES_HERO;
 
 const ART = {
   tracking: require('../../assets/images/library/featured-tracking-hero.png'),
@@ -207,6 +209,56 @@ const CONTENT = {
     tip3Text: 'El ayuno suspendido durante la menstruación es una facilidad reconocida, no una ruptura con la propia práctica religiosa. Vivir este periodo de otra manera, llevar un registro de tus días y pedir consejo en caso de duda permiten atravesar el Ramadán con serenidad.',
     shareMessage: 'El ayuno durante el Ramadán — AWA',
   },
+  it: {
+    badge: 'RAMADAN',
+    title: 'Il digiuno durante\nil Ramadan',
+    metaDuration: '6 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Consigli pratici e spunti educativi per vivere con serenità il mese di Ramadan durante il periodo mestruale.',
+    disclaimerTitle: 'Informazione importante',
+    disclaimerText: 'Questo contenuto ha uno scopo puramente educativo. Le questioni religiose dovrebbero essere validate da studiosi qualificati. AWA non emette fatwa né pareri religiosi personalizzati.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Il digiuno sospeso durante il periodo mestruale',
+      'Vivere la spiritualità in modo diverso',
+      'Tenere traccia dei giorni da recuperare',
+      'Punti chiave',
+    ],
+    section1Body1: 'Durante il periodo mestruale il digiuno non è obbligatorio: questo momento pone la donna in uno stato in cui diversi atti di culto, tra cui il digiuno, sono temporaneamente sospesi. Questa sospensione è riconosciuta come un’agevolazione, non come un divieto né una punizione.',
+    section1Body2: 'Sospendere il digiuno durante il periodo mestruale non significa allontanarsi dalla propria pratica religiosa. È semplicemente messa in pausa per un tempo limitato, poi ripresa normalmente alla fine del periodo mestruale, senza che alcun atto di fede vada perso. I giorni non digiunati saranno recuperati in seguito (qadaa), al di fuori del Ramadan.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Questa pausa si può vivere anche come un tempo diverso all’interno del mese, in cui la spiritualità continua a esprimersi in altri modi, senza il digiuno.',
+    note1Title: 'Attenzione',
+    note1Text: 'Questa situazione non va vissuta con senso di colpa: fa parte del ciclo naturale del corpo ed è presa in considerazione dalla stessa tradizione religiosa.',
+    section2Body: 'Non digiunare non significa essere tagliate fuori dal mese di Ramadan. Molte forme di spiritualità restano accessibili e permettono di continuare a vivere pienamente questo tempo.',
+    spiritualActs: [
+      'Dhikr (ricordo di Dio)',
+      'Du’a (suppliche)',
+      'Ascolto di contenuti religiosi',
+      'Lettura di contenuti educativi',
+      'Carità e gesti di gentilezza',
+      'Aiutare a preparare l’iftar',
+      'Tempo per la riflessione personale',
+      'Mantenere una routine spirituale',
+    ],
+    tip2Title: 'Da sapere',
+    tip2Text: 'Questi piccoli gesti, anche semplici, ti aiutano a restare pienamente in sintonia con lo spirito del mese, qualunque sia la tua situazione.',
+    section3Body: 'Tenere traccia dei giorni del periodo mestruale durante il Ramadan rende più facile, poi, calcolare il numero di giorni da recuperare (qadaa) e evita di dover contare sulla memoria una volta finito il mese.',
+    trackingTips: [
+      'Annota la data di ogni giorno non digiunato man mano che passa',
+      'Usa un calendario, un’app o un quaderno dedicato',
+      'Fai un rapido controllo a fine mese per verificare il totale',
+    ],
+    visualTitle: 'Un monitoraggio semplificato',
+    visualText: 'AWA può aiutarti a seguire il tuo ciclo per tutto il Ramadan, così potrai ritrovare facilmente queste informazioni in seguito.',
+    note2Title: 'Attenzione',
+    note2Text: 'Le modalità esatte per recuperare i giorni persi (tempi, situazioni particolari come gravidanza o allattamento) possono variare secondo la scuola giuridica. Per qualsiasi situazione specifica o complessa, il parere di uno studioso qualificato resta il riferimento.',
+    tip3Title: 'Da sapere',
+    tip3Text: 'Il digiuno sospeso durante il periodo mestruale è un’agevolazione riconosciuta, non un’interruzione della tua pratica religiosa. Vivere questo momento in modo diverso, tenere traccia dei tuoi giorni e chiedere un parere in caso di dubbio ti aiutano ad attraversare il Ramadan con serenità.',
+    shareMessage: 'Il digiuno durante il Ramadan — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -215,7 +267,7 @@ export default function RamadanFastingArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -272,7 +324,7 @@ export default function RamadanFastingArticleScreen({
           },
         ]}>
         <View style={styles.heroWrap}>
-          <Image source={HERO} resizeMode="cover" style={styles.hero} />
+          <Image source={resolveEditorialImage(HERO, lang)} resizeMode="cover" style={styles.hero} />
 
           <View
             style={[

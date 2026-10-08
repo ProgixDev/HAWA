@@ -29,6 +29,7 @@ import {
   withAlpha,
   type ResolvedAwaTheme,
 } from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'nutrition-conception-fertilite';
 
@@ -259,6 +260,105 @@ const CONTENT = {
     ],
     shareMessage: 'Alimentación y ciclo: lo que le gusta a tu cuerpo — AWA',
   },
+  it: {
+    badge: 'CICLO MESTRUALE',
+    titleLine1: 'Alimentazione e ciclo:',
+    titleLine2: 'ciò che il tuo corpo ama',
+    metaDuration: '4 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'La tua alimentazione influenza la tua energia, il tuo umore, i tuoi ormoni e il tuo benessere generale durante tutto il ciclo.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Esigenze nutrizionali per fase',
+      'Alimenti da privilegiare',
+      'Alimenti da limitare',
+      'Esempi di pasti equilibrati',
+    ],
+    section1Body: 'Il tuo corpo non ha le stesse esigenze durante tutto il ciclo. Adattare ciò che mangi può fare una vera differenza.',
+    phases: [
+      {
+        title: 'Fase mestruale',
+        days: 'Giorni da 1 a 5',
+        body: 'Privilegia ferro, magnesio e vitamine del gruppo B.',
+      },
+      {
+        title: 'Fase follicolare',
+        days: 'Giorni da 6 a 14',
+        body: 'Punta su proteine magre e verdure fresche.',
+      },
+      {
+        title: 'Fase ovulatoria',
+        days: 'Intorno al giorno 14',
+        body: 'Scegli antiossidanti e omega-3.',
+      },
+      {
+        title: 'Fase luteale',
+        days: 'Giorni da 15 a 28',
+        body: 'Sostieni il sistema nervoso e limita l’infiammazione.',
+      },
+    ],
+    foods: [
+      {
+        title: 'Ferro',
+        body: 'Lenticchie, spinaci, carni magre, ceci.',
+      },
+      {
+        title: 'Magnesio',
+        body: 'Mandorle, semi di zucca, cioccolato fondente, banana.',
+      },
+      {
+        title: 'Omega-3',
+        body: 'Salmone, sardine, noci, semi di lino.',
+      },
+      {
+        title: 'Proteine',
+        body: 'Uova, tofu, pollame, yogurt greco, quinoa.',
+      },
+      {
+        title: 'Fibre e antiossidanti',
+        body: 'Frutti di bosco, avocado, broccoli, carote.',
+      },
+    ],
+    limits: [
+      {
+        title: 'Eccesso di sale',
+      },
+      {
+        title: 'Alimenti zuccherati',
+      },
+      {
+        title: 'Alimenti ultraprocessati',
+      },
+      {
+        title: 'Eccesso di caffeina',
+      },
+      {
+        title: 'Alcol',
+      },
+    ],
+    limitText: 'Consumali con moderazione per aiutarti a mantenere il tuo equilibrio.',
+    meals: [
+      {
+        tag: 'Colazione',
+        body: 'Porridge, frutti di bosco, mandorle e semi di chia',
+      },
+      {
+        tag: 'Pranzo',
+        body: 'Salmone, quinoa, broccoli al vapore e olio d’oliva',
+      },
+      {
+        tag: 'Spuntino',
+        body: 'Yogurt naturale, mirtilli e semi di lino',
+      },
+      {
+        tag: 'Cena',
+        body: 'Zuppa di lenticchie, verdure arrosto e pane integrale',
+      },
+    ],
+    shareMessage: 'Alimentazione e ciclo: ciò che il tuo corpo ama — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -270,7 +370,7 @@ export default function NutritionCycleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

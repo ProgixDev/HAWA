@@ -87,6 +87,8 @@ function splitContent(source: string): ContentSplit | null {
   const frIdx = source.indexOf('\n  fr: {');
   const enIdx = source.indexOf('\n  en: {');
   const esIdx = source.indexOf('\n  es: {');
+  // Italian was appended after `es`: the Spanish block now ends where `it` begins.
+  const itIdx = source.indexOf('\n  it: {');
   const endIdx = source.indexOf('} as const;');
   if (frIdx === -1 || enIdx === -1 || esIdx === -1 || endIdx === -1) {
     return null;
@@ -94,6 +96,10 @@ function splitContent(source: string): ContentSplit | null {
   if (!(frIdx < enIdx && enIdx < esIdx && esIdx < endIdx)) {
     return null;
   }
+  if (itIdx !== -1 && !(esIdx < itIdx && itIdx < endIdx)) {
+    return null;
+  }
+  const esEndIdx = itIdx !== -1 ? itIdx : endIdx;
   return {
     frIdx,
     enIdx,
@@ -101,12 +107,12 @@ function splitContent(source: string): ContentSplit | null {
     endIdx,
     fr: source.slice(frIdx, enIdx),
     en: source.slice(enIdx, esIdx),
-    es: source.slice(esIdx, endIdx),
+    es: source.slice(esIdx, esEndIdx),
   };
 }
 
-const SELECTOR_RE =
-  /i18n\.language === 'fr' \? 'fr' : i18n\.language === 'es' \? 'es' : 'en'/;
+// The fr/es/it opt-ins (English for anything else) now live in the shared resolver.
+const SELECTOR_RE = /resolveEditorialLanguage\(i18n\.language\)/;
 
 describe('ITEM 1 — reachable-article discovery matches the real ArticleReaderScreen.tsx registry', () => {
   it('the dispatch table parses to exactly 72 reachable entries (sanity on the discovery mechanism itself)', () => {
@@ -175,7 +181,7 @@ describe('ITEM 1 — reachable-article discovery matches the real ArticleReaderS
     expect(esMissing.length).toBe(0);
   });
 
-  it('every reachable file uses the 3-way fr/es/en language selector (catches a future revert to the 2-way fr/en selector)', () => {
+  it('every reachable file uses the shared editorial language selector (catches a revert to a hardcoded fr/en or fr/es/en ternary)', () => {
     const offenders: string[] = [];
     for (const file of reachableFileList) {
       const source = fs.readFileSync(path.join(LIB_DIR, file), 'utf8');

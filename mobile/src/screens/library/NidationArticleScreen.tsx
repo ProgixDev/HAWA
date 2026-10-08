@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'conceptiontips-comprendre-nidation';
 
@@ -154,6 +155,37 @@ const CONTENT = {
       'La nidación ocurre de forma discreta, con o sin señales visibles. Un poco de paciencia antes de hacerte la prueba te evita un resultado poco fiable.',
     shareMessage: 'Comprende la nidación — AWA',
   },
+  it: {
+    badge: 'IMPIANTO',
+    title: 'Capire\nl’impianto',
+    metaDuration: '5 min di lettura',
+    metaType: 'Articolo',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenuto validato',
+    intro: 'Che cosa succede tra la fecondazione e un test di gravidanza positivo.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Dalla fecondazione all’impianto',
+      'Possibili segni, senza certezze',
+      'Quando un test diventa affidabile',
+      'Punti chiave',
+    ],
+    body1: 'Dopo la fecondazione, l’ovulo impiega di solito da 6 a 10 giorni per raggiungere l’utero e impiantarsi: è l’impianto. Questa tappa segna il vero punto di partenza della gravidanza.',
+    body2: 'Un lieve sanguinamento o dei crampi possono talvolta accompagnare l’impianto, ma non è sistematico e non è un segno affidabile da solo.',
+    possibleSigns: [
+      'Un sanguinamento molto lieve, a volte chiamato «spotting»',
+      'Lievi crampi nel basso ventre',
+      'Nessun segno particolare, per molte donne',
+    ],
+    tip1Title: 'Da sapere',
+    tip1Text: 'L’assenza di segni non significa nulla: molte gravidanze iniziano senza alcun sintomo percepibile in questa fase.',
+    body3: 'È solo dopo l’impianto che l’ormone hCG inizia a essere prodotto e diventa rilevabile da un test di gravidanza. Fare il test troppo presto può dare un risultato falsamente negativo.',
+    alertTitle: 'Nota',
+    alertText: 'Aspettare il giorno presunto del periodo mestruale prima di fare il test dà un risultato più affidabile rispetto a farlo troppo presto.',
+    tip2Title: 'Da sapere',
+    tip2Text: 'L’impianto avviene in modo discreto, con o senza un segno visibile. Un po’ di pazienza prima del test ti evita un risultato poco affidabile.',
+    shareMessage: 'Capire l’impianto — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -162,7 +194,7 @@ export default function NidationArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -29,10 +29,12 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
 
 const ID = 'fertility-fenetre-fertile';
 
-const HERO = require('../../assets/images/library/cycle-phases-hero.png');
+const HERO = CYCLE_PHASES_HERO;
 
 // Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
 // object below, keyed by index to stay aligned with these icons.
@@ -142,6 +144,37 @@ const CONTENT = {
     tip2Text: 'Combinar varios indicios (ciclo, moco, temperatura) da una visión más fiable de tu ventana fértil que una sola señal aislada.',
     shareMessage: 'La ventana fértil, cómo funciona — AWA',
   },
+  it: {
+    badge: 'FINESTRA FERTILE',
+    title: 'La finestra fertile:\ncome funziona',
+    metaDuration: '6 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Perché i giorni intorno all’ovulazione sono i più importanti per concepire.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Che cos’è la finestra fertile?',
+      'Perché questi giorni contano di più',
+      'Come individuare la tua finestra fertile',
+      'Punti chiave',
+    ],
+    section1Body: 'La finestra fertile indica il periodo del tuo ciclo in cui una gravidanza è possibile. Dura circa 6 giorni: i 5 giorni prima dell’ovulazione, più il giorno stesso dell’ovulazione.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Ogni ciclo è diverso: la finestra fertile non cade necessariamente nello stesso giorno del calendario da un mese all’altro.',
+    section2Body1: 'Gli spermatozoi possono sopravvivere fino a 5 giorni nelle vie genitali, il che amplia il periodo in cui il concepimento è possibile. L’ovulo, invece, rimane fecondabile solo per circa 24 ore dopo il rilascio.',
+    section2Body2: 'Ad esempio, un rapporto che avviene 3 giorni prima dell’ovulazione può portare al concepimento, mentre un rapporto il giorno dopo l’ovulazione arriva spesso troppo tardi.',
+    section3Intro: 'Diversi segnali, osservati insieme, ti aiutano a individuare meglio questo periodo:',
+    trackingSigns: [
+      'Tenere traccia della durata del tuo ciclo',
+      'Osservare il tuo muco cervicale',
+      'Misurare la tua temperatura basale',
+      'Usare i test di ovulazione (LH)',
+    ],
+    tip2Title: 'Da sapere',
+    tip2Text: 'Combinare più segnali (ciclo, muco, temperatura) offre un quadro più affidabile della tua finestra fertile rispetto a un singolo segnale preso da solo.',
+    shareMessage: 'La finestra fertile: come funziona — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -150,7 +183,7 @@ export default function FertilityWindowArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -207,7 +240,7 @@ export default function FertilityWindowArticleScreen({
           },
         ]}>
         <View style={styles.heroWrap}>
-          <Image source={HERO} resizeMode="cover" style={styles.hero} />
+          <Image source={resolveEditorialImage(HERO, lang)} resizeMode="cover" style={styles.hero} />
 
           <View
             style={[

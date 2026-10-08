@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'birthcontrolpills-comprendre-la-pilule';
 
@@ -178,6 +179,52 @@ const CONTENT = {
     finalTipText: 'Si estás considerando una anticoncepción o tu método actual no te resulta adecuado, no dudes en hablarlo con un médico, una matrona u otro profesional de la salud.',
     shareMessage: 'Entender la píldora anticonceptiva — AWA',
   },
+  it: {
+    badge: 'PILLOLA ANTICONCEZIONALE',
+    title: 'Capire\nla pillola anticoncezionale',
+    metaDuration: '7 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Come funziona la pillola, come assumerla ogni giorno, e i suoi principali vantaggi e limiti.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Come funziona la pillola',
+      'Assumerla correttamente ogni giorno',
+      'Vantaggi e limiti',
+      'Punti chiave',
+    ],
+    body1: 'La pillola contiene ormoni — estrogeno e/o progestinico, a seconda del tipo — che agiscono soprattutto impedendo o bloccando l’ovulazione. Modifica inoltre il muco cervicale, rendendo più difficile il passaggio degli spermatozoi.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Esistono diversi tipi di pillola, tra cui le pillole combinate e le pillole a base di solo progestinico. La loro composizione e il modo di assumerle possono variare.',
+    body2: 'È importante assumerla con regolarità. A seconda del tipo di pillola, cosa fare dopo una dimenticanza può essere diverso — per questo è essenziale consultare il foglietto illustrativo del tuo medicinale.',
+    routineTips: [
+      'Scegli un momento della giornata facile da ricordare (un pasto, l’ora di andare a dormire...)',
+      'Usa un promemoria o un’app se necessario',
+      'Tieni a portata di mano il foglietto illustrativo in caso di dubbi',
+    ],
+    sectionIntro: 'Come ogni metodo contraccettivo, la pillola ha dei vantaggi ma anche alcuni limiti da conoscere prima di sceglierla.',
+    advantagesTitle: 'Vantaggi',
+    advantagesSubtitle: 'Cosa può offrire',
+    advantages: [
+      'Riduce notevolmente il rischio di gravidanza se usata correttamente',
+      'Può rendere le mestruazioni più regolari e prevedibili',
+      'Può ridurre il dolore e il flusso mestruale in alcune persone',
+      'Può essere adattata o cambiata se non è adatta a te',
+    ],
+    limitationsTitle: 'Limiti',
+    limitationsSubtitle: 'Aspetti da conoscere',
+    limitations: [
+      'Richiede un’assunzione regolare, a seconda del tipo di pillola',
+      'Le dimenticanze possono ridurne l’efficacia',
+      'Alcune persone possono avere effetti collaterali',
+      'Non protegge dalle infezioni sessualmente trasmissibili (IST)',
+    ],
+    takeawayTitle: 'Un metodo da conoscere bene',
+    takeawayText: 'La pillola è un metodo contraccettivo ormonale efficace se usata correttamente. Assumerla con regolarità, i suoi possibili effetti collaterali e la mancanza di protezione contro le IST sono aspetti importanti da conoscere.',
+    finalTipText: 'Se stai pensando alla contraccezione o il metodo che usi ora non fa per te, non esitare a parlarne con un medico, un’ostetrica o un altro professionista sanitario.',
+    shareMessage: 'Capire la pillola anticoncezionale — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -186,7 +233,7 @@ export default function BirthControlPillsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

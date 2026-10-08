@@ -25,6 +25,7 @@ import ReadingControls from '../../components/articles/ReadingControls';
 import {getBottomPadding, getTopPadding, READING_CONTROLS_SPACE} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'flow-colors-textures';
 
@@ -235,6 +236,111 @@ const CONTENT = {
     ],
     shareMessage: 'Flujo menstrual: entender los colores y las texturas — AWA',
   },
+  it: {
+    badge: 'CICLO E BENESSERE',
+    title: 'Il flusso mestruale: capire\ncolori e consistenze',
+    metaDuration: '4 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Il colore e la consistenza del tuo flusso dicono molto sulla tua salute ormonale. Impara a leggerli per capire meglio il tuo ciclo.',
+    contentsTitle: 'In questo articolo',
+    contents: [
+      'I colori del flusso mestruale',
+      'Le consistenze del flusso',
+      'Cosa può indicare ogni colore',
+      'Quando preoccuparsi?',
+      'I nostri consigli per conoscerti meglio',
+    ],
+    colors: [
+      {
+        name: 'Rosso vivo',
+        text: 'Flusso fresco, sangue nuovo. Comune all’inizio del ciclo.',
+      },
+      {
+        name: 'Rosso scuro',
+        text: 'Sangue più vecchio, normale a metà del ciclo.',
+      },
+      {
+        name: 'Marrone',
+        text: 'Sangue ossidato, spesso alla fine del ciclo.',
+      },
+      {
+        name: 'Rosa',
+        text: 'Può indicare un flusso leggero o un cambiamento ormonale.',
+      },
+      {
+        name: 'Arancione',
+        text: 'Può essere legato a un’infezione o a uno squilibrio.',
+      },
+    ],
+    textures: [
+      {
+        name: 'Fluido',
+        text: 'Flusso liquido, senza grumi.',
+      },
+      {
+        name: 'Cremoso',
+        text: 'Consistenza densa e liscia.',
+      },
+      {
+        name: 'Coaguli',
+        text: 'Coaguli di sangue piccoli o grandi.',
+      },
+      {
+        name: 'Filante / Mucoso',
+        text: 'Elastico, trasparente o biancastro.',
+      },
+      {
+        name: 'Tessuto',
+        text: 'Frammenti di tessuto o di mucosa.',
+      },
+    ],
+    meanings: [
+      {
+        name: 'Da rosso vivo a rosso scuro',
+        text: 'Ciclo normale. Il tuo corpo sta eliminando il rivestimento dell’utero.',
+      },
+      {
+        name: 'Marrone',
+        text: 'Sangue più vecchio, nulla di preoccupante.',
+      },
+      {
+        name: 'Rosa',
+        text: 'Può comparire all’inizio/alla fine del ciclo o con uno squilibrio ormonale.',
+      },
+      {
+        name: 'Arancione',
+        text: 'Tienilo d’occhio se è accompagnato da un odore forte, prurito o dolore.',
+      },
+    ],
+    warningTitle: 'Segnali a cui fare attenzione',
+    warningItems: [
+      'Sanguinamento molto abbondante (cambio della protezione ogni 1–2 ore)',
+      'Eliminare regolarmente coaguli molto grandi',
+      'Cattivo odore o prurito persistenti',
+      'Dolore insolitamente intenso',
+    ],
+    advice: [
+      {
+        title: 'Osserva il tuo flusso',
+        text: 'Annota ogni mese eventuali cambiamenti.',
+      },
+      {
+        title: 'Scegli la protezione giusta',
+        text: 'In base al tuo flusso e al tuo comfort.',
+      },
+      {
+        title: 'Ascolta il tuo corpo',
+        text: 'Ti dà segnali preziosi.',
+      },
+      {
+        title: 'In caso di dubbio',
+        text: 'Parlane con un operatore sanitario.',
+      },
+    ],
+    shareMessage: 'Il flusso mestruale: capire colori e consistenze — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -246,7 +352,7 @@ export default function FlowColorsTexturesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

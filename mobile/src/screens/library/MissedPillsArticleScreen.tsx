@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'missedpills-que-faire-en-cas-doubli';
 
@@ -284,6 +285,102 @@ const CONTENT = {
     finalTipText: 'Un olvido no significa automáticamente que tu anticoncepción haya dejado de funcionar. La actuación correcta depende del tipo de píldora y de las circunstancias del olvido. En caso de duda, consulta el prospecto y pide consejo rápidamente.',
     disclaimerText: 'Este artículo se ofrece con fines informativos y no sustituye el prospecto de tu medicamento ni un consejo médico personalizado. Las recomendaciones pueden variar según el tipo de píldora.',
   },
+  it: {
+    shareMessage: 'Pillola dimenticata: cosa fare? — AWA',
+    badge: 'PILLOLA DIMENTICATA',
+    title: 'Pillola dimenticata:\ncosa fare?',
+    metaDuration: '7 min di lettura',
+    metaType: 'FAQ',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenuto validato',
+    intro: 'Dimenticare una pillola può succedere a chiunque. Cosa fare dipende soprattutto da quanto tempo è passato, dal tipo di pillola e da quando avviene nel corso della confezione.',
+    importantTitle: 'Il punto chiave',
+    importantText: 'Niente panico. Per prima cosa verifica il tipo esatto della tua pillola e consulta il foglietto illustrativo per sapere come comportarti.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Meno di 12 ore di ritardo',
+      'Più di 12 ore di ritardo',
+      'Situazioni che richiedono particolare attenzione',
+      'Il foglietto illustrativo è il tuo riferimento',
+      'Quando chiedere un parere',
+      'Punti chiave',
+    ],
+    body1: 'Per alcune pillole, un ritardo di meno di 12 ore in genere non compromette la protezione contraccettiva. In questo caso, l’indicazione abituale è di assumere la pillola dimenticata il prima possibile e poi proseguire la confezione all’orario consueto.',
+    step1Title: 'Prendi la pillola',
+    step1Text: 'Prendi la pillola appena ti accorgi di essere in ritardo.',
+    step2Title: 'Prosegui come di consueto',
+    step2Text: 'Poi torna al tuo orario abituale per le pillole successive.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Se prendi la pillola dimenticata e poi quella prevista all’orario abituale, può capitare di assumere due pillole nello stesso giorno.',
+    body2: 'Quando il ritardo supera il tempo consentito per la tua pillola, la protezione può essere ridotta. Cosa fare in quel caso dipende dal tipo di pillola, dal numero di pillole dimenticate e dal punto della confezione in cui cade la dimenticanza.',
+    alertTitle: 'Attenzione',
+    alertText: 'Non fare affidamento solo sul numero di ore indicato qui: alcune pillole hanno istruzioni diverse. Controlla sempre il foglietto illustrativo del tuo medicinale.',
+    reflexesTitle: 'Le prime cose da fare',
+    checkPoints: [
+      {
+        title: 'Reagire in fretta',
+        text: 'Più rapidamente reagisci dopo esserti accorta della dimenticanza, più è facile seguire le indicazioni appropriate.',
+      },
+      {
+        title: 'Controllare il foglietto illustrativo',
+        text: 'Le istruzioni possono variare a seconda del tipo esatto di pillola e del numero di pillole dimenticate.',
+      },
+      {
+        title: 'Prevedere una protezione aggiuntiva',
+        text: 'In alcune situazioni, può essere consigliato il preservativo per un determinato periodo.',
+      },
+    ],
+    body3: 'Le situazioni non sono tutte uguali. Alcune dimenticanze richiedono una verifica più precisa delle indicazioni.',
+    situations: [
+      {
+        title: 'Una sola pillola dimenticata',
+        text: 'Cosa fare dipende soprattutto dal tempo trascorso rispetto all’orario abituale di assunzione.',
+      },
+      {
+        title: 'Più di una pillola dimenticata',
+        text: 'Questa situazione richiede particolare attenzione ed è meglio controllare con precisione il foglietto illustrativo.',
+      },
+      {
+        title: 'Non sei sicura di cosa fare',
+        text: 'Un farmacista o un operatore sanitario può aiutarti rapidamente a individuare il comportamento giusto.',
+      },
+    ],
+    body4: 'Il foglietto illustrativo della tua pillola riporta le istruzioni precise per il medicinale che stai assumendo. Le indicazioni possono differire a seconda che si tratti di una pillola combinata o di una pillola a base di solo progestinico.',
+    referenceTitle: 'Cose utili da verificare',
+    referenceTips: [
+      'Tieni a portata di mano il foglietto illustrativo (per esempio una foto sul telefono)',
+      'Rivolgiti a un farmacista se hai una domanda veloce',
+      'Consulta un medico se succede spesso',
+    ],
+    guideTitle: 'Perché conta il momento in cui hai dimenticato la pillola?',
+    guideText: 'Il punto della confezione in cui cade la dimenticanza può cambiare ciò che occorre fare. Per questo il foglietto illustrativo spesso riporta indicazioni diverse a seconda della settimana della confezione.',
+    body5: 'Se non sai cosa fare, è meglio chiedere consiglio piuttosto che restare nel dubbio. Un farmacista, un’ostetrica o un medico possono aiutarti a verificare le indicazioni adatte alla tua situazione.',
+    questionTitle: 'Informazioni da avere a portata di mano',
+    questions: [
+      'Di che tipo esatto di pillola si tratta?',
+      'Quanto tempo è passato rispetto all’orario abituale?',
+      'Quante pillole sono state dimenticate?',
+      'In quale punto della confezione è avvenuta la dimenticanza?',
+      'Ci sono stati rapporti non protetti di recente?',
+    ],
+    proTipTitle: 'Da sapere',
+    proTipText: 'Se ci sono stati rapporti non protetti in prossimità della pillola dimenticata, chiedi presto consiglio a un professionista per sapere quali opzioni sono disponibili.',
+    repeatTitle: 'Se continui a dimenticare le pillole',
+    body6: 'Dimenticanze frequenti possono essere un segnale che la routine quotidiana non si adatta del tutto al tuo stile di vita. Non esitare a parlarne con un operatore sanitario per valutare altre opzioni contraccettive.',
+    methodTipTitle: 'Un metodo diverso?',
+    methodTipText: 'Se prendere una pillola ogni giorno è difficile da mantenere, esistono altri metodi con una frequenza d’uso diversa.',
+    summaryTitle: 'L’essenziale',
+    summaryItems: [
+      'Reagisci non appena ti accorgi della dimenticanza.',
+      'Verifica il tipo esatto della tua pillola.',
+      'Controlla il foglietto illustrativo per sapere come comportarti con precisione.',
+      'Usa una protezione aggiuntiva se il foglietto illustrativo la raccomanda.',
+      'Chiedi consiglio in caso di dubbi o dopo un rapporto a rischio.',
+    ],
+    finalTipTitle: 'Punti chiave',
+    finalTipText: 'Dimenticare una pillola non significa automaticamente che la tua contraccezione abbia smesso di funzionare. Il comportamento giusto dipende dal tipo di pillola e dalle circostanze della dimenticanza. In caso di dubbi, controlla il foglietto illustrativo e chiedi presto consiglio.',
+    disclaimerText: 'Questo articolo ha uno scopo esclusivamente informativo e non sostituisce il foglietto illustrativo del tuo medicinale né un parere medico personalizzato. Le indicazioni possono variare a seconda del tipo di pillola.',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -292,7 +389,7 @@ export default function MissedPillsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

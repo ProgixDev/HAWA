@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'ovulation-comprendre-ovulation';
 
@@ -167,6 +168,40 @@ const CONTENT = {
       'Ninguna señal aislada es perfectamente fiable por sí sola: combinarlas da una mejor idea de tu momento más fértil.',
     shareMessage: 'Comprender la ovulación — AWA',
   },
+  it: {
+    badge: 'OVULAZIONE',
+    title: 'Capire\nl’ovulazione',
+    metaDuration: '6 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Il momento chiave del tuo ciclo e come riconoscerlo.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Che cos’è l’ovulazione?',
+      'I segni che possono accompagnarla',
+      'Riconoscere il tuo ritmo',
+      'Punti chiave',
+    ],
+    body1: 'L’ovulazione è il rilascio di un ovulo da parte di una delle ovaie. Di solito avviene circa 14 giorni prima del tuo prossimo periodo mestruale, indipendentemente dalla durata totale del tuo ciclo.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'È la data del prossimo periodo mestruale a variare da donna a donna, molto più del tempo che passa tra l’ovulazione e il suo arrivo.',
+    body2: 'Alcuni segni fisici possono accompagnare l’avvicinarsi dell’ovulazione, in misura diversa a seconda della donna.',
+    visualTitle: 'Muco cervicale più fluido',
+    visualText: 'Con l’avvicinarsi dell’ovulazione, il muco cervicale diventa più trasparente, più filante e più elastico.',
+    otherSigns: [
+      'Lieve dolore su un lato del basso ventre («mittelschmerz»)',
+      'Tensione al seno',
+      'Un leggero aumento della temperatura basale dopo l’ovulazione',
+      'Una spinta di energia in alcune donne',
+    ],
+    body3: 'Osservare questi segni nel corso di più cicli ti aiuta a conoscere il tuo ritmo, che può differire dalle medie generali.',
+    alertTitle: 'Attenzione',
+    alertText: 'Un ciclo senza ovulazione può verificarsi occasionalmente, senza che questo sia necessariamente motivo di preoccupazione. Se il periodo mestruale è assente per molto tempo o hai dei dubbi, è consigliato un parere medico.',
+    tip2Title: 'Da sapere',
+    tip2Text: 'Nessun segno è perfettamente affidabile da solo: combinarli permette di farsi un’idea migliore del tuo periodo più fertile.',
+    shareMessage: 'Capire l’ovulazione — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -175,7 +210,7 @@ export default function OvulationArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

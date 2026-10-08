@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -286,6 +287,71 @@ const CONTENT = {
       'Contenido informativo. Este artículo no sustituye un asesoramiento médico personalizado. Tu médico o tu matrona sigue siendo la referencia para tu situación.',
     shareMessage: 'Fertilidad y un nuevo intento después de una pérdida — AWA',
   },
+  it: {
+    badge: 'DOPO UN ABORTO SPONTANEO • FERTILITÀ',
+    title: 'Fertilità e nuovi tentativi dopo una perdita',
+    metaDuration: '6 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenuto informativo',
+    intro: 'Quando e come pensare a un nuovo tentativo, con i tuoi tempi e in piena serenità.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Il ritorno della fertilità',
+      'Cosa dicono in genere i professionisti',
+      'Sentirsi pronte, con i propri tempi',
+      'Un follow-up che può rassicurarti',
+      'Punti chiave',
+    ],
+    body1: 'La fertilità di solito ritorna già nel ciclo successivo a un aborto spontaneo precoce. L’ovulazione può addirittura avvenire prima che il periodo mestruale si ripresenti in modo visibile.',
+    infoTitle: 'Punto chiave',
+    infoText: 'A seconda della fase in cui è avvenuta la perdita, i tempi di recupero fisico possono variare leggermente da una situazione all’altra.',
+    body2: 'Molti professionisti ritengono che non sia necessario aspettare diversi cicli prima di riprovare, a meno che il tuo medico o la tua ostetrica non ti consigli diversamente.',
+    compareEarlyTitle: 'Perdita precoce',
+    compareEarlyText: 'La fertilità spesso ritorna rapidamente, già nel ciclo successivo.',
+    compareLateTitle: 'Perdita più avanzata',
+    compareLateText: 'L’équipe medica può consigliare un tempo di recupero leggermente più lungo.',
+    body3: 'Sentirsi pronte, fisicamente ed emotivamente, resta la guida più importante, molto più di qualsiasi tempistica teorica.',
+    readinessPoints: [
+      {
+        title: 'A livello emotivo',
+        text: 'Sentirti pronta dentro di te conta quanto il recupero fisico.',
+      },
+      {
+        title: 'A livello fisico',
+        text: 'Un ciclo regolare e una sensazione di benessere sono buoni indicatori.',
+      },
+      {
+        title: 'In coppia o con un sostegno',
+        text: 'Parlarne con il tuo partner può aiutarvi ad andare avanti allo stesso ritmo.',
+      },
+    ],
+    body4: 'Prima di riprovare, una visita medica può aiutarti ad andare avanti con più serenità:',
+    followUpSteps: [
+      {
+        title: 'Fare il punto',
+        text: 'Un colloquio con un professionista ti permette di ripercorrere ciò che è successo.',
+      },
+      {
+        title: 'Un controllo, se necessario',
+        text: 'A seconda della situazione, possono essere proposti ulteriori esami.',
+      },
+      {
+        title: 'Un nuovo tentativo',
+        text: 'Il follow-up può poi accompagnarti con serenità mentre riprovi.',
+      },
+    ],
+    tipTitle: 'Da sapere',
+    tipText: 'Un aborto spontaneo isolato in genere non indica un problema di fertilità. La tua équipe medica resta la più adatta a rispondere alle tue domande personali.',
+    summaryPoints: [
+      'La fertilità di solito ritorna già nel ciclo successivo a un aborto spontaneo precoce.',
+      'Molti professionisti ritengono che non sia necessario aspettare diversi cicli, a meno che non venga consigliato diversamente.',
+      'Sentirsi pronte, fisicamente ed emotivamente, resta la guida più importante.',
+      'Il follow-up medico può sostenerti e rassicurarti prima di riprovare.',
+    ],
+    disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce un parere medico personalizzato. Il tuo medico o la tua ostetrica resta il riferimento per la tua situazione.',
+    shareMessage: 'Fertilità e nuovi tentativi dopo una perdita — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -302,7 +368,7 @@ export default function MiscarriageFertilityArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -242,6 +243,89 @@ const CONTENT = {
     ],
     disclaimerText: 'Contenido informativo. Los plazos pueden variar según cada situación y no sustituyen una opinión médica.',
   },
+  it: {
+    badge: 'FREEMIUM • POST-PARTUM',
+    title: 'Il ritorno del ciclo dopo il parto,\ncosa aspettarsi',
+    metaDuration: '5 min di lettura',
+    metaType: 'Guida',
+    intro: 'Dopo il parto, il ritorno del periodo mestruale può richiedere del tempo. I tempi variano, tra l’altro, in base all’allattamento, e ogni persona può vivere questa fase in modo diverso.',
+    shareMessage: 'Il ritorno del ciclo dopo il parto, cosa aspettarsi — AWA',
+    h2_1: '1. Cos’è il ritorno del ciclo dopo il parto?',
+    body1: 'Il «ritorno del ciclo» indica la ricomparsa del periodo mestruale dopo il parto. Il ciclo mestruale non riprende necessariamente subito il suo ritmo abituale.',
+    highlightTitle: 'Punto chiave',
+    highlightText: 'Non esiste una tempistica unica valida per tutte.',
+    h2_2: '2. Quando può tornare il periodo mestruale?',
+    body2: 'I tempi dipendono in gran parte dall’allattamento. Senza allattamento, il periodo mestruale può in genere tornare intorno alle 6-8 settimane. Con l’allattamento esclusivo, può essere ritardato di diversi mesi.',
+    simpleInfoTitle1: 'Senza allattamento',
+    simpleInfoText1: 'In genere intorno alle 6-8 settimane.',
+    simpleInfoTitle2: 'Con allattamento esclusivo',
+    simpleInfoText2: 'Il ritorno può essere ritardato di diversi mesi.',
+    h2_3: '3. Come ritorna il ciclo',
+    body3: 'Il ciclo ritorna gradualmente dopo il parto. L’allattamento può influire sul momento in cui il periodo mestruale ricompare.',
+    schemaTitle: 'Ritorno graduale del ciclo',
+    schemaSubtitle: 'Una guida generale, passo dopo passo',
+    cycleStages: [
+      {
+        title: 'Dopo il parto',
+        text: 'Il ciclo mestruale si interrompe temporaneamente dopo il parto.',
+      },
+      {
+        title: 'Periodo post-partum',
+        text: 'Il corpo si riprende gradualmente e i livelli ormonali cambiano.',
+      },
+      {
+        title: 'Allattamento',
+        text: 'L’allattamento può ritardare il ritorno del periodo mestruale, ma il suo effetto varia da persona a persona.',
+      },
+      {
+        title: 'Ritorno del ciclo',
+        text: 'Il primo periodo mestruale può tornare dopo alcune settimane o diversi mesi.',
+      },
+      {
+        title: 'Primi cicli',
+        text: 'I cicli possono essere irregolari prima di ritrovare gradualmente il loro ritmo abituale.',
+      },
+    ],
+    schemaNoteText: 'Non esiste una tempistica identica per tutte. Il momento in cui il periodo mestruale ritorna può variare da persona a persona, in particolare in base all’allattamento.',
+    h2_4: '4. I primi cicli',
+    body4: 'Quando il periodo mestruale ritorna, i primi cicli possono essere diversi da quelli precedenti alla gravidanza. In particolare, all’inizio possono essere irregolari.',
+    card1Title: 'Ritmo variabile',
+    card1Text: 'Il ciclo può impiegare del tempo per ritrovare un ritmo familiare.',
+    card2Title: 'Flusso diverso',
+    card2Text: 'Il flusso può essere diverso da quello che osservavi prima della gravidanza.',
+    h2_5: '5. Cosa puoi osservare?',
+    body5: 'Un monitoraggio semplice ti aiuta a osservare meglio come evolve il tuo ciclo nel tempo.',
+    observations: [
+      {
+        title: 'Date',
+        text: 'Annota il primo giorno del periodo mestruale.',
+      },
+      {
+        title: 'Ritmo',
+        text: 'Osserva gradualmente l’intervallo tra i cicli.',
+      },
+      {
+        title: 'Flusso',
+        text: 'Osserva semplicemente eventuali cambiamenti rispetto a ciò che è abituale per te.',
+      },
+    ],
+    h2_6: '6. Quando chiedere un parere?',
+    body6: 'Se qualcosa ti sembra insolito, persistente o preoccupante, chiedi un parere a un operatore sanitario.',
+    warningSigns: [
+      'Sanguinamento che ti sembra insolito',
+      'Dolore intenso o persistente',
+      'Febbre o disagio importante',
+      'Qualsiasi nuovo sintomo che ti preoccupa',
+    ],
+    summaryTitle: 'Punti essenziali',
+    summaryPoints: [
+      'Il ritorno del ciclo dopo il parto indica la ricomparsa del periodo mestruale dopo il parto.',
+      'L’allattamento può ritardare il ritorno del periodo mestruale.',
+      'I primi cicli possono essere irregolari.',
+      'Annotare le date può aiutarti a seguire l’evoluzione del tuo ciclo.',
+    ],
+    disclaimerText: 'Contenuto informativo. I tempi possono variare in base a ogni situazione e non sostituiscono il parere medico.',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -261,7 +345,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -242,6 +243,86 @@ const CONTENT = {
     disclaimerText: 'Contenido informativo. Este artículo no sustituye una opinión médica personalizada. Si tienes dudas, consulta a un profesional de la salud.',
     shareMessage: 'Hidratarte bien durante el ciclo — AWA',
   },
+  it: {
+    badge: 'CICLO MESTRUALE • IDRATAZIONE',
+    title: 'Mantenersi idratate\ndurante il ciclo',
+    metaDuration: '6 min di lettura',
+    metaType: 'Articolo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Sembra controintuitivo, ma è vero: restare ben idratate aiuta il corpo a trattenere meno acqua durante tutto il ciclo.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Perché l’idratazione è importante',
+      'Il fabbisogno nelle fasi del ciclo',
+      'Che cosa bere ogni giorno',
+      'Segnali di idratazione insufficiente',
+      'Consigli pratici',
+      'Idee sbagliate comuni',
+      'I punti chiave',
+    ],
+    section1Body: 'Sembra controintuitivo, ma è vero: restare ben idratate aiuta il corpo a trattenere meno acqua e riduce il gonfiore, soprattutto verso la fine del ciclo.',
+    infoTitle: 'Da sapere',
+    infoText: 'Quando al corpo manca l’acqua, tende a trattenerne di più per precauzione. Bere abbastanza gli indica, al contrario, che può eliminare l’acqua più facilmente.',
+    section2Body: 'Il tuo fabbisogno di acqua resta nel complesso abbastanza stabile, con qualche sfumatura a seconda della fase:',
+    phaseNeeds: [
+      {
+        title: 'Durante il periodo mestruale',
+        text: 'Un po’ di acqua in più aiuta a compensare la perdita di liquidi e a limitare il gonfiore.',
+      },
+      {
+        title: 'Intorno all’ovulazione',
+        text: 'Il fabbisogno resta stabile; un leggero aumento della temperatura corporea può far crescere la sete.',
+      },
+      {
+        title: 'Fase premestruale',
+        text: 'Una buona idratazione aiuta a limitare la sensazione di gonfiore spesso avvertita in questo periodo.',
+      },
+    ],
+    section3Body: 'Punta a circa 1,5-2 litri al giorno, un po’ di più durante il periodo mestruale per compensare la perdita di liquidi.',
+    dailyDrinks: [
+      {
+        title: 'Prima di tutto l’acqua',
+        text: 'Circa 1,5-2 litri al giorno, un po’ di più durante il periodo mestruale.',
+      },
+      {
+        title: 'Tisane lenitive',
+        text: 'Lo zenzero o la camomilla offrono un’idratazione delicata durante i crampi.',
+      },
+      {
+        title: 'Zucchero e caffeina, con moderazione',
+        text: 'Limitare le bevande molto zuccherate o ricche di caffeina può essere utile verso la fine del ciclo.',
+      },
+    ],
+    warningTitle: 'Da tenere d’occhio',
+    lowHydrationSigns: [
+      'Sete intensa o insolita',
+      'Urine più scure del solito',
+      'Mal di testa frequenti',
+      'Stanchezza senza altre spiegazioni evidenti',
+    ],
+    section5Body: 'Poche abitudini semplici spesso bastano per restare idratate senza nemmeno pensarci:',
+    practicalTips: [
+      'Tieni una bottiglia d’acqua a portata di mano durante tutta la giornata',
+      'Abbina un bicchiere d’acqua a un’abitudine che hai già (al risveglio, a ogni pasto)',
+      'Alterna con infusi di erbe se l’acqua naturale ti stanca',
+    ],
+    section5Body2: 'Durante l’attività fisica, ricordati di bere prima, durante e dopo l’esercizio per compensare la perdita di sudore.',
+    compareTitle1: 'Credenza comune',
+    compareText1: '“Se bevo tanto, mi gonfio di più.”',
+    compareTitle2: 'In realtà è il contrario',
+    compareText2: 'Una buona idratazione aiuta il corpo a trattenere meno acqua.',
+    tipTitle: 'Da sapere',
+    tipText: 'Anche le tisane allo zenzero o alla camomilla offrono un’idratazione lenitiva durante i crampi.',
+    summaryPoints: [
+      'Restare ben idratate aiuta il corpo a trattenere meno acqua e riduce il gonfiore.',
+      'Punta a circa 1,5-2 litri al giorno, un po’ di più durante il periodo mestruale.',
+      'Anche le tisane allo zenzero o alla camomilla possono dare sollievo durante i crampi.',
+      'Una sete intensa e persistente merita di essere segnalata a un professionista sanitario.',
+    ],
+    disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce un parere medico personalizzato. In caso di dubbi, rivolgiti a un professionista sanitario.',
+    shareMessage: 'Mantenersi idratate durante il ciclo — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -258,7 +339,7 @@ export default function HydrationCycleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

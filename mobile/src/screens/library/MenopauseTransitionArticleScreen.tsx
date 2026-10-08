@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'menopause-comprendre-la-transition';
 
@@ -274,6 +275,67 @@ const CONTENT = {
       'La perimenopausia y la menopausia son etapas naturales, no una enfermedad. Existen numerosas soluciones para atravesar esta transición con más comodidad: un profesional de la salud sigue siendo el mejor recurso para adaptarlas a tu situación.',
     shareMessage: 'Entender la transición menopáusica — AWA',
   },
+  it: {
+    badge: 'PERIMENOPAUSA E MENOPAUSA',
+    title: 'Capire la transizione verso la menopausa',
+    metaDuration: '10 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Cosa cambia gradualmente, anni prima che le mestruazioni si fermino, e come affrontare questa fase con più chiarezza.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Perimenopausa e menopausa: definizioni',
+      'Cicli sempre più irregolari',
+      'Sonno e umore',
+      'Intimità e secchezza vaginale',
+      'Peso e metabolismo',
+      'Falsi miti comuni sulla menopausa',
+      'Sintomi normali e segnali a cui prestare attenzione',
+      'Consigli pratici per ogni giorno',
+      'Punti chiave da ricordare',
+    ],
+    h1: '1. Perimenopausa e menopausa: definizioni',
+    body1a: 'La perimenopausa indica il periodo di transizione ormonale che precede la menopausa: può iniziare diversi anni prima, in genere a partire dai quarant’anni, con livelli di estrogeni che fluttuano in modo irregolare.',
+    body1b: 'La menopausa, invece, è un momento preciso: viene confermata dopo 12 mesi consecutivi senza mestruazioni, in assenza di altre cause. In Francia si verifica in media intorno ai 51 anni, anche se questa età varia naturalmente da donna a donna.',
+    tip1Title: 'Bene a sapersi',
+    tip1Text: 'Ogni donna vive questa transizione in modo diverso, sia per durata sia per intensità dei sintomi. Parlarne apertamente aiuta a prepararsi meglio.',
+    h2: '2. Cicli sempre più irregolari',
+    body2: 'Uno dei primi segni della perimenopausa è spesso un cambiamento del ritmo del ciclo: i cicli possono diventare più corti, più lunghi, più distanziati o avere un flusso diverso da un mese all’altro.',
+    alert1Title: 'Attenzione',
+    alert1Text: 'Un sanguinamento molto abbondante, un sanguinamento che si presenta a intervalli molto ravvicinati o un sanguinamento che compare dopo un anno senza mestruazioni richiede un parere medico, perché non sono considerati segni tipici della transizione.',
+    h3: '3. Sonno e umore',
+    body3a: 'Il calo e le fluttuazioni di estrogeni e progesterone possono disturbare il sonno (difficoltà ad addormentarsi, risvegli notturni) e possono essere accompagnati da irritabilità, ansia o insoliti sbalzi d’umore.',
+    body3b: 'Questi cambiamenti hanno una reale spiegazione biologica: non dipendono da una mancanza di forza di volontà né da un problema psicologico isolato.',
+    h4: '4. Intimità e secchezza vaginale',
+    body4: 'Il calo degli estrogeni può causare secchezza vaginale, a volte con fastidio o dolore durante i rapporti. Anche il desiderio può cambiare, aumentando o diminuendo, a seconda della donna.',
+    tip2Title: 'Bene a sapersi',
+    tip2Text: 'Esistono soluzioni semplici (lubrificanti, idratanti vaginali, trattamenti locali): parlarne con un professionista sanitario può aiutarti a trovare quella giusta, senza tabù.',
+    h5: '5. Peso e metabolismo',
+    body5: 'Il metabolismo può rallentare leggermente in questo periodo e la distribuzione del grasso tende a spostarsi verso l’addome. Questi cambiamenti sono comuni e non dipendono solo dalla forza di volontà.',
+    h6: '6. Falsi miti comuni sulla menopausa',
+    myths: [
+      'La menopausa «arriva tutta in una volta» — in realtà è preceduta da diversi anni di transizione (perimenopausa)',
+      'Tutti i sintomi sono forti per tutte — la loro intensità varia enormemente da donna a donna',
+      'Non c’è nulla da fare — esistono molte soluzioni, ormonali o no, per alleviare i sintomi fastidiosi',
+      'La vita intima finisce — cambia, ma resta del tutto possibile e appagante con gli opportuni adattamenti',
+    ],
+    h7: '7. Sintomi normali e segnali a cui prestare attenzione',
+    body7: 'La grande maggioranza dei cambiamenti descritti qui sono manifestazioni normali della transizione. Tuttavia, alcuni segnali richiedono un’attenzione medica tempestiva.',
+    alert2Title: 'Rivolgiti a un medico se',
+    alert2Text: 'Sanguinamento dopo la menopausa confermata, dolore pelvico insolito, sintomi che disturbano in modo significativo la vita quotidiana o qualsiasi dubbio persistente.',
+    h8: '8. Consigli pratici per ogni giorno',
+    dailyHabits: [
+      'Un’alimentazione ricca di calcio e fibre',
+      'Attività fisica regolare',
+      'Una routine del sonno regolare',
+      'Momenti di relax ogni giorno',
+    ],
+    h9: '9. Punti chiave da ricordare',
+    tip3Title: 'Bene a sapersi',
+    tip3Text: 'La perimenopausa e la menopausa sono fasi naturali, non una malattia. Esistono molte soluzioni per aiutarti ad attraversare questa transizione in modo più confortevole: un professionista sanitario resta la migliore risorsa per adattarle alla tua situazione.',
+    shareMessage: 'Capire la transizione verso la menopausa — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -282,7 +344,7 @@ export default function MenopauseTransitionArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'pcos-poids-metabolisme-insuline';
 
@@ -242,6 +243,80 @@ const CONTENT = {
     tip2Text: 'El peso es solo una parte del cuadro metabólico del SOP. Un manejo global tiene en cuenta los ciclos, los síntomas, los hábitos de vida, los antecedentes y los parámetros metabólicos.',
     shareMessage: 'Peso, metabolismo y resistencia a la insulina — AWA',
   },
+  it: {
+    badge: 'PCOS',
+    title: 'Peso, metabolismo e\ninsulino-resistenza',
+    metaDuration: '6 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenuto validato',
+    intro: 'Il legame tra PCOS, peso e insulino-resistenza, senza giudizi né scorciatoie.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Il legame tra PCOS e metabolismo',
+      'Capire l’insulino-resistenza',
+      'Peso: che cosa è vero e che cosa no',
+      'Abitudini che favoriscono l’equilibrio',
+      'Quando il follow-up medico è utile',
+      'Punti chiave',
+    ],
+    body1: 'La PCOS è spesso associata a cambiamenti metabolici, tra cui l’insulino-resistenza. Questa associazione, però, non riguarda solo le donne in sovrappeso: i profili metabolici variano da persona a persona.',
+    body2: 'L’insulina è un ormone che aiuta le cellule a utilizzare il glucosio presente nel sangue. Con l’insulino-resistenza, le cellule rispondono meno bene a questo ormone e il corpo può compensare producendo più insulina.',
+    body3: 'Nella PCOS, questo può essere associato a una maggiore produzione di androgeni e può contribuire ad alcuni sintomi. Ma non tutte le donne con PCOS hanno lo stesso profilo metabolico.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'L’insulino-resistenza può essere valutata con esami del sangue quando il medico lo ritiene opportuno. La necessità di fare degli esami dipende dalla tua situazione individuale.',
+    weightFacts: [
+      'La PCOS riguarda donne di qualsiasi corporatura, da quelle magre a quelle più robuste.',
+      'L’aumento di peso non è sistematico.',
+      'Perdere peso non è sempre necessario, né da solo sufficiente, per migliorare i sintomi.',
+      'Una piccola perdita di peso può a volte migliorare alcuni parametri metabolici o la regolarità del ciclo quando è presente un eccesso di peso.',
+    ],
+    body4: 'L’obiettivo non è inseguire un peso «perfetto», ma costruire abitudini realistiche e durature. Un’alimentazione equilibrata, il movimento e un sonno regolare possono tutti contribuire a una migliore salute metabolica.',
+    dailyHabits: [
+      'Pasti regolari e vari, ricchi di fibre',
+      'Attività fisica regolare, anche se moderata',
+      'Un sonno sufficiente e regolare',
+      'Un’idratazione quotidiana sufficiente',
+    ],
+    body5: 'Il follow-up medico della PCOS non si limita al ciclo o ai sintomi ormonali. A seconda del tuo profilo, il tuo operatore sanitario può anche monitorare alcuni parametri metabolici per aiutare a individuare precocemente possibili fattori di rischio.',
+    medicalTitle: 'Un follow-up adatto al tuo profilo',
+    medicalSubtitle: 'Gli accertamenti non sono uguali per tutte.',
+    medicalDescription: 'Il tuo medico può decidere di controllare alcuni parametri in base ai tuoi sintomi, alla tua storia clinica, alla tua situazione familiare e ad altri fattori di rischio.',
+    medicalSectionTitle: 'Che cosa può essere monitorato',
+    medicalChecks: [
+      'Glicemia e/o HbA1c, a seconda del contesto',
+      'Profilo lipidico (colesterolo e trigliceridi)',
+      'Pressione arteriosa e valutazione del rischio cardiovascolare',
+      'Monitoraggio del peso e della circonferenza vita, senza giudizio',
+    ],
+    subH3: 'Situazioni da riferire',
+    body6: 'Alcuni cambiamenti vale la pena di riferirli durante una visita, soprattutto quando sono nuovi, persistenti o insoliti per te.',
+    medicalFollowUp: [
+      {
+        title: 'Cicli molto irregolari',
+        description: 'Riferisci le mestruazioni molto distanziate o imprevedibili.',
+      },
+      {
+        title: 'Sete o minzione frequente',
+        description: 'Parlane con il tuo medico se questi segni compaiono in modo insolito.',
+      },
+      {
+        title: 'Variazione di peso significativa',
+        description: 'Una variazione rapida o inspiegata merita di essere valutata.',
+      },
+      {
+        title: 'Storia familiare',
+        description: 'Riferisci eventuali casi in famiglia di diabete o di condizioni metaboliche.',
+      },
+    ],
+    alertTitle: 'Attenzione',
+    alertText: 'Sete insolita, minzione frequente, stanchezza persistente o una variazione di peso significativa e inspiegata vanno riferite a un professionista sanitario. Questi segni possono avere diverse cause e, da soli, non confermano un’insulino-resistenza o il diabete.',
+    followUpTipTitle: 'Il follow-up avviene nel tempo',
+    followUpTipText: 'Il tuo medico può suggerirti controlli regolari anziché un unico accertamento. L’obiettivo è adattare consigli ed esami a come evolvi, senza concentrarsi solo sul peso.',
+    tip2Title: 'Da sapere',
+    tip2Text: 'Nella PCOS il peso è solo una parte del quadro metabolico. Un approccio completo tiene conto di cicli, sintomi, abitudini di vita, storia clinica e parametri metabolici.',
+    shareMessage: 'Peso, metabolismo e insulino-resistenza — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -250,7 +325,7 @@ export default function PcosMetabolismArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

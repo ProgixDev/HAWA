@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -264,6 +265,70 @@ const CONTENT = {
       'Contenido informativo. Este artículo no sustituye una opinión médica personalizada. Si tienes dudas, consulta a un profesional de la salud.',
     shareMessage: 'Observar tu moco cervical — AWA',
   },
+  it: {
+    badge: 'FERTILITÀ • MUCO CERVICALE',
+    title: 'Osservare il tuo\nmuco cervicale',
+    metaDuration: '5 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenuto validato',
+    intro: 'Un segnale naturale e gratuito per individuare la tua finestra fertile.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Che cos’è il muco cervicale?',
+      'Come cambia durante il ciclo',
+      'Riconoscere il muco fertile',
+      'Come osservarlo ogni giorno',
+      'Che cosa può influire sulle tue osservazioni',
+      'I limiti di questo metodo',
+      'Punti chiave',
+    ],
+    section1Body: 'È una secrezione naturale prodotta dalla cervice. Il muco cervicale cambia consistenza durante il ciclo per effetto degli estrogeni e del progesterone.',
+    cycleEvolution: [
+      {
+        title: 'Dopo il periodo mestruale',
+        text: 'Poco muco, spesso una sensazione di secchezza.',
+      },
+      {
+        title: 'Prima dell’ovulazione',
+        text: 'Più abbondante, torbido e appiccicoso.',
+      },
+      {
+        title: 'Con l’avvicinarsi dell’ovulazione',
+        text: 'Trasparente, filante ed elastico, simile all’albume d’uovo crudo.',
+      },
+      {
+        title: 'Dopo l’ovulazione',
+        text: 'Più denso, opaco o molto meno presente.',
+      },
+    ],
+    section3Intro: 'Con l’avvicinarsi dell’ovulazione diventa:',
+    fertileSigns: [
+      'Chiaro o trasparente',
+      'Filante — si allunga tra due dita',
+      'Elastico, simile all’albume d’uovo crudo',
+      'Più abbondante rispetto agli altri giorni',
+    ],
+    infoTitle: 'Una semplice abitudine, ogni giorno',
+    infoText: 'Osserva l’aspetto e la consistenza usando carta igienica o le dita pulite, più o meno alla stessa ora del giorno, e annota ciò che noti.',
+    modifyingFactors: [
+      'Rapporti sessuali recenti',
+      'Prodotti per l’igiene intima',
+      'Contraccezione ormonale o alcuni trattamenti',
+      'Un’infezione o uno squilibrio locale',
+    ],
+    section6Body: 'Ognuna ha un profilo diverso, e riconoscere il tuo richiede pratica nel corso di più cicli. Osservare questo cambiamento ogni giorno, insieme ad altri segnali, ti aiuta a individuare meglio la tua finestra fertile — ma non sostituisce mai il parere medico se hai dei dubbi.',
+    tipTitle: 'Da sapere',
+    tipText: 'Combinare il muco cervicale con la tua temperatura basale o con i test di ovulazione offre un quadro più completo del tuo ciclo.',
+    summaryPoints: [
+      'Il muco cervicale cambia consistenza durante il ciclo per effetto degli estrogeni e del progesterone.',
+      'Con l’avvicinarsi dell’ovulazione diventa trasparente, filante ed elastico, simile all’albume d’uovo crudo.',
+      'Osservare questo cambiamento ogni giorno, insieme ad altri segnali, ti aiuta a individuare meglio la tua finestra fertile.',
+      'Riconoscere il tuo schema personale richiede pratica e più cicli di osservazione.',
+    ],
+    disclaimerText: 'Contenuto a scopo informativo. Questo articolo non sostituisce un parere medico personalizzato. In caso di dubbi, chiedi consiglio a un professionista sanitario.',
+    shareMessage: 'Osservare il tuo muco cervicale — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -280,7 +345,7 @@ export default function CervicalMucusArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

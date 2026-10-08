@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'babydevelopment-developpement-bebe';
 
@@ -163,6 +164,44 @@ const CONTENT = {
     tip2Text: 'Cada etapa del desarrollo del bebé sigue su propio ritmo; el seguimiento médico regular permite comprobar que todo evoluciona con normalidad.',
     shareMessage: 'El desarrollo del bebé en el útero — AWA',
   },
+  it: {
+    badge: 'GRAVIDANZA • SVILUPPO',
+    title: 'Lo sviluppo del tuo bambino\nnell’utero',
+    metaDuration: '6 min di lettura',
+    metaType: 'Articolo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Come cresce il tuo bambino, trimestre dopo trimestre.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Il primo trimestre: i primi giorni',
+      'Il secondo trimestre: i sensi si risvegliano',
+      'Il terzo trimestre: il rettilineo finale',
+      'Le tappe principali in sintesi',
+      'Falsi miti comuni',
+      'Cosa ricordare',
+    ],
+    body1: 'Già dalla settimana 6, un minuscolo cuore comincia a battere. Nel corso di questo primo trimestre, gli organi principali si formano gradualmente.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Il battito cardiaco del bambino è uno dei primi segni visibili all’ecografia, spesso un momento memorabile del tuo percorso di cura.',
+    body2: 'Intorno alla settimana 20, di solito puoi sentire i primi movimenti del bambino. È anche il momento in cui i sensi iniziano a svilupparsi.',
+    body3: 'A partire dal terzo trimestre, il bambino aumenta rapidamente di peso e si posiziona gradualmente per la nascita.',
+    neutralText: 'Il ritmo di sviluppo varia da un bambino all’altro: queste tappe restano medie generali.',
+    milestones: [
+      'Da 6 settimane: il cuore comincia a battere',
+      'Intorno alle 20 settimane: si sentono i primi movimenti',
+      'Intorno alle 24-26 settimane: si sviluppa l’udito',
+      'Intorno alle 28 settimane: gli occhi si aprono gradualmente',
+    ],
+    myths: [
+      'Il bambino «sente tutto» fin dall’inizio: l’udito non si sviluppa davvero prima del secondo trimestre',
+      'La forma della pancia indica il sesso del bambino: nessuna prova scientifica lo conferma',
+      'Un bambino attivo è necessariamente più sano: il livello di attività varia molto da un bambino all’altro',
+    ],
+    tip2Title: 'Da sapere',
+    tip2Text: 'Ogni fase dello sviluppo del bambino segue il proprio ritmo; i controlli medici regolari aiutano a confermare che tutto procede normalmente.',
+    shareMessage: 'Lo sviluppo del bambino nell’utero — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -171,7 +210,7 @@ export default function BabyDevelopmentArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

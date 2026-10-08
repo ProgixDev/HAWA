@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'pcos-comprendre-sopk';
 
@@ -524,6 +525,135 @@ const CONTENT = {
       'Este artículo tiene fines de información general y no sustituye una consulta médica. Cada situación es diferente: en caso de duda o de síntomas persistentes, pide consejo a un profesional de salud.',
     shareMessage: 'Comprender el SOP — AWA',
   },
+  it: {
+    badge: 'PCOS • GUIDA ESSENZIALE',
+    title: 'Capire\nla PCOS',
+    metaDuration: '10 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto educativo',
+    intro: 'La sindrome dell’ovaio policistico, spesso chiamata PCOS, è una condizione ormonale diffusa che può influire sui tuoi cicli, sull’ovulazione, sulla pelle, sui capelli, sul metabolismo e, a volte, sulla fertilità.',
+    introSecondary: 'Il modo in cui si manifesta varia molto da una donna all’altra. Capire la PCOS serve soprattutto a riconoscerne i sintomi, a sapere quando chiedere un parere medico e a seguirne l’evoluzione senza sentirti in colpa.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Che cos’è la PCOS?',
+      'Perché si verifica la PCOS?',
+      'I segni principali',
+      'Come si diagnostica?',
+      'PCOS e ovulazione',
+      'PCOS e fertilità',
+      'PCOS e peso / metabolismo',
+      'Pelle, capelli e peli',
+      'Come si gestisce la PCOS?',
+      'Idee sbagliate comuni',
+      'Quando rivolgersi al medico',
+      'Punti chiave',
+    ],
+    s1Heading: 'Che cos’è la PCOS?',
+    s1Body1: 'La sindrome dell’ovaio policistico (PCOS) è una condizione ormonale diffusa che può modificare il normale funzionamento delle ovaie e l’equilibrio di alcuni ormoni.',
+    s1Body2: 'Per alcune donne il problema principale è l’ovulazione irregolare. Per altre, a emergere per prima sono l’acne, la crescita eccessiva di peli, la perdita di capelli o segni metabolici.',
+    s1TipTitle: 'Da sapere',
+    s1TipText: 'Nonostante il nome, la PCOS non significa necessariamente che le ovaie contengano «cisti». Il termine storico può essere fuorviante e la sola ecografia non basta per fare la diagnosi.',
+    s2Heading: 'Perché si verifica la PCOS?',
+    s2Body1: 'Non esiste una causa unica della PCOS. Sembra derivare da più fattori che possono combinarsi: predisposizione familiare, funzionamento ormonale, ovulazione, metabolismo e fattori individuali.',
+    s2Factors: [
+      'Predisposizione familiare e fattori genetici',
+      'Alterazioni dell’ovulazione',
+      'Eccesso relativo di androgeni',
+      'Insulino-resistenza in alcune donne',
+      'Fattori metabolici e ambientali',
+    ],
+    s2NeutralText: 'La PCOS non è una colpa personale. Non dipende semplicemente da mancanza di forza di volontà, da un’alimentazione scorretta o da un’attività fisica insufficiente.',
+    s3Heading: 'I segni principali',
+    s3Body1: 'La PCOS può manifestarsi in modi molto diversi da una donna all’altra. Alcune hanno diversi sintomi, altre ne notano pochissimi.',
+    s3Signs: [
+      'Cicli irregolari, molto distanziati o a volte assenti',
+      'Ovulazione irregolare o difficile da prevedere',
+      'Acne persistente, in particolare nella parte bassa del viso',
+      'Aumento della crescita di peli sul viso, sul petto o sul corpo',
+      'Perdita di capelli di tipo ormonale',
+      'Aumento di peso o difficoltà a perdere peso',
+      'Difficoltà a concepire',
+    ],
+    s3AlertTitle: 'Importante',
+    s3AlertText: 'Avere uno di questi sintomi non significa automaticamente avere la PCOS. Diverse altre condizioni possono causare sintomi simili.',
+    s4Heading: 'Come si diagnostica?',
+    s4Body1: 'La diagnosi di PCOS è un percorso medico. Di solito un operatore sanitario parte dal confronto sui tuoi cicli, sui sintomi, sulla tua storia clinica e sulle eventuali terapie che stai seguendo.',
+    s4Body2: 'A seconda della situazione, possono essere proposti anche esami del sangue ormonali e un’ecografia.',
+    s4Points: [
+      'Cicli irregolari o ovulazione poco frequente',
+      'Segni di eccesso di androgeni: acne, crescita eccessiva di peli, perdita di capelli o risultati degli esami del sangue',
+      'Aspetto delle ovaie compatibile con la PCOS all’ecografia, quando questo esame è indicato',
+    ],
+    s4Body3: 'Prima di confermare la diagnosi di PCOS, il medico deve anche escludere altre possibili cause di cicli irregolari o di eccesso di androgeni.',
+    s5Heading: 'PCOS e ovulazione',
+    s5Body1: 'L’ovulazione è il rilascio di un ovulo (ovocita) dall’ovaia. Nella PCOS l’ovulazione può essere meno frequente o più difficile da prevedere.',
+    s5Body2: 'Questo può spiegare perché i cicli a volte sono lunghi, irregolari o difficili da anticipare.',
+    s5HighlightTitle: 'Monitorare il tuo ciclo',
+    s5HighlightText: 'Annotare le date delle mestruazioni, i sintomi e gli eventuali segni di ovulazione può aiutarti a comprendere meglio i tuoi schemi personali.',
+    s6Heading: 'PCOS e fertilità',
+    s6Body1: 'Poiché l’ovulazione può essere irregolare, alcune donne con PCOS possono avere più difficoltà a concepire.',
+    s6Body2: 'Questo non significa però che la PCOS impedisca automaticamente una gravidanza. Molte donne con PCOS concepiscono in modo naturale o con un adeguato supporto medico.',
+    s6TipTitle: 'Tienilo a mente',
+    s6TipText: 'Avere difficoltà a concepire non significa che sia impossibile. Se speri di restare incinta, un medico o un’ostetrica può proporti una strategia adatta alla tua situazione.',
+    s7Heading: 'PCOS e peso / metabolismo',
+    s7Body1: 'La PCOS può essere associata a cambiamenti metabolici, tra cui l’insulino-resistenza in alcune donne.',
+    s7Body2: 'Tuttavia, il peso da solo non basta per diagnosticare o escludere la PCOS. Una donna magra può avere la PCOS, così come una donna in sovrappeso può non averla.',
+    s7NeutralText: 'Il follow-up dovrebbe tenere conto della salute complessiva, non solo del numero sulla bilancia.',
+    s8Heading: 'Pelle, capelli e peli',
+    s8Body1: 'L’eccesso relativo di androgeni può influire sulle ghiandole sebacee e sui follicoli piliferi.',
+    s8Body2: 'A seconda della donna, può manifestarsi con acne persistente, aumento della crescita di peli o perdita di capelli.',
+    s8Items: [
+      'Acne ormonale',
+      'Aumento dei peli sul viso o sul corpo',
+      'Capelli diradati o perdita di capelli',
+    ],
+    s9Heading: 'Come si gestisce la PCOS?',
+    s9Body1: 'Non esiste un unico approccio alla gestione della PCOS che funzioni per ogni donna. La scelta dipende dai sintomi, dagli obiettivi e dalle circostanze mediche.',
+    s9Body2: 'L’obiettivo può cambiare a seconda della fase della vita: regolarizzare i cicli, migliorare alcuni sintomi, proteggere la salute metabolica o sostenere un progetto di gravidanza.',
+    s9MiniTitle: 'Abitudini che sostengono la salute',
+    s9Lifestyle: [
+      'Seguire un’alimentazione varia e regolare, adatta alle tue esigenze',
+      'Praticare un’attività fisica regolare che riesci a mantenere nel tempo',
+      'Mantenere un sonno sufficientemente regolare',
+      'Monitorare come cambiano nel tempo i tuoi cicli e i tuoi sintomi',
+      'Non darti la colpa per le variazioni di peso o dei sintomi',
+    ],
+    s9Body3: 'A seconda delle tue esigenze, un operatore sanitario può anche proporre trattamenti per alcuni sintomi o per sostenere un progetto di gravidanza.',
+    s9AlertTitle: 'Niente automedicazione',
+    s9AlertText: 'Le terapie ormonali, i farmaci metabolici e gli integratori alimentari vanno tutti discussi con un operatore sanitario.',
+    s10Heading: 'Idee sbagliate comuni sulla PCOS',
+    s10Myths: [
+      'La PCOS significa sempre avere «cisti»: il nome può essere fuorviante. La diagnosi non si basa solo sulla presenza di cisti.',
+      'Tutte le donne con PCOS sono in sovrappeso: la PCOS può riguardare donne di qualsiasi corporatura.',
+      'La PCOS impedisce sempre la gravidanza: l’ovulazione può essere irregolare, ma una gravidanza resta possibile.',
+      'Basta un solo sintomo per diagnosticare la PCOS: la diagnosi richiede una valutazione completa.',
+      'La PCOS passa semplicemente con l’età: il modo in cui si presenta può cambiare nel corso della vita, ma un follow-up continuo resta importante.',
+    ],
+    s11Heading: 'Quando rivolgersi al medico',
+    s11Body1: 'Chiedere un parere medico è particolarmente utile quando i cicli diventano molto irregolari, si interrompono per diversi mesi o compaiono sintomi insoliti.',
+    s11ConsultItems: [
+      'Cicli molto irregolari o assenti',
+      'Acne o crescita di peli insolite',
+      'Perdita di capelli significativa',
+      'Difficoltà a concepire',
+      'Sintomi che cambiano rapidamente',
+    ],
+    s12Heading: 'Punti chiave',
+    s12SummaryTitle: 'Gli elementi essenziali',
+    s12SummaryItems: [
+      'La PCOS è una condizione ormonale diffusa.',
+      'Può manifestarsi in molti modi diversi.',
+      'Non tutte le donne con PCOS hanno gli stessi sintomi.',
+      'Il peso da solo non basta per diagnosticare o escludere la PCOS.',
+      'La diagnosi richiede una valutazione medica completa.',
+      'La PCOS può influire sull’ovulazione e, a volte, sulla fertilità.',
+      'Un approccio di cura personalizzato aiuta a rispondere alle esigenze di ogni donna.',
+    ],
+    finalNoteTitle: 'Una guida per capire meglio',
+    finalNoteText: 'Questo articolo ha uno scopo informativo generale e non sostituisce una visita medica. Ogni situazione è diversa: in caso di dubbi o se i sintomi persistono, chiedi consiglio a un professionista sanitario.',
+    shareMessage: 'Capire la PCOS — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -532,7 +662,7 @@ export default function PcosIntroArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -25,6 +25,7 @@ import ReadingControls from '../../components/articles/ReadingControls';
 import {getBottomPadding, getTopPadding, READING_CONTROLS_SPACE} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'cycle-comprendre-ton-cycle';
 
@@ -224,6 +225,53 @@ const CONTENT = {
     ],
     shareMessage: 'Ciclo regular o irregular: ¿qué diferencias hay? — AWA',
   },
+  it: {
+    badge: 'CICLO E MESTRUAZIONI',
+    title: 'Ciclo regolare o irregolare:\nqual è la differenza?',
+    metaDuration: '5 min di lettura',
+    metaValidated: 'Contenuto validato',
+    intro: 'Ogni ciclo mestruale è unico. Capire cosa si considera «normale» può aiutarti a seguire più da vicino la tua salute e a riconoscere possibili squilibri.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Ciclo mestruale regolare: che cos’è?',
+      'Ciclo irregolare: cosa significa?',
+      'Possibili cause di un ciclo irregolare',
+      'Quando rivolgersi al medico?',
+      'Consigli per un ciclo più equilibrato',
+    ],
+    section1Body: 'Un ciclo è considerato regolare quando la sua durata varia tra 21 e 35 giorni, con meno di 7 giorni di differenza da un ciclo all’altro.',
+    section1VisualTitle: 'Un ritmo abbastanza stabile',
+    section1VisualText: 'Ciò che conta di più è osservare il tuo ritmo nel corso dei mesi.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Ogni donna è diversa. L’importante è conoscere il proprio ritmo e le sue normali variazioni.',
+    section2Body: 'Un ciclo è considerato irregolare quando la sua durata varia spesso o in modo imprevedibile (una differenza di più di 7 giorni). Può manifestarsi con cicli molto brevi, cicli molto lunghi o assenza di ovulazione.',
+    section2VisualTitle: 'Variazioni più evidenti',
+    section2VisualText: 'Queste differenze possono essere temporanee o persistere per più cicli.',
+    alertTitle: 'Attenzione',
+    alertText: 'Un’irregolarità temporanea può essere normale (stress, cambiamenti ormonali, stanchezza…). Ma se persiste, è importante indagarne la causa.',
+    causes: [
+      'Stress e ansia',
+      'Squilibri ormonali',
+      'Mancanza di sonno e stanchezza',
+      'Peso troppo basso o troppo alto',
+      'PCOS o altre condizioni mediche',
+    ],
+    checklist: [
+      'Nessun periodo mestruale per più di 3 mesi (al di fuori di gravidanza/allattamento)',
+      'Cicli molto lunghi (più di 90 giorni) o molto brevi (meno di 21 giorni)',
+      'Dolore intenso che ti impedisce di vivere normalmente',
+      'Sanguinamento molto abbondante o irregolare',
+      'Se cerchi una gravidanza e l’ovulazione sembra assente',
+    ],
+    advice: [
+      'Alimentazione equilibrata',
+      'Idratazione adeguata',
+      'Attività fisica',
+      'Gestione dello stress',
+      'Sonno di qualità',
+    ],
+    shareMessage: 'Ciclo regolare o irregolare: qual è la differenza? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -235,7 +283,7 @@ export default function RegularIrregularCycleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

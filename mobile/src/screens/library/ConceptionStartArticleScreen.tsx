@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'conceptiontips-essayer-de-concevoir';
 
@@ -127,6 +128,35 @@ const CONTENT = {
     tipText: 'Conocer tu ciclo, mantener un ritmo natural y tener paciencia son los tres pilares de un comienzo de camino tranquilo.',
     shareMessage: 'Intentar concebir: por dónde empezar — AWA',
   },
+  it: {
+    badge: 'CERCARE UNA GRAVIDANZA',
+    title: 'Cercare una gravidanza:\nda dove iniziare',
+    metaDuration: '6 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'I punti essenziali per iniziare con serenità il tuo percorso verso il concepimento.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Individuare la tua finestra fertile',
+      'Il ritmo dei rapporti',
+      'Quanto tempo può servire',
+      'I punti chiave',
+    ],
+    body1: 'Il primo passo più utile è individuare la tua finestra fertile a partire dal ciclo: durata del ciclo, segni fisici e, se vuoi, strumenti di monitoraggio come i test di ovulazione o la temperatura basale.',
+    body2: 'Avere rapporti con regolarità, ogni 2-3 giorni, copre naturalmente il tuo periodo più fertile senza richiedere una pianificazione troppo rigida.',
+    rhythmPoints: [
+      'Non serve limitarsi al solo giorno dell’ovulazione',
+      'Un ritmo regolare è più facile da mantenere di una pianificazione rigida',
+      'In questo periodo conta anche il benessere della coppia',
+    ],
+    body3: 'La maggior parte delle coppie concepisce entro 12 mesi dall’interruzione della contraccezione. Questi tempi variano in base a numerosi fattori propri di ogni situazione.',
+    alertTitle: 'Attenzione',
+    alertText: 'Dopo 12 mesi (o 6 mesi dopo i 35 anni) è consigliabile rivolgersi a un professionista sanitario per un controllo, anche se questo non significa necessariamente che ci sia un problema.',
+    tipTitle: 'Da sapere',
+    tipText: 'Conoscere il tuo ciclo, mantenere un ritmo naturale e avere pazienza sono i tre pilastri per iniziare questo percorso con calma.',
+    shareMessage: 'Cercare una gravidanza: da dove iniziare — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -135,7 +165,7 @@ export default function ConceptionStartArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

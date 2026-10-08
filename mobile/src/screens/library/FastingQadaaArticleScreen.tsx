@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'fastingqadaa-dispense-et-rattrapage';
 
@@ -177,6 +178,50 @@ const CONTENT = {
     tip2Text: 'El Qadaa permite recuperar con tranquilidad los días de ayuno no realizados, a tu propio ritmo. En caso de situación particular (plazo excedido, embarazo, lactancia, impedimento duradero), la opinión de un erudito cualificado sigue siendo el mejor recurso.',
     shareMessage: 'Ayuno y dispensa: la recuperación (Qadaa) — AWA',
   },
+  it: {
+    badge: 'DIGIUNO E QADAA',
+    title: 'Digiuno ed esenzione:\nil recupero (Qadaa)',
+    metaDuration: '6 min di lettura',
+    metaType: 'FAQ',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Come e quando recuperare i giorni di digiuno saltati, con i tuoi tempi e senza sensi di colpa.',
+    disclaimerTitle: 'Informazione importante',
+    disclaimerText: 'Questo contenuto ha uno scopo puramente educativo. Le questioni religiose dovrebbero essere validate da studiosi qualificati. AWA non emette fatwa né pareri religiosi personalizzati.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Quando recuperare i giorni saltati?',
+      'Un termine comune: prima del Ramadan successivo',
+      'Gravidanza e allattamento',
+      'Punti chiave',
+    ],
+    section1Body: 'Il Qadaa indica il recupero, in un secondo momento, dei giorni di digiuno saltati durante il Ramadan, in particolare a causa delle mestruazioni. Questi giorni vanno recuperati perché il digiuno del Ramadan resta un pilastro del mese, e i giorni sospesi a causa delle mestruazioni sono considerati dovuti, senza che ciò sia una tua colpa.',
+    section1Body2: 'Il recupero può in genere iniziare appena finisce il Ramadan, non appena la tua situazione lo permette. Puoi organizzare questi giorni con i tuoi tempi: alcune persone preferiscono raggrupparli poco dopo il Ramadan, altre li distribuiscono gradualmente nei mesi successivi.',
+    noteTitle: 'Nota bene',
+    noteText: 'Recuperare i giorni in modo consecutivo oppure distribuirli può essere visto in modo diverso a seconda della scuola giuridica; nessuno dei due approcci è presentato qui come l’unico valido.',
+    recordTips: [
+      'Annota il numero totale di giorni da recuperare non appena finisce il Ramadan',
+      'Scegli un metodo semplice: calendario, app, quaderno',
+      'Spunta ogni giorno man mano che lo recuperi',
+    ],
+    section1Body3: 'Ad esempio, una persona con 6 giorni da recuperare può scegliere di digiunare un giorno a settimana per sei settimane, oppure di raggrupparli nello stesso periodo se le è più comodo.',
+    section2Body: 'È comune cercare di recuperare i giorni saltati prima del Ramadan successivo. Questa pratica non è obbligatoria in modo sistematico in ogni caso, ma facilita l’organizzazione ed evita di accumulare un gran numero di giorni in sospeso.',
+    visual1Title: 'Un ritmo che si adatta a te',
+    visual1Text: 'Distribuire i giorni da recuperare in base ai tuoi impegni ti permette di procedere con calma, senza pressione.',
+    section2Body2: 'Pianificare in anticipo aiuta a evitare lo stress dell’ultimo minuto. Un consiglio semplice è contare il numero di giorni che mancano al Ramadan successivo e distribuire i giorni da recuperare sulle settimane o sui mesi disponibili.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Se un motivo duraturo o ricorrente impedisce di digiunare (ad esempio una condizione di salute prolungata), la situazione può rientrare in un quadro diverso; in questo caso è particolarmente utile parlarne con uno studioso qualificato.',
+    alert2Title: 'Informazione importante',
+    alert2Text: 'Le regole precise nel caso in cui il termine venga superato possono differire a seconda dell’interpretazione. Per qualsiasi situazione complicata, il parere di uno studioso qualificato resta il riferimento.',
+    section2Body3: 'Ad esempio, se il prossimo Ramadan inizia tra 8 mesi e restano 6 giorni da recuperare, una possibilità è pianificare circa un giorno al mese, con flessibilità per gli imprevisti.',
+    section3Body: 'La gravidanza e l’allattamento possono influire sulla capacità di digiunare, in particolare quando il digiuno comporta un rischio per la salute della madre o del bambino. Il benessere fisico e la reale capacità di digiunare sono fattori importanti da considerare.',
+    visual2Title: 'Una situazione che viene presa in considerazione',
+    visual2Text: 'Queste circostanze sono riconosciute dalla tradizione religiosa come potenziale motivo di esenzione.',
+    section3Body2: 'I pareri religiosi sul digiuno non effettuato durante la gravidanza o l’allattamento possono variare a seconda della scuola, in particolare sulla questione se un semplice recupero sia sufficiente o se sia prevista anche una compensazione. Il motivo preciso per cui non si è digiunato e la situazione personale possono influenzare la risposta applicabile.',
+    tip2Title: 'Da sapere',
+    tip2Text: 'Il Qadaa ti permette di recuperare con calma i giorni di digiuno saltati, con i tuoi tempi. In caso di situazione particolare (termine superato, gravidanza, allattamento, impedimento duraturo), il parere di uno studioso qualificato resta la risorsa migliore.',
+    shareMessage: 'Digiuno ed esenzione: il recupero (Qadaa) — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -185,7 +230,7 @@ export default function FastingQadaaArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

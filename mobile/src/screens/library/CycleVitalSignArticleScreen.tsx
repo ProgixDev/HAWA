@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'cycle-signe-vital';
 
@@ -316,6 +317,76 @@ const CONTENT = {
       'Tu ciclo menstrual es uno de los muchos indicadores de tu salud. Hacerle seguimiento con regularidad puede ayudarte a entender mejor tu cuerpo y a identificar, con el tiempo, los cambios que merecen una atención especial.',
     shareMessage: 'Tu ciclo, un excelente indicador de salud — AWA',
   },
+  it: {
+    badge: 'CICLO E MESTRUAZIONI',
+    title: 'Il tuo ciclo, un ottimo\nindicatore di salute',
+    metaDuration: '7 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Perché il ciclo è talvolta chiamato «quinto segno vitale».',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Il tuo ciclo: il riflesso del tuo corpo',
+      'Cos’è un ciclo «normale»?',
+      'Cambiamenti da tenere d’occhio',
+      'Cosa possono rivelare questi cambiamenti?',
+      'Monitorare il ciclo per conoscerti meglio',
+      'Quando chiedere consiglio?',
+      'Da sapere',
+    ],
+    observeLabels: [
+      'Durata del ciclo',
+      'Durata delle mestruazioni',
+      'Flusso mestruale',
+      'Dolore',
+      'Perdite vaginali',
+      'Umore',
+      'Energia / stanchezza',
+      'Altri sintomi ricorrenti',
+    ],
+    factorLabels: [
+      'Stress',
+      'Mancanza di sonno',
+      'Variazioni di peso importanti',
+      'Attività fisica molto intensa',
+      'Cambiamenti ormonali',
+      'Contraccezione',
+      'Alcune condizioni mediche',
+    ],
+    s1Body1: 'Il ciclo mestruale è influenzato dall’attività ormonale del corpo nel corso del mese. Imparare a osservarlo può aiutarti a capire meglio come funziona il tuo corpo, senza dover analizzare ogni dettaglio.',
+    s1Body2: 'Ecco gli elementi più utili da osservare:',
+    s2Body1: 'Non esiste un ciclo perfetto unico: ogni corpo ha il suo ritmo, e questo ritmo può variare leggermente anche da un mese all’altro. Un ciclo è generalmente considerato regolare quando dura tra 21 e 35 giorni, e le mestruazioni durano più spesso da 3 a 7 giorni.',
+    s2Body2: 'Queste cifre sono medie: lievi variazioni restano del tutto normali, soprattutto dopo la pubertà, dopo il parto o con l’avvicinarsi della menopausa.',
+    s3Body1: 'Alcuni cambiamenti meritano di essere osservati con un po’ più di attenzione, ad esempio:',
+    changesToWatch: [
+      'Un netto cambiamento nella regolarità del ciclo',
+      'Mestruazioni nettamente più abbondanti del solito',
+      'Dolore insolitamente forte o persistente',
+      'Un’assenza prolungata delle mestruazioni',
+      'Sanguinamento tra una mestruazione e l’altra',
+      'Un cambiamento significativo che si ripete per più cicli',
+    ],
+    s3Body2: 'Un solo ciclo insolito, isolato, non significa automaticamente un problema di salute: il corpo può reagire temporaneamente a molti fattori diversi.',
+    s4Body1: 'Questi cambiamenti possono talvolta essere legati a diversi fattori, senza essere necessariamente un problema:',
+    s4Body2: 'Queste sono solo alcune possibili spiegazioni tra le altre: non sostituiscono mai il parere di un professionista sanitario.',
+    s5VisualTitle: 'Osservare il tuo ritmo',
+    s5VisualText: 'Annotare le date, il flusso o come ti senti ti aiuta a conoscere le tue abitudini, mese dopo mese.',
+    s5Body: 'Il primo giorno delle mestruazioni, la loro durata, il flusso, il dolore, l’umore, l’energia o le perdite vaginali sono tutti elementi che puoi annotare nel tempo. L’obiettivo non è confrontare il tuo ciclo con quello di un’altra persona, ma riconoscere meglio ciò che è abituale per te e ciò che se ne discosta.',
+    s6Body1: 'È del tutto normale avere dubbi sul proprio ciclo. Chiedere un parere medico può essere utile in alcune situazioni, ad esempio:',
+    whenToAsk: [
+      'Cambiamenti significativi che persistono per più cicli',
+      'Dolore che ti impedisce di svolgere le tue attività abituali',
+      'Mestruazioni molto abbondanti',
+      'Un’assenza prolungata delle mestruazioni',
+      'Sanguinamenti insoliti',
+      'Qualsiasi sintomo persistente che ti preoccupa',
+    ],
+    s6Body2: 'Parlare con un professionista sanitario può aiutarti a stare più tranquilla o, se necessario, a ricevere il sostegno giusto: di per sé non è mai un motivo di preoccupazione.',
+    tipText: 'Un ciclo non deve essere perfettamente regolare per essere normale. Conoscere il tuo ritmo abituale è spesso più utile che cercare una durata ideale.',
+    finalBody: 'Il tuo ciclo mestruale è uno dei tanti indicatori della tua salute. Monitorarlo con regolarità può aiutarti a capire meglio il tuo corpo e, nel tempo, a notare cambiamenti che meritano particolare attenzione.',
+    shareMessage: 'Il tuo ciclo, un ottimo indicatore di salute — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -324,7 +395,7 @@ export default function CycleVitalSignArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
