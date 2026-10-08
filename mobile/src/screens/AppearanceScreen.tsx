@@ -799,6 +799,30 @@ type LanguageOption = {
   subtitle: string;
 };
 
+// Each language option must always describe itself in its OWN language,
+// regardless of which language is currently active in AWA — "Français"
+// always reads "Utiliser AWA en français", even while the app itself is
+// displaying English or Spanish chrome (see LanguageBottomSheet below,
+// where the surrounding title/description/Apply button DO keep following
+// the active language via t(), same as everywhere else). This is therefore
+// intentionally NOT routed through t() — that would make a card's own text
+// change with the active language, exactly the bug this fixes — but a
+// fixed, self-localized piece of metadata, one native sentence per
+// language, never recomputed from `t`.
+const LANGUAGE_SELF_LABELS: Record<AwaAppLanguage, {label: string; subtitle: string}> = {
+  fr: {label: 'Français', subtitle: 'Utiliser AWA en français'},
+  en: {label: 'English', subtitle: 'Use AWA in English'},
+  es: {label: 'Español', subtitle: 'Usar AWA en español'},
+  it: {label: 'Italiano', subtitle: 'Usare AWA in italiano'},
+};
+
+const LANGUAGE_OPTIONS: LanguageOption[] = [
+  {id: 'fr', flag: '🇫🇷', ...LANGUAGE_SELF_LABELS.fr},
+  {id: 'en', flag: '🇬🇧', ...LANGUAGE_SELF_LABELS.en},
+  {id: 'es', flag: '🇪🇸', ...LANGUAGE_SELF_LABELS.es},
+  {id: 'it', flag: '🇮🇹', ...LANGUAGE_SELF_LABELS.it},
+];
+
 function LanguageBottomSheet({
   visible,
   currentLanguage,
@@ -814,14 +838,6 @@ function LanguageBottomSheet({
 }): React.JSX.Element {
   const {t} = useTranslation();
   const insets = useSafeAreaInsets();
-  // Language NAMES are endonyms — "Français"/"English" are shown as-is
-  // regardless of which language is currently active (see fr.ts/en.ts's own
-  // header comment), only their SUBTITLE varies by locale.
-  const LANGUAGE_OPTIONS: LanguageOption[] = [
-    {id: 'fr', flag: '🇫🇷', label: t('appearance.language.frenchName'), subtitle: t('appearance.language.frenchSubtitle')},
-    {id: 'en', flag: '🇬🇧', label: t('appearance.language.englishName'), subtitle: t('appearance.language.englishSubtitle')},
-    {id: 'es', flag: '🇪🇸', label: t('appearance.language.spanishName'), subtitle: t('appearance.language.spanishSubtitle')},
-  ];
   // Temporary selection only — never committed until "Appliquer" is pressed
   // (see onApply below). Re-synced to the real saved value every time the
   // sheet opens, so a dismissal without applying never leaks a stale draft
@@ -1681,7 +1697,9 @@ export default function AppearanceScreen({
                   ? t('appearance.language.englishName')
                   : appLanguage === 'es'
                     ? t('appearance.language.spanishName')
-                    : t('appearance.language.frenchName')
+                    : appLanguage === 'it'
+                      ? t('appearance.language.italianName')
+                      : t('appearance.language.frenchName')
               }
 
               theme={theme}

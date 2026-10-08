@@ -5,6 +5,7 @@ import {getAppLanguage, subscribeThemePreferences} from '../state/themePreferenc
 import {en} from './locales/en';
 import {es} from './locales/es';
 import {fr} from './locales/fr';
+import {it} from './locales/it';
 
 // Centralized localization (i18next + react-i18next) — imported once, as a
 // side effect, at app startup (App.tsx), the same "hydrate/initialize before
@@ -42,6 +43,7 @@ i18n.use(initReactI18next).init({
     fr: {translation: fr},
     en: {translation: en},
     es: {translation: es},
+    it: {translation: it},
   },
   lng: getAppLanguage(),
   fallbackLng: 'en',

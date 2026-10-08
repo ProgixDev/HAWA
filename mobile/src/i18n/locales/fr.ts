@@ -173,12 +173,19 @@ export const fr = {
     language: {
       title: 'Langue de l’application',
       description: 'Choisissez la langue utilisée dans AWA.',
+      // The per-card label/subtitle keys (frenchName/frenchSubtitle/...)
+      // used to live here, but each card must always describe itself in its
+      // OWN language regardless of the active UI language — so that text is
+      // now fixed, self-localized metadata (AppearanceScreen.tsx's
+      // LANGUAGE_SELF_LABELS), never routed through t(). frenchName/
+      // englishName/spanishName stay here — they're read elsewhere
+      // (PersonalInformationScreen.tsx's "Langue" row, and this screen's own
+      // row) to show the CURRENTLY ACTIVE language's own name, which is a
+      // different, legitimate use of the active-language t() resolution.
       frenchName: 'Français',
-      frenchSubtitle: 'Utiliser AWA en français',
       englishName: 'English',
-      englishSubtitle: 'Langue par défaut',
       spanishName: 'Español',
-      spanishSubtitle: 'Utiliser AWA en espagnol',
+      italianName: 'Italiano',
     },
   },
 
@@ -194,6 +201,7 @@ export const fr = {
     preFirstPeriod: {
       title: 'Pas encore de règles enregistrées',
       subtitle: 'Son suivi commencera lorsqu’elle aura ses premières règles.',
+      subtitleOwner: 'Enregistre le début de tes règles pour commencer ton suivi.',
       question: 'Quand ses premières règles ont-elles commencé ?',
     },
     education: {
@@ -271,6 +279,7 @@ export const fr = {
     },
     notEstimable: 'Non estimable',
     variableCycle: 'Cycle variable',
+    insufficientData: 'Données insuffisantes',
     observationInProgress: 'Observation en cours',
     dataToComplete: 'Données à compléter',
     monthOfTotal: 'Mois {{month}} sur {{total}}',
@@ -870,6 +879,78 @@ export const fr = {
     skip: 'Passer',
   },
 
+  dataSafety: {
+    banner: {
+      title: 'Certaines données protégées sont illisibles',
+      body: 'Tes enregistrements n’ont ni été supprimés ni modifiés.',
+      action: 'Voir les options',
+    },
+    recovery: {
+      title: 'Données protégées indisponibles',
+      intro: 'AWA n’a pas pu ouvrir certains de tes enregistrements chiffrés. Ils ont été laissés tels quels.',
+      keyLost: 'La clé de protection de ce téléphone n’est plus disponible : les enregistrements chiffrés ne peuvent plus être ouverts. Cela peut arriver après une réinitialisation ou un changement de sécurité du téléphone.',
+      authFailed: 'Certains enregistrements n’ont pas pu être vérifiés et ont été laissés intacts.',
+      other: 'Certains enregistrements n’ont pas pu être lus pour une autre raison.',
+      safeNote: 'Tant que cela dure, AWA n’écrase pas ces enregistrements et n’affiche aucune estimation fondée sur des données manquantes.',
+      retry: 'Réessayer',
+      restore: 'Restaurer une sauvegarde',
+      newKey: 'Créer une nouvelle clé de protection',
+      discard: 'Effacer les enregistrements illisibles',
+      newKeyTitle: 'Créer une nouvelle clé de protection ?',
+      newKeyBody: 'Les nouveaux enregistrements seront protégés par une nouvelle clé. Ceux qui sont déjà illisibles le restent, sauf si tu restaures une sauvegarde.',
+      discardTitle: 'Effacer les enregistrements illisibles ?',
+      discardBody: 'Ces enregistrements ne peuvent plus être ouverts. Les effacer est irréversible. Restaurer une sauvegarde est le seul moyen de les récupérer.',
+      confirm: 'Confirmer',
+      cancel: 'Annuler',
+      retried: 'Vérification effectuée.',
+      stillUnavailable: 'Toujours indisponible.',
+      keyCreated: 'Nouvelle clé créée.',
+      discarded: 'Enregistrements illisibles effacés.',
+      nothing: 'Tout est lisible. Rien à récupérer.',
+    },
+  },
+
+  portableBackup: {
+    entryTitle: 'Sauvegarde chiffrée',
+    entrySubtitle: 'Protégée par ta phrase secrète. À restaurer sur ce téléphone ou un autre.',
+    screenTitle: 'Sauvegarde chiffrée',
+    createTitle: 'Créer une sauvegarde',
+    createIntro: 'Tes données sont scellées par une phrase secrète que toi seule connais : le fichier pourra être restauré sur un autre téléphone.',
+    passphraseLabel: 'Phrase secrète',
+    confirmLabel: 'Confirmer la phrase secrète',
+    passphraseHint: 'Au moins 10 caractères. Quelques mots font une bonne phrase secrète.',
+    weakTooShort: 'La phrase secrète est trop courte.',
+    weakRepetitive: 'La phrase secrète est trop répétitive.',
+    mismatch: 'Les deux phrases secrètes ne correspondent pas.',
+    lossWarning: 'Si tu perds cette phrase secrète, la sauvegarde ne pourra pas être récupérée. Personne, pas même AWA, ne peut la réinitialiser.',
+    photosNote: 'Les photos privées ne sont pas incluses dans cette sauvegarde.',
+    create: 'Créer et partager la sauvegarde',
+    creating: 'Protection de tes données…',
+    shareTitle: 'Sauvegarde chiffrée AWA',
+    created: 'Sauvegarde créée.',
+    errorUnreadable: 'Certains enregistrements sont illisibles sur ce téléphone : une sauvegarde complète est impossible. Rien n’a été modifié.',
+    errorGeneric: 'La sauvegarde n’a pas pu être créée. Rien n’a été modifié.',
+    restoreTitle: 'Restaurer une sauvegarde',
+    restoreIntro: 'Choisis un fichier de sauvegarde créé auparavant et saisis sa phrase secrète.',
+    pick: 'Choisir un fichier de sauvegarde',
+    pickedOwner: 'Sauvegarde du {{date}}',
+    pickedProfile: 'Sauvegarde d’un profil géré, {{date}}',
+    restorePassphrase: 'Phrase secrète de la sauvegarde',
+    restore: 'Restaurer cette sauvegarde',
+    restoring: 'Restauration…',
+    confirmTitle: 'Restaurer cette sauvegarde ?',
+    confirmBody: 'Les données de la sauvegarde remplacent les données correspondantes de ce téléphone. Les enregistrements absents de la sauvegarde restent tels quels.',
+    confirm: 'Restaurer',
+    cancel: 'Annuler',
+    success: 'Sauvegarde restaurée ({{count}} enregistrements).',
+    errorNotBackup: 'Ce fichier n’est pas une sauvegarde AWA.',
+    errorVersion: 'Cette sauvegarde a été créée par une version plus récente d’AWA.',
+    errorInvalid: 'Ce fichier de sauvegarde est endommagé.',
+    errorWrong: 'Phrase secrète incorrecte, ou fichier endommagé. Rien n’a été modifié.',
+    errorProfileMissing: 'Cette sauvegarde appartient à un profil absent de ce téléphone. Restaure d’abord la sauvegarde principale.',
+    errorStorage: 'La restauration n’a pas pu être terminée. Tes données précédentes ont été conservées.',
+  },
+
   statistics: {
     flowLabels: {
       light: 'Léger',
@@ -883,6 +964,36 @@ export const fr = {
       keepLogging: 'Continue à renseigner tes règles pour voir apparaître ta durée moyenne.',
     },
     headerSubtitle: 'Comprends ton corps grâce à tes tendances',
+    unavailableTitle: 'Tes statistiques ne peuvent pas être affichées',
+    unavailableDetail: 'Certains de tes enregistrements protégés sont illisibles pour le moment. Rien n’a été supprimé et aucune estimation n’est faite à partir de données manquantes.',
+    loading: 'Chargement de tes statistiques',
+    emptyAllTitle: 'Pas encore de statistiques',
+    emptyAllDetail: 'Vos statistiques apparaîtront lorsque vous commencerez à enregistrer vos données.',
+    cycleDetailsTitle: 'Régularité du cycle',
+    cycleDetailsSubtitle: 'À partir de tes règles confirmées',
+    shortestCycle_one: 'Cycle le plus court : {{count}} jour',
+    shortestCycle_other: 'Cycle le plus court : {{count}} jours',
+    longestCycle_one: 'Cycle le plus long : {{count}} jour',
+    longestCycle_other: 'Cycle le plus long : {{count}} jours',
+    averagePeriodDuration_one: 'Règles en moyenne : {{count}} jour',
+    averagePeriodDuration_other: 'Règles en moyenne : {{count}} jours',
+    periodDurationUnavailableTitle: 'Durée des règles pas encore disponible',
+    periodDurationNeedsEnd: 'Confirme la fin de tes règles pour voir leur durée moyenne.',
+    moodTitle: 'Humeur',
+    moodSubtitle: 'Les humeurs que tu as enregistrées',
+    moodEmptyTitle: 'Aucune humeur enregistrée',
+    moodEmptyDetail: 'Note ton humeur dans le journal pour la voir ici.',
+    moodLabels: {
+      veryGood: 'Très bien',
+      good: 'Bien',
+      neutral: 'Neutre',
+      stressed: 'Stressée',
+      irritable: 'Irritable',
+      anxious: 'Anxieuse',
+      sad: 'Triste',
+      tired: 'Fatiguée',
+      motivated: 'Motivée',
+    },
     periods: {
       months_one: '{{count}} mois',
       months_other: '{{count}} mois',
@@ -1068,6 +1179,9 @@ export const fr = {
     fertileWindowEstimated: 'Fenêtre fertile (est.)',
     ovulationEstimated: 'Ovulation (est.)',
     noPeriodThisDay: 'Aucune règle enregistrée ce jour-là',
+    predictionsPendingFirstPeriod: 'Les prévisions de cycle seront disponibles après l’enregistrement de ses premières règles, lorsque les données seront suffisantes.',
+    predictionsPendingFirstPeriodOwner: 'Les prévisions de cycle seront disponibles après l’enregistrement de tes règles, lorsque les données seront suffisantes.',
+    predictionsPendingMoreData: 'Les prévisions de cycle apparaîtront lorsque suffisamment de règles auront été enregistrées.',
     periodStart: 'Début des règles',
     periodEnd: 'Fin des règles',
     editPeriodTitle: 'Modifier mes règles',
@@ -1230,6 +1344,8 @@ export const fr = {
       confirmAccessibility: 'Confirmer la suppression',
       confirmText: 'Supprimer le profil',
       deleting: 'Suppression…',
+      failedTitle: 'Profil non supprimé entièrement',
+      failedBody: 'Le profil n’a pas pu être supprimé complètement. Rien d’autre n’a été modifié — veuillez réessayer.',
     },
   },
 
@@ -1269,6 +1385,7 @@ export const fr = {
     notConfigured: 'Non configuré',
     notProvided: 'Non renseigné',
     notProvidedFeminine: 'Non renseignée',
+    predictionsUnavailable: 'Prévisions indisponibles — données insuffisantes',
     notProvidedPlural: 'Non renseignées',
     notificationsAndReminders: 'Notifications & rappels',
     periodLengthLabel: 'Durée des règles',
@@ -6411,6 +6528,7 @@ export const fr = {
   // values must keep matching byte-for-byte.
   backupUtility: {
     restore: {
+      unreadableBackup: 'Cette sauvegarde ne peut pas être lue sur ce téléphone ; elle a été laissée telle quelle. Restaure plutôt un fichier de sauvegarde chiffrée.',
       subtitleOwner: 'Récupère tes données à partir d’une sauvegarde existante.',
       subtitleDaughter: 'Récupère les données de {{firstName}} à partir d’une sauvegarde existante.',
       titleOwner: 'Restaurer',
@@ -6487,7 +6605,7 @@ export const fr = {
       itemCycleHistory: 'Historique du cycle',
       itemLocalData: 'Données de suivi locales',
       accountNoticeOwner: 'Ton compte AWA ne sera pas supprimé.',
-      accountNoticeDaughter: 'Le profil de {{firstName}} ne sera pas supprimé — seules ses données de suivi le seront.',
+      accountNoticeDaughter: 'Le profil de {{firstName}} ne sera pas supprimé — seules ses données de suivi le seront, y compris ses premières règles enregistrées et les prévisions.',
       confirmYourChoice: 'Confirme ton choix',
       // The word the user must type to confirm — kept in the app's own
       // language (SUPPRIMER/DELETE) so the on-screen instruction and the
@@ -7626,9 +7744,8 @@ export const fr = {
   // Phase 7G — "AWA à deux" / Partner-sharing feature. Entirely FRONTEND-ONLY
   // demo scaffolding (no backend, no real pairing) per every screen's own
   // header comment — localization only, no business/privacy logic touched.
-  // DEMO_PAIRING_CODE (the literal "AWA-7K4P9"), SharingKey/status technical
-  // unions and ComputedCyclePhase stay completely outside this namespace —
-  // only their DISPLAY labels live here.
+  // SharingKey/status technical unions and ComputedCyclePhase stay completely
+  // outside this namespace — only their DISPLAY labels live here.
   awaADeux: {
     neutralPartnerLabel: 'votre partenaire',
     neutralPartnerSubject: 'Votre partenaire',
@@ -7698,25 +7815,21 @@ export const fr = {
       recommendationsNote: 'Adaptées à la phase seulement si vous partagez le jour du cycle',
     },
     pairing: {
-      title: 'Associer votre\npartenaire',
-      description: 'Partagez ce code avec {{partner}} pour l’inviter à se connecter.',
-      codeLabel: 'Code d’association',
-      codeAccessibility: 'Code d’association {{spacedCode}}',
-      copyOrShareAccessibility: 'Copier ou partager le code',
-      validity: 'Valable pendant 24 heures',
-      shareSectionTitle: 'Partager le code',
-      shareAction: 'Partager',
-      showQrAction: 'Afficher le QR code',
-      orSeparator: 'ou',
-      emailAction: 'Envoyer par email',
-      emailDescription: 'Invitez {{partner}} par email directement depuis l’app',
-      infoNote: '{{Partner}} devra créer un compte AWA et utiliser ce code pour se connecter.',
+      title: 'Inviter votre\npartenaire',
+      description: 'Invitez {{partner}} à vous rejoindre sur AWA à deux.',
+      emailLabel: 'E-mail de votre partenaire',
+      emailPlaceholder: 'partenaire@exemple.com',
+      emailAccessibility: 'Adresse e-mail de votre partenaire',
+      invalidEmail: 'Entre une adresse email valide.',
+      emailHelper: 'Nous enverrons à {{partner}} un lien d’invitation sécurisé par email.',
+      sendCta: 'Envoyer l’invitation',
     },
     pending: {
       description: 'Vous pourrez commencer à partager les informations sélectionnées dès que {{partner}} aura rejoint AWA à deux.',
       title: 'Invitation envoyée\nà {{partner}}',
       statusTitle: 'En attente d’acceptation',
       statusDescription: 'Nous vous préviendrons dès {{quePartner}} accepte votre invitation.',
+      sentToEmail: 'Invitation envoyée à :\n{{email}}',
       resend: 'Renvoyer l’invitation',
       resent: 'Invitation renvoyée',
       cancel: 'Annuler l’invitation',
@@ -7737,49 +7850,6 @@ export const fr = {
       title: 'Arrêter le partage ?',
       body: '{{Partner}} ne pourra plus accéder aux informations que vous avez choisi de partager.',
       confirm: 'Arrêter le partage',
-    },
-    dialogs: {
-      qr: {
-        title: 'QR code d’association',
-        shareCta: 'Partager le QR code',
-        demoNote: 'Aperçu de démonstration',
-        body: '{{Partner}} peut scanner ce QR code depuis son application AWA pour se connecter.',
-        accessibility: 'QR code d’exemple pour {{code}} (aperçu non scannable)',
-      },
-      email: {
-        title: 'Envoyer par email',
-        cta: 'Ouvrir l’application email',
-        toLabel: 'À',
-        toPlaceholder: 'adresse@email.com',
-        toAccessibility: 'Adresse email du destinataire',
-        invalidEmail: 'Entre une adresse email valide.',
-        subjectLabel: 'Objet',
-        subjectAccessibility: 'Objet du message',
-        messageLabel: 'Message',
-        messageAccessibility: 'Message',
-        openFailed: 'Impossible d’ouvrir l’application e-mail.',
-      },
-    },
-    shareSheet: {
-      title: 'Partager l’invitation',
-      previewAccessibility: 'Aperçu de l’invitation',
-      previewLine1: 'Rejoins-moi sur AWA à deux 💜',
-      previewCodePrefix: 'Utilise ce code : ',
-      previewCodeSuffix: '\npour te connecter et m’accompagner.',
-      previewLine3: 'Télécharge l’application AWA !',
-      copyText: 'Copier le texte',
-      copyHint: 'Ouvre le partage du téléphone, qui propose Copier',
-      moreOptions: 'Plus d’options',
-      whatsappUnavailable: 'WhatsApp n’est pas disponible sur cet appareil',
-      messagesUnavailable: 'Messages n’est pas disponible sur cet appareil',
-      gmailUnavailable: 'Aucune application e-mail n’est disponible sur cet appareil',
-      shareFailed: 'Impossible d’ouvrir le partage pour le moment.',
-    },
-    invitationMessage: {
-      shareText: 'Rejoins-moi sur AWA à deux 💜\n\nUtilise ce code : {{code}}\npour te connecter et m’accompagner.\n\nTélécharge l’application AWA !',
-      emailSubject: 'Rejoins-moi sur AWA à deux 💜',
-      emailBodyWithName: 'Bonjour {{name}} !\n\nJe t’invite à me rejoindre sur AWA à deux.\nUtilise ce code : {{code}}\npour te connecter et m’accompagner.\n\nTélécharge l’application AWA ! 💜',
-      emailBodyNeutral: 'Bonjour !\n\nJe t’invite à me rejoindre sur AWA à deux.\nUtilise ce code : {{code}}\npour te connecter et m’accompagner.\n\nTélécharge l’application AWA ! 💜',
     },
     demo: {
       cycleDayCaption: 'Cycle en cours',

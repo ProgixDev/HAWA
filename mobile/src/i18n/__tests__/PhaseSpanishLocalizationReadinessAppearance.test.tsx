@@ -6,7 +6,7 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 import AppearanceScreen from '../../screens/AppearanceScreen';
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import {resetPremiumStateForTests} from '../../state/premiumStore';
-import {getAppLanguage, resetAppLanguageForTests, setSelectedThemeId} from '../../state/themePreferences';
+import {getAppLanguage, resetAppLanguageForTests, setAppLanguage, setSelectedThemeId} from '../../state/themePreferences';
 import i18n from '../index';
 
 // Spanish localization readiness — PART 2: the real "Langue de
@@ -174,5 +174,77 @@ describe('TEST — AppearanceScreen "Langue de l\'application" selector (cases 1
     expect(radios(renderer, 'Español')[0].props.accessibilityState).toEqual({checked: true});
     expect(radios(renderer, 'English')[0].props.accessibilityState).toEqual({checked: false});
     expect(radios(renderer, 'Français')[0].props.accessibilityState).toEqual({checked: false});
+  });
+});
+
+// LANGUAGE SELECTOR SELF-LOCALIZATION — each card must always describe
+// itself in its OWN language, regardless of which language is currently
+// active in AWA. Only the surrounding chrome (title/description/Apply/
+// backdrop) follows the active language.
+const SELF_LOCALIZED_CARD_TEXT = [
+  'Français', 'Utiliser AWA en français',
+  'English', 'Use AWA in English',
+  'Español', 'Usar AWA en español',
+];
+const STALE_ENGLISH_DEFAULT_SUBTITLES = ['Default language', 'Langue par défaut', 'Idioma predeterminado'];
+
+describe('TEST — language cards self-localize regardless of the active AWA language (cases 16-19)', () => {
+  it('16. active language EN: all three cards show their own native label/subtitle, never "Default language" for English', async () => {
+    const renderer = await renderScreen();
+    await openLanguageSheet(renderer);
+    const texts = textsOf(renderer);
+    for (const expected of SELF_LOCALIZED_CARD_TEXT) {
+      expect(texts).toContain(expected);
+    }
+    for (const stale of STALE_ENGLISH_DEFAULT_SUBTITLES) {
+      expect(texts).not.toContain(stale);
+    }
+    // Chrome DOES follow the active language (English here).
+    expect(texts).toContain('App language');
+    expect(texts).toContain('Choose the language used in AWA.');
+    expect(texts).toContain('Apply');
+  });
+
+  it('17. active language FR: the SAME three native card texts appear — none of them switch to French', async () => {
+    await setAppLanguage('fr');
+    await i18n.changeLanguage('fr');
+    const renderer = await renderScreen();
+    await openLanguageSheet(renderer);
+    const texts = textsOf(renderer);
+    for (const expected of SELF_LOCALIZED_CARD_TEXT) {
+      expect(texts).toContain(expected);
+    }
+    // Chrome DOES follow French.
+    expect(texts).toContain('Langue de l’application');
+    expect(texts).toContain('Choisissez la langue utilisée dans AWA.');
+    expect(texts).toContain('Appliquer');
+    await setAppLanguage('en');
+    await i18n.changeLanguage('en');
+  });
+
+  it('18. active language ES: the SAME three native card texts appear — none of them switch to Spanish', async () => {
+    await setAppLanguage('es');
+    await i18n.changeLanguage('es');
+    const renderer = await renderScreen();
+    await openLanguageSheet(renderer);
+    const texts = textsOf(renderer);
+    for (const expected of SELF_LOCALIZED_CARD_TEXT) {
+      expect(texts).toContain(expected);
+    }
+    // Chrome DOES follow Spanish.
+    expect(texts).toContain('Idioma de la aplicación');
+    expect(texts).toContain('Elige el idioma que se usará en AWA.');
+    expect(texts).toContain('Aplicar');
+    await setAppLanguage('en');
+    await i18n.changeLanguage('en');
+  });
+
+  it('19. selecting Français still switches the real active app language to fr, with Apply/persistence behavior unchanged', async () => {
+    const renderer = await renderScreen();
+    await openLanguageSheet(renderer);
+    await selectLanguage(renderer, 'Français');
+    await pressApply(renderer);
+    expect(getAppLanguage()).toBe('fr');
+    expect(textsOf(renderer)).toContain('Apparence');
   });
 });
