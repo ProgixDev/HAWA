@@ -136,7 +136,7 @@ describe('AwaADeuxPendingScreen actions', () => {
     await press(renderer, 'Annuler l’invitation');
     expect(getDemoPartnerState().connectionStatus).toBe('not_invited');
     expect(route()).toBe('AwaADeuxPairing');
-    expect(textsOf(renderer)).toContain('Associer votre\npartenaire');
+    expect(textsOf(renderer)).toContain('Inviter votre\npartenaire');
   });
 
   it('[__DEV__] "Prévisualiser le parcours partenaire" opens AwaADeuxInvitation; the label never appears outside this row', async () => {

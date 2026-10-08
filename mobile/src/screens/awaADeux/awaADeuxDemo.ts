@@ -12,10 +12,6 @@ import i18n from '../../i18n';
 // non-component pattern as cycleMath.ts's averageCycle.* usage), so this file
 // never needs a `t` parameter threaded through its callers.
 
-/** Placeholder association code shown on the last screen. NOT generated, NOT validated, NOT secure. */
-export const DEMO_PAIRING_CODE = 'AWA-7K4P9';
-export const demoPairingValidity = (): string => i18n.t('awaADeux.pairing.validity');
-
 /** Fictitious values of the "what your partner sees" preview. */
 export const demoPreview = () => ({
   cycleDay: '16',

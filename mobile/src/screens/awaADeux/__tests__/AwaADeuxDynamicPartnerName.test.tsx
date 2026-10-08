@@ -17,7 +17,6 @@ import AwaADeuxSharingScreen from '../AwaADeuxSharingScreen';
 import AwaADeuxPairingScreen from '../AwaADeuxPairingScreen';
 import AwaADeuxPendingScreen from '../AwaADeuxPendingScreen';
 import AwaADeuxPartnerConnectedScreen from '../AwaADeuxPartnerConnectedScreen';
-import {buildEmailBody} from '../awaADeuxInvitation';
 import {partnerLabel, partnerSubject, queBeforePartner} from '../../../utils/awaADeuxPartnerWording';
 import {stopDemoSharing} from '../../../state/awaADeuxDemoStore';
 import {
@@ -104,6 +103,13 @@ const enterName = async (renderer: ReactTestRenderer.ReactTestRenderer, value: s
   await press(renderer, 'Continuer');
 };
 const visibleTexts = (renderer: ReactTestRenderer.ReactTestRenderer) => textsOf(renderer).join(' | ');
+// The Pairing (invite) screen's own email field.
+const enterPartnerEmail = async (renderer: ReactTestRenderer.ReactTestRenderer, email: string) => {
+  const field = renderer.root.findAllByType(TextInput).filter(node => node.props.accessibilityLabel === 'Adresse e-mail de votre partenaire').pop()!;
+  await act(async () => {
+    field.props.onChangeText(email);
+  });
+};
 
 beforeEach(async () => {
   jest.restoreAllMocks();
@@ -148,7 +154,7 @@ describe('French wording helpers', () => {
 });
 
 describe('The name entered drives every following screen', () => {
-  it('Amine: step 1 → 2 → 3 → 4 → QR / e-mail / preview → partner screen → stop sharing, all say Amine', async () => {
+  it('Amine: step 1 → 2 → 3 → 4 (email invite) → pending → partner screen → stop sharing, all say Amine', async () => {
     const renderer = await renderFlow();
     await enterName(renderer, 'Amine');
     expect(route()).toBe('AwaADeuxPartnerView');
@@ -168,26 +174,19 @@ describe('The name entered drives every following screen', () => {
     // design — see AwaADeuxSharingScreen.tsx); the SAME preview's name-interpolation is
     // still covered via AwaADeuxAssociation.test.tsx's AwaADeuxPartnerConnectedScreen tests.
 
-    // 4 — invitation
+    // 4 — invitation (email only)
     await press(renderer, 'Continuer');
     expect(route()).toBe('AwaADeuxPairing');
     texts = textsOf(renderer);
-    expect(texts).toContain('Partagez ce code avec Amine pour l’inviter à se connecter.');
-    expect(texts).toContain('Invitez Amine par email directement depuis l’app');
-    expect(texts).toContain('Amine devra créer un compte AWA et utiliser ce code pour se connecter.');
-    await press(renderer, 'Afficher le QR code');
-    expect(textsOf(openModal(renderer))).toContain('Amine peut scanner ce QR code depuis son application AWA pour se connecter.');
-    await press(openModal(renderer), 'Fermer');
-    await press(renderer, 'Envoyer par email');
-    const body = openModal(renderer).findAllByType(TextInput).find(node => node.props.accessibilityLabel === 'Message')!.props.value;
-    expect(body).toBe(buildEmailBody('Amine'));
-    expect(body.startsWith('Bonjour Amine !')).toBe(true);
-    await press(openModal(renderer), 'Fermer');
+    expect(texts).toContain('Invitez Amine à vous rejoindre sur AWA à deux.');
+    expect(texts).toContain('Nous enverrons à Amine un lien d’invitation sécurisé par email.');
+    await enterPartnerEmail(renderer, 'amine@exemple.fr');
+    await press(renderer, 'Envoyer l’invitation');
 
     // Pending — the last demo step actually reachable from the UI — also uses the dynamic name
-    await press(renderer, 'Continuer');
     expect(route()).toBe('AwaADeuxPending');
     expect(textsOf(renderer)).toContain('Invitation envoyée\nà Amine');
+    expect(textsOf(renderer)).toContain('Invitation envoyée à :\namine@exemple.fr');
 
     // The connected screen and its stop dialog (reached directly, like elsewhere in this file)
     await act(async () => {
@@ -207,8 +206,9 @@ describe('The name entered drives every following screen', () => {
     await press(renderer, 'Continuer');
     expect(textsOf(renderer)).toContain('Mohamed verra uniquement les informations que vous activez.');
     await press(renderer, 'Continuer');
-    expect(textsOf(renderer)).toContain('Partagez ce code avec Mohamed pour l’inviter à se connecter.');
-    await press(renderer, 'Continuer');
+    expect(textsOf(renderer)).toContain('Invitez Mohamed à vous rejoindre sur AWA à deux.');
+    await enterPartnerEmail(renderer, 'mohamed@exemple.fr');
+    await press(renderer, 'Envoyer l’invitation');
     expect(route()).toBe('AwaADeuxPending');
     expect(textsOf(renderer)).toContain('Invitation envoyée\nà Mohamed');
     for (const forbidden of ['Amine', 'Sami', 'Yacine']) {
@@ -281,12 +281,8 @@ describe('No configured partner: neutral wording, never a made-up name', () => {
     });
     await settle();
     texts = textsOf(renderer);
-    expect(texts).toContain('Partagez ce code avec votre partenaire pour l’inviter à se connecter.');
-    expect(texts).toContain('Invitez votre partenaire par email directement depuis l’app');
-    expect(texts).toContain('Votre partenaire devra créer un compte AWA et utiliser ce code pour se connecter.');
-    await press(renderer, 'Envoyer par email');
-    expect(openModal(renderer).findAllByType(TextInput).find(node => node.props.accessibilityLabel === 'Message')!.props.value.startsWith('Bonjour !')).toBe(true);
-    await press(openModal(renderer), 'Fermer');
+    expect(texts).toContain('Invitez votre partenaire à vous rejoindre sur AWA à deux.');
+    expect(texts).toContain('Nous enverrons à votre partenaire un lien d’invitation sécurisé par email.');
 
     await act(async () => {
       navRef.navigate('AwaADeuxPartnerConnected' as never);

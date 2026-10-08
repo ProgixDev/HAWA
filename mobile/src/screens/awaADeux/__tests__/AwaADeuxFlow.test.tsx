@@ -17,7 +17,7 @@ import AwaADeuxPartnerViewScreen from '../AwaADeuxPartnerViewScreen';
 import AwaADeuxBenefitsScreen from '../AwaADeuxBenefitsScreen';
 import AwaADeuxSharingScreen from '../AwaADeuxSharingScreen';
 import AwaADeuxPairingScreen from '../AwaADeuxPairingScreen';
-import {DEFAULT_SHARING_TOGGLES, DEMO_PAIRING_CODE, sharingSections} from '../awaADeuxDemo';
+import {DEFAULT_SHARING_TOGGLES, sharingSections} from '../awaADeuxDemo';
 import {SHARING_KEYS, setSharingToggle} from '../../../state/awaADeuxSharingStore';
 import {clearAwaADeuxPartnerName} from '../../../state/awaADeuxPartnerStore';
 import {setSelectedObjective} from '../../../state/onboardingPreferences';
@@ -152,7 +152,7 @@ describe('Navigation: the four steps in order, with Back', () => {
 
     await press(renderer, 'Continuer');
     expect(currentRoute()).toBe('AwaADeuxPairing');
-    expect(textsOf(renderer)).toContain('Associer votre\npartenaire');
+    expect(textsOf(renderer)).toContain('Inviter votre\npartenaire');
 
     for (const expected of ['AwaADeuxSharing', 'AwaADeuxBenefits', 'AwaADeuxPartnerView', 'AwaADeuxPartnerName', 'AwaADeuxIntro']) {
       await press(renderer, 'Retour');
@@ -173,12 +173,12 @@ describe('Navigation: the four steps in order, with Back', () => {
     }
   });
 
-  it('step 4 ends the onboarding: its "Continuer" is only the demo progression to the pending/waiting screen', async () => {
+  it('step 4 ends the onboarding: its "Envoyer l\'invitation" is only the demo progression to the pending/waiting screen', async () => {
     const renderer = await renderFlow();
     await goTo(renderer, 4);
-    expect(textsOf(renderer)).toContain('Associer votre\npartenaire');
+    expect(textsOf(renderer)).toContain('Inviter votre\npartenaire');
     const source = fs.readFileSync(path.resolve(__dirname, '../AwaADeuxPairingScreen.tsx'), 'utf8');
-    expect(source).toContain("ctaLabel={t('common.continue')}");
+    expect(source).toContain("ctaLabel={t('awaADeux.pairing.sendCta')}");
     // No direct `navigate` (it would push a duplicate): the helper guards against a double push.
     expect(source).not.toMatch(/navigation\.navigate\(/);
     expect(source).toContain('advanceToPending(navigation)');
@@ -261,15 +261,18 @@ describe('Step 3 — Choisissez ce que vous souhaitez partager', () => {
   });
 });
 
-describe('Step 4 — Associer votre partenaire (demo)', () => {
-  it('shows the demo code, its validity, the sharing actions, the e-mail row and the account notice', async () => {
+describe('Step 4 — Inviter votre partenaire (demo, email only)', () => {
+  it('shows the email-only invite: description, field and helper note — no code, QR or share option', async () => {
     const renderer = await renderFlow();
     await goTo(renderer, 4);
     const texts = textsOf(renderer);
-    for (const text of ['Partagez ce code avec Amine pour l’inviter à se connecter.', 'Code d’association', DEMO_PAIRING_CODE, 'Valable pendant 24 heures', 'Partager le code', 'Partager', 'Afficher le QR code', 'ou', 'Envoyer par email', 'Invitez Amine par email directement depuis l’app', 'Amine devra créer un compte AWA et utiliser ce code pour se connecter.']) {
+    for (const text of ['Invitez Amine à vous rejoindre sur AWA à deux.', 'E-mail de votre partenaire', 'Nous enverrons à Amine un lien d’invitation sécurisé par email.']) {
       expect(texts).toContain(text);
     }
-    expect(DEMO_PAIRING_CODE).toBe('AWA-7K4P9');
+    for (const forbidden of ['Code d’association', 'Valable pendant 24 heures', 'Partager le code', 'Afficher le QR code', 'Envoyer par email']) {
+      expect(texts).not.toContain(forbidden);
+    }
+    expect(renderer.root.findAllByProps({accessibilityLabel: 'Adresse e-mail de votre partenaire'}).length).toBeGreaterThan(0);
   });
 });
 
@@ -340,14 +343,15 @@ describe('Theme', () => {
     expect(toggle(renderer, 'Humeur').props.thumbColor).toBe(dark.colors.surface);
   });
 
-  it('step 4 (no CTA) is also themed: gradient and code card follow Light / Dark', async () => {
+  it('step 4 is also themed: the email card and helper note follow Light / Dark', async () => {
     const renderer = await renderFlow();
     await goTo(renderer, 4);
-    const codeColor = () => flat(renderer.root.findAllByType(Text).find(node => textOf(node) === DEMO_PAIRING_CODE)!.props.style).color;
-    expect(codeColor()).toBe(resolveAwaTheme('awa-original', false, false).colors.accent);
+    const helperColor = () =>
+      flat(renderer.root.findAllByType(Text).find(node => textOf(node) === 'Nous enverrons à Amine un lien d’invitation sécurisé par email.')!.props.style).color;
+    expect(helperColor()).toBe(resolveAwaTheme('awa-original', false, false).colors.textSecondary);
     await act(async () => {
       await setAppearanceMode('dark');
     });
-    expect(codeColor()).toBe(resolveAwaTheme('awa-original', true, false).colors.accent);
+    expect(helperColor()).toBe(resolveAwaTheme('awa-original', true, false).colors.textSecondary);
   });
 });

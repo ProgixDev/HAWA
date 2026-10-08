@@ -432,7 +432,7 @@ describe('the sharing screen no longer offers its own preview entry point', () =
 describe('scope', () => {
   it('only the sharing screen and its hook read the saved choices; the other AWA à deux screens do not touch storage', () => {
     const dir = path.resolve(__dirname, '..');
-    for (const name of ['AwaADeuxPartnerViewScreen.tsx', 'AwaADeuxBenefitsScreen.tsx', 'AwaADeuxStepLayout.tsx', 'QrPlaceholder.tsx']) {
+    for (const name of ['AwaADeuxPartnerViewScreen.tsx', 'AwaADeuxBenefitsScreen.tsx', 'AwaADeuxStepLayout.tsx']) {
       const source = fs.readFileSync(path.join(dir, name), 'utf8');
       const imports = source.split('\n').filter(line => /^import |^} from /.test(line)).join('\n');
       expect(imports).not.toMatch(/async-storage|\/state\/|supabase|\/services\//i);

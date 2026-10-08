@@ -21,7 +21,6 @@ import AwaADeuxInvitationScreen from '../partner/AwaADeuxInvitationScreen';
 import AwaADeuxAcceptInvitationScreen from '../partner/AwaADeuxAcceptInvitationScreen';
 import PartnerMainTabNavigator from '../../../navigation/PartnerMainTabNavigator';
 
-import {DEMO_PAIRING_CODE} from '../awaADeuxDemo';
 import {clearAwaADeuxPartnerName, getAwaADeuxPartnerName, setAwaADeuxPartnerName} from '../../../state/awaADeuxPartnerStore';
 import {clearAwaADeuxPartnerProfileFirstName} from '../../../state/awaADeuxPartnerProfileStore';
 import {getDemoPartnerState, simulateInvitationSent, stopDemoSharing} from '../../../state/awaADeuxDemoStore';
@@ -165,7 +164,6 @@ describe('TEST 1/2 — owner onboarding flow (Intro → Partner name → Partner
 
     await press(renderer, i18n.t('common.continue'));
     expect(textsOf(renderer)).toContain(i18n.t('awaADeux.pairing.title'));
-    expect(textsOf(renderer)).toContain(DEMO_PAIRING_CODE); // technical code never translated
   });
 });
 
@@ -355,9 +353,9 @@ describe('TEST 15 — dynamic partner name integrity: "Yacine" is never translat
 });
 
 describe('TEST 16 — representative technical/data state is unchanged across a FR → EN switch', () => {
-  it('partner name, connection status, pairing code, period history, visibility result and cycle-info technical fields all survive the switch', async () => {
+  it('partner name, connection status, invitation email, period history, visibility result and cycle-info technical fields all survive the switch', async () => {
     setAwaADeuxPartnerName('Yacine');
-    simulateInvitationSent();
+    simulateInvitationSent('yacine@exemple.fr');
     const today = new Date(2026, 9, 1, 12);
     const lastPeriodStart = new Date(2026, 8, 27, 12); // cycle day 5, same recipe as the owner's own confirmed-data tests
     setCyclePreferences({lastPeriodStart, periodDuration: 5, cycleDuration: 28, regularity: 'yes'});
@@ -365,7 +363,7 @@ describe('TEST 16 — representative technical/data state is unchanged across a 
     const before = {
       partnerName: getAwaADeuxPartnerName(),
       connectionStatus: getDemoPartnerState().connectionStatus,
-      pairingCode: DEMO_PAIRING_CODE,
+      partnerEmail: getDemoPartnerState().partnerEmail,
       periodHistory: getRecordedPeriodHistory(),
       visibility: computePartnerVisibility(DEFAULT_SHARING_TOGGLES, {isPregnant: false}),
       cycleInfo: computePartnerCycleInfo(today),
@@ -377,7 +375,7 @@ describe('TEST 16 — representative technical/data state is unchanged across a 
     const after = {
       partnerName: getAwaADeuxPartnerName(),
       connectionStatus: getDemoPartnerState().connectionStatus,
-      pairingCode: DEMO_PAIRING_CODE,
+      partnerEmail: getDemoPartnerState().partnerEmail,
       periodHistory: getRecordedPeriodHistory(),
       visibility: computePartnerVisibility(DEFAULT_SHARING_TOGGLES, {isPregnant: false}),
       cycleInfo: computePartnerCycleInfo(today),
@@ -385,7 +383,7 @@ describe('TEST 16 — representative technical/data state is unchanged across a 
 
     expect(after.partnerName).toBe(before.partnerName);
     expect(after.connectionStatus).toBe(before.connectionStatus);
-    expect(after.pairingCode).toBe(before.pairingCode);
+    expect(after.partnerEmail).toBe(before.partnerEmail);
     expect(after.periodHistory).toEqual(before.periodHistory);
     expect(after.visibility).toEqual(before.visibility);
     // Stable technical cycle fields — never the pre-formatted, intentionally locale-aware
@@ -481,7 +479,7 @@ describe('TEST 20 — read-only guarantee holds in English too', () => {
   });
 });
 
-describe('TEST 21 — accessibility copy for Partner Calendar navigation and Pairing\'s copy/share action follows the app language', () => {
+describe('TEST 21 — accessibility copy for Partner Calendar navigation and Pairing\'s email field follows the app language', () => {
   it('French then English accessibility labels, representative of the dynamic accessibility copy added in Phase 7G', async () => {
     const calendarRenderer = await renderFlow('PartnerMainTabs');
     await press(calendarRenderer, 'Calendrier');
@@ -496,9 +494,9 @@ describe('TEST 21 — accessibility copy for Partner Calendar navigation and Pai
     await i18n.changeLanguage('fr');
     await setAppLanguage('fr');
     const pairingRenderer = await renderFlow('AwaADeuxPairing');
-    expect(pairingRenderer.root.findAll(node => node.props.accessibilityLabel === 'Copier ou partager le code').length).toBeGreaterThan(0);
+    expect(pairingRenderer.root.findAll(node => node.props.accessibilityLabel === 'Adresse e-mail de votre partenaire').length).toBeGreaterThan(0);
 
     await switchLanguage('en');
-    expect(pairingRenderer.root.findAll(node => node.props.accessibilityLabel === 'Copy or share the code').length).toBeGreaterThan(0);
+    expect(pairingRenderer.root.findAll(node => node.props.accessibilityLabel === 'Partner’s email address').length).toBeGreaterThan(0);
   });
 });
