@@ -35,3 +35,25 @@ export async function getOrCreateAesKey(service: string, username: string): Prom
   keyCache.set(service, key);
   return key;
 }
+
+/** Reads the existing key for `service` WITHOUT ever creating one. `null` means the Keychain has no key for it —
+ * which, when data encrypted under that key exists, is a key LOSS, not a reason to silently mint a new key (a new
+ * key would make every old ciphertext permanently unreadable). */
+export async function peekAesKey(service: string): Promise<Uint8Array | null> {
+  const cached = keyCache.get(service);
+  if (cached) {return cached;}
+  const existing = await Keychain.getGenericPassword({service});
+  if (!existing) {return null;}
+  const key = hexToBytes(existing.password);
+  keyCache.set(service, key);
+  return key;
+}
+
+/** Forgets the in-memory copy of a key (does not touch the Keychain). Used when the active data set changes and in tests. */
+export function clearAesKeyCache(service?: string): void {
+  if (service) {
+    keyCache.delete(service);
+  } else {
+    keyCache.clear();
+  }
+}
