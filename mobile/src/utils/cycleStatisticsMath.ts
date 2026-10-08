@@ -1,4 +1,4 @@
-import type {DailyJournalEntry, FlowIntensity} from '../types/journal';
+import type {DailyJournalEntry, FlowIntensity, MoodLevel} from '../types/journal';
 import type {ConfirmedPeriodOccurrence} from '../state/confirmedPeriodHistoryStore';
 import {capitalize, startOfDay, dateFormatLocale} from './cycleMath';
 import i18n from '../i18n';
@@ -140,16 +140,86 @@ export type AverageCycleDuration = {averageDays: number; cyclesAnalyzed: number}
  * a fabricated average, never the onboarding's manually-configured
  * `cycleDuration` preference — when there isn't enough real history yet. */
 export function calculateAverageCycleDuration(periodStarts: readonly Date[]): AverageCycleDuration | null {
-  if (periodStarts.length < 2) {return null;}
+  const durations = cycleLengthsFromStarts(periodStarts);
+  if (!durations.length) {return null;}
+  const averageDays = Math.round(durations.reduce((sum, value) => sum + value, 0) / durations.length);
+  return {averageDays, cyclesAnalyzed: durations.length};
+}
+
+/** Real cycle lengths: the gaps between CONSECUTIVE confirmed period starts.
+ * Two starts on the same day (a duplicate) yield no length. */
+function cycleLengthsFromStarts(periodStarts: readonly Date[]): number[] {
   const sorted = [...periodStarts].sort((a, b) => a.getTime() - b.getTime());
   const durations: number[] = [];
   for (let index = 1; index < sorted.length; index += 1) {
     const days = Math.round((sorted[index].getTime() - sorted[index - 1].getTime()) / DAY_MS);
     if (days > 0) {durations.push(days);}
   }
+  return durations;
+}
+
+export type CycleLengthRange = {shortestDays: number; longestDays: number; cyclesAnalyzed: number};
+
+/** Variability of the real cycle lengths (shortest / longest). `null` until at
+ * least one real cycle length exists. Purely descriptive, never a judgment. */
+export function calculateCycleLengthRange(periodStarts: readonly Date[]): CycleLengthRange | null {
+  const durations = cycleLengthsFromStarts(periodStarts);
   if (!durations.length) {return null;}
-  const averageDays = Math.round(durations.reduce((sum, value) => sum + value, 0) / durations.length);
-  return {averageDays, cyclesAnalyzed: durations.length};
+  return {shortestDays: Math.min(...durations), longestDays: Math.max(...durations), cyclesAnalyzed: durations.length};
+}
+
+export type AveragePeriodDuration = {averageDays: number; periodsAnalyzed: number};
+
+/** A longer "period" than this is a data problem (a forgotten confirmation),
+ * not a measurement. */
+const MAX_PLAUSIBLE_PERIOD_DAYS = 14;
+
+/** "Durée moyenne des règles" — only from CONFIRMED occurrences that have a
+ * real start AND a real end after it (inclusive calendar days). A period with
+ * no usable end, or an implausible one, is skipped — never replaced by the
+ * configured `averagePeriodLength` (the default). Duplicate starts count once. */
+export function calculateAveragePeriodDuration(
+  history: readonly ConfirmedPeriodOccurrence[],
+  period: StatisticsPeriod,
+  now: Date,
+): AveragePeriodDuration | null {
+  const cutoff = cutoffDateForPeriod(period, now).getTime();
+  const end = endOfStatisticsDay(now).getTime();
+  const seen = new Set<number>();
+  const lengths: number[] = [];
+  history.forEach(occurrence => {
+    const start = new Date(occurrence.periodStart);
+    const stop = new Date(occurrence.periodEndDateTime);
+    if (Number.isNaN(start.getTime()) || Number.isNaN(stop.getTime())) {return;}
+    if (start.getTime() < cutoff || start.getTime() > end) {return;}
+    const startDay = startOfDay(start).getTime();
+    if (seen.has(startDay)) {return;}
+    const days = Math.round((startOfDay(stop).getTime() - startDay) / DAY_MS) + 1;
+    if (days < 1 || days > MAX_PLAUSIBLE_PERIOD_DAYS) {return;}
+    seen.add(startDay);
+    lengths.push(days);
+  });
+  if (!lengths.length) {return null;}
+  return {
+    averageDays: Math.round(lengths.reduce((sum, value) => sum + value, 0) / lengths.length),
+    periodsAnalyzed: lengths.length,
+  };
+}
+
+export type MoodDistributionEntry = {level: MoodLevel; days: number};
+
+/** "Humeur" — real counts of the recorded `mood.level` per day; a day with no
+ * mood entry is absent. Most frequent first (ties by level name, stable). */
+export function calculateMoodDistribution(entries: readonly DailyJournalEntry[]): MoodDistributionEntry[] {
+  const counts = new Map<MoodLevel, number>();
+  entries.forEach(entry => {
+    const level = entry.mood?.level;
+    if (!level) {return;}
+    counts.set(level, (counts.get(level) ?? 0) + 1);
+  });
+  return Array.from(counts.entries())
+    .map(([level, days]) => ({level, days}))
+    .sort((a, b) => b.days - a.days || a.level.localeCompare(b.level));
 }
 
 /** How many period STARTS the user has recorded (cyclePreferences'
