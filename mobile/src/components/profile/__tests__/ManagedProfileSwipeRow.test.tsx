@@ -7,6 +7,19 @@ import ManagedProfileSwipeRow, {clampSwipeOffset, shouldClaimSwipeGesture, shoul
 import {resetAppLanguageForTests, setAppLanguage} from '../../../state/themePreferences';
 import i18n from '../../../i18n';
 
+// Every rendered tree is unmounted after its test: the theme provider hydrates asynchronously, and a tree left
+// mounted re-rendered AFTER Jest had torn the environment down (an uncaught error that made the whole Jest
+// run exit with code 1 although every test passed).
+const mounted: ReactTestRenderer.ReactTestRenderer[] = [];
+afterEach(async () => {
+  await act(async () => {
+    await Promise.resolve();
+  });
+  act(() => {
+    mounted.splice(0).forEach(renderer => renderer.unmount());
+  });
+});
+
 function flattenStyle(style: unknown): Record<string, unknown> {
   return Object.assign({}, ...(Array.isArray(style) ? style : [style]).filter(Boolean));
 }
@@ -69,6 +82,7 @@ describe('ManagedProfileSwipeRow — component behavior', () => {
         </AwaThemeProvider>,
       );
     });
+    mounted.push(renderer);
     return {renderer, onSwipeOpen, onDeletePress};
   }
 
@@ -194,6 +208,7 @@ describe('ManagedProfileSwipeRow — visible delete label follows the app langua
         </AwaThemeProvider>,
       );
     });
+    mounted.push(renderer);
     expect(renderer.root.findAllByType(Text).some(node => [node.props.children].flat(Infinity).join('') === expectedLabel)).toBe(true);
   });
 });

@@ -10,6 +10,7 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {isIncludedInBackup} from '../services/storageKeyClassifier';
 
 function Shell({title, navigation, children}: {title: string; navigation: {goBack: () => void}; children: React.ReactNode}) {
   const {t} = useTranslation();
@@ -34,7 +35,7 @@ function Shell({title, navigation, children}: {title: string; navigation: {goBac
 }
 
 async function readAwaData() {
-  const keys = (await AsyncStorage.getAllKeys()).filter(key => key.startsWith('@awa') || key.startsWith('@hawa'));
+  const keys = (await AsyncStorage.getAllKeys()).filter(isIncludedInBackup);
   const pairs = await Promise.all(keys.map(async key => [key, await AsyncStorage.getItem(key)] as const));
   return Object.fromEntries(pairs);
 }
