@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
+  ActivityIndicator,
   Animated,
   Easing,
   Pressable,
@@ -37,8 +38,9 @@ import {useToday} from '../hooks/useToday';
 import {
   getCyclePreferences,
   getCycleObservationStartedAt,
-  getHasConfirmedCycleData,
   getHasConfirmedCycleDuration,
+  getHasRecordedFirstPeriod,
+  getIsCycleStateReady,
   getRecordedPeriodHistory,
   hydrateCyclePreferences,
   isDateWithinConfirmedPeriod,
@@ -60,6 +62,7 @@ import {
   cycleDayFor,
   describeAverageCycle,
   diffDays,
+  effectiveRegularityFor,
   estimateFertilityDates,
   formatDateRange,
   formatHijriDate,
@@ -105,7 +108,13 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   // dynamic identity/data changes" — see activeProfileStore.ts).
   const [activeIdentity, setActiveIdentity] = useState(getActiveProfileIdentity);
   useEffect(() => {
-    const unsubscribe = subscribeActiveProfileId(() => setActiveIdentity(getActiveProfileIdentity()));
+    const unsubscribe = subscribeActiveProfileId(() => {
+      setActiveIdentity(getActiveProfileIdentity());
+      // onboardingPreferences.ts has already dropped the previous profile's cycle
+      // data by now (its own listener runs first): re-read it so `initial` can't
+      // keep describing the profile just left.
+      setCyclePreferencesState(getCyclePreferences());
+    });
     return unsubscribe;
   }, []);
   const headerFirstName = activeIdentity.isManagedProfile ? activeIdentity.managedProfile?.firstName ?? '' : getFirstName();
@@ -190,13 +199,14 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   // NONE of the cycle-derived content below (ring/day/phase, next period,
   // fertile window, ovulation) may be shown — cyclePreferences is still at its
   // neutral, unconfirmed placeholder for her (see onboardingPreferences.ts),
-  // and getHasConfirmedCycleData() is the ONLY honest signal for that (never a
-  // comparison against the 28/5-day fallback constants). The mother's own
-  // empty-history state is completely unaffected — this branch requires
-  // activeIdentity.isManagedProfile too, so isOwnerActive() always short-
-  // circuits it to false, exactly like cycleReminderScheduling.ts's own
-  // dateBasedActive guard already does for reminders.
-  const isPreFirstPeriodDaughter = activeIdentity.isManagedProfile && !getHasConfirmedCycleData();
+  // and her own RECORDED period history is the ONLY honest signal for that
+  // (never a comparison against the 28/5-day fallback constants, never
+  // cyclePreferences being non-null). The mother's own empty-history state is
+  // completely unaffected — this branch requires activeIdentity.isManagedProfile
+  // too, so isOwnerActive() always short-circuits it to false, exactly like
+  // cycleReminderScheduling.ts's own dateBasedActive guard already does for
+  // reminders. Same gate as CalendarScreen.tsx.
+  const isPreFirstPeriodDaughter = activeIdentity.isManagedProfile && !getHasRecordedFirstPeriod();
   const daughterProfileId = activeIdentity.managedProfile?.id;
 
   // Regularity-aware next-period prediction — 'yes' behaves exactly as
@@ -207,7 +217,15 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   // Recorded periods only — never the placeholder record seeded from the
   // unconfirmed fallback defaults (see getRecordedPeriodHistory()).
   const periodStartDates = getRecordedPeriodHistory().map(record => new Date(`${record.startDate}T12:00:00`));
-  const predictionStatus = computeCyclePredictionStatus(initial, initial.regularity, periodStartDates, getCycleObservationStartedAt(), today);
+  // A managed profile's declared-regular cycle whose lengths nobody provided is
+  // observed, not projected from the placeholder 28 days — same rule as
+  // CalendarScreen.tsx (see effectiveRegularityFor). The owner is untouched.
+  const predictionRegularity = effectiveRegularityFor(initial.regularity, getHasConfirmedCycleDuration());
+  // Data still being read (memory holds the placeholder) / nothing ever recorded:
+  // the hero below is neutral — no ring, no phase, no date — whoever she is.
+  const cycleDataReady = getIsCycleStateReady();
+  const noRecordedPeriod = !getHasRecordedFirstPeriod();
+  const predictionStatus = computeCyclePredictionStatus(initial, predictionRegularity, periodStartDates, getCycleObservationStartedAt(), today);
 
   // cycleDayFor()/phaseFor() wrap the elapsed day count modulo cycleDuration,
   // which only means something once a single cycle length can be trusted —
@@ -230,6 +248,12 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   const currentCycleDay = predictionStatus.mode === 'exact'
     ? cycleDayFor(today, {...initial, cycleDuration: predictionStatus.averageCycleLength})
     : rawCycleDay;
+  // Without a real cycle length behind it — a managed profile whose lengths nobody
+  // provided, still being observed — the placeholder 28 days must decide nothing:
+  // no progress ring, no phase, no fertile / ovulation claim ("L’ovulation est
+  // prévue aujourd’hui…" for a girl whose only known fact is one period start).
+  // The hero is then the neutral card below (HeroCycleCard is not rendered).
+  const cycleLengthIsPlaceholder = !getHasConfirmedCycleDuration() && predictionStatus.mode !== 'exact';
   const currentPhase: CyclePhase = (() => {
     if (predictionStatus.mode === 'exact') {
       return phaseFor(today, {...phaseBasics, cycleDuration: predictionStatus.averageCycleLength});
@@ -275,12 +299,15 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   // be trusted. For an irregular/variable cycle the next period is already a
   // 26–32 day window above, so no single ovulation date may be shown either.
   const fertility = estimateFertilityDates(initial, predictionStatus, today, getHasConfirmedCycleDuration());
+  // "Cycle variable" only describes an irregular cycle; elsewhere the dates are
+  // simply not estimable yet.
+  const notEstimableSubtitle = predictionStatus.mode === 'window' ? t('cycleHome.variableCycle') : t('cycleHome.insufficientData');
   const fertileTile = fertility
     ? {value: formatDateRange(fertility.fertileStart, fertility.fertileEnd), subtitle: t('cycleHome.nextPeriod.inDays', {count: Math.max(0, diffDays(fertility.fertileStart, today))})}
-    : {value: t('cycleHome.notEstimable'), subtitle: t('cycleHome.variableCycle')};
+    : {value: t('cycleHome.notEstimable'), subtitle: notEstimableSubtitle};
   const ovulationTile = fertility
     ? {value: formatShortDate(fertility.ovulation), subtitle: t('cycleHome.nextPeriod.inDays', {count: Math.max(0, diffDays(fertility.ovulation, today))})}
-    : {value: t('cycleHome.notEstimable'), subtitle: t('cycleHome.variableCycle')};
+    : {value: t('cycleHome.notEstimable'), subtitle: notEstimableSubtitle};
 
   const overviewItems: OverviewItem[] = [
     {
@@ -387,6 +414,26 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
                 <Text style={styles.preFirstPeriodTitle}>{t('cycleHome.preFirstPeriod.title')}</Text>
                 <Text style={styles.preFirstPeriodSubtitle}>{t('cycleHome.preFirstPeriod.subtitle')}</Text>
               </View>
+            ) : !cycleDataReady ? (
+              <View accessibilityRole="progressbar" style={styles.preFirstPeriodCard}>
+                <ActivityIndicator color={theme.colors.primary} />
+              </View>
+            ) : noRecordedPeriod ? (
+              <View style={styles.preFirstPeriodCard}>
+                <View style={styles.preFirstPeriodIconBadge}>
+                  <MaterialDesignIcons color={theme.colors.primary} name="flower-tulip-outline" size={26} />
+                </View>
+                <Text style={styles.preFirstPeriodTitle}>{t('cycleHome.preFirstPeriod.title')}</Text>
+                <Text style={styles.preFirstPeriodSubtitle}>{t('cycleHome.preFirstPeriod.subtitleOwner')}</Text>
+              </View>
+            ) : cycleLengthIsPlaceholder ? (
+              <View style={styles.preFirstPeriodCard}>
+                <View style={styles.preFirstPeriodIconBadge}>
+                  <MaterialDesignIcons color={theme.colors.primary} name="flower-tulip-outline" size={26} />
+                </View>
+                <Text style={styles.preFirstPeriodTitle}>{t('calendar.dayCard.cycleDayBadge', {day: rawCycleDay})}</Text>
+                <Text style={styles.preFirstPeriodSubtitle}>{t('calendar.predictionsPendingMoreData')}</Text>
+              </View>
             ) : (
               <HeroCycleCard
                 currentDay={currentCycleDay}
@@ -403,7 +450,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
               pre-first-period daughter: every tile here (next period, fertile
               window, ovulation, average length) is cycle-derived, and there is
               no real cycle data yet to summarise. */}
-          {!isPreFirstPeriodDaughter ? (
+          {!isPreFirstPeriodDaughter && cycleDataReady && !noRecordedPeriod ? (
             <CycleOverviewCard items={overviewItems} onPressMore={() => navigation.navigate('Calendar')} />
           ) : null}
 
