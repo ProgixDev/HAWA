@@ -89,6 +89,9 @@ afterEach(() => {
 
 describe('Cycle Statistics - evolution rows use real data and the selected period', () => {
   it('no data: honest empty states, no flow labels or symptom names are shown', async () => {
+    // Phase 8: with NO data at all the screen shows one global empty state; a mood-only day keeps the
+    // per-section empty states (no flow, no symptoms, no cycles) under test.
+    await saveJournalSection('2026-09-20', 'mood', {level: 'good', energy: 3, stress: 2, irritability: 1, motivation: 3});
     const renderer = await renderScreen();
     const texts = allTexts(renderer);
     expect(texts).toContain('Aucun flux enregistré ce mois-ci');

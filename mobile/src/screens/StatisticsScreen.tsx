@@ -25,7 +25,9 @@ import {usePremium} from '../hooks/usePremium';
 import {useToday} from '../hooks/useToday';
 import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
 import {getAllJournalEntries} from '../state/dailyJournalStore';
-import {getRecordedPeriodHistory} from '../state/onboardingPreferences';
+import {getRecordedPeriodHistory, hydrateCyclePreferences} from '../state/onboardingPreferences';
+import {getActiveProfileId, subscribeActiveProfileId} from '../state/activeProfileStore';
+import {isActiveProfileDataUnavailable, useStructuredDataAvailability} from '../hooks/useStructuredDataAvailability';
 import type {DailyJournalEntry, FlowIntensity} from '../types/journal';
 import {
   getConfirmedPeriodHistory,
@@ -39,6 +41,9 @@ import {
   filterEntriesForPeriod,
   filterPeriodStartsForPeriod,
   calculateAverageCycleDuration,
+  calculateAveragePeriodDuration,
+  calculateCycleLengthRange,
+  calculateMoodDistribution,
   countRecordedStartsForPeriod,
   describeMissingAverageCycleData,
   calculateFlowDistribution,
@@ -56,6 +61,18 @@ import '../i18n';
 ============================================================ */
 
 type Props = MainTabScreenProps<'Statistics'>;
+
+type StatisticsData = {
+  /** null = not loaded for the active profile yet. */
+  profileId: string | null;
+  entries: DailyJournalEntry[];
+  history: ConfirmedPeriodOccurrence[];
+  recordedStarts: {startDate: string}[];
+  /** The records could not be READ (not "there are none"): the screen says so instead of showing an empty history. */
+  failed: boolean;
+};
+
+const EMPTY_DATA: StatisticsData = {profileId: null, entries: [], history: [], recordedStarts: [], failed: false};
 
 type IconName = React.ComponentProps<
   typeof MaterialDesignIcons
@@ -169,10 +186,10 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
   const [premiumVisible, setPremiumVisible] = useState(false);
 
   const [period, setPeriod] = useState<StatisticsPeriod>('1');
-  const [journalEntries, setJournalEntries] = useState<DailyJournalEntry[]>([]);
-  const [periodHistory, setPeriodHistory] = useState<ConfirmedPeriodOccurrence[]>(
-    () => getConfirmedPeriodHistory(),
-  );
+  // Everything shown below belongs to ONE profile (`profileId`). Switching profile drops it at once
+  // (profileId -> null = loading) so the previous profile's numbers can never flash, and a load that
+  // finishes after a newer switch is discarded.
+  const [data, setData] = useState<StatisticsData>(EMPTY_DATA);
   const [now, setNow] = useState<Date>(() => new Date());
   // Recomputed when the local day changes / the app returns to the
   // foreground — see src/hooks/useToday.ts. Same Date (no re-render) when the
@@ -185,27 +202,51 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
   useFocusEffect(
     useCallback(() => {
       let active = true;
+      let latestLoad = 0;
 
       setNow(new Date());
 
-      getAllJournalEntries().then(entries => {
-        if (active) {setJournalEntries(entries);}
-      });
+      const load = () => {
+        const profileId = getActiveProfileId();
+        latestLoad += 1;
+        const thisLoad = latestLoad;
+        setData(current => (current.profileId === profileId ? current : EMPTY_DATA));
+        Promise.all([getAllJournalEntries(), hydrateConfirmedPeriodHistory(), hydrateCyclePreferences()])
+          .then(([entries, history]) => {
+            if (!active || thisLoad !== latestLoad || getActiveProfileId() !== profileId) {return;}
+            setData({profileId, entries, history, recordedStarts: getRecordedPeriodHistory(), failed: false});
+          })
+          .catch(() => {
+            if (!active || thisLoad !== latestLoad || getActiveProfileId() !== profileId) {return;}
+            setData({...EMPTY_DATA, profileId, failed: true});
+          });
+      };
+      load();
 
-      hydrateConfirmedPeriodHistory().then(history => {
-        if (active) {setPeriodHistory(history);}
+      const unsubscribeHistory = subscribeConfirmedPeriodHistory(() => {
+        setData(current =>
+          current.profileId !== null && current.profileId === getActiveProfileId()
+            ? {...current, history: getConfirmedPeriodHistory()}
+            : current,
+        );
       });
-
-      const unsubscribe = subscribeConfirmedPeriodHistory(() => {
-        setPeriodHistory(getConfirmedPeriodHistory());
-      });
+      const unsubscribeProfile = subscribeActiveProfileId(load);
 
       return () => {
         active = false;
-        unsubscribe();
+        unsubscribeHistory();
+        unsubscribeProfile();
       };
     }, []),
   );
+
+  const journalEntries = data.entries;
+  const periodHistory = data.history;
+  const loading = data.profileId === null;
+  // Records that could not be READ are not an empty history: say so instead of showing "no statistics yet".
+  const availability = useStructuredDataAvailability();
+  const statsUnavailable = data.failed || availability.anyUnavailable && isActiveProfileDataUnavailable(['@hawa/daily-journal/v1', '@hawa/confirmed-period-history', '@hawa/cycle-preferences']);
+  const hasAnyData = data.entries.length > 0 || data.history.length > 0 || data.recordedStarts.length > 0;
 
   const handleSelectPeriod = (target: StatisticsPeriod): void => {
     if (!isPeriodFree(target) && !isPremium) {
@@ -234,7 +275,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
   // the average above stays strictly on confirmed history.
   const missingAverageDetail = describeMissingAverageCycleData(
     filteredPeriodStarts.length,
-    countRecordedStartsForPeriod(getRecordedPeriodHistory(), period, now),
+    countRecordedStartsForPeriod(data.recordedStarts, period, now),
   );
 
   const flowDistribution = useMemo(() => calculateFlowDistribution(filteredEntries), [filteredEntries]);
@@ -242,6 +283,13 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
   const monthlyFlowTrend = useMemo(() => calculateMonthlyFlowTrend(filteredEntries), [filteredEntries]);
   const monthlySymptomTrend = useMemo(() => calculateMonthlySymptomTrend(filteredEntries), [filteredEntries]);
   const trackedDays = useMemo(() => countTrackedDays(filteredEntries), [filteredEntries]);
+  const cycleLengthRange = useMemo(() => calculateCycleLengthRange(filteredPeriodStarts), [filteredPeriodStarts]);
+  const averagePeriodDuration = useMemo(
+    () => calculateAveragePeriodDuration(periodHistory, period, now),
+    [periodHistory, period, now],
+  );
+  const moodDistribution = useMemo(() => calculateMoodDistribution(filteredEntries), [filteredEntries]);
+  const maxMoodDays = Math.max(...moodDistribution.map(item => item.days), 1);
 
   const showLongitudinalView = period !== '1';
   const maxFlowDays = Math.max(...flowDistribution.map(item => item.days), 1);
@@ -292,6 +340,10 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
             </View>
           </View>
 
+          {loading ? (
+            <View accessibilityLabel={t('statistics.loading')} accessibilityRole="progressbar" style={styles.loadingBlock} />
+          ) : (
+          <>
           {/* ==================================================
               PERIOD SELECTOR — 1 mois (Free), 3/6/12 mois (Premium)
           =================================================== */}
@@ -330,6 +382,20 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
             })}
           </View>
 
+          {statsUnavailable ? (
+            <DataNotice
+              detail={t('statistics.unavailableDetail')}
+              icon="lock-alert-outline"
+              title={t('statistics.unavailableTitle')}
+            />
+          ) : !hasAnyData ? (
+            <DataNotice
+              detail={t('statistics.emptyAllDetail')}
+              icon="chart-line"
+              title={t('statistics.emptyAllTitle')}
+            />
+          ) : (
+          <>
           {/* ==================================================
               APERÇU DU CYCLE — durée moyenne + cycles analysés
           =================================================== */}
@@ -389,6 +455,45 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
               title={t('statistics.notEnoughCyclesTitle')}
             />
           )}
+
+          <View style={styles.card}>
+            <SectionHeader
+              icon="calendar-multiselect"
+              subtitle={t('statistics.cycleDetailsSubtitle')}
+              title={t('statistics.cycleDetailsTitle')}
+            />
+            {cycleLengthRange ? (
+              <View style={styles.chipRow}>
+                <View style={styles.chip}>
+                  <Text style={styles.chipText}>{t('statistics.shortestCycle', {count: cycleLengthRange.shortestDays})}</Text>
+                </View>
+                <View style={styles.chip}>
+                  <Text style={styles.chipText}>{t('statistics.longestCycle', {count: cycleLengthRange.longestDays})}</Text>
+                </View>
+              </View>
+            ) : (
+              <DataNotice
+                detail={missingAverageDetail}
+                icon="calendar-clock-outline"
+                title={t('statistics.notEnoughCyclesTitle')}
+              />
+            )}
+            {averagePeriodDuration ? (
+              <View style={styles.chipRow}>
+                <View style={styles.chip}>
+                  <Text style={styles.chipText}>
+                    {t('statistics.averagePeriodDuration', {count: averagePeriodDuration.averageDays})}
+                  </Text>
+                </View>
+              </View>
+            ) : (
+              <DataNotice
+                detail={t('statistics.periodDurationNeedsEnd')}
+                icon="calendar-end"
+                title={t('statistics.periodDurationUnavailableTitle')}
+              />
+            )}
+          </View>
 
           {/* ==================================================
               ÉVOLUTION DU FLUX
@@ -574,6 +679,37 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
             ) : null}
           </View>
 
+          <View style={styles.card}>
+            <SectionHeader
+              icon="emoticon-outline"
+              subtitle={t('statistics.moodSubtitle')}
+              title={t('statistics.moodTitle')}
+            />
+            {moodDistribution.length > 0 ? (
+              <View style={styles.symptomList}>
+                {moodDistribution.map((item, index, array) => (
+                  <View
+                    accessible
+                    accessibilityLabel={t('statistics.flowLabelDaysColon', {label: t(`statistics.moodLabels.${item.level}`), count: item.days})}
+                    key={item.level}
+                    style={[styles.symptomItem, index === array.length - 1 && styles.lastItem]}>
+                    <View style={styles.symptomTop}>
+                      <Text style={styles.symptomName}>{t(`statistics.moodLabels.${item.level}`)}</Text>
+                      <View style={styles.symptomBadge}>
+                        <Text style={styles.symptomDays}>{t('statistics.daysPlural', {count: item.days})}</Text>
+                      </View>
+                    </View>
+                    <View style={styles.symptomTrack}>
+                      <View style={[styles.symptomFill, {width: `${Math.max(10, (item.days / maxMoodDays) * 100)}%`}]} />
+                    </View>
+                  </View>
+                ))}
+              </View>
+            ) : (
+              <DataNotice detail={t('statistics.moodEmptyDetail')} icon="emoticon-neutral-outline" title={t('statistics.moodEmptyTitle')} />
+            )}
+          </View>
+
           {/* ==================================================
               REPÈRE POUR UN RENDEZ-VOUS MÉDICAL
           =================================================== */}
@@ -585,6 +721,10 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
               {t('statistics.medicalHint')}
             </Text>
           </View>
+          </>
+          )}
+          </>
+          )}
         </ScrollView>
       </SafeAreaView>
 
@@ -739,6 +879,10 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   filterTextLocked: {
     color: theme.colors.textSecondary,
+  },
+
+  loadingBlock: {
+    minHeight: 160,
   },
 
   sectionHeading: {
