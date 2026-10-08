@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'nifas-aspects-medicaux';
 
@@ -421,6 +422,123 @@ const CONTENT = {
       'Contenido informativo. La información médica presentada aquí es general y no sustituye el consejo de un profesional de la salud. Para preguntas religiosas específicas, se recomienda remitirse a una fuente religiosa cualificada.',
     shareMessage: 'El nifás: aspectos médicos — AWA',
   },
+  it: {
+    badge: 'POST-PARTUM • NIFAS',
+    title: 'Nifas:\naspetti medici',
+    metaDuration: '5 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto informativo',
+    intro: 'Dopo il parto, il corpo attraversa un periodo di recupero graduale. Capire il sanguinamento post-partum, come evolve e i segni che richiedono attenzione può aiutarti a sentirti più informata in questo periodo.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Capire il termine Nifas',
+      'L’andamento medico dopo il parto',
+      'Come evolvono le lochiazioni',
+      'Prenderti cura di te',
+      'Quando chiedere un parere',
+      'Punti chiave',
+    ],
+    h2Section1: '1. Capire il termine «Nifas»',
+    body1a: 'Il termine «Nifas» appartiene al vocabolario religioso e indica il periodo associato al sanguinamento che segue il parto nell’ambito delle regole della giurisprudenza islamica.',
+    body1b: 'Dal punto di vista medico, il sanguinamento osservato dopo il parto si chiama «lochiazioni». Queste due nozioni possono essere considerate separatamente: una appartiene a un ambito religioso, l’altra descrive un fenomeno fisiologico.',
+    distinction: {
+      nifasTitle: 'Nifas',
+      nifasText: 'Una nozione che appartiene all’ambito religioso dopo il parto.',
+      lochiaTitle: 'Lochiazioni',
+      lochiaText: 'Termine medico usato per il sanguinamento post-partum.',
+    },
+    h2Section2: '2. L’andamento medico dopo il parto',
+    body2: 'Il recupero post-partum avviene gradualmente. Il sanguinamento post-partum di solito cambia nel tempo man mano che l’utero continua a tornare al suo stato abituale.',
+    schemaTitle: 'Progressione post-partum',
+    schemaSubtitle: 'Riferimento medico semplificato',
+    stages: [
+      {
+        title: 'Dopo il parto',
+        subtitle: 'Inizio del periodo post-partum',
+        text: 'Il corpo inizia gradualmente il proprio recupero dopo il parto.',
+      },
+      {
+        title: 'Lochiazioni',
+        subtitle: 'Sanguinamento post-partum',
+        text: 'Il sanguinamento cambia gradualmente per quantità e colore.',
+      },
+      {
+        title: 'Diminuzione graduale',
+        subtitle: 'Nell’arco di diverse settimane',
+        text: 'Il sanguinamento di solito diminuisce nel tempo.',
+      },
+      {
+        title: 'Ritorno graduale',
+        subtitle: 'Verso il ciclo abituale',
+        text: 'Il ciclo mestruale può poi riprendere gradualmente.',
+      },
+    ],
+    h2Section3: '3. Come evolvono le lochiazioni',
+    body3: 'Le lochiazioni di solito cambiano colore gradualmente e diminuiscono di quantità. Tuttavia, questa progressione può variare da persona a persona.',
+    lochiaEvolution: [
+      {
+        title: 'Lochiazioni rosse',
+        period: 'Primi giorni',
+        text: 'Il sanguinamento è di solito rosso e può essere più abbondante all’inizio.',
+      },
+      {
+        title: 'Lochiazioni rosate / brunastre',
+        period: 'Dopo alcuni giorni',
+        text: 'Il colore può diventare più chiaro o brunastro man mano che il flusso diminuisce.',
+      },
+      {
+        title: 'Lochiazioni biancastre',
+        period: 'Settimane successive',
+        text: 'Il sanguinamento diventa gradualmente più leggero e meno abbondante.',
+      },
+    ],
+    infoTitle: 'Punti chiave',
+    infoText: 'Il colore e la quantità delle lochiazioni possono cambiare gradualmente. La progressione esatta non è uguale per tutte.',
+    h2Section4: '4. Prendersi cura di sé',
+    body4: 'In questo periodo, alcune semplici abitudini possono aiutare il comfort e sostenere il recupero del corpo.',
+    careTips: [
+      {
+        title: 'Igiene delicata',
+        text: 'Mantieni una routine di igiene quotidiana semplice e confortevole.',
+      },
+      {
+        title: 'Riposo',
+        text: 'Concedi al tuo corpo il tempo di recuperare.',
+      },
+      {
+        title: 'Idratazione',
+        text: 'Ricordati di bere regolarmente in base alle tue esigenze.',
+      },
+      {
+        title: 'Alimentazione',
+        text: 'Un’alimentazione varia sostiene il recupero.',
+      },
+    ],
+    h2Section5: '5. Quando chiedere consiglio',
+    body5: 'Alcune situazioni richiedono un consiglio tempestivo da parte di un professionista sanitario, in particolare quando un cambiamento sembra significativo, improvviso o insolito.',
+    warningTitle: 'Segnali da non ignorare',
+    warningSubtitle: 'Se necessario, chiedi il parere di un professionista',
+    warningSigns: [
+      'Un odore forte o insolito nel sanguinamento',
+      'Febbre o un peggioramento delle condizioni generali',
+      'Un sanguinamento che diventa improvvisamente molto abbondante',
+      'Dolore intenso, persistente o insolito',
+      'Un nuovo sintomo che ti preoccupa',
+    ],
+    tipTitle: 'Da sapere',
+    tipText: 'Ogni recupero post-partum è diverso. Le informazioni di questo articolo hanno lo scopo di offrire un orientamento generale e non sostituiscono una visita medica.',
+    summaryHeading: 'Punti chiave',
+    summary: [
+      'Il Nifas è un termine usato nel contesto religioso dopo il parto.',
+      'Dal punto di vista medico, il sanguinamento post-partum si chiama lochiazioni.',
+      'Le lochiazioni cambiano gradualmente per colore e quantità.',
+      'Riposo, igiene delicata e una buona idratazione sostengono il recupero.',
+      'Un cambiamento insolito o preoccupante merita il parere di un professionista.',
+    ],
+    disclaimerText: 'Contenuto informativo. Le informazioni mediche qui presentate sono di carattere generale e non sostituiscono il parere di un professionista sanitario. Per questioni religiose specifiche, si consiglia di rivolgersi a una fonte religiosa qualificata.',
+    shareMessage: 'Nifas: aspetti medici — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -440,7 +558,7 @@ export default function NifasMedicalArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

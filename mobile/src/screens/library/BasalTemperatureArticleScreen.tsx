@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -214,6 +215,69 @@ const CONTENT = {
     disclaimerText: 'Contenido informativo. Este artículo no sustituye una opinión médica personalizada. Si tienes dudas, consulta a un profesional de la salud.',
     shareMessage: 'Seguir tu temperatura basal — AWA',
   },
+  it: {
+    badge: 'FERTILITÀ • TEMPERATURA BASALE',
+    title: 'Monitorare la tua\ntemperatura basale',
+    metaDuration: '6 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenuto validato',
+    intro: 'Un metodo semplice per confermare, a posteriori, che l’ovulazione è avvenuta.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Che cos’è la temperatura basale?',
+      'Quando e come misurarla',
+      'Riconoscere l’aumento dopo l’ovulazione',
+      'Cosa può alterare una misurazione',
+      'I limiti di questo metodo',
+      'Quando parlarne con un professionista',
+      'Punti chiave',
+    ],
+    section1Body: 'La temperatura basale è la temperatura del tuo corpo a riposo completo, prima di qualsiasi attività. Varia molto lievemente nel corso del ciclo, sotto l’influenza dei tuoi ormoni.',
+    section2Body: 'Si misura ogni mattina, prima di alzarti, sempre alla stessa ora e con lo stesso termometro.',
+    measuringTips: [
+      {
+        title: 'Lo stesso termometro',
+        text: 'Usa sempre lo stesso termometro, idealmente uno basale (più preciso, al decimo di grado).',
+      },
+      {
+        title: 'Alla stessa ora',
+        text: 'Misura a un’ora fissa, prima di alzarti, dopo almeno 3 ore di sonno ininterrotto.',
+      },
+      {
+        title: 'Annotala subito',
+        text: 'Annota subito la misurazione, prima ancora di alzarti o di parlare.',
+      },
+    ],
+    section3Body: 'La temperatura basale aumenta leggermente (da 0,2 a 0,5°C) subito dopo l’ovulazione, per effetto del progesterone, e resta più alta fino al periodo mestruale successivo.',
+    curveTitle: 'Che aspetto ha il grafico',
+    curveText: 'Più bassa nella prima parte del ciclo, sale a gradino dopo l’ovulazione e vi rimane — un andamento che diventa chiaro solo dopo diversi giorni di misurazioni.',
+    disruptingFactors: [
+      'Una notte di sonno breve o agitata',
+      'Svegliarsi a un’ora insolita',
+      'Febbre o malattia',
+      'Alcol la sera prima',
+      'Jet lag recente',
+    ],
+    section5Body: 'Non è un metodo predittivo ma di conferma: ti aiuta a capire meglio il tuo ciclo, quando l’ovulazione è già avvenuta — non ad anticiparla.',
+    section5Caption: 'Osservarla da sola per uno o due cicli di solito non basta: l’andamento emerge con la ripetizione.',
+    warningTitle: 'Da riferire a un professionista',
+    consultSituations: [
+      'Non compare alcun aumento della temperatura nel corso di diversi cicli completi',
+      'Le temperature restano molto irregolari nonostante misurazioni accurate',
+      'Hai domande sulla tua fertilità a cui questo monitoraggio da solo non può rispondere',
+    ],
+    tipTitle: 'Da sapere',
+    tipText: 'Combinare la temperatura basale con l’osservazione del muco cervicale o con i test di ovulazione offre un quadro più completo del tuo ciclo.',
+    summaryPoints: [
+      'La temperatura basale aumenta leggermente (da 0,2 a 0,5°C) subito dopo l’ovulazione, per effetto del progesterone.',
+      'Si misura ogni mattina, prima di alzarsi, sempre alla stessa ora e con lo stesso termometro.',
+      'Non è un metodo predittivo ma di conferma: ti aiuta a capire meglio il tuo ciclo.',
+      'Combinarla con altri segni (muco cervicale, test di ovulazione) offre un quadro più completo.',
+    ],
+    disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce un parere medico personalizzato. In caso di dubbi, chiedi consiglio a un professionista sanitario.',
+    shareMessage: 'Monitorare la temperatura basale — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -230,7 +294,7 @@ export default function BasalTemperatureArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

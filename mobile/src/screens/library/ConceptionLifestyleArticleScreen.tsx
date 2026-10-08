@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'conceptiontips-hygiene-de-vie';
 
@@ -154,6 +155,41 @@ const CONTENT = {
     tip2Text: 'Unos hábitos globalmente equilibrados, sin excesos ni perfeccionismo, son el mejor acompañamiento en el día a día.',
     shareMessage: 'Estilo de vida y camino hacia la concepción — AWA',
   },
+  it: {
+    badge: 'STILE DI VITA',
+    title: 'Abitudini di vita e\nil tuo percorso verso il concepimento',
+    metaDuration: '5 min di lettura',
+    metaType: 'Articolo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Semplici abitudini che possono sostenere il tuo percorso, senza alcuna pressione.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Cosa può sostenere la fertilità',
+      'Lo stress, un fattore da non trascurare',
+      'Cosa è meglio limitare',
+      'Il punto chiave',
+    ],
+    body1: 'Alcune semplici abitudini di vita possono sostenere un percorso verso il concepimento, anche se da sole non possono garantire un risultato.',
+    supportiveHabits: [
+      'Un’alimentazione equilibrata',
+      'Un’attività fisica moderata',
+      'Un sonno di qualità',
+      'Momenti di relax',
+    ],
+    body2: 'Lo stress cronico può influire sull’equilibrio ormonale e, in alcune donne, sulla regolarità del ciclo. Concederti momenti di calma fa pienamente parte del percorso.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Voler «fare tutto bene» può diventare a sua volta una fonte di stress: basta puntare ad abitudini sane in generale, senza perfezionismo.',
+    toLimit: [
+      'Il fumo, che può influire sulla fertilità di entrambi i partner',
+      'Il consumo eccessivo di alcol',
+      'Un allenamento sportivo intenso e prolungato, che al contrario può rallentare la fertilità',
+      'L’eccesso di zuccheri raffinati, che può alterare l’equilibrio ormonale',
+    ],
+    tip2Title: 'Da sapere',
+    tip2Text: 'Abitudini nel complesso equilibrate, senza eccessi né perfezionismo, sono il miglior sostegno quotidiano.',
+    shareMessage: 'Abitudini di vita e percorso verso il concepimento — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -162,7 +198,7 @@ export default function ConceptionLifestyleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

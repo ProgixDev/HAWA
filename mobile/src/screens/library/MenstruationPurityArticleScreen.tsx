@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'menstruationpurity-statut-de-purete';
 
@@ -204,6 +205,59 @@ const CONTENT = {
     tip2Text: 'Estas referencias son recordatorios educativos generales. Cada situación puede tener sus particularidades: en caso de duda, el diálogo con un erudito o una erudita cualificada sigue siendo el mejor recurso para obtener una respuesta adaptada.',
     shareMessage: 'Estatus de pureza: lo esencial — AWA',
   },
+  it: {
+    badge: 'MESTRUAZIONI E PUREZZA',
+    title: 'Stato di purezza:\nle basi',
+    metaDuration: '6 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Capire il legame tra il ciclo e lo stato di purezza rituale, per affrontare questo momento con più chiarezza.',
+    disclaimerTitle: 'Informazione importante',
+    disclaimerText: 'Questo contenuto ha uno scopo puramente educativo. Le questioni religiose dovrebbero essere validate da studiosi qualificati. AWA non emette fatwa né pareri religiosi personalizzati.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Capire cosa significa purezza rituale',
+      'Mestruazioni ed esenzione dal culto',
+      'Dopo le mestruazioni: riconoscere il ritorno alla purezza',
+      'Il ghusl: capirne il ruolo',
+      'Cosa fare quando non sei sicura?',
+      'Punti chiave da ricordare',
+    ],
+    section1Body: 'Nella tradizione islamica, la purezza rituale (tahara) indica lo stato richiesto per compiere determinati atti di culto, come la preghiera. Non si riferisce alla pulizia nel senso quotidiano, ma a uno stato specifico riconosciuto dal fiqh, che cambia a seconda delle fasi del ciclo femminile.',
+    section2Body: 'Durante le mestruazioni, la donna è esentata da alcuni atti di culto, in particolare dalla preghiera e dal digiuno di Ramadan, che possono essere recuperati in seguito. Questa esenzione è riconosciuta come un’agevolazione, non come una punizione.',
+    checkList1Title: 'Cosa resta accessibile durante le mestruazioni',
+    duringPeriod: [
+      'Il dhikr (ricordo di Dio) e le suppliche (du’a)',
+      'Ascoltare o leggere contenuti educativi e spirituali',
+      'Sostenere la pratica religiosa delle persone a te vicine',
+      'Riflessione e apprendimento religioso',
+    ],
+    noteTitle: 'Attenzione',
+    noteText: 'Alcuni dettagli (come la lettura diretta del Corano o l’accesso alla moschea) possono variare a seconda della scuola giuridica; per questi casi specifici è preferibile fare riferimento al parere che segui abitualmente o a uno studioso qualificato.',
+    section3Body: 'La fine delle mestruazioni segna il graduale ritorno allo stato di purezza rituale. Dal punto di vista fisico, corrisponde alla cessazione del sanguinamento, un riferimento che le diverse tradizioni di studio possono definire con sfumature leggermente diverse.',
+    visual1Title: 'Un processo fisiologico',
+    visual1Text: 'Capire le fasi del ciclo ti aiuta a individuare meglio il momento in cui le mestruazioni finiscono davvero.',
+    section3Body2: 'Una volta osservato questo riferimento, il ghusl (abluzione maggiore) permette di tornare alla purezza rituale e di riprendere gli atti di culto che erano stati sospesi.',
+    section4Body: 'Il ghusl è un’abluzione rituale maggiore che consiste nel lavare tutto il corpo con l’intenzione di purificarsi. Segna la fine dell’esenzione e permette di riprendere normalmente la preghiera, senza che sia necessario recuperare le preghiere saltate durante le mestruazioni.',
+    visual2Title: 'Un rituale di purificazione',
+    visual2Text: 'Il modo preciso in cui si compie il ghusl può variare leggermente a seconda della scuola giuridica seguita.',
+    tip1Title: 'Bene a sapersi',
+    tip1Text: 'Se non conosci i passaggi precisi seguiti nella tua scuola, una persona di cui ti fidi o uno studioso qualificato potrà spiegarteli chiaramente.',
+    section5Body: 'È comune avere dubbi su quando le mestruazioni siano davvero finite, soprattutto quando il sanguinamento diminuisce gradualmente invece di fermarsi all’improvviso.',
+    checkList2Title: 'Alcuni riferimenti utili',
+    doubtMarkers: [
+      'Osservare la totale assenza di sanguinamento, non solo una diminuzione',
+      'Lasciar passare abbastanza tempo prima di concludere che le mestruazioni sono finite',
+      'Basarsi su un’osservazione chiara piuttosto che su una semplice impressione',
+      'Tenere conto del tuo ritmo abituale, che può variare da un ciclo all’altro',
+    ],
+    alert2Title: 'Informazione importante',
+    alert2Text: 'In caso di sanguinamento prolungato o irregolare, o di dubbio persistente, queste situazioni meritano di essere discusse con uno studioso qualificato, che potrà guidarti in base alla tua situazione personale. Questo contenuto resta informativo e non sostituisce una guida religiosa individuale.',
+    tip2Title: 'Bene a sapersi',
+    tip2Text: 'Questi riferimenti sono promemoria educativi generali. Ogni situazione può avere le sue particolarità: in caso di dubbio, il confronto con uno studioso qualificato resta la risorsa migliore per una risposta adatta alla tua situazione.',
+    shareMessage: 'Stato di purezza: le basi — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -212,7 +266,7 @@ export default function MenstruationPurityArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'childbirthprep-preparer-accouchement';
 
@@ -177,6 +178,45 @@ const CONTENT = {
       'Prepararte no significa controlarlo todo: se trata sobre todo de darte los medios para afrontar el gran día con más confianza y menos incertidumbre.',
     shareMessage: 'Prepararte con calma para el parto — AWA',
   },
+  it: {
+    badge: 'GRAVIDANZA • PARTO',
+    title: 'Prepararsi con serenità\nal parto',
+    metaDuration: '7 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Tre pilastri per affrontare il grande giorno con maggiore fiducia.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Prepararsi in 3 passi',
+      'La tua borsa per l’ospedale',
+      'Scrivere il tuo piano del parto',
+      'Da tenere a mente',
+      'Da ricordare',
+    ],
+    prepSteps: [
+      'Corsi di preparazione al parto',
+      'Tecniche di respirazione e di rilassamento',
+      'Borsa per l’ospedale pronta entro il mese 8',
+    ],
+    body1: 'I corsi di preparazione al parto ti aiutano a capire le fasi del travaglio e le tecniche di respirazione che ti sosterranno il grande giorno.',
+    body2: 'Preparare la borsa per l’ospedale entro il mese 8 ti evita lo stress dell’ultimo minuto. Di solito contiene:',
+    bagItems: [
+      'Documenti d’identità e il libretto della gravidanza',
+      'Abiti comodi per te e per il neonato',
+      'Articoli da toilette e assorbenti post-partum',
+      'Un completo per il neonato per tornare a casa',
+    ],
+    birthPlanPoints: [
+      'Le tue preferenze per la gestione del dolore',
+      'Chi vorresti avere accanto durante il travaglio',
+      'Le tue aspettative sul contatto pelle a pelle',
+    ],
+    neutralText: 'Un semplice piano del parto ti aiuta a comunicare i tuoi desideri all’équipe medica, restando però aperta ai cambiamenti: lo svolgimento reale può cambiare a seconda della situazione.',
+    tipTitle: 'Da sapere',
+    tipText: 'Prepararsi non significa controllare tutto: si tratta soprattutto di darti i mezzi per affrontare il grande giorno con più fiducia e meno incertezza.',
+    shareMessage: 'Prepararsi con serenità al parto — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -185,7 +225,7 @@ export default function ChildbirthPrepArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

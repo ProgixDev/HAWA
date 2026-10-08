@@ -256,10 +256,10 @@ describe('TEST 11-18 — article identity is unaffected by the language switch',
       expect(source).toMatch(/fr:\s*\{/);
       expect(source).toMatch(/en:\s*\{/);
       // Every translated article must derive its content reactively from
-      // i18n.language, never a module-level constant resolved once. French
-      // is the explicit branch (English is the fallback — also used for
-      // Spanish, since there is no Spanish Library content yet).
-      expect(source).toMatch(/i18n\.language === 'fr'/);
+      // i18n.language (via the shared resolveEditorialLanguage(): fr / es / it
+      // explicit, English for anything else), never a module-level constant
+      // resolved once.
+      expect(source).toMatch(/resolveEditorialLanguage\(i18n\.language\)/);
     }
   });
 });
@@ -581,7 +581,7 @@ describe('Structural completeness audit — full 72-article reachable inventory'
       const componentName = file.replace(/\.tsx$/, '');
       const isWiredIntoReader = reader.includes(componentName);
       const source = fs.readFileSync(path.join(dir, file), 'utf8');
-      const isBilingual = /const CONTENT = \{/.test(source) && /i18n\.language === 'fr'/.test(source);
+      const isBilingual = /const CONTENT = \{/.test(source) && /resolveEditorialLanguage\(i18n\.language\)/.test(source);
 
       if (dead.has(file)) {
         deadCount += 1;

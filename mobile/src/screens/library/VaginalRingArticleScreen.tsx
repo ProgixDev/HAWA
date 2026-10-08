@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'ring-anneau-vaginal';
 
@@ -238,6 +239,96 @@ const CONTENT = {
       'El anillo vaginal combina una liberación hormonal continua con un ritmo de uso que evita una toma diaria. Sin embargo, la elección de una anticoncepción debe adaptarse a cada persona y hablarse con un profesional de la salud.',
     shareMessage: 'El anillo vaginal anticonceptivo — AWA',
   },
+  it: {
+    badge: 'ANELLO VAGINALE',
+    title: 'L’anello vaginale\ncontraccettivo',
+    metaDuration: '5 min di lettura',
+    metaType: 'Articolo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Un anello flessibile, da portare per tre settimane.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Come funziona l’anello',
+      'Inserimento e rimozione',
+      'Cosa devi sapere',
+      'Punti chiave',
+    ],
+    body1: 'L’anello è un dispositivo flessibile che rilascia in modo continuo basse dosi di ormoni direttamente in vagina, con la stessa azione contraccettiva di una pillola combinata.',
+    flowTitle: 'Come funziona',
+    flowSteps: [
+      {
+        title: 'Anello',
+        text: 'Posizionato in vagina',
+      },
+      {
+        title: 'Ormoni',
+        text: 'Diffusione continua',
+      },
+      {
+        title: 'Protezione',
+        text: 'Azione contraccettiva',
+      },
+    ],
+    body2: 'Lo inserisci da sola, resta in sede in modo continuo per tre settimane, poi viene rimosso per una pausa di una settimana durante la quale arriva il periodo mestruale.',
+    calendarTitle: 'Un ritmo semplice da seguire',
+    weekLabelActive: 'Anello',
+    weekLabelPause: 'Pausa',
+    legendActive: 'Settimana con l’anello',
+    legendPause: 'Settimana di pausa',
+    tip1Title: 'Da sapere',
+    tip1Text: 'La sua posizione esatta in vagina non deve essere precisa perché sia efficace, il che lo rende semplice da usare.',
+    body3: 'L’anello ha diversi aspetti pratici che vale la pena conoscere prima di sceglierlo.',
+    careTips: [
+      {
+        title: 'Semplice da usare',
+        text: 'Lo inserisci e lo rimuovi da sola.',
+      },
+      {
+        title: 'Ritmo regolare',
+        text: 'In genere resta in sede per tre settimane.',
+      },
+      {
+        title: 'Azione continua',
+        text: 'Gli ormoni vengono rilasciati in modo continuo per tutto il periodo di utilizzo.',
+      },
+      {
+        title: 'Non protegge dalle infezioni sessualmente trasmissibili',
+        text: 'A seconda della situazione, può essere necessaria una protezione aggiuntiva.',
+      },
+    ],
+    checkListTitle: 'Buone abitudini da mantenere',
+    practicalSteps: [
+      'Lavati le mani prima di inserirlo o rimuoverlo',
+      'Scegli un momento facile da ricordare per tenere traccia del calendario',
+      'Controlla di tanto in tanto che sia ancora in sede',
+      'Consulta il foglio illustrativo se si sposta o viene espulso',
+    ],
+    alertTitle: 'Attenzione',
+    alertText: 'Un’espulsione o uno spostamento prolungato possono richiedere indicazioni specifiche. Consulta sempre il foglio illustrativo del dispositivo o rivolgiti a un’operatrice o a un operatore sanitario se hai dubbi.',
+    summaryTitle: 'L’essenziale in 4 punti',
+    summaryItems: [
+      {
+        title: 'Inserimento semplice',
+        text: 'L’anello può essere inserito e rimosso da sola.',
+      },
+      {
+        title: 'Ritmo settimanale',
+        text: 'In genere segue un ciclo di tre settimane con una settimana di pausa.',
+      },
+      {
+        title: 'Controllo occasionale',
+        text: 'Controllare regolarmente che sia in sede ti aiuta a usare il dispositivo con serenità.',
+      },
+      {
+        title: 'Nessuna protezione dalle IST',
+        text: 'A seconda della situazione, può essere necessaria una protezione adeguata.',
+      },
+    ],
+    tip2Title: 'Punti chiave',
+    tip2Text: 'L’anello vaginale combina un rilascio continuo di ormoni con un ritmo di utilizzo che evita l’assunzione quotidiana. Tuttavia, la scelta della contraccezione dovrebbe essere adattata a ciascuna persona e discussa con un’operatrice o un operatore sanitario.',
+    shareMessage: 'L’anello vaginale contraccettivo — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -246,7 +337,7 @@ export default function VaginalRingArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

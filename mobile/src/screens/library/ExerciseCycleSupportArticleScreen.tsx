@@ -29,10 +29,12 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {EDITORIAL_IMAGE_ALT, resolveEditorialImage, EXERCISE_HERO} from '../../i18n/editorialImages';
 
 const ID = 'exercise-bouger-pour-le-cycle';
 
-const HERO = require('../../assets/images/library/activité.png');
+const HERO = EXERCISE_HERO;
 
 // Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
 // object below, keyed by index to stay aligned with these icons.
@@ -320,6 +322,90 @@ const CONTENT = {
     finalNoteText: 'Este artículo tiene fines informativos generales y no sustituye una opinión médica. Adapta siempre la actividad física a tu situación personal, y consulta a un profesional de la salud si tienes dudas.',
     shareMessage: 'Moverte para apoyar tu ciclo — AWA',
   },
+  it: {
+    badge: 'CICLO • ATTIVITÀ FISICA',
+    title: 'Muoverti per\nsostenere il tuo ciclo',
+    metaDuration: '8 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto educativo',
+    intro: 'Perché l’attività fisica regolare può sostenere l’equilibrio del tuo ciclo, quali tipi di movimento privilegiare e come adattare il tuo ritmo senza pressioni né sensi di colpa.',
+    introSecondary: 'Non si tratta di fare di più, ma di muoverti in modo adatto a te e che puoi mantenere nel tempo.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Perché il movimento può sostenere il tuo ciclo',
+      'Quali benefici per il tuo ciclo?',
+      'Quale tipo di attività scegliere?',
+      'Quanto muoversi?',
+      'Adattare l’attività al tuo ciclo',
+      'Muoversi in caso di PCOS',
+      'Errori da evitare',
+      'Quando chiedere un parere',
+      'I punti chiave',
+    ],
+    section1Body1: 'L’attività fisica regolare influisce su molti sistemi del corpo, compresi quelli coinvolti nella regolazione ormonale e nel funzionamento del ciclo mestruale. Agisce in particolare sulla sensibilità all’insulina, sulla gestione dello stress e sulla qualità del sonno: tre fattori che interagiscono con l’equilibrio ormonale.',
+    section1Body2: 'Muoversi con regolarità non garantisce un ciclo «perfetto», ma è una delle abitudini che favoriscono una buona salute generale, con effetti che per alcune donne possono riflettersi sul ciclo.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Il legame tra attività fisica e ciclo è individuale: alcune donne notano effetti evidenti, altre meno. In ogni caso resta un’abitudine benefica.',
+    section2Intro: 'L’attività regolare può contribuire su più livelli, senza che questi effetti siano garantiti o identici per tutte:',
+    benefits: [
+      'Sostenere la salute metabolica',
+      'Contribuire a regolare la glicemia',
+      'Sostenere l’equilibrio ormonale',
+      'Migliorare i livelli di energia',
+      'Ridurre lo stress',
+      'Favorire la qualità del sonno',
+      'Favorire, in alcune donne, una migliore regolarità del ciclo',
+    ],
+    neutral1Text: 'Questi benefici si costruiscono gradualmente: non sono un effetto immediato dopo una singola seduta.',
+    section3Intro: 'Nessuna attività è «migliore» di un’altra: la più efficace è quella che ti piace praticare con regolarità.',
+    activities: [
+      'Camminata',
+      'Yoga / mobilità dolce',
+      'Allenamento di forza',
+      'Ciclismo',
+      'Nuoto',
+      'Danza',
+    ],
+    section4Body1: 'Non esiste una regola universale: ciò che conta di più è la regolarità, più che la prestazione. Inserire brevi momenti di movimento nella giornata (camminare, fare le scale, fare stretching) vale quanto un allenamento programmato.',
+    section4Body2: 'L’intensità giusta dipende dal tuo livello di forma fisica, dalla tua salute, dalla tua energia del momento e dai tuoi obiettivi personali: ciò che funziona per una persona non funziona necessariamente per un’altra.',
+    highlightTitle: 'Privilegia la regolarità',
+    highlightText: 'Tre brevi sedute a settimana, mantenute nel tempo, sono spesso più benefiche di un obiettivo ambizioso abbandonato dopo pochi giorni.',
+    section5Body: 'L’energia e il comfort fisico possono variare nel corso del ciclo. Adattare l’intensità della tua attività a come ti senti è del tutto legittimo.',
+    cyclePhases: [
+      'Durante le mestruazioni: movimento dolce, se ti fa bene',
+      'Dopo le mestruazioni: aumenta gradualmente, se la tua energia lo permette',
+      'Intorno all’ovulazione: mantieni l’attività abituale in base al tuo comfort',
+      'Prima delle mestruazioni: privilegia un movimento sostenibile e riposati se serve',
+    ],
+    neutral2Text: 'Queste non sono regole fisiologiche rigide: ogni donna vive il proprio ciclo in modo diverso, e questi esempi sono punti di riferimento, non obblighi.',
+    section6Body: 'Per le donne con PCOS, l’attività fisica regolare può essere particolarmente utile: sostiene la sensibilità all’insulina, un meccanismo spesso coinvolto in questo contesto, e può contribuire a un migliore equilibrio metabolico e ormonale nel lungo periodo.',
+    tip2Title: 'Da sapere',
+    tip2Text: 'Non è una cura, ma un sostegno complementare al percorso di cura complessivo, da adattare insieme a un professionista sanitario.',
+    section7Intro: 'Alcune idee sbagliate o abitudini possono fare più male che bene:',
+    mistakes: [
+      'Voler fare esercizio in modo eccessivo',
+      'Pensare che siano utili solo gli allenamenti intensi',
+      'Fare attività fisica solo con l’obiettivo di perdere peso',
+      'Ignorare la stanchezza o il dolore',
+      'Sentirsi in colpa dopo una seduta saltata',
+    ],
+    section8Intro: 'In alcune situazioni, il parere di un professionista sanitario è particolarmente utile prima di riprendere o adattare un’attività fisica:',
+    consultReasons: [
+      'Dolore persistente',
+      'Sanguinamenti insoliti',
+      'Capogiri',
+      'Stanchezza importante e insolita',
+      'Una condizione medica specifica',
+      'Ripresa dell’attività dopo una gravidanza o un parto',
+      'Qualsiasi situazione in cui l’attività è stata limitata dal medico',
+    ],
+    tip3Title: 'Da sapere',
+    tip3Text: 'Il movimento non deve essere intenso o perfetto per essere benefico. Un’attività regolare, piacevole e sostenibile può sostenere la tua salute generale e contribuire, in alcune donne, a una migliore gestione del ciclo.',
+    finalNoteTitle: 'Una guida per aiutarti a capire',
+    finalNoteText: 'Questo articolo ha scopo di informazione generale e non sostituisce il parere medico. Adatta sempre l’attività fisica alla tua situazione personale e, in caso di dubbio, chiedi consiglio a un professionista sanitario.',
+    shareMessage: 'Muoverti per sostenere il tuo ciclo — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -328,7 +414,7 @@ export default function ExerciseCycleSupportArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -386,7 +472,7 @@ export default function ExerciseCycleSupportArticleScreen({
         ]}>
         {/* HERO */}
         <View style={styles.heroWrap}>
-          <Image source={HERO} resizeMode="cover" style={styles.hero} />
+          <Image accessible accessibilityLabel={EDITORIAL_IMAGE_ALT.exercise[lang]} accessibilityRole="image" source={resolveEditorialImage(HERO, lang)} resizeMode="cover" style={styles.hero} />
 
           <View
             style={[

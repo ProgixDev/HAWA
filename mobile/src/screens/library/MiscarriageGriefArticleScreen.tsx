@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -331,6 +332,85 @@ const CONTENT = {
       'Contenido informativo. Este artículo no sustituye un asesoramiento profesional. Si estás atravesando un periodo difícil, no dudes en hablarlo con un profesional de la salud.',
     shareMessage: 'Atravesar el duelo emocionalmente — AWA',
   },
+  it: {
+    badge: 'DOPO UN ABORTO SPONTANEO • SOSTEGNO EMOTIVO',
+    title: 'Attraversare il lutto\na livello emotivo',
+    metaDuration: '7 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto informativo',
+    intro: 'Non esiste un modo giusto di viverlo. Ognuna lo attraversa a modo suo, con i suoi tempi.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Un lutto reale e legittimo',
+      'Emozioni che variano da persona a persona',
+      'Cosa può aiutare giorno per giorno',
+      'Il sostegno delle persone care',
+      'Quando cercare un aiuto professionale',
+      'Punti chiave',
+    ],
+    section1Body: 'Tristezza, rabbia o un senso di vuoto sono reazioni normali a questa perdita, qualunque sia la fase della gravidanza. Ciò che provi merita di essere riconosciuto.',
+    section1InfoTitle: 'Da tenere a mente',
+    section1InfoText: 'Non esiste un modo giusto o sbagliato di attraversare tutto questo. Ogni emozione che provi è legittima.',
+    section2Body: 'Puoi provare una o più di queste emozioni, a volte tutte insieme:',
+    feelings: [
+      {
+        title: 'Tristezza',
+        text: 'Un dolore che può andare e venire, a volte in modo inatteso.',
+      },
+      {
+        title: 'Rabbia',
+        text: 'Verso te stessa, verso la situazione o per un senso di ingiustizia, e non c’è nulla di cui preoccuparsi.',
+      },
+      {
+        title: 'Un senso di vuoto',
+        text: 'Una sensazione di vuoto o di confusione rispetto a ciò che è appena successo.',
+      },
+    ],
+    section3Body: 'Darti del tempo, senza pressioni né paragoni, è una parte essenziale del percorso di guarigione.',
+    dailySupport: [
+      {
+        title: 'Darti del tempo',
+        text: 'Senza pressioni né scadenze per «stare meglio».',
+      },
+      {
+        title: 'Non paragonarti agli altri',
+        text: 'Ogni lutto è unico; non esiste un modo giusto di attraversarlo.',
+      },
+      {
+        title: 'Mettere in parole',
+        text: 'Scrivere o parlare di ciò che senti può aiutare ad alleggerire il peso delle tue emozioni.',
+      },
+    ],
+    section4Body: 'Parlare con una persona a te vicina, con un gruppo di sostegno o con un professionista può aiutare ad alleggerire questo peso. Ecco come le persone care possono aiutare:',
+    supportTitle: 'Come una persona cara può offrire sostegno',
+    howToSupport: [
+      'Ascoltare senza giudicare, anche senza avere le parole perfette',
+      'Evitare di minimizzare l’esperienza («non è stato niente di grave», «puoi riprovare»)',
+      'Offrire la propria presenza piuttosto che soluzioni',
+      'Continuare a farsi sentire nelle settimane successive',
+    ],
+    section5Body: 'Alcuni segnali possono indicare che un sostegno professionale potrebbe essere utile:',
+    warningTitle: 'Segnali a cui prestare attenzione',
+    attentionSigns: [
+      'La tristezza dura a lungo e si intensifica anziché attenuarsi',
+      'Diventa difficile svolgere le attività quotidiane',
+      'Si instaura un forte senso di isolamento',
+      'Compaiono pensieri intrusivi o un disagio significativo',
+    ],
+    section5InfoTitle: 'Un sostegno è disponibile',
+    section5InfoText: 'Un’ostetrica, un medico, una psicologa o un gruppo di sostegno possono ascoltarti e accompagnarti, senza giudicarti.',
+    tipTitle: 'Da sapere',
+    tipText: 'Chiedere aiuto non è un segno di debolezza: è un modo di prenderti cura di te in questo periodo.',
+    summaryPoints: [
+      'Non esiste un modo giusto o sbagliato di vivere questa esperienza.',
+      'Tristezza, rabbia o un senso di vuoto sono reazioni normali.',
+      'Darti del tempo, senza pressioni né paragoni, fa parte della guarigione.',
+      'Parlare con una persona a te vicina, con un gruppo di sostegno o con un professionista può aiutare ad alleggerire questo peso.',
+    ],
+    disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce il parere di un professionista. Se stai attraversando un momento difficile, non esitare a parlarne con un operatore sanitario.',
+    shareMessage: 'Attraversare il lutto a livello emotivo — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -347,7 +427,7 @@ export default function MiscarriageGriefArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

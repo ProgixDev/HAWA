@@ -29,10 +29,12 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
 
 const ID = 'firstperiod-premieres-regles';
 
-const HERO = require('../../assets/images/library/cycle-phases-hero.png');
+const HERO = CYCLE_PHASES_HERO;
 
 // Images stay language-neutral — only TEXT moves into the bilingual CONTENT
 // object below, keyed by index to stay aligned with these illustrations.
@@ -140,6 +142,51 @@ const CONTENT = {
     shareTitle: 'Primera menstruación · AWA',
     shareMessage: 'Tu primera menstruación: qué esperar · AWA',
   },
+  it: {
+    badge: 'PRIMO CICLO',
+    title: 'Il tuo primo ciclo:\ncosa aspettarti',
+    metaDuration: '5 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Cosa è normale, cosa è rassicurante e cosa devi sapere.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Quando arriva il tuo primo ciclo?',
+      'Cosa è normale',
+      'Come funziona',
+      'Prenderti cura di te',
+      'Parlarne e trovare sostegno',
+    ],
+    details: [
+      {
+        title: 'Quando arriva il tuo primo ciclo?',
+        text: 'Di solito arriva tra i 10 e i 15 anni, circa due anni dopo i primi segni della pubertà.',
+      },
+      {
+        title: 'Cosa è del tutto normale',
+        text: 'All’inizio i cicli possono essere irregolari, corti o lunghi. Il tuo corpo si sta semplicemente prendendo il tempo per trovare il suo ritmo.',
+      },
+      {
+        title: 'Capire come funziona',
+        text: 'Le mestruazioni durano di solito da 3 a 7 giorni. Il flusso e il colore possono cambiare da un giorno all’altro.',
+      },
+      {
+        title: 'Prenderti cura di te',
+        text: 'Cambia regolarmente l’assorbente, lavati con delicatezza e scegli vestiti comodi per sentirti a tuo agio.',
+      },
+      {
+        title: 'Parlarne e trovare sostegno',
+        text: 'Puoi parlarne con tua madre, una sorella, una persona a te vicina, un’insegnante o un professionista sanitario di cui ti fidi.',
+      },
+    ],
+    tip1Title: 'Da sapere',
+    tip1Text: 'Un ciclo irregolare all’inizio è del tutto normale. Il tuo corpo sta ancora imparando a trovare il suo ritmo.',
+    tip2Title: 'Non sei sola',
+    tip2Text: 'Ogni corpo è unico. Prenditi il tuo tempo, sii paziente e non esitare a chiedere aiuto a una persona di cui ti fidi.',
+    shareTitle: 'Primo ciclo · AWA',
+    shareMessage: 'Il tuo primo ciclo: cosa aspettarti · AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -148,7 +195,7 @@ export default function FirstPeriodArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -206,7 +253,7 @@ export default function FirstPeriodArticleScreen({
           },
         ]}>
         <View style={styles.heroWrap}>
-          <Image source={HERO} resizeMode="cover" style={styles.hero} />
+          <Image source={resolveEditorialImage(HERO, lang)} resizeMode="cover" style={styles.hero} />
 
           <View
             style={[

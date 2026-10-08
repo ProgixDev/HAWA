@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'hormonaltreatments-choisir-sa-methode';
 
@@ -276,6 +277,106 @@ const CONTENT = {
     disclaimerText: 'Este artículo tiene una finalidad informativa y no sustituye un consejo médico personalizado.',
     shareMessage: 'Elige el tratamiento que más te convenga — AWA',
   },
+  it: {
+    badge: 'SCEGLIERE IL TUO METODO',
+    title: 'Scegliere il trattamento\nadatto a te',
+    metaDuration: '7 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenuto validato',
+    intro: 'Le domande giuste da porti per trovare un metodo contraccettivo adatto alla tua vita quotidiana, alle tue esigenze e ai tuoi progetti.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Domande da porsi',
+      'Nessun metodo è il «migliore» in assoluto',
+      'Criteri che possono fare la differenza',
+      'Parlarne con un professionista',
+      'Punti chiave',
+    ],
+    section1Body: 'Non esiste un unico metodo contraccettivo ideale per tutte. Prima di scegliere un metodo, può essere utile riflettere sulle tue abitudini, preferenze, tollerabilità e progetti.',
+    questions: [
+      'Come reagisce il mio corpo agli ormoni?',
+      'Preferisco un’azione quotidiana o settimanale, oppure una soluzione a lunga durata?',
+      'Ho un progetto di gravidanza a medio termine?',
+      'Qual è il mio budget e quanto è accessibile questo metodo contraccettivo?',
+    ],
+    section2Body: 'Due persone possono scegliere metodi diversi ed entrambe aver fatto una scelta perfettamente adatta alla propria situazione. La scelta giusta dipende in particolare da come desideri usare la contraccezione e da ciò che cerchi.',
+    highlightTitle: 'Il punto essenziale da ricordare',
+    highlightText: 'Un metodo che sembra interessante sulla carta non è necessariamente quello più semplice o più comodo per te nella vita di tutti i giorni.',
+    section3Body: 'Per confrontare più opzioni puoi considerare diversi criteri. L’obiettivo non è sapere tutto a memoria, ma individuare ciò che conta davvero per te.',
+    priorities: [
+      {
+        title: 'Semplicità',
+        text: 'Alcuni metodi richiedono un’azione quotidiana, altri solo un’attenzione settimanale, o molto meno frequente.',
+      },
+      {
+        title: 'Tollerabilità',
+        text: 'Gli effetti che avverti possono variare da persona a persona. È importante notare come reagisce il tuo corpo e parlarne se qualcosa ti dà fastidio.',
+      },
+      {
+        title: 'Progetti di gravidanza',
+        text: 'Se desideri una gravidanza a breve, la durata d’uso e il ritorno della fertilità dopo la sospensione possono far parte di ciò di cui discutere.',
+      },
+      {
+        title: 'Efficacia',
+        text: 'L’efficacia dipende non solo dal metodo scelto, ma anche dall’usarlo correttamente e con regolarità.',
+      },
+    ],
+    rhythmTitle: 'Quanto spesso devi usarlo',
+    rhythmBody: 'Una differenza importante tra i metodi è la frequenza con cui devi pensare alla contraccezione.',
+    comparison: [
+      {
+        title: 'Pillola',
+        detail: 'Azione quotidiana',
+      },
+      {
+        title: 'Cerotto',
+        detail: 'Cambio settimanale',
+      },
+      {
+        title: 'Anello',
+        detail: 'Ciclo di diverse settimane',
+      },
+      {
+        title: 'Impianto',
+        detail: 'Soluzione a lunga durata',
+      },
+      {
+        title: 'Spirale ormonale',
+        detail: 'Soluzione a lunga durata',
+      },
+    ],
+    bodyReactionTitle: 'Osservare come reagisce il tuo corpo',
+    bodyReactionText: 'Un metodo ormonale può essere vissuto in modo diverso da una persona all’altra. Alcune notano cambiamenti nel ciclo, nei sanguinamenti o altri effetti collaterali. Queste reazioni non significano automaticamente che il metodo non sia adatto a te, ma meritano attenzione.',
+    alertTitle: 'Da tenere d’occhio',
+    alertText: 'Se un effetto è importante, persistente o insolito, non restare sola con i tuoi dubbi. Un medico, un’ostetrica o un altro professionista sanitario può aiutarti a capire se continuare, adattare o cambiare il metodo.',
+    projectsTitle: 'Tenere conto dei tuoi progetti',
+    projectsBody: 'I tuoi progetti di gravidanza possono influenzare anche la scelta. Se vuoi evitare una gravidanza per diversi anni, può valere la pena considerare un metodo a lunga durata. Se pensi a una gravidanza più a breve, altre opzioni possono adattarsi meglio ai tuoi tempi.',
+    keepInMindTitle: 'Da tenere a mente',
+    keepInMindText: 'Parlare dei tuoi progetti di gravidanza, anche se sono ancora lontani o incerti, aiuta il professionista sanitario a orientare meglio il confronto.',
+    section4Body: 'Una visita ti permette di valutare i benefici, i vincoli e le possibili controindicazioni di ciascun metodo. Puoi preparare qualche domanda in anticipo per non dimenticare nulla di importante.',
+    questionCardTitle: 'Domande utili da porre',
+    professionalQuestions: [
+      'Quali sono i benefici di questo metodo per me?',
+      'Quali effetti collaterali potrei avere?',
+      'Come lo uso correttamente?',
+      'Che cosa devo fare se me ne dimentico, se si sposta o se voglio interromperlo?',
+      'Questo metodo è compatibile con i miei progetti di gravidanza?',
+    ],
+    professionalTipTitle: 'Da sapere',
+    professionalTipText: 'Un’ostetrica o un medico può tenere conto della tua storia clinica, dei trattamenti, delle preferenze e dello stile di vita prima di consigliare un metodo.',
+    summaryTitle: 'L’essenziale',
+    summaryItems: [
+      'Scegli un metodo adatto alla tua vita quotidiana.',
+      'Tieni conto della tua tollerabilità e delle tue preferenze.',
+      'Pensa ai tuoi progetti di gravidanza e ai tuoi tempi.',
+      'Chiedi consiglio a un professionista se hai dubbi.',
+    ],
+    finalTipTitle: 'Ricorda',
+    finalTipText: 'Il metodo migliore non è necessariamente quello che sembra più comodo o più diffuso. È quello che si adatta alla tua situazione, alle tue esigenze e alle tue preferenze, dopo un confronto informato con un professionista sanitario.',
+    disclaimerText: 'Questo articolo ha solo scopo informativo e non sostituisce un parere medico personalizzato.',
+    shareMessage: 'Scegliere il trattamento adatto a te — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -284,7 +385,7 @@ export default function ChooseHormonalMethodArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

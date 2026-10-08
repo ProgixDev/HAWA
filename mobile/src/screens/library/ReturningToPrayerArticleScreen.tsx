@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'returningtoprayer-le-ghusl-et-le-retour';
 
@@ -151,6 +152,43 @@ const CONTENT = {
     ],
     shareMessage: 'El gusl y el regreso a la oración — AWA',
   },
+  it: {
+    badge: 'RIPRESA DELLA PREGHIERA',
+    title: 'Il ghusl e la\nripresa della preghiera',
+    metaDuration: '5 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'I passaggi generali per riprendere la preghiera dopo le mestruazioni, con serenità.',
+    disclaimerTitle: 'Informazione importante',
+    disclaimerText: 'Questo contenuto ha uno scopo puramente educativo. Le questioni religiose dovrebbero essere validate da studiosi qualificati. AWA non emette fatwa né pareri religiosi personalizzati.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Il ghusl, il ritorno alla purezza rituale',
+      'Un metodo che può variare a seconda della scuola',
+      'Riprendere la preghiera, senza recuperare quelle perse',
+      'Punti pratici da ricordare',
+    ],
+    section1Body1: 'Il ghusl è un’abluzione rituale maggiore: consiste nel lavare tutto il corpo con l’intenzione di tornare allo stato di purezza rituale (tahara), necessario per eseguire la preghiera e gli altri atti di culto.',
+    section1Body2: 'Prima di eseguire il ghusl, è importante assicurarsi che le mestruazioni siano davvero terminate: il ghusl deve seguire, e non precedere, la certezza che il sanguinamento sia cessato. In generale, questa fine si riconosce dall’arresto totale del sanguinamento, osservato per un tempo sufficiente a escludere ogni dubbio — un punto trattato nel dettaglio nell’articolo dedicato alla purezza rituale.',
+    section1Body3: 'Questa purificazione è ciò che ti permette di ritrovare i momenti di culto sospesi durante le mestruazioni.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Non c’è bisogno di sentirsi di fretta: il ghusl può essere eseguito non appena sei pronta, senza pressione, una volta confermata con certezza la fine delle mestruazioni.',
+    section2Body: 'Il ghusl si basa su principi generali condivisi: l’intenzione di purificarsi e il lavaggio completo del corpo, inclusi capelli e pelle. I dettagli precisi del metodo, però, possono variare a seconda della scuola giuridica seguita.',
+    alertTitle: 'Nota importante',
+    alertText: 'Nessun metodo particolare è presentato qui come l’unico valido: fare riferimento alla scuola o all’opinione che segui abitualmente, oppure chiedere consiglio a uno studioso qualificato, ti aiuterà a conoscere i dettagli precisi adatti alla tua situazione.',
+    section3Body1: 'Una volta terminate le mestruazioni ed eseguito il ghusl, la preghiera riprende normalmente, senza alcun ritardo né condizione aggiuntiva particolare.',
+    section3Body2: 'È utile distinguere due situazioni che seguono regole diverse: le preghiere non eseguite durante le mestruazioni in genere non si recuperano, mentre i giorni di digiuno saltati durante il Ramadan devono essere recuperati più tardi (qadaa).',
+    section3Body3: 'Per esempio, una donna che ha avuto il periodo mestruale per 6 giorni riprende normalmente la preghiera dopo il ghusl, senza dover recuperare le preghiere di quei 6 giorni. I 6 giorni di digiuno corrispondenti, invece, saranno recuperati dopo il Ramadan.',
+    practicalPoints: [
+      'Riconoscere con certezza la fine delle mestruazioni',
+      'Eseguire il ghusl (abluzione maggiore) per tornare alla purezza rituale',
+      'Riprendere normalmente la preghiera, senza ritardo',
+      'Sapere che le preghiere perse durante le mestruazioni in genere non si recuperano',
+      'Chiedere consiglio a uno studioso qualificato per qualsiasi situazione particolare o dubbio persistente',
+    ],
+    shareMessage: 'Il ghusl e la ripresa della preghiera — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -159,7 +197,7 @@ export default function ReturningToPrayerArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -29,6 +29,8 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
 
 const ID = 'firstperiod-choisir-protection';
 
@@ -52,7 +54,7 @@ const RELATED_IMAGES = [
     articleId: 'firstperiod-gerer-quotidien',
   },
   {
-    image: require('../../assets/images/library/cycle-phases-hero.png'),
+    image: CYCLE_PHASES_HERO,
     articleId: 'firstperiod-premieres-regles',
   },
 ] as const;
@@ -186,6 +188,56 @@ const CONTENT = {
     ],
     shareMessage: '¿Qué protección elegir para mi primera menstruación? — AWA',
   },
+  it: {
+    badge: 'PRIMO CICLO',
+    title: 'Quale protezione scegliere\nper il primo ciclo?',
+    metaDuration: '6 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Esistono diversi modi per proteggerti durante il ciclo. Nessuno è migliore di un altro: a guidare la scelta è il comfort personale.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'I diversi tipi di protezione',
+      'Come scegliere in base al tuo comfort',
+      'Come cambiare la protezione',
+    ],
+    body1: 'Per il primo ciclo, l’assorbente esterno è di solito la protezione più semplice da usare, perché si applica direttamente sulla biancheria intima. Le mutandine mestruali e i tamponi sono altre opzioni che puoi provare più avanti, quando ne avrai voglia.',
+    options: [
+      {
+        title: 'Assorbenti',
+        text: 'Facili da usare, si applicano sulla biancheria intima e si cambiano regolarmente.',
+      },
+      {
+        title: 'Mutandine mestruali',
+        text: 'Biancheria assorbente e lavabile, comoda per l’uso di tutti i giorni.',
+      },
+      {
+        title: 'Tamponi',
+        text: 'Si inseriscono all’interno del corpo; se e quando usarli dipende da te, con i tuoi tempi.',
+      },
+    ],
+    body2: 'Non esiste una protezione giusta o sbagliata: ognuna si adatta a corpi, abitudini e livelli di comfort diversi. I tamponi, per esempio, si inseriscono all’interno del corpo e richiedono un po’ più di familiarità con esso: nulla dice che tu debba usarli già dal primo ciclo.',
+    tipTitle: 'Da sapere',
+    tipText: 'Provare nel tempo diversi tipi di protezione ti aiuta a trovare quella più adatta a te, senza alcuna pressione.',
+    body3: 'In media, la protezione va cambiata ogni 4-6 ore, più spesso nei giorni di flusso più abbondante. Cambiarla regolarmente ti aiuta a stare comoda e a mantenere una buona igiene intima.',
+    relatedTitle: '♥  Potrebbe interessarti anche',
+    related: [
+      {
+        title: 'Capire il tuo flusso mestruale',
+        meta: '7 min  ·  Guida',
+      },
+      {
+        title: 'Come gestire il primo ciclo giorno per giorno?',
+        meta: '5 min  ·  Guida',
+      },
+      {
+        title: 'Il tuo primo ciclo: cosa aspettarti',
+        meta: '5 min  ·  Guida',
+      },
+    ],
+    shareMessage: 'Quale protezione scegliere per il primo ciclo? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -194,7 +246,7 @@ export default function FirstPeriodProtectionArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -420,7 +472,7 @@ export default function FirstPeriodProtectionArticleScreen({
               }
               style={styles.relatedCard}>
               <Image
-                source={item.image}
+                source={resolveEditorialImage(item.image, lang)}
                 resizeMode="cover"
                 style={styles.relatedImage}
               />

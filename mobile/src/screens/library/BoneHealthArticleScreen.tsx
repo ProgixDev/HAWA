@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'bones-sante-osseuse';
 
@@ -169,6 +170,46 @@ const CONTENT = {
     tip2Text: 'El calcio, la vitamina D y la actividad física con carga de peso siguen siendo los gestos más útiles en el día a día para preservar la solidez de tus huesos a largo plazo.',
     shareMessage: 'Cuidar de tu salud ósea — AWA',
   },
+  it: {
+    badge: 'SALUTE DELLE OSSA',
+    title: 'Prenderti cura\ndella salute delle tue ossa',
+    metaDuration: '6 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenuto validato',
+    intro: 'Perché la menopausa aumenta il rischio di osteoporosi e come proteggere ogni giorno le tue ossa.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Perché la menopausa indebolisce le ossa',
+      'Osteopenia e osteoporosi',
+      'Lo screening con la densitometria ossea',
+      'I pilastri della prevenzione',
+      'I fattori che aumentano il rischio',
+      'Cosa ricordare',
+    ],
+    body1: 'Gli estrogeni contribuiscono naturalmente a proteggere la densità ossea rallentando il ricambio osseo. Il calo degli estrogeni durante la menopausa accelera la perdita ossea, soprattutto nei primi anni dopo la scomparsa delle mestruazioni.',
+    body2: 'L’osteopenia indica una densità ossea inferiore alla norma, senza raggiungere la soglia dell’osteoporosi. L’osteoporosi è una fragilità ossea più marcata che aumenta il rischio di frattura, in particolare in caso di caduta.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Entrambi i termini descrivono una perdita di densità ossea, non una frattura già avvenuta — sono uno stimolo alla prevenzione, non un motivo di preoccupazione.',
+    body3: 'Questo esame indolore misura la densità minerale ossea. Può essere proposto in base alla tua età, alla tua storia personale e familiare o ad altri fattori di rischio individuati con il tuo medico.',
+    preventionHabits: [
+      'Calcio (latticini, verdure a foglia verde)',
+      'Vitamina D (esposizione moderata al sole, alimentazione)',
+      'Esercizio fisico con carico (camminata, allenamento di forza)',
+      'Limitare il tabacco e l’alcol',
+    ],
+    riskFactors: [
+      'Una storia familiare di osteoporosi',
+      'Menopausa precoce (prima dei 45 anni)',
+      'Fumo attuale o passato',
+      'Una corporatura molto esile o un’attività fisica molto scarsa',
+    ],
+    alertTitle: 'Attenzione',
+    alertText: 'Avere uno o più di questi fattori non significa che sviluppherai l’osteoporosi — servono soprattutto a orientare il confronto con il tuo medico su un possibile screening.',
+    tip2Title: 'Da sapere',
+    tip2Text: 'Calcio, vitamina D e attività fisica con carico restano le abitudini quotidiane più utili per preservare nel tempo la solidità delle ossa.',
+    shareMessage: 'Prenderti cura della salute delle tue ossa — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -177,7 +218,7 @@ export default function BoneHealthArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

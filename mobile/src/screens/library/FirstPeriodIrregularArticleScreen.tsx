@@ -29,6 +29,8 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
 
 const ID = 'firstperiod-cycle-irregulier';
 
@@ -38,7 +40,7 @@ const HERO = require('../../assets/images/library/regular-cycle-hero.png');
 // bilingual CONTENT object below, keyed by index to stay aligned with these.
 const RELATED_IMAGES = [
   require('../../assets/images/library/regular-cycle-hero.png'),
-  require('../../assets/images/library/cycle-phases-hero.png'),
+  CYCLE_PHASES_HERO,
   require('../../assets/images/library/popular-flower.png'),
 ] as const;
 
@@ -141,6 +143,44 @@ const CONTENT = {
     ],
     shareMessage: 'Mi primera menstruación es irregular: ¿es normal? — AWA',
   },
+  it: {
+    badge: 'PRIMO CICLO',
+    title: 'Il mio primo ciclo è\nirregolare: è normale?',
+    metaDuration: '5 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Sì, è del tutto normale. Ecco perché il ciclo ha bisogno di tempo per stabilizzarsi e quando vale la pena parlarne.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Perché all’inizio il ciclo è irregolare',
+      'Quanto tempo ci vuole per stabilizzarsi',
+      'Quando rivolgersi al medico',
+    ],
+    body1: 'Gli ormoni che regolano il ciclo hanno bisogno di tempo per trovare il loro equilibrio. È quindi comune che i cicli siano più corti, più lunghi o distanziati in modo non uniforme durante i primi anni.',
+    body2: 'Il ciclo può impiegare da uno a due anni, a volte un po’ di più, per diventare più regolare. Questo periodo di assestamento varia molto da persona a persona, senza che sia un problema.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Un ciclo irregolare all’inizio non è mai considerato un ritardo: il tuo corpo si sta semplicemente prendendo il tempo di cui ha bisogno.',
+    body3: 'Nella grande maggioranza dei casi non c’è nulla di cui preoccuparsi. Detto questo, è una buona idea rivolgersi al medico se il ciclo è assente per diversi mesi dopo la prima comparsa, o se hai dubbi che persistono.',
+    alertTitle: 'Rivolgiti al medico se',
+    alertText: 'Il ciclo manca da diversi mesi, hai un dolore molto intenso o un sanguinamento molto abbondante.',
+    relatedTitle: '♥  Potrebbe interessarti anche',
+    related: [
+      {
+        title: 'Ciclo regolare o irregolare: qual è la differenza?',
+        meta: '5 min  ·  Guida',
+      },
+      {
+        title: 'Il tuo primo ciclo: cosa aspettarti',
+        meta: '5 min  ·  Guida',
+      },
+      {
+        title: 'Domande frequenti sul tuo primo ciclo',
+        meta: '4 min  ·  FAQ',
+      },
+    ],
+    shareMessage: 'Il mio primo ciclo è irregolare: è normale? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -149,7 +189,7 @@ export default function FirstPeriodIrregularArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -397,7 +437,7 @@ export default function FirstPeriodIrregularArticleScreen({
               }
               style={styles.relatedCard}>
               <Image
-                source={RELATED_IMAGES[index]}
+                source={resolveEditorialImage(RELATED_IMAGES[index], lang)}
                 resizeMode="cover"
                 style={styles.relatedImage}
               />

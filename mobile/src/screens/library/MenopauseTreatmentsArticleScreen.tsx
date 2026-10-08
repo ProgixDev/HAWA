@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'treatments-traitements-menopause';
 
@@ -160,6 +161,46 @@ const CONTENT = {
     tip2Text: 'Hormonal o no, ningún tratamiento es universal: el que te conviene depende de tu situación personal, evaluada con un profesional de la salud.',
     shareMessage: 'Los tratamientos de la menopausia — AWA',
   },
+  it: {
+    badge: 'TRATTAMENTI',
+    title: 'I trattamenti\nper la menopausa',
+    metaDuration: '7 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenuto validato',
+    intro: 'La terapia ormonale sostitutiva e le alternative non ormonali, per aiutarti a preparare il confronto con il tuo medico.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'La terapia ormonale sostitutiva della menopausa',
+      'Benefici e precauzioni',
+      'Approcci non ormonali',
+      'Parlarne con un professionista sanitario',
+      'Cosa ricordare',
+    ],
+    body1: 'La terapia ormonale sostitutiva (TOS) della menopausa compensa il calo degli estrogeni e può alleviare i sintomi più fastidiosi, come le vampate di calore, i disturbi del sonno o la secchezza vaginale.',
+    body2: 'La TOS può anche contribuire a proteggere la densità ossea. Tuttavia non è adatta a ogni situazione: una storia personale di determinate condizioni (malattie cardiovascolari, alcuni tumori ormono-dipendenti) può limitarne l’uso.',
+    alertTitle: 'Attenzione',
+    alertText: 'Il rapporto benefici-rischi della TOS dipende dalla tua età, dal momento in cui viene iniziata rispetto alla menopausa e dalla tua storia medica personale: prima di qualsiasi decisione è necessaria una valutazione medica individualizzata.',
+    body3: 'Quando la TOS non è desiderata o non è adatta, esistono altre opzioni per aiutare ad alleviare i sintomi:',
+    nonHormonal: [
+      'Terapia cognitivo-comportamentale (per la gestione di stress e sonno)',
+      'Fitoterapia, sotto la supervisione di un professionista sanitario',
+      'Adattamenti dello stile di vita (alimentazione, attività fisica, sonno)',
+      'Lubrificanti e idratanti vaginali per la secchezza intima',
+    ],
+    tip1Title: 'Bene a sapersi',
+    tip1Text: 'Anche la fitoterapia merita il parere di un professionista: «naturale» non significa «senza possibili interazioni» con altri trattamenti.',
+    body4: 'Preparare qualche punto prima di una visita ti aiuta a sfruttare al meglio il confronto:',
+    discussPoints: [
+      'I sintomi che ti danno più fastidio nella vita quotidiana',
+      'La tua storia medica personale e familiare',
+      'Le tue preferenze (ormonale o no, per quanto tempo stai pensando di proseguire)',
+      'Le tue domande e preoccupazioni — non esitare a farle',
+    ],
+    tip2Title: 'Bene a sapersi',
+    tip2Text: 'Ormonale o no, nessun trattamento è universale: ciò che va bene per te dipende dalla tua situazione personale, valutata insieme a un professionista sanitario.',
+    shareMessage: 'I trattamenti per la menopausa — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -168,7 +209,7 @@ export default function MenopauseTreatmentsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -29,13 +29,15 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
 
 const ID = 'fiqhwomen-introduction';
 
 const HERO = require('../../assets/images/library/rules-hero.png');
 
 const ART = {
-  importance: require('../../assets/images/library/cycle-phases-hero.png'),
+  importance: CYCLE_PHASES_HERO,
   madhahib: require('../../assets/images/library/popular-phases.png'),
   consult: require('../../assets/images/library/spm-consult.png'),
   awaRole: require('../../assets/images/library/featured-tracking-hero.png'),
@@ -274,6 +276,77 @@ const CONTENT = {
     tip3Text: 'El fiqh femenino es un campo vivo de interpretación, con opiniones a veces distintas según las escuelas. AWA te ayuda a comprender las bases y a estructurar tus preguntas, pero la opinión de un erudito cualificado sigue siendo la referencia para cualquier decisión religiosa personal.',
     shareMessage: 'El fiqh femenino, una introducción — AWA',
   },
+  it: {
+    badge: 'FIQH DELLE DONNE',
+    title: 'Il fiqh delle donne:\nun’introduzione',
+    metaDuration: '7 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Una panoramica completa dei principali temi trattati dal fiqh delle donne, tra pratica religiosa e vita quotidiana.',
+    disclaimerTitle: 'Informazione importante',
+    disclaimerText: 'Questo contenuto ha uno scopo puramente educativo. Le questioni religiose dovrebbero essere validate da studiosi qualificati. AWA non emette fatwa né pareri religiosi personalizzati.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Di cosa si occupa il fiqh delle donne',
+      'Perché il fiqh delle donne è importante?',
+      'Le scuole giuridiche (madhab)',
+      'Fiqh, salute e pratica quotidiana',
+      'Il ruolo educativo di AWA',
+      'Quando chiedere consiglio a una persona qualificata?',
+      'Punti chiave',
+    ],
+    section1Body: 'Il fiqh delle donne è l’ambito della giurisprudenza islamica (fiqh) che riguarda le questioni pratiche legate al corpo delle donne e al culto. Aiuta a capire come conciliare la vita religiosa quotidiana con le diverse fasi del ciclo femminile.',
+    dailyTopics: [
+      'Le mestruazioni e il ciclo mestruale',
+      'Il sangue mestruale e il suo stato',
+      'La purezza rituale',
+      'Il ghusl dopo le mestruazioni',
+      'La preghiera durante e dopo le mestruazioni',
+      'Il digiuno del Ramadan e i giorni da recuperare',
+      'Le perdite irregolari (istihâda)',
+      'Il Nifas dopo il parto',
+      'La vita quotidiana e la pratica religiosa',
+    ],
+    section1Body2: 'Il fiqh è un campo di interpretazione giuridica: alcune questioni sono oggetto di pareri diversi a seconda degli studiosi e delle scuole di pensiero, senza che un singolo parere sia assoluto di per sé.',
+    section2Body: 'Comprendere il fiqh delle donne permette di vivere la propria pratica religiosa con più serenità, senza confusione, nei momenti in cui il corpo attraversa fasi specifiche (mestruazioni, gravidanza, post-partum, menopausa). Aiuta anche a distinguere ciò che rientra in un obbligo, in un’esenzione o in una semplice raccomandazione.',
+    visual1Title: 'Una pratica religiosa più serena',
+    visual1Text: 'Sapere cosa ci si aspetta in ogni fase del ciclo permette di affrontare la propria fede con maggiore fiducia.',
+    section3Body: 'Un madhab indica una scuola di pensiero giuridico, cioè un metodo strutturato che gli studiosi usano per interpretare le fonti religiose (Corano, Sunna, consenso, ragionamento) e rispondere a questioni pratiche della vita quotidiana. Esistono diverse scuole, perché gli studiosi non hanno sempre seguito la stessa metodologia né interpretato gli stessi testi nello stesso modo.',
+    section3Body2: 'Per questo alcune questioni legate alle mestruazioni, alla purezza rituale, alla preghiera o al digiuno possono essere oggetto di pareri diversi a seconda degli studiosi consultati. Una differenza di opinione non significa che un parere sia “sbagliato”: riflette metodologie e letture diverse delle stesse fonti.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'È comune seguire l’approccio o il madhab tradizionalmente seguito nella propria famiglia o comunità.',
+    noteTitle: 'Nota bene',
+    noteText: 'Quando una situazione religiosa specifica resta incerta, è del tutto appropriato chiedere il parere di uno studioso qualificato.',
+    section4Body: 'Le informazioni mediche sul ciclo (durata, sintomi, fasi ormonali) e le regole religiose che ne derivano (purezza, preghiera, digiuno) rispondono a due logiche diverse: una descrive un fenomeno biologico, l’altra definisce un quadro per la pratica spirituale. Le due possono completarsi, ma non vanno confuse.',
+    visual2Title: 'Due prospettive complementari',
+    visual2Text: 'Il monitoraggio medico del ciclo e i riferimenti religiosi che ne derivano offrono ciascuno una chiave di lettura utile.',
+    tip2Title: 'Da sapere',
+    tip2Text: 'Un professionista sanitario può rispondere alle domande mediche; uno studioso qualificato resta il riferimento per le questioni religiose.',
+    section5Body: 'AWA accompagna le utenti nella comprensione del proprio ciclo, all’incrocio tra salute e pratica religiosa, con un approccio educativo che rispetta le differenze tra le scuole.',
+    awaRole: [
+      'Comprendere i concetti di base del fiqh delle donne',
+      'Capire meglio il proprio ciclo, sia dal punto di vista medico sia da quello religioso',
+      'Individuare le domande che richiedono il parere di uno studioso qualificato',
+      'Orientarsi tra le differenze tra i madhahib senza confusione',
+      'Accedere a spiegazioni educative chiare e neutrali',
+      'Distinguere l’informazione medica da una decisione religiosa',
+      'Seguire le informazioni utili alla propria pratica religiosa, se necessario',
+      'Preparare domande specifiche da porre a uno studioso qualificato',
+    ],
+    alert3Title: 'Informazione importante',
+    alert3Text: 'AWA è uno strumento educativo e informativo: non sostituisce, in nessun caso, il parere di uno studioso qualificato o di un’autorità religiosa.',
+    section6Body: 'Alcune situazioni meritano di essere sottoposte direttamente a uno studioso di fiducia, in particolare quando:',
+    whenToAsk: [
+      'Una situazione personale non corrisponde a nessun caso tipico (perdite insolite, dubbio prolungato...)',
+      'Diversi pareri sembrano contraddirsi e non sai quale seguire',
+      'Una decisione religiosa ha un impatto significativo sulla tua pratica quotidiana',
+      'Senti il bisogno di una guida adatta alla tua situazione personale',
+    ],
+    tip3Title: 'Da sapere',
+    tip3Text: 'Il fiqh delle donne è un campo di interpretazione vivo, con pareri che a volte differiscono tra le scuole. AWA ti aiuta a comprendere le basi e a strutturare le tue domande, ma il parere di uno studioso qualificato resta il riferimento per qualsiasi decisione religiosa personale.',
+    shareMessage: 'Il fiqh delle donne, un’introduzione — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -282,7 +355,7 @@ export default function FiqhWomenIntroArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -490,7 +563,7 @@ export default function FiqhWomenIntroArticleScreen({
 
           <View style={styles.visualCard}>
             <Image
-              source={ART.importance}
+              source={resolveEditorialImage(ART.importance, lang)}
               resizeMode="cover"
               style={styles.visualImage}
             />

@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'pcos-diagnostic-examens';
 
@@ -283,6 +284,103 @@ const CONTENT = {
     disclaimerText: 'Este artículo es informativo y no sustituye una consulta médica ni la interpretación personalizada de tus exámenes.',
     shareMessage: 'Diagnóstico del SOP: exámenes y balance — AWA',
   },
+  it: {
+    badge: 'PCOS',
+    title: 'Diagnosi della PCOS:\nesami e accertamenti',
+    metaDuration: '7 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenuto validato',
+    intro: 'Come viene diagnosticata la PCOS, quali esami possono essere proposti e come prepararti con serenità alla visita.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Capire il percorso diagnostico',
+      'Le tappe principali degli accertamenti',
+      'Le analisi del sangue ormonali',
+      'L’ecografia pelvica',
+      'Ciò che la diagnosi non ti dice',
+      'Prepararti all’appuntamento',
+      'Punti chiave',
+    ],
+    section1Body1: 'La diagnosi di sindrome dell’ovaio policistico non si basa su un unico esame. Il o la professionista sanitario/a mette insieme diverse informazioni: la storia dei tuoi cicli, gli eventuali sintomi, la visita clinica, gli esami di laboratorio e, a seconda della situazione, un’ecografia.',
+    section1Body2: 'L’obiettivo è sia cercare elementi compatibili con la PCOS, sia escludere altre cause che potrebbero spiegare mestruazioni irregolari o alcuni sintomi ormonali.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'La diagnosi è sempre personalizzata. Due donne con PCOS possono avere sintomi e risultati degli esami molto diversi.',
+    section2Body: 'Gli accertamenti possono seguire diverse tappe. Non vengono necessariamente svolti nello stesso modo per tutte.',
+    diagnosisSteps: [
+      {
+        title: 'Raccolta della storia clinica',
+        text: 'Il o la professionista raccoglie la tua storia: cicli, sintomi, anamnesi medica e terapie.',
+      },
+      {
+        title: 'Visita clinica',
+        text: 'Cerca in particolare i segni di un eccesso di androgeni e valuta il tuo stato generale.',
+      },
+      {
+        title: 'Analisi del sangue',
+        text: 'Possono essere richiesti esami ormonali e metabolici per chiarire la situazione.',
+      },
+      {
+        title: 'Ecografia',
+        text: 'Può completare gli accertamenti osservando l’aspetto delle ovaie.',
+      },
+    ],
+    flowTitle: 'Il percorso in sintesi',
+    flowItems: [
+      'Storia clinica e sintomi',
+      'Visita clinica',
+      'Esami in base alla situazione',
+      'Ecografia se necessario',
+    ],
+    section3Body1: 'Possono essere proposte analisi del sangue per cercare segni di un eccesso di androgeni, valutare alcuni ormoni coinvolti nella funzione riproduttiva e cercare altre possibili cause dei tuoi sintomi.',
+    section3Body2: 'Gli esami scelti dipendono dalla tua età, dai tuoi sintomi, dalla tua storia clinica e da ciò che il o la professionista vuole verificare.',
+    bloodTests: [
+      {
+        title: 'Androgeni',
+        text: 'Testosterone e altri ormoni, a seconda della situazione.',
+      },
+      {
+        title: 'Funzione tiroidea',
+        text: 'Aiuta in particolare a escludere alcune cause di cicli irregolari.',
+      },
+      {
+        title: 'Esami metabolici',
+        text: 'Glicemia e, a volte, profilo lipidico in base ai fattori di rischio.',
+      },
+    ],
+    alertTitle: 'Importante',
+    alertText: 'I risultati ormonali vanno interpretati alla luce del contesto clinico. Un singolo valore, di solito, non basta da solo per concludere una diagnosi di PCOS.',
+    section4Body: 'L’ecografia può essere usata per osservare l’aspetto delle ovaie e cercare in particolare un numero elevato di piccoli follicoli. Permette inoltre al o alla professionista di cercare altri fattori che potrebbero spiegare alcuni sintomi.',
+    tip2Title: 'Da sapere',
+    tip2Text: 'Vedere molti follicoli all’ecografia non significa automaticamente che hai la PCOS. Il risultato va interpretato insieme al resto degli accertamenti.',
+    section5Body: 'Ricevere una diagnosi di PCOS non permette di prevedere con esattezza come evolverà la tua situazione. La sindrome può manifestarsi in modo molto diverso da una persona all’altra.',
+    mythItems: [
+      'La PCOS non significa automaticamente infertilità.',
+      'La PCOS non significa necessariamente avere delle cisti.',
+      'La sola diagnosi non determina la terapia.',
+      'Un’ecografia nella norma non esclude necessariamente la PCOS.',
+    ],
+    section6Body: 'Alcune informazioni preparate in anticipo possono aiutare il o la professionista a comprendere la tua storia e a scegliere gli esami più pertinenti.',
+    appointmentQuestions: [
+      'Da quanto tempo i tuoi cicli sono irregolari?',
+      'Hai notato acne, una crescita insolita dei peli o perdita di capelli?',
+      'Ci sono casi di PCOS o di diabete in famiglia?',
+      'Desideri una gravidanza a breve o medio termine?',
+    ],
+    preparationTitle: 'Un piccolo consiglio prima della visita',
+    preparationText: 'Se possibile, annota le date dell’ultimo periodo mestruale, la durata approssimativa dei tuoi cicli, i sintomi che noti e le eventuali terapie o integratori che stai assumendo.',
+    summaryTitle: 'L’essenziale sugli accertamenti',
+    summaryItems: [
+      'La diagnosi si basa su più elementi, non su un unico esame.',
+      'Le analisi del sangue possono cercare alcuni squilibri ormonali ed escludere altre cause.',
+      'Un’ecografia può completare gli accertamenti, a seconda della situazione.',
+      'I risultati vanno sempre interpretati da un o una professionista sanitario/a.',
+    ],
+    finalTipTitle: 'Punti chiave',
+    finalTipText: 'Gli accertamenti per la PCOS non sono un singolo esame né un verdetto definitivo. Ti aiutano a capire come funziona il tuo equilibrio ormonale, a cercare altre possibili cause e a costruire un percorso di cura adatto alla tua situazione.',
+    disclaimerText: 'Questo articolo ha solo scopo informativo e non sostituisce una visita medica né l’interpretazione personalizzata dei risultati dei tuoi esami.',
+    shareMessage: 'Diagnosi della PCOS: esami e accertamenti — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -291,7 +389,7 @@ export default function PcosDiagnosisArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -225,6 +226,79 @@ const CONTENT = {
     disclaimerText: 'Contenido informativo. Este artículo no sustituye un aviso o un examen médico. En caso de duda o de síntoma preocupante, pide consejo a un profesional de la salud.',
     shareMessage: 'La recuperación física después de una pérdida del embarazo — AWA',
   },
+  it: {
+    badge: 'DOPO UN ABORTO SPONTANEO • RECUPERO',
+    title: 'Il recupero fisico dopo \nun aborto spontaneo',
+    metaDuration: '7 min di lettura',
+    metaType: 'Articolo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto informativo',
+    intro: 'Il tuo corpo ha bisogno di tempo per ritrovare il suo equilibrio. Ecco cosa può aiutarti a comprendere meglio questa fase, con delicatezza.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Cos’è un aborto spontaneo?',
+      'Cosa può succedere fisicamente',
+      'Il ritorno del ciclo',
+      'Un controllo medico rassicurante',
+      'Quando rivolgersi a un medico',
+      'Punti chiave',
+    ],
+    section1Body1: 'L’aborto spontaneo è la conclusione spontanea di una gravidanza, il più delle volte prima della 12ª–14ª settimana. Si stima che una gravidanza confermata su sei o sette termini in questo modo, il più delle volte nelle fasi iniziali della gravidanza.',
+    section1Body2: 'Non è un evento raro, né è il segno di un futuro problema di fertilità. Nella grande maggioranza dei casi è legato a fattori che nessuno può controllare, come un’anomalia cromosomica comparsa per caso durante lo sviluppo.',
+    infoCard1Title: 'Punto chiave',
+    infoCard1Text: 'Un aborto spontaneo non è causato da nulla di ciò che hai fatto o non hai fatto. Non sei responsabile di ciò che è successo.',
+    section2Body: 'Ogni esperienza è diversa da una persona all’altra. Ecco i segnali più comuni:',
+    physicalSigns: [
+      {
+        title: 'Sanguinamento',
+        text: 'La sua intensità e la sua durata possono variare a seconda della situazione, poi diminuiscono gradualmente.',
+      },
+      {
+        title: 'Crampi',
+        text: 'Un dolore simile ai crampi mestruali, a volte più intenso, può accompagnare questa fase.',
+      },
+      {
+        title: 'Una durata variabile',
+        text: 'Il recupero fisico di solito richiede da qualche giorno a qualche settimana.',
+      },
+    ],
+    section3Body: 'In genere il tuo corpo impiega alcune settimane per ritrovare l’equilibrio ormonale dopo un aborto spontaneo. Il ciclo può ripresentarsi già dopo 4–6 settimane, ma ogni percorso è diverso.',
+    comfortTips: [
+      {
+        title: 'Concediti di riposare',
+        text: 'Il tuo corpo ha bisogno di tempo per ritrovare il suo equilibrio, senza alcuna pressione di ottenere un risultato particolare.',
+      },
+      {
+        title: 'Bevi a sufficienza',
+        text: 'Una buona idratazione sostiene naturalmente il recupero.',
+      },
+      {
+        title: 'Ascolta il tuo corpo',
+        text: 'Ogni percorso è diverso: procedi con i tuoi tempi, senza paragonarti agli altri.',
+      },
+    ],
+    section4Body: 'Un controllo medico aiuta a confermare che tutto stia procedendo normalmente, con piena serenità. Questa visita è anche l’occasione per fare tutte le tue domande.',
+    infoCard2Title: 'Cosa può includere questa visita',
+    infoCard2Text: 'Un colloquio su ciò che hai vissuto, una visita se necessario, e uno spazio per rispondere alle tue domande su ciò che verrà dopo.',
+    section5Body: 'Se compare uno di questi segnali, è importante contattare subito un operatore sanitario.',
+    warningTitle: 'Segnali che richiedono un parere medico',
+    warningSigns: [
+      'Febbre o un peggioramento delle condizioni generali',
+      'Sanguinamento molto abbondante (dover cambiare l’assorbente in meno di un’ora)',
+      'Dolore intenso che non migliora',
+      'Un odore insolito',
+    ],
+    tipTitle: 'Da sapere',
+    tipText: 'Prendersi cura del proprio corpo non significa controllare tutto: significa soprattutto concedersi il tempo necessario.',
+    summaryPoints: [
+      'Un aborto spontaneo non è causato da nulla di ciò che hai fatto o non hai fatto.',
+      'In genere il tuo corpo impiega alcune settimane per ritrovare l’equilibrio ormonale.',
+      'Il ciclo può ripresentarsi già dopo 4–6 settimane, ma ogni percorso è diverso.',
+      'Un controllo medico ti permette di confermare che tutto stia procedendo normalmente, con piena serenità.',
+    ],
+    disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce un parere medico né una visita. In caso di dubbi o di sintomi preoccupanti, rivolgiti a un operatore sanitario.',
+    shareMessage: 'Il recupero fisico dopo un aborto spontaneo — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -241,7 +315,7 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

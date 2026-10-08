@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'religiousfaq-questions-frequentes';
 
@@ -301,6 +302,93 @@ const CONTENT = {
     ],
     shareMessage: 'Preguntas frecuentes de fiqh femenino — AWA',
   },
+  it: {
+    badge: 'DOMANDE FREQUENTI',
+    title: 'Domande frequenti\nsul fiqh delle donne',
+    metaDuration: '8 min di lettura',
+    metaType: 'FAQ',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Le domande più comuni sul fiqh delle donne, raccolte in un unico posto con risposte chiare.',
+    disclaimerTitle: 'Informazione importante',
+    disclaimerText: 'Questo contenuto ha uno scopo puramente educativo. Le questioni religiose dovrebbero essere validate da studiosi qualificati. AWA non emette fatwa né pareri religiosi personalizzati.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Le domande che ricorrono spesso',
+      'Scuole giuridiche che possono differire',
+      'In caso di dubbio persistente',
+      'I punti essenziali',
+    ],
+    section1Body: 'Molte domande sul ciclo, sulla preghiera e sul digiuno si ripresentano con regolarità da una donna all’altra. Ecco risposte generali alle più frequenti; per approfondire, ogni argomento è trattato più nel dettaglio anche in un articolo dedicato.',
+    faqItems: [
+      [
+        'Che cos’è il fiqh delle donne?',
+        'Il fiqh delle donne riunisce le regole pratiche che riguardano in modo specifico il corpo e il culto delle donne: il ciclo, la purezza, la preghiera, il digiuno, il nifas e l’istihâda.',
+      ],
+      [
+        'Quali sono i principali argomenti trattati dal fiqh delle donne?',
+        'Riguarda in particolare le mestruazioni e il ciclo, la purezza rituale, il ghusl, la preghiera e il digiuno durante e dopo le mestruazioni, il nifas e l’istihâda.',
+      ],
+      [
+        'Qual è la differenza tra mestruazioni, sanguinamento post-partum e sanguinamento irregolare?',
+        'Le mestruazioni (hayd) seguono il ciclo abituale, il nifas si verifica dopo il parto e l’istihâda indica un sanguinamento irregolare, al di fuori del ciclo. Ognuno segue uno status diverso.',
+      ],
+      [
+        'Che cosa succede alla preghiera durante le mestruazioni?',
+        'La preghiera è sospesa in questo periodo: è un’esenzione riconosciuta, da vivere senza sensi di colpa.',
+      ],
+      [
+        'Che cosa succede al digiuno durante le mestruazioni?',
+        'Anche il digiuno è sospeso; i giorni non digiunati vengono recuperati più tardi (qadaa), al di fuori del Ramadan.',
+      ],
+      [
+        'Perché le preghiere perse in genere non si recuperano, a differenza del digiuno?',
+        'Questa differenza dipende dalla natura dei due atti: la preghiera è quotidiana e ripetuta, mentre il digiuno è annuale e concentrato in un solo mese. Seguire l’esenzione fa pienamente parte della pratica religiosa.',
+      ],
+      [
+        'Quando si riprende la preghiera dopo le mestruazioni?',
+        'Non appena le mestruazioni sono terminate e il ghusl è stato eseguito, la preghiera riprende normalmente, senza ritardo.',
+      ],
+      [
+        'Qual è il ruolo del ghusl?',
+        'Il ghusl è l’abluzione maggiore che permette di tornare allo stato di purezza rituale necessario per riprendere la preghiera e gli altri atti di culto.',
+      ],
+      [
+        'Che cosa fare se non sei sicura che le mestruazioni siano terminate?',
+        'Osservare l’assenza totale di sanguinamento per un tempo sufficiente, anziché affidarsi a un’impressione isolata, aiuta a fare chiarezza sulla situazione.',
+      ],
+      [
+        'Si possono praticare altre forme di culto durante le mestruazioni?',
+        'Sì: dhikr, suppliche, carità, studio religioso e altri gesti di bontà restano accessibili.',
+      ],
+      [
+        'Perché alcune risposte possono variare a seconda della situazione?',
+        'Il fiqh è un campo di interpretazione: le opinioni possono variare a seconda della scuola giuridica e delle circostanze personali, senza che nessuna opinione sia assoluta di per sé.',
+      ],
+    ],
+    section2Body1: 'Il fiqh islamico comprende differenze di interpretazione riconosciute su alcuni punti di dettaglio. Queste differenze esistono da secoli e sono considerate legittime all’interno della tradizione religiosa.',
+    section2Body2: 'A seconda della fonte consultata, la stessa domanda può quindi ricevere risposte leggermente diverse. Ciò non significa che una risposta sia automaticamente sbagliata: riflette metodologie e letture diverse delle stesse fonti.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Seguire con costanza una fonte qualificata, anziché cambiare continuamente opinione in base alla risposta che si trova, aiuta a mantenere la tua pratica chiara e serena.',
+    section3Body: 'Alcune situazioni restano difficili da risolvere sulla base di una sola spiegazione generale. È il caso in particolare quando:',
+    doubtSituations: [
+      'C’è incertezza su quando le mestruazioni siano effettivamente terminate',
+      'La natura del sanguinamento resta incerta (mestruazioni, istihâda, altro)',
+      'Persiste il dubbio sulla necessità di eseguire il ghusl',
+      'La questione della ripresa della preghiera resta incerta',
+      'Hai trovato informazioni contrastanti online',
+    ],
+    alert2Title: 'Informazione importante',
+    alert2Text: 'Quando una situazione è personale, complessa o persistente, non può essere risolta con informazioni generali. Rivolgersi a uno studioso qualificato, in grado di tenere conto della tua situazione specifica, resta in tal caso l’approccio migliore. AWA non emette fatwa né pareri religiosi personalizzati.',
+    keyPoints: [
+      'Il fiqh delle donne riguarda molti aspetti della pratica religiosa delle donne',
+      'Alcuni dettagli possono legittimamente variare a seconda della scuola giuridica',
+      'Le informazioni generali non sostituiscono una guida religiosa personalizzata',
+      'Un dubbio persistente merita di essere sottoposto a uno studioso qualificato',
+      'Il ruolo di AWA è educativo, non emettere fatwa',
+    ],
+    shareMessage: 'Domande frequenti sul fiqh delle donne — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -309,7 +397,7 @@ export default function ReligiousFaqArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'prayerduringmenstruation-la-priere-suspendue';
 
@@ -183,6 +184,47 @@ const CONTENT = {
     tip2Text: 'La oración suspendida durante la menstruación es una dispensa reconocida, que se vive sin culpa. Muchas formas de espiritualidad siguen siendo accesibles durante este periodo, y la opinión de un erudito cualificado sigue siendo la referencia para cualquier pregunta concreta.',
     shareMessage: 'La oración durante la menstruación — AWA',
   },
+  it: {
+    badge: 'PREGHIERA DURANTE LE MESTRUAZIONI',
+    title: 'La preghiera durante\nle mestruazioni',
+    metaDuration: '6 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Perché la preghiera rituale è sospesa in questo periodo e come viverlo con serenità.',
+    disclaimerTitle: 'Informazione importante',
+    disclaimerText: 'Questo contenuto ha uno scopo puramente educativo. Le questioni religiose dovrebbero essere validate da studiosi qualificati. AWA non emette fatwa né pareri religiosi personalizzati.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'La preghiera sospesa durante le mestruazioni',
+      'Le preghiere perse non si recuperano, a differenza del digiuno',
+      'Altre forme di culto restano possibili',
+      'Punti chiave',
+    ],
+    section1Body1: 'Durante le mestruazioni l’obbligo della preghiera (salat) è sospeso: una donna non è tenuta a pregare in questo periodo. Questa sospensione fa parte della pratica religiosa stessa, da lungo tempo riconosciuta dalla tradizione.',
+    section1Body2: 'Questa sospensione non significa in alcun modo un allontanamento dalla fede né una mancanza nella pratica religiosa. È un’esenzione riconosciuta, da vivere senza senso di colpa: fa parte del quadro naturale della vita spirituale di una donna.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Questo periodo si può vivere con serenità: non mette in discussione né il valore della propria fede né la regolarità della propria pratica religiosa.',
+    section1Body3: 'Se le mestruazioni iniziano mentre la preghiera è in corso, questa viene interrotta: non occorre terminarla né recuperarla. Al contrario, quando le mestruazioni finiscono, la preghiera riprende normalmente dopo il ghusl (abluzione maggiore), che segna il ritorno allo stato di purezza rituale.',
+    section2Body1: 'A differenza del digiuno di Ramadan, i cui giorni persi durante le mestruazioni vengono recuperati in seguito (qadaa), le preghiere perse per lo stesso motivo in genere non si recuperano. Questa differenza si spiega con la natura stessa dei due atti di culto: la preghiera è un atto quotidiano ripetuto più volte al giorno, mentre il digiuno è annuale e concentrato in un mese preciso.',
+    section2Body2: 'Questa distinzione può sorprendere quando si scopre per la prima volta il fiqh. Non significa che la preghiera valga di meno: seguire l’esenzione così come è prescritta fa pienamente parte, di per sé, della pratica religiosa.',
+    section3Body: 'Non pregare durante le mestruazioni non significa essere tagliate fuori dalla propria spiritualità. Molte forme di culto e di impegno religioso restano accessibili in questo periodo.',
+    worshipActs: [
+      'Dhikr (ricordo di Dio)',
+      'Du’a (suppliche)',
+      'Carità',
+      'Aiutare gli altri',
+      'Studio religioso',
+      'Ascolto di contenuti religiosi',
+      'Riflessione e gratitudine',
+      'Gesti di gentilezza',
+    ],
+    noteTitle: 'Attenzione',
+    noteText: 'Alcune pratiche, come recitare o toccare direttamente il Corano, possono essere oggetto di pareri diversi a seconda della scuola giuridica. Fare riferimento al parere che segui abitualmente, o chiedere consiglio a uno studioso qualificato, aiuta a chiarire questi casi.',
+    tip2Title: 'Da sapere',
+    tip2Text: 'La preghiera sospesa durante le mestruazioni è un’esenzione riconosciuta, da vivere senza senso di colpa. Molte forme di spiritualità restano accessibili in questo periodo, e il consiglio di uno studioso qualificato resta il riferimento per qualsiasi questione specifica.',
+    shareMessage: 'La preghiera durante le mestruazioni — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -191,7 +233,7 @@ export default function PrayerDuringMenstruationArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

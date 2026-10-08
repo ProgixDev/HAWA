@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'symptoms-reconnaitre';
 
@@ -198,6 +199,72 @@ const CONTENT = {
       'Si los síntomas son muy intensos y afectan tu vida diaria, podría tratarse de un trastorno disfórico premenstrual (TDPM). No dudes en consultar a un profesional de la salud.',
     shareMessage: 'Síndrome premenstrual (SPM): entenderlo mejor — AWA',
   },
+  it: {
+    badge: 'CICLO E BENESSERE',
+    title: 'Sindrome premestruale (PMS):\ncapirla meglio',
+    metaDuration: '4 min di lettura',
+    metaValidated: 'Contenuto validato',
+    intro: 'La PMS interessa fino a 8 donne su 10. Stanchezza, irritabilità, gonfiore… Capirne le cause e adottare le giuste abitudini può migliorare molto questo momento del mese.',
+    contentsTitle: 'In questo articolo',
+    contents: [
+      'Cos’è la PMS?',
+      'Sintomi comuni',
+      'Possibili cause',
+      'Consigli per stare meglio',
+      'Quando rivolgersi al medico?',
+    ],
+    section1Body: 'La sindrome premestruale riunisce sintomi fisici ed emotivi che di solito compaiono da 5 a 10 giorni prima del periodo mestruale e scompaiono all’inizio del ciclo mestruale.',
+    visual1Title: 'Una fase legata al tuo ciclo',
+    visual1Text: 'I sintomi compaiono prima del periodo mestruale e di solito si attenuano quando questo inizia.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'L’intensità e il tipo di sintomi possono variare molto da una donna all’altra e da un ciclo all’altro.',
+    symptoms: [
+      {
+        title: 'Emozioni',
+        text: 'Irritabilità, ansia, tristezza, sbalzi d’umore',
+      },
+      {
+        title: 'Fisici',
+        text: 'Gonfiore, dolore, stanchezza, mal di testa',
+      },
+      {
+        title: 'Comportamento',
+        text: 'Voglia di zuccheri, variazioni dell’appetito, stanchezza',
+      },
+      {
+        title: 'Sonno',
+        text: 'Difficoltà a dormire o sonno meno riposante',
+      },
+    ],
+    section3Body: 'Le fluttuazioni ormonali, in particolare del progesterone e degli estrogeni, influenzano i neurotrasmettitori cerebrali (serotonina, dopamina), il che può spiegare i sintomi emotivi e fisici della PMS.',
+    tip2Title: 'Gli ormoni hanno un ruolo chiave',
+    tip2Text: 'Le fluttuazioni ormonali possono influire su umore, energia, sonno e alcune sensazioni fisiche.',
+    tips: [
+      {
+        title: 'Mantieniti idratata',
+        text: 'Bere abbastanza acqua aiuta a ridurre il gonfiore.',
+      },
+      {
+        title: 'Mangia in modo equilibrato',
+        text: 'Privilegia alimenti ricchi di magnesio, omega-3 e vitamine del gruppo B.',
+      },
+      {
+        title: 'Resta attiva',
+        text: 'L’attività fisica libera endorfine e riduce lo stress.',
+      },
+      {
+        title: 'Gestisci lo stress',
+        text: 'Esercizi di respirazione, meditazione, diario personale… Trova ciò che fa per te.',
+      },
+      {
+        title: 'Dormi a sufficienza',
+        text: 'Un sonno di qualità favorisce l’equilibrio ormonale.',
+      },
+    ],
+    consultTitle: 'Quando chiedere un parere medico?',
+    consultText: 'Se i sintomi sono molto intensi e incidono sulla tua vita quotidiana, potrebbe trattarsi del disturbo disforico premestruale (PMDD). Non esitare a consultare un operatore sanitario.',
+    shareMessage: 'Sindrome premestruale (PMS): capirla meglio — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -209,7 +276,7 @@ export default function PmsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

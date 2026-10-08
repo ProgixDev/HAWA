@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'sideeffects-reconnaitre-les-effets-secondaires';
 
@@ -367,6 +368,97 @@ const CONTENT = {
       'Este artículo tiene una finalidad informativa y no sustituye un consejo médico personalizado. En caso de síntoma importante o inusual, pide consejo a un profesional de la salud.',
     shareMessage: 'Reconoce los posibles efectos secundarios — AWA',
   },
+  it: {
+    badge: 'EFFETTI COLLATERALI',
+    title: 'Riconoscere i possibili\neffetti collaterali',
+    metaDuration: '8 min di lettura',
+    metaType: 'Articolo',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenuto validato',
+    intro: 'Alcuni effetti possono essere comuni e temporanei. Altri richiedono maggiore attenzione. Impara a distinguere tra le reazioni abituali e i segnali che vanno valutati.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Effetti comuni e lievi',
+      'Il periodo di adattamento del corpo',
+      'Osservare ciò che cambia',
+      'Quando chiedere un parere medico',
+      'Quando rivolgersi rapidamente a un medico',
+      'I punti essenziali',
+    ],
+    body1: 'Quando si inizia un nuovo metodo di contraccezione ormonale, il corpo può aver bisogno di un po’ di tempo per adattarsi. Possono comparire piccoli cambiamenti nel ciclo, nell’umore o nel benessere fisico.',
+    body2: 'Questi effetti sono spesso lievi e possono diminuire gradualmente. La loro presenza non significa automaticamente che il metodo sia pericoloso o che vada interrotto.',
+    commonEffects: [
+      {
+        title: 'Piccoli sanguinamenti',
+        text: 'Possono verificarsi sanguinamenti irregolari, soprattutto all’inizio di un nuovo metodo.',
+      },
+      {
+        title: 'Tensione al seno',
+        text: 'Si può avvertire temporaneamente un senso di tensione o di dolorabilità al seno.',
+      },
+      {
+        title: 'Umore',
+        text: 'Alcune persone notano cambiamenti dell’umore o una maggiore sensibilità emotiva.',
+      },
+      {
+        title: 'Mal di testa',
+        text: 'Possono comparire lievi mal di testa durante il periodo di adattamento.',
+      },
+    ],
+    body3: 'Le prime settimane o i primi cicli possono essere diversi da quelli a cui eri abituata prima. Il corpo può adattarsi gradualmente al nuovo equilibrio ormonale.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Un effetto che compare poco dopo l’inizio di un metodo merita di essere osservato nel tempo. Se diventa fastidioso o persiste, parlane con un professionista sanitario.',
+    body4: 'Può essere utile annotare i sintomi nella tua app per seguire meglio come cambiano da un ciclo all’altro.',
+    trackingTitle: 'Segui l’evoluzione',
+    trackingSubtitle: 'Alcuni punti di riferimento possono essere utili',
+    trackingLines: [
+      'Annota la data in cui è comparso il sintomo.',
+      'Registra la sua intensità e la sua durata.',
+      'Osserva se migliora o peggiora.',
+    ],
+    body5: 'Non tutti i sintomi sono necessariamente legati alla contraccezione. Anche lo stress, il sonno, l’alimentazione, il tuo ciclo o altre terapie possono influire su come ti senti.',
+    body6: 'Per capire la situazione, prova a guardare il contesto generale anziché un singolo sintomo preso isolatamente.',
+    worthMentioning: [
+      'Cambiamenti dell’umore marcati e persistenti',
+      'Un calo della libido che ti dà fastidio',
+      'Sanguinamenti irregolari che durano più di 3 cicli',
+      'Nausea o mal di testa che restano fastidiosi',
+    ],
+    questionsTitle: 'Alcune domande utili',
+    questions: [
+      'Da quanto tempo durano questi sintomi?',
+      'Sono comparsi dopo aver iniziato o cambiato un metodo contraccettivo?',
+      'Sono lievi, fastidiosi o davvero insoliti per te?',
+      'Stanno migliorando nel tempo o diventano più frequenti?',
+    ],
+    body7: 'Anche quando un sintomo non è urgente, può valere la pena parlarne se diventa fastidioso, persiste o incide davvero sulla tua qualità di vita.',
+    infoTitle: 'Può essere utile chiedere un parere se…',
+    infoText: 'i sintomi persistono, diventano più importanti o ti impediscono di vivere normalmente.',
+    body8: 'Un medico, un’ostetrica o un farmacista può aiutarti a capire se i sintomi possono essere legati al metodo che usi e se è necessario modificarlo.',
+    body9: 'Alcuni segnali sono insoliti e richiedono una valutazione medica tempestiva. Non significano necessariamente che sia presente una complicanza, ma non vanno ignorati.',
+    alertTitle: 'Rivolgiti rapidamente a un medico',
+    alertIntro: 'Chiedi rapidamente un parere medico se hai, in particolare:',
+    urgentSigns: [
+      'Dolore al petto importante o insolito',
+      'Difficoltà respiratoria improvvisa',
+      'Gonfiore o dolore insolito a una gamba',
+      'Un mal di testa improvviso, molto intenso o insolito',
+      'Difficoltà improvvise nella vista, nel linguaggio o nella forza',
+    ],
+    emergencyTitle: 'In caso di situazione grave',
+    emergencyText: 'Se i sintomi sono improvvisi, molto gravi o accompagnati da difficoltà respiratoria, sensazione di svenimento o un altro segno serio, chiedi subito aiuto medico urgente.',
+    summaryTitle: 'L’essenziale',
+    summaryItems: [
+      'Alcuni effetti possono comparire all’inizio di un nuovo metodo di contraccezione ormonale.',
+      'Molti effetti sono temporanei e possono diminuire nel tempo.',
+      'Un sintomo fastidioso o persistente merita di essere discusso con un professionista.',
+      'Alcuni segnali insoliti richiedono un parere medico tempestivo.',
+    ],
+    finalTipTitle: 'Da ricordare',
+    finalTipText: 'Ascoltare il tuo corpo non significa necessariamente interrompere subito un metodo. Annota ciò che senti, osserva come evolve e chiedi consiglio ogni volta che un sintomo ti preoccupa.',
+    disclaimerText: 'Questo articolo ha scopo informativo e non sostituisce un parere medico personalizzato. Se hai un sintomo importante o insolito, rivolgiti a un professionista sanitario.',
+    shareMessage: 'Riconoscere i possibili effetti collaterali — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -375,7 +467,7 @@ export default function SideEffectsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

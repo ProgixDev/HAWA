@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'pain-gerer-douleurs';
 
@@ -165,6 +166,57 @@ const CONTENT = {
     ],
     shareMessage: 'Manejar los dolores menstruales — AWA',
   },
+  it: {
+    badge: 'DOLORE',
+    title: 'Gestire il dolore\nmestruale',
+    metaDuration: '7 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Calore, movimento dolce, alimentazione: abitudini che portano davvero sollievo.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Capire il dolore mestruale',
+      'Rimedi naturali efficaci',
+      'Quando rivolgersi al medico?',
+      'Consigli pratici per ogni giorno',
+    ],
+    section1Text: 'I crampi derivano dalle contrazioni dell’utero che aiutano a eliminare il rivestimento uterino. Sono causati dalle prostaglandine. Ogni corpo reagisce in modo diverso.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Il dolore può variare da un ciclo all’altro e non è sempre uguale.',
+    solutions: [
+      {
+        title: 'Calore',
+        text: 'Una borsa dell’acqua calda sul basso ventre può rilassare i muscoli.',
+      },
+      {
+        title: 'Movimento dolce',
+        text: 'Yoga, stretching e camminate leggere alleviano la tensione.',
+      },
+      {
+        title: 'Alimentazione',
+        text: 'Magnesio, omega-3 e alimenti antinfiammatori.',
+      },
+      {
+        title: 'Idratazione',
+        text: 'Bere abbastanza acqua aiuta a limitare il gonfiore.',
+      },
+      {
+        title: 'Massaggio',
+        text: 'Un massaggio circolare sul basso ventre ti aiuta a rilassarti.',
+      },
+    ],
+    section3Text: 'Se, nonostante questi rimedi, il dolore ti impedisce ogni mese di vivere normalmente, è importante parlarne con un operatore sanitario.',
+    alertTitle: 'Rivolgiti a un medico se',
+    alertText: 'Dolore molto intenso, sanguinamento abbondante, stanchezza estrema o sintomi anomali.',
+    dailyTips: [
+      'Scalda dolcemente il corpo al risveglio',
+      'Privilegia un’alimentazione equilibrata',
+      'Prenditi del tempo per respirare e rilassarti',
+      'Monitora il tuo ciclo per capire meglio il tuo dolore',
+    ],
+    shareMessage: 'Gestire il dolore mestruale — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -176,7 +228,7 @@ export default function PeriodPainArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

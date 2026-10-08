@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'flow-hygiene-intime';
 
@@ -207,6 +208,65 @@ const CONTENT = {
     shareTitle: 'Higiene íntima · AWA',
     shareMessage: 'Cuidar bien tu higiene íntima durante el período · AWA',
   },
+  it: {
+    badge: 'FLUSSO MESTRUALE',
+    title: 'Prenderti cura dell’igiene intima\ndurante il ciclo',
+    metaDuration: '6 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Prenderti cura della tua igiene intima significa rispettare il tuo corpo e il suo equilibrio naturale.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Perché è importante',
+      'Buone abitudini',
+      'Cosa evitare',
+      'Quando rivolgersi al medico',
+      'Consigli pratici',
+    ],
+    body: 'Durante il ciclo il tuo corpo cambia e diventa più sensibile. Adottare le giuste abitudini aiuta a prevenire irritazioni e infezioni e a stare comoda giorno dopo giorno.',
+    goodPractices: [
+      'Lavati con delicatezza: basta un semplice risciacquo con acqua pulita, dall’avanti all’indietro, per proteggere la tua flora naturale.',
+      'Cambia la protezione regolarmente: ogni 4-6 ore per evitare umidità e cattivi odori.',
+      'Scegli il cotone: la biancheria intima in cotone lascia respirare la pelle e riduce il rischio di irritazioni.',
+    ],
+    thingsToAvoid: [
+      'Saponi aggressivi e prodotti profumati',
+      'Lavande vaginali, che alterano la tua flora naturale',
+      'Tenere troppo a lungo un assorbente o un tampone umido',
+    ],
+    consultReasons: [
+      'Irritazione, prurito o bruciore persistenti',
+      'Odore o perdite insoliti, diversi da quelli che per te sono normali',
+      'Dolore importante o sintomi che ti preoccupano',
+    ],
+    tipTitle: 'Consiglio AWA',
+    tipText: 'Il tuo corpo ha già un meccanismo naturale di equilibrio. Di solito basta un lavaggio delicato.',
+    takeawaysTitle: 'Da ricordare',
+    takeaways: [
+      'Lavaggio delicato con acqua pulita',
+      'Cambiare con regolarità',
+      'Evitare i prodotti profumati',
+      'Scegliere il cotone',
+    ],
+    relatedTitle: '♥  Potrebbe interessarti anche',
+    related: [
+      {
+        title: 'Capire il dolore mestruale',
+        meta: '7 min  ·  Guida',
+      },
+      {
+        title: 'Scegliere la protezione giusta per il tuo corpo',
+        meta: '5 min  ·  Guida',
+      },
+      {
+        title: 'Come alleviare i crampi in modo naturale',
+        meta: '6 min  ·  Guida',
+      },
+    ],
+    shareTitle: 'Igiene intima · AWA',
+    shareMessage: 'Prenderti cura dell’igiene intima durante il ciclo · AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -215,7 +275,7 @@ export default function FlowMenstrualArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

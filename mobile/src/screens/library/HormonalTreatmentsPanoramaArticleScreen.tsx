@@ -33,10 +33,12 @@ import {
   withAlpha,
   type ResolvedAwaTheme,
 } from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
 
 const ID = 'hormonaltreatments-panorama';
 
-const HERO = require('../../assets/images/library/cycle-phases-hero.png');
+const HERO = CYCLE_PHASES_HERO;
 
 // Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
 // object below. These arrays are kept aligned by index with
@@ -371,6 +373,109 @@ const CONTENT = {
     tip1Text: 'Tomarte el tiempo de comparar los métodos con un profesional de la salud te permite elegir una anticoncepción que puedas usar con tranquilidad y de forma regular.',
     shareMessage: 'Panorama de los tratamientos hormonales anticonceptivos — AWA',
   },
+  it: {
+    badge: 'TRATTAMENTI ORMONALI',
+    title: 'Panoramica dei trattamenti contraccettivi ormonali',
+    metaDuration: '7 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Pillola, cerotto, anello, impianto, spirale ormonale: che cosa le distingue e come pensare al metodo più adatto alla tua vita quotidiana.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Un meccanismo d’azione comune',
+      'I diversi metodi',
+      'Come orientare la tua scelta',
+      'I punti chiave',
+    ],
+    body1: 'I metodi ormonali usano gli ormoni per prevenire la gravidanza. A seconda del metodo, possono soprattutto impedire l’ovulazione, rendere più denso il muco cervicale e modificare l’ambiente uterino.',
+    diagramTitle: 'Come funziona la contraccezione ormonale?',
+    diagramSubtitle: 'Diversi meccanismi possono contribuire alla protezione.',
+    step1Title: 'Ovulazione',
+    step1Text: 'Alcuni metodi impediscono o inibiscono il rilascio dell’ovulo.',
+    step2Title: 'Muco cervicale',
+    step2Text: 'Il muco può diventare più denso, rendendo più difficile il passaggio degli spermatozoi.',
+    step3Title: 'Protezione contraccettiva',
+    step3Text: 'La combinazione di questi meccanismi contribuisce a ridurre il rischio di gravidanza.',
+    body2: 'Non tutti i metodi richiedono lo stesso livello di impegno. La differenza principale sta nella frequenza con cui devi pensare alla tua contraccezione.',
+    comparisonTitle: 'Confronto tra i metodi',
+    comparisonSubtitle: 'Da un gesto quotidiano a una protezione a lungo termine',
+    scaleDaily: 'Giornaliero',
+    scaleWeekly: 'Settimanale',
+    scaleLongTerm: 'A lungo termine',
+    methods: [
+      {
+        title: 'Pillola',
+        frequency: 'Ogni giorno',
+        duration: 'Assunta con regolarità',
+        profile: 'Ideale se vuoi gestire in prima persona la tua contraccezione',
+      },
+      {
+        title: 'Cerotto',
+        frequency: 'Ogni settimana',
+        duration: '3 settimane su 4',
+        profile: 'Comodo se preferisci evitare una routine quotidiana',
+      },
+      {
+        title: 'Anello vaginale',
+        frequency: 'Ogni 3 settimane',
+        duration: 'Con una pausa di una settimana',
+        profile: 'Un’opzione discreta, con pochi gesti quotidiani',
+      },
+      {
+        title: 'Impianto',
+        frequency: 'Diversi anni',
+        duration: 'Nessuna routine quotidiana',
+        profile: 'Adatto se desideri una contraccezione a lungo termine',
+      },
+      {
+        title: 'Spirale ormonale',
+        frequency: 'Diversi anni',
+        duration: 'Posizionata da un professionista',
+        profile: 'Una soluzione a lungo termine che richiede pochissima manutenzione',
+      },
+    ],
+    highlightTitle: 'Il punto essenziale da ricordare',
+    highlightText: 'Meno gesti quotidiani richiede un metodo, meno spesso devi pensarci. Può valere la pena tenerne conto se sai di poterti dimenticare una dose o un cambio.',
+    body3: 'Non esiste un metodo ideale per tutte. La scelta migliore dipende dalla tua vita quotidiana, dalle tue preferenze, dalla tua tollerabilità e dai tuoi progetti.',
+    criteria: [
+      {
+        title: 'La tua vita quotidiana',
+        text: 'Alcuni metodi richiedono un gesto quotidiano, altri agiscono per diverse settimane o per anni.',
+      },
+      {
+        title: 'La tua tollerabilità',
+        text: 'Come ci si sente con un metodo può variare da persona a persona. Parlarne con un professionista sanitario può aiutarti a capire che cosa fa per te.',
+      },
+      {
+        title: 'I tuoi progetti',
+        text: 'Se speri in una gravidanza a breve o più avanti, la durata del metodo e la sua reversibilità possono aiutarti a orientare la scelta.',
+      },
+      {
+        title: 'Le tue priorità',
+        text: 'Discrezione, semplicità, nessuna routine quotidiana o protezione di lunga durata: le tue priorità contano in questa decisione.',
+      },
+    ],
+    choiceDiagramTitle: 'Una domanda rapida per decidere',
+    questionText: '«Preferirei pensare alla mia contraccezione ogni giorno, ogni settimana o solo poche volte all’anno?»',
+    choiceOption1Title: 'Spesso',
+    choiceOption1Text: 'Pillola o un metodo che richiede attenzione regolare',
+    choiceOption2Title: 'Meno spesso',
+    choiceOption2Text: 'Cerotto o anello, a seconda del ritmo che scegli',
+    choiceOption3Title: 'Molto raramente',
+    choiceOption3Text: 'Impianto o spirale ormonale a lungo termine',
+    alertTitle: 'Da tenere a mente',
+    alertText: 'La scelta di un contraccettivo ormonale dovrebbe tenere conto della tua situazione personale e medica. Un professionista sanitario può aiutarti a confrontare benefici, rischi, controindicazioni ed eventuali effetti collaterali.',
+    summaryTitle: 'L’essenziale',
+    summarySubtitle: 'I punti chiave da ricordare',
+    summaryRow1: 'I metodi ormonali usano diverse combinazioni di ormoni e diversi schemi di utilizzo.',
+    summaryRow2: 'La pillola, il cerotto e l’anello richiedono un impegno continuo, mentre l’impianto e la spirale ormonale sono metodi a lungo termine.',
+    summaryRow3: 'La scelta dovrebbe adattarsi alla tua vita quotidiana, alle tue preferenze, alla tua tollerabilità e ai tuoi progetti.',
+    summaryRow4: 'Nessun metodo è «il migliore» in assoluto: deve soprattutto essere compatibile con le tue esigenze e la tua situazione.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Prenderti il tempo di confrontare i metodi con un professionista sanitario ti aiuta a scegliere una contraccezione che puoi usare con serenità e costanza.',
+    shareMessage: 'Panoramica dei trattamenti contraccettivi ormonali — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -379,7 +484,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -436,7 +541,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
           },
         ]}>
         <View style={styles.heroWrap}>
-          <Image source={HERO} resizeMode="cover" style={styles.hero} />
+          <Image source={resolveEditorialImage(HERO, lang)} resizeMode="cover" style={styles.hero} />
 
           <View
             style={[

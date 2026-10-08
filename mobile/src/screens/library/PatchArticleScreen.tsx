@@ -29,10 +29,12 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
 
 const ID = 'patch-le-patch-contraceptif';
 
-const HERO = require('../../assets/images/library/cycle-phases-hero.png');
+const HERO = CYCLE_PHASES_HERO;
 
 // Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
 // object below, keyed by index to stay aligned with these icons.
@@ -226,6 +228,72 @@ const CONTENT = {
     ],
     shareMessage: 'El parche anticonceptivo — AWA',
   },
+  it: {
+    badge: 'CEROTTO CONTRACCETTIVO',
+    title: 'Il cerotto\ncontraccettivo',
+    metaDuration: '5 min di lettura',
+    metaType: 'Articolo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Un’alternativa settimanale alla pillola quotidiana.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Come funziona il cerotto',
+      'Calendario di applicazione',
+      'Cosa devi sapere',
+      'Punti chiave',
+    ],
+    section1Body: 'Il cerotto rilascia continuamente ormoni attraverso la pelle, con un funzionamento paragonabile a quello della pillola combinata: impedisce l’ovulazione e ispessisce il muco cervicale.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Il suo principale vantaggio è che non richiede una dose quotidiana.',
+    section2Body: 'Il cerotto viene generalmente cambiato una volta a settimana per tre settimane, seguite da una settimana senza cerotto.',
+    applicationTips: [
+      'Cambia la zona di applicazione ogni volta',
+      'Controlla che sia ancora ben attaccato',
+      'Applicalo su pelle pulita e asciutta',
+    ],
+    sectionIntro: 'I punti chiave da conoscere prima e durante l’uso.',
+    facts: [
+      {
+        title: 'Ogni settimana',
+        text: 'Il cerotto si sostituisce una volta a settimana.',
+      },
+      {
+        title: 'Pelle asciutta',
+        text: 'Deve essere applicato su pelle pulita e asciutta.',
+      },
+      {
+        title: 'Protezione',
+        text: 'Agisce in modo continuo se usato correttamente.',
+      },
+      {
+        title: 'Da tenere d’occhio',
+        text: 'A volte può comparire un’irritazione locale.',
+      },
+    ],
+    comparisonTitle: 'Vantaggi e limiti',
+    advantageTitle: 'Vantaggi',
+    advantages: [
+      '• Un’applicazione a settimana',
+      '• Nessuna dose quotidiana',
+      '• Rilascio continuo di ormoni',
+    ],
+    limitTitle: 'Limiti',
+    limits: [
+      'Non protegge dalle infezioni sessualmente trasmissibili',
+      'Può causare irritazione cutanea',
+      'Richiede di rispettare il calendario di sostituzione',
+    ],
+    alertTitle: 'Attenzione',
+    alertText: 'Una lieve irritazione può comparire nella zona di applicazione. Alternare le zone di applicazione può aiutare a limitarla.',
+    rememberTitle: 'I 3 punti essenziali',
+    remember: [
+      'Cambia il cerotto ogni settimana.',
+      'Controlla regolarmente che aderisca bene.',
+      'Chiedi consiglio a un professionista sanitario se necessario.',
+    ],
+    shareMessage: 'Il cerotto contraccettivo — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -234,7 +302,7 @@ export default function PatchArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -292,7 +360,7 @@ export default function PatchArticleScreen({
         ]}>
         {/* HERO */}
         <View style={styles.heroWrap}>
-          <Image source={HERO} resizeMode="cover" style={styles.hero} />
+          <Image source={resolveEditorialImage(HERO, lang)} resizeMode="cover" style={styles.hero} />
 
           <View
             style={[

@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'firstperiod-gerer-quotidien';
 
@@ -182,6 +183,47 @@ const CONTENT = {
     ],
     shareMessage: '¿Cómo gestionar tu primera menstruación en el día a día? — AWA',
   },
+  it: {
+    badge: 'PRIMO CICLO',
+    title: 'Come gestire il tuo\nprimo ciclo giorno per giorno?',
+    metaDuration: '5 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Con qualche piccola abitudine, il tuo primo ciclo si inserisce facilmente nella vita di tutti i giorni, a scuola e non solo.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Organizzarsi giorno per giorno',
+      'Preparare un piccolo kit d’emergenza',
+      'Se il ciclo arriva all’improvviso',
+    ],
+    body1: 'Scuola, sport, sonno: il ciclo non ti impedisce di continuare le tue attività abituali. Basta adattare qualche abitudine per restare comoda per tutta la giornata.',
+    dailyTips: [
+      'Scuola o attività: tieni un assorbente o un tampone nella borsa',
+      'Sport: puoi continuare a fare sport, basta adattare il ritmo',
+      'Sonno: basta un assorbente notturno adatto',
+    ],
+    body2: 'Un piccolo kit con uno o due assorbenti o tamponi, un paio di mutandine di ricambio e qualche salvietta entra facilmente in una borsa da scuola o da sport. Ti aiuta a sentirti a tuo agio qualunque cosa accada.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Avere sempre con te un assorbente o un tampone evita lo stress di essere colta alla sprovvista.',
+    body3: 'Succede spesso, soprattutto all’inizio. Un’infermiera della scuola, un’insegnante o un’amica ha quasi sempre qualcosa che può aiutare. Anche legarti un indumento intorno alla vita può funzionare mentre trovi un assorbente o un tampone.',
+    relatedTitle: '♥  Potrebbe interessarti anche',
+    related: [
+      {
+        title: 'Quale assorbente o tampone scegliere per il mio primo ciclo?',
+        meta: '6 min  ·  Guida',
+      },
+      {
+        title: 'Gestire il dolore mestruale',
+        meta: '7 min  ·  Guida',
+      },
+      {
+        title: 'I miei primi cicli sono irregolari: è normale?',
+        meta: '5 min  ·  Guida',
+      },
+    ],
+    shareMessage: 'Come gestire il tuo primo ciclo giorno per giorno? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -190,7 +232,7 @@ export default function FirstPeriodDailyLifeArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -240,6 +241,61 @@ const CONTENT = {
       'Contenido informativo. Este artículo no sustituye una opinión médica personalizada. Si tienes dudas, consulta a un profesional de la salud.',
     shareMessage: 'Comprender las pruebas de ovulación (LH) — AWA',
   },
+  it: {
+    badge: 'FERTILITÀ • TEST DI OVULAZIONE',
+    title: 'Capire i test\ndi ovulazione (LH)',
+    metaDuration: '6 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenuto validato',
+    intro: 'Come funzionano queste strisce e quando usarle.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Che cos’è l’LH?',
+      'Come funzionano questi test',
+      'Quando iniziare a fare il test',
+      'Interpretare un risultato',
+      'Falsi positivi e limiti',
+      'Abbinarli ad altri segnali',
+      'Punti chiave',
+    ],
+    section1Body: 'L’LH (ormone luteinizzante) è prodotto dal cervello e regola il funzionamento delle ovaie. I test di ovulazione rilevano il picco di questo ormone, che innesca il rilascio dell’ovulo da 24 a 36 ore dopo.',
+    section2Body: 'Una striscia reattiva sulle urine misura i livelli di LH: una linea del test scura quanto la linea di controllo, o più scura, indica un picco.',
+    section3Body: 'Si consiglia di iniziare a fare il test qualche giorno prima della data di ovulazione stimata in base al tuo ciclo.',
+    testingTips: [
+      {
+        title: 'Parti dal tuo ciclo',
+        text: 'Inizia qualche giorno prima della data di ovulazione stimata in base alla durata media dei tuoi cicli.',
+      },
+      {
+        title: 'Fai il test alla stessa ora ogni giorno',
+        text: 'Idealmente verso mezzogiorno, evitando le prime urine del mattino.',
+      },
+      {
+        title: 'Evita di diluire le urine',
+        text: 'Limita le grandi quantità di liquidi nelle ore che precedono il test.',
+      },
+    ],
+    section4Body: 'Un risultato positivo indica il momento più fertile per avere rapporti nei 1-2 giorni successivi. Un risultato negativo significa semplicemente che il picco non c’è ancora stato.',
+    limitations: [
+      'La PCOS può causare livelli di LH naturalmente più alti, che possono falsare la lettura',
+      'Alcuni trattamenti per la fertilità possono influire sul risultato',
+      'Urine molto diluite possono dare un falso negativo',
+      'Un test di qualità inferiore può essere meno affidabile',
+    ],
+    infoTitle: 'Da tenere a mente',
+    infoText: 'Un picco di LH indica un segnale ormonale di innesco, ma da solo non garantisce che l’ovulo sia stato effettivamente rilasciato.',
+    tipTitle: 'Da sapere',
+    tipText: 'Abbinare i test di ovulazione alla temperatura basale o all’osservazione del muco cervicale offre un quadro più completo del tuo ciclo.',
+    summaryPoints: [
+      'I test di ovulazione rilevano il picco di LH, che innesca il rilascio dell’ovulo da 24 a 36 ore dopo.',
+      'Si consiglia di iniziare a fare il test qualche giorno prima della data di ovulazione stimata in base al tuo ciclo.',
+      'Un risultato positivo indica il momento più fertile per avere rapporti nei 1-2 giorni successivi.',
+      'Un picco di LH da solo non garantisce che l’ovulazione sia effettivamente avvenuta.',
+    ],
+    disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce un parere medico personalizzato. In caso di dubbi, rivolgiti a un professionista sanitario.',
+    shareMessage: 'Capire i test di ovulazione (LH) — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -256,7 +312,7 @@ export default function LhTestsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

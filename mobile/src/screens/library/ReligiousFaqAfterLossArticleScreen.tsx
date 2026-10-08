@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'religiousfaq-reperes-apres-une-perte';
 
@@ -232,6 +233,58 @@ const CONTENT = {
       'Cuidarte, buscar apoyo y conservar la esperanza pueden acompañar progresivamente el camino hacia el sosiego.',
     shareMessage: 'Referencias espirituales después de una pérdida — AWA',
   },
+  it: {
+    badge: 'GUIDA SPIRITUALE',
+    title: 'Una guida spirituale\ndopo una perdita',
+    metaDuration: '5 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaEducational: 'Contenuto educativo',
+    intro: 'Alcuni spunti di orientamento spirituale per aiutarti ad attraversare una perdita con dolcezza, pazienza e compassione.',
+    disclaimerTitle: 'Informazione importante',
+    disclaimerText: 'Questo contenuto è educativo. Le questioni religiose specifiche vanno verificate con uno studioso qualificato. AWA non emette fatwa personalizzate.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Una prova riconosciuta',
+      'Una condizione che dipende dalla situazione',
+      'Pazienza e speranza',
+      'Alcuni spunti per andare avanti',
+    ],
+    section1H2: '1. Una prova riconosciuta',
+    section1Body1: 'Una perdita di gravidanza può essere una prova profondamente dolorosa. Tristezza, silenzio, smarrimento o il bisogno di ritirarsi sono reazioni umane naturali.',
+    section1Body2: 'Provare queste emozioni non significa mancare di fede. Ogni donna può vivere il proprio lutto con i propri tempi.',
+    visual1Title: 'Accogliere le tue emozioni',
+    visual1Body: 'Tristezza • bisogno di riposo • silenzio • sostegno',
+    section2H2: '2. Una condizione che può variare a seconda della situazione',
+    section2Body1: 'Dopo una perdita, le regole religiose possono dipendere dalla situazione e dalla natura del sanguinamento.',
+    section2Body2: 'In particolare, può essere necessario distinguere tra diversi tipi di sanguinamento prima di stabilire quali pratiche religiose seguire.',
+    schemaTitle: 'Il principio generale',
+    schemaLabel1: 'Situazione',
+    schemaLabel2: 'Natura del sanguinamento',
+    schemaLabel3: 'Indicazione adatta',
+    doubtTipTitle: 'In caso di dubbio',
+    doubtTipText: 'Una situazione personale può richiedere una risposta diversa. È meglio chiedere consiglio a una persona qualificata.',
+    section3H2: '3. Pazienza e speranza',
+    section3Body1: 'La pazienza (sabr) non significa non piangere o non sentire dolore. Può semplicemente accompagnare il cammino con fede e speranza.',
+    section3Body2: 'Piccoli gesti possono aiutare a ritrovare gradualmente un senso di pace: un’invocazione, un momento di dhikr, un ascolto spirituale o la presenza di una persona cara.',
+    spiritual1: 'Invocazione',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Sostegno',
+    retainTipTitle: 'Da ricordare',
+    retainTipText: 'Guarire richiede tempo. Non esiste un ritmo universale per attraversare una perdita.',
+    section4H2: '4. Alcuni spunti per andare avanti',
+    section4Body: 'Non serve fare tutto subito. Scegli ciò che corrisponde a come ti senti e a ciò di cui hai bisogno in questo momento.',
+    gentleSteps: [
+      'Prenditi il tempo di vivere il tuo lutto',
+      'Circondati di persone premurose',
+      'Mantieni piccole pratiche spirituali se ti portano conforto',
+      'Chiedi consiglio per qualsiasi questione religiosa specifica',
+      'Cerca sostegno se il lutto diventa troppo difficile da portare',
+    ],
+    finalTitle: 'Un cammino con i tuoi tempi',
+    finalText: 'Prendersi cura di sé, cercare sostegno e mantenere viva la speranza può aiutare a orientare gradualmente il cammino verso la pace.',
+    shareMessage: 'Una guida spirituale dopo una perdita — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -240,7 +293,7 @@ export default function ReligiousFaqAfterLossArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

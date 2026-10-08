@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'postpartum-recuperation-globale';
 
@@ -365,6 +366,142 @@ const CONTENT = {
     disclaimerText: 'Este artículo tiene una finalidad informativa y no sustituye una opinión médica personalizada. En caso de síntoma importante, persistente o preocupante, contacta con un profesional de la salud.',
     shareMessage: 'La recuperación después del parto — AWA',
   },
+  it: {
+    badge: 'POST-PARTUM • RECUPERO',
+    title: 'Il recupero\ndopo il parto',
+    metaDuration: '10 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Il tuo corpo ha bisogno di tempo: cosa è normale dopo il parto.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Capire il post-partum',
+      'I primi giorni: rallentare e recuperare',
+      'Cosa può essere normale durante il recupero',
+      'Prendersi cura di sé ogni giorno',
+      'Muoversi e riprendere le attività gradualmente',
+      'Sonno, stanchezza e nuove abitudini',
+      'Le emozioni dopo il parto',
+      'Quando chiedere un parere',
+      'Il controllo con un operatore sanitario',
+      'Cosa ricordare',
+    ],
+    headings: [
+      'Capire il post-partum',
+      'I primi giorni: rallentare e recuperare',
+      'Cosa può essere normale durante il recupero',
+      'Prendersi cura di sé ogni giorno',
+      'Muoversi e riprendere le attività gradualmente',
+      'Sonno, stanchezza e nuove abitudini',
+      'Le emozioni dopo il parto',
+      'Quando chiedere consiglio?',
+      'Il controllo con un operatore sanitario',
+      'Cosa ricordare',
+    ],
+    section1Body1: 'Il post-partum segue il parto. Non si limita a pochi giorni: il corpo, il ritmo quotidiano e le emozioni possono continuare a evolvere gradualmente nelle settimane successive.',
+    section1Body2: 'La «quarantaine» è un’espressione tradizionale spesso usata per descrivere le prime settimane di recupero. Può essere un buon promemoria: dopo la gravidanza e il parto, è bene rallentare e dare tempo al corpo.',
+    highlight1Title: 'Un recupero che riguarda tutto il corpo',
+    highlight1Text: 'Il recupero riguarda il corpo, ma anche il sonno, l’energia, l’organizzazione quotidiana e l’adattamento emotivo a una nuova fase della vita.',
+    section2Body: 'I primi giorni possono essere intensi. Riposo, cure di base e adattamento al nuovo ritmo sono spesso le priorità. Non c’è bisogno di ritrovare subito il tuo solito livello di energia.',
+    recoveryPillars: [
+      {
+        title: 'Riposo',
+        text: 'Alternare attività e riposo aiuta il corpo a recuperare gradualmente.',
+      },
+      {
+        title: 'Alimentazione',
+        text: 'Mangiare con regolarità e bere in base alle tue esigenze sostiene il recupero di ogni giorno.',
+      },
+      {
+        title: 'Sostegno',
+        text: 'Accettare aiuto permette di risparmiare energie per le cure essenziali e per il recupero.',
+      },
+      {
+        title: 'Movimento dolce',
+        text: 'Riprendi gradualmente movimenti e attività, rispettando le tue condizioni e il tuo comfort.',
+      },
+    ],
+    section3Body1: 'Ogni recupero è diverso. Alcuni cambiamenti possono far parte della fase di adattamento ed evolvere gradualmente:',
+    normalSigns: [
+      'Stanchezza importante',
+      'Sanguinamento che diminuisce gradualmente',
+      'Fluttuazioni ormonali ed emotive',
+    ],
+    section3Body2: 'L’intensità e la durata dei sintomi possono variare da persona a persona. L’importante è osservare come evolvono e chiedere un parere se un cambiamento ti sembra preoccupante o insolito.',
+    section4Body: 'Durante il post-partum, abitudini piccole e realistiche sono spesso più utili di una routine impegnativa. L’obiettivo è sostenere il recupero senza aggiungere pressione.',
+    selfCareTips: [
+      'Pianifica veri momenti di riposo ogni volta che è possibile.',
+      'Chiedi aiuto per le faccende quotidiane e i pasti.',
+      'Bevi con regolarità e segui un’alimentazione varia.',
+      'Evita di paragonare il tuo recupero a quello di un’altra donna.',
+      'Riprendi le attività gradualmente, senza cercare di fare tutto subito.',
+    ],
+    tip1Title: 'Da sapere',
+    tip1Text: 'Circondarti di sostegno e accettare aiuto non è un lusso. Può aiutare a preservare le energie e rendere il recupero più graduale.',
+    section5Body1: 'La ripresa delle attività può avvenire passo dopo passo, in base al comfort, all’energia e alle raccomandazioni ricevute dopo il parto. I movimenti dolci e le attività quotidiane contano già come ritorno al movimento.',
+    section5Body2: 'Per le attività più intense, è meglio procedere senza saltare le tappe e tenere conto di eventuali sintomi o fastidi.',
+    alertTitle: 'Ascolta i segnali del tuo corpo',
+    alertText: 'Un fastidio che aumenta durante un’attività è un motivo per rallentare e, se necessario, per chiedere un consiglio adatto a te prima di continuare o aumentare l’intensità.',
+    section6Body: 'Il sonno può diventare irregolare dopo il parto. La stanchezza accumulata può influire su energia, concentrazione e umore. Quando possibile, semplificare alcuni compiti e condividere le responsabilità può aiutare.',
+    milestones: [
+      [
+        'Primi giorni',
+        'Riposo, adattamento e cure essenziali.',
+      ],
+      [
+        'Prime settimane',
+        'Recupero graduale e inizio di nuove abitudini.',
+      ],
+      [
+        'Dopo la visita post-parto',
+        'Fai il punto sul recupero e parla della ripresa graduale delle attività.',
+      ],
+    ],
+    section7Body1: 'Il post-partum può portare tante emozioni: gioia, preoccupazione, stanchezza, sensibilità o la sensazione di essere sopraffatta. Questi stati d’animo possono cambiare rapidamente, soprattutto in un periodo in cui sonno e abitudini quotidiane stanno cambiando.',
+    section7Body2: 'Parlare con una persona di cui ti fidi o con un professionista può aiutare quando le emozioni diventano difficili da gestire o occupano molto spazio nella vita quotidiana.',
+    highlight2Title: 'Chiedere sostegno è normale',
+    highlight2Text: 'Non serve aspettare di essere completamente esausta o sopraffatta per parlare di come ti senti e cercare sostegno.',
+    section8Body: 'Di alcune situazioni è bene parlare con un operatore sanitario, soprattutto quando peggiorano, persistono o causano una forte preoccupazione.',
+    consultationSigns: [
+      {
+        title: 'Sintomi che peggiorano',
+        text: 'Un dolore o un fastidio che aumenta invece di migliorare merita il parere di un professionista.',
+      },
+      {
+        title: 'Sanguinamento insolito',
+        text: 'Un sanguinamento che diventa all’improvviso più abbondante o insolito va segnalato a un operatore sanitario.',
+      },
+      {
+        title: 'Disagio persistente',
+        text: 'Se il disagio emotivo occupa molto spazio o rende difficile la vita quotidiana, è importante parlarne e chiedere sostegno.',
+      },
+      {
+        title: 'Forte preoccupazione',
+        text: 'Se hai dubbi sul tuo recupero, chiedere un parere ti aiuta a ricevere indicazioni adatte alla tua situazione.',
+      },
+    ],
+    section9Body: 'Le visite di controllo sono un’occasione per parlare del recupero, dei sintomi, della ripresa delle attività e di eventuali domande rimaste aperte. Preparare qualche domanda in anticipo può aiutare a non dimenticare nulla.',
+    questionTitle: 'Domande che puoi preparare',
+    questions: [
+      'Il mio recupero procede come previsto per la mia situazione?',
+      'Quali attività posso riprendere gradualmente?',
+      'Quali sintomi devo tenere d’occhio?',
+      'Quando posso pensare a una ripresa più intensa dell’attività fisica?',
+      'Ho bisogno di consigli specifici o di riabilitazione?',
+    ],
+    summaryItems: [
+      'Il recupero dopo il parto è graduale e diverso per ognuna.',
+      'Riposo e sostegno possono far parte integrante del recupero.',
+      'Cambiamenti fisici, sonno ed emozioni possono evolvere nel corso delle settimane.',
+      'Riprendere le attività gradualmente ti aiuta a rispettare meglio la tua energia e il tuo comfort.',
+      'Se noti un sintomo insolito, persistente o preoccupante, chiedere un parere è un buon passo.',
+    ],
+    finalTipTitle: 'Prenditi il tempo che ti serve',
+    finalTipText: 'Il recupero non è una gara. Andare avanti gradualmente, rispettando le tue esigenze e chiedendo sostegno quando serve, sono già passi importanti.',
+    disclaimerText: 'Questo articolo ha solo scopo informativo e non sostituisce un parere medico personalizzato. Se hai un sintomo importante, persistente o preoccupante, contatta un operatore sanitario.',
+    shareMessage: 'Il recupero dopo il parto — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -373,7 +510,7 @@ export default function PostpartumRecoveryArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

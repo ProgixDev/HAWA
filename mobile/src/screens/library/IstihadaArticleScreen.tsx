@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'istihada-comprendre-les-saignements';
 
@@ -229,6 +230,77 @@ const CONTENT = {
     tip3Text: 'La Istihada es un concepto que distingue un sangrado inusual de la menstruación o del nifas, con implicaciones específicas en la oración y el ayuno. En caso de duda, la observación atenta y la opinión de un erudito cualificado siguen siendo los mejores recursos.',
     shareMessage: 'Comprender la Istihada — AWA',
   },
+  it: {
+    badge: 'ISTIHADA',
+    title: 'Capire l’Istihâda',
+    metaDuration: '7 min di lettura',
+    metaType: 'FAQ',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenuto validato',
+    intro: 'Distinguere un sanguinamento irregolare dalle tue mestruazioni abituali, con alcuni riferimenti generali che possono orientarti.',
+    disclaimerTitle: 'Informazione importante',
+    disclaimerText: 'Questo contenuto ha uno scopo puramente educativo. Le questioni religiose dovrebbero essere validate da studiosi qualificati. AWA non emette fatwa né pareri religiosi personalizzati.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Che cos’è l’Istihâda?',
+      'Perché può essere difficile riconoscerla?',
+      'Differenze tra mestruazioni e Istihâda',
+      'Come osservare il sanguinamento?',
+      'Preghiera e digiuno durante l’Istihâda',
+      'Cosa fare in caso di dubbio?',
+      'Punti chiave',
+    ],
+    section1Body: 'L’Istihâda indica un sanguinamento che si verifica al di fuori del normale ciclo mestruale, oppure che continua oltre la durata delle mestruazioni riconosciuta dalla tradizione islamica. A differenza delle mestruazioni (hayd) o del nifas (sanguinamento dopo il parto), non ha lo stesso status rituale: è generalmente considerata un sanguinamento di natura diversa, talvolta legato a una causa medica.',
+    note1Title: 'Attenzione',
+    note1Text: 'Questo contenuto spiega il concetto in termini generali; non permette di stabilire se uno specifico sanguinamento corrisponda a Istihâda nella tua situazione personale.',
+    section2Body: 'Può essere difficile distinguere l’Istihâda dalle mestruazioni o da un ciclo irregolare, perché il sanguinamento può talvolta sembrare simile, variare di intensità o proseguire in modo insolito. Questa difficoltà è riconosciuta dagli stessi studiosi, il che spiega perché esistono diversi approcci per individuarla.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'È normale non sapere subito a cosa corrisponda un sanguinamento insolito; questa incertezza è una situazione comune, non un tuo errore.',
+    section3Body: 'Alcuni elementi possono aiutarti a orientare la tua riflessione, senza essere regole universali, poiché i riferimenti precisi variano a seconda delle scuole giuridiche.',
+    differences: [
+      [
+        'calendar-clock-outline',
+        'Durata rispetto al tuo ciclo abituale',
+      ],
+      [
+        'repeat-variant',
+        'Regolarità o carattere insolito del sanguinamento',
+      ],
+      [
+        'water-outline',
+        'Come evolve il sanguinamento nel tempo',
+      ],
+      [
+        'clipboard-pulse-outline',
+        'Possibile presenza di una causa medica nota',
+      ],
+    ],
+    note2Title: 'Attenzione',
+    note2Text: 'Questi elementi sono riferimenti generali, non criteri assoluti: possono essere interpretati in modo diverso dagli studiosi e dalle scuole giuridiche.',
+    section4Body: 'Prenderti il tempo di osservare il sanguinamento per diversi giorni, senza fretta, ti aiuta a comprendere meglio la tua situazione prima di trarre una conclusione.',
+    checkList1Title: 'Alcuni consigli pratici',
+    observeTips: [
+      'Annota la data di inizio e, se possibile, la durata abituale dei tuoi cicli',
+      'Osserva se il sanguinamento segue un andamento simile a quello delle tue mestruazioni precedenti',
+      'Non basarti su un solo giorno isolato',
+      'Registra queste osservazioni se prevedi di consultare uno studioso o un professionista sanitario',
+    ],
+    section5Body: 'In caso di Istihâda, la preghiera e il digiuno restano generalmente obbligatori, a differenza di quanto avviene durante le mestruazioni. Si raccomandano allora precauzioni igieniche (come una protezione adeguata) per poter continuare il culto, secondo le modalità insegnate dalle diverse scuole giuridiche.',
+    tip2Title: 'Da sapere',
+    tip2Text: 'Le precauzioni precise (come rinnovare le abluzioni) possono variare a seconda della scuola giuridica seguita; fare riferimento al parere che segui abitualmente o a uno studioso qualificato ti aiuta ad applicarle correttamente.',
+    section6Body: 'Un dubbio persistente sulla natura di un sanguinamento è una situazione comune e non dovrebbe essere motivo di eccessiva preoccupazione.',
+    doubtSteps: [
+      'Fai riferimento alla durata e al ritmo abituali delle tue mestruazioni',
+      'Consulta un professionista sanitario se il sanguinamento è insolito o prolungato',
+      'Chiedi il parere di uno studioso qualificato sulla dimensione religiosa',
+      'Ricorda che una risposta generale non sostituisce una guida adatta alla tua situazione',
+    ],
+    alert2Title: 'Informazione importante',
+    alert2Text: 'Questo contenuto resta educativo e generale: non costituisce una fatwa né un parere religioso individuale. Per qualsiasi situazione personale, soprattutto in caso di dubbio prolungato, il parere di uno studioso qualificato resta il riferimento.',
+    tip3Title: 'Da sapere',
+    tip3Text: 'L’Istihâda è un concetto che distingue un sanguinamento insolito dalle mestruazioni o dal nifas, con implicazioni specifiche per la preghiera e il digiuno. In caso di dubbio, un’osservazione attenta e il parere di uno studioso qualificato restano le risorse migliori.',
+    shareMessage: 'Capire l’Istihâda — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -237,7 +309,7 @@ export default function IstihadaArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

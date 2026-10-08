@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'breastfeeding-debuter-allaitement';
 
@@ -269,6 +270,114 @@ const CONTENT = {
     ],
     disclaimerText: 'Contenido informativo. Este artículo no sustituye el acompañamiento personalizado de un profesional de la salud.',
   },
+  it: {
+    shareMessage: 'Iniziare l’allattamento con fiducia — AWA',
+    badge: 'POST-PARTUM • ALLATTAMENTO',
+    title: 'Iniziare l’allattamento\ncon fiducia',
+    metaDuration: '6 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'I primi giorni di allattamento sono un periodo di apprendimento sia per il neonato che per la mamma. Attacco, ritmo, posizione e osservazione ti aiutano a poco a poco a capire che cosa ti fa sentire più a tuo agio.',
+    contentsTitle: 'In questo articolo',
+    contentsSubtitle: 'L’essenziale per iniziare',
+    tocItems: [
+      'I primi passi',
+      'Segnali da osservare',
+      'Un buon attacco',
+      'Quando chiedere aiuto',
+      'Punti chiave',
+    ],
+    h2Step1: '1. I primi passi',
+    body1: 'L’allattamento si avvia gradualmente. Le prime ore, poi i primi giorni, danno al neonato e alla mamma il tempo di imparare insieme.',
+    timelineTitle: 'Iniziare, passo dopo passo',
+    timelineSubtitle: 'Una guida semplice, senza pressioni',
+    startingSteps: [
+      {
+        title: 'Dopo il parto',
+        text: 'Il contatto pelle a pelle e un attacco precoce possono aiutare l’allattamento a partire bene.',
+      },
+      {
+        title: 'Le prime ore',
+        text: 'Il neonato può mangiare spesso. È normale che il ritmo cambi.',
+      },
+      {
+        title: 'I primi giorni',
+        text: 'Le poppate diventano a poco a poco un ritmo condiviso tra neonato e mamma.',
+      },
+      {
+        title: 'Trovare un ritmo',
+        text: 'La produzione di latte si adatta gradualmente ai bisogni del neonato.',
+      },
+    ],
+    h2Step2: '2. Segnali da osservare',
+    body2: 'Più che guardare solo l’orologio, può essere utile osservare i segnali di risveglio del neonato, le poppate e i pannolini.',
+    signals: [
+      {
+        title: 'Un ritmo frequente',
+        text: 'Un neonato può chiedere di mangiare spesso, a volte da 8 a 12 volte nell’arco di 24 ore.',
+      },
+      {
+        title: 'Segnali di risveglio',
+        text: 'Il neonato può muoversi, aprire la bocca o cercare il seno quando inizia ad avere fame.',
+      },
+      {
+        title: 'Pannolini',
+        text: 'Il numero di pannolini bagnati e sporchi è una delle cose da tenere d’occhio giorno per giorno.',
+      },
+    ],
+    h2Step3: '3. Un buon attacco',
+    body3: 'Una posizione comoda e un attacco efficace possono rendere le poppate più facili. Se il dolore è forte o persistente, un professionista sanitario può controllare la posizione e l’attacco.',
+    latchTitle: 'I 4 punti di comfort',
+    latchSubtitle: 'Un semplice controllo durante le poppate',
+    latchCenterTitle: 'Neonato + seno',
+    latchCenterSubtitle: 'Posizione comoda',
+    latchPoints: [
+      {
+        title: 'Neonato ben posizionato',
+        text: 'Il neonato è tenuto vicino al corpo, con la testa in un allineamento comodo.',
+      },
+      {
+        title: 'Bocca ben aperta',
+        text: 'Aspetta che la bocca sia abbastanza aperta prima di offrire il seno.',
+      },
+      {
+        title: 'Attacco confortevole',
+        text: 'Un attacco efficace non dovrebbe causare un dolore forte o persistente.',
+      },
+      {
+        title: 'Suzione regolare',
+        text: 'Durante la poppata si possono osservare i movimenti di suzione e di deglutizione.',
+      },
+    ],
+    h2Step4: '4. Quando chiedere aiuto?',
+    body4: 'Non occorre aspettare che le difficoltà diventino gravi. Un professionista formato può aiutare a controllare la posizione, l’attacco o i bisogni del neonato.',
+    supportOptions: [
+      {
+        title: 'Ostetrica',
+        text: 'Può accompagnarti nei primi attacchi.',
+      },
+      {
+        title: 'Professionista sanitario',
+        text: 'Può controllare la salute del neonato e della mamma.',
+      },
+      {
+        title: 'Consulente per l’allattamento',
+        text: 'Può aiutare quando l’attacco risulta difficile.',
+      },
+    ],
+    infoTitle: 'Ogni percorso di allattamento è diverso',
+    infoText: 'I primi giorni possono variare molto. Il ritmo delle poppate e la quantità di latte possono cambiare gradualmente nel tempo. Se qualcosa ti preoccupa, chiedi consiglio a un professionista sanitario.',
+    h2Summary: 'Punti chiave',
+    summaryItems: [
+      'Le prime poppate sono un periodo di apprendimento per il neonato e per la mamma.',
+      'Un neonato può chiedere di mangiare spesso.',
+      'Una posizione comoda e un buon attacco sono importanti.',
+      'Osservare i segnali del neonato è più utile che puntare a un orario perfettamente fisso.',
+      'Un’ostetrica o una consulente per l’allattamento può aiutarti ad affrontare le difficoltà iniziali.',
+    ],
+    disclaimerText: 'Contenuto a scopo informativo. Questo articolo non sostituisce le indicazioni personalizzate di un professionista sanitario.',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -285,7 +394,7 @@ export default function BreastfeedingArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

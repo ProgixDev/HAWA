@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'pcos-mode-de-vie-prise-en-charge';
 
@@ -148,6 +149,42 @@ const CONTENT = {
     tip2Text: 'El SOP se maneja día a día con hábitos sencillos y un seguimiento médico regular: cada pequeño ajuste cuenta, a tu propio ritmo.',
     shareMessage: 'Estilo de vida y manejo del SOP — AWA',
   },
+  it: {
+    badge: 'PCOS',
+    title: 'PCOS: stile di vita e\ngestione',
+    metaDuration: '7 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Le opzioni di gestione della PCOS e semplici abitudini per sostenere la tua vita quotidiana.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Un percorso di cura costruito insieme a un professionista',
+      'Alimentazione equilibrata',
+      'Attività fisica adatta',
+      'Sonno e gestione dello stress',
+      'Benessere emotivo',
+      'Segnali che richiedono attenzione tempestiva',
+      'Punti chiave',
+    ],
+    nutritionTips: [
+      'Privilegia le fibre (verdure, legumi, cereali integrali)',
+      'Distribuisci i pasti nell’arco della giornata per evitare una fame intensa',
+      'Limita gli zuccheri semplici e gli alimenti molto processati',
+      'Nessun alimento è vietato: punta all’equilibrio generale piuttosto che a regole rigide',
+    ],
+    section1Body: 'Non esiste un trattamento unico per la PCOS: la gestione viene adattata ai tuoi sintomi, alle tue priorità (ciclo, fertilità, pelle, peso) e alla tua situazione personale. Può combinare misure legate allo stile di vita, terapie ormonali o altre opzioni, a seconda delle tue esigenze.',
+    section3Body: 'Un’attività fisica regolare, anche moderata (camminata a passo svelto, bicicletta, esercizi di rinforzo muscolare leggeri), aiuta a sostenere l’equilibrio ormonale e metabolico. La costanza conta più dell’intensità.',
+    section4Body: 'Dormire a sufficienza e concederti regolarmente momenti di relax aiuta a limitare l’impatto dello stress sull’equilibrio ormonale, che a sua volta può influenzare i sintomi della PCOS.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Piccoli cambiamenti duraturi sono spesso più efficaci a lungo termine rispetto a cambiamenti radicali difficili da mantenere.',
+    section5Body: 'Convivere con la PCOS può pesare sull’umore, soprattutto a causa dei sintomi visibili o delle preoccupazioni sulla fertilità. Queste emozioni sono legittime: parlarne con una persona a te vicina o con un professionista fa pienamente parte di una cura completa.',
+    alertTitle: 'Rivolgiti al medico se',
+    alertText: 'Hai dolore pelvico intenso o insolito, sanguinamento molto abbondante o prolungato, stanchezza estrema o sete insolita e persistente, oppure un disagio emotivo che si protrae nel tempo.',
+    tip2Title: 'Da sapere',
+    tip2Text: 'La PCOS si gestisce giorno per giorno con abitudini semplici e un follow-up medico regolare: ogni piccolo aggiustamento conta, al tuo ritmo.',
+    shareMessage: 'PCOS: stile di vita e gestione — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -156,7 +193,7 @@ export default function PcosLifestyleManagementArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

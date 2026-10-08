@@ -29,10 +29,12 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {EDITORIAL_IMAGE_ALT, resolveEditorialImage, PREGNANCY_FOLLOW_UP_HERO} from '../../i18n/editorialImages';
 
 const ID = 'pregnancy-semaine-par-semaine';
 
-const HERO = require('../../assets/images/library/grossesse_semiane.png');
+const HERO = PREGNANCY_FOLLOW_UP_HERO;
 
 // Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
 // object below, keyed by index to stay aligned with these icon lists.
@@ -210,6 +212,57 @@ const CONTENT = {
     tip2Text: 'Cada trimestre trae sus propios cambios: conocerlos de antemano ayuda a vivir mejor cada etapa, sin reemplazar el seguimiento regular de tu partera o tu médico.',
     shareMessage: 'Tu embarazo, semana a semana — AWA',
   },
+  it: {
+    badge: 'GRAVIDANZA • PANORAMICA',
+    title: 'La tua gravidanza,\nsettimana per settimana',
+    metaDuration: '8 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Le tappe principali dal primo al terzo trimestre, per sapere cosa aspettarti in ogni fase.',
+    introSecondary: 'Ogni gravidanza segue il suo ritmo: questi punti di riferimento sono generali e possono variare da donna a donna.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Il primo trimestre: porre le basi',
+      'Il secondo trimestre: più benessere',
+      'Il terzo trimestre: prepararsi',
+      'Le tappe principali per trimestre',
+      'Sintomi comuni in ogni fase',
+      'Quando rivolgersi rapidamente a un medico',
+      'Punti chiave',
+    ],
+    body1: 'Il primo trimestre pone le basi: tutti i principali organi del bambino si formano progressivamente. È anche un periodo in cui stanchezza e nausea sono frequenti, in misura molto diversa da una donna all’altra.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Questi sintomi, pur essendo a volte fastidiosi, sono un segno che il corpo si sta adattando attivamente alla gravidanza.',
+    body2: 'Il secondo trimestre è spesso il più confortevole, con la comparsa dei primi movimenti del bambino.',
+    highlightTitle: 'I primi movimenti',
+    highlightText: 'Di solito si avvertono tra la settimana 18 e la 22, un po’ prima se non è la tua prima gravidanza.',
+    body3: 'Il terzo trimestre prepara il corpo al parto, con un aumento di peso e una stanchezza più marcati. Possono comparire anche contrazioni di allenamento (dette di Braxton Hicks).',
+    neutralText: 'Queste contrazioni sono di solito irregolari e poco dolorose; si distinguono dalle contrazioni del travaglio.',
+    trimesters: [
+      'Primo trimestre: formazione degli organi',
+      'Secondo trimestre: primi movimenti',
+      'Terzo trimestre: preparazione alla nascita',
+      'Controlli medici in ogni fase',
+    ],
+    commonSymptoms: [
+      'Nausea e stanchezza, soprattutto nel primo trimestre',
+      'Fitte addominali legate allo stiramento dei legamenti',
+      'Lieve mancanza di fiato nelle fasi avanzate della gravidanza',
+      'Disturbi del sonno a fine terzo trimestre',
+    ],
+    consultIntro: 'Alcuni segnali richiedono un consulto medico tempestivo, in qualsiasi trimestre:',
+    urgentSigns: [
+      'Sanguinamento, anche lieve',
+      'Dolore addominale intenso',
+      'Nessun movimento avvertito',
+      'Forti mal di testa o disturbi della vista',
+      'Febbre insolita',
+    ],
+    tip2Title: 'Da sapere',
+    tip2Text: 'Ogni trimestre porta con sé i suoi cambiamenti: conoscerli in anticipo ti aiuta a vivere meglio ogni fase, senza sostituire il regolare controllo con la tua ostetrica o il tuo medico.',
+    shareMessage: 'La tua gravidanza, settimana per settimana — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -218,7 +271,7 @@ export default function PregnancyWeeklyArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -275,7 +328,7 @@ export default function PregnancyWeeklyArticleScreen({
           },
         ]}>
         <View style={styles.heroWrap}>
-          <Image source={HERO} resizeMode="cover" style={styles.hero} />
+          <Image accessible accessibilityLabel={EDITORIAL_IMAGE_ALT.pregnancyFollowUp[lang]} accessibilityRole="image" source={resolveEditorialImage(HERO, lang)} resizeMode="cover" style={styles.hero} />
 
           <View
             style={[

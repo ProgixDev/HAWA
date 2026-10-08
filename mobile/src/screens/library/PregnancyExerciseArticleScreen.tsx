@@ -29,10 +29,12 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {EDITORIAL_IMAGE_ALT, resolveEditorialImage, PREGNANCY_EXERCISE_HERO} from '../../i18n/editorialImages';
 
 const ID = 'exercise-bouger-enceinte';
 
-const HERO = require('../../assets/images/library/activité_grossesse.png');
+const HERO = PREGNANCY_EXERCISE_HERO;
 
 // Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
 // object below, keyed by index to stay aligned with these icons.
@@ -149,6 +151,45 @@ const CONTENT = {
     tipText: 'Una actividad suave y regular es beneficiosa para la mayoría de los embarazos: lo esencial es adaptar la intensidad a cada etapa y a cómo te sientas.',
     shareMessage: 'Moverte durante el embarazo — AWA',
   },
+  it: {
+    badge: 'GRAVIDANZA • ATTIVITÀ FISICA',
+    title: 'Restare attiva\ndurante la gravidanza',
+    metaDuration: '5 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Restare attiva con dolcezza e in sicurezza, in ogni trimestre.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Attività consigliate',
+      'Cosa è meglio evitare',
+      'Ascoltare i segnali del tuo corpo',
+      'Nota',
+      'Punto chiave',
+    ],
+    body1: 'Camminare, nuotare e fare yoga prenatale sono in genere attività consigliate per tutta la gravidanza, a un ritmo adatto a come ti senti.',
+    recommended: [
+      'Camminata',
+      'Nuoto',
+      'Yoga prenatale',
+    ],
+    body2: 'Evita gli sport ad alto impatto o le attività con rischio di caduta, soprattutto dal secondo trimestre in poi:',
+    toAvoid: [
+      'Sport ad alto impatto (corsa intensa, sport con la racchetta a ritmo sostenuto)',
+      'Attività con rischio di caduta (sci, equitazione, ciclismo su terreni accidentati)',
+      'Sport di contatto o da combattimento',
+      'Sforzi intensi in quota o con caldo estremo',
+    ],
+    listenSigns: [
+      'Mancanza di fiato o capogiri insoliti',
+      'Dolore, sanguinamento o contrazioni durante lo sforzo',
+      'Stanchezza che non passa dopo il riposo',
+    ],
+    neutralText: 'Ascolta sempre i segnali del tuo corpo e parlane con la tua ostetrica o il tuo medico prima di iniziare o modificare un’attività fisica.',
+    tipTitle: 'Da sapere',
+    tipText: 'Un’attività dolce e regolare è benefica per la maggior parte delle gravidanze: l’importante è adattare l’intensità a ogni fase e a come ti senti.',
+    shareMessage: 'Restare attiva durante la gravidanza — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -157,7 +198,7 @@ export default function PregnancyExerciseArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -214,7 +255,7 @@ export default function PregnancyExerciseArticleScreen({
           },
         ]}>
         <View style={styles.heroWrap}>
-          <Image source={HERO} resizeMode="cover" style={styles.hero} />
+          <Image accessible accessibilityLabel={EDITORIAL_IMAGE_ALT.pregnancyExercise[lang]} accessibilityRole="image" source={resolveEditorialImage(HERO, lang)} resizeMode="cover" style={styles.hero} />
 
           <View
             style={[

@@ -29,10 +29,12 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
 
 const ID = 'pcos-peau-pilosite-symptomes';
 
-const HERO = require('../../assets/images/library/cycle-phases-hero.png');
+const HERO = CYCLE_PHASES_HERO;
 
 // Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
 // object below, keyed by index to stay aligned with these icons.
@@ -350,6 +352,116 @@ const CONTENT = {
     disclaimerText: 'Este artículo es informativo y no sustituye una consulta médica, un diagnóstico ni un tratamiento personalizado.',
     shareMessage: 'Piel, vello y síntomas visibles del SOP — AWA',
   },
+  it: {
+    badge: 'PCOS',
+    title: 'Pelle, capelli e\nsintomi visibili',
+    metaDuration: '9 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'La PCOS può causare cambiamenti visibili a livello della pelle, dei peli del corpo o dei capelli. Capire da dove nascono rende più facile riconoscerli e sapere quali soluzioni si possono prendere in considerazione.',
+    infoBannerText: 'Questi segni sono frequenti, ma da soli non sono né necessari né sufficienti per diagnosticare la PCOS.',
+    contentsTitle: 'In questo articolo',
+    contents: [
+      'Perché compaiono questi sintomi',
+      'L’acne ormonale',
+      'Crescita eccessiva dei peli',
+      'Diradamento dei capelli',
+      'Prendersi cura della pelle',
+      'Prendersi cura dei capelli',
+      'Cosa può aiutare nella vita di tutti i giorni',
+      'Quando rivolgersi a un medico',
+      'Idee sbagliate comuni',
+      'Punti chiave',
+    ],
+    section1Body1: 'La PCOS può comportare una maggiore produzione o attività degli androgeni, ormoni naturalmente presenti anche nelle donne. Quando il loro effetto è più marcato, possono influenzare le ghiandole sebacee, i follicoli piliferi e il ciclo di crescita dei peli e dei capelli.',
+    section1Body2: 'Questa influenza ormonale è in gran parte ciò che può spiegare la comparsa di un’acne persistente, di una crescita più marcata dei peli o, in alcune donne, di un diradamento dei capelli.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'I sintomi visibili non riflettono necessariamente la gravità della PCOS. Una donna può avere diversi sintomi visibili, mentre un’altra può averne pochi o nessuno.',
+    section2Body1: 'L’acne legata ai cambiamenti ormonali può comparire o persistere oltre l’adolescenza. Tende a interessare il mento, la linea della mandibola, la parte bassa delle guance o talvolta il collo.',
+    section2Body2: 'In alcune persone le lesioni sono profonde, dolorose al tatto e ricorrenti. Possono anche lasciare macchie pigmentate o cicatrici quando vengono schiacciate o quando sono particolarmente infiammate.',
+    skinSignsTitle: 'Possibili segni sulla pelle',
+    skinSigns: [
+      'Acne persistente, soprattutto nella parte bassa del viso',
+      'Pelle più grassa di prima',
+      'Peggioramenti dell’acne che a volte seguono variazioni ormonali',
+      'Macchie o cicatrici lasciate dopo i peggioramenti',
+    ],
+    section3Body1: 'L’irsutismo indica una crescita aumentata di peli terminali in zone solitamente non interessate nelle donne. Nel contesto della PCOS può essere collegato all’effetto degli androgeni sui follicoli piliferi.',
+    section3Body2: 'Le zone più spesso interessate sono il mento, il labbro superiore, il petto, l’addome o la schiena. La quantità di peli varia molto da persona a persona.',
+    hairSignsTitle: 'Possibili segni',
+    hairSigns: [
+      'Crescita più visibile di peli sul viso',
+      'Peli più spessi sul mento o sul labbro superiore',
+      'Crescita di peli che può comparire su petto, addome o schiena',
+      'Diradamento progressivo dei capelli sulla sommità del capo',
+    ],
+    tip2Title: 'Da sapere',
+    tip2Text: 'La crescita dei peli dipende anche da fattori genetici e individuali. Una crescita evidente dei peli non significa automaticamente che sia presente la PCOS.',
+    section4Body1: 'Alcune donne con PCOS notano anche una diminuzione della densità dei capelli. Il diradamento può essere particolarmente visibile sulla sommità del capo o lungo la riga centrale.',
+    section4Body2: 'Può svilupparsi gradualmente. È importante distinguere la caduta dei capelli di origine ormonale da altre possibili cause, come una carenza, un problema alla tiroide, alcuni farmaci o un periodo di stress significativo.',
+    alert1Title: 'Da tenere a mente',
+    alert1Text: 'Una caduta dei capelli importante, rapida o insolita merita una valutazione medica per ricercarne la causa.',
+    section5Body: 'Una routine semplice e costante è in genere preferibile a molti prodotti sovrapposti. L’obiettivo è detergere, idratare e proteggere la pelle, limitando tutto ciò che può mantenere l’irritazione.',
+    careHabits: [
+      'Una routine di cura della pelle delicata e costante',
+      'Protezione solare ogni giorno',
+      'Un’alimentazione equilibrata',
+      'Pazienza: i risultati richiedono tempo',
+    ],
+    section6Body1: 'Quando i capelli diventano più sottili, può essere utile limitare le sollecitazioni ripetute: calore eccessivo, acconciature molto tirate o trattamenti chimici frequenti.',
+    section6Body2: 'Una visita dermatologica può essere utile se la densità dei capelli continua a diminuire, per aiutare a individuarne la causa e discutere dei trattamenti disponibili.',
+    practicalTitle: 'Consigli pratici',
+    practicalTips: [
+      'Scegli prodotti delicati ed evita di sovrapporre più trattamenti irritanti',
+      'Detergi la pelle senza aggredirla, mattina e sera se necessario',
+      'Usa una protezione solare quando la pelle è esposta',
+      'Evita di schiacciare i brufoli per limitare macchie e cicatrici',
+      'Chiedi consiglio a un professionista se i sintomi persistono o peggiorano',
+    ],
+    section7Body: 'La gestione dipende dai sintomi, dalla loro intensità, dal loro impatto sulla qualità di vita e dagli obiettivi di ciascuna donna. Può essere utile agire su più fronti, invece di cercare un’unica soluzione.',
+    miniCards: [
+      {
+        title: 'Pelle',
+        text: 'Una routine adatta e, se serve, il parere di un dermatologo.',
+      },
+      {
+        title: 'Crescita dei peli',
+        text: 'Soluzioni estetiche o mediche a seconda della situazione.',
+      },
+      {
+        title: 'Capelli',
+        text: 'Individuare la causa prima di scegliere un trattamento.',
+      },
+      {
+        title: 'Benessere',
+        text: 'Tenere conto dell’impatto emotivo dei sintomi.',
+      },
+    ],
+    section8Body1: 'È opportuno parlarne con un professionista della salute quando l’acne diventa persistente o dolorosa, quando la crescita dei peli aumenta rapidamente, quando i capelli si diradano in modo evidente o quando questi cambiamenti si accompagnano a cicli molto irregolari.',
+    section8Body2: 'Un dermatologo può occuparsi dei sintomi della pelle e dei capelli. Una ginecologa o un altro professionista qualificato può inoltre valutare il contesto ormonale e gli eventuali altri segni di PCOS.',
+    alert2Title: 'Rivolgiti a un medico se necessario',
+    alert2Text: 'Una crescita rapida e importante dei peli, una caduta improvvisa dei capelli o cambiamenti ormonali insoliti richiedono un parere medico.',
+    ideasReceived: [
+      'Avere l’acne non significa automaticamente avere la PCOS',
+      'Una crescita visibile dei peli non è necessariamente legata ai soli ormoni',
+      'La PCOS può riguardare donne di qualsiasi corporatura',
+      'I sintomi possono cambiare nel tempo e non sono uguali per tutte le donne',
+    ],
+    quoteText: 'I sintomi visibili della PCOS possono essere frustranti, ma non definiscono la tua femminilità, il tuo valore né la tua igiene.',
+    summaryTitle: 'L’essenziale',
+    summaryItems: [
+      'La PCOS può interessare la pelle, i peli del corpo e i capelli.',
+      'I sintomi variano molto da donna a donna.',
+      'Un singolo sintomo non basta per diagnosticare la PCOS.',
+      'Esistono soluzioni per aiutare a migliorare i sintomi.',
+      'Un supporto medico può aiutarti a scegliere l’approccio più adatto a te.',
+    ],
+    finalTipTitle: 'Punti chiave',
+    finalTipText: 'Acne, crescita eccessiva dei peli o caduta dei capelli possono essere sintomi della PCOS, ma non sono inevitabili. Un approccio personalizzato può aiutarti a gestire meglio i sintomi e a sentirti più a tuo agio ogni giorno.',
+    disclaimerText: 'Questo articolo ha uno scopo esclusivamente informativo e non sostituisce una visita medica, una diagnosi o un trattamento personalizzato.',
+    shareMessage: 'Pelle, capelli e sintomi visibili della PCOS — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -358,7 +470,7 @@ export default function PcosSkinHairArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -415,7 +527,7 @@ export default function PcosSkinHairArticleScreen({
           },
         ]}>
         <View style={styles.heroWrap}>
-          <Image source={HERO} resizeMode="cover" style={styles.hero} />
+          <Image source={resolveEditorialImage(HERO, lang)} resizeMode="cover" style={styles.hero} />
 
           <View
             style={[

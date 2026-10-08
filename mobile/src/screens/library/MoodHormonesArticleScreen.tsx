@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -229,6 +230,87 @@ const CONTENT = {
     disclaimerText: 'Contenido informativo. Este artículo no sustituye una opinión médica o psicológica personalizada. Si tienes dudas, consulta a un profesional de la salud.',
     shareMessage: 'Estado de ánimo y fluctuaciones hormonales — AWA',
   },
+  it: {
+    badge: 'CICLO MESTRUALE • UMORE',
+    title: 'Umore e fluttuazioni\normonali',
+    metaDuration: '6 min di lettura',
+    metaType: 'Articolo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Perché il tuo umore può variare nel corso del ciclo, anche se non sempre.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Perché l’umore può variare',
+      'L’umore nelle fasi del ciclo',
+      'Osservare le tue variazioni',
+      'Abitudini che possono aiutare',
+      'Quando i cambiamenti diventano preoccupanti',
+      'Punti chiave',
+    ],
+    section1Body: 'Le fluttuazioni di estrogeni e progesterone influenzano direttamente i neurotrasmettitori legati all’umore, come la serotonina.',
+    info1Title: 'Da tenere a mente',
+    info1Text: 'Non tutti gli sbalzi d’umore sono necessariamente legati al tuo ciclo: anche le circostanze della vita, lo stress e la stanchezza hanno un ruolo importante.',
+    phaseMood: [
+      {
+        title: 'Durante il periodo mestruale',
+        text: 'Stanchezza e sensibilità emotiva sono frequenti per molte persone.',
+      },
+      {
+        title: 'Intorno all’ovulazione',
+        text: 'Spesso è una fase di maggiore energia e di maggiore senso di benessere.',
+      },
+      {
+        title: 'Prima del periodo mestruale',
+        text: 'In questo momento sono più frequenti irritabilità o sbalzi d’umore.',
+      },
+    ],
+    section2Body: 'L’irritabilità premestruale o gli sbalzi d’umore della menopausa hanno quindi una reale spiegazione biologica, anche se non si manifestano allo stesso modo in tutte.',
+    observeHabits: [
+      {
+        title: 'Tenere un diario',
+        text: 'Annotare il tuo umore e la fase del ciclo ti aiuta a individuare i tuoi schemi personali.',
+      },
+      {
+        title: 'Individuare gli schemi',
+        text: 'Senza giudicarti: l’obiettivo è conoscerti meglio, non controllare tutto.',
+      },
+    ],
+    section4Body: 'Il sonno, l’attività fisica e il sostegno sociale restano i migliori alleati per stabilizzare l’umore.',
+    helpfulHabits: [
+      {
+        title: 'Dormire a sufficienza',
+        text: 'La mancanza di sonno spesso accentua la sensibilità emotiva.',
+      },
+      {
+        title: 'Attività fisica regolare',
+        text: 'Anche un’attività moderata aiuta a stabilizzare l’umore durante tutto il ciclo.',
+      },
+      {
+        title: 'Sostegno sociale',
+        text: 'Parlare con una persona di cui ti fidi può alleviare ciò che provi.',
+      },
+    ],
+    section5Body: 'Un cambiamento dell’umore legato al ciclo è di solito temporaneo. Tuttavia, alcuni segnali meritano un’attenzione particolare:',
+    warningTitle: 'Segnali a cui prestare attenzione',
+    concerningSigns: [
+      'Tristezza intensa, o tristezza che persiste oltre il ciclo',
+      'Una marcata perdita di interesse per ciò che di solito ti piace',
+      'Un impatto significativo sulla tua vita quotidiana o sulle tue relazioni',
+      'Pensieri intrusivi o un forte senso di disagio',
+    ],
+    info2Title: 'Esiste un sostegno',
+    info2Text: 'Un medico, un’ostetrica o una psicologa possono aiutarti a comprendere meglio ciò che provi e, se necessario, indirizzarti verso un ulteriore sostegno.',
+    tipTitle: 'Da sapere',
+    tipText: 'Riconoscere il legame tra ormoni e umore può aiutarti a capire meglio ciò che provi, senza ridurre tutto a questa sola spiegazione.',
+    summaryPoints: [
+      'Le fluttuazioni di estrogeni e progesterone influenzano direttamente i neurotrasmettitori legati all’umore.',
+      'L’irritabilità premestruale ha quindi una reale spiegazione biologica.',
+      'Non tutti gli sbalzi d’umore sono necessariamente legati al ciclo: contano anche le circostanze della vita.',
+      'Il sonno, l’attività fisica e il sostegno sociale restano i migliori alleati per stabilizzare l’umore.',
+    ],
+    disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce un parere medico o psicologico personalizzato. In caso di dubbi, rivolgiti a un professionista sanitario.',
+    shareMessage: 'Umore e fluttuazioni ormonali — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -245,7 +327,7 @@ export default function MoodHormonesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

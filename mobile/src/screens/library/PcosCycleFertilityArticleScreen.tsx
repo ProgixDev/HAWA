@@ -29,6 +29,7 @@ READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'pcos-cycle-ovulation-fertilite';
 
@@ -280,6 +281,86 @@ const CONTENT = {
     disclaimer: 'Este artículo tiene una vocación informativa y educativa. No constituye un diagnóstico médico ni sustituye una consulta con un profesional de salud.',
     shareMessage: 'Ciclo, ovulación y fertilidad en el SOP — AWA',
   },
+  it: {
+    badge: 'PCOS',
+    title: 'Ciclo, ovulazione\ne fertilità nella PCOS',
+    metaDuration: '8 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenuto validato',
+    intro: 'Con la PCOS, il ciclo può diventare lungo, irregolare e a volte difficile da prevedere. Capire cosa accade intorno all’ovulazione può aiutarti a dare un senso al tuo ciclo e a comprendere meglio le domande legate alla fertilità.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Perché il ciclo diventa irregolare',
+      'Cosa accade intorno all’ovulazione',
+      'Come riconoscere l’ovulazione',
+      'PCOS e fertilità',
+      'Perché le app possono essere meno precise',
+      'Monitorare il ciclo con la PCOS',
+      'Quando consultare un medico se desideri concepire',
+      'Punti chiave',
+    ],
+    section1Body1: 'Il ciclo mestruale dipende da una sequenza coordinata di segnali ormonali. Nella PCOS questa organizzazione può essere alterata, in particolare nello sviluppo dei follicoli e nell’ovulazione.',
+    section1Body2: 'Le ovaie possono contenere molti piccoli follicoli che iniziano a svilupparsi senza che un follicolo dominante raggiunga regolarmente la maturità. L’ovulazione può quindi essere ritardata, verificarsi in modo imprevedibile o non avvenire affatto in alcuni cicli.',
+    section1Body3: 'È una delle ragioni per cui alcune persone con la PCOS hanno cicli di 35, 45 o a volte più giorni, mentre altre possono avere cicli più vicini a una durata tipica.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'La sola durata del ciclo non ti dice se l’ovulazione è avvenuta. Due cicli della stessa durata possono avere una storia ormonale diversa.',
+    section2Body1: 'L’ovulazione è il rilascio di un ovulo da un’ovaia. Segue una fase di maturazione follicolare e precede la fase luteale del ciclo.',
+    section2Body2: 'In un ciclo regolare, l’ovulazione avviene spesso verso la metà. Ma con la PCOS questa semplice regola non vale sempre. L’ovulazione può essere molto più tardiva o non avvenire affatto in un dato ciclo.',
+    infoTitle: 'Perché è importante',
+    infoText: 'Quando l’ovulazione è imprevedibile, diventa più difficile stimare la finestra fertile basandosi soltanto sulle date del periodo mestruale.',
+    section3Body1: 'Esistono diversi segni fisici che possono accompagnare i cambiamenti ormonali intorno all’ovulazione. Possono essere utili per osservare il tuo ciclo, ma nessun segno da solo può confermare l’ovulazione con certezza.',
+    ovulationSigns: [
+      'Un cambiamento del muco cervicale, che può diventare più abbondante, trasparente e filante',
+      'Lieve dolore o fastidio pelvico in alcune donne',
+      'Un cambiamento della temperatura corporea dopo l’ovulazione',
+      'Un cambiamento dell’umidità vaginale',
+      'Un possibile aumento della libido in alcune donne',
+    ],
+    section3Body2: 'Vale la pena osservare in particolare il muco cervicale. Con l’avvicinarsi della finestra fertile, può diventare più abbondante, trasparente, scivoloso e filante. Tuttavia, il suo aspetto può variare da persona a persona e da ciclo a ciclo.',
+    alert1Title: 'Attenzione alle previsioni',
+    alert1Text: 'Con cicli molto irregolari, una data di ovulazione calcolata automaticamente a partire dai cicli precedenti può essere molto approssimativa. Una previsione non è una conferma medica dell’ovulazione.',
+    section4Body1: 'La PCOS può rendere più difficile il concepimento, soprattutto quando l’ovulazione è poco frequente o difficile da prevedere. Tuttavia, avere la PCOS non significa essere infertili.',
+    section4Body2: 'Alcune donne con la PCOS ovulano regolarmente e concepiscono senza particolari difficoltà. Per altre, l’ovulazione è abbastanza irregolare da richiedere una valutazione ed eventualmente un percorso di cura.',
+    fertilityPoints: [
+      'La PCOS non causa automaticamente infertilità',
+      'La difficoltà principale è spesso un’ovulazione irregolare o imprevedibile',
+      'L’ovulazione può verificarsi anche quando i cicli sono molto lunghi',
+      'Cure adeguate possono migliorare le probabilità di concepimento',
+      'Il percorso di fertilità dipende da ogni persona e da molti altri fattori',
+    ],
+    section4Body3: 'Nemmeno la fertilità dipende dalla sola ovulazione. Anche l’età, la qualità dello sperma del partner, le condizioni delle tube di Falloppio, l’endometrio e altri fattori possono avere un ruolo. Per questo una valutazione completa è importante quando la gravidanza richiede più tempo del previsto.',
+    section5Body1: 'Le app di monitoraggio del ciclo usano in genere i dati dei cicli precedenti per produrre delle stime. Quando i cicli sono relativamente regolari, queste stime possono essere utili come riferimento.',
+    section5Body2: 'Con la PCOS, però, la variabilità del ciclo può rendere questi calcoli meno affidabili. Un’app non può sapere con certezza che l’ovulazione sia avvenuta solo perché è stata raggiunta una data teorica.',
+    tip2Title: 'Usalo come punto di riferimento',
+    tip2Text: 'Il monitoraggio digitale è più utile per osservare le tendenze del tuo ciclo e conservare uno storico da condividere con il tuo professionista sanitario.',
+    section6Body1: 'Un monitoraggio regolare può aiutarti a comprendere meglio le tue variazioni personali. L’obiettivo non è rendere il ciclo perfettamente prevedibile, ma raccogliere abbastanza informazioni per individuare delle tendenze.',
+    trackingTips: [
+      'Annota la data del primo giorno di ogni ciclo, anche quando i cicli sono molto distanziati',
+      'Osserva i cambiamenti del muco cervicale durante il ciclo',
+      'Annota eventuali dolori pelvici o altri segni che possono accompagnare l’ovulazione',
+      'Evita di basarti unicamente su una durata media di 28 giorni per prevedere l’ovulazione',
+      'Usa i test di ovulazione con cautela e, se necessario, chiedi consiglio a un professionista',
+      'Condividi le informazioni raccolte con un professionista sanitario se desideri una gravidanza',
+    ],
+    section6Body2: 'Può essere utile anche annotare i sintomi associati: dolore, acne, cambiamenti del muco, sanguinamenti insoliti, umore, sonno o altre osservazioni personali. Queste informazioni possono aiutare a costruire un quadro più completo del tuo ciclo.',
+    section7Body1: 'Una visita può essere utile anche prima di iniziare a cercare di concepire, quando i cicli sono molto irregolari, molto distanziati o quando il periodo mestruale è assente per un tempo prolungato.',
+    section7Body2: 'Un professionista sanitario può indagare le cause delle irregolarità, valutare l’ovulazione e, se necessario, proporre una strategia adatta al tuo progetto di gravidanza.',
+    alert2Title: 'Quando chiedere un parere',
+    alert2Text: 'Se i tuoi periodi mestruali sono molto distanziati, se non hai le mestruazioni da diversi mesi o se la gravidanza non arriva nonostante rapporti regolari, parlane con un professionista sanitario.',
+    summaryTitle: 'Punti chiave',
+    summaryRows: [
+      'La PCOS può rendere i cicli lunghi e imprevedibili.',
+      'L’ovulazione può essere irregolare o assente in alcuni cicli.',
+      'Un ciclo irregolare non significa automaticamente mancanza di fertilità.',
+      'Le previsioni basate unicamente sul calendario possono essere meno affidabili con la PCOS.',
+      'Osservare il proprio ciclo e conservarne lo storico può essere utile, soprattutto per una visita.',
+    ],
+    finalTipTitle: 'Un’ultima parola',
+    finalTipText: 'La PCOS non si manifesta allo stesso modo in ogni donna. Il tuo ciclo può cambiare nel tempo. Il monitoraggio serve ad aiutarti a capire meglio come funziona il tuo corpo, non a sostituire il parere medico.',
+    disclaimer: 'Questo articolo ha uno scopo esclusivamente informativo ed educativo. Non costituisce una diagnosi medica e non sostituisce la visita con un professionista sanitario.',
+    shareMessage: 'Ciclo, ovulazione e fertilità nella PCOS — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -288,7 +369,7 @@ export default function PcosCycleFertilityArticleScreen({
 navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
 const {theme} = useAwaTheme();
 const styles = useMemo(() => createStyles(theme), [theme]);

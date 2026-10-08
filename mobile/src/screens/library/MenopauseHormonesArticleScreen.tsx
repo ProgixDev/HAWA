@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -389,6 +390,136 @@ const CONTENT = {
     disclaimerText: 'Contenido informativo. Este artículo no sustituye un asesoramiento médico personalizado. En caso de duda, pide consejo a un profesional de la salud.',
     shareMessage: 'Las hormonas durante la menopausia — AWA',
   },
+  it: {
+    badge: 'PERIMENOPAUSA E MENOPAUSA • ORMONI',
+    title: 'Gli ormoni\ndurante la menopausa',
+    metaDuration: '10 min di lettura',
+    metaType: 'Articolo',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenuto validato',
+    intro: 'Con l’avvicinarsi della menopausa, i tuoi ormoni non si fermano all’improvviso: fluttuano, e questo spiega sia i cambiamenti del ciclo sia la varietà dei possibili sintomi.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'I principali ormoni coinvolti',
+      'Cosa succede durante la perimenopausa?',
+      'Quando gli estrogeni fluttuano',
+      'Il ruolo del progesterone',
+      'Perché i sintomi possono variare',
+      'I sintomi più comuni',
+      'Ormoni e sonno',
+      'Ormoni e umore',
+      'Gli ormoni si possono misurare?',
+      'Come monitorare meglio i cambiamenti',
+      'Quando rivolgersi a un professionista?',
+      'Quali soluzioni possono essere proposte?',
+      'Punti chiave da ricordare',
+    ],
+    section1Body: 'Durante questa transizione cambiano tre ormoni principali, ciascuno con un ruolo diverso:',
+    keyHormones: [
+      {
+        title: 'Estrogeni',
+        text: 'Influenzano il ciclo, la pelle, le ossa, il cuore e in parte regolano il sonno e l’umore.',
+      },
+      {
+        title: 'Progesterone',
+        text: 'Prodotto dopo l’ovulazione, ha un effetto piuttosto calmante e prepara il corpo a una possibile gravidanza.',
+      },
+      {
+        title: 'FSH e LH',
+        text: 'Controllati dal cervello, stimolano le ovaie; i loro livelli cambiano perché le ovaie rispondono in modo diverso.',
+      },
+    ],
+    infoCard1Title: 'Da sapere',
+    infoCard1Text: 'I livelli ormonali non diminuiscono in modo perfettamente lineare durante la perimenopausa: possono fluttuare, salire e scendere, prima di stabilizzarsi su un livello più basso dopo la menopausa.',
+    section2Body: 'Le ovaie rispondono gradualmente in modo meno regolare ai segnali ormonali inviati dal cervello. È ciò che rende i cicli irregolari e spiega perché i sintomi possono cambiare da un mese all’altro.',
+    tip1Title: 'Bene a sapersi',
+    tip1Text: 'È del tutto possibile avere sintomi evidenti un mese e quasi nessuno il mese successivo. Non è anomalo: riflette semplicemente le fluttuazioni ormonali di questo periodo.',
+    section3Body: 'Le variazioni degli estrogeni possono essere associate a diversi cambiamenti:',
+    estrogenSymptoms: [
+      'Vampate di calore',
+      'Sudorazioni notturne',
+      'Secchezza vaginale',
+      'Cambiamenti del ciclo',
+      'Sensibilità emotiva',
+      'Cambiamenti del sonno',
+    ],
+    section3Body2: 'Questi sintomi possono avere diverse cause: non sono sempre legati agli ormoni e la loro intensità varia molto da persona a persona.',
+    section4Body: 'Il progesterone viene prodotto solo dopo l’ovulazione. Ma durante la perimenopausa l’ovulazione stessa diventa più irregolare, il che rende la sua produzione meno prevedibile.',
+    section4Body2: 'Questa irregolarità spiega in parte i cambiamenti osservati nel ciclo: durata variabile, mestruazioni a volte più abbondanti o più leggere di prima.',
+    section5Body: 'Oltre alle fluttuazioni ormonali, entrano in gioco molti altri fattori: la qualità del sonno, il livello di stress, lo stile di vita e le differenze proprie di ogni persona.',
+    highlightText: '«Ogni donna vive la transizione in modo diverso.»',
+    commonSymptoms: [
+      'Cicli irregolari',
+      'Vampate di calore',
+      'Sudorazioni notturne',
+      'Problemi di sonno',
+      'Sbalzi d’umore',
+      'Stanchezza',
+      'Secchezza vaginale',
+      'Cambiamenti della libido',
+      'Difficoltà di concentrazione',
+    ],
+    section6Caption: 'Questo elenco ha solo scopo informativo: non è una diagnosi. Ogni persona vive una combinazione diversa di questi cambiamenti.',
+    section7Body: 'Le sudorazioni notturne possono interrompere il sonno, causando stanchezza e difficoltà di concentrazione il giorno dopo: uno schema comune in questo periodo.',
+    infoCard2Title: 'Consiglio pratico',
+    infoCard2Text: 'Una camera da letto fresca, abiti leggeri e una routine regolare prima di dormire possono aiutare a limitare questi risvegli.',
+    section8Body: 'Le fluttuazioni ormonali possono coincidere con cambiamenti dell’umore, senza esserne l’unica spiegazione: anche il sonno, lo stress, i cambiamenti di vita e i sintomi fisici hanno un ruolo.',
+    infoCard3Title: 'Per rassicurarti',
+    infoCard3Text: 'Sentirsi più emotive in questo periodo non significa che qualcosa non vada: è un’esperienza comune che può avere più cause contemporaneamente.',
+    section9Body: 'Durante la perimenopausa i livelli ormonali possono variare notevolmente da un giorno all’altro. Un singolo esame, quindi, non sempre offre un quadro completo della situazione.',
+    infoCard4Title: 'Da tenere a mente',
+    infoCard4Text: 'La valutazione medica dipende soprattutto dalla tua età, dai tuoi sintomi e dalla storia del tuo ciclo, non solo da un singolo valore.',
+    section10Body: 'Annotare ciò che vivi mese dopo mese ti aiuta a individuare i tuoi schemi personali, invece di confrontarti con le altre:',
+    trackingItems: [
+      'Le date del tuo ciclo',
+      'I tuoi sintomi giorno per giorno',
+      'Il tuo sonno',
+      'Il tuo umore',
+      'Le tue vampate di calore',
+      'I cambiamenti del tuo flusso',
+      'Ciò che sembra scatenare certi sintomi',
+    ],
+    tip2Title: 'Un’abitudine utile',
+    tip2Text: 'Monitorare il tuo ciclo con AWA può aiutarti a individuare i tuoi schemi nel corso dei mesi, senza alcuno sforzo in più.',
+    section11Body: 'La maggior parte di queste situazioni richiede una visita di routine, con i tuoi tempi:',
+    warningTitle: 'Da riferire a un professionista',
+    consultSituations: [
+      'Sintomi che incidono in modo significativo sulla tua vita quotidiana',
+      'Problemi di sonno persistenti',
+      'Vampate di calore molto fastidiose',
+      'Un sintomo nuovo o insolito',
+      'Cambiamenti importanti del sanguinamento',
+      'Domande sulle opzioni di trattamento',
+      'Preoccupazioni legate alla secchezza vaginale o alla tua vita sessuale',
+    ],
+    infoCard5Title: 'Un caso particolare',
+    infoCard5Text: 'Un sanguinamento molto abbondante o insolito, invece, va segnalato più rapidamente a un professionista sanitario.',
+    section12Body: 'A seconda della situazione, un professionista può proporre diverse opzioni:',
+    solutions: [
+      {
+        title: 'Misure legate allo stile di vita',
+        text: 'Attività fisica, alimentazione e gestione di stress e sonno.',
+      },
+      {
+        title: 'Trattamenti non ormonali',
+        text: 'Alcune opzioni possono agire su sintomi specifici, a seconda della situazione.',
+      },
+      {
+        title: 'Trattamenti ormonali',
+        text: 'Se ne parla con un medico quando sono adatti al tuo profilo e alle tue esigenze.',
+      },
+    ],
+    section12Caption: 'Queste decisioni restano individuali: dipendono dalla tua storia clinica, dai tuoi sintomi, dai rischi e dalle tue preferenze personali.',
+    summaryPoints: [
+      'I cambiamenti ormonali sono parte integrante della transizione verso la menopausa.',
+      'I livelli ormonali possono fluttuare in modo significativo durante la perimenopausa, senza un calo perfettamente lineare.',
+      'I sintomi variano molto da persona a persona e da un mese all’altro.',
+      'Monitorare i tuoi sintomi può aiutarti a individuare meglio i tuoi schemi personali.',
+      'Un professionista sanitario può sostenerti se i sintomi diventano difficili da gestire.',
+    ],
+    disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce un parere medico personalizzato. In caso di dubbi, rivolgiti a un professionista sanitario.',
+    shareMessage: 'Gli ormoni durante la menopausa — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -405,7 +536,7 @@ export default function MenopauseHormonesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

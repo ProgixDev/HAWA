@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'hotflashes-bouffees-de-chaleur';
 
@@ -357,6 +358,108 @@ const CONTENT = {
     disclaimerText: 'Este artículo tiene una vocación informativa y no sustituye un asesoramiento médico personalizado.',
     shareMessage: 'Domar los sofocos — AWA',
   },
+  it: {
+    badge: 'VAMPATE DI CALORE',
+    title: 'Domare\nle vampate di calore',
+    metaDuration: '10 min di lettura',
+    metaType: 'Articolo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Perché si manifestano, come individuare i tuoi fattori scatenanti e quali soluzioni possono aiutare quando diventano fastidiose.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Perché compaiono le vampate di calore',
+      'Sudorazioni notturne',
+      'Fattori scatenanti comuni',
+      'Abitudini quotidiane utili',
+      'Quando parlarne con un professionista',
+      'I punti chiave',
+    ],
+    section1Body1: 'Le vampate di calore sono molto comuni durante la transizione verso la menopausa. Sono legate in parte ai cambiamenti ormonali che influenzano il modo in cui il cervello regola la temperatura corporea.',
+    section1Body2: 'Una piccola variazione della temperatura corporea può quindi essere percepita come un caldo improvviso. Il corpo risponde dilatando i vasi sanguigni della pelle, il che può causare una sensazione di calore, arrossamento e, a volte, sudorazione abbondante.',
+    highlight1Title: 'Ogni donna è diversa',
+    highlight1Text: 'Alcune donne hanno qualche episodio a settimana, mentre altre possono averne diversi al giorno. Anche l’intensità e la durata possono variare.',
+    section2Body1: 'Quando si verificano durante il sonno, le vampate di calore possono causare sudorazioni notturne. Possono portare a risvegli ripetuti e rendere il sonno meno ristoratore.',
+    section2Body2: 'La mancanza di sonno può poi aumentare la stanchezza, la difficoltà di concentrazione e l’irritabilità durante il giorno. Può quindi essere utile tenere conto della qualità del sonno quando valuti l’impatto dei tuoi sintomi.',
+    tip1Title: 'Da sapere',
+    tip1Text: 'Un pigiama traspirante, una biancheria da letto leggera e una camera da letto sufficientemente fresca possono aiutare a limitare il fastidio notturno.',
+    section3Body1: 'Alcuni fattori possono scatenare o intensificare una vampata di calore. Non provocano necessariamente sintomi in tutte, ma individuarli può aiutarti a comprendere meglio il tuo modo di reagire.',
+    triggers: [
+      'Caffeina e alcol',
+      'Cibi piccanti',
+      'Stress ed emozioni forti',
+      'Una stanza surriscaldata o abiti troppo pesanti',
+    ],
+    tip2Title: 'Una piccola abitudine utile',
+    tip2Text: 'Per qualche settimana, annota quando compaiono le vampate di calore, quanto sono intense e che cosa è successo subito prima. Può aiutarti a individuare i tuoi fattori scatenanti personali.',
+    dailyHabits: [
+      'Vestirsi a strati leggeri',
+      'Mantenere l’ambiente fresco e ben ventilato',
+      'Praticare una respirazione lenta durante una vampata',
+      'Bere acqua fresca con regolarità',
+    ],
+    section4Body1: 'Queste misure non faranno necessariamente scomparire le vampate di calore, ma possono rendere gli episodi più facili da gestire e ridurre il disagio quando si presentano.',
+    section5Body1: 'Le vampate di calore sono comuni durante la perimenopausa e la menopausa. Tuttavia, non devi per forza sopportarle in silenzio se diventano difficili da vivere. Un medico o un’ostetrica può valutare i tuoi sintomi e discutere con te le diverse opzioni.',
+    whenAppointmentTitle: 'Quando è il caso di prendere un appuntamento?',
+    section5Body2: 'Una visita può essere particolarmente utile quando i sintomi hanno un impatto significativo sulla vita quotidiana o quando vorresti sapere quali opzioni sono disponibili.',
+    consultReasons: [
+      {
+        title: 'Quando il sonno è disturbato',
+        text: 'Vampate di calore o sudorazioni notturne frequenti che causano risvegli ripetuti, forte stanchezza o difficoltà a svolgere normalmente le attività durante il giorno.',
+      },
+      {
+        title: 'Quando la vita quotidiana diventa difficile',
+        text: 'Se le vampate di calore interferiscono con il lavoro, le attività, i viaggi, le relazioni sociali o semplicemente con il tuo benessere di ogni giorno.',
+      },
+      {
+        title: 'Quando i sintomi diventano più frequenti',
+        text: 'Un chiaro aumento della frequenza o dell’intensità dei sintomi merita di essere discusso per trovare le soluzioni più adatte.',
+      },
+      {
+        title: 'Se stai valutando un trattamento',
+        text: 'Possono essere proposte opzioni ormonali e non ormonali a seconda della tua situazione. Un professionista può aiutarti a valutarne benefici, rischi ed eventuali controindicazioni.',
+      },
+    ],
+    notMenopauseTitle: 'Non attribuire tutto alla menopausa',
+    notMenopauseBody: 'Una vampata di calore può avere cause diverse. Alcuni sintomi possono anche essere legati a un farmaco, a un’altra condizione medica o a un cambiamento importante del tuo stato di salute. Se qualcosa ti sembra insolito, nuovo o particolarmente intenso, è meglio parlarne con un professionista piuttosto che pensare automaticamente alla menopausa.',
+    alertTitle: 'Rivolgiti subito a un medico',
+    alertText: 'Dolore al petto, mancanza di respiro improvvisa, sensazione di svenimento, debolezza improvvisa o gonfiore doloroso insolito a una gamba richiedono un’attenzione medica immediata.',
+    emergencySignsTitle: 'Quali segnali meritano particolare attenzione?',
+    emergencySigns: [
+      'Dolore al petto insolito o intenso',
+      'Mancanza di respiro improvvisa o notevole difficoltà a respirare',
+      'Sensazione di svenimento o perdita di coscienza',
+      'Debolezza improvvisa, oppure difficoltà a parlare o a vedere',
+      'Gonfiore doloroso e insolito a una gamba',
+    ],
+    solutionsTitle: 'Quali soluzioni possono essere disponibili?',
+    solutionsBody: 'Se le vampate di calore sono abbastanza fastidiose da richiedere una gestione, possono essere prese in considerazione diversi approcci. A seconda della tua situazione, il professionista può discutere misure legate allo stile di vita, trattamenti non ormonali o, quando appropriato, la terapia ormonale.',
+    highlight2Title: 'Il trattamento si sceglie caso per caso',
+    highlight2Text: 'L’età, i sintomi, la storia clinica, le terapie in corso e le preferenze personali possono influenzare le opzioni proposte.',
+    prepareTitle: 'Prepararti all’appuntamento',
+    prepareBody: 'Arrivare con qualche informazione può rendere la visita più utile. Per qualche giorno o settimana puoi annotare con quale frequenza si presentano gli episodi, quanto sono intensi e il loro impatto sul sonno o sulle attività.',
+    questionsTitle: 'Informazioni utili da preparare',
+    appointmentQuestions: [
+      'Con quale frequenza hai le vampate di calore?',
+      'Da quanto tempo le hai?',
+      'Tendono a comparire di giorno, di notte o in entrambi i momenti?',
+      'Disturbano il tuo sonno o le tue attività?',
+      'Hai individuato dei fattori scatenanti?',
+      'Stai attualmente assumendo farmaci o una contraccezione ormonale?',
+    ],
+    professionalTipText: 'Non occorre aspettare che i sintomi diventino molto intensi per parlarne. Una visita può anche semplicemente aiutarti a capire che cosa sta succedendo e a conoscere le soluzioni disponibili.',
+    summaryTitle: 'L’essenziale',
+    summaryItems: [
+      'Le vampate di calore sono comuni durante la transizione verso la menopausa.',
+      'Individuare i tuoi fattori scatenanti può aiutarti a gestire meglio gli episodi.',
+      'Abitudini semplici possono ridurre il disagio di ogni giorno.',
+      'Se i sintomi disturbano il sonno o la vita quotidiana, parlane con un professionista.',
+      'Si possono discutere diverse opzioni di gestione a seconda della tua situazione.',
+    ],
+    finalTipText: 'Le vampate di calore sono comuni, ma non vanno trascurate quando influiscono sul sonno, sul lavoro o sul benessere. Prestare attenzione ai sintomi e parlarne con un professionista può aiutarti a comprenderne meglio la causa e a valutare soluzioni adatte.',
+    disclaimerText: 'Questo articolo ha uno scopo puramente informativo e non sostituisce un parere medico personalizzato.',
+    shareMessage: 'Domare le vampate di calore — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -368,7 +471,7 @@ export default function HotFlashesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

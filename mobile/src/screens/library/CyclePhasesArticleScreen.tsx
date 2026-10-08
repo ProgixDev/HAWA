@@ -25,10 +25,12 @@ import ReadingControls from '../../components/articles/ReadingControls';
 import {getBottomPadding, getTopPadding, READING_CONTROLS_SPACE} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
 
 const ARTICLE_ID = 'cycle-phases-expliquees';
 
-const HERO = require('../../assets/images/library/cycle-phases-hero.png');
+const HERO = CYCLE_PHASES_HERO;
 const DIAGRAM = require('../../assets/images/library/cycle-phases-diagram.png');
 
 type Props = NativeStackScreenProps<
@@ -245,13 +247,99 @@ const CONTENT = {
     endText: 'Cuanto más observes tu ciclo, mejor podrás entender lo que es habitual para ti.',
     shareMessage: 'Las diferentes fases del ciclo explicadas — AWA',
   },
+  it: {
+    badge: 'Ciclo mestruale',
+    title: 'Le diverse fasi\ndel ciclo spiegate',
+    metaDuration: '6 min di lettura',
+    metaValidated: 'Contenuto validato',
+    intro: 'Il tuo ciclo mestruale è composto da diverse fasi, ognuna con un ruolo essenziale per il tuo equilibrio ormonale e la tua salute.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Le 4 fasi del ciclo',
+      'Come cambia il tuo corpo',
+      'Perché è importante capire il tuo ciclo',
+      'Domande frequenti',
+    ],
+    body1: 'Il ciclo si divide generalmente in quattro fasi principali. La loro durata può variare da persona a persona: ogni corpo ha il suo ritmo.',
+    diagram: {
+      menstrual: {
+        name: 'Fase mestruale',
+        days: 'Giorni da 1 a 5',
+      },
+      follicular: {
+        name: 'Fase follicolare',
+        days: 'Giorni da 1 a 13',
+      },
+      luteal: {
+        name: 'Fase luteale',
+        days: 'Giorni da 15 a 28',
+      },
+      ovulatory: {
+        name: 'Fase ovulatoria',
+        days: 'Intorno al giorno 14',
+      },
+    },
+    tip1Title: 'Da sapere',
+    tip1Text: 'Ogni donna è unica: osserva il tuo corpo e impara a conoscere il tuo ritmo.',
+    body2: 'I cambiamenti ormonali possono influire su energia, umore, sonno e su alcune sensazioni fisiche nel corso del ciclo.',
+    bodyChanges: [
+      {
+        title: 'Durante il periodo mestruale',
+        text: 'La tua energia può essere più bassa e il tuo corpo può avere bisogno di più riposo.',
+      },
+      {
+        title: 'Fase follicolare',
+        text: 'L’energia aumenta gradualmente e puoi sentirti più in forma.',
+      },
+      {
+        title: 'Intorno all’ovulazione',
+        text: 'Alcune donne sentono più energia, motivazione e fiducia in sé.',
+      },
+      {
+        title: 'Fase luteale',
+        text: 'Possono comparire stanchezza, gonfiore o variazioni dell’umore.',
+      },
+    ],
+    softTipTitle: 'Ascolta il tuo corpo',
+    softTipText: 'Non esiste un solo modo di vivere ogni fase. Le tue sensazioni restano la migliore guida.',
+    body3: 'Conoscere meglio il tuo ciclo può aiutarti a prevedere alcuni momenti e a capire i cambiamenti che noti giorno dopo giorno.',
+    whyItems: [
+      'Comprendere meglio i segnali del tuo corpo',
+      'Prevedere il tuo periodo mestruale e le sue diverse fasi',
+      'Capire alcune variazioni dell’umore',
+      'Adattare la tua attività al tuo livello di energia',
+      'Migliorare il tuo monitoraggio quotidiano',
+    ],
+    body4: 'Ecco alcune risposte alle domande più frequenti sulle diverse fasi del ciclo.',
+    faq: [
+      {
+        question: 'È normale che il mio ciclo non duri esattamente 28 giorni?',
+        answer: 'Sì. La durata di un ciclo può variare da persona a persona, e anche leggermente da un mese all’altro.',
+      },
+      {
+        question: 'L’ovulazione avviene sempre il giorno 14?',
+        answer: 'No. Il giorno 14 è una stima comune per un ciclo di 28 giorni, ma l’ovulazione può avvenire prima o dopo.',
+      },
+      {
+        question: 'Perché i miei sintomi cambiano a seconda della fase?',
+        answer: 'I cambiamenti ormonali nel corso del ciclo possono influire su energia, umore, sonno e su alcune sensazioni fisiche.',
+      },
+      {
+        question: 'È utile monitorare i miei sintomi?',
+        answer: 'Sì. Annotarli con regolarità può aiutarti a riconoscere i tuoi schemi personali e a capire meglio il tuo ritmo.',
+      },
+    ],
+    endTitle: 'Il tuo ciclo, il tuo ritmo',
+    endText: 'Più osservi il tuo ciclo, più puoi capire cosa è tipico per te.',
+    shareMessage: 'Le diverse fasi del ciclo spiegate — AWA',
+  },
 } as const;
 
 function CyclePhasesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -315,7 +403,7 @@ function CyclePhasesArticleScreen({
         {/* HERO */}
         <View style={styles.heroWrap}>
           <Image
-            source={HERO}
+            source={resolveEditorialImage(HERO, lang)}
             resizeMode="cover"
             style={styles.hero}
           />

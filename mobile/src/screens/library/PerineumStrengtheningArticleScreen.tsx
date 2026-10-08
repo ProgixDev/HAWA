@@ -29,6 +29,7 @@ import {
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'exercise-renforcer-perinee';
 
@@ -663,6 +664,192 @@ const CONTENT = {
     disclaimerText:
       'Este artículo tiene una finalidad informativa y no sustituye un consejo médico personalizado. En caso de dolor, de síntomas persistentes o de duda sobre tu recuperación, pide consejo a un profesional de la salud.',
   },
+  it: {
+    badge: 'POST-PARTUM • RECUPERO',
+    title: 'Rafforzare il pavimento pelvico\ndopo il parto',
+    metaDuration: '8 min di lettura',
+    metaType: 'Guida',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenuto validato',
+    intro: 'Dopo la gravidanza e il parto, il pavimento pelvico ha bisogno di tempo per recuperare. Esercizi semplici, regolari e graduali possono aiutarti a ritrovare forza, controllo e fiducia, senza cercare di accelerare i tempi.',
+    contentsTitle: 'In questo articolo',
+    topics: [
+      'Capire il ruolo del perineo',
+      'Perché il parto lo mette sotto sforzo',
+      'Quando iniziare la rieducazione del pavimento pelvico',
+      'Imparare a contrarre correttamente',
+      'Costruire una routine graduale',
+      'Errori da evitare',
+      'Quando chiedere aiuto',
+      'Riprendere gradualmente lo sport',
+      'Prepararsi a una visita',
+      'Punti chiave',
+    ],
+    shareMessage: 'Rafforzare il pavimento pelvico dopo il parto — AWA',
+    s1Heading: 'Capire il ruolo del perineo',
+    s1Body1: 'Il perineo, chiamato anche pavimento pelvico, è un insieme di muscoli situato alla base del bacino. Svolge un ruolo nel controllo della vescica e dell’intestino e contribuisce a sostenere gli organi pelvici.',
+    s1Body2: 'Durante la gravidanza questi muscoli devono sostenere un peso supplementare per diversi mesi. Sono inoltre sottoposti a una forte sollecitazione durante il parto.',
+    s1HighlightTitle: 'Un muscolo discreto ma essenziale',
+    s1HighlightText: 'Il pavimento pelvico interviene in diverse funzioni quotidiane: trattenere urina e feci, controllare i gas, sostenere gli organi pelvici e svolgere un ruolo in alcune funzioni sessuali.',
+    benefitsHeading: 'I benefici di un pavimento pelvico più forte',
+    benefitsIntro: 'Un rafforzamento graduale ed eseguito correttamente può aiutare a migliorare il controllo e il sostegno del pavimento pelvico.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Un migliore controllo della vescica',
+        text: 'Il pavimento pelvico svolge un ruolo nel controllo della vescica. Rafforzarlo gradualmente può aiutare a ridurre alcune perdite urinarie.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Sostenere la funzione intestinale',
+        text: 'Questi muscoli aiutano anche a controllare gas e feci e contribuiscono a sostenere gli organi pelvici.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Sostenere gli organi pelvici',
+        text: 'Il pavimento pelvico forma una vera base muscolare che aiuta a sostenere vescica, utero e intestino.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Ritrovare gradualmente la sensibilità',
+        text: 'Una rieducazione adeguata può anche aiutarti a ritrovare una migliore consapevolezza e un migliore controllo di questa zona.',
+      },
+    ],
+    s2Heading: 'Perché gravidanza e parto lo mettono sotto sforzo',
+    s2Body1: 'La gravidanza esercita gradualmente una pressione maggiore sul pavimento pelvico. Il parto vaginale può poi allungare in modo importante i muscoli e i tessuti di questa zona.',
+    s2Body2: 'Anche un taglio cesareo non risparmia del tutto il pavimento pelvico: la gravidanza in sé resta un periodo impegnativo per questi muscoli.',
+    s2Body3: 'Dopo il parto è quindi normale che il recupero richieda tempo. Alcune donne non avvertono quasi nessun sintomo, mentre altre possono notare perdite, una sensazione di pesantezza o un ridotto controllo muscolare.',
+    s2TipTitle: 'Ogni recupero è diverso',
+    s2TipText: 'Il tipo di parto, una lacerazione o un’episiotomia, la presenza di dolore e le tue condizioni generali dopo il parto possono influenzare il recupero.',
+    s3Heading: 'Quando iniziare la rieducazione del pavimento pelvico?',
+    s3Body1: 'Dopo un parto senza complicazioni, di solito si possono riprendere gradualmente contrazioni delicate del pavimento pelvico. Resta importante adattare gli esercizi alla tua situazione e chiedere consiglio se hai avuto una complicazione, un dolore importante o una procedura particolare.',
+    s3Body2: 'Se hai un catetere urinario, alcune raccomandazioni suggeriscono di aspettare che venga tolto e che la minzione normale sia ripresa prima di iniziare gli esercizi per il perineo.',
+    s3AlertTitle: 'Non forzare in presenza di dolore',
+    s3AlertText: 'Un dolore importante, sintomi che peggiorano, una ferita che guarisce male o qualsiasi preoccupazione particolare richiedono il parere di un’ostetrica, di un medico o di un professionista della rieducazione.',
+    s4Heading: 'Imparare a contrarre correttamente',
+    s4Body1: 'Per individuare il movimento, immagina di cercare di trattenere i gas e lo stimolo di urinare nello stesso momento. Il movimento che cerchi è una sensazione di contrazione e di sollevamento verso l’interno.',
+    s4Body2: 'L’obiettivo non è irrigidire con forza tutto il corpo. Glutei, cosce e addominali devono restare il più rilassati possibile, mentre la respirazione continua normalmente.',
+    exercises: [
+      {
+        icon: 'weather-windy',
+        label: 'Respirazione',
+      },
+      {
+        icon: 'human-handsup',
+        label: 'Contrazione delicata',
+      },
+      {
+        icon: 'arrow-up-bold-circle-outline',
+        label: 'Contrazione lunga',
+      },
+      {
+        icon: 'gesture-tap-button',
+        label: 'Contrazioni rapide',
+      },
+    ],
+    s4HighlightTitle: 'Rilassarsi conta altrettanto',
+    s4HighlightText: 'Dopo ogni contrazione, lascia che i muscoli si rilassino completamente. Una buona rieducazione non significa tenere il perineo contratto tutto il giorno.',
+    s5Heading: 'Costruire una routine graduale',
+    s5Body1: 'All’inizio la cosa più importante è imparare a individuare i muscoli ed eseguire correttamente il movimento. La costanza conta più dell’intensità.',
+    s5h3a: 'Contrazioni lunghe',
+    s5Body2: 'Contrai delicatamente il pavimento pelvico, poi mantieni la contrazione per qualche secondo senza trattenere il respiro. Poi rilascia completamente prima di ricominciare.',
+    s5h3b: 'Contrazioni brevi',
+    s5Body3: 'Quando il movimento è padroneggiato, si possono aggiungere piccole contrazioni rapide. Aiutano ad allenare la capacità di contrarre i muscoli rapidamente quando la pressione addominale aumenta, per esempio poco prima di un colpo di tosse o di uno starnuto.',
+    dailyTips: [
+      {
+        icon: 'clock-outline',
+        label: 'Abbina gli esercizi a un’abitudine quotidiana',
+      },
+      {
+        icon: 'human-sitting',
+        label: 'Inizia in una posizione comoda',
+      },
+      {
+        icon: 'weather-windy',
+        label: 'Respira normalmente durante le contrazioni',
+      },
+      {
+        icon: 'sleep',
+        label: 'Rispetta le fasi di rilassamento',
+      },
+      {
+        icon: 'chart-line',
+        label: 'Aumenta gradualmente la difficoltà',
+      },
+      {
+        icon: 'doctor',
+        label: 'Chiedi consiglio se hai dei dubbi',
+      },
+    ],
+    s5TipTitle: 'Prima di tutto la costanza',
+    s5TipText: 'Abbinare gli esercizi a un’abitudine già presente nella tua giornata può aiutarti a essere costante: dopo una poppata, dopo aver lavato i denti o in un altro momento che ti è comodo.',
+    s6Heading: 'Errori comuni da evitare',
+    s6Body1: 'Gli esercizi per il perineo possono sembrare semplici, ma è facile compensare con altri muscoli o spingere troppo.',
+    commonMistakes: [
+      'Contrarre i glutei o le cosce invece del pavimento pelvico',
+      'Trattenere il respiro durante la contrazione',
+      'Tenere i muscoli costantemente contratti senza lasciarli rilassare',
+      'Fare gli esercizi solo per pochi giorni e poi smettere',
+      'Interrompere volontariamente il flusso di urina per verificare la contrazione',
+    ],
+    s6TipTitle: 'Cosa non fare',
+    s6TipText: 'Non è raccomandato esercitarsi interrompendo volontariamente il flusso di urina. Questo metodo non allena correttamente il perineo e può disturbare il normale funzionamento della vescica.',
+    s7Heading: 'Quali sintomi dovrebbero portare a una visita?',
+    s7Body1: 'Dopo il parto possono comparire talvolta lievi perdite o una sensazione insolita. Tuttavia non vanno ignorate se persistono, peggiorano o interferiscono con la vita quotidiana.',
+    warningSigns: [
+      'Perdite di urina quando tossisci, starnutisci, ridi o fai uno sforzo',
+      'Una sensazione di pesantezza o di pressione nella parte bassa del bacino',
+      'La sensazione che una massa o qualcosa stia scendendo nella vagina',
+      'Difficoltà a trattenere gas o feci',
+      'Dolore persistente nel perineo',
+      'Dolore durante o dopo i rapporti sessuali',
+      'Difficoltà a individuare o a contrarre correttamente i muscoli del perineo',
+    ],
+    consultLabel: 'Quando chiedere consiglio?',
+    s7Body2: 'Un’ostetrica, un medico o un fisioterapista specializzato nella rieducazione del pavimento pelvico può verificare la funzione muscolare e proporre un programma adatto.',
+    s8Heading: 'E dopo una lacerazione, un’episiotomia o un taglio cesareo?',
+    s8Body1: 'Una lacerazione o un’episiotomia richiedono un’attenzione particolare durante la guarigione. La ripresa delle attività dovrebbe tenere conto del dolore, delle condizioni della cicatrice e delle indicazioni ricevute dopo il parto.',
+    s8Body2: 'Dopo un taglio cesareo, il recupero riguarda anche la parete addominale e la cicatrice. Anche se il parto non è stato vaginale, la gravidanza stessa ha comunque sollecitato il pavimento pelvico.',
+    s8HighlightTitle: 'Un’assistenza personalizzata può aiutare',
+    s8HighlightText: 'In caso di lacerazione importante, dolore, sintomi urinari o intestinali o difficoltà persistenti, una valutazione con un professionista della salute può essere particolarmente utile.',
+    s9Heading: 'Riprendere gradualmente lo sport',
+    s9Body1: 'La ripresa del movimento dopo il parto dovrebbe essere graduale. La camminata e i movimenti dolci possono in genere riprendere in base a come ti senti, mentre le attività ad alto impatto richiedono più cautela.',
+    s9Body2: 'Prima di riprendere la corsa, i salti o un allenamento molto intenso, è meglio valutare il recupero del pavimento pelvico e tenere conto di eventuali sintomi.',
+    s9AlertTitle: 'Non bruciare le tappe',
+    s9AlertText: 'Perdite, una sensazione di pesantezza o dolore durante o dopo l’esercizio sono segnali che indicano di rallentare e di chiedere consiglio prima di aumentare l’intensità.',
+    s10Heading: 'Quando rivolgersi a uno specialista?',
+    s10Body1: 'La rieducazione del pavimento pelvico con un’ostetrica o un fisioterapista può essere utile se non sei sicura di contrarre correttamente, se i sintomi persistono o se vuoi riprendere con fiducia alcune attività fisiche.',
+    questionCardTitle: 'Domande utili da porre',
+    appointmentQuestions: [
+      'I miei sintomi sono compatibili con una debolezza del pavimento pelvico?',
+      'Sto eseguendo correttamente le contrazioni?',
+      'Quante ripetizioni dovrei fare ogni giorno?',
+      'Posso tornare a correre, a fare sport o esercizio ad alto impatto?',
+      'Ho bisogno di una rieducazione con un’ostetrica o un fisioterapista?',
+      'La mia cicatrice, la lacerazione o il taglio cesareo richiedono precauzioni particolari?',
+    ],
+    s10TipTitle: 'Da sapere',
+    s10TipText: 'Rivolgersi a un professionista non significa necessariamente che qualcosa non vada. Una seduta può servire semplicemente a verificare la tua tecnica, valutare il tuo recupero e imparare a progredire correttamente.',
+    s11Heading: 'Un recupero che richiede tempo',
+    s11Body1: 'Dopo il parto è normale non ritrovare subito le stesse sensazioni o la stessa forza muscolare che avevi prima della gravidanza.',
+    s11Body2: 'L’obiettivo non è fare il maggior numero possibile di contrazioni. Si tratta piuttosto di ritrovare gradualmente una buona coordinazione tra contrazione e rilassamento, e poi di riuscire a usare questi muscoli in modo naturale nelle attività di ogni giorno.',
+    s11HighlightTitle: 'I piccoli progressi sono veri progressi',
+    s11HighlightText: 'Una maggiore consapevolezza del movimento, qualche secondo in più di contrazione o una riduzione delle perdite sono già segnali incoraggianti.',
+    s12Heading: 'Punti chiave',
+    summaryTitle: 'L’essenziale',
+    summaryItems: [
+      'Gravidanza e parto sottopongono il pavimento pelvico a una forte sollecitazione.',
+      'Un recupero graduale è normale dopo il parto.',
+      'Gli esercizi devono privilegiare la qualità del movimento rispetto alla forza.',
+      'Respirazione e rilassamento contano quanto la contrazione.',
+      'Perdite urinarie, pesantezza o dolore persistente meritano il parere di un professionista.',
+      'La rieducazione con un’ostetrica o un fisioterapista può aiutarti a ritrovare un migliore controllo.',
+      'Il ritorno allo sport deve essere graduale, soprattutto per le attività ad alto impatto.',
+    ],
+    finalTipTitle: 'Prenditi il tempo per recuperare',
+    finalTipText: 'Dopo il parto, il tuo corpo ha attraversato molti cambiamenti. Il perineo merita la stessa attenzione del resto del tuo corpo: gradualmente, con regolarità e senza pressione.',
+    disclaimerText: 'Questo articolo ha uno scopo esclusivamente informativo e non sostituisce un parere medico personalizzato. Se avverti dolore, sintomi persistenti o hai qualsiasi preoccupazione sul tuo recupero, chiedi consiglio a un professionista della salute.',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -674,7 +861,7 @@ export default function PerineumStrengtheningArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  const lang = resolveEditorialLanguage(i18n.language);
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
