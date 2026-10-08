@@ -90,10 +90,21 @@ const WEEK_DAYS_ES = [
   'D',
 ] as const;
 
+const WEEK_DAYS_IT = [
+  'L',
+  'M',
+  'M',
+  'G',
+  'V',
+  'S',
+  'D',
+] as const;
+
 function localizedSingleLetterWeekDays(): readonly string[] {
   const language = getAppLanguage();
   if (language === 'en') {return WEEK_DAYS_EN;}
   if (language === 'es') {return WEEK_DAYS_ES;}
+  if (language === 'it') {return WEEK_DAYS_IT;}
   return WEEK_DAYS_FR;
 }
 

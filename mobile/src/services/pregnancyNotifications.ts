@@ -172,18 +172,23 @@ export async function scheduleLocalNotification({
   return true;
 }
 
-/** Cancels a scheduled/displayed notification by id. No-op if it doesn't exist — safe to call unconditionally on delete. */
-export async function cancelLocalNotification(id: string): Promise<void> {
+/** Cancels a scheduled/displayed notification by id. No-op if it doesn't exist — safe to call unconditionally on delete.
+ * Never throws (existing callers rely on that), but REPORTS the outcome: `false` means a native cancel call
+ * rejected, so the notification may still exist. Callers that must be sure (profile deletion, reminder
+ * reconciliation) check it; `undefined`/`true` both mean "cancelled or nothing there". */
+export async function cancelLocalNotification(id: string): Promise<boolean> {
+  let clean = true;
   try {
     await notifee.cancelTriggerNotification(id);
   } catch {
-    // ignore — nothing was scheduled
+    clean = false;
   }
   try {
     await notifee.cancelNotification(id);
   } catch {
-    // ignore — nothing was displayed
+    clean = false;
   }
+  return clean;
 }
 
 export async function cancelLocalNotifications(
