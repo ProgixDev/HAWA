@@ -90,8 +90,9 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
   const isEdit = mode === 'edit';
 
   // The map's initial camera position: resolved once, asynchronously, by
-  // resolveInitialLocation() (saved location → approximate country
-  // detection → neutral London default — see that module's header comment).
+  // resolveInitialLocation() (saved location, else always the neutral
+  // London default — IP/country detection is deliberately never consulted;
+  // see that module's header comment).
   // Deliberately starts `null` and stays null until resolution completes, so
   // the map/camera are never mounted with a wrong default center — see the
   // render below, where the map card waits on this exactly like it already
@@ -122,10 +123,16 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
   useEffect(() => {
     let cancelled = false;
     resolveInitialLocation().then(location => {
-      if (cancelled || userChangedLocation.current) {return;}
-      setSelectedLocation(location);
-      setQuery(`${location.city}, ${location.country}`);
-      setInitialCenter([location.longitude, location.latitude]);
+      if (cancelled) {return;}
+      // A late-arriving initial suggestion must never overwrite a location
+      // she already chose herself (search/GPS/map drag) while it was still
+      // resolving — but `resolving` must still clear either way, or the
+      // screen gets stuck showing the spinner forever instead of her choice.
+      if (!userChangedLocation.current) {
+        setSelectedLocation(location);
+        setQuery(`${location.city}, ${location.country}`);
+        setInitialCenter([location.longitude, location.latitude]);
+      }
       setResolving(false);
     });
     return () => {cancelled = true;};
@@ -221,6 +228,10 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
     setQuery(`${place.city}, ${place.country}`);
     setShowSuggestions(false);
     setInitialCenter(current => current ?? [place.longitude, place.latitude]);
+    // A search result already carries its own resolved city/country — never
+    // leave the screen stuck on the "Finding your location…" spinner (from
+    // the still-pending initial resolution) after this explicit choice.
+    setResolving(false);
     Keyboard.dismiss();
     cameraRef.current?.easeTo({
       center: [place.longitude, place.latitude],
