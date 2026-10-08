@@ -60,7 +60,11 @@ import {hydrateMenopausePreferences, subscribeMenopausePreferences} from './src/
 import {syncMenopauseReminders} from './src/utils/menopauseReminderScheduling';
 import {openPendingMenopauseReminderNotification} from './src/services/menopauseReminderNotificationNavigation';
 import {hydrateCycleReminderPreferences, subscribeCycleReminderPreferences} from './src/state/cycleReminderPreferences';
+import {hydrateActiveProfileId} from './src/state/activeProfileStore';
 import {syncCycleReminders} from './src/utils/cycleReminderScheduling';
+import {recoverInterruptedManagedProfileDeletions} from './src/services/managedProfileDeletion';
+import {recoverInterruptedRestore} from './src/services/restoreJournal';
+import {runStructuredMigration} from './src/services/structuredDataMigration';
 import {getAppLanguage, hydrateAppearancePreferences, subscribeThemePreferences} from './src/state/themePreferences';
 import AppLockScreen from './src/screens/AppLockScreen';
 import {AUTO_LOCK_TIMEOUT_MS,getAppLockState,lockApp,setAppLockState,subscribeAppLock} from './src/state/appLockStore';
@@ -263,11 +267,32 @@ subscribeMenopausePreferences(syncMenopauseReminders);
 // or a changed regularity setting, all funnel through setCyclePreferences()
 // (onboardingPreferences.ts), so this one subscription already covers every
 // case where the cycle prediction could have changed.
-Promise.all([
-  hydrateActiveObjective(),
-  hydrateCyclePreferences(),
-  hydrateCycleReminderPreferences(),
-]).then(syncCycleReminders);
+// The profile that was active when the app was last closed (the mother or a
+// daughter) is restored FIRST, at launch — not only once the Profile tab happens
+// to be opened. Without it every screen starts on the mother's data while the
+// profile switcher still names the daughter, and the cycle read below would
+// describe the wrong profile. Every profile-scoped store re-reads on the change.
+// A backup restore the app was killed in the middle of is rolled back FIRST — before the active profile or any store
+// reads a key — so nothing ever starts from a half-restored mixture of two points in time.
+recoverInterruptedRestore()
+  .catch(() => false)
+  .then(() => hydrateActiveProfileId())
+  .catch(() => undefined)
+  // A profile deletion the app was killed in the middle of (or that failed a step) is finished before
+  // anything is read for it, so a half-deleted profile never lingers.
+  .then(() => recoverInterruptedManagedProfileDeletions().catch(() => undefined))
+  .then(() =>
+    Promise.all([
+      hydrateActiveObjective(),
+      hydrateCyclePreferences(),
+      hydrateCycleReminderPreferences(),
+    ]),
+  )
+  .then(syncCycleReminders)
+  // Legacy plaintext health records are rewritten as encrypted ones in the background, one record at a time, after the
+  // app is up (see structuredDataMigration.ts). A problem is reported through the data-availability banner, never thrown.
+  .then(() => runStructuredMigration())
+  .catch(() => undefined);
 subscribeActiveObjective(syncCycleReminders);
 subscribeCyclePreferences(syncCycleReminders);
 subscribeCycleReminderPreferences(syncCycleReminders);

@@ -15,6 +15,7 @@ import DailyJournalSheet, {getCycleJournalItems, type JournalSheetAction} from '
 import HomeScreen from '../screens/HomeScreen';
 import ObjectiveAwareCalendarScreen from '../screens/ObjectiveAwareCalendarScreen';
 import ObjectiveAwareStatisticsScreen from '../screens/ObjectiveAwareStatisticsScreen';
+import DataAvailabilityBanner from '../components/security/DataAvailabilityBanner';
 import ProfileScreen from '../screens/ProfileScreen';
 import {getActiveObjective, hydrateActiveObjective, subscribeActiveObjective, type ObjectiveId} from '../state/onboardingPreferences';
 import {isOwnerActive, subscribeActiveProfileId} from '../state/activeProfileStore';
@@ -334,6 +335,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
 function MainTabNavigator({navigation}: Props): React.JSX.Element {
   return (
     <JournalSheetProvider>
+      <DataAvailabilityBanner />
       <Tab.Navigator
         backBehavior="history"
         screenOptions={{headerShown: false}}
