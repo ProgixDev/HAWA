@@ -53,6 +53,19 @@ type Props = {
   description?: string;
   /** Sticky bottom button; omitted on the last screen of the flow. */
   ctaLabel?: string;
+  /**
+   * Opt-in, additive: disables the sticky CTA (dimmed, `disabled`, `accessibilityState`)
+   * instead of calling `onContinue` — e.g. until a required field is valid. Omitted by
+   * every existing caller, so their CTA stays enabled exactly as before.
+   */
+  ctaDisabled?: boolean;
+  /**
+   * Opt-in, additive: a trailing icon on the sticky CTA (e.g. a forward arrow),
+   * absolutely positioned to the right so the label itself stays centered — same
+   * convention as AwaADeuxPartnerNameScreen's own `ctaArrow`. Omitted by every
+   * existing caller, so their CTA stays text-only exactly as before.
+   */
+  ctaIcon?: React.ComponentProps<typeof MaterialDesignIcons>['name'];
   onContinue?: () => void;
   onBack: () => void;
   fit?: StepFit;
@@ -109,6 +122,8 @@ export default function AwaADeuxStepLayout({
   title,
   description,
   ctaLabel,
+  ctaDisabled,
+  ctaIcon,
   onContinue,
   onBack,
   fit,
@@ -216,6 +231,8 @@ export default function AwaADeuxStepLayout({
               <Pressable
                 accessibilityLabel={ctaLabel}
                 accessibilityRole="button"
+                accessibilityState={{disabled: !!ctaDisabled}}
+                disabled={ctaDisabled}
                 onPress={onContinue}
                 onPressIn={() => {
                   pressScale.value = withTiming(0.97, {duration: 90});
@@ -223,8 +240,18 @@ export default function AwaADeuxStepLayout({
                 onPressOut={() => {
                   pressScale.value = withTiming(1, {duration: 140});
                 }}
-                style={({pressed}) => [styles.cta, fit ? {minHeight: fit.ctaHeight, borderRadius: fit.ctaHeight / 2} : null, pressed && styles.pressed]}>
+                style={({pressed}) => [
+                  styles.cta,
+                  fit ? {minHeight: fit.ctaHeight, borderRadius: fit.ctaHeight / 2} : null,
+                  ctaDisabled && styles.ctaDisabled,
+                  pressed && styles.pressed,
+                ]}>
                 <Text maxFontSizeMultiplier={1.2} style={styles.ctaText}>{ctaLabel}</Text>
+                {ctaIcon ? (
+                  <View pointerEvents="none" style={styles.ctaIcon}>
+                    <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={ctaIcon} size={20} />
+                  </View>
+                ) : null}
               </Pressable>
             </Animated.View>
           </Animated.View>
@@ -314,7 +341,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: theme.colors.primary,
       paddingHorizontal: 20,
     },
+    ctaDisabled: {opacity: 0.45},
     ctaText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '700'},
+    ctaIcon: {position: 'absolute', right: 22},
     pressed: {opacity: 0.85},
   });
 }

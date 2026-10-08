@@ -6,7 +6,7 @@ import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaADeuxPartnerName} from '../../hooks/useAwaADeuxPartnerName';
-import {cancelInvitation} from '../../state/awaADeuxDemoStore';
+import {cancelInvitation, getDemoPartnerState} from '../../state/awaADeuxDemoStore';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {partnerLabel, queBeforePartner} from '../../utils/awaADeuxPartnerWording';
@@ -46,6 +46,7 @@ export default function AwaADeuxPendingScreen({navigation}: Props): React.JSX.El
   const {partnerName} = useAwaADeuxPartnerName();
   const label = partnerLabel(partnerName);
   const heroEntrance = useHeroEntrance();
+  const partnerEmail = getDemoPartnerState().partnerEmail;
 
   const [resent, setResent] = useState(false);
   const resendTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -89,6 +90,7 @@ export default function AwaADeuxPendingScreen({navigation}: Props): React.JSX.El
             {/* FR needs the elided "dès qu'elle accepte" form (queBeforePartner); EN uses the
                 plain name instead — same dual-interpolation-key pattern as AwaADeuxPartnerViewScreen. */}
             <Text style={styles.statusDescription}>{t('awaADeux.pending.statusDescription', {quePartner: queBeforePartner(partnerName), name: label})}</Text>
+            {partnerEmail ? <Text style={styles.statusEmail}>{t('awaADeux.pending.sentToEmail', {email: partnerEmail})}</Text> : null}
           </View>
         </View>
       </Reveal>
@@ -176,6 +178,7 @@ function createStyles(theme: ResolvedAwaTheme, layout: PendingLayout) {
     statusContent: {flex: 1, minWidth: 0},
     statusTitle: {color: theme.colors.text, fontSize: 14, fontWeight: '800'},
     statusDescription: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
+    statusEmail: {marginTop: 4, color: theme.colors.textMuted, fontSize: 11.5, lineHeight: 16},
 
     // The full-width, primary AWA CTA (same visual language as every other primary button
     // in the app: theme.colors.primary fill, height/2 radius, onPrimaryTextColor text).

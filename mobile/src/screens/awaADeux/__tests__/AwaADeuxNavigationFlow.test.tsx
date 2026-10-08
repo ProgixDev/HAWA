@@ -29,7 +29,7 @@ import {updatePrivacySecuritySettings} from '../../../state/securityPreferences'
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled, setAppLanguage} from '../../../state/themePreferences';
 import i18n from '../../../i18n';
 
-// Reduced motion: sheets/modals close immediately (the animated close is covered by AwaADeuxInvitationSheet.test.tsx).
+// Reduced motion: sheets/modals close immediately.
 jest.mock('react-native-reanimated', () => {
   const actual = jest.requireActual('react-native-reanimated');
   return {...actual, __esModule: true, default: actual.default, useReducedMotion: jest.fn(() => true)};
@@ -141,6 +141,18 @@ const androidBack = async () => {
 const toggle = (renderer: ReactTestRenderer.ReactTestRenderer, label: string) =>
   renderer.root.findAllByType(Switch).filter(node => node.props.accessibilityLabel === label).pop()!;
 
+// The invite (Pairing) screen's own email field + "Envoyer l'invitation" CTA.
+const enterPartnerEmail = async (renderer: Root, value: string) => {
+  const field = rootOf(renderer).findAllByType(TextInput).find(node => node.props.accessibilityLabel === 'Adresse e-mail de votre partenaire')!;
+  await act(async () => {
+    field.props.onChangeText(value);
+  });
+};
+const sendInvitation = async (renderer: ReactTestRenderer.ReactTestRenderer, email = 'amine@exemple.fr') => {
+  await enterPartnerEmail(renderer, email);
+  await press(renderer, 'Envoyer l’invitation');
+};
+
 // The partner-name step (its own tests: AwaADeuxPartnerName.test.tsx): type a name, Continuer.
 const enterName = async (renderer: ReactTestRenderer.ReactTestRenderer, times = 1) => {
   const input = renderer.root.findAllByType(TextInput).filter(node => node.props.accessibilityLabel === 'Prénom du partenaire').pop()!;
@@ -232,7 +244,7 @@ describe('ONE linear onboarding path', () => {
     expect(textsOf(renderer)).toContain('Continuer');
     await press(renderer, 'Continuer', 2);
     expect(stack()).toEqual(ONBOARDING);
-    expect(textsOf(renderer)).toContain('Associer votre\npartenaire');
+    expect(textsOf(renderer)).toContain('Inviter votre\npartenaire');
   });
 
   it('every step goes back to the previous one, with Retour and with the Android hardware Back', async () => {
@@ -262,72 +274,48 @@ describe('ONE linear onboarding path', () => {
   });
 });
 
-describe('Association subflows are branches, not steps', () => {
-  it.each([
-    ['Partager', 'Partager l’invitation'],
-    ['Afficher le QR code', 'QR code d’association'],
-    ['Envoyer par email', 'Envoyer par email'],
-  ])('%s opens a modal; X, backdrop and Android Back close it and return to the association screen (stack unchanged)', async (label, modalTitle) => {
+describe('The invite screen is email-only: no branch/modal entry points remain', () => {
+  it('no pairing code, QR or share action exists on the invite screen anymore', async () => {
     const renderer = await renderApp();
     await walkToAssociation(renderer);
-
-    await press(renderer, label);
-    expect(textsOf(openModal(renderer)!)).toContain(modalTitle);
-    expect(stack()).toEqual(ONBOARDING); // nothing was pushed
-    await press(openModal(renderer)!, 'Fermer');
-    expect(openModal(renderer)).toBeUndefined();
+    for (const label of ['Partager', 'Afficher le QR code', 'Envoyer par email', 'Copier ou partager le code']) {
+      expect(buttons(renderer, label)).toHaveLength(0);
+    }
     expect(stack()).toEqual(ONBOARDING);
-
-    await press(renderer, label);
-    await act(async () => {
-      openModal(renderer)!.props.onRequestClose();
-    });
-    await settle();
-    expect(openModal(renderer)).toBeUndefined();
-    expect(stack()).toEqual(ONBOARDING);
-    expect(textsOf(renderer)).toContain('Associer votre\npartenaire');
-    expect(getDemoPartnerState().partnerConnected).toBe(false);
   });
 
-  it('sharing an invitation (any app, copy, QR, e-mail, native share) never associates the partner or navigates', async () => {
-    const {Linking, Share} = require('react-native');
-    jest.spyOn(Linking, 'openURL').mockResolvedValue(undefined as never);
-    jest.spyOn(Share, 'share').mockResolvedValue({action: 'sharedAction'} as never);
+  it('typing an invalid email never associates the partner or navigates; only a valid email + "Envoyer l\'invitation" does', async () => {
     const renderer = await renderApp();
     await walkToAssociation(renderer);
-    await press(renderer, 'Copier ou partager le code');
-    await press(renderer, 'Partager');
-    for (const label of ['WhatsApp', 'Messages', 'Instagram', 'Gmail', 'Copier le texte', 'Plus d’options']) {
-      await press(openModal(renderer)!, label);
-    }
-    await press(openModal(renderer)!, 'Fermer');
-    await press(renderer, 'Afficher le QR code');
-    await press(openModal(renderer)!, 'Partager le QR code');
-    await press(openModal(renderer)!, 'Fermer');
+    await enterPartnerEmail(renderer, 'pas une adresse');
     expect(getDemoPartnerState().partnerConnected).toBe(false);
     expect(stack()).toEqual(ONBOARDING);
+
+    await sendInvitation(renderer, 'amine@exemple.fr');
+    expect(stack()).toEqual([...ONBOARDING, 'AwaADeuxPending']);
   });
 });
 
 describe('Reaching "Invitation envoyée" (Pending)', () => {
-  it('"Continuer" on the association screen pushes Pending exactly once, even on rapid double taps, and uses the dynamic partner name', async () => {
+  it('"Envoyer l\'invitation" on the invite screen pushes Pending exactly once, even on rapid double taps, and uses the dynamic partner name', async () => {
     const renderer = await renderApp();
     await walkToAssociation(renderer);
-    await press(renderer, 'Continuer', 3); // rapid taps
+    await enterPartnerEmail(renderer, 'amine@exemple.fr');
+    await press(renderer, 'Envoyer l’invitation', 3); // rapid taps
     expect(stack()).toEqual([...ONBOARDING, 'AwaADeuxPending']);
     expect(getDemoPartnerState().connectionStatus).toBe('pending');
     expect(textsOf(renderer)).toContain('Invitation envoyée\nà Amine');
   });
 
-  it('Retour and the Android hardware Back leave Pending the same way any other step is left (back to the association screen)', async () => {
+  it('Retour and the Android hardware Back leave Pending the same way any other step is left (back to the invite screen)', async () => {
     const renderer = await renderApp();
     await walkToAssociation(renderer);
-    await press(renderer, 'Continuer');
+    await sendInvitation(renderer);
     expect(stack().slice(-1)[0]).toBe('AwaADeuxPending');
     await press(renderer, 'Retour');
     expect(stack()).toEqual(ONBOARDING);
 
-    await press(renderer, 'Continuer');
+    await sendInvitation(renderer);
     await androidBack();
     expect(stack()).toEqual(ONBOARDING);
   });
@@ -496,7 +484,7 @@ describe('Stop sharing', () => {
     expect(stack()).toEqual(['Profile', 'AwaADeuxPartnerConnected']);
   });
 
-  it('Confirmer disconnects (frontend only) and returns to "Associer votre partenaire" with the onboarding stack rebuilt (no repeat of the steps, no duplicate)', async () => {
+  it('Confirmer disconnects (frontend only) and returns to "Inviter votre partenaire" with the onboarding stack rebuilt (no repeat of the steps, no duplicate)', async () => {
     const renderer = await renderApp();
     await jumpToConnected();
     await press(renderer, 'Arrêter le partage');
@@ -508,7 +496,7 @@ describe('Stop sharing', () => {
     await settle();
     expect(getDemoPartnerState().partnerConnected).toBe(false);
     expect(stack()).toEqual(ONBOARDING);
-    expect(textsOf(renderer)).toContain('Associer votre\npartenaire');
+    expect(textsOf(renderer)).toContain('Inviter votre\npartenaire');
 
     // Back walks the steps in order again.
     await press(renderer, 'Retour');
@@ -559,7 +547,7 @@ describe('Theme is unchanged by the navigation cleanup', () => {
       await setAppearanceMode('dark');
     });
     [gradients().pop()].forEach(colors => expect(colors).toEqual([...resolveAwaTheme('awa-original', true, false).gradients.pageBackground]));
-    await press(renderer, 'Continuer');
+    await sendInvitation(renderer);
     [gradients().pop()].forEach(colors => expect(colors).toEqual([...resolveAwaTheme('awa-original', true, false).gradients.pageBackground]));
   });
 });

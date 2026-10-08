@@ -95,8 +95,7 @@ export default function PartnerProfileScreen(): React.JSX.Element {
   const [expandedHelpItem, setExpandedHelpItem] = useState<string | null>(null);
 
   // Real action, not a placeholder: opens the device's mail app with AWA's existing
-  // support address. Fails silently if no mail app is configured — same fallback as
-  // every other mailto: attempt already in AWA à deux (e.g. EmailInvitationModal).
+  // support address. Fails silently if no mail app is configured.
   const contactSupport = () => {
     const address = APP_METADATA.contactEmail;
     if (!address) {return;}

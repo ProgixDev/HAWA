@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {Linking, Modal, Pressable, Share, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Modal, Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -10,151 +10,22 @@ import {useAwaADeuxSharing} from '../../hooks/useAwaADeuxSharing';
 import {partnerSubject} from '../../utils/awaADeuxPartnerWording';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {isValidEmail} from '../../utils/emailValidation';
 import {computePartnerVisibility} from '../../utils/awaADeuxSharing';
 import AwaADeuxModalFrame from './AwaADeuxModalFrame';
 import PartnerPreviewCard from './PartnerPreviewCard';
-import QrPlaceholder from './QrPlaceholder';
-import {DEMO_PAIRING_CODE, demoPairingValidity} from './awaADeuxDemo';
-import {buildEmailBody, buildMailtoUrl, emailSubject, invitationMessage} from './awaADeuxInvitation';
 
-// The dialogs of the "AWA à deux" association flow. FRONTEND ONLY, DEMO content: nothing
-// is sent by AWA — the platform share sheet and the phone's mail application do the
-// sending — and the code is the placeholder AWA-7K4P9. Every color comes from the
-// resolved AWA theme.
+// The remaining dialogs of the "AWA à deux" association flow. FRONTEND ONLY: nothing is
+// sent anywhere. Every color comes from the resolved AWA theme.
+//
+// The old pairing-code QR/e-mail-compose dialogs (QrCodeModal, EmailInvitationModal) were
+// removed when the invitation flow became EMAIL + SECURE LINK ONLY — see
+// AwaADeuxPairingScreen.tsx, which now collects the partner's email directly on its own
+// screen instead of through a dialog.
 
 const useDialogStyles = () => {
   const {theme} = useAwaTheme();
   return {theme, styles: useMemo(() => createStyles(theme), [theme])};
 };
-
-/* ------------------------------------------------------------------ */
-/* QR code                                                            */
-/* ------------------------------------------------------------------ */
-
-export function QrCodeModal({visible, onClose}: {visible: boolean; onClose: () => void}): React.JSX.Element {
-  const {t} = useTranslation();
-  const {styles} = useDialogStyles();
-  const {partnerName} = useAwaADeuxPartnerName();
-
-  // No image-sharing library: the invitation text (with the code) is what gets shared.
-  const shareQr = async () => {
-    try {
-      await Share.share({message: invitationMessage()});
-    } catch {
-      // The share sheet could not open: nothing else to do in this demo phase.
-    }
-  };
-
-  return (
-    <AwaADeuxModalFrame ctaLabel={t('awaADeux.dialogs.qr.shareCta')} onClose={onClose} onCta={shareQr} title={t('awaADeux.dialogs.qr.title')} visible={visible}>
-      <View style={styles.center}>
-        <QrPlaceholder size={210} value={DEMO_PAIRING_CODE} />
-        <Text style={styles.qrCode}>{DEMO_PAIRING_CODE}</Text>
-        <Text style={styles.muted}>{demoPairingValidity()}</Text>
-        <Text style={styles.demoNote}>{t('awaADeux.dialogs.qr.demoNote')}</Text>
-        <Text style={styles.body}>{t('awaADeux.dialogs.qr.body', {Partner: partnerSubject(partnerName)})}</Text>
-      </View>
-    </AwaADeuxModalFrame>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Email invitation                                                   */
-/* ------------------------------------------------------------------ */
-
-export function EmailInvitationModal({visible, onClose}: {visible: boolean; onClose: () => void}): React.JSX.Element {
-  const {t} = useTranslation();
-  const {theme, styles} = useDialogStyles();
-  const [to, setTo] = useState('');
-  const {partnerName} = useAwaADeuxPartnerName();
-  const emailBody = buildEmailBody(partnerName);
-  const [subject, setSubject] = useState(emailSubject());
-  const [message, setMessage] = useState(emailBody);
-  const [failed, setFailed] = useState(false);
-
-  useEffect(() => {
-    if (visible) {
-      setTo('');
-      setSubject(emailSubject());
-      setMessage(emailBody);
-      setFailed(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible]);
-
-  const trimmed = to.trim();
-  const valid = isValidEmail(trimmed);
-  const showInvalid = trimmed.length > 0 && !valid;
-
-  // The phone's own mail application (mailto:) with recipient, subject and body pre-filled.
-  const openMail = async () => {
-    const url = buildMailtoUrl(trimmed, subject, message);
-    try {
-      if (await Linking.canOpenURL(url)) {
-        await Linking.openURL(url);
-        setFailed(false);
-      } else {
-        setFailed(true);
-      }
-    } catch {
-      setFailed(true);
-    }
-  };
-
-  return (
-    <AwaADeuxModalFrame
-      avoidKeyboard
-      ctaDisabled={!valid}
-      ctaLabel={t('awaADeux.dialogs.email.cta')}
-      onClose={onClose}
-      onCta={openMail}
-      title={t('awaADeux.dialogs.email.title')}
-      visible={visible}>
-      <View style={styles.field}>
-        <Text style={styles.fieldLabel}>{t('awaADeux.dialogs.email.toLabel')}</Text>
-        <TextInput
-          accessibilityLabel={t('awaADeux.dialogs.email.toAccessibility')}
-          autoCapitalize="none"
-          autoCorrect={false}
-          keyboardType="email-address"
-          onChangeText={setTo}
-          placeholder={t('awaADeux.dialogs.email.toPlaceholder')}
-          placeholderTextColor={theme.colors.textMuted}
-          style={[styles.input, showInvalid && styles.inputInvalid]}
-          value={to}
-        />
-        {showInvalid ? <Text accessibilityRole="alert" style={styles.error}>{t('awaADeux.dialogs.email.invalidEmail')}</Text> : null}
-      </View>
-
-      <View style={styles.field}>
-        <Text style={styles.fieldLabel}>{t('awaADeux.dialogs.email.subjectLabel')}</Text>
-        <TextInput
-          accessibilityLabel={t('awaADeux.dialogs.email.subjectAccessibility')}
-          onChangeText={setSubject}
-          placeholderTextColor={theme.colors.textMuted}
-          style={styles.input}
-          value={subject}
-        />
-      </View>
-
-      <View style={styles.field}>
-        <Text style={styles.fieldLabel}>{t('awaADeux.dialogs.email.messageLabel')}</Text>
-        <TextInput
-          accessibilityLabel={t('awaADeux.dialogs.email.messageAccessibility')}
-          multiline
-          onChangeText={setMessage}
-          placeholderTextColor={theme.colors.textMuted}
-          style={[styles.input, styles.messageInput]}
-          textAlignVertical="top"
-          value={message}
-        />
-      </View>
-
-      {failed ? <Text accessibilityRole="alert" style={styles.error}>{t('awaADeux.dialogs.email.openFailed')}</Text> : null}
-    </AwaADeuxModalFrame>
-  );
-}
 
 /* ------------------------------------------------------------------ */
 /* Partner preview                                                    */
@@ -261,36 +132,9 @@ export function StopSharingModal({
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    center: {alignItems: 'center'},
-    qrCode: {marginTop: 14, color: theme.colors.accent, fontFamily: 'serif', fontSize: 24, fontWeight: '700', letterSpacing: 1.5},
-    muted: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 13},
     demoNote: {marginTop: 6, color: theme.colors.textMuted, fontSize: 11.5},
     body: {marginTop: 12, color: theme.colors.textSecondary, fontSize: 13.5, lineHeight: 20, textAlign: 'center'},
     spaced: {marginTop: 14},
-    error: {marginTop: 8, color: theme.colors.danger, fontSize: 12.5, lineHeight: 18},
-    invitationCard: {
-      gap: 12,
-      borderRadius: 20,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.primarySoft,
-      padding: 16,
-    },
-    invitationLine: {color: theme.colors.text, fontSize: 14.5, lineHeight: 21},
-    field: {marginBottom: 12},
-    fieldLabel: {marginBottom: 6, color: theme.colors.textSecondary, fontSize: 13, fontWeight: '600'},
-    input: {
-      minHeight: 48,
-      borderRadius: 16,
-      borderWidth: 1.2,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surface,
-      paddingHorizontal: 14,
-      color: theme.colors.text,
-      fontSize: 14.5,
-    },
-    inputInvalid: {borderColor: theme.colors.danger},
-    messageInput: {minHeight: 150, paddingTop: 12, paddingBottom: 12, lineHeight: 21},
     backdrop: {...StyleSheet.absoluteFillObject, backgroundColor: withAlpha(theme.shadow.shadowColor, 0.55)},
     sheetRoot: {flex: 1, justifyContent: 'flex-end'},
     sheet: {

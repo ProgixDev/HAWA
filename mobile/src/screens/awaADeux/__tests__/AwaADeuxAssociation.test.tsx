@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
-import {Linking, Modal, Share, Text, TextInput} from 'react-native';
+import {Modal, Text, TextInput} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -20,8 +20,6 @@ import AwaADeuxPendingScreen from '../AwaADeuxPendingScreen';
 import AwaADeuxPartnerConnectedScreen from '../AwaADeuxPartnerConnectedScreen';
 import AwaADeuxSharingScreen from '../AwaADeuxSharingScreen';
 import {PartnerPreviewModal} from '../AwaADeuxDialogs';
-import {DEMO_PAIRING_CODE} from '../awaADeuxDemo';
-import {buildEmailBody, emailSubject, invitationMessage, buildMailtoUrl} from '../awaADeuxInvitation';
 import {getDemoPartnerState, simulatePartnerConnected, stopDemoSharing} from '../../../state/awaADeuxDemoStore';
 import {DEFAULT_SHARING_TOGGLES, SHARING_KEYS, setSharingToggle} from '../../../state/awaADeuxSharingStore';
 import {clearAwaADeuxPartnerName, setAwaADeuxPartnerName} from '../../../state/awaADeuxPartnerStore';
@@ -123,6 +121,14 @@ const openModal = (renderer: ReactTestRenderer.ReactTestRenderer) =>
   renderer.root.findAllByType(Modal).filter(modal => modal.props.visible === true).pop();
 const cardOf = (modal: ReactTestRenderer.ReactTestInstance) =>
   modal.findAll(node => typeof node.type === 'string' && flat(node.props?.style).borderRadius === 28 && flat(node.props?.style).maxHeight === '100%')[0];
+// The invite screen's own email field.
+const emailField = (renderer: Root) =>
+  rootOf(renderer).findAllByType(TextInput).find(node => node.props.accessibilityLabel === 'Adresse e-mail de votre partenaire')!;
+const enterEmail = async (renderer: ReactTestRenderer.ReactTestRenderer, value: string) => {
+  await act(async () => {
+    emailField(renderer).props.onChangeText(value);
+  });
+};
 
 beforeEach(async () => {
   await clearAwaADeuxPartnerName();
@@ -148,124 +154,50 @@ afterEach(() => {
   });
 });
 
-describe('Association screen', () => {
-  it('shows the code card, the sharing section and the account notice', async () => {
+describe('Invite screen (email + secure link only)', () => {
+  it('shows the description, the email field and the secure-link helper note — no code, no QR, no share, no account notice', async () => {
     const renderer = await renderFlow();
     const texts = textsOf(renderer);
-    for (const text of ['Associer votre\npartenaire', 'Partagez ce code avec Amine pour l’inviter à se connecter.', 'Code d’association', DEMO_PAIRING_CODE, 'Valable pendant 24 heures', 'Partager le code', 'Partager', 'Afficher le QR code', 'ou', 'Envoyer par email', 'Invitez Amine par email directement depuis l’app', 'Amine devra créer un compte AWA et utiliser ce code pour se connecter.']) {
+    for (const text of ['Inviter votre\npartenaire', 'Invitez Amine à vous rejoindre sur AWA à deux.', 'E-mail de votre partenaire', 'Nous enverrons à Amine un lien d’invitation sécurisé par email.']) {
       expect(texts).toContain(text);
     }
+    for (const text of ['Code d’association', 'Valable pendant 24 heures', 'Partager le code', 'Afficher le QR code', 'Envoyer par email', 'devra créer un compte AWA et utiliser ce code']) {
+      expect(texts).not.toContain(text);
+    }
+    expect(emailField(renderer).props.placeholder).toBe('partenaire@exemple.com');
   });
 
-  it('there is no clipboard package: the copy icon opens the system share sheet with the invitation (which offers "Copier") and no "Code copié" is claimed', async () => {
-    const share = jest.spyOn(Share, 'share').mockResolvedValue({action: 'sharedAction'} as never);
+  it('the CTA is disabled until the address is valid, and shows an inline error once a bad address has been touched', async () => {
     const renderer = await renderFlow();
-    await press(renderer, 'Copier ou partager le code');
-    expect(share).toHaveBeenCalledTimes(1);
-    expect((share.mock.calls[0][0] as {message: string}).message).toBe(invitationMessage());
-    expect(textsOf(renderer)).not.toContain('Code copié');
+    const cta = () => buttons(renderer, 'Envoyer l’invitation').pop()!;
+    expect(cta().props.disabled).toBe(true);
+
+    await enterEmail(renderer, 'pas une adresse');
+    await act(async () => {
+      emailField(renderer).props.onBlur();
+    });
+    expect(textsOf(renderer)).toContain('Entre une adresse email valide.');
+    expect(cta().props.disabled).toBe(true);
+
+    await enterEmail(renderer, 'sami@exemple.fr');
+    expect(cta().props.disabled).toBeFalsy();
+    expect(textsOf(renderer)).not.toContain('Entre une adresse email valide.');
+  });
+
+  it('no clipboard/QR dependency was added for this feature (AWA has no clipboard package, no QR-encoding library)', () => {
     const pkg = fs.readFileSync(path.resolve(__dirname, '../../../../package.json'), 'utf8');
     expect(pkg).not.toMatch(/clipboard/i);
-  });
-
-  it('the share message is exactly the specified invitation with the demo code', () => {
-    expect(invitationMessage()).toBe('Rejoins-moi sur AWA à deux 💜\n\nUtilise ce code : AWA-7K4P9\npour te connecter et m’accompagner.\n\nTélécharge l’application AWA !');
-  });
-});
-
-describe('QR code', () => {
-  it('opens with the code, the validity and the scan text; the QR is an identified visual placeholder; X and Android Back close it', async () => {
-    const renderer = await renderFlow();
-    await press(renderer, 'Afficher le QR code');
-    const modal = openModal(renderer)!;
-    const texts = textsOf(modal);
-    for (const text of ['QR code d’association', DEMO_PAIRING_CODE, 'Valable pendant 24 heures', 'Amine peut scanner ce QR code depuis son application AWA pour se connecter.', 'Partager le QR code', 'Aperçu de démonstration']) {
-      expect(texts).toContain(text);
-    }
-    const qr = modal.findAll(node => node.props.accessibilityRole === 'image')[0];
-    expect(qr.props.accessibilityLabel).toContain('non scannable');
-
-    await press(renderer, 'Fermer');
-    expect(openModal(renderer)).toBeUndefined();
-
-    await press(renderer, 'Afficher le QR code');
-    await act(async () => {
-      openModal(renderer)!.props.onRequestClose();
-    });
-    expect(openModal(renderer)).toBeUndefined();
-  });
-
-  it('"Partager le QR code" opens the native share sheet with the invitation', async () => {
-    const share = jest.spyOn(Share, 'share').mockResolvedValue({action: 'sharedAction'} as never);
-    const renderer = await renderFlow();
-    await press(renderer, 'Afficher le QR code');
-    await press(renderer, 'Partager le QR code');
-    expect(share).toHaveBeenCalledWith({message: invitationMessage()});
-  });
-
-  it('no QR library is available or added: the placeholder is drawn with the already installed react-native-svg', () => {
-    const pkg = fs.readFileSync(path.resolve(__dirname, '../../../../package.json'), 'utf8');
     expect(pkg).not.toMatch(/qrcode|qr-code/i);
-    const source = fs.readFileSync(path.resolve(__dirname, '../QrPlaceholder.tsx'), 'utf8');
-    expect(source).toContain("from 'react-native-svg'");
-    expect(source).toMatch(/NOT a real, scannable QR code/);
-  });
-});
-
-describe('E-mail invitation', () => {
-  const emailInput = (modal: ReactTestRenderer.ReactTestInstance) => modal.findAllByType(TextInput).find(node => node.props.accessibilityLabel === 'Adresse email du destinataire')!;
-
-  it('opens with the prefilled subject and message; the button is disabled until the address is valid', async () => {
-    const renderer = await renderFlow();
-    await press(renderer, 'Envoyer par email');
-    const modal = openModal(renderer)!;
-    expect(textsOf(modal)).toEqual(expect.arrayContaining(['Envoyer par email', 'À', 'Objet', 'Message', 'Ouvrir l’application email']));
-    expect(emailInput(modal).props.placeholder).toBe('adresse@email.com');
-    expect(modal.findAllByType(TextInput).find(node => node.props.accessibilityLabel === 'Objet du message')!.props.value).toBe('Rejoins-moi sur AWA à deux 💜');
-    expect(modal.findAllByType(TextInput).find(node => node.props.accessibilityLabel === 'Message')!.props.value).toBe(buildEmailBody('Amine'));
-    expect(buildEmailBody('')).toBe('Bonjour !\n\nJe t’invite à me rejoindre sur AWA à deux.\nUtilise ce code : AWA-7K4P9\npour te connecter et m’accompagner.\n\nTélécharge l’application AWA ! 💜');
-
-    const cta = () => buttons(renderer, 'Ouvrir l’application email').pop() ?? renderer.root.findAll(node => node.props.accessibilityLabel === 'Ouvrir l’application email' && node.props.accessibilityRole === 'button').pop()!;
-    expect(cta().props.disabled).toBe(true);
-    await act(async () => {
-      emailInput(modal).props.onChangeText('pas une adresse');
-    });
-    expect(textsOf(openModal(renderer)!)).toContain('Entre une adresse email valide.');
-    expect(cta().props.disabled).toBe(true);
-    await act(async () => {
-      emailInput(modal).props.onChangeText('sami@exemple.fr');
-    });
-    expect(cta().props.disabled).toBeFalsy();
-    expect(textsOf(openModal(renderer)!)).not.toContain('Entre une adresse email valide.');
   });
 
-  it('"Ouvrir l’application email" opens the phone mail app with recipient, subject and body (no AWA e-mail backend)', async () => {
-    jest.spyOn(Linking, 'canOpenURL').mockResolvedValue(true);
-    const open = jest.spyOn(Linking, 'openURL').mockResolvedValue(undefined as never);
+  it('renders the local partner.png hero illustration (no placeholder, no remote image), contained and decorative', async () => {
     const renderer = await renderFlow();
-    await press(renderer, 'Envoyer par email');
-    await act(async () => {
-      emailInput(openModal(renderer)!).props.onChangeText('  sami@exemple.fr ');
-    });
-    await press(renderer, 'Ouvrir l’application email');
-    expect(open).toHaveBeenCalledTimes(1);
-    const url = open.mock.calls[0][0] as string;
-    expect(url).toBe(buildMailtoUrl('sami@exemple.fr', emailSubject(), buildEmailBody('Amine')));
-    expect(url.startsWith('mailto:sami%40exemple.fr?subject=')).toBe(true);
-    expect(decodeURIComponent(url)).toContain(DEMO_PAIRING_CODE);
-  });
-
-  it('an unavailable mail app shows a message; X closes the form', async () => {
-    jest.spyOn(Linking, 'canOpenURL').mockResolvedValue(false);
-    const renderer = await renderFlow();
-    await press(renderer, 'Envoyer par email');
-    await act(async () => {
-      emailInput(openModal(renderer)!).props.onChangeText('sami@exemple.fr');
-    });
-    await press(renderer, 'Ouvrir l’application email');
-    expect(textsOf(openModal(renderer)!)).toContain('Impossible d’ouvrir l’application e-mail.');
-    await press(renderer, 'Fermer');
-    expect(openModal(renderer)).toBeUndefined();
+    const hero = renderer.root.findAll(node => node.props.source !== undefined && node.props.resizeMode === 'contain')[0];
+    expect(hero).toBeDefined();
+    expect(hero.props.importantForAccessibility).toBe('no-hide-descendants');
+    const source = fs.readFileSync(path.resolve(__dirname, '../AwaADeuxPairingScreen.tsx'), 'utf8');
+    expect(source).toContain("require('../../assets/images/partner.png')");
+    expect(source).not.toMatch(/https?:\/\//);
   });
 });
 
@@ -282,48 +214,30 @@ describe('"Continuer" (frontend demo progression) — no DEV button', () => {
     expect(source).not.toMatch(/__DEV__|flask|Simuler|DEV ·/);
   });
 
-  it('shows the normal AWA primary CTA "Continuer" (the same sticky button as the previous steps)', async () => {
+  it('shows the normal AWA primary CTA "Envoyer l\'invitation" (the same sticky button family as the previous steps)', async () => {
     const renderer = await renderFlow();
-    expect(textsOf(renderer)).toContain('Continuer');
-    expect(buttons(renderer, 'Continuer').length).toBeGreaterThan(0);
+    expect(textsOf(renderer)).toContain('Envoyer l’invitation');
+    expect(buttons(renderer, 'Envoyer l’invitation').length).toBeGreaterThan(0);
   });
 
-  it('"Continuer" opens "Invitation envoyée à Amine" (Pending): in-memory state, nothing is written', async () => {
+  it('entering a valid email and pressing "Envoyer l\'invitation" opens "Invitation envoyée à Amine" (Pending): in-memory state, nothing is written', async () => {
     const setItem = AsyncStorage.setItem as jest.Mock;
     setItem.mockClear();
     const renderer = await renderFlow();
     expect(getDemoPartnerState().connectionStatus).toBe('not_invited');
-    await press(renderer, 'Continuer');
+    await enterEmail(renderer, 'amine@exemple.fr');
+    await press(renderer, 'Envoyer l’invitation');
     expect(getDemoPartnerState().connectionStatus).toBe('pending');
+    expect(getDemoPartnerState().partnerEmail).toBe('amine@exemple.fr');
     expect(currentRoute()).toBe('AwaADeuxPending');
     expect(textsOf(renderer)).toContain('Invitation envoyée\nà Amine');
     expect(setItem).not.toHaveBeenCalled();
   });
 
-  it('sharing is NOT pairing: no share / copy / QR / e-mail action connects the partner', async () => {
-    jest.spyOn(Share, 'share').mockResolvedValue({action: 'sharedAction'} as never);
-    jest.spyOn(Linking, 'openURL').mockResolvedValue(undefined as never);
-    jest.spyOn(Linking, 'canOpenURL').mockResolvedValue(true);
-    const renderer = await renderFlow();
-    await press(renderer, 'Copier ou partager le code');
-    await press(renderer, 'Partager');
-    const sheet = openModal(renderer)!;
-    for (const label of ['WhatsApp', 'Messages', 'Instagram', 'Gmail', 'Copier le texte', 'Plus d’options']) {
-      await press(sheet, label);
-    }
-    await press(sheet, 'Fermer');
-    await press(renderer, 'Afficher le QR code');
-    await press(renderer, 'Partager le QR code');
-    await press(renderer, 'Fermer');
-    expect(getDemoPartnerState().partnerConnected).toBe(false);
-    expect(currentRoute()).toBe('AwaADeuxPairing');
-    expect(textsOf(renderer)).toContain('Associer votre\npartenaire');
-  });
-
   it('the CTA follows the theme (primary background, readable text) in Light and Dark', async () => {
     const renderer = await renderFlow();
     const ctaStyle = () => {
-      const cta = buttons(renderer, 'Continuer')[0];
+      const cta = buttons(renderer, 'Envoyer l’invitation')[0];
       return flat(typeof cta.props.style === 'function' ? cta.props.style({pressed: false}) : cta.props.style);
     };
     expect(ctaStyle().backgroundColor).toBe(resolveAwaTheme('awa-original', false, false).colors.primary);
@@ -537,7 +451,7 @@ describe('Stop sharing', () => {
     expect(getDemoPartnerState().partnerConnected).toBe(true);
   });
 
-  it('confirming disconnects (frontend only) and returns to "Associer votre partenaire"; a double tap confirms once', async () => {
+  it('confirming disconnects (frontend only) and returns to "Inviter votre partenaire"; a double tap confirms once', async () => {
     simulatePartnerConnected();
     const renderer = await renderFlow('AwaADeuxPartnerConnected');
     await press(renderer, 'Arrêter le partage');
@@ -549,9 +463,9 @@ describe('Stop sharing', () => {
       confirm.props.onPress();
     });
     await settle();
-    expect(getDemoPartnerState()).toEqual({connectionStatus: 'not_invited', partnerConnected: false});
+    expect(getDemoPartnerState()).toEqual({connectionStatus: 'not_invited', partnerConnected: false, partnerEmail: null});
     expect(currentRoute()).toBe('AwaADeuxPairing');
-    expect(textsOf(renderer)).toContain('Associer votre\npartenaire');
+    expect(textsOf(renderer)).toContain('Inviter votre\npartenaire');
   });
 
   it('the destructive button uses the theme\'s danger color (Light and Dark)', async () => {
@@ -571,7 +485,7 @@ describe('Stop sharing', () => {
 describe('Theme', () => {
   it('no color literal in any new file of this phase', () => {
     const dir = path.resolve(__dirname, '..');
-    for (const name of ['AwaADeuxPairingScreen.tsx', 'AwaADeuxPartnerConnectedScreen.tsx', 'AwaADeuxDialogs.tsx', 'AwaADeuxModalFrame.tsx', 'QrPlaceholder.tsx', 'awaADeuxInvitation.ts']) {
+    for (const name of ['AwaADeuxPairingScreen.tsx', 'AwaADeuxPartnerConnectedScreen.tsx', 'AwaADeuxDialogs.tsx', 'AwaADeuxModalFrame.tsx', 'awaADeuxInvitation.ts']) {
       const source = fs.readFileSync(path.join(dir, name), 'utf8');
       expect(source).not.toMatch(/#[0-9A-Fa-f]{3,8}\b/);
       expect(source).not.toMatch(/rgba?\(/);
@@ -610,26 +524,21 @@ describe('Theme', () => {
     expect(flat(cardOf(openModal(renderer)!).props.style).backgroundColor).toBe(resolveAwaTheme('ocean-calm', false, false).colors.background);
   });
 
-  it('the association screen, the QR dialog and the e-mail dialog resolve the theme too', async () => {
+  it('the invite screen\'s email card resolves the theme too', async () => {
     const renderer = await renderFlow();
     await act(async () => {
       await setAppearanceMode('dark');
     });
     const dark = resolveAwaTheme('awa-original', true, false);
-    await press(renderer, 'Afficher le QR code');
-    expect(flat(cardOf(openModal(renderer)!).props.style).backgroundColor).toBe(dark.colors.background);
-    await press(renderer, 'Fermer');
-    await press(renderer, 'Envoyer par email');
-    expect(flat(cardOf(openModal(renderer)!).props.style).backgroundColor).toBe(dark.colors.background);
-    const code = renderer.root.findAllByType(Text).find(node => textOf(node) === DEMO_PAIRING_CODE)!;
-    expect(flat(code.props.style).color).toBe(dark.colors.accent);
+    const card = renderer.root.findAll(node => typeof node.type === 'string' && flat(node.props?.style).borderRadius === 24 && flat(node.props?.style).padding === 18)[0];
+    expect(flat(card.props.style).backgroundColor).toBe(dark.colors.surface);
   });
 });
 
 describe('Frontend only', () => {
   it('the new files import no backend, storage or health-data module', () => {
     const dir = path.resolve(__dirname, '..');
-    for (const name of ['AwaADeuxPairingScreen.tsx', 'AwaADeuxPartnerConnectedScreen.tsx', 'AwaADeuxDialogs.tsx', 'AwaADeuxModalFrame.tsx', 'QrPlaceholder.tsx', 'awaADeuxInvitation.ts', '../../state/awaADeuxDemoStore.ts']) {
+    for (const name of ['AwaADeuxPairingScreen.tsx', 'AwaADeuxPartnerConnectedScreen.tsx', 'AwaADeuxDialogs.tsx', 'AwaADeuxModalFrame.tsx', 'awaADeuxInvitation.ts', '../../state/awaADeuxDemoStore.ts']) {
       const source = fs.readFileSync(path.join(dir, name), 'utf8');
       const imports = source.split('\n').filter(line => /^import |^} from /.test(line)).join('\n');
       expect(imports).not.toMatch(/async-storage|supabase|\/services\/|keychain|notifee|dailyJournal|cyclePreferences|pregnancyJournal/i);

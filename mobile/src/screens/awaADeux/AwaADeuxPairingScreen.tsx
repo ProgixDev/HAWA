@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {Pressable, Share, StyleSheet, Text, View} from 'react-native';
+import {Animated, Image, StyleSheet, Text, TextInput, View, useWindowDimensions} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
@@ -8,141 +8,122 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {simulateInvitationSent} from '../../state/awaADeuxDemoStore';
 import {advanceToPending} from './awaADeuxNavigation';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import AwaADeuxStepLayout, {Reveal} from './AwaADeuxStepLayout';
-import {EmailInvitationModal, QrCodeModal} from './AwaADeuxDialogs';
-import InvitationShareSheet from './InvitationShareSheet';
-import {DEMO_PAIRING_CODE, demoPairingValidity} from './awaADeuxDemo';
 import {useAwaADeuxPartnerName} from '../../hooks/useAwaADeuxPartnerName';
-import {partnerLabel, partnerSubject} from '../../utils/awaADeuxPartnerWording';
-import {invitationMessage} from './awaADeuxInvitation';
+import {partnerLabel} from '../../utils/awaADeuxPartnerWording';
+import {isValidEmail} from '../../utils/emailValidation';
+import {useHeroEntrance} from './useEntrance';
 
-// "AWA à deux" — associate the partner. FRONTEND ONLY, DEMO UI.
+// "AWA à deux" — invite the partner. FRONTEND ONLY, DEMO UI.
 //
-// The code is a fixed placeholder (awaADeuxDemo.ts): nothing is generated, stored, sent
-// or validated by a server, and "24 heures" is display copy only. No account, invitation
-// or pairing exists behind these actions:
-//   - copy icon: AWA has no clipboard package (and none is added in this phase), so it
-//     opens the system share sheet with the invitation text — which offers "Copier";
-//   - "Partager": the "Partager l'invitation" bottom sheet (app shortcuts, copy, more options);
-//   - "Afficher le QR code": a dialog with a visual PLACEHOLDER (no QR encoder available);
-//   - "Envoyer par email": an e-mail form that opens the phone's mail app (mailto:);
-//   - "Continuer": FRONTEND DEMO PROGRESSION only. It does NOT mean a server sent or
-//     verified anything: it only moves the in-memory demo connection status to 'pending'
-//     (AwaADeuxPendingScreen) and pushes that screen once, even on a rapid double tap.
-//     Sharing the invitation (any of the actions above) never touches that status.
+// EMAIL + SECURE LINK is the ONLY invitation method: no pairing PIN/code, no QR code, no
+// native share sheet, no manually entered code. A real backend will later generate the
+// secure token and actually send the email (see the header comment of
+// src/state/awaADeuxDemoStore.ts for the exact simulated state transition) — this screen
+// only collects and validates the address, then simulates success:
+//   "Envoyer l'invitation": FRONTEND DEMO PROGRESSION only. It does NOT send a real email:
+//   it records the address (simulateInvitationSent) and moves to the Pending step via the
+//   same guarded advanceToPending() every other step uses, so a rapid double tap can never
+//   push a duplicate screen. This screen is never unmounted by going back from Pending, so
+//   — unlike AcceptInvitationScreen's one-shot accept — no local "already sent" ref is used:
+//   she can come back here (e.g. after "Retour") and send again.
+//
+// This phase is a VISUAL-ONLY redesign (partner.png hero + a more premium card/CTA
+// treatment) — none of the above business logic changed. The shared title/description
+// typography and back button (AwaADeuxStepLayout.tsx) are deliberately left untouched:
+// they are used by every other "AWA à deux" step, so restyling them here would ripple
+// into screens this task never asked to change.
 type Props = NativeStackScreenProps<RootStackParamList, 'AwaADeuxPairing'>;
+
+const HERO_IMAGE = require('../../assets/images/partner.png');
 
 export default function AwaADeuxPairingScreen({navigation}: Props): React.JSX.Element {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
+  const {height, width} = useWindowDimensions();
+  const compact = width < 380 || height < 720;
   const styles = useMemo(() => createStyles(theme), [theme]);
   const {partnerName} = useAwaADeuxPartnerName();
+  const heroEntrance = useHeroEntrance();
 
-  const [dialog, setDialog] = useState<'qr' | 'invitation' | 'email' | null>(null);
-  const closeDialog = () => setDialog(null);
+  // Height only — resizeMode="contain" derives the width from partner.png's own aspect
+  // ratio within the available page width, which naturally lands around 240–290dp on
+  // typical phone widths without hardcoding it separately.
+  const heroHeight = Math.round(Math.min(190, Math.max(150, height * (compact ? 0.19 : 0.22))));
 
-  // Demo progression (see the header comment): no verification, nothing stored or sent.
-  const continueDemo = () => {
-    simulateInvitationSent();
+  const [email, setEmail] = useState('');
+  const [touched, setTouched] = useState(false);
+  const [focused, setFocused] = useState(false);
+
+  const trimmed = email.trim();
+  const valid = isValidEmail(trimmed);
+  const showInvalid = touched && trimmed.length > 0 && !valid;
+
+  const sendInvitation = () => {
+    if (!valid) {return;}
+    simulateInvitationSent(trimmed);
     advanceToPending(navigation);
-  };
-
-  const copyOrShare = async () => {
-    try {
-      await Share.share({message: invitationMessage()});
-    } catch {
-      // The share sheet could not open: nothing else to do in this demo phase.
-    }
   };
 
   return (
     <AwaADeuxStepLayout
-      ctaLabel={t('common.continue')}
+      ctaDisabled={!valid}
+      ctaIcon="arrow-right"
+      ctaLabel={t('awaADeux.pairing.sendCta')}
+      decor
       description={t('awaADeux.pairing.description', {partner: partnerLabel(partnerName)})}
+      hero={
+        <Animated.View style={[styles.hero, {height: heroHeight}, heroEntrance]}>
+          <Image
+            accessibilityElementsHidden
+            importantForAccessibility="no-hide-descendants"
+            resizeMode="contain"
+            source={HERO_IMAGE}
+            style={styles.heroImage}
+          />
+        </Animated.View>
+      }
       onBack={navigation.goBack}
-      onContinue={continueDemo}
+      onContinue={sendInvitation}
       title={t('awaADeux.pairing.title')}>
       <Reveal index={0}>
-        <View style={styles.codeCard}>
-          <Text style={styles.codeLabel}>{t('awaADeux.pairing.codeLabel')}</Text>
-          <View style={styles.codeRow}>
-            <Text
-              accessibilityLabel={t('awaADeux.pairing.codeAccessibility', {spacedCode: DEMO_PAIRING_CODE.split('').join(' ')})}
-              maxFontSizeMultiplier={1.2}
-              selectable
-              style={styles.code}>
-              {DEMO_PAIRING_CODE}
-            </Text>
-            <Pressable
-              accessibilityLabel={t('awaADeux.pairing.copyOrShareAccessibility')}
-              accessibilityRole="button"
-              hitSlop={8}
-              onPress={copyOrShare}
-              style={({pressed}) => [styles.copyButton, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="content-copy" size={22} />
-            </Pressable>
+        <View style={styles.card}>
+          <Text style={styles.label}>{t('awaADeux.pairing.emailLabel')}</Text>
+          <View style={[styles.inputRow, focused && styles.inputRowFocused, showInvalid && styles.inputRowInvalid]}>
+            <View style={styles.inputIcon}>
+              <MaterialDesignIcons color={theme.colors.primary} name="email-outline" size={20} />
+            </View>
+            <TextInput
+              accessibilityLabel={t('awaADeux.pairing.emailAccessibility')}
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="email-address"
+              onBlur={() => {
+                setFocused(false);
+                setTouched(true);
+              }}
+              onChangeText={setEmail}
+              onFocus={() => setFocused(true)}
+              placeholder={t('awaADeux.pairing.emailPlaceholder')}
+              placeholderTextColor={theme.colors.textMuted}
+              style={styles.input}
+              value={email}
+            />
           </View>
-          <Text style={styles.validity}>{demoPairingValidity()}</Text>
+          {showInvalid ? <Text accessibilityRole="alert" style={styles.error}>{t('awaADeux.pairing.invalidEmail')}</Text> : null}
         </View>
       </Reveal>
 
       <Reveal index={1}>
-        <View style={styles.shareCard}>
-          <Text accessibilityRole="header" style={styles.shareTitle}>{t('awaADeux.pairing.shareSectionTitle')}</Text>
-
-          <View style={styles.actions}>
-            <Pressable
-              accessibilityLabel={t('awaADeux.pairing.shareAction')}
-              accessibilityRole="button"
-              onPress={() => setDialog('invitation')}
-              style={({pressed}) => [styles.action, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="share-variant-outline" size={24} />
-              <Text style={styles.actionText}>{t('awaADeux.pairing.shareAction')}</Text>
-            </Pressable>
-            <Pressable
-              accessibilityLabel={t('awaADeux.pairing.showQrAction')}
-              accessibilityRole="button"
-              onPress={() => setDialog('qr')}
-              style={({pressed}) => [styles.action, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="qrcode" size={24} />
-              <Text style={styles.actionText}>{t('awaADeux.pairing.showQrAction')}</Text>
-            </Pressable>
-          </View>
-
-          <View style={styles.separator}>
-            <View style={styles.separatorLine} />
-            <Text style={styles.separatorText}>{t('awaADeux.pairing.orSeparator')}</Text>
-            <View style={styles.separatorLine} />
-          </View>
-
-          <Pressable
-            accessibilityLabel={t('awaADeux.pairing.emailAction')}
-            accessibilityRole="button"
-            onPress={() => setDialog('email')}
-            style={({pressed}) => [styles.emailRow, pressed && styles.pressed]}>
-            <View style={styles.emailIcon}>
-              <MaterialDesignIcons color={theme.colors.primary} name="email-outline" size={24} />
-            </View>
-            <View style={styles.emailCopy}>
-              <Text style={styles.emailTitle}>{t('awaADeux.pairing.emailAction')}</Text>
-              <Text style={styles.emailText}>{t('awaADeux.pairing.emailDescription', {partner: partnerLabel(partnerName)})}</Text>
-            </View>
-          </Pressable>
-        </View>
-      </Reveal>
-
-      <Reveal index={2}>
         <View style={styles.info}>
-          <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={20} />
+          <View style={styles.infoIcon}>
+            <MaterialDesignIcons color={theme.colors.primary} name="shield-check-outline" size={20} />
+          </View>
           <Text maxFontSizeMultiplier={1.2} style={styles.infoText}>
-            {t('awaADeux.pairing.infoNote', {Partner: partnerSubject(partnerName)})}
+            {t('awaADeux.pairing.emailHelper', {partner: partnerLabel(partnerName)})}
           </Text>
         </View>
-
-        <QrCodeModal onClose={closeDialog} visible={dialog === 'qr'} />
-        <InvitationShareSheet onClose={closeDialog} visible={dialog === 'invitation'} />
-        <EmailInvitationModal onClose={closeDialog} visible={dialog === 'email'} />
       </Reveal>
     </AwaADeuxStepLayout>
   );
@@ -150,92 +131,60 @@ export default function AwaADeuxPairingScreen({navigation}: Props): React.JSX.El
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    codeCard: {
-      alignItems: 'center',
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.3),
-      borderRadius: 26,
-      backgroundColor: theme.colors.surface,
-      paddingHorizontal: 18,
-      paddingVertical: 20,
-      ...theme.shadow,
-    },
-    codeLabel: {color: theme.colors.textSecondary, fontSize: 13.5, fontWeight: '600'},
-    codeRow: {marginTop: 8, flexDirection: 'row', alignItems: 'center', gap: 12},
-    code: {
-      color: theme.colors.accent,
-      fontFamily: 'serif',
-      fontSize: 30,
-      lineHeight: 38,
-      fontWeight: '700',
-      letterSpacing: 1.5,
-    },
-    copyButton: {
-      width: 40,
-      height: 40,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 20,
-      backgroundColor: theme.colors.primarySoft,
-    },
-    validity: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 12.5},
-    shareCard: {
+    // Transparent PNG, no background box behind it — same compact hero treatment as
+    // AwaADeuxPendingScreen / AwaADeuxInvitationScreen (only `height` varies per-screen).
+    hero: {width: '100%', maxWidth: 300, alignSelf: 'center', alignItems: 'center', justifyContent: 'center'},
+    heroImage: {width: '100%', height: '100%'},
+    card: {
       borderWidth: 1,
       borderColor: theme.colors.border,
-      borderRadius: 26,
+      borderRadius: 24,
       backgroundColor: theme.colors.surface,
-      padding: 16,
+      padding: 18,
       ...theme.shadow,
     },
-    shareTitle: {color: theme.colors.text, fontSize: 15.5, fontWeight: '800'},
-    actions: {marginTop: 12, flexDirection: 'row', gap: 10},
-    action: {
-      flex: 1,
-      minHeight: 78,
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 6,
-      borderRadius: 18,
-      backgroundColor: theme.colors.primarySoft,
-      paddingHorizontal: 8,
-      paddingVertical: 10,
-    },
-    actionText: {color: theme.colors.text, fontSize: 13, fontWeight: '700', textAlign: 'center'},
-    separator: {marginVertical: 14, flexDirection: 'row', alignItems: 'center', gap: 10},
-    separatorLine: {flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: theme.colors.border},
-    separatorText: {color: theme.colors.textMuted, fontSize: 12.5},
-    emailRow: {
-      minHeight: 72,
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 12,
-      borderRadius: 18,
-      backgroundColor: theme.colors.primarySoft,
-      paddingHorizontal: 12,
-      paddingVertical: 10,
-    },
-    emailIcon: {
-      width: 48,
-      height: 48,
-      flexShrink: 0,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 16,
-      backgroundColor: theme.colors.surface,
-    },
-    emailCopy: {flex: 1, minWidth: 0},
-    emailTitle: {color: theme.colors.text, fontSize: 14.5, fontWeight: '800'},
-    emailText: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
-    info: {
+    label: {marginBottom: 10, color: theme.colors.text, fontSize: 15, fontWeight: '700'},
+    inputRow: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 10,
       borderRadius: 18,
+      borderWidth: 1.2,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.background,
+      paddingHorizontal: 10,
+    },
+    inputRowFocused: {borderColor: theme.colors.primary},
+    inputRowInvalid: {borderColor: theme.colors.danger},
+    inputIcon: {
+      width: 36,
+      height: 36,
+      flexShrink: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 18,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    input: {flex: 1, minHeight: 52, color: theme.colors.text, fontSize: 15},
+    error: {marginTop: 8, color: theme.colors.danger, fontSize: 12.5, lineHeight: 18},
+    info: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 12,
+      borderRadius: 20,
       backgroundColor: theme.colors.primarySoft,
       paddingHorizontal: 14,
-      paddingVertical: 12,
+      paddingVertical: 14,
+    },
+    infoIcon: {
+      width: 36,
+      height: 36,
+      flexShrink: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 18,
+      backgroundColor: theme.colors.surface,
     },
     infoText: {flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19},
-    pressed: {opacity: 0.85},
   });
 }
