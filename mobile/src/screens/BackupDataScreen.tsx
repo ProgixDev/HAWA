@@ -205,6 +205,12 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
             : t('backupData.restoreTitleOwner')}
         />
 
+        <DataRow
+          icon="shield-lock-outline" onPress={() => navigation.navigate('PortableBackup')} styles={styles} theme={theme}
+          subtitle={t('portableBackup.entrySubtitle')}
+          title={t('portableBackup.entryTitle')}
+        />
+
         <Text style={styles.sectionTitle}>
           {activeIdentity.isManagedProfile
             ? t('backupData.sectionManageDaughter', {firstName: daughterFirstName})
