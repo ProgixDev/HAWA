@@ -109,6 +109,8 @@ import {
   DeleteAccountScreen,
 } from '../screens/DataPrivacyScreens';
 import BackupDataScreen from '../screens/BackupDataScreen';
+import PortableBackupScreen from '../screens/PortableBackupScreen';
+import DataRecoveryScreen from '../screens/DataRecoveryScreen';
 import AwaADeuxIntroScreen from '../screens/awaADeux/AwaADeuxIntroScreen';
 import AwaADeuxPartnerNameScreen from '../screens/awaADeux/AwaADeuxPartnerNameScreen';
 import AwaADeuxPartnerViewScreen from '../screens/awaADeux/AwaADeuxPartnerViewScreen';
@@ -265,6 +267,8 @@ export type RootStackParamList = {
   DataManagement: undefined;
   DeleteAccount: undefined;
   BackupData: undefined;
+  PortableBackup: undefined;
+  DataRecovery: undefined;
   AwaADeuxIntro: undefined;
   AwaADeuxPartnerName: undefined;
   AwaADeuxPartnerView: undefined;
@@ -546,6 +550,8 @@ function AppNavigator({
         <Stack.Screen name="DataManagement" component={DataManagementScreen} />
         <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
         <Stack.Screen name="BackupData" component={BackupDataScreen} />
+        <Stack.Screen name="PortableBackup" component={PortableBackupScreen} />
+        <Stack.Screen name="DataRecovery" component={DataRecoveryScreen} />
         <Stack.Screen name="AwaADeuxIntro" component={AwaADeuxIntroScreen} />
         <Stack.Screen name="AwaADeuxPartnerName" component={AwaADeuxPartnerNameScreen} />
         <Stack.Screen name="AwaADeuxPartnerView" component={AwaADeuxPartnerViewScreen} />
