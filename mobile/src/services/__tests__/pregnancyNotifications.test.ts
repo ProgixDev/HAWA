@@ -255,6 +255,20 @@ describe('cancelLocalNotification', () => {
   it('cancels both trigger and displayed notifications by id, swallowing errors', async () => {
     (notifee.cancelTriggerNotification as jest.Mock).mockRejectedValueOnce(new Error('none scheduled'));
     (notifee.cancelNotification as jest.Mock).mockRejectedValueOnce(new Error('none displayed'));
-    await expect(cancelLocalNotification('missing-id')).resolves.toBeUndefined();
+    await expect(cancelLocalNotification('missing-id')).resolves.toBe(false);
+  });
+
+  it('reports a clean cancellation as true and always tries BOTH native calls, only for that id', async () => {
+    (notifee.cancelTriggerNotification as jest.Mock).mockClear();
+    (notifee.cancelNotification as jest.Mock).mockClear();
+    await expect(cancelLocalNotification('some-id')).resolves.toBe(true);
+    expect(notifee.cancelTriggerNotification).toHaveBeenCalledWith('some-id');
+    expect(notifee.cancelNotification).toHaveBeenCalledWith('some-id');
+
+    // one failing call is still reported, and the other one is still attempted
+    (notifee.cancelTriggerNotification as jest.Mock).mockRejectedValueOnce(new Error('native'));
+    (notifee.cancelNotification as jest.Mock).mockClear();
+    await expect(cancelLocalNotification('other-id')).resolves.toBe(false);
+    expect(notifee.cancelNotification).toHaveBeenCalledWith('other-id');
   });
 });

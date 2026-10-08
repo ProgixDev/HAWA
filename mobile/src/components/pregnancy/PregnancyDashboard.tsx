@@ -78,6 +78,7 @@ import {
 import { getPregnancyWeekData } from '../../data/pregnancyWeekData';
 import type { DailyJournalEntry } from '../../types/journal';
 import BabyDevelopmentImage from './BabyDevelopmentImage';
+import { resolveEditorialLanguage } from '../../i18n/editorialLanguage';
 import '../../i18n';
 
 const WOMAN = require('../../assets/images/pregnancy/pregnancy-woman-week18.png');
@@ -167,10 +168,10 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
   const { t, i18n } = useTranslation();
-  // getPregnancyWeekData() has full French/English/Spanish content — explicit
-  // French and Spanish opt-ins, default to English for any other/unrecognized
-  // active language rather than silently falling back to French.
-  const pregnancyDataLang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  // getPregnancyWeekData() has full French/English/Spanish/Italian content —
+  // explicit opt-ins per language, English for any other/unrecognized active
+  // language rather than silently falling back to French.
+  const pregnancyDataLang = resolveEditorialLanguage(i18n.language);
 
   const compact = width < 370;
   const veryCompact = width < 345;

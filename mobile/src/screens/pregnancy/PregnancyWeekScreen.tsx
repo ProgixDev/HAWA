@@ -39,6 +39,7 @@ import {
 import {computePregnancyStatus, formatPregnancyTrimester} from '../../utils/pregnancyTrackingUtils';
 import {getPregnancyWeekData} from '../../data/pregnancyWeekData';
 import BabyDevelopmentImage from '../../components/pregnancy/BabyDevelopmentImage';
+import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 import '../../i18n';
 
 /* ============================================================
@@ -170,10 +171,10 @@ export default function PregnancyWeekScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  // getPregnancyWeekData() has full French/English/Spanish content — explicit
-  // French and Spanish opt-ins, default to English for any other/unrecognized
-  // active language rather than silently falling back to French.
-  const pregnancyDataLang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
+  // getPregnancyWeekData() has full French/English/Spanish/Italian content —
+  // explicit opt-ins per language, English for any other/unrecognized active
+  // language rather than silently falling back to French.
+  const pregnancyDataLang = resolveEditorialLanguage(i18n.language);
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
