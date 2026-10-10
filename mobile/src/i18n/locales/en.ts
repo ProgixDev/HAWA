@@ -173,6 +173,7 @@ export const en = {
       englishName: 'English',
       spanishName: 'Español',
       italianName: 'Italiano',
+      turkishName: 'Türkçe',
     },
   },
 
@@ -895,6 +896,14 @@ export const en = {
     },
   },
 
+  saveFailure: {
+    title: 'Could not save',
+    failedBody: 'Your changes could not be saved. What you entered is kept: please try again in a moment.',
+    unavailableBody: 'Your protected data is unreadable right now, so AWA does not overwrite it and this change was not saved. What you entered is kept. Open the recovery options, then try again.',
+    ok: 'OK',
+    recoveryAction: 'See options',
+  },
+
   portableBackup: {
     entryTitle: 'Encrypted backup',
     entrySubtitle: 'Protected by your passphrase. Restore it on this or another phone.',
@@ -1337,7 +1346,7 @@ export const en = {
   profile: {
     aboutAwaSubtitle: 'Version, legal notices, privacy and the app’s values',
     aboutAwaTitle: 'About AWA',
-    appearanceSubtitle: 'Themes, colors and display',
+    appearanceSubtitle: 'Themes, colors, display and language',
     awaADeuxSectionTitle: 'AWA TOGETHER',
     awaADeuxSubtitle: 'Share select insights with your partner',
     awaADeuxTitle: 'AWA Together',
