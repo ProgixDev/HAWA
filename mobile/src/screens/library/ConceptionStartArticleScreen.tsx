@@ -157,6 +157,35 @@ const CONTENT = {
     tipText: 'Conoscere il tuo ciclo, mantenere un ritmo naturale e avere pazienza sono i tre pilastri per iniziare questo percorso con calma.',
     shareMessage: 'Cercare una gravidanza: da dove iniziare — AWA',
   },
+  tr: {
+    badge: 'HAMİLE KALMAYA ÇALIŞMA',
+    title: 'Hamile kalmaya çalışmak:\nnereden başlamalı',
+    metaDuration: '6 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Hamile kalma yolculuğuna güvenle başlamak için temel ipuçları.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Doğurganlık dönemini belirlemek',
+      'İlişki sıklığı',
+      'Ne kadar sürebilir',
+      'Önemli noktalar',
+    ],
+    body1: 'En faydalı ilk adım, döngünden yola çıkarak doğurganlık dönemini belirlemektir: döngü uzunluğu, bedensel belirtiler ve istersen ovülasyon testleri ya da bazal vücut sıcaklığı gibi takip araçları.',
+    body2: '2 ila 3 günde bir düzenli olarak cinsel ilişkide bulunmak, aşırı katı bir planlama gerektirmeden en doğurgan dönemini doğal olarak kapsar.',
+    rhythmPoints: [
+      'Yalnızca yumurtlama gününe sıkışıp kalmana gerek yok',
+      'Düzenli bir ritmi sürdürmek, katı bir planlamaya göre daha kolaydır',
+      'Bu süreçte çiftin iyi oluşu da önemlidir',
+    ],
+    body3: 'Çiftlerin çoğu doğum kontrolünü bıraktıktan sonraki 12 ay içinde hamile kalır. Bu süre, her duruma özgü birçok etkene göre değişir.',
+    alertTitle: 'Dikkat',
+    alertText: '12 ayı aştığında (35 yaşından sonra ise 6 ayı aştığında) bir sağlık profesyoneline görünerek kontrolden geçmek önerilir; bu, mutlaka bir sorun olduğu anlamına gelmez.',
+    tipTitle: 'Bilmekte fayda var',
+    tipText: 'Döngünü tanımak, doğal bir ritmi korumak ve sabırlı olmak, bu yolculuğa sakin bir başlangıcın üç temel taşıdır.',
+    shareMessage: 'Hamile kalmaya çalışmak: nereden başlamalı — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

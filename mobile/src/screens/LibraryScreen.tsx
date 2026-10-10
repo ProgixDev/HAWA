@@ -55,6 +55,7 @@ import {
   getTopPadding,
 } from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {lowerCaseFor} from '../utils/textCase';
 import {
   interpolateHex,
   onPrimaryTextColor,
@@ -628,9 +629,7 @@ function LibraryScreen({
   }, [libraryConfig, translatedArticles]);
 
   const filteredArticles = useMemo(() => {
-    const query = search
-      .trim()
-      .toLocaleLowerCase('fr');
+    const query = lowerCaseFor(search.trim());
 
     return objectiveArticles.filter(
       article => {
@@ -689,11 +688,9 @@ function LibraryScreen({
 
         return (
           !query ||
-          `${article.title} ${article.summary} ${article.tags.join(
-            ' ',
-          )}`
-            .toLocaleLowerCase('fr')
-            .includes(query)
+          lowerCaseFor(
+            `${article.title} ${article.summary} ${article.tags.join(' ')}`,
+          ).includes(query)
         );
       },
     );
@@ -971,6 +968,8 @@ function LibraryScreen({
                 />
 
                 <Text
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.8}
                   numberOfLines={1}
                   style={[
                     styles.tabText,
@@ -1626,6 +1625,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     tabText: {
+      flexShrink: 1,
       color: theme.colors.textSecondary,
       fontSize: 9.8,
       fontWeight: '600',

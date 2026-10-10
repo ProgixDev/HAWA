@@ -231,6 +231,65 @@ const CONTENT = {
     ],
     shareMessage: 'I primi segnali prima del primo ciclo — AWA',
   },
+  tr: {
+    badge: 'İLK ADET',
+    title: 'İlk adetinin\nerken belirtileri',
+    metaDuration: '5 dk okuma',
+    metaType: 'Makale',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Bedenin, ilk adetin gelmeden önce çoğu zaman bazı ipuçları verir. Bunları tanımak, daha az şaşırmana yardımcı olabilir.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Kademeli değişimler',
+      'Dikkat edilecek belirtiler',
+      'Ne anlama gelir?',
+    ],
+    body1: 'İlk adetinden önceki aylarda bedenin yavaş yavaş değişir: vücut şeklin gelişir, vücut kıllarının yeni bölgelerde çıkmaya başlar ve terleme de farklılaşır. Bunlar ergenliğin normal etkileridir ve bedenini nazikçe hazırlar.',
+    tip1Title: 'Bilmekte fayda var',
+    tip1Text: 'Bu değişimlerin hepsi herkeste aynı anda ya da aynı hızda olmaz; bu tamamen normaldir.',
+    signs: [
+      {
+        title: 'Vücut değişimleri',
+        text: 'Bedenin kademeli olarak değişir: vücut şeklin, vücut kılların ve terlemen farklılaşabilir.',
+      },
+      {
+        title: 'Vajinal akıntı',
+        text: 'Hafif, beyazımsı bir akıntı çoğu zaman ilk adetten birkaç ay önce ortaya çıkar.',
+      },
+      {
+        title: 'Sızı ya da kasılmalar',
+        text: 'Alt karnında hafif bir gerginlik ya da kasılma hissedebilirsin.',
+      },
+      {
+        title: 'Ruh hali değişimleri',
+        text: 'Her zamankinden daha hassas ya da daha alıngan hissetmek yaygındır.',
+      },
+      {
+        title: 'Göğüslerde hassasiyet',
+        text: 'Hafif bir hassasiyet ya da şişlik fark edebilirsin.',
+      },
+    ],
+    body2: 'Bu belirtiler genellikle ilk adetinin önümüzdeki aylarda geleceğini gösterir; ancak kesin bir tarih öngörmek mümkün değildir. Bu dönemde yanında koruyucu ped bulundurmak iyi bir alışkanlık olur.',
+    alertTitle: 'Lütfen unutma',
+    alertText: 'Bu belirtiler genel bir rehberdir, asla kesin bir tahmin değildir. Her beden kendi temposunda ilerler.',
+    relatedTitle: '♥  Bunlar da ilgini çekebilir',
+    related: [
+      {
+        title: 'İlk adetin: neler beklemeli?',
+        meta: '5 dk  ·  Rehber',
+      },
+      {
+        title: 'İlk adetimin gelmek üzere olduğunu nasıl anlarım?',
+        meta: '5 dk  ·  Rehber',
+      },
+      {
+        title: 'Döngünün farklı evreleri',
+        meta: '5 dk  ·  Makale',
+      },
+    ],
+    shareMessage: 'İlk adetten önceki erken belirtiler — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

@@ -252,6 +252,56 @@ const CONTENT = {
     ],
     shareMessage: 'Domande frequenti sul tuo primo ciclo — AWA',
   },
+  tr: {
+    badge: 'İLK ADET',
+    title: 'İlk adetinle ilgili\nsık sorulan sorular',
+    metaDuration: '4 dk okuma',
+    metaType: 'SSS',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'İlk adetinle ilgili en sık sorulan sorulara basit yanıtlar.',
+    contentsTitle: 'Bu makalede',
+    faq: [
+      {
+        question: '“Çok az kan gelmesi normal mi?”',
+        answer: 'Evet. İlk döngülerde akış çoğu zaman hafif olur. Özellikle başlangıçta akış bir döngüden diğerine değişebilir.',
+      },
+      {
+        question: '“Çok fazla kan gelmesi normal mi?”',
+        answer: 'Özellikle ilk iki gün daha yoğun bir akış da olabilir. Birkaç saat boyunca saatte birden fazla kez pedini ya da bezini değiştirmen gerekiyorsa, bir sağlık uzmanıyla konuşmak iyi olur.',
+      },
+      {
+        question: '“Kramp girmesi normal mi?”',
+        answer: 'Alt karında hafif kramplar yaygındır ve genellikle endişelenecek bir durum değildir. Sıcak su torbası ya da biraz dinlenmek iyi gelebilir. Çok şiddetli bir ağrıyı birine söylemekte fayda var.',
+      },
+      {
+        question: '“Spor yapabilir miyim?”',
+        answer: 'Evet, adet döneminde de spor yapabilirsin. Yoğunluğu o gün bedeninin nasıl hissettirdiğine göre ayarlaman yeterli.',
+      },
+      {
+        question: '“Yüzmeye gidebilir miyim?”',
+        answer: 'Evet, uygun korumayla yine yüzebilirsin. Pek çok kişi bu fikre daha rahat alışana kadar beklemeyi tercih ediyor.',
+      },
+    ],
+    tipTitle: 'Bilmekte fayda var',
+    tipText: 'Utanılacak soru diye bir şey yoktur: her beden farklıdır ve güvendiğin biriyle her zaman konuşabilirsin.',
+    relatedTitle: '♥  Bunlar da hoşuna gidebilir',
+    related: [
+      {
+        title: 'İlk adetin: neyle karşılaşabilirsin',
+        meta: '5 dk  ·  Rehber',
+      },
+      {
+        title: 'İlk adetim için hangi korumayı seçmeliyim?',
+        meta: '6 dk  ·  Rehber',
+      },
+      {
+        title: 'Adet ağrısıyla başa çıkmak',
+        meta: '7 dk  ·  Rehber',
+      },
+    ],
+    shareMessage: 'İlk adetinle ilgili sık sorulan sorular — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

@@ -175,6 +175,37 @@ const CONTENT = {
     tip2Text: 'Combinare più segnali (ciclo, muco, temperatura) offre un quadro più affidabile della tua finestra fertile rispetto a un singolo segnale preso da solo.',
     shareMessage: 'La finestra fertile: come funziona — AWA',
   },
+  tr: {
+    badge: 'DOĞURGANLIK DÖNEMİ',
+    title: 'Doğurganlık dönemi:\nnasıl işler?',
+    metaDuration: '6 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Hamile kalmak için yumurtlama çevresindeki günlerin neden en önemli olduğu.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Doğurganlık dönemi nedir?',
+      'Bu günler neden en önemli?',
+      'Doğurganlık dönemini nasıl belirlersin?',
+      'Akılda kalacaklar',
+    ],
+    section1Body: 'Doğurganlık dönemi, döngünde gebeliğin mümkün olduğu zaman aralığını ifade eder. Yaklaşık 6 gün sürer: yumurtlamadan önceki 5 gün ve yumurtlamanın gerçekleştiği gün.',
+    tip1Title: 'Bilmekte fayda var',
+    tip1Text: 'Her döngü farklıdır: doğurganlık dönemi, bir aydan diğerine takvimde mutlaka aynı güne denk gelmez.',
+    section2Body1: 'Sperm, üreme yolunda 5 güne kadar canlı kalabilir; bu da hamile kalmanın mümkün olduğu süreyi genişletir. Yumurta hücresi ise salındıktan sonra yalnızca yaklaşık 24 saat boyunca döllenebilir durumda kalır.',
+    section2Body2: 'Örneğin, yumurtlamadan 3 gün önce gerçekleşen cinsel ilişki hamileliğe yol açabilirken, yumurtlamadan bir gün sonraki ilişki çoğu zaman çok geç kalmış olur.',
+    section3Intro: 'Birlikte gözlemlenen birkaç belirti, bu dönemi daha iyi saptamana yardımcı olur:',
+    trackingSigns: [
+      'Döngü uzunluğunu takip etmek',
+      'Servikal mukusunu gözlemlemek',
+      'Bazal vücut sıcaklığını ölçmek',
+      'Ovülasyon (LH) testleri kullanmak',
+    ],
+    tip2Title: 'Bilmekte fayda var',
+    tip2Text: 'Birkaç belirtiyi (döngü, mukus, sıcaklık) bir arada kullanmak, doğurganlık dönemin hakkında tek bir belirtiden daha güvenilir bir tablo sunar.',
+    shareMessage: 'Doğurganlık dönemi: nasıl işler? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

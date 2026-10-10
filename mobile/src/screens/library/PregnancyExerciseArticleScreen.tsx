@@ -190,6 +190,45 @@ const CONTENT = {
     tipText: 'Un’attività dolce e regolare è benefica per la maggior parte delle gravidanze: l’importante è adattare l’intensità a ogni fase e a come ti senti.',
     shareMessage: 'Restare attiva durante la gravidanza — AWA',
   },
+  tr: {
+    badge: 'GEBELİK • FİZİKSEL AKTİVİTE',
+    title: 'Gebelikte\naktif kalmak',
+    metaDuration: '5 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Her trimesterde nazikçe ve güvenle aktif kalmak.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Önerilen aktiviteler',
+      'Kaçınmak daha iyi olanlar',
+      'Bedeninin sinyallerini dinlemek',
+      'Not',
+      'Öne çıkan nokta',
+    ],
+    body1: 'Yürüyüş, yüzme ve gebelik yogası, kendini nasıl hissettiğine uygun bir tempoda, gebelik boyunca genellikle önerilir.',
+    recommended: [
+      'Yürüyüş',
+      'Yüzme',
+      'Gebelik yogası',
+    ],
+    body2: 'Özellikle ikinci trimesterden itibaren yüksek etkili sporlardan veya düşme riski taşıyan aktivitelerden kaçın:',
+    toAvoid: [
+      'Yüksek etkili sporlar (yoğun koşu, hızlı tempolu raket sporları)',
+      'Düşme riski taşıyan aktiviteler (kayak, at binme, engebeli arazide bisiklet)',
+      'Temaslı veya dövüş sporları',
+      'Yüksek rakımda veya aşırı sıcakta yoğun efor',
+    ],
+    listenSigns: [
+      'Alışılmadık nefes darlığı veya baş dönmesi',
+      'Efor sırasında ağrı, kanama veya kasılmalar',
+      'Dinlenince geçmeyen yorgunluk',
+    ],
+    neutralText: 'Bedeninin sinyallerini her zaman dinle ve fiziksel bir aktiviteye başlamadan ya da onu değiştirmeden önce ebenle veya doktorunla konuş.',
+    tipTitle: 'Bilmekte fayda var',
+    tipText: 'Nazik ve düzenli aktivite çoğu gebelik için yararlıdır: önemli olan yoğunluğu her evreye ve kendini nasıl hissettiğine göre ayarlamaktır.',
+    shareMessage: 'Gebelikte aktif kalmak — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

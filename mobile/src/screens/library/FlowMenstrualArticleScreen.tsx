@@ -267,6 +267,65 @@ const CONTENT = {
     shareTitle: 'Igiene intima · AWA',
     shareMessage: 'Prenderti cura dell’igiene intima durante il ciclo · AWA',
   },
+  tr: {
+    badge: 'ADET KANAMASI',
+    title: 'Adet döneminde intim hijyenine\ndikkat etmek',
+    metaDuration: '6 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'İntim hijyenine özen göstermek, bedenine ve doğal dengesine saygı göstermektir.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Neden önemli?',
+      'İyi alışkanlıklar',
+      'Nelerden kaçınmalı?',
+      'Ne zaman doktora gitmeli?',
+      'Pratik ipuçları',
+    ],
+    body: 'Adet döneminde bedenin değişir ve daha hassas hale gelir. Doğru alışkanlıklar edinmek tahriş ve enfeksiyonu önlemeye yardımcı olur, günlük hayatta kendini rahat hissetmeni sağlar.',
+    goodPractices: [
+      'Nazikçe yıka: önden arkaya doğru, sade suyla basit bir durulama doğal florayı korumak için yeterlidir.',
+      'Pedini düzenli değiştir: nemden ve hoş olmayan kokulardan kaçınmak için her 4 ila 6 saatte bir.',
+      'Pamuklu olanı seç: pamuklu iç çamaşırı cildinin nefes almasını sağlar ve tahriş riskini azaltır.',
+    ],
+    thingsToAvoid: [
+      'Sert sabunlar ve kokulu ürünler',
+      'Doğal florayı bozan vajinal duşlar',
+      'Islanmış bir pedi ya da tamponu çok uzun süre takılı tutmak',
+    ],
+    consultReasons: [
+      'Geçmeyen tahriş, kaşıntı ya da yanma',
+      'Normalinden farklı, alışılmadık koku ya da akıntı',
+      'Belirgin ağrı ya da seni endişelendiren belirtiler',
+    ],
+    tipTitle: 'AWA ipucu',
+    tipText: 'Bedeninin zaten doğal bir denge mekanizması var. Nazik bir yıkama genellikle yeterlidir.',
+    takeawaysTitle: 'Akılda kalacaklar',
+    takeaways: [
+      'Sade suyla nazik yıkama',
+      'Düzenli değiştirme',
+      'Kokulu ürünlerden kaçınma',
+      'Pamuklu olanı seçme',
+    ],
+    relatedTitle: '♥  Bunlar da ilgini çekebilir',
+    related: [
+      {
+        title: 'Adet ağrısını anlamak',
+        meta: '7 dk  ·  Rehber',
+      },
+      {
+        title: 'Bedenine uygun adet ürününü seçmek',
+        meta: '5 dk  ·  Rehber',
+      },
+      {
+        title: 'Kramplar doğal yollarla nasıl hafifletilir?',
+        meta: '6 dk  ·  Rehber',
+      },
+    ],
+    shareTitle: 'İntim hijyen · AWA',
+    shareMessage: 'Adet döneminde intim hijyenine dikkat etmek · AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

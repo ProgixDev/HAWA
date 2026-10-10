@@ -323,6 +323,86 @@ const CONTENT = {
     disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce un parere medico personalizzato. In caso di dubbi, rivolgiti a un professionista sanitario.',
     shareMessage: 'Mantenersi idratate durante il ciclo — AWA',
   },
+  tr: {
+    badge: 'ADET DÖNGÜSÜ • SU TÜKETİMİ',
+    title: 'Döngün boyunca\nyeterince su iç',
+    metaDuration: '6 dk okuma',
+    metaType: 'Makale',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Ters gibi görünse de doğru: yeterince su içmek, bedenin döngü boyunca daha az su tutmasına yardımcı olur.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Su tüketimi neden önemli?',
+      'Döngünün evrelerine göre ihtiyaçlar',
+      'Gün boyunca ne içmeli?',
+      'Yetersiz su tüketiminin belirtileri',
+      'Pratik öneriler',
+      'Yaygın yanlış inanışlar',
+      'Akılda kalacaklar',
+    ],
+    section1Body: 'Ters gibi görünse de doğru: yeterince su içmek, bedenin daha az su tutmasına ve şişkinliğin azalmasına yardımcı olur; özellikle döngünün sonuna doğru.',
+    infoTitle: 'Bilmekte fayda var',
+    infoText: 'Vücutta su azaldığında, önlem olarak daha fazlasını depolama eğilimindedir. Yeterince su içmek ise ona, suyu daha kolay bırakabileceğini söyler.',
+    section2Body: 'Su ihtiyacın genel olarak oldukça sabit kalır; evreye göre birkaç ince fark vardır:',
+    phaseNeeds: [
+      {
+        title: 'Adetin sırasında',
+        text: 'Biraz fazladan su, sıvı kaybını dengelemeye ve şişkinliği sınırlamaya yardımcı olur.',
+      },
+      {
+        title: 'Yumurtlama çevresinde',
+        text: 'İhtiyaç sabit kalır; vücut sıcaklığındaki hafif artış susuzluk hissini artırabilir.',
+      },
+      {
+        title: 'Adet öncesi dönem',
+        text: 'İyi bir su tüketimi, bu dönemde sık hissedilen şişkinlik hissini sınırlamaya yardımcı olur.',
+      },
+    ],
+    section3Body: 'Günde yaklaşık 1,5 ila 2 litre hedefle; sıvı kaybını dengelemek için adetin sırasında biraz daha fazla.',
+    dailyDrinks: [
+      {
+        title: 'Her şeyden önce su',
+        text: 'Günde yaklaşık 1,5 ila 2 litre; adetin sırasında biraz daha fazla.',
+      },
+      {
+        title: 'Rahatlatıcı bitki çayları',
+        text: 'Zencefil ya da papatya, kramplar sırasında hafif bir nemlendirme sağlar.',
+      },
+      {
+        title: 'Şeker ve kafein, ölçülü',
+        text: 'Çok şekerli ya da kafeinli içecekleri sınırlamak, döngünün sonuna doğru yardımcı olabilir.',
+      },
+    ],
+    warningTitle: 'Göz önünde bulundurmaya değer',
+    lowHydrationSigns: [
+      'Yoğun ya da alışılmadık susuzluk',
+      'Normalden koyu idrar',
+      'Sık baş ağrıları',
+      'Başka belirgin bir nedeni olmayan yorgunluk',
+    ],
+    section5Body: 'Su tüketimini fark etmeden sürdürmek için çoğu zaman birkaç basit alışkanlık yeterlidir:',
+    practicalTips: [
+      'Gün boyunca elinin altında bir su şişesi bulundur',
+      'Bir bardak suyu zaten sahip olduğun bir alışkanlıkla eşleştir (uyanınca, her öğünde)',
+      'Sade su sıkıcı gelirse bitki çaylarını araya kat',
+    ],
+    section5Body2: 'Fiziksel aktivite sırasında, terle kaybedilenleri telafi etmek için egzersizden önce, egzersiz sırasında ve sonrasında su içmeyi unutma.',
+    compareTitle1: 'Yaygın inanış',
+    compareText1: '"Çok su içmek beni daha çok şişiriyor."',
+    compareTitle2: 'Aslında tam tersi',
+    compareText2: 'İyi bir su tüketimi, bedenin daha az su tutmasına yardımcı olur.',
+    tipTitle: 'Bilmekte fayda var',
+    tipText: 'Zencefil ya da papatya çayları, kramplar sırasında da rahatlatıcı bir nemlendirme sağlar.',
+    summaryPoints: [
+      'Yeterince su içmek, bedenin daha az su tutmasına ve şişkinliğin azalmasına yardımcı olur.',
+      'Günde yaklaşık 1,5 ila 2 litre hedefle; adetin sırasında biraz daha fazla.',
+      'Zencefil ya da papatya çayları kramplar sırasında da rahatlatabilir.',
+      'Yoğun ve geçmeyen susuzluğu bir sağlık uzmanıyla paylaşmaya değer.',
+    ],
+    disclaimerText: 'Bilgilendirme amaçlı içerik. Bu makale kişiye özel tıbbi tavsiyenin yerini tutmaz. Şüphe duyarsan bir sağlık uzmanından rehberlik al.',
+    shareMessage: 'Döngün boyunca yeterince su iç — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */

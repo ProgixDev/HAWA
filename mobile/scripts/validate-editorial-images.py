@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Validates the 16 localized editorial WebP illustrations against their lossless PNG masters.
+"""Validates the localized editorial WebP illustrations (4 languages x 4 images, plus every shipped Turkish variant) against their lossless PNG masters.
 
 Usage (from mobile/):  python scripts/validate-editorial-images.py
 
@@ -21,7 +21,7 @@ from PIL import Image
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ASSETS = os.path.join(ROOT, 'src', 'assets', 'images', 'library')
 MASTERS = os.path.join(ROOT, 'design-sources', 'editorial-images')
-LANGS = ('en', 'fr', 'es', 'it')
+LANGS = ('en', 'fr', 'es', 'it', 'tr')  # 'tr' is optional per image: only validated when its WebP has been shipped
 
 # lettering regions (x0, y0, x1, y1) - where compression artifacts would be most visible
 TEXT = {
@@ -63,6 +63,8 @@ for base, regions in TEXT.items():
     for lang in LANGS:
         name = f'{base}.{lang}.webp'
         path = os.path.join(ASSETS, name)
+        if lang == 'tr' and not os.path.exists(path):
+            continue  # Turkish artwork not produced yet for this image (see EDITORIAL_IMAGES_MISSING_TURKISH)
         try:
             with Image.open(path) as im:
                 fmt, mode, size = im.format, im.mode, im.size
@@ -96,11 +98,12 @@ for n, m, w, size, mode, p, s, ts in rows:
     print('%-30s %9.2f %9.2f %5.0f%% %-11s %-4s %6.1f %7.4f %8.4f' % (n, m / 1048576, w / 1048576, 100 * (1 - w / m), f'{size[0]}x{size[1]}', mode, p, s, ts))
 tm, tw = sum(r[1] for r in rows), sum(r[2] for r in rows)
 print('TOTAL: masters %.2f MB -> shipped WebP %.2f MB  (-%.2f MB, -%.1f%%)' % (tm / 1048576, tw / 1048576, (tm - tw) / 1048576, 100 * (1 - tw / tm) if tm else 0))
-if len(rows) != 16:
-    failures.append(f'expected 16 validated variants, got {len(rows)}')
+shipped_tr = sum(1 for base in TEXT if os.path.exists(os.path.join(ASSETS, f'{base}.tr.webp')))
+if len(rows) != 16 + shipped_tr:
+    failures.append(f'expected {16 + shipped_tr} validated variants, got {len(rows)}')
 if failures:
     print('\nFAILED:')
     for f in failures:
         print('  -', f)
     sys.exit(1)
-print('\nOK: all 16 variants decode, match the original proportions, are not blank, and stay within quality thresholds.')
+print(f'\nOK: all {len(rows)} variants decode, match the original proportions, are not blank, and stay within quality thresholds.')

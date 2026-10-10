@@ -294,6 +294,72 @@ const CONTENT = {
     ],
     shareMessage: 'Il cerotto contraccettivo — AWA',
   },
+  tr: {
+    badge: 'DOĞUM KONTROL FLASTERİ',
+    title: 'Doğum kontrol\nflasteri',
+    metaDuration: '5 dk okuma',
+    metaType: 'Makale',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Günlük hapa haftalık bir alternatif.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Flaster nasıl çalışır?',
+      'Uygulama takvimi',
+      'Bilmen gerekenler',
+      'Akılda kalacaklar',
+    ],
+    section1Body: 'Flaster, hormonları cilt yoluyla sürekli olarak salar ve kombine hapa benzer şekilde çalışır: yumurtlamayı engeller ve servikal mukusu kalınlaştırır.',
+    tip1Title: 'Bilmekte fayda var',
+    tip1Text: 'Başlıca avantajı, günlük doz gerektirmemesidir.',
+    section2Body: 'Flaster genellikle üç hafta boyunca haftada bir değiştirilir, ardından bir hafta flastersiz geçirilir.',
+    applicationTips: [
+      'Her seferinde uygulama bölgesini değiştir',
+      'Hâlâ sıkıca yapışıp yapışmadığını kontrol et',
+      'Temiz ve kuru cilde uygula',
+    ],
+    sectionIntro: 'Kullanımdan önce ve kullanım sırasında bilinmesi gereken temel noktalar.',
+    facts: [
+      {
+        title: 'Her hafta',
+        text: 'Flaster haftada bir değiştirilir.',
+      },
+      {
+        title: 'Kuru cilt',
+        text: 'Temiz ve kuru cilde uygulanmalıdır.',
+      },
+      {
+        title: 'Koruma',
+        text: 'Doğru kullanıldığında sürekli olarak etki eder.',
+      },
+      {
+        title: 'Dikkat et',
+        text: 'Bazen bölgesel tahriş görülebilir.',
+      },
+    ],
+    comparisonTitle: 'Avantajlar ve sınırlamalar',
+    advantageTitle: 'Avantajlar',
+    advantages: [
+      '• Haftada bir uygulama',
+      '• Günlük doz yok',
+      '• Sürekli hormon salımı',
+    ],
+    limitTitle: 'Sınırlamalar',
+    limits: [
+      'Cinsel yolla bulaşan enfeksiyonlardan korumaz',
+      'Cilt tahrişine neden olabilir',
+      'Değiştirme takvimine uymayı gerektirir',
+    ],
+    alertTitle: 'Dikkat',
+    alertText: 'Uygulama bölgesinde hafif tahriş görülebilir. Uygulama bölgelerini dönüşümlü kullanmak bunu sınırlamaya yardımcı olabilir.',
+    rememberTitle: '3 temel nokta',
+    remember: [
+      'Flasteri her hafta değiştir.',
+      'İyi yapışıp yapışmadığını düzenli olarak kontrol et.',
+      'Gerekirse bir sağlık profesyonelinden tavsiye iste.',
+    ],
+    shareMessage: 'Doğum kontrol flasteri — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

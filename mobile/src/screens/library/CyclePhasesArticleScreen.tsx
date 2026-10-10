@@ -333,6 +333,92 @@ const CONTENT = {
     endText: 'Più osservi il tuo ciclo, più puoi capire cosa è tipico per te.',
     shareMessage: 'Le diverse fasi del ciclo spiegate — AWA',
   },
+  tr: {
+    badge: 'Adet döngüsü',
+    title: 'Döngünün farklı\nevreleri anlatılıyor',
+    metaDuration: '6 dk okuma',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Adet döngün, hormonal dengen ve sağlığın için temel bir rol oynayan birkaç evreden oluşur.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Döngünün 4 evresi',
+      'Vücudun nasıl değişir',
+      'Döngünü anlamak neden önemli',
+      'Sık sorulan sorular',
+    ],
+    body1: 'Döngün genellikle dört ana evreye ayrılır. Süreleri kişiden kişiye değişebilir: her vücudun kendine özgü bir ritmi vardır.',
+    diagram: {
+      menstrual: {
+        name: 'Adet evresi',
+        days: '1. ila 5. günler',
+      },
+      follicular: {
+        name: 'Foliküler evre',
+        days: '1. ila 13. günler',
+      },
+      luteal: {
+        name: 'Luteal evre',
+        days: '15. ila 28. günler',
+      },
+      ovulatory: {
+        name: 'Yumurtlama evresi',
+        days: '14. gün civarı',
+      },
+    },
+    tip1Title: 'Bilmekte fayda var',
+    tip1Text: 'Her kadın benzersizdir: vücudunu gözlemle ve kendi ritmini öğren.',
+    body2: 'Hormonal değişimler, döngü boyunca enerjini, ruh halini, uykunu ve bazı bedensel hislerini etkileyebilir.',
+    bodyChanges: [
+      {
+        title: 'Adet sırasında',
+        text: 'Enerjin daha düşük olabilir ve vücudun daha fazla dinlenmeye ihtiyaç duyabilir.',
+      },
+      {
+        title: 'Foliküler evre',
+        text: 'Enerjin giderek artar ve kendini daha dinç hissedebilirsin.',
+      },
+      {
+        title: 'Yumurtlama civarı',
+        text: 'Bazı kadınlar kendini daha enerjik, motive ve kendinden emin hisseder.',
+      },
+      {
+        title: 'Luteal evre',
+        text: 'Yorgunluk, şişkinlik veya ruh hali değişimleri ortaya çıkabilir.',
+      },
+    ],
+    softTipTitle: 'Vücudunu dinle',
+    softTipText: 'Her evreyi yaşamanın tek bir yolu yoktur. Kendi hislerin en iyi rehberin olmaya devam eder.',
+    body3: 'Döngünü daha iyi tanımak, bazı dönemleri önceden tahmin etmene ve günlük hayatta fark ettiğin değişimleri anlamana yardımcı olabilir.',
+    whyItems: [
+      'Vücudunun verdiği sinyalleri daha iyi anlamak',
+      'Adetini ve farklı evrelerini önceden tahmin etmek',
+      'Bazı ruh hali değişimlerini anlamak',
+      'Aktiviteni enerji düzeyine göre ayarlamak',
+      'Günlük takibini geliştirmek',
+    ],
+    body4: 'İşte döngünün farklı evreleri hakkında sık sorulan soruların bazı yanıtları.',
+    faq: [
+      {
+        question: 'Döngümün tam 28 gün sürmemesi normal mi?',
+        answer: 'Evet. Bir döngünün uzunluğu kişiden kişiye, hatta aydan aya hafifçe değişebilir.',
+      },
+      {
+        question: 'Yumurtlama her zaman 14. günde mi olur?',
+        answer: 'Hayır. 14. gün, 28 günlük bir döngü için yaygın bir tahmindir, ancak yumurtlama daha erken veya daha geç olabilir.',
+      },
+      {
+        question: 'Belirtilerim neden evreye göre değişiyor?',
+        answer: 'Döngü boyunca yaşanan hormonal değişimler enerjiyi, ruh halini, uykuyu ve bazı bedensel hisleri etkileyebilir.',
+      },
+      {
+        question: 'Belirtilerimi takip etmek işe yarar mı?',
+        answer: 'Evet. Belirtilerini düzenli olarak not etmek, kendi örüntülerini fark etmene ve ritmini daha iyi anlamana yardımcı olabilir.',
+      },
+    ],
+    endTitle: 'Döngün, senin ritmin',
+    endText: 'Döngünü ne kadar çok gözlemlersen, senin için neyin olağan olduğunu o kadar iyi anlayabilirsin.',
+    shareMessage: 'Döngünün farklı evreleri anlatılıyor — AWA',
+  },
 } as const;
 
 function CyclePhasesArticleScreen({

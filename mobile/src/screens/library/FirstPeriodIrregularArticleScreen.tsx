@@ -181,6 +181,44 @@ const CONTENT = {
     ],
     shareMessage: 'Il mio primo ciclo è irregolare: è normale? — AWA',
   },
+  tr: {
+    badge: 'İLK ADET',
+    title: 'İlk adetim düzensiz:\nbu normal mi?',
+    metaDuration: '5 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Evet, bu tamamen normal. Döngünün neden oturmasının zaman aldığını ve ne zaman konuşmaya değeceğini burada bulabilirsin.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Döngü başlangıçta neden düzensizdir?',
+      'Oturması ne kadar sürer?',
+      'Ne zaman doktora gitmeli?',
+    ],
+    body1: 'Döngüyü düzenleyen hormonların dengelenmesi zaman alır. Bu yüzden ilk yıllarda döngülerin daha kısa, daha uzun ya da düzensiz aralıklı olması yaygındır.',
+    body2: 'Döngünün daha düzenli hale gelmesi bir ila iki yıl, bazen biraz daha uzun sürebilir. Bu uyum dönemi kişiden kişiye çok değişir ve bir sorun anlamına gelmez.',
+    tip1Title: 'Bilmekte fayda var',
+    tip1Text: 'Başlangıçta düzensiz bir döngü asla bir gecikme sayılmaz: vücudun yalnızca ihtiyaç duyduğu zamanı alıyor.',
+    body3: 'Vakaların büyük çoğunluğunda endişelenecek bir şey yoktur. Yine de adetin ilk görüldükten sonra birkaç ay boyunca gelmiyorsa ya da aklında süren şüpheler varsa doktora görünmen iyi olur.',
+    alertTitle: 'Şu durumlarda doktora git',
+    alertText: 'Birkaç ay boyunca adet görmeme, çok şiddetli ağrı ya da çok yoğun kanama.',
+    relatedTitle: '♥  Bunlar da ilgini çekebilir',
+    related: [
+      {
+        title: 'Düzenli ya da düzensiz döngü: fark nedir?',
+        meta: '5 dk  ·  Rehber',
+      },
+      {
+        title: 'İlk adetin: nelerle karşılaşabilirsin?',
+        meta: '5 dk  ·  Rehber',
+      },
+      {
+        title: 'İlk adetle ilgili sık sorulan sorular',
+        meta: '4 dk  ·  SSS',
+      },
+    ],
+    shareMessage: 'İlk adetim düzensiz: bu normal mi? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

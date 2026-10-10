@@ -296,6 +296,61 @@ const CONTENT = {
     disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce un parere medico personalizzato. In caso di dubbi, rivolgiti a un professionista sanitario.',
     shareMessage: 'Capire i test di ovulazione (LH) — AWA',
   },
+  tr: {
+    badge: 'DOĞURGANLIK • OVÜLASYON TESTLERİ',
+    title: 'Ovülasyon testlerini (LH)\nanlamak',
+    metaDuration: '6 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Orta düzey',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Bu test şeritleri nasıl çalışır ve ne zaman kullanılmalı?',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'LH nedir?',
+      'Bu testler nasıl çalışır?',
+      'Teste ne zaman başlanmalı?',
+      'Sonucu yorumlamak',
+      'Yanlış pozitifler ve sınırlamalar',
+      'Diğer belirtilerle birlikte kullanmak',
+      'Akılda kalacaklar',
+    ],
+    section1Body: 'LH (luteinleştirici hormon) beyin tarafından üretilir ve yumurtalıkların işleyişini kontrol eder. Ovülasyon testleri, bu hormondaki ani yükselişi saptar; bu yükseliş, 24 ile 36 saat sonra yumurtanın salınmasını tetikler.',
+    section2Body: 'İdrar test şeridi LH düzeyini ölçer: kontrol çizgisi kadar koyu veya ondan daha koyu bir test çizgisi, hormonda ani bir yükselişe işaret eder.',
+    section3Body: 'Testlere, döngüne göre tahmin edilen yumurtlama tarihinden birkaç gün önce başlaman önerilir.',
+    testingTips: [
+      {
+        title: 'Döngünü temel al',
+        text: 'Döngülerinin ortalama uzunluğuna göre tahmin edilen yumurtlama tarihinden birkaç gün önce başla.',
+      },
+      {
+        title: 'Her gün aynı saatte test yap',
+        text: 'İdeal olarak öğlen civarında yap; sabahın ilk idrarından kaçın.',
+      },
+      {
+        title: 'İdrarını seyreltmekten kaçın',
+        text: 'Testten önceki saatlerde çok miktarda sıvı almayı sınırla.',
+      },
+    ],
+    section4Body: 'Pozitif bir sonuç, takip eden 1 ile 2 gün boyunca cinsel ilişki için en verimli zamanı gösterir. Negatif bir sonuç ise yalnızca hormondaki yükselişin henüz gerçekleşmediği anlamına gelir.',
+    limitations: [
+      'PKOS doğal olarak daha yüksek LH düzeylerine yol açabilir ve bu da okumayı belirsizleştirebilir',
+      'Bazı doğurganlık tedavileri sonucu etkileyebilir',
+      'Çok seyreltilmiş idrar yanlış negatif sonuç verebilir',
+      'Daha düşük kaliteli bir test daha az güvenilir olabilir',
+    ],
+    infoTitle: 'Aklında bulunsun',
+    infoText: 'LH yükselişi tetikleyici bir hormonal sinyale işaret eder, ancak tek başına yumurtanın gerçekten salındığını garanti etmez.',
+    tipTitle: 'Bilmekte fayda var',
+    tipText: 'Ovülasyon testlerini bazal vücut sıcaklığın veya servikal mukus gözlemiyle birlikte kullanmak, döngün hakkında daha eksiksiz bir tablo sunar.',
+    summaryPoints: [
+      'Ovülasyon testleri, 24 ile 36 saat sonra yumurtanın salınmasını tetikleyen LH yükselişini saptar.',
+      'Testlere, döngüne göre tahmin edilen yumurtlama tarihinden birkaç gün önce başlaman önerilir.',
+      'Pozitif bir sonuç, takip eden 1 ile 2 gün boyunca cinsel ilişki için en verimli zamanı gösterir.',
+      'LH yükselişi tek başına yumurtlamanın gerçekten gerçekleştiğini garanti etmez.',
+    ],
+    disclaimerText: 'Bilgilendirme amaçlı içerik. Bu makale kişiye özel tıbbi tavsiyenin yerini tutmaz. Şüphen varsa bir sağlık profesyonelinden yönlendirme iste.',
+    shareMessage: 'Ovülasyon testlerini (LH) anlamak — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */

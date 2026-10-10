@@ -69,6 +69,10 @@ const IMAGES = [
   {base: 'activité', size: [1774, 887]},
 ] as const;
 
+// Images that also ship a Turkish variant (`<base>.tr.webp`). Every other image still resolves to English for
+// Turkish (EDITORIAL_IMAGES_MISSING_TURKISH). Add a base here when its Turkish artwork is produced.
+const TURKISH_SHIPPED: readonly string[] = ['cycle-phases-hero'];
+
 // Reads the pixel size from the WebP container header (lossy VP8, lossless VP8L or extended VP8X).
 const webpSize = (file: string): [number, number] => {
   const b = fs.readFileSync(file);
@@ -106,11 +110,18 @@ describe('assets: 16 localized WebP files, original sources untouched', () => {
         expect(fs.statSync(file).size).toBeGreaterThan(50 * 1024); // not blank/placeholder
         expect(fs.statSync(file).size).toBeLessThan(600 * 1024); // optimized (PNG was 1.4-2.2 MB)
       }
+      const trFile = path.join(LIB_IMG, `${base}.tr.webp`);
+      expect([base, fs.existsSync(trFile)]).toEqual([base, TURKISH_SHIPPED.includes(base)]);
+      if (TURKISH_SHIPPED.includes(base)) {
+        expect([base, 'tr', webpSize(trFile)]).toEqual([base, 'tr', size]);
+        expect(fs.statSync(trFile).size).toBeGreaterThan(50 * 1024);
+        expect(fs.statSync(trFile).size).toBeLessThan(600 * 1024);
+      }
     }
   });
 
   it('no stale PNG variant is left beside the WebP files (masters live outside the bundle)', () => {
-    const stale = fs.readdirSync(LIB_IMG).filter(name => /\.(en|fr|es|it)\.png$/.test(name));
+    const stale = fs.readdirSync(LIB_IMG).filter(name => /\.(en|fr|es|it|tr)\.png$/.test(name));
     expect(stale).toEqual([]);
   });
 
@@ -118,18 +129,26 @@ describe('assets: 16 localized WebP files, original sources untouched', () => {
     for (const {base} of IMAGES) {
       const digests = new Set(LANGS.map(lang => fs.readFileSync(path.join(LIB_IMG, `${base}.${lang}.webp`)).toString('base64')));
       expect(digests.size).toBe(4);
+      if (TURKISH_SHIPPED.includes(base)) {
+        digests.add(fs.readFileSync(path.join(LIB_IMG, `${base}.tr.webp`)).toString('base64'));
+        expect(digests.size).toBe(5); // the Turkish artwork is not a copy of another language
+      }
     }
   });
 
-  it('the total shipped size of the 16 variants is far below the former 26.6 MB of PNG', () => {
-    const total = IMAGES.flatMap(({base}) => LANGS.map(lang => fs.statSync(path.join(LIB_IMG, `${base}.${lang}.webp`)).size)).reduce((a, b) => a + b, 0);
+  it('the total shipped size of the 16 variants plus the Turkish ones is far below the former 26.6 MB of PNG', () => {
+    const files = IMAGES.flatMap(({base}) => [
+      ...LANGS.map(lang => `${base}.${lang}.webp`),
+      ...(TURKISH_SHIPPED.includes(base) ? [`${base}.tr.webp`] : []),
+    ]);
+    const total = files.map(name => fs.statSync(path.join(LIB_IMG, name)).size).reduce((a, b) => a + b, 0);
     expect(total / 1048576).toBeLessThan(5);
   });
 
   it('editorialImages.ts uses only static require() of existing .webp files, one per language, no dynamic paths', () => {
     const source = fs.readFileSync(path.resolve(__dirname, '../../i18n/editorialImages.ts'), 'utf8');
     const requires = [...source.matchAll(/require\('([^']+)'\)/g)].map(match => match[1]);
-    expect(requires).toHaveLength(16);
+    expect(requires).toHaveLength(16 + TURKISH_SHIPPED.length);
     for (const relative of requires) {
       expect([relative, fs.existsSync(path.resolve(__dirname, '../../i18n', relative))]).toEqual([relative, true]);
       expect(relative.endsWith('.webp')).toBe(true);
@@ -143,6 +162,7 @@ describe('assets: 16 localized WebP files, original sources untouched', () => {
       for (const lang of LANGS) {
         expect(requires.filter(r => r.endsWith(`${base}.${lang}.webp`))).toHaveLength(1);
       }
+      expect(requires.filter(r => r.endsWith(`${base}.tr.webp`))).toHaveLength(TURKISH_SHIPPED.includes(base) ? 1 : 0);
     }
   });
 
@@ -177,10 +197,20 @@ describe('resolver (real implementation, sentinel sets)', () => {
     expect(real.resolveEditorialImage(uri, 'it')).toBe(uri);
   });
 
-  it('the shipped sets are complete and keyed fr/en/es/it', () => {
-    for (const shipped of [real.CYCLE_PHASES_HERO, real.PREGNANCY_FOLLOW_UP_HERO, real.PREGNANCY_EXERCISE_HERO, real.EXERCISE_HERO]) {
-      expect(Object.keys(shipped).sort()).toEqual(['en', 'es', 'fr', 'it']);
+  it('the shipped sets are complete and keyed fr/en/es/it (+ tr only where Turkish artwork exists)', () => {
+    const named = {
+      'cycle-phases-hero': real.CYCLE_PHASES_HERO,
+      'grossesse_semiane': real.PREGNANCY_FOLLOW_UP_HERO,
+      'activité_grossesse': real.PREGNANCY_EXERCISE_HERO,
+      'activité': real.EXERCISE_HERO,
+    };
+    for (const [base, shipped] of Object.entries(named)) {
+      const expected = TURKISH_SHIPPED.includes(base) ? ['en', 'es', 'fr', 'it', 'tr'] : ['en', 'es', 'fr', 'it'];
+      expect([base, Object.keys(shipped).sort()]).toEqual([base, expected]);
     }
+    expect([...real.EDITORIAL_IMAGES_MISSING_TURKISH].sort()).toEqual(
+      IMAGES.map(({base}) => base as string).filter(base => !TURKISH_SHIPPED.includes(base)).sort(),
+    );
     expect(resolveEditorialImage).toBe(real.resolveEditorialImage);
     expect(CYCLE_PHASES_HERO).not.toBe(real.CYCLE_PHASES_HERO); // the mock is in effect for renders
     expect([PREGNANCY_FOLLOW_UP_HERO, PREGNANCY_EXERCISE_HERO, EXERCISE_HERO]).toHaveLength(3);

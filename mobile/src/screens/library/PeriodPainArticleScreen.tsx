@@ -217,6 +217,57 @@ const CONTENT = {
     ],
     shareMessage: 'Gestire il dolore mestruale — AWA',
   },
+  tr: {
+    badge: 'AĞRI',
+    title: 'Adet ağrısıyla\nbaşa çıkmak',
+    metaDuration: '7 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Sıcaklık, hafif hareket, beslenme: gerçekten rahatlama sağlayan alışkanlıklar.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Adet ağrısını anlamak',
+      'Etkili doğal çözümler',
+      'Ne zaman doktora başvurmalı?',
+      'Günlük hayat için pratik ipuçları',
+    ],
+    section1Text: 'Kramplar, rahim iç tabakasının dökülmesine yardımcı olan rahim kasılmalarından kaynaklanır. Bunlara prostaglandinler neden olur. Her vücut farklı tepki verir.',
+    tip1Title: 'Bilmekte fayda var',
+    tip1Text: 'Ağrı bir döngüden diğerine değişebilir ve her zaman aynı olmaz.',
+    solutions: [
+      {
+        title: 'Sıcaklık',
+        text: 'Alt karnına konan bir sıcak su torbası kasları gevşetebilir.',
+      },
+      {
+        title: 'Hafif hareket',
+        text: 'Yoga, esneme ve hafif yürüyüş gerginliği azaltır.',
+      },
+      {
+        title: 'Beslenme',
+        text: 'Magnezyum, omega-3 ve iltihap önleyici besinler.',
+      },
+      {
+        title: 'Sıvı alımı',
+        text: 'Yeterince su içmek şişkinliği sınırlamaya yardımcı olur.',
+      },
+      {
+        title: 'Masaj',
+        text: 'Alt karnına yapılan dairesel bir masaj rahatlamana yardımcı olur.',
+      },
+    ],
+    section3Text: 'Bu çözümlere rağmen ağrı her ay normal yaşamanı engelliyorsa, bir sağlık profesyonelle konuşman önemlidir.',
+    alertTitle: 'Şu durumlarda doktora başvur',
+    alertText: 'Çok şiddetli ağrı, yoğun kanama, aşırı yorgunluk veya olağandışı belirtiler.',
+    dailyTips: [
+      'Sabah uyandığında vücudunu nazikçe ısıt',
+      'Dengeli beslenmeyi tercih et',
+      'Nefes almak ve rahatlamak için zaman ayır',
+      'Ağrını daha iyi anlamak için döngünü takip et',
+    ],
+    shareMessage: 'Adet ağrısıyla başa çıkmak — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<

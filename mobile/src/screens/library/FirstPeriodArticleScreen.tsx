@@ -187,6 +187,51 @@ const CONTENT = {
     shareTitle: 'Primo ciclo · AWA',
     shareMessage: 'Il tuo primo ciclo: cosa aspettarti · AWA',
   },
+  tr: {
+    badge: 'İLK ADET',
+    title: 'İlk adetin:\nneler beklemeli',
+    metaDuration: '5 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Neyin normal, neyin güven verici olduğu ve bilmen gerekenler.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'İlk adetin ne zaman gelir?',
+      'Neyin normal olduğu',
+      'Nasıl işler',
+      'Kendine iyi bakmak',
+      'Bunu konuşmak ve destek almak',
+    ],
+    details: [
+      {
+        title: 'İlk adetin ne zaman gelir?',
+        text: 'Çoğunlukla ergenliğin ilk belirtilerinden yaklaşık iki yıl sonra, 10 ile 15 yaş arasında gelir.',
+      },
+      {
+        title: 'Tamamen normal olanlar',
+        text: 'Başlangıçta döngüler düzensiz, kısa veya uzun olabilir. Vücudun yalnızca ritmini bulmak için zaman tanıyor.',
+      },
+      {
+        title: 'Nasıl işlediğini anlamak',
+        text: 'Adetler genellikle 3 ila 7 gün sürer. Kanama miktarı ve rengi bir günden diğerine değişebilir.',
+      },
+      {
+        title: 'Kendine iyi bakmak',
+        text: 'Hijyenik ürününü düzenli olarak değiştir, nazikçe yıka ve rahat hissetmen için rahat kıyafetler seç.',
+      },
+      {
+        title: 'Bunu konuşmak ve destek almak',
+        text: 'Annenle, bir kız kardeşinle, yakınındaki biriyle, bir öğretmenle veya güvendiğin bir sağlık profesyoneliyle konuşabilirsin.',
+      },
+    ],
+    tip1Title: 'Bilmekte fayda var',
+    tip1Text: 'Başlangıçta döngünün düzensiz olması tamamen normaldir. Vücudun ritmini bulmayı hâlâ öğreniyor.',
+    tip2Title: 'Yalnız değilsin',
+    tip2Text: 'Her vücut benzersizdir. Kendine zaman tanı, sabırlı ol ve güvendiğin birinden yardım istemekten çekinme.',
+    shareTitle: 'İlk adet · AWA',
+    shareMessage: 'İlk adetin: neler beklemeli · AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

@@ -23,6 +23,7 @@ import {
   toggleInArray,
   type LibraryFilters,
 } from '../../utils/libraryFilters';
+import {displayUpperCase} from '../../utils/textCase';
 
 export type LibraryContentScope = 'medical' | 'religious';
 
@@ -103,7 +104,7 @@ function LibraryFiltersSheet({
           </View>
 
           <ScrollView contentContainerStyle={styles.body} showsVerticalScrollIndicator={false}>
-            <Text style={styles.sectionLabel}>Type de contenu</Text>
+            <Text style={styles.sectionLabel}>{displayUpperCase('Type de contenu')}</Text>
             <View style={styles.scopeRow}>
               <Pressable
                 accessibilityRole="button"
@@ -125,7 +126,7 @@ function LibraryFiltersSheet({
 
             {contentScope === 'medical' && (
               <>
-                <Text style={styles.sectionLabel}>Objectif</Text>
+                <Text style={styles.sectionLabel}>{displayUpperCase('Objectif')}</Text>
                 <View style={styles.chipRow}>
                   <OptionChip
                     active={objectiveOverride === null}
@@ -144,7 +145,7 @@ function LibraryFiltersSheet({
               </>
             )}
 
-            <Text style={styles.sectionLabel}>Temps de lecture</Text>
+            <Text style={styles.sectionLabel}>{displayUpperCase('Temps de lecture')}</Text>
             <View style={styles.chipRow}>
               {READING_TIME_OPTIONS.map(option => (
                 <OptionChip
@@ -156,7 +157,7 @@ function LibraryFiltersSheet({
               ))}
             </View>
 
-            <Text style={styles.sectionLabel}>Niveau</Text>
+            <Text style={styles.sectionLabel}>{displayUpperCase('Niveau')}</Text>
             <View style={styles.chipRow}>
               {LEVEL_OPTIONS.map(option => (
                 <OptionChip
@@ -168,7 +169,7 @@ function LibraryFiltersSheet({
               ))}
             </View>
 
-            <Text style={styles.sectionLabel}>Type de format</Text>
+            <Text style={styles.sectionLabel}>{displayUpperCase('Type de format')}</Text>
             <View style={styles.chipRow}>
               {TYPE_OPTIONS.map(option => (
                 <OptionChip

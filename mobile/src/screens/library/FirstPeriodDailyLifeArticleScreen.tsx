@@ -224,6 +224,47 @@ const CONTENT = {
     ],
     shareMessage: 'Come gestire il tuo primo ciclo giorno per giorno? — AWA',
   },
+  tr: {
+    badge: 'İLK ADET',
+    title: 'İlk adetini günlük hayatta\nnasıl yönetirsin?',
+    metaDuration: '5 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Birkaç küçük alışkanlıkla ilk adetin, okulda ve okul dışında günlük hayatına kolayca yerleşir.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Günlük hayatta düzen kurmak',
+      'Küçük bir acil durum seti hazırlamak',
+      'Adetin beklenmedik bir anda gelirse',
+    ],
+    body1: 'Okul, spor, uyku: adetin olağan etkinliklerini sürdürmene engel olmaz. Gün boyu rahat kalmak için sadece birkaç alışkanlığı ayarlaman yeterli.',
+    dailyTips: [
+      'Okul ya da etkinlikler: çantanda bir ped ya da tampon bulundur',
+      'Spor: spor yapmaya devam edebilirsin, sadece temponu ayarla',
+      'Uyku: uygun bir gece pedi yeterli',
+    ],
+    body2: 'Bir iki ped ya da tampon, yedek bir iç çamaşırı ve birkaç ıslak mendilden oluşan küçük bir set, okul ya da spor çantasına rahatça sığar. Ne olursa olsun kendini rahat hissetmene yardımcı olur.',
+    tip1Title: 'Bilmekte fayda var',
+    tip1Text: 'Yanında her zaman bir ped ya da tampon bulundurmak, hazırlıksız yakalanma stresini önler.',
+    body3: 'Bu sık olur, özellikle başlangıçta. Okul hemşiresinde, bir öğretmende ya da bir arkadaşta neredeyse her zaman işe yarayacak bir şey bulunur. Ped ya da tampon bulana kadar belinin etrafına bir giysi bağlamak da işe yarayabilir.',
+    relatedTitle: '♥  Bunlar da hoşuna gidebilir',
+    related: [
+      {
+        title: 'İlk adetim için hangi ped ya da tamponu seçmeliyim?',
+        meta: '6 dk  ·  Rehber',
+      },
+      {
+        title: 'Adet ağrısıyla başa çıkmak',
+        meta: '7 dk  ·  Rehber',
+      },
+      {
+        title: 'İlk adetlerim düzensiz: bu normal mi?',
+        meta: '5 dk  ·  Rehber',
+      },
+    ],
+    shareMessage: 'İlk adetini günlük hayatta nasıl yönetirsin? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

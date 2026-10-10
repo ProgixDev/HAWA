@@ -217,6 +217,45 @@ const CONTENT = {
     tipText: 'Prepararsi non significa controllare tutto: si tratta soprattutto di darti i mezzi per affrontare il grande giorno con più fiducia e meno incertezza.',
     shareMessage: 'Prepararsi con serenità al parto — AWA',
   },
+  tr: {
+    badge: 'GEBELİK • DOĞUM',
+    title: 'Doğuma sakin\nbir şekilde hazırlanmak',
+    metaDuration: '7 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Büyük güne daha güvenle yaklaşmak için üç temel dayanak.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      '3 adımda hazırlık',
+      'Hastane çantan',
+      'Doğum planını yazmak',
+      'Not edilmesi gerekenler',
+      'Akılda tutulacaklar',
+    ],
+    prepSteps: [
+      'Doğuma hazırlık sınıfları',
+      'Nefes ve gevşeme teknikleri',
+      'Hastane çantası 8. aya kadar hazır',
+    ],
+    body1: 'Doğuma hazırlık sınıfları, doğumun evrelerini ve büyük günde sana destek olacak nefes tekniklerini anlamana yardımcı olur.',
+    body2: 'Hastane çantanı 8. aya kadar hazırlamak, son dakika stresinden seni kurtarır. Çantada genellikle şunlar bulunur:',
+    bagItems: [
+      'Kimlik belgeleri ve gebelik takip karnen',
+      'Senin ve bebeğin için rahat kıyafetler',
+      'Kişisel bakım ürünleri ve doğum sonrası ped',
+      'Bebeğin eve dönüş kıyafeti',
+    ],
+    birthPlanPoints: [
+      'Ağrıyla başa çıkma konusundaki tercihlerin',
+      'Doğum sırasında yanında olmasını istediğin kişiler',
+      'Ten teması konusundaki beklentilerin',
+    ],
+    neutralText: 'Basit bir doğum planı, isteklerini sağlık ekibiyle paylaşmana yardımcı olur; yine de esnek kalmak gerekir: olayların gerçek seyri duruma göre değişebilir.',
+    tipTitle: 'Bilmekte fayda var',
+    tipText: 'Hazırlanmak her şeyi kontrol etmek demek değildir: asıl amaç, büyük güne daha güvenle ve daha az belirsizlikle yaklaşmanın yollarını kendine sağlamaktır.',
+    shareMessage: 'Doğuma sakin bir şekilde hazırlanmak — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

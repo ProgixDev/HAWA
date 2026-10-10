@@ -411,6 +411,85 @@ const CONTENT = {
     disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce il parere di un professionista. Se stai attraversando un momento difficile, non esitare a parlarne con un operatore sanitario.',
     shareMessage: 'Attraversare il lutto a livello emotivo — AWA',
   },
+  tr: {
+    badge: 'DÜŞÜK SONRASI • DUYGUSAL DESTEK',
+    title: 'Yası duygusal olarak\nyaşamak',
+    metaDuration: '7 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Bilgilendirici içerik',
+    intro: 'Bu süreci yaşamanın tek bir doğru yolu yok. Herkes kendi yolunda, kendi hızında ilerler.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Gerçek ve meşru bir yas',
+      'Kişiden kişiye değişen duygular',
+      'Günlük hayatta neler yardımcı olabilir',
+      'Sevdiklerinin desteği',
+      'Ne zaman profesyonel yardım alınmalı',
+      'Öne çıkanlar',
+    ],
+    section1Body: 'Üzüntü, öfke ya da boşluk hissi, gebeliğin hangi aşamasında olursa olsun bu kayba verilen normal tepkilerdir. Hissettiklerin kabul edilmeyi hak ediyor.',
+    section1InfoTitle: 'Aklında bulunsun',
+    section1InfoText: 'Bu süreci yaşamanın doğru ya da yanlış bir yolu yoktur. Hissettiğin her duygu geçerlidir.',
+    section2Body: 'Bunlardan birini ya da birkaçını, bazen hepsini aynı anda hissedebilirsin:',
+    feelings: [
+      {
+        title: 'Üzüntü',
+        text: 'Gelip gidebilen, bazen beklenmedik anlarda ortaya çıkan bir keder.',
+      },
+      {
+        title: 'Öfke',
+        text: 'Kendine, yaşananlara ya da bir haksızlık duygusuna yönelik olabilir; bu endişe edilecek bir şey değildir.',
+      },
+      {
+        title: 'Boşluk hissi',
+        text: 'Yaşananlar karşısında bir boşluk ya da karışıklık duygusu.',
+      },
+    ],
+    section3Body: 'Baskı ve kıyaslama olmadan kendine zaman tanımak, iyileşmenin önemli bir parçasıdır.',
+    dailySupport: [
+      {
+        title: 'Kendine zaman tanımak',
+        text: '“İyi hissetmek” için baskı ya da son tarih olmadan.',
+      },
+      {
+        title: 'Kendini başkalarıyla kıyaslamamak',
+        text: 'Her yas benzersizdir; bunu yaşamanın tek bir doğru yolu yoktur.',
+      },
+      {
+        title: 'Duygularını kelimelere dökmek',
+        text: 'Hissettiklerini yazmak ya da anlatmak, duyguların yükünü hafifletmeye yardımcı olabilir.',
+      },
+    ],
+    section4Body: 'Yakınındaki biriyle, bir destek grubuyla ya da bir uzmanla konuşmak bu yükü hafifletmeye yardımcı olabilir. Sevdiklerinin nasıl yardımcı olabileceği şöyle:',
+    supportTitle: 'Bir yakının nasıl destek olabilir',
+    howToSupport: [
+      'Yargılamadan dinlemek, doğru kelimeleri bulamasa bile',
+      'Yaşananı küçümsemekten kaçınmak (“önemli bir şey değildi”, “tekrar deneyebilirsiniz” gibi)',
+      'Çözüm sunmak yerine yanında olmak',
+      'Sonraki haftalarda da hâl hatır sormayı sürdürmek',
+    ],
+    section5Body: 'Bazı belirtiler profesyonel desteğin yararlı olabileceğini gösterebilir:',
+    warningTitle: 'Dikkat edilmesi gereken belirtiler',
+    attentionSigns: [
+      'Üzüntü uzun süre devam ediyor ve hafiflemek yerine yoğunlaşıyor',
+      'Günlük hayatta işlevini sürdürmek zorlaşıyor',
+      'Belirgin bir yalnızlık hissi yerleşiyor',
+      'Zihni meşgul eden istenmeyen düşünceler ya da belirgin sıkıntı ortaya çıkıyor',
+    ],
+    section5InfoTitle: 'Destek mevcut',
+    section5InfoText: 'Bir ebe, doktor, psikolog ya da destek grubu seni yargılamadan dinleyebilir ve sana destek olabilir.',
+    tipTitle: 'Bilmekte fayda var',
+    tipText: 'Yardım istemek bir zayıflık işareti değildir; bu dönemde kendine iyi bakmanın bir yoludur.',
+    summaryPoints: [
+      'Bu deneyimi yaşamanın doğru ya da yanlış bir yolu yoktur.',
+      'Üzüntü, öfke ya da boşluk hissi normal tepkilerdir.',
+      'Baskı ve kıyaslama olmadan kendine zaman tanımak iyileşmenin bir parçasıdır.',
+      'Yakınındaki biriyle, bir destek grubuyla ya da bir uzmanla konuşmak bu yükü hafifletmeye yardımcı olabilir.',
+    ],
+    disclaimerText: 'Bilgilendirici içerik. Bu makale profesyonel tavsiyenin yerini tutmaz. Zor bir dönemden geçiyorsan bir sağlık uzmanıyla konuşmaktan çekinme.',
+    shareMessage: 'Yası duygusal olarak yaşamak — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */

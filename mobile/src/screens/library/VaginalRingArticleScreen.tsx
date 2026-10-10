@@ -329,6 +329,96 @@ const CONTENT = {
     tip2Text: 'L’anello vaginale combina un rilascio continuo di ormoni con un ritmo di utilizzo che evita l’assunzione quotidiana. Tuttavia, la scelta della contraccezione dovrebbe essere adattata a ciascuna persona e discussa con un’operatrice o un operatore sanitario.',
     shareMessage: 'L’anello vaginale contraccettivo — AWA',
   },
+  tr: {
+    badge: 'VAJİNAL HALKA',
+    title: 'Doğum kontrol\nvajinal halkası',
+    metaDuration: '5 dk okuma',
+    metaType: 'Makale',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Üç hafta boyunca takılan esnek bir halka.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Halka nasıl çalışır',
+      'Takma ve çıkarma',
+      'Bilmen gerekenler',
+      'Akılda tutulacaklar',
+    ],
+    body1: 'Halka, düşük dozda hormonları doğrudan vajinada sürekli olarak salan esnek bir cihazdır; kombine hapla aynı doğum kontrol etkisine sahiptir.',
+    flowTitle: 'Nasıl çalışır',
+    flowSteps: [
+      {
+        title: 'Halka',
+        text: 'Vajinaya yerleştirilir',
+      },
+      {
+        title: 'Hormonlar',
+        text: 'Sürekli salınım',
+      },
+      {
+        title: 'Koruma',
+        text: 'Doğum kontrol etkisi',
+      },
+    ],
+    body2: 'Halkayı kendin takarsın, üç hafta boyunca kesintisiz yerinde kalır, ardından bir haftalık ara için çıkarılır; adet kanaman bu ara sırasında olur.',
+    calendarTitle: 'Takip etmesi kolay bir ritim',
+    weekLabelActive: 'Halka',
+    weekLabelPause: 'Ara',
+    legendActive: 'Halkalı hafta',
+    legendPause: 'Ara haftası',
+    tip1Title: 'Bilmekte fayda var',
+    tip1Text: 'Vajinadaki tam konumunun kesin olması etkili olması için gerekmez; bu da kullanımını kolaylaştırır.',
+    body3: 'Halkayı seçmeden önce bilmeye değer birkaç pratik nokta vardır.',
+    careTips: [
+      {
+        title: 'Kullanımı kolay',
+        text: 'Kendin takar ve çıkarırsın.',
+      },
+      {
+        title: 'Düzenli ritim',
+        text: 'Genellikle üç hafta boyunca yerinde kalır.',
+      },
+      {
+        title: 'Sürekli etki',
+        text: 'Hormonlar kullanım süresi boyunca sürekli olarak salınır.',
+      },
+      {
+        title: 'Cinsel yolla bulaşan enfeksiyonlardan korumaz',
+        text: 'Duruma göre ek koruma gerekebilir.',
+      },
+    ],
+    checkListTitle: 'Sürdürmeye değer iyi alışkanlıklar',
+    practicalSteps: [
+      'Takmadan veya çıkarmadan önce ellerini yıka',
+      'Takvimi takip etmek için hatırlaması kolay bir zaman seç',
+      'Arada bir hâlâ yerinde olup olmadığını kontrol et',
+      'Yerinden kayarsa ya da dışarı çıkarsa kullanım kılavuzuna bak',
+    ],
+    alertTitle: 'Lütfen dikkat',
+    alertText: 'Dışarı çıkma ya da uzun süreli yer değiştirme özel bir yönlendirme gerektirebilir. Emin değilsen her zaman cihazın kullanım kılavuzuna bak veya bir sağlık profesyoneline danış.',
+    summaryTitle: '4 maddede özet',
+    summaryItems: [
+      {
+        title: 'Kolay takılır',
+        text: 'Halkayı kendin takıp çıkarabilirsin.',
+      },
+      {
+        title: 'Haftalık ritim',
+        text: 'Genellikle üç haftalık bir döngüyü ve ardından bir haftalık arayı izler.',
+      },
+      {
+        title: 'Ara sıra kontrol',
+        text: 'Yerinde olup olmadığını düzenli olarak kontrol etmek, cihazı içiniz rahat kullanmana yardımcı olur.',
+      },
+      {
+        title: 'Cinsel yolla bulaşan enfeksiyonlara karşı koruma yok',
+        text: 'Duruma göre uygun bir koruma gerekebilir.',
+      },
+    ],
+    tip2Title: 'Akılda tutulacaklar',
+    tip2Text: 'Vajinal halka, sürekli hormon salınımını günlük doz gerektirmeyen bir kullanım ritmiyle bir araya getirir. Yine de doğum kontrol seçimi kişiye göre uyarlanmalı ve bir sağlık profesyoneliyle konuşulmalıdır.',
+    shareMessage: 'Doğum kontrol vajinal halkası — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

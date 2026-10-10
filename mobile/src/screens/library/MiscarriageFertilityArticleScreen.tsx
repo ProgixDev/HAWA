@@ -352,6 +352,71 @@ const CONTENT = {
     disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce un parere medico personalizzato. Il tuo medico o la tua ostetrica resta il riferimento per la tua situazione.',
     shareMessage: 'Fertilità e nuovi tentativi dopo una perdita — AWA',
   },
+  tr: {
+    badge: 'DÜŞÜK SONRASI • DOĞURGANLIK',
+    title: 'Kayıptan sonra doğurganlık ve yeniden denemek',
+    metaDuration: '6 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Orta düzey',
+    metaValidated: 'Bilgilendirici içerik',
+    intro: 'Yeniden denemeyi ne zaman ve nasıl düşüneceğin, kendi temponda ve tam bir güven içinde.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Doğurganlığın geri dönüşü',
+      'Profesyoneller genellikle ne söylüyor',
+      'Kendi temponda hazır hissetmek',
+      'Seni rahatlatabilecek takip süreci',
+      'Önemli çıkarımlar',
+    ],
+    body1: 'Doğurganlık genellikle erken bir düşükten sonraki döngüde geri döner. Yumurtlama, adetin gözle görülür biçimde geri dönmesinden önce bile gerçekleşebilir.',
+    infoTitle: 'Önemli çıkarım',
+    infoText: 'Kaybın aşamasına bağlı olarak fiziksel iyileşme süresi bir durumdan diğerine biraz farklılık gösterebilir.',
+    body2: 'Birçok profesyonel, doktorun ya da ebenin aksini önermediği sürece yeniden denemeden önce birkaç döngü beklemeye gerek olmadığını düşünür.',
+    compareEarlyTitle: 'Erken kayıp',
+    compareEarlyText: 'Doğurganlık çoğunlukla hızla, bir sonraki döngüden itibaren geri döner.',
+    compareLateTitle: 'Daha geç dönemdeki kayıp',
+    compareLateText: 'Tıbbi ekip biraz daha uzun bir iyileşme süresi önerebilir.',
+    body3: 'Fiziksel ve duygusal olarak hazır hissetmek, kuramsal herhangi bir süreden çok daha önemli bir rehber olmaya devam eder.',
+    readinessPoints: [
+      {
+        title: 'Duygusal olarak',
+        text: 'İçinde hazır hissetmek, fiziksel iyileşme kadar önemlidir.',
+      },
+      {
+        title: 'Fiziksel olarak',
+        text: 'Düzenli bir döngü ve iyi olma hissi iyi göstergelerdir.',
+      },
+      {
+        title: 'Çift olarak ya da destekle',
+        text: 'Eşinle bunu konuşmak, aynı tempoda ilerlemene yardımcı olabilir.',
+      },
+    ],
+    body4: 'Yeniden denemeden önce bir tıbbi randevu, daha huzurlu ilerlemene yardımcı olabilir:',
+    followUpSteps: [
+      {
+        title: 'Durumu değerlendirmek',
+        text: 'Bir profesyonelle yapılan görüşme, yaşananları yeniden gözden geçirmene olanak tanır.',
+      },
+      {
+        title: 'Gerekirse bir değerlendirme',
+        text: 'Duruma göre ek tetkikler önerilebilir.',
+      },
+      {
+        title: 'Yeni bir deneme',
+        text: 'Takip süreci, yeniden denerken seni sakin bir biçimde destekleyebilir.',
+      },
+    ],
+    tipTitle: 'Bilmekte fayda var',
+    tipText: 'Tek bir düşük genellikle bir doğurganlık sorununa işaret etmez. Kişisel sorularını yanıtlamak için en uygun kişi tıbbi ekibindir.',
+    summaryPoints: [
+      'Doğurganlık genellikle erken bir düşükten sonraki döngüde geri döner.',
+      'Birçok profesyonel, aksi önerilmediği sürece birkaç döngü beklemeye gerek olmadığını düşünür.',
+      'Fiziksel ve duygusal olarak hazır hissetmek en önemli rehber olmaya devam eder.',
+      'Tıbbi takip, yeniden denemeden önce seni destekleyebilir ve rahatlatabilir.',
+    ],
+    disclaimerText: 'Bilgilendirici içerik. Bu makale kişiye özel tıbbi tavsiyenin yerini tutmaz. Durumun için başvuru kaynağı doktorun ya da ebendir.',
+    shareMessage: 'Kayıptan sonra doğurganlık ve yeniden denemek — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */

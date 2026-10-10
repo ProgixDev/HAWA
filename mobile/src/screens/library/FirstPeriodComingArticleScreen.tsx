@@ -215,6 +215,57 @@ const CONTENT = {
     ],
     shareMessage: 'Come capire se sta per arrivare il mio primo ciclo? — AWA',
   },
+  tr: {
+    badge: 'İLK ADET',
+    title: 'İlk adetimin geldiğini\nnasıl anlarım?',
+    metaDuration: '5 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Birkaç somut işaret, ilk adetinin gerçekten yaklaştığını fark etmene yardımcı olabilir.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Dikkat edilecek işaretler',
+      'İlk akıntı: nasıl görünür?',
+      'Vajinal akıntı mı, adet kanı mı?',
+      'Ne zaman bir yetişkinle konuşmalı?',
+    ],
+    observe: [
+      {
+        title: 'Beyazımsı akıntı',
+        text: 'Hafif, berrak akıntı çoğu zaman birkaç ay önceden görülmeye başlar.',
+      },
+      {
+        title: 'Göğüs gelişimi',
+        text: 'Genellikle adetinden epey önce ortaya çıkan yaygın bir işarettir.',
+      },
+      {
+        title: 'Hafif karın sızıları',
+        text: 'Bunun gibi küçük hisler, adetinin yakında geleceğinin işareti olabilir.',
+      },
+    ],
+    body2: 'İlk adetin gelmeden önce iç çamaşırında hafif beyazımsı ya da hafif sarımsı bir akıntı fark etmen yaygındır. Bu, vücudunda başlayan hormonal etkinliğe bağlı normal bir durumdur.',
+    body3: 'Vajinal akıntı berrak ya da beyazımsıdır ve keskin kokusu yoktur. Adet kanı ise kırmızıdan kahverengiye doğru bir renktedir ve adetinin gerçek başlangıcını işaret eder. Emin olamadığın bir şey olursa bunu konuşmak hiçbir zaman sorun olmaz.',
+    tipTitle: 'Bilmekte fayda var',
+    tipText: 'Tam günü önceden tahmin etmenin bir yolu yoktur. İlk işaretlerden itibaren yanında koruma bulundurmak, edinebileceğin en iyi alışkanlıktır.',
+    body4: 'Bu işaretleri fark ettiğin anda ya da aklına bir soru veya endişe geldiğinde annenle, bir kız kardeşinle, yakınındaki biriyle veya güvendiğin bir sağlık profesyoneliyle konuşabilirsin. Yardım istemek için yanlış bir zaman yoktur.',
+    relatedTitle: '♥  Bunlar da ilgini çekebilir',
+    related: [
+      {
+        title: 'Adetinden önceki ilk işaretler',
+        meta: '5 dk  ·  Makale',
+      },
+      {
+        title: 'İlk adetim için hangi korumayı seçmeliyim?',
+        meta: '6 dk  ·  Rehber',
+      },
+      {
+        title: 'İlk adetin: neler beklemeli',
+        meta: '5 dk  ·  Rehber',
+      },
+    ],
+    shareMessage: 'İlk adetimin geldiğini nasıl anlarım? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
