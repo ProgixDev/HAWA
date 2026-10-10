@@ -1,4 +1,5 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {commitOptimistic} from '../services/saveFailure';
 
 export type ContraceptionMethod = 'pill' | 'ring' | 'patch' | 'other';
 
@@ -97,7 +98,7 @@ export const hydrateContraceptionPreferences = (): Promise<ContraceptionPreferen
     return Promise.resolve(getContraceptionPreferences());
   }
   if (!hydration) {
-    hydration = AsyncStorage.getItem(STORAGE_KEY)
+    hydration = readOwnedItem(STORAGE_KEY, hydrateContraceptionPreferences)
       .then(raw => {
         hydrated = true;
         if (raw) {
@@ -125,7 +126,12 @@ export const hydrateContraceptionPreferences = (): Promise<ContraceptionPreferen
         notifyListeners();
         return getContraceptionPreferences();
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          hydration = null;
+          return getContraceptionPreferences();
+        }
         hydrated = true;
         return getContraceptionPreferences();
       });
@@ -136,7 +142,10 @@ export const hydrateContraceptionPreferences = (): Promise<ContraceptionPreferen
 export const setContraceptionPreferences = async (
   next: Partial<ContraceptionPreferences>,
 ): Promise<void> => {
+  const previous = preferences;
   preferences = {...preferences, ...next};
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
+  await commitOptimistic(previous, () => preferences, restored => {
+    preferences = restored;
+  }, () => AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(preferences)));
   notifyListeners();
 };

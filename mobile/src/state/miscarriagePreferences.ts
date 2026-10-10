@@ -1,4 +1,5 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {commitOptimistic} from '../services/saveFailure';
 
 import {
   validateCycleReturnDate,
@@ -95,9 +96,13 @@ export const getMiscarriagePreferences = (): MiscarriagePreferences => ({...misc
  * writer of a dated field goes through the named setters below, which validate
  * a NEW value (see utils/lossDateValidation.ts). */
 export const setMiscarriagePreferences = async (value: MiscarriagePreferences): Promise<void> => {
+  const previous = miscarriagePreferences;
   miscarriagePreferences = {...value};
   notifyListeners();
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(miscarriagePreferences));
+  await commitOptimistic(previous, () => miscarriagePreferences, restored => {
+    miscarriagePreferences = restored;
+    notifyListeners();
+  }, () => AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(miscarriagePreferences)));
 };
 
 /** THE single canonical way to record the miscarriage date — used by
@@ -205,7 +210,7 @@ export const hydrateMiscarriagePreferences = (): Promise<MiscarriagePreferences>
     return Promise.resolve(getMiscarriagePreferences());
   }
   if (!hydration) {
-    hydration = AsyncStorage.getItem(STORAGE_KEY)
+    hydration = readOwnedItem(STORAGE_KEY, hydrateMiscarriagePreferences)
       .then(raw => {
         hydrated = true;
         if (raw) {
@@ -217,7 +222,12 @@ export const hydrateMiscarriagePreferences = (): Promise<MiscarriagePreferences>
         }
         return getMiscarriagePreferences();
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          hydration = null;
+          return getMiscarriagePreferences();
+        }
         hydrated = true;
         return getMiscarriagePreferences();
       });

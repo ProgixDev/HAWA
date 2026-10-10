@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {
   loadPersonalInformation,
   migrateLegacyPlainPersonalInformation,
@@ -41,7 +42,7 @@ describe('personalInformationStore — encryption at rest', () => {
     expect(info.firstName).toBe('Sarah');
     expect(info.country).toBe('Algérie');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!);
     expect(typeof persisted.lastName).toBe('object');
     expect(typeof persisted.email).toBe('object');
@@ -66,9 +67,9 @@ describe('personalInformationStore — encryption at rest', () => {
   });
 
   it('migration is a no-op when nothing is legacy plaintext', async () => {
-    const before = await AsyncStorage.getItem(STORAGE_KEY);
+    const before = await readStoredString(STORAGE_KEY);
     await migrateLegacyPlainPersonalInformation();
-    const after = await AsyncStorage.getItem(STORAGE_KEY);
+    const after = await readStoredString(STORAGE_KEY);
     expect(after).toBe(before);
   });
 
@@ -77,7 +78,7 @@ describe('personalInformationStore — encryption at rest', () => {
     expect(updated.email).toBe('new@example.com');
     expect(updated.phone).toBe('+1 555 0100');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!);
     expect(typeof persisted.email).toBe('object');
     expect(typeof persisted.phone).toBe('object');
@@ -86,7 +87,7 @@ describe('personalInformationStore — encryption at rest', () => {
 
   it('firstName/preferredName/country/language/calendar/timeFormat remain plaintext at rest', async () => {
     await updatePersonalInformation({firstName: 'Amina', country: 'Maroc'});
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!);
     expect(persisted.firstName).toBe('Amina');
     expect(persisted.country).toBe('Maroc');
@@ -137,7 +138,7 @@ describe('personalInformationStore — language always resolves to French', () =
     const updated = await updatePersonalInformation({language: 'English'} as never);
     expect(updated.language).toBe(SUPPORTED_LANGUAGE);
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     expect(JSON.parse(raw!).language).toBe(SUPPORTED_LANGUAGE);
   });
 });

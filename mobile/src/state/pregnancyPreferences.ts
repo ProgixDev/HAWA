@@ -1,4 +1,5 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {commitOptimistic} from '../services/saveFailure';
 
 // Pregnancy dating configuration, collected during onboarding for the
 // `pregnancy` objective only. Deliberately isolated from cyclePreferences /
@@ -39,9 +40,14 @@ const isValidPreferences = (value: unknown): value is PregnancyDatingPreferences
 export const getPregnancyDating = (): PregnancyDatingPreferences => ({...pregnancyDating});
 
 export const setPregnancyDating = async (value: PregnancyDatingPreferences): Promise<void> => {
+  const previous = pregnancyDating;
   pregnancyDating = {...value};
   notifyListeners();
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(pregnancyDating));
+  // A refused/failed write REJECTS (services/saveFailure.ts) and the previous value comes back.
+  await commitOptimistic(previous, () => pregnancyDating, restored => {
+    pregnancyDating = restored;
+    notifyListeners();
+  }, () => AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(pregnancyDating)));
 };
 
 export const hydratePregnancyDating = (): Promise<PregnancyDatingPreferences> => {
@@ -49,7 +55,7 @@ export const hydratePregnancyDating = (): Promise<PregnancyDatingPreferences> =>
     return Promise.resolve(getPregnancyDating());
   }
   if (!hydration) {
-    hydration = AsyncStorage.getItem(STORAGE_KEY)
+    hydration = readOwnedItem(STORAGE_KEY, hydratePregnancyDating)
       .then(raw => {
         hydrated = true;
         if (raw) {
@@ -61,7 +67,12 @@ export const hydratePregnancyDating = (): Promise<PregnancyDatingPreferences> =>
         }
         return getPregnancyDating();
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          hydration = null;
+          return getPregnancyDating();
+        }
         hydrated = true;
         return getPregnancyDating();
       });
@@ -114,9 +125,13 @@ export const getPregnancyTrackingPreferences = (): Set<PregnancyTrackingPreferen
   new Set(pregnancyTrackingPreferences);
 
 export const setPregnancyTrackingPreferences = async (value: Set<PregnancyTrackingPreference>): Promise<void> => {
+  const previous = pregnancyTrackingPreferences;
   pregnancyTrackingPreferences = new Set(value);
   notifyTrackingListeners();
-  await AsyncStorage.setItem(TRACKING_STORAGE_KEY, JSON.stringify(Array.from(pregnancyTrackingPreferences)));
+  await commitOptimistic(previous, () => pregnancyTrackingPreferences, restored => {
+    pregnancyTrackingPreferences = restored;
+    notifyTrackingListeners();
+  }, () => AsyncStorage.setItem(TRACKING_STORAGE_KEY, JSON.stringify(Array.from(pregnancyTrackingPreferences))));
 };
 
 export const hydratePregnancyTrackingPreferences = (): Promise<Set<PregnancyTrackingPreference>> => {
@@ -124,7 +139,7 @@ export const hydratePregnancyTrackingPreferences = (): Promise<Set<PregnancyTrac
     return Promise.resolve(getPregnancyTrackingPreferences());
   }
   if (!trackingHydration) {
-    trackingHydration = AsyncStorage.getItem(TRACKING_STORAGE_KEY)
+    trackingHydration = readOwnedItem(TRACKING_STORAGE_KEY, hydratePregnancyTrackingPreferences)
       .then(raw => {
         trackingHydrated = true;
         if (raw) {
@@ -136,7 +151,12 @@ export const hydratePregnancyTrackingPreferences = (): Promise<Set<PregnancyTrac
         }
         return getPregnancyTrackingPreferences();
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          trackingHydration = null;
+          return getPregnancyTrackingPreferences();
+        }
         trackingHydrated = true;
         return getPregnancyTrackingPreferences();
       });
@@ -205,9 +225,13 @@ const normalizeReminderPreferences = (value: unknown): PregnancyReminderPreferen
 export const getPregnancyReminderPreferences = (): PregnancyReminderPreferences => ({...pregnancyReminderPreferences});
 
 export const setPregnancyReminderPreferences = async (value: PregnancyReminderPreferences): Promise<void> => {
+  const previous = pregnancyReminderPreferences;
   pregnancyReminderPreferences = {...value};
   notifyReminderListeners();
-  await AsyncStorage.setItem(REMINDER_STORAGE_KEY, JSON.stringify(pregnancyReminderPreferences));
+  await commitOptimistic(previous, () => pregnancyReminderPreferences, restored => {
+    pregnancyReminderPreferences = restored;
+    notifyReminderListeners();
+  }, () => AsyncStorage.setItem(REMINDER_STORAGE_KEY, JSON.stringify(pregnancyReminderPreferences)));
 };
 
 export const hydratePregnancyReminderPreferences = (): Promise<PregnancyReminderPreferences> => {
@@ -215,7 +239,7 @@ export const hydratePregnancyReminderPreferences = (): Promise<PregnancyReminder
     return Promise.resolve(getPregnancyReminderPreferences());
   }
   if (!reminderHydration) {
-    reminderHydration = AsyncStorage.getItem(REMINDER_STORAGE_KEY)
+    reminderHydration = readOwnedItem(REMINDER_STORAGE_KEY, hydratePregnancyReminderPreferences)
       .then(raw => {
         reminderHydrated = true;
         if (raw) {
@@ -225,7 +249,12 @@ export const hydratePregnancyReminderPreferences = (): Promise<PregnancyReminder
         }
         return getPregnancyReminderPreferences();
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          reminderHydration = null;
+          return getPregnancyReminderPreferences();
+        }
         reminderHydrated = true;
         return getPregnancyReminderPreferences();
       });

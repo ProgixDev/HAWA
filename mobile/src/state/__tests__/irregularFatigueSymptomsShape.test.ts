@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 
 import {
   getIrregularJournalEntry,
@@ -10,7 +11,7 @@ import {getIrregularFatigueSymptoms} from '../../utils/irregularJournalSelectors
 const STORAGE_KEY = '@hawa/irregular-journal/v1';
 
 const persistedFor = async (date: string) => {
-  const raw = await AsyncStorage.getItem(STORAGE_KEY);
+  const raw = await readStoredString(STORAGE_KEY);
   return raw ? JSON.parse(raw)[date] : undefined;
 };
 
@@ -72,7 +73,7 @@ describe('SOPK fatigue associated symptoms — canonical shape', () => {
       note: 'SECRET_FATIGUE_NOTE',
     });
     expect(getIrregularJournalEntry('2026-09-11')?.details?.fatigue?.note).toBe('SECRET_FATIGUE_NOTE');
-    const raw = (await AsyncStorage.getItem(STORAGE_KEY)) as string;
+    const raw = (await readStoredString(STORAGE_KEY)) as string;
     expect(raw).not.toContain('SECRET_FATIGUE_NOTE');
   });
 

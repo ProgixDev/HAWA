@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {
   getPregnancyJournalState,
   migrateLegacyPlainPregnancyNotes,
@@ -125,7 +126,7 @@ describe('pregnancyJournalStore — encryption at rest', () => {
     const state = await getPregnancyJournalState();
     expect(state.medicalInformationHistory[0].note).toBe('Suivi tensiomètre à domicile');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).medicalInformationHistory[0];
     expect(typeof persisted.note).toBe('object');
     expect(persisted.note.ciphertext).toBeDefined();
@@ -144,7 +145,7 @@ describe('pregnancyJournalStore — encryption at rest', () => {
     expect(state.symptoms[0].note).toBe('Surtout le matin');
     expect(state.symptoms[0].symptoms).toEqual(['Nausées', 'Fatigue']);
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).symptoms[0];
     expect(typeof persisted.note).toBe('object');
     expect(persisted.symptoms).toEqual(['Nausées', 'Fatigue']);
@@ -167,7 +168,7 @@ describe('pregnancyJournalStore — encryption at rest', () => {
     expect(state.symptoms[0].note).toBe('Après le déjeuner');
     expect(state.medicalInformationHistory[0].note).toBe('Carence en fer diagnostiquée');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!);
     expect(typeof persisted.symptoms[0].note).toBe('object');
     expect(typeof persisted.medicalInformationHistory[0].note).toBe('object');
@@ -176,9 +177,9 @@ describe('pregnancyJournalStore — encryption at rest', () => {
 
   it('migration is idempotent and a no-op when nothing is legacy plaintext', async () => {
     await migrateLegacyPlainPregnancyNotes();
-    const before = await AsyncStorage.getItem(STORAGE_KEY);
+    const before = await readStoredString(STORAGE_KEY);
     await migrateLegacyPlainPregnancyNotes();
-    const after = await AsyncStorage.getItem(STORAGE_KEY);
+    const after = await readStoredString(STORAGE_KEY);
     expect(after).toBe(before);
   });
 });

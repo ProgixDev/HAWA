@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 
 import {OWNER_PROFILE_ID, getActiveProfileId, resetActiveProfileForTests, setActiveProfileId} from '../activeProfileStore';
 import {addManagedProfile, resetManagedProfilesForTests} from '../managedProfilesStore';
@@ -208,13 +209,13 @@ describe('Multi-profile — owner backward compatibility', () => {
   it('reading owner data twice never duplicates it (idempotent)', async () => {
     await hydrateConfirmedPeriodHistory();
     await recordConfirmedPeriodEnd(new Date(2026, 0, 1), new Date(2026, 0, 5));
-    const raw1 = await AsyncStorage.getItem('@hawa/confirmed-period-history');
+    const raw1 = await readStoredString('@hawa/confirmed-period-history');
 
     // Re-hydrating (as a second screen mounting would) must not rewrite/duplicate.
     await setActiveProfileId(OWNER_PROFILE_ID); // no-op switch (already active)
     const secondRead = getConfirmedPeriodHistory();
     expect(secondRead).toHaveLength(1);
-    const raw2 = await AsyncStorage.getItem('@hawa/confirmed-period-history');
+    const raw2 = await readStoredString('@hawa/confirmed-period-history');
     expect(raw2).toBe(raw1);
   });
 
@@ -224,7 +225,7 @@ describe('Multi-profile — owner backward compatibility', () => {
     // Nothing here re-imports the module (Jest keeps one instance per file), but the
     // persisted AsyncStorage snapshot is the actual survival mechanism — assert it
     // independently of the in-memory cache.
-    const raw = await AsyncStorage.getItem('@hawa/cycle-preferences');
+    const raw = await readStoredString('@hawa/cycle-preferences');
     expect(raw).toBeTruthy();
     const parsed = JSON.parse(raw!);
     expect(parsed.preferences.periodDuration).toBe(6);

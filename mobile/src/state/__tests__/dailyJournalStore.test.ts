@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {encryptFieldValue} from '../../services/atRestFieldEncryption';
 import {
   getAllJournalEntries,
@@ -28,7 +29,7 @@ describe('dailyJournalStore — encryption at rest (per-category notes)', () => 
     expect(entry?.symptoms?.names).toEqual(['Ballonnements']);
     expect(entry?.mood?.level).toBe('good');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).find((e: {date: string}) => e.date === '2026-09-01');
     expect(typeof persisted.symptoms.note).toBe('object');
     expect(typeof persisted.mood.note).toBe('object');
@@ -53,7 +54,7 @@ describe('dailyJournalStore — encryption at rest (per-category notes)', () => 
   it('an empty note is never persisted as an encrypted blob — the field is simply absent', async () => {
     await saveJournalSection('2026-09-03', 'temperature', {value: 36.7, unit: 'C', note: ''});
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).find((e: {date: string}) => e.date === '2026-09-03');
     expect(persisted.temperature.note).toBeUndefined();
 
@@ -97,7 +98,7 @@ describe('dailyJournalStore — encryption at rest (per-category notes)', () => 
     expect(entry?.symptoms?.names).toEqual(['Fatigue']);
     expect(entry?.cervicalMucus?.type).toBe('dry');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)[0];
     expect(typeof persisted.symptoms.note).toBe('object');
     expect(typeof persisted.mood.note).toBe('object');
@@ -123,9 +124,9 @@ describe('dailyJournalStore — encryption at rest (per-category notes)', () => 
       STORAGE_KEY,
       JSON.stringify([{id: '2026-09-07-1', date: '2026-09-07', weight: {value: 60, unit: 'kg'}}]),
     );
-    const before = await AsyncStorage.getItem(STORAGE_KEY);
+    const before = await readStoredString(STORAGE_KEY);
     await migrateLegacyPlainDailyJournalNotes();
-    const after = await AsyncStorage.getItem(STORAGE_KEY);
+    const after = await readStoredString(STORAGE_KEY);
     expect(after).toBe(before);
   });
 
@@ -134,7 +135,7 @@ describe('dailyJournalStore — encryption at rest (per-category notes)', () => 
     await saveJournalSection('2026-09-08', 'flow', {intensity: 'heavy', color: 'Rouge vif', periodStart: true});
     await saveJournalSection('2026-09-08', 'cervicalMucus', {type: 'eggWhite'});
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).find((e: {date: string}) => e.date === '2026-09-08');
     expect(persisted.symptoms.names).toEqual(['Nausées', 'Vertiges']);
     expect(persisted.symptoms.severity).toBe('moderate');
@@ -160,7 +161,7 @@ describe('dailyJournalStore — encryption at rest (per-category notes)', () => 
 
     await saveJournalSection('2026-09-09', 'mood', {level: 'good', energy: 4, stress: 1, irritability: 1, motivation: 5, note: 'Note humeur mise à jour'});
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).find((e: {date: string}) => e.date === '2026-09-09');
     expect(persisted.encryptedNote).toEqual({version: 1, iv: 'aa', ciphertext: 'bb'});
     expect(persisted.encryptedIntimacy).toEqual({version: 1, iv: 'cc', ciphertext: 'dd'});

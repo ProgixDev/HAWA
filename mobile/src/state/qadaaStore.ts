@@ -1,4 +1,5 @@
 import AsyncStorage from '../services/secureAsyncStorage';
+import {commitOptimistic} from '../services/saveFailure';
 
 import {getActiveProfileId, subscribeActiveProfileId} from './activeProfileStore';
 import {profileScopedKey} from './profileScopedStorage';
@@ -29,9 +30,16 @@ const notifyListeners = () => {
 export const getRemainingQadaaDays = (): number | null => remainingQadaaDays;
 
 export const setRemainingQadaaDays = async (value: number): Promise<void> => {
+  const previous = remainingQadaaDays;
+  const storageKey = currentStorageKey();
   remainingQadaaDays = value;
   notifyListeners();
-  await AsyncStorage.setItem(currentStorageKey(), String(value));
+  // A cached counter: it is only put back while it still holds the value this call wrote (it is recomputed from the
+  // confirmed history anyway, so a stale cache is the worst case).
+  await commitOptimistic(previous, () => remainingQadaaDays, restored => {
+    remainingQadaaDays = restored;
+    notifyListeners();
+  }, () => AsyncStorage.setItem(storageKey, String(value)));
 };
 
 export const hydrateRemainingQadaaDays = (): Promise<number | null> => {
@@ -62,6 +70,8 @@ export const hydrateRemainingQadaaDays = (): Promise<number | null> => {
     .catch(() => {
       hydrated = true;
       hydratedForProfileId = profileId;
+      // Unreadable record: "unknown", never the previously active profile's owed-days count.
+      remainingQadaaDays = null;
       return remainingQadaaDays;
     });
   return hydration;

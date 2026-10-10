@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {
   getPostpartumLochiaEntry,
   getPostpartumLochiaTracking,
@@ -44,7 +45,7 @@ describe('postpartumLochiaStore — encryption at rest', () => {
     expect(entry?.symptoms).toEqual(['Douleurs légères']);
     expect(getPostpartumLochiaTracking()).toEqual({endedDate: null});
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).entries['2026-09-01'];
     expect(typeof persisted.note).toBe('object');
     expect(persisted.note.ciphertext).toBeDefined();
@@ -59,9 +60,9 @@ describe('postpartumLochiaStore — encryption at rest', () => {
   });
 
   it('migration is a no-op when nothing is legacy plaintext', async () => {
-    const before = await AsyncStorage.getItem(STORAGE_KEY);
+    const before = await readStoredString(STORAGE_KEY);
     await migrateLegacyPlainPostpartumLochiaNotes();
-    const after = await AsyncStorage.getItem(STORAGE_KEY);
+    const after = await readStoredString(STORAGE_KEY);
     expect(after).toBe(before);
   });
 
@@ -76,7 +77,7 @@ describe('postpartumLochiaStore — encryption at rest', () => {
 
     expect(getPostpartumLochiaEntry('2026-09-02')?.note).toBe('Note du jour 2');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).entries['2026-09-02'];
     expect(typeof persisted.note).toBe('object');
     expect(JSON.stringify(persisted)).not.toContain('Note du jour 2');
@@ -90,7 +91,7 @@ describe('postpartumLochiaStore — encryption at rest', () => {
       symptoms: [],
     });
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).entries['2026-09-03'];
     expect(persisted.note).toBeUndefined();
     expect(getPostpartumLochiaEntry('2026-09-03')?.note).toBeUndefined();
@@ -104,7 +105,7 @@ describe('postpartumLochiaStore — encryption at rest', () => {
       symptoms: ['Aucun'],
       note: 'Une note',
     });
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).entries['2026-09-04'];
     expect(persisted.flow).toBe('Très léger');
     expect(persisted.color).toBe('Jaune / blanc');
@@ -123,7 +124,7 @@ describe('postpartumLochiaStore — encryption at rest', () => {
     });
     expect(getPostpartumLochiaTracking()).toEqual({endedDate: '2026-09-05'});
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     expect(JSON.parse(raw!).tracking).toEqual({endedDate: '2026-09-05'});
   });
 
@@ -136,7 +137,7 @@ describe('postpartumLochiaStore — encryption at rest', () => {
       note: 'SECRET_MARKER_LOCHIA4',
     });
     expect(getPostpartumLochiaEntry('2026-09-07')?.note).toBe('SECRET_MARKER_LOCHIA4');
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     expect(raw).not.toContain('SECRET_MARKER_LOCHIA4');
   });
 });

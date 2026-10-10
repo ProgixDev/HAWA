@@ -9,10 +9,12 @@ import {
   setCycleReminderPreferences,
 } from '../cycleReminderPreferences';
 import {addManagedProfile, resetManagedProfilesForTests} from '../managedProfilesStore';
-import {OWNER_PROFILE_ID, resetActiveProfileForTests, setActiveProfileId} from '../activeProfileStore';
+import {OWNER_PROFILE_ID, getActiveProfileId, resetActiveProfileForTests, setActiveProfileId} from '../activeProfileStore';
+import {profileScopedKey} from '../profileScopedStorage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {syncCycleReminders} from '../../utils/cycleReminderScheduling';
 import {scheduleLocalNotification, cancelLocalNotification} from '../../services/pregnancyNotifications';
-import {getCyclePreferences, setCyclePreferences} from '../onboardingPreferences';
+import {getCyclePreferences, hydrateCyclePreferences, setCyclePreferences} from '../onboardingPreferences';
 import {
   addInAppNotification,
   clearAllInAppNotificationsForActiveProfile,
@@ -28,6 +30,13 @@ import {
   deleteTrackedDataForProfile,
   readAwaStorageForProfile,
 } from '../../services/backupService';
+
+// setCyclePreferences() persists fire-and-forget. A backup reads the raw stored strings, so a test that backs up straight after
+// a setter first waits for that write to land — a read through the production storage path queues behind in-flight writes
+// of the same record (instant with encryption off, several async steps with it on).
+const settleCyclePersistence = async () => {
+  await readStoredString(profileScopedKey('@hawa/cycle-preferences', getActiveProfileId()));
+};
 
 jest.mock('../../services/pregnancyNotifications', () => ({
   scheduleLocalNotification: jest.fn().mockResolvedValue(true),
@@ -101,12 +110,15 @@ describe('cycleReminderPreferences — profile-scoped reminder settings', () => 
     await setCycleReminderPreferences({...DEFAULT_PREFS, dailyJournalEnabled: true, dailyJournalTime: '18:00'});
 
     await setActiveProfileId(lina.id);
+    await hydrateCycleReminderPreferences();
     expect(getCycleReminderPreferences().dailyJournalEnabled).toBe(false); // never Hanane's ON, never the mother's
 
     await setActiveProfileId(OWNER_PROFILE_ID);
+    await hydrateCycleReminderPreferences();
     expect(getCycleReminderPreferences().dailyJournalTime).toBe('21:00'); // untouched by either daughter
 
     await setActiveProfileId(hanane.id);
+    await hydrateCycleReminderPreferences();
     expect(getCycleReminderPreferences().dailyJournalTime).toBe('18:00'); // her own edit persisted
   });
 
@@ -116,7 +128,9 @@ describe('cycleReminderPreferences — profile-scoped reminder settings', () => 
     await setCycleReminderPreferences({...DEFAULT_PREFS, dailyJournalEnabled: true, dailyJournalTime: '18:00'});
 
     await setActiveProfileId(OWNER_PROFILE_ID);
+    await hydrateCycleReminderPreferences();
     await setActiveProfileId(hanane.id);
+    await hydrateCycleReminderPreferences();
     expect(getCycleReminderPreferences().dailyJournalTime).toBe('18:00');
 
     // Simulated restart: reset the in-memory module state, force a fresh hydrate.
@@ -311,6 +325,8 @@ describe('Backup — profile-scoped export/delete for a managed daughter profile
     expect((await readAwaStorageForProfile(hanane.id))).toEqual({});
 
     await setActiveProfileId(OWNER_PROFILE_ID);
+    // the new profile's data is read asynchronously (neutral until the read lands): wait for that read, as a screen would
+    await hydrateCyclePreferences();
     const {getCyclePreferences: getMotherCycle} = require('../onboardingPreferences');
     expect(getMotherCycle().cycleDuration).toBe(30); // the mother's own data — untouched by Hanane's delete
 
@@ -334,6 +350,7 @@ describe('Backup — profile-scoped export/delete for a managed daughter profile
   it('"Sauvegarder maintenant" for a daughter writes to HER OWN backup slot — never the owner\'s existing backup, never touched or overwritten', async () => {
     const {backupNow, getBackupSnapshot} = require('../../services/backupService');
     setCyclePreferences({lastPeriodStart: new Date(2026, 8, 1), periodDuration: 5, cycleDuration: 30, regularity: 'yes'}); // mother
+    await settleCyclePersistence();
     const ownerSnapshotBefore = await backupNow(); // the owner's own, pre-existing backup
     expect(ownerSnapshotBefore.entries['@hawa/cycle-preferences']).toBeDefined();
 
@@ -342,6 +359,7 @@ describe('Backup — profile-scoped export/delete for a managed daughter profile
     setCyclePreferences({lastPeriodStart: new Date(2026, 9, 5), periodDuration: 4, cycleDuration: 26, regularity: 'unknown'});
 
     const {backupNowForProfile, getBackupSnapshotForProfile} = require('../../services/backupService');
+    await settleCyclePersistence();
     const hananeSnapshot = await backupNowForProfile(hanane.id);
     expect(hananeSnapshot.scope).toBe('managed-profile');
     expect(hananeSnapshot.profileId).toBe(hanane.id);
@@ -364,6 +382,7 @@ describe('Backup — profile-scoped export/delete for a managed daughter profile
 
     await setActiveProfileId(hanane.id);
     setCyclePreferences({lastPeriodStart: new Date(2026, 9, 5), periodDuration: 4, cycleDuration: 28, regularity: 'unknown'});
+    await settleCyclePersistence();
     const hananeBackup = await backupNowForProfile(hanane.id); // Hanane's cycle = 28, backed up
 
     // She (or the mother, on her behalf) later changes her cycle length...
@@ -381,13 +400,21 @@ describe('Backup — profile-scoped export/delete for a managed daughter profile
     // active-profile change (its own subscribeActiveProfileId hook), exactly
     // like a real app would naturally pick up a restored backup on next load.
     await setActiveProfileId(OWNER_PROFILE_ID);
+    // the new profile's data is read asynchronously (neutral until the read lands): wait for that read, as a screen would
+    await hydrateCyclePreferences();
     await setActiveProfileId(hanane.id);
+    // the new profile's data is read asynchronously (neutral until the read lands): wait for that read, as a screen would
+    await hydrateCyclePreferences();
     expect(getCyclePreferences().cycleDuration).toBe(28); // back to the backed-up value
 
     await setActiveProfileId(OWNER_PROFILE_ID);
+    // the new profile's data is read asynchronously (neutral until the read lands): wait for that read, as a screen would
+    await hydrateCyclePreferences();
     expect(getCyclePreferences().cycleDuration).toBe(30); // the mother — untouched by Hanane's restore
 
     await setActiveProfileId(lina.id);
+    // the new profile's data is read asynchronously (neutral until the read lands): wait for that read, as a screen would
+    await hydrateCyclePreferences();
     expect(getCyclePreferences().cycleDuration).toBe(35); // Lina — untouched by Hanane's restore
   });
 

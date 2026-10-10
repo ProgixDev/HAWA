@@ -1,4 +1,5 @@
 import AsyncStorage from '../services/secureAsyncStorage';
+import {commitOptimistic} from '../services/saveFailure';
 
 import {getActiveProfileId, subscribeActiveProfileId} from './activeProfileStore';
 import {profileScopedKey} from './profileScopedStorage';
@@ -91,9 +92,14 @@ export const getCycleReminderPreferences = (): CycleReminderPreferences => ({...
  * whichever profile is CURRENTLY active — never the mother's key while a
  * daughter is active, or vice versa. */
 export const setCycleReminderPreferences = async (value: CycleReminderPreferences): Promise<void> => {
+  const previous = preferences;
+  const storageKey = currentStorageKey();
   preferences = {...value};
   notifyListeners();
-  await AsyncStorage.setItem(currentStorageKey(), JSON.stringify(preferences));
+  await commitOptimistic(previous, () => preferences, restored => {
+    preferences = restored;
+    notifyListeners();
+  }, () => AsyncStorage.setItem(storageKey, JSON.stringify(preferences)));
 };
 
 export const hydrateCycleReminderPreferences = (): Promise<CycleReminderPreferences> => {
@@ -122,6 +128,8 @@ export const hydrateCycleReminderPreferences = (): Promise<CycleReminderPreferen
     .catch(() => {
       hydrated = true;
       hydratedForProfileId = profileId;
+      // Unreadable record: neutral defaults, never the previously active profile's reminder choices.
+      preferences = {...DEFAULT_PREFERENCES};
       return getCycleReminderPreferences();
     });
   return hydration;

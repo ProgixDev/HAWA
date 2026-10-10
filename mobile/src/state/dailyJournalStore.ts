@@ -1,4 +1,5 @@
 import AsyncStorage from '../services/secureAsyncStorage';
+import {migrateRecordSafely, sealEntryFields, sealField} from '../services/legacyFieldMigration';
 import type {DailyJournalEntry, JournalSection} from '../types/journal';
 import {
   decryptFieldValue,
@@ -130,31 +131,32 @@ export async function deleteJournalSection(date: string, section: JournalSection
 }
 
 /**
- * Idempotent boot-time migration: re-saves any entry whose per-category
- * `<section>.note` is still a plain string, encrypting it via the same
- * at-rest scheme as every other sensitive journal field. Handles mixed
- * states (one section's note already encrypted, another still plaintext,
- * another empty/missing) since re-saving decrypts-or-passes-through every
- * section independently before re-encrypting all of them. No-ops if no
- * plaintext note is found (safe to call on every app launch). Never
- * touches `encryptedNote`/`encryptedIntimacy`/`privatePhotos` — those are
- * migrated by their own dedicated services.
+ * Idempotent, interruption-safe boot-time migration of every section's note saved as plain text before field-level
+ * encryption existed. Works on the PERSISTED record only (never on the store's memoised in-memory state): see
+ * services/legacyFieldMigration.ts. Unreadable/unavailable record -> nothing is written, the next launch retries.
  */
 export async function migrateLegacyPlainDailyJournalNotes(): Promise<void> {
-  const raw = await AsyncStorage.getItem(currentStorageKey());
-  if (!raw) {return;}
-  let parsed: unknown;
-  try {parsed = JSON.parse(raw);} catch {return;}
-  if (!Array.isArray(parsed)) {return;}
-  const hasLegacyPlainNote = parsed.some(rawEntry => {
-    if (!rawEntry || typeof rawEntry !== 'object') {return false;}
-    return NOTE_SECTIONS.some(section => {
-      const value = (rawEntry as Record<string, unknown>)[section];
-      if (!value || typeof value !== 'object') {return false;}
-      return typeof (value as Record<string, unknown>).note === 'string';
-    });
+  await migrateRecordSafely(currentStorageKey(), async parsed => {
+    if (!Array.isArray(parsed)) {return null;}
+    let changed = false;
+    const next: unknown[] = [];
+    for (const rawEntry of parsed) {
+      if (!rawEntry || typeof rawEntry !== 'object' || Array.isArray(rawEntry)) {
+        next.push(rawEntry);
+        continue;
+      }
+      const entry: Record<string, unknown> = {...(rawEntry as Record<string, unknown>)};
+      for (const section of NOTE_SECTIONS) {
+        const value = entry[section];
+        if (!value || typeof value !== 'object' || Array.isArray(value)) {continue;}
+        const sealed = await sealEntryFields(value as Record<string, unknown>, ['note'], note => sealField(ENCRYPTION_SERVICE, note), 'drop');
+        if (sealed.changed) {
+          entry[section] = sealed.value;
+          changed = true;
+        }
+      }
+      next.push(entry);
+    }
+    return changed ? next : null;
   });
-  if (!hasLegacyPlainNote) {return;}
-  const entries = await readEntries();
-  await writeEntries(entries);
 }

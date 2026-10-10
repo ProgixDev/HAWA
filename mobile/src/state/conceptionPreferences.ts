@@ -1,4 +1,5 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {commitOptimistic} from '../services/saveFailure';
 
 export type ConceptionTryingDuration = 'starting_now' | 'under_3_months' | '3_to_6_months' | '6_to_12_months' | 'over_1_year';
 export type OvulationAwareness = 'often' | 'sometimes' | 'not_really';
@@ -67,7 +68,7 @@ let hydration: Promise<void> | null = null;
  * snapshot back — silently reverting anything saved since. */
 export const hydrateConceptionPreferences = (): Promise<ConceptionPreferences> => {
   if (!hydration) {
-    hydration = AsyncStorage.getItem(STORAGE_KEY).then(raw => {
+    hydration = readOwnedItem(STORAGE_KEY, hydrateConceptionPreferences).then(raw => {
       hydrated = true;
       if (!raw) {return;}
       const value: unknown = JSON.parse(raw);
@@ -80,7 +81,12 @@ export const hydrateConceptionPreferences = (): Promise<ConceptionPreferences> =
         } as ConceptionPreferences;
       }
       notifyListeners();
-    }).catch(() => {
+    }).catch(error => {
+      if (isStructuredUnavailableError(error)) {
+        // not latched: a later hydrate (or "Try again") re-reads the real record
+        hydration = null;
+        return;
+      }
       hydrated = true;
     });
   }
@@ -95,7 +101,10 @@ export const setConceptionPreferences = async (next: Partial<ConceptionPreferenc
   if (!hydrated) {
     await hydrateConceptionPreferences();
   }
+  const previous = preferences;
   preferences = {...preferences, ...next, indicators: next.indicators ? [...next.indicators] : preferences.indicators, reminders: next.reminders ? {...next.reminders} : preferences.reminders};
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
+  await commitOptimistic(previous, () => preferences, restored => {
+    preferences = restored;
+  }, () => AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(preferences)));
   notifyListeners();
 };

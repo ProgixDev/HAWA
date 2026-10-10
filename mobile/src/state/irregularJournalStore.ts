@@ -1,4 +1,6 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {migrateRecordSafely, sealField, sealMapFields} from '../services/legacyFieldMigration';
+import {commitOptimistic} from '../services/saveFailure';
 
 import {
   decryptFieldValue,
@@ -147,6 +149,13 @@ async function persist(): Promise<void> {
   await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
 }
 
+// A refused/failed write REJECTS (see services/saveFailure.ts) and the in-memory entries go back to what they were.
+const commit = (previous: EntriesByDate): Promise<void> =>
+  commitOptimistic(previous, () => entries, restored => {
+    entries = restored;
+    notifyListeners();
+  }, persist);
+
 export function getIrregularJournalEntry(date: string): IrregularJournalEntry | undefined {
   return entries[date];
 }
@@ -164,9 +173,10 @@ export async function saveIrregularJournalField<K extends IrregularJournalCatego
   value: NonNullable<IrregularJournalEntry[K]>,
 ): Promise<void> {
   const current = entries[date] ?? {date};
+  const previous = entries;
   entries = {...entries, [date]: {...current, [category]: value}};
   notifyListeners();
-  await persist();
+  await commit(previous);
 }
 
 /**
@@ -196,6 +206,7 @@ export async function saveIrregularJournalEntry(
     symptoms = selectedSymptoms ?? symptoms;
   }
 
+  const previous = entries;
   entries = {
     ...entries,
     [date]: {
@@ -206,7 +217,7 @@ export async function saveIrregularJournalEntry(
     },
   };
   notifyListeners();
-  await persist();
+  await commit(previous);
 }
 
 /** Upserts BOTH fields of the combined "Fatigue & symptômes" journal
@@ -220,9 +231,10 @@ export async function saveIrregularFatigueEntry(
   symptoms: string[],
 ): Promise<void> {
   const current = entries[date] ?? {date};
+  const previous = entries;
   entries = {...entries, [date]: {...current, fatigue, symptoms}};
   notifyListeners();
-  await persist();
+  await commit(previous);
 }
 
 export function hydrateIrregularJournal(): Promise<EntriesByDate> {
@@ -230,7 +242,7 @@ export function hydrateIrregularJournal(): Promise<EntriesByDate> {
     return Promise.resolve(getAllIrregularJournalEntries());
   }
   if (!hydration) {
-    hydration = AsyncStorage.getItem(STORAGE_KEY)
+    hydration = readOwnedItem(STORAGE_KEY, hydrateIrregularJournal)
       .then(async raw => {
         hydrated = true;
         if (raw) {
@@ -252,7 +264,12 @@ export function hydrateIrregularJournal(): Promise<EntriesByDate> {
         }
         return getAllIrregularJournalEntries();
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          hydration = null;
+          return getAllIrregularJournalEntries();
+        }
         hydrated = true;
         return getAllIrregularJournalEntries();
       });
@@ -268,26 +285,33 @@ export function subscribeIrregularJournal(listener: () => void): () => void {
 }
 
 /**
- * Idempotent boot-time migration: re-saves any entry whose per-category
- * `details[category].note` is still a plain string, encrypting it via the
- * same at-rest scheme as every other sensitive journal field. No-ops if no
- * plaintext note is found (safe to call on every app launch).
+ * Idempotent, interruption-safe boot-time migration of every per-category details[category].note saved as plain text before field-level
+ * encryption existed. Works on the PERSISTED record only (never on the store's memoised in-memory state): see
+ * services/legacyFieldMigration.ts. Unreadable/unavailable record -> nothing is written, the next launch retries.
  */
 export async function migrateLegacyPlainIrregularNotes(): Promise<void> {
-  const raw = await AsyncStorage.getItem(STORAGE_KEY);
-  if (!raw) {return;}
-  const parsed: unknown = JSON.parse(raw);
-  if (!parsed || typeof parsed !== 'object') {return;}
-  const hasLegacyPlainNote = Object.values(parsed as Record<string, unknown>).some(rawEntry => {
-    if (!rawEntry || typeof rawEntry !== 'object') {return false;}
-    const rawDetails = (rawEntry as Record<string, unknown>).details;
-    if (!rawDetails || typeof rawDetails !== 'object') {return false;}
-    return Object.values(rawDetails as Record<string, unknown>).some(detail => {
-      if (!detail || typeof detail !== 'object') {return false;}
-      return typeof (detail as Record<string, unknown>).note === 'string';
-    });
+  const outcome = await migrateRecordSafely(STORAGE_KEY, async parsed => {
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {return null;}
+    let changed = false;
+    const next: Record<string, unknown> = {};
+    for (const [date, rawEntry] of Object.entries(parsed as Record<string, unknown>)) {
+      const details = rawEntry && typeof rawEntry === 'object' ? (rawEntry as Record<string, unknown>).details : undefined;
+      if (!details || typeof details !== 'object' || Array.isArray(details)) {
+        next[date] = rawEntry;
+        continue;
+      }
+      const sealedDetails = await sealMapFields(details, ['note'], value => sealField(ENCRYPTION_SERVICE, value));
+      if (!sealedDetails) {
+        next[date] = rawEntry;
+        continue;
+      }
+      changed = true;
+      next[date] = {...(rawEntry as Record<string, unknown>), details: sealedDetails};
+    }
+    return changed ? next : null;
   });
-  if (!hasLegacyPlainNote) {return;}
-  await hydrateIrregularJournal();
-  await persist();
+  // Same observable behaviour as before: a store whose record was just migrated is loaded (read-only) afterwards.
+  if (outcome === 'migrated') {
+    await hydrateIrregularJournal();
+  }
 }

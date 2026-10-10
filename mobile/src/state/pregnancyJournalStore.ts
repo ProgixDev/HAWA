@@ -1,4 +1,5 @@
 import AsyncStorage from '../services/secureAsyncStorage';
+import {migrateRecordSafely, sealArrayFields, sealEntryFields, sealField} from '../services/legacyFieldMigration';
 
 import {
   decryptFieldValue,
@@ -110,31 +111,35 @@ async function writeState(state: PregnancyJournalState): Promise<void> {
   await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
 }
 
-/** One-shot, idempotent, crash-safe migration for every symptom/medical-info
- * note ever saved before encryption-at-rest existed — called once at app
- * boot (App.tsx). Checks the RAW persisted JSON for any plaintext `note`
- * field so an already-migrated store skips past without re-encrypting on
- * every boot. See migrateLegacyPlainMiscarriageNotes() in
- * miscarriageJournalStore.ts for the identical reasoning. */
+/**
+ * Idempotent, interruption-safe boot-time migration of every symptom/medical-information note saved as plain text before field-level
+ * encryption existed. Works on the PERSISTED record only (never on the store's memoised in-memory state): see
+ * services/legacyFieldMigration.ts. Unreadable/unavailable record -> nothing is written, the next launch retries.
+ */
 export async function migrateLegacyPlainPregnancyNotes(): Promise<void> {
-  try {
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
-    if (!raw) {return;}
-    const parsed = JSON.parse(raw) as PersistedState;
-    const arrays: Array<{note?: unknown}[]> = [
-      Array.isArray(parsed.symptoms) ? parsed.symptoms : [],
-      Array.isArray(parsed.medicalInformationHistory) ? parsed.medicalInformationHistory : [],
-    ];
-    const hasLegacyPlaintext =
-      arrays.some(list => list.some(entry => typeof entry.note === 'string' && entry.note)) ||
-      typeof parsed.medicalInformation?.note === 'string';
-    if (!hasLegacyPlaintext) {return;}
-
-    const state = await readState();
-    await writeState(state);
-  } catch {
-    // Never throw out of a boot-time migration — next launch retries.
-  }
+  await migrateRecordSafely(STORAGE_KEY, async parsed => {
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {return null;}
+    const seal = (value: string) => sealField(ENCRYPTION_SERVICE, value);
+    const candidate = parsed as Record<string, unknown>;
+    const next: Record<string, unknown> = {...candidate};
+    let changed = false;
+    for (const listKey of ['symptoms', 'medicalInformationHistory']) {
+      const sealedList = await sealArrayFields(candidate[listKey], ['note'], seal);
+      if (sealedList) {
+        next[listKey] = sealedList;
+        changed = true;
+      }
+    }
+    const legacy = candidate.medicalInformation;
+    if (legacy && typeof legacy === 'object' && !Array.isArray(legacy)) {
+      const sealedLegacy = await sealEntryFields(legacy as Record<string, unknown>, ['note'], seal, 'keep');
+      if (sealedLegacy.changed) {
+        next.medicalInformation = sealedLegacy.value;
+        changed = true;
+      }
+    }
+    return changed ? next : null;
+  });
 }
 
 export async function savePregnancySymptoms(entry: PregnancySymptomEntry): Promise<void> {

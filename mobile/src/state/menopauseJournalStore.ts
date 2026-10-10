@@ -1,4 +1,6 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItems} from '../services/secureAsyncStorage';
+import {migrateRecordSafely, sealField, sealMapFields} from '../services/legacyFieldMigration';
+import {commitOptimistic} from '../services/saveFailure';
 
 import type {MenopauseSymptom} from './menopausePreferences';
 import type {MoodLevel} from '../types/journal';
@@ -167,20 +169,29 @@ async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Re
   return output;
 }
 
+// A refused/failed write REJECTS (see services/saveFailure.ts) and the in-memory state goes back to what it was.
 const persistEntries = async () => {
-  try {
-    const serializable: Record<string, unknown> = {};
-    for (const [date, entry] of Object.entries(entries)) {
-      serializable[date] = await encryptEntryForStorage(entry);
-    }
-    await AsyncStorage.setItem(ENTRIES_STORAGE_KEY, JSON.stringify(serializable));
-  } catch {
-    // never throw out of a save action
+  const serializable: Record<string, unknown> = {};
+  for (const [date, entry] of Object.entries(entries)) {
+    serializable[date] = await encryptEntryForStorage(entry);
   }
+  await AsyncStorage.setItem(ENTRIES_STORAGE_KEY, JSON.stringify(serializable));
 };
 
 const persistLabResults = () =>
-  AsyncStorage.setItem(LAB_RESULTS_STORAGE_KEY, JSON.stringify(labResults)).catch(() => {});
+  AsyncStorage.setItem(LAB_RESULTS_STORAGE_KEY, JSON.stringify(labResults));
+
+const commitEntries = (previous: EntriesByDate): Promise<void> =>
+  commitOptimistic(previous, () => entries, restored => {
+    entries = restored;
+    notifyListeners();
+  }, persistEntries);
+
+const commitLabResults = (previous: MenopauseLabResult[]): Promise<void> =>
+  commitOptimistic(previous, () => labResults, restored => {
+    labResults = restored;
+    notifyListeners();
+  }, persistLabResults);
 
 export const getMenopauseJournalEntry = (date: string): MenopauseJournalEntry | undefined =>
   entries[date] ? {...entries[date]} : undefined;
@@ -196,9 +207,10 @@ export async function saveMenopauseJournalField<K extends Exclude<keyof Menopaus
   category: K,
   value: NonNullable<MenopauseJournalEntry[K]>,
 ): Promise<void> {
+  const previous = entries;
   entries = {...entries, [date]: {...entries[date], date, [category]: value}};
   notifyListeners();
-  await persistEntries();
+  await commitEntries(previous);
 }
 
 type MenopauseEntryField = Exclude<keyof MenopauseJournalEntry, 'date'>;
@@ -239,9 +251,10 @@ export async function clearMenopauseJournalFields(
   } else {
     nextEntries[date] = next;
   }
+  const previous = entries;
   entries = nextEntries;
   notifyListeners();
-  await persistEntries();
+  await commitEntries(previous);
 }
 
 export const clearMenopauseJournalCategory = (date: string, category: MenopauseJournalCategory): Promise<void> =>
@@ -283,9 +296,10 @@ export async function addMenopauseLabResult(result: Omit<MenopauseLabResult, 'id
     id: `${result.type}-${result.date}-${Date.now()}-${Math.round(Math.random() * 1e6)}`,
     recordedAt: new Date().toISOString(),
   };
+  const previous = labResults;
   labResults = [...labResults, entry];
   notifyListeners();
-  await persistLabResults();
+  await commitLabResults(previous);
 }
 
 export const getMenopauseLabResults = (type?: MenopauseLabType): MenopauseLabResult[] => {
@@ -307,6 +321,7 @@ export async function updateMenopauseLabResult(
   if (!labResults.some(result => result.id === id)) {
     return false;
   }
+  const previousLabResults = labResults;
   labResults = labResults.map(result =>
     result.id === id
       ? {
@@ -320,14 +335,15 @@ export async function updateMenopauseLabResult(
       : result,
   );
   notifyListeners();
-  await persistLabResults();
+  await commitLabResults(previousLabResults);
   return true;
 }
 
 export const deleteMenopauseLabResult = async (id: string): Promise<void> => {
+  const previous = labResults;
   labResults = labResults.filter(result => result.id !== id);
   notifyListeners();
-  await persistLabResults();
+  await commitLabResults(previous);
 };
 
 export const hydrateMenopauseJournal = (): Promise<void> => {
@@ -335,10 +351,7 @@ export const hydrateMenopauseJournal = (): Promise<void> => {
     return Promise.resolve();
   }
   if (!hydration) {
-    hydration = Promise.all([
-      AsyncStorage.getItem(ENTRIES_STORAGE_KEY),
-      AsyncStorage.getItem(LAB_RESULTS_STORAGE_KEY),
-    ])
+    hydration = readOwnedItems([ENTRIES_STORAGE_KEY, LAB_RESULTS_STORAGE_KEY], hydrateMenopauseJournal)
       .then(async ([rawEntries, rawLabResults]) => {
         hydrated = true;
         if (rawEntries) {
@@ -361,7 +374,12 @@ export const hydrateMenopauseJournal = (): Promise<void> => {
         }
         notifyListeners();
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real records
+          hydration = null;
+          return;
+        }
         hydrated = true;
       });
   }
@@ -374,25 +392,17 @@ export const subscribeMenopauseJournal = (listener: () => void) => {
 };
 
 /**
- * Idempotent boot-time migration: re-saves any entry whose `treatmentNote`
- * or `notes` is still a plain string, encrypting it via the same at-rest
- * scheme as every other sensitive journal field. Handles the case where one
- * field is already encrypted and the other is still plaintext — hydrating
- * decrypts/passes-through each field independently, and persisting
- * re-encrypts both. No-ops if no plaintext field is found (safe to call on
- * every app launch). Never touches labResults.
+ * Idempotent, interruption-safe boot-time migration of every day's treatmentNote/notes saved as plain text before field-level
+ * encryption existed. Works on the PERSISTED record only (never on the store's memoised in-memory state): see
+ * services/legacyFieldMigration.ts. Unreadable/unavailable record -> nothing is written, the next launch retries.
  */
 export async function migrateLegacyPlainMenopauseNotes(): Promise<void> {
-  const raw = await AsyncStorage.getItem(ENTRIES_STORAGE_KEY);
-  if (!raw) {return;}
-  const parsed: unknown = JSON.parse(raw);
-  if (!parsed || typeof parsed !== 'object') {return;}
-  const hasLegacyPlainField = Object.values(parsed as Record<string, unknown>).some(rawEntry => {
-    if (!rawEntry || typeof rawEntry !== 'object') {return false;}
-    const candidate = rawEntry as Record<string, unknown>;
-    return SENSITIVE_FIELDS.some(field => typeof candidate[field] === 'string');
-  });
-  if (!hasLegacyPlainField) {return;}
-  await hydrateMenopauseJournal();
-  await persistEntries();
+  // Only the entries record; labResults are never touched.
+  const outcome = await migrateRecordSafely(ENTRIES_STORAGE_KEY, parsed =>
+    sealMapFields(parsed, SENSITIVE_FIELDS, value => sealField(ENCRYPTION_SERVICE, value)),
+  );
+  // Same observable behaviour as before: a store whose record was just migrated is loaded (read-only) afterwards.
+  if (outcome === 'migrated') {
+    await hydrateMenopauseJournal();
+  }
 }

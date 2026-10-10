@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {
   clearContraceptionJournalField,
   getContraceptionJournalEntry,
@@ -34,7 +35,7 @@ describe('contraceptionJournalStore — encryption at rest', () => {
     expect(entry?.notes).toBe('Effets secondaires ressentis après la prise');
     expect(entry?.feelings).toEqual(['Ballonnements', 'Fatigue']);
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-09-01'];
     expect(typeof persisted.notes).toBe('object');
     expect(persisted.notes.ciphertext).toBeDefined();
@@ -49,9 +50,9 @@ describe('contraceptionJournalStore — encryption at rest', () => {
   });
 
   it('migration is a no-op when nothing is legacy plaintext', async () => {
-    const before = await AsyncStorage.getItem(STORAGE_KEY);
+    const before = await readStoredString(STORAGE_KEY);
     await migrateLegacyPlainContraceptionNotes();
-    const after = await AsyncStorage.getItem(STORAGE_KEY);
+    const after = await readStoredString(STORAGE_KEY);
     expect(after).toBe(before);
   });
 
@@ -59,7 +60,7 @@ describe('contraceptionJournalStore — encryption at rest', () => {
     await saveContraceptionJournalField('2026-09-02', 'notes', 'Nouvelle note du jour');
     expect(getContraceptionJournalEntry('2026-09-02')?.notes).toBe('Nouvelle note du jour');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-09-02'];
     expect(typeof persisted.notes).toBe('object');
     expect(JSON.stringify(persisted)).not.toContain('Nouvelle note du jour');
@@ -67,7 +68,7 @@ describe('contraceptionJournalStore — encryption at rest', () => {
 
   it('an empty/undefined note is never persisted as an encrypted blob', async () => {
     await saveContraceptionJournalField('2026-09-03', 'feelings', ['Aucun ressenti particulier']);
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-09-03'];
     expect(persisted.notes).toBeUndefined();
     expect(getContraceptionJournalEntry('2026-09-03')?.notes).toBeUndefined();
@@ -75,7 +76,7 @@ describe('contraceptionJournalStore — encryption at rest', () => {
 
   it('structured field (feelings) remains plaintext at rest — only notes is encrypted', async () => {
     await saveContraceptionJournalField('2026-09-04', 'feelings', ['Bien', 'Stable']);
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-09-04'];
     expect(persisted.feelings).toEqual(['Bien', 'Stable']);
   });
@@ -83,14 +84,14 @@ describe('contraceptionJournalStore — encryption at rest', () => {
   it('never logs or exposes the plaintext note through the raw persisted bytes', async () => {
     await saveContraceptionJournalField('2026-09-05', 'notes', 'SECRET_MARKER_CTR9');
     expect(getContraceptionJournalEntry('2026-09-05')?.notes).toBe('SECRET_MARKER_CTR9'); // in-memory decrypted value is expected here
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     expect(raw).not.toContain('SECRET_MARKER_CTR9');
   });
 });
 
 describe('contraceptionJournalStore — clearing / correcting a saved field', () => {
   const persistedFor = async (date: string) => {
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     return raw ? JSON.parse(raw)[date] : undefined;
   };
 
@@ -144,7 +145,7 @@ describe('contraceptionJournalStore — clearing / correcting a saved field', ()
   });
 
   it('clearing a field that is not there is a harmless no-op', async () => {
-    const before = await AsyncStorage.getItem(STORAGE_KEY);
+    const before = await readStoredString(STORAGE_KEY);
     await clearContraceptionJournalField('2026-09-14', 'notes');
     await saveContraceptionJournalField('2026-09-15', 'feelings', ['Bien']);
     await clearContraceptionJournalField('2026-09-15', 'notes');

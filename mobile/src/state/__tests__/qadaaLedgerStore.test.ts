@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 
 type LedgerModule = typeof import('../qadaaLedgerStore');
 
@@ -20,7 +21,7 @@ const restartApp = (): LedgerModule => {
   return store;
 };
 
-const stored = async () => JSON.parse((await AsyncStorage.getItem(LEDGER_KEY)) as string);
+const stored = async () => JSON.parse((await readStoredString(LEDGER_KEY)) as string);
 
 beforeEach(async () => {
   await AsyncStorage.clear();
@@ -233,7 +234,7 @@ describe('J. persistence / restart', () => {
   it('an unreadable ledger is never overwritten by an empty one', async () => {
     await store.hydrateQadaaLedger();
     await store.addManualQadaaEntry({quantity: 5});
-    const before = await AsyncStorage.getItem(LEDGER_KEY);
+    const before = await readStoredString(LEDGER_KEY);
 
     restartApp();
     const getItem = storage.getItem as jest.Mock;
@@ -246,7 +247,7 @@ describe('J. persistence / restart', () => {
     await expect(store.recordQadaaCompletion({})).rejects.toThrow(/refusing to write/);
 
     getItem.mockImplementation(realGetItem);
-    expect(await AsyncStorage.getItem(LEDGER_KEY)).toBe(before); // disk untouched
+    expect(await readStoredString(LEDGER_KEY)).toBe(before); // disk untouched
     const recovered = await store.hydrateQadaaLedger(); // storage is back: retried
     expect(recovered.manualEntries.map(entry => entry.quantity)).toEqual([5]);
   });
@@ -317,12 +318,12 @@ describe('O. migration of the legacy completed-days counter', () => {
   it('the legacy key and the cached remaining value are left in place, untouched', async () => {
     await seedLegacy(3);
     await AsyncStorage.setItem(CACHE_KEY, '2');
-    const legacyBefore = await AsyncStorage.getItem(LEGACY_KEY);
+    const legacyBefore = await readStoredString(LEGACY_KEY);
     restartApp();
     await store.hydrateQadaaLedger();
     await store.recordQadaaCompletion({});
-    expect(await AsyncStorage.getItem(LEGACY_KEY)).toBe(legacyBefore);
-    expect(await AsyncStorage.getItem(CACHE_KEY)).toBe('2');
+    expect(await readStoredString(LEGACY_KEY)).toBe(legacyBefore);
+    expect(await readStoredString(CACHE_KEY)).toBe('2');
   });
 
   it('the confirmed period history is not touched by the migration', async () => {
@@ -333,7 +334,7 @@ describe('O. migration of the legacy completed-days counter', () => {
     await seedLegacy(2);
     restartApp();
     await store.hydrateQadaaLedger();
-    expect(await AsyncStorage.getItem('@hawa/confirmed-period-history')).toBe(history);
+    expect(await readStoredString('@hawa/confirmed-period-history')).toBe(history);
   });
 
   it('an unreadable legacy counter is retried later, never recorded as "0 completed"', async () => {
@@ -347,7 +348,7 @@ describe('O. migration of the legacy completed-days counter', () => {
     });
     await store.hydrateQadaaLedger();
     expect(store.getQadaaLedger().legacyProgressMigrated).toBe(false);
-    expect(await AsyncStorage.getItem(LEDGER_KEY)).toBeNull();
+    expect(await readStoredString(LEDGER_KEY)).toBeNull();
 
     getItem.mockImplementation(original);
     restartApp();

@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {encryptFieldValue} from '../../services/atRestFieldEncryption';
 import {
   getMenopauseJournalEntry,
@@ -59,7 +60,7 @@ describe('menopauseJournalStore — encryption at rest (notes, treatmentNote)', 
     // double-encrypted.
     expect(partiallyMigrated?.notes).toBe('Ancienne note déjà chiffrée');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!);
     expect(typeof persisted['2026-07-01'].notes).toBe('object');
     expect(typeof persisted['2026-07-01'].treatmentNote).toBe('object');
@@ -80,9 +81,9 @@ describe('menopauseJournalStore — encryption at rest (notes, treatmentNote)', 
   });
 
   it('migration is a no-op when nothing is legacy plaintext', async () => {
-    const before = await AsyncStorage.getItem(STORAGE_KEY);
+    const before = await readStoredString(STORAGE_KEY);
     await migrateLegacyPlainMenopauseNotes();
-    const after = await AsyncStorage.getItem(STORAGE_KEY);
+    const after = await readStoredString(STORAGE_KEY);
     expect(after).toBe(before);
   });
 
@@ -94,7 +95,7 @@ describe('menopauseJournalStore — encryption at rest (notes, treatmentNote)', 
     expect(entry?.notes).toBe('Journée globalement calme');
     expect(entry?.treatmentNote).toBe('Traitement pris à l’heure');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-07-03'];
     expect(typeof persisted.notes).toBe('object');
     expect(typeof persisted.treatmentNote).toBe('object');
@@ -106,7 +107,7 @@ describe('menopauseJournalStore — encryption at rest (notes, treatmentNote)', 
     await saveMenopauseJournalField('2026-07-04', 'notes', ' ');
     await saveMenopauseJournalField('2026-07-04', 'notes', '');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-07-04'];
     expect(persisted.notes).toBeUndefined();
   });
@@ -125,7 +126,7 @@ describe('menopauseJournalStore — encryption at rest (notes, treatmentNote)', 
     await saveMenopauseJournalField('2026-07-06', 'energyLevel', 'low');
     await saveMenopauseJournalField('2026-07-06', 'treatmentStatus', 'taken');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-07-06'];
     expect(persisted.symptoms).toEqual(['night_sweats']);
     expect(persisted.mood).toBe('tired');

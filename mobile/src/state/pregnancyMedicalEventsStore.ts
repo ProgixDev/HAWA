@@ -1,4 +1,5 @@
 import AsyncStorage from '../services/secureAsyncStorage';
+import {migrateRecordSafely, sealArrayFields, sealField} from '../services/legacyFieldMigration';
 
 import {
   decryptFieldValue,
@@ -90,26 +91,15 @@ async function writeEvents(events: PregnancyMedicalEvent[]): Promise<void> {
   await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
 }
 
-/** One-shot, idempotent, crash-safe migration for every event's `notes`
- * ever saved before encryption-at-rest existed — called once at app boot
- * (App.tsx). Checks the RAW persisted JSON for any plaintext `notes` field
- * so an already-migrated store skips past without re-encrypting on every
- * boot. See migrateLegacyPlainMiscarriageNotes() in
- * miscarriageJournalStore.ts for the identical reasoning. */
+/**
+ * Idempotent, interruption-safe boot-time migration of every event's notes saved as plain text before field-level
+ * encryption existed. Works on the PERSISTED record only (never on the store's memoised in-memory state): see
+ * services/legacyFieldMigration.ts. Unreadable/unavailable record -> nothing is written, the next launch retries.
+ */
 export async function migrateLegacyPlainPregnancyMedicalEventNotes(): Promise<void> {
-  try {
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
-    if (!raw) {return;}
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) {return;}
-    const hasLegacyPlaintext = parsed.some(entry => typeof (entry as {notes?: unknown}).notes === 'string' && (entry as {notes?: string}).notes);
-    if (!hasLegacyPlaintext) {return;}
-
-    const events = await readEvents();
-    await writeEvents(events);
-  } catch {
-    // Never throw out of a boot-time migration — next launch retries.
-  }
+  await migrateRecordSafely(STORAGE_KEY, parsed =>
+    sealArrayFields(parsed, ['notes'], value => sealField(ENCRYPTION_SERVICE, value)),
+  );
 }
 
 export async function getPregnancyMedicalEvents(): Promise<PregnancyMedicalEvent[]> {

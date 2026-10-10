@@ -1,4 +1,5 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {commitOptimistic} from '../services/saveFailure';
 
 export type PostpartumNifasReminderState = {
   deliveryDate: string | null;
@@ -43,7 +44,7 @@ export const getPostpartumNifasReminderState =
 export const hydratePostpartumNifasReminderState =
   (): Promise<PostpartumNifasReminderState> => {
     if (!hydration) {
-      hydration = AsyncStorage.getItem(STORAGE_KEY)
+      hydration = readOwnedItem(STORAGE_KEY, hydratePostpartumNifasReminderState)
         .then(raw => {
           if (raw) {
             const candidate = JSON.parse(
@@ -68,7 +69,13 @@ export const hydratePostpartumNifasReminderState =
           }
           return getPostpartumNifasReminderState();
         })
-        .catch(() => getPostpartumNifasReminderState());
+        .catch(error => {
+          if (isStructuredUnavailableError(error)) {
+            // not latched: a later hydrate (or "Try again") re-reads the real record
+            hydration = null;
+          }
+          return getPostpartumNifasReminderState();
+        });
     }
     return hydration;
   };
@@ -76,8 +83,11 @@ export const hydratePostpartumNifasReminderState =
 export const setPostpartumNifasReminderState = async (
   next: PostpartumNifasReminderState,
 ): Promise<void> => {
+  const previous = state;
   state = { ...next };
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  await commitOptimistic(previous, () => state, restored => {
+    state = restored;
+  }, () => AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(state)));
 };
 
 /** True only if the currently persisted acknowledgement belongs to this
@@ -93,6 +103,9 @@ export const setPostpartumNifasCompletionAcknowledged = async (
   // Never spread onto the un-hydrated default: persisted schedule fields
   // (occurrence ids, fire dates) would otherwise be overwritten by defaults.
   await hydratePostpartumNifasReminderState();
+  const previous = state;
   state = { ...state, deliveryDate, completionAcknowledged: true };
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  await commitOptimistic(previous, () => state, restored => {
+    state = restored;
+  }, () => AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(state)));
 };

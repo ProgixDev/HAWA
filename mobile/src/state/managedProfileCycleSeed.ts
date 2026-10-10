@@ -114,7 +114,9 @@ export async function syncManagedProfileRecordFromCycle(profileId: string): Prom
 
 export async function recordManagedProfileFirstPeriod(profileId: string, date: Date): Promise<void> {
   await hydrateCyclePreferences();
-  recordFirstEverPeriod(date, 'unknown');
+  // Awaited: a refused/failed cycle write rejects here (and rolls the cycle state back) so the caller does not
+  // announce a first period that was not recorded, and the profile record is not updated to disagree with it.
+  await recordFirstEverPeriod(date, 'unknown');
   await recordFirstPeriodOnProfile(profileId, {
     lastPeriodDate: date.toLocaleDateString('en-CA'),
     periodLength: null,

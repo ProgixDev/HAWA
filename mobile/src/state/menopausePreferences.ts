@@ -1,4 +1,5 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {commitOptimistic} from '../services/saveFailure';
 
 // Canonical onboarding/tracking data for the "Post-ménopause / Ménopause"
 // objective (ObjectiveId === 'menopause'). Deliberately isolated from
@@ -113,9 +114,13 @@ export const getMenopausePreferences = (): MenopausePreferences => ({
 });
 
 export const setMenopausePreferences = async (value: MenopausePreferences): Promise<void> => {
+  const previous = menopausePreferences;
   menopausePreferences = {...value, trackedSymptoms: [...value.trackedSymptoms]};
   notifyListeners();
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(menopausePreferences));
+  await commitOptimistic(previous, () => menopausePreferences, restored => {
+    menopausePreferences = restored;
+    notifyListeners();
+  }, () => AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(menopausePreferences)));
 };
 
 /** THE single canonical way to record the current-stage answer — used by
@@ -168,7 +173,7 @@ export const hydrateMenopausePreferences = (): Promise<MenopausePreferences> => 
     return Promise.resolve(getMenopausePreferences());
   }
   if (!hydration) {
-    hydration = AsyncStorage.getItem(STORAGE_KEY)
+    hydration = readOwnedItem(STORAGE_KEY, hydrateMenopausePreferences)
       .then(raw => {
         hydrated = true;
         if (raw) {
@@ -180,7 +185,12 @@ export const hydrateMenopausePreferences = (): Promise<MenopausePreferences> => 
         }
         return getMenopausePreferences();
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          hydration = null;
+          return getMenopausePreferences();
+        }
         hydrated = true;
         return getMenopausePreferences();
       });

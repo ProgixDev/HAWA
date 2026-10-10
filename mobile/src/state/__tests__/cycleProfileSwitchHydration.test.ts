@@ -253,10 +253,14 @@ describe('reloadCycleStateFromStorage — storage changed behind the store back'
     const stale = holdFirstRead(cycleKey(noor.id));
     reloadCycleStateFromStorage().catch(() => undefined); // a read starts here and sees the old data …
     await flush();
-    await deleteTrackedDataForProfile(noor.id); // … the data is deleted while it is in flight …
+    // … the data is deleted while it is in flight … (not awaited yet: reads and removals of one encrypted record are
+    // serialized per key, so with encryption on the deletion queues behind the held read and ends once it is released)
+    const deleting = deleteTrackedDataForProfile(noor.id);
+    await flush();
     const reloading = reloadCycleStateFromStorage(); // … and the deletion's own reload starts a fresh read
 
     stale.release();
+    await deleting;
     await reloading;
     await flush();
     expect(getHasRecordedFirstPeriod()).toBe(false);

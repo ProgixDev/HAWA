@@ -1,4 +1,5 @@
 import AsyncStorage from '../services/secureAsyncStorage';
+import {migrateRecordSafely, sealArrayFields, sealField} from '../services/legacyFieldMigration';
 import {
   decryptFieldValue,
   encryptFieldValue,
@@ -108,24 +109,12 @@ export async function deleteCustomReminder(id: string): Promise<CustomReminder[]
 }
 
 /**
- * Idempotent boot-time migration: re-saves any reminder whose `title` or
- * `description` is still a plain string, encrypting it via the same
- * at-rest scheme as every other sensitive journal field. Handles the case
- * where one field is already encrypted and the other still plaintext.
- * No-ops if no plaintext field is found (safe to call on every app launch).
+ * Idempotent, interruption-safe boot-time migration of every reminder's title/description saved as plain text before field-level
+ * encryption existed. Works on the PERSISTED record only (never on the store's memoised in-memory state): see
+ * services/legacyFieldMigration.ts. Unreadable/unavailable record -> nothing is written, the next launch retries.
  */
 export async function migrateLegacyPlainPregnancyCustomReminders(): Promise<void> {
-  const raw = await AsyncStorage.getItem(STORAGE_KEY);
-  if (!raw) {return;}
-  let parsed: unknown;
-  try {parsed = JSON.parse(raw);} catch {return;}
-  if (!Array.isArray(parsed)) {return;}
-  const hasLegacyPlainField = parsed.some(rawEntry => {
-    if (!rawEntry || typeof rawEntry !== 'object') {return false;}
-    const candidate = rawEntry as Record<string, unknown>;
-    return typeof candidate.title === 'string' || typeof candidate.description === 'string';
-  });
-  if (!hasLegacyPlainField) {return;}
-  const reminders = await readReminders();
-  await writeReminders(reminders);
+  await migrateRecordSafely(STORAGE_KEY, parsed =>
+    sealArrayFields(parsed, ['title', 'description'], value => sealField(ENCRYPTION_SERVICE, value)),
+  );
 }

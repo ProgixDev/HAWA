@@ -1,4 +1,5 @@
 import AsyncStorage from '../services/secureAsyncStorage';
+import {commitOptimistic} from '../services/saveFailure';
 
 import {getActiveProfileId, subscribeActiveProfileId} from './activeProfileStore';
 import {profileScopedKey} from './profileScopedStorage';
@@ -88,14 +89,21 @@ export const recordConfirmedPeriodEnd = async (
   };
 
   const existingIndex = history.findIndex(occurrence => occurrence.id === id);
+  const previous = history;
   history =
     existingIndex >= 0
       ? [...history.slice(0, existingIndex), record, ...history.slice(existingIndex + 1)]
       : [...history, record];
 
   notifyListeners();
+  // A refused/failed write REJECTS (services/saveFailure.ts) and the history goes back to what it was. The
+  // "end recorded" listeners (which mirror the end into the recorded period) run only for a PERSISTED confirmation.
+  const storageKey = currentStorageKey();
+  await commitOptimistic(previous, () => history, restored => {
+    history = restored;
+    notifyListeners();
+  }, () => AsyncStorage.setItem(storageKey, JSON.stringify(history)));
   endRecordedListeners.forEach(listener => listener(record));
-  await AsyncStorage.setItem(currentStorageKey(), JSON.stringify(history));
   return getConfirmedPeriodHistory();
 };
 
@@ -112,9 +120,14 @@ export const removeConfirmedPeriodOccurrence = async (
   if (!history.some(occurrence => occurrence.id === id)) {
     return getConfirmedPeriodHistory();
   }
+  const previous = history;
   history = history.filter(occurrence => occurrence.id !== id);
   notifyListeners();
-  await AsyncStorage.setItem(currentStorageKey(), JSON.stringify(history));
+  const storageKey = currentStorageKey();
+  await commitOptimistic(previous, () => history, restored => {
+    history = restored;
+    notifyListeners();
+  }, () => AsyncStorage.setItem(storageKey, JSON.stringify(history)));
   return getConfirmedPeriodHistory();
 };
 
@@ -154,6 +167,9 @@ export const hydrateConfirmedPeriodHistory = (): Promise<ConfirmedPeriodOccurren
     .catch(() => {
       hydrated = true;
       hydratedForProfileId = profileId;
+      // This profile's own record could not be read: it is "unknown", never the PREVIOUS profile's occurrences (which
+      // is what memory still holds right after a switch). Writes stay refused by the storage layer meanwhile.
+      history = [];
       return getConfirmedPeriodHistory();
     });
   return hydration;

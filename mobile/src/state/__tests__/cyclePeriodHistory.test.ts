@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 
 // onboardingPreferences.ts is a module singleton with a hydration cache, so
 // every test loads a fresh copy on top of an empty AsyncStorage.
@@ -49,7 +50,7 @@ describe('placeholder period record seeded from the unconfirmed fallback default
     expect(onboarding.getPeriodHistory().map(record => record.startDate)).toEqual([key(realStart)]);
 
     await new Promise(resolve => setImmediate(resolve));
-    const persisted = JSON.parse((await AsyncStorage.getItem(CYCLE_KEY)) as string);
+    const persisted = JSON.parse((await readStoredString(CYCLE_KEY)) as string);
     expect(persisted.periodHistory.map((record: {startDate: string}) => record.startDate)).toEqual([key(realStart)]);
     expect(persisted.hasConfirmedCycleData).toBe(true);
   });

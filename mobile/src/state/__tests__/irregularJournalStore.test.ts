@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {
   getIrregularJournalEntry,
   migrateLegacyPlainIrregularNotes,
@@ -138,7 +139,7 @@ describe('irregularJournalStore — encryption at rest (details[category].note)'
     expect(entry?.details?.acne?.areas).toEqual(['Menton']);
     expect(entry?.acne).toBe('Modérée');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-07-01'];
     expect(typeof persisted.details.acne.note).toBe('object');
     expect(persisted.details.acne.note.ciphertext).toBeDefined();
@@ -154,9 +155,9 @@ describe('irregularJournalStore — encryption at rest (details[category].note)'
   });
 
   it('migration is a no-op when nothing is legacy plaintext', async () => {
-    const before = await AsyncStorage.getItem(STORAGE_KEY);
+    const before = await readStoredString(STORAGE_KEY);
     await migrateLegacyPlainIrregularNotes();
-    const after = await AsyncStorage.getItem(STORAGE_KEY);
+    const after = await readStoredString(STORAGE_KEY);
     expect(after).toBe(before);
   });
 
@@ -170,7 +171,7 @@ describe('irregularJournalStore — encryption at rest (details[category].note)'
       'Douleur au réveil, atténuée dans la journée',
     );
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-07-02'];
     expect(typeof persisted.details.pain.note).toBe('object');
     expect(JSON.stringify(persisted)).not.toContain('Douleur au réveil');
@@ -184,7 +185,7 @@ describe('irregularJournalStore — encryption at rest (details[category].note)'
     expect(entry?.details?.acne?.note).toBe('Note acné');
     expect(entry?.details?.mood?.note).toBe('Note humeur');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-07-03'];
     expect(typeof persisted.details.acne.note).toBe('object');
     expect(typeof persisted.details.mood.note).toBe('object');
@@ -193,7 +194,7 @@ describe('irregularJournalStore — encryption at rest (details[category].note)'
   it('an empty note is never persisted as an encrypted blob — the field is simply absent', async () => {
     await saveIrregularJournalEntry('2026-07-04', 'weight', '65 kg', {note: ''});
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-07-04'];
     expect(persisted.details.weight.note).toBeUndefined();
     expect(getIrregularJournalEntry('2026-07-04')?.details?.weight?.note).toBeFalsy();
@@ -206,7 +207,7 @@ describe('irregularJournalStore — encryption at rest (details[category].note)'
       areas: ['Bas du dos'],
     });
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-07-05'];
     expect(persisted.details.pain.painLevel).toBe('Modérée');
     expect(persisted.details.pain.areas).toEqual(['Bas du dos']);
