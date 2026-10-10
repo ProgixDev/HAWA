@@ -34,6 +34,7 @@ import {
 } from '../services/portableBackup';
 import {pickBackupFile, purgeBackupShareCache, shareBackupFile} from '../services/portableBackupFiles';
 import {runStructuredMigration} from '../services/structuredDataMigration';
+import {resyncAllReminderNotifications} from '../services/reminderResync';
 import {dateFormatLocale} from '../utils/cycleMath';
 
 // Create and restore the passphrase-protected portable backup (services/portableBackup.ts). The passphrases live only in
@@ -127,6 +128,10 @@ export default function PortableBackupScreen({navigation}: Props): React.JSX.Ele
       reloadActiveProfileData();
       await reloadCycleStateFromStorage().catch(() => undefined);
       runStructuredMigration().catch(() => undefined);
+      // The restored records replaced everything the scheduled reminders were derived from, and Android still holds
+      // the triggers built from the OLD ones: re-derive and re-schedule every objective's reminders from what is now
+      // in place (same as the regular restore, BackupUtilityScreens.tsx). Never throws.
+      await resyncAllReminderNotifications({force: true});
       if (mounted.current) {
         setRestoreNotice({kind: 'success', text: t('portableBackup.success', {count: result.restoredRecords})});
         setPicked(null);

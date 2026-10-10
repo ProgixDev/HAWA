@@ -13,6 +13,7 @@ import {resetActiveProfileForTests} from '../../state/activeProfileStore';
 import {resetManagedProfilesForTests} from '../../state/managedProfilesStore';
 import {createPortableBackup} from '../../services/portableBackup';
 import {__setKdfIterationsForTests} from '../../services/passphraseKdf';
+import {resyncAllReminderNotifications} from '../../services/reminderResync';
 import {pickBackupFile, shareBackupFile} from '../../services/portableBackupFiles';
 import secureStorage, {resetStructuredStorageForTests, setStructuredEncryptionEnabled} from '../../services/secureAsyncStorage';
 import {en} from '../../i18n/locales/en';
@@ -24,6 +25,10 @@ jest.mock('../../services/portableBackupFiles', () => ({
   purgeBackupShareCache: jest.fn(() => Promise.resolve()),
   shareBackupFile: jest.fn(() => Promise.resolve('shared')),
   pickBackupFile: jest.fn(),
+}));
+// Re-deriving the reminders is every objective's scheduler plus the notification layer; this file is about the screen.
+jest.mock('../../services/reminderResync', () => ({
+  resyncAllReminderNotifications: jest.fn(() => Promise.resolve()),
 }));
 
 // Fixtures only. The passphrase screen: validation, the create/restore flows, and honest failures in four languages.
@@ -207,6 +212,49 @@ describe('restoring a backup', () => {
 
     expect(textsOf(renderer).some(text => /^Backup restored \(\d+ records\)\.$/.test(text))).toBe(true);
     expect(await AsyncStorage.getItem('@hawa/daily-journal/v1')).toBe('[{"id":"from-backup"}]');
+  });
+
+  it('re-derives every reminder from the restored records (forced), once, after a successful restore', async () => {
+    const backup = await makeFile();
+    (pickBackupFile as jest.Mock).mockResolvedValue({contents: backup.contents, name: backup.fileName});
+    const renderer = await renderScreen();
+    await act(async () => {
+      buttonByText(renderer, 'Choose a backup file').props.onPress();
+    });
+    await flush();
+    jest.spyOn(Alert, 'alert').mockImplementation((_t, _m, buttons) => {
+      buttons?.find(button => button.style === 'destructive')?.onPress?.();
+    });
+    await type(inputs(renderer)[2], PASS);
+    expect(resyncAllReminderNotifications).not.toHaveBeenCalled();
+
+    await act(async () => {
+      buttonByText(renderer, 'Restore this backup').props.onPress();
+    });
+    await flush();
+
+    expect(resyncAllReminderNotifications).toHaveBeenCalledTimes(1);
+    expect(resyncAllReminderNotifications).toHaveBeenCalledWith({force: true});
+  });
+
+  it('a refused restore (wrong passphrase) re-derives nothing: the records were not replaced', async () => {
+    const backup = await makeFile();
+    (pickBackupFile as jest.Mock).mockResolvedValue({contents: backup.contents, name: backup.fileName});
+    const renderer = await renderScreen();
+    await act(async () => {
+      buttonByText(renderer, 'Choose a backup file').props.onPress();
+    });
+    await flush();
+    jest.spyOn(Alert, 'alert').mockImplementation((_t, _m, buttons) => {
+      buttons?.find(button => button.style === 'destructive')?.onPress?.();
+    });
+    await type(inputs(renderer)[2], 'the wrong passphrase!');
+    await act(async () => {
+      buttonByText(renderer, 'Restore this backup').props.onPress();
+    });
+    await flush();
+
+    expect(resyncAllReminderNotifications).not.toHaveBeenCalled();
   });
 
   it('says clearly when the chosen file is not a backup', async () => {
