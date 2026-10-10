@@ -12,6 +12,7 @@ import CalendarScreen from '../CalendarScreen';
 import ProfileScreen from '../ProfileScreen';
 import {
   getCyclePreferences,
+  hydrateCyclePreferences,
   getHasConfirmedCycleData,
   getHasConfirmedCycleDuration,
   setCyclePreferences,
@@ -209,6 +210,8 @@ describe('Recording the first period', () => {
     // The mother's own cyclePreferences (a separate profile-scoped storage
     // key) is untouched by writing to the daughter's.
     await setActiveProfileId(OWNER_PROFILE_ID);
+    // the new profile's data is read asynchronously (neutral until the read lands): wait for that read, as a screen would
+    await hydrateCyclePreferences();
     expect(getCyclePreferences().lastPeriodStart.getTime()).toBe(motherCycleBefore.lastPeriodStart.getTime());
     expect(getHasConfirmedCycleData()).toBe(true); // the owner's own, pre-existing confirmed data
     expect(getHasConfirmedCycleDuration()).toBe(true); // the owner's own duration is untouched too
@@ -282,6 +285,8 @@ describe('Progressive experience — one period is not enough for an average', (
   it('after recording the first period, prediction status stays in "observing" mode — never an immediate fake 28-day average', async () => {
     const hanane = await addManagedProfile({type: 'daughter', firstName: 'Hanane', birthDate: '2013-01-01', hasHadFirstPeriod: false});
     await setActiveProfileId(hanane.id);
+    // the new profile's data is read asynchronously (neutral until the read lands): wait for that read, as a screen would
+    await hydrateCyclePreferences();
     await recordManagedProfileFirstPeriod(hanane.id, new Date());
 
     const basics = getCyclePreferences();

@@ -22,6 +22,7 @@ import {getBottomPadding} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 // The ONE confirmation sheet for "my period really started on this date" —
 // opened from both CycleHomeScreen and CalendarScreen's selected-day card.
@@ -47,7 +48,7 @@ type Props = {
    * whose save logic differs (see managedProfileCycleSeed.ts's
    * recordManagedProfileFirstPeriod) — same sheet, same date picker, same
    * future-date rejection, different persistence. */
-  onConfirm?: (date: Date) => void;
+  onConfirm?: (date: Date) => void | Promise<void>;
   /** Optional title/description override — same additive/opt-in rule as
    * `onConfirm` above; every existing caller keeps the current isToday-aware
    * copy. */
@@ -97,14 +98,22 @@ function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed, onC
     }).start(({finished}) => finished && onClose());
   };
 
-  const commit = (date: Date) => {
+  const commit = async (date: Date) => {
     if (saving || startOfDay(date).getTime() > startOfDay(new Date()).getTime()) {return;}
     setSaving(true);
     const value = startOfDay(date);
-    if (onConfirm) {
-      onConfirm(value);
-    } else {
-      confirmPeriodStart(value);
+    try {
+      if (onConfirm) {
+        await onConfirm(value);
+      } else {
+        await confirmPeriodStart(value);
+      }
+    } catch (error) {
+      // Not persisted (services/saveFailure.ts): the period start is NOT announced as recorded, the sheet stays
+      // open so the same date can simply be confirmed again, and the cycle state was rolled back by the store.
+      setSaving(false);
+      presentSaveFailure(error);
+      return;
     }
     onConfirmed(value);
     close();

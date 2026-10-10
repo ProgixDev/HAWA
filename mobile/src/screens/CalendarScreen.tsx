@@ -59,6 +59,7 @@ import {usePremium} from '../hooks/usePremium';
 import {useToday} from '../hooks/useToday';
 import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
 import {isMonthWithinHistoryAccess} from '../utils/historyAccess';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Props = MainTabScreenProps<'Calendar'>;
 
@@ -295,7 +296,12 @@ function CalendarScreen(_: Props): React.JSX.Element {
       setEditingOccurrenceStart(null);
       setDraftPeriodDays(new Set());
     } catch (error) {
-      Alert.alert(t('calendar.editErrorTitle'), error instanceof Error && error.message === 'OVERLAPPING_RANGE' ? t('calendar.editErrorOverlap') : t('calendar.editErrorGeneric'));
+      if (error instanceof Error && error.message === 'OVERLAPPING_RANGE') {
+        Alert.alert(t('calendar.editErrorTitle'), t('calendar.editErrorOverlap'));
+      } else {
+        // Not persisted: the edit bar stays open with the draft days (see services/saveFailure.ts).
+        presentSaveFailure(error, {title: t('calendar.editErrorTitle'), message: t('calendar.editErrorGeneric')});
+      }
     }
   };
 
@@ -619,7 +625,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
           onClose={() => setPeriodStartSheetVisible(false)}
           onConfirm={
             isPreFirstPeriodDaughter && daughterProfileId
-              ? date => {recordManagedProfileFirstPeriod(daughterProfileId, date).catch(() => {});}
+              ? date => recordManagedProfileFirstPeriod(daughterProfileId, date)
               : undefined
           }
           onConfirmed={() => {}}
