@@ -1,5 +1,5 @@
-import React, {useMemo, useState} from 'react';
-import {Platform, Pressable, StyleSheet, Switch, Text, TextInput, View} from 'react-native';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {Alert, type AlertButton, Platform, Pressable, StyleSheet, Switch, Text, TextInput, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-community/datetimepicker';
@@ -15,9 +15,28 @@ import {
   type PregnancyMedicalEventType,
   type PregnancyReminderOffset,
 } from '../../state/pregnancyMedicalEventsStore';
-import {REMINDER_OFFSETS, reminderOffsetLabels, cancelEventReminder, syncEventReminder} from '../../utils/pregnancyEventReminders';
-import {getPregnancyNotificationSettings} from '../../state/pregnancyNotificationSettingsStore';
+import {
+  REMINDER_OFFSETS,
+  reminderOffsetLabels,
+  cancelEventReminder,
+  evaluateEventReminder,
+  isEventReminderUndelivered,
+  reminderRequestChanged,
+  syncEventReminder,
+  type EventReminderSyncOutcome,
+} from '../../utils/pregnancyEventReminders';
+import {resyncAllPregnancyNotifications} from '../../utils/pregnancyReminderScheduling';
+import {
+  getPregnancyNotificationSettings,
+  hydratePregnancyNotificationSettings,
+  setPregnancyNotificationSettings,
+  subscribePregnancyNotificationSettings,
+  type PregnancyNotificationSettings,
+} from '../../state/pregnancyNotificationSettingsStore';
 import PregnancyEventDeleteConfirmModal, {type PendingPregnancyEventDelete} from './PregnancyEventDeleteConfirmModal';
+import NotificationPermissionNotice from '../notifications/NotificationPermissionNotice';
+import {useReminderDeliveryState} from '../../hooks/useReminderDeliveryState';
+import {openNotificationSettings} from '../../services/pregnancyNotifications';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
 
@@ -78,6 +97,18 @@ function parseTimeToDate(hhmm: string): Date {
   const date = new Date();
   date.setHours(hours || 0, minutes || 0, 0, 0);
   return date;
+}
+
+/** The real moment a reminder would be sent ("Sat 10 October, 09:00"), in the app's language and the phone's timezone. */
+function formatReminderMoment(date: Date): string {
+  return new Intl.DateTimeFormat(dateFormatLocale(), {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'long',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  }).format(date);
 }
 
 function defaultReminderTime(): Date {
@@ -216,6 +247,32 @@ function PregnancyEventForm({
   const [activePicker, setActivePicker] = useState<ActivePicker>(null);
   const [error, setError] = useState('');
   const [pendingDelete, setPendingDelete] = useState<PendingPregnancyEventDelete | null>(null);
+  const [saving, setSaving] = useState(false);
+  // Set once per form instance: pressing Save again after a failure updates THIS event instead of creating a second.
+  const eventIdRef = useRef(initialEvent?.id ?? `pregnancy-event-${Date.now()}`);
+  // A ref, not only state: a second tap can arrive before React has re-rendered the disabled button.
+  const savingRef = useRef(false);
+
+  // The global "Notifications & rappels" switches decide whether a per-event reminder can be sent at all, so the
+  // form has to read them (hydrated, not the never-loaded defaults) to tell the truth about THIS reminder.
+  const [categorySettings, setCategorySettings] = useState<PregnancyNotificationSettings>(() => getPregnancyNotificationSettings());
+  useEffect(() => {
+    let mounted = true;
+    hydratePregnancyNotificationSettings()
+      .then(next => {
+        if (mounted && next) {setCategorySettings(next);}
+      })
+      .catch(() => {});
+    const unsubscribe = subscribePregnancyNotificationSettings(() => setCategorySettings(getPregnancyNotificationSettings()));
+    return () => {
+      mounted = false;
+      unsubscribe();
+    };
+  }, []);
+
+  // Whether Android would actually show the reminder (notifications off / channel blocked). Only read while a
+  // reminder is switched on, and re-read on returning from Android's settings.
+  const delivery = useReminderDeliveryState(reminderEnabled);
 
   const handleDateChange = (_event: DateTimePickerChangeEvent, selected: Date) => {
     if (Platform.OS === 'android') {setActivePicker(null);}
@@ -237,11 +294,11 @@ function PregnancyEventForm({
     if (Platform.OS === 'android') {setActivePicker(null);}
   };
 
-  const save = async () => {
-    if (!title.trim()) {setError(t('pregnancyEvent.form.titleRequired')); return;}
+  /** The event exactly as it would be saved from the form's current state. */
+  const buildEvent = (): PregnancyMedicalEvent => {
     const now = new Date().toISOString();
-    const event: PregnancyMedicalEvent = {
-      id: initialEvent?.id ?? `pregnancy-event-${Date.now()}`,
+    return {
+      id: eventIdRef.current,
       type,
       date: toISODate(dateValue),
       time: hasTime ? formatTimeValue(timeValue) : undefined,
@@ -255,16 +312,109 @@ function PregnancyEventForm({
       createdAt: initialEvent?.createdAt ?? now,
       updatedAt: now,
     };
-    let next: PregnancyMedicalEvent[];
+  };
+
+  // What the reminder amounts to RIGHT NOW (time, switches). Shown live under the reminder switch and re-checked
+  // at save time, so the screen can never say "reminder on" for one that cannot be sent.
+  const draftEvent = buildEvent();
+  const reminderEvaluation = reminderEnabled ? evaluateEventReminder(draftEvent, categorySettings) : null;
+  const reminderAskedForChange = reminderRequestChanged(initialEvent, draftEvent);
+  const pastFireDate = reminderEvaluation?.state === 'past' && reminderAskedForChange ? reminderEvaluation.fireDate : null;
+  const reminderIsPast = pastFireDate !== null;
+
+  /** Turns on the global switch for this kind of event (an explicit tap), then re-arms the saved events. */
+  const turnOnCategory = async (eventType: PregnancyMedicalEventType) => {
     try {
-      next = await savePregnancyMedicalEvent(event);
-    } catch (saveError) {
-      // Not persisted: nothing is announced as saved and the form keeps what was typed.
-      presentSaveFailure(saveError);
+      const current = await hydratePregnancyNotificationSettings();
+      await setPregnancyNotificationSettings({
+        ...current,
+        ...(eventType === 'exam' ? {examsEnabled: true} : {appointmentsEnabled: true}),
+      });
+    } catch (settingsError) {
+      presentSaveFailure(settingsError);
       return;
     }
-    await syncEventReminder(event);
-    onSaved(next);
+    resyncAllPregnancyNotifications().catch(() => {});
+  };
+
+  /** The event IS saved; tells her (and offers the fix) when its reminder was not scheduled. */
+  const announceReminderNotScheduled = (event: PregnancyMedicalEvent, outcome: EventReminderSyncOutcome) => {
+    const params = {title: event.title};
+    const when = 'fireDate' in outcome && outcome.fireDate ? formatReminderMoment(outcome.fireDate) : '';
+    let message: string;
+    const buttons: AlertButton[] = [{text: t('common.close'), style: 'cancel'}];
+    switch (outcome.status) {
+      case 'permission-denied':
+        message = t('pregnancyEvent.reminder.savedPermission', params);
+        buttons.unshift({text: t('notificationPermission.openSettings'), onPress: () => {openNotificationSettings().catch(() => {});}});
+        break;
+      case 'channel-blocked':
+        message = t('pregnancyEvent.reminder.savedChannel', params);
+        buttons.unshift({text: t('notificationPermission.openSettings'), onPress: () => {openNotificationSettings().catch(() => {});}});
+        break;
+      case 'category-disabled':
+        message = event.type === 'exam'
+          ? t('pregnancyEvent.reminder.savedCategoryExam', params)
+          : t('pregnancyEvent.reminder.savedCategoryAppointment', params);
+        buttons.unshift({
+          text: event.type === 'exam' ? t('pregnancyEvent.reminder.turnOnExam') : t('pregnancyEvent.reminder.turnOnAppointment'),
+          onPress: () => {turnOnCategory(event.type).catch(() => {});},
+        });
+        break;
+      case 'past':
+        message = t('pregnancyEvent.reminder.savedPast', {...params, when});
+        break;
+      case 'unavailable':
+        message = t('pregnancyEvent.reminder.savedUnavailable', params);
+        break;
+      default:
+        message = t('pregnancyEvent.reminder.savedFailed', params);
+    }
+    Alert.alert(t('pregnancyEvent.reminder.savedWithoutTitle'), message, buttons);
+  };
+
+  const save = async () => {
+    if (savingRef.current) {return;}
+    if (!title.trim()) {setError(t('pregnancyEvent.form.titleRequired')); return;}
+    const event = buildEvent();
+    // A reminder she is ASKING for now whose time has already passed would be dropped silently. Refuse it with the
+    // real time instead — unless the reminder part is untouched (an old event whose reminder already went off).
+    if (event.reminderEnabled && reminderRequestChanged(initialEvent, event)) {
+      const evaluation = evaluateEventReminder(event, categorySettings);
+      if (evaluation.state === 'past') {
+        setError(t('pregnancyEvent.reminder.pastError', {when: formatReminderMoment(evaluation.fireDate)}));
+        return;
+      }
+    }
+    setError('');
+    savingRef.current = true;
+    setSaving(true);
+    let savedEvents: PregnancyMedicalEvent[] | null = null;
+    try {
+      try {
+        savedEvents = await savePregnancyMedicalEvent(event);
+      } catch (saveError) {
+        // Not persisted: nothing is announced as saved and the form keeps what was typed.
+        presentSaveFailure(saveError);
+        return;
+      }
+      // The event is stored. Scheduling its reminder must never leave the form half-finished (it used to throw
+      // out of save() after the write, leaving the form open and a second tap creating a duplicate event).
+      let outcome: EventReminderSyncOutcome;
+      try {
+        outcome = await syncEventReminder(event);
+      } catch (syncError) {
+        outcome = {status: 'failed', fireDate: null, error: syncError};
+      }
+      const elapsedOnly = outcome.status === 'past' && !reminderRequestChanged(initialEvent, event);
+      if (event.reminderEnabled && isEventReminderUndelivered(outcome) && !elapsedOnly) {
+        announceReminderNotScheduled(event, outcome);
+      }
+    } finally {
+      savingRef.current = false;
+      setSaving(false);
+    }
+    if (savedEvents) {onSaved(savedEvents);}
   };
 
   const requestDelete = () => {
@@ -280,12 +430,13 @@ function PregnancyEventForm({
       presentSaveFailure(saveError);
       return;
     }
-    cancelEventReminder(eventId);
+    // The event is gone: its pending reminder AND any copy already in the notification shade go with it.
+    await cancelEventReminder(eventId, {dismissDisplayed: true}).catch(() => {});
     setPendingDelete(null);
     onDeleted(next);
   };
 
-  const canSave = title.trim().length > 0;
+  const canSave = title.trim().length > 0 && !saving;
 
   return (
     <>
@@ -454,11 +605,55 @@ function PregnancyEventForm({
                 ) : null}
               </>
             ) : null}
+
+            {reminderEvaluation && (reminderEvaluation.state === 'ready' || reminderEvaluation.state === 'past' || reminderEvaluation.state === 'category-disabled') ? (
+              <View style={styles.reminderPreview} testID="pregnancy-event-reminder-preview">
+                <MaterialDesignIcons
+                  color={reminderIsPast ? theme.colors.danger : theme.colors.primary}
+                  name="bell-ring-outline"
+                  size={18}
+                />
+                <View style={styles.reminderPreviewCopy}>
+                  <Text style={styles.reminderPreviewLabel}>{t('pregnancyEvent.reminder.previewLabel')}</Text>
+                  <Text style={[styles.reminderPreviewValue, reminderIsPast && styles.reminderPreviewValuePast]}>
+                    {formatReminderMoment(reminderEvaluation.fireDate)}
+                  </Text>
+                  {!hasTime && reminderOffset !== 'custom' ? (
+                    <Text style={styles.reminderHint}>{t('pregnancyEvent.reminder.noTimeHint')}</Text>
+                  ) : null}
+                </View>
+              </View>
+            ) : null}
+
+            {pastFireDate ? (
+              <Text accessibilityRole="alert" style={styles.reminderWarning} testID="pregnancy-event-reminder-past">
+                {t('pregnancyEvent.reminder.pastError', {when: formatReminderMoment(pastFireDate)})}
+              </Text>
+            ) : null}
+
+            {reminderEvaluation?.state === 'category-disabled' ? (
+              <View accessibilityRole="alert" style={styles.categoryNotice} testID="pregnancy-event-category-off">
+                <Text style={styles.categoryNoticeText}>
+                  {type === 'exam' ? t('pregnancyEvent.reminder.categoryOffExam') : t('pregnancyEvent.reminder.categoryOffAppointment')}
+                </Text>
+                <Pressable
+                  accessibilityLabel={type === 'exam' ? t('pregnancyEvent.reminder.turnOnExam') : t('pregnancyEvent.reminder.turnOnAppointment')}
+                  accessibilityRole="button"
+                  onPress={() => {turnOnCategory(type).catch(() => {});}}
+                  style={({pressed}) => [styles.categoryNoticeButton, pressed && styles.pressed]}>
+                  <Text style={styles.categoryNoticeButtonText}>
+                    {type === 'exam' ? t('pregnancyEvent.reminder.turnOnExam') : t('pregnancyEvent.reminder.turnOnAppointment')}
+                  </Text>
+                </Pressable>
+              </View>
+            ) : null}
+
+            <NotificationPermissionNotice onRecheck={delivery.refresh} state={delivery.state} testID="pregnancy-event-permission-notice" />
           </View>
         )}
       </View>
 
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {error ? <Text accessibilityRole="alert" style={styles.error}>{error}</Text> : null}
 
       <View style={styles.actionsRow}>
         {initialEvent ? (
@@ -567,6 +762,41 @@ export function createStyles(theme: ResolvedAwaTheme) {
     reminderChipActive: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primary},
     reminderChipText: {color: theme.colors.textSecondary, fontSize: 12, fontWeight: '700'},
     reminderChipTextActive: {color: onPrimaryTextColor(theme)},
+    reminderPreview: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      gap: 10,
+      marginTop: 12,
+      borderTopWidth: StyleSheet.hairlineWidth,
+      borderTopColor: theme.colors.border,
+      paddingTop: 12,
+    },
+    reminderPreviewCopy: {flex: 1, minWidth: 0},
+    reminderPreviewLabel: {color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '600'},
+    reminderPreviewValue: {marginTop: 2, color: theme.colors.text, fontSize: 14, fontWeight: '700'},
+    reminderPreviewValuePast: {color: theme.colors.danger},
+    reminderHint: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+    reminderWarning: {marginTop: 8, color: theme.colors.danger, fontSize: 12, lineHeight: 17},
+    categoryNotice: {
+      marginTop: 12,
+      padding: 12,
+      borderRadius: 14,
+      backgroundColor: withAlpha(theme.colors.danger, 0.1),
+      borderWidth: 1,
+      borderColor: withAlpha(theme.colors.danger, 0.15),
+    },
+    categoryNoticeText: {color: theme.colors.text, fontSize: 12, lineHeight: 17},
+    categoryNoticeButton: {
+      alignSelf: 'flex-start',
+      minHeight: 40,
+      justifyContent: 'center',
+      marginTop: 8,
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: withAlpha(theme.colors.danger, 0.3),
+      paddingHorizontal: 14,
+    },
+    categoryNoticeButtonText: {color: theme.colors.danger, fontSize: 12, fontWeight: '700'},
 
     error: {marginTop: 14, color: theme.colors.danger, fontSize: 12.5, textAlign: 'center'},
 
