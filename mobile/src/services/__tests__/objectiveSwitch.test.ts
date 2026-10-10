@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 
 // Every store is a module singleton with its own hydration cache, so each
 // test loads a FRESH copy of the whole graph on top of an empty AsyncStorage —
@@ -208,7 +209,7 @@ describe('switchToObjective', () => {
     expect(m.postpartum.getPostpartumPreferences().deliveryDate).toBe(new Date(2026, 8, 10).toLocaleDateString('en-CA'));
     expect(m.pregnancy.getPregnancyDating().date).not.toBeNull();
     // The stored cycle blob is untouched in AsyncStorage as well.
-    expect(await AsyncStorage.getItem('@hawa/cycle-preferences')).not.toBeNull();
+    expect(await readStoredString('@hawa/cycle-preferences')).not.toBeNull();
   });
 });
 
@@ -242,7 +243,7 @@ describe('objective setup flow — finishing and backing out', () => {
     expect(restored).toBe('cycle');
     expect(m.onboarding.getActiveObjective()).toBe('cycle');
     expect(m.flow.getPendingObjectiveSetup()).toBeNull();
-    expect(await AsyncStorage.getItem('@hawa/active-objective')).toBe('cycle');
+    expect(await readStoredString('@hawa/active-objective')).toBe('cycle');
   });
 
   it('cancel is a no-op when nothing is pending', async () => {

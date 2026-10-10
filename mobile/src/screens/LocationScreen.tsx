@@ -42,6 +42,7 @@ import {getHasConfirmedCycleData, getSelectedObjective, setSelectedLocation as s
 import {spacing} from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {presentSaveFailure} from '../services/saveFailure';
 
 const LOCATION_PIN = require('../assets/images/location-pin.png');
 const LOCATION_TARGET = require('../assets/images/location-target.png');
@@ -298,7 +299,13 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
 
   const handleNext = async () => {
     if (!selectedLocation) {return;}
-    await saveSelectedLocation(selectedLocation);
+    try {
+      await saveSelectedLocation(selectedLocation);
+    } catch (saveError) {
+      // Not persisted (services/saveFailure.ts): stay here with the chosen place intact, no navigation.
+      presentSaveFailure(saveError);
+      return;
+    }
     // Edit mode (opened from PrayerTimesScreen.tsx) just updates the saved
     // location and returns — active objective is irrelevant here, and this
     // must never continue into onboarding regardless of which objective is

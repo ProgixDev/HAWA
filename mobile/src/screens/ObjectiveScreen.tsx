@@ -18,6 +18,7 @@ import {spacing, getTopPadding} from '../theme/spacing';
 import {setSelectedObjective, type ObjectiveId} from '../state/onboardingPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Objective = {
   id: ObjectiveId;
@@ -50,7 +51,13 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
   const [selectedId, setSelectedId] = useState('cycle');
 
   const handleNext = async () => {
-    await setSelectedObjective(selectedId as ObjectiveId);
+    try {
+      await setSelectedObjective(selectedId as ObjectiveId);
+    } catch (saveError) {
+      // Not persisted (services/saveFailure.ts): stay on this screen with the selection intact.
+      presentSaveFailure(saveError);
+      return;
+    }
     navigation.navigate('CycleObjectiveConfirmation');
   };
 

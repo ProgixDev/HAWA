@@ -6,6 +6,7 @@ import {useTranslation} from 'react-i18next';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {capitalize, dateFormatLocale} from '../../utils/cycleMath';
+import {displayUpperCase} from '../../utils/textCase';
 
 // Year → Month → Day birth-date picker — a faster alternative to the monthly
 // calendar (InlineCalendarPickerModal.tsx) for a date that can be many years back,
@@ -142,7 +143,7 @@ function BirthDatePickerModal({visible, value, onClose, onSelect, title, maximum
             </View>
           ) : null}
 
-          <Text style={styles.stageTitle}>{stageTitle}</Text>
+          <Text style={styles.stageTitle}>{displayUpperCase(stageTitle)}</Text>
 
           {stage === 'year' ? (
             <FlatList

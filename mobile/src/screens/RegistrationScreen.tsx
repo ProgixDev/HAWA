@@ -12,6 +12,7 @@ import {updatePersonalInformation} from '../state/personalInformationStore';
 import {updatePrivacySecuritySettings} from '../state/securityPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {withAlpha, onPrimaryTextColor, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {presentSaveFailure} from '../services/saveFailure';
 
 const GOOGLE = require('../assets/images/auth-google-logo.png');
 const APPLE = require('../assets/images/auth-apple-logo.png');
@@ -78,6 +79,8 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
       // itself is cleared by enterMainApp() above, not here.
       if (trimmedFirstName) {await updatePersonalInformation({firstName: trimmedFirstName});}
       enterMainApp();
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSubmitting(false);
     }

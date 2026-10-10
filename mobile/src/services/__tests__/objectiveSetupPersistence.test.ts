@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 
 // M2 — the pending "configure another objective" state survives a process kill.
 // A RESTART is simulated with jest.resetModules() + re-requiring the graph: all
@@ -55,7 +56,7 @@ describe('persisting the pending setup', () => {
     await startSetup('cycle', 'pregnancy');
 
     expect(m.flow.getPendingObjectiveSetup()).toEqual({previous: 'cycle', objective: 'pregnancy'});
-    expect(JSON.parse((await AsyncStorage.getItem(PENDING_KEY)) as string)).toEqual({
+    expect(JSON.parse((await readStoredString(PENDING_KEY)) as string)).toEqual({
       previous: 'cycle',
       objective: 'pregnancy',
     });
@@ -79,7 +80,7 @@ describe('persisting the pending setup', () => {
     const result = await m.service.switchToObjective({from: 'cycle', to: 'pregnancy', ...callbacks()});
 
     expect(result).toBe('activated');
-    expect(await AsyncStorage.getItem(PENDING_KEY)).toBeNull();
+    expect(await readStoredString(PENDING_KEY)).toBeNull();
   });
 
   it('completing the chain clears memory and storage; a later restart finds nothing', async () => {
@@ -91,7 +92,7 @@ describe('persisting the pending setup', () => {
 
     expect(navigation.reset).toHaveBeenCalled();
     expect(m.flow.getPendingObjectiveSetup()).toBeNull();
-    expect(await AsyncStorage.getItem(PENDING_KEY)).toBeNull();
+    expect(await readStoredString(PENDING_KEY)).toBeNull();
 
     m = boot();
     await expect(m.service.restorePendingObjectiveSetupOnStartup()).resolves.toBe('none');
@@ -101,7 +102,7 @@ describe('persisting the pending setup', () => {
     await startSetup('cycle', 'pregnancy');
     m.flow.completeObjectiveSetup();
     await flush();
-    expect(await AsyncStorage.getItem(PENDING_KEY)).toBeNull();
+    expect(await readStoredString(PENDING_KEY)).toBeNull();
   });
 
   it('cancel (Back) restores the previous objective and clears storage; a later restart finds nothing', async () => {
@@ -110,8 +111,8 @@ describe('persisting the pending setup', () => {
     await expect(m.flow.cancelPendingObjectiveSetup()).resolves.toBe('cycle');
 
     expect(m.onboarding.getActiveObjective()).toBe('cycle');
-    expect(await AsyncStorage.getItem(ACTIVE_KEY)).toBe('cycle');
-    expect(await AsyncStorage.getItem(PENDING_KEY)).toBeNull();
+    expect(await readStoredString(ACTIVE_KEY)).toBe('cycle');
+    expect(await readStoredString(PENDING_KEY)).toBeNull();
 
     m = boot();
     await expect(m.service.restorePendingObjectiveSetupOnStartup()).resolves.toBe('none');
@@ -122,15 +123,15 @@ describe('persisting the pending setup', () => {
 describe('restart while a setup was pending', () => {
   it('target still unconfigured → the previous objective is restored (memory + storage), pending cleared', async () => {
     await startSetup('cycle', 'pregnancy');
-    expect(await AsyncStorage.getItem(ACTIVE_KEY)).toBe('pregnancy'); // parked on the half-configured one
+    expect(await readStoredString(ACTIVE_KEY)).toBe('pregnancy'); // parked on the half-configured one
 
     m = boot(); // process killed, app relaunched
     const result = await m.service.restorePendingObjectiveSetupOnStartup();
 
     expect(result).toBe('restored');
     expect(m.onboarding.getActiveObjective()).toBe('cycle');
-    expect(await AsyncStorage.getItem(ACTIVE_KEY)).toBe('cycle');
-    expect(await AsyncStorage.getItem(PENDING_KEY)).toBeNull();
+    expect(await readStoredString(ACTIVE_KEY)).toBe('cycle');
+    expect(await readStoredString(PENDING_KEY)).toBeNull();
     expect(m.flow.getPendingObjectiveSetup()).toBeNull();
   });
 
@@ -162,8 +163,8 @@ describe('restart while a setup was pending', () => {
 
     expect(result).toBe('cleared');
     expect(m.onboarding.getActiveObjective()).toBe('pregnancy');
-    expect(await AsyncStorage.getItem(ACTIVE_KEY)).toBe('pregnancy');
-    expect(await AsyncStorage.getItem(PENDING_KEY)).toBeNull();
+    expect(await readStoredString(ACTIVE_KEY)).toBe('pregnancy');
+    expect(await readStoredString(PENDING_KEY)).toBeNull();
   });
 
   it('kill between the pending write and the objective change → stale record discarded, nothing changes', async () => {
@@ -175,7 +176,7 @@ describe('restart while a setup was pending', () => {
 
     expect(result).toBe('cleared');
     expect(m.onboarding.getActiveObjective()).toBe('cycle');
-    expect(await AsyncStorage.getItem(PENDING_KEY)).toBeNull();
+    expect(await readStoredString(PENDING_KEY)).toBeNull();
   });
 
   it('kill after the previous objective was restored but before the record was removed → discarded, no double restore', async () => {
@@ -185,7 +186,7 @@ describe('restart while a setup was pending', () => {
     m = boot();
     await expect(m.service.restorePendingObjectiveSetupOnStartup()).resolves.toBe('cleared');
     expect(m.onboarding.getActiveObjective()).toBe('cycle');
-    expect(await AsyncStorage.getItem(PENDING_KEY)).toBeNull();
+    expect(await readStoredString(PENDING_KEY)).toBeNull();
   });
 
   it('a setup already begun in the new session is left alone', async () => {
@@ -227,9 +228,9 @@ describe('stale / corrupt persisted state fails safely', () => {
     const result = await m.service.restorePendingObjectiveSetupOnStartup();
 
     expect(result).toBe('none');
-    expect(await AsyncStorage.getItem(PENDING_KEY)).toBeNull();
+    expect(await readStoredString(PENDING_KEY)).toBeNull();
     expect(await m.onboarding.hydrateActiveObjective()).toBe('pregnancy');
-    expect(await AsyncStorage.getItem(ACTIVE_KEY)).toBe('pregnancy');
+    expect(await readStoredString(ACTIVE_KEY)).toBe('pregnancy');
   });
 
   it('a storage read failure never crashes startup', async () => {
