@@ -3,6 +3,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {profileScopedKey} from '../state/profileScopedStorage';
 import {DELETED_MANAGED_PROFILES_STORAGE_KEY, parseDeletedManagedProfileIds} from '../state/deletedManagedProfiles';
 import {MANAGED_PROFILES_STORAGE_KEY} from '../state/managedProfilesStore';
+import {OWNER_PROFILE_ID} from '../state/activeProfileStore';
+import {cancelCycleRemindersForProfile} from '../utils/cycleReminderScheduling';
+import {cancelAllLocalNotifications} from './pregnancyNotifications';
 import {
   BACKUP_SETTINGS_KEY,
   BACKUP_SLOT_KEY,
@@ -14,7 +17,13 @@ import {
 } from './storageKeyClassifier';
 import {applyWritesWithJournal, type RestoreWrite} from './restoreJournal';
 import {getRawItem, isStructuredEncryptionEnabled, withKeyLock} from './secureAsyncStorage';
-import {StructuredDataError, decryptStructured, encryptStructured, isStructuredEnvelope} from './structuredEncryption';
+import {
+  StructuredDataError,
+  decryptStructured,
+  encryptStructured,
+  isStructuredEnvelope,
+  type StructuredFailureReason,
+} from './structuredEncryption';
 
 // PURPOSE (M40 audit): backup/restore is MACHINE-ORIENTED app recovery, not a user-readable export. `backupNow()`
 // snapshots the RAW AsyncStorage values of every key that belongs in a backup (see storageKeyClassifier.ts — which
@@ -49,7 +58,7 @@ const DEFAULT_SETTINGS: BackupSettings = {enabled: true, wifiOnly: true, frequen
 export type LocalBackupStatus =
   | {status: 'none'}
   | {status: 'ok'; snapshot: BackupSnapshot; legacyPlaintext: boolean}
-  | {status: 'unreadable'; reason: 'key-missing' | 'key-lost' | 'authentication-failed' | 'malformed' | 'unsupported-version'}
+  | {status: 'unreadable'; reason: StructuredFailureReason}
   | {status: 'corrupted'};
 
 const isSnapshot = (value: unknown): value is BackupSnapshot => {
@@ -179,7 +188,14 @@ export async function restoreBackup(snapshot: BackupSnapshot): Promise<void> {
   const deleted = parseDeletedManagedProfileIds(await AsyncStorage.getItem(DELETED_MANAGED_PROFILES_STORAGE_KEY));
   await applyWritesWithJournal(planRestore(snapshot, deleted));
 }
+/** "Supprimer mes données": removes everything AWA owns (see isDeletedWithAllTrackedData). Every reminder is
+ * cancelled FIRST. They are not AsyncStorage keys — each one is a trigger in Android's own notification database,
+ * derived from the records removed below — so removing the records alone would leave them firing (a medication's
+ * name included) with nothing left to cancel them from. cancelAllLocalNotifications() also takes what is already in
+ * the notification shade off it, and never throws; if the removal below then fails, the next launch's
+ * synchronisation re-creates the reminders from the records that are still there. */
 export async function deleteTrackedData(): Promise<void> {
+  await cancelAllLocalNotifications();
   const keys = (await AsyncStorage.getAllKeys()).filter(isDeletedWithAllTrackedData);
   await Promise.all(keys.map(key => withKeyLock(key, () => AsyncStorage.removeItem(key))));
 }
@@ -229,6 +245,13 @@ export async function restoreBackupForProfile(snapshot: BackupSnapshot, profileI
 /** "Supprimer les données de suivi de {firstName}" — clears ONLY the tracking data this managed profile owns, never the
  * profile RECORD itself (deleted via "Gérer les profils"), never the owner's data, never another daughter's. */
 export async function deleteTrackedDataForProfile(profileId: string): Promise<void> {
+  // HER scheduled reminders — and the copies of them already in the notification shade, which carry her first name —
+  // are derived from the records about to be removed. Cancelled first, and only hers (the owner's and every other
+  // profile's keep firing). A native failure never blocks the deletion she asked for: her reminder preferences are
+  // gone afterwards, so the synchronisation that follows the reload cancels whatever is left.
+  if (profileId && profileId !== OWNER_PROFILE_ID) {
+    await cancelCycleRemindersForProfile(profileId).catch(() => undefined);
+  }
   const keys = (await AsyncStorage.getAllKeys()).filter(key => isDeletedWithProfileTrackedData(key, profileId));
   await Promise.all(keys.map(key => withKeyLock(key, () => AsyncStorage.removeItem(key))));
 }
