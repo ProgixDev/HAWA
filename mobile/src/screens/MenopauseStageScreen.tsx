@@ -28,6 +28,7 @@ import {
   type MenopauseStage,
 } from '../state/menopausePreferences';
 import '../i18n';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MenopauseStage'>;
 
@@ -155,6 +156,8 @@ function MenopauseStageScreen({
         return;
       }
       navigation.navigate('MenopauseSymptoms');
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

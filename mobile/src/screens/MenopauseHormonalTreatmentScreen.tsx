@@ -28,6 +28,7 @@ import {
   type MenopauseHormonalTreatmentStatus,
 } from '../state/menopausePreferences';
 import '../i18n';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -162,6 +163,8 @@ function MenopauseHormonalTreatmentScreen({
         return;
       }
       navigation.navigate('MenopauseLabTracking');
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }
