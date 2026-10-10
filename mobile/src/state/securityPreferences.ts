@@ -36,18 +36,58 @@ const settingsListeners = new Set<() => void>();
 const securityListeners = new Set<() => void>();
 const notifySecurity = () => securityListeners.forEach(listener => listener());
 
-async function readFlag(key: string): Promise<boolean> {
+/** The persisted choice. `null` = the read itself failed (unknown), which is NOT the same as "off". */
+async function readFlag(key: string): Promise<boolean | null> {
   try {
     return (await AsyncStorage.getItem(key)) === 'true';
   } catch {
-    return false;
+    return null;
   }
+}
+
+/** Whether the credential exists on THIS phone. 'unknown' = the Keychain call itself failed. */
+type CredentialCheck = 'present' | 'absent' | 'unknown';
+
+async function checkCredential(check: () => Promise<boolean>): Promise<CredentialCheck> {
+  // One missed read is not proof that the credential is gone, so absence needs two agreeing reads. A call that
+  // threw is never read as "absent": it is "unknown" (and the lock then follows the persisted choice).
+  let failed = false;
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      if (await check()) {return 'present';}
+    } catch {
+      failed = true;
+    }
+  }
+  return failed ? 'unknown' : 'absent';
+}
+
+/**
+ * Whether the lock is enforced this session, from what she chose (the persisted flag) and from what this phone can
+ * actually verify (the Keychain credential).
+ *
+ *  - credential PRESENT        → enforced, unless the persisted choice is explicitly "off" (never turned ON by
+ *                                inference: that is her decision to make in settings);
+ *  - credential ABSENT         → not enforced for this session. The flag can legitimately outlive the credential
+ *                                (a backup restored on another phone: device keys never leave their device), and
+ *                                demanding a PIN that cannot be verified would lock her out of her own data;
+ *  - credential UNKNOWN (check failed) → follows the persisted choice. A Keychain call that threw says nothing about
+ *                                whether the PIN exists, so it must never LOOSEN the lock.
+ */
+function lockEnforced(persisted: boolean | null, credential: CredentialCheck): boolean {
+  if (credential === 'present') {return persisted !== false;}
+  if (credential === 'absent') {return false;}
+  return persisted === true;
 }
 
 /**
  * Loads the persisted pin/biometric preferences from disk. Safe to call more
  * than once (from app startup and from any screen that needs to be sure the
  * values are ready) - every caller awaits the same in-flight/resolved load.
+ *
+ * Nothing derived from the Keychain check is ever WRITTEN back. It used to be: a Keychain call that failed (or one
+ * transient "not found") flipped the persisted flag to off, so the app lock was silently and permanently disabled
+ * by a single hiccup. The flag only changes when she changes it (setPinEnabled / setBiometricEnabled).
  */
 export function loadSecurityPreferences(): Promise<void> {
   if (!loadPromise) {
@@ -57,11 +97,12 @@ export function loadSecurityPreferences(): Promise<void> {
         readFlag(BIOMETRIC_ENABLED_KEY),
         AsyncStorage.getItem(SETTINGS_KEY).catch(() => null),
       ]);
-      const [pinCredentialExists, biometricCredentialExists] = await Promise.all([hasStoredPin().catch(() => false), hasBiometricCredential().catch(() => false)]);
-      pinEnabled = storedPin && pinCredentialExists;
-      biometricEnabled = storedBiometric && biometricCredentialExists;
-      if (storedPin !== pinEnabled) {AsyncStorage.setItem(PIN_ENABLED_KEY, pinEnabled ? 'true' : 'false').catch(() => {});}
-      if (storedBiometric !== biometricEnabled) {AsyncStorage.setItem(BIOMETRIC_ENABLED_KEY, biometricEnabled ? 'true' : 'false').catch(() => {});}
+      const [pinCredential, biometricCredential] = await Promise.all([
+        checkCredential(hasStoredPin),
+        checkCredential(hasBiometricCredential),
+      ]);
+      pinEnabled = lockEnforced(storedPin, pinCredential);
+      biometricEnabled = lockEnforced(storedBiometric, biometricCredential);
       if (storedSettings) {
         try {
           privacySettings = {
