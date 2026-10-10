@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {buildMedicalExport} from '../medicalExportOrchestrator';
 import {resolveNoteSection, encryptNoteSection} from '../privateNotesEncryption';
 import {saveJournalSection} from '../../state/dailyJournalStore';
@@ -69,7 +70,7 @@ describe('buildMedicalExport — authorisation before decryption (M44)', () => {
     if (result.kind !== 'csv') {throw new Error('expected a csv result');}
     expect(result.content).toContain(SECRET);
 
-    const raw = (await AsyncStorage.getItem('@hawa/daily-journal/v1')) as string;
+    const raw = (await readStoredString('@hawa/daily-journal/v1')) as string;
     expect(raw).not.toContain(SECRET);
     expect(raw).toContain('ciphertext');
   });

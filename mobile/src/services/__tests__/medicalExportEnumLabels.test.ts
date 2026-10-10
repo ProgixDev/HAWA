@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {
   buildConceiveExportDays,
   buildContraceptionExportDays,
@@ -139,7 +140,7 @@ describe('readers — no raw internal enum reaches the export', () => {
     );
 
     // Stored values are untouched (the export only relabels at output time).
-    const persisted = JSON.parse((await AsyncStorage.getItem('@hawa/menopause-journal/v1')) as string);
+    const persisted = JSON.parse((await readStoredString('@hawa/menopause-journal/v1')) as string);
     expect(persisted[date].mood).toBe('veryGood');
     expect(persisted[date].sleepQuality).toBe('poor');
     expect(persisted[date].treatmentStatus).toBe('not_taken');

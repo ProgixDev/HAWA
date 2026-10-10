@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {
   buildConceiveExportDays,
   buildContraceptionExportDays,
@@ -77,7 +78,7 @@ const STORAGE_KEYS = [
 async function rawStorageDump(): Promise<Record<string, string>> {
   const dump: Record<string, string> = {};
   for (const key of STORAGE_KEYS) {
-    const value = await AsyncStorage.getItem(key);
+    const value = await readStoredString(key);
     if (value) {dump[key] = value;}
   }
   return dump;

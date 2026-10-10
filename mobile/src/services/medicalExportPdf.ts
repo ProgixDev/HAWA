@@ -3,6 +3,7 @@ import fontkit from '@pdf-lib/fontkit';
 import bidiFactory from 'bidi-js';
 import type {ExportReportModel} from './medicalExportFormatting';
 import {CAIRO_ARABIC_SUBSET_BASE64} from './pdfArabicFont';
+import {CAIRO_BOLD_SUBSET_BASE64} from './pdfCairoBoldFont';
 import i18n from '../i18n';
 
 // Local, on-device PDF generation for the Medical Export "Rapport de suivi" —
@@ -34,7 +35,7 @@ import i18n from '../i18n';
 //   notice pointing to the lossless CSV export. It NEVER applies to Arabic.
 // - Not done (documented limitation): GPOS mark positioning (pdf-lib ignores
 //   glyph offsets, so diacritics such as harakat sit at their default position),
-//   a bold Arabic face (regular is used), color emoji.
+//   a bold Arabic face (regular is used; Turkish Latin text does get Cairo Bold), color emoji.
 
 const PAGE_WIDTH = 595.28; // A4 at 72dpi
 const PAGE_HEIGHT = 841.89;
@@ -43,6 +44,10 @@ const TITLE_COLOR = rgb(0.18, 0.14, 0.35); // matches AWA's textPrimary family
 const TEXT_COLOR = rgb(0.1, 0.1, 0.12);
 const MUTED_COLOR = rgb(0.45, 0.43, 0.57);
 const RULE_COLOR = rgb(0.85, 0.82, 0.92);
+// Vertical space (pt) a heading needs together with the first line that follows it, so it is never orphaned.
+const HEADING_BLOCK = 12.5 * 1.4 + 6 + 10.5 * 1.4;
+const CATEGORY_BLOCK = 10 * 1.4 + 1 + 10 * 1.4;
+const DAY_BLOCK = 11.5 * 1.4 + 3 + CATEGORY_BLOCK;
 
 type PdfCharSupport = ReadonlySet<number>;
 
@@ -50,6 +55,10 @@ type PdfCharSupport = ReadonlySet<number>;
 const ARABIC_SCRIPT_RE = /[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]/;
 
 export const containsArabicScript = (text: string): boolean => ARABIC_SCRIPT_RE.test(text);
+
+/** The six Turkish letters that are NOT in WinAnsi (the standard PDF fonts' character set): Ğ ğ İ ı Ş ş. */
+const TURKISH_SPECIFIC_RE = /[ğĞşŞıİ]/;
+export const containsTurkishSpecificLetter = (text: string): boolean => TURKISH_SPECIFIC_RE.test(text);
 
 type FontkitFont = {
   layout: (text: string) => {direction?: string; glyphs: unknown[]};
@@ -250,6 +259,22 @@ function wrapText(
   const lines: string[] = [];
   let current = '';
   words.forEach(word => {
+    if (measure(word) > maxWidth) {
+      // A single unbreakable token (long URL, pasted code…) wider than the line would
+      // run past the right margin and be clipped by the page: break it by character.
+      if (current) {lines.push(current);}
+      let chunk = '';
+      Array.from(word).forEach(char => {
+        if (chunk && measure(`${chunk}${char}`) > maxWidth) {
+          lines.push(chunk);
+          chunk = char;
+        } else {
+          chunk += char;
+        }
+      });
+      current = chunk;
+      return;
+    }
     const candidate = current ? `${current} ${word}` : word;
     if (measure(candidate) > maxWidth && current) {
       lines.push(current);
@@ -325,22 +350,29 @@ function drawRule(cursor: Cursor): void {
  * `model` — this function never re-derives, filters, or invents content. */
 export async function generateMedicalExportPdfBase64(model: ExportReportModel): Promise<string> {
   const doc = await PDFDocument.create();
-  const latin = await doc.embedFont(StandardFonts.Helvetica);
-  const latinBold = await doc.embedFont(StandardFonts.HelveticaBold);
 
-  // The Arabic face is only loaded (and embedded) when the report contains Arabic.
+  // The embedded Cairo face is only loaded when the report contains Arabic, or one of the six Turkish letters
+  // WinAnsi cannot encode. A report without either is generated exactly as before, with the standard fonts.
   const strings = collectModelStrings(model);
   const needsArabic = strings.some(containsArabicScript);
-  let arabic: PDFFont | null = null;
+  const needsTurkish = strings.some(containsTurkishSpecificLetter);
+  let cairo: PDFFont | null = null;
   let probe: FontkitFont | null = null;
-  if (needsArabic) {
+  if (needsArabic || needsTurkish) {
     doc.registerFontkit(fontkit);
-    arabic = await doc.embedFont(CAIRO_ARABIC_SUBSET_BASE64, {subset: true});
+    cairo = await doc.embedFont(CAIRO_ARABIC_SUBSET_BASE64, {subset: true});
     probe = fontkit.create(decodeFromBase64(CAIRO_ARABIC_SUBSET_BASE64)) as unknown as FontkitFont;
   }
+  // A Turkish report is drawn entirely with Cairo (Regular for body text, an embedded Cairo Bold subset with the same
+  // code points for titles / headings / dates / category labels), so that no word is split between two typefaces and
+  // the heading hierarchy survives. Every other report keeps Helvetica / Helvetica-Bold and never embeds the bold face.
+  const cairoBold = needsTurkish && cairo ? await doc.embedFont(CAIRO_BOLD_SUBSET_BASE64, {subset: true}) : null;
+  const latin = needsTurkish && cairo ? cairo : await doc.embedFont(StandardFonts.Helvetica);
+  const latinBold = cairoBold ?? (await doc.embedFont(StandardFonts.HelveticaBold));
+  const arabic: PDFFont | null = needsArabic ? cairo : null;
   const arabicSupport: PdfCharSupport = arabic ? pdfCharSupport(arabic) : new Set<number>();
-  const fonts: Fonts = {latin, latinBold, arabic, arabicSupport, probe};
-  // Bold shares the regular face's WinAnsi character set, so one check covers both.
+  const fonts: Fonts = {latin, latinBold, arabic, arabicSupport, probe: needsArabic ? probe : null};
+  // Bold shares the regular face's character set, so one check covers both.
   const support: PdfCharSupport = new Set<number>([...pdfCharSupport(latin), ...arabicSupport]);
   const cursor: Cursor = {doc, page: newPage(doc), y: PAGE_HEIGHT - MARGIN, fonts, support};
 
@@ -363,6 +395,7 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   drawRule(cursor);
   cursor.y -= 6;
 
+  ensureSpace(cursor, HEADING_BLOCK); // a heading is never left alone at the bottom of a page
   drawParagraph(cursor, i18n.t('export.pdf.summaryHeading'), {size: 12.5, bold: true, color: TITLE_COLOR, gapAfter: 6});
   drawParagraph(cursor, `${i18n.t('export.pdf.totalDaysLabel')} : ${model.totalDays}`, {size: 10.5, gapAfter: 4});
   if (model.categoryCounts.length) {
@@ -374,6 +407,7 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   drawRule(cursor);
   cursor.y -= 6;
 
+  ensureSpace(cursor, HEADING_BLOCK + DAY_BLOCK);
   drawParagraph(cursor, i18n.t('export.pdf.historyHeading'), {size: 12.5, bold: true, color: TITLE_COLOR, gapAfter: 6});
 
   if (!model.days.length) {
@@ -384,9 +418,10 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   }
 
   model.days.forEach(day => {
-    ensureSpace(cursor, 24);
+    ensureSpace(cursor, DAY_BLOCK); // date + first category label + its first line stay together
     drawParagraph(cursor, day.dateLabel, {size: 11.5, bold: true, gapAfter: 3});
     day.categories.forEach(category => {
+      ensureSpace(cursor, CATEGORY_BLOCK); // label + first bullet never split across pages
       drawParagraph(cursor, category.label, {size: 10, bold: true, indent: 8, gapAfter: 1});
       category.lines.forEach(line => {
         drawParagraph(cursor, `• ${line}`, {size: 10, indent: 16});
