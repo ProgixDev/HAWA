@@ -27,6 +27,7 @@ import {
   type PillScheduleType,
 } from '../../state/contraceptionPreferences';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 const ACTIVE_DAYS_MIN = 1;
 const ACTIVE_DAYS_MAX = 90;
@@ -167,6 +168,8 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
       } else {
         navigation.navigate('ContraceptionReminders');
       }
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

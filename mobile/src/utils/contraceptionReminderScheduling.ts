@@ -6,6 +6,7 @@ import {
   contraceptionDefaultReminderNotificationTitle,
   contraceptionReminderNotificationTitle,
 } from '../config/contraceptionLabels';
+import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
 import i18n from '../i18n';
 
 // Contraception's daily reminder — reuses the exact same chokepoint
@@ -99,6 +100,11 @@ export const subscribeContraceptionReminderScheduleStatus = (listener: () => voi
  * fallback hour — and never schedules while a different objective is
  * active, so switching away from Contraception cleanly clears it. */
 export async function syncContraceptionReminder(): Promise<void> {
+  // Unreadable preferences are not "method unset, reminders off": the existing reminder is left untouched.
+  if (areReminderSourcesUnavailable({ownerBases: ['@hawa/contraception-preferences']})) {
+    return;
+  }
+
   const preferences = getContraceptionPreferences();
 
   if (

@@ -25,6 +25,7 @@ import {
 } from '../../state/contraceptionPreferences';
 import {contraceptionMethodLabels} from '../../config/contraceptionLabels';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ContraceptionMethod'>;
 
@@ -133,6 +134,8 @@ function ContraceptionMethodScreen({navigation, route}: Props): React.JSX.Elemen
       } else {
         navigation.navigate('ContraceptionInformation');
       }
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

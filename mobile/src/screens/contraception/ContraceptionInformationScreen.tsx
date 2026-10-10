@@ -26,6 +26,7 @@ import {
   type ContraceptionMethod,
 } from '../../state/contraceptionPreferences';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 type MaterialDesignIconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 const TREATMENT_BREAK_ICON: MaterialDesignIconName = 'clock-outline';
@@ -141,6 +142,8 @@ function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.E
       } else {
         navigation.navigate('ContraceptionReminders');
       }
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }
