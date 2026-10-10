@@ -12,6 +12,15 @@ async function cancelReminder(id: string): Promise<void> {
     throw new Error(`reminder ${id} could not be cancelled`);
   }
 }
+
+/** Same, for a reminder that is going away for good (its profile was deleted): a copy already in the
+ * notification shade carries that profile's first name, so it is removed too. A separate function (not a flag
+ * on cancelReminder) because cancelReminder is also handed straight to Array#map. */
+async function cancelReminderAndDismiss(id: string): Promise<void> {
+  if ((await cancelLocalNotification(id, {dismissDisplayed: true})) === false) {
+    throw new Error(`reminder ${id} could not be cancelled`);
+  }
+}
 import {nextDailyFireDate} from './pregnancyReminderScheduling';
 import i18n from '../i18n';
 import {
@@ -545,7 +554,7 @@ export function syncCycleReminders(): Promise<void> {
  * profile's five namespaced ids. */
 export function cancelCycleRemindersForProfile(profileId: string): Promise<void> {
   return enqueue(async () => {
-    const results = await Promise.allSettled(LEGACY_IDS.map(base => cancelReminder(idFor(base, profileId))));
+    const results = await Promise.allSettled(LEGACY_IDS.map(base => cancelReminderAndDismiss(idFor(base, profileId))));
     if (results.some(result => result.status === 'rejected')) {
       // Reported, not hidden: the deletion keeps the profile and retries instead of leaving a live reminder.
       throw new Error('some reminders of the profile could not be cancelled');
