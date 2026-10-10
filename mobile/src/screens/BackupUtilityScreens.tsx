@@ -34,6 +34,7 @@ import {
 } from '../services/backupService';
 import {getActiveProfileIdentity, reloadActiveProfileData} from '../state/activeProfileStore';
 import {runStructuredMigration} from '../services/structuredDataMigration';
+import {foldForConfirmation} from '../utils/textCase';
 import {resetManagedProfileFirstPeriod} from '../state/managedProfilesStore';
 import {syncManagedProfileRecordFromCycle} from '../state/managedProfileCycleSeed';
 
@@ -390,6 +391,8 @@ export function RestoreBackupScreen({
               : t('backupUtility.restore.heroDescriptionAvailableOwner')
             : t('backupUtility.restore.heroDescriptionNone')}
         </Text>
+
+        <Text style={backupStyles.heroDescription}>{t('portableBackup.photosNote')}</Text>
 
         {snapshot ? (
           <View
@@ -1284,10 +1287,8 @@ export function DeleteTrackedDataScreen({
   ] = useState(false);
 
   const isValid =
-    value
-      .trim()
-      .toUpperCase() ===
-    confirmWord;
+    foldForConfirmation(value) ===
+    foldForConfirmation(confirmWord);
 
   const remove = async () => {
     if (!isValid) {

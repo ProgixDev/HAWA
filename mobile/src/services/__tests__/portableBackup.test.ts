@@ -12,6 +12,7 @@ import {__setRestoreFaultForTests, recoverInterruptedRestore} from '../restoreJo
 import secureStorage, {getRawItem, resetStructuredStorageForTests, setStructuredEncryptionEnabled} from '../secureAsyncStorage';
 import {STRUCTURED_KEY_SERVICE, isStructuredEnvelope} from '../structuredEncryption';
 import {clearAesKeyCache} from '../secureAesKeyStore';
+import * as atRestFieldEncryption from '../atRestFieldEncryption';
 import {decryptFieldValue, encryptFieldValue} from '../atRestFieldEncryption';
 import {decryptNoteSection} from '../privateNotesEncryption';
 import {addManagedProfile, resetManagedProfilesForTests} from '../../state/managedProfilesStore';
@@ -164,6 +165,19 @@ describe('restoring on the same device and on a different one', () => {
 
     // …and the nested note really decrypts on B with B's notes key
     expect((await decryptNoteSection(journal[0].encryptedNote as never)).text).toBe(SECRET_NOTE);
+  });
+
+  it('if sealing a private field fails on the destination (key store error), the restore aborts and writes NOTHING — no unsealed "$awaPlain" markers', async () => {
+    await seedDeviceA();
+    const {contents} = await createPortableBackup({passphrase: PASS, scope: {kind: 'owner'}});
+    await wipeDevice();
+    const spy = jest.spyOn(atRestFieldEncryption, 'encryptFieldValue').mockRejectedValue(new Error('keystore unavailable'));
+    try {
+      await expect(restorePortableBackup({contents, passphrase: PASS})).rejects.toMatchObject({code: 'storage-failed'});
+    } finally {
+      spy.mockRestore();
+    }
+    expect(await AsyncStorage.getAllKeys()).toHaveLength(0);
   });
 
   it('a wrong passphrase changes NOTHING on the phone', async () => {

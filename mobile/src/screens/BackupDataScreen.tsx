@@ -250,6 +250,12 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
           <MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={21} />
           <Text style={styles.infoText}>{t('backupData.infoText')}</Text>
         </View>
+
+        {/* Private photo FILES are not part of any backup (only their paths are) — said here as well as in the portable backup. */}
+        <View style={styles.info}>
+          <MaterialDesignIcons color={theme.colors.primary} name="image-off-outline" size={21} />
+          <Text style={styles.infoText}>{t('portableBackup.photosNote')}</Text>
+        </View>
       </ScrollView>
 
       <Modal animationType="slide" onRequestClose={() => setSettingsOpen(false)} statusBarTranslucent transparent visible={settingsOpen}>
