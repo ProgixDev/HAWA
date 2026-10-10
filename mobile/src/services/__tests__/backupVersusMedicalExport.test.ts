@@ -14,6 +14,7 @@ import {saveMenopauseJournalField} from '../../state/menopauseJournalStore';
 import {buildExportCsv} from '../medicalExportFormatting';
 import {buildCycleExportDays} from '../medicalExportReaders';
 import {lockIntimacy, unlockIntimacy} from '../../state/privateSectionAuthStore';
+import {decryptStructured, isStructuredEnvelope} from '../structuredEncryption';
 import i18n from '../../i18n';
 import {setAppLanguage} from '../../state/themePreferences';
 
@@ -59,6 +60,14 @@ afterEach(() => {
   lockIntimacy();
 });
 
+// A backup / portability dump holds the stored strings AS STORED. Under AWA_STRUCTURED_ENCRYPTION=1 a whole record is an
+// AES-256-GCM envelope; the production read path decrypts it with the key and the storage key (the envelope's AAD), so a test that
+// wants to inspect the FIELD-level ciphertext inside it does the same.
+const plainRecord = async (key: string, value: string | null): Promise<string> =>
+  value !== null && isStructuredEnvelope(value) ? decryptStructured(key, value) : value ?? '';
+const plainRecords = async (entries: Record<string, string | null>): Promise<string> =>
+  (await Promise.all(Object.entries(entries).map(([key, value]) => plainRecord(key, value)))).join(' ');
+
 describe('backup snapshot / portability dump — what the free routes expose', () => {
   it('only @awa* / @hawa* keys are captured (never foreign keys, never the previous snapshot itself)', async () => {
     await backupNow();
@@ -75,10 +84,18 @@ describe('backup snapshot / portability dump — what the free routes expose', (
     const snapshot = await backupNow();
     const stored = (await AsyncStorage.getItem('@awa/backup/local-v1')) as string;
     const portable = await buildPortableDataJson();
-    [JSON.stringify(snapshot), stored, portable].forEach(blob => {
+    const decrypted = [
+      await plainRecords(snapshot.entries),
+      // the stored slot is itself encrypted under encryption: read its entries back through the production reader
+      await plainRecords((await getBackupSnapshot())!.entries),
+      await plainRecords(JSON.parse(portable) as Record<string, string | null>),
+    ];
+    [JSON.stringify(snapshot), stored, portable, ...decrypted].forEach(blob => {
       [SECRET_NOTE, SECRET_SECTION_NOTE, SECRET_PREGNANCY_NOTE, SECRET_MENOPAUSE_NOTE].forEach(secret => {
         expect(blob).not.toContain(secret);
       });
+    });
+    decrypted.forEach(blob => {
       expect(blob).toContain('ciphertext');
     });
   });
@@ -87,7 +104,7 @@ describe('backup snapshot / portability dump — what the free routes expose', (
     const portable = await buildPortableDataJson();
     const parsed = JSON.parse(portable) as Record<string, string | null>;
     // Raw stored JSON strings keyed by storage key — internal enum values as-is.
-    expect(parsed['@hawa/daily-journal/v1']).toContain('"severity":"moderate"');
+    expect(await plainRecord('@hawa/daily-journal/v1', parsed['@hawa/daily-journal/v1'])).toContain('"severity":"moderate"');
     expect(portable).not.toContain('Intensité : Modérée');
     expect(portable).not.toContain('date;categorie;valeur');
     expect(portable).not.toContain('Notes privées');

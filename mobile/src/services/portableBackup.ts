@@ -200,11 +200,22 @@ async function toPortableValue(key: string, raw: string): Promise<string> {
 async function fromPortableValue(key: string, value: string): Promise<string> {
   let result = value;
   if (looksLikeJsonContainer(value)) {
+    let parsed: unknown;
+    let isJson = true;
     try {
-      result = JSON.stringify(await sealFields(JSON.parse(value)));
-    } catch (error) {
-      if (error instanceof PortableBackupError) {throw error;}
-      result = value;
+      parsed = JSON.parse(value);
+    } catch {
+      isJson = false; // looks like JSON but is a plain string — kept exactly as written
+    }
+    if (isJson) {
+      try {
+        result = JSON.stringify(await sealFields(parsed));
+      } catch (error) {
+        if (error instanceof PortableBackupError) {throw error;}
+        // Sealing the private fields failed (e.g. the key store errored). Writing the value unsealed would leave
+        // "$awaPlain" markers in the stores' data — abort the whole restore instead (nothing has been written yet).
+        throw new PortableBackupError('storage-failed');
+      }
     }
   }
   // Records the destination app keeps encrypted are sealed under its own structured-data key, bound to the storage key.
