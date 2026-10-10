@@ -54,6 +54,7 @@ import {resolveConceptionCurrentPhase, resolveConceptionCycleBasics} from '../..
 import {getConceptionJournalItems} from '../../config/conceptionJournalConfig';
 import {getConceptionPreferences, hydrateConceptionPreferences, subscribeConceptionPreferences} from '../../state/conceptionPreferences';
 import {syncConceptionReminders} from '../../utils/conceptionReminderScheduling';
+import {displayUpperCase} from '../../utils/textCase';
 import {getLibraryConfigForObjective} from '../../data/libraryObjectiveConfig';
 import {getLibraryArticles, type LibraryArticle} from '../../data/libraryContent';
 import {getFloatingTabBarClearance, TOP_SPACING_EXTRA} from '../../theme/spacing';
@@ -333,7 +334,7 @@ function FertilityRing({
             transform: [{scale: centerScale}],
           },
         ]}>
-        <Text style={styles.ringEyebrow}>{t('conceiveDashboard.ring.dayEyebrow')}</Text>
+        <Text style={styles.ringEyebrow}>{displayUpperCase(t('conceiveDashboard.ring.dayEyebrow'))}</Text>
         <Text style={styles.ringDay}>{day}</Text>
         <View style={styles.ringCyclePill}>
           <Text style={styles.ringSubtitle}>{t('conceiveDashboard.ring.cycleDays', {count: cycleLength})}</Text>
@@ -949,6 +950,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   // than primary, preserving the original pink accent's spirit.
   heroBadge: {
     alignSelf: 'flex-start',
+    flexShrink: 1,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.secondary, 0.08),
     borderRadius: 13,
