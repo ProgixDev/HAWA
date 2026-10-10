@@ -31,6 +31,7 @@ import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
+import {presentSaveFailure} from '../../services/saveFailure';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -333,7 +334,12 @@ export default function JournalSleepScreen(): React.JSX.Element {
   // M25: removes the saved sleep for today (section absent = the canonical
   // empty state); reopening shows the untouched defaults again.
   const clearEntry = async () => {
-    await deleteJournalSection(todayKey, 'sleep');
+    try {
+      await deleteJournalSection(todayKey, 'sleep');
+    } catch (saveError) {
+      presentSaveFailure(saveError);
+      return;
+    }
     setHasSaved(false);
     navigation.goBack();
   };
@@ -369,11 +375,8 @@ export default function JournalSleepScreen(): React.JSX.Element {
       );
 
       showSuccessToast();
-    } catch {
-      Alert.alert(
-        t('journalSleep.errorTitle'),
-        t('journalSleep.errorMessage'),
-      );
+    } catch (saveError) {
+      presentSaveFailure(saveError, {title: t('journalSleep.errorTitle'), message: t('journalSleep.errorMessage')});
     } finally {
       setSaving(false);
     }

@@ -44,6 +44,7 @@ import {
   getJournalEntry,
   saveJournalSection,
 } from '../../state/dailyJournalStore';
+import {presentSaveFailure} from '../../services/saveFailure';
 import {useJournalEntryDate} from '../../hooks/useJournalEntryDate';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 
@@ -467,18 +468,24 @@ export default function JournalLHTestScreen(): React.JSX.Element {
 
       setError('');
 
-      await saveJournalSection(
-        entryDateKey,
-        'lhTest',
-        {
-          result,
+      try {
+        await saveJournalSection(
+          entryDateKey,
+          'lhTest',
+          {
+            result,
 
-          time,
+            time,
 
-          note:
-            note.trim(),
-        },
-      );
+            note:
+              note.trim(),
+          },
+        );
+      } catch (saveError) {
+        // Nothing was persisted: no success toast, no navigation, the form keeps what was typed.
+        presentSaveFailure(saveError);
+        return;
+      }
 
       setHasSaved(true);
 
@@ -493,7 +500,12 @@ export default function JournalLHTestScreen(): React.JSX.Element {
   // empty state) and resets the form; reopening shows it cleared.
   const clearEntry =
     async () => {
-      await deleteJournalSection(entryDateKey, 'lhTest');
+      try {
+        await deleteJournalSection(entryDateKey, 'lhTest');
+      } catch (deleteError) {
+        presentSaveFailure(deleteError);
+        return;
+      }
       setHasSaved(false);
       setResult('negative');
       setTime('');

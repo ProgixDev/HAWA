@@ -1,18 +1,6 @@
 import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import {KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, useWindowDimensions, View} from 'react-native';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -33,6 +21,7 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import PeriodEndBottomSheet from '../../components/prayer/PeriodEndBottomSheet';
 import {getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
+import {presentSaveFailure} from '../../services/saveFailure';
 import {getCyclePreferences, getPeriodEndDateTime, hydratePeriodEndDateTime} from '../../state/onboardingPreferences';
 import type {FlowIntensity} from '../../types/journal';
 import {dateFormatLocale, formatFullDate} from '../../utils/cycleMath';
@@ -308,11 +297,8 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
       );
 
       showSuccessToastThenGoBack();
-    } catch {
-      Alert.alert(
-        t('journalMenstrualFlow.errorTitle'),
-        t('journalMenstrualFlow.errorMessage'),
-      );
+    } catch (saveError) {
+      presentSaveFailure(saveError, {title: t('journalMenstrualFlow.errorTitle'), message: t('journalMenstrualFlow.errorMessage')});
     } finally {
       setSaving(false);
     }

@@ -1,23 +1,6 @@
 import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {
-  Alert,
-  Animated,
-  Easing,
-  Image,
-  ImageBackground,
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  useWindowDimensions,
-  type ImageSourcePropType,
-} from 'react-native';
+import {Animated, Easing, Image, ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, useWindowDimensions, type ImageSourcePropType} from 'react-native';
 
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {
@@ -32,6 +15,7 @@ import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
+import {presentSaveFailure} from '../../services/saveFailure';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import type {SymptomSeverity} from '../../types/journal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -520,7 +504,12 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
   // M25: removes the saved symptoms for today (section absent = the canonical
   // empty state); reopening shows the untouched defaults again.
   const clearEntry = async () => {
-    await deleteJournalSection(todayKey, 'symptoms');
+    try {
+      await deleteJournalSection(todayKey, 'symptoms');
+    } catch (saveError) {
+      presentSaveFailure(saveError);
+      return;
+    }
     setHasSaved(false);
     navigation.goBack();
   };
@@ -546,11 +535,8 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
       );
 
       showSuccessToast();
-    } catch {
-      Alert.alert(
-        t('journalSymptoms.errorTitle'),
-        t('journalSymptoms.errorMessage'),
-      );
+    } catch (saveError) {
+      presentSaveFailure(saveError, {title: t('journalSymptoms.errorTitle'), message: t('journalSymptoms.errorMessage')});
     } finally {
       setSaving(false);
     }

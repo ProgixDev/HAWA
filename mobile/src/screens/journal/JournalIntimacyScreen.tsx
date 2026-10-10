@@ -1,6 +1,6 @@
 import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Alert, Animated, Easing, ImageBackground, KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, useWindowDimensions} from 'react-native';
+import {Animated, Easing, ImageBackground, KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, useWindowDimensions} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -8,6 +8,7 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import type {IntimacySection} from '../../types/journal';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
+import {presentSaveFailure} from '../../services/saveFailure';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {isIntimacyUnlocked, lockIntimacy} from '../../state/privateSectionAuthStore';
@@ -208,8 +209,13 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
   // plaintext copy). Section absent = the canonical empty state; reopening
   // shows the untouched defaults.
   const clearEntry = async () => {
-    await deleteJournalSection(todayKey, 'encryptedIntimacy');
-    await deleteJournalSection(todayKey, 'intimacy');
+    try {
+      await deleteJournalSection(todayKey, 'encryptedIntimacy');
+      await deleteJournalSection(todayKey, 'intimacy');
+    } catch (saveError) {
+      presentSaveFailure(saveError);
+      return;
+    }
     setHadLegacyPlaintextIntimacy(false);
     setCorrupted(false);
     setHasSaved(false);
@@ -254,10 +260,7 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
         const safe = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
         console.log('[INTIMACY_SAVE][CYCLE] FAILED:', safe);
       }
-      Alert.alert(
-        t('journalIntimacy.errorTitle'),
-        t('journalIntimacy.errorMessage'),
-      );
+      presentSaveFailure(error, {title: t('journalIntimacy.errorTitle'), message: t('journalIntimacy.errorMessage')});
     } finally {
       setSaving(false);
     }

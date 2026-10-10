@@ -50,6 +50,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import '../../i18n';
+import {displayUpperCase} from '../../utils/textCase';
 
 /* ============================================================
    CONSTANTS
@@ -579,7 +580,7 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
                     style={
                       styles.dayLabel
                     }>
-                    {t('journalCycleEvolution.dayUnit')}
+                    {displayUpperCase(t('journalCycleEvolution.dayUnit'))}
                   </Text>
                 </View>
               </Animated.View>

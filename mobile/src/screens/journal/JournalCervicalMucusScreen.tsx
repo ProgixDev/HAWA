@@ -37,6 +37,7 @@ import {
   getJournalEntry,
   saveJournalSection,
 } from '../../state/dailyJournalStore';
+import {presentSaveFailure} from '../../services/saveFailure';
 import {useJournalEntryDate} from '../../hooks/useJournalEntryDate';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 
@@ -278,16 +279,22 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
 
       setError('');
 
-      await saveJournalSection(
-        entryDateKey,
-        'cervicalMucus',
-        {
-          type,
+      try {
+        await saveJournalSection(
+          entryDateKey,
+          'cervicalMucus',
+          {
+            type,
 
-          note:
-            note.trim(),
-        },
-      );
+            note:
+              note.trim(),
+          },
+        );
+      } catch (saveError) {
+        // Nothing was persisted: no success toast, no navigation, the form keeps what was typed.
+        presentSaveFailure(saveError);
+        return;
+      }
 
       setHasSaved(true);
 
@@ -302,7 +309,12 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
   // canonical empty state) and resets the form; reopening shows it cleared.
   const clearEntry =
     async () => {
-      await deleteJournalSection(entryDateKey, 'cervicalMucus');
+      try {
+        await deleteJournalSection(entryDateKey, 'cervicalMucus');
+      } catch (deleteError) {
+        presentSaveFailure(deleteError);
+        return;
+      }
       setHasSaved(false);
       setType('creamy');
       setNote('');

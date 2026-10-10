@@ -23,6 +23,7 @@ import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
+import {presentSaveFailure} from '../../services/saveFailure';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {encryptNoteSection, resolveNoteSection} from '../../services/privateNotesEncryption';
@@ -211,8 +212,8 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
         ? savedNote.current.updatedAt
         : new Date().toISOString();
       const encrypted = await encryptNoteSection({text: text.trim(), updatedAt});
-      savedNote.current = {text: text.trim(), updatedAt};
       await saveJournalSection(storageDate, 'encryptedNote', encrypted);
+      savedNote.current = {text: text.trim(), updatedAt};
       // A fresh encrypted note supersedes any legacy plaintext note for the
       // same day — safe to drop now that the encrypted write above has
       // already succeeded (never the other way around).
@@ -220,11 +221,8 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
       setHasSavedNote(true);
 
       showSuccessToast();
-    } catch {
-      Alert.alert(
-        t('journalNote.errorTitle'),
-        t('journalNote.errorMessage'),
-      );
+    } catch (saveError) {
+      presentSaveFailure(saveError, {title: t('journalNote.errorTitle'), message: t('journalNote.errorMessage')});
     } finally {
       setSaving(false);
     }
@@ -234,8 +232,13 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
   // removed. Deletes today's encrypted note (and any legacy plaintext copy):
   // section absent = the canonical empty state; reopening shows an empty box.
   const clearNote = async () => {
-    await deleteJournalSection(storageDate, 'encryptedNote');
-    await deleteJournalSection(storageDate, 'note');
+    try {
+      await deleteJournalSection(storageDate, 'encryptedNote');
+      await deleteJournalSection(storageDate, 'note');
+    } catch (saveError) {
+      presentSaveFailure(saveError);
+      return;
+    }
     savedNote.current = null;
     setHasSavedNote(false);
     setText('');

@@ -33,6 +33,7 @@ import {
   getJournalEntry,
   saveJournalSection,
 } from '../../state/dailyJournalStore';
+import {presentSaveFailure} from '../../services/saveFailure';
 import {useJournalEntryDate} from '../../hooks/useJournalEntryDate';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {
@@ -233,17 +234,23 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
       return;
     }
 
-    await saveJournalSection(
-      entryDateKey,
-      'temperature',
-      {
-        value: number,
-        unit,
-        time,
-        method,
-        note: note.trim(),
-      },
-    );
+    try {
+      await saveJournalSection(
+        entryDateKey,
+        'temperature',
+        {
+          value: number,
+          unit,
+          time,
+          method,
+          note: note.trim(),
+        },
+      );
+    } catch (saveError) {
+      // Nothing was persisted: no success toast, no navigation, the form keeps what was typed.
+      presentSaveFailure(saveError);
+      return;
+    }
 
     setHasSaved(true);
 
@@ -257,7 +264,12 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
   // M25: removes the saved temperature for this day (section absent = the
   // canonical empty state) and resets the form; reopening shows it cleared.
   const clearEntry = async () => {
-    await deleteJournalSection(entryDateKey, 'temperature');
+    try {
+      await deleteJournalSection(entryDateKey, 'temperature');
+    } catch (deleteError) {
+      presentSaveFailure(deleteError);
+      return;
+    }
     setHasSaved(false);
     setValue('');
     setUnit('C');

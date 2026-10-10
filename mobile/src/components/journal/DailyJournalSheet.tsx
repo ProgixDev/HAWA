@@ -20,6 +20,7 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import i18n from '../../i18n';
+import {lowerCaseFor} from '../../utils/textCase';
 
 const JOURNAL_HEADER = require('../../assets/images/daily-journal-header.png');
 
@@ -222,7 +223,7 @@ function DailyJournalSheet({visible, onClose, title, subtitle, actions}: Props):
                 return (
                   <Animated.View key={action.key} style={{opacity: cardOpacity, transform: [{translateY: cardTranslateY}]}}>
                     <Pressable
-                      accessibilityHint={t('dailyJournalSheet.openEntryHint', {category: action.title.toLowerCase()})}
+                      accessibilityHint={t('dailyJournalSheet.openEntryHint', {category: lowerCaseFor(action.title)})}
                       accessibilityLabel={action.title}
                       accessibilityRole="button"
                       android_ripple={{color: withAlpha(theme.colors.primary, 0.10)}}
