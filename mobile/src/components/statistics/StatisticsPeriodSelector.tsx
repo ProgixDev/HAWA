@@ -1,4 +1,5 @@
 import React, {useMemo} from 'react';
+import {useTranslation} from 'react-i18next';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
@@ -17,12 +18,9 @@ import type {StatisticsPeriod} from '../../utils/cycleStatisticsMath';
 // PHASE C — purely decorative chrome, no entitlement/period logic touched.
 // isPeriodFree()/isPremium/onSelectPeriod/onRequestPremium are unchanged.
 
-export const STATISTICS_PERIOD_LABELS: Record<StatisticsPeriod, string> = {
-  '1': '1 mois',
-  '3': '3 mois',
-  '6': '6 mois',
-  '12': '12 mois',
-};
+/** Localized "1 month" / "3 months"… — same keys the cycle StatisticsScreen already uses (statistics.periods.months_*). */
+export const statisticsPeriodLabel = (period: StatisticsPeriod, t: (key: string, options?: Record<string, unknown>) => string): string =>
+  t('statistics.periods.months', {count: Number(period)});
 
 export type StatisticsPeriodSelectorProps = {
   period: StatisticsPeriod;
@@ -38,6 +36,7 @@ function StatisticsPeriodSelector({
   onRequestPremium,
 }: StatisticsPeriodSelectorProps): React.JSX.Element {
   const {theme} = useAwaTheme();
+  const {t} = useTranslation();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
@@ -45,11 +44,12 @@ function StatisticsPeriodSelector({
       {STATISTICS_PERIODS.map(item => {
         const active = period === item;
         const locked = !isPeriodFree(item) && !isPremium;
+        const label = statisticsPeriodLabel(item, t as never);
 
         return (
           <Pressable
             accessibilityLabel={
-              locked ? `${STATISTICS_PERIOD_LABELS[item]}, nécessite Premium` : STATISTICS_PERIOD_LABELS[item]
+              locked ? t('statistics.periodRequiresPremium', {period: label}) : label
             }
             accessibilityRole="button"
             accessibilityState={{selected: active}}
@@ -58,7 +58,7 @@ function StatisticsPeriodSelector({
             style={[styles.filterButton, active && styles.filterButtonActive]}>
             <View style={styles.filterButtonContent}>
               <Text style={[styles.filterText, active && styles.filterTextActive]}>
-                {STATISTICS_PERIOD_LABELS[item]}
+                {label}
               </Text>
 
               {locked ? (

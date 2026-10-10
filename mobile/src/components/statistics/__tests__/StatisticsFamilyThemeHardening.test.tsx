@@ -312,7 +312,8 @@ describe('Statistics PARTIAL-audit remediation — no longer hardcoded', () => {
    marker is a stable, documented selector.
 ============================================================ */
 
-const PERIOD_LABELS = ['1 mois', '3 mois', '6 mois', '12 mois'];
+// The period labels follow the app language (shared statistics.periods.months_* keys) — resolve them at call time.
+const periodLabels = () => [1, 3, 6, 12].map(count => String(i18n.t('statistics.periods.months', {count})));
 
 describe('E5 Statistics family — selected period survives a theme switch', () => {
   it.each([
@@ -326,7 +327,7 @@ describe('E5 Statistics family — selected period survives a theme switch', () 
     const activeLabel = () => {
       const match = renderer.root
         .findAllByType(Text)
-        .find(node => PERIOD_LABELS.includes(String(node.props.children)) && Array.isArray(node.props.style) && node.props.style[1] !== false);
+        .find(node => periodLabels().includes(String(node.props.children)) && Array.isArray(node.props.style) && node.props.style[1] !== false);
       return match ? String(match.props.children) : undefined;
     };
 
