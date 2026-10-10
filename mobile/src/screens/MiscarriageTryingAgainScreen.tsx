@@ -30,6 +30,7 @@ import {
 } from '../state/miscarriagePreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MiscarriageTryingAgain'>;
 
@@ -98,6 +99,8 @@ function MiscarriageTryingAgainScreen({navigation, route}: Props): React.JSX.Ele
         return;
       }
       navigation.navigate('MiscarriageReminders');
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

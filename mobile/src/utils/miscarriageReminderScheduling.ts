@@ -2,6 +2,7 @@ import {cancelLocalNotification, scheduleLocalNotification} from '../services/pr
 import {nextDailyFireDate} from './pregnancyReminderScheduling';
 import {getActiveObjective} from '../state/onboardingPreferences';
 import {getMiscarriagePreferences} from '../state/miscarriagePreferences';
+import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
 import i18n from '../i18n';
 
 // Miscarriage's ONLY reminder — a single, optional, gentle "Suivi quotidien"
@@ -52,6 +53,10 @@ export function miscarriageDailyTrackingNotificationBody(t: (key: string) => str
  * by id). Never schedules while a different objective is active, so
  * switching away from "Après une fausse couche" cleanly clears it. */
 export async function syncMiscarriageDailyTrackingReminder(): Promise<void> {
+  // Unreadable preferences are not "reminder off": the existing reminder is left untouched.
+  if (areReminderSourcesUnavailable({ownerBases: ['@hawa/miscarriage-preferences/v1']})) {
+    return;
+  }
   const active = getActiveObjective() === 'loss';
   const preferences = getMiscarriagePreferences();
 

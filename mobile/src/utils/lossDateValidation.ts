@@ -1,6 +1,7 @@
 import {diffDays, formatFullDate, startOfDay} from './cycleMath';
 import {validateLossDate} from './postpartumLossDateValidation';
 import i18n from '../i18n';
+import {lowerCaseFor} from './textCase';
 
 // i18n (Phase 3/7B): this is a plain util file, not a component, so it
 // cannot call `useTranslation()`. Every message below is built with the i18n
@@ -199,7 +200,7 @@ export function findLossDateConflicts(params: {
 
 const formatKey = (key: string): string => {
   const parsed = parseLossDateKey(key);
-  return parsed ? formatFullDate(parsed).toLowerCase() : key;
+  return parsed ? lowerCaseFor(formatFullDate(parsed)) : key;
 };
 
 export function describeLossDateConflict(conflict: LossDateConflict): string {

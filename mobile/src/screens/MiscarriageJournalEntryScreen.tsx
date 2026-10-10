@@ -66,6 +66,7 @@ import {
 } from '../state/miscarriagePreferences';
 
 import { parseLossDateKey, validateLossJournalDate } from '../utils/lossDateValidation';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Props = RouteProp<RootStackParamList, 'MiscarriageJournalEntry'>;
 
@@ -428,6 +429,8 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
           t('miscarriageJournalEntry.toasts.bleedingSaved.message'),
           navigation.goBack,
         );
+      } catch (saveError) {
+        presentSaveFailure(saveError);
       } finally {
         setSaving(false);
       }
@@ -475,6 +478,8 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
           t('miscarriageJournalEntry.toasts.symptomsSaved.message'),
           navigation.goBack,
         );
+      } catch (saveError) {
+        presentSaveFailure(saveError);
       } finally {
         setSaving(false);
       }
@@ -513,6 +518,8 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
             : t('miscarriageJournalEntry.toasts.noteSaved.message'),
           navigation.goBack,
         );
+      } catch (saveError) {
+        presentSaveFailure(saveError);
       } finally {
         setSaving(false);
       }
@@ -540,6 +547,8 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
         t('miscarriageJournalEntry.toasts.tryingAgainSaved.message'),
         navigation.goBack,
       );
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }
