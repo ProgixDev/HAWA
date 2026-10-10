@@ -1,7 +1,7 @@
 import {gcm} from '@noble/ciphers/aes.js';
 import {bytesToHex, hexToBytes, randomBytes, utf8ToBytes} from '@noble/ciphers/utils.js';
 import {decodeUtf8} from '../utils/utf8';
-import {getOrCreateAesKey} from './secureAesKeyStore';
+import {getOrCreateAesKey, requireExistingAesKey} from './secureAesKeyStore';
 import type {DailyJournalEntry, EncryptedIntimacyPayload, IntimacySection} from '../types/journal';
 
 // Local encryption at rest for "Vie intime"/"Rapports" (the `intimacy`
@@ -76,7 +76,8 @@ export async function decryptIntimacySection(payload: EncryptedIntimacyPayload):
   if (payload.version !== CURRENT_VERSION) {
     throw new Error(`Unsupported encryptedIntimacy version: ${payload.version}`);
   }
-  const key = await getOrCreateEncryptionKey();
+  // Decrypting never creates a key (see secureAesKeyStore.requireExistingAesKey).
+  const key = await requireExistingAesKey(ENCRYPTION_KEY_SERVICE);
   const nonce = hexToBytes(payload.iv);
   const ciphertext = hexToBytes(payload.ciphertext);
   const plaintext = gcm(key, nonce).decrypt(ciphertext);

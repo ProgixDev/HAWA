@@ -1,6 +1,6 @@
 import {gcm} from '@noble/ciphers/aes.js';
 import {randomBytes, concatBytes} from '@noble/ciphers/utils.js';
-import {getOrCreateAesKey} from './secureAesKeyStore';
+import {getOrCreateAesKey, requireExistingAesKey} from './secureAesKeyStore';
 
 // Local encryption at rest for "Photos privées" (JournalPrivatePhotosScreen.tsx).
 // Frontend/local only, no backend — see TODO.md §1.4/§2.15.
@@ -104,7 +104,8 @@ export async function decryptPhotoBytes(base64Payload: string): Promise<string> 
   }
   const nonce = payload.subarray(1, 1 + NONCE_LENGTH);
   const ciphertext = payload.subarray(1 + NONCE_LENGTH);
-  const key = await getPhotoEncryptionKey();
+  // Decrypting never creates a key (see secureAesKeyStore.requireExistingAesKey).
+  const key = await requireExistingAesKey(ENCRYPTION_KEY_SERVICE);
   const plaintext = gcm(key, nonce).decrypt(ciphertext);
   return bytesToBase64(plaintext);
 }
