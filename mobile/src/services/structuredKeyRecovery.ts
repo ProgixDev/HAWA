@@ -2,7 +2,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {reloadActiveProfileData} from '../state/activeProfileStore';
 import {reloadCycleStateFromStorage} from '../state/onboardingPreferences';
-import {forgetUnavailableStructuredKeys, getUnavailableStructuredKeys, withKeyLock} from './secureAsyncStorage';
+import secureStorage, {
+  forgetUnavailableStructuredKeys,
+  getUnavailableStructuredKeys,
+  retryDeferredOwnerHydrations,
+} from './secureAsyncStorage';
 import {KEY_ESTABLISHED_MARKER, STRUCTURED_KEY_SERVICE} from './structuredEncryption';
 import {getOrCreateAesKey} from './secureAesKeyStore';
 
@@ -29,6 +33,9 @@ export function summarizeUnavailable(): UnavailableSummary {
 async function reloadStores(): Promise<void> {
   reloadActiveProfileData();
   await reloadCycleStateFromStorage().catch(() => undefined);
+  // Owner-only stores (pregnancy, postpartum, loss, conception, contraception, SOPK, menopause...) memoise their first
+  // read; the ones whose read failed re-read now, so the screens refresh without an app restart.
+  await retryDeferredOwnerHydrations();
 }
 
 export async function retryStructuredAccess(): Promise<void> {
@@ -50,7 +57,9 @@ export async function createReplacementProtectionKey(): Promise<boolean> {
 export async function discardUnreadableRecords(): Promise<number> {
   const keys = getUnavailableStructuredKeys().map(item => item.key);
   for (const key of keys) {
-    await withKeyLock(key, () => AsyncStorage.removeItem(key));
+    // Through the storage layer (not the raw store): it takes the key lock AND ends the write protection of a record
+    // the user has explicitly given up on, so the stores can be written again.
+    await secureStorage.removeItem(key);
   }
   await retryStructuredAccess();
   return keys.length;

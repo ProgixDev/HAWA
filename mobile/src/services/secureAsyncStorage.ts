@@ -120,6 +120,22 @@ const markAvailable = (key: string): void => {
   if (unavailable.delete(key)) {notifyUnavailable();}
 };
 
+// Keys whose read FAILED and that no store read has succeeded on since. "Try again" (forgetUnavailableStructuredKeys)
+// empties `unavailable` — so the banner goes and the next read is a fresh attempt — but it cannot reach the stores:
+// most of them memoise their first read and keep serving the DEFAULT state they fell back to. Without this set, the
+// next edit of such a store would find the record readable again (the outage is over) and replace the real record with
+// "default + the edit". A key stays write-protected here until a read through this layer has actually succeeded (the
+// store re-reads on its next launch or profile reload), or the record is explicitly erased.
+const awaitingSuccessfulRead = new Map<string, StructuredFailureReason>();
+
+// Owner-only stores (pregnancy/postpartum/... preferences, journals) memoise their first read. When that read failed
+// they keep a DEFAULT in-memory state, so their key is held here until THAT STORE has re-read the record successfully
+// (readOwnedItem below) — a successful read by someone else (an export, a reminder scheduler) must not open the door to
+// "defaults + one edit" replacing the real record. `deferredRetries` is what "Try again" runs to make each such store
+// re-read its record and notify its subscribers, with no app restart.
+const ownerHolds = new Map<string, StructuredFailureReason>();
+const deferredRetries = new Map<string, () => Promise<unknown>>();
+
 /** Keys that exist but could not be read (never silently treated as empty). Safe to show: only storage keys + reasons. */
 export const getUnavailableStructuredKeys = (): {key: string; reason: StructuredFailureReason}[] =>
   [...unavailable.entries()].map(([key, reason]) => ({key, reason}));
@@ -209,17 +225,24 @@ subscribeActiveProfileId(clearStructuredCache);
 const asUnavailable = (error: unknown): StructuredDataUnavailableError =>
   new StructuredDataUnavailableError(error instanceof StructuredDataError ? error.reason : 'authentication-failed');
 
-async function readDecrypted(key: string, raw: string): Promise<string> {
+/** `fromStoreRead`: the read is a store reading its data (it ends the write protection of a key that failed before);
+ * false for the verification read a write performs on the record it is about to replace. */
+async function readDecrypted(key: string, raw: string, fromStoreRead = true): Promise<string> {
   const cached = cacheGet(key, raw);
-  if (cached !== null) {return cached;}
+  if (cached !== null) {
+    if (fromStoreRead) {awaitingSuccessfulRead.delete(key);}
+    return cached;
+  }
   try {
     const plain = await decryptStructured(key, raw);
     cachePut(key, raw, plain);
     markAvailable(key);
+    if (fromStoreRead) {awaitingSuccessfulRead.delete(key);}
     return plain;
   } catch (error) {
     const failure = asUnavailable(error);
     markUnavailable(key, failure.reason);
+    awaitingSuccessfulRead.set(key, failure.reason);
     throw failure;
   }
 }
@@ -235,11 +258,15 @@ async function getItem(key: string): Promise<string | null> {
 async function readItemLocked(key: string): Promise<string | null> {
   const raw = await AsyncStorage.getItem(key);
   if (raw === null || !isStructuredEncryptionEligible(key)) {
-    if (raw === null) {markAvailable(key);}
+    if (raw === null) {
+      markAvailable(key);
+      awaitingSuccessfulRead.delete(key);
+    }
     return raw;
   }
   if (!isStructuredEnvelope(raw)) {
     markAvailable(key);
+    awaitingSuccessfulRead.delete(key);
     return raw; // legacy plaintext, not migrated yet
   }
   return readDecrypted(key, raw);
@@ -255,11 +282,11 @@ async function setItem(key: string, value: string): Promise<void> {
     // "nothing recorded"). Writing that state back would replace real data with nothing. So a key whose last read
     // failed accepts no write until a read of it has succeeded again — even if the cause (a locked Keychain, say) has
     // gone away in the meantime. The stores re-read on the next launch or profile reload; the banner offers a retry.
-    const lastFailure = unavailable.get(key);
+    const lastFailure = unavailable.get(key) ?? awaitingSuccessfulRead.get(key) ?? ownerHolds.get(key);
     if (lastFailure) {throw new StructuredDataUnavailableError(lastFailure);}
     // Never overwrite a record we cannot read now either.
     const existing = await AsyncStorage.getItem(key);
-    if (isStructuredEnvelope(existing)) {await readDecrypted(key, existing);}
+    if (isStructuredEnvelope(existing)) {await readDecrypted(key, existing, false);}
     let envelope: string;
     try {
       envelope = await encryptStructured(key, value);
@@ -279,8 +306,70 @@ async function removeItem(key: string): Promise<void> {
     await AsyncStorage.removeItem(key);
     cacheDrop(key);
     markAvailable(key);
+    awaitingSuccessfulRead.delete(key);
+    ownerHolds.delete(key); // the user explicitly gave the record up: nothing is left to protect
   });
 }
+
+/** True for the error a failed read of an encrypted record throws (robust to the class being loaded twice). */
+export const isStructuredUnavailableError = (error: unknown): error is StructuredDataUnavailableError =>
+  error instanceof StructuredDataUnavailableError ||
+  (typeof error === 'object' && error !== null && (error as {name?: unknown}).name === 'StructuredDataUnavailableError');
+
+/**
+ * The read an owner-only memoised store uses for its hydration. Same result as getItem(), plus: when the read fails
+ * because the record is UNAVAILABLE, `retry` (the store's own hydrate function, which must NOT latch a failed read as
+ * "hydrated") is remembered for "Try again" and writes to the key stay refused until a later read through here has
+ * succeeded. A store therefore never keeps fabricated defaults for good and never overwrites the real record with them.
+ */
+export async function readOwnedItem(key: string, retry: () => Promise<unknown>): Promise<string | null> {
+  try {
+    const value = await getItem(key);
+    ownerHolds.delete(key);
+    deferredRetries.delete(key);
+    return value;
+  } catch (error) {
+    if (isStructuredUnavailableError(error)) {
+      ownerHolds.set(key, error.reason);
+      deferredRetries.set(key, retry);
+    }
+    throw error;
+  }
+}
+
+/**
+ * readOwnedItem for a store that adopts SEVERAL records together: they succeed or fail as a unit. If any one is
+ * unavailable, ALL of them stay held (a sibling that happened to read fine is not adopted, so it must not become
+ * writable from the store's default state either).
+ */
+export async function readOwnedItems(keys: readonly string[], retry: () => Promise<unknown>): Promise<(string | null)[]> {
+  const settled = await Promise.allSettled(keys.map(key => getItem(key)));
+  const failed = settled.find((item): item is PromiseRejectedResult => item.status === 'rejected');
+  if (!failed) {
+    keys.forEach(key => {
+      ownerHolds.delete(key);
+      deferredRetries.delete(key);
+    });
+    return settled.map(item => (item as PromiseFulfilledResult<string | null>).value);
+  }
+  if (isStructuredUnavailableError(failed.reason)) {
+    keys.forEach(key => {
+      ownerHolds.set(key, (failed.reason as StructuredDataUnavailableError).reason);
+      deferredRetries.set(key, retry);
+    });
+  }
+  throw failed.reason;
+}
+
+/** "Try again": every owner store whose read failed re-reads its record now (and notifies its subscribers on success). */
+export async function retryDeferredOwnerHydrations(): Promise<void> {
+  const retries = [...deferredRetries.values()];
+  deferredRetries.clear();
+  await Promise.all(retries.map(retry => retry().catch(() => undefined)));
+}
+
+/** Test-only: how many owner stores are waiting for a retry. */
+export const __deferredOwnerRetryCountForTests = (): number => deferredRetries.size;
 
 /** Writes a stored value verbatim (already an envelope, or legacy plaintext) under the key lock. Used by restore. */
 export const setRawItemLocked = (key: string, value: string): Promise<void> =>
@@ -305,6 +394,9 @@ export default secureAsyncStorage;
 /** Test-only: forget every in-memory trace (failed-read registry, cache) so tests do not leak state into each other. */
 export const resetStructuredStorageForTests = (): void => {
   unavailable.clear();
+  awaitingSuccessfulRead.clear();
+  ownerHolds.clear();
+  deferredRetries.clear();
   clearStructuredCache();
   notifyUnavailable();
 };
