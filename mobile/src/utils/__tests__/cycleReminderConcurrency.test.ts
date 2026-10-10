@@ -223,8 +223,17 @@ describe('profile switch DURING a synchronization', () => {
       const run = syncCycleReminders();
       await flush();
       expect(held.length).toBeGreaterThan(0);
-      held.splice(0).forEach(release => release());
-      await run;
+      // Release every held read as it appears. Reads of an encrypted record are queued per record, so the second read
+      // is only issued once the first one has been released — a single release pass would leave it held forever.
+      let settled = false;
+      const done = run.finally(() => {
+        settled = true;
+      });
+      for (let pass = 0; pass < 50 && !settled; pass += 1) {
+        held.splice(0).forEach(release => release());
+        await flush();
+      }
+      await done;
     } finally {
       storage.mockImplementation(realGetItem);
     }
