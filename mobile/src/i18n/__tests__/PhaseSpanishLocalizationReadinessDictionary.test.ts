@@ -40,7 +40,7 @@ const enPathSet = new Set(enPaths);
 const esPathSet = new Set(esPaths);
 
 describe('TEST — Spanish dictionary leaf-key parity with fr/en (cases 16-18)', () => {
-  it('16. es has exactly 6150 leaf keys, matching fr and en 1:1 (no missing, no extra)', () => {
+  it('16. es has exactly 6176 leaf keys, matching fr and en 1:1 (no missing, no extra)', () => {
     // Grown from the original 6064 across several localization fix passes
     // (dataPrivacy.*, profile.managedProfiles.swipeDeleteLabel,
     // profile.editAvatarAccessibility/editAnonymousAvatarAccessibility,
@@ -57,10 +57,14 @@ describe('TEST — Spanish dictionary leaf-key parity with fr/en (cases 16-18)',
     // daughter calendar fix then added calendar.predictionsPendingFirstPeriod and
     // calendar.predictionsPendingMoreData to every dictionary (6145). The save-failure
     // contract then added the five saveFailure.* keys (title/failedBody/unavailableBody/ok/
-    // recoveryAction) to every dictionary (6150).
-    expect(esPaths.length).toBe(6150);
-    expect(frPaths.length).toBe(6150);
-    expect(enPaths.length).toBe(6150);
+    // recoveryAction) to every dictionary (6150). The notification repair then added the
+    // nine notificationPermission.* keys and the fifteen pregnancyEvent.reminder.* keys
+    // (reminder time preview, "already passed", category switch, and what happened after
+    // saving) to every dictionary (6174), and pregnancyNotifications.customPast.* (a one-time
+    // custom reminder set in the past) to every dictionary (6176).
+    expect(esPaths.length).toBe(6176);
+    expect(frPaths.length).toBe(6176);
+    expect(enPaths.length).toBe(6176);
 
     const missingFromEsVsFr = frPaths.filter(p => !esPathSet.has(p));
     const extraInEsVsFr = esPaths.filter(p => !frPathSet.has(p));

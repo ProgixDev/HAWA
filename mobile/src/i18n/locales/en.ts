@@ -3740,6 +3740,11 @@ export const en = {
     deleteMedicationConfirmTitle: 'Delete this medication?',
     deleteVitaminConfirmTitle: 'Delete this vitamin?',
     deleteCustomReminderConfirmTitle: 'Delete this reminder?',
+    // A one-time reminder set for a moment that has already passed would be stored and never sent.
+    customPast: {
+      title: 'This time has already passed',
+      message: 'This one-time reminder is set for {{when}}, which has already passed, so it would never be sent. Choose a later date or time.',
+    },
     repeat: {
       once: 'Once',
       daily: 'Every day',
@@ -3982,6 +3987,25 @@ export const en = {
       deleteExamAccessibility: 'Delete this exam',
       deleting: 'Deleting…',
       deleteModalCloseAccessibility: 'Close without deleting',
+    },
+    // Reminder feedback on the appointment/exam form: the real reminder time, why a reminder cannot be
+    // sent, and what happened after saving (never a silently "active" reminder that cannot fire).
+    reminder: {
+      previewLabel: 'Reminder will be sent',
+      noTimeHint: 'No time is set, so 09:00 is used to work out the reminder time.',
+      pastError: 'This reminder would be sent on {{when}}, which has already passed. Choose a shorter lead time, set a custom time, or turn the reminder off.',
+      categoryOffAppointment: 'Appointment reminders are turned off in Notifications & reminders, so this reminder will not be sent.',
+      categoryOffExam: 'Exam reminders are turned off in Notifications & reminders, so this reminder will not be sent.',
+      turnOnAppointment: 'Turn on appointment reminders',
+      turnOnExam: 'Turn on exam reminders',
+      savedWithoutTitle: 'Saved without a reminder',
+      savedPermission: '“{{title}}” is saved, but its reminder was not scheduled because notifications are turned off for AWA in your phone’s settings.',
+      savedChannel: '“{{title}}” is saved, but its reminder was not scheduled because the AWA reminders category is blocked in your phone’s settings.',
+      savedCategoryAppointment: '“{{title}}” is saved, but appointment reminders are turned off in Notifications & reminders, so its reminder was not scheduled.',
+      savedCategoryExam: '“{{title}}” is saved, but exam reminders are turned off in Notifications & reminders, so its reminder was not scheduled.',
+      savedPast: '“{{title}}” is saved, but its reminder time ({{when}}) has already passed, so no reminder was scheduled.',
+      savedUnavailable: '“{{title}}” is saved, but your notification settings can’t be read right now, so its reminder was not scheduled. Try again later.',
+      savedFailed: '“{{title}}” is saved, but its reminder could not be scheduled. Open it again and save to retry.',
     },
     appointmentScreen: {
       addTitle: 'Add appointment',
@@ -5104,6 +5128,20 @@ export const en = {
     next: 'Next',
     menopauseLabel: 'Perimenopause / Menopause',
     postpartumLabel: 'Postpartum',
+  },
+
+  // Shared guidance when Android notifications (or the reminders channel) are off — used by every objective's
+  // reminders screen and by the appointment form, so the wording and the "open settings" action are identical.
+  notificationPermission: {
+    blockedTitle: 'Notifications are turned off',
+    blockedBody: 'AWA can’t show your reminders until notifications are allowed in your phone’s settings.',
+    channelBlockedTitle: 'Reminders are blocked',
+    channelBlockedBody: 'The AWA reminders category is blocked in your phone’s settings, so reminders won’t appear.',
+    openSettings: 'Open notification settings',
+    recheck: 'I’ve turned them on',
+    stillOff: 'Notifications are still off.',
+    nowOn: 'Notifications are on. Your reminders will be scheduled.',
+    continueWithout: 'Continue without notifications',
   },
 
   notifications: {
