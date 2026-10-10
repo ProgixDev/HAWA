@@ -50,12 +50,14 @@ function renderScreen(params: {mode?: 'onboarding' | 'edit'} | undefined) {
   return {renderer, navigation};
 }
 
-const pressByText = (renderer: ReactTestRenderer.ReactTestRenderer, label: string) => {
+// Async: Save/Next now navigate only once the choice has been PERSISTED (a refused write must not look saved —
+// services/saveFailure.ts), so the press is awaited until the write settled.
+const pressByText = async (renderer: ReactTestRenderer.ReactTestRenderer, label: string) => {
   const node = renderer.root.find(
     n => typeof n.props.onPress === 'function' && n.findAllByType(Text).some(text => textOf(text) === label),
   );
-  act(() => {
-    node.props.onPress();
+  await act(async () => {
+    await node.props.onPress();
   });
 };
 const checked = (renderer: ReactTestRenderer.ReactTestRenderer, label: string) =>
@@ -90,8 +92,8 @@ describe('SpiritualPreferences - edit mode', () => {
     expect(texts).toContain('Enregistrer');
     expect(texts).not.toContain('Suivant');
 
-    pressByText(renderer, 'Non, pas maintenant');
-    pressByText(renderer, 'Enregistrer');
+    await pressByText(renderer, 'Non, pas maintenant');
+    await pressByText(renderer, 'Enregistrer');
 
     expect(getSpiritualMarkersEnabled()).toBe(false);
     expect(navigation.goBack).toHaveBeenCalledTimes(1);
@@ -106,8 +108,8 @@ describe('SpiritualPreferences - edit mode', () => {
       await setActiveObjective(objective);
       setSpiritualMarkersEnabled(false);
       const {renderer, navigation} = renderScreen({mode: 'edit'});
-      pressByText(renderer, 'Oui, activer');
-      pressByText(renderer, 'Enregistrer');
+      await pressByText(renderer, 'Oui, activer');
+      await pressByText(renderer, 'Enregistrer');
 
       expect(getSpiritualMarkersEnabled()).toBe(true);
       expect(navigation.goBack).toHaveBeenCalledTimes(1);
@@ -122,8 +124,8 @@ describe('SpiritualPreferences - onboarding mode is unchanged', () => {
     setSpiritualMarkersEnabled(true);
     const {renderer, navigation} = renderScreen(undefined);
     expect(renderer.root.findAllByType(Text).map(textOf)).toContain('Suivant');
-    pressByText(renderer, 'Oui, activer');
-    pressByText(renderer, 'Suivant');
+    await pressByText(renderer, 'Oui, activer');
+    await pressByText(renderer, 'Suivant');
     expect(navigation.navigate).toHaveBeenCalledWith('Location');
     expect(navigation.goBack).not.toHaveBeenCalled();
   });

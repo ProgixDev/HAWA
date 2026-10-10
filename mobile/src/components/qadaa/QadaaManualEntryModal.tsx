@@ -33,6 +33,7 @@ import {
   validateQadaaManualForm,
   type QadaaManualFormField,
 } from '../../utils/qadaaManualEntryForm';
+import {classifySaveFailure, presentSaveFailure} from '../../services/saveFailure';
 
 type Props = {
   visible: boolean;
@@ -136,10 +137,12 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
       }
       onSaved(entry ? 'edited' : 'added');
       onClose();
-    } catch {
+    } catch (saveError) {
       submittingRef.current = false;
       setSaving(false);
       setError({field: 'quantity', message: t('qadaa.form.saveFailedError')});
+      // An unreadable record gets the shared message that points to the recovery screen (the form keeps its draft).
+      if (classifySaveFailure(saveError) === 'unavailable') {presentSaveFailure(saveError);}
     }
   };
 

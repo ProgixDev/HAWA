@@ -24,6 +24,7 @@ import {recordConfirmedPeriodEnd} from '../../state/confirmedPeriodHistoryStore'
 import {dateFormatLocale, formatFullDate} from '../../utils/cycleMath';
 import {getBottomPadding} from '../../theme/spacing';
 import i18n from '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 type Props = {
   visible: boolean;
@@ -130,6 +131,9 @@ function PeriodEndBottomSheet({
       await recordConfirmedPeriodEnd(minDateTime, value);
       onConfirmed(value);
       close();
+    } catch (saveError) {
+      // Not persisted: the end is not announced as confirmed and the sheet stays open to retry.
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

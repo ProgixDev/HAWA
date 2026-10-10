@@ -9,6 +9,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {QadaaManualEntry} from '../../state/qadaaLedgerStore';
 import {describeQadaaManualEntryForDelete} from '../../utils/qadaaManualEntryForm';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 type Props = {
   /** The MANUAL entry the user asked to delete; null = dialog closed. */
@@ -58,10 +59,11 @@ function QadaaDeleteConfirmModal({entry, onCancel, onConfirm}: Props): React.JSX
     setDeleting(true);
     try {
       await onConfirm(entry);
-    } catch {
+    } catch (error) {
       // The caller keeps the dialog open on a failure: allow another attempt.
       deletingRef.current = false;
       setDeleting(false);
+      presentSaveFailure(error);
     }
   };
 

@@ -63,6 +63,7 @@ import {
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {presentSaveFailure} from '../services/saveFailure';
 
 const MOSQUE_IMAGE = require('../assets/images/qadaa-mosque.png');
 const LANTERN_IMAGE = require('../assets/images/qadaa-lantern.png');
@@ -316,6 +317,8 @@ function FastingQadaaScreen(): React.JSX.Element {
           '[FastingQadaaScreen] Unable to mark qadaa day as completed:',
           error,
         );
+        // Not recorded: the balance did not move (the ledger rolled back) and the person is told.
+        presentSaveFailure(error);
       } finally {
         setMarkingCompleted(false);
       }
@@ -334,6 +337,7 @@ function FastingQadaaScreen(): React.JSX.Element {
       await removeManualQadaaEntry(entry.id);
     } catch (error) {
       console.warn('[FastingQadaaScreen] Unable to remove manual qadaa entry:', error);
+      // The dialog (QadaaDeleteConfirmModal) catches this to allow another attempt and tells the person.
       throw error;
     }
     setDeleteTarget(null);
@@ -352,7 +356,10 @@ function FastingQadaaScreen(): React.JSX.Element {
           onPress: () => {
             undoQadaaCompletion(entry.id)
               .then(() => toast.show(t('qadaa.undoneToastTitle'), t('qadaa.balanceUpdatedToastMessage')))
-              .catch(error => console.warn('[FastingQadaaScreen] Unable to undo qadaa completion:', error));
+              .catch(error => {
+                console.warn('[FastingQadaaScreen] Unable to undo qadaa completion:', error);
+                presentSaveFailure(error);
+              });
           },
         },
       ],

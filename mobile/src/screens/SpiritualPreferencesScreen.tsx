@@ -24,6 +24,7 @@ import {
 } from '../state/onboardingPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {presentSaveFailure} from '../services/saveFailure';
 
 const featureIcons = ['🗓️', '🤲', '🌙', '🔔'];
 const featureLabelKeys = [
@@ -51,9 +52,15 @@ function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Ele
   const isYes = enabled === true;
   const isNo = enabled === false;
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (enabled === null) {return;}
-    setSpiritualMarkersEnabled(enabled);
+    try {
+      await setSpiritualMarkersEnabled(enabled);
+    } catch (saveError) {
+      // Not persisted (services/saveFailure.ts): stay here, the choice is kept so Continue can be tapped again.
+      presentSaveFailure(saveError);
+      return;
+    }
 
     // Reached from Summary's "Modify" action: save the toggle and return
     // directly, without forcing LocationScreen even if just turned on — the

@@ -28,6 +28,7 @@ import {
 import {isRamadan} from '../utils/hijriCalendar';
 import {computeQadaaFromHistory, shouldShowQadaaReminder} from '../utils/qadaaLogic';
 import {computeQadaaBalance, type QadaaBalance} from '../utils/qadaaBalance';
+import {markSaveFailureHandled} from '../services/saveFailure';
 
 export type QadaaStatus = {
   /** The authoritative remaining balance (see utils/qadaaBalance.ts). null only
@@ -114,7 +115,8 @@ export function useQadaaStatus(): QadaaStatus {
         const next = computeQadaaBalance(automatic.remainingDays, latestLedger.manualEntries, latestLedger.completions);
         balanceRef.current = next;
 
-        setRemainingQadaaDays(next.remainingDays);
+        // A cache of a derived value: a refused/failed write is not user-actionable (see services/saveFailure.ts).
+        setRemainingQadaaDays(next.remainingDays).catch(markSaveFailureHandled);
         if (active) {
           setBalance(next);
           setLedgerView({manualEntries: latestLedger.manualEntries, completions: latestLedger.completions});
@@ -137,7 +139,12 @@ export function useQadaaStatus(): QadaaStatus {
           const periodEndDateTime = await hydratePeriodEndDateTime();
           const cyclePreferences = getCyclePreferences();
           if (periodEndDateTime && periodEndDateTime.getTime() >= cyclePreferences.lastPeriodStart.getTime()) {
-            history = await recordConfirmedPeriodEnd(cyclePreferences.lastPeriodStart, periodEndDateTime);
+            try {
+              history = await recordConfirmedPeriodEnd(cyclePreferences.lastPeriodStart, periodEndDateTime);
+            } catch (error) {
+              // One-time migration of a legacy scalar: not user-initiated; it is retried on the next load.
+              markSaveFailureHandled(error);
+            }
           }
         }
 

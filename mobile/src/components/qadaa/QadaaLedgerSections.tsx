@@ -8,6 +8,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {QadaaCompletionEntry, QadaaManualEntry} from '../../state/qadaaLedgerStore';
 import {describeQadaaBalanceStatus, type QadaaBalance} from '../../utils/qadaaBalance';
+import {displayUpperCase} from '../../utils/textCase';
 import {
   formatQadaaHistoryGregorianRange,
   formatQadaaHistoryHijriRange,
@@ -186,7 +187,7 @@ export default function QadaaLedgerSections({
 
           {automaticEntries.length > 0 ? (
             <>
-              <Text style={styles.groupTitle}>{t('qadaa.ledger.automaticDetected')}</Text>
+              <Text style={styles.groupTitle}>{displayUpperCase(t('qadaa.ledger.automaticDetected'))}</Text>
               {automaticEntries.map((entry, index) => (
                 <HistoryRow
                   key={entry.id}
@@ -209,7 +210,7 @@ export default function QadaaLedgerSections({
 
           {sortedManual.length > 0 ? (
             <>
-              <Text style={styles.groupTitle}>{t('qadaa.ledger.manuallyAdded')}</Text>
+              <Text style={styles.groupTitle}>{displayUpperCase(t('qadaa.ledger.manuallyAdded'))}</Text>
               {sortedManual.map((entry, index) => (
                 <HistoryRow
                   key={entry.id}
@@ -243,7 +244,7 @@ export default function QadaaLedgerSections({
 
           {sortedCompletions.length > 0 ? (
             <>
-              <Text style={styles.groupTitle}>{t('qadaa.ledger.completedGroupTitle')}</Text>
+              <Text style={styles.groupTitle}>{displayUpperCase(t('qadaa.ledger.completedGroupTitle'))}</Text>
               {sortedCompletions.map((entry, index) => (
                 <HistoryRow
                   key={entry.id}

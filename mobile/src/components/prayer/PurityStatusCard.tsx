@@ -9,6 +9,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {PurityPrayerResult} from '../../utils/purityPrayerLogic';
 import {dateFormatLocale} from '../../utils/cycleMath';
+import {displayUpperCase} from '../../utils/textCase';
 
 type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
 
@@ -122,7 +123,7 @@ function PurityStatusCard({result, periodEndDateTime, timezone, loading, error, 
 
             {result.prayerDue && result.prayerName && result.prayerStart && result.prayerEnd ? (
               <View style={styles.dueSection}>
-                <Text style={styles.dueLabel}>{t('prayerTimes.purity.dueLabel')}</Text>
+                <Text style={styles.dueLabel}>{displayUpperCase(t('prayerTimes.purity.dueLabel'))}</Text>
                 <Text style={styles.duePrayerName}>{result.prayerName}</Text>
                 <Text style={styles.dueRange}>
                   {formatTime(result.prayerStart, timezone)} → {formatTime(result.prayerEnd, timezone)}
@@ -141,7 +142,7 @@ function PurityStatusCard({result, periodEndDateTime, timezone, loading, error, 
               <View style={styles.betweenSection}>
                 <Text style={styles.betweenTitle}>{t('prayerTimes.purity.betweenTitle')}</Text>
                 <View style={styles.nextAfterPurityBlock}>
-                  <Text style={styles.nextAfterPurityLabel}>{t('prayerTimes.purity.nextAfterPurityLabel')}</Text>
+                  <Text style={styles.nextAfterPurityLabel}>{displayUpperCase(t('prayerTimes.purity.nextAfterPurityLabel'))}</Text>
                   <Text style={styles.nextAfterPurityValue}>
                     {result.nextPrayerName} · {formatTime(result.nextPrayerTime, timezone)}
                   </Text>
@@ -202,8 +203,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     duePill: {
       flexDirection: 'row', alignItems: 'center', gap: 6, alignSelf: 'flex-start',
       marginTop: 12, borderRadius: 12, backgroundColor: theme.colors.success, paddingHorizontal: 12, paddingVertical: 7,
+      maxWidth: '100%',
     },
-    duePillText: {color: pickReadableTextColor(theme.colors.success), fontSize: 12.5, fontWeight: '700'},
+    // flexShrink: the badge text ("Bugün kılınması gereken namaz: …") must wrap inside the pill, not overflow it.
+    duePillText: {flexShrink: 1, color: pickReadableTextColor(theme.colors.success), fontSize: 12.5, fontWeight: '700'},
     dueSubtitle: {marginTop: 10, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
 
     betweenSection: {marginTop: 16, paddingTop: 14, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: theme.colors.border},
