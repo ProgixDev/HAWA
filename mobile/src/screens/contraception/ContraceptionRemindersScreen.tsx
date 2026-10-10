@@ -31,6 +31,8 @@ import {
   contraceptionReminderContent,
 } from '../../config/contraceptionLabels';
 import {contraceptionMethodSupportsDailyReminder} from '../../utils/contraceptionReminderScheduling';
+import NotificationPermissionNotice from '../../components/notifications/NotificationPermissionNotice';
+import {useReminderPermissionGuard} from '../../hooks/useReminderPermissionGuard';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
 
@@ -90,15 +92,24 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
   // the scheduler wouldn't actually set.
   const supportsDailyReminder = contraceptionMethodSupportsDailyReminder(method) || method === null;
 
+  // Whether Android would actually show the reminder she has switched on (notifications off / reminders channel
+  // blocked). Only read while the switch is on (and shown).
+  const reminderOn = supportsDailyReminder && enabled;
+  const permissionGuard = useReminderPermissionGuard(reminderOn);
+
+  const goToNext = () => {
+    if (isEdit) {
+      navigation.goBack();
+    } else {
+      continueAfterObjectiveSetup(navigation);
+    }
+  };
+
   const handleFinish = async () => {
     if (saving) {return;}
     if (!supportsDailyReminder) {
       // Nothing editable for this method — just leave.
-      if (isEdit) {
-        navigation.goBack();
-      } else {
-        continueAfterObjectiveSetup(navigation);
-      }
+      goToNext();
       return;
     }
     // Never persist "enabled" without a real, user-chosen time — no
@@ -113,11 +124,17 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
       // reminderTime is kept even when disabling — re-enabling later should
       // not silently lose a previously chosen time.
       await setContraceptionPreferences({remindersEnabled: enabled, reminderTime});
-      if (isEdit) {
-        navigation.goBack();
-      } else {
-        continueAfterObjectiveSetup(navigation);
+
+      // Only asked when the reminder is actually being saved as enabled —
+      // never merely for opening this screen. Refused: she stays on this
+      // screen with the notice (her choice above is already saved either way)
+      // instead of the screen closing at once.
+      const allowed = await permissionGuard.allowSave(enabled);
+      if (!allowed) {
+        return;
       }
+
+      goToNext();
     } catch (saveError) {
       presentSaveFailure(saveError);
     } finally {
@@ -245,6 +262,18 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
                   <MaterialDesignIcons color={theme.colors.danger} name="alert-outline" size={16} />
                   <Text style={styles.errorText}>{error}</Text>
                 </View>
+              ) : null}
+
+              {/* The one shared notice (same wording, "open settings" and re-check on every objective's
+                  reminders step). Once a save was blocked it also offers "Continue without notifications",
+                  which performs the navigation Save would have. */}
+              {reminderOn ? (
+                <NotificationPermissionNotice
+                  onContinue={permissionGuard.saveBlocked ? goToNext : undefined}
+                  onRecheck={permissionGuard.refresh}
+                  state={permissionGuard.state}
+                  testID="contraception-reminders-permission-notice"
+                />
               ) : null}
             </>
           ) : (
