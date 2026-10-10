@@ -28,6 +28,7 @@ import {
   type MenopauseSymptom,
 } from '../state/menopausePreferences';
 import '../i18n';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -198,6 +199,8 @@ function MenopauseSymptomsScreen({
         return;
       }
       navigation.navigate('MenopauseHormonalTreatment');
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

@@ -83,6 +83,7 @@ import {useToday} from '../../hooks/useToday';
 import {formatHijriDate} from '../../utils/cycleMath';
 
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 const RING_SIZE = 126;
 const RING_STROKE = 10;
@@ -829,6 +830,8 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
         resolvedStageOptions.find(option => option.id === pendingStage)
           ?.title ?? '',
       );
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSavingStage(false);
     }

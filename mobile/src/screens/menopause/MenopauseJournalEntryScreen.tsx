@@ -81,6 +81,7 @@ import {isIntimacyUnlocked} from '../../state/privateSectionAuthStore';
 import type {MoodLevel} from '../../types/journal';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 type RouteProps = RouteProp<RootStackParamList, 'MenopauseJournalEntry'>;
@@ -599,7 +600,12 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
           text: t('menopauseJournalEntry.common.delete'),
           style: 'destructive',
           onPress: async () => {
-            await deleteMenopauseLabResult(result.id);
+            try {
+              await deleteMenopauseLabResult(result.id);
+            } catch (saveError) {
+              presentSaveFailure(saveError);
+              return;
+            }
             if (editingLabId === result.id) {
               resetLabForm();
             }
@@ -628,7 +634,12 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
           text: t('menopauseJournalEntry.common.clear'),
           style: 'destructive',
           onPress: async () => {
-            await clearMenopauseJournalFields(entryDate, MENOPAUSE_CATEGORY_FIELDS[category]);
+            try {
+              await clearMenopauseJournalFields(entryDate, MENOPAUSE_CATEGORY_FIELDS[category]);
+            } catch (saveError) {
+              presentSaveFailure(saveError);
+              return;
+            }
             applyEntryToForm(getMenopauseJournalEntry(entryDate));
           },
         },
@@ -796,6 +807,8 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
         isPastEntryDate ? t('menopauseJournalEntry.common.savedToastPast', {date: formatResultDate(entryDate)}) : item.journalSubtitle,
         () => navigation.goBack(),
       );
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

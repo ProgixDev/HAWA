@@ -2,6 +2,7 @@ import {cancelLocalNotification, scheduleLocalNotification} from '../services/pr
 import {nextDailyFireDate} from './pregnancyReminderScheduling';
 import {getActiveObjective} from '../state/onboardingPreferences';
 import {getMenopausePreferences} from '../state/menopausePreferences';
+import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
 import i18n from '../i18n';
 
 // Menopause's two optional reminders — reuses the exact same chokepoint
@@ -87,6 +88,10 @@ async function syncTreatmentReminder(active: boolean): Promise<void> {
  * restart, and again whenever the active objective or Menopause preferences
  * change. */
 export async function syncMenopauseReminders(): Promise<void> {
+  // Unreadable preferences are not "reminders off": the existing reminders are left untouched.
+  if (areReminderSourcesUnavailable({ownerBases: ['@hawa/menopause-preferences/v1']})) {
+    return;
+  }
   const active = getActiveObjective() === 'menopause';
   await Promise.all([syncDailyTrackingReminder(active), syncTreatmentReminder(active)]);
 }

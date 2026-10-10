@@ -28,6 +28,7 @@ import {
   type MenopauseLabTracking,
 } from '../state/menopausePreferences';
 import '../i18n';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -169,6 +170,8 @@ function MenopauseLabTrackingScreen({
         return;
       }
       navigation.navigate('MenopauseReminders');
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

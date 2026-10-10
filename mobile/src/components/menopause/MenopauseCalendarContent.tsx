@@ -66,6 +66,7 @@ import {
 } from '../../utils/cycleMath';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {computeMenopauseMonthlySummary} from '../../utils/menopauseCalendarMath';
+import {displayTitleCase, displayUpperCase} from '../../utils/textCase';
 
 import '../../i18n';
 
@@ -416,7 +417,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
 
               <View style={styles.monthTitleBlock}>
                 <Text numberOfLines={1} style={styles.monthTitle}>
-                  {new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(visibleMonth)}
+                  {displayTitleCase(new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(visibleMonth))}
                 </Text>
                 {hijriRangeLabel ? (
                   <Text numberOfLines={2} style={styles.hijriRange}>{hijriRangeLabel}</Text>
@@ -581,7 +582,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
           <View style={styles.card}>
             <View style={styles.selectedHeader}>
               <Text style={styles.selectedDateText}>
-                {new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(selectedDate)}
+                {displayTitleCase(new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(selectedDate))}
               </Text>
               {selectedHijriDate ? (
                 <Text style={styles.selectedHijriText}>{selectedHijriDate}</Text>
@@ -920,7 +921,7 @@ function MenopauseCalendarSheet({
             </View>
 
             <ScrollView bounces={false} contentContainerStyle={sheetStyles.filterRows} showsVerticalScrollIndicator={false} style={sheetStyles.filterScroll}>
-              <Text style={sheetStyles.groupTitle}>{t('menopauseCalendar.sheet.filters.trackingGroupTitle')}</Text>
+              <Text style={sheetStyles.groupTitle}>{displayUpperCase(t('menopauseCalendar.sheet.filters.trackingGroupTitle'))}</Text>
               {trackingFilterRows.map((row, index) => (
                 <FilterRow
                   active={filters[row.key]}
@@ -933,7 +934,7 @@ function MenopauseCalendarSheet({
 
               {spiritualMarkersEnabled ? (
                 <>
-                  <Text style={sheetStyles.groupTitle}>{t('menopauseCalendar.sheet.filters.spiritualGroupTitle')}</Text>
+                  <Text style={sheetStyles.groupTitle}>{displayUpperCase(t('menopauseCalendar.sheet.filters.spiritualGroupTitle'))}</Text>
                   {spiritualFilterRows.map((row, index) => (
                     <FilterRow
                       active={filters[row.key]}

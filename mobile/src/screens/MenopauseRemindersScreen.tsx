@@ -27,6 +27,7 @@ import {
 } from '../state/menopausePreferences';
 import {dateFormatLocale} from '../utils/cycleMath';
 import '../i18n';
+import {presentSaveFailure} from '../services/saveFailure';
 
 // Same 'HH:mm' formatting/parsing convention as
 // ContraceptionRemindersScreen.tsx's/PregnancyNotificationsScreen.tsx's own
@@ -109,6 +110,8 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
       }
 
       goToNext();
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }
