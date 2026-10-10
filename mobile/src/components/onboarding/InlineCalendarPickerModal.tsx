@@ -5,6 +5,7 @@ import {useTranslation} from 'react-i18next';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale, localizedWeekDays} from '../../utils/cycleMath';
+import {displayTitleCase} from '../../utils/textCase';
 
 type Props = {
   visible: boolean;
@@ -85,7 +86,7 @@ function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, su
               <Text style={styles.calendarArrowText}>{'<'}</Text>
             </Pressable>
             <Text style={styles.calendarTitle}>
-              {new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(visibleMonth)}
+              {displayTitleCase(new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(visibleMonth))}
             </Text>
             <Pressable
               accessibilityLabel={t('inlineCalendarPicker.nextMonthA11y')}

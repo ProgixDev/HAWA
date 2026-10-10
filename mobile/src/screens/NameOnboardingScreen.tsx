@@ -49,6 +49,7 @@ import {
 } from '../state/personalInformationStore';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {presentSaveFailure} from '../services/saveFailure';
 
 /* ============================================================
    CONSTANTS
@@ -145,6 +146,9 @@ function NameOnboardingScreen({
         navigation.navigate(
           'SpiritualPreferences',
         );
+      } catch (saveError) {
+        // Not persisted: stay here with the typed name (see services/saveFailure.ts).
+        presentSaveFailure(saveError);
       } finally {
         setSaving(
           false,
