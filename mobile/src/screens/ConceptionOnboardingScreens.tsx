@@ -33,6 +33,7 @@ import {
   type FertilityIndicator,
   type OvulationAwareness,
 } from '../state/conceptionPreferences';
+import {presentSaveFailure} from '../services/saveFailure';
 
 /* ============================================================
  * ASSETS
@@ -403,9 +404,14 @@ export function ConceptionTryingDurationScreen({
           return;
         }
 
-        await setConceptionPreferences({
-          tryingDuration: selected,
-        });
+        try {
+          await setConceptionPreferences({
+            tryingDuration: selected,
+          });
+        } catch (saveError) {
+          presentSaveFailure(saveError);
+          return;
+        }
 
         if (route.params?.mode === 'edit') {
           navigation.goBack();
@@ -472,9 +478,14 @@ export function ConceptionOvulationAwarenessScreen({
           return;
         }
 
-        await setConceptionPreferences({
-          ovulationAwareness: selected,
-        });
+        try {
+          await setConceptionPreferences({
+            ovulationAwareness: selected,
+          });
+        } catch (saveError) {
+          presentSaveFailure(saveError);
+          return;
+        }
 
         if (route.params?.mode === 'edit') {
           navigation.goBack();
@@ -561,9 +572,14 @@ export function ConceptionIndicatorsScreen({
     <Shell
       navigation={navigation}
       onNext={async () => {
-        await setConceptionPreferences({
-          indicators: [...selected],
-        });
+        try {
+          await setConceptionPreferences({
+            indicators: [...selected],
+          });
+        } catch (saveError) {
+          presentSaveFailure(saveError);
+          return;
+        }
 
         if (route.params?.mode === 'edit') {
           navigation.goBack();
@@ -692,6 +708,8 @@ export function ConceptionRemindersScreen({
       } else {
         continueAfterObjectiveSetup(navigation);
       }
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

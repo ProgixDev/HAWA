@@ -2,6 +2,7 @@ import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
 import {Text} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../../testUtils/structuredStorage';
 import {bytesToUtf8} from '@noble/ciphers/utils.js';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -244,8 +245,8 @@ describe('CONCEIVE-01 - privacy', () => {
     await renderDashboard();
     await renderStats();
     const keys = await AsyncStorage.getAllKeys();
-    const values = await Promise.all(keys.map(async key => (await AsyncStorage.getItem(key)) ?? ''));
-    const journal = JSON.parse((await AsyncStorage.getItem('@hawa/daily-journal/v1')) as string) as Record<string, unknown>[];
+    const values = await Promise.all(keys.map(async key => (await readStoredString(key)) ?? ''));
+    const journal = JSON.parse((await readStoredString('@hawa/daily-journal/v1')) as string) as Record<string, unknown>[];
     expect(Object.keys(journal[0]).sort()).toEqual(['date', 'encryptedIntimacy', 'id']); // no plain `intimacy` section
     const dump = values.join(' ');
     expect(dump).not.toContain('21:30'); // no decrypted detail (time / protection) anywhere

@@ -10,6 +10,7 @@ import {
 } from '../state/onboardingPreferences';
 import {getConceptionPreferences, type ConceptionReminderKey} from '../state/conceptionPreferences';
 import {resolveConceptionCycleBasics} from './conceptionStatisticsMath';
+import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
 import i18n from '../i18n';
 
 // Scheduling for "Essayer de concevoir"'s 5 onboarding "Rappels
@@ -257,6 +258,15 @@ async function syncCycleDayReminder(key: ConceptionReminderKey, enabled: boolean
  * preferences or the active objective change, and on TTC Dashboard focus
  * (so cycle-relative dates stay correct as cycles roll over). */
 export async function syncConceptionReminders(): Promise<void> {
+  // Unreadable preferences / cycle data / objective are not "no reminders" and not "no cycle data yet": leave what
+  // is scheduled exactly as it is (never cancel, never derive a fertile window from the placeholder cycle).
+  if (areReminderSourcesUnavailable({
+    ownerBases: ['@hawa/conception-preferences'],
+    profileBases: ['@hawa/cycle-preferences', '@hawa/confirmed-period-history'],
+  })) {
+    return;
+  }
+
   if (getActiveObjective() !== 'conceive') {
     await cancelAllConceptionReminders();
     return;

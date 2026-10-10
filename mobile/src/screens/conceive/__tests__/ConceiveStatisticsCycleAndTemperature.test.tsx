@@ -1,3 +1,4 @@
+import {readStoredString} from '../../../testUtils/structuredStorage';
 import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
 import {Pressable, Text} from 'react-native';
@@ -182,7 +183,7 @@ describe('ConceiveStatisticsScreen — one temperature unit everywhere', () => {
     expect(shown.some(text => text.includes('converti'))).toBe(true);
 
     // Stored data untouched.
-    const raw = String(await AsyncStorage.getItem('@hawa/daily-journal/v1'));
+    const raw = String(await readStoredString('@hawa/daily-journal/v1'));
     expect(raw).toContain('"value":36.5');
     expect(raw).toContain('"unit":"C"');
   });
