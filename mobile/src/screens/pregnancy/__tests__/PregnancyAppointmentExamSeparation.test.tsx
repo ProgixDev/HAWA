@@ -25,18 +25,12 @@ import i18n from '../../../i18n';
 // dedicated screen must persist the correct locked `type` via the SAME
 // pregnancyMedicalEventsStore every other pregnancy screen reads.
 
+// Only the two functions that reach Android are replaced. The pure helpers the form now relies on to show the
+// real reminder time and to decide whether the reminder part changed (evaluateEventReminder,
+// reminderRequestChanged, isEventReminderUndelivered, reminderOffsetLabels, ...) stay the real implementations.
 jest.mock('../../../utils/pregnancyEventReminders', () => ({
-  REMINDER_OFFSETS: ['30min', '1hour', '2hours', '1day', 'custom'],
-  // reminderOffsetLabels is a factory (not a static object) so the real
-  // labels follow the current app language via the caller's own `t`.
-  reminderOffsetLabels: (t: (key: string) => string) => ({
-    '30min': t('notifications.pregnancy.reminderOffsetLabels.30min'),
-    '1hour': t('notifications.pregnancy.reminderOffsetLabels.1hour'),
-    '2hours': t('notifications.pregnancy.reminderOffsetLabels.2hours'),
-    '1day': t('notifications.pregnancy.reminderOffsetLabels.1day'),
-    custom: t('notifications.pregnancy.reminderOffsetLabels.custom'),
-  }),
-  syncEventReminder: jest.fn().mockResolvedValue(undefined),
+  ...jest.requireActual('../../../utils/pregnancyEventReminders'),
+  syncEventReminder: jest.fn().mockResolvedValue({status: 'not-requested'}),
   cancelEventReminder: jest.fn().mockResolvedValue(undefined),
 }));
 
@@ -436,7 +430,8 @@ describe('PregnancyEventDeleteConfirmModal — replaces the native Alert for exa
     await pressA11y(renderer, 'Supprimer ce rendez-vous');
 
     expect(await getPregnancyMedicalEvents()).toHaveLength(0);
-    expect(cancelEventReminder).toHaveBeenCalledWith('evt-del-3');
+    // The user's own delete also removes a copy of the reminder that is already in the notification shade.
+    expect(cancelEventReminder).toHaveBeenCalledWith('evt-del-3', {dismissDisplayed: true});
   });
 
   it('[5][6][7] Edit Exam uses the SAME shared modal; Cancel keeps it, Confirm deletes it', async () => {
