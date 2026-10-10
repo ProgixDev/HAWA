@@ -775,13 +775,19 @@ function createStyles(theme: ResolvedAwaTheme) {
     position: 'relative',
 
     width: '100%',
-    height: 58,
+    minHeight: 58,
 
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
 
     gap: 9,
+
+    // Reserve room for the absolutely-positioned arrow on the right so a long label (tr "Parmak izi özelliğini
+    // etkinleştir") wraps instead of running underneath it.
+    paddingVertical: 8,
+    paddingLeft: 16,
+    paddingRight: 56,
 
     overflow: 'hidden',
 
@@ -837,6 +843,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   primaryText: {
+    flexShrink: 1,
+
     color: onPrimaryTextColor(theme),
 
     fontSize: 16,
@@ -898,6 +906,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   dangerText: {
+    flexShrink: 1,
+
     color: theme.colors.danger,
 
     fontSize: 12.5,

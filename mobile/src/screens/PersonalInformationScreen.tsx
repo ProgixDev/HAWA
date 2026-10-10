@@ -33,6 +33,7 @@ import {
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {interpolateHex, onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {formatFullDate} from '../utils/cycleMath';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PersonalInformation'>;
 type FieldKey = keyof Pick<PersonalInformation, 'firstName' | 'lastName' | 'email' | 'phone' | 'preferredName'>;
@@ -64,7 +65,8 @@ const fieldMetaOf = (t: TranslateFn): Record<FieldKey, {title: string; label: st
   preferredName: {title: t('personalInformation.preferredNameSheetTitle'), label: t('personalInformation.preferredNameFieldLabel')},
 });
 
-function formatBirthDate(value: string): string {
+function formatBirthDate(value: string, notProvided: string): string {
+  if (!value) {return notProvided;}
   const date = new Date(`${value}T12:00:00`);
   return Number.isNaN(date.getTime()) ? value : formatFullDate(date);
 }
@@ -108,7 +110,15 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
   };
 
   const persist = async (patch: Partial<PersonalInformation>) => {
-    setProfile(await updatePersonalInformation(patch));
+    let updated: PersonalInformation;
+    try {
+      updated = await updatePersonalInformation(patch);
+    } catch (saveError) {
+      // Not persisted: the sheet stays open with the draft, no success toast (see services/saveFailure.ts).
+      presentSaveFailure(saveError);
+      return;
+    }
+    setProfile(updated);
     setSheet(null); setToastVisible(true);
     setTimeout(() => setToastVisible(false), 2200);
   };
@@ -146,6 +156,11 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
     [query],
   );
 
+  // The picker needs a starting point; with no birth date saved it opens on
+  // today, which is only ever persisted if the user confirms a date.
+  const parsedBirthDate = profile.birthDate ? new Date(`${profile.birthDate}T12:00:00`) : null;
+  const birthDatePickerValue = parsedBirthDate && !Number.isNaN(parsedBirthDate.getTime()) ? parsedBirthDate : new Date();
+
   const calendarLabel = CALENDARS.find(item => item.value === profile.calendar)?.label ?? t('personalInformation.calendars.doubleLabel');
 
   // The "Langue" row must reflect the CURRENT app language (Appearance's own
@@ -162,7 +177,9 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
         ? t('appearance.language.spanishName')
         : getAppLanguage() === 'it'
           ? t('appearance.language.italianName')
-          : t('appearance.language.frenchName');
+          : getAppLanguage() === 'tr'
+            ? t('appearance.language.turkishName')
+            : t('appearance.language.frenchName');
 
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.safe}>
@@ -243,11 +260,11 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
         <Text style={styles.sectionTitle}>{t('personalInformation.basicInfoSection')}</Text>
         <Animated.View entering={FadeInUp.delay(150).duration(420)} style={styles.card}>
           <InfoRow icon="account-outline" label={t('personalInformation.firstNameLabel')} value={profile.firstName || t('profile.notProvided')} onPress={() => openField('firstName')} styles={styles} theme={theme} />
-          <InfoRow icon="account-outline" label={t('personalInformation.lastNameLabel')} value={profile.lastName} onPress={() => openField('lastName')} styles={styles} theme={theme} />
-          <InfoRow icon="calendar-month-outline" label={t('personalInformation.birthDateLabel')} value={formatBirthDate(profile.birthDate)} onPress={() => setDatePickerVisible(true)} styles={styles} theme={theme} />
-          <InfoRow icon="email-outline" label={t('personalInformation.emailLabel')} value={profile.email} onPress={() => openField('email')} styles={styles} theme={theme} />
-          <InfoRow icon="phone-outline" label={t('personalInformation.phoneLabel')} value={profile.phone} onPress={() => openField('phone')} styles={styles} theme={theme} />
-          <InfoRow icon="map-marker-outline" label={t('personalInformation.countryLabel')} value={profile.country} onPress={() => openField('country')} styles={styles} theme={theme} />
+          <InfoRow icon="account-outline" label={t('personalInformation.lastNameLabel')} value={profile.lastName || t('profile.notProvided')} onPress={() => openField('lastName')} styles={styles} theme={theme} />
+          <InfoRow icon="calendar-month-outline" label={t('personalInformation.birthDateLabel')} value={formatBirthDate(profile.birthDate, t('profile.notProvided'))} onPress={() => setDatePickerVisible(true)} styles={styles} theme={theme} />
+          <InfoRow icon="email-outline" label={t('personalInformation.emailLabel')} value={profile.email || t('profile.notProvided')} onPress={() => openField('email')} styles={styles} theme={theme} />
+          <InfoRow icon="phone-outline" label={t('personalInformation.phoneLabel')} value={profile.phone || t('profile.notProvided')} onPress={() => openField('phone')} styles={styles} theme={theme} />
+          <InfoRow icon="map-marker-outline" label={t('personalInformation.countryLabel')} value={profile.country || t('profile.notProvided')} onPress={() => openField('country')} styles={styles} theme={theme} />
           <InfoRow icon="web" label={t('personalInformation.languageLabel')} value={languageDisplayValue} last styles={styles} theme={theme} />
         </Animated.View>
 
@@ -261,7 +278,7 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
         <View style={styles.infoCard}><MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={21} /><Text style={styles.infoText}>{t('personalInformation.infoCardText')}</Text></View>
       </ScrollView>
 
-      {datePickerVisible ? <DateTimePicker maximumDate={new Date()} mode="date" onDismiss={onDatePickerDismiss} onValueChange={onDateValueChange} value={new Date(`${profile.birthDate}T12:00:00`)} /> : null}
+      {datePickerVisible ? <DateTimePicker maximumDate={new Date()} mode="date" onDismiss={onDatePickerDismiss} onValueChange={onDateValueChange} value={birthDatePickerValue} /> : null}
 
       <Modal animationType="slide" onRequestClose={() => setSheet(null)} statusBarTranslucent transparent visible={sheet !== null}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.modalRoot}>
@@ -276,7 +293,7 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
             </> : sheet && ['firstName', 'lastName', 'email', 'phone', 'preferredName'].includes(sheet) ? <>
               <Text style={styles.sheetTitle}>{FIELD_META[sheet as FieldKey].title}</Text>
               <Text style={styles.inputLabel}>{FIELD_META[sheet as FieldKey].label}</Text>
-              <TextInput autoFocus keyboardType={FIELD_META[sheet as FieldKey].keyboard} onChangeText={value => {setDraft(value); setError('');}} placeholderTextColor={theme.colors.textMuted} style={[styles.input, error ? styles.inputError : null]} value={draft} />
+              <TextInput autoFocus keyboardType={FIELD_META[sheet as FieldKey].keyboard} onChangeText={value => {setDraft(value); setError('');}} placeholder={t('profile.notProvided')} placeholderTextColor={theme.colors.textMuted} style={[styles.input, error ? styles.inputError : null]} value={draft} />
               {error ? <Text style={styles.error}>{error}</Text> : null}
               <SaveButton onPress={saveTextField} styles={styles} />
             </> : sheet === 'country' ? <>

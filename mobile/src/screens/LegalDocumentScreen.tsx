@@ -23,8 +23,10 @@ type LegalSection = {title: string; body: string};
 // (Phase7J1LegalDocumentLanguageSwitch.test.tsx) — never imported by any
 // other screen/component.
 // Languages that actually have legal placeholder text. Deliberately narrower than
-// AwaAppLanguage: Italian is not translated here yet (explicit English fallback).
-type LegalLanguage = 'fr' | 'en' | 'es';
+// AwaAppLanguage: Italian is not translated here yet (explicit English fallback). Turkish
+// has the same provisional placeholder text as the other languages (still pending legal
+// validation — it carries no clause beyond the English).
+type LegalLanguage = 'fr' | 'en' | 'es' | 'tr';
 
 export const TERMS: Record<LegalLanguage, LegalSection[]> = {
   fr: [
@@ -44,6 +46,24 @@ export const TERMS: Record<LegalLanguage, LegalSection[]> = {
     {title: 'Uso de la aplicación', body: 'AWA ofrece herramientas de seguimiento personal y bienestar. El contenido definitivo que describe los derechos y responsabilidades de las usuarias se añadirá tras la validación jurídica.'},
     {title: 'Disponibilidad del servicio', body: 'Las modalidades definitivas de disponibilidad, mantenimiento y evolución del servicio están aún por determinar.'},
     {title: 'Contacto', body: 'Los datos de contacto oficiales se añadirán una vez validados por el equipo de AWA.'},
+  ],
+  tr: [
+    {
+      title: 'Amaç',
+      body: 'Bu belge, AWA’nın kullanım koşullarının geçici yapısını sunar.',
+    },
+    {
+      title: 'Uygulamanın kullanımı',
+      body: 'AWA, kişisel takip ve iyi oluş araçları sunar. Kullanıcıların haklarını ve sorumluluklarını açıklayan nihai içerik, hukuki doğrulama tamamlandıktan sonra eklenecektir.',
+    },
+    {
+      title: 'Hizmetin erişilebilirliği',
+      body: 'Hizmetin erişilebilirliğini, bakımını ve gelişimini düzenleyen nihai koşullar henüz kesinleştirilmemiştir.',
+    },
+    {
+      title: 'İletişim',
+      body: 'Resmî iletişim bilgileri, AWA ekibi tarafından doğrulandıktan sonra eklenecektir.',
+    },
   ],
 };
 
@@ -66,16 +86,35 @@ export const PRIVACY: Record<LegalLanguage, LegalSection[]> = {
     {title: 'Tus derechos', body: 'Los procedimientos para acceder, corregir o eliminar los datos se detallarán en la versión validada.'},
     {title: 'Contacto de privacidad', body: 'La dirección oficial del responsable de privacidad se añadirá antes de la publicación.'},
   ],
+  tr: [
+    {
+      title: 'İlgili veriler',
+      body: 'Bu bölüm, hukuki doğrulama tamamlandıktan sonra AWA tarafından işlenen verileri ve işleme amacını ayrıntılı olarak açıklayacaktır.',
+    },
+    {
+      title: 'Saklama ve güvenlik',
+      body: 'Nihai belgelendirme; saklama önlemlerini, korumaları ve saklama sürelerini belirtecektir.',
+    },
+    {
+      title: 'Haklarınız',
+      body: 'Verilerinize erişme, onları düzeltme veya silme usulleri, doğrulanmış sürümde ayrıntılı olarak açıklanacaktır.',
+    },
+    {
+      title: 'Gizlilik iletişimi',
+      body: 'Gizlilik sorumlusunun resmî iletişim adresi, yayımlanmadan önce eklenecektir.',
+    },
+  ],
 };
 
-/** Resolves the app's current language to one of the 3 legal-content keys —
- * the single place this screen decides fr/en/es, so body and chrome can never
+/** Resolves the app's current language to one of the 4 legal-content keys —
+ * the single place this screen decides fr/en/es/tr, so body and chrome can never
  * drift apart. Italian ('it') has no legal placeholder text yet, so it — like
  * any unknown/invalid language (e.g. not yet loaded) — falls back to English,
  * never to French or Spanish. */
 function resolveLegalLanguage(language: string): LegalLanguage {
   if (language === 'fr') {return 'fr';}
   if (language === 'es') {return 'es';}
+  if (language === 'tr') {return 'tr';}
   return 'en';
 }
 

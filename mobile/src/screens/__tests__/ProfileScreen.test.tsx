@@ -12,7 +12,7 @@ import ProfileScreen from '../ProfileScreen';
 import {resetPremiumStateForTests, updatePremiumState} from '../../state/premiumStore';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled, setAppLanguage} from '../../state/themePreferences';
 import {updatePrivacySecuritySettings} from '../../state/securityPreferences';
-import {getCyclePreferences, setCyclePreferences, setSelectedObjective} from '../../state/onboardingPreferences';
+import {getCyclePreferences, hydrateCyclePreferences, setCyclePreferences, setSelectedObjective} from '../../state/onboardingPreferences';
 import {seedManagedProfileCycleIfNeeded} from '../../state/managedProfileCycleSeed';
 import {updatePersonalInformation} from '../../state/personalInformationStore';
 import {
@@ -1145,17 +1145,23 @@ describe('ProfileScreen — managed daughter profile: "Durée du cycle" / "Duré
 
     // The mother is untouched, immediately, without switching.
     await setActiveProfileId(OWNER_PROFILE_ID);
+    // the new profile's data is read asynchronously (neutral until the read lands): wait for that read, as a screen would
+    await hydrateCyclePreferences();
     expect(getCyclePreferences().cycleDuration).toBe(30);
     expect(getCyclePreferences().periodDuration).toBe(5);
 
     // Lina (another daughter) is untouched.
     await setActiveProfileId(lina.id);
+    // the new profile's data is read asynchronously (neutral until the read lands): wait for that read, as a screen would
+    await hydrateCyclePreferences();
     await seedManagedProfileCycleIfNeeded(lina.id);
     expect(getCyclePreferences().cycleDuration).toBe(25);
     expect(getCyclePreferences().periodDuration).toBe(6);
 
     // Switching back to Hanane shows her persisted, edited value (not the creation-time 28).
     await setActiveProfileId(hanane.id);
+    // the new profile's data is read asynchronously (neutral until the read lands): wait for that read, as a screen would
+    await hydrateCyclePreferences();
     const hananeAgain = await renderScreen();
     expect(textsOf(hananeAgain)).toContain('26 jours');
     expect(getCyclePreferences().cycleDuration).toBe(26);
@@ -1208,10 +1214,14 @@ describe('ProfileScreen — managed daughter profile: "Durée du cycle" / "Duré
     expect(saraOne.id).not.toBe(saraTwo.id);
 
     await setActiveProfileId(saraOne.id);
+    // the new profile's data is read asynchronously (neutral until the read lands): wait for that read, as a screen would
+    await hydrateCyclePreferences();
     await seedManagedProfileCycleIfNeeded(saraOne.id);
     expect(getCyclePreferences().cycleDuration).toBe(24);
 
     await setActiveProfileId(saraTwo.id);
+    // the new profile's data is read asynchronously (neutral until the read lands): wait for that read, as a screen would
+    await hydrateCyclePreferences();
     await seedManagedProfileCycleIfNeeded(saraTwo.id);
     expect(getCyclePreferences().cycleDuration).toBe(34); // resolved by profile ID, not by the shared first name
   });
@@ -1235,6 +1245,8 @@ describe('ProfileScreen — managed daughter profile: "Durée du cycle" / "Duré
     await deleteManagedProfile(hanane.id);
 
     await setActiveProfileId(lina.id);
+    // the new profile's data is read asynchronously (neutral until the read lands): wait for that read, as a screen would
+    await hydrateCyclePreferences();
     expect(getCyclePreferences().cycleDuration).toBe(25);
     expect(getCyclePreferences().periodDuration).toBe(6);
   });

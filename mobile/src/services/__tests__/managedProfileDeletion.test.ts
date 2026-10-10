@@ -284,9 +284,13 @@ describe('interrupted, repeated and concurrent deletion', () => {
     // A stale re-read of hers is in flight (e.g. started by a switch) when the deletion runs.
     await setActiveProfileId(OWNER_PROFILE_ID);
     await setActiveProfileId(noorId);
-    await deleteManagedProfileCompletely(noorId);
+    // Start the deletion without awaiting it: reads/removals of one encrypted record are serialized per key, so with
+    // encryption on the deletion queues BEHIND the held read and can only finish once that read is released.
+    const deletion = deleteManagedProfileCompletely(noorId);
+    await flush();
     storage.getItem.mockImplementation(originalGetItem);
     held.splice(0).forEach(release => release());
+    await deletion;
     await flush();
 
     expect(await keysOf(noorId)).toEqual([]);

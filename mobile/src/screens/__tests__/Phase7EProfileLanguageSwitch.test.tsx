@@ -8,6 +8,8 @@ import GeneralHealthScreen from '../GeneralHealthScreen';
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import {resetAppLanguageForTests, setAppLanguage} from '../../state/themePreferences';
 import i18n from '../../i18n';
+import {updatePersonalInformation} from '../../state/personalInformationStore';
+import {updateGeneralHealth} from '../../state/generalHealthStore';
 
 // Phase 7E — PersonalInformationScreen and GeneralHealthScreen must follow
 // the app language exactly like every other migrated screen, while every
@@ -39,6 +41,24 @@ function renderDirect(element: React.ReactElement) {
 const navigation = {goBack: jest.fn(), navigate: jest.fn()} as never;
 const route = {key: 'k', name: 'test', params: undefined} as never;
 
+// The stores no longer ship fabricated defaults (they start "not provided"),
+// so the "real user values stay untouched across a language switch" tests
+// seed an explicit synthetic profile instead of relying on a built-in one.
+const seedSyntheticProfile = async () => {
+  await updatePersonalInformation({
+    lastName: 'Benali',
+    email: 'amina.benali@email.com',
+    country: 'Algérie',
+  });
+  await updateGeneralHealth({
+    heightCm: 165,
+    weightKg: 60,
+    bloodType: 'O+',
+    healthGoal: 'Rester en forme et en bonne santé',
+    goalProgress: 60,
+  });
+};
+
 beforeEach(async () => {
   await resetAppLanguageForTests();
   // PHASE 7M: the app's default language is now English (not French) — this
@@ -57,20 +77,22 @@ afterEach(async () => {
 });
 
 describe('TEST — PersonalInformationScreen French/English copy', () => {
-  it('French: section titles, labels and real user values render together', () => {
+  it('French: section titles, labels and real user values render together', async () => {
+    await seedSyntheticProfile();
     const renderer = renderDirect(<PersonalInformationScreen navigation={navigation} route={route} />);
     const texts = textsOf(renderer);
     expect(texts).toContain('Informations personnelles');
     expect(texts).toContain('Informations de base');
     expect(texts).toContain('Préférences personnelles');
     expect(texts).toContain('Pays');
-    // Real stored values (default seed data) render untranslated.
+    // Real stored values (seeded above) render untranslated.
     expect(texts).toContain('Benali');
     expect(texts).toContain('amina.benali@email.com');
     expect(texts).toContain('Algérie');
   });
 
   it('English: labels translate, stored real values stay in their original form, no French chrome leaks', async () => {
+    await seedSyntheticProfile();
     await setAppLanguage('en');
     await i18n.changeLanguage('en');
     const renderer = renderDirect(<PersonalInformationScreen navigation={navigation} route={route} />);
@@ -98,17 +120,19 @@ describe('TEST — PersonalInformationScreen French/English copy', () => {
 });
 
 describe('TEST — GeneralHealthScreen French/English copy', () => {
-  it('French: section titles and the default BMI classification render', () => {
+  it('French: section titles and the BMI classification render', async () => {
+    await seedSyntheticProfile();
     const renderer = renderDirect(<GeneralHealthScreen navigation={navigation} route={route} />);
     const texts = textsOf(renderer);
     expect(texts).toContain('Santé générale');
     expect(texts).toContain('Informations physiques');
     expect(texts).toContain('Informations médicales');
-    // Default profile (165cm/60kg) classifies as a healthy BMI.
+    // The seeded 165cm/60kg profile classifies as a healthy BMI.
     expect(texts).toContain('Normal');
   });
 
   it('English: section titles and the BMI classification translate, height/weight/blood type values stay identical', async () => {
+    await seedSyntheticProfile();
     await setAppLanguage('en');
     await i18n.changeLanguage('en');
     const renderer = renderDirect(<GeneralHealthScreen navigation={navigation} route={route} />);
@@ -118,13 +142,14 @@ describe('TEST — GeneralHealthScreen French/English copy', () => {
     expect(texts).toContain('Medical information');
     expect(texts).toContain('Normal'); // same English word, confirms the stable id round-trips
     expect(texts).not.toContain('Santé générale');
-    // Real tracked values (default seed data) are untouched.
+    // Real tracked values (seeded above) are untouched.
     expect(texts.some(text => text.includes('165'))).toBe(true);
     expect(texts.some(text => text.includes('60'))).toBe(true);
     expect(texts).toContain('O+');
   });
 
   it('the health goal (a stored French value with no separate technical id) stays in French in both languages', async () => {
+    await seedSyntheticProfile();
     const frRenderer = renderDirect(<GeneralHealthScreen navigation={navigation} route={route} />);
     expect(textsOf(frRenderer)).toContain('Rester en forme et en bonne santé');
 

@@ -11,6 +11,7 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {isIncludedInBackup} from '../services/storageKeyClassifier';
+import {foldForConfirmation} from '../utils/textCase';
 
 function Shell({title, navigation, children}: {title: string; navigation: {goBack: () => void}; children: React.ReactNode}) {
   const {t} = useTranslation();
@@ -87,7 +88,7 @@ export function DeleteAccountScreen({navigation}: NativeStackScreenProps<RootSta
   // what's actually validated, in any language.
   const confirmWord = t('dataPrivacy.deleteAccount.confirmWord');
   const remove = async () => {
-    if (value.trim().toUpperCase() !== confirmWord.toUpperCase()) {
+    if (foldForConfirmation(value) !== foldForConfirmation(confirmWord)) {
       setError(t('dataPrivacy.deleteAccount.confirmError'));
       return;
     }
