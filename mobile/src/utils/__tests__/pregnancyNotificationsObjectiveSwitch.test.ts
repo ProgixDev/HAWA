@@ -17,10 +17,21 @@ import {getPregnancyMedicalEvents, savePregnancyMedicalEvent} from '../../state/
 // 'pregnancy': cancelled when she leaves it (Postpartum, Loss, Cycle, ...),
 // rescheduled from the SAVED state when she comes back. Saved data is never
 // deleted.
-jest.mock('../../services/pregnancyNotifications', () => ({
-  scheduleLocalNotification: jest.fn(),
-  cancelLocalNotification: jest.fn(),
-}));
+jest.mock('../../services/pregnancyNotifications', () => {
+  const mockBooleanSchedule = jest.fn();
+  return {
+    scheduleLocalNotification: mockBooleanSchedule,
+    // The appointment/exam reminder schedules through the detailed variant; it delegates to the same jest.fn so
+    // every assertion below (made on scheduleLocalNotification) keeps covering that path.
+    scheduleLocalNotificationWithResult: async (input: {fireDate: Date}) => {
+      const scheduled = await mockBooleanSchedule(input);
+      return scheduled === false
+        ? {scheduled: false, reason: 'past', fireDate: input.fireDate}
+        : {scheduled: true, fireDate: input.fireDate};
+    },
+    cancelLocalNotification: jest.fn(),
+  };
+});
 
 const mockSchedule = scheduleLocalNotification as jest.Mock;
 const mockCancel = cancelLocalNotification as jest.Mock;

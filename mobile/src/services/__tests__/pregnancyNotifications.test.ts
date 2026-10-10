@@ -23,6 +23,7 @@ jest.mock('@notifee/react-native', () => ({
     createTriggerNotification: jest.fn().mockResolvedValue(undefined),
     cancelTriggerNotification: jest.fn().mockResolvedValue(undefined),
     cancelNotification: jest.fn().mockResolvedValue(undefined),
+    cancelDisplayedNotification: jest.fn().mockResolvedValue(undefined),
   },
   AlarmType: {SET: 0, SET_AND_ALLOW_WHILE_IDLE: 1, SET_EXACT: 2, SET_EXACT_AND_ALLOW_WHILE_IDLE: 3, SET_ALARM_CLOCK: 4},
   AndroidImportance: {HIGH: 4},
@@ -258,17 +259,31 @@ describe('cancelLocalNotification', () => {
     await expect(cancelLocalNotification('missing-id')).resolves.toBe(false);
   });
 
-  it('reports a clean cancellation as true and always tries BOTH native calls, only for that id', async () => {
+  it('cancels only the PENDING trigger by default — a reminder already on screen is never dismissed by a sync', async () => {
     (notifee.cancelTriggerNotification as jest.Mock).mockClear();
     (notifee.cancelNotification as jest.Mock).mockClear();
+    (notifee.cancelDisplayedNotification as jest.Mock).mockClear();
     await expect(cancelLocalNotification('some-id')).resolves.toBe(true);
     expect(notifee.cancelTriggerNotification).toHaveBeenCalledWith('some-id');
-    expect(notifee.cancelNotification).toHaveBeenCalledWith('some-id');
+    // notifee.cancelNotification removes DISPLAYED notifications as well, so it is never used here.
+    expect(notifee.cancelNotification).not.toHaveBeenCalled();
+    expect(notifee.cancelDisplayedNotification).not.toHaveBeenCalled();
+  });
 
-    // one failing call is still reported, and the other one is still attempted
-    (notifee.cancelTriggerNotification as jest.Mock).mockRejectedValueOnce(new Error('native'));
+  it('removes the copy already in the shade only when asked (the user deleted the reminder)', async () => {
+    (notifee.cancelTriggerNotification as jest.Mock).mockClear();
     (notifee.cancelNotification as jest.Mock).mockClear();
-    await expect(cancelLocalNotification('other-id')).resolves.toBe(false);
-    expect(notifee.cancelNotification).toHaveBeenCalledWith('other-id');
+    (notifee.cancelDisplayedNotification as jest.Mock).mockClear();
+    await expect(cancelLocalNotification('gone-id', {dismissDisplayed: true})).resolves.toBe(true);
+    expect(notifee.cancelTriggerNotification).toHaveBeenCalledWith('gone-id');
+    expect(notifee.cancelDisplayedNotification).toHaveBeenCalledWith('gone-id');
+    expect(notifee.cancelNotification).not.toHaveBeenCalled();
+  });
+
+  it('reports a failed native cancellation as false, and still attempts the displayed one when asked', async () => {
+    (notifee.cancelTriggerNotification as jest.Mock).mockRejectedValueOnce(new Error('native'));
+    (notifee.cancelDisplayedNotification as jest.Mock).mockClear();
+    await expect(cancelLocalNotification('other-id', {dismissDisplayed: true})).resolves.toBe(false);
+    expect(notifee.cancelDisplayedNotification).toHaveBeenCalledWith('other-id');
   });
 });
