@@ -49,6 +49,7 @@ import {
   type IrregularJournalRouteCategory,
 } from '../state/irregularJournalStore';
 import {saveJournalSection} from '../state/dailyJournalStore';
+import {presentSaveFailure} from '../services/saveFailure';
 import type {FlowIntensity} from '../types/journal';
 import {computeWeightVariation} from '../utils/irregularDailyTrackingMath';
 import {getIrregularFatigueSymptoms} from '../utils/irregularJournalSelectors';
@@ -856,6 +857,9 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
         t('irregularJournalEntry.toastMessage'),
         navigation.goBack,
       );
+    } catch (saveError) {
+      // Not persisted: no success toast, no navigation, the form keeps what was entered (see services/saveFailure.ts).
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

@@ -37,6 +37,7 @@ import {
 import {IRREGULAR_JOURNAL_ITEMS} from '../../config/irregularJournalConfig';
 import {computeIrregularDailyProgress} from '../../utils/irregularDailyTrackingMath';
 import {classifyIrregularPeriodDay} from '../../utils/irregularJournalSelectors';
+import {displayUpperCase} from '../../utils/textCase';
 import '../../i18n';
 
 // The SOPK Daily Journal's full-screen overview — reached from
@@ -190,7 +191,7 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
                 <Text style={styles.progressBadgeValue}>
                   {progress.completed} / {progress.total}
                 </Text>
-                <Text style={styles.progressBadgeLabel}>{t('irregularJournalOverview.completedLabel')}</Text>
+                <Text style={styles.progressBadgeLabel}>{displayUpperCase(t('irregularJournalOverview.completedLabel'))}</Text>
               </View>
             </View>
 
