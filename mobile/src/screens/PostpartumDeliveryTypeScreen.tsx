@@ -27,6 +27,7 @@ import {
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import '../i18n';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -203,6 +204,8 @@ function PostpartumDeliveryTypeScreen({
       }
 
       navigation.navigate('PostpartumFeeding');
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

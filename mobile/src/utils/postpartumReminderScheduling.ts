@@ -2,6 +2,7 @@ import {cancelLocalNotification, scheduleLocalNotification} from '../services/pr
 import {nextDailyFireDate} from './pregnancyReminderScheduling';
 import {getActiveObjective} from '../state/onboardingPreferences';
 import {getPostpartumPreferences} from '../state/postpartumPreferences';
+import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
 import i18n from '../i18n';
 
 // Post-partum's optional "Suivi quotidien" reminder — a separate, user-
@@ -34,6 +35,10 @@ export const POSTPARTUM_DAILY_TRACKING_NOTIFICATION_KIND = 'postpartum-daily-tra
  * preferences change. Never reads or writes postpartumNifasReminderStore.ts —
  * the two reminder systems are fully independent. */
 export async function syncPostpartumDailyTrackingReminder(): Promise<void> {
+  // Unreadable preferences are not "reminder off": the existing reminder is left untouched.
+  if (areReminderSourcesUnavailable({ownerBases: ['@hawa/postpartum-preferences/v1']})) {
+    return;
+  }
   const active = getActiveObjective() === 'postpartum';
   const preferences = getPostpartumPreferences();
 

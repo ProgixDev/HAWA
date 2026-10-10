@@ -1,5 +1,5 @@
 import React from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import ReactTestRenderer, {act} from 'react-test-renderer';
 import {Text} from 'react-native';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
@@ -151,7 +151,7 @@ describe('PostpartumDeliveryDate (edit) - previous journey values do not constra
 
     expect(getPostpartumLochiaTracking().endedDate).toBe('2026-02-05');
     // Stored, though not reported as this journey's.
-    const raw = JSON.parse((await AsyncStorage.getItem('@hawa/postpartum-preferences/v1')) as string);
+    const raw = JSON.parse((await readStoredString('@hawa/postpartum-preferences/v1')) as string);
     expect(raw.firstPostpartumPeriodDate).toBe('2026-02-20');
     expect(raw.deliveryType).toBe('vaginal');
   });

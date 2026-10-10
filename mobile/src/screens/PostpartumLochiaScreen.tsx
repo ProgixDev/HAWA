@@ -47,6 +47,8 @@ import { PostpartumConsistencyModal } from '../components/postpartum/PostpartumC
 import InlineCalendarPickerModal from '../components/onboarding/InlineCalendarPickerModal';
 import i18n from '../i18n';
 import { journalOptionLabel } from '../utils/journalOptionLabels';
+import {displayTitleCase} from '../utils/textCase';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostpartumLochia'>;
 
@@ -176,14 +178,20 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
     [deliveryDate, entries, tracking],
   );
 
-  const save = () => {
-    savePostpartumLochiaEntry(todayKey, {
-      flow,
-      color,
-      consistency,
-      symptoms,
-      note: note.trim() || undefined,
-    });
+  const save = async () => {
+    try {
+      await savePostpartumLochiaEntry(todayKey, {
+        flow,
+        color,
+        consistency,
+        symptoms,
+        note: note.trim() || undefined,
+      });
+    } catch (saveError) {
+      // Not persisted: no confirmation, the form keeps what was entered (see services/saveFailure.ts).
+      presentSaveFailure(saveError);
+      return;
+    }
     setSaveConfirmationVisible(true);
   };
 
@@ -209,7 +217,12 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
       setEndDateError(check.message);
       return false;
     }
-    await markPostpartumLochiaEnded(date.toLocaleDateString('en-CA'));
+    try {
+      await markPostpartumLochiaEnded(date.toLocaleDateString('en-CA'));
+    } catch (saveError) {
+      presentSaveFailure(saveError);
+      return false;
+    }
     return true;
   };
 
@@ -260,7 +273,11 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
 
   const confirmReopenTracking = async () => {
     setReopenModalVisible(false);
-    await reopenPostpartumLochiaTracking();
+    try {
+      await reopenPostpartumLochiaTracking();
+    } catch (saveError) {
+      presentSaveFailure(saveError);
+    }
   };
 
   const todayLabel = useMemo(
@@ -377,7 +394,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
             <View style={styles.dateCard}>
               <View>
                 <Text style={styles.dateEyebrow}>{t('postpartumLochia.date.eyebrow')}</Text>
-                <Text style={styles.dateText}>{todayLabel}</Text>
+                <Text style={styles.dateText}>{displayTitleCase(todayLabel)}</Text>
               </View>
               <View style={styles.calendarIcon}>
                 <MaterialDesignIcons
@@ -703,7 +720,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               </Text>
 
               <Text style={styles.confirmText}>
-                {t('postpartumLochia.finishModal.textBefore')} <Text style={styles.confirmDate}>{endDateLabel}</Text> {t('postpartumLochia.finishModal.textAfter')}
+                {t('postpartumLochia.finishModal.textBefore')} <Text style={styles.confirmDate}>{displayTitleCase(endDateLabel)}</Text> {t('postpartumLochia.finishModal.textAfter')}
               </Text>
 
               <Pressable

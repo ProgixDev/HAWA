@@ -27,6 +27,7 @@ import {
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import '../i18n';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostpartumFeeding'>;
 
@@ -163,6 +164,8 @@ function PostpartumFeedingScreen({navigation, route}: Props): React.JSX.Element 
       } else {
         navigation.navigate('PostpartumReminders');
       }
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

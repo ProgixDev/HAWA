@@ -51,6 +51,7 @@ import {
 
 import { diffDays, formatFullDate, startOfDay } from '../utils/cycleMath';
 import '../i18n';
+import {presentSaveFailure} from '../services/saveFailure';
 
 /* ============================================================
    TYPES
@@ -351,6 +352,8 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
     setSaving(true);
     try {
       await clearFirstPostpartumPeriod();
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }
@@ -383,6 +386,8 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
 
     try {
       await recordFirstPostpartumPeriod(date);
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }
