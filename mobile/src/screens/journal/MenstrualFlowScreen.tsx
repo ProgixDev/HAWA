@@ -24,7 +24,8 @@ import {getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore
 import {presentSaveFailure} from '../../services/saveFailure';
 import {getCyclePreferences, getPeriodEndDateTime, hydratePeriodEndDateTime} from '../../state/onboardingPreferences';
 import type {FlowIntensity} from '../../types/journal';
-import {dateFormatLocale, formatFullDate} from '../../utils/cycleMath';
+import {formatFullDate} from '../../utils/cycleMath';
+import {formatTimeOfDay} from '../../utils/timeOfDay';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {isCurrentlyMenstruating} from '../../utils/menstruationStatus';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -175,7 +176,8 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
   const periodStartLabel = useMemo(() => {
     const start = cyclePreferences.lastPeriodStart;
     const hasTime = start.getHours() !== 0 || start.getMinutes() !== 0;
-    const timeLabel = new Intl.DateTimeFormat(dateFormatLocale(), {hour: '2-digit', minute: '2-digit', hour12: false}).format(start);
+    // 24-hour 'HH:mm', locale-independent: Intl with hour12:false writes 00:30 as "24:30" under en-US.
+    const timeLabel = formatTimeOfDay(start);
     return hasTime ? t('journalMenstrualFlow.dateAtTime', {date: formatFullDate(start), time: timeLabel}) : formatFullDate(start);
   }, [cyclePreferences, t]);
 

@@ -1,5 +1,5 @@
 import {randomBytes} from '@noble/ciphers/utils.js';
-import {getOrCreateAesKey} from '../secureAesKeyStore';
+import {getOrCreateAesKey, requireExistingAesKey} from '../secureAesKeyStore';
 import {encryptNoteSection, withResolvedNoteForDisplay} from '../privateNotesEncryption';
 import type {DailyJournalEntry} from '../../types/journal';
 
@@ -8,12 +8,16 @@ import type {DailyJournalEntry} from '../../types/journal';
 // @noble/ciphers encrypt/decrypt round-trip (pure JS) still runs for real,
 // exactly like the app does, only the Keychain-backed key retrieval itself
 // is faked.
-jest.mock('../secureAesKeyStore', () => ({getOrCreateAesKey: jest.fn()}));
+jest.mock('../secureAesKeyStore', () => ({getOrCreateAesKey: jest.fn(), requireExistingAesKey: jest.fn()}));
 
 const mockGetOrCreateAesKey = getOrCreateAesKey as jest.Mock;
+const mockRequireExistingAesKey = requireExistingAesKey as jest.Mock;
 
 beforeEach(() => {
-  mockGetOrCreateAesKey.mockResolvedValue(randomBytes(32));
+  // Encrypting creates-or-reads the key; decrypting only ever READS it (it never creates one) — the same key.
+  const key = randomBytes(32);
+  mockGetOrCreateAesKey.mockResolvedValue(key);
+  mockRequireExistingAesKey.mockResolvedValue(key);
 });
 
 describe('withResolvedNoteForDisplay — Cycle Dashboard "Suivi du jour" completion', () => {

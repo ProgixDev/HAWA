@@ -27,6 +27,7 @@ import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {dateFormatLocale} from '../../utils/cycleMath';
+import {dateAtTimeOfDay, formatTimeOfDay, parseTimeOfDay} from '../../utils/timeOfDay';
 import '../../i18n';
 import {
   deleteJournalSection,
@@ -125,19 +126,19 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
 
       setUnit(current.unit);
 
-      setTime(current.time ?? '');
+      // A time an earlier build stored as "24:30" (00:30, written under en-US) is shown — and saved back — as
+      // 00:30; an unreadable one is kept as it was.
+      const parsed =
+        current.time ? parseTimeToDate(current.time) : null;
+
+      setTime(parsed ? formatTime(parsed) : current.time ?? '');
 
       setMethod(current.method ?? 'Orale');
 
       setNote(current.note ?? '');
 
-      if (current.time) {
-        const parsed =
-          parseTimeToDate(current.time);
-
-        if (parsed) {
-          setTimePickerDate(parsed);
-        }
+      if (parsed) {
+        setTimePickerDate(parsed);
       }
     });
   }, [entryDateKey]);
@@ -687,56 +688,21 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
    HELPERS
 ============================================================ */
 
+// The measurement time is stored as 'HH:mm' (24-hour, zero-padded, locale-independent — see utils/timeOfDay.ts).
+// It used to come from Intl.DateTimeFormat, which writes 00:30 as "24:30" under en-US.
 function formatTime(date: Date): string {
-  return new Intl.DateTimeFormat(
-    dateFormatLocale(),
-    {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-    },
-  ).format(date);
+  return formatTimeOfDay(date);
 }
 
+// null for an empty / unreadable value. A stored "24:30" reads as 00:30 (the picker used to ignore it and show "now").
 function parseTimeToDate(
   time: string,
 ): Date | null {
-  if (!time) {
+  if (!time || parseTimeOfDay(time) === null) {
     return null;
   }
 
-  const match = time.match(
-    /^(\d{1,2}):(\d{2})$/,
-  );
-
-  if (!match) {
-    return null;
-  }
-
-  const hours = Number(match[1]);
-  const minutes = Number(match[2]);
-
-  if (
-    !Number.isInteger(hours) ||
-    !Number.isInteger(minutes) ||
-    hours < 0 ||
-    hours > 23 ||
-    minutes < 0 ||
-    minutes > 59
-  ) {
-    return null;
-  }
-
-  const date = new Date();
-
-  date.setHours(
-    hours,
-    minutes,
-    0,
-    0,
-  );
-
-  return date;
+  return dateAtTimeOfDay(new Date(), time);
 }
 
 /* ============================================================
