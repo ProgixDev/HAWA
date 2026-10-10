@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {
   getPostpartumJournalEntry,
   migrateLegacyPlainPostpartumMoodNotes,
@@ -31,7 +32,7 @@ describe('postpartumJournalStore — encryption at rest', () => {
     expect(entry?.mood).toBe('Fatiguée');
     expect(entry?.fatigue).toBe('Élevée');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-08-20'];
     expect(typeof persisted.moodNote).toBe('object');
     expect(persisted.moodNote.ciphertext).toBeDefined();
@@ -45,9 +46,9 @@ describe('postpartumJournalStore — encryption at rest', () => {
   });
 
   it('migration is a no-op when nothing is legacy plaintext', async () => {
-    const before = await AsyncStorage.getItem(STORAGE_KEY);
+    const before = await readStoredString(STORAGE_KEY);
     await migrateLegacyPlainPostpartumMoodNotes();
-    const after = await AsyncStorage.getItem(STORAGE_KEY);
+    const after = await readStoredString(STORAGE_KEY);
     expect(after).toBe(before);
   });
 
@@ -56,7 +57,7 @@ describe('postpartumJournalStore — encryption at rest', () => {
 
     expect(getPostpartumJournalEntry('2026-09-01')?.moodNote).toBe('Journée plus calme aujourd’hui');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-09-01'];
     expect(typeof persisted.moodNote).toBe('object');
     expect(JSON.stringify(persisted)).not.toContain('Journée plus calme');
@@ -64,7 +65,7 @@ describe('postpartumJournalStore — encryption at rest', () => {
 
   it('structured fields (mood, fatigue, sleep, pain, physicalRecovery) remain plaintext at rest', async () => {
     await savePostpartumJournalField('2026-09-02', 'mood', 'Sereine');
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-09-02'];
     expect(persisted.mood).toBe('Sereine');
   });

@@ -1,4 +1,5 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {commitOptimistic} from '../services/saveFailure';
 
 // Postpartum tracking configuration — created the moment a real pregnancy
 // delivery is confirmed (see confirmDelivery() below). Deliberately isolated
@@ -157,10 +158,15 @@ const movedAnswerMarkers = (
   feedingTypeForDelivery: stored.feedingTypeForDelivery === stored.deliveryDate ? newDelivery : stored.feedingTypeForDelivery,
 });
 
+// A refused/failed write REJECTS (see services/saveFailure.ts) and the in-memory value goes back to what it was.
 export const setPostpartumPreferences = async (value: PostpartumPreferences): Promise<void> => {
+  const previous = postpartumPreferences;
   postpartumPreferences = {...value};
   notifyListeners();
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(postpartumPreferences));
+  await commitOptimistic(previous, () => postpartumPreferences, restored => {
+    postpartumPreferences = restored;
+    notifyListeners();
+  }, () => AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(postpartumPreferences)));
 };
 
 /** THE single canonical way to record "delivery really happened on this
@@ -273,7 +279,7 @@ export const hydratePostpartumPreferences = (): Promise<PostpartumPreferences> =
     return Promise.resolve(getPostpartumPreferences());
   }
   if (!hydration) {
-    hydration = AsyncStorage.getItem(STORAGE_KEY)
+    hydration = readOwnedItem(STORAGE_KEY, hydratePostpartumPreferences)
       .then(raw => {
         hydrated = true;
         if (raw) {
@@ -285,7 +291,12 @@ export const hydratePostpartumPreferences = (): Promise<PostpartumPreferences> =
         }
         return getPostpartumPreferences();
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          hydration = null;
+          return getPostpartumPreferences();
+        }
         hydrated = true;
         return getPostpartumPreferences();
       });

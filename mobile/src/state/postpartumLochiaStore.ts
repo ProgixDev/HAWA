@@ -1,4 +1,6 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {migrateRecordSafely, sealField, sealMapFields} from '../services/legacyFieldMigration';
+import {commitOptimistic} from '../services/saveFailure';
 import {
   decryptFieldValue,
   encryptFieldValue,
@@ -111,20 +113,29 @@ async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Re
   return output;
 }
 
+// A refused/failed write REJECTS (see services/saveFailure.ts) and the in-memory state goes back to what it was.
 const persist = async () => {
-  try {
-    const serializableEntries: Record<string, unknown> = {};
-    for (const [date, entry] of Object.entries(entries)) {
-      serializableEntries[date] = await encryptEntryForStorage(entry);
-    }
-    await AsyncStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({entries: serializableEntries, tracking}),
-    );
-  } catch {
-    // never throw out of a save action
+  const serializableEntries: Record<string, unknown> = {};
+  for (const [date, entry] of Object.entries(entries)) {
+    serializableEntries[date] = await encryptEntryForStorage(entry);
   }
+  await AsyncStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify({entries: serializableEntries, tracking}),
+  );
 };
+
+const commitEntries = (previous: EntriesByDate): Promise<void> =>
+  commitOptimistic(previous, () => entries, restored => {
+    entries = restored;
+    notifyListeners();
+  }, persist);
+
+const commitTracking = (previous: PostpartumLochiaTracking): Promise<void> =>
+  commitOptimistic(previous, () => tracking, restored => {
+    tracking = restored;
+    notifyListeners();
+  }, persist);
 
 export const getPostpartumLochiaEntry = (
   date: string,
@@ -146,21 +157,24 @@ export async function savePostpartumLochiaEntry(
   date: string,
   entry: Omit<PostpartumLochiaEntry, 'date'>,
 ): Promise<void> {
+  const previous = entries;
   entries = { ...entries, [date]: { ...entry, date } };
   notifyListeners();
-  await persist();
+  await commitEntries(previous);
 }
 
 export async function markPostpartumLochiaEnded(date: string): Promise<void> {
+  const previous = tracking;
   tracking = { endedDate: date };
   notifyListeners();
-  await persist();
+  await commitTracking(previous);
 }
 
 export async function reopenPostpartumLochiaTracking(): Promise<void> {
+  const previous = tracking;
   tracking = { ...DEFAULT_TRACKING };
   notifyListeners();
-  await persist();
+  await commitTracking(previous);
 }
 
 export const hydratePostpartumLochia = (): Promise<EntriesByDate> => {
@@ -168,7 +182,7 @@ export const hydratePostpartumLochia = (): Promise<EntriesByDate> => {
     return Promise.resolve({ ...entries });
   }
   if (!hydration) {
-    hydration = AsyncStorage.getItem(STORAGE_KEY)
+    hydration = readOwnedItem(STORAGE_KEY, hydratePostpartumLochia)
       .then(async raw => {
         hydrated = true;
         if (raw) {
@@ -204,7 +218,12 @@ export const hydratePostpartumLochia = (): Promise<EntriesByDate> => {
         }
         return { ...entries };
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          hydration = null;
+          return { ...entries };
+        }
         hydrated = true;
         return { ...entries };
       });
@@ -220,26 +239,24 @@ export const subscribePostpartumLochia = (listener: () => void) => {
 };
 
 /**
- * Idempotent boot-time migration: re-saves any entry whose `note` is still
- * a plain string, encrypting it via the same at-rest scheme as every other
- * sensitive journal field. No-ops if no plaintext note is found (safe to
- * call on every app launch). Never touches `tracking`.
+ * Idempotent, interruption-safe boot-time migration of every entry's note saved as plain text before field-level
+ * encryption existed. Works on the PERSISTED record only (never on the store's memoised in-memory state): see
+ * services/legacyFieldMigration.ts. Unreadable/unavailable record -> nothing is written, the next launch retries.
  */
 export async function migrateLegacyPlainPostpartumLochiaNotes(): Promise<void> {
-  const raw = await AsyncStorage.getItem(STORAGE_KEY);
-  if (!raw) {return;}
-  const parsed: unknown = JSON.parse(raw);
-  if (!parsed || typeof parsed !== 'object') {return;}
-  const candidate = parsed as Record<string, unknown>;
-  const rawEntries =
-    candidate.entries && typeof candidate.entries === 'object'
-      ? (candidate.entries as Record<string, unknown>)
-      : candidate;
-  const hasLegacyPlainNote = Object.values(rawEntries).some(rawEntry => {
-    if (!rawEntry || typeof rawEntry !== 'object') {return false;}
-    return typeof (rawEntry as Record<string, unknown>).note === 'string';
+  const outcome = await migrateRecordSafely(STORAGE_KEY, async parsed => {
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {return null;}
+    const candidate = parsed as Record<string, unknown>;
+    const wrapped = !!candidate.entries && typeof candidate.entries === 'object';
+    const sealed = await sealMapFields(wrapped ? candidate.entries : candidate, ['note'], value =>
+      sealField(ENCRYPTION_SERVICE, value),
+    );
+    if (!sealed) {return null;}
+    // `tracking` (and any other metadata) is carried over untouched.
+    return wrapped ? {...candidate, entries: sealed} : sealed;
   });
-  if (!hasLegacyPlainNote) {return;}
-  await hydratePostpartumLochia();
-  await persist();
+  // Same observable behaviour as before: a store whose record was just migrated is loaded (read-only) afterwards.
+  if (outcome === 'migrated') {
+    await hydratePostpartumLochia();
+  }
 }

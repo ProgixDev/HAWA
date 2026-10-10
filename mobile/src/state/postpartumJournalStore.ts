@@ -1,4 +1,6 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {migrateRecordSafely, sealField, sealMapFields} from '../services/legacyFieldMigration';
+import {commitOptimistic} from '../services/saveFailure';
 
 import {
   decryptFieldValue,
@@ -106,17 +108,21 @@ async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Po
   return output as PostpartumJournalEntry;
 }
 
+// A refused/failed write REJECTS (see services/saveFailure.ts) and the in-memory entries go back to what they were, so
+// no screen keeps presenting an edit that was not persisted.
 const persist = async () => {
-  try {
-    const serializable: Record<string, unknown> = {};
-    for (const [date, entry] of Object.entries(entries)) {
-      serializable[date] = await encryptEntryForStorage(entry);
-    }
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
-  } catch {
-    // Never throw out of a save action — in-memory state is unaffected.
+  const serializable: Record<string, unknown> = {};
+  for (const [date, entry] of Object.entries(entries)) {
+    serializable[date] = await encryptEntryForStorage(entry);
   }
+  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
 };
+
+const commit = (previous: EntriesByDate): Promise<void> =>
+  commitOptimistic(previous, () => entries, restored => {
+    entries = restored;
+    notifyListeners();
+  }, persist);
 
 export const getPostpartumJournalEntry = (date: string): PostpartumJournalEntry | undefined =>
   entries[date] ? {...entries[date]} : undefined;
@@ -135,9 +141,10 @@ export async function savePostpartumJournalField<K extends Exclude<keyof Postpar
   category: K,
   value: NonNullable<PostpartumJournalEntry[K]>,
 ): Promise<void> {
+  const previous = entries;
   entries = {...entries, [date]: {...entries[date], date, [category]: value}};
   notifyListeners();
-  await persist();
+  await commit(previous);
 }
 
 /** Clears one Postpartum daily-tracking answer (and the secondary field that
@@ -161,9 +168,10 @@ export async function clearPostpartumJournalCategory(
   } else {
     remaining[date] = next;
   }
+  const previous = entries;
   entries = remaining;
   notifyListeners();
-  await persist();
+  await commit(previous);
 }
 
 /** Clears only the optional mood note of a day (the mood itself is kept) —
@@ -173,9 +181,10 @@ export async function clearPostpartumMoodNote(date: string): Promise<void> {
   if (!current || current.moodNote === undefined) {return;}
   const next = {...current};
   delete next.moodNote;
+  const previous = entries;
   entries = {...entries, [date]: next};
   notifyListeners();
-  await persist();
+  await commit(previous);
 }
 
 export const hydratePostpartumJournal = (): Promise<EntriesByDate> => {
@@ -183,7 +192,7 @@ export const hydratePostpartumJournal = (): Promise<EntriesByDate> => {
     return Promise.resolve({...entries});
   }
   if (!hydration) {
-    hydration = AsyncStorage.getItem(STORAGE_KEY)
+    hydration = readOwnedItem(STORAGE_KEY, hydratePostpartumJournal)
       .then(async raw => {
         hydrated = true;
         if (raw) {
@@ -201,7 +210,12 @@ export const hydratePostpartumJournal = (): Promise<EntriesByDate> => {
         }
         return {...entries};
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          hydration = null;
+          return {...entries};
+        }
         hydrated = true;
         return {...entries};
       });
@@ -214,27 +228,17 @@ export const subscribePostpartumJournal = (listener: () => void) => {
   return () => {listeners.delete(listener);};
 };
 
-/** One-shot, idempotent, crash-safe migration for every day's `moodNote`
- * ever saved before encryption-at-rest existed — called once at app boot
- * (App.tsx). Checks the RAW persisted JSON for a plaintext `moodNote` so an
- * already-migrated store skips past without re-encrypting on every boot.
- * See migrateLegacyPlainMiscarriageNotes() in miscarriageJournalStore.ts for
- * the identical reasoning. */
+/**
+ * Idempotent, interruption-safe boot-time migration of every day's moodNote saved as plain text before field-level
+ * encryption existed. Works on the PERSISTED record only (never on the store's memoised in-memory state): see
+ * services/legacyFieldMigration.ts. Unreadable/unavailable record -> nothing is written, the next launch retries.
+ */
 export async function migrateLegacyPlainPostpartumMoodNotes(): Promise<void> {
-  try {
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
-    if (!raw) {return;}
-    const parsed: unknown = JSON.parse(raw);
-    if (!parsed || typeof parsed !== 'object') {return;}
-    const hasLegacyPlaintext = Object.values(parsed as Record<string, unknown>).some(entry => {
-      if (!entry || typeof entry !== 'object') {return false;}
-      return SENSITIVE_FIELDS.some(field => typeof (entry as Record<string, unknown>)[field] === 'string');
-    });
-    if (!hasLegacyPlaintext) {return;}
-
+  const outcome = await migrateRecordSafely(STORAGE_KEY, parsed =>
+    sealMapFields(parsed, SENSITIVE_FIELDS, value => sealField(ENCRYPTION_SERVICE, value)),
+  );
+  // Same observable behaviour as before: a store whose record was just migrated is loaded (read-only) afterwards.
+  if (outcome === 'migrated') {
     await hydratePostpartumJournal();
-    await persist();
-  } catch {
-    // Never throw out of a boot-time migration — next launch retries.
   }
 }

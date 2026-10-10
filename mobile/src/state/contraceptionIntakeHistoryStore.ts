@@ -1,4 +1,5 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {commitOptimistic} from '../services/saveFailure';
 
 // Contraception's own single-daily-action tracking store — one record per
 // calendar day, kept separate from contraceptionPreferences.ts (onboarding
@@ -65,8 +66,15 @@ const isValidRecord = (value: unknown): value is ContraceptionIntakeRecord => {
   );
 };
 
+// A refused/failed write REJECTS (see services/saveFailure.ts) and the in-memory records go back to what they were.
 const persist = () =>
-  AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(entries)).catch(() => {});
+  AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+
+const commit = (previous: EntriesByDate): Promise<void> =>
+  commitOptimistic(previous, () => entries, restored => {
+    entries = restored;
+    notifyListeners();
+  }, persist);
 
 export const getContraceptionIntakeRecord = (
   date: string,
@@ -100,6 +108,7 @@ export async function setContraceptionIntakeStatus(
   status: ContraceptionIntakeStatus,
   method?: 'pill' | 'other',
 ): Promise<void> {
+  const previous = entries;
   entries = {
     ...entries,
     [date]: {
@@ -110,7 +119,7 @@ export async function setContraceptionIntakeStatus(
     },
   };
   notifyListeners();
-  await persist();
+  await commit(previous);
 }
 
 /** Removes one date's record entirely — distinct from correcting it to a
@@ -123,9 +132,10 @@ export async function deleteContraceptionIntakeRecord(date: string): Promise<voi
   }
   const next = {...entries};
   delete next[date];
+  const previous = entries;
   entries = next;
   notifyListeners();
-  await persist();
+  await commit(previous);
 }
 
 export const hydrateContraceptionIntakeHistory = (): Promise<EntriesByDate> => {
@@ -133,7 +143,7 @@ export const hydrateContraceptionIntakeHistory = (): Promise<EntriesByDate> => {
     return Promise.resolve({...entries});
   }
   if (!hydration) {
-    hydration = AsyncStorage.getItem(STORAGE_KEY)
+    hydration = readOwnedItem(STORAGE_KEY, hydrateContraceptionIntakeHistory)
       .then(raw => {
         hydrated = true;
         if (raw) {
@@ -153,7 +163,12 @@ export const hydrateContraceptionIntakeHistory = (): Promise<EntriesByDate> => {
         }
         return {...entries};
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          hydration = null;
+          return {...entries};
+        }
         hydrated = true;
         return {...entries};
       });

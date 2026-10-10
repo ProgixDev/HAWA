@@ -1,4 +1,5 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {commitOptimistic} from '../services/saveFailure';
 
 // Persisted scheduling state for the post-Ramadan Qadaa local notification —
 // mirrors postpartumNifasReminderStore.ts's shape/idioms. Kept strictly
@@ -55,9 +56,13 @@ export const getQadaaReminderNotificationState = (): QadaaReminderNotificationSt
 export const setQadaaReminderNotificationState = async (
   next: QadaaReminderNotificationState,
 ): Promise<void> => {
+  const previous = state;
   state = next;
   notifyListeners();
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  await commitOptimistic(previous, () => state, restored => {
+    state = restored;
+    notifyListeners();
+  }, () => AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(state)));
 };
 
 export const hydrateQadaaReminderNotificationState = (): Promise<QadaaReminderNotificationState> => {
@@ -68,7 +73,7 @@ export const hydrateQadaaReminderNotificationState = (): Promise<QadaaReminderNo
     return Promise.resolve(state);
   }
   if (!hydration) {
-    hydration = AsyncStorage.getItem(STORAGE_KEY)
+    hydration = readOwnedItem(STORAGE_KEY, hydrateQadaaReminderNotificationState)
       .then(raw => {
         hydrated = true;
         if (raw) {
@@ -80,7 +85,12 @@ export const hydrateQadaaReminderNotificationState = (): Promise<QadaaReminderNo
         }
         return state;
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          hydration = null;
+          return state;
+        }
         hydrated = true;
         return state;
       });

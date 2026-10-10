@@ -187,6 +187,69 @@ const notifyCycleListeners = () =>
 const persistCycle = () =>
   AsyncStorage.setItem(currentCycleStorageKey(), JSON.stringify(cycleSnapshot()));
 
+// A user edit of the cycle state mutates memory first (screens react at once) and persists afterwards. A refused or
+// failed write REJECTS (services/saveFailure.ts) and memory goes back to the last state storage is known to hold, so no
+// screen keeps presenting a period that was not recorded. Writes are serialized per key and each one carries the whole
+// snapshot: the rollback target is therefore the snapshot of the latest SUCCESSFUL write (or the state before the first
+// in-flight edit), and only the newest failing write rolls back — an older failure is covered by what follows.
+type CycleMemo = {
+  cyclePreferences: CyclePreferences;
+  periodHistory: PeriodHistoryRecord[];
+  hasConfirmedCycleData: boolean;
+  hasConfirmedCycleDuration: boolean;
+  cycleObservationStartedAt: Date | null;
+};
+const captureCycleState = (): CycleMemo => ({
+  cyclePreferences,
+  periodHistory,
+  hasConfirmedCycleData,
+  hasConfirmedCycleDuration,
+  cycleObservationStartedAt,
+});
+const restoreCycleState = (state: CycleMemo): void => {
+  cyclePreferences = state.cyclePreferences;
+  periodHistory = state.periodHistory;
+  hasConfirmedCycleData = state.hasConfirmedCycleData;
+  hasConfirmedCycleDuration = state.hasConfirmedCycleDuration;
+  cycleObservationStartedAt = state.cycleObservationStartedAt;
+  notifyCycleListeners();
+};
+let cycleWriteSeq = 0;
+let cycleWritesPending = 0;
+let cycleLastPersistedSeq = 0;
+let cycleLastPersisted: CycleMemo | null = null;
+
+/** `before` is the state captured BEFORE the edit mutated memory. */
+const persistCycleCommitted = (before: CycleMemo): Promise<void> => {
+  if (cycleWritesPending === 0) {cycleLastPersisted = before;}
+  cycleWritesPending += 1;
+  cycleWriteSeq += 1;
+  const seq = cycleWriteSeq;
+  const written = captureCycleState();
+  const profileId = getActiveProfileId();
+  const hydrationRequest = cycleHydrationRequest;
+  return persistWithRollback(
+    async () => {
+      try {
+        await persistCycle();
+        if (seq > cycleLastPersistedSeq) {
+          cycleLastPersistedSeq = seq;
+          cycleLastPersisted = written;
+        }
+      } finally {
+        cycleWritesPending -= 1;
+      }
+    },
+    () => {
+      // Only the newest write rolls back, and never over a profile switch / re-read that took the state over.
+      if (seq === cycleWriteSeq && cycleLastPersisted && getActiveProfileId() === profileId && hydrationRequest === cycleHydrationRequest) {
+        restoreCycleState(cycleLastPersisted);
+      }
+    },
+    {alertIfUnhandled: true},
+  );
+};
+
 const isObjectiveId = (value: unknown): value is ObjectiveId =>
   typeof value === 'string' && OBJECTIVE_IDS.includes(value as ObjectiveId);
 
@@ -196,10 +259,15 @@ const notifyObjectiveListeners = () =>
 export const getActiveObjective = (): ObjectiveId => activeObjective;
 
 export const setActiveObjective = async (value: ObjectiveId): Promise<void> => {
+  const previous = activeObjective;
   objectiveRevision += 1;
   activeObjective = value;
   notifyObjectiveListeners();
-  await AsyncStorage.setItem(OBJECTIVE_STORAGE_KEY, value);
+  await commitOptimistic(previous, () => activeObjective, restored => {
+    objectiveRevision += 1;
+    activeObjective = restored;
+    notifyObjectiveListeners();
+  }, () => AsyncStorage.setItem(OBJECTIVE_STORAGE_KEY, value));
 };
 
 export const hydrateActiveObjective = (): Promise<ObjectiveId> => {
@@ -208,7 +276,7 @@ export const hydrateActiveObjective = (): Promise<ObjectiveId> => {
   }
   if (!objectiveHydration) {
     const hydrationRevision = objectiveRevision;
-    objectiveHydration = AsyncStorage.getItem(OBJECTIVE_STORAGE_KEY)
+    objectiveHydration = readOwnedItem(OBJECTIVE_STORAGE_KEY, hydrateActiveObjective)
       .then(stored => {
         objectiveHydrated = true;
         if (hydrationRevision === objectiveRevision && isObjectiveId(stored)) {
@@ -217,7 +285,12 @@ export const hydrateActiveObjective = (): Promise<ObjectiveId> => {
         }
         return activeObjective;
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          objectiveHydration = null;
+          return activeObjective;
+        }
         objectiveHydrated = true;
         return activeObjective;
       });
@@ -267,12 +340,17 @@ const onboardingCompletedListeners = new Set<() => void>();
  * Never call this merely because a screen was opened, an objective was
  * picked, or a step was skipped/cancelled — only on true, final success. */
 export const setHasCompletedOnboarding = (value: boolean): Promise<void> => {
+  const previous = hasCompletedOnboarding;
   hasCompletedOnboarding = value;
   onboardingCompletedHydrated = true;
   onboardingCompletedListeners.forEach(listener => listener());
-  return value
-    ? AsyncStorage.setItem(ONBOARDING_COMPLETED_STORAGE_KEY, 'true').catch(() => {})
-    : AsyncStorage.removeItem(ONBOARDING_COMPLETED_STORAGE_KEY).catch(() => {});
+  // A failed write rejects and puts the previous flag back (services/saveFailure.ts); the promise is pre-handled.
+  return commitOptimistic(previous, () => hasCompletedOnboarding, restored => {
+    hasCompletedOnboarding = restored;
+    onboardingCompletedListeners.forEach(listener => listener());
+  }, () => (value
+    ? AsyncStorage.setItem(ONBOARDING_COMPLETED_STORAGE_KEY, 'true')
+    : AsyncStorage.removeItem(ONBOARDING_COMPLETED_STORAGE_KEY)));
 };
 
 /** Synchronous read of the last-hydrated value — callers that can await
@@ -313,14 +391,22 @@ export const subscribeHasCompletedOnboarding = (listener: () => void) => {
  * explicitly tapped one of the two options) and ProfileScreen.tsx's Settings
  * toggle. Marks the choice as confirmed so onboarding never mistakes the
  * internal default for a deliberate answer again. */
-export const setSpiritualMarkersEnabled = (value: boolean) => {
+export const setSpiritualMarkersEnabled = (value: boolean): Promise<void> => {
+  const previous = {enabled: spiritualMarkersEnabled, confirmed: hasConfirmedSpiritualMarkersChoice};
   spiritualMarkersEnabled = value;
   hasConfirmedSpiritualMarkersChoice = true;
   spiritualMarkersListeners.forEach(listener => listener());
-  AsyncStorage.setItem(
+  // A failed write rejects (pre-handled promise) and the previous choice comes back (services/saveFailure.ts).
+  return persistWithRollback(() => AsyncStorage.setItem(
     SPIRITUAL_MARKERS_STORAGE_KEY,
     value ? 'true' : 'false',
-  ).catch(() => {});
+  ), () => {
+    if (spiritualMarkersEnabled === value) {
+      spiritualMarkersEnabled = previous.enabled;
+      hasConfirmedSpiritualMarkersChoice = previous.confirmed;
+      spiritualMarkersListeners.forEach(listener => listener());
+    }
+  }, {alertIfUnhandled: true});
 };
 
 export const getSpiritualMarkersEnabled = () => spiritualMarkersEnabled;
@@ -383,10 +469,15 @@ const isValidHijriAdjustment = (value: number): value is HijriAdjustmentDays =>
  * Dhoul Hijja classification, Qadaa, the post-Ramadan reminder, and every
  * displayed Hijri date can never disagree with each other.
  */
-export const setHijriAdjustmentDays = (value: HijriAdjustmentDays) => {
+export const setHijriAdjustmentDays = (value: HijriAdjustmentDays): Promise<void> => {
+  const previous = hijriAdjustmentDays;
   hijriAdjustmentDays = value;
   hijriAdjustmentListeners.forEach(listener => listener());
-  AsyncStorage.setItem(HIJRI_ADJUSTMENT_STORAGE_KEY, String(value)).catch(() => {});
+  // A failed write rejects (pre-handled promise) and the previous adjustment comes back (services/saveFailure.ts).
+  return commitOptimistic(previous, () => hijriAdjustmentDays, restored => {
+    hijriAdjustmentDays = restored;
+    hijriAdjustmentListeners.forEach(listener => listener());
+  }, () => AsyncStorage.setItem(HIJRI_ADJUSTMENT_STORAGE_KEY, String(value)), {alertIfUnhandled: true});
 };
 
 export const getHijriAdjustmentDays = (): HijriAdjustmentDays => hijriAdjustmentDays;
@@ -438,12 +529,16 @@ const notifyLocationListeners = () => {
 };
 
 export const setSelectedLocation = async (value: OnboardingLocation) => {
+  const previous = selectedLocation;
   selectedLocation = { ...value };
   notifyLocationListeners();
-  await AsyncStorage.setItem(
+  await commitOptimistic(previous, () => selectedLocation, restored => {
+    selectedLocation = restored;
+    notifyLocationListeners();
+  }, () => AsyncStorage.setItem(
     LOCATION_STORAGE_KEY,
     JSON.stringify(selectedLocation),
-  );
+  ));
 };
 
 export const getSelectedLocation = (): OnboardingLocation | null =>
@@ -461,7 +556,7 @@ export const hydrateSelectedLocation =
       return Promise.resolve(getSelectedLocation());
     }
     if (!locationHydration) {
-      locationHydration = AsyncStorage.getItem(LOCATION_STORAGE_KEY)
+      locationHydration = readOwnedItem(LOCATION_STORAGE_KEY, hydrateSelectedLocation)
         .then(raw => {
           locationHydrated = true;
           if (!raw) {
@@ -474,7 +569,12 @@ export const hydrateSelectedLocation =
           }
           return getSelectedLocation();
         })
-        .catch(() => {
+        .catch(error => {
+          if (isStructuredUnavailableError(error)) {
+            // not latched: a later hydrate (or "Try again") re-reads the real record
+            locationHydration = null;
+            return getSelectedLocation();
+          }
           locationHydrated = true;
           return getSelectedLocation();
         });
@@ -499,7 +599,8 @@ export const resetSelectedLocationForTests = async (): Promise<void> => {
   locationHydrated = false;
   locationHydration = null;
   notifyLocationListeners();
-  await AsyncStorage.removeItem(LOCATION_STORAGE_KEY).catch(() => {});
+  // Test-only reset: there is nothing to roll back and nobody to tell.
+  await AsyncStorage.removeItem(LOCATION_STORAGE_KEY).catch(markSaveFailureHandled);
 };
 
 // Mirrors personalInformationStore's real preferredName/firstName, including
@@ -588,7 +689,8 @@ const clearStalePeriodEnd = (previousLastPeriodStart: Date): void => {
   }
 };
 
-export const setCyclePreferences = (value: CyclePreferences) => {
+export const setCyclePreferences = (value: CyclePreferences): Promise<void> => {
+  const before = captureCycleState();
   const previousLastPeriodStart = cyclePreferences.lastPeriodStart;
   const previousDuration = cyclePreferences.periodDuration;
   const previousRegularity = cyclePreferences.regularity;
@@ -643,7 +745,7 @@ export const setCyclePreferences = (value: CyclePreferences) => {
       : sortHistory([...others, {id: declaredKey, startDate: declaredKey, endDate: end}]);
   }
   notifyCycleListeners();
-  persistCycle().catch(() => {});
+  const committed = persistCycleCommitted(before);
 
   // A genuinely new period start supersedes any previously confirmed
   // periodEndDateTime that belongs to an earlier period. Without this, a
@@ -653,6 +755,7 @@ export const setCyclePreferences = (value: CyclePreferences) => {
   // forward past the old confirmed end, so editing the *same* period's
   // start (e.g. correcting a typo) doesn't wipe a same-period confirmation.
   clearStalePeriodEnd(previousLastPeriodStart);
+  return committed;
 };
 
 /** Records a period start the user declares: a NEW period, or a HISTORICAL
@@ -665,13 +768,14 @@ export const setCyclePreferences = (value: CyclePreferences) => {
  * - The new record's end is the habitual projection, clamped so it can never
  *   run into the next recorded period. No confirmed end is invented.
  * periodDuration/cycleDuration/regularity are left exactly as configured. */
-export const addPeriodOccurrence = (date: Date): void => {
+export const addPeriodOccurrence = (date: Date): Promise<void> => {
+  const before = captureCycleState();
   const startKey = cycleDateKey(date);
   const previousLastPeriodStart = cyclePreferences.lastPeriodStart;
   const latestKey = latestRealStartKey();
   const base = realHistory();
   if (base.some(record => record.startDate <= startKey && startKey <= record.endDate)) {
-    return;
+    return Promise.resolve();
   }
   const next = base.filter(record => record.startDate > startKey).sort((a, b) => a.startDate.localeCompare(b.startDate))[0];
   let endKey = projectedEndKey(startKey, cyclePreferences.periodDuration);
@@ -691,8 +795,9 @@ export const addPeriodOccurrence = (date: Date): void => {
     cyclePreferences = {...cyclePreferences, lastPeriodStart: keyToDate(latestKey)};
   }
   notifyCycleListeners();
-  persistCycle().catch(() => {});
+  const committed = persistCycleCommitted(before);
   clearStalePeriodEnd(previousLastPeriodStart);
+  return committed;
 };
 
 /** THE canonical way to record "my period really started on this date" — used
@@ -702,9 +807,7 @@ export const addPeriodOccurrence = (date: Date): void => {
  * Any date/late status/irregular window derived from `lastPeriodStart`
  * recomputes automatically the next time it's read — nothing here needs to
  * reset a "late" flag or a stale prediction, because none is ever cached. */
-export const confirmPeriodStart = (date: Date): void => {
-  addPeriodOccurrence(date);
-};
+export const confirmPeriodStart = (date: Date): Promise<void> => addPeriodOccurrence(date);
 
 /** Records a REAL first-ever period start together with an explicit
  * regularity, WITHOUT marking periodDuration/cycleDuration as user-confirmed
@@ -719,7 +822,8 @@ export const confirmPeriodStart = (date: Date): void => {
  * — an internal computation basis only (cycleDayFor/phaseFor need SOMETHING
  * to divide by while regularity stays 'unknown'/'observing'), never surfaced
  * to the mother as if she confirmed them. */
-export const recordFirstEverPeriod = (date: Date, regularity: CycleRegularity): void => {
+export const recordFirstEverPeriod = (date: Date, regularity: CycleRegularity): Promise<void> => {
+  const before = captureCycleState();
   const previousRegularity = cyclePreferences.regularity;
   addPeriodOccurrence(date);
   cyclePreferences = {...cyclePreferences, regularity};
@@ -729,7 +833,7 @@ export const recordFirstEverPeriod = (date: Date, regularity: CycleRegularity): 
     cycleObservationStartedAt = new Date(cyclePreferences.lastPeriodStart);
   }
   notifyCycleListeners();
-  persistCycle().catch(() => {});
+  return persistCycleCommitted(before);
 };
 
 export const getCyclePreferences = (): CyclePreferences => ({
@@ -916,7 +1020,9 @@ export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
         }
         notifyCycleListeners();
         if (migratedFromUnflaggedRecord) {
-          persistCycle().catch(() => {});
+          // Derived migration write (the flag is re-derived at every load): not a user edit, so a failure is not
+          // reported — it is simply retried by the next load.
+          persistCycle().catch(markSaveFailureHandled);
         }
         return getCyclePreferences();
       })
@@ -987,6 +1093,7 @@ export const correctPeriodOccurrence = async (
   if (newEnd && cycleDateKey(newEnd) < newKey) {
     throw new Error('INVALID_RANGE');
   }
+  const before = captureCycleState();
   const previousLastPeriodStart = cyclePreferences.lastPeriodStart;
   const base = realHistory();
   const old = base.find(item => item.id === oldKey);
@@ -1017,9 +1124,15 @@ export const correctPeriodOccurrence = async (
     cycleDateKey(previousLastPeriodStart) === oldKey &&
     cycleDateKey(scalarEnd) !== endKey
   ) {
-    await setPeriodEndDateTime(null);
+    try {
+      await setPeriodEndDateTime(null);
+    } catch (error) {
+      // The corrected range was not recorded: memory must not keep presenting it.
+      restoreCycleState(before);
+      throw error;
+    }
   }
-  await persistCycle();
+  await persistCycleCommitted(before);
 
   // The confirmed (qadaa) occurrence recorded for the OLD range no longer
   // describes this period once its start moved or its end changed.
@@ -1066,16 +1179,17 @@ const notifyPeriodEndListeners = () => {
 export const setPeriodEndDateTime = async (
   value: Date | null,
 ): Promise<void> => {
+  const previous = periodEndDateTime;
   periodEndDateTime = value ? new Date(value) : null;
   notifyPeriodEndListeners();
-  if (periodEndDateTime) {
-    await AsyncStorage.setItem(
-      currentPeriodEndStorageKey(),
-      periodEndDateTime.toISOString(),
-    );
-  } else {
-    await AsyncStorage.removeItem(currentPeriodEndStorageKey());
-  }
+  const storageKey = currentPeriodEndStorageKey();
+  const optimisticEnd = periodEndDateTime;
+  await commitOptimistic(previous, () => periodEndDateTime, restored => {
+    periodEndDateTime = restored;
+    notifyPeriodEndListeners();
+  }, () => (optimisticEnd
+    ? AsyncStorage.setItem(storageKey, optimisticEnd.toISOString())
+    : AsyncStorage.removeItem(storageKey)));
 };
 
 export const getPeriodEndDateTime = (): Date | null =>
@@ -1114,6 +1228,8 @@ export const hydratePeriodEndDateTime = (): Promise<Date | null> => {
     .catch(() => {
       periodEndHydrated = true;
       periodEndHydratedForProfileId = profileId;
+      // Unreadable record: no confirmed end, never the previously active profile's.
+      periodEndDateTime = null;
       return getPeriodEndDateTime();
     });
   return periodEndHydration;
@@ -1133,7 +1249,8 @@ export const subscribePeriodEndDateTime = (listener: () => void) => {
   };
 };
 
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {commitOptimistic, markSaveFailureHandled, persistWithRollback} from '../services/saveFailure';
 import {
   getConfirmedPeriodHistory,
   removeConfirmedPeriodOccurrence,
@@ -1161,7 +1278,8 @@ subscribeConfirmedPeriodEndRecorded(occurrence => {
     endKey = keyPlusDays(next.startDate, -1);
   }
   if (record.endDate === endKey) {return;}
+  const before = captureCycleState();
   periodHistory = periodHistory.map(item => (item.id === record.id ? {...item, endDate: endKey} : item));
   notifyCycleListeners();
-  persistCycle().catch(() => {});
+  persistCycleCommitted(before);
 });

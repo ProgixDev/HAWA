@@ -1,4 +1,6 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {migrateRecordSafely, sealField, sealMapFields} from '../services/legacyFieldMigration';
+import {commitOptimistic} from '../services/saveFailure';
 import {
   decryptFieldValue,
   encryptFieldValue,
@@ -75,17 +77,20 @@ async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Re
   return output;
 }
 
+// A refused/failed write REJECTS (see services/saveFailure.ts) and the in-memory entries go back to what they were.
 const persist = async () => {
-  try {
-    const serializable: Record<string, unknown> = {};
-    for (const [date, entry] of Object.entries(entries)) {
-      serializable[date] = await encryptEntryForStorage(entry);
-    }
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
-  } catch {
-    // never throw out of a save action
+  const serializable: Record<string, unknown> = {};
+  for (const [date, entry] of Object.entries(entries)) {
+    serializable[date] = await encryptEntryForStorage(entry);
   }
+  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
 };
+
+const commit = (previous: EntriesByDate): Promise<void> =>
+  commitOptimistic(previous, () => entries, restored => {
+    entries = restored;
+    notifyListeners();
+  }, persist);
 
 export const getContraceptionJournalEntry = (
   date: string,
@@ -103,12 +108,13 @@ export async function saveContraceptionJournalField<
   category: K,
   value: NonNullable<ContraceptionJournalEntry[K]>,
 ): Promise<void> {
+  const previous = entries;
   entries = {
     ...entries,
     [date]: {...entries[date], date, [category]: value},
   };
   notifyListeners();
-  await persist();
+  await commit(previous);
 }
 
 /** THE single canonical way to REMOVE a Contraception daily-tracking answer
@@ -138,10 +144,11 @@ export async function clearContraceptionJournalField(
   } else {
     delete remaining[date];
   }
+  const previous = entries;
   entries = remaining;
 
   notifyListeners();
-  await persist();
+  await commit(previous);
 }
 
 export const hydrateContraceptionJournal = (): Promise<EntriesByDate> => {
@@ -149,7 +156,7 @@ export const hydrateContraceptionJournal = (): Promise<EntriesByDate> => {
     return Promise.resolve({...entries});
   }
   if (!hydration) {
-    hydration = AsyncStorage.getItem(STORAGE_KEY)
+    hydration = readOwnedItem(STORAGE_KEY, hydrateContraceptionJournal)
       .then(async raw => {
         hydrated = true;
         if (raw) {
@@ -171,7 +178,12 @@ export const hydrateContraceptionJournal = (): Promise<EntriesByDate> => {
         }
         return {...entries};
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          hydration = null;
+          return {...entries};
+        }
         hydrated = true;
         return {...entries};
       });
@@ -187,21 +199,16 @@ export const subscribeContraceptionJournal = (listener: () => void) => {
 };
 
 /**
- * Idempotent boot-time migration: re-saves any entry whose `notes` is still
- * a plain string, encrypting it via the same at-rest scheme as every other
- * sensitive journal field. No-ops if no plaintext note is found (safe to
- * call on every app launch).
+ * Idempotent, interruption-safe boot-time migration of every day's notes saved as plain text before field-level
+ * encryption existed. Works on the PERSISTED record only (never on the store's memoised in-memory state): see
+ * services/legacyFieldMigration.ts. Unreadable/unavailable record -> nothing is written, the next launch retries.
  */
 export async function migrateLegacyPlainContraceptionNotes(): Promise<void> {
-  const raw = await AsyncStorage.getItem(STORAGE_KEY);
-  if (!raw) {return;}
-  const parsed: unknown = JSON.parse(raw);
-  if (!parsed || typeof parsed !== 'object') {return;}
-  const hasLegacyPlainNote = Object.values(parsed as Record<string, unknown>).some(rawEntry => {
-    if (!rawEntry || typeof rawEntry !== 'object') {return false;}
-    return typeof (rawEntry as Record<string, unknown>).notes === 'string';
-  });
-  if (!hasLegacyPlainNote) {return;}
-  await hydrateContraceptionJournal();
-  await persist();
+  const outcome = await migrateRecordSafely(STORAGE_KEY, parsed =>
+    sealMapFields(parsed, ['notes'], value => sealField(ENCRYPTION_SERVICE, value)),
+  );
+  // Same observable behaviour as before: a store whose record was just migrated is loaded (read-only) afterwards.
+  if (outcome === 'migrated') {
+    await hydrateContraceptionJournal();
+  }
 }

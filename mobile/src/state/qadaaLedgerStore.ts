@@ -1,4 +1,5 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError} from '../services/secureAsyncStorage';
+import {commitOptimistic, markSaveFailureHandled} from '../services/saveFailure';
 
 import {hydrateQadaaProgress, type QadaaProgressState} from './qadaaProgressStore';
 import {getActiveProfileId, isOwnerActive, subscribeActiveProfileId} from './activeProfileStore';
@@ -100,6 +101,8 @@ const listeners = new Set<() => void>();
 let hydration: Promise<QadaaLedger> | null = null;
 let hydrated = false;
 let hydratedForProfileId: string | null = null;
+// Why the last read of the ledger failed (see ensureWritable()).
+let lastReadFailure: unknown = null;
 let writeChain: Promise<void> = Promise.resolve();
 
 const notifyListeners = () => {
@@ -220,8 +223,11 @@ export const hydrateQadaaLedger = (): Promise<QadaaLedger> => {
     let raw: string | null;
     try {
       raw = await AsyncStorage.getItem(currentLedgerStorageKey());
-    } catch {
+    } catch (readError) {
+      lastReadFailure = readError;
       hydration = null;
+      // Unreadable ledger: empty (and write-refused, see ensureWritable), never the previously active profile's.
+      ledger = {...EMPTY_LEDGER, manualEntries: [], completions: []};
       return ledger;
     }
 
@@ -239,6 +245,7 @@ export const hydrateQadaaLedger = (): Promise<QadaaLedger> => {
         // The old counter could not be read: stay un-hydrated (retry later)
         // rather than record "0 completed" and lose it for good.
         hydration = null;
+        ledger = {...EMPTY_LEDGER, manualEntries: [], completions: []};
         return ledger;
       }
       const legacyQuantity = Math.floor(legacy.completedDays);
@@ -265,7 +272,8 @@ export const hydrateQadaaLedger = (): Promise<QadaaLedger> => {
     hydrated = true;
     hydratedForProfileId = profileId;
     if (changed) {
-      persist().catch(() => undefined);
+      // Derived migration write (re-derived at every load): not a user edit, retried by the next load.
+      persist().catch(markSaveFailureHandled);
     }
     notifyListeners();
     return ledger;
@@ -282,13 +290,24 @@ subscribeActiveProfileId(() => {
 
 const ensureWritable = async (): Promise<void> => {
   await hydrateQadaaLedger();
-  if (!hydrated) {throw new Error('[qadaaLedgerStore] The Qadaa ledger could not be read; refusing to write.');}
+  if (!hydrated) {
+    // The record's own "unavailable" failure is surfaced as such (services/saveFailure.ts) so the person is pointed to
+    // the recovery screen; any other read failure keeps the generic refusal.
+    if (isStructuredUnavailableError(lastReadFailure)) {throw lastReadFailure;}
+    throw new Error('[qadaaLedgerStore] The Qadaa ledger could not be read; refusing to write.');
+  }
 };
 
+// A refused/failed write REJECTS (services/saveFailure.ts) and the ledger goes back to what it was, so the balance on
+// screen never counts a completion/entry that was not persisted.
 const commit = async (next: QadaaLedger): Promise<void> => {
+  const previous = ledger;
   ledger = next;
   notifyListeners();
-  await persist();
+  await commitOptimistic(previous, () => ledger, restored => {
+    ledger = restored;
+    notifyListeners();
+  }, persist);
 };
 
 const normalizeNote = (note: string | null | undefined): string | null => {

@@ -1,4 +1,6 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {migrateRecordSafely, sealField, sealMapFields} from '../services/legacyFieldMigration';
+import {commitOptimistic} from '../services/saveFailure';
 
 import type { MiscarriageTryingAgainStatus } from './miscarriagePreferences';
 import {
@@ -140,19 +142,21 @@ async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Mi
   return output as MiscarriageJournalEntry;
 }
 
+// A refused/failed write REJECTS (see services/saveFailure.ts) and the in-memory entries go back to what they were, so
+// no screen keeps presenting an edit that was not persisted.
 const persist = async () => {
-  try {
-    const serializable: Record<string, unknown> = {};
-    for (const [date, entry] of Object.entries(entries)) {
-      serializable[date] = await encryptEntryForStorage(entry);
-    }
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
-  } catch {
-    // Never throw out of a save action — in-memory state (the source of
-    // truth for the running session) is unaffected either way; the next
-    // successful save naturally retries persisting the current state.
+  const serializable: Record<string, unknown> = {};
+  for (const [date, entry] of Object.entries(entries)) {
+    serializable[date] = await encryptEntryForStorage(entry);
   }
+  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
 };
+
+const commit = (previous: EntriesByDate): Promise<void> =>
+  commitOptimistic(previous, () => entries, restored => {
+    entries = restored;
+    notifyListeners();
+  }, persist);
 
 export const getMiscarriageJournalEntry = (
   date: string,
@@ -176,12 +180,13 @@ export async function saveMiscarriageJournalField<
   category: K,
   value: NonNullable<MiscarriageJournalEntry[K]>,
 ): Promise<void> {
+  const previous = entries;
   entries = {
     ...entries,
     [date]: { ...entries[date], date, [category]: value },
   };
   notifyListeners();
-  await persist();
+  await commit(previous);
 }
 
 /** Whether a given day's entry has real data for a category — the ONE place
@@ -212,7 +217,7 @@ export const hydrateMiscarriageJournal = (): Promise<EntriesByDate> => {
     return Promise.resolve({ ...entries });
   }
   if (!hydration) {
-    hydration = AsyncStorage.getItem(STORAGE_KEY)
+    hydration = readOwnedItem(STORAGE_KEY, hydrateMiscarriageJournal)
       .then(async raw => {
         hydrated = true;
         if (raw) {
@@ -234,7 +239,12 @@ export const hydrateMiscarriageJournal = (): Promise<EntriesByDate> => {
         }
         return { ...entries };
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          hydration = null;
+          return { ...entries };
+        }
         hydrated = true;
         return { ...entries };
       });
@@ -242,34 +252,18 @@ export const hydrateMiscarriageJournal = (): Promise<EntriesByDate> => {
   return hydration;
 };
 
-/** One-shot, idempotent, crash-safe migration for every day's
- * personalNotes/bleedingNote/physicalSymptomsNote ever saved before
- * encryption-at-rest existed — called once at app boot (App.tsx), same
- * spirit as migrateLegacyPlainNotes() in privateNotesEncryption.ts. Checks
- * the RAW persisted JSON (before hydrateMiscarriageJournal()'s transparent
- * decrypt) for any plaintext sensitive field so an already-migrated store
- * skips straight past without re-encrypting/re-writing on every boot.
- * hydrateMiscarriageJournal() already decrypts-or-reads-legacy into
- * `entries`, so once real legacy plaintext is detected the only work left is
- * re-persisting, which always encrypts every sensitive field. A failure here
- * never touches the on-disk data (persist() only overwrites the storage key
- * on a successful full serialize) and never crashes app boot. */
+/**
+ * Idempotent, interruption-safe boot-time migration of every day's personalNotes/bleedingNote/physicalSymptomsNote saved as plain text before field-level
+ * encryption existed. Works on the PERSISTED record only (never on the store's memoised in-memory state): see
+ * services/legacyFieldMigration.ts. Unreadable/unavailable record -> nothing is written, the next launch retries.
+ */
 export async function migrateLegacyPlainMiscarriageNotes(): Promise<void> {
-  try {
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
-    if (!raw) {return;}
-    const parsed: unknown = JSON.parse(raw);
-    if (!parsed || typeof parsed !== 'object') {return;}
-    const hasLegacyPlaintext = Object.values(parsed as Record<string, unknown>).some(entry => {
-      if (!entry || typeof entry !== 'object') {return false;}
-      return SENSITIVE_FIELDS.some(field => typeof (entry as Record<string, unknown>)[field] === 'string');
-    });
-    if (!hasLegacyPlaintext) {return;}
-
+  const outcome = await migrateRecordSafely(STORAGE_KEY, parsed =>
+    sealMapFields(parsed, SENSITIVE_FIELDS, value => sealField(ENCRYPTION_SERVICE, value)),
+  );
+  // Same observable behaviour as before: a store whose record was just migrated is loaded (read-only) afterwards.
+  if (outcome === 'migrated') {
     await hydrateMiscarriageJournal();
-    await persist();
-  } catch {
-    // Never throw out of a boot-time migration — next launch retries.
   }
 }
 

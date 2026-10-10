@@ -1,5 +1,6 @@
 import AsyncStorage from '../services/secureAsyncStorage';
 import {setFirstName} from './onboardingPreferences';
+import {persistWithRollback} from '../services/saveFailure';
 import {
   decryptFieldValue,
   encryptFieldValue,
@@ -40,11 +41,15 @@ const DEFAULT_INFORMATION: PersonalInformation = {
   // until she actually provides one (see HomeHeader.tsx/ProfileScreen.tsx/
   // PersonalInformationScreen.tsx's empty-name fallback handling).
   firstName: '',
-  lastName: 'Benali',
-  birthDate: '1998-05-14',
-  email: 'amina.benali@email.com',
-  phone: '+213 6 12 34 56 78',
-  country: 'Algérie',
+  // lastName/birthDate/email/phone/country: an empty string means "not
+  // provided" — AWA never invents identifying details for a user who has not
+  // entered them. Screens render the localized "Not provided" label for an
+  // empty value and must never persist one the user did not type or pick.
+  lastName: '',
+  birthDate: '',
+  email: '',
+  phone: '',
+  country: '',
   language: SUPPORTED_LANGUAGE,
   preferredName: '',
   calendar: 'double',
@@ -52,6 +57,19 @@ const DEFAULT_INFORMATION: PersonalInformation = {
 };
 
 let cachedInformation = {...DEFAULT_INFORMATION};
+
+const TEXT_FIELDS = ['firstName', 'lastName', 'birthDate', 'email', 'phone', 'country', 'preferredName'] as const;
+
+/** A stored value that is not a usable string (null, a number, a corrupted
+ * payload) is "not provided" — never a fabricated fallback. Real saved
+ * strings are returned byte-for-byte. */
+function sanitizeInformation(merged: PersonalInformation): PersonalInformation {
+  const output = {...merged};
+  for (const field of TEXT_FIELDS) {
+    if (typeof output[field] !== 'string') {output[field] = '';}
+  }
+  return output;
+}
 
 export function getCachedPersonalInformation(): PersonalInformation {
   return {...cachedInformation};
@@ -94,6 +112,8 @@ async function encryptInformationForStorage(info: PersonalInformation): Promise<
       delete output[field];
     }
   }
+  // "Not provided" country is stored as an absent key, not an empty string.
+  if (!info.country) {delete output.country;}
   return output;
 }
 
@@ -102,7 +122,11 @@ export async function loadPersonalInformation(): Promise<PersonalInformation> {
     const raw = await AsyncStorage.getItem(STORAGE_KEY);
     if (raw) {
       const parsed = await decryptInformationFromStorage(JSON.parse(raw));
-      cachedInformation = {...DEFAULT_INFORMATION, ...parsed, language: SUPPORTED_LANGUAGE};
+      cachedInformation = sanitizeInformation({
+        ...DEFAULT_INFORMATION,
+        ...(parsed as Partial<PersonalInformation>),
+        language: SUPPORTED_LANGUAGE,
+      });
     }
   } catch {}
   setFirstName(cachedInformation.preferredName || cachedInformation.firstName);
@@ -112,14 +136,24 @@ export async function loadPersonalInformation(): Promise<PersonalInformation> {
 export async function updatePersonalInformation(
   patch: Partial<PersonalInformation>,
 ): Promise<PersonalInformation> {
-  cachedInformation = {...cachedInformation, ...patch, language: SUPPORTED_LANGUAGE};
+  const previous = cachedInformation;
+  const optimistic = {...cachedInformation, ...patch, language: SUPPORTED_LANGUAGE};
+  cachedInformation = optimistic;
   setFirstName(cachedInformation.preferredName || cachedInformation.firstName);
-  try {
-    const serializable = await encryptInformationForStorage(cachedInformation);
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
-  } catch {
-    // Never throw out of a save action — in-memory state is unaffected.
-  }
+  // A refused/failed save REJECTS (services/saveFailure.ts, the same contract as every store) and the cache — and the
+  // greeting name derived from it — go back to what storage holds.
+  await persistWithRollback(
+    async () => {
+      const serializable = await encryptInformationForStorage(optimistic);
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
+    },
+    () => {
+      if (cachedInformation === optimistic) {
+        cachedInformation = previous;
+        setFirstName(cachedInformation.preferredName || cachedInformation.firstName);
+      }
+    },
+  );
   return {...cachedInformation};
 }
 

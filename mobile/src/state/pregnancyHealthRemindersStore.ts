@@ -1,4 +1,5 @@
 import AsyncStorage from '../services/secureAsyncStorage';
+import {migrateRecordSafely, sealArrayFields, sealField} from '../services/legacyFieldMigration';
 import {
   decryptFieldValue,
   encryptFieldValue,
@@ -99,22 +100,12 @@ export async function deleteHealthReminder(id: string): Promise<HealthReminder[]
 }
 
 /**
- * Idempotent boot-time migration: re-saves any reminder whose `name` is
- * still a plain string, encrypting it via the same at-rest scheme as every
- * other sensitive journal field. No-ops if no plaintext name is found (safe
- * to call on every app launch).
+ * Idempotent, interruption-safe boot-time migration of every reminder's name saved as plain text before field-level
+ * encryption existed. Works on the PERSISTED record only (never on the store's memoised in-memory state): see
+ * services/legacyFieldMigration.ts. Unreadable/unavailable record -> nothing is written, the next launch retries.
  */
 export async function migrateLegacyPlainPregnancyHealthReminders(): Promise<void> {
-  const raw = await AsyncStorage.getItem(STORAGE_KEY);
-  if (!raw) {return;}
-  let parsed: unknown;
-  try {parsed = JSON.parse(raw);} catch {return;}
-  if (!Array.isArray(parsed)) {return;}
-  const hasLegacyPlainName = parsed.some(rawEntry => {
-    if (!rawEntry || typeof rawEntry !== 'object') {return false;}
-    return typeof (rawEntry as Record<string, unknown>).name === 'string';
-  });
-  if (!hasLegacyPlainName) {return;}
-  const reminders = await readReminders();
-  await writeReminders(reminders);
+  await migrateRecordSafely(STORAGE_KEY, parsed =>
+    sealArrayFields(parsed, ['name'], value => sealField(ENCRYPTION_SERVICE, value)),
+  );
 }

@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 
 import {
   confirmDelivery,
@@ -16,7 +16,7 @@ import {getPostpartumLochiaTracking, markPostpartumLochiaEnded} from '../postpar
 const d = (year: number, month: number, day: number) => new Date(year, month - 1, day, 12);
 const STORAGE_KEY = '@hawa/postpartum-preferences/v1';
 
-const rawStored = async () => JSON.parse((await AsyncStorage.getItem(STORAGE_KEY)) ?? '{}') as Record<string, unknown>;
+const rawStored = async () => JSON.parse((await readStoredString(STORAGE_KEY)) ?? '{}') as Record<string, unknown>;
 
 const EMPTY = {
   deliveryDate: null,

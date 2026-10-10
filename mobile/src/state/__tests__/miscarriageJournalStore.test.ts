@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {
   getMiscarriageJournalEntry,
   hydrateMiscarriageJournal,
@@ -46,7 +47,7 @@ describe('miscarriageJournalStore — encryption at rest', () => {
     expect(entry?.tryingAgain).toBe('not_now');
 
     // The on-disk copy is now encrypted, never readable plaintext.
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-08-20'];
     expect(typeof persisted.personalNotes).toBe('object');
     expect(persisted.personalNotes.ciphertext).toBeDefined();
@@ -64,9 +65,9 @@ describe('miscarriageJournalStore — encryption at rest', () => {
   });
 
   it('migration is a no-op (does not rewrite storage) when nothing is legacy plaintext', async () => {
-    const before = await AsyncStorage.getItem(STORAGE_KEY);
+    const before = await readStoredString(STORAGE_KEY);
     await migrateLegacyPlainMiscarriageNotes();
-    const after = await AsyncStorage.getItem(STORAGE_KEY);
+    const after = await readStoredString(STORAGE_KEY);
     expect(after).toBe(before);
   });
 
@@ -75,7 +76,7 @@ describe('miscarriageJournalStore — encryption at rest', () => {
 
     expect(getMiscarriageJournalEntry('2026-09-01')?.personalNotes).toBe('Nouvelle note privée');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-09-01'];
     expect(typeof persisted.personalNotes).toBe('object');
     expect(persisted.personalNotes.ciphertext).toBeDefined();
@@ -85,7 +86,7 @@ describe('miscarriageJournalStore — encryption at rest', () => {
   it('structured fields (bleeding, physicalSymptoms, tryingAgain) remain plaintext at rest — only narrative fields are encrypted', async () => {
     await saveMiscarriageJournalField('2026-09-02', 'bleeding', 'Léger');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)['2026-09-02'];
     expect(persisted.bleeding).toBe('Léger');
   });
@@ -95,7 +96,7 @@ describe('miscarriageJournalStore — encryption at rest', () => {
     const all = await hydrateMiscarriageJournal();
     expect(JSON.stringify(all)).toContain('SECRET_MARKER_7Q1'); // in-memory decrypted value is expected here
     // but the raw persisted bytes must never contain it:
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     expect(raw).not.toContain('SECRET_MARKER_7Q1');
   });
 });

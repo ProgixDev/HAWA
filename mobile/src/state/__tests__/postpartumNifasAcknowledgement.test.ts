@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 
 // M49 — the Nifas "Compris" acknowledgement is keyed to its delivery date and
 // must NOT be wiped by unrelated events: objective switches, the spiritual
@@ -44,7 +45,7 @@ const boot = (): Modules => {
 
 let m: Modules;
 
-const stored = async () => JSON.parse((await AsyncStorage.getItem(NIFAS_KEY)) ?? '{}') as Record<string, unknown>;
+const stored = async () => JSON.parse((await readStoredString(NIFAS_KEY)) ?? '{}') as Record<string, unknown>;
 const isAcknowledged = async (date: string) => {
   await m.nifas.hydratePostpartumNifasReminderState();
   return m.nifas.isPostpartumNifasCompletionAcknowledged(date);

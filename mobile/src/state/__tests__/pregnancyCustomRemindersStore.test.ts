@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {encryptFieldValue} from '../../services/atRestFieldEncryption';
 import {
   getCustomReminders,
@@ -33,7 +34,7 @@ describe('pregnancyCustomRemindersStore — encryption at rest (title, descripti
     expect(reminder?.date).toBe('2026-09-10');
     expect(reminder?.repeat).toBe('once');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).find((r: {id: string}) => r.id === 'rem-1');
     expect(typeof persisted.title).toBe('object');
     expect(typeof persisted.description).toBe('object');
@@ -75,7 +76,7 @@ describe('pregnancyCustomRemindersStore — encryption at rest (title, descripti
       updatedAt: '2026-09-01T00:00:00.000Z',
     });
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).find((r: {id: string}) => r.id === 'rem-3');
     expect(persisted.description).toBeUndefined();
   });
@@ -105,7 +106,7 @@ describe('pregnancyCustomRemindersStore — encryption at rest (title, descripti
     expect(reminder?.title).toBe('Consultation sage-femme');
     expect(reminder?.description).toBe('Discuter du plan de naissance');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).find((r: {id: string}) => r.id === 'rem-4');
     expect(typeof persisted.title).toBe('object');
     expect(typeof persisted.description).toBe('object');
@@ -140,7 +141,7 @@ describe('pregnancyCustomRemindersStore — encryption at rest (title, descripti
     expect(reminder?.title).toBe('Titre déjà chiffré');
     expect(reminder?.description).toBe('Description encore en clair');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).find((r: {id: string}) => r.id === 'rem-5');
     expect(typeof persisted.title).toBe('object');
     expect(typeof persisted.description).toBe('object');
@@ -180,9 +181,9 @@ describe('pregnancyCustomRemindersStore — encryption at rest (title, descripti
       createdAt: '2026-09-01T00:00:00.000Z',
       updatedAt: '2026-09-01T00:00:00.000Z',
     });
-    const before = await AsyncStorage.getItem(STORAGE_KEY);
+    const before = await readStoredString(STORAGE_KEY);
     await migrateLegacyPlainPregnancyCustomReminders();
-    const after = await AsyncStorage.getItem(STORAGE_KEY);
+    const after = await readStoredString(STORAGE_KEY);
     expect(after).toBe(before);
   });
 
@@ -198,7 +199,7 @@ describe('pregnancyCustomRemindersStore — encryption at rest (title, descripti
       createdAt: '2026-09-01T00:00:00.000Z',
       updatedAt: '2026-09-01T00:00:00.000Z',
     });
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     expect(raw).not.toContain('SECRET_TITLE_MARKER');
     expect(raw).not.toContain('SECRET_DESC_MARKER');
   });

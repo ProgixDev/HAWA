@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {
   loadGeneralHealth,
   migrateLegacyPlainGeneralHealthNotes,
@@ -36,7 +37,7 @@ describe('generalHealthStore — encryption at rest', () => {
     expect(profile.chronicConditions).toEqual(['Asthme']);
     expect(profile.bloodType).toBe('A+');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!);
     expect(typeof persisted.medicalNotes).toBe('object');
     expect(persisted.medicalNotes.ciphertext).toBeDefined();
@@ -55,9 +56,9 @@ describe('generalHealthStore — encryption at rest', () => {
   });
 
   it('migration is a no-op when nothing is legacy plaintext', async () => {
-    const before = await AsyncStorage.getItem(STORAGE_KEY);
+    const before = await readStoredString(STORAGE_KEY);
     await migrateLegacyPlainGeneralHealthNotes();
-    const after = await AsyncStorage.getItem(STORAGE_KEY);
+    const after = await readStoredString(STORAGE_KEY);
     expect(after).toBe(before);
   });
 
@@ -65,7 +66,7 @@ describe('generalHealthStore — encryption at rest', () => {
     const updated = await updateGeneralHealth({medicalNotes: 'Suivi tension artérielle'});
     expect(updated.medicalNotes).toBe('Suivi tension artérielle');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!);
     expect(typeof persisted.medicalNotes).toBe('object');
     expect(JSON.stringify(persisted)).not.toContain('tension artérielle');
@@ -73,7 +74,7 @@ describe('generalHealthStore — encryption at rest', () => {
 
   it('structured fields (height, weight, bloodType, conditions) remain plaintext at rest', async () => {
     await updateGeneralHealth({heightCm: 170, bloodType: 'O-'});
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!);
     expect(persisted.heightCm).toBe(170);
     expect(persisted.bloodType).toBe('O-');

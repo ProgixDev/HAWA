@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {
   getHealthReminders,
   migrateLegacyPlainPregnancyHealthReminders,
@@ -31,7 +32,7 @@ describe('pregnancyHealthRemindersStore — encryption at rest (name)', () => {
     expect(reminder?.kind).toBe('medication');
     expect(reminder?.time).toBe('21:00');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).find((r: {id: string}) => r.id === 'hr-1');
     expect(typeof persisted.name).toBe('object');
     expect(persisted.name.ciphertext).toBeDefined();
@@ -78,7 +79,7 @@ describe('pregnancyHealthRemindersStore — encryption at rest (name)', () => {
     const reminders = await getHealthReminders();
     expect(reminders.find(r => r.id === 'hr-3')?.name).toBe('Aspégic Nourrisson');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).find((r: {id: string}) => r.id === 'hr-3');
     expect(typeof persisted.name).toBe('object');
     expect(JSON.stringify(persisted)).not.toContain('Aspégic');
@@ -117,9 +118,9 @@ describe('pregnancyHealthRemindersStore — encryption at rest (name)', () => {
       createdAt: '2026-09-01T00:00:00.000Z',
       updatedAt: '2026-09-01T00:00:00.000Z',
     });
-    const before = await AsyncStorage.getItem(STORAGE_KEY);
+    const before = await readStoredString(STORAGE_KEY);
     await migrateLegacyPlainPregnancyHealthReminders();
-    const after = await AsyncStorage.getItem(STORAGE_KEY);
+    const after = await readStoredString(STORAGE_KEY);
     expect(after).toBe(before);
   });
 
@@ -136,7 +137,7 @@ describe('pregnancyHealthRemindersStore — encryption at rest (name)', () => {
       createdAt: '2026-09-01T00:00:00.000Z',
       updatedAt: '2026-09-01T00:00:00.000Z',
     });
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).find((r: {id: string}) => r.id === 'hr-6');
     expect(persisted.kind).toBe('medication');
     expect(persisted.time).toBe('14:00');
@@ -157,7 +158,7 @@ describe('pregnancyHealthRemindersStore — encryption at rest (name)', () => {
       createdAt: '2026-09-01T00:00:00.000Z',
       updatedAt: '2026-09-01T00:00:00.000Z',
     });
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     expect(raw).not.toContain('SECRET_MEDICATION_MARKER');
   });
 });

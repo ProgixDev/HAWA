@@ -1,4 +1,5 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {commitOptimistic} from '../services/saveFailure';
 
 // Canonical onboarding + reminder preferences for the "Cycles irréguliers /
 // SOPK" objective (ObjectiveId 'irregular'). Deliberately isolated from
@@ -99,6 +100,7 @@ export const getIrregularPreferences = (): IrregularPreferences => ({
  * a partial update onto the current in-memory state so a caller never has to
  * pass fields it isn't changing. */
 export const setIrregularPreferences = async (value: Partial<IrregularPreferences>): Promise<void> => {
+  const previous = preferences;
   preferences = {
     ...preferences,
     ...value,
@@ -106,7 +108,10 @@ export const setIrregularPreferences = async (value: Partial<IrregularPreference
     reminders: value.reminders ? {...preferences.reminders, ...value.reminders} : preferences.reminders,
   };
   notifyListeners();
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
+  await commitOptimistic(previous, () => preferences, restored => {
+    preferences = restored;
+    notifyListeners();
+  }, () => AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(preferences)));
 };
 
 export const hydrateIrregularPreferences = (): Promise<IrregularPreferences> => {
@@ -114,7 +119,7 @@ export const hydrateIrregularPreferences = (): Promise<IrregularPreferences> => 
     return Promise.resolve(getIrregularPreferences());
   }
   if (!hydration) {
-    hydration = AsyncStorage.getItem(STORAGE_KEY)
+    hydration = readOwnedItem(STORAGE_KEY, hydrateIrregularPreferences)
       .then(raw => {
         hydrated = true;
         if (raw) {
@@ -129,7 +134,12 @@ export const hydrateIrregularPreferences = (): Promise<IrregularPreferences> => 
         }
         return getIrregularPreferences();
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          hydration = null;
+          return getIrregularPreferences();
+        }
         hydrated = true;
         return getIrregularPreferences();
       });

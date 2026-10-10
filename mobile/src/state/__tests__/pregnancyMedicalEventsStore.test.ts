@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../testUtils/structuredStorage';
 import {
   getPregnancyMedicalEvents,
   migrateLegacyPlainPregnancyMedicalEventNotes,
@@ -36,7 +37,7 @@ describe('pregnancyMedicalEventsStore — encryption at rest', () => {
     expect(events[0].title).toBe('Échographie du 2e trimestre');
     expect(events[0].practitioner).toBe('Dr. Amrani');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!)[0];
     expect(typeof persisted.notes).toBe('object');
     expect(persisted.notes.ciphertext).toBeDefined();
@@ -66,9 +67,9 @@ describe('pregnancyMedicalEventsStore — encryption at rest', () => {
   });
 
   it('migration is a no-op when nothing is legacy plaintext', async () => {
-    const before = await AsyncStorage.getItem(STORAGE_KEY);
+    const before = await readStoredString(STORAGE_KEY);
     await migrateLegacyPlainPregnancyMedicalEventNotes();
-    const after = await AsyncStorage.getItem(STORAGE_KEY);
+    const after = await readStoredString(STORAGE_KEY);
     expect(after).toBe(before);
   });
 
@@ -84,7 +85,7 @@ describe('pregnancyMedicalEventsStore — encryption at rest', () => {
     });
     expect(events.find(e => e.id === 'evt-2')?.notes).toBe('Résultats à récupérer en ligne');
 
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const raw = await readStoredString(STORAGE_KEY);
     const persisted = JSON.parse(raw!).find((e: {id: string}) => e.id === 'evt-2');
     expect(typeof persisted.notes).toBe('object');
     expect(JSON.stringify(persisted)).not.toContain('récupérer en ligne');

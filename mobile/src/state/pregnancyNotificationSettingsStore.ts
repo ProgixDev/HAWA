@@ -1,4 +1,5 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {readOwnedItem} from '../services/secureAsyncStorage';
+import {commitOptimistic} from '../services/saveFailure';
 import type {PregnancyReminderOffset} from './pregnancyMedicalEventsStore';
 
 // Preferences for the "Notifications & rappels" screen — general
@@ -39,19 +40,26 @@ export function getPregnancyNotificationSettings(): PregnancyNotificationSetting
 
 export async function hydratePregnancyNotificationSettings(): Promise<PregnancyNotificationSettings> {
   try {
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    // readOwnedItem: a read that FAILED keeps the key write-protected (the cache below is only defaults) and is re-run by
+    // "Try again"; this function is never memoised, so every later call re-reads too.
+    const raw = await readOwnedItem(STORAGE_KEY, hydratePregnancyNotificationSettings);
     if (raw) {
       cache = {...DEFAULT_SETTINGS, ...(JSON.parse(raw) as Partial<PregnancyNotificationSettings>)};
+      listeners.forEach(listener => listener());
     }
   } catch {
-    // keep defaults
+    // keep defaults (the key is recorded as unavailable and held when that was the cause)
   }
   return cache;
 }
 
 export async function setPregnancyNotificationSettings(value: PregnancyNotificationSettings): Promise<void> {
+  const previous = cache;
   cache = value;
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(value));
+  // Rejects on a refused/failed write (see services/saveFailure.ts) and puts the previous settings back.
+  await commitOptimistic(previous, () => cache, restored => {
+    cache = restored;
+  }, () => AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(value)));
   listeners.forEach(listener => listener());
 }
 

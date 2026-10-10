@@ -1,4 +1,5 @@
-import AsyncStorage from '../services/secureAsyncStorage';
+import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
+import {commitOptimistic} from '../services/saveFailure';
 
 // Contraception's ring/patch event-tracking store — a SEPARATE store from
 // contraceptionIntakeHistoryStore.ts (pill/other's single-status-per-day
@@ -69,8 +70,15 @@ const isValidEvent = (value: unknown): value is ContraceptionEvent => {
   );
 };
 
+// A refused/failed write REJECTS (see services/saveFailure.ts) and the in-memory events go back to what they were.
 const persist = () =>
-  AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(entries)).catch(() => {});
+  AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+
+const commit = (previous: EventsByDate): Promise<void> =>
+  commitOptimistic(previous, () => entries, restored => {
+    entries = restored;
+    notifyListeners();
+  }, persist);
 
 export const getContraceptionEventsForDate = (date: string): ContraceptionEvent[] =>
   entries[date] ? [...entries[date]] : [];
@@ -126,9 +134,10 @@ export async function addContraceptionEvent(
     type,
     recordedAt: new Date().toISOString(),
   };
+  const previous = entries;
   entries = {...entries, [date]: [...existing, event]};
   notifyListeners();
-  await persist();
+  await commit(previous);
   return event;
 }
 
@@ -151,9 +160,10 @@ export async function deleteContraceptionEvent(id: string): Promise<void> {
   } else {
     delete next[dateWithEvent];
   }
+  const previous = entries;
   entries = next;
   notifyListeners();
-  await persist();
+  await commit(previous);
 }
 
 export const hydrateContraceptionEvents = (): Promise<EventsByDate> => {
@@ -161,7 +171,7 @@ export const hydrateContraceptionEvents = (): Promise<EventsByDate> => {
     return Promise.resolve({...entries});
   }
   if (!hydration) {
-    hydration = AsyncStorage.getItem(STORAGE_KEY)
+    hydration = readOwnedItem(STORAGE_KEY, hydrateContraceptionEvents)
       .then(raw => {
         hydrated = true;
         if (raw) {
@@ -182,7 +192,12 @@ export const hydrateContraceptionEvents = (): Promise<EventsByDate> => {
         }
         return {...entries};
       })
-      .catch(() => {
+      .catch(error => {
+        if (isStructuredUnavailableError(error)) {
+          // not latched: a later hydrate (or "Try again") re-reads the real record
+          hydration = null;
+          return {...entries};
+        }
         hydrated = true;
         return {...entries};
       });
