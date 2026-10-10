@@ -16,6 +16,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useTranslation} from 'react-i18next';
 import type {TFunction} from 'i18next';
 import '../../i18n';
+import {displayTitleCase, displayUpperCase} from '../../utils/textCase';
 
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
@@ -425,7 +426,7 @@ function IrregularCalendarContent(): React.JSX.Element {
 
               <View style={styles.monthTitleBlock}>
                 <Text numberOfLines={1} style={styles.monthTitle}>
-                  {new Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'}).format(visibleMonth)}
+                  {displayTitleCase(new Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'}).format(visibleMonth))}
                 </Text>
                 {hijriRangeLabel ? (
                   <Text numberOfLines={2} style={styles.hijriRange}>{hijriRangeLabel}</Text>
@@ -583,7 +584,7 @@ function IrregularCalendarContent(): React.JSX.Element {
           <View style={styles.card}>
             <View style={styles.selectedHeader}>
               <Text style={styles.selectedDateText}>
-                {new Intl.DateTimeFormat(locale, {day: 'numeric', month: 'long', year: 'numeric'}).format(selectedDate)}
+                {displayTitleCase(new Intl.DateTimeFormat(locale, {day: 'numeric', month: 'long', year: 'numeric'}).format(selectedDate))}
               </Text>
               {selectedHijriDate ? (
                 <Text style={styles.selectedHijriText}>{selectedHijriDate}</Text>
@@ -979,7 +980,7 @@ function IrregularCalendarSheet({
             </View>
 
             <ScrollView bounces={false} contentContainerStyle={sheetStyles.filterRows} showsVerticalScrollIndicator={false} style={sheetStyles.filterScroll}>
-              <Text style={sheetStyles.groupTitle}>{t('irregularCalendar.sheet.trackingGroupTitle')}</Text>
+              <Text style={sheetStyles.groupTitle}>{displayUpperCase(t('irregularCalendar.sheet.trackingGroupTitle'))}</Text>
               {trackingFilterRows.map((row, index) => (
                 <FilterRow
                   active={filters[row.key]}
@@ -992,7 +993,7 @@ function IrregularCalendarSheet({
 
               {spiritualMarkersEnabled ? (
                 <>
-                  <Text style={sheetStyles.groupTitle}>{t('irregularCalendar.sheet.spiritualGroupTitle')}</Text>
+                  <Text style={sheetStyles.groupTitle}>{displayUpperCase(t('irregularCalendar.sheet.spiritualGroupTitle'))}</Text>
                   {spiritualFilterRows.map((row, index) => (
                     <FilterRow
                       active={filters[row.key]}

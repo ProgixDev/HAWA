@@ -32,6 +32,7 @@ import {
   type IrregularTrackedItem,
 } from '../../state/irregularPreferences';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 // Onboarding for "Cycles irréguliers / SOPK" (ObjectiveId 'irregular') — the
 // SAME 4-screen Shell/Choice/Info pattern already established by
@@ -259,7 +260,12 @@ export function IrregularCyclePatternScreen({navigation, route}: Props) {
       nextDisabled={!selected}
       onNext={async () => {
         if (!selected) {return;}
-        await setIrregularPreferences({cyclePattern: selected});
+        try {
+          await setIrregularPreferences({cyclePattern: selected});
+        } catch (saveError) {
+          presentSaveFailure(saveError);
+          return;
+        }
         if (route.params?.mode === 'edit') {
           navigation.goBack();
           return;
@@ -329,7 +335,12 @@ export function IrregularLastPeriodScreen({navigation, route}: Props) {
         // Neutral/null state when skipped or never chosen — never a
         // fabricated default date (spec requirement).
         const lastPeriodDate = !skipped && selectedDate ? selectedDate.toLocaleDateString('en-CA') : null;
-        await setIrregularPreferences({lastPeriodDate});
+        try {
+          await setIrregularPreferences({lastPeriodDate});
+        } catch (saveError) {
+          presentSaveFailure(saveError);
+          return;
+        }
         if (route.params?.mode === 'edit') {
           navigation.goBack();
           return;
@@ -434,7 +445,12 @@ export function IrregularTrackedItemsScreen({navigation, route}: Props) {
       navigation={navigation}
       nextDisabled={selected.size === 0}
       onNext={async () => {
-        await setIrregularPreferences({trackedItems: [...selected]});
+        try {
+          await setIrregularPreferences({trackedItems: [...selected]});
+        } catch (saveError) {
+          presentSaveFailure(saveError);
+          return;
+        }
         if (route.params?.mode === 'edit') {
           navigation.goBack();
           return;
@@ -551,6 +567,8 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
       }
 
       goToNext();
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

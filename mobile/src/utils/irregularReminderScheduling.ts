@@ -16,6 +16,7 @@ import {
   resolveLatestIrregularPeriodStart,
   type IrregularPeriodSources,
 } from './irregularJournalSelectors';
+import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
 import i18n from '../i18n';
 
 // SOPK's 2 optional reminders — reuses the exact same chokepoint
@@ -164,6 +165,18 @@ async function syncUnrecordedPeriodReminder(active: boolean, prefs: IrregularPre
  * objective is active, so switching away from SOPK cleanly clears both. */
 export async function syncIrregularReminders(now: Date = new Date()): Promise<void> {
   const active = getActiveObjective() === 'irregular';
+  if (active) {
+    // Reading the records the reminders are built from also records any that cannot be read — checked right below.
+    await Promise.all([hydrateIrregularJournal(), getAllJournalEntries().catch(() => undefined)]);
+  }
+  // Unreadable preferences / journals / confirmed history are not "no reminders" or "no period recorded": the
+  // existing reminders are left untouched and nothing is derived from the default state.
+  if (areReminderSourcesUnavailable({
+    ownerBases: ['@hawa/irregular-preferences/v1', '@hawa/irregular-journal/v1'],
+    profileBases: ['@hawa/daily-journal/v1', '@hawa/confirmed-period-history'],
+  })) {
+    return;
+  }
   const prefs = getIrregularPreferences();
 
   await Promise.all([
