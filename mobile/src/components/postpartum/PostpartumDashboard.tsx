@@ -85,6 +85,7 @@ import {
   nifasReferenceReachedHeadline,
 } from '../../config/nifasReminderConfig';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 const POSTPARTUM_MOTHER_BABY = require('../../assets/images/postpartum/postpartum-mother-baby.png');
 
@@ -323,7 +324,13 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
 
   const acknowledgeNifasCompletion = useCallback(async () => {
     if (postpartum.deliveryDate) {
-      await setPostpartumNifasCompletionAcknowledged(postpartum.deliveryDate);
+      try {
+        await setPostpartumNifasCompletionAcknowledged(postpartum.deliveryDate);
+      } catch (saveError) {
+        // Not persisted: the acknowledgement is not claimed and the modal stays so it can be retried.
+        presentSaveFailure(saveError);
+        return;
+      }
     }
     setNifasCompletionAcknowledged(true);
     setNifasCompletionModalVisible(false);

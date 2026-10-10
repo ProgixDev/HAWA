@@ -45,7 +45,8 @@ import {
   computePostpartumLochiaSummary,
 } from './postpartumTrackingUtils';
 
-import i18n from '../i18n';
+import i18n from '../i18n';
+import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
 
 /* ============================================================
  * NOTIFICATION IDS
@@ -420,6 +421,22 @@ export async function syncPostpartumNifasReminders(): Promise<void> {
 
   const preferences =
     await hydratePostpartumPreferences();
+
+  // The Nifas dates come from the delivery date, the lochia "ended" date and the previous schedule. When any of those
+  // records cannot be READ, "no delivery date" / "lochia still open" are defaults, not facts: scheduling from them
+  // would invent a Nifas status and the "not eligible" branch below would cancel a correct J35/J40 reminder and wipe
+  // its schedule record. Leave everything exactly as it is until the data is readable again.
+  if (
+    areReminderSourcesUnavailable({
+      ownerBases: [
+        '@hawa/postpartum-preferences/v1',
+        '@hawa/postpartum-lochia/v1',
+        '@hawa/postpartum-nifas-reminders/v1',
+      ],
+    })
+  ) {
+    return;
+  }
 
   const summary =
     computePostpartumLochiaSummary(

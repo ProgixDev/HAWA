@@ -159,7 +159,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     infoText: { flex: 1, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19 },
     primary: {
-      height: 51,
+      minHeight: 51,
+      paddingVertical: 8,
+      paddingHorizontal: 14,
       marginTop: 20,
       flexDirection: 'row',
       gap: 8,
@@ -173,7 +175,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       shadowOffset: { width: 0, height: 5 },
       elevation: 4,
     },
-    primaryText: { color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '800' },
+    primaryText: { flexShrink: 1, textAlign: 'center', color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '800' },
     secondary: {
       minHeight: 44,
       alignItems: 'center',

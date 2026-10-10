@@ -26,6 +26,8 @@ import {dateFormatLocale, diffDays, localizedWeekDays, startOfDay} from '../util
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import '../i18n';
+import {capitalizeFor, displayTitleCase} from '../utils/textCase';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostpartumDeliveryDate'>;
 
@@ -34,7 +36,7 @@ const formatFullDate = (date: Date): string =>
 
 const formatMonthYear = (date: Date): string => {
   const label = new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(date);
-  return label.charAt(0).toUpperCase() + label.slice(1);
+  return capitalizeFor(label);
 };
 
 function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Element {
@@ -141,13 +143,20 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
       return;
     }
     setDateError('');
-    if (isEdit) {
-      // Correction of an existing profile: only the delivery date changes.
-      await setDeliveryDate(selectedDate);
-      navigation.goBack();
+    try {
+      if (isEdit) {
+        // Correction of an existing profile: only the delivery date changes.
+        await setDeliveryDate(selectedDate);
+        navigation.goBack();
+        return;
+      }
+      await confirmDelivery(selectedDate);
+    } catch (error) {
+      // Not persisted: stay on this screen, the chosen date is kept (see services/saveFailure.ts).
+      setSaving(false);
+      presentSaveFailure(error);
       return;
     }
-    await confirmDelivery(selectedDate);
     navigation.navigate('PostpartumDeliveryType');
   };
 
@@ -203,7 +212,7 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
                 <Text style={styles.calendarArrowText}>{'<'}</Text>
               </Pressable>
 
-              <Text style={styles.calendarTitle}>{formatMonthYear(visibleMonth)}</Text>
+              <Text style={styles.calendarTitle}>{displayTitleCase(formatMonthYear(visibleMonth))}</Text>
 
               <Pressable
                 accessibilityLabel={t('postpartumDeliveryDate.nextMonth')}

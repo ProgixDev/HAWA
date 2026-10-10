@@ -49,6 +49,7 @@ import { computePostpartumStatus } from '../utils/postpartumTrackingUtils';
 import { showPostpartumSuccessToast } from '../state/postpartumSuccessToastStore';
 import { dateFormatLocale } from '../utils/cycleMath';
 import '../i18n';
+import {presentSaveFailure} from '../services/saveFailure';
 
 // Single generic entry screen for all 5 Postpartum daily-tracking categories
 // — reached from BOTH the shared "Journal quotidien" sheet AND the
@@ -334,6 +335,8 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
       try {
         await savePostpartumJournalField(todayKey, 'fatigue', fatigue);
         complete(t('postpartumJournalEntry.toast.saved.fatigue'));
+      } catch (saveError) {
+        presentSaveFailure(saveError);
       } finally {
         setSaving(false);
       }
@@ -359,6 +362,8 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
           await clearPostpartumMoodNote(todayKey);
         }
         complete(t('postpartumJournalEntry.toast.saved.mood'));
+      } catch (saveError) {
+        presentSaveFailure(saveError);
       } finally {
         setSaving(false);
       }
@@ -381,6 +386,8 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
           );
         }
         complete(t('postpartumJournalEntry.toast.saved.sleep'));
+      } catch (saveError) {
+        presentSaveFailure(saveError);
       } finally {
         setSaving(false);
       }
@@ -396,6 +403,8 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
       try {
         await savePostpartumJournalField(todayKey, 'pain', pain);
         complete(t('postpartumJournalEntry.toast.saved.pain'));
+      } catch (saveError) {
+        presentSaveFailure(saveError);
       } finally {
         setSaving(false);
       }
@@ -414,6 +423,8 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         physicalRecovery,
       );
       complete(t('postpartumJournalEntry.toast.saved.physicalRecovery'));
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }
@@ -442,6 +453,8 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         message: t('postpartumJournalEntry.toast.dailyUpToDate'),
       });
       navigation.navigate('MainTabs', { screen: 'CycleHome' });
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

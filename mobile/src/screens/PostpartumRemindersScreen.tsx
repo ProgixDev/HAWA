@@ -27,6 +27,7 @@ import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {dateFormatLocale} from '../utils/cycleMath';
 import '../i18n';
+import {presentSaveFailure} from '../services/saveFailure';
 
 // Same 'HH:mm' formatting/parsing convention as MenopauseRemindersScreen.tsx's/
 // ContraceptionRemindersScreen.tsx's own un-exported helpers — kept local
@@ -96,6 +97,8 @@ function PostpartumRemindersScreen({navigation, route}: Props): React.JSX.Elemen
       }
 
       goToNext();
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

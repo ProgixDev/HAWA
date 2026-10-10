@@ -25,7 +25,7 @@ import { usePremium } from '../../hooks/usePremium';
 import {useToday} from '../../hooks/useToday';
 import { HawaPremiumBottomSheet } from '../../components/premium/HawaPremiumBottomSheet';
 import StatisticsPeriodSelector, {
-  STATISTICS_PERIOD_LABELS,
+  statisticsPeriodLabel,
 } from '../../components/statistics/StatisticsPeriodSelector';
 import {
   coverageMonthsForAnchor,
@@ -856,7 +856,7 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
             cycleReturnEventInPeriod={cycleReturnEventInPeriod}
             firstPostpartumPeriodDate={prefs.firstPostpartumPeriodDate}
             isMonthlyView={isMonthlyView}
-            periodLabel={STATISTICS_PERIOD_LABELS[period]}
+            periodLabel={statisticsPeriodLabel(period, t as never)}
             lochiaChart={isMonthlyView ? lochiaChartFull : lochiaChart}
             lochiaCount={lochiaDays.length}
             moodEntriesCount={moodEntries.length}
