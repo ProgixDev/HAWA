@@ -284,6 +284,77 @@ const CONTENT = {
     disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce un parere medico personalizzato. In caso di dubbi, rivolgiti a un professionista sanitario.',
     shareMessage: 'Sonno e ormoni: il legame poco noto — AWA',
   },
+  tr: {
+    badge: 'ADET DÖNGÜSÜ • UYKU',
+    title: 'Uyku ve hormonlar:\nçok bilinmeyen bağlantı',
+    metaDuration: '6 dk okuma',
+    metaType: 'Makale',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Uykunun neden döngü evrene göre ve menopozda değiştiğini öğren.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Hormonlar uykuyu neden etkiler',
+      'Döngü evreleri boyunca uyku',
+      'Stres ve uyku kalitesi',
+      'Sakinleştirici bir akşam rutini',
+      'Ne zaman bir uzmana görünmeli',
+      'Akılda tutulacaklar',
+    ],
+    section1Body: 'Progesteronun hafif yatıştırıcı bir etkisi vardır; döngünün sonunda düşmesi uykuyu bozabilir, daha hafif ya da daha bölünmüş hâle getirebilir.',
+    infoCard1Title: 'Bilmekte fayda var',
+    infoCard1Text: 'Yumurtlamadan sonra vücut sıcaklığındaki hafif yükselme, bazı kişilerde uykuya dalmayı biraz zorlaştırabilir.',
+    phaseSleep: [
+      {
+        title: 'Adet sırasında',
+        text: 'Fiziksel rahatsızlık ve yorgunluk uykuyu hafifletebilir.',
+      },
+      {
+        title: 'Yumurtlama civarında',
+        text: 'Uyku çoğu kişide genellikle daha dengelidir.',
+      },
+      {
+        title: 'Adetten önce',
+        text: 'Progesteronun düşmesi uykuyu hafifletebilir; gece uyanmaları olabilir.',
+      },
+    ],
+    section2Body: 'Menopozda gece terlemeleri, benzer hormonal nedenlerle uyanmanın yaygın bir sebebidir.',
+    section3Body: 'Stres, döngünün zaten daha hassas olan evrelerinde uyku bozukluklarını güçlendirebilir. Basit gevşeme teknikleri (nefes egzersizi, nazik esneme hareketleri) yatmadan önce rahatlamana yardımcı olabilir.',
+    section4Body: 'Düzenli bir yatma rutini ve serin bir yatak odası, her yaşta bu bozuklukları sınırlamaya yardımcı olur.',
+    eveningRoutine: [
+      {
+        title: 'Düzenli saatler',
+        text: 'Sabit saatlerde yatıp kalkmak iç saatini düzenlemene yardımcı olur.',
+      },
+      {
+        title: 'Akşamları daha az ekran',
+        text: 'Mavi ışık uykuya dalmayı geciktirebilir; ekrana ara vermek yavaşlamana yardımcı olur.',
+      },
+      {
+        title: 'Serin bir yatak odası',
+        text: 'Ölçülü bir sıcaklık, her yaşta uykuya dalmayı kolaylaştırır.',
+      },
+    ],
+    section5Body: 'İyi alışkanlıklar her zaman yeterli olmaz. Şu durumlarda bir uzmanla konuşmak faydalı olabilir:',
+    warningTitle: 'Kontrol ettirmeye değer belirtiler',
+    consultSigns: [
+      'Uyku sorunları birkaç haftadır sürüyorsa',
+      'Yorgunluk gündelik hayatı güçlü biçimde etkiliyorsa',
+      'İyi alışkanlıklara rağmen uykusuzluk sürüyorsa',
+    ],
+    infoCard2Title: 'Bu randevuya hazırlanmak',
+    infoCard2Text: 'Sorunların ne kadar süredir devam ettiğini ve neyin etkili olduğunu düşündüğünü not etmek, sağlık uzmanının seni daha iyi yönlendirmesine yardımcı olabilir.',
+    tipTitle: 'Bilmekte fayda var',
+    tipText: 'Bu uyku değişiklikleri yaygındır ve genellikle geçicidir: bir şeylerin ters gittiği anlamına gelmez.',
+    summaryPoints: [
+      'Progesteronun hafif yatıştırıcı bir etkisi vardır; döngünün sonunda düşmesi uykuyu bozabilir.',
+      'Menopozda gece terlemeleri, uyanmanın yaygın bir sebebidir.',
+      'Düzenli bir yatma rutini ve serin bir yatak odası, her yaşta bu bozuklukları sınırlamaya yardımcı olur.',
+      'Süren uyku sorunları bir sağlık uzmanıyla konuşulmaya değerdir.',
+    ],
+    disclaimerText: 'Bilgilendirici içerik. Bu makale kişiye özel tıbbi görüşün yerini almaz. Şüphen varsa bir sağlık uzmanından yönlendirme al.',
+    shareMessage: 'Uyku ve hormonlar: çok bilinmeyen bağlantı — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */

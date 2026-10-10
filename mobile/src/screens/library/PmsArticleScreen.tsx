@@ -265,6 +265,72 @@ const CONTENT = {
     consultText: 'Se i sintomi sono molto intensi e incidono sulla tua vita quotidiana, potrebbe trattarsi del disturbo disforico premestruale (PMDD). Non esitare a consultare un operatore sanitario.',
     shareMessage: 'Sindrome premestruale (PMS): capirla meglio — AWA',
   },
+  tr: {
+    badge: 'DÖNGÜ VE İYİ OLUŞ',
+    title: 'Adet öncesi sendrom (PMS):\ndaha iyi anlamak',
+    metaDuration: '4 dk okuma',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'PMS, her 10 kadından 8’ine kadarını etkiler. Yorgunluk, huzursuzluk, şişkinlik… Nedenlerini anlamak ve doğru alışkanlıklar edinmek, ayın bu dönemini büyük ölçüde iyileştirebilir.',
+    contentsTitle: 'Bu makalede',
+    contents: [
+      'PMS nedir?',
+      'Sık görülen belirtiler',
+      'Olası nedenler',
+      'Daha iyi hissetmek için ipuçları',
+      'Doktora ne zaman başvurmalı?',
+    ],
+    section1Body: 'Adet öncesi sendrom, genellikle adetinden 5 ila 10 gün önce ortaya çıkan ve adet döngüsünün başında geçen bedensel ve duygusal belirtileri bir araya getirir.',
+    visual1Title: 'Döngüne bağlı bir evre',
+    visual1Text: 'Belirtiler adetinden önce ortaya çıkar ve genellikle adet başlayınca hafifler.',
+    tip1Title: 'Bilmekte fayda var',
+    tip1Text: 'Belirtilerin şiddeti ve türü, kadından kadına ve bir döngüden diğerine büyük ölçüde değişebilir.',
+    symptoms: [
+      {
+        title: 'Duygular',
+        text: 'Huzursuzluk, kaygı, hüzün, ruh hali dalgalanmaları',
+      },
+      {
+        title: 'Bedensel',
+        text: 'Şişkinlik, ağrı, yorgunluk, baş ağrısı',
+      },
+      {
+        title: 'Davranış',
+        text: 'Şeker isteği, iştah değişiklikleri, yorgunluk',
+      },
+      {
+        title: 'Uyku',
+        text: 'Uyumakta güçlük ya da daha az dinlendirici uyku',
+      },
+    ],
+    section3Body: 'Özellikle progesteron ve östrojendeki hormonal dalgalanmalar, beynin nörotransmitterlerini (serotonin, dopamin) etkiler; bu da PMS’nin duygusal ve bedensel belirtilerini açıklayabilir.',
+    tip2Title: 'Hormonlar önemli bir rol oynar',
+    tip2Text: 'Hormonal dalgalanmalar ruh halini, enerjiyi, uykuyu ve bazı bedensel hisleri etkileyebilir.',
+    tips: [
+      {
+        title: 'Yeterince su iç',
+        text: 'Yeterli su içmek şişkinliği azaltmaya yardımcı olur.',
+      },
+      {
+        title: 'Dengeli beslen',
+        text: 'Magnezyum, omega-3 ve B vitaminlerinden zengin besinleri tercih et.',
+      },
+      {
+        title: 'Aktif kal',
+        text: 'Fiziksel aktivite endorfin salgılatır ve stresi azaltır.',
+      },
+      {
+        title: 'Stresini yönet',
+        text: 'Nefes egzersizleri, meditasyon, günlük tutma… Sana iyi gelen şeyi bul.',
+      },
+      {
+        title: 'Yeterince uyu',
+        text: 'Kaliteli uyku hormonal dengeyi destekler.',
+      },
+    ],
+    consultTitle: 'Ne zaman tıbbi görüş almalısın?',
+    consultText: 'Belirtiler çok şiddetliyse ve gündelik hayatını etkiliyorsa, adet öncesi disforik bozukluk (PMDD) söz konusu olabilir. Bir sağlık uzmanına başvurmaktan çekinme.',
+    shareMessage: 'Adet öncesi sendrom (PMS): daha iyi anlamak — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<

@@ -311,6 +311,87 @@ const CONTENT = {
     disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce un parere medico o psicologico personalizzato. In caso di dubbi, rivolgiti a un professionista sanitario.',
     shareMessage: 'Umore e fluttuazioni ormonali — AWA',
   },
+  tr: {
+    badge: 'ADET DÖNGÜSÜ • RUH HALİ',
+    title: 'Ruh hali ve hormonal\ndalgalanmalar',
+    metaDuration: '6 dk okuma',
+    metaType: 'Makale',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Ruh halinin döngü boyunca neden değişebildiği; ancak her zaman değişmeyebileceği.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Ruh hali neden değişebilir?',
+      'Döngü evrelerinde ruh hali',
+      'Kendi değişimlerini gözlemlemek',
+      'Yardımcı olabilecek alışkanlıklar',
+      'Değişimler ne zaman kaygı verici olur?',
+      'Akılda kalacaklar',
+    ],
+    section1Body: 'Östrojen ve progesterondaki dalgalanmalar, serotonin gibi ruh haliyle ilgili nörotransmitterleri doğrudan etkiler.',
+    info1Title: 'Aklında bulunsun',
+    info1Text: 'Her ruh hali değişimi mutlaka döngünle bağlantılı değildir: yaşam koşulları, stres ve yorgunluk da önemli bir rol oynar.',
+    phaseMood: [
+      {
+        title: 'Adetin sırasında',
+        text: 'Yorgunluk ve duygusal hassasiyet birçok kişide yaygındır.',
+      },
+      {
+        title: 'Yumurtlama civarında',
+        text: 'Bu, çoğu zaman daha iyi enerjinin ve daha güçlü bir iyi olma hissinin yaşandığı bir evredir.',
+      },
+      {
+        title: 'Adetinden önce',
+        text: 'Bu dönemde alınganlık ya da ruh hali dalgalanmaları daha sık görülür.',
+      },
+    ],
+    section2Body: 'Dolayısıyla adet öncesi alınganlığın ya da menopoz dönemindeki ruh hali dalgalanmalarının gerçek bir biyolojik açıklaması vardır; bu durum herkeste aynı şekilde ortaya çıkmasa da.',
+    observeHabits: [
+      {
+        title: 'Günlük tutmak',
+        text: 'Ruh halini ve döngü evreni yazmak, kendi örüntülerini fark etmene yardımcı olur.',
+      },
+      {
+        title: 'Örüntüleri belirlemek',
+        text: 'Kendini yargılamadan: amaç her şeyi kontrol etmek değil, kendini daha iyi tanımaktır.',
+      },
+    ],
+    section4Body: 'Uyku, fiziksel aktivite ve sosyal destek, ruh halini dengelemek için en iyi müttefikler olmaya devam eder.',
+    helpfulHabits: [
+      {
+        title: 'Yeterli uyku',
+        text: 'Uykusuzluk çoğu zaman duygusal hassasiyeti artırır.',
+      },
+      {
+        title: 'Düzenli fiziksel aktivite',
+        text: 'Orta düzeyde bir aktivite bile döngü boyunca ruh halini dengelemeye yardımcı olur.',
+      },
+      {
+        title: 'Sosyal destek',
+        text: 'Güvendiğin biriyle konuşmak hissettiklerini hafifletebilir.',
+      },
+    ],
+    section5Body: 'Döngüyle bağlantılı bir ruh hali değişimi genellikle geçicidir. Yine de bazı belirtiler özellikle dikkat gerektirir:',
+    warningTitle: 'Dikkat edilmesi gereken belirtiler',
+    concerningSigns: [
+      'Yoğun üzüntü ya da döngünün ötesinde süren üzüntü',
+      'Normalde keyif aldığın şeylere karşı belirgin ilgi kaybı',
+      'Günlük hayatın ya da ilişkilerin üzerinde önemli bir etki',
+      'İstem dışı düşünceler ya da belirgin bir sıkıntı hissi',
+    ],
+    info2Title: 'Destek mevcut',
+    info2Text: 'Bir doktor, ebe ya da psikolog hissettiklerini daha iyi anlamana yardımcı olabilir ve gerekirse seni ileri desteğe yönlendirebilir.',
+    tipTitle: 'Bilmekte fayda var',
+    tipText: 'Hormonlar ile ruh hali arasındaki bağlantıyı fark etmek, her şeyi bu tek açıklamaya indirgemeden hissettiklerini daha iyi anlamana yardımcı olabilir.',
+    summaryPoints: [
+      'Östrojen ve progesterondaki dalgalanmalar, ruh haliyle ilgili nörotransmitterleri doğrudan etkiler.',
+      'Dolayısıyla adet öncesi alınganlığın gerçek bir biyolojik açıklaması vardır.',
+      'Her ruh hali değişimi mutlaka döngüyle bağlantılı değildir: yaşam koşulları da önemlidir.',
+      'Uyku, fiziksel aktivite ve sosyal destek, ruh halini dengelemek için en iyi müttefikler olmaya devam eder.',
+    ],
+    disclaimerText: 'Bilgilendirme amaçlı içerik. Bu makale kişiye özel tıbbi ya da psikolojik tavsiyenin yerini tutmaz. Tereddüt ettiğinde bir sağlık profesyonelinden yönlendirme al.',
+    shareMessage: 'Ruh hali ve hormonal dalgalanmalar — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */

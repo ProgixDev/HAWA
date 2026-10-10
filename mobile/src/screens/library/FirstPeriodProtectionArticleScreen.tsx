@@ -238,6 +238,56 @@ const CONTENT = {
     ],
     shareMessage: 'Quale protezione scegliere per il primo ciclo? — AWA',
   },
+  tr: {
+    badge: 'İLK ADET',
+    title: 'İlk adetim için\nhangi ürünü seçmeliyim?',
+    metaDuration: '6 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Adet döneminde kendini korumanın birkaç yolu var. Hiçbiri diğerinden daha iyi değil; seçimi kişisel konforun belirler.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Farklı koruma ürünleri',
+      'Konforuna göre nasıl seçersin',
+      'Koruma ürününü nasıl değiştirirsin',
+    ],
+    body1: 'İlk adetinde ped genellikle kullanması en kolay üründür, çünkü doğrudan iç çamaşırına yerleştirilir. Adet külotu ve tampon ise canın istediğinde daha sonra deneyebileceğin diğer seçeneklerdir.',
+    options: [
+      {
+        title: 'Ped',
+        text: 'Kullanımı kolaydır, iç çamaşırına yerleştirilir ve düzenli aralıklarla değiştirilir.',
+      },
+      {
+        title: 'Adet külotu',
+        text: 'Emici, yıkanabilir ve günlük kullanımda rahat bir iç çamaşırıdır.',
+      },
+      {
+        title: 'Tampon',
+        text: 'Vücudun içine yerleştirilir; kullanıp kullanmayacağın ve ne zaman kullanacağın kendi hızında, sana kalmış.',
+      },
+    ],
+    body2: 'Doğru ya da yanlış bir koruma ürünü yoktur: her biri farklı bedenlere, alışkanlıklara ve konfor düzeylerine uyar. Örneğin tamponlar vücudun içine yerleştirilir ve vücudunu biraz daha tanımayı gerektirir; ilk adetinden itibaren kullanman gerektiği anlamına gelmez.',
+    tipTitle: 'Bilmekte fayda var',
+    tipText: 'Zaman içinde farklı koruma ürünlerini denemek, kendine en uygun olanı baskı hissetmeden bulmana yardımcı olur.',
+    body3: 'Ortalama olarak koruma ürünü her 4 ila 6 saatte bir değiştirilmelidir; kanamanın yoğun olduğu günlerde daha sık değiştirmen gerekebilir. Düzenli değiştirmek, rahat etmene ve genital hijyeni iyi korumana yardımcı olur.',
+    relatedTitle: '♥  Bunlar da ilgini çekebilir',
+    related: [
+      {
+        title: 'Adet kanamanı anlamak',
+        meta: '7 dk  ·  Rehber',
+      },
+      {
+        title: 'İlk adetini günlük hayatında nasıl yönetirsin?',
+        meta: '5 dk  ·  Rehber',
+      },
+      {
+        title: 'İlk adetin: neler beklemelisin',
+        meta: '5 dk  ·  Rehber',
+      },
+    ],
+    shareMessage: 'İlk adetim için hangi ürünü seçmeliyim? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

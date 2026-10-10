@@ -190,6 +190,41 @@ const CONTENT = {
     tip2Text: 'Abitudini nel complesso equilibrate, senza eccessi né perfezionismo, sono il miglior sostegno quotidiano.',
     shareMessage: 'Abitudini di vita e percorso verso il concepimento — AWA',
   },
+  tr: {
+    badge: 'YAŞAM TARZI',
+    title: 'Yaşam alışkanlıkları ve\nhamile kalma yolculuğun',
+    metaDuration: '5 dk okuma',
+    metaType: 'Makale',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Yolculuğuna destek olabilecek basit alışkanlıklar — hiçbir baskı olmadan.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Doğurganlığı neler destekleyebilir',
+      'Stres, göz ardı edilmemesi gereken bir etken',
+      'Neleri sınırlamak daha iyi',
+      'Önemli nokta',
+    ],
+    body1: 'Bazı basit yaşam alışkanlıkları hamile kalma yolculuğuna destek olabilir, ancak tek başlarına bir sonucu garanti edemez.',
+    supportiveHabits: [
+      'Dengeli beslenme',
+      'Ölçülü fiziksel aktivite',
+      'Kaliteli uyku',
+      'Rahatlama anları',
+    ],
+    body2: 'Kronik stres hormonal dengeyi ve bazı kadınlarda döngü düzenini etkileyebilir. Kendine sakin anlar tanımak yolculuğun tam da bir parçasıdır.',
+    tip1Title: 'Bilmekte fayda var',
+    tip1Text: '“Her şeyi doğru yapmak” istemek de başlı başına bir stres kaynağı olabilir: genel olarak sağlıklı alışkanlıkları hedeflemek yeterlidir, mükemmeliyetçiliğe gerek yok.',
+    toLimit: [
+      'Her iki partnerde de doğurganlığı etkileyebilen sigara',
+      'Aşırı alkol tüketimi',
+      'Doğurganlığı tam tersine yavaşlatabilen yoğun ve uzun süreli sporcu antrenmanı',
+      'Hormonal dengeyi bozabilen aşırı rafine şeker',
+    ],
+    tip2Title: 'Bilmekte fayda var',
+    tip2Text: 'Aşırıya kaçmayan ve mükemmeliyetçilikten uzak, genel olarak dengeli alışkanlıklar günlük hayatta en iyi destektir.',
+    shareMessage: 'Yaşam alışkanlıkları ve hamile kalma yolculuğu — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

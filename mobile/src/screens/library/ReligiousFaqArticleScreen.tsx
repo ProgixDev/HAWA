@@ -389,6 +389,93 @@ const CONTENT = {
     ],
     shareMessage: 'Domande frequenti sul fiqh delle donne — AWA',
   },
+  tr: {
+    badge: 'SIKÇA SORULAN SORULAR',
+    title: 'Kadın fıkhı hakkında\nsıkça sorulan sorular',
+    metaDuration: '8 dk okuma',
+    metaType: 'SSS',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Kadın fıkhına dair en sık sorulan sorular, açık yanıtlarla tek bir yerde.',
+    disclaimerTitle: 'Önemli bilgi',
+    disclaimerText: 'Bu içerik tamamen eğitim amaçlıdır. Dinî konular yetkin âlimler tarafından doğrulanmalıdır. AWA fetva ya da kişiye özel dinî hüküm vermez.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Sık sorulan sorular',
+      'Farklılık gösterebilen fıkıh mezhepleri',
+      'Süren bir tereddüt durumunda',
+      'Önemli çıkarımlar',
+    ],
+    section1Body: 'Döngü, namaz ve oruçla ilgili birçok soru bir kadından diğerine düzenli olarak gündeme gelir. İşte en sık sorulanlara genel yanıtlar; daha derine inmek için her konu kendi özel makalesinde de daha ayrıntılı ele alınmaktadır.',
+    faqItems: [
+      [
+        'Kadın fıkhı nedir?',
+        'Kadın fıkhı, kadınların bedenini ve ibadetini özellikle ilgilendiren pratik kuralları bir araya getirir: döngü, temizlik, namaz, oruç, nifas ve istihaze.',
+      ],
+      [
+        'Kadın fıkhının ele aldığı başlıca konular nelerdir?',
+        'Özellikle adet ve döngüyü, ritüel temizliği, gusülü, adet sırasında ve sonrasında namaz ile orucu, nifası ve istihazeyi kapsar.',
+      ],
+      [
+        'Adet, doğum sonrası kanama ve düzensiz kanama arasındaki fark nedir?',
+        'Adet (hayız) olağan döngüyü izler, nifas doğumdan sonra görülür, istihaze ise döngü dışındaki düzensiz kanamayı ifade eder. Her birinin durumu farklıdır.',
+      ],
+      [
+        'Adet sırasında namaza ne olur?',
+        'Bu süre içinde namaz askıdadır: kabul edilmiş bir muafiyettir ve suçluluk duymadan yaşanmalıdır.',
+      ],
+      [
+        'Adet sırasında oruca ne olur?',
+        'Oruç da askıdadır; tutulmayan günler daha sonra, Ramazan dışında kaza edilir.',
+      ],
+      [
+        'Kılınamayan namazlar neden genellikle oruç gibi kaza edilmez?',
+        'Bu fark iki ibadetin doğasından kaynaklanır: namaz günlük ve tekrarlıdır, oruç ise yıllıktır ve bir ay içinde yoğunlaşır. Muafiyete uymak, dinî pratiğin tam bir parçasıdır.',
+      ],
+      [
+        'Adetten sonra namaz ne zaman yeniden başlar?',
+        'Adet sona erdiğinde ve gusül yapıldığında namaz, gecikmeden normal şekilde yeniden başlar.',
+      ],
+      [
+        'Gusülün rolü nedir?',
+        'Gusül, namaza ve diğer ibadetlere yeniden başlamak için gereken ritüel temizlik haline dönmeyi sağlayan büyük abdesttir.',
+      ],
+      [
+        'Adetin bittiğinden emin değilsen ne yapmalısın?',
+        'Anlık bir izlenime güvenmek yerine, yeterli bir süre boyunca kanamanın tamamen yokluğunu gözlemlemek durumu netleştirmeye yardımcı olur.',
+      ],
+      [
+        'Adet sırasında başka ibadetler yapılabilir mi?',
+        'Evet: zikir, dua, sadaka, dinî öğrenim ve diğer hayır işleri erişilebilir kalır.',
+      ],
+      [
+        'Bazı yanıtlar duruma göre neden değişebilir?',
+        'Fıkıh bir yorum alanıdır: görüşler fıkıh mezhebine ve kişisel koşullara göre değişebilir; hiçbir görüş tek başına mutlak değildir.',
+      ],
+    ],
+    section2Body1: 'İslam fıkhı, bazı ayrıntı noktalarında kabul görmüş yorum farklılıkları içerir. Bu farklılıklar yüzyıllardır vardır ve dinî gelenek içinde meşru sayılır.',
+    section2Body2: 'Bu nedenle, başvurulan kaynağa göre aynı soru biraz farklı yanıtlar alabilir. Bu, bir yanıtın otomatik olarak yanlış olduğu anlamına gelmez: aynı kaynakların farklı yöntemlerle ve farklı okumalarla ele alındığını yansıtır.',
+    tip1Title: 'Bilmekte fayda var',
+    tip1Text: 'Bulunan her yanıta göre sürekli görüş değiştirmek yerine yetkin bir kaynağı tutarlı biçimde izlemek, pratiğini açık ve sakin tutmana yardımcı olur.',
+    section3Body: 'Bazı durumları tek bir genel açıklamayla çözmek zor olabilir. Özellikle şu durumlarda böyledir:',
+    doubtSituations: [
+      'Adetin gerçekte ne zaman bittiği konusunda belirsizlik varsa',
+      'Kanamanın niteliği belirsiz kalıyorsa (adet, istihaze, diğer)',
+      'Gusül yapma gerekliliği konusunda şüphe sürüyorsa',
+      'Namaza yeniden başlama konusu belirsiz kalıyorsa',
+      'İnternette çelişkili bilgilerle karşılaşıldıysa',
+    ],
+    alert2Title: 'Önemli bilgi',
+    alert2Text: 'Bir durum kişisel, karmaşık ya da süreğen olduğunda genel bilgilerle çözülemez. Böyle bir durumda, kendi özel durumunu dikkate alabilecek yetkin bir âlime başvurmak en iyi yol olmaya devam eder. AWA fetva ya da kişiye özel dinî hüküm vermez.',
+    keyPoints: [
+      'Kadın fıkhı, kadınların dinî pratiğinin birçok yönünü kapsar',
+      'Bazı ayrıntılar fıkıh mezhebine göre meşru biçimde değişebilir',
+      'Genel bilgiler kişiye özel dinî rehberliğin yerini tutmaz',
+      'Süren bir tereddüt, yetkin bir âlime danışılmayı hak eder',
+      'AWA’nın rolü eğiticidir, fetva vermek değildir',
+    ],
+    shareMessage: 'Kadın fıkhı hakkında sıkça sorulan sorular — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

@@ -359,6 +359,105 @@ const CONTENT = {
     ],
     shareMessage: 'Alimentazione e ciclo: ciò che il tuo corpo ama — AWA',
   },
+  tr: {
+    badge: 'ADET DÖNGÜSÜ',
+    titleLine1: 'Beslenme ve döngün:',
+    titleLine2: 'vücudunun sevdikleri',
+    metaDuration: '4 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Beslenmen, döngün boyunca enerjini, ruh halini, hormonlarını ve genel iyi oluşunu etkiler.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Evrelere göre beslenme ihtiyaçları',
+      'Tercih edilecek besinler',
+      'Sınırlanacak besinler',
+      'Dengeli öğün örnekleri',
+    ],
+    section1Body: 'Vücudunun ihtiyaçları döngü boyunca aynı değildir. Ne yediğini ayarlamak gerçek bir fark yaratabilir.',
+    phases: [
+      {
+        title: 'Adet evresi',
+        days: '1. ila 5. günler',
+        body: 'Demir, magnezyum ve B vitaminlerini tercih et.',
+      },
+      {
+        title: 'Foliküler evre',
+        days: '6. ila 14. günler',
+        body: 'Yağsız proteine ve taze sebzelere odaklan.',
+      },
+      {
+        title: 'Yumurtlama evresi',
+        days: '14. gün civarı',
+        body: 'Antioksidanları ve omega-3’leri seç.',
+      },
+      {
+        title: 'Luteal evre',
+        days: '15. ila 28. günler',
+        body: 'Sinir sistemini destekle ve iltihabı sınırla.',
+      },
+    ],
+    foods: [
+      {
+        title: 'Demir',
+        body: 'Mercimek, ıspanak, yağsız etler, nohut.',
+      },
+      {
+        title: 'Magnezyum',
+        body: 'Badem, kabak çekirdeği, bitter çikolata, muz.',
+      },
+      {
+        title: 'Omega-3',
+        body: 'Somon, sardalya, ceviz, keten tohumu.',
+      },
+      {
+        title: 'Protein',
+        body: 'Yumurta, tofu, kümes hayvanı eti, Yunan yoğurdu, kinoa.',
+      },
+      {
+        title: 'Lif ve antioksidanlar',
+        body: 'Orman meyveleri, avokado, brokoli, havuç.',
+      },
+    ],
+    limits: [
+      {
+        title: 'Aşırı tuz',
+      },
+      {
+        title: 'Şekerli besinler',
+      },
+      {
+        title: 'Aşırı işlenmiş besinler',
+      },
+      {
+        title: 'Aşırı kafein',
+      },
+      {
+        title: 'Alkol',
+      },
+    ],
+    limitText: 'Dengeni korumana yardımcı olmak için ölçülü tüket.',
+    meals: [
+      {
+        tag: 'Kahvaltı',
+        body: 'Yulaf lapası, orman meyveleri, badem ve chia',
+      },
+      {
+        tag: 'Öğle yemeği',
+        body: 'Somon, kinoa, buharda brokoli ve zeytinyağı',
+      },
+      {
+        tag: 'Ara öğün',
+        body: 'Sade yoğurt, yaban mersini ve keten tohumu',
+      },
+      {
+        tag: 'Akşam yemeği',
+        body: 'Mercimek çorbası, fırınlanmış sebzeler ve tam tahıllı ekmek',
+      },
+    ],
+    shareMessage: 'Beslenme ve döngün: vücudunun sevdikleri — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<

@@ -341,6 +341,111 @@ const CONTENT = {
     ],
     shareMessage: 'Il flusso mestruale: capire colori e consistenze — AWA',
   },
+  tr: {
+    badge: 'DÖNGÜ VE İYİ OLUŞ',
+    title: 'Adet akışı: renkleri ve\ndokuları anlamak',
+    metaDuration: '4 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Adetinin rengi ve dokusu hormonal sağlığın hakkında çok şey söyler. Döngünü daha iyi anlamak için bunları okumayı öğren.',
+    contentsTitle: 'Bu makalede',
+    contents: [
+      'Adet akışının renkleri',
+      'Akışın dokuları',
+      'Her rengin neye işaret edebileceği',
+      'Ne zaman endişelenmeli?',
+      'Kendini daha iyi tanıman için önerilerimiz',
+    ],
+    colors: [
+      {
+        name: 'Parlak kırmızı',
+        text: 'Taze akış, yeni kan. Adetin başında yaygındır.',
+      },
+      {
+        name: 'Koyu kırmızı',
+        text: 'Daha eski kan; döngünün orta döneminde normaldir.',
+      },
+      {
+        name: 'Kahverengi',
+        text: 'Oksitlenmiş kan; çoğunlukla adetin sonunda görülür.',
+      },
+      {
+        name: 'Pembe',
+        text: 'Hafif bir akışa ya da hormonal bir değişime işaret edebilir.',
+      },
+      {
+        name: 'Turuncu',
+        text: 'Bir enfeksiyonla ya da bir dengesizlikle bağlantılı olabilir.',
+      },
+    ],
+    textures: [
+      {
+        name: 'Akışkan',
+        text: 'Sıvı akış, pıhtısız.',
+      },
+      {
+        name: 'Kremsi',
+        text: 'Koyu, pürüzsüz doku.',
+      },
+      {
+        name: 'Pıhtılar',
+        text: 'Küçük ya da büyük kan pıhtıları.',
+      },
+      {
+        name: 'İpliksi / Mukus',
+        text: 'Esneyen, şeffaf ya da beyazımsı.',
+      },
+      {
+        name: 'Doku parçaları',
+        text: 'Doku ya da mukoza parçaları.',
+      },
+    ],
+    meanings: [
+      {
+        name: 'Parlak ile koyu kırmızı arası',
+        text: 'Normal döngü. Bedenin rahim iç zarını atıyor.',
+      },
+      {
+        name: 'Kahverengi',
+        text: 'Daha eski kan, endişelenecek bir şey yok.',
+      },
+      {
+        name: 'Pembe',
+        text: 'Adetin başında/sonunda ya da hormonal bir dengesizlikle ortaya çıkabilir.',
+      },
+      {
+        name: 'Turuncu',
+        text: 'Keskin bir koku, kaşıntı ya da ağrı eşlik ediyorsa takip et.',
+      },
+    ],
+    warningTitle: 'Dikkat edilecek belirtiler',
+    warningItems: [
+      'Çok yoğun kanama (koruyucu ürünü 1–2 saatte bir değiştirmek)',
+      'Düzenli olarak çok büyük pıhtılar gelmesi',
+      'Geçmeyen kötü koku ya da kaşıntı',
+      'Alışılmadık derecede şiddetli ağrı',
+    ],
+    advice: [
+      {
+        title: 'Akışını gözlemle',
+        text: 'Her ay görülen değişiklikleri not et.',
+      },
+      {
+        title: 'Doğru koruyucuyu seç',
+        text: 'Akışına ve konforuna göre seç.',
+      },
+      {
+        title: 'Bedenini dinle',
+        text: 'Sana değerli sinyaller verir.',
+      },
+      {
+        title: 'Şüphe duyarsan',
+        text: 'Bir sağlık uzmanıyla konuş.',
+      },
+    ],
+    shareMessage: 'Adet akışı: renkleri ve dokuları anlamak — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<

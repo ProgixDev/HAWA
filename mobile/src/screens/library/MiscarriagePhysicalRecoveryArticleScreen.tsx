@@ -299,6 +299,79 @@ const CONTENT = {
     disclaimerText: 'Contenuto informativo. Questo articolo non sostituisce un parere medico né una visita. In caso di dubbi o di sintomi preoccupanti, rivolgiti a un operatore sanitario.',
     shareMessage: 'Il recupero fisico dopo un aborto spontaneo — AWA',
   },
+  tr: {
+    badge: 'DÜŞÜK SONRASI • İYİLEŞME',
+    title: 'Düşük sonrası \nfiziksel iyileşme',
+    metaDuration: '7 dk okuma',
+    metaType: 'Makale',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Bilgilendirici içerik',
+    intro: 'Bedeninin dengesini yeniden bulması için zamana ihtiyacı var. Bu dönemi nazikçe daha iyi anlamana yardımcı olabilecekler burada.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Düşük nedir?',
+      'Fiziksel olarak neler yaşanabilir',
+      'Döngünün geri dönüşü',
+      'İçini rahatlatan bir sağlık kontrolü',
+      'Ne zaman tıbbi yardım alınmalı',
+      'Akılda tutulacaklar',
+    ],
+    section1Body1: 'Düşük, bir gebeliğin kendiliğinden sona ermesidir ve çoğunlukla 12. ila 14. haftadan önce olur. Doğrulanmış gebeliklerin altı ila yedide birinin bu şekilde sonlandığı tahmin edilir; çoğunlukla gebeliğin erken döneminde.',
+    section1Body2: 'Nadir değildir ve gelecekteki bir doğurganlık sorununun işareti de değildir. Vakaların büyük çoğunluğunda, gelişim sırasında tesadüfen ortaya çıkan bir kromozom anomalisi gibi, kimsenin elinde olmayan etkenlerle ilişkilidir.',
+    infoCard1Title: 'Akılda tut',
+    infoCard1Text: 'Düşük, senin yaptığın ya da yapmadığın bir şeyden kaynaklanmaz. Yaşananlardan sen sorumlu değilsin.',
+    section2Body: 'Her deneyim kişiden kişiye farklıdır. En sık görülen belirtiler şunlardır:',
+    physicalSigns: [
+      {
+        title: 'Kanama',
+        text: 'Şiddeti ve süresi duruma göre değişebilir, ardından yavaş yavaş azalır.',
+      },
+      {
+        title: 'Kramp',
+        text: 'Adet kramplarına benzer, bazen daha yoğun bir ağrı bu dönemde eşlik edebilir.',
+      },
+      {
+        title: 'Değişken bir süre',
+        text: 'Fiziksel iyileşme genellikle birkaç gün ile birkaç hafta arasında sürer.',
+      },
+    ],
+    section3Body: 'Bedenin, düşükten sonra hormonal dengesini yeniden kazanmak için genellikle birkaç hafta gerekir. Döngü 4 ila 6 hafta gibi erken bir sürede geri dönebilir, ancak her yolculuk farklıdır.',
+    comfortTips: [
+      {
+        title: 'Dinlenmene izin ver',
+        text: 'Bedeninin dengesini yeniden bulması için zamana ihtiyacı var; belirli bir sonuca ulaşma baskısı yok.',
+      },
+      {
+        title: 'Yeterince su iç',
+        text: 'İyi bir sıvı alımı iyileşmeyi doğal olarak destekler.',
+      },
+      {
+        title: 'Bedenini dinle',
+        text: 'Her yolculuk farklıdır: kendi hızında ilerle, kendini başkalarıyla kıyaslama.',
+      },
+    ],
+    section4Body: 'Bir sağlık kontrolü, her şeyin normal seyrettiğini tam bir gönül rahatlığıyla doğrulamana yardımcı olur. Bu randevu aynı zamanda tüm sorularını sorman için bir fırsattır.',
+    infoCard2Title: 'Bu randevuda neler olabilir',
+    infoCard2Text: 'Yaşadıkların hakkında bir konuşma, gerekirse bir muayene ve bundan sonrasıyla ilgili sorularını yanıtlamak için ayrılmış bir alan.',
+    section5Body: 'Bu belirtilerden herhangi biri ortaya çıkarsa, hemen bir sağlık uzmanıyla iletişime geçmek önemlidir.',
+    warningTitle: 'Tıbbi görüş gerektiren belirtiler',
+    warningSigns: [
+      'Ateş ya da genel durumun kötüleşmesi',
+      'Çok yoğun kanama (pedini bir saatten kısa sürede değiştirmen gerekiyorsa)',
+      'Geçmeyen şiddetli ağrı',
+      'Olağan dışı bir koku',
+    ],
+    tipTitle: 'Bilmekte fayda var',
+    tipText: 'Bedenine iyi bakmak, her şeyi kontrol etmek anlamına gelmez: esas olarak kendine ihtiyacın olan zamanı tanımak demektir.',
+    summaryPoints: [
+      'Düşük, senin yaptığın ya da yapmadığın bir şeyden kaynaklanmaz.',
+      'Bedenin hormonal dengesini yeniden kazanmak için genellikle birkaç hafta gerekir.',
+      'Döngü 4 ila 6 hafta gibi erken bir sürede geri dönebilir, ancak her yolculuk farklıdır.',
+      'Bir sağlık kontrolü, her şeyin normal seyrettiğini tam bir gönül rahatlığıyla doğrulamanı sağlar.',
+    ],
+    disclaimerText: 'Bilgilendirici içerik. Bu makale tıbbi görüşün ya da muayenenin yerini almaz. Şüphen varsa ya da endişe verici belirtiler yaşıyorsan bir sağlık uzmanına danış.',
+    shareMessage: 'Düşük sonrası fiziksel iyileşme — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */

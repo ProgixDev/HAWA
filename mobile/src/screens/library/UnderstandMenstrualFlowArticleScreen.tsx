@@ -305,6 +305,77 @@ const CONTENT = {
     reliefText: 'Riposo, calore e attività dolce possono aiutare. Se il dolore resta molto intenso o insolito, chiedi un parere medico.',
     shareMessage: 'Capire il tuo periodo mestruale: cosa succede davvero — AWA',
   },
+  tr: {
+    badge: 'ADET DÖNGÜSÜ',
+    title: 'Adetini anlamak:\nasıl bir süreç yaşanıyor?',
+    metaDuration: '5 dk okuma',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Adetin, hormonal ve üreme sağlığı için gerekli doğal bir sürecin parçasıdır. Vücudunda neler olduğunu anlamak, her döngüde kendini daha rahat hissetmene yardımcı olabilir.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Adet nedir?',
+      'Adetin seyri',
+      'Neler normal (ve neler değil)?',
+      'Ağrıyı doğal yollarla hafifletmek',
+    ],
+    body1: 'Adet, döllenme gerçekleşmediğinde rahim iç tabakasının dökülmesidir. Bu ortalama ayda bir kez olur.',
+    knowTitle: 'Bilmekte fayda var',
+    knowText: 'Her kadın benzersizdir: süre, yoğunluk ve hissedilenler bir döngüden diğerine değişebilir.',
+    body2: 'Akış adetin boyunca aynı değildir. Genellikle yoğunluk, renk ve kıvam bakımından günden güne değişir.',
+    flowSteps: [
+      {
+        title: 'Adetin başlangıcı',
+        text: 'Akış çoğu zaman ilk günlerde daha yoğundur.',
+      },
+      {
+        title: 'Adetin ortası',
+        text: 'Akış genellikle yavaş yavaş azalmaya başlar.',
+      },
+      {
+        title: 'Adetin sonu',
+        text: 'Akış hafifler ve daha koyu bir renk alabilir.',
+      },
+    ],
+    softInfoTitle: 'Aklında bulunsun',
+    softInfoText: 'Bu, bir döngüden diğerine değişebilir. En önemlisi, kendi olağan ritmini bilmendir.',
+    body3: 'Adet sırasında bazı değişiklikler yaygındır. Diğer işaretler ise, özellikle yeni ya da çok şiddetli olduklarında daha fazla dikkat gerektirir.',
+    normalSigns: [
+      {
+        title: 'Süre',
+        text: 'Genellikle birkaç gün süren bir adet.',
+      },
+      {
+        title: 'Değişen akış',
+        text: 'Başta daha yoğun, sonra daha hafif akış.',
+      },
+      {
+        title: 'Renk',
+        text: 'Adetin sonuna doğru parlak kırmızıdan koyu kırmızıya veya kahverengiye.',
+      },
+      {
+        title: 'Hissedilenler',
+        text: 'Hafif ile orta şiddette kramplar hissedilebilir.',
+      },
+    ],
+    warningTitle: 'Ne zaman tıbbi görüş almalı?',
+    warningSigns: [
+      'Çok şiddetli veya olağandışı ağrı',
+      'Bir ped ya da tamponu çok hızlı ıslatan kanama',
+      'Belirgin yorgunluk, bayılacak gibi olma veya baş dönmesi',
+      'Alışkın olduğun düzenden ani ve süregelen bir sapma',
+    ],
+    body4: 'Basit alışkanlıklar rahatsızlığı hafifletmeye ve adetin ilk günlerini daha konforlu hale getirmeye yardımcı olabilir.',
+    tipsTitle: 'Pratik ipuçları',
+    tips: [
+      'Yorgunluğu azaltmaya\nyardımcı olmak için\nyeterince su iç.',
+      'Gerekirse alt\nkarnına\nsıcak uygula.',
+      'Hafif bir\naktivite dene:\nyürüyüş, yoga, esneme.',
+      'Kendine dinlenme\nve kaliteli\nuyku fırsatı ver.',
+    ],
+    reliefTitle: 'Vücudunu dinle',
+    reliefText: 'Dinlenme, sıcak uygulama ve hafif aktivite yardımcı olabilir. Ağrı çok şiddetli veya olağandışı kalırsa tıbbi görüş al.',
+    shareMessage: 'Adetini anlamak: asıl neler oluyor? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<

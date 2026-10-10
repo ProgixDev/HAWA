@@ -378,6 +378,114 @@ const CONTENT = {
     ],
     disclaimerText: 'Contenuto a scopo informativo. Questo articolo non sostituisce le indicazioni personalizzate di un professionista sanitario.',
   },
+  tr: {
+    shareMessage: 'Emzirmeye güvenle başlamak — AWA',
+    badge: 'DOĞUM SONRASI • EMZİRME',
+    title: 'Emzirmeye\ngüvenle başlamak',
+    metaDuration: '6 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Emzirmenin ilk günleri hem bebek hem de anne için bir öğrenme dönemidir. Doğru kavrama, ritim, pozisyon ve gözlem, seni rahat ettiren yolu zamanla bulmana yardımcı olur.',
+    contentsTitle: 'Bu makalede',
+    contentsSubtitle: 'Başlamak için temel bilgiler',
+    tocItems: [
+      'İlk adımlar',
+      'Dikkat edilecek işaretler',
+      'İyi bir kavrama',
+      'Ne zaman yardım istemeli',
+      'Akılda tutulacaklar',
+    ],
+    h2Step1: '1. İlk adımlar',
+    body1: 'Emzirme zamanla oturur. İlk saatler, ardından ilk günler bebeğe ve anneye birlikte öğrenmek için zaman tanır.',
+    timelineTitle: 'Adım adım başlangıç',
+    timelineSubtitle: 'Baskı olmadan, basit bir rehber',
+    startingSteps: [
+      {
+        title: 'Doğumdan sonra',
+        text: 'Ten teması ve erken emzirme, emzirmenin iyi bir başlangıç yapmasına yardımcı olabilir.',
+      },
+      {
+        title: 'İlk saatler',
+        text: 'Bebek sık sık emebilir. Ritmin değişken olması normaldir.',
+      },
+      {
+        title: 'İlk günler',
+        text: 'Emzirmeler zamanla bebek ve anne için ortak bir ritme dönüşür.',
+      },
+      {
+        title: 'Bir ritme oturmak',
+        text: 'Süt miktarı zamanla bebeğin ihtiyaçlarına göre ayarlanır.',
+      },
+    ],
+    h2Step2: '2. Dikkat edilecek işaretler',
+    body2: 'Yalnızca saate bakmak yerine bebeğin uyanma işaretlerini, emzirmeleri ve bez düzenini izlemek yardımcı olabilir.',
+    signals: [
+      {
+        title: 'Sık bir ritim',
+        text: 'Yenidoğan sık sık emmek isteyebilir; bazen 24 saatte 8 ila 12 kez.',
+      },
+      {
+        title: 'Uyanma işaretleri',
+        text: 'Bebek acıkmaya başladığında kıpırdanabilir, ağzını açabilir veya göğsü arayabilir.',
+      },
+      {
+        title: 'Bezler',
+        text: 'Islak ve kirli bez sayısı, gün gün takip edilmesi gereken şeylerden biridir.',
+      },
+    ],
+    h2Step3: '3. İyi bir kavrama',
+    body3: 'Rahat bir pozisyon ve etkili bir kavrama, emzirmeleri kolaylaştırabilir. Ağrı belirgin veya kalıcıysa bir sağlık profesyoneli pozisyonu ve kavramayı kontrol edebilir.',
+    latchTitle: '4 rahatlık işareti',
+    latchSubtitle: 'Emzirme sırasında basit bir kontrol',
+    latchCenterTitle: 'Bebek + göğüs',
+    latchCenterSubtitle: 'Rahat pozisyon',
+    latchPoints: [
+      {
+        title: 'Bebek iyi konumlanmış',
+        text: 'Bebek vücuduna yakın tutulur, başı rahat bir hizadadır.',
+      },
+      {
+        title: 'Ağız iyice açık',
+        text: 'Göğsü sunmadan önce ağzın yeterince geniş açılmasını bekle.',
+      },
+      {
+        title: 'Rahat bir kavrama',
+        text: 'Etkili bir kavrama belirgin veya kalıcı bir ağrıya yol açmamalıdır.',
+      },
+      {
+        title: 'Düzenli emme',
+        text: 'Emzirme sırasında emme ve yutma hareketleri gözlemlenebilir.',
+      },
+    ],
+    h2Step4: '4. Ne zaman yardım istemeli?',
+    body4: 'Zorlukların ciddileşmesini beklemene gerek yok. Eğitimli bir profesyonel pozisyonu, kavramayı veya bebeğin ihtiyaçlarını kontrol etmene yardımcı olabilir.',
+    supportOptions: [
+      {
+        title: 'Ebe',
+        text: 'İlk emzirmelerde sana destek olabilir.',
+      },
+      {
+        title: 'Sağlık profesyoneli',
+        text: 'Bebeğin ve annenin sağlığını kontrol edebilir.',
+      },
+      {
+        title: 'Emzirme danışmanı',
+        text: 'Kavrama zor olduğunda yardımcı olabilir.',
+      },
+    ],
+    infoTitle: 'Her emzirme yolculuğu farklıdır',
+    infoText: 'İlk günler çok farklı geçebilir. Emzirme ritmi ve süt miktarı zamanla değişebilir. Seni endişelendiren bir şey varsa bir sağlık profesyoneline danış.',
+    h2Summary: 'Akılda tutulacaklar',
+    summaryItems: [
+      'İlk emzirmeler bebek ve anne için bir öğrenme dönemidir.',
+      'Yenidoğan sık sık emmek isteyebilir.',
+      'Rahat bir pozisyon ve iyi bir kavrama önemlidir.',
+      'Bebeğin işaretlerini izlemek, kusursuz bir saat düzenini hedeflemekten daha faydalıdır.',
+      'Bir ebe veya emzirme danışmanı, ilk zorluklarda sana yardımcı olabilir.',
+    ],
+    disclaimerText: 'Bilgilendirici içerik. Bu makale, bir sağlık profesyonelinin kişiye özel yönlendirmesinin yerini tutmaz.',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */

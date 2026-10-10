@@ -217,6 +217,45 @@ const CONTENT = {
     tipText: 'Non esitare a scrivere le tue domande prima di ogni appuntamento per non dimenticare nulla sul momento: nessuna domanda è troppo piccola per essere posta.',
     shareMessage: 'Il calendario degli esami in gravidanza — AWA',
   },
+  tr: {
+    badge: 'GEBELİK • TIBBİ TAKİP',
+    title: 'Gebelik muayeneleri\ntakvimi',
+    metaDuration: '6 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Başlangıç',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Ultrasonlar ve temel tetkikler, trimester trimester.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Takip ultrasonları',
+      'Temel kan tahlilleri',
+      'Her randevuya hazırlanmak',
+      'Dikkate değer noktalar',
+      'Akılda kalacaklar',
+    ],
+    body1: 'Gebelik genellikle her trimesterde bir tane olmak üzere, her biri farklı bir amaca hizmet eden üç ana ultrason içerir.',
+    ultrasounds: [
+      '1. trimester: gebelik haftasının belirlenmesi ve ense kalınlığı ölçümü',
+      '2. trimester: morfoloji ultrasonu',
+      '3. trimester: büyüme ve bebeğin duruşu',
+    ],
+    body2: 'Düzenli kan tahlilleri, gebelik boyunca birkaç temel göstergeyi izler:',
+    bloodTests: [
+      'Olası anemiyi taramak için demir düzeyleri',
+      'Gebelik şekeri taraması, genellikle 2. trimester civarında',
+      'Kan grubu ve düzensiz antikor taraması',
+      'Bağışıklık durumuna göre serolojik tetkikler (toksoplazmoz, kızamıkçık)',
+    ],
+    prepTips: [
+      'Aklına gelen soruları unutmadan önce yaz',
+      'Her randevuya gebelik takip defterini götür',
+      'Küçük görünse bile yeni bir belirtiyi mutlaka söyle',
+    ],
+    neutralText: 'Muayenelerin tam sayısı ve takvimi; aldığın bakıma, risk profiline ve ülkenin ya da sağlık hizmeti sağlayıcının uygulamalarına göre değişebilir.',
+    tipTitle: 'Bilmekte fayda var',
+    tipText: 'Her randevudan önce sorularını yazmaktan çekinme; böylece o an hiçbir şeyi unutmazsın: sorulamayacak kadar küçük bir soru yoktur.',
+    shareMessage: 'Gebelik muayeneleri takvimi — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

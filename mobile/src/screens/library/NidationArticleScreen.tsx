@@ -186,6 +186,37 @@ const CONTENT = {
     tip2Text: 'L’impianto avviene in modo discreto, con o senza un segno visibile. Un po’ di pazienza prima del test ti evita un risultato poco affidabile.',
     shareMessage: 'Capire l’impianto — AWA',
   },
+  tr: {
+    badge: 'İMPLANTASYON',
+    title: 'İmplantasyonu\nanlamak',
+    metaDuration: '5 dk okuma',
+    metaType: 'Makale',
+    metaLevel: 'Orta düzey',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Döllenme ile pozitif gebelik testi arasında neler olur.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Döllenmeden implantasyona',
+      'Olası belirtiler, kesinlik olmadan',
+      'Test ne zaman güvenilir olur',
+      'Öne çıkanlar',
+    ],
+    body1: 'Döllenmeden sonra yumurta genellikle rahme ulaşıp orada yerleşmesi için 6 ila 10 gün alır: buna implantasyon denir. Bu adım, gebeliğin gerçek başlangıç noktasını oluşturur.',
+    body2: 'Hafif bir kanama ya da kramp bazen implantasyona eşlik edebilir; ancak bu her zaman olmaz ve tek başına güvenilir bir belirti değildir.',
+    possibleSigns: [
+      'Bazen “lekelenme” olarak adlandırılan çok hafif kanama',
+      'Alt karında hafif kramplar',
+      'Birçok kadında hiçbir belirti olmaması',
+    ],
+    tip1Title: 'Bilmekte fayda var',
+    tip1Text: 'Belirti olmaması hiçbir şey ifade etmez: birçok gebelik bu aşamada fark edilir bir belirti olmadan başlar.',
+    body3: 'hCG hormonu ancak implantasyondan sonra üretilmeye başlar ve gebelik testiyle saptanabilir hale gelir. Çok erken test yapmak yanlış negatif sonuç verebilir.',
+    alertTitle: 'Not',
+    alertText: 'Test yapmadan önce adetinin beklenen gününe kadar beklemek, çok erken test yapmaya göre daha güvenilir bir sonuç verir.',
+    tip2Title: 'Bilmekte fayda var',
+    tip2Text: 'İmplantasyon, görünür bir belirti olsun ya da olmasın sessizce gerçekleşir. Test yapmadan önce biraz sabretmek, güvenilmez bir sonuçtan seni korur.',
+    shareMessage: 'İmplantasyonu anlamak — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

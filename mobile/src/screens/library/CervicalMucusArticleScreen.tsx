@@ -329,6 +329,70 @@ const CONTENT = {
     disclaimerText: 'Contenuto a scopo informativo. Questo articolo non sostituisce un parere medico personalizzato. In caso di dubbi, chiedi consiglio a un professionista sanitario.',
     shareMessage: 'Osservare il tuo muco cervicale — AWA',
   },
+  tr: {
+    badge: 'DOĞURGANLIK • SERVİKAL MUKUS',
+    title: 'Servikal mukusunu\ngözlemlemek',
+    metaDuration: '5 dk okuma',
+    metaType: 'Rehber',
+    metaLevel: 'Orta düzey',
+    metaValidated: 'Gözden geçirilmiş içerik',
+    intro: 'Doğurganlık dönemini fark etmen için doğal ve ücretsiz bir işaret.',
+    contentsTitle: 'Bu makalede',
+    topics: [
+      'Servikal mukus nedir?',
+      'Döngü boyunca nasıl değişir?',
+      'Doğurgan mukusu tanımak',
+      'Her gün nasıl gözlemlenir?',
+      'Gözlemlerini neler etkileyebilir?',
+      'Bu yöntemin sınırları',
+      'Akılda kalacaklar',
+    ],
+    section1Body: 'Rahim ağzının (serviksin) ürettiği doğal bir salgıdır. Servikal mukusun kıvamı, östrojen ve progesteronun etkisiyle döngü boyunca değişir.',
+    cycleEvolution: [
+      {
+        title: 'Adetinden sonra',
+        text: 'Mukus azdır, çoğu zaman kuruluk hissi olur.',
+      },
+      {
+        title: 'Yumurtlamadan önce',
+        text: 'Daha bol, bulanık ve yapışkandır.',
+      },
+      {
+        title: 'Yumurtlama yaklaşırken',
+        text: 'Berrak, uzayan ve esnektir; çiğ yumurta akına benzer.',
+      },
+      {
+        title: 'Yumurtlamadan sonra',
+        text: 'Daha koyu, opak ya da çok daha az görülür.',
+      },
+    ],
+    section3Intro: 'Yumurtlama yaklaştıkça mukus şöyle olur:',
+    fertileSigns: [
+      'Berrak ya da şeffaf',
+      'Uzayan: iki parmağın arasında gerilir',
+      'Esnek, çiğ yumurta akına benzer',
+      'Diğer günlere göre daha bol',
+    ],
+    infoTitle: 'Basit bir alışkanlık, her gün',
+    infoText: 'Görünümünü ve kıvamını tuvalet kâğıdıyla ya da temiz parmaklarınla, günün yaklaşık aynı saatinde gözlemle ve fark ettiklerini not al.',
+    modifyingFactors: [
+      'Yakın zamanda yaşanan cinsel ilişki',
+      'İntim hijyen ürünleri',
+      'Hormonal doğum kontrolü ya da bazı tedaviler',
+      'Enfeksiyon ya da yerel bir dengesizlik',
+    ],
+    section6Body: 'Herkesin profili farklıdır; kendi profilini tanımak birkaç döngü boyunca pratik yapmayı gerektirir. Bu değişimi her gün, diğer belirtilerle birlikte gözlemlemek doğurganlık dönemini daha iyi belirlemene yardımcı olur; ancak endişelendiğinde tıbbi tavsiyenin yerini asla tutmaz.',
+    tipTitle: 'Bilmekte fayda var',
+    tipText: 'Servikal mukusu bazal vücut sıcaklığın ya da ovülasyon testlerinle birlikte değerlendirmek, döngün hakkında daha eksiksiz bir tablo sunar.',
+    summaryPoints: [
+      'Servikal mukusun kıvamı, östrojen ve progesteronun etkisiyle döngü boyunca değişir.',
+      'Yumurtlama yaklaşırken mukus berrak, uzayan ve esnek olur; çiğ yumurta akına benzer.',
+      'Bu değişimi her gün, diğer belirtilerle birlikte gözlemlemek doğurganlık dönemini daha iyi belirlemene yardımcı olur.',
+      'Kendi düzenini tanımak pratik ve birkaç döngülük gözlem gerektirir.',
+    ],
+    disclaimerText: 'Bilgilendirme amaçlı içerik. Bu makale kişiye özel tıbbi tavsiyenin yerini tutmaz. Tereddüt ettiğinde bir sağlık profesyoneline danış.',
+    shareMessage: 'Servikal mukusunu gözlemlemek — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
