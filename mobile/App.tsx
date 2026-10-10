@@ -49,6 +49,7 @@ import { openPendingPostpartumNifasNotification } from './src/services/postpartu
 import { openPendingConceptionReminderNotification } from './src/services/conceptionReminderNotificationNavigation';
 import { registerNotificationForegroundHandlers } from './src/services/notificationForegroundHandlers';
 import { reconcileInAppNotifications } from './src/services/inAppNotificationReconciliation';
+import { refreshNotificationPermission } from './src/services/pregnancyNotifications';
 import { hydrateInAppNotifications } from './src/state/inAppNotificationStore';
 import {hydrateConceptionPreferences, subscribeConceptionPreferences} from './src/state/conceptionPreferences';
 import {hydrateContraceptionPreferences, subscribeContraceptionPreferences} from './src/state/contraceptionPreferences';
@@ -419,6 +420,15 @@ function App(): React.JSX.Element {
         if (backgroundedAt.current && Date.now() - backgroundedAt.current >= AUTO_LOCK_TIMEOUT_MS && requiresAppLock()) {lockApp();}
         backgroundedAt.current = null;
         reconcileInAppNotifications().catch(() => {});
+        // Notifications switched on in Android settings while she was away: the reminders that could not be
+        // scheduled until now are scheduled now. The OS state is read fresh each time (never remembered), and
+        // only a not-allowed -> allowed change triggers the resync (every objective's sync is an idempotent
+        // upsert, see resyncAllRemindersForPrivacyChange).
+        refreshNotificationPermission()
+          .then(({becameGranted}) => {
+            if (becameGranted) {resyncAllRemindersForPrivacyChange();}
+          })
+          .catch(() => {});
       } else if (state === 'background') {
         setPrivacyCover(true);
         backgroundedAt.current = Date.now();
