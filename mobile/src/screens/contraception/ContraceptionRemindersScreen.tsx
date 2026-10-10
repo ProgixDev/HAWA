@@ -32,6 +32,7 @@ import {
 } from '../../config/contraceptionLabels';
 import {contraceptionMethodSupportsDailyReminder} from '../../utils/contraceptionReminderScheduling';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 // Same 'HH:mm' formatting/parsing convention as
 // PregnancyNotificationsScreen.tsx's dailyJournalTime field — kept local
@@ -117,6 +118,8 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
       } else {
         continueAfterObjectiveSetup(navigation);
       }
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }
@@ -168,7 +171,7 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
               </LinearGradient>
             </View>
 
-            <Text style={styles.title}>{t('contraceptionReminders.title')}</Text>
+            <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={styles.title}>{t('contraceptionReminders.title')}</Text>
             <Text style={styles.subtitle}>{content.subtitle}</Text>
           </View>
 

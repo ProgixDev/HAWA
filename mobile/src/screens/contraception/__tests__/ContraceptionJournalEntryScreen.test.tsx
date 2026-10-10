@@ -4,7 +4,7 @@ import {Text, TextInput} from 'react-native';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../../testUtils/structuredStorage';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import ContraceptionJournalEntryScreen from '../ContraceptionJournalEntryScreen';
@@ -85,7 +85,7 @@ const pressSave = async (renderer: ReactTestRenderer.ReactTestRenderer) => {
 };
 
 const persisted = async () => {
-  const raw = await AsyncStorage.getItem(STORAGE_KEY);
+  const raw = await readStoredString(STORAGE_KEY);
   return raw ? JSON.parse(raw)[todayKey()] : undefined;
 };
 
@@ -180,7 +180,7 @@ describe('Contraception journal — Notes du jour (encrypted): add / edit / dele
     await pressSave(renderer);
 
     expect(getContraceptionJournalEntry(todayKey())?.notes).toBe('SECRET_NEW_NOTE');
-    const raw = (await AsyncStorage.getItem(STORAGE_KEY)) as string;
+    const raw = (await readStoredString(STORAGE_KEY)) as string;
     expect(raw).not.toContain('SECRET_NEW_NOTE');
     expect(raw).not.toContain('SECRET_OLD_NOTE');
     expect((await persisted()).notes.ciphertext).toBeDefined();
@@ -199,7 +199,7 @@ describe('Contraception journal — Notes du jour (encrypted): add / edit / dele
     expect(getContraceptionJournalEntry(todayKey())?.notes).toBeUndefined();
     // No orphan encrypted data: the whole (now empty) entry is gone from storage.
     expect(await persisted()).toBeUndefined();
-    expect((await AsyncStorage.getItem(STORAGE_KEY)) ?? '').not.toContain('ciphertext');
+    expect((await readStoredString(STORAGE_KEY)) ?? '').not.toContain('ciphertext');
   });
 
   it('DELETE keeps the day\'s feelings intact', async () => {

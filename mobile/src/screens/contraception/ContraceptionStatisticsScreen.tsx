@@ -1,4 +1,5 @@
 import {getContraceptionReminderIndicator} from '../../utils/contraceptionReminderScheduling';
+import {lowerCaseFor, displayUpperCase} from '../../utils/textCase';
 import React, {
   useCallback,
   useMemo,
@@ -779,7 +780,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                       style={
                         styles.heroEyebrow
                       }>
-                      {t('contraceptionStatistics.hero.eyebrow')}
+                      {displayUpperCase(t('contraceptionStatistics.hero.eyebrow'))}
                     </Text>
 
                     {summary.regularityPercent !==
@@ -1177,7 +1178,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
 
                       <Text style={styles.emptyText}>
                         {t('contraceptionStatistics.events.emptyText', {
-                          types: methodEventTypes.map(type => contraceptionEventLabels(t)[type].toLowerCase()).join(', '),
+                          types: methodEventTypes.map(type => lowerCaseFor(contraceptionEventLabels(t)[type])).join(', '),
                         })}
                       </Text>
                     </View>

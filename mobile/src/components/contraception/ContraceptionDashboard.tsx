@@ -96,6 +96,7 @@ import {usePremium} from '../../hooks/usePremium';
 import {useToday} from '../../hooks/useToday';
 import {HawaPremiumBottomSheet} from '../premium/HawaPremiumBottomSheet';
 import {filterRecordsForHistoryAccess} from '../../utils/historyAccess';
+import {displayTitleCase} from '../../utils/textCase';
 
 import {
   getContraceptionJournalEntry,
@@ -111,6 +112,7 @@ import {
   dateFormatLocale,
 } from '../../utils/cycleMath';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 // PHASE D2 — PURPLE/PURPLE_DARK/PURPLE_SOFT/BORDER_STRONG/MUTED/CARD_BACKGROUND
 // used to be fixed literals here; they are now derived from useAwaTheme() at
@@ -464,7 +466,13 @@ function ContraceptionDashboard({
   const correctRecordStatus = useCallback(
     async (status: ContraceptionIntakeStatus) => {
       if (!recordActionTarget) {return;}
-      await setContraceptionIntakeStatus(recordActionTarget.date, status);
+      try {
+        await setContraceptionIntakeStatus(recordActionTarget.date, status);
+      } catch (saveError) {
+        // Not persisted (services/saveFailure.ts): the correction sheet stays open so it can be retried.
+        presentSaveFailure(saveError);
+        return;
+      }
       closeRecordAction();
     },
     [recordActionTarget, closeRecordAction],
@@ -482,8 +490,10 @@ function ContraceptionDashboard({
           text: t('contraceptionDashboard.deleteButton'),
           style: 'destructive',
           onPress: () => {
-            deleteContraceptionIntakeRecord(target.date);
-            closeRecordAction();
+            deleteContraceptionIntakeRecord(target.date).then(
+              () => closeRecordAction(),
+              error => presentSaveFailure(error),
+            );
           },
         },
       ],
@@ -502,7 +512,9 @@ function ContraceptionDashboard({
         {
           text: t('contraceptionDashboard.deleteButton'),
           style: 'destructive',
-          onPress: () => deleteContraceptionEvent(event.id),
+          onPress: () => {
+            deleteContraceptionEvent(event.id).catch(error => presentSaveFailure(error));
+          },
         },
       ],
     );
@@ -975,29 +987,41 @@ function ContraceptionDashboard({
 
   const handleMarkTaken =
     async () => {
-      await setContraceptionIntakeStatus(
-        today,
-        'taken',
-        currentIntakeMethodTag,
-      );
+      try {
+        await setContraceptionIntakeStatus(
+          today,
+          'taken',
+          currentIntakeMethodTag,
+        );
+      } catch (saveError) {
+        presentSaveFailure(saveError);
+      }
     };
 
   const handleMarkLate =
     async () => {
-      await setContraceptionIntakeStatus(
-        today,
-        'late',
-        currentIntakeMethodTag,
-      );
+      try {
+        await setContraceptionIntakeStatus(
+          today,
+          'late',
+          currentIntakeMethodTag,
+        );
+      } catch (saveError) {
+        presentSaveFailure(saveError);
+      }
     };
 
   const handleMarkMissed =
     async () => {
-      await setContraceptionIntakeStatus(
-        today,
-        'missed',
-        currentIntakeMethodTag,
-      );
+      try {
+        await setContraceptionIntakeStatus(
+          today,
+          'missed',
+          currentIntakeMethodTag,
+        );
+      } catch (saveError) {
+        presentSaveFailure(saveError);
+      }
     };
 
   // Method-adaptive hero button wording — pill keeps its existing colloquial
@@ -1931,7 +1955,7 @@ function ContraceptionDashboard({
                           styles.historyWeekday,
                           item.isToday && styles.historyWeekdayToday,
                         ]}>
-                        {item.weekday}
+                        {displayTitleCase(item.weekday)}
                       </Text>
 
                       <Text

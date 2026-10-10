@@ -1,4 +1,5 @@
 import {getContraceptionReminderIndicator} from '../../utils/contraceptionReminderScheduling';
+import {lowerCaseFor, displayTitleCase, displayUpperCase} from '../../utils/textCase';
 import React, {useCallback, useMemo, useState, useEffect, useRef} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
@@ -470,7 +471,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
 
               <View style={styles.monthTitleBlock}>
                 <Text numberOfLines={1} style={styles.monthTitle}>
-                  {new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(visibleMonth)}
+                  {displayTitleCase(new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(visibleMonth))}
                 </Text>
                 {hijriRangeLabel ? (
                   <Text numberOfLines={2} style={styles.hijriRange}>{hijriRangeLabel}</Text>
@@ -1023,7 +1024,7 @@ function ContraceptionCalendarSheet({
         icon: CONTRACEPTION_EVENT_ICONS[type],
         color: theme.colors.primary,
         title: contraceptionEventLabels(t)[type],
-        description: t('contraceptionCalendar.filterRows.eventDescription', {label: contraceptionEventLabels(t)[type].toLowerCase()}),
+        description: t('contraceptionCalendar.filterRows.eventDescription', {label: lowerCaseFor(contraceptionEventLabels(t)[type])}),
       }))
     : [
         {
@@ -1100,7 +1101,7 @@ function ContraceptionCalendarSheet({
             </View>
 
             <ScrollView bounces={false} contentContainerStyle={sheetStyles.filterRows} showsVerticalScrollIndicator={false} style={sheetStyles.filterScroll}>
-              <Text style={sheetStyles.groupTitle}>{t('contraceptionCalendar.sheet.trackingGroupTitle')}</Text>
+              <Text style={sheetStyles.groupTitle}>{displayUpperCase(t('contraceptionCalendar.sheet.trackingGroupTitle'))}</Text>
               {trackingFilterRows.map((row, index) => (
                 <FilterRow
                   active={filters[row.key]}
@@ -1113,7 +1114,7 @@ function ContraceptionCalendarSheet({
 
               {spiritualMarkersEnabled ? (
                 <>
-                  <Text style={sheetStyles.groupTitle}>{t('contraceptionCalendar.sheet.spiritualGroupTitle')}</Text>
+                  <Text style={sheetStyles.groupTitle}>{displayUpperCase(t('contraceptionCalendar.sheet.spiritualGroupTitle'))}</Text>
                   {spiritualFilterRows.map((row, index) => (
                     <FilterRow
                       active={filters[row.key]}

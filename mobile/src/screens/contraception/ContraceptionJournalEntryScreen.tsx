@@ -67,6 +67,7 @@ import {
   clearContraceptionJournalField,
   saveContraceptionJournalField,
 } from '../../state/contraceptionJournalStore';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 // PHASE E4 — PURPLE/PURPLE_DARK/TEXT_SECONDARY/LAVENDER used to be fixed
 // literals sourced from homeColors here; every decorative usage below is now
@@ -757,6 +758,8 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
       try {
         await addContraceptionEvent(todayKey, eventType);
         navigation.goBack();
+      } catch (saveError) {
+        presentSaveFailure(saveError);
       } finally {
         setSaving(false);
       }
@@ -782,6 +785,8 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
           method === 'pill' || method === 'other' ? method : undefined,
         );
         navigation.goBack();
+      } catch (saveError) {
+        presentSaveFailure(saveError);
       } finally {
         setSaving(false);
       }
@@ -809,6 +814,8 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
           await saveContraceptionJournalField(entryDateKey, 'feelings', feelings);
         }
         navigation.goBack();
+      } catch (saveError) {
+        presentSaveFailure(saveError);
       } finally {
         setSaving(false);
       }
@@ -829,6 +836,8 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
         await saveContraceptionJournalField(todayKey, 'notes', notes.trim());
       }
       navigation.goBack();
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }
