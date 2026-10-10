@@ -3755,6 +3755,11 @@ export const fr = {
     deleteMedicationConfirmTitle: 'Supprimer ce médicament ?',
     deleteVitaminConfirmTitle: 'Supprimer cette vitamine ?',
     deleteCustomReminderConfirmTitle: 'Supprimer ce rappel ?',
+    // Un rappel ponctuel réglé sur un moment déjà passé serait enregistré mais ne serait jamais envoyé.
+    customPast: {
+      title: 'Cet horaire est déjà passé',
+      message: 'Ce rappel unique est réglé pour le {{when}}, ce qui est déjà passé : il ne serait jamais envoyé. Choisis une date ou une heure plus tard.',
+    },
     repeat: {
       once: 'Une fois',
       daily: 'Tous les jours',
@@ -3997,6 +4002,25 @@ export const fr = {
       deleteExamAccessibility: 'Supprimer cet examen',
       deleting: 'Suppression…',
       deleteModalCloseAccessibility: 'Fermer sans supprimer',
+    },
+    // Retour sur le rappel du formulaire rendez-vous/examen : l'heure réelle du rappel, pourquoi il ne peut
+    // pas être envoyé, et ce qui s'est passé à l'enregistrement (jamais un rappel « actif » qui ne peut pas partir).
+    reminder: {
+      previewLabel: 'Rappel envoyé le',
+      noTimeHint: 'Aucune heure n’est définie : 09:00 est utilisée pour calculer l’heure du rappel.',
+      pastError: 'Ce rappel serait envoyé le {{when}}, ce qui est déjà passé. Choisis un délai plus court, une heure personnalisée, ou désactive le rappel.',
+      categoryOffAppointment: 'Les rappels de rendez-vous sont désactivés dans Notifications & rappels : ce rappel ne sera pas envoyé.',
+      categoryOffExam: 'Les rappels d’examens sont désactivés dans Notifications & rappels : ce rappel ne sera pas envoyé.',
+      turnOnAppointment: 'Activer les rappels de rendez-vous',
+      turnOnExam: 'Activer les rappels d’examens',
+      savedWithoutTitle: 'Enregistré sans rappel',
+      savedPermission: '« {{title}} » est enregistré, mais son rappel n’a pas été programmé : les notifications sont désactivées pour AWA dans les réglages de ton téléphone.',
+      savedChannel: '« {{title}} » est enregistré, mais son rappel n’a pas été programmé : la catégorie de rappels d’AWA est bloquée dans les réglages de ton téléphone.',
+      savedCategoryAppointment: '« {{title}} » est enregistré, mais les rappels de rendez-vous sont désactivés dans Notifications & rappels : son rappel n’a pas été programmé.',
+      savedCategoryExam: '« {{title}} » est enregistré, mais les rappels d’examens sont désactivés dans Notifications & rappels : son rappel n’a pas été programmé.',
+      savedPast: '« {{title}} » est enregistré, mais l’heure de son rappel ({{when}}) est déjà passée : aucun rappel n’a été programmé.',
+      savedUnavailable: '« {{title}} » est enregistré, mais tes réglages de notifications ne sont pas lisibles pour le moment : son rappel n’a pas été programmé. Réessaie plus tard.',
+      savedFailed: '« {{title}} » est enregistré, mais son rappel n’a pas pu être programmé. Rouvre-le et enregistre à nouveau pour réessayer.',
     },
     appointmentScreen: {
       addTitle: 'Ajouter un RDV',
@@ -5119,6 +5143,20 @@ export const fr = {
     next: 'Suivant',
     menopauseLabel: 'périménopause / Ménopause',
     postpartumLabel: 'Post-partum',
+  },
+
+  // Aide commune quand les notifications Android (ou le canal des rappels) sont désactivées — utilisée par
+  // l'écran de rappels de chaque objectif et par le formulaire de rendez-vous : même texte, même action.
+  notificationPermission: {
+    blockedTitle: 'Les notifications sont désactivées',
+    blockedBody: 'AWA ne peut pas afficher tes rappels tant que les notifications ne sont pas autorisées dans les réglages de ton téléphone.',
+    channelBlockedTitle: 'Les rappels sont bloqués',
+    channelBlockedBody: 'La catégorie de rappels d’AWA est bloquée dans les réglages de ton téléphone : tes rappels ne s’afficheront pas.',
+    openSettings: 'Ouvrir les réglages de notifications',
+    recheck: 'Je les ai activées',
+    stillOff: 'Les notifications sont toujours désactivées.',
+    nowOn: 'Les notifications sont activées. Tes rappels vont être programmés.',
+    continueWithout: 'Continuer sans notifications',
   },
 
   notifications: {

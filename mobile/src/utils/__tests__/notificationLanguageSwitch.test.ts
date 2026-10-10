@@ -24,10 +24,21 @@ import type {PregnancyMedicalEvent} from '../../state/pregnancyMedicalEventsStor
 import i18n from '../../i18n';
 import {setAppLanguage} from '../../state/themePreferences';
 
-jest.mock('../../services/pregnancyNotifications', () => ({
-  scheduleLocalNotification: jest.fn(),
-  cancelLocalNotification: jest.fn(),
-}));
+jest.mock('../../services/pregnancyNotifications', () => {
+  const mockBooleanSchedule = jest.fn();
+  return {
+    scheduleLocalNotification: mockBooleanSchedule,
+    // The appointment/exam reminder schedules through the detailed variant; it delegates to the same jest.fn so
+    // every assertion below (made on scheduleLocalNotification) keeps covering that path.
+    scheduleLocalNotificationWithResult: async (input: {fireDate: Date}) => {
+      const scheduled = await mockBooleanSchedule(input);
+      return scheduled === false
+        ? {scheduled: false, reason: 'past', fireDate: input.fireDate}
+        : {scheduled: true, fireDate: input.fireDate};
+    },
+    cancelLocalNotification: jest.fn(),
+  };
+});
 jest.mock('../../state/onboardingPreferences', () => ({
   getActiveObjective: jest.fn(),
 }));
