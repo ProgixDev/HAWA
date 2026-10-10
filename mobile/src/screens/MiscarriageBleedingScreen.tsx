@@ -30,6 +30,7 @@ import {
 } from '../state/miscarriagePreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MiscarriageBleeding'>;
 
@@ -96,6 +97,8 @@ function MiscarriageBleedingScreen({navigation, route}: Props): React.JSX.Elemen
         return;
       }
       navigation.navigate('MiscarriageCycleReturn');
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

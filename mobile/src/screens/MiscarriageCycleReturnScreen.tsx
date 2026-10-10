@@ -34,6 +34,7 @@ import {dateFormatLocale, startOfDay} from '../utils/cycleMath';
 import {validateCycleReturnDate} from '../utils/lossDateValidation';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MiscarriageCycleReturn'>;
 
@@ -156,6 +157,8 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
         return;
       }
       navigation.navigate('MiscarriageTryingAgain');
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

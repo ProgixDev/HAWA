@@ -31,6 +31,7 @@ import {
 } from '../state/miscarriagePreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {presentSaveFailure} from '../services/saveFailure';
 
 // Same 'HH:mm' formatting/parsing convention as
 // PostpartumRemindersScreen.tsx's/MenopauseRemindersScreen.tsx's own
@@ -100,6 +101,8 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
       }
 
       goToNext();
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

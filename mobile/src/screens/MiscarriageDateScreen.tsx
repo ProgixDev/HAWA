@@ -29,8 +29,10 @@ import {getAllMiscarriageJournalEntries, hydrateMiscarriageJournal} from '../sta
 import {journalDatesWithContent} from '../utils/lossDateValidation';
 import {dateFormatLocale, diffDays, localizedWeekDays, startOfDay} from '../utils/cycleMath';
 import {validateLossDate} from '../utils/postpartumLossDateValidation';
+import {capitalizeFor, displayTitleCase} from '../utils/textCase';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MiscarriageDate'>;
 
@@ -39,7 +41,7 @@ const formatFullDate = (date: Date): string =>
 
 const formatMonthYear = (date: Date): string => {
   const label = new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(date);
-  return label.charAt(0).toUpperCase() + label.slice(1);
+  return capitalizeFor(label);
 };
 
 function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
@@ -164,6 +166,8 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
         return;
       }
       navigation.navigate('MiscarriageBleeding');
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }
@@ -231,7 +235,7 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
                 <Text style={styles.calendarArrowText}>{'<'}</Text>
               </Pressable>
 
-              <Text style={styles.calendarTitle}>{formatMonthYear(visibleMonth)}</Text>
+              <Text style={styles.calendarTitle}>{displayTitleCase(formatMonthYear(visibleMonth))}</Text>
 
               <Pressable
                 accessibilityLabel={t('calendar.nextMonth')}
