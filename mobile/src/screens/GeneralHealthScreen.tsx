@@ -42,6 +42,7 @@ import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {getActiveProfileIdentity, subscribeActiveProfileId} from '../state/activeProfileStore';
 import {formatFullDate} from '../utils/cycleMath';
+import {presentSaveFailure} from '../services/saveFailure';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -623,7 +624,7 @@ export default function GeneralHealthScreen({
     draftProgress,
     setDraftProgress,
   ] =
-    useState(
+    useState<number | null>(
       profile.goalProgress,
     );
 
@@ -694,9 +695,9 @@ export default function GeneralHealthScreen({
       next === 'height'
     ) {
       setDraft(
-        String(
-          profile.heightCm,
-        ),
+        profile.heightCm !== null
+          ? String(profile.heightCm)
+          : '',
       );
     }
 
@@ -704,9 +705,9 @@ export default function GeneralHealthScreen({
       next === 'weight'
     ) {
       setDraft(
-        String(
-          profile.weightKg,
-        ),
+        profile.weightKg !== null
+          ? String(profile.weightKg)
+          : '',
       );
     }
 
@@ -764,10 +765,16 @@ export default function GeneralHealthScreen({
     async (
       patch: Partial<GeneralHealthProfile>,
     ) => {
-      const next =
-        await updateGeneralHealth(
+      let next: GeneralHealthProfile;
+      try {
+        next = await updateGeneralHealth(
           patch,
         );
+      } catch (saveError) {
+        // Not persisted: the sheet stays open with the draft, no success toast (see services/saveFailure.ts).
+        presentSaveFailure(saveError);
+        return;
+      }
 
       setProfile(next);
       setSheet(null);
@@ -1114,7 +1121,11 @@ export default function GeneralHealthScreen({
               }
               styles={styles}
               theme={theme}
-              value={`${profile.heightCm} cm`}
+              value={
+                profile.heightCm !== null
+                  ? `${profile.heightCm} cm`
+                  : t('profile.notProvided')
+              }
             />
 
             <HealthRow
@@ -1127,7 +1138,11 @@ export default function GeneralHealthScreen({
               }
               styles={styles}
               theme={theme}
-              value={`${profile.weightKg} kg`}
+              value={
+                profile.weightKg !== null
+                  ? `${profile.weightKg} kg`
+                  : t('profile.notProvided')
+              }
             />
 
             <HealthRow
@@ -1191,7 +1206,8 @@ export default function GeneralHealthScreen({
               styles={styles}
               theme={theme}
               value={
-                profile.bloodType
+                profile.bloodType ||
+                t('profile.notProvided')
               }
             />
 
@@ -1201,9 +1217,13 @@ export default function GeneralHealthScreen({
               last
               styles={styles}
               theme={theme}
-              value={formatUpdateDate(
-                profile.updatedAt,
-              )}
+              value={
+                profile.updatedAt
+                  ? formatUpdateDate(
+                      profile.updatedAt,
+                    )
+                  : t('profile.notProvided')
+              }
             />
           </Animated.View>
 
@@ -1348,10 +1368,13 @@ export default function GeneralHealthScreen({
                   styles.goalValue
                 }>
                 {
-                  profile.healthGoal
+                  profile.healthGoal ||
+                  t('profile.notProvided')
                 }
               </Text>
 
+              {profile.healthGoal &&
+              profile.goalProgress !== null ? (
               <View
                 style={
                   styles.progressRow
@@ -1387,6 +1410,7 @@ export default function GeneralHealthScreen({
                   {t('generalHealth.inProgress')}
                 </Text>
               </View>
+              ) : null}
             </View>
 
             <MaterialDesignIcons
@@ -1972,10 +1996,9 @@ export default function GeneralHealthScreen({
                         styles.inputLabel
                       }>
                       {t('generalHealth.personalProgressLabel')}{' '}
-                      {
-                        draftProgress
-                      }
-                      %
+                      {draftProgress !== null
+                        ? `${draftProgress}%`
+                        : t('profile.notProvided')}
                     </Text>
 
                     <View
@@ -2023,18 +2046,29 @@ export default function GeneralHealthScreen({
                     </View>
 
                     <SaveButton
-                      onPress={() =>
+                      onPress={() => {
+                        // Nothing is saved until the user has actually
+                        // chosen a goal — no default goal/progress is invented.
+                        const goal =
+                          draft ||
+                          profile.healthGoal;
+
+                        if (!goal) {
+                          setSheet(null);
+
+                          return;
+                        }
+
                         persist(
                           {
                             healthGoal:
-                              draft ||
-                              profile.healthGoal,
+                              goal,
 
                             goalProgress:
                               draftProgress,
                           },
-                        )
-                      }
+                        );
+                      }}
                       styles={styles}
                       theme={theme}
                     />

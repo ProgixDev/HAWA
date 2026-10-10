@@ -5,7 +5,7 @@ import {deleteManagedProfile, getManagedProfiles, hydrateManagedProfiles, resetM
 import {getDeletedManagedProfileIds, markManagedProfileDeleted} from '../state/deletedManagedProfiles';
 import {clearInAppNotificationsForProfile} from '../state/inAppNotificationStore';
 import {belongsToManagedProfile} from './storageKeyClassifier';
-import {withKeyLock} from './secureAsyncStorage';
+import secureStorage from './secureAsyncStorage';
 import {cancelCycleRemindersForProfile} from '../utils/cycleReminderScheduling';
 
 // Explicitly deleting a managed (daughter) profile removes EVERYTHING that belonged to her and nothing that
@@ -80,8 +80,9 @@ export async function deleteManagedProfileCompletely(profileId: string): Promise
   await attempt('cancel-reminders', () => cancelCycleRemindersForProfile(profileId));
   await attempt('remove-stored-data', async () => {
     const keys = await listManagedProfileKeys(profileId);
-    // Each removal takes the record's key lock, so it cannot interleave with a migration commit or a restore write.
-    const results = await Promise.allSettled(keys.map(key => withKeyLock(key, () => AsyncStorage.removeItem(key))));
+    // Each removal goes through the storage layer: it takes the record's key lock (so it cannot interleave with a
+    // migration commit or a restore write) and forgets any "unreadable" flag of a record that no longer exists.
+    const results = await Promise.allSettled(keys.map(key => secureStorage.removeItem(key)));
     removedKeyCount = results.filter(result => result.status === 'fulfilled').length;
     if (results.some(result => result.status === 'rejected')) {
       throw new Error('some keys could not be removed');

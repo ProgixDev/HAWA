@@ -163,6 +163,8 @@ import ManagedProfileDeleteConfirmModal from '../components/profile/ManagedProfi
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {interpolateHex, onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import '../i18n';
+import {upperCaseFor} from '../utils/textCase';
+import {presentSaveFailure} from '../services/saveFailure';
 
 // Default illustration for a managed (daughter) profile row in "Gérer les profils"
 // when she has no custom photo yet — same asset as the managed-profile creation flow
@@ -1214,8 +1216,14 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     setDraftCycleDuration(cycle.cycleDuration);
     setCycleDurationEditorVisible(true);
   };
-  const saveCycleDuration = () => {
-    setCyclePreferences({...cycle, cycleDuration: draftCycleDuration});
+  const saveCycleDuration = async () => {
+    try {
+      await setCyclePreferences({...cycle, cycleDuration: draftCycleDuration});
+    } catch (saveError) {
+      // Not persisted (services/saveFailure.ts): the editor stays open with the draft.
+      presentSaveFailure(saveError);
+      return;
+    }
     setCycleDurationEditorVisible(false);
   };
 
@@ -1225,8 +1233,13 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     setDraftPeriodDuration(cycle.periodDuration);
     setPeriodDurationEditorVisible(true);
   };
-  const savePeriodDuration = () => {
-    setCyclePreferences({...cycle, periodDuration: draftPeriodDuration});
+  const savePeriodDuration = async () => {
+    try {
+      await setCyclePreferences({...cycle, periodDuration: draftPeriodDuration});
+    } catch (saveError) {
+      presentSaveFailure(saveError);
+      return;
+    }
     setPeriodDurationEditorVisible(false);
   };
 
@@ -1236,8 +1249,13 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     setDraftRegularity(cycle.regularity);
     setRegularityEditorVisible(true);
   };
-  const saveRegularity = () => {
-    setCyclePreferences({...cycle, regularity: draftRegularity});
+  const saveRegularity = async () => {
+    try {
+      await setCyclePreferences({...cycle, regularity: draftRegularity});
+    } catch (saveError) {
+      presentSaveFailure(saveError);
+      return;
+    }
     setRegularityEditorVisible(false);
   };
 
@@ -1486,20 +1504,24 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
         const updated = await updatePersonalInformation({avatarUri: uri});
         setPhotoUri(updated.avatarUri ?? null);
       }
-    } catch {
-      Alert.alert(t('profile.photoModal.title'), t('profile.photoModal.genericError'));
+    } catch (saveError) {
+      presentSaveFailure(saveError, {title: t('profile.photoModal.title'), message: t('profile.photoModal.genericError')});
     } finally {
       setPhotoSheetVisible(false);
     }
   };
 
   const removePhoto = async () => {
-    const updated = await updatePersonalInformation({avatarUri: undefined});
-    setPhotoUri(updated.avatarUri ?? null);
+    try {
+      const updated = await updatePersonalInformation({avatarUri: undefined});
+      setPhotoUri(updated.avatarUri ?? null);
+    } catch (saveError) {
+      presentSaveFailure(saveError, {title: t('profile.photoModal.title'), message: t('profile.photoModal.genericError')});
+    }
     setPhotoSheetVisible(false);
   };
 
-  const firstNameInitial = firstName.trim().charAt(0).toUpperCase() || '?';
+  const firstNameInitial = upperCaseFor(firstName.trim().charAt(0)) || '?';
 
   // Regularity-aware — same computeCyclePredictionStatus() Dashboard/Calendar
   // use, so an irregular/observing user never sees a falsely-exact date here
@@ -1615,12 +1637,19 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   const changeObjective = async (nextObjective: ObjectiveId) => {
     setObjectiveModalVisible(false);
 
-    const result = await switchToObjective({
-      from: objective,
-      to: nextObjective,
-      openHome: () => navigation.navigate('CycleHome'),
-      openSetup: route => navigation.navigate(route),
-    });
+    let result: Awaited<ReturnType<typeof switchToObjective>>;
+    try {
+      result = await switchToObjective({
+        from: objective,
+        to: nextObjective,
+        openHome: () => navigation.navigate('CycleHome'),
+        openSetup: route => navigation.navigate(route),
+      });
+    } catch (saveError) {
+      // The active objective could not be persisted: nothing was switched, nothing is announced as changed.
+      presentSaveFailure(saveError);
+      return;
+    }
 
     if (result !== 'unchanged') {
       setObjective(nextObjective);
@@ -1632,9 +1661,13 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
    * ======================================================== */
 
   const changeSpiritualMarkers = (enabled: boolean) => {
-    setSpiritualMarkersEnabled(enabled);
-
+    const previous = spiritualEnabled;
     setSpiritualEnabled(enabled);
+    setSpiritualMarkersEnabled(enabled).catch(error => {
+      // Not persisted: the toggle goes back (the store already rolled its value back) and the person is told.
+      setSpiritualEnabled(previous);
+      presentSaveFailure(error);
+    });
   };
 
   const confirmSignOut = () => setLogoutDialogVisible(true);
