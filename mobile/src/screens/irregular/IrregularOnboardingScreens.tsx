@@ -19,7 +19,8 @@ import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-comm
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {getTopPadding} from '../../theme/spacing';
 import InlineCalendarPickerModal from '../../components/onboarding/InlineCalendarPickerModal';
-import {ensureNotificationPermission} from '../../services/pregnancyNotifications';
+import NotificationPermissionNotice from '../../components/notifications/NotificationPermissionNotice';
+import {useReminderPermissionGuard} from '../../hooks/useReminderPermissionGuard';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -527,7 +528,11 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
   const [timePickerVisible, setTimePickerVisible] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const [permissionNotice, setPermissionNotice] = useState(false);
+
+  // Whether Android would actually show a reminder she has switched on (notifications off / reminders channel
+  // blocked). Only read while a reminder switch is on.
+  const anyReminderOn = dailyJournalEnabled || unrecordedPeriodEnabled;
+  const permissionGuard = useReminderPermissionGuard(anyReminderOn);
 
   useEffect(() => {
     hydrateIrregularPreferences().then(value => {
@@ -558,12 +563,12 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
         reminders: {dailyJournalEnabled, dailyJournalTime, unrecordedPeriodEnabled},
       });
 
-      if (dailyJournalEnabled || unrecordedPeriodEnabled) {
-        const granted = await ensureNotificationPermission();
-        if (!granted) {
-          setPermissionNotice(true);
-          return;
-        }
+      // Refused: she stays on this screen with the notice (her choices above
+      // are already saved either way) and can open Android's settings or
+      // carry on without notifications.
+      const allowed = await permissionGuard.allowSave(dailyJournalEnabled || unrecordedPeriodEnabled);
+      if (!allowed) {
+        return;
       }
 
       goToNext();
@@ -716,13 +721,16 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
             </View>
           ) : null}
 
-          {permissionNotice ? (
-            <View accessibilityRole="alert" style={styles.errorCard}>
-              <MaterialDesignIcons color={theme.colors.danger} name="bell-off-outline" size={16} />
-              <Text style={styles.errorText}>
-                {t('irregularOnboarding.reminders.permissionNotice')}
-              </Text>
-            </View>
+          {/* The one shared notice (same wording, "open settings" and re-check on every objective's reminders step).
+              Once a save was blocked it also offers "Continue without notifications", which performs the
+              navigation Save would have. */}
+          {anyReminderOn ? (
+            <NotificationPermissionNotice
+              onContinue={permissionGuard.saveBlocked ? goToNext : undefined}
+              onRecheck={permissionGuard.refresh}
+              state={permissionGuard.state}
+              testID="irregular-reminders-permission-notice"
+            />
           ) : null}
 
           <View style={styles.navRow}>

@@ -20,6 +20,8 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {getTopPadding} from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import NotificationPermissionNotice from '../components/notifications/NotificationPermissionNotice';
+import {useReminderPermissionGuard} from '../hooks/useReminderPermissionGuard';
 import '../i18n';
 
 import {
@@ -679,6 +681,12 @@ export function ConceptionRemindersScreen({
   );
   const [saving, setSaving] = useState(false);
 
+  // Whether Android would actually show a reminder she has switched on
+  // (notifications off / reminders channel blocked). Only read while a
+  // reminder switch is on.
+  const anyReminderOn = reminderOptions.some(item => values[item.id]);
+  const permissionGuard = useReminderPermissionGuard(anyReminderOn);
+
   const toggleReminder = (
     id: ConceptionReminderKey,
     value: boolean,
@@ -688,6 +696,29 @@ export function ConceptionRemindersScreen({
       [id]: value,
     }));
   };
+
+  // The one place that leaves this screen after a save: back to Profile in
+  // edit mode, on to the next onboarding step otherwise.
+  const goToNext = () => {
+    if (isEdit) {
+      navigation.goBack();
+    } else {
+      continueAfterObjectiveSetup(navigation);
+    }
+  };
+
+  // The one shared notice (same wording, "open settings" and re-check on
+  // every objective's reminders step). Once a save was blocked it also offers
+  // "Continue without notifications", which performs the navigation Save
+  // would have.
+  const permissionNotice = anyReminderOn ? (
+    <NotificationPermissionNotice
+      onContinue={permissionGuard.saveBlocked ? goToNext : undefined}
+      onRecheck={permissionGuard.refresh}
+      state={permissionGuard.state}
+      testID="conception-reminders-permission-notice"
+    />
+  ) : null;
 
   // Shared by both modes: switches only ever change local draft state
   // (`values`) — nothing is written to conceptionPreferences.ts until this
@@ -699,15 +730,21 @@ export function ConceptionRemindersScreen({
     setSaving(true);
     try {
       // Rebuilt from the store's value AT SAVE TIME + her own edits.
-      await setConceptionPreferences({
-        reminders: {...getConceptionPreferences().reminders, ...edits},
-      });
+      const reminders = {...getConceptionPreferences().reminders, ...edits};
+      await setConceptionPreferences({reminders});
 
-      if (isEdit) {
-        navigation.goBack();
-      } else {
-        continueAfterObjectiveSetup(navigation);
+      // Only asked when a reminder is actually being saved as enabled —
+      // never merely for opening this screen. Refused: she stays on this
+      // screen with the notice (her choices above are already saved either
+      // way) instead of the screen closing at once.
+      const allowed = await permissionGuard.allowSave(
+        Object.values(reminders).some(Boolean),
+      );
+      if (!allowed) {
+        return;
       }
+
+      goToNext();
     } catch (saveError) {
       presentSaveFailure(saveError);
     } finally {
@@ -770,6 +807,8 @@ export function ConceptionRemindersScreen({
               </View>
             ))}
           </View>
+
+          {permissionNotice}
 
           <Pressable
             accessibilityRole="button"
@@ -914,6 +953,8 @@ export function ConceptionRemindersScreen({
           );
         })}
       </View>
+
+      {permissionNotice}
 
       {/* PRIVACY */}
 
