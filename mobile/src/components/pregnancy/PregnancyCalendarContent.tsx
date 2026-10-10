@@ -73,6 +73,7 @@ import type {
 
 import {TOP_SPACING_EXTRA, getFloatingTabBarClearance} from '../../theme/spacing';
 import '../../i18n';
+import {displayUpperCase} from '../../utils/textCase';
 
 /* ============================================================
    CALENDAR MODES
@@ -1644,7 +1645,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
                         style={
                           styles.upcomingMonth
                         }>
-                        {new Intl.DateTimeFormat(
+                        {displayUpperCase(new Intl.DateTimeFormat(
                           dateLocale,
                           {
                             month:
@@ -1652,7 +1653,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
                           },
                         ).format(
                           date,
-                        )}
+                        ))}
                       </Text>
                     </View>
 

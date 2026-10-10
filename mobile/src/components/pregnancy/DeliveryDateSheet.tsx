@@ -21,6 +21,7 @@ import {startOfDay} from '../../utils/cycleMath';
 import {validateDeliveryDate} from '../../utils/postpartumLossDateValidation';
 import {getBottomPadding} from '../../theme/spacing';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 // STEP 1 of the Pregnancy → Postpartum transition — opened from
 // PregnancyDashboard's "J'ai accouché" CTA. This sheet is focused ONLY on
@@ -94,7 +95,14 @@ function DeliveryDateSheet({visible, onClose, onConfirmed, pregnancyStart}: Prop
       return;
     }
     setSaving(true);
-    await confirmDelivery(value, {startsNewJourney: Boolean(getPostpartumPreferences().deliveryDate)});
+    try {
+      await confirmDelivery(value, {startsNewJourney: Boolean(getPostpartumPreferences().deliveryDate)});
+    } catch (error) {
+      // Not persisted: nothing is confirmed, the sheet stays open and can be retried.
+      setSaving(false);
+      presentSaveFailure(error);
+      return;
+    }
     onConfirmed(value);
     close();
   };

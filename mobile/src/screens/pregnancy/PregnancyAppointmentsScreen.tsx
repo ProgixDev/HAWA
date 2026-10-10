@@ -29,6 +29,7 @@ import {
 import {cancelEventReminder} from '../../utils/pregnancyEventReminders';
 import {hydratePregnancyNotificationSettings} from '../../state/pregnancyNotificationSettingsStore';
 import {dateFormatLocale} from '../../utils/cycleMath';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 // Legacy combined "browse every Rendez-vous/Examen" list + generic
 // type-togglable form. No navigation call in the app reaches this screen
@@ -157,7 +158,13 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
           text: 'Supprimer',
           style: 'destructive',
           onPress: async () => {
-            const next = await deletePregnancyMedicalEvent(id);
+            let next: PregnancyMedicalEvent[];
+            try {
+              next = await deletePregnancyMedicalEvent(id);
+            } catch (saveError) {
+              presentSaveFailure(saveError);
+              return;
+            }
             setEvents(sortEvents(next));
             cancelEventReminder(id);
           },

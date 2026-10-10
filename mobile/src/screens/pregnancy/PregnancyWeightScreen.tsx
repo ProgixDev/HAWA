@@ -36,6 +36,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 const WEIGHT_ILLUSTRATION = require('../../assets/images/pregnancy/pregnancy-weight-scale.png');
 
@@ -354,6 +355,8 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
       setTodayEntry(entry);
       setSheetVisible(false);
       saveToast.show(t('pregnancyWeight.saveToast.savedTitle'), t('pregnancyWeight.saveToast.savedMessage'));
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }
@@ -368,6 +371,8 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
       await deletePregnancyWeight(todayKey);
       setTodayEntry(undefined);
       saveToast.show(t('pregnancyWeight.saveToast.clearedTitle'), t('pregnancyWeight.saveToast.clearedMessage'));
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }

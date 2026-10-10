@@ -28,6 +28,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 // Pregnancy's "Symptômes ressentis" — visually rebuilt to match Cycle's own
 // JournalSymptomsScreen.tsx (src/screens/journal/JournalSymptomsScreen.tsx)
@@ -148,6 +149,8 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
       });
       setHasSavedEntry(true);
       saveToast.show(t('pregnancySymptoms.saveToast.savedTitle'), t('pregnancySymptoms.saveToast.savedMessage'), navigation.goBack);
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }
@@ -164,6 +167,8 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
       setNote('');
       setHasSavedEntry(false);
       saveToast.show(t('pregnancySymptoms.saveToast.clearedTitle'), t('pregnancySymptoms.saveToast.clearedMessage'), navigation.goBack);
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }
