@@ -24,6 +24,7 @@ import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTh
 import {computePartnerVisibility} from '../../../utils/awaADeuxSharing';
 import {partnerSubject} from '../../../utils/awaADeuxPartnerWording';
 import {APP_METADATA} from '../../../utils/appMetadata';
+import {upperCaseFor} from '../../../utils/textCase';
 import {sharingSections} from '../awaADeuxDemo';
 import {buildMailtoUrl} from '../awaADeuxInvitation';
 
@@ -75,7 +76,7 @@ export default function PartnerProfileScreen(): React.JSX.Element {
   const {name: resolvedPartnerFirstName, hasName: hasPartnerName} = useAwaADeuxPartnerIdentity();
   const {setFirstName: setPartnerProfileFirstName} = useAwaADeuxPartnerProfile();
   const identityName = resolvedPartnerFirstName || t('awaADeux.partnerSide.profile.roleValue');
-  const identityInitial = identityName.charAt(0).toUpperCase();
+  const identityInitial = upperCaseFor(identityName.charAt(0));
 
   const [nameModalVisible, setNameModalVisible] = useState(false);
   const saveProfileFirstName = (value: string) => {
