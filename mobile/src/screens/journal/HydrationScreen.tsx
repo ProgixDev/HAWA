@@ -1,5 +1,5 @@
 import {useToday} from '../../hooks/useToday';
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   KeyboardAvoidingView,
@@ -32,6 +32,7 @@ import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getAllJournalEntries, saveJournalSection} from '../../state/dailyJournalStore';
+import {presentSaveFailure} from '../../services/saveFailure';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {addDays, localizedWeekDays, WEEK_DAYS} from '../../utils/cycleMath';
@@ -194,6 +195,9 @@ export default function HydrationScreen(): React.JSX.Element {
   const [dailyGoal, setDailyGoal] = useState(DEFAULT_GOAL);
   // Nothing recorded yet => 0 glasses (real state), never a seeded value.
   const [currentIntake, setCurrentIntake] = useState(0);
+  // What storage holds for the selected day (glasses + goal): a refused/failed save puts the counter back to it, so the
+  // screen never keeps counting glasses that were not persisted.
+  const persistedHydrationRef = useRef({intake: 0, goal: DEFAULT_GOAL});
   // Glasses recorded for each day of the current week (Mon..Sun), read from
   // the shared daily journal — null = nothing recorded that day.
   const [storedWeek, setStoredWeek] = useState<Array<number | null>>(() => WEEK_DAYS.map(() => null));
@@ -240,6 +244,7 @@ export default function HydrationScreen(): React.JSX.Element {
       const entry = byDate.get(todayKey);
       if (!entry?.hydration) {
         // A new day (or nothing saved yet) starts at 0 — never yesterday's count.
+        persistedHydrationRef.current = {intake: 0, goal: DEFAULT_GOAL};
         setCurrentIntake(0);
         return;
       }
@@ -251,6 +256,7 @@ export default function HydrationScreen(): React.JSX.Element {
           : DEFAULT_GOAL);
       const storedIntake = entry.hydration.glasses ??
         Math.round(entry.hydration.milliliters / GLASS_ML);
+      persistedHydrationRef.current = {intake: Math.max(0, storedIntake), goal: Math.max(1, storedGoal)};
       setDailyGoal(Math.max(1, storedGoal));
       setPendingGoal(Math.max(1, storedGoal));
       setCurrentIntake(Math.max(0, storedIntake));
@@ -259,16 +265,27 @@ export default function HydrationScreen(): React.JSX.Element {
   }, [selectedDate]);
 
   const persistHydration = useCallback(async (intake: number, goal: number) => {
-    await saveJournalSection(
-      selectedDate.toLocaleDateString('en-CA'),
-      'hydration',
-      {
-        milliliters: intake * GLASS_ML,
-        dailyGoal: goal * GLASS_ML,
-        glasses: intake,
-        goalGlasses: goal,
-      },
-    );
+    try {
+      await saveJournalSection(
+        selectedDate.toLocaleDateString('en-CA'),
+        'hydration',
+        {
+          milliliters: intake * GLASS_ML,
+          dailyGoal: goal * GLASS_ML,
+          glasses: intake,
+          goalGlasses: goal,
+        },
+      );
+      persistedHydrationRef.current = {intake, goal};
+    } catch (error) {
+      // Not persisted: the counter and goal go back to what storage holds, and the person is told.
+      const persisted = persistedHydrationRef.current;
+      setCurrentIntake(persisted.intake);
+      setDailyGoal(persisted.goal);
+      setPendingGoal(persisted.goal);
+      setSuccessVisible(false);
+      presentSaveFailure(error);
+    }
   }, [selectedDate]);
 
   // M25: glasses can only be added one by one, so a wrong count could never be
@@ -276,7 +293,13 @@ export default function HydrationScreen(): React.JSX.Element {
   // "nothing recorded" state, same as a fresh day) - today's goal, stored in the
   // same section, returns to the default like on any new day.
   const clearHydration = async () => {
-    await deleteJournalSection(selectedDate.toLocaleDateString('en-CA'), 'hydration');
+    try {
+      await deleteJournalSection(selectedDate.toLocaleDateString('en-CA'), 'hydration');
+    } catch (saveError) {
+      presentSaveFailure(saveError);
+      return;
+    }
+    persistedHydrationRef.current = {intake: 0, goal: DEFAULT_GOAL};
     setCurrentIntake(0);
     setDailyGoal(DEFAULT_GOAL);
     setPendingGoal(DEFAULT_GOAL);

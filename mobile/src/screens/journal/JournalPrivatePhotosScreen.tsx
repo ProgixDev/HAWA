@@ -1,6 +1,6 @@
 import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {ActivityIndicator, Alert, Animated, Image, KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
+import {ActivityIndicator, Animated, Image, KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -8,6 +8,7 @@ import {launchCamera, launchImageLibrary, type ErrorCode} from 'react-native-ima
 import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
+import {presentSaveFailure} from '../../services/saveFailure';
 import {resolvePrivatePhotos, type PrivatePhoto} from '../../types/journal';
 import {isIntimacyUnlocked, lockIntimacy} from '../../state/privateSectionAuthStore';
 import {copyPrivatePhotoToAppStorage, deletePrivatePhotoFile, isAppOwnedPrivatePhotoUri, isEncryptedPrivatePhotoUri, readPrivatePhotoAsDataUri} from '../../services/privatePhotoStorage';
@@ -294,8 +295,8 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
           : t('journalPrivatePhotos.savedSuccessfully'),
         navigation.goBack,
       );
-    } catch {
-      Alert.alert(t('journalPrivatePhotos.errorTitle'), t('journalPrivatePhotos.errorMessage'));
+    } catch (saveError) {
+      presentSaveFailure(saveError, {title: t('journalPrivatePhotos.errorTitle'), message: t('journalPrivatePhotos.errorMessage')});
     } finally {
       setSaving(false);
     }

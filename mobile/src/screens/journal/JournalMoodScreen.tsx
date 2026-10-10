@@ -1,27 +1,13 @@
 import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {
-  Alert,
-  Animated,
-  Easing,
-  ImageBackground,
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import {Animated, Easing, ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
+import {presentSaveFailure} from '../../services/saveFailure';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import type {MoodLevel} from '../../types/journal';
@@ -205,7 +191,12 @@ export default function JournalMoodScreen(): React.JSX.Element {
   // M25: removes the saved mood for today (section absent = the canonical
   // empty state); reopening shows the untouched defaults again.
   const clearEntry = async () => {
-    await deleteJournalSection(todayKey, 'mood');
+    try {
+      await deleteJournalSection(todayKey, 'mood');
+    } catch (saveError) {
+      presentSaveFailure(saveError);
+      return;
+    }
     setHasSaved(false);
     navigation.goBack();
   };
@@ -232,11 +223,8 @@ export default function JournalMoodScreen(): React.JSX.Element {
       );
 
       showSuccessToast();
-    } catch {
-      Alert.alert(
-        t('journalMood.errorTitle'),
-        t('journalMood.errorMessage'),
-      );
+    } catch (saveError) {
+      presentSaveFailure(saveError, {title: t('journalMood.errorTitle'), message: t('journalMood.errorMessage')});
     } finally {
       setSaving(false);
     }
