@@ -34,6 +34,7 @@ import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {getAppLanguage} from '../state/themePreferences';
 import '../i18n';
+import {presentSaveFailure} from '../services/saveFailure';
 
 const CALENDAR_ICON = require('../assets/images/cycle-calendar-icon.png');
 const CHEVRON_ICON = require('../assets/images/cycle-chevron-icon.png');
@@ -45,11 +46,13 @@ const WEEK_DAYS_FR = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 const WEEK_DAYS_EN = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 const WEEK_DAYS_ES = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 const WEEK_DAYS_IT = ['L', 'M', 'M', 'G', 'V', 'S', 'D'];
+const WEEK_DAYS_TR = ['P', 'S', 'Ç', 'P', 'C', 'C', 'P'];
 const localizedSingleLetterWeekDays = (): string[] => {
   const language = getAppLanguage();
   if (language === 'en') {return WEEK_DAYS_EN;}
   if (language === 'es') {return WEEK_DAYS_ES;}
   if (language === 'it') {return WEEK_DAYS_IT;}
+  if (language === 'tr') {return WEEK_DAYS_TR;}
   return WEEK_DAYS_FR;
 };
 const PERIOD_DURATIONS = Array.from({length: 9}, (_, index) => index + 2);
@@ -182,7 +185,13 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
       // period start, period history and journal data stay untouched;
       // everything derived (predictions, statistics) recomputes from the
       // existing store subscriptions.
-      setCyclePreferences({...getCyclePreferences(), periodDuration, cycleDuration, regularity});
+      try {
+        await setCyclePreferences({...getCyclePreferences(), periodDuration, cycleDuration, regularity});
+      } catch (saveError) {
+        // Not persisted (services/saveFailure.ts): stay here with the values intact, no navigation.
+        presentSaveFailure(saveError);
+        return;
+      }
       navigation.goBack();
       return;
     }
@@ -227,16 +236,18 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
         localDateKey(previousActualStart) !== localDateKey(actualPeriodStart);
       let corrected = false;
       if (isStartCorrection) {
-        setCyclePreferences({lastPeriodStart: previousActualStart, periodDuration, cycleDuration, regularity});
+        await setCyclePreferences({lastPeriodStart: previousActualStart, periodDuration, cycleDuration, regularity});
         try {
           await correctPeriodOccurrence(previousActualStart, actualPeriodStart);
           corrected = true;
-        } catch {
-          // Overlaps another recorded period: fall back to the plain save.
+        } catch (error) {
+          // Overlaps another recorded period: fall back to the plain save. A refused/failed WRITE is not an overlap:
+          // it propagates to the handler below (nothing is announced as saved, the form stays).
+          if (!(error instanceof Error && (error.message === 'OVERLAPPING_RANGE' || error.message === 'INVALID_RANGE'))) {throw error;}
         }
       }
       if (!corrected) {
-        setCyclePreferences({lastPeriodStart: actualPeriodStart, periodDuration, cycleDuration, regularity});
+        await setCyclePreferences({lastPeriodStart: actualPeriodStart, periodDuration, cycleDuration, regularity});
       }
 
       if (periodTerminated === 'yes' && actualPeriodEnd) {
@@ -302,6 +313,9 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
         return;
       }
       continueAfterObjectiveSetup(navigation);
+    } catch (saveError) {
+      // A refused/failed write: no navigation, the form keeps what was entered (see services/saveFailure.ts).
+      presentSaveFailure(saveError);
     } finally {
       setSubmitting(false);
     }

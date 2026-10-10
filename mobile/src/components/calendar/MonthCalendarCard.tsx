@@ -20,6 +20,7 @@ import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
 import type {CalendarFilters} from '../../state/calendarFilters';
 import '../../i18n';
+import {displayTitleCase} from '../../utils/textCase';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -346,7 +347,7 @@ function MonthCalendarCard({
 
         <View style={styles.monthTitleBlock}>
           <Text numberOfLines={1} style={styles.monthTitle}>
-            {new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(visibleMonth)}
+            {displayTitleCase(new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(visibleMonth))}
           </Text>
           {hijriRangeLabel ? (
             <Text numberOfLines={2} style={styles.hijriRange}>{hijriRangeLabel}</Text>

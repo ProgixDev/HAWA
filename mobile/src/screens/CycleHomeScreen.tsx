@@ -33,6 +33,7 @@ import ObjectiveArticlesSection from '../components/home/ObjectiveArticlesSectio
 import PeriodStartBottomSheet from '../components/calendar/PeriodStartBottomSheet';
 import {useJournalSheet} from '../navigation/JournalSheetContext';
 import {usePrayerPurityStatus} from '../hooks/usePrayerPurityStatus';
+import {isActiveProfileDataUnavailable, useStructuredDataAvailability} from '../hooks/useStructuredDataAvailability';
 import {useQadaaStatus} from '../hooks/useQadaaStatus';
 import {useToday} from '../hooks/useToday';
 import {
@@ -194,6 +195,13 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   // apart from a merely predicted menstrual day, so this checks the actual
   // confirmed period history instead.
   const hasActiveConfirmedPeriod = isDateWithinConfirmedPeriod(today);
+
+  // Records that exist but could not be READ (a damaged envelope, a lost key) are not "no periods recorded yet": the
+  // hero must say they can't be shown — never invite her to start over from an empty history. The banner above
+  // already offers the recovery options; the stores refuse writes to those keys in the meantime.
+  const dataAvailability = useStructuredDataAvailability();
+  const cycleDataUnavailable =
+    dataAvailability.anyUnavailable && isActiveProfileDataUnavailable(['@hawa/cycle-preferences', '@hawa/confirmed-period-history']);
 
   // A managed daughter who has never had (or never recorded) her first period:
   // NONE of the cycle-derived content below (ring/day/phase, next period,
@@ -418,6 +426,14 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
               <View accessibilityRole="progressbar" style={styles.preFirstPeriodCard}>
                 <ActivityIndicator color={theme.colors.primary} />
               </View>
+            ) : cycleDataUnavailable ? (
+              <View accessibilityRole="alert" style={styles.preFirstPeriodCard}>
+                <View style={styles.preFirstPeriodIconBadge}>
+                  <MaterialDesignIcons color={theme.colors.primary} name="lock-alert-outline" size={26} />
+                </View>
+                <Text style={styles.preFirstPeriodTitle}>{t('dataSafety.banner.title')}</Text>
+                <Text style={styles.preFirstPeriodSubtitle}>{t('dataSafety.banner.body')}</Text>
+              </View>
             ) : noRecordedPeriod ? (
               <View style={styles.preFirstPeriodCard}>
                 <View style={styles.preFirstPeriodIconBadge}>
@@ -479,7 +495,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
                 <Text style={styles.periodStartCtaText}>{t('cycleHome.herPeriodStartedCta')}</Text>
               </Pressable>
             </Animated.View>
-          ) : !hasActiveConfirmedPeriod ? (
+          ) : !hasActiveConfirmedPeriod && !cycleDataUnavailable ? (
             <Animated.View
               style={[
                 styles.periodStartCtaWrap,
@@ -580,7 +596,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
         onClose={() => setPeriodStartSheetVisible(false)}
         onConfirm={
           isPreFirstPeriodDaughter && daughterProfileId
-            ? date => {recordManagedProfileFirstPeriod(daughterProfileId, date).catch(() => {});}
+            ? date => recordManagedProfileFirstPeriod(daughterProfileId, date)
             : undefined
         }
         onConfirmed={() => {}}

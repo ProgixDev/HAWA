@@ -1,6 +1,7 @@
 import type {CycleRegularity} from '../state/onboardingPreferences';
 import {getHijriAdjustmentDays} from '../state/onboardingPreferences';
 import {getAppLanguage} from '../state/themePreferences';
+import {capitalizeFor} from './textCase';
 import i18n from '../i18n';
 
 export type DayKind = 'period' | 'fertile' | 'ovulation' | 'normal';
@@ -22,11 +23,13 @@ export const WEEK_DAYS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 export const WEEK_DAYS_EN = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 export const WEEK_DAYS_ES = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
 export const WEEK_DAYS_IT = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
+export const WEEK_DAYS_TR = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
 export const localizedWeekDays = (): string[] => {
   const language = getAppLanguage();
   if (language === 'en') {return WEEK_DAYS_EN;}
   if (language === 'es') {return WEEK_DAYS_ES;}
   if (language === 'it') {return WEEK_DAYS_IT;}
+  if (language === 'tr') {return WEEK_DAYS_TR;}
   return WEEK_DAYS;
 };
 
@@ -51,8 +54,9 @@ export const sameDay = (a: Date, b: Date): boolean =>
   a.getMonth() === b.getMonth() &&
   a.getDate() === b.getDate();
 
-export const capitalize = (value: string): string =>
-  value.length > 0 ? value.charAt(0).toUpperCase() + value.slice(1) : value;
+// Locale-aware (Turkish dotted İ / dotless ı) — see utils/textCase.ts. Identical to the plain
+// toUpperCase() capitalization for every other language.
+export const capitalize = (value: string): string => capitalizeFor(value);
 
 // Locale FORMAT only (never the date calculation itself, per CLAUDE.md's
 // real-data-only rule and this feature's own "locale formatting only"
@@ -71,6 +75,7 @@ export const dateFormatLocale = (): string => {
   if (language === 'en') {return 'en-US';}
   if (language === 'es') {return 'es-ES';}
   if (language === 'it') {return 'it-IT';}
+  if (language === 'tr') {return 'tr-TR';}
   return 'fr-FR';
 };
 
