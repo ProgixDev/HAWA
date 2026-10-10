@@ -256,7 +256,20 @@ async function getItem(key: string): Promise<string | null> {
 }
 
 async function readItemLocked(key: string): Promise<string | null> {
-  const raw = await AsyncStorage.getItem(key);
+  let raw: string | null;
+  try {
+    raw = await AsyncStorage.getItem(key);
+  } catch (error) {
+    if (!isStructuredEncryptionEligible(key)) {throw error;}
+    // The storage layer itself failed (an I/O error, not a decryption failure). Treating it like any other error let
+    // the stores fall back to defaults — "no active objective", "no events" — and act on that: cancel reminders for
+    // the wrong objective, or build the next write on an empty record. A record that could not be READ is unavailable,
+    // exactly like one that could not be decrypted: writes to it are refused until a read succeeds, reminders derived
+    // from it leave what is scheduled alone, and "Try again" re-reads it.
+    markUnavailable(key, 'read-failed');
+    awaitingSuccessfulRead.set(key, 'read-failed');
+    throw new StructuredDataUnavailableError('read-failed');
+  }
   if (raw === null || !isStructuredEncryptionEligible(key)) {
     if (raw === null) {
       markAvailable(key);

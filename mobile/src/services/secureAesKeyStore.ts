@@ -11,29 +11,57 @@ import {bytesToHex, hexToBytes, randomBytes} from '@noble/ciphers/utils.js';
 // tier already used for the private-section PIN verifier in privateSectionAuth.ts.
 
 const keyCache = new Map<string, Uint8Array>();
+// Concurrent first uses of one service share ONE lookup/creation. Without this, N values encrypted at the same
+// moment (a list saved with Promise.all, a migration sealing several notes) each saw "no key yet", each minted and
+// stored a DIFFERENT key, and only the last one survived: the values encrypted under the others became undecryptable
+// for good.
+const inFlight = new Map<string, Promise<Uint8Array>>();
+
+async function readStoredKey(service: string): Promise<Uint8Array | null> {
+  const existing = await Keychain.getGenericPassword({service});
+  return existing ? hexToBytes(existing.password) : null;
+}
 
 /** Gets the existing random 256-bit key for `service` from the Keychain, or
  * generates and stores a new one on first use. Cached in memory only for the
  * life of the JS process, keyed by `service` so independent domains never
- * collide. `username` is only the Keychain entry's display label. */
-export async function getOrCreateAesKey(service: string, username: string): Promise<Uint8Array> {
+ * collide. `username` is only the Keychain entry's display label.
+ *
+ * ONLY for ENCRYPTING. Reading data back must use requireExistingAesKey(): creating a key while decrypting can only
+ * ever destroy (a lookup that merely MISSED would be answered by minting a new key and storing it over the real one). */
+export function getOrCreateAesKey(service: string, username: string): Promise<Uint8Array> {
   const cached = keyCache.get(service);
-  if (cached) {return cached;}
+  if (cached) {return Promise.resolve(cached);}
+  const pending = inFlight.get(service);
+  if (pending) {return pending;}
 
-  const existing = await Keychain.getGenericPassword({service});
-  if (existing) {
-    const key = hexToBytes(existing.password);
-    keyCache.set(service, key);
-    return key;
-  }
+  const run = (async (): Promise<Uint8Array> => {
+    let key = await readStoredKey(service);
+    if (!key) {
+      // A single missed read is not proof that there is no key: the replacement would be stored OVER the real one.
+      key = await readStoredKey(service);
+    }
+    if (key) {
+      keyCache.set(service, key);
+      return key;
+    }
+    const created = randomBytes(32);
+    await Keychain.setGenericPassword(username, bytesToHex(created), {
+      service,
+      accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
+    });
+    keyCache.set(service, created);
+    return created;
+  })();
 
-  const key = randomBytes(32);
-  await Keychain.setGenericPassword(username, bytesToHex(key), {
-    service,
-    accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
-  });
-  keyCache.set(service, key);
-  return key;
+  inFlight.set(service, run);
+  const forget = () => {
+    if (inFlight.get(service) === run) {
+      inFlight.delete(service);
+    }
+  };
+  run.then(forget, forget);
+  return run;
 }
 
 /** Reads the existing key for `service` WITHOUT ever creating one. `null` means the Keychain has no key for it —
@@ -42,10 +70,19 @@ export async function getOrCreateAesKey(service: string, username: string): Prom
 export async function peekAesKey(service: string): Promise<Uint8Array | null> {
   const cached = keyCache.get(service);
   if (cached) {return cached;}
-  const existing = await Keychain.getGenericPassword({service});
-  if (!existing) {return null;}
-  const key = hexToBytes(existing.password);
+  const key = await readStoredKey(service);
+  if (!key) {return null;}
   keyCache.set(service, key);
+  return key;
+}
+
+/** The key DECRYPTION needs. It must already exist (data encrypted under it does): this never creates, stores or
+ * replaces anything. Reads twice before giving up, because one missed read is not evidence of a missing key. */
+export async function requireExistingAesKey(service: string): Promise<Uint8Array> {
+  const key = (await peekAesKey(service)) ?? (await peekAesKey(service));
+  if (!key) {
+    throw new Error('encryption key is not available');
+  }
   return key;
 }
 
@@ -53,7 +90,9 @@ export async function peekAesKey(service: string): Promise<Uint8Array | null> {
 export function clearAesKeyCache(service?: string): void {
   if (service) {
     keyCache.delete(service);
+    inFlight.delete(service);
   } else {
     keyCache.clear();
+    inFlight.clear();
   }
 }
