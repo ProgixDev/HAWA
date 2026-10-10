@@ -7,9 +7,16 @@ function flattenStyle(style: unknown): Record<string, unknown> {
 }
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
-import StatisticsPeriodSelector, {STATISTICS_PERIOD_LABELS} from '../StatisticsPeriodSelector';
+import StatisticsPeriodSelector, {statisticsPeriodLabel} from '../StatisticsPeriodSelector';
+import i18n from '../../../i18n';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
 import {resetPremiumStateForTests, updatePremiumState} from '../../../state/premiumStore';
+
+// The period labels are localized ("1 month" in English, "1 mois" in French, "1 ay" in Turkish…).
+const STATISTICS_PERIOD_LABELS = {
+  '1': statisticsPeriodLabel('1', i18n.t.bind(i18n) as never),
+  '3': statisticsPeriodLabel('3', i18n.t.bind(i18n) as never),
+};
 
 const activeRenderers: ReactTestRenderer.ReactTestRenderer[] = [];
 
