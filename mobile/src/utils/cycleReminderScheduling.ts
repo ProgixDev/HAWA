@@ -1,5 +1,5 @@
 import {cancelLocalNotification, scheduleLocalNotification} from '../services/pregnancyNotifications';
-import {isActiveProfileDataUnavailable} from '../services/secureAsyncStorage';
+import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
 
 // The records the Cycle reminders are derived from. If any of them could not be READ, the reminders must not be rebuilt
 // from the neutral placeholder state the stores fall back to: that would cancel real reminders or invent wrong ones.
@@ -392,7 +392,8 @@ async function syncCycleRemindersOnce(revision: number): Promise<void> {
   }
   // Unreadable source data is not "no data": leave every scheduled reminder exactly as it is and let a later run
   // (after the data is readable again) reconcile.
-  if (isActiveProfileDataUnavailable(CYCLE_REMINDER_SOURCE_BASES)) {return;}
+  // (the active objective gates the OWNER's Cycle reminders; a managed profile's are always Cycle)
+  if (areReminderSourcesUnavailable({profileBases: CYCLE_REMINDER_SOURCE_BASES, includeObjective: isOwnerActive()})) {return;}
   // Which profile this run works for — captured here, in the same tick as every
   // value read below, and never re-read from the active-profile store.
   const profileId = getActiveProfileId();

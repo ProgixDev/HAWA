@@ -31,6 +31,7 @@ import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {dateFormatLocale} from '../utils/cycleMath';
 import '../i18n';
+import {presentSaveFailure} from '../services/saveFailure';
 
 // Same 'HH:mm' formatting/parsing convention as
 // MenopauseRemindersScreen.tsx's/ContraceptionRemindersScreen.tsx's own
@@ -139,6 +140,8 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
       }
 
       goToNext();
+    } catch (saveError) {
+      presentSaveFailure(saveError);
     } finally {
       setSaving(false);
     }
@@ -198,7 +201,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
               </LinearGradient>
             </View>
 
-            <Text style={styles.title}>{t('cycleReminders.title')}</Text>
+            <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={styles.title}>{t('cycleReminders.title')}</Text>
             <Text style={styles.subtitle}>
               {isEdit
                 ? t('cycleReminders.subtitleEdit')
