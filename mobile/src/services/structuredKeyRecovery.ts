@@ -9,6 +9,7 @@ import secureStorage, {
 } from './secureAsyncStorage';
 import {KEY_ESTABLISHED_MARKER, STRUCTURED_KEY_SERVICE} from './structuredEncryption';
 import {getOrCreateAesKey} from './secureAesKeyStore';
+import {cancelAllLocalNotifications} from './pregnancyNotifications';
 
 // What the user can do when protected records cannot be read. Every action here is something the USER chose on the
 // recovery screen; none runs by itself, and none runs silently.
@@ -56,11 +57,30 @@ export async function createReplacementProtectionKey(): Promise<boolean> {
 /** The user's explicit decision to erase records that can no longer be read. Returns how many were removed. */
 export async function discardUnreadableRecords(): Promise<number> {
   const keys = getUnavailableStructuredKeys().map(item => item.key);
-  for (const key of keys) {
-    // Through the storage layer (not the raw store): it takes the key lock AND ends the write protection of a record
-    // the user has explicitly given up on, so the stores can be written again.
-    await secureStorage.removeItem(key);
+  if (keys.length === 0) {
+    await retryStructuredAccess();
+    return 0;
   }
-  await retryStructuredAccess();
+  // Reminders are triggers in Android's own notification database, derived from the records. The ones derived from
+  // the records being erased can no longer be told apart from the rest (their sources cannot be read, so which ids
+  // they own is unknown): every reminder is cancelled FIRST — so none of them fires from data the user just
+  // gave up — and rebuilt below from the records that are still readable. Confined to this action, which is the
+  // only one here that erases records.
+  await cancelAllLocalNotifications();
+  try {
+    for (const key of keys) {
+      // Through the storage layer (not the raw store): it takes the key lock AND ends the write protection of a record
+      // the user has explicitly given up on, so the stores can be written again.
+      await secureStorage.removeItem(key);
+    }
+    await retryStructuredAccess();
+  } finally {
+    // Also when the erasure stops half-way: what was cancelled above has to come back for every domain that is
+    // still readable. Never throws; an objective whose records are still unreadable is left alone by its own sync.
+    // Loaded here, not at the top: reminderResync pulls in every objective's scheduler and store, which this module's
+    // other importers (the recovery screen, "Try again") have no use for and must not start up as a side effect.
+    const {resyncAllReminderNotifications} = require('./reminderResync') as typeof import('./reminderResync');
+    await resyncAllReminderNotifications({force: true});
+  }
   return keys.length;
 }

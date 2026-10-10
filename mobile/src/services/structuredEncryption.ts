@@ -36,7 +36,8 @@ export type StructuredFailureReason =
   | 'key-lost' // the marker says a key existed, but the Keychain no longer has it
   | 'authentication-failed' // wrong key, tampered or copied-from-elsewhere ciphertext
   | 'malformed' // not a parseable envelope
-  | 'unsupported-version';
+  | 'unsupported-version'
+  | 'read-failed'; // the storage read itself failed (I/O error): the record may well be fine, it just was not read
 
 export class StructuredDataError extends Error {
   readonly reason: StructuredFailureReason;

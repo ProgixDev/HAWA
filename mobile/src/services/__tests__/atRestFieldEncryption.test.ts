@@ -1,17 +1,21 @@
 import {randomBytes} from '@noble/ciphers/utils.js';
-import {getOrCreateAesKey} from '../secureAesKeyStore';
+import {getOrCreateAesKey, requireExistingAesKey} from '../secureAesKeyStore';
 import {decryptFieldValue, encryptFieldValue, isEncryptedFieldPayload} from '../atRestFieldEncryption';
 
 // secureAesKeyStore.ts reads/writes the OS Keychain via react-native-keychain,
 // unavailable in Jest — mocked with a fixed real AES-256 key so the actual
 // @noble/ciphers encrypt/decrypt round-trip (pure JS) still runs for real,
 // same approach as privateNotesEncryption.test.ts.
-jest.mock('../secureAesKeyStore', () => ({getOrCreateAesKey: jest.fn()}));
+jest.mock('../secureAesKeyStore', () => ({getOrCreateAesKey: jest.fn(), requireExistingAesKey: jest.fn()}));
 
 const mockGetOrCreateAesKey = getOrCreateAesKey as jest.Mock;
+const mockRequireExistingAesKey = requireExistingAesKey as jest.Mock;
 
 beforeEach(() => {
-  mockGetOrCreateAesKey.mockResolvedValue(randomBytes(32));
+  // Encrypting creates-or-reads the key; decrypting only ever READS it (it never creates one) — the same key.
+  const key = randomBytes(32);
+  mockGetOrCreateAesKey.mockResolvedValue(key);
+  mockRequireExistingAesKey.mockResolvedValue(key);
 });
 
 describe('atRestFieldEncryption — generic AES-256-GCM field envelope', () => {
