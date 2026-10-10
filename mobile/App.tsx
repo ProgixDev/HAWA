@@ -288,7 +288,9 @@ recoverInterruptedRestore()
       hydrateCycleReminderPreferences(),
     ]),
   )
-  .then(syncCycleReminders)
+  // A reminder-sync failure (a native notification error) must not skip the migration: the plaintext records would
+  // stay readable on disk until a later launch happens to succeed.
+  .then(() => syncCycleReminders().catch(() => undefined))
   // Legacy plaintext health records are rewritten as encrypted ones in the background, one record at a time, after the
   // app is up (see structuredDataMigration.ts). A problem is reported through the data-availability banner, never thrown.
   .then(() => runStructuredMigration())

@@ -111,7 +111,13 @@ function AnimatedTabItemComponent({
       </Animated.View>
       <View style={styles.labelArea}>
         <Animated.View style={[styles.labelPill, {opacity: decoration}]} />
-        <Text style={[styles.label, focused && styles.labelFocused]}>{label}</Text>
+        <Text
+          adjustsFontSizeToFit
+          minimumFontScale={0.75}
+          numberOfLines={1}
+          style={[styles.label, focused && styles.labelFocused]}>
+          {label}
+        </Text>
       </View>
       <Animated.View
         style={[
@@ -161,6 +167,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   icon: {alignItems: 'center', justifyContent: 'center'},
   labelArea: {
     minWidth: 48,
+    // Turkish "İstatistikler" is one unbreakable 13-letter word: cap the label area at the item width so the
+    // label shrinks (adjustsFontSizeToFit) instead of wrapping inside the fixed 14px area.
+    maxWidth: 56,
     height: 14,
     alignItems: 'center',
     justifyContent: 'center',
