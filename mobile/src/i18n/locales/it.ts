@@ -150,6 +150,7 @@ export const it = {
       englishName: 'English',
       spanishName: 'Español',
       italianName: 'Italiano',
+      turkishName: 'Türkçe',
     },
   },
   cycleHome: {
@@ -895,6 +896,14 @@ export const it = {
     },
   },
 
+  saveFailure: {
+    title: 'Salvataggio non riuscito',
+    failedBody: 'Non è stato possibile salvare le modifiche. Quello che hai inserito è conservato: riprova tra un momento.',
+    unavailableBody: 'I tuoi dati protetti non sono leggibili in questo momento, quindi AWA non li sovrascrive e questa modifica non è stata salvata. Quello che hai inserito è conservato. Apri le opzioni di recupero, poi riprova.',
+    ok: 'OK',
+    recoveryAction: 'Vedi le opzioni',
+  },
+
   portableBackup: {
     entryTitle: 'Backup cifrato',
     entrySubtitle: 'Protetto dalla tua frase segreta. Ripristinalo su questo o su un altro telefono.',
@@ -1380,7 +1389,7 @@ export const it = {
   profile: {
     aboutAwaSubtitle: 'Versione, note legali, privacy e i valori dell’app',
     aboutAwaTitle: 'Informazioni su AWA',
-    appearanceSubtitle: 'Temi, colori e visualizzazione',
+    appearanceSubtitle: 'Temi, colori, visualizzazione e lingua',
     awaADeuxSectionTitle: 'AWA INSIEME',
     awaADeuxSubtitle: 'Condividi informazioni selezionate con il tuo partner',
     awaADeuxTitle: 'AWA Insieme',

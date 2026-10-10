@@ -340,8 +340,8 @@ describe('editorial content: explicit English fallback, never French or Spanish'
     }
   });
 
-  it('legal documents have no Italian text yet — the screen resolves Italian to English (TERMS/PRIVACY only have fr/en/es)', () => {
-    expect(Object.keys(TERMS).sort()).toEqual(['en', 'es', 'fr']);
-    expect(Object.keys(PRIVACY).sort()).toEqual(['en', 'es', 'fr']);
+  it('legal documents have no Italian text yet — the screen resolves Italian to English (TERMS/PRIVACY only have fr/en/es/tr)', () => {
+    expect(Object.keys(TERMS).sort()).toEqual(['en', 'es', 'fr', 'tr']);
+    expect(Object.keys(PRIVACY).sort()).toEqual(['en', 'es', 'fr', 'tr']);
   });
 });

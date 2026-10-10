@@ -40,7 +40,7 @@ const enPathSet = new Set(enPaths);
 const esPathSet = new Set(esPaths);
 
 describe('TEST — Spanish dictionary leaf-key parity with fr/en (cases 16-18)', () => {
-  it('16. es has exactly 6144 leaf keys, matching fr and en 1:1 (no missing, no extra)', () => {
+  it('16. es has exactly 6150 leaf keys, matching fr and en 1:1 (no missing, no extra)', () => {
     // Grown from the original 6064 across several localization fix passes
     // (dataPrivacy.*, profile.managedProfiles.swipeDeleteLabel,
     // profile.editAvatarAccessibility/editAnonymousAvatarAccessibility,
@@ -55,10 +55,12 @@ describe('TEST — Spanish dictionary leaf-key parity with fr/en (cases 16-18)',
     // rework later removed the share-sheet/QR keys (6044), and the Italian integration
     // added appearance.language.italianName to every dictionary (6045). The managed
     // daughter calendar fix then added calendar.predictionsPendingFirstPeriod and
-    // calendar.predictionsPendingMoreData to every dictionary (6144).
-    expect(esPaths.length).toBe(6144);
-    expect(frPaths.length).toBe(6144);
-    expect(enPaths.length).toBe(6144);
+    // calendar.predictionsPendingMoreData to every dictionary (6145). The save-failure
+    // contract then added the five saveFailure.* keys (title/failedBody/unavailableBody/ok/
+    // recoveryAction) to every dictionary (6150).
+    expect(esPaths.length).toBe(6150);
+    expect(frPaths.length).toBe(6150);
+    expect(enPaths.length).toBe(6150);
 
     const missingFromEsVsFr = frPaths.filter(p => !esPathSet.has(p));
     const extraInEsVsFr = esPaths.filter(p => !frPathSet.has(p));

@@ -163,6 +163,7 @@ export const es = {
       englishName: 'English',
       spanishName: 'Español',
       italianName: 'Italiano',
+      turkishName: 'Türkçe',
     },
   },
   cycleHome: {
@@ -908,6 +909,14 @@ export const es = {
     },
   },
 
+  saveFailure: {
+    title: 'No se pudo guardar',
+    failedBody: 'No se pudieron guardar tus cambios. Lo que escribiste se conserva: inténtalo de nuevo en un momento.',
+    unavailableBody: 'Tus datos protegidos no se pueden leer ahora, así que AWA no los sobrescribe y este cambio no se guardó. Lo que escribiste se conserva. Abre las opciones de recuperación e inténtalo de nuevo.',
+    ok: 'Aceptar',
+    recoveryAction: 'Ver opciones',
+  },
+
   portableBackup: {
     entryTitle: 'Copia de seguridad cifrada',
     entrySubtitle: 'Protegida por tu frase de contraseña. Restáurala en este u otro teléfono.',
@@ -1393,7 +1402,7 @@ export const es = {
   profile: {
     aboutAwaSubtitle: 'Versión, menciones legales, privacidad y valores de la aplicación',
     aboutAwaTitle: 'Acerca de AWA',
-    appearanceSubtitle: 'Temas, colores y visualización',
+    appearanceSubtitle: 'Temas, colores, visualización e idioma',
     awaADeuxSectionTitle: 'AWA PAREJA',
     awaADeuxSubtitle: 'Comparte ciertos datos con tu pareja',
     awaADeuxTitle: 'AWA Pareja',

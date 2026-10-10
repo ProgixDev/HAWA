@@ -814,6 +814,7 @@ const LANGUAGE_SELF_LABELS: Record<AwaAppLanguage, {label: string; subtitle: str
   en: {label: 'English', subtitle: 'Use AWA in English'},
   es: {label: 'Español', subtitle: 'Usar AWA en español'},
   it: {label: 'Italiano', subtitle: 'Usare AWA in italiano'},
+  tr: {label: 'Türkçe', subtitle: 'AWA’yı Türkçe kullan'},
 };
 
 const LANGUAGE_OPTIONS: LanguageOption[] = [
@@ -821,6 +822,7 @@ const LANGUAGE_OPTIONS: LanguageOption[] = [
   {id: 'en', flag: '🇬🇧', ...LANGUAGE_SELF_LABELS.en},
   {id: 'es', flag: '🇪🇸', ...LANGUAGE_SELF_LABELS.es},
   {id: 'it', flag: '🇮🇹', ...LANGUAGE_SELF_LABELS.it},
+  {id: 'tr', flag: '🇹🇷', ...LANGUAGE_SELF_LABELS.tr},
 ];
 
 function LanguageBottomSheet({
@@ -838,6 +840,7 @@ function LanguageBottomSheet({
 }): React.JSX.Element {
   const {t} = useTranslation();
   const insets = useSafeAreaInsets();
+  const {height: windowHeight} = useWindowDimensions();
   // Temporary selection only — never committed until "Appliquer" is pressed
   // (see onApply below). Re-synced to the real saved value every time the
   // sheet opens, so a dismissal without applying never leaks a stale draft
@@ -876,6 +879,9 @@ function LanguageBottomSheet({
             {t('appearance.language.description')}
           </Text>
 
+          {/* Five languages no longer always fit above the Apply button on a small phone: the list scrolls
+              inside a height bound, the title and the Apply button stay in view. */}
+          <ScrollView nestedScrollEnabled showsVerticalScrollIndicator={false} style={{maxHeight: Math.max(220, windowHeight * 0.44)}}>
           <View accessibilityRole="radiogroup" style={styles.langOptionsList}>
             {LANGUAGE_OPTIONS.map(option => {
               const selected = draft === option.id;
@@ -914,6 +920,7 @@ function LanguageBottomSheet({
               );
             })}
           </View>
+          </ScrollView>
 
           <Pressable
             accessibilityLabel={t('common.apply')}
@@ -1699,7 +1706,9 @@ export default function AppearanceScreen({
                     ? t('appearance.language.spanishName')
                     : appLanguage === 'it'
                       ? t('appearance.language.italianName')
-                      : t('appearance.language.frenchName')
+                      : appLanguage === 'tr'
+                        ? t('appearance.language.turkishName')
+                        : t('appearance.language.frenchName')
               }
 
               theme={theme}

@@ -186,6 +186,7 @@ export const fr = {
       englishName: 'English',
       spanishName: 'Español',
       italianName: 'Italiano',
+      turkishName: 'Türkçe',
     },
   },
 
@@ -910,6 +911,14 @@ export const fr = {
     },
   },
 
+  saveFailure: {
+    title: 'Enregistrement impossible',
+    failedBody: 'Tes modifications n’ont pas pu être enregistrées. Ce que tu as saisi est conservé : réessaie dans un instant.',
+    unavailableBody: 'Tes données protégées sont momentanément illisibles : AWA ne les écrase pas, donc cette modification n’a pas été enregistrée. Ce que tu as saisi est conservé. Ouvre les options de récupération, puis réessaie.',
+    ok: 'OK',
+    recoveryAction: 'Voir les options',
+  },
+
   portableBackup: {
     entryTitle: 'Sauvegarde chiffrée',
     entrySubtitle: 'Protégée par ta phrase secrète. À restaurer sur ce téléphone ou un autre.',
@@ -1352,7 +1361,7 @@ export const fr = {
   profile: {
     aboutAwaSubtitle: 'Version, mentions, confidentialité et valeurs de l’application',
     aboutAwaTitle: 'À propos de AWA',
-    appearanceSubtitle: 'Thèmes, couleurs et affichage',
+    appearanceSubtitle: 'Thèmes, couleurs, affichage et langue',
     awaADeuxSectionTitle: 'AWA À DEUX',
     awaADeuxSubtitle: 'Partagez certains repères avec votre partenaire',
     awaADeuxTitle: 'AWA à deux',
