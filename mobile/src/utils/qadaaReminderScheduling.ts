@@ -14,6 +14,7 @@ import {
   hydrateQadaaReminderNotificationState,
   setQadaaReminderNotificationState,
 } from '../state/qadaaReminderNotificationStore';
+import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
 import i18n from '../i18n';
 
 // Real LOCAL scheduled notification completing the post-Ramadan Qadaa
@@ -106,6 +107,16 @@ async function computeCurrentRemainingQadaaDays(): Promise<number> {
  */
 export async function syncQadaaReminderNotification(): Promise<void> {
   const previous = await hydrateQadaaReminderNotificationState();
+  // The owed-days balance is derived from the confirmed periods AND the user's own ledger. When either (or the
+  // reminder's own record) cannot be read, "0 owed" / "nothing scheduled" would be invented: leave it as it is.
+  await Promise.all([hydrateConfirmedPeriodHistory(), hydrateQadaaLedger()]);
+  if (areReminderSourcesUnavailable({
+    ownerBases: ['@hawa/qadaa-post-ramadan-reminder/v1', 'awa:qadaa:progress:v1'],
+    profileBases: ['@hawa/confirmed-period-history', 'awa:qadaa:ledger:v1'],
+    includeObjective: false,
+  })) {
+    return;
+  }
 
   if (!getSpiritualMarkersEnabled()) {
     if (previous.scheduled || previous.fireAt) {

@@ -30,6 +30,7 @@ import {usePrayerPurityStatus} from '../hooks/usePrayerPurityStatus';
 import {capitalize, dateFormatLocale, formatFullDate, formatHijriDate} from '../utils/cycleMath';
 import {getBottomPadding, getTopPadding} from '../theme/spacing';
 import {objectiveShowsMenstrualPurity} from '../utils/spiritualObjectiveScope';
+import {displayUpperCase} from '../utils/textCase';
 import {
   getActiveObjective,
   getHijriAdjustmentDays,
@@ -188,7 +189,7 @@ function PrayerTimesScreen(): React.JSX.Element {
 
         {shouldShowMenstrualPurity && purityResult.status !== 'unknown' ? (
           <Animated.View entering={FadeInUp.delay(280).duration(420)} style={styles.noteCard}>
-            <Text style={styles.noteEyebrow}>{t('prayerTimes.spiritualAdviceEyebrow')}</Text>
+            <Text style={styles.noteEyebrow}>{displayUpperCase(t('prayerTimes.spiritualAdviceEyebrow'))}</Text>
             <View style={styles.noteRow}>
               <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={15} />
               <Text style={styles.noteText}>
@@ -215,7 +216,7 @@ function PrayerTimesScreen(): React.JSX.Element {
         </Animated.View>
 
         <Animated.View entering={FadeInUp.delay(360).duration(420)} style={styles.hijriCard}>
-          <Text style={styles.hijriEyebrow}>{t('prayerTimes.hijriSectionTitle')}</Text>
+          <Text style={styles.hijriEyebrow}>{displayUpperCase(t('prayerTimes.hijriSectionTitle'))}</Text>
 
           <View style={styles.hijriRow}>
             <Text style={styles.hijriRowLabel}>{t('prayerTimes.countryLabel')}</Text>

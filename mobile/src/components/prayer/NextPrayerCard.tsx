@@ -15,6 +15,7 @@ import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale} from '../../utils/cycleMath';
+import {displayUpperCase} from '../../utils/textCase';
 import type {PrayerWindow} from '../../services/prayerTimes';
 
 const PRAYER_IMAGE = require('../../assets/images/priere.png');
@@ -80,7 +81,7 @@ function NextPrayerCard({window, timezone, loading, error, now}: Props): React.J
     <View style={styles.card}>
       <Animated.Image resizeMode="contain" source={PRAYER_IMAGE} style={[styles.prayerImage, floatStyle]} />
 
-      <Text style={styles.eyebrow}>{t('spiritualGuidance.nextPrayerLabel')}</Text>
+      <Text style={styles.eyebrow}>{displayUpperCase(t('spiritualGuidance.nextPrayerLabel'))}</Text>
 
       {window ? (
         <>

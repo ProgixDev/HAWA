@@ -31,6 +31,7 @@ import {
 import {getBottomPadding, getTopPadding} from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {displayUpperCase} from '../utils/textCase';
 
 const MOSQUE_BANNER = require('../assets/images/auth-mosque-background.png');
 const MOSQUE_BANNER_RATIO = 848 / 1854;
@@ -199,7 +200,7 @@ function HijriCalendarScreen(): React.JSX.Element {
 
         <Animated.View entering={FadeInUp.delay(60).duration(450)} style={styles.heroCard}>
           <MaterialDesignIcons color={theme.colors.primary} name="mosque" size={128} style={styles.heroWatermark} />
-          <Text style={styles.heroEyebrow}>{t('hijriCalendar.today')}</Text>
+          <Text style={styles.heroEyebrow}>{displayUpperCase(t('hijriCalendar.today'))}</Text>
           <Text style={styles.heroDay}>{todayHijriDay}</Text>
           <Text style={styles.heroMonth}>{todayHijriMonthYear}</Text>
           <Text style={styles.heroGregorian}>{todayWeekdayDate}</Text>
@@ -221,7 +222,7 @@ function HijriCalendarScreen(): React.JSX.Element {
 
         <Animated.View entering={FadeInUp.delay(180).duration(420)}>
           <Animated.View style={[styles.selectedCard, selectedAnimatedStyle]}>
-            <Text style={styles.selectedLabel}>{t('hijriCalendar.selectedDateLabel')}</Text>
+            <Text style={styles.selectedLabel}>{displayUpperCase(t('hijriCalendar.selectedDateLabel'))}</Text>
             <View style={styles.selectedRow}>
               <View style={styles.selectedCopy}>
                 <Text style={styles.selectedHijri}>{selectedHijriDate}</Text>
@@ -250,7 +251,7 @@ function HijriCalendarScreen(): React.JSX.Element {
             <View style={styles.monthRefIcon}>
               <MaterialDesignIcons color={theme.colors.primary} name="calendar-star" size={16} />
             </View>
-            <Text style={styles.monthRefEyebrow}>{t('hijriCalendar.monthReferenceEyebrow')}</Text>
+            <Text style={styles.monthRefEyebrow}>{displayUpperCase(t('hijriCalendar.monthReferenceEyebrow'))}</Text>
           </View>
 
           {ramadan ? (
