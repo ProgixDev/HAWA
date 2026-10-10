@@ -166,7 +166,7 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
               return;
             }
             setEvents(sortEvents(next));
-            cancelEventReminder(id);
+            cancelEventReminder(id, {dismissDisplayed: true});
           },
         },
       ],
