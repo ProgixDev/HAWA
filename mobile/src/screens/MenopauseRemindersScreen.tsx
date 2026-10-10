@@ -18,7 +18,8 @@ import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-comm
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
-import {ensureNotificationPermission} from '../services/pregnancyNotifications';
+import NotificationPermissionNotice from '../components/notifications/NotificationPermissionNotice';
+import {useReminderPermissionGuard} from '../hooks/useReminderPermissionGuard';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {
@@ -78,7 +79,11 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
   const [timePickerTarget, setTimePickerTarget] = useState<TimePickerTarget>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const [permissionNotice, setPermissionNotice] = useState(false);
+
+  // Whether Android would actually show a reminder she has switched on (notifications off / reminders channel
+  // blocked). Only read while a reminder switch is on; the treatment switch only counts while its card is shown.
+  const anyReminderOn = dailyEnabled || (showTreatmentCard && treatmentEnabled);
+  const permissionGuard = useReminderPermissionGuard(anyReminderOn);
 
   const goToNext = () => {
     if (isEdit) {
@@ -87,6 +92,17 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
       continueAfterObjectiveSetup(navigation);
     }
   };
+
+  // The one shared notice (same wording, "open settings" and re-check on every objective's reminders step). Once a
+  // save was blocked it also offers "Continue without notifications", which performs the navigation Save would have.
+  const permissionNotice = anyReminderOn ? (
+    <NotificationPermissionNotice
+      onContinue={permissionGuard.saveBlocked ? goToNext : undefined}
+      onRecheck={permissionGuard.refresh}
+      state={permissionGuard.state}
+      testID="menopause-reminders-permission-notice"
+    />
+  ) : null;
 
   const persistAndContinue = async (
     values: {
@@ -101,12 +117,14 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
       await setMenopauseReminderPreferences(values);
 
       // Only ever requested here — when a reminder is actually being
-      // confirmed enabled — never merely for opening this screen.
-      if (values.dailyTrackingReminderEnabled || values.treatmentReminderEnabled) {
-        const granted = await ensureNotificationPermission();
-        if (!granted) {
-          setPermissionNotice(true);
-        }
+      // confirmed enabled — never merely for opening this screen. Refused:
+      // she stays on this screen with the notice (her choices above are
+      // already saved either way) instead of the screen closing at once.
+      const allowed = await permissionGuard.allowSave(
+        values.dailyTrackingReminderEnabled || values.treatmentReminderEnabled,
+      );
+      if (!allowed) {
+        return;
       }
 
       goToNext();
@@ -281,14 +299,7 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
             </View>
           ) : null}
 
-          {permissionNotice ? (
-            <View accessibilityRole="alert" style={editStyles.errorCard}>
-              <MaterialDesignIcons color={theme.colors.danger} name="bell-off-outline" size={16} />
-              <Text style={editStyles.errorText}>
-                {t('menopauseReminders.permissionNotice')}
-              </Text>
-            </View>
-          ) : null}
+          {permissionNotice}
 
           <Pressable
             accessibilityRole="button"
@@ -469,14 +480,7 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
             </View>
           ) : null}
 
-          {permissionNotice ? (
-            <View accessibilityRole="alert" style={styles.errorCard}>
-              <MaterialDesignIcons color={theme.colors.danger} name="bell-off-outline" size={16} />
-              <Text style={styles.errorText}>
-                {t('menopauseReminders.permissionNotice')}
-              </Text>
-            </View>
-          ) : null}
+          {permissionNotice}
 
           <View style={styles.info}>
             <View style={styles.infoIconBox}>

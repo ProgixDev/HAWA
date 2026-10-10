@@ -18,7 +18,8 @@ import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-comm
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
-import {ensureNotificationPermission} from '../services/pregnancyNotifications';
+import NotificationPermissionNotice from '../components/notifications/NotificationPermissionNotice';
+import {useReminderPermissionGuard} from '../hooks/useReminderPermissionGuard';
 import {
   getPostpartumPreferences,
   setPostpartumDailyTrackingReminder,
@@ -67,7 +68,10 @@ function PostpartumRemindersScreen({navigation, route}: Props): React.JSX.Elemen
   const [timePickerVisible, setTimePickerVisible] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const [permissionNotice, setPermissionNotice] = useState(false);
+
+  // Whether Android would actually show the reminder she has switched on (notifications off / reminders channel
+  // blocked). Only read while the switch is on.
+  const permissionGuard = useReminderPermissionGuard(dailyEnabled);
 
   const goToNext = () => {
     if (isEdit) {
@@ -76,6 +80,17 @@ function PostpartumRemindersScreen({navigation, route}: Props): React.JSX.Elemen
       continueAfterObjectiveSetup(navigation);
     }
   };
+
+  // The one shared notice (same wording, "open settings" and re-check on every objective's reminders step). Once a
+  // save was blocked it also offers "Continue without notifications", which performs the navigation Save would have.
+  const permissionNotice = dailyEnabled ? (
+    <NotificationPermissionNotice
+      onContinue={permissionGuard.saveBlocked ? goToNext : undefined}
+      onRecheck={permissionGuard.refresh}
+      state={permissionGuard.state}
+      testID="postpartum-reminders-permission-notice"
+    />
+  ) : null;
 
   const persistAndContinue = async (
     values: {
@@ -88,12 +103,12 @@ function PostpartumRemindersScreen({navigation, route}: Props): React.JSX.Elemen
       await setPostpartumDailyTrackingReminder(values);
 
       // Only ever requested here — when the reminder is actually being
-      // confirmed enabled — never merely for opening this screen.
-      if (values.dailyTrackingReminderEnabled) {
-        const granted = await ensureNotificationPermission();
-        if (!granted) {
-          setPermissionNotice(true);
-        }
+      // confirmed enabled — never merely for opening this screen. Refused:
+      // she stays on this screen with the notice (her choice above is
+      // already saved either way) instead of the screen closing at once.
+      const allowed = await permissionGuard.allowSave(values.dailyTrackingReminderEnabled);
+      if (!allowed) {
+        return;
       }
 
       goToNext();
@@ -223,14 +238,7 @@ function PostpartumRemindersScreen({navigation, route}: Props): React.JSX.Elemen
             </View>
           ) : null}
 
-          {permissionNotice ? (
-            <View accessibilityRole="alert" style={editStyles.errorCard}>
-              <MaterialDesignIcons color={theme.colors.danger} name="bell-off-outline" size={16} />
-              <Text style={editStyles.errorText}>
-                {t('postpartumReminders.permissionNotice')}
-              </Text>
-            </View>
-          ) : null}
+          {permissionNotice}
 
           <Pressable
             accessibilityRole="button"
@@ -349,14 +357,7 @@ function PostpartumRemindersScreen({navigation, route}: Props): React.JSX.Elemen
             </View>
           ) : null}
 
-          {permissionNotice ? (
-            <View accessibilityRole="alert" style={styles.errorCard}>
-              <MaterialDesignIcons color={theme.colors.danger} name="bell-off-outline" size={16} />
-              <Text style={styles.errorText}>
-                {t('postpartumReminders.permissionNotice')}
-              </Text>
-            </View>
-          ) : null}
+          {permissionNotice}
 
           <View style={styles.info}>
             <View style={styles.infoIconBox}>
