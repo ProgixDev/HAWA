@@ -19,6 +19,7 @@ import {REMINDER_OFFSETS, reminderOffsetLabels, cancelEventReminder, syncEventRe
 import {getPregnancyNotificationSettings} from '../../state/pregnancyNotificationSettingsStore';
 import PregnancyEventDeleteConfirmModal, {type PendingPregnancyEventDelete} from './PregnancyEventDeleteConfirmModal';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 // Shared Appointment/Exam form — extracted so PregnancyAppointmentScreen.tsx
 // and PregnancyExamScreen.tsx (each locked to one `type`, no selector) and
@@ -254,7 +255,14 @@ function PregnancyEventForm({
       createdAt: initialEvent?.createdAt ?? now,
       updatedAt: now,
     };
-    const next = await savePregnancyMedicalEvent(event);
+    let next: PregnancyMedicalEvent[];
+    try {
+      next = await savePregnancyMedicalEvent(event);
+    } catch (saveError) {
+      // Not persisted: nothing is announced as saved and the form keeps what was typed.
+      presentSaveFailure(saveError);
+      return;
+    }
     await syncEventReminder(event);
     onSaved(next);
   };
@@ -265,7 +273,13 @@ function PregnancyEventForm({
   };
 
   const confirmDelete = async ({id: eventId}: PendingPregnancyEventDelete) => {
-    const next = await deletePregnancyMedicalEvent(eventId);
+    let next: PregnancyMedicalEvent[];
+    try {
+      next = await deletePregnancyMedicalEvent(eventId);
+    } catch (saveError) {
+      presentSaveFailure(saveError);
+      return;
+    }
     cancelEventReminder(eventId);
     setPendingDelete(null);
     onDeleted(next);

@@ -18,6 +18,7 @@ import {homeColors, homeRadii} from '../home/homeTheme';
 import {setActiveObjective} from '../../state/onboardingPreferences';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 // Reusing the existing flower illustration (already used by HeroCycleCard)
 // instead of adding a new asset, per the "reuse existing assets" guidance.
@@ -86,8 +87,15 @@ function PostpartumCongratsCard({visible, deliveryDate, onStarted, onLater}: Pro
   const handleStart = () => {
     if (starting) {return;}
     setStarting(true);
-    setActiveObjective('postpartum').catch(() => {});
-    dismiss(onStarted);
+    // The objective swaps synchronously (listeners fire at the call); the card is only dismissed — and the journey only
+    // announced as started — once the switch has been persisted. A refused/failed write rolls the objective back.
+    setActiveObjective('postpartum').then(
+      () => dismiss(onStarted),
+      error => {
+        setStarting(false);
+        presentSaveFailure(error);
+      },
+    );
   };
 
   const handleLater = () => {

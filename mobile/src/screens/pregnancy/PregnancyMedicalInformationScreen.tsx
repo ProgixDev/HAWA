@@ -47,7 +47,9 @@ import {
 } from '../../theme/awaThemeTokens';
 import {getAppLanguage} from '../../state/themePreferences';
 import {dateFormatLocale} from '../../utils/cycleMath';
+import {displayTitleCase} from '../../utils/textCase';
 import i18n from '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 /* ============================================================
    CONSTANTS
@@ -100,11 +102,14 @@ const WEEK_DAYS_IT = [
   'D',
 ] as const;
 
+const WEEK_DAYS_TR = ['P', 'S', 'Ç', 'P', 'C', 'C', 'P'] as const;
+
 function localizedSingleLetterWeekDays(): readonly string[] {
   const language = getAppLanguage();
   if (language === 'en') {return WEEK_DAYS_EN;}
   if (language === 'es') {return WEEK_DAYS_ES;}
   if (language === 'it') {return WEEK_DAYS_IT;}
+  if (language === 'tr') {return WEEK_DAYS_TR;}
   return WEEK_DAYS_FR;
 }
 
@@ -552,7 +557,7 @@ function PremiumDatePickerModal({
               style={
                 styles.monthTitle
               }>
-              {monthTitle}
+              {displayTitleCase(monthTitle)}
             </Text>
 
             <Pressable
@@ -1135,6 +1140,8 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
         );
 
         showSuccessToast();
+      } catch (saveError) {
+        presentSaveFailure(saveError);
       } finally {
         setSaving(
           false,

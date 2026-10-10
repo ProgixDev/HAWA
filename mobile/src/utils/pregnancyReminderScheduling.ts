@@ -10,6 +10,7 @@ import {getCustomReminders, type CustomReminder} from '../state/pregnancyCustomR
 import {getPregnancyMedicalEvents} from '../state/pregnancyMedicalEventsStore';
 import {cancelEventReminder, syncEventReminder} from './pregnancyEventReminders';
 import {getActiveObjective, hydrateActiveObjective} from '../state/onboardingPreferences';
+import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
 import i18n from '../i18n';
 
 // Scheduling for every recurring/one-off Pregnancy Tracking reminder that
@@ -18,6 +19,15 @@ import i18n from '../i18n';
 // id derived from its domain id, so re-syncing is always a safe upsert.
 
 const WEEKLY_UPDATE_ID = 'pregnancy-weekly-update';
+
+/** Every stored record the Pregnancy notifications are derived from (owner-wide keys). */
+export const PREGNANCY_REMINDER_SOURCE_BASES = [
+  '@hawa/pregnancy-dating',
+  '@hawa/pregnancy-notification-settings',
+  '@hawa/pregnancy-medical-events',
+  '@hawa/pregnancy-health-reminders',
+  '@hawa/pregnancy-custom-reminders',
+] as const;
 const DAILY_JOURNAL_ID = 'pregnancy-daily-journal';
 
 // Tag carried in the notification's `data` payload so
@@ -251,6 +261,9 @@ export async function cancelAllPregnancyNotifications(): Promise<void> {
  * Called at startup, on every active-objective change and on foreground. */
 export async function syncPregnancyNotificationsForActiveObjective(): Promise<void> {
   await hydrateActiveObjective();
+  // An unreadable objective record falls back to the default objective: that is not "the user left Pregnancy", so
+  // it must never cancel her pregnancy reminders (nor schedule another objective's).
+  if (areReminderSourcesUnavailable({})) {return;}
   if (getActiveObjective() === 'pregnancy') {
     await resyncAllPregnancyNotifications();
     return;
@@ -263,21 +276,22 @@ export async function syncPregnancyNotificationsForActiveObjective(): Promise<vo
  * a restart, and again whenever "Notifications & rappels" settings change. */
 export async function resyncAllPregnancyNotifications(): Promise<void> {
   const settings = await hydratePregnancyNotificationSettings();
+  // Every source is READ first, so that one that cannot be read is known before anything is derived: the stores
+  // answer a failed read with defaults (weekly update ON, no dating, no events), and scheduling or cancelling from
+  // those would invent or destroy reminders. Unreadable source => everything already scheduled stays as it is.
+  const [, events, healthReminders, customReminders] = await Promise.all([
+    hydratePregnancyDating(),
+    getPregnancyMedicalEvents(),
+    getHealthReminders(),
+    getCustomReminders(),
+  ]);
+  if (areReminderSourcesUnavailable({ownerBases: PREGNANCY_REMINDER_SOURCE_BASES})) {return;}
 
   await Promise.all([
     syncWeeklyUpdateReminder(settings),
     syncDailyJournalReminder(settings),
-    (async () => {
-      const events = await getPregnancyMedicalEvents();
-      await Promise.all(events.map(event => syncEventReminder(event)));
-    })(),
-    (async () => {
-      const reminders = await getHealthReminders();
-      await Promise.all(reminders.map(reminder => syncHealthReminder(reminder)));
-    })(),
-    (async () => {
-      const reminders = await getCustomReminders();
-      await Promise.all(reminders.map(reminder => syncCustomReminder(reminder)));
-    })(),
+    Promise.all(events.map(event => syncEventReminder(event))),
+    Promise.all(healthReminders.map(reminder => syncHealthReminder(reminder))),
+    Promise.all(customReminders.map(reminder => syncCustomReminder(reminder))),
   ]);
 }

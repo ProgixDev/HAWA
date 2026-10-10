@@ -25,6 +25,7 @@ import {
   type PregnancyTrackingPreference,
 } from '../../state/pregnancyPreferences';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -306,9 +307,15 @@ function PregnancyTrackingPreferencesScreen({
      * On sauvegarde uniquement les catégories
      * actuellement affichées/sélectionnées.
      */
-    await setPregnancyTrackingPreferences(
-      selected,
-    );
+    try {
+      await setPregnancyTrackingPreferences(
+        selected,
+      );
+    } catch (saveError) {
+      // Not persisted: stay here with the selection intact (see services/saveFailure.ts).
+      presentSaveFailure(saveError);
+      return;
+    }
 
     if (route.params?.mode === 'edit') {
       navigation.goBack();

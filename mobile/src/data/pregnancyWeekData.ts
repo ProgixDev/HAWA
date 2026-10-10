@@ -107,6 +107,7 @@ type PregnancyWeekEntry = {
     en: PregnancyWeekEditorialContent;
     es: PregnancyWeekEditorialContent;
     it: PregnancyWeekEditorialContent;
+    tr: PregnancyWeekEditorialContent;
   };
 };
 
@@ -161,6 +162,16 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'È normale non notare alcun cambiamento in questa fase.',
         ],
       },
+      tr: {
+        babyDescription: 'Tıbbi kurala göre gebelik, son adet döneminin ilk gününden itibaren hesaplanır. Bu aşamada döllenme genellikle henüz gerçekleşmemiştir.',
+        bodyChanges: [
+          'Bu dönem genellikle gebe kalmadan öncesine denk gelir; gebelikle ilgili bedensel bir değişiklik çoğunlukla henüz görülmez.',
+        ],
+        toKnow: [
+          'Gebeliği son adet döneminden itibaren saymak, gebe kalma aslında biraz daha sonra gerçekleşse de tahmini doğum tarihini hesaplamak için standart bir yol sağlar.',
+          'Bu aşamada herhangi bir değişiklik fark etmemek yaygındır.',
+        ],
+      },
     },
   },
   {
@@ -205,6 +216,16 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Il momento esatto dell’ovulazione varia da donna a donna, ed è per questo che questo periodo resta una stima.',
         ],
       },
+      tr: {
+        babyDescription: 'Yumurtlama ve olası döllenme genellikle bu sıralarda gerçekleşir; bu, kişinin döngü uzunluğuna göre değişir.',
+        bodyChanges: [
+          'Yumurtlamanın zamanı döngü uzunluğuna göre değişebilir ve bu da gebe kalmanın gerçek olası tarihini etkiler.',
+          'Bu aşamada henüz gebeliğe özgü bir bedensel değişiklik genellikle yoktur.',
+        ],
+        toKnow: [
+          'Yumurtlamanın tam zamanı kişiden kişiye değişir; bu yüzden bu dönem bir tahmin olarak kalır.',
+        ],
+      },
     },
   },
   {
@@ -243,6 +264,15 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'La maggior parte dei test di gravidanza sulle urine diventa affidabile a partire dalla settimana successiva circa, quando l’impianto è iniziato.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Döllenme gerçekleştiyse yumurta bölünmeye ve rahme doğru ilerlemeye başlar, ancak gebelik testiyle henüz bir şey saptanamaz.',
+        bodyChanges: [
+          'Bu hafta hâlâ gebe kalma çevresindeki tıbbi tarihleme dönemine denk gelir; bu aşamada genellikle fark edilen bir bedensel belirti yoktur.',
+        ],
+        toKnow: [
+          'İdrar yoluyla yapılan gebelik testlerinin çoğu, yerleşme başladıktan sonra, yaklaşık bir sonraki haftadan itibaren güvenilir hâle gelir.',
         ],
       },
     },
@@ -299,6 +329,18 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'È il momento in cui, di solito, un test di gravidanza può iniziare a dare un risultato positivo.',
         ],
       },
+      tr: {
+        babyDescription: 'Embriyo rahim duvarına yeni yerleşti. İlk günlerde onu besleyecek olan amniyon kesesi ve vitellus kesesi oluşuyor.',
+        length: 'Yaklaşık 2 mm',
+        comparison: 'Haşhaş tohumu',
+        bodyChanges: [
+          'Bazı kişiler bu çok erken aşamada henüz hiçbir belirti fark etmez.',
+          'İdrar yoluyla yapılan bir gebelik testi, gebeliği genellikle bu haftadan itibaren saptayabilir.',
+        ],
+        toKnow: [
+          'Bu, bir gebelik testinin pozitif sonuç vermeye başlayabildiği olağan zamandır.',
+        ],
+      },
     },
   },
   {
@@ -339,6 +381,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'È il momento consigliato per fissare un appuntamento con un professionista sanitario e iniziare il percorso di assistenza in gravidanza.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Sinir sistemi oluşmaya başlıyor ve henüz çok küçük olan kalp ilk kez atmak üzere.',
+        length: 'Yaklaşık 2 mm',
+        comparison: 'Susam tanesi',
+        bodyChanges: [
+          'Alışılmadık yorgunluk, hafif mide bulantısı veya göğüslerde hassasiyet ortaya çıkabilir.',
+        ],
+        toKnow: [
+          'Gebelik takibine başlamak için bir sağlık profesyoneliyle randevu almanın önerildiği zaman budur.',
         ],
       },
     },
@@ -383,6 +436,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'L’attività del cuore può a volte essere visibile già da questa settimana con un’ecografia precoce.',
         ],
       },
+      tr: {
+        babyDescription: 'Kol ve bacak tomurcukları belirir, kulakların oluşacağı yerde küçük çukurcuklar görülür. Kalp bazen ultrasonda şimdiden saptanabilir.',
+        length: 'Yaklaşık 6 mm',
+        comparison: 'Bezelye',
+        bodyChanges: [
+          'Bu dönemde bazı kişilerde mide bulantısı ve yorgunluk artabilir.',
+        ],
+        toKnow: [
+          'Kalp aktivitesi, erken yapılan bir ultrasonda bazen bu haftadan itibaren görülebilir.',
+        ],
+      },
     },
   },
   {
@@ -423,6 +487,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Il tubo neurale, da cui hanno origine il cervello e il midollo spinale, continua a chiudersi durante queste settimane.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Beyin vücudun geri kalanından daha hızlı gelişir ve bu da belirgin bir alın görünümü verir. Kolların uçlarında küçük el tomurcukları belirmeye başlar.',
+        length: 'Yaklaşık 10 mm',
+        comparison: 'Üzüm',
+        bodyChanges: [
+          'Belirli yiyeceklere karşı istek ya da tersine bazı yiyeceklerden hoşlanmama görülebilir.',
+        ],
+        toKnow: [
+          'Beyin ve omuriliği oluşturan nöral tüp, bu haftalarda kapanmaya devam eder.',
         ],
       },
     },
@@ -469,6 +544,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'La prima ecografia di datazione è in genere programmata tra la settimana 8 e la settimana 14.',
         ],
       },
+      tr: {
+        babyDescription: 'Embriyo artık fetüs olarak adlandırılır. Kollar uzuyor, baş hafifçe doğrulmaya başlıyor ve plasenta oluşmaya devam ediyor.',
+        length: 'Yaklaşık 16 mm',
+        comparison: 'Ahududu',
+        bodyChanges: [
+          'Kokulara karşı hassasiyet ve sabah bulantısı bu aşamada yaygındır, ancak herkeste görülmez.',
+        ],
+        toKnow: [
+          'Tarihlemeyi belirleyen ilk ultrason genellikle 8. ile 14. haftalar arasında planlanır.',
+        ],
+      },
     },
   },
   {
@@ -509,6 +595,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Gli organi genitali stanno appena iniziando a differenziarsi, ma in genere il sesso non è identificabile fino a molto più tardi, con l’ecografia morfologica.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Yüz hatları belirginleşir, göz kapakları gözleri korur; eller ve ayaklar, gelecekteki parmaklarla birlikte şekil almaktadır.',
+        length: 'Yaklaşık 22 mm',
+        comparison: 'Çilek',
+        bodyChanges: [
+          'Belirgin yorgunluk ve bulantı hâlâ sürebilir; birinci trimesterin sonuna doğru çoğunlukla hafifleme eğilimindedir.',
+        ],
+        toKnow: [
+          'Cinsel organlar farklılaşmaya yeni başlıyor, ancak cinsiyet genellikle çok daha sonra, anatomi ultrasonunda anlaşılabilir.',
         ],
       },
     },
@@ -553,6 +650,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Il test combinato del primo trimestre, quando viene proposto, si esegue in genere tra la settimana 11 e la settimana 14.',
         ],
       },
+      tr: {
+        babyDescription: 'Yüz daha tanınabilir hâle gelir, göz kapakları ışığa tepki verir ve kalp, bir yetişkininkinden yaklaşık üç kat daha hızlı, hızlı bir tempoyla atar.',
+        length: 'Yaklaşık 30 mm',
+        comparison: 'Küçük kayısı',
+        bodyChanges: [
+          'Karın genellikle henüz görünmese de bel çevrenizde hafif bir değişiklik başlayabilir.',
+        ],
+        toKnow: [
+          'Birinci trimester birleşik tarama testi, sunulduğunda, genellikle 11. ile 14. haftalar arasında yapılır.',
+        ],
+      },
     },
   },
   {
@@ -593,6 +701,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'I movimenti del bambino stanno iniziando, ma in genere in questa fase non si avvertono ancora.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Parmaklar ayrılır, küçücük tırnaklar belirir ve plasenta, fetüsü beslemede vitellus kesesinden yavaş yavaş görevi devralır.',
+        length: 'Yaklaşık 41 mm',
+        comparison: 'İncir',
+        bodyChanges: [
+          'Özellikle hormonal değişikliklere bağlı olarak ruh hali dalgalanmaları fark edebilirsin.',
+        ],
+        toKnow: [
+          'Bebeğin hareketleri başlıyor, ancak bu aşamada genellikle henüz hissedilmez.',
         ],
       },
     },
@@ -637,6 +756,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'La fine del primo trimestre viene spesso associata a un rischio di aborto spontaneo più basso rispetto alle settimane precedenti.',
         ],
       },
+      tr: {
+        babyDescription: 'İç organlar ve kaslar iyice gelişti, iskelet kemikleşmeye başlıyor. Üreme organları oluştu, ancak ultrasonda henüz görülmüyor.',
+        length: 'Yaklaşık 5,4 cm',
+        comparison: 'Erik',
+        bodyChanges: [
+          'Bulantı bu sıralarda çoğunlukla yavaş yavaş hafifleme eğilimindedir, ancak bu kişiden kişiye çok değişir.',
+        ],
+        toKnow: [
+          'Birinci trimesterin sonu, öncesindeki haftalara kıyasla çoğunlukla daha düşük bir düşük riskiyle ilişkilendirilir.',
+        ],
+      },
     },
   },
   {
@@ -677,6 +807,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Il primo trimestre termina in genere intorno a questa settimana; l’assistenza prosegue con appuntamenti più distanziati.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Hâlâ sarsıntılı olan hareketler biraz daha eşgüdümlü hâle gelir. Bazı bebeklerde parmak emme refleksi şimdiden görülür.',
+        length: 'Yaklaşık 7,4 cm',
+        comparison: 'Şeftali',
+        bodyChanges: [
+          'Birçok kişi ikinci trimestere yaklaşırken enerjisinin biraz daha geri geldiğini hisseder.',
+        ],
+        toKnow: [
+          'Birinci trimester genellikle bu hafta civarında sona erer; takip, daha seyrek aralıklarla yapılan randevularla sürer.',
         ],
       },
     },
@@ -723,6 +864,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Un professionista sanitario può a volte iniziare a sentire il battito cardiaco con un apparecchio a ultrasuoni appoggiato sulla pancia.',
         ],
       },
+      tr: {
+        babyDescription: 'Baş daha yuvarlak hâle gelir ve vücudun geri kalanıyla daha orantılı olur. Fetüs biraz amniyon sıvısı yutar; bu sıvı mideden ve böbreklerden geçer.',
+        length: 'Yaklaşık 8,5 cm',
+        comparison: 'Kivi',
+        bodyChanges: [
+          'Bazı kişilerde karın daha belirgin biçimde yuvarlaklaşmaya başlar.',
+        ],
+        toKnow: [
+          'Bir sağlık profesyoneli, karnın üzerine yerleştirilen bir ultrason cihazıyla kalp atışını bazen duymaya başlayabilir.',
+        ],
+      },
     },
   },
   {
@@ -765,6 +917,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'L’udito comincia a svilupparsi in questo periodo: la tua voce e i suoni interni del corpo diventano gradualmente percepibili.',
         ],
       },
+      tr: {
+        babyDescription: 'Lanugo adı verilen ince bir tüy tabakası cildi yavaş yavaş kaplar; kaşlar ve kirpikler belirmeye başlar. Gözler ışığa duyarlı hâle gelir.',
+        length: 'Yaklaşık 10,1 cm',
+        comparison: 'Elma',
+        bodyChanges: [
+          'İştahın değişebilir; bazen yeni yiyecek istekleri ya da hoşlanmamalar ortaya çıkar.',
+        ],
+        toKnow: [
+          'İşitme bu sıralarda gelişmeye başlar: sesin ve vücudun iç sesleri yavaş yavaş algılanabilir hâle gelir.',
+        ],
+      },
     },
   },
   {
@@ -802,6 +965,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Avvertire i primi movimenti varia molto da una gravidanza all’altra, in particolare a seconda che si tratti o meno di una prima gravidanza.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Sinir sistemi kol ve bacak hareketlerine olanak tanır. Eller küçük yumruklar hâlinde kapanabilir.',
+        length: 'Yaklaşık 11,6 cm',
+        comparison: 'Avokado',
+        bodyChanges: [
+          'Bazı kişiler bu sıralarda, çoğunlukla kanat çırpmasına benzetilen çok hafif hareketleri hissetmeye başlar.',
+        ],
+        toKnow: [
+          'İlk hareketlerin hissedilmesi, özellikle ilk gebelik olup olmamasına bağlı olarak bir gebelikten diğerine çok değişir.',
         ],
       },
     },
@@ -846,6 +1020,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'I suoni esterni iniziano a essere percepiti, in forma attutita, attraverso il liquido amniotico.',
         ],
       },
+      tr: {
+        babyDescription: 'Hâlâ kapalı olan gözler hareket edebilir ve bebek artık yüksek seslere tepki verir. Parmak izleri oluşmaya başlıyor.',
+        length: 'Yaklaşık 12 cm',
+        comparison: 'Nar',
+        bodyChanges: [
+          'Ağırlık merkezin değiştikçe hafif bir bel ağrısı ortaya çıkabilir.',
+        ],
+        toKnow: [
+          'Dıştaki sesler, amniyon sıvısı aracılığıyla boğuk bir biçimde algılanmaya başlıyor.',
+        ],
+      },
     },
   },
   {
@@ -888,6 +1073,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'L’ecografia morfologica, che esamina lo sviluppo complessivo del bambino, viene in genere proposta tra la settimana 18 e la settimana 21.',
         ],
       },
+      tr: {
+        babyDescription: 'İşitme, dokunma, yutma ve emme refleksi gelişmeye devam eder. Bebek giderek daha aktif hâle geliyor, kol ve bacak hareketleri artıyor.',
+        length: 'Yaklaşık 14,2 cm',
+        comparison: 'Dolmalık biber',
+        bodyChanges: [
+          'Karın bu aşamada çoğunlukla belirgin biçimde görünür ve ağırlık merkezin değişmeye devam eder.',
+        ],
+        toKnow: [
+          'Bebeğin genel gelişimini inceleyen anatomi ultrasonu genellikle 18. ile 21. haftalar arasında sunulur.',
+        ],
+      },
     },
   },
   {
@@ -928,6 +1124,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'È un momento frequente in cui si iniziano ad avvertire più distintamente i movimenti del bambino.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Gelecekteki kalıcı dişler, hazırlanmakta olan süt dişlerinin arkasında oluşmaya başlar ve bebek yavaş yavaş kilo almaya devam eder.',
+        length: 'Yaklaşık 15,3 cm',
+        comparison: 'Büyük domates',
+        bodyChanges: [
+          'Rahim büyüdükçe karnın yanlarında çekilme hissi (yuvarlak bağ ağrısı) ortaya çıkabilir.',
+        ],
+        toKnow: [
+          'Bebeğin hareketlerini daha belirgin hissetmeye başlamak için yaygın bir zamandır.',
         ],
       },
     },
@@ -974,6 +1181,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'La metà della gravidanza è spesso segnata da un controllo completo con il professionista sanitario che ti segue.',
         ],
       },
+      tr: {
+        babyDescription: 'Bu haftadan itibaren boy, başın tepesinden kalçaya değil, başın tepesinden topuğa kadar ölçülür; çünkü bacaklar artık uzatılıp ölçülebilir. Bu, önceki haftalara kıyasla referans boyda görünür bir sıçramayı açıklar.',
+        length: 'Yaklaşık 25,6 cm',
+        comparison: 'Muz',
+        bodyChanges: [
+          'Güzelce yuvarlaklaşan karnın dengeni ve duruşunu etkilemeye başlayabilir.',
+        ],
+        toKnow: [
+          'Gebeliğin yarısı çoğunlukla, takibini yapan sağlık profesyonelinin yaptığı kapsamlı bir kontrolle işaretlenir.',
+        ],
+      },
     },
   },
   {
@@ -1011,6 +1229,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Familiarizzare con il ritmo abituale dei movimenti del tuo bambino rende più facile accorgersi di un cambiamento insolito.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Hareketler daha belirgin ve eşgüdümlü hâle gelir; bu dönemde onları net biçimde hissetmeye başlamak yaygındır.',
+        length: 'Yaklaşık 26,7 cm',
+        comparison: 'Havuç',
+        bodyChanges: [
+          'Rahim daha fazla yer kapladıkça eforla birlikte hafif bir nefes darlığı ortaya çıkabilir.',
+        ],
+        toKnow: [
+          'Bebeğinin olağan hareket düzenini tanımak, olağan dışı bir değişikliği fark etmeyi kolaylaştırır.',
         ],
       },
     },
@@ -1055,6 +1284,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Ciò che mangi può influenzare il liquido amniotico, che il bambino deglutisce regolarmente.',
         ],
       },
+      tr: {
+        babyDescription: 'Akciğerler gelişmeye devam eder ve bebek küçük nefes alma hareketleri yapar. Tat tomurcukları da oluşuyor.',
+        length: 'Yaklaşık 27,8 cm',
+        comparison: 'Tatlı patates',
+        bodyChanges: [
+          'Bazı kişilerde, özellikle geceleri bacak krampları görülebilir.',
+        ],
+        toKnow: [
+          'Yediklerin, bebeğin düzenli olarak yuttuğu amniyon sıvısını etkileyebilir.',
+        ],
+      },
     },
   },
   {
@@ -1095,6 +1335,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Osservare i periodi di attività e di quiete del bambino ti aiuta a conoscere il suo ritmo.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Uzuvlar artık iyi orantılıdır. Bebek nefes almayı dener ve uyku ile uyanıklık evrelerini art arda yaşamaya başlar.',
+        length: 'Yaklaşık 28,9 cm',
+        comparison: 'Büyük mango',
+        bodyChanges: [
+          'Kademeli kilo alımıyla birlikte daha belirgin bir bel ağrısı ortaya çıkabilir.',
+        ],
+        toKnow: [
+          'Bebeğin aktif ve sakin dönemlerini gözlemlemek, onun kendi ritmini öğrenmene yardımcı olur.',
         ],
       },
     },
@@ -1139,6 +1390,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Lo screening del diabete gestazionale viene in genere proposto intorno a questo periodo.',
         ],
       },
+      tr: {
+        babyDescription: 'Bebek yaşayabilirlik eşiğine ulaşır: bu aşamada çok erken bir doğum olması hâlinde, uzmanlaşmış yenidoğan tıbbi bakımı uygun desteğle hayatta kalmayı mümkün kılabilir.',
+        length: 'Yaklaşık 30 cm',
+        comparison: 'Mısır koçanı',
+        bodyChanges: [
+          'Mesane üzerindeki baskı artabilir ve sık sık idrar yapma isteği ortaya çıkabilir.',
+        ],
+        toKnow: [
+          'Gebelik diyabeti taraması genellikle bu sıralarda sunulur.',
+        ],
+      },
     },
   },
   {
@@ -1181,6 +1443,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'I singhiozzi del feto avvertiti di tanto in tanto sono in genere considerati normali.',
         ],
       },
+      tr: {
+        babyDescription: 'Bebek artık yüksek seslere sıçrayarak ya da tekmeyle tepki verir ve ara sıra hıçkırık hissedilebilir. Düzenli olarak amniyon sıvısına idrar yapar.',
+        length: 'Yaklaşık 34,6 cm',
+        comparison: 'Sakız kabağı',
+        bodyChanges: [
+          'Mide yanması ya da asit reflüsü daha sık görülebilir.',
+        ],
+        toKnow: [
+          'Zaman zaman hissedilen fetal hıçkırıklar genellikle normal kabul edilir.',
+        ],
+      },
     },
   },
   {
@@ -1219,6 +1492,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Il terzo trimestre si avvicina e in genere il controllo medico diventa più frequente.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Gözler ilk kez açılır. Gözlerin nihai rengi genellikle doğumdan ancak birkaç ay sonra belli olur.',
+        length: 'Yaklaşık 35,6 cm',
+        comparison: 'Salatalık',
+        bodyChanges: [
+          'Özellikle günün sonuna doğru ayak bileklerinde ya da ayaklarda hafif şişlik ortaya çıkabilir.',
+        ],
+        toKnow: [
+          'Üçüncü trimester yaklaşıyor ve tıbbi takip genellikle daha sık hâle geliyor.',
         ],
       },
     },
@@ -1261,6 +1545,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'L’inizio del terzo trimestre è spesso un buon momento per iniziare a pensare al tuo piano del parto.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Akciğerler nefes almayı başlatabilecek duruma gelir ve cilt altında yağ biriktikçe bebek dolgunlaşmaya devam eder.',
+        length: 'Yaklaşık 36,6 cm',
+        comparison: 'Karnabahar',
+        bodyChanges: [
+          'Vücudun giderek artan bir ağırlık taşıdığı için yorgunluk geri dönebilir.',
+        ],
+        toKnow: [
+          'Üçüncü trimesterin başlangıcı, doğum planını düşünmeye başlamak için çoğunlukla iyi bir zamandır.',
         ],
       },
     },
@@ -1307,6 +1602,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Il terzo trimestre inizia in genere intorno a questa settimana, con appuntamenti sempre più frequenti.',
         ],
       },
+      tr: {
+        babyDescription: 'Gebeliğin çok erken döneminde daha hızlı olan kalp hızı dakikada yaklaşık 130 ile 140 atıma oturmuştur ve artık steteskopla duyulabilir.',
+        length: 'Yaklaşık 37,6 cm',
+        comparison: 'Patlıcan',
+        bodyChanges: [
+          'Rahim daha fazla yer kapladıkça nefes darlığı ya da mide yanması daha sık görülebilir.',
+        ],
+        toKnow: [
+          'Üçüncü trimester genellikle bu hafta civarında başlar ve randevular sıklaşır.',
+        ],
+      },
     },
   },
   {
@@ -1347,6 +1653,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Nella gravidanza avanzata si consiglia spesso di riposare sul fianco sinistro per favorire la circolazione.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Bebek şimdiden iyi biçimde oluşmuştur; önümüzdeki haftalar ağırlıklı olarak organların olgunlaşmasına ve kilo almaya ayrılacak. Cildini kaplayan ince koruyucu tabaka yeniden emilmeye başlar.',
+        length: 'Yaklaşık 38,6 cm',
+        comparison: 'Butternut kabağı',
+        bodyChanges: [
+          'Büyüyen karnın yüzünden uyumak zorlaşabilir.',
+        ],
+        toKnow: [
+          'Gebeliğin sonlarında dolaşımı desteklemek için sol yana yatarak dinlenmek çoğunlukla önerilir.',
         ],
       },
     },
@@ -1391,6 +1708,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Da questa fase in poi, le visite prenatali in genere diventano più frequenti.',
         ],
       },
+      tr: {
+        babyDescription: 'Görme gelişmeye devam eder; bebek doğduğunda yakındaki yüzleri seçebilecek, ardından hareket eden nesneleri takip etmeyi yavaş yavaş öğrenecektir.',
+        length: 'Yaklaşık 39,9 cm',
+        comparison: 'Lahana',
+        bodyChanges: [
+          'Belin alt kısmında ya da leğen kemiğinde ağırlık hissi artabilir.',
+        ],
+        toKnow: [
+          'Doğum öncesi randevular genellikle bu aşamadan itibaren sıklaşır.',
+        ],
+      },
     },
   },
   {
@@ -1431,6 +1759,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Il bambino comincia a riconoscere alcune voci familiari che sente regolarmente dall’esterno.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Bebek aktif biçimde hareket eder, bazen parmaklarını emer ve geniş hareketler yapabilir. Yağ biriktikçe cildi daha az buruşuk olur.',
+        length: 'Yaklaşık 41,1 cm',
+        comparison: 'Hindistan cevizi',
+        bodyChanges: [
+          'Braxton Hicks adı verilen alıştırma kasılmaları ara sıra hissedilmeye başlayabilir.',
+        ],
+        toKnow: [
+          'Bebek, dışarıdan düzenli olarak duyduğu bazı tanıdık sesleri tanımaya başlıyor.',
         ],
       },
     },
@@ -1475,6 +1814,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'La posizione a testa in giù (presentazione cefalica) diventa più comune man mano che ci si avvicina al termine.',
         ],
       },
+      tr: {
+        babyDescription: 'Bebek şimdiden iyi biçimde oluşmuştur ve doğuma hazırlık olarak yavaş yavaş başı aşağıda olacak şekilde yerleşir. Kalan haftalarda ağırlıklı olarak kilo almaya devam eder.',
+        length: 'Yaklaşık 42,4 cm',
+        comparison: 'Bir demet kereviz',
+        bodyChanges: [
+          'Bu dönemde, bebeğin büyümesine bağlı olarak daha belirgin bir kilo artışı yaygındır.',
+        ],
+        toKnow: [
+          'Doğum zamanı yaklaştıkça baş aşağı duruş (sefalik prezentasyon) daha yaygın hâle gelir.',
+        ],
+      },
     },
   },
   {
@@ -1515,6 +1865,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'La flessibilità delle ossa del cranio alla nascita è temporanea e si chiude gradualmente nel corso del primo anno.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Beyin ve sinir sistemi artık iyi gelişmiştir. Kemikler sertleşmeye devam eder; doğum sırasında geçişi kolaylaştırmak için esnek kalan kafatası kemikleri hariç.',
+        length: 'Yaklaşık 43,7 cm',
+        comparison: 'Ananas',
+        bodyChanges: [
+          'Bu aşamada rahat bir uyku pozisyonu bulmakta zorlanmak yaygındır.',
+        ],
+        toKnow: [
+          'Kafatası kemiklerinin doğumdaki esnekliği geçicidir ve ilk yıl içinde yavaş yavaş kapanır.',
         ],
       },
     },
@@ -1558,6 +1919,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Continuare a prestare attenzione ai movimenti abituali del bambino resta importante fino alla nascita.',
         ],
       },
+      tr: {
+        babyDescription: 'Yer darlığı nedeniyle kıvrılmış olan bebek, düzenli olarak hareket etmeye devam ederken genellikle bacaklarını göğsüne doğru katlı tutar.',
+        length: 'Yaklaşık 45 cm',
+        comparison: 'Kavun',
+        bodyChanges: [
+          'Azalan yere rağmen bebeğin hareketleri ve karnının değişen şekli genellikle fark edilir olmaya devam eder.',
+        ],
+        toKnow: [
+          'Bebeğin olağan hareketlerine dikkat etmeye devam etmek, doğuma kadar önemini korur.',
+        ],
+      },
     },
   },
   {
@@ -1595,6 +1967,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Nonostante lo spazio limitato, il bambino dovrebbe continuare a muoversi con una regolarità simile a quella delle settimane precedenti.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Bebek dolgunlaşmaya devam eder; bu, doğduktan sonra vücut ısısını düzenlemesine yardımcı olacaktır. Rahimdeki boş alan daha da kısıtlı hâle gelir.',
+        length: 'Yaklaşık 46,2 cm',
+        comparison: 'Bal kavunu',
+        bodyChanges: [
+          'Bebek yavaş yavaş aşağı indikçe daha belirgin bir leğen kemiği baskısı ortaya çıkabilir.',
+        ],
+        toKnow: [
+          'Kısıtlı yere rağmen bebeğin önceki haftalara benzer bir düzenlilikle hareket etmeye devam etmesi gerekir.',
         ],
       },
     },
@@ -1639,6 +2022,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'La gravidanza è considerata a termine tra la settimana 37 e la settimana 42.',
         ],
       },
+      tr: {
+        babyDescription: 'Akciğerler genellikle bağımsız nefes almaya izin verecek kadar olgunlaşmıştır ve bebek emebilir ve sindirebilir.',
+        length: 'Yaklaşık 47,4 cm',
+        comparison: 'Marul',
+        bodyChanges: [
+          'Rahim kaburgaların altında çok yer kapladığı için zaman zaman nefesin daha kısa kaldığını hissedebilirsin.',
+        ],
+        toKnow: [
+          'Gebelik, 37. ile 42. haftalar arasında term (tam gün) olarak kabul edilir.',
+        ],
+      },
     },
   },
   {
@@ -1676,6 +2070,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Da questa settimana il termine è considerato raggiunto e il parto può avvenire in qualsiasi momento.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Bebek doğmak için yeterince olgun kabul edilir. Bebeklerin büyük çoğunluğu artık başı aşağıda konumdadır.',
+        length: 'Yaklaşık 48,6 cm',
+        comparison: 'Pırasa',
+        bodyChanges: [
+          'Bebek leğen kemiğine oturdukça artan bir leğen kemiği baskısı hissi yaygındır.',
+        ],
+        toKnow: [
+          'Bu haftadan itibaren term olarak kabul edilir ve doğum her an gerçekleşebilir.',
         ],
       },
     },
@@ -1716,6 +2121,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Un parto programmato, quando non c’è un’indicazione medica, in genere non è consigliato prima della settimana 39.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Cildi kaplayan ince tüyler büyük ölçüde kaybolmuştur ve bağırsaklarda yenidoğanın ilk dışkısı olan mekonyum birikmektedir.',
+        length: 'Yaklaşık 49,8 cm',
+        comparison: 'Işkın sapı',
+        bodyChanges: [
+          'Doğum yaklaşırken doğum eyleminin belirtilerini tanımak yararlı olabilir.',
+        ],
+        toKnow: [
+          'Tıbbi bir endikasyon olmadan düşünülen planlı bir doğum, genellikle 39. haftadan önce önerilmez.',
         ],
       },
     },
@@ -1760,6 +2176,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'La circolazione sanguigna del neonato continua ad adattarsi subito dopo la nascita, e questo può dare temporaneamente a mani o piedi una leggera sfumatura bluastra.',
         ],
       },
+      tr: {
+        babyDescription: 'Daha önce daha ince olan cilt kalınlaşmıştır ve artık bebeği daha iyi korur. Vernix adı verilen koruyucu bir tabaka da doğum sırasında geçişini kolaylaştırır.',
+        length: 'Yaklaşık 50,7 cm',
+        comparison: 'Karpuz',
+        bodyChanges: [
+          'Tahmini doğum tarihi yaklaştıkça sabırsızlık ve bir miktar yorgunluk yaygındır.',
+        ],
+        toKnow: [
+          'Yenidoğanın kan dolaşımı doğumdan hemen sonra uyum sağlamaya devam eder; bu, ellere ya da ayaklara geçici olarak hafif morumsu bir renk verebilir.',
+        ],
+      },
     },
   },
   {
@@ -1802,6 +2229,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Superare di poco la data presunta del parto resta comune e non significa necessariamente che ci sia un problema; in genere viene proposto un monitoraggio più ravvicinato.',
         ],
       },
+      tr: {
+        babyDescription: 'Bebek tam gelişmiştir ve doğmaya hazırdır. Tahmini doğum tarihi bir tahmindir: birçok doğum, öncesinde ya da sonrasında, bu tarihin çevresindeki günlerde gerçekleşir.',
+        length: 'Yaklaşık 51,2 cm',
+        comparison: 'Bal kabağı',
+        bodyChanges: [
+          'Bu dönemde doğum eyleminin belirtilerini (düzenli kasılmalar, suyun gelmesi) beklemek yaygındır.',
+        ],
+        toKnow: [
+          'Tahmini doğum tarihini biraz geçmek yaygındır ve mutlaka bir sorun olduğu anlamına gelmez; genellikle daha yakın izlem önerilir.',
+        ],
+      },
     },
   },
 
@@ -1838,6 +2276,15 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Superare il termine porta in genere a un monitoraggio più intenso da parte dell’équipe medica.',
+        ],
+      },
+      tr: {
+        babyDescription: 'Bebek tam gelişmiş olarak kalır. Tahmini doğum tarihinden sonra, bebeğin iyilik hâlini kontrol etmek için genellikle daha yakın izlem önerilir.',
+        bodyChanges: [
+          'Uzayan bekleyiş, artan yorgunluk ve sabırsızlıkla birlikte gelebilir.',
+        ],
+        toKnow: [
+          'Termi geçmek genellikle tıbbi ekip tarafından izlemin artırılmasına yol açar.',
         ],
       },
     },

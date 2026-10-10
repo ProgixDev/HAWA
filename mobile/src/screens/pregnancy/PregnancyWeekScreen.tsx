@@ -1188,6 +1188,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     tabText: {
+      // flexShrink + centered wrap: three equal tabs are ~90px each at 320dp, and a longer label (tr "Bilmekte
+      // fayda var") must wrap inside its tab (minHeight, not height) instead of overflowing onto the icon.
+      flexShrink: 1,
+      textAlign: 'center',
       color:
         theme.colors.textSecondary,
 

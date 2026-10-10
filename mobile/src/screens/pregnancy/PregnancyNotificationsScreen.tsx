@@ -53,6 +53,7 @@ import {
 } from '../../utils/pregnancyReminderScheduling';
 import type {PregnancyReminderOffset} from '../../state/pregnancyMedicalEventsStore';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PregnancyNotifications'>;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
@@ -632,8 +633,16 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
   );
 
   const persistSettings = useCallback(async (next: PregnancyNotificationSettings) => {
+    const previous = getPregnancyNotificationSettings();
     setSettings(next);
-    await setPregnancyNotificationSettings(next);
+    try {
+      await setPregnancyNotificationSettings(next);
+    } catch (error) {
+      // Not persisted: the toggle goes back to what storage holds and the person is told.
+      setSettings(previous);
+      presentSaveFailure(error);
+      return;
+    }
     resyncAllPregnancyNotifications();
   }, []);
 
@@ -671,7 +680,14 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
       createdAt: existing?.createdAt ?? now,
       updatedAt: now,
     };
-    const next = await saveHealthReminder(reminder);
+    let next: HealthReminder[];
+    try {
+      next = await saveHealthReminder(reminder);
+    } catch (saveError) {
+      // Not persisted: the draft stays open so nothing typed is lost.
+      presentSaveFailure(saveError);
+      return;
+    }
     setHealthReminders(next);
     syncHealthReminder(reminder);
     setHealthDraft(null);
@@ -679,7 +695,13 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
 
   const toggleHealthReminder = async (reminder: HealthReminder, enabled: boolean) => {
     const updated: HealthReminder = {...reminder, enabled, updatedAt: new Date().toISOString()};
-    const next = await saveHealthReminder(updated);
+    let next: HealthReminder[];
+    try {
+      next = await saveHealthReminder(updated);
+    } catch (saveError) {
+      presentSaveFailure(saveError);
+      return;
+    }
     setHealthReminders(next);
     syncHealthReminder(updated);
   };
@@ -694,7 +716,13 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
           text: t('pregnancyNotifications.delete'),
           style: 'destructive',
           onPress: async () => {
-            const next = await deleteHealthReminder(reminder.id);
+            let next: HealthReminder[];
+            try {
+              next = await deleteHealthReminder(reminder.id);
+            } catch (saveError) {
+              presentSaveFailure(saveError);
+              return;
+            }
             setHealthReminders(next);
             cancelHealthReminderNotification(reminder);
             setHealthDraft(null);
@@ -737,7 +765,14 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
       createdAt: existing?.createdAt ?? now,
       updatedAt: now,
     };
-    const next = await saveCustomReminder(reminder);
+    let next: CustomReminder[];
+    try {
+      next = await saveCustomReminder(reminder);
+    } catch (saveError) {
+      // Not persisted: the draft stays open so nothing typed is lost.
+      presentSaveFailure(saveError);
+      return;
+    }
     setCustomReminders(next);
     syncCustomReminder(reminder);
     setCustomDraft(null);
@@ -745,7 +780,13 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
 
   const toggleCustomReminder = async (reminder: CustomReminder, enabled: boolean) => {
     const updated: CustomReminder = {...reminder, enabled, updatedAt: new Date().toISOString()};
-    const next = await saveCustomReminder(updated);
+    let next: CustomReminder[];
+    try {
+      next = await saveCustomReminder(updated);
+    } catch (saveError) {
+      presentSaveFailure(saveError);
+      return;
+    }
     setCustomReminders(next);
     syncCustomReminder(updated);
   };
@@ -757,7 +798,13 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
         text: t('pregnancyNotifications.delete'),
         style: 'destructive',
         onPress: async () => {
-          const next = await deleteCustomReminder(reminder.id);
+          let next: CustomReminder[];
+          try {
+            next = await deleteCustomReminder(reminder.id);
+          } catch (saveError) {
+            presentSaveFailure(saveError);
+            return;
+          }
           setCustomReminders(next);
           cancelCustomReminderNotification(reminder);
           setCustomDraft(null);

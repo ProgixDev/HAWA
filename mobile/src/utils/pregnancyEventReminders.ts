@@ -2,6 +2,7 @@ import {cancelLocalNotification, scheduleLocalNotification} from '../services/pr
 import type {PregnancyMedicalEvent, PregnancyReminderOffset} from '../state/pregnancyMedicalEventsStore';
 import {getPregnancyNotificationSettings} from '../state/pregnancyNotificationSettingsStore';
 import {PREGNANCY_REMINDER_NOTIFICATION_KIND} from './pregnancyReminderScheduling';
+import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
 import i18n from '../i18n';
 
 // Keeps a PregnancyMedicalEvent's reminder fields and its real scheduled
@@ -67,6 +68,9 @@ export function computeEventReminderFireDate(event: PregnancyMedicalEvent): Date
  * this event. Call after every save. */
 export async function syncEventReminder(event: PregnancyMedicalEvent): Promise<void> {
   const id = notificationIdForEvent(event.id);
+  // The category switches come from the notification settings: when that record cannot be read the defaults would
+  // decide (reminders ON) — a reminder the user may have turned off. Leave the notification as it is.
+  if (areReminderSourcesUnavailable({ownerBases: ['@hawa/pregnancy-notification-settings']})) {return;}
   const settings = getPregnancyNotificationSettings();
   const categoryEnabled = event.type === 'exam' ? settings.examsEnabled : settings.appointmentsEnabled;
   const fireDate = categoryEnabled ? computeEventReminderFireDate(event) : null;

@@ -1,5 +1,5 @@
 import React from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {readStoredString} from '../../../testUtils/structuredStorage';
 import ReactTestRenderer, {act} from 'react-test-renderer';
 import {Alert, Text, View} from 'react-native';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
@@ -254,7 +254,7 @@ describe('M34 - Pregnancy -> Postpartum delivery sheet', () => {
       dailyTrackingReminderTime: '20:00',
     });
     // Nothing was deleted: the earlier journey's answers are still stored.
-    const raw = JSON.parse((await AsyncStorage.getItem('@hawa/postpartum-preferences/v1')) as string);
+    const raw = JSON.parse((await readStoredString('@hawa/postpartum-preferences/v1')) as string);
     expect(raw.deliveryType).toBe(PREVIOUS_JOURNEY.deliveryType);
     expect(raw.feedingType).toBe(PREVIOUS_JOURNEY.feedingType);
     expect(raw.firstPostpartumPeriodDate).toBe(PREVIOUS_JOURNEY.firstPostpartumPeriodDate);
@@ -262,7 +262,7 @@ describe('M34 - Pregnancy -> Postpartum delivery sheet', () => {
 
   it('cancelling the transition (Annuler) changes nothing in storage', async () => {
     await setPostpartumPreferences(PREVIOUS_JOURNEY);
-    const before = await AsyncStorage.getItem('@hawa/postpartum-preferences/v1');
+    const before = await readStoredString('@hawa/postpartum-preferences/v1');
     const {renderer, onConfirmed} = await renderSheet();
     await act(async () => {
       renderer.root
@@ -270,7 +270,7 @@ describe('M34 - Pregnancy -> Postpartum delivery sheet', () => {
         .props.onPress();
     });
     expect(onConfirmed).not.toHaveBeenCalled();
-    expect(await AsyncStorage.getItem('@hawa/postpartum-preferences/v1')).toBe(before);
+    expect(await readStoredString('@hawa/postpartum-preferences/v1')).toBe(before);
   });
 });
 

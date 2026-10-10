@@ -32,6 +32,7 @@ import {
 } from '../../utils/pregnancyDatingValidation';
 import {syncPregnancyNotificationsForActiveObjective} from '../../utils/pregnancyReminderScheduling';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -298,12 +299,18 @@ function PregnancyDatingSetupScreen({
 
     setDateError('');
 
-    await setPregnancyDating({
-      method,
-      date: date
-        ? date.toISOString()
-        : null,
-    });
+    try {
+      await setPregnancyDating({
+        method,
+        date: date
+          ? date.toISOString()
+          : null,
+      });
+    } catch (saveError) {
+      // Not persisted: stay here with the chosen date intact (see services/saveFailure.ts).
+      presentSaveFailure(saveError);
+      return;
+    }
 
     // The weekly "Nouvelle semaine de grossesse" reminder is derived from the
     // dating: re-derive it from the NEW dating now (same id, so the obsolete

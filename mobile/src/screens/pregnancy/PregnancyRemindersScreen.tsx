@@ -28,6 +28,7 @@ import {
 } from '../../state/pregnancyNotificationSettingsStore';
 import {resyncAllPregnancyNotifications} from '../../utils/pregnancyReminderScheduling';
 import '../../i18n';
+import {presentSaveFailure} from '../../services/saveFailure';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -276,10 +277,16 @@ function PregnancyRemindersScreen({
     // same two calls PregnancyNotificationsScreen.tsx already makes after
     // its own save, never a second scheduling path.
     const current = getPregnancyNotificationSettings();
-    await setPregnancyNotificationSettings({
-      ...current,
-      ...preferences,
-    });
+    try {
+      await setPregnancyNotificationSettings({
+        ...current,
+        ...preferences,
+      });
+    } catch (saveError) {
+      // Not persisted: stay here with the choices intact (see services/saveFailure.ts).
+      presentSaveFailure(saveError);
+      return;
+    }
     resyncAllPregnancyNotifications();
 
     if (route.params?.mode === 'edit') {
@@ -399,7 +406,11 @@ function PregnancyRemindersScreen({
                 />
               </View>
 
-              <Text style={styles.title}>
+              <Text
+                adjustsFontSizeToFit
+                minimumFontScale={0.7}
+                numberOfLines={1}
+                style={styles.title}>
                 {t('pregnancyReminders.title')}
               </Text>
 
