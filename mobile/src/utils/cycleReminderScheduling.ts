@@ -28,6 +28,7 @@ import {
   computeCyclePredictionStatus,
   effectiveRegularityFor,
   estimateFertilityDates,
+  sameDay,
   startOfDay,
   type CycleBasics,
   type CycleFertilityEstimate,
@@ -35,6 +36,7 @@ import {
 } from './cycleMath';
 import {
   getActiveObjective,
+  hydrateActiveObjective,
   getCyclePreferences,
   getCycleObservationStartedAt,
   getHasConfirmedCycleData,
@@ -197,11 +199,39 @@ async function syncUpcomingPeriodReminder(
   });
 }
 
+/** When the "have your periods started?" check fires: on the predicted day at the reminder hour.
+ *
+ * computeNextPeriod() (cycleMath.ts — deliberately untouched, the screens depend on it) answers with the FOLLOWING
+ * cycle's date once the predicted day itself is today, so a sync run on that day before the reminder hour (app start,
+ * any setting change) used to replace today's armed check with one a whole cycle away. Today IS the predicted start
+ * day when the previous cycle boundary (the predicted date minus the cycle length) is today and that boundary is a
+ * PREDICTED one — not the last recorded period start, which would mean she has already recorded it and nothing is
+ * left to check. The check then targets today at the reminder hour while that instant is still ahead; once it has
+ * passed (it was delivered) the next cycle is armed, as on every other day. */
+function periodStartCheckFireDate(
+  predictedDate: Date,
+  cycleLength: number,
+  lastPeriodStart: Date,
+  now: Date,
+): Date {
+  const today = startOfDay(now);
+  const previousBoundary = addDays(predictedDate, -cycleLength);
+  if (sameDay(previousBoundary, today) && !sameDay(lastPeriodStart, today)) {
+    const todaysCheck = atReminderHour(today);
+    if (todaysCheck.getTime() > now.getTime()) {
+      return todaysCheck;
+    }
+  }
+  return atReminderHour(predictedDate);
+}
+
 async function syncPeriodStartCheckReminder(
   ctx: ReminderContext,
   active: boolean,
   prefs: CycleReminderPreferences,
   prediction: CyclePredictionStatus,
+  lastPeriodStart: Date,
+  now: Date,
 ): Promise<void> {
   // PRODUCT DECISION REQUIRED: same open question as the upcoming-period
   // reminder above (a "have your periods started?" check in 'window' mode,
@@ -231,7 +261,7 @@ async function syncPeriodStartCheckReminder(
     id,
     title,
     body,
-    fireDate: atReminderHour(prediction.date),
+    fireDate: periodStartCheckFireDate(prediction.date, prediction.averageCycleLength, lastPeriodStart, now),
     data: {
       hawaNotificationKind: CYCLE_REMINDER_NOTIFICATION_KIND,
       cycleReminderType: 'period-start-check',
@@ -274,17 +304,24 @@ async function syncDailyJournalReminder(ctx: ReminderContext, active: boolean, p
   });
 }
 
-/** First occurrence of `date` (a date of the current/next cycle) that is not
- * already past — steps whole cycles forward. Reminders are one-time
- * triggers, so once this cycle's fertile start/ovulation has passed the
- * reminder points at the NEXT cycle's date (same "next occurrence" behaviour
- * as before; only the source of the dates is now the shared estimate). */
-function nextOccurrence(date: Date, cycleLength: number, today: Date): Date {
-  let result = date;
-  while (result < today) {
-    result = addDays(result, cycleLength);
+/** The first moment a cycle-relative reminder fires that is still AHEAD of `now`. `date` is the estimate for the
+ * current/next cycle and `fireAt(date)` the instant its reminder fires for that date; whole cycles are stepped forward
+ * until that instant is ahead. Reminders are one-time triggers, so once this cycle's moment has passed the reminder
+ * points at the NEXT cycle's date (the same "next occurrence" behaviour as before; only the source of the dates is the
+ * shared estimate and the dates themselves are never altered).
+ *
+ * It used to compare DATES (`date < today`): on the day of the reminder itself, after its hour, the date still looked
+ * current, the fire instant was in the past, scheduling answered "past" (and cleared the pending trigger) and the
+ * next cycle's reminder stayed unarmed until some later sync. */
+function nextFireInstant(date: Date, cycleLength: number, now: Date, fireAt: (occurrence: Date) => Date): Date {
+  const step = Math.max(1, cycleLength);
+  let occurrence = date;
+  let fire = fireAt(occurrence);
+  while (fire.getTime() <= now.getTime()) {
+    occurrence = addDays(occurrence, step);
+    fire = fireAt(occurrence);
   }
-  return result;
+  return fire;
 }
 
 /** The estimated dates the Cycle Dashboard shows (estimateFertilityDates) —
@@ -313,7 +350,7 @@ async function syncFertileWindowReminder(
   active: boolean,
   prefs: CycleReminderPreferences,
   fertility: ReturnType<typeof fertilityForReminders>,
-  today: Date,
+  now: Date,
 ): Promise<void> {
   const id = idFor(FERTILE_WINDOW_ID, ctx.profileId);
   if (!active || !prefs.fertileWindowEnabled || !fertility) {
@@ -330,14 +367,18 @@ async function syncFertileWindowReminder(
     }),
   );
 
-  const fertileStart = nextOccurrence(fertility.estimate.fertileStart, fertility.cycleLength, today);
   await scheduleFor(ctx, {
     id,
     title,
     body,
     // Same addDays()-before-atReminderHour() ordering as the upcoming-period
     // reminder above — addDays() would otherwise zero the hour it sets.
-    fireDate: atReminderHour(addDays(fertileStart, -FERTILE_WINDOW_LEAD_DAYS)),
+    fireDate: nextFireInstant(
+      fertility.estimate.fertileStart,
+      fertility.cycleLength,
+      now,
+      fertileStart => atReminderHour(addDays(fertileStart, -FERTILE_WINDOW_LEAD_DAYS)),
+    ),
     data: {
       hawaNotificationKind: CYCLE_REMINDER_NOTIFICATION_KIND,
       cycleReminderType: 'fertile-window',
@@ -353,7 +394,7 @@ async function syncOvulationReminder(
   active: boolean,
   prefs: CycleReminderPreferences,
   fertility: ReturnType<typeof fertilityForReminders>,
-  today: Date,
+  now: Date,
 ): Promise<void> {
   const id = idFor(OVULATION_ID, ctx.profileId);
   if (!active || !prefs.ovulationEnabled || !fertility) {
@@ -370,12 +411,11 @@ async function syncOvulationReminder(
     }),
   );
 
-  const ovulation = nextOccurrence(fertility.estimate.ovulation, fertility.cycleLength, today);
   await scheduleFor(ctx, {
     id,
     title,
     body,
-    fireDate: atReminderHour(ovulation),
+    fireDate: nextFireInstant(fertility.estimate.ovulation, fertility.cycleLength, now, atReminderHour),
     data: {
       hawaNotificationKind: CYCLE_REMINDER_NOTIFICATION_KIND,
       cycleReminderType: 'ovulation',
@@ -389,6 +429,10 @@ async function syncOvulationReminder(
 /** One reconciliation of every Cycle reminder of the ACTIVE profile (see
  * syncCycleReminders below for how runs are queued). */
 async function syncCycleRemindersOnce(revision: number): Promise<void> {
+  // The owner's Cycle reminders are gated on the active objective, so it must have been READ first: before that
+  // memory holds the default ('cycle'), and a run triggered by another store's hydration would arm them for someone
+  // whose objective is something else. Never rejects.
+  await hydrateActiveObjective();
   // The profile's stored cycle and reminder preferences must have been READ
   // before anything is derived from them: right after a switch (or at launch)
   // memory holds a neutral placeholder, and reconciling against it would cancel
@@ -429,7 +473,10 @@ async function syncCycleRemindersOnce(revision: number): Promise<void> {
   const active = profileExists && (isOwner ? getActiveObjective() === 'cycle' : true);
   const prefs = getCycleReminderPreferences();
   const basics = getCyclePreferences();
-  const today = startOfDay(new Date());
+  // `now` is the instant every date-based reminder below is compared against: a reminder whose moment has passed
+  // today (its hour, not just its day) already belongs to the next cycle.
+  const now = new Date();
+  const today = startOfDay(now);
   // Recorded periods only — the SAME input CycleHomeScreen feeds the status
   // (never the placeholder record seeded from unconfirmed defaults).
   const periodStartDates = getRecordedPeriodHistory().map(record => new Date(`${record.startDate}T12:00:00`));
@@ -464,10 +511,10 @@ async function syncCycleRemindersOnce(revision: number): Promise<void> {
   // reconciles it, because each reminder is rebuilt from scratch and upserted by id.
   const results = await Promise.allSettled([
     syncUpcomingPeriodReminder(ctx, dateBasedActive, prefs, prediction),
-    syncPeriodStartCheckReminder(ctx, dateBasedActive, prefs, prediction),
+    syncPeriodStartCheckReminder(ctx, dateBasedActive, prefs, prediction, basics.lastPeriodStart, now),
     syncDailyJournalReminder(ctx, active, prefs),
-    syncFertileWindowReminder(ctx, dateBasedActive, prefs, fertility, today),
-    syncOvulationReminder(ctx, dateBasedActive, prefs, fertility, today),
+    syncFertileWindowReminder(ctx, dateBasedActive, prefs, fertility, now),
+    syncOvulationReminder(ctx, dateBasedActive, prefs, fertility, now),
   ]);
   // A failed native call leaves that reminder in an unknown state: try again later instead of assuming.
   if ([...legacyCleanup, ...results].some(result => result.status === 'rejected')) {
