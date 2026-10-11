@@ -1,8 +1,9 @@
 import {cancelLocalNotification, scheduleLocalNotification} from '../services/pregnancyNotifications';
 import {nextDailyFireDate} from './pregnancyReminderScheduling';
-import {getActiveObjective} from '../state/onboardingPreferences';
+import {getActiveObjective, hydrateActiveObjective} from '../state/onboardingPreferences';
 import {getPostpartumPreferences} from '../state/postpartumPreferences';
 import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
+import {coalescedSync} from './serializedSync';
 import i18n from '../i18n';
 
 // Post-partum's optional "Suivi quotidien" reminder — a separate, user-
@@ -28,13 +29,10 @@ const DAILY_TRACKING_REMINDER_ID = 'postpartum-daily-tracking-reminder';
 // used to decide whether/how to schedule.
 export const POSTPARTUM_DAILY_TRACKING_NOTIFICATION_KIND = 'postpartum-daily-tracking-reminder';
 
-/** Re-derives and (re)schedules — or explicitly cancels — the Post-partum
- * daily tracking reminder from real persisted preferences. Safe to call any
- * number of times. Called once at app startup (App.tsx) so the reminder
- * survives a restart, and again whenever the active objective or Post-partum
- * preferences change. Never reads or writes postpartumNifasReminderStore.ts —
- * the two reminder systems are fully independent. */
-export async function syncPostpartumDailyTrackingReminder(): Promise<void> {
+async function runPostpartumDailyTrackingReminderSync(): Promise<void> {
+  // The objective gates this reminder, so it must have been READ first: before that memory holds the default
+  // objective, and a run triggered by another store's hydration would cancel (or arm) reminders on its strength.
+  await hydrateActiveObjective();
   // Unreadable preferences are not "reminder off": the existing reminder is left untouched.
   if (areReminderSourcesUnavailable({ownerBases: ['@hawa/postpartum-preferences/v1']})) {
     return;
@@ -63,3 +61,15 @@ export async function syncPostpartumDailyTrackingReminder(): Promise<void> {
     },
   });
 }
+
+/** Re-derives and (re)schedules — or explicitly cancels — the Post-partum
+ * daily tracking reminder from real persisted preferences. Safe to call any
+ * number of times. Called once at app startup (App.tsx) so the reminder
+ * survives a restart, and again whenever the active objective or Post-partum
+ * preferences change. Never reads or writes postpartumNifasReminderStore.ts —
+ * the two reminder systems are fully independent. Calls made while a run is
+ * in progress share ONE follow-up run that starts afterwards (and so reads the
+ * newest preferences): an older run can never finish after a newer one and put
+ * back what was just switched off. Takes no arguments — it is handed straight
+ * to store subscribers and `.then()`. */
+export const syncPostpartumDailyTrackingReminder = coalescedSync(runPostpartumDailyTrackingReminderSync);

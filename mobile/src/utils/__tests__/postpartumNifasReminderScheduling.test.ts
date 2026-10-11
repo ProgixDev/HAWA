@@ -18,10 +18,21 @@ import {setAppLanguage} from '../../state/themePreferences';
 // rebuild the notification text. Uses REAL stores (not mocked) — only the
 // Notifee-backed chokepoint is mocked, same convention as
 // qadaaReminderScheduling.test.ts / qadaaReminderLedger.test.ts.
-jest.mock('../../services/pregnancyNotifications', () => ({
-  scheduleLocalNotification: jest.fn().mockResolvedValue(true),
-  cancelLocalNotifications: jest.fn().mockResolvedValue(undefined),
-}));
+// The schedule is now only reused while Android still holds both triggers, so the stand-in has to remember what was
+// scheduled and report it through getPendingReminderIds, like the real chokepoint does.
+jest.mock('../../services/pregnancyNotifications', () => {
+  const pending = new Set<string>();
+  return {
+    scheduleLocalNotification: jest.fn(async (input: {id: string}) => {
+      pending.add(input.id);
+      return true;
+    }),
+    cancelLocalNotifications: jest.fn(async (ids: readonly string[]) => {
+      ids.forEach(id => pending.delete(id));
+    }),
+    getPendingReminderIds: jest.fn(async () => new Set(pending)),
+  };
+});
 
 const schedule = scheduleLocalNotification as jest.Mock;
 const cancel = cancelLocalNotifications as jest.Mock;

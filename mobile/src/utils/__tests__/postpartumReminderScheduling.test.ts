@@ -18,6 +18,8 @@ jest.mock('../../services/pregnancyNotifications', () => ({
 }));
 jest.mock('../../state/onboardingPreferences', () => ({
   getActiveObjective: jest.fn(),
+  // The sync waits for the active objective to have been READ before it gates on it.
+  hydrateActiveObjective: jest.fn(() => Promise.resolve()),
 }));
 jest.mock('../../state/postpartumPreferences', () => ({
   getPostpartumPreferences: jest.fn(),
