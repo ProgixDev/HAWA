@@ -25,7 +25,7 @@ import {
   miscarriageDailyTrackingNotificationBody,
   miscarriageDailyTrackingNotificationTitle,
 } from '../utils/miscarriageReminderScheduling';
-import {dateFormatLocale} from '../utils/cycleMath';
+import {dateAtTimeOfDay, formatTimeOfDay} from '../utils/timeOfDay';
 import {
   getMiscarriagePreferences,
   setMiscarriageDailyTrackingReminder,
@@ -37,14 +37,13 @@ import {presentSaveFailure} from '../services/saveFailure';
 // Same 'HH:mm' formatting/parsing convention as
 // PostpartumRemindersScreen.tsx's/MenopauseRemindersScreen.tsx's own
 // un-exported helpers — kept local since it's pure UI display formatting.
+// Stored as 'HH:mm' (24-hour, zero-padded, locale-independent — see utils/timeOfDay.ts). It used to come from
+// Intl.DateTimeFormat, which writes 00:30 as "24:30" under en-US; a stored "24:30" still reads as 00:30.
 function formatTimeValue(date: Date): string {
-  return new Intl.DateTimeFormat(dateFormatLocale(), {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  return formatTimeOfDay(date);
 }
 function parseTimeToDate(hhmm: string): Date {
-  const [hours, minutes] = hhmm.split(':').map(Number);
-  const date = new Date();
-  date.setHours(hours || 0, minutes || 0, 0, 0);
-  return date;
+  return dateAtTimeOfDay(new Date(), hhmm);
 }
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MiscarriageReminders'>;
@@ -65,9 +64,11 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
   const [dailyEnabled, setDailyEnabled] = useState(
     () => getMiscarriagePreferences().dailyTrackingReminderEnabled,
   );
-  const [dailyTime, setDailyTime] = useState<string | null>(
-    () => getMiscarriagePreferences().dailyTrackingReminderTime,
-  );
+  // A time an earlier build stored as "24:30" (00:30, written under en-US) is shown — and saved back — as 00:30.
+  const [dailyTime, setDailyTime] = useState<string | null>(() => {
+    const stored = getMiscarriagePreferences().dailyTrackingReminderTime;
+    return stored ? formatTimeValue(parseTimeToDate(stored)) : null;
+  });
 
   const [timePickerVisible, setTimePickerVisible] = useState(false);
   const [saving, setSaving] = useState(false);

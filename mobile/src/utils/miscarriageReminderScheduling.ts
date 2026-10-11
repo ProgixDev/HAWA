@@ -1,8 +1,9 @@
 import {cancelLocalNotification, scheduleLocalNotification} from '../services/pregnancyNotifications';
 import {nextDailyFireDate} from './pregnancyReminderScheduling';
-import {getActiveObjective} from '../state/onboardingPreferences';
+import {getActiveObjective, hydrateActiveObjective} from '../state/onboardingPreferences';
 import {getMiscarriagePreferences} from '../state/miscarriagePreferences';
 import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
+import {coalescedSync} from './serializedSync';
 import i18n from '../i18n';
 
 // Miscarriage's ONLY reminder — a single, optional, gentle "Suivi quotidien"
@@ -47,12 +48,10 @@ export function miscarriageDailyTrackingNotificationBody(t: (key: string) => str
   return t('notifications.miscarriage.dailyTracking.body');
 }
 
-/** Re-derives and (re)schedules — or explicitly cancels — the Miscarriage
- * daily tracking reminder from real persisted preferences. Safe to call any
- * number of times (scheduleLocalNotification always cancels-then-reschedules
- * by id). Never schedules while a different objective is active, so
- * switching away from "Après une fausse couche" cleanly clears it. */
-export async function syncMiscarriageDailyTrackingReminder(): Promise<void> {
+async function runMiscarriageDailyTrackingReminderSync(): Promise<void> {
+  // The objective gates this reminder, so it must have been READ first: before that memory holds the default
+  // objective, and a run triggered by another store's hydration would cancel (or arm) reminders on its strength.
+  await hydrateActiveObjective();
   // Unreadable preferences are not "reminder off": the existing reminder is left untouched.
   if (areReminderSourcesUnavailable({ownerBases: ['@hawa/miscarriage-preferences/v1']})) {
     return;
@@ -85,3 +84,14 @@ export async function syncMiscarriageDailyTrackingReminder(): Promise<void> {
     },
   });
 }
+
+/** Re-derives and (re)schedules — or explicitly cancels — the Miscarriage
+ * daily tracking reminder from real persisted preferences. Safe to call any
+ * number of times (a schedule REPLACES the pending trigger of the same id).
+ * Never schedules while a different objective is active, so switching away
+ * from "Après une fausse couche" cleanly clears it. Calls made while a run is
+ * in progress share ONE follow-up run that starts afterwards (and so reads the
+ * newest preferences): an older run can never finish after a newer one and put
+ * back what was just switched off. Takes no arguments — it is handed straight
+ * to store subscribers and `.then()`. */
+export const syncMiscarriageDailyTrackingReminder = coalescedSync(runMiscarriageDailyTrackingReminderSync);
