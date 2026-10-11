@@ -1,12 +1,28 @@
-import {cancelLocalNotification, scheduleLocalNotification} from '../services/pregnancyNotifications';
+import {
+  cancelLocalNotification,
+  scheduleLocalNotification,
+  scheduleReminderSeries,
+} from '../services/pregnancyNotifications';
 import {nextDailyFireDate} from './pregnancyReminderScheduling';
-import {getActiveObjective} from '../state/onboardingPreferences';
-import {getContraceptionPreferences, type ContraceptionMethod} from '../state/contraceptionPreferences';
+import {getActiveObjective, hydrateActiveObjective} from '../state/onboardingPreferences';
+import {
+  getContraceptionPreferences,
+  type ContraceptionMethod,
+  type ContraceptionPreferences,
+} from '../state/contraceptionPreferences';
 import {
   contraceptionDefaultReminderNotificationTitle,
   contraceptionReminderNotificationTitle,
 } from '../config/contraceptionLabels';
 import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
+import {
+  getCyclicPillSchedule,
+  getPillPackDay,
+  isPillBreakDateKey,
+  type CyclicPillSchedule,
+} from './contraceptionMath';
+import {coalescedSync} from './serializedSync';
+import {dateAtTimeOfDay} from './timeOfDay';
 import i18n from '../i18n';
 
 // Contraception's daily reminder — reuses the exact same chokepoint
@@ -93,13 +109,90 @@ export const subscribeContraceptionReminderScheduleStatus = (listener: () => voi
   };
 };
 
+// --- cyclic pill packs: no reminder on a break (arrêt) day ----------------------------------------------------------
+//
+// A native repeating trigger fires every day and cannot skip any, so a "take your pill" reminder that simply repeated
+// also went off on the BREAK days of a cyclic pack — days the Dashboard, the Calendar, the journal and the
+// statistics all treat as having nothing to take. For a real cyclic schedule the reminder is therefore laid out day
+// by day: one one-shot trigger per upcoming non-break day (ids `<id>`, `<id>::1`, ...), re-planned on every sync
+// (app start, preference/objective change, foreground, after a delivery) so the window ahead stays full. Every other
+// pill / "other" reminder keeps its single repeating daily trigger, exactly as before.
+
+/** Calendar days (today included) the pill reminder is laid out for. */
+export const PILL_REMINDER_WINDOW_DAYS = 14;
+
+/**
+ * The pack schedule whose break days must not notify, or null when the reminder is simply "every day".
+ *
+ * Break days come from `getCyclicPillSchedule` + `isPillBreakDateKey` (contraceptionMath.ts — the predicate every
+ * screen uses), counted from `methodStartDate` exactly as they are everywhere else. When no break day can exist —
+ * continuous / unknown / other methods, a "cyclic" pack entered with 0 break days, or no readable start date to count
+ * from — the repeating trigger is both correct and more durable (it never runs out), so it is kept.
+ */
+function breakDayScheduleFor(preferences: ContraceptionPreferences): CyclicPillSchedule | null {
+  const schedule = getCyclicPillSchedule(preferences);
+  if (!schedule || schedule.totalDays <= schedule.activeDays) {
+    return null;
+  }
+  const {methodStartDate} = preferences;
+  if (!methodStartDate || getPillPackDay(methodStartDate, methodStartDate, schedule.totalDays) === null) {
+    return null;
+  }
+  return schedule;
+}
+
+/**
+ * The instants, earliest first, at which the pill reminder fires over the next PILL_REMINDER_WINDOW_DAYS calendar
+ * days: `reminderTime` on every day that is not a break day, and only the ones still ahead of `now`.
+ *
+ * Each instant is built from LOCAL calendar components (never "+ 24 h"), so the reminder keeps the wall-clock time
+ * she chose across a daylight-saving change (a 23 h / 25 h day). When the window holds no instant at all — a break
+ * longer than the window — the first active day after it is added, so that a trigger is always pending for the pack
+ * that follows and the chain (a delivery re-syncs, which fills the window again) cannot be left without one.
+ */
+export function planPillReminderOccurrences({
+  reminderTime,
+  methodStartDate,
+  schedule,
+  now = new Date(),
+}: {
+  reminderTime: string;
+  methodStartDate: string | null;
+  schedule: CyclicPillSchedule;
+  now?: Date;
+}): Date[] {
+  const occurrences: Date[] = [];
+  // One full pack beyond the window is enough to reach the next active day of any schedule.
+  const lastOffset = PILL_REMINDER_WINDOW_DAYS + schedule.totalDays;
+
+  for (let offset = 0; offset < lastOffset; offset += 1) {
+    if (offset >= PILL_REMINDER_WINDOW_DAYS && occurrences.length > 0) {
+      break;
+    }
+    // Noon: the date key of this calendar day can never slip to a neighbouring day on a clock-change day.
+    const day = new Date(now.getFullYear(), now.getMonth(), now.getDate() + offset, 12);
+    if (isPillBreakDateKey(day.toLocaleDateString('en-CA'), methodStartDate, schedule)) {
+      continue;
+    }
+    const fireDate = dateAtTimeOfDay(day, reminderTime);
+    if (fireDate.getTime() > now.getTime()) {
+      occurrences.push(fireDate);
+    }
+  }
+  return occurrences;
+}
+
 /** Re-derives and (re)schedules — or explicitly cancels — the Contraception
  * daily reminder from real persisted preferences. Safe to call any number of
- * times (scheduleLocalNotification always cancels-then-reschedules by id).
+ * times (every trigger it creates REPLACES the pending one of the same id, and
+ * triggers it no longer needs are cancelled).
  * Never schedules without a real, user-chosen `reminderTime` — no invented
  * fallback hour — and never schedules while a different objective is
  * active, so switching away from Contraception cleanly clears it. */
-export async function syncContraceptionReminder(): Promise<void> {
+async function runContraceptionReminderSync(): Promise<void> {
+  // The objective gates this reminder, so it must have been READ first: before that memory holds the default
+  // objective, and a run triggered by another store's hydration would cancel (or arm) reminders on its strength.
+  await hydrateActiveObjective();
   // Unreadable preferences are not "method unset, reminders off": the existing reminder is left untouched.
   if (areReminderSourcesUnavailable({ownerBases: ['@hawa/contraception-preferences']})) {
     return;
@@ -125,18 +218,49 @@ export async function syncContraceptionReminder(): Promise<void> {
 
   const body = i18n.t('notifications.contraception.body');
 
+  const data = {
+    hawaNotificationKind: CONTRACEPTION_REMINDER_NOTIFICATION_KIND,
+    inAppTitle: title,
+    inAppMessage: body,
+  };
+
+  const breakSchedule = breakDayScheduleFor(preferences);
+  if (breakSchedule) {
+    const occurrences = planPillReminderOccurrences({
+      reminderTime: preferences.reminderTime,
+      methodStartDate: preferences.methodStartDate,
+      schedule: breakSchedule,
+    });
+    if (occurrences.length === 0) {
+      // No active day at all (a pack with no pill days): nothing may fire, and nothing earlier may stay pending.
+      await cancelLocalNotification(CONTRACEPTION_REMINDER_ID);
+      setScheduleStatus('idle');
+      return;
+    }
+
+    const result = await scheduleReminderSeries({id: CONTRACEPTION_REMINDER_ID, title, body, data, occurrences});
+    if (!result.scheduled && result.reason === 'error') {
+      // Same contract as scheduleLocalNotification below: a native failure rejects, anything else is "not scheduled".
+      throw result.error ?? new Error('Scheduling the contraception reminder failed.');
+    }
+    setScheduleStatus(result.scheduled ? 'scheduled' : 'failed');
+    return;
+  }
+
   const success = await scheduleLocalNotification({
     id: CONTRACEPTION_REMINDER_ID,
     title,
     body,
     fireDate: nextDailyFireDate(preferences.reminderTime),
     repeatFrequency: 'daily',
-    data: {
-      hawaNotificationKind: CONTRACEPTION_REMINDER_NOTIFICATION_KIND,
-      inAppTitle: title,
-      inAppMessage: body,
-    },
+    data,
   });
 
   setScheduleStatus(success ? 'scheduled' : 'failed');
 }
+
+/** The public entry point (see runContraceptionReminderSync). Calls made while a run is in progress share ONE
+ * follow-up run that starts afterwards and therefore reads the newest preferences — an older run can never finish
+ * after a newer one and put back what the person just switched off. Takes no arguments: it is handed straight to
+ * store subscribers and `.then()`. */
+export const syncContraceptionReminder = coalescedSync(runContraceptionReminderSync);
