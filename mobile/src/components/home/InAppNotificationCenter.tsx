@@ -29,6 +29,7 @@ import { subscribeActiveProfileId } from '../../state/activeProfileStore';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import type { ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 import { dateFormatLocale } from '../../utils/cycleMath';
+import { formatTimeOfDay } from '../../utils/timeOfDay';
 import i18n from '../../i18n';
 
 // PHASE C — every color here is decorative chrome (no health/tracking
@@ -53,11 +54,8 @@ const formatReceivedAt = (isoDate: string): string => {
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
   const day = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  const time = new Intl.DateTimeFormat(locale, {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  }).format(date);
+  // 24-hour 'HH:mm', locale-independent: Intl with hour12:false writes 00:15 as "24:15" under en-US.
+  const time = formatTimeOfDay(date);
   if (day.getTime() === today.getTime()) {
     return i18n.t('inAppNotifications.today', {time});
   }
