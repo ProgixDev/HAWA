@@ -243,8 +243,10 @@ describe('J. persistence / restart', () => {
       throw new Error('storage unavailable');
     });
     await store.hydrateQadaaLedger(); // read failed: not hydrated, nothing invented
-    await expect(store.addManualQadaaEntry({quantity: 1})).rejects.toThrow(/refusing to write/);
-    await expect(store.recordQadaaCompletion({})).rejects.toThrow(/refusing to write/);
+    // Refused either way. With structured encryption on, the failed READ of this record is reported as the record being
+    // unavailable (so the person is pointed to the recovery screen); otherwise it is the store's own generic refusal.
+    await expect(store.addManualQadaaEntry({quantity: 1})).rejects.toThrow(/refusing to write|structured data unavailable/);
+    await expect(store.recordQadaaCompletion({})).rejects.toThrow(/refusing to write|structured data unavailable/);
 
     getItem.mockImplementation(realGetItem);
     expect(await readStoredString(LEDGER_KEY)).toBe(before); // disk untouched

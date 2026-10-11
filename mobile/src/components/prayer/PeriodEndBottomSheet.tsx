@@ -21,7 +21,8 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {setPeriodEndDateTime} from '../../state/onboardingPreferences';
 import {recordConfirmedPeriodEnd} from '../../state/confirmedPeriodHistoryStore';
-import {dateFormatLocale, formatFullDate} from '../../utils/cycleMath';
+import {formatFullDate} from '../../utils/cycleMath';
+import {formatTimeOfDay} from '../../utils/timeOfDay';
 import {getBottomPadding} from '../../theme/spacing';
 import i18n from '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
@@ -43,8 +44,8 @@ const sameDay = (a: Date, b: Date) =>
 const formatDateLabel = (date: Date): string =>
   sameDay(date, new Date()) ? i18n.t('periodStartSheet.todayLabel', {date: formatFullDate(date)}) : formatFullDate(date);
 
-const formatTimeLabel = (date: Date): string =>
-  new Intl.DateTimeFormat(dateFormatLocale(), {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+// 24-hour 'HH:mm', locale-independent: Intl with hour12:false writes 00:30 as "24:30" under en-US.
+const formatTimeLabel = (date: Date): string => formatTimeOfDay(date);
 
 const clampDateTime = (value: Date, minDateTime: Date): Date => {
   const now = new Date();

@@ -35,6 +35,10 @@ let state: QadaaReminderNotificationState = DEFAULT_QADAA_REMINDER_NOTIFICATION_
 const listeners = new Set<() => void>();
 let hydration: Promise<QadaaReminderNotificationState> | null = null;
 let hydrated = false;
+// Bumped by every explicit write (and every rollback of one). A read that was already in flight when the write
+// happened describes an OLDER state and must not replace it — otherwise a cancel issued while the first read was
+// still pending (a language change right after launch) would be undone in memory the moment that read lands.
+let writeRevision = 0;
 
 const notifyListeners = () => {
   listeners.forEach(listener => listener());
@@ -57,9 +61,11 @@ export const setQadaaReminderNotificationState = async (
   next: QadaaReminderNotificationState,
 ): Promise<void> => {
   const previous = state;
+  writeRevision += 1;
   state = next;
   notifyListeners();
   await commitOptimistic(previous, () => state, restored => {
+    writeRevision += 1;
     state = restored;
     notifyListeners();
   }, () => AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(state)));
@@ -73,10 +79,11 @@ export const hydrateQadaaReminderNotificationState = (): Promise<QadaaReminderNo
     return Promise.resolve(state);
   }
   if (!hydration) {
+    const revisionAtStart = writeRevision;
     hydration = readOwnedItem(STORAGE_KEY, hydrateQadaaReminderNotificationState)
       .then(raw => {
         hydrated = true;
-        if (raw) {
+        if (raw && revisionAtStart === writeRevision) {
           const parsed: unknown = JSON.parse(raw);
           if (isValidState(parsed)) {
             state = parsed;
