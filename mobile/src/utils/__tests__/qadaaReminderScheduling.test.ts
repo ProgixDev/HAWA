@@ -15,9 +15,19 @@ import {setAppLanguage} from '../../state/themePreferences';
 // short-circuit itself (so "no duplicate scheduling" holds under normal
 // repeated syncs), and that cancel-then-sync produces fresh, current-
 // language text at the identical fire date.
+// The notification layer's PENDING triggers: the reuse path no longer trusts its saved snapshot alone, it asks
+// getPendingReminderIds() whether the trigger is really there. A reminder that was scheduled stays pending until it
+// is cancelled, exactly as on a phone.
+const mockPending = new Set<string>();
 jest.mock('../../services/pregnancyNotifications', () => ({
-  scheduleLocalNotification: jest.fn().mockResolvedValue(true),
-  cancelLocalNotification: jest.fn().mockResolvedValue(undefined),
+  scheduleLocalNotification: jest.fn(async (input: {id: string}) => {
+    mockPending.add(input.id);
+    return true;
+  }),
+  cancelLocalNotification: jest.fn(async (id: string) => {
+    mockPending.delete(id);
+  }),
+  getPendingReminderIds: jest.fn(async () => new Set(mockPending)),
 }));
 
 const schedule = scheduleLocalNotification as jest.Mock;
