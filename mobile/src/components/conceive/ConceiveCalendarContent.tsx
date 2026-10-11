@@ -62,6 +62,7 @@ import {useToday} from '../../hooks/useToday';
 import {rollSelectedDate, rollVisibleMonth} from '../../utils/dayRollover';
 import { HawaPremiumBottomSheet } from '../premium/HawaPremiumBottomSheet';
 import { isMonthWithinHistoryAccess } from '../../utils/historyAccess';
+import { normalizeTimeOfDay } from '../../utils/timeOfDay';
 
 // Trying-to-Conceive Calendar — a dedicated content branch for the ONE
 // global Calendar tab (see ObjectiveAwareCalendarScreen.tsx), structurally
@@ -478,7 +479,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
         label: CATEGORY_META.temperature.label,
         value: selectedEntry?.temperature
           ? selectedEntry.temperature.time
-            ? `${selectedEntry.temperature.value}°${selectedEntry.temperature.unit} · ${selectedEntry.temperature.time}`
+            ? `${selectedEntry.temperature.value}°${selectedEntry.temperature.unit} · ${normalizeTimeOfDay(selectedEntry.temperature.time)}`
             : `${selectedEntry.temperature.value}°${selectedEntry.temperature.unit}`
           : t('profile.notProvided'),
       });

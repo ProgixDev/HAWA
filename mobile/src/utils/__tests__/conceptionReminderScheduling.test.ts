@@ -21,10 +21,14 @@ jest.mock('../../services/pregnancyNotifications', () => ({
 }));
 jest.mock('../../state/onboardingPreferences', () => ({
   getActiveObjective: jest.fn(),
+  // The sync waits for the active objective to have been READ before it gates on it.
+  hydrateActiveObjective: jest.fn(() => Promise.resolve()),
   getCyclePreferences: jest.fn(),
   getCycleObservationStartedAt: jest.fn(),
   getHasConfirmedCycleData: jest.fn(),
   getRecordedPeriodHistory: jest.fn(),
+  // The sync waits for the (active) profile's cycle to have been read before deriving anything from it.
+  hydrateCyclePreferences: jest.fn(() => Promise.resolve()),
 }));
 jest.mock('../../state/conceptionPreferences', () => ({
   getConceptionPreferences: jest.fn(),

@@ -1,16 +1,21 @@
 import {cancelLocalNotification, scheduleLocalNotification} from '../services/pregnancyNotifications';
 import {nextDailyFireDate, parseHHmm} from './pregnancyReminderScheduling';
-import {computeCyclePredictionStatus, ovulationDayFor, startOfDay, upcomingDateForCycleDay} from './cycleMath';
+import {addDays, computeCyclePredictionStatus, ovulationDayFor, startOfDay, upcomingDateForCycleDay} from './cycleMath';
 import {
   getActiveObjective,
   getCycleObservationStartedAt,
   getCyclePreferences,
   getHasConfirmedCycleData,
   getRecordedPeriodHistory,
+  hydrateActiveObjective,
+  hydrateCyclePreferences,
 } from '../state/onboardingPreferences';
 import {getConceptionPreferences, type ConceptionReminderKey} from '../state/conceptionPreferences';
+import {isOwnerActive} from '../state/activeProfileStore';
 import {resolveConceptionCycleBasics} from './conceptionStatisticsMath';
 import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
+import {loadOwnerProfileData} from './ownerReminderGate';
+import {coalescedSync} from './serializedSync';
 import i18n from '../i18n';
 
 // Scheduling for "Essayer de concevoir"'s 5 onboarding "Rappels
@@ -191,6 +196,24 @@ async function syncDailyReminder(key: ConceptionReminderKey, enabled: boolean): 
   });
 }
 
+/**
+ * The first moment the reminder for `date` (an occurrence of its cycle day) fires, at `hours:minutes`, that is still
+ * AHEAD of `now`. upcomingDateForCycleDay() compares DATES, so on the day itself it keeps answering "today" even after
+ * the reminder's hour has passed: the fire instant was then in the past, scheduling returned false (and cleared the
+ * pending trigger) and the NEXT cycle's reminder stayed unarmed until some later sync. A moment that has passed points
+ * at the next cycle's occurrence instead. The dates themselves are never altered.
+ */
+function firstFireInstantAhead(date: Date, cycleDuration: number, hours: number, minutes: number, now: Date): Date {
+  const step = Math.max(1, cycleDuration);
+  let occurrence = date;
+  let fire = new Date(occurrence.getFullYear(), occurrence.getMonth(), occurrence.getDate(), hours, minutes, 0, 0);
+  while (fire.getTime() <= now.getTime()) {
+    occurrence = addDays(occurrence, step);
+    fire = new Date(occurrence.getFullYear(), occurrence.getMonth(), occurrence.getDate(), hours, minutes, 0, 0);
+  }
+  return fire;
+}
+
 async function syncCycleDayReminder(key: ConceptionReminderKey, enabled: boolean): Promise<void> {
   const id = CONCEPTION_REMINDER_NOTIFICATION_IDS[key];
   // fertile_window/estimated_ovulation/lh_test are all computed from
@@ -223,7 +246,8 @@ async function syncCycleDayReminder(key: ConceptionReminderKey, enabled: boolean
   // would otherwise look "already past" until midnight and get pushed a full
   // cycle forward. Same normalization ConceiveStatisticsScreen.tsx/
   // CalendarScreen.tsx/CycleHomeScreen.tsx already apply before calling it.
-  const today = startOfDay(new Date());
+  const now = new Date();
+  const today = startOfDay(now);
   const declared = getCyclePreferences();
   // Same status ConceiveDashboard builds (recorded == raw history here, since
   // the getHasConfirmedCycleData() guard above already passed).
@@ -240,7 +264,7 @@ async function syncCycleDayReminder(key: ConceptionReminderKey, enabled: boolean
   const targetCycleDay = Math.max(1, ovulationDay + dayOffset);
   const nextDate = upcomingDateForCycleDay(cyclePrefs, targetCycleDay, today);
   const {hours, minutes} = parseHHmm(time);
-  const fireDate = new Date(nextDate.getFullYear(), nextDate.getMonth(), nextDate.getDate(), hours, minutes, 0, 0);
+  const fireDate = firstFireInstantAhead(nextDate, cyclePrefs.cycleDuration, hours, minutes, now);
 
   await scheduleLocalNotification({
     id,
@@ -251,13 +275,25 @@ async function syncCycleDayReminder(key: ConceptionReminderKey, enabled: boolean
   });
 }
 
-/** Re-derives and reschedules every TTC reminder from the current
- * conceptionPreferences + cycle preferences. Idempotent — safe to call
- * repeatedly (scheduleLocalNotification/cancelLocalNotification are
- * themselves upserts by id). Call on app boot, whenever cycle/conception
- * preferences or the active objective change, and on TTC Dashboard focus
- * (so cycle-relative dates stay correct as cycles roll over). */
-export async function syncConceptionReminders(): Promise<void> {
+async function syncConceptionRemindersOnce(): Promise<void> {
+  // The objective gates this reminder, so it must have been READ first: before that memory holds the default
+  // objective, and a run triggered by another store's hydration would cancel (or arm) reminders on its strength.
+  await hydrateActiveObjective();
+  // These reminders have OWNER-GLOBAL ids but are derived from the ACTIVE profile's cycle. While a managed (daughter)
+  // profile is active that cycle is hers, not the phone owner's: this run neither schedules, cancels nor changes
+  // anything — the owner's triggers stay exactly as they are until she is active again. Checked before ANY read.
+  if (!isOwnerActive()) {
+    return;
+  }
+  // The owner's own cycle must have been READ before anything is derived from it: right after a switch (or at launch)
+  // memory holds a neutral placeholder, and reconciling against it would cancel her real reminders. Re-checked after
+  // the wait — the active profile may have changed meanwhile, in which case nothing is touched. Everything below up
+  // to the first native call runs in the same tick as that last check.
+  const loaded = await loadOwnerProfileData(() => hydrateCyclePreferences());
+  if (!loaded?.isCurrent()) {
+    return;
+  }
+
   // Unreadable preferences / cycle data / objective are not "no reminders" and not "no cycle data yet": leave what
   // is scheduled exactly as it is (never cancel, never derive a fertile window from the placeholder cycle).
   if (areReminderSourcesUnavailable({
@@ -281,6 +317,25 @@ export async function syncConceptionReminders(): Promise<void> {
     syncCycleDayReminder('estimated_ovulation', reminders.estimated_ovulation),
     syncCycleDayReminder('lh_test', reminders.lh_test),
   ]);
+}
+
+// Runs are requested from many places (app start, a preference or cycle change, a profile switch, the Dashboard on
+// focus, a privacy/language change). They never overlap: while one is in progress, any number of further requests
+// share ONE follow-up run that starts afterwards and therefore reads the newest state.
+const runCoalescedConceptionSync = coalescedSync(syncConceptionRemindersOnce);
+
+/** Re-derives and reschedules every TTC reminder from the current
+ * conceptionPreferences + cycle preferences. Idempotent — safe to call
+ * repeatedly (scheduleLocalNotification/cancelLocalNotification are
+ * themselves upserts by id). Call on app boot, whenever cycle/conception
+ * preferences or the active objective change, and on TTC Dashboard focus
+ * (so cycle-relative dates stay correct as cycles roll over).
+ *
+ * A no-op while a managed (daughter) profile is active: these reminders belong
+ * to the phone's owner and are never derived from — nor cancelled because of —
+ * another profile's cycle. */
+export function syncConceptionReminders(): Promise<void> {
+  return runCoalescedConceptionSync();
 }
 
 /** Cancels every TTC reminder notification. Call when leaving the `conceive`
