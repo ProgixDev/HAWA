@@ -11,7 +11,15 @@ import {getPregnancyMedicalEvents} from '../state/pregnancyMedicalEventsStore';
 import {cancelEventReminder, syncEventReminder} from './pregnancyEventReminders';
 import {getActiveObjective, hydrateActiveObjective} from '../state/onboardingPreferences';
 import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
+import {createSerializer} from './serializedSync';
+import {parseTimeOfDay} from './timeOfDay';
 import i18n from '../i18n';
+
+// Every Pregnancy sync below (the bulk resync, the objective gate, the cancel-everything sweep and the single
+// reminder syncs) runs through ONE serializer: two overlapping runs used to be able to finish in the wrong order
+// (an older run, working from older settings, re-creating a reminder the person had just switched off). Run N
+// starts after run N-1 finished and reads the stored state at ITS start, so the last run always wins.
+const runPregnancySync = createSerializer();
 
 // Scheduling for every recurring/one-off Pregnancy Tracking reminder that
 // ISN'T a per-appointment/exam reminder (those live in
@@ -51,8 +59,9 @@ function customReminderNotificationId(reminder: CustomReminder): string {
  * conceptionReminderScheduling.ts) can reuse these instead of duplicating
  * the same HH:mm parsing / "roll to next occurrence" logic. */
 export function parseHHmm(value: string): {hours: number; minutes: number} {
-  const [hours, minutes] = value.split(':').map(Number);
-  return {hours: hours || 0, minutes: minutes || 0};
+  // A stored "24:30" (what an en-US build wrote for midnight) is 00:30 of the same day; anything unreadable
+  // stays 00:00 as before.
+  return parseTimeOfDay(value) ?? {hours: 0, minutes: 0};
 }
 
 /** Next occurrence of `time` today-or-later, local time. */
@@ -133,8 +142,13 @@ function todayISO(): string {
   return new Date().toLocaleDateString('en-CA');
 }
 
-export async function syncHealthReminder(reminder: HealthReminder): Promise<void> {
+async function syncHealthReminderNow(reminder: HealthReminder): Promise<void> {
   const id = healthReminderNotificationId(reminder);
+
+  // The medicine/vitamin name is field-level encrypted and becomes the notification body. When it could not be
+  // decrypted the store hands back an empty name: scheduling now would REPLACE a perfectly good trigger with one
+  // that has a blank body. An unreadable reminder is left exactly as it is.
+  if (reminder.enabled && !reminder.name.trim()) {return;}
 
   const today = todayISO();
   const expired = reminder.kind === 'medication' && Boolean(reminder.endDate) && reminder.endDate! < today;
@@ -170,6 +184,10 @@ export async function syncHealthReminder(reminder: HealthReminder): Promise<void
   });
 }
 
+export function syncHealthReminder(reminder: HealthReminder): Promise<void> {
+  return runPregnancySync(() => syncHealthReminderNow(reminder));
+}
+
 /** Next occurrence, at `start`'s time of day, on the same weekday as `start` (local time). */
 export function nextWeeklyFireDate(start: Date, now = new Date()): Date {
   const candidate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), start.getHours(), start.getMinutes(), 0, 0);
@@ -193,13 +211,18 @@ export function customReminderFireDate(reminder: CustomReminder, now = new Date(
   return reminder.repeat === 'weekly' ? nextWeeklyFireDate(start, now) : nextDailyFireDate(reminder.time, now);
 }
 
-export async function syncCustomReminder(reminder: CustomReminder): Promise<void> {
+async function syncCustomReminderNow(reminder: CustomReminder): Promise<void> {
   const id = customReminderNotificationId(reminder);
 
   if (!reminder.enabled) {
     await cancelLocalNotification(id);
     return;
   }
+
+  // Title/description are field-level encrypted and become the notification text. A title that could not be
+  // decrypted comes back empty (a title is required when the reminder is created): scheduling would replace a
+  // good trigger with a blank one. Leave an unreadable reminder exactly as it is.
+  if (!reminder.title.trim()) {return;}
 
   const fireDate = customReminderFireDate(reminder);
 
@@ -220,13 +243,22 @@ export async function syncCustomReminder(reminder: CustomReminder): Promise<void
   });
 }
 
-/** Cancels a health/custom reminder's notification (call on delete). */
-export async function cancelHealthReminderNotification(reminder: HealthReminder): Promise<void> {
-  await cancelLocalNotification(healthReminderNotificationId(reminder));
+export function syncCustomReminder(reminder: CustomReminder): Promise<void> {
+  return runPregnancySync(() => syncCustomReminderNow(reminder));
 }
 
-export async function cancelCustomReminderNotification(reminder: CustomReminder): Promise<void> {
-  await cancelLocalNotification(customReminderNotificationId(reminder));
+/** Cancels a health/custom reminder's notification (call on the user's own delete): the pending trigger AND
+ * a copy of it that is already in the notification shade, because the reminder no longer exists. */
+export function cancelHealthReminderNotification(reminder: HealthReminder): Promise<void> {
+  return runPregnancySync(async () => {
+    await cancelLocalNotification(healthReminderNotificationId(reminder), {dismissDisplayed: true});
+  });
+}
+
+export function cancelCustomReminderNotification(reminder: CustomReminder): Promise<void> {
+  return runPregnancySync(async () => {
+    await cancelLocalNotification(customReminderNotificationId(reminder), {dismissDisplayed: true});
+  });
 }
 
 /** Cancels every SCHEDULED Pregnancy notification instance — weekly update,
@@ -235,7 +267,7 @@ export async function cancelCustomReminderNotification(reminder: CustomReminder)
  * Only the scheduled notifications are cancelled: every saved setting, event
  * and reminder definition stays in its store, so switching back to Pregnancy
  * reschedules them from that saved state. Safe to call any number of times. */
-export async function cancelAllPregnancyNotifications(): Promise<void> {
+async function cancelAllPregnancyNotificationsNow(): Promise<void> {
   await Promise.all([
     cancelLocalNotification(WEEKLY_UPDATE_ID),
     cancelLocalNotification(DAILY_JOURNAL_ID),
@@ -254,27 +286,39 @@ export async function cancelAllPregnancyNotifications(): Promise<void> {
   ]);
 }
 
-/** The objective lifecycle for Pregnancy notifications, like every other
- * objective's sync: they exist only while the active objective is
- * 'pregnancy' — scheduled (from the saved state) when it is, cancelled when it
- * is not (after delivery → Post-partum, or a switch to Loss / Cycle / …).
- * Called at startup, on every active-objective change and on foreground. */
-export async function syncPregnancyNotificationsForActiveObjective(): Promise<void> {
+export function cancelAllPregnancyNotifications(): Promise<void> {
+  return runPregnancySync(cancelAllPregnancyNotificationsNow);
+}
+
+async function syncForActiveObjectiveNow(): Promise<void> {
   await hydrateActiveObjective();
   // An unreadable objective record falls back to the default objective: that is not "the user left Pregnancy", so
   // it must never cancel her pregnancy reminders (nor schedule another objective's).
   if (areReminderSourcesUnavailable({})) {return;}
   if (getActiveObjective() === 'pregnancy') {
-    await resyncAllPregnancyNotifications();
+    await resyncAllNow();
     return;
   }
-  await cancelAllPregnancyNotifications();
+  await cancelAllPregnancyNotificationsNow();
+}
+
+/** The objective lifecycle for Pregnancy notifications, like every other
+ * objective's sync: they exist only while the active objective is
+ * 'pregnancy' — scheduled (from the saved state) when it is, cancelled when it
+ * is not (after delivery → Post-partum, or a switch to Loss / Cycle / …).
+ * Called at startup, on every active-objective change and on foreground. */
+export function syncPregnancyNotificationsForActiveObjective(): Promise<void> {
+  return runPregnancySync(syncForActiveObjectiveNow);
 }
 
 /** Re-derives and reschedules every Pregnancy Tracking notification from
  * persisted state. Called once at app startup (App.tsx) so reminders survive
  * a restart, and again whenever "Notifications & rappels" settings change. */
-export async function resyncAllPregnancyNotifications(): Promise<void> {
+export function resyncAllPregnancyNotifications(): Promise<void> {
+  return runPregnancySync(resyncAllNow);
+}
+
+async function resyncAllNow(): Promise<void> {
   const settings = await hydratePregnancyNotificationSettings();
   // Every source is READ first, so that one that cannot be read is known before anything is derived: the stores
   // answer a failed read with defaults (weekly update ON, no dating, no events), and scheduling or cancelling from
@@ -290,8 +334,10 @@ export async function resyncAllPregnancyNotifications(): Promise<void> {
   await Promise.all([
     syncWeeklyUpdateReminder(settings),
     syncDailyJournalReminder(settings),
-    Promise.all(events.map(event => syncEventReminder(event))),
-    Promise.all(healthReminders.map(reminder => syncHealthReminder(reminder))),
-    Promise.all(customReminders.map(reminder => syncCustomReminder(reminder))),
+    // The settings were read just above: handed down so each event does not re-read them. An event that fails
+    // to schedule must not reject the whole resync (the others still have to be re-armed).
+    Promise.all(events.map(event => syncEventReminder(event, settings).catch(() => undefined))),
+    Promise.all(healthReminders.map(reminder => syncHealthReminderNow(reminder))),
+    Promise.all(customReminders.map(reminder => syncCustomReminderNow(reminder))),
   ]);
 }

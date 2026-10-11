@@ -207,8 +207,18 @@ describe('scheduleLocalNotification — privacy redaction', () => {
     expect(loadSecurityPreferences).toHaveBeenCalled();
   });
 
-  it('cancels any existing notification with the same id before rescheduling (upsert semantics)', async () => {
+  it('replaces the pending trigger IN PLACE (upsert by id): no cancel-then-create window in which no trigger exists', async () => {
+    (notifee.cancelTriggerNotification as jest.Mock).mockClear();
     await scheduleLocalNotification(baseInput());
+    // notifee stores INSERT OR REPLACE by id and the alarm's PendingIntent is updated in place, so the create alone
+    // replaces the old trigger. A cancel first would leave a gap (a kill or a lost insert = no reminder at all).
+    expect(notifee.cancelTriggerNotification).not.toHaveBeenCalled();
+    expect(mockCreateTrigger).toHaveBeenCalledTimes(1);
+  });
+
+  it('but a reminder that can no longer be scheduled (time passed) still cancels the trigger pending for its old time', async () => {
+    (notifee.cancelTriggerNotification as jest.Mock).mockClear();
+    await scheduleLocalNotification(baseInput({fireDate: new Date(Date.now() - 1000)}));
     expect(notifee.cancelTriggerNotification).toHaveBeenCalledWith('test-reminder');
   });
 

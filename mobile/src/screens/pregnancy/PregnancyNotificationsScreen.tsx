@@ -23,6 +23,7 @@ import {getBottomPadding, spacing} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale} from '../../utils/cycleMath';
+import {dateAtTimeOfDay, formatTimeOfDay} from '../../utils/timeOfDay';
 import {
   getPregnancyNotificationSettings,
   hydratePregnancyNotificationSettings,
@@ -47,16 +48,29 @@ import {REMINDER_OFFSETS, reminderOffsetLabels} from '../../utils/pregnancyEvent
 import {
   cancelCustomReminderNotification,
   cancelHealthReminderNotification,
+  customReminderFireDate,
   resyncAllPregnancyNotifications,
   syncCustomReminder,
   syncHealthReminder,
 } from '../../utils/pregnancyReminderScheduling';
 import type {PregnancyReminderOffset} from '../../state/pregnancyMedicalEventsStore';
+import {ensureNotificationPermission} from '../../services/pregnancyNotifications';
+import NotificationPermissionNotice from '../../components/notifications/NotificationPermissionNotice';
+import {useReminderDeliveryState} from '../../hooks/useReminderDeliveryState';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PregnancyNotifications'>;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
+
+// The four general reminder switches of this screen (health and custom reminders each have their own switch row).
+const REMINDER_SWITCHES = [
+  'weeklyUpdateEnabled',
+  'dailyJournalEnabled',
+  'appointmentsEnabled',
+  'examsEnabled',
+] as const;
+
 // Local alias for react-i18next's `t` — avoids depending on a named
 // `TFunction` export (not provided by the app's current react-i18next
 // version); matches the shape actually used here (key + optional
@@ -92,15 +106,26 @@ function fromISODate(iso: string): Date {
   return new Date(year, month - 1, day);
 }
 
+// Stored as 'HH:mm' (24-hour, zero-padded, locale-independent — see utils/timeOfDay.ts). It used to come from
+// Intl.DateTimeFormat, which writes 00:30 as "24:30" under en-US; a stored "24:30" still reads as 00:30.
 function formatTimeValue(date: Date): string {
-  return new Intl.DateTimeFormat(dateFormatLocale(), {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  return formatTimeOfDay(date);
 }
 
 function parseTimeToDate(hhmm: string): Date {
-  const [hours, minutes] = hhmm.split(':').map(Number);
-  const date = new Date();
-  date.setHours(hours || 0, minutes || 0, 0, 0);
-  return date;
+  return dateAtTimeOfDay(new Date(), hhmm);
+}
+
+// A stored time as it is shown in a row: "24:30" written by an earlier build reads as 00:30.
+function displayTime(stored: string): string {
+  return formatTimeValue(parseTimeToDate(stored));
+}
+
+// The text to store for a time picked in a reminder sheet: the stored text itself when the clock time was left alone
+// (a legacy "24:30" is not rewritten behind her back, and the "did the timing change?" check compares strings),
+// otherwise the 'HH:mm' of the picked time.
+function timeToStore(picked: Date, stored: string | undefined): string {
+  return stored && displayTime(stored) === formatTimeValue(picked) ? stored : formatTimeValue(picked);
 }
 
 function formatLongDate(date: Date): string {
@@ -617,6 +642,26 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
   const [healthDraft, setHealthDraft] = useState<HealthDraft | null>(null);
   const [customDraft, setCustomDraft] = useState<CustomDraft | null>(null);
 
+  // Whether Android would actually show the reminders she has switched on (notifications off / reminders channel
+  // blocked). Only read while at least one reminder of this screen is on, and re-read on returning from Android's
+  // settings, so the notice below clears itself.
+  const anyReminderOn =
+    REMINDER_SWITCHES.some(key => settings[key]) ||
+    healthReminders.some(item => item.enabled) ||
+    customReminders.some(item => item.enabled);
+  const delivery = useReminderDeliveryState(anyReminderOn);
+  const {refresh: refreshDelivery} = delivery;
+
+  // Android 13+ only shows its notification dialog when something asks for the permission. Asking at the moment a
+  // reminder is switched ON keeps the question next to the choice that needs it (the notice at the top of the
+  // screen then explains a refusal) instead of leaving it to whenever the scheduler first reaches Android. It never
+  // blocks the switch, and a failure here is not something to tell her about.
+  const askPermissionForSwitchedOnReminder = useCallback(() => {
+    ensureNotificationPermission()
+      .then(() => refreshDelivery())
+      .catch(() => {});
+  }, [refreshDelivery]);
+
   useFocusEffect(
     useCallback(() => {
       let mounted = true;
@@ -644,7 +689,10 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
       return;
     }
     resyncAllPregnancyNotifications();
-  }, []);
+    if (REMINDER_SWITCHES.some(key => next[key] && !previous[key])) {
+      askPermissionForSwitchedOnReminder();
+    }
+  }, [askPermissionForSwitchedOnReminder]);
 
   /* ------------------------------------------------------------
      HEALTH REMINDERS (vitamins & médicaments)
@@ -672,7 +720,7 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
       id: healthDraft.id ?? `pregnancy-health-${Date.now()}`,
       kind: healthDraft.kind,
       name: healthDraft.name.trim(),
-      time: formatTimeValue(healthDraft.time),
+      time: timeToStore(healthDraft.time, existing?.time),
       repeat: 'daily',
       startDate: healthDraft.kind === 'medication' ? toISODate(healthDraft.startDate) : undefined,
       endDate: healthDraft.kind === 'medication' && healthDraft.endDate ? toISODate(healthDraft.endDate) : undefined,
@@ -704,6 +752,7 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
     }
     setHealthReminders(next);
     syncHealthReminder(updated);
+    if (enabled) {askPermissionForSwitchedOnReminder();}
   };
 
   const removeHealthReminder = (reminder: HealthReminder) => {
@@ -759,12 +808,33 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
       title: customDraft.title.trim(),
       description: customDraft.description.trim() || undefined,
       date: toISODate(customDraft.date),
-      time: formatTimeValue(customDraft.time),
+      time: timeToStore(customDraft.time, existing?.time),
       repeat: customDraft.repeat,
       enabled: customDraft.enabled,
       createdAt: existing?.createdAt ?? now,
       updatedAt: now,
     };
+
+    // A ONE-TIME reminder whose moment has already passed would be stored as "on" and then never sent. Say so with
+    // the real moment and keep the sheet open (repeating reminders roll to their next occurrence, so only 'once'
+    // can be past). A reminder whose date/time/repeat she did not touch is left alone: an old one-time reminder that
+    // already went off can still have its title or note edited.
+    const timingChanged =
+      !existing ||
+      existing.date !== reminder.date ||
+      existing.time !== reminder.time ||
+      existing.repeat !== reminder.repeat ||
+      existing.enabled !== reminder.enabled;
+    if (reminder.enabled && reminder.repeat === 'once' && timingChanged && customReminderFireDate(reminder).getTime() <= Date.now()) {
+      Alert.alert(
+        t('pregnancyNotifications.customPast.title'),
+        t('pregnancyNotifications.customPast.message', {
+          when: `${formatLongDate(customDraft.date)} · ${formatTimeValue(customDraft.time)}`,
+        }),
+      );
+      return;
+    }
+
     let next: CustomReminder[];
     try {
       next = await saveCustomReminder(reminder);
@@ -789,6 +859,7 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
     }
     setCustomReminders(next);
     syncCustomReminder(updated);
+    if (enabled) {askPermissionForSwitchedOnReminder();}
   };
 
   const removeCustomReminder = (reminder: CustomReminder) => {
@@ -818,16 +889,16 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
 
   const healthReminderMeta = (reminder: HealthReminder): string => {
     const daily = t('pregnancyNotifications.repeat.daily');
-    if (reminder.kind === 'vitamin') {return `${daily} · ${reminder.time}`;}
+    if (reminder.kind === 'vitamin') {return `${daily} · ${displayTime(reminder.time)}`;}
     const range = reminder.endDate
       ? t('pregnancyNotifications.untilDate', {date: formatLongDate(fromISODate(reminder.endDate))})
       : t('pregnancyNotifications.noEndDateRange');
-    return `${daily} · ${reminder.time} · ${range}`;
+    return `${daily} · ${displayTime(reminder.time)} · ${range}`;
   };
 
   const customReminderMeta = (reminder: CustomReminder): string => {
     const repeatLabel = repeatLabels(t)[reminder.repeat] ?? '';
-    return `${formatLongDate(fromISODate(reminder.date))} · ${reminder.time} · ${repeatLabel}`;
+    return `${formatLongDate(fromISODate(reminder.date))} · ${displayTime(reminder.time)} · ${repeatLabel}`;
   };
 
   return (
@@ -883,6 +954,16 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
           </View>
         </View>
 
+        {/* The one shared notice (same wording, "open settings" and re-check on every objective's reminders
+            screen): shown at the top of the content, above the sections, while any reminder here is on. */}
+        {anyReminderOn ? (
+          <NotificationPermissionNotice
+            onRecheck={delivery.refresh}
+            state={delivery.state}
+            testID="pregnancy-notifications-permission-notice"
+          />
+        ) : null}
+
         {/* ============================= A. GROSSESSE ============================= */}
         <View style={styles.card}>
           <SectionHeader icon="human-pregnant" styles={styles} theme={theme} title={t('pregnancyNotifications.sections.pregnancy.title')} />
@@ -914,7 +995,7 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
               onPress={() => setDailyJournalPickerOpen(open => !open)}
               styles={styles}
               theme={theme}
-              value={settings.dailyJournalTime}
+              value={displayTime(settings.dailyJournalTime)}
             />
             {dailyJournalPickerOpen ? (
               <DateTimePicker

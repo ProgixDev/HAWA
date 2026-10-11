@@ -22,8 +22,8 @@ import i18n from '../i18n';
 // cancel entry point — every reminder kind goes through this file so events
 // and their notifications can never drift out of sync. Callers pass their
 // own stable domain id (e.g. the appointment's id) as the notification id,
-// which is what lets update = cancel-then-reschedule-by-id and delete =
-// cancel-by-id work without a separate id-mapping table.
+// which is what lets update = reschedule-by-id and delete = cancel-by-id
+// work without a separate id-mapping table.
 //
 // Privacy redaction lives HERE, not in each caller: this is the one place
 // every notification passes through on its way to Android, so "Notifications
@@ -33,6 +33,16 @@ import i18n from '../i18n';
 const PRIVACY_GENERIC_TITLE = 'AWA';
 
 const CHANNEL_ID = 'pregnancy-reminders';
+
+/** Longest the privacy settings may take to load before a reminder is built with generic text instead. */
+const PRIVACY_SETTINGS_TIMEOUT_MS = 3000;
+
+/**
+ * Separator for the extra pending triggers one reminder id can own (see scheduleReminderSeries and the DST split in
+ * planRepeatingOccurrences): `<id>`, `<id>::1`, `<id>::2`... Cancelling `<id>` cancels all of them, and no other
+ * reminder id contains it.
+ */
+export const REMINDER_SERIES_SEPARATOR = '::';
 
 /**
  * The Activity a tapped reminder opens.
@@ -60,6 +70,8 @@ let permissionRequest: Promise<boolean> | null = null;
 // notifications on" from "nothing changed". Never used to DECIDE anything:
 // every decision re-reads the OS (see getNotificationPermissionStatus).
 let lastKnownPermission: NotificationPermissionStatus | null = null;
+// Triggers created before the AlarmManager fix were WorkManager jobs; converted once per process (see below).
+let legacyConversion: Promise<void> | null = null;
 
 function ensureChannel(): Promise<string> {
   const language = getAppLanguage();
@@ -73,14 +85,22 @@ function ensureChannel(): Promise<string> {
     // Same CHANNEL_ID as always — notifee.createChannel() upserts by id, so
     // this renames the existing Android channel in place (both for fresh
     // installs and for users who already have the old "Grossesse — rappels"
-    // channel) rather than creating a second one. Renamed because this one
-    // channel now backs every reminder type (Pregnancy + Postpartum/Nifas),
-    // not just Pregnancy.
+    // channel) rather than creating a second one.
+    //
+    // What a user has chosen for this channel in Android settings is theirs and
+    // is never overridden: Android ignores sound/vibration changes for a channel
+    // that already exists, and importance can only be lowered, never raised, after
+    // creation — so asking for HIGH again cannot undo someone muting or lowering
+    // it. `sound` / `vibration` therefore only take effect on a phone where the
+    // channel is created for the first time; notifee's default (no `sound`) is a
+    // SILENT channel, which is not what a reminder wants.
     const creation = Promise.resolve(
       notifee.createChannel({
         id: CHANNEL_ID,
         name: i18n.t('notifications.channelName'),
         importance: AndroidImportance.HIGH,
+        sound: 'default',
+        vibration: true,
       }),
     );
     channelReady = creation;
@@ -213,6 +233,19 @@ export async function openNotificationSettings(): Promise<void> {
   }
 }
 
+/**
+ * Ids of every reminder trigger currently PENDING in Android (what will fire later), or null when the native layer
+ * cannot be read. Schedulers that skip work when "nothing changed" use it to confirm the trigger they believe
+ * exists really does, instead of trusting a saved snapshot of what they once scheduled.
+ */
+export async function getPendingReminderIds(): Promise<ReadonlySet<string> | null> {
+  try {
+    return new Set(await notifee.getTriggerNotificationIds());
+  } catch {
+    return null;
+  }
+}
+
 export type ScheduleNotificationInput = {
   id: string;
   title: string;
@@ -245,133 +278,99 @@ const REPEAT_FREQUENCY: Record<'daily' | 'weekly', RepeatFrequency> = {
   weekly: RepeatFrequency.WEEKLY,
 };
 
+const REPEAT_STEP_DAYS: Record<'daily' | 'weekly', number> = {daily: 1, weekly: 7};
+const MS_PER_DAY = 86_400_000;
+
+/** One concrete trigger of a reminder: an instant, optionally repeating at a fixed interval natively. */
+export type ScheduleOccurrence = {fireDate: Date; repeatFrequency?: 'daily' | 'weekly'};
+
 /**
- * Cancels any pending trigger with this id, then schedules the new one, and says
- * exactly what happened (upsert semantics — safe to call on every create/update).
+ * Turns "first fire at `first`, then every day/week at the same wall-clock time" into the triggers to hand Android.
  *
- * Only the PENDING trigger is replaced. A notification with this id that has
- * already been delivered and is on screen is left alone: this function also
- * runs on every JS start — including the headless start notifee performs
- * seconds after a trigger fires — and used to dismiss the reminder it had just
- * delivered (see cancelLocalNotification).
+ * notifee repeats with a FIXED length (24 h / 7 d), not "same time tomorrow". Across a daylight-saving change
+ * that fixed step lands an hour away from the wall-clock time the person chose, until the app next runs and
+ * re-anchors it. So when the real next occurrence (same local time, next calendar day/week) is not exactly one
+ * step after `first`, the first occurrence goes out on its own and the repeating trigger starts at the real next
+ * occurrence — each fire is then at the right local time, with no dependence on the app having been opened.
+ *
+ * `calendarNext` is injectable only so tests can exercise a clock change on any machine's timezone.
  */
-export async function scheduleLocalNotificationWithResult({
-  id,
-  title,
-  body,
-  fireDate,
-  repeatFrequency,
-  data,
-}: ScheduleNotificationInput): Promise<ScheduleNotificationResult> {
-  const timestamp = fireDate.getTime();
-  if (!Number.isFinite(timestamp)) {
-    // Not a date at all: leave whatever is already scheduled exactly as it is.
-    return {scheduled: false, reason: 'invalid-date', fireDate};
+export function planRepeatingOccurrences(
+  first: Date,
+  repeat: 'daily' | 'weekly',
+  calendarNext: Date = new Date(
+    first.getFullYear(),
+    first.getMonth(),
+    first.getDate() + REPEAT_STEP_DAYS[repeat],
+    first.getHours(),
+    first.getMinutes(),
+    first.getSeconds(),
+    first.getMilliseconds(),
+  ),
+): ScheduleOccurrence[] {
+  const fixedNext = first.getTime() + REPEAT_STEP_DAYS[repeat] * MS_PER_DAY;
+  if (calendarNext.getTime() === fixedNext) {
+    return [{fireDate: first, repeatFrequency: repeat}];
   }
+  return [{fireDate: first}, {fireDate: calendarNext, repeatFrequency: repeat}];
+}
 
-  await cancelLocalNotification(id);
+// --- ordering ------------------------------------------------------------------------------------------------------
+// Two operations on the SAME reminder id never overlap: they run in the order they were requested. Without this a
+// sync that computed its answer from older state could finish after a newer cancel and put the reminder back.
+const idQueues = new Map<string, Promise<unknown>>();
 
-  if (timestamp <= Date.now()) {
-    return {scheduled: false, reason: 'past', fireDate};
-  }
-
-  try {
-    const granted = await ensureNotificationPermission();
-    if (!granted) {
-      return {scheduled: false, reason: 'permission-denied', fireDate};
+function runExclusive<T>(id: string, task: () => Promise<T>): Promise<T> {
+  const previous = idQueues.get(id) ?? Promise.resolve();
+  const run = previous.then(task, task);
+  const settled = run.then(
+    () => undefined,
+    () => undefined,
+  );
+  idQueues.set(id, settled);
+  settled.then(() => {
+    if (idQueues.get(id) === settled) {
+      idQueues.delete(id);
     }
+  });
+  return run;
+}
 
-    const channelId = await ensureChannel();
-    try {
-      if (await notifee.isChannelBlocked(channelId)) {
-        return {scheduled: false, reason: 'channel-blocked', fireDate};
+const memberIdFor = (id: string, index: number): string => (index === 0 ? id : `${id}${REMINDER_SERIES_SEPARATOR}${index}`);
+
+// --- triggers created before the AlarmManager fix ------------------------------------------------------------------
+// They are WorkManager jobs. Creating a trigger now REPLACES the stored row for an id, but would leave such a job
+// alive: it would later display the replacement at its old time. Convert each one once (before anything is
+// scheduled or cancelled) to an AlarmManager trigger for the same instant, or drop it when its time has passed.
+function convertLegacyTriggersOnce(): Promise<void> {
+  if (!legacyConversion) {
+    legacyConversion = (async () => {
+      try {
+        const entries = await notifee.getTriggerNotifications();
+        for (const entry of entries) {
+          const trigger = entry.trigger as TimestampTrigger | undefined;
+          const notification = entry.notification;
+          if (!notification?.id || !trigger || trigger.type !== TriggerType.TIMESTAMP || trigger.alarmManager) {
+            continue;
+          }
+          await notifee.cancelTriggerNotification(notification.id);
+          if (typeof trigger.timestamp === 'number' && trigger.timestamp > Date.now()) {
+            await notifee.createTriggerNotification(notification, {
+              ...trigger,
+              alarmManager: {type: AlarmType.SET_AND_ALLOW_WHILE_IDLE},
+            });
+          }
+        }
+      } catch {
+        // Not readable now: try again on the next call rather than assume there is nothing to convert.
+        legacyConversion = null;
       }
-    } catch {
-      // Unknown: carry on, createTriggerNotification reports a real failure.
-    }
-
-    // Redact the OS-visible title/body when the user has asked for a discreet
-    // lock-screen preview — this makes the scheduled notification itself
-    // generic, which is stronger than relying on Android's own PRIVATE/SECRET
-    // visibility (that still depends on per-device/manufacturer lock-screen
-    // settings the app doesn't control). The real content always still goes
-    // into `data`/the in-app notification center by whichever caller passed
-    // it, so nothing here affects what AWA shows once the user opens the app.
-    //
-    // `discreetMode` (AWA's global "Mode discret / pudeur" toggle,
-    // PrivacySecurityScreen.tsx) is included here too: a user who has turned
-    // on the app's broader privacy mode shouldn't have to separately discover
-    // and enable "Notifications discrètes"/"Masquer l'aperçu" just to keep
-    // sensitive reminder text off her lock screen. This is the one place the
-    // decision is made — no objective-specific file re-implements this logic.
-    await loadSecurityPreferences();
-    const privacy = getPrivacySecuritySettings();
-    const hidePreview =
-      privacy.discreetNotifications || privacy.hideNotificationPreview || privacy.discreetMode;
-    const displayTitle = hidePreview ? PRIVACY_GENERIC_TITLE : title;
-    const displayBody = hidePreview ? i18n.t('notifications.privacyGenericBody') : body;
-
-    // The permission dialog, the channel and the preferences above are all
-    // awaited: for a time only seconds away it can have passed meanwhile, and
-    // notifee would then throw instead of scheduling.
-    if (timestamp <= Date.now()) {
-      return {scheduled: false, reason: 'past', fireDate};
-    }
-
-    const trigger: TimestampTrigger = {
-      type: TriggerType.TIMESTAMP,
-      timestamp,
-      ...(repeatFrequency
-        ? { repeatFrequency: REPEAT_FREQUENCY[repeatFrequency] }
-        : {}),
-      // notifee v9 schedules a TimestampTrigger via Android's WorkManager by
-      // default (see @notifee/react-native's own TimestampTrigger.alarmManager
-      // doc comment) — WorkManager is explicitly best-effort and gets deferred
-      // or dropped by Android's Doze/App-Standby battery optimizations once the
-      // app is backgrounded/idle, which is exactly when a reminder needs to
-      // fire. SET_AND_ALLOW_WHILE_IDLE routes through AlarmManager instead,
-      // which is designed to survive Doze — and, unlike the *_EXACT alarm
-      // types, needs no SCHEDULE_EXACT_ALARM runtime grant. A reminder firing
-      // within a short window of its target time is perfectly acceptable for
-      // AWA's use case (period/journal/fertility reminders, never a
-      // time-critical alarm).
-      alarmManager: {type: AlarmType.SET_AND_ALLOW_WHILE_IDLE},
-    };
-
-    await notifee.createTriggerNotification(
-      {
-        id,
-        title: displayTitle,
-        body: displayBody,
-        data,
-        android: {
-          channelId,
-          smallIcon: 'ic_launcher',
-          pressAction: {id: 'default', launchActivity: NOTIFICATION_LAUNCH_ACTIVITY},
-          visibility: AndroidVisibility.PRIVATE,
-        },
-      },
-      trigger,
-    );
-    return {scheduled: true, fireDate};
-  } catch (error) {
-    return {scheduled: false, reason: 'error', fireDate, error};
+    })();
   }
+  return legacyConversion;
 }
 
-/**
- * Boolean form of scheduleLocalNotificationWithResult() for the schedulers that
- * only need "was it scheduled". A native failure still REJECTS, exactly as
- * before (the Cycle scheduler relies on it to retry); every other outcome
- * (past date, notifications off) is `false`.
- */
-export async function scheduleLocalNotification(input: ScheduleNotificationInput): Promise<boolean> {
-  const result = await scheduleLocalNotificationWithResult(input);
-  if (!result.scheduled && result.reason === 'error') {
-    throw result.error ?? new Error('Scheduling the local notification failed.');
-  }
-  return result.scheduled;
-}
+// --- cancel --------------------------------------------------------------------------------------------------------
 
 export type CancelNotificationOptions = {
   /**
@@ -383,8 +382,48 @@ export type CancelNotificationOptions = {
   dismissDisplayed?: boolean;
 };
 
+async function cancelNow(id: string, options: CancelNotificationOptions): Promise<boolean> {
+  let clean = true;
+  try {
+    await notifee.cancelTriggerNotification(id);
+  } catch {
+    clean = false;
+  }
+
+  // The extra pending triggers this id may own (series members / the DST split).
+  const pending = await getPendingReminderIds();
+  const members = pending ? Array.from(pending).filter(pendingId => pendingId.startsWith(`${id}${REMINDER_SERIES_SEPARATOR}`)) : [];
+  if (members.length > 0) {
+    try {
+      await notifee.cancelTriggerNotifications(members);
+    } catch {
+      clean = false;
+    }
+  }
+
+  if (options.dismissDisplayed) {
+    try {
+      await notifee.cancelDisplayedNotification(id);
+    } catch {
+      clean = false;
+    }
+    try {
+      const displayed = await notifee.getDisplayedNotifications();
+      const shown = displayed
+        .map(item => item.id ?? item.notification?.id)
+        .filter((shownId): shownId is string => typeof shownId === 'string' && shownId.startsWith(`${id}${REMINDER_SERIES_SEPARATOR}`));
+      if (shown.length > 0) {
+        await notifee.cancelDisplayedNotifications(shown);
+      }
+    } catch {
+      // series copies in the shade could not be listed: the base copy was handled above
+    }
+  }
+  return clean;
+}
+
 /**
- * Cancels the PENDING (scheduled) trigger for this id. No-op if there is none —
+ * Cancels the PENDING (scheduled) triggers of this id (and any extra triggers it owns). No-op if there is none —
  * safe to call unconditionally on delete.
  *
  * Previously this also called notifee.cancelNotification(), which removes
@@ -403,20 +442,8 @@ export async function cancelLocalNotification(
   id: string,
   options: CancelNotificationOptions = {},
 ): Promise<boolean> {
-  let clean = true;
-  try {
-    await notifee.cancelTriggerNotification(id);
-  } catch {
-    clean = false;
-  }
-  if (options.dismissDisplayed) {
-    try {
-      await notifee.cancelDisplayedNotification(id);
-    } catch {
-      clean = false;
-    }
-  }
-  return clean;
+  await convertLegacyTriggersOnce();
+  return runExclusive(id, () => cancelNow(id, options));
 }
 
 export async function cancelLocalNotifications(
@@ -426,10 +453,251 @@ export async function cancelLocalNotifications(
   await Promise.all(ids.map(id => cancelLocalNotification(id, options)));
 }
 
-/** Test seam: forgets every module-level cache (channel promise, in-flight permission request, last OS state). */
+/**
+ * Cancels EVERY reminder AWA has scheduled and removes every one already in the notification shade. For wiping the
+ * whole app's data (delete account / erase everything), where nothing may be left to fire or to stay on a lock
+ * screen after the records they came from are gone. Never throws; false means the native call failed.
+ */
+export async function cancelAllLocalNotifications(): Promise<boolean> {
+  try {
+    await notifee.cancelAllNotifications();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// --- schedule ------------------------------------------------------------------------------------------------------
+
+type SeriesContent = {id: string; title: string; body: string; data?: Record<string, string>};
+
+/** The text a reminder is built with: redacted when privacy settings ask for it OR cannot be determined in time. */
+async function resolveDisplayText(title: string, body: string): Promise<{title: string; body: string}> {
+  // `discreetMode` (AWA's global "Mode discret / pudeur" toggle, PrivacySecurityScreen.tsx) is included with the
+  // two notification-specific switches: a user who turned on the broader privacy mode should not have to also
+  // find and enable "Notifications discrètes" just to keep sensitive reminder text off her lock screen. This is
+  // the one place the decision is made — no objective-specific file re-implements it.
+  //
+  // The settings come from storage plus a Keychain check; that call used to be awaited without limit, so one
+  // stuck native call silently blocked every reminder. If they cannot be read within a few seconds the reminder
+  // is built with the GENERIC text: showing real content under unknown privacy settings is the worse failure
+  // (the real content always still goes into `data`/the in-app notification center).
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const loaded = await Promise.race<boolean>([
+    loadSecurityPreferences().then(
+      () => true,
+      () => false,
+    ),
+    new Promise<boolean>(resolve => {
+      timer = setTimeout(() => resolve(false), PRIVACY_SETTINGS_TIMEOUT_MS);
+    }),
+  ]);
+  if (timer !== undefined) {
+    clearTimeout(timer);
+  }
+
+  const privacy = getPrivacySecuritySettings();
+  const hidePreview =
+    !loaded || privacy.discreetNotifications || privacy.hideNotificationPreview || privacy.discreetMode;
+  return hidePreview
+    ? {title: PRIVACY_GENERIC_TITLE, body: i18n.t('notifications.privacyGenericBody')}
+    : {title, body};
+}
+
+/**
+ * Creates the triggers for one reminder id. Each member REPLACES whatever is already pending under its own id
+ * (notifee stores `INSERT OR REPLACE` by id and the alarm's PendingIntent is updated in place), so the reminder is
+ * never "cancelled, then created": a process killed in between can no longer leave it without any trigger, and a
+ * delete racing the insert can no longer swallow the new one. Members this id owned before and no longer needs
+ * are cancelled afterwards.
+ */
+async function scheduleMembers(content: SeriesContent, occurrences: ScheduleOccurrence[]): Promise<ScheduleNotificationResult> {
+  const {id} = content;
+  const first = occurrences[0].fireDate;
+
+  const granted = await ensureNotificationPermission();
+  if (!granted) {
+    await cancelNow(id, {});
+    return {scheduled: false, reason: 'permission-denied', fireDate: first};
+  }
+
+  const channelId = await ensureChannel();
+  try {
+    if (await notifee.isChannelBlocked(channelId)) {
+      await cancelNow(id, {});
+      return {scheduled: false, reason: 'channel-blocked', fireDate: first};
+    }
+  } catch {
+    // Unknown: carry on, createTriggerNotification reports a real failure.
+  }
+
+  const text = await resolveDisplayText(content.title, content.body);
+
+  // The permission dialog, the channel and the preferences above are all
+  // awaited: for a time only seconds away it can have passed meanwhile, and
+  // notifee would then throw instead of scheduling.
+  if (!occurrences.some(occurrence => occurrence.fireDate.getTime() > Date.now())) {
+    await cancelNow(id, {});
+    return {scheduled: false, reason: 'past', fireDate: first};
+  }
+
+  const created: string[] = [];
+  for (let index = 0; index < occurrences.length; index += 1) {
+    const occurrence = occurrences[index];
+    // Not ahead of now — or not a date at all (NaN fails the comparison too): skipped, never handed to Android.
+    if (!(occurrence.fireDate.getTime() > Date.now())) {
+      continue;
+    }
+    const memberId = memberIdFor(id, index);
+    const trigger: TimestampTrigger = {
+      type: TriggerType.TIMESTAMP,
+      timestamp: occurrence.fireDate.getTime(),
+      ...(occurrence.repeatFrequency ? {repeatFrequency: REPEAT_FREQUENCY[occurrence.repeatFrequency]} : {}),
+      // notifee v9 schedules a TimestampTrigger via Android's WorkManager by
+      // default (see @notifee/react-native's own TimestampTrigger.alarmManager
+      // doc comment) — WorkManager is explicitly best-effort and gets deferred
+      // or dropped by Android's Doze/App-Standby battery optimizations once the
+      // app is backgrounded/idle, which is exactly when a reminder needs to
+      // fire. SET_AND_ALLOW_WHILE_IDLE routes through AlarmManager instead,
+      // which is designed to survive Doze — and, unlike the *_EXACT alarm
+      // types, needs no SCHEDULE_EXACT_ALARM runtime grant. A reminder firing
+      // within a short window of its target time is perfectly acceptable for
+      // AWA's use case (period/journal/fertility reminders, never a
+      // time-critical alarm).
+      alarmManager: {type: AlarmType.SET_AND_ALLOW_WHILE_IDLE},
+    };
+    await notifee.createTriggerNotification(
+      {
+        id: memberId,
+        title: text.title,
+        body: text.body,
+        data: content.data,
+        android: {
+          channelId,
+          smallIcon: 'ic_launcher',
+          pressAction: {id: 'default', launchActivity: NOTIFICATION_LAUNCH_ACTIVITY},
+          visibility: AndroidVisibility.PRIVATE,
+        },
+      },
+      trigger,
+    );
+    created.push(memberId);
+  }
+
+  // Anything this id owned before that the new plan no longer includes (a shorter series, the end of a DST split).
+  const pending = await getPendingReminderIds();
+  if (pending) {
+    const stale = Array.from(pending).filter(
+      pendingId => pendingId.startsWith(`${id}${REMINDER_SERIES_SEPARATOR}`) && !created.includes(pendingId),
+    );
+    if (stale.length > 0) {
+      try {
+        await notifee.cancelTriggerNotifications(stale);
+      } catch {
+        // A leftover extra trigger is replaced or removed by the next sync; the new reminder itself is in place.
+      }
+    }
+  }
+
+  return {scheduled: true, fireDate: first};
+}
+
+async function scheduleOccurrences(
+  content: SeriesContent,
+  occurrences: ScheduleOccurrence[],
+): Promise<ScheduleNotificationResult> {
+  await convertLegacyTriggersOnce();
+  return runExclusive(content.id, async (): Promise<ScheduleNotificationResult> => {
+    const first = occurrences[0]?.fireDate ?? new Date(NaN);
+    if (occurrences.length === 0) {
+      // An empty plan is "nothing ahead", not "not a date": whatever an older plan left pending must not fire.
+      await cancelNow(content.id, {});
+      return {scheduled: false, reason: 'past', fireDate: first};
+    }
+    if (!occurrences.some(occurrence => Number.isFinite(occurrence.fireDate.getTime()))) {
+      // Not a date at all: leave whatever is already scheduled exactly as it is (a computation bug must not erase
+      // a reminder that is fine).
+      return {scheduled: false, reason: 'invalid-date', fireDate: first};
+    }
+    // Nothing in the plan is still ahead of us: nothing to create, and a trigger pending for the old time must
+    // not fire for a reminder that has moved into the past.
+    const future = occurrences.filter(occurrence => occurrence.fireDate.getTime() > Date.now());
+    if (future.length === 0) {
+      await cancelNow(content.id, {});
+      return {scheduled: false, reason: 'past', fireDate: first};
+    }
+    try {
+      return await scheduleMembers(content, occurrences);
+    } catch (error) {
+      // Creating failed: whatever was pending is untouched (nothing is cancelled before a replacement exists).
+      return {scheduled: false, reason: 'error', fireDate: first, error};
+    }
+  });
+}
+
+/**
+ * Schedules (or replaces) one reminder and says exactly what happened (upsert semantics — safe to call on every
+ * create/update/sync).
+ *
+ * The pending trigger for this id is REPLACED in place; a notification with this id that has already been
+ * delivered and is on screen is left alone. This function runs on every JS start — including the headless start
+ * notifee performs seconds after a trigger fires — and used to dismiss the reminder it had just delivered.
+ */
+export async function scheduleLocalNotificationWithResult({
+  id,
+  title,
+  body,
+  fireDate,
+  repeatFrequency,
+  data,
+}: ScheduleNotificationInput): Promise<ScheduleNotificationResult> {
+  const occurrences = repeatFrequency && Number.isFinite(fireDate.getTime())
+    ? planRepeatingOccurrences(fireDate, repeatFrequency)
+    : [{fireDate}];
+  return scheduleOccurrences({id, title, body, data}, occurrences);
+}
+
+export type ScheduleSeriesInput = {
+  id: string;
+  title: string;
+  body: string;
+  data?: Record<string, string>;
+  /** One-shot instants, earliest first. Past ones are skipped. */
+  occurrences: Date[];
+};
+
+/**
+ * Schedules a reminder that fires on an explicit list of days (for example "every day except the pill break days")
+ * as separate one-shot triggers: `<id>` for the first, `<id>::1`, `<id>::2`... for the rest. A repeating trigger
+ * cannot skip days, so this is the way to express a pattern; re-run it (every JS start, foreground and delivery)
+ * to keep the window ahead full. Cancelling `<id>` removes all of them.
+ */
+export async function scheduleReminderSeries(input: ScheduleSeriesInput): Promise<ScheduleNotificationResult> {
+  const {occurrences, ...content} = input;
+  const plan = occurrences.map(fireDate => ({fireDate}));
+  return scheduleOccurrences(content, plan);
+}
+
+/**
+ * Boolean form of scheduleLocalNotificationWithResult() for the schedulers that
+ * only need "was it scheduled". A native failure still REJECTS, exactly as
+ * before (the Cycle scheduler relies on it to retry); every other outcome
+ * (past date, notifications off) is `false`.
+ */
+export async function scheduleLocalNotification(input: ScheduleNotificationInput): Promise<boolean> {
+  const result = await scheduleLocalNotificationWithResult(input);
+  if (!result.scheduled && result.reason === 'error') {
+    throw result.error ?? new Error('Scheduling the local notification failed.');
+  }
+  return result.scheduled;
+}
+
+/** Test seam: forgets every module-level cache (channel promise, in-flight permission request, last OS state, queues). */
 export function __resetNotificationServiceForTests(): void {
   channelReady = null;
   channelLanguage = null;
   permissionRequest = null;
   lastKnownPermission = null;
+  legacyConversion = null;
+  idQueues.clear();
 }

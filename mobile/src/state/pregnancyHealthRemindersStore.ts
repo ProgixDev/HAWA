@@ -1,9 +1,11 @@
 import AsyncStorage from '../services/secureAsyncStorage';
 import {migrateRecordSafely, sealArrayFields, sealField} from '../services/legacyFieldMigration';
 import {
+  carrySealedField,
   decryptFieldValue,
   encryptFieldValue,
   isEncryptedFieldPayload,
+  restoreSealedFields,
 } from '../services/atRestFieldEncryption';
 
 // Vitamin/supplement and medication reminders the user creates herself in
@@ -45,7 +47,9 @@ async function encryptReminderForStorage(reminder: HealthReminder): Promise<Reco
   if (typeof reminder.name === 'string' && reminder.name.length > 0) {
     output.name = await encryptFieldValue(ENCRYPTION_SERVICE, reminder.name);
   }
-  return output;
+  // A name that could not be decrypted when this record was read goes back as the sealed payload it was (see
+  // restoreSealedFields) instead of the blank the reader had to answer with.
+  return restoreSealedFields(output);
 }
 
 async function decryptReminderFromStorage(raw: Record<string, unknown>): Promise<Record<string, unknown>> {
@@ -55,6 +59,7 @@ async function decryptReminderFromStorage(raw: Record<string, unknown>): Promise
       output.name = await decryptFieldValue<string>(ENCRYPTION_SERVICE, raw.name);
     } catch {
       output.name = '';
+      carrySealedField(output, 'name', raw.name);
     }
   }
   return output;
