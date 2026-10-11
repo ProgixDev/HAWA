@@ -7,6 +7,7 @@ import type {
 } from '../types/journal';
 import {formatFullDate} from '../utils/cycleMath';
 import {journalOptionLabel} from '../utils/journalOptionLabels';
+import {normalizeTimeOfDay} from '../utils/timeOfDay';
 import i18n from '../i18n';
 
 // Pure data-shaping/serialization logic for the Medical Export feature
@@ -355,7 +356,7 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       const temperature = entry.temperature;
       if (!temperature) {return [];}
       const lines: string[] = [`${i18n.t('export.fields.temperature')} : ${temperature.value}°${temperature.unit}`];
-      if (temperature.time) {lines.push(`${i18n.t('export.fields.measurementTime')} : ${temperature.time}`);}
+      if (temperature.time) {lines.push(`${i18n.t('export.fields.measurementTime')} : ${normalizeTimeOfDay(temperature.time)}`);}
       if (temperature.method) {lines.push(`${i18n.t('export.fields.method')} : ${journalOptionLabel('cycleTemperatureMethod', temperature.method, i18n.t)}`);}
       return lines;
     }

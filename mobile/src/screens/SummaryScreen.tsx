@@ -66,6 +66,7 @@ import {
 } from '../state/menopausePreferences';
 import {getPrivacySecuritySettings, isBiometricEnabled, isPinEnabled} from '../state/securityPreferences';
 import {formatFullDate} from '../utils/cycleMath';
+import {normalizeTimeOfDay} from '../utils/timeOfDay';
 
 const WOMAN = require('../assets/images/summary-woman.png');
 
@@ -492,7 +493,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
         label: t('onboarding.summary.rows.reminders'),
         value:
           postpartum.dailyTrackingReminderEnabled && postpartum.dailyTrackingReminderTime
-            ? t('onboarding.summary.rows.dailyTrackingReminderAt', {time: postpartum.dailyTrackingReminderTime})
+            ? t('onboarding.summary.rows.dailyTrackingReminderAt', {time: normalizeTimeOfDay(postpartum.dailyTrackingReminderTime)})
             : t('onboarding.summary.rows.remindersNoneActive'),
         route: 'PostpartumReminders',
         tone: 'green',
@@ -705,14 +706,14 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
         value: (() => {
           const active: string[] = [];
           if (menopause.dailyTrackingReminderEnabled && menopause.dailyTrackingReminderTime) {
-            active.push(t('onboarding.summary.rows.dailyTrackingReminderAt', {time: menopause.dailyTrackingReminderTime}));
+            active.push(t('onboarding.summary.rows.dailyTrackingReminderAt', {time: normalizeTimeOfDay(menopause.dailyTrackingReminderTime)}));
           }
           if (
             menopause.hormonalTreatmentStatus === 'track' &&
             menopause.treatmentReminderEnabled &&
             menopause.treatmentReminderTime
           ) {
-            active.push(t('onboarding.summary.rows.treatmentReminderAt', {time: menopause.treatmentReminderTime}));
+            active.push(t('onboarding.summary.rows.treatmentReminderAt', {time: normalizeTimeOfDay(menopause.treatmentReminderTime)}));
           }
           return active.length > 0 ? active.join(' · ') : t('onboarding.summary.rows.remindersNoneActive');
         })(),
@@ -733,7 +734,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     if (irregular.reminders.dailyJournalEnabled) {
       remindersActive.push(
         irregular.reminders.dailyJournalTime
-          ? t('onboarding.summary.rows.dailyJournalAt', {time: irregular.reminders.dailyJournalTime})
+          ? t('onboarding.summary.rows.dailyJournalAt', {time: normalizeTimeOfDay(irregular.reminders.dailyJournalTime)})
           : t('onboarding.summary.rows.reminderDailyJournal'),
       );
     }

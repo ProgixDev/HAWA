@@ -11,6 +11,8 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {isIncludedInBackup} from '../services/storageKeyClassifier';
+import {cancelAllLocalNotifications} from '../services/pregnancyNotifications';
+import {suspendBulkReminderResync} from '../services/reminderResyncGate';
 import {foldForConfirmation} from '../utils/textCase';
 
 function Shell({title, navigation, children}: {title: string; navigation: {goBack: () => void}; children: React.ReactNode}) {
@@ -92,7 +94,16 @@ export function DeleteAccountScreen({navigation}: NativeStackScreenProps<RootSta
       setError(t('dataPrivacy.deleteAccount.confirmError'));
       return;
     }
+    // Every reminder AWA scheduled lives in Android's own notification database, not in AsyncStorage: clearing the
+    // records alone would leave them firing (a medication's name included) with nothing left to derive or to cancel
+    // them from. Cancelled FIRST — pending triggers and anything already in the notification shade — while the
+    // records still exist. Never throws; should the wipe below then fail, the next launch's sync restores them.
+    await cancelAllLocalNotifications();
     await AsyncStorage.clear();
+    // Storage is empty but the stores still hold the deleted account in memory until the process ends: a bulk resync
+    // (language, privacy, permission, foreground refresh) would rebuild reminders from it. Suspended until the person
+    // chooses an objective again (App.tsx), at which point the stores hold the new account's data.
+    suspendBulkReminderResync();
     navigation.reset({index: 0, routes: [{name: 'Welcome'}]});
   };
   return (
