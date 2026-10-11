@@ -168,6 +168,23 @@ describe('formatCategoryValue', () => {
   it('formats cycle day directly from cycleDay, not a JSON-stringified object', () => {
     expect(formatCategoryValue('cycle', entry('2026-08-24', {cycleDay: 12}))).toEqual(['Jour du cycle : 12']);
   });
+
+  it('a temperature time stored as "24:30" by an English build is printed as 00:30 (legacy data, nothing rewritten)', () => {
+    const lines = formatCategoryValue(
+      'temperature',
+      entry('2026-08-24', {temperature: {value: '36.6', unit: 'C', time: '24:30'} as never}),
+    );
+    expect(lines.join(' ')).toContain('00:30');
+    expect(lines.join(' ')).not.toContain('24:30');
+  });
+
+  it('a normal temperature time is printed unchanged', () => {
+    const lines = formatCategoryValue(
+      'temperature',
+      entry('2026-08-24', {temperature: {value: '36.6', unit: 'C', time: '07:15'} as never}),
+    );
+    expect(lines.join(' ')).toContain('07:15');
+  });
 });
 
 describe('computeExportFilenameDates', () => {
