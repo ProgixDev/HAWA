@@ -10,7 +10,11 @@ import {
 } from '../state/pregnancyNotificationSettingsStore';
 import {PREGNANCY_REMINDER_NOTIFICATION_KIND} from './pregnancyReminderScheduling';
 import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
+import {parseTimeOfDay} from './timeOfDay';
 import i18n from '../i18n';
+
+/** Events without an explicit time are anchored to 09:00 so day/hour-based offsets have something to count back from. */
+const DEFAULT_EVENT_TIME = {hours: 9, minutes: 0};
 
 // Keeps a PregnancyMedicalEvent's reminder fields and its real scheduled
 // local notification in sync. Every appointment/exam create, update and
@@ -51,8 +55,9 @@ function notificationIdForEvent(eventId: string): string {
  * back from. */
 function eventDateTime(event: PregnancyMedicalEvent): Date {
   const [year, month, day] = event.date.split('-').map(Number);
-  const [hours, minutes] = (event.time ?? '09:00').split(':').map(Number);
-  return new Date(year, month - 1, day, hours || 0, minutes || 0, 0, 0);
+  // parseTimeOfDay reads a legacy "24:30" as 00:30 of the SAME day (what was picked), never the day after.
+  const time = parseTimeOfDay(event.time) ?? DEFAULT_EVENT_TIME;
+  return new Date(year, month - 1, day, time.hours, time.minutes, 0, 0);
 }
 
 /** Pure — the exact instant a reminder would fire for this event, or null if no reminder is configured. */
@@ -61,8 +66,8 @@ export function computeEventReminderFireDate(event: PregnancyMedicalEvent): Date
 
   if (event.reminderOffset === 'custom') {
     const [year, month, day] = event.date.split('-').map(Number);
-    const [hours, minutes] = (event.reminderTime ?? '09:00').split(':').map(Number);
-    return new Date(year, month - 1, day, hours || 0, minutes || 0, 0, 0);
+    const time = parseTimeOfDay(event.reminderTime) ?? DEFAULT_EVENT_TIME;
+    return new Date(year, month - 1, day, time.hours, time.minutes, 0, 0);
   }
 
   const fireDate = eventDateTime(event);
@@ -121,11 +126,24 @@ export function reminderRequestChanged(
   if (!previous) {return true;}
   return (
     previous.date !== next.date ||
-    (previous.time ?? null) !== (next.time ?? null) ||
+    !sameClockTime(previous.time, next.time) ||
     Boolean(previous.reminderEnabled) !== Boolean(next.reminderEnabled) ||
     (previous.reminderOffset ?? null) !== (next.reminderOffset ?? null) ||
-    (previous.reminderTime ?? null) !== (next.reminderTime ?? null)
+    !sameClockTime(previous.reminderTime, next.reminderTime)
   );
+}
+
+/** The same time of day, however it is written: a legacy "24:30" (what an en-US build stored for 00:30) equals
+ * "00:30". Values that are not a time of day are compared as they are. */
+function sameClockTime(a: string | null | undefined, b: string | null | undefined): boolean {
+  const left = a ?? null;
+  const right = b ?? null;
+  if (left === right) {return true;}
+  const parsedLeft = parseTimeOfDay(left);
+  const parsedRight = parseTimeOfDay(right);
+  return parsedLeft !== null && parsedRight !== null
+    && parsedLeft.hours === parsedRight.hours
+    && parsedLeft.minutes === parsedRight.minutes;
 }
 
 /** What syncEventReminder() actually did. Never thrown — always returned. */

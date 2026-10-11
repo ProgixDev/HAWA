@@ -8,6 +8,7 @@ import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale} from '../../utils/cycleMath';
+import {dateAtTimeOfDay, formatTimeOfDay} from '../../utils/timeOfDay';
 import {
   deletePregnancyMedicalEvent,
   savePregnancyMedicalEvent,
@@ -88,15 +89,21 @@ function formatLongDate(date: Date): string {
   return new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
 }
 
+// The event's `time` / `reminderTime` are stored as 'HH:mm' (24-hour, zero-padded, locale-independent — see
+// utils/timeOfDay.ts). They used to come from Intl.DateTimeFormat, which writes 00:30 as "24:30" under en-US and
+// moved the appointment (and its reminder) to the NEXT day; a stored "24:30" still reads as 00:30.
 function formatTimeValue(date: Date): string {
-  return new Intl.DateTimeFormat(dateFormatLocale(), {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  return formatTimeOfDay(date);
 }
 
 function parseTimeToDate(hhmm: string): Date {
-  const [hours, minutes] = hhmm.split(':').map(Number);
-  const date = new Date();
-  date.setHours(hours || 0, minutes || 0, 0, 0);
-  return date;
+  return dateAtTimeOfDay(new Date(), hhmm);
+}
+
+// The text to store for a picked time: the stored text itself when the clock time was left alone (a legacy "24:30"
+// is not rewritten behind her back, and reminderRequestChanged() compares these strings), otherwise 'HH:mm'.
+function timeToStore(picked: Date, stored: string | undefined): string {
+  return stored && formatTimeValue(parseTimeToDate(stored)) === formatTimeValue(picked) ? stored : formatTimeValue(picked);
 }
 
 /** The real moment a reminder would be sent ("Sat 10 October, 09:00"), in the app's language and the phone's timezone. */
@@ -301,14 +308,15 @@ function PregnancyEventForm({
       id: eventIdRef.current,
       type,
       date: toISODate(dateValue),
-      time: hasTime ? formatTimeValue(timeValue) : undefined,
+      time: hasTime ? timeToStore(timeValue, initialEvent?.time) : undefined,
       title: title.trim(),
       practitioner: practitioner.trim() || undefined,
       location: location.trim() || undefined,
       notes: notes.trim() || undefined,
       reminderEnabled,
       reminderOffset: reminderEnabled ? reminderOffset : undefined,
-      reminderTime: reminderEnabled && reminderOffset === 'custom' ? formatTimeValue(reminderTime) : undefined,
+      reminderTime:
+        reminderEnabled && reminderOffset === 'custom' ? timeToStore(reminderTime, initialEvent?.reminderTime) : undefined,
       createdAt: initialEvent?.createdAt ?? now,
       updatedAt: now,
     };
