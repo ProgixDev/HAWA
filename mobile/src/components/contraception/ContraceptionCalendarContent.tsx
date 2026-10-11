@@ -80,6 +80,7 @@ import {
   dateFormatLocale,
 } from '../../utils/cycleMath';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
+import {formatTimeOfDay} from '../../utils/timeOfDay';
 import {
   computeContraceptionEventCounts,
   computeContraceptionMonthlySummary,
@@ -411,7 +412,8 @@ function ContraceptionCalendarContent(): React.JSX.Element {
   const formatRecordTime = (recordedAt: string): string | null => {
     const parsed = new Date(recordedAt);
     if (Number.isNaN(parsed.getTime())) {return null;}
-    return new Intl.DateTimeFormat(dateFormatLocale(), {hour: '2-digit', minute: '2-digit', hour12: false}).format(parsed);
+    // 24-hour 'HH:mm', locale-independent: Intl with hour12:false writes 00:30 as "24:30" under en-US.
+    return formatTimeOfDay(parsed);
   };
 
   const intakeStatusLine = (() => {

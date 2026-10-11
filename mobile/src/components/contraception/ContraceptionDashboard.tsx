@@ -111,6 +111,7 @@ import {
   formatHijriDate,
   dateFormatLocale,
 } from '../../utils/cycleMath';
+import {formatTimeOfDay} from '../../utils/timeOfDay';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
 
@@ -167,11 +168,8 @@ const formatRecordTime = (
     return '—';
   }
 
-  return new Intl.DateTimeFormat(dateFormatLocale(), {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  }).format(parsed);
+  // 24-hour 'HH:mm', locale-independent: Intl with hour12:false writes 00:30 as "24:30" under en-US.
+  return formatTimeOfDay(parsed);
 };
 
 const formatRecordDate = (
