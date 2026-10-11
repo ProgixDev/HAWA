@@ -17,12 +17,16 @@ jest.mock('../../services/pregnancyNotifications', () => ({
 }));
 jest.mock('../../state/onboardingPreferences', () => ({
   getActiveObjective: jest.fn(),
+  // The sync waits for the active objective to have been READ before it gates on it.
+  hydrateActiveObjective: jest.fn(() => Promise.resolve()),
 }));
 jest.mock('../../state/irregularPreferences', () => ({
   getIrregularPreferences: jest.fn(),
 }));
 jest.mock('../../state/confirmedPeriodHistoryStore', () => ({
   getConfirmedPeriodHistory: jest.fn(),
+  // The sync waits for the (active) profile's confirmed periods to have been read before deriving anything from them.
+  hydrateConfirmedPeriodHistory: jest.fn(() => Promise.resolve([])),
 }));
 
 const mockScheduleLocalNotification = scheduleLocalNotification as jest.Mock;

@@ -2,10 +2,11 @@ import {cancelLocalNotification, scheduleLocalNotification} from '../services/pr
 import {nextDailyFireDate} from './pregnancyReminderScheduling';
 import {addDays, startOfDay} from './cycleMath';
 import {calculateAverageCycleDuration} from './cycleStatisticsMath';
-import {getActiveObjective} from '../state/onboardingPreferences';
+import {getActiveObjective, hydrateActiveObjective} from '../state/onboardingPreferences';
 import {getIrregularPreferences, type IrregularPreferences} from '../state/irregularPreferences';
-import {getConfirmedPeriodHistory} from '../state/confirmedPeriodHistoryStore';
+import {getConfirmedPeriodHistory, hydrateConfirmedPeriodHistory} from '../state/confirmedPeriodHistoryStore';
 import {getAllJournalEntries} from '../state/dailyJournalStore';
+import {isOwnerActive} from '../state/activeProfileStore';
 import {
   getAllIrregularJournalEntries,
   hydrateIrregularJournal,
@@ -17,6 +18,9 @@ import {
   type IrregularPeriodSources,
 } from './irregularJournalSelectors';
 import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
+import {loadOwnerProfileData} from './ownerReminderGate';
+import {coalescedSync, createSerializer} from './serializedSync';
+import type {DailyJournalEntry} from '../types/journal';
 import i18n from '../i18n';
 
 // SOPK's 2 optional reminders — reuses the exact same chokepoint
@@ -66,6 +70,13 @@ function atReminderHour(date: Date): Date {
 export async function loadIrregularPeriodSources(): Promise<IrregularPeriodSources> {
   await hydrateIrregularJournal();
   const journalEntries = await getAllJournalEntries();
+  return buildIrregularPeriodSources(journalEntries);
+}
+
+/** The synchronous half of loadIrregularPeriodSources(): everything but the daily journal is read from memory, so
+ * the whole snapshot is taken in ONE tick — a sync that has just checked which profile is active can build its
+ * sources without another await in which that could change. */
+function buildIrregularPeriodSources(journalEntries: DailyJournalEntry[]): IrregularPeriodSources {
   return {
     periodDayKeys: collectActualPeriodDayKeys(journalEntries, getAllIrregularJournalEntries()),
     confirmedHistory: getConfirmedPeriodHistory(),
@@ -128,13 +139,18 @@ async function syncDailyJournalReminder(active: boolean, prefs: IrregularPrefere
   });
 }
 
-async function syncUnrecordedPeriodReminder(active: boolean, prefs: IrregularPreferences, now: Date): Promise<void> {
+async function syncUnrecordedPeriodReminder(
+  active: boolean,
+  prefs: IrregularPreferences,
+  now: Date,
+  sources: IrregularPeriodSources | undefined,
+): Promise<void> {
   if (!active || !prefs.reminders.unrecordedPeriodEnabled) {
     await cancelLocalNotification(UNRECORDED_PERIOD_ID);
     return;
   }
 
-  const fireDate = await computeUnrecordedPeriodReminderDate(now);
+  const fireDate = await computeUnrecordedPeriodReminderDate(now, sources);
   if (!fireDate) {
     await cancelLocalNotification(UNRECORDED_PERIOD_ID);
     return;
@@ -157,17 +173,32 @@ async function syncUnrecordedPeriodReminder(active: boolean, prefs: IrregularPre
   });
 }
 
-/** Re-derives and (re)schedules — or explicitly cancels — both SOPK
- * reminders from real persisted preferences + real period data (journal,
- * confirmed history, onboarding answer).
- * Safe to call any number of times (scheduleLocalNotification always
- * cancels-then-reschedules by id). Never schedules while a different
- * objective is active, so switching away from SOPK cleanly clears both. */
-export async function syncIrregularReminders(now: Date = new Date()): Promise<void> {
+async function syncIrregularRemindersOnce(now: Date): Promise<void> {
+  // The objective gates this reminder, so it must have been READ first: before that memory holds the default
+  // objective, and a run triggered by another store's hydration would cancel (or arm) reminders on its strength.
+  await hydrateActiveObjective();
+  // These reminders have OWNER-GLOBAL ids but are derived from the ACTIVE profile's confirmed periods and daily
+  // journal. While a managed (daughter) profile is active those records are hers, not the phone owner's: this run
+  // neither schedules, cancels nor changes anything — the owner's triggers stay exactly as they are until she is
+  // active again. Checked before ANY read.
+  if (!isOwnerActive()) {
+    return;
+  }
+
   const active = getActiveObjective() === 'irregular';
+  let journalEntries: DailyJournalEntry[] | undefined;
   if (active) {
-    // Reading the records the reminders are built from also records any that cannot be read — checked right below.
-    await Promise.all([hydrateIrregularJournal(), getAllJournalEntries().catch(() => undefined)]);
+    // The owner's own records are READ before anything is derived from them: right after a switch (or at launch)
+    // memory holds the previous profile's / a neutral state, and reading the records also registers any that cannot
+    // be read — checked right below. Re-checked after the wait: if a managed profile became active meanwhile, the
+    // data read may be hers and nothing is touched.
+    const loaded = await loadOwnerProfileData(() =>
+      Promise.all([hydrateIrregularJournal(), hydrateConfirmedPeriodHistory(), getAllJournalEntries().catch(() => undefined)]),
+    );
+    if (!loaded?.isCurrent()) {
+      return;
+    }
+    journalEntries = loaded.value[2];
   }
   // Unreadable preferences / journals / confirmed history are not "no reminders" or "no period recorded": the
   // existing reminders are left untouched and nothing is derived from the default state.
@@ -179,10 +210,51 @@ export async function syncIrregularReminders(now: Date = new Date()): Promise<vo
   }
   const prefs = getIrregularPreferences();
 
+  // Everything the unrecorded-period reminder is derived from is captured HERE, in the same tick as the owner check
+  // above — nothing between that check and the snapshot can await.
+  let sources: IrregularPeriodSources | undefined;
+  if (active) {
+    if (!journalEntries) {
+      // The daily journal could not be read at all: that is not "no period recorded" either.
+      return;
+    }
+    sources = buildIrregularPeriodSources(journalEntries);
+  }
+
   await Promise.all([
     syncDailyJournalReminder(active, prefs),
-    syncUnrecordedPeriodReminder(active, prefs, now),
+    syncUnrecordedPeriodReminder(active, prefs, now, sources),
   ]);
+}
+
+// Runs are requested from many places (app start, a preference/objective/period change, a SOPK journal save, a
+// profile switch, a privacy/language change). They never overlap: the no-argument form shares ONE follow-up run
+// among any number of requests made while one is in progress (that run starts afterwards, so it reads the newest
+// state), and an explicit `now` — only tests and previews pass one — queues behind whatever is running.
+const runIrregularSyncInOrder = createSerializer();
+const runCoalescedIrregularSync = coalescedSync(() =>
+  runIrregularSyncInOrder(() => syncIrregularRemindersOnce(new Date())),
+);
+
+/** Re-derives and (re)schedules — or explicitly cancels — both SOPK
+ * reminders from real persisted preferences + real period data (journal,
+ * confirmed history, onboarding answer).
+ * Safe to call any number of times (scheduleLocalNotification always
+ * upserts by id). Never schedules while a different
+ * objective is active, so switching away from SOPK cleanly clears both.
+ *
+ * A no-op while a managed (daughter) profile is active: these reminders belong
+ * to the phone's owner and are never derived from — nor cancelled because of —
+ * another profile's periods or journal.
+ *
+ * `now` is for tests only: every real caller passes nothing (this function is
+ * handed straight to subscribers, which may also hand it unrelated arguments —
+ * anything that is not a Date is ignored). */
+export function syncIrregularReminders(now?: Date): Promise<void> {
+  if (now instanceof Date) {
+    return runIrregularSyncInOrder(() => syncIrregularRemindersOnce(now));
+  }
+  return runCoalescedIrregularSync();
 }
 
 // A period recorded through the SOPK journal must move (or clear) the
