@@ -22,6 +22,7 @@ import InlineCalendarPickerModal from '../../components/onboarding/InlineCalenda
 import NotificationPermissionNotice from '../../components/notifications/NotificationPermissionNotice';
 import {useReminderPermissionGuard} from '../../hooks/useReminderPermissionGuard';
 import {dateFormatLocale} from '../../utils/cycleMath';
+import {dateAtTimeOfDay, formatTimeOfDay} from '../../utils/timeOfDay';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
@@ -493,14 +494,17 @@ export function IrregularTrackedItemsScreen({navigation, route}: Props) {
 // Same local 'HH:mm' formatting/parsing convention as CycleRemindersScreen.tsx/
 // MenopauseRemindersScreen.tsx's own un-exported helpers — kept local since
 // it's pure UI display formatting.
+// Stored as 'HH:mm' (24-hour, zero-padded, locale-independent — see utils/timeOfDay.ts). It used to come from
+// Intl.DateTimeFormat, which writes 00:30 as "24:30" under en-US; a stored "24:30" still reads as 00:30.
 function formatTimeValue(date: Date): string {
-  return new Intl.DateTimeFormat(dateFormatLocale(), {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  return formatTimeOfDay(date);
 }
 function parseTimeToDate(hhmm: string): Date {
-  const [hours, minutes] = hhmm.split(':').map(Number);
-  const date = new Date();
-  date.setHours(hours || 0, minutes || 0, 0, 0);
-  return date;
+  return dateAtTimeOfDay(new Date(), hhmm);
+}
+// A time an earlier build stored as "24:30" (00:30, written under en-US) is shown — and saved back — as 00:30.
+function readStoredTime(stored: string | null): string | null {
+  return stored ? formatTimeValue(parseTimeToDate(stored)) : null;
 }
 
 type RemindersProps = NativeStackScreenProps<RootStackParamList, 'IrregularReminders'>;
@@ -522,7 +526,7 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
 
   const initial = getIrregularPreferences().reminders;
   const [dailyJournalEnabled, setDailyJournalEnabled] = useState(initial.dailyJournalEnabled);
-  const [dailyJournalTime, setDailyJournalTime] = useState<string | null>(initial.dailyJournalTime);
+  const [dailyJournalTime, setDailyJournalTime] = useState<string | null>(() => readStoredTime(initial.dailyJournalTime));
   const [unrecordedPeriodEnabled, setUnrecordedPeriodEnabled] = useState(initial.unrecordedPeriodEnabled);
 
   const [timePickerVisible, setTimePickerVisible] = useState(false);
@@ -537,7 +541,7 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
   useEffect(() => {
     hydrateIrregularPreferences().then(value => {
       setDailyJournalEnabled(value.reminders.dailyJournalEnabled);
-      setDailyJournalTime(value.reminders.dailyJournalTime);
+      setDailyJournalTime(readStoredTime(value.reminders.dailyJournalTime));
       setUnrecordedPeriodEnabled(value.reminders.unrecordedPeriodEnabled);
     });
   }, []);
