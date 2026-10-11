@@ -1,5 +1,6 @@
 import {
   cancelLocalNotifications,
+  getPendingReminderIds,
   scheduleLocalNotification,
 } from '../services/pregnancyNotifications';
 
@@ -31,6 +32,7 @@ import {
   getPostpartumNifasReminderState,
   hydratePostpartumNifasReminderState,
   setPostpartumNifasReminderState,
+  type PostpartumNifasReminderState,
 } from '../state/postpartumNifasReminderStore';
 
 import {
@@ -47,6 +49,7 @@ import {
 
 import i18n from '../i18n';
 import {areReminderSourcesUnavailable} from './reminderSourceAvailability';
+import {createSerializer} from './serializedSync';
 
 /* ============================================================
  * NOTIFICATION IDS
@@ -257,10 +260,15 @@ const log = (
 
 const saveDeliveredOccurrence = async (
   type: ReminderType,
+  scheduled: boolean,
   fireAt: string | null,
   occurrenceId: string | null,
 ): Promise<void> => {
+  // An in-app card says "this reached you". The schedule snapshot keeps the fire time and occurrence id even when
+  // the notification was never handed to Android (notifications off at the time, or the day had already gone when
+  // the delivery date was entered): recording a card for it would announce something that never happened.
   if (
+    !scheduled ||
     !fireAt ||
     !occurrenceId
   ) {
@@ -329,12 +337,14 @@ export async function reconcilePostpartumNifasInAppNotifications(): Promise<void
   await Promise.all([
     saveDeliveredOccurrence(
       'warning',
+      state.warningScheduled,
       state.warningFireAt,
       state.warningOccurrenceId,
     ),
 
     saveDeliveredOccurrence(
       'reference',
+      state.referenceScheduled,
       state.referenceFireAt,
       state.referenceOccurrenceId,
     ),
@@ -393,11 +403,80 @@ async function clearNifasReminders(): Promise<void> {
 }
 
 /* ============================================================
+ * IS THE SAVED SCHEDULE STILL TRUE?
+ * ============================================================ */
+
+/** The ids Android holds as pending triggers, or null when they cannot be read ("cannot confirm"). Never throws. */
+const readPendingReminderIds = async (): Promise<ReadonlySet<string> | null> => {
+  try {
+    return await getPendingReminderIds();
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Whether the saved snapshot can be trusted as "what Android has": every reminder whose fire time is STILL AHEAD
+ * must be both marked as scheduled (its last scheduling really reached Android) and present among Android's
+ * pending triggers. Without this a first attempt that failed (notifications off, a transient native error) was
+ * never retried, and triggers dropped by a phone update, a task killer or a reboot gap were never restored —
+ * the snapshot kept saying "scheduled".
+ *
+ * A fire time that has already passed is NOT "missing": it fired (or can no longer be scheduled), and creating it
+ * again would only be refused. A pending list that cannot be read is "cannot confirm", which re-schedules rather
+ * than assumes. Re-scheduling is an upsert by id, so a doubt costs one native call, never a duplicate.
+ */
+async function isScheduleIntact(
+  state: PostpartumNifasReminderState,
+): Promise<boolean> {
+  const now = Date.now();
+
+  const reminders = [
+    {
+      id: NIFAS_WARNING_NOTIFICATION_ID,
+      scheduled: state.warningScheduled,
+      fireAt: Date.parse(state.warningFireAt ?? ''),
+    },
+    {
+      id: NIFAS_REFERENCE_NOTIFICATION_ID,
+      scheduled: state.referenceScheduled,
+      fireAt: Date.parse(state.referenceFireAt ?? ''),
+    },
+  ];
+
+  // A fire time that is not a date means the record itself is damaged: rebuild it.
+  if (reminders.some(reminder => Number.isNaN(reminder.fireAt))) {
+    return false;
+  }
+
+  const ahead = reminders.filter(reminder => reminder.fireAt > now);
+
+  // Everything has already gone by: nothing is expected to exist.
+  if (ahead.length === 0) {
+    return true;
+  }
+
+  // Known not to have reached Android: no need to ask it.
+  if (ahead.some(reminder => !reminder.scheduled)) {
+    return false;
+  }
+
+  const pending = await readPendingReminderIds();
+
+  if (!pending) {
+    return false;
+  }
+
+  return ahead.every(reminder => pending.has(reminder.id));
+}
+
+/* ============================================================
  * MAIN SYNC
  * ============================================================ */
 
 /**
- * Central idempotent sync.
+ * Central idempotent sync — one run. The exported entry points below are its only callers and queue runs so that
+ * two of them never overlap.
  *
  * PRODUCTION:
  * - warning → J35 at 09:00
@@ -405,8 +484,11 @@ async function clearNifasReminders(): Promise<void> {
  *
  * DEVELOPMENT TEST:
  * - notifications → ~2 minutes from now
+ *
+ * `force` re-derives and re-schedules both reminders even when the saved snapshot says nothing changed. A run without
+ * it skips the work only when the snapshot still describes what Android holds (see isScheduleIntact).
  */
-export async function syncPostpartumNifasReminders(): Promise<void> {
+async function syncNifasRemindersNow(force: boolean): Promise<void> {
   await Promise.all([
     hydrateActiveObjective(),
 
@@ -470,7 +552,10 @@ export async function syncPostpartumNifasReminders(): Promise<void> {
    * REUSE EXISTING SCHEDULE
    * ======================================================== */
 
-  const canReuseSchedule =
+  // The saved snapshot is for this delivery date and this configuration and holds a complete schedule record.
+  // That alone is NOT enough to skip scheduling (see isScheduleIntact): it does not say the reminders ever
+  // reached Android, nor that Android still has them.
+  const snapshotMatches =
     !TEST_NIFAS_NOTIFICATIONS &&
     previous.deliveryDate ===
       preferences.deliveryDate &&
@@ -499,7 +584,11 @@ export async function syncPostpartumNifasReminders(): Promise<void> {
    * reloading the app generates a fresh notification
    * 2 minutes from now.
    */
-  if (canReuseSchedule) {
+  if (
+    snapshotMatches &&
+    !force &&
+    (await isScheduleIntact(previous))
+  ) {
     await reconcilePostpartumNifasInAppNotifications();
 
     return;
@@ -624,10 +713,9 @@ export async function syncPostpartumNifasReminders(): Promise<void> {
    * SCHEDULE
    * ======================================================== */
 
-  const [
-    warningScheduled,
-    referenceScheduled,
-  ] = await Promise.all([
+  // Both are attempted and BOTH outcomes are recorded below, even when one of them fails natively: the snapshot must
+  // say which reminder really reached Android, or a later sync would trust a schedule that does not exist.
+  const attempts = await Promise.allSettled([
     scheduleLocalNotification({
       id:
         NIFAS_WARNING_NOTIFICATION_ID,
@@ -709,6 +797,44 @@ export async function syncPostpartumNifasReminders(): Promise<void> {
    * SAVE STATE
    * ======================================================== */
 
+  // "Scheduled" means: this attempt handed the reminder to Android. A reminder whose time has already gone cannot
+  // be handed over any more, but that does not undo an EARLIER successful scheduling of the very same occurrence —
+  // it fired, or was missed while the app was closed, and its in-app card is still owed. Only the same occurrence
+  // keeps the earlier answer; a first attempt that never succeeded stays "not scheduled" and never gets a card.
+  const handedToAndroid = (
+    attempt: PromiseSettledResult<boolean>,
+  ): boolean =>
+    attempt.status === 'fulfilled' &&
+    attempt.value;
+
+  const firedSinceScheduled = (
+    wasScheduled: boolean,
+    previousOccurrenceId: string | null,
+    occurrenceId: string,
+    fireDate: Date,
+  ): boolean =>
+    wasScheduled &&
+    previousOccurrenceId === occurrenceId &&
+    fireDate.getTime() <= Date.now();
+
+  const warningScheduled =
+    handedToAndroid(attempts[0]) ||
+    firedSinceScheduled(
+      previous.warningScheduled,
+      previous.warningOccurrenceId,
+      warningOccurrenceId,
+      warningDate,
+    );
+
+  const referenceScheduled =
+    handedToAndroid(attempts[1]) ||
+    firedSinceScheduled(
+      previous.referenceScheduled,
+      previous.referenceOccurrenceId,
+      referenceOccurrenceId,
+      referenceDate,
+    );
+
   await setPostpartumNifasReminderState({
     deliveryDate:
       preferences.deliveryDate,
@@ -738,6 +864,17 @@ export async function syncPostpartumNifasReminders(): Promise<void> {
     referenceOccurrenceId,
   });
 
+  // A native failure still REJECTS, exactly as before: the caller learns that the run did not complete. The state
+  // above already says which reminder did not reach Android, so the next sync repairs it.
+  const failure = attempts.find(
+    (attempt): attempt is PromiseRejectedResult =>
+      attempt.status === 'rejected',
+  );
+
+  if (failure) {
+    throw failure.reason;
+  }
+
   /* ========================================================
    * DEBUG
    * ======================================================== */
@@ -762,9 +899,39 @@ export async function syncPostpartumNifasReminders(): Promise<void> {
 }
 
 /* ============================================================
+ * ENTRY POINTS
+ * ============================================================ */
+
+// Every way into this file's native work goes through ONE queue. A synchronisation reads the saved snapshot, asks
+// Android what it holds, schedules and saves the result: two of those interleaved (a privacy change forcing a
+// rebuild while an objective change syncs, a cancel racing a sync) could save an older answer over a newer one or
+// put back a reminder that was just switched off. Run N starts after run N-1 has finished and reads the state at
+// ITS start, so the last request always wins.
+const runNifasWork = createSerializer();
+
+/**
+ * Brings the J35/J40 reminders in line with the saved delivery date. Zero arguments on purpose: it is handed
+ * straight to store subscribers and promise chains. It skips scheduling only while the saved schedule is still true
+ * (see isScheduleIntact), so a reminder that never reached Android, or that Android lost, is scheduled again.
+ */
+export function syncPostpartumNifasReminders(): Promise<void> {
+  return runNifasWork(() => syncNifasRemindersNow(false));
+}
+
+/**
+ * Re-derives and re-schedules BOTH reminders even when the saved snapshot says nothing changed. For the moments
+ * when what Android holds may no longer match it: a privacy setting changed (the text is redacted when the
+ * reminder is built, so a trigger created before keeps the old text), the timezone changed, or the records were
+ * replaced by a restore. Same eligibility rules and the same J35/J40 dates as syncPostpartumNifasReminders.
+ */
+export function forceSyncPostpartumNifasReminders(): Promise<void> {
+  return runNifasWork(() => syncNifasRemindersNow(true));
+}
+
+/* ============================================================
  * CANCEL
  * ============================================================ */
 
-export async function cancelPostpartumNifasReminders(): Promise<void> {
-  await clearNifasReminders();
+export function cancelPostpartumNifasReminders(): Promise<void> {
+  return runNifasWork(clearNifasReminders);
 }

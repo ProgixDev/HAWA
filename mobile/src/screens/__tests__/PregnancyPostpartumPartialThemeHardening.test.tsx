@@ -28,24 +28,26 @@ jest.mock('../../state/pregnancyMedicalEventsStore', () => ({
   deletePregnancyMedicalEvent: jest.fn().mockResolvedValue([]),
 }));
 
+const mockNotificationSettings = {
+  weeklyUpdateEnabled: true,
+  dailyJournalEnabled: false,
+  dailyJournalTime: '20:00',
+  appointmentsEnabled: true,
+  examsEnabled: true,
+  defaultAppointmentReminderOffset: '1day',
+  defaultExamReminderOffset: '1day',
+};
+
 jest.mock('../../state/pregnancyNotificationSettingsStore', () => ({
-  getPregnancyNotificationSettings: jest.fn().mockReturnValue({
-    defaultAppointmentReminderOffset: '1day',
-    defaultExamReminderOffset: '1day',
-  }),
-  hydratePregnancyNotificationSettings: jest.fn().mockResolvedValue(undefined),
+  ...jest.requireActual('../../state/pregnancyNotificationSettingsStore'),
+  getPregnancyNotificationSettings: jest.fn(() => mockNotificationSettings),
+  hydratePregnancyNotificationSettings: jest.fn(async () => mockNotificationSettings),
 }));
 
+// Only the two functions that reach Android are replaced; the pure helpers the form relies on stay real.
 jest.mock('../../utils/pregnancyEventReminders', () => ({
-  REMINDER_OFFSETS: ['30min', '1hour', '2hours', '1day', 'custom'],
-  REMINDER_OFFSET_LABELS: {
-    '30min': '30 min avant',
-    '1hour': '1 heure avant',
-    '2hours': '2 heures avant',
-    '1day': '1 jour avant',
-    custom: 'Personnalisé',
-  },
-  syncEventReminder: jest.fn().mockResolvedValue(undefined),
+  ...jest.requireActual('../../utils/pregnancyEventReminders'),
+  syncEventReminder: jest.fn().mockResolvedValue({status: 'not-requested'}),
   cancelEventReminder: jest.fn().mockResolvedValue(undefined),
 }));
 
