@@ -25,9 +25,14 @@ import {cancelCycleRemindersForProfile} from '../utils/cycleReminderScheduling';
 //   1. leave her profile if it is the active one;
 //   2. forget the first period her profile record carries — the seed her cycle would be rebuilt from;
 //   3. cancel her scheduled reminders (queued behind any synchronization in flight, so none can recreate
-//      them; a native cancel failure is a failed step, not silently ignored);
+//      them; a native cancel failure is a failed step, not silently ignored) and take her delivered copies out
+//      of the notification shade — they carry her first name;
 //   4. remove her stored keys;
 //   5. remove her in-app notifications;
+//   5b. leave her profile again if she became the active one while steps 3-5 ran (the record still exists, so
+//      the user can switch to her), and cancel her reminders ONCE MORE: a synchronization run for her that
+//      started after step 3 and before step 4 saw her records still in place and derived them again, and no
+//      later run would ever know her ids once the records and the profile are gone;
 //   6. ONLY if every step above succeeded, remove the profile record itself.
 // An interrupted run therefore leaves a still-existing, partly emptied profile recorded as pending
 // deletion, which is completed on the next launch (or by deleting it again) — never a record-less profile
@@ -69,15 +74,18 @@ export async function deleteManagedProfileCompletely(profileId: string): Promise
     return {deleted: false, failedSteps: ['record-deletion-intent'], removedKeyCount: 0};
   }
 
-  await attempt('leave-profile', async () => {
+  const leaveProfile = async () => {
     if (getActiveProfileId() === profileId) {
       await setActiveProfileId(OWNER_PROFILE_ID);
     }
-  });
+  };
+  const cancelHerReminders = () => cancelCycleRemindersForProfile(profileId);
+
+  await attempt('leave-profile', leaveProfile);
   await attempt('forget-first-period', async () => {
     await resetManagedProfileFirstPeriod(profileId);
   });
-  await attempt('cancel-reminders', () => cancelCycleRemindersForProfile(profileId));
+  await attempt('cancel-reminders', cancelHerReminders);
   await attempt('remove-stored-data', async () => {
     const keys = await listManagedProfileKeys(profileId);
     // Each removal goes through the storage layer: it takes the record's key lock (so it cannot interleave with a
@@ -89,6 +97,10 @@ export async function deleteManagedProfileCompletely(profileId: string): Promise
     }
   });
   await attempt('remove-notifications', () => clearInAppNotificationsForProfile(profileId));
+  // Step 5b — see the header. Both are idempotent, and both run before the record goes: after that nothing could
+  // find her ids any more.
+  await attempt('leave-profile-final', leaveProfile);
+  await attempt('cancel-reminders-final', cancelHerReminders);
 
   if (failedSteps.length > 0) {
     return {deleted: false, failedSteps, removedKeyCount};
