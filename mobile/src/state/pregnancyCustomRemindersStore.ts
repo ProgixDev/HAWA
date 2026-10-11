@@ -1,9 +1,11 @@
 import AsyncStorage from '../services/secureAsyncStorage';
 import {migrateRecordSafely, sealArrayFields, sealField} from '../services/legacyFieldMigration';
 import {
+  carrySealedField,
   decryptFieldValue,
   encryptFieldValue,
   isEncryptedFieldPayload,
+  restoreSealedFields,
 } from '../services/atRestFieldEncryption';
 
 // User-created custom reminders ("Rappels personnalisés") in "Notifications
@@ -47,7 +49,9 @@ async function encryptReminderForStorage(reminder: CustomReminder): Promise<Reco
   } else {
     delete output.description;
   }
-  return output;
+  // A field that could not be decrypted when this record was read goes back as the sealed payload it was (see
+  // restoreSealedFields) instead of the blank the reader had to answer with.
+  return restoreSealedFields(output);
 }
 
 async function decryptReminderFromStorage(raw: Record<string, unknown>): Promise<Record<string, unknown>> {
@@ -57,6 +61,7 @@ async function decryptReminderFromStorage(raw: Record<string, unknown>): Promise
       output.title = await decryptFieldValue<string>(ENCRYPTION_SERVICE, raw.title);
     } catch {
       output.title = '';
+      carrySealedField(output, 'title', raw.title);
     }
   }
   if (isEncryptedFieldPayload(raw.description)) {
@@ -64,6 +69,7 @@ async function decryptReminderFromStorage(raw: Record<string, unknown>): Promise
       output.description = await decryptFieldValue<string>(ENCRYPTION_SERVICE, raw.description);
     } catch {
       delete output.description;
+      carrySealedField(output, 'description', raw.description);
     }
   }
   return output;

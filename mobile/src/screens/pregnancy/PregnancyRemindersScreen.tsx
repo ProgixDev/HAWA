@@ -27,6 +27,8 @@ import {
   setPregnancyNotificationSettings,
 } from '../../state/pregnancyNotificationSettingsStore';
 import {resyncAllPregnancyNotifications} from '../../utils/pregnancyReminderScheduling';
+import NotificationPermissionNotice from '../../components/notifications/NotificationPermissionNotice';
+import {useReminderPermissionGuard} from '../../hooks/useReminderPermissionGuard';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
 
@@ -270,31 +272,63 @@ function PregnancyRemindersScreen({
     }));
   };
 
-  const handleFinish = async () => {
-    // Merge onto the CURRENT real settings (never overwrite fields this
-    // screen doesn't own, like weeklyUpdateEnabled/dailyJournalTime/reminder
-    // offsets) and resync through the existing scheduling architecture —
-    // same two calls PregnancyNotificationsScreen.tsx already makes after
-    // its own save, never a second scheduling path.
-    const current = getPregnancyNotificationSettings();
-    try {
-      await setPregnancyNotificationSettings({
-        ...current,
-        ...preferences,
-      });
-    } catch (saveError) {
-      // Not persisted: stay here with the choices intact (see services/saveFailure.ts).
-      presentSaveFailure(saveError);
-      return;
-    }
-    resyncAllPregnancyNotifications();
+  // Whether Android would actually show a reminder she has switched on
+  // (notifications off / reminders channel blocked). Only read while one of
+  // this screen's reminder switches is on.
+  const anyReminderOn =
+    preferences.appointmentsEnabled ||
+    preferences.examsEnabled ||
+    preferences.dailyJournalEnabled;
+  const permissionGuard = useReminderPermissionGuard(anyReminderOn);
 
+  const goToNext = () => {
     if (route.params?.mode === 'edit') {
       navigation.goBack();
       return;
     }
 
     continueAfterObjectiveSetup(navigation);
+  };
+
+  // One finish at a time: asking Android for the permission keeps this
+  // handler pending for as long as the system dialog is open.
+  const finishing = useRef(false);
+
+  const handleFinish = async () => {
+    if (finishing.current) {return;}
+    finishing.current = true;
+    try {
+      // Merge onto the CURRENT real settings (never overwrite fields this
+      // screen doesn't own, like weeklyUpdateEnabled/dailyJournalTime/reminder
+      // offsets) and resync through the existing scheduling architecture —
+      // same two calls PregnancyNotificationsScreen.tsx already makes after
+      // its own save, never a second scheduling path.
+      const current = getPregnancyNotificationSettings();
+      try {
+        await setPregnancyNotificationSettings({
+          ...current,
+          ...preferences,
+        });
+      } catch (saveError) {
+        // Not persisted: stay here with the choices intact (see services/saveFailure.ts).
+        presentSaveFailure(saveError);
+        return;
+      }
+      resyncAllPregnancyNotifications();
+
+      // Only asked when a reminder is actually being saved as enabled — never
+      // merely for opening this screen. Refused: she stays on this screen
+      // with the notice (her choices above are already saved either way) and
+      // can open Android's settings or carry on without notifications.
+      const allowed = await permissionGuard.allowSave(anyReminderOn);
+      if (!allowed) {
+        return;
+      }
+
+      goToNext();
+    } finally {
+      finishing.current = false;
+    }
   };
 
   const headerStyle = {
@@ -482,6 +516,19 @@ function PregnancyRemindersScreen({
               <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={20} />
             </Pressable>
           </View>
+
+          {/* The one shared notice (same wording, "open settings" and
+              re-check on every objective's reminders step). Once a save was
+              blocked it also offers "Continue without notifications", which
+              performs the navigation Save would have. */}
+          {anyReminderOn ? (
+            <NotificationPermissionNotice
+              onContinue={permissionGuard.saveBlocked ? goToNext : undefined}
+              onRecheck={permissionGuard.refresh}
+              state={permissionGuard.state}
+              testID="pregnancy-reminders-permission-notice"
+            />
+          ) : null}
 
           {/* INFO CARD */}
           <Animated.View

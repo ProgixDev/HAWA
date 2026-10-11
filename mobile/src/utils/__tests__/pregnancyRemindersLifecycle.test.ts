@@ -200,8 +200,9 @@ describe('M30 - a dating change resynchronises the weekly reminder from the NEW 
     await setPregnancyDating(datingElapsed(73)); // 10 SA + 3: next boundary in 4 days = Wednesday 2026-09-30
     await syncPregnancyNotificationsForActiveObjective();
     expect(weekly()).toEqual([{id: 'pregnancy-weekly-update', timestamp: at(9, 30, 9), repeat: 2}]);
-    // the obsolete schedule is cancelled before the new one is created (upsert by id)
-    expect(mockCancelTrigger).toHaveBeenCalledWith('pregnancy-weekly-update');
+    // the obsolete schedule is REPLACED in place by the new one (same id, created over the old trigger) — no
+    // cancel-then-create window in which the reminder would not exist
+    expect(mockCancelTrigger).not.toHaveBeenCalledWith('pregnancy-weekly-update');
     expect(weekly().some(entry => entry.timestamp === at(10, 3, 9))).toBe(false);
   });
 
