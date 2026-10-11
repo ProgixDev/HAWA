@@ -21,13 +21,13 @@ import {
   subscribeSpiritualMarkersEnabled,
 } from './src/state/onboardingPreferences';
 import { syncPregnancyNotificationsForActiveObjective } from './src/utils/pregnancyReminderScheduling';
-import { cancelPostpartumNifasReminders, syncPostpartumNifasReminders } from './src/utils/postpartumNifasReminderScheduling';
+import { syncPostpartumNifasReminders } from './src/utils/postpartumNifasReminderScheduling';
 import { syncPostpartumDailyTrackingReminder } from './src/utils/postpartumReminderScheduling';
 import { syncMiscarriageDailyTrackingReminder } from './src/utils/miscarriageReminderScheduling';
 import { syncConceptionReminders } from './src/utils/conceptionReminderScheduling';
 import { syncIrregularReminders } from './src/utils/irregularReminderScheduling';
 import { hydrateIrregularPreferences, subscribeIrregularPreferences } from './src/state/irregularPreferences';
-import { cancelQadaaReminderNotification, syncQadaaReminderNotification } from './src/utils/qadaaReminderScheduling';
+import { syncQadaaReminderNotification } from './src/utils/qadaaReminderScheduling';
 import {
   hydrateConfirmedPeriodHistory,
   subscribeConfirmedPeriodHistory,
@@ -50,6 +50,9 @@ import { openPendingConceptionReminderNotification } from './src/services/concep
 import { registerNotificationForegroundHandlers } from './src/services/notificationForegroundHandlers';
 import { reconcileInAppNotifications } from './src/services/inAppNotificationReconciliation';
 import { refreshNotificationPermission } from './src/services/pregnancyNotifications';
+import { resyncAllReminderNotifications } from './src/services/reminderResync';
+import { createForegroundResyncPolicy } from './src/services/reminderForegroundPolicy';
+import { resumeBulkReminderResync } from './src/services/reminderResyncGate';
 import { hydrateInAppNotifications } from './src/state/inAppNotificationStore';
 import {hydrateConceptionPreferences, subscribeConceptionPreferences} from './src/state/conceptionPreferences';
 import {hydrateContraceptionPreferences, subscribeContraceptionPreferences} from './src/state/contraceptionPreferences';
@@ -316,61 +319,47 @@ subscribeActiveObjective(() => syncIrregularReminders());
 subscribeIrregularPreferences(() => syncIrregularReminders());
 subscribeConfirmedPeriodHistory(() => syncIrregularReminders());
 
+// One decision per foreground transition: nothing, a refresh, or a forced re-derivation (a changed time zone / UTC
+// offset or a clock set backwards). See services/reminderForegroundPolicy.ts for what Android does NOT re-arm.
+const foregroundResync = createForegroundResyncPolicy();
+
+// EVERY objective's reminders re-derived from the stored state and handed to Android again, from the one list that
+// lives in services/reminderResync.ts (each objective's sync is an idempotent upsert that gates itself on the active
+// objective, the active profile and whether its records are readable). `force` makes the two snapshot-based kinds
+// (Nifas, Qadaa) re-derive and re-schedule even though their saved snapshot says nothing changed — needed whenever
+// the text or the instant they carry may be stale: a privacy setting, the app language, a changed time zone.
+// Replace-in-place: nothing is cancelled first, so an interruption can never leave a reminder cancelled but not
+// re-created.
+function resyncAllReminders(force: boolean): void {
+  foregroundResync.noteResync();
+  resyncAllReminderNotifications({force}).catch(() => undefined);
+}
+
 // Privacy/discreet-notification settings ("Notifications discrètes",
 // "Masquer l'aperçu des notifications", "Mode discret") are read fresh by
 // scheduleLocalNotification() on every call, but a Notifee trigger
 // notification bakes its title/body in at creation time — so a reminder
 // scheduled before a privacy setting is turned on (or off) would otherwise
 // keep firing with its stale, pre-change payload until something unrelated
-// happened to resync it. Re-running every objective's own sync function here
-// (each already cancels-then-reschedules by the same notification id, and
-// each already internally no-ops when its objective isn't active or its
-// reminder isn't enabled) guarantees every already-scheduled reminder is
-// rebuilt with the current privacy setting immediately, from ONE shared
-// place, instead of duplicating privacy-change awareness into every
-// scheduler.
+// happened to resync it.
 function resyncAllRemindersForPrivacyChange(): void {
-  syncNifasReminders();
-  resyncPregnancyNotificationsIfActive();
-  syncPostpartumDailyTrackingReminder();
-  syncMiscarriageDailyTrackingReminder();
-  syncQadaaReminderNotification();
-  syncConceptionReminders();
-  syncContraceptionReminder();
-  syncMenopauseReminders();
-  syncCycleReminders();
-  syncIrregularReminders();
+  resyncAllReminders(true);
 }
 subscribePrivacySecuritySettings(resyncAllRemindersForPrivacyChange);
+
+// After "Delete account" the bulk resync is suspended (services/reminderResyncGate.ts): the stores still hold the deleted
+// data in memory. Choosing an objective again is the first thing a new account does, and from then on they hold its
+// data, so the bulk resync (language, privacy, permission, time zone, foreground refresh) is allowed again.
+subscribeActiveObjective(resumeBulkReminderResync);
 
 // "Langue de l'application" (AppearanceScreen) changes every reminder's
 // title/body text (src/i18n) but must NEVER change timing, notification ids,
 // channel ids, or duplicate/cancel a schedule for any reason other than the
-// language itself. Most objectives' sync functions above already
-// unconditionally cancel-then-reschedule by the same id on every call (see
-// resyncAllRemindersForPrivacyChange()'s own comment), so simply re-invoking
-// them here rebuilds each already-scheduled notification with the
-// now-current language's text, at the exact same fire date/id. Qadaa and
-// Nifas are the two exceptions: their sync functions short-circuit
-// ("canReuseSchedule") and skip rescheduling entirely when the persisted
-// schedule already matches, which would otherwise leave an already-scheduled
-// notification showing stale, previous-language text until an unrelated
-// change (a new Ramadan month, a new delivery date) invalidated that cache —
-// so those two are cancelled first, which resets exactly the persisted
-// fields canReuseSchedule checks, forcing a genuine reschedule with
-// identical fire-date math but fresh, current-language text.
+// language itself: the same forced, replace-in-place re-derivation rebuilds
+// each already-scheduled notification with the now-current language's text at
+// the exact same fire date/id.
 function resyncAllReminderNotificationsForLanguageChange(): void {
-  syncPostpartumDailyTrackingReminder();
-  syncMiscarriageDailyTrackingReminder();
-  syncConceptionReminders();
-  syncContraceptionReminder();
-  syncMenopauseReminders();
-  syncCycleReminders();
-  syncIrregularReminders();
-  resyncPregnancyNotificationsIfActive();
-  syncNifasReminders();
-  cancelQadaaReminderNotification().then(syncQadaaReminderNotification).catch(() => {});
-  cancelPostpartumNifasReminders().then(syncPostpartumNifasReminders).catch(() => {});
+  resyncAllReminders(true);
 }
 
 // Baselined on first observation (mirrors privateSectionAuthStore.ts's
@@ -420,15 +409,24 @@ function App(): React.JSX.Element {
         if (backgroundedAt.current && Date.now() - backgroundedAt.current >= AUTO_LOCK_TIMEOUT_MS && requiresAppLock()) {lockApp();}
         backgroundedAt.current = null;
         reconcileInAppNotifications().catch(() => {});
-        // Notifications switched on in Android settings while she was away: the reminders that could not be
-        // scheduled until now are scheduled now. The OS state is read fresh each time (never remembered), and
-        // only a not-allowed -> allowed change triggers the resync (every objective's sync is an idempotent
-        // upsert, see resyncAllRemindersForPrivacyChange).
+        // Two reasons to re-derive the reminders when she comes back. (1) Notifications switched on in Android
+        // settings while she was away: the reminders that could not be scheduled until now are scheduled now (the
+        // OS state is read fresh each time, never remembered; only a not-allowed -> allowed change counts).
+        // (2) The phone's time zone / UTC offset changed or its clock was set backwards, or a long time has passed
+        // (window-based schedules are topped up): Android re-arms nothing on those, so the alarms handed over
+        // earlier may be an hour or more away from the local time she chose. Every objective's sync is an
+        // idempotent upsert, so an unnecessary resync only repeats work.
+        const resync = foregroundResync.onForeground();
         refreshNotificationPermission()
-          .then(({becameGranted}) => {
-            if (becameGranted) {resyncAllRemindersForPrivacyChange();}
-          })
-          .catch(() => {});
+          .then(({becameGranted}) => becameGranted)
+          .catch(() => false)
+          .then(becameGranted => {
+            if (becameGranted) {
+              resyncAllReminders(true);
+            } else if (resync !== 'none') {
+              resyncAllReminders(resync === 'force');
+            }
+          });
       } else if (state === 'background') {
         setPrivacyCover(true);
         backgroundedAt.current = Date.now();
