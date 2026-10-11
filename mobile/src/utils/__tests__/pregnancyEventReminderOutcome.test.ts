@@ -168,6 +168,20 @@ describe('reminderRequestChanged — an old event\'s elapsed reminder is not a n
     const saved = event();
     expect(reminderRequestChanged(saved, {...saved, notes: 'bring the file', title: 'Echo 2'})).toBe(false);
   });
+
+  it('is false when the same clock time is written differently: a stored "24:30" (legacy en-US midnight) is 00:30', () => {
+    const saved = event({time: '24:30'});
+    expect(reminderRequestChanged(saved, {...saved, time: '00:30'})).toBe(false);
+
+    const withCustomTime = event({reminderOffset: 'custom', reminderTime: '24:00'});
+    expect(reminderRequestChanged(withCustomTime, {...withCustomTime, reminderTime: '00:00'})).toBe(false);
+  });
+
+  it('is still true when the clock time really differs (00:30 vs 00:45, or 24:30 vs 23:30)', () => {
+    const saved = event({time: '24:30'});
+    expect(reminderRequestChanged(saved, {...saved, time: '00:45'})).toBe(true);
+    expect(reminderRequestChanged(saved, {...saved, time: '23:30'})).toBe(true);
+  });
 });
 
 describe('syncEventReminder — scheduling result is reported, never swallowed (F2, F3)', () => {
