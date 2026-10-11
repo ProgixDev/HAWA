@@ -63,8 +63,15 @@ export const notifee = {
   createChannel: jest.fn(async (channel: any) => {
     const error = takeError('createChannelError');
     if (error) {throw error;}
-    state.channels.set(channel.id, channel);
+    const existing = state.channels.get(channel.id);
+    // Android: once a channel exists, importance / sound / vibration belong to the USER (they can only be changed in
+    // Settings); re-creating it only updates its name. Model that, so "AWA never overrides what the user chose" is
+    // something a test can actually assert.
+    state.channels.set(channel.id, existing ? {...existing, name: channel.name} : {...channel});
     return channel.id as string;
+  }),
+  deleteChannel: jest.fn(async (channelId: string) => {
+    state.channels.delete(channelId);
   }),
   isChannelBlocked: jest.fn(async (channelId: string) => state.blockedChannels.has(channelId)),
   getChannel: jest.fn(async (channelId: string) => state.channels.get(channelId) ?? null),
@@ -93,8 +100,21 @@ export const notifee = {
   cancelTriggerNotification: jest.fn(async (id: string) => {
     state.triggers.delete(id);
   }),
+  cancelTriggerNotifications: jest.fn(async (ids?: string[]) => {
+    (ids ?? Array.from(state.triggers.keys())).forEach(id => state.triggers.delete(id));
+  }),
   cancelDisplayedNotification: jest.fn(async (id: string) => {
     state.displayed.delete(id);
+  }),
+  cancelDisplayedNotifications: jest.fn(async (ids?: string[]) => {
+    (ids ?? Array.from(state.displayed.keys())).forEach(id => state.displayed.delete(id));
+  }),
+  /** Documented: removes every displayed notification AND every pending trigger (or just the ids given). */
+  cancelAllNotifications: jest.fn(async (ids?: string[]) => {
+    (ids ?? Array.from(new Set([...state.triggers.keys(), ...state.displayed.keys()]))).forEach(id => {
+      state.triggers.delete(id);
+      state.displayed.delete(id);
+    });
   }),
   /** Documented notifee semantics: BOTH the pending trigger and the displayed notification. */
   cancelNotification: jest.fn(async (id: string) => {

@@ -87,8 +87,9 @@ beforeEach(async () => {
   await resetManagedProfilesForTests();
   await resetActiveProfileForTests();
   await hydrateCyclePreferences();
-  // The mother's own cycle: confirmed, with a real recorded period.
-  setCyclePreferences({lastPeriodStart: MOTHER_START, periodDuration: 5, cycleDuration: 28, regularity: 'yes'});
+  // The mother's own cycle: confirmed, with a real recorded period. Awaited: the encrypted write has several async
+  // steps, and a test that clears storage right after must not race it.
+  await setCyclePreferences({lastPeriodStart: MOTHER_START, periodDuration: 5, cycleDuration: 28, regularity: 'yes'});
 });
 
 afterEach(() => {
