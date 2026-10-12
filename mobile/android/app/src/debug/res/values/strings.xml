@@ -1,0 +1,6 @@
+<resources>
+    <!-- Isolated audit build (com.hawa.audit): a distinct launcher name so it can never be mistaken for the
+         production app (com.hawa) on the same phone. Overrides src/main values for the debug variant only. -->
+    <string name="app_name">AWA Audit</string>
+    <string name="app_name_discreet">AWA Audit</string>
+</resources>
