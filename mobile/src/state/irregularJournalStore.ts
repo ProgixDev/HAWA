@@ -1,11 +1,15 @@
 import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
 import {migrateRecordSafely, sealField, sealMapFields} from '../services/legacyFieldMigration';
 import {commitOptimistic} from '../services/saveFailure';
+import {registerOwnerStore} from './ownerStoreRegistry';
 
 import {
+  carrySealedField,
   decryptFieldValue,
   encryptFieldValue,
   isEncryptedFieldPayload,
+  restoreSealedFields,
+  withCarriedSealedFields,
 } from '../services/atRestFieldEncryption';
 
 // Canonical per-day tracking store for the "Cycles irréguliers / SOPK"
@@ -91,7 +95,8 @@ async function encryptEntryForStorage(entry: IrregularJournalEntry): Promise<Rec
       } else {
         delete detailOutput.note;
       }
-      encryptedDetails[category] = detailOutput;
+      // A note that could not be decrypted when this entry was read goes back as the sealed payload it was.
+      encryptedDetails[category] = restoreSealedFields(detailOutput);
     }
     output.details = encryptedDetails;
   }
@@ -112,6 +117,7 @@ async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Ir
           detailOutput.note = await decryptFieldValue<string>(ENCRYPTION_SERVICE, noteValue);
         } catch {
           delete detailOutput.note;
+          carrySealedField(detailOutput, 'note', noteValue);
         }
       }
       decryptedDetails[category] = detailOutput;
@@ -125,6 +131,8 @@ let entries: EntriesByDate = {};
 const listeners = new Set<() => void>();
 let hydration: Promise<EntriesByDate> | null = null;
 let hydrated = false;
+// Bumped by every reset (ownerStoreRegistry): a read that started before it must not land in the fresh memory.
+let readGeneration = 0;
 
 const notifyListeners = () => {
   listeners.forEach(listener => listener());
@@ -213,7 +221,11 @@ export async function saveIrregularJournalEntry(
       ...current,
       [category]: value,
       ...(symptoms !== undefined ? {symptoms} : {}),
-      details: {...current.details, [category]: storedDetails},
+      // The form's details replace the stored ones: a note that could not be read stays sealed unless she typed one.
+      details: {
+        ...current.details,
+        [category]: withCarriedSealedFields(current.details?.[category], storedDetails),
+      },
     },
   };
   notifyListeners();
@@ -242,8 +254,10 @@ export function hydrateIrregularJournal(): Promise<EntriesByDate> {
     return Promise.resolve(getAllIrregularJournalEntries());
   }
   if (!hydration) {
+    const generation = readGeneration;
     hydration = readOwnedItem(STORAGE_KEY, hydrateIrregularJournal)
       .then(async raw => {
+        if (generation !== readGeneration) {return {...entries};} // reset while reading: stale
         hydrated = true;
         if (raw) {
           const parsed: unknown = JSON.parse(raw);
@@ -257,6 +271,7 @@ export function hydrateIrregularJournal(): Promise<EntriesByDate> {
               }
             }
             if (isValidEntries(decrypted)) {
+              if (generation !== readGeneration) {return {...entries};}
               entries = decrypted;
               notifyListeners();
             }
@@ -265,6 +280,7 @@ export function hydrateIrregularJournal(): Promise<EntriesByDate> {
         return getAllIrregularJournalEntries();
       })
       .catch(error => {
+        if (generation !== readGeneration) {return {...entries};} // reset while reading: stale
         if (isStructuredUnavailableError(error)) {
           // not latched: a later hydrate (or "Try again") re-reads the real record
           hydration = null;
@@ -283,6 +299,24 @@ export function subscribeIrregularJournal(listener: () => void): () => void {
     listeners.delete(listener);
   };
 }
+
+// Owner-only record, not profile-scoped: dropped and re-read after a backup restore / data deletion, or reset in
+// memory only after a full wipe (see ownerStoreRegistry.ts). Reload only reads (never writes, never recreates a key); the
+// in-memory sealed-field carry is rebuilt by that read and dropped by the reset — it is never persisted.
+const resetMemory = (): void => {
+  readGeneration += 1;
+  entries = {};
+  hydration = null;
+  hydrated = false;
+  notifyListeners();
+};
+registerOwnerStore('irregular-journal', {
+  reload: () => {
+    resetMemory();
+    return hydrateIrregularJournal();
+  },
+  resetToDefaults: resetMemory,
+});
 
 /**
  * Idempotent, interruption-safe boot-time migration of every per-category details[category].note saved as plain text before field-level

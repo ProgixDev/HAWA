@@ -2,9 +2,12 @@ import AsyncStorage from '../services/secureAsyncStorage';
 import {migrateRecordSafely, sealArrayFields, sealEntryFields, sealField} from '../services/legacyFieldMigration';
 
 import {
+  carrySealedField,
   decryptFieldValue,
   encryptFieldValue,
   isEncryptedFieldPayload,
+  restoreSealedFields,
+  withCarriedSealedFields,
 } from '../services/atRestFieldEncryption';
 
 export type PregnancySymptomEntry = {date: string; symptoms: string[]; note?: string; updatedAt: string};
@@ -37,11 +40,14 @@ type PersistedState = Partial<PregnancyJournalState> & {medicalInformation?: Pre
 // miscarriageJournalStore.ts, own Keychain service.
 const ENCRYPTION_SERVICE = 'com.hawa.private.pregnancy-journal.encryption-key';
 
-async function decryptNoteField(value: unknown): Promise<string | undefined> {
+/** The readable note of `holder`, or undefined when it has none / cannot be decrypted right now — in which case the
+ * sealed payload travels with `holder` (see carrySealedField) instead of being dropped by the next write. */
+async function decryptNoteField(holder: Record<string, unknown>, value: unknown): Promise<string | undefined> {
   if (isEncryptedFieldPayload(value)) {
     try {
       return await decryptFieldValue<string>(ENCRYPTION_SERVICE, value);
     } catch {
+      carrySealedField(holder, 'note', value);
       return undefined;
     }
   }
@@ -51,7 +57,11 @@ async function decryptNoteField(value: unknown): Promise<string | undefined> {
 async function decryptStateFromStorage(parsed: PersistedState): Promise<PregnancyJournalState> {
   const rawSymptoms = Array.isArray(parsed.symptoms) ? parsed.symptoms : [];
   const symptoms = await Promise.all(
-    rawSymptoms.map(async entry => ({...entry, note: await decryptNoteField((entry as {note?: unknown}).note)})),
+    rawSymptoms.map(async entry => {
+      const output: Record<string, unknown> = {...entry};
+      output.note = await decryptNoteField(output, (entry as {note?: unknown}).note);
+      return output as unknown as PregnancySymptomEntry;
+    }),
   );
 
   const rawHistory = Array.isArray(parsed.medicalInformationHistory) ? parsed.medicalInformationHistory : [];
@@ -61,10 +71,11 @@ async function decryptStateFromStorage(parsed: PersistedState): Promise<Pregnanc
       ? [...rawHistory, legacy]
       : rawHistory;
   const medicalInformationHistory = await Promise.all(
-    combinedRawHistory.map(async entry => ({
-      ...entry,
-      note: (await decryptNoteField((entry as {note?: unknown}).note)) ?? '',
-    })),
+    combinedRawHistory.map(async entry => {
+      const output: Record<string, unknown> = {...entry};
+      output.note = (await decryptNoteField(output, (entry as {note?: unknown}).note)) ?? '';
+      return output as unknown as PregnancyMedicalEntry;
+    }),
   );
 
   return {
@@ -83,14 +94,17 @@ async function encryptStateForStorage(state: PregnancyJournalState): Promise<Rec
       } else {
         delete output.note;
       }
-      return output;
+      // A note that could not be decrypted when it was read goes back as the sealed payload it was.
+      return restoreSealedFields(output);
     }),
   );
   const medicalInformationHistory = await Promise.all(
-    state.medicalInformationHistory.map(async entry => ({
-      ...entry,
-      note: entry.note ? await encryptFieldValue(ENCRYPTION_SERVICE, entry.note) : entry.note,
-    })),
+    state.medicalInformationHistory.map(async entry =>
+      restoreSealedFields({
+        ...entry,
+        note: entry.note ? await encryptFieldValue(ENCRYPTION_SERVICE, entry.note) : entry.note,
+      } as Record<string, unknown>),
+    ),
   );
   return {symptoms, weights: state.weights, medicalInformationHistory};
 }
@@ -144,7 +158,12 @@ export async function migrateLegacyPlainPregnancyNotes(): Promise<void> {
 
 export async function savePregnancySymptoms(entry: PregnancySymptomEntry): Promise<void> {
   const state = await readState();
-  state.symptoms = [...state.symptoms.filter(item => item.date !== entry.date), entry];
+  // The saved entry replaces the day's stored one: a note that could not be read stays sealed unless she typed one.
+  const replaced = state.symptoms.find(item => item.date === entry.date);
+  state.symptoms = [
+    ...state.symptoms.filter(item => item.date !== entry.date),
+    withCarriedSealedFields(replaced, entry),
+  ];
   await writeState(state);
 }
 
@@ -180,7 +199,10 @@ export async function savePregnancyMedicalInformation(entry: PregnancyMedicalEnt
   const withoutSameDate = entry.date
     ? state.medicalInformationHistory.filter(item => item.date !== entry.date)
     : state.medicalInformationHistory;
-  state.medicalInformationHistory = [...withoutSameDate, entry]
+  const replaced = entry.date
+    ? state.medicalInformationHistory.find(item => item.date === entry.date)
+    : undefined;
+  state.medicalInformationHistory = [...withoutSameDate, withCarriedSealedFields(replaced, entry)]
     .sort((a, b) => (a.date ?? '').localeCompare(b.date ?? ''));
   await writeState(state);
 }

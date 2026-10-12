@@ -1,5 +1,6 @@
 import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
 import {commitOptimistic} from '../services/saveFailure';
+import {registerOwnerStore} from './ownerStoreRegistry';
 
 // Pregnancy dating configuration, collected during onboarding for the
 // `pregnancy` objective only. Deliberately isolated from cyclePreferences /
@@ -266,3 +267,61 @@ export const subscribePregnancyReminderPreferences = (listener: () => void) => {
   reminderListeners.add(listener);
   return () => {reminderListeners.delete(listener);};
 };
+
+// Owner-only records, not profile-scoped: after a backup restore / a data deletion the memory above must be dropped
+// and re-read (or, after a full wipe, reset without touching storage) — see ownerStoreRegistry.ts.
+const resetPregnancyDatingMemory = (): void => {
+  pregnancyDating = {...DEFAULT_PREFERENCES};
+  hydrated = false;
+  hydration = null;
+};
+const resetPregnancyTrackingMemory = (): void => {
+  pregnancyTrackingPreferences = new Set(ALL_PREGNANCY_TRACKING_PREFERENCES);
+  trackingHydrated = false;
+  trackingHydration = null;
+};
+const resetPregnancyReminderMemory = (): void => {
+  pregnancyReminderPreferences = {...DEFAULT_REMINDER_PREFERENCES};
+  reminderHydrated = false;
+  reminderHydration = null;
+};
+
+registerOwnerStore('pregnancy-dating', {
+  reload: async () => {
+    await hydration?.catch(() => undefined); // a read already in flight lands first, then is replaced
+    resetPregnancyDatingMemory();
+    const value = await hydratePregnancyDating();
+    notifyListeners();
+    return value;
+  },
+  resetToDefaults: () => {
+    resetPregnancyDatingMemory();
+    notifyListeners();
+  },
+});
+registerOwnerStore('pregnancy-tracking-preferences', {
+  reload: async () => {
+    await trackingHydration?.catch(() => undefined);
+    resetPregnancyTrackingMemory();
+    const value = await hydratePregnancyTrackingPreferences();
+    notifyTrackingListeners();
+    return value;
+  },
+  resetToDefaults: () => {
+    resetPregnancyTrackingMemory();
+    notifyTrackingListeners();
+  },
+});
+registerOwnerStore('pregnancy-reminder-preferences', {
+  reload: async () => {
+    await reminderHydration?.catch(() => undefined);
+    resetPregnancyReminderMemory();
+    const value = await hydratePregnancyReminderPreferences();
+    notifyReminderListeners();
+    return value;
+  },
+  resetToDefaults: () => {
+    resetPregnancyReminderMemory();
+    notifyReminderListeners();
+  },
+});

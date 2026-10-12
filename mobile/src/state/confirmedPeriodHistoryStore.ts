@@ -1,7 +1,8 @@
 import AsyncStorage from '../services/secureAsyncStorage';
 import {commitOptimistic} from '../services/saveFailure';
 
-import {getActiveProfileId, subscribeActiveProfileId} from './activeProfileStore';
+import type {OwnerSnapshotResult} from '../utils/ownerReminderGate';
+import {getActiveProfileId, OWNER_PROFILE_ID, subscribeActiveProfileId} from './activeProfileStore';
 import {profileScopedKey} from './profileScopedStorage';
 
 // Confirmed menstrual occurrences — kept strictly separate from
@@ -66,6 +67,14 @@ const isValidOccurrence = (value: unknown): value is ConfirmedPeriodOccurrence =
     typeof candidate.periodEndDateTime === 'string' &&
     typeof candidate.capturedAt === 'string'
   );
+};
+
+// Filter per-record rather than discarding the WHOLE array over one malformed entry (see hydrate below). Throws on
+// unparsable JSON — each caller decides what that means.
+const parseHistoryRecord = (raw: string | null): ConfirmedPeriodOccurrence[] => {
+  if (!raw) {return [];}
+  const parsed: unknown = JSON.parse(raw);
+  return Array.isArray(parsed) ? parsed.filter(isValidOccurrence) : [];
 };
 
 export const getConfirmedPeriodHistory = (): ConfirmedPeriodOccurrence[] => [...history];
@@ -145,22 +154,9 @@ export const hydrateConfirmedPeriodHistory = (): Promise<ConfirmedPeriodOccurren
     .then(raw => {
       hydrated = true;
       hydratedForProfileId = profileId;
-      history = [];
-      if (raw) {
-        const parsed: unknown = JSON.parse(raw);
-        // Filter per-record rather than discarding the WHOLE array over one
-        // malformed entry (e.g. a future schema change touching a single
-        // record, or any other partial corruption) — matches the same
-        // per-record filtering onboardingPreferences.ts's hydrateCyclePreferences()
-        // already uses for its own periodHistory array. Every occurrence here
-        // is independent (keyed by its own `id`), so dropping only the
-        // invalid ones is safe and loses no valid, already-confirmed history
-        // — history that also feeds qadaa (fasting makeup) calculations,
-        // where silently discarding it all would be a real-world cost.
-        if (Array.isArray(parsed)) {
-          history = parsed.filter(isValidOccurrence);
-        }
-      }
+      // Per-record filtering: dropping only the invalid entries loses no valid, already-confirmed history — history
+      // that also feeds qadaa (fasting makeup) calculations, where silently discarding it all would be a real cost.
+      history = parseHistoryRecord(raw);
       notifyListeners();
       return getConfirmedPeriodHistory();
     })
@@ -173,6 +169,24 @@ export const hydrateConfirmedPeriodHistory = (): Promise<ConfirmedPeriodOccurren
       return getConfirmedPeriodHistory();
     });
   return hydration;
+};
+
+/**
+ * STRICTLY READ-ONLY snapshot of the OWNER's confirmed periods, whichever profile is active — for the owner-global
+ * post-Ramadan Qadaa reminder, which must be derived from the owner's own record even while a daughter stays active.
+ * Reads the owner's (unsuffixed) key through the storage layer with this store's own parser. It never touches the
+ * in-memory history, never notifies, never persists and never switches the active profile, so nothing of it can reach a
+ * managed profile's view. An unreadable (or unparsable) record is 'unavailable', never an empty list.
+ */
+export const readOwnerConfirmedPeriodHistorySnapshot = async (): Promise<
+  OwnerSnapshotResult<ConfirmedPeriodOccurrence[]>
+> => {
+  try {
+    const raw = await AsyncStorage.getItem(profileScopedKey(HISTORY_STORAGE_KEY_BASE, OWNER_PROFILE_ID));
+    return {status: 'ok', value: parseHistoryRecord(raw)};
+  } catch {
+    return {status: 'unavailable'};
+  }
 };
 
 // Re-reads (and re-notifies) from the newly active profile's own key whenever the

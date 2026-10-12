@@ -4,9 +4,12 @@ import {profileScopedKey} from './profileScopedStorage';
 import {persistWithRollback} from '../services/saveFailure';
 
 import {
+  carrySealedField,
   decryptFieldValue,
   encryptFieldValue,
   isEncryptedFieldPayload,
+  restoreSealedFields,
+  withCarriedSealedFields,
 } from '../services/atRestFieldEncryption';
 
 // "Not provided" representation per field (never a fabricated value):
@@ -107,6 +110,7 @@ async function decryptProfileFromStorage(raw: Record<string, unknown>): Promise<
       output.medicalNotes = await decryptFieldValue<string>(ENCRYPTION_SERVICE, value);
     } catch {
       delete output.medicalNotes;
+      carrySealedField(output, 'medicalNotes', value);
     }
   }
   // A plain string is legacy plaintext — already the correct shape.
@@ -127,7 +131,8 @@ async function encryptProfileForStorage(profile: GeneralHealthProfile): Promise<
   for (const field of ['bloodType', 'healthGoal', 'updatedAt'] as const) {
     if (!profile[field]) {delete output[field];}
   }
-  return output;
+  // Notes that could not be decrypted when the profile was read go back as the sealed payload they were.
+  return restoreSealedFields(output);
 }
 
 export async function loadGeneralHealth(): Promise<GeneralHealthProfile> {
@@ -159,7 +164,11 @@ export async function updateGeneralHealth(
   const isRealEdit = Object.keys(patch).length > 0;
   const previous = cachedProfile;
   const profileId = cachedProfileId;
-  const optimistic = {...cachedProfile, ...patch, ...(isRealEdit ? {updatedAt: todayKey()} : {})};
+  const optimistic = withCarriedSealedFields(cachedProfile, {
+    ...cachedProfile,
+    ...patch,
+    ...(isRealEdit ? {updatedAt: todayKey()} : {}),
+  });
   cachedProfile = optimistic;
   const storageKey = currentStorageKey();
   // A refused/failed save REJECTS (services/saveFailure.ts, the same contract as every store) and the cache goes back

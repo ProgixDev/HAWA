@@ -1,5 +1,6 @@
 import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
 import {commitOptimistic} from '../services/saveFailure';
+import {registerOwnerStore} from './ownerStoreRegistry';
 
 import {
   validateCycleReturnDate,
@@ -239,3 +240,24 @@ export const subscribeMiscarriagePreferences = (listener: () => void) => {
   listeners.add(listener);
   return () => {listeners.delete(listener);};
 };
+
+// Owner-only record, not profile-scoped: dropped and re-read after a backup restore / data deletion, or reset in
+// memory only after a full wipe (see ownerStoreRegistry.ts).
+const resetMiscarriageMemory = (): void => {
+  miscarriagePreferences = {...DEFAULT_PREFERENCES};
+  hydrated = false;
+  hydration = null;
+};
+registerOwnerStore('miscarriage-preferences', {
+  reload: async () => {
+    await hydration?.catch(() => undefined); // a read already in flight lands first, then is replaced
+    resetMiscarriageMemory();
+    const value = await hydrateMiscarriagePreferences();
+    notifyListeners();
+    return value;
+  },
+  resetToDefaults: () => {
+    resetMiscarriageMemory();
+    notifyListeners();
+  },
+});

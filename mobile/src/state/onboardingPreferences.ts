@@ -1258,6 +1258,7 @@ import {
 } from './confirmedPeriodHistoryStore';
 import {getActiveProfileId, subscribeActiveProfileId} from './activeProfileStore';
 import {profileScopedKey} from './profileScopedStorage';
+import {registerOwnerStore} from './ownerStoreRegistry';
 
 // Confirming the actual end of a period (PeriodEndBottomSheet, the Cycle
 // information screen, the Calendar range editor…) must update the RECORDED
@@ -1282,4 +1283,107 @@ subscribeConfirmedPeriodEndRecorded(occurrence => {
   periodHistory = periodHistory.map(item => (item.id === record.id ? {...item, endDate: endKey} : item));
   notifyCycleListeners();
   persistCycleCommitted(before);
+});
+
+// ---------------------------------------------------------------------------------------------------------------
+// Owner-only records (NOT profile-scoped): the active objective, the onboarding-completed flag, the spiritual-markers
+// choice, the Hijri adjustment and the selected location. After a backup restore / data deletion they are dropped and
+// re-read from storage; after a full wipe they are reset in memory only (no read, no write). See ownerStoreRegistry.ts.
+// Cycle preferences / period history / period end are profile-scoped and have their own reload above.
+// ---------------------------------------------------------------------------------------------------------------
+const resetObjectiveMemory = (): void => {
+  objectiveRevision += 1; // a read that lands after this describes the old record and is not applied
+  activeObjective = 'cycle';
+  objectiveHydrated = false;
+  objectiveHydration = null;
+};
+registerOwnerStore('active-objective', {
+  reload: async () => {
+    await objectiveHydration?.catch(() => undefined); // a read already in flight lands first, then is replaced
+    resetObjectiveMemory();
+    const value = await hydrateActiveObjective();
+    notifyObjectiveListeners();
+    return value;
+  },
+  resetToDefaults: () => {
+    resetObjectiveMemory();
+    notifyObjectiveListeners();
+  },
+});
+
+const resetCompletedOnboardingMemory = (): void => {
+  hasCompletedOnboarding = false;
+  onboardingCompletedHydrated = false;
+  onboardingCompletedHydration = null;
+};
+registerOwnerStore('has-completed-onboarding', {
+  reload: async () => {
+    await onboardingCompletedHydration?.catch(() => undefined);
+    resetCompletedOnboardingMemory();
+    const value = await hydrateHasCompletedOnboarding();
+    onboardingCompletedListeners.forEach(listener => listener());
+    return value;
+  },
+  resetToDefaults: () => {
+    resetCompletedOnboardingMemory();
+    onboardingCompletedListeners.forEach(listener => listener());
+  },
+});
+
+const resetSpiritualMarkersMemory = (): void => {
+  spiritualMarkersEnabled = true;
+  hasConfirmedSpiritualMarkersChoice = false;
+  spiritualMarkersHydration = null;
+};
+registerOwnerStore('spiritual-markers', {
+  reload: async () => {
+    await spiritualMarkersHydration?.catch(() => undefined);
+    resetSpiritualMarkersMemory();
+    const value = await hydrateSpiritualMarkersEnabled();
+    spiritualMarkersListeners.forEach(listener => listener());
+    return value;
+  },
+  resetToDefaults: () => {
+    resetSpiritualMarkersMemory();
+    spiritualMarkersListeners.forEach(listener => listener());
+  },
+});
+
+const resetHijriAdjustmentMemory = (): void => {
+  hijriAdjustmentDays = 0;
+  hijriAdjustmentHydration = null;
+};
+registerOwnerStore('hijri-adjustment', {
+  reload: async () => {
+    await hijriAdjustmentHydration?.catch(() => undefined);
+    resetHijriAdjustmentMemory();
+    const value = await hydrateHijriAdjustmentDays();
+    hijriAdjustmentListeners.forEach(listener => listener());
+    return value;
+  },
+  resetToDefaults: () => {
+    resetHijriAdjustmentMemory();
+    hijriAdjustmentListeners.forEach(listener => listener());
+  },
+});
+
+const resetLocationMemory = (): void => {
+  selectedLocation = null;
+  locationHydrated = false;
+  locationHydration = null;
+};
+registerOwnerStore('selected-location', {
+  reload: async () => {
+    await locationHydration?.catch(() => undefined);
+    resetLocationMemory();
+    const value = await hydrateSelectedLocation();
+    notifyLocationListeners();
+    return value;
+  },
+  resetToDefaults: () => {
+    resetLocationMemory();
+    selectedSchool = null; // chosen during onboarding, never persisted: part of the account that was wiped
+    firstName = ''; // personalInformationStore pushes the real one back as soon as it has data
+    notifyLocationListeners();
+  },
 });

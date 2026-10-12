@@ -2,9 +2,12 @@ import AsyncStorage from '../services/secureAsyncStorage';
 import {migrateRecordSafely, sealArrayFields, sealField} from '../services/legacyFieldMigration';
 
 import {
+  carrySealedField,
   decryptFieldValue,
   encryptFieldValue,
   isEncryptedFieldPayload,
+  restoreSealedFields,
+  withCarriedSealedFields,
 } from '../services/atRestFieldEncryption';
 
 // Canonical, frontend-only store for real user-entered Pregnancy medical
@@ -59,6 +62,7 @@ async function decryptEventFromStorage(raw: Record<string, unknown>): Promise<Pr
       output.notes = await decryptFieldValue<string>(ENCRYPTION_SERVICE, value);
     } catch {
       delete output.notes;
+      carrySealedField(output, 'notes', value);
     }
   }
   return output as unknown as PregnancyMedicalEvent;
@@ -71,7 +75,8 @@ async function encryptEventForStorage(event: PregnancyMedicalEvent): Promise<Rec
   } else {
     delete output.notes;
   }
-  return output;
+  // Notes that could not be decrypted when this event was read go back as the sealed payload they were.
+  return restoreSealedFields(output);
 }
 
 async function readEvents(): Promise<PregnancyMedicalEvent[]> {
@@ -109,7 +114,9 @@ export async function getPregnancyMedicalEvents(): Promise<PregnancyMedicalEvent
 /** Adds a new event or, when `event.id` matches an existing one, replaces it. */
 export async function savePregnancyMedicalEvent(event: PregnancyMedicalEvent): Promise<PregnancyMedicalEvent[]> {
   const events = await readEvents();
-  const next = [...events.filter(item => item.id !== event.id), event];
+  // The saved event replaces the stored one: notes that could not be read stay sealed unless she typed new ones.
+  const replaced = events.find(item => item.id === event.id);
+  const next = [...events.filter(item => item.id !== event.id), withCarriedSealedFields(replaced, event)];
   await writeEvents(next);
   return next;
 }

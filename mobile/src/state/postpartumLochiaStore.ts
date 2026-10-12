@@ -1,10 +1,14 @@
 import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
 import {migrateRecordSafely, sealField, sealMapFields} from '../services/legacyFieldMigration';
 import {commitOptimistic} from '../services/saveFailure';
+import {registerOwnerStore} from './ownerStoreRegistry';
 import {
+  carrySealedField,
   decryptFieldValue,
   encryptFieldValue,
   isEncryptedFieldPayload,
+  restoreSealedFields,
+  withCarriedSealedFields,
 } from '../services/atRestFieldEncryption';
 
 // Postpartum's own Lochia daily-tracking store — one entry per calendar day,
@@ -48,6 +52,8 @@ let tracking: PostpartumLochiaTracking = { ...DEFAULT_TRACKING };
 const listeners = new Set<() => void>();
 let hydration: Promise<EntriesByDate> | null = null;
 let hydrated = false;
+// Bumped by every reset (ownerStoreRegistry): a read that started before it must not land in the fresh memory.
+let readGeneration = 0;
 
 const notifyListeners = () => {
   listeners.forEach(listener => listener());
@@ -98,7 +104,8 @@ async function encryptEntryForStorage(entry: PostpartumLochiaEntry): Promise<Rec
   } else {
     delete output.note;
   }
-  return output;
+  // A note that could not be decrypted when this entry was read goes back as the sealed payload it was.
+  return restoreSealedFields(output);
 }
 
 async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Record<string, unknown>> {
@@ -108,6 +115,7 @@ async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Re
       output.note = await decryptFieldValue<string>(ENCRYPTION_SERVICE, raw.note);
     } catch {
       delete output.note;
+      carrySealedField(output, 'note', raw.note);
     }
   }
   return output;
@@ -158,7 +166,8 @@ export async function savePostpartumLochiaEntry(
   entry: Omit<PostpartumLochiaEntry, 'date'>,
 ): Promise<void> {
   const previous = entries;
-  entries = { ...entries, [date]: { ...entry, date } };
+  // The saved entry replaces the stored one: a note that could not be read stays sealed unless she typed a new one.
+  entries = { ...entries, [date]: withCarriedSealedFields(entries[date], { ...entry, date }) };
   notifyListeners();
   await commitEntries(previous);
 }
@@ -182,8 +191,10 @@ export const hydratePostpartumLochia = (): Promise<EntriesByDate> => {
     return Promise.resolve({ ...entries });
   }
   if (!hydration) {
+    const generation = readGeneration;
     hydration = readOwnedItem(STORAGE_KEY, hydratePostpartumLochia)
       .then(async raw => {
+        if (generation !== readGeneration) {return {...entries};} // reset while reading: stale
         hydrated = true;
         if (raw) {
           const parsed: unknown = JSON.parse(raw);
@@ -203,6 +214,7 @@ export const hydratePostpartumLochia = (): Promise<EntriesByDate> => {
                 valid[key] = decrypted;
               }
             }
+            if (generation !== readGeneration) {return {...entries};}
             entries = valid;
             const rawTracking = candidate.tracking;
             if (rawTracking && typeof rawTracking === 'object') {
@@ -219,6 +231,7 @@ export const hydratePostpartumLochia = (): Promise<EntriesByDate> => {
         return { ...entries };
       })
       .catch(error => {
+        if (generation !== readGeneration) {return {...entries};} // reset while reading: stale
         if (isStructuredUnavailableError(error)) {
           // not latched: a later hydrate (or "Try again") re-reads the real record
           hydration = null;
@@ -237,6 +250,25 @@ export const subscribePostpartumLochia = (listener: () => void) => {
     listeners.delete(listener);
   };
 };
+
+// Owner-only record, not profile-scoped: dropped and re-read after a backup restore / data deletion, or reset in
+// memory only after a full wipe (see ownerStoreRegistry.ts). Reload only reads (never writes, never recreates a key); the
+// in-memory sealed-field carry is rebuilt by that read and dropped by the reset — it is never persisted.
+const resetMemory = (): void => {
+  readGeneration += 1;
+  entries = {};
+  tracking = {...DEFAULT_TRACKING};
+  hydration = null;
+  hydrated = false;
+  notifyListeners();
+};
+registerOwnerStore('postpartum-lochia', {
+  reload: () => {
+    resetMemory();
+    return hydratePostpartumLochia();
+  },
+  resetToDefaults: resetMemory,
+});
 
 /**
  * Idempotent, interruption-safe boot-time migration of every entry's note saved as plain text before field-level

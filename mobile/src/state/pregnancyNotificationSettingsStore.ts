@@ -1,5 +1,6 @@
 import AsyncStorage, {readOwnedItem} from '../services/secureAsyncStorage';
 import {commitOptimistic} from '../services/saveFailure';
+import {registerOwnerStore} from './ownerStoreRegistry';
 import type {PregnancyReminderOffset} from './pregnancyMedicalEventsStore';
 
 // Preferences for the "Notifications & rappels" screen — general
@@ -38,12 +39,17 @@ export function getPregnancyNotificationSettings(): PregnancyNotificationSetting
   return cache;
 }
 
+// Bumped when the stored record changed behind this store's back (restore / deletion / wipe): a read that started
+// before then describes the OLD record and must not be applied over what follows.
+let resetEpoch = 0;
+
 export async function hydratePregnancyNotificationSettings(): Promise<PregnancyNotificationSettings> {
+  const epochAtStart = resetEpoch;
   try {
     // readOwnedItem: a read that FAILED keeps the key write-protected (the cache below is only defaults) and is re-run by
     // "Try again"; this function is never memoised, so every later call re-reads too.
     const raw = await readOwnedItem(STORAGE_KEY, hydratePregnancyNotificationSettings);
-    if (raw) {
+    if (raw && epochAtStart === resetEpoch) {
       cache = {...DEFAULT_SETTINGS, ...(JSON.parse(raw) as Partial<PregnancyNotificationSettings>)};
       listeners.forEach(listener => listener());
     }
@@ -67,3 +73,20 @@ export function subscribePregnancyNotificationSettings(listener: () => void): ()
   listeners.add(listener);
   return () => listeners.delete(listener);
 }
+
+// Owner-only record, not profile-scoped: re-read after a backup restore / data deletion, or reset in memory only after
+// a full wipe (see ownerStoreRegistry.ts). Never writes the defaults.
+registerOwnerStore('pregnancy-notification-settings', {
+  reload: async () => {
+    resetEpoch += 1;
+    cache = DEFAULT_SETTINGS;
+    const value = await hydratePregnancyNotificationSettings();
+    listeners.forEach(listener => listener());
+    return value;
+  },
+  resetToDefaults: () => {
+    resetEpoch += 1;
+    cache = DEFAULT_SETTINGS;
+    listeners.forEach(listener => listener());
+  },
+});
