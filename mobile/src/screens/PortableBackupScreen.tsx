@@ -24,6 +24,7 @@ import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {getActiveProfileIdentity, reloadActiveProfileData} from '../state/activeProfileStore';
 import {reloadCycleStateFromStorage} from '../state/onboardingPreferences';
+import {reloadAllOwnerStores} from '../state/ownerStoreRegistry';
 import {checkPassphrase} from '../services/passphraseKdf';
 import {
   PortableBackupError,
@@ -127,6 +128,10 @@ export default function PortableBackupScreen({navigation}: Props): React.JSX.Ele
       const result = await restorePortableBackup({contents: picked.contents, passphrase: restorePass});
       reloadActiveProfileData();
       await reloadCycleStateFromStorage().catch(() => undefined);
+      // The owner-only stores (objective, pregnancy / postpartum / loss / ... preferences, reminder snapshots) memoise
+      // their first read and have no profile signal: they re-read what was just restored BEFORE the resync below
+      // derives anything from them. Never throws.
+      await reloadAllOwnerStores();
       runStructuredMigration().catch(() => undefined);
       // The restored records replaced everything the scheduled reminders were derived from, and Android still holds
       // the triggers built from the OLD ones: re-derive and re-schedule every objective's reminders from what is now

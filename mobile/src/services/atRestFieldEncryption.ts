@@ -97,3 +97,58 @@ export function restoreSealedFields<T extends Record<string, unknown>>(holder: T
   });
   return output as T;
 }
+
+const readCarry = (holder: unknown): SealedCarry | undefined => {
+  if (!holder || typeof holder !== 'object') {return undefined;}
+  const carried = (holder as Record<string, unknown>)[SEALED_CARRY_KEY];
+  return carried && typeof carried === 'object' ? (carried as SealedCarry) : undefined;
+};
+
+/** Whether `holder` still carries an unreadable sealed payload (for any field, or for one of `fields`). A store uses
+ * this to keep a record alive whose only remaining content is a payload it could not open. */
+export function hasCarriedSealedFields(holder: unknown, fields?: readonly string[]): boolean {
+  const carried = readCarry(holder);
+  if (!carried) {return false;}
+  const names = fields ?? Object.keys(carried);
+  return names.some(name => isEncryptedFieldPayload(carried[name]));
+}
+
+/** `next` is a record a caller built to REPLACE `previous` (a section, a detail object, a list item matched by id).
+ * Whatever `previous` carries travels on to `next`, except for the fields where `next` now has a real value: that
+ * value won, so the older sealed payload is released and can never come back later. Returns `next` unchanged when
+ * nothing is carried. Nothing is decrypted or re-encrypted. */
+export function withCarriedSealedFields<T>(previous: unknown, next: T): T {
+  if (!next || typeof next !== 'object' || Array.isArray(next)) {return next;}
+  const previousCarry = readCarry(previous);
+  const ownCarry = readCarry(next);
+  if (!previousCarry && !ownCarry) {return next;}
+  const record = next as Record<string, unknown>;
+  const merged: SealedCarry = {...previousCarry, ...ownCarry};
+  Object.keys(merged).forEach(field => {
+    if (!isBlank(record[field])) {delete merged[field];}
+  });
+  const output: Record<string, unknown> = {...record};
+  if (Object.keys(merged).length > 0) {
+    output[SEALED_CARRY_KEY] = merged;
+  } else {
+    delete output[SEALED_CARRY_KEY];
+  }
+  return output as T;
+}
+
+/** The record without the carried payloads of `fields` — used when she deliberately clears those fields. */
+export function dropCarriedSealedFields<T>(holder: T, fields: readonly string[]): T {
+  const carried = readCarry(holder);
+  if (!carried) {return holder;}
+  const remaining: SealedCarry = {...carried};
+  fields.forEach(field => {
+    delete remaining[field];
+  });
+  const output: Record<string, unknown> = {...(holder as Record<string, unknown>)};
+  if (Object.keys(remaining).length > 0) {
+    output[SEALED_CARRY_KEY] = remaining;
+  } else {
+    delete output[SEALED_CARRY_KEY];
+  }
+  return output as T;
+}
