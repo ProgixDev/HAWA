@@ -9,6 +9,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {PurityPrayerResult} from '../../utils/purityPrayerLogic';
 import {dateFormatLocale} from '../../utils/cycleMath';
+import {formatClockTimeInZone} from '../../utils/timeOfDay';
 import {displayUpperCase} from '../../utils/textCase';
 
 type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
@@ -25,13 +26,8 @@ type Props = {
 const sameDay = (a: Date, b: Date) =>
   a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 
-const formatTime = (date: Date, timezone?: string) =>
-  new Intl.DateTimeFormat(dateFormatLocale(), {
-    ...(timezone ? {timeZone: timezone} : {}),
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  }).format(date);
+// Instant in the prayer location's zone, 24-hour: hourCycle h23 so 00:05 is never "24:05" under en-US.
+const formatTime = (date: Date, timezone?: string) => formatClockTimeInZone(date, dateFormatLocale(), timezone);
 
 const formatDeclaredEnd = (t: TranslateFn, date: Date, timezone?: string): string => {
   if (sameDay(date, new Date())) {

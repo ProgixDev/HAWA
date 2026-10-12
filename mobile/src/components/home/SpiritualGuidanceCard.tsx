@@ -15,6 +15,7 @@ import {homeColors, homeRadii} from './homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale} from '../../utils/cycleMath';
+import {formatClockTimeInZone} from '../../utils/timeOfDay';
 import type {PrayerWindow} from '../../services/prayerTimes';
 import {
   nifasReferenceApproachingHeadline,
@@ -77,13 +78,8 @@ type Props = {
   onPressPuritySummary?: () => void;
 };
 
-const formatTime = (date: Date, timezone?: string) =>
-  new Intl.DateTimeFormat(dateFormatLocale(), {
-    ...(timezone ? {timeZone: timezone} : {}),
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  }).format(date);
+// Instant in the prayer location's zone, 24-hour: hourCycle h23 so 00:05 is never "24:05" under en-US.
+const formatTime = (date: Date, timezone?: string) => formatClockTimeInZone(date, dateFormatLocale(), timezone);
 
 function InfoBlock({
   icon,

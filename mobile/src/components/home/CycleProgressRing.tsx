@@ -32,6 +32,36 @@ type Props = {
  * supplied color/label/day/length differ per screen. The caller owns everything else
  * (title, message, chips, card chrome) — this component only draws the ring + its center.
  */
+const PHASE_LABEL_BASE_SIZE = 9.5;
+const PHASE_LABEL_MIN_SIZE = 7;
+const PHASE_LABEL_HORIZONTAL_PADDING = 12;
+// Average advance of a bold letter, in em. Calibrated on the shipped copy: "folliculaire" (12 Latin letters) always fit
+// at 9.5 and "Фолликулярная" (13 Cyrillic letters) did not; Cyrillic and capitals are wider than Latin lowercase.
+const EM_LATIN_LOWER = 0.58;
+const EM_LATIN_UPPER = 0.7;
+const EM_OTHER = 0.68;
+
+const wordWidthEm = (word: string): number =>
+  [...word].reduce((sum, letter) => {
+    if (/[a-zà-ÿß]/.test(letter)) {return sum + EM_LATIN_LOWER;}
+    if (/[A-ZÀ-ÞĞİŞ]/.test(letter)) {return sum + EM_LATIN_UPPER;}
+    return sum + EM_OTHER;
+  }, 0);
+
+/**
+ * Font size of the phase name in the centre of the ring. The disc is only about 0.7 x the ring wide, so a single long
+ * word ("Фолликулярная", "Follikelphase") used to be broken in the middle by the text layout ("Фоллик / улярная").
+ * Names whose longest word would not fit at the base size are scaled down, never below PHASE_LABEL_MIN_SIZE; names
+ * that already fit (French, English, Spanish, Italian, Turkish) keep the original 9.5. Exported for tests.
+ */
+export function phaseLabelFontSize(label: string | null, ringSize: number): number {
+  if (!label) {return PHASE_LABEL_BASE_SIZE;}
+  const longestEm = Math.max(...label.split(/\s+/).map(wordWidthEm), 1);
+  const available = Math.round(ringSize * (82 / 116)) - PHASE_LABEL_HORIZONTAL_PADDING;
+  const fitting = available / longestEm;
+  return Math.max(PHASE_LABEL_MIN_SIZE, Math.min(PHASE_LABEL_BASE_SIZE, Math.round(fitting * 10) / 10));
+}
+
 export default function CycleProgressRing({
   currentDay,
   cycleLength,
@@ -48,6 +78,7 @@ export default function CycleProgressRing({
 
   const safeCycleLength = Math.max(cycleLength, 1);
   const progress = currentDay === null ? 0 : Math.min(Math.max(currentDay / safeCycleLength, 0), 1);
+  const phaseFontSize = phaseLabelFontSize(phaseLabel, size);
 
   useEffect(() => {
     let mounted = true;
@@ -101,7 +132,14 @@ export default function CycleProgressRing({
       <View style={styles.ringCenter}>
         <Text style={styles.ringEyebrow}>{t('journalNote.cycleDayLabel')}</Text>
         <Text style={styles.ringNumber}>{currentDay === null ? '—' : String(currentDay)}</Text>
-        {phaseLabel ? <Text numberOfLines={2} style={[styles.ringPhase, {color: ringColor}]}>{phaseLabel}</Text> : null}
+        {phaseLabel ? (
+          <Text
+            maxFontSizeMultiplier={1.1}
+            numberOfLines={2}
+            style={[styles.ringPhase, {color: ringColor, fontSize: phaseFontSize}]}>
+            {phaseLabel}
+          </Text>
+        ) : null}
       </View>
     </View>
   );
