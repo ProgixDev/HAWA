@@ -202,9 +202,56 @@ export async function ensureNotificationPermission(): Promise<boolean> {
  *   'ready'             — notifications are on and the reminders channel is not blocked
  *   'notifications-off' — Android notifications are turned off for AWA
  *   'channel-blocked'   — the AWA reminders channel is blocked in Android settings
+ *   'channel-silent'    — notifications reach her, but the reminders channel makes no sound on this phone (it was
+ *                         created silent by an older version, or she lowered it). NOT a failure and never blocking:
+ *                         a deliberate mute is valid, so the UI only offers a gentle hint and a shortcut to the
+ *                         channel's page in Android settings. AWA never changes or recreates the channel.
  *   'unknown'           — not asked yet (Android 13+) or the state could not be read: never shown as a problem
  */
-export type ReminderDeliveryState = 'ready' | 'notifications-off' | 'channel-blocked' | 'unknown';
+export type ReminderDeliveryState = 'ready' | 'notifications-off' | 'channel-blocked' | 'channel-silent' | 'unknown';
+
+/**
+ * True only when the channel the OS reported is POSITIVELY known to be quiet: a well-formed channel record
+ * (numeric importance) whose importance is below DEFAULT (LOW/MIN make no sound), or that carries no sound at all.
+ * Anything else — a missing record, an odd shape, an unreadable field — is "not known to be silent".
+ * A channel that only has vibration switched off still plays its sound, so vibration is deliberately not judged.
+ *
+ * EVIDENCE (notifee 9.1.8, bundled core app.notifee:core:202108261754 — decompiled `app.notifee.core.a`, the
+ * NotificationChannel -> Bundle conversion that backs notifee.getChannel() on Android 8+):
+ *   - `importance` is always written, straight from NotificationChannel.getImportance() (an int).
+ *   - `blocked` is always written and is exactly `importance === 0`.
+ *   - `soundURI` is written iff NotificationChannel.getSound() != null (Uri.toString()). So it is absent exactly when
+ *     the channel has no sound: created without `sound` (notifee then calls setSound(null, null)), or set to "None"
+ *     by the user in Android settings. A channel created with `sound: 'default'` reports the system notification
+ *     sound URI here.
+ *   - `sound` is NOT a general "has sound" flag: it is written only when the sound is an android.resource:// URI
+ *     (a custom raw resource) and is the resource's file name. The default sound never produces it. Reading
+ *     `sound` alone would therefore call a default-sound channel silent; that is why `soundURI` is also checked
+ *     and a sound is considered present when EITHER is a non-empty string.
+ *   - getChannel() resolves null on Android < 8 or when the channel does not exist.
+ * Proven by that code: the shape above. NOT provable without a phone: that every OEM's NotificationManager keeps
+ * returning getSound() faithfully after a user edit (stock Android does; it is the platform API).
+ */
+export function isReminderChannelSilent(channel: unknown): boolean {
+  if (!channel || typeof channel !== 'object') {
+    return false;
+  }
+  const record = channel as {importance?: unknown; sound?: unknown; soundURI?: unknown};
+  if (typeof record.importance !== 'number' || !Number.isFinite(record.importance)) {
+    return false;
+  }
+  if (record.importance < AndroidImportance.DEFAULT) {
+    // 0 (NONE) is the blocked case, reported separately by isChannelBlocked.
+    return record.importance > AndroidImportance.NONE;
+  }
+  const hasText = (value: unknown) => typeof value === 'string' && value.trim() !== '';
+  // Absent/null is the native "no sound"; a sound field of an unexpected TYPE is not trusted (not known silent).
+  const unreadable = (value: unknown) => value !== undefined && value !== null && typeof value !== 'string';
+  if (unreadable(record.sound) || unreadable(record.soundURI)) {
+    return false;
+  }
+  return !hasText(record.sound) && !hasText(record.soundURI);
+}
 
 export async function getReminderDeliveryState(): Promise<ReminderDeliveryState> {
   const status = await getNotificationPermissionStatus();
@@ -221,7 +268,30 @@ export async function getReminderDeliveryState(): Promise<ReminderDeliveryState>
   } catch {
     // channel state unreadable: not a reason to alarm anyone
   }
+  try {
+    // Read-only: getChannel never creates or changes the channel.
+    if (isReminderChannelSilent(await notifee.getChannel(CHANNEL_ID))) {
+      return 'channel-silent';
+    }
+  } catch {
+    // unreadable: stay 'ready' rather than hint at a problem we cannot confirm
+  }
   return 'ready';
+}
+
+/**
+ * Opens the Android settings page of the AWA reminders channel (where "Sound" lives), falling back to the app's
+ * notification settings. Opening a settings page is all it does: the channel is never created, deleted or edited
+ * from here, so a mute the person chose is theirs to keep or lift. Never throws.
+ */
+export async function openReminderChannelSettings(): Promise<void> {
+  try {
+    await notifee.openNotificationSettings(CHANNEL_ID);
+    return;
+  } catch {
+    // fall through to the app-level page
+  }
+  await openNotificationSettings();
 }
 
 /** Opens the Android notification settings for this app. Never throws. */
@@ -464,6 +534,70 @@ export async function cancelAllLocalNotifications(): Promise<boolean> {
     return true;
   } catch {
     return false;
+  }
+}
+
+// --- housekeeping of delivered series members ----------------------------------------------------------------------
+
+/** Epoch ms of a displayed record's delivery, or null when it is missing or unreadable (notifee Android: String(postTime)). */
+function deliveredAtMs(date: unknown): number | null {
+  if (typeof date === 'number') {
+    return Number.isFinite(date) ? date : null;
+  }
+  if (typeof date !== 'string' || date.trim() === '') {
+    return null;
+  }
+  const text = date.trim();
+  const parsed = /^\d+$/.test(text) ? Number(text) : Date.parse(text);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+}
+
+/** True for `baseId` itself and for `baseId::<digits>` only — never for a prefix lookalike such as `baseId-extra`. */
+function isSeriesMemberId(baseId: string, candidate: string): boolean {
+  if (candidate === baseId) {
+    return true;
+  }
+  const prefix = `${baseId}${REMINDER_SERIES_SEPARATOR}`;
+  return candidate.startsWith(prefix) && /^\d+$/.test(candidate.slice(prefix.length));
+}
+
+/**
+ * Removes from the notification shade the delivered copies of a one-shot reminder series (`<baseId>`, `<baseId>::n`)
+ * that were delivered BEFORE `startOfToday` (the start of the current LOCAL day, built by the caller from calendar
+ * components so a 23/25-hour day is handled). A series such as the pill reminder delivers a distinct id per day, so
+ * without this yesterday's reminders pile up whenever the app is not re-synced between deliveries.
+ *
+ * Deliberately narrow: only displayed copies are dismissed (cancelDisplayedNotifications) — never
+ * cancelNotification/cancelTriggerNotification(s), so no pending trigger can be touched; today's copies, other ids
+ * (including `<baseId>-extra`) and records whose delivery date is missing/unreadable are left alone.
+ * Never throws; resolves to the number of notifications dismissed.
+ */
+export async function dismissDeliveredSeriesMembersBefore(baseId: string, startOfToday: Date): Promise<number> {
+  try {
+    const cutoff = startOfToday.getTime();
+    if (!Number.isFinite(cutoff)) {
+      return 0;
+    }
+    const displayed = await notifee.getDisplayedNotifications();
+    const stale: string[] = [];
+    for (const item of displayed) {
+      const shownId = item?.id ?? item?.notification?.id;
+      if (typeof shownId !== 'string' || !isSeriesMemberId(baseId, shownId)) {
+        continue;
+      }
+      const deliveredAt = deliveredAtMs((item as {date?: unknown}).date);
+      if (deliveredAt !== null && deliveredAt < cutoff) {
+        stale.push(shownId);
+      }
+    }
+    if (stale.length === 0) {
+      return 0;
+    }
+    await notifee.cancelDisplayedNotifications(stale);
+    return stale.length;
+  } catch {
+    // The shade could not be read or edited: leaving old copies is harmless, a failed sync is not.
+    return 0;
   }
 }
 
