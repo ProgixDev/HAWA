@@ -419,6 +419,132 @@ const CONTENT = {
     tip2Text: 'Vajinal halka, sürekli hormon salınımını günlük doz gerektirmeyen bir kullanım ritmiyle bir araya getirir. Yine de doğum kontrol seçimi kişiye göre uyarlanmalı ve bir sağlık profesyoneliyle konuşulmalıdır.',
     shareMessage: 'Doğum kontrol vajinal halkası — AWA',
   },
+  ru: {
+    badge: 'ВЛАГАЛИЩНОЕ КОЛЬЦО',
+    title: 'Контрацептивное\nвлагалищное кольцо',
+    metaDuration: '5 мин чтения',
+    metaType: 'Статья',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Проверенный материал',
+    intro: 'Гибкое кольцо, которое носят три недели.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Как действует кольцо',
+      'Введение и извлечение',
+      'Что нужно знать',
+      'Главное',
+    ],
+    body1:
+      'Кольцо — это гибкое устройство, которое непрерывно высвобождает низкие дозы гормонов прямо во влагалище и действует как контрацептив так же, как комбинированные таблетки.',
+    flowTitle: 'Как оно действует',
+    flowSteps: [
+      {title: 'Кольцо', text: 'Вводится во влагалище'},
+      {title: 'Гормоны', text: 'Непрерывное высвобождение'},
+      {title: 'Защита', text: 'Контрацептивное действие'},
+    ],
+    body2:
+      'Вы вводите его самостоятельно, оно остаётся на месте непрерывно в течение трёх недель, затем его извлекают на недельный перерыв, во время которого наступают месячные.',
+    calendarTitle: 'Простой ритм, которого легко придерживаться',
+    weekLabelActive: 'Кольцо',
+    weekLabelPause: 'Перерыв',
+    legendActive: 'Неделя с кольцом',
+    legendPause: 'Неделя перерыва',
+    tip1Title: 'ПОЛЕЗНО ЗНАТЬ',
+    tip1Text:
+      'Чтобы кольцо было эффективным, его точное положение во влагалище не обязательно должно быть строго определённым, поэтому им просто пользоваться.',
+    body3:
+      'У кольца есть несколько практических особенностей, которые стоит знать, прежде чем его выбрать.',
+    careTips: [
+      {title: 'Простое в использовании', text: 'Вы вводите и извлекаете его самостоятельно.'},
+      {title: 'Регулярный ритм', text: 'Как правило, оно остаётся на месте три недели.'},
+      {title: 'Непрерывное действие', text: 'Гормоны высвобождаются непрерывно на протяжении всего периода использования.'},
+      {title: 'Не защищает от ИППП', text: 'В зависимости от ситуации может потребоваться дополнительная защита.'},
+    ],
+    checkListTitle: 'Полезные привычки',
+    practicalSteps: [
+      'Вымойте руки перед введением или извлечением',
+      'Выберите время, которое легко запомнить, чтобы не сбиться с графика',
+      'Время от времени проверяйте, что кольцо на месте',
+      'Если оно сместилось или выпало, сверьтесь с инструкцией-вкладышем',
+    ],
+    alertTitle: 'Обратите внимание',
+    alertText:
+      'Выпадение или длительное смещение кольца может потребовать особых действий. Если вы не уверены, всегда сверяйтесь с инструкцией-вкладышем к устройству или обращайтесь к медицинскому специалисту.',
+    summaryTitle: 'Главное в 4 пунктах',
+    summaryItems: [
+      {title: 'Простое введение', text: 'Кольцо можно вводить и извлекать самостоятельно.'},
+      {title: 'Недельный ритм', text: 'Как правило, схема включает три недели с кольцом и одну неделю перерыва.'},
+      {title: 'Периодическая проверка', text: 'Регулярная проверка того, что кольцо на месте, помогает пользоваться устройством спокойно.'},
+      {title: 'Нет защиты от ИППП', text: 'В зависимости от ситуации может потребоваться подходящая защита.'},
+    ],
+    tip2Title: 'Главное',
+    tip2Text:
+      'Влагалищное кольцо сочетает непрерывное высвобождение гормонов с ритмом использования, который избавляет от ежедневного приёма. Однако выбор контрацепции должен подбираться индивидуально и обсуждаться с медицинским специалистом.',
+    shareMessage: 'Контрацептивное влагалищное кольцо — AWA',
+  },
+  de: {
+    badge: 'VAGINALRING',
+    title: 'Der Verhütungs-\nvaginalring',
+    metaDuration: '5 Min. Lesezeit',
+    metaType: 'Artikel',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Geprüfter Inhalt',
+    intro: 'Ein flexibler Ring, der drei Wochen lang getragen wird.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'So wirkt der Ring',
+      'Einsetzen und Entfernen',
+      'Was du wissen solltest',
+      'Das Wichtigste in Kürze',
+    ],
+    body1:
+      'Der Ring ist ein flexibles Produkt, das kontinuierlich niedrig dosierte Hormone direkt in der Scheide freisetzt und dieselbe verhütende Wirkung hat wie eine Kombinationspille.',
+    flowTitle: 'So funktioniert er',
+    flowSteps: [
+      {title: 'Ring', text: 'In die Scheide eingesetzt'},
+      {title: 'Hormone', text: 'Kontinuierliche Abgabe'},
+      {title: 'Schutz', text: 'Verhütende Wirkung'},
+    ],
+    body2:
+      'Du setzt ihn selbst ein, er bleibt drei Wochen lang durchgehend an Ort und Stelle und wird dann für eine einwöchige Pause entfernt, in der deine Periode eintritt.',
+    calendarTitle: 'Ein einfacher Rhythmus',
+    weekLabelActive: 'Ring',
+    weekLabelPause: 'Pause',
+    legendActive: 'Woche mit Ring',
+    legendPause: 'Pausenwoche',
+    tip1Title: 'Gut zu wissen',
+    tip1Text:
+      'Seine genaue Position in der Scheide muss nicht exakt sein, damit er wirkt, was die Anwendung einfach macht.',
+    body3:
+      'Der Ring hat einige praktische Eigenschaften, die du vor der Entscheidung kennen solltest.',
+    careTips: [
+      {title: 'Einfache Anwendung', text: 'Du setzt ihn selbst ein und entfernst ihn selbst.'},
+      {title: 'Regelmäßiger Rhythmus', text: 'Er bleibt in der Regel drei Wochen lang an Ort und Stelle.'},
+      {title: 'Kontinuierliche Wirkung', text: 'Die Hormone werden während der gesamten Anwendungsdauer kontinuierlich freigesetzt.'},
+      {title: 'Kein Schutz vor sexuell übertragbaren Infektionen', text: 'Je nach Situation kann zusätzlicher Schutz nötig sein.'},
+    ],
+    checkListTitle: 'Gute Gewohnheiten',
+    practicalSteps: [
+      'Wasche dir vor dem Einsetzen oder Entfernen die Hände',
+      'Wähle eine leicht zu merkende Uhrzeit, um den Überblick über den Plan zu behalten',
+      'Prüfe gelegentlich, ob er noch richtig sitzt',
+      'Lies den Beipackzettel, wenn er verrutscht oder ausgestoßen wird',
+    ],
+    alertTitle: 'Bitte beachten',
+    alertText:
+      'Ein Herausrutschen oder ein längeres Verrutschen kann besondere Hinweise erfordern. Lies immer den Beipackzettel des Produkts oder frag medizinisches Fachpersonal, wenn du unsicher bist.',
+    summaryTitle: 'Das Wesentliche in 4 Punkten',
+    summaryItems: [
+      {title: 'Einfaches Einsetzen', text: 'Den Ring kannst du selbst einsetzen und entfernen.'},
+      {title: 'Wochenrhythmus', text: 'In der Regel folgt er einem Dreiwochenzyklus mit einer Woche Pause.'},
+      {title: 'Gelegentliche Kontrolle', text: 'Wenn du regelmäßig prüfst, ob er sitzt, kannst du ihn mit Ruhe anwenden.'},
+      {title: 'Kein Schutz vor sexuell übertragbaren Infektionen', text: 'Je nach Situation kann ein geeigneter Schutz nötig sein.'},
+    ],
+    tip2Title: 'Das Wichtigste in Kürze',
+    tip2Text:
+      'Der Vaginalring verbindet eine kontinuierliche Hormonabgabe mit einem Anwendungsrhythmus, der eine tägliche Einnahme überflüssig macht. Die Wahl der Verhütung sollte jedoch individuell erfolgen und mit medizinischem Fachpersonal besprochen werden.',
+    shareMessage: 'Der Verhütungsvaginalring — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

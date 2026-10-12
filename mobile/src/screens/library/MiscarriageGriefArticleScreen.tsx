@@ -490,6 +490,174 @@ const CONTENT = {
     disclaimerText: 'Bilgilendirici içerik. Bu makale profesyonel tavsiyenin yerini tutmaz. Zor bir dönemden geçiyorsan bir sağlık uzmanıyla konuşmaktan çekinme.',
     shareMessage: 'Yası duygusal olarak yaşamak — AWA',
   },
+  ru: {
+    badge: 'ПОСЛЕ ВЫКИДЫША • ЭМОЦИОНАЛЬНАЯ ПОДДЕРЖКА',
+    title: 'Пройти через горе\nэмоционально',
+    metaDuration: '7 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Информационный материал',
+    intro: 'Не существует единственно правильного способа пройти через это. Каждая женщина проживает это по-своему и в своём темпе.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Настоящее и законное горе',
+      'Эмоции, которые у каждой разные',
+      'Что может помочь в повседневной жизни',
+      'Поддержка близких',
+      'Когда стоит обратиться за профессиональной помощью',
+      'Главное',
+    ],
+    section1Body: 'Грусть, гнев или чувство пустоты — естественные реакции на эту потерю, на каком бы сроке ни была беременность. То, что вы чувствуете, заслуживает признания.',
+    section1InfoTitle: 'Важно помнить',
+    section1InfoText: 'Нет правильного или неправильного способа пройти через это. Любая эмоция, которую вы испытываете, имеет право на существование.',
+    section2Body: 'Вы можете испытывать одно или несколько из этих чувств, иногда все сразу:',
+    feelings: [
+      {
+        title: 'Грусть',
+        text: 'Печаль, которая может приходить и уходить, порой неожиданно.',
+      },
+      {
+        title: 'Гнев',
+        text: 'На себя, на ситуацию или из-за чувства несправедливости — и в этом нет ничего тревожного.',
+      },
+      {
+        title: 'Чувство пустоты',
+        text: 'Ощущение пустоты или растерянности из-за того, что произошло.',
+      },
+    ],
+    section3Body: 'Дать себе время, без давления и сравнений, — важная часть исцеления.',
+    dailySupport: [
+      {
+        title: 'Дать себе время',
+        text: 'Без давления и без срока, к которому нужно «почувствовать себя лучше».',
+      },
+      {
+        title: 'Не сравнивать себя с другими',
+        text: 'Каждое горе уникально; единственно правильного способа пройти через него нет.',
+      },
+      {
+        title: 'Выразить чувства словами',
+        text: 'Записать или рассказать о том, что вы чувствуете, может помочь облегчить тяжесть переживаний.',
+      },
+    ],
+    section4Body: 'Разговор с кем-то из близких, группой поддержки или специалистом может помочь облегчить эту ношу. Вот чем могут помочь близкие:',
+    supportTitle: 'Как близкий человек может поддержать',
+    howToSupport: [
+      'Слушать без осуждения, даже если не находится нужных слов',
+      'Не обесценивать пережитое («ничего страшного», «можно попробовать снова»)',
+      'Предложить своё присутствие, а не готовые решения',
+      'Продолжать интересоваться, как дела, и в последующие недели',
+    ],
+    section5Body: 'Некоторые признаки могут говорить о том, что профессиональная поддержка была бы полезной:',
+    warningTitle: 'На что стоит обратить внимание',
+    attentionSigns: [
+      'Грусть длится долго и усиливается, а не ослабевает',
+      'Становится трудно справляться с повседневными делами',
+      'Появляется выраженное чувство одиночества',
+      'Появляются навязчивые мысли или сильное душевное страдание',
+    ],
+    section5InfoTitle: 'Поддержка доступна',
+    section5InfoText: 'Акушерка, врач, психолог или группа поддержки могут выслушать вас и поддержать без осуждения.',
+    tipTitle: 'Полезно знать',
+    tipText: 'Просить о помощи — не признак слабости, а способ позаботиться о себе в этот период.',
+    summaryPoints: [
+      'Нет правильного или неправильного способа пройти через этот опыт.',
+      'Грусть, гнев или чувство пустоты — естественные реакции.',
+      'Дать себе время, без давления и сравнений, — часть исцеления.',
+      'Разговор с кем-то из близких, группой поддержки или специалистом может помочь облегчить эту ношу.',
+    ],
+    disclaimerText: 'Информационный материал. Эта статья не заменяет профессиональной консультации. Если вы переживаете трудный период, не стесняйтесь обратиться к медицинскому специалисту.',
+    shareMessage: 'Пройти через горе эмоционально — AWA',
+  },
+  de: {
+    badge: 'NACH EINER FEHLGEBURT • EMOTIONALE UNTERSTÜTZUNG',
+    title: 'Die Trauer\nemotional durchleben',
+    metaDuration: '7 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Informationsinhalt',
+    intro:
+      'Es gibt keinen richtigen Weg, das zu durchleben. Jede Frau geht ihn auf ihre eigene Weise und in ihrem eigenen Tempo.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Eine echte und berechtigte Trauer',
+      'Gefühle, die bei jeder Frau anders sind',
+      'Was im Alltag helfen kann',
+      'Die Unterstützung durch nahestehende Menschen',
+      'Wann du professionelle Hilfe suchen kannst',
+      'Das Wichtigste in Kürze',
+    ],
+    section1Body:
+      'Traurigkeit, Wut oder ein Gefühl der Leere sind normale Reaktionen auf diesen Verlust, ganz gleich, in welcher Phase der Schwangerschaft er eingetreten ist. Was du fühlst, darf da sein.',
+    section1InfoTitle: 'Bedenke',
+    section1InfoText:
+      'Es gibt kein Richtig oder Falsch im Umgang damit. Jedes Gefühl, das du empfindest, ist berechtigt.',
+    section2Body:
+      'Vielleicht erlebst du eines oder mehrere dieser Gefühle, manchmal alle gleichzeitig:',
+    feelings: [
+      {
+        title: 'Traurigkeit',
+        text: 'Ein Schmerz, der kommen und gehen kann, manchmal ganz unerwartet.',
+      },
+      {
+        title: 'Wut',
+        text: 'Auf dich selbst, auf die Situation oder aus einem Gefühl der Ungerechtigkeit heraus – und das ist kein Grund zur Sorge.',
+      },
+      {
+        title: 'Ein Gefühl der Leere',
+        text: 'Ein Gefühl von Leere oder Verwirrung darüber, was gerade geschehen ist.',
+      },
+    ],
+    section3Body:
+      'Dir Zeit zu geben, ohne Druck und ohne Vergleiche, ist ein wesentlicher Teil des Heilens.',
+    dailySupport: [
+      {
+        title: 'Dir Zeit geben',
+        text: 'Ohne Druck und ohne Frist, bis es dir „wieder gut gehen“ muss.',
+      },
+      {
+        title: 'Dich nicht mit anderen vergleichen',
+        text: 'Jede Trauer ist einzigartig; es gibt keinen richtigen Weg, sie zu durchleben.',
+      },
+      {
+        title: 'Es in Worte fassen',
+        text: 'Aufzuschreiben oder auszusprechen, was du fühlst, kann helfen, die Last deiner Gefühle zu erleichtern.',
+      },
+    ],
+    section4Body:
+      'Mit einem nahestehenden Menschen, in einer Selbsthilfegruppe oder mit einer Fachperson zu sprechen, kann diese Last erleichtern. So können dir nahestehende Menschen helfen:',
+    supportTitle: 'Wie ein nahestehender Mensch Halt geben kann',
+    howToSupport: [
+      'Ohne Urteil zuhören, auch wenn die perfekten Worte fehlen',
+      'Das Erlebte nicht kleinreden („Das war doch nicht so schlimm“, „Ihr könnt es ja wieder versuchen“)',
+      'Da sein, statt Lösungen anzubieten',
+      'Auch in den folgenden Wochen weiter nachfragen',
+    ],
+    section5Body:
+      'Manche Anzeichen können darauf hindeuten, dass professionelle Unterstützung hilfreich sein könnte:',
+    warningTitle: 'Anzeichen, auf die du achten kannst',
+    attentionSigns: [
+      'Die Traurigkeit hält lange an und wird stärker, statt nachzulassen',
+      'Es fällt dir schwer, den Alltag zu bewältigen',
+      'Ein starkes Gefühl der Isolation macht sich breit',
+      'Aufdrängende Gedanken oder eine erhebliche seelische Belastung treten auf',
+    ],
+    section5InfoTitle: 'Unterstützung ist da',
+    section5InfoText:
+      'Eine Hebamme, eine Ärztin oder ein Arzt, eine Psychologin oder ein Psychologe oder eine Selbsthilfegruppe kann dir zuhören und dich ohne Urteil unterstützen.',
+    tipTitle: 'Gut zu wissen',
+    tipText:
+      'Um Hilfe zu bitten ist kein Zeichen von Schwäche – es ist eine Art, in dieser Zeit gut für dich zu sorgen.',
+    summaryPoints: [
+      'Es gibt kein Richtig oder Falsch, wie du diese Erfahrung durchlebst.',
+      'Traurigkeit, Wut oder ein Gefühl der Leere sind normale Reaktionen.',
+      'Dir Zeit zu geben, ohne Druck und ohne Vergleiche, ist Teil des Heilens.',
+      'Mit einem nahestehenden Menschen, in einer Selbsthilfegruppe oder mit einer Fachperson zu sprechen, kann diese Last erleichtern.',
+    ],
+    disclaimerText:
+      'Informationsinhalt. Dieser Artikel ersetzt keine professionelle Beratung. Wenn du eine schwere Zeit durchmachst, zögere nicht, mit medizinischem Fachpersonal zu sprechen.',
+    shareMessage: 'Die Trauer emotional durchleben — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */

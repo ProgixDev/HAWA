@@ -302,6 +302,111 @@ const CONTENT = {
     ],
     shareMessage: 'İlk adetinle ilgili sık sorulan sorular — AWA',
   },
+  ru: {
+    badge: 'ПЕРВЫЕ МЕСЯЧНЫЕ',
+    title: 'Часто задаваемые вопросы\nо первых месячных',
+    metaDuration: '4 мин чтения',
+    metaType: 'Вопросы и ответы',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Проверенный материал',
+    intro: 'Простые ответы на самые частые вопросы о первых месячных.',
+    contentsTitle: 'В этой статье',
+    faq: [
+      {
+        question: '«Это нормально, если выделений очень мало?»',
+        answer: 'Да. Первые циклы нередко сопровождаются скудными выделениями. Их объём может меняться от цикла к циклу, особенно в начале.',
+      },
+      {
+        question: '«Это нормально, если выделений очень много?»',
+        answer: 'Бывают и более обильные выделения, особенно в первые два дня. Если вам нужно менять средство гигиены чаще одного раза в час на протяжении нескольких часов подряд, стоит обсудить это с медицинским специалистом.',
+      },
+      {
+        question: '«Это нормально, если болит живот?»',
+        answer: 'Лёгкие спазмы внизу живота — обычное явление и, как правило, не повод для беспокойства. Помочь могут грелка или немного отдыха. Об очень сильной боли стоит кому-нибудь рассказать.',
+      },
+      {
+        question: '«Можно ли заниматься спортом?»',
+        answer: 'Да, во время месячных можно заниматься спортом. Просто подберите нагрузку в зависимости от самочувствия в этот день.',
+      },
+      {
+        question: '«Можно ли плавать?»',
+        answer: 'Да, при использовании подходящего средства гигиены плавать можно. Многие просто предпочитают подождать, пока не привыкнут к этой мысли.',
+      },
+    ],
+    tipTitle: 'ПОЛЕЗНО ЗНАТЬ',
+    tipText: 'Неловких вопросов не бывает: каждый организм индивидуален, и вы всегда можете поговорить с тем, кому доверяете.',
+    relatedTitle: '♥  Вам также может понравиться',
+    related: [
+      {
+        title: 'Ваши первые месячные: чего ожидать',
+        meta: '5 мин  ·  Руководство',
+      },
+      {
+        title: 'Какое средство гигиены выбрать для первых месячных?',
+        meta: '6 мин  ·  Руководство',
+      },
+      {
+        title: 'Как справляться с болью во время месячных',
+        meta: '7 мин  ·  Руководство',
+      },
+    ],
+    shareMessage: 'Часто задаваемые вопросы о первых месячных — AWA',
+  },
+  de: {
+    badge: 'ERSTE PERIODE',
+    title: 'Häufige Fragen\nzu deiner ersten Periode',
+    metaDuration: '4 Min. Lesezeit',
+    metaType: 'Häufige Fragen',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Geprüfter Inhalt',
+    intro: 'Einfache Antworten auf die häufigsten Fragen zu deiner ersten Periode.',
+    contentsTitle: 'In diesem Artikel',
+    faq: [
+      {
+        question: '„Ist es normal, sehr wenig Blut zu haben?“',
+        answer:
+          'Ja. Die allerersten Zyklen gehen oft mit einer schwachen Blutung einher. Die Stärke der Blutung kann von Zyklus zu Zyklus schwanken, besonders am Anfang.',
+      },
+      {
+        question: '„Ist es normal, viel Blut zu haben?“',
+        answer:
+          'Auch eine stärkere Blutung kommt vor, besonders an den ersten beiden Tagen. Wenn du mehrere Stunden hintereinander öfter als einmal pro Stunde dein Hygieneprodukt wechseln musst, solltest du mit medizinischem Fachpersonal darüber sprechen.',
+      },
+      {
+        question: '„Ist es normal, Krämpfe zu haben?“',
+        answer:
+          'Leichte Krämpfe im Unterbauch sind häufig und meist kein Grund zur Sorge. Eine Wärmflasche oder ein bisschen Ruhe können helfen. Sehr starke Schmerzen solltest du jemandem anvertrauen.',
+      },
+      {
+        question: '„Kann ich Sport treiben?“',
+        answer:
+          'Ja, du kannst während deiner Periode weiterhin Sport treiben. Passe die Intensität einfach daran an, wie sich dein Körper an diesem Tag anfühlt.',
+      },
+      {
+        question: '„Kann ich schwimmen gehen?“',
+        answer:
+          'Ja, mit dem passenden Hygieneprodukt kannst du auch schwimmen gehen. Viele warten einfach ab, bis sie sich mit dem Gedanken wohler fühlen.',
+      },
+    ],
+    tipTitle: 'Gut zu wissen',
+    tipText: 'Es gibt keine peinlichen Fragen: Jeder Körper ist anders, und du kannst jederzeit mit einer Person sprechen, der du vertraust.',
+    relatedTitle: '♥  Das könnte dich auch interessieren',
+    related: [
+      {
+        title: 'Deine erste Periode: Was dich erwartet',
+        meta: '5 Min.  ·  Ratgeber',
+      },
+      {
+        title: 'Welches Hygieneprodukt passt für meine erste Periode?',
+        meta: '6 Min.  ·  Ratgeber',
+      },
+      {
+        title: 'Mit Periodenschmerzen umgehen',
+        meta: '7 Min.  ·  Ratgeber',
+      },
+    ],
+    shareMessage: 'Häufige Fragen zu deiner ersten Periode — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

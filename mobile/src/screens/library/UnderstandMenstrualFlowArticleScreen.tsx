@@ -376,6 +376,114 @@ const CONTENT = {
     reliefText: 'Dinlenme, sıcak uygulama ve hafif aktivite yardımcı olabilir. Ağrı çok şiddetli veya olağandışı kalırsa tıbbi görüş al.',
     shareMessage: 'Adetini anlamak: asıl neler oluyor? — AWA',
   },
+  ru: {
+    badge: 'МЕНСТРУАЛЬНЫЙ ЦИКЛ',
+    title: 'Понимаем месячные:\nчто происходит на самом деле',
+    metaDuration: '5 мин чтения',
+    metaValidated: 'Проверенный материал',
+    intro: 'Месячные — часть естественного процесса, важного для гормонального и репродуктивного здоровья. Понимание того, что происходит в организме, помогает спокойнее относиться к каждому циклу.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Что такое месячные?',
+      'Как проходят месячные',
+      'Что считается нормой (а что нет)',
+      'Как естественно облегчить боль',
+    ],
+    body1: 'Месячные — это отторжение слизистой оболочки матки, когда оплодотворение не произошло. В среднем это случается раз в месяц.',
+    knowTitle: 'Полезно знать',
+    knowText: 'Каждая женщина уникальна: продолжительность, интенсивность и ощущения могут меняться от цикла к циклу.',
+    body2: 'Выделения не одинаковы на протяжении всех месячных. Обычно они меняются изо дня в день: по интенсивности, цвету и консистенции.',
+    flowSteps: [
+      {title: 'Начало месячных', text: 'В первые дни выделения часто более обильные.'},
+      {title: 'Середина месячных', text: 'Выделения, как правило, постепенно уменьшаются.'},
+      {title: 'Конец месячных', text: 'Выделения становятся скуднее и могут приобретать более тёмный цвет.'},
+    ],
+    softInfoTitle: 'Важно помнить',
+    softInfoText: 'Это может отличаться от цикла к циклу. Самое главное — знать свой обычный ритм.',
+    body3: 'Некоторые изменения во время месячных встречаются часто. Другие признаки заслуживают большего внимания, особенно если они появились впервые или очень выражены.',
+    normalSigns: [
+      {title: 'Продолжительность', text: 'Месячные, которые обычно длятся несколько дней.'},
+      {title: 'Меняющиеся выделения', text: 'Сначала более обильные, затем более скудные.'},
+      {title: 'Цвет', text: 'От ярко-красного до тёмно-красного или коричневого к концу месячных.'},
+      {title: 'Ощущения', text: 'Могут ощущаться спазмы от слабых до умеренных.'},
+    ],
+    warningTitle: 'Когда обратиться к врачу?',
+    warningSigns: [
+      'Очень сильная или необычная боль',
+      'Кровотечение, при котором прокладка или тампон пропитываются очень быстро',
+      'Выраженная усталость, предобморочное состояние или головокружение',
+      'Внезапное и стойкое отклонение от вашего обычного течения месячных',
+    ],
+    body4: 'Простые привычки помогают облегчить дискомфорт и сделать первые дни месячных более комфортными.',
+    tipsTitle: 'Практические советы',
+    tips: [
+      'Пейте достаточно\nводы, чтобы\nснизить усталость.',
+      'При необходимости\nприложите тепло\nк низу живота.',
+      'Попробуйте лёгкую\nактивность: прогулку,\nйогу, растяжку.',
+      'Позвольте себе\nотдых и\nполноценный сон.',
+    ],
+    reliefTitle: 'Прислушайтесь к своему телу',
+    reliefText: 'Отдых, тепло и лёгкая активность могут помочь. Если боль остаётся очень сильной или необычной, обратитесь к врачу.',
+    shareMessage: 'Понимаем месячные: что происходит на самом деле — AWA',
+  },
+  de: {
+    badge: 'MENSTRUATIONSZYKLUS',
+    title: 'Deine Periode verstehen:\nwas wirklich passiert',
+    metaDuration: '5 Min. Lesezeit',
+    metaValidated: 'Geprüfter Inhalt',
+    intro:
+      'Deine Periode gehört zu einem natürlichen Vorgang, der für die hormonelle und reproduktive Gesundheit wichtig ist. Wenn du verstehst, was in deinem Körper passiert, kannst du dich mit jedem Zyklus wohler fühlen.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Was ist die Periode?',
+      'Wie die Periode verläuft',
+      'Was normal ist (und was nicht)',
+      'Schmerzen auf natürliche Weise lindern',
+    ],
+    body1:
+      'Bei der Periode wird die Gebärmutterschleimhaut abgestoßen, wenn keine Befruchtung stattgefunden hat. Das geschieht im Durchschnitt einmal im Monat.',
+    knowTitle: 'Gut zu wissen',
+    knowText:
+      'Jede Frau ist einzigartig: Dauer, Stärke und Empfindungen können von einem Zyklus zum nächsten variieren.',
+    body2:
+      'Die Blutung ist während der Periode nicht immer gleich. Sie verändert sich meist von Tag zu Tag, in Stärke, Farbe und Beschaffenheit.',
+    flowSteps: [
+      {title: 'Beginn der Periode', text: 'Die Blutung ist in den ersten Tagen oft stärker.'},
+      {title: 'Mitte der Periode', text: 'Die Blutung lässt in der Regel allmählich nach.'},
+      {title: 'Ende der Periode', text: 'Die Blutung wird schwächer und kann eine dunklere Farbe annehmen.'},
+    ],
+    softInfoTitle: 'Bedenke',
+    softInfoText:
+      'Das kann von Zyklus zu Zyklus unterschiedlich sein. Am wichtigsten ist, deinen eigenen gewohnten Rhythmus zu kennen.',
+    body3:
+      'Manche Schwankungen sind während der Periode häufig. Andere Anzeichen verdienen mehr Aufmerksamkeit, besonders wenn sie neu oder sehr stark sind.',
+    normalSigns: [
+      {title: 'Dauer', text: 'Eine Periode, die meist einige Tage dauert.'},
+      {title: 'Wechselnde Blutung', text: 'Zuerst stärkere, dann schwächere Blutung.'},
+      {title: 'Farbe', text: 'Von hellrot bis dunkelrot oder braun gegen Ende der Periode.'},
+      {title: 'Empfindungen', text: 'Leichte bis mäßige Krämpfe können auftreten.'},
+    ],
+    warningTitle: 'Wann solltest du ärztlichen Rat einholen?',
+    warningSigns: [
+      'Sehr starke oder ungewöhnliche Schmerzen',
+      'Eine Blutung, die eine Binde oder einen Tampon sehr schnell durchtränkt',
+      'Starke Müdigkeit, Ohnmachtsgefühl oder Schwindel',
+      'Eine plötzliche und anhaltende Veränderung gegenüber deinem gewohnten Muster',
+    ],
+    body4:
+      'Einfache Gewohnheiten können helfen, Beschwerden zu lindern und die ersten Tage deiner Periode angenehmer zu gestalten.',
+    tipsTitle: 'Praktische Tipps',
+    tips: [
+      'Trinke genug Wasser,\num Müdigkeit\nzu verringern.',
+      'Lege dir bei Bedarf\nWärme auf\nden Unterbauch.',
+      'Probiere sanfte Bewegung:\nSpazieren,\nYoga, Dehnen.',
+      'Gönne dir Ruhe\nund guten\nSchlaf.',
+    ],
+    reliefTitle: 'Hör auf deinen Körper',
+    reliefText:
+      'Ruhe, Wärme und sanfte Bewegung können helfen. Wenn der Schmerz sehr stark oder ungewöhnlich bleibt, hol dir ärztlichen Rat.',
+    shareMessage: 'Deine Periode verstehen: was wirklich passiert — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<

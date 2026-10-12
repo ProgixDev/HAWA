@@ -1036,6 +1036,420 @@ const CONTENT = {
     finalTipText: 'Doğumdan sonra vücudun birçok değişiklikten geçti. Perine de vücudunun geri kalanı kadar ilgiyi hak eder: kademeli, düzenli ve baskı olmadan.',
     disclaimerText: 'Bu makale yalnızca bilgilendirme amaçlıdır ve kişiye özel tıbbi tavsiyenin yerini tutmaz. Ağrı, süren belirtiler yaşıyorsan veya toparlanmanla ilgili herhangi bir endişen varsa bir sağlık profesyonelinden tavsiye al.',
   },
+  ru: {
+    badge: 'ПОСЛЕРОДОВОЙ ПЕРИОД • ВОССТАНОВЛЕНИЕ',
+    title: 'Укрепление мышц тазового дна\nпосле родов',
+    metaDuration: '8 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Проверенный материал',
+    intro:
+      'После беременности и родов мышцам тазового дна нужно время на восстановление. Простые, регулярные и постепенные упражнения помогут вернуть силу, контроль и уверенность — без попыток что-либо ускорить.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Роль промежности',
+      'Почему роды дают на неё нагрузку',
+      'Когда начинать восстановление мышц тазового дна',
+      'Как правильно сокращать мышцы',
+      'Как выстроить постепенную программу',
+      'Каких ошибок избегать',
+      'Когда обращаться за помощью',
+      'Постепенное возвращение к спорту',
+      'Подготовка к приёму',
+      'Главное',
+    ],
+    shareMessage: 'Укрепление мышц тазового дна после родов — AWA',
+
+    s1Heading: 'Роль промежности',
+    s1Body1:
+      'Промежность, или тазовое дно, — это группа мышц в основании таза. Она участвует в контроле мочевого пузыря и кишечника и помогает поддерживать органы малого таза.',
+    s1Body2:
+      'Во время беременности эти мышцы несут дополнительную нагрузку на протяжении нескольких месяцев. Значительная нагрузка приходится на них и во время родов.',
+    s1HighlightTitle: 'Незаметная, но важнейшая мышца',
+    s1HighlightText:
+      'Тазовое дно участвует в нескольких повседневных функциях: удержании мочи и стула, контроле газов, поддержке органов малого таза, а также в некоторых аспектах сексуальной функции.',
+
+    benefitsHeading: 'Преимущества более сильного тазового дна',
+    benefitsIntro:
+      'Постепенное и правильно выполняемое укрепление может помочь улучшить контроль и поддержку со стороны тазового дна.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Лучший контроль мочевого пузыря',
+        text: 'Тазовое дно участвует в контроле мочевого пузыря. Постепенное укрепление может помочь уменьшить некоторые виды подтекания мочи.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Поддержка работы кишечника',
+        text: 'Эти мышцы также помогают контролировать газы и стул и участвуют в поддержке органов малого таза.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Поддержка органов малого таза',
+        text: 'Тазовое дно образует настоящую мышечную опору, которая помогает поддерживать мочевой пузырь, матку и кишечник.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Постепенное возвращение ощущений',
+        text: 'Подходящее восстановление также может помочь лучше чувствовать эту область и контролировать её.',
+      },
+    ],
+
+    s2Heading: 'Почему беременность и роды дают на него нагрузку',
+    s2Body1:
+      'Беременность постепенно увеличивает давление на тазовое дно. Естественные роды могут значительно растягивать мышцы и ткани этой области.',
+    s2Body2:
+      'Кесарево сечение тоже не полностью щадит тазовое дно: сама беременность остаётся значимым периодом для этих мышц.',
+    s2Body3:
+      'Поэтому после родов нормально, что восстановление занимает время. Некоторые женщины почти не ощущают симптомов, а другие могут замечать подтекание, чувство тяжести или снижение контроля над мышцами.',
+    s2TipTitle: 'Каждое восстановление индивидуально',
+    s2TipText:
+      'На восстановление могут влиять тип родов, разрыв или эпизиотомия, наличие боли и ваше общее состояние после родов.',
+
+    s3Heading: 'Когда начинать восстановление мышц тазового дна?',
+    s3Body1:
+      'После неосложнённых родов лёгкие сокращения мышц тазового дна обычно можно возобновлять постепенно. По-прежнему важно подбирать упражнения с учётом вашей ситуации и обращаться за советом, если у вас были осложнения, выраженная боль или особое вмешательство.',
+    s3Body2:
+      'Если у вас установлен мочевой катетер, некоторые рекомендации советуют подождать, пока его не удалят и мочеиспускание не нормализуется, прежде чем начинать упражнения для промежности.',
+    s3AlertTitle: 'Не терпите боль',
+    s3AlertText:
+      'Выраженная боль, усиление симптомов, плохо заживающая рана или любое особое беспокойство — повод обратиться за советом к акушерке, врачу или специалисту по реабилитации.',
+
+    s4Heading: 'Как правильно сокращать мышцы',
+    s4Body1:
+      'Чтобы почувствовать нужное движение, представьте, что вы одновременно пытаетесь удержать газы и позыв к мочеиспусканию. Вам нужно ощущение сокращения и подтягивания внутрь.',
+    s4Body2:
+      'Цель — не сильно напрячь всё тело. Ягодицы, бёдра и мышцы живота должны оставаться как можно более расслабленными, а дыхание — обычным.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Дыхание'},
+      {icon: 'human-handsup', label: 'Мягкое сокращение'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Длительное сокращение'},
+      {icon: 'gesture-tap-button', label: 'Быстрые сокращения'},
+    ],
+    s4HighlightTitle: 'Расслабление не менее важно',
+    s4HighlightText:
+      'После каждого сокращения дайте мышцам полностью расслабиться. Хорошее восстановление не означает держать промежность напряжённой целый день.',
+
+    s5Heading: 'Как выстроить постепенную программу',
+    s5Body1:
+      'Вначале важнее всего научиться определять нужные мышцы и правильно выполнять движение. Регулярность важнее интенсивности.',
+    s5h3a: 'Длительные сокращения',
+    s5Body2:
+      'Мягко сократите мышцы тазового дна, затем удерживайте сокращение несколько секунд, не задерживая дыхание. После этого полностью расслабьтесь, прежде чем повторить.',
+    s5h3b: 'Короткие сокращения',
+    s5Body3:
+      'Когда движение освоено, можно добавить небольшие быстрые сокращения. Они тренируют способность быстро сокращать мышцы при повышении внутрибрюшного давления, например непосредственно перед кашлем или чиханием.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Свяжите упражнения с ежедневной привычкой'},
+      {icon: 'human-sitting', label: 'Начинайте в удобном положении'},
+      {icon: 'weather-windy', label: 'Дышите обычно во время сокращений'},
+      {icon: 'sleep', label: 'Соблюдайте фазы расслабления'},
+      {icon: 'chart-line', label: 'Постепенно усложняйте нагрузку'},
+      {icon: 'doctor', label: 'Спросите совета, если вы не уверены'},
+    ],
+    s5TipTitle: 'Прежде всего — регулярность',
+    s5TipText:
+      'Если связать упражнения с привычкой, уже вошедшей в ваш день, будет легче сохранять регулярность: после кормления, после чистки зубов или в другое удобное для вас время.',
+
+    s6Heading: 'Распространённые ошибки, которых стоит избегать',
+    s6Body1:
+      'Упражнения для промежности могут казаться простыми, но легко начать подключать другие мышцы или слишком сильно напрягаться.',
+    commonMistakes: [
+      'Напрягать ягодицы или бёдра вместо мышц тазового дна',
+      'Задерживать дыхание во время сокращения',
+      'Постоянно держать мышцы сокращёнными, не давая им расслабиться',
+      'Выполнять упражнения всего несколько дней, а затем бросать',
+      'Намеренно прерывать струю мочи, чтобы проверить сокращение',
+    ],
+    s6TipTitle: 'Чего делать не следует',
+    s6TipText:
+      'Не рекомендуется выполнять упражнения, намеренно прерывая струю мочи. Такой способ неправильно тренирует промежность и может нарушать нормальную работу мочевого пузыря.',
+
+    s7Heading: 'Какие симптомы должны стать поводом для обращения к врачу?',
+    s7Body1:
+      'После родов иногда могут появляться незначительное подтекание или необычные ощущения. Однако не стоит их игнорировать, если они сохраняются, усиливаются или мешают повседневной жизни.',
+    warningSigns: [
+      'Подтекание мочи при кашле, чихании, смехе или натуживании',
+      'Чувство тяжести или давления внизу таза',
+      'Ощущение, что во влагалище опускается комок или что-то постороннее',
+      'Трудности с удержанием газов или стула',
+      'Постоянная боль в области промежности',
+      'Боль во время или после полового акта',
+      'Трудности с определением или правильным сокращением мышц промежности',
+    ],
+    consultLabel: 'Когда стоит обратиться за советом?',
+    s7Body2:
+      'Акушерка, врач или физиотерапевт, специализирующийся на восстановлении мышц тазового дна, может оценить работу мышц и предложить подходящую программу.',
+
+    s8Heading: 'А после разрыва, эпизиотомии или кесарева сечения?',
+    s8Body1:
+      'Разрыв или эпизиотомия требуют особого ухода во время заживления. При возобновлении активности следует учитывать боль, состояние шва и рекомендации, данные после родов.',
+    s8Body2:
+      'После кесарева сечения восстановление затрагивает также брюшную стенку и рубец. Даже если роды были не естественными, сама беременность всё равно создавала нагрузку на тазовое дно.',
+    s8HighlightTitle: 'Индивидуальная помощь может быть полезной',
+    s8HighlightText:
+      'При значительном разрыве, боли, нарушениях мочеиспускания или работы кишечника, а также при стойких трудностях особенно полезной может оказаться оценка состояния у медицинского специалиста.',
+
+    s9Heading: 'Постепенное возвращение к спорту',
+    s9Body1:
+      'Возвращаться к движению после родов следует постепенно. Ходьбу и мягкие движения, как правило, можно возобновлять ориентируясь на самочувствие, тогда как нагрузки с ударным воздействием требуют большей осторожности.',
+    s9Body2:
+      'Прежде чем возвращаться к бегу, прыжкам или очень интенсивным тренировкам, лучше оценить восстановление тазового дна и учесть возможные симптомы.',
+    s9AlertTitle: 'Не торопитесь с этапами',
+    s9AlertText:
+      'Подтекание, чувство тяжести или боль во время или после упражнений — повод снизить нагрузку и обратиться за советом, прежде чем повышать интенсивность.',
+
+    s10Heading: 'Когда обратиться к специалисту?',
+    s10Body1:
+      'Восстановление мышц тазового дна с акушеркой или физиотерапевтом может быть полезным, если вы не уверены, правильно ли сокращаете мышцы, если симптомы сохраняются или если вы хотите уверенно вернуться к определённым физическим нагрузкам.',
+    questionCardTitle: 'Полезные вопросы для приёма',
+    appointmentQuestions: [
+      'Соответствуют ли мои симптомы слабости мышц тазового дна?',
+      'Правильно ли я выполняю сокращения?',
+      'Сколько повторений в день мне нужно делать?',
+      'Можно ли мне вернуться к бегу, спорту или упражнениям с ударной нагрузкой?',
+      'Нужно ли мне восстановление с акушеркой или физиотерапевтом?',
+      'Требуют ли мой рубец, разрыв или кесарево сечение каких-либо особых мер предосторожности?',
+    ],
+    s10TipTitle: 'Полезно знать',
+    s10TipText:
+      'Обращение к специалисту не обязательно означает, что что-то не так. Приём может просто помочь проверить технику, оценить восстановление и научиться правильно прогрессировать.',
+
+    s11Heading: 'Восстановление требует времени',
+    s11Body1:
+      'После родов нормально, что не сразу возвращаются прежние ощущения или сила мышц, которые были до беременности.',
+    s11Body2:
+      'Цель — не выполнить как можно больше сокращений. Скорее, важно постепенно вернуть хорошую координацию между сокращением и расслаблением, а затем естественно использовать эти мышцы в повседневных делах.',
+    s11HighlightTitle: 'Небольшой прогресс — это настоящий прогресс',
+    s11HighlightText:
+      'Лучшее ощущение движения, несколько лишних секунд сокращения или уменьшение подтекания — уже обнадёживающие признаки.',
+
+    s12Heading: 'Главное',
+    summaryTitle: 'Самое важное',
+    summaryItems: [
+      'Беременность и роды дают значительную нагрузку на тазовое дно.',
+      'Постепенное восстановление после родов — это нормально.',
+      'В упражнениях качество движения важнее силы.',
+      'Дыхание и расслабление не менее важны, чем сокращение.',
+      'Подтекание мочи, чувство тяжести или стойкая боль заслуживают мнения специалиста.',
+      'Восстановление с акушеркой или физиотерапевтом может помочь вернуть более хороший контроль.',
+      'Возвращение к спорту должно быть постепенным, особенно при нагрузках с ударным воздействием.',
+    ],
+
+    finalTipTitle: 'Дайте себе время на восстановление',
+    finalTipText:
+      'После родов ваше тело прошло через множество изменений. Промежность заслуживает такого же внимания, как и остальное тело: постепенно, регулярно и без давления.',
+
+    disclaimerText:
+      'Эта статья носит исключительно информационный характер и не заменяет персональную медицинскую консультацию. Если вы испытываете боль, у вас сохраняются симптомы или есть какие-либо опасения по поводу восстановления, обратитесь за советом к медицинскому специалисту.',
+  },
+  de: {
+    badge: 'WOCHENBETT • RÜCKBILDUNG',
+    title: 'Deinen Beckenboden\nnach der Geburt stärken',
+    metaDuration: '8 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Geprüfter Inhalt',
+    intro:
+      'Nach Schwangerschaft und Geburt braucht der Beckenboden Zeit, um sich zu erholen. Einfache, regelmäßige und schrittweise Übungen können dir helfen, Kraft, Kontrolle und Vertrauen zurückzugewinnen – ohne etwas überstürzen zu wollen.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Die Rolle des Damms verstehen',
+      'Warum die Geburt ihn belastet',
+      'Wann die Rückbildung beginnen kann',
+      'Richtig anspannen lernen',
+      'Eine schrittweise Routine aufbauen',
+      'Fehler, die du vermeiden solltest',
+      'Wann du dir Hilfe holen solltest',
+      'Sport schrittweise wieder aufnehmen',
+      'Einen Termin vorbereiten',
+      'Das Wichtigste in Kürze',
+    ],
+    shareMessage: 'Deinen Beckenboden nach der Geburt stärken – AWA',
+
+    s1Heading: 'Die Rolle des Damms verstehen',
+    s1Body1:
+      'Der Damm, auch Beckenboden genannt, ist eine Muskelgruppe am unteren Ende des Beckens. Er spielt eine Rolle bei der Kontrolle von Blase und Darm und hilft, die Beckenorgane zu stützen.',
+    s1Body2:
+      'Während der Schwangerschaft müssen diese Muskeln mehrere Monate lang zusätzliches Gewicht tragen. Auch bei der Geburt werden sie erheblich beansprucht.',
+    s1HighlightTitle: 'Ein unauffälliger, aber unverzichtbarer Muskel',
+    s1HighlightText:
+      'Der Beckenboden ist an mehreren Alltagsfunktionen beteiligt: Urin und Stuhl halten, Blähungen kontrollieren, die Beckenorgane stützen und bei bestimmten sexuellen Funktionen mitwirken.',
+
+    benefitsHeading: 'Die Vorteile eines stärkeren Beckenbodens',
+    benefitsIntro:
+      'Ein schrittweises, korrekt ausgeführtes Training kann dazu beitragen, Kontrolle und Halt des Beckenbodens zu verbessern.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Bessere Blasenkontrolle',
+        text: 'Der Beckenboden spielt bei der Blasenkontrolle eine Rolle. Ihn schrittweise zu stärken, kann helfen, bestimmten Urinverlust zu verringern.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Die Darmfunktion unterstützen',
+        text: 'Diese Muskeln helfen auch, Blähungen und Stuhl zu kontrollieren, und tragen dazu bei, die Beckenorgane zu stützen.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Die Beckenorgane stützen',
+        text: 'Der Beckenboden bildet eine echte Muskelbasis, die Blase, Gebärmutter und Darm stützen hilft.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Das Körpergefühl schrittweise zurückgewinnen',
+        text: 'Eine passende Rückbildung kann dir auch helfen, diesen Bereich wieder besser wahrzunehmen und zu kontrollieren.',
+      },
+    ],
+
+    s2Heading: 'Warum Schwangerschaft und Geburt ihn belasten',
+    s2Body1:
+      'Die Schwangerschaft setzt den Beckenboden nach und nach stärker unter Druck. Eine vaginale Geburt kann die Muskeln und das Gewebe in diesem Bereich dann deutlich dehnen.',
+    s2Body2:
+      'Auch ein Kaiserschnitt schont den Beckenboden nicht vollständig: Die Schwangerschaft selbst bleibt für diese Muskeln eine bedeutende Zeit.',
+    s2Body3:
+      'Nach der Geburt ist es daher normal, dass die Erholung Zeit braucht. Manche Frauen spüren fast keine Beschwerden, andere bemerken Urinverlust, ein Gefühl von Schwere oder eine geringere Muskelkontrolle.',
+    s2TipTitle: 'Jede Erholung ist anders',
+    s2TipText:
+      'Die Art der Geburt, ein Riss oder ein Dammschnitt, Schmerzen und dein allgemeiner Zustand nach der Geburt können die Erholung beeinflussen.',
+
+    s3Heading: 'Wann kann die Beckenboden-Rückbildung beginnen?',
+    s3Body1:
+      'Nach einer unkomplizierten Geburt können sanfte Beckenbodenanspannungen in der Regel schrittweise wieder aufgenommen werden. Es bleibt wichtig, die Übungen an deine Situation anzupassen und Rat einzuholen, wenn es eine Komplikation, deutliche Schmerzen oder einen besonderen Eingriff gab.',
+    s3Body2:
+      'Wenn du einen Blasenkatheter hast, empfehlen manche Quellen, zu warten, bis er entfernt ist und das Wasserlassen wieder normal funktioniert, bevor du mit Dammübungen beginnst.',
+    s3AlertTitle: 'Übe nicht gegen den Schmerz an',
+    s3AlertText:
+      'Deutliche Schmerzen, sich verschlimmernde Beschwerden, eine schlecht heilende Wunde oder jede besondere Sorge sind ein Grund, eine Hebamme, eine Ärztin oder einen Arzt oder eine Fachkraft für Rückbildung um Rat zu fragen.',
+
+    s4Heading: 'Richtig anspannen lernen',
+    s4Body1:
+      'Um die Bewegung zu erkennen, stell dir vor, du versuchst gleichzeitig, Blähungen und den Harndrang zurückzuhalten. Die gesuchte Bewegung fühlt sich wie ein Anspannen und Heben nach innen an.',
+    s4Body2:
+      'Ziel ist nicht, den ganzen Körper fest anzuspannen. Gesäß, Oberschenkel und Bauchmuskeln sollten möglichst entspannt bleiben, während du ganz normal weiteratmest.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Atmen'},
+      {icon: 'human-handsup', label: 'Sanftes Anspannen'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Langes Anspannen'},
+      {icon: 'gesture-tap-button', label: 'Schnelles Anspannen'},
+    ],
+    s4HighlightTitle: 'Entspannen ist genauso wichtig',
+    s4HighlightText:
+      'Lass die Muskeln nach jeder Anspannung vollständig locker. Eine gute Rückbildung bedeutet nicht, den Damm den ganzen Tag angespannt zu halten.',
+
+    s5Heading: 'Eine schrittweise Routine aufbauen',
+    s5Body1:
+      'Zu Beginn ist es am wichtigsten, die Muskeln zu erkennen und die Bewegung korrekt auszuführen. Regelmäßigkeit zählt mehr als Intensität.',
+    s5h3a: 'Lange Anspannungen',
+    s5Body2:
+      'Spanne den Beckenboden sanft an und halte die Anspannung einige Sekunden, ohne die Luft anzuhalten. Lass dann vollständig los, bevor du von vorn beginnst.',
+    s5h3b: 'Kurze Anspannungen',
+    s5Body3:
+      'Wenn du die Bewegung beherrschst, kannst du kleine, schnelle Anspannungen hinzunehmen. Sie trainieren deine Fähigkeit, die Muskeln schnell anzuspannen, wenn der Druck im Bauchraum steigt, zum Beispiel kurz vor dem Husten oder Niesen.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Verknüpfe die Übungen mit einer Gewohnheit im Alltag'},
+      {icon: 'human-sitting', label: 'Beginne in einer bequemen Position'},
+      {icon: 'weather-windy', label: 'Atme beim Anspannen ganz normal weiter'},
+      {icon: 'sleep', label: 'Halte die Entspannungsphasen ein'},
+      {icon: 'chart-line', label: 'Steigere den Schwierigkeitsgrad schrittweise'},
+      {icon: 'doctor', label: 'Hol dir Rat, wenn du unsicher bist'},
+    ],
+    s5TipTitle: 'Vor allem: dranbleiben',
+    s5TipText:
+      'Wenn du die Übungen an eine feste Gewohnheit knüpfst, fällt das Dranbleiben leichter: nach dem Stillen oder Füttern, nach dem Zähneputzen oder zu einer anderen Zeit, die für dich passt.',
+
+    s6Heading: 'Häufige Fehler, die du vermeiden solltest',
+    s6Body1:
+      'Dammübungen wirken einfach, doch man gleicht leicht mit anderen Muskeln aus oder drückt zu stark.',
+    commonMistakes: [
+      'Gesäß oder Oberschenkel statt des Beckenbodens anspannen',
+      'Während der Anspannung die Luft anhalten',
+      'Die Muskeln ständig angespannt halten, ohne sie loszulassen',
+      'Die Übungen nur wenige Tage machen und dann aufhören',
+      'Den Urinstrahl absichtlich unterbrechen, um die Anspannung zu überprüfen',
+    ],
+    s6TipTitle: 'Was du nicht tun solltest',
+    s6TipText:
+      'Es wird nicht empfohlen, die Übungen zu machen, indem du den Urinstrahl absichtlich unterbrichst. Diese Methode trainiert den Damm nicht richtig und kann die normale Blasenfunktion stören.',
+
+    s7Heading: 'Bei welchen Beschwerden solltest du ärztlichen Rat suchen?',
+    s7Body1:
+      'Leichter Urinverlust oder ein ungewohntes Gefühl können nach der Geburt manchmal auftreten. Man sollte sie jedoch nicht ignorieren, wenn sie anhalten, schlimmer werden oder deinen Alltag beeinträchtigen.',
+    warningSigns: [
+      'Urinverlust beim Husten, Niesen, Lachen oder Pressen',
+      'Ein Gefühl von Schwere oder Druck im unteren Becken',
+      'Das Gefühl, dass sich ein Knoten oder etwas in die Scheide senkt',
+      'Schwierigkeiten, Blähungen oder Stuhl zu halten',
+      'Anhaltende Schmerzen im Dammbereich',
+      'Schmerzen beim oder nach dem Geschlechtsverkehr',
+      'Schwierigkeiten, die Dammmuskeln zu erkennen oder richtig anzuspannen',
+    ],
+    consultLabel: 'Wann solltest du dir Rat holen?',
+    s7Body2:
+      'Eine Hebamme, eine Ärztin, ein Arzt oder eine auf Beckenbodenrückbildung spezialisierte Physiotherapeutin oder ein Physiotherapeut kann die Muskelfunktion überprüfen und ein passendes Programm vorschlagen.',
+
+    s8Heading: 'Und nach einem Riss, einem Dammschnitt oder einem Kaiserschnitt?',
+    s8Body1:
+      'Ein Riss oder Dammschnitt erfordert während der Heilung besondere Sorgfalt. Beim Wiederaufnehmen von Aktivitäten sollten Schmerzen, der Zustand der Narbe und die Hinweise nach der Geburt berücksichtigt werden.',
+    s8Body2:
+      'Nach einem Kaiserschnitt betrifft die Erholung auch die Bauchwand und die Narbe. Auch wenn die Geburt nicht vaginal war, hat die Schwangerschaft selbst den Beckenboden belastet.',
+    s8HighlightTitle: 'Individuelle Begleitung kann helfen',
+    s8HighlightText:
+      'Bei einem ausgeprägten Riss, bei Schmerzen, Blasen- oder Darmbeschwerden oder anhaltenden Schwierigkeiten kann eine Untersuchung durch medizinisches Fachpersonal besonders hilfreich sein.',
+
+    s9Heading: 'Sport schrittweise wieder aufnehmen',
+    s9Body1:
+      'Die Rückkehr zur Bewegung nach der Geburt sollte schrittweise erfolgen. Spazierengehen und sanfte Bewegungen können im Allgemeinen je nach Befinden wieder aufgenommen werden, während Aktivitäten mit starker Stoßbelastung mehr Vorsicht erfordern.',
+    s9Body2:
+      'Bevor du wieder mit Laufen, Springen oder sehr intensivem Training beginnst, ist es am besten, die Erholung des Beckenbodens einzuschätzen und eventuelle Beschwerden zu berücksichtigen.',
+    s9AlertTitle: 'Überstürze die Etappen nicht',
+    s9AlertText:
+      'Urinverlust, ein Gefühl von Schwere oder Schmerzen während oder nach dem Sport sind Zeichen, dass du einen Gang zurückschalten und dir Rat holen solltest, bevor du die Intensität steigerst.',
+
+    s10Heading: 'Wann zu einer Fachkraft?',
+    s10Body1:
+      'Eine Beckenbodenrückbildung bei einer Hebamme oder Physiotherapeutin bzw. einem Physiotherapeuten kann hilfreich sein, wenn du unsicher bist, ob du richtig anspannst, wenn deine Beschwerden anhalten oder wenn du bestimmte körperliche Aktivitäten mit Zuversicht wieder aufnehmen möchtest.',
+    questionCardTitle: 'Hilfreiche Fragen für das Gespräch',
+    appointmentQuestions: [
+      'Passen meine Beschwerden zu einer Beckenbodenschwäche?',
+      'Führe ich die Anspannungen richtig aus?',
+      'Wie viele Wiederholungen sollte ich pro Tag machen?',
+      'Kann ich wieder laufen, Sport treiben oder Übungen mit Stoßbelastung machen?',
+      'Brauche ich eine Rückbildung bei einer Hebamme oder Physiotherapeutin bzw. einem Physiotherapeuten?',
+      'Erfordert meine Narbe, mein Riss oder mein Kaiserschnitt besondere Vorsichtsmaßnahmen?',
+    ],
+    s10TipTitle: 'Gut zu wissen',
+    s10TipText:
+      'Eine Fachkraft aufzusuchen bedeutet nicht unbedingt, dass etwas nicht stimmt. Ein Termin kann einfach helfen, deine Technik zu überprüfen, deine Erholung einzuschätzen und zu lernen, wie du richtig vorankommst.',
+
+    s11Heading: 'Eine Erholung, die Zeit braucht',
+    s11Body1:
+      'Nach der Geburt ist es normal, dass du nicht sofort wieder dieselben Empfindungen und dieselbe Muskelkraft hast wie vor der Schwangerschaft.',
+    s11Body2:
+      'Das Ziel ist nicht, möglichst viele Anspannungen zu machen. Es geht eher darum, nach und nach wieder ein gutes Zusammenspiel von Anspannung und Entspannung zu finden und diese Muskeln dann ganz selbstverständlich im Alltag einsetzen zu können.',
+    s11HighlightTitle: 'Kleine Fortschritte sind echte Fortschritte',
+    s11HighlightText:
+      'Ein besseres Gefühl für die Bewegung, ein paar Sekunden längeres Anspannen oder weniger Urinverlust sind bereits ermutigende Zeichen.',
+
+    s12Heading: 'Das Wichtigste in Kürze',
+    summaryTitle: 'Das Wesentliche',
+    summaryItems: [
+      'Schwangerschaft und Geburt belasten den Beckenboden erheblich.',
+      'Eine schrittweise Erholung nach der Geburt ist normal.',
+      'Bei den Übungen steht die Qualität der Bewegung vor der Kraft.',
+      'Atmung und Entspannung sind genauso wichtig wie die Anspannung.',
+      'Urinverlust, Schweregefühl oder anhaltende Schmerzen verdienen eine fachliche Einschätzung.',
+      'Eine Rückbildung bei einer Hebamme oder Physiotherapeutin bzw. einem Physiotherapeuten kann dir helfen, wieder mehr Kontrolle zu gewinnen.',
+      'Die Rückkehr zum Sport sollte schrittweise erfolgen, besonders bei Aktivitäten mit Stoßbelastung.',
+    ],
+
+    finalTipTitle: 'Nimm dir die Zeit zur Erholung',
+    finalTipText:
+      'Nach der Geburt hat dein Körper viele Veränderungen durchgemacht. Der Damm verdient dieselbe Aufmerksamkeit wie der Rest deines Körpers: schrittweise, regelmäßig und ohne Druck.',
+
+    disclaimerText:
+      'Dieser Artikel dient ausschließlich der Information und ersetzt keine persönliche ärztliche Beratung. Wenn du Schmerzen oder anhaltende Beschwerden hast oder dir Sorgen um deine Erholung machst, hol dir den Rat von medizinischem Fachpersonal.',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<

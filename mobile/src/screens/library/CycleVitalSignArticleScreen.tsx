@@ -457,6 +457,172 @@ const CONTENT = {
     finalBody: 'Adet döngün, sağlığının birçok göstergesinden yalnızca biridir. Onu düzenli olarak takip etmek, vücudunu daha iyi anlamana ve zamanla özel dikkat gerektiren değişimleri fark etmene yardımcı olabilir.',
     shareMessage: 'Döngün, sağlığının çok iyi bir göstergesi — AWA',
   },
+  ru: {
+    badge: 'ЦИКЛ И МЕСЯЧНЫЕ',
+    title: 'Ваш цикл — отличный\nпоказатель здоровья',
+    metaDuration: '7 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Проверенный материал',
+    intro: 'Почему цикл иногда называют «пятым жизненно важным показателем».',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Ваш цикл — отражение состояния организма',
+      'Что такое «нормальный» цикл?',
+      'За какими изменениями стоит следить',
+      'О чём могут говорить эти изменения?',
+      'Отслеживание цикла, чтобы лучше узнать себя',
+      'Когда обращаться за советом?',
+      'Полезно знать',
+    ],
+    observeLabels: [
+      'Длительность цикла',
+      'Длительность месячных',
+      'Обильность менструальных выделений',
+      'Боль',
+      'Влагалищные выделения',
+      'Настроение',
+      'Энергия / усталость',
+      'Другие повторяющиеся симптомы',
+    ],
+    factorLabels: [
+      'Стресс',
+      'Недосып',
+      'Значительные колебания веса',
+      'Очень интенсивная физическая нагрузка',
+      'Гормональные изменения',
+      'Контрацепция',
+      'Некоторые медицинские состояния',
+    ],
+    s1Body1:
+      'На менструальный цикл влияет гормональная активность организма в течение месяца. Если научиться наблюдать за ним, можно лучше понимать, как работает ваше тело, не анализируя всё до мелочей.',
+    s1Body2: 'Вот на что полезнее всего обращать внимание:',
+    s2Body1:
+      'Единого идеального цикла не существует: у каждого организма свой ритм, и этот ритм может немного меняться от месяца к месяцу. Цикл обычно считается регулярным, если он длится от 21 до 35 дней, а месячные чаще всего продолжаются от 3 до 7 дней.',
+    s2Body2:
+      'Эти цифры — средние значения: небольшие отклонения остаются совершенно нормальными, особенно после полового созревания, после родов или при приближении менопаузы.',
+    s3Body1:
+      'За некоторыми изменениями стоит наблюдать внимательнее, например:',
+    changesToWatch: [
+      'Заметное нарушение регулярности цикла',
+      'Месячные заметно обильнее обычного',
+      'Необычно сильная или стойкая боль',
+      'Длительное отсутствие месячных',
+      'Кровянистые выделения между месячными',
+      'Значительное изменение, которое повторяется в течение нескольких циклов',
+    ],
+    s3Body2:
+      'Один необычный цикл сам по себе не означает проблем со здоровьем: организм может временно реагировать на множество разных факторов.',
+    s4Body1:
+      'Эти изменения иногда могут быть связаны с разными факторами и не обязательно говорят о проблеме:',
+    s4Body2:
+      'Это лишь некоторые из возможных объяснений: они никогда не заменяют совет медицинского специалиста.',
+    s5VisualTitle: 'Наблюдайте за своим ритмом',
+    s5VisualText:
+      'Если отмечать даты, обильность выделений или самочувствие, вы будете лучше узнавать свои особенности месяц за месяцем.',
+    s5Body:
+      'Первый день месячных, их длительность, обильность выделений, боль, настроение, энергию и влагалищные выделения можно отмечать со временем. Цель — не сравнивать свой цикл с чужим, а лучше понимать, что для вас привычно, а что отличается от привычного.',
+    s6Body1:
+      'Совершенно нормально, что у вас возникают вопросы о своём цикле. Обратиться за медицинской консультацией может быть полезно в некоторых ситуациях, например:',
+    whenToAsk: [
+      'Значительные изменения, которые сохраняются в течение нескольких циклов',
+      'Боль, которая мешает привычным занятиям',
+      'Очень обильные месячные',
+      'Длительное отсутствие месячных',
+      'Необычные кровянистые выделения',
+      'Любой стойкий симптом, который вас беспокоит',
+    ],
+    s6Body2:
+      'Разговор со медицинским специалистом может помочь успокоиться или, при необходимости, получить нужную поддержку — сам по себе он никогда не является поводом для тревоги.',
+    tipText:
+      'Чтобы цикл был нормальным, он не обязан быть идеально регулярным. Знать свой привычный ритм зачастую полезнее, чем искать идеальную длительность.',
+    finalBody:
+      'Менструальный цикл — один из многих показателей вашего здоровья. Регулярное наблюдение за ним может помочь лучше понимать своё тело и со временем замечать изменения, заслуживающие особого внимания.',
+    shareMessage: 'Ваш цикл — отличный показатель здоровья — AWA',
+  },
+  de: {
+    badge: 'ZYKLUS & PERIODE',
+    title: 'Dein Zyklus, ein hervorragender\nGesundheitsindikator',
+    metaDuration: '7 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Geprüfter Inhalt',
+    intro: 'Warum der Zyklus manchmal als „fünftes Vitalzeichen“ bezeichnet wird.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Dein Zyklus: ein Spiegel deines Körpers',
+      'Was ist ein „normaler“ Zyklus?',
+      'Veränderungen, auf die du achten kannst',
+      'Was können diese Veränderungen zeigen?',
+      'Den Zyklus verfolgen, um dich besser kennenzulernen',
+      'Wann solltest du dir Rat holen?',
+      'Gut zu wissen',
+    ],
+    observeLabels: [
+      'Zykluslänge',
+      'Dauer der Periode',
+      'Stärke der Blutung',
+      'Schmerzen',
+      'Ausfluss',
+      'Stimmung',
+      'Energie / Müdigkeit',
+      'Andere wiederkehrende Symptome',
+    ],
+    factorLabels: [
+      'Stress',
+      'Schlafmangel',
+      'Deutliche Gewichtsveränderungen',
+      'Sehr intensive körperliche Aktivität',
+      'Hormonelle Veränderungen',
+      'Verhütung',
+      'Bestimmte Erkrankungen',
+    ],
+    s1Body1:
+      'Der Menstruationszyklus wird von der hormonellen Aktivität deines Körpers im Verlauf des Monats beeinflusst. Wenn du lernst, ihn zu beobachten, verstehst du besser, wie dein Körper funktioniert – ohne dass du alles im Detail analysieren musst.',
+    s1Body2: 'Das sind die nützlichsten Dinge, auf die du achten kannst:',
+    s2Body1:
+      'Den einen perfekten Zyklus gibt es nicht: Jeder Körper hat seinen eigenen Rhythmus, der von Monat zu Monat auch leicht schwanken kann. Ein Zyklus gilt im Allgemeinen als regelmäßig, wenn er zwischen 21 und 35 Tagen dauert; die Periode dauert meist 3 bis 7 Tage.',
+    s2Body2:
+      'Diese Zahlen sind Durchschnittswerte: Leichte Abweichungen sind völlig normal, besonders nach der Pubertät, nach einer Geburt oder wenn die Wechseljahre näher rücken.',
+    s3Body1:
+      'Manche Veränderungen verdienen etwas mehr Aufmerksamkeit, zum Beispiel:',
+    changesToWatch: [
+      'Eine deutliche Veränderung der Zyklusregelmäßigkeit',
+      'Periodenblutungen, die spürbar stärker sind als sonst',
+      'Ungewöhnlich starke oder anhaltende Schmerzen',
+      'Ein längeres Ausbleiben der Periode',
+      'Blutungen zwischen den Perioden',
+      'Eine deutliche Veränderung, die sich über mehrere Zyklen wiederholt',
+    ],
+    s3Body2:
+      'Ein einzelner, ungewöhnlicher Zyklus bedeutet nicht automatisch ein gesundheitliches Problem: Der Körper kann vorübergehend auf viele verschiedene Faktoren reagieren.',
+    s4Body1:
+      'Diese Veränderungen können manchmal mit mehreren Faktoren zusammenhängen, ohne dass es zwangsläufig ein Problem ist:',
+    s4Body2:
+      'Das sind nur einige mögliche Erklärungen unter vielen: Sie ersetzen nie den Rat von medizinischem Fachpersonal.',
+    s5VisualTitle: 'Deinen eigenen Rhythmus beobachten',
+    s5VisualText:
+      'Wenn du deine Daten, die Stärke der Blutung oder dein Befinden notierst, lernst du deine Gewohnheiten Monat für Monat besser kennen.',
+    s5Body:
+      'Den ersten Tag deiner Periode, ihre Dauer, die Stärke der Blutung, Schmerzen, Stimmung, Energie oder Ausfluss kannst du über die Zeit festhalten. Es geht nicht darum, deinen Zyklus mit dem einer anderen zu vergleichen, sondern besser zu erkennen, was für dich üblich ist und was davon abweicht.',
+    s6Body1:
+      'Es ist völlig normal, Fragen zu deinem Zyklus zu haben. In bestimmten Situationen kann ärztlicher Rat hilfreich sein, zum Beispiel bei:',
+    whenToAsk: [
+      'Deutlichen Veränderungen, die über mehrere Zyklen bestehen bleiben',
+      'Schmerzen, die dich an deinen gewohnten Aktivitäten hindern',
+      'Sehr starken Perioden',
+      'Einem längeren Ausbleiben der Periode',
+      'Ungewöhnlichen Blutungen',
+      'Jedem anhaltenden Symptom, das dich beunruhigt',
+    ],
+    s6Body2:
+      'Ein Gespräch mit medizinischem Fachpersonal kann dich beruhigen oder dir bei Bedarf die passende Unterstützung verschaffen – an sich ist es nie ein Grund zur Sorge.',
+    tipText:
+      'Ein Zyklus muss nicht perfekt regelmäßig sein, um normal zu sein. Deinen eigenen gewohnten Rhythmus zu kennen, ist oft nützlicher, als nach einer idealen Länge zu suchen.',
+    finalBody:
+      'Dein Menstruationszyklus ist einer von vielen Indikatoren für deine Gesundheit. Wenn du ihn regelmäßig verfolgst, kannst du deinen Körper besser verstehen und mit der Zeit Veränderungen bemerken, die besondere Aufmerksamkeit verdienen.',
+    shareMessage: 'Dein Zyklus, ein hervorragender Gesundheitsindikator – AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

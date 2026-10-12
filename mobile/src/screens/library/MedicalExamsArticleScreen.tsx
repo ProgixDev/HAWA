@@ -256,6 +256,92 @@ const CONTENT = {
     tipText: 'Her randevudan önce sorularını yazmaktan çekinme; böylece o an hiçbir şeyi unutmazsın: sorulamayacak kadar küçük bir soru yoktur.',
     shareMessage: 'Gebelik muayeneleri takvimi — AWA',
   },
+  ru: {
+    badge: 'БЕРЕМЕННОСТЬ • МЕДИЦИНСКОЕ НАБЛЮДЕНИЕ',
+    title: 'Календарь обследований\nпри беременности',
+    metaDuration: '6 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Проверенный материал',
+    intro: 'УЗИ и основные анализы — триместр за триместром.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'УЗИ в ходе наблюдения',
+      'Основные анализы крови',
+      'Подготовка к каждому приёму',
+      'Что стоит учитывать',
+      'Главное',
+    ],
+    body1:
+      'При беременности, как правило, проводят три основных УЗИ — по одному в каждом триместре, и у каждого своя цель.',
+    ultrasounds: [
+      '1-й триместр: определение срока и воротниковое пространство плода',
+      '2-й триместр: УЗИ для оценки анатомии плода',
+      '3-й триместр: рост и положение ребёнка',
+    ],
+    body2:
+      'Регулярные анализы крови позволяют контролировать несколько важных показателей в течение всей беременности:',
+    bloodTests: [
+      'Уровень железа — для выявления возможной анемии',
+      'Скрининг на гестационный диабет, как правило, около 2-го триместра',
+      'Группа крови и скрининг нерегулярных антител',
+      'Серологические исследования (токсоплазмоз, краснуха) в зависимости от вашего иммунного статуса',
+    ],
+    prepTips: [
+      'Записывайте вопросы по мере появления, чтобы не забыть',
+      'Берите на каждый приём обменную карту беременной',
+      'Сообщайте о любом новом симптоме, даже если он кажется незначительным',
+    ],
+    neutralText:
+      'Точное количество и график обследований могут различаться в зависимости от вашего ведения, профиля риска и практики вашей страны или медицинского учреждения.',
+    tipTitle: 'ПОЛЕЗНО ЗНАТЬ',
+    tipText:
+      'Не стесняйтесь записывать вопросы перед каждым приёмом, чтобы ничего не забыть в моменте: нет слишком маленьких вопросов.',
+    shareMessage: 'Календарь обследований при беременности — AWA',
+  },
+  de: {
+    badge: 'SCHWANGERSCHAFT • MEDIZINISCHE BETREUUNG',
+    title: 'Der Kalender der\nSchwangerschaftsuntersuchungen',
+    metaDuration: '6 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Geprüfter Inhalt',
+    intro: 'Ultraschalluntersuchungen und wichtige Tests, Trimester für Trimester.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Ultraschalluntersuchungen',
+      'Wichtige Bluttests',
+      'Auf jeden Termin vorbereitet sein',
+      'Gut zu wissen',
+      'Das Wichtigste in Kürze',
+    ],
+    body1:
+      'In der Schwangerschaft sind in der Regel drei große Ultraschalluntersuchungen vorgesehen, eine pro Trimester, jede mit einem anderen Schwerpunkt.',
+    ultrasounds: [
+      '1. Trimester: Bestimmung des Schwangerschaftsalters und Nackentransparenz',
+      '2. Trimester: Feinultraschall zur Untersuchung der Organentwicklung',
+      '3. Trimester: Wachstum und Lage des Babys',
+    ],
+    body2:
+      'Regelmäßige Bluttests überwachen im Verlauf der Schwangerschaft mehrere wichtige Werte:',
+    bloodTests: [
+      'Eisenwerte, um eine mögliche Blutarmut zu erkennen',
+      'Test auf Schwangerschaftsdiabetes, in der Regel etwa im 2. Trimester',
+      'Blutgruppe und Suchtest auf unregelmäßige Antikörper',
+      'Serologische Tests (Toxoplasmose, Röteln) je nach deinem Immunstatus',
+    ],
+    prepTips: [
+      'Schreib deine Fragen auf, sobald sie dir einfallen, bevor du sie vergisst',
+      'Bring zu jedem Termin deinen Mutterpass mit',
+      'Erwähne jedes neue Symptom, auch wenn es unbedeutend erscheint',
+    ],
+    neutralText:
+      'Die genaue Anzahl und der Zeitplan der Untersuchungen können je nach deiner Betreuung, deinem Risikoprofil und den Gepflogenheiten deines Landes oder deiner Betreuungsperson variieren.',
+    tipTitle: 'Gut zu wissen',
+    tipText:
+      'Schreib dir deine Fragen vor jedem Termin gern auf, damit du im Moment nichts vergisst: Keine Frage ist zu klein, um sie zu stellen.',
+    shareMessage: 'Der Kalender der Schwangerschaftsuntersuchungen — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

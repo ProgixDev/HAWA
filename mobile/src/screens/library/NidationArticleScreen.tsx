@@ -217,6 +217,75 @@ const CONTENT = {
     tip2Text: 'İmplantasyon, görünür bir belirti olsun ya da olmasın sessizce gerçekleşir. Test yapmadan önce biraz sabretmek, güvenilmez bir sonuçtan seni korur.',
     shareMessage: 'İmplantasyonu anlamak — AWA',
   },
+  ru: {
+    badge: 'ИМПЛАНТАЦИЯ',
+    title: 'Что такое\nимплантация',
+    metaDuration: '5 мин чтения',
+    metaType: 'Статья',
+    metaLevel: 'Средний уровень',
+    metaValidated: 'Проверенный материал',
+    intro: 'Что происходит между оплодотворением и положительным тестом на беременность.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'От оплодотворения до имплантации',
+      'Возможные признаки, без уверенности',
+      'Когда тест становится надёжным',
+      'Главное',
+    ],
+    body1: 'После оплодотворения яйцеклетке обычно требуется от 6 до 10 дней, чтобы достичь матки и закрепиться в ней: это и есть имплантация. Этот этап знаменует собой настоящее начало беременности.',
+    body2: 'Имплантацию иногда могут сопровождать лёгкое кровотечение или спазмы, однако это бывает не всегда и само по себе не является надёжным признаком.',
+    possibleSigns: [
+      'Очень скудное кровотечение, иногда его называют «мажущими выделениями»',
+      'Лёгкие спазмы внизу живота',
+      'У многих женщин — никаких особых признаков',
+    ],
+    tip1Title: 'Полезно знать',
+    tip1Text: 'Отсутствие признаков ничего не значит: многие беременности начинаются без каких-либо заметных симптомов на этом этапе.',
+    body3: 'Гормон хорионический гонадотропин (hCG) начинает вырабатываться только после имплантации и становится определяемым тестом на беременность. Слишком раннее тестирование может дать ложноотрицательный результат.',
+    alertTitle: 'Примечание',
+    alertText: 'Если подождать с тестом до предполагаемого дня начала месячных, результат будет надёжнее, чем при слишком раннем тестировании.',
+    tip2Title: 'Полезно знать',
+    tip2Text: 'Имплантация проходит незаметно, с видимым признаком или без него. Немного терпения перед тестом убережёт вас от ненадёжного результата.',
+    shareMessage: 'Что такое имплантация — AWA',
+  },
+  de: {
+    badge: 'EINNISTUNG',
+    title: 'Die Einnistung\nverstehen',
+    metaDuration: '5 Min. Lesezeit',
+    metaType: 'Artikel',
+    metaLevel: 'Fortgeschritten',
+    metaValidated: 'Geprüfter Inhalt',
+    intro:
+      'Was zwischen der Befruchtung und einem positiven Schwangerschaftstest passiert.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Von der Befruchtung zur Einnistung',
+      'Mögliche Anzeichen, ohne Gewissheit',
+      'Wann ein Test verlässlich wird',
+      'Das Wichtigste in Kürze',
+    ],
+    body1:
+      'Nach der Befruchtung braucht die Eizelle in der Regel 6 bis 10 Tage, um die Gebärmutter zu erreichen und sich dort einzunisten: Das ist die Einnistung. Dieser Schritt markiert den eigentlichen Beginn der Schwangerschaft.',
+    body2:
+      'Eine leichte Blutung oder ein Ziehen im Unterleib kann die Einnistung manchmal begleiten, ist aber weder immer vorhanden noch für sich allein ein verlässliches Anzeichen.',
+    possibleSigns: [
+      'Eine sehr leichte Blutung, manchmal „Schmierblutung“ genannt',
+      'Leichtes Ziehen im Unterbauch',
+      'Bei vielen Frauen gar kein besonderes Anzeichen',
+    ],
+    tip1Title: 'Gut zu wissen',
+    tip1Text:
+      'Das Fehlen von Anzeichen sagt nichts aus: Viele Schwangerschaften beginnen in diesem Stadium ohne spürbare Symptome.',
+    body3:
+      'Erst nach der Einnistung beginnt die Produktion des Hormons hCG, das dann mit einem Schwangerschaftstest nachweisbar wird. Ein zu früher Test kann ein falsch negatives Ergebnis liefern.',
+    alertTitle: 'Hinweis',
+    alertText:
+      'Wenn du bis zum vermuteten Tag deiner Periode wartest, bevor du testest, ist das Ergebnis verlässlicher als bei einem zu frühen Test.',
+    tip2Title: 'Gut zu wissen',
+    tip2Text:
+      'Die Einnistung geschieht unauffällig, mit oder ohne sichtbares Anzeichen. Ein wenig Geduld vor dem Test erspart dir ein unzuverlässiges Ergebnis.',
+    shareMessage: 'Die Einnistung verstehen — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

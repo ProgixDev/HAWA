@@ -256,6 +256,92 @@ const CONTENT = {
     tipText: 'Hazırlanmak her şeyi kontrol etmek demek değildir: asıl amaç, büyük güne daha güvenle ve daha az belirsizlikle yaklaşmanın yollarını kendine sağlamaktır.',
     shareMessage: 'Doğuma sakin bir şekilde hazırlanmak — AWA',
   },
+  ru: {
+    badge: 'БЕРЕМЕННОСТЬ • РОДЫ',
+    title: 'Спокойная подготовка\nк родам',
+    metaDuration: '7 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Проверенный материал',
+    intro: 'Три опоры, которые помогут подойти к важному дню увереннее.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Подготовка в 3 шага',
+      'Сумка в роддом',
+      'Составление плана родов',
+      'Стоит знать',
+      'Что запомнить',
+    ],
+    prepSteps: [
+      'Курсы подготовки к родам',
+      'Техники дыхания и расслабления',
+      'Сумка в роддом собрана к 8-му месяцу',
+    ],
+    body1:
+      'Курсы подготовки к родам помогают понять, как проходят роды, и освоить техники дыхания, которые поддержат вас в этот важный день.',
+    body2:
+      'Если собрать сумку в роддом к 8-му месяцу, можно избежать волнения в последний момент. Обычно в неё кладут:',
+    bagItems: [
+      'Документы, удостоверяющие личность, и обменную карту',
+      'Удобную одежду для вас и для малыша',
+      'Средства личной гигиены и послеродовые прокладки',
+      'Одежду для малыша на выписку',
+    ],
+    birthPlanPoints: [
+      'Ваши предпочтения в отношении обезболивания',
+      'Кого вы хотели бы видеть рядом во время родов',
+      'Ваши пожелания относительно контакта «кожа к коже»',
+    ],
+    neutralText:
+      'Простой план родов помогает рассказать о ваших пожеланиях медицинской команде, сохраняя при этом гибкость: реальный ход событий может измениться в зависимости от ситуации.',
+    tipTitle: 'ПОЛЕЗНО ЗНАТЬ',
+    tipText:
+      'Подготовка не означает, что нужно всё контролировать: прежде всего это возможность дать себе средства, чтобы подойти к важному дню увереннее и с меньшей неопределённостью.',
+    shareMessage: 'Спокойная подготовка к родам — AWA',
+  },
+  de: {
+    badge: 'SCHWANGERSCHAFT • GEBURT',
+    title: 'Gelassen auf die\nGeburt vorbereiten',
+    metaDuration: '7 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Geprüfter Inhalt',
+    intro: 'Drei Säulen, mit denen du dem großen Tag zuversichtlicher entgegengehst.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Vorbereitung in 3 Schritten',
+      'Deine Kliniktasche',
+      'Deinen Geburtsplan verfassen',
+      'Wissenswert',
+      'Was du dir merken kannst',
+    ],
+    prepSteps: [
+      'Geburtsvorbereitungskurs',
+      'Atem- und Entspannungstechniken',
+      'Kliniktasche bis zum 8. Monat gepackt',
+    ],
+    body1:
+      'Ein Geburtsvorbereitungskurs hilft dir, die Phasen der Geburt zu verstehen und Atemtechniken kennenzulernen, die dich am großen Tag unterstützen.',
+    body2:
+      'Wenn du deine Kliniktasche bis zum 8. Monat packst, ersparst du dir Stress in letzter Minute. Üblicherweise gehören dazu:',
+    bagItems: [
+      'Ausweisdokumente und dein Mutterpass',
+      'Bequeme Kleidung für dich und das Baby',
+      'Kulturbeutel und Wochenbettvorlagen',
+      'Ein Outfit für die Heimfahrt des Babys',
+    ],
+    birthPlanPoints: [
+      'Deine Wünsche zum Umgang mit Schmerzen',
+      'Wen du während der Geburt gern dabeihättest',
+      'Deine Vorstellungen zum Hautkontakt',
+    ],
+    neutralText:
+      'Ein einfacher Geburtsplan hilft dir, deine Wünsche dem medizinischen Team mitzuteilen, und lässt dennoch Raum für Offenheit: Der tatsächliche Verlauf kann sich je nach Situation ändern.',
+    tipTitle: 'Gut zu wissen',
+    tipText:
+      'Vorbereitung heißt nicht, alles kontrollieren zu wollen: Es geht vor allem darum, dir die Mittel zu geben, dem großen Tag mit mehr Zuversicht und weniger Unsicherheit zu begegnen.',
+    shareMessage: 'Gelassen auf die Geburt vorbereiten – AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

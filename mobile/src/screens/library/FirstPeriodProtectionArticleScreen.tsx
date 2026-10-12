@@ -288,6 +288,88 @@ const CONTENT = {
     ],
     shareMessage: 'İlk adetim için hangi ürünü seçmeliyim? — AWA',
   },
+  ru: {
+    badge: 'ПЕРВЫЕ МЕСЯЧНЫЕ',
+    title: 'Какое средство гигиены выбрать\nдля первых месячных?',
+    metaDuration: '6 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Проверенный материал',
+    intro: 'Есть несколько способов защиты во время месячных. Ни один не лучше другого — выбор определяется личным комфортом.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Разные виды средств гигиены',
+      'Как выбрать в зависимости от комфорта',
+      'Как менять средство гигиены',
+    ],
+    body1: 'Для первых месячных прокладка обычно — самое простое средство: она крепится прямо на бельё. Менструальное бельё и тампоны — другие варианты, которые можно попробовать позже, когда захочется.',
+    options: [
+      {
+        title: 'Прокладки',
+        text: 'Просты в использовании: крепятся на бельё и регулярно меняются.',
+      },
+      {
+        title: 'Менструальное бельё',
+        text: 'Впитывающее, многоразовое бельё, удобное для повседневной носки.',
+      },
+      {
+        title: 'Тампоны',
+        text: 'Вводятся внутрь тела; пользоваться ими или нет и когда — решать вам, в вашем собственном темпе.',
+      },
+    ],
+    body2: 'Правильного или неправильного средства не бывает: каждое подходит разным телам, привычкам и уровню комфорта. Тампоны, например, вводятся внутрь тела и требуют чуть большего знакомства с ним — ничто не обязывает пользоваться ими с самых первых месячных.',
+    tipTitle: 'Полезно знать',
+    tipText: 'Пробуя разные средства гигиены со временем, вы найдёте то, что подходит вам лучше всего, — без всякого давления.',
+    body3: 'В среднем средство гигиены нужно менять каждые 4–6 часов, а в дни с более обильными выделениями — чаще. Регулярная смена помогает чувствовать себя комфортно и соблюдать правила интимной гигиены.',
+    relatedTitle: '♥  Вам также может понравиться',
+    related: [
+      {title: 'Как понять свои менструальные выделения', meta: '7 мин  ·  Руководство'},
+      {title: 'Как справляться с первыми месячными изо дня в день?', meta: '5 мин  ·  Руководство'},
+      {title: 'Ваши первые месячные: чего ожидать', meta: '5 мин  ·  Руководство'},
+    ],
+    shareMessage: 'Какое средство гигиены выбрать для первых месячных? — AWA',
+  },
+  de: {
+    badge: 'ERSTE PERIODE',
+    title: 'Welcher Schutz passt\nzu meiner ersten Periode?',
+    metaDuration: '6 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Geprüfter Inhalt',
+    intro: 'Es gibt mehrere Möglichkeiten, sich während der Periode zu schützen. Keine ist besser als die andere – dein persönliches Wohlbefinden entscheidet.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Die verschiedenen Arten von Schutz',
+      'So wählst du, was sich für dich gut anfühlt',
+      'So wechselst du deinen Schutz',
+    ],
+    body1: 'Für die erste Periode ist eine Binde meist der einfachste Schutz, denn sie wird direkt in die Unterwäsche geklebt. Periodenunterwäsche und Tampons sind weitere Möglichkeiten, die du später ausprobieren kannst, wann immer du Lust darauf hast.',
+    options: [
+      {
+        title: 'Binden',
+        text: 'Einfach anzuwenden: Sie werden in die Unterwäsche geklebt und regelmäßig gewechselt.',
+      },
+      {
+        title: 'Periodenunterwäsche',
+        text: 'Saugfähige, waschbare Unterwäsche, die sich im Alltag angenehm trägt.',
+      },
+      {
+        title: 'Tampons',
+        text: 'Werden in den Körper eingeführt; ob und wann du sie nutzt, entscheidest du in deinem eigenen Tempo.',
+      },
+    ],
+    body2: 'Es gibt keinen richtigen oder falschen Schutz: Jeder passt zu anderen Körpern, Gewohnheiten und Komfortbedürfnissen. Tampons zum Beispiel werden in den Körper eingeführt und setzen ein wenig mehr Vertrautheit mit ihm voraus – nichts verlangt, dass du sie schon bei deiner allerersten Periode nutzt.',
+    tipTitle: 'Gut zu wissen',
+    tipText: 'Wenn du mit der Zeit verschiedene Schutzarten ausprobierst, findest du heraus, welche am besten zu dir passt – ganz ohne Druck.',
+    body3: 'Im Durchschnitt sollte der Schutz alle 4 bis 6 Stunden gewechselt werden, an Tagen mit stärkerer Blutung häufiger. Regelmäßiges Wechseln hilft dir, dich wohlzufühlen und eine gute Intimhygiene einzuhalten.',
+    relatedTitle: '♥  Das könnte dir auch gefallen',
+    related: [
+      {title: 'Deine Menstruationsblutung verstehen', meta: '7 Min.  ·  Ratgeber'},
+      {title: 'Wie gehst du im Alltag mit deiner ersten Periode um?', meta: '5 Min.  ·  Ratgeber'},
+      {title: 'Deine erste Periode: Was dich erwartet', meta: '5 Min.  ·  Ratgeber'},
+    ],
+    shareMessage: 'Welcher Schutz passt zu meiner ersten Periode? – AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

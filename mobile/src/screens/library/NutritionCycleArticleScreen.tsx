@@ -458,6 +458,134 @@ const CONTENT = {
     ],
     shareMessage: 'Beslenme ve döngün: vücudunun sevdikleri — AWA',
   },
+  ru: {
+    badge: 'МЕНСТРУАЛЬНЫЙ ЦИКЛ',
+    titleLine1: 'Питание и ваш цикл:',
+    titleLine2: 'что нравится вашему организму',
+    metaDuration: '4 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Проверенный материал',
+    intro:
+      'Питание влияет на вашу энергию, настроение, гормоны и общее самочувствие на протяжении всего цикла.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Потребности в питании по фазам',
+      'Что стоит предпочитать',
+      'Что стоит ограничивать',
+      'Примеры сбалансированных приёмов пищи',
+    ],
+    section1Body:
+      'Потребности вашего организма не одинаковы на протяжении всего цикла. Корректировка рациона может заметно улучшить самочувствие.',
+    phases: [
+      {
+        title: 'Менструальная фаза',
+        days: 'Дни 1–5',
+        body: 'Отдавайте предпочтение железу, магнию и витаминам группы B.',
+      },
+      {
+        title: 'Фолликулярная фаза',
+        days: 'Дни 6–14',
+        body: 'Делайте упор на нежирный белок и свежие овощи.',
+      },
+      {
+        title: 'Овуляторная фаза',
+        days: 'Около 14-го дня',
+        body: 'Выбирайте антиоксиданты и омега-3.',
+      },
+      {
+        title: 'Лютеиновая фаза',
+        days: 'Дни 15–28',
+        body: 'Поддерживайте нервную систему и ограничивайте воспаление.',
+      },
+    ],
+    foods: [
+      {title: 'Железо', body: 'Чечевица, шпинат, нежирное мясо, нут.'},
+      {title: 'Магний', body: 'Миндаль, тыквенные семечки, тёмный шоколад, банан.'},
+      {title: 'Омега-3', body: 'Лосось, сардины, грецкие орехи, семена льна.'},
+      {title: 'Белок', body: 'Яйца, тофу, птица, греческий йогурт, киноа.'},
+      {title: 'Клетчатка и антиоксиданты', body: 'Ягоды, авокадо, брокколи, морковь.'},
+    ],
+    limits: [
+      {title: 'Избыток соли'},
+      {title: 'Сладкие продукты'},
+      {title: 'Ультрапереработанные продукты'},
+      {title: 'Избыток кофеина'},
+      {title: 'Алкоголь'},
+    ],
+    limitText: 'Употребляйте в умеренных количествах, чтобы поддерживать баланс.',
+    meals: [
+      {tag: 'Завтрак', body: 'Овсяная каша, ягоды, миндаль и чиа'},
+      {tag: 'Обед', body: 'Лосось, киноа, брокколи на пару и оливковое масло'},
+      {tag: 'Перекус', body: 'Натуральный йогурт, черника и семена льна'},
+      {tag: 'Ужин', body: 'Чечевичный суп, запечённые овощи и цельнозерновой хлеб'},
+    ],
+    shareMessage: 'Питание и ваш цикл: что нравится вашему организму — AWA',
+  },
+  de: {
+    badge: 'MENSTRUATIONSZYKLUS',
+    titleLine1: 'Ernährung und dein Zyklus:',
+    titleLine2: 'was dein Körper liebt',
+    metaDuration: '4 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Geprüfter Inhalt',
+    intro:
+      'Deine Ernährung beeinflusst über den ganzen Zyklus hinweg deine Energie, deine Stimmung, deine Hormone und dein allgemeines Wohlbefinden.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Nährstoffbedarf je nach Phase',
+      'Lebensmittel, die du bevorzugen kannst',
+      'Lebensmittel, die du einschränken kannst',
+      'Beispiele für ausgewogene Mahlzeiten',
+    ],
+    section1Body:
+      'Dein Körper hat nicht über den ganzen Zyklus hinweg den gleichen Bedarf. Wenn du anpasst, was du isst, kann das einen echten Unterschied machen.',
+    phases: [
+      {
+        title: 'Menstruationsphase',
+        days: 'Tag 1 bis 5',
+        body: 'Bevorzuge Eisen, Magnesium und B-Vitamine.',
+      },
+      {
+        title: 'Follikelphase',
+        days: 'Tag 6 bis 14',
+        body: 'Setze auf mageres Eiweiß und frisches Gemüse.',
+      },
+      {
+        title: 'Ovulationsphase',
+        days: 'Um Tag 14',
+        body: 'Wähle Antioxidantien und Omega-3-Fettsäuren.',
+      },
+      {
+        title: 'Lutealphase',
+        days: 'Tag 15 bis 28',
+        body: 'Unterstütze dein Nervensystem und schränke Entzündungen ein.',
+      },
+    ],
+    foods: [
+      {title: 'Eisen', body: 'Linsen, Spinat, mageres Fleisch, Kichererbsen.'},
+      {title: 'Magnesium', body: 'Mandeln, Kürbiskerne, dunkle Schokolade, Banane.'},
+      {title: 'Omega-3', body: 'Lachs, Sardinen, Walnüsse, Leinsamen.'},
+      {title: 'Eiweiß', body: 'Eier, Tofu, Geflügel, griechischer Joghurt, Quinoa.'},
+      {title: 'Ballaststoffe & Antioxidantien', body: 'Beeren, Avocado, Brokkoli, Karotten.'},
+    ],
+    limits: [
+      {title: 'Zu viel Salz'},
+      {title: 'Zuckerhaltige Lebensmittel'},
+      {title: 'Stark verarbeitete Lebensmittel'},
+      {title: 'Zu viel Koffein'},
+      {title: 'Alkohol'},
+    ],
+    limitText: 'In Maßen genießen, um dein Gleichgewicht zu unterstützen.',
+    meals: [
+      {tag: 'Frühstück', body: 'Haferbrei, Beeren, Mandeln und Chiasamen'},
+      {tag: 'Mittagessen', body: 'Lachs, Quinoa, gedünsteter Brokkoli und Olivenöl'},
+      {tag: 'Snack', body: 'Naturjoghurt, Heidelbeeren und Leinsamen'},
+      {tag: 'Abendessen', body: 'Linsensuppe, geröstetes Gemüse und Vollkornbrot'},
+    ],
+    shareMessage: 'Ernährung und dein Zyklus: was dein Körper liebt — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<

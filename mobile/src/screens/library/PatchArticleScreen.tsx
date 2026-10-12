@@ -360,6 +360,124 @@ const CONTENT = {
     ],
     shareMessage: 'Doğum kontrol flasteri — AWA',
   },
+  ru: {
+    badge: 'КОНТРАЦЕПТИВНЫЙ ПЛАСТЫРЬ',
+    title: 'Контрацептивный\nпластырь',
+    metaDuration: '5 мин чтения',
+    metaType: 'Статья',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Проверенный материал',
+    intro: 'Еженедельная альтернатива ежедневным таблеткам.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Как действует пластырь',
+      'График наклеивания',
+      'Что нужно знать',
+      'Главное',
+    ],
+    section1Body:
+      'Пластырь непрерывно высвобождает гормоны через кожу и действует подобно комбинированным таблеткам: он подавляет овуляцию и делает цервикальную слизь более густой.',
+    tip1Title: 'ПОЛЕЗНО ЗНАТЬ',
+    tip1Text:
+      'Его главное преимущество в том, что не нужно принимать ежедневную дозу.',
+    section2Body:
+      'Пластырь, как правило, меняют раз в неделю в течение трёх недель, после чего следует неделя без пластыря.',
+    applicationTips: [
+      'Каждый раз меняйте место наклеивания',
+      'Проверяйте, что он по-прежнему плотно держится',
+      'Наклеивайте на чистую, сухую кожу',
+    ],
+    sectionIntro:
+      'Главное, что нужно знать до начала и во время использования.',
+    facts: [
+      {title: 'Каждую неделю', text: 'Пластырь заменяют раз в неделю.'},
+      {title: 'Сухая кожа', text: 'Его необходимо наклеивать на чистую, сухую кожу.'},
+      {title: 'Защита', text: 'При правильном использовании он действует непрерывно.'},
+      {title: 'Что учитывать', text: 'Иногда может возникать местное раздражение.'},
+    ],
+    comparisonTitle: 'Преимущества и ограничения',
+    advantageTitle: 'Преимущества',
+    advantages: [
+      '• Одно наклеивание в неделю',
+      '• Не нужна ежедневная доза',
+      '• Непрерывное высвобождение гормонов',
+    ],
+    limitTitle: 'Ограничения',
+    limits: [
+      'Не защищает от ИППП',
+      'Может вызывать раздражение кожи',
+      'Требует соблюдения графика замены',
+    ],
+    alertTitle: 'Обратите внимание',
+    alertText:
+      'В месте наклеивания может появиться лёгкое раздражение. Чередование мест наклеивания помогает его ограничить.',
+    rememberTitle: '3 главных правила',
+    remember: [
+      'Меняйте пластырь каждую неделю.',
+      'Регулярно проверяйте, что он хорошо держится.',
+      'При необходимости обратитесь за советом к медицинскому специалисту.',
+    ],
+    shareMessage: 'Контрацептивный пластырь — AWA',
+  },
+  de: {
+    badge: 'VERHÜTUNGSPFLASTER',
+    title: 'Das Verhütungs-\npflaster',
+    metaDuration: '5 Min. Lesezeit',
+    metaType: 'Artikel',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Geprüfter Inhalt',
+    intro: 'Eine wöchentliche Alternative zur täglichen Pille.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'So wirkt das Pflaster',
+      'Anwendungsplan',
+      'Was du wissen solltest',
+      'Das Wichtigste in Kürze',
+    ],
+    section1Body:
+      'Das Pflaster gibt Hormone kontinuierlich über die Haut ab und wirkt ähnlich wie die Kombinationspille: Es verhindert den Eisprung und macht den Zervixschleim zähflüssiger.',
+    tip1Title: 'Gut zu wissen',
+    tip1Text:
+      'Sein wichtigster Vorteil ist, dass du nicht täglich daran denken musst.',
+    section2Body:
+      'Das Pflaster wird in der Regel drei Wochen lang einmal pro Woche gewechselt, gefolgt von einer Woche ohne Pflaster.',
+    applicationTips: [
+      'Wechsle die Klebestelle jedes Mal',
+      'Prüfe, ob es noch fest haftet',
+      'Klebe es auf saubere, trockene Haut',
+    ],
+    sectionIntro:
+      'Die wichtigsten Punkte, die du vor und während der Anwendung kennen solltest.',
+    facts: [
+      {title: 'Jede Woche', text: 'Das Pflaster wird einmal pro Woche gewechselt.'},
+      {title: 'Trockene Haut', text: 'Es muss auf saubere, trockene Haut geklebt werden.'},
+      {title: 'Schutz', text: 'Bei korrekter Anwendung wirkt es durchgehend.'},
+      {title: 'Beachten', text: 'Manchmal kann es zu örtlichen Hautreizungen kommen.'},
+    ],
+    comparisonTitle: 'Vorteile & Einschränkungen',
+    advantageTitle: 'Vorteile',
+    advantages: [
+      '• Eine Anwendung pro Woche',
+      '• Keine tägliche Einnahme',
+      '• Kontinuierliche Hormonabgabe',
+    ],
+    limitTitle: 'Einschränkungen',
+    limits: [
+      'Schützt nicht vor sexuell übertragbaren Infektionen',
+      'Kann Hautreizungen verursachen',
+      'Erfordert, den Wechselplan einzuhalten',
+    ],
+    alertTitle: 'Bitte beachten',
+    alertText:
+      'An der Klebestelle kann eine leichte Reizung auftreten. Die Klebestelle abzuwechseln kann helfen, dies zu begrenzen.',
+    rememberTitle: 'Die 3 wichtigsten Punkte',
+    remember: [
+      'Wechsle das Pflaster jede Woche.',
+      'Prüfe regelmäßig, ob es gut haftet.',
+      'Lass dich bei Bedarf von medizinischem Fachpersonal beraten.',
+    ],
+    shareMessage: 'Das Verhütungspflaster — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

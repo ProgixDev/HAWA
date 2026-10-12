@@ -649,6 +649,244 @@ const CONTENT = {
     shareTitle: 'Bebek hüznü ve doğum sonrası duygusal sağlık',
     shareMessage: 'Bebek hüznü ve doğum sonrası duygusal sağlık — AWA\n\nDoğumdan sonra yaygın olan duygusal değişimleri anlamaya yönelik bir rehber.',
   },
+  ru: {
+    badgeText: 'ПОСЛЕРОДОВОЙ ПЕРИОД • ЭМОЦИОНАЛЬНОЕ ЗДОРОВЬЕ',
+    title: 'Послеродовая хандра и эмоциональное\nздоровье после родов',
+    subtitle:
+      'Что может меняться эмоционально после родов и как понять, когда стоит обратиться за поддержкой.',
+    metaItems: ['10 мин чтения', 'Статья', 'Для начинающих', 'Проверенный материал'],
+    introTitle: 'Полезно знать',
+    introText:
+      'После родов нередко наступает период повышенной эмоциональной чувствительности. Послеродовая хандра («беби-блюз») обычно временная, но тревожное состояние, которое не проходит или усиливается, заслуживает внимания специалиста.',
+    contentsEyebrow: 'РУКОВОДСТВО',
+    contentsTitle: 'В этой статье',
+    contents: [
+      'Что такое послеродовая хандра',
+      'Самые частые признаки',
+      'Что помогает изо дня в день',
+      'Послеродовая хандра или послеродовая депрессия?',
+      'Когда просить о помощи',
+      'Главные выводы',
+    ],
+    section1Kicker: 'ПОНИМАНИЕ',
+    section1Title: 'Что такое послеродовая хандра?',
+    section1Body1:
+      'Послеродовая хандра — это период эмоциональных перемен, который может возникнуть в первые дни после родов. Гормональные изменения, усталость, недосып и привыкание к новому этапу жизни могут усиливать эту чувствительность.',
+    section1Body2:
+      'Это не неудача и не означает, что вы плохая мать. Каждая женщина по-своему переживает первые дни после родов.',
+    statTitle: 'Распространённое состояние',
+    statText:
+      'Послеродовая хандра часто встречается после родов и, как правило, проходит сама в течение нескольких дней.',
+    section2Kicker: 'ПРИЗНАКИ',
+    section2Title: 'Что вы можете чувствовать',
+    section2Body:
+      'Переживания у всех разные. Одни в основном чувствуют усталость и ранимость, у других заметнее перепады настроения.',
+    commonSigns: [
+      {
+        title: 'Эмоциональность',
+        description: 'Слёзы появляются легче, и вы чувствуете себя особенно ранимой.',
+      },
+      {
+        title: 'Повышенная чувствительность',
+        description: 'Эмоции могут казаться сильнее и быстро меняться.',
+      },
+      {
+        title: 'Перепады настроения',
+        description:
+          'Ощущение хрупкости может сменяться минутами хорошего самочувствия.',
+      },
+      {
+        title: 'Усталость',
+        description: 'Усталость первых дней может усиливать эмоции.',
+      },
+    ],
+    section3Kicker: 'ИЗО ДНЯ В ДЕНЬ',
+    section3Title: 'Что может помочь',
+    section3Body:
+      'В этот период потребность в отдыхе очень велика. Небольшие простые вещи могут сделать дни комфортнее.',
+    dailySupport: [
+      {
+        title: 'Отдыхать',
+        description: 'Использовать любую свободную минуту, чтобы восстановиться.',
+      },
+      {
+        title: 'Принимать помощь',
+        description: 'Не стесняйтесь просить поддержки у близких.',
+      },
+      {
+        title: 'Пить регулярно',
+        description: 'Достаточно пить в течение дня.',
+      },
+      {
+        title: 'Достаточно есть',
+        description: 'Отдавать предпочтение простой еде в привычное время.',
+      },
+    ],
+    quoteText:
+      '«Просить о помощи после родов — это способ позаботиться о себе и о своём ребёнке».',
+    section4Kicker: 'КАК ОТЛИЧИТЬ',
+    section4Title: 'Послеродовая хандра или послеродовая депрессия?',
+    section4Body:
+      'Послеродовая хандра обычно непродолжительна и постепенно проходит. Послеродовая депрессия — другое состояние: она может быть более стойкой, более выраженной и заметно влиять на повседневную жизнь.',
+    compareTitle: 'Две ситуации, которые важно различать',
+    compareBabyBluesTitle: 'Послеродовая хандра',
+    compareBabyBluesText:
+      'Часто непродолжительна, с постепенным улучшением в последующие дни.',
+    comparePostpartumTitle: 'Послеродовая депрессия',
+    comparePostpartumText:
+      'Может длиться дольше, усиливаться и требовать профессиональной поддержки.',
+    section5Kicker: 'БУДЬТЕ ВНИМАТЕЛЬНЫ',
+    section5Title: 'Когда просить о помощи?',
+    section5Body:
+      'Важно поговорить с медицинским специалистом, если эмоциональное состояние не улучшается, становится тяжелее или начинает усложнять повседневную жизнь.',
+    attentionTitle: 'Тревожные признаки, на которые стоит обратить внимание',
+    attentionSubtitle: 'Обратитесь к специалисту, если…',
+    attentionSigns: [
+      'Симптомы длятся более двух недель.',
+      'Грусть или тревога усиливаются.',
+      'Становится трудно заботиться о себе или о ребёнке.',
+      'Появляется сильное ощущение душевного неблагополучия.',
+    ],
+    professionalTitle: 'Поддержка доступна',
+    professionalText:
+      'Акушерка, врач, психолог или другой медицинский специалист может выслушать вас, оценить ситуацию и предложить подходящую поддержку.',
+    tipTitle: 'Полезно знать',
+    tipText:
+      'Эмоции после родов не показывают, насколько вы хорошая мать. Вы имеете право нуждаться в отдыхе, в том, чтобы вас выслушали и поддержали.',
+    section6Kicker: 'КЛЮЧЕВЫЕ МОМЕНТЫ',
+    section6Title: 'Главные выводы',
+    takeaways: [
+      'Послеродовая хандра часто встречается после родов.',
+      'Усталость и гормональные изменения могут влиять на настроение.',
+      'Поддержка близких может облегчить этот период.',
+      'Стойкое или выраженное душевное неблагополучие заслуживает профессиональной оценки.',
+    ],
+    disclaimerText:
+      'Эта статья носит информационный характер и не заменяет индивидуальную медицинскую консультацию. Если вы сомневаетесь или испытываете сильное душевное неблагополучие, поговорите с медицинским специалистом.',
+    endText: 'Забота о себе — тоже часть послеродового периода.',
+    shareTitle: 'Послеродовая хандра и эмоциональное здоровье после родов',
+    shareMessage:
+      'Послеродовая хандра и эмоциональное здоровье после родов — AWA\n\nРуководство о том, как понять эмоциональные перемены, которые часто бывают после родов.',
+  },
+  de: {
+    badgeText: 'WOCHENBETT • EMOTIONALE GESUNDHEIT',
+    title: 'Babyblues und emotionale\nGesundheit im Wochenbett',
+    subtitle:
+      'Verstehen, was sich nach der Geburt emotional verändern kann, und wissen, wann du dir Unterstützung holen solltest.',
+    metaItems: ['10 Min. Lesezeit', 'Artikel', 'Einsteiger', 'Geprüfter Inhalt'],
+    introTitle: 'Gut zu wissen',
+    introText:
+      'Nach der Geburt ist es häufig, eine Zeit mit erhöhter emotionaler Empfindsamkeit zu erleben. Der Babyblues ist meist vorübergehend, doch ein Gefühl der Belastung, das anhält oder stärker wird, verdient fachliche Aufmerksamkeit.',
+    contentsEyebrow: 'RATGEBER',
+    contentsTitle: 'In diesem Artikel',
+    contents: [
+      'Den Babyblues verstehen',
+      'Die häufigsten Anzeichen',
+      'Was im Alltag hilft',
+      'Babyblues oder Wochenbettdepression?',
+      'Wann du dir Hilfe holen solltest',
+      'Das Wichtigste in Kürze',
+    ],
+    section1Kicker: 'VERSTEHEN',
+    section1Title: 'Was ist der Babyblues?',
+    section1Body1:
+      'Der Babyblues ist eine Phase emotionaler Veränderungen, die in den ersten Tagen nach der Geburt auftreten kann. Hormonelle Umstellungen, Erschöpfung, Schlafmangel und die Anpassung an diese neue Lebensphase können zu dieser Empfindsamkeit beitragen.',
+    section1Body2:
+      'Das ist kein Versagen und bedeutet nicht, dass du eine schlechte Mutter bist. Jede erlebt die ersten Tage im Wochenbett auf ihre eigene Weise.',
+    statTitle: 'Eine häufige Erfahrung',
+    statText:
+      'Der Babyblues ist nach der Geburt häufig und bessert sich in der Regel innerhalb weniger Tage von selbst.',
+    section2Kicker: 'DIE ANZEICHEN',
+    section2Title: 'Was du fühlen kannst',
+    section2Body:
+      'Das Erleben ist unterschiedlich. Manche spüren vor allem Erschöpfung und Empfindsamkeit, andere bemerken deutlichere Stimmungsschwankungen.',
+    commonSigns: [
+      {
+        title: 'Emotionalität',
+        description: 'Schneller weinen oder besonders empfindsam sein.',
+      },
+      {
+        title: 'Überempfindlichkeit',
+        description: 'Gefühle können stärker wirken und schnell wechseln.',
+      },
+      {
+        title: 'Stimmungsschwankungen',
+        description:
+          'Ein Gefühl von Zerbrechlichkeit kann sich mit Momenten des Wohlbefindens abwechseln.',
+      },
+      {
+        title: 'Erschöpfung',
+        description: 'Die Müdigkeit der ersten Tage kann Gefühle verstärken.',
+      },
+    ],
+    section3Kicker: 'IM ALLTAG',
+    section3Title: 'Was helfen kann',
+    section3Body:
+      'In dieser Zeit ist das Ruhebedürfnis groß. Kleine, einfache Dinge können die Tage angenehmer machen.',
+    dailySupport: [
+      {
+        title: 'Ausruhen',
+        description: 'Freie Momente nutzen, um dich zu erholen.',
+      },
+      {
+        title: 'Hilfe annehmen',
+        description: 'Zögere nicht, dir Unterstützung von deinem Umfeld zu holen.',
+      },
+      {
+        title: 'Regelmäßig trinken',
+        description: 'Über den Tag verteilt ausreichend Flüssigkeit zu dir nehmen.',
+      },
+      {
+        title: 'Genug essen',
+        description: 'Regelmäßige, einfache Mahlzeiten bevorzugen.',
+      },
+    ],
+    quoteText:
+      '„Sich im Wochenbett Hilfe zu holen, ist eine Art, für sich selbst und für das Baby zu sorgen.“',
+    section4Kicker: 'UNTERSCHEIDEN',
+    section4Title: 'Babyblues oder Wochenbettdepression?',
+    section4Body:
+      'Der Babyblues ist meist kurz und bessert sich nach und nach. Eine Wochenbettdepression ist anders: Sie kann länger anhalten, stärker sein und den Alltag deutlich beeinträchtigen.',
+    compareTitle: 'Zwei Situationen, die man unterscheiden sollte',
+    compareBabyBluesTitle: 'Babyblues',
+    compareBabyBluesText:
+      'Oft von kurzer Dauer, mit allmählicher Besserung in den folgenden Tagen.',
+    comparePostpartumTitle: 'Wochenbettdepression',
+    comparePostpartumText:
+      'Kann länger dauern, stärker werden und professionelle Unterstützung erfordern.',
+    section5Kicker: 'AUFMERKSAM BLEIBEN',
+    section5Title: 'Wann solltest du dir Hilfe holen?',
+    section5Body:
+      'Es ist wichtig, mit medizinischem Fachpersonal zu sprechen, wenn sich die emotionale Belastung nicht bessert, stärker wird oder den Alltag zunehmend erschwert.',
+    attentionTitle: 'Warnzeichen, auf die du achten solltest',
+    attentionSubtitle: 'Sprich mit einer Fachperson, wenn …',
+    attentionSigns: [
+      'Die Beschwerden länger als zwei Wochen anhalten.',
+      'Traurigkeit oder Angst stärker werden.',
+      'Es dir schwerfällt, für dich selbst oder für dein Baby zu sorgen.',
+      'Ein starkes Gefühl der Belastung auftritt.',
+    ],
+    professionalTitle: 'Unterstützung ist da',
+    professionalText:
+      'Eine Hebamme, eine Ärztin oder ein Arzt, eine Psychologin oder ein Psychologe oder anderes medizinisches Fachpersonal kann dir zuhören, die Situation einschätzen und passende Unterstützung anbieten.',
+    tipTitle: 'Gut zu wissen',
+    tipText:
+      'Deine Gefühle im Wochenbett sagen nichts darüber aus, wie gut du als Mutter bist. Du hast das Recht, Ruhe zu brauchen, gehört zu werden und Unterstützung zu bekommen.',
+    section6Kicker: 'KERNPUNKTE',
+    section6Title: 'Das Wichtigste in Kürze',
+    takeaways: [
+      'Der Babyblues ist nach der Geburt häufig.',
+      'Erschöpfung und hormonelle Veränderungen können die Stimmung beeinflussen.',
+      'Die Unterstützung deines Umfelds kann diese Zeit erleichtern.',
+      'Anhaltende oder starke Belastung verdient eine fachliche Abklärung.',
+    ],
+    disclaimerText:
+      'Dieser Artikel dient der Information und ersetzt keine individuelle ärztliche Beratung. Bei Zweifeln oder starker Belastung sprich mit medizinischem Fachpersonal.',
+    endText: 'Für dich selbst zu sorgen gehört auch zum Wochenbett.',
+    shareTitle: 'Babyblues und emotionale Gesundheit im Wochenbett',
+    shareMessage:
+      'Babyblues und emotionale Gesundheit im Wochenbett — AWA\n\nEin Ratgeber, um die emotionalen Veränderungen zu verstehen, die nach der Geburt häufig sind.',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */

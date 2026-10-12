@@ -351,6 +351,130 @@ const CONTENT = {
     disclaimerText: 'Bilgilendirme amaçlı içerik. Bu makale kişiye özel tıbbi tavsiyenin yerini tutmaz. Şüphen varsa bir sağlık profesyonelinden yönlendirme iste.',
     shareMessage: 'Ovülasyon testlerini (LH) anlamak — AWA',
   },
+  ru: {
+    badge: 'ФЕРТИЛЬНОСТЬ • ТЕСТЫ НА ОВУЛЯЦИЮ',
+    title: 'Понимаем тесты\nна овуляцию (ЛГ)',
+    metaDuration: '6 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Средний уровень',
+    metaValidated: 'Проверенный материал',
+    intro: 'Как работают эти тест-полоски и когда ими пользоваться.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Что такое ЛГ?',
+      'Как работают эти тесты',
+      'Когда начинать тестирование',
+      'Как интерпретировать результат',
+      'Ложноположительные результаты и ограничения',
+      'Сочетание с другими признаками',
+      'Главное',
+    ],
+    section1Body:
+      'ЛГ (лютеинизирующий гормон) вырабатывается в головном мозге и регулирует работу яичников. Тесты на овуляцию определяют резкий всплеск этого гормона, который запускает выход яйцеклетки через 24–36 часов.',
+    section2Body:
+      'Тест-полоска измеряет уровень ЛГ в моче: тестовая линия, такая же тёмная, как контрольная, или темнее её, указывает на всплеск.',
+    section3Body:
+      'Рекомендуется начинать тестирование за несколько дней до даты овуляции, рассчитанной по вашему циклу.',
+    testingTips: [
+      {
+        title: 'Ориентируйтесь на свой цикл',
+        text: 'Начинайте за несколько дней до даты овуляции, рассчитанной по средней продолжительности ваших циклов.',
+      },
+      {
+        title: 'Тестируйтесь каждый день в одно и то же время',
+        text: 'Лучше всего около полудня, избегая первой утренней порции мочи.',
+      },
+      {
+        title: 'Не разбавляйте мочу',
+        text: 'Ограничьте приём большого количества жидкости в часы перед тестом.',
+      },
+    ],
+    section4Body:
+      'Положительный результат указывает на наиболее фертильное время для полового акта в течение следующих 1–2 дней. Отрицательный результат означает лишь то, что всплеск ещё не произошёл.',
+    limitations: [
+      'СПКЯ может вызывать естественно повышенный уровень ЛГ, что способно затруднить интерпретацию',
+      'Некоторые виды лечения бесплодия могут влиять на результат',
+      'Сильно разбавленная моча может дать ложноотрицательный результат',
+      'Тест более низкого качества может быть менее надёжным',
+    ],
+    infoTitle: 'Важно помнить',
+    infoText:
+      'Всплеск ЛГ — это запускающий гормональный сигнал, но сам по себе он не гарантирует, что яйцеклетка действительно вышла.',
+    tipTitle: 'Полезно знать',
+    tipText:
+      'Сочетание тестов на овуляцию с измерением базальной температуры или наблюдением за цервикальной слизью даёт более полную картину вашего цикла.',
+    summaryPoints: [
+      'Тесты на овуляцию определяют всплеск ЛГ, который запускает выход яйцеклетки через 24–36 часов.',
+      'Рекомендуется начинать тестирование за несколько дней до даты овуляции, рассчитанной по вашему циклу.',
+      'Положительный результат указывает на наиболее фертильное время для полового акта в течение следующих 1–2 дней.',
+      'Всплеск ЛГ сам по себе не гарантирует, что овуляция действительно произошла.',
+    ],
+    disclaimerText:
+      'Информационный материал. Эта статья не заменяет индивидуальную медицинскую консультацию. При сомнениях обратитесь за советом к медицинскому специалисту.',
+    shareMessage: 'Понимаем тесты на овуляцию (ЛГ) — AWA',
+  },
+  de: {
+    badge: 'FRUCHTBARKEIT • OVULATIONSTESTS',
+    title: 'Ovulationstests\n(LH) verstehen',
+    metaDuration: '6 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Fortgeschritten',
+    metaValidated: 'Geprüfter Inhalt',
+    intro: 'Wie diese Teststreifen funktionieren und wann du sie anwenden kannst.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Was ist LH?',
+      'Wie diese Tests funktionieren',
+      'Wann du mit dem Testen beginnen solltest',
+      'Ein Ergebnis deuten',
+      'Falsch-positive Ergebnisse und Grenzen',
+      'Kombination mit anderen Anzeichen',
+      'Das Wichtigste in Kürze',
+    ],
+    section1Body:
+      'LH (luteinisierendes Hormon) wird vom Gehirn gebildet und steuert die Funktion der Eierstöcke. Ovulationstests erkennen den Anstieg dieses Hormons, der 24 bis 36 Stunden später die Freisetzung der Eizelle auslöst.',
+    section2Body:
+      'Ein Urin-Teststreifen misst den LH-Wert: Eine Testlinie, die so dunkel wie die Kontrolllinie oder dunkler ist, zeigt einen Anstieg an.',
+    section3Body:
+      'Es wird empfohlen, einige Tage vor dem Eisprungtermin zu beginnen, der aus deinem Zyklus geschätzt wird.',
+    testingTips: [
+      {
+        title: 'Richte dich nach deinem Zyklus',
+        text: 'Beginne einige Tage vor dem Eisprungtermin, der anhand der durchschnittlichen Länge deiner Zyklen geschätzt wird.',
+      },
+      {
+        title: 'Täglich zur gleichen Zeit testen',
+        text: 'Am besten gegen Mittag, und nicht mit dem ersten Morgenurin.',
+      },
+      {
+        title: 'Urin nicht verdünnen',
+        text: 'Trinke in den Stunden vor dem Test nicht zu große Flüssigkeitsmengen.',
+      },
+    ],
+    section4Body:
+      'Ein positives Ergebnis weist auf die fruchtbarste Zeit für Geschlechtsverkehr in den folgenden 1 bis 2 Tagen hin. Ein negatives Ergebnis bedeutet lediglich, dass der Anstieg noch nicht stattgefunden hat.',
+    limitations: [
+      'PCOS kann zu natürlicherweise höheren LH-Werten führen, was die Auswertung verwischen kann',
+      'Bestimmte Fruchtbarkeitsbehandlungen können das Ergebnis beeinflussen',
+      'Sehr verdünnter Urin kann ein falsch-negatives Ergebnis liefern',
+      'Ein Test von geringerer Qualität kann weniger zuverlässig sein',
+    ],
+    infoTitle: 'Gut zu beachten',
+    infoText:
+      'Ein LH-Anstieg zeigt ein auslösendes hormonelles Signal an, garantiert für sich allein aber nicht, dass die Eizelle tatsächlich freigesetzt wurde.',
+    tipTitle: 'Gut zu wissen',
+    tipText:
+      'Wenn du Ovulationstests mit deiner Basaltemperatur oder der Beobachtung deines Zervixschleims kombinierst, erhältst du ein vollständigeres Bild deines Zyklus.',
+    summaryPoints: [
+      'Ovulationstests erkennen den LH-Anstieg, der 24 bis 36 Stunden später die Freisetzung der Eizelle auslöst.',
+      'Es wird empfohlen, einige Tage vor dem aus deinem Zyklus geschätzten Eisprungtermin mit dem Testen zu beginnen.',
+      'Ein positives Ergebnis weist auf die fruchtbarste Zeit für Geschlechtsverkehr in den folgenden 1 bis 2 Tagen hin.',
+      'Ein LH-Anstieg allein garantiert nicht, dass der Eisprung tatsächlich stattgefunden hat.',
+    ],
+    disclaimerText:
+      'Informationsinhalt. Dieser Artikel ersetzt keine persönliche ärztliche Beratung. Bei Zweifeln lass dich von medizinischem Fachpersonal beraten.',
+    shareMessage: 'Ovulationstests (LH) verstehen – AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */

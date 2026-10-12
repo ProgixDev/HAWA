@@ -265,6 +265,88 @@ const CONTENT = {
     ],
     shareMessage: 'İlk adetini günlük hayatta nasıl yönetirsin? — AWA',
   },
+  ru: {
+    badge: 'ПЕРВЫЕ МЕСЯЧНЫЕ',
+    title: 'Как справляться с\nпервыми месячными в повседневной жизни?',
+    metaDuration: '5 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Проверенный материал',
+    intro: 'Несколько простых привычек помогут легко вписать первые месячные в повседневную жизнь — в школе и не только.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Как организовать повседневную жизнь',
+      'Как собрать небольшой набор на крайний случай',
+      'Если месячные начались неожиданно',
+    ],
+    body1: 'Школа, спорт, сон: месячные не мешают вам заниматься привычными делами. Достаточно немного скорректировать привычки, чтобы чувствовать себя комфортно в течение дня.',
+    dailyTips: [
+      'Школа и занятия: держите в сумке прокладку или тампон',
+      'Спорт: заниматься спортом можно, нужно лишь подстроить темп',
+      'Сон: достаточно подходящей ночной прокладки',
+    ],
+    body2: 'Небольшой набор — одна-две прокладки или тампона, запасное бельё и влажные салфетки — легко поместится в школьную или спортивную сумку. С ним вы будете чувствовать себя спокойно, что бы ни случилось.',
+    tip1Title: 'Полезно знать',
+    tip1Text: 'Если прокладка или тампон всегда под рукой, вы избежите стресса из-за неожиданной ситуации.',
+    body3: 'Такое случается нередко, особенно в начале. Школьная медсестра, учительница или подруга почти всегда могут чем-то помочь. Пока вы не нашли прокладку или тампон, можно также повязать на талию кофту или куртку.',
+    relatedTitle: '♥  Вам может понравиться',
+    related: [
+      {
+        title: 'Какую прокладку или тампон выбрать для первых месячных?',
+        meta: '6 мин  ·  Руководство',
+      },
+      {
+        title: 'Как справляться с болью во время месячных',
+        meta: '7 мин  ·  Руководство',
+      },
+      {
+        title: 'Мои первые месячные нерегулярны: это нормально?',
+        meta: '5 мин  ·  Руководство',
+      },
+    ],
+    shareMessage: 'Как справляться с первыми месячными в повседневной жизни? — AWA',
+  },
+  de: {
+    badge: 'ERSTE PERIODE',
+    title: 'Wie gehst du im Alltag\nmit deiner ersten Periode um?',
+    metaDuration: '5 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Geprüfter Inhalt',
+    intro: 'Mit ein paar kleinen Gewohnheiten fügt sich deine erste Periode leicht in deinen Alltag ein, in der Schule und darüber hinaus.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Den Alltag organisieren',
+      'Ein kleines Notfallset zusammenstellen',
+      'Wenn deine Periode unerwartet kommt',
+    ],
+    body1: 'Schule, Sport, Schlaf: Deine Periode hält dich nicht davon ab, deinen gewohnten Aktivitäten nachzugehen. Du musst nur ein paar Gewohnheiten anpassen, damit du dich den ganzen Tag über wohlfühlst.',
+    dailyTips: [
+      'Schule oder Aktivitäten: Hab eine Binde oder einen Tampon in deiner Tasche',
+      'Sport: Du kannst weiter Sport treiben, passe nur dein Tempo an',
+      'Schlaf: Eine passende Nachtbinde reicht aus',
+    ],
+    body2: 'Ein kleines Set mit ein oder zwei Binden oder Tampons, einer Ersatzunterhose und ein paar Feuchttüchern passt leicht in eine Schul- oder Sporttasche. Es gibt dir das Gefühl, auf alles vorbereitet zu sein.',
+    tip1Title: 'Gut zu wissen',
+    tip1Text: 'Wenn du immer eine Binde oder einen Tampon dabeihast, erspart dir das den Stress, überrascht zu werden.',
+    body3: 'Das passiert oft, besonders am Anfang. Die Schulkrankenschwester, eine Lehrerin oder eine Freundin hat fast immer etwas, das helfen kann. Auch ein um die Taille gebundenes Kleidungsstück kann helfen, bis du eine Binde oder einen Tampon findest.',
+    relatedTitle: '♥  Das könnte dir auch gefallen',
+    related: [
+      {
+        title: 'Welche Binde oder welchen Tampon wähle ich für meine erste Periode?',
+        meta: '6 Min.  ·  Ratgeber',
+      },
+      {
+        title: 'Mit Periodenschmerzen umgehen',
+        meta: '7 Min.  ·  Ratgeber',
+      },
+      {
+        title: 'Meine ersten Perioden sind unregelmäßig: Ist das normal?',
+        meta: '5 Min.  ·  Ratgeber',
+      },
+    ],
+    shareMessage: 'Wie gehst du im Alltag mit deiner ersten Periode um? – AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

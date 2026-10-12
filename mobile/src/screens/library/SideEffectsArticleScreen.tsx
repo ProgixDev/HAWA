@@ -550,6 +550,203 @@ const CONTENT = {
     disclaimerText: 'Bu makale bilgilendirme amaçlıdır ve kişiye özel tıbbi tavsiyenin yerini tutmaz. Belirgin ya da alışılmadık bir belirtin varsa bir sağlık uzmanından tavsiye al.',
     shareMessage: 'Olası yan etkileri tanımak — AWA',
   },
+  ru: {
+    badge: 'ПОБОЧНЫЕ ЭФФЕКТЫ',
+    title: 'Как распознать возможные\nпобочные эффекты',
+    metaDuration: '8 мин чтения',
+    metaType: 'Статья',
+    metaLevel: 'Средний уровень',
+    metaValidated: 'Проверенный материал',
+    intro: 'Некоторые эффекты могут быть обычными и временными. Другие требуют большего внимания. Научитесь отличать привычные реакции от признаков, которые нужно оценить.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Частые слабовыраженные эффекты',
+      'Период адаптации организма',
+      'Наблюдение за изменениями',
+      'Когда обратиться за медицинской консультацией',
+      'Когда нужно быстро обратиться за помощью',
+      'Главное',
+    ],
+    body1: 'Когда женщина начинает новый метод гормональной контрацепции, организму может потребоваться время на адаптацию. Могут появиться небольшие изменения в цикле, настроении или физическом самочувствии.',
+    body2: 'Эти эффекты часто выражены слабо и могут постепенно уменьшаться. Их наличие автоматически не означает, что метод опасен или что его нужно прекратить.',
+    commonEffects: [
+      {
+        title: 'Небольшие кровянистые выделения',
+        text: 'Могут возникать нерегулярные кровянистые выделения, особенно в начале нового метода.',
+      },
+      {
+        title: 'Болезненность груди',
+        text: 'Временно может ощущаться напряжение или болезненность груди.',
+      },
+      {
+        title: 'Настроение',
+        text: 'Некоторые замечают перепады настроения или повышенную эмоциональную чувствительность.',
+      },
+      {
+        title: 'Головные боли',
+        text: 'В период адаптации могут возникать слабые головные боли.',
+      },
+    ],
+    body3: 'Первые недели или циклы могут отличаться от того, к чему вы привыкли раньше. Организм может постепенно приспособиться к новому гормональному балансу.',
+    tip1Title: 'Полезно знать',
+    tip1Text: 'За эффектом, который появился вскоре после начала метода, стоит понаблюдать во времени. Если он становится мешающим или не проходит, поговорите с медицинским специалистом.',
+    body4: 'Полезно записывать симптомы в приложении, чтобы лучше отслеживать, как они меняются от цикла к циклу.',
+    trackingTitle: 'Следите за динамикой',
+    trackingSubtitle: 'Несколько ориентиров могут быть полезны',
+    trackingLines: [
+      'Отметьте дату появления симптома.',
+      'Запишите его интенсивность и продолжительность.',
+      'Следите, улучшается он или усиливается.',
+    ],
+    body5: 'Не все симптомы обязательно связаны с контрацепцией. На самочувствие могут влиять также стресс, сон, питание, фаза цикла или другие лекарства.',
+    body6: 'Чтобы разобраться в ситуации, постарайтесь смотреть на общий контекст, а не на один симптом в отдельности.',
+    worthMentioning: [
+      'Выраженные и стойкие изменения настроения',
+      'Снижение либидо, которое вас беспокоит',
+      'Нерегулярные кровянистые выделения, которые продолжаются более 3 циклов',
+      'Тошнота или головные боли, которые остаются мешающими',
+    ],
+    questionsTitle: 'Несколько полезных вопросов',
+    questions: [
+      'Как давно длятся эти симптомы?',
+      'Появились ли они после начала или смены метода контрацепции?',
+      'Они слабые, мешающие или действительно необычные для вас?',
+      'Они со временем проходят или становятся чаще?',
+    ],
+    body7: 'Даже если симптом не срочный, его стоит обсудить, если он становится мешающим, не проходит или действительно влияет на качество вашей жизни.',
+    infoTitle: 'Стоит обратиться за советом, если…',
+    infoText: 'симптомы сохраняются, усиливаются или мешают вам жить привычной жизнью.',
+    body8: 'Врач, акушерка или фармацевт помогут определить, могут ли симптомы быть связаны с используемым вами методом и нужно ли его скорректировать.',
+    body9: 'Некоторые признаки необычны и требуют срочной медицинской оценки. Они не обязательно означают осложнение, но игнорировать их нельзя.',
+    alertTitle: 'Обратитесь за помощью быстро',
+    alertIntro: 'Быстро обратитесь за медицинской помощью, если вы испытываете, в частности:',
+    urgentSigns: [
+      'Сильную или необычную боль в груди',
+      'Внезапное затруднение дыхания',
+      'Необычный отёк или боль в ноге',
+      'Внезапную, очень сильную или необычную головную боль',
+      'Внезапные нарушения зрения, речи или слабость',
+    ],
+    emergencyTitle: 'При тяжёлом состоянии',
+    emergencyText: 'Если симптомы возникли внезапно, очень выражены или сопровождаются затруднением дыхания, предобморочным состоянием или другим серьёзным признаком, срочно обратитесь за неотложной медицинской помощью.',
+    summaryTitle: 'Главное',
+    summaryItems: [
+      'Некоторые эффекты могут появиться в начале нового метода гормональной контрацепции.',
+      'Многие эффекты временны и могут уменьшаться со временем.',
+      'Мешающий или не проходящий симптом стоит обсудить со специалистом.',
+      'Некоторые необычные признаки требуют быстрой медицинской консультации.',
+    ],
+    finalTipTitle: 'Главная мысль',
+    finalTipText: 'Прислушиваться к своему телу не обязательно означает сразу прекращать метод. Отмечайте, что вы чувствуете, наблюдайте за динамикой и обращайтесь за советом, когда симптом вас тревожит.',
+    disclaimerText: 'Эта статья носит информационный характер и не заменяет индивидуальную медицинскую консультацию. Если у вас выраженный или необычный симптом, обратитесь за советом к медицинскому специалисту.',
+    shareMessage: 'Как распознать возможные побочные эффекты — AWA',
+  },
+  de: {
+    badge: 'NEBENWIRKUNGEN',
+    title: 'Mögliche Nebenwirkungen\nerkennen',
+    metaDuration: '8 Min. Lesezeit',
+    metaType: 'Artikel',
+    metaLevel: 'Fortgeschritten',
+    metaValidated: 'Geprüfter Inhalt',
+    intro:
+      'Manche Wirkungen sind häufig und vorübergehend. Andere verdienen mehr Aufmerksamkeit. Lerne, übliche Reaktionen von Anzeichen zu unterscheiden, die abgeklärt werden sollten.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Häufige, leichte Wirkungen',
+      'Die Anpassungszeit des Körpers',
+      'Beobachten, was sich verändert',
+      'Wann du dich ärztlich beraten lassen solltest',
+      'Wann du schnell Hilfe suchen solltest',
+      'Das Wichtigste in Kürze',
+    ],
+    body1:
+      'Wenn du eine neue hormonelle Verhütungsmethode beginnst, braucht dein Körper möglicherweise etwas Zeit, um sich anzupassen. Kleine Veränderungen können im Zyklus, in der Stimmung oder im körperlichen Wohlbefinden auftreten.',
+    body2:
+      'Diese Wirkungen sind oft mild und können allmählich nachlassen. Dass sie auftreten, bedeutet nicht automatisch, dass die Methode gefährlich ist oder abgesetzt werden muss.',
+    commonEffects: [
+      {
+        title: 'Leichte Blutungen',
+        text: 'Unregelmäßige Blutungen können auftreten, besonders zu Beginn einer neuen Methode.',
+      },
+      {
+        title: 'Brustspannen',
+        text: 'Ein Spannungsgefühl oder eine Empfindlichkeit der Brust kann vorübergehend auftreten.',
+      },
+      {
+        title: 'Stimmung',
+        text: 'Manche Frauen bemerken Stimmungsschwankungen oder eine erhöhte emotionale Empfindsamkeit.',
+      },
+      {
+        title: 'Kopfschmerzen',
+        text: 'Leichte Kopfschmerzen können in der Anpassungsphase auftreten.',
+      },
+    ],
+    body3:
+      'Die ersten Wochen oder Zyklen können anders sein, als du es zuvor gewohnt warst. Dein Körper kann sich nach und nach an das neue hormonelle Gleichgewicht anpassen.',
+    tip1Title: 'Gut zu wissen',
+    tip1Text:
+      'Eine Wirkung, die kurz nach dem Beginn einer Methode auftritt, solltest du über die Zeit beobachten. Wenn sie störend wird oder anhält, sprich mit medizinischem Fachpersonal.',
+    body4:
+      'Es kann hilfreich sein, Symptome in deiner App festzuhalten, um besser zu verfolgen, wie sie sich von einem Zyklus zum nächsten verändern.',
+    trackingTitle: 'Den Verlauf beobachten',
+    trackingSubtitle: 'Ein paar Anhaltspunkte können hilfreich sein',
+    trackingLines: [
+      'Notiere, wann das Symptom aufgetreten ist.',
+      'Halte Stärke und Dauer fest.',
+      'Achte darauf, ob es besser oder schlimmer wird.',
+    ],
+    body5:
+      'Nicht alle Symptome hängen zwangsläufig mit der Verhütung zusammen. Auch Stress, Schlaf, Ernährung, dein Zyklus oder andere Behandlungen können beeinflussen, wie du dich fühlst.',
+    body6:
+      'Um die Situation einzuordnen, versuche, den gesamten Zusammenhang zu betrachten statt ein einzelnes Symptom für sich allein.',
+    worthMentioning: [
+      'Deutliche, anhaltende Stimmungsschwankungen',
+      'Ein Rückgang der Libido, der dich belastet',
+      'Unregelmäßige Blutungen, die länger als 3 Zyklen anhalten',
+      'Übelkeit oder Kopfschmerzen, die weiterhin störend sind',
+    ],
+    questionsTitle: 'Ein paar hilfreiche Fragen',
+    questions: [
+      'Seit wann bestehen diese Symptome?',
+      'Sind sie nach dem Beginn oder Wechsel einer Verhütungsmethode aufgetreten?',
+      'Sind sie leicht, störend oder wirklich ungewöhnlich für dich?',
+      'Bessern sie sich mit der Zeit oder werden sie häufiger?',
+    ],
+    body7:
+      'Auch wenn ein Symptom nicht dringend ist, kann es sinnvoll sein, darüber zu sprechen, wenn es störend wird, anhält oder deine Lebensqualität wirklich beeinträchtigt.',
+    infoTitle: 'Ein Rat kann sinnvoll sein, wenn …',
+    infoText:
+      'Symptome anhalten, stärker werden oder dich daran hindern, normal zu leben.',
+    body8:
+      'Eine Ärztin oder ein Arzt, eine Hebamme oder eine Apothekerin bzw. ein Apotheker kann dir helfen einzuschätzen, ob die Symptome mit der angewendeten Methode zusammenhängen könnten und ob sie angepasst werden sollte.',
+    body9:
+      'Manche Anzeichen sind ungewöhnlich und erfordern eine zeitnahe ärztliche Abklärung. Sie bedeuten nicht zwangsläufig, dass eine Komplikation vorliegt, sollten aber nicht ignoriert werden.',
+    alertTitle: 'Schnell Hilfe suchen',
+    alertIntro: 'Hole schnell ärztlichen Rat ein, wenn du insbesondere Folgendes bemerkst:',
+    urgentSigns: [
+      'Starke oder ungewöhnliche Brustschmerzen',
+      'Plötzliche Atemnot',
+      'Ungewöhnliche Schwellung oder Schmerzen in einem Bein',
+      'Plötzliche, sehr starke oder ungewöhnliche Kopfschmerzen',
+      'Plötzliche Probleme mit dem Sehen, Sprechen oder der Kraft',
+    ],
+    emergencyTitle: 'Bei einer schweren Situation',
+    emergencyText:
+      'Wenn Symptome plötzlich auftreten, sehr stark sind oder mit Atemnot, Ohnmachtsgefühl oder einem anderen ernsten Anzeichen einhergehen, such dringend ärztliche Hilfe.',
+    summaryTitle: 'Das Wesentliche',
+    summaryItems: [
+      'Zu Beginn einer neuen hormonellen Verhütungsmethode können manche Wirkungen auftreten.',
+      'Viele Wirkungen sind vorübergehend und können mit der Zeit nachlassen.',
+      'Ein störendes oder anhaltendes Symptom solltest du mit Fachpersonal besprechen.',
+      'Manche ungewöhnlichen Anzeichen erfordern zeitnah ärztlichen Rat.',
+    ],
+    finalTipTitle: 'Die Kernbotschaft',
+    finalTipText:
+      'Auf deinen Körper zu hören bedeutet nicht zwangsläufig, eine Methode sofort abzusetzen. Notiere, was du spürst, beobachte den Verlauf und hol dir Rat, sobald dich ein Symptom beunruhigt.',
+    disclaimerText:
+      'Dieser Artikel dient der Information und ersetzt keine persönliche ärztliche Beratung. Wenn du ein deutliches oder ungewöhnliches Symptom hast, lass dich von medizinischem Fachpersonal beraten.',
+    shareMessage: 'Mögliche Nebenwirkungen erkennen — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

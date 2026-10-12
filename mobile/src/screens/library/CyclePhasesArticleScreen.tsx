@@ -419,6 +419,154 @@ const CONTENT = {
     endText: 'Döngünü ne kadar çok gözlemlersen, senin için neyin olağan olduğunu o kadar iyi anlayabilirsin.',
     shareMessage: 'Döngünün farklı evreleri anlatılıyor — AWA',
   },
+  ru: {
+    badge: 'Менструальный цикл',
+    title: 'Фазы цикла:\nобъясняем простыми словами',
+    metaDuration: '6 мин чтения',
+    metaValidated: 'Проверенный материал',
+    intro: 'Ваш менструальный цикл состоит из нескольких фаз, каждая из которых играет важную роль в гормональном балансе и здоровье.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      '4 фазы цикла',
+      'Как меняется ваше тело',
+      'Почему важно понимать свой цикл',
+      'Часто задаваемые вопросы',
+    ],
+    body1: 'Цикл обычно делится на четыре основные фазы. Их продолжительность может отличаться у разных женщин: у каждого организма свой ритм.',
+    diagram: {
+      menstrual: {
+        name: 'Менструальная фаза',
+        days: 'С 1-го по 5-й день',
+      },
+      follicular: {
+        name: 'Фолликулярная фаза',
+        days: 'С 1-го по 13-й день',
+      },
+      luteal: {
+        name: 'Лютеиновая фаза',
+        days: 'С 15-го по 28-й день',
+      },
+      ovulatory: {
+        name: 'Овуляторная фаза',
+        days: 'Около 14-го дня',
+      },
+    },
+    tip1Title: 'ПОЛЕЗНО ЗНАТЬ',
+    tip1Text: 'Каждая женщина уникальна: наблюдайте за своим телом и узнавайте свой собственный ритм.',
+    body2: 'Гормональные изменения могут влиять на вашу энергию, настроение, сон и некоторые физические ощущения на протяжении цикла.',
+    bodyChanges: [
+      {
+        title: 'Во время месячных',
+        text: 'Энергии может быть меньше, а организму может требоваться больше отдыха.',
+      },
+      {
+        title: 'Фолликулярная фаза',
+        text: 'Энергия постепенно растёт, и вы можете чувствовать себя бодрее.',
+      },
+      {
+        title: 'Около овуляции',
+        text: 'Некоторые женщины чувствуют прилив энергии, мотивации и уверенности.',
+      },
+      {
+        title: 'Лютеиновая фаза',
+        text: 'Могут появиться усталость, вздутие или перепады настроения.',
+      },
+    ],
+    softTipTitle: 'Прислушивайтесь к своему телу',
+    softTipText: 'Каждую фазу можно переживать по-разному. Ваши собственные ощущения остаются лучшим ориентиром.',
+    body3: 'Лучшее понимание своего цикла может помочь заранее предвидеть некоторые периоды и разобраться в изменениях, которые вы замечаете изо дня в день.',
+    whyItems: [
+      'Лучше понимать сигналы своего тела',
+      'Заранее предвидеть месячные и разные фазы цикла',
+      'Понимать некоторые перепады настроения',
+      'Подстраивать активность под уровень энергии',
+      'Улучшить ежедневное отслеживание',
+    ],
+    body4: 'Вот несколько ответов на частые вопросы о разных фазах цикла.',
+    faq: [
+      {
+        question: 'Нормально ли, что мой цикл длится не ровно 28 дней?',
+        answer: 'Да. Продолжительность цикла может отличаться у разных женщин и даже немного меняться от месяца к месяцу.',
+      },
+      {
+        question: 'Всегда ли овуляция происходит на 14-й день?',
+        answer: 'Нет. 14-й день — это распространённая оценка для 28-дневного цикла, но овуляция может наступить раньше или позже.',
+      },
+      {
+        question: 'Почему мои симптомы меняются в зависимости от фазы?',
+        answer: 'Гормональные изменения на протяжении цикла могут влиять на энергию, настроение, сон и некоторые физические ощущения.',
+      },
+      {
+        question: 'Полезно ли отслеживать симптомы?',
+        answer: 'Да. Регулярные записи помогают заметить собственные закономерности и лучше понять свой ритм.',
+      },
+    ],
+    endTitle: 'Ваш цикл, ваш ритм',
+    endText: 'Чем внимательнее вы наблюдаете за своим циклом, тем лучше понимаете, что для вас типично.',
+    shareMessage: 'Фазы цикла: объясняем простыми словами — AWA',
+  },
+  de: {
+    badge: 'Menstruationszyklus',
+    title: 'Die verschiedenen Phasen\ndes Zyklus einfach erklärt',
+    metaDuration: '6 Min. Lesezeit',
+    metaValidated: 'Geprüfter Inhalt',
+    intro: 'Dein Menstruationszyklus besteht aus mehreren Phasen, die jeweils eine wichtige Rolle für dein hormonelles Gleichgewicht und deine Gesundheit spielen.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Die 4 Phasen des Zyklus',
+      'Wie sich dein Körper verändert',
+      'Warum es wichtig ist, deinen Zyklus zu verstehen',
+      'Häufige Fragen',
+    ],
+    body1: 'Dein Zyklus wird in der Regel in vier Hauptphasen eingeteilt. Ihre Dauer kann von Person zu Person unterschiedlich sein: Jeder Körper hat seinen eigenen Rhythmus.',
+    diagram: {
+      menstrual: {name: 'Menstruationsphase', days: 'Tag 1 bis 5'},
+      follicular: {name: 'Follikelphase', days: 'Tag 1 bis 13'},
+      luteal: {name: 'Lutealphase', days: 'Tag 15 bis 28'},
+      ovulatory: {name: 'Ovulationsphase', days: 'Etwa Tag 14'},
+    },
+    tip1Title: 'Gut zu wissen',
+    tip1Text: 'Jede Frau ist einzigartig: Beobachte deinen Körper und lerne deinen eigenen Rhythmus kennen.',
+    body2: 'Hormonelle Veränderungen können im Lauf des Zyklus deine Energie, deine Stimmung, deinen Schlaf und bestimmte körperliche Empfindungen beeinflussen.',
+    bodyChanges: [
+      {title: 'Während deiner Periode', text: 'Deine Energie kann geringer sein, und dein Körper braucht möglicherweise mehr Ruhe.'},
+      {title: 'Follikelphase', text: 'Die Energie steigt allmählich, und du fühlst dich vielleicht fitter.'},
+      {title: 'Um den Eisprung', text: 'Manche Frauen fühlen sich energiegeladener, motivierter und selbstsicherer.'},
+      {title: 'Lutealphase', text: 'Müdigkeit, Blähungen oder Stimmungsschwankungen können auftreten.'},
+    ],
+    softTipTitle: 'Höre auf deinen Körper',
+    softTipText: 'Es gibt nicht nur eine Art, jede Phase zu erleben. Deine eigenen Empfindungen bleiben der beste Wegweiser.',
+    body3: 'Wenn du deinen Zyklus besser kennst, kannst du bestimmte Phasen vorausahnen und die Veränderungen verstehen, die dir im Alltag auffallen.',
+    whyItems: [
+      'Die Signale deines Körpers besser verstehen',
+      'Deine Periode und die verschiedenen Zyklusphasen vorausahnen',
+      'Bestimmte Stimmungsschwankungen nachvollziehen',
+      'Deine Aktivität an dein Energieniveau anpassen',
+      'Dein tägliches Tracking verbessern',
+    ],
+    body4: 'Hier findest du ein paar Antworten auf häufige Fragen zu den verschiedenen Phasen des Zyklus.',
+    faq: [
+      {
+        question: 'Ist es normal, dass mein Zyklus nicht genau 28 Tage dauert?',
+        answer: 'Ja. Die Zyklusdauer kann von Person zu Person und sogar von Monat zu Monat leicht schwanken.',
+      },
+      {
+        question: 'Findet der Eisprung immer an Tag 14 statt?',
+        answer: 'Nein. Tag 14 ist ein gängiger Richtwert für einen 28-Tage-Zyklus, aber der Eisprung kann früher oder später stattfinden.',
+      },
+      {
+        question: 'Warum verändern sich meine Symptome je nach Phase?',
+        answer: 'Hormonelle Veränderungen im Lauf des Zyklus können Energie, Stimmung, Schlaf und bestimmte körperliche Empfindungen beeinflussen.',
+      },
+      {
+        question: 'Ist es sinnvoll, meine Symptome festzuhalten?',
+        answer: 'Ja. Wenn du sie regelmäßig notierst, erkennst du leichter deine eigenen Muster und verstehst deinen Rhythmus besser.',
+      },
+    ],
+    endTitle: 'Dein Zyklus, dein Rhythmus',
+    endText: 'Je mehr du deinen Zyklus beobachtest, desto besser verstehst du, was für dich typisch ist.',
+    shareMessage: 'Die verschiedenen Phasen des Zyklus einfach erklärt — AWA',
+  },
 } as const;
 
 function CyclePhasesArticleScreen({

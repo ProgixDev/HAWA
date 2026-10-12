@@ -236,6 +236,88 @@ const CONTENT = {
     tip2Text: 'Hiçbir belirti tek başına tamamen güvenilir değildir: belirtileri bir arada değerlendirmek, en doğurgan zamanın hakkında daha iyi bir fikir verir.',
     shareMessage: 'Yumurtlamayı anlamak — AWA',
   },
+  ru: {
+    badge: 'ОВУЛЯЦИЯ',
+    title: 'Понимаем\nовуляцию',
+    metaDuration: '6 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Проверенный материал',
+    intro: 'Ключевой момент вашего цикла и то, как его распознать.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Что такое овуляция?',
+      'Признаки, которые могут её сопровождать',
+      'Как распознать свой собственный ритм',
+      'Главное',
+    ],
+    body1:
+      'Овуляция — это выход яйцеклетки из одного из яичников. Обычно она происходит примерно за 14 дней до следующих месячных, независимо от общей продолжительности вашего цикла.',
+    tip1Title: 'Полезно знать',
+    tip1Text:
+      'От женщины к женщине различается именно дата следующих месячных, гораздо больше, чем время между овуляцией и их началом.',
+    body2:
+      'Некоторые физические признаки могут сопровождать приближение овуляции — в разной степени у разных женщин.',
+    visualTitle: 'Более жидкая цервикальная слизь',
+    visualText:
+      'По мере приближения овуляции цервикальная слизь становится более прозрачной, тягучей и эластичной.',
+    otherSigns: [
+      'Лёгкая боль с одной стороны внизу живота («миттельшмерц»)',
+      'Нагрубание и чувствительность груди',
+      'Небольшое повышение базальной температуры после овуляции',
+      'Прилив энергии у некоторых женщин',
+    ],
+    body3:
+      'Наблюдение за этими признаками на протяжении нескольких циклов помогает лучше узнать свой собственный ритм, который может отличаться от общих средних значений.',
+    alertTitle: 'Обратите внимание',
+    alertText:
+      'Цикл без овуляции может время от времени случаться, и это не всегда повод для беспокойства. Если месячных нет длительное время или у вас есть сомнения, рекомендуется обратиться к врачу.',
+    tip2Title: 'Полезно знать',
+    tip2Text:
+      'Ни один признак сам по себе не бывает абсолютно надёжным: сочетая их, можно лучше понять, когда у вас наиболее фертильное время.',
+    shareMessage: 'Понимаем овуляцию — AWA',
+  },
+  de: {
+    badge: 'EISPRUNG',
+    title: 'Den Eisprung\nverstehen',
+    metaDuration: '6 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Geprüfter Inhalt',
+    intro: 'Der Schlüsselmoment deines Zyklus und wie du ihn erkennst.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Was ist der Eisprung?',
+      'Die Anzeichen, die ihn begleiten können',
+      'Deinen eigenen Rhythmus erkennen',
+      'Das Wichtigste in Kürze',
+    ],
+    body1:
+      'Beim Eisprung gibt einer der Eierstöcke eine Eizelle frei. Er findet in der Regel etwa 14 Tage vor deiner nächsten Periode statt – unabhängig von der Gesamtlänge deines Zyklus.',
+    tip1Title: 'Gut zu wissen',
+    tip1Text:
+      'Es ist der Termin der nächsten Periode, der von Frau zu Frau schwankt, und zwar viel stärker als die Zeit zwischen Eisprung und Periode.',
+    body2:
+      'Bestimmte körperliche Anzeichen können das Näherrücken des Eisprungs begleiten, je nach Frau unterschiedlich stark.',
+    visualTitle: 'Flüssigerer Zervixschleim',
+    visualText:
+      'Wenn der Eisprung näher rückt, wird der Zervixschleim klarer, dehnbarer und elastischer.',
+    otherSigns: [
+      'Leichter Schmerz auf einer Seite des Unterbauchs („Mittelschmerz“)',
+      'Spannungsgefühl in den Brüsten',
+      'Ein leichter Anstieg der Basaltemperatur nach dem Eisprung',
+      'Ein Energieschub bei manchen Frauen',
+    ],
+    body3:
+      'Wenn du diese Anzeichen über mehrere Zyklen beobachtest, lernst du deinen eigenen Rhythmus kennen, der von allgemeinen Durchschnittswerten abweichen kann.',
+    alertTitle: 'Bitte beachten',
+    alertText:
+      'Ein Zyklus ohne Eisprung kann gelegentlich vorkommen, ohne dass dies unbedingt Anlass zur Sorge ist. Wenn deine Periode lange ausbleibt oder du dir unsicher bist, wird ärztlicher Rat empfohlen.',
+    tip2Title: 'Gut zu wissen',
+    tip2Text:
+      'Kein einzelnes Anzeichen ist für sich allein völlig zuverlässig: Wenn du sie kombinierst, bekommst du eine bessere Vorstellung davon, wann deine fruchtbarste Zeit ist.',
+    shareMessage: 'Den Eisprung verstehen – AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
