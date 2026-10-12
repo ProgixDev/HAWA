@@ -476,6 +476,180 @@ const CONTENT = {
     ],
     shareMessage: 'Kadın fıkhı hakkında sıkça sorulan sorular — AWA',
   },
+  ru: {
+    badge: 'ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ',
+    title: 'Часто задаваемые вопросы\nо женском фикхе',
+    metaDuration: '8 мин чтения',
+    metaType: 'Вопросы и ответы',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Проверенный материал',
+    intro: 'Самые частые вопросы о женском фикхе, собранные в одном месте, с понятными ответами.',
+    disclaimerTitle: 'Важная информация',
+    disclaimerText: 'Этот материал носит исключительно образовательный характер. Религиозные вопросы следует уточнять у квалифицированных учёных. AWA не выносит фетв и не даёт индивидуальных религиозных заключений.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Вопросы, которые возникают часто',
+      'Школы права, мнения которых могут различаться',
+      'Если сомнение не проходит',
+      'Главные выводы',
+    ],
+    section1Body: 'Многие вопросы о цикле, намазе и посте регулярно возникают у разных женщин. Ниже даны общие ответы на самые частые из них; чтобы узнать больше, каждая тема также подробнее раскрыта в отдельной статье.',
+    faqItems: [
+      [
+        'Что такое женский фикх?',
+        'Женский фикх объединяет практические правила, которые касаются именно женского тела и богослужения: цикл, чистота, намаз, пост, нифас и истихада.',
+      ],
+      [
+        'Какие основные темы охватывает женский фикх?',
+        'Он охватывает, в частности, менструацию и цикл, ритуальную чистоту, гусль, намаз и пост во время менструации и после неё, нифас и истихаду.',
+      ],
+      [
+        'В чём разница между менструацией, послеродовыми выделениями и нерегулярными кровотечениями?',
+        'Менструация (хайд) приходится на обычный цикл, нифас бывает после родов, а истихада — это нерегулярные кровотечения вне цикла. У каждого из них свой статус.',
+      ],
+      [
+        'Что происходит с намазом во время менструации?',
+        'В этот период намаз не совершается: это признанное освобождение, которое следует принимать без чувства вины.',
+      ],
+      [
+        'Что происходит с постом во время менструации?',
+        'Пост также не соблюдается; пропущенные дни восполняются позже (каза), вне Рамадана.',
+      ],
+      [
+        'Почему пропущенные намазы, как правило, не восполняются, в отличие от поста?',
+        'Эта разница связана с характером двух видов поклонения: намаз ежедневный и повторяющийся, а пост ежегодный и сосредоточен в одном месяце. Следование освобождению — полноценная часть религиозной практики.',
+      ],
+      [
+        'Когда возобновляется намаз после менструации?',
+        'Как только менструация закончилась и совершён гусль, намаз возобновляется в обычном порядке, без промедления.',
+      ],
+      [
+        'Какова роль гусля?',
+        'Гусль — это полное омовение, которое позволяет вернуться в состояние ритуальной чистоты, необходимое для возобновления намаза и других видов поклонения.',
+      ],
+      [
+        'Что делать, если вы не уверены, что менструация закончилась?',
+        'Прояснить ситуацию помогает наблюдение за полным отсутствием выделений в течение достаточного времени, а не опора на единичное впечатление.',
+      ],
+      [
+        'Можно ли совершать другие виды поклонения во время менструации?',
+        'Да: зикр, мольбы, милостыня, получение религиозных знаний и другие добрые дела остаются доступными.',
+      ],
+      [
+        'Почему ответы на некоторые вопросы могут различаться в зависимости от ситуации?',
+        'Фикх — область толкования: мнения могут различаться в зависимости от школы права и личных обстоятельств, и ни одно мнение само по себе не является абсолютным.',
+      ],
+    ],
+    section2Body1: 'Исламский фикх допускает признанные различия в толковании некоторых частных вопросов. Эти различия существуют веками и считаются допустимыми в рамках религиозной традиции.',
+    section2Body2: 'Поэтому в зависимости от выбранного источника на один и тот же вопрос могут быть даны немного разные ответы. Это не означает, что ответ автоматически неверен: он отражает разные методологии и прочтения одних и тех же источников.',
+    tip1Title: 'Полезно знать',
+    tip1Text: 'Если последовательно придерживаться одного квалифицированного источника, а не постоянно менять мнение в зависимости от найденного ответа, ваша практика остаётся ясной и спокойной.',
+    section3Body: 'Некоторые ситуации сложно разрешить на основе одного общего объяснения. Это особенно так, когда:',
+    doubtSituations: [
+      'Есть неуверенность в том, когда именно закончилась менструация',
+      'Природа выделений остаётся неясной (менструация, истихада, другое)',
+      'Сомнение сохраняется в необходимости совершить гусль',
+      'Вопрос о возобновлении намаза остаётся неясным',
+      'В интернете найдена противоречивая информация',
+    ],
+    alert2Title: 'Важная информация',
+    alert2Text: 'Если ситуация личная, сложная или затяжная, общая информация не может её разрешить. В этом случае лучше всего обратиться к квалифицированному учёному, способному учесть вашу конкретную ситуацию. AWA не выносит фетв и не даёт индивидуальных религиозных заключений.',
+    keyPoints: [
+      'Женский фикх охватывает многие аспекты религиозной практики женщины',
+      'Некоторые детали могут допустимо различаться в зависимости от школы права',
+      'Общая информация не заменяет индивидуального религиозного наставления',
+      'Устойчивое сомнение стоит обсудить с квалифицированным учёным',
+      'Роль AWA — образовательная, а не вынесение фетв',
+    ],
+    shareMessage: 'Часто задаваемые вопросы о женском фикхе — AWA',
+  },
+  de: {
+    badge: 'HÄUFIGE FRAGEN',
+    title: 'Häufige Fragen\nzum Fiqh der Frau',
+    metaDuration: '8 Min. Lesezeit',
+    metaType: 'Häufige Fragen',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Geprüfter Inhalt',
+    intro: 'Die häufigsten Fragen zum Fiqh der Frau, an einem Ort gesammelt und klar beantwortet.',
+    disclaimerTitle: 'Wichtiger Hinweis',
+    disclaimerText: 'Dieser Inhalt ist rein bildend. Religiöse Fragen sollten von qualifizierten Gelehrten geklärt werden. AWA erteilt keine Fatwas und keine persönlichen religiösen Urteile.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Häufig gestellte Fragen',
+      'Rechtsschulen, die abweichen können',
+      'Bei anhaltender Unsicherheit',
+      'Das Wichtigste in Kürze',
+    ],
+    section1Body: 'Viele Fragen zu Zyklus, Gebet und Fasten stellen sich immer wieder, von Frau zu Frau. Hier findest du allgemeine Antworten auf die häufigsten; für mehr Tiefe wird jedes Thema auch in einem eigenen Artikel ausführlicher behandelt.',
+    faqItems: [
+      [
+        'Was ist der Fiqh der Frau?',
+        'Der Fiqh der Frau umfasst die praktischen Regeln, die speziell den Körper und den Gottesdienst der Frau betreffen: Zyklus, Reinheit, Gebet, Fasten, Nifas und Istihada.',
+      ],
+      [
+        'Welche Hauptthemen behandelt der Fiqh der Frau?',
+        'Er behandelt insbesondere die Menstruation und den Zyklus, die rituelle Reinheit, den Ghusl, Gebet und Fasten während und nach der Menstruation, Nifas und Istihada.',
+      ],
+      [
+        'Was ist der Unterschied zwischen Menstruation, Wochenbettblutung und unregelmäßiger Blutung?',
+        'Die Menstruation (Hayd) folgt dem gewohnten Zyklus, Nifas tritt nach der Geburt auf, und Istihada bezeichnet unregelmäßige Blutungen außerhalb des Zyklus. Jede hat einen eigenen Status.',
+      ],
+      [
+        'Was geschieht mit dem Gebet während der Menstruation?',
+        'Das Gebet ist in dieser Zeit ausgesetzt: Es handelt sich um eine anerkannte Befreiung, die ohne Schuldgefühle gelebt werden darf.',
+      ],
+      [
+        'Was geschieht mit dem Fasten während der Menstruation?',
+        'Auch das Fasten ist ausgesetzt; die nicht gefasteten Tage werden später außerhalb des Ramadan nachgeholt (Qada).',
+      ],
+      [
+        'Warum werden versäumte Gebete im Allgemeinen nicht nachgeholt, das Fasten aber schon?',
+        'Dieser Unterschied beruht auf der Natur der beiden Handlungen: Das Gebet ist täglich und wiederholt sich, das Fasten ist jährlich und auf einen Monat konzentriert. Die Befreiung in Anspruch zu nehmen gehört vollständig zur religiösen Praxis.',
+      ],
+      [
+        'Wann wird das Gebet nach der Menstruation wieder aufgenommen?',
+        'Sobald die Menstruation beendet ist und der Ghusl vollzogen wurde, wird das Gebet ohne Verzögerung wieder normal aufgenommen.',
+      ],
+      [
+        'Welche Rolle spielt der Ghusl?',
+        'Der Ghusl ist die große rituelle Waschung, durch die man in den Zustand ritueller Reinheit zurückkehrt, der für die Wiederaufnahme des Gebets und anderer Gottesdienste nötig ist.',
+      ],
+      [
+        'Was tun, wenn du nicht sicher bist, ob die Menstruation beendet ist?',
+        'Die vollständige Abwesenheit von Blutungen über ausreichend lange Zeit zu beobachten, statt sich auf einen einzelnen Eindruck zu verlassen, hilft, die Situation zu klären.',
+      ],
+      [
+        'Kann man während der Menstruation andere Formen des Gottesdienstes ausüben?',
+        'Ja: Dhikr, Bittgebete, Almosen, religiöses Lernen und andere gute Taten bleiben möglich.',
+      ],
+      [
+        'Warum können manche Antworten je nach Situation unterschiedlich ausfallen?',
+        'Der Fiqh ist ein Feld der Auslegung: Die Meinungen können je nach Rechtsschule und persönlichen Umständen variieren, ohne dass eine einzelne Meinung für sich allein absolut wäre.',
+      ],
+    ],
+    section2Body1: 'Der islamische Fiqh kennt anerkannte Auslegungsunterschiede bei einzelnen Detailfragen. Diese Unterschiede bestehen seit Jahrhunderten und gelten innerhalb der religiösen Tradition als legitim.',
+    section2Body2: 'Je nach konsultierter Quelle kann dieselbe Frage daher etwas unterschiedlich beantwortet werden. Das bedeutet nicht, dass eine Antwort automatisch falsch wäre: Es spiegelt unterschiedliche Methoden und Lesarten derselben Quellen wider.',
+    tip1Title: 'Gut zu wissen',
+    tip1Text: 'Wenn du dich beständig an eine qualifizierte Quelle hältst, statt je nach gefundener Antwort ständig die Meinung zu wechseln, bleibt deine Praxis klar und ruhig.',
+    section3Body: 'Manche Situationen lassen sich mit einer einzigen allgemeinen Erklärung nur schwer klären. Das ist besonders der Fall, wenn:',
+    doubtSituations: [
+      'Unsicherheit besteht, wann die Menstruation tatsächlich beendet ist',
+      'Die Art der Blutung unklar bleibt (Menstruation, Istihada, anderes)',
+      'Zweifel bleiben, ob ein Ghusl nötig ist',
+      'Unklar bleibt, ob das Gebet wieder aufgenommen werden soll',
+      'Widersprüchliche Informationen im Internet gefunden wurden',
+    ],
+    alert2Title: 'Wichtiger Hinweis',
+    alert2Text: 'Wenn eine Situation persönlich, komplex oder anhaltend ist, lässt sie sich nicht mit allgemeinen Informationen klären. Dann bleibt es der beste Weg, sich an eine qualifizierte Gelehrte oder einen qualifizierten Gelehrten zu wenden, die oder der deine konkrete Situation berücksichtigen kann. AWA erteilt keine Fatwas und keine persönlichen religiösen Urteile.',
+    keyPoints: [
+      'Der Fiqh der Frau umfasst viele Aspekte der religiösen Praxis der Frau',
+      'Manche Details können je nach Rechtsschule legitimerweise abweichen',
+      'Allgemeine Informationen ersetzen keine persönliche religiöse Beratung',
+      'Ein anhaltender Zweifel sollte einer qualifizierten Gelehrten oder einem qualifizierten Gelehrten vorgelegt werden',
+      'Die Rolle von AWA ist bildend, nicht das Erteilen von Fatwas',
+    ],
+    shareMessage: 'Häufige Fragen zum Fiqh der Frau — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

@@ -397,6 +397,156 @@ const CONTENT = {
     tip3Text: 'Perimenopoz ve menopoz doğal evrelerdir, bir hastalık değildir. Bu geçişi daha rahat atlatmana yardımcı olacak birçok çözüm var: bunları durumuna uyarlamak için en iyi kaynak bir sağlık profesyonelidir.',
     shareMessage: 'Menopoz geçişini anlamak — AWA',
   },
+  ru: {
+    badge: 'ПЕРИМЕНОПАУЗА И МЕНОПАУЗА',
+    title: 'Как понять переход к менопаузе',
+    metaDuration: '10 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Проверенный материал',
+    intro:
+      'Что меняется постепенно, за годы до прекращения месячных, и как подойти к этому этапу с большей ясностью.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Перименопауза и менопауза: определения',
+      'Всё более нерегулярные циклы',
+      'Сон и настроение',
+      'Интимная жизнь и сухость влагалища',
+      'Вес и обмен веществ',
+      'Распространённые мифы о менопаузе',
+      'Нормальные симптомы и тревожные признаки',
+      'Практические советы на каждый день',
+      'Главное',
+    ],
+    h1: '1. Перименопауза и менопауза: определения',
+    body1a:
+      'Перименопауза — это период гормональной перестройки, который предшествует менопаузе: она может начаться за несколько лет до неё, как правило после сорока лет, при нерегулярных колебаниях уровня эстрогена.',
+    body1b:
+      'Менопауза же — это конкретный момент: о ней говорят после 12 месяцев подряд без месячных при отсутствии других причин. Во Франции она наступает в среднем около 51 года, хотя этот возраст, естественно, различается у разных женщин.',
+    tip1Title: 'Полезно знать',
+    tip1Text:
+      'Каждая женщина переживает этот переход по-своему — и по продолжительности, и по выраженности симптомов. Открытый разговор об этом помогает лучше подготовиться.',
+    h2: '2. Всё более нерегулярные циклы',
+    body2:
+      'Одним из первых признаков перименопаузы часто становится изменение ритма цикла: циклы могут становиться короче, длиннее, реже или отличаться по обильности выделений от месяца к месяцу.',
+    alert1Title: 'Обратите внимание',
+    alert1Text:
+      'Очень обильные кровотечения, кровотечения, возникающие слишком часто, или кровотечение после года без месячных требуют консультации врача, поскольку не считаются типичными признаками этого перехода.',
+    h3: '3. Сон и настроение',
+    body3a:
+      'Снижение и колебания уровня эстрогена и прогестерона могут нарушать сон (трудности с засыпанием, пробуждения среди ночи) и сопровождаться раздражительностью, тревогой или необычными перепадами настроения.',
+    body3b:
+      'У этих изменений есть реальное биологическое объяснение: они не говорят ни о недостатке силы воли, ни об отдельной психологической проблеме.',
+    h4: '4. Интимная жизнь и сухость влагалища',
+    body4:
+      'Снижение уровня эстрогена может приводить к сухости влагалища, а иногда и к дискомфорту или боли во время полового акта. Желание также может меняться — как усиливаться, так и снижаться, в зависимости от женщины.',
+    tip2Title: 'Полезно знать',
+    tip2Text:
+      'Существуют простые решения (лубриканты, увлажняющие средства для влагалища, местное лечение): разговор со медицинским специалистом поможет подобрать подходящее — без неловкости.',
+    h5: '5. Вес и обмен веществ',
+    body5:
+      'В этот период обмен веществ может немного замедляться, а жир стремится перераспределяться в область живота. Такие изменения распространены и зависят не только от силы воли.',
+    h6: '6. Распространённые мифы о менопаузе',
+    myths: [
+      'Менопауза «наступает сразу» — на самом деле ей предшествуют несколько лет перехода (перименопауза)',
+      'Все симптомы тяжёлые у всех — их выраженность очень сильно различается у разных женщин',
+      'Ничего нельзя сделать — существует множество гормональных и негормональных способов облегчить беспокоящие симптомы',
+      'Интимная жизнь заканчивается — она меняется, но при соответствующих изменениях остаётся вполне возможной и полноценной',
+    ],
+    h7: '7. Нормальные симптомы и тревожные признаки',
+    body7:
+      'Подавляющее большинство описанных здесь изменений — нормальные проявления этого перехода. Однако некоторые признаки требуют срочного обращения к врачу.',
+    alert2Title: 'Обратитесь к врачу, если',
+    alert2Text:
+      'Есть кровотечение после подтверждённой менопаузы, необычная боль в области таза, симптомы, значительно нарушающие повседневную жизнь, или любые не проходящие сомнения.',
+    h8: '8. Практические советы на каждый день',
+    dailyHabits: [
+      'Питание, богатое кальцием и клетчаткой',
+      'Регулярная физическая активность',
+      'Стабильный режим сна',
+      'Ежедневные минуты расслабления',
+    ],
+    h9: '9. Главное',
+    tip3Title: 'Полезно знать',
+    tip3Text:
+      'Перименопауза и менопауза — естественные этапы, а не болезнь. Существует множество способов пройти этот переход комфортнее: медицинский специалист остаётся лучшим помощником в том, чтобы подобрать их под вашу ситуацию.',
+    shareMessage: 'Как понять переход к менопаузе — AWA',
+  },
+  de: {
+    badge: 'PERIMENOPAUSE & MENOPAUSE',
+    title: 'Den Übergang in die Menopause verstehen',
+    metaDuration: '10 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Geprüfter Inhalt',
+    intro:
+      'Was sich schon Jahre vor dem Ausbleiben der Periode schrittweise verändert und wie du diese Lebensphase mit mehr Klarheit angehen kannst.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Perimenopause und Menopause: Begriffe',
+      'Zunehmend unregelmäßige Zyklen',
+      'Schlaf und Stimmung',
+      'Intimität und Scheidentrockenheit',
+      'Gewicht und Stoffwechsel',
+      'Verbreitete Mythen über die Menopause',
+      'Normale Symptome und Warnzeichen',
+      'Praktische Tipps für den Alltag',
+      'Das Wichtigste in Kürze',
+    ],
+    h1: '1. Perimenopause und Menopause: Begriffe',
+    body1a:
+      'Die Perimenopause bezeichnet die hormonelle Übergangszeit vor der Menopause: Sie kann mehrere Jahre früher beginnen, in der Regel ab den Vierzigern, wobei der Östrogenspiegel unregelmäßig schwankt.',
+    body1b:
+      'Die Menopause dagegen ist ein bestimmter Zeitpunkt: Sie wird nach 12 aufeinanderfolgenden Monaten ohne Periode festgestellt, wenn es keine andere Ursache gibt. In Frankreich tritt sie im Durchschnitt um das 51. Lebensjahr ein, wobei dieses Alter von Frau zu Frau natürlicherweise variiert.',
+    tip1Title: 'Gut zu wissen',
+    tip1Text:
+      'Jede Frau erlebt diesen Übergang anders, sowohl in der Dauer als auch in der Stärke der Symptome. Offen darüber zu sprechen hilft dir, dich besser darauf einzustellen.',
+    h2: '2. Zunehmend unregelmäßige Zyklen',
+    body2:
+      'Eines der ersten Anzeichen der Perimenopause ist oft eine Veränderung des Zyklusrhythmus: Zyklen können kürzer, länger oder weiter auseinander liegen, oder die Blutung kann sich von Monat zu Monat unterscheiden.',
+    alert1Title: 'Bitte beachten',
+    alert1Text:
+      'Sehr starke Blutungen, Blutungen in sehr kurzen Abständen oder Blutungen nach einem Jahr ohne Periode erfordern ärztlichen Rat, da sie nicht als typische Anzeichen des Übergangs gelten.',
+    h3: '3. Schlaf und Stimmung',
+    body3a:
+      'Der Rückgang und die Schwankungen von Östrogen und Progesteron können den Schlaf stören (Einschlafen, Aufwachen in der Nacht) und mit Reizbarkeit, Angst oder ungewohnten Stimmungsschwankungen einhergehen.',
+    body3b:
+      'Diese Veränderungen haben eine echte biologische Erklärung: Sie sind weder ein Zeichen mangelnder Willenskraft noch ein isoliertes psychisches Problem.',
+    h4: '4. Intimität und Scheidentrockenheit',
+    body4:
+      'Der Rückgang des Östrogens kann zu Scheidentrockenheit führen und manchmal Beschwerden oder Schmerzen beim Geschlechtsverkehr verursachen. Auch das Verlangen kann sich verändern, je nach Frau stärker oder schwächer werden.',
+    tip2Title: 'Gut zu wissen',
+    tip2Text:
+      'Es gibt einfache Lösungen (Gleitmittel, vaginale Feuchtigkeitsmittel, lokale Behandlungen): Ein Gespräch mit medizinischem Fachpersonal kann dir helfen, die passende Lösung zu finden – ohne Tabu.',
+    h5: '5. Gewicht und Stoffwechsel',
+    body5:
+      'Der Stoffwechsel kann sich in dieser Zeit leicht verlangsamen, und das Fett verteilt sich tendenziell stärker auf den Bauch. Diese Veränderungen sind häufig und hängen nicht allein von der Willenskraft ab.',
+    h6: '6. Verbreitete Mythen über die Menopause',
+    myths: [
+      'Die Menopause „kommt von heute auf morgen“ – in Wirklichkeit gehen ihr mehrere Jahre des Übergangs (Perimenopause) voraus',
+      'Alle Symptome sind bei allen schwer – ihre Stärke ist von Frau zu Frau sehr unterschiedlich',
+      'Man kann nichts tun – es gibt viele Lösungen, hormonelle und nicht-hormonelle, die belastende Symptome lindern können',
+      'Das intime Leben ist vorbei – es verändert sich, bleibt aber mit den richtigen Anpassungen vollkommen möglich und erfüllend',
+    ],
+    h7: '7. Normale Symptome und Warnzeichen',
+    body7:
+      'Die allermeisten der hier beschriebenen Veränderungen sind normale Erscheinungen des Übergangs. Bestimmte Anzeichen sollten jedoch zeitnah ärztlich abgeklärt werden.',
+    alert2Title: 'Geh zu einer Ärztin oder einem Arzt, wenn',
+    alert2Text:
+      'Blutungen nach bestätigter Menopause, ungewöhnliche Schmerzen im Beckenbereich, Symptome, die deinen Alltag deutlich beeinträchtigen, oder anhaltende Zweifel auftreten.',
+    h8: '8. Praktische Tipps für den Alltag',
+    dailyHabits: [
+      'Eine kalzium- und ballaststoffreiche Ernährung',
+      'Regelmäßige Bewegung',
+      'Eine feste Schlafroutine',
+      'Tägliche Momente der Entspannung',
+    ],
+    h9: '9. Das Wichtigste in Kürze',
+    tip3Title: 'Gut zu wissen',
+    tip3Text:
+      'Perimenopause und Menopause sind natürliche Lebensphasen, keine Krankheit. Es gibt viele Möglichkeiten, diesen Übergang angenehmer zu erleben: Medizinisches Fachpersonal bleibt die beste Anlaufstelle, um sie an deine Situation anzupassen.',
+    shareMessage: 'Den Übergang in die Menopause verstehen – AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

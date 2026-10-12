@@ -44,60 +44,149 @@ const PINK = '#C96F83';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
-const STATS = [
-  {icon: 'water', title: 'Durée moyenne', text: '28 jours'},
-  {icon: 'calendar-range', title: 'Durée normale', text: '21 à 35 jours'},
-  {icon: 'circle-slice-4', title: '4 grandes phases', text: 'dans ton cycle'},
-  {icon: 'heart-pulse', title: 'Chaque cycle', text: 'est unique'},
+// Editorial copy per language. French is the original text (identical to the previous hard-coded JSX) and is
+// still what every language without its own block (en/es/it/tr) shows, exactly as before; Russian and German are
+// the translations so far. Icons and colors are language-neutral and shared.
+const STAT_ICONS = ['water', 'calendar-range', 'circle-slice-4', 'heart-pulse'] as const;
+const PHASE_STYLE = [
+  {number: '01', icon: 'water', color: '#B95C73'},
+  {number: '02', icon: 'leaf', color: '#6B8D6B'},
+  {number: '03', icon: 'white-balance-sunny', color: '#A87A32'},
+  {number: '04', icon: 'flower-tulip-outline', color: '#71569A'},
+] as const;
+const REASON_ICONS = [
+  'emoticon-happy-outline',
+  'lightning-bolt',
+  'heart-outline',
+  'shield-outline',
+  'calendar-month-outline',
 ] as const;
 
-const PHASES = [
-  {
-    number: '01',
-    icon: 'water',
-    color: '#B95C73',
-    title: 'Les règles',
-    days: 'Jours 1 à 5',
-    text: 'Ton corps se libère de la muqueuse utérine.',
+const CONTENT = {
+  fr: {
+    shareTitle: 'Comprendre ton cycle menstruel',
+    shareMessage: 'Comprendre ton cycle menstruel · AWA',
+    pill: 'Comprendre son cycle',
+    title: 'Comprendre ton cycle menstruel',
+    duration: '6 min de lecture',
+    type: 'Guide',
+    level: 'Débutant',
+    validated: 'Contenu validé',
+    summary: 'Les grandes étapes de ton cycle, expliquées simplement.',
+    stats: [
+      {title: 'Durée moyenne', text: '28 jours'},
+      {title: 'Durée normale', text: '21 à 35 jours'},
+      {title: '4 grandes phases', text: 'dans ton cycle'},
+      {title: 'Chaque cycle', text: 'est unique'},
+    ],
+    phasesEyebrow: 'PHASES DU CYCLE',
+    phasesTitle: 'Les 4 grandes phases',
+    phasesIntro: 'Chaque phase a un rôle important dans ton corps et peut influencer ton énergie, ton humeur et tes symptômes.',
+    phases: [
+      {title: 'Les règles', days: 'Jours 1 à 5', text: 'Ton corps se libère de la muqueuse utérine.'},
+      {title: 'Phase folliculaire', days: 'Jours 6 à 13', text: 'Ton corps se prépare à l’ovulation.'},
+      {title: 'Ovulation', days: 'Jour 14 environ', text: 'L’ovule est libéré. C’est la période la plus fertile.'},
+      {title: 'Phase lutéale', days: 'Jours 15 à 28', text: 'Ton corps se prépare à une éventuelle grossesse.'},
+    ],
+    knowTitle: 'À savoir',
+    knowText: 'Ton cycle peut varier d’un mois à l’autre. Stress, sommeil, alimentation ou maladie peuvent influencer sa durée et son rythme.',
+    reasonsEyebrow: 'POURQUOI LE SUIVRE',
+    reasonsTitle: 'Mieux comprendre ton cycle',
+    reasons: [
+      'Mieux comprendre ton corps',
+      'Adapter ton énergie',
+      'Anticiper ton humeur',
+      'Prendre soin de ta santé',
+      'Suivre ton cycle facilement',
+    ],
+    wellTitle: 'Conseil bien-être',
+    wellText: 'Écoute ton corps, reste attentive à tes ressentis et note ce qui change au fil des jours.',
   },
-  {
-    number: '02',
-    icon: 'leaf',
-    color: '#6B8D6B',
-    title: 'Phase folliculaire',
-    days: 'Jours 6 à 13',
-    text: 'Ton corps se prépare à l’ovulation.',
+  ru: {
+    shareTitle: 'Как устроен менструальный цикл',
+    shareMessage: 'Как устроен менструальный цикл · AWA',
+    pill: 'Понять свой цикл',
+    title: 'Как устроен менструальный цикл',
+    duration: '6 мин чтения',
+    type: 'Руководство',
+    level: 'Для начинающих',
+    validated: 'Проверенный материал',
+    summary: 'Основные этапы вашего цикла — простыми словами.',
+    stats: [
+      {title: 'Средняя длительность', text: '28 дней'},
+      {title: 'Обычная длительность', text: 'от 21 до 35 дней'},
+      {title: '4 основные фазы', text: 'в вашем цикле'},
+      {title: 'Каждый цикл', text: 'уникален'},
+    ],
+    phasesEyebrow: 'ФАЗЫ ЦИКЛА',
+    phasesTitle: '4 основные фазы',
+    phasesIntro: 'У каждой фазы своя роль в организме, и она может влиять на энергию, настроение и самочувствие.',
+    phases: [
+      {title: 'Месячные', days: 'Дни 1–5', text: 'Организм освобождается от слизистой оболочки матки.'},
+      {title: 'Фолликулярная фаза', days: 'Дни 6–13', text: 'Организм готовится к овуляции.'},
+      {title: 'Овуляция', days: 'Около 14-го дня', text: 'Яйцеклетка выходит из яичника. Это самый фертильный период.'},
+      {title: 'Лютеиновая фаза', days: 'Дни 15–28', text: 'Организм готовится к возможной беременности.'},
+    ],
+    knowTitle: 'Полезно знать',
+    knowText: 'Цикл может меняться от месяца к месяцу. Стресс, сон, питание или болезнь способны влиять на его длительность и ритм.',
+    reasonsEyebrow: 'ЗАЧЕМ ВЕСТИ УЧЁТ',
+    reasonsTitle: 'Лучше понимать свой цикл',
+    reasons: [
+      'Лучше понимать своё тело',
+      'Распределять свою энергию',
+      'Предугадывать настроение',
+      'Заботиться о здоровье',
+      'Просто отслеживать цикл',
+    ],
+    wellTitle: 'Совет для самочувствия',
+    wellText: 'Прислушивайтесь к своему телу, обращайте внимание на ощущения и отмечайте, что меняется со временем.',
   },
-  {
-    number: '03',
-    icon: 'white-balance-sunny',
-    color: '#A87A32',
-    title: 'Ovulation',
-    days: 'Jour 14 environ',
-    text: 'L’ovule est libéré. C’est la période la plus fertile.',
+  de: {
+    shareTitle: 'So funktioniert dein Menstruationszyklus',
+    shareMessage: 'So funktioniert dein Menstruationszyklus · AWA',
+    pill: 'Den Zyklus verstehen',
+    title: 'So funktioniert dein Menstruationszyklus',
+    duration: '6 Min. Lesezeit',
+    type: 'Ratgeber',
+    level: 'Einsteiger',
+    validated: 'Geprüfter Inhalt',
+    summary: 'Die wichtigsten Phasen deines Zyklus – einfach erklärt.',
+    stats: [
+      {title: 'Durchschnittliche Dauer', text: '28 Tage'},
+      {title: 'Normale Dauer', text: '21 bis 35 Tage'},
+      {title: '4 Hauptphasen', text: 'in deinem Zyklus'},
+      {title: 'Jeder Zyklus', text: 'ist einzigartig'},
+    ],
+    phasesEyebrow: 'ZYKLUSPHASEN',
+    phasesTitle: 'Die 4 Hauptphasen',
+    phasesIntro: 'Jede Phase hat eine wichtige Aufgabe im Körper und kann Energie, Stimmung und Beschwerden beeinflussen.',
+    phases: [
+      {title: 'Periode', days: 'Tag 1–5', text: 'Dein Körper stößt die Gebärmutterschleimhaut ab.'},
+      {title: 'Follikelphase', days: 'Tag 6–13', text: 'Dein Körper bereitet sich auf den Eisprung vor.'},
+      {title: 'Eisprung', days: 'Etwa Tag 14', text: 'Die Eizelle wird freigesetzt. Das ist die fruchtbarste Zeit.'},
+      {title: 'Lutealphase', days: 'Tag 15–28', text: 'Dein Körper bereitet sich auf eine mögliche Schwangerschaft vor.'},
+    ],
+    knowTitle: 'Gut zu wissen',
+    knowText: 'Dein Zyklus kann von Monat zu Monat schwanken. Stress, Schlaf, Ernährung oder Krankheit können seine Länge und seinen Rhythmus beeinflussen.',
+    reasonsEyebrow: 'WARUM TRACKEN',
+    reasonsTitle: 'Deinen Zyklus besser verstehen',
+    reasons: [
+      'Deinen Körper besser verstehen',
+      'Deine Energie gezielt einsetzen',
+      'Stimmungen früher erkennen',
+      'Gut für deine Gesundheit sorgen',
+      'Deinen Zyklus einfach verfolgen',
+    ],
+    wellTitle: 'Tipp fürs Wohlbefinden',
+    wellText: 'Höre auf deinen Körper, achte auf deine Empfindungen und halte fest, was sich im Lauf der Tage verändert.',
   },
-  {
-    number: '04',
-    icon: 'flower-tulip-outline',
-    color: '#71569A',
-    title: 'Phase lutéale',
-    days: 'Jours 15 à 28',
-    text: 'Ton corps se prépare à une éventuelle grossesse.',
-  },
-] as const;
-
-const REASONS = [
-  {icon: 'emoticon-happy-outline', label: 'Mieux comprendre ton corps'},
-  {icon: 'lightning-bolt', label: 'Adapter ton énergie'},
-  {icon: 'heart-outline', label: 'Anticiper ton humeur'},
-  {icon: 'shield-outline', label: 'Prendre soin de ta santé'},
-  {icon: 'calendar-month-outline', label: 'Suivre ton cycle facilement'},
-] as const;
+} as const;
 
 function UnderstandCycleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
+  const content = CONTENT[i18n.language === 'ru' ? 'ru' : i18n.language === 'de' ? 'de' : 'fr'];
   const insets = useSafeAreaInsets();
   const scrollRef = useRef<ScrollView>(null);
 
@@ -191,10 +280,8 @@ function UnderstandCycleArticleScreen({
             <Pressable
               onPress={() =>
                 Share.share({
-                  title:
-                    'Comprendre ton cycle menstruel',
-                  message:
-                    'Comprendre ton cycle menstruel · AWA',
+                  title: content.shareTitle,
+                  message: content.shareMessage,
                 })
               }
               accessibilityRole="button"
@@ -225,12 +312,12 @@ function UnderstandCycleArticleScreen({
                 color={PURPLE}
               />
               <Text style={styles.pillText}>
-                Comprendre son cycle
+                {content.pill}
               </Text>
             </View>
 
             <Text style={styles.title}>
-              Comprendre ton cycle menstruel
+              {content.title}
             </Text>
 
             <View style={styles.metaContainer}>
@@ -242,7 +329,7 @@ function UnderstandCycleArticleScreen({
                     color={MUTED}
                   />
                   <Text style={styles.metaText}>
-                    6 min de lecture
+                    {content.duration}
                   </Text>
                 </View>
 
@@ -255,7 +342,7 @@ function UnderstandCycleArticleScreen({
                     color={MUTED}
                   />
                   <Text style={styles.metaText}>
-                    Guide
+                    {content.type}
                   </Text>
                 </View>
 
@@ -268,7 +355,7 @@ function UnderstandCycleArticleScreen({
                     color={MUTED}
                   />
                   <Text style={styles.metaText}>
-                    Débutant
+                    {content.level}
                   </Text>
                 </View>
               </View>
@@ -280,14 +367,13 @@ function UnderstandCycleArticleScreen({
                   color={MUTED}
                 />
                 <Text style={styles.metaText}>
-                  Contenu validé
+                  {content.validated}
                 </Text>
               </View>
             </View>
 
             <Text style={styles.summary}>
-              Les grandes étapes de ton cycle,
-              expliquées simplement.
+              {content.summary}
             </Text>
           </View>
 
@@ -301,16 +387,16 @@ function UnderstandCycleArticleScreen({
         </LinearGradient>
 
         <View style={styles.statsCard}>
-          {STATS.map((item, index) => (
+          {content.stats.map((item, index) => (
             <View
-              key={item.title}
+              key={STAT_ICONS[index]}
               style={[
                 styles.stat,
-                index < STATS.length - 1 &&
+                index < content.stats.length - 1 &&
                   styles.statBorder,
               ]}>
               <MaterialDesignIcons
-                name={item.icon}
+                name={STAT_ICONS[index]}
                 size={20}
                 color={PURPLE}
               />
@@ -327,26 +413,26 @@ function UnderstandCycleArticleScreen({
         <View style={styles.sectionCard}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionEyebrow}>
-              PHASES DU CYCLE
+              {content.phasesEyebrow}
             </Text>
             <Text style={styles.sectionTitle}>
-              Les 4 grandes phases
+              {content.phasesTitle}
             </Text>
           </View>
 
           <Text style={styles.sectionIntro}>
-            Chaque phase a un rôle important dans
-            ton corps et peut influencer ton
-            énergie, ton humeur et tes symptômes.
+            {content.phasesIntro}
           </Text>
 
           <View style={styles.phaseList}>
-            {PHASES.map((phase, index) => (
+            {content.phases.map((phaseCopy, index) => {
+              const phase = {...PHASE_STYLE[index], ...phaseCopy};
+              return (
               <View
-                key={phase.title}
+                key={PHASE_STYLE[index].number}
                 style={[
                   styles.phaseRow,
-                  index < PHASES.length - 1 &&
+                  index < content.phases.length - 1 &&
                     styles.phaseDivider,
                 ]}>
                 <View style={styles.phaseNumberBox}>
@@ -380,7 +466,8 @@ function UnderstandCycleArticleScreen({
                   </Text>
                 </View>
               </View>
-            ))}
+              );
+            })}
           </View>
         </View>
 
@@ -397,13 +484,10 @@ function UnderstandCycleArticleScreen({
 
           <View style={styles.knowCopy}>
             <Text style={styles.knowTitle}>
-              À savoir
+              {content.knowTitle}
             </Text>
             <Text style={styles.knowText}>
-              Ton cycle peut varier d’un mois à
-              l’autre. Stress, sommeil,
-              alimentation ou maladie peuvent
-              influencer sa durée et son rythme.
+              {content.knowText}
             </Text>
           </View>
 
@@ -417,29 +501,29 @@ function UnderstandCycleArticleScreen({
         <View style={styles.sectionCard}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionEyebrow}>
-              POURQUOI LE SUIVRE
+              {content.reasonsEyebrow}
             </Text>
             <Text style={styles.sectionTitle}>
-              Mieux comprendre ton cycle
+              {content.reasonsTitle}
             </Text>
           </View>
 
           <View style={styles.reasonsList}>
-            {REASONS.map((reason, index) => (
+            {content.reasons.map((label, index) => (
               <View
-                key={reason.label}
+                key={REASON_ICONS[index]}
                 style={[
                   styles.reasonRow,
-                  index < REASONS.length - 1 &&
+                  index < content.reasons.length - 1 &&
                     styles.reasonDivider,
                 ]}>
                 <MaterialDesignIcons
-                  name={reason.icon}
+                  name={REASON_ICONS[index]}
                   size={18}
                   color={PURPLE}
                 />
                 <Text style={styles.reasonText}>
-                  {reason.label}
+                  {label}
                 </Text>
               </View>
             ))}
@@ -459,12 +543,10 @@ function UnderstandCycleArticleScreen({
 
           <View style={styles.wellCopy}>
             <Text style={styles.wellTitle}>
-              Conseil bien-être
+              {content.wellTitle}
             </Text>
             <Text style={styles.wellText}>
-              Écoute ton corps, reste attentive à
-              tes ressentis et note ce qui change
-              au fil des jours.
+              {content.wellText}
             </Text>
           </View>
         </LinearGradient>

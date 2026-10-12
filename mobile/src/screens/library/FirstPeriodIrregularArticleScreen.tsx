@@ -219,6 +219,82 @@ const CONTENT = {
     ],
     shareMessage: 'İlk adetim düzensiz: bu normal mi? — AWA',
   },
+  ru: {
+    badge: 'ПЕРВЫЕ МЕСЯЧНЫЕ',
+    title: 'Первые месячные\nнерегулярны: это нормально?',
+    metaDuration: '5 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Проверенный материал',
+    intro: 'Да, это совершенно нормально. Почему цикл устанавливается не сразу и когда стоит обсудить это с врачом.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Почему в начале цикл нерегулярный',
+      'Сколько времени нужно, чтобы он установился',
+      'Когда обратиться к врачу',
+    ],
+    body1: 'Гормонам, регулирующим цикл, нужно время, чтобы найти баланс. Поэтому в первые годы часто бывает, что циклы короче, длиннее или неравномерно распределены.',
+    body2: 'Цикл может устанавливаться от одного до двух лет, иногда чуть дольше. Этот период адаптации сильно отличается у разных девушек и не является проблемой.',
+    tip1Title: 'ПОЛЕЗНО ЗНАТЬ',
+    tip1Text: 'Нерегулярный цикл в начале никогда не считается задержкой: организму просто нужно столько времени, сколько нужно.',
+    body3: 'В подавляющем большинстве случаев поводов для беспокойства нет. Тем не менее стоит обратиться к врачу, если месячные отсутствуют в течение нескольких месяцев после первых или если сомнения не проходят.',
+    alertTitle: 'Обратитесь к врачу, если',
+    alertText: 'Месячных нет в течение нескольких месяцев, очень сильная боль или очень обильные кровотечения.',
+    relatedTitle: '♥  Вам также может понравиться',
+    related: [
+      {
+        title: 'Регулярный или нерегулярный цикл: в чём разница?',
+        meta: '5 мин  ·  Руководство',
+      },
+      {
+        title: 'Ваши первые месячные: чего ожидать',
+        meta: '5 мин  ·  Руководство',
+      },
+      {
+        title: 'Часто задаваемые вопросы о первых месячных',
+        meta: '4 мин  ·  Вопросы и ответы',
+      },
+    ],
+    shareMessage: 'Первые месячные нерегулярны: это нормально? — AWA',
+  },
+  de: {
+    badge: 'ERSTE PERIODE',
+    title: 'Meine erste Periode ist\nunregelmäßig: Ist das normal?',
+    metaDuration: '5 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Geprüfter Inhalt',
+    intro: 'Ja, das ist völlig normal. Hier erfährst du, warum der Zyklus Zeit braucht, um sich einzupendeln, und wann es sinnvoll ist, darüber zu sprechen.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Warum der Zyklus am Anfang unregelmäßig ist',
+      'Wie lange es dauert, bis er sich einpendelt',
+      'Wann du zur Ärztin oder zum Arzt gehen solltest',
+    ],
+    body1: 'Die Hormone, die den Zyklus steuern, brauchen Zeit, um ihr Gleichgewicht zu finden. Deshalb sind Zyklen in den ersten Jahren oft kürzer, länger oder in unterschiedlichen Abständen.',
+    body2: 'Es kann ein bis zwei Jahre, manchmal etwas länger dauern, bis der Zyklus regelmäßiger wird. Diese Anpassungsphase ist von Person zu Person sehr verschieden, ohne dass sie ein Problem darstellt.',
+    tip1Title: 'Gut zu wissen',
+    tip1Text: 'Ein anfangs unregelmäßiger Zyklus gilt nie als Verspätung: Dein Körper nimmt sich einfach die Zeit, die er braucht.',
+    body3: 'In den allermeisten Fällen gibt es keinen Grund zur Sorge. Dennoch ist es ratsam, ärztlichen Rat einzuholen, wenn deine Periode nach dem ersten Auftreten mehrere Monate ausbleibt oder wenn du weiterhin Zweifel hast.',
+    alertTitle: 'Geh zur Ärztin oder zum Arzt, wenn',
+    alertText: 'die Periode mehrere Monate ausbleibt, du sehr starke Schmerzen hast oder die Blutung sehr stark ist.',
+    relatedTitle: '♥  Das könnte dich auch interessieren',
+    related: [
+      {
+        title: 'Regelmäßiger oder unregelmäßiger Zyklus: Was ist der Unterschied?',
+        meta: '5 Min.  ·  Ratgeber',
+      },
+      {
+        title: 'Deine erste Periode: Was dich erwartet',
+        meta: '5 Min.  ·  Ratgeber',
+      },
+      {
+        title: 'Häufige Fragen zu deiner ersten Periode',
+        meta: '4 Min.  ·  Häufige Fragen',
+      },
+    ],
+    shareMessage: 'Meine erste Periode ist unregelmäßig: Ist das normal? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

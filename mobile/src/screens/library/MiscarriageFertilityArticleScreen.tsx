@@ -417,6 +417,156 @@ const CONTENT = {
     disclaimerText: 'Bilgilendirici içerik. Bu makale kişiye özel tıbbi tavsiyenin yerini tutmaz. Durumun için başvuru kaynağı doktorun ya da ebendir.',
     shareMessage: 'Kayıptan sonra doğurganlık ve yeniden denemek — AWA',
   },
+  ru: {
+    badge: 'ПОСЛЕ ВЫКИДЫША • ФЕРТИЛЬНОСТЬ',
+    title: 'Фертильность и новая попытка после потери',
+    metaDuration: '6 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Средний уровень',
+    metaValidated: 'Информационный материал',
+    intro:
+      'Когда и как думать о новой попытке — в своём темпе и с уверенностью.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Возвращение фертильности',
+      'Что обычно говорят специалисты',
+      'Почувствовать себя готовой — в своём темпе',
+      'Наблюдение, которое может успокоить',
+      'Главное',
+    ],
+    body1:
+      'Фертильность обычно возвращается уже в цикле, следующем за ранним выкидышем. Овуляция может произойти даже до того, как месячные заметно возобновятся.',
+    infoTitle: 'Главное',
+    infoText:
+      'В зависимости от срока потери время физического восстановления может немного различаться в разных ситуациях.',
+    body2:
+      'Многие специалисты считают, что нет необходимости ждать несколько циклов, прежде чем пытаться снова, если только врач или акушерка не посоветуют иное.',
+    compareEarlyTitle: 'Ранняя потеря',
+    compareEarlyText:
+      'Фертильность часто возвращается быстро — уже в следующем цикле.',
+    compareLateTitle: 'Потеря на более позднем сроке',
+    compareLateText:
+      'Медицинская команда может рекомендовать немного более длительное восстановление.',
+    body3:
+      'Ощущение готовности — физической и эмоциональной — остаётся самым важным ориентиром, куда важнее любых теоретических сроков.',
+    readinessPoints: [
+      {
+        title: 'Эмоционально',
+        text: 'Внутренняя готовность так же важна, как и физическое восстановление.',
+      },
+      {
+        title: 'Физически',
+        text: 'Регулярный цикл и хорошее самочувствие — хорошие показатели.',
+      },
+      {
+        title: 'В паре или с поддержкой близких',
+        text: 'Разговор с партнёром может помочь вам двигаться вперёд в одном темпе.',
+      },
+    ],
+    body4:
+      'Перед новой попыткой приём у врача может помочь вам двигаться дальше со спокойной душой:',
+    followUpSteps: [
+      {
+        title: 'Подвести итоги',
+        text: 'Разговор со специалистом позволяет вернуться к тому, что произошло.',
+      },
+      {
+        title: 'Обследование при необходимости',
+        text: 'В зависимости от ситуации могут быть предложены дополнительные обследования.',
+      },
+      {
+        title: 'Новая попытка',
+        text: 'Затем наблюдение сможет спокойно поддерживать вас в новой попытке.',
+      },
+    ],
+    tipTitle: 'Полезно знать',
+    tipText:
+      'Единичный выкидыш, как правило, не указывает на проблему с фертильностью. Ответить на ваши личные вопросы лучше всего сможет ваша медицинская команда.',
+    summaryPoints: [
+      'Фертильность обычно возвращается уже в цикле, следующем за ранним выкидышем.',
+      'Многие специалисты считают, что нет необходимости ждать несколько циклов, если не рекомендовано иное.',
+      'Ощущение готовности — физической и эмоциональной — остаётся самым важным ориентиром.',
+      'Медицинское наблюдение может поддержать и успокоить вас перед новой попыткой.',
+    ],
+    disclaimerText:
+      'Информационный материал. Эта статья не заменяет персональную медицинскую консультацию. Ориентиром в вашей ситуации остаётся ваш врач или акушерка.',
+    shareMessage: 'Фертильность и новая попытка после потери — AWA',
+  },
+  de: {
+    badge: 'NACH EINER FEHLGEBURT • FRUCHTBARKEIT',
+    title: 'Fruchtbarkeit und ein neuer Versuch nach einem Verlust',
+    metaDuration: '6 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Fortgeschritten',
+    metaValidated: 'Informationsinhalt',
+    intro:
+      'Wann und wie du darüber nachdenken kannst, es erneut zu versuchen – in deinem eigenen Tempo und mit Vertrauen.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Die Rückkehr der Fruchtbarkeit',
+      'Was Fachpersonen im Allgemeinen sagen',
+      'Sich bereit fühlen, in deinem eigenen Tempo',
+      'Nachsorge, die dich beruhigen kann',
+      'Das Wichtigste in Kürze',
+    ],
+    body1:
+      'Die Fruchtbarkeit kehrt nach einer frühen Fehlgeburt meist schon im darauffolgenden Zyklus zurück. Der Eisprung kann sogar eintreten, bevor deine Periode sichtbar wiederkehrt.',
+    infoTitle: 'Das Wichtigste',
+    infoText:
+      'Je nach Stadium des Verlusts kann die körperliche Erholungszeit von Situation zu Situation leicht unterschiedlich sein.',
+    body2:
+      'Viele Fachpersonen sind der Ansicht, dass du nicht mehrere Zyklen warten musst, bevor du es erneut versuchst – es sei denn, deine Ärztin, dein Arzt oder deine Hebamme rät dir etwas anderes.',
+    compareEarlyTitle: 'Früher Verlust',
+    compareEarlyText:
+      'Die Fruchtbarkeit kehrt oft schnell zurück, schon im nächsten Zyklus.',
+    compareLateTitle: 'Späterer Verlust',
+    compareLateText:
+      'Das medizinische Team empfiehlt manchmal eine etwas längere Erholungszeit.',
+    body3:
+      'Dich körperlich und seelisch bereit zu fühlen, bleibt der wichtigste Wegweiser – weit wichtiger als jede theoretische Frist.',
+    readinessPoints: [
+      {
+        title: 'Seelisch',
+        text: 'Dich innerlich bereit zu fühlen ist genauso wichtig wie die körperliche Erholung.',
+      },
+      {
+        title: 'Körperlich',
+        text: 'Ein regelmäßiger Zyklus und ein Gefühl des Wohlbefindens sind gute Anhaltspunkte.',
+      },
+      {
+        title: 'Als Paar oder mit Unterstützung',
+        text: 'Wenn du mit deinem Partner darüber sprichst, könnt ihr im gleichen Tempo vorangehen.',
+      },
+    ],
+    body4:
+      'Bevor du es erneut versuchst, kann ein Arzttermin dir helfen, mit mehr Ruhe weiterzugehen:',
+    followUpSteps: [
+      {
+        title: 'Bilanz ziehen',
+        text: 'In einem Gespräch mit einer Fachperson kannst du noch einmal auf das Geschehene zurückblicken.',
+      },
+      {
+        title: 'Eine Abklärung, falls nötig',
+        text: 'Je nach Situation können weitere Untersuchungen angeboten werden.',
+      },
+      {
+        title: 'Ein neuer Versuch',
+        text: 'Die Nachsorge kann dich dann in Ruhe begleiten, während du es erneut versuchst.',
+      },
+    ],
+    tipTitle: 'Gut zu wissen',
+    tipText:
+      'Eine einzelne Fehlgeburt weist in der Regel nicht auf ein Fruchtbarkeitsproblem hin. Dein medizinisches Team kann deine persönlichen Fragen am besten beantworten.',
+    summaryPoints: [
+      'Die Fruchtbarkeit kehrt nach einer frühen Fehlgeburt meist schon im darauffolgenden Zyklus zurück.',
+      'Viele Fachpersonen sind der Ansicht, dass du nicht mehrere Zyklen warten musst, es sei denn, dir wird etwas anderes geraten.',
+      'Dich körperlich und seelisch bereit zu fühlen, bleibt der wichtigste Wegweiser.',
+      'Eine ärztliche Begleitung kann dich vor einem neuen Versuch unterstützen und beruhigen.',
+    ],
+    disclaimerText:
+      'Informationsinhalt. Dieser Artikel ersetzt keine persönliche ärztliche Beratung. Deine Ärztin, dein Arzt oder deine Hebamme bleibt die Referenz für deine Situation.',
+    shareMessage: 'Fruchtbarkeit und ein neuer Versuch nach einem Verlust – AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */

@@ -623,6 +623,236 @@ const CONTENT = {
     disclaimerText: 'Bilgilendirici içerik. Bu makale tıbbi tavsiyenin veya muayenenin yerini tutmaz. Şüphen varsa ya da endişe verici bir belirti fark edersen bir sağlık profesyonelinden tavsiye al.',
     shareMessage: 'Doğum sonrası loşyayı anlamak — AWA',
   },
+  ru: {
+    badgeText: 'ПОСЛЕРОДОВОЙ ПЕРИОД • ЛОХИИ',
+    title: 'Что такое лохии\nпосле родов',
+    metaDuration: '6 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Информационный материал',
+    intro:
+      'После родов лохиями называют влагалищные выделения, связанные с естественным процессом восстановления матки. Их цвет и количество постепенно меняются в течение следующих дней и недель.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Что такое лохии?',
+      'Как они меняются со временем?',
+      'Что может быть нормой',
+      'Советы для комфорта',
+      'Когда обращаться за медицинской консультацией?',
+      'Главное',
+    ],
+    section1Heading: '1. Что такое лохии?',
+    section1Body1:
+      'Лохии — это влагалищные выделения, которые появляются после родов. Они в основном состоят из крови, секретов и тканей, постепенно выводимых из матки по мере её восстановления.',
+    section1Body2:
+      'Они отличаются от обычных месячных. Лохии ожидаемы в послеродовой период и, как правило, постепенно уменьшаются.',
+    infoTitle: 'Главное',
+    infoText:
+      'Лохии не означают, что месячные уже вернулись. Возвращение месячных — отдельное событие, которое происходит позже.',
+    section2Heading: '2. Как лохии меняются со временем?',
+    section2Body:
+      'Обычно их вид меняется в течение первых нескольких недель. Цвет постепенно светлеет, а количество, как правило, уменьшается.',
+    evolutionTitle: 'Постепенные изменения',
+    evolutionSubtitle: 'Этапы могут отличаться у разных женщин',
+    evolution: [
+      {
+        label: 'Ярко-красные',
+        period: 'Первые дни',
+        text: 'Выделения обычно красного цвета и в начале могут быть обильнее.',
+      },
+      {
+        label: 'Розоватые / коричневатые',
+        period: 'Через несколько дней',
+        text: 'Цвет постепенно светлеет и может смещаться к розоватому или коричневатому.',
+      },
+      {
+        label: 'Беловато-жёлтые',
+        period: 'В течение следующих недель',
+        text: 'Выделения обычно становятся более скудными, желтоватыми или беловатыми, а затем прекращаются.',
+      },
+    ],
+    section3Heading: '3. Что может быть нормой',
+    section3Body:
+      'Течение лохий не совсем одинаково у всех. Некоторые изменения могут естественно сопровождать восстановление после родов.',
+    normalPoints: [
+      {
+        title: 'Количество меняется',
+        text: 'В первые дни количество выделений может меняться, а затем постепенно уменьшается.',
+      },
+      {
+        title: 'Цвет меняется',
+        text: 'Со временем лохии обычно переходят от красного к более светлым оттенкам.',
+      },
+      {
+        title: 'Разная длительность',
+        text: 'Они могут сохраняться несколько недель, и их течение отличается у разных женщин.',
+      },
+    ],
+    section4Heading: '4. Советы по комфорту и наблюдению',
+    section4Body:
+      'В этот период простое наблюдение поможет отслеживать, как меняется ваше тело, не сравнивая свой опыт с чужим.',
+    comfortTips: [
+      {
+        title: 'Бережная гигиена',
+        text: 'Отдавайте предпочтение мягкому регулярному подмыванию без раздражающих средств.',
+      },
+      {
+        title: 'Следите за изменениями',
+        text: 'Вы можете отмечать цвет, количество и динамику выделений, если это помогает вам следить за восстановлением.',
+      },
+      {
+        title: 'Разрешите себе отдых',
+        text: 'Послеродовой период требует времени. Прислушивайтесь к своему телу и уважайте потребность восстанавливаться.',
+      },
+    ],
+    section5Heading: '5. Лохии или возвращение месячных?',
+    section5Body:
+      'Лохии появляются в первые дни после родов и постепенно уменьшаются. Возвращение месячных, напротив, означает возобновление менструального цикла после этого периода.',
+    compareLochiaTitle: 'Лохии',
+    compareLochiaText: 'Выделения, связанные с восстановлением матки после родов.',
+    compareReturnTitle: 'Возвращение месячных',
+    compareReturnText:
+      'Возобновление менструального цикла в срок, который различается у разных женщин.',
+    section6Heading: '6. Когда обращаться за медицинской консультацией?',
+    section6Body:
+      'Если течение кажется вам необычным или ваше общее состояние ухудшается, важно обратиться за советом к медицинскому специалисту.',
+    warningTitle: 'Признаки, при которых нужна медицинская консультация',
+    warningSigns: [
+      'Сильный или необычный запах',
+      'Повышенная температура или ухудшение общего состояния',
+      'Выделения, которые внезапно становятся гораздо обильнее',
+      'Сильная, стойкая или необычная боль',
+      'Новый симптом, который вас беспокоит',
+    ],
+    tipTitle: 'ПОЛЕЗНО ЗНАТЬ',
+    tipText:
+      'Лохии обычно меняются постепенно: сначала они могут быть красными, затем светлеют и прекращаются. Однако восстановление у каждой женщины индивидуально.',
+    summaryHeading: 'Главное',
+    summaryPoints: [
+      'Лохии — нормальные выделения после родов.',
+      'Обычно в течение нескольких недель их цвет и количество меняются.',
+      'Их длительность и течение могут отличаться у разных женщин.',
+      'Необычный запах, повышенная температура, сильная боль или внезапное очень обильное кровотечение требуют медицинской консультации.',
+    ],
+    disclaimerText:
+      'Информационный материал. Эта статья не заменяет медицинскую консультацию или осмотр. При сомнениях или если вы заметили тревожный симптом, обратитесь за советом к медицинскому специалисту.',
+    shareMessage: 'Что такое лохии после родов — AWA',
+  },
+  de: {
+    badgeText: 'WOCHENBETT • WOCHENFLUSS',
+    title: 'Den Wochenfluss\nnach der Geburt verstehen',
+    metaDuration: '6 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Informationsinhalt',
+    intro:
+      'Nach der Geburt bezeichnet der Wochenfluss (Lochien) den Ausfluss aus der Scheide, der zum natürlichen Rückbildungsprozess der Gebärmutter gehört. Farbe und Menge verändern sich in den folgenden Tagen und Wochen nach und nach.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Was ist der Wochenfluss?',
+      'Wie verändert er sich im Lauf der Zeit?',
+      'Was normal sein kann',
+      'Tipps für mehr Wohlbefinden',
+      'Wann solltest du ärztlichen Rat einholen?',
+      'Das Wichtigste in Kürze',
+    ],
+    section1Heading: '1. Was ist der Wochenfluss?',
+    section1Body1:
+      'Der Wochenfluss ist ein Ausfluss aus der Scheide, der nach der Geburt auftritt. Er besteht vor allem aus Blut, Sekreten und Gewebe, die die Gebärmutter während ihrer Rückbildung nach und nach ausscheidet.',
+    section1Body2:
+      'Er unterscheidet sich von einer normalen Periode. Im Wochenbett ist er zu erwarten und lässt in der Regel schrittweise nach.',
+    infoTitle: 'Das Wichtigste in Kürze',
+    infoText:
+      'Der Wochenfluss bedeutet nicht, dass deine Periode schon zurückgekehrt ist. Die Rückkehr der Periode ist ein eigenes Ereignis, das später eintritt.',
+    section2Heading: '2. Wie verändert sich der Wochenfluss im Lauf der Zeit?',
+    section2Body:
+      'Sein Aussehen verändert sich in der Regel in den ersten Wochen. Die Farbe wird nach und nach heller, und die Menge nimmt tendenziell ab.',
+    evolutionTitle: 'Ein schrittweiser Verlauf',
+    evolutionSubtitle: 'Die Phasen können von Frau zu Frau unterschiedlich sein',
+    evolution: [
+      {
+        label: 'Hellrot',
+        period: 'Die ersten Tage',
+        text: 'Der Ausfluss ist meist rot und kann zu Beginn stärker sein.',
+      },
+      {
+        label: 'Rosa / bräunlich',
+        period: 'Nach einigen Tagen',
+        text: 'Die Farbe wird nach und nach heller und kann ins Rosa oder Bräunliche übergehen.',
+      },
+      {
+        label: 'Weißlich-gelb',
+        period: 'In den folgenden Wochen',
+        text: 'Der Ausfluss wird meist heller, gelblich oder weißlich, bevor er ausläuft.',
+      },
+    ],
+    section3Heading: '3. Was normal sein kann',
+    section3Body:
+      'Der Wochenfluss verläuft nicht bei allen genau gleich. Bestimmte Veränderungen können die Erholung nach der Geburt ganz natürlich begleiten.',
+    normalPoints: [
+      {
+        title: 'Eine wechselnde Menge',
+        text: 'Die Menge kann sich in den ersten Tagen verändern und dann nach und nach abnehmen.',
+      },
+      {
+        title: 'Eine sich verändernde Farbe',
+        text: 'Der Wochenfluss geht im Lauf der Zeit meist von Rot zu helleren Tönen über.',
+      },
+      {
+        title: 'Eine unterschiedliche Dauer',
+        text: 'Er kann mehrere Wochen anhalten, und sein Verlauf ist von Frau zu Frau verschieden.',
+      },
+    ],
+    section4Heading: '4. Tipps für mehr Wohlbefinden und Beobachtung',
+    section4Body:
+      'In dieser Zeit kann einfaches Festhalten dir helfen zu beobachten, wie sich dein Körper verändert, ohne deine Erfahrung mit der einer anderen zu vergleichen.',
+    comfortTips: [
+      {
+        title: 'Sanfte Hygiene',
+        text: 'Bevorzuge sanftes, regelmäßiges Waschen ohne reizende Produkte.',
+      },
+      {
+        title: 'Den Verlauf beobachten',
+        text: 'Du kannst Farbe, Menge und Verlauf des Ausflusses notieren, wenn dir das hilft, deine Erholung zu verfolgen.',
+      },
+      {
+        title: 'Gönne dir Ruhe',
+        text: 'Das Wochenbett braucht Zeit. Höre auf deinen Körper und achte dein Bedürfnis nach Erholung.',
+      },
+    ],
+    section5Heading: '5. Wochenfluss oder Rückkehr deiner Periode?',
+    section5Body:
+      'Der Wochenfluss tritt in den Tagen nach der Geburt auf und lässt nach und nach nach. Die Rückkehr deiner Periode dagegen bedeutet, dass dein Menstruationszyklus nach dieser Zeit wieder einsetzt.',
+    compareLochiaTitle: 'Wochenfluss',
+    compareLochiaText: 'Ausfluss im Zusammenhang mit der Rückbildung der Gebärmutter nach der Geburt.',
+    compareReturnTitle: 'Rückkehr deiner Periode',
+    compareReturnText:
+      'Wiedereinsetzen des Menstruationszyklus, zu einem Zeitpunkt, der von Frau zu Frau unterschiedlich ist.',
+    section6Heading: '6. Wann solltest du ärztlichen Rat einholen?',
+    section6Body:
+      'Wenn dir der Verlauf ungewöhnlich erscheint oder sich dein Allgemeinzustand verschlechtert, ist es wichtig, dir Rat bei medizinischem Fachpersonal zu holen.',
+    warningTitle: 'Anzeichen, die ärztlichen Rat erfordern',
+    warningSigns: [
+      'Ein starker oder ungewöhnlicher Geruch',
+      'Fieber oder ein sich verschlechternder Allgemeinzustand',
+      'Eine Blutung, die plötzlich deutlich stärker wird',
+      'Starke, anhaltende oder ungewöhnliche Schmerzen',
+      'Ein neues Symptom, das dich beunruhigt',
+    ],
+    tipTitle: 'Gut zu wissen',
+    tipText:
+      'Der Wochenfluss verändert sich in der Regel schrittweise: Er kann zunächst rot sein, dann heller werden und schließlich auslaufen. Jede Erholung verläuft jedoch individuell.',
+    summaryHeading: 'Das Wichtigste in Kürze',
+    summaryPoints: [
+      'Der Wochenfluss ist ein normaler Ausfluss nach der Geburt.',
+      'Farbe und Menge verändern sich in der Regel im Lauf der Wochen.',
+      'Dauer und Verlauf können von Frau zu Frau unterschiedlich sein.',
+      'Ein ungewöhnlicher Geruch, Fieber, starke Schmerzen oder eine plötzliche, sehr starke Blutung erfordern ärztlichen Rat.',
+    ],
+    disclaimerText:
+      'Informationsinhalt. Dieser Artikel ersetzt weder ärztliche Beratung noch eine Untersuchung. Bei Zweifeln oder wenn dir ein besorgniserregendes Symptom auffällt, wende dich an medizinisches Fachpersonal.',
+    shareMessage: 'Den Wochenfluss nach der Geburt verstehen – AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */

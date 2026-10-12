@@ -393,6 +393,144 @@ const CONTENT = {
     disclaimerText: 'Bilgilendirme amaçlı içerik. Bu makale kişiye özel tıbbi tavsiyenin yerini tutmaz. Tereddüt ettiğinde bir sağlık profesyoneline danış.',
     shareMessage: 'Servikal mukusunu gözlemlemek — AWA',
   },
+  ru: {
+    badge: 'ФЕРТИЛЬНОСТЬ • ЦЕРВИКАЛЬНАЯ СЛИЗЬ',
+    title: 'Наблюдение\nза цервикальной слизью',
+    metaDuration: '5 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Средний уровень',
+    metaValidated: 'Проверенный материал',
+    intro: 'Естественный и бесплатный сигнал, помогающий определить фертильное окно.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Что такое цервикальная слизь?',
+      'Как она меняется в течение цикла',
+      'Как распознать фертильную слизь',
+      'Как наблюдать за ней ежедневно',
+      'Что может влиять на ваши наблюдения',
+      'Ограничения этого метода',
+      'Главное',
+    ],
+    section1Body:
+      'Это естественный секрет, вырабатываемый шейкой матки. Под действием эстрогена и прогестерона консистенция цервикальной слизи меняется в течение цикла.',
+    cycleEvolution: [
+      {
+        title: 'После месячных',
+        text: 'Слизи мало, часто ощущается сухость.',
+      },
+      {
+        title: 'Перед овуляцией',
+        text: 'Её становится больше, она мутная и липкая.',
+      },
+      {
+        title: 'Ближе к овуляции',
+        text: 'Прозрачная, тягучая и эластичная, похожая на сырой яичный белок.',
+      },
+      {
+        title: 'После овуляции',
+        text: 'Более густая, непрозрачная или её становится заметно меньше.',
+      },
+    ],
+    section3Intro: 'Ближе к овуляции она становится:',
+    fertileSigns: [
+      'Прозрачной',
+      'Тягучей — растягивается между двумя пальцами',
+      'Эластичной, похожей на сырой яичный белок',
+      'Более обильной, чем в другие дни',
+    ],
+    infoTitle: 'Простая привычка на каждый день',
+    infoText:
+      'Оценивайте вид и консистенцию с помощью туалетной бумаги или чистых пальцев примерно в одно и то же время дня и записывайте, что вы заметили.',
+    modifyingFactors: [
+      'Недавний половой акт',
+      'Средства для интимной гигиены',
+      'Гормональная контрацепция или некоторые лекарства',
+      'Инфекция или местное нарушение баланса',
+    ],
+    section6Body:
+      'У каждой женщины свой профиль, и чтобы распознавать собственный, нужна практика на протяжении нескольких циклов. Ежедневное наблюдение за этими изменениями вместе с другими признаками помогает точнее определять фертильное окно, но оно никогда не заменяет консультацию врача, если у вас есть опасения.',
+    tipTitle: 'Полезно знать',
+    tipText:
+      'Если сочетать наблюдение за цервикальной слизью с базальной температурой или тестами на овуляцию, картина вашего цикла будет полнее.',
+    summaryPoints: [
+      'Под действием эстрогена и прогестерона консистенция цервикальной слизи меняется в течение цикла.',
+      'Ближе к овуляции она становится прозрачной, тягучей и эластичной, похожей на сырой яичный белок.',
+      'Ежедневное наблюдение за этими изменениями вместе с другими признаками помогает точнее определять фертильное окно.',
+      'Чтобы распознавать собственную картину, нужна практика и наблюдение на протяжении нескольких циклов.',
+    ],
+    disclaimerText:
+      'Информационный материал. Эта статья не заменяет персональную медицинскую консультацию. При сомнениях обратитесь за советом к медицинскому специалисту.',
+    shareMessage: 'Наблюдение за цервикальной слизью — AWA',
+  },
+  de: {
+    badge: 'FRUCHTBARKEIT • ZERVIXSCHLEIM',
+    title: 'Deinen Zervixschleim\nbeobachten',
+    metaDuration: '5 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Fortgeschritten',
+    metaValidated: 'Geprüfter Inhalt',
+    intro: 'Ein natürliches, kostenloses Signal, um dein fruchtbares Fenster zu erkennen.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Was ist Zervixschleim?',
+      'Wie er sich im Zyklus verändert',
+      'Fruchtbaren Schleim erkennen',
+      'Wie du ihn täglich beobachtest',
+      'Was deine Beobachtungen beeinflussen kann',
+      'Die Grenzen dieser Methode',
+      'Das Wichtigste in Kürze',
+    ],
+    section1Body:
+      'Es handelt sich um ein natürliches Sekret, das vom Gebärmutterhals gebildet wird. Der Zervixschleim verändert seine Beschaffenheit im Laufe des Zyklus unter dem Einfluss von Östrogen und Progesteron.',
+    cycleEvolution: [
+      {
+        title: 'Nach deiner Periode',
+        text: 'Wenig Schleim, oft ein Gefühl von Trockenheit.',
+      },
+      {
+        title: 'Vor dem Eisprung',
+        text: 'Reichlicher, trüb und klebrig.',
+      },
+      {
+        title: 'Kurz vor dem Eisprung',
+        text: 'Klar, fadenziehend und elastisch, ähnlich wie rohes Eiweiß.',
+      },
+      {
+        title: 'Nach dem Eisprung',
+        text: 'Dicker, undurchsichtig oder deutlich weniger vorhanden.',
+      },
+    ],
+    section3Intro: 'Kurz vor dem Eisprung wird er:',
+    fertileSigns: [
+      'Klar oder durchsichtig',
+      'Fadenziehend – er lässt sich zwischen zwei Fingern ziehen',
+      'Elastisch, ähnlich wie rohes Eiweiß',
+      'Reichlicher als an anderen Tagen',
+    ],
+    infoTitle: 'Eine einfache Gewohnheit, jeden Tag',
+    infoText:
+      'Beobachte das Aussehen und die Beschaffenheit mit Toilettenpapier oder sauberen Fingern, etwa zur selben Tageszeit, und notiere, was dir auffällt.',
+    modifyingFactors: [
+      'Kürzlicher Geschlechtsverkehr',
+      'Produkte für die Intimhygiene',
+      'Hormonelle Verhütung oder bestimmte Behandlungen',
+      'Eine Infektion oder ein lokales Ungleichgewicht',
+    ],
+    section6Body:
+      'Jede Frau hat ein anderes Profil, und deines zu erkennen braucht Übung über mehrere Zyklen. Wenn du diese Veränderung jeden Tag zusammen mit anderen Zeichen beobachtest, kannst du dein fruchtbares Fenster besser eingrenzen – ärztlichen Rat ersetzt das aber nie, wenn du dir Sorgen machst.',
+    tipTitle: 'Gut zu wissen',
+    tipText:
+      'Wenn du Zervixschleim mit deiner Basaltemperatur oder mit Ovulationstests kombinierst, erhältst du ein vollständigeres Bild deines Zyklus.',
+    summaryPoints: [
+      'Der Zervixschleim verändert seine Beschaffenheit im Laufe des Zyklus unter dem Einfluss von Östrogen und Progesteron.',
+      'Kurz vor dem Eisprung wird er klar, fadenziehend und elastisch, ähnlich wie rohes Eiweiß.',
+      'Wenn du diese Veränderung jeden Tag zusammen mit anderen Zeichen beobachtest, kannst du dein fruchtbares Fenster besser eingrenzen.',
+      'Dein eigenes Muster zu erkennen braucht Übung und die Beobachtung über mehrere Zyklen.',
+    ],
+    disclaimerText:
+      'Informationsinhalt. Dieser Artikel ersetzt keine persönliche ärztliche Beratung. Bei Zweifeln wende dich an medizinisches Fachpersonal.',
+    shareMessage: 'Deinen Zervixschleim beobachten — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */

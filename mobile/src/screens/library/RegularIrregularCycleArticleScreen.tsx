@@ -319,6 +319,114 @@ const CONTENT = {
     ],
     shareMessage: 'Düzenli ya da düzensiz döngü: fark nedir? — AWA',
   },
+  ru: {
+    badge: 'ЦИКЛ И МЕСЯЧНЫЕ',
+    title: 'Регулярный или нерегулярный цикл:\nв чём разница?',
+    metaDuration: '5 мин чтения',
+    metaValidated: 'Проверенный материал',
+    intro:
+      'Каждый менструальный цикл уникален. Понимание того, что считается «нормой», поможет внимательнее следить за здоровьем и замечать возможные нарушения.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Регулярный менструальный цикл: что это?',
+      'Нерегулярный цикл: что это значит?',
+      'Возможные причины нерегулярного цикла',
+      'Когда стоит обратиться к врачу?',
+      'Советы для более сбалансированного цикла',
+    ],
+    section1Body:
+      'Цикл считается регулярным, если его длительность колеблется от 21 до 35 дней, а разница между соседними циклами составляет менее 7 дней.',
+    section1VisualTitle: 'Довольно стабильный ритм',
+    section1VisualText:
+      'Главное — наблюдать за собственным ритмом в течение нескольких месяцев.',
+    tip1Title: 'ПОЛЕЗНО ЗНАТЬ',
+    tip1Text:
+      'Все женщины разные. Важно знать свой собственный ритм и его обычные колебания.',
+    section2Body:
+      'Цикл считается нерегулярным, если его длительность часто или непредсказуемо меняется (разница более 7 дней). Это могут быть очень короткие циклы, очень длинные циклы или отсутствие овуляции.',
+    section2VisualTitle: 'Более заметные колебания',
+    section2VisualText:
+      'Эти различия могут быть временными или сохраняться в течение нескольких циклов.',
+    alertTitle: 'Обратите внимание',
+    alertText:
+      'Временная нерегулярность может быть нормальной (стресс, гормональные изменения, усталость…). Но если она сохраняется, важно выяснить причину.',
+    causes: [
+      'Стресс и тревога',
+      'Гормональный дисбаланс',
+      'Недосып и усталость',
+      'Слишком низкий или слишком высокий вес',
+      'СПКЯ (синдром поликистозных яичников) или другие медицинские состояния',
+    ],
+    checklist: [
+      'Нет месячных более 3 месяцев (вне беременности и грудного вскармливания)',
+      'Очень длинные циклы (более 90 дней) или очень короткие циклы (менее 21 дня)',
+      'Сильная боль, которая мешает вести обычную жизнь',
+      'Очень обильные или нерегулярные кровотечения',
+      'Вы планируете беременность, а овуляции, похоже, нет',
+    ],
+    advice: [
+      'Сбалансированное питание',
+      'Достаточное количество жидкости',
+      'Физическая активность',
+      'Управление стрессом',
+      'Качественный сон',
+    ],
+    shareMessage: 'Регулярный или нерегулярный цикл: в чём разница? — AWA',
+  },
+  de: {
+    badge: 'ZYKLUS & PERIODE',
+    title: 'Regelmäßiger oder unregelmäßiger Zyklus:\nwas ist der Unterschied?',
+    metaDuration: '5 Min. Lesezeit',
+    metaValidated: 'Geprüfter Inhalt',
+    intro:
+      'Jeder Menstruationszyklus ist einzigartig. Wenn du weißt, was als „normal“ gilt, kannst du deine Gesundheit besser im Blick behalten und mögliche Ungleichgewichte erkennen.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Regelmäßiger Menstruationszyklus: Was ist das?',
+      'Unregelmäßiger Zyklus: Was bedeutet das?',
+      'Mögliche Ursachen eines unregelmäßigen Zyklus',
+      'Wann solltest du zur Ärztin oder zum Arzt?',
+      'Tipps für einen ausgeglicheneren Zyklus',
+    ],
+    section1Body:
+      'Ein Zyklus gilt als regelmäßig, wenn seine Länge zwischen 21 und 35 Tagen liegt und sich von einem Zyklus zum nächsten um weniger als 7 Tage unterscheidet.',
+    section1VisualTitle: 'Ein recht gleichmäßiger Rhythmus',
+    section1VisualText:
+      'Am wichtigsten ist, deinen eigenen Rhythmus über die Monate hinweg zu beobachten.',
+    tip1Title: 'Gut zu wissen',
+    tip1Text:
+      'Jede Frau ist anders. Wichtig ist, deinen eigenen Rhythmus und seine normalen Schwankungen zu kennen.',
+    section2Body:
+      'Ein Zyklus gilt als unregelmäßig, wenn seine Länge häufig oder unvorhersehbar schwankt (um mehr als 7 Tage). Das können sehr kurze Zyklen, sehr lange Zyklen oder ausbleibende Eisprünge sein.',
+    section2VisualTitle: 'Deutlichere Schwankungen',
+    section2VisualText:
+      'Diese Unterschiede können vorübergehend sein oder über mehrere Zyklen bestehen bleiben.',
+    alertTitle: 'Bitte beachte',
+    alertText:
+      'Eine vorübergehende Unregelmäßigkeit kann normal sein (Stress, hormonelle Veränderungen, Erschöpfung …). Hält sie aber an, ist es wichtig, der Ursache auf den Grund zu gehen.',
+    causes: [
+      'Stress & Ängste',
+      'Hormonelle Ungleichgewichte',
+      'Schlafmangel & Erschöpfung',
+      'Zu niedriges oder zu hohes Gewicht',
+      'PCOS oder andere Erkrankungen',
+    ],
+    checklist: [
+      'Länger als 3 Monate keine Periode (außerhalb von Schwangerschaft/Stillzeit)',
+      'Sehr lange Zyklen (mehr als 90 Tage) oder sehr kurze Zyklen (weniger als 21 Tage)',
+      'Starke Schmerzen, die dich im Alltag einschränken',
+      'Sehr starke oder unregelmäßige Blutungen',
+      'Wenn du schwanger werden möchtest und der Eisprung auszubleiben scheint',
+    ],
+    advice: [
+      'Ausgewogene Ernährung',
+      'Ausreichend trinken',
+      'Körperliche Bewegung',
+      'Stressbewältigung',
+      'Erholsamer Schlaf',
+    ],
+    shareMessage: 'Regelmäßiger oder unregelmäßiger Zyklus: was ist der Unterschied? – AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<

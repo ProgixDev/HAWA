@@ -464,6 +464,178 @@ const CONTENT = {
     finalNoteText: 'Bu makale yalnızca genel bilgilendirme amaçlıdır ve bir tıbbi muayenenin yerini tutmaz. Şüphen varsa ya da belirtiler sürüyorsa bir sağlık profesyonelinden tavsiye al.',
     shareMessage: 'Hormonal akneyi anlamak — AWA',
   },
+  ru: {
+    badge: 'СПКЯ • ГОРМОНАЛЬНЫЕ ВЫСЫПАНИЯ',
+    title: 'Понимаем\nгормональные высыпания',
+    metaDuration: '7 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Образовательный материал',
+    intro:
+      'Почему при СПКЯ могут появляться гормональные высыпания, как их распознать и какие способы могут помочь с ними справиться.',
+    introSecondary:
+      'Они встречаются у многих женщин и не связаны ни с недостатком гигиены, ни с неизбежностью: понимание их причины помогает лучше с ними справляться.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Что такое гормональные высыпания?',
+      'Почему СПКЯ может вызывать высыпания?',
+      'Как распознать гормональные высыпания',
+      'Гормональные высыпания и менструальный цикл',
+      'Что может помочь',
+      'Когда стоит обратиться к врачу?',
+      'Главное',
+    ],
+    h1: 'Что такое гормональные высыпания?',
+    body1a:
+      'Гормональные высыпания — это форма акне, напрямую связанная с гормональными колебаниями или дисбалансом, в частности андрогенов. В отличие от более типичных подростковых высыпаний, они часто встречаются у взрослых женщин и могут сохраняться или появляться уже после этого периода.',
+    body1b:
+      'Их отличает также расположение, глубина и склонность появляться снова на тех же местах, несмотря на правильный и регулярный уход за кожей.',
+    tip1Title: 'Полезно знать',
+    tip1Text:
+      'Гормональные высыпания не связаны с недостатком гигиены: если умываться чаще, они не исчезнут, а кожа может даже раздражаться.',
+    h2Title: 'Почему СПКЯ может вызывать высыпания?',
+    body2:
+      'При СПКЯ относительный избыток андрогенов стимулирует сальные железы, и они вырабатывают больше кожного сала. Кроме того, у некоторых женщин кожа более чувствительна к этим гормонам, поэтому высыпания могут быть выраженными, даже если в лабораторных анализах нет серьёзного дисбаланса.',
+    neutralText:
+      'Это вопрос не силы воли: такая чувствительность у каждой своя и не зависит от вашего образа жизни.',
+    h3Title: 'Как распознать гормональные высыпания',
+    body3:
+      'Некоторые особенности встречаются часто, хотя и не всегда:',
+    recognizeSigns: [
+      'Нижняя часть лица: линия челюсти, подбородок',
+      'Более глубокие, иногда болезненные высыпания',
+      'Часто появляются снова на тех же местах',
+      'Покраснения или следы, которые держатся долго',
+    ],
+    h4Title: 'Гормональные высыпания и менструальный цикл',
+    body4:
+      'Гормональные высыпания могут меняться в течение цикла. Многие женщины замечают обострение за несколько дней до месячных, когда прогестерон растёт, а затем резко падает, временно стимулируя выработку кожного сала.',
+    highlightTitle: 'Отслеживайте обострения',
+    highlightText:
+      'Отмечайте, когда появляются высыпания относительно вашего цикла: это поможет вам и вашему дерматологу лучше понять гормональную связь.',
+    h5Title: 'Что может помочь',
+    body5a:
+      'Несколько простых привычек ухода помогают ограничить обострения, хотя сами по себе полностью их не устраняют:',
+    careHabits: [
+      'Мягко очищайте кожу утром и вечером',
+      'Избегайте агрессивных или пересушивающих средств',
+      'Ежедневно защищайте кожу от солнца',
+      'Не выдавливайте и не ковыряйте высыпания',
+    ],
+    body5b:
+      'В зависимости от ситуации дерматолог или гинеколог может предложить наружные средства (кремы, гели) или, при необходимости, подходящее гормональное лечение.',
+    alertTitle: 'Не занимайтесь самолечением',
+    alertText:
+      'Средства от гормональных высыпаний (наружные или гормональные) должны назначаться и контролироваться медицинским специалистом, особенно если вы надеетесь забеременеть.',
+    h6Title: 'Когда стоит обратиться к врачу?',
+    body6:
+      'Консультация врача особенно полезна в некоторых ситуациях:',
+    consultReasons: [
+      'Высыпания сохраняются, несмотря на подходящий уход',
+      'Болезненные или глубокие высыпания (узлы, кисты)',
+      'Тяжёлые высыпания или быстро усиливающиеся',
+      'Остающиеся следы или рубцы',
+    ],
+    h7Title: 'Главное',
+    summaryTitle: 'Самое важное',
+    keyPoints: [
+      'У гормональных высыпаний есть определённая причина, связанная с андрогенами.',
+      'Они часто появляются на нижней части лица и могут усиливаться перед месячными.',
+      'Они не связаны ни с недостатком гигиены, ни с неизбежностью.',
+      'Мягкий уход и, при необходимости, подходящее лечение могут улучшить состояние кожи.',
+      'Дерматолог или гинеколог может поддержать вас, если высыпания не проходят.',
+    ],
+    finalNoteTitle: 'Руководство для лучшего понимания',
+    finalNoteText:
+      'Эта статья носит исключительно общий информационный характер и не заменяет медицинскую консультацию. При сомнениях или если симптомы сохраняются, обратитесь за советом к медицинскому специалисту.',
+    shareMessage: 'Понимаем гормональные высыпания — AWA',
+  },
+  de: {
+    badge: 'PCOS • HORMONELLE AKNE',
+    title: 'Hormonelle Akne\nverstehen',
+    metaDuration: '7 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Bildungsinhalt',
+    intro:
+      'Warum bei PCOS hormonelle Akne auftreten kann, wie du sie erkennst und welche Lösungen helfen können, sie in den Griff zu bekommen.',
+    introSecondary:
+      'Sie betrifft viele Frauen und ist weder mangelnde Hygiene noch unvermeidlich: Wenn du ihre Ursache verstehst, kannst du besser damit umgehen.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Was ist hormonelle Akne?',
+      'Warum kann PCOS Akne verursachen?',
+      'Wie du hormonelle Akne erkennst',
+      'Hormonelle Akne und der Menstruationszyklus',
+      'Was helfen kann',
+      'Wann zur Ärztin oder zum Arzt?',
+      'Das Wichtigste in Kürze',
+    ],
+    h1: 'Was ist hormonelle Akne?',
+    body1a:
+      'Hormonelle Akne ist eine Form der Akne, die direkt mit hormonellen Schwankungen oder einem Ungleichgewicht zusammenhängt, insbesondere bei den Androgenen. Anders als die typische Akne der Jugend betrifft sie oft erwachsene Frauen und kann über diese Zeit hinaus bestehen bleiben oder erst danach auftreten.',
+    body1b:
+      'Sie zeichnet sich außerdem durch ihre Lokalisation, ihre Tiefe und ihre Neigung aus, trotz einer konsequenten Hautpflegeroutine immer an denselben Stellen wiederzukehren.',
+    tip1Title: 'Gut zu wissen',
+    tip1Text:
+      'Hormonelle Akne hat nichts mit mangelnder Hygiene zu tun: Häufigeres Gesichtwaschen lässt sie nicht verschwinden und kann die Haut sogar reizen.',
+    h2Title: 'Warum kann PCOS Akne verursachen?',
+    body2:
+      'Bei PCOS regt ein relativer Überschuss an Androgenen die Talgdrüsen an, die dann mehr Talg produzieren. Manche Haut reagiert zudem empfindlicher auf diese Hormone, weshalb die Akne auch ohne ein im Labor gemessenes großes Ungleichgewicht stark ausgeprägt sein kann.',
+    neutralText:
+      'Das hat nichts mit Willenskraft zu tun: Diese Empfindlichkeit ist von Person zu Person verschieden und hängt nicht von deinen Lebensgewohnheiten ab.',
+    h3Title: 'Wie du hormonelle Akne erkennst',
+    body3:
+      'Bestimmte Merkmale treten häufig auf, wenn auch nicht immer:',
+    recognizeSigns: [
+      'Unterer Gesichtsbereich: Kieferlinie, Kinn',
+      'Tiefere, manchmal schmerzhafte Entzündungen',
+      'Tritt oft immer wieder an denselben Stellen auf',
+      'Rötungen oder Flecken, die bleiben',
+    ],
+    h4Title: 'Hormonelle Akne und der Menstruationszyklus',
+    body4:
+      'Hormonelle Akne kann im Zyklusverlauf schwanken. Viele Frauen bemerken in den Tagen vor der Periode einen Schub, wenn das Progesteron ansteigt und dann stark abfällt und dadurch vorübergehend die Talgproduktion anregt.',
+    highlightTitle: 'Schübe festhalten',
+    highlightText:
+      'Wenn du festhältst, wann die Pickel in Bezug auf deinen Zyklus auftreten, kann das dir und deiner Hautärztin oder deinem Hautarzt helfen, den hormonellen Zusammenhang besser zu verstehen.',
+    h5Title: 'Was helfen kann',
+    body5a:
+      'Einige einfache Pflegegewohnheiten können helfen, Schübe zu begrenzen, ohne sie allein vollständig zum Verschwinden zu bringen:',
+    careHabits: [
+      'Die Haut morgens und abends sanft reinigen',
+      'Aggressive oder austrocknende Produkte vermeiden',
+      'Die Haut täglich vor der Sonne schützen',
+      'Pickel nicht ausdrücken oder daran herumdrücken',
+    ],
+    body5b:
+      'Je nach Situation kann eine Hautärztin, ein Hautarzt, eine Frauenärztin oder ein Frauenarzt lokale Behandlungen (Cremes, Gele) oder bei Bedarf eine geeignete hormonelle Behandlung vorschlagen.',
+    alertTitle: 'Keine Selbstbehandlung',
+    alertText:
+      'Behandlungen gegen hormonelle Akne (lokal oder hormonell) müssen von medizinischem Fachpersonal verordnet und begleitet werden, insbesondere wenn du dir ein Kind wünschst.',
+    h6Title: 'Wann zur Ärztin oder zum Arzt?',
+    body6:
+      'Ärztlicher Rat ist besonders in bestimmten Situationen hilfreich:',
+    consultReasons: [
+      'Akne, die trotz passender Pflege bestehen bleibt',
+      'Schmerzhafte oder tiefe Entzündungen (Knoten, Zysten)',
+      'Starke Akne oder Akne, die sich rasch verschlimmert',
+      'Flecken oder Narben, die sich festsetzen',
+    ],
+    h7Title: 'Das Wichtigste in Kürze',
+    summaryTitle: 'Die wichtigsten Punkte',
+    keyPoints: [
+      'Hormonelle Akne hat eine erkennbare Ursache, die mit den Androgenen zusammenhängt.',
+      'Sie betrifft häufig den unteren Gesichtsbereich und kann sich vor der Periode verschlimmern.',
+      'Sie ist weder mangelnde Hygiene noch unvermeidlich.',
+      'Sanfte Pflege und bei Bedarf eine passende Behandlung können sie verbessern.',
+      'Eine Hautärztin, ein Hautarzt, eine Frauenärztin oder ein Frauenarzt kann dich begleiten, wenn sie bestehen bleibt.',
+    ],
+    finalNoteTitle: 'Ein Ratgeber für mehr Verständnis',
+    finalNoteText:
+      'Dieser Artikel dient nur der allgemeinen Information und ersetzt keine ärztliche Beratung. Bei Zweifeln oder wenn die Symptome anhalten, lass dich von medizinischem Fachpersonal beraten.',
+    shareMessage: 'Hormonelle Akne verstehen – AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

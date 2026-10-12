@@ -656,6 +656,236 @@ const CONTENT = {
     disclaimerText: 'Bilgilendirici içerik. Burada sunulan tıbbi bilgiler geneldir ve bir sağlık uzmanının görüşünün yerini almaz. Belirli dinî sorular için yetkin bir dinî kaynağa başvurulması önerilir.',
     shareMessage: 'Nifas: tıbbi yönleri — AWA',
   },
+  ru: {
+    badge: 'ПОСЛЕРОДОВОЙ ПЕРИОД • НИФАС',
+    title: 'Нифас:\nмедицинские аспекты',
+    metaDuration: '5 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Информационный материал',
+    intro:
+      'После родов организм проходит через период постепенного восстановления. Понимание того, как протекают послеродовые выделения, как они меняются и какие признаки требуют внимания, поможет вам чувствовать себя более осведомлённой в этот период.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Что означает термин «нифас»',
+      'Медицинская картина после родов',
+      'Как меняются лохии',
+      'Забота о себе',
+      'Когда обратиться за советом',
+      'Главное, что стоит запомнить',
+    ],
+    h2Section1: '1. Что означает термин «нифас»',
+    body1a:
+      'Термин «нифас» относится к религиозной лексике и обозначает период, связанный с кровотечением после родов, в рамках исламского права.',
+    body1b:
+      'С медицинской точки зрения кровотечение, наблюдаемое после родов, называется «лохии». Эти два понятия можно рассматривать отдельно: одно относится к религиозной сфере, другое описывает физиологическое явление.',
+    distinction: {
+      nifasTitle: 'Нифас',
+      nifasText: 'Понятие из религиозной сферы, относящееся к периоду после родов.',
+      lochiaTitle: 'Лохии',
+      lochiaText: 'Медицинский термин, обозначающий послеродовые выделения.',
+    },
+    h2Section2: '2. Медицинская картина после родов',
+    body2:
+      'Послеродовое восстановление происходит постепенно. Послеродовые выделения, как правило, меняются со временем по мере того, как матка продолжает возвращаться в обычное состояние.',
+    schemaTitle: 'Течение послеродового периода',
+    schemaSubtitle: 'Упрощённая медицинская схема',
+    stages: [
+      {
+        title: 'После родов',
+        subtitle: 'Начало послеродового периода',
+        text: 'Организм постепенно начинает восстанавливаться после родов.',
+      },
+      {
+        title: 'Лохии',
+        subtitle: 'Послеродовые выделения',
+        text: 'Количество и цвет выделений постепенно меняются.',
+      },
+      {
+        title: 'Постепенное уменьшение',
+        subtitle: 'В течение нескольких недель',
+        text: 'Со временем выделения, как правило, уменьшаются.',
+      },
+      {
+        title: 'Постепенное возвращение',
+        subtitle: 'К привычному циклу',
+        text: 'Затем менструальный цикл может постепенно возобновиться.',
+      },
+    ],
+    h2Section3: '3. Как меняются лохии',
+    body3:
+      'Лохии, как правило, постепенно меняют цвет и становятся менее обильными. Однако это течение может отличаться у разных женщин.',
+    lochiaEvolution: [
+      {
+        title: 'Красные лохии',
+        period: 'Первые дни',
+        text: 'Выделения обычно красного цвета и в начале могут быть более обильными.',
+      },
+      {
+        title: 'Розоватые / коричневатые лохии',
+        period: 'Через несколько дней',
+        text: 'По мере уменьшения выделений цвет может становиться светлее или коричневатым.',
+      },
+      {
+        title: 'Беловатые лохии',
+        period: 'В последующие недели',
+        text: 'Выделения постепенно становятся светлее и менее обильными.',
+      },
+    ],
+    infoTitle: 'Главное',
+    infoText:
+      'Цвет и количество лохий могут постепенно меняться. Точное течение этого процесса у всех разное.',
+    h2Section4: '4. Забота о себе',
+    body4:
+      'В этот период несколько простых привычек могут помочь чувствовать себя комфортнее и поддержать восстановление организма.',
+    careTips: [
+      {title: 'Бережная гигиена', text: 'Придерживайтесь простой и комфортной ежедневной гигиены.'},
+      {title: 'Отдых', text: 'Дайте организму время восстановиться.'},
+      {title: 'Питьевой режим', text: 'Не забывайте регулярно пить в соответствии с вашими потребностями.'},
+      {title: 'Питание', text: 'Разнообразное питание поддерживает восстановление.'},
+    ],
+    h2Section5: '5. Когда обратиться за советом',
+    body5:
+      'В некоторых ситуациях необходимо как можно скорее обратиться за советом к медицинскому специалисту, особенно если изменение кажется значительным, внезапным или необычным.',
+    warningTitle: 'Признаки, которые нельзя игнорировать',
+    warningSubtitle: 'При необходимости обратитесь к специалисту',
+    warningSigns: [
+      'Сильный или необычный запах выделений',
+      'Повышение температуры или ухудшение общего состояния',
+      'Внезапное резкое усиление кровотечения',
+      'Сильная, не проходящая или необычная боль',
+      'Новый симптом, который вас беспокоит',
+    ],
+    tipTitle: 'ПОЛЕЗНО ЗНАТЬ',
+    tipText:
+      'Послеродовое восстановление у каждой женщины проходит по-своему. Информация в этой статье носит общий ориентировочный характер и не заменяет медицинскую консультацию.',
+    summaryHeading: 'Главное, что стоит запомнить',
+    summary: [
+      'Нифас — термин, используемый в религиозном контексте после родов.',
+      'С медицинской точки зрения послеродовые выделения называются лохиями.',
+      'Лохии постепенно меняют цвет и количество.',
+      'Отдых, бережная гигиена и достаточное питьё поддерживают восстановление.',
+      'Необычное или тревожное изменение требует консультации специалиста.',
+    ],
+    disclaimerText:
+      'Информационный материал. Представленная здесь медицинская информация носит общий характер и не заменяет рекомендации медицинского специалиста. По конкретным религиозным вопросам рекомендуется обращаться к компетентному религиозному источнику.',
+    shareMessage: 'Нифас: медицинские аспекты — AWA',
+  },
+  de: {
+    badge: 'WOCHENBETT • NIFAS',
+    title: 'Nifas:\nmedizinische Aspekte',
+    metaDuration: '5 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Informationsinhalt',
+    intro:
+      'Nach der Geburt durchläuft der Körper eine Phase allmählicher Erholung. Wenn du die Blutung im Wochenbett, ihren Verlauf und die Anzeichen verstehst, die Aufmerksamkeit erfordern, kannst du dich in dieser Zeit besser informiert fühlen.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Den Begriff Nifas verstehen',
+      'Der medizinische Verlauf nach der Geburt',
+      'Wie sich der Wochenfluss entwickelt',
+      'Gut für dich sorgen',
+      'Wann du Rat suchen solltest',
+      'Das Wichtigste in Kürze',
+    ],
+    h2Section1: '1. Den Begriff „Nifas“ verstehen',
+    body1a:
+      'Der Begriff „Nifas“ gehört zum religiösen Vokabular und bezeichnet im Rahmen der islamischen Rechtslehre die Zeit, die mit der Blutung nach der Geburt verbunden ist.',
+    body1b:
+      'Medizinisch wird die Blutung nach der Geburt „Wochenfluss“ (Lochien) genannt. Diese beiden Begriffe lassen sich getrennt betrachten: Der eine gehört zu einem religiösen Rahmen, der andere beschreibt ein körperliches Geschehen.',
+    distinction: {
+      nifasTitle: 'Nifas',
+      nifasText: 'Ein Begriff aus dem religiösen Rahmen nach der Geburt.',
+      lochiaTitle: 'Wochenfluss',
+      lochiaText: 'Medizinischer Begriff für die Blutung im Wochenbett.',
+    },
+    h2Section2: '2. Der medizinische Verlauf nach der Geburt',
+    body2:
+      'Die Erholung im Wochenbett verläuft allmählich. Die Blutung im Wochenbett verändert sich im Allgemeinen mit der Zeit, während sich die Gebärmutter weiter in ihren gewohnten Zustand zurückbildet.',
+    schemaTitle: 'Verlauf im Wochenbett',
+    schemaSubtitle: 'Vereinfachte medizinische Orientierung',
+    stages: [
+      {
+        title: 'Nach der Geburt',
+        subtitle: 'Beginn des Wochenbetts',
+        text: 'Der Körper beginnt nach der Geburt allmählich mit seiner Erholung.',
+      },
+      {
+        title: 'Wochenfluss',
+        subtitle: 'Blutung im Wochenbett',
+        text: 'Die Blutung verändert sich nach und nach in Menge und Farbe.',
+      },
+      {
+        title: 'Allmählicher Rückgang',
+        subtitle: 'Über mehrere Wochen',
+        text: 'Die Blutung nimmt im Allgemeinen mit der Zeit ab.',
+      },
+      {
+        title: 'Allmähliche Rückkehr',
+        subtitle: 'Zum gewohnten Zyklus',
+        text: 'Der Menstruationszyklus kann danach allmählich wieder einsetzen.',
+      },
+    ],
+    h2Section3: '3. Wie sich der Wochenfluss entwickelt',
+    body3:
+      'Der Wochenfluss ändert im Allgemeinen nach und nach seine Farbe und nimmt in der Menge ab. Dieser Verlauf kann jedoch von Person zu Person unterschiedlich sein.',
+    lochiaEvolution: [
+      {
+        title: 'Roter Wochenfluss',
+        period: 'Erste Tage',
+        text: 'Die Blutung ist meist rot und kann am Anfang stärker sein.',
+      },
+      {
+        title: 'Rosafarbener / bräunlicher Wochenfluss',
+        period: 'Nach einigen Tagen',
+        text: 'Die Farbe kann heller oder bräunlich werden, wenn der Fluss nachlässt.',
+      },
+      {
+        title: 'Weißlicher Wochenfluss',
+        period: 'In den folgenden Wochen',
+        text: 'Die Blutung wird nach und nach schwächer und weniger.',
+      },
+    ],
+    infoTitle: 'Das Wichtigste in Kürze',
+    infoText:
+      'Farbe und Menge des Wochenflusses können sich allmählich verändern. Der genaue Verlauf ist nicht bei jeder Frau gleich.',
+    h2Section4: '4. Gut für dich sorgen',
+    body4:
+      'In dieser Zeit können ein paar einfache Gewohnheiten das Wohlbefinden fördern und die Erholung des Körpers unterstützen.',
+    careTips: [
+      {title: 'Sanfte Hygiene', text: 'Pflege eine einfache, angenehme tägliche Hygieneroutine.'},
+      {title: 'Ruhe', text: 'Gib deinem Körper Zeit, sich zu erholen.'},
+      {title: 'Flüssigkeit', text: 'Denk daran, je nach Bedarf regelmäßig zu trinken.'},
+      {title: 'Ernährung', text: 'Eine abwechslungsreiche Ernährung unterstützt die Erholung.'},
+    ],
+    h2Section5: '5. Wann du Rat suchen solltest',
+    body5:
+      'In bestimmten Situationen ist zeitnaher Rat von medizinischem Fachpersonal angezeigt, besonders wenn eine Veränderung erheblich, plötzlich oder ungewöhnlich erscheint.',
+    warningTitle: 'Anzeichen, die du nicht ignorieren solltest',
+    warningSubtitle: 'Hole bei Bedarf fachlichen Rat ein',
+    warningSigns: [
+      'Ein starker oder ungewöhnlicher Geruch der Blutung',
+      'Fieber oder eine Verschlechterung des Allgemeinzustands',
+      'Eine Blutung, die plötzlich sehr stark wird',
+      'Starke, anhaltende oder ungewöhnliche Schmerzen',
+      'Ein neues Symptom, das dich beunruhigt',
+    ],
+    tipTitle: 'Gut zu wissen',
+    tipText:
+      'Jede Erholung im Wochenbett ist anders. Die Informationen in diesem Artikel dienen der allgemeinen Orientierung und ersetzen keine ärztliche Beratung.',
+    summaryHeading: 'Das Wichtigste in Kürze',
+    summary: [
+      'Nifas ist ein Begriff, der im religiösen Zusammenhang nach der Geburt verwendet wird.',
+      'Medizinisch heißt die Blutung im Wochenbett Wochenfluss (Lochien).',
+      'Der Wochenfluss verändert sich nach und nach in Farbe und Menge.',
+      'Ruhe, sanfte Hygiene und ausreichend Flüssigkeit unterstützen die Erholung.',
+      'Eine ungewöhnliche oder beunruhigende Veränderung verdient fachlichen Rat.',
+    ],
+    disclaimerText:
+      'Informationsinhalt. Die hier dargestellten medizinischen Informationen sind allgemein gehalten und ersetzen nicht den Rat von medizinischem Fachpersonal. Bei konkreten religiösen Fragen wird empfohlen, eine fachkundige religiöse Quelle heranzuziehen.',
+    shareMessage: 'Nifas: medizinische Aspekte — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */

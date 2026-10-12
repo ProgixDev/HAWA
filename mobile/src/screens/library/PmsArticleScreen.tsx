@@ -331,6 +331,98 @@ const CONTENT = {
     consultText: 'Belirtiler çok şiddetliyse ve gündelik hayatını etkiliyorsa, adet öncesi disforik bozukluk (PMDD) söz konusu olabilir. Bir sağlık uzmanına başvurmaktan çekinme.',
     shareMessage: 'Adet öncesi sendrom (PMS): daha iyi anlamak — AWA',
   },
+  ru: {
+    badge: 'ЦИКЛ И САМОЧУВСТВИЕ',
+    title: 'Предменструальный синдром (ПМС):\nпонять лучше',
+    metaDuration: '4 мин чтения',
+    metaValidated: 'Проверенный материал',
+    intro:
+      'ПМС затрагивает до 8 женщин из 10. Усталость, раздражительность, вздутие… Понимание причин и правильные привычки могут заметно облегчить этот период месяца.',
+    contentsTitle: 'В этой статье',
+    contents: [
+      'Что такое ПМС?',
+      'Частые симптомы',
+      'Возможные причины',
+      'Советы, которые помогут чувствовать себя лучше',
+      'Когда обратиться к врачу?',
+    ],
+    section1Body:
+      'Предменструальный синдром объединяет физические и эмоциональные симптомы, которые обычно появляются за 5–10 дней до месячных и проходят в начале менструального цикла.',
+    visual1Title: 'Фаза, связанная с вашим циклом',
+    visual1Text:
+      'Симптомы появляются перед месячными и обычно ослабевают, когда они начинаются.',
+    tip1Title: 'Полезно знать',
+    tip1Text:
+      'Интенсивность и тип симптомов могут сильно различаться у разных женщин и от цикла к циклу.',
+    symptoms: [
+      {title: 'Эмоции', text: 'Раздражительность, тревога, грусть, перепады настроения'},
+      {title: 'Физические проявления', text: 'Вздутие, боль, усталость, головные боли'},
+      {title: 'Поведение', text: 'Тяга к сладкому, изменение аппетита, усталость'},
+      {title: 'Сон', text: 'Трудности со сном или менее глубокий сон'},
+    ],
+    section3Body:
+      'Гормональные колебания, в частности прогестерона и эстрогена, влияют на нейромедиаторы мозга (серотонин, дофамин), чем могут объясняться эмоциональные и физические симптомы ПМС.',
+    tip2Title: 'Гормоны играют ключевую роль',
+    tip2Text:
+      'Гормональные колебания могут влиять на настроение, энергию, сон и некоторые физические ощущения.',
+    tips: [
+      {title: 'Пейте достаточно жидкости', text: 'Достаточное количество воды помогает уменьшить вздутие.'},
+      {title: 'Питайтесь сбалансированно', text: 'Отдавайте предпочтение продуктам, богатым магнием, омега-3 и витаминами группы B.'},
+      {title: 'Оставайтесь активной', text: 'Физическая активность вызывает выработку эндорфинов и снижает стресс.'},
+      {title: 'Справляйтесь со стрессом', text: 'Дыхательные упражнения, медитация, дневник… Найдите то, что подходит вам.'},
+      {title: 'Высыпайтесь', text: 'Качественный сон поддерживает гормональный баланс.'},
+    ],
+    consultTitle: 'Когда стоит обратиться за медицинской консультацией?',
+    consultText:
+      'Если симптомы очень выражены и влияют на повседневную жизнь, это может быть предменструальное дисфорическое расстройство (ПМДР). Не стесняйтесь обратиться к медицинскому специалисту.',
+    shareMessage: 'Предменструальный синдром (ПМС): понять лучше — AWA',
+  },
+  de: {
+    badge: 'ZYKLUS & WOHLBEFINDEN',
+    title: 'Prämenstruelles Syndrom (PMS):\nbesser verstehen',
+    metaDuration: '4 Min. Lesezeit',
+    metaValidated: 'Geprüfter Inhalt',
+    intro:
+      'PMS betrifft bis zu 8 von 10 Frauen. Müdigkeit, Reizbarkeit, Blähungen … Wenn du die Ursachen verstehst und die richtigen Gewohnheiten annimmst, kann sich diese Zeit des Monats deutlich verbessern.',
+    contentsTitle: 'In diesem Artikel',
+    contents: [
+      'Was ist PMS?',
+      'Häufige Symptome',
+      'Mögliche Ursachen',
+      'Tipps für mehr Wohlbefinden',
+      'Wann zur Ärztin oder zum Arzt?',
+    ],
+    section1Body:
+      'Das prämenstruelle Syndrom fasst körperliche und emotionale Symptome zusammen, die in der Regel 5 bis 10 Tage vor deiner Periode auftreten und zu Beginn des Menstruationszyklus wieder verschwinden.',
+    visual1Title: 'Eine Phase, die mit deinem Zyklus zusammenhängt',
+    visual1Text:
+      'Die Symptome treten vor deiner Periode auf und lassen in der Regel nach, sobald sie beginnt.',
+    tip1Title: 'Gut zu wissen',
+    tip1Text:
+      'Stärke und Art der Symptome können von Frau zu Frau und von Zyklus zu Zyklus stark variieren.',
+    symptoms: [
+      {title: 'Emotionen', text: 'Reizbarkeit, Angst, Traurigkeit, Stimmungsschwankungen'},
+      {title: 'Körperlich', text: 'Blähungen, Schmerzen, Müdigkeit, Kopfschmerzen'},
+      {title: 'Verhalten', text: 'Heißhunger auf Süßes, veränderter Appetit, Müdigkeit'},
+      {title: 'Schlaf', text: 'Schlafstörungen oder weniger erholsamer Schlaf'},
+    ],
+    section3Body:
+      'Hormonelle Schwankungen, insbesondere von Progesteron und Östrogen, wirken auf die Botenstoffe im Gehirn (Serotonin, Dopamin) und können die emotionalen und körperlichen Symptome von PMS erklären.',
+    tip2Title: 'Hormone spielen eine zentrale Rolle',
+    tip2Text:
+      'Hormonelle Schwankungen können Stimmung, Energie, Schlaf und bestimmte körperliche Empfindungen beeinflussen.',
+    tips: [
+      {title: 'Ausreichend trinken', text: 'Genug Wasser zu trinken hilft, Blähungen zu verringern.'},
+      {title: 'Ausgewogen essen', text: 'Bevorzuge Lebensmittel, die reich an Magnesium, Omega-3-Fettsäuren und B-Vitaminen sind.'},
+      {title: 'Aktiv bleiben', text: 'Körperliche Aktivität setzt Endorphine frei und baut Stress ab.'},
+      {title: 'Stress bewältigen', text: 'Atemübungen, Meditation, Tagebuchschreiben … Finde heraus, was dir guttut.'},
+      {title: 'Genug schlafen', text: 'Erholsamer Schlaf unterstützt das hormonelle Gleichgewicht.'},
+    ],
+    consultTitle: 'Wann solltest du ärztlichen Rat einholen?',
+    consultText:
+      'Wenn die Symptome sehr stark sind und deinen Alltag beeinträchtigen, kann es sich um eine prämenstruelle dysphorische Störung (PMDS) handeln. Zögere nicht, medizinisches Fachpersonal aufzusuchen.',
+    shareMessage: 'Prämenstruelles Syndrom (PMS): besser verstehen — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<

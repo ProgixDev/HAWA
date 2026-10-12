@@ -783,6 +783,322 @@ const CONTENT = {
     finalNoteText: 'Bu makale genel bilgilendirme amaçlıdır ve bir tıbbi muayenenin yerini tutmaz. Her durum farklıdır: tereddüt ettiğinde ya da belirtiler sürdüğünde bir sağlık uzmanına danış.',
     shareMessage: 'PKOS’u anlamak — AWA',
   },
+  ru: {
+    badge: 'СПКЯ • ОСНОВНОЕ РУКОВОДСТВО',
+    title: 'Понимаем\nСПКЯ',
+    metaDuration: '10 мин чтения',
+    metaType: 'Руководство',
+    metaLevel: 'Для начинающих',
+    metaValidated: 'Образовательный материал',
+    intro:
+      'Синдром поликистозных яичников, или СПКЯ, — распространённое гормональное состояние, которое может влиять на цикл, овуляцию, кожу, волосы, обмен веществ, а иногда и на фертильность.',
+    introSecondary:
+      'Проявления сильно различаются у разных женщин. Понимание СПКЯ прежде всего помогает распознавать его симптомы, знать, когда обратиться к врачу, и наблюдать за его течением, не обвиняя себя.',
+    contentsTitle: 'В этой статье',
+    topics: [
+      'Что такое СПКЯ?',
+      'Почему возникает СПКЯ?',
+      'Основные признаки',
+      'Как ставится диагноз?',
+      'СПКЯ и овуляция',
+      'СПКЯ и фертильность',
+      'СПКЯ, вес и обмен веществ',
+      'Кожа, волосы и волосяной покров тела',
+      'Как справляться с СПКЯ?',
+      'Распространённые заблуждения',
+      'Когда обратиться к врачу',
+      'Главное, что стоит запомнить',
+    ],
+    s1Heading: 'Что такое СПКЯ?',
+    s1Body1:
+      'Синдром поликистозных яичников (СПКЯ) — распространённое гормональное состояние, которое может изменять привычную работу яичников и баланс некоторых гормонов.',
+    s1Body2:
+      'У одних женщин основная проблема — нерегулярная овуляция. У других на первый план выходят акне, избыточный рост волос, выпадение волос или обменные нарушения.',
+    s1TipTitle: 'ПОЛЕЗНО ЗНАТЬ',
+    s1TipText:
+      'Несмотря на название, СПКЯ не обязательно означает, что в яичниках есть «кисты». Исторический термин может вводить в заблуждение, а одного УЗИ недостаточно для постановки диагноза.',
+    s2Heading: 'Почему возникает СПКЯ?',
+    s2Body1:
+      'У СПКЯ нет единственной причины. Он, по-видимому, возникает в результате сочетания нескольких факторов: наследственной предрасположенности, гормональной регуляции, овуляции, обмена веществ и индивидуальных особенностей.',
+    s2Factors: [
+      'Семейная предрасположенность и генетические факторы',
+      'Нарушения овуляции',
+      'Относительный избыток андрогенов',
+      'Инсулинорезистентность у некоторых женщин',
+      'Обменные факторы и факторы окружающей среды',
+    ],
+    s2NeutralText:
+      'СПКЯ — не личная вина. Он не является просто следствием недостатка силы воли, неправильного питания или недостаточной физической активности.',
+    s3Heading: 'Основные признаки',
+    s3Body1:
+      'СПКЯ может проявляться совершенно по-разному у разных женщин. У одних есть несколько симптомов, а другие замечают их совсем немного.',
+    s3Signs: [
+      'Нерегулярный цикл, редкие или иногда отсутствующие месячные',
+      'Нерегулярная или трудно предсказуемая овуляция',
+      'Стойкие акне, особенно в нижней части лица',
+      'Усиленный рост волос на лице, груди или теле',
+      'Выпадение волос по гормональному типу',
+      'Набор веса или трудности со снижением веса',
+      'Трудности с зачатием',
+    ],
+    s3AlertTitle: 'Важно',
+    s3AlertText:
+      'Наличие одного из этих симптомов не означает автоматически, что у вас СПКЯ. Похожие симптомы могут вызывать и другие состояния.',
+    s4Heading: 'Как ставится диагноз?',
+    s4Body1:
+      'Диагностика СПКЯ — медицинский процесс. Обычно специалист сначала обсуждает с вами ваш цикл, симптомы, историю болезни и принимаемое лечение.',
+    s4Body2:
+      'В зависимости от ситуации могут также назначить гормональные анализы крови и УЗИ.',
+    s4Points: [
+      'Нерегулярный цикл или редкая овуляция',
+      'Признаки избытка андрогенов: акне, избыточный рост волос, выпадение волос или результаты анализов крови',
+      'Вид яичников, соответствующий СПКЯ, по данным УЗИ, если это исследование показано',
+    ],
+    s4Body3:
+      'Прежде чем подтвердить диагноз СПКЯ, врач должен также исключить другие возможные причины нерегулярного цикла или избытка андрогенов.',
+    s5Heading: 'СПКЯ и овуляция',
+    s5Body1:
+      'Овуляция — это выход яйцеклетки (ооцита) из яичника. При СПКЯ овуляция может происходить реже или быть труднее предсказуемой.',
+    s5Body2:
+      'Это может объяснять, почему цикл иногда бывает длинным, нерегулярным или трудно прогнозируемым.',
+    s5HighlightTitle: 'Отслеживание цикла',
+    s5HighlightText:
+      'Запись дат месячных, симптомов и возможных признаков овуляции поможет вам лучше понять собственные закономерности.',
+    s6Heading: 'СПКЯ и фертильность',
+    s6Body1:
+      'Поскольку овуляция может быть нерегулярной, у некоторых женщин с СПКЯ зачатие может наступать труднее.',
+    s6Body2:
+      'Однако это не означает, что СПКЯ автоматически исключает беременность. Многие женщины с СПКЯ беременеют естественным путём или при соответствующей медицинской поддержке.',
+    s6TipTitle: 'Помните',
+    s6TipText:
+      'Трудности с зачатием не означают, что беременность невозможна. Если вы надеетесь забеременеть, врач или акушерка могут предложить подходящую вашей ситуации стратегию.',
+    s7Heading: 'СПКЯ, вес и обмен веществ',
+    s7Body1:
+      'СПКЯ может сопровождаться обменными изменениями, в том числе инсулинорезистентностью у некоторых женщин.',
+    s7Body2:
+      'Однако по одному лишь весу нельзя ни поставить диагноз СПКЯ, ни исключить его. СПКЯ может быть и у худощавой женщины, а у женщины с избыточным весом его может не быть.',
+    s7NeutralText:
+      'При наблюдении следует учитывать общее состояние здоровья, а не только цифру на весах.',
+    s8Heading: 'Кожа, волосы и волосяной покров тела',
+    s8Body1:
+      'Относительный избыток андрогенов может влиять на сальные железы и волосяные фолликулы.',
+    s8Body2:
+      'У разных женщин это может проявляться стойкими акне, усиленным ростом волос или их выпадением.',
+    s8Items: [
+      'Гормональные акне',
+      'Усиленный рост волос на лице или теле',
+      'Истончение или выпадение волос',
+    ],
+    s9Heading: 'Как справляться с СПКЯ?',
+    s9Body1:
+      'Единого подхода к лечению СПКЯ, подходящего всем женщинам, не существует. Выбор зависит от симптомов, целей и медицинских обстоятельств.',
+    s9Body2:
+      'Цель может отличаться в зависимости от этапа жизни: регулировать цикл, облегчить некоторые симптомы, защитить обменное здоровье или поддержать планирование беременности.',
+    s9MiniTitle: 'Привычки, поддерживающие здоровье',
+    s9Lifestyle: [
+      'Разнообразное регулярное питание, соответствующее вашим потребностям',
+      'Регулярная физическая активность, которую вы можете поддерживать длительное время',
+      'Достаточно регулярный сон',
+      'Наблюдение за тем, как меняются цикл и симптомы со временем',
+      'Не винить себя за изменения веса или симптомов',
+    ],
+    s9Body3:
+      'В зависимости от ваших потребностей специалист может также предложить лечение отдельных симптомов или поддержку при планировании беременности.',
+    s9AlertTitle: 'Не занимайтесь самолечением',
+    s9AlertText:
+      'Гормональные препараты, лекарства, влияющие на обмен веществ, и пищевые добавки следует обсуждать с медицинским специалистом.',
+    s10Heading: 'Распространённые заблуждения о СПКЯ',
+    s10Myths: [
+      'СПКЯ всегда означает наличие «кист»: название может вводить в заблуждение. Диагноз не основывается только на наличии кист.',
+      'У всех женщин с СПКЯ избыточный вес: СПКЯ может быть у женщин с любым телосложением.',
+      'СПКЯ всегда исключает беременность: овуляция может быть нерегулярной, но беременность всё равно возможна.',
+      'Одного симптома достаточно для диагноза СПКЯ: для диагностики необходимо комплексное обследование.',
+      'СПКЯ просто проходит с возрастом: его проявления могут меняться в течение жизни, но постоянное наблюдение остаётся важным.',
+    ],
+    s11Heading: 'Когда обратиться к врачу',
+    s11Body1:
+      'Особенно стоит обратиться за медицинской консультацией, если цикл становится очень нерегулярным, месячных нет несколько месяцев или появляются необычные симптомы.',
+    s11ConsultItems: [
+      'Очень нерегулярный цикл или отсутствие месячных',
+      'Необычные акне или рост волос',
+      'Значительное выпадение волос',
+      'Трудности с зачатием',
+      'Быстро меняющиеся симптомы',
+    ],
+    s12Heading: 'Главное, что стоит запомнить',
+    s12SummaryTitle: 'Основные моменты',
+    s12SummaryItems: [
+      'СПКЯ — распространённое гормональное состояние.',
+      'Оно может проявляться по-разному.',
+      'Не у всех женщин с СПКЯ одинаковые симптомы.',
+      'По одному лишь весу нельзя ни поставить диагноз СПКЯ, ни исключить его.',
+      'Для диагностики необходимо комплексное медицинское обследование.',
+      'СПКЯ может влиять на овуляцию и иногда на фертильность.',
+      'Индивидуальный подход к лечению помогает учесть потребности каждой женщины.',
+    ],
+    finalNoteTitle: 'Руководство для лучшего понимания',
+    finalNoteText:
+      'Эта статья предназначена для общего информирования и не заменяет медицинскую консультацию. Каждая ситуация индивидуальна: при сомнениях или если симптомы сохраняются, обратитесь за советом к медицинскому специалисту.',
+    shareMessage: 'Понимаем СПКЯ — AWA',
+  },
+  de: {
+    badge: 'PCOS • GRUNDLAGEN',
+    title: 'PCOS\nverstehen',
+    metaDuration: '10 Min. Lesezeit',
+    metaType: 'Ratgeber',
+    metaLevel: 'Einsteiger',
+    metaValidated: 'Bildungsinhalt',
+    intro:
+      'Das polyzystische Ovarsyndrom, oft PCOS genannt, ist eine häufige hormonelle Erkrankung, die deinen Zyklus, den Eisprung, Haut, Haare, Stoffwechsel und manchmal auch die Fruchtbarkeit beeinflussen kann.',
+    introSecondary:
+      'Wie sie sich zeigt, ist von Frau zu Frau sehr unterschiedlich. PCOS zu verstehen hilft dir vor allem, die Symptome zu erkennen, zu wissen, wann du ärztlichen Rat suchen solltest, und die Entwicklung ohne Selbstvorwürfe zu verfolgen.',
+    contentsTitle: 'In diesem Artikel',
+    topics: [
+      'Was ist PCOS?',
+      'Warum entsteht PCOS?',
+      'Die wichtigsten Anzeichen',
+      'Wie wird es diagnostiziert?',
+      'PCOS und Eisprung',
+      'PCOS und Fruchtbarkeit',
+      'PCOS und Gewicht / Stoffwechsel',
+      'Haut, Haare und Körperbehaarung',
+      'Wie wird PCOS behandelt?',
+      'Verbreitete Irrtümer',
+      'Wann du zur Ärztin oder zum Arzt gehen solltest',
+      'Das Wichtigste in Kürze',
+    ],
+    s1Heading: 'Was ist PCOS?',
+    s1Body1:
+      'Das polyzystische Ovarsyndrom (PCOS) ist eine häufige hormonelle Erkrankung, die die übliche Funktion der Eierstöcke und das Gleichgewicht bestimmter Hormone verändern kann.',
+    s1Body2:
+      'Bei manchen Frauen steht ein unregelmäßiger Eisprung im Vordergrund. Bei anderen fallen zuerst Akne, vermehrter Haarwuchs, Haarausfall oder Stoffwechselzeichen auf.',
+    s1TipTitle: 'Gut zu wissen',
+    s1TipText:
+      'Trotz seines Namens bedeutet PCOS nicht unbedingt, dass die Eierstöcke „Zysten“ enthalten. Der historische Begriff kann irreführend sein, und ein Ultraschall allein reicht für die Diagnose nicht aus.',
+    s2Heading: 'Warum entsteht PCOS?',
+    s2Body1:
+      'Für PCOS gibt es nicht die eine Ursache. Es scheint aus mehreren Faktoren zu entstehen, die zusammenwirken können: familiäre Veranlagung, hormonelle Funktion, Eisprung, Stoffwechsel und individuelle Faktoren.',
+    s2Factors: [
+      'Familiäre Veranlagung und genetische Faktoren',
+      'Störungen des Eisprungs',
+      'Relativer Überschuss an Androgenen',
+      'Insulinresistenz bei manchen Frauen',
+      'Stoffwechsel- und Umweltfaktoren',
+    ],
+    s2NeutralText:
+      'PCOS ist kein persönliches Versagen. Es entsteht nicht einfach durch mangelnde Willenskraft, ungesunde Ernährung oder zu wenig Bewegung.',
+    s3Heading: 'Die wichtigsten Anzeichen',
+    s3Body1:
+      'PCOS kann sich von Frau zu Frau sehr unterschiedlich zeigen. Manche haben mehrere Symptome, andere bemerken nur sehr wenige.',
+    s3Signs: [
+      'Unregelmäßige, weit auseinanderliegende oder manchmal ausbleibende Zyklen',
+      'Unregelmäßiger oder schwer vorhersehbarer Eisprung',
+      'Anhaltende Akne, besonders im unteren Gesichtsbereich',
+      'Vermehrter Haarwuchs im Gesicht, an der Brust oder am Körper',
+      'Hormonell bedingter Haarausfall',
+      'Gewichtszunahme oder Schwierigkeiten beim Abnehmen',
+      'Schwierigkeiten, schwanger zu werden',
+    ],
+    s3AlertTitle: 'Wichtig',
+    s3AlertText:
+      'Eines dieser Symptome zu haben bedeutet nicht automatisch, dass du PCOS hast. Mehrere andere Erkrankungen können ähnliche Symptome verursachen.',
+    s4Heading: 'Wie wird es diagnostiziert?',
+    s4Body1:
+      'Die Diagnose von PCOS ist ein medizinischer Prozess. Meist beginnt die Fachperson mit einem Gespräch über deine Zyklen, Symptome, Krankengeschichte und gegebenenfalls eingenommene Medikamente.',
+    s4Body2:
+      'Je nach Situation werden zusätzlich hormonelle Blutuntersuchungen und ein Ultraschall angeboten.',
+    s4Points: [
+      'Unregelmäßige Zyklen oder seltene Eisprünge',
+      'Zeichen eines Androgenüberschusses: Akne, vermehrter Haarwuchs, Haarausfall oder Blutwerte',
+      'Ein für PCOS typisches Aussehen der Eierstöcke im Ultraschall, wenn diese Untersuchung angezeigt ist',
+    ],
+    s4Body3:
+      'Die Ärztin oder der Arzt muss außerdem andere mögliche Ursachen für unregelmäßige Zyklen oder einen Androgenüberschuss ausschließen, bevor eine PCOS-Diagnose bestätigt wird.',
+    s5Heading: 'PCOS und Eisprung',
+    s5Body1:
+      'Beim Eisprung wird eine Eizelle (Oozyte) aus dem Eierstock freigesetzt. Bei PCOS kann der Eisprung seltener oder schwerer vorhersehbar sein.',
+    s5Body2:
+      'Das kann erklären, warum Zyklen manchmal lang, unregelmäßig oder schwer abzuschätzen sind.',
+    s5HighlightTitle: 'Deinen Zyklus verfolgen',
+    s5HighlightText:
+      'Wenn du die Daten deiner Periode, deine Symptome und mögliche Eisprungzeichen festhältst, kannst du deine eigenen Muster besser verstehen.',
+    s6Heading: 'PCOS und Fruchtbarkeit',
+    s6Body1:
+      'Weil der Eisprung unregelmäßig sein kann, haben manche Frauen mit PCOS mehr Schwierigkeiten, schwanger zu werden.',
+    s6Body2:
+      'Das heißt jedoch nicht, dass PCOS eine Schwangerschaft automatisch verhindert. Viele Frauen mit PCOS werden auf natürlichem Weg oder mit passender medizinischer Unterstützung schwanger.',
+    s6TipTitle: 'Zum Mitnehmen',
+    s6TipText:
+      'Schwierigkeiten, schwanger zu werden, bedeuten nicht, dass es unmöglich ist. Wenn du dir eine Schwangerschaft wünschst, kann dir eine Ärztin, ein Arzt oder eine Hebamme eine zu deiner Situation passende Vorgehensweise vorschlagen.',
+    s7Heading: 'PCOS und Gewicht / Stoffwechsel',
+    s7Body1:
+      'PCOS kann mit Stoffwechselveränderungen einhergehen, darunter bei manchen Frauen eine Insulinresistenz.',
+    s7Body2:
+      'Das Gewicht allein kann PCOS jedoch weder diagnostizieren noch ausschließen. Auch eine schlanke Frau kann PCOS haben, ebenso wie eine Frau mit Übergewicht es möglicherweise nicht hat.',
+    s7NeutralText:
+      'Bei der Betreuung sollte die Gesundheit insgesamt im Blick sein, nicht nur die Zahl auf der Waage.',
+    s8Heading: 'Haut, Haare und Körperbehaarung',
+    s8Body1:
+      'Ein relativer Androgenüberschuss kann die Talgdrüsen und die Haarfollikel beeinflussen.',
+    s8Body2:
+      'Je nach Frau kann sich das als anhaltende Akne, vermehrter Haarwuchs oder Haarausfall zeigen.',
+    s8Items: [
+      'Hormonelle Akne',
+      'Vermehrte Gesichts- oder Körperbehaarung',
+      'Dünner werdendes Haar oder Haarausfall',
+    ],
+    s9Heading: 'Wie wird PCOS behandelt?',
+    s9Body1:
+      'Es gibt nicht den einen Behandlungsansatz bei PCOS, der für jede Frau passt. Die Wahl hängt von den Symptomen, den Zielen und den medizinischen Umständen ab.',
+    s9Body2:
+      'Das Ziel kann je nach Lebensphase unterschiedlich sein: den Zyklus regulieren, bestimmte Symptome verbessern, die Stoffwechselgesundheit schützen oder einen Schwangerschaftswunsch unterstützen.',
+    s9MiniTitle: 'Gewohnheiten, die die Gesundheit unterstützen',
+    s9Lifestyle: [
+      'Eine abwechslungsreiche, regelmäßige Ernährung, die zu deinen Bedürfnissen passt',
+      'Regelmäßige körperliche Aktivität, die du langfristig durchhalten kannst',
+      'Ausreichend regelmäßiger Schlaf',
+      'Beobachten, wie sich deine Zyklen und Symptome im Lauf der Zeit verändern',
+      'Dir keine Vorwürfe für Veränderungen bei Gewicht oder Symptomen machen',
+    ],
+    s9Body3:
+      'Je nach deinen Bedürfnissen kann die Fachperson dir außerdem Behandlungen für bestimmte Symptome oder zur Unterstützung eines Schwangerschaftswunsches anbieten.',
+    s9AlertTitle: 'Keine Selbstmedikation',
+    s9AlertText:
+      'Hormonelle Behandlungen, Stoffwechselmedikamente und Nahrungsergänzungsmittel sollten immer mit medizinischem Fachpersonal besprochen werden.',
+    s10Heading: 'Verbreitete Irrtümer über PCOS',
+    s10Myths: [
+      'PCOS bedeutet immer „Zysten“: Der Name kann irreführend sein. Die Diagnose beruht nicht allein auf dem Vorhandensein von Zysten.',
+      'Alle Frauen mit PCOS haben Übergewicht: PCOS kann Frauen jeder Körperform betreffen.',
+      'PCOS verhindert immer eine Schwangerschaft: Der Eisprung kann unregelmäßig sein, aber eine Schwangerschaft ist weiterhin möglich.',
+      'Ein einzelnes Symptom reicht für die PCOS-Diagnose aus: Für die Diagnose ist eine umfassende Untersuchung nötig.',
+      'PCOS verschwindet mit dem Alter von selbst: Wie es sich zeigt, kann sich im Lauf des Lebens verändern, aber eine fortlaufende Betreuung bleibt wichtig.',
+    ],
+    s11Heading: 'Wann du zur Ärztin oder zum Arzt gehen solltest',
+    s11Body1:
+      'Ärztlicher Rat ist besonders sinnvoll, wenn die Zyklen sehr unregelmäßig werden, mehrere Monate ausbleiben oder wenn ungewöhnliche Symptome auftreten.',
+    s11ConsultItems: [
+      'Sehr unregelmäßige oder ausbleibende Zyklen',
+      'Ungewöhnliche Akne oder ungewöhnlicher Haarwuchs',
+      'Starker Haarausfall',
+      'Schwierigkeiten, schwanger zu werden',
+      'Sich schnell verändernde Symptome',
+    ],
+    s12Heading: 'Das Wichtigste in Kürze',
+    s12SummaryTitle: 'Die wesentlichen Punkte',
+    s12SummaryItems: [
+      'PCOS ist eine häufige hormonelle Erkrankung.',
+      'Es kann sich auf viele verschiedene Arten zeigen.',
+      'Nicht alle Frauen mit PCOS haben die gleichen Symptome.',
+      'Das Gewicht allein reicht nicht aus, um PCOS zu diagnostizieren oder auszuschließen.',
+      'Die Diagnose erfordert eine umfassende ärztliche Untersuchung.',
+      'PCOS kann den Eisprung und manchmal die Fruchtbarkeit beeinflussen.',
+      'Ein individuell abgestimmter Betreuungsansatz hilft, den Bedürfnissen jeder Frau gerecht zu werden.',
+    ],
+    finalNoteTitle: 'Ein Ratgeber für mehr Verständnis',
+    finalNoteText:
+      'Dieser Artikel dient der allgemeinen Information und ersetzt keine ärztliche Beratung. Jede Situation ist anders: Bei Zweifeln oder anhaltenden Symptomen lass dich von medizinischem Fachpersonal beraten.',
+    shareMessage: 'PCOS verstehen — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
