@@ -187,7 +187,7 @@ describe('resolver (real implementation, sentinel sets)', () => {
     expect(real.resolveEditorialImage(set, language)).toBe(expected);
   });
 
-  it.each(['de', 'IT', 'it-IT', '', undefined, null])('invalid language %j falls back to English', invalid => {
+  it.each(['nl', 'IT', 'it-IT', '', undefined, null])('invalid language %j falls back to English', invalid => {
     expect(real.resolveEditorialImage(set, invalid as never)).toBe('E');
   });
 
@@ -323,7 +323,7 @@ describe('the 13 Library articles that show the cover image', () => {
 
   it('an unrecognized language shows the English cover', async () => {
     await act(async () => {
-      await i18n.changeLanguage('de');
+      await i18n.changeLanguage('nl');
     });
     await settle();
     const covers = imagesOf(await renderScreen(FirstPeriodArticleScreen as never), 'cycle');

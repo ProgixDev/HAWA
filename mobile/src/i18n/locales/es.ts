@@ -164,6 +164,8 @@ export const es = {
       spanishName: 'Español',
       italianName: 'Italiano',
       turkishName: 'Türkçe',
+      russianName: 'Русский',
+      germanName: 'Deutsch',
     },
   },
   cycleHome: {
@@ -1660,9 +1662,9 @@ export const es = {
       discoverPremium: 'Descubrir Premium',
       inactiveSubtitle: 'Desbloquea herramientas avanzadas para ir más lejos en tu seguimiento.',
       features: {
-        additionalThemes: 'temas visuales adicionales',
+        additionalThemes: 'Temas visuales adicionales',
         advancedStatistics: 'Estadísticas avanzadas',
-        inDepthEducationalContent: 'contenidos educativos detallados',
+        inDepthEducationalContent: 'Contenidos educativos detallados',
         pdfCsvExport: 'Exportación en PDF y CSV',
         unlimitedHistory: 'Historial ilimitado',
       },
@@ -5471,6 +5473,9 @@ export const es = {
     stillOff: 'Las notificaciones siguen desactivadas.',
     nowOn: 'Las notificaciones están activadas. Tus recordatorios se programarán.',
     continueWithout: 'Continuar sin notificaciones',
+    channelSilentTitle: 'Los recordatorios pueden llegar sin sonido',
+    channelSilentBody: 'La categoría de recordatorios de AWA está en silencio en este teléfono, así que los recordatorios aparecen sin sonido. Puede ser tu decisión y AWA no la cambiará. Si quieres oírlos, puedes activar el sonido tú misma.',
+    channelSilentSteps: 'En Android: Ajustes > Notificaciones > {{channel}} > Sonido.',
   },
   notifications: {
     privacyGenericBody: 'Tienes un nuevo recordatorio de AWA.',

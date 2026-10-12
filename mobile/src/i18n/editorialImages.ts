@@ -14,8 +14,16 @@ import {resolveEditorialLanguage, type EditorialLanguage} from './editorialLangu
 // spoken description (EDITORIAL_IMAGE_ALT) says that the lettering in the picture is English. The assets that
 // are still missing are listed in EDITORIAL_IMAGES_MISSING_TURKISH so they cannot be forgotten, and a test pins
 // that list. Adding the file and a `tr` entry to a set below is all it takes to ship one.
+// RUSSIAN ('ru'): same rule as Turkish — the lettering is part of the artwork and cannot be produced by translating
+// strings, so 'ru' is OPTIONAL too: until a Russian artwork exists the resolver returns the ENGLISH variant and the
+// spoken description says that the lettering in the picture is English (EDITORIAL_IMAGES_MISSING_RUSSIAN lists them).
+// GERMAN ('de'): same rule again — the lettering is part of the artwork, so 'de' is OPTIONAL: until a German artwork
+// exists the resolver returns the ENGLISH variant and the spoken description says that the lettering in the picture
+// is English (EDITORIAL_IMAGES_MISSING_GERMAN lists them).
 export type LocalizedImageSet = Readonly<Record<'fr' | 'en' | 'es' | 'it', ImageSourcePropType>> & {
   readonly tr?: ImageSourcePropType;
+  readonly ru?: ImageSourcePropType;
+  readonly de?: ImageSourcePropType;
 };
 
 export const CYCLE_PHASES_HERO: LocalizedImageSet = {
@@ -83,6 +91,26 @@ export const EDITORIAL_IMAGES_MISSING_TURKISH: readonly string[] = [
   .filter(([, set]) => (set as LocalizedImageSet).tr === undefined)
   .map(([name]) => name as string);
 
+/** The text-in-image illustrations that still have NO Russian variant (their lettering is English in Russian). */
+export const EDITORIAL_IMAGES_MISSING_RUSSIAN: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).ru === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO German variant (their lettering is English in German). */
+export const EDITORIAL_IMAGES_MISSING_GERMAN: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).de === undefined)
+  .map(([name]) => name as string);
+
 // The three heroes whose lettering says something (the cover is decorative) get a
 // spoken description in the selected language. Decorative illustrations stay silent.
 export type MeaningfulEditorialImage = 'pregnancyFollowUp' | 'pregnancyExercise' | 'exercise';
@@ -93,6 +121,8 @@ export const EDITORIAL_IMAGE_ALT: Record<MeaningfulEditorialImage, Record<Editor
     en: 'Illustration: a doctor and a pregnant woman during a check-up with an ultrasound. Text: Medical care during pregnancy, for mom’s health and baby’s well-being.',
     es: 'Ilustración: una médica y una mujer embarazada durante un control con ecografía. Texto: Control médico durante el embarazo, por la salud de mamá y el bienestar del bebé.',
     tr: 'İlüstrasyon: Ultrason eşliğinde kontrol sırasında bir doktor ve hamile bir kadın. Görseldeki yazı İngilizcedir: “Medical care during pregnancy, for mom’s health and baby’s well-being.”',
+    ru: 'Иллюстрация: врач и беременная женщина на плановом осмотре с УЗИ. Надпись на картинке на английском языке: «Medical care during pregnancy, for mom’s health and baby’s well-being.»',
+    de: 'Illustration: eine Ärztin und eine Schwangere bei einer Vorsorgeuntersuchung mit Ultraschall. Die Beschriftung im Bild ist auf Englisch: „Medical care during pregnancy, for mom’s health and baby’s well-being.“',
     it: 'Illustrazione: una dottoressa e una donna incinta durante un controllo con ecografia. Testo: Controlli medici in gravidanza, per la salute della mamma e il benessere del bambino.',
   },
   pregnancyExercise: {
@@ -100,6 +130,8 @@ export const EDITORIAL_IMAGE_ALT: Record<MeaningfulEditorialImage, Record<Editor
     en: 'Illustration: a pregnant woman in a lunge stretch on a yoga mat. Text: Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.',
     es: 'Ilustración: una mujer embarazada estirando en zancada sobre una esterilla de yoga. Texto: Muévete por un embarazo saludable. Cartel: una mamá en buena salud para un bebé feliz.',
     tr: 'İlüstrasyon: Yoga matı üzerinde hamle pozunda esneyen hamile bir kadın. Görseldeki yazı İngilizcedir: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    ru: 'Иллюстрация: беременная женщина в выпаде на коврике для йоги. Надпись на картинке на английском языке: «Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.»',
+    de: 'Illustration: eine Schwangere im Ausfallschritt auf einer Yogamatte. Die Beschriftung im Bild ist auf Englisch: „Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.“',
     it: 'Illustrazione: una donna incinta in affondo su un tappetino da yoga. Testo: Muoviti per una gravidanza in salute. Quadro: una mamma in salute per un bambino sereno.',
   },
   exercise: {
@@ -107,6 +139,8 @@ export const EDITORIAL_IMAGE_ALT: Record<MeaningfulEditorialImage, Record<Editor
     en: 'Illustration: a woman in a lunge stretch on a yoga mat. Text: Move to feel good. Poster: body, balance, energy.',
     es: 'Ilustración: una mujer estirando en zancada sobre una esterilla de yoga. Texto: Muévete para sentirte bien. Cartel: cuerpo, equilibrio, energía.',
     tr: 'İlüstrasyon: Yoga matı üzerinde hamle pozunda esneyen bir kadın. Görseldeki yazı İngilizcedir: “Move to feel good. Poster: body, balance, energy.”',
+    ru: 'Иллюстрация: женщина в выпаде на коврике для йоги. Надпись на картинке на английском языке: «Move to feel good. Poster: body, balance, energy.»',
+    de: 'Illustration: eine Frau im Ausfallschritt auf einer Yogamatte. Die Beschriftung im Bild ist auf Englisch: „Move to feel good. Poster: body, balance, energy.“',
     it: 'Illustrazione: una donna in affondo su un tappetino da yoga. Testo: Muoviti per sentirti bene. Quadro: corpo, equilibrio, energia.',
   },
 };

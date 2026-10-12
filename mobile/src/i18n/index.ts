@@ -6,7 +6,10 @@ import {en} from './locales/en';
 import {es} from './locales/es';
 import {fr} from './locales/fr';
 import {it} from './locales/it';
+import {ru} from './locales/ru';
+import {de} from './locales/de';
 import {tr} from './locales/tr';
+import './pluralRules';
 
 // Centralized localization (i18next + react-i18next) — imported once, as a
 // side effect, at app startup (App.tsx), the same "hydrate/initialize before
@@ -46,6 +49,8 @@ i18n.use(initReactI18next).init({
     es: {translation: es},
     it: {translation: it},
     tr: {translation: tr},
+    ru: {translation: ru},
+    de: {translation: de},
   },
   lng: getAppLanguage(),
   fallbackLng: 'en',

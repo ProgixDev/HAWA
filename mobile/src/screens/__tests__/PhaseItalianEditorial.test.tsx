@@ -123,9 +123,9 @@ describe('Library articles — Italian content exists and mirrors the English st
     expect(withoutItalian).toEqual([]);
   });
 
-  it('CONTENT has exactly fr, en, es, it, tr — in that order — and the existing fr/en/es blocks are all still present', () => {
+  it('CONTENT has exactly fr, en, es, it, tr, ru, de — in that order — and the existing fr/en/es blocks are all still present', () => {
     for (const [file, content] of contents) {
-      expect([file, Object.keys(content).join()]).toEqual([file, 'fr,en,es,it,tr']);
+      expect([file, Object.keys(content).join()]).toEqual([file, 'fr,en,es,it,tr,ru,de']);
     }
   });
 
@@ -234,7 +234,7 @@ describe('resolveEditorialLanguage', () => {
     ['fr', 'fr'],
     ['es', 'es'],
     ['it', 'it'],
-    ['de', 'en'],
+    ['nl', 'en'],
     ['IT', 'en'],
     ['it-IT', 'en'],
     ['', 'en'],
@@ -425,7 +425,7 @@ describe('Pregnancy week content — Italian', () => {
   });
 
   it('an invalid or missing language falls back to English', () => {
-    for (const invalid of ['de', 'IT', 'it-IT', '', null, undefined]) {
+    for (const invalid of ['nl', 'IT', 'it-IT', '', null, undefined]) {
       expect(getPregnancyWeekData(12, invalid as never)).toEqual(getPregnancyWeekData(12, 'en'));
     }
   });

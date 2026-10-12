@@ -151,6 +151,8 @@ export const tr = {
       spanishName: 'Español',
       italianName: 'Italiano',
       turkishName: 'Türkçe',
+      russianName: 'Русский',
+      germanName: 'Deutsch',
     },
   },
   cycleHome: {
@@ -1645,9 +1647,9 @@ export const tr = {
       discoverPremium: 'Premium’u keşfet',
       inactiveSubtitle: 'Takibinde daha ileri gitmek için gelişmiş araçların kilidini aç.',
       features: {
-        additionalThemes: 'ek görsel temalar',
+        additionalThemes: 'Ek görsel temalar',
         advancedStatistics: 'Gelişmiş istatistikler',
-        inDepthEducationalContent: 'ayrıntılı eğitici içerikler',
+        inDepthEducationalContent: 'Ayrıntılı eğitici içerikler',
         pdfCsvExport: 'PDF ve CSV dışa aktarma',
         unlimitedHistory: 'Sınırsız geçmiş',
       },
@@ -5456,6 +5458,9 @@ export const tr = {
     stillOff: 'Bildirimler hâlâ kapalı.',
     nowOn: 'Bildirimler açık. Hatırlatıcıların planlanacak.',
     continueWithout: 'Bildirimler olmadan devam et',
+    channelSilentTitle: 'Hatırlatıcılar sessiz gelebilir',
+    channelSilentBody: 'AWA hatırlatıcı kategorisi bu telefonda sessiz, bu yüzden hatırlatıcılar sesli uyarı olmadan görünür. Bu senin tercihin olabilir ve AWA bunu değiştirmez. Duymak istersen sesi kendin açabilirsin.',
+    channelSilentSteps: 'Android’de: Ayarlar > Bildirimler > {{channel}} > Ses.',
   },
   notifications: {
     privacyGenericBody: 'Yeni bir AWA hatırlatıcın var.',

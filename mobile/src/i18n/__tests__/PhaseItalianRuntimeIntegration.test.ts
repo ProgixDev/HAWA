@@ -334,14 +334,14 @@ describe('editorial content: explicit English fallback, never French or Spanish'
 
   it('pregnancy week data for an unrecognized language is the English content — never French, Spanish or Italian', () => {
     for (const week of [4, 12, 20, 40]) {
-      for (const invalid of ['de', 'IT', 'it-IT', '', undefined, null]) {
+      for (const invalid of ['nl', 'IT', 'it-IT', '', undefined, null]) {
         expect(getPregnancyWeekData(week, invalid as never)).toEqual(getPregnancyWeekData(week, 'en'));
       }
     }
   });
 
-  it('legal documents have no Italian text yet — the screen resolves Italian to English (TERMS/PRIVACY only have fr/en/es/tr)', () => {
-    expect(Object.keys(TERMS).sort()).toEqual(['en', 'es', 'fr', 'tr']);
-    expect(Object.keys(PRIVACY).sort()).toEqual(['en', 'es', 'fr', 'tr']);
+  it('legal documents have no Italian text yet — the screen resolves Italian to English (TERMS/PRIVACY only have fr/en/es/tr/ru/de)', () => {
+    expect(Object.keys(TERMS).sort()).toEqual(['de', 'en', 'es', 'fr', 'ru', 'tr']);
+    expect(Object.keys(PRIVACY).sort()).toEqual(['de', 'en', 'es', 'fr', 'ru', 'tr']);
   });
 });
