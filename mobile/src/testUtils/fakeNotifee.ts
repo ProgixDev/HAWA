@@ -31,6 +31,13 @@ export const fakeNotifeeState = {
   authorizationStatus: 1 as number,
   triggers: new Map<string, TriggerRecord>(),
   displayed: new Map<string, any>(),
+  /**
+   * When each displayed notification was shown (epoch ms), recorded by deliverTrigger / displayNotification. Android
+   * reports it as the string `String(StatusBarNotification.getPostTime())` in `DisplayedNotification.date`
+   * (core a.class/c.class, notifee 9.1.8). `null` = the record has no date; an id with no entry here falls back to
+   * "now" at read time (the historical behaviour of this fake).
+   */
+  displayedDates: new Map<string, number | null>(),
   channels: new Map<string, any>(),
   blockedChannels: new Set<string>(),
   /** Registered with notifee.onBackgroundEvent (what index.js does). */
@@ -49,6 +56,35 @@ const takeError = (key: 'createChannelError' | 'createTriggerError'): Error | nu
   const error = state[key];
   state[key] = null;
   return error;
+};
+
+/**
+ * A stored channel as notifee.getChannel() reports it on Android (core a.class, notifee 9.1.8): `importance`, `vibration`
+ * and `blocked` (= importance 0) always; `soundURI` only when the channel HAS a sound (a channel created with
+ * `sound: 'default'` reports the system notification URI, one created without `sound` reports none); and `sound`
+ * only for a custom android.resource sound, never for the default one. Stored records may carry either spelling.
+ */
+const DEFAULT_SOUND_URI = 'content://settings/system/notification_sound';
+const asAndroidReports = (channel: any): any => {
+  if (!channel || typeof channel !== 'object') {
+    return channel;
+  }
+  const {sound, soundURI, ...rest} = channel;
+  const report: any = {...rest, blocked: channel.importance === 0};
+  if (typeof soundURI === 'string' && soundURI !== '') {
+    report.soundURI = soundURI;
+    if (typeof sound === 'string' && sound !== '' && sound !== 'default') {
+      report.sound = sound;
+    }
+  } else if (typeof sound === 'string' && sound !== '') {
+    if (sound === 'default') {
+      report.soundURI = DEFAULT_SOUND_URI;
+    } else {
+      report.soundURI = `android.resource://fake.package/${sound}`;
+      report.sound = sound;
+    }
+  }
+  return report;
 };
 
 const settings = () => ({
@@ -74,7 +110,7 @@ export const notifee = {
     state.channels.delete(channelId);
   }),
   isChannelBlocked: jest.fn(async (channelId: string) => state.blockedChannels.has(channelId)),
-  getChannel: jest.fn(async (channelId: string) => state.channels.get(channelId) ?? null),
+  getChannel: jest.fn(async (channelId: string) => asAndroidReports(state.channels.get(channelId) ?? null)),
 
   // --- permission -------------------------------------------------------------------------------------------
   getNotificationSettings: jest.fn(async () => settings()),
@@ -126,10 +162,16 @@ export const notifee = {
     Array.from(state.triggers.values()).map(record => ({notification: record.notification, trigger: record.trigger})),
   ),
   getDisplayedNotifications: jest.fn(async () =>
-    Array.from(state.displayed.entries()).map(([id, notification]) => ({id, date: Date.now(), notification})),
+    Array.from(state.displayed.entries()).map(([id, notification]) => {
+      const shownAt = state.displayedDates.has(id) ? state.displayedDates.get(id) : Date.now();
+      return shownAt === null || shownAt === undefined
+        ? {id, notification}
+        : {id, date: String(shownAt), notification};
+    }),
   ),
   displayNotification: jest.fn(async (notification: any) => {
     state.displayed.set(notification.id, notification);
+    state.displayedDates.set(notification.id, Date.now());
     return notification.id as string;
   }),
 
@@ -180,6 +222,7 @@ export function deliverTrigger(id: string, nowMs: number = Date.now()): any {
     throw new Error(`fakeNotifee: no scheduled trigger "${id}" to deliver`);
   }
   state.displayed.set(id, record.notification);
+  state.displayedDates.set(id, nowMs);
   const step = REPEAT_STEP_MS[record.trigger.repeatFrequency as number];
   if (step) {
     let next = record.trigger.timestamp as number;
@@ -203,6 +246,7 @@ export function resetFakeNotifee(): void {
   state.authorizationStatus = 1;
   state.triggers.clear();
   state.displayed.clear();
+  state.displayedDates.clear();
   state.channels.clear();
   state.blockedChannels.clear();
   state.backgroundHandler = null;

@@ -5,18 +5,22 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {openNotificationSettings, type ReminderDeliveryState} from '../../services/pregnancyNotifications';
+import {openNotificationSettings, openReminderChannelSettings, type ReminderDeliveryState} from '../../services/pregnancyNotifications';
 import '../../i18n';
 
 // The one place a person is told "your reminders cannot reach you" and given the way to fix it. Every objective's
 // reminders screen and the appointment/exam form render this, so the wording, the "open settings" action and the
 // "I've turned them on" re-check are identical everywhere (CLAUDE.md §1: reuse, never a second notice).
 //
+// It also carries one GENTLE hint, 'channel-silent': reminders reach her but make no sound because the Android
+// channel is silent. That is not a failure (a mute can be deliberate), it never blocks saving and AWA never changes
+// the channel itself — the card only explains the Android steps and opens the channel's page.
+//
 // Always render it (it draws nothing unless notifications are off or the reminders channel is blocked): after she
 // comes back from Android's settings and the state flips to ready, it briefly confirms that reminders are on.
 
 type Props = {
-  /** From useReminderDeliveryState(). Only 'notifications-off' and 'channel-blocked' draw anything. */
+  /** From useReminderDeliveryState(). Only 'notifications-off', 'channel-blocked' and 'channel-silent' draw anything. */
   state: ReminderDeliveryState;
   /** Re-reads Android's state (the hook's `refresh`). Shows the "I've turned them on" button when provided. */
   onRecheck?: () => Promise<ReminderDeliveryState>;
@@ -34,10 +38,16 @@ function NotificationPermissionNotice({state, onRecheck, onContinue, testID}: Pr
   const wasBlocked = useRef(false);
 
   const blocked = state === 'notifications-off' || state === 'channel-blocked';
+  const silent = state === 'channel-silent';
 
   useEffect(() => {
     if (blocked) {
       wasBlocked.current = true;
+      setJustEnabled(false);
+    } else if (state === 'channel-silent') {
+      // Notifications are allowed again; the quiet channel is only a hint, not something she "turned on".
+      wasBlocked.current = false;
+      setStillOff(false);
       setJustEnabled(false);
     } else if (state === 'ready' && wasBlocked.current) {
       wasBlocked.current = false;
@@ -55,6 +65,30 @@ function NotificationPermissionNotice({state, onRecheck, onContinue, testID}: Pr
     );
   }
 
+  if (silent) {
+    return (
+      <View style={[styles.card, styles.hintCard]} testID={testID ? `${testID}-silent` : undefined}>
+        <View style={styles.headerRow}>
+          <MaterialDesignIcons color={theme.colors.primary} name="volume-low" size={18} />
+          <Text style={styles.hintTitle}>{t('notificationPermission.channelSilentTitle')}</Text>
+        </View>
+        <Text style={styles.body}>{t('notificationPermission.channelSilentBody')}</Text>
+        <Text style={styles.body}>
+          {t('notificationPermission.channelSilentSteps', {channel: t('notifications.channelName')})}
+        </Text>
+        <View style={styles.actions}>
+          <Pressable
+            accessibilityLabel={t('notificationPermission.openSettings')}
+            accessibilityRole="button"
+            onPress={() => {openReminderChannelSettings().catch(() => {});}}
+            style={({pressed}) => [styles.primaryButton, pressed && styles.pressed]}>
+            <Text style={styles.primaryButtonText}>{t('notificationPermission.openSettings')}</Text>
+          </Pressable>
+        </View>
+      </View>
+    );
+  }
+
   if (!blocked) {
     return null;
   }
@@ -64,7 +98,7 @@ function NotificationPermissionNotice({state, onRecheck, onContinue, testID}: Pr
   const recheck = async () => {
     if (!onRecheck) {return;}
     const next = await onRecheck();
-    setStillOff(next !== 'ready');
+    setStillOff(next !== 'ready' && next !== 'channel-silent');
   };
 
   return (
@@ -131,6 +165,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: withAlpha(theme.colors.primarySoft, 0.9),
       borderColor: withAlpha(theme.colors.primary, 0.2),
     },
+    hintCard: {
+      backgroundColor: withAlpha(theme.colors.primarySoft, 0.9),
+      borderColor: withAlpha(theme.colors.primary, 0.2),
+    },
+    hintTitle: {flex: 1, color: theme.colors.text, fontSize: 13, fontWeight: '800'},
     okText: {flex: 1, color: theme.colors.text, fontSize: 12, lineHeight: 17},
     headerRow: {flexDirection: 'row', alignItems: 'center', gap: 8},
     title: {flex: 1, color: theme.colors.danger, fontSize: 13, fontWeight: '800'},
