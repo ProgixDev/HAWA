@@ -2,7 +2,8 @@ import AsyncStorage, {isStructuredUnavailableError} from '../services/secureAsyn
 import {commitOptimistic, markSaveFailureHandled} from '../services/saveFailure';
 
 import {hydrateQadaaProgress, type QadaaProgressState} from './qadaaProgressStore';
-import {getActiveProfileId, isOwnerActive, subscribeActiveProfileId} from './activeProfileStore';
+import type {OwnerSnapshotResult} from '../utils/ownerReminderGate';
+import {getActiveProfileId, isOwnerActive, OWNER_PROFILE_ID, subscribeActiveProfileId} from './activeProfileStore';
 import {profileScopedKey} from './profileScopedStorage';
 
 // Persistent Qadaa ledger: everything the USER declares about her Qadaa
@@ -182,6 +183,26 @@ const parseLedger = (raw: string | null): QadaaLedger | null => {
   }
 };
 
+// The ONE place the legacy completed-days counter becomes a completion record (pure: no read, no write). Used by the
+// owner's hydrate below and by the read-only owner snapshot, so both fold it identically.
+const foldLegacyProgress = (current: QadaaLedger, legacy: QadaaProgressState): QadaaLedger => {
+  let next = current;
+  const legacyQuantity = Math.floor(legacy.completedDays);
+  if (isPositiveInteger(legacyQuantity) && !next.completions.some(item => item.id === QADAA_LEGACY_COMPLETION_ID)) {
+    const at = legacy.updatedAt > 0 ? new Date(legacy.updatedAt) : new Date();
+    const migrated: QadaaCompletionEntry = {
+      id: QADAA_LEGACY_COMPLETION_ID,
+      quantity: legacyQuantity,
+      completedAt: at.toISOString(),
+      completedOn: localDateKey(at),
+      createdAt: new Date().toISOString(),
+      origin: 'MIGRATED',
+    };
+    next = {...next, completions: [...next.completions, migrated]};
+  }
+  return {...next, legacyProgressMigrated: true};
+};
+
 // Writes are serialized and each one carries the snapshot taken when it was
 // requested, so the last write on disk is always the latest in-memory state.
 const persist = (): Promise<void> => {
@@ -248,20 +269,7 @@ export const hydrateQadaaLedger = (): Promise<QadaaLedger> => {
         ledger = {...EMPTY_LEDGER, manualEntries: [], completions: []};
         return ledger;
       }
-      const legacyQuantity = Math.floor(legacy.completedDays);
-      if (isPositiveInteger(legacyQuantity) && !next.completions.some(item => item.id === QADAA_LEGACY_COMPLETION_ID)) {
-        const at = legacy.updatedAt > 0 ? new Date(legacy.updatedAt) : new Date();
-        const migrated: QadaaCompletionEntry = {
-          id: QADAA_LEGACY_COMPLETION_ID,
-          quantity: legacyQuantity,
-          completedAt: at.toISOString(),
-          completedOn: localDateKey(at),
-          createdAt: new Date().toISOString(),
-          origin: 'MIGRATED',
-        };
-        next = {...next, completions: [...next.completions, migrated]};
-      }
-      next = {...next, legacyProgressMigrated: true};
+      next = foldLegacyProgress(next, legacy);
       changed = true;
     } else if (!next.legacyProgressMigrated) {
       next = {...next, legacyProgressMigrated: true};
@@ -279,6 +287,33 @@ export const hydrateQadaaLedger = (): Promise<QadaaLedger> => {
     return ledger;
   })();
   return hydration;
+};
+
+/**
+ * STRICTLY READ-ONLY snapshot of the OWNER's ledger, whichever profile is active — for the owner-global post-Ramadan
+ * Qadaa reminder, which must be derived from the owner's own ledger even while a daughter stays active.
+ *
+ * Reads the owner's (unsuffixed) key through the storage layer with this store's own parser and folds the legacy
+ * completed-days counter IN MEMORY exactly as hydrateQadaaLedger would (same helper), so the balance is the one the
+ * owner would see — but it never writes the migration back, never touches the in-memory ledger, never notifies and never
+ * switches the active profile. An unreadable ledger (or legacy counter, or an unparsable record) is 'unavailable',
+ * never an empty ledger.
+ */
+export const readOwnerQadaaLedgerSnapshot = async (): Promise<OwnerSnapshotResult<QadaaLedger>> => {
+  try {
+    const raw = await AsyncStorage.getItem(profileScopedKey(QADAA_LEDGER_STORAGE_KEY, OWNER_PROFILE_ID));
+    const parsed = parseLedger(raw);
+    if (raw !== null && parsed === null) {
+      return {status: 'unavailable'};
+    }
+    let value: QadaaLedger = parsed ?? {...EMPTY_LEDGER, manualEntries: [], completions: []};
+    if (!value.legacyProgressMigrated) {
+      value = foldLegacyProgress(value, await hydrateQadaaProgress());
+    }
+    return {status: 'ok', value};
+  } catch {
+    return {status: 'unavailable'};
+  }
 };
 
 // Re-reads (and re-notifies) from the newly active profile's own key whenever the

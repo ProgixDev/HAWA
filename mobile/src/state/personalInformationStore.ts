@@ -2,9 +2,12 @@ import AsyncStorage from '../services/secureAsyncStorage';
 import {setFirstName} from './onboardingPreferences';
 import {persistWithRollback} from '../services/saveFailure';
 import {
+  carrySealedField,
   decryptFieldValue,
   encryptFieldValue,
   isEncryptedFieldPayload,
+  restoreSealedFields,
+  withCarriedSealedFields,
 } from '../services/atRestFieldEncryption';
 
 export type CalendarPreference = 'gregorian' | 'hijri' | 'double';
@@ -96,6 +99,7 @@ async function decryptInformationFromStorage(raw: Record<string, unknown>): Prom
         output[field] = await decryptFieldValue<string>(ENCRYPTION_SERVICE, value);
       } catch {
         delete output[field];
+        carrySealedField(output, field, value);
       }
     }
   }
@@ -114,7 +118,8 @@ async function encryptInformationForStorage(info: PersonalInformation): Promise<
   }
   // "Not provided" country is stored as an absent key, not an empty string.
   if (!info.country) {delete output.country;}
-  return output;
+  // Fields that could not be decrypted when the record was read go back as the sealed payloads they were.
+  return restoreSealedFields(output);
 }
 
 export async function loadPersonalInformation(): Promise<PersonalInformation> {
@@ -137,7 +142,11 @@ export async function updatePersonalInformation(
   patch: Partial<PersonalInformation>,
 ): Promise<PersonalInformation> {
   const previous = cachedInformation;
-  const optimistic = {...cachedInformation, ...patch, language: SUPPORTED_LANGUAGE};
+  const optimistic = withCarriedSealedFields(cachedInformation, {
+    ...cachedInformation,
+    ...patch,
+    language: SUPPORTED_LANGUAGE,
+  });
   cachedInformation = optimistic;
   setFirstName(cachedInformation.preferredName || cachedInformation.firstName);
   // A refused/failed save REJECTS (services/saveFailure.ts, the same contract as every store) and the cache — and the

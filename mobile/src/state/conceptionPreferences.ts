@@ -1,5 +1,6 @@
 import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
 import {commitOptimistic} from '../services/saveFailure';
+import {registerOwnerStore} from './ownerStoreRegistry';
 
 export type ConceptionTryingDuration = 'starting_now' | 'under_3_months' | '3_to_6_months' | '6_to_12_months' | 'over_1_year';
 export type OvulationAwareness = 'often' | 'sometimes' | 'not_really';
@@ -92,6 +93,27 @@ export const hydrateConceptionPreferences = (): Promise<ConceptionPreferences> =
   }
   return hydration.then(() => getConceptionPreferences());
 };
+
+// Owner-only record, not profile-scoped: dropped and re-read after a backup restore / data deletion, or reset in
+// memory only after a full wipe (see ownerStoreRegistry.ts).
+const resetConceptionMemory = (): void => {
+  preferences = {...defaultPreferences, indicators: [], reminders: {...defaultPreferences.reminders}};
+  hydrated = false;
+  hydration = null;
+};
+registerOwnerStore('conception-preferences', {
+  reload: async () => {
+    await hydration?.catch(() => undefined); // a read already in flight lands first, then is replaced
+    resetConceptionMemory();
+    const value = await hydrateConceptionPreferences();
+    notifyListeners();
+    return value;
+  },
+  resetToDefaults: () => {
+    resetConceptionMemory();
+    notifyListeners();
+  },
+});
 
 /** Merges `next` onto the LIVE in-memory preferences — callers pass only the
  * fields they own (never a spread of an older snapshot). Waits for the

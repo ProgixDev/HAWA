@@ -1,5 +1,6 @@
 import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
 import {commitOptimistic} from '../services/saveFailure';
+import {registerOwnerStore} from './ownerStoreRegistry';
 
 export type ContraceptionMethod = 'pill' | 'ring' | 'patch' | 'other';
 
@@ -138,6 +139,27 @@ export const hydrateContraceptionPreferences = (): Promise<ContraceptionPreferen
   }
   return hydration;
 };
+
+// Owner-only record, not profile-scoped: dropped and re-read after a backup restore / data deletion, or reset in
+// memory only after a full wipe (see ownerStoreRegistry.ts).
+const resetContraceptionMemory = (): void => {
+  preferences = {...defaultPreferences};
+  hydrated = false;
+  hydration = null;
+};
+registerOwnerStore('contraception-preferences', {
+  reload: async () => {
+    await hydration?.catch(() => undefined); // a read already in flight lands first, then is replaced
+    resetContraceptionMemory();
+    const value = await hydrateContraceptionPreferences();
+    notifyListeners();
+    return value;
+  },
+  resetToDefaults: () => {
+    resetContraceptionMemory();
+    notifyListeners();
+  },
+});
 
 export const setContraceptionPreferences = async (
   next: Partial<ContraceptionPreferences>,

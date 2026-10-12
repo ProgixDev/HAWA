@@ -1,5 +1,6 @@
 import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
 import {commitOptimistic} from '../services/saveFailure';
+import {registerOwnerStore} from './ownerStoreRegistry';
 
 // Canonical onboarding + reminder preferences for the "Cycles irréguliers /
 // SOPK" objective (ObjectiveId 'irregular'). Deliberately isolated from
@@ -153,3 +154,24 @@ export const subscribeIrregularPreferences = (listener: () => void) => {
     listeners.delete(listener);
   };
 };
+
+// Owner-only record, not profile-scoped: dropped and re-read after a backup restore / data deletion, or reset in
+// memory only after a full wipe (see ownerStoreRegistry.ts).
+const resetIrregularMemory = (): void => {
+  preferences = {...DEFAULT_PREFERENCES, trackedItems: [], reminders: {...DEFAULT_PREFERENCES.reminders}};
+  hydrated = false;
+  hydration = null;
+};
+registerOwnerStore('irregular-preferences', {
+  reload: async () => {
+    await hydration?.catch(() => undefined); // a read already in flight lands first, then is replaced
+    resetIrregularMemory();
+    const value = await hydrateIrregularPreferences();
+    notifyListeners();
+    return value;
+  },
+  resetToDefaults: () => {
+    resetIrregularMemory();
+    notifyListeners();
+  },
+});

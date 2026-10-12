@@ -2,9 +2,12 @@ import AsyncStorage from '../services/secureAsyncStorage';
 import {migrateRecordSafely, sealEntryFields, sealField} from '../services/legacyFieldMigration';
 import type {DailyJournalEntry, JournalSection} from '../types/journal';
 import {
+  carrySealedField,
   decryptFieldValue,
   encryptFieldValue,
   isEncryptedFieldPayload,
+  restoreSealedFields,
+  withCarriedSealedFields,
 } from '../services/atRestFieldEncryption';
 import {getActiveProfileId} from './activeProfileStore';
 import {profileScopedKey} from './profileScopedStorage';
@@ -50,7 +53,8 @@ async function encryptEntryForStorage(entry: DailyJournalEntry): Promise<Record<
     } else {
       delete sectionCopy.note;
     }
-    output[section] = sectionCopy;
+    // A note that could not be decrypted when this entry was read goes back as the sealed payload it was.
+    output[section] = restoreSealedFields(sectionCopy);
   }
   return output;
 }
@@ -67,6 +71,7 @@ async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Da
         sectionCopy.note = await decryptFieldValue<string>(ENCRYPTION_SERVICE, noteValue);
       } catch {
         delete sectionCopy.note;
+        carrySealedField(sectionCopy, 'note', noteValue);
       }
     }
     output[section] = sectionCopy;
@@ -98,7 +103,8 @@ export async function saveJournalSection<K extends JournalSection>(
   const current: DailyJournalEntry = index >= 0
     ? entries[index]
     : {id: `${date}-${Date.now()}`, date};
-  const updated = {...current, [section]: value};
+  // The caller's section replaces the stored one: a note that could not be read stays sealed unless she typed a new one.
+  const updated = {...current, [section]: withCarriedSealedFields(current[section], value)};
   if (index >= 0) {entries[index] = updated;} else {entries.push(updated);}
   await writeEntries(entries);
 }

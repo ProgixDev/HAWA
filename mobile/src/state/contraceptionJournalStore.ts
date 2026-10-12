@@ -1,10 +1,16 @@
 import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
 import {migrateRecordSafely, sealField, sealMapFields} from '../services/legacyFieldMigration';
 import {commitOptimistic} from '../services/saveFailure';
+import {registerOwnerStore} from './ownerStoreRegistry';
 import {
+  carrySealedField,
   decryptFieldValue,
+  dropCarriedSealedFields,
   encryptFieldValue,
+  hasCarriedSealedFields,
   isEncryptedFieldPayload,
+  restoreSealedFields,
+  withCarriedSealedFields,
 } from '../services/atRestFieldEncryption';
 
 // Contraception's OWN daily-journal store — holds ONLY 'feelings' and
@@ -29,6 +35,8 @@ let entries: EntriesByDate = {};
 const listeners = new Set<() => void>();
 let hydration: Promise<EntriesByDate> | null = null;
 let hydrated = false;
+// Bumped by every reset (ownerStoreRegistry): a read that started before it must not land in the fresh memory.
+let readGeneration = 0;
 
 const notifyListeners = () => {
   listeners.forEach(listener => listener());
@@ -62,7 +70,8 @@ async function encryptEntryForStorage(entry: ContraceptionJournalEntry): Promise
   } else {
     delete output.notes;
   }
-  return output;
+  // A note that could not be decrypted when this entry was read goes back as the sealed payload it was.
+  return restoreSealedFields(output);
 }
 
 async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Record<string, unknown>> {
@@ -72,6 +81,7 @@ async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Re
       output.notes = await decryptFieldValue<string>(ENCRYPTION_SERVICE, raw.notes);
     } catch {
       delete output.notes;
+      carrySealedField(output, 'notes', raw.notes);
     }
   }
   return output;
@@ -111,7 +121,7 @@ export async function saveContraceptionJournalField<
   const previous = entries;
   entries = {
     ...entries,
-    [date]: {...entries[date], date, [category]: value},
+    [date]: withCarriedSealedFields(entries[date], {...entries[date], date, [category]: value}),
   };
   notifyListeners();
   await commit(previous);
@@ -135,11 +145,13 @@ export async function clearContraceptionJournalField(
     return;
   }
 
-  const next: ContraceptionJournalEntry = {...current};
+  // Deliberately clearing a field that was readable also releases any payload carried for it.
+  const next: ContraceptionJournalEntry = dropCarriedSealedFields({...current}, [category]);
   delete next[category];
 
   const remaining = {...entries};
-  if ((next.feelings?.length ?? 0) > 0 || Boolean(next.notes)) {
+  // A note that could not be read is still content: the day is not dropped while its sealed payload is carried.
+  if ((next.feelings?.length ?? 0) > 0 || Boolean(next.notes) || hasCarriedSealedFields(next, ['notes'])) {
     remaining[date] = next;
   } else {
     delete remaining[date];
@@ -156,8 +168,10 @@ export const hydrateContraceptionJournal = (): Promise<EntriesByDate> => {
     return Promise.resolve({...entries});
   }
   if (!hydration) {
+    const generation = readGeneration;
     hydration = readOwnedItem(STORAGE_KEY, hydrateContraceptionJournal)
       .then(async raw => {
+        if (generation !== readGeneration) {return {...entries};} // reset while reading: stale
         hydrated = true;
         if (raw) {
           const parsed: unknown = JSON.parse(raw);
@@ -172,6 +186,7 @@ export const hydrateContraceptionJournal = (): Promise<EntriesByDate> => {
                 valid[key] = decrypted;
               }
             }
+            if (generation !== readGeneration) {return {...entries};}
             entries = valid;
             notifyListeners();
           }
@@ -179,6 +194,7 @@ export const hydrateContraceptionJournal = (): Promise<EntriesByDate> => {
         return {...entries};
       })
       .catch(error => {
+        if (generation !== readGeneration) {return {...entries};} // reset while reading: stale
         if (isStructuredUnavailableError(error)) {
           // not latched: a later hydrate (or "Try again") re-reads the real record
           hydration = null;
@@ -197,6 +213,24 @@ export const subscribeContraceptionJournal = (listener: () => void) => {
     listeners.delete(listener);
   };
 };
+
+// Owner-only record, not profile-scoped: dropped and re-read after a backup restore / data deletion, or reset in
+// memory only after a full wipe (see ownerStoreRegistry.ts). Reload only reads (never writes, never recreates a key); the
+// in-memory sealed-field carry is rebuilt by that read and dropped by the reset — it is never persisted.
+const resetMemory = (): void => {
+  readGeneration += 1;
+  entries = {};
+  hydration = null;
+  hydrated = false;
+  notifyListeners();
+};
+registerOwnerStore('contraception-journal', {
+  reload: () => {
+    resetMemory();
+    return hydrateContraceptionJournal();
+  },
+  resetToDefaults: resetMemory,
+});
 
 /**
  * Idempotent, interruption-safe boot-time migration of every day's notes saved as plain text before field-level

@@ -1,13 +1,19 @@
 import AsyncStorage, {isStructuredUnavailableError, readOwnedItems} from '../services/secureAsyncStorage';
 import {migrateRecordSafely, sealField, sealMapFields} from '../services/legacyFieldMigration';
 import {commitOptimistic} from '../services/saveFailure';
+import {registerOwnerStore} from './ownerStoreRegistry';
 
 import type {MenopauseSymptom} from './menopausePreferences';
 import type {MoodLevel} from '../types/journal';
 import {
+  carrySealedField,
   decryptFieldValue,
+  dropCarriedSealedFields,
   encryptFieldValue,
+  hasCarriedSealedFields,
   isEncryptedFieldPayload,
+  restoreSealedFields,
+  withCarriedSealedFields,
 } from '../services/atRestFieldEncryption';
 
 // Menopause's OWN daily tracking source — deliberately separate from
@@ -76,6 +82,8 @@ let labResults: MenopauseLabResult[] = [];
 const listeners = new Set<() => void>();
 let hydration: Promise<void> | null = null;
 let hydrated = false;
+// Bumped by every reset (ownerStoreRegistry): a read that started before it must not land in the fresh memory.
+let readGeneration = 0;
 
 const notifyListeners = () => {
   listeners.forEach(listener => listener());
@@ -151,7 +159,8 @@ async function encryptEntryForStorage(entry: MenopauseJournalEntry): Promise<Rec
       delete output[field];
     }
   }
-  return output;
+  // Notes that could not be decrypted when this entry was read go back as the sealed payloads they were.
+  return restoreSealedFields(output);
 }
 
 async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Record<string, unknown>> {
@@ -163,6 +172,7 @@ async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Re
         output[field] = await decryptFieldValue<string>(ENCRYPTION_SERVICE, value);
       } catch {
         delete output[field];
+        carrySealedField(output, field, value);
       }
     }
   }
@@ -208,7 +218,10 @@ export async function saveMenopauseJournalField<K extends Exclude<keyof Menopaus
   value: NonNullable<MenopauseJournalEntry[K]>,
 ): Promise<void> {
   const previous = entries;
-  entries = {...entries, [date]: {...entries[date], date, [category]: value}};
+  entries = {
+    ...entries,
+    [date]: withCarriedSealedFields(entries[date], {...entries[date], date, [category]: value}),
+  };
   notifyListeners();
   await commitEntries(previous);
 }
@@ -241,12 +254,14 @@ export async function clearMenopauseJournalFields(
   if (!current || !fields.some(field => current[field] !== undefined)) {
     return;
   }
-  const next: MenopauseJournalEntry = {...current};
+  // Deliberately clearing a category also releases the payloads carried for its fields.
+  const next: MenopauseJournalEntry = dropCarriedSealedFields({...current}, fields);
   fields.forEach(field => {
     delete next[field];
   });
   const nextEntries = {...entries};
-  if (Object.keys(next).every(key => key === 'date')) {
+  // A note that could not be read is still content: the day is not dropped while its sealed payload is carried.
+  if (Object.keys(next).every(key => key === 'date') && !hasCarriedSealedFields(next)) {
     delete nextEntries[date];
   } else {
     nextEntries[date] = next;
@@ -351,8 +366,10 @@ export const hydrateMenopauseJournal = (): Promise<void> => {
     return Promise.resolve();
   }
   if (!hydration) {
+    const generation = readGeneration;
     hydration = readOwnedItems([ENTRIES_STORAGE_KEY, LAB_RESULTS_STORAGE_KEY], hydrateMenopauseJournal)
       .then(async ([rawEntries, rawLabResults]) => {
+        if (generation !== readGeneration) {return;} // reset while reading: stale
         hydrated = true;
         if (rawEntries) {
           const parsed: unknown = JSON.parse(rawEntries);
@@ -363,9 +380,11 @@ export const hydrateMenopauseJournal = (): Promise<void> => {
               const decrypted = await decryptEntryFromStorage(value as Record<string, unknown>);
               if (isValidEntry(decrypted)) {valid[key] = decrypted;}
             }
+            if (generation !== readGeneration) {return;}
             entries = valid;
           }
         }
+        if (generation !== readGeneration) {return;}
         if (rawLabResults) {
           const parsed: unknown = JSON.parse(rawLabResults);
           if (Array.isArray(parsed)) {
@@ -375,6 +394,7 @@ export const hydrateMenopauseJournal = (): Promise<void> => {
         notifyListeners();
       })
       .catch(error => {
+        if (generation !== readGeneration) {return;} // reset while reading: stale
         if (isStructuredUnavailableError(error)) {
           // not latched: a later hydrate (or "Try again") re-reads the real records
           hydration = null;
@@ -406,3 +426,22 @@ export async function migrateLegacyPlainMenopauseNotes(): Promise<void> {
     await hydrateMenopauseJournal();
   }
 }
+
+// Owner-only records (entries + lab results), not profile-scoped: dropped and re-read after a backup restore / data
+// deletion, or reset in memory only after a full wipe (see ownerStoreRegistry.ts). Reload only reads (never writes,
+// never recreates a key); the in-memory sealed-field carry is rebuilt by that read and dropped by the reset.
+const resetMemory = (): void => {
+  readGeneration += 1;
+  entries = {};
+  labResults = [];
+  hydration = null;
+  hydrated = false;
+  notifyListeners();
+};
+registerOwnerStore('menopause-journal', {
+  reload: () => {
+    resetMemory();
+    return hydrateMenopauseJournal();
+  },
+  resetToDefaults: resetMemory,
+});

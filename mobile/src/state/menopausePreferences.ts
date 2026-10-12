@@ -1,5 +1,6 @@
 import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
 import {commitOptimistic} from '../services/saveFailure';
+import {registerOwnerStore} from './ownerStoreRegistry';
 
 // Canonical onboarding/tracking data for the "Post-ménopause / Ménopause"
 // objective (ObjectiveId === 'menopause'). Deliberately isolated from
@@ -202,3 +203,24 @@ export const subscribeMenopausePreferences = (listener: () => void) => {
   listeners.add(listener);
   return () => {listeners.delete(listener);};
 };
+
+// Owner-only record, not profile-scoped: dropped and re-read after a backup restore / data deletion, or reset in
+// memory only after a full wipe (see ownerStoreRegistry.ts).
+const resetMenopauseMemory = (): void => {
+  menopausePreferences = {...DEFAULT_PREFERENCES, trackedSymptoms: []};
+  hydrated = false;
+  hydration = null;
+};
+registerOwnerStore('menopause-preferences', {
+  reload: async () => {
+    await hydration?.catch(() => undefined); // a read already in flight lands first, then is replaced
+    resetMenopauseMemory();
+    const value = await hydrateMenopausePreferences();
+    notifyListeners();
+    return value;
+  },
+  resetToDefaults: () => {
+    resetMenopauseMemory();
+    notifyListeners();
+  },
+});

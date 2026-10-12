@@ -1,5 +1,6 @@
 import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
 import {commitOptimistic} from '../services/saveFailure';
+import {registerOwnerStore} from './ownerStoreRegistry';
 
 export type PostpartumNifasReminderState = {
   deliveryDate: string | null;
@@ -89,6 +90,21 @@ export const setPostpartumNifasReminderState = async (
     state = restored;
   }, () => AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(state)));
 };
+
+// Owner-only record, not profile-scoped: dropped and re-read after a backup restore / data deletion, or reset in
+// memory only after a full wipe (see ownerStoreRegistry.ts). No subscribers exist for this store.
+const resetNifasMemory = (): void => {
+  state = { ...DEFAULT_STATE };
+  hydration = null;
+};
+registerOwnerStore('postpartum-nifas-reminders', {
+  reload: async () => {
+    await hydration?.catch(() => undefined); // a read already in flight lands first, then is replaced
+    resetNifasMemory();
+    return hydratePostpartumNifasReminderState();
+  },
+  resetToDefaults: resetNifasMemory,
+});
 
 /** True only if the currently persisted acknowledgement belongs to this
  * exact delivery date — never stale-matches a previous postpartum cycle. */
