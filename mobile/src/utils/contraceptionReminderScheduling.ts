@@ -1,5 +1,6 @@
 import {
   cancelLocalNotification,
+  dismissDeliveredSeriesMembersBefore,
   scheduleLocalNotification,
   scheduleReminderSeries,
 } from '../services/pregnancyNotifications';
@@ -115,11 +116,23 @@ export const subscribeContraceptionReminderScheduleStatus = (listener: () => voi
 // also went off on the BREAK days of a cyclic pack — days the Dashboard, the Calendar, the journal and the
 // statistics all treat as having nothing to take. For a real cyclic schedule the reminder is therefore laid out day
 // by day: one one-shot trigger per upcoming non-break day (ids `<id>`, `<id>::1`, ...), re-planned on every sync
-// (app start, preference/objective change, foreground, after a delivery) so the window ahead stays full. Every other
+// (app start, preference/objective change, foreground, after a delivery) so the window ahead stays full. Members take
+// their id from their position in the plan, so after each re-plan the NEXT reminder is always `<id>` and replaces the
+// previous day's delivered copy in the shade; copies only pile up (one per day, distinct ids) while no sync has run. Every other
 // pill / "other" reminder keeps its single repeating daily trigger, exactly as before.
 
-/** Calendar days (today included) the pill reminder is laid out for. */
-export const PILL_REMINDER_WINDOW_DAYS = 14;
+/**
+ * Calendar days (today included) the pill reminder is laid out for.
+ *
+ * One-shot triggers run out, unlike the repeating one they replace, so this is how long the reminder keeps firing with
+ * NO sync at all (the app is never opened, and no delivery/boot/time-change re-sync could start the JavaScript). It was
+ * 14; 60 gives two months of margin. The price is bounded: at most 60 pending triggers (an ordinary 21 + 7 pack lays out
+ * about 45 — break days have none), i.e. at most 60 AlarmManager alarms (Android's per-app cap is 500 and every other
+ * reminder in the app owns only a handful) and 60 small notifee rows, and up to 60 `createTriggerNotification` calls
+ * per sync. A sync runs on app start/foreground and after each delivery, so the window is re-filled long before it
+ * could be reached in normal use.
+ */
+export const PILL_REMINDER_WINDOW_DAYS = 60;
 
 /**
  * The pack schedule whose break days must not notify, or null when the reminder is simply "every day".
@@ -180,6 +193,21 @@ export function planPillReminderOccurrences({
     }
   }
   return occurrences;
+}
+
+/**
+ * Clears from the notification shade the pill reminders delivered on an EARLIER local day. Each day's reminder of the
+ * one-shot series has its own id, so without a re-sync between deliveries yesterday's would sit beside today's.
+ * Only displayed copies of this reminder's own ids go; today's, other reminders' and every pending trigger stay.
+ * Never throws (see dismissDeliveredSeriesMembersBefore).
+ */
+async function dismissStalePillReminders(now: Date = new Date()): Promise<void> {
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  try {
+    await dismissDeliveredSeriesMembersBefore(CONTRACEPTION_REMINDER_ID, startOfToday);
+  } catch {
+    // Housekeeping only: it must never turn a successful scheduling into a failed sync.
+  }
 }
 
 /** Re-derives and (re)schedules — or explicitly cancels — the Contraception
@@ -243,6 +271,9 @@ async function runContraceptionReminderSync(): Promise<void> {
       // Same contract as scheduleLocalNotification below: a native failure rejects, anything else is "not scheduled".
       throw result.error ?? new Error('Scheduling the contraception reminder failed.');
     }
+    if (result.scheduled) {
+      await dismissStalePillReminders();
+    }
     setScheduleStatus(result.scheduled ? 'scheduled' : 'failed');
     return;
   }
@@ -256,6 +287,9 @@ async function runContraceptionReminderSync(): Promise<void> {
     data,
   });
 
+  if (success) {
+    await dismissStalePillReminders();
+  }
   setScheduleStatus(success ? 'scheduled' : 'failed');
 }
 

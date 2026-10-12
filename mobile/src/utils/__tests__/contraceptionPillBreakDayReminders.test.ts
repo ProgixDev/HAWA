@@ -19,7 +19,8 @@ import {
 // F18 — the daily "take your pill" reminder must not fire on the BREAK days of a cyclic pack.
 //
 // A native repeating trigger cannot skip days, so a REAL cyclic schedule (pill + cyclic + activeDays/breakDays) is laid
-// out day by day as one-shot triggers (`<id>`, `<id>::1`, ...) over the next 14 calendar days, re-filled on every sync.
+// out day by day as one-shot triggers (`<id>`, `<id>::1`, ...) over the next PILL_REMINDER_WINDOW_DAYS (60) calendar
+// days, re-filled on every sync.
 // Every other schedule keeps its single repeating daily trigger. Real scheduler + real notification service + the
 // stateful fake notifee; only the preference/objective getters are stubbed (the same way the other scheduler tests
 // do). This proves the JavaScript's decisions and timestamps; it cannot prove that a phone delivers a notification.
@@ -50,6 +51,42 @@ const at = (dayOffset: number, hours = 20, minutes = 0, seconds = 0) =>
 const keyOf = (dayOffset: number) => new Date(2026, 9, 10 + dayOffset, 12).toLocaleDateString('en-CA');
 /** The start date that makes TODAY pack day `packDay` of the pack (pack day 1 = the start date). */
 const startForPackDayToday = (packDay: number) => keyOf(-(packDay - 1));
+
+/**
+ * The instants the reminder must have, worked out from first principles (pure arithmetic, never the implementation's
+ * predicate): pack day 1 is `startOffset` days after the base day (so TODAY is pack day `1 - startOffset`), a pack is
+ * `activeDays` pill days then `breakDays` break days, a day before the start date is a plain reminder day, and the
+ * window is the PILL_REMINDER_WINDOW_DAYS calendar days beginning `firstOffset` days after the base day.
+ */
+function expectedFires({
+  startOffset,
+  firstOffset = 0,
+  activeDays = 21,
+  breakDays = 7,
+  hour = 20,
+  minute = 0,
+  base = new Date(2026, 9, 10),
+}: {
+  startOffset: number;
+  firstOffset?: number;
+  activeDays?: number;
+  breakDays?: number;
+  hour?: number;
+  minute?: number;
+  base?: Date;
+}): number[] {
+  const total = activeDays + breakDays;
+  const fires: number[] = [];
+  for (let offset = firstOffset; offset < firstOffset + PILL_REMINDER_WINDOW_DAYS; offset += 1) {
+    const isBreak = offset >= startOffset && (((offset - startOffset) % total) + total) % total >= activeDays;
+    if (!isBreak) {
+      fires.push(new Date(base.getFullYear(), base.getMonth(), base.getDate() + offset, hour, minute, 0, 0).getTime());
+    }
+  }
+  return fires;
+}
+/** Start offset that makes TODAY pack day `packDay`. */
+const startOffsetForPackDay = (packDay: number) => -(packDay - 1);
 
 const mockObjective = getActiveObjective as jest.Mock;
 const mockPreferences = getContraceptionPreferences as jest.Mock;
@@ -101,10 +138,12 @@ describe('cyclic 21 + 7 pack: the reminder is laid out day by day', () => {
   it('today is pack day 15: one trigger for each of the 7 pill days left, NONE on the 7 break days that follow', async () => {
     await syncWith({methodStartDate: startForPackDayToday(15)});
 
-    // Pill days 15..21 = Oct 10..16. Break days 22..28 = Oct 17..23 (the rest of the 14-day window).
-    expect(pendingTimes()).toEqual(times(at(0), at(1), at(2), at(3), at(4), at(5), at(6)));
+    // Pill days 15..21 = Oct 10..16, break 22..28 = Oct 17..23, then the following packs, over the whole window.
+    const expected = expectedFires({startOffset: startOffsetForPackDay(15)});
+    expect(pendingTimes()).toEqual(expected);
+    expect(pendingTimes().slice(0, 7)).toEqual(times(at(0), at(1), at(2), at(3), at(4), at(5), at(6)));
     expect(pending().map(entry => entry.id).sort()).toEqual(
-      [REMINDER_ID, ...[1, 2, 3, 4, 5, 6].map(index => `${REMINDER_ID}::${index}`)].sort(),
+      [REMINDER_ID, ...expected.slice(1).map((_, index) => `${REMINDER_ID}::${index + 1}`)].sort(),
     );
     // Nothing at all on a break day (the canonical predicate every screen uses).
     const schedule = getCyclicPillSchedule({method: 'pill', pillScheduleType: 'cyclic', activeDays: 21, breakDays: 7});
@@ -128,21 +167,27 @@ describe('cyclic 21 + 7 pack: the reminder is laid out day by day', () => {
   it('a break in the MIDDLE of the window is skipped and the next pack\'s pill days are included (today = day 18)', async () => {
     await syncWith({methodStartDate: startForPackDayToday(18)});
 
-    // Pill days 18..21 = Oct 10..13, break 22..28 = Oct 14..20, next pack day 1..3 = Oct 21..23.
-    expect(pendingTimes()).toEqual(times(at(0), at(1), at(2), at(3), at(11), at(12), at(13)));
+    // Pill days 18..21 = Oct 10..13, break 22..28 = Oct 14..20, next pack days 1.. = Oct 21..
+    expect(pendingTimes().slice(0, 7)).toEqual(times(at(0), at(1), at(2), at(3), at(11), at(12), at(13)));
+    expect(pendingTimes()).toEqual(expectedFires({startOffset: startOffsetForPackDay(18)}));
   });
 
-  it('a full pill window (today = day 1) has 14 triggers, one per day', async () => {
+  it('the horizon is 60 calendar days: 46 one-shot triggers for a 21 + 7 pack starting today, none past the window', async () => {
+    expect(PILL_REMINDER_WINDOW_DAYS).toBe(60);
     await syncWith({methodStartDate: startForPackDayToday(1)});
 
-    expect(pendingTimes()).toEqual(times(...Array.from({length: 14}, (_, offset) => at(offset))));
+    // Offsets 0..59: packs at 0..27 and 28..55 (21 pill days each) + 4 pill days of the third pack.
+    expect(pendingTimes()).toEqual(expectedFires({startOffset: 0}));
+    expect(pending()).toHaveLength(46);
+    expect(pendingTimes()[pending().length - 1]).toBe(at(59).getTime());
+    expect(pendingTimes().some(timestamp => timestamp > at(59, 23, 59).getTime())).toBe(false);
   });
 
   it('the first occurrence on a BREAK day moves to the next active day (today = day 22 -> Oct 17)', async () => {
     await syncWith({methodStartDate: startForPackDayToday(22)});
 
     expect(pendingTimes()[0]).toBe(at(7).getTime());
-    expect(pendingTimes()).toEqual(times(at(7), at(8), at(9), at(10), at(11), at(12), at(13)));
+    expect(pendingTimes()).toEqual(expectedFires({startOffset: startOffsetForPackDay(22)}));
     // Nothing is pending for any of the break days Oct 10..16.
     expect(pendingTimes().some(timestamp => timestamp < at(7).getTime())).toBe(false);
   });
@@ -150,7 +195,8 @@ describe('cyclic 21 + 7 pack: the reminder is laid out day by day', () => {
   it('today\'s time already passed on a pill day: today is skipped, tomorrow is the first', async () => {
     await syncWith({methodStartDate: startForPackDayToday(15)}, at(0, 21, 0));
 
-    expect(pendingTimes()).toEqual(times(at(1), at(2), at(3), at(4), at(5), at(6)));
+    expect(pendingTimes()).toEqual(expectedFires({startOffset: startOffsetForPackDay(15)}).slice(1));
+    expect(pendingTimes().slice(0, 6)).toEqual(times(at(1), at(2), at(3), at(4), at(5), at(6)));
   });
 
   it('the last pill day with its time passed: the next reminder is the first pill day of the NEXT pack', async () => {
@@ -158,28 +204,30 @@ describe('cyclic 21 + 7 pack: the reminder is laid out day by day', () => {
 
     // Break = Oct 11..17 (days 22..28); day 1 of the next pack = Oct 18.
     expect(pendingTimes()[0]).toBe(at(8).getTime());
-    expect(pendingTimes()).toEqual(times(at(8), at(9), at(10), at(11), at(12), at(13)));
+    expect(pendingTimes()).toEqual(expectedFires({startOffset: startOffsetForPackDay(21)}).slice(1));
   });
 
   it('a pack whose start date is still in the future reminds every day (no break day exists yet)', async () => {
     await syncWith({methodStartDate: keyOf(3)});
 
-    // Before the start date there is no pack day, hence no break day (exactly what the Dashboard and Calendar show).
-    expect(pendingTimes()).toEqual(times(...Array.from({length: 14}, (_, offset) => at(offset))));
+    // Before the start date there is no pack day, hence no break day (exactly what the Dashboard and Calendar show):
+    // Oct 10..12 are plain reminder days, then the pack counts from Oct 13 (its break days are Oct 3 + 21.. = Nov 3..9).
+    expect(pendingTimes()).toEqual(expectedFires({startOffset: 3}));
+    expect(pendingTimes().slice(0, 4)).toEqual(times(at(0), at(1), at(2), at(3)));
   });
 
   it('a break LONGER than the window still leaves one trigger for the pack that follows', async () => {
-    // 5 pill days + 30 break days; today is pack day 8, so every day of the next 14 is a break day.
-    await syncWith({activeDays: 5, breakDays: 30, methodStartDate: startForPackDayToday(8)});
+    // 5 pill days + 70 break days; today is pack day 8, so every day of the next 60 is a break day.
+    await syncWith({activeDays: 5, breakDays: 70, methodStartDate: startForPackDayToday(8)});
 
-    // Pack day 35 = Nov 6 (offset 27); pack day 1 = Nov 7 (offset 28): the only trigger, 28 days away.
-    expect(pendingTimes()).toEqual(times(at(28)));
+    // Pack day 75 = offset 67; pack day 1 = offset 68: the only trigger, 68 days away (beyond the window on purpose).
+    expect(pendingTimes()).toEqual(times(at(68)));
     expect(pending()[0].id).toBe(REMINDER_ID);
   });
 
   it('a pack with NO pill days schedules nothing and removes what was pending', async () => {
     await syncWith({methodStartDate: startForPackDayToday(15)});
-    expect(pending().length).toBe(7);
+    expect(pending().length).toBe(expectedFires({startOffset: startOffsetForPackDay(15)}).length);
 
     await syncWith({activeDays: 0, breakDays: 7, methodStartDate: startForPackDayToday(15)});
 
@@ -238,7 +286,7 @@ describe('every other schedule keeps ONE repeating daily trigger, exactly as bef
 describe('changing the schedule never leaves a stale trigger behind', () => {
   it('cyclic -> continuous removes every `::n` member and keeps the single repeating trigger', async () => {
     await syncWith({methodStartDate: startForPackDayToday(1)});
-    expect(pending().length).toBe(14);
+    expect(pending().length).toBe(46);
 
     await syncWith({pillScheduleType: 'continuous', activeDays: null, breakDays: null, methodStartDate: startForPackDayToday(1)});
 
@@ -253,19 +301,24 @@ describe('changing the schedule never leaves a stale trigger behind', () => {
 
     await syncWith({methodStartDate: startForPackDayToday(15)});
 
-    expect(pendingTimes()).toEqual(times(at(0), at(1), at(2), at(3), at(4), at(5), at(6)));
+    expect(pendingTimes()).toEqual(expectedFires({startOffset: startOffsetForPackDay(15)}));
     // `<id>` is now the first one-shot: it no longer repeats (it would otherwise fire on the break days).
     expect(pending().every(entry => entry.trigger.repeatFrequency === undefined)).toBe(true);
   });
 
   it('a plan that shrinks (the pack changed) cancels the members it no longer needs', async () => {
     await syncWith({methodStartDate: startForPackDayToday(1)});
-    expect(pending().length).toBe(14);
+    expect(pending().length).toBe(46);
 
     await syncWith({methodStartDate: startForPackDayToday(18)});
 
-    expect(pendingTimes()).toEqual(times(at(0), at(1), at(2), at(3), at(11), at(12), at(13)));
-    expect(pending().length).toBe(7);
+    const expected = expectedFires({startOffset: startOffsetForPackDay(18)});
+    expect(pendingTimes()).toEqual(expected);
+    expect(pending().length).toBe(expected.length);
+    // No member of the previous plan survives under an id the new plan does not use.
+    expect(pending().map(entry => entry.id).sort()).toEqual(
+      [REMINDER_ID, ...expected.slice(1).map((_, index) => `${REMINDER_ID}::${index + 1}`)].sort(),
+    );
   });
 
   it('switching the reminder off, or leaving Contraception, cancels the whole plan', async () => {
@@ -297,7 +350,8 @@ describe('changing the schedule never leaves a stale trigger behind', () => {
 describe('a delivery and the re-sync that follows it', () => {
   it('keeps today\'s delivered notification on screen and keeps the window full', async () => {
     await syncWith({methodStartDate: startForPackDayToday(15)});
-    expect(pending().length).toBe(7);
+    const full = expectedFires({startOffset: startOffsetForPackDay(15)});
+    expect(pending().length).toBe(full.length);
 
     // 20:00 — Android fires today's trigger; seconds later notifee starts the JS and every scheduler re-syncs.
     jest.setSystemTime(at(0, 20, 0, 5));
@@ -309,19 +363,22 @@ describe('a delivery and the re-sync that follows it', () => {
     // Today's copy is still in the shade (the sync never dismisses a delivered notification)...
     expect(displayedIds()).toEqual([REMINDER_ID]);
     expect(fakeNotifeeState.displayed.size).toBe(1);
-    // ...and every remaining pill day of the window is still scheduled (Oct 11..16): the window did not drain.
-    expect(pendingTimes()).toEqual(times(at(1), at(2), at(3), at(4), at(5), at(6)));
+    // ...and every remaining pill day is still scheduled (Oct 11..16, then the following packs): nothing drained.
+    expect(pendingTimes()).toEqual(full.slice(1));
   });
 
   it('every day the window moves forward: tomorrow\'s sync adds the day that entered the horizon', async () => {
     await syncWith({methodStartDate: startForPackDayToday(20)});
-    // Pill days 20, 21 = Oct 10, 11; break Oct 12..18; next pack Oct 19..23.
-    expect(pendingTimes()).toEqual(times(at(0), at(1), at(9), at(10), at(11), at(12), at(13)));
+    // Pill days 20, 21 = Oct 10, 11; break Oct 12..18; next pack Oct 19..
+    expect(pendingTimes()).toEqual(expectedFires({startOffset: startOffsetForPackDay(20)}));
+    expect(pendingTimes().slice(0, 4)).toEqual(times(at(0), at(1), at(9), at(10)));
 
-    // Oct 11 at 08:00 (the app is opened): the horizon is now Oct 11..24, so Oct 24 joins and Oct 10 is gone.
+    // Oct 11 at 08:00 (the app is opened): the horizon is now Oct 11..Dec 9, so Oct 10 is gone and the day that
+    // entered the horizon joins.
     await syncWith({methodStartDate: startForPackDayToday(20)}, at(1, 8, 0));
 
-    expect(pendingTimes()).toEqual(times(at(1), at(9), at(10), at(11), at(12), at(13), at(14)));
+    expect(pendingTimes()).toEqual(expectedFires({startOffset: startOffsetForPackDay(20), firstOffset: 1}));
+    expect(pendingTimes().some(timestamp => timestamp < at(1).getTime())).toBe(false);
   });
 
   it('ids are re-used in place: no duplicate, no leftover member from the previous plan', async () => {
@@ -329,8 +386,9 @@ describe('a delivery and the re-sync that follows it', () => {
     await syncWith({methodStartDate: startForPackDayToday(15)});
     await syncWith({methodStartDate: startForPackDayToday(15)});
 
-    expect(pending().length).toBe(7);
-    expect(new Set(pending().map(entry => entry.id)).size).toBe(7);
+    const count = expectedFires({startOffset: startOffsetForPackDay(15)}).length;
+    expect(pending().length).toBe(count);
+    expect(new Set(pending().map(entry => entry.id)).size).toBe(count);
   });
 });
 
@@ -357,24 +415,30 @@ describe('daylight-saving time: every member keeps the wall-clock time she chose
     const now = new Date(2026, 9, 20, 8, 0, 0);
     await syncWith({methodStartDate: '2026-10-01'}, now);
 
-    const expected = [0, 1, 9, 10, 11, 12, 13].map(offset => new Date(2026, 9, 20 + offset, 20, 0, 0, 0).getTime());
+    const expected = expectedFires({startOffset: -19, base: new Date(2026, 9, 20)});
     expect(pendingTimes()).toEqual(expected);
+    expect(pendingTimes().slice(0, 4)).toEqual(
+      [0, 1, 9, 10].map(offset => new Date(2026, 9, 20 + offset, 20, 0, 0, 0).getTime()),
+    );
     expectWallClock(20, 0);
   });
 
   it('a window crossing the SPRING change (EU: 29 Mar 2026) fires at 20:00 local on every pill day', async () => {
-    // Today = Thu 26 Mar 2026. Pack day 1 = Mar 26: pill days Mar 26..Apr 8 (all 14 of the window).
+    // Today = Thu 26 Mar 2026. Pack day 1 = Mar 26: pill days Mar 26..Apr 15, break Apr 16..22, and so on.
     const now = new Date(2026, 2, 26, 8, 0, 0);
     await syncWith({methodStartDate: '2026-03-26'}, now);
 
-    const expected = Array.from({length: 14}, (_, offset) => new Date(2026, 2, 26 + offset, 20, 0, 0, 0).getTime());
+    const expected = expectedFires({startOffset: 0, base: new Date(2026, 2, 26)});
     expect(pendingTimes()).toEqual(expected);
+    expect(pendingTimes().slice(0, 4)).toEqual(
+      [0, 1, 2, 3].map(offset => new Date(2026, 2, 26 + offset, 20, 0, 0, 0).getTime()),
+    );
     expectWallClock(20, 0);
   });
 
   it('a reminder time INSIDE the clock-change hour still gives exactly one reminder on that calendar day', async () => {
     // 02:30 does not exist on the spring-forward night and 01:30 happens twice on the autumn one: a day must never be
-    // lost or doubled (every pill day of the 14-day window has one trigger, on consecutive calendar days).
+    // lost or doubled (every pill day of the 60-day window has one trigger, on its own calendar day).
     for (const [timeText, start] of [
       ['02:30', new Date(2026, 2, 26, 0, 10, 0)], // 00:10: today's 02:30 is still ahead, so all 14 days count
       ['01:30', new Date(2026, 9, 22, 0, 10, 0)],
@@ -384,9 +448,12 @@ describe('daylight-saving time: every member keeps the wall-clock time she chose
       const startKey = start.toLocaleDateString('en-CA');
       await syncWith({reminderTime: timeText, methodStartDate: startKey}, start);
       const days = pending().map(entry => new Date(entry.timestamp));
-      expect(days).toHaveLength(14);
-      days.forEach((when, offset) => {
-        const expectedDay = new Date(start.getFullYear(), start.getMonth(), start.getDate() + offset);
+      const pillOffsets = Array.from({length: PILL_REMINDER_WINDOW_DAYS}, (_, offset) => offset).filter(
+        offset => offset % 28 < 21,
+      );
+      expect(days).toHaveLength(pillOffsets.length);
+      days.forEach((when, index) => {
+        const expectedDay = new Date(start.getFullYear(), start.getMonth(), start.getDate() + pillOffsets[index]);
         expect([when.getFullYear(), when.getMonth(), when.getDate()]).toEqual([
           expectedDay.getFullYear(),
           expectedDay.getMonth(),
@@ -404,7 +471,7 @@ describe('daylight-saving time: every member keeps the wall-clock time she chose
       now: new Date(2026, 2, 26, 6, 0, 0),
     });
 
-    expect(plan).toHaveLength(14);
+    expect(plan).toHaveLength(PILL_REMINDER_WINDOW_DAYS);
     plan.forEach((fireDate, offset) => {
       expect(fireDate.getTime()).toBe(new Date(2026, 2, 26 + offset, 7, 45, 0, 0).getTime());
     });
@@ -414,7 +481,7 @@ describe('daylight-saving time: every member keeps the wall-clock time she chose
 describe('planPillReminderOccurrences', () => {
   const schedule = {activeDays: 21, totalDays: 28};
 
-  it('is the reminder time on each non-break day of the next 14 calendar days, only instants still ahead', () => {
+  it('is the reminder time on each non-break day of the next 60 calendar days, only instants still ahead', () => {
     const plan = planPillReminderOccurrences({
       reminderTime: '20:00',
       methodStartDate: startForPackDayToday(19),
@@ -422,8 +489,9 @@ describe('planPillReminderOccurrences', () => {
       now: at(0, 12, 0),
     });
 
-    // Days 19, 20, 21 = Oct 10, 11, 12; break 22..28 = Oct 13..19; next pack 1..4 = Oct 20..23.
-    expect(plan.map(date => date.getTime())).toEqual(times(at(0), at(1), at(2), at(10), at(11), at(12), at(13)));
+    // Days 19, 20, 21 = Oct 10, 11, 12; break 22..28 = Oct 13..19; next pack from Oct 20.
+    expect(plan.map(date => date.getTime())).toEqual(expectedFires({startOffset: startOffsetForPackDay(19)}));
+    expect(plan.slice(0, 5).map(date => date.getTime())).toEqual(times(at(0), at(1), at(2), at(10), at(11)));
   });
 
   it('is earliest first and strictly in the future', () => {
@@ -467,7 +535,7 @@ describe('schedule status plumbing', () => {
     fakeNotifeeState.authorizationStatus = 1;
     await syncWith();
     expect(getContraceptionReminderScheduleStatus()).toBe('scheduled');
-    expect(pending().length).toBe(7);
+    expect(pending().length).toBe(expectedFires({startOffset: startOffsetForPackDay(15)}).length);
   });
 
   it('a native failure still REJECTS, like the repeating path (the next sync retries)', async () => {
@@ -476,6 +544,6 @@ describe('schedule status plumbing', () => {
     await expect(syncWith()).rejects.toThrow('native boom');
 
     await syncWith();
-    expect(pending().length).toBe(7);
+    expect(pending().length).toBe(expectedFires({startOffset: startOffsetForPackDay(15)}).length);
   });
 });
