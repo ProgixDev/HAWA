@@ -25,8 +25,10 @@ type LegalSection = {title: string; body: string};
 // Languages that actually have legal placeholder text. Deliberately narrower than
 // AwaAppLanguage: Italian is not translated here yet (explicit English fallback). Turkish
 // has the same provisional placeholder text as the other languages (still pending legal
-// validation — it carries no clause beyond the English).
-type LegalLanguage = 'fr' | 'en' | 'es' | 'tr';
+// validation — it carries no clause beyond the English). Russian likewise carries the same
+// provisional placeholder text and no clause beyond the English. German (de) carries the same
+// provisional placeholder text as well, with no clause beyond the English.
+type LegalLanguage = 'fr' | 'en' | 'es' | 'tr' | 'ru' | 'de';
 
 export const TERMS: Record<LegalLanguage, LegalSection[]> = {
   fr: [
@@ -64,6 +66,18 @@ export const TERMS: Record<LegalLanguage, LegalSection[]> = {
       title: 'İletişim',
       body: 'Resmî iletişim bilgileri, AWA ekibi tarafından doğrulandıktan sonra eklenecektir.',
     },
+  ],
+  ru: [
+    {title: 'Назначение', body: 'Этот документ представляет предварительную структуру условий использования AWA.'},
+    {title: 'Использование приложения', body: 'AWA предлагает инструменты личного учёта и заботы о самочувствии. Окончательный текст, описывающий права и обязанности пользователей, будет добавлен после завершения юридической проверки.'},
+    {title: 'Доступность сервиса', body: 'Окончательные условия, регулирующие доступность, обслуживание и развитие сервиса, ещё предстоит подтвердить.'},
+    {title: 'Контакты', body: 'Официальные контактные данные будут добавлены после того, как их подтвердит команда AWA.'},
+  ],
+  de: [
+    {title: 'Zweck', body: 'Dieses Dokument zeigt die vorläufige Struktur der Nutzungsbedingungen von AWA.'},
+    {title: 'Nutzung der App', body: 'AWA bietet Werkzeuge für die persönliche Beobachtung und das Wohlbefinden. Der endgültige Text zu den Rechten und Pflichten der Nutzerinnen wird ergänzt, sobald die rechtliche Prüfung abgeschlossen ist.'},
+    {title: 'Verfügbarkeit des Dienstes', body: 'Die endgültigen Bedingungen zu Verfügbarkeit, Wartung und Weiterentwicklung des Dienstes müssen noch bestätigt werden.'},
+    {title: 'Kontakt', body: 'Die offiziellen Kontaktdaten werden ergänzt, sobald sie vom AWA-Team bestätigt wurden.'},
   ],
 };
 
@@ -104,10 +118,22 @@ export const PRIVACY: Record<LegalLanguage, LegalSection[]> = {
       body: 'Gizlilik sorumlusunun resmî iletişim adresi, yayımlanmadan önce eklenecektir.',
     },
   ],
+  ru: [
+    {title: 'Затрагиваемые данные', body: 'После завершения юридической проверки в этом разделе будут точно описаны данные, обрабатываемые AWA, и цель их обработки.'},
+    {title: 'Хранение и безопасность', body: 'В окончательной документации будут указаны меры хранения, средства защиты и сроки хранения.'},
+    {title: 'Ваши права', body: 'Порядок доступа к вашим данным, их исправления или удаления будет подробно описан в проверенной версии.'},
+    {title: 'Контакт по вопросам конфиденциальности', body: 'Официальный адрес ответственного за конфиденциальность будет добавлен до публикации.'},
+  ],
+  de: [
+    {title: 'Betroffene Daten', body: 'Dieser Abschnitt beschreibt nach Abschluss der rechtlichen Prüfung genau, welche Daten AWA verarbeitet und zu welchem Zweck.'},
+    {title: 'Speicherung und Sicherheit', body: 'Die endgültige Dokumentation legt die Speichermaßnahmen, Schutzvorkehrungen und Aufbewahrungsfristen fest.'},
+    {title: 'Deine Rechte', body: 'Die Verfahren, um auf deine Daten zuzugreifen, sie zu berichtigen oder zu löschen, werden in der geprüften Fassung ausführlich beschrieben.'},
+    {title: 'Datenschutzkontakt', body: 'Die offizielle Kontaktadresse der oder des Datenschutzverantwortlichen wird vor der Veröffentlichung ergänzt.'},
+  ],
 };
 
-/** Resolves the app's current language to one of the 4 legal-content keys —
- * the single place this screen decides fr/en/es/tr, so body and chrome can never
+/** Resolves the app's current language to one of the 6 legal-content keys —
+ * the single place this screen decides fr/en/es/tr/ru/de, so body and chrome can never
  * drift apart. Italian ('it') has no legal placeholder text yet, so it — like
  * any unknown/invalid language (e.g. not yet loaded) — falls back to English,
  * never to French or Spanish. */
@@ -115,6 +141,8 @@ function resolveLegalLanguage(language: string): LegalLanguage {
   if (language === 'fr') {return 'fr';}
   if (language === 'es') {return 'es';}
   if (language === 'tr') {return 'tr';}
+  if (language === 'ru') {return 'ru';}
+  if (language === 'de') {return 'de';}
   return 'en';
 }
 

@@ -815,6 +815,8 @@ const LANGUAGE_SELF_LABELS: Record<AwaAppLanguage, {label: string; subtitle: str
   es: {label: 'Español', subtitle: 'Usar AWA en español'},
   it: {label: 'Italiano', subtitle: 'Usare AWA in italiano'},
   tr: {label: 'Türkçe', subtitle: 'AWA’yı Türkçe kullan'},
+  ru: {label: 'Русский', subtitle: 'Использовать AWA на русском'},
+  de: {label: 'Deutsch', subtitle: 'AWA auf Deutsch verwenden'},
 };
 
 const LANGUAGE_OPTIONS: LanguageOption[] = [
@@ -823,6 +825,8 @@ const LANGUAGE_OPTIONS: LanguageOption[] = [
   {id: 'es', flag: '🇪🇸', ...LANGUAGE_SELF_LABELS.es},
   {id: 'it', flag: '🇮🇹', ...LANGUAGE_SELF_LABELS.it},
   {id: 'tr', flag: '🇹🇷', ...LANGUAGE_SELF_LABELS.tr},
+  {id: 'ru', flag: '🇷🇺', ...LANGUAGE_SELF_LABELS.ru},
+  {id: 'de', flag: '🇩🇪', ...LANGUAGE_SELF_LABELS.de},
 ];
 
 function LanguageBottomSheet({
@@ -1708,7 +1712,11 @@ export default function AppearanceScreen({
                       ? t('appearance.language.italianName')
                       : appLanguage === 'tr'
                         ? t('appearance.language.turkishName')
-                        : t('appearance.language.frenchName')
+                        : appLanguage === 'ru'
+                          ? t('appearance.language.russianName')
+                          : appLanguage === 'de'
+                            ? t('appearance.language.germanName')
+                            : t('appearance.language.frenchName')
               }
 
               theme={theme}
