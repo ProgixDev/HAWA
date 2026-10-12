@@ -151,6 +151,8 @@ export const it = {
       spanishName: 'Español',
       italianName: 'Italiano',
       turkishName: 'Türkçe',
+      russianName: 'Русский',
+      germanName: 'Deutsch',
     },
   },
   cycleHome: {
@@ -1647,9 +1649,9 @@ export const it = {
       discoverPremium: 'Scopri Premium',
       inactiveSubtitle: 'Sblocca strumenti avanzati per andare oltre nel tuo monitoraggio.',
       features: {
-        additionalThemes: 'temi visivi aggiuntivi',
+        additionalThemes: 'Temi visivi aggiuntivi',
         advancedStatistics: 'Statistiche avanzate',
-        inDepthEducationalContent: 'contenuti educativi approfonditi',
+        inDepthEducationalContent: 'Contenuti educativi approfonditi',
         pdfCsvExport: 'Esportazione PDF e CSV',
         unlimitedHistory: 'Cronologia illimitata',
       },
@@ -5458,6 +5460,9 @@ export const it = {
     stillOff: 'Le notifiche sono ancora disattivate.',
     nowOn: 'Le notifiche sono attive. I tuoi promemoria verranno programmati.',
     continueWithout: 'Continua senza notifiche',
+    channelSilentTitle: 'I promemoria possono arrivare senza suono',
+    channelSilentBody: 'La categoria di promemoria di AWA è silenziosa su questo telefono, quindi i promemoria compaiono senza suono. Potrebbe essere una tua scelta e AWA non la cambierà. Se vuoi sentirli, puoi attivare tu il suono.',
+    channelSilentSteps: 'In Android: Impostazioni > Notifiche > {{channel}} > Suono.',
   },
   notifications: {
     privacyGenericBody: 'Hai un nuovo promemoria di AWA.',

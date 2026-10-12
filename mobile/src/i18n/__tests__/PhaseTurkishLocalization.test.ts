@@ -408,7 +408,7 @@ describe('editorial content: library articles, pregnancy weeks, legal text', () 
     for (const language of ['fr', 'es', 'it', 'en']) {
       expect(resolveEditorialLanguage(language)).toBe(language);
     }
-    for (const other of ['de', '', null, undefined, 'tr-TR']) {
+    for (const other of ['nl', '', null, undefined, 'tr-TR']) {
       expect(resolveEditorialLanguage(other as string | null | undefined)).toBe('en');
     }
   });
@@ -508,12 +508,12 @@ describe('editorial content: library articles, pregnancy weeks, legal text', () 
   });
 
   it('week data for an unrecognized language is still English', () => {
-    expect(getPregnancyWeekData(12, 'de' as never)?.babyDescription).toBe(getPregnancyWeekData(12, 'en')?.babyDescription);
+    expect(getPregnancyWeekData(12, 'nl' as never)?.babyDescription).toBe(getPregnancyWeekData(12, 'en')?.babyDescription);
   });
 
   it('legal placeholder text exists in Turkish with the same sections as English', () => {
-    expect(Object.keys(TERMS).sort()).toEqual(['en', 'es', 'fr', 'tr']);
-    expect(Object.keys(PRIVACY).sort()).toEqual(['en', 'es', 'fr', 'tr']);
+    expect(Object.keys(TERMS).sort()).toEqual(['de', 'en', 'es', 'fr', 'ru', 'tr']);
+    expect(Object.keys(PRIVACY).sort()).toEqual(['de', 'en', 'es', 'fr', 'ru', 'tr']);
     expect(TERMS.tr).toHaveLength(TERMS.en.length);
     expect(PRIVACY.tr).toHaveLength(PRIVACY.en.length);
     TERMS.tr.concat(PRIVACY.tr).forEach(section => {

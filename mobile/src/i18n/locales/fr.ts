@@ -187,6 +187,8 @@ export const fr = {
       spanishName: 'Español',
       italianName: 'Italiano',
       turkishName: 'Türkçe',
+      russianName: 'Русский',
+      germanName: 'Deutsch',
     },
   },
 
@@ -1639,9 +1641,9 @@ export const fr = {
       discoverPremium: 'Découvrir Premium',
       inactiveSubtitle: 'Débloque des outils avancés pour aller plus loin dans ton suivi.',
       features: {
-        additionalThemes: 'thèmes visuels supplémentaires',
+        additionalThemes: 'Thèmes visuels supplémentaires',
         advancedStatistics: 'Statistiques avancées',
-        inDepthEducationalContent: 'contenus éducatifs approfondis',
+        inDepthEducationalContent: 'Contenus éducatifs approfondis',
         pdfCsvExport: 'Export PDF & CSV',
         unlimitedHistory: 'Historique illimité',
       },
@@ -5157,6 +5159,9 @@ export const fr = {
     stillOff: 'Les notifications sont toujours désactivées.',
     nowOn: 'Les notifications sont activées. Tes rappels vont être programmés.',
     continueWithout: 'Continuer sans notifications',
+    channelSilentTitle: 'Les rappels peuvent arriver sans son',
+    channelSilentBody: 'La catégorie de rappels d’AWA est silencieuse sur ce téléphone : les rappels s’affichent sans son. C’est peut-être ton choix, et AWA n’y touchera pas. Si tu veux les entendre, tu peux activer le son toi-même.',
+    channelSilentSteps: 'Dans Android : Réglages > Notifications > {{channel}} > Son.',
   },
 
   notifications: {

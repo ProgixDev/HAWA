@@ -174,6 +174,8 @@ export const en = {
       spanishName: 'Español',
       italianName: 'Italiano',
       turkishName: 'Türkçe',
+      russianName: 'Русский',
+      germanName: 'Deutsch',
     },
   },
 
@@ -1624,9 +1626,9 @@ export const en = {
       discoverPremium: 'Discover Premium',
       inactiveSubtitle: 'Unlock advanced tools to go further with your tracking.',
       features: {
-        additionalThemes: 'additional visual themes',
+        additionalThemes: 'Additional visual themes',
         advancedStatistics: 'Advanced statistics',
-        inDepthEducationalContent: 'in-depth educational content',
+        inDepthEducationalContent: 'In-depth educational content',
         pdfCsvExport: 'PDF & CSV export',
         unlimitedHistory: 'Unlimited history',
       },
@@ -5142,6 +5144,9 @@ export const en = {
     stillOff: 'Notifications are still off.',
     nowOn: 'Notifications are on. Your reminders will be scheduled.',
     continueWithout: 'Continue without notifications',
+    channelSilentTitle: 'Reminders may arrive without sound',
+    channelSilentBody: 'The AWA reminders category is silent on this phone, so reminders appear without a sound. That may be your choice, and AWA won’t change it. If you want to hear them, you can turn the sound on yourself.',
+    channelSilentSteps: 'In Android: Settings > Notifications > {{channel}} > Sound.',
   },
 
   notifications: {
