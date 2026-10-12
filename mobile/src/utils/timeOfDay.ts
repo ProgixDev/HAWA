@@ -51,3 +51,20 @@ export function dateAtTimeOfDay(base: Date, value: string | null | undefined, fa
   const parsed = parseTimeOfDay(value) ?? parseTimeOfDay(fallback) ?? {hours: 0, minutes: 0};
   return new Date(base.getFullYear(), base.getMonth(), base.getDate(), parsed.hours, parsed.minutes, 0, 0);
 }
+
+/**
+ * An INSTANT shown as a 24-hour "HH:mm" clock in `timeZone` (the prayer location's zone, for the prayer / purity
+ * cards) or in the device zone when omitted. DISPLAY ONLY: the result is never stored or parsed back.
+ *
+ * Why `hourCycle: 'h23'` and not `hour12: false`: under en-US, V8 resolves `hour12:false` to the "h24" cycle and
+ * prints 00:05 as "24:05" (same bug as formatTimeOfDay above). Do NOT also pass `hour12`: it overrides `hourCycle`.
+ * Other locales (fr-FR, es-ES, it-IT, tr-TR) already used h23 and print exactly the same as before.
+ */
+export function formatClockTimeInZone(date: Date, locale: string, timeZone?: string): string {
+  return new Intl.DateTimeFormat(locale, {
+    ...(timeZone ? {timeZone} : {}),
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  }).format(date);
+}
