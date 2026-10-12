@@ -50,3 +50,10 @@ export async function loadOwnerProfileData<T>(load: () => Promise<T>): Promise<O
     }
   }
 }
+
+/**
+ * Result of a STRICTLY READ-ONLY read of the OWNER's profile-scoped record, made while another profile may be active
+ * (readOwner...Snapshot() in the stores). 'unavailable' is an explicit answer — the record exists but could not be read
+ * (or understood) — and is never to be treated as "empty": the caller leaves everything as it is.
+ */
+export type OwnerSnapshotResult<T> = {status: 'ok'; value: T} | {status: 'unavailable'};

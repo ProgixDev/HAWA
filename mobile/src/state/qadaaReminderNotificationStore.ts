@@ -1,5 +1,6 @@
 import AsyncStorage, {isStructuredUnavailableError, readOwnedItem} from '../services/secureAsyncStorage';
 import {commitOptimistic} from '../services/saveFailure';
+import {registerOwnerStore} from './ownerStoreRegistry';
 
 // Persisted scheduling state for the post-Ramadan Qadaa local notification —
 // mirrors postpartumNifasReminderStore.ts's shape/idioms. Kept strictly
@@ -109,3 +110,25 @@ export const subscribeQadaaReminderNotification = (listener: () => void) => {
   listeners.add(listener);
   return () => {listeners.delete(listener);};
 };
+
+// Owner-only record, not profile-scoped: dropped and re-read after a backup restore / data deletion, or reset in
+// memory only after a full wipe (see ownerStoreRegistry.ts).
+const resetQadaaReminderMemory = (): void => {
+  writeRevision += 1; // a read already in flight describes the old record
+  state = DEFAULT_QADAA_REMINDER_NOTIFICATION_STATE;
+  hydrated = false;
+  hydration = null;
+};
+registerOwnerStore('qadaa-reminder-notification', {
+  reload: async () => {
+    await hydration?.catch(() => undefined); // a read already in flight lands first, then is replaced
+    resetQadaaReminderMemory();
+    const value = await hydrateQadaaReminderNotificationState();
+    notifyListeners();
+    return value;
+  },
+  resetToDefaults: () => {
+    resetQadaaReminderMemory();
+    notifyListeners();
+  },
+});
