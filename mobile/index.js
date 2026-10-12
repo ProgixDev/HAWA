@@ -14,6 +14,7 @@ import { name as appName } from './app.json';
 import { handlePostpartumNifasBackgroundNotification } from './src/services/postpartumNifasBackgroundNotificationHandler';
 import { handleConceptionReminderBackgroundNotification } from './src/services/conceptionReminderBackgroundHandler';
 import { handleGenericReminderBackgroundNotification } from './src/services/genericReminderBackgroundHandler';
+import reminderRescheduleTask, { REMINDER_RESCHEDULE_TASK_NAME } from './src/services/reminderRescheduleTask';
 
 notifee.onBackgroundEvent(async ({ type, detail }) => {
   if (type === EventType.DELIVERED) {
@@ -45,6 +46,10 @@ notifee.onBackgroundEvent(async ({ type, detail }) => {
     );
   }
 });
+
+// Started by AwaReminderRescheduleService (android/app/src/main/java/com/hawa/) after a time-zone change, a clock
+// change or an app update, none of which notifee re-arms alarms for. See src/services/reminderRescheduleTask.ts.
+AppRegistry.registerHeadlessTask(REMINDER_RESCHEDULE_TASK_NAME, () => reminderRescheduleTask);
 
 AppRegistry.registerComponent(appName, () => App);
 

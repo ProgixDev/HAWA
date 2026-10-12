@@ -21,7 +21,12 @@ react {
     //   The list of variants to that are debuggable. For those we're going to
     //   skip the bundling of the JS bundle and the assets. By default is just 'debug'.
     //   If you add flavors like lite, prod, etc. you'll have to list your debuggableVariants.
-    // debuggableVariants = ["liteDebug", "prodDebug"]
+    //
+    //   Empty on purpose: the isolated audit build (debug, application id com.hawa.audit) must carry its own JS bundle.
+    //   Reminder delivery, notification taps and the time-zone/clock reschedule receiver start a headless JS task while
+    //   no Metro server is attached (phone unplugged, app process dead); a Metro-only debug APK could not run them.
+    //   Metro still takes over when it is reachable. The release build is unaffected (it always bundles).
+    debuggableVariants = []
 
     /* Bundling */
     //   A list containing the node command and its flags. Default is just 'node'.
@@ -95,6 +100,13 @@ android {
     }
     buildTypes {
         debug {
+            // Isolated audit variant: installs BESIDE the production app (com.hawa), never over it. A different
+            // package id means its own data directory, Android Keystore keys, Keychain entries, notification
+            // channels and alarms. `namespace` stays "com.hawa", so the Kotlin classes and manifest component names
+            // (.MainActivity, .LauncherAwa, ...) and the JS-side 'com.hawa.MainActivity' launch class are unchanged.
+            // The release build type keeps applicationId "com.hawa".
+            applicationIdSuffix ".audit"
+            versionNameSuffix "-audit"
             signingConfig signingConfigs.debug
         }
         release {
