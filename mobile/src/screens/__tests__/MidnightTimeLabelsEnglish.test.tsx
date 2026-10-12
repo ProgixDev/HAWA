@@ -233,13 +233,27 @@ describe('static guard: stored / displayed LOCAL clock times never go through In
   });
 
   // Prayer times are an instant shown in an EXPLICIT time zone (the prayer location's), never stored or parsed back:
-  // formatTimeOfDay (device-local) is the wrong tool there, so they stay as they were.
+  // formatTimeOfDay (device-local) is the wrong tool there. They go through formatClockTimeInZone, which keeps the
+  // explicit time zone (the `timeZone` option lives inside that helper, so the guard moved there) and uses
+  // hourCycle 'h23', so 00:05 is "00:05" and never "24:05" under en-US.
   it.each([
     'components/prayer/NextPrayerCard.tsx',
     'components/prayer/PrayerScheduleList.tsx',
     'components/prayer/PurityStatusCard.tsx',
     'components/home/SpiritualGuidanceCard.tsx',
-  ])('%s keeps formatting in an explicit time zone', relative => {
-    expect(read(relative)).toMatch(/timeZone/);
+    'services/prayerTimes.ts',
+  ])('%s formats in an explicit time zone through formatClockTimeInZone, with no hour12:false', relative => {
+    const source = read(relative);
+    expect(source).not.toMatch(/hour12\s*:\s*false/);
+    expect(source).toMatch(/formatClockTimeInZone\(/);
+    expect(source).toMatch(/utils\/timeOfDay/);
+    // the zone is still passed through, not dropped
+    expect(source).toMatch(/formatClockTimeInZone\([^\n]*(timezone|timeZone)/);
+  });
+
+  it('formatClockTimeInZone itself pins the zone option and the h23 hour cycle', () => {
+    const source = read('utils/timeOfDay.ts');
+    expect(source).toMatch(/timeZone/);
+    expect(source).toMatch(/hourCycle:\s*'h23'/);
   });
 });
