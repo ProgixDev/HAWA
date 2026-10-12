@@ -648,7 +648,8 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
           </Animated.View>
 
           <View style={styles.premiumCopy}>
-            <Text style={styles.premiumTitle}>AWA Premium</Text>
+            {/* Same key as the Premium sheet's hero title: one localized product title on every Premium surface. */}
+            <Text style={styles.premiumTitle}>{t('premium.sheet.heroTitle')}</Text>
             <Text style={styles.premiumSubtitle}>
               {isPremium
                 ? t('profile.premiumCard.activeSubtitle')
@@ -4214,6 +4215,8 @@ pageGlowBottom: {
   },
 
   premiumButtonText: {
+    flexShrink: 1,
+    textAlign: 'center',
     color: '#4F2A96',
     fontSize: 13.5,
     fontWeight: '900',
@@ -5641,6 +5644,10 @@ pageGlowBottom: {
   alignItems: 'center',
   justifyContent: 'center',
   gap: 8,
+  // Reserve the (absolutely positioned) arrow's lane symmetrically so a long
+  // Russian/German CTA wraps instead of running under it.
+  flexShrink: 1,
+  paddingHorizontal: 22,
 },
 
 premiumButtonArrow: {

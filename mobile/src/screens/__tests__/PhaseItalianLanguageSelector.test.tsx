@@ -110,7 +110,7 @@ afterEach(async () => {
 });
 
 describe('Italian language selector — the Italian card among the five options', () => {
-  it('shows exactly five language cards: English, Français, Español, Italiano, Türkçe', async () => {
+  it('shows exactly seven language cards: English, Français, Español, Italiano, Türkçe, Русский, Deutsch', async () => {
     const renderer = await renderScreen();
     await openLanguageSheet(renderer);
     for (const [label] of SELF_DESCRIPTIONS) {
@@ -119,7 +119,7 @@ describe('Italian language selector — the Italian card among the five options'
     const allRadioLabels = new Set(
       renderer.root.findAll(node => node.props.accessibilityRole === 'radio').map(node => node.props.accessibilityLabel),
     );
-    expect(allRadioLabels).toEqual(new Set([...SELF_DESCRIPTIONS.map(([label]) => label), 'Türkçe']));
+    expect(allRadioLabels).toEqual(new Set([...SELF_DESCRIPTIONS.map(([label]) => label), 'Türkçe', 'Русский', 'Deutsch']));
   });
 
   it('the Italian card has the 🇮🇹 flag and the native-language subtitle "Usare AWA in italiano"', async () => {
