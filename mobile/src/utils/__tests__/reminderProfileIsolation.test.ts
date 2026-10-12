@@ -331,7 +331,9 @@ describe.each(SCENARIOS)('$name — the owner\'s reminders while a managed profi
   }
 
   it('daughter with NO data: nothing is created or cancelled, whoever asks; the owner\'s change takes effect on her return', async () => {
-    const {before, writes} = await ownerArmedAndWired();
+    const {before} = await ownerArmedAndWired();
+    const ownerWrites = nativeWritesFor(scenario.ids);
+    const qadaaCancelsBefore = nativeWritesFor([QADAA_ID]).cancelled.length;
     const daughter = await addDaughterWithoutData();
 
     await M.activeProfile().setActiveProfileId(daughter.id);
@@ -341,13 +343,17 @@ describe.each(SCENARIOS)('$name — the owner\'s reminders while a managed profi
     await settle();
 
     expect(triggersSnapshot()).toEqual(before); // exactly the owner's triggers: same ids, instants and text
-    expect(nativeWrites()).toEqual(writes); // not one create, not one cancel
+    // Not one create or cancel of a TTC / SOPK reminder. The Qadaa reminder is only ever re-armed IN PLACE from the
+    // owner's own saved snapshot (a forced sync re-creates it identically — never a cancel, never derived from her).
+    expect(nativeWritesFor(scenario.ids)).toEqual(ownerWrites);
+    expect(nativeWritesFor([QADAA_ID]).cancelled).toHaveLength(qadaaCancelsBefore);
 
     // An owner-wide setting changed meanwhile is NOT applied while she is not the active profile…
     await scenario.changeOwnerSetting();
     await settle();
     expect(idsPending()).toContain(scenario.switchedOff);
-    expect(nativeWrites()).toEqual(writes);
+    expect(nativeWritesFor(scenario.ids)).toEqual(ownerWrites);
+    expect(nativeWritesFor([QADAA_ID]).cancelled).toHaveLength(qadaaCancelsBefore);
 
     // …and is, derived from the owner's data, the moment she is back.
     await M.activeProfile().setActiveProfileId('owner');
@@ -364,7 +370,8 @@ describe.each(SCENARIOS)('$name — the owner\'s reminders while a managed profi
     await settle();
     expect(triggersSnapshot()).toEqual(before);
 
-    const writes = nativeWrites();
+    const ownerWrites = nativeWritesFor(scenario.ids);
+    const qadaaCancels = nativeWritesFor([QADAA_ID]).cancelled.length;
     await M.activeProfile().setActiveProfileId(daughter.id);
     await settle();
     await runOwnerSyncs();
@@ -372,14 +379,16 @@ describe.each(SCENARIOS)('$name — the owner\'s reminders while a managed profi
     await settle();
 
     expect(triggersSnapshot()).toEqual(before);
-    expect(nativeWrites()).toEqual(writes);
+    expect(nativeWritesFor(scenario.ids)).toEqual(ownerWrites);
+    // Qadaa: re-created identically in place from the owner's snapshot at most, never cancelled.
+    expect(nativeWritesFor([QADAA_ID]).cancelled).toHaveLength(qadaaCancels);
 
     await M.activeProfile().setActiveProfileId('owner');
     await settle();
     expect(triggersSnapshot()).toEqual(before); // derived again from the OWNER's records: the same reminders
   });
 
-  it('an owner trigger lost natively while the daughter is active stays lost until the owner is back, then is re-armed from HER data', async () => {
+  it('an owner trigger lost natively while the daughter is active stays lost until the owner is back (Qadaa: re-armed from HER snapshot only)', async () => {
     const {before} = await ownerArmedAndWired();
     const daughter = await addDaughterWithoutData();
     await M.activeProfile().setActiveProfileId(daughter.id);
@@ -387,12 +396,16 @@ describe.each(SCENARIOS)('$name — the owner\'s reminders while a managed profi
 
     M.fake().fakeNotifeeState.triggers.delete(QADAA_ID);
     M.fake().fakeNotifeeState.triggers.delete(scenario.ids[0]);
-    const writes = nativeWrites();
+    const writes = nativeWritesFor(scenario.ids);
     await runOwnerSyncs();
     await settle();
-    expect(idsPending()).not.toContain(QADAA_ID);
+    // TTC / SOPK are derived from profile-scoped records: nothing is rebuilt while the daughter is active.
     expect(idsPending()).not.toContain(scenario.ids[0]);
-    expect(nativeWrites()).toEqual(writes);
+    expect(nativeWritesFor(scenario.ids)).toEqual(writes);
+    // The post-Ramadan Qadaa reminder is re-armed from the OWNER's own saved snapshot (same instant, same occurrence
+    // id): it needs no profile-scoped record, so a lost trigger does not have to wait for her to come back.
+    expect(idsPending()).toContain(QADAA_ID);
+    expect(triggersSnapshot()[QADAA_ID]).toEqual((before as Record<string, unknown>)[QADAA_ID]);
 
     await M.activeProfile().setActiveProfileId('owner');
     await settle();

@@ -10,9 +10,15 @@ import {getSpiritualMarkersEnabled} from '../state/onboardingPreferences';
 import {
   getConfirmedPeriodHistory,
   hydrateConfirmedPeriodHistory,
+  readOwnerConfirmedPeriodHistorySnapshot,
   type ConfirmedPeriodOccurrence,
 } from '../state/confirmedPeriodHistoryStore';
-import {getQadaaLedger, hydrateQadaaLedger} from '../state/qadaaLedgerStore';
+import {
+  getQadaaLedger,
+  hydrateQadaaLedger,
+  readOwnerQadaaLedgerSnapshot,
+  type QadaaLedger,
+} from '../state/qadaaLedgerStore';
 import {isOwnerActive} from '../state/activeProfileStore';
 import {computeQadaaBalance} from './qadaaBalance';
 import {
@@ -80,22 +86,18 @@ async function clearQadaaReminder(): Promise<void> {
 }
 
 /**
- * Recomputes remainingQadaaDays the exact same way useQadaaStatus.ts does —
- * same computeQadaaFromHistory() + qadaaLedgerStore (manual entries and
- * completions) combined by computeQadaaBalance(), not a second calculation. A module-level sync (called from App.tsx) has no
- * React hook context to reuse the hook itself; reading qadaaStore.ts's
- * cached value instead was considered but rejected, since that cache is
- * only as fresh as the last time some Qadaa screen happened to be opened —
- * a real scheduled notification needs the current canonical value even if
- * she hasn't opened Fasting/Qadaa at all this Ramadan.
- *
- * SYNCHRONOUS on purpose: the caller has just waited for the owner's records to be read (loadOwnerProfileData) and
- * must derive from them in that same tick — an await here would be a window in which another profile could become
- * active and its records be read under the owner's reminder.
+ * Remaining owed Qadaa days - the exact same way useQadaaStatus.ts does: computeQadaaFromHistory() over the confirmed
+ * periods + the user's own ledger (manual entries and completions) combined by computeQadaaBalance(). The ONE
+ * implementation, fed either by the stores' in-memory state (the owner is active: her records were just read) or by the
+ * read-only owner snapshots (a managed profile is active). Pure and SYNCHRONOUS on purpose: the owner-active caller has
+ * just waited for the owner's records to be read (loadOwnerProfileData) and must derive from them in that same tick - an
+ * await would be a window in which another profile could become active and its records be read under the owner's
+ * reminder.
  */
-function computeCurrentRemainingQadaaDays(): number {
-  const history = getConfirmedPeriodHistory();
-  const ledger = getQadaaLedger();
+function remainingQadaaDaysFrom(
+  history: readonly ConfirmedPeriodOccurrence[],
+  ledger: Pick<QadaaLedger, 'manualEntries' | 'completions'>,
+): number {
   const result = computeQadaaFromHistory(history.map(toOccurrenceDates));
   return computeQadaaBalance(result.remainingDays, ledger.manualEntries, ledger.completions).remainingDays;
 }
@@ -193,6 +195,97 @@ async function keepArmedReminder(previous: QadaaReminderNotificationState, force
 }
 
 /**
+ * The tail shared by the owner-active and the managed-active paths: the owner's remaining owed days are known (from her
+ * own records, however they were obtained), so decide - during Ramadan - whether her post-Ramadan reminder is cleared
+ * (nothing owed), kept (the saved snapshot still describes a held trigger) or armed / replaced in place.
+ */
+async function reconcileOwnerReminder(
+  previous: QadaaReminderNotificationState,
+  force: boolean,
+  remainingQadaaDays: number,
+  today: Date,
+): Promise<void> {
+  if (remainingQadaaDays <= 0) {
+    if (previous.scheduled || previous.fireAt) {
+      await clearQadaaReminder();
+    }
+    return;
+  }
+
+  const ramadanMonthStart = hijriMonthStart(today);
+  const ramadanMonthStartKey = dateKey(ramadanMonthStart);
+  const fireDate = reminderFireDate(ramadanMonthStart);
+  const occurrenceId = occurrenceIdFor(ramadanMonthStartKey, fireDate);
+
+  // The saved snapshot short-circuits the work only when it describes THIS occurrence, the earlier attempt really
+  // scheduled, and the notification layer still holds the trigger (or it has legitimately been delivered). A forced
+  // sync never trusts it: the OS-side trigger may no longer match (privacy text, language, timezone, restore).
+  const sameOccurrence =
+    previous.ramadanMonthStartKey === ramadanMonthStartKey && previous.occurrenceId === occurrenceId;
+  if (!force && sameOccurrence && (await snapshotStillHolds(previous))) {
+    return;
+  }
+
+  await armReminder({ramadanMonthStartKey, fireDate, occurrenceId});
+}
+
+/**
+ * While a managed (daughter) profile is active: the reminder is still the OWNER's, so it is derived from the OWNER's own
+ * records only - read through the stores' strictly read-only owner snapshots (her unsuffixed keys; no in-memory state,
+ * listeners, writes, migration or profile switch involved) - and never from anything the active profile holds. Same
+ * rules as the owner-active path: during Ramadan it is armed / replaced when she owes days and CLEARED only when HER OWN
+ * data says nothing is owed; outside Ramadan an already-armed one is kept alive from her saved snapshot.
+ *
+ * Whatever cannot be read (her snapshot, her confirmed periods, her ledger or the legacy counter) leaves everything
+ * exactly as it is - an unreadable record is not "nothing owed" - and a daughter's unreadable record is irrelevant here
+ * (different keys). Spiritual markers off: neither armed nor cleared (the owner applies that on her return).
+ */
+async function runManagedActiveQadaaSync(force: boolean): Promise<void> {
+  const previous = await hydrateQadaaReminderNotificationState();
+  if (areReminderSourcesUnavailable({
+    ownerBases: ['@hawa/qadaa-post-ramadan-reminder/v1'],
+    includeObjective: false,
+  })) {
+    return;
+  }
+  if (!getSpiritualMarkersEnabled()) {
+    return;
+  }
+
+  const today = startOfDay(new Date());
+  if (!isRamadan(today)) {
+    await keepArmedReminder(previous, force);
+    return;
+  }
+
+  const [history, ledger] = await Promise.all([
+    readOwnerConfirmedPeriodHistorySnapshot(),
+    readOwnerQadaaLedgerSnapshot(),
+  ]);
+  // The owner became active meanwhile: her own sync (triggered by the switch) decides from the stores' state.
+  if (isOwnerActive()) {
+    return;
+  }
+  if (history.status !== 'ok' || ledger.status !== 'ok') {
+    return;
+  }
+  // The registry marks of the owner-wide keys (the readers' own, the reminder's), re-checked after the reads.
+  if (areReminderSourcesUnavailable({
+    ownerBases: [
+      '@hawa/qadaa-post-ramadan-reminder/v1',
+      '@hawa/confirmed-period-history',
+      'awa:qadaa:ledger:v1',
+      'awa:qadaa:progress:v1',
+    ],
+    includeObjective: false,
+  })) {
+    return;
+  }
+
+  await reconcileOwnerReminder(previous, force, remainingQadaaDaysFrom(history.value, ledger.value), today);
+}
+
+/**
  * Keeps a single local scheduled notification in sync with the same
  * canonical Ramadan/Qadaa state the in-app reactive card already uses.
  *
@@ -209,11 +302,12 @@ async function keepArmedReminder(previous: QadaaReminderNotificationState, force
  * cancels/schedules its own single, stable notification id.
  */
 async function runQadaaSync(force: boolean): Promise<void> {
-  // This reminder has an OWNER-GLOBAL id but is derived from the ACTIVE profile's confirmed periods and Qadaa ledger.
-  // While a managed (daughter) profile is active those records are hers — a daughter who owes nothing used to make
-  // this CANCEL the owner's reminder — so this run neither schedules, cancels nor changes anything: the owner's
-  // trigger stays exactly as it is until she is active again. Checked before ANY read.
+  // This reminder has an OWNER-GLOBAL id; the stores' in-memory records belong to the ACTIVE profile. While a managed
+  // (daughter) profile is active those are hers - a daughter who owes nothing used to make this CANCEL the owner's
+  // reminder - so that path never uses them: it derives from the OWNER's own records through read-only snapshots
+  // (runManagedActiveQadaaSync). Checked before ANY profile-scoped read.
   if (!isOwnerActive()) {
+    await runManagedActiveQadaaSync(force);
     return;
   }
 
@@ -251,29 +345,8 @@ async function runQadaaSync(force: boolean): Promise<void> {
   }
 
   // Derived synchronously from the owner's just-read records (no await since the checks above).
-  const remainingQadaaDays = computeCurrentRemainingQadaaDays();
-  if (remainingQadaaDays <= 0) {
-    if (previous.scheduled || previous.fireAt) {
-      await clearQadaaReminder();
-    }
-    return;
-  }
-
-  const ramadanMonthStart = hijriMonthStart(today);
-  const ramadanMonthStartKey = dateKey(ramadanMonthStart);
-  const fireDate = reminderFireDate(ramadanMonthStart);
-  const occurrenceId = occurrenceIdFor(ramadanMonthStartKey, fireDate);
-
-  // The saved snapshot short-circuits the work only when it describes THIS occurrence, the earlier attempt really
-  // scheduled, and the notification layer still holds the trigger (or it has legitimately been delivered). A forced
-  // sync never trusts it: the OS-side trigger may no longer match (privacy text, language, timezone, restore).
-  const sameOccurrence =
-    previous.ramadanMonthStartKey === ramadanMonthStartKey && previous.occurrenceId === occurrenceId;
-  if (!force && sameOccurrence && (await snapshotStillHolds(previous))) {
-    return;
-  }
-
-  await armReminder({ramadanMonthStartKey, fireDate, occurrenceId});
+  const remainingQadaaDays = remainingQadaaDaysFrom(getConfirmedPeriodHistory(), getQadaaLedger());
+  await reconcileOwnerReminder(previous, force, remainingQadaaDays, today);
 }
 
 // Every Qadaa operation (the plain sync, the forced one and the cancel) goes through ONE queue: two overlapping runs
