@@ -108,6 +108,8 @@ type PregnancyWeekEntry = {
     es: PregnancyWeekEditorialContent;
     it: PregnancyWeekEditorialContent;
     tr: PregnancyWeekEditorialContent;
+    ru: PregnancyWeekEditorialContent;
+    de: PregnancyWeekEditorialContent;
   };
 };
 
@@ -172,6 +174,28 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Bu aşamada herhangi bir değişiklik fark etmemek yaygındır.',
         ],
       },
+      ru: {
+        babyDescription:
+          'По медицинской договорённости беременность отсчитывается от первого дня последних месячных. На этом этапе оплодотворение, как правило, ещё не произошло.',
+        bodyChanges: [
+          'Этот период обычно предшествует зачатию; физических изменений, связанных с беременностью, как правило, ещё нет.',
+        ],
+        toKnow: [
+          'Отсчёт беременности от последних месячных позволяет единым способом рассчитать предполагаемую дату родов, хотя зачатие на самом деле происходит немного позже.',
+          'На этом этапе нередко не замечать никаких изменений.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Die Schwangerschaft wird nach medizinischer Konvention ab dem ersten Tag deiner letzten Periode gezählt. In dieser Phase hat in der Regel noch keine Befruchtung stattgefunden.',
+        bodyChanges: [
+          'Diese Zeit liegt in der Regel vor der Empfängnis; körperliche Veränderungen durch die Schwangerschaft gibt es meist noch nicht.',
+        ],
+        toKnow: [
+          'Wenn man die Schwangerschaft ab der letzten Periode zählt, lässt sich der Entbindungstermin einheitlich berechnen – auch wenn die Empfängnis tatsächlich etwas später stattfindet.',
+          'Es ist ganz normal, in dieser Phase noch keine Veränderung zu bemerken.',
+        ],
+      },
     },
   },
   {
@@ -226,6 +250,28 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Yumurtlamanın tam zamanı kişiden kişiye değişir; bu yüzden bu dönem bir tahmin olarak kalır.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Овуляция и возможное оплодотворение, как правило, происходят примерно в этот период — в зависимости от длины цикла у каждой женщины.',
+        bodyChanges: [
+          'Время овуляции может отличаться в зависимости от длины цикла, и это влияет на фактическую возможную дату зачатия.',
+          'На этом этапе, как правило, ещё нет физических изменений, характерных именно для беременности.',
+        ],
+        toKnow: [
+          'Точное время овуляции у разных женщин различается, поэтому этот период остаётся приблизительной оценкой.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Der Eisprung und eine mögliche Befruchtung finden in der Regel um diese Zeit statt – je nach Zykluslänge der einzelnen Frau.',
+        bodyChanges: [
+          'Der Zeitpunkt des Eisprungs kann je nach Zykluslänge variieren, was sich auf den tatsächlich möglichen Tag der Empfängnis auswirkt.',
+          'In dieser Phase gibt es in der Regel noch keine körperlichen Veränderungen, die für die Schwangerschaft typisch sind.',
+        ],
+        toKnow: [
+          'Der genaue Zeitpunkt des Eisprungs ist von Frau zu Frau verschieden – deshalb bleibt dieser Zeitraum eine Schätzung.',
+        ],
+      },
     },
   },
   {
@@ -273,6 +319,26 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'İdrar yoluyla yapılan gebelik testlerinin çoğu, yerleşme başladıktan sonra, yaklaşık bir sonraki haftadan itibaren güvenilir hâle gelir.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Если оплодотворение произошло, яйцеклетка начинает делиться и продвигаться к матке, но тест на беременность пока ничего не покажет.',
+        bodyChanges: [
+          'Эта неделя всё ещё относится к периоду медицинского отсчёта вокруг зачатия; физических признаков на этом этапе, как правило, не заметно.',
+        ],
+        toKnow: [
+          'Большинство тестов на беременность по моче становятся надёжными примерно со следующей недели, когда начинается имплантация.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Wenn eine Befruchtung stattgefunden hat, beginnt sich die Eizelle zu teilen und wandert in Richtung Gebärmutter. Ein Schwangerschaftstest kann aber noch nichts nachweisen.',
+        bodyChanges: [
+          'Diese Woche liegt noch im medizinischen Zeitraum rund um die Empfängnis; in dieser Phase ist in der Regel noch kein körperliches Anzeichen spürbar.',
+        ],
+        toKnow: [
+          'Die meisten Schwangerschaftstests mit Urin werden etwa ab der folgenden Woche zuverlässig, sobald die Einnistung begonnen hat.',
         ],
       },
     },
@@ -341,6 +407,36 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Bu, bir gebelik testinin pozitif sonuç vermeye başlayabildiği olağan zamandır.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Эмбрион только что закрепился в стенке матки. Формируются амниотический мешок и желточный мешок, которые будут питать его в первые дни.',
+        length:
+          'Около 2 мм',
+        comparison:
+          'Маковое зёрнышко',
+        bodyChanges: [
+          'Некоторые женщины на этом совсем раннем этапе ещё не замечают никаких признаков.',
+          'Тест на беременность по моче, как правило, может выявить беременность начиная с этой недели.',
+        ],
+        toKnow: [
+          'Обычно именно в это время тест на беременность может начать показывать положительный результат.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Der Embryo hat sich gerade in der Gebärmutterschleimhaut eingenistet. Die Fruchtblase und der Dottersack, der ihn in den allerersten Tagen ernährt, bilden sich.',
+        length:
+          'Etwa 2 mm',
+        comparison:
+          'Mohnsamen',
+        bodyChanges: [
+          'Manche Frauen bemerken in dieser sehr frühen Phase noch keinerlei Anzeichen.',
+          'Ein Schwangerschaftstest mit Urin kann die Schwangerschaft in der Regel ab dieser Woche nachweisen.',
+        ],
+        toKnow: [
+          'Das ist der übliche Zeitpunkt, ab dem ein Schwangerschaftstest ein positives Ergebnis anzeigen kann.',
+        ],
+      },
     },
   },
   {
@@ -392,6 +488,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Gebelik takibine başlamak için bir sağlık profesyoneliyle randevu almanın önerildiği zaman budur.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Начинает формироваться нервная система, а крошечное сердце вот-вот сделает первое сокращение.',
+        length:
+          'Около 2 мм',
+        comparison:
+          'Зёрнышко кунжута',
+        bodyChanges: [
+          'Может появиться необычная усталость, лёгкая тошнота или чувствительность груди.',
+        ],
+        toKnow: [
+          'Сейчас рекомендуется записаться на приём к специалисту, чтобы начать наблюдение за беременностью.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Das Nervensystem beginnt sich zu bilden, und das noch winzige Herz steht kurz davor, zum ersten Mal zu schlagen.',
+        length:
+          'Etwa 2 mm',
+        comparison:
+          'Sesamkorn',
+        bodyChanges: [
+          'Ungewöhnliche Müdigkeit, leichte Übelkeit oder Spannungsgefühle in der Brust können auftreten.',
+        ],
+        toKnow: [
+          'Jetzt ist der empfohlene Zeitpunkt, einen Termin bei medizinischem Fachpersonal zu vereinbaren, um die Schwangerenvorsorge zu beginnen.',
         ],
       },
     },
@@ -447,6 +571,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Kalp aktivitesi, erken yapılan bir ultrasonda bazen bu haftadan itibaren görülebilir.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Появляются зачатки рук и ног, а также небольшие углубления на месте будущих ушей. Сердце иногда уже можно обнаружить на УЗИ.',
+        length:
+          'Около 6 мм',
+        comparison:
+          'Горошина',
+        bodyChanges: [
+          'У некоторых женщин в этот период тошнота и усталость могут усиливаться.',
+        ],
+        toKnow: [
+          'Сердечную деятельность иногда можно увидеть уже на этой неделе при раннем УЗИ.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Die Anlagen von Armen und Beinen erscheinen, ebenso kleine Einbuchtungen, aus denen sich später die Ohren bilden. Das Herz lässt sich manchmal schon im Ultraschall erkennen.',
+        length:
+          'Etwa 6 mm',
+        comparison:
+          'Erbse',
+        bodyChanges: [
+          'Übelkeit und Müdigkeit können in dieser Zeit bei manchen Frauen stärker werden.',
+        ],
+        toKnow: [
+          'Die Herztätigkeit kann bei einem frühen Ultraschall manchmal schon ab dieser Woche sichtbar sein.',
+        ],
+      },
     },
   },
   {
@@ -498,6 +650,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Beyin ve omuriliği oluşturan nöral tüp, bu haftalarda kapanmaya devam eder.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Мозг развивается быстрее остального тела, из-за чего лоб кажется выступающим. На концах рук начинают появляться маленькие зачатки кистей.',
+        length:
+          'Около 10 мм',
+        comparison:
+          'Виноградина',
+        bodyChanges: [
+          'Возможны особые пищевые пристрастия или, наоборот, отвращение к некоторым продуктам.',
+        ],
+        toKnow: [
+          'Нервная трубка, из которой формируются головной и спинной мозг, продолжает закрываться в течение этих недель.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Das Gehirn entwickelt sich schneller als der übrige Körper, wodurch die Stirn deutlich hervortritt. An den Enden der Arme beginnen sich kleine Handanlagen zu zeigen.',
+        length:
+          'Etwa 10 mm',
+        comparison:
+          'Weintraube',
+        bodyChanges: [
+          'Besonderer Heißhunger auf bestimmte Lebensmittel oder auch Abneigungen gegen manche Speisen sind möglich.',
+        ],
+        toKnow: [
+          'Das Neuralrohr, aus dem Gehirn und Rückenmark entstehen, schließt sich in diesen Wochen weiter.',
         ],
       },
     },
@@ -555,6 +735,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Tarihlemeyi belirleyen ilk ultrason genellikle 8. ile 14. haftalar arasında planlanır.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Эмбрион теперь называется плодом. Руки удлиняются, голова начинает слегка выпрямляться, а плацента продолжает формироваться.',
+        length:
+          'Около 16 мм',
+        comparison:
+          'Малина',
+        bodyChanges: [
+          'Чувствительность к запахам и утренняя тошнота на этом этапе распространены, но бывают не у всех.',
+        ],
+        toKnow: [
+          'Первое УЗИ для уточнения срока обычно назначают между 8-й и 14-й неделями.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Der Embryo wird jetzt Fötus genannt. Die Arme werden länger, der Kopf richtet sich leicht auf, und die Plazenta bildet sich weiter aus.',
+        length:
+          'Etwa 16 mm',
+        comparison:
+          'Himbeere',
+        bodyChanges: [
+          'Geruchsempfindlichkeit und morgendliche Übelkeit sind in dieser Phase häufig, aber nicht bei allen Frauen.',
+        ],
+        toKnow: [
+          'Der erste Ultraschall zur Bestimmung des Schwangerschaftsalters findet in der Regel zwischen der 8. und der 14. SSW statt.',
+        ],
+      },
     },
   },
   {
@@ -606,6 +814,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Cinsel organlar farklılaşmaya yeni başlıyor, ancak cinsiyet genellikle çok daha sonra, anatomi ultrasonunda anlaşılabilir.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Черты лица становятся более чёткими, веки защищают глаза, а кисти и стопы обретают форму — формируются будущие пальцы рук и ног.',
+        length:
+          'Около 22 мм',
+        comparison:
+          'Клубника',
+        bodyChanges: [
+          'Выраженная усталость и тошнота могут сохраняться; к концу первого триместра они нередко ослабевают.',
+        ],
+        toKnow: [
+          'Половые органы только начинают дифференцироваться, но пол, как правило, можно определить гораздо позже — на УЗИ для оценки анатомии плода.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Die Gesichtszüge werden deutlicher, die Augenlider schützen die Augen, und Hände und Füße nehmen mit den künftigen Fingern und Zehen Gestalt an.',
+        length:
+          'Etwa 22 mm',
+        comparison:
+          'Erdbeere',
+        bodyChanges: [
+          'Deutliche Müdigkeit und Übelkeit können noch anhalten; oft lassen sie gegen Ende des ersten Trimesters nach.',
+        ],
+        toKnow: [
+          'Die Geschlechtsorgane beginnen sich gerade erst zu differenzieren. Das Geschlecht lässt sich in der Regel aber erst viel später beim Feinultraschall erkennen.',
         ],
       },
     },
@@ -661,6 +897,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Birinci trimester birleşik tarama testi, sunulduğunda, genellikle 11. ile 14. haftalar arasında yapılır.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Лицо становится более узнаваемым, веки реагируют на свет, а сердце бьётся в быстром ритме — примерно втрое чаще, чем у взрослого.',
+        length:
+          'Около 30 мм',
+        comparison:
+          'Небольшой абрикос',
+        bodyChanges: [
+          'Талия может начать немного меняться, хотя живот, как правило, ещё не заметен.',
+        ],
+        toKnow: [
+          'Комбинированный скрининг первого триместра, если его предлагают, обычно проводят между 11-й и 14-й неделями.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Das Gesicht wird erkennbarer, die Augenlider reagieren auf Licht, und das Herz schlägt sehr schnell – etwa dreimal so schnell wie das eines Erwachsenen.',
+        length:
+          'Etwa 30 mm',
+        comparison:
+          'Kleine Aprikose',
+        bodyChanges: [
+          'Deine Taille kann sich allmählich leicht verändern, auch wenn der Bauch in der Regel noch nicht sichtbar ist.',
+        ],
+        toKnow: [
+          'Das kombinierte Ersttrimester-Screening wird, wenn es angeboten wird, in der Regel zwischen der 11. und der 14. SSW durchgeführt.',
+        ],
+      },
     },
   },
   {
@@ -712,6 +976,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Bebeğin hareketleri başlıyor, ancak bu aşamada genellikle henüz hissedilmez.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Пальцы рук и ног разделяются, появляются крошечные ногти, а плацента постепенно берёт на себя питание плода от желточного мешка.',
+        length:
+          'Около 41 мм',
+        comparison:
+          'Инжир',
+        bodyChanges: [
+          'Вы можете замечать перепады настроения, связанные в том числе с гормональными изменениями.',
+        ],
+        toKnow: [
+          'Малыш уже начинает двигаться, но на этом этапе движения, как правило, ещё не ощущаются.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Finger und Zehen trennen sich, winzige Nägel erscheinen, und die Plazenta übernimmt nach und nach vom Dottersack die Versorgung des Fötus.',
+        length:
+          'Etwa 41 mm',
+        comparison:
+          'Feige',
+        bodyChanges: [
+          'Du kannst Stimmungsschwankungen bemerken, die unter anderem mit den hormonellen Veränderungen zusammenhängen.',
+        ],
+        toKnow: [
+          'Die Bewegungen des Babys beginnen, sind in dieser Phase aber in der Regel noch nicht zu spüren.',
         ],
       },
     },
@@ -767,6 +1059,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Birinci trimesterin sonu, öncesindeki haftalara kıyasla çoğunlukla daha düşük bir düşük riskiyle ilişkilendirilir.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Внутренние органы и мышцы хорошо выросли, скелет начинает окостеневать. Репродуктивные органы сформировались, хотя на УЗИ их пока не видно.',
+        length:
+          'Около 5,4 см',
+        comparison:
+          'Слива',
+        bodyChanges: [
+          'Тошнота в это время нередко постепенно проходит, хотя у разных женщин это сильно различается.',
+        ],
+        toKnow: [
+          'Конец первого триместра часто связывают с более низким риском выкидыша по сравнению с предыдущими неделями.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Die inneren Organe und die Muskeln sind gut gewachsen, und das Skelett beginnt zu verknöchern. Die Fortpflanzungsorgane sind angelegt, im Ultraschall aber noch nicht erkennbar.',
+        length:
+          'Etwa 5,4 cm',
+        comparison:
+          'Pflaume',
+        bodyChanges: [
+          'Die Übelkeit lässt um diese Zeit oft allmählich nach, wobei das von Frau zu Frau sehr unterschiedlich ist.',
+        ],
+        toKnow: [
+          'Das Ende des ersten Trimesters wird häufig mit einem geringeren Fehlgeburtsrisiko im Vergleich zu den vorangegangenen Wochen in Verbindung gebracht.',
+        ],
+      },
     },
   },
   {
@@ -818,6 +1138,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Birinci trimester genellikle bu hafta civarında sona erer; takip, daha seyrek aralıklarla yapılan randevularla sürer.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Движения, пока ещё резкие, становятся немного более скоординированными. Некоторые малыши уже демонстрируют сосательный рефлекс и сосут большой палец.',
+        length:
+          'Около 7,4 см',
+        comparison:
+          'Персик',
+        bodyChanges: [
+          'Многие женщины постепенно чувствуют себя немного бодрее по мере приближения второго триместра.',
+        ],
+        toKnow: [
+          'Первый триместр, как правило, заканчивается примерно на этой неделе; наблюдение продолжается с более редкими визитами.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Die noch ruckartigen Bewegungen werden etwas koordinierter. Manche Babys zeigen bereits einen Daumenlutsch-Reflex.',
+        length:
+          'Etwa 7,4 cm',
+        comparison:
+          'Pfirsich',
+        bodyChanges: [
+          'Viele Frauen gewinnen mit dem näher rückenden zweiten Trimester nach und nach wieder etwas mehr Energie.',
+        ],
+        toKnow: [
+          'Das erste Trimester endet in der Regel um diese Woche; die Vorsorge wird mit zeitlich weiter auseinanderliegenden Terminen fortgesetzt.',
         ],
       },
     },
@@ -875,6 +1223,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Bir sağlık profesyoneli, karnın üzerine yerleştirilen bir ultrason cihazıyla kalp atışını bazen duymaya başlayabilir.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Голова становится более округлой и лучше соотносится с пропорциями тела. Плод проглатывает немного околоплодных вод, которые проходят через желудок и почки.',
+        length:
+          'Около 8,5 см',
+        comparison:
+          'Киви',
+        bodyChanges: [
+          'У некоторых женщин живот начинает заметнее округляться.',
+        ],
+        toKnow: [
+          'Специалист иногда может начать слышать сердцебиение с помощью ультразвукового прибора, приложенного к животу.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Der Kopf wird runder und steht in besserem Verhältnis zum übrigen Körper. Der Fötus schluckt ein wenig Fruchtwasser, das durch Magen und Nieren läuft.',
+        length:
+          'Etwa 8,5 cm',
+        comparison:
+          'Kiwi',
+        bodyChanges: [
+          'Bei manchen Frauen beginnt sich der Bauch deutlicher zu runden.',
+        ],
+        toKnow: [
+          'Medizinisches Fachpersonal kann den Herzschlag manchmal schon mit einem Ultraschallgerät auf dem Bauch hören.',
+        ],
+      },
     },
   },
   {
@@ -928,6 +1304,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'İşitme bu sıralarda gelişmeye başlar: sesin ve vücudun iç sesleri yavaş yavaş algılanabilir hâle gelir.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Кожу постепенно покрывает нежный пушок — лануго, начинают появляться брови и ресницы. Глаза становятся чувствительными к свету.',
+        length:
+          'Около 10,1 см',
+        comparison:
+          'Яблоко',
+        bodyChanges: [
+          'Аппетит может меняться, иногда появляются новые пищевые пристрастия или отвращение к некоторым продуктам.',
+        ],
+        toKnow: [
+          'Примерно в это время начинает развиваться слух: ваш голос и внутренние звуки тела постепенно становятся различимыми.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Ein feiner Flaum, die sogenannte Lanugo, bedeckt nach und nach die Haut, und Augenbrauen und Wimpern beginnen zu wachsen. Die Augen werden lichtempfindlich.',
+        length:
+          'Etwa 10,1 cm',
+        comparison:
+          'Apfel',
+        bodyChanges: [
+          'Dein Appetit kann sich verändern, manchmal mit neuem Heißhunger oder neuen Abneigungen.',
+        ],
+        toKnow: [
+          'Das Gehör beginnt sich um diese Zeit zu entwickeln: Deine Stimme und die Geräusche im Inneren deines Körpers werden nach und nach wahrnehmbar.',
+        ],
+      },
     },
   },
   {
@@ -976,6 +1380,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'İlk hareketlerin hissedilmesi, özellikle ilk gebelik olup olmamasına bağlı olarak bir gebelikten diğerine çok değişir.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Нервная система позволяет двигать руками и ногами. Кисти могут сжиматься в маленькие кулачки.',
+        length:
+          'Около 11,6 см',
+        comparison:
+          'Авокадо',
+        bodyChanges: [
+          'Некоторые женщины начинают ощущать очень лёгкие движения примерно с этого времени — их часто описывают как трепетание.',
+        ],
+        toKnow: [
+          'Время, когда женщина впервые ощущает шевеления, сильно различается от одной беременности к другой, в частности в зависимости от того, первая ли это беременность.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Das Nervensystem ermöglicht Bewegungen von Armen und Beinen. Die Hände können sich zu kleinen Fäusten schließen.',
+        length:
+          'Etwa 11,6 cm',
+        comparison:
+          'Avocado',
+        bodyChanges: [
+          'Manche Frauen spüren ab etwa dieser Zeit sehr leichte Bewegungen, die oft als Flattern beschrieben werden.',
+        ],
+        toKnow: [
+          'Wann man die ersten Bewegungen spürt, ist von Schwangerschaft zu Schwangerschaft sehr verschieden – unter anderem davon abhängig, ob es die erste Schwangerschaft ist.',
         ],
       },
     },
@@ -1031,6 +1463,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Dıştaki sesler, amniyon sıvısı aracılığıyla boğuk bir biçimde algılanmaya başlıyor.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Глаза, пока ещё закрытые, могут двигаться, а малыш уже реагирует на громкие звуки. Начинают формироваться отпечатки пальцев.',
+        length:
+          'Около 12 см',
+        comparison:
+          'Гранат',
+        bodyChanges: [
+          'Может появиться лёгкая боль в спине из-за смещения центра тяжести.',
+        ],
+        toKnow: [
+          'Внешние звуки начинают восприниматься — приглушённо, сквозь околоплодные воды.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Die noch geschlossenen Augen können sich bewegen, und das Baby reagiert jetzt auf laute Geräusche. Die Fingerabdrücke beginnen sich zu bilden.',
+        length:
+          'Etwa 12 cm',
+        comparison:
+          'Granatapfel',
+        bodyChanges: [
+          'Leichte Rückenschmerzen können auftreten, weil sich dein Körperschwerpunkt verlagert.',
+        ],
+        toKnow: [
+          'Geräusche von außen werden durch das Fruchtwasser allmählich gedämpft wahrgenommen.',
+        ],
+      },
     },
   },
   {
@@ -1084,6 +1544,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Bebeğin genel gelişimini inceleyen anatomi ultrasonu genellikle 18. ile 21. haftalar arasında sunulur.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Продолжают развиваться слух, осязание, глотание и сосательный рефлекс. Малыш становится всё активнее, движений руками и ногами становится больше.',
+        length:
+          'Около 14,2 см',
+        comparison:
+          'Болгарский перец',
+        bodyChanges: [
+          'На этом этапе живот часто уже хорошо заметен, а центр тяжести продолжает смещаться.',
+        ],
+        toKnow: [
+          'УЗИ для оценки анатомии плода, которое позволяет оценить общее развитие малыша, обычно предлагают между 18-й и 21-й неделями.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Gehör, Tastsinn, Schluckreflex und Saugreflex entwickeln sich weiter. Das Baby wird immer aktiver und bewegt Arme und Beine häufiger.',
+        length:
+          'Etwa 14,2 cm',
+        comparison:
+          'Paprika',
+        bodyChanges: [
+          'Der Bauch ist in dieser Phase oft deutlich sichtbar, und dein Körperschwerpunkt verlagert sich weiter.',
+        ],
+        toKnow: [
+          'Der Feinultraschall, bei dem die gesamte Entwicklung des Babys untersucht wird, wird in der Regel zwischen der 18. und der 21. SSW angeboten.',
+        ],
+      },
     },
   },
   {
@@ -1135,6 +1623,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Bebeğin hareketlerini daha belirgin hissetmeye başlamak için yaygın bir zamandır.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'За молочными зубами, которые готовятся к прорезыванию, начинают формироваться будущие постоянные зубы, а малыш продолжает постепенно набирать вес.',
+        length:
+          'Около 15,3 см',
+        comparison:
+          'Крупный помидор',
+        bodyChanges: [
+          'По мере роста матки может возникать ощущение тянущей боли по бокам живота (боль в круглых связках).',
+        ],
+        toKnow: [
+          'Обычно именно в это время движения малыша начинают ощущаться отчётливее.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Hinter den Milchzahnanlagen beginnen sich die künftigen bleibenden Zähne zu bilden, und das Baby nimmt weiter nach und nach an Gewicht zu.',
+        length:
+          'Etwa 15,3 cm',
+        comparison:
+          'Große Tomate',
+        bodyChanges: [
+          'Ein Ziehen an den Seiten des Bauches (Mutterbandschmerzen) kann auftreten, während die Gebärmutter wächst.',
+        ],
+        toKnow: [
+          'Um diese Zeit beginnen viele Frauen, die Bewegungen des Babys deutlicher zu spüren.',
         ],
       },
     },
@@ -1192,6 +1708,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Gebeliğin yarısı çoğunlukla, takibini yapan sağlık profesyonelinin yaptığı kapsamlı bir kontrolle işaretlenir.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Начиная с этой недели рост измеряют от макушки до пяток, а не от макушки до копчика, поскольку ноги теперь можно вытянуть и измерить — этим объясняется заметный скачок справочного значения по сравнению с предыдущими неделями.',
+        length:
+          'Около 25,6 см',
+        comparison:
+          'Банан',
+        bodyChanges: [
+          'Ваш округлившийся живот может начать влиять на равновесие и осанку.',
+        ],
+        toKnow: [
+          'Середину беременности часто отмечают полным обследованием у специалиста, который наблюдает вашу беременность.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Ab dieser Woche wird die Länge vom Kopf bis zur Ferse statt vom Kopf bis zum Steiß gemessen, weil sich die Beine jetzt strecken und messen lassen – das erklärt den sichtbaren Sprung in der Referenzgröße im Vergleich zu den Vorwochen.',
+        length:
+          'Etwa 25,6 cm',
+        comparison:
+          'Banane',
+        bodyChanges: [
+          'Dein schön gerundeter Bauch kann dein Gleichgewicht und deine Haltung zu beeinflussen beginnen.',
+        ],
+        toKnow: [
+          'Die Mitte der Schwangerschaft wird oft durch eine umfassende Kontrolle bei dem medizinischen Fachpersonal markiert, das deine Vorsorge begleitet.',
+        ],
+      },
     },
   },
   {
@@ -1240,6 +1784,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Bebeğinin olağan hareket düzenini tanımak, olağan dışı bir değişikliği fark etmeyi kolaylaştırır.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Движения становятся более отчётливыми и скоординированными, и в этот период их нередко начинают ощущать ясно.',
+        length:
+          'Около 26,7 см',
+        comparison:
+          'Морковь',
+        bodyChanges: [
+          'По мере того как матка занимает больше места, может появляться лёгкая одышка при нагрузке.',
+        ],
+        toKnow: [
+          'Если вы знакомы с привычным режимом движений малыша, проще заметить необычное изменение.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Die Bewegungen werden klarer und besser koordiniert, und es ist üblich, sie in dieser Zeit deutlich zu spüren.',
+        length:
+          'Etwa 26,7 cm',
+        comparison:
+          'Karotte',
+        bodyChanges: [
+          'Leichte Atemnot bei Anstrengung kann auftreten, weil die Gebärmutter mehr Platz einnimmt.',
+        ],
+        toKnow: [
+          'Wenn du das gewohnte Bewegungsmuster deines Babys kennst, fällt es dir leichter, eine ungewöhnliche Veränderung zu bemerken.',
         ],
       },
     },
@@ -1295,6 +1867,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Yediklerin, bebeğin düzenli olarak yuttuğu amniyon sıvısını etkileyebilir.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Лёгкие продолжают развиваться, малыш тренирует небольшие дыхательные движения. Также формируются вкусовые рецепторы.',
+        length:
+          'Около 27,8 см',
+        comparison:
+          'Батат',
+        bodyChanges: [
+          'У некоторых женщин возможны судороги в ногах, особенно по ночам.',
+        ],
+        toKnow: [
+          'То, что вы едите, может влиять на околоплодные воды, которые малыш регулярно проглатывает.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Die Lunge entwickelt sich weiter, und das Baby übt kleine Atembewegungen. Auch die Geschmacksknospen bilden sich aus.',
+        length:
+          'Etwa 27,8 cm',
+        comparison:
+          'Süßkartoffel',
+        bodyChanges: [
+          'Wadenkrämpfe, besonders nachts, sind bei manchen Frauen möglich.',
+        ],
+        toKnow: [
+          'Was du isst, kann das Fruchtwasser beeinflussen, das das Baby regelmäßig schluckt.',
+        ],
+      },
     },
   },
   {
@@ -1346,6 +1946,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Bebeğin aktif ve sakin dönemlerini gözlemlemek, onun kendi ritmini öğrenmene yardımcı olur.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Конечности теперь хорошо пропорциональны. Малыш тренирует дыхание и начинает чередовать периоды сна и бодрствования.',
+        length:
+          'Около 28,9 см',
+        comparison:
+          'Большое манго',
+        bodyChanges: [
+          'По мере постепенной прибавки в весе может усиливаться боль в спине.',
+        ],
+        toKnow: [
+          'Наблюдая за периодами активности и покоя малыша, вы лучше узнаёте его собственный ритм.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Die Gliedmaßen sind jetzt gut proportioniert. Das Baby übt das Atmen und beginnt, zwischen Schlaf- und Wachphasen zu wechseln.',
+        length:
+          'Etwa 28,9 cm',
+        comparison:
+          'Große Mango',
+        bodyChanges: [
+          'Stärkere Rückenschmerzen können mit der allmählichen Gewichtszunahme auftreten.',
+        ],
+        toKnow: [
+          'Wenn du die aktiven und ruhigen Phasen deines Babys beobachtest, lernst du seinen ganz eigenen Rhythmus kennen.',
         ],
       },
     },
@@ -1401,6 +2029,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Gebelik diyabeti taraması genellikle bu sıralarda sunulur.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Малыш достигает порога жизнеспособности: при очень преждевременных родах на этом сроке специализированная неонатальная медицинская помощь может позволить ему выжить при соответствующей поддержке.',
+        length:
+          'Около 30 см',
+        comparison:
+          'Кукурузный початок',
+        bodyChanges: [
+          'Может появиться усиленное давление на мочевой пузырь и частые позывы к мочеиспусканию.',
+        ],
+        toKnow: [
+          'Скрининг на гестационный диабет обычно предлагают примерно в это время.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Das Baby erreicht die Grenze der Lebensfähigkeit: Bei einer sehr frühen Geburt in dieser Phase kann eine spezialisierte neonatologische Versorgung mit entsprechender Unterstützung das Überleben ermöglichen.',
+        length:
+          'Etwa 30 cm',
+        comparison:
+          'Maiskolben',
+        bodyChanges: [
+          'Ein verstärkter Druck auf die Blase und häufiger Harndrang können auftreten.',
+        ],
+        toKnow: [
+          'Das Screening auf Schwangerschaftsdiabetes wird in der Regel um diese Zeit angeboten.',
+        ],
+      },
     },
   },
   {
@@ -1454,6 +2110,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Zaman zaman hissedilen fetal hıçkırıklar genellikle normal kabul edilir.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Малыш теперь реагирует на громкие звуки вздрагиванием или толчком, иногда можно почувствовать его икоту. Он регулярно мочится в околоплодные воды.',
+        length:
+          'Около 34,6 см',
+        comparison:
+          'Цуккини',
+        bodyChanges: [
+          'Изжога или кислотный рефлюкс могут стать чаще.',
+        ],
+        toKnow: [
+          'Время от времени ощущаемая икота плода, как правило, считается нормальной.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Das Baby reagiert jetzt auf laute Geräusche mit einem Zusammenzucken oder einem Tritt, und gelegentlich kann man Schluckauf spüren. Es lässt regelmäßig Urin ins Fruchtwasser ab.',
+        length:
+          'Etwa 34,6 cm',
+        comparison:
+          'Zucchini',
+        bodyChanges: [
+          'Sodbrennen oder saures Aufstoßen können häufiger werden.',
+        ],
+        toKnow: [
+          'Wenn du hin und wieder den Schluckauf des Babys spürst, gilt das in der Regel als normal.',
+        ],
+      },
     },
   },
   {
@@ -1503,6 +2187,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Üçüncü trimester yaklaşıyor ve tıbbi takip genellikle daha sık hâle geliyor.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Глаза открываются впервые. Окончательный цвет глаз, как правило, становится известен лишь через несколько месяцев после рождения.',
+        length:
+          'Около 35,6 см',
+        comparison:
+          'Огурец',
+        bodyChanges: [
+          'Может появиться лёгкая отёчность лодыжек или стоп, особенно к концу дня.',
+        ],
+        toKnow: [
+          'Приближается третий триместр, и медицинское наблюдение, как правило, становится чаще.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Die Augen öffnen sich zum ersten Mal. Die endgültige Augenfarbe zeigt sich in der Regel erst einige Monate nach der Geburt.',
+        length:
+          'Etwa 35,6 cm',
+        comparison:
+          'Gurke',
+        bodyChanges: [
+          'Leichte Schwellungen an Knöcheln oder Füßen können auftreten, besonders gegen Abend.',
+        ],
+        toKnow: [
+          'Das dritte Trimester rückt näher, und die medizinische Betreuung wird in der Regel häufiger.',
         ],
       },
     },
@@ -1556,6 +2268,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Üçüncü trimesterin başlangıcı, doğum planını düşünmeye başlamak için çoğunlukla iyi bir zamandır.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Лёгкие становятся способными запускать дыхание, а малыш продолжает набирать вес — под кожей откладывается жир.',
+        length:
+          'Около 36,6 см',
+        comparison:
+          'Цветная капуста',
+        bodyChanges: [
+          'Усталость может вернуться, так как ваше тело несёт всё больший вес.',
+        ],
+        toKnow: [
+          'Начало третьего триместра — часто хорошее время, чтобы задуматься о плане родов.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Die Lunge wird fähig, die Atmung einzuleiten, und das Baby rundet sich weiter ab, weil sich unter der Haut Fett einlagert.',
+        length:
+          'Etwa 36,6 cm',
+        comparison:
+          'Blumenkohl',
+        bodyChanges: [
+          'Die Müdigkeit kann zurückkehren, weil dein Körper immer mehr Gewicht trägt.',
+        ],
+        toKnow: [
+          'Der Beginn des dritten Trimesters ist oft ein guter Zeitpunkt, um sich Gedanken über die Geburtsplanung zu machen.',
         ],
       },
     },
@@ -1613,6 +2353,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Üçüncü trimester genellikle bu hafta civarında başlar ve randevular sıklaşır.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Частота сердцебиения, более высокая на самых ранних сроках, стабилизировалась на уровне около 130–140 ударов в минуту, и теперь её можно услышать стетоскопом.',
+        length:
+          'Около 37,6 см',
+        comparison:
+          'Баклажан',
+        bodyChanges: [
+          'Одышка или изжога могут стать чаще по мере того, как матка занимает больше места.',
+        ],
+        toKnow: [
+          'Третий триместр, как правило, начинается примерно на этой неделе, и визиты становятся чаще.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Die Herzfrequenz, die in der Frühschwangerschaft höher war, hat sich bei etwa 130 bis 140 Schlägen pro Minute eingependelt und lässt sich jetzt mit einem Stethoskop hören.',
+        length:
+          'Etwa 37,6 cm',
+        comparison:
+          'Aubergine',
+        bodyChanges: [
+          'Atemnot oder Sodbrennen können häufiger werden, weil die Gebärmutter mehr Platz einnimmt.',
+        ],
+        toKnow: [
+          'Das dritte Trimester beginnt in der Regel um diese Woche, und die Vorsorgetermine werden häufiger.',
+        ],
+      },
     },
   },
   {
@@ -1664,6 +2432,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Gebeliğin sonlarında dolaşımı desteklemek için sol yana yatarak dinlenmek çoğunlukla önerilir.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Малыш уже хорошо сформирован; ближайшие недели будут посвящены в основном созреванию органов и набору веса. Тонкая защитная оболочка, покрывающая его кожу, начинает рассасываться.',
+        length:
+          'Около 38,6 см',
+        comparison:
+          'Мускатная тыква',
+        bodyChanges: [
+          'Из-за растущего живота уснуть может стать труднее.',
+        ],
+        toKnow: [
+          'На поздних сроках беременности часто рекомендуют отдыхать на левом боку — это поддерживает кровообращение.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Das Baby ist bereits gut ausgebildet; die kommenden Wochen dienen vor allem der Reifung der Organe und der Gewichtszunahme. Die dünne Schutzschicht, die seine Haut bedeckt, beginnt sich allmählich zurückzubilden.',
+        length:
+          'Etwa 38,6 cm',
+        comparison:
+          'Butternusskürbis',
+        bodyChanges: [
+          'Das Einschlafen und Durchschlafen kann wegen deines wachsenden Bauches schwieriger werden.',
+        ],
+        toKnow: [
+          'In der späten Schwangerschaft wird oft empfohlen, auf der linken Seite zu ruhen, um den Kreislauf zu unterstützen.',
         ],
       },
     },
@@ -1719,6 +2515,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Doğum öncesi randevular genellikle bu aşamadan itibaren sıklaşır.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Зрение продолжает развиваться; при рождении малыш сможет различать лица вблизи, а затем постепенно научится следить за движущимися предметами.',
+        length:
+          'Около 39,9 см',
+        comparison:
+          'Капуста',
+        bodyChanges: [
+          'Ощущение тяжести в пояснице или тазу может усилиться.',
+        ],
+        toKnow: [
+          'Начиная с этого срока визиты в рамках наблюдения за беременностью, как правило, становятся чаще.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Das Sehvermögen entwickelt sich weiter; bei der Geburt kann das Baby Gesichter in der Nähe erkennen, bevor es nach und nach lernt, sich bewegenden Gegenständen mit den Augen zu folgen.',
+        length:
+          'Etwa 39,9 cm',
+        comparison:
+          'Kohlkopf',
+        bodyChanges: [
+          'Ein Gefühl von Schwere im unteren Rücken oder im Becken kann zunehmen.',
+        ],
+        toKnow: [
+          'Die Vorsorgetermine werden ab dieser Phase in der Regel häufiger.',
+        ],
+      },
     },
   },
   {
@@ -1770,6 +2594,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Bebek, dışarıdan düzenli olarak duyduğu bazı tanıdık sesleri tanımaya başlıyor.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Малыш активно двигается, иногда сосёт пальцы и может делать широкие движения. Его кожа становится менее морщинистой по мере накопления жира.',
+        length:
+          'Около 41,1 см',
+        comparison:
+          'Кокос',
+        bodyChanges: [
+          'Тренировочные схватки, известные как схватки Брэкстона-Хикса, могут время от времени ощущаться.',
+        ],
+        toKnow: [
+          'Малыш начинает узнавать некоторые знакомые голоса, которые регулярно слышит снаружи.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Das Baby bewegt sich lebhaft, lutscht manchmal an den Fingern und kann weit ausholende Bewegungen machen. Seine Haut wird glatter, weil sich mehr Fett einlagert.',
+        length:
+          'Etwa 41,1 cm',
+        comparison:
+          'Kokosnuss',
+        bodyChanges: [
+          'Übungswehen, sogenannte Braxton-Hicks-Kontraktionen, können gelegentlich spürbar werden.',
+        ],
+        toKnow: [
+          'Das Baby beginnt, bestimmte vertraute Stimmen zu erkennen, die es regelmäßig von außen hört.',
         ],
       },
     },
@@ -1825,6 +2677,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Doğum zamanı yaklaştıkça baş aşağı duruş (sefalik prezentasyon) daha yaygın hâle gelir.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Малыш уже хорошо сформирован и постепенно располагается головой вниз, готовясь к рождению. В оставшиеся недели он в основном продолжает набирать вес.',
+        length:
+          'Около 42,4 см',
+        comparison:
+          'Пучок сельдерея',
+        bodyChanges: [
+          'В этот период часто заметнее прибавка в весе, связанная с ростом малыша.',
+        ],
+        toKnow: [
+          'Головное предлежание (положение головой вниз) встречается всё чаще по мере приближения срока родов.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Das Baby ist bereits gut ausgebildet und dreht sich allmählich mit dem Kopf nach unten, um sich auf die Geburt vorzubereiten. In den verbleibenden Wochen nimmt es vor allem weiter an Gewicht zu.',
+        length:
+          'Etwa 42,4 cm',
+        comparison:
+          'Bund Staudensellerie',
+        bodyChanges: [
+          'Eine deutlichere Gewichtszunahme ist in dieser Zeit häufig und hängt mit dem Wachstum des Babys zusammen.',
+        ],
+        toKnow: [
+          'Die Lage mit dem Kopf nach unten (Schädellage) wird mit näher rückendem Termin häufiger.',
+        ],
+      },
     },
   },
   {
@@ -1876,6 +2756,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Kafatası kemiklerinin doğumdaki esnekliği geçicidir ve ilk yıl içinde yavaş yavaş kapanır.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Мозг и нервная система теперь хорошо развиты. Кости продолжают твердеть, кроме костей черепа, которые остаются гибкими, чтобы облегчить прохождение при родах.',
+        length:
+          'Около 43,7 см',
+        comparison:
+          'Ананас',
+        bodyChanges: [
+          'На этом этапе нередко трудно найти удобное положение для сна.',
+        ],
+        toKnow: [
+          'Гибкость костей черепа при рождении временна и постепенно исчезает в течение первого года жизни.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Gehirn und Nervensystem sind jetzt gut entwickelt. Die Knochen härten weiter aus – mit Ausnahme der Schädelknochen, die beweglich bleiben, damit der Kopf bei der Geburt leichter hindurchgleiten kann.',
+        length:
+          'Etwa 43,7 cm',
+        comparison:
+          'Ananas',
+        bodyChanges: [
+          'Schwierigkeiten, eine bequeme Schlafposition zu finden, sind in dieser Phase häufig.',
+        ],
+        toKnow: [
+          'Die Beweglichkeit der Schädelknochen bei der Geburt ist vorübergehend und schließt sich im Lauf des ersten Lebensjahres allmählich.',
         ],
       },
     },
@@ -1930,6 +2838,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Bebeğin olağan hareketlerine dikkat etmeye devam etmek, doğuma kadar önemini korur.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Малыш, свернувшийся из-за нехватки места, как правило, держит ноги согнутыми к груди, продолжая регулярно двигаться.',
+        length:
+          'Около 45 см',
+        comparison:
+          'Дыня канталупа',
+        bodyChanges: [
+          'Несмотря на уменьшившееся пространство, движения малыша и меняющаяся форма вашего живота, как правило, остаются заметными.',
+        ],
+        toKnow: [
+          'Следить за привычными движениями малыша по-прежнему важно вплоть до самых родов.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Das Baby liegt aus Platzmangel zusammengerollt und hält die Beine in der Regel zur Brust angezogen, bewegt sich aber weiterhin regelmäßig.',
+        length:
+          'Etwa 45 cm',
+        comparison:
+          'Cantaloupe-Melone',
+        bodyChanges: [
+          'Trotz des geringeren Platzes bleiben die Bewegungen des Babys und die sich verändernde Form deines Bauches in der Regel gut spürbar.',
+        ],
+        toKnow: [
+          'Auf die gewohnten Bewegungen des Babys zu achten, bleibt bis zur Geburt wichtig.',
+        ],
+      },
     },
   },
   {
@@ -1978,6 +2914,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Kısıtlı yere rağmen bebeğin önceki haftalara benzer bir düzenlilikle hareket etmeye devam etmesi gerekir.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Малыш продолжает полнеть, что поможет ему регулировать температуру тела после рождения. Свободного места в матке становится меньше.',
+        length:
+          'Около 46,2 см',
+        comparison:
+          'Медовая дыня',
+        bodyChanges: [
+          'По мере того как малыш постепенно опускается, может усилиться давление в области таза.',
+        ],
+        toKnow: [
+          'Несмотря на ограниченное пространство, малыш должен продолжать двигаться так же регулярно, как и в предыдущие недели.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Das Baby rundet sich weiter ab, was ihm nach der Geburt hilft, seine Körpertemperatur zu regulieren. Der verfügbare Platz in der Gebärmutter wird knapper.',
+        length:
+          'Etwa 46,2 cm',
+        comparison:
+          'Honigmelone',
+        bodyChanges: [
+          'Ein stärkerer Druck im Becken kann auftreten, wenn das Baby allmählich tiefer rutscht.',
+        ],
+        toKnow: [
+          'Trotz des begrenzten Platzes sollte sich das Baby weiterhin ähnlich regelmäßig bewegen wie in den Wochen zuvor.',
         ],
       },
     },
@@ -2033,6 +2997,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Gebelik, 37. ile 42. haftalar arasında term (tam gün) olarak kabul edilir.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Лёгкие, как правило, уже достаточно зрелые для самостоятельного дыхания, а малыш способен сосать и переваривать пищу.',
+        length:
+          'Около 47,4 см',
+        comparison:
+          'Салат ромэн',
+        bodyChanges: [
+          'Иногда вам может не хватать воздуха, так как матка занимает много места под рёбрами.',
+        ],
+        toKnow: [
+          'Беременность считается доношенной в период с 37-й по 42-ю неделю.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Die Lunge ist in der Regel so weit ausgereift, dass das Baby selbstständig atmen kann, und es ist in der Lage zu saugen und zu verdauen.',
+        length:
+          'Etwa 47,4 cm',
+        comparison:
+          'Romanasalat',
+        bodyChanges: [
+          'Du kannst dich manchmal kurzatmiger fühlen, weil die Gebärmutter viel Platz unter den Rippen einnimmt.',
+        ],
+        toKnow: [
+          'Eine Schwangerschaft gilt zwischen der 37. und der 42. SSW als termingerecht.',
+        ],
+      },
     },
   },
   {
@@ -2081,6 +3073,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Bu haftadan itibaren term olarak kabul edilir ve doğum her an gerçekleşebilir.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Малыш считается достаточно зрелым для рождения. Подавляющее большинство малышей теперь расположены головой вниз.',
+        length:
+          'Около 48,6 см',
+        comparison:
+          'Лук-порей',
+        bodyChanges: [
+          'Ощущение нарастающего давления в тазу распространено, когда малыш опускается в таз.',
+        ],
+        toKnow: [
+          'Начиная с этой недели срок считается доношенным, и роды могут начаться в любой момент.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Das Baby gilt als reif genug, um geboren zu werden. Der Großteil der Babys liegt jetzt mit dem Kopf nach unten.',
+        length:
+          'Etwa 48,6 cm',
+        comparison:
+          'Lauch',
+        bodyChanges: [
+          'Ein zunehmendes Druckgefühl im Becken ist häufig, wenn das Baby ins Becken eintritt.',
+        ],
+        toKnow: [
+          'Ab dieser Woche gilt der Termin als erreicht, und die Geburt kann jederzeit beginnen.',
         ],
       },
     },
@@ -2132,6 +3152,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Tıbbi bir endikasyon olmadan düşünülen planlı bir doğum, genellikle 39. haftadan önce önerilmez.',
+        ],
+      },
+      ru: {
+        babyDescription:
+          'Тонкий пушок, покрывавший кожу, в основном исчез, а в кишечнике накапливается меконий — первый стул новорождённого.',
+        length:
+          'Около 49,8 см',
+        comparison:
+          'Стебель ревеня',
+        bodyChanges: [
+          'Познакомиться с признаками родов может быть полезно по мере приближения родов.',
+        ],
+        toKnow: [
+          'Плановые роды без медицинских показаний, как правило, не рекомендуются до 39-й недели.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Der feine Flaum, der die Haut bedeckte, ist größtenteils verschwunden, und im Darm sammelt sich Mekonium, der erste Stuhl des Neugeborenen.',
+        length:
+          'Etwa 49,8 cm',
+        comparison:
+          'Rhabarberstange',
+        bodyChanges: [
+          'Wenn die Geburt näher rückt, kann es hilfreich sein, sich mit den Anzeichen der Wehen vertraut zu machen.',
+        ],
+        toKnow: [
+          'Eine geplante Geburt ohne medizinische Indikation wird in der Regel nicht vor der 39. SSW empfohlen.',
         ],
       },
     },
@@ -2187,6 +3235,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Yenidoğanın kan dolaşımı doğumdan hemen sonra uyum sağlamaya devam eder; bu, ellere ya da ayaklara geçici olarak hafif morumsu bir renk verebilir.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Кожа, прежде более тонкая, стала плотнее и лучше защищает малыша. Защитная оболочка — первородная смазка — также облегчает его прохождение при родах.',
+        length:
+          'Около 50,7 см',
+        comparison:
+          'Арбуз',
+        bodyChanges: [
+          'Нетерпение и некоторая усталость обычны по мере приближения предполагаемой даты родов.',
+        ],
+        toKnow: [
+          'Кровообращение новорождённого продолжает перестраиваться сразу после рождения, из-за чего руки или ноги могут временно иметь слегка синеватый оттенок.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Die zuvor dünnere Haut ist dicker geworden und schützt das Baby jetzt besser. Eine Schutzschicht, die Käseschmiere (Vernix), erleichtert ihm außerdem den Weg durch den Geburtskanal.',
+        length:
+          'Etwa 50,7 cm',
+        comparison:
+          'Wassermelone',
+        bodyChanges: [
+          'Ungeduld und eine gewisse Müdigkeit sind häufig, wenn der Entbindungstermin näher rückt.',
+        ],
+        toKnow: [
+          'Der Blutkreislauf des Neugeborenen stellt sich direkt nach der Geburt weiter um, was Händen oder Füßen vorübergehend einen leicht bläulichen Schimmer geben kann.',
+        ],
+      },
     },
   },
   {
@@ -2240,6 +3316,34 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Tahmini doğum tarihini biraz geçmek yaygındır ve mutlaka bir sorun olduğu anlamına gelmez; genellikle daha yakın izlem önerilir.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Малыш полностью развит и готов родиться. Предполагаемая дата родов — это оценка: многие роды происходят в дни вокруг неё, до или после.',
+        length:
+          'Около 51,2 см',
+        comparison:
+          'Тыква',
+        bodyChanges: [
+          'В этот период обычно ждут признаков начала родов (регулярные схватки, излитие околоплодных вод).',
+        ],
+        toKnow: [
+          'Небольшая переношенность относительно предполагаемой даты родов — обычное явление и не обязательно означает проблему; как правило, предлагают более тщательное наблюдение.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Das Baby ist vollständig entwickelt und bereit, geboren zu werden. Der Entbindungstermin ist eine Schätzung: Viele Geburten finden in den Tagen davor oder danach statt.',
+        length:
+          'Etwa 51,2 cm',
+        comparison:
+          'Kürbis',
+        bodyChanges: [
+          'In dieser Zeit wartet man häufig auf die Anzeichen der Wehen (regelmäßige Kontraktionen, Blasensprung).',
+        ],
+        toKnow: [
+          'Den Entbindungstermin leicht zu überschreiten ist weiterhin häufig und bedeutet nicht unbedingt, dass ein Problem vorliegt; in der Regel wird eine engere Überwachung angeboten.',
+        ],
+      },
     },
   },
 
@@ -2287,6 +3391,26 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Termi geçmek genellikle tıbbi ekip tarafından izlemin artırılmasına yol açar.',
         ],
       },
+      ru: {
+        babyDescription:
+          'Малыш по-прежнему полностью развит. После предполагаемой даты родов, как правило, предлагают более тщательное наблюдение, чтобы следить за благополучием малыша.',
+        bodyChanges: [
+          'Затянувшееся ожидание может сопровождаться усилившейся усталостью и нетерпением.',
+        ],
+        toKnow: [
+          'Перенашивание, как правило, приводит к усиленному наблюдению со стороны медицинской команды.',
+        ],
+      },
+      de: {
+        babyDescription:
+          'Das Baby ist weiterhin vollständig entwickelt. Nach dem Entbindungstermin wird in der Regel eine engere Überwachung angeboten, um das Wohlergehen des Babys zu kontrollieren.',
+        bodyChanges: [
+          'Das verlängerte Warten kann mit zunehmender Müdigkeit und Ungeduld einhergehen.',
+        ],
+        toKnow: [
+          'Wenn der Termin überschritten wird, führt das in der Regel zu einer verstärkten Überwachung durch das medizinische Team.',
+        ],
+      },
     },
   },
 ];
@@ -2297,7 +3421,7 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
 // derived from i18n.language, so this default is only ever exercised by a
 // caller that omits it, e.g. a test). Resolution is explicit per language via
 // resolveEditorialLanguage(): 'fr' -> French, 'es' -> Spanish, 'it' -> Italian,
-// anything else (including 'en' and any unrecognized/future value) -> English.
+// 'tr' -> Turkish, 'ru' -> Russian, 'de' -> German, anything else (including 'en' and any unrecognized/future value) -> English.
 // English is the fallback for an unknown language — never French.
 export function getPregnancyWeekData(week: number, lang: EditorialLanguage = 'en'): PregnancyWeekData | undefined {
   const entry = PREGNANCY_WEEK_DATA.find(item => item.week === week);
