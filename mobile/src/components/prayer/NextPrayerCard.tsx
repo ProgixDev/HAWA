@@ -15,6 +15,7 @@ import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale} from '../../utils/cycleMath';
+import {formatClockTimeInZone} from '../../utils/timeOfDay';
 import {displayUpperCase} from '../../utils/textCase';
 import type {PrayerWindow} from '../../services/prayerTimes';
 
@@ -29,13 +30,8 @@ type Props = {
   now: Date;
 };
 
-const formatTime = (date: Date, timezone?: string) =>
-  new Intl.DateTimeFormat(dateFormatLocale(), {
-    ...(timezone ? {timeZone: timezone} : {}),
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  }).format(date);
+// Instant in the prayer location's zone, 24-hour: hourCycle h23 so 00:05 is never "24:05" under en-US.
+const formatTime = (date: Date, timezone?: string) => formatClockTimeInZone(date, dateFormatLocale(), timezone);
 
 type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
 

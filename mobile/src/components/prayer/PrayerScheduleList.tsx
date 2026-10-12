@@ -8,6 +8,7 @@ import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale} from '../../utils/cycleMath';
+import {formatClockTimeInZone} from '../../utils/timeOfDay';
 import type {PrayerName, PrayerWindow} from '../../services/prayerTimes';
 
 type Props = {
@@ -16,13 +17,8 @@ type Props = {
   highlightName?: PrayerName;
 };
 
-const formatTime = (date: Date, timezone?: string) =>
-  new Intl.DateTimeFormat(dateFormatLocale(), {
-    ...(timezone ? {timeZone: timezone} : {}),
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  }).format(date);
+// Instant in the prayer location's zone, 24-hour: hourCycle h23 so 00:05 is never "24:05" under en-US.
+const formatTime = (date: Date, timezone?: string) => formatClockTimeInZone(date, dateFormatLocale(), timezone);
 
 function PrayerScheduleList({windows, timezone, highlightName}: Props): React.JSX.Element {
   const {t} = useTranslation();
