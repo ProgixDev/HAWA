@@ -13,6 +13,7 @@ import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/
 import {isIncludedInBackup} from '../services/storageKeyClassifier';
 import {cancelAllLocalNotifications} from '../services/pregnancyNotifications';
 import {suspendBulkReminderResync} from '../services/reminderResyncGate';
+import {resetAllOwnerStoresToDefaults} from '../state/ownerStoreRegistry';
 import {foldForConfirmation} from '../utils/textCase';
 
 function Shell({title, navigation, children}: {title: string; navigation: {goBack: () => void}; children: React.ReactNode}) {
@@ -103,6 +104,11 @@ export function DeleteAccountScreen({navigation}: NativeStackScreenProps<RootSta
     // Storage is empty but the stores still hold the deleted account in memory until the process ends: a bulk resync
     // (language, privacy, permission, foreground refresh) would rebuild reminders from it. Suspended until the person
     // chooses an objective again (App.tsx), at which point the stores hold the new account's data.
+    // The owner-only stores (objective, pregnancy / postpartum / loss / ... preferences, reminder snapshots) go back to
+    // their defaults IN MEMORY — no read, no write, the storage stays empty (a re-read can persist derived keys). Their
+    // subscribers are notified, which includes the objective listener that lifts the suspension: so the suspension is
+    // set AFTER the reset, never before it.
+    resetAllOwnerStoresToDefaults();
     suspendBulkReminderResync();
     navigation.reset({index: 0, routes: [{name: 'Welcome'}]});
   };

@@ -35,6 +35,7 @@ import {
 import {getActiveProfileIdentity, reloadActiveProfileData} from '../state/activeProfileStore';
 import {runStructuredMigration} from '../services/structuredDataMigration';
 import {resyncAllReminderNotifications} from '../services/reminderResync';
+import {reloadAllOwnerStores} from '../state/ownerStoreRegistry';
 import {foldForConfirmation} from '../utils/textCase';
 import {resetManagedProfileFirstPeriod} from '../state/managedProfilesStore';
 import {syncManagedProfileRecordFromCycle} from '../state/managedProfileCycleSeed';
@@ -329,6 +330,9 @@ export function RestoreBackupScreen({
         // record an older, unencrypted backup brought back as plaintext).
         reloadActiveProfileData();
         await reloadCycleStateFromStorage();
+        // Owner-only stores (objective, pregnancy / postpartum / loss / ... preferences, reminder snapshots) memoise
+        // their first read and have no profile signal: re-read them BEFORE the resync below derives anything. Never throws.
+        await reloadAllOwnerStores();
         runStructuredMigration().catch(() => undefined);
       }
 
@@ -1324,6 +1328,9 @@ export function DeleteTrackedDataScreen({
       // writes the deleted data back. A failed re-read must not make a completed deletion look failed.
       reloadActiveProfileData();
       await reloadCycleStateFromStorage().catch(() => undefined);
+      // Same for the owner-only stores (objective, pregnancy / postpartum / loss / ... preferences, reminder
+      // snapshots): re-read from the emptied storage — never defaults written back. Never throws.
+      await reloadAllOwnerStores();
     }
 
     setDone(true);
