@@ -6,6 +6,14 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <!--
+      WAKE_LOCK is a normal (install-time, no prompt) permission that React Native's HeadlessJsTaskService needs so
+      the CPU stays awake while the reminder-reschedule task runs (see AwaReminderRescheduleService). It is already
+      present in the merged manifest through @notifee/react-native; it is declared here so this feature does not
+      silently depend on a dependency's manifest. No other permission is added: no foreground service, no
+      RECEIVE_BOOT_COMPLETED change (notifee core already handles reboot), no exact-alarm permission.
+    -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
       android:name=".MainApplication"
@@ -61,5 +69,26 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity-alias>
+
+      <!--
+        Re-arms reminders after events notifee core does not handle: time-zone change, clock change, app update.
+        exported=false: these are protected system broadcasts, which the system delivers to a non-exported receiver;
+        no other app can poke it. Starts AwaReminderRescheduleService (a bounded headless JS task, not a foreground
+        service). See AwaReminderRescheduleReceiver.kt / src/services/reminderRescheduleTask.ts.
+      -->
+      <receiver
+        android:name=".AwaReminderRescheduleReceiver"
+        android:enabled="true"
+        android:exported="false">
+        <intent-filter>
+          <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+          <action android:name="android.intent.action.TIME_SET" />
+          <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+        </intent-filter>
+      </receiver>
+
+      <service
+        android:name=".AwaReminderRescheduleService"
+        android:exported="false" />
     </application>
 </manifest>
