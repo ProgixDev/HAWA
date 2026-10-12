@@ -4,6 +4,7 @@ import bidiFactory from 'bidi-js';
 import type {ExportReportModel} from './medicalExportFormatting';
 import {CAIRO_ARABIC_SUBSET_BASE64} from './pdfArabicFont';
 import {CAIRO_BOLD_SUBSET_BASE64} from './pdfCairoBoldFont';
+import {DEJAVU_CYRILLIC_BOLD_SUBSET_BASE64, DEJAVU_CYRILLIC_REGULAR_SUBSET_BASE64} from './pdfCyrillicFont';
 import i18n from '../i18n';
 
 // Local, on-device PDF generation for the Medical Export "Rapport de suivi" —
@@ -30,6 +31,10 @@ import i18n from '../i18n';
 //     NEVER blindly reversed: only the (rare) run whose direction fontkit would
 //     get wrong is pre-arranged, verified against fontkit itself;
 //   * an Arabic paragraph is right-aligned, a Latin one keeps the left margin.
+// - Cyrillic (Russian) text: neither Helvetica (WinAnsi) nor Cairo has Cyrillic glyphs, so a report that contains
+//   Cyrillic is drawn entirely with an embedded DejaVu Sans Regular + Bold subset (pdfCyrillicFont.ts), loaded only
+//   in that case. Latin words, digits and the Turkish letters inside such a report use the same face, so no word is
+//   split between typefaces. Arabic inside a Cyrillic report still goes to Cairo.
 // - Whatever neither face can draw (emoji, other scripts) degrades EXPLICITLY,
 //   never silently: the run becomes UNSUPPORTED_MARKER and the report carries a
 //   notice pointing to the lossless CSV export. It NEVER applies to Arabic.
@@ -58,6 +63,11 @@ export const containsArabicScript = (text: string): boolean => ARABIC_SCRIPT_RE.
 
 /** The six Turkish letters that are NOT in WinAnsi (the standard PDF fonts' character set): Ğ ğ İ ı Ş ş. */
 const TURKISH_SPECIFIC_RE = /[ğĞşŞıİ]/;
+
+/** The Cyrillic block (Russian letters, plus the Ukrainian/Belarusian/Serbian ones the face also covers). */
+const CYRILLIC_RE = /[Ѐ-ӿ]/;
+
+export const containsCyrillic = (text: string): boolean => CYRILLIC_RE.test(text);
 export const containsTurkishSpecificLetter = (text: string): boolean => TURKISH_SPECIFIC_RE.test(text);
 
 type FontkitFont = {
@@ -355,7 +365,9 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   // WinAnsi cannot encode. A report without either is generated exactly as before, with the standard fonts.
   const strings = collectModelStrings(model);
   const needsArabic = strings.some(containsArabicScript);
-  const needsTurkish = strings.some(containsTurkishSpecificLetter);
+  const needsCyrillic = strings.some(containsCyrillic);
+  // In a Cyrillic report DejaVu draws the Turkish letters too, so Cairo is only needed there for Arabic text.
+  const needsTurkish = !needsCyrillic && strings.some(containsTurkishSpecificLetter);
   let cairo: PDFFont | null = null;
   let probe: FontkitFont | null = null;
   if (needsArabic || needsTurkish) {
@@ -363,12 +375,19 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
     cairo = await doc.embedFont(CAIRO_ARABIC_SUBSET_BASE64, {subset: true});
     probe = fontkit.create(decodeFromBase64(CAIRO_ARABIC_SUBSET_BASE64)) as unknown as FontkitFont;
   }
+  let dejaVu: PDFFont | null = null;
+  let dejaVuBold: PDFFont | null = null;
+  if (needsCyrillic) {
+    doc.registerFontkit(fontkit);
+    dejaVu = await doc.embedFont(DEJAVU_CYRILLIC_REGULAR_SUBSET_BASE64, {subset: true});
+    dejaVuBold = await doc.embedFont(DEJAVU_CYRILLIC_BOLD_SUBSET_BASE64, {subset: true});
+  }
   // A Turkish report is drawn entirely with Cairo (Regular for body text, an embedded Cairo Bold subset with the same
   // code points for titles / headings / dates / category labels), so that no word is split between two typefaces and
   // the heading hierarchy survives. Every other report keeps Helvetica / Helvetica-Bold and never embeds the bold face.
   const cairoBold = needsTurkish && cairo ? await doc.embedFont(CAIRO_BOLD_SUBSET_BASE64, {subset: true}) : null;
-  const latin = needsTurkish && cairo ? cairo : await doc.embedFont(StandardFonts.Helvetica);
-  const latinBold = cairoBold ?? (await doc.embedFont(StandardFonts.HelveticaBold));
+  const latin = dejaVu ?? (needsTurkish && cairo ? cairo : await doc.embedFont(StandardFonts.Helvetica));
+  const latinBold = dejaVuBold ?? cairoBold ?? (await doc.embedFont(StandardFonts.HelveticaBold));
   const arabic: PDFFont | null = needsArabic ? cairo : null;
   const arabicSupport: PdfCharSupport = arabic ? pdfCharSupport(arabic) : new Set<number>();
   const fonts: Fonts = {latin, latinBold, arabic, arabicSupport, probe: needsArabic ? probe : null};
