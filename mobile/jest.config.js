@@ -1,4 +1,10 @@
 module.exports = {
+  // Half of the cores. With one worker per core (the Jest default, cores - 1) the ~400 suites — many of which mount
+  // whole screens and run AES-GCM — oversubscribe CPU and memory: a handful of ordinary tests (each ~0.2-1 s alone)
+  // then exceed the unchanged 5 s per-test timeout, a DIFFERENT handful on every run. At 50% both the default and the
+  // encrypted run are fully green and no slower. This caps parallelism only; no timeout was raised and no test skipped.
+  // Override on the command line with --maxWorkers=<n> when a machine has plenty of headroom.
+  maxWorkers: '50%',
   preset: 'react-native',
   setupFiles: ['<rootDir>/jest.setup.js'],
   // @noble/ciphers ships ESM-only .js files (used by privateNotesEncryption.ts/
