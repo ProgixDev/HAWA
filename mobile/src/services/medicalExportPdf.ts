@@ -5,6 +5,7 @@ import type {ExportReportModel} from './medicalExportFormatting';
 import {CAIRO_ARABIC_SUBSET_BASE64} from './pdfArabicFont';
 import {CAIRO_BOLD_SUBSET_BASE64} from './pdfCairoBoldFont';
 import {DEJAVU_CYRILLIC_BOLD_SUBSET_BASE64, DEJAVU_CYRILLIC_REGULAR_SUBSET_BASE64} from './pdfCyrillicFont';
+import {NOTO_SANS_SC_BOLD_SUBSET_BASE64, NOTO_SANS_SC_REGULAR_SUBSET_BASE64} from './pdfChineseFont';
 import i18n from '../i18n';
 
 // Local, on-device PDF generation for the Medical Export "Rapport de suivi" —
@@ -68,6 +69,12 @@ const TURKISH_SPECIFIC_RE = /[ğĞşŞıİ]/;
 const CYRILLIC_RE = /[Ѐ-ӿ]/;
 
 export const containsCyrillic = (text: string): boolean => CYRILLIC_RE.test(text);
+
+/** CJK ideographs (+ extension A, compatibility), CJK symbols & punctuation, hiragana/katakana and the fullwidth forms:
+ * what a Simplified Chinese report is made of. Noto Sans SC (pdfChineseFont.ts) draws them. */
+const CHINESE_RE = /[\u3040-\u30FF\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF\uFF00-\uFFEF]/;
+
+export const containsChinese = (text: string): boolean => CHINESE_RE.test(text);
 export const containsTurkishSpecificLetter = (text: string): boolean => TURKISH_SPECIFIC_RE.test(text);
 
 type FontkitFont = {
@@ -255,6 +262,11 @@ export function layoutLineRuns(line: string, paraLevel: 0 | 1, fonts: Fonts, bol
 const runsWidth = (runs: DrawRun[], size: number): number =>
   runs.reduce((sum, run) => sum + run.font.widthOfTextAtSize(run.text, size), 0);
 
+/** Kinsoku (line-breaking) rules for Chinese: these may not START a line (closing punctuation, ellipsis, dashes)... */
+const NO_LINE_START = new Set(Array.from('，。、；：？！）”’】》〉』」…—～·％,.;:?!)]}%'));
+/** ...and these may not END a line (opening brackets and quotes). */
+const NO_LINE_END = new Set(Array.from('（“‘【《〈『「([{'));
+
 function wrapText(
   fonts: Fonts,
   text: string,
@@ -274,10 +286,21 @@ function wrapText(
       // run past the right margin and be clipped by the page: break it by character.
       if (current) {lines.push(current);}
       let chunk = '';
+      const cjk = containsChinese(word);
       Array.from(word).forEach(char => {
         if (chunk && measure(`${chunk}${char}`) > maxWidth) {
-          lines.push(chunk);
-          chunk = char;
+          // Kinsoku: never leave a closing mark at the start of the next line (carry the previous character with it)
+          // and never leave an opening bracket at the end of this one.
+          const pieces = Array.from(chunk);
+          let carry = '';
+          if (cjk && NO_LINE_START.has(char) && pieces.length > 1) {
+            carry = pieces.pop() as string;
+          }
+          while (cjk && pieces.length > 1 && NO_LINE_END.has(pieces[pieces.length - 1])) {
+            carry = `${pieces.pop() as string}${carry}`;
+          }
+          lines.push(pieces.join(''));
+          chunk = `${carry}${char}`;
         } else {
           chunk += char;
         }
@@ -365,9 +388,14 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   // WinAnsi cannot encode. A report without either is generated exactly as before, with the standard fonts.
   const strings = collectModelStrings(model);
   const needsArabic = strings.some(containsArabicScript);
-  const needsCyrillic = strings.some(containsCyrillic);
-  // In a Cyrillic report DejaVu draws the Turkish letters too, so Cairo is only needed there for Arabic text.
-  const needsTurkish = !needsCyrillic && strings.some(containsTurkishSpecificLetter);
+  // A report with Chinese text is drawn entirely with Noto Sans SC (Latin, digits and the Turkish letters included), so
+  // no word is split between typefaces; Cyrillic text inside such a report is not drawable by it and is replaced by the
+  // standard marker (documented limitation, the CSV export is lossless).
+  const needsChinese = strings.some(containsChinese);
+  const needsCyrillic = !needsChinese && strings.some(containsCyrillic);
+  // In a Cyrillic or Chinese report the embedded face draws the Turkish letters too, so Cairo is only needed there for
+  // Arabic text.
+  const needsTurkish = !needsCyrillic && !needsChinese && strings.some(containsTurkishSpecificLetter);
   let cairo: PDFFont | null = null;
   let probe: FontkitFont | null = null;
   if (needsArabic || needsTurkish) {
@@ -382,12 +410,19 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
     dejaVu = await doc.embedFont(DEJAVU_CYRILLIC_REGULAR_SUBSET_BASE64, {subset: true});
     dejaVuBold = await doc.embedFont(DEJAVU_CYRILLIC_BOLD_SUBSET_BASE64, {subset: true});
   }
+  let notoSc: PDFFont | null = null;
+  let notoScBold: PDFFont | null = null;
+  if (needsChinese) {
+    doc.registerFontkit(fontkit);
+    notoSc = await doc.embedFont(NOTO_SANS_SC_REGULAR_SUBSET_BASE64, {subset: true});
+    notoScBold = await doc.embedFont(NOTO_SANS_SC_BOLD_SUBSET_BASE64, {subset: true});
+  }
   // A Turkish report is drawn entirely with Cairo (Regular for body text, an embedded Cairo Bold subset with the same
   // code points for titles / headings / dates / category labels), so that no word is split between two typefaces and
   // the heading hierarchy survives. Every other report keeps Helvetica / Helvetica-Bold and never embeds the bold face.
   const cairoBold = needsTurkish && cairo ? await doc.embedFont(CAIRO_BOLD_SUBSET_BASE64, {subset: true}) : null;
-  const latin = dejaVu ?? (needsTurkish && cairo ? cairo : await doc.embedFont(StandardFonts.Helvetica));
-  const latinBold = dejaVuBold ?? cairoBold ?? (await doc.embedFont(StandardFonts.HelveticaBold));
+  const latin = notoSc ?? dejaVu ?? (needsTurkish && cairo ? cairo : await doc.embedFont(StandardFonts.Helvetica));
+  const latinBold = notoScBold ?? dejaVuBold ?? cairoBold ?? (await doc.embedFont(StandardFonts.HelveticaBold));
   const arabic: PDFFont | null = needsArabic ? cairo : null;
   const arabicSupport: PdfCharSupport = arabic ? pdfCharSupport(arabic) : new Set<number>();
   const fonts: Fonts = {latin, latinBold, arabic, arabicSupport, probe: needsArabic ? probe : null};
