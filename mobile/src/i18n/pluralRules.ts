@@ -39,13 +39,16 @@ class AwaPluralRules {
 
   select(value: number): PluralCategory {
     if (this.language === 'ru') {return russianCardinal(value);}
+    // Chinese has no grammatical number: CLDR has the single category "other".
+    if (this.language === 'zh') {return 'other';}
     return value === 1 ? 'one' : 'other';
   }
 
   resolvedOptions(): {locale: string; pluralCategories: PluralCategory[]} {
     return {
       locale: this.language,
-      pluralCategories: this.language === 'ru' ? ['one', 'few', 'many', 'other'] : ['one', 'other'],
+      pluralCategories:
+        this.language === 'ru' ? ['one', 'few', 'many', 'other'] : this.language === 'zh' ? ['other'] : ['one', 'other'],
     };
   }
 
