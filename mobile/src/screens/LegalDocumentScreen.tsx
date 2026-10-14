@@ -27,8 +27,8 @@ type LegalSection = {title: string; body: string};
 // has the same provisional placeholder text as the other languages (still pending legal
 // validation — it carries no clause beyond the English). Russian likewise carries the same
 // provisional placeholder text and no clause beyond the English. German (de) carries the same
-// provisional placeholder text as well, with no clause beyond the English.
-type LegalLanguage = 'fr' | 'en' | 'es' | 'tr' | 'ru' | 'de';
+// provisional placeholder text as well, with no clause beyond the English. Simplified Chinese (zh) likewise.
+type LegalLanguage = 'fr' | 'en' | 'es' | 'tr' | 'ru' | 'de' | 'zh';
 
 export const TERMS: Record<LegalLanguage, LegalSection[]> = {
   fr: [
@@ -78,6 +78,12 @@ export const TERMS: Record<LegalLanguage, LegalSection[]> = {
     {title: 'Nutzung der App', body: 'AWA bietet Werkzeuge für die persönliche Beobachtung und das Wohlbefinden. Der endgültige Text zu den Rechten und Pflichten der Nutzerinnen wird ergänzt, sobald die rechtliche Prüfung abgeschlossen ist.'},
     {title: 'Verfügbarkeit des Dienstes', body: 'Die endgültigen Bedingungen zu Verfügbarkeit, Wartung und Weiterentwicklung des Dienstes müssen noch bestätigt werden.'},
     {title: 'Kontakt', body: 'Die offiziellen Kontaktdaten werden ergänzt, sobald sie vom AWA-Team bestätigt wurden.'},
+  ],
+  zh: [
+    {title: '目的', body: '本文件为 AWA 使用条款的临时结构。'},
+    {title: '应用的使用', body: 'AWA 提供个人记录与健康管理工具。说明用户权利与责任的正式内容，将在法律审核完成后补充。'},
+    {title: '服务可用性', body: '关于服务可用性、维护与更新的正式条款仍有待确认。'},
+    {title: '联系方式', body: '官方联系方式将在 AWA 团队确认后补充。'},
   ],
 };
 
@@ -130,10 +136,16 @@ export const PRIVACY: Record<LegalLanguage, LegalSection[]> = {
     {title: 'Deine Rechte', body: 'Die Verfahren, um auf deine Daten zuzugreifen, sie zu berichtigen oder zu löschen, werden in der geprüften Fassung ausführlich beschrieben.'},
     {title: 'Datenschutzkontakt', body: 'Die offizielle Kontaktadresse der oder des Datenschutzverantwortlichen wird vor der Veröffentlichung ergänzt.'},
   ],
+  zh: [
+    {title: '涉及的数据', body: '法律审核完成后，本部分将详细说明 AWA 处理的数据及其用途。'},
+    {title: '存储与安全', body: '正式文件将说明存储措施、保护措施和保存期限。'},
+    {title: '你的权利', body: '访问、更正或删除你的数据的方式，将在审核通过的版本中详细说明。'},
+    {title: '隐私联系方式', body: '隐私负责人的官方联系地址将在发布前补充。'},
+  ],
 };
 
 /** Resolves the app's current language to one of the 6 legal-content keys —
- * the single place this screen decides fr/en/es/tr/ru/de, so body and chrome can never
+ * the single place this screen decides fr/en/es/tr/ru/de/zh, so body and chrome can never
  * drift apart. Italian ('it') has no legal placeholder text yet, so it — like
  * any unknown/invalid language (e.g. not yet loaded) — falls back to English,
  * never to French or Spanish. */
@@ -143,6 +155,7 @@ function resolveLegalLanguage(language: string): LegalLanguage {
   if (language === 'tr') {return 'tr';}
   if (language === 'ru') {return 'ru';}
   if (language === 'de') {return 'de';}
+  if (language === 'zh') {return 'zh';}
   return 'en';
 }
 

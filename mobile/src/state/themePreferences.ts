@@ -93,7 +93,7 @@ export function getTrueBlackEnabled(): boolean {
 // app/device, unaffected by owner/managed-daughter profile switching. Only
 // selects a language for now; the actual string translation is a separate,
 // later i18n migration (this store/UI does not translate anything yet).
-export type AwaAppLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de';
+export type AwaAppLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh';
 
 const LANGUAGE_STORAGE_KEY = '@awa/appearance/language-v1';
 // PHASE 7M: English is now AWA's default/fallback language — a brand-new
@@ -101,13 +101,29 @@ const LANGUAGE_STORAGE_KEY = '@awa/appearance/language-v1';
 // on English, never French. French remains fully supported: an explicitly
 // persisted 'fr' value (set via the Appearance language sheet) always wins —
 // see isValidAppLanguage()'s hydration check below, which only ever
-// overwrites this default with a persisted 'fr', 'en', 'es', 'it', 'tr', 'ru' or 'de', never
+// overwrites this default with a persisted 'fr', 'en', 'es', 'it', 'tr', 'ru', 'de' or 'zh' (Simplified Chinese,
+// zh-CN; the code is the bare language 'zh', the Intl locale is 'zh-CN'), never
 // anything else. Spanish ('es'), Italian ('it'), Turkish ('tr'), Russian ('ru') and German ('de') were added later,
 // following this exact same pattern.
 const DEFAULT_APP_LANGUAGE: AwaAppLanguage = 'en';
 
 const isValidAppLanguage = (value: unknown): value is AwaAppLanguage =>
-  value === 'fr' || value === 'en' || value === 'es' || value === 'it' || value === 'tr' || value === 'ru' || value === 'de';
+  value === 'fr' || value === 'en' || value === 'es' || value === 'it' || value === 'tr' || value === 'ru' || value === 'de' || value === 'zh';
+
+/** Simplified Chinese compatibility aliases (any case, '-' or '_'): zh-CN, zh-Hans, zh-Hans-CN. Only Chinese has
+ * aliases; every other language still needs its exact code. */
+const ZH_ALIASES = new Set(['zh', 'zh-cn', 'zh-hans', 'zh-hans-cn', 'zh-sg', 'zh-hans-sg']);
+
+/** The canonical stored language for a persisted/typed value, or null when it is not a supported language. */
+export function normalizeAppLanguage(value: unknown): AwaAppLanguage | null {
+  if (isValidAppLanguage(value)) {
+    return value;
+  }
+  if (typeof value === 'string' && ZH_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'zh';
+  }
+  return null;
+}
 
 let appLanguage: AwaAppLanguage = DEFAULT_APP_LANGUAGE;
 
@@ -134,8 +150,13 @@ export function hydrateAppearancePreferences(): Promise<void> {
         // No stored value (a brand-new install, or an existing install that
         // predates this preference) — keeps the module default ('en', since
         // Phase 7M), never triggers onboarding or any migration prompt.
-        if (isValidAppLanguage(storedLanguage)) {
-          appLanguage = storedLanguage;
+        const normalized = normalizeAppLanguage(storedLanguage);
+        if (normalized) {
+          appLanguage = normalized;
+          if (normalized !== storedLanguage) {
+            // an alias (zh-CN / zh-Hans): keep the preference, rewrite it under the canonical code
+            AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, normalized).catch(() => {});
+          }
         }
         notify();
       })
