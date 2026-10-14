@@ -232,11 +232,17 @@ describe('the local backup slot is encrypted, and says so honestly when it canno
   beforeEach(() => setStructuredEncryptionEnabled(true));
 
   it('stores no plaintext, reads back, and notes that nothing is legacy', async () => {
-    await backupNow();
+    const snapshot = await backupNow();
     const raw = await getRawItem(SLOT);
     expect(isStructuredEnvelope(raw)).toBe(true);
     expect(raw).not.toContain('owner');
-    expect(raw).not.toContain('2026');
+    // The snapshot's own timestamp is the plaintext field to look for. A bare '2026' is not a safe probe: the envelope
+    // is random hexadecimal, so any four-digit run occurs in it by chance (about 1 stored snapshot in 100), and the
+    // probe silently stops meaning anything when the year changes. The date prefix of the real timestamp contains '-',
+    // which is not a hexadecimal digit, so the ciphertext and the nonce can never match it, while a timestamp stored
+    // (even partly) in the clear beside the ciphertext would.
+    expect(snapshot.createdAt).toMatch(/^\d{4}-\d{2}-\d{2}T/);
+    expect(raw).not.toContain(snapshot.createdAt.slice(0, 10));
     const status = await getLocalBackupStatus();
     expect(status).toMatchObject({status: 'ok', legacyPlaintext: false});
     expect((await getBackupSnapshot())?.entries[QADAA]).toBe('{"owner":true}');
