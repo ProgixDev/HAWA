@@ -567,6 +567,92 @@ const CONTENT = {
     endText: 'Je mehr du deinen Zyklus beobachtest, desto besser verstehst du, was für dich typisch ist.',
     shareMessage: 'Die verschiedenen Phasen des Zyklus einfach erklärt — AWA',
   },
+  zh: {
+      badge: '月经周期',
+      title: '月经周期\n各个阶段详解',
+      metaDuration: '阅读约 6 分钟',
+      metaValidated: '已审核内容',
+      intro: '你的月经周期由几个阶段组成，每个阶段对你的激素平衡和健康都起着重要作用。',
+      contentsTitle: '本文内容',
+      topics: [
+        '周期的 4 个阶段',
+        '你的身体如何变化',
+        '为什么了解周期很重要',
+        '常见问题',
+      ],
+      body1: '你的周期通常分为四个主要阶段。每个阶段的长度因人而异：每个人的身体都有自己的节奏。',
+      diagram: {
+        menstrual: {
+          name: '月经期',
+          days: '第 1 至 5 天',
+        },
+        follicular: {
+          name: '卵泡期',
+          days: '第 1 至 13 天',
+        },
+        luteal: {
+          name: '黄体期',
+          days: '第 15 至 28 天',
+        },
+        ovulatory: {
+          name: '排卵期',
+          days: '第 14 天前后',
+        },
+      },
+      tip1Title: '小贴士',
+      tip1Text: '每个人都是独一无二的：留意自己的身体，了解属于你自己的节奏。',
+      body2: '激素的变化会在整个周期中影响你的精力、情绪、睡眠和某些身体感受。',
+      bodyChanges: [
+        {
+          title: '月经期间',
+          text: '你的精力可能较低，身体可能需要更多休息。',
+        },
+        {
+          title: '卵泡期',
+          text: '精力逐渐回升，你可能会感觉更有活力。',
+        },
+        {
+          title: '排卵前后',
+          text: '有些女性会感到精力、干劲和自信更足。',
+        },
+        {
+          title: '黄体期',
+          text: '可能出现疲倦、腹胀或情绪波动。',
+        },
+      ],
+      softTipTitle: '倾听身体的声音',
+      softTipText: '每个阶段的感受并不只有一种。你自己的感觉始终是最好的参考。',
+      body3: '更好地了解自己的周期，可以帮助你预判某些时段，并理解日常中察觉到的变化。',
+      whyItems: [
+        '更好地理解身体发出的信号',
+        '预判月经来潮及周期的各个阶段',
+        '理解某些情绪变化',
+        '根据精力状态调整活动安排',
+        '让日常记录更完善',
+      ],
+      body4: '以下是关于周期各个阶段的一些常见问题解答。',
+      faq: [
+        {
+          question: '我的周期不是刚好 28 天，正常吗？',
+          answer: '是的。周期长度因人而异，甚至每个月之间也可能略有不同。',
+        },
+        {
+          question: '排卵一定发生在第 14 天吗？',
+          answer: '不一定。对于 28 天的周期，第 14 天是常见的估算，但排卵可能更早或更晚。',
+        },
+        {
+          question: '为什么我的症状会随阶段变化？',
+          answer: '整个周期中的激素变化会影响精力、情绪、睡眠和某些身体感受。',
+        },
+        {
+          question: '记录症状有用吗？',
+          answer: '有用。定期记录可以帮助你发现自己的规律，更好地了解自己的节奏。',
+        },
+      ],
+      endTitle: '你的周期，你的节奏',
+      endText: '你越是留意自己的周期，就越能了解什么对你来说是常态。',
+      shareMessage: '月经周期各个阶段详解 — AWA',
+    },
 } as const;
 
 function CyclePhasesArticleScreen({

@@ -423,6 +423,72 @@ const CONTENT = {
       'Wenn die Symptome sehr stark sind und deinen Alltag beeinträchtigen, kann es sich um eine prämenstruelle dysphorische Störung (PMDS) handeln. Zögere nicht, medizinisches Fachpersonal aufzusuchen.',
     shareMessage: 'Prämenstruelles Syndrom (PMS): besser verstehen — AWA',
   },
+  zh: {
+      badge: '周期与身心',
+      title: '经前期综合征（PMS）：\n更好地了解它',
+      metaDuration: '阅读约 4 分钟',
+      metaValidated: '已审阅内容',
+      intro: '多达八成的女性会受到 PMS 的影响。疲倦、易怒、腹胀……了解它的成因并养成合适的习惯，可以大大改善每个月的这段时间。',
+      contentsTitle: '本文内容',
+      contents: [
+        '什么是 PMS？',
+        '常见症状',
+        '可能的成因',
+        '让自己更舒服的小建议',
+        '何时去看医生？',
+      ],
+      section1Body: '经前期综合征包括一组身体和情绪方面的症状，通常在月经来潮前 5 到 10 天出现，并在月经周期开始时消失。',
+      visual1Title: '与周期相关的阶段',
+      visual1Text: '症状在月经之前出现，通常在月经开始后缓解。',
+      tip1Title: '小贴士',
+      tip1Text: '症状的强度和类型因人而异，不同周期之间也可能差别很大。',
+      symptoms: [
+        {
+          title: '情绪',
+          text: '易怒、焦虑、悲伤、情绪波动',
+        },
+        {
+          title: '身体',
+          text: '腹胀、疼痛、疲倦、头痛',
+        },
+        {
+          title: '行为',
+          text: '想吃甜食、食欲变化、疲倦',
+        },
+        {
+          title: '睡眠',
+          text: '难以入睡或睡得不够踏实',
+        },
+      ],
+      section3Body: '激素的波动，尤其是孕激素和雌激素的变化，会影响大脑中的神经递质（血清素、多巴胺），这可能解释了 PMS 的情绪和身体症状。',
+      tip2Title: '激素起着关键作用',
+      tip2Text: '激素波动可能影响情绪、精力、睡眠和某些身体感受。',
+      tips: [
+        {
+          title: '保持水分充足',
+          text: '喝足够的水有助于减轻腹胀。',
+        },
+        {
+          title: '均衡饮食',
+          text: '多吃富含镁、欧米伽-3 和 B 族维生素的食物。',
+        },
+        {
+          title: '保持活动',
+          text: '体育活动能释放内啡肽，缓解压力。',
+        },
+        {
+          title: '管理压力',
+          text: '呼吸练习、冥想、写日记……找到适合你的方式。',
+        },
+        {
+          title: '睡眠充足',
+          text: '高质量的睡眠有助于维持激素平衡。',
+        },
+      ],
+      consultTitle: '何时应该寻求医疗建议？',
+      consultText: '如果症状非常严重并影响日常生活，可能是经前焦虑障碍（PMDD）。不要犹豫，请咨询医疗专业人员。',
+      shareMessage: '经前期综合征（PMS）：更好地了解它 — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<

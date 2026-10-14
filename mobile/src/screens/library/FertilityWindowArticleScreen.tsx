@@ -268,6 +268,37 @@ const CONTENT = {
     tip2Text: 'Wenn du mehrere Anzeichen (Zyklus, Schleim, Temperatur) kombinierst, erhältst du ein verlässlicheres Bild deines fruchtbaren Fensters als mit einem einzelnen Anzeichen.',
     shareMessage: 'Das fruchtbare Fenster: So funktioniert es – AWA',
   },
+  zh: {
+      badge: '易孕期',
+      title: '易孕期：\n它是如何运作的',
+      metaDuration: '阅读约 6 分钟',
+      metaType: '指南',
+      metaLevel: '入门',
+      metaValidated: '已审阅内容',
+      intro: '为什么排卵前后的几天，对受孕来说最为关键。',
+      contentsTitle: '本文内容',
+      topics: [
+        '什么是易孕期？',
+        '为什么这几天最关键',
+        '如何判断你的易孕期',
+        '要点回顾',
+      ],
+      section1Body: '易孕期是指你的周期中可能怀孕的那段时间，约持续 6 天：排卵前的 5 天，加上排卵当天。',
+      tip1Title: '小贴士',
+      tip1Text: '每个周期都不一样：易孕期不一定每个月都落在日历上的同一天。',
+      section2Body1: '精子在生殖道内最多可存活 5 天，这使得可能受孕的时间范围变宽。而卵子排出后，只有大约 24 小时具备受精能力。',
+      section2Body2: '例如，排卵前 3 天发生的性生活可能导致受孕，而排卵后一天的性生活往往已经太晚。',
+      section3Intro: '结合观察几个迹象，可以帮助你更准确地判断这段时间：',
+      trackingSigns: [
+        '记录你的周期长度',
+        '观察你的宫颈黏液',
+        '测量你的基础体温',
+        '使用排卵试纸（LH 检测）',
+      ],
+      tip2Title: '小贴士',
+      tip2Text: '把几种迹象（周期、黏液、体温）结合起来，比单看某一个迹象，更能可靠地反映你的易孕期。',
+      shareMessage: '易孕期：它是如何运作的 — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

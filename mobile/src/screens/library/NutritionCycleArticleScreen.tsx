@@ -586,6 +586,105 @@ const CONTENT = {
     ],
     shareMessage: 'Ernährung und dein Zyklus: was dein Körper liebt — AWA',
   },
+  zh: {
+      badge: '月经周期',
+      titleLine1: '饮食与你的周期：',
+      titleLine2: '你的身体喜欢什么',
+      metaDuration: '阅读约 4 分钟',
+      metaType: '指南',
+      metaLevel: '入门',
+      metaValidated: '已审核内容',
+      intro: '在整个周期中，饮食会影响你的精力、情绪、激素和整体状态。',
+      contentsTitle: '本文内容',
+      topics: [
+        '各阶段的营养需求',
+        '适合多吃的食物',
+        '需要少吃的食物',
+        '均衡饮食示例',
+      ],
+      section1Body: '在整个周期中，你的身体需求并不相同。适当调整饮食，可以带来明显的不同。',
+      phases: [
+        {
+          title: '月经期',
+          days: '第 1 至 5 天',
+          body: '多补充铁、镁和 B 族维生素。',
+        },
+        {
+          title: '卵泡期',
+          days: '第 6 至 14 天',
+          body: '注重瘦肉蛋白和新鲜蔬菜。',
+        },
+        {
+          title: '排卵期',
+          days: '第 14 天前后',
+          body: '选择富含抗氧化物质和 omega-3 的食物。',
+        },
+        {
+          title: '黄体期',
+          days: '第 15 至 28 天',
+          body: '呵护神经系统，减少炎症。',
+        },
+      ],
+      foods: [
+        {
+          title: '铁',
+          body: '扁豆、菠菜、瘦肉、鹰嘴豆。',
+        },
+        {
+          title: '镁',
+          body: '杏仁、南瓜子、黑巧克力、香蕉。',
+        },
+        {
+          title: 'omega-3',
+          body: '三文鱼、沙丁鱼、核桃、亚麻籽。',
+        },
+        {
+          title: '蛋白质',
+          body: '鸡蛋、豆腐、禽肉、希腊酸奶、藜麦。',
+        },
+        {
+          title: '膳食纤维与抗氧化物质',
+          body: '浆果、牛油果、西蓝花、胡萝卜。',
+        },
+      ],
+      limits: [
+        {
+          title: '过多的盐',
+        },
+        {
+          title: '含糖食物',
+        },
+        {
+          title: '超加工食品',
+        },
+        {
+          title: '过多的咖啡因',
+        },
+        {
+          title: '酒精',
+        },
+      ],
+      limitText: '适量享用，有助于维持你的平衡。',
+      meals: [
+        {
+          tag: '早餐',
+          body: '燕麦粥、浆果、杏仁和奇亚籽',
+        },
+        {
+          tag: '午餐',
+          body: '三文鱼、藜麦、清蒸西蓝花和橄榄油',
+        },
+        {
+          tag: '加餐',
+          body: '原味酸奶、蓝莓和亚麻籽',
+        },
+        {
+          tag: '晚餐',
+          body: '扁豆汤、烤蔬菜和全麦面包',
+        },
+      ],
+      shareMessage: '饮食与你的周期：你的身体喜欢什么 — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<

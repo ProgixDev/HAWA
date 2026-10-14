@@ -244,6 +244,35 @@ const CONTENT = {
     tipText: 'Deinen Zyklus zu kennen, einen natürlichen Rhythmus zu halten und geduldig zu bleiben sind die drei Säulen eines gelassenen Starts.',
     shareMessage: 'Kinderwunsch: wo du anfangen kannst – AWA',
   },
+  zh: {
+      badge: '备孕',
+      title: '备孕：\n从哪里开始',
+      metaDuration: '阅读约 6 分钟',
+      metaType: '指南',
+      metaLevel: '入门',
+      metaValidated: '已审阅内容',
+      intro: '几个关键提示，帮助你充满信心地开启备孕之路。',
+      contentsTitle: '本文内容',
+      topics: [
+        '找出你的易孕期',
+        '同房的节奏',
+        '可能需要多长时间',
+        '要点回顾',
+      ],
+      body1: '最有用的第一步，是根据你的周期找出易孕期：周期长度、身体信号，以及如果你愿意，也可以借助排卵试纸或基础体温等记录工具。',
+      body2: '规律地每隔 2 到 3 天同房一次，自然就能覆盖你最容易受孕的时段，不需要过于刻板的安排。',
+      rhythmPoints: [
+        '不必只局限在排卵日当天',
+        '规律的节奏比严格的计划更容易坚持',
+        '这段时间里，两个人的状态同样重要',
+      ],
+      body3: '大多数夫妻会在停止避孕后的 12 个月内怀孕。这个时间长短会因每个人的具体情况而有许多不同。',
+      alertTitle: '请注意',
+      alertText: '超过 12 个月（35 岁以后则是 6 个月）仍未怀孕时，建议去看医疗专业人员做个检查，但这并不一定意味着存在问题。',
+      tipTitle: '小贴士',
+      tipText: '了解自己的周期、保持自然的节奏、保持耐心，是平静开启这段旅程的三大支柱。',
+      shareMessage: '备孕：从哪里开始 — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

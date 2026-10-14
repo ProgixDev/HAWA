@@ -286,6 +286,37 @@ const CONTENT = {
       'Die Einnistung geschieht unauffällig, mit oder ohne sichtbares Anzeichen. Ein wenig Geduld vor dem Test erspart dir ein unzuverlässiges Ergebnis.',
     shareMessage: 'Die Einnistung verstehen — AWA',
   },
+  zh: {
+      badge: '着床',
+      title: '了解\n着床',
+      metaDuration: '阅读约 5 分钟',
+      metaType: '文章',
+      metaLevel: '进阶',
+      metaValidated: '已审阅内容',
+      intro: '从受精到验孕呈阳性之间，究竟发生了什么。',
+      contentsTitle: '本文内容',
+      topics: [
+        '从受精到着床',
+        '可能的迹象，但无法确定',
+        '何时验孕才可靠',
+        '要点回顾',
+      ],
+      body1: '受精后，受精卵通常需要 6 到 10 天到达子宫并在那里着床：这就是着床。这一步标志着怀孕真正的起点。',
+      body2: '着床时有时会伴随少量出血或痉挛感，但这并不是必然的，单凭这一点也不是可靠的迹象。',
+      possibleSigns: [
+        '非常少量的出血，有时被称为“点滴出血”',
+        '下腹部轻微的痉挛感',
+        '对许多女性来说，没有任何特别的迹象',
+      ],
+      tip1Title: '小贴士',
+      tip1Text: '没有迹象并不说明什么：许多妊娠在这个阶段没有任何明显的症状。',
+      body3: '只有在着床之后，hCG 激素才会开始产生，并能被验孕试纸检测到。验孕太早可能出现假阴性的结果。',
+      alertTitle: '注意',
+      alertText: '等到预计月经来潮的日子再验孕，比过早验孕得到的结果更可靠。',
+      tip2Title: '小贴士',
+      tip2Text: '着床是悄悄发生的，无论有没有可见的迹象。验孕前多一点耐心，可以让你避免得到不可靠的结果。',
+      shareMessage: '了解着床 — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

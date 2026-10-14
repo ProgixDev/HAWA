@@ -550,6 +550,111 @@ const CONTENT = {
     ],
     shareMessage: 'Menstruationsblut: Farben und Konsistenz verstehen — AWA',
   },
+  zh: {
+      badge: '周期与健康',
+      title: '经血：读懂\n颜色与质地',
+      metaDuration: '阅读约 4 分钟',
+      metaType: '指南',
+      metaLevel: '入门',
+      metaValidated: '已审核内容',
+      intro: '经血的颜色和质地，能透露不少你的激素健康状况。学会观察它们，更好地了解自己的周期。',
+      contentsTitle: '本文内容',
+      contents: [
+        '经血的颜色',
+        '经血的质地',
+        '每种颜色可能意味着什么',
+        '什么时候该担心？',
+        '帮你更了解自己的小建议',
+      ],
+      colors: [
+        {
+          name: '鲜红色',
+          text: '新鲜的血液，刚排出的经血。月经刚开始时很常见。',
+        },
+        {
+          name: '暗红色',
+          text: '较陈旧的血液，在月经中段属于正常现象。',
+        },
+        {
+          name: '棕色',
+          text: '被氧化的血液，通常出现在月经快结束时。',
+        },
+        {
+          name: '粉色',
+          text: '可能提示经量较少，或有激素变化。',
+        },
+        {
+          name: '橙色',
+          text: '可能与感染或失衡有关。',
+        },
+      ],
+      textures: [
+        {
+          name: '稀薄',
+          text: '液态的经血，没有血块。',
+        },
+        {
+          name: '浓稠',
+          text: '质地浓稠而顺滑。',
+        },
+        {
+          name: '血块',
+          text: '大大小小的血凝块。',
+        },
+        {
+          name: '拉丝 / 黏液',
+          text: '有拉丝感，透明或偏白。',
+        },
+        {
+          name: '组织',
+          text: '一小块一小块的组织或黏膜。',
+        },
+      ],
+      meanings: [
+        {
+          name: '鲜红色到暗红色',
+          text: '周期正常。你的身体正在排出子宫内膜。',
+        },
+        {
+          name: '棕色',
+          text: '较陈旧的血液，无需担心。',
+        },
+        {
+          name: '粉色',
+          text: '可能出现在月经开始或结束时，也可能与激素失衡有关。',
+        },
+        {
+          name: '橙色',
+          text: '如果伴有明显异味、瘙痒或疼痛，请留意观察。',
+        },
+      ],
+      warningTitle: '需要留意的信号',
+      warningItems: [
+        '出血量非常大（每 1 到 2 小时就要更换卫生用品）',
+        '经常排出非常大的血块',
+        '持续的异味或瘙痒',
+        '异常剧烈的疼痛',
+      ],
+      advice: [
+        {
+          title: '观察你的经血',
+          text: '记下每个月的变化。',
+        },
+        {
+          title: '选择合适的卫生用品',
+          text: '根据你的经量和舒适感来选择。',
+        },
+        {
+          title: '倾听身体的声音',
+          text: '它会给你很有价值的信号。',
+        },
+        {
+          title: '如有疑问',
+          text: '向医疗专业人员咨询。',
+        },
+      ],
+      shareMessage: '经血：读懂颜色与质地 — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<

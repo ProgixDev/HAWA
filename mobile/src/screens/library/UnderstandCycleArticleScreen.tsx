@@ -180,13 +180,52 @@ const CONTENT = {
     wellTitle: 'Tipp fürs Wohlbefinden',
     wellText: 'Höre auf deinen Körper, achte auf deine Empfindungen und halte fest, was sich im Lauf der Tage verändert.',
   },
+  zh: {
+    shareTitle: '了解你的月经周期',
+    shareMessage: '了解你的月经周期 · AWA',
+    pill: '了解周期',
+    title: '了解你的月经周期',
+    duration: '阅读约 6 分钟',
+    type: '指南',
+    level: '入门',
+    validated: '已审核内容',
+    summary: '用简单的方式，讲清你月经周期的几个主要阶段。',
+    stats: [
+      {title: '平均时长', text: '28 天'},
+      {title: '正常范围', text: '21 至 35 天'},
+      {title: '4 个主要阶段', text: '贯穿你的周期'},
+      {title: '每个周期', text: '都是独一无二的'},
+    ],
+    phasesEyebrow: '周期阶段',
+    phasesTitle: '4 个主要阶段',
+    phasesIntro: '每个阶段在你的身体里都有重要作用，也可能影响你的精力、情绪和症状。',
+    phases: [
+      {title: '月经期', days: '第 1 至 5 天', text: '身体排出子宫内膜。'},
+      {title: '卵泡期', days: '第 6 至 13 天', text: '身体为排卵做准备。'},
+      {title: '排卵期', days: '约第 14 天', text: '卵子被释放，这是最易孕的时期。'},
+      {title: '黄体期', days: '第 15 至 28 天', text: '身体为可能的怀孕做准备。'},
+    ],
+    knowTitle: '小贴士',
+    knowText: '你的周期每个月都可能不同。压力、睡眠、饮食或疾病都可能影响它的长短和节律。',
+    reasonsEyebrow: '为什么要记录',
+    reasonsTitle: '更好地了解你的周期',
+    reasons: [
+      '更了解自己的身体',
+      '合理安排精力',
+      '提前留意情绪变化',
+      '照顾好自己的健康',
+      '轻松记录你的周期',
+    ],
+    wellTitle: '健康小建议',
+    wellText: '倾听身体的声音，留意自己的感受，并记下日常的变化。',
+  },
 } as const;
 
 function UnderstandCycleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const content = CONTENT[i18n.language === 'ru' ? 'ru' : i18n.language === 'de' ? 'de' : 'fr'];
+  const content = CONTENT[i18n.language === 'ru' ? 'ru' : i18n.language === 'de' ? 'de' : i18n.language === 'zh' ? 'zh' : 'fr'];
   const insets = useSafeAreaInsets();
   const scrollRef = useRef<ScrollView>(null);
 

@@ -407,6 +407,56 @@ const CONTENT = {
     ],
     shareMessage: 'Häufige Fragen zu deiner ersten Periode — AWA',
   },
+  zh: {
+      badge: '初潮',
+      title: '关于初潮\n的常见问题',
+      metaDuration: '阅读约 4 分钟',
+      metaType: '常见问题',
+      metaLevel: '入门',
+      metaValidated: '经审阅的内容',
+      intro: '用简单的话，解答关于初潮最常见的问题。',
+      contentsTitle: '本文内容',
+      faq: [
+        {
+          question: '“出血量很少正常吗？”',
+          answer: '正常。最初几次月经的经量往往比较少。经量在不同周期之间可能有所变化，尤其是在刚开始的时候。',
+        },
+        {
+          question: '“出血量很多正常吗？”',
+          answer: '经量较多也可能出现，尤其是在最初两天。如果连续几个小时，每小时都需要更换不止一次卫生用品，建议你向医疗专业人员咨询。',
+        },
+        {
+          question: '“会痛经正常吗？”',
+          answer: '下腹部轻微的痉挛痛很常见，通常不必担心。热水袋或稍作休息可能会有帮助。如果疼痛非常剧烈，值得告诉身边的人。',
+        },
+        {
+          question: '“可以运动吗？”',
+          answer: '可以，月经期间依然可以运动。只要根据当天身体的感觉调整强度就好。',
+        },
+        {
+          question: '“可以游泳吗？”',
+          answer: '可以，只要使用合适的防护用品，月经期间依然可以游泳。也有不少人会选择等自己对这件事更自在一些再去。',
+        },
+      ],
+      tipTitle: '小贴士',
+      tipText: '没有什么问题是难为情的：每个人的身体都不一样，你随时可以与信任的人聊一聊。',
+      relatedTitle: '♥  你可能还想看',
+      related: [
+        {
+          title: '你的初潮：会发生什么',
+          meta: '5 分钟  ·  指南',
+        },
+        {
+          title: '初潮该选哪种卫生用品？',
+          meta: '6 分钟  ·  指南',
+        },
+        {
+          title: '缓解经期疼痛',
+          meta: '7 分钟  ·  指南',
+        },
+      ],
+      shareMessage: '关于初潮的常见问题 — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

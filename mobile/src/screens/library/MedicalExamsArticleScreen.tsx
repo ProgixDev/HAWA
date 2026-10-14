@@ -342,6 +342,45 @@ const CONTENT = {
       'Schreib dir deine Fragen vor jedem Termin gern auf, damit du im Moment nichts vergisst: Keine Frage ist zu klein, um sie zu stellen.',
     shareMessage: 'Der Kalender der Schwangerschaftsuntersuchungen — AWA',
   },
+  zh: {
+      badge: '怀孕 • 医疗随访',
+      title: '孕期检查\n时间表',
+      metaDuration: '阅读约 6 分钟',
+      metaType: '指南',
+      metaLevel: '入门',
+      metaValidated: '已审阅内容',
+      intro: '按孕期阶段了解超声检查和重要的检验项目。',
+      contentsTitle: '本文内容',
+      topics: [
+        '随访超声检查',
+        '重要的血液检查',
+        '为每次产检做准备',
+        '值得注意的事',
+        '要点回顾',
+      ],
+      body1: '孕期通常包括三次主要的超声检查，每个孕期一次，各有不同的目的。',
+      ultrasounds: [
+        '孕早期：核对孕周和颈项透明层检查',
+        '孕中期：胎儿结构超声检查',
+        '孕晚期：生长发育和宝宝的胎位',
+      ],
+      body2: '整个孕期会定期做血液检查，监测几项关键指标：',
+      bloodTests: [
+        '铁含量，用于筛查可能的贫血',
+        '妊娠期糖尿病筛查，通常在孕中期前后进行',
+        '血型和不规则抗体筛查',
+        '血清学检查（弓形虫病、风疹），视你的免疫状态而定',
+      ],
+      prepTips: [
+        '想到问题就随时记下来，免得忘记',
+        '每次产检都带上你的孕期随访手册',
+        '提到任何新出现的症状，即使看起来很轻微',
+      ],
+      neutralText: '检查的具体次数和时间安排，可能因你所接受的医疗服务、风险情况，以及所在国家或医疗机构的做法而有所不同。',
+      tipTitle: '小贴士',
+      tipText: '每次产检前，不妨把问题写下来，免得当场遗漏：再小的问题都值得问。',
+      shareMessage: '孕期检查时间表 — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

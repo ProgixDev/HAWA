@@ -478,6 +478,72 @@ const CONTENT = {
     ],
     shareMessage: 'Das Verhütungspflaster — AWA',
   },
+  zh: {
+      badge: '避孕贴',
+      title: '避孕贴',
+      metaDuration: '阅读约 5 分钟',
+      metaType: '文章',
+      metaLevel: '入门',
+      metaValidated: '经审阅的内容',
+      intro: '每周一次，是每日服药之外的另一种选择。',
+      contentsTitle: '本文内容',
+      topics: [
+        '避孕贴如何起作用',
+        '贴用时间安排',
+        '你需要了解的事',
+        '要点回顾',
+      ],
+      section1Body: '避孕贴通过皮肤持续释放激素，作用方式与复方避孕药相似：抑制排卵，并使宫颈黏液变稠。',
+      tip1Title: '小贴士',
+      tip1Text: '它的主要优点是不需要每天服药。',
+      section2Body: '避孕贴通常每周更换一次，连续三周，之后休息一周，不贴。',
+      applicationTips: [
+        '每次更换贴用的位置',
+        '检查它是否仍然贴牢',
+        '贴在清洁、干燥的皮肤上',
+      ],
+      sectionIntro: '使用前和使用期间需要了解的要点。',
+      facts: [
+        {
+          title: '每周更换',
+          text: '避孕贴每周更换一次。',
+        },
+        {
+          title: '皮肤干燥',
+          text: '必须贴在清洁、干燥的皮肤上。',
+        },
+        {
+          title: '保护',
+          text: '正确使用时，它会持续起效。',
+        },
+        {
+          title: '需要留意',
+          text: '有时会出现局部刺激。',
+        },
+      ],
+      comparisonTitle: '优点与局限',
+      advantageTitle: '优点',
+      advantages: [
+        '• 每周只需贴一次',
+        '• 无需每日服药',
+        '• 激素持续释放',
+      ],
+      limitTitle: '局限',
+      limits: [
+        '不能预防性传播感染',
+        '可能引起皮肤刺激',
+        '需要按时更换',
+      ],
+      alertTitle: '请注意',
+      alertText: '贴用部位可能会出现轻微刺激。轮换贴用部位有助于减少这种情况。',
+      rememberTitle: '3 个要点',
+      remember: [
+        '每周更换一次避孕贴。',
+        '定期检查它是否贴牢。',
+        '如有需要，请向医疗专业人员咨询。',
+      ],
+      shareMessage: '避孕贴 — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

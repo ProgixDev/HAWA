@@ -340,6 +340,57 @@ const CONTENT = {
     ],
     shareMessage: 'Periodenschmerzen lindern – AWA',
   },
+  zh: {
+      badge: '疼痛',
+      title: '应对\n经期疼痛',
+      metaDuration: '阅读约 7 分钟',
+      metaType: '指南',
+      metaLevel: '入门',
+      metaValidated: '已审阅内容',
+      intro: '热敷、轻柔的活动、饮食：真正能带来缓解的习惯。',
+      contentsTitle: '本文内容',
+      topics: [
+        '了解经期疼痛',
+        '有效的自然缓解方法',
+        '何时应该就医？',
+        '日常实用小建议',
+      ],
+      section1Text: '痛经来自子宫的收缩，这种收缩有助于子宫内膜脱落，由前列腺素引起。每个人的身体反应都不一样。',
+      tip1Title: '小贴士',
+      tip1Text: '疼痛在不同的周期之间可能有所不同，并不总是一样。',
+      solutions: [
+        {
+          title: '热敷',
+          text: '把热水袋放在下腹部，可以让肌肉放松。',
+        },
+        {
+          title: '轻柔的活动',
+          text: '瑜伽、拉伸和轻松的散步可以缓解紧绷感。',
+        },
+        {
+          title: '饮食',
+          text: '镁、欧米伽-3 和具有抗炎作用的食物。',
+        },
+        {
+          title: '补水',
+          text: '喝足够的水有助于减轻腹胀。',
+        },
+        {
+          title: '按摩',
+          text: '在下腹部做环形按摩，有助于放松。',
+        },
+      ],
+      section3Text: '如果尽管用了这些方法，疼痛仍然每个月都影响你的正常生活，那么和医疗专业人员谈一谈很重要。',
+      alertTitle: '出现以下情况请就医',
+      alertText: '疼痛非常剧烈、出血量很多、极度疲倦，或出现异常症状。',
+      dailyTips: [
+        '起床后轻柔地活动一下身体',
+        '优先选择均衡的饮食',
+        '花点时间深呼吸、放松',
+        '记录月经周期，以便更好地了解自己的疼痛',
+      ],
+      shareMessage: '应对经期疼痛 — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<

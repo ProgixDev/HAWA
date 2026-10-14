@@ -484,6 +484,77 @@ const CONTENT = {
       'Ruhe, Wärme und sanfte Bewegung können helfen. Wenn der Schmerz sehr stark oder ungewöhnlich bleibt, hol dir ärztlichen Rat.',
     shareMessage: 'Deine Periode verstehen: was wirklich passiert — AWA',
   },
+  zh: {
+      badge: '月经周期',
+      title: '了解你的月经：\n身体里究竟发生了什么',
+      metaDuration: '阅读约 5 分钟',
+      metaValidated: '已审核内容',
+      intro: '月经是一个自然过程的一部分，对激素和生殖健康至关重要。了解身体里发生了什么，可以让你在每个周期里更加安心。',
+      contentsTitle: '本文内容',
+      topics: [
+        '什么是月经？',
+        '月经是如何进行的',
+        '什么是正常的（什么不是）',
+        '自然缓解疼痛',
+      ],
+      body1: '月经是在没有受精的情况下，子宫内膜脱落的过程。平均每月发生一次。',
+      knowTitle: '小贴士',
+      knowText: '每个女性都是独特的：持续时间、经量和感受，在不同周期之间都可能有所不同。',
+      body2: '整个经期的经量并不是一成不变的。它通常每天都在变化，包括量的多少、颜色和质地。',
+      flowSteps: [
+        {
+          title: '经期开始',
+          text: '最初几天的经量通常较多。',
+        },
+        {
+          title: '经期中段',
+          text: '经量一般会开始逐渐减少。',
+        },
+        {
+          title: '经期结束',
+          text: '经量变少，颜色可能变深。',
+        },
+      ],
+      softInfoTitle: '请记住',
+      softInfoText: '这在不同周期之间可能有所不同。最重要的是了解自己平时的节律。',
+      body3: '经期中出现一些变化很常见。另一些信号则更值得留意，尤其是当它们是新出现的或非常强烈时。',
+      normalSigns: [
+        {
+          title: '持续时间',
+          text: '月经通常持续几天。',
+        },
+        {
+          title: '经量变化',
+          text: '一开始较多，之后逐渐减少。',
+        },
+        {
+          title: '颜色',
+          text: '从鲜红色到暗红色，临近经期结束时可能呈棕色。',
+        },
+        {
+          title: '感觉',
+          text: '可能会有轻度到中度的痉挛感。',
+        },
+      ],
+      warningTitle: '什么时候应该就医咨询？',
+      warningSigns: [
+        '非常剧烈或异常的疼痛',
+        '出血很快浸透卫生巾或卫生棉条',
+        '明显疲倦、感觉快要昏厥或头晕',
+        '与你平时的情况相比，突然出现并持续的变化',
+      ],
+      body4: '一些简单的习惯可以帮助缓解不适，让经期最初几天更舒服。',
+      tipsTitle: '实用小建议',
+      tips: [
+        '多喝水，\n有助于减轻\n疲倦。',
+        '需要时，\n用热敷\n温暖小腹。',
+        '试试轻柔的\n活动：散步、\n瑜伽、拉伸。',
+        '让自己多休息，\n保证优质\n睡眠。',
+      ],
+      reliefTitle: '倾听身体的声音',
+      reliefText: '休息、热敷和轻柔的活动会有帮助。如果疼痛仍然非常剧烈或异常，请就医咨询。',
+      shareMessage: '了解你的月经：身体里究竟发生了什么 — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<

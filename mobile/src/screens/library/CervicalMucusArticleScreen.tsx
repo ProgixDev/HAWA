@@ -531,6 +531,70 @@ const CONTENT = {
       'Informationsinhalt. Dieser Artikel ersetzt keine persönliche ärztliche Beratung. Bei Zweifeln wende dich an medizinisches Fachpersonal.',
     shareMessage: 'Deinen Zervixschleim beobachten — AWA',
   },
+  zh: {
+      badge: '生育力 • 宫颈黏液',
+      title: '观察你的\n宫颈黏液',
+      metaDuration: '阅读约 5 分钟',
+      metaType: '指南',
+      metaLevel: '进阶',
+      metaValidated: '已审核内容',
+      intro: '一种自然、免费的信号，帮助你找到易孕期。',
+      contentsTitle: '本文内容',
+      topics: [
+        '什么是宫颈黏液？',
+        '它在周期中如何变化',
+        '识别易孕期的黏液',
+        '如何每天观察',
+        '哪些因素会影响你的观察',
+        '这种方法的局限',
+        '要点回顾',
+      ],
+      section1Body: '它是由宫颈产生的一种自然分泌物。在雌激素和孕激素的作用下，宫颈黏液的质地会在整个周期中发生变化。',
+      cycleEvolution: [
+        {
+          title: '月经结束后',
+          text: '黏液很少，常常有干燥的感觉。',
+        },
+        {
+          title: '排卵前',
+          text: '量变多，浑浊且黏稠。',
+        },
+        {
+          title: '临近排卵时',
+          text: '清澈、可拉丝、有弹性，类似生鸡蛋清。',
+        },
+        {
+          title: '排卵后',
+          text: '变得更稠、不透明，或明显减少。',
+        },
+      ],
+      section3Intro: '临近排卵时，它会变得：',
+      fertileSigns: [
+        '清澈或透明',
+        '可拉丝，在两指之间可以拉开',
+        '有弹性，类似生鸡蛋清',
+        '比其他日子量更多',
+      ],
+      infoTitle: '每天一个简单的习惯',
+      infoText: '在每天大致相同的时间，用卫生纸或干净的手指观察黏液的外观和质地，并记下你的发现。',
+      modifyingFactors: [
+        '近期有过性生活',
+        '私处清洁产品',
+        '激素类避孕或某些治疗',
+        '感染或局部菌群失衡',
+      ],
+      section6Body: '每个人的情况都不一样，要认识自己的规律，需要经过数个周期的练习。每天观察这种变化，再结合其他迹象，可以帮助你更准确地判断易孕期，但如果你有顾虑，它永远不能替代医疗建议。',
+      tipTitle: '小贴士',
+      tipText: '把宫颈黏液与基础体温或排卵试纸结合起来，可以让你对自己的周期有更完整的了解。',
+      summaryPoints: [
+        '在雌激素和孕激素的作用下，宫颈黏液的质地会在整个周期中发生变化。',
+        '临近排卵时，它会变得清澈、可拉丝、有弹性，类似生鸡蛋清。',
+        '每天观察这种变化，再结合其他迹象，可以帮助你更准确地判断易孕期。',
+        '认识自己的规律需要练习，也需要观察数个周期。',
+      ],
+      disclaimerText: '仅供参考的内容。本文不能替代个性化的医疗建议。如有疑问，请咨询医疗专业人员。',
+      shareMessage: '观察你的宫颈黏液 — AWA',
+    },
 } as const;
 
 /* -------------------------------------------------------------------------- */

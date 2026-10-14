@@ -292,6 +292,51 @@ const CONTENT = {
     shareTitle: 'Erste Periode · AWA',
     shareMessage: 'Deine erste Periode: was dich erwartet · AWA',
   },
+  zh: {
+      badge: '初潮',
+      title: '你的第一次月经：\n会发生什么',
+      metaDuration: '阅读约 5 分钟',
+      metaType: '指南',
+      metaLevel: '入门',
+      metaValidated: '已审阅内容',
+      intro: '哪些是正常的，哪些让人安心，以及你需要知道的事。',
+      contentsTitle: '本文内容',
+      topics: [
+        '第一次月经什么时候来？',
+        '什么是正常的',
+        '它是如何运作的',
+        '照顾好自己',
+        '说出来，并获得支持',
+      ],
+      details: [
+        {
+          title: '第一次月经什么时候来？',
+          text: '多数情况下出现在 10 到 15 岁之间，大约在青春期最初的迹象出现两年后。',
+        },
+        {
+          title: '哪些是完全正常的',
+          text: '刚开始时，月经周期可能不规律，时长可能偏短或偏长。你的身体只是需要一些时间来找到自己的节奏。',
+        },
+        {
+          title: '了解它是如何运作的',
+          text: '月经通常持续 3 到 7 天。经量和颜色每天都可能有所变化。',
+        },
+        {
+          title: '照顾好自己',
+          text: '定时更换卫生用品，温和地清洗，选择舒适的衣物，让自己感到自在。',
+        },
+        {
+          title: '说出来，并获得支持',
+          text: '你可以和妈妈、姐妹、身边亲近的人、老师，或你信任的医疗专业人员聊一聊。',
+        },
+      ],
+      tip1Title: '小贴士',
+      tip1Text: '刚开始时月经周期不规律是完全正常的。你的身体还在学习如何找到自己的节奏。',
+      tip2Title: '你并不孤单',
+      tip2Text: '每个人的身体都是独一无二的。给自己一些时间，保持耐心，也不要犹豫，向你信任的人寻求帮助。',
+      shareTitle: '第一次月经 · AWA',
+      shareMessage: '你的第一次月经：会发生什么 · AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

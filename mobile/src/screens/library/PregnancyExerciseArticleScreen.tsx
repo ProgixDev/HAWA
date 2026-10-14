@@ -299,6 +299,45 @@ const CONTENT = {
     tipText: 'Sanfte, regelmäßige Bewegung tut den meisten Schwangerschaften gut: Entscheidend ist, die Intensität an jede Phase und an dein Befinden anzupassen.',
     shareMessage: 'In der Schwangerschaft aktiv bleiben — AWA',
   },
+  zh: {
+      badge: '怀孕 • 体育活动',
+      title: '孕期保持\n适度活动',
+      metaDuration: '阅读约 5 分钟',
+      metaType: '指南',
+      metaLevel: '入门',
+      metaValidated: '已审核内容',
+      intro: '在孕期的每个阶段，安全、轻柔地保持活动。',
+      contentsTitle: '本文内容',
+      topics: [
+        '推荐的活动',
+        '最好避免的活动',
+        '倾听身体的信号',
+        '注意',
+        '核心要点',
+      ],
+      body1: '散步、游泳和孕妇瑜伽通常适合整个孕期，按照你自己的感觉调整节奏即可。',
+      recommended: [
+        '散步',
+        '游泳',
+        '孕妇瑜伽',
+      ],
+      body2: '请避免高冲击运动或有跌倒风险的活动，尤其是从孕中期开始：',
+      toAvoid: [
+        '高冲击运动（高强度跑步、节奏快的球拍类运动）',
+        '有跌倒风险的活动（滑雪、骑马、在崎岖路面骑行）',
+        '接触性或搏击类运动',
+        '在高海拔地区或极端高温下的高强度运动',
+      ],
+      listenSigns: [
+        '异常的气短或头晕',
+        '运动时出现疼痛、出血或宫缩',
+        '休息后仍不缓解的疲倦',
+      ],
+      neutralText: '请始终倾听身体发出的信号，在开始或调整任何体育活动之前，先咨询你的助产士或医生。',
+      tipTitle: '小贴士',
+      tipText: '轻柔而规律的活动，对大多数孕期都有益：关键是根据每个阶段和你的感觉来调整强度。',
+      shareMessage: '孕期保持适度活动 — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

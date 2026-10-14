@@ -347,6 +347,47 @@ const CONTENT = {
     ],
     shareMessage: 'Wie gehst du im Alltag mit deiner ersten Periode um? – AWA',
   },
+  zh: {
+      badge: '初潮',
+      title: '初潮期间的\n日常该怎么应对？',
+      metaDuration: '阅读约 5 分钟',
+      metaType: '指南',
+      metaLevel: '入门',
+      metaValidated: '已审核内容',
+      intro: '只要养成几个小习惯，初潮就能轻松融入你的日常生活，无论在学校还是其他场合。',
+      contentsTitle: '本文内容',
+      topics: [
+        '安排好日常生活',
+        '准备一个小小的应急包',
+        '月经突然来了怎么办',
+      ],
+      body1: '上学、运动、睡觉：月经并不会妨碍你继续日常活动。你只需要调整几个习惯，让自己整天都保持舒适。',
+      dailyTips: [
+        '上学或参加活动：在包里放一片卫生巾或卫生棉条',
+        '运动：你仍然可以运动，只需调整节奏',
+        '睡眠：一片合适的夜用卫生巾就足够了',
+      ],
+      body2: '一个小包里放一两片卫生巾或卫生棉条、一条备用内裤和几张湿巾，可以轻松放进书包或运动包。无论发生什么，它都能让你更从容。',
+      tip1Title: '小贴士',
+      tip1Text: '随身带着一片卫生巾或卫生棉条，就不必担心措手不及。',
+      body3: '这种情况很常见，尤其是刚开始的时候。校医、老师或朋友几乎总能帮上忙。在找到卫生巾或卫生棉条之前，把一件衣服系在腰间也是个办法。',
+      relatedTitle: '♥  你可能还喜欢',
+      related: [
+        {
+          title: '初潮时该选择卫生巾还是卫生棉条？',
+          meta: '6 分钟  ·  指南',
+        },
+        {
+          title: '应对经期疼痛',
+          meta: '7 分钟  ·  指南',
+        },
+        {
+          title: '我的前几次月经不规律：正常吗？',
+          meta: '5 分钟  ·  指南',
+        },
+      ],
+      shareMessage: '初潮期间的日常该怎么应对？ — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
