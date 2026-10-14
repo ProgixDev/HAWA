@@ -105,6 +105,7 @@ const WEEK_DAYS_IT = [
 const WEEK_DAYS_TR = ['P', 'S', 'Ç', 'P', 'C', 'C', 'P'] as const;
 const WEEK_DAYS_RU = ['П', 'В', 'С', 'Ч', 'П', 'С', 'В'] as const;
 const WEEK_DAYS_DE = ['M', 'D', 'M', 'D', 'F', 'S', 'S'] as const;
+const WEEK_DAYS_ZH = ['一', '二', '三', '四', '五', '六', '日'] as const;
 
 function localizedSingleLetterWeekDays(): readonly string[] {
   const language = getAppLanguage();
@@ -114,6 +115,7 @@ function localizedSingleLetterWeekDays(): readonly string[] {
   if (language === 'tr') {return WEEK_DAYS_TR;}
   if (language === 'ru') {return WEEK_DAYS_RU;}
   if (language === 'de') {return WEEK_DAYS_DE;}
+  if (language === 'zh') {return WEEK_DAYS_ZH;}
   return WEEK_DAYS_FR;
 }
 

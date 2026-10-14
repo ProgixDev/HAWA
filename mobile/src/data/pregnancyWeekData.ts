@@ -110,6 +110,7 @@ type PregnancyWeekEntry = {
     tr: PregnancyWeekEditorialContent;
     ru: PregnancyWeekEditorialContent;
     de: PregnancyWeekEditorialContent;
+    zh: PregnancyWeekEditorialContent;
   };
 };
 
@@ -196,6 +197,16 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Es ist ganz normal, in dieser Phase noch keine Veränderung zu bemerken.',
         ],
       },
+      zh: {
+        babyDescription: '按医学惯例，孕周从末次月经的第一天开始计算。这一阶段通常还没有发生受精。',
+        bodyChanges: [
+          '这段时间通常在受孕之前，一般还不会出现与怀孕相关的身体变化。',
+        ],
+        toKnow: [
+          '从末次月经开始计算孕周，可以用统一的方式估算预产期，尽管实际受孕会稍晚一些。',
+          '这一阶段没有任何变化是很常见的。',
+        ],
+      },
     },
   },
   {
@@ -272,6 +283,16 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Der genaue Zeitpunkt des Eisprungs ist von Frau zu Frau verschieden – deshalb bleibt dieser Zeitraum eine Schätzung.',
         ],
       },
+      zh: {
+        babyDescription: '排卵和可能的受精通常发生在这个时期，具体取决于每个人的周期长度。',
+        bodyChanges: [
+          '排卵时间会因周期长度而不同，这会影响实际可能的受孕日期。',
+          '这一阶段通常还没有怀孕特有的身体变化。',
+        ],
+        toKnow: [
+          '排卵的确切时间因人而异，所以这段时间仍然只是估算。',
+        ],
+      },
     },
   },
   {
@@ -339,6 +360,15 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Die meisten Schwangerschaftstests mit Urin werden etwa ab der folgenden Woche zuverlässig, sobald die Einnistung begonnen hat.',
+        ],
+      },
+      zh: {
+        babyDescription: '如果已经受精，受精卵会开始分裂并向子宫移动，但验孕还检测不到。',
+        bodyChanges: [
+          '这一周仍处于围绕受孕的医学计算期内，通常不会有明显的身体信号。',
+        ],
+        toKnow: [
+          '大多数尿液验孕试纸要到下周前后、着床开始之后才比较可靠。',
         ],
       },
     },
@@ -437,6 +467,18 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Das ist der übliche Zeitpunkt, ab dem ein Schwangerschaftstest ein positives Ergebnis anzeigen kann.',
         ],
       },
+      zh: {
+        babyDescription: '胚胎刚刚着床在子宫壁上。羊膜囊和卵黄囊正在形成，它们会在最初几天为胚胎提供营养。',
+        length: '约 2 毫米',
+        comparison: '罂粟籽',
+        bodyChanges: [
+          '在这个非常早的阶段，有些人还没有任何感觉。',
+          '从这一周起，尿液验孕通常就能检测到怀孕。',
+        ],
+        toKnow: [
+          '这通常是验孕可以开始出现阳性结果的时间。',
+        ],
+      },
     },
   },
   {
@@ -516,6 +558,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Jetzt ist der empfohlene Zeitpunkt, einen Termin bei medizinischem Fachpersonal zu vereinbaren, um die Schwangerenvorsorge zu beginnen.',
+        ],
+      },
+      zh: {
+        babyDescription: '神经系统开始形成，小小的心脏即将第一次跳动。',
+        length: '约 2 毫米',
+        comparison: '芝麻粒',
+        bodyChanges: [
+          '可能会出现异常的疲倦、轻微的恶心或乳房胀痛。',
+        ],
+        toKnow: [
+          '建议在这个时候预约医疗专业人员，开始孕期检查。',
         ],
       },
     },
@@ -599,6 +652,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Die Herztätigkeit kann bei einem frühen Ultraschall manchmal schon ab dieser Woche sichtbar sein.',
         ],
       },
+      zh: {
+        babyDescription: '手臂和腿的小芽出现了，耳朵将来形成的位置出现小小的凹陷。有时在超声检查中已经能看到心脏。',
+        length: '约 6 毫米',
+        comparison: '豌豆',
+        bodyChanges: [
+          '在这段时间，有些人的恶心和疲倦可能会加重。',
+        ],
+        toKnow: [
+          '早期超声检查有时最早在这一周就能看到心脏活动。',
+        ],
+      },
     },
   },
   {
@@ -678,6 +742,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Das Neuralrohr, aus dem Gehirn und Rückenmark entstehen, schließt sich in diesen Wochen weiter.',
+        ],
+      },
+      zh: {
+        babyDescription: '大脑的发育比身体其他部分更快，所以前额显得突出。手臂末端开始出现小小的手芽。',
+        length: '约 10 毫米',
+        comparison: '葡萄',
+        bodyChanges: [
+          '可能会特别想吃某些食物，或者相反，对某些食物感到抗拒。',
+        ],
+        toKnow: [
+          '神经管会发育成大脑和脊髓，在这几周里仍在继续闭合。',
         ],
       },
     },
@@ -763,6 +838,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Der erste Ultraschall zur Bestimmung des Schwangerschaftsalters findet in der Regel zwischen der 8. und der 14. SSW statt.',
         ],
       },
+      zh: {
+        babyDescription: '胚胎现在称为胎儿。手臂在变长，头部开始略微挺直，胎盘还在继续形成。',
+        length: '约 16 毫米',
+        comparison: '覆盆子',
+        bodyChanges: [
+          '对气味敏感和孕吐在这个阶段很常见，但并不是每个人都会有。',
+        ],
+        toKnow: [
+          '第一次核对孕周的超声检查通常安排在孕 8 周到孕 14 周之间。',
+        ],
+      },
     },
   },
   {
@@ -842,6 +928,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Die Geschlechtsorgane beginnen sich gerade erst zu differenzieren. Das Geschlecht lässt sich in der Regel aber erst viel später beim Feinultraschall erkennen.',
+        ],
+      },
+      zh: {
+        babyDescription: '面部特征更加清晰，眼睑保护着眼睛，手和脚正在成形，将来的手指和脚趾也初具雏形。',
+        length: '约 22 毫米',
+        comparison: '草莓',
+        bodyChanges: [
+          '明显的疲倦和恶心可能仍然存在，到孕早期结束时往往会逐渐减轻。',
+        ],
+        toKnow: [
+          '生殖器官刚刚开始分化，但通常要到很久以后的系统超声检查时才能看出性别。',
         ],
       },
     },
@@ -925,6 +1022,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Das kombinierte Ersttrimester-Screening wird, wenn es angeboten wird, in der Regel zwischen der 11. und der 14. SSW durchgeführt.',
         ],
       },
+      zh: {
+        babyDescription: '面部更容易辨认，眼睑对光有反应，心跳很快，大约是成年人的三倍。',
+        length: '约 30 毫米',
+        comparison: '小杏',
+        bodyChanges: [
+          '腰围可能会开始有些轻微变化，不过肚子通常还看不出来。',
+        ],
+        toKnow: [
+          '孕早期联合筛查（如果提供的话）通常在孕 11 周到孕 14 周之间进行。',
+        ],
+      },
     },
   },
   {
@@ -1004,6 +1112,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Die Bewegungen des Babys beginnen, sind in dieser Phase aber in der Regel noch nicht zu spüren.',
+        ],
+      },
+      zh: {
+        babyDescription: '手指和脚趾分开了，小小的指甲出现，胎盘逐渐接替卵黄囊，为胎儿提供营养。',
+        length: '约 41 毫米',
+        comparison: '无花果',
+        bodyChanges: [
+          '你可能会注意到情绪起伏，这尤其与激素变化有关。',
+        ],
+        toKnow: [
+          '宝宝已经开始活动，但这个阶段通常还感觉不到。',
         ],
       },
     },
@@ -1087,6 +1206,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Das Ende des ersten Trimesters wird häufig mit einem geringeren Fehlgeburtsrisiko im Vergleich zu den vorangegangenen Wochen in Verbindung gebracht.',
         ],
       },
+      zh: {
+        babyDescription: '内脏器官和肌肉已经长得不错，骨骼开始骨化。生殖器官已经形成，不过在超声检查中还看不到。',
+        length: '约 5.4 厘米',
+        comparison: '李子',
+        bodyChanges: [
+          '恶心往往会在这个时期逐渐缓解，不过因人而异，差别很大。',
+        ],
+        toKnow: [
+          '孕早期结束时，流产风险通常被认为比之前几周要低。',
+        ],
+      },
     },
   },
   {
@@ -1166,6 +1296,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Das erste Trimester endet in der Regel um diese Woche; die Vorsorge wird mit zeitlich weiter auseinanderliegenden Terminen fortgesetzt.',
+        ],
+      },
+      zh: {
+        babyDescription: '动作仍然有些抽动，但变得更协调了一点。有些宝宝已经出现吮吸拇指的反射。',
+        length: '约 7.4 厘米',
+        comparison: '桃子',
+        bodyChanges: [
+          '随着孕中期临近，很多人的精力会逐渐恢复一些。',
+        ],
+        toKnow: [
+          '孕早期通常在这一周前后结束，之后的产检间隔会拉长一些。',
         ],
       },
     },
@@ -1251,6 +1392,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Medizinisches Fachpersonal kann den Herzschlag manchmal schon mit einem Ultraschallgerät auf dem Bauch hören.',
         ],
       },
+      zh: {
+        babyDescription: '头部变得更圆，与身体其他部分更成比例。胎儿会吞咽少量羊水，羊水会经过胃和肾脏。',
+        length: '约 8.5 厘米',
+        comparison: '猕猴桃',
+        bodyChanges: [
+          '对有些人来说，肚子开始更明显地隆起。',
+        ],
+        toKnow: [
+          '医疗专业人员有时可以用放在肚子上的超声设备开始听到胎心。',
+        ],
+      },
     },
   },
   {
@@ -1332,6 +1484,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Das Gehör beginnt sich um diese Zeit zu entwickeln: Deine Stimme und die Geräusche im Inneren deines Körpers werden nach und nach wahrnehmbar.',
         ],
       },
+      zh: {
+        babyDescription: '一层叫做胎毛的细软绒毛逐渐覆盖皮肤，眉毛和睫毛开始出现。眼睛开始对光敏感。',
+        length: '约 10.1 厘米',
+        comparison: '苹果',
+        bodyChanges: [
+          '你的食欲可能会改变，有时会出现新的食物渴望或抗拒。',
+        ],
+        toKnow: [
+          '听觉大约在这个时候开始发育：你的声音和身体内部的声音会逐渐被听到。',
+        ],
+      },
     },
   },
   {
@@ -1408,6 +1571,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Wann man die ersten Bewegungen spürt, ist von Schwangerschaft zu Schwangerschaft sehr verschieden – unter anderem davon abhängig, ob es die erste Schwangerschaft ist.',
+        ],
+      },
+      zh: {
+        babyDescription: '神经系统已经能让手臂和腿活动。小手可以握成小拳头。',
+        length: '约 11.6 厘米',
+        comparison: '牛油果',
+        bodyChanges: [
+          '有些人大约从这个时候开始感觉到非常轻微的胎动，常被形容为轻轻的扑动。',
+        ],
+        toKnow: [
+          '第一次感觉到胎动的时间因每次怀孕而差别很大，尤其取决于是不是第一次怀孕。',
         ],
       },
     },
@@ -1491,6 +1665,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Geräusche von außen werden durch das Fruchtwasser allmählich gedämpft wahrgenommen.',
         ],
       },
+      zh: {
+        babyDescription: '眼睛仍然闭着，但可以转动，宝宝现在会对很大的声音有反应。指纹开始形成。',
+        length: '约 12 厘米',
+        comparison: '石榴',
+        bodyChanges: [
+          '随着重心发生变化，可能会出现轻微的背痛。',
+        ],
+        toKnow: [
+          '外界的声音开始透过羊水，以模糊的方式被宝宝听到。',
+        ],
+      },
     },
   },
   {
@@ -1572,6 +1757,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Der Feinultraschall, bei dem die gesamte Entwicklung des Babys untersucht wird, wird in der Regel zwischen der 18. und der 21. SSW angeboten.',
         ],
       },
+      zh: {
+        babyDescription: '听觉、触觉、吞咽和吮吸反射继续发育。宝宝越来越活跃，手臂和腿的动作也更多了。',
+        length: '约 14.2 厘米',
+        comparison: '甜椒',
+        bodyChanges: [
+          '这个阶段肚子通常已经很明显，你的重心也在持续变化。',
+        ],
+        toKnow: [
+          '检查宝宝整体发育情况的系统超声检查，通常安排在孕 18 周到孕 21 周之间。',
+        ],
+      },
     },
   },
   {
@@ -1651,6 +1847,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Um diese Zeit beginnen viele Frauen, die Bewegungen des Babys deutlicher zu spüren.',
+        ],
+      },
+      zh: {
+        babyDescription: '未来的恒牙开始在正在准备的乳牙后面形成，宝宝的体重也在继续逐渐增加。',
+        length: '约 15.3 厘米',
+        comparison: '大番茄',
+        bodyChanges: [
+          '随着子宫增大，肚子两侧可能会有牵拉感（圆韧带痛）。',
+        ],
+        toKnow: [
+          '这通常是开始更明显地感觉到宝宝胎动的时期。',
         ],
       },
     },
@@ -1736,6 +1943,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Die Mitte der Schwangerschaft wird oft durch eine umfassende Kontrolle bei dem medizinischen Fachpersonal markiert, das deine Vorsorge begleitet.',
         ],
       },
+      zh: {
+        babyDescription: '从这一周起，长度改为从头量到脚跟，而不是从头量到臀部，因为现在双腿可以伸直并被测量——这也解释了参考尺寸与前几周相比为什么会明显跳升。',
+        length: '约 25.6 厘米',
+        comparison: '香蕉',
+        bodyChanges: [
+          '圆润的肚子可能会开始影响你的平衡和姿势。',
+        ],
+        toKnow: [
+          '孕期过半时，通常会由负责你孕期照护的医疗专业人员做一次全面检查。',
+        ],
+      },
     },
   },
   {
@@ -1812,6 +2030,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Wenn du das gewohnte Bewegungsmuster deines Babys kennst, fällt es dir leichter, eine ungewöhnliche Veränderung zu bemerken.',
+        ],
+      },
+      zh: {
+        babyDescription: '宝宝的动作变得更清晰、更协调，这段时间通常能明显感觉到胎动。',
+        length: '约 26.7 厘米',
+        comparison: '胡萝卜',
+        bodyChanges: [
+          '随着子宫占据更多空间，活动时可能会出现轻微的气短。',
+        ],
+        toKnow: [
+          '熟悉宝宝平时的胎动规律，更容易察觉到异常的变化。',
         ],
       },
     },
@@ -1895,6 +2124,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Was du isst, kann das Fruchtwasser beeinflussen, das das Baby regelmäßig schluckt.',
         ],
       },
+      zh: {
+        babyDescription: '肺部继续发育，宝宝会练习轻微的呼吸动作，味蕾也在形成。',
+        length: '约 27.8 厘米',
+        comparison: '红薯',
+        bodyChanges: [
+          '有些人可能会出现腿部抽筋，尤其是在夜间。',
+        ],
+        toKnow: [
+          '你吃的食物可能会影响羊水，而宝宝会经常吞咽羊水。',
+        ],
+      },
     },
   },
   {
@@ -1974,6 +2214,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Wenn du die aktiven und ruhigen Phasen deines Babys beobachtest, lernst du seinen ganz eigenen Rhythmus kennen.',
+        ],
+      },
+      zh: {
+        babyDescription: '四肢比例已经协调。宝宝会练习呼吸，并开始交替出现睡眠和清醒的阶段。',
+        length: '约 28.9 厘米',
+        comparison: '大芒果',
+        bodyChanges: [
+          '随着体重逐渐增加，可能会出现更明显的背痛。',
+        ],
+        toKnow: [
+          '观察宝宝活跃和安静的时段，可以帮你了解他自己的节奏。',
         ],
       },
     },
@@ -2057,6 +2308,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Das Screening auf Schwangerschaftsdiabetes wird in der Regel um diese Zeit angeboten.',
         ],
       },
+      zh: {
+        babyDescription: '宝宝到达了存活能力的临界点：在这一阶段如果极早产，专业的新生儿医疗护理配合适当的支持，可以让宝宝存活。',
+        length: '约 30 厘米',
+        comparison: '玉米',
+        bodyChanges: [
+          '膀胱受到的压力可能增加，也可能出现尿频。',
+        ],
+        toKnow: [
+          '妊娠期糖尿病筛查通常在这个时期进行。',
+        ],
+      },
     },
   },
   {
@@ -2138,6 +2400,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Wenn du hin und wieder den Schluckauf des Babys spürst, gilt das in der Regel als normal.',
         ],
       },
+      zh: {
+        babyDescription: '宝宝现在听到很大的声音会受惊或踢腿，你偶尔还能感觉到打嗝。宝宝会定期把尿排入羊水中。',
+        length: '约 34.6 厘米',
+        comparison: '西葫芦',
+        bodyChanges: [
+          '烧心或反酸可能会变得更频繁。',
+        ],
+        toKnow: [
+          '偶尔感觉到胎儿打嗝，一般被认为是正常的。',
+        ],
+      },
     },
   },
   {
@@ -2215,6 +2488,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Das dritte Trimester rückt näher, und die medizinische Betreuung wird in der Regel häufiger.',
+        ],
+      },
+      zh: {
+        babyDescription: '眼睛第一次睁开。宝宝眼睛最终的颜色，通常要到出生后几个月才能确定。',
+        length: '约 35.6 厘米',
+        comparison: '黄瓜',
+        bodyChanges: [
+          '脚踝或脚部可能会出现轻微水肿，尤其是在一天快结束的时候。',
+        ],
+        toKnow: [
+          '孕晚期即将到来，产检通常会变得更频繁。',
         ],
       },
     },
@@ -2296,6 +2580,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Der Beginn des dritten Trimesters ist oft ein guter Zeitpunkt, um sich Gedanken über die Geburtsplanung zu machen.',
+        ],
+      },
+      zh: {
+        babyDescription: '肺部逐渐具备启动呼吸的能力，宝宝皮下的脂肪不断积累，身体继续变得丰满。',
+        length: '约 36.6 厘米',
+        comparison: '花椰菜',
+        bodyChanges: [
+          '身体负担的重量不断增加，疲倦感可能会再次出现。',
+        ],
+        toKnow: [
+          '孕晚期刚开始时，往往是开始考虑分娩计划的好时机。',
         ],
       },
     },
@@ -2381,6 +2676,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Das dritte Trimester beginnt in der Regel um diese Woche, und die Vorsorgetermine werden häufiger.',
         ],
       },
+      zh: {
+        babyDescription: '孕早期较快的心率现在已经稳定在每分钟约 130 到 140 次，用听诊器就能听到。',
+        length: '约 37.6 厘米',
+        comparison: '茄子',
+        bodyChanges: [
+          '随着子宫占据更多空间，气短或烧心可能会变得更频繁。',
+        ],
+        toKnow: [
+          '孕晚期通常从这一周前后开始，产检也会变得更频繁。',
+        ],
+      },
     },
   },
   {
@@ -2460,6 +2766,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'In der späten Schwangerschaft wird oft empfohlen, auf der linken Seite zu ruhen, um den Kreislauf zu unterstützen.',
+        ],
+      },
+      zh: {
+        babyDescription: '宝宝已经发育得很完整，接下来的几周主要是器官成熟和体重增加。覆盖在皮肤上的那层薄薄的保护层开始被吸收。',
+        length: '约 38.6 厘米',
+        comparison: '奶油南瓜',
+        bodyChanges: [
+          '肚子越来越大，可能会更难入睡。',
+        ],
+        toKnow: [
+          '孕晚期通常建议向左侧卧休息，以帮助血液循环。',
         ],
       },
     },
@@ -2543,6 +2860,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Die Vorsorgetermine werden ab dieser Phase in der Regel häufiger.',
         ],
       },
+      zh: {
+        babyDescription: '视力继续发育；出生时，宝宝能够看清近处的面孔，之后会逐渐学会追视移动的物体。',
+        length: '约 39.9 厘米',
+        comparison: '卷心菜',
+        bodyChanges: [
+          '下背部或骨盆的沉重感可能会加重。',
+        ],
+        toKnow: [
+          '从这个阶段起，产检通常会变得更频繁。',
+        ],
+      },
     },
   },
   {
@@ -2622,6 +2950,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Das Baby beginnt, bestimmte vertraute Stimmen zu erkennen, die es regelmäßig von außen hört.',
+        ],
+      },
+      zh: {
+        babyDescription: '宝宝活动很活跃，有时会吮吸手指，也能做出幅度较大的动作。随着脂肪积累，皮肤的皱纹会减少。',
+        length: '约 41.1 厘米',
+        comparison: '椰子',
+        bodyChanges: [
+          '你可能会偶尔感觉到被称为“假性宫缩”（Braxton Hicks）的练习性宫缩。',
+        ],
+        toKnow: [
+          '宝宝开始能够辨认外界经常听到的某些熟悉的声音。',
         ],
       },
     },
@@ -2705,6 +3044,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Die Lage mit dem Kopf nach unten (Schädellage) wird mit näher rückendem Termin häufiger.',
         ],
       },
+      zh: {
+        babyDescription: '宝宝已经发育得很完整，正逐渐调整为头朝下的姿势，为出生做准备。接下来的几周，宝宝主要继续增加体重。',
+        length: '约 42.4 厘米',
+        comparison: '一把芹菜',
+        bodyChanges: [
+          '这段时间体重增加往往更明显，这与宝宝的生长有关。',
+        ],
+        toKnow: [
+          '随着预产期临近，头朝下的胎位（头位）会越来越常见。',
+        ],
+      },
     },
   },
   {
@@ -2784,6 +3134,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Die Beweglichkeit der Schädelknochen bei der Geburt ist vorübergehend und schließt sich im Lauf des ersten Lebensjahres allmählich.',
+        ],
+      },
+      zh: {
+        babyDescription: '大脑和神经系统现在已经发育得很好。骨骼继续变硬，只有头骨仍保持柔韧，以便分娩时更容易通过产道。',
+        length: '约 43.7 厘米',
+        comparison: '菠萝',
+        bodyChanges: [
+          '这个阶段，很难找到舒服的睡姿是常见的。',
+        ],
+        toKnow: [
+          '宝宝出生时头骨的柔韧性是暂时的，会在出生后第一年逐渐闭合。',
         ],
       },
     },
@@ -2866,6 +3227,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Auf die gewohnten Bewegungen des Babys zu achten, bleibt bis zur Geburt wichtig.',
         ],
       },
+      zh: {
+        babyDescription: '由于空间有限，宝宝蜷缩着，双腿通常向胸部弯曲，同时仍会规律地活动。',
+        length: '约 45 厘米',
+        comparison: '哈密瓜',
+        bodyChanges: [
+          '尽管空间变小，宝宝的动作和你肚子形状的变化通常仍然很明显。',
+        ],
+        toKnow: [
+          '一直到分娩，持续关注宝宝平时的胎动仍然很重要。',
+        ],
+      },
     },
   },
   {
@@ -2942,6 +3314,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Trotz des begrenzten Platzes sollte sich das Baby weiterhin ähnlich regelmäßig bewegen wie in den Wochen zuvor.',
+        ],
+      },
+      zh: {
+        babyDescription: '宝宝继续长得丰满，这将帮助他出生后调节体温。子宫内可用的空间变得更加有限。',
+        length: '约 46.2 厘米',
+        comparison: '蜜瓜',
+        bodyChanges: [
+          '随着宝宝逐渐下降，可能会出现更明显的骨盆压迫感。',
+        ],
+        toKnow: [
+          '尽管空间有限，宝宝仍应保持与前几周相近的活动规律。',
         ],
       },
     },
@@ -3025,6 +3408,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Eine Schwangerschaft gilt zwischen der 37. und der 42. SSW als termingerecht.',
         ],
       },
+      zh: {
+        babyDescription: '肺部通常已经成熟到可以独立呼吸，宝宝也能够吮吸和消化。',
+        length: '约 47.4 厘米',
+        comparison: '罗马生菜',
+        bodyChanges: [
+          '子宫在肋骨下占据了很大空间，你有时可能会觉得更气短。',
+        ],
+        toKnow: [
+          '孕 37 周到孕 42 周之间被认为是足月妊娠。',
+        ],
+      },
     },
   },
   {
@@ -3101,6 +3495,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Ab dieser Woche gilt der Termin als erreicht, und die Geburt kann jederzeit beginnen.',
+        ],
+      },
+      zh: {
+        babyDescription: '宝宝已被认为成熟到可以出生。绝大多数宝宝现在都是头朝下的姿势。',
+        length: '约 48.6 厘米',
+        comparison: '韭葱',
+        bodyChanges: [
+          '随着宝宝入盆，骨盆压迫感逐渐增强是常见的。',
+        ],
+        toKnow: [
+          '从这一周起，就被认为已经足月，随时都可能分娩。',
         ],
       },
     },
@@ -3180,6 +3585,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Eine geplante Geburt ohne medizinische Indikation wird in der Regel nicht vor der 39. SSW empfohlen.',
+        ],
+      },
+      zh: {
+        babyDescription: '原本覆盖在皮肤上的细小绒毛已基本消失，肠道里正在积累胎便，也就是新生儿的第一次大便。',
+        length: '约 49.8 厘米',
+        comparison: '大黄茎',
+        bodyChanges: [
+          '随着分娩临近，了解临产的征兆会很有帮助。',
+        ],
+        toKnow: [
+          '没有医学指征的计划性分娩，通常不建议安排在孕 39 周之前。',
         ],
       },
     },
@@ -3263,6 +3679,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Der Blutkreislauf des Neugeborenen stellt sich direkt nach der Geburt weiter um, was Händen oder Füßen vorübergehend einen leicht bläulichen Schimmer geben kann.',
         ],
       },
+      zh: {
+        babyDescription: '之前较薄的皮肤已经变厚，现在能更好地保护宝宝。一层叫作胎脂的保护层，也会让分娩时更容易通过产道。',
+        length: '约 50.7 厘米',
+        comparison: '西瓜',
+        bodyChanges: [
+          '随着预产期临近，感到焦急和有些疲倦是常见的。',
+        ],
+        toKnow: [
+          '新生儿的血液循环在出生后仍在调整，这可能会让手或脚暂时带点淡淡的青紫色。',
+        ],
+      },
     },
   },
   {
@@ -3344,6 +3771,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Den Entbindungstermin leicht zu überschreiten ist weiterhin häufig und bedeutet nicht unbedingt, dass ein Problem vorliegt; in der Regel wird eine engere Überwachung angeboten.',
         ],
       },
+      zh: {
+        babyDescription: '宝宝已经完全发育好，随时准备出生。预产期只是一个估计：许多宝宝会在预产期前后几天出生，可能早一些，也可能晚一些。',
+        length: '约 51.2 厘米',
+        comparison: '南瓜',
+        bodyChanges: [
+          '这段时间里，等待临产的征兆（规律宫缩、破水）是很常见的。',
+        ],
+        toKnow: [
+          '稍微超过预产期仍然很常见，不一定意味着有问题；通常会安排更密切的监测。',
+        ],
+      },
     },
   },
 
@@ -3409,6 +3847,15 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Wenn der Termin überschritten wird, führt das in der Regel zu einer verstärkten Überwachung durch das medizinische Team.',
+        ],
+      },
+      zh: {
+        babyDescription: '宝宝仍然发育完全。超过预产期后，通常会安排更密切的监测，以确认宝宝的状况。',
+        bodyChanges: [
+          '漫长的等待可能会伴随着更明显的疲倦和焦急。',
+        ],
+        toKnow: [
+          '超过足月后，医疗团队通常会加强监测。',
         ],
       },
     },
