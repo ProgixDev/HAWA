@@ -545,6 +545,96 @@ const CONTENT = {
       'Der Vaginalring verbindet eine kontinuierliche Hormonabgabe mit einem Anwendungsrhythmus, der eine tägliche Einnahme überflüssig macht. Die Wahl der Verhütung sollte jedoch individuell erfolgen und mit medizinischem Fachpersonal besprochen werden.',
     shareMessage: 'Der Verhütungsvaginalring — AWA',
   },
+  zh: {
+      badge: '阴道环',
+      title: '避孕阴道环',
+      metaDuration: '阅读约 5 分钟',
+      metaType: '文章',
+      metaLevel: '入门',
+      metaValidated: '经审阅的内容',
+      intro: '一枚柔软的环，佩戴三周。',
+      contentsTitle: '本文内容',
+      topics: [
+        '阴道环如何起作用',
+        '放入与取出',
+        '你需要了解的事',
+        '要点回顾',
+      ],
+      body1: '阴道环是一种柔软的装置，会在阴道内持续释放低剂量激素，避孕作用与复方避孕药相同。',
+      flowTitle: '它如何起作用',
+      flowSteps: [
+        {
+          title: '阴道环',
+          text: '放入阴道内',
+        },
+        {
+          title: '激素',
+          text: '持续释放',
+        },
+        {
+          title: '保护',
+          text: '发挥避孕作用',
+        },
+      ],
+      body2: '你可以自己放入，它会连续留在原位三周，然后取出，休息一周，月经会在这一周内来潮。',
+      calendarTitle: '简单易记的节奏',
+      weekLabelActive: '佩戴',
+      weekLabelPause: '休息',
+      legendActive: '佩戴阴道环的一周',
+      legendPause: '休息周',
+      tip1Title: '小贴士',
+      tip1Text: '它在阴道内的具体位置不需要很精确也能有效，因此使用起来很简单。',
+      body3: '在选择阴道环之前，有几个实用的要点值得了解。',
+      careTips: [
+        {
+          title: '使用简单',
+          text: '你可以自己放入和取出。',
+        },
+        {
+          title: '节奏规律',
+          text: '它通常会留在原位三周。',
+        },
+        {
+          title: '持续起效',
+          text: '在整个使用期间，激素会持续释放。',
+        },
+        {
+          title: '不能预防性传播感染',
+          text: '视情况而定，可能需要额外的防护。',
+        },
+      ],
+      checkListTitle: '值得保持的好习惯',
+      practicalSteps: [
+        '放入或取出前先洗手',
+        '选一个容易记住的时间，方便掌握时间安排',
+        '不时检查它是否仍在原位',
+        '如果它移位或脱出，请查看说明书',
+      ],
+      alertTitle: '请注意',
+      alertText: '阴道环脱出或长时间移位，可能需要特定的处理指引。如果不确定，请务必查看产品说明书，或咨询医疗专业人员。',
+      summaryTitle: '4 个要点速览',
+      summaryItems: [
+        {
+          title: '放入简单',
+          text: '阴道环可以由你自己放入和取出。',
+        },
+        {
+          title: '按周的节奏',
+          text: '通常以三周为一个周期，之后休息一周。',
+        },
+        {
+          title: '偶尔检查',
+          text: '定期确认它在原位，有助于你更安心地使用。',
+        },
+        {
+          title: '不能预防性传播感染',
+          text: '视情况而定，可能需要合适的防护。',
+        },
+      ],
+      tip2Title: '要点回顾',
+      tip2Text: '阴道环将持续的激素释放与无需每天服药的使用节奏结合在一起。不过，避孕方式的选择应因人而异，并与医疗专业人员讨论。',
+      shareMessage: '避孕阴道环 — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

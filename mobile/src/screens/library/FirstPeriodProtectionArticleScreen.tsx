@@ -370,6 +370,56 @@ const CONTENT = {
     ],
     shareMessage: 'Welcher Schutz passt zu meiner ersten Periode? – AWA',
   },
+  zh: {
+      badge: '初潮',
+      title: '第一次来月经，\n该选哪种卫生用品？',
+      metaDuration: '阅读约 6 分钟',
+      metaType: '指南',
+      metaLevel: '入门',
+      metaValidated: '已审核内容',
+      intro: '月经期间有好几种防护方式。没有哪一种比另一种更好，个人的舒适感才是选择的依据。',
+      contentsTitle: '本文内容',
+      topics: [
+        '不同类型的卫生用品',
+        '如何根据舒适感来选择',
+        '如何更换卫生用品',
+      ],
+      body1: '第一次来月经时，卫生巾通常是最容易使用的，因为它直接贴在内裤上。月经内裤和卫生棉条是另外的选择，你可以等之后想尝试的时候再试。',
+      options: [
+        {
+          title: '卫生巾',
+          text: '使用方便，贴在内裤上，定时更换。',
+        },
+        {
+          title: '月经内裤',
+          text: '可吸收、可清洗的内裤，日常穿着很舒适。',
+        },
+        {
+          title: '卫生棉条',
+          text: '放入体内使用；用不用、什么时候用，由你按自己的节奏决定。',
+        },
+      ],
+      body2: '没有对错之分的卫生用品：每一种都适合不同的身体、习惯和舒适度。例如，卫生棉条是放入体内的，需要对自己的身体多一些了解，并没有谁规定你第一次来月经就必须使用。',
+      tipTitle: '小贴士',
+      tipText: '随着时间慢慢尝试不同类型的卫生用品，有助于找到最适合你的那一种，没有任何压力。',
+      body3: '一般来说，卫生用品应每 4 到 6 小时更换一次，经量多的日子更要勤换。定期更换有助于你保持舒适，并做好私处清洁。',
+      relatedTitle: '♥  你可能还想看',
+      related: [
+        {
+          title: '了解你的经量',
+          meta: '7 分钟  ·  指南',
+        },
+        {
+          title: '如何应对日常中的初潮？',
+          meta: '5 分钟  ·  指南',
+        },
+        {
+          title: '你的初潮：会发生什么',
+          meta: '5 分钟  ·  指南',
+        },
+      ],
+      shareMessage: '第一次来月经，该选哪种卫生用品？ — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

@@ -342,6 +342,45 @@ const CONTENT = {
       'Vorbereitung heißt nicht, alles kontrollieren zu wollen: Es geht vor allem darum, dir die Mittel zu geben, dem großen Tag mit mehr Zuversicht und weniger Unsicherheit zu begegnen.',
     shareMessage: 'Gelassen auf die Geburt vorbereiten – AWA',
   },
+  zh: {
+      badge: '怀孕 • 分娩',
+      title: '从容准备\n迎接分娩',
+      metaDuration: '阅读约 7 分钟',
+      metaType: '指南',
+      metaLevel: '入门',
+      metaValidated: '已审阅内容',
+      intro: '三个支柱，帮助你更有信心地迎接重要的那一天。',
+      contentsTitle: '本文内容',
+      topics: [
+        '分三步做好准备',
+        '你的待产包',
+        '写下你的分娩计划',
+        '值得注意',
+        '需要记住的',
+      ],
+      prepSteps: [
+        '分娩准备课程',
+        '呼吸与放松技巧',
+        '孕 8 个月前备好待产包',
+      ],
+      body1: '分娩准备课程可以帮助你了解产程的各个阶段，以及在那一天能支持你的呼吸技巧。',
+      body2: '在孕 8 个月前备好待产包，可以免去临近时的慌乱。待产包通常包括：',
+      bagItems: [
+        '身份证件和你的孕期档案本',
+        '你和宝宝的舒适衣物',
+        '洗漱用品和产妇卫生巾',
+        '宝宝出院回家穿的衣服',
+      ],
+      birthPlanPoints: [
+        '你对疼痛管理的偏好',
+        '你希望谁在产程中陪伴',
+        '你对肌肤接触的期望',
+      ],
+      neutralText: '一份简单的分娩计划，可以帮助你向医疗团队表达自己的意愿，同时保持开放的心态：实际的过程可能会因具体情况而改变。',
+      tipTitle: '小贴士',
+      tipText: '做好准备并不意味着掌控一切：更重要的是让自己有办法更有信心、更少不确定地迎接那一天。',
+      shareMessage: '从容准备迎接分娩 — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

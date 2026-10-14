@@ -295,6 +295,41 @@ const CONTENT = {
     tip2Text: 'Insgesamt ausgewogene Gewohnheiten, ohne Übertreibung und Perfektionismus, sind die beste Unterstützung im Alltag.',
     shareMessage: 'Lebensstil und dein Weg zum Wunschkind – AWA',
   },
+  zh: {
+      badge: '生活方式',
+      title: '生活习惯与\n你的备孕之路',
+      metaDuration: '阅读约 5 分钟',
+      metaType: '文章',
+      metaLevel: '入门',
+      metaValidated: '已审核内容',
+      intro: '一些简单的习惯，可以为你的备孕之路提供支持，不必有任何压力。',
+      contentsTitle: '本文内容',
+      topics: [
+        '哪些习惯有助于生育力',
+        '压力，不容忽视的因素',
+        '最好少碰的东西',
+        '核心要点',
+      ],
+      body1: '一些简单的生活习惯可以为备孕提供支持，不过仅凭它们并不能保证结果。',
+      supportiveHabits: [
+        '均衡饮食',
+        '适度的运动',
+        '高质量的睡眠',
+        '放松的时刻',
+      ],
+      body2: '长期的压力可能影响激素平衡，在一些女性身上还可能影响周期的规律性。给自己一些平静的时刻，本身就是备孕之路的一部分。',
+      tip1Title: '小贴士',
+      tip1Text: '想要“样样都做到最好”，本身也可能成为压力的来源：保持总体健康的习惯就足够了，不必追求完美。',
+      toLimit: [
+        '吸烟，可能影响双方的生育力',
+        '过量饮酒',
+        '强度大、持续时间长的运动训练，反而可能让生育力下降',
+        '过多的精制糖，可能扰乱激素平衡',
+      ],
+      tip2Title: '小贴士',
+      tip2Text: '总体均衡、不过度也不追求完美的习惯，是日常里最好的支持。',
+      shareMessage: '生活习惯与备孕之路 — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

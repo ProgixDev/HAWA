@@ -500,6 +500,79 @@ const CONTENT = {
     disclaimerText: 'Informationsinhalt. Dieser Artikel ersetzt keine ärztliche Beratung oder Untersuchung. Bei Zweifeln oder beunruhigenden Symptomen lass dich von medizinischem Fachpersonal beraten.',
     shareMessage: 'Körperliche Erholung nach einer Fehlgeburt — AWA',
   },
+  zh: {
+      badge: '流产之后 • 恢复',
+      title: '流产之后的\n身体恢复',
+      metaDuration: '阅读约 7 分钟',
+      metaType: '文章',
+      metaLevel: '入门',
+      metaValidated: '科普内容',
+      intro: '你的身体需要时间重新找回平衡。这里的内容可以帮助你温和地了解这个阶段。',
+      contentsTitle: '本文内容',
+      topics: [
+        '什么是流产？',
+        '身体上可能出现的情况',
+        '月经周期的恢复',
+        '让人安心的医学检查',
+        '何时需要就医',
+        '要点回顾',
+      ],
+      section1Body1: '流产是指妊娠自然终止，最常发生在孕 12 至 14 周之前。据估计，每六到七次确认的怀孕中就有一次以这种方式结束，而且大多发生在孕早期。',
+      section1Body2: '流产并不罕见，也不代表将来一定有生育力方面的问题。绝大多数情况下，它与无人能够控制的因素有关，例如发育过程中偶然出现的染色体异常。',
+      infoCard1Title: '重点',
+      infoCard1Text: '流产不是因为你做了或没做什么。发生的事情不是你的责任。',
+      section2Body: '每个人的经历都不一样。以下是最常见的表现：',
+      physicalSigns: [
+        {
+          title: '出血',
+          text: '出血的量和持续时间因情况而异，之后会逐渐减少。',
+        },
+        {
+          title: '痉挛',
+          text: '类似痛经的疼痛，有时会更强烈，可能伴随这个阶段出现。',
+        },
+        {
+          title: '持续时间不一',
+          text: '身体的恢复通常需要几天到几周。',
+        },
+      ],
+      section3Body: '流产之后，身体通常需要几周时间才能恢复激素平衡。月经周期最早可能在 4 至 6 周后恢复，但每个人的经历都不同。',
+      comfortTips: [
+        {
+          title: '允许自己休息',
+          text: '你的身体需要时间重新找回平衡，不必为了达到某个结果而给自己压力。',
+        },
+        {
+          title: '保持充足的水分',
+          text: '充足的水分自然有助于恢复。',
+        },
+        {
+          title: '倾听身体的声音',
+          text: '每个人的经历都不同：按自己的节奏来，不必和别人比较。',
+        },
+      ],
+      section4Body: '医学检查有助于确认一切是否正常进行，让你完全放心。这次就诊也是提出所有疑问的好机会。',
+      infoCard2Title: '这次就诊可能包括什么',
+      infoCard2Text: '和医生聊聊你所经历的事，必要时做检查，并有空间解答你对接下来的疑问。',
+      section5Body: '如果出现以下任何一种情况，请务必立即联系医疗专业人员。',
+      warningTitle: '需要就医的信号',
+      warningSigns: [
+        '发热或整体状况恶化',
+        '出血非常多（不到一小时就需要更换卫生用品）',
+        '剧烈疼痛且没有缓解',
+        '有异常气味',
+      ],
+      tipTitle: '小贴士',
+      tipText: '照顾自己的身体，并不是要掌控一切：更重要的是给自己所需要的时间。',
+      summaryPoints: [
+        '流产不是因为你做了或没做什么。',
+        '身体通常需要几周时间才能恢复激素平衡。',
+        '月经周期最早可能在 4 至 6 周后恢复，但每个人的经历都不同。',
+        '医学检查可以让你确认一切是否正常进行，让你完全放心。',
+      ],
+      disclaimerText: '科普内容。本文不能替代医疗建议或检查。如有疑虑或出现令你担心的症状，请向医疗专业人员咨询。',
+      shareMessage: '流产之后的身体恢复 — AWA',
+    },
 } as const;
 
 /* -------------------------------------------------------------------------- */

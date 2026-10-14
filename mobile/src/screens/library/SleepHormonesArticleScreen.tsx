@@ -461,6 +461,77 @@ const CONTENT = {
     disclaimerText: 'Informationsinhalt. Dieser Artikel ersetzt keine individuelle ärztliche Beratung. Bei Zweifeln wende dich an medizinisches Fachpersonal.',
     shareMessage: 'Schlaf und Hormone: der wenig bekannte Zusammenhang – AWA',
   },
+  zh: {
+      badge: '月经周期 • 睡眠',
+      title: '睡眠与激素：\n鲜为人知的联系',
+      metaDuration: '阅读约 6 分钟',
+      metaType: '文章',
+      metaLevel: '入门',
+      metaValidated: '已审阅内容',
+      intro: '为什么你的睡眠会随周期阶段而变化，以及绝经时的睡眠变化。',
+      contentsTitle: '本文内容',
+      topics: [
+        '为什么激素会影响睡眠',
+        '周期各阶段的睡眠',
+        '压力与睡眠质量',
+        '舒缓的睡前习惯',
+        '什么时候该看专业人员',
+        '要点回顾',
+      ],
+      section1Body: '孕激素有轻微的镇静作用；周期末期它的下降可能扰乱睡眠，让睡眠变浅或更容易中断。',
+      infoCard1Title: '小贴士',
+      infoCard1Text: '排卵后体温的轻微升高，也可能让一些人更难入睡。',
+      phaseSleep: [
+        {
+          title: '月经期间',
+          text: '身体的不适和疲倦可能让睡眠变浅。',
+        },
+        {
+          title: '排卵前后',
+          text: '对大多数人来说，睡眠通常更稳定。',
+        },
+        {
+          title: '月经来潮前',
+          text: '孕激素下降可能让睡眠变浅，并可能出现夜间醒来。',
+        },
+      ],
+      section2Body: '到了绝经期，夜间盗汗是常见的醒来原因，背后的激素原因与之相似。',
+      section3Body: '在周期中本就更敏感的阶段，压力可能放大睡眠的干扰。简单的放松方法（呼吸、轻柔的拉伸）可以帮助你在睡前放松下来。',
+      section4Body: '固定的睡前习惯和凉爽的卧室，有助于减少这些干扰，不论什么年龄都适用。',
+      eveningRoutine: [
+        {
+          title: '规律的作息',
+          text: '在固定的时间上床和起床，有助于调节你的生物钟。',
+        },
+        {
+          title: '晚上少看屏幕',
+          text: '蓝光可能推迟入睡；暂时放下屏幕，有助于让自己放松下来。',
+        },
+        {
+          title: '凉爽的卧室',
+          text: '适中的温度更容易入睡，不论什么年龄都是如此。',
+        },
+      ],
+      section5Body: '良好的习惯并不总是足够。在以下情况下，和专业人员谈一谈会有帮助：',
+      warningTitle: '值得检查的迹象',
+      consultSigns: [
+        '睡眠问题已持续数周',
+        '疲倦严重影响日常生活',
+        '即使养成了良好习惯，失眠仍然持续',
+      ],
+      infoCard2Title: '为就诊做准备',
+      infoCard2Text: '记下问题持续了多久、似乎受什么影响，可以帮助医疗专业人员更好地为你提供指导。',
+      tipTitle: '小贴士',
+      tipText: '这些睡眠变化很常见，通常是暂时的：并不意味着哪里出了问题。',
+      summaryPoints: [
+        '孕激素有轻微的镇静作用；周期末期它的下降可能扰乱睡眠。',
+        '到了绝经期，夜间盗汗是常见的醒来原因。',
+        '固定的睡前习惯和凉爽的卧室，有助于减少这些干扰，不论什么年龄都适用。',
+        '持续的睡眠问题，值得与医疗专业人员讨论。',
+      ],
+      disclaimerText: '仅供参考。本文不能替代个性化的医生建议。如有疑虑，请咨询医疗专业人员。',
+      shareMessage: '睡眠与激素：鲜为人知的联系 — AWA',
+    },
 } as const;
 
 /* -------------------------------------------------------------------------- */

@@ -658,6 +658,85 @@ const CONTENT = {
       'Informationsinhalt. Dieser Artikel ersetzt keine professionelle Beratung. Wenn du eine schwere Zeit durchmachst, zögere nicht, mit medizinischem Fachpersonal zu sprechen.',
     shareMessage: 'Die Trauer emotional durchleben — AWA',
   },
+  zh: {
+      badge: '流产之后 • 情感支持',
+      title: '走过悲伤\n情感上的陪伴',
+      metaDuration: '阅读约 7 分钟',
+      metaType: '指南',
+      metaLevel: '入门',
+      metaValidated: '科普内容',
+      intro: '走过这段经历，没有所谓正确的方式。每个人都有自己的方式和节奏。',
+      contentsTitle: '本文内容',
+      topics: [
+        '真实而正当的悲伤',
+        '因人而异的情绪',
+        '日常生活中可能有帮助的事',
+        '来自亲友的支持',
+        '何时寻求专业帮助',
+        '要点回顾',
+      ],
+      section1Body: '无论孕期进展到哪个阶段，悲伤、愤怒或空落落的感觉，都是面对这次失去时的正常反应。你的感受值得被认真对待。',
+      section1InfoTitle: '请记住',
+      section1InfoText: '走过这段经历，没有对错之分。你的每一种情绪都是合理的。',
+      section2Body: '你可能会有其中的一种或几种感受，有时甚至会同时出现：',
+      feelings: [
+        {
+          title: '悲伤',
+          text: '一种时来时去的哀伤，有时会不期而至。',
+        },
+        {
+          title: '愤怒',
+          text: '可能是对自己、对这件事，或是对不公平的感受——这并不需要担心。',
+        },
+        {
+          title: '空落落的感觉',
+          text: '对刚刚发生的一切感到空茫或困惑。',
+        },
+      ],
+      section3Body: '给自己时间，不施加压力，也不与他人比较，是疗愈中很重要的一部分。',
+      dailySupport: [
+        {
+          title: '给自己时间',
+          text: '不必给“好起来”设定期限，也不必有压力。',
+        },
+        {
+          title: '不与他人比较',
+          text: '每一种悲伤都是独一无二的，没有所谓正确的方式。',
+        },
+        {
+          title: '把感受说出来',
+          text: '把你的感受写下来或说出来，可能有助于减轻情绪的重量。',
+        },
+      ],
+      section4Body: '与身边亲近的人、互助小组或专业人员聊一聊，可以帮助减轻这份重量。亲友可以这样帮助你：',
+      supportTitle: '亲友可以如何给予支持',
+      howToSupport: [
+        '不带评判地倾听，即使说不出完美的话',
+        '避免轻描淡写地看待这段经历（比如“没什么大不了”“你还可以再试”）',
+        '给予陪伴，而不是急于提供解决办法',
+        '在接下来的几周里持续关心',
+      ],
+      section5Body: '出现以下一些情况时，专业人员的支持可能会有帮助：',
+      warningTitle: '需要留意的信号',
+      attentionSigns: [
+        '悲伤持续很久，而且越来越重，没有减轻',
+        '日常生活变得难以应付',
+        '出现明显的孤立感',
+        '出现侵入性的想法，或明显的痛苦',
+      ],
+      section5InfoTitle: '你可以得到支持',
+      section5InfoText: '助产士、医生、心理咨询师或互助小组可以倾听并陪伴你，不会评判你。',
+      tipTitle: '小贴士',
+      tipText: '寻求帮助并不是软弱的表现，而是在这段时间里照顾自己的一种方式。',
+      summaryPoints: [
+        '走过这段经历，没有对错之分。',
+        '悲伤、愤怒或空落落的感觉，都是正常的反应。',
+        '给自己时间，不施加压力，也不与他人比较，是疗愈的一部分。',
+        '与身边亲近的人、互助小组或专业人员聊一聊，可以帮助减轻这份重量。',
+      ],
+      disclaimerText: '科普内容。本文不能替代专业建议。如果你正经历艰难的时刻，请不要犹豫，与医疗专业人员谈一谈。',
+      shareMessage: '走过悲伤，情感上的陪伴 — AWA',
+    },
 } as const;
 
 /* -------------------------------------------------------------------------- */

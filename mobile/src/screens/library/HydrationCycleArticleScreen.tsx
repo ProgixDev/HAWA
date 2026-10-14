@@ -527,6 +527,86 @@ const CONTENT = {
     disclaimerText: 'Informationsinhalt. Dieser Artikel ersetzt keine persönliche ärztliche Beratung. Hol dir bei Zweifeln den Rat von medizinischem Fachpersonal.',
     shareMessage: 'Ausreichend trinken während deines Zyklus – AWA',
   },
+  zh: {
+      badge: '月经周期 • 补水',
+      title: '整个周期\n都要保持水分',
+      metaDuration: '阅读约 6 分钟',
+      metaType: '文章',
+      metaLevel: '入门',
+      metaValidated: '已审阅内容',
+      intro: '听起来有些反直觉，但确实如此：在整个周期中保持充足的水分，能让身体少留住一些水。',
+      contentsTitle: '本文内容',
+      topics: [
+        '为什么补水很重要',
+        '周期各阶段的需求',
+        '日常喝什么',
+        '水分不足的迹象',
+        '实用小建议',
+        '常见误解',
+        '要点回顾',
+      ],
+      section1Body: '听起来有些反直觉，但确实如此：保持充足的水分，能让身体少留住一些水，减轻腹胀，尤其是在周期的后期。',
+      infoTitle: '小贴士',
+      infoText: '身体缺水时，往往会为了预防而多储存一些水分。相反，喝够水会让身体知道，它可以更放心地排出水分。',
+      section2Body: '你的饮水需求整体上相当稳定，不同阶段略有差别：',
+      phaseNeeds: [
+        {
+          title: '月经期间',
+          text: '多喝一点水，有助于补充流失的水分并减轻腹胀。',
+        },
+        {
+          title: '排卵前后',
+          text: '需求保持稳定；体温略微升高可能会让口渴感增加。',
+        },
+        {
+          title: '经前期',
+          text: '充足的水分有助于缓解这段时间常有的浮肿感。',
+        },
+      ],
+      section3Body: '每天喝约 1.5 到 2 升水，月经期间可以稍多一点，以补充流失的水分。',
+      dailyDrinks: [
+        {
+          title: '首选是水',
+          text: '每天约 1.5 到 2 升，月经期间可稍多一些。',
+        },
+        {
+          title: '舒缓的花草茶',
+          text: '姜茶或洋甘菊茶可在痛经时温和地补充水分。',
+        },
+        {
+          title: '糖和咖啡因，适量即可',
+          text: '减少含糖量很高或含咖啡因的饮品，对周期后期可能有帮助。',
+        },
+      ],
+      warningTitle: '值得留意',
+      lowHydrationSigns: [
+        '强烈的或异常的口渴',
+        '尿液比平时更深',
+        '经常头痛',
+        '没有其他明显原因的疲倦',
+      ],
+      section5Body: '几个简单的习惯，往往就足以让你不知不觉地保持水分：',
+      practicalTips: [
+        '全天把水杯放在伸手可及的地方',
+        '把喝水和你已有的习惯结合起来（起床后、每餐时）',
+        '如果觉得白水乏味，可以换成花草茶',
+      ],
+      section5Body2: '运动时，记得在运动前、运动中和运动后都要喝水，以补充出汗流失的水分。',
+      compareTitle1: '常见的说法',
+      compareText1: '“喝很多水会让我更胀。”',
+      compareTitle2: '实际恰恰相反',
+      compareText2: '充足的水分有助于身体少留住水。',
+      tipTitle: '小贴士',
+      tipText: '姜茶或洋甘菊茶也能在痛经时提供舒缓的水分补充。',
+      summaryPoints: [
+        '保持充足的水分，有助于身体少留住水，减轻腹胀。',
+        '每天喝约 1.5 到 2 升水，月经期间可稍多一些。',
+        '姜茶或洋甘菊茶也能在痛经时起到舒缓作用。',
+        '强烈且持续的口渴，值得告诉医疗专业人员。',
+      ],
+      disclaimerText: '仅供参考。本文不能替代个性化的医生建议。如有疑虑，请咨询医疗专业人员。',
+      shareMessage: '整个周期都要保持水分 — AWA',
+    },
 } as const;
 
 /* -------------------------------------------------------------------------- */

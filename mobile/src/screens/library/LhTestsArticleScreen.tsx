@@ -475,6 +475,61 @@ const CONTENT = {
       'Informationsinhalt. Dieser Artikel ersetzt keine persönliche ärztliche Beratung. Bei Zweifeln lass dich von medizinischem Fachpersonal beraten.',
     shareMessage: 'Ovulationstests (LH) verstehen – AWA',
   },
+  zh: {
+      badge: '生育力 • 排卵试纸',
+      title: '了解排卵试纸\n（LH 检测）',
+      metaDuration: '阅读约 6 分钟',
+      metaType: '指南',
+      metaLevel: '进阶',
+      metaValidated: '已审核内容',
+      intro: '这些试纸是怎么起作用的，以及什么时候使用。',
+      contentsTitle: '本文内容',
+      topics: [
+        '什么是 LH？',
+        '这些检测如何起作用',
+        '什么时候开始检测',
+        '如何解读结果',
+        '假阳性与局限',
+        '与其他表现结合使用',
+        '要点回顾',
+      ],
+      section1Body: 'LH（黄体生成素）由大脑分泌，调控卵巢的功能。排卵试纸检测的是这种激素的峰值，它会在 24 到 36 小时后促使卵子排出。',
+      section2Body: '尿液试纸可以检测 LH 水平：检测线与对照线一样深或比对照线更深，就表示出现了峰值。',
+      section3Body: '建议在根据你的周期估算出的排卵日之前几天开始检测。',
+      testingTips: [
+        {
+          title: '根据你的周期来安排',
+          text: '在根据你周期的平均长度估算出的排卵日之前几天开始。',
+        },
+        {
+          title: '每天在同一时间检测',
+          text: '最好在中午前后，避开早晨的第一次尿液。',
+        },
+        {
+          title: '避免稀释尿液',
+          text: '检测前的几个小时里，不要一次喝大量的水。',
+        },
+      ],
+      section4Body: '结果呈阳性，表示接下来 1 到 2 天是同房受孕机会最高的时期。结果呈阴性，只是说明峰值还没有出现。',
+      limitations: [
+        'PCOS 可能使 LH 水平天然偏高，从而让读数变得模糊',
+        '某些促孕治疗可能影响结果',
+        '尿液过度稀释可能导致假阴性',
+        '质量较差的试纸可能不够可靠',
+      ],
+      infoTitle: '请记住',
+      infoText: 'LH 峰值表示出现了触发排卵的激素信号，但仅凭它并不能保证卵子真的已经排出。',
+      tipTitle: '小贴士',
+      tipText: '把排卵试纸与基础体温或宫颈黏液的观察结合起来，可以更完整地了解你的周期。',
+      summaryPoints: [
+        '排卵试纸检测的是 LH 峰值，它会在 24 到 36 小时后促使卵子排出。',
+        '建议在根据你的周期估算出的排卵日之前几天开始检测。',
+        '结果呈阳性，表示接下来 1 到 2 天是同房受孕机会最高的时期。',
+        '仅凭 LH 峰值，并不能保证排卵确实发生。',
+      ],
+      disclaimerText: '仅供参考。本文不能替代个性化的医疗建议。如有疑问，请向医疗专业人员寻求指导。',
+      shareMessage: '了解排卵试纸（LH 检测） — AWA',
+    },
 } as const;
 
 /* -------------------------------------------------------------------------- */

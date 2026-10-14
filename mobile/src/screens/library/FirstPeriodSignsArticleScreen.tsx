@@ -360,6 +360,65 @@ const CONTENT = {
     ],
     shareMessage: 'Frühe Anzeichen vor deiner ersten Periode – AWA',
   },
+  zh: {
+      badge: '初潮',
+      title: '初潮来临前的\n早期信号',
+      metaDuration: '阅读约 5 分钟',
+      metaType: '文章',
+      metaLevel: '入门',
+      metaValidated: '已审阅内容',
+      intro: '在第一次月经到来之前，身体往往会先给出一些提示。认识这些信号，可以让你不那么意外。',
+      contentsTitle: '本文内容',
+      topics: [
+        '逐渐出现的变化',
+        '需要留意的信号',
+        '这意味着什么',
+      ],
+      body1: '在初潮到来前的几个月里，你的身体会温和地发生变化：体型在改变，身体上新的部位开始长出毛发，出汗的情况也有所不同。这些都是青春期的正常表现，是身体在悄悄做准备。',
+      tip1Title: '小贴士',
+      tip1Text: '这些变化并不会在每个人身上同时出现，节奏也不一样，这完全正常。',
+      signs: [
+        {
+          title: '身体变化',
+          text: '你的身体在逐渐变化：体型、体毛和出汗情况都可能有所不同。',
+        },
+        {
+          title: '阴道分泌物',
+          text: '初潮前几个月，常会出现少量偏白的分泌物。',
+        },
+        {
+          title: '隐隐作痛或刺痛',
+          text: '你可能会感到下腹轻微的紧绷感或刺痛。',
+        },
+        {
+          title: '情绪变化',
+          text: '比平时更敏感或更易烦躁，是很常见的。',
+        },
+        {
+          title: '乳房胀痛',
+          text: '你可能会注意到乳房有轻微的触痛或胀感。',
+        },
+      ],
+      body2: '这些信号通常意味着初潮会在接下来的几个月内到来，但无法预测确切的日期。这时，随身备好卫生用品会是个好习惯。',
+      alertTitle: '请注意',
+      alertText: '这些信号只是一般性的参考，绝不是精确的预测。每个人的身体都有自己的节奏。',
+      relatedTitle: '♥  你可能还想看',
+      related: [
+        {
+          title: '你的初潮：会有什么变化',
+          meta: '5 分钟  ·  指南',
+        },
+        {
+          title: '怎么知道初潮快来了？',
+          meta: '5 分钟  ·  指南',
+        },
+        {
+          title: '月经周期的不同阶段',
+          meta: '5 分钟  ·  文章',
+        },
+      ],
+      shareMessage: '初潮来临前的早期信号 — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

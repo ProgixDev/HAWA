@@ -567,6 +567,71 @@ const CONTENT = {
       'Informationsinhalt. Dieser Artikel ersetzt keine persönliche ärztliche Beratung. Deine Ärztin, dein Arzt oder deine Hebamme bleibt die Referenz für deine Situation.',
     shareMessage: 'Fruchtbarkeit und ein neuer Versuch nach einem Verlust – AWA',
   },
+  zh: {
+      badge: '流产之后 • 生育力',
+      title: '失去宝宝之后的生育力与再次备孕',
+      metaDuration: '阅读约 6 分钟',
+      metaType: '指南',
+      metaLevel: '进阶',
+      metaValidated: '科普内容',
+      intro: '何时、如何考虑再次备孕，按自己的节奏，怀着信心。',
+      contentsTitle: '本文内容',
+      topics: [
+        '生育力的恢复',
+        '专业人员通常怎么说',
+        '按自己的节奏，感到准备好了',
+        '能让你安心的随访',
+        '要点回顾',
+      ],
+      body1: '早期流产之后，生育力通常最早在下一个周期就会恢复。甚至在月经明显恢复之前，就可能已经排卵。',
+      infoTitle: '重点',
+      infoText: '根据失去宝宝时所处的阶段不同，身体恢复所需的时间可能会略有差异。',
+      body2: '许多专业人员认为，不必等上好几个周期再备孕，除非你的医生或助产士另有建议。',
+      compareEarlyTitle: '早期流产',
+      compareEarlyText: '生育力往往恢复得很快，最早在下一个周期就会恢复。',
+      compareLateTitle: '较晚期流产',
+      compareLateText: '医疗团队可能会建议稍长一些的恢复时间。',
+      body3: '身体和情绪上都感到准备好了，始终是最重要的指引，远比任何理论上的时间表更重要。',
+      readinessPoints: [
+        {
+          title: '情绪上',
+          text: '内心感到准备好了，和身体恢复同样重要。',
+        },
+        {
+          title: '身体上',
+          text: '月经周期规律、身体状态良好，都是不错的参考。',
+        },
+        {
+          title: '与伴侣或身边的人一起',
+          text: '和伴侣聊一聊，有助于你们以同样的步调往前走。',
+        },
+      ],
+      body4: '再次备孕之前，去医院就诊一次，可以让你更安心地向前走：',
+      followUpSteps: [
+        {
+          title: '回顾梳理',
+          text: '和专业人员聊一聊，可以重新回顾所发生的事。',
+        },
+        {
+          title: '必要时做评估',
+          text: '视情况，可能会建议做一些进一步的检查。',
+        },
+        {
+          title: '再次尝试',
+          text: '之后，随访可以在你再次备孕时从容地陪伴你。',
+        },
+      ],
+      tipTitle: '小贴士',
+      tipText: '单次流产通常并不说明存在生育力方面的问题。关于你个人的疑问，医疗团队始终是最合适的解答者。',
+      summaryPoints: [
+        '早期流产之后，生育力通常最早在下一个周期就会恢复。',
+        '许多专业人员认为，不必等上好几个周期，除非另有建议。',
+        '身体和情绪上都感到准备好了，始终是最重要的指引。',
+        '医学随访可以在你再次备孕之前支持并安抚你。',
+      ],
+      disclaimerText: '科普内容。本文不能替代个性化的医疗建议。你的医生或助产士始终是了解你具体情况的参考。',
+      shareMessage: '失去宝宝之后的生育力与再次备孕 — AWA',
+    },
 } as const;
 
 /* -------------------------------------------------------------------------- */

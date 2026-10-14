@@ -426,6 +426,65 @@ const CONTENT = {
     shareTitle: 'Intimhygiene · AWA',
     shareMessage: 'Intimhygiene während deiner Periode · AWA',
   },
+  zh: {
+      badge: '经量',
+      title: '月经期间\n呵护私处清洁',
+      metaDuration: '阅读约 6 分钟',
+      metaType: '指南',
+      metaLevel: '入门',
+      metaValidated: '已审核内容',
+      intro: '呵护私处清洁，就是尊重你的身体及其自然的平衡。',
+      contentsTitle: '本文内容',
+      topics: [
+        '为什么重要',
+        '好习惯',
+        '需要避免的做法',
+        '何时就医',
+        '实用小建议',
+      ],
+      body: '月经期间，你的身体会发生变化，也会变得更敏感。养成合适的习惯，有助于预防刺激和感染，让你每天都更舒适。',
+      goodPractices: [
+        '温和清洗：用清水由前向后简单冲洗就足够了，可以保护你的天然菌群。',
+        '定期更换护理用品：每 4 到 6 小时更换一次，避免潮湿和异味。',
+        '选择棉质：棉质内裤让皮肤保持透气，并降低刺激的风险。',
+      ],
+      thingsToAvoid: [
+        '刺激性强的肥皂和带香味的产品',
+        '阴道冲洗，会破坏你的天然菌群',
+        '让潮湿的卫生巾或卫生棉条留置过久',
+      ],
+      consultReasons: [
+        '持续的刺激感、瘙痒或灼热感',
+        '异常的气味或分泌物，与你平时的情况不同',
+        '明显的疼痛或让你担心的症状',
+      ],
+      tipTitle: 'AWA 小提示',
+      tipText: '你的身体本身就有自然的平衡机制。通常，温和的清洗就足够了。',
+      takeawaysTitle: '要点回顾',
+      takeaways: [
+        '用清水温和清洗',
+        '定期更换',
+        '避免带香味的产品',
+        '选择棉质',
+      ],
+      relatedTitle: '♥  你可能还喜欢',
+      related: [
+        {
+          title: '了解痛经',
+          meta: '7 分钟  ·  指南',
+        },
+        {
+          title: '选择适合你身体的护理用品',
+          meta: '5 分钟  ·  指南',
+        },
+        {
+          title: '如何自然缓解痛经',
+          meta: '6 分钟  ·  指南',
+        },
+      ],
+      shareTitle: '私处清洁 · AWA',
+      shareMessage: '月经期间呵护私处清洁 · AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

@@ -295,6 +295,44 @@ const CONTENT = {
     ],
     shareMessage: 'Meine erste Periode ist unregelmäßig: Ist das normal? — AWA',
   },
+  zh: {
+      badge: '初潮',
+      title: '我的初潮后月经不规律：\n正常吗？',
+      metaDuration: '阅读约 5 分钟',
+      metaType: '指南',
+      metaLevel: '入门',
+      metaValidated: '已审阅内容',
+      intro: '是的，这完全正常。下面说说为什么月经周期需要时间才能稳定下来，以及什么时候值得去咨询。',
+      contentsTitle: '本文内容',
+      topics: [
+        '为什么一开始月经周期不规律',
+        '需要多久才能稳定',
+        '什么时候该看医生',
+      ],
+      body1: '调节月经周期的激素需要时间才能找到平衡。因此在最初几年里，周期时而较短、时而较长，或间隔不均匀，都很常见。',
+      body2: '月经周期可能需要一到两年，有时甚至更久，才会变得比较规律。这段适应期因人而异，差别很大，这并不是问题。',
+      tip1Title: '小贴士',
+      tip1Text: '一开始月经周期不规律，从来都不算“推迟”：你的身体只是在用它需要的时间慢慢调整。',
+      body3: '绝大多数情况下，不需要担心。不过，如果初潮之后月经连续几个月没有来，或者你一直心存疑虑，最好去看医生。',
+      alertTitle: '出现以下情况请就医',
+      alertText: '连续几个月没有月经、疼痛非常剧烈，或出血量非常大。',
+      relatedTitle: '♥  你可能还想看',
+      related: [
+        {
+          title: '月经周期规律还是不规律：有什么区别？',
+          meta: '5 分钟  ·  指南',
+        },
+        {
+          title: '你的初潮：会有什么变化',
+          meta: '5 分钟  ·  指南',
+        },
+        {
+          title: '关于初潮的常见问题',
+          meta: '4 分钟  ·  常见问题',
+        },
+      ],
+      shareMessage: '初潮后月经不规律：正常吗？ — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

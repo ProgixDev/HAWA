@@ -332,6 +332,57 @@ const CONTENT = {
     ],
     shareMessage: 'Woran erkenne ich, dass meine erste Periode kommt? — AWA',
   },
+  zh: {
+      badge: '初潮',
+      title: '怎么知道我的\n初潮快要来了？',
+      metaDuration: '阅读约 5 分钟',
+      metaType: '指南',
+      metaLevel: '入门',
+      metaValidated: '已审核内容',
+      intro: '有一些具体的迹象，可以帮你认出初潮真的快要来了。',
+      contentsTitle: '本文内容',
+      topics: [
+        '需要留意的迹象',
+        '最初的分泌物：是什么样的？',
+        '是阴道分泌物还是经血？',
+        '什么时候应该和大人聊聊？',
+      ],
+      observe: [
+        {
+          title: '乳白色分泌物',
+          text: '清淡、透明的分泌物，通常会在初潮前几个月出现。',
+        },
+        {
+          title: '乳房发育',
+          text: '这是一个常见的迹象，通常会在月经来潮前很早就出现。',
+        },
+        {
+          title: '小腹轻微的牵拉感',
+          text: '像这样的轻微感觉，可能是月经快要来的信号。',
+        },
+      ],
+      body2: '在初潮到来之前，内裤上出现少量乳白色或略带黄色的分泌物很常见。这是正常现象，与你体内开始活跃的激素有关。',
+      body3: '阴道分泌物是透明或乳白色的，没有明显气味。而经血呈红色到棕色，标志着月经真正开始。如果你拿不准，把它说出来从来都不是什么大不了的事。',
+      tipTitle: '小贴士',
+      tipText: '没有办法预测确切的日期。从最初出现迹象时起就随身带好防护用品，是最好的习惯。',
+      body4: '一旦你注意到这些迹象，或者有任何疑问和担心，都可以和妈妈、姐姐、身边亲近的人，或你信任的医疗专业人员聊聊。任何时候寻求帮助都不算晚。',
+      relatedTitle: '♥  你可能还喜欢',
+      related: [
+        {
+          title: '月经来潮前的最初迹象',
+          meta: '5 分钟  ·  文章',
+        },
+        {
+          title: '初潮时该选择哪种防护用品？',
+          meta: '6 分钟  ·  指南',
+        },
+        {
+          title: '你的初潮：会发生什么',
+          meta: '5 分钟  ·  指南',
+        },
+      ],
+      shareMessage: '怎么知道我的初潮快要来了？ — AWA',
+    },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

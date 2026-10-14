@@ -506,6 +506,87 @@ const CONTENT = {
     disclaimerText: 'Informationsinhalt. Dieser Artikel ersetzt keine individuelle medizinische oder psychologische Beratung. Bei Zweifeln hol dir Rat bei medizinischem Fachpersonal.',
     shareMessage: 'Stimmung und hormonelle Schwankungen — AWA',
   },
+  zh: {
+      badge: '月经周期 • 情绪',
+      title: '情绪与\n激素波动',
+      metaDuration: '阅读约 6 分钟',
+      metaType: '文章',
+      metaLevel: '入门',
+      metaValidated: '已审核内容',
+      intro: '为什么你的情绪会在周期中有所起伏，但并不总是如此。',
+      contentsTitle: '本文内容',
+      topics: [
+        '为什么情绪会有起伏',
+        '周期各阶段的情绪',
+        '观察自己的变化',
+        '有帮助的习惯',
+        '何时需要关注情绪变化',
+        '要点回顾',
+      ],
+      section1Body: '雌激素和孕激素的波动会直接影响与情绪有关的神经递质，例如血清素。',
+      info1Title: '请记住',
+      info1Text: '并非每一次情绪波动都一定与周期有关：生活境遇、压力和疲劳同样起着重要作用。',
+      phaseMood: [
+        {
+          title: '月经期间',
+          text: '疲倦和情绪敏感，对许多人来说都很常见。',
+        },
+        {
+          title: '排卵前后',
+          text: '这通常是精力更好、幸福感更强的阶段。',
+        },
+        {
+          title: '月经来潮前',
+          text: '这段时间更容易出现易怒或情绪起伏。',
+        },
+      ],
+      section2Body: '因此，经前易怒或绝经期的情绪波动有着真实的生理原因，尽管每个人的表现并不相同。',
+      observeHabits: [
+        {
+          title: '写日记',
+          text: '记下你的情绪和所处的周期阶段，有助于发现自己的规律。',
+        },
+        {
+          title: '找出规律',
+          text: '不必评判自己：目的是更了解自己，而不是掌控一切。',
+        },
+      ],
+      section4Body: '充足的睡眠、体育活动和社会支持，仍然是稳定情绪的最好帮手。',
+      helpfulHabits: [
+        {
+          title: '睡眠充足',
+          text: '睡眠不足往往会让情绪更加敏感。',
+        },
+        {
+          title: '规律的体育活动',
+          text: '即使是适度的活动，也有助于在整个周期中稳定情绪。',
+        },
+        {
+          title: '社会支持',
+          text: '与你信任的人聊聊，可以缓解你的感受。',
+        },
+      ],
+      section5Body: '与周期有关的情绪变化通常是暂时的。不过，有些信号值得特别留意：',
+      warningTitle: '需要留意的信号',
+      concerningSigns: [
+        '强烈的悲伤，或悲伤在周期之后仍持续',
+        '对平时喜欢的事情明显失去兴趣',
+        '对日常生活或人际关系造成明显影响',
+        '反复出现的侵入性念头，或明显的痛苦感',
+      ],
+      info2Title: '你可以得到支持',
+      info2Text: '医生、助产士或心理师可以帮你更好地理解自己的感受，并在需要时为你转介进一步的支持。',
+      tipTitle: '小贴士',
+      tipText: '认识到激素与情绪之间的联系，可以帮你更好地理解自己的感受，但不要把一切都简单归结为这一种解释。',
+      summaryPoints: [
+        '雌激素和孕激素的波动会直接影响与情绪有关的神经递质。',
+        '因此，经前易怒有着真实的生理原因。',
+        '并非每一次情绪波动都一定与周期有关：生活境遇同样重要。',
+        '充足的睡眠、体育活动和社会支持，仍然是稳定情绪的最好帮手。',
+      ],
+      disclaimerText: '仅供参考。本文不能替代个性化的医疗或心理建议。如有疑问，请向医疗专业人员寻求指导。',
+      shareMessage: '情绪与激素波动 — AWA',
+    },
 } as const;
 
 /* -------------------------------------------------------------------------- */
