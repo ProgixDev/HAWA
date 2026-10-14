@@ -153,11 +153,11 @@ describe('language selector — Türkçe among five options', () => {
     }
   });
 
-  it('exactly seven options are offered (Deutsch is the seventh)', async () => {
+  it('exactly eight options are offered (简体中文 is the eighth)', async () => {
     const {renderer} = await renderScreen(AppearanceScreen as never);
     await open(renderer);
     const labels = new Set(renderer.root.findAll(node => node.props.accessibilityRole === 'radio').map(node => node.props.accessibilityLabel));
-    expect(labels).toEqual(new Set(['English', 'Français', 'Español', 'Italiano', 'Türkçe', 'Русский', 'Deutsch']));
+    expect(labels).toEqual(new Set(['English', 'Français', 'Español', 'Italiano', 'Türkçe', 'Русский', 'Deutsch', '简体中文']));
   });
 
   it('selecting Türkçe and pressing Apply switches the mounted screen to Turkish and persists it', async () => {

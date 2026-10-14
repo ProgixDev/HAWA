@@ -142,7 +142,7 @@ describe('TEST 2 — WelcomeScreen follows the app language and navigation is un
 });
 
 describe('TEST 3 — NameOnboardingScreen never translates the user’s own name', () => {
-  it('a typed French-looking name is preserved verbatim in the English preview', async () => {
+  it('a typed French-looking name is preserved verbatim in the English input', async () => {
     await updatePersonalInformation({preferredName: ''});
     await setAppLanguage('en');
     await i18n.changeLanguage('en');
@@ -154,7 +154,9 @@ describe('TEST 3 — NameOnboardingScreen never translates the user’s own name
       input.props.onChangeText('Fatima');
     });
 
-    expect(textsOf(renderer).some(text => text.includes('Fatima'))).toBe(true);
+    // The preview greeting was removed from the screen (simplified form), so the verbatim name is asserted on the
+    // input value, which is where the user's own text lives.
+    expect(renderer.root.findByProps({accessibilityLabel: 'First name or nickname'}).props.value).toBe('Fatima');
     expect(textsOf(renderer)).toContain('What should AWA\ncall you?');
     expect(getCachedPersonalInformation().preferredName).not.toBe('Fatima'); // not saved until "Next" is pressed
   });
