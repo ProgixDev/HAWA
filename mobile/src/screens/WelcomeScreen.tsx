@@ -2,29 +2,71 @@ import React, {useEffect, useMemo, useRef} from 'react';
 import {
   Animated,
   Easing,
-  Pressable,
   SafeAreaView,
+  ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   useWindowDimensions,
   View,
 } from 'react-native';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {
-  TOP_SPACING_EXTRA,
-  TOP_SPACING_EXTRA_COMPACT,
-} from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AWA_COMPONENT_DIMENSION_PROPOSALS} from '../theme/componentDimensions';
+import {touchTargetHitSlop} from '../theme/iconSizes';
+import {awaSpace} from '../theme/spaceScale';
+import {AWA_PRIMARY_ACTION_LABEL} from '../theme/typescale';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaText} from '../components/ui/AwaText';
+
+// Phase 3 pilot, Welcome redesign (reference mock supplied by the product owner): a calm first screen made of the AWA
+// lockup, one sentence, and two stacked buttons, with the hero in the upper part of the space above them. Design-system rules
+// applied: Material 3 type roles (AwaText), the shared AwaButton in its 56 dp large height, colour roles from the
+// resolved theme, no hardcoded colours or font sizes.
+//
+// Three sections (upper hero, flexible space, lower buttons) live inside a ScrollView whose content grows to at least
+// the viewport, so the layout is identical when it fits and scrolls instead of clipping on a short phone or with a
+// large font scale. The lockup is ONE heading for screen readers (a composed label built from the same three
+// translations), not three separate texts.
+//
+// Unchanged: navigation targets (Objective / Auth), labels and accessibility labels, the status bar handling and the
+// page gradient root. The AWA lockup keeps its serif face (approved branding element). The privacy card with its three
+// feature tiles that used to sit between the hero and the buttons is no longer shown on this screen; its translations
+// are untouched.
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
+
+/** A broad, premium CTA presence, while retaining 24 dp screen gutters on narrow phones and a cap on wide screens. */
+const BUTTON_WIDTH_RATIO = 0.84;
+const BUTTON_MAX_WIDTH = 360;
+const BUTTON_GAP = 16;
+const BUTTON_SIDE_PADDING = 24;
+const SCREEN_MARGIN = 24;
+/** The action group floats above the system bar by 9% of the screen height (clamped), so it is never glued to the bottom. */
+const BOTTOM_LIFT_RATIO = 0.09;
+const BOTTOM_LIFT_MIN = 48;
+const BOTTOM_LIFT_MAX = 80;
+/** Button label size (sp) of the shared primary-action label. One constant feeds both the label style and the width
+ * estimate below, so a long translation still fits. The weight (700) comes from the same shared token. */
+const LABEL_FONT_SIZE = AWA_PRIMARY_ACTION_LABEL.fontSize;
+/** Places the lockup around the upper quarter of the usable screen while adapting to phone height. */
+const HERO_TOP_SPACING_RATIO = 0.14;
+
+/** Rough label width (dp) at `size` sp: hanzi are square, capitals wider, the rest averaged. Used only to widen the
+ * buttons for long translations (e.g. German "Ich habe bereits ein Konto"), never to shrink them. */
+function estimateLabelWidth(label: string, size: number): number {
+  return (
+    Array.from(label).reduce(
+      (sum, char) => sum + (/[　-鿿]/.test(char) ? 1 : /[A-ZÀ-Þ]/.test(char) ? 0.7 : 0.58),
+      0,
+    ) * size
+  );
+}
 
 function WelcomeScreen({navigation}: Props): React.JSX.Element {
   const {t} = useTranslation();
@@ -33,31 +75,39 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  const compact = height < 760 || width < 360;
+  const startLabel = t('onboarding.welcome.start');
+  const accountLabel = t('onboarding.welcome.alreadyHaveAccount');
+  // The lockup is drawn as three styled texts ("Bienvenue" / "chez" / "AWA"); screen readers get one heading.
+  const lockupLabel = [t('onboarding.welcome.title'), t('onboarding.welcome.brandPrefix'), 'AWA'].join(' ');
 
-  const buttonWidth = Math.min(
-    width * (compact ? 0.84 : 0.8),
-    350,
-  );
+  // The reference mock (360 x 640) uses the display sizes; only very narrow phones step the lockup down.
+  const narrow = width < 340;
 
-  const bottomSpacing = Math.max(
-    insets.bottom + 18,
-    Math.min(height * 0.045, 38),
+  const buttonHeight = AWA_COMPONENT_DIMENSION_PROPOSALS.button.large; // 56 dp, the documented large CTA size
+  const labelNeed =
+    Math.max(estimateLabelWidth(startLabel, LABEL_FONT_SIZE), estimateLabelWidth(accountLabel, LABEL_FONT_SIZE)) + BUTTON_SIDE_PADDING * 2 + 16;
+  const buttonWidth = Math.round(
+    Math.min(
+      width - SCREEN_MARGIN * 2,
+      Math.max(Math.min(width * BUTTON_WIDTH_RATIO, BUTTON_MAX_WIDTH), labelNeed),
+    ),
   );
+  // Keep the shared touch-target calculation explicit for every supported screen width.
+  const buttonHitSlop = touchTargetHitSlop(buttonWidth, buttonHeight);
+
+  const safeTopSpacing = Math.max(insets.top, awaSpace.s8);
+  const safeBottomSpacing = Math.max(insets.bottom, awaSpace.s16);
+  const availableHeight = Math.max(height - safeTopSpacing - safeBottomSpacing, 0);
+  const heroTopSpacing = Math.max(awaSpace.s24, Math.round(availableHeight * HERO_TOP_SPACING_RATIO));
+  const bottomLift = Math.min(BOTTOM_LIFT_MAX, Math.max(BOTTOM_LIFT_MIN, Math.round(height * BOTTOM_LIFT_RATIO)));
+  const bottomSpacing = safeBottomSpacing + bottomLift;
 
   /* ============================================================
-     ANIMATIONS
+     ANIMATIONS (title and actions entrance)
   ============================================================ */
 
   const titleAnim = useRef(new Animated.Value(0)).current;
-  const contentAnim = useRef(new Animated.Value(0)).current;
   const actionsAnim = useRef(new Animated.Value(0)).current;
-  const glowAnim = useRef(new Animated.Value(0)).current;
-
-  const featureOneAnim = useRef(new Animated.Value(0)).current;
-  const featureTwoAnim = useRef(new Animated.Value(0)).current;
-  const featureThreeAnim = useRef(new Animated.Value(0)).current;
-  const iconAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.sequence([
@@ -67,35 +117,6 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
         easing: Easing.out(Easing.cubic),
         useNativeDriver: true,
       }),
-
-      Animated.timing(contentAnim, {
-        toValue: 1,
-        duration: 460,
-        easing: Easing.out(Easing.cubic),
-        useNativeDriver: true,
-      }),
-
-      Animated.stagger(90, [
-        Animated.timing(featureOneAnim, {
-          toValue: 1,
-          duration: 360,
-          easing: Easing.out(Easing.cubic),
-          useNativeDriver: true,
-        }),
-        Animated.timing(featureTwoAnim, {
-          toValue: 1,
-          duration: 360,
-          easing: Easing.out(Easing.cubic),
-          useNativeDriver: true,
-        }),
-        Animated.timing(featureThreeAnim, {
-          toValue: 1,
-          duration: 360,
-          easing: Easing.out(Easing.cubic),
-          useNativeDriver: true,
-        }),
-      ]),
-
       Animated.timing(actionsAnim, {
         toValue: 1,
         duration: 440,
@@ -103,62 +124,10 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
         useNativeDriver: true,
       }),
     ]).start();
-
-    const glowLoop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(glowAnim, {
-          toValue: 1,
-          duration: 5000,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-        Animated.timing(glowAnim, {
-          toValue: 0,
-          duration: 5000,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-
-    const iconLoop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(iconAnim, {
-          toValue: 1,
-          duration: 2400,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-        Animated.timing(iconAnim, {
-          toValue: 0,
-          duration: 2400,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-
-    glowLoop.start();
-    iconLoop.start();
-
-    return () => {
-      glowLoop.stop();
-      iconLoop.stop();
-    };
-  }, [
-    actionsAnim,
-    contentAnim,
-    featureOneAnim,
-    featureThreeAnim,
-    featureTwoAnim,
-    glowAnim,
-    iconAnim,
-    titleAnim,
-  ]);
+  }, [actionsAnim, titleAnim]);
 
   const titleStyle = {
     opacity: titleAnim,
-
     transform: [
       {
         translateY: titleAnim.interpolate({
@@ -169,96 +138,13 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
     ],
   };
 
-  const contentStyle = {
-    opacity: contentAnim,
-
-    transform: [
-      {
-        translateY: contentAnim.interpolate({
-          inputRange: [0, 1],
-          outputRange: [16, 0],
-        }),
-      },
-    ],
-  };
-
   const actionsStyle = {
     opacity: actionsAnim,
-
     transform: [
       {
         translateY: actionsAnim.interpolate({
           inputRange: [0, 1],
           outputRange: [18, 0],
-        }),
-      },
-    ],
-  };
-
-  const glowStyle = {
-    opacity: glowAnim.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0.45, 0.85],
-    }),
-
-    transform: [
-      {
-        scale: glowAnim.interpolate({
-          inputRange: [0, 1],
-          outputRange: [1, 1.08],
-        }),
-      },
-    ],
-  };
-
-  const featureOneStyle = {
-    opacity: featureOneAnim,
-    transform: [
-      {
-        translateY: featureOneAnim.interpolate({
-          inputRange: [0, 1],
-          outputRange: [10, 0],
-        }),
-      },
-    ],
-  };
-
-  const featureTwoStyle = {
-    opacity: featureTwoAnim,
-    transform: [
-      {
-        translateY: featureTwoAnim.interpolate({
-          inputRange: [0, 1],
-          outputRange: [10, 0],
-        }),
-      },
-    ],
-  };
-
-  const featureThreeStyle = {
-    opacity: featureThreeAnim,
-    transform: [
-      {
-        translateY: featureThreeAnim.interpolate({
-          inputRange: [0, 1],
-          outputRange: [10, 0],
-        }),
-      },
-    ],
-  };
-
-  const iconStyle = {
-    transform: [
-      {
-        translateY: iconAnim.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, -2],
-        }),
-      },
-      {
-        scale: iconAnim.interpolate({
-          inputRange: [0, 1],
-          outputRange: [1, 1.035],
         }),
       },
     ],
@@ -277,279 +163,87 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
         translucent
       />
 
-      {/* ========================================================
-          PREMIUM BACKGROUND DEPTH
-      ======================================================== */}
-
-      <View
-        pointerEvents="none"
-        style={styles.backgroundDecoration}>
-        <Animated.View
-          style={[
-            styles.glowTop,
-            glowStyle,
-          ]}
-        />
-
-        <View style={styles.glowLeft} />
-
-        <View style={styles.glowBottom} />
-      </View>
-
       <SafeAreaView style={styles.safeArea}>
-        <View
-          style={[
-            styles.page,
-            {
-              paddingTop:
-                Math.max(insets.top, 8) +
-                (compact
-                  ? TOP_SPACING_EXTRA_COMPACT
-                  : TOP_SPACING_EXTRA),
-            },
-          ]}>
-          {/* ====================================================
-              HERO
-          ===================================================== */}
+        <ScrollView
+          bounces={false}
+          contentContainerStyle={[styles.page, {paddingTop: safeTopSpacing}]}
+          showsVerticalScrollIndicator={false}>
+          {/* A height-relative offset keeps the hero in the upper quarter across Android phone sizes. */}
+          <View style={[styles.heroRegion, {paddingTop: heroTopSpacing}]}>
+            <Animated.View style={[styles.hero, titleStyle]}>
+              <View
+                accessibilityLabel={lockupLabel}
+                accessibilityRole="header"
+                accessible
+                style={styles.lockup}>
+                <AwaText
+                  style={styles.lockupTitle}
+                  variant={narrow ? 'headlineLarge' : 'displaySmall'}
+                  weight="600">
+                  {t('onboarding.welcome.title')}
+                </AwaText>
 
-          <Animated.View
-            style={[
-              styles.hero,
-              compact && styles.heroCompact,
-              titleStyle,
-            ]}>
-            <Text
-              style={[
-                styles.welcomeTitle,
-                compact &&
-                  styles.welcomeTitleCompact,
-              ]}>
-              {t('onboarding.welcome.title')}
-            </Text>
+                <View style={styles.brandLine}>
+                  <AwaText
+                    style={styles.lockupPrefix}
+                    variant={narrow ? 'headlineSmall' : 'headlineMedium'}>
+                    {t('onboarding.welcome.brandPrefix')}
+                  </AwaText>
 
-            <View style={styles.brandLine}>
-              <Text
-                style={[
-                  styles.chez,
-                  compact && styles.chezCompact,
-                ]}>
-                {t('onboarding.welcome.brandPrefix')}
-              </Text>
-
-              <Text
-                style={[
-                  styles.awa,
-                  compact && styles.awaCompact,
-                ]}>
-                {' '}
-                AWA
-              </Text>
-            </View>
-
-            <View style={styles.brandDivider}>
-              <View style={styles.brandDividerLine} />
-              <View style={styles.brandDividerDot} />
-              <View style={styles.brandDividerLine} />
-            </View>
-
-            <Text
-              style={[
-                styles.subtitle,
-                compact && styles.subtitleCompact,
-              ]}>
-              {t('onboarding.welcome.subtitle')}
-            </Text>
-          </Animated.View>
-
-          {/* ====================================================
-              PREMIUM CONTENT CARD
-          ===================================================== */}
-
-          <Animated.View
-            style={[
-              styles.premiumCard,
-              compact && styles.premiumCardCompact,
-              contentStyle,
-            ]}>
-            <LinearGradient
-              colors={[
-                withAlpha(theme.colors.surface, 0.88),
-                withAlpha(theme.colors.surfaceSecondary, 0.72),
-              ]}
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 1}}
-              style={styles.premiumCardInner}>
-              <View pointerEvents="none" style={styles.cardGlow} />
-              <View pointerEvents="none" style={styles.cardAccentLine} />
-
-              <View style={styles.cardHeader}>
-                <Animated.View style={iconStyle}>
-                  <LinearGradient
-                    colors={[theme.colors.primarySoft, theme.colors.surfaceSecondary]}
-                    start={{x: 0, y: 0}}
-                    end={{x: 1, y: 1}}
-                    style={styles.cardIcon}>
-                    <MaterialDesignIcons
-                      color={theme.colors.primary}
-                      name="shield-lock-outline"
-                      size={22}
-                    />
-                  </LinearGradient>
-                </Animated.View>
-
-                <View style={styles.cardHeaderCopy}>
-                  <Text style={styles.cardTitle}>{t('onboarding.welcome.cardTitle')}</Text>
-                  <Text style={styles.cardDescription}>
-                    {t('onboarding.welcome.cardDescription')}
-                  </Text>
-                </View>
-
-                <View style={styles.cardStatusBadge}>
-                  <View style={styles.cardStatusDot} />
-                  <Text style={styles.cardStatusText}>{t('onboarding.welcome.privateBadge')}</Text>
+                  <AwaText
+                    colorRole="primary"
+                    style={styles.lockupBrand}
+                    variant={narrow ? 'headlineLarge' : 'displaySmall'}
+                    weight="800">
+                    {' '}
+                    AWA
+                  </AwaText>
                 </View>
               </View>
 
-              <View style={styles.featureGrid}>
-                <Animated.View style={[styles.featureTile, featureOneStyle]}>
-                  <View style={styles.featureIcon}>
-                    <MaterialDesignIcons
-                      color={theme.colors.primary}
-                      name="calendar-month-outline"
-                      size={18}
-                    />
-                  </View>
-                  <Text style={styles.featureTitle}>{t('onboarding.welcome.feature1Title')}</Text>
-                  <Text style={styles.featureText}>{t('onboarding.welcome.feature1Text')}</Text>
-                </Animated.View>
-
-                <Animated.View style={[styles.featureTile, featureTwoStyle]}>
-                  <View style={styles.featureIcon}>
-                    <MaterialDesignIcons
-                      color={theme.colors.primary}
-                      name="lock-outline"
-                      size={18}
-                    />
-                  </View>
-                  <Text style={styles.featureTitle}>{t('onboarding.welcome.feature2Title')}</Text>
-                  <Text style={styles.featureText}>{t('onboarding.welcome.feature2Text')}</Text>
-                </Animated.View>
-
-                <Animated.View style={[styles.featureTile, featureThreeStyle]}>
-                  <View style={styles.featureIcon}>
-                    <MaterialDesignIcons
-                      color={theme.colors.primary}
-                      name="weather-night"
-                      size={18}
-                    />
-                  </View>
-                  <Text style={styles.featureTitle}>{t('onboarding.welcome.feature3Title')}</Text>
-                  <Text style={styles.featureText}>{t('onboarding.welcome.feature3Text')}</Text>
-                </Animated.View>
+              <View style={styles.brandDivider}>
+                <View style={styles.brandDividerLine} />
+                <View style={styles.brandDividerDot} />
+                <View style={styles.brandDividerLine} />
               </View>
-            </LinearGradient>
+
+              <AwaText
+                colorRole="onSurfaceVariant"
+                style={styles.subtitle}
+                variant="bodyMedium">
+                {t('onboarding.welcome.subtitle')}
+              </AwaText>
+            </Animated.View>
+          </View>
+
+          <View style={styles.middleSpacer} />
+
+          <Animated.View style={[styles.actions, {paddingBottom: bottomSpacing}, actionsStyle]}>
+            <AwaButton
+              accessibilityLabel={startLabel}
+              hitSlop={buttonHitSlop}
+              label={startLabel}
+              labelStyle={styles.buttonLabel}
+              onPress={() => navigation.navigate('Objective')}
+              size="large"
+              style={{width: buttonWidth}}
+              variant="filled"
+              weight={AWA_PRIMARY_ACTION_LABEL.fontWeight}
+            />
+
+            <AwaButton
+              accessibilityLabel={accountLabel}
+              hitSlop={buttonHitSlop}
+              label={accountLabel}
+              labelStyle={styles.buttonLabel}
+              onPress={() => navigation.navigate('Auth')}
+              size="large"
+              style={[styles.secondaryAction, {width: buttonWidth}]}
+              variant="outlined"
+              weight={AWA_PRIMARY_ACTION_LABEL.fontWeight}
+            />
           </Animated.View>
-
-          {/* ====================================================
-              ACTIONS
-          ===================================================== */}
-
-          <Animated.View
-            style={[
-              styles.actions,
-              {
-                paddingBottom: bottomSpacing,
-              },
-              actionsStyle,
-            ]}>
-            <Pressable
-              accessibilityLabel={t('onboarding.welcome.start')}
-              accessibilityRole="button"
-              onPress={() =>
-                navigation.navigate('Objective')
-              }
-              style={({pressed}) => [
-                styles.primaryButtonShadow,
-
-                {
-                  width: buttonWidth,
-                },
-
-                pressed &&
-                  styles.primaryButtonPressed,
-              ]}>
-              <LinearGradient
-                colors={[
-                  theme.colors.primary,
-                  theme.colors.accent,
-                ]}
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 1}}
-                style={[
-                  styles.primaryButton,
-                  compact &&
-                    styles.primaryButtonCompact,
-                ]}>
-                <Text
-                  style={[
-                    styles.primaryButtonText,
-                    compact &&
-                      styles.primaryButtonTextCompact,
-                  ]}>
-                  {t('onboarding.welcome.start')}
-                </Text>
-
-                <View
-                  style={[
-                    styles.arrowCircle,
-                    compact &&
-                      styles.arrowCircleCompact,
-                  ]}>
-                  <MaterialDesignIcons
-                    color={theme.colors.text}
-                    name="arrow-right"
-                    size={18}
-                  />
-                </View>
-              </LinearGradient>
-            </Pressable>
-
-            <Pressable
-              accessibilityLabel={t('onboarding.welcome.alreadyHaveAccount')}
-              accessibilityRole="button"
-              onPress={() =>
-                navigation.navigate('Auth')
-              }
-              style={({pressed}) => [
-                styles.loginButton,
-
-                {
-                  width: buttonWidth,
-                },
-
-                compact &&
-                  styles.loginButtonCompact,
-
-                pressed &&
-                  styles.loginButtonPressed,
-              ]}>
-              <Text
-                style={[
-                  styles.loginText,
-                  compact &&
-                    styles.loginTextCompact,
-                ]}>
-                {t('onboarding.welcome.alreadyHaveAccount')}
-              </Text>
-
-              <MaterialDesignIcons
-                color={theme.colors.textSecondary}
-                name="chevron-right"
-                size={18}
-              />
-            </Pressable>
-          </Animated.View>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </LinearGradient>
   );
@@ -557,10 +251,6 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    /* ==========================================================
-       GLOBAL
-    ========================================================== */
-
     background: {
       flex: 1,
       backgroundColor: theme.colors.background,
@@ -570,482 +260,89 @@ function createStyles(theme: ResolvedAwaTheme) {
       flex: 1,
     },
 
+    // ScrollView content container: at least one viewport tall (`flexGrow`), so the flexible spacer still pushes the
+    // buttons to the bottom when everything fits, and the content scrolls when it does not.
     page: {
-      flex: 1,
-      justifyContent: 'space-between',
+      flexGrow: 1,
       paddingHorizontal: 18,
     },
 
-    /* ==========================================================
-       BACKGROUND DECOR
-    ========================================================== */
-
-    backgroundDecoration: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
+    heroRegion: {
+      justifyContent: 'flex-start',
     },
 
-    glowTop: {
-      position: 'absolute',
-
-      top: -160,
-      right: -120,
-
-      width: 350,
-      height: 350,
-
-      borderRadius: 175,
-
-      backgroundColor: withAlpha(theme.colors.surface, 0.16),
+    middleSpacer: {
+      flex: 1,
+      minHeight: awaSpace.s24,
     },
-
-    glowLeft: {
-      position: 'absolute',
-
-      top: '36%',
-      left: -150,
-
-      width: 300,
-      height: 300,
-
-      borderRadius: 150,
-
-      backgroundColor: withAlpha(theme.colors.primary, 0.06),
-    },
-
-    glowBottom: {
-      position: 'absolute',
-
-      bottom: -175,
-      right: -125,
-
-      width: 350,
-      height: 350,
-
-      borderRadius: 175,
-
-      backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    },
-
-    /* ==========================================================
-       HERO
-    ========================================================== */
 
     hero: {
       alignItems: 'center',
-
       paddingHorizontal: 10,
     },
 
-    heroCompact: {
-      marginTop: -6,
+    // Brand lockup: serif is kept on purpose (AWA logotype / welcome title).
+    lockup: {
+      alignItems: 'center',
     },
 
-    welcomeTitle: {
-      color: theme.colors.text,
-
+    lockupTitle: {
       fontFamily: 'serif',
-
-      fontSize: 42,
-      lineHeight: 45,
-
-      fontWeight: '600',
-
       textAlign: 'center',
-    },
-
-    welcomeTitleCompact: {
-      fontSize: 35,
-      lineHeight: 38,
     },
 
     brandLine: {
       flexDirection: 'row',
       alignItems: 'baseline',
-
       marginTop: -6,
     },
 
-    chez: {
-      color: theme.colors.text,
-
+    lockupPrefix: {
       fontFamily: 'serif',
-
-      fontSize: 29,
-
       fontStyle: 'italic',
     },
 
-    chezCompact: {
-      fontSize: 25,
-    },
-
-    awa: {
-      color: theme.colors.primary,
-
+    lockupBrand: {
       fontFamily: 'serif',
-
-      fontSize: 41,
-      lineHeight: 46,
-
-      fontWeight: '800',
-
       letterSpacing: 0.5,
-    },
-
-    awaCompact: {
-      fontSize: 35,
     },
 
     brandDivider: {
       flexDirection: 'row',
       alignItems: 'center',
-
-      marginTop: 9,
+      marginTop: 8,
     },
 
     brandDividerLine: {
       width: 42,
       height: 1,
-
       backgroundColor: withAlpha(theme.colors.primary, 0.25),
     },
 
     brandDividerDot: {
       width: 5,
       height: 5,
-
       marginHorizontal: 9,
-
       borderRadius: 3,
-
       backgroundColor: theme.colors.primary,
     },
 
     subtitle: {
-      maxWidth: 330,
-
-      marginTop: 12,
-
-      color: theme.colors.textSecondary,
-
-      fontSize: 13,
-      lineHeight: 19,
-
+      maxWidth: 260,
+      marginTop: 8,
       textAlign: 'center',
     },
-
-    subtitleCompact: {
-      maxWidth: 290,
-
-      marginTop: 9,
-
-      fontSize: 12,
-      lineHeight: 17,
-    },
-
-    /* ==========================================================
-       PREMIUM CARD
-    ========================================================== */
-
-    premiumCard: {
-      width: '100%',
-      maxWidth: 370,
-      alignSelf: 'center',
-      marginVertical: 18,
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.surface, 0.46),
-      borderRadius: 26,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 10,
-      },
-      shadowOpacity: 0.14,
-      shadowRadius: 22,
-      elevation: 5,
-    },
-
-    premiumCardCompact: {
-      marginVertical: 12,
-    },
-
-    premiumCardInner: {
-      position: 'relative',
-      overflow: 'hidden',
-      borderRadius: 25,
-      paddingHorizontal: 15,
-      paddingTop: 15,
-      paddingBottom: 14,
-    },
-
-    cardGlow: {
-      position: 'absolute',
-      top: -60,
-      right: -50,
-      width: 170,
-      height: 170,
-      borderRadius: 85,
-      backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
-
-    cardAccentLine: {
-      position: 'absolute',
-      top: 0,
-      left: 24,
-      right: 24,
-      height: 2,
-      borderRadius: 2,
-      backgroundColor: withAlpha(theme.colors.primary, 0.18),
-    },
-
-    cardHeader: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: 14,
-    },
-
-    cardIcon: {
-      width: 44,
-      height: 44,
-      flexShrink: 0,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.12),
-      borderRadius: 14,
-    },
-
-    cardHeaderCopy: {
-      flex: 1,
-      minWidth: 0,
-      marginLeft: 10,
-    },
-
-    cardTitle: {
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 15.5,
-      lineHeight: 19,
-      fontWeight: '700',
-    },
-
-    cardDescription: {
-      marginTop: 2,
-      color: theme.colors.textSecondary,
-      fontSize: 10.5,
-      lineHeight: 14,
-    },
-
-    cardStatusBadge: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 5,
-      marginLeft: 8,
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.1),
-      borderRadius: 999,
-      backgroundColor: withAlpha(theme.colors.surface, 0.48),
-      paddingHorizontal: 8,
-      paddingVertical: 5,
-    },
-
-    cardStatusDot: {
-      width: 6,
-      height: 6,
-      borderRadius: 3,
-      backgroundColor: theme.colors.primary,
-    },
-
-    cardStatusText: {
-      color: theme.colors.textSecondary,
-      fontSize: 9.5,
-      fontWeight: '700',
-    },
-
-    featureGrid: {
-      flexDirection: 'row',
-      gap: 8,
-    },
-
-    featureTile: {
-      flex: 1,
-      minHeight: 86,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.08),
-      borderRadius: 16,
-      backgroundColor: withAlpha(theme.colors.surface, 0.3),
-      paddingHorizontal: 6,
-      paddingVertical: 10,
-    },
-
-    featureIcon: {
-      width: 32,
-      height: 32,
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginBottom: 7,
-      borderRadius: 10,
-      backgroundColor: withAlpha(theme.colors.primarySoft, 0.86),
-    },
-
-    featureTitle: {
-      color: theme.colors.text,
-      fontSize: 10.5,
-      fontWeight: '700',
-      textAlign: 'center',
-    },
-
-    featureText: {
-      marginTop: 2,
-      color: theme.colors.textSecondary,
-      fontSize: 9,
-      lineHeight: 12,
-      textAlign: 'center',
-    },
-
-    /* ==========================================================
-       ACTIONS
-    ========================================================== */
 
     actions: {
       alignItems: 'center',
     },
 
-    primaryButtonShadow: {
-      borderRadius: 19,
-
-      shadowColor: theme.shadow.shadowColor,
-
-      shadowOffset: {
-        width: 0,
-        height: 8,
-      },
-
-      shadowOpacity: 0.24,
-      shadowRadius: 14,
-
-      elevation: 7,
+    buttonLabel: {
+      fontSize: LABEL_FONT_SIZE,
     },
 
-    primaryButton: {
-      minHeight: 56,
-
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-
-      borderRadius: 19,
-
-      paddingHorizontal: 12,
-    },
-
-    primaryButtonCompact: {
-      minHeight: 50,
-
-      borderRadius: 18,
-    },
-
-    primaryButtonPressed: {
-      opacity: 0.9,
-
-      transform: [
-        {
-          scale: 0.985,
-        },
-      ],
-    },
-
-    primaryButtonText: {
-      color: onPrimaryTextColor(theme),
-
-      fontFamily: 'serif',
-
-      fontSize: 18,
-
-      fontWeight: '700',
-    },
-
-    primaryButtonTextCompact: {
-      fontSize: 16.5,
-    },
-
-    arrowCircle: {
-      position: 'absolute',
-
-      right: 10,
-
-      width: 36,
-      height: 36,
-
-      alignItems: 'center',
-      justifyContent: 'center',
-
-      borderRadius: 12,
-
-      backgroundColor: withAlpha(onPrimaryTextColor(theme), 0.92),
-    },
-
-    arrowCircleCompact: {
-      width: 32,
-      height: 32,
-
-      borderRadius: 11,
-    },
-
-    /* ==========================================================
-       LOGIN
-    ========================================================== */
-
-    loginButton: {
-      minHeight: 49,
-
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-
-      gap: 5,
-
-      marginTop: 10,
-
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.surface, 0.4),
-
-      borderRadius: 17,
-
-      backgroundColor: withAlpha(theme.colors.surface, 0.2),
-    },
-
-    loginButtonCompact: {
-      minHeight: 45,
-
-      borderRadius: 16,
-    },
-
-    loginButtonPressed: {
-      opacity: 0.72,
-
-      transform: [
-        {
-          scale: 0.99,
-        },
-      ],
-    },
-
-    loginText: {
-      color: theme.colors.text,
-
-      fontFamily: 'serif',
-
-      fontSize: 14.5,
-
-      fontWeight: '700',
-    },
-
-    loginTextCompact: {
-      fontSize: 13.5,
+    secondaryAction: {
+      marginTop: BUTTON_GAP,
     },
   });
 }

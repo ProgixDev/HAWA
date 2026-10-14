@@ -8,12 +8,10 @@ import {
   Animated,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   TextInput,
   View,
 } from 'react-native';
@@ -27,10 +25,6 @@ import {
 } from 'react-native-safe-area-context';
 
 import LinearGradient from 'react-native-linear-gradient';
-
-import {
-  MaterialDesignIcons,
-} from '@react-native-vector-icons/material-design-icons';
 
 import {useTranslation} from 'react-i18next';
 
@@ -48,14 +42,43 @@ import {
   updatePersonalInformation,
 } from '../state/personalInformationStore';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import type {ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import type {AwaRoles} from '../theme/semanticRoles';
+import {awaShapes} from '../theme/shapes';
+import {awaSpace} from '../theme/spaceScale';
+import {AWA_PRIMARY_ACTION_LABEL, AWA_TYPESCALE} from '../theme/typescale';
+import {useAwaTokens} from '../theme/useAwaTokens';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaIcon} from '../components/ui/AwaIcon';
+import {AwaText} from '../components/ui/AwaText';
+
+// Phase 3 pilot (Material 3 design system): typography roles, shared AwaText / AwaButton / AwaIcon, token shapes and
+// semantic roles. Simplified form: one profile icon, eyebrow, heading, one short subtitle, a labelled outlined input
+// with its counter, one primary button and one helper line. Unchanged on purpose: the name state, the save / navigate
+// logic and its failure path, the native TextInput with its props (maxLength, autoCapitalize, returnKeyType,
+// onSubmitEditing …), the animated focus ring, keyboard handling and the empty-name behaviour. The preview card, the
+// information card, the shield / edit / valid icons and the arrow in the button are no longer shown (their keys stay).
+// Copy: the field label reuses `cardTitle`; the subtitle, placeholder and helper line are the `form*` keys added for
+// this form in all 8 locales.
+// Layout: the block sits in the upper part of the screen (free space split 1 : 2 above / below), not dead centre. The
+// primary button is the documented AwaButton (large, filled, pill) with the shared primary-action label; the screen adds
+// only its top margin.
 
 /* ============================================================
    CONSTANTS
 ============================================================ */
 
 const MAX_NAME_LENGTH = 40;
+
+/**
+ * Free vertical space is shared between a spacer above the form and one below it. 1 : 2 puts the whole block (icon,
+ * label, heading and subtitle, then the form under them) in the upper part of the screen instead of dead centre, and the
+ * spacing inside the block is untouched. With no free space (large font, long translation, keyboard open) both spacers
+ * collapse to zero and the content simply starts at the top.
+ */
+const SPACE_ABOVE_WEIGHT = 1;
+const SPACE_BELOW_WEIGHT = 2;
 
 type Props =
   NativeStackScreenProps<
@@ -71,182 +94,76 @@ function NameOnboardingScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t} = useTranslation();
-  const insets =
-    useSafeAreaInsets();
+  const insets = useSafeAreaInsets();
 
   const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
+  const {roles} = useAwaTokens();
+  const styles = useMemo(() => createStyles(theme, roles), [theme, roles]);
 
-  const [
-    name,
-    setName,
-  ] =
-    useState(
-      () =>
-        getCachedPersonalInformation()
-          .preferredName,
-    );
+  const [name, setName] = useState(
+    () => getCachedPersonalInformation().preferredName,
+  );
 
-  const [
-    saving,
-    setSaving,
-  ] =
-    useState(false);
+  const [saving, setSaving] = useState(false);
 
-  const focusAnim =
-    useRef(
-      new Animated.Value(0),
-    ).current;
+  const focusAnim = useRef(new Animated.Value(0)).current;
 
-  const hasName =
-    name.trim().length > 0;
+  const handleFocus = () => {
+    Animated.timing(focusAnim, {
+      toValue: 1,
+      duration: 180,
+      useNativeDriver: false,
+    }).start();
+  };
 
-  const handleFocus =
-    () => {
-      Animated.timing(
-        focusAnim,
-        {
-          toValue: 1,
-          duration: 180,
-          useNativeDriver: false,
-        },
-      ).start();
-    };
+  const handleBlur = () => {
+    Animated.timing(focusAnim, {
+      toValue: 0,
+      duration: 180,
+      useNativeDriver: false,
+    }).start();
+  };
 
-  const handleBlur =
-    () => {
-      Animated.timing(
-        focusAnim,
-        {
-          toValue: 0,
-          duration: 180,
-          useNativeDriver: false,
-        },
-      ).start();
-    };
+  const handleNext = async () => {
+    if (saving) {
+      return;
+    }
 
-  const handleNext =
-    async () => {
-      if (saving) {
-        return;
-      }
+    try {
+      setSaving(true);
 
-      try {
-        setSaving(
-          true,
-        );
+      await updatePersonalInformation({
+        preferredName: name.trim(),
+      });
 
-        await updatePersonalInformation(
-          {
-            preferredName:
-              name.trim(),
-          },
-        );
+      navigation.navigate('SpiritualPreferences');
+    } catch (saveError) {
+      // Not persisted: stay here with the typed name (see services/saveFailure.ts).
+      presentSaveFailure(saveError);
+    } finally {
+      setSaving(false);
+    }
+  };
 
-        navigation.navigate(
-          'SpiritualPreferences',
-        );
-      } catch (saveError) {
-        // Not persisted: stay here with the typed name (see services/saveFailure.ts).
-        presentSaveFailure(saveError);
-      } finally {
-        setSaving(
-          false,
-        );
-      }
-    };
+  // The resting border is the `outline` role (>= 3:1 on the surface); focus moves it to the primary colour.
+  const animatedBorder = focusAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [roles.outline, roles.primary],
+  });
 
-  const animatedBorder =
-    focusAnim.interpolate(
-      {
-        inputRange:
-          [0, 1],
-
-        outputRange: [
-          withAlpha(theme.colors.primary, 0.14),
-          withAlpha(theme.colors.primary, 0.55),
-        ],
-      },
-    );
-
-  const animatedShadow =
-    focusAnim.interpolate(
-      {
-        inputRange:
-          [0, 1],
-
-        outputRange:
-          [0, 0.16],
-      },
-    );
+  const animatedShadow = focusAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 0.16],
+  });
 
   return (
     <LinearGradient
       colors={[...theme.gradients.pageBackground]}
-      locations={[
-        0,
-        0.32,
-        0.7,
-        1,
-      ]}
-      start={{
-        x: 0,
-        y: 0,
-      }}
-      end={{
-        x: 1,
-        y: 1,
-      }}
-      style={
-        styles.background
-      }>
-
-      {/* =====================================================
-          BACKGROUND DECOR
-      ===================================================== */}
-
-      <View
-        pointerEvents="none"
-        style={
-          styles.pageBackgroundDecor
-        }>
-
-        <View
-          style={
-            styles.pageGlowTop
-          }
-        />
-
-        <View
-          style={
-            styles.pageGlowMiddle
-          }
-        />
-
-        <View
-          style={
-            styles.pageGlowBottom
-          }
-        />
-
-        <View
-          style={
-            styles.ringTop
-          }
-        />
-
-        <View
-          style={
-            styles.ringBottom
-          }
-        />
-      </View>
-
-      <SafeAreaView
-        style={
-          styles.safeArea
-        }>
-
+      locations={[0, 0.32, 0.7, 1]}
+      start={{x: 0, y: 0}}
+      end={{x: 1, y: 1}}
+      style={styles.background}>
+      <SafeAreaView style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
           barStyle={theme.statusBarStyle}
@@ -254,395 +171,99 @@ function NameOnboardingScreen({
         />
 
         <KeyboardAvoidingView
-          behavior={
-            Platform.OS ===
-            'ios'
-              ? 'padding'
-              : undefined
-          }
-          style={
-            styles.flex
-          }>
-
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          style={styles.flex}>
           <ScrollView
             contentContainerStyle={[
               styles.content,
-
               {
-                paddingTop:
-                  getTopPadding(
-                    insets.top,
-                  ),
-
-                paddingBottom:
-                  Math.max(
-                    insets.bottom,
-                    16,
-                  ) +
-                  spacing.sm,
+                paddingTop: getTopPadding(insets.top),
+                paddingBottom: Math.max(insets.bottom, 16) + spacing.sm,
               },
             ]}
             keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={
-              false
-            }>
+            showsVerticalScrollIndicator={false}>
+            <View style={styles.spaceAbove} />
 
-            {/* =================================================
-                BRAND MARK
-            ================================================= */}
-
-            <View
-              style={
-                styles.brandBlock
-              }>
-
-              <View
-                style={
-                  styles.brandIconOuter
-                }>
-
-                <LinearGradient
-                  colors={[
-                    theme.colors.primarySoft,
-                    theme.colors.surfaceSecondary,
-                  ]}
-                  start={{
-                    x: 0,
-                    y: 0,
-                  }}
-                  end={{
-                    x: 1,
-                    y: 1,
-                  }}
-                  style={
-                    styles.brandIcon
-                  }>
-
-                  <MaterialDesignIcons
-                    color={
-                      theme.colors.primary
-                    }
-                    name="account-heart-outline"
-                    size={29}
-                  />
-                </LinearGradient>
-
-                <View
-                  style={
-                    styles.brandAccent
-                  }>
-
-                  <MaterialDesignIcons
-                    color={onPrimaryTextColor(theme)}
-                    name="star-four-points"
-                    size={10}
-                  />
-                </View>
+            {/* HEADER */}
+            <View style={styles.header}>
+              <View style={styles.profileIcon}>
+                <AwaIcon colorRole="onPrimaryContainer" decorative name="account-outline" size="md" />
               </View>
 
-              <Text
-                style={
-                  styles.brandEyebrow
-                }>
+              <AwaText
+                colorRole="primary"
+                emphasized
+                style={styles.eyebrow}
+                variant="labelSmall">
                 {t('onboarding.name.eyebrow')}
-              </Text>
-            </View>
+              </AwaText>
 
-            {/* =================================================
-                HEADER
-            ================================================= */}
-
-            <View
-              style={
-                styles.header
-              }>
-
-              <Text
-                style={
-                  styles.title
-                }>
+              <AwaText style={styles.title} variant="headlineMedium" weight="700">
                 {t('onboarding.name.title')}
-              </Text>
+              </AwaText>
 
-              <Text
-                style={
-                  styles.subtitle
-                }>
-                {t('onboarding.name.subtitle')}
-              </Text>
+              <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">
+                {t('onboarding.name.formSubtitle')}
+              </AwaText>
             </View>
 
-            {/* =================================================
-                NAME CARD
-            ================================================= */}
+            {/* NAME FIELD */}
+            <AwaText emphasized style={styles.fieldLabel} variant="titleSmall">
+              {t('onboarding.name.cardTitle')}
+            </AwaText>
 
-            <View
-              style={
-                styles.formCard
-              }>
-
-              <View
-                style={
-                  styles.formCardHeader
-                }>
-
-                <View
-                  style={
-                    styles.formCardIcon
-                  }>
-
-                  <MaterialDesignIcons
-                    color={
-                      theme.colors.primary
-                    }
-                    name="account-outline"
-                    size={20}
-                  />
-                </View>
-
-                <View
-                  style={
-                    styles.formCardHeaderCopy
-                  }>
-
-                  <Text
-                    style={
-                      styles.formCardTitle
-                    }>
-                    {t('onboarding.name.cardTitle')}
-                  </Text>
-
-                  <Text
-                    style={
-                      styles.formCardSubtitle
-                    }>
-                    {t('onboarding.name.cardSubtitle')}
-                  </Text>
-                </View>
-              </View>
-
-              <Animated.View
-                style={[
-                  styles.inputCard,
-
-                  {
-                    borderColor:
-                      animatedBorder,
-
-                    shadowOpacity:
-                      animatedShadow,
-                  },
-                ]}>
-
-                <MaterialDesignIcons
-                  color={
-                    hasName
-                      ? theme.colors.primary
-                      : theme.colors.textMuted
-                  }
-                  name="account-edit-outline"
-                  size={21}
-                />
-
-                <TextInput
-                  accessibilityLabel={t('onboarding.name.inputLabel')}
-                  autoCapitalize="words"
-                  autoCorrect={false}
-                  maxLength={
-                    MAX_NAME_LENGTH
-                  }
-                  onBlur={
-                    handleBlur
-                  }
-                  onChangeText={
-                    setName
-                  }
-                  onFocus={
-                    handleFocus
-                  }
-                  onSubmitEditing={
-                    handleNext
-                  }
-                  placeholder={t('onboarding.name.inputPlaceholder')}
-                  placeholderTextColor={theme.colors.textMuted}
-                  returnKeyType="done"
-                  selectionColor={
-                    theme.colors.primary
-                  }
-                  style={
-                    styles.input
-                  }
-                  value={
-                    name
-                  }
-                />
-
-                {hasName ? (
-                  <View
-                    style={
-                      styles.validIcon
-                    }>
-
-                    <MaterialDesignIcons
-                      color={
-                        theme.colors.success
-                      }
-                      name="check"
-                      size={14}
-                    />
-                  </View>
-                ) : null}
-              </Animated.View>
-
-              <View
-                style={
-                  styles.inputMetaRow
-                }>
-
-                <View
-                  style={
-                    styles.privacyMeta
-                  }>
-
-                  <MaterialDesignIcons
-                    color={
-                      theme.colors.primary
-                    }
-                    name="shield-lock-outline"
-                    size={13}
-                  />
-
-                  <Text
-                    style={
-                      styles.privacyMetaText
-                    }>
-                    {t('onboarding.name.privacyHint')}
-                  </Text>
-                </View>
-
-                <Text
-                  style={
-                    styles.counter
-                  }>
-                  {name.length}/{MAX_NAME_LENGTH}
-                </Text>
-              </View>
-            </View>
-
-            {/* =================================================
-                EXAMPLE
-            ================================================= */}
-
-            <View
-              style={
-                styles.previewCard
-              }>
-
-              <View
-                style={
-                  styles.previewIcon
-                }>
-
-                <MaterialDesignIcons
-                  color={
-                    theme.colors.primary
-                  }
-                  name="message-text-outline"
-                  size={17}
-                />
-              </View>
-
-              <View
-                style={
-                  styles.previewCopy
-                }>
-
-                <Text
-                  style={
-                    styles.previewLabel
-                  }>
-                  {t('onboarding.name.previewLabel')}
-                </Text>
-
-                <Text
-                  style={
-                    styles.previewText
-                  }>
-                  {hasName
-                    ? t('onboarding.name.previewGreeting', {name: name.trim()})
-                    : t('onboarding.name.previewGreetingNoName')}
-                </Text>
-              </View>
-            </View>
-
-            {/* =================================================
-                NEXT
-            ================================================= */}
-
-            <Pressable
-              accessibilityRole="button"
-              disabled={
-                saving
-              }
-              onPress={
-                handleNext
-              }
-              style={({pressed}) => [
-                styles.nextButtonWrapper,
-
-                pressed &&
-                  styles.pressed,
-
-                saving &&
-                  styles.disabled,
+            <Animated.View
+              style={[
+                styles.inputBox,
+                {
+                  borderColor: animatedBorder,
+                  shadowOpacity: animatedShadow,
+                },
               ]}>
+              <TextInput
+                accessibilityLabel={t('onboarding.name.inputLabel')}
+                autoCapitalize="words"
+                autoCorrect={false}
+                maxLength={MAX_NAME_LENGTH}
+                onBlur={handleBlur}
+                onChangeText={setName}
+                onFocus={handleFocus}
+                onSubmitEditing={handleNext}
+                placeholder={t('onboarding.name.formPlaceholder')}
+                placeholderTextColor={roles.accessible.onSurfaceVariant}
+                returnKeyType="done"
+                selectionColor={theme.colors.primary}
+                style={styles.input}
+                value={name}
+              />
+            </Animated.View>
 
-              <LinearGradient
-                colors={[
-                  theme.colors.primary,
-                  theme.colors.accent,
-                ]}
-                start={{
-                  x: 0,
-                  y: 0,
-                }}
-                end={{
-                  x: 1,
-                  y: 0,
-                }}
-                style={
-                  styles.nextButton
-                }>
+            <AwaText colorRole="onSurfaceVariant" style={styles.counter} variant="bodySmall">
+              {name.length}/{MAX_NAME_LENGTH}
+            </AwaText>
 
-                <Text
-                  style={
-                    styles.nextText
-                  }>
-                  {saving
-                    ? t('onboarding.name.saving')
-                    : t('onboarding.name.next')}
-                </Text>
+            {/* NEXT */}
+            <AwaButton
+              disabled={saving}
+              fullWidth
+              label={saving ? t('onboarding.name.saving') : t('onboarding.name.next')}
+              labelStyle={styles.ctaLabel}
+              onPress={handleNext}
+              size="large"
+              style={styles.nextButton}
+              variant="filled"
+              weight={AWA_PRIMARY_ACTION_LABEL.fontWeight}
+            />
 
-                <View
-                  style={
-                    styles.nextArrow
-                  }>
+            <AwaText
+              colorRole="onSurfaceVariant"
+              style={styles.footerText}
+              variant="bodySmall">
+              {t('onboarding.name.formFooter')}
+            </AwaText>
 
-                  <MaterialDesignIcons
-                    color={onPrimaryTextColor(theme)}
-                    name="arrow-right"
-                    size={19}
-                  />
-                </View>
-              </LinearGradient>
-            </Pressable>
-
-            <Text
-              style={
-                styles.footerText
-              }>
-              {t('onboarding.name.footer')}
-            </Text>
+            <View style={styles.spaceBelow} />
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -654,13 +275,11 @@ function NameOnboardingScreen({
    STYLES
 ============================================================ */
 
-function createStyles(theme: ResolvedAwaTheme) {
+function createStyles(theme: ResolvedAwaTheme, roles: AwaRoles) {
   return StyleSheet.create({
     background: {
       flex: 1,
-
-      backgroundColor:
-        theme.colors.background,
+      backgroundColor: theme.colors.background,
     },
 
     flex: {
@@ -671,656 +290,95 @@ function createStyles(theme: ResolvedAwaTheme) {
       flex: 1,
     },
 
-    /* ========================================================
-       BACKGROUND
-    ======================================================== */
-
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
-
-      overflow:
-        'hidden',
-    },
-
-    pageGlowTop: {
-      position:
-        'absolute',
-
-      top: -160,
-      right: -110,
-
-      width: 340,
-      height: 340,
-
-      borderRadius: 170,
-
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.09),
-    },
-
-    pageGlowMiddle: {
-      position:
-        'absolute',
-
-      top: '38%',
-      left: -145,
-
-      width: 285,
-      height: 285,
-
-      borderRadius: 143,
-
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.055),
-    },
-
-    pageGlowBottom: {
-      position:
-        'absolute',
-
-      bottom: -165,
-      right: -95,
-
-      width: 320,
-      height: 320,
-
-      borderRadius: 160,
-
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.065),
-    },
-
-    ringTop: {
-      position:
-        'absolute',
-
-      top: 105,
-      right: -65,
-
-      width: 145,
-      height: 145,
-
-      borderWidth: 1,
-
-      borderColor:
-        withAlpha(theme.colors.primary, 0.05),
-
-      borderRadius: 73,
-    },
-
-    ringBottom: {
-      position:
-        'absolute',
-
-      bottom: 115,
-      left: -55,
-
-      width: 120,
-      height: 120,
-
-      borderWidth: 1,
-
-      borderColor:
-        withAlpha(theme.colors.primary, 0.04),
-
-      borderRadius: 60,
-    },
-
-    /* ========================================================
-       CONTENT
-    ======================================================== */
-
+    // Not centred: the two spacers below share the free space (see SPACE_ABOVE_WEIGHT / SPACE_BELOW_WEIGHT).
     content: {
       flexGrow: 1,
-
-      justifyContent:
-        'center',
-
-      paddingHorizontal:
-        spacing.lg,
+      paddingHorizontal: spacing.lg,
     },
 
-    /* ========================================================
-       BRAND
-    ======================================================== */
-
-    brandBlock: {
-      alignItems:
-        'center',
-
-      marginBottom: 16,
+    spaceAbove: {
+      flex: SPACE_ABOVE_WEIGHT,
     },
 
-    brandIconOuter: {
-      position:
-        'relative',
-
-      width: 68,
-      height: 68,
-
-      alignItems:
-        'center',
-
-      justifyContent:
-        'center',
+    spaceBelow: {
+      flex: SPACE_BELOW_WEIGHT,
     },
 
-    brandIcon: {
-      width: 62,
-      height: 62,
-
-      alignItems:
-        'center',
-
-      justifyContent:
-        'center',
-
-      borderWidth: 1,
-
-      borderColor:
-        withAlpha(theme.colors.primary, 0.10),
-
-      borderRadius: 21,
-
-      shadowColor:
-        theme.shadow.shadowColor,
-
-      shadowOffset: {
-        width: 0,
-        height: 4,
-      },
-
-      shadowOpacity:
-        0.07,
-
-      shadowRadius:
-        8,
-
-      elevation: 2,
+    header: {
+      alignItems: 'center',
+      marginBottom: awaSpace.s32,
     },
 
-    brandAccent: {
-      position:
-        'absolute',
-
-      right: 0,
-      bottom: 0,
-
-      width: 24,
-      height: 24,
-
-      alignItems:
-        'center',
-
-      justifyContent:
-        'center',
-
-      borderWidth: 3,
-
-      borderColor:
-        theme.colors.background,
-
-      borderRadius: 12,
-
-      backgroundColor:
-        theme.colors.primary,
+    profileIcon: {
+      width: 56,
+      height: 56,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: awaShapes.full,
+      backgroundColor: roles.primaryContainer,
     },
 
-    brandEyebrow: {
-      marginTop: 7,
-
-      color:
-        theme.colors.primary,
-
-      fontSize: 8,
-
-      fontWeight:
-        '900',
-
+    eyebrow: {
+      marginTop: awaSpace.s16,
       letterSpacing: 1.25,
     },
 
-    /* ========================================================
-       HEADER
-    ======================================================== */
-
-    header: {
-      alignItems:
-        'center',
-
-      marginBottom:
-        spacing.lg,
-    },
-
     title: {
-      color:
-        theme.colors.text,
-
-      fontFamily:
-        'serif',
-
-      fontSize: 29,
-
-      fontWeight:
-        '700',
-
-      lineHeight: 36,
-
-      textAlign:
-        'center',
-
-      letterSpacing:
-        -0.2,
+      marginTop: awaSpace.s8,
+      textAlign: 'center',
     },
 
     subtitle: {
       maxWidth: 340,
-
-      marginTop: 11,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 13.5,
-
-      lineHeight: 20,
-
-      textAlign:
-        'center',
+      marginTop: awaSpace.s8,
+      textAlign: 'center',
     },
 
-    /* ========================================================
-       FORM CARD
-    ======================================================== */
-
-    formCard: {
-      borderWidth: 1,
-
-      borderColor:
-        withAlpha(theme.colors.primary, 0.10),
-
-      borderRadius: 24,
-
-      backgroundColor:
-        withAlpha(theme.colors.surface, 0.78),
-
-      padding: 14,
-
-      shadowColor:
-        theme.shadow.shadowColor,
-
-      shadowOffset: {
-        width: 0,
-        height: 5,
-      },
-
-      shadowOpacity:
-        0.07,
-
-      shadowRadius:
-        14,
-
-      elevation: 3,
+    fieldLabel: {
+      marginBottom: awaSpace.s8,
     },
 
-    formCardHeader: {
-      flexDirection:
-        'row',
-
-      alignItems:
-        'center',
-
-      marginBottom: 12,
-    },
-
-    formCardIcon: {
-      width: 38,
-      height: 38,
-
-      flexShrink: 0,
-
-      alignItems:
-        'center',
-
-      justifyContent:
-        'center',
-
-      borderRadius: 13,
-
-      backgroundColor:
-        theme.colors.primarySoft,
-    },
-
-    formCardHeaderCopy: {
-      flex: 1,
-
-      minWidth: 0,
-
-      marginLeft: 9,
-    },
-
-    formCardTitle: {
-      color:
-        theme.colors.text,
-
-      fontSize: 12.5,
-
-      fontWeight:
-        '800',
-    },
-
-    formCardSubtitle: {
-      marginTop: 2,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 9.5,
-
-      lineHeight: 13,
-    },
-
-    /* ========================================================
-       INPUT
-    ======================================================== */
-
-    inputCard: {
-      minHeight: 60,
-
-      flexDirection:
-        'row',
-
-      alignItems:
-        'center',
-
+    inputBox: {
+      minHeight: 56,
+      justifyContent: 'center',
       borderWidth: 1.3,
-
-      borderRadius: 18,
-
-      backgroundColor:
-        theme.colors.surface,
-
-      paddingHorizontal: 13,
-
-      shadowColor:
-        theme.shadow.shadowColor,
-
+      borderRadius: awaShapes.large,
+      backgroundColor: theme.colors.surface,
+      paddingHorizontal: awaSpace.s16,
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {
         width: 0,
         height: 4,
       },
-
       shadowRadius: 9,
-
       elevation: 1,
     },
 
     input: {
-      flex: 1,
-
-      minWidth: 0,
-
-      marginLeft: 9,
-
-      color:
-        theme.colors.text,
-
-      fontSize: 16,
-
-      fontWeight:
-        '600',
-
+      color: roles.onSurface,
+      fontSize: AWA_TYPESCALE.bodyLarge.fontSize,
+      // The emphasized body weight (Medium, a face Android really has) instead of a 600 literal that rendered as Medium.
+      fontWeight: AWA_TYPESCALE.bodyLarge.fontWeightEmphasized,
       paddingVertical: 0,
     },
 
-    validIcon: {
-      width: 28,
-      height: 28,
-
-      flexShrink: 0,
-
-      alignItems:
-        'center',
-
-      justifyContent:
-        'center',
-
-      borderRadius: 9,
-
-      backgroundColor:
-        withAlpha(theme.colors.success, 0.15),
-    },
-
-    inputMetaRow: {
-      flexDirection:
-        'row',
-
-      alignItems:
-        'center',
-
-      justifyContent:
-        'space-between',
-
-      marginTop: 9,
-    },
-
-    privacyMeta: {
-      flexDirection:
-        'row',
-
-      alignItems:
-        'center',
-
-      gap: 5,
-    },
-
-    privacyMetaText: {
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 9.5,
-    },
-
     counter: {
-      color:
-        theme.colors.textMuted,
-
-      fontSize: 9,
-    },
-
-    /* ========================================================
-       PREVIEW
-    ======================================================== */
-
-    previewCard: {
-      minHeight: 60,
-
-      flexDirection:
-        'row',
-
-      alignItems:
-        'center',
-
-      marginTop: 12,
-
-      borderWidth: 1,
-
-      borderColor:
-        withAlpha(theme.colors.primary, 0.09),
-
-      borderRadius: 18,
-
-      backgroundColor:
-        withAlpha(theme.colors.surfaceSecondary, 0.76),
-
-      paddingHorizontal: 12,
-
-      paddingVertical: 9,
-    },
-
-    previewIcon: {
-      width: 37,
-      height: 37,
-
-      flexShrink: 0,
-
-      alignItems:
-        'center',
-
-      justifyContent:
-        'center',
-
-      borderRadius: 12,
-
-      backgroundColor:
-        theme.colors.surface,
-    },
-
-    previewCopy: {
-      flex: 1,
-
-      minWidth: 0,
-
-      marginLeft: 9,
-    },
-
-    previewLabel: {
-      color:
-        theme.colors.primary,
-
-      fontSize: 8,
-
-      fontWeight:
-        '800',
-
-      letterSpacing:
-        0.7,
-    },
-
-    previewText: {
-      marginTop: 2,
-
-      color:
-        theme.colors.text,
-
-      fontSize: 12.5,
-
-      fontWeight:
-        '700',
-    },
-
-    /* ========================================================
-       BUTTON
-    ======================================================== */
-
-    nextButtonWrapper: {
-      marginTop:
-        spacing.md,
-
-      borderRadius: 20,
-
-      shadowColor:
-        theme.shadow.shadowColor,
-
-      shadowOffset: {
-        width: 0,
-        height: 6,
-      },
-
-      shadowOpacity:
-        0.23,
-
-      shadowRadius:
-        10,
-
-      elevation: 5,
+      alignSelf: 'flex-end',
+      marginTop: awaSpace.s8,
     },
 
     nextButton: {
-      minHeight: 54,
-
-      flexDirection:
-        'row',
-
-      alignItems:
-        'center',
-
-      justifyContent:
-        'center',
-
-      overflow:
-        'hidden',
-
-      borderRadius: 20,
+      marginTop: awaSpace.s24,
     },
 
-    nextText: {
-      color:
-        onPrimaryTextColor(theme),
-
-      fontSize: 17,
-
-      fontWeight:
-        '800',
-
-      letterSpacing:
-        0.1,
-    },
-
-    nextArrow: {
-      position:
-        'absolute',
-
-      right: 9,
-
-      width: 38,
-      height: 38,
-
-      alignItems:
-        'center',
-
-      justifyContent:
-        'center',
-
-      borderWidth: 1,
-
-      borderColor:
-        withAlpha(onPrimaryTextColor(theme), 0.28),
-
-      borderRadius: 19,
-
-      backgroundColor:
-        withAlpha(onPrimaryTextColor(theme), 0.10),
+    // Same primary-action label as the Welcome buttons: only size (and, on the button, weight) are overridden.
+    ctaLabel: {
+      fontSize: AWA_PRIMARY_ACTION_LABEL.fontSize,
     },
 
     footerText: {
-      marginTop: 11,
-
-      color:
-        theme.colors.textMuted,
-
-      fontSize: 9.5,
-
-      textAlign:
-        'center',
-    },
-
-    /* ========================================================
-       STATES
-    ======================================================== */
-
-    pressed: {
-      opacity: 0.86,
-
-      transform: [
-        {
-          scale: 0.99,
-        },
-      ],
-    },
-
-    disabled: {
-      opacity: 0.55,
+      marginTop: awaSpace.s16,
+      textAlign: 'center',
     },
   });
 }
