@@ -512,8 +512,8 @@ describe('editorial content: library articles, pregnancy weeks, legal text', () 
   });
 
   it('legal placeholder text exists in Turkish with the same sections as English', () => {
-    expect(Object.keys(TERMS).sort()).toEqual(['de', 'en', 'es', 'fr', 'ru', 'tr']);
-    expect(Object.keys(PRIVACY).sort()).toEqual(['de', 'en', 'es', 'fr', 'ru', 'tr']);
+    expect(Object.keys(TERMS).sort()).toEqual(['de', 'en', 'es', 'fr', 'ru', 'tr', 'zh']);
+    expect(Object.keys(PRIVACY).sort()).toEqual(['de', 'en', 'es', 'fr', 'ru', 'tr', 'zh']);
     expect(TERMS.tr).toHaveLength(TERMS.en.length);
     expect(PRIVACY.tr).toHaveLength(PRIVACY.en.length);
     TERMS.tr.concat(PRIVACY.tr).forEach(section => {

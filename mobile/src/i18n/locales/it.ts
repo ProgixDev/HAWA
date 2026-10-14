@@ -153,6 +153,7 @@ export const it = {
       turkishName: 'Türkçe',
       russianName: 'Русский',
       germanName: 'Deutsch',
+      chineseName: '简体中文',
     },
   },
   cycleHome: {
@@ -7188,6 +7189,9 @@ export const it = {
       saving: 'Salvataggio…',
       next: 'Avanti',
       footer: 'Potrai modificare questo nome più tardi dal tuo profilo.',
+      formSubtitle: 'Usa il tuo nome o un soprannome.',
+      formPlaceholder: 'Es. Maria',
+      formFooter: 'Potrai modificarlo più tardi dal tuo profilo.',
     },
     spiritual: {
       title: 'Vuoi attivare\ni riferimenti spirituali?',

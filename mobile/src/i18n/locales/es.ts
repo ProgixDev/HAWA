@@ -166,6 +166,7 @@ export const es = {
       turkishName: 'Türkçe',
       russianName: 'Русский',
       germanName: 'Deutsch',
+      chineseName: '简体中文',
     },
   },
   cycleHome: {
@@ -7201,6 +7202,9 @@ export const es = {
       saving: 'Guardando…',
       next: 'Siguiente',
       footer: 'Podrás cambiar este nombre más tarde desde tu perfil.',
+      formSubtitle: 'Usa tu nombre o un apodo.',
+      formPlaceholder: 'Ej.: Lucía',
+      formFooter: 'Podrás cambiarlo más tarde desde tu perfil.',
     },
     spiritual: {
       title: '¿Deseas activar\nlas referencias espirituales?',

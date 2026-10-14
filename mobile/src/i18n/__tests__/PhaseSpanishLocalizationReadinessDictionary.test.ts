@@ -40,7 +40,7 @@ const enPathSet = new Set(enPaths);
 const esPathSet = new Set(esPaths);
 
 describe('TEST — Spanish dictionary leaf-key parity with fr/en (cases 16-18)', () => {
-  it('16. es has exactly 6180 leaf keys, matching fr and en 1:1 (no missing, no extra)', () => {
+  it('16. es has exactly 6185 leaf keys, matching fr and en 1:1 (no missing, no extra)', () => {
     // Grown from the original 6064 across several localization fix passes
     // (dataPrivacy.*, profile.managedProfiles.swipeDeleteLabel,
     // profile.editAvatarAccessibility/editAnonymousAvatarAccessibility,
@@ -67,9 +67,13 @@ describe('TEST — Spanish dictionary leaf-key parity with fr/en (cases 16-18)',
     // every dictionary (6180). Russian's own extra plural forms live only in ru.ts (see PhaseRussianLocalization).
     // The German integration then added appearance.language.germanName (the endonym "Deutsch") to every
     // dictionary (6181); German has exactly the English plural forms, so de.ts has the same 6181 keys.
-    expect(esPaths.length).toBe(6181);
-    expect(frPaths.length).toBe(6181);
-    expect(enPaths.length).toBe(6181);
+    // The Simplified Chinese integration then added appearance.language.chineseName (the endonym 简体中文) to
+    // every dictionary (6182); Chinese has no plural forms, so zh.ts has the same 6182 keys (_one/_other kept equal).
+    // The simplified Name onboarding form then added onboarding.name.formSubtitle / formPlaceholder / formFooter
+    // (the short subtitle, the "Enter your first name" placeholder and the short helper line) to every dictionary (6185).
+    expect(esPaths.length).toBe(6185);
+    expect(frPaths.length).toBe(6185);
+    expect(enPaths.length).toBe(6185);
 
     const missingFromEsVsFr = frPaths.filter(p => !esPathSet.has(p));
     const extraInEsVsFr = esPaths.filter(p => !frPathSet.has(p));
