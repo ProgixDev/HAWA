@@ -8,6 +8,7 @@ import {fr} from './locales/fr';
 import {it} from './locales/it';
 import {ru} from './locales/ru';
 import {de} from './locales/de';
+import {zh} from './locales/zh';
 import {tr} from './locales/tr';
 import './pluralRules';
 
@@ -51,6 +52,7 @@ i18n.use(initReactI18next).init({
     tr: {translation: tr},
     ru: {translation: ru},
     de: {translation: de},
+    zh: {translation: zh},
   },
   lng: getAppLanguage(),
   fallbackLng: 'en',

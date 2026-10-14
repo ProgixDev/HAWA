@@ -3,8 +3,12 @@
 // Explicit opt-ins for the languages that have real editorial text; anything
 // else — an unrecognized or not-yet-loaded value included — resolves to
 // English, never to French or Spanish.
-export type EditorialLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de';
+export type EditorialLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh';
 
 export function resolveEditorialLanguage(language: string | null | undefined): EditorialLanguage {
-  return language === 'fr' || language === 'es' || language === 'it' || language === 'tr' || language === 'ru' || language === 'de' ? language : 'en';
+  // Simplified Chinese aliases (zh-CN, zh-Hans …) resolve to the canonical 'zh' block.
+  if (typeof language === 'string' && /^zh([-_](cn|hans|sg|hans-cn|hans-sg))?$/i.test(language.trim())) {
+    return 'zh';
+  }
+  return language === 'fr' || language === 'es' || language === 'it' || language === 'tr' || language === 'ru' || language === 'de' || language === 'zh' ? language : 'en';
 }
