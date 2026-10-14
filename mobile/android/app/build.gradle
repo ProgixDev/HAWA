@@ -22,11 +22,14 @@ react {
     //   skip the bundling of the JS bundle and the assets. By default is just 'debug'.
     //   If you add flavors like lite, prod, etc. you'll have to list your debuggableVariants.
     //
-    //   Empty on purpose: the isolated audit build (debug, application id com.hawa.audit) must carry its own JS bundle.
-    //   Reminder delivery, notification taps and the time-zone/clock reschedule receiver start a headless JS task while
-    //   no Metro server is attached (phone unplugged, app process dead); a Metro-only debug APK could not run them.
-    //   Metro still takes over when it is reachable. The release build is unaffected (it always bundles).
-    debuggableVariants = []
+    //   Only the development variant (dev, application id com.hawa.dev) is listed: it embeds NO JS bundle and always loads
+    //   its JavaScript from Metro (Fast Refresh), so it needs Metro running and `adb reverse tcp:8081 tcp:8081`.
+    //   Every other variant is deliberately NOT listed and keeps bundling its JS exactly as before: the isolated audit
+    //   build (debug, application id com.hawa.audit) must carry its own JS bundle, because reminder delivery,
+    //   notification taps and the time-zone/clock reschedule receiver start a headless JS task while no Metro server is
+    //   attached (phone unplugged, app process dead); a Metro-only APK could not run them. Metro still takes over in
+    //   the audit build when it is reachable. The pilot and release builds always bundle.
+    debuggableVariants = ["dev"]
 
     /* Bundling */
     //   A list containing the node command and its flags. Default is just 'node'.
@@ -108,6 +111,48 @@ android {
             applicationIdSuffix ".audit"
             versionNameSuffix "-audit"
             signingConfig signingConfigs.debug
+        }
+        // Development variant (daily UI work with Metro and Fast Refresh): installs BESIDE com.hawa, com.hawa.audit and
+        // com.hawa.pilot with its own EMPTY sandbox: application id, data directory, Android Keystore keys, Keychain
+        // entries, notification channels, alarms and content provider authorities all derive from "com.hawa.dev".
+        // `namespace` stays "com.hawa", so the Kotlin classes and manifest component names do not move.
+        //
+        // It is listed in debuggableVariants (react block above), so it embeds NO JS bundle and loads its JavaScript from
+        // Metro on port 8081 (the React Native default; run `adb reverse tcp:8081 tcp:8081`). It is debuggable, so
+        // BuildConfig.DEBUG switches React Native dev support on, and matchingFallbacks makes the autolinked libraries
+        // resolve their debug variants (dev support, Hermes inspector). Cleartext HTTP to Metro is enabled only here and
+        // in the audit variant, through the manifest overlays in src/dev and src/debug. Never distribute this build:
+        // debuggable, cleartext and debug-signed.
+        //
+        // Configured explicitly (no initWith) and placed ahead of the release block, which must stay the LAST build type
+        // (src/services/__tests__/androidAuditVariant.test.ts reads everything after it as "release").
+        dev {
+            matchingFallbacks = ['debug']
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+            debuggable true
+            signingConfig signingConfigs.debug
+        }
+        // Isolated pilot variant (Design System device review): installs BESIDE com.hawa and com.hawa.audit with its own
+        // EMPTY sandbox, so the first-run screens (Welcome, Name) can be reviewed on a phone without touching any
+        // existing app's data. Same mechanism as the audit variant above: a different application id means its own data
+        // directory, Android Keystore keys, Keychain entries, notification channels, alarms, permissions and content
+        // provider authorities (every authority in the merged manifest is "<applicationId>.<name>"). `namespace` stays
+        // "com.hawa", so the Kotlin classes and manifest component names do not move.
+        //
+        // Release-like on purpose: not debuggable, no cleartext overlay and no dev menu, with the JS bundled (see
+        // debuggableVariants). It is configured explicitly rather than with initWith so that the release block below stays
+        // the LAST build type (src/services/__tests__/androidAuditVariant.test.ts reads everything after it as "release"),
+        // and it mirrors that block's signing, minify and proguard settings. matchingFallbacks lets the autolinked React
+        // Native libraries, which only publish debug and release, resolve this variant.
+        pilot {
+            matchingFallbacks = ['release']
+            applicationIdSuffix ".pilot"
+            versionNameSuffix "-pilot"
+            debuggable false
+            signingConfig signingConfigs.debug
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
