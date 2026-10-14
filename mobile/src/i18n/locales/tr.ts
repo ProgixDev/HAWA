@@ -153,6 +153,7 @@ export const tr = {
       turkishName: 'Türkçe',
       russianName: 'Русский',
       germanName: 'Deutsch',
+      chineseName: '简体中文',
     },
   },
   cycleHome: {
@@ -7186,6 +7187,9 @@ export const tr = {
       saving: 'Kaydediliyor…',
       next: 'İleri',
       footer: 'Bu adı daha sonra profilinden değiştirebilirsin.',
+      formSubtitle: 'Adını veya bir takma ad kullan.',
+      formPlaceholder: 'Örn. Ayşe',
+      formFooter: 'Bunu daha sonra profilinden değiştirebilirsin.',
     },
     spiritual: {
       title: 'Manevi işaretleri\netkinleştirmek ister misin?',

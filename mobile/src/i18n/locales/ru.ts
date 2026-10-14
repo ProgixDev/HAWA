@@ -158,6 +158,7 @@ export const ru = {
       turkishName: 'Türkçe',
       russianName: 'Русский',
       germanName: 'Deutsch',
+      chineseName: '简体中文',
     },
   },
   cycleHome: {
@@ -7336,6 +7337,9 @@ export const ru = {
       saving: 'Сохранение…',
       next: 'Далее',
       footer: 'Вы сможете изменить это имя позже в профиле.',
+      formSubtitle: 'Можно указать имя или псевдоним.',
+      formPlaceholder: 'Напр.: Анна',
+      formFooter: 'Вы сможете изменить его позже в профиле.',
     },
     spiritual: {
       title: 'Включить\nдуховные ориентиры?',

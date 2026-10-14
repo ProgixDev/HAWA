@@ -189,6 +189,7 @@ export const fr = {
       turkishName: 'Türkçe',
       russianName: 'Русский',
       germanName: 'Deutsch',
+      chineseName: '简体中文',
     },
   },
 
@@ -6725,7 +6726,7 @@ export const fr = {
     welcome: {
       title: 'Bienvenue',
       brandPrefix: 'chez',
-      subtitle: 'Un espace personnel pour suivre ton cycle,\ncomprendre ton corps et avancer avec sérénité.',
+      subtitle: 'Un espace personnel pour suivre ton cycle, comprendre ton corps et avancer avec sérénité.',
       cardTitle: 'Ton espace AWA',
       cardDescription: 'Un espace personnel, simple et confidentiel.',
       privateBadge: 'Privé',
@@ -6753,6 +6754,9 @@ export const fr = {
       saving: 'Enregistrement…',
       next: 'Suivant',
       footer: 'Tu pourras modifier ce nom plus tard depuis ton profil.',
+      formSubtitle: 'Utilise ton prénom ou un pseudo.',
+      formPlaceholder: 'ex. Amina',
+      formFooter: 'Tu pourras le modifier plus tard depuis ton profil.',
     },
     spiritual: {
       title: 'Souhaites-tu activer\nles repères spirituels ?',

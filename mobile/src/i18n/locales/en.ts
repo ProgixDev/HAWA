@@ -176,6 +176,7 @@ export const en = {
       turkishName: 'Türkçe',
       russianName: 'Русский',
       germanName: 'Deutsch',
+      chineseName: '简体中文',
     },
   },
 
@@ -6674,6 +6675,9 @@ export const en = {
       saving: 'Saving…',
       next: 'Next',
       footer: 'You can change this name later from your profile.',
+      formSubtitle: 'Use your first name or a nickname.',
+      formPlaceholder: 'eg. Amina',
+      formFooter: 'You can change it later from your profile.',
     },
     spiritual: {
       title: 'Would you like to enable\nspiritual markers?',

@@ -155,6 +155,7 @@ export const de = {
       turkishName: 'Türkçe',
       russianName: 'Русский',
       germanName: 'Deutsch',
+      chineseName: '简体中文',
     },
   },
   cycleHome: {
@@ -7187,6 +7188,9 @@ export const de = {
       saving: 'Wird gespeichert…',
       next: 'Weiter',
       footer: 'Du kannst diesen Namen später in deinem Profil ändern.',
+      formSubtitle: 'Verwende deinen Vornamen oder einen Spitznamen.',
+      formPlaceholder: 'Z. B. Anna',
+      formFooter: 'Du kannst ihn später in deinem Profil ändern.',
     },
     spiritual: {
       title: 'Möchtest du spirituelle\nMarker aktivieren?',
