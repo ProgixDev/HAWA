@@ -42,7 +42,16 @@ describe('isolated audit build variant', () => {
   });
 
   it('bundles JS into the debug build so headless delivery works without Metro', () => {
-    expect(buildGradle).toMatch(/^\s*debuggableVariants\s*=\s*\[\]/m);
+    // Before the development variant existed this list was empty. Now only `dev` (com.hawa.dev, Metro-only) is listed,
+    // so it alone skips the embedded bundle; `debug` is NOT listed and keeps bundling its JS exactly as before.
+    const listed = /^\s*debuggableVariants\s*=\s*\[([^\]]*)\]/m.exec(buildGradle);
+    expect(listed).not.toBeNull();
+    const variants = (listed as RegExpExecArray)[1]
+      .split(',')
+      .map(variant => variant.trim().replace(/^["']|["']$/g, '').toLowerCase())
+      .filter(Boolean);
+    expect(variants).toEqual(['dev']);
+    expect(variants).not.toContain('debug');
   });
 
   it('gives the audit app a distinguishable launcher name', () => {

@@ -1,0 +1,7 @@
+<resources>
+    <!-- Isolated pilot build (com.hawa.pilot): a distinct launcher name so it can never be mistaken for the production
+         app (com.hawa) or the audit build (com.hawa.audit) on the same phone. Overrides src/main values for the pilot
+         variant only. -->
+    <string name="app_name">AWA Pilot</string>
+    <string name="app_name_discreet">AWA Pilot</string>
+</resources>
