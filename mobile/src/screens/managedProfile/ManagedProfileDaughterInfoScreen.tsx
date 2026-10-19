@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {Alert, Image, Modal, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Alert, Image, Modal, Pressable, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -11,6 +11,10 @@ import AwaADeuxStepLayout, {Reveal} from '../awaADeux/AwaADeuxStepLayout';
 import BirthDatePickerModal from '../../components/onboarding/BirthDatePickerModal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaText} from '../../components/ui/AwaText';
+import {AwaTextField} from '../../components/ui/AwaTextField';
 import {calculateAgeInYears} from '../../utils/age';
 import {getManagedProfileDraft, updateManagedProfileDraft} from '../../state/managedProfileDraftStore';
 import {MANAGED_PROFILE_FIRST_NAME_MAX_LENGTH} from '../../state/managedProfilesStore';
@@ -53,7 +57,6 @@ export default function ManagedProfileDaughterInfoScreen({navigation}: Props): R
   const [firstName, setFirstName] = useState(draft.firstName);
   const [birthDate, setBirthDate] = useState<Date | null>(draft.birthDate);
   const [profileImageUri, setProfileImageUri] = useState<string | null>(draft.profileImageUri);
-  const [focused, setFocused] = useState(false);
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [photoSheetVisible, setPhotoSheetVisible] = useState(false);
 
@@ -131,52 +134,45 @@ export default function ManagedProfileDaughterInfoScreen({navigation}: Props): R
       </Reveal>
 
       <Reveal index={1}>
-        <View style={styles.fieldCard}>
-          <Text style={styles.label}>{t('managedProfile.daughterInfo.firstNameLabel')}</Text>
-          <TextInput
-            accessibilityLabel={t('managedProfile.daughterInfo.firstNameAccessibilityLabel')}
-            autoCapitalize="words"
-            autoComplete="off"
-            autoCorrect={false}
-            maxLength={MANAGED_PROFILE_FIRST_NAME_MAX_LENGTH}
-            onBlur={() => setFocused(false)}
-            onChangeText={setFirstName}
-            onFocus={() => setFocused(true)}
-            placeholder={t('managedProfile.daughterInfo.firstNamePlaceholder')}
-            placeholderTextColor={theme.colors.textMuted}
-            returnKeyType="done"
-            selectionColor={theme.colors.primary}
-            style={[styles.input, focused && styles.inputFocused]}
-            textContentType="givenName"
-            value={firstName}
-          />
-        </View>
+        <AwaTextField
+          accessibilityLabel={t('managedProfile.daughterInfo.firstNameAccessibilityLabel')}
+          autoCapitalize="words"
+          autoComplete="off"
+          autoCorrect={false}
+          label={t('managedProfile.daughterInfo.firstNameLabel')}
+          maxLength={MANAGED_PROFILE_FIRST_NAME_MAX_LENGTH}
+          onChangeText={setFirstName}
+          placeholder={t('managedProfile.daughterInfo.firstNamePlaceholder')}
+          returnKeyType="done"
+          selectionColor={theme.colors.primary}
+          textContentType="givenName"
+          value={firstName}
+        />
       </Reveal>
 
       <Reveal index={2}>
-        <Pressable
+        <AwaCard
           accessibilityLabel={t('managedProfile.daughterInfo.birthDateLabel')}
-          accessibilityRole="button"
           onPress={() => setDatePickerVisible(true)}
-          style={({pressed}) => [styles.fieldCard, pressed && styles.pressed]}>
-          <Text style={styles.label}>{t('managedProfile.daughterInfo.birthDateLabel')}</Text>
+          variant="outlined">
+          <AwaText colorRole="onSurfaceVariant" emphasized variant="labelLarge" style={styles.label}>{t('managedProfile.daughterInfo.birthDateLabel')}</AwaText>
           <View style={styles.dateRow}>
             <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={18} />
-            <Text style={[styles.dateText, !birthDate && styles.datePlaceholder]}>
+            <AwaText colorRole={birthDate ? 'onSurface' : 'onSurfaceVariant'} variant="bodyLarge">
               {birthDate
                 ? new Intl.DateTimeFormat(dateLocale, {day: '2-digit', month: 'long', year: 'numeric'}).format(birthDate)
                 : t('managedProfile.daughterInfo.birthDatePlaceholder')}
-            </Text>
+            </AwaText>
           </View>
-        </Pressable>
+        </AwaCard>
       </Reveal>
 
       {birthDate ? (
         <Reveal index={3}>
-          <View style={styles.ageCard}>
+          <AwaCard padding="compact" style={styles.ageCard} variant="filled">
             <MaterialDesignIcons color={theme.colors.primary} name="cake-variant-outline" size={18} />
-            <Text style={styles.ageText}>{t('managedProfile.daughterInfo.age', {count: calculateAgeInYears(birthDate)})}</Text>
-          </View>
+            <AwaText colorRole="primary" emphasized variant="labelLarge">{t('managedProfile.daughterInfo.age', {count: calculateAgeInYears(birthDate)})}</AwaText>
+          </AwaCard>
         </Reveal>
       ) : null}
 
@@ -205,8 +201,8 @@ export default function ManagedProfileDaughterInfoScreen({navigation}: Props): R
           />
           <View style={[styles.photoSheet, {paddingBottom: Math.max(insets.bottom, 18)}]}>
             <View style={styles.sheetHandle} />
-            <Text style={styles.sheetTitle}>{t('managedProfile.daughterInfo.photoSheetTitle')}</Text>
-            <Text style={styles.sheetSubtitle}>{t('managedProfile.daughterInfo.photoSheetSubtitle')}</Text>
+            <AwaText variant="titleLarge" style={styles.sheetTitle}>{t('managedProfile.daughterInfo.photoSheetTitle')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.sheetSubtitle}>{t('managedProfile.daughterInfo.photoSheetSubtitle')}</AwaText>
 
             <Pressable
               accessibilityLabel={t('managedProfile.daughterInfo.takePhoto')}
@@ -214,7 +210,7 @@ export default function ManagedProfileDaughterInfoScreen({navigation}: Props): R
               onPress={() => choosePhoto('camera')}
               style={({pressed}) => [styles.sheetAction, pressed && styles.pressed]}>
               <MaterialDesignIcons color={theme.colors.primary} name="camera-outline" size={22} />
-              <Text style={styles.sheetActionText}>{t('managedProfile.daughterInfo.takePhoto')}</Text>
+              <AwaText variant="bodyLarge">{t('managedProfile.daughterInfo.takePhoto')}</AwaText>
             </Pressable>
 
             <Pressable
@@ -223,16 +219,17 @@ export default function ManagedProfileDaughterInfoScreen({navigation}: Props): R
               onPress={() => choosePhoto('gallery')}
               style={({pressed}) => [styles.sheetAction, pressed && styles.pressed]}>
               <MaterialDesignIcons color={theme.colors.primary} name="image-outline" size={22} />
-              <Text style={styles.sheetActionText}>{t('managedProfile.daughterInfo.chooseFromGallery')}</Text>
+              <AwaText variant="bodyLarge">{t('managedProfile.daughterInfo.chooseFromGallery')}</AwaText>
             </Pressable>
 
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('common.cancel')}
-              accessibilityRole="button"
+              fullWidth
+              label={t('common.cancel')}
               onPress={() => setPhotoSheetVisible(false)}
-              style={({pressed}) => [styles.sheetCancel, pressed && styles.pressed]}>
-              <Text style={styles.sheetCancelText}>{t('common.cancel')}</Text>
-            </Pressable>
+              style={styles.sheetCancel}
+              variant="text"
+            />
           </View>
         </View>
       </Modal>
@@ -273,43 +270,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       shadowRadius: 3,
       shadowOffset: {width: 0, height: 2},
     },
-    fieldCard: {
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 22,
-      backgroundColor: theme.colors.surface,
-      padding: 16,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 4},
-      shadowOpacity: 0.06,
-      shadowRadius: 10,
-      elevation: 2,
-    },
-    label: {marginBottom: 8, color: theme.colors.text, fontSize: 14.5, fontWeight: '700'},
-    input: {
-      minHeight: 50,
-      borderRadius: 16,
-      borderWidth: 1.2,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.background,
-      paddingHorizontal: 14,
-      color: theme.colors.text,
-      fontSize: 15,
-    },
-    inputFocused: {borderColor: theme.colors.primary},
+    label: {marginBottom: 8},
     dateRow: {flexDirection: 'row', alignItems: 'center', gap: 10},
-    dateText: {color: theme.colors.text, fontSize: 15, fontWeight: '600'},
-    datePlaceholder: {color: theme.colors.textMuted, fontWeight: '400'},
-    ageCard: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 9,
-      borderRadius: 16,
-      backgroundColor: theme.colors.primarySoft,
-      paddingHorizontal: 14,
-      paddingVertical: 12,
-    },
-    ageText: {color: theme.colors.primary, fontSize: 13.5, fontWeight: '700'},
+    ageCard: {flexDirection: 'row', alignItems: 'center', gap: 9},
     pressed: {opacity: 0.86},
 
     // Photo-source sheet — same measurements as PersonalInformationScreen.tsx's
@@ -319,15 +282,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     sheetBackdrop: {...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(35,21,72,.38)'},
     photoSheet: {
       maxHeight: '86%',
-      borderTopLeftRadius: 30,
-      borderTopRightRadius: 30,
+      borderTopLeftRadius: 28,
+      borderTopRightRadius: 28,
       backgroundColor: theme.colors.surface,
       paddingHorizontal: 18,
       paddingTop: 10,
     },
     sheetHandle: {alignSelf: 'center', width: '14%', aspectRatio: 8, borderRadius: 999, backgroundColor: withAlpha(theme.colors.primary, 0.25)},
-    sheetTitle: {marginTop: 16, color: theme.colors.accent, fontFamily: 'serif', fontSize: 21, fontWeight: '700', textAlign: 'center'},
-    sheetSubtitle: {marginTop: 6, marginBottom: 14, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18, textAlign: 'center'},
+    sheetTitle: {marginTop: 16, color: theme.colors.accent, textAlign: 'center'},
+    sheetSubtitle: {marginTop: 6, marginBottom: 14, textAlign: 'center'},
     sheetAction: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -337,8 +300,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 10,
       paddingVertical: 15,
     },
-    sheetActionText: {color: theme.colors.text, fontSize: 14, fontWeight: '600'},
-    sheetCancel: {alignItems: 'center', marginTop: 9, paddingVertical: 12},
-    sheetCancelText: {color: theme.colors.textSecondary, fontSize: 13, fontWeight: '600'},
+    sheetCancel: {marginTop: 9},
   });
 }

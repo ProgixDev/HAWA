@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
@@ -9,6 +9,8 @@ import '../../i18n';
 import AwaADeuxStepLayout, {Reveal} from '../awaADeux/AwaADeuxStepLayout';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaText} from '../../components/ui/AwaText';
 import {startManagedProfileDraft, updateManagedProfileDraft} from '../../state/managedProfileDraftStore';
 
 // Intro screen of the daughter-profile creation flow (see ManagedProfileSuccessScreen.tsx
@@ -73,19 +75,19 @@ export default function ManagedProfileTypeScreen({navigation}: Props): React.JSX
       onContinue={onContinue}
       title={t('managedProfile.intro.title')}>
       <Reveal index={0}>
-        <View style={styles.benefitsCard}>
+        <AwaCard padding="none" style={styles.benefitsCard} variant="filled">
           {BENEFITS.map((benefit, index) => (
             <View key={benefit.title} style={[styles.benefitRow, index < BENEFITS.length - 1 && styles.benefitRowDivider]}>
               <View style={styles.benefitIcon}>
                 <MaterialDesignIcons color={theme.colors.primary} name={benefit.icon} size={20} />
               </View>
               <View style={styles.benefitCopy}>
-                <Text style={styles.benefitTitle}>{benefit.title}</Text>
-                <Text style={styles.benefitSubtitle}>{benefit.subtitle}</Text>
+                <AwaText variant="titleSmall">{benefit.title}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.benefitSubtitle}>{benefit.subtitle}</AwaText>
               </View>
             </View>
           ))}
-        </View>
+        </AwaCard>
       </Reveal>
     </AwaADeuxStepLayout>
   );
@@ -97,18 +99,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     // existing page gradient, same compact hero treatment as AwaADeuxInvitationScreen.tsx.
     hero: {width: '100%', height: 130, alignItems: 'center', justifyContent: 'center'},
     heroImage: {width: '100%', height: '100%'},
-    benefitsCard: {
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 22,
-      backgroundColor: theme.colors.surface,
-      paddingHorizontal: 16,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 4},
-      shadowOpacity: 0.06,
-      shadowRadius: 10,
-      elevation: 2,
-    },
+    benefitsCard: {paddingHorizontal: 16},
     benefitRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 12, paddingVertical: 14},
     benefitRowDivider: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: withAlpha(theme.colors.primary, 0.08)},
     benefitIcon: {
@@ -117,11 +108,10 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexShrink: 0,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 14,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
     benefitCopy: {flex: 1, minWidth: 0},
-    benefitTitle: {color: theme.colors.text, fontSize: 14.5, fontWeight: '700', lineHeight: 19},
-    benefitSubtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
+    benefitSubtitle: {marginTop: 3},
   });
 }

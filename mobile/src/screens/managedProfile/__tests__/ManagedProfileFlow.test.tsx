@@ -11,6 +11,7 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import {resolveAwaTheme} from '../../../theme/awaThemeTokens';
+import {deriveAwaRoles} from '../../../theme/semanticRoles';
 import ManagedProfileTypeScreen from '../ManagedProfileTypeScreen';
 import ManagedProfileDaughterInfoScreen from '../ManagedProfileDaughterInfoScreen';
 import ManagedProfileFirstPeriodScreen from '../ManagedProfileFirstPeriodScreen';
@@ -815,14 +816,18 @@ describe('ManagedProfile flow — theming', () => {
   it('resolves colors from useAwaTheme() in both Light and Dark — nothing hardcoded', async () => {
     const renderer = await renderFlow();
     const light = resolveAwaTheme('awa-original', false, false);
-    const backCircle = () => renderer.root.findAll(node => node.props.accessibilityLabel === 'Retour')[0];
-    expect(flattenStyle(backCircle().props.style).backgroundColor).toBe(light.colors.surface);
+    // Material 3: the back control is an AwaIconButton (no surface circle); its chevron resolves the on-surface-variant role.
+    const backChevron = () =>
+      renderer.root
+        .findAll(node => node.props.accessibilityLabel === 'Retour')[0]
+        .findAll(node => node.props.name === 'chevron-left')[0];
+    expect(backChevron().props.color).toBe(deriveAwaRoles(light).accessible.onSurfaceVariant);
 
     await act(async () => {
       await setAppearanceMode('dark');
     });
     const dark = resolveAwaTheme('awa-original', true, false);
-    expect(flattenStyle(backCircle().props.style).backgroundColor).toBe(dark.colors.surface);
+    expect(backChevron().props.color).toBe(deriveAwaRoles(dark).accessible.onSurfaceVariant);
     expect(dark.colors.surface).not.toBe(light.colors.surface);
 
     await act(async () => {

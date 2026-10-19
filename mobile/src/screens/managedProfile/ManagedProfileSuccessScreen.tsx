@@ -3,15 +3,14 @@ import {
   Animated,
   Easing,
   Image,
-  Pressable,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import LinearGradient from 'react-native-linear-gradient';
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -26,6 +25,8 @@ import {
   withAlpha,
   type ResolvedAwaTheme,
 } from '../../theme/awaThemeTokens';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaText} from '../../components/ui/AwaText';
 
 import {
   OWNER_PROFILE_ID,
@@ -88,74 +89,8 @@ function AnimatedEntrance({
   );
 }
 
-type SparkleProps = {
-  style: object;
-  delay: number;
-  size?: number;
-  icon?: 'star-four-points' | 'circle-small';
-  color: string;
-};
-
-function Sparkle({
-  style,
-  delay,
-  size = 18,
-  icon = 'star-four-points',
-  color,
-}: SparkleProps): React.JSX.Element {
-  const progress = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    const animation = Animated.sequence([
-      Animated.delay(delay),
-      Animated.spring(progress, {
-        toValue: 1,
-        friction: 6,
-        tension: 55,
-        useNativeDriver: true,
-      }),
-    ]);
-
-    animation.start();
-
-    return () => {
-      animation.stop();
-    };
-  }, [delay, progress]);
-
-  return (
-    <Animated.View
-      pointerEvents="none"
-      accessible={false}
-      style={[
-        style,
-        {
-          opacity: progress,
-          transform: [
-            {
-              scale: progress.interpolate({
-                inputRange: [0, 1],
-                outputRange: [0.25, 1],
-              }),
-            },
-            {
-              translateY: progress.interpolate({
-                inputRange: [0, 1],
-                outputRange: [7, 0],
-              }),
-            },
-          ],
-        },
-      ]}>
-      <MaterialDesignIcons
-        name={icon}
-        size={size}
-        color={color}
-      />
-    </Animated.View>
-  );
-}
-
+// Material 3 migration: the decorative background blobs, the five sparkles and the looping halo pulse were removed
+// (they carried no information); only the illustration, the success check, the title and the two actions remain.
 export default function ManagedProfileSuccessScreen({
   navigation,
   route,
@@ -184,11 +119,6 @@ export default function ManagedProfileSuccessScreen({
    */
   const badgeOpacity = useRef(new Animated.Value(0)).current;
   const badgeScale = useRef(new Animated.Value(0)).current;
-
-  /*
-   * Halo breathing animation
-   */
-  const haloPulse = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     const heroAnimation = Animated.parallel([
@@ -233,43 +163,17 @@ export default function ManagedProfileSuccessScreen({
       ]),
     ]);
 
-    const pulseLoop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(haloPulse, {
-          toValue: 1,
-          duration: 1400,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-
-        Animated.timing(haloPulse, {
-          toValue: 0,
-          duration: 1400,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-
     heroAnimation.start();
 
     badgeAnimation.start();
 
-    const pulseTimer = setTimeout(() => {
-      pulseLoop.start();
-    }, 700);
-
     return () => {
-      clearTimeout(pulseTimer);
-
       heroAnimation.stop();
       badgeAnimation.stop();
-      pulseLoop.stop();
     };
   }, [
     badgeOpacity,
     badgeScale,
-    haloPulse,
     heroOpacity,
     heroScale,
     heroTranslateY,
@@ -315,33 +219,18 @@ export default function ManagedProfileSuccessScreen({
     });
   };
 
-  const haloScale = haloPulse.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 1.035],
-  });
-
-  const haloOpacity = haloPulse.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0.76, 1],
-  });
-
   return (
-    <View style={styles.page}>
+    <LinearGradient
+      colors={[...theme.gradients.pageBackground]}
+      end={{x: 1, y: 1}}
+      locations={[0, 0.32, 0.7, 1]}
+      start={{x: 0, y: 0}}
+      style={styles.page}>
       <StatusBar
         backgroundColor="transparent"
         barStyle={theme.statusBarStyle}
         translucent
       />
-
-      {/* Background */}
-      <View
-        pointerEvents="none"
-        accessible={false}
-        style={styles.backgroundDecoration}>
-        <View style={styles.blobTopRight} />
-        <View style={styles.blobLeft} />
-        <View style={styles.blobBottom} />
-      </View>
 
       <SafeAreaView
         edges={['top', 'left', 'right']}
@@ -364,71 +253,12 @@ export default function ManagedProfileSuccessScreen({
             ]}>
 
             <View style={styles.heroStage}>
-
-              {/* Sparkles */}
-              <Sparkle
-                delay={390}
-                color={withAlpha(theme.colors.primary, 0.9)}
-                size={19}
-                style={styles.sparkleTopLeft}
+              <Image
+                accessibilityIgnoresInvertColors
+                resizeMode="contain"
+                source={SUCCESS_ILLUSTRATION}
+                style={styles.successIllustration}
               />
-
-              <Sparkle
-                delay={470}
-                color={withAlpha(theme.colors.accent, 0.8)}
-                size={13}
-                style={styles.sparkleTopRight}
-              />
-
-              <Sparkle
-                delay={530}
-                color={withAlpha(theme.colors.primary, 0.7)}
-                size={11}
-                icon="circle-small"
-                style={styles.sparkleMiddleLeft}
-              />
-
-              <Sparkle
-                delay={580}
-                color={withAlpha(theme.colors.primary, 0.9)}
-                size={16}
-                style={styles.sparkleRight}
-              />
-
-              <Sparkle
-                delay={630}
-                color={withAlpha(theme.colors.accent, 0.7)}
-                size={12}
-                style={styles.sparkleBottomLeft}
-              />
-
-              {/* Pulsing outer halo */}
-              <Animated.View
-                pointerEvents="none"
-                style={[
-                  styles.haloGlow,
-                  {
-                    opacity: haloOpacity,
-                    transform: [{scale: haloScale}],
-                  },
-                ]}
-              />
-
-              {/* Main halo */}
-              <View style={styles.heroHaloOuter}>
-
-                <View style={styles.heroHaloInner}>
-
-                  <Image
-                    accessibilityIgnoresInvertColors
-                    resizeMode="contain"
-                    source={SUCCESS_ILLUSTRATION}
-                    style={styles.successIllustration}
-                  />
-
-                </View>
-
-              </View>
 
               {/* Success check */}
               <Animated.View
@@ -445,7 +275,6 @@ export default function ManagedProfileSuccessScreen({
                   color={onPrimaryTextColor(theme)}
                 />
               </Animated.View>
-
             </View>
 
           </Animated.View>
@@ -461,9 +290,12 @@ export default function ManagedProfileSuccessScreen({
                 color={theme.colors.success}
               />
 
-              <Text style={styles.successPillText}>
+              <AwaText
+                color={theme.colors.success}
+                variant="labelMedium"
+                style={styles.successPillText}>
                 {t('managedProfile.success.pill')}
-              </Text>
+              </AwaText>
             </View>
           </AnimatedEntrance>
 
@@ -471,18 +303,23 @@ export default function ManagedProfileSuccessScreen({
           <AnimatedEntrance
             delay={560}
             distance={14}>
-            <Text style={styles.title}>
+            <AwaText
+              variant="headlineSmall"
+              style={styles.title}>
               {t('managedProfile.success.title', {firstName})}
-            </Text>
+            </AwaText>
           </AnimatedEntrance>
 
           {/* Subtitle */}
           <AnimatedEntrance
             delay={680}
             distance={12}>
-            <Text style={styles.subtitle}>
+            <AwaText
+              colorRole="onSurfaceVariant"
+              variant="bodyLarge"
+              style={styles.subtitle}>
               {t('managedProfile.success.subtitle')}
-            </Text>
+            </AwaText>
           </AnimatedEntrance>
 
         </View>
@@ -499,69 +336,32 @@ export default function ManagedProfileSuccessScreen({
           <AnimatedEntrance
             delay={820}
             distance={18}>
-
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('managedProfile.success.goToProfile', {firstName})}
-              accessibilityRole="button"
+              fullWidth
+              label={t('managedProfile.success.goToProfile', {firstName})}
               onPress={goToProfile}
-              style={({pressed}) => [
-                styles.primary,
-                pressed && styles.pressed,
-              ]}>
-
-              <View style={styles.primaryContent}>
-
-                <Text
-                  numberOfLines={1}
-                  style={styles.primaryText}>
-                  {t('managedProfile.success.goToProfile', {firstName})}
-                </Text>
-
-                <View style={styles.primaryIcon}>
-                  <MaterialDesignIcons
-                    name="arrow-right"
-                    size={20}
-                    color={onPrimaryTextColor(theme)}
-                  />
-                </View>
-
-              </View>
-
-            </Pressable>
-
+              size="large"
+            />
           </AnimatedEntrance>
 
           <AnimatedEntrance
             delay={940}
             distance={12}>
-
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('managedProfile.success.stayOnMyProfile')}
-              accessibilityRole="button"
+              fullWidth
+              icon="account-outline"
+              label={t('managedProfile.success.stayOnMyProfile')}
               onPress={stayOnMyProfile}
-              style={({pressed}) => [
-                styles.secondary,
-                pressed && styles.secondaryPressed,
-              ]}>
-
-              <MaterialDesignIcons
-                name="account-outline"
-                size={19}
-                color={theme.colors.textSecondary}
-              />
-
-              <Text style={styles.secondaryText}>
-                {t('managedProfile.success.stayOnMyProfile')}
-              </Text>
-
-            </Pressable>
-
+              variant="text"
+            />
           </AnimatedEntrance>
 
         </View>
 
       </SafeAreaView>
-    </View>
+    </LinearGradient>
   );
 }
 
@@ -574,53 +374,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     safe: {
       flex: 1,
-    },
-
-    /*
-     * Background
-     */
-    backgroundDecoration: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
-
-    blobTopRight: {
-      position: 'absolute',
-      top: -75,
-      right: -60,
-      width: 250,
-      height: 250,
-      borderRadius: 125,
-      backgroundColor: withAlpha(
-        theme.colors.primary,
-        0.07,
-      ),
-    },
-
-    blobLeft: {
-      position: 'absolute',
-      top: 285,
-      left: -95,
-      width: 205,
-      height: 205,
-      borderRadius: 103,
-      backgroundColor: withAlpha(
-        theme.colors.primary,
-        0.045,
-      ),
-    },
-
-    blobBottom: {
-      position: 'absolute',
-      bottom: -75,
-      right: -45,
-      width: 220,
-      height: 220,
-      borderRadius: 110,
-      backgroundColor: withAlpha(
-        theme.colors.primary,
-        0.04,
-      ),
     },
 
     /*
@@ -640,68 +393,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     heroStage: {
-      width: 235,
-      height: 235,
+      width: 188,
+      height: 188,
       alignItems: 'center',
       justifyContent: 'center',
       position: 'relative',
-    },
-
-    /*
-     * Animated halo
-     */
-    haloGlow: {
-      position: 'absolute',
-      width: 205,
-      height: 205,
-      borderRadius: 103,
-      backgroundColor: withAlpha(
-        theme.colors.primary,
-        0.075,
-      ),
-    },
-
-    heroHaloOuter: {
-      width: 188,
-      height: 188,
-      borderRadius: 94,
-
-      alignItems: 'center',
-      justifyContent: 'center',
-
-      backgroundColor: theme.colors.primarySoft,
-
-      borderWidth: 1,
-      borderColor: withAlpha(
-        theme.colors.primary,
-        0.15,
-      ),
-    },
-
-    heroHaloInner: {
-      width: 154,
-      height: 154,
-      borderRadius: 77,
-
-      alignItems: 'center',
-      justifyContent: 'center',
-
-      backgroundColor: theme.colors.surface,
-
-      borderWidth: 1,
-      borderColor: withAlpha(
-        theme.colors.primary,
-        0.13,
-      ),
-
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 5,
-      },
-      shadowOpacity: 0.12,
-      shadowRadius: 12,
-      elevation: 5,
     },
 
     successIllustration: {
@@ -715,8 +411,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     successBadge: {
       position: 'absolute',
 
-      right: 29,
-      bottom: 31,
+      right: 20,
+      bottom: 20,
 
       width: 40,
       height: 40,
@@ -730,48 +426,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       borderWidth: 3,
       borderColor: theme.colors.background,
-
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 4,
-      },
-      shadowOpacity: 0.18,
-      shadowRadius: 6,
-      elevation: 5,
-    },
-
-    /*
-     * Sparkles
-     */
-    sparkleTopLeft: {
-      position: 'absolute',
-      top: 22,
-      left: 31,
-    },
-
-    sparkleTopRight: {
-      position: 'absolute',
-      top: 39,
-      right: 28,
-    },
-
-    sparkleMiddleLeft: {
-      position: 'absolute',
-      top: 103,
-      left: 10,
-    },
-
-    sparkleRight: {
-      position: 'absolute',
-      top: 111,
-      right: 5,
-    },
-
-    sparkleBottomLeft: {
-      position: 'absolute',
-      bottom: 27,
-      left: 35,
     },
 
     /*
@@ -795,20 +449,11 @@ function createStyles(theme: ResolvedAwaTheme) {
         theme.colors.success,
         0.1,
       ),
-
-      borderWidth: 1,
-      borderColor: withAlpha(
-        theme.colors.success,
-        0.17,
-      ),
     },
 
+    // DESIGN.md: letter spacing capped at 0.5 (the pill text is translated, DE/RU/TR labels are longer).
     successPillText: {
-      color: theme.colors.success,
-      fontSize: 11,
-      lineHeight: 14,
-      fontWeight: '800',
-      letterSpacing: 1,
+      letterSpacing: 0.5,
     },
 
     /*
@@ -821,11 +466,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       color: theme.colors.accent,
 
-      fontFamily: 'serif',
-      fontSize: 26,
-      lineHeight: 32,
-      fontWeight: '700',
-
       textAlign: 'center',
     },
 
@@ -835,11 +475,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignSelf: 'center',
 
       marginTop: 11,
-
-      color: theme.colors.textSecondary,
-
-      fontSize: 15,
-      lineHeight: 22,
 
       textAlign: 'center',
     },
@@ -851,99 +486,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 24,
       paddingTop: 12,
       gap: 6,
-    },
-
-    primary: {
-      minHeight: 58,
-
-      justifyContent: 'center',
-
-      borderRadius: 20,
-
-      backgroundColor: theme.colors.primary,
-
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 6,
-      },
-      shadowOpacity: 0.22,
-      shadowRadius: 10,
-      elevation: 6,
-    },
-
-    primaryContent: {
-      minHeight: 58,
-
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-
-      paddingLeft: 28,
-      paddingRight: 18,
-    },
-
-    primaryText: {
-      flexShrink: 1,
-
-      color: onPrimaryTextColor(theme),
-
-      fontSize: 16,
-      lineHeight: 21,
-      fontWeight: '800',
-
-      textAlign: 'center',
-    },
-
-    primaryIcon: {
-      position: 'absolute',
-      right: 18,
-
-      width: 30,
-      height: 30,
-
-      alignItems: 'center',
-      justifyContent: 'center',
-
-      borderRadius: 15,
-
-      backgroundColor: withAlpha(
-        onPrimaryTextColor(theme),
-        0.11,
-      ),
-    },
-
-    secondary: {
-      minHeight: 48,
-
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-
-      gap: 7,
-
-      borderRadius: 18,
-    },
-
-    secondaryText: {
-      color: theme.colors.textSecondary,
-
-      fontSize: 14.5,
-      lineHeight: 19,
-      fontWeight: '700',
-    },
-
-    pressed: {
-      opacity: 0.9,
-      transform: [
-        {
-          scale: 0.985,
-        },
-      ],
-    },
-
-    secondaryPressed: {
-      opacity: 0.68,
     },
   });
 }

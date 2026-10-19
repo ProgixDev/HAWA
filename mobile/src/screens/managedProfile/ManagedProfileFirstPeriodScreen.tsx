@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {ActivityIndicator, Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, Image, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
@@ -9,6 +9,8 @@ import AwaADeuxStepLayout, {Reveal} from '../awaADeux/AwaADeuxStepLayout';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import '../../i18n';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaText} from '../../components/ui/AwaText';
 import {getManagedProfileDraft, updateManagedProfileDraft, clearManagedProfileDraft} from '../../state/managedProfileDraftStore';
 import {addManagedProfile} from '../../state/managedProfilesStore';
 
@@ -82,43 +84,47 @@ export default function ManagedProfileFirstPeriodScreen({navigation}: Props): Re
       </Reveal>
 
       <Reveal index={1}>
-        <Pressable
+        <AwaCard
           accessibilityLabel={t('managedProfile.firstPeriod.yes')}
           accessibilityRole="radio"
           accessibilityState={{checked: answer === 'yes'}}
           onPress={() => setAnswer('yes')}
-          style={({pressed}) => [styles.card, answer === 'yes' && styles.cardSelected, pressed && styles.pressed]}>
+          padding="none"
+          style={[styles.card, answer === 'yes' && styles.cardSelected]}
+          variant="outlined">
           <View style={styles.iconBox}>
             <MaterialDesignIcons color={theme.colors.primary} name="calendar-check-outline" size={22} />
           </View>
           <View style={styles.copy}>
-            <Text style={styles.title}>{t('managedProfile.firstPeriod.yes')}</Text>
-            <Text style={styles.subtitle}>{t('managedProfile.firstPeriod.yesSubtitle')}</Text>
+            <AwaText variant="titleSmall">{t('managedProfile.firstPeriod.yes')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.subtitle}>{t('managedProfile.firstPeriod.yesSubtitle')}</AwaText>
           </View>
           <View style={[styles.radio, answer === 'yes' && styles.radioSelected]}>
             {answer === 'yes' ? <View style={styles.radioDot} /> : null}
           </View>
-        </Pressable>
+        </AwaCard>
       </Reveal>
 
       <Reveal index={2}>
-        <Pressable
+        <AwaCard
           accessibilityLabel={t('managedProfile.firstPeriod.no')}
           accessibilityRole="radio"
           accessibilityState={{checked: answer === 'no'}}
           onPress={() => setAnswer('no')}
-          style={({pressed}) => [styles.card, answer === 'no' && styles.cardSelected, pressed && styles.pressed]}>
+          padding="none"
+          style={[styles.card, answer === 'no' && styles.cardSelected]}
+          variant="outlined">
           <View style={styles.iconBox}>
             <MaterialDesignIcons color={theme.colors.primary} name="calendar-remove-outline" size={22} />
           </View>
           <View style={styles.copy}>
-            <Text style={styles.title}>{t('managedProfile.firstPeriod.no')}</Text>
-            <Text style={styles.subtitle}>{t('managedProfile.firstPeriod.noSubtitle')}</Text>
+            <AwaText variant="titleSmall">{t('managedProfile.firstPeriod.no')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.subtitle}>{t('managedProfile.firstPeriod.noSubtitle')}</AwaText>
           </View>
           <View style={[styles.radio, answer === 'no' && styles.radioSelected]}>
             {answer === 'no' ? <View style={styles.radioDot} /> : null}
           </View>
-        </Pressable>
+        </AwaCard>
       </Reveal>
 
       {creating ? (
@@ -140,17 +146,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       minHeight: 74,
       flexDirection: 'row',
       alignItems: 'center',
-      borderWidth: 1.4,
-      borderColor: theme.colors.border,
-      borderRadius: 18,
-      backgroundColor: theme.colors.surface,
-      paddingHorizontal: 13,
+      paddingHorizontal: 16,
       paddingVertical: 12,
-      elevation: 3,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 4},
-      shadowOpacity: 0.07,
-      shadowRadius: 9,
     },
     cardSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
     iconBox: {
@@ -159,12 +156,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexShrink: 0,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 15,
+      borderRadius: 16,
       backgroundColor: withAlpha(theme.colors.primary, 0.10),
     },
     copy: {flex: 1, minWidth: 0, marginHorizontal: 12},
-    title: {color: theme.colors.text, fontSize: 14.5, fontWeight: '700', lineHeight: 19},
-    subtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+    subtitle: {marginTop: 2},
     radio: {
       width: 22,
       height: 22,
@@ -177,7 +173,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     radioSelected: {borderColor: theme.colors.primary},
     radioDot: {width: 10, height: 10, borderRadius: 5, backgroundColor: theme.colors.primary},
-    pressed: {opacity: 0.86},
     loadingRow: {marginTop: 6, alignItems: 'center'},
   });
 }
