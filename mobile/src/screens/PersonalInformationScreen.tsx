@@ -31,9 +31,14 @@ import {
 } from '../state/personalInformationStore';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {interpolateHex, onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {formatFullDate} from '../utils/cycleMath';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
+import {AwaTextField} from '../components/ui/AwaTextField';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PersonalInformation'>;
 type FieldKey = keyof Pick<PersonalInformation, 'firstName' | 'lastName' | 'email' | 'phone' | 'preferredName'>;
@@ -77,8 +82,8 @@ function InfoRow({icon, label, value, onPress, last, theme, styles}: {
 }) {
   return (
     <Pressable disabled={!onPress} onPress={onPress} style={({pressed}) => [styles.row, !last && styles.rowBorder, pressed && onPress && styles.pressed]}>
-      <View style={styles.rowIcon}><MaterialDesignIcons color={theme.colors.primary} name={icon} size={19} /></View>
-      <View style={styles.rowCopy}><Text style={styles.rowLabel}>{label}</Text><Text numberOfLines={2} style={styles.rowValue}>{value}</Text></View>
+      <View style={styles.rowIcon}><MaterialDesignIcons color={theme.colors.primary} name={icon} size={20} /></View>
+      <View style={styles.rowCopy}><AwaText colorRole="onSurfaceVariant" variant="labelMedium">{label}</AwaText><AwaText emphasized style={styles.rowValue} variant="bodyMedium">{value}</AwaText></View>
       {onPress ? <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={23} /> : null}
     </Pressable>
   );
@@ -185,22 +190,21 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
                 ? t('appearance.language.germanName')
                 : getAppLanguage() === 'zh'
                   ? t('appearance.language.chineseName')
-                  : t('appearance.language.frenchName');
+                  : getAppLanguage() === 'id'
+                    ? t('appearance.language.indonesianName')
+                    : t('appearance.language.frenchName');
 
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.safe}>
       <StatusBar translucent backgroundColor="transparent" barStyle={theme.statusBarStyle} />
       <ScrollView contentContainerStyle={[styles.content, compact && styles.contentCompact, {paddingTop: Math.max(insets.top, 18) + 8, paddingBottom: Math.max(insets.bottom, 18) + 24}]} showsVerticalScrollIndicator={false}>
         <Animated.View entering={FadeIn.duration(300)} style={styles.header}>
-          <Pressable accessibilityLabel={t('common.back')} onPress={navigation.goBack} style={({pressed}) => [styles.back, pressed && styles.pressed]}><MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} /></Pressable>
-          <View style={styles.headerCopy}><Text adjustsFontSizeToFit minimumFontScale={0.8} style={styles.title}>{t('personalInformation.title')}</Text><Text style={styles.subtitle}>{t('personalInformation.subtitle')}</Text></View>
-          <View style={styles.decor}><MaterialDesignIcons color={theme.colors.secondary} name="leaf" size={42} /><MaterialDesignIcons color={theme.colors.primary} name="star-four-points" size={12} /></View>
+          <AwaIconButton accessibilityLabel={t('common.back')} icon="chevron-left" onPress={navigation.goBack} variant="tonal" />
+          <View style={styles.headerCopy}><AwaText accessibilityRole="header" variant="headlineSmall">{t('personalInformation.title')}</AwaText><AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodySmall">{t('personalInformation.subtitle')}</AwaText></View>
         </Animated.View>
 
-        <Animated.View entering={FadeInUp.delay(80).duration(420)} style={styles.profileCard}>
-          <View pointerEvents="none" style={styles.profileGlow} />
-          <View pointerEvents="none" style={styles.profileDecorTopRight} />
-
+        <Animated.View entering={FadeInUp.delay(80).duration(420)}>
+          <AwaCard style={styles.profileCard} variant="elevated">
           <View style={styles.profileTopRow}>
             <View style={styles.avatarOuterRing}>
               <Pressable
@@ -238,33 +242,28 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
             </View>
 
             <View style={styles.profileCopy}>
-              <Text style={styles.greeting}>{t('personalInformation.greeting')}</Text>
-              <Text style={styles.profileText}>
+              <AwaText style={styles.greeting} variant="titleLarge">{t('personalInformation.greeting')}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={styles.profileText} variant="bodySmall">
                 {t('personalInformation.intro')}
-              </Text>
+              </AwaText>
 
-              <Pressable
+              <AwaButton
                 accessibilityLabel={profile.avatarUri ? t('personalInformation.changeMyPhoto') : t('personalInformation.addPhoto')}
+                icon={profile.avatarUri ? 'image-edit-outline' : 'image-plus-outline'}
+                label={profile.avatarUri ? t('personalInformation.changePhoto') : t('personalInformation.addPhoto')}
                 onPress={() => openField('avatar')}
-                style={({pressed}) => [
-                  styles.photoAction,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name={profile.avatarUri ? 'image-edit-outline' : 'image-plus-outline'}
-                  size={14}
-                />
-                <Text style={styles.photoActionText}>
-                  {profile.avatarUri ? t('personalInformation.changePhoto') : t('personalInformation.addPhoto')}
-                </Text>
-              </Pressable>
+                size="compact"
+                style={styles.photoAction}
+                variant="tonal"
+              />
             </View>
           </View>
+          </AwaCard>
         </Animated.View>
 
-        <Text style={styles.sectionTitle}>{t('personalInformation.basicInfoSection')}</Text>
-        <Animated.View entering={FadeInUp.delay(150).duration(420)} style={styles.card}>
+        <AwaText accessibilityRole="header" style={styles.sectionTitle} variant="titleMedium">{t('personalInformation.basicInfoSection')}</AwaText>
+        <Animated.View entering={FadeInUp.delay(150).duration(420)}>
+        <AwaCard padding="none" style={styles.card} variant="filled">
           <InfoRow icon="account-outline" label={t('personalInformation.firstNameLabel')} value={profile.firstName || t('profile.notProvided')} onPress={() => openField('firstName')} styles={styles} theme={theme} />
           <InfoRow icon="account-outline" label={t('personalInformation.lastNameLabel')} value={profile.lastName || t('profile.notProvided')} onPress={() => openField('lastName')} styles={styles} theme={theme} />
           <InfoRow icon="calendar-month-outline" label={t('personalInformation.birthDateLabel')} value={formatBirthDate(profile.birthDate, t('profile.notProvided'))} onPress={() => setDatePickerVisible(true)} styles={styles} theme={theme} />
@@ -272,16 +271,19 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
           <InfoRow icon="phone-outline" label={t('personalInformation.phoneLabel')} value={profile.phone || t('profile.notProvided')} onPress={() => openField('phone')} styles={styles} theme={theme} />
           <InfoRow icon="map-marker-outline" label={t('personalInformation.countryLabel')} value={profile.country || t('profile.notProvided')} onPress={() => openField('country')} styles={styles} theme={theme} />
           <InfoRow icon="web" label={t('personalInformation.languageLabel')} value={languageDisplayValue} last styles={styles} theme={theme} />
+        </AwaCard>
         </Animated.View>
 
-        <Text style={styles.sectionTitle}>{t('personalInformation.preferencesSection')}</Text>
-        <Animated.View entering={FadeInUp.delay(220).duration(420)} style={styles.card}>
+        <AwaText accessibilityRole="header" style={styles.sectionTitle} variant="titleMedium">{t('personalInformation.preferencesSection')}</AwaText>
+        <Animated.View entering={FadeInUp.delay(220).duration(420)}>
+        <AwaCard padding="none" style={styles.card} variant="filled">
           <InfoRow icon="gender-female" label={t('personalInformation.preferredNameQuestion')} value={profile.preferredName || t('profile.notProvided')} onPress={() => openField('preferredName')} styles={styles} theme={theme} />
           <InfoRow icon="weather-night" label={t('personalInformation.mainCalendarLabel')} value={calendarLabel} onPress={() => openField('calendar')} styles={styles} theme={theme} />
           <InfoRow icon="clock-outline" label={t('personalInformation.timeFormatLabel')} value={profile.timeFormat === '24h' ? t('personalInformation.time24h') : t('personalInformation.time12h')} last onPress={() => openField('timeFormat')} styles={styles} theme={theme} />
+        </AwaCard>
         </Animated.View>
 
-        <View style={styles.infoCard}><MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={21} /><Text style={styles.infoText}>{t('personalInformation.infoCardText')}</Text></View>
+        <AwaCard padding="compact" style={styles.infoCard} variant="filled"><MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={21} /><AwaText colorRole="onSurfaceVariant" style={styles.infoText} variant="bodySmall">{t('personalInformation.infoCardText')}</AwaText></AwaCard>
       </ScrollView>
 
       {datePickerVisible ? <DateTimePicker maximumDate={new Date()} mode="date" onDismiss={onDatePickerDismiss} onValueChange={onDateValueChange} value={birthDatePickerValue} /> : null}
@@ -292,21 +294,19 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
           <View style={[styles.sheet, {paddingBottom: Math.max(insets.bottom, 18)}]}>
             <View style={styles.handle} />
             {sheet === 'avatar' ? <>
-              <Text style={styles.sheetTitle}>{t('personalInformation.photoSheetTitle')}</Text>
+              <AwaText style={styles.sheetTitle} variant="titleLarge">{t('personalInformation.photoSheetTitle')}</AwaText>
               <SheetAction icon="camera-outline" label={t('personalInformation.takePhoto')} onPress={() => choosePhoto(true)} styles={styles} theme={theme} />
               <SheetAction icon="image-outline" label={t('personalInformation.chooseFromGallery')} onPress={() => choosePhoto(false)} styles={styles} theme={theme} />
               {profile.avatarUri ? <SheetAction danger icon="delete-outline" label={t('personalInformation.deletePhoto')} onPress={() => persist({avatarUri: undefined})} styles={styles} theme={theme} /> : null}
             </> : sheet && ['firstName', 'lastName', 'email', 'phone', 'preferredName'].includes(sheet) ? <>
-              <Text style={styles.sheetTitle}>{FIELD_META[sheet as FieldKey].title}</Text>
-              <Text style={styles.inputLabel}>{FIELD_META[sheet as FieldKey].label}</Text>
-              <TextInput autoFocus keyboardType={FIELD_META[sheet as FieldKey].keyboard} onChangeText={value => {setDraft(value); setError('');}} placeholder={t('profile.notProvided')} placeholderTextColor={theme.colors.textMuted} style={[styles.input, error ? styles.inputError : null]} value={draft} />
-              {error ? <Text style={styles.error}>{error}</Text> : null}
+              <AwaText style={styles.sheetTitle} variant="titleLarge">{FIELD_META[sheet as FieldKey].title}</AwaText>
+              <AwaTextField autoFocus errorText={error || undefined} keyboardType={FIELD_META[sheet as FieldKey].keyboard} label={FIELD_META[sheet as FieldKey].label} onChangeText={value => {setDraft(value); setError('');}} placeholder={t('profile.notProvided')} placeholderTextColor={theme.colors.textMuted} value={draft} />
               <SaveButton onPress={saveTextField} styles={styles} />
             </> : sheet === 'country' ? <>
-              <Text style={styles.sheetTitle}>{t('personalInformation.chooseCountryTitle')}</Text><TextInput autoFocus onChangeText={setQuery} placeholder={t('personalInformation.searchCountryPlaceholder')} placeholderTextColor={theme.colors.textMuted} style={styles.input} value={query} />
+              <AwaText style={styles.sheetTitle} variant="titleLarge">{t('personalInformation.chooseCountryTitle')}</AwaText><TextInput autoFocus onChangeText={setQuery} placeholder={t('personalInformation.searchCountryPlaceholder')} placeholderTextColor={theme.colors.textMuted} style={styles.input} value={query} />
               <ScrollView style={styles.optionsScroll}>{filteredCountries.map(item => <Option key={item} label={item} selected={profile.country === item} onPress={() => persist({country: item})} styles={styles} theme={theme} />)}</ScrollView>
-            </> : sheet === 'calendar' ? <><Text style={styles.sheetTitle}>{t('personalInformation.calendarSheetTitle')}</Text>{CALENDARS.map(item => <Option detail={item.detail} key={item.value} label={item.label} selected={profile.calendar === item.value} onPress={() => persist({calendar: item.value})} styles={styles} theme={theme} />)}</> : sheet === 'timeFormat' ? <><Text style={styles.sheetTitle}>{t('personalInformation.timeFormatSheetTitle')}</Text><Option detail={t('personalInformation.time24hExample')} label={t('personalInformation.time24h')} selected={profile.timeFormat === '24h'} onPress={() => persist({timeFormat: '24h'})} styles={styles} theme={theme} /><Option detail={t('personalInformation.time12hExample')} label={t('personalInformation.time12h')} selected={profile.timeFormat === '12h'} onPress={() => persist({timeFormat: '12h'})} styles={styles} theme={theme} /></> : null}
-            <Pressable onPress={() => setSheet(null)} style={styles.cancel}><Text style={styles.cancelText}>{t('common.cancel')}</Text></Pressable>
+            </> : sheet === 'calendar' ? <><AwaText style={styles.sheetTitle} variant="titleLarge">{t('personalInformation.calendarSheetTitle')}</AwaText>{CALENDARS.map(item => <Option detail={item.detail} key={item.value} label={item.label} selected={profile.calendar === item.value} onPress={() => persist({calendar: item.value})} styles={styles} theme={theme} />)}</> : sheet === 'timeFormat' ? <><AwaText style={styles.sheetTitle} variant="titleLarge">{t('personalInformation.timeFormatSheetTitle')}</AwaText><Option detail={t('personalInformation.time24hExample')} label={t('personalInformation.time24h')} selected={profile.timeFormat === '24h'} onPress={() => persist({timeFormat: '24h'})} styles={styles} theme={theme} /><Option detail={t('personalInformation.time12hExample')} label={t('personalInformation.time12h')} selected={profile.timeFormat === '12h'} onPress={() => persist({timeFormat: '12h'})} styles={styles} theme={theme} /></> : null}
+            <AwaButton fullWidth label={t('common.cancel')} onPress={() => setSheet(null)} style={styles.cancel} variant="text" />
           </View>
         </KeyboardAvoidingView>
       </Modal>
@@ -330,7 +330,7 @@ function Option({label, detail, selected, onPress, theme, styles}: {
 }
 function SaveButton({onPress, styles}: {onPress: () => void; styles: ReturnType<typeof createStyles>}) {
   const {t} = useTranslation();
-  return <Pressable onPress={onPress} style={({pressed}) => [styles.save, pressed && styles.pressed]}><Text style={styles.saveText}>{t('common.save')}</Text></Pressable>;
+  return <AwaButton fullWidth label={t('common.save')} onPress={onPress} size="large" style={styles.save} />;
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
@@ -339,18 +339,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     content: {flexGrow: 1, gap: 12, paddingHorizontal: 16},
     contentCompact: {paddingHorizontal: 11},
     header: {flexDirection: 'row', alignItems: 'center'},
-    back: {alignItems: 'center', justifyContent: 'center', borderRadius: 999, backgroundColor: theme.colors.surface, padding: 9, elevation: 2},
     headerCopy: {flex: 1, minWidth: 0, paddingHorizontal: 10},
-    title: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 22, fontWeight: '700'},
-    subtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11.5},
-    decor: {alignItems: 'center', justifyContent: 'center', flexDirection: 'row'},
-    profileCard: {
-      position: 'relative', overflow: 'hidden', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.11),
-      borderRadius: 24, backgroundColor: interpolateHex(theme.colors.surface, theme.colors.primarySoft, 0.3),
-      paddingHorizontal: 16, paddingVertical: 15, elevation: 3, shadowColor: theme.shadow.shadowColor, shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: {width: 0, height: 5},
-    },
-    profileGlow: {position: 'absolute', top: -48, right: -38, width: 140, height: 140, borderRadius: 70, backgroundColor: withAlpha(theme.colors.primary, 0.055)},
-    profileDecorTopRight: {position: 'absolute', top: 17, right: 18, width: 7, height: 7, borderRadius: 4, backgroundColor: withAlpha(theme.colors.primary, 0.22)},
+    subtitle: {marginTop: 3},
+    profileCard: {overflow: 'hidden'},
     profileTopRow: {flexDirection: 'row', alignItems: 'center'},
     avatarOuterRing: {width: 74, height: 74, alignItems: 'center', justifyContent: 'center', flexShrink: 0, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.15), borderRadius: 37, backgroundColor: withAlpha(theme.colors.surface, 0.72)},
     avatarWrap: {width: 64, height: 64, borderRadius: 32},
@@ -362,52 +353,42 @@ function createStyles(theme: ResolvedAwaTheme) {
       elevation: 2, shadowColor: theme.shadow.shadowColor, shadowOpacity: 0.15, shadowRadius: 3, shadowOffset: {width: 0, height: 2},
     },
     profileCopy: {flex: 1, minWidth: 0, marginLeft: 14},
-    greeting: {color: theme.colors.text, fontFamily: 'serif', fontSize: 18, fontWeight: '700', lineHeight: 22},
-    profileText: {marginTop: 5, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
-    photoAction: {
-      alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 9, borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 999, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 9, paddingVertical: 6,
-    },
-    photoActionText: {color: theme.colors.primary, fontSize: 10.5, fontWeight: '700'},
-    sectionTitle: {marginTop: 2, color: theme.colors.accent, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
-    card: {overflow: 'hidden', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 24, backgroundColor: theme.colors.surface, paddingHorizontal: 12},
+    greeting: {},
+    profileText: {marginTop: 4},
+    photoAction: {alignSelf: 'flex-start', marginTop: 8},
+    sectionTitle: {marginTop: 4},
+    card: {overflow: 'hidden', paddingHorizontal: 12},
     row: {minHeight: 62, flexDirection: 'row', alignItems: 'center', paddingVertical: 8},
     rowBorder: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: withAlpha(theme.colors.primary, 0.08)},
-    rowIcon: {alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primarySoft, padding: 9},
+    rowIcon: {alignItems: 'center', justifyContent: 'center', padding: 9},
     rowCopy: {flex: 1, minWidth: 0, marginHorizontal: 11},
-    rowLabel: {color: theme.colors.textSecondary, fontSize: 10.5},
-    rowValue: {marginTop: 2, color: theme.colors.text, fontSize: 12.5, fontWeight: '700'},
-    infoCard: {flexDirection: 'row', alignItems: 'center', gap: 10, borderRadius: 18, backgroundColor: theme.colors.primarySoft, padding: 14},
-    infoText: {flex: 1, color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 16},
+    rowValue: {marginTop: 2},
+    infoCard: {flexDirection: 'row', alignItems: 'center', gap: 10},
+    infoText: {flex: 1},
     pressed: {opacity: 0.78, transform: [{scale: 0.985}]},
     modalRoot: {flex: 1, justifyContent: 'flex-end'},
     // Fixed modal scrim — never themed, same precedent as every migrated screen.
     backdrop: {...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(35,21,72,.38)'},
-    sheet: {maxHeight: '86%', borderTopLeftRadius: 30, borderTopRightRadius: 30, backgroundColor: theme.colors.surface, paddingHorizontal: 18, paddingTop: 10},
+    sheet: {maxHeight: '86%', borderTopLeftRadius: 28, borderTopRightRadius: 28, backgroundColor: theme.colors.surface, paddingHorizontal: 18, paddingTop: 10},
     handle: {alignSelf: 'center', width: '14%', aspectRatio: 8, borderRadius: 999, backgroundColor: withAlpha(theme.colors.primary, 0.25)},
-    sheetTitle: {marginTop: 16, marginBottom: 14, color: theme.colors.accent, fontFamily: 'serif', fontSize: 21, fontWeight: '700', textAlign: 'center'},
-    inputLabel: {marginBottom: 7, color: theme.colors.text, fontSize: 12, fontWeight: '700'},
-    input: {borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.16), borderRadius: 18, backgroundColor: theme.colors.surface, paddingHorizontal: 14, paddingVertical: 13, color: theme.colors.text, fontSize: 14},
-    inputError: {borderColor: theme.colors.danger},
-    error: {marginTop: 6, color: theme.colors.danger, fontSize: 11},
-    save: {alignItems: 'center', marginTop: 15, borderRadius: 18, backgroundColor: theme.colors.primary, padding: 15},
-    saveText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '700'},
-    cancel: {alignItems: 'center', marginTop: 9, paddingVertical: 12},
-    cancelText: {color: theme.colors.textSecondary, fontSize: 13, fontWeight: '600'},
+    sheetTitle: {marginTop: 16, marginBottom: 14, textAlign: 'center'},
+    input: {borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.16), borderRadius: 12, backgroundColor: theme.colors.surface, paddingHorizontal: 14, paddingVertical: 13, color: theme.colors.text, fontSize: 14},
+    save: {marginTop: 15},
+    cancel: {marginTop: 9},
     sheetAction: {flexDirection: 'row', alignItems: 'center', gap: 12, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: withAlpha(theme.colors.primary, 0.08), paddingHorizontal: 10, paddingVertical: 15},
     sheetActionText: {color: theme.colors.text, fontSize: 14, fontWeight: '600'},
     danger: {color: theme.colors.danger},
     optionsScroll: {maxHeight: '55%'},
-    option: {flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.13), borderRadius: 18, backgroundColor: theme.colors.surface, padding: 13, marginBottom: 8},
+    option: {flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.13), borderRadius: 12, backgroundColor: theme.colors.surface, padding: 16, marginBottom: 8},
     optionSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
     optionCopy: {flex: 1},
     optionLabel: {color: theme.colors.text, fontSize: 14, fontWeight: '600'},
-    optionLabelSelected: {color: theme.colors.primary, fontWeight: '700'},
-    optionDetail: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 10.5},
+    optionLabelSelected: {color: theme.colors.text, fontWeight: '700'},
+    optionDetail: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11},
     radio: {width: 21, height: 21, borderWidth: 1.5, borderColor: withAlpha(theme.colors.primary, 0.35), borderRadius: 999},
     toast: {
       position: 'absolute', left: '12%', right: '12%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-      gap: 8, borderRadius: 18, backgroundColor: theme.colors.primary, padding: 13, elevation: 8,
+      gap: 8, borderRadius: 12, backgroundColor: theme.colors.primary, padding: 16, elevation: 6,
     },
     toastText: {color: onPrimaryTextColor(theme), fontSize: 12.5, fontWeight: '700'},
   });

@@ -164,7 +164,8 @@ describe('AppearanceScreen — resolved global theme', () => {
 
   it('palette switching updates screen chrome without remounting', async () => {
     const renderer = await renderScreen();
-    const headerTitle = () => renderer.root.findAll(node => node.props.children === 'Apparence')[0];
+    // Material 3 migration: the title is an AwaText; the host Text (last match) carries the resolved style.
+    const headerTitle = () => renderer.root.findAll(node => node.props.children === 'Apparence').slice(-1)[0];
     const colorBefore = flattenStyle(headerTitle().props.style).color;
 
     await act(async () => {
@@ -226,7 +227,7 @@ describe('AppearanceScreen — Premium gating', () => {
       await setSelectedThemeId('warm-sand');
     });
     const renderer = await renderScreen();
-    const headerTitleColor = () => flattenStyle(renderer.root.findAll(node => node.props.children === 'Apparence')[0].props.style).color;
+    const headerTitleColor = () => flattenStyle(renderer.root.findAll(node => node.props.children === 'Apparence').slice(-1)[0].props.style).color;
     const warmSandColor = headerTitleColor();
 
     await act(async () => {

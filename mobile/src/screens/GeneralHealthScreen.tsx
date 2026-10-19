@@ -40,6 +40,9 @@ import {
 } from '../state/generalHealthStore';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaText} from '../components/ui/AwaText';
+import {AwaTextField} from '../components/ui/AwaTextField';
 import {getActiveProfileIdentity, subscribeActiveProfileId} from '../state/activeProfileStore';
 import {formatFullDate} from '../utils/cycleMath';
 import {presentSaveFailure} from '../services/saveFailure';
@@ -334,19 +337,18 @@ function SectionHeader({
         style={
           styles.sectionCopy
         }>
-        <Text
-          style={
-            styles.sectionTitle
-          }>
+        <AwaText variant="titleMedium">
           {title}
-        </Text>
+        </AwaText>
 
-        <Text
+        <AwaText
+          colorRole="onSurfaceVariant"
           style={
             styles.sectionSubtitle
-          }>
+          }
+          variant="bodySmall">
           {subtitle}
-        </Text>
+        </AwaText>
       </View>
     </View>
   );
@@ -440,7 +442,6 @@ function MedicalChoice({
           styles.medicalChoiceTextBox
         }>
         <Text
-          numberOfLines={2}
           style={[
             styles.medicalChoiceText,
             selected &&
@@ -531,36 +532,23 @@ function GoalOption({
 
 function SaveButton({
   onPress,
-  theme,
   styles,
 }: {
   onPress: () => void;
-  theme: ResolvedAwaTheme;
+  /** Kept for the existing call sites; AwaButton reads the theme itself. */
+  theme?: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   const {t} = useTranslation();
   return (
-    <Pressable
-      accessibilityRole="button"
+    <AwaButton
+      fullWidth
+      icon="check"
+      label={t('common.save')}
       onPress={onPress}
-      style={({pressed}) => [
-        styles.saveButton,
-        pressed &&
-          styles.pressed,
-      ]}>
-      <MaterialDesignIcons
-        color={onPrimaryTextColor(theme)}
-        name="check"
-        size={20}
-      />
-
-      <Text
-        style={
-          styles.saveButtonText
-        }>
-        {t('common.save')}
-      </Text>
-    </Pressable>
+      size="large"
+      style={styles.saveButton}
+    />
   );
 }
 
@@ -940,23 +928,6 @@ export default function GeneralHealthScreen({
       style={
         styles.background
       }>
-      <View
-        pointerEvents="none"
-        style={
-          styles.backgroundDecoration
-        }>
-        <View
-          style={
-            styles.glowTop
-          }
-        />
-
-        <View
-          style={
-            styles.glowBottom
-          }
-        />
-      </View>
 
       <SafeAreaView
         edges={[
@@ -1027,30 +998,18 @@ export default function GeneralHealthScreen({
               style={
                 styles.headerCopy
               }>
-              <Text
-                style={
-                  styles.pageTitle
-                }>
+              <AwaText variant="headlineSmall">
                 {t('generalHealth.title')}
-              </Text>
+              </AwaText>
 
-              <Text
+              <AwaText
+                colorRole="onSurfaceVariant"
                 style={
                   styles.pageSubtitle
-                }>
+                }
+                variant="bodySmall">
                 {t('generalHealth.subtitle')}
-              </Text>
-            </View>
-
-            <View
-              style={
-                styles.headerIcon
-              }>
-              <MaterialDesignIcons
-                color={theme.colors.primary}
-                name="heart-pulse"
-                size={24}
-              />
+              </AwaText>
             </View>
           </Animated.View>
 
@@ -1705,25 +1664,13 @@ export default function GeneralHealthScreen({
                       )}
                     </View>
 
-                    <Text
-                      style={
-                        styles.inputLabel
-                      }>
-                      {t('generalHealth.otherInfoLabel')}
-                    </Text>
-
-                    <TextInput
-                      onChangeText={
-                        setCustom
-                      }
+                    <AwaTextField
+                      label={t('generalHealth.otherInfoLabel')}
+                      onChangeText={setCustom}
                       placeholder={t('generalHealth.otherInfoPlaceholder')}
                       placeholderTextColor={theme.colors.textMuted}
-                      style={
-                        styles.textInput
-                      }
-                      value={
-                        custom
-                      }
+                      value={custom}
+                      wrapperStyle={styles.fieldWrap}
                     />
 
                     <SaveButton
@@ -1754,64 +1701,21 @@ export default function GeneralHealthScreen({
                       title={t('generalHealth.treatmentsTitle')}
                     />
 
-                    <Text
-                      style={
-                        styles.inputLabel
-                      }>
-                      {t('generalHealth.newTreatmentLabel')}
-                    </Text>
-
-                    <View
-                      style={
-                        styles.treatmentInputRow
-                      }>
-                      <TextInput
-                        onChangeText={value => {
-                          setDraft(
-                            value,
-                          );
-                          setError(
-                            '',
-                          );
-                        }}
-                        placeholder={t('generalHealth.treatmentPlaceholder')}
-                        placeholderTextColor={theme.colors.textMuted}
-                        style={[
-                          styles.textInput,
-                          styles.flexInput,
-                        ]}
-                        value={
-                          draft
-                        }
-                      />
-
-                      <Pressable
-                        accessibilityLabel={t('generalHealth.addTreatmentAccessibility')}
-                        accessibilityRole="button"
-                        onPress={
-                          addTreatment
-                        }
-                        style={
-                          styles.addButton
-                        }>
-                        <MaterialDesignIcons
-                          color={onPrimaryTextColor(theme)}
-                          name="plus"
-                          size={22}
-                        />
-                      </Pressable>
-                    </View>
-
-                    {error ? (
-                      <Text
-                        style={
-                          styles.errorText
-                        }>
-                        {
-                          error
-                        }
-                      </Text>
-                    ) : null}
+                    <AwaTextField
+                      errorText={error || undefined}
+                      label={t('generalHealth.newTreatmentLabel')}
+                      onChangeText={value => {
+                        setDraft(value);
+                        setError('');
+                      }}
+                      onTrailingIconPress={addTreatment}
+                      placeholder={t('generalHealth.treatmentPlaceholder')}
+                      placeholderTextColor={theme.colors.textMuted}
+                      trailingIcon="plus"
+                      trailingIconAccessibilityLabel={t('generalHealth.addTreatmentAccessibility')}
+                      value={draft}
+                      wrapperStyle={styles.fieldWrap}
+                    />
 
                     {selected.length >
                     0 ? (
@@ -2075,8 +1979,9 @@ export default function GeneralHealthScreen({
                   </>
                 ) : null}
 
-                <Pressable
-                  accessibilityRole="button"
+                <AwaButton
+                  fullWidth
+                  label={t('common.cancel')}
                   onPress={() =>
                     setSheet(
                       null,
@@ -2084,14 +1989,9 @@ export default function GeneralHealthScreen({
                   }
                   style={
                     styles.cancelButton
-                  }>
-                  <Text
-                    style={
-                      styles.cancelText
-                    }>
-                    {t('common.cancel')}
-                  </Text>
-                </Pressable>
+                  }
+                  variant="text"
+                />
               </ScrollView>
             </View>
           </KeyboardAvoidingView>
@@ -2151,30 +2051,28 @@ function SheetHeader({
       style={
         styles.sheetHeader
       }>
-      <View
-        style={
-          styles.sheetIcon
-        }>
-        <MaterialDesignIcons
-          color={theme.colors.primary}
-          name={icon}
-          size={24}
-        />
-      </View>
+      <MaterialDesignIcons
+        color={theme.colors.primary}
+        name={icon}
+        size={24}
+      />
 
-      <Text
+      <AwaText
         style={
           styles.sheetTitle
-        }>
+        }
+        variant="titleLarge">
         {title}
-      </Text>
+      </AwaText>
 
-      <Text
+      <AwaText
+        colorRole="onSurfaceVariant"
         style={
           styles.sheetSubtitle
-        }>
+        }
+        variant="bodyMedium">
         {subtitle}
-      </Text>
+      </AwaText>
     </View>
   );
 }
@@ -2195,32 +2093,8 @@ function createStyles(theme: ResolvedAwaTheme) {
         'transparent',
     },
 
-    backgroundDecoration: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
 
-    glowTop: {
-      position: 'absolute',
-      top: -130,
-      right: -100,
-      width: 300,
-      height: 300,
-      borderRadius: 150,
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.07),
-    },
 
-    glowBottom: {
-      position: 'absolute',
-      bottom: 80,
-      left: -130,
-      width: 280,
-      height: 280,
-      borderRadius: 140,
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.08),
-    },
 
     content: {
       flexGrow: 1,
@@ -2263,18 +2137,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 11,
     },
 
-    pageTitle: {
-      color: theme.colors.accent,
-      fontFamily: 'serif',
-      fontSize: 24,
-      fontWeight: '800',
-    },
-
     pageSubtitle: {
-      marginTop: 3,
-      color: theme.colors.textSecondary,
-      fontSize: 11,
-      lineHeight: 15,
+      marginTop: 4,
     },
 
     headerIcon: {
@@ -2282,7 +2146,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       height: 43,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 15,
+      borderRadius: 16,
       backgroundColor:
         theme.colors.primarySoft,
     },
@@ -2297,7 +2161,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderWidth: 1,
       borderColor:
         theme.colors.border,
-      borderRadius: 24,
+      borderRadius: 12,
       backgroundColor:
         theme.colors.surface,
       elevation: 2,
@@ -2309,7 +2173,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       justifyContent: 'center',
       flexShrink: 0,
-      borderRadius: 18,
+      borderRadius: 12,
       backgroundColor:
         theme.colors.primarySoft,
     },
@@ -2329,7 +2193,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     privacyText: {
       marginTop: 5,
       color: theme.colors.textSecondary,
-      fontSize: 10.7,
+      fontSize: 11,
       lineHeight: 16,
     },
 
@@ -2358,17 +2222,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       minWidth: 0,
     },
 
-    sectionTitle: {
-      color: theme.colors.accent,
-      fontFamily: 'serif',
-      fontSize: 18,
-      fontWeight: '800',
-    },
-
     sectionSubtitle: {
       marginTop: 2,
-      color: theme.colors.textSecondary,
-      fontSize: 9.8,
     },
 
     /* PHYSICAL */
@@ -2379,7 +2234,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderWidth: 1,
       borderColor:
         theme.colors.border,
-      borderRadius: 25,
+      borderRadius: 12,
       backgroundColor:
         theme.colors.surface,
       elevation: 2,
@@ -2405,7 +2260,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       justifyContent: 'center',
       flexShrink: 0,
-      borderRadius: 14,
+      borderRadius: 12,
       backgroundColor:
         theme.colors.primarySoft,
     },
@@ -2418,7 +2273,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     rowLabel: {
       color: theme.colors.textSecondary,
-      fontSize: 10.7,
+      fontSize: 11,
       fontWeight: '600',
     },
 
@@ -2444,7 +2299,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderWidth: 1,
       borderColor:
         theme.colors.border,
-      borderRadius: 25,
+      borderRadius: 12,
       backgroundColor:
         theme.colors.surface,
       elevation: 2,
@@ -2471,7 +2326,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       justifyContent: 'center',
       flexShrink: 0,
-      borderRadius: 15,
+      borderRadius: 16,
       backgroundColor:
         theme.colors.primarySoft,
     },
@@ -2500,8 +2355,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     medicalHelper: {
       marginTop: 5,
       color: theme.colors.textMuted,
-      fontSize: 9.5,
-      lineHeight: 13,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     medicalChevron: {
@@ -2519,7 +2374,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderWidth: 1,
       borderColor:
         theme.colors.border,
-      borderRadius: 24,
+      borderRadius: 12,
       backgroundColor:
         theme.colors.surface,
     },
@@ -2530,7 +2385,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       justifyContent: 'center',
       flexShrink: 0,
-      borderRadius: 14,
+      borderRadius: 12,
       backgroundColor:
         theme.colors.primarySoft,
     },
@@ -2558,7 +2413,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     progressPercent: {
       color: theme.colors.primary,
-      fontSize: 9.5,
+      fontSize: 11,
       fontWeight: '800',
     },
 
@@ -2580,7 +2435,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     progressStatus: {
       color: theme.colors.textSecondary,
-      fontSize: 9,
+      fontSize: 11,
     },
 
     infoCard: {
@@ -2588,7 +2443,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       gap: 10,
       padding: 13,
-      borderRadius: 18,
+      borderRadius: 12,
       backgroundColor:
         theme.colors.primarySoft,
     },
@@ -2596,8 +2451,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     infoText: {
       flex: 1,
       color: theme.colors.textSecondary,
-      fontSize: 10.5,
-      lineHeight: 15,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     /* MODAL */
@@ -2617,8 +2472,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     sheet: {
       maxHeight: '84%',
       overflow: 'hidden',
-      borderTopLeftRadius: 32,
-      borderTopRightRadius: 32,
+      borderTopLeftRadius: 28,
+      borderTopRightRadius: 28,
       backgroundColor:
         theme.colors.surface,
       paddingHorizontal: 20,
@@ -2645,32 +2500,14 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingBottom: 5,
     },
 
-    sheetIcon: {
-      width: 48,
-      height: 48,
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginBottom: 9,
-      borderRadius: 16,
-      backgroundColor:
-        theme.colors.primarySoft,
-    },
-
     sheetTitle: {
-      color: theme.colors.accent,
-      fontFamily: 'serif',
-      fontSize: 23,
-      lineHeight: 29,
-      fontWeight: '800',
+      marginTop: 8,
       textAlign: 'center',
     },
 
     sheetSubtitle: {
       maxWidth: 340,
-      marginTop: 7,
-      color: theme.colors.textSecondary,
-      fontSize: 11.3,
-      lineHeight: 16,
+      marginTop: 8,
       textAlign: 'center',
     },
 
@@ -2692,7 +2529,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       justifyContent: 'center',
       gap: 4,
-      paddingHorizontal: 5,
+      paddingHorizontal: 8,
       borderWidth: 1,
       borderColor:
         theme.colors.border,
@@ -2735,7 +2572,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderWidth: 1,
       borderColor:
         theme.colors.border,
-      borderRadius: 17,
+      borderRadius: 16,
       backgroundColor:
         theme.colors.surface,
     },
@@ -2804,7 +2641,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderWidth: 1,
       borderColor:
         theme.colors.border,
-      borderRadius: 20,
+      borderRadius: 12,
       backgroundColor:
         theme.colors.surfaceSecondary,
     },
@@ -2813,7 +2650,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       flex: 1,
       paddingVertical: 13,
       color: theme.colors.accent,
-      fontSize: 30,
+      fontSize: 28,
       fontWeight: '800',
       textAlign: 'center',
     },
@@ -2831,7 +2668,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderWidth: 1,
       borderColor:
         theme.colors.border,
-      borderRadius: 17,
+      borderRadius: 16,
       backgroundColor:
         theme.colors.surfaceSecondary,
       color: theme.colors.accent,
@@ -2846,7 +2683,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     characterCounter: {
       marginTop: 6,
       color: theme.colors.textSecondary,
-      fontSize: 10,
+      fontSize: 11,
       textAlign: 'right',
     },
 
@@ -2858,24 +2695,8 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     /* TREATMENTS */
 
-    treatmentInputRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 8,
-    },
-
-    flexInput: {
-      flex: 1,
-    },
-
-    addButton: {
-      width: 50,
-      height: 50,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 16,
-      backgroundColor:
-        theme.colors.primary,
+    fieldWrap: {
+      marginTop: 18,
     },
 
     selectedTitle: {
@@ -2899,7 +2720,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       gap: 6,
       paddingHorizontal: 11,
       paddingVertical: 8,
-      borderRadius: 14,
+      borderRadius: 12,
       backgroundColor:
         theme.colors.primarySoft,
     },
@@ -2926,7 +2747,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     emptyStateText: {
       flex: 1,
       color: theme.colors.textSecondary,
-      fontSize: 10.5,
+      fontSize: 11,
     },
 
     /* GOALS */
@@ -2941,7 +2762,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderWidth: 1,
       borderColor:
         theme.colors.border,
-      borderRadius: 17,
+      borderRadius: 16,
       backgroundColor:
         theme.colors.surface,
     },
@@ -2984,7 +2805,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderWidth: 1,
       borderColor:
         theme.colors.border,
-      borderRadius: 14,
+      borderRadius: 12,
       backgroundColor:
         theme.colors.surface,
     },
@@ -3004,35 +2825,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     /* BUTTONS */
 
     saveButton: {
-      minHeight: 55,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 8,
-      marginTop: 19,
-      paddingHorizontal: 18,
-      borderRadius: 18,
-      backgroundColor:
-        theme.colors.primary,
-      elevation: 3,
-    },
-
-    saveButtonText: {
-      color: onPrimaryTextColor(theme),
-      fontSize: 15.5,
-      fontWeight: '800',
+      marginTop: 20,
     },
 
     cancelButton: {
-      alignItems: 'center',
       marginTop: 8,
-      paddingVertical: 15,
-    },
-
-    cancelText: {
-      color: theme.colors.textSecondary,
-      fontSize: 13,
-      fontWeight: '600',
     },
 
     /* TOAST */
@@ -3045,11 +2842,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       justifyContent: 'center',
       gap: 8,
-      padding: 13,
-      borderRadius: 18,
+      padding: 16,
+      borderRadius: 12,
       backgroundColor:
         theme.colors.primary,
-      elevation: 8,
+      elevation: 6,
     },
 
     toastText: {
