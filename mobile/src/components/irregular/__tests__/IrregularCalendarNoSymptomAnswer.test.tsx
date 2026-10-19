@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
 import {Text} from 'react-native';
+import {AwaText} from '../../ui/AwaText';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
@@ -62,9 +63,20 @@ const isGlyph = (text: string) => /^[-\u{F0000}-\u{FFFFF}]+$/u.test(text);
 const visibleTextsIn = (node: ReactTestRenderer.ReactTestInstance): string[] =>
   node.findAllByType(Text).map(textOf).filter(text => !isGlyph(text));
 
+// Labels are rendered through AwaText (a wrapper around Text) since the Material 3 migration: a label's `parent` is
+// that wrapper, so the row/tile container is the first ancestor that is not an AwaText.
+const containerOf = (node: ReactTestRenderer.ReactTestInstance): ReactTestRenderer.ReactTestInstance | null => {
+  let current = node.parent;
+  while (current && current.type === AwaText) {
+    current = current.parent;
+  }
+  return current;
+};
+
 const tile = (renderer: ReactTestRenderer.ReactTestRenderer, label: string): string | undefined => {
   const node = renderer.root.findAllByType(Text).find(item => textOf(item) === label);
-  return node?.parent ? visibleTextsIn(node.parent)[0] : undefined;
+  const container = node ? containerOf(node) : null;
+  return container ? visibleTextsIn(container)[0] : undefined;
 };
 
 const todayCellLabel = (renderer: ReactTestRenderer.ReactTestRenderer): string => {
