@@ -7,6 +7,9 @@
 // installs the polyfill as a side effect, so this import's position matters.
 import 'react-native-get-random-values';
 
+// DESIGN.md typography (Fraunces / Inter / IBM Plex Mono) and shape layers: must run before any screen module.
+import './src/theme/installAwaDesign';
+
 import { AppRegistry } from 'react-native';
 import notifee, { EventType } from '@notifee/react-native';
 import App from './App';

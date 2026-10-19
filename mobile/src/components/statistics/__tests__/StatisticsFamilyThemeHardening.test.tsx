@@ -271,14 +271,15 @@ describe('Statistics PARTIAL-audit remediation — no longer hardcoded', () => {
     expect(source).toMatch(/theme\.colors\.success/);
   });
 
-  it('Conceive: advice-card white badge/glow now derive from theme.colors.surface', () => {
+  it('Conceive: the advice-card badge derives from theme.colors.surface and the decorative glow no longer exists', () => {
     const source = fs.readFileSync(
       path.resolve(__dirname, '../../../screens/conceive/ConceiveStatisticsScreen.tsx'),
       'utf8',
     );
     expect(source).not.toContain("'rgba(255,255,255,0.30)'");
     expect(source).not.toContain("'rgba(255,255,255,0.80)'");
-    expect(source).toContain('withAlpha(theme.colors.surface, 0.30)');
+    // The 0.30 glow circle was a decorative shape removed by the DESIGN.md migration (no glow, no hardcoded white).
+    expect(source).not.toContain('adviceGlow');
     expect(source).toContain('withAlpha(theme.colors.surface, 0.80)');
   });
 
@@ -321,14 +322,15 @@ describe('E5 Statistics family — selected period survives a theme switch', () 
     ['Miscarriage', () => <MiscarriageStatisticsScreen />],
   ] as Array<[string, () => React.ReactElement]>)('%s keeps the same period selected across Dark + palette switch', async (_name, render) => {
     const renderer = await renderScreen(render);
-    // StatisticsPeriodSelector renders `style={[styles.filterText, active && styles.filterTextActive]}`
-    // on each period label's Text — inactive periods get `false` as the
-    // second style-array entry, the active one gets a real style object.
+    // Material 3 migration: the selected period is read from the period button's `accessibilityState.selected`
+    // (the selector's labels are AwaText now, so the old "style-array second entry" probe no longer identifies it).
     const activeLabel = () => {
-      const match = renderer.root
-        .findAllByType(Text)
-        .find(node => periodLabels().includes(String(node.props.children)) && Array.isArray(node.props.style) && node.props.style[1] !== false);
-      return match ? String(match.props.children) : undefined;
+      const match = renderer.root.findAll(
+        node =>
+          node.props.accessibilityState?.selected === true &&
+          periodLabels().includes(String(node.props.accessibilityLabel)),
+      )[0];
+      return match ? String(match.props.accessibilityLabel) : undefined;
     };
 
     const before = activeLabel();

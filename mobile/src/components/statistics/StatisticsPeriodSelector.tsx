@@ -1,10 +1,11 @@
 import React, {useMemo} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaText} from '../ui/AwaText';
 import {STATISTICS_PERIODS, isPeriodFree} from '../../utils/cycleStatisticsMath';
 import type {StatisticsPeriod} from '../../utils/cycleStatisticsMath';
 
@@ -57,9 +58,13 @@ function StatisticsPeriodSelector({
             onPress={() => (locked ? onRequestPremium() : onSelectPeriod(item))}
             style={[styles.filterButton, active && styles.filterButtonActive]}>
             <View style={styles.filterButtonContent}>
-              <Text style={[styles.filterText, active && styles.filterTextActive]}>
+              <AwaText
+                color={active ? theme.colors.primary : theme.colors.textSecondary}
+                emphasized={active}
+                style={styles.filterLabel}
+                variant="labelMedium">
                 {label}
-              </Text>
+              </AwaText>
 
               {locked ? (
                 <MaterialDesignIcons color={theme.colors.textMuted} name="lock-outline" size={10} />
@@ -80,7 +85,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginBottom: 16,
       borderWidth: 1,
       borderColor: theme.colors.border,
-      borderRadius: 17,
+      borderRadius: 16,
       backgroundColor: theme.colors.surfaceSecondary,
     },
 
@@ -89,29 +94,23 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       justifyContent: 'center',
       minHeight: 40,
-      borderRadius: 13,
+      borderRadius: 12,
     },
 
     filterButtonActive: {
-      ...theme.shadow,
       backgroundColor: theme.colors.surface,
     },
 
     filterButtonContent: {
       flexDirection: 'row',
+      flexWrap: 'wrap',
       alignItems: 'center',
+      justifyContent: 'center',
       gap: 3,
     },
 
-    filterText: {
-      color: theme.colors.textSecondary,
-      fontSize: 10.5,
-      fontWeight: '700',
-    },
-
-    filterTextActive: {
-      color: theme.colors.primary,
-      fontWeight: '800',
+    filterLabel: {
+      textAlign: 'center',
     },
   });
 }

@@ -1,10 +1,8 @@
 import React, {useCallback, useMemo, useState, useEffect} from 'react';
 import {
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   useWindowDimensions,
   View,
 } from 'react-native';
@@ -22,6 +20,9 @@ import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {getFloatingTabBarClearance, TOP_SPACING_EXTRA} from '../theme/spacing';
 import {usePremium} from '../hooks/usePremium';
+import StatisticsPeriodSelector from '../components/statistics/StatisticsPeriodSelector';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaText} from '../components/ui/AwaText';
 import {useToday} from '../hooks/useToday';
 import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
 import {getAllJournalEntries} from '../state/dailyJournalStore';
@@ -36,7 +37,6 @@ import {
 } from '../state/confirmedPeriodHistoryStore';
 import type {ConfirmedPeriodOccurrence} from '../state/confirmedPeriodHistoryStore';
 import {
-  STATISTICS_PERIODS,
   isPeriodFree,
   filterEntriesForPeriod,
   filterPeriodStartsForPeriod,
@@ -126,14 +126,12 @@ function SectionHeader({
 
   return (
     <View style={styles.sectionHeader}>
-      <View style={styles.sectionIcon}>
-        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={21} />
-      </View>
+      <MaterialDesignIcons color={theme.colors.primary} name={icon} size={22} style={styles.sectionIcon} />
 
       <View style={styles.sectionHeaderCopy}>
-        <Text style={styles.cardTitle}>{title}</Text>
+        <AwaText variant="titleMedium">{title}</AwaText>
 
-        {subtitle ? <Text style={styles.cardSubtitle}>{subtitle}</Text> : null}
+        {subtitle ? <AwaText colorRole="onSurfaceVariant" style={styles.cardSubtitle} variant="bodySmall">{subtitle}</AwaText> : null}
       </View>
     </View>
   );
@@ -156,16 +154,14 @@ function DataNotice({
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
-    <View style={styles.notice}>
-      <View style={styles.noticeIcon}>
-        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={20} />
-      </View>
+    <AwaCard style={styles.notice} variant="filled">
+      <MaterialDesignIcons color={theme.colors.primary} name={icon} size={22} />
 
       <View style={styles.noticeCopy}>
-        <Text style={styles.noticeTitle}>{title}</Text>
-        <Text style={styles.noticeDetail}>{detail}</Text>
+        <AwaText variant="titleSmall">{title}</AwaText>
+        <AwaText colorRole="onSurfaceVariant" style={styles.noticeDetail} variant="bodySmall">{detail}</AwaText>
       </View>
-    </View>
+    </AwaCard>
   );
 }
 
@@ -305,11 +301,6 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
@@ -327,16 +318,8 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
 
           <View style={styles.header}>
             <View style={styles.headerCopy}>
-              <Text style={styles.title}>{t('navigation.statistics')}</Text>
-              <Text style={styles.subtitle}>{t('statistics.headerSubtitle')}</Text>
-            </View>
-
-            <View style={styles.headerIcon}>
-              <MaterialDesignIcons
-                color={theme.colors.primary}
-                name="chart-timeline-variant-shimmer"
-                size={25}
-              />
+              <AwaText variant="headlineMedium">{t('navigation.statistics')}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodySmall">{t('statistics.headerSubtitle')}</AwaText>
             </View>
           </View>
 
@@ -348,39 +331,12 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
               PERIOD SELECTOR — 1 mois (Free), 3/6/12 mois (Premium)
           =================================================== */}
 
-          <View style={styles.filters}>
-            {STATISTICS_PERIODS.map(item => {
-              const active = period === item;
-              const locked = !isPeriodFree(item) && !isPremium;
-
-              return (
-                <Pressable
-                  accessibilityLabel={
-                    locked ? t('statistics.periodRequiresPremium', {period: periodLabelsMap[item]}) : periodLabelsMap[item]
-                  }
-                  accessibilityRole="button"
-                  accessibilityState={{selected: active}}
-                  key={item}
-                  onPress={() => handleSelectPeriod(item)}
-                  style={[styles.filterButton, active && styles.filterButtonActive]}>
-                  <View style={styles.filterButtonContent}>
-                    <Text
-                      style={[
-                        styles.filterText,
-                        active && styles.filterTextActive,
-                        locked && styles.filterTextLocked,
-                      ]}>
-                      {periodLabelsMap[item]}
-                    </Text>
-
-                    {locked ? (
-                      <MaterialDesignIcons color={theme.colors.textMuted} name="lock-outline" size={10} />
-                    ) : null}
-                  </View>
-                </Pressable>
-              );
-            })}
-          </View>
+          <StatisticsPeriodSelector
+            isPremium={isPremium}
+            onRequestPremium={() => setPremiumVisible(true)}
+            onSelectPeriod={handleSelectPeriod}
+            period={period}
+          />
 
           {statsUnavailable ? (
             <DataNotice
@@ -401,12 +357,12 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
           =================================================== */}
 
           <View style={styles.sectionHeading}>
-            <Text style={styles.sectionTitle}>{t('statistics.cycleOverviewTitle')}</Text>
-            <Text style={styles.sectionDescription}>{t('statistics.summaryOver', {period: monthsLabel})}</Text>
+            <AwaText variant="titleLarge">{t('statistics.cycleOverviewTitle')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" style={styles.sectionDescription} variant="bodySmall">{t('statistics.summaryOver', {period: monthsLabel})}</AwaText>
           </View>
 
           {averageCycleDuration ? (
-            <View
+            <AwaCard
               accessible
               accessibilityLabel={t('statistics.averageCycleDurationAccessibility', {
                 days: averageCycleDuration.averageDays,
@@ -416,38 +372,36 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
               })}
               accessibilityRole="summary"
               style={styles.cycleHero}>
-              <View style={styles.heroDecorationOne} />
-              <View style={styles.heroDecorationTwo} />
 
               <View style={styles.heroTop}>
                 <View style={styles.heroMain}>
-                  <Text style={styles.heroEyebrow}>{t('statistics.averageCycleDurationEyebrow')}</Text>
+                  <AwaText colorRole="onSurfaceVariant" variant="labelMedium">{t('statistics.averageCycleDurationEyebrow')}</AwaText>
 
                   <View style={styles.heroCycleRow}>
-                    <Text style={styles.heroNumber}>{averageCycleDuration.averageDays}</Text>
+                    <AwaText color={theme.colors.accent} variant="displaySmall">{averageCycleDuration.averageDays}</AwaText>
 
                     <View style={styles.heroNumberCopy}>
-                      <Text style={styles.heroUnit}>{t('statistics.days')}</Text>
+                      <AwaText color={theme.colors.accent} variant="titleMedium">{t('statistics.days')}</AwaText>
                     </View>
                   </View>
                 </View>
 
                 <View style={styles.periodBadge}>
                   <MaterialDesignIcons color={theme.colors.primary} name="calendar-range" size={18} />
-                  <Text style={styles.periodBadgeText}>{monthsLabel}</Text>
+                  <AwaText colorRole="primary" emphasized style={styles.periodBadgeText} variant="labelMedium">{monthsLabel}</AwaText>
                 </View>
               </View>
 
               <View style={styles.heroDivider} />
 
-              <Text style={styles.heroFootnote}>
+              <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
                 {t('statistics.basedOnCyclesAndDays', {
                   cyclesAnalyzed: t('statistics.cyclesAnalyzed', {count: averageCycleDuration.cyclesAnalyzed}),
                   trackedDays: t('statistics.daysLogged', {count: trackedDays}),
                   period: monthsLabel,
                 })}
-              </Text>
-            </View>
+              </AwaText>
+            </AwaCard>
           ) : (
             <DataNotice
               detail={missingAverageDetail}
@@ -456,7 +410,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
             />
           )}
 
-          <View style={styles.card}>
+          <AwaCard style={styles.card}>
             <SectionHeader
               icon="calendar-multiselect"
               subtitle={t('statistics.cycleDetailsSubtitle')}
@@ -465,10 +419,10 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
             {cycleLengthRange ? (
               <View style={styles.chipRow}>
                 <View style={styles.chip}>
-                  <Text style={styles.chipText}>{t('statistics.shortestCycle', {count: cycleLengthRange.shortestDays})}</Text>
+                  <AwaText colorRole="onSurfaceVariant" emphasized variant="labelMedium">{t('statistics.shortestCycle', {count: cycleLengthRange.shortestDays})}</AwaText>
                 </View>
                 <View style={styles.chip}>
-                  <Text style={styles.chipText}>{t('statistics.longestCycle', {count: cycleLengthRange.longestDays})}</Text>
+                  <AwaText colorRole="onSurfaceVariant" emphasized variant="labelMedium">{t('statistics.longestCycle', {count: cycleLengthRange.longestDays})}</AwaText>
                 </View>
               </View>
             ) : (
@@ -481,9 +435,9 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
             {averagePeriodDuration ? (
               <View style={styles.chipRow}>
                 <View style={styles.chip}>
-                  <Text style={styles.chipText}>
+                  <AwaText colorRole="onSurfaceVariant" emphasized variant="labelMedium">
                     {t('statistics.averagePeriodDuration', {count: averagePeriodDuration.averageDays})}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
             ) : (
@@ -493,13 +447,13 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                 title={t('statistics.periodDurationUnavailableTitle')}
               />
             )}
-          </View>
+          </AwaCard>
 
           {/* ==================================================
               ÉVOLUTION DU FLUX
           =================================================== */}
 
-          <View style={styles.card}>
+          <AwaCard style={styles.card}>
             <SectionHeader
               icon="water-outline"
               subtitle={
@@ -524,18 +478,18 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                       key={month.monthKey}
                       style={styles.monthItem}>
                       <View style={styles.monthTop}>
-                        <Text style={styles.monthLabel}>{month.monthLabel}</Text>
-                        <Text style={styles.monthMeta}>
+                        <AwaText color={theme.colors.accent} emphasized variant="labelLarge">{month.monthLabel}</AwaText>
+                        <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
                           {t('statistics.daysWithFlow', {count: month.daysWithFlow})}
-                        </Text>
+                        </AwaText>
                       </View>
 
                       <View style={styles.chipRow}>
                         {month.distribution.map(entry => (
                           <View key={entry.intensity} style={styles.chip}>
-                            <Text style={styles.chipText}>
+                            <AwaText colorRole="onSurfaceVariant" emphasized variant="labelMedium">
                               {flowLabelsMap[entry.intensity]} · {t('statistics.daysAbbreviated', {count: entry.days})}
-                            </Text>
+                            </AwaText>
                           </View>
                         ))}
                       </View>
@@ -569,11 +523,11 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                           />
                         </View>
 
-                        <Text style={styles.flowLabel}>{flowLabelsMap[item.intensity]}</Text>
+                        <AwaText color={theme.colors.accent} style={styles.flowLabel} variant="labelLarge">{flowLabelsMap[item.intensity]}</AwaText>
 
-                        <Text style={styles.flowValue}>
+                        <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
                           {t('statistics.daysPlural', {count: item.days})}
-                        </Text>
+                        </AwaText>
                       </View>
 
                       <View style={styles.flowTrack}>
@@ -590,13 +544,13 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                 title={t('statistics.noFlowThisMonthTitle')}
               />
             )}
-          </View>
+          </AwaCard>
 
           {/* ==================================================
               SYMPTÔMES LES PLUS FRÉQUENTS
           =================================================== */}
 
-          <View style={styles.card}>
+          <AwaCard style={styles.card}>
             <SectionHeader
               icon="heart-pulse"
               subtitle={
@@ -620,15 +574,15 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                       style={[styles.symptomItem, index === array.length - 1 && styles.lastItem]}>
                       <View style={styles.symptomTop}>
                         <View style={styles.rank}>
-                          <Text style={styles.rankText}>{index + 1}</Text>
+                          <AwaText colorRole="primary" emphasized variant="labelMedium">{index + 1}</AwaText>
                         </View>
 
-                        <Text style={styles.symptomName}>{journalOptionLabel('cycleSymptom', item.name, t)}</Text>
+                        <AwaText color={theme.colors.accent} style={styles.symptomName} variant="labelLarge">{journalOptionLabel('cycleSymptom', item.name, t)}</AwaText>
 
                         <View style={styles.symptomBadge}>
-                          <Text style={styles.symptomDays}>
+                          <AwaText colorRole="onSurfaceVariant" emphasized variant="labelSmall">
                             {t('statistics.daysPlural', {count: item.days})}
-                          </Text>
+                          </AwaText>
                         </View>
                       </View>
 
@@ -649,7 +603,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
 
             {showLongitudinalView && monthlySymptomTrend.length > 0 ? (
               <View style={styles.monthList}>
-                <Text style={styles.monthListTitle}>{t('statistics.monthByMonthEvolution')}</Text>
+                <AwaText color={theme.colors.accent} emphasized style={styles.monthListTitle} variant="labelLarge">{t('statistics.monthByMonthEvolution')}</AwaText>
 
                 {monthlySymptomTrend.map(month => (
                   <View
@@ -661,15 +615,15 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                     key={month.monthKey}
                     style={styles.monthItem}>
                     <View style={styles.monthTop}>
-                      <Text style={styles.monthLabel}>{month.monthLabel}</Text>
+                      <AwaText color={theme.colors.accent} emphasized variant="labelLarge">{month.monthLabel}</AwaText>
                     </View>
 
                     <View style={styles.chipRow}>
                       {month.topSymptoms.map(symptom => (
                         <View key={symptom.name} style={styles.chip}>
-                          <Text style={styles.chipText}>
+                          <AwaText colorRole="onSurfaceVariant" emphasized variant="labelMedium">
                             {journalOptionLabel('cycleSymptom', symptom.name, t)} · {t('statistics.daysAbbreviated', {count: symptom.days})}
-                          </Text>
+                          </AwaText>
                         </View>
                       ))}
                     </View>
@@ -677,9 +631,9 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                 ))}
               </View>
             ) : null}
-          </View>
+          </AwaCard>
 
-          <View style={styles.card}>
+          <AwaCard style={styles.card}>
             <SectionHeader
               icon="emoticon-outline"
               subtitle={t('statistics.moodSubtitle')}
@@ -694,9 +648,9 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                     key={item.level}
                     style={[styles.symptomItem, index === array.length - 1 && styles.lastItem]}>
                     <View style={styles.symptomTop}>
-                      <Text style={styles.symptomName}>{t(`statistics.moodLabels.${item.level}`)}</Text>
+                      <AwaText color={theme.colors.accent} style={styles.symptomName} variant="labelLarge">{t(`statistics.moodLabels.${item.level}`)}</AwaText>
                       <View style={styles.symptomBadge}>
-                        <Text style={styles.symptomDays}>{t('statistics.daysPlural', {count: item.days})}</Text>
+                        <AwaText colorRole="onSurfaceVariant" emphasized variant="labelSmall">{t('statistics.daysPlural', {count: item.days})}</AwaText>
                       </View>
                     </View>
                     <View style={styles.symptomTrack}>
@@ -708,7 +662,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
             ) : (
               <DataNotice detail={t('statistics.moodEmptyDetail')} icon="emoticon-neutral-outline" title={t('statistics.moodEmptyTitle')} />
             )}
-          </View>
+          </AwaCard>
 
           {/* ==================================================
               REPÈRE POUR UN RENDEZ-VOUS MÉDICAL
@@ -717,9 +671,9 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
           <View style={styles.medicalHint}>
             <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={17} />
 
-            <Text style={styles.medicalHintText}>
+            <AwaText colorRole="onSurfaceVariant" style={styles.medicalHintText} variant="bodySmall">
               {t('statistics.medicalHint')}
-            </Text>
+            </AwaText>
           </View>
           </>
           )}
@@ -744,40 +698,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.background,
   },
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
 
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
 
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
 
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   safeArea: {
     flex: 1,
@@ -807,78 +730,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  title: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 28,
-    lineHeight: 34,
-    fontWeight: '800',
-  },
-
   subtitle: {
     maxWidth: 300,
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 11.5,
-    lineHeight: 17,
-  },
-
-  headerIcon: {
-    ...theme.shadow,
-    width: 49,
-    height: 49,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 10,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 16,
-    backgroundColor: theme.colors.primarySoft,
-  },
-
-  filters: {
-    flexDirection: 'row',
-    padding: 4,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.05),
-    borderRadius: 17,
-    backgroundColor: theme.colors.primarySoft,
-  },
-
-  filterButton: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: 40,
-    borderRadius: 13,
-  },
-
-  filterButtonActive: {
-    ...theme.shadow,
-    backgroundColor: theme.colors.surface,
-  },
-
-  filterButtonContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 3,
-  },
-
-  filterText: {
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    fontWeight: '700',
-  },
-
-  filterTextActive: {
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
-
-  filterTextLocked: {
-    color: theme.colors.textSecondary,
+    marginTop: 4,
   },
 
   loadingBlock: {
@@ -890,49 +744,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 10,
   },
 
-  sectionTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 19,
-    fontWeight: '800',
-  },
-
   sectionDescription: {
     marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
   },
 
   cycleHero: {
-    ...theme.shadow,
-    position: 'relative',
     overflow: 'hidden',
-    padding: 17,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 27,
-    backgroundColor: withAlpha(theme.colors.surface, 0.96),
   },
 
-  heroDecorationOne: {
-    position: 'absolute',
-    top: -60,
-    right: -45,
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    backgroundColor: withAlpha(theme.colors.primary, 0.06),
-  },
 
-  heroDecorationTwo: {
-    position: 'absolute',
-    top: 25,
-    right: 25,
-    width: 55,
-    height: 55,
-    borderRadius: 28,
-    backgroundColor: withAlpha(theme.colors.primary, 0.18),
-  },
 
   heroTop: {
     flexDirection: 'row',
@@ -945,39 +765,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  // Small muted-purple caption — numerically and semantically closer to
-  // textMuted than to solid primary (see StatisticsPeriodSelector precedent
-  // in ContraceptionStatisticsScreen.tsx's own heroEyebrow).
-  heroEyebrow: {
-    color: theme.colors.textMuted,
-    fontSize: 9,
-    fontWeight: '800',
-    letterSpacing: 1,
-  },
-
   heroCycleRow: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 4,
   },
 
-  heroNumber: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 48,
-    lineHeight: 53,
-    fontWeight: '800',
-  },
-
   heroNumberCopy: {
-    marginLeft: 9,
-  },
-
-  heroUnit: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 17,
-    fontWeight: '800',
+    marginLeft: 8,
   },
 
   periodBadge: {
@@ -985,18 +780,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     paddingHorizontal: 10,
     paddingVertical: 9,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.08),
     borderRadius: 16,
     backgroundColor: theme.colors.primarySoft,
   },
 
   periodBadgeText: {
     marginTop: 4,
-    color: theme.colors.primary,
-    fontSize: 9,
-    lineHeight: 12,
-    fontWeight: '800',
     textAlign: 'center',
   },
 
@@ -1006,31 +795,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  heroFootnote: {
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
-  },
-
   notice: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 10,
-    padding: 15,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 20,
-    backgroundColor: withAlpha(theme.colors.surface, 0.85),
-  },
-
-  noticeIcon: {
-    width: 36,
-    height: 36,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 12,
-    backgroundColor: theme.colors.primarySoft,
+    gap: 12,
   },
 
   noticeCopy: {
@@ -1038,27 +806,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  noticeTitle: {
-    color: theme.colors.accent,
-    fontSize: 12.5,
-    fontWeight: '800',
-  },
-
   noticeDetail: {
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
+    marginTop: 4,
   },
 
   card: {
-    ...theme.shadow,
-    marginTop: 14,
-    padding: 15,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 23,
-    backgroundColor: theme.colors.surface,
+    marginTop: 16,
   },
 
   sectionHeader: {
@@ -1067,14 +820,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   sectionIcon: {
-    width: 40,
-    height: 40,
     flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 10,
-    borderRadius: 14,
-    backgroundColor: theme.colors.primarySoft,
+    marginRight: 12,
   },
 
   sectionHeaderCopy: {
@@ -1082,18 +829,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  cardTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 17,
-    fontWeight: '800',
-  },
-
   cardSubtitle: {
     marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    lineHeight: 13,
   },
 
   flowList: {
@@ -1114,21 +851,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 32,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 11,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
   flowLabel: {
     flex: 1,
     marginLeft: 9,
-    color: theme.colors.accent,
-    fontSize: 11.5,
-    fontWeight: '700',
-  },
-
-  flowValue: {
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
   },
 
   flowTrack: {
@@ -1173,36 +902,21 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
-  },
-
-  rankText: {
-    color: theme.colors.primary,
-    fontSize: 10.5,
-    fontWeight: '800',
   },
 
   symptomName: {
     flex: 1,
     minWidth: 0,
     marginHorizontal: 9,
-    color: theme.colors.accent,
-    fontSize: 11.5,
-    fontWeight: '700',
   },
 
   symptomBadge: {
     paddingHorizontal: 8,
     paddingVertical: 4,
-    borderRadius: 9,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
-  },
-
-  symptomDays: {
-    color: theme.colors.textSecondary,
-    fontSize: 8.5,
-    fontWeight: '700',
   },
 
   symptomTrack: {
@@ -1233,9 +947,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   monthListTitle: {
     marginBottom: 6,
-    color: theme.colors.accent,
-    fontSize: 11.5,
-    fontWeight: '800',
   },
 
   monthItem: {
@@ -1250,17 +961,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
 
-  monthLabel: {
-    color: theme.colors.accent,
-    fontSize: 11.5,
-    fontWeight: '800',
-  },
-
-  monthMeta: {
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-  },
-
   chipRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -1271,14 +971,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   chip: {
     paddingHorizontal: 9,
     paddingVertical: 5,
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
-  },
-
-  chipText: {
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    fontWeight: '700',
   },
 
   medicalHint: {
@@ -1293,9 +987,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   medicalHintText: {
     flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    lineHeight: 14,
   },
   });
 }
