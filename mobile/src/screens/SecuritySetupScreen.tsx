@@ -5,12 +5,9 @@ import React, {
   useState,
 } from 'react';
 import {
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Switch,
-  Text,
   useWindowDimensions,
   View,
 } from 'react-native';
@@ -35,10 +32,14 @@ import {
 } from '../state/securityPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {
-  onPrimaryTextColor,
   withAlpha,
   type ResolvedAwaTheme,
 } from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaSwitch} from '../components/ui/AwaSwitch';
+import {AwaText} from '../components/ui/AwaText';
 
 type Props =
   NativeStackScreenProps<
@@ -79,12 +80,14 @@ function SecurityOption({
   t,
 }: OptionProps): React.JSX.Element {
   return (
-    <View
+    <AwaCard
+      padding="compact"
       style={[
         styles.option,
         compact &&
           styles.optionCompact,
-      ]}>
+      ]}
+      variant="filled">
       <View
         style={[
           styles.iconBox,
@@ -108,14 +111,9 @@ function SecurityOption({
           style={
             styles.optionTitleRow
           }>
-          <Text
-            style={[
-              styles.optionTitle,
-              compact &&
-                styles.optionTitleCompact,
-            ]}>
+          <AwaText variant="titleMedium">
             {title}
-          </Text>
+          </AwaText>
 
           {value ? (
             <View
@@ -128,39 +126,29 @@ function SecurityOption({
                 size={12}
               />
 
-              <Text
-                style={
-                  styles.activeBadgeText
-                }>
+              <AwaText colorRole="success" emphasized variant="labelSmall">
                 {t('security.enabled')}
-              </Text>
+              </AwaText>
             </View>
           ) : null}
         </View>
 
-        <Text
-          style={[
-            styles.optionDescription,
-            compact &&
-              styles.optionDescriptionCompact,
-          ]}>
+        <AwaText
+          colorRole="onSurfaceVariant"
+          style={styles.optionDescription}
+          variant="bodySmall">
           {description}
-        </Text>
+        </AwaText>
       </View>
 
-      <Switch
-        ios_backgroundColor={theme.colors.primarySoft}
+      <AwaSwitch
+        accessibilityLabel={title}
         onValueChange={
           onValueChange
         }
-        thumbColor={theme.colors.surface}
-        trackColor={{
-          false: theme.colors.primarySoft,
-          true: theme.colors.primary,
-        }}
         value={value}
       />
-    </View>
+    </AwaCard>
   );
 }
 
@@ -268,29 +256,6 @@ function SecuritySetupScreen({
       }>
       {/* SAME EXISTING BACKGROUND */}
 
-      <View
-        pointerEvents="none"
-        style={
-          styles.pageBackgroundDecor
-        }>
-        <View
-          style={
-            styles.pageGlowTop
-          }
-        />
-
-        <View
-          style={
-            styles.pageGlowMiddle
-          }
-        />
-
-        <View
-          style={
-            styles.pageGlowBottom
-          }
-        />
-      </View>
 
       <StatusBar
         translucent
@@ -310,32 +275,15 @@ function SecuritySetupScreen({
               ),
           },
         ]}>
-        <Pressable
+        <AwaIconButton
           accessibilityLabel={t('common.back')}
-          accessibilityRole="button"
           hitSlop={12}
+          icon="arrow-left"
           onPress={
             navigation.goBack
           }
-          style={({
-            pressed,
-          }) => [
-            styles.back,
-            compact &&
-              styles.backCompact,
-            pressed &&
-              styles.pressed,
-          ]}>
-          <MaterialDesignIcons
-            color={theme.colors.primary}
-            name="arrow-left"
-            size={
-              compact
-                ? 23
-                : 26
-            }
-          />
-        </Pressable>
+          style={styles.back}
+        />
       </View>
 
       <ScrollView
@@ -365,139 +313,70 @@ function SecuritySetupScreen({
             compact &&
               styles.heroCompact,
           ]}>
-          <View
-            style={[
-              styles.heroOuter,
-              compact &&
-                styles.heroOuterCompact,
-            ]}>
-            <View
-              style={[
-                styles.heroMiddle,
-                compact &&
-                  styles.heroMiddleCompact,
-              ]}>
-              <View
-                style={[
-                  styles.heroInner,
-                  compact &&
-                    styles.heroInnerCompact,
-                ]}>
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="shield-lock-outline"
-                  size={
-                    compact
-                      ? 31
-                      : 37
-                  }
-                />
-              </View>
-            </View>
-
-            <View
-              style={
-                styles.heroBadge
-              }>
-              <MaterialDesignIcons
-                color={onPrimaryTextColor(theme)}
-                name="lock"
-                size={13}
-              />
-            </View>
-          </View>
-
-          <View
-            style={
-              styles.awaBadge
-            }>
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="star-four-points"
-              size={9}
-            />
-
-            <Text
-              style={
-                styles.awaText
-              }>
-              AWA
-            </Text>
-          </View>
-
-          <Text
-            style={[
-              styles.title,
-              compact &&
-                styles.titleCompact,
-            ]}>
+          <AwaText
+            accessibilityRole="header"
+            style={styles.title}
+            variant={compact ? 'headlineSmall' : 'headlineMedium'}>
             {t('securitySetup.heroTitle')}
-          </Text>
+          </AwaText>
 
-          <Text
+          <AwaText
+            colorRole="onSurfaceVariant"
             style={[
               styles.subtitle,
               compact &&
                 styles.subtitleCompact,
-            ]}>
+            ]}
+            variant="bodyMedium">
             {t('securitySetup.heroSubtitle')}
-          </Text>
+          </AwaText>
         </View>
 
         {/* ==========================================
             SECURITY STATUS
         ========================================== */}
 
-        <View
+        <AwaCard
+          padding="compact"
           style={[
             styles.statusCard,
             compact &&
               styles.statusCardCompact,
-          ]}>
-          <View
-            style={
-              styles.statusIcon
-            }>
-            <MaterialDesignIcons
-              color={theme.colors.success}
-              name="shield-check-outline"
-              size={21}
-            />
-          </View>
+          ]}
+          variant="filled">
+          <MaterialDesignIcons
+            color={theme.colors.success}
+            name="shield-check-outline"
+            size={22}
+          />
 
           <View
             style={
               styles.statusCopy
             }>
-            <Text
-              style={
-                styles.statusTitle
-              }>
+            <AwaText variant="titleSmall">
               {t('securitySetup.statusCardTitle')}
-            </Text>
+            </AwaText>
 
-            <Text
-              style={
-                styles.statusText
-              }>
+            <AwaText
+              colorRole="onSurfaceVariant"
+              style={styles.statusText}
+              variant="bodySmall">
               {enabledCount === 0
                 ? t('securitySetup.statusNoneActive')
                 : t('securitySetup.statusActiveCount', {count: enabledCount})}
-            </Text>
+            </AwaText>
           </View>
 
           <View
             style={
               styles.statusCounter
             }>
-            <Text
-              style={
-                styles.statusCounterText
-              }>
+            <AwaText colorRole="onPrimaryContainer" emphasized variant="labelMedium">
               {enabledCount}/3
-            </Text>
+            </AwaText>
           </View>
-        </View>
+        </AwaCard>
 
         {/* ==========================================
             OPTIONS
@@ -507,32 +386,16 @@ function SecuritySetupScreen({
           style={
             styles.sectionHeading
           }>
-          <View>
-            <Text
-              style={
-                styles.sectionTitle
-              }>
-              {t('securitySetup.sectionTitle')}
-            </Text>
+          <AwaText accessibilityRole="header" variant="titleMedium">
+            {t('securitySetup.sectionTitle')}
+          </AwaText>
 
-            <Text
-              style={
-                styles.sectionSubtitle
-              }>
-              {t('securitySetup.sectionSubtitle')}
-            </Text>
-          </View>
-
-          <View
-            style={
-              styles.sectionIcon
-            }>
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="lock-check-outline"
-              size={19}
-            />
-          </View>
+          <AwaText
+            colorRole="onSurfaceVariant"
+            style={styles.sectionSubtitle}
+            variant="bodySmall">
+            {t('securitySetup.sectionSubtitle')}
+          </AwaText>
         </View>
 
         <View
@@ -617,52 +480,40 @@ function SecuritySetupScreen({
             PRIVATE INFO
         ========================================== */}
 
-        <View
+        <AwaCard
+          padding="compact"
           style={[
             styles.info,
             compact &&
               styles.infoCompact,
-          ]}>
-          <View
-            style={[
-              styles.infoIconBox,
-              compact &&
-                styles.infoIconBoxCompact,
-            ]}>
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="shield-check-outline"
-              size={
-                compact
-                  ? 21
-                  : 24
-              }
-            />
-          </View>
+          ]}
+          variant="filled">
+          <MaterialDesignIcons
+            color={theme.colors.primary}
+            name="shield-check-outline"
+            size={
+              compact
+                ? 21
+                : 24
+            }
+          />
 
           <View
             style={
               styles.infoCopy
             }>
-            <Text
-              style={[
-                styles.infoTitle,
-                compact &&
-                  styles.infoTitleCompact,
-              ]}>
+            <AwaText variant="titleSmall">
               {t('securitySetup.infoTitle')}
-            </Text>
+            </AwaText>
 
-            <Text
-              style={[
-                styles.infoText,
-                compact &&
-                  styles.infoTextCompact,
-              ]}>
+            <AwaText
+              colorRole="onSurfaceVariant"
+              style={styles.infoText}
+              variant="bodySmall">
               {t('securitySetup.infoText')}
-            </Text>
+            </AwaText>
           </View>
-        </View>
+        </AwaCard>
 
         <View
           style={
@@ -674,8 +525,9 @@ function SecuritySetupScreen({
             CTA
         ========================================== */}
 
-        <Pressable
-          accessibilityRole="button"
+        <AwaButton
+          fullWidth
+          label={t('common.continue')}
           onPress={() =>
             route.params?.mode === 'edit'
               ? navigation.goBack()
@@ -683,55 +535,9 @@ function SecuritySetupScreen({
                   'Privacy',
                 )
           }
-          style={({
-            pressed,
-          }) => [
-            styles.continueButton,
-            compact &&
-              styles.continueButtonCompact,
-            pressed &&
-              styles.pressed,
-          ]}>
-          <View
-            pointerEvents="none"
-            style={
-              styles.buttonGlowLeft
-            }
-          />
-
-          <View
-            pointerEvents="none"
-            style={
-              styles.buttonGlowRight
-            }
-          />
-
-          <Text
-            style={[
-              styles.continueText,
-              compact &&
-                styles.continueTextCompact,
-            ]}>
-            {t('common.continue')}
-          </Text>
-
-          <View
-            style={[
-              styles.continueIcon,
-              compact &&
-                styles.continueIconCompact,
-            ]}>
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="arrow-right"
-              size={
-                compact
-                  ? 17
-                  : 19
-              }
-            />
-          </View>
-        </Pressable>
+          size="large"
+          style={styles.continueButton}
+        />
       </ScrollView>
     </LinearGradient>
   );
@@ -749,43 +555,9 @@ function createStyles(theme: ResolvedAwaTheme) {
         theme.colors.background,
     },
 
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
 
-    pageGlowTop: {
-      position: 'absolute',
-      top: -150,
-      right: -110,
-      width: 330,
-      height: 330,
-      borderRadius: 165,
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.07),
-    },
 
-    pageGlowMiddle: {
-      position: 'absolute',
-      top: '38%',
-      left: -130,
-      width: 260,
-      height: 260,
-      borderRadius: 130,
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.045),
-    },
 
-    pageGlowBottom: {
-      position: 'absolute',
-      bottom: -150,
-      right: -100,
-      width: 310,
-      height: 310,
-      borderRadius: 155,
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.05),
-    },
 
     /* ==============================================
        HEADER
@@ -797,31 +569,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     back: {
-      width: 44,
-      height: 44,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: 1,
-      borderColor:
-        withAlpha(theme.colors.primary, 0.08),
-      borderRadius: 22,
-      backgroundColor:
-        withAlpha(theme.colors.surface, 0.93),
-      shadowColor:
-        theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-      shadowOpacity: 0.08,
-      shadowRadius: 7,
-      elevation: 2,
-    },
-
-    backCompact: {
-      width: 40,
-      height: 40,
-      borderRadius: 20,
+      alignSelf: 'flex-start',
     },
 
     /* ==============================================
@@ -851,243 +599,61 @@ function createStyles(theme: ResolvedAwaTheme) {
     heroCompact: {
       paddingBottom: 14,
     },
-
-    heroOuter: {
-      position: 'relative',
-      width: 108,
-      height: 108,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 54,
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.07),
-    },
-
-    heroOuterCompact: {
-      width: 90,
-      height: 90,
-      borderRadius: 45,
-    },
-
-    heroMiddle: {
-      width: 86,
-      height: 86,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 43,
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.10),
-    },
-
-    heroMiddleCompact: {
-      width: 72,
-      height: 72,
-      borderRadius: 36,
-    },
-
-    heroInner: {
-      width: 67,
-      height: 67,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: 1,
-      borderColor:
-        withAlpha(theme.colors.primary, 0.13),
-      borderRadius: 34,
-      backgroundColor:
-        theme.colors.surface,
-      shadowColor: theme.colors.primary,
-      shadowOffset: {
-        width: 0,
-        height: 5,
-      },
-      shadowOpacity: 0.11,
-      shadowRadius: 11,
-      elevation: 4,
-    },
-
-    heroInnerCompact: {
-      width: 56,
-      height: 56,
-      borderRadius: 28,
-    },
-
-    heroBadge: {
-      position: 'absolute',
-      right: 5,
-      bottom: 6,
-      width: 29,
-      height: 29,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: 3,
-      borderColor:
-        theme.colors.background,
-      borderRadius: 15,
-      backgroundColor:
-        theme.colors.primary,
-    },
-
-    awaBadge: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 5,
-      marginTop: 10,
-      paddingHorizontal: 11,
-      paddingVertical: 4,
-      borderRadius: 999,
-      backgroundColor:
-        withAlpha(theme.colors.surface, 0.62),
-    },
-
-    awaText: {
-      color: theme.colors.primary,
-      fontFamily: 'serif',
-      fontSize: 10.5,
-      fontWeight: '800',
-      letterSpacing: 1.7,
-    },
-
     title: {
-      marginTop: 12,
-      color: theme.colors.accent,
-      fontFamily: 'serif',
-      fontSize: 30,
-      lineHeight: 36,
-      fontWeight: '800',
+      marginTop: 4,
       textAlign: 'center',
     },
-
-    titleCompact: {
-      fontSize: 25,
-      lineHeight: 30,
-    },
-
     subtitle: {
       maxWidth: 340,
       marginTop: 8,
-      color:
-        theme.colors.textSecondary,
-      fontSize: 12.5,
-      lineHeight: 18,
       textAlign: 'center',
     },
-
     subtitleCompact: {
       maxWidth: 300,
-      marginTop: 5,
-      fontSize: 10.8,
-      lineHeight: 15,
+      marginTop: 6,
     },
-
     /* ==============================================
        STATUS
     ============================================== */
 
     statusCard: {
-      minHeight: 67,
+      minHeight: 64,
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 10,
-      marginBottom: 18,
-      paddingHorizontal: 13,
-      paddingVertical: 11,
-      borderWidth: 1,
-      borderColor:
-        withAlpha(theme.colors.success, 0.12),
-      borderRadius: 20,
-      backgroundColor:
-        withAlpha(theme.colors.success, 0.06),
+      gap: 12,
+      marginBottom: 16,
     },
-
     statusCardCompact: {
-      minHeight: 59,
-      marginBottom: 13,
-      paddingVertical: 9,
+      minHeight: 56,
+      marginBottom: 12,
     },
-
-    statusIcon: {
-      width: 39,
-      height: 39,
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexShrink: 0,
-      borderRadius: 13,
-      backgroundColor:
-        withAlpha(theme.colors.success, 0.14),
-    },
-
     statusCopy: {
       flex: 1,
       minWidth: 0,
     },
-
-    statusTitle: {
-      color: theme.colors.text,
-      fontSize: 11.5,
-      fontWeight: '800',
-    },
-
     statusText: {
       marginTop: 2,
-      color: theme.colors.textSecondary,
-      fontSize: 9.5,
-      lineHeight: 13,
     },
-
     statusCounter: {
-      minWidth: 39,
-      height: 32,
+      minWidth: 40,
+      minHeight: 32,
       alignItems: 'center',
       justifyContent: 'center',
       paddingHorizontal: 8,
-      borderRadius: 11,
-      backgroundColor:
-        theme.colors.primarySoft,
-    },
-
-    statusCounterText: {
-      color: theme.colors.primary,
-      fontSize: 11,
-      fontWeight: '900',
-    },
-
-    /* ==============================================
-       SECTION
-    ============================================== */
-
-    sectionHeading: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent:
-        'space-between',
-      marginBottom: 10,
-      paddingHorizontal: 2,
-    },
-
-    sectionTitle: {
-      color: theme.colors.accent,
-      fontFamily: 'serif',
-      fontSize: 18,
-      fontWeight: '800',
-    },
-
-    sectionSubtitle: {
-      marginTop: 2,
-      color: theme.colors.textSecondary,
-      fontSize: 9.5,
-    },
-
-    sectionIcon: {
-      width: 34,
-      height: 34,
-      alignItems: 'center',
-      justifyContent: 'center',
       borderRadius: 12,
       backgroundColor:
         theme.colors.primarySoft,
     },
-
+    /* ==============================================
+       SECTION
+    ============================================== */
+    sectionHeading: {
+      marginBottom: 12,
+      paddingHorizontal: 4,
+    },
+    sectionSubtitle: {
+      marginTop: 4,
+    },
     /* ==============================================
        OPTIONS
     ============================================== */
@@ -1101,40 +667,20 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     option: {
-      minHeight: 91,
+      minHeight: 88,
       flexDirection: 'row',
       alignItems: 'center',
-      paddingHorizontal: 13,
-      paddingVertical: 11,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 22,
-      backgroundColor: withAlpha(theme.colors.surface, 0.94),
-      shadowColor:
-        theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 4,
-      },
-      shadowOpacity: 0.05,
-      shadowRadius: 10,
-      elevation: 2,
     },
-
     optionCompact: {
-      minHeight: 79,
-      paddingHorizontal: 10,
-      paddingVertical: 9,
-      borderRadius: 18,
+      minHeight: 76,
     },
-
     iconBox: {
       width: 55,
       height: 55,
       alignItems: 'center',
       justifyContent: 'center',
       flexShrink: 0,
-      borderRadius: 17,
+      borderRadius: 16,
       backgroundColor:
         theme.colors.primarySoft,
     },
@@ -1150,7 +696,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     iconBoxCompact: {
       width: 48,
       height: 48,
-      borderRadius: 15,
+      borderRadius: 16,
     },
 
     optionCopy: {
@@ -1166,33 +712,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       gap: 6,
     },
 
-    optionTitle: {
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 17,
-      lineHeight: 21,
-      fontWeight: '700',
-    },
-
-    optionTitleCompact: {
-      fontSize: 15,
-      lineHeight: 19,
-    },
-
     optionDescription: {
       marginTop: 4,
-      color:
-        theme.colors.textSecondary,
-      fontSize: 11,
-      lineHeight: 16,
     },
-
-    optionDescriptionCompact: {
-      marginTop: 2,
-      fontSize: 9.8,
-      lineHeight: 14,
-    },
-
     activeBadge: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -1204,83 +726,28 @@ function createStyles(theme: ResolvedAwaTheme) {
         withAlpha(theme.colors.success, 0.14),
     },
 
-    activeBadgeText: {
-      color: theme.colors.success,
-      fontSize: 8.5,
-      fontWeight: '800',
-    },
-
     /* ==============================================
        INFO
     ============================================== */
 
     info: {
-      minHeight: 76,
+      minHeight: 72,
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 10,
-      marginTop: 14,
-      paddingHorizontal: 12,
-      paddingVertical: 11,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 20,
-      backgroundColor:
-        withAlpha(theme.colors.surface, 0.80),
+      gap: 12,
+      marginTop: 16,
     },
-
     infoCompact: {
-      minHeight: 66,
-      marginTop: 10,
-      paddingVertical: 9,
-      borderRadius: 17,
+      minHeight: 64,
+      marginTop: 12,
     },
-
-    infoIconBox: {
-      width: 46,
-      height: 46,
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexShrink: 0,
-      borderRadius: 14,
-      backgroundColor:
-        theme.colors.primarySoft,
-    },
-
-    infoIconBoxCompact: {
-      width: 40,
-      height: 40,
-      borderRadius: 12,
-    },
-
     infoCopy: {
       flex: 1,
       minWidth: 0,
     },
-
-    infoTitle: {
-      color: theme.colors.accent,
-      fontSize: 12.5,
-      fontWeight: '800',
-    },
-
-    infoTitleCompact: {
-      fontSize: 11,
-    },
-
     infoText: {
-      marginTop: 3,
-      color: theme.colors.textSecondary,
-      fontSize: 10.5,
-      lineHeight: 15,
+      marginTop: 4,
     },
-
-    infoTextCompact: {
-      marginTop: 2,
-      fontSize: 9.3,
-      lineHeight: 13,
-    },
-
     /* ==============================================
        BUTTON
     ============================================== */
@@ -1291,91 +758,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     continueButton: {
-      position: 'relative',
-      overflow: 'hidden',
-      width: '100%',
-      minHeight: 56,
-      alignItems: 'center',
-      justifyContent: 'center',
       marginTop: 20,
-      borderRadius: 20,
-      backgroundColor:
-        theme.colors.primary,
-      shadowColor:
-        theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 6,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 11,
-      elevation: 5,
-    },
-
-    continueButtonCompact: {
-      minHeight: 51,
-      marginTop: 15,
-      borderRadius: 18,
-    },
-
-    buttonGlowLeft: {
-      position: 'absolute',
-      top: -48,
-      left: -35,
-      width: 150,
-      height: 150,
-      borderRadius: 75,
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.42),
-    },
-
-    buttonGlowRight: {
-      position: 'absolute',
-      top: -55,
-      right: -35,
-      width: 150,
-      height: 150,
-      borderRadius: 75,
-      backgroundColor:
-        withAlpha(theme.colors.secondary, 0.20),
-    },
-
-    continueText: {
-      color: onPrimaryTextColor(theme),
-      fontSize: 16.5,
-      fontWeight: '800',
-      textAlign: 'center',
-    },
-
-    continueTextCompact: {
-      fontSize: 15,
-    },
-
-    continueIcon: {
-      position: 'absolute',
-      right: 11,
-      width: 34,
-      height: 34,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 12,
-      backgroundColor:
-        theme.colors.surface,
-    },
-
-    continueIconCompact: {
-      width: 30,
-      height: 30,
-      borderRadius: 10,
-    },
-
-    pressed: {
-      opacity: 0.82,
-      transform: [
-        {
-          scale: 0.99,
-        },
-      ],
     },
   });
 }

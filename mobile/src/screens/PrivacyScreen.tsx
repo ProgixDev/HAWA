@@ -1,10 +1,8 @@
 import React, {useMemo} from 'react';
 import {
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -17,10 +15,12 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {
-  onPrimaryTextColor,
   withAlpha,
   type ResolvedAwaTheme,
 } from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaText} from '../components/ui/AwaText';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -49,11 +49,6 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar
@@ -72,16 +67,16 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
           ]}
           showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
-            <Text style={styles.title}>
+            <AwaText accessibilityRole="header" style={styles.title} variant="headlineMedium">
               {t('privacyScreen.title')}
-            </Text>
+            </AwaText>
 
-            <Text style={styles.subtitle}>
+            <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">
               {t('privacyScreen.subtitle')}
-            </Text>
+            </AwaText>
           </View>
 
-          <View style={styles.guaranteesCard}>
+          <AwaCard padding="none" style={styles.guaranteesCard} variant="elevated">
             {guarantees.map((item, index) => (
               <View key={item.titleKey}>
                 <View style={styles.guaranteeRow}>
@@ -89,18 +84,18 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
                     <MaterialDesignIcons
                       color={theme.colors.primary}
                       name={item.icon}
-                      size={32}
+                      size={28}
                     />
                   </View>
 
                   <View style={styles.guaranteeCopy}>
-                    <Text style={styles.guaranteeTitle}>
+                    <AwaText variant="titleSmall">
                       {t(item.titleKey)}
-                    </Text>
+                    </AwaText>
 
-                    <Text style={styles.guaranteeDescription}>
+                    <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
                       {t(item.descriptionKey)}
-                    </Text>
+                    </AwaText>
                   </View>
                 </View>
 
@@ -109,62 +104,67 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
                 ) : null}
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.commitmentCard}>
+          <AwaCard style={styles.commitmentCard} variant="filled">
             <View style={styles.commitmentHeader}>
               <View style={styles.commitmentIcon}>
                 <MaterialDesignIcons
                   color={theme.colors.primary}
                   name="shield-check-outline"
-                  size={26}
+                  size={28}
                 />
               </View>
 
               <View style={styles.commitmentCopy}>
-                <Text style={styles.commitmentTitle}>
+                <AwaText variant="titleMedium">
                   {t('privacyScreen.commitmentTitle')}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.commitmentSubtitle}>
+                <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
                   {t('privacyScreen.commitmentSubtitle')}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
             <View style={styles.commitmentList}>
               <View style={styles.commitmentItem}>
-                <View style={styles.bullet} />
-                <Text style={styles.commitmentText}>
+                <View style={styles.bulletSlot}>
+                  <View style={styles.bullet} />
+                </View>
+                <AwaText colorRole="onSurfaceVariant" style={styles.commitmentText} variant="bodyMedium">
                   {t('privacyScreen.commitmentFullControl')}
-                </Text>
+                </AwaText>
               </View>
-
               <View style={styles.commitmentItem}>
-                <View style={styles.bullet} />
-                <Text style={styles.commitmentText}>
+                <View style={styles.bulletSlot}>
+                  <View style={styles.bullet} />
+                </View>
+                <AwaText colorRole="onSurfaceVariant" style={styles.commitmentText} variant="bodyMedium">
                   {t('privacyScreen.commitmentNoExport')}
-                </Text>
+                </AwaText>
               </View>
-
               <View style={styles.commitmentItem}>
-                <View style={styles.bullet} />
-                <Text style={styles.commitmentText}>
+                <View style={styles.bulletSlot}>
+                  <View style={styles.bullet} />
+                </View>
+                <AwaText colorRole="onSurfaceVariant" style={styles.commitmentText} variant="bodyMedium">
                   {t('privacyScreen.commitmentNoInternalAccess')}
-                </Text>
+                </AwaText>
               </View>
-
               <View style={styles.commitmentItem}>
-                <View style={styles.bullet} />
-                <Text style={styles.commitmentText}>
+                <View style={styles.bulletSlot}>
+                  <View style={styles.bullet} />
+                </View>
+                <AwaText colorRole="onSurfaceVariant" style={styles.commitmentText} variant="bodyMedium">
                   {t('privacyScreen.commitmentIdentityEncrypted')}
-                </Text>
+                </AwaText>
               </View>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.preferenceCard}>
-            <View style={styles.preferenceIcon}>
+          <AwaCard padding="compact" style={styles.preferenceCard} variant="filled">
+            <View>
               <MaterialDesignIcons
                 color={theme.colors.primary}
                 name="account-cog-outline"
@@ -173,39 +173,29 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
             </View>
 
             <View style={styles.preferenceCopy}>
-              <Text style={styles.preferenceTitle}>
+              <AwaText variant="titleSmall">
                 {t('privacyScreen.freedomTitle')}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.preferenceText}>
+              <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
                 {t('privacyScreen.freedomText')}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           <View style={styles.spacer} />
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
+            fullWidth
+            label={t('privacyScreen.next')}
             onPress={() =>
               route.params?.mode === 'edit'
                 ? navigation.goBack()
                 : navigation.navigate('Summary')
             }
-            style={({pressed}) => [
-              styles.nextButton,
-              pressed && styles.pressed,
-            ]}>
-            <Text style={styles.nextText}>{t('privacyScreen.next')}</Text>
-
-            <View style={styles.nextArrowContainer}>
-              <MaterialDesignIcons
-                color={theme.colors.primary}
-                name="arrow-right"
-                size={20}
-              />
-            </View>
-          </Pressable>
+            size="large"
+            style={styles.nextButton}
+          />
         </ScrollView>
       </View>
     </LinearGradient>
@@ -219,40 +209,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.background,
   },
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
 
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
 
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
 
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   safeArea: {
     flex: 1,
@@ -269,28 +228,16 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   title: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 29,
-    fontWeight: '700',
-    lineHeight: 35,
     textAlign: 'center',
   },
 
   subtitle: {
     marginTop: 10,
-    color: theme.colors.textSecondary,
-    fontSize: 13,
-    lineHeight: 19,
     textAlign: 'center',
   },
 
   guaranteesCard: {
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 24,
-    backgroundColor: withAlpha(theme.colors.surface, 0.84),
     paddingVertical: 4,
   },
 
@@ -298,18 +245,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     minHeight: 84,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 10,
-    paddingVertical: 7,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
 
   iconContainer: {
-    width: 68,
-    height: 68,
+    width: 48,
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 21,
-    backgroundColor: withAlpha(theme.colors.primarySoft, 0.7),
   },
 
   guaranteeCopy: {
@@ -319,18 +263,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingRight: 6,
   },
 
-  guaranteeTitle: {
-    color: theme.colors.accent,
-    fontSize: 14,
-    fontWeight: '700',
-  },
 
-  guaranteeDescription: {
-    marginTop: 4,
-    color: theme.colors.textSecondary,
-    fontSize: 11.5,
-    lineHeight: 16.5,
-  },
 
   rowDivider: {
     height: 1,
@@ -340,109 +273,79 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   commitmentCard: {
     marginTop: 14,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 22,
-    backgroundColor: withAlpha(theme.colors.surface, 0.82),
-    padding: 15,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
   },
 
   commitmentHeader: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 12,
   },
 
   commitmentIcon: {
-    width: 52,
-    height: 52,
+    width: 40,
+    height: 40,
+    flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 17,
-    backgroundColor: theme.colors.primarySoft,
   },
 
   commitmentCopy: {
     flex: 1,
-    marginLeft: 11,
-  },
-
-  commitmentTitle: {
-    color: theme.colors.accent,
-    fontSize: 15,
-    fontWeight: '800',
-  },
-
-  commitmentSubtitle: {
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
+    minWidth: 0,
+    gap: 2,
   },
 
   commitmentList: {
-    marginTop: 13,
-    gap: 10,
+    marginTop: 16,
+    gap: 14,
   },
 
   commitmentItem: {
     flexDirection: 'row',
     alignItems: 'flex-start',
+    gap: 12,
+  },
+
+  // The slot is one text line high (bodyMedium lineHeight 20), so the bullet sits on the first line's centre
+  // however many lines the statement wraps to; its width matches the header icon so bullets and icon share one axis.
+  bulletSlot: {
+    width: 40,
+    height: 20,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   bullet: {
-    width: 7,
-    height: 7,
-    flexShrink: 0,
-    marginTop: 5,
-    borderRadius: 4,
+    width: 6,
+    height: 6,
+    borderRadius: 3,
     backgroundColor: theme.colors.primary,
   },
 
   commitmentText: {
     flex: 1,
-    marginLeft: 9,
-    color: theme.colors.textSecondary,
-    fontSize: 11.5,
-    lineHeight: 17,
+    minWidth: 0,
   },
+
 
   preferenceCard: {
     minHeight: 76,
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 14,
-    borderRadius: 18,
-    backgroundColor: withAlpha(theme.colors.primarySoft, 0.9),
-    paddingHorizontal: 10,
-    paddingVertical: 8,
+    gap: 12,
   },
 
-  preferenceIcon: {
-    width: 52,
-    height: 52,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 17,
-    backgroundColor: theme.colors.surface,
-  },
 
   preferenceCopy: {
     flex: 1,
     marginLeft: 5,
   },
 
-  preferenceTitle: {
-    color: theme.colors.accent,
-    fontSize: 12.5,
-    fontWeight: '700',
-  },
 
-  preferenceText: {
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 10.8,
-    lineHeight: 16,
-  },
 
   spacer: {
     flex: 1,
@@ -450,48 +353,13 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   nextButton: {
-    position: 'relative',
-    width: '78%',
-    maxWidth: 320,
-    minHeight: 52,
+    width: '86%',
+    maxWidth: 360,
     alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 54,
-    borderRadius: 18,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 9,
-    elevation: 5,
   },
 
-  nextText: {
-    color: onPrimaryTextColor(theme),
-    fontSize: 17,
-    fontWeight: '700',
-    textAlign: 'center',
-  },
 
-  nextArrowContainer: {
-    position: 'absolute',
-    right: 10,
-    width: 32,
-    height: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 11,
-    backgroundColor: theme.colors.surface,
-  },
 
-  pressed: {
-    opacity: 0.82,
-    transform: [{scale: 0.99}],
-  },
   });
 }
 

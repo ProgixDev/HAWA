@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {Alert, Pressable, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {Alert, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -9,6 +9,10 @@ import '../i18n';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 import {useStructuredDataAvailability} from '../hooks/useStructuredDataAvailability';
 import {
   createReplacementProtectionKey,
@@ -79,33 +83,35 @@ export default function DataRecoveryScreen({navigation}: Props): React.JSX.Eleme
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
       <ScrollView contentContainerStyle={[styles.content, {paddingTop: Math.max(insets.top, 18) + 8, paddingBottom: Math.max(insets.bottom, 18) + 28}]} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <Pressable accessibilityLabel={t('common.back')} accessibilityRole="button" onPress={navigation.goBack} style={styles.back}>
-            <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
-          </Pressable>
-          <Text style={styles.title}>{t('dataSafety.recovery.title')}</Text>
+          <AwaIconButton accessibilityLabel={t('common.back')} icon="chevron-left" onPress={navigation.goBack} variant="tonal" />
+          <AwaText accessibilityRole="header" style={styles.title} variant="headlineSmall">{t('dataSafety.recovery.title')}</AwaText>
         </View>
-        <View style={styles.card}>
+        <AwaCard padding="default" style={styles.card} variant="filled">
           <MaterialDesignIcons color={theme.colors.warning} name="lock-alert-outline" size={30} />
-          <Text style={styles.body}>{t('dataSafety.recovery.intro')}</Text>
-          {summary.keyLost > 0 ? <Text style={styles.reason}>{t('dataSafety.recovery.keyLost')}</Text> : null}
-          {summary.authentication > 0 ? <Text style={styles.reason}>{t('dataSafety.recovery.authFailed')}</Text> : null}
-          {summary.other > 0 ? <Text style={styles.reason}>{t('dataSafety.recovery.other')}</Text> : null}
-          <Text style={styles.safe2}>{t('dataSafety.recovery.safeNote')}</Text>
-        </View>
+          <AwaText emphasized variant="bodyLarge">{t('dataSafety.recovery.intro')}</AwaText>
+          {summary.keyLost > 0 ? <AwaText colorRole="onSurfaceVariant" variant="bodyMedium">{t('dataSafety.recovery.keyLost')}</AwaText> : null}
+          {summary.authentication > 0 ? <AwaText colorRole="onSurfaceVariant" variant="bodyMedium">{t('dataSafety.recovery.authFailed')}</AwaText> : null}
+          {summary.other > 0 ? <AwaText colorRole="onSurfaceVariant" variant="bodyMedium">{t('dataSafety.recovery.other')}</AwaText> : null}
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall">{t('dataSafety.recovery.safeNote')}</AwaText>
+        </AwaCard>
         {buttons}
-        {message ? <Text style={styles.message}>{message}</Text> : null}
+        {message ? <AwaText emphasized style={styles.message} variant="bodyMedium">{message}</AwaText> : null}
       </ScrollView>
     </SafeAreaView>
   );
 }
 
 function ActionButton({icon, label, onPress, styles, danger, disabled}: {icon: React.ComponentProps<typeof MaterialDesignIcons>['name']; label: string; onPress: () => void; styles: ReturnType<typeof createStyles>; danger?: boolean; disabled?: boolean}) {
-  const {theme} = useAwaTheme();
   return (
-    <Pressable accessibilityRole="button" disabled={disabled} onPress={onPress} style={[styles.action, danger && styles.actionDanger, disabled && styles.disabled]}>
-      <MaterialDesignIcons color={danger ? theme.colors.danger : theme.colors.primary} name={icon} size={22} />
-      <Text style={[styles.actionText, danger && {color: theme.colors.danger}]}>{label}</Text>
-    </Pressable>
+    <AwaButton
+      disabled={disabled}
+      fullWidth
+      icon={icon}
+      label={label}
+      onPress={onPress}
+      style={styles.action}
+      variant={danger ? 'destructive' : 'tonal'}
+    />
   );
 }
 
@@ -114,16 +120,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     safe: {flex: 1, backgroundColor: theme.colors.background},
     content: {paddingHorizontal: 16},
     header: {flexDirection: 'row', alignItems: 'center', marginBottom: 14},
-    back: {width: 44, height: 44, alignItems: 'center', justifyContent: 'center', marginRight: 4},
-    title: {flex: 1, color: theme.colors.accent, fontFamily: 'serif', fontSize: 24, fontWeight: '800'},
-    card: {...theme.shadow, backgroundColor: theme.colors.surface, borderColor: withAlpha(theme.colors.warning, 0.35), borderWidth: 1, borderRadius: 20, padding: 16, marginBottom: 16, gap: 8},
-    body: {color: theme.colors.text, fontSize: 14.5, lineHeight: 21, fontWeight: '600'},
-    reason: {color: theme.colors.textSecondary, fontSize: 13.5, lineHeight: 20},
-    safe2: {color: theme.colors.textMuted, fontSize: 12.5, lineHeight: 18},
-    action: {minHeight: 52, flexDirection: 'row', alignItems: 'center', gap: 12, borderRadius: 16, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.25), backgroundColor: theme.colors.surface, paddingHorizontal: 16, marginBottom: 10},
-    actionDanger: {borderColor: withAlpha(theme.colors.danger, 0.4)},
-    actionText: {flex: 1, color: theme.colors.primary, fontSize: 15, fontWeight: '800'},
-    disabled: {opacity: 0.5},
-    message: {color: theme.colors.text, fontSize: 13.5, fontWeight: '700', marginTop: 8, textAlign: 'center'},
+    title: {flex: 1, marginLeft: 8},
+    card: {marginBottom: 16, gap: 8, borderWidth: 1, borderColor: withAlpha(theme.colors.warning, 0.35)},
+    action: {marginBottom: 12},
+    message: {marginTop: 8, textAlign: 'center'},
   });
 }

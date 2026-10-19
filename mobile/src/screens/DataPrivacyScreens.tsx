@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {Pressable, ScrollView, Share, StatusBar, StyleSheet, Text, TextInput, View} from 'react-native';
+import {ScrollView, Share, StatusBar, StyleSheet, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -9,7 +9,12 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
+import {AwaTextField} from '../components/ui/AwaTextField';
 import {isIncludedInBackup} from '../services/storageKeyClassifier';
 import {cancelAllLocalNotifications} from '../services/pregnancyNotifications';
 import {suspendBulkReminderResync} from '../services/reminderResyncGate';
@@ -25,10 +30,8 @@ function Shell({title, navigation, children}: {title: string; navigation: {goBac
     <SafeAreaView edges={['left', 'right']} style={styles.safe}>
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
       <View style={[styles.header, {paddingTop: Math.max(insets.top, 18) + 8}]}>
-        <Pressable accessibilityLabel={t('common.back')} onPress={navigation.goBack} style={styles.back}>
-          <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
-        </Pressable>
-        <Text style={styles.title}>{title}</Text>
+        <AwaIconButton accessibilityLabel={t('common.back')} icon="chevron-left" onPress={navigation.goBack} variant="tonal" />
+        <AwaText accessibilityRole="header" style={styles.title} variant="headlineSmall">{title}</AwaText>
         <View style={styles.spacer} />
       </View>
       <ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 18) + 24}]}>
@@ -59,22 +62,20 @@ export function DataManagementScreen({navigation}: NativeStackScreenProps<RootSt
   };
   return (
     <Shell navigation={navigation} title={t('privacySecurity.dataManagementTitle')}>
-      <View style={styles.hero}>
+      <AwaCard padding="default" style={styles.hero} variant="filled">
         <MaterialDesignIcons color={theme.colors.primary} name="database-lock-outline" size={35} />
-        <Text style={styles.heroTitle}>{t('dataPrivacy.management.heroTitle')}</Text>
-        <Text style={styles.text}>{t('dataPrivacy.management.storageCount', {count})}</Text>
-      </View>
-      <Pressable onPress={exportData} style={styles.action}>
+        <AwaText style={styles.heroTitle} variant="titleLarge">{t('dataPrivacy.management.heroTitle')}</AwaText>
+        <AwaText colorRole="onSurfaceVariant" style={styles.text} variant="bodySmall">{t('dataPrivacy.management.storageCount', {count})}</AwaText>
+      </AwaCard>
+      <AwaCard onPress={exportData} padding="default" style={styles.action} variant="filled">
         <MaterialDesignIcons color={theme.colors.primary} name="export-variant" size={22} />
         <View style={styles.actionCopy}>
-          <Text style={styles.actionTitle}>{t('dataPrivacy.management.exportTitle')}</Text>
-          <Text style={styles.text}>{t('dataPrivacy.management.exportDescription')}</Text>
+          <AwaText variant="titleSmall">{t('dataPrivacy.management.exportTitle')}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" style={styles.text} variant="bodySmall">{t('dataPrivacy.management.exportDescription')}</AwaText>
         </View>
-      </Pressable>
-      <Pressable onPress={() => setMessage(t('dataPrivacy.management.deletionInfoMessage'))} style={styles.secondary}>
-        <Text style={styles.secondaryText}>{t('dataPrivacy.management.deletionInfoButton')}</Text>
-      </Pressable>
-      {message ? <Text style={styles.notice}>{message}</Text> : null}
+      </AwaCard>
+      <AwaButton fullWidth label={t('dataPrivacy.management.deletionInfoButton')} onPress={() => setMessage(t('dataPrivacy.management.deletionInfoMessage'))} variant="tonal" />
+      {message ? <AwaText colorRole="onSurfaceVariant" style={styles.notice} variant="bodySmall">{message}</AwaText> : null}
     </Shell>
   );
 }
@@ -114,21 +115,27 @@ export function DeleteAccountScreen({navigation}: NativeStackScreenProps<RootSta
   };
   return (
     <Shell navigation={navigation} title={t('privacySecurity.deleteAccountTitle')}>
-      <View style={styles.warning}>
+      <AwaCard padding="default" style={styles.warning} variant="filled">
         <MaterialDesignIcons color={theme.colors.danger} name="alert-outline" size={35} />
-        <Text style={styles.warningTitle}>{t('dataPrivacy.deleteAccount.warningTitle')}</Text>
-        <Text style={styles.text}>{t('dataPrivacy.deleteAccount.warningText')}</Text>
-      </View>
-      <Text style={styles.label}>{t('dataPrivacy.deleteAccount.confirmLabel')}</Text>
-      <TextInput
+        <AwaText colorRole="error" style={styles.warningTitle} variant="titleLarge">{t('dataPrivacy.deleteAccount.warningTitle')}</AwaText>
+        <AwaText colorRole="onSurfaceVariant" style={styles.text} variant="bodySmall">{t('dataPrivacy.deleteAccount.warningText')}</AwaText>
+      </AwaCard>
+      <AwaTextField
         accessibilityLabel={t('dataPrivacy.deleteAccount.confirmLabel')}
-        autoCapitalize="characters" onChangeText={text => {setValue(text); setError('');}}
-        style={[styles.input, error && styles.inputError]} value={value}
+        autoCapitalize="characters"
+        errorText={error || undefined}
+        label={t('dataPrivacy.deleteAccount.confirmLabel')}
+        onChangeText={text => {setValue(text); setError('');}}
+        value={value}
       />
-      {error ? <Text style={styles.error}>{error}</Text> : null}
-      <Pressable accessibilityLabel={t('dataPrivacy.deleteAccount.deleteButtonAccessibility')} onPress={remove} style={styles.delete}>
-        <Text style={styles.deleteText}>{t('dataPrivacy.deleteAccount.deleteButton')}</Text>
-      </Pressable>
+      <AwaButton
+        accessibilityLabel={t('dataPrivacy.deleteAccount.deleteButtonAccessibility')}
+        fullWidth
+        label={t('dataPrivacy.deleteAccount.deleteButton')}
+        onPress={remove}
+        size="large"
+        variant="destructive"
+      />
     </Shell>
   );
 }
@@ -137,28 +144,18 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     safe: {flex: 1, backgroundColor: theme.colors.background},
     header: {flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingBottom: 12},
-    back: {alignItems: 'center', justifyContent: 'center', borderRadius: 999, backgroundColor: theme.colors.surface, padding: 9, elevation: 2},
-    title: {flex: 1, color: theme.colors.accent, fontFamily: 'serif', fontSize: 20, fontWeight: '700', textAlign: 'center'},
-    spacer: {padding: 23},
+    title: {flex: 1, textAlign: 'center'},
+    spacer: {width: 40},
     content: {paddingHorizontal: 16, gap: 13},
-    hero: {alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 24, backgroundColor: theme.colors.surface, padding: 20},
-    heroTitle: {marginTop: 9, color: theme.colors.text, fontFamily: 'serif', fontSize: 18, fontWeight: '700'},
-    text: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 18, textAlign: 'center'},
-    action: {flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.10), borderRadius: 20, backgroundColor: theme.colors.surface, padding: 15},
+    hero: {alignItems: 'center'},
+    heroTitle: {marginTop: 8},
+    text: {marginTop: 6, textAlign: 'center'},
+    action: {flexDirection: 'row', alignItems: 'center'},
     actionCopy: {flex: 1, marginLeft: 12},
-    actionTitle: {color: theme.colors.text, fontSize: 13.5, fontWeight: '700'},
-    secondary: {alignItems: 'center', borderRadius: 18, backgroundColor: theme.colors.primarySoft, padding: 14},
-    secondaryText: {color: theme.colors.primary, fontSize: 12, fontWeight: '700'},
-    notice: {color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 17, textAlign: 'center'},
+    notice: {textAlign: 'center'},
     // Destructive-action warning card — theme.colors.danger throughout,
     // preserving semantic identity (Step 15). Never becomes theme.primary.
-    warning: {alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.danger, 0.28), borderRadius: 24, backgroundColor: withAlpha(theme.colors.danger, 0.05), padding: 20},
-    warningTitle: {marginTop: 9, color: theme.colors.danger, fontFamily: 'serif', fontSize: 18, fontWeight: '700'},
-    label: {marginTop: 4, color: theme.colors.text, fontSize: 12, fontWeight: '700'},
-    input: {borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.16), borderRadius: 18, backgroundColor: theme.colors.surface, padding: 13, color: theme.colors.text, fontSize: 14},
-    inputError: {borderColor: theme.colors.danger},
-    error: {color: theme.colors.danger, fontSize: 11},
-    delete: {alignItems: 'center', borderRadius: 18, backgroundColor: theme.colors.danger, padding: 15},
-    deleteText: {color: pickReadableTextColor(theme.colors.danger), fontSize: 14, fontWeight: '700'},
+    warning: {alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.danger, 0.28), backgroundColor: withAlpha(theme.colors.danger, 0.05)},
+    warningTitle: {marginTop: 8},
   });
 }

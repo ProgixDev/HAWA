@@ -1,15 +1,11 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
-  ActivityIndicator,
   Alert,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
-  TextInput,
   useWindowDimensions,
   View,
 } from 'react-native';
@@ -21,7 +17,12 @@ import '../i18n';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
+import {AwaTextField} from '../components/ui/AwaTextField';
 import {getActiveProfileIdentity, reloadActiveProfileData} from '../state/activeProfileStore';
 import {reloadCycleStateFromStorage} from '../state/onboardingPreferences';
 import {reloadAllOwnerStores} from '../state/ownerStoreRegistry';
@@ -178,106 +179,105 @@ export default function PortableBackupScreen({navigation}: Props): React.JSX.Ele
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
-            <Pressable accessibilityLabel={t('common.back')} accessibilityRole="button" onPress={navigation.goBack} style={styles.back}>
-              <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
-            </Pressable>
-            <Text style={styles.title}>{t('portableBackup.screenTitle')}</Text>
+            <AwaIconButton
+              accessibilityLabel={t('common.back')}
+              accessibilityRole="button"
+              icon="chevron-left"
+              onPress={navigation.goBack}
+              style={styles.back}
+            />
+            <AwaText style={styles.title} variant="headlineSmall">{t('portableBackup.screenTitle')}</AwaText>
           </View>
 
-          <View style={styles.card}>
+          <AwaCard style={styles.card} variant="filled">
             <View style={styles.cardHead}>
               <MaterialDesignIcons color={theme.colors.primary} name="shield-lock-outline" size={24} />
-              <Text style={styles.cardTitle}>{t('portableBackup.createTitle')}</Text>
+              <AwaText style={styles.cardTitle} variant="titleLarge">{t('portableBackup.createTitle')}</AwaText>
             </View>
-            <Text style={styles.body}>{t('portableBackup.createIntro')}</Text>
-            <Text style={styles.label}>{t('portableBackup.passphraseLabel')}</Text>
-            <TextInput
-              accessibilityLabel={t('portableBackup.passphraseLabel')}
+            <AwaText colorRole="onSurfaceVariant" style={styles.body} variant="bodyMedium">{t('portableBackup.createIntro')}</AwaText>
+            <AwaTextField
               autoCapitalize="none"
               autoComplete="off"
               autoCorrect={false}
+              errorText={weakness ?? undefined}
+              helperText={weakness ? undefined : t('portableBackup.passphraseHint')}
               importantForAutofill="no"
+              label={t('portableBackup.passphraseLabel')}
               onChangeText={setPassphrase}
-              placeholderTextColor={theme.colors.textMuted}
               secureTextEntry
-              style={styles.input}
               textContentType="none"
               value={passphrase}
+              wrapperStyle={styles.field}
             />
-            <Text style={[styles.hint, weakness ? styles.hintError : null]}>{weakness ?? t('portableBackup.passphraseHint')}</Text>
-            <Text style={styles.label}>{t('portableBackup.confirmLabel')}</Text>
-            <TextInput
-              accessibilityLabel={t('portableBackup.confirmLabel')}
+            <AwaTextField
               autoCapitalize="none"
               autoComplete="off"
               autoCorrect={false}
+              errorText={mismatch ?? undefined}
               importantForAutofill="no"
+              label={t('portableBackup.confirmLabel')}
               onChangeText={setConfirmation}
-              placeholderTextColor={theme.colors.textMuted}
               secureTextEntry
-              style={styles.input}
               textContentType="none"
               value={confirmation}
+              wrapperStyle={styles.field}
             />
-            {mismatch ? <Text style={[styles.hint, styles.hintError]}>{mismatch}</Text> : null}
             <View style={styles.warning}>
               <MaterialDesignIcons color={theme.colors.warning} name="alert-outline" size={20} />
-              <Text style={styles.warningText}>{t('portableBackup.lossWarning')}</Text>
+              <AwaText style={styles.warningText} variant="bodySmall">{t('portableBackup.lossWarning')}</AwaText>
             </View>
-            <Text style={styles.note}>{t('portableBackup.photosNote')}</Text>
-            <Pressable accessibilityRole="button" disabled={!canCreate} onPress={create} style={[styles.button, !canCreate && styles.disabled]}>
-              {creating ? (
-                <View style={styles.row}>
-                  <ActivityIndicator color={onPrimaryTextColor(theme)} size="small" />
-                  <Text style={styles.buttonText}>{t('portableBackup.creating')}</Text>
-                </View>
-              ) : (
-                <Text style={styles.buttonText}>{t('portableBackup.create')}</Text>
-              )}
-            </Pressable>
-            {createNotice ? <Text style={[styles.notice, createNotice.kind === 'error' ? styles.noticeError : styles.noticeOk]}>{createNotice.text}</Text> : null}
-          </View>
+            <AwaText colorRole="onSurfaceVariant" style={styles.note} variant="bodySmall">{t('portableBackup.photosNote')}</AwaText>
+            <AwaButton
+              disabled={!canCreate}
+              fullWidth
+              label={creating ? t('portableBackup.creating') : t('portableBackup.create')}
+              loading={creating}
+              onPress={create}
+              style={styles.button}
+            />
+            {createNotice ? <AwaText colorRole={createNotice.kind === 'error' ? 'error' : 'success'} emphasized style={styles.notice} variant="bodyMedium">{createNotice.text}</AwaText> : null}
+          </AwaCard>
 
-          <View style={styles.card}>
+          <AwaCard style={styles.card} variant="filled">
             <View style={styles.cardHead}>
               <MaterialDesignIcons color={theme.colors.primary} name="backup-restore" size={24} />
-              <Text style={styles.cardTitle}>{t('portableBackup.restoreTitle')}</Text>
+              <AwaText style={styles.cardTitle} variant="titleLarge">{t('portableBackup.restoreTitle')}</AwaText>
             </View>
-            <Text style={styles.body}>{t('portableBackup.restoreIntro')}</Text>
-            <Pressable accessibilityRole="button" onPress={choose} style={styles.secondaryButton}>
-              <MaterialDesignIcons color={theme.colors.primary} name="file-lock-outline" size={20} />
-              <Text style={styles.secondaryText}>{t('portableBackup.pick')}</Text>
-            </Pressable>
-            {pickedLabel ? <Text style={styles.picked}>{pickedLabel}</Text> : null}
+            <AwaText colorRole="onSurfaceVariant" style={styles.body} variant="bodyMedium">{t('portableBackup.restoreIntro')}</AwaText>
+            <AwaButton
+              fullWidth
+              icon="file-lock-outline"
+              label={t('portableBackup.pick')}
+              onPress={choose}
+              variant="tonal"
+            />
+            {pickedLabel ? <AwaText emphasized style={styles.picked} variant="bodyMedium">{pickedLabel}</AwaText> : null}
             {picked ? (
               <>
-                <Text style={styles.label}>{t('portableBackup.restorePassphrase')}</Text>
-                <TextInput
-                  accessibilityLabel={t('portableBackup.restorePassphrase')}
+                <AwaTextField
                   autoCapitalize="none"
                   autoComplete="off"
                   autoCorrect={false}
                   importantForAutofill="no"
+                  label={t('portableBackup.restorePassphrase')}
                   onChangeText={setRestorePass}
                   secureTextEntry
-                  style={styles.input}
                   textContentType="none"
                   value={restorePass}
+                  wrapperStyle={styles.field}
                 />
-                <Pressable accessibilityRole="button" disabled={restoring || restorePass.length === 0} onPress={askRestore} style={[styles.button, (restoring || restorePass.length === 0) && styles.disabled]}>
-                  {restoring ? (
-                    <View style={styles.row}>
-                      <ActivityIndicator color={onPrimaryTextColor(theme)} size="small" />
-                      <Text style={styles.buttonText}>{t('portableBackup.restoring')}</Text>
-                    </View>
-                  ) : (
-                    <Text style={styles.buttonText}>{t('portableBackup.restore')}</Text>
-                  )}
-                </Pressable>
+                <AwaButton
+                  disabled={restoring || restorePass.length === 0}
+                  fullWidth
+                  label={restoring ? t('portableBackup.restoring') : t('portableBackup.restore')}
+                  loading={restoring}
+                  onPress={askRestore}
+                  style={styles.button}
+                />
               </>
             ) : null}
-            {restoreNotice ? <Text style={[styles.notice, restoreNotice.kind === 'error' ? styles.noticeError : styles.noticeOk]}>{restoreNotice.text}</Text> : null}
-          </View>
+            {restoreNotice ? <AwaText colorRole={restoreNotice.kind === 'error' ? 'error' : 'success'} emphasized style={styles.notice} variant="bodyMedium">{restoreNotice.text}</AwaText> : null}
+          </AwaCard>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -291,28 +291,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     content: {paddingHorizontal: 18},
     contentCompact: {paddingHorizontal: 12},
     header: {flexDirection: 'row', alignItems: 'center', marginBottom: 14},
-    back: {width: 44, height: 44, alignItems: 'center', justifyContent: 'center', marginRight: 4},
-    title: {flex: 1, color: theme.colors.accent, fontFamily: 'serif', fontSize: 26, fontWeight: '800'},
-    card: {...theme.shadow, backgroundColor: theme.colors.surface, borderColor: withAlpha(theme.colors.primary, 0.12), borderWidth: 1, borderRadius: 22, padding: 16, marginBottom: 16},
-    cardHead: {flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 6},
-    cardTitle: {flex: 1, color: theme.colors.accent, fontFamily: 'serif', fontSize: 19, fontWeight: '800'},
-    body: {color: theme.colors.textSecondary, fontSize: 13.5, lineHeight: 20, marginBottom: 10},
-    label: {color: theme.colors.text, fontSize: 13, fontWeight: '700', marginTop: 8, marginBottom: 6},
-    input: {minHeight: 48, borderRadius: 14, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.2), backgroundColor: theme.colors.surfaceSecondary, color: theme.colors.text, paddingHorizontal: 14, fontSize: 16},
-    hint: {color: theme.colors.textMuted, fontSize: 12, lineHeight: 17, marginTop: 5},
-    hintError: {color: theme.colors.danger},
-    warning: {flexDirection: 'row', gap: 10, alignItems: 'flex-start', backgroundColor: withAlpha(theme.colors.warning, 0.12), borderRadius: 14, padding: 12, marginTop: 14},
-    warningText: {flex: 1, color: theme.colors.text, fontSize: 12.5, lineHeight: 18},
-    note: {color: theme.colors.textMuted, fontSize: 12, lineHeight: 17, marginTop: 10, marginBottom: 12},
-    button: {minHeight: 50, borderRadius: 16, backgroundColor: theme.colors.primary, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 16, marginTop: 8},
-    buttonText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '800'},
-    row: {flexDirection: 'row', alignItems: 'center', gap: 10},
-    disabled: {opacity: 0.45},
-    secondaryButton: {minHeight: 48, borderRadius: 16, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.3), backgroundColor: theme.colors.primarySoft, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, paddingHorizontal: 14},
-    secondaryText: {color: theme.colors.primary, fontSize: 14.5, fontWeight: '800'},
-    picked: {color: theme.colors.text, fontSize: 13.5, fontWeight: '700', marginTop: 12},
-    notice: {fontSize: 13, lineHeight: 19, marginTop: 12, fontWeight: '600'},
-    noticeError: {color: theme.colors.danger},
-    noticeOk: {color: theme.colors.success},
+    back: {marginRight: 4},
+    title: {flex: 1},
+    card: {marginBottom: 16},
+    cardHead: {flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 8},
+    cardTitle: {flex: 1},
+    body: {marginBottom: 12},
+    field: {marginTop: 8},
+    warning: {flexDirection: 'row', gap: 12, alignItems: 'flex-start', backgroundColor: withAlpha(theme.colors.warning, 0.12), borderRadius: 12, padding: 12, marginTop: 16},
+    warningText: {flex: 1},
+    note: {marginTop: 12, marginBottom: 12},
+    button: {marginTop: 8},
+    picked: {marginTop: 12},
+    notice: {marginTop: 12},
   });
 }

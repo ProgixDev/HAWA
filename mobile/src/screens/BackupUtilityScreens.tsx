@@ -1,6 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
-  ActivityIndicator,
   Pressable,
   ScrollView,
   StatusBar,
@@ -47,6 +46,9 @@ import {generateMedicalExportPdfBase64} from '../services/medicalExportPdf';
 import {buildExportFilename, purgeMedicalExportCache, shareExportFile} from '../services/medicalExportShare';
 import {usePremium} from '../hooks/usePremium';
 import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 import {
   getActiveObjective,
   hydrateActiveObjective,
@@ -115,11 +117,6 @@ function Shell({
         barStyle={theme.statusBarStyle}
       />
 
-      <View pointerEvents="none" style={styles.backgroundDecor}>
-        <View style={styles.glowTop} />
-        <View style={styles.glowLeft} />
-        <View style={styles.glowBottom} />
-      </View>
 
       <View
         style={[
@@ -132,47 +129,30 @@ function Shell({
               ) + 8,
           },
         ]}>
-        <Pressable
+        <AwaIconButton
           accessibilityLabel={t('common.back')}
-          accessibilityRole="button"
           hitSlop={8}
-          onPress={
-            navigation.goBack
-          }
-          style={({pressed}) => [
-            styles.backButton,
-            pressed &&
-              styles.pressed,
-          ]}>
-          <MaterialDesignIcons
-            color={theme.colors.primary}
-            name="chevron-left"
-            size={27}
-          />
-        </Pressable>
+          icon="chevron-left"
+          onPress={navigation.goBack}
+        />
 
         <View
           style={
             styles.headerCopy
           }>
-          <Text
-            adjustsFontSizeToFit
-            minimumFontScale={0.82}
-            numberOfLines={1}
-            style={[
-              styles.headerTitle,
-              compact &&
-                styles.headerTitleCompact,
-            ]}>
+          <AwaText
+            variant={compact ? 'titleLarge' : 'headlineSmall'}>
             {title}
-          </Text>
+          </AwaText>
 
-          <Text
+          <AwaText
+            colorRole="onSurfaceVariant"
             style={
               styles.headerSubtitle
-            }>
+            }
+            variant="bodySmall">
             {subtitle}
-          </Text>
+          </AwaText>
         </View>
 
         <View
@@ -503,59 +483,25 @@ export function RestoreBackupScreen({
             </View>
           </View>
 
-          <Pressable
+          <AwaButton
             disabled={busy}
+            fullWidth
+            icon="check"
+            label={t('backupUtility.restore.confirmButton')}
+            loading={busy}
             onPress={restore}
-            style={({pressed}) => [
-              backupStyles.primaryButton,
-              backupStyles.confirmPrimary,
+            size="large"
+          />
 
-              busy &&
-                backupStyles.disabled,
-
-              pressed &&
-                !busy &&
-                backupStyles.pressed,
-            ]}>
-            {busy ? (
-              <ActivityIndicator
-                color={onPrimaryTextColor(theme)}
-              />
-            ) : (
-              <>
-                <MaterialDesignIcons
-                  color={onPrimaryTextColor(theme)}
-                  name="check"
-                  size={19}
-                />
-
-                <Text
-                  style={
-                    backupStyles.primaryText
-                  }>
-                  {t('backupUtility.restore.confirmButton')}
-                </Text>
-              </>
-            )}
-          </Pressable>
-
-          <Pressable
+          <AwaButton
             disabled={busy}
+            fullWidth
+            label={t('common.cancel')}
             onPress={() =>
               setConfirm(false)
             }
-            style={({pressed}) => [
-              backupStyles.cancelButton,
-              pressed &&
-                backupStyles.pressed,
-            ]}>
-            <Text
-              style={
-                backupStyles.cancelText
-              }>
-              {t('common.cancel')}
-            </Text>
-          </Pressable>
+            variant="text"
+          />
         </View>
       ) : null}
 
@@ -1159,7 +1105,6 @@ export function DataExportScreen({
             <Text style={backupStyles.privacyPriorityTitle}>{t('backupUtility.export.privacyPriorityTitle')}</Text>
             <Text style={backupStyles.privacyPriorityDescription}>{t('backupUtility.export.privacyPriorityDescription')}</Text>
           </View>
-          <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={25} />
         </View>
       ) : null}
 
@@ -1238,14 +1183,14 @@ function PremiumExportLockedCard({onUpgrade, theme, styles: lockedStyles}: {onUp
         />
       </View>
 
-      <Pressable
-        accessibilityRole="button"
+      <AwaButton
+        fullWidth
+        icon="crown"
+        label={t('backupUtility.export.premium.upgradeButton')}
         onPress={onUpgrade}
-        style={({pressed}) => [lockedStyles.premiumUpgradeButton, pressed && lockedStyles.pressed]}>
-        <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="crown" size={23} />
-        <Text style={lockedStyles.premiumUpgradeText}>{t('backupUtility.export.premium.upgradeButton')}</Text>
-        <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="chevron-right" size={27} />
-      </Pressable>
+        size="large"
+        style={lockedStyles.premiumUpgrade}
+      />
     </View>
   );
 }
@@ -1523,33 +1468,15 @@ export function DeleteTrackedDataScreen({
             ) : null}
           </View>
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={!isValid}
+            fullWidth
+            icon="delete-forever-outline"
+            label={t('backupUtility.delete.deleteButton')}
             onPress={remove}
-            style={({pressed}) => [
-              backupStyles.deleteButton,
-
-              !isValid &&
-                backupStyles.deleteDisabled,
-
-              pressed &&
-                isValid &&
-                backupStyles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              color={onPrimaryTextColor(theme)}
-              name="delete-forever-outline"
-              size={20}
-            />
-
-            <Text
-              style={
-                backupStyles.primaryText
-              }>
-              {t('backupUtility.delete.deleteButton')}
-            </Text>
-          </Pressable>
+            size="large"
+            variant="destructive"
+          />
 
           <Text
             style={
@@ -1622,19 +1549,18 @@ function SectionTitle({
 }) {
   return (
     <View>
-      <Text
-        style={
-          sectionStyles.sectionTitle
-        }>
+      <AwaText variant="titleMedium">
         {title}
-      </Text>
+      </AwaText>
 
-      <Text
+      <AwaText
+        colorRole="onSurfaceVariant"
         style={
           sectionStyles.sectionSubtitle
-        }>
+        }
+        variant="bodySmall">
         {subtitle}
-      </Text>
+      </AwaText>
     </View>
   );
 }
@@ -1696,47 +1622,26 @@ function PrimaryButton({
   onPress,
   disabled,
   loading,
-  theme,
-  styles: buttonStyles,
 }: {
   label: string;
   icon?: IconName;
   onPress: () => void;
   disabled?: boolean;
   loading?: boolean;
-  theme: ResolvedAwaTheme;
-  styles: ReturnType<typeof createStyles>;
+  /** Kept for the existing call sites; AwaButton reads the theme itself. */
+  theme?: ResolvedAwaTheme;
+  styles?: ReturnType<typeof createStyles>;
 }) {
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityState={{disabled: Boolean(disabled)}}
+    <AwaButton
       disabled={disabled}
+      fullWidth
+      icon={icon}
+      label={label}
+      loading={loading}
       onPress={onPress}
-      style={({pressed}) => [
-        buttonStyles.primaryButton,
-        pressed &&
-          buttonStyles.pressed,
-        disabled &&
-          buttonStyles.primaryButtonDisabled,
-      ]}>
-      {loading ? (
-        <ActivityIndicator color={onPrimaryTextColor(theme)} size="small" />
-      ) : icon ? (
-        <MaterialDesignIcons
-          color={onPrimaryTextColor(theme)}
-          name={icon}
-          size={20}
-        />
-      ) : null}
-
-      <Text
-        style={
-          buttonStyles.primaryText
-        }>
-        {label}
-      </Text>
-    </Pressable>
+      size="large"
+    />
   );
 }
 
@@ -1790,7 +1695,6 @@ function Choice({
       </View>
 
       <Text
-        numberOfLines={2}
         style={[
           choiceStyles.choiceLabel,
 
@@ -1866,40 +1770,9 @@ function createStyles(theme: ResolvedAwaTheme) {
         theme.colors.background,
     },
 
-    backgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
 
-    glowTop: {
-      position: 'absolute',
-      top: -190,
-      right: -130,
-      width: 380,
-      height: 380,
-      borderRadius: 190,
-      backgroundColor: withAlpha(theme.colors.primary, 0.06),
-    },
 
-    glowLeft: {
-      position: 'absolute',
-      top: '34%',
-      left: -170,
-      width: 320,
-      height: 320,
-      borderRadius: 160,
-      backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
 
-    glowBottom: {
-      position: 'absolute',
-      bottom: -180,
-      right: -120,
-      width: 350,
-      height: 350,
-      borderRadius: 175,
-      backgroundColor: withAlpha(theme.colors.accent, 0.045),
-    },
 
     header: {
       flexDirection: 'row',
@@ -1908,21 +1781,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingBottom: 8,
     },
 
-    backButton: {
-      width: 38,
-      height: 38,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.10),
-      borderRadius: 13,
-      backgroundColor: withAlpha(theme.colors.surface, 0.94),
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 3},
-      shadowOpacity: 0.055,
-      shadowRadius: 8,
-      elevation: 2,
-    },
 
     headerCopy: {
       flex: 1,
@@ -1934,7 +1792,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     headerTitle: {
       width: '100%',
       color: theme.colors.accent,
-      fontFamily: 'serif',
       fontSize: 18,
       lineHeight: 22,
       fontWeight: '800',
@@ -1951,14 +1808,14 @@ function createStyles(theme: ResolvedAwaTheme) {
       maxWidth: 320,
       marginTop: 2,
       color: theme.colors.textSecondary,
-      fontSize: 9.5,
-      lineHeight: 13,
+      fontSize: 11,
+      lineHeight: 16,
       textAlign: 'center',
     },
 
     headerSpacer: {
-      width: 38,
-      height: 38,
+      width: 40,
+      height: 40,
     },
 
     content: {
@@ -1979,7 +1836,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       overflow: 'hidden',
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.10),
-      borderRadius: 22,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.96),
       paddingHorizontal: 16,
       paddingVertical: 17,
@@ -1997,7 +1854,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent: 'center',
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.surface, 0.92),
-      borderRadius: 18,
+      borderRadius: 12,
       shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 4},
       shadowOpacity: 0.07,
@@ -2008,7 +1865,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     heroTitle: {
       marginTop: 10,
       color: theme.colors.accent,
-      fontFamily: 'serif',
       fontSize: 17,
       lineHeight: 21,
       fontWeight: '800',
@@ -2051,7 +1907,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 13,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -2064,7 +1920,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     infoLabel: {
       color: theme.colors.textSecondary,
-      fontSize: 10.5,
+      fontSize: 11,
     },
 
     infoValue: {
@@ -2086,32 +1942,8 @@ function createStyles(theme: ResolvedAwaTheme) {
         theme.colors.border,
     },
 
-    primaryButton: {
-      minHeight: 50,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 8,
-      borderRadius: 17,
-      backgroundColor: theme.colors.primary,
-      paddingHorizontal: 18,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 6},
-      shadowOpacity: 0.18,
-      shadowRadius: 11,
-      elevation: 4,
-    },
 
-    primaryText: {
-      color: onPrimaryTextColor(theme),
-      fontSize: 13.5,
-      lineHeight: 17,
-      fontWeight: '800',
-    },
 
-    primaryButtonDisabled: {
-      opacity: 0.6,
-    },
 
     confirmCard: {
       borderWidth: 1,
@@ -2119,12 +1951,12 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         withAlpha(theme.colors.warning, 0.35),
 
-      borderRadius: 19,
+      borderRadius: 12,
 
       backgroundColor:
         withAlpha(theme.colors.warning, 0.08),
 
-      padding: 12,
+      padding: 16,
     },
 
     confirmHeader: {
@@ -2141,7 +1973,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 14,
+      borderRadius: 12,
 
       backgroundColor:
         withAlpha(theme.colors.warning, 0.18),
@@ -2155,7 +1987,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     confirmTitle: {
       color: theme.colors.warning,
 
-      fontFamily: 'serif',
 
       fontSize: 16,
       fontWeight: '700',
@@ -2203,9 +2034,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       borderWidth: 1,
 
-      borderRadius: 17,
+      borderRadius: 16,
 
-      paddingHorizontal: 10,
+      paddingHorizontal: 12,
       paddingVertical: 11,
     },
 
@@ -2238,7 +2069,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.10),
-      borderRadius: 20,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.96),
       padding: 13,
       shadowColor: theme.shadow.shadowColor,
@@ -2265,7 +2096,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     exportTitle: {
       color: theme.colors.accent,
-      fontFamily: 'serif',
       fontSize: 15,
       lineHeight: 19,
       fontWeight: '800',
@@ -2274,8 +2104,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     exportDescription: {
       marginTop: 3,
       color: theme.colors.textSecondary,
-      fontSize: 10.5,
-      lineHeight: 15,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     exportObjectiveLabel: {
@@ -2289,7 +2119,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     sectionTitle: {
       color: theme.colors.accent,
-      fontFamily: 'serif',
       fontSize: 14.5,
       lineHeight: 18,
       fontWeight: '800',
@@ -2298,8 +2127,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     sectionSubtitle: {
       marginTop: 2,
       color: theme.colors.textSecondary,
-      fontSize: 10,
-      lineHeight: 14,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     choiceGrid: {
@@ -2321,10 +2150,10 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.10),
-      borderRadius: 15,
+      borderRadius: 16,
       backgroundColor: withAlpha(theme.colors.surface, 0.96),
-      paddingHorizontal: 9,
-      paddingVertical: 8,
+      paddingHorizontal: 12,
+      paddingVertical: 10,
     },
 
     choiceSelected: {
@@ -2352,7 +2181,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       height: 30,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 10,
+      borderRadius: 12,
       backgroundColor: theme.colors.surfaceSecondary,
     },
 
@@ -2364,8 +2193,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       flex: 1,
       marginHorizontal: 8,
       color: theme.colors.textSecondary,
-      fontSize: 10.5,
-      lineHeight: 13.5,
+      fontSize: 11,
+      lineHeight: 16,
       fontWeight: '600',
     },
 
@@ -2410,7 +2239,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       overflow: 'hidden',
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.10),
-      borderRadius: 19,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.96),
       shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 3},
@@ -2444,7 +2273,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       height: 30,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 10,
+      borderRadius: 12,
       backgroundColor: theme.colors.surfaceSecondary,
     },
 
@@ -2490,7 +2319,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     sensitiveText: {
       color: theme.colors.danger,
 
-      fontSize: 8.5,
+      fontSize: 11,
       fontWeight: '700',
     },
 
@@ -2501,9 +2330,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       gap: 8,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.07),
-      borderRadius: 14,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
-      paddingHorizontal: 11,
+      paddingHorizontal: 12,
     },
 
     selectionText: {
@@ -2524,7 +2353,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         withAlpha(theme.colors.primary, 0.20),
 
-      borderRadius: 17,
+      borderRadius: 16,
 
       backgroundColor:
         theme.colors.surfaceSecondary,
@@ -2545,7 +2374,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.danger, 0.25),
-      borderRadius: 22,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.danger, 0.06),
       padding: 14,
       shadowColor: theme.shadow.shadowColor,
@@ -2558,7 +2387,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     dangerTitle: {
       marginTop: 11,
       color: theme.colors.danger,
-      fontFamily: 'serif',
       fontSize: 17,
       lineHeight: 21,
       fontWeight: '800',
@@ -2579,9 +2407,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       gap: 7,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.danger, 0.07),
-      borderRadius: 15,
+      borderRadius: 16,
       backgroundColor: withAlpha(theme.colors.surface, 0.82),
-      padding: 11,
+      padding: 12,
     },
 
     dangerItem: {
@@ -2622,12 +2450,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       marginTop: 12,
 
-      borderRadius: 14,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surfaceSecondary,
 
-      padding: 10,
+      padding: 12,
     },
 
     accountNoticeText: {
@@ -2635,14 +2463,14 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       color: theme.colors.accent,
 
-      fontSize: 10.5,
-      lineHeight: 15,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     deleteConfirmCard: {
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.10),
-      borderRadius: 19,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.96),
       padding: 13,
       shadowColor: theme.shadow.shadowColor,
@@ -2696,8 +2524,8 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       color: theme.colors.textSecondary,
 
-      fontSize: 10.5,
-      lineHeight: 15,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     input: {
@@ -2705,7 +2533,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginTop: 10,
       borderWidth: 1,
       borderColor: theme.colors.border,
-      borderRadius: 15,
+      borderRadius: 16,
       backgroundColor: theme.colors.surfaceSecondary,
       paddingHorizontal: 13,
       color: theme.colors.accent,
@@ -2742,7 +2570,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     validText: {
       color: theme.colors.success,
 
-      fontSize: 10.5,
+      fontSize: 11,
       fontWeight: '700',
     },
 
@@ -2758,40 +2586,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     errorText: {
       color: theme.colors.danger,
 
-      fontSize: 10.5,
+      fontSize: 11,
       fontWeight: '600',
     },
 
-    deleteButton: {
-      minHeight: 50,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 8,
-      borderRadius: 17,
-      backgroundColor: theme.colors.danger,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 5},
-      shadowOpacity: 0.16,
-      shadowRadius: 10,
-      elevation: 3,
-    },
 
-    deleteDisabled: {
-      backgroundColor:
-        withAlpha(theme.colors.danger, 0.3),
-
-      shadowOpacity: 0,
-
-      elevation: 0,
-    },
 
     deleteFootnote: {
       marginTop: -5,
 
       color: theme.colors.textMuted,
 
-      fontSize: 10,
+      fontSize: 11,
 
       textAlign: 'center',
     },
@@ -2800,7 +2606,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.success, 0.25),
-      borderRadius: 22,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.success, 0.05),
       padding: 18,
       shadowColor: theme.shadow.shadowColor,
@@ -2815,7 +2621,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       color: theme.colors.success,
 
-      fontFamily: 'serif',
 
       fontSize: 18,
       fontWeight: '700',
@@ -2848,7 +2653,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.28),
-      borderRadius: 24,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.92),
       paddingHorizontal: 18,
       paddingTop: 20,
@@ -2877,13 +2682,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       height: 50,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 17,
+      borderRadius: 16,
       backgroundColor: theme.colors.primary,
-      shadowColor: theme.colors.primary,
-      shadowOffset: {width: 0, height: 5},
-      shadowOpacity: 0.22,
-      shadowRadius: 10,
-      elevation: 4,
     },
 
     premiumPill: {
@@ -2896,7 +2696,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     premiumPillText: {
       color: onPrimaryTextColor(theme),
-      fontSize: 10.5,
+      fontSize: 11,
       fontWeight: '800',
       letterSpacing: 0.6,
     },
@@ -2968,35 +2768,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     premiumBenefitDescription: {
       marginTop: 2,
       color: theme.colors.textSecondary,
-      fontSize: 10.5,
-      lineHeight: 15,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
-    premiumUpgradeButton: {
-      width: '100%',
-      minHeight: 52,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
+
+
+    premiumUpgrade: {
       marginTop: 18,
-      borderRadius: 16,
-      backgroundColor: theme.colors.primary,
-      paddingHorizontal: 17,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 6},
-      shadowOpacity: 0.22,
-      shadowRadius: 11,
-      elevation: 5,
-    },
-
-    premiumUpgradeText: {
-      flex: 1,
-      marginHorizontal: 10,
-      color: onPrimaryTextColor(theme),
-      fontSize: 15,
-      lineHeight: 19,
-      fontWeight: '800',
-      textAlign: 'center',
     },
 
     privacyPriorityCard: {
@@ -3004,10 +2783,10 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.09),
-      borderRadius: 18,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.82),
-      paddingHorizontal: 13,
-      paddingVertical: 11,
+      paddingHorizontal: 16,
+      paddingVertical: 12,
     },
 
     privacyPriorityIcon: {
@@ -3015,7 +2794,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       height: 40,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 15,
+      borderRadius: 16,
       backgroundColor: theme.colors.primarySoft,
     },
 
@@ -3034,8 +2813,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     privacyPriorityDescription: {
       marginTop: 2,
       color: theme.colors.textSecondary,
-      fontSize: 10.5,
-      lineHeight: 15,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     pressed: {

@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -8,6 +8,8 @@ import '../../i18n';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import {useStructuredDataAvailability} from '../../hooks/useStructuredDataAvailability';
 
 // Shown above every main screen while protected records cannot be read. It says only what is true — the records were
@@ -23,14 +25,14 @@ export default function DataAvailabilityBanner(): React.JSX.Element | null {
   if (!anyUnavailable) {return null;}
   return (
     <View pointerEvents="box-none" style={[styles.wrap, {top: insets.top + 6}]}>
-      <Pressable accessibilityRole="button" onPress={() => navigation.navigate('DataRecovery')} style={styles.banner}>
+      <AwaCard onPress={() => navigation.navigate('DataRecovery')} padding="compact" style={styles.banner} variant="elevated">
         <MaterialDesignIcons color={theme.colors.warning} name="lock-alert-outline" size={22} />
         <View style={styles.copy}>
-          <Text style={styles.title}>{t('dataSafety.banner.title')}</Text>
-          <Text style={styles.body}>{t('dataSafety.banner.body')}</Text>
+          <AwaText variant="titleSmall">{t('dataSafety.banner.title')}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall">{t('dataSafety.banner.body')}</AwaText>
         </View>
-        <Text style={styles.action}>{t('dataSafety.banner.action')}</Text>
-      </Pressable>
+        <AwaText colorRole="primary" emphasized variant="labelLarge">{t('dataSafety.banner.action')}</AwaText>
+      </AwaCard>
     </View>
   );
 }
@@ -38,10 +40,7 @@ export default function DataAvailabilityBanner(): React.JSX.Element | null {
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     wrap: {position: 'absolute', left: 12, right: 12, zIndex: 50},
-    banner: {...theme.shadow, flexDirection: 'row', alignItems: 'center', gap: 10, borderRadius: 16, borderWidth: 1, borderColor: withAlpha(theme.colors.warning, 0.45), backgroundColor: theme.colors.surface, paddingVertical: 10, paddingHorizontal: 12},
+    banner: {flexDirection: 'row', alignItems: 'center', gap: 12, borderWidth: 1, borderColor: withAlpha(theme.colors.warning, 0.45)},
     copy: {flex: 1, minWidth: 0},
-    title: {color: theme.colors.text, fontSize: 13, fontWeight: '800'},
-    body: {color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
-    action: {color: theme.colors.primary, fontSize: 12.5, fontWeight: '800'},
   });
 }
