@@ -10,11 +10,9 @@ import {
   Easing,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -26,9 +24,13 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {getTopPadding, spacing} from '../../theme/spacing';
 import '../../i18n';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaIconButton} from '../ui/AwaIconButton';
+import {AwaText} from '../ui/AwaText';
 
 type IconName =
   React.ComponentProps<
@@ -162,26 +164,13 @@ export function PostpartumJournalScreenLayout({
 
           {/* BACK BUTTON */}
 
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
             hitSlop={10}
-            onPress={
-              navigation.goBack
-            }
-            style={({
-              pressed,
-            }) => [
-              styles.backButton,
-              pressed &&
-                styles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="chevron-left"
-              size={26}
-            />
-          </Pressable>
+            icon="chevron-left"
+            iconSize={26}
+            onPress={navigation.goBack}
+          />
 
           {/* COMPACT HEADER */}
 
@@ -191,22 +180,20 @@ export function PostpartumJournalScreenLayout({
                 styles.compactHeaderCenter,
                 entranceStyle,
               ]}>
-              <Text
-                adjustsFontSizeToFit
-                numberOfLines={1}
+              <AwaText variant="headlineSmall"
                 style={
                   styles.compactTitle
                 }>
                 {title}
-              </Text>
+              </AwaText>
 
-              <Text
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant"
                 numberOfLines={1}
                 style={
                   styles.compactSubtitle
                 }>
                 {subtitle}
-              </Text>
+              </AwaText>
             </Animated.View>
           ) : (
             <View
@@ -278,19 +265,19 @@ export function PostpartumJournalScreenLayout({
                   />
                 </View>
 
-                <Text
+                <AwaText variant="headlineSmall"
                   style={
                     styles.title
                   }>
                   {title}
-                </Text>
+                </AwaText>
 
-                <Text
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant"
                   style={
                     styles.subtitle
                   }>
                   {subtitle}
-                </Text>
+                </AwaText>
               </View>
             ) : null}
 
@@ -322,13 +309,13 @@ export function PostpartumJournalScreenLayout({
                   size={17}
                 />
 
-                <Text
+                <AwaText variant="bodySmall" colorRole="error"
                   accessibilityRole="alert"
                   style={
                     styles.error
                   }>
                   {error}
-                </Text>
+                </AwaText>
               </View>
             ) : null}
 
@@ -336,51 +323,17 @@ export function PostpartumJournalScreenLayout({
                 SAVE BUTTON
             ================================================= */}
 
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('common.save')}
-              accessibilityRole="button"
-              accessibilityState={{
-                disabled:
-                  Boolean(saving),
-              }}
-              disabled={saving}
+              icon={saving ? 'loading' : 'check'}
+              loading={Boolean(saving)}
               onPress={onSave}
-              style={({
-                pressed,
-              }) => [
-                styles.saveButton,
-
-                saving &&
-                  styles.saveButtonSaving,
-
-                (pressed ||
-                  saving) &&
-                  styles.pressed,
-              ]}>
-              <View
-                style={
-                  styles.saveButtonIcon
-                }>
-                <MaterialDesignIcons
-                  color={onPrimaryTextColor(theme)}
-                  name={
-                    saving
-                      ? 'loading'
-                      : 'check'
-                  }
-                  size={17}
-                />
-              </View>
-
-              <Text
-                style={
-                  styles.saveText
-                }>
-                {saving
-                  ? t('postpartumJournalScreenLayout.saving')
-                  : t('common.save')}
-              </Text>
-            </Pressable>
+              label={saving
+                ? t('postpartumJournalScreenLayout.saving')
+                : t('common.save')}
+              size="large"
+              style={styles.saveButton}
+            />
           </Animated.View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -404,10 +357,10 @@ export function PostpartumInfoPanel({
   const {theme} = useAwaTheme();
   const panelStyles = useMemo(() => createPanelStyles(theme), [theme]);
   return (
-    <View
-      style={
-        panelStyles.panel
-      }>
+    <AwaCard
+      padding="none"
+      variant="filled"
+      style={panelStyles.panel}>
 
       <View
         style={
@@ -424,21 +377,21 @@ export function PostpartumInfoPanel({
         style={
           panelStyles.flexCopy
         }>
-        <Text
+        <AwaText variant="labelMedium"
           style={
             panelStyles.title
           }>
           {title}
-        </Text>
+        </AwaText>
 
-        <Text
+        <AwaText variant="bodySmall" colorRole="onSurfaceVariant"
           style={
             panelStyles.text
           }>
           {text}
-        </Text>
+        </AwaText>
       </View>
-    </View>
+    </AwaCard>
   );
 }
 
@@ -479,47 +432,13 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingBottom: 10,
     },
 
-    backButton: {
-      zIndex: 5,
-
-      width: 46,
-      height: 46,
-
-      flexShrink: 0,
-
-      alignItems: 'center',
-
-      justifyContent: 'center',
-
-      borderWidth: 1,
-
-      borderColor: withAlpha(theme.colors.primary, 0.08),
-
-      borderRadius: 23,
-
-      backgroundColor: theme.colors.surface,
-
-      shadowColor: theme.shadow.shadowColor,
-
-      shadowOffset: {
-        width: 0,
-        height: 4,
-      },
-
-      shadowOpacity: 0.08,
-
-      shadowRadius: 9,
-
-      elevation: 3,
-    },
-
     normalHeaderSpacer: {
       flex: 1,
     },
 
     headerRightSpacer: {
-      width: 46,
-      height: 46,
+      width: 40,
+      height: 40,
 
       flexShrink: 0,
     },
@@ -540,37 +459,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 8,
     },
 
-    compactTitle: {
-      maxWidth: '100%',
+    compactTitle: {maxWidth: '100%', color: theme.colors.accent, textAlign: 'center'},
 
-      color: theme.colors.accent,
-
-      fontFamily: 'serif',
-
-      fontSize: 21,
-
-      lineHeight: 26,
-
-      fontWeight: '800',
-
-      textAlign: 'center',
-    },
-
-    compactSubtitle: {
-      maxWidth: '100%',
-
-      marginTop: 4,
-
-      color: theme.colors.textSecondary,
-
-      fontSize: 11.5,
-
-      lineHeight: 16,
-
-      fontWeight: '500',
-
-      textAlign: 'center',
-    },
+    compactSubtitle: {maxWidth: '100%', marginTop: 4, textAlign: 'center'},
 
     /* ========================================================
        CONTENT
@@ -602,38 +493,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       justifyContent: 'center',
 
-      borderRadius: 22,
+      borderRadius: 12,
     },
 
-    title: {
-      marginTop: 12,
+    title: {marginTop: 12, color: theme.colors.accent, textAlign: 'center'},
 
-      color: theme.colors.accent,
-
-      fontFamily: 'serif',
-
-      fontSize: 23,
-
-      lineHeight: 29,
-
-      fontWeight: '800',
-
-      textAlign: 'center',
-    },
-
-    subtitle: {
-      marginTop: 5,
-
-      maxWidth: 300,
-
-      color: theme.colors.textSecondary,
-
-      fontSize: 12.5,
-
-      lineHeight: 18,
-
-      textAlign: 'center',
-    },
+    subtitle: {marginTop: 5, maxWidth: 300, textAlign: 'center'},
 
     /* ========================================================
        BODY
@@ -668,88 +533,18 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       paddingVertical: 10,
 
-      borderRadius: 14,
+      borderRadius: 12,
 
       backgroundColor: withAlpha(theme.colors.danger, 0.08),
     },
 
-    error: {
-      flexShrink: 1,
-
-      color: theme.colors.danger,
-
-      fontSize: 11.5,
-
-      lineHeight: 16,
-
-      textAlign: 'center',
-    },
+    error: {flexShrink: 1, textAlign: 'center'},
 
     /* ========================================================
        SAVE BUTTON
     ======================================================== */
 
-    saveButton: {
-      minHeight: 56,
-
-      marginTop: 20,
-
-      flexDirection: 'row',
-
-      alignItems: 'center',
-
-      justifyContent:
-        'center',
-
-      gap: 9,
-
-      borderRadius: 19,
-
-      backgroundColor: theme.colors.primary,
-
-      shadowColor: theme.shadow.shadowColor,
-
-      shadowOffset: {
-        width: 0,
-        height: 6,
-      },
-
-      shadowOpacity: 0.22,
-
-      shadowRadius: 10,
-
-      elevation: 5,
-    },
-
-    saveButtonSaving: {
-      opacity: 0.76,
-    },
-
-    saveButtonIcon: {
-      width: 27,
-      height: 27,
-
-      alignItems: 'center',
-
-      justifyContent:
-        'center',
-
-      borderRadius: 10,
-
-      backgroundColor: withAlpha(onPrimaryTextColor(theme), 0.16),
-    },
-
-    saveText: {
-      color: onPrimaryTextColor(theme),
-
-      fontSize: 16,
-
-      fontWeight: '700',
-    },
-
-    pressed: {
-      opacity: 0.82,
-    },
+    saveButton: {marginTop: 20},
   });
 }
 
@@ -759,24 +554,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
 function createPanelStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    panel: {
-      flexDirection: 'row',
-
-      alignItems:
-        'flex-start',
-
-      gap: 10,
-
-      borderWidth: 1,
-
-      borderColor: withAlpha(theme.colors.primary, 0.06),
-
-      borderRadius: 17,
-
-      backgroundColor: theme.colors.primarySoft,
-
-      padding: 13,
-    },
+    panel: {flexDirection: 'row', alignItems: 'flex-start', gap: 10, padding: 13},
 
     iconContainer: {
       width: 34,
@@ -800,22 +578,8 @@ function createPanelStyles(theme: ResolvedAwaTheme) {
       minWidth: 0,
     },
 
-    title: {
-      color: theme.colors.accent,
+    title: {color: theme.colors.accent},
 
-      fontSize: 12.5,
-
-      fontWeight: '800',
-    },
-
-    text: {
-      marginTop: 3,
-
-      color: theme.colors.textSecondary,
-
-      fontSize: 11.5,
-
-      lineHeight: 16,
-    },
+    text: {marginTop: 3},
   });
 }

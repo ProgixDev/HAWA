@@ -100,7 +100,8 @@ describe('PostpartumLochiaScreen — save confirmation is a themed Modal, never 
     const entry = getPostpartumLochiaEntry(new Date().toLocaleDateString('en-CA'));
     expect(entry).toBeDefined();
 
-    const card = renderer.root.findAll(node => flattenStyle(node.props.style).borderRadius === 28)[0];
+    // The confirmation card is the shared AwaCard now (12 dp, DESIGN.md) instead of a 28 dp literal: found by its role.
+    const card = renderer.root.findAll(node => (node.type as unknown) === 'View' && node.props.accessibilityRole === 'alert')[0];
     const lightBg = flattenStyle(card.props.style).backgroundColor;
 
     await act(async () => {

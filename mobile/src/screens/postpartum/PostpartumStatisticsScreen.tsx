@@ -74,6 +74,9 @@ import {
 } from '../../utils/postpartumStatisticsMath';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import i18n from '../../i18n';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 
 /* ============================================================
    Postpartum Statistics — every number on this screen is derived
@@ -225,7 +228,7 @@ function EmptyState({
       <View style={styles.emptyIcon}>
         <MaterialDesignIcons color={theme.colors.textMuted} name={icon} size={22} />
       </View>
-      <Text style={styles.emptyText}>{text}</Text>
+      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.emptyText}>{text}</AwaText>
     </View>
   );
 }
@@ -247,8 +250,8 @@ function SectionHeader({
         <MaterialDesignIcons color={theme.colors.primary} name={icon} size={19} />
       </View>
       <View style={styles.sectionHeaderCopy}>
-        <Text style={styles.cardTitle}>{title}</Text>
-        {subtitle ? <Text style={styles.cardSubtitle}>{subtitle}</Text> : null}
+        <AwaText variant="titleSmall" style={styles.cardTitle}>{title}</AwaText>
+        {subtitle ? <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardSubtitle}>{subtitle}</AwaText> : null}
       </View>
     </View>
   );
@@ -266,17 +269,17 @@ function KpiCard({
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
-    <View style={styles.kpiCard}>
+    <AwaCard padding="none" variant="filled" style={styles.kpiCard}>
       <View style={styles.kpiIcon}>
         <MaterialDesignIcons color={theme.colors.primary} name={icon} size={19} />
       </View>
-      <Text numberOfLines={1} style={styles.kpiValue}>
+      <AwaText variant="titleMedium" numberOfLines={1} style={styles.kpiValue}>
         {value}
-      </Text>
-      <Text numberOfLines={2} style={styles.kpiLabel}>
+      </AwaText>
+      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.kpiLabel}>
         {label}
-      </Text>
-    </View>
+      </AwaText>
+    </AwaCard>
   );
 }
 
@@ -298,10 +301,10 @@ function DistributionRow({
   return (
     <View style={[styles.distributionRow, last && styles.lastRow]}>
       <View style={styles.distributionTop}>
-        <Text style={styles.distributionLabel}>{label}</Text>
-        <Text style={styles.distributionCount}>
+        <AwaText variant="labelMedium" style={styles.distributionLabel}>{label}</AwaText>
+        <AwaText variant="labelSmall" colorRole="onSurfaceVariant">
           {t('postpartumStatistics.dayCount', {count})}
-        </Text>
+        </AwaText>
       </View>
       <View style={styles.distributionTrack}>
         <View
@@ -759,11 +762,6 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       style={styles.safe}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <StatusBar
         backgroundColor="transparent"
@@ -773,26 +771,17 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
       <View
         style={[styles.header, { paddingTop: getTopPadding(insets.top, true) }]}
       >
-        <Pressable
+        <AwaIconButton
           accessibilityLabel={t('common.back')}
           accessibilityRole="button"
           hitSlop={10}
           onPress={navigation.goBack}
-          style={({ pressed }) => [
-            styles.backButton,
-            pressed && styles.pressed,
-          ]}
-        >
-          <MaterialDesignIcons
-            color={theme.colors.text}
-            name="chevron-left"
-            size={24}
-          />
-        </Pressable>
-        <Text style={styles.headerTitle}>{t('navigation.statistics')}</Text>
+          icon="chevron-left"
+        />
+        <AwaText variant="titleLarge" style={styles.headerTitle}>{t('navigation.statistics')}</AwaText>
         <View style={styles.objectivePill}>
           <MaterialDesignIcons color={theme.colors.primary} name="chart-donut" size={15} />
-          <Text style={styles.objectivePillText}>{t('postpartumStatistics.header.objectivePill')}</Text>
+          <AwaText variant="labelSmall" colorRole="primary">{t('postpartumStatistics.header.objectivePill')}</AwaText>
           <MaterialDesignIcons color={theme.colors.primary} name="chevron-down" size={15} />
         </View>
       </View>
@@ -811,7 +800,7 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
               name="information-outline"
               size={13}
             />
-            <Text style={styles.coverageNoteText}>{coverageMessage}</Text>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.coverageNoteText}>{coverageMessage}</AwaText>
           </View>
         ) : null}
       </View>
@@ -1030,7 +1019,7 @@ function SummaryTab({
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <>
-      <View style={styles.card}>
+      <AwaCard padding="none" variant="filled" style={styles.card}>
         <SectionHeader
           icon="chart-box-outline"
           subtitle={t('postpartumStatistics.summary.sinceDelivery')}
@@ -1064,9 +1053,9 @@ function SummaryTab({
             name="information-outline"
             size={16}
           />
-          <Text style={styles.infoStripText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoStripText}>
             {t('postpartumStatistics.summary.completeDayExplainer')}
-          </Text>
+          </AwaText>
         </View>
         <View style={styles.infoStrip}>
           <MaterialDesignIcons
@@ -1074,16 +1063,18 @@ function SummaryTab({
             name="calendar-refresh-outline"
             size={16}
           />
-          <Text style={styles.infoStripText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoStripText}>
             {firstPostpartumPeriodDate
               ? t('postpartumStatistics.summary.cycleReturnOn', {date: dateLabel(firstPostpartumPeriodDate)})
               : t('postpartumStatistics.summary.cycleReturnNotRecorded')}
-          </Text>
+          </AwaText>
         </View>
-      </View>
+      </AwaCard>
 
       {isMonthlyView ? (
-        <View
+        <AwaCard
+          padding="none"
+          variant="filled"
           accessibilityLabel={t('postpartumStatistics.summary.cycleReturnCardAccessibility', {periodLabel})}
           style={styles.card}
         >
@@ -1099,9 +1090,9 @@ function SummaryTab({
                 name="calendar-check-outline"
                 size={16}
               />
-              <Text style={styles.infoStripText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoStripText}>
                 {t('postpartumStatistics.summary.cycleReturnConfirmed', {date: dateLabel(firstPostpartumPeriodDate)})}
-              </Text>
+              </AwaText>
             </View>
           ) : (
             <EmptyState
@@ -1109,10 +1100,10 @@ function SummaryTab({
               text={t('postpartumStatistics.summary.cycleReturnEmpty', {periodLabel})}
             />
           )}
-        </View>
+        </AwaCard>
       ) : null}
 
-      <View style={styles.card}>
+      <AwaCard padding="none" variant="filled" style={styles.card}>
         <SectionHeader
           icon="chart-bar"
           subtitle={
@@ -1141,13 +1132,13 @@ function SummaryTab({
         )}
         <View style={styles.infoStrip}>
           <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={16} />
-          <Text style={styles.infoStripText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoStripText}>
             {t('postpartumStatistics.lochia.evolutionFootnote')}
-          </Text>
+          </AwaText>
         </View>
-      </View>
+      </AwaCard>
 
-      <View style={styles.card}>
+      <AwaCard padding="none" variant="filled" style={styles.card}>
         <SectionHeader icon="chart-timeline-variant-shimmer" title={t('postpartumStatistics.summary.averagesTitle')} />
         <View style={styles.averagesRow}>
           <View style={styles.averageCard}>
@@ -1158,16 +1149,16 @@ function SummaryTab({
                 size={18}
               />
             </View>
-            <Text style={styles.averageLabel}>{t('postpartumStatistics.summary.averageSleep')}</Text>
-            <Text numberOfLines={1} style={styles.averageValue}>
+            <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.averageLabel}>{t('postpartumStatistics.summary.averageSleep')}</AwaText>
+            <AwaText variant="titleSmall" style={styles.averageValue}>
               {averageSleepHours !== undefined
                 ? formatHoursMinutes(averageSleepHours)
                 : t('postpartumStatistics.noDataYet')}
-            </Text>
+            </AwaText>
             {sleepEntriesCount > 0 ? (
-              <Text style={styles.averageSupporting}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.averageSupporting}>
                 {t('postpartumStatistics.basedOnDays', {count: sleepEntriesCount})}
-              </Text>
+              </AwaText>
             ) : null}
           </View>
           <View style={styles.averageCard}>
@@ -1178,34 +1169,34 @@ function SummaryTab({
                 size={18}
               />
             </View>
-            <Text style={styles.averageLabel}>{t('postpartumStatistics.summary.averageMood')}</Text>
-            <Text numberOfLines={1} style={styles.averageValue}>
+            <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.averageLabel}>{t('postpartumStatistics.summary.averageMood')}</AwaText>
+            <AwaText variant="titleSmall" style={styles.averageValue}>
               {/* mostFrequentMood is one of POSTPARTUM_MOOD_OPTIONS' raw
                   French strings (postpartumJournalConfig.ts) — the STORED/
                   AGGREGATED value is untouched; PHASE 7H.1 wraps it in
                   journalOptionLabel(...) purely for display. */}
               {mostFrequentMood ? journalOptionLabel('postpartumMood', mostFrequentMood, t) : t('postpartumStatistics.noDataYet')}
-            </Text>
+            </AwaText>
             {moodEntriesCount > 0 ? (
-              <Text style={styles.averageSupporting}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.averageSupporting}>
                 {t('postpartumStatistics.basedOnDays', {count: moodEntriesCount})}
-              </Text>
+              </AwaText>
             ) : null}
           </View>
         </View>
-      </View>
+      </AwaCard>
 
-      <View style={styles.adviceCard}>
+      <AwaCard padding="none" variant="filled" style={styles.adviceCard}>
         <View style={styles.adviceIcon}>
           <MaterialDesignIcons color={theme.colors.primary} name="sprout" size={20} />
         </View>
         <View style={styles.adviceCopy}>
-          <Text style={styles.adviceTitle}>{t('postpartumStatistics.summary.adviceTitle')}</Text>
-          <Text style={styles.adviceText}>
+          <AwaText variant="titleSmall" style={styles.adviceTitle}>{t('postpartumStatistics.summary.adviceTitle')}</AwaText>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.adviceText}>
             {t('postpartumStatistics.summary.adviceText')}
-          </Text>
+          </AwaText>
         </View>
-      </View>
+      </AwaCard>
     </>
   );
 }
@@ -1244,7 +1235,7 @@ function LochiaTab({
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <>
-      <View style={styles.card}>
+      <AwaCard padding="none" variant="filled" style={styles.card}>
         <SectionHeader
           icon="timeline-clock-outline"
           subtitle={t('postpartumStatistics.lochia.actuallyRecorded')}
@@ -1271,16 +1262,16 @@ function LochiaTab({
             }
           />
         </View>
-      </View>
+      </AwaCard>
 
       {entriesCount === 0 ? (
-        <View style={styles.card}>
+        <AwaCard padding="none" variant="filled" style={styles.card}>
           <SectionHeader icon="water-outline" title={t('postpartumStatistics.lochia.observationsTitle')} />
           <EmptyState
             icon="water-outline"
             text={t('postpartumStatistics.lochia.emptyText')}
           />
-        </View>
+        </AwaCard>
       ) : (
         <>
           <View style={styles.kpiGrid}>
@@ -1296,7 +1287,7 @@ function LochiaTab({
             />
           </View>
 
-          <View style={styles.card}>
+          <AwaCard padding="none" variant="filled" style={styles.card}>
             <SectionHeader
               icon="chart-bar"
               subtitle={
@@ -1316,9 +1307,9 @@ function LochiaTab({
                 />
               ))}
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.card}>
+          <AwaCard padding="none" variant="filled" style={styles.card}>
             <SectionHeader icon="chart-donut" title={t('postpartumStatistics.lochia.flowDistributionTitle')} />
             {flowCounts.map((item, index) => (
               <DistributionRow
@@ -1329,10 +1320,10 @@ function LochiaTab({
                 maxCount={maxFlowCount}
               />
             ))}
-          </View>
+          </AwaCard>
 
           {symptomCounts.length > 0 ? (
-            <View style={styles.card}>
+            <AwaCard padding="none" variant="filled" style={styles.card}>
               <SectionHeader
                 icon="alert-circle-outline"
                 subtitle={t('postpartumStatistics.lochia.symptomsSubtitle')}
@@ -1347,10 +1338,10 @@ function LochiaTab({
                   maxCount={maxSymptomCount}
                 />
               ))}
-            </View>
+            </AwaCard>
           ) : null}
 
-          <View style={styles.card}>
+          <AwaCard padding="none" variant="filled" style={styles.card}>
             <SectionHeader icon="history" title={t('postpartumStatistics.lochia.historyTitle')} />
             <View style={styles.timelineList}>
               {timeline.map((entry, index) => (
@@ -1368,19 +1359,19 @@ function LochiaTab({
                       size={14}
                     />
                   </View>
-                  <Text style={styles.timelineDate}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.timelineDate}>
                     {dateLabel(entry.date)}
-                  </Text>
+                  </AwaText>
                   {/* DATA-BEARING: entry.flow stays a raw LochiaFlow French
                       string persisted as-is by postpartumLochiaStore; only
                       the DISPLAYED label is translated (Phase 7H.2). */}
-                  <Text numberOfLines={1} style={styles.timelineValue}>
+                  <AwaText variant="labelSmall">
                     {journalOptionLabel('postpartumLochiaFlow', entry.flow, t)}
-                  </Text>
+                  </AwaText>
                 </View>
               ))}
             </View>
-          </View>
+          </AwaCard>
 
           <View style={styles.infoStrip}>
             <MaterialDesignIcons
@@ -1388,9 +1379,9 @@ function LochiaTab({
               name="heart-outline"
               size={16}
             />
-            <Text style={styles.infoStripText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoStripText}>
               {t('postpartumStatistics.lochia.evolutionFootnote')}
-            </Text>
+            </AwaText>
           </View>
         </>
       )}
@@ -1412,8 +1403,8 @@ function SummaryValue({
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <View style={styles.lochiaSummaryValue}>
-      <Text style={styles.lochiaSummaryLabel}>{label}</Text>
-      <Text style={styles.lochiaSummaryText}>{value}</Text>
+      <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{label}</AwaText>
+      <AwaText variant="labelSmall" style={styles.lochiaSummaryText}>{value}</AwaText>
     </View>
   );
 }
@@ -1463,10 +1454,10 @@ function LevelTab({
   const styles = useMemo(() => createStyles(theme), [theme]);
   if (entriesCount === 0) {
     return (
-      <View style={styles.card}>
+      <AwaCard padding="none" variant="filled" style={styles.card}>
         <SectionHeader icon={icon} title={title} />
         <EmptyState icon={emptyIcon} text={emptyText} />
-      </View>
+      </AwaCard>
     );
   }
 
@@ -1482,7 +1473,7 @@ function LevelTab({
       </View>
 
       {trend.length > 0 ? (
-        <View style={styles.card}>
+        <AwaCard padding="none" variant="filled" style={styles.card}>
           <SectionHeader
             icon="chart-bar"
             subtitle={
@@ -1500,10 +1491,10 @@ function LevelTab({
               />
             ))}
           </View>
-        </View>
+        </AwaCard>
       ) : null}
 
-      <View style={styles.card}>
+      <AwaCard padding="none" variant="filled" style={styles.card}>
         <SectionHeader icon="chart-donut" title={t('postpartumStatistics.distributionOf', {title})} />
         {counts.map((item, index) => (
           <DistributionRow
@@ -1514,7 +1505,7 @@ function LevelTab({
             maxCount={maxCount}
           />
         ))}
-      </View>
+      </AwaCard>
     </>
   );
 }
@@ -1545,13 +1536,13 @@ function SleepTab({
   const styles = useMemo(() => createStyles(theme), [theme]);
   if (nightsCount === 0 && qualityCounts.length === 0) {
     return (
-      <View style={styles.card}>
+      <AwaCard padding="none" variant="filled" style={styles.card}>
         <SectionHeader icon="weather-night" title={t('postpartumStatistics.tabs.sleep')} />
         <EmptyState
           icon="weather-night"
           text={t('postpartumStatistics.sleep.notEnoughData')}
         />
-      </View>
+      </AwaCard>
     );
   }
 
@@ -1575,7 +1566,7 @@ function SleepTab({
       </View>
 
       {chart.length > 0 ? (
-        <View style={styles.card}>
+        <AwaCard padding="none" variant="filled" style={styles.card}>
           <SectionHeader
             icon="chart-bar"
             subtitle={
@@ -1595,11 +1586,11 @@ function SleepTab({
               />
             ))}
           </View>
-        </View>
+        </AwaCard>
       ) : null}
 
       {qualityCounts.length > 0 ? (
-        <View style={styles.card}>
+        <AwaCard padding="none" variant="filled" style={styles.card}>
           <SectionHeader icon="star-outline" title={t('postpartumStatistics.sleep.qualityTitle')} />
           {qualityCounts.map((item, index) => (
             <DistributionRow
@@ -1610,7 +1601,7 @@ function SleepTab({
               maxCount={maxQualityCount}
             />
           ))}
-        </View>
+        </AwaCard>
       ) : null}
     </>
   );
@@ -1624,40 +1615,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   safe: { flex: 1, backgroundColor: theme.colors.background },
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
 
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
 
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
 
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   header: {
     minHeight: 50,
@@ -1667,26 +1627,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingBottom: 8,
     gap: 10,
   },
-  backButton: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 15,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-  },
-  pressed: { opacity: 0.78 },
-  headerTitle: {
-    flex: 1,
-    minWidth: 0,
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 19,
-    fontWeight: '800',
-    textAlign: 'center',
-  },
+  headerTitle: {flex: 1, minWidth: 0, color: theme.colors.accent, textAlign: 'center'},
   objectivePill: {
     flexShrink: 0,
     flexDirection: 'row',
@@ -1694,13 +1635,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 4,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderRadius: 14,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
     backgroundColor: withAlpha(theme.colors.surface, 0.9),
     ...theme.shadow,
   },
-  objectivePillText: { color: theme.colors.primary, fontSize: 11, fontWeight: '800' },
 
   periodSelectorWrap: { paddingHorizontal: 14, marginTop: 2 },
   coverageNote: {
@@ -1711,7 +1651,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 12,
     paddingHorizontal: 2,
   },
-  coverageNoteText: { flex: 1, color: theme.colors.textSecondary, fontSize: 10.5 },
+  coverageNoteText: {flex: 1},
 
   tabsScroll: { flexGrow: 0, marginBottom: 4 },
   tabsScrollContent: { paddingHorizontal: 14, gap: 8, paddingBottom: 10 },
@@ -1719,7 +1659,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     minHeight: 34,
     justifyContent: 'center',
     paddingHorizontal: 14,
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: 'transparent',
   },
   tabPillActive: { backgroundColor: theme.colors.primarySoft },
@@ -1728,15 +1668,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   content: { paddingHorizontal: 14, paddingTop: 4 },
 
-  card: {
-    ...theme.shadow,
-    marginTop: 12,
-    padding: 15,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 24,
-    backgroundColor: theme.colors.surface,
-  },
+  card: {marginTop: 12, padding: 15},
   lochiaSummaryGrid: {
     marginTop: 12,
     flexDirection: 'row',
@@ -1747,18 +1679,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     width: '48%',
     minHeight: 70,
     justifyContent: 'center',
-    padding: 11,
-    borderRadius: 15,
+    padding: 12,
+    borderRadius: 16,
     backgroundColor: theme.colors.surfaceSecondary,
   },
-  lochiaSummaryLabel: { color: theme.colors.textSecondary, fontSize: 9.5, lineHeight: 13 },
-  lochiaSummaryText: {
-    marginTop: 4,
-    color: theme.colors.text,
-    fontSize: 11.5,
-    fontWeight: '800',
-    lineHeight: 15,
-  },
+  lochiaSummaryText: {marginTop: 4},
 
   sectionHeader: {
     flexDirection: 'row',
@@ -1772,70 +1697,36 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 10,
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   sectionHeaderCopy: { flex: 1, minWidth: 0 },
-  cardTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 15.5,
-    fontWeight: '800',
-  },
-  cardSubtitle: {
-    marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 10,
-    lineHeight: 13,
-  },
+  cardTitle: {color: theme.colors.accent},
+  cardSubtitle: {marginTop: 2},
 
   kpiGrid: { marginTop: 12, flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  kpiCard: {
-    width: '47.5%',
-    minWidth: 0,
-    minHeight: 82,
-    padding: 11,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 17,
-    backgroundColor: theme.colors.surfaceSecondary,
-  },
+  kpiCard: {width: '47.5%', minWidth: 0, minHeight: 82, padding: 11},
   kpiIcon: {
     width: 30,
     height: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 11,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
-  kpiValue: {
-    marginTop: 8,
-    color: theme.colors.text,
-    fontSize: 16,
-    fontWeight: '800',
-  },
-  kpiLabel: {
-    marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 9,
-    lineHeight: 12,
-  },
+  kpiValue: {marginTop: 8},
+  kpiLabel: {marginTop: 2},
 
   infoStrip: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
     marginTop: 13,
-    padding: 11,
-    borderRadius: 14,
+    padding: 12,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  infoStripText: {
-    flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
-  },
+  infoStripText: {flex: 1},
 
   chart: {
     height: 140,
@@ -1856,7 +1747,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
   barFill: { width: '100%', borderRadius: 7, backgroundColor: CHART_FILL },
-  barLabel: { color: theme.colors.textSecondary, fontSize: 8 },
+  barLabel: { color: theme.colors.textSecondary, fontSize: 11 },
 
   averagesRow: {
     marginTop: 13,
@@ -1870,7 +1761,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 12,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 17,
+    borderRadius: 16,
     backgroundColor: theme.colors.surfaceSecondary,
   },
   averageIcon: {
@@ -1881,55 +1772,23 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
-  averageLabel: {
-    marginTop: 8,
-    color: theme.colors.textSecondary,
-    fontSize: 10,
-    fontWeight: '700',
-  },
-  averageValue: {
-    marginTop: 3,
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 15,
-    fontWeight: '800',
-  },
-  averageSupporting: { marginTop: 3, color: theme.colors.textSecondary, fontSize: 8.5 },
+  averageLabel: {marginTop: 8},
+  averageValue: {marginTop: 3},
+  averageSupporting: {marginTop: 3},
 
-  adviceCard: {
-    ...theme.shadow,
-    marginTop: 12,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 10,
-    padding: 15,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 22,
-    backgroundColor: theme.colors.surface,
-  },
+  adviceCard: {marginTop: 12, flexDirection: 'row', alignItems: 'flex-start', gap: 10, padding: 15},
   adviceIcon: {
     width: 38,
     height: 38,
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   adviceCopy: { flex: 1, minWidth: 0 },
-  adviceTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 14,
-    fontWeight: '800',
-  },
-  adviceText: {
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    lineHeight: 16,
-  },
+  adviceTitle: {color: theme.colors.accent},
+  adviceText: {marginTop: 3},
 
   empty: { alignItems: 'center', paddingVertical: 22, paddingHorizontal: 10 },
   emptyIcon: {
@@ -1937,17 +1796,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 44,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.primarySoft,
   },
-  emptyText: {
-    maxWidth: 280,
-    marginTop: 9,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    lineHeight: 16,
-    textAlign: 'center',
-  },
+  emptyText: {maxWidth: 280, marginTop: 9, textAlign: 'center'},
 
   distributionRow: {
     paddingVertical: 9,
@@ -1960,19 +1812,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  distributionLabel: {
-    flex: 1,
-    minWidth: 0,
-    marginRight: 8,
-    color: theme.colors.accent,
-    fontSize: 12,
-    fontWeight: '700',
-  },
-  distributionCount: {
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    fontWeight: '700',
-  },
+  distributionLabel: {flex: 1, minWidth: 0, marginRight: 8, color: theme.colors.accent},
   distributionTrack: {
     height: 5,
     overflow: 'hidden',
@@ -2000,11 +1840,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 8,
-    borderRadius: 9,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  timelineDate: { flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 10.5 },
-  timelineValue: { color: theme.colors.text, fontSize: 11, fontWeight: '800' },
+  timelineDate: {flex: 1, minWidth: 0},
   });
 }
 

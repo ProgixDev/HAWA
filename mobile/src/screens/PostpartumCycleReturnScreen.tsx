@@ -26,7 +26,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import { useAwaTheme } from '../theme/AwaThemeProvider';
-import { onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme } from '../theme/awaThemeTokens';
+import { pickReadableTextColor, withAlpha, type ResolvedAwaTheme } from '../theme/awaThemeTokens';
 import InlineCalendarPickerModal from '../components/onboarding/InlineCalendarPickerModal';
 import { PostpartumConsistencyModal } from '../components/postpartum/PostpartumConsistencyModal';
 import {
@@ -52,6 +52,10 @@ import {
 import { diffDays, formatFullDate, startOfDay } from '../utils/cycleMath';
 import '../i18n';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaText} from '../components/ui/AwaText';
 
 /* ============================================================
    TYPES
@@ -154,15 +158,15 @@ function FactorRow({
       </View>
 
       <View style={styles.flexCopy}>
-        <Text style={styles.factorTitle}>{title}</Text>
+        <AwaText variant="labelSmall">{title}</AwaText>
 
-        <Text numberOfLines={2} style={styles.factorValue}>
+        <AwaText variant="labelSmall" colorRole="primary" style={styles.factorValue}>
           {value}
-        </Text>
+        </AwaText>
 
-        <Text numberOfLines={2} style={styles.factorDescription}>
+        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.factorDescription}>
           {description}
-        </Text>
+        </AwaText>
       </View>
 
       {onPress ? (
@@ -493,42 +497,27 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
           },
         ]}
       >
-        <Pressable
+        <AwaIconButton
           accessibilityLabel={t('common.back')}
-          accessibilityRole="button"
           hitSlop={10}
+          icon="arrow-left"
           onPress={navigation.goBack}
-          style={({ pressed }) => [
-            styles.headerButton,
-            pressed && styles.pressed,
-          ]}
-        >
-          <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={22} />
-        </Pressable>
+          variant="outlined"
+        />
 
         <View style={styles.headerCopy}>
-          <Text style={styles.headerEyebrow}>{t('postpartumCycleReturn.header.eyebrow')}</Text>
+          <AwaText variant="labelSmall" colorRole="primary">{t('postpartumCycleReturn.header.eyebrow')}</AwaText>
 
-          <Text style={styles.headerTitle}>{t('postpartumCycleReturn.header.title')}</Text>
+          <AwaText variant="titleLarge" style={styles.headerTitle}>{t('postpartumCycleReturn.header.title')}</AwaText>
         </View>
 
-        <Pressable
+        <AwaIconButton
           accessibilityLabel={t('postpartumCycleReturn.header.helpAccessibilityLabel')}
-          accessibilityRole="button"
           hitSlop={10}
+          icon="help-circle-outline"
           onPress={showAmenorrheaInfo}
-          style={({ pressed }) => [
-            styles.headerButton,
-            styles.headerHelpButton,
-            pressed && styles.pressed,
-          ]}
-        >
-          <MaterialDesignIcons
-            color={theme.colors.primary}
-            name="help-circle-outline"
-            size={23}
-          />
-        </Pressable>
+          variant="tonal"
+        />
       </View>
 
       {/* ======================================================
@@ -560,8 +549,6 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               />
             ) : (
               <>
-                <View style={styles.heroDecorationLarge} />
-                <View style={styles.heroDecorationSmall} />
               </>
             )}
 
@@ -586,19 +573,19 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
             </View>
 
             <Animated.View style={statusStyle}>
-              <Text style={[styles.statusEyebrow, hasReturned && styles.statusEyebrowOnIllustration]}>
+              <AwaText variant="labelSmall" colorRole="primary" style={[styles.statusEyebrow, hasReturned && styles.statusEyebrowOnIllustration]}>
                 {t('postpartumCycleReturn.hero.statusLabel')}
-              </Text>
+              </AwaText>
 
-              <Text style={[styles.statusValue, hasReturned && styles.statusValueOnIllustration]}>
+              <AwaText variant="bodyMedium" style={[styles.statusValue, hasReturned && styles.statusValueOnIllustration]}>
                 {hasReturned ? t('postpartumCycleReturn.hero.returned') : t('postpartumCycleReturn.hero.notReturned')}
-              </Text>
+              </AwaText>
 
-              <Text style={[styles.statusDescription, hasReturned && styles.statusDescriptionOnIllustration]}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={[styles.statusDescription, hasReturned && styles.statusDescriptionOnIllustration]}>
                 {hasReturned && firstPeriodDate
                   ? t('postpartumCycleReturn.hero.returnedDescription', {date: formatFullDate(firstPeriodDate)})
                   : t('postpartumCycleReturn.hero.notReturnedDescription')}
-              </Text>
+              </AwaText>
             </Animated.View>
 
             {!hasReturned ? (
@@ -628,13 +615,13 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
                 </View>
 
                 <View style={styles.flexCopy}>
-                  <Text style={styles.normalPanelTitle}>
+                  <AwaText variant="labelSmall">
                     {t('postpartumCycleReturn.hero.normalPanelTitle')}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.normalPanelText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.normalPanelText}>
                     {t('postpartumCycleReturn.hero.normalPanelText')}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
             ) : null}
@@ -655,11 +642,11 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               </View>
 
               <View style={styles.sectionHeaderCopy}>
-                <Text style={styles.sectionTitle}>{t('postpartumCycleReturn.period.sectionTitle')}</Text>
+                <AwaText variant="titleSmall">{t('postpartumCycleReturn.period.sectionTitle')}</AwaText>
 
-                <Text style={styles.sectionSubtitle}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.sectionSubtitle}>
                   {t('postpartumCycleReturn.period.sectionSubtitle')}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -673,58 +660,39 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               </View>
 
               <View style={styles.periodCopy}>
-                <Text style={styles.periodSmallLabel}>{t('postpartumCycleReturn.period.label')}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{t('postpartumCycleReturn.period.label')}</AwaText>
 
-                <Text numberOfLines={2} style={styles.periodValue}>
+                <AwaText variant="labelSmall" style={styles.periodValue}>
                   {hasReturned && firstPeriodDate
                     ? formatFullDate(firstPeriodDate)
                     : t('postpartumCycleReturn.period.valueNotRecorded')}
-                </Text>
+                </AwaText>
               </View>
 
-              <Pressable
+              <AwaButton
                 accessibilityLabel={
                   hasReturned
                     ? t('postpartumCycleReturn.period.editAccessibilityLabel')
                     : t('postpartumCycleReturn.period.addAccessibilityLabel')
                 }
-                accessibilityRole="button"
                 disabled={saving}
+                label={hasReturned ? t('postpartumCycleReturn.period.edit') : t('common.add')}
                 onPress={() => setPickerVisible(true)}
-                style={({ pressed }) => [
-                  styles.periodAction,
-
-                  (pressed || saving) && styles.pressed,
-                ]}
-              >
-                <Text style={styles.periodActionText}>
-                  {hasReturned ? t('postpartumCycleReturn.period.edit') : t('common.add')}
-                </Text>
-
-                <MaterialDesignIcons
-                  color={onPrimaryTextColor(theme)}
-                  name="arrow-right"
-                  size={15}
-                />
-              </Pressable>
+                size="compact"
+                style={styles.periodAction}
+              />
             </View>
 
             {hasReturned ? (
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('postpartumCycleReturn.period.clearAccessibilityLabel')}
-                accessibilityRole="button"
                 disabled={saving}
-                hitSlop={8}
+                label={t('postpartumCycleReturn.period.clearLabel')}
                 onPress={clearPeriodDate}
-                style={({ pressed }) => [
-                  styles.periodClear,
-                  (pressed || saving) && styles.pressed,
-                ]}
-              >
-                <Text style={styles.periodClearText}>
-                  {t('postpartumCycleReturn.period.clearLabel')}
-                </Text>
-              </Pressable>
+                size="compact"
+                style={styles.periodClear}
+                variant="text"
+              />
             ) : null}
 
             <Pressable
@@ -742,13 +710,13 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               </View>
 
               <View style={styles.flexCopy}>
-                <Text style={styles.lastPeriodLabel}>{t('postpartumCycleReturn.period.recordedLabel')}</Text>
+                <AwaText variant="labelSmall">{t('postpartumCycleReturn.period.recordedLabel')}</AwaText>
 
-                <Text numberOfLines={1} style={styles.lastPeriodValue}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.lastPeriodValue}>
                   {hasReturned && firstPeriodDate
                     ? formatFullDate(firstPeriodDate)
                     : t('postpartumCycleReturn.period.noDate')}
-                </Text>
+                </AwaText>
               </View>
 
               <MaterialDesignIcons
@@ -774,11 +742,11 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               </View>
 
               <View style={styles.sectionHeaderCopy}>
-                <Text style={styles.sectionTitle}>{t('postpartumCycleReturn.factors.sectionTitle')}</Text>
+                <AwaText variant="titleSmall">{t('postpartumCycleReturn.factors.sectionTitle')}</AwaText>
 
-                <Text style={styles.sectionSubtitle}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.sectionSubtitle}>
                   {t('postpartumCycleReturn.factors.sectionSubtitle')}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -788,12 +756,12 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
                 name="information-outline"
                 size={17}
               />
-              <Text style={styles.hormonalEducationText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.hormonalEducationText}>
                 {t('postpartumCycleReturn.factors.educationText')}
-              </Text>
+              </AwaText>
             </View>
 
-            <Text style={styles.trackedContextLabel}>{t('postpartumCycleReturn.factors.trackedContextLabel')}</Text>
+            <AwaText variant="labelSmall" colorRole="primary" style={styles.trackedContextLabel}>{t('postpartumCycleReturn.factors.trackedContextLabel')}</AwaText>
 
             <View style={styles.factorContainer}>
               <FactorRow
@@ -891,11 +859,11 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               </View>
 
               <View style={styles.sectionHeaderCopy}>
-                <Text style={styles.sectionTitle}>{t('postpartumCycleReturn.timeline.sectionTitle')}</Text>
+                <AwaText variant="titleSmall">{t('postpartumCycleReturn.timeline.sectionTitle')}</AwaText>
 
-                <Text style={styles.sectionSubtitle}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.sectionSubtitle}>
                   {t('postpartumCycleReturn.timeline.sectionSubtitle')}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -918,10 +886,10 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
 
                   <View style={styles.timelineContent}>
                     <View style={styles.timelineRangeBadge}>
-                      <Text style={styles.timelineRange}>{t(stage.rangeKey)}</Text>
+                      <AwaText variant="labelSmall" colorRole="primary">{t(stage.rangeKey)}</AwaText>
                     </View>
 
-                    <Text style={styles.timelineText}>{t(stage.labelKey)}</Text>
+                    <AwaText variant="labelSmall" style={styles.timelineText}>{t(stage.labelKey)}</AwaText>
                   </View>
                 </View>
               ))}
@@ -934,9 +902,9 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
                 size={15}
               />
 
-              <Text style={styles.timelineDisclaimerText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.timelineDisclaimerText}>
                 {t('postpartumCycleReturn.timeline.disclaimer')}
-              </Text>
+              </AwaText>
             </View>
           </View>
 
@@ -954,13 +922,13 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
             </View>
 
             <View style={styles.flexCopy}>
-              <Text style={styles.reminderEyebrow}>{t('postpartumCycleReturn.reminder.eyebrow')}</Text>
+              <AwaText variant="labelSmall" colorRole="primary">{t('postpartumCycleReturn.reminder.eyebrow')}</AwaText>
 
-              <Text style={styles.reminderTitle}>{t('postpartumCycleReturn.reminder.title')}</Text>
+              <AwaText variant="labelSmall" style={styles.reminderTitle}>{t('postpartumCycleReturn.reminder.title')}</AwaText>
 
-              <Text style={styles.reminderText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.reminderText}>
                 {t('postpartumCycleReturn.reminder.text')}
-              </Text>
+              </AwaText>
             </View>
           </View>
         </Animated.View>
@@ -984,7 +952,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
             style={StyleSheet.absoluteFill}
           />
 
-          <View accessibilityRole="alert" style={styles.helpModalCard}>
+          <AwaCard padding="none" variant="elevated" accessibilityRole="alert" style={styles.helpModalCard}>
             <View style={styles.helpModalIconWrap}>
               <View style={styles.helpModalIconHalo}>
                 <MaterialDesignIcons
@@ -995,11 +963,11 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               </View>
             </View>
 
-            <Text style={styles.helpModalTitle}>{t('postpartumCycleReturn.factors.amenorrhea.title')}</Text>
+            <AwaText variant="headlineSmall" style={styles.helpModalTitle}>{t('postpartumCycleReturn.factors.amenorrhea.title')}</AwaText>
 
-            <Text style={styles.helpModalText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.helpModalText}>
               {t('postpartumCycleReturn.helpModal.text')}
-            </Text>
+            </AwaText>
 
             <View style={styles.helpModalInfoBox}>
               <MaterialDesignIcons
@@ -1007,22 +975,18 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
                 name="information-outline"
                 size={18}
               />
-              <Text style={styles.helpModalInfoText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.helpModalInfoText}>
                 {t('postpartumCycleReturn.helpModal.infoText')}
-              </Text>
+              </AwaText>
             </View>
 
-            <Pressable
+            <AwaButton
               accessibilityRole="button"
               onPress={() => setHelpModalVisible(false)}
-              style={({ pressed }) => [
-                styles.helpModalButton,
-                pressed && styles.pressed,
-              ]}
-            >
-              <Text style={styles.helpModalButtonText}>{t('postpartumCycleReturn.helpModal.button')}</Text>
-            </Pressable>
-          </View>
+              label={t('postpartumCycleReturn.helpModal.button')}
+              style={styles.helpModalButton}
+            />
+          </AwaCard>
         </View>
       </Modal>
 
@@ -1140,28 +1104,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.background,
   },
 
-  headerButton: {
-    ...theme.shadow,
-
-    width: 42,
-    height: 42,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-
-    borderRadius: 15,
-
-    backgroundColor: theme.colors.surface,
-  },
-
-  headerHelpButton: {
-    borderRadius: 21,
-    backgroundColor: theme.colors.primarySoft,
-  },
-
   headerCopy: {
     flex: 1,
     minWidth: 0,
@@ -1171,26 +1113,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginHorizontal: 10,
   },
 
-  headerEyebrow: {
-    color: theme.colors.primary,
 
-    fontSize: 8,
-    fontWeight: '800',
-
-    letterSpacing: 1.4,
-  },
-
-  headerTitle: {
-    marginTop: 2,
-
-    color: theme.colors.text,
-
-    fontFamily: 'serif',
-    fontSize: 19,
-    fontWeight: '800',
-
-    textAlign: 'center',
-  },
+  headerTitle: {marginTop: 2, textAlign: 'center'},
 
   headerSpacer: {
     width: 42,
@@ -1211,7 +1135,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1,
     borderColor: theme.colors.border,
 
-    borderRadius: 27,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.surface,
   },
@@ -1222,33 +1146,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: undefined,
   },
 
-  heroDecorationLarge: {
-    position: 'absolute',
 
-    top: -68,
-    right: -50,
-
-    width: 170,
-    height: 170,
-
-    borderRadius: 85,
-
-    backgroundColor: withAlpha(theme.colors.primary, 0.055),
-  },
-
-  heroDecorationSmall: {
-    position: 'absolute',
-
-    top: 35,
-    right: 28,
-
-    width: 56,
-    height: 56,
-
-    borderRadius: 28,
-
-    backgroundColor: withAlpha(theme.colors.primary, 0.15),
-  },
 
   statusHeroTop: {
     flexDirection: 'row',
@@ -1265,7 +1163,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 19,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -1281,19 +1179,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 11,
+    borderRadius: 12,
 
     backgroundColor: withAlpha(theme.colors.surface, 0.9),
   },
 
-  statusEyebrow: {
-    color: theme.colors.primary,
-
-    fontSize: 8.5,
-    fontWeight: '800',
-
-    letterSpacing: 1.3,
-  },
+  statusEyebrow: {},
 
   // Applied only while the fixed cycle-returned illustration is showing
   // behind this text (see the hero JSX's hasReturned check) — the
@@ -1307,26 +1198,14 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     color: theme.colors.text,
 
-    fontFamily: 'serif',
     fontSize: 25,
     lineHeight: 31,
     fontWeight: '800',
   },
 
-  statusValueOnIllustration: {
-    color: HERO_ILLUSTRATION_TEXT,
-  },
+  statusValueOnIllustration: {color: HERO_ILLUSTRATION_TEXT},
 
-  statusDescription: {
-    maxWidth: 300,
-
-    marginTop: 6,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 11.5,
-    lineHeight: 17,
-  },
+  statusDescription: {maxWidth: 300, marginTop: 6},
 
   // Slightly softened (not faded-out) so the body sentence still reads as
   // secondary to statusValue while keeping strong contrast against the
@@ -1365,7 +1244,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   statusBadgeText: {
     color: theme.colors.primary,
 
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '800',
   },
 
@@ -1377,7 +1256,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginTop: 15,
 
-    padding: 11,
+    padding: 12,
 
     borderRadius: 16,
 
@@ -1393,26 +1272,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 10,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
 
-  normalPanelTitle: {
-    color: theme.colors.text,
 
-    fontSize: 10.5,
-    fontWeight: '800',
-  },
-
-  normalPanelText: {
-    marginTop: 2,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 9.5,
-    lineHeight: 14,
-  },
+  normalPanelText: {marginTop: 2},
 
   /* ==========================================================
      GENERIC SECTION
@@ -1428,7 +1294,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1,
     borderColor: theme.colors.border,
 
-    borderRadius: 23,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.surface,
   },
@@ -1451,7 +1317,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginRight: 10,
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -1461,22 +1327,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  sectionTitle: {
-    color: theme.colors.text,
 
-    fontFamily: 'serif',
-    fontSize: 15.5,
-    fontWeight: '800',
-  },
-
-  sectionSubtitle: {
-    marginTop: 2,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 9,
-    lineHeight: 13,
-  },
+  sectionSubtitle: {marginTop: 2},
 
   /* ==========================================================
      PERIOD
@@ -1488,9 +1340,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexDirection: 'row',
     alignItems: 'center',
 
-    padding: 11,
+    padding: 12,
 
-    borderRadius: 18,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -1504,7 +1356,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 14,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -1516,71 +1368,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginLeft: 10,
   },
 
-  periodSmallLabel: {
-    color: theme.colors.textSecondary,
 
-    fontSize: 8.5,
-  },
+  periodValue: {marginTop: 3},
 
-  periodValue: {
-    marginTop: 3,
+  periodClear: {alignSelf: 'flex-start', marginTop: 8},
 
-    color: theme.colors.text,
+  periodAction: {marginLeft: 8},
 
-    fontSize: 11.5,
-    lineHeight: 15,
-    fontWeight: '800',
-  },
-
-  periodClear: {
-    alignSelf: 'flex-start',
-    marginTop: 8,
-    paddingVertical: 4,
-  },
-
-  periodClearText: {
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    fontWeight: '700',
-    textDecorationLine: 'underline',
-  },
-
-  periodAction: {
-    minHeight: 38,
-
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    gap: 5,
-
-    marginLeft: 8,
-
-    paddingHorizontal: 11,
-
-    borderRadius: 13,
-
-    backgroundColor: theme.colors.primary,
-
-    shadowColor: theme.shadow.shadowColor,
-
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-
-    shadowOpacity: 0.18,
-    shadowRadius: 6,
-
-    elevation: 3,
-  },
-
-  periodActionText: {
-    color: onPrimaryTextColor(theme),
-
-    fontSize: 9.5,
-    fontWeight: '800',
-  },
 
   lastPeriodRow: {
     minHeight: 54,
@@ -1602,25 +1396,13 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginRight: 9,
 
-    borderRadius: 11,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
 
-  lastPeriodLabel: {
-    color: theme.colors.text,
 
-    fontSize: 10.5,
-    fontWeight: '700',
-  },
-
-  lastPeriodValue: {
-    marginTop: 2,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 9.5,
-  },
+  lastPeriodValue: {marginTop: 2},
 
   /* ==========================================================
      FACTORS
@@ -1631,30 +1413,19 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'flex-start',
     gap: 8,
     marginBottom: 12,
-    padding: 11,
-    borderRadius: 15,
+    padding: 12,
+    borderRadius: 16,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  hormonalEducationText: {
-    flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    lineHeight: 14,
-  },
+  hormonalEducationText: {flex: 1},
 
-  trackedContextLabel: {
-    marginBottom: 7,
-    color: theme.colors.primary,
-    fontSize: 8.5,
-    fontWeight: '800',
-    letterSpacing: 0.7,
-  },
+  trackedContextLabel: {marginBottom: 7},
 
   factorContainer: {
     overflow: 'hidden',
 
-    borderRadius: 17,
+    borderRadius: 16,
 
     backgroundColor: theme.colors.surface,
   },
@@ -1688,35 +1459,15 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginRight: 10,
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
 
-  factorTitle: {
-    color: theme.colors.text,
 
-    fontSize: 11.5,
-    fontWeight: '800',
-  },
+  factorValue: {marginTop: 2},
 
-  factorValue: {
-    marginTop: 2,
-
-    color: theme.colors.primary,
-
-    fontSize: 10.5,
-    fontWeight: '700',
-  },
-
-  factorDescription: {
-    marginTop: 2,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 8.5,
-    lineHeight: 12,
-  },
+  factorDescription: {marginTop: 2},
 
   factorChevron: {
     width: 28,
@@ -1729,7 +1480,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginLeft: 6,
 
-    borderRadius: 10,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -1766,7 +1517,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1,
     borderColor: theme.colors.border,
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -1797,27 +1548,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 8,
     paddingVertical: 4,
 
-    borderRadius: 9,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
 
-  timelineRange: {
-    color: theme.colors.primary,
 
-    fontSize: 8.5,
-    fontWeight: '800',
-  },
-
-  timelineText: {
-    marginTop: 5,
-
-    color: theme.colors.text,
-
-    fontSize: 10.5,
-    lineHeight: 15,
-    fontWeight: '700',
-  },
+  timelineText: {marginTop: 5},
 
   timelineDisclaimer: {
     flexDirection: 'row',
@@ -1827,21 +1564,14 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginTop: 3,
 
-    padding: 10,
+    padding: 12,
 
-    borderRadius: 14,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
 
-  timelineDisclaimerText: {
-    flex: 1,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 8.5,
-    lineHeight: 13,
-  },
+  timelineDisclaimerText: {flex: 1},
 
   // Fixed — a modal dim/scrim, not a surface; overlay dims stay dark
   // regardless of the resolved theme so the sheet above it always pops
@@ -1854,22 +1584,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 22,
   },
 
-  helpModalCard: {
-    width: '100%',
-    maxWidth: 390,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 28,
-    backgroundColor: theme.colors.surface,
-    paddingHorizontal: 20,
-    paddingTop: 22,
-    paddingBottom: 18,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: { width: 0, height: 14 },
-    shadowOpacity: 0.24,
-    shadowRadius: 24,
-    elevation: 12,
-  },
+  helpModalCard: {width: '100%', maxWidth: 390, paddingHorizontal: 20, paddingTop: 22, paddingBottom: 18},
 
   helpModalIconWrap: {
     alignItems: 'center',
@@ -1887,21 +1602,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  helpModalTitle: {
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 22,
-    fontWeight: '800',
-    textAlign: 'center',
-  },
+  helpModalTitle: {textAlign: 'center'},
 
-  helpModalText: {
-    marginTop: 10,
-    color: theme.colors.textSecondary,
-    fontSize: 12.5,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
+  helpModalText: {marginTop: 10, textAlign: 'center'},
 
   helpModalInfoBox: {
     flexDirection: 'row',
@@ -1914,32 +1617,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingVertical: 11,
   },
 
-  helpModalInfoText: {
-    flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
-  },
+  helpModalInfoText: {flex: 1},
 
-  helpModalButton: {
-    minHeight: 48,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 18,
-    borderRadius: 16,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 4,
-  },
+  helpModalButton: {marginTop: 18},
 
-  helpModalButtonText: {
-    color: onPrimaryTextColor(theme),
-    fontSize: 13,
-    fontWeight: '800',
-  },
 
   /* ==========================================================
      REMINDER
@@ -1958,7 +1639,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1,
     borderColor: theme.colors.border,
 
-    borderRadius: 20,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -1972,37 +1653,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.surface,
   },
 
-  reminderEyebrow: {
-    color: theme.colors.primary,
 
-    fontSize: 7.5,
-    fontWeight: '800',
+  reminderTitle: {marginTop: 2},
 
-    letterSpacing: 1.1,
-  },
-
-  reminderTitle: {
-    marginTop: 2,
-
-    color: theme.colors.text,
-
-    fontSize: 11.5,
-    fontWeight: '800',
-  },
-
-  reminderText: {
-    marginTop: 3,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 9.5,
-    lineHeight: 14,
-  },
+  reminderText: {marginTop: 3},
   });
 }
 

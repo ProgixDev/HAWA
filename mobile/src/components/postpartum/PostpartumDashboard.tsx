@@ -17,7 +17,9 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
+  type LayoutChangeEvent,
 } from 'react-native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { useFocusEffect } from '@react-navigation/native';
@@ -34,7 +36,7 @@ import QuickActionsGrid, {
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
 import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
 import { getFloatingTabBarClearance } from '../../theme/spacing';
-import { homeRadii } from '../home/homeTheme';
+
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import { onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 import {
@@ -58,6 +60,7 @@ import {
   subscribePostpartumJournal,
 } from '../../state/postpartumJournalStore';
 import { POSTPARTUM_JOURNAL_ITEMS } from '../../config/postpartumJournalConfig';
+import {DAILY_LABEL_OVERFLOW, isSingleWordLabel, planDailyRow} from '../../utils/dailyLabelRow';
 import {
   getAllPostpartumLochiaEntries,
   getPostpartumLochiaTracking,
@@ -86,6 +89,9 @@ import {
 } from '../../config/nifasReminderConfig';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 
 const POSTPARTUM_MOTHER_BABY = require('../../assets/images/postpartum/postpartum-mother-baby.png');
 
@@ -200,6 +206,29 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
     () => DAILY_ITEMS.filter(item => Boolean(todayEntry?.[item.key])).length,
     [todayEntry],
   );
+
+  // "Suivi du jour" labels: every label stays on ONE line under its icon ("Récupération" used to break into "Récupéra" /
+  // "tion"). The row measures each single-word label at the base style (hidden measurers below) and plans the layout
+  // from the real widths — see utils/dailyLabelRow.ts: the base size when it fits, a slightly smaller one when it
+  // does not, a 3 + 2 grid of wider cells when even that does not. Widths are remembered per label text and font scale,
+  // so a language or system-font change simply measures the new text.
+  const {fontScale} = useWindowDimensions();
+  const [dailyRowWidth, setDailyRowWidth] = useState(0);
+  const [dailyLabelWidths, setDailyLabelWidths] = useState<Record<string, number>>({});
+  const dailyWidthKey = (label: string): string => `${fontScale}|${label}`;
+  const dailyPlan = planDailyRow(
+    dailyRowWidth,
+    DAILY_ITEMS.map(item => ({
+      width: isSingleWordLabel(item.dashboardLabel) ? dailyLabelWidths[dailyWidthKey(item.dashboardLabel)] : 'wraps',
+      chars: Array.from(item.dashboardLabel).length,
+    })),
+  );
+  const rememberDailyLabelWidth = (label: string, width: number): void => {
+    setDailyLabelWidths(previous => {
+      const key = dailyWidthKey(label);
+      return Math.abs((previous[key] ?? -1) - width) < 0.5 ? previous : {...previous, [key]: width};
+    });
+  };
 
   // Same shared location/spiritual-preference sources Cycle/Pregnancy read
   // — no Postpartum-specific duplicate.
@@ -532,11 +561,6 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
       start={{x: 0, y: 0}}
       style={styles.background}
     >
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
@@ -563,8 +587,6 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
           <Animated.View style={entranceStyle}>
             {status.configured ? (
               <View style={styles.heroCard}>
-                <View style={styles.heroGlowTop} />
-                <View style={styles.heroGlowBottom} />
 
                 <View style={styles.heroCopy}>
                   <View style={styles.heroBadge}>
@@ -576,7 +598,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                     <Text style={styles.heroBadgeText}>{t('postpartumDashboard.hero.badge')}</Text>
                   </View>
 
-                  <Text style={styles.heroTitle}>{t('postpartumDashboard.hero.title')}</Text>
+                  <AwaText variant="titleSmall" style={styles.heroTitle}>{t('postpartumDashboard.hero.title')}</AwaText>
 
                   <View style={styles.heroDayRow}>
                     {/* The "Jour " prefix is stored WITH its trailing space
@@ -590,9 +612,9 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                     <View style={styles.heroDayDot} />
                   </View>
 
-                  <Text style={styles.heroSubLabel}>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.heroSubLabel}>
                     {t('postpartumDashboard.hero.subLabel')}
-                  </Text>
+                  </AwaText>
 
                   <View style={styles.heroDateBlock}>
                     <MaterialDesignIcons
@@ -601,12 +623,12 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                       size={16}
                     />
                     <View style={styles.heroDateCopy}>
-                      <Text style={styles.heroDeliveryLabel}>
+                      <AwaText variant="labelSmall" colorRole="onSurfaceVariant">
                         {t('postpartumDashboard.hero.deliveryLabel')}
-                      </Text>
-                      <Text style={styles.heroDelivery}>
+                      </AwaText>
+                      <AwaText variant="labelSmall" colorRole="primary" style={styles.heroDelivery}>
                         {formatFullDate(deliveryDate as Date)}
-                      </Text>
+                      </AwaText>
                     </View>
                   </View>
                 </View>
@@ -623,7 +645,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                 </View>
               </View>
             ) : (
-              <View style={styles.unconfiguredCard}>
+              <AwaCard padding="none" variant="filled" style={styles.unconfiguredCard}>
                 <View style={styles.unconfiguredTop}>
                   <View style={styles.unconfiguredIcon}>
                     <MaterialDesignIcons
@@ -633,42 +655,31 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                     />
                   </View>
                   <View style={styles.unconfiguredCopy}>
-                    <Text style={styles.unconfiguredTitle}>
+                    <AwaText variant="titleMedium">
                       {t('postpartumDashboard.unconfigured.title')}
-                    </Text>
-                    <Text style={styles.unconfiguredText}>
+                    </AwaText>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.unconfiguredText}>
                       {t('postpartumDashboard.unconfigured.text')}
-                    </Text>
+                    </AwaText>
                   </View>
                 </View>
 
-                <Pressable
+                <AwaButton
                   accessibilityLabel={t('postpartumDashboard.unconfigured.title')}
                   accessibilityRole="button"
                   onPress={() => navigation.navigate('PostpartumDeliveryDate', {mode: 'edit'})}
-                  style={({ pressed }) => [
-                    styles.unconfiguredButton,
-                    pressed && styles.pressed,
-                  ]}
-                >
-                  <Text style={styles.unconfiguredButtonText}>
-                    {t('postpartumDashboard.unconfigured.button')}
-                  </Text>
-                  <MaterialDesignIcons
-                    color={onPrimaryTextColor(theme)}
-                    name="arrow-right"
-                    size={18}
-                  />
-                </Pressable>
-              </View>
+                  label={t('postpartumDashboard.unconfigured.button')}
+                  style={styles.unconfiguredButton}
+                />
+              </AwaCard>
             )}
 
             <View style={styles.sectionHeadingRow}>
               <View>
-                <Text style={styles.sectionHeading}>{t('postpartumDashboard.today.sectionTitle')}</Text>
-                <Text style={styles.sectionHeadingSub}>
+                <AwaText variant="titleMedium">{t('postpartumDashboard.today.sectionTitle')}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.sectionHeadingSub}>
                   {t('postpartumDashboard.today.sectionSubtitle')}
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.todayBadge}>
@@ -688,14 +699,13 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                 below), unlike a real semantic marker would. Migrated
                 consistent with Conceive D4's identical "phase-invariant
                 pink badge" finding. */}
-            <Pressable
+            <AwaCard
+              padding="none"
+              variant="filled"
               accessibilityLabel={t('postpartumDashboard.lochia.title')}
               accessibilityRole="button"
               onPress={() => navigation.navigate('PostpartumLochia')}
-              style={({ pressed }) => [
-                styles.featureCard,
-                pressed && styles.pressed,
-              ]}
+              style={styles.featureCard}
             >
               <View style={[styles.featureIcon, styles.featureIconLochia]}>
                 <MaterialDesignIcons
@@ -706,9 +716,9 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
               </View>
 
               <View style={styles.featureCopy}>
-                <Text style={styles.featureEyebrow}>{t('postpartumDashboard.lochia.eyebrow')}</Text>
-                <Text style={styles.featureTitle}>{t('postpartumDashboard.lochia.title')}</Text>
-                <Text style={styles.featureValue}>{lochiaDashboardValue}</Text>
+                <AwaText variant="labelSmall" colorRole="primary">{t('postpartumDashboard.lochia.eyebrow')}</AwaText>
+                <AwaText variant="titleSmall" style={styles.featureTitle}>{t('postpartumDashboard.lochia.title')}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.featureValue}>{lochiaDashboardValue}</AwaText>
               </View>
 
               <View style={styles.featureArrow}>
@@ -718,16 +728,15 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                   size={22}
                 />
               </View>
-            </Pressable>
+            </AwaCard>
 
-            <Pressable
+            <AwaCard
+              padding="none"
+              variant="filled"
               accessibilityLabel={t('postpartumDashboard.cycleReturn.title')}
               accessibilityRole="button"
               onPress={() => navigation.navigate('PostpartumCycleReturn')}
-              style={({ pressed }) => [
-                styles.featureCard,
-                pressed && styles.pressed,
-              ]}
+              style={styles.featureCard}
             >
               <View style={[styles.featureIcon, styles.featureIconCycle]}>
                 <MaterialDesignIcons
@@ -738,11 +747,11 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
               </View>
 
               <View style={styles.featureCopy}>
-                <Text style={styles.featureEyebrow}>{t('postpartumDashboard.cycleReturn.eyebrow')}</Text>
-                <Text style={styles.featureTitle}>{t('postpartumDashboard.cycleReturn.title')}</Text>
-                <Text style={styles.featureValue}>{cycleReturnValue}</Text>
+                <AwaText variant="labelSmall" colorRole="primary">{t('postpartumDashboard.cycleReturn.eyebrow')}</AwaText>
+                <AwaText variant="titleSmall" style={styles.featureTitle}>{t('postpartumDashboard.cycleReturn.title')}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.featureValue}>{cycleReturnValue}</AwaText>
                 {cycleReturnSubvalue ? (
-                  <Text style={styles.featureValue}>{cycleReturnSubvalue}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.featureValue}>{cycleReturnSubvalue}</AwaText>
                 ) : null}
 
                 {feedingLabel ? (
@@ -752,9 +761,9 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                       name="baby-bottle-outline"
                       size={13}
                     />
-                    <Text style={styles.miniTagText}>
+                    <AwaText variant="labelSmall" colorRole="primary">
                       {t('postpartumDashboard.cycleReturn.feedingLabel', {feeding: feedingLabel})}
-                    </Text>
+                    </AwaText>
                   </View>
                 ) : null}
               </View>
@@ -766,21 +775,21 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                   size={22}
                 />
               </View>
-            </Pressable>
+            </AwaCard>
 
-            <View style={styles.dailyCard}>
+            <AwaCard padding="none" variant="filled" style={styles.dailyCard}>
               <View style={styles.dailyHeader}>
                 <View style={styles.dailyHeaderCopy}>
-                  <Text style={styles.cardTitle}>{t('postpartumDashboard.dailyCard.title')}</Text>
-                  <Text style={styles.dailySubtitle}>
+                  <AwaText variant="titleMedium">{t('postpartumDashboard.dailyCard.title')}</AwaText>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.dailySubtitle}>
                     {t('postpartumDashboard.dailyCard.subtitle')}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <View style={styles.progressBadge}>
-                  <Text style={styles.dailyProgressStrong}>
+                  <AwaText variant="labelSmall" colorRole="primary">
                     {completedTodayCount}/{DAILY_ITEMS.length}
-                  </Text>
+                  </AwaText>
                   <Text style={styles.progressBadgeText}>{t('postpartumDashboard.dailyCard.completed')}</Text>
                 </View>
               </View>
@@ -798,9 +807,28 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                 />
               </View>
 
-              <View style={styles.dailyGrid}>
+              <View
+                onLayout={(event: LayoutChangeEvent) => setDailyRowWidth(Math.round(event.nativeEvent.layout.width))}
+                style={[styles.dailyGrid, dailyPlan.layout === 'grid' && styles.dailyGridWrapped]}>
+                {/* Hidden measurers: each single-word label at the base style, on one line, to learn its real width. */}
+                <View
+                  accessibilityElementsHidden
+                  importantForAccessibility="no-hide-descendants"
+                  pointerEvents="none"
+                  style={styles.dailyMeasure}>
+                  {DAILY_ITEMS.map(item =>
+                    isSingleWordLabel(item.dashboardLabel) ? (
+                      <View
+                        key={item.key}
+                        onLayout={(event: LayoutChangeEvent) => rememberDailyLabelWidth(item.dashboardLabel, event.nativeEvent.layout.width)}>
+                        <AwaText numberOfLines={1} variant="bodySmall">{item.dashboardLabel}</AwaText>
+                      </View>
+                    ) : null,
+                  )}
+                </View>
                 {DAILY_ITEMS.map(item => {
                   const done = Boolean(todayEntry?.[item.key]);
+                  const singleWord = isSingleWordLabel(item.dashboardLabel);
 
                   return (
                     <Pressable
@@ -814,37 +842,56 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                       }
                       style={({ pressed }) => [
                         styles.dailyItem,
+                        dailyPlan.layout === 'grid' && styles.dailyItemWrapped,
                         pressed && styles.dailyItemPressed,
                       ]}
                     >
-                      <View
-                        style={[styles.dailyIcon, done && styles.dailyIconDone]}
-                      >
-                        <MaterialDesignIcons
-                          color={done ? onPrimaryTextColor(theme) : theme.colors.primary}
-                          name={item.icon}
-                          size={22}
-                        />
-                      </View>
-
-                      <Text numberOfLines={2} style={styles.dailyLabel}>
-                        {item.dashboardLabel}
-                      </Text>
-
-                      {done ? (
-                        <View style={styles.doneBadge}>
+                      <View style={styles.dailyIconWrap}>
+                        <View
+                          style={[styles.dailyIcon, done && styles.dailyIconDone]}
+                        >
                           <MaterialDesignIcons
-                            color={pickReadableTextColor(theme.colors.success)}
-                            name="check"
-                            size={9}
+                            color={done ? onPrimaryTextColor(theme) : theme.colors.primary}
+                            name={item.icon}
+                            size={22}
                           />
                         </View>
-                      ) : null}
+
+                        {done ? (
+                          <View style={styles.doneBadge}>
+                            <MaterialDesignIcons
+                              color={pickReadableTextColor(theme.colors.success)}
+                              name="check"
+                              size={9}
+                            />
+                          </View>
+                        ) : null}
+                      </View>
+
+                      {/* The label never takes part in touch handling and may be wider than its cell (centred under the
+                          icon, into the neighbours' spare room) so a single long word stays on one line. */}
+                      <View
+                        pointerEvents="none"
+                        style={[
+                          styles.dailyLabelBox,
+                          singleWord && dailyPlan.layout === 'row' && dailyRowWidth > 0
+                            ? {width: dailyRowWidth / DAILY_ITEMS.length + 2 * DAILY_LABEL_OVERFLOW}
+                            : null,
+                        ]}>
+                        <AwaText
+                          adjustsFontSizeToFit={singleWord && dailyPlan.layout === 'grid'}
+                          minimumFontScale={0.8}
+                          numberOfLines={singleWord ? 1 : 2}
+                          variant="bodySmall"
+                          style={[styles.dailyLabel, {fontSize: dailyPlan.step.size, letterSpacing: dailyPlan.step.spacing}]}>
+                          {item.dashboardLabel}
+                        </AwaText>
+                      </View>
                     </Pressable>
                   );
                 })}
               </View>
-            </View>
+            </AwaCard>
 
             <QuickActionsGrid items={quickActionItems} />
 
@@ -852,12 +899,12 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
               <View style={styles.spiritualWrap}>
                 <View style={styles.sectionHeadingRow}>
                   <View>
-                    <Text style={styles.sectionHeading}>
+                    <AwaText variant="titleMedium">
                       {t('postpartumDashboard.spiritual.sectionTitle')}
-                    </Text>
-                    <Text style={styles.sectionHeadingSub}>
+                    </AwaText>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.sectionHeadingSub}>
                       {t('postpartumDashboard.spiritual.sectionSubtitle')}
-                    </Text>
+                    </AwaText>
                   </View>
 
                   <View style={styles.spiritualBadge}>
@@ -910,7 +957,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
       visible={showNifasCompletionModal}
     >
       <View style={styles.nifasModalOverlay}>
-        <View style={styles.nifasModalCard}>
+        <AwaCard padding="none" variant="elevated" style={styles.nifasModalCard}>
           <View style={styles.nifasModalIconWrap}>
             <MaterialDesignIcons
               color={theme.colors.primary}
@@ -919,44 +966,35 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
             />
           </View>
 
-          <Text style={styles.nifasModalTitle}>
+          <AwaText variant="titleMedium" style={styles.nifasModalTitle}>
             {nifasReferenceReachedHeadline()}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.nifasModalBody}>
+          <AwaText variant="bodySmall" style={styles.nifasModalBody}>
             {t('postpartumDashboard.nifasModal.body')}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.nifasModalNote}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.nifasModalNote}>
             {t('postpartumDashboard.nifasModal.note')}
-          </Text>
+          </AwaText>
 
-          <Pressable
+          <AwaButton
             accessibilityLabel={t('postpartumDashboard.nifasModal.continue')}
             accessibilityRole="button"
             onPress={handleNifasCompletionContinue}
-            style={({pressed}) => [
-              styles.nifasModalPrimary,
-              pressed && styles.pressed,
-            ]}
-          >
-            <Text style={styles.nifasModalPrimaryText}>{t('postpartumDashboard.nifasModal.continue')}</Text>
-          </Pressable>
+            label={t('postpartumDashboard.nifasModal.continue')}
+            style={styles.nifasModalPrimary}
+          />
 
-          <Pressable
+          <AwaButton
             accessibilityLabel={t('postpartumDashboard.nifasModal.chooseAnother')}
             accessibilityRole="button"
             onPress={handleNifasCompletionChooseAnother}
-            style={({pressed}) => [
-              styles.nifasModalSecondary,
-              pressed && styles.pressed,
-            ]}
-          >
-            <Text style={styles.nifasModalSecondaryText}>
-              {t('postpartumDashboard.nifasModal.chooseAnother')}
-            </Text>
-          </Pressable>
-        </View>
+            label={t('postpartumDashboard.nifasModal.chooseAnother')}
+            variant="text"
+            style={styles.nifasModalSecondary}
+          />
+        </AwaCard>
       </View>
     </Modal>
     </>
@@ -975,40 +1013,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.background,
   },
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
 
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
 
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
 
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   safeArea: {
     flex: 1,
@@ -1029,29 +1036,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginTop: 16,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.10),
-    borderRadius: 30,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.96),
   },
 
-  heroGlowTop: {
-    position: 'absolute',
-    top: -70,
-    right: -35,
-    width: 190,
-    height: 190,
-    borderRadius: 95,
-    backgroundColor: withAlpha(theme.colors.primary, 0.70),
-  },
 
-  heroGlowBottom: {
-    position: 'absolute',
-    left: 84,
-    bottom: -90,
-    width: 170,
-    height: 170,
-    borderRadius: 85,
-    backgroundColor: withAlpha(theme.colors.secondary, 0.45),
-  },
 
   heroCopy: {
     zIndex: 2,
@@ -1066,7 +1055,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
     paddingHorizontal: 9,
     paddingVertical: 6,
@@ -1074,17 +1063,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   heroBadgeText: {
     color: theme.colors.primary,
-    fontSize: 8.5,
+    fontSize: 11,
     fontWeight: '900',
     letterSpacing: 0.5,
   },
 
-  heroTitle: {
-    marginTop: 12,
-    color: theme.colors.text,
-    fontSize: 14,
-    fontWeight: '800',
-  },
+  heroTitle: {marginTop: 12},
 
   heroDayRow: {
     flexDirection: 'row',
@@ -1108,14 +1092,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.secondary,
   },
 
-  heroSubLabel: {
-    marginTop: 2,
-    maxWidth: 180,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
-    fontWeight: '600',
-  },
+  heroSubLabel: {marginTop: 2, maxWidth: 180},
 
   heroDateBlock: {
     alignSelf: 'flex-start',
@@ -1123,28 +1100,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     gap: 8,
     marginTop: 14,
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.primarySoft, 0.90),
-    paddingHorizontal: 10,
-    paddingVertical: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
   },
 
   heroDateCopy: {
     flexShrink: 1,
   },
 
-  heroDeliveryLabel: {
-    color: theme.colors.textSecondary,
-    fontSize: 8.5,
-    fontWeight: '600',
-  },
 
-  heroDelivery: {
-    marginTop: 1,
-    color: theme.colors.primary,
-    fontSize: 10.5,
-    fontWeight: '800',
-  },
+  heroDelivery: {marginTop: 1},
 
   heroIllustration: {
     position: 'absolute',
@@ -1171,15 +1138,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: '100%',
   },
 
-  unconfiguredCard: {
-    ...theme.shadow,
-    marginTop: 16,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.10),
-    borderRadius: 26,
-    backgroundColor: withAlpha(theme.colors.surface, 0.96),
-    padding: 18,
-  },
+  unconfiguredCard: {marginTop: 16, padding: 18},
 
   unconfiguredTop: {
     flexDirection: 'row',
@@ -1191,7 +1150,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 54,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 18,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1200,36 +1159,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginLeft: 12,
   },
 
-  unconfiguredTitle: {
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 16,
-    fontWeight: '800',
-  },
 
-  unconfiguredText: {
-    marginTop: 5,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    lineHeight: 16,
-  },
+  unconfiguredText: {marginTop: 5},
 
-  unconfiguredButton: {
-    minHeight: 48,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    marginTop: 14,
-    borderRadius: 16,
-    backgroundColor: theme.colors.primary,
-  },
+  unconfiguredButton: {marginTop: 14},
 
-  unconfiguredButtonText: {
-    color: onPrimaryTextColor(theme),
-    fontSize: 13.5,
-    fontWeight: '800',
-  },
 
   sectionHeadingRow: {
     flexDirection: 'row',
@@ -1240,24 +1174,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 2,
   },
 
-  sectionHeading: {
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 18,
-    fontWeight: '800',
-  },
 
-  sectionHeadingSub: {
-    marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-  },
+  sectionHeadingSub: {marginTop: 2},
 
   todayBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
     paddingHorizontal: 9,
     paddingVertical: 6,
@@ -1265,30 +1189,18 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   todayBadgeText: {
     color: theme.colors.primary,
-    fontSize: 8.5,
+    fontSize: 11,
     fontWeight: '800',
   },
 
-  featureCard: {
-    ...theme.shadow,
-    minHeight: 92,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.07),
-    borderRadius: 22,
-    backgroundColor: withAlpha(theme.colors.surface, 0.96),
-    paddingHorizontal: 13,
-    paddingVertical: 12,
-  },
+  featureCard: {minHeight: 92, flexDirection: 'row', alignItems: 'center', marginBottom: 10, paddingHorizontal: 13, paddingVertical: 12},
 
   featureIcon: {
     width: 52,
     height: 52,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 17,
+    borderRadius: 16,
   },
 
   // Fixed rose family (theme.colors.secondary-derived) — see the JSX call
@@ -1308,26 +1220,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginLeft: 12,
   },
 
-  featureEyebrow: {
-    color: theme.colors.primary,
-    fontSize: 7.5,
-    fontWeight: '900',
-    letterSpacing: 0.6,
-  },
 
-  featureTitle: {
-    marginTop: 3,
-    color: theme.colors.text,
-    fontSize: 14.5,
-    fontWeight: '800',
-  },
+  featureTitle: {marginTop: 3},
 
-  featureValue: {
-    marginTop: 4,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 14,
-  },
+  featureValue: {marginTop: 4},
 
   featureArrow: {
     width: 34,
@@ -1335,7 +1231,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 8,
-    borderRadius: 11,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1345,34 +1241,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     gap: 5,
     marginTop: 7,
-    borderRadius: 11,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
     paddingHorizontal: 8,
     paddingVertical: 5,
   },
 
-  miniTagText: {
-    color: theme.colors.primary,
-    fontSize: 8.5,
-    fontWeight: '700',
-  },
 
-  cardTitle: {
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 18,
-    fontWeight: '800',
-  },
 
-  dailyCard: {
-    ...theme.shadow,
-    marginTop: 4,
-    padding: 15,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.07),
-    borderRadius: 24,
-    backgroundColor: withAlpha(theme.colors.surface, 0.97),
-  },
+  dailyCard: {marginTop: 4, padding: 15},
 
   dailyHeader: {
     flexDirection: 'row',
@@ -1385,32 +1262,23 @@ function createStyles(theme: ResolvedAwaTheme) {
     flex: 1,
   },
 
-  dailySubtitle: {
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-  },
+  dailySubtitle: {marginTop: 3},
 
   progressBadge: {
     minWidth: 58,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
     paddingHorizontal: 9,
     paddingVertical: 6,
   },
 
-  dailyProgressStrong: {
-    color: theme.colors.primary,
-    fontSize: 11,
-    fontWeight: '900',
-  },
 
   progressBadgeText: {
     marginTop: 1,
     color: theme.colors.textSecondary,
-    fontSize: 7.5,
+    fontSize: 11,
   },
 
   progressTrack: {
@@ -1427,9 +1295,26 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primary,
   },
 
+  // The row bleeds 8 dp into the card's 15 dp padding on each side, which is what lets "Récupération" sit on one line.
   dailyGrid: {
     flexDirection: 'row',
     marginTop: 15,
+    marginHorizontal: -8,
+  },
+
+  // Fallback when the labels do not fit one row at a readable size: 3 + 2, the second row centred.
+  dailyGridWrapped: {
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    rowGap: 12,
+  },
+
+  dailyMeasure: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    opacity: 0,
+    alignItems: 'flex-start',
   },
 
   dailyItem: {
@@ -1440,9 +1325,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 1,
   },
 
+  dailyItemWrapped: {
+    width: '33.333%',
+  },
+
   dailyItemPressed: {
     opacity: 0.72,
     transform: [{ scale: 0.97 }],
+  },
+
+  dailyIconWrap: {
+    width: 45,
+    height: 45,
   },
 
   dailyIcon: {
@@ -1451,10 +1345,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1.5,
-    // Fixed — a decorative separator ring against the icon's own
-    // theme-derived fill, same treatment as AnimatedProgressRing's
-    // glintDot/Conceive's timeline-puck border (D2/D4 precedent).
-    borderColor: '#FFFFFF',
+    // Separator ring against the icon's own theme-derived fill (surface token).
+    borderColor: theme.colors.surface,
     borderRadius: 23,
     backgroundColor: theme.colors.primarySoft,
   },
@@ -1463,27 +1355,27 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primary,
   },
 
-  dailyLabel: {
-    minHeight: 24,
+  dailyLabelBox: {
+    alignSelf: 'center',
+    alignItems: 'center',
     marginTop: 6,
-    color: theme.colors.text,
-    fontSize: 8.5,
-    lineHeight: 11,
-    textAlign: 'center',
+    minHeight: 24,
   },
+
+  dailyLabel: {textAlign: 'center'},
 
   // Generic "logged today" completion badge — success token, not a
   // symptom-severity claim (same DailyJournalCard/Irregular D3 precedent).
   doneBadge: {
     position: 'absolute',
     top: 32,
-    right: 7,
+    right: 0,
     width: 15,
     height: 15,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1.5,
-    borderColor: '#FFFFFF',
+    borderColor: theme.colors.surface,
     borderRadius: 8,
     backgroundColor: theme.colors.success,
   },
@@ -1497,14 +1389,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 32,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 11,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  pressed: {
-    opacity: 0.82,
-    transform: [{ scale: 0.99 }],
-  },
 
   // Fixed — a modal dim/scrim, not a surface. Matches Phase C's
   // InAppNotificationCenter precedent: overlay dims stay dark regardless of
@@ -1516,19 +1404,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 28,
     backgroundColor: 'rgba(47, 34, 88, 0.32)',
   },
-  nifasModalCard: {
-    width: '100%',
-    maxWidth: 340,
-    alignItems: 'center',
-    borderRadius: homeRadii.card,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: theme.colors.primarySoft,
-    paddingHorizontal: 22,
-    paddingTop: 22,
-    paddingBottom: 18,
-    ...theme.shadow,
-  },
+  nifasModalCard: {width: '100%', maxWidth: 340, alignItems: 'center', paddingHorizontal: 22, paddingTop: 22, paddingBottom: 18},
   nifasModalIconWrap: {
     width: 48,
     height: 48,
@@ -1537,54 +1413,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderRadius: 16,
     backgroundColor: theme.colors.surface,
   },
-  nifasModalTitle: {
-    marginTop: 14,
-    color: theme.colors.text,
-    fontSize: 17,
-    lineHeight: 22,
-    fontWeight: '700',
-    textAlign: 'center',
-  },
-  nifasModalBody: {
-    marginTop: 8,
-    color: theme.colors.text,
-    fontSize: 13.5,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  nifasModalNote: {
-    marginTop: 8,
-    color: theme.colors.textSecondary,
-    fontSize: 12.5,
-    lineHeight: 18,
-    textAlign: 'center',
-  },
-  nifasModalPrimary: {
-    marginTop: 18,
-    width: '100%',
-    minHeight: 48,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: homeRadii.button,
-    backgroundColor: theme.colors.primary,
-  },
-  nifasModalPrimaryText: {
-    color: onPrimaryTextColor(theme),
-    fontSize: 15,
-    fontWeight: '700',
-  },
-  nifasModalSecondary: {
-    marginTop: 10,
-    width: '100%',
-    minHeight: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  nifasModalSecondaryText: {
-    color: theme.colors.primary,
-    fontSize: 13.5,
-    fontWeight: '600',
-  },
+  nifasModalTitle: {marginTop: 14, textAlign: 'center'},
+  nifasModalBody: {marginTop: 8, textAlign: 'center'},
+  nifasModalNote: {marginTop: 8, textAlign: 'center'},
+  nifasModalPrimary: {marginTop: 18, width: '100%'},
+  nifasModalSecondary: {marginTop: 10, width: '100%'},
   });
 }
 

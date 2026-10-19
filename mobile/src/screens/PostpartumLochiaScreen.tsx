@@ -22,7 +22,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import { spacing } from '../theme/spacing';
 import { useAwaTheme } from '../theme/AwaThemeProvider';
-import { onPrimaryTextColor, withAlpha, type ResolvedAwaTheme } from '../theme/awaThemeTokens';
+import { withAlpha, type ResolvedAwaTheme } from '../theme/awaThemeTokens';
 import {
   getAllPostpartumLochiaEntries,
   getPostpartumLochiaEntry,
@@ -49,6 +49,10 @@ import i18n from '../i18n';
 import { journalOptionLabel } from '../utils/journalOptionLabels';
 import {displayTitleCase} from '../utils/textCase';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostpartumLochia'>;
 
@@ -334,11 +338,6 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
       end={{ x: 1, y: 1 }}
       style={styles.background}
     >
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>
         <StatusBar
@@ -348,23 +347,17 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
         />
         <View style={styles.page}>
           <View style={styles.header}>
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={12}
               onPress={navigation.goBack}
-              style={styles.backButton}
-            >
-              <MaterialDesignIcons
-                color={theme.colors.text}
-                name="arrow-left"
-                size={24}
-              />
-            </Pressable>
-            <Text style={styles.headerTitle}>{t('postpartumLochia.header.title')}</Text>
+              icon="arrow-left"
+            />
+            <AwaText variant="headlineSmall">{t('postpartumLochia.header.title')}</AwaText>
             {/* Opens the existing Bibliothèque article on the lochia — the only
                 educational content there is for this topic (no new content). */}
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('postpartumLochia.header.infoAccessibilityLabel')}
               accessibilityRole="button"
               hitSlop={8}
@@ -373,14 +366,9 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   articleId: LOCHIA_ARTICLE_ID,
                 })
               }
-              style={styles.infoButton}
-            >
-              <MaterialDesignIcons
-                color={theme.colors.primary}
-                name="information-outline"
-                size={20}
-              />
-            </Pressable>
+              icon="information-outline"
+              iconSize={20}
+            />
           </View>
 
           <ScrollView
@@ -391,10 +379,10 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
-            <View style={styles.dateCard}>
+            <AwaCard padding="none" variant="filled" style={styles.dateCard}>
               <View>
-                <Text style={styles.dateEyebrow}>{t('postpartumLochia.date.eyebrow')}</Text>
-                <Text style={styles.dateText}>{displayTitleCase(todayLabel)}</Text>
+                <AwaText variant="labelSmall" colorRole="primary">{t('postpartumLochia.date.eyebrow')}</AwaText>
+                <AwaText variant="labelMedium" style={styles.dateText}>{displayTitleCase(todayLabel)}</AwaText>
               </View>
               <View style={styles.calendarIcon}>
                 <MaterialDesignIcons
@@ -403,9 +391,9 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   size={20}
                 />
               </View>
-            </View>
+            </AwaCard>
 
-            <View style={styles.durationCard}>
+            <AwaCard padding="none" variant="filled" style={styles.durationCard}>
               <View style={styles.durationHeader}>
                 <View style={styles.durationIcon}>
                   <MaterialDesignIcons
@@ -415,14 +403,14 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   />
                 </View>
                 <View style={styles.durationCopy}>
-                  <Text style={styles.durationTitle}>{t('postpartumLochia.duration.title')}</Text>
-                  <Text style={styles.durationSubtitle}>
+                  <AwaText variant="titleSmall">{t('postpartumLochia.duration.title')}</AwaText>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.durationSubtitle}>
                     {summary.status === 'no_data'
                       ? t('postpartumLochia.duration.subtitleNoData')
                       : summary.status === 'ended'
                       ? t('postpartumLochia.duration.subtitleEnded', {date: formatLocalDate(summary.endedDate)})
                       : t('postpartumLochia.duration.subtitleOngoing')}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
               <View style={styles.durationMetrics}>
@@ -445,57 +433,26 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                 />
               </View>
               {summary.status === 'ended' ? (
-                <Pressable
-                  accessibilityRole="button"
+                <AwaButton
+                  icon="calendar-edit"
+                  label={t('postpartumLochia.duration.editEndDate')}
                   onPress={openEditEndDate}
-                  style={({ pressed }) => [
-                    styles.endButton,
-                    styles.reopenButton,
-                    pressed && styles.pressed,
-                  ]}
-                >
-                  <MaterialDesignIcons
-                    color={theme.colors.primary}
-                    name="calendar-edit"
-                    size={18}
-                  />
-                  <Text style={[styles.endButtonText, styles.reopenButtonText]}>
-                    {t('postpartumLochia.duration.editEndDate')}
-                  </Text>
-                </Pressable>
-              ) : null}
-              <Pressable
-                accessibilityRole="button"
-                onPress={
-                  summary.status === 'ended' ? reopenTracking : finishTracking
-                }
-                style={({ pressed }) => [
-                  styles.endButton,
-                  summary.status === 'ended' && styles.reopenButton,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <MaterialDesignIcons
-                  color={summary.status === 'ended' ? theme.colors.primary : onPrimaryTextColor(theme)}
-                  name={
-                    summary.status === 'ended'
-                      ? 'backup-restore'
-                      : 'check-circle-outline'
-                  }
-                  size={18}
+                  style={styles.endButton}
+                  variant="tonal"
                 />
-                <Text
-                  style={[
-                    styles.endButtonText,
-                    summary.status === 'ended' && styles.reopenButtonText,
-                  ]}
-                >
-                  {summary.status === 'ended'
+              ) : null}
+              <AwaButton
+                icon={summary.status === 'ended' ? 'backup-restore' : 'check-circle-outline'}
+                label={
+                  summary.status === 'ended'
                     ? t('postpartumLochia.duration.resumeTracking')
-                    : t('postpartumLochia.duration.finishedTracking')}
-                </Text>
-              </Pressable>
-            </View>
+                    : t('postpartumLochia.duration.finishedTracking')
+                }
+                onPress={summary.status === 'ended' ? reopenTracking : finishTracking}
+                style={styles.endButton}
+                variant={summary.status === 'ended' ? 'tonal' : 'filled'}
+              />
+            </AwaCard>
 
             <Section styles={styles} title={t('postpartumLochia.sections.flow')}>
               <View style={styles.flowRow}>
@@ -568,7 +525,6 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                         />
                       </View>
                       <Text
-                        numberOfLines={2}
                         style={[
                           styles.colorLabel,
                           selected && styles.selectedText,
@@ -645,7 +601,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
             </Section>
 
             <Section styles={styles} title={t('postpartumLochia.sections.notes')}>
-              <View style={styles.noteBox}>
+              <AwaCard padding="none" variant="filled" style={styles.noteBox}>
                 <TextInput
                   accessibilityLabel={t('postpartumLochia.sections.notes')}
                   maxLength={300}
@@ -657,8 +613,8 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   textAlignVertical="top"
                   value={note}
                 />
-                <Text style={styles.counter}>{note.length} / 300</Text>
-              </View>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.counter}>{note.length} / 300</AwaText>
+              </AwaCard>
             </Section>
 
             <View style={styles.reassurance}>
@@ -667,26 +623,18 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                 name="heart-outline"
                 size={18}
               />
-              <Text style={styles.reassuranceText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.reassuranceText}>
                 {t('postpartumLochia.reassuranceText')}
-              </Text>
+              </AwaText>
             </View>
 
-            <Pressable
+            <AwaButton
               accessibilityRole="button"
               onPress={save}
-              style={({ pressed }) => [
-                styles.saveButton,
-                pressed && styles.pressed,
-              ]}
-            >
-              <MaterialDesignIcons
-                color={onPrimaryTextColor(theme)}
-                name="content-save-outline"
-                size={20}
-              />
-              <Text style={styles.saveText}>{t('common.save')}</Text>
-            </Pressable>
+              label={t('common.save')}
+              icon="content-save-outline"
+              style={styles.saveButton}
+            />
           </ScrollView>
         </View>
 
@@ -704,7 +652,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               style={StyleSheet.absoluteFill}
             />
 
-            <View accessibilityRole="alert" style={styles.confirmModalCard}>
+            <AwaCard padding="none" variant="elevated" accessibilityRole="alert" style={styles.confirmModalCard}>
               <View style={styles.confirmIconWrap}>
                 <View style={styles.confirmIconHalo}>
                   <MaterialDesignIcons
@@ -715,35 +663,24 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                 </View>
               </View>
 
-              <Text style={styles.confirmTitle}>
+              <AwaText variant="headlineSmall" style={styles.confirmTitle}>
                 {t('postpartumLochia.finishModal.title')}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.confirmText}>
-                {t('postpartumLochia.finishModal.textBefore')} <Text style={styles.confirmDate}>{displayTitleCase(endDateLabel)}</Text> {t('postpartumLochia.finishModal.textAfter')}
-              </Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.confirmText}>
+                {t('postpartumLochia.finishModal.textBefore')} <AwaText variant="titleSmall" style={styles.confirmDate}>{displayTitleCase(endDateLabel)}</AwaText> {t('postpartumLochia.finishModal.textAfter')}
+              </AwaText>
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaButton
+                icon="calendar-edit"
+                label={t('postpartumLochia.finishModal.editDate')}
                 onPress={() => {
                   setFinishModalVisible(false);
                   setEndPicker('finish');
                 }}
-                style={({ pressed }) => [
-                  styles.endButton,
-                  styles.reopenButton,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="calendar-edit"
-                  size={18}
-                />
-                <Text style={[styles.endButtonText, styles.reopenButtonText]}>
-                  {t('postpartumLochia.finishModal.editDate')}
-                </Text>
-              </Pressable>
+                style={styles.endButton}
+                variant="tonal"
+              />
 
               <View style={styles.confirmInfoBox}>
                 <MaterialDesignIcons
@@ -751,36 +688,28 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   name="information-outline"
                   size={18}
                 />
-                <Text style={styles.confirmInfoText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.confirmInfoText}>
                   {t('postpartumLochia.finishModal.infoText')}
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.confirmActions}>
-                <Pressable
+                <AwaButton
                   accessibilityRole="button"
                   onPress={() => setFinishModalVisible(false)}
-                  style={({ pressed }) => [
-                    styles.confirmCancelButton,
-                    pressed && styles.pressed,
-                  ]}
-                >
-                  <Text style={styles.confirmCancelText}>{t('common.cancel')}</Text>
-                </Pressable>
+                  label={t('common.cancel')}
+                  variant="tonal"
+                  style={styles.confirmCancelButton}
+                />
 
-                <Pressable
-                  accessibilityRole="button"
+                <AwaButton
+                  icon="check"
+                  label={t('postpartumLochia.finishModal.confirm')}
                   onPress={confirmFinishTracking}
-                  style={({ pressed }) => [
-                    styles.confirmPrimaryButton,
-                    pressed && styles.pressed,
-                  ]}
-                >
-                  <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={18} />
-                  <Text style={styles.confirmPrimaryText}>{t('postpartumLochia.finishModal.confirm')}</Text>
-                </Pressable>
+                  style={styles.confirmPrimaryButton}
+                />
               </View>
-            </View>
+            </AwaCard>
           </View>
         </Modal>
 
@@ -798,7 +727,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               style={StyleSheet.absoluteFill}
             />
 
-            <View accessibilityRole="alert" style={styles.confirmModalCard}>
+            <AwaCard padding="none" variant="elevated" accessibilityRole="alert" style={styles.confirmModalCard}>
               <View style={styles.confirmIconWrap}>
                 <View style={[styles.confirmIconHalo, styles.reopenIconHalo]}>
                   <MaterialDesignIcons
@@ -809,11 +738,11 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                 </View>
               </View>
 
-              <Text style={styles.confirmTitle}>{t('postpartumLochia.reopenModal.title')}</Text>
+              <AwaText variant="headlineSmall" style={styles.confirmTitle}>{t('postpartumLochia.reopenModal.title')}</AwaText>
 
-              <Text style={styles.confirmText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.confirmText}>
                 {t('postpartumLochia.reopenModal.text')}
-              </Text>
+              </AwaText>
 
               <View style={styles.confirmInfoBox}>
                 <MaterialDesignIcons
@@ -821,40 +750,28 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   name="information-outline"
                   size={18}
                 />
-                <Text style={styles.confirmInfoText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.confirmInfoText}>
                   {t('postpartumLochia.reopenModal.infoText')}
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.confirmActions}>
-                <Pressable
+                <AwaButton
                   accessibilityRole="button"
                   onPress={() => setReopenModalVisible(false)}
-                  style={({ pressed }) => [
-                    styles.confirmCancelButton,
-                    pressed && styles.pressed,
-                  ]}
-                >
-                  <Text style={styles.confirmCancelText}>{t('common.cancel')}</Text>
-                </Pressable>
+                  label={t('common.cancel')}
+                  variant="tonal"
+                  style={styles.confirmCancelButton}
+                />
 
-                <Pressable
-                  accessibilityRole="button"
+                <AwaButton
+                  icon="backup-restore"
+                  label={t('postpartumLochia.reopenModal.confirm')}
                   onPress={confirmReopenTracking}
-                  style={({ pressed }) => [
-                    styles.confirmPrimaryButton,
-                    pressed && styles.pressed,
-                  ]}
-                >
-                  <MaterialDesignIcons
-                    color={onPrimaryTextColor(theme)}
-                    name="backup-restore"
-                    size={18}
-                  />
-                  <Text style={styles.confirmPrimaryText}>{t('postpartumLochia.reopenModal.confirm')}</Text>
-                </Pressable>
+                  style={styles.confirmPrimaryButton}
+                />
               </View>
-            </View>
+            </AwaCard>
           </View>
         </Modal>
 
@@ -872,7 +789,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               style={StyleSheet.absoluteFill}
             />
 
-            <View accessibilityLiveRegion="polite" accessibilityRole="alert" style={styles.confirmModalCard}>
+            <AwaCard padding="none" variant="elevated" accessibilityLiveRegion="polite" accessibilityRole="alert" style={styles.confirmModalCard}>
               <View style={styles.confirmIconWrap}>
                 <View style={styles.confirmIconHalo}>
                   <MaterialDesignIcons
@@ -883,25 +800,19 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                 </View>
               </View>
 
-              <Text style={styles.confirmTitle}>{t('postpartumLochia.header.title')}</Text>
+              <AwaText variant="headlineSmall" style={styles.confirmTitle}>{t('postpartumLochia.header.title')}</AwaText>
 
-              <Text style={styles.confirmText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.confirmText}>
                 {t('postpartumLochia.saveConfirmation.text')}
-              </Text>
+              </AwaText>
 
-              <Pressable
+              <AwaButton
                 accessibilityLabel="OK"
-                accessibilityRole="button"
+                label="OK"
                 onPress={() => setSaveConfirmationVisible(false)}
-                style={({ pressed }) => [
-                  styles.confirmPrimaryButton,
-                  styles.confirmSingleButton,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <Text style={styles.confirmPrimaryText}>OK</Text>
-              </Pressable>
-            </View>
+                style={styles.confirmSingleButton}
+              />
+            </AwaCard>
           </View>
         </Modal>
 
@@ -965,10 +876,10 @@ function DurationMetric({
 }): React.JSX.Element {
   return (
     <View style={styles.durationMetric}>
-      <Text style={styles.durationMetricLabel}>{label}</Text>
-      <Text numberOfLines={2} style={styles.durationMetricValue}>
+      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.durationMetricLabel}>{label}</AwaText>
+      <AwaText variant="labelSmall" style={styles.durationMetricValue}>
         {value}
-      </Text>
+      </AwaText>
     </View>
   );
 }
@@ -983,10 +894,10 @@ function Section({
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
-    <View style={styles.sectionCard}>
-      <Text style={styles.sectionTitle}>{title}</Text>
+    <AwaCard padding="none" variant="filled" style={styles.sectionCard}>
+      <AwaText variant="labelMedium" style={styles.sectionTitle}>{title}</AwaText>
       {children}
-    </View>
+    </AwaCard>
   );
 }
 
@@ -994,40 +905,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   background: { flex: 1, backgroundColor: theme.colors.background },
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
 
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
 
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
 
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   safeArea: { flex: 1, backgroundColor: 'transparent' },
   page: { flex: 1 },
@@ -1039,77 +919,26 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 16,
     marginBottom: 8,
   },
-  backButton: {
-    width: 42,
-    height: 42,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 14,
-    backgroundColor: withAlpha(theme.colors.surface, 0.86),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  headerTitle: {
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 21,
-    fontWeight: '800',
-  },
-  infoButton: {
-    width: 42,
-    height: 42,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   scrollContent: { paddingHorizontal: 14 },
-  dateCard: {
-    minHeight: 66,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: withAlpha(theme.colors.surface, 0.94),
-    paddingHorizontal: 16,
-    marginBottom: 10,
-  },
-  durationCard: {
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 22,
-    backgroundColor: withAlpha(theme.colors.surface, 0.94),
-    padding: 14,
-  },
+  dateCard: {minHeight: 66, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, marginBottom: 10},
+  durationCard: {marginBottom: 10, padding: 14},
   durationHeader: { flexDirection: 'row', alignItems: 'center' },
   durationIcon: {
     width: 40,
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   durationCopy: { flex: 1, minWidth: 0, marginLeft: 10 },
-  durationTitle: {
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 15,
-    fontWeight: '800',
-  },
-  durationSubtitle: {
-    marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    lineHeight: 13,
-  },
+  durationSubtitle: {marginTop: 2},
   durationMetrics: {
     flexDirection: 'row',
     marginTop: 13,
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.primarySoft,
-    paddingVertical: 10,
+    paddingVertical: 10, paddingHorizontal: 12,
   },
   durationMetric: {
     flex: 1,
@@ -1117,48 +946,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     paddingHorizontal: 4,
   },
-  durationMetricLabel: {
-    color: theme.colors.textSecondary,
-    fontSize: 8.5,
-    textAlign: 'center',
-  },
-  durationMetricValue: {
-    marginTop: 3,
-    color: theme.colors.text,
-    fontSize: 10,
-    fontWeight: '800',
-    textAlign: 'center',
-  },
-  endButton: {
-    minHeight: 43,
-    marginTop: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 7,
-    borderRadius: 14,
-    backgroundColor: theme.colors.primary,
-  },
-  reopenButton: {
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: theme.colors.primarySoft,
-  },
-  endButtonText: { color: onPrimaryTextColor(theme), fontSize: 11.5, fontWeight: '800' },
-  reopenButtonText: { color: theme.colors.primary },
-  dateEyebrow: {
-    color: theme.colors.primary,
-    fontSize: 9,
-    fontWeight: '800',
-    letterSpacing: 0.7,
-  },
-  dateText: {
-    marginTop: 3,
-    color: theme.colors.text,
-    fontSize: 12.5,
-    fontWeight: '700',
-    textTransform: 'capitalize',
-  },
+  durationMetricLabel: {textAlign: 'center'},
+  durationMetricValue: {marginTop: 3, textAlign: 'center'},
+  endButton: {marginTop: 12},
+  dateText: {marginTop: 3, textTransform: 'capitalize'},
   calendarIcon: {
     width: 36,
     height: 36,
@@ -1167,22 +958,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  sectionCard: {
-    marginBottom: 10,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: withAlpha(theme.colors.surface, 0.94),
-    paddingHorizontal: 12,
-    paddingTop: 12,
-    paddingBottom: 13,
-  },
-  sectionTitle: {
-    marginBottom: 10,
-    color: theme.colors.text,
-    fontSize: 13.5,
-    fontWeight: '800',
-  },
+  sectionCard: {marginBottom: 10, paddingHorizontal: 12, paddingTop: 12, paddingBottom: 13},
+  sectionTitle: {marginBottom: 10},
   flowRow: { flexDirection: 'row', justifyContent: 'space-between', gap: 6 },
   flowOption: {
     flex: 1,
@@ -1193,7 +970,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surface,
-    paddingHorizontal: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
   },
   flowIconCircle: {
     width: 34,
@@ -1207,7 +985,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   flowLabel: {
     marginTop: 6,
     color: theme.colors.textSecondary,
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '600',
   },
   colorRow: { flexDirection: 'row', justifyContent: 'space-between' },
@@ -1227,8 +1005,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     minHeight: 25,
     marginTop: 5,
     color: theme.colors.textSecondary,
-    fontSize: 8.5,
-    lineHeight: 11,
+    fontSize: 11,
+    lineHeight: 16,
     textAlign: 'center',
   },
   consistencyRow: { flexDirection: 'row', gap: 7 },
@@ -1237,7 +1015,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     minHeight: 42,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surface,
@@ -1245,7 +1023,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
   consistencyText: {
     color: theme.colors.textSecondary,
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '600',
     textAlign: 'center',
   },
@@ -1259,19 +1037,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.surface,
     paddingHorizontal: 13,
   },
-  symptomText: { color: theme.colors.textSecondary, fontSize: 9.8, fontWeight: '600' },
+  symptomText: { color: theme.colors.textSecondary, fontSize: 11, fontWeight: '600' },
   selectedBox: { borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft },
   selectedText: { color: theme.colors.text, fontWeight: '800' },
-  noteBox: {
-    minHeight: 104,
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: theme.colors.surface,
-    paddingHorizontal: 12,
-    paddingTop: 10,
-    paddingBottom: 25,
-  },
+  noteBox: {minHeight: 104, paddingHorizontal: 12, paddingTop: 10, paddingBottom: 25},
   noteInput: {
     minHeight: 64,
     padding: 0,
@@ -1279,47 +1048,19 @@ function createStyles(theme: ResolvedAwaTheme) {
     fontSize: 11,
     lineHeight: 16,
   },
-  counter: {
-    position: 'absolute',
-    right: 10,
-    bottom: 8,
-    color: theme.colors.textSecondary,
-    fontSize: 9,
-  },
+  counter: {position: 'absolute', right: 10, bottom: 8},
   reassurance: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
     marginBottom: 12,
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.primarySoft, 0.92),
     paddingHorizontal: 12,
     paddingVertical: 10,
   },
-  reassuranceText: {
-    flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    lineHeight: 14,
-  },
-  saveButton: {
-    width: '88%',
-    maxWidth: 360,
-    minHeight: 50,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    gap: 8,
-    borderRadius: 16,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.22,
-    shadowRadius: 9,
-    elevation: 5,
-  },
-  saveText: { color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '800' },
+  reassuranceText: {flex: 1},
+  saveButton: {width: '88%', maxWidth: 360, alignSelf: 'center'},
 
   // Fixed — a modal dim/scrim, not a surface; overlay dims stay dark
   // regardless of the resolved theme so the sheet above it always pops
@@ -1331,22 +1072,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: 'rgba(34,20,69,0.40)',
     paddingHorizontal: 22,
   },
-  confirmModalCard: {
-    width: '100%',
-    maxWidth: 390,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 28,
-    backgroundColor: theme.colors.surface,
-    paddingHorizontal: 20,
-    paddingTop: 22,
-    paddingBottom: 18,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: { width: 0, height: 14 },
-    shadowOpacity: 0.24,
-    shadowRadius: 24,
-    elevation: 12,
-  },
+  confirmModalCard: {width: '100%', maxWidth: 390, paddingHorizontal: 20, paddingTop: 22, paddingBottom: 18},
   confirmIconWrap: {
     alignItems: 'center',
     marginBottom: 12,
@@ -1364,25 +1090,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   reopenIconHalo: {
     backgroundColor: theme.colors.primarySoft,
   },
-  confirmTitle: {
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 22,
-    fontWeight: '800',
-    textAlign: 'center',
-  },
-  confirmText: {
-    marginTop: 9,
-    color: theme.colors.textSecondary,
-    fontSize: 12.5,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  confirmDate: {
-    color: theme.colors.text,
-    fontWeight: '800',
-    textTransform: 'capitalize',
-  },
+  confirmTitle: {textAlign: 'center'},
+  confirmText: {marginTop: 9, textAlign: 'center'},
+  confirmDate: {textTransform: 'capitalize'},
   confirmInfoBox: {
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -1393,52 +1103,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 12,
     paddingVertical: 11,
   },
-  confirmInfoText: {
-    flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
-  },
+  confirmInfoText: {flex: 1},
   confirmActions: {
     flexDirection: 'row',
     gap: 10,
     marginTop: 18,
   },
-  confirmCancelButton: {
-    flex: 1,
-    minHeight: 48,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 16,
-    backgroundColor: theme.colors.primarySoft,
-  },
-  confirmCancelText: {
-    color: theme.colors.primary,
-    fontSize: 13,
-    fontWeight: '800',
-  },
-  confirmPrimaryButton: {
-    flex: 1.2,
-    minHeight: 48,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 7,
-    borderRadius: 16,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  confirmPrimaryText: {
-    color: onPrimaryTextColor(theme),
-    fontSize: 13,
-    fontWeight: '800',
-  },
+  confirmCancelButton: {flex: 1},
+  confirmPrimaryButton: {flex: 1.2},
   // Used only by the save-confirmation modal, which has a single "OK"
   // action outside the two-button confirmActions row — overrides
   // confirmPrimaryButton's flex:1.2 (meant for a row sibling) so the button
