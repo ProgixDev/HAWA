@@ -39,6 +39,9 @@ import {computeIrregularDailyProgress} from '../../utils/irregularDailyTrackingM
 import {classifyIrregularPeriodDay} from '../../utils/irregularJournalSelectors';
 import {displayUpperCase} from '../../utils/textCase';
 import '../../i18n';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 
 // The SOPK Daily Journal's full-screen overview — reached from
 // IrregularDashboard.tsx's "Suivi du jour" card (tapping the card header or
@@ -140,10 +143,6 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <SafeAreaView style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
@@ -153,38 +152,36 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
           showsVerticalScrollIndicator={false}>
           {/* HEADER */}
           <View style={styles.header}>
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('common.back')}
-              accessibilityRole="button"
-              hitSlop={10}
+              icon="chevron-left"
               onPress={navigation.goBack}
-              style={({pressed}) => [styles.headerButton, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={24} />
-            </Pressable>
+              style={styles.headerButton}
+              variant="tonal"
+            />
 
             <View style={styles.headerCopy}>
-              <Text style={styles.title}>{t('irregularJournalOverview.title')}</Text>
-              <Text style={styles.subtitle}>{dateLabel}</Text>
+              <AwaText variant="titleLarge" style={styles.title}>{t('irregularJournalOverview.title')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>{dateLabel}</AwaText>
             </View>
 
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('irregularJournalOverview.calendarAccessibility')}
-              accessibilityRole="button"
-              hitSlop={10}
+              icon="calendar-month-outline"
               onPress={() => navigation.navigate('MainTabs', {screen: 'Calendar'})}
-              style={({pressed}) => [styles.headerButton, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="calendar-month-outline" size={21} />
-            </Pressable>
+              style={styles.headerButton}
+              variant="tonal"
+            />
           </View>
 
           {/* PROGRESS CARD */}
-          <View style={styles.progressCard}>
+          <AwaCard padding="none" variant="filled" style={styles.progressCard}>
             <View style={styles.progressTopRow}>
               <View style={styles.progressCopy}>
-                <Text style={styles.progressTitle}>{t('irregularJournalOverview.progressTitle')}</Text>
-                <Text style={styles.progressDescription}>
+                <AwaText variant="titleMedium">{t('irregularJournalOverview.progressTitle')}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.progressDescription}>
                   {t('irregularJournalOverview.progressDescription')}
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.progressBadge}>
@@ -198,10 +195,10 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
             <View style={styles.progressTrack}>
               <View style={[styles.progressFill, {width: `${Math.round(progressRatio * 100)}%`}]} />
             </View>
-          </View>
+          </AwaCard>
 
           {/* CATEGORY LIST */}
-          <View style={styles.card}>
+          <AwaCard padding="none" variant="filled" style={styles.card}>
             <JournalRow
               done={periodDoneToday}
               icon="water-outline"
@@ -225,7 +222,7 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
                 />
               );
             })}
-          </View>
+          </AwaCard>
         </ScrollView>
       </SafeAreaView>
     </LinearGradient>
@@ -264,8 +261,8 @@ function JournalRow({
       </View>
 
       <View style={styles.rowCopy}>
-        <Text style={styles.rowLabel}>{label}</Text>
-        <Text numberOfLines={1} style={styles.rowValue}>{value}</Text>
+        <AwaText variant="labelMedium">{label}</AwaText>
+        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.rowValue}>{value}</AwaText>
       </View>
 
       <View style={[styles.rowState, done && styles.rowStateDone]}>
@@ -282,65 +279,42 @@ function JournalRow({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   background: {flex: 1, backgroundColor: theme.colors.background},
-  pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
-  pageGlowTop: {
-    position: 'absolute', top: -150, right: -110, width: 330, height: 330,
-    borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-  pageGlowBottom: {
-    position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
-    borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   safeArea: {flex: 1},
   content: {flexGrow: 1, paddingHorizontal: 16, paddingTop: TOP_SPACING_EXTRA},
 
   header: {flexDirection: 'row', alignItems: 'center'},
-  headerButton: {
-    ...theme.shadow,
-    width: 46, height: 46, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-    borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 17, backgroundColor: theme.colors.surface,
-  },
+  headerButton: {flexShrink: 0},
   headerCopy: {flex: 1, minWidth: 0, alignItems: 'center', paddingHorizontal: 8},
-  title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 19, fontWeight: '800', textAlign: 'center'},
-  subtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11.5, textAlign: 'center'},
+  title: {textAlign: 'center'},
+  subtitle: {marginTop: 3, textAlign: 'center'},
 
-  progressCard: {
-    ...theme.shadow,
-    marginTop: 18, padding: 16, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 24,
-    backgroundColor: withAlpha(theme.colors.surface, 0.97),
-  },
+  progressCard: {marginTop: 18, padding: 16},
   progressTopRow: {flexDirection: 'row', alignItems: 'flex-start'},
   progressCopy: {flex: 1, minWidth: 0, paddingRight: 10},
-  progressTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 16.5, fontWeight: '800'},
-  progressDescription: {marginTop: 5, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+  progressDescription: {marginTop: 5},
   progressBadge: {
     minWidth: 62, flexShrink: 0, alignItems: 'center', paddingHorizontal: 10, paddingVertical: 8,
     borderRadius: 16, backgroundColor: theme.colors.primarySoft,
   },
   progressBadgeValue: {color: theme.colors.primary, fontSize: 15, fontWeight: '800'},
-  progressBadgeLabel: {marginTop: 1, color: theme.colors.primary, fontSize: 8.5, fontWeight: '800', textTransform: 'uppercase'},
+  progressBadgeLabel: {marginTop: 1, color: theme.colors.primary, fontSize: 11, fontWeight: '800', textTransform: 'uppercase'},
   progressTrack: {
     height: 7, marginTop: 14, overflow: 'hidden', borderRadius: 4, backgroundColor: theme.colors.primarySoft,
   },
   progressFill: {height: '100%', borderRadius: 4, backgroundColor: theme.colors.primary},
 
-  card: {
-    ...theme.shadow,
-    marginTop: 16, paddingHorizontal: 6, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 24,
-    backgroundColor: withAlpha(theme.colors.surface, 0.97),
-  },
+  card: {marginTop: 16, paddingHorizontal: 6},
 
   row: {flexDirection: 'row', alignItems: 'center', minHeight: 68, paddingHorizontal: 10, gap: 12},
   rowBorder: {borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: withAlpha(theme.colors.primary, 0.14)},
   rowIcon: {
     width: 40, height: 40, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 14, backgroundColor: theme.colors.primarySoft,
+    borderRadius: 12, backgroundColor: theme.colors.primarySoft,
   },
   rowIconDone: {backgroundColor: theme.colors.primary},
   rowCopy: {flex: 1, minWidth: 0},
-  rowLabel: {color: theme.colors.text, fontSize: 13.5, fontWeight: '800'},
-  rowValue: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 15},
+  rowValue: {marginTop: 2},
   rowState: {
     width: 26, height: 26, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
     borderRadius: 13, backgroundColor: theme.colors.primarySoft,

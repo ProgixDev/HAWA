@@ -54,6 +54,8 @@ import {
 } from '../../utils/irregularStatisticsMath';
 import {journalOptionLabel, type JournalOptionNamespace} from '../../utils/journalOptionLabels';
 import '../../i18n';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaText} from '../../components/ui/AwaText';
 
 // Phase 7H.1 — maps each single-value scale field read by
 // calculateCategoryDistribution (entry.acne/hairGrowth/pain/mood/fatigue) to
@@ -125,8 +127,8 @@ function SectionHeader({
       </View>
 
       <View style={styles.sectionHeaderCopy}>
-        <Text style={styles.cardTitle}>{title}</Text>
-        {subtitle ? <Text style={styles.cardSubtitle}>{subtitle}</Text> : null}
+        <AwaText variant="titleMedium" style={styles.cardTitle}>{title}</AwaText>
+        {subtitle ? <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardSubtitle}>{subtitle}</AwaText> : null}
       </View>
     </View>
   );
@@ -148,16 +150,16 @@ function DataNotice({
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
-    <View style={styles.notice}>
+    <AwaCard padding="none" variant="filled" style={styles.notice}>
       <View style={styles.noticeIcon}>
         <MaterialDesignIcons color={theme.colors.primary} name={icon} size={20} />
       </View>
 
       <View style={styles.noticeCopy}>
-        <Text style={styles.noticeTitle}>{title}</Text>
-        <Text style={styles.noticeDetail}>{detail}</Text>
+        <AwaText variant="labelMedium" style={styles.noticeTitle}>{title}</AwaText>
+        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.noticeDetail}>{detail}</AwaText>
       </View>
-    </View>
+    </AwaCard>
   );
 }
 
@@ -189,7 +191,7 @@ function CategoryCard({
   const maxDays = Math.max(1, ...distribution.map(item => item.days));
 
   return (
-    <View style={styles.card}>
+    <AwaCard padding="none" variant="filled" style={styles.card}>
       <SectionHeader
         icon={icon}
         subtitle={
@@ -206,11 +208,11 @@ function CategoryCard({
             <View style={styles.monthVisualization}>
               <View style={styles.monthVisualizationTop}>
                 <View>
-                  <Text style={styles.monthVisualizationEyebrow}>{t('irregularStatistics.common.thisMonth')}</Text>
+                  <AwaText variant="labelSmall" colorRole="primary">{t('irregularStatistics.common.thisMonth')}</AwaText>
                   <Text style={styles.monthVisualizationNumber}>{totalRecordedDays}</Text>
-                  <Text style={styles.monthVisualizationUnit}>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.monthVisualizationUnit}>
                     {t('irregularStatistics.common.trackedDaysLabel', {count: totalRecordedDays})}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <View style={styles.monthVisualizationIcon}>
@@ -225,12 +227,12 @@ function CategoryCard({
                   return (
                     <View key={item.value} style={styles.distributionItem}>
                       <View style={styles.distributionItemTop}>
-                        <Text numberOfLines={1} style={styles.distributionLabel}>
+                        <AwaText variant="labelSmall" style={styles.distributionLabel}>
                           {journalOptionLabel(namespace, item.value, t)}
-                        </Text>
-                        <Text style={styles.distributionValue}>
+                        </AwaText>
+                        <AwaText variant="labelSmall" colorRole="onSurfaceVariant">
                           {t('irregularStatistics.common.daysCount', {count: item.days})}
-                        </Text>
+                        </AwaText>
                       </View>
 
                       <View style={styles.distributionTrack}>
@@ -245,9 +247,9 @@ function CategoryCard({
             <View style={styles.chipRow}>
               {distribution.map(item => (
                 <View key={item.value} style={styles.chip}>
-                  <Text style={styles.chipText}>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant">
                     {`${journalOptionLabel(namespace, item.value, t)} · ${t('irregularStatistics.common.daysCount', {count: item.days})}`}
-                  </Text>
+                  </AwaText>
                 </View>
               ))}
             </View>
@@ -263,20 +265,20 @@ function CategoryCard({
 
       {showLongitudinalView && monthlyTrend.length > 0 ? (
         <View style={styles.monthList}>
-          <Text style={styles.monthListTitle}>{t('irregularStatistics.category.evolutionTitle')}</Text>
+          <AwaText variant="labelSmall" style={styles.monthListTitle}>{t('irregularStatistics.category.evolutionTitle')}</AwaText>
 
           {monthlyTrend.map(month => (
             <View key={month.monthKey} style={styles.monthItem}>
               <View style={styles.monthTop}>
-                <Text style={styles.monthLabel}>{month.monthLabel}</Text>
+                <AwaText variant="labelSmall" style={styles.monthLabel}>{month.monthLabel}</AwaText>
               </View>
 
               <View style={styles.chipRow}>
                 {month.distribution.map(item => (
                   <View key={item.value} style={styles.chip}>
-                    <Text style={styles.chipText}>
+                    <AwaText variant="labelSmall" colorRole="onSurfaceVariant">
                       {`${journalOptionLabel(namespace, item.value, t)} · ${t('irregularStatistics.common.daysAbbrev', {count: item.days})}`}
-                    </Text>
+                    </AwaText>
                   </View>
                 ))}
               </View>
@@ -284,7 +286,7 @@ function CategoryCard({
           ))}
         </View>
       ) : null}
-    </View>
+    </AwaCard>
   );
 }
 
@@ -429,11 +431,6 @@ function IrregularStatisticsScreen(): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
@@ -451,8 +448,8 @@ function IrregularStatisticsScreen(): React.JSX.Element {
 
           <View style={styles.header}>
             <View style={styles.headerCopy}>
-              <Text style={styles.title}>{t('irregularStatistics.header.title')}</Text>
-              <Text style={styles.subtitle}>{t('irregularStatistics.header.subtitle')}</Text>
+              <AwaText variant="headlineMedium" style={styles.title}>{t('irregularStatistics.header.title')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>{t('irregularStatistics.header.subtitle')}</AwaText>
             </View>
 
             <View style={styles.headerIcon}>
@@ -498,25 +495,23 @@ function IrregularStatisticsScreen(): React.JSX.Element {
           =================================================== */}
 
           <View style={styles.sectionHeading}>
-            <Text style={styles.sectionTitle}>{t('irregularStatistics.cycleOverview.sectionTitle')}</Text>
-            <Text style={styles.sectionDescription}>
+            <AwaText variant="titleLarge" style={styles.sectionTitle}>{t('irregularStatistics.cycleOverview.sectionTitle')}</AwaText>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.sectionDescription}>
               {t('irregularStatistics.cycleOverview.summaryOver', {months: monthsLabel})}
-            </Text>
+            </AwaText>
           </View>
 
           {observedCycleDuration ? (
-            <View style={styles.cycleHero}>
-              <View style={styles.heroDecorationOne} />
-              <View style={styles.heroDecorationTwo} />
+            <AwaCard style={styles.cycleHero}>
 
               <View style={styles.heroTop}>
                 <View style={styles.heroMain}>
-                  <Text style={styles.heroEyebrow}>{t('irregularStatistics.cycleOverview.hero.eyebrow')}</Text>
+                  <AwaText variant="labelSmall" colorRole="primary">{t('irregularStatistics.cycleOverview.hero.eyebrow')}</AwaText>
 
                   <View style={styles.heroCycleRow}>
                     <Text style={styles.heroNumber}>{observedCycleDuration.averageDays}</Text>
                     <View style={styles.heroNumberCopy}>
-                      <Text style={styles.heroUnit}>{t('irregularStatistics.cycleOverview.hero.unit')}</Text>
+                      <AwaText variant="titleMedium" style={styles.heroUnit}>{t('irregularStatistics.cycleOverview.hero.unit')}</AwaText>
                     </View>
                   </View>
                 </View>
@@ -529,7 +524,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
 
               <View style={styles.heroDivider} />
 
-              <Text style={styles.heroFootnote}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                 {t('irregularStatistics.cycleOverview.hero.footnote', {
                   cycles: t('irregularStatistics.common.cyclesCount', {
                     count: observedCycleDuration.cyclesAnalyzed,
@@ -537,14 +532,12 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                   days: t('irregularStatistics.common.trackedDaysCount', {count: trackedDays}),
                   months: monthsLabel,
                 })}
-              </Text>
+              </AwaText>
 
-              {coverageMessage ? <Text style={styles.coverageText}>{coverageMessage}</Text> : null}
-            </View>
+              {coverageMessage ? <AwaText variant="labelSmall" colorRole="primary" style={styles.coverageText}>{coverageMessage}</AwaText> : null}
+            </AwaCard>
           ) : (
-            <View style={styles.emptyCycleCard}>
-              <View pointerEvents="none" style={styles.emptyCycleGlowOne} />
-              <View pointerEvents="none" style={styles.emptyCycleGlowTwo} />
+            <AwaCard padding="none" style={styles.emptyCycleCard}>
 
               <View style={styles.emptyCycleIconRing}>
                 <View style={styles.emptyCycleIcon}>
@@ -556,15 +549,15 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                 </View>
               </View>
 
-              <Text style={styles.emptyCycleEyebrow}>{t('irregularStatistics.cycleOverview.empty.eyebrow')}</Text>
+              <AwaText variant="labelSmall" colorRole="primary" style={styles.emptyCycleEyebrow}>{t('irregularStatistics.cycleOverview.empty.eyebrow')}</AwaText>
 
-              <Text style={styles.emptyCycleTitle}>
+              <AwaText variant="titleMedium" style={styles.emptyCycleTitle}>
                 {t('irregularStatistics.cycleOverview.empty.title')}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.emptyCycleText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.emptyCycleText}>
                 {t('irregularStatistics.cycleOverview.empty.text')}
-              </Text>
+              </AwaText>
 
               <View style={styles.emptyCyclePill}>
                 <MaterialDesignIcons
@@ -572,9 +565,9 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                   name="chart-timeline-variant"
                   size={15}
                 />
-                <Text style={styles.emptyCyclePillText}>
+                <AwaText variant="labelSmall" colorRole="primary" style={styles.emptyCyclePillText}>
                   {t('irregularStatistics.cycleOverview.empty.pill')}
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.emptyCycleHint}>
@@ -583,18 +576,18 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                   name="information-outline"
                   size={14}
                 />
-                <Text style={styles.emptyCycleHintText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.emptyCycleHintText}>
                   {t('irregularStatistics.cycleOverview.empty.hint')}
-                </Text>
+                </AwaText>
               </View>
-            </View>
+            </AwaCard>
           )}
 
           {/* ==================================================
               SYMPTÔMES — aperçu global, jamais un score
           =================================================== */}
 
-          <View style={styles.card}>
+          <AwaCard padding="none" variant="filled" style={styles.card}>
             <SectionHeader
               icon="heart-pulse"
               subtitle={
@@ -607,22 +600,22 @@ function IrregularStatisticsScreen(): React.JSX.Element {
 
             {trackedDays > 0 ? (
               showLongitudinalView ? (
-                <Text style={styles.overviewText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.overviewText}>
                   {t('irregularStatistics.symptoms.overview', {
                     withSymptom: t('irregularStatistics.common.daysCount', {count: daysWithAnySymptom}),
                     tracked: t('irregularStatistics.common.trackedDaysCount', {count: trackedDays}),
                   })}
-                </Text>
+                </AwaText>
               ) : (
                 <View style={styles.monthSnapshot}>
                   <View style={styles.snapshotMetric}>
                     <View style={styles.snapshotMetricIcon}>
                       <MaterialDesignIcons color={theme.colors.primary} name="calendar-check-outline" size={19} />
                     </View>
-                    <Text style={styles.snapshotMetricValue}>{trackedDays}</Text>
-                    <Text style={styles.snapshotMetricLabel}>
+                    <AwaText variant="titleLarge" style={styles.snapshotMetricValue}>{trackedDays}</AwaText>
+                    <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.snapshotMetricLabel}>
                       {t('irregularStatistics.symptoms.snapshot.trackedLabel')}
-                    </Text>
+                    </AwaText>
                   </View>
 
                   <View style={styles.snapshotDivider} />
@@ -631,10 +624,10 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                     <View style={styles.snapshotMetricIcon}>
                       <MaterialDesignIcons color={theme.colors.primary} name="heart-pulse" size={19} />
                     </View>
-                    <Text style={styles.snapshotMetricValue}>{daysWithAnySymptom}</Text>
-                    <Text style={styles.snapshotMetricLabel}>
+                    <AwaText variant="titleLarge" style={styles.snapshotMetricValue}>{daysWithAnySymptom}</AwaText>
+                    <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.snapshotMetricLabel}>
                       {t('irregularStatistics.symptoms.snapshot.withObservationLabel')}
-                    </Text>
+                    </AwaText>
                   </View>
 
                   <View style={styles.snapshotDivider} />
@@ -643,12 +636,12 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                     <View style={styles.snapshotMetricIcon}>
                       <MaterialDesignIcons color={theme.colors.primary} name="chart-donut" size={19} />
                     </View>
-                    <Text style={styles.snapshotMetricValue}>
+                    <AwaText variant="titleLarge" style={styles.snapshotMetricValue}>
                       {trackedDays > 0 ? Math.round((daysWithAnySymptom / trackedDays) * 100) : 0}%
-                    </Text>
-                    <Text style={styles.snapshotMetricLabel}>
+                    </AwaText>
+                    <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.snapshotMetricLabel}>
                       {t('irregularStatistics.symptoms.snapshot.coverageLabel')}
-                    </Text>
+                    </AwaText>
                   </View>
                 </View>
               )
@@ -659,7 +652,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                 title={t('irregularStatistics.symptoms.emptyTitle')}
               />
             )}
-          </View>
+          </AwaCard>
 
           {/* ==================================================
               ACNÉ / PILOSITÉ / DOULEURS / HUMEUR / FATIGUE
@@ -684,7 +677,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
           =================================================== */}
 
           {associatedSymptomFrequency.length > 0 ? (
-            <View style={styles.card}>
+            <AwaCard padding="none" variant="filled" style={styles.card}>
               <SectionHeader
                 icon="format-list-checks"
                 subtitle={t('irregularStatistics.associated.subtitle')}
@@ -694,13 +687,13 @@ function IrregularStatisticsScreen(): React.JSX.Element {
               <View style={styles.chipRow}>
                 {associatedSymptomFrequency.map(item => (
                   <View key={item.name} style={styles.chip}>
-                    <Text style={styles.chipText}>
+                    <AwaText variant="labelSmall" colorRole="onSurfaceVariant">
                       {`${journalOptionLabel('irregularSymptom', item.name, t)} · ${t('irregularStatistics.common.daysCount', {count: item.days})}`}
-                    </Text>
+                    </AwaText>
                   </View>
                 ))}
               </View>
-            </View>
+            </AwaCard>
           ) : null}
 
           {/* ==================================================
@@ -708,7 +701,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
           =================================================== */}
 
           {hasAnyWeightData ? (
-            <View style={styles.card}>
+            <AwaCard padding="none" variant="filled" style={styles.card}>
               <SectionHeader
                 icon="scale-bathroom"
                 subtitle={
@@ -724,16 +717,16 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                   {monthlyWeightTrend.map(month => (
                     <View key={month.monthKey} style={styles.monthItem}>
                       <View style={styles.monthTop}>
-                        <Text style={styles.monthLabel}>{month.monthLabel}</Text>
-                        <Text style={styles.monthMeta}>
+                        <AwaText variant="labelSmall" style={styles.monthLabel}>{month.monthLabel}</AwaText>
+                        <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                           {t('irregularStatistics.weight.measurementsCount', {count: month.entries.length})}
-                        </Text>
+                        </AwaText>
                       </View>
 
                       <View style={styles.chipRow}>
                         {month.entries.slice(-4).map(entry => (
                           <View key={entry.date} style={styles.chip}>
-                            <Text style={styles.chipText}>{entry.value}</Text>
+                            <AwaText variant="labelSmall" colorRole="onSurfaceVariant">{entry.value}</AwaText>
                           </View>
                         ))}
                       </View>
@@ -744,11 +737,11 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                 <View style={styles.weightMonthPanel}>
                   <View style={styles.weightMonthTop}>
                     <View>
-                      <Text style={styles.monthVisualizationEyebrow}>{t('irregularStatistics.common.thisMonth')}</Text>
+                      <AwaText variant="labelSmall" colorRole="primary">{t('irregularStatistics.common.thisMonth')}</AwaText>
                       <Text style={styles.weightMonthCount}>{weightEntries.length}</Text>
-                      <Text style={styles.weightMonthLabel}>
+                      <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.weightMonthLabel}>
                         {t('irregularStatistics.weight.recordedLabel', {count: weightEntries.length})}
-                      </Text>
+                      </AwaText>
                     </View>
 
                     <View style={styles.weightMonthIcon}>
@@ -764,15 +757,15 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                           <View style={styles.weightTimelineLine} />
                         ) : null}
                         <View style={styles.weightTimelineCopy}>
-                          <Text style={styles.weightTimelineValue}>{entry.value}</Text>
-                          <Text style={styles.weightTimelineDate}>{entry.date}</Text>
+                          <AwaText variant="labelSmall" style={styles.weightTimelineValue}>{entry.value}</AwaText>
+                          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.weightTimelineDate}>{entry.date}</AwaText>
                         </View>
                       </View>
                     ))}
                   </View>
                 </View>
               )}
-            </View>
+            </AwaCard>
           ) : null}
 
           {/* ==================================================
@@ -781,9 +774,9 @@ function IrregularStatisticsScreen(): React.JSX.Element {
 
           <View style={styles.medicalHint}>
             <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={17} />
-            <Text style={styles.medicalHintText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.medicalHintText}>
               {t('irregularStatistics.medicalHint')}
-            </Text>
+            </AwaText>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -804,40 +797,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.background,
   },
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
 
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
 
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
 
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   safeArea: {
     flex: 1,
@@ -864,21 +826,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  title: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 28,
-    lineHeight: 34,
-    fontWeight: '800',
-  },
+  title: {color: theme.colors.accent},
 
-  subtitle: {
-    maxWidth: 300,
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 11.5,
-    lineHeight: 17,
-  },
+  subtitle: {maxWidth: 300, marginTop: 3},
 
   headerIcon: {
     ...theme.shadow,
@@ -900,7 +850,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 16,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.05),
-    borderRadius: 17,
+    borderRadius: 16,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
@@ -909,7 +859,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 40,
-    borderRadius: 13,
+    borderRadius: 12,
   },
 
   filterButtonActive: {
@@ -925,7 +875,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   filterText: {
     color: theme.colors.textSecondary,
-    fontSize: 10.5,
+    fontSize: 11,
     fontWeight: '700',
   },
 
@@ -939,49 +889,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 10,
   },
 
-  sectionTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 19,
-    fontWeight: '800',
-  },
+  sectionTitle: {color: theme.colors.accent},
 
-  sectionDescription: {
-    marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-  },
+  sectionDescription: {marginTop: 2},
 
   cycleHero: {
-    ...theme.shadow,
-    position: 'relative',
     overflow: 'hidden',
-    padding: 17,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 27,
-    backgroundColor: withAlpha(theme.colors.surface, 0.96),
   },
 
-  heroDecorationOne: {
-    position: 'absolute',
-    top: -60,
-    right: -45,
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    backgroundColor: withAlpha(theme.colors.primary, 0.06),
-  },
 
-  heroDecorationTwo: {
-    position: 'absolute',
-    top: 25,
-    right: 25,
-    width: 55,
-    height: 55,
-    borderRadius: 28,
-    backgroundColor: withAlpha(theme.colors.primary, 0.18),
-  },
 
   heroTop: {
     flexDirection: 'row',
@@ -994,12 +910,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  heroEyebrow: {
-    color: theme.colors.primary,
-    fontSize: 9,
-    fontWeight: '800',
-    letterSpacing: 1,
-  },
 
   heroCycleRow: {
     flexDirection: 'row',
@@ -1019,12 +929,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginLeft: 9,
   },
 
-  heroUnit: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 17,
-    fontWeight: '800',
-  },
+  heroUnit: {color: theme.colors.accent},
 
   periodBadge: {
     maxWidth: 105,
@@ -1040,8 +945,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   periodBadgeText: {
     marginTop: 4,
     color: theme.colors.primary,
-    fontSize: 9,
-    lineHeight: 12,
+    fontSize: 11,
+    lineHeight: 16,
     fontWeight: '800',
     textAlign: 'center',
   },
@@ -1052,36 +957,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: withAlpha(theme.colors.primary, 0.14),
   },
 
-  heroFootnote: {
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
-  },
 
-  coverageText: {
-    marginTop: 8,
-    color: theme.colors.primary,
-    fontSize: 9.5,
-    fontWeight: '700',
-  },
+  coverageText: {marginTop: 8},
 
-  overviewText: {
-    marginTop: 10,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    lineHeight: 16,
-  },
+  overviewText: {marginTop: 10},
 
-  notice: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 10,
-    padding: 15,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 20,
-    backgroundColor: withAlpha(theme.colors.surface, 0.85),
-  },
+  notice: {flexDirection: 'row', alignItems: 'flex-start', gap: 10, padding: 16},
 
   noticeIcon: {
     width: 36,
@@ -1098,28 +979,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  noticeTitle: {
-    color: theme.colors.accent,
-    fontSize: 12.5,
-    fontWeight: '800',
-  },
+  noticeTitle: {color: theme.colors.accent},
 
-  noticeDetail: {
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
-  },
+  noticeDetail: {marginTop: 3},
 
-  card: {
-    ...theme.shadow,
-    marginTop: 14,
-    padding: 15,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 23,
-    backgroundColor: theme.colors.surface,
-  },
+  card: {marginTop: 14, padding: 16},
 
   sectionHeader: {
     flexDirection: 'row',
@@ -1133,7 +997,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 10,
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1142,30 +1006,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  cardTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 17,
-    fontWeight: '800',
-  },
+  cardTitle: {color: theme.colors.accent},
 
-  cardSubtitle: {
-    marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    lineHeight: 13,
-  },
+  cardSubtitle: {marginTop: 2},
 
   monthList: {
     marginTop: 14,
   },
 
-  monthListTitle: {
-    marginBottom: 6,
-    color: theme.colors.accent,
-    fontSize: 11.5,
-    fontWeight: '800',
-  },
+  monthListTitle: {marginBottom: 6, color: theme.colors.accent},
 
   monthItem: {
     paddingVertical: 10,
@@ -1179,16 +1028,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
 
-  monthLabel: {
-    color: theme.colors.accent,
-    fontSize: 11.5,
-    fontWeight: '800',
-  },
+  monthLabel: {color: theme.colors.accent},
 
-  monthMeta: {
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-  },
 
   chipRow: {
     flexDirection: 'row',
@@ -1198,51 +1039,22 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   chip: {
-    paddingHorizontal: 9,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
-  chipText: {
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    fontWeight: '700',
-  },
 
   emptyCycleCard: {
-    ...theme.shadow,
-    position: 'relative',
     overflow: 'hidden',
     alignItems: 'center',
     paddingHorizontal: 22,
     paddingTop: 24,
     paddingBottom: 20,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 27,
-    backgroundColor: withAlpha(theme.colors.surface, 0.97),
   },
 
-  emptyCycleGlowOne: {
-    position: 'absolute',
-    top: -74,
-    right: -58,
-    width: 180,
-    height: 180,
-    borderRadius: 90,
-    backgroundColor: withAlpha(theme.colors.primary, 0.055),
-  },
 
-  emptyCycleGlowTwo: {
-    position: 'absolute',
-    bottom: -82,
-    left: -54,
-    width: 165,
-    height: 165,
-    borderRadius: 83,
-    backgroundColor: withAlpha(theme.colors.primary, 0.10),
-  },
 
   emptyCycleIconRing: {
     width: 70,
@@ -1252,7 +1064,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 13,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.11),
-    borderRadius: 24,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.68),
   },
 
@@ -1261,38 +1073,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 56,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 19,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  emptyCycleEyebrow: {
-    color: theme.colors.primary,
-    fontSize: 8.8,
-    lineHeight: 12,
-    fontWeight: '900',
-    letterSpacing: 1.15,
-    textAlign: 'center',
-  },
+  emptyCycleEyebrow: {textAlign: 'center'},
 
-  emptyCycleTitle: {
-    maxWidth: 300,
-    marginTop: 6,
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 18.5,
-    lineHeight: 23,
-    fontWeight: '900',
-    textAlign: 'center',
-  },
+  emptyCycleTitle: {maxWidth: 300, marginTop: 6, color: theme.colors.accent, textAlign: 'center'},
 
-  emptyCycleText: {
-    maxWidth: 305,
-    marginTop: 8,
-    color: theme.colors.textSecondary,
-    fontSize: 10.8,
-    lineHeight: 16.5,
-    textAlign: 'center',
-  },
+  emptyCycleText: {maxWidth: 305, marginTop: 8, textAlign: 'center'},
 
   emptyCyclePill: {
     flexDirection: 'row',
@@ -1300,21 +1089,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     gap: 6,
     marginTop: 15,
-    paddingHorizontal: 11,
-    paddingVertical: 7,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.07),
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  emptyCyclePillText: {
-    color: theme.colors.primary,
-    fontSize: 9.3,
-    lineHeight: 13,
-    fontWeight: '800',
-    textAlign: 'center',
-  },
+  emptyCyclePillText: {textAlign: 'center'},
 
   emptyCycleHint: {
     flexDirection: 'row',
@@ -1322,28 +1105,23 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 6,
     width: '100%',
     marginTop: 14,
-    paddingHorizontal: 11,
+    paddingHorizontal: 12,
     paddingVertical: 9,
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.primarySoft, 0.78),
   },
 
-  emptyCycleHintText: {
-    flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 9.2,
-    lineHeight: 13.5,
-  },
+  emptyCycleHintText: {flex: 1},
 
   monthSnapshot: {
     flexDirection: 'row',
     alignItems: 'stretch',
     marginTop: 12,
     paddingVertical: 14,
-    paddingHorizontal: 8,
+    paddingHorizontal: 12,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.07),
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
@@ -1365,22 +1143,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  snapshotMetricValue: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 25,
-    fontWeight: '900',
-  },
+  snapshotMetricValue: {color: theme.colors.accent},
 
-  snapshotMetricLabel: {
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 8.8,
-    lineHeight: 12,
-    fontWeight: '700',
-    textAlign: 'center',
-  },
+  snapshotMetricLabel: {marginTop: 3, textAlign: 'center'},
 
   snapshotDivider: {
     width: StyleSheet.hairlineWidth,
@@ -1393,7 +1158,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 14,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.07),
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
@@ -1404,36 +1169,23 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 14,
   },
 
-  monthVisualizationEyebrow: {
-    color: theme.colors.primary,
-    fontSize: 8.5,
-    lineHeight: 12,
-    fontWeight: '900',
-    letterSpacing: 1,
-  },
 
   monthVisualizationNumber: {
     marginTop: 2,
     color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 32,
-    lineHeight: 36,
+    fontSize: 28,
+    lineHeight: 32,
     fontWeight: '900',
   },
 
-  monthVisualizationUnit: {
-    marginTop: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    fontWeight: '700',
-  },
+  monthVisualizationUnit: {marginTop: 1},
 
   monthVisualizationIcon: {
     width: 44,
     height: 44,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1452,18 +1204,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 10,
   },
 
-  distributionLabel: {
-    flex: 1,
-    color: theme.colors.accent,
-    fontSize: 10.5,
-    fontWeight: '800',
-  },
+  distributionLabel: {flex: 1, color: theme.colors.accent},
 
-  distributionValue: {
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    fontWeight: '700',
-  },
 
   distributionTrack: {
     overflow: 'hidden',
@@ -1474,7 +1216,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   distributionFill: {
     height: '100%',
-    borderRadius: 99,
+    borderRadius: 12,
     backgroundColor: theme.colors.primary,
   },
 
@@ -1483,7 +1225,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 14,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.07),
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
@@ -1497,18 +1239,12 @@ function createStyles(theme: ResolvedAwaTheme) {
   weightMonthCount: {
     marginTop: 2,
     color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 31,
-    lineHeight: 35,
+    fontSize: 28,
+    lineHeight: 32,
     fontWeight: '900',
   },
 
-  weightMonthLabel: {
-    marginTop: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    fontWeight: '700',
-  },
+  weightMonthLabel: {marginTop: 1},
 
   weightMonthIcon: {
     width: 46,
@@ -1557,17 +1293,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingBottom: 10,
   },
 
-  weightTimelineValue: {
-    color: theme.colors.accent,
-    fontSize: 11.5,
-    fontWeight: '900',
-  },
+  weightTimelineValue: {color: theme.colors.accent},
 
-  weightTimelineDate: {
-    marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 8.8,
-  },
+  weightTimelineDate: {marginTop: 2},
 
   medicalHint: {
     flexDirection: 'row',
@@ -1579,12 +1307,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: withAlpha(theme.colors.surface, 0.6),
   },
 
-  medicalHintText: {
-    flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    lineHeight: 14,
-  },
+  medicalHintText: {flex: 1},
   });
 }
 

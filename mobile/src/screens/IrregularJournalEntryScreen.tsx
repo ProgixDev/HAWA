@@ -19,19 +19,21 @@ import {
 } from '@react-navigation/native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
-import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {
   JournalSaveToast,
   useJournalSaveToast,
 } from '../components/journal/JournalSaveToast';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {formatFullDate} from '../utils/cycleMath';
 import {getTopPadding} from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {
-  onPrimaryTextColor,
   withAlpha,
   type ResolvedAwaTheme,
 } from '../theme/awaThemeTokens';
@@ -390,7 +392,6 @@ function ChoiceTile({
       </View>
 
       <Text
-        numberOfLines={2}
         style={[
           styles.choiceTileText,
           selected && {color: tone},
@@ -870,12 +871,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
    * ====================================================== */
 
   return (
-    <LinearGradient
-      colors={[
-        theme.colors.background,
-        theme.colors.background,
-      ]}
-      style={styles.screen}>
+    <View style={styles.screen}>
       <StatusBar
         backgroundColor="transparent"
         barStyle={theme.statusBarStyle}
@@ -914,29 +910,21 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
           {/* PREMIUM CENTERED HEADER */}
 
           <View style={styles.topBar}>
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('common.back')}
-              accessibilityRole="button"
-              hitSlop={10}
+              icon="chevron-left"
               onPress={navigation.goBack}
-              style={({pressed}) => [
-                styles.backButton,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                color={theme.colors.text}
-                name="chevron-left"
-                size={27}
-              />
-            </Pressable>
+              style={styles.backButton}
+              variant="tonal"
+            />
 
             <View pointerEvents="none" style={styles.topBarTitleWrap}>
-              <Text numberOfLines={1} style={styles.topBarTitle}>
+              <AwaText style={styles.topBarTitle} variant="titleMedium">
                 {meta.title}
-              </Text>
-              <Text numberOfLines={1} style={styles.topBarSubtitle}>
+              </AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={styles.topBarSubtitle} variant="bodySmall">
                 {t('irregularJournalEntry.todaySubtitle')}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.topBarRightSpacer} />
@@ -944,14 +932,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
 
           {/* PREMIUM HERO */}
 
-          <LinearGradient
-            colors={[theme.colors.surface, theme.colors.surfaceSecondary, meta.tint]}
-            locations={[0, 0.62, 1]}
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 1}}
-            style={styles.hero}>
-            <View pointerEvents="none" style={styles.heroGlow} />
-            <View pointerEvents="none" style={styles.heroGlowSecondary} />
+          <View style={styles.hero}>
 
             <View
               style={[
@@ -986,21 +967,20 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                 </Text>
               </View>
 
-              <Text style={styles.heroTitle}>{meta.title}</Text>
-              <Text style={styles.heroPrompt}>
+              <AwaText colorRole="onSurfaceVariant" style={styles.heroPrompt} variant="bodyMedium">
                 {categoryPrompt}
-              </Text>
+              </AwaText>
               {isPastEntryDate || isFutureEntryDate ? (
-                <Text style={styles.heroPrompt}>
+                <AwaText colorRole="onSurfaceVariant" style={styles.heroPrompt} variant="bodyMedium">
                   {formatFullDate(new Date(`${entryDateKey}T12:00:00`))}
-                </Text>
+                </AwaText>
               ) : null}
             </View>
-          </LinearGradient>
+          </View>
 
           {category === 'period' ? (
             <>
-              <View style={styles.card}>
+              <AwaCard style={styles.card} variant="filled">
                 <Text
                   style={styles.cardTitle}>
                   {isPastEntryDate
@@ -1034,12 +1014,11 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     ),
                   )}
                 </View>
-              </View>
+              </AwaCard>
 
               {periodStatus !== 'no' &&
               periodStatus !== '' ? (
-                <View
-                  style={styles.card}>
+                <AwaCard style={styles.card} variant="filled">
                   <Text
                     style={
                       styles.cardTitle
@@ -1124,7 +1103,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                       />
                     ))}
                   </View>
-                </View>
+                </AwaCard>
               ) : null}
             </>
           ) : null}
@@ -1133,7 +1112,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
 
           {category === 'acne' ? (
             <>
-              <View style={styles.card}>
+              <AwaCard style={styles.card} variant="filled">
                 <Text
                   style={styles.cardTitle}>
                   {t('irregularJournalEntry.acne.skinStateTitle', {day: dayWord})}
@@ -1159,9 +1138,9 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     ),
                   )}
                 </View>
-              </View>
+              </AwaCard>
 
-              <View style={styles.card}>
+              <AwaCard style={styles.card} variant="filled">
                 <View
                   style={
                     styles.titleWithBadge
@@ -1193,7 +1172,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                   options={ACNE_AREAS}
                   selected={areas}
                 />
-              </View>
+              </AwaCard>
             </>
           ) : null}
 
@@ -1202,7 +1181,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
           {category ===
           'hairGrowth' ? (
             <>
-              <View style={styles.card}>
+              <AwaCard style={styles.card} variant="filled">
                 <Text
                   style={styles.cardTitle}>
                   {t('irregularJournalEntry.hairGrowth.levelTitle', {day: dayWord})}
@@ -1227,9 +1206,9 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     ),
                   )}
                 </View>
-              </View>
+              </AwaCard>
 
-              <View style={styles.card}>
+              <AwaCard style={styles.card} variant="filled">
                 <View
                   style={
                     styles.titleWithBadge
@@ -1284,7 +1263,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                   options={HAIR_AREAS}
                   selected={areas}
                 />
-              </View>
+              </AwaCard>
             </>
           ) : null}
 
@@ -1292,7 +1271,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
 
           {category === 'weight' ? (
             <>
-              <View style={styles.card}>
+              <AwaCard style={styles.card} variant="filled">
                 <Text
                   style={styles.cardTitle}>
                   {isPastEntryDate ? t('irregularJournalEntry.weight.titlePast') : t('irregularJournalEntry.weight.titleToday')}
@@ -1353,9 +1332,9 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     </Text>
                   </View>
                 ) : null}
-              </View>
+              </AwaCard>
 
-              <View style={styles.card}>
+              <AwaCard style={styles.card} variant="filled">
                 <Text
                   style={styles.cardTitle}>
                   {t('irregularJournalEntry.weight.feelingTitle')}
@@ -1398,7 +1377,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     ),
                   )}
                 </View>
-              </View>
+              </AwaCard>
             </>
           ) : null}
 
@@ -1406,7 +1385,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
 
           {category === 'pain' ? (
             <>
-              <View style={styles.card}>
+              <AwaCard style={styles.card} variant="filled">
                 <Text
                   style={styles.cardTitle}>
                   {t('irregularJournalEntry.pain.whichPainTitle')}
@@ -1453,9 +1432,9 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     ),
                   )}
                 </View>
-              </View>
+              </AwaCard>
 
-              <View style={styles.card}>
+              <AwaCard style={styles.card} variant="filled">
                 <View
                   style={
                     styles.titleWithBadge
@@ -1487,14 +1466,14 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                   options={PAIN_AREAS}
                   selected={symptoms}
                 />
-              </View>
+              </AwaCard>
             </>
           ) : null}
 
           {/* MOOD */}
 
           {category === 'mood' ? (
-            <View style={styles.card}>
+            <AwaCard style={styles.card} variant="filled">
               <Text
                 style={styles.cardTitle}>
                 {isPastEntryDate ? t('irregularJournalEntry.mood.questionPast') : t('irregularJournalEntry.mood.questionToday')}
@@ -1579,14 +1558,14 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                   </Text>
                 </View>
               </View>
-            </View>
+            </AwaCard>
           ) : null}
 
           {/* FATIGUE */}
 
           {category === 'fatigue' ? (
             <>
-              <View style={styles.card}>
+              <AwaCard style={styles.card} variant="filled">
                 <Text
                   style={styles.cardTitle}>
                   {isPastEntryDate
@@ -1641,9 +1620,9 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     ),
                   )}
                 </View>
-              </View>
+              </AwaCard>
 
-              <View style={styles.card}>
+              <AwaCard style={styles.card} variant="filled">
                 <View
                   style={
                     styles.titleWithBadge
@@ -1684,18 +1663,18 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                   }
                   selected={symptoms}
                 />
-              </View>
+              </AwaCard>
             </>
           ) : null}
 
           {/* NOTES */}
 
-          <View style={styles.card}>
+          <AwaCard style={styles.card} variant="filled">
             <NotesField
               onChangeText={setNote}
               value={note}
             />
-          </View>
+          </AwaCard>
 
           {/* ERROR */}
 
@@ -1718,35 +1697,18 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
 
           {/* SAVE */}
 
-          <Pressable
-            accessibilityRole="button"
-            accessibilityState={{
-              disabled: saving,
-            }}
+          <AwaButton
             disabled={saving}
+            fullWidth
+            icon={saving ? undefined : 'check'}
+            label={saving
+              ? t('periodStartSheet.saving')
+              : meta.saveLabel}
+            loading={saving}
             onPress={save}
-            style={({pressed}) => [
-              styles.saveButton,
-              (pressed || saving) &&
-                styles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              color={onPrimaryTextColor(theme)}
-              name={
-                saving
-                  ? 'loading'
-                  : 'check'
-              }
-              size={21}
-            />
-
-            <Text
-              style={styles.saveText}>
-              {saving
-                ? t('periodStartSheet.saving')
-                : meta.saveLabel}
-            </Text>
-          </Pressable>
+            size="large"
+            style={styles.saveButton}
+          />
         </ScrollView>
       </KeyboardAvoidingView>
 
@@ -1765,7 +1727,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
         title={saveToast.title}
         visible={saveToast.visible}
       />
-    </LinearGradient>
+    </View>
   );
 }
 
@@ -1777,6 +1739,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {
     flex: 1,
+    backgroundColor: theme.colors.background,
   },
 
   flex: {
@@ -1800,49 +1763,30 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   backButton: {
-    ...theme.shadow,
     zIndex: 2,
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 15,
-    backgroundColor: withAlpha(theme.colors.surface, 0.97),
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.10),
   },
 
   topBarTitleWrap: {
-    position: 'absolute',
-    left: 54,
-    right: 54,
-    top: 4,
+    flex: 1,
+    minWidth: 0,
+    paddingHorizontal: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   topBarTitle: {
     maxWidth: '100%',
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 18,
-    lineHeight: 22,
-    fontWeight: '900',
     textAlign: 'center',
   },
 
   topBarSubtitle: {
-    marginTop: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 14,
-    fontWeight: '600',
+    marginTop: 2,
     textAlign: 'center',
   },
 
   topBarRightSpacer: {
-    width: 44,
-    height: 44,
+    width: 40,
+    height: 40,
   },
 
   /* HERO */
@@ -1859,7 +1803,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingVertical: 17,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.09),
-    borderRadius: 27,
+    borderRadius: 12,
+    backgroundColor: theme.colors.surface,
     shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 7},
     shadowOpacity: 0.07,
@@ -1867,25 +1812,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     elevation: 3,
   },
 
-  heroGlow: {
-    position: 'absolute',
-    top: -72,
-    right: -44,
-    width: 170,
-    height: 170,
-    borderRadius: 85,
-    backgroundColor: withAlpha(theme.colors.surface, 0.58),
-  },
 
-  heroGlowSecondary: {
-    position: 'absolute',
-    bottom: -75,
-    left: -48,
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    backgroundColor: withAlpha(theme.colors.surface, 0.38),
-  },
 
   heroIconRing: {
     width: 64,
@@ -1894,7 +1821,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderRadius: 22,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.52),
   },
 
@@ -1915,7 +1842,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 52,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 18,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.surface, 0.92),
     // SEMANTIC — matches the frozen ACCENT hero icon color (see render body).
@@ -1945,44 +1872,20 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   heroEyebrow: {
-    fontSize: 9.5,
-    lineHeight: 13,
+    fontSize: 11,
+    lineHeight: 16,
     fontWeight: '900',
     letterSpacing: 0.85,
   },
 
-  heroTitle: {
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 23,
-    lineHeight: 28,
-    fontWeight: '900',
-  },
-
   heroPrompt: {
-    marginTop: 5,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 17,
+    marginTop: 4,
   },
 
   /* CARD */
 
   card: {
-    ...theme.shadow,
-
     marginBottom: 12,
-
-    padding: 16,
-
-    borderRadius: 22,
-
-    backgroundColor:
-      withAlpha(theme.colors.surface, 0.97),
-
-    borderWidth: 1,
-    borderColor:
-      withAlpha(theme.colors.primary, 0.09),
   },
 
   cardTitle: {
@@ -2019,13 +1922,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 8,
     paddingVertical: 3,
 
-    borderRadius: 9,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
 
     color: theme.colors.primary,
 
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: '700',
   },
 
@@ -2049,7 +1952,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
 
-    borderRadius: 15,
+    borderRadius: 16,
 
     backgroundColor: theme.colors.surface,
   },
@@ -2061,7 +1964,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 10,
+    borderRadius: 12,
   },
 
   choiceRowText: {
@@ -2129,13 +2032,13 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     gap: 7,
 
-    paddingHorizontal: 6,
+    paddingHorizontal: 12,
     paddingVertical: 10,
 
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
 
-    borderRadius: 17,
+    borderRadius: 16,
 
     backgroundColor: theme.colors.surface,
   },
@@ -2191,7 +2094,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   chip: {
-    minHeight: 35,
+    minHeight: 40,
 
     flexDirection: 'row',
     alignItems: 'center',
@@ -2234,9 +2137,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginTop: 10,
 
-    padding: 10,
+    padding: 12,
 
-    borderRadius: 14,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -2293,7 +2196,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     backgroundColor: '#EDF8F3',
   },
@@ -2315,9 +2218,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginTop: 11,
 
-    padding: 10,
+    padding: 12,
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     // SEMANTIC — see weightIcon above.
     backgroundColor: '#EDF8F2',
@@ -2347,9 +2250,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginTop: 14,
 
-    padding: 11,
+    padding: 12,
 
-    borderRadius: 15,
+    borderRadius: 16,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -2402,7 +2305,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -2465,7 +2368,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     color: theme.colors.textMuted,
 
-    fontSize: 10.5,
+    fontSize: 11,
   },
 
   /* ERROR */
@@ -2478,9 +2381,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginBottom: 12,
 
-    padding: 11,
+    padding: 12,
 
-    borderRadius: 14,
+    borderRadius: 12,
 
     backgroundColor: withAlpha(theme.colors.danger, 0.1),
   },
@@ -2499,28 +2402,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* SAVE */
 
   saveButton: {
-    ...theme.shadow,
-
-    minHeight: 57,
-
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    gap: 9,
-
     marginTop: 2,
-
-    borderRadius: 19,
-
-    backgroundColor: theme.colors.primary,
-  },
-
-  saveText: {
-    color: onPrimaryTextColor(theme),
-
-    fontSize: 16,
-    fontWeight: '800',
   },
 
   pressed: {
