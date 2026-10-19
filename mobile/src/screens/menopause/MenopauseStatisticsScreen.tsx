@@ -45,6 +45,8 @@ import {
   filterLabResultsForPeriod,
 } from '../../utils/menopauseStatisticsMath';
 import '../../i18n';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaText} from '../../components/ui/AwaText';
 
 type PeriodOption = {key: '1m' | '3m' | '6m' | '12m'; label: string; months: number};
 
@@ -87,13 +89,13 @@ function OverviewTile({icon, label, value}: {icon: React.ComponentProps<typeof M
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
-    <View style={styles.overviewTile}>
+    <AwaCard padding="none" variant="filled" style={styles.overviewTile}>
       <View style={styles.overviewIcon}>
         <MaterialDesignIcons color={theme.colors.primary} name={icon} size={17} />
       </View>
-      <Text style={styles.overviewValue}>{value}</Text>
-      <Text style={styles.overviewLabel}>{label}</Text>
-    </View>
+      <AwaText variant="titleMedium" style={styles.overviewValue}>{value}</AwaText>
+      <AwaText variant="bodySmall" style={styles.overviewLabel}>{label}</AwaText>
+    </AwaCard>
   );
 }
 
@@ -103,8 +105,8 @@ function EmptyCardState({title, text}: {title: string; text: string}): React.JSX
 
   return (
     <View style={styles.emptyState}>
-      <Text style={styles.emptyTitle}>{title}</Text>
-      <Text style={styles.emptyText}>{text}</Text>
+      <AwaText variant="labelMedium" style={styles.emptyTitle}>{title}</AwaText>
+      <AwaText variant="bodySmall" style={styles.emptyText}>{text}</AwaText>
     </View>
   );
 }
@@ -134,7 +136,7 @@ function MonthlyBarChart({
             <View style={styles.trendTrack}>
               <View style={[styles.trendFill, {backgroundColor: color, height: `${ratio * 100}%`}]} />
             </View>
-            <Text numberOfLines={1} style={styles.trendLabel}>{point.label}</Text>
+            <AwaText variant="labelSmall" numberOfLines={1} style={styles.trendLabel}>{point.label}</AwaText>
           </View>
         );
       })}
@@ -347,8 +349,8 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
       <ScrollView
         contentContainerStyle={[styles.scrollContent, {paddingTop: getTopPadding(insets.top), paddingBottom: getFloatingTabBarClearance(insets.bottom, spacing.lg)}]}
         showsVerticalScrollIndicator={false}>
-        <Text style={styles.pageTitle}>{t('menopauseStatistics.header.title')}</Text>
-        <Text style={styles.pageSubtitle}>{t('menopauseStatistics.header.subtitle')}</Text>
+        <AwaText variant="headlineSmall" style={styles.pageTitle}>{t('menopauseStatistics.header.title')}</AwaText>
+        <AwaText variant="bodySmall" style={styles.pageSubtitle}>{t('menopauseStatistics.header.subtitle')}</AwaText>
 
         <View style={styles.periodRow}>
           {periods.map(option => {
@@ -371,34 +373,34 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
         </View>
 
         {!hasAnyData ? (
-          <View style={styles.card}>
+          <AwaCard style={styles.card}>
             <EmptyCardState text={t('menopauseStatistics.empty.text')} title={t('menopauseStatistics.empty.title')} />
-          </View>
+          </AwaCard>
         ) : (
           <>
             {!hasJournalData ? (
-              <View style={styles.card}>
+              <AwaCard style={styles.card}>
                 <EmptyCardState
                   text={t('menopauseStatistics.labOnly.text')}
                   title={t('menopauseStatistics.labOnly.title')}
                 />
-              </View>
+              </AwaCard>
             ) : null}
 
             {hasJournalData ? (
             <>
-            <View style={styles.card}>
-              <Text style={styles.cardTitle}>{t('menopauseStatistics.overview.cardTitle')}</Text>
+            <AwaCard style={styles.card}>
+              <AwaText variant="titleMedium" style={styles.cardTitle}>{t('menopauseStatistics.overview.cardTitle')}</AwaText>
               <View style={styles.overviewGrid}>
                 <OverviewTile icon="calendar-check-outline" label={t('menopauseStatistics.overview.daysTracked')} value={String(daysTracked)} />
                 <OverviewTile icon="clipboard-pulse-outline" label={t('menopauseStatistics.overview.daysWithSymptoms')} value={String(totalSymptomEntries)} />
                 <OverviewTile icon="weather-night" label={t('menopauseStatistics.overview.averageSleep')} value={averageSleep !== null ? `${averageSleep.toFixed(1)} h` : '—'} />
                 {showTreatment ? <OverviewTile icon="pill" label={t('menopauseStatistics.overview.treatmentTracked')} value={String(treatmentEntries.length)} /> : null}
               </View>
-            </View>
+            </AwaCard>
 
-            <View style={styles.card}>
-              <Text style={styles.cardTitle}>{t('menopauseStatistics.symptoms.cardTitle')}</Text>
+            <AwaCard style={styles.card}>
+              <AwaText variant="titleMedium" style={styles.cardTitle}>{t('menopauseStatistics.symptoms.cardTitle')}</AwaText>
               {symptomCounts.items.every(item => item.count === 0) ? (
                 <EmptyCardState text={t('menopauseStatistics.symptoms.emptyText')} title={t('menopauseStatistics.symptoms.emptyTitle')} />
               ) : (
@@ -409,20 +411,20 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
                     </View>
                     <View style={styles.statBody}>
                       <View style={styles.statHeaderRow}>
-                        <Text numberOfLines={1} style={styles.statLabel}>{item.label}</Text>
-                        <Text style={styles.statValue}>{t('menopauseStatistics.symptoms.dayCount', {count: item.count})}</Text>
+                        <AwaText variant="labelMedium" style={styles.statLabel}>{item.label}</AwaText>
+                        <AwaText variant="labelMedium" style={styles.statValue}>{t('menopauseStatistics.symptoms.dayCount', {count: item.count})}</AwaText>
                       </View>
                       <ProgressBar color={item.iconColor} ratio={item.count / symptomCounts.maxCount} />
                     </View>
                   </View>
                 ))
               )}
-              <Text style={styles.progressHint}>{t('menopauseStatistics.symptoms.progressHint')}</Text>
-            </View>
+              <AwaText variant="bodySmall" style={styles.progressHint}>{t('menopauseStatistics.symptoms.progressHint')}</AwaText>
+            </AwaCard>
 
             {showLongitudinalView ? (
-              <View accessibilityLabel={t('menopauseStatistics.symptoms.evolutionAccessibility', {period: period.label})} style={styles.card}>
-                <Text style={styles.cardTitle}>{t('menopauseStatistics.symptoms.evolutionTitle')}</Text>
+              <AwaCard accessibilityLabel={t('menopauseStatistics.symptoms.evolutionAccessibility', {period: period.label})} style={styles.card}>
+                <AwaText variant="titleMedium" style={styles.cardTitle}>{t('menopauseStatistics.symptoms.evolutionTitle')}</AwaText>
                 {symptomMonthlyTrend.length === 0 ? (
                   <EmptyCardState text={t('menopauseStatistics.symptoms.evolutionEmpty')} title={t('menopauseStatistics.symptoms.emptyTitle')} />
                 ) : (
@@ -432,7 +434,7 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
                         <View style={[styles.statIcon, styles.symptomTrendIcon, {backgroundColor: item.tint}]}>
                           <MaterialDesignIcons color={item.iconColor} name={item.icon} size={15} />
                         </View>
-                        <Text numberOfLines={1} style={styles.statLabel}>{item.label}</Text>
+                        <AwaText variant="labelMedium" style={styles.statLabel}>{item.label}</AwaText>
                       </View>
                       <MonthlyBarChart
                         color={item.iconColor}
@@ -441,12 +443,12 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
                     </View>
                   ))
                 )}
-                <Text style={styles.trendHint}>{t('menopauseStatistics.symptoms.evolutionHint')}</Text>
-              </View>
+                <AwaText variant="bodySmall" style={styles.trendHint}>{t('menopauseStatistics.symptoms.evolutionHint')}</AwaText>
+              </AwaCard>
             ) : null}
 
-            <View style={styles.card}>
-              <Text style={styles.cardTitle}>{t('menopauseStatistics.mood.cardTitle')}</Text>
+            <AwaCard style={styles.card}>
+              <AwaText variant="titleMedium" style={styles.cardTitle}>{t('menopauseStatistics.mood.cardTitle')}</AwaText>
               {moodCounts.length === 0 ? (
                 <EmptyCardState text={t('menopauseStatistics.mood.emptyText')} title={t('menopauseStatistics.symptoms.emptyTitle')} />
               ) : (
@@ -454,8 +456,8 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
                   <View key={level} style={styles.statRow}>
                     <View style={styles.statBody}>
                       <View style={styles.statHeaderRow}>
-                        <Text numberOfLines={1} style={styles.statLabel}>{MENOPAUSE_MOOD_LABELS[level]}</Text>
-                        <Text style={styles.statValue}>{t('menopauseStatistics.mood.dayCount', {count})}</Text>
+                        <AwaText variant="labelMedium" style={styles.statLabel}>{MENOPAUSE_MOOD_LABELS[level]}</AwaText>
+                        <AwaText variant="labelMedium" style={styles.statValue}>{t('menopauseStatistics.mood.dayCount', {count})}</AwaText>
                       </View>
                       <ProgressBar color={MENOPAUSE_MOOD_COLORS[level]} ratio={count / maxMoodCount} />
                     </View>
@@ -464,32 +466,32 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
               )}
               {showLongitudinalView ? (
                 <View accessibilityLabel={t('menopauseStatistics.mood.evolutionAccessibility', {period: period.label})}>
-                  <Text style={[styles.statLabel, styles.moodTrendLabel]}>{t('menopauseStatistics.mood.monthlyLabel')}</Text>
+                  <AwaText variant="labelMedium" style={[styles.statLabel, styles.moodTrendLabel]}>{t('menopauseStatistics.mood.monthlyLabel')}</AwaText>
                   {moodMonthlyTrend.length === 0 ? (
                     <EmptyCardState text={t('menopauseStatistics.mood.monthlyEmpty')} title={t('menopauseStatistics.symptoms.emptyTitle')} />
                   ) : (
                     moodMonthlyTrend.map(item => (
                       <View key={item.monthKey} style={styles.monthlyMoodRow}>
-                        <Text style={styles.statLabel}>{item.monthLabel}</Text>
-                        <Text style={styles.statValue}>
+                        <AwaText variant="labelMedium" style={styles.statLabel}>{item.monthLabel}</AwaText>
+                        <AwaText variant="labelMedium" style={styles.statValue}>
                           {t('menopauseStatistics.mood.monthlySummary', {
                             label: MENOPAUSE_MOOD_LABELS[item.dominantMood],
                             dominant: item.dominantCount,
                             total: item.totalCount,
                           })}
-                        </Text>
+                        </AwaText>
                       </View>
                     ))
                   )}
                 </View>
               ) : null}
-            </View>
+            </AwaCard>
 
-            <View style={styles.card}>
-              <Text style={styles.cardTitle}>{t('menopauseStatistics.sleep.cardTitle')}</Text>
+            <AwaCard style={styles.card}>
+              <AwaText variant="titleMedium" style={styles.cardTitle}>{t('menopauseStatistics.sleep.cardTitle')}</AwaText>
               <View style={styles.statRowPlain}>
-                <Text style={styles.statLabel}>{t('menopauseStatistics.sleep.averageLabel')}</Text>
-                <Text style={styles.statValue}>{averageSleep !== null ? `${averageSleep.toFixed(1)} h` : t('menopauseStatistics.sleep.notProvided')}</Text>
+                <AwaText variant="labelMedium" style={styles.statLabel}>{t('menopauseStatistics.sleep.averageLabel')}</AwaText>
+                <AwaText variant="labelMedium" style={styles.statValue}>{averageSleep !== null ? `${averageSleep.toFixed(1)} h` : t('menopauseStatistics.sleep.notProvided')}</AwaText>
               </View>
               {showLongitudinalView ? (
                 sleepMonthlyTrend.length < 2 ? (
@@ -500,14 +502,14 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
                       color="#4D8791"
                       points={sleepMonthlyTrend.map(item => ({key: item.monthKey, label: item.monthLabel.slice(0, 3), value: item.averageHours, maxValue: Math.max(...sleepMonthlyTrend.map(p => p.averageHours), 1)}))}
                     />
-                    <Text style={styles.trendHint}>{t('menopauseStatistics.sleep.evolutionHint')}</Text>
+                    <AwaText variant="bodySmall" style={styles.trendHint}>{t('menopauseStatistics.sleep.evolutionHint')}</AwaText>
                   </View>
                 )
               ) : null}
-            </View>
+            </AwaCard>
 
-            <View style={styles.card}>
-              <Text style={styles.cardTitle}>{t('menopauseStatistics.energy.cardTitle')}</Text>
+            <AwaCard style={styles.card}>
+              <AwaText variant="titleMedium" style={styles.cardTitle}>{t('menopauseStatistics.energy.cardTitle')}</AwaText>
               {energyEntries.length === 0 ? (
                 <EmptyCardState text={t('menopauseStatistics.energy.emptyText')} title={t('menopauseStatistics.symptoms.emptyTitle')} />
               ) : (
@@ -518,8 +520,8 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
                     </View>
                     <View style={styles.statBody}>
                       <View style={styles.statHeaderRow}>
-                        <Text style={styles.statLabel}>{MENOPAUSE_ENERGY_LABELS[level]}</Text>
-                        <Text style={styles.statValue}>{t('menopauseStatistics.energy.dayCount', {count: energyCounts[level]})}</Text>
+                        <AwaText variant="labelMedium" style={styles.statLabel}>{MENOPAUSE_ENERGY_LABELS[level]}</AwaText>
+                        <AwaText variant="labelMedium" style={styles.statValue}>{t('menopauseStatistics.energy.dayCount', {count: energyCounts[level]})}</AwaText>
                       </View>
                       <ProgressBar color="#B9823D" ratio={energyCounts[level] / maxEnergyCount} />
                     </View>
@@ -535,57 +537,57 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
                       color="#B9823D"
                       points={energyMonthlyTrend.map(item => ({key: item.monthKey, label: item.monthLabel.slice(0, 3), value: item.averageScore, maxValue: 3}))}
                     />
-                    <Text style={styles.trendHint}>
+                    <AwaText variant="bodySmall" style={styles.trendHint}>
                       {t('menopauseStatistics.energy.evolutionHint', {
                         summary: energyMonthlyTrend
                           .map(item => t('menopauseStatistics.energy.trendItem', {month: item.monthLabel.slice(0, 3), level: MENOPAUSE_ENERGY_LABELS[item.dominantLevel]}))
                           .join(' · '),
                       })}
-                    </Text>
+                    </AwaText>
                   </View>
                 )
               ) : null}
-            </View>
+            </AwaCard>
 
             {showTreatment ? (
-              <View style={styles.card}>
-                <Text style={styles.cardTitle}>{t('menopauseStatistics.treatment.cardTitle')}</Text>
+              <AwaCard style={styles.card}>
+                <AwaText variant="titleMedium" style={styles.cardTitle}>{t('menopauseStatistics.treatment.cardTitle')}</AwaText>
                 {treatmentEntries.length === 0 ? (
                   <EmptyCardState text={t('menopauseStatistics.treatment.emptyText')} title={t('menopauseStatistics.symptoms.emptyTitle')} />
                 ) : (
                   <>
-                    <View style={styles.statRowPlain}><Text style={styles.statLabel}>{t('menopauseStatistics.treatment.takenLabel')}</Text><Text style={styles.statValue}>{treatmentTaken}</Text></View>
-                    <View style={styles.statRowPlain}><Text style={styles.statLabel}>{t('menopauseStatistics.treatment.notTakenLabel')}</Text><Text style={styles.statValue}>{treatmentNotTaken}</Text></View>
+                    <View style={styles.statRowPlain}><AwaText variant="labelMedium" style={styles.statLabel}>{t('menopauseStatistics.treatment.takenLabel')}</AwaText><AwaText variant="labelMedium" style={styles.statValue}>{treatmentTaken}</AwaText></View>
+                    <View style={styles.statRowPlain}><AwaText variant="labelMedium" style={styles.statLabel}>{t('menopauseStatistics.treatment.notTakenLabel')}</AwaText><AwaText variant="labelMedium" style={styles.statValue}>{treatmentNotTaken}</AwaText></View>
                   </>
                 )}
-              </View>
+              </AwaCard>
             ) : null}
 
             </>
             ) : null}
 
             {showLab ? (
-              <View style={styles.card}>
-                <Text style={styles.cardTitle}>{t('menopauseStatistics.lab.cardTitle')}</Text>
-                <Text style={styles.trendHint}>{t('menopauseStatistics.lab.periodHint', {period: period.label})}</Text>
+              <AwaCard style={styles.card}>
+                <AwaText variant="titleMedium" style={styles.cardTitle}>{t('menopauseStatistics.lab.cardTitle')}</AwaText>
+                <AwaText variant="bodySmall" style={styles.trendHint}>{t('menopauseStatistics.lab.periodHint', {period: period.label})}</AwaText>
                 {showFshBlock ? (
                   <View style={styles.labBlock}>
                     <View style={styles.labBlockHeader}>
                       <MaterialDesignIcons color="#4D8791" name={MENOPAUSE_LAB_TYPE_ICONS.fsh} size={15} />
-                      <Text style={styles.statLabel}>{MENOPAUSE_LAB_TYPE_LABELS.fsh} — {t('menopauseStatistics.lab.resultCount', {count: fshResults.length})}</Text>
+                      <AwaText variant="labelMedium" style={styles.statLabel}>{MENOPAUSE_LAB_TYPE_LABELS.fsh} — {t('menopauseStatistics.lab.resultCount', {count: fshResults.length})}</AwaText>
                     </View>
                     {fshResults.length === 0 ? (
                       <EmptyCardState text={t('menopauseStatistics.lab.emptyFsh', {period: period.label})} title={t('menopauseStatistics.symptoms.emptyTitle')} />
                     ) : (
                       <>
                         {fshResults.length === 1 ? (
-                          <Text style={styles.labResultLatest}>
+                          <AwaText variant="labelMedium" style={styles.labResultLatest}>
                             {t('menopauseStatistics.lab.singleResult', {
                               value: fshResults[0].value,
                               unit: fshResults[0].unit ? ` ${fshResults[0].unit}` : '',
                               date: formatResultDate(fshResults[0].date),
                             })}
-                          </Text>
+                          </AwaText>
                         ) : null}
                         {showLongitudinalView && fshResults.length >= 2 ? (
                           <View accessibilityLabel={t('menopauseStatistics.lab.fshEvolutionAccessibility', {period: period.label})}>
@@ -593,7 +595,7 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
                           </View>
                         ) : null}
                         {fshResults.slice(-6).map(result => (
-                          <Text key={result.id} style={styles.labResultLine}>{formatResultDate(result.date)} · {result.value}{result.unit ? ` ${result.unit}` : ''}</Text>
+                          <AwaText variant="bodySmall" key={result.id} style={styles.labResultLine}>{formatResultDate(result.date)} · {result.value}{result.unit ? ` ${result.unit}` : ''}</AwaText>
                         ))}
                       </>
                     )}
@@ -603,20 +605,20 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
                   <View style={styles.labBlock}>
                     <View style={styles.labBlockHeader}>
                       <MaterialDesignIcons color="#4D8791" name={MENOPAUSE_LAB_TYPE_ICONS.estradiol} size={15} />
-                      <Text style={styles.statLabel}>{MENOPAUSE_LAB_TYPE_LABELS.estradiol} — {t('menopauseStatistics.lab.resultCount', {count: estradiolResults.length})}</Text>
+                      <AwaText variant="labelMedium" style={styles.statLabel}>{MENOPAUSE_LAB_TYPE_LABELS.estradiol} — {t('menopauseStatistics.lab.resultCount', {count: estradiolResults.length})}</AwaText>
                     </View>
                     {estradiolResults.length === 0 ? (
                       <EmptyCardState text={t('menopauseStatistics.lab.emptyEstradiol', {period: period.label})} title={t('menopauseStatistics.symptoms.emptyTitle')} />
                     ) : (
                       <>
                         {estradiolResults.length === 1 ? (
-                          <Text style={styles.labResultLatest}>
+                          <AwaText variant="labelMedium" style={styles.labResultLatest}>
                             {t('menopauseStatistics.lab.singleResult', {
                               value: estradiolResults[0].value,
                               unit: estradiolResults[0].unit ? ` ${estradiolResults[0].unit}` : '',
                               date: formatResultDate(estradiolResults[0].date),
                             })}
-                          </Text>
+                          </AwaText>
                         ) : null}
                         {showLongitudinalView && estradiolResults.length >= 2 ? (
                           <View accessibilityLabel={t('menopauseStatistics.lab.estradiolEvolutionAccessibility', {period: period.label})}>
@@ -624,13 +626,13 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
                           </View>
                         ) : null}
                         {estradiolResults.slice(-6).map(result => (
-                          <Text key={result.id} style={styles.labResultLine}>{formatResultDate(result.date)} · {result.value}{result.unit ? ` ${result.unit}` : ''}</Text>
+                          <AwaText variant="bodySmall" key={result.id} style={styles.labResultLine}>{formatResultDate(result.date)} · {result.value}{result.unit ? ` ${result.unit}` : ''}</AwaText>
                         ))}
                       </>
                     )}
                   </View>
                 ) : null}
-              </View>
+              </AwaCard>
             ) : null}
           </>
         )}
@@ -653,48 +655,34 @@ function createStyles(theme: ResolvedAwaTheme) {
   background: {flex: 1, backgroundColor: theme.colors.background},
   scrollContent: {paddingHorizontal: 16},
 
-  pageTitle: {color: PURPLE_DARK, fontFamily: 'serif', fontSize: 24, fontWeight: '800'},
-  pageSubtitle: {marginTop: 4, color: MUTED, fontSize: 12.5},
+  pageTitle: {color: PURPLE_DARK},
+  pageSubtitle: {marginTop: 4, color: MUTED},
 
   periodRow: {flexDirection: 'row', marginTop: 16, gap: 8, backgroundColor: theme.colors.primarySoft, borderRadius: 16, padding: 4},
-  periodButton: {flex: 1, minHeight: 36, alignItems: 'center', justifyContent: 'center', borderRadius: 13},
+  periodButton: {flex: 1, minHeight: 36, alignItems: 'center', justifyContent: 'center', borderRadius: 12},
   periodButtonActive: {backgroundColor: PURPLE},
   periodButtonContent: {flexDirection: 'row', alignItems: 'center', gap: 3},
   periodText: {color: MUTED, fontSize: 12.5, fontWeight: '700'},
   periodTextActive: {color: onPrimaryTextColor(theme)},
 
-  // Custom, deliberately softer shadow shape than the app's canonical
-  // theme.shadow (smaller offset/opacity/radius) — kept exactly as before,
-  // only shadowColor is re-themed (matches resolveAwaTheme's own light-mode
-  // shadowColor derivation: theme's accent tone).
   card: {
     marginTop: 16,
-    borderRadius: 22,
-    backgroundColor: theme.colors.surface,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.12),
-    shadowColor: theme.colors.accent,
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.06,
-    shadowRadius: 10,
-    elevation: 2,
   },
-  cardTitle: {color: PURPLE_DARK, fontFamily: 'serif', fontSize: 16, fontWeight: '700', marginBottom: 12},
+  cardTitle: {color: PURPLE_DARK, marginBottom: 12},
 
   overviewGrid: {flexDirection: 'row', flexWrap: 'wrap', gap: 10},
-  overviewTile: {flexGrow: 1, minWidth: '44%', borderRadius: 16, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.1), backgroundColor: theme.colors.surfaceSecondary, padding: 12},
-  overviewIcon: {width: 28, height: 28, alignItems: 'center', justifyContent: 'center', borderRadius: 11, backgroundColor: theme.colors.primarySoft, marginBottom: 8},
-  overviewValue: {color: PURPLE_DARK, fontSize: 18, fontWeight: '800'},
-  overviewLabel: {marginTop: 2, color: MUTED, fontSize: 10.5},
+  overviewTile: {flexGrow: 1, minWidth: '44%', padding: 12},
+  overviewIcon: {width: 28, height: 28, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: theme.colors.primarySoft, marginBottom: 8},
+  overviewValue: {color: PURPLE_DARK},
+  overviewLabel: {marginTop: 2, color: MUTED},
 
   statRow: {flexDirection: 'row', alignItems: 'center', paddingVertical: 9, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: withAlpha(theme.colors.primary, 0.1)},
   statRowPlain: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 8, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: withAlpha(theme.colors.primary, 0.1)},
-  statIcon: {width: 28, height: 28, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 11, backgroundColor: theme.colors.primarySoft, marginRight: 10},
+  statIcon: {width: 28, height: 28, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: theme.colors.primarySoft, marginRight: 10},
   statBody: {flex: 1, minWidth: 0},
   statHeaderRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-  statLabel: {flex: 1, color: PURPLE_DARK, fontSize: 13, fontWeight: '600'},
-  statValue: {marginLeft: 8, color: MUTED, fontSize: 12, fontWeight: '600'},
+  statLabel: {flex: 1, color: PURPLE_DARK},
+  statValue: {marginLeft: 8, color: MUTED},
 
   // Category A generic unfilled track — the fill color itself (passed in via
   // the `color` prop at each call site: symptom/mood colors from
@@ -702,15 +690,15 @@ function createStyles(theme: ResolvedAwaTheme) {
   // stays completely untouched; only this empty background is theme-reactive.
   progressTrack: {marginTop: 6, height: 6, borderRadius: 3, backgroundColor: theme.colors.surfaceSecondary, overflow: 'hidden'},
   progressFill: {height: 6, borderRadius: 3},
-  progressHint: {marginTop: 10, color: MUTED, fontSize: 10, lineHeight: 14},
+  progressHint: {marginTop: 10, color: MUTED},
 
   labBlock: {marginTop: 6},
   labBlockHeader: {flexDirection: 'row', alignItems: 'center', gap: 8},
-  labResultLine: {marginTop: 4, marginLeft: 23, color: MUTED, fontSize: 12},
+  labResultLine: {marginTop: 4, marginLeft: 23, color: MUTED},
 
   emptyState: {alignItems: 'center', paddingVertical: 10},
-  emptyTitle: {color: PURPLE_DARK, fontSize: 13, fontWeight: '700', textAlign: 'center'},
-  emptyText: {marginTop: 4, color: MUTED, fontSize: 11.5, textAlign: 'center'},
+  emptyTitle: {color: PURPLE_DARK, textAlign: 'center'},
+  emptyText: {marginTop: 4, color: MUTED, textAlign: 'center'},
 
   trendChart: {flexDirection: 'row', alignItems: 'flex-end', gap: 10, paddingVertical: 4},
   trendColumn: {alignItems: 'center', width: 34},
@@ -719,14 +707,14 @@ function createStyles(theme: ResolvedAwaTheme) {
   // semantic hex) and is never touched here.
   trendTrack: {width: 16, height: 74, borderRadius: 8, backgroundColor: theme.colors.surfaceSecondary, justifyContent: 'flex-end', overflow: 'hidden'},
   trendFill: {width: '100%', borderRadius: 8},
-  trendLabel: {marginTop: 6, color: MUTED, fontSize: 9, fontWeight: '600', textAlign: 'center'},
-  trendHint: {marginTop: 10, color: MUTED, fontSize: 10, lineHeight: 14},
+  trendLabel: {marginTop: 6, color: MUTED, textAlign: 'center'},
+  trendHint: {marginTop: 10, color: MUTED},
   symptomTrendBlock: {marginTop: 12},
   symptomTrendHeader: {flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6},
   symptomTrendIcon: {marginRight: 0},
   moodTrendLabel: {marginTop: 12, marginBottom: 4},
   monthlyMoodRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 7, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: withAlpha(theme.colors.primary, 0.1)},
-  labResultLatest: {marginTop: 4, color: PURPLE_DARK, fontSize: 12, fontWeight: '700'},
+  labResultLatest: {marginTop: 4, color: PURPLE_DARK},
 
   pressed: {opacity: 0.82},
   });

@@ -6,8 +6,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Switch,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -21,7 +19,12 @@ import {spacing, getTopPadding} from '../theme/spacing';
 import NotificationPermissionNotice from '../components/notifications/NotificationPermissionNotice';
 import {useReminderPermissionGuard} from '../hooks/useReminderPermissionGuard';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaSwitch} from '../components/ui/AwaSwitch';
+import {AwaText} from '../components/ui/AwaText';
 import {
   getMenopausePreferences,
   setMenopauseReminderPreferences,
@@ -171,11 +174,13 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
       accessibilityRole="button"
       onPress={() => setTimePickerTarget(target)}
       style={({pressed}) => [editStyles.timeRow, pressed && editStyles.pressed]}>
-      <Text style={editStyles.timeRowLabel}>{t('menopauseReminders.timeRowLabel')}</Text>
+      <AwaText colorRole="onSurfaceVariant" variant="labelLarge">
+        {t('menopauseReminders.timeRowLabel')}
+      </AwaText>
       <View style={editStyles.timeRowValueGroup}>
-        <Text style={time ? editStyles.timeValue : editStyles.timeValuePlaceholder}>
+        <AwaText colorRole={time ? 'onSurface' : 'onSurfaceVariant'} emphasized={Boolean(time)} variant="bodyLarge">
           {time ?? t('menopauseReminders.choosePlaceholderShort')}
-        </Text>
+        </AwaText>
         <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={18} />
       </View>
     </Pressable>
@@ -200,43 +205,40 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
           ]}
           showsVerticalScrollIndicator={false}>
           <View style={editStyles.header}>
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('common.back')}
-              accessibilityRole="button"
-              hitSlop={10}
+              icon="chevron-left"
               onPress={navigation.goBack}
-              style={({pressed}) => [editStyles.back, pressed && editStyles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={26} />
-            </Pressable>
+              style={editStyles.back}
+            />
             <View style={editStyles.headerCopy}>
-              <Text style={editStyles.title}>{t('profile.notificationsAndReminders')}</Text>
-              <Text style={editStyles.subtitle}>
+              <AwaText variant="headlineSmall">{t('profile.notificationsAndReminders')}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={editStyles.subtitle} variant="bodySmall">
                 {showTreatmentCard
                   ? t('menopauseReminders.editSubtitleWithTreatment')
                   : t('menopauseReminders.editSubtitleDailyOnly')}
-              </Text>
+              </AwaText>
             </View>
           </View>
 
-          <View style={editStyles.card}>
+          <AwaCard padding="compact" style={editStyles.card} variant="filled">
             <View style={[editStyles.group, showTreatmentCard && editStyles.groupBorder]}>
               <View style={editStyles.row}>
                 <View style={editStyles.rowIcon}>
                   <MaterialDesignIcons color={theme.colors.primary} name="notebook-edit-outline" size={18} />
                 </View>
                 <View style={editStyles.rowCopy}>
-                  <Text style={editStyles.rowTitle}>{t('menopauseReminders.dailyTracking.editRowTitle')}</Text>
-                  <Text style={editStyles.rowSubtitle}>{t('menopauseReminders.dailyTracking.editRowSubtitle')}</Text>
+                  <AwaText variant="titleSmall">{t('menopauseReminders.dailyTracking.editRowTitle')}</AwaText>
+                  <AwaText colorRole="onSurfaceVariant" style={editStyles.rowSubtitle} variant="bodySmall">
+                    {t('menopauseReminders.dailyTracking.editRowSubtitle')}
+                  </AwaText>
                 </View>
-                <Switch
+                <AwaSwitch
                   accessibilityLabel={t('menopauseReminders.dailyTracking.editRowTitle')}
-                  ios_backgroundColor={theme.colors.primarySoft}
                   onValueChange={value => {
                     setDailyEnabled(value);
                     setError('');
                   }}
-                  thumbColor={theme.colors.surface}
-                  trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
                   value={dailyEnabled}
                 />
               </View>
@@ -250,25 +252,24 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
                     <MaterialDesignIcons color={theme.colors.primary} name="pill" size={18} />
                   </View>
                   <View style={editStyles.rowCopy}>
-                    <Text style={editStyles.rowTitle}>{t('profile.menopause.hormonalTreatmentLabel')}</Text>
-                    <Text style={editStyles.rowSubtitle}>{t('menopauseReminders.treatment.editRowSubtitle')}</Text>
+                    <AwaText variant="titleSmall">{t('profile.menopause.hormonalTreatmentLabel')}</AwaText>
+                    <AwaText colorRole="onSurfaceVariant" style={editStyles.rowSubtitle} variant="bodySmall">
+                      {t('menopauseReminders.treatment.editRowSubtitle')}
+                    </AwaText>
                   </View>
-                  <Switch
+                  <AwaSwitch
                     accessibilityLabel={t('profile.menopause.hormonalTreatmentLabel')}
-                    ios_backgroundColor={theme.colors.primarySoft}
                     onValueChange={value => {
                       setTreatmentEnabled(value);
                       setError('');
                     }}
-                    thumbColor={theme.colors.surface}
-                    trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
                     value={treatmentEnabled}
                   />
                 </View>
                 {treatmentEnabled ? renderTimeRow('treatment', treatmentTime) : null}
               </View>
             ) : null}
-          </View>
+          </AwaCard>
 
           {timePickerTarget ? (
             <DateTimePicker
@@ -297,19 +298,22 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
           {error ? (
             <View accessibilityRole="alert" style={editStyles.errorCard}>
               <MaterialDesignIcons color={theme.colors.danger} name="alert-outline" size={16} />
-              <Text style={editStyles.errorText}>{error}</Text>
+              <AwaText colorRole="error" style={editStyles.errorText} variant="bodySmall">
+                {error}
+              </AwaText>
             </View>
           ) : null}
 
           {permissionNotice}
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={saving}
+            fullWidth
+            label={saving ? t('periodStartSheet.saving') : t('common.save')}
             onPress={handleContinue}
-            style={({pressed}) => [editStyles.saveButton, (pressed || saving) && editStyles.pressed]}>
-            <Text style={editStyles.saveButtonText}>{saving ? t('periodStartSheet.saving') : t('common.save')}</Text>
-          </Pressable>
+            size="large"
+            style={editStyles.saveButton}
+          />
         </ScrollView>
       </SafeAreaView>
     );
@@ -322,11 +326,6 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
@@ -338,52 +337,40 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
           ]}
           showsVerticalScrollIndicator={false}>
           {isEdit ? (
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('common.back')}
-              accessibilityRole="button"
-              hitSlop={12}
+              icon="arrow-left"
               onPress={navigation.goBack}
-              style={({pressed}) => [styles.backButton, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
-            </Pressable>
+              style={styles.backButton}
+            />
           ) : null}
 
           <View style={styles.header}>
-            <View style={styles.heroIcon}>
-              <View pointerEvents="none" style={styles.heroGlowOuter} />
-              <View pointerEvents="none" style={styles.heroGlowInner} />
-              <LinearGradient
-                colors={[theme.colors.surface, theme.colors.primarySoft]}
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 1}}
-                style={styles.heroInner}>
-                <MaterialDesignIcons color={theme.colors.primary} name="bell-outline" size={30} />
-              </LinearGradient>
-            </View>
-
-            <Text style={styles.title}>{t('menopauseReminders.title')}</Text>
-            <Text style={styles.subtitle}>
+            <AwaText style={styles.title} variant="headlineMedium">
+              {t('menopauseReminders.title')}
+            </AwaText>
+            <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">
               {t('menopauseReminders.subtitle')}
-            </Text>
+            </AwaText>
           </View>
 
-          <View style={styles.card}>
+          <AwaCard style={styles.card} variant="filled">
             <View style={styles.cardTopRow}>
               <View style={styles.cardIcon}>
                 <MaterialDesignIcons color={theme.colors.primary} name="notebook-edit-outline" size={22} />
               </View>
               <View style={styles.cardCopy}>
-                <Text style={styles.cardTitle}>{t('menopauseReminders.dailyTracking.cardTitle')}</Text>
-                <Text style={styles.cardDescription}>{t('menopauseReminders.dailyTracking.cardDescription')}</Text>
+                <AwaText variant="titleMedium">{t('menopauseReminders.dailyTracking.cardTitle')}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" style={styles.cardDescription} variant="bodySmall">
+                  {t('menopauseReminders.dailyTracking.cardDescription')}
+                </AwaText>
               </View>
-              <Switch
-                ios_backgroundColor={theme.colors.primarySoft}
+              <AwaSwitch
+                accessibilityLabel={t('menopauseReminders.dailyTracking.cardTitle')}
                 onValueChange={value => {
                   setDailyEnabled(value);
                   setError('');
                 }}
-                thumbColor={theme.colors.surface}
-                trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
                 value={dailyEnabled}
               />
             </View>
@@ -398,34 +385,40 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
                   <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
                 </View>
                 <View style={styles.timeCopy}>
-                  <Text style={styles.timeLabel}>{t('menopauseReminders.timeQuestionLabel')}</Text>
-                  <Text style={dailyTime ? styles.timeValue : styles.timeValuePlaceholder}>
+                  <AwaText colorRole="onSurfaceVariant" variant="labelMedium">
+                    {t('menopauseReminders.timeQuestionLabel')}
+                  </AwaText>
+                  <AwaText
+                    colorRole={dailyTime ? 'onSurface' : 'onSurfaceVariant'}
+                    emphasized={Boolean(dailyTime)}
+                    style={styles.timeValue}
+                    variant="bodyLarge">
                     {dailyTime ?? t('menopauseReminders.chooseTimePlaceholder')}
-                  </Text>
+                  </AwaText>
                 </View>
                 <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={20} />
               </Pressable>
             ) : null}
-          </View>
+          </AwaCard>
 
           {showTreatmentCard ? (
-            <View style={styles.card}>
+            <AwaCard style={styles.card} variant="filled">
               <View style={styles.cardTopRow}>
                 <View style={styles.cardIcon}>
                   <MaterialDesignIcons color={theme.colors.primary} name="pill" size={22} />
                 </View>
                 <View style={styles.cardCopy}>
-                  <Text style={styles.cardTitle}>{t('menopauseReminders.treatment.cardTitle')}</Text>
-                  <Text style={styles.cardDescription}>{t('menopauseReminders.treatment.cardDescription')}</Text>
+                  <AwaText variant="titleMedium">{t('menopauseReminders.treatment.cardTitle')}</AwaText>
+                  <AwaText colorRole="onSurfaceVariant" style={styles.cardDescription} variant="bodySmall">
+                    {t('menopauseReminders.treatment.cardDescription')}
+                  </AwaText>
                 </View>
-                <Switch
-                  ios_backgroundColor={theme.colors.primarySoft}
+                <AwaSwitch
+                  accessibilityLabel={t('menopauseReminders.treatment.cardTitle')}
                   onValueChange={value => {
                     setTreatmentEnabled(value);
                     setError('');
                   }}
-                  thumbColor={theme.colors.surface}
-                  trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
                   value={treatmentEnabled}
                 />
               </View>
@@ -440,15 +433,21 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
                     <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
                   </View>
                   <View style={styles.timeCopy}>
-                    <Text style={styles.timeLabel}>{t('menopauseReminders.timeQuestionLabel')}</Text>
-                    <Text style={treatmentTime ? styles.timeValue : styles.timeValuePlaceholder}>
+                    <AwaText colorRole="onSurfaceVariant" variant="labelMedium">
+                      {t('menopauseReminders.timeQuestionLabel')}
+                    </AwaText>
+                    <AwaText
+                      colorRole={treatmentTime ? 'onSurface' : 'onSurfaceVariant'}
+                      emphasized={Boolean(treatmentTime)}
+                      style={styles.timeValue}
+                      variant="bodyLarge">
                       {treatmentTime ?? t('menopauseReminders.chooseTimePlaceholder')}
-                    </Text>
+                    </AwaText>
                   </View>
                   <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={20} />
                 </Pressable>
               ) : null}
-            </View>
+            </AwaCard>
           ) : null}
 
           {timePickerTarget ? (
@@ -478,7 +477,9 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
           {error ? (
             <View accessibilityRole="alert" style={styles.errorCard}>
               <MaterialDesignIcons color={theme.colors.danger} name="alert-outline" size={16} />
-              <Text style={styles.errorText}>{error}</Text>
+              <AwaText colorRole="error" style={styles.errorText} variant="bodySmall">
+                {error}
+              </AwaText>
             </View>
           ) : null}
 
@@ -488,31 +489,31 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
             <View style={styles.infoIconBox}>
               <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
             </View>
-            <Text style={styles.infoText}>
+            <AwaText colorRole="onSurfaceVariant" style={styles.infoText} variant="bodySmall">
               {t('menopauseReminders.infoText')}
-            </Text>
+            </AwaText>
           </View>
 
           <View style={styles.spacer} />
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={saving}
+            fullWidth
+            label={saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('common.continue')}
             onPress={handleContinue}
-            style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
-            <Text style={styles.nextText}>
-              {saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('common.continue')}
-            </Text>
-          </Pressable>
+            size="large"
+            style={styles.nextButton}
+          />
 
           {!isEdit ? (
-            <Pressable
-              accessibilityRole="button"
+            <AwaButton
               disabled={saving}
+              fullWidth
+              label={t('menopauseReminders.skip')}
               onPress={handleSkip}
-              style={({pressed}) => [styles.skipButton, pressed && styles.pressed]}>
-              <Text style={styles.skipText}>{t('menopauseReminders.skip')}</Text>
-            </Pressable>
+              style={styles.skipButton}
+              variant="text"
+            />
           ) : null}
         </ScrollView>
       </View>
@@ -531,53 +532,36 @@ function createEditStyles(theme: ResolvedAwaTheme) {
     pressed: {opacity: 0.82},
 
     header: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 18},
-    back: {
-      alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-      width: 40, height: 40, borderRadius: 20, backgroundColor: theme.colors.surface,
-      elevation: 2, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.08, shadowRadius: 6,
-    },
+    back: {flexShrink: 0},
     headerCopy: {flex: 1, minWidth: 0, marginLeft: 12, paddingTop: 6},
-    title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 21, fontWeight: '700'},
-    subtitle: {marginTop: 5, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 17},
+    subtitle: {marginTop: 4},
 
-    card: {
-      overflow: 'hidden', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
-      backgroundColor: theme.colors.surface, paddingHorizontal: 12,
-    },
+    card: {overflow: 'hidden'},
     group: {paddingVertical: 4},
     groupBorder: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: theme.colors.border},
     row: {minHeight: 68, flexDirection: 'row', alignItems: 'center', paddingVertical: 10, gap: 11},
     rowIcon: {
       width: 38, height: 38, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-      borderRadius: 13, backgroundColor: theme.colors.primarySoft,
+      borderRadius: 12, backgroundColor: theme.colors.primarySoft,
     },
     rowCopy: {flex: 1, minWidth: 0},
-    rowTitle: {color: theme.colors.text, fontSize: 13.5, fontWeight: '700'},
-    rowSubtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 15.5},
+    rowSubtitle: {marginTop: 2},
 
     timeRow: {
-      minHeight: 44, marginBottom: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-      paddingHorizontal: 14, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 14,
+      minHeight: 48, marginBottom: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+      paddingHorizontal: 14, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12,
       backgroundColor: theme.colors.surfaceSecondary,
     },
-    timeRowLabel: {color: theme.colors.textSecondary, fontSize: 12, fontWeight: '700'},
     timeRowValueGroup: {flexDirection: 'row', alignItems: 'center', gap: 4},
-    timeValue: {color: theme.colors.text, fontSize: 14, fontWeight: '800'},
-    timeValuePlaceholder: {color: theme.colors.textMuted, fontSize: 14, fontWeight: '600'},
 
     errorCard: {
       flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4, marginBottom: 12,
-      paddingHorizontal: 12, paddingVertical: 10, borderRadius: 14,
+      paddingHorizontal: 12, paddingVertical: 10, borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.danger, 0.1), borderWidth: 1, borderColor: withAlpha(theme.colors.danger, 0.3),
     },
-    errorText: {flex: 1, color: theme.colors.danger, fontSize: 11.5, lineHeight: 16},
+    errorText: {flex: 1},
 
-    saveButton: {
-      minHeight: 54, alignItems: 'center', justifyContent: 'center', marginTop: 6,
-      borderRadius: 18, backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.2, shadowRadius: 10, elevation: 4,
-    },
-    saveButtonText: {color: onPrimaryTextColor(theme), fontSize: 15.5, fontWeight: '800'},
+    saveButton: {marginTop: 8},
   });
 }
 
@@ -585,88 +569,46 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     background: {flex: 1, backgroundColor: theme.colors.background},
 
-    pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
 
-    pageGlowTop: {
-      position: 'absolute', top: -150, right: -110, width: 330, height: 330,
-      borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
-    pageGlowMiddle: {
-      position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
-      borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
-    pageGlowBottom: {
-      position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
-      borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
 
     safeArea: {flex: 1},
     content: {flexGrow: 1, paddingHorizontal: spacing.lg, paddingBottom: spacing.md},
     pressed: {opacity: 0.82},
 
-    backButton: {
-      width: 42, height: 42, alignItems: 'center', justifyContent: 'center',
-      marginBottom: 5, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08),
-      borderRadius: 16, backgroundColor: withAlpha(theme.colors.surface, 0.88),
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
-    },
+    backButton: {alignSelf: 'flex-start', marginBottom: 8},
 
-    header: {alignItems: 'center', marginBottom: 18},
-    heroIcon: {
-      position: 'relative', width: 76, height: 76,
-      alignItems: 'center', justifyContent: 'center', marginBottom: 12,
-    },
-    heroGlowOuter: {position: 'absolute', width: 82, height: 82, borderRadius: 41, backgroundColor: withAlpha(theme.colors.primary, 0.055)},
-    heroGlowInner: {position: 'absolute', width: 70, height: 70, borderRadius: 35, backgroundColor: withAlpha(theme.colors.primary, 0.07)},
-    heroInner: {
-      width: 58, height: 58, alignItems: 'center', justifyContent: 'center',
-      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.10, shadowRadius: 12, elevation: 4,
-    },
+    header: {alignItems: 'center', marginBottom: 16},
 
-    title: {
-      color: theme.colors.text, fontFamily: 'serif', fontSize: 24, lineHeight: 30,
-      fontWeight: '800', textAlign: 'center', paddingHorizontal: 8,
-    },
-    subtitle: {
-      maxWidth: 320, marginTop: 8, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19, textAlign: 'center',
-    },
+    title: {textAlign: 'center', paddingHorizontal: 8},
+    subtitle: {maxWidth: 320, marginTop: 8, textAlign: 'center'},
 
-    card: {
-      marginTop: 14, padding: 15,
-      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
-      backgroundColor: withAlpha(theme.colors.surface, 0.92),
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 10, elevation: 1,
-    },
+    card: {marginTop: 12},
     cardTopRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 12},
     cardIcon: {
-      width: 42, height: 42, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-      borderRadius: 14, backgroundColor: theme.colors.primarySoft,
+      width: 40, height: 40, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
+      borderRadius: 12, backgroundColor: theme.colors.primarySoft,
     },
     cardCopy: {flex: 1, minWidth: 0},
-    cardTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 15.5, lineHeight: 20, fontWeight: '700'},
-    cardDescription: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+    cardDescription: {marginTop: 4},
 
     timeRow: {
-      minHeight: 58, marginTop: 12, flexDirection: 'row', alignItems: 'center', gap: 12,
-      paddingHorizontal: 14, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 18,
+      minHeight: 56, marginTop: 12, flexDirection: 'row', alignItems: 'center', gap: 12,
+      paddingHorizontal: 14, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12,
       backgroundColor: theme.colors.surfaceSecondary,
     },
     timeIconBox: {
-      width: 34, height: 34, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
+      width: 36, height: 36, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
       borderRadius: 12, backgroundColor: theme.colors.primarySoft,
     },
     timeCopy: {flex: 1, minWidth: 0},
-    timeLabel: {color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700', lineHeight: 14},
-    timeValue: {marginTop: 3, color: theme.colors.text, fontSize: 14, fontWeight: '800'},
-    timeValuePlaceholder: {marginTop: 3, color: theme.colors.textMuted, fontSize: 14, fontWeight: '600'},
+    timeValue: {marginTop: 2},
 
     errorCard: {
       flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 12,
-      paddingHorizontal: 12, paddingVertical: 10, borderRadius: 14,
+      paddingHorizontal: 12, paddingVertical: 10, borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.danger, 0.1), borderWidth: 1, borderColor: withAlpha(theme.colors.danger, 0.3),
     },
-    errorText: {flex: 1, color: theme.colors.danger, fontSize: 11.5, lineHeight: 16},
+    errorText: {flex: 1},
 
     info: {
       flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 14,
@@ -674,21 +616,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     infoIconBox: {
       width: 32, height: 32, alignItems: 'center', justifyContent: 'center',
-      borderRadius: 11, backgroundColor: theme.colors.surface,
+      borderRadius: 12, backgroundColor: theme.colors.surface,
     },
-    infoText: {flex: 1, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+    infoText: {flex: 1},
 
-    spacer: {flex: 1, minHeight: 14},
+    spacer: {flex: 1, minHeight: 16},
 
-    nextButton: {
-      minHeight: 54, alignItems: 'center', justifyContent: 'center',
-      marginTop: 12, borderRadius: 20, backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 7}, shadowOpacity: 0.25, shadowRadius: 12, elevation: 6,
-    },
-    nextText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '800', letterSpacing: 0.2},
+    nextButton: {marginTop: 12},
 
-    skipButton: {minHeight: 46, alignItems: 'center', justifyContent: 'center', marginTop: 4},
-    skipText: {color: theme.colors.textSecondary, fontSize: 13, fontWeight: '700'},
+    skipButton: {marginTop: 4},
   });
 }
 

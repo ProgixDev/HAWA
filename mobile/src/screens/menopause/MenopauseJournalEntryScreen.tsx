@@ -82,6 +82,11 @@ import type {MoodLevel} from '../../types/journal';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
+import {AwaTextField} from '../../components/ui/AwaTextField';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 type RouteProps = RouteProp<RootStackParamList, 'MenopauseJournalEntry'>;
@@ -209,7 +214,7 @@ function JournalCard({
 }): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  return <View style={[styles.journalCard, style]}>{children}</View>;
+  return <AwaCard style={[styles.journalCard, style]}>{children}</AwaCard>;
 }
 
 function CardHeading({
@@ -232,11 +237,11 @@ function CardHeading({
     <View style={styles.cardHeading}>
       <IconCircle icon={icon} size={40} />
       <View style={styles.cardHeadingCopy}>
-        <Text style={styles.cardHeadingTitle}>
+        <AwaText variant="titleSmall" style={styles.cardHeadingTitle}>
           {title}
-          {optional ? <Text style={styles.optionalText}> {t('menopauseJournalEntry.common.optionalLabel')}</Text> : null}
-        </Text>
-        {subtitle ? <Text style={styles.cardHeadingSubtitle}>{subtitle}</Text> : null}
+          {optional ? <AwaText variant="bodySmall" colorRole="onSurfaceVariant"> {t('menopauseJournalEntry.common.optionalLabel')}</AwaText> : null}
+        </AwaText>
+        {subtitle ? <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardHeadingSubtitle}>{subtitle}</AwaText> : null}
       </View>
       {badge ? (
         <View style={styles.countBadge}>
@@ -283,10 +288,10 @@ function SelectableIconCard({
         pressed && styles.pressed,
       ]}>
       <IconCircle color={iconColor} icon={icon} size={compact ? 52 : 58} tint={tint} />
-      <Text numberOfLines={compact ? 3 : 2} style={[styles.optionLabel, compact && styles.optionLabelCompact]}>
+      <Text style={[styles.optionLabel, compact && styles.optionLabelCompact]}>
         {label}
       </Text>
-      {description ? <Text numberOfLines={compact ? 3 : 2} style={styles.optionDescription}>{description}</Text> : null}
+      {description ? <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.optionDescription}>{description}</AwaText> : null}
       <View style={[styles.selectionMark, selected && styles.selectionMarkSelected]}>
         {selected ? <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={13} /> : null}
       </View>
@@ -324,8 +329,8 @@ function InformativePanel({
         tint={withAlpha(theme.colors.surface, 0.72)}
       />
       <View style={styles.infoCopy}>
-        <Text style={styles.infoTitle}>{title}</Text>
-        <Text style={styles.infoText}>{text}</Text>
+        <AwaText variant="labelSmall" style={styles.infoTitle}>{title}</AwaText>
+        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>{text}</AwaText>
       </View>
     </View>
   );
@@ -361,7 +366,7 @@ function PremiumTextArea({
         textAlignVertical="top"
         value={value}
       />
-      <Text style={styles.charCount}>{value.length}/{maxLength}</Text>
+      <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.charCount}>{value.length}/{maxLength}</AwaText>
     </View>
   );
 }
@@ -843,13 +848,13 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
                 />
               ))}
             </ChoiceGrid>
-            <Pressable
-              accessibilityLabel={t('menopauseJournalEntry.symptoms.editTrackedLink')}
-              accessibilityRole="button"
+            <AwaButton
+              label={t('menopauseJournalEntry.symptoms.editTrackedLink')}
               onPress={editTrackedSymptoms}
-              style={({pressed}) => [styles.historyBadge, styles.editSymptomsLink, pressed && styles.pressed]}>
-              <Text style={styles.historyBadgeText}>{t('menopauseJournalEntry.symptoms.editTrackedLink')}</Text>
-            </Pressable>
+              size="compact"
+              style={styles.editSymptomsLink}
+              variant="tonal"
+            />
           </>
         ) : (
           <View>
@@ -858,13 +863,12 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
               text={t('menopauseJournalEntry.symptoms.noneTrackedText')}
               title={t('menopauseJournalEntry.symptoms.noneTrackedTitle')}
             />
-            <Pressable
-              accessibilityLabel={t('menopauseJournalEntry.symptoms.chooseCta')}
-              accessibilityRole="button"
+            <AwaButton
+              fullWidth
+              label={t('menopauseJournalEntry.symptoms.chooseCta')}
               onPress={editTrackedSymptoms}
-              style={({pressed}) => [styles.saveButton, styles.editSymptomsCta, pressed && styles.pressed]}>
-              <Text style={styles.saveButtonText}>{t('menopauseJournalEntry.symptoms.chooseCta')}</Text>
-            </Pressable>
+              style={styles.editSymptomsCta}
+            />
           </View>
         )}
       </JournalCard>
@@ -928,13 +932,13 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
       <JournalCard>
         <CardHeading icon="clock-outline" title={t('menopauseJournalEntry.sleep.durationTitle')} />
         <View style={styles.durationRow}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('menopauseJournalEntry.sleep.decreaseAccessibility')}
             accessibilityRole="button"
             onPress={() => adjustSleep(-0.5)}
-            style={({pressed}) => [styles.stepButton, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="minus" size={25} />
-          </Pressable>
+            icon="minus"
+            iconSize={25}
+          />
           <View style={styles.durationInputWrap}>
             <TextInput
               accessibilityLabel={t('menopauseJournalEntry.sleep.durationInputAccessibility')}
@@ -946,17 +950,17 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
               style={styles.durationInput}
               value={sleepDuration}
             />
-            <Text style={styles.durationSuffix}>h</Text>
+            <AwaText variant="titleSmall" style={styles.durationSuffix}>h</AwaText>
           </View>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('menopauseJournalEntry.sleep.increaseAccessibility')}
             accessibilityRole="button"
             onPress={() => adjustSleep(0.5)}
-            style={({pressed}) => [styles.stepButton, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="plus" size={25} />
-          </Pressable>
+            icon="plus"
+            iconSize={25}
+          />
         </View>
-        <Text style={styles.durationHint}>{t('menopauseJournalEntry.sleep.durationHint')}</Text>
+        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.durationHint}>{t('menopauseJournalEntry.sleep.durationHint')}</AwaText>
         <View style={styles.sleepPresetRow}>
           {[4, 5, 6, 7, 8, 9].map(hours => {
             const selected = Number(sleepDuration.replace(',', '.')) === hours;
@@ -1129,29 +1133,23 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
             title={preferences.labTracking === 'both' && !editingLabId ? t('menopauseJournalEntry.lab.resultStepTitle2') : t('menopauseJournalEntry.lab.resultStepTitle')}
           />
           <View style={styles.labInputRow}>
-            <View style={[styles.labField, styles.labValueField]}>
-              <Text style={styles.fieldLabel}>{t('menopauseJournalEntry.lab.valueFieldLabel')}</Text>
-              <TextInput
-                accessibilityLabel={t('menopauseJournalEntry.lab.valueAccessibility')}
-                keyboardType="decimal-pad"
-                onChangeText={setLabValue}
-                placeholder={t('menopauseJournalEntry.lab.valuePlaceholder')}
-                placeholderTextColor={theme.colors.textMuted}
-                style={styles.labValueInput}
-                value={labValue}
-              />
-            </View>
-            <View style={styles.labField}>
-              <Text style={styles.fieldLabel}>{t('menopauseJournalEntry.lab.unitFieldLabel')} <Text style={styles.fieldOptional}>{t('menopauseJournalEntry.common.optionalLabel')}</Text></Text>
-              <TextInput
-                accessibilityLabel={t('menopauseJournalEntry.lab.unitAccessibility')}
-                onChangeText={setLabUnit}
-                placeholder="UI/L"
-                placeholderTextColor={theme.colors.textMuted}
-                style={styles.labUnitInput}
-                value={labUnit}
-              />
-            </View>
+            <AwaTextField
+              accessibilityLabel={t('menopauseJournalEntry.lab.valueAccessibility')}
+              keyboardType="decimal-pad"
+              label={t('menopauseJournalEntry.lab.valueFieldLabel')}
+              onChangeText={setLabValue}
+              placeholder={t('menopauseJournalEntry.lab.valuePlaceholder')}
+              value={labValue}
+              wrapperStyle={styles.labField}
+            />
+            <AwaTextField
+              accessibilityLabel={t('menopauseJournalEntry.lab.unitAccessibility')}
+              label={`${t('menopauseJournalEntry.lab.unitFieldLabel')} ${t('menopauseJournalEntry.common.optionalLabel')}`}
+              onChangeText={setLabUnit}
+              placeholder="UI/L"
+              value={labUnit}
+              wrapperStyle={styles.labField}
+            />
           </View>
           <InformativePanel
             icon="information-outline"
@@ -1162,18 +1160,20 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
 
         <View style={styles.subsection}>
           <CardHeading icon="calendar-outline" title={t('menopauseJournalEntry.lab.sampleDateTitle')} />
-          <Pressable
+          <AwaCard
+            padding="none"
+            variant="filled"
             accessibilityLabel={t('menopauseJournalEntry.lab.sampleDateAccessibility', {date: formatResultDate(effectiveLabDateKey)})}
             accessibilityRole="button"
             onPress={() => setShowLabDatePicker(current => !current)}
-            style={({pressed}) => [styles.dateField, pressed && styles.pressed]}>
+            style={styles.dateField}>
             <IconCircle icon="calendar-outline" size={38} />
             <View style={styles.dateFieldCopy}>
-              <Text style={styles.dateFieldTitle}>{effectiveLabDateKey === today ? t('menopauseJournalEntry.common.today') : t('menopauseJournalEntry.lab.dateChosenLabel')}</Text>
-              <Text style={styles.dateFieldText}>{formatResultDate(effectiveLabDateKey)}</Text>
+              <AwaText variant="labelSmall" style={styles.dateFieldTitle}>{effectiveLabDateKey === today ? t('menopauseJournalEntry.common.today') : t('menopauseJournalEntry.lab.dateChosenLabel')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.dateFieldText}>{formatResultDate(effectiveLabDateKey)}</AwaText>
             </View>
             <MaterialDesignIcons color={theme.colors.primary} name="chevron-down" size={20} />
-          </Pressable>
+          </AwaCard>
           {showLabDatePicker ? (
             <DateTimePicker
               maximumDate={new Date(`${today}T12:00:00`)}
@@ -1188,15 +1188,15 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
       {labResultsHistory.length > 0 ? (
         <JournalCard>
           <View style={styles.historyHeader}>
-            <Text style={styles.historyTitle}>{t('menopauseJournalEntry.lab.historyTitle')}</Text>
+            <AwaText variant="titleSmall" style={styles.historyTitle}>{t('menopauseJournalEntry.lab.historyTitle')}</AwaText>
             {labResultsHistory.length > 5 ? (
-              <Pressable
+              <AwaButton
                 accessibilityLabel={showAllLabResults ? t('menopauseJournalEntry.lab.collapseAccessibility') : t('menopauseJournalEntry.lab.expandAccessibility')}
-                accessibilityRole="button"
+                label={showAllLabResults ? t('menopauseJournalEntry.lab.collapseLabel') : t('menopauseJournalEntry.lab.expandLabel')}
                 onPress={() => setShowAllLabResults(current => !current)}
-                style={({pressed}) => [styles.historyBadge, pressed && styles.pressed]}>
-                <Text style={styles.historyBadgeText}>{showAllLabResults ? t('menopauseJournalEntry.lab.collapseLabel') : t('menopauseJournalEntry.lab.expandLabel')}</Text>
-              </Pressable>
+                size="compact"
+                variant="text"
+              />
             ) : null}
           </View>
           <View style={styles.recordsList}>
@@ -1209,28 +1209,26 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
                   tint={result.type === 'fsh' ? '#F1ECFA' : '#FCEEF2'}
                 />
                 <View style={styles.recordCopy}>
-                  <Text style={styles.recordTitle}>{MENOPAUSE_LAB_TYPE_LABELS[result.type]}</Text>
-                  <Text style={styles.recordText}>
+                  <AwaText variant="labelSmall" style={styles.recordTitle}>{MENOPAUSE_LAB_TYPE_LABELS[result.type]}</AwaText>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.recordText}>
                     {result.value}{result.unit ? ` ${result.unit}` : ''} · {formatResultDate(result.date)}
-                  </Text>
+                  </AwaText>
                 </View>
                 <View style={styles.recordActions}>
-                  <Pressable
+                  <AwaButton
                     accessibilityLabel={t('menopauseJournalEntry.lab.editResultAccessibility', {type: MENOPAUSE_LAB_TYPE_LABELS[result.type], date: formatResultDate(result.date)})}
-                    accessibilityRole="button"
-                    hitSlop={6}
+                    label={t('menopauseJournalEntry.lab.editLabel')}
                     onPress={() => startEditLab(result)}
-                    style={({pressed}) => [styles.historyBadge, editingLabId === result.id && styles.recordActionActive, pressed && styles.pressed]}>
-                    <Text style={styles.recordActionText}>{t('menopauseJournalEntry.lab.editLabel')}</Text>
-                  </Pressable>
-                  <Pressable
+                    size="compact"
+                    variant={editingLabId === result.id ? 'filled' : 'tonal'}
+                  />
+                  <AwaButton
                     accessibilityLabel={t('menopauseJournalEntry.lab.deleteResultAccessibility', {type: MENOPAUSE_LAB_TYPE_LABELS[result.type], date: formatResultDate(result.date)})}
-                    accessibilityRole="button"
-                    hitSlop={6}
+                    label={t('menopauseJournalEntry.lab.deleteLabel')}
                     onPress={() => requestDeleteLab(result)}
-                    style={({pressed}) => [styles.historyBadge, styles.recordActionDanger, pressed && styles.pressed]}>
-                    <Text style={[styles.recordActionText, styles.recordActionDangerText]}>{t('menopauseJournalEntry.lab.deleteLabel')}</Text>
-                  </Pressable>
+                    size="compact"
+                    variant="destructive"
+                  />
                 </View>
               </View>
             ))}
@@ -1249,10 +1247,10 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
       />
       <JournalCard>
         <View style={styles.notesHeadingRow}>
-          <Text style={styles.notesCardTitle}>{t('menopauseJournalEntry.notes.todayTitle')}</Text>
+          <AwaText variant="titleSmall" style={styles.notesCardTitle}>{t('menopauseJournalEntry.notes.todayTitle')}</AwaText>
           <View style={styles.datePill}>
             <MaterialDesignIcons color={theme.colors.primary} name="calendar-outline" size={15} />
-            <Text style={styles.datePillText}>{todayLabel()}</Text>
+            <AwaText variant="labelSmall" colorRole="primary">{todayLabel()}</AwaText>
           </View>
         </View>
         <PremiumTextArea
@@ -1271,8 +1269,8 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
       </JournalCard>
 
       <JournalCard>
-        <Text style={styles.inspirationTitle}>{t('menopauseJournalEntry.notes.inspirationTitle')}</Text>
-        <Text style={styles.inspirationSubtitle}>{t('menopauseJournalEntry.notes.inspirationSubtitle')}</Text>
+        <AwaText variant="titleSmall" style={styles.inspirationTitle}>{t('menopauseJournalEntry.notes.inspirationTitle')}</AwaText>
+        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.inspirationSubtitle}>{t('menopauseJournalEntry.notes.inspirationSubtitle')}</AwaText>
         <View style={styles.inspirationGrid}>
           {(
             [
@@ -1293,7 +1291,7 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
                 onPress={() => setNotes(current => current || `${label} : `)}
                 style={({pressed}) => [styles.inspirationChip, pressed && styles.pressed]}>
                 <MaterialDesignIcons color={theme.colors.primary} name={icon as IconName} size={18} />
-                <Text numberOfLines={2} style={styles.inspirationChipText}>{label}</Text>
+                <AwaText variant="labelSmall" style={styles.inspirationChipText}>{label}</AwaText>
               </Pressable>
             );
           })}
@@ -1333,25 +1331,19 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
       start={{x: 0, y: 0}}
       style={styles.safe}>
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         keyboardVerticalOffset={insets.top}
         style={styles.flex}>
         <View style={[styles.topBar, {paddingTop: getTopPadding(insets.top, true)}]}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('menopauseJournalEntry.common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={navigation.goBack}
-            style={({pressed}) => [styles.topButton, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.accent} name="chevron-left" size={24} />
-          </Pressable>
+            icon="chevron-left"
+          />
         </View>
 
         <ScrollView
@@ -1379,7 +1371,7 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
                 <MaterialDesignIcons color={item.iconColor} name={item.icon} size={compact ? 24 : 32} />
               </View>
               <Text style={[styles.heroTitle, compact && styles.heroTitleCompact]}>{item.label}</Text>
-              {!compact ? <Text style={styles.heroEyebrow}>{t('menopauseJournalEntry.hero.eyebrow')}</Text> : null}
+              {!compact ? <AwaText variant="labelSmall" colorRole="primary" style={styles.heroEyebrow}>{t('menopauseJournalEntry.hero.eyebrow')}</AwaText> : null}
               <Text style={[styles.heroDescription, compact && styles.heroDescriptionCompact]}>
                 {isPastEntryDate
                   ? t('menopauseJournalEntry.hero.pastDescription', {date: formatResultDate(entryDate)})
@@ -1392,49 +1384,43 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
             {error ? (
               <View style={styles.errorCard}>
                 <MaterialDesignIcons color={theme.colors.danger} name="alert-circle-outline" size={18} />
-                <Text accessibilityRole="alert" style={styles.errorText}>{error}</Text>
+                <AwaText variant="bodySmall" colorRole="error" accessibilityRole="alert" style={styles.errorText}>{error}</AwaText>
               </View>
             ) : null}
 
             {category === 'labResults' && editingLabId ? (
-              <Pressable
-                accessibilityLabel={t('menopauseJournalEntry.lab.cancelEdit')}
-                accessibilityRole="button"
+              <AwaButton
+                fullWidth
+                label={t('menopauseJournalEntry.lab.cancelEdit')}
                 onPress={resetLabForm}
-                style={({pressed}) => [styles.secondaryAction, pressed && styles.pressed]}>
-                <Text style={styles.secondaryActionText}>{t('menopauseJournalEntry.lab.cancelEdit')}</Text>
-              </Pressable>
+                style={styles.secondaryAction}
+                variant="text"
+              />
             ) : null}
 
-            <Pressable
-              accessibilityLabel={category === 'labResults' && editingLabId ? t('menopauseJournalEntry.lab.saveEditLabel') : copy.saveLabel}
-              accessibilityRole="button"
-              accessibilityState={{disabled: saving}}
+            <AwaButton
               disabled={saving}
+              fullWidth
+              icon={saving ? undefined : 'lock-outline'}
+              label={saving
+                ? t('menopauseJournalEntry.common.saving')
+                : category === 'labResults' && editingLabId
+                  ? t('menopauseJournalEntry.lab.saveEditLabel')
+                  : copy.saveLabel}
+              loading={saving}
               onPress={handleSave}
-              style={({pressed}) => [
-                styles.saveButton,
-                (pressed || saving) && styles.pressed,
-                saving && styles.saveButtonDisabled,
-              ]}>
-              <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={saving ? 'loading' : 'lock-outline'} size={22} />
-              <Text style={styles.saveButtonText}>
-                {saving
-                  ? t('menopauseJournalEntry.common.saving')
-                  : category === 'labResults' && editingLabId
-                    ? t('menopauseJournalEntry.lab.saveEditLabel')
-                    : copy.saveLabel}
-              </Text>
-            </Pressable>
+              size="large"
+              style={styles.saveButton}
+            />
 
             {clearableFields.length > 0 ? (
-              <Pressable
-                accessibilityLabel={t('menopauseJournalEntry.actions.clearThisTracking')}
-                accessibilityRole="button"
+              <AwaButton
+                fullWidth
+                label={t('menopauseJournalEntry.actions.clearThisTracking')}
                 onPress={requestClearCategory}
-                style={({pressed}) => [styles.secondaryAction, pressed && styles.pressed]}>
-                <Text style={[styles.secondaryActionText, styles.recordActionDangerText]}>{t('menopauseJournalEntry.actions.clearThisTracking')}</Text>
-              </Pressable>
+                style={styles.secondaryAction}
+                variant="destructive"
+              />
             ) : null}
 
           </FadeIn>
@@ -1464,40 +1450,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     flex: 1,
   },
 
-  // Exact same canonical AWA page background decor as ProfileScreen —
-  // reused verbatim (colors/locations already matched above; this is the
-  // 3-glow overlay), never a per-screen approximation.
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   pressed: {
     opacity: 0.78,
@@ -1517,21 +1469,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     flex: 1,
   },
 
-  topButton: {
-    width: 36,
-    height: 36,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.10),
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.055,
-    shadowRadius: 8,
-    elevation: 2,
-  },
 
   content: {
     paddingHorizontal: 14,
@@ -1584,7 +1521,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     borderWidth: 2,
     borderColor: withAlpha(theme.colors.surface, 0.95),
-    borderRadius: 20,
+    borderRadius: 12,
     shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.075,
@@ -1615,15 +1552,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     lineHeight: 26,
   },
 
-  heroEyebrow: {
-    marginTop: 4,
-    color: theme.colors.primary,
-    fontSize: 8.5,
-    lineHeight: 12,
-    fontWeight: '800',
-    letterSpacing: 1.05,
-    textAlign: 'center',
-  },
+  heroEyebrow: {marginTop: 4, textAlign: 'center'},
 
   heroDescription: {
     maxWidth: 330,
@@ -1635,8 +1564,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   heroDescriptionCompact: {
-    fontSize: 10.5,
-    lineHeight: 15.5,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   body: {
@@ -1645,16 +1574,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   journalCard: {
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.095),
-    borderRadius: 18,
-    backgroundColor: withAlpha(theme.colors.surface, 0.95),
-    padding: 13,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.045,
-    shadowRadius: 8,
-    elevation: 1,
   },
 
   cardHeading: {
@@ -1676,38 +1595,23 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingTop: 1,
   },
 
-  cardHeadingTitle: {
-    color: theme.colors.accent,
-    fontSize: 14,
-    lineHeight: 18,
-    fontWeight: '800',
-  },
+  cardHeadingTitle: {color: theme.colors.accent},
 
-  optionalText: {
-    color: theme.colors.textSecondary,
-    fontSize: 10,
-    fontWeight: '500',
-  },
 
-  cardHeadingSubtitle: {
-    marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
-  },
+  cardHeadingSubtitle: {marginTop: 2},
 
   countBadge: {
     alignSelf: 'flex-start',
     marginLeft: 7,
-    paddingHorizontal: 8,
-    paddingVertical: 5,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
     borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
   countBadgeText: {
     color: theme.colors.primary,
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '800',
   },
 
@@ -1729,16 +1633,16 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.12),
-    borderRadius: 17,
+    borderRadius: 16,
     backgroundColor: withAlpha(theme.colors.surface, 0.80),
-    paddingHorizontal: 8,
+    paddingHorizontal: 12,
     paddingVertical: 10,
   },
 
   optionCardCompact: {
     width: '31.5%',
     minHeight: 118,
-    paddingHorizontal: 4,
+    paddingHorizontal: 8,
     paddingVertical: 9,
     borderRadius: 16,
   },
@@ -1765,17 +1669,11 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   optionLabelCompact: {
     marginTop: 6,
-    fontSize: 9.5,
-    lineHeight: 13,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
-  optionDescription: {
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 8.4,
-    lineHeight: 11.5,
-    textAlign: 'center',
-  },
+  optionDescription: {marginTop: 3, textAlign: 'center'},
 
   selectionMark: {
     position: 'absolute',
@@ -1805,8 +1703,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'flex-start',
     gap: 9,
     marginTop: 11,
-    borderRadius: 15,
-    padding: 10,
+    borderRadius: 16,
+    padding: 12,
   },
 
   infoCopy: {
@@ -1815,19 +1713,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingTop: 0,
   },
 
-  infoTitle: {
-    color: theme.colors.accent,
-    fontSize: 11,
-    lineHeight: 14,
-    fontWeight: '800',
-  },
+  infoTitle: {color: theme.colors.accent},
 
-  infoText: {
-    marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    lineHeight: 14,
-  },
+  infoText: {marginTop: 2},
 
   durationRow: {
     flexDirection: 'row',
@@ -1836,26 +1724,16 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 9,
   },
 
-  stepButton: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 14,
-    backgroundColor: theme.colors.surface,
-  },
 
   durationInputWrap: {
-    height: 64,
+    minHeight: 64,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1.2,
     borderColor: withAlpha(theme.colors.primary, 0.50),
-    borderRadius: 17,
+    borderRadius: 16,
     backgroundColor: theme.colors.surface,
   },
 
@@ -1863,24 +1741,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 62,
     padding: 0,
     color: theme.colors.primary,
-    fontSize: 31,
+    fontSize: 28,
     fontWeight: '800',
     textAlign: 'right',
   },
 
-  durationSuffix: {
-    marginLeft: 6,
-    color: theme.colors.accent,
-    fontSize: 15,
-    fontWeight: '700',
-  },
+  durationSuffix: {marginLeft: 6, color: theme.colors.accent},
 
-  durationHint: {
-    marginTop: 7,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    textAlign: 'center',
-  },
+  durationHint: {marginTop: 7, textAlign: 'center'},
 
   sleepPresetRow: {
     flexDirection: 'row',
@@ -1890,10 +1758,10 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   sleepPreset: {
     flex: 1,
-    minHeight: 32,
+    minHeight: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
@@ -1903,7 +1771,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   sleepPresetText: {
     color: theme.colors.accent,
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '700',
   },
 
@@ -1916,7 +1784,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.13),
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.surface,
   },
 
@@ -1926,72 +1794,24 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingTop: 11,
     paddingBottom: 30,
     color: theme.colors.accent,
-    fontSize: 11,
-    lineHeight: 16,
+    fontSize: 14,
+    lineHeight: 20,
   },
 
-  charCount: {
-    position: 'absolute',
-    right: 11,
-    bottom: 9,
-    color: theme.colors.textMuted,
-    fontSize: 9,
-    fontWeight: '600',
-  },
+  charCount: {position: 'absolute', right: 11, bottom: 9},
 
   labInputRow: {
     flexDirection: 'row',
+    alignItems: 'flex-start',
     gap: 8,
   },
 
   labField: {
-    minHeight: 65,
     flex: 1,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.13),
-    borderRadius: 15,
-    backgroundColor: theme.colors.surface,
-    paddingHorizontal: 11,
-    paddingTop: 8,
+    minWidth: 0,
   },
 
-  labValueField: {
-    borderColor: withAlpha(theme.colors.primary, 0.50),
-  },
-
-  fieldLabel: {
-    color: theme.colors.textSecondary,
-    fontSize: 9,
-    fontWeight: '600',
-  },
-
-  fieldOptional: {
-    fontWeight: '400',
-  },
-
-  labValueInput: {
-    padding: 0,
-    color: theme.colors.accent,
-    fontSize: 19,
-    fontWeight: '800',
-  },
-
-  labUnitInput: {
-    padding: 0,
-    color: theme.colors.accent,
-    fontSize: 14,
-    fontWeight: '700',
-  },
-
-  dateField: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.13),
-    borderRadius: 15,
-    backgroundColor: theme.colors.surface,
-    padding: 9,
-  },
+  dateField: {flexDirection: 'row', alignItems: 'center', padding: 12},
 
   dateFieldCopy: {
     flex: 1,
@@ -1999,17 +1819,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginLeft: 8,
   },
 
-  dateFieldTitle: {
-    color: theme.colors.accent,
-    fontSize: 11,
-    fontWeight: '800',
-  },
+  dateFieldTitle: {color: theme.colors.accent},
 
-  dateFieldText: {
-    marginTop: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-  },
+  dateFieldText: {marginTop: 1},
 
   historyHeader: {
     flexDirection: 'row',
@@ -2018,24 +1830,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 8,
   },
 
-  historyTitle: {
-    color: theme.colors.accent,
-    fontSize: 14,
-    fontWeight: '800',
-  },
-
-  historyBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 5,
-    borderRadius: 11,
-    backgroundColor: theme.colors.primarySoft,
-  },
-
-  historyBadgeText: {
-    color: theme.colors.primary,
-    fontSize: 9,
-    fontWeight: '800',
-  },
+  historyTitle: {color: theme.colors.accent},
 
   editSymptomsLink: {
     alignSelf: 'flex-start',
@@ -2052,44 +1847,19 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   recordActions: {
     flexDirection: 'row',
+    flexShrink: 0,
     alignItems: 'center',
     gap: 6,
     marginLeft: 6,
   },
 
-  recordActionText: {
-    color: theme.colors.primary,
-    fontSize: 10.5,
-    fontWeight: '800',
-  },
-
-  recordActionActive: {
-    backgroundColor: withAlpha(theme.colors.primary, 0.18),
-  },
-
-  recordActionDanger: {
-    backgroundColor: withAlpha(theme.colors.danger, 0.1),
-  },
-
-  recordActionDangerText: {
-    color: theme.colors.danger,
-  },
-
   secondaryAction: {
-    minHeight: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
     marginTop: 10,
-  },
-
-  secondaryActionText: {
-    color: theme.colors.primary,
-    fontSize: 13,
-    fontWeight: '800',
   },
 
   recordRow: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
     paddingVertical: 7,
     borderBottomWidth: 1,
@@ -2098,21 +1868,14 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   recordCopy: {
     flex: 1,
+    flexBasis: 110,
     minWidth: 0,
     marginLeft: 8,
   },
 
-  recordTitle: {
-    color: theme.colors.accent,
-    fontSize: 11,
-    fontWeight: '800',
-  },
+  recordTitle: {color: theme.colors.accent},
 
-  recordText: {
-    marginTop: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 9.3,
-  },
+  recordText: {marginTop: 1},
 
   notesHeadingRow: {
     flexDirection: 'row',
@@ -2122,42 +1885,22 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 11,
   },
 
-  notesCardTitle: {
-    flex: 1,
-    color: theme.colors.accent,
-    fontSize: 14,
-    lineHeight: 18,
-    fontWeight: '800',
-  },
+  notesCardTitle: {flex: 1, color: theme.colors.accent},
 
   datePill: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    paddingHorizontal: 8,
-    paddingVertical: 5,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
     borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  datePillText: {
-    color: theme.colors.primary,
-    fontSize: 9,
-    fontWeight: '800',
-  },
 
-  inspirationTitle: {
-    color: theme.colors.accent,
-    fontSize: 14,
-    fontWeight: '800',
-  },
+  inspirationTitle: {color: theme.colors.accent},
 
-  inspirationSubtitle: {
-    marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 10,
-    lineHeight: 14,
-  },
+  inspirationSubtitle: {marginTop: 2},
 
   inspirationGrid: {
     flexDirection: 'row',
@@ -2174,19 +1917,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 7,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.07),
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
-    paddingHorizontal: 9,
+    paddingHorizontal: 12,
     paddingVertical: 7,
   },
 
-  inspirationChipText: {
-    flex: 1,
-    color: theme.colors.accent,
-    fontSize: 9.5,
-    lineHeight: 13,
-    fontWeight: '600',
-  },
+  inspirationChipText: {flex: 1, color: theme.colors.accent},
 
   errorCard: {
     flexDirection: 'row',
@@ -2194,44 +1931,17 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     gap: 6,
     marginTop: 10,
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.danger, 0.12),
-    padding: 9,
+    padding: 12,
   },
 
-  errorText: {
-    flexShrink: 1,
-    color: theme.colors.danger,
-    fontSize: 10,
-    lineHeight: 14,
-    textAlign: 'center',
-  },
+  errorText: {flexShrink: 1, textAlign: 'center'},
 
   saveButton: {
-    minHeight: 50,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 7,
     marginTop: 14,
-    borderRadius: 17,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.colors.primary,
-    shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.18,
-    shadowRadius: 10,
-    elevation: 4,
   },
 
-  saveButtonDisabled: {
-    opacity: 0.72,
-  },
-
-  saveButtonText: {
-    color: onPrimaryTextColor(theme),
-    fontSize: 13,
-    fontWeight: '800',
-  },
 
   privacyFooter: {
     flexDirection: 'row',
@@ -2241,15 +1951,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginTop: 11,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.07),
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.72),
-    paddingVertical: 8,
-    paddingHorizontal: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
   },
 
   privacyFooterText: {
     color: theme.colors.primary,
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '700',
   },
   });
