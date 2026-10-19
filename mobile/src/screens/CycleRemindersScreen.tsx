@@ -6,7 +6,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Switch,
   Text,
   View,
 } from 'react-native';
@@ -32,6 +31,11 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awa
 import {dateAtTimeOfDay, formatTimeOfDay} from '../utils/timeOfDay';
 import '../i18n';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaSwitch} from '../components/ui/AwaSwitch';
+import {AwaText} from '../components/ui/AwaText';
 
 // Same 'HH:mm' formatting/parsing convention as
 // MenopauseRemindersScreen.tsx's/ContraceptionRemindersScreen.tsx's own
@@ -164,11 +168,6 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
@@ -180,64 +179,49 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
           ]}
           showsVerticalScrollIndicator={false}>
           {isEdit ? (
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('common.back')}
-              accessibilityRole="button"
               hitSlop={12}
+              icon="arrow-left"
               onPress={navigation.goBack}
-              style={({pressed}) => [styles.backButton, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
-            </Pressable>
+              style={styles.backButton}
+            />
           ) : null}
 
           <View style={styles.header}>
-            <View style={styles.heroIcon}>
-              <View pointerEvents="none" style={styles.heroGlowOuter} />
-              <View pointerEvents="none" style={styles.heroGlowInner} />
-              <LinearGradient
-                colors={[theme.colors.surface, theme.colors.surfaceSecondary]}
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 1}}
-                style={styles.heroInner}>
-                <MaterialDesignIcons color={theme.colors.primary} name="bell-outline" size={30} />
-              </LinearGradient>
-            </View>
+            
 
-            <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={styles.title}>{t('cycleReminders.title')}</Text>
-            <Text style={styles.subtitle}>
+            <AwaText accessibilityRole="header" style={styles.title} variant="headlineSmall">{t('cycleReminders.title')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">
               {isEdit
                 ? t('cycleReminders.subtitleEdit')
                 : t('cycleReminders.subtitleOnboarding')}
-            </Text>
+            </AwaText>
           </View>
 
           {/* RÈGLES À VENIR */}
-          <View style={styles.card}>
+          <AwaCard style={styles.card} variant="filled">
             <View style={styles.cardTopRow}>
-              <View style={styles.cardIcon}>
-                <MaterialDesignIcons color={theme.colors.primary} name="water-outline" size={22} />
-              </View>
+              <MaterialDesignIcons color={theme.colors.primary} name="water-outline" size={24} />
               <View style={styles.cardCopy}>
-                <Text style={styles.cardTitle}>{t('cycleReminders.upcomingPeriodTitle')}</Text>
-                <Text style={styles.cardDescription}>
+                <AwaText style={styles.cardTitle} variant="titleMedium">{t('cycleReminders.upcomingPeriodTitle')}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" style={styles.cardDescription} variant="bodySmall">
                   {t('cycleReminders.upcomingPeriodDescription')}
-                </Text>
+                </AwaText>
               </View>
-              <Switch
+              <AwaSwitch
+                accessibilityLabel={t('cycleReminders.upcomingPeriodTitle')}
                 disabled={cycleDataUnavailable}
-                ios_backgroundColor={theme.colors.primarySoft}
                 onValueChange={value => {
                   setUpcomingPeriodEnabled(value);
                   setError('');
                 }}
-                thumbColor={theme.colors.surface}
-                trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
                 value={upcomingPeriodEnabled}
               />
             </View>
 
             {cycleDataUnavailable ? (
-              <Text style={styles.unavailableNote}>{t('cycleReminders.unavailableNote')}</Text>
+              <AwaText colorRole="onSurfaceVariant" style={styles.unavailableNote} variant="bodySmall">{t('cycleReminders.unavailableNote')}</AwaText>
             ) : null}
 
             {upcomingPeriodEnabled ? (
@@ -264,56 +248,46 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                 })}
               </View>
             ) : null}
-          </View>
-
+          </AwaCard>
           {/* SAISIE DU DÉBUT DES RÈGLES */}
-          <View style={styles.card}>
+          <AwaCard style={styles.card} variant="filled">
             <View style={styles.cardTopRow}>
-              <View style={styles.cardIcon}>
-                <MaterialDesignIcons color={theme.colors.primary} name="calendar-check-outline" size={22} />
-              </View>
+              <MaterialDesignIcons color={theme.colors.primary} name="calendar-check-outline" size={24} />
               <View style={styles.cardCopy}>
-                <Text style={styles.cardTitle}>{t('cycleReminders.periodStartCheckTitle')}</Text>
-                <Text style={styles.cardDescription}>
+                <AwaText style={styles.cardTitle} variant="titleMedium">{t('cycleReminders.periodStartCheckTitle')}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" style={styles.cardDescription} variant="bodySmall">
                   {t('cycleReminders.periodStartCheckDescription')}
-                </Text>
+                </AwaText>
               </View>
-              <Switch
+              <AwaSwitch
+                accessibilityLabel={t('cycleReminders.periodStartCheckTitle')}
                 disabled={cycleDataUnavailable}
-                ios_backgroundColor={theme.colors.primarySoft}
                 onValueChange={value => {
                   setPeriodStartCheckEnabled(value);
                   setError('');
                 }}
-                thumbColor={theme.colors.surface}
-                trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
                 value={periodStartCheckEnabled}
               />
             </View>
 
             {cycleDataUnavailable ? (
-              <Text style={styles.unavailableNote}>{t('cycleReminders.unavailableNote')}</Text>
+              <AwaText colorRole="onSurfaceVariant" style={styles.unavailableNote} variant="bodySmall">{t('cycleReminders.unavailableNote')}</AwaText>
             ) : null}
-          </View>
-
+          </AwaCard>
           {/* JOURNAL QUOTIDIEN */}
-          <View style={styles.card}>
+          <AwaCard style={styles.card} variant="filled">
             <View style={styles.cardTopRow}>
-              <View style={styles.cardIcon}>
-                <MaterialDesignIcons color={theme.colors.primary} name="notebook-edit-outline" size={22} />
-              </View>
+              <MaterialDesignIcons color={theme.colors.primary} name="notebook-edit-outline" size={24} />
               <View style={styles.cardCopy}>
-                <Text style={styles.cardTitle}>{t('dailyJournalSheet.defaultTitle')}</Text>
-                <Text style={styles.cardDescription}>{t('cycleReminders.dailyJournalDescription')}</Text>
+                <AwaText style={styles.cardTitle} variant="titleMedium">{t('dailyJournalSheet.defaultTitle')}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" style={styles.cardDescription} variant="bodySmall">{t('cycleReminders.dailyJournalDescription')}</AwaText>
               </View>
-              <Switch
-                ios_backgroundColor={theme.colors.primarySoft}
+              <AwaSwitch
+                accessibilityLabel={t('dailyJournalSheet.defaultTitle')}
                 onValueChange={value => {
                   setDailyJournalEnabled(value);
                   setError('');
                 }}
-                thumbColor={theme.colors.surface}
-                trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
                 value={dailyJournalEnabled}
               />
             </View>
@@ -328,7 +302,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                   <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
                 </View>
                 <View style={styles.timeCopy}>
-                  <Text style={styles.timeLabel}>{t('journalIntimacy.timeLabel')}</Text>
+                  <AwaText colorRole="onSurfaceVariant" style={styles.timeLabel} variant="labelMedium">{t('journalIntimacy.timeLabel')}</AwaText>
                   <Text style={dailyJournalTime ? styles.timeValue : styles.timeValuePlaceholder}>
                     {dailyJournalTime ?? t('journalTemperature.chooseATime')}
                   </Text>
@@ -336,30 +310,25 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                 <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={20} />
               </Pressable>
             ) : null}
-          </View>
-
+          </AwaCard>
           {/* OVULATION & FENÊTRE FERTILE */}
-          <View style={styles.card}>
+          <AwaCard style={styles.card} variant="filled">
             <View style={styles.cardTopRow}>
-              <View style={styles.cardIcon}>
-                <MaterialDesignIcons color={theme.colors.primary} name="egg-outline" size={22} />
-              </View>
+              <MaterialDesignIcons color={theme.colors.primary} name="egg-outline" size={24} />
               <View style={styles.cardCopy}>
-                <Text style={styles.cardTitle}>{t('cycleReminders.fertilityTitle')}</Text>
-                <Text style={styles.cardDescription}>{t('cycleReminders.fertilityDescription')}</Text>
+                <AwaText style={styles.cardTitle} variant="titleMedium">{t('cycleReminders.fertilityTitle')}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" style={styles.cardDescription} variant="bodySmall">{t('cycleReminders.fertilityDescription')}</AwaText>
               </View>
-              <Switch
+              <AwaSwitch
+                accessibilityLabel={t('cycleReminders.fertilityTitle')}
                 disabled={cycleDataUnavailable}
-                ios_backgroundColor={theme.colors.primarySoft}
                 onValueChange={toggleFertility}
-                thumbColor={theme.colors.surface}
-                trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
                 value={fertilityEnabled}
               />
             </View>
 
             {cycleDataUnavailable ? (
-              <Text style={styles.unavailableNote}>{t('cycleReminders.unavailableNote')}</Text>
+              <AwaText colorRole="onSurfaceVariant" style={styles.unavailableNote} variant="bodySmall">{t('cycleReminders.unavailableNote')}</AwaText>
             ) : null}
 
             {fertilityEnabled ? (
@@ -375,7 +344,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                       <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={14} />
                     ) : null}
                   </View>
-                  <Text style={styles.checkboxLabel}>{t('journalCycleEvolution.estimatedFertileWindow')}</Text>
+                  <AwaText style={styles.checkboxLabel} variant="bodyMedium">{t('journalCycleEvolution.estimatedFertileWindow')}</AwaText>
                 </Pressable>
 
                 <Pressable
@@ -389,12 +358,11 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                       <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={14} />
                     ) : null}
                   </View>
-                  <Text style={styles.checkboxLabel}>{t('journalCycleEvolution.phase.ovulation')}</Text>
+                  <AwaText style={styles.checkboxLabel} variant="bodyMedium">{t('journalCycleEvolution.phase.ovulation')}</AwaText>
                 </Pressable>
               </View>
             ) : null}
-          </View>
-
+          </AwaCard>
           {timePickerVisible ? (
             <DateTimePicker
               display="default"
@@ -413,7 +381,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
           {error ? (
             <View accessibilityRole="alert" style={styles.errorCard}>
               <MaterialDesignIcons color={theme.colors.danger} name="alert-outline" size={16} />
-              <Text style={styles.errorText}>{error}</Text>
+              <AwaText colorRole="error" style={styles.errorText} variant="bodySmall">{error}</AwaText>
             </View>
           ) : null}
 
@@ -421,47 +389,44 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
             <View accessibilityRole="alert" style={styles.errorCard}>
               <MaterialDesignIcons color={theme.colors.danger} name="bell-off-outline" size={16} />
               <View style={styles.permissionNoticeCopy}>
-                <Text style={styles.errorText}>
+                <AwaText colorRole="error" style={styles.errorText} variant="bodySmall">
                   {t('cycleReminders.permissionNoticeText')}
-                </Text>
-                <Pressable
+                </AwaText>
+                <AwaButton
                   accessibilityLabel={t('cycleReminders.openNotificationSettings')}
-                  accessibilityRole="button"
+                  label={t('cycleReminders.openSettings')}
                   onPress={() => notifee.openNotificationSettings().catch(() => {})}
-                  style={({pressed}) => [styles.permissionSettingsButton, pressed && styles.pressed]}>
-                  <Text style={styles.permissionSettingsButtonText}>{t('cycleReminders.openSettings')}</Text>
-                </Pressable>
+                  size="compact"
+                  style={styles.permissionSettingsButton}
+                  variant="destructive"
+                />
               </View>
             </View>
           ) : null}
 
-          <View style={styles.info}>
-            <View style={styles.infoIconBox}>
-              <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
-            </View>
-            <Text style={styles.infoText}>
+          <AwaCard padding="compact" style={styles.info} variant="filled">
+            <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={20} />
+            <AwaText colorRole="onSurfaceVariant" style={styles.infoText} variant="bodySmall">
               {t('cycleReminders.infoText')}
-            </Text>
-          </View>
-
-          <Pressable
-            accessibilityRole="button"
+            </AwaText>
+          </AwaCard>
+          <AwaButton
             disabled={saving}
+            fullWidth
+            label={saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('common.continue')}
             onPress={handleSave}
-            style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
-            <Text style={styles.nextText}>
-              {saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('common.continue')}
-            </Text>
-          </Pressable>
-
+            size="large"
+            style={styles.nextButton}
+          />
           {!isEdit ? (
-            <Pressable
-              accessibilityRole="button"
+            <AwaButton
               disabled={saving}
+              fullWidth
+              label={t('cycleReminders.skip')}
               onPress={handleSkip}
-              style={({pressed}) => [styles.skipButton, pressed && styles.pressed]}>
-              <Text style={styles.skipText}>{t('cycleReminders.skip')}</Text>
-            </Pressable>
+              style={styles.skipButton}
+              variant="text"
+            />
           ) : null}
         </ScrollView>
       </View>
@@ -473,73 +438,30 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     background: {flex: 1, backgroundColor: theme.colors.background},
 
-    pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
 
-    pageGlowTop: {
-      position: 'absolute', top: -150, right: -110, width: 330, height: 330,
-      borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
-    pageGlowMiddle: {
-      position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
-      borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
-    pageGlowBottom: {
-      position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
-      borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
 
     safeArea: {flex: 1},
     content: {flexGrow: 1, paddingHorizontal: spacing.lg, paddingBottom: spacing.md},
-    pressed: {opacity: 0.82},
 
-    backButton: {
-      width: 42, height: 42, alignItems: 'center', justifyContent: 'center',
-      marginBottom: 5, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08),
-      borderRadius: 16, backgroundColor: withAlpha(theme.colors.surface, 0.88),
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
-    },
+    pressed: {opacity: 0.82},
+    backButton: {alignSelf: 'flex-start', marginBottom: 5},
 
     header: {alignItems: 'center', marginBottom: 18},
-    heroIcon: {
-      position: 'relative', width: 76, height: 76,
-      alignItems: 'center', justifyContent: 'center', marginBottom: 12,
-    },
-    heroGlowOuter: {position: 'absolute', width: 82, height: 82, borderRadius: 41, backgroundColor: withAlpha(theme.colors.primary, 0.055)},
-    heroGlowInner: {position: 'absolute', width: 70, height: 70, borderRadius: 35, backgroundColor: withAlpha(theme.colors.primary, 0.07)},
-    heroInner: {
-      width: 58, height: 58, alignItems: 'center', justifyContent: 'center',
-      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.10, shadowRadius: 12, elevation: 4,
-    },
 
-    title: {
-      color: theme.colors.text, fontFamily: 'serif', fontSize: 24, lineHeight: 30,
-      fontWeight: '800', textAlign: 'center', paddingHorizontal: 8,
-    },
-    subtitle: {
-      maxWidth: 320, marginTop: 8, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19, textAlign: 'center',
-    },
+    title: {textAlign: 'center', paddingHorizontal: 8},
+    subtitle: {maxWidth: 320, marginTop: 8, textAlign: 'center'},
 
-    card: {
-      marginTop: 14, padding: 15,
-      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
-      backgroundColor: withAlpha(theme.colors.surface, 0.92),
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 10, elevation: 1,
-    },
+    card: {marginTop: 14},
     cardTopRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 12},
-    cardIcon: {
-      width: 42, height: 42, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-      borderRadius: 14, backgroundColor: theme.colors.primarySoft,
-    },
     cardCopy: {flex: 1, minWidth: 0},
-    cardTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 15.5, lineHeight: 20, fontWeight: '700'},
-    cardDescription: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
-    unavailableNote: {marginTop: 10, color: theme.colors.textMuted, fontSize: 10.5, lineHeight: 15, fontStyle: 'italic'},
+    cardTitle: {},
+    cardDescription: {marginTop: 4},
+    unavailableNote: {marginTop: 10, fontStyle: 'italic'},
 
     daysBeforeRow: {flexDirection: 'row', gap: 8, marginTop: 12},
     daysBeforeChip: {
       flex: 1, minHeight: 40, alignItems: 'center', justifyContent: 'center',
-      borderRadius: 13, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.16), backgroundColor: theme.colors.primarySoft,
+      borderRadius: 12, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.16), backgroundColor: theme.colors.primarySoft,
     },
     daysBeforeChipSelected: {backgroundColor: theme.colors.primary, borderColor: theme.colors.primary},
     daysBeforeChipText: {color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '700'},
@@ -547,7 +469,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     timeRow: {
       minHeight: 58, marginTop: 12, flexDirection: 'row', alignItems: 'center', gap: 12,
-      paddingHorizontal: 14, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 18,
+      paddingHorizontal: 14, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
     timeIconBox: {
@@ -555,52 +477,35 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderRadius: 12, backgroundColor: theme.colors.primarySoft,
     },
     timeCopy: {flex: 1, minWidth: 0},
-    timeLabel: {color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700'},
+    timeLabel: {},
     timeValue: {marginTop: 2, color: theme.colors.text, fontSize: 14, fontWeight: '800'},
     timeValuePlaceholder: {marginTop: 2, color: theme.colors.textMuted, fontSize: 14, fontWeight: '600'},
 
     checkboxList: {marginTop: 12, gap: 8},
-    checkboxRow: {flexDirection: 'row', alignItems: 'center', gap: 10, minHeight: 38},
+    checkboxRow: {flexDirection: 'row', alignItems: 'center', gap: 10, minHeight: 48},
     checkbox: {
       width: 22, height: 22, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
       borderRadius: 7, borderWidth: 1.4, borderColor: withAlpha(theme.colors.primary, 0.35), backgroundColor: theme.colors.surface,
     },
     checkboxChecked: {backgroundColor: theme.colors.primary, borderColor: theme.colors.primary},
-    checkboxLabel: {flex: 1, minWidth: 0, color: theme.colors.text, fontSize: 12.5, fontWeight: '600'},
+    checkboxLabel: {flex: 1, minWidth: 0},
 
     errorCard: {
       flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 12,
-      paddingHorizontal: 12, paddingVertical: 10, borderRadius: 14,
+      paddingHorizontal: 12, paddingVertical: 10, borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.danger, 0.1), borderWidth: 1, borderColor: withAlpha(theme.colors.danger, 0.15),
     },
-    errorText: {flex: 1, color: theme.colors.danger, fontSize: 11.5, lineHeight: 16},
+    errorText: {flex: 1},
     permissionNoticeCopy: {flex: 1, minWidth: 0},
-    permissionSettingsButton: {
-      alignSelf: 'flex-start', marginTop: 8, borderRadius: 12,
-      borderWidth: 1, borderColor: withAlpha(theme.colors.danger, 0.3),
-      paddingHorizontal: 12, paddingVertical: 7,
-    },
-    permissionSettingsButtonText: {color: theme.colors.danger, fontSize: 11, fontWeight: '700'},
+    permissionSettingsButton: {alignSelf: 'flex-start', marginTop: 8},
 
-    info: {
-      flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 16,
-      borderRadius: 16, backgroundColor: withAlpha(theme.colors.primarySoft, 0.9), paddingHorizontal: 12, paddingVertical: 11,
-    },
-    infoIconBox: {
-      width: 32, height: 32, alignItems: 'center', justifyContent: 'center',
-      borderRadius: 11, backgroundColor: theme.colors.surface,
-    },
-    infoText: {flex: 1, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+    info: {flexDirection: 'row', alignItems: 'center', gap: 12, marginTop: 16},
+    infoText: {flex: 1},
 
-    nextButton: {
-      minHeight: 54, alignItems: 'center', justifyContent: 'center',
-      marginTop: 16, borderRadius: 20, backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 7}, shadowOpacity: 0.25, shadowRadius: 12, elevation: 6,
-    },
-    nextText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '800', letterSpacing: 0.2},
+    // DESIGN.md: the CTA is a plain AwaButton (filled) — no custom fill or heavy shadow.
+    nextButton: {marginTop: 16},
 
-    skipButton: {minHeight: 46, alignItems: 'center', justifyContent: 'center', marginTop: 4},
-    skipText: {color: theme.colors.textSecondary, fontSize: 13, fontWeight: '700'},
+    skipButton: {marginTop: 4},
   });
 }
 

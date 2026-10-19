@@ -1,9 +1,12 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useTranslation} from 'react-i18next';
 
-import {homeColors, homeRadii, homeShadow} from '../home/homeTheme';
+import {useAwaTokens} from '../../theme/useAwaTokens';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 
 type Props = {
   /** The locked feature's own name, e.g. "Statistiques avancées" — never a
@@ -29,6 +32,7 @@ type Props = {
  * competing Premium screen. */
 export function PremiumLockedCard({title, description, onUpgrade, ctaLabel}: Props): React.JSX.Element {
   const {t} = useTranslation();
+  const {roles} = useAwaTokens();
   // Defaults to the app's existing canonical phrase (ProfileScreen.tsx's own
   // Premium card, profile.premiumCard.discoverPremium) so every locked
   // surface reads consistently — reused, not duplicated, per that key's own
@@ -36,74 +40,30 @@ export function PremiumLockedCard({title, description, onUpgrade, ctaLabel}: Pro
   const resolvedCtaLabel = ctaLabel ?? t('profile.premiumCard.discoverPremium');
 
   return (
-    <View style={styles.card}>
+    <AwaCard padding="default" style={styles.card} variant="filled">
       <View style={styles.badgeRow}>
-        <View style={styles.lockIconCircle}>
-          <MaterialDesignIcons color={homeColors.primary} name="lock-outline" size={18} />
-        </View>
-        <Text style={styles.badgeText}>{t('premium.lockedCard.badge')}</Text>
+        <MaterialDesignIcons color={roles.accessible.primaryAsText} name="lock-outline" size={18} />
+        <AwaText colorRole="primary" emphasized variant="labelLarge">{t('premium.lockedCard.badge')}</AwaText>
       </View>
 
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.description}>{description}</Text>
+      <AwaText emphasized style={styles.title} variant="titleMedium">{title}</AwaText>
+      <AwaText colorRole="onSurfaceVariant" style={styles.description} variant="bodyMedium">{description}</AwaText>
 
-      <Pressable
+      <AwaButton
         accessibilityHint={t('profile.premiumCard.accessibilityHint')}
         accessibilityLabel={resolvedCtaLabel}
-        accessibilityRole="button"
+        icon="crown"
+        label={resolvedCtaLabel}
         onPress={onUpgrade}
-        style={({pressed}) => [styles.cta, pressed && styles.pressed]}>
-        <MaterialDesignIcons color="#FFFFFF" name="crown" size={16} />
-        <Text style={styles.ctaText}>{resolvedCtaLabel}</Text>
-      </Pressable>
-    </View>
+        variant="filled"
+      />
+    </AwaCard>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    borderWidth: 1,
-    borderColor: homeColors.cardBorder,
-    borderRadius: homeRadii.card,
-    backgroundColor: '#FFFFFF',
-    padding: 20,
-    alignItems: 'center',
-    ...homeShadow,
-  },
+  card: {alignItems: 'center', padding: 20},
   badgeRow: {flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12},
-  lockIconCircle: {
-    width: 34,
-    height: 34,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 17,
-    backgroundColor: homeColors.lightLavender,
-  },
-  badgeText: {color: homeColors.primary, fontSize: 13, fontWeight: '800', letterSpacing: 0.3},
-  title: {
-    color: homeColors.textPrimary,
-    fontFamily: 'serif',
-    fontSize: 17,
-    fontWeight: '700',
-    textAlign: 'center',
-    marginBottom: 6,
-  },
-  description: {
-    color: homeColors.textSecondary,
-    fontSize: 13,
-    lineHeight: 19,
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  cta: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    minHeight: 46,
-    paddingHorizontal: 20,
-    borderRadius: homeRadii.button,
-    backgroundColor: homeColors.primary,
-  },
-  ctaText: {color: '#FFFFFF', fontSize: 14, fontWeight: '700'},
-  pressed: {opacity: 0.85},
+  title: {textAlign: 'center', marginBottom: 8},
+  description: {textAlign: 'center', marginBottom: 16},
 });

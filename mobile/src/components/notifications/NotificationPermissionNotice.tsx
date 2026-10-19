@@ -1,11 +1,13 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {openNotificationSettings, openReminderChannelSettings, type ReminderDeliveryState} from '../../services/pregnancyNotifications';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaText} from '../ui/AwaText';
 import '../../i18n';
 
 // The one place a person is told "your reminders cannot reach you" and given the way to fix it. Every objective's
@@ -60,7 +62,7 @@ function NotificationPermissionNotice({state, onRecheck, onContinue, testID}: Pr
     return (
       <View accessibilityLiveRegion="polite" style={[styles.card, styles.okCard]} testID={testID ? `${testID}-enabled` : undefined}>
         <MaterialDesignIcons color={theme.colors.primary} name="bell-check-outline" size={18} />
-        <Text style={styles.okText}>{t('notificationPermission.nowOn')}</Text>
+        <AwaText style={styles.okText} variant="bodyMedium">{t('notificationPermission.nowOn')}</AwaText>
       </View>
     );
   }
@@ -70,20 +72,18 @@ function NotificationPermissionNotice({state, onRecheck, onContinue, testID}: Pr
       <View style={[styles.card, styles.hintCard]} testID={testID ? `${testID}-silent` : undefined}>
         <View style={styles.headerRow}>
           <MaterialDesignIcons color={theme.colors.primary} name="volume-low" size={18} />
-          <Text style={styles.hintTitle}>{t('notificationPermission.channelSilentTitle')}</Text>
+          <AwaText emphasized style={styles.hintTitle} variant="titleSmall">{t('notificationPermission.channelSilentTitle')}</AwaText>
         </View>
-        <Text style={styles.body}>{t('notificationPermission.channelSilentBody')}</Text>
-        <Text style={styles.body}>
+        <AwaText style={styles.body} variant="bodyMedium">{t('notificationPermission.channelSilentBody')}</AwaText>
+        <AwaText style={styles.body} variant="bodyMedium">
           {t('notificationPermission.channelSilentSteps', {channel: t('notifications.channelName')})}
-        </Text>
+        </AwaText>
         <View style={styles.actions}>
-          <Pressable
+          <AwaButton
             accessibilityLabel={t('notificationPermission.openSettings')}
-            accessibilityRole="button"
+            label={t('notificationPermission.openSettings')}
             onPress={() => {openReminderChannelSettings().catch(() => {});}}
-            style={({pressed}) => [styles.primaryButton, pressed && styles.pressed]}>
-            <Text style={styles.primaryButtonText}>{t('notificationPermission.openSettings')}</Text>
-          </Pressable>
+          />
         </View>
       </View>
     );
@@ -105,43 +105,42 @@ function NotificationPermissionNotice({state, onRecheck, onContinue, testID}: Pr
     <View accessibilityRole="alert" style={styles.card} testID={testID}>
       <View style={styles.headerRow}>
         <MaterialDesignIcons color={theme.colors.danger} name="bell-off-outline" size={18} />
-        <Text style={styles.title}>
+        <AwaText colorRole="error" emphasized style={styles.title} variant="titleSmall">
           {channel ? t('notificationPermission.channelBlockedTitle') : t('notificationPermission.blockedTitle')}
-        </Text>
+        </AwaText>
       </View>
-      <Text style={styles.body}>
+      <AwaText style={styles.body} variant="bodyMedium">
         {channel ? t('notificationPermission.channelBlockedBody') : t('notificationPermission.blockedBody')}
-      </Text>
+      </AwaText>
 
       <View style={styles.actions}>
-        <Pressable
+        <AwaButton
           accessibilityLabel={t('notificationPermission.openSettings')}
-          accessibilityRole="button"
+          label={t('notificationPermission.openSettings')}
           onPress={() => {openNotificationSettings().catch(() => {});}}
-          style={({pressed}) => [styles.primaryButton, pressed && styles.pressed]}>
-          <Text style={styles.primaryButtonText}>{t('notificationPermission.openSettings')}</Text>
-        </Pressable>
+        />
         {onRecheck ? (
-          <Pressable
+          <AwaButton
             accessibilityLabel={t('notificationPermission.recheck')}
-            accessibilityRole="button"
+            label={t('notificationPermission.recheck')}
             onPress={() => {recheck().catch(() => {});}}
-            style={({pressed}) => [styles.secondaryButton, pressed && styles.pressed]}>
-            <Text style={styles.secondaryButtonText}>{t('notificationPermission.recheck')}</Text>
-          </Pressable>
+            variant="outlined"
+          />
         ) : null}
       </View>
 
-      {stillOff ? <Text style={styles.feedback}>{t('notificationPermission.stillOff')}</Text> : null}
+      {stillOff ? (
+        <AwaText colorRole="error" style={styles.feedback} variant="bodySmall">{t('notificationPermission.stillOff')}</AwaText>
+      ) : null}
 
       {onContinue ? (
-        <Pressable
+        <AwaButton
           accessibilityLabel={t('notificationPermission.continueWithout')}
-          accessibilityRole="button"
+          label={t('notificationPermission.continueWithout')}
           onPress={onContinue}
-          style={({pressed}) => [styles.continueButton, pressed && styles.pressed]}>
-          <Text style={styles.continueText}>{t('notificationPermission.continueWithout')}</Text>
-        </Pressable>
+          style={styles.continueButton}
+          variant="text"
+        />
       ) : null}
     </View>
   );
@@ -151,9 +150,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     card: {
       marginTop: 12,
-      paddingHorizontal: 12,
-      paddingVertical: 11,
-      borderRadius: 14,
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.danger, 0.1),
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.danger, 0.15),
@@ -169,33 +168,14 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: withAlpha(theme.colors.primarySoft, 0.9),
       borderColor: withAlpha(theme.colors.primary, 0.2),
     },
-    hintTitle: {flex: 1, color: theme.colors.text, fontSize: 13, fontWeight: '800'},
-    okText: {flex: 1, color: theme.colors.text, fontSize: 12, lineHeight: 17},
+    hintTitle: {flex: 1},
+    okText: {flex: 1},
     headerRow: {flexDirection: 'row', alignItems: 'center', gap: 8},
-    title: {flex: 1, color: theme.colors.danger, fontSize: 13, fontWeight: '800'},
-    body: {marginTop: 6, color: theme.colors.text, fontSize: 12, lineHeight: 17},
-    actions: {flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 10},
-    primaryButton: {
-      minHeight: 40,
-      justifyContent: 'center',
-      borderRadius: 12,
-      backgroundColor: theme.colors.primary,
-      paddingHorizontal: 14,
-    },
-    primaryButtonText: {color: onPrimaryTextColor(theme), fontSize: 12, fontWeight: '800'},
-    secondaryButton: {
-      minHeight: 40,
-      justifyContent: 'center',
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.danger, 0.3),
-      paddingHorizontal: 14,
-    },
-    secondaryButtonText: {color: theme.colors.danger, fontSize: 12, fontWeight: '700'},
-    feedback: {marginTop: 8, color: theme.colors.danger, fontSize: 11.5, lineHeight: 16},
-    continueButton: {minHeight: 40, alignItems: 'center', justifyContent: 'center', marginTop: 6},
-    continueText: {color: theme.colors.textSecondary, fontSize: 12, fontWeight: '700', textDecorationLine: 'underline'},
-    pressed: {opacity: 0.85},
+    title: {flex: 1},
+    body: {marginTop: 6},
+    actions: {flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 12},
+    feedback: {marginTop: 8},
+    continueButton: {marginTop: 4},
   });
 }
 
