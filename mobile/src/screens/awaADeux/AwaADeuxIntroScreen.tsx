@@ -1,7 +1,6 @@
-import React, {memo, useEffect, useMemo} from 'react';
+import React, {memo, useMemo} from 'react';
 import {
   Image,
-  Pressable,
   StatusBar,
   StyleSheet,
   Text,
@@ -12,13 +11,9 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import LinearGradient from 'react-native-linear-gradient';
 import Animated, {
-  Easing,
-  cancelAnimation,
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
-  withRepeat,
-  withSequence,
   withTiming,
 } from 'react-native-reanimated';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -26,7 +21,10 @@ import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {useEntrance} from './useEntrance';
 import {
   INTRO_HERO_MIN_HEIGHT,
@@ -72,10 +70,6 @@ export const INTRO_ENTRANCE = {
 } as const;
 const ENTRANCE = INTRO_ENTRANCE;
 
-// Extremely subtle "breathing" of the illustration once it has settled: 1 → 1.01 → 1.
-const BREATHE_SCALE = 1.01;
-const BREATHE_HALF_CYCLE = 3600;
-
 type BenefitItemProps = {
   icon: IconName;
   text: string;
@@ -115,22 +109,9 @@ export default function AwaADeuxIntroScreen({navigation}: Props): React.JSX.Elem
   const styles = useMemo(() => createStyles(theme, layout), [theme, layout]);
   const BENEFITS = useMemo(() => benefitsOf(t), [t]);
 
-  // Illustration: entrance, then a barely visible breathing loop.
-  const breathe = useSharedValue(1);
-  const startBreathing = () => {
-    'worklet';
-    breathe.value = withRepeat(
-      withSequence(
-        withTiming(BREATHE_SCALE, {duration: BREATHE_HALF_CYCLE, easing: Easing.inOut(Easing.sin)}),
-        withTiming(1, {duration: BREATHE_HALF_CYCLE, easing: Easing.inOut(Easing.sin)}),
-      ),
-      -1,
-      false,
-    );
-  };
-  const heroEntrance = useEntrance(ENTRANCE.hero.delay, ENTRANCE.hero.duration, reduceMotion, 14, 0.96, startBreathing);
-  const heroBreathing = useAnimatedStyle(() => ({transform: [{scale: breathe.value}]}));
-  useEffect(() => () => cancelAnimation(breathe), [breathe]);
+  // DESIGN.md: the illustration only has a one-shot entrance (the former looping
+  // "breathing" was decorative motion and was removed).
+  const heroEntrance = useEntrance(ENTRANCE.hero.delay, ENTRANCE.hero.duration, reduceMotion, 14, 0.96);
 
   const titleEntrance = useEntrance(ENTRANCE.title.delay, ENTRANCE.title.duration, reduceMotion, 10);
   const ctaEntrance = useEntrance(ENTRANCE.cta.delay, ENTRANCE.cta.duration, reduceMotion, 10, 0.97);
@@ -147,21 +128,20 @@ export default function AwaADeuxIntroScreen({navigation}: Props): React.JSX.Elem
 
       {/* Back button — below the status bar */}
       <View style={styles.header}>
-        <Pressable
+        <AwaIconButton
           accessibilityLabel={t('common.back')}
-          accessibilityRole="button"
-          hitSlop={8}
+          icon="chevron-left"
+          iconSize={28}
           onPress={navigation.goBack}
-          style={({pressed}) => [styles.back, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
-        </Pressable>
+          style={styles.back}
+        />
       </View>
 
       {/* Everything else shares the remaining height: no scrolling. */}
       <View style={styles.body}>
         {/* HERO — decorative (the title below says it all): not announced */}
         <Animated.View style={[styles.heroBox, heroEntrance]}>
-          <Animated.View style={[styles.heroFill, heroBreathing]}>
+          <View style={styles.heroFill}>
             <Image
               accessibilityElementsHidden
               importantForAccessibility="no-hide-descendants"
@@ -169,12 +149,12 @@ export default function AwaADeuxIntroScreen({navigation}: Props): React.JSX.Elem
               source={HERO_IMAGE}
               style={styles.heroImage}
             />
-          </Animated.View>
+          </View>
         </Animated.View>
 
         <Animated.View style={titleEntrance}>
-          <Text accessibilityRole="header" maxFontSizeMultiplier={1.15} style={styles.title}>{t('profile.awaADeuxTitle')}</Text>
-          <Text maxFontSizeMultiplier={1.15} style={styles.subtitle}>{t('awaADeux.intro.subtitle')}</Text>
+          <AwaText accessibilityRole="header" maxFontSizeMultiplier={1.15} variant="headlineSmall" style={styles.title}>{t('profile.awaADeuxTitle')}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" maxFontSizeMultiplier={1.15} variant="bodyMedium" style={styles.subtitle}>{t('awaADeux.intro.subtitle')}</AwaText>
         </Animated.View>
 
         <View style={styles.benefits}>
@@ -198,9 +178,11 @@ export default function AwaADeuxIntroScreen({navigation}: Props): React.JSX.Elem
         {/* Two nested wrappers: two animated `transform` styles on one view would override each other. */}
         <Animated.View style={ctaEntrance}>
           <Animated.View style={ctaPress}>
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('awaADeux.intro.discoverAccessibility')}
-              accessibilityRole="button"
+              fullWidth
+              label={t('awaADeux.intro.discoverCta')}
+              minHeight={layout.ctaHeight}
               onPress={() => navigation.navigate('AwaADeuxPartnerName')}
               onPressIn={() => {
                 pressScale.value = withTiming(0.97, {duration: 90});
@@ -208,9 +190,7 @@ export default function AwaADeuxIntroScreen({navigation}: Props): React.JSX.Elem
               onPressOut={() => {
                 pressScale.value = withTiming(1, {duration: 140});
               }}
-              style={({pressed}) => [styles.cta, pressed && styles.pressed]}>
-              <Text maxFontSizeMultiplier={1.15} style={styles.ctaText}>{t('awaADeux.intro.discoverCta')}</Text>
-            </Pressable>
+            />
           </Animated.View>
         </Animated.View>
       </View>
@@ -222,15 +202,7 @@ function createStyles(theme: ResolvedAwaTheme, layout: IntroLayout) {
   return StyleSheet.create({
     screen: {flex: 1, backgroundColor: theme.colors.background},
     header: {paddingHorizontal: 20, paddingTop: layout.headerTop, paddingBottom: 4},
-    back: {
-      alignSelf: 'flex-start',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 999,
-      backgroundColor: theme.colors.surface,
-      padding: 9,
-      elevation: 2,
-    },
+    back: {alignSelf: 'flex-start'},
     // The remaining height, its content centered as a group.
     body: {flex: 1, minHeight: 0, justifyContent: 'center', paddingHorizontal: 20},
     // The illustration is the flexible element: its basis is the cap, and it shrinks
@@ -247,15 +219,12 @@ function createStyles(theme: ResolvedAwaTheme, layout: IntroLayout) {
     title: {
       marginTop: layout.titleMarginTop,
       color: theme.colors.accent,
-      fontFamily: 'serif',
       fontSize: layout.titleFontSize,
       lineHeight: layout.titleLineHeight,
-      fontWeight: '700',
       textAlign: 'center',
     },
     subtitle: {
       marginTop: layout.subtitleMarginTop,
-      color: theme.colors.textSecondary,
       fontSize: layout.subtitleFontSize,
       lineHeight: layout.subtitleLineHeight,
       textAlign: 'center',
@@ -268,7 +237,7 @@ function createStyles(theme: ResolvedAwaTheme, layout: IntroLayout) {
       gap: 12,
       borderWidth: 1,
       borderColor: theme.colors.border,
-      borderRadius: 18,
+      borderRadius: 12,
       backgroundColor: theme.colors.surface,
       paddingHorizontal: layout.benefitPaddingHorizontal,
       paddingVertical: layout.benefitPaddingVertical,
@@ -292,15 +261,5 @@ function createStyles(theme: ResolvedAwaTheme, layout: IntroLayout) {
       fontWeight: '600',
     },
     footer: {paddingHorizontal: 20, paddingTop: 10, paddingBottom: layout.footerBottom},
-    cta: {
-      minHeight: layout.ctaHeight,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: layout.ctaHeight / 2,
-      backgroundColor: theme.colors.primary,
-      paddingHorizontal: 20,
-    },
-    ctaText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '700'},
-    pressed: {opacity: 0.85},
   });
 }

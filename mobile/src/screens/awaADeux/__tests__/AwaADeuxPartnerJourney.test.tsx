@@ -346,7 +346,9 @@ describe('PartnerHomeScreen — sharing permissions control what is shown', () =
     expect(source).not.toMatch(/\bYacine\b|\bSami\b|\bAmine\b|\bMoussa\b/);
     expect(source).not.toMatch(/Jour\s+18|13 octobre|24 septembre|30 septembre/);
     expect(source).not.toMatch(/En savoir plus/);
-    expect(source).toMatch(/importantForAccessibility="no-hide-descendants"[\s\S]*arrow-right/);
+    // Material 3 migration: the decorative, non-functional "Voir tout" affordance (no destination, no handler) was
+    // removed instead of kept as a fake link, so the previous "decorative arrow-right present" pin now asserts its absence.
+    expect(source).not.toMatch(/common\.seeAll/);
     expect(source).not.toContain('Son corps se prépare doucement pour la prochaine étape du cycle.');
     // The one legitimate Pressable in this file (added for the top-right profile
     // shortcut) is real, typed, same-navigator tab navigation — never a fake affordance.
@@ -389,7 +391,7 @@ describe('PartnerHomeScreen — sharing permissions control what is shown', () =
     await setSharingToggle('cycleDay', true);
 
     const light = await renderFlow('PartnerMainTabs');
-    const lightCard = rootOf(light).findAll(node => node.props.accessibilityLabel === 'Informations du cycle aujourd’hui')[0];
+    const lightCard = rootOf(light).findAll(node => typeof node.type === 'string' && node.props.accessibilityLabel === 'Informations du cycle aujourd’hui')[0];
     const lightBackground = StyleSheet.flatten(lightCard.props.style).backgroundColor;
     expect(textsOf(light)).toEqual(expect.arrayContaining(['11', 'Phase folliculaire']));
 
@@ -400,7 +402,7 @@ describe('PartnerHomeScreen — sharing permissions control what is shown', () =
     await setAppearanceMode('dark');
 
     const dark = await renderFlow('PartnerMainTabs');
-    const darkCard = rootOf(dark).findAll(node => node.props.accessibilityLabel === 'Informations du cycle aujourd’hui')[0];
+    const darkCard = rootOf(dark).findAll(node => typeof node.type === 'string' && node.props.accessibilityLabel === 'Informations du cycle aujourd’hui')[0];
     const darkBackground = StyleSheet.flatten(darkCard.props.style).backgroundColor;
     expect(textsOf(dark)).toEqual(expect.arrayContaining(['11', 'Phase folliculaire']));
     expect(darkBackground).not.toBe(lightBackground);
@@ -550,7 +552,7 @@ describe('PartnerProfileScreen — welcome card', () => {
 
   it('never truncates the greeting with an ellipsis (no numberOfLines on the title)', () => {
     const source = fs.readFileSync(path.resolve(__dirname, '../partner/PartnerProfileScreen.tsx'), 'utf8');
-    const titleLine = source.split('\n').find(line => line.includes('styles.identityName'));
+    const titleLine = source.split('\n').find(line => line.includes('profile.greeting'));
     expect(titleLine).not.toMatch(/numberOfLines/);
   });
 

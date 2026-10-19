@@ -1,10 +1,11 @@
 import React, {useMemo, useState} from 'react';
-import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 
-import {homeRadii} from '../../../components/home/homeTheme';
+import {AwaCard} from '../../../components/ui/AwaCard';
+import {AwaIconButton} from '../../../components/ui/AwaIconButton';
+import {AwaText} from '../../../components/ui/AwaText';
 import {useAwaADeuxSharing} from '../../../hooks/useAwaADeuxSharing';
 import PartnerScreenBackground from './PartnerScreenBackground';
 import {getHasConfirmedCycleData, getRecordedPeriodHistory} from '../../../state/onboardingPreferences';
@@ -114,27 +115,23 @@ export default function PartnerCalendarScreen(): React.JSX.Element {
       <ScrollView
         contentContainerStyle={[styles.content, {paddingTop: getTopPadding(insets.top), paddingBottom: getFloatingTabBarClearance(insets.bottom, 16)}]}
         showsVerticalScrollIndicator={false}>
-        <Text accessibilityRole="header" style={styles.title}>{t('awaADeux.partnerSide.calendar.title')}</Text>
+        <AwaText accessibilityRole="header" variant="headlineMedium" style={styles.title}>{t('awaADeux.partnerSide.calendar.title')}</AwaText>
 
-        <View style={styles.card}>
+        <AwaCard style={styles.card}>
           <View style={styles.monthHeader}>
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('awaADeux.partnerSide.calendar.previousMonth')}
-              accessibilityRole="button"
-              hitSlop={12}
-              onPress={() => setMonthCursor(previous => startOfMonth(addDays(previous, -1)))}>
-              <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={24} />
-            </Pressable>
+              icon="chevron-left"
+              onPress={() => setMonthCursor(previous => startOfMonth(addDays(previous, -1)))}
+            />
             <View style={styles.monthTitleBlock}>
-              <Text numberOfLines={1} style={styles.monthTitle}>{capitalize(monthLabel.format(monthCursor))}</Text>
+              <AwaText variant="titleLarge" style={styles.monthTitle}>{capitalize(monthLabel.format(monthCursor))}</AwaText>
             </View>
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('awaADeux.partnerSide.calendar.nextMonth')}
-              accessibilityRole="button"
-              hitSlop={12}
-              onPress={() => setMonthCursor(previous => startOfMonth(addDays(previous, daysInMonth(previous) + 1)))}>
-              <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={24} />
-            </Pressable>
+              icon="chevron-right"
+              onPress={() => setMonthCursor(previous => startOfMonth(addDays(previous, daysInMonth(previous) + 1)))}
+            />
           </View>
 
           <View style={styles.weekRow}>
@@ -198,25 +195,25 @@ export default function PartnerCalendarScreen(): React.JSX.Element {
               );
             })}
           </View>
-        </View>
+        </AwaCard>
 
         {legend.length > 0 ? (
-          <View style={styles.legendCard}>
-            <Text style={styles.legendTitle}>{t('awaADeux.partnerSide.calendar.legendTitle')}</Text>
+          <AwaCard padding="none" style={styles.legendCard} variant="filled">
+            <AwaText variant="titleSmall" style={styles.legendTitle}>{t('awaADeux.partnerSide.calendar.legendTitle')}</AwaText>
             {legend.map((item, index) => (
               <View key={item.label} style={[styles.legendRow, index > 0 && styles.legendRowDivider]}>
                 <View style={[styles.legendDot, {backgroundColor: item.color}]} />
                 <View style={styles.legendCopy}>
-                  <Text style={styles.legendLabel}>{item.label}</Text>
-                  <Text style={styles.legendDescription}>{item.description}</Text>
+                  <AwaText variant="titleSmall">{item.label}</AwaText>
+                  <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.legendDescription}>{item.description}</AwaText>
                 </View>
               </View>
             ))}
-          </View>
+          </AwaCard>
         ) : (
-          <View style={styles.legendCard}>
-            <Text style={styles.emptyText}>{t('awaADeux.partnerSide.calendar.emptyLegend')}</Text>
-          </View>
+          <AwaCard padding="none" style={styles.legendCard} variant="filled">
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.emptyText}>{t('awaADeux.partnerSide.calendar.emptyLegend')}</AwaText>
+          </AwaCard>
         )}
       </ScrollView>
     </PartnerScreenBackground>
@@ -226,27 +223,17 @@ export default function PartnerCalendarScreen(): React.JSX.Element {
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     content: {paddingHorizontal: 20, paddingBottom: 20},
-    title: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 26, lineHeight: 32, fontWeight: '700'},
-    // Same card treatment as MonthCalendarCard.tsx: homeRadii.card, theme.colors.surface,
-    // 16 padding, theme.shadow.
-    card: {
-      marginTop: 18,
-      borderRadius: homeRadii.card,
-      backgroundColor: theme.colors.surface,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      padding: 16,
-      ...theme.shadow,
-    },
-    // Same month-header anatomy as MonthCalendarCard.tsx (bare chevrons, no button chrome).
+    title: {color: theme.colors.accent},
+    // The month grid sits on one elevated card (the screen's single prominent surface).
+    card: {marginTop: 18},
     monthHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
     monthTitleBlock: {flex: 1, alignItems: 'center', paddingHorizontal: 6},
-    monthTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 19, fontWeight: '700', textTransform: 'capitalize'},
+    monthTitle: {textTransform: 'capitalize'},
     weekRow: {flexDirection: 'row', marginTop: 14},
     weekDay: {width: '14.2857%', color: theme.colors.textSecondary, fontSize: 11, fontWeight: '600', textAlign: 'center'},
     daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 6},
     dayCell: {width: '14.2857%', minHeight: 56, alignItems: 'center', justifyContent: 'center', paddingVertical: 2},
-    day: {width: '86%', minHeight: 40, maxWidth: 42, paddingVertical: 4, alignItems: 'center', justifyContent: 'center', borderRadius: 14},
+    day: {width: '86%', minHeight: 40, maxWidth: 42, paddingVertical: 4, alignItems: 'center', justifyContent: 'center', borderRadius: 12},
     dayText: {color: theme.colors.text, fontSize: 13, fontWeight: '600'},
     // SEMANTIC backgrounds — never theme-driven, see the file header note.
     periodDay: {backgroundColor: PERIOD_FILL_COLOR},
@@ -268,23 +255,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     dot: {width: 3.5, height: 3.5, borderRadius: 2},
     // The legend as a compact card, reusing LegendSheet.tsx's own row/dot/label/description
     // anatomy (16×16 dot, bold label, secondary description) instead of its modal chrome.
-    legendCard: {
-      marginTop: 14,
-      borderRadius: homeRadii.card,
-      backgroundColor: theme.colors.surface,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      paddingHorizontal: 16,
-      paddingVertical: 4,
-      ...theme.shadow,
-    },
-    legendTitle: {marginTop: 12, marginBottom: 2, color: theme.colors.text, fontFamily: 'serif', fontSize: 15, fontWeight: '700'},
+    legendCard: {marginTop: 14, paddingHorizontal: 16, paddingVertical: 4},
+    legendTitle: {marginTop: 12, marginBottom: 2},
     legendRow: {minHeight: 52, flexDirection: 'row', alignItems: 'flex-start', gap: 12, paddingVertical: 10},
     legendRowDivider: {borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: theme.colors.border},
     legendDot: {width: 16, height: 16, marginTop: 2, borderRadius: 8},
     legendCopy: {flex: 1, minWidth: 0},
-    legendLabel: {color: theme.colors.text, fontSize: 14, fontWeight: '700'},
-    legendDescription: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 16},
-    emptyText: {paddingVertical: 16, color: theme.colors.textSecondary, fontSize: 13.5, lineHeight: 20},
+    legendDescription: {marginTop: 2},
+    emptyText: {paddingVertical: 16},
   });
 }

@@ -1,5 +1,5 @@
 import React, {useCallback, useMemo, useState} from 'react';
-import {Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
@@ -11,6 +11,9 @@ import type {PartnerMainTabParamList} from '../../../navigation/PartnerMainTabNa
 import CycleProgressRing from '../../../components/home/CycleProgressRing';
 import {ENERGY_LABELS, MOOD_LABELS, getCyclePhaseIdentity} from '../../../components/home/HeroCycleCard';
 import {homeColors} from '../../../components/home/homeTheme';
+import {AwaCard} from '../../../components/ui/AwaCard';
+import {AwaIconButton} from '../../../components/ui/AwaIconButton';
+import {AwaText} from '../../../components/ui/AwaText';
 import {useAwaADeuxPartnerIdentity} from '../../../hooks/useAwaADeuxPartnerIdentity';
 import {useAwaADeuxSharing} from '../../../hooks/useAwaADeuxSharing';
 import {useToday} from '../../../hooks/useToday';
@@ -196,34 +199,33 @@ export default function PartnerHomeScreen(): React.JSX.Element {
         showsVerticalScrollIndicator={false}>
         <View style={styles.headerRow}>
           <View style={styles.headerCopy}>
-            <Text accessibilityRole="header" style={styles.greeting}>{t('awaADeux.partnerSide.home.greeting')}</Text>
-            {hasPartnerFirstName ? <Text numberOfLines={1} style={styles.partnerFirstName}>{`${partnerFirstName}`}</Text> : null}
-            <Text style={styles.subtitle}>{t('awaADeux.partnerSide.home.subtitle')}</Text>
+            <AwaText accessibilityRole="header" variant="headlineSmall" style={styles.greeting}>{t('awaADeux.partnerSide.home.greeting')}</AwaText>
+            {hasPartnerFirstName ? <AwaText variant="titleLarge" style={styles.partnerFirstName}>{`${partnerFirstName}`}</AwaText> : null}
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.subtitle}>{t('awaADeux.partnerSide.home.subtitle')}</AwaText>
           </View>
 
           {/* Same profile shortcut as the owner's own Cycle dashboard header
               (HomeHeader.tsx): identical icon, circular button, shadow and press
               feedback — only the destination differs (this tab navigator's own
               PartnerProfile tab, never the owner's ProfileScreen). */}
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('awaADeux.partnerSide.home.openProfileAccessibility')}
-            accessibilityRole="button"
-            hitSlop={8}
+            icon="account-outline"
+            iconSize={22}
             onPress={() => navigation.navigate('PartnerProfile')}
-            style={({pressed}) => [styles.profileButton, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="account-outline" size={22} />
-          </Pressable>
+            variant="tonal"
+          />
         </View>
 
         {!hasSharedCycleInformation ? (
-          <View style={styles.emptyCard}>
+          <AwaCard style={styles.emptyCard} variant="filled">
             <MaterialDesignIcons color={theme.colors.textSecondary} name="shield-lock-outline" size={22} />
-            <Text style={styles.emptyText}>{t('awaADeux.partnerSide.home.emptyShared')}</Text>
-          </View>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.emptyText}>{t('awaADeux.partnerSide.home.emptyShared')}</AwaText>
+          </AwaCard>
         ) : (
           <>
             {showCycle ? (
-              <View accessibilityLabel={t('awaADeux.partnerSide.home.cycleInfoAccessibility')} style={styles.heroCard}>
+              <AwaCard accessibilityLabel={t('awaADeux.partnerSide.home.cycleInfoAccessibility')} padding="none" style={styles.heroCard}>
                 <View style={styles.heroTopRow}>
                   <CycleProgressRing
                     accessibilityLabel={info.cycleDay === null ? t('awaADeux.partnerSide.home.cycleDayUnavailableAccessibility') : t('awaADeux.partnerSide.home.cycleDayAccessibility', {day: info.cycleDay})}
@@ -236,10 +238,9 @@ export default function PartnerHomeScreen(): React.JSX.Element {
 
                   <View style={styles.heroCopy}>
                     <View style={styles.heroTitleRow}>
-                      <Text style={styles.heroTitle}>{t('awaADeux.partnerSide.home.todayLabel')}</Text>
-                      <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={16} />
+                      <AwaText variant="titleMedium" style={styles.heroTitle}>{t('awaADeux.partnerSide.home.todayLabel')}</AwaText>
                     </View>
-                    <Text style={styles.heroMessage}>{phaseMessage}</Text>
+                    <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.heroMessage}>{phaseMessage}</AwaText>
                   </View>
                 </View>
 
@@ -260,12 +261,12 @@ export default function PartnerHomeScreen(): React.JSX.Element {
                     ) : null}
                   </View>
                 ) : null}
-              </View>
+              </AwaCard>
             ) : null}
 
             {sharedTiles.length > 0 ? (
               <>
-                <SectionHeader styles={styles} subtitle={t('awaADeux.partnerSide.home.sharedInfoSubtitle')} theme={theme} title={t('awaADeux.partnerSide.home.sharedInfoTitle')} />
+                <SectionHeader styles={styles} subtitle={t('awaADeux.partnerSide.home.sharedInfoSubtitle')} title={t('awaADeux.partnerSide.home.sharedInfoTitle')} />
                 <ScrollView
                   contentContainerStyle={styles.tileRow}
                   horizontal
@@ -289,7 +290,7 @@ export default function PartnerHomeScreen(): React.JSX.Element {
 
             {hasUpcomingEvents ? (
               <>
-                <SectionHeader styles={styles} subtitle={t('awaADeux.partnerSide.home.upcomingSubtitle')} theme={theme} title={t('awaADeux.partnerSide.home.upcomingTitle')} />
+                <SectionHeader styles={styles} subtitle={t('awaADeux.partnerSide.home.upcomingSubtitle')} title={t('awaADeux.partnerSide.home.upcomingTitle')} />
                 {/* Same square SharedInfoTile used by "Informations partagées" above —
                     not a second card implementation — so both sections share the exact
                     same compact proportions, spacing and accent-bar treatment. */}
@@ -381,39 +382,27 @@ function Chip({
   return (
     <View style={styles.chip}>
       <MaterialDesignIcons color={theme.colors.primary} name={icon} size={16} />
-      <Text numberOfLines={2} style={styles.chipLabel}>{label}</Text>
-      <Text numberOfLines={2} style={styles.chipValue}>{value}</Text>
+      <Text style={styles.chipLabel}>{label}</Text>
+      <Text style={styles.chipValue}>{value}</Text>
     </View>
   );
 }
 
-/** Icon-circle + serif title + secondary subtitle, matching the SectionHeader convention
- * already established in PartnerProfileScreen.tsx (Informations personnelles / AWA à
- * deux). "Voir tout →" is decorative only — there is no dedicated destination screen for
- * this task, so it never triggers navigation (same convention used throughout AWA à deux
- * for non-functional affordances). */
+/** Section title + secondary subtitle. (The former decorative "Voir tout" affordance had no destination
+ * and no handler, so it was removed in the Material 3 migration.) */
 function SectionHeader({
   title,
   subtitle,
-  theme,
   styles,
 }: {
   title: string;
   subtitle: string;
-  theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
-  const {t} = useTranslation();
   return (
     <View style={styles.sectionHeader}>
-      <View style={styles.sectionHeaderTopRow}>
-        <Text accessibilityRole="header" style={styles.sectionTitle}>{title}</Text>
-        <View importantForAccessibility="no-hide-descendants" style={styles.sectionMoreRow}>
-          <Text style={styles.sectionMoreText}>{t('common.seeAll')}</Text>
-          <MaterialDesignIcons color={theme.colors.primary} name="arrow-right" size={13} />
-        </View>
-      </View>
-      <Text style={styles.sectionSubtitle}>{subtitle}</Text>
+      <AwaText accessibilityRole="header" variant="titleMedium" style={styles.sectionTitle}>{title}</AwaText>
+      <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.sectionSubtitle}>{subtitle}</AwaText>
     </View>
   );
 }
@@ -466,81 +455,41 @@ function createStyles(theme: ResolvedAwaTheme, compact: boolean) {
     content: {paddingHorizontal: CONTENT_HORIZONTAL_PADDING, paddingBottom: 20},
     headerRow: {flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between'},
     headerCopy: {flex: 1, minWidth: 0, marginRight: 12},
-    greeting: {
-      color: theme.colors.accent,
-      fontFamily: 'serif',
-      fontSize: compact ? 23 : 25,
-      lineHeight: compact ? 29 : 31,
-      fontWeight: '700',
-    },
+    greeting: {color: theme.colors.accent},
     // Strong/bold serif, visually prominent — the partner's own name, directly under the
     // greeting. Never a hardcoded color: same theme family as `greeting` above it.
-    partnerFirstName: {
-      marginTop: 2,
-      color: theme.colors.primary,
-      fontFamily: 'serif',
-      fontSize: compact ? 22 : 24,
-      lineHeight: compact ? 27 : 29,
-      fontWeight: '800',
-    },
-    subtitle: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 14.5, lineHeight: 20},
-    // Same circular profile-button chrome as the owner's own HomeHeader.tsx (Cycle
-    // dashboard header): 44px, withAlpha(surface, 0.85), soft shadow, same pressed feedback.
-    profileButton: {
-      width: 44,
-      height: 44,
-      flexShrink: 0,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 22,
-      backgroundColor: withAlpha(theme.colors.surface, 0.85),
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 3},
-      shadowOpacity: 0.1,
-      shadowRadius: 6,
-      elevation: 2,
-    },
-    pressed: {opacity: 0.8, transform: [{scale: 0.97}]},
-    // Main "Aujourd'hui" card — same card chrome tokens used everywhere else in this
-    // screen family (border/radius/surface/shadow), sized to comfortably hold the ring +
+    partnerFirstName: {marginTop: 2, color: theme.colors.primary},
+    subtitle: {marginTop: 4},
+    // Main "Aujourd'hui" card: the screen's single prominent (elevated) surface; it holds the ring +
     // message on top and the energy/mood/conseil strip below.
     heroCard: {
       marginTop: 20,
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, theme.isDark ? 0.3 : 0.18),
-      borderRadius: 28,
-      backgroundColor: withAlpha(theme.colors.surface, theme.isDark ? 0.92 : 0.96),
       paddingHorizontal: compact ? 14 : 16,
       paddingTop: 16,
       paddingBottom: 14,
-      ...theme.shadow,
     },
     heroTopRow: {flexDirection: 'row', alignItems: 'center', gap: compact ? 12 : 16},
     heroCopy: {flex: 1, minWidth: 0},
     heroTitleRow: {flexDirection: 'row', alignItems: 'center', gap: 6},
-    heroTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: compact ? 17 : 19, lineHeight: compact ? 22 : 24, fontWeight: '800'},
-    heroMessage: {marginTop: 6, color: theme.colors.textSecondary, fontSize: compact ? 12.5 : 13.5, lineHeight: compact ? 18 : 19},
+    heroTitle: {color: theme.colors.accent},
+    heroMessage: {marginTop: 6},
     chipsRow: {
       flexDirection: 'row',
       alignItems: 'stretch',
       marginTop: 16,
-      borderRadius: 18,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
       paddingVertical: 10,
       paddingHorizontal: 4,
     },
     chip: {flex: 1, alignItems: 'center', paddingHorizontal: 2, minWidth: 0},
     chipDivider: {width: StyleSheet.hairlineWidth, backgroundColor: theme.colors.border},
-    chipLabel: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 9.5, textAlign: 'center'},
+    chipLabel: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 11, textAlign: 'center'},
     chipValue: {marginTop: 2, color: theme.colors.text, fontSize: 11, fontWeight: '700', textAlign: 'center'},
-    // Section header — icon-less variant of PartnerProfileScreen's own SectionHeader
-    // (title + subtitle), with a decorative "Voir tout →" trailing the title.
+    // Section header: title + subtitle.
     sectionHeader: {marginTop: 24, marginBottom: 10},
-    sectionHeaderTopRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-    sectionTitle: {flex: 1, minWidth: 0, color: theme.colors.accent, fontFamily: 'serif', fontSize: 17, lineHeight: 22, fontWeight: '700'},
-    sectionMoreRow: {flexShrink: 0, flexDirection: 'row', alignItems: 'center', gap: 3, marginLeft: 8},
-    sectionMoreText: {color: theme.colors.primary, fontSize: 12.5, fontWeight: '700'},
-    sectionSubtitle: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
+    sectionTitle: {color: theme.colors.accent},
+    sectionSubtitle: {marginTop: 4},
     // "Informations partagées" / "Prochains événements" — both render inside a
     // horizontal ScrollView whose contentContainerStyle is this row: it only ever
     // sizes itself to its children (no flexGrow/stretch), so a single card sits at
@@ -554,9 +503,9 @@ function createStyles(theme: ResolvedAwaTheme, compact: boolean) {
       justifyContent: 'space-between',
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, theme.isDark ? 0.28 : 0.16),
-      borderRadius: 18,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, theme.isDark ? 0.9 : 0.96),
-      paddingHorizontal: 10,
+      paddingHorizontal: 12,
       paddingVertical: 9,
       ...theme.shadow,
     },
@@ -570,31 +519,21 @@ function createStyles(theme: ResolvedAwaTheme, compact: boolean) {
       justifyContent: 'center',
       borderRadius: 12,
     },
-    tileIconCompact: {width: 26, height: 26, borderRadius: 10},
+    tileIconCompact: {width: 26, height: 26, borderRadius: 12},
     tileTextGroup: {minHeight: 0},
     tileLabel: {color: theme.colors.textSecondary, fontSize: 11, fontWeight: '600'},
-    tileLabelCompact: {fontSize: 9.5},
+    tileLabelCompact: {fontSize: 11},
     tileValue: {marginTop: 2, color: theme.colors.text, fontSize: 13, fontWeight: '800'},
     tileValueCompact: {fontSize: 11},
     // Only the "Prochains événements" tiles use this (the relative countdown under
     // the date, e.g. "Dans 5 jours") — shared-info tiles never pass a subtitle.
-    tileSubtitle: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '600'},
-    tileSubtitleCompact: {fontSize: 9},
+    tileSubtitle: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 11, fontWeight: '600'},
+    tileSubtitleCompact: {fontSize: 11},
     // A thicker, fully-rounded pill — matching AWA's refreshed compact-card design —
     // rather than a thin 3px line; still inset from the card's own edges by the
     // tile's horizontal padding, never touching the rounded corners.
     tileAccent: {height: 6, borderRadius: 3, alignSelf: 'stretch'},
-    emptyCard: {
-      marginTop: 20,
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 10,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 20,
-      backgroundColor: withAlpha(theme.colors.surface, theme.isDark ? 0.9 : 0.95),
-      padding: 16,
-    },
-    emptyText: {flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 13.5, lineHeight: 20},
+    emptyCard: {marginTop: 20, flexDirection: 'row', alignItems: 'center', gap: 10},
+    emptyText: {flex: 1, minWidth: 0},
   });
 }

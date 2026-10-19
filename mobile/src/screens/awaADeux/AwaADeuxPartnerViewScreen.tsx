@@ -1,11 +1,12 @@
 import React, {useMemo} from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet} from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaText} from '../../components/ui/AwaText';
 import AwaADeuxStepLayout, {Reveal} from './AwaADeuxStepLayout';
 import PartnerPreviewCard from './PartnerPreviewCard';
 import {useAwaADeuxPartnerName} from '../../hooks/useAwaADeuxPartnerName';
@@ -44,7 +45,7 @@ export default function AwaADeuxPartnerViewScreen({navigation}: Props): React.JS
       </Reveal>
 
       <Reveal index={1}>
-        <Text style={styles.caption}>{t('awaADeux.partnerView.caption')}</Text>
+        <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.caption}>{t('awaADeux.partnerView.caption')}</AwaText>
       </Reveal>
     </AwaADeuxStepLayout>
   );
@@ -52,6 +53,6 @@ export default function AwaADeuxPartnerViewScreen({navigation}: Props): React.JS
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    caption: {color: theme.colors.textMuted, fontSize: 11.5, textAlign: 'center'},
+    caption: {color: theme.colors.textMuted, textAlign: 'center'},
   });
 }

@@ -1,5 +1,5 @@
 import React, {useMemo, useRef, useState} from 'react';
-import {Animated, Image, Pressable, StyleSheet, Text, View, useWindowDimensions} from 'react-native';
+import {Animated, Image, StyleSheet, View, useWindowDimensions} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
@@ -8,7 +8,10 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaADeuxPartnerName} from '../../hooks/useAwaADeuxPartnerName';
 import {cancelInvitation, getDemoPartnerState} from '../../state/awaADeuxDemoStore';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaText} from '../../components/ui/AwaText';
 import {partnerLabel, queBeforePartner} from '../../utils/awaADeuxPartnerWording';
 import AwaADeuxStepLayout, {Reveal} from './AwaADeuxStepLayout';
 import {getPendingLayout, type PendingLayout} from './awaADeuxPendingLayout';
@@ -81,64 +84,66 @@ export default function AwaADeuxPendingScreen({navigation}: Props): React.JSX.El
       onBack={navigation.goBack}
       title={t('awaADeux.pending.title', {partner: label})}>
       <Reveal index={0}>
-        <View style={styles.statusCard}>
+        <AwaCard padding="none" style={styles.statusCard} variant="filled">
           <View style={styles.statusIcon}>
             <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={layout.statusClockSize} />
           </View>
           <View style={styles.statusContent}>
-            <Text style={styles.statusTitle}>{t('awaADeux.pending.statusTitle')}</Text>
+            <AwaText variant="titleSmall">{t('awaADeux.pending.statusTitle')}</AwaText>
             {/* FR needs the elided "dès qu'elle accepte" form (queBeforePartner); EN uses the
                 plain name instead — same dual-interpolation-key pattern as AwaADeuxPartnerViewScreen. */}
-            <Text style={styles.statusDescription}>{t('awaADeux.pending.statusDescription', {quePartner: queBeforePartner(partnerName), name: label})}</Text>
-            {partnerEmail ? <Text style={styles.statusEmail}>{t('awaADeux.pending.sentToEmail', {email: partnerEmail})}</Text> : null}
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.statusDescription}>{t('awaADeux.pending.statusDescription', {quePartner: queBeforePartner(partnerName), name: label})}</AwaText>
+            {partnerEmail ? <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.statusEmail}>{t('awaADeux.pending.sentToEmail', {email: partnerEmail})}</AwaText> : null}
           </View>
-        </View>
+        </AwaCard>
       </Reveal>
 
       <Reveal index={1}>
-        <Pressable
+        <AwaButton
           accessibilityLabel={t('awaADeux.pending.resend')}
-          accessibilityRole="button"
+          fullWidth
+          icon={resent ? 'check' : 'send-outline'}
+          label={resent ? t('awaADeux.pending.resent') : t('awaADeux.pending.resend')}
+          minHeight={layout.primaryHeight}
           onPress={resendInvitation}
-          style={({pressed}) => [styles.primaryAction, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={resent ? 'check' : 'send-outline'} size={20} />
-          <Text style={styles.primaryActionText}>{resent ? t('awaADeux.pending.resent') : t('awaADeux.pending.resend')}</Text>
-        </Pressable>
+        />
       </Reveal>
 
       <Reveal index={2}>
-        <Pressable
+        <AwaButton
           accessibilityLabel={t('awaADeux.pending.cancel')}
-          accessibilityRole="button"
+          fullWidth
+          icon="close-circle-outline"
+          label={t('awaADeux.pending.cancel')}
+          minHeight={layout.cancelHeight}
           onPress={cancel}
-          style={({pressed}) => [styles.cancelAction, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={theme.colors.danger} name="close-circle-outline" size={20} />
-          <Text style={styles.cancelActionText}>{t('awaADeux.pending.cancel')}</Text>
-        </Pressable>
+          variant="destructive"
+        />
       </Reveal>
 
       {__DEV__ ? (
         <Reveal index={3}>
           <View style={styles.divider}>
             <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>{t('awaADeux.pending.previewDivider')}</Text>
+            <AwaText colorRole="onSurfaceVariant" variant="labelSmall">{t('awaADeux.pending.previewDivider')}</AwaText>
             <View style={styles.dividerLine} />
           </View>
 
-          <Pressable
+          <AwaCard
             accessibilityLabel={t('awaADeux.pending.previewTitle')}
-            accessibilityRole="button"
             onPress={() => navigation.navigate('AwaADeuxInvitation')}
-            style={({pressed}) => [styles.previewCard, pressed && styles.pressed]}>
+            padding="none"
+            style={styles.previewCard}
+            variant="outlined">
             <View style={styles.previewIcon}>
               <MaterialDesignIcons color={theme.colors.primary} name="cellphone" size={20} />
             </View>
             <View style={styles.previewContent}>
-              <Text style={styles.previewTitle}>{t('awaADeux.pending.previewTitle')}</Text>
-              <Text style={styles.previewDescription}>{t('awaADeux.pending.previewDescription', {partner: label})}</Text>
+              <AwaText variant="titleSmall">{t('awaADeux.pending.previewTitle')}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.previewDescription}>{t('awaADeux.pending.previewDescription', {partner: label})}</AwaText>
             </View>
             <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={22} />
-          </Pressable>
+          </AwaCard>
         </Reveal>
       ) : null}
     </AwaADeuxStepLayout>
@@ -158,13 +163,8 @@ function createStyles(theme: ResolvedAwaTheme, layout: PendingLayout) {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 14,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 22,
-      backgroundColor: theme.colors.surface,
       paddingHorizontal: 16,
       paddingVertical: layout.statusPaddingVertical,
-      ...theme.shadow,
     },
     statusIcon: {
       width: layout.statusIconSize,
@@ -176,45 +176,11 @@ function createStyles(theme: ResolvedAwaTheme, layout: PendingLayout) {
       backgroundColor: theme.colors.primarySoft,
     },
     statusContent: {flex: 1, minWidth: 0},
-    statusTitle: {color: theme.colors.text, fontSize: 14, fontWeight: '800'},
-    statusDescription: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
-    statusEmail: {marginTop: 4, color: theme.colors.textMuted, fontSize: 11.5, lineHeight: 16},
-
-    // The full-width, primary AWA CTA (same visual language as every other primary button
-    // in the app: theme.colors.primary fill, height/2 radius, onPrimaryTextColor text).
-    primaryAction: {
-      width: '100%',
-      minHeight: layout.primaryHeight,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 10,
-      borderRadius: layout.primaryHeight / 2,
-      backgroundColor: theme.colors.primary,
-      paddingHorizontal: 20,
-      ...theme.shadow,
-    },
-    primaryActionText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '700'},
-
-    // Clearly secondary to the CTA above: outline only, danger tones, same height family.
-    cancelAction: {
-      width: '100%',
-      minHeight: layout.cancelHeight,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 8,
-      borderWidth: 1.2,
-      borderColor: withAlpha(theme.colors.danger, 0.4),
-      borderRadius: layout.cancelHeight / 2,
-      backgroundColor: withAlpha(theme.colors.danger, 0.05),
-      paddingHorizontal: 20,
-    },
-    cancelActionText: {color: theme.colors.danger, fontSize: 14, fontWeight: '700'},
+    statusDescription: {marginTop: 2},
+    statusEmail: {marginTop: 4},
 
     divider: {marginVertical: layout.dividerMarginVertical, flexDirection: 'row', alignItems: 'center', gap: 10},
     dividerLine: {flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: theme.colors.border},
-    dividerText: {color: theme.colors.textSecondary, fontSize: 11, fontWeight: '700', letterSpacing: 0.4},
 
     previewCard: {
       width: '100%',
@@ -222,13 +188,8 @@ function createStyles(theme: ResolvedAwaTheme, layout: PendingLayout) {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 12,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 20,
-      backgroundColor: theme.colors.surface,
       paddingHorizontal: 14,
       paddingVertical: 10,
-      ...theme.shadow,
     },
     previewIcon: {
       width: layout.previewIconSize,
@@ -236,13 +197,10 @@ function createStyles(theme: ResolvedAwaTheme, layout: PendingLayout) {
       flexShrink: 0,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 14,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
     previewContent: {flex: 1, minWidth: 0},
-    previewTitle: {color: theme.colors.text, fontSize: 13, fontWeight: '800'},
-    previewDescription: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
-
-    pressed: {opacity: 0.85},
+    previewDescription: {marginTop: 2},
   });
 }

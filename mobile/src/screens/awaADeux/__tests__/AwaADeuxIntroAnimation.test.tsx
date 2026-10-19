@@ -60,7 +60,8 @@ const step = async (ms: number) => {
 
 // The animated wrappers, in on-screen order.
 const cards = (renderer: ReactTestRenderer.ReactTestRenderer) =>
-  renderer.root.findAll(node => typeof node.type === 'string' && flat(node.props?.style).borderRadius === 18 && flat(node.props?.style).minHeight !== undefined);
+  // DESIGN.md: the card radius is the Material 3 medium shape (12) written in the source.
+  renderer.root.findAll(node => typeof node.type === 'string' && flat(node.props?.style).borderRadius === 12 && flat(node.props?.style).minHeight !== undefined);
 const heroBox = (renderer: ReactTestRenderer.ReactTestRenderer) =>
   renderer.root.findAll(node => typeof node.type === 'string' && flat(node.props?.style).flexShrink === 1 && typeof flat(node.props?.style).flexBasis === 'number')[0];
 const titleBlock = (renderer: ReactTestRenderer.ReactTestRenderer) =>
@@ -145,20 +146,19 @@ describe('Entrance sequence', () => {
     expect(scaleOf(ctaWrapper(renderer))).toBe(1);
   });
 
-  it('afterwards the illustration only "breathes" between 1 and 1.01 — never a visible bounce', async () => {
+  // DESIGN.md: the looping "breathing" of the illustration was decorative motion and was removed;
+  // the illustration only has its one-shot entrance and then stays still.
+  it('afterwards the illustration stays still (no looping animation)', async () => {
     const renderer = await renderScreen();
     await step(1500);
-    const breathing = heroBox(renderer).findAll(node => typeof node.type === 'string' && flat(node.props?.style).flex === 1)[0];
+    const still = heroBox(renderer).findAll(node => typeof node.type === 'string' && flat(node.props?.style).flex === 1)[0];
     const scales: number[] = [];
-    for (let index = 0; index < 12; index += 1) {
+    for (let index = 0; index < 6; index += 1) {
       await step(600);
-      scales.push(scaleOf(breathing));
+      scales.push(scaleOf(still) ?? 1);
     }
-    scales.forEach(scale => {
-      expect(scale).toBeGreaterThanOrEqual(1);
-      expect(scale).toBeLessThanOrEqual(1.0101);
-    });
-    expect(Math.max(...scales)).toBeGreaterThan(1); // it does move, very slightly
+    scales.forEach(scale => expect(scale).toBe(1));
+    expect(scaleOf(heroBox(renderer))).toBe(1);
   });
 
   it('the UI stays fully interactive while animating (Retour is pressable from the first frame)', async () => {
@@ -205,6 +205,7 @@ describe('Motion is opacity / transform only, on Reanimated', () => {
     expect(source).not.toMatch(/from 'react-native'[^;]*\bAnimated\b/);
     expect(source).not.toMatch(/lottie|[^a-z]moti[^a-z]|framer/i);
     expect(source).toContain('useReducedMotion');
+    expect(source).not.toMatch(/withRepeat|Animated\.loop/); // DESIGN.md: no looping decoration
   });
 
   it('no timers in the component and no animation of width / height / margins', () => {

@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {StyleSheet, Text, View, useWindowDimensions} from 'react-native';
+import {StyleSheet, View, useWindowDimensions} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -8,6 +8,8 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaText} from '../../components/ui/AwaText';
 import AwaADeuxStepLayout, {Reveal} from './AwaADeuxStepLayout';
 import {getBenefitsLayout, type BenefitsLayout} from './awaADeuxBenefitsLayout';
 
@@ -52,12 +54,12 @@ export default function AwaADeuxBenefitsScreen({navigation}: Props): React.JSX.E
       title={t('awaADeux.benefits.title')}>
       {BENEFITS.map((benefit, index) => (
         <Reveal key={benefit.text} index={index}>
-          <View style={styles.card}>
+          <AwaCard padding="none" style={styles.card} variant="outlined">
             <View style={styles.iconBox}>
               <MaterialDesignIcons color={theme.colors.primary} name={benefit.icon} size={layout.iconSize} />
             </View>
-            <Text maxFontSizeMultiplier={1.15} style={styles.text}>{benefit.text}</Text>
-          </View>
+            <AwaText maxFontSizeMultiplier={1.15} variant="bodyMedium" style={styles.text}>{benefit.text}</AwaText>
+          </AwaCard>
         </Reveal>
       ))}
     </AwaADeuxStepLayout>
@@ -71,13 +73,8 @@ function createStyles(theme: ResolvedAwaTheme, layout: BenefitsLayout) {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 14,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 22,
-      backgroundColor: theme.colors.surface,
       paddingHorizontal: layout.cardPaddingHorizontal,
       paddingVertical: layout.cardPaddingVertical,
-      ...theme.shadow,
     },
     iconBox: {
       width: layout.iconBox,
@@ -91,10 +88,8 @@ function createStyles(theme: ResolvedAwaTheme, layout: BenefitsLayout) {
     text: {
       flex: 1,
       minWidth: 0,
-      color: theme.colors.text,
       fontSize: layout.textFontSize,
       lineHeight: layout.textLineHeight,
-      fontWeight: '600',
     },
   });
 }

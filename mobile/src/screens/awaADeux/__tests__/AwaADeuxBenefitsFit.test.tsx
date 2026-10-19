@@ -62,7 +62,14 @@ async function renderStep(initial: 'AwaADeuxBenefits' | 'AwaADeuxPartnerView' | 
 const button = (renderer: ReactTestRenderer.ReactTestRenderer, label: string) =>
   renderer.root.findAll(node => node.props.accessibilityLabel === label && node.props.accessibilityRole === 'button' && typeof node.props.onPress === 'function')[0];
 const cards = (renderer: ReactTestRenderer.ReactTestRenderer) =>
-  renderer.root.findAll(node => typeof node.type === 'string' && flat(node.props?.style).borderRadius === 22 && flat(node.props?.style).minHeight !== undefined);
+  // The benefit cards are AwaCard (Material 3 corner), so they are recognised by their row structure, not by the old 22 radius.
+  renderer.root.findAll(
+    node =>
+      typeof node.type === 'string' &&
+      flat(node.props?.style).minHeight !== undefined &&
+      flat(node.props?.style).flexDirection === 'row' &&
+      flat(node.props?.style).gap === 14,
+  );
 
 beforeEach(async () => {
   await setSelectedThemeId('awa-original');

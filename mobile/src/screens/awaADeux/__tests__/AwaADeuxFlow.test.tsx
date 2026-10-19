@@ -11,6 +11,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, resolveAwaTheme} from '../../../theme/awaThemeTokens';
+import {deriveAwaRoles} from '../../../theme/semanticRoles';
 import AwaADeuxIntroScreen from '../AwaADeuxIntroScreen';
 import AwaADeuxPartnerNameScreen from '../AwaADeuxPartnerNameScreen';
 import AwaADeuxPartnerViewScreen from '../AwaADeuxPartnerViewScreen';
@@ -348,10 +349,11 @@ describe('Theme', () => {
     await goTo(renderer, 4);
     const helperColor = () =>
       flat(renderer.root.findAllByType(Text).find(node => textOf(node) === 'Nous enverrons à Amine un lien d’invitation sécurisé par email.')!.props.style).color;
-    expect(helperColor()).toBe(resolveAwaTheme('awa-original', false, false).colors.textSecondary);
+    // Material 3: the helper note uses the AA-safe on-surface-variant companion of textSecondary.
+    expect(helperColor()).toBe(deriveAwaRoles(resolveAwaTheme('awa-original', false, false)).accessible.onSurfaceVariant);
     await act(async () => {
       await setAppearanceMode('dark');
     });
-    expect(helperColor()).toBe(resolveAwaTheme('awa-original', true, false).colors.textSecondary);
+    expect(helperColor()).toBe(deriveAwaRoles(resolveAwaTheme('awa-original', true, false)).accessible.onSurfaceVariant);
   });
 });

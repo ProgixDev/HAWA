@@ -1,6 +1,5 @@
 import React, {useMemo} from 'react';
-import {Pressable, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useTranslation} from 'react-i18next';
 import Animated, {
@@ -12,7 +11,10 @@ import Animated, {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {useEntrance} from './useEntrance';
 
 // Shared frame of the "AWA à deux" onboarding screens (after the introduction):
@@ -59,13 +61,6 @@ type Props = {
    * every existing caller, so their CTA stays enabled exactly as before.
    */
   ctaDisabled?: boolean;
-  /**
-   * Opt-in, additive: a trailing icon on the sticky CTA (e.g. a forward arrow),
-   * absolutely positioned to the right so the label itself stays centered — same
-   * convention as AwaADeuxPartnerNameScreen's own `ctaArrow`. Omitted by every
-   * existing caller, so their CTA stays text-only exactly as before.
-   */
-  ctaIcon?: React.ComponentProps<typeof MaterialDesignIcons>['name'];
   onContinue?: () => void;
   onBack: () => void;
   fit?: StepFit;
@@ -123,7 +118,6 @@ export default function AwaADeuxStepLayout({
   description,
   ctaLabel,
   ctaDisabled,
-  ctaIcon,
   onContinue,
   onBack,
   fit,
@@ -157,16 +151,20 @@ export default function AwaADeuxStepLayout({
   const heading = (
     <>
       <Animated.View style={titleEntrance}>
-        <Text
+        <AwaText
           accessibilityRole="header"
           maxFontSizeMultiplier={1.2}
-          style={[styles.title, fit || compact ? {fontSize: (fit ?? compact)!.titleFontSize, lineHeight: (fit ?? compact)!.titleLineHeight} : null]}>
+          variant="headlineSmall"
+          style={StyleSheet.flatten([
+            styles.title,
+            fit || compact ? {fontSize: (fit ?? compact)!.titleFontSize, lineHeight: (fit ?? compact)!.titleLineHeight} : null,
+          ])}>
           {title}
-        </Text>
+        </AwaText>
       </Animated.View>
       {description ? (
         <Animated.View style={descriptionEntrance}>
-          <Text maxFontSizeMultiplier={1.2} style={styles.description}>{description}</Text>
+          <AwaText colorRole="onSurfaceVariant" maxFontSizeMultiplier={1.2} variant="bodyMedium" style={styles.description}>{description}</AwaText>
         </Animated.View>
       ) : null}
 
@@ -189,23 +187,15 @@ export default function AwaADeuxStepLayout({
       style={styles.screen}>
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
-      {decor ? (
-        <View pointerEvents="none" style={styles.decor}>
-          <View style={styles.glowTop} />
-          <View style={styles.glowMiddle} />
-          <View style={styles.glowBottom} />
-        </View>
-      ) : null}
 
       <View style={[styles.header, headerAccessory ? styles.headerWithAccessory : null, {paddingTop: Math.max(insets.top, 18) + 8}]}>
-        <Pressable
+        <AwaIconButton
           accessibilityLabel={t('common.back')}
-          accessibilityRole="button"
-          hitSlop={8}
+          icon="chevron-left"
+          iconSize={28}
           onPress={onBack}
-          style={({pressed}) => [styles.back, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
-        </Pressable>
+          style={styles.back}
+        />
 
         {headerAccessory}
       </View>
@@ -228,11 +218,12 @@ export default function AwaADeuxStepLayout({
         <View style={[styles.footer, {paddingBottom: Math.max(insets.bottom, 16) + 8}]}>
           <Animated.View style={ctaEntrance}>
             <Animated.View style={ctaPress}>
-              <Pressable
+              <AwaButton
                 accessibilityLabel={ctaLabel}
-                accessibilityRole="button"
-                accessibilityState={{disabled: !!ctaDisabled}}
                 disabled={ctaDisabled}
+                fullWidth
+                label={ctaLabel}
+                minHeight={fit ? fit.ctaHeight : undefined}
                 onPress={onContinue}
                 onPressIn={() => {
                   pressScale.value = withTiming(0.97, {duration: 90});
@@ -240,19 +231,8 @@ export default function AwaADeuxStepLayout({
                 onPressOut={() => {
                   pressScale.value = withTiming(1, {duration: 140});
                 }}
-                style={({pressed}) => [
-                  styles.cta,
-                  fit ? {minHeight: fit.ctaHeight, borderRadius: fit.ctaHeight / 2} : null,
-                  ctaDisabled && styles.ctaDisabled,
-                  pressed && styles.pressed,
-                ]}>
-                <Text maxFontSizeMultiplier={1.2} style={styles.ctaText}>{ctaLabel}</Text>
-                {ctaIcon ? (
-                  <View pointerEvents="none" style={styles.ctaIcon}>
-                    <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={ctaIcon} size={20} />
-                  </View>
-                ) : null}
-              </Pressable>
+                size="large"
+              />
             </Animated.View>
           </Animated.View>
         </View>
@@ -268,59 +248,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     // Only applied when `headerAccessory` is actually passed — every existing
     // caller keeps the original back-button-only header layout untouched.
     headerWithAccessory: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-    back: {
-      alignSelf: 'flex-start',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 999,
-      backgroundColor: theme.colors.surface,
-      padding: 9,
-      elevation: 2,
-    },
+    back: {alignSelf: 'flex-start'},
     hero: {alignItems: 'center', paddingHorizontal: 20},
-    // Same 3-glow decoration as every AWA dashboard (see PartnerScreenBackground.tsx /
-    // PregnancyDashboard.tsx) — only rendered when `decor` is on.
-    decor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
-    glowTop: {
-      position: 'absolute',
-      top: -150,
-      right: -110,
-      width: 330,
-      height: 330,
-      borderRadius: 165,
-      backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
-    glowMiddle: {
-      position: 'absolute',
-      top: '38%',
-      left: -130,
-      width: 260,
-      height: 260,
-      borderRadius: 130,
-      backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
-    glowBottom: {
-      position: 'absolute',
-      bottom: -150,
-      right: -100,
-      width: 310,
-      height: 310,
-      borderRadius: 155,
-      backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
     content: {flexGrow: 1, paddingHorizontal: 20, paddingTop: 8, paddingBottom: 20},
     title: {
       color: theme.colors.accent,
-      fontFamily: 'serif',
       fontSize: 27,
       lineHeight: 34,
-      fontWeight: '700',
       textAlign: 'center',
     },
     description: {
       marginTop: 10,
       paddingHorizontal: 6,
-      color: theme.colors.textSecondary,
       fontSize: 14.5,
       lineHeight: 21,
       textAlign: 'center',
@@ -333,17 +272,5 @@ function createStyles(theme: ResolvedAwaTheme) {
     // are conceptually independent opt-ins (fit-on-one-screen vs. center-this-group).
     bodyCenter: {flex: 1, justifyContent: 'center'},
     footer: {paddingHorizontal: 20, paddingTop: 10},
-    cta: {
-      minHeight: 54,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 27,
-      backgroundColor: theme.colors.primary,
-      paddingHorizontal: 20,
-    },
-    ctaDisabled: {opacity: 0.45},
-    ctaText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '700'},
-    ctaIcon: {position: 'absolute', right: 22},
-    pressed: {opacity: 0.85},
   });
 }
