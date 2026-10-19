@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -28,7 +29,7 @@ import {
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
 
@@ -383,6 +384,57 @@ const CONTENT = {
       ],
       shareMessage: '怎么知道我的初潮快要来了？ — AWA',
     },
+  id: {
+    badge: 'HAID PERTAMA',
+    title: 'Bagaimana aku tahu kalau\nhaid pertamaku akan datang?',
+    metaDuration: '5 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Beberapa tanda nyata bisa membantumu mengenali bahwa haid pertamamu benar-benar sudah dekat.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Tanda yang perlu diperhatikan',
+      'Cairan pertama: seperti apa tampilannya?',
+      'Keputihan atau darah haid?',
+      'Kapan sebaiknya bicara dengan orang dewasa?',
+    ],
+    observe: [
+      {
+        title: 'Keputihan',
+        text: 'Cairan yang ringan dan bening sering muncul beberapa bulan sebelumnya.',
+      },
+      {
+        title: 'Payudara mulai tumbuh',
+        text: 'Tanda umum yang biasanya muncul jauh sebelum haidmu datang.',
+      },
+      {
+        title: 'Rasa nyeri ringan di perut',
+        text: 'Sensasi kecil seperti ini bisa menandakan haidmu akan segera datang.',
+      },
+    ],
+    body2: 'Sebelum haid pertamamu datang, lazim kalau kamu melihat cairan keputihan yang putih atau agak kekuningan di celana dalammu. Ini hal yang normal, berkaitan dengan aktivitas hormon yang mulai bekerja di tubuhmu.',
+    body3: 'Keputihan berwarna bening atau putih, tanpa bau menyengat. Sementara itu, darah haid berwarna merah hingga kecokelatan dan menandai awal haid yang sesungguhnya. Kalau kamu ragu, membicarakannya bukanlah hal yang memalukan.',
+    tipTitle: 'Perlu diketahui',
+    tipText: 'Tidak ada cara untuk memprediksi hari yang pasti. Membawa pelindung sejak tanda-tanda pertama adalah kebiasaan terbaik.',
+    body4: 'Begitu kamu melihat tanda-tanda ini, atau kapan pun kamu punya pertanyaan atau kekhawatiran, kamu bisa bicara dengan ibumu, kakak perempuanmu, orang terdekat, atau tenaga kesehatan yang kamu percaya. Tidak pernah ada waktu yang salah untuk meminta bantuan.',
+    relatedTitle: '♥  Kamu mungkin juga suka',
+    related: [
+      {
+        title: 'Tanda-tanda pertama sebelum haidmu',
+        meta: '5 mnt  ·  Artikel',
+      },
+      {
+        title: 'Pelindung apa yang sebaiknya kupilih untuk haid pertama?',
+        meta: '6 mnt  ·  Panduan',
+      },
+      {
+        title: 'Haid pertamamu: apa yang bisa diharapkan',
+        meta: '5 mnt  ·  Panduan',
+      },
+    ],
+    shareMessage: 'Bagaimana aku tahu kalau haid pertamaku akan datang? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -455,56 +507,42 @@ export default function FirstPeriodComingArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metas}>
             {[
@@ -523,24 +561,24 @@ export default function FirstPeriodComingArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="bodyMedium" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -550,34 +588,34 @@ export default function FirstPeriodComingArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
           {OBSERVE_IMAGES.map((image, index) => (
-            <View key={content.observe[index].title} style={styles.visualCard}>
+            <AwaCard variant="filled" padding="none" key={content.observe[index].title} style={styles.visualCard}>
               <Image source={image} resizeMode="cover" style={styles.visualImage} />
 
               <View style={styles.visualCopy}>
-                <Text style={styles.visualTitle}>{content.observe[index].title}</Text>
-                <Text style={styles.visualText}>{content.observe[index].text}</Text>
+                <AwaText variant="titleSmall" emphasized>{content.observe[index].title}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.visualText}>{content.observe[index].text}</AwaText>
               </View>
-            </View>
+            </AwaCard>
           ))}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             2. {content.topics[1]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.body2}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.body3}
-          </Text>
+          </AwaText>
 
           <Image
             source={require('../../assets/images/library/rules-process.png')}
@@ -585,7 +623,7 @@ export default function FirstPeriodComingArticleScreen({
             style={styles.wideImage}
           />
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -593,22 +631,22 @@ export default function FirstPeriodComingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tipTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.body4}
-          </Text>
+          </AwaText>
         </View>
 
         <View style={styles.relatedHeader}>
-          <Text style={styles.relatedTitle}>{content.relatedTitle}</Text>
+          <AwaText variant="titleMedium" emphasized>{content.relatedTitle}</AwaText>
         </View>
 
         <ScrollView
@@ -616,7 +654,7 @@ export default function FirstPeriodComingArticleScreen({
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.relatedRow}>
           {RELATED_IMAGES.map((item, index) => (
-            <Pressable
+            <AwaCard variant="filled" padding="none"
               key={item.articleId + index}
               onPress={() =>
                 navigation.push('ArticleReader', {articleId: item.articleId})
@@ -629,12 +667,12 @@ export default function FirstPeriodComingArticleScreen({
               />
 
               <View style={styles.relatedCopy}>
-                <Text numberOfLines={3} style={styles.relatedCardTitle}>
+                <AwaText variant="labelSmall" emphasized>
                   {content.related[index].title}
-                </Text>
-                <Text style={styles.relatedMeta}>{content.related[index].meta}</Text>
+                </AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.relatedMeta}>{content.related[index].meta}</AwaText>
               </View>
-            </Pressable>
+            </AwaCard>
           ))}
         </ScrollView>
       </ScrollView>
@@ -647,7 +685,7 @@ export default function FirstPeriodComingArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
   top: {
@@ -660,64 +698,40 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  badgeText: {fontSize: 11, color: theme.colors.primary, fontWeight: '800'},
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
     gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 10, color: theme.colors.textMuted},
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '500',
+    marginTop: 16,
   },
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
+  contentsTitle: {marginBottom: 8},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -725,44 +739,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 24, color: theme.colors.primary, fontSize: 12, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.5, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 24},
+  contentText: {flex: 1},
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
-  body: {marginTop: 8, fontSize: 14, lineHeight: 21, color: theme.colors.text},
+  body: {marginTop: 8},
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
-  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  tipCopy: {flex: 1, marginLeft: 12},
+  tipText: {marginTop: 3},
   visualCard: {
-    marginTop: 15,
+    marginTop: 16,
     minHeight: 98,
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: theme.colors.surface,
+    padding: 12,
   },
   visualImage: {width: 72, height: 72, borderRadius: 12},
   visualCopy: {flex: 1, marginLeft: 12},
-  visualTitle: {color: theme.colors.text, fontSize: 13, lineHeight: 17, fontWeight: '800'},
-  visualText: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 16},
-  wideImage: {width: '100%', height: 120, marginTop: 14, borderRadius: 12},
+  visualText: {marginTop: 4},
+  wideImage: {width: '100%', height: 120, marginTop: 16, borderRadius: 12},
   relatedHeader: {
     marginTop: 8,
     paddingHorizontal: 20,
@@ -770,22 +771,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  relatedTitle: {color: theme.colors.text, fontSize: 16, fontWeight: '800'},
-  relatedRow: {gap: 10, paddingHorizontal: 20, paddingTop: 14, paddingBottom: 5},
+  relatedRow: {gap: 12, paddingHorizontal: 20, paddingTop: 16, paddingBottom: 4},
   relatedCard: {
     width: 230,
-    height: 105,
-    borderRadius: 20,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    minHeight: 105,
     flexDirection: 'row',
     overflow: 'hidden',
-    ...theme.shadow,
   },
-  relatedImage: {width: 80, height: '100%'},
+  relatedImage: {width: 80, alignSelf: 'stretch'},
   relatedCopy: {flex: 1, padding: 12},
-  relatedCardTitle: {color: theme.colors.text, fontSize: 11.5, lineHeight: 15, fontWeight: '800'},
-  relatedMeta: {marginTop: 9, color: theme.colors.textMuted, fontSize: 9.5},
+  relatedMeta: {marginTop: 8},
   });
 }

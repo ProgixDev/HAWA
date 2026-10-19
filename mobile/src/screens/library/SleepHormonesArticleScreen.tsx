@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -532,6 +533,77 @@ const CONTENT = {
       disclaimerText: '仅供参考。本文不能替代个性化的医生建议。如有疑虑，请咨询医疗专业人员。',
       shareMessage: '睡眠与激素：鲜为人知的联系 — AWA',
     },
+  id: {
+    badge: 'SIKLUS MENSTRUASI • TIDUR',
+    title: 'Tidur dan hormon:\nkaitan yang jarang diketahui',
+    metaDuration: '6 menit baca',
+    metaType: 'Artikel',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Mengapa tidurmu berubah sesuai fase siklus, dan saat menopause.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Mengapa hormon memengaruhi tidur',
+      'Tidur di setiap fase siklus',
+      'Stres dan kualitas tidur',
+      'Rutinitas malam yang menenangkan',
+      'Kapan perlu menemui tenaga profesional',
+      'Poin penting',
+    ],
+    section1Body: 'Progesteron memiliki efek sedatif ringan; penurunannya di akhir siklus bisa mengganggu tidur, membuatnya lebih ringan atau lebih sering terputus.',
+    infoCard1Title: 'Perlu diketahui',
+    infoCard1Text: 'Kenaikan ringan suhu tubuh setelah ovulasi juga dapat membuat sebagian orang sedikit lebih sulit tertidur.',
+    phaseSleep: [
+      {
+        title: 'Saat haid',
+        text: 'Rasa tidak nyaman di tubuh dan kelelahan bisa membuat tidur lebih ringan.',
+      },
+      {
+        title: 'Sekitar ovulasi',
+        text: 'Tidur umumnya lebih stabil bagi kebanyakan orang.',
+      },
+      {
+        title: 'Sebelum haid',
+        text: 'Penurunan progesteron bisa membuat tidur lebih ringan, dengan kemungkinan terbangun di malam hari.',
+      },
+    ],
+    section2Body: 'Saat menopause, keringat malam adalah penyebab umum terbangun di tengah tidur, karena alasan hormonal yang serupa.',
+    section3Body: 'Stres bisa memperkuat gangguan tidur pada fase siklus yang memang sudah lebih sensitif. Teknik relaksasi sederhana (pernapasan, peregangan lembut) dapat membantumu rileks sebelum tidur.',
+    section4Body: 'Rutinitas tidur yang teratur dan kamar yang sejuk membantu membatasi gangguan ini, di usia berapa pun.',
+    eveningRoutine: [
+      {
+        title: 'Jam yang teratur',
+        text: 'Tidur dan bangun pada jam yang stabil membantu mengatur jam biologis tubuhmu.',
+      },
+      {
+        title: 'Kurangi layar di malam hari',
+        text: 'Cahaya biru bisa menunda rasa kantuk; istirahat dari layar membantumu menenangkan diri.',
+      },
+      {
+        title: 'Kamar yang sejuk',
+        text: 'Suhu yang sedang memudahkan tertidur, di usia berapa pun.',
+      },
+    ],
+    section5Body: 'Kebiasaan baik tidak selalu cukup. Berbicara dengan tenaga profesional bisa membantu jika:',
+    warningTitle: 'Tanda yang perlu diperiksakan',
+    consultSigns: [
+      'Masalah tidur sudah berlangsung selama beberapa minggu',
+      'Kelelahan sangat memengaruhi kehidupan sehari-hari',
+      'Insomnia berlanjut meski kebiasaanmu sudah baik',
+    ],
+    infoCard2Title: 'Bersiap untuk janji temu ini',
+    infoCard2Text: 'Mencatat sudah berapa lama masalah itu berlangsung dan apa yang tampaknya memengaruhinya dapat membantu tenaga kesehatanmu membimbingmu dengan lebih baik.',
+    tipTitle: 'Perlu diketahui',
+    tipText: 'Perubahan tidur ini umum terjadi dan biasanya bersifat sementara: ini tidak berarti ada yang salah.',
+    summaryPoints: [
+      'Progesteron memiliki efek sedatif ringan; penurunannya di akhir siklus bisa mengganggu tidur.',
+      'Saat menopause, keringat malam adalah penyebab umum terbangun di tengah tidur.',
+      'Rutinitas tidur yang teratur dan kamar yang sejuk membantu membatasi gangguan ini, di usia berapa pun.',
+      'Masalah tidur yang menetap perlu dibicarakan dengan tenaga kesehatan.',
+    ],
+    disclaimerText: 'Konten informatif. Artikel ini tidak menggantikan saran medis yang dipersonalisasi. Jika ragu, mintalah bimbingan dari tenaga kesehatan.',
+    shareMessage: 'Tidur dan hormon: kaitan yang jarang diketahui — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -620,49 +692,32 @@ export default function SleepHormonesArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
-              hitSlop={8}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={
                   saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
-                hitSlop={8}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
-                hitSlop={8}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -673,12 +728,12 @@ export default function SleepHormonesArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metas}>
             {[
@@ -697,28 +752,28 @@ export default function SleepHormonesArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="titleSmall" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
           {/* -------------------------------------------------------------- */}
           {/* CONTENTS                                                        */}
           {/* -------------------------------------------------------------- */}
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -728,19 +783,19 @@ export default function SleepHormonesArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section1Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.infoCard}>
+          <AwaCard variant="filled" padding="none" style={styles.infoCard}>
             <MaterialDesignIcons
               name="information-outline"
               size={23}
@@ -748,22 +803,22 @@ export default function SleepHormonesArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>{content.infoCard1Title}</Text>
-              <Text style={styles.infoText}>
+              <AwaText variant="titleSmall" emphasized>{content.infoCard1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>
                 {content.infoCard1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
           <View style={styles.normalGrid}>
             {content.phaseSleep.map((item, index) => (
-              <View key={item.title} style={styles.normalCard}>
+              <AwaCard variant="filled" padding="none" key={item.title} style={styles.normalCard}>
                 <View style={styles.normalIcon}>
                   <MaterialDesignIcons
                     name={PHASE_SLEEP_ICONS[index] as never}
@@ -772,37 +827,37 @@ export default function SleepHormonesArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.normalTitle}>{item.title}</Text>
-                <Text style={styles.normalText}>{item.text}</Text>
-              </View>
+                <AwaText variant="titleSmall" emphasized style={styles.normalTitle}>{item.title}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.normalText}>{item.text}</AwaText>
+              </AwaCard>
             ))}
           </View>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section2Body}
-          </Text>
+          </AwaText>
 
           {/* ================================================================= */}
           {/* SECTION 3                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section3Body}
-          </Text>
+          </AwaText>
 
           {/* ================================================================= */}
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section4Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.comfortCard}>
+          <AwaCard variant="filled" padding="none" style={styles.comfortCard}>
             {content.eveningRoutine.map((item, index) => (
               <View
                 key={item.title}
@@ -819,24 +874,24 @@ export default function SleepHormonesArticleScreen({
                 </View>
 
                 <View style={styles.comfortCopy}>
-                  <Text style={styles.comfortTitle}>{item.title}</Text>
-                  <Text style={styles.comfortText}>{item.text}</Text>
+                  <AwaText variant="titleSmall" emphasized>{item.title}</AwaText>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.comfortText}>{item.text}</AwaText>
                 </View>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 5                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>5. {content.topics[4]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>5. {content.topics[4]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section5Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.warningCard}>
+          <AwaCard variant="filled" padding="none" style={styles.warningCard}>
             <View style={styles.warningHeader}>
               <MaterialDesignIcons
                 name="alert-circle-outline"
@@ -844,7 +899,7 @@ export default function SleepHormonesArticleScreen({
                 color={theme.colors.warning}
               />
 
-              <Text style={styles.warningTitle}>{content.warningTitle}</Text>
+              <AwaText variant="titleSmall" emphasized style={styles.warningTitle}>{content.warningTitle}</AwaText>
             </View>
 
             {content.consultSigns.map(item => (
@@ -857,12 +912,12 @@ export default function SleepHormonesArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.warningText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.warningText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.infoCard}>
+          <AwaCard variant="filled" padding="none" style={styles.infoCard}>
             <MaterialDesignIcons
               name="stethoscope"
               size={23}
@@ -870,18 +925,18 @@ export default function SleepHormonesArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>{content.infoCard2Title}</Text>
-              <Text style={styles.infoText}>
+              <AwaText variant="titleSmall" emphasized>{content.infoCard2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>
                 {content.infoCard2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* TIP                                                               */}
           {/* ================================================================= */}
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -889,20 +944,20 @@ export default function SleepHormonesArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tipTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SUMMARY                                                           */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>{content.topics[5]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>{content.topics[5]}</AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             {content.summaryPoints.map(item => (
               <View key={item} style={styles.summaryRow}>
                 <MaterialDesignIcons
@@ -911,10 +966,10 @@ export default function SleepHormonesArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.summaryText}>{item}</Text>
+                <AwaText variant="bodySmall" style={styles.summaryText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* DISCLAIMER                                                        */}
@@ -927,9 +982,9 @@ export default function SleepHormonesArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>
               {content.disclaimerText}
-            </Text>
+            </AwaText>
           </View>
         </View>
       </ScrollView>
@@ -946,7 +1001,7 @@ export default function SleepHormonesArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
 
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
@@ -961,77 +1016,46 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
-  },
-  badgeText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
   },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 27,
-    lineHeight: 32,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 9.5, color: theme.colors.textMuted},
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '600',
+    marginTop: 16,
   },
 
   contents: {
     marginTop: 20,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 16,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
+  contentsTitle: {marginBottom: 8},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -1039,40 +1063,26 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 25, color: theme.colors.primary, fontSize: 11.5, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.3, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 25},
+  contentText: {flex: 1},
 
   h2: {
-    marginTop: 27,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 28,
   },
-  body: {marginTop: 9, fontSize: 14, lineHeight: 21.5, color: theme.colors.text},
+  body: {marginTop: 8},
 
   infoCard: {
-    marginTop: 14,
-    padding: 13,
+    marginTop: 16,
+    padding: 12,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
-  infoCopy: {flex: 1, marginLeft: 9},
-  infoTitle: {fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  infoText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  infoCopy: {flex: 1, marginLeft: 8},
+  infoText: {marginTop: 3},
 
-  normalGrid: {marginTop: 13, gap: 9},
+  normalGrid: {marginTop: 12, gap: 8},
   normalCard: {
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 12,
   },
   normalIcon: {
     width: 36,
@@ -1082,18 +1092,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
-  normalTitle: {marginTop: 8, fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  normalText: {marginTop: 4, fontSize: 11, lineHeight: 16, color: theme.colors.textSecondary},
+  normalTitle: {marginTop: 8},
+  normalText: {marginTop: 4},
 
   comfortCard: {
-    marginTop: 13,
-    paddingHorizontal: 13,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    paddingHorizontal: 12,
   },
-  comfortRow: {flexDirection: 'row', alignItems: 'flex-start', paddingVertical: 13},
+  comfortRow: {flexDirection: 'row', alignItems: 'flex-start', paddingVertical: 12},
   comfortRowBorder: {borderBottomWidth: 1, borderBottomColor: theme.colors.border},
   comfortIcon: {
     width: 35,
@@ -1103,56 +1109,43 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
-  comfortCopy: {flex: 1, marginLeft: 10},
-  comfortTitle: {fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  comfortText: {marginTop: 3, fontSize: 10.8, lineHeight: 16, color: theme.colors.textSecondary},
+  comfortCopy: {flex: 1, marginLeft: 12},
+  comfortText: {marginTop: 3},
 
   warningCard: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 12,
+    marginTop: 12,
+    padding: 16,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
   warningHeader: {flexDirection: 'row', alignItems: 'center', marginBottom: 12},
-  warningTitle: {flex: 1, marginLeft: 8, fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  warningRow: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 9},
+  warningTitle: {flex: 1, marginLeft: 8},
+  warningRow: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 8},
   warningBullet: {width: 20, alignItems: 'flex-start'},
-  warningText: {flex: 1, marginLeft: 5, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 17},
+  warningText: {flex: 1, marginLeft: 4},
 
   tip: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
-  tipText: {marginTop: 4, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  tipCopy: {flex: 1, marginLeft: 12},
+  tipText: {marginTop: 4},
 
   summaryCard: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
-  summaryRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 10},
-  summaryText: {flex: 1, fontSize: 11.5, lineHeight: 17, color: theme.colors.text},
+  summaryRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 12},
+  summaryText: {flex: 1},
 
   disclaimer: {
-    marginTop: 18,
+    marginTop: 20,
     paddingHorizontal: 3,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 7,
+    gap: 8,
   },
-  disclaimerText: {flex: 1, fontSize: 10, lineHeight: 15, color: theme.colors.textMuted},
+  disclaimerText: {flex: 1},
   });
 }

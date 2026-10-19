@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -409,6 +410,52 @@ const CONTENT = {
       finalTipText: '如果你正在考虑避孕，或者目前的方法不适合你，请不要犹豫，与医生、助产士或其他医疗专业人员谈一谈。',
       shareMessage: '了解避孕药 — AWA',
     },
+  id: {
+    badge: 'PIL KB',
+    title: 'Memahami\npil KB',
+    metaDuration: '7 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Cara kerja pil, cara meminumnya sehari-hari, serta keuntungan dan keterbatasan utamanya.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Cara kerja pil',
+      'Meminumnya dengan benar setiap hari',
+      'Keuntungan dan keterbatasan',
+      'Poin penting',
+    ],
+    body1: 'Pil mengandung hormon — estrogen dan/atau progestin, tergantung jenisnya — yang bekerja terutama dengan mencegah atau menghambat ovulasi. Pil juga mengubah lendir serviks sehingga sperma lebih sulit melewatinya.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Ada beberapa jenis pil, termasuk pil kombinasi dan pil yang hanya mengandung progestin. Komposisi dan cara meminumnya bisa berbeda.',
+    body2: 'Meminumnya secara teratur itu penting. Tergantung jenis pilnya, apa yang harus dilakukan setelah lupa minum bisa berbeda — jadi penting untuk memeriksa brosur obat yang ada di kemasannya.',
+    routineTips: [
+      'Pilih waktu yang mudah diingat (saat makan, sebelum tidur...)',
+      'Gunakan pengingat atau aplikasi jika perlu',
+      'Simpan brosur obat di dekatmu kalau-kalau ragu',
+    ],
+    sectionIntro: 'Seperti metode kontrasepsi lainnya, pil punya keuntungan tetapi juga beberapa keterbatasan yang perlu diketahui sebelum memilihnya.',
+    advantagesTitle: 'Keuntungan',
+    advantagesSubtitle: 'Yang bisa ditawarkannya',
+    advantages: [
+      'Sangat menurunkan risiko kehamilan bila digunakan dengan benar',
+      'Dapat membuat haid lebih teratur dan mudah diprediksi',
+      'Dapat mengurangi nyeri dan perdarahan pada sebagian orang',
+      'Bisa disesuaikan atau diganti jika tidak cocok untukmu',
+    ],
+    limitationsTitle: 'Keterbatasan',
+    limitationsSubtitle: 'Hal yang perlu diperhatikan',
+    limitations: [
+      'Perlu diminum secara teratur sesuai jenis pilnya',
+      'Lupa minum bisa menurunkan efektivitasnya',
+      'Sebagian orang bisa mengalami efek samping',
+      'Tidak melindungi dari infeksi menular seksual (IMS)',
+    ],
+    takeawayTitle: 'Metode yang layak dipahami',
+    takeawayText: 'Pil adalah metode kontrasepsi hormonal yang efektif bila digunakan dengan benar. Meminumnya secara teratur, kemungkinan efek sampingnya, dan tidak adanya perlindungan dari IMS adalah hal-hal penting yang perlu diketahui.',
+    finalTipText: 'Jika kamu sedang mempertimbangkan kontrasepsi atau metode yang kamu pakai sekarang tidak cocok, jangan ragu berbicara dengan dokter, bidan, atau tenaga kesehatan lainnya.',
+    shareMessage: 'Memahami pil KB — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -484,51 +531,30 @@ export default function BirthControlPillsArticleScreen({
                 paddingTop: getTopPadding(insets.top, true),
               },
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -536,12 +562,12 @@ export default function BirthControlPillsArticleScreen({
         {/* ARTICLE */}
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           {/* METADATA */}
           <View style={styles.metas}>
@@ -561,26 +587,26 @@ export default function BirthControlPillsArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
           {/* TABLE OF CONTENTS */}
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
 
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -590,16 +616,16 @@ export default function BirthControlPillsArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 1 */}
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body1}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -607,22 +633,22 @@ export default function BirthControlPillsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 2 */}
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.routineTips.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -631,22 +657,22 @@ export default function BirthControlPillsArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 3 */}
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.sectionIntro}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.sectionIntro}>
             {content.sectionIntro}
-          </Text>
+          </AwaText>
 
           {/* CENTRAL SCHEMA */}
           <View style={styles.schema}>
             {/* ADVANTAGES */}
-            <View style={styles.schemaCard}>
+            <AwaCard variant="filled" padding="none" style={styles.schemaCard}>
               <View style={styles.schemaHeader}>
                 <View style={styles.iconCirclePositive}>
                   <MaterialDesignIcons
@@ -657,10 +683,10 @@ export default function BirthControlPillsArticleScreen({
                 </View>
 
                 <View style={styles.schemaHeaderText}>
-                  <Text style={styles.schemaTitle}>{content.advantagesTitle}</Text>
-                  <Text style={styles.schemaSubtitle}>
+                  <AwaText variant="titleMedium" emphasized>{content.advantagesTitle}</AwaText>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.schemaSubtitle}>
                     {content.advantagesSubtitle}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
 
@@ -682,13 +708,13 @@ export default function BirthControlPillsArticleScreen({
                     />
                   </View>
 
-                  <Text style={styles.schemaText}>{item}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.schemaText}>{item}</AwaText>
                 </View>
               ))}
-            </View>
+            </AwaCard>
 
             {/* LIMITATIONS */}
-            <View style={styles.schemaCard}>
+            <AwaCard variant="filled" padding="none" style={styles.schemaCard}>
               <View style={styles.schemaHeader}>
                 <View style={styles.iconCircleWarning}>
                   <MaterialDesignIcons
@@ -699,10 +725,10 @@ export default function BirthControlPillsArticleScreen({
                 </View>
 
                 <View style={styles.schemaHeaderText}>
-                  <Text style={styles.schemaTitle}>{content.limitationsTitle}</Text>
-                  <Text style={styles.schemaSubtitle}>
+                  <AwaText variant="titleMedium" emphasized>{content.limitationsTitle}</AwaText>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.schemaSubtitle}>
                     {content.limitationsSubtitle}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
 
@@ -724,16 +750,16 @@ export default function BirthControlPillsArticleScreen({
                     />
                   </View>
 
-                  <Text style={styles.schemaText}>{item}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.schemaText}>{item}</AwaText>
                 </View>
               ))}
-            </View>
+            </AwaCard>
           </View>
 
           {/* SECTION 4 */}
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <View style={styles.takeaway}>
+          <AwaCard variant="filled" padding="none" style={styles.takeaway}>
             <View style={styles.takeawayIcon}>
               <MaterialDesignIcons
                 name="pill"
@@ -743,27 +769,27 @@ export default function BirthControlPillsArticleScreen({
             </View>
 
             <View style={styles.takeawayContent}>
-              <Text style={styles.takeawayTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.takeawayTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.takeawayText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.takeawayText}>
                 {content.takeawayText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.finalTip}>
+          <AwaCard variant="filled" padding="none" style={styles.finalTip}>
             <MaterialDesignIcons
               name="heart-outline"
               size={22}
               color={theme.colors.primary}
             />
 
-            <Text style={styles.finalTipText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.finalTipText}>
               {content.finalTipText}
-            </Text>
-          </View>
+            </AwaText>
+          </AwaCard>
         </View>
       </ScrollView>
 
@@ -784,7 +810,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   heroWrap: {
@@ -812,54 +838,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -869,7 +872,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -878,31 +881,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 10,
-    color: theme.colors.textMuted,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '500',
+    marginTop: 16,
   },
 
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -920,53 +910,34 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 24,
-    color: theme.colors.primary,
-    fontSize: 12,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.5,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   body: {
     marginTop: 8,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
   },
 
   sectionIntro: {
     marginTop: 8,
-    fontSize: 13,
-    lineHeight: 19,
-    color: theme.colors.textSecondary,
   },
 
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   note: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 12,
@@ -975,56 +946,39 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 3,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 12,
+    padding: 12,
   },
 
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 9,
+    marginBottom: 8,
   },
 
   checkText: {
     flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 17,
   },
 
   /* ADVANTAGES / LIMITATIONS SCHEMA */
 
   schema: {
-    marginTop: 15,
+    marginTop: 16,
     gap: 12,
   },
 
   schemaCard: {
-    padding: 15,
-    borderRadius: 15,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 16,
   },
 
   schemaHeader: {
@@ -1034,19 +988,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   schemaHeaderText: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  schemaTitle: {
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   schemaSubtitle: {
     marginTop: 2,
-    fontSize: 10.5,
-    color: theme.colors.textMuted,
   },
 
   iconCirclePositive: {
@@ -1070,14 +1017,14 @@ function createStyles(theme: ResolvedAwaTheme) {
   schemaLine: {
     height: 1,
     backgroundColor: theme.colors.border,
-    marginTop: 13,
+    marginTop: 12,
     marginBottom: 4,
   },
 
   schemaRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    paddingVertical: 9,
+    paddingVertical: 8,
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.border,
   },
@@ -1093,7 +1040,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 9,
+    marginRight: 8,
     backgroundColor: withAlpha(theme.colors.success, 0.12),
   },
 
@@ -1103,24 +1050,19 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 9,
+    marginRight: 8,
     backgroundColor: withAlpha(theme.colors.primary, 0.12),
   },
 
   schemaText: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   takeaway: {
-    marginTop: 15,
-    padding: 15,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 14,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   takeawayIcon: {
@@ -1134,39 +1076,24 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   takeawayContent: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  takeawayTitle: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   takeawayText: {
-    marginTop: 5,
-    fontSize: 12,
-    lineHeight: 18,
-    color: theme.colors.textSecondary,
+    marginTop: 4,
   },
 
   finalTip: {
     marginTop: 12,
-    padding: 13,
+    padding: 12,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   finalTipText: {
     flex: 1,
-    marginLeft: 9,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
+    marginLeft: 8,
   },
   });
 }

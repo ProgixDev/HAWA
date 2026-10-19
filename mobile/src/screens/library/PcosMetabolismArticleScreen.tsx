@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -589,6 +590,80 @@ const CONTENT = {
       tip2Text: '体重只是 PCOS 代谢状况的一部分。全面的评估会综合考虑月经周期、症状、生活习惯、病史和代谢指标。',
       shareMessage: '体重、代谢与胰岛素抵抗 — AWA',
     },
+  id: {
+    badge: 'PCOS',
+    title: 'Berat badan, metabolisme, dan\nresistensi insulin',
+    metaDuration: '6 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Menengah',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Hubungan antara PCOS, berat badan, dan resistensi insulin — tanpa menghakimi dan tanpa jalan pintas.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Hubungan antara PCOS dan metabolisme',
+      'Memahami resistensi insulin',
+      'Berat badan: apa yang benar dan apa yang tidak',
+      'Kebiasaan yang mendukung keseimbangan',
+      'Kapan pemantauan medis bermanfaat',
+      'Poin-poin penting',
+    ],
+    body1: 'Sindrom ovarium polikistik (PCOS) sering dikaitkan dengan perubahan metabolik, termasuk resistensi insulin. Namun, kaitan ini tidak hanya menyangkut perempuan yang kelebihan berat badan — profil metabolik berbeda dari satu orang ke orang lain.',
+    body2: 'Insulin adalah hormon yang membantu sel menggunakan glukosa dalam darah. Pada resistensi insulin, sel kurang responsif terhadap hormon ini, dan tubuh bisa mengompensasinya dengan menghasilkan lebih banyak insulin.',
+    body3: 'Pada PCOS, hal ini bisa dikaitkan dengan peningkatan produksi androgen dan dapat berperan dalam munculnya beberapa gejala. Namun, tidak semua perempuan dengan PCOS memiliki profil metabolik yang sama.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Resistensi insulin bisa diperiksa lewat tes darah jika dokter menganggapnya perlu. Perlu tidaknya tes bergantung pada keadaan masing-masing.',
+    weightFacts: [
+      'PCOS dialami perempuan dengan berbagai bentuk tubuh, dari yang langsing hingga yang bertubuh lebih besar.',
+      'Kenaikan berat badan tidak selalu terjadi.',
+      'Menurunkan berat badan tidak selalu diperlukan — atau cukup — untuk memperbaiki gejala.',
+      'Penurunan berat badan yang kecil terkadang bisa memperbaiki beberapa penanda metabolik atau keteraturan siklus jika ada kelebihan berat badan.',
+    ],
+    body4: 'Tujuannya bukan mengejar berat badan yang “sempurna”, melainkan membangun kebiasaan yang realistis dan bertahan lama. Pola makan seimbang, aktivitas fisik, dan tidur yang teratur semuanya bisa berkontribusi pada kesehatan metabolik yang lebih baik.',
+    dailyHabits: [
+      'Makan teratur dan bervariasi, kaya serat',
+      'Aktivitas fisik secara rutin, meskipun sedang',
+      'Tidur yang cukup dan teratur',
+      'Asupan air yang cukup setiap hari',
+    ],
+    body5: 'Pemantauan medis untuk PCOS tidak terbatas pada siklus atau gejala hormonal. Tergantung profilmu, tenaga kesehatanmu mungkin juga memantau beberapa penanda metabolik untuk membantu mengenali faktor risiko sejak dini.',
+    medicalTitle: 'Pemantauan yang disesuaikan dengan profilmu',
+    medicalSubtitle: 'Pemeriksaannya tidak sama untuk semua orang.',
+    medicalDescription: 'Dokter bisa memutuskan untuk memeriksa beberapa penanda berdasarkan gejalamu, riwayat kesehatanmu, keadaan keluargamu, dan faktor risiko lainnya.',
+    medicalSectionTitle: 'Apa yang mungkin dipantau',
+    medicalChecks: [
+      'Gula darah dan/atau HbA1c, tergantung konteksnya',
+      'Profil lipid (kolesterol dan trigliserida)',
+      'Tekanan darah dan penilaian risiko kardiovaskular',
+      'Pemantauan berat badan dan lingkar pinggang, tanpa menghakimi',
+    ],
+    subH3: 'Keadaan yang layak disampaikan',
+    body6: 'Beberapa perubahan layak disampaikan saat konsultasi, terutama jika baru, menetap, atau tidak biasa bagimu.',
+    medicalFollowUp: [
+      {
+        title: 'Siklus yang sangat tidak teratur',
+        description: 'Sampaikan jika haidmu sangat jarang atau tidak bisa diprediksi.',
+      },
+      {
+        title: 'Rasa haus atau sering buang air kecil',
+        description: 'Bicaralah dengan dokter jika tanda-tanda ini muncul secara tidak biasa.',
+      },
+      {
+        title: 'Perubahan berat badan yang signifikan',
+        description: 'Perubahan yang cepat atau tidak jelas penyebabnya layak dievaluasi.',
+      },
+      {
+        title: 'Riwayat keluarga',
+        description: 'Sampaikan jika ada riwayat diabetes atau gangguan metabolik dalam keluargamu.',
+      },
+    ],
+    alertTitle: 'Harap diperhatikan',
+    alertText: 'Rasa haus yang tidak biasa, sering buang air kecil, kelelahan yang menetap, atau perubahan berat badan yang signifikan dan tidak jelas penyebabnya sebaiknya disampaikan kepada tenaga kesehatan. Tanda-tanda ini bisa memiliki beberapa penyebab dan, dengan sendirinya, tidak memastikan adanya resistensi insulin atau diabetes.',
+    followUpTipTitle: 'Pemantauan berlangsung seiring waktu',
+    followUpTipText: 'Dokter mungkin menyarankan pemeriksaan rutin, bukan hanya satu kali pemeriksaan menyeluruh. Tujuannya adalah menyesuaikan saran dan tes dengan perkembanganmu, tanpa hanya berfokus pada berat badan.',
+    tip2Title: 'Perlu diketahui',
+    tip2Text: 'Berat badan hanyalah satu bagian dari gambaran metabolik pada PCOS. Pendekatan yang menyeluruh mempertimbangkan siklus, gejala, kebiasaan hidup, riwayat kesehatan, dan penanda metabolik.',
+    shareMessage: 'Berat badan, metabolisme, dan resistensi insulin — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -663,63 +738,42 @@ export default function PcosMetabolismArticleScreen({
                 paddingTop: getTopPadding(insets.top, true),
               },
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metas}>
             {[
@@ -738,24 +792,24 @@ export default function PcosMetabolismArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -765,29 +819,29 @@ export default function PcosMetabolismArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             1. {content.topics[0]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             2. {content.topics[1]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body2}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body3}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -795,19 +849,19 @@ export default function PcosMetabolismArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             3. {content.topics[2]}
-          </Text>
+          </AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.weightFacts.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -816,22 +870,22 @@ export default function PcosMetabolismArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             4. {content.topics[3]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body4}
-          </Text>
+          </AwaText>
 
           <View style={styles.daily}>
             {DAILY_HABIT_ICONS.map((icon, index) => (
-              <View key={icon} style={styles.dailyItem}>
+              <AwaCard variant="filled" padding="none" key={icon} style={styles.dailyItem}>
                 <View style={styles.dailyIcon}>
                   <MaterialDesignIcons
                     name={icon as never}
@@ -840,20 +894,20 @@ export default function PcosMetabolismArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.dailyText}>{content.dailyHabits[index]}</Text>
-              </View>
+                <AwaText variant="bodySmall" style={styles.dailyText}>{content.dailyHabits[index]}</AwaText>
+              </AwaCard>
             ))}
           </View>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             5. {content.topics[4]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body5}
-          </Text>
+          </AwaText>
 
-          <View style={styles.medicalCard}>
+          <AwaCard variant="filled" padding="none" style={styles.medicalCard}>
             <View style={styles.medicalHeader}>
               <View style={styles.medicalHeaderIcon}>
                 <MaterialDesignIcons
@@ -864,48 +918,48 @@ export default function PcosMetabolismArticleScreen({
               </View>
 
               <View style={styles.medicalHeaderCopy}>
-                <Text style={styles.medicalTitle}>
+                <AwaText variant="titleMedium" emphasized>
                   {content.medicalTitle}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.medicalSubtitle}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.medicalSubtitle}>
                   {content.medicalSubtitle}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
-            <Text style={styles.medicalDescription}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.medicalDescription}>
               {content.medicalDescription}
-            </Text>
+            </AwaText>
 
-            <Text style={styles.medicalSectionTitle}>
+            <AwaText variant="titleSmall" emphasized style={styles.medicalSectionTitle}>
               {content.medicalSectionTitle}
-            </Text>
+            </AwaText>
 
             <View style={styles.medicalChecks}>
               {content.medicalChecks.map((item, index) => (
                 <View key={item} style={styles.medicalCheckRow}>
                   <View style={styles.medicalCheckNumber}>
-                    <Text style={styles.medicalCheckNumberText}>
+                    <AwaText variant="labelSmall" emphasized colorRole="primary">
                       {index + 1}
-                    </Text>
+                    </AwaText>
                   </View>
 
-                  <Text style={styles.medicalCheckText}>{item}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.medicalCheckText}>{item}</AwaText>
                 </View>
               ))}
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.subH3}>{content.subH3}</Text>
+          <AwaText variant="titleMedium" emphasized style={styles.subH3}>{content.subH3}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body6}
-          </Text>
+          </AwaText>
 
           <View style={styles.signalGrid}>
             {FOLLOW_UP_ICONS.map((icon, index) => (
-              <View key={icon} style={styles.signalCard}>
+              <AwaCard variant="filled" padding="none" key={icon} style={styles.signalCard}>
                 <View style={styles.signalIcon}>
                   <MaterialDesignIcons
                     name={icon as never}
@@ -914,18 +968,18 @@ export default function PcosMetabolismArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.signalTitle}>
+                <AwaText variant="titleSmall" emphasized style={styles.signalTitle}>
                   {content.medicalFollowUp[index].title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.signalDescription}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.signalDescription}>
                   {content.medicalFollowUp[index].description}
-                </Text>
-              </View>
+                </AwaText>
+              </AwaCard>
             ))}
           </View>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
@@ -933,15 +987,15 @@ export default function PcosMetabolismArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.alertTitle}</AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.alertText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.followUpTip}>
+          <AwaCard variant="filled" padding="none" style={styles.followUpTip}>
             <MaterialDesignIcons
               name="calendar-heart"
               size={24}
@@ -949,19 +1003,19 @@ export default function PcosMetabolismArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.followUpTipTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.followUpTipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>6. {content.topics[5]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>6. {content.topics[5]}</AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -969,13 +1023,13 @@ export default function PcosMetabolismArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tip2Title}</AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
         </View>
       </ScrollView>
 
@@ -996,7 +1050,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   heroWrap: {
@@ -1024,54 +1078,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -1081,7 +1112,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -1090,31 +1121,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 10,
-    color: theme.colors.textMuted,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '500',
+    marginTop: 16,
   },
 
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -1132,65 +1150,42 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 24,
-    color: theme.colors.primary,
-    fontSize: 12,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.5,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   subH3: {
-    marginTop: 22,
-    fontSize: 17,
-    lineHeight: 23,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginTop: 24,
   },
 
   body: {
     marginTop: 8,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
   },
 
   checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 12,
+    padding: 12,
   },
 
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 9,
+    marginBottom: 8,
   },
 
   checkText: {
     flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 17,
   },
 
   daily: {
-    marginTop: 13,
+    marginTop: 12,
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
@@ -1202,10 +1197,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   dailyIcon: {
@@ -1219,19 +1210,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   dailyText: {
     marginTop: 8,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.text,
     textAlign: 'center',
   },
 
   medicalCard: {
-    marginTop: 15,
+    marginTop: 16,
     padding: 16,
-    borderRadius: 15,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   medicalHeader: {
@@ -1250,36 +1234,21 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   medicalHeaderCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  medicalTitle: {
-    fontSize: 15,
-    lineHeight: 20,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   medicalSubtitle: {
     marginTop: 2,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.textMuted,
   },
 
   medicalDescription: {
-    marginTop: 13,
-    fontSize: 12.5,
-    lineHeight: 19,
-    color: theme.colors.textSecondary,
+    marginTop: 12,
   },
 
   medicalSectionTitle: {
     marginTop: 16,
-    marginBottom: 9,
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   medicalChecks: {
@@ -1289,7 +1258,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   medicalCheckRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 5,
+    paddingVertical: 4,
   },
 
   medicalCheckNumber: {
@@ -1301,22 +1270,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  medicalCheckNumberText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   medicalCheckText: {
     flex: 1,
-    marginLeft: 9,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
+    marginLeft: 8,
   },
 
   signalGrid: {
-    marginTop: 13,
+    marginTop: 12,
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
@@ -1326,10 +1287,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     width: '48.7%',
     minHeight: 145,
     padding: 12,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   signalIcon: {
@@ -1342,66 +1299,43 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   signalTitle: {
-    marginTop: 9,
-    fontSize: 12.5,
-    lineHeight: 17,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginTop: 8,
   },
 
   signalDescription: {
     marginTop: 4,
-    fontSize: 10.5,
-    lineHeight: 15,
-    color: theme.colors.textMuted,
   },
 
   alert: {
-    marginTop: 14,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   followUpTip: {
     marginTop: 12,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    lineHeight: 18,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 3,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
   });
 }

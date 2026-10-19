@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -15,6 +13,9 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {
   isArticleBookmarked,
@@ -26,7 +27,6 @@ import {getBottomPadding, getTopPadding, READING_CONTROLS_SPACE} from '../../the
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {
   onPrimaryTextColor,
-  withAlpha,
   type ResolvedAwaTheme,
 } from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
@@ -685,6 +685,105 @@ const CONTENT = {
       ],
       shareMessage: '饮食与你的周期：你的身体喜欢什么 — AWA',
     },
+  id: {
+    badge: 'SIKLUS MENSTRUASI',
+    titleLine1: 'Nutrisi dan siklusmu:',
+    titleLine2: 'yang disukai tubuhmu',
+    metaDuration: '4 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Pola makanmu memengaruhi energi, suasana hati, hormon, dan kesehatanmu secara keseluruhan sepanjang siklus.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Kebutuhan nutrisi di tiap fase',
+      'Makanan yang dianjurkan',
+      'Makanan yang perlu dibatasi',
+      'Contoh menu makan seimbang',
+    ],
+    section1Body: 'Kebutuhan tubuhmu tidak sama sepanjang siklus. Menyesuaikan apa yang kamu makan bisa membuat perbedaan yang nyata.',
+    phases: [
+      {
+        title: 'Fase menstruasi',
+        days: 'Hari ke-1 sampai ke-5',
+        body: 'Utamakan zat besi, magnesium, dan vitamin B.',
+      },
+      {
+        title: 'Fase folikuler',
+        days: 'Hari ke-6 sampai ke-14',
+        body: 'Fokus pada protein tanpa lemak dan sayuran segar.',
+      },
+      {
+        title: 'Fase ovulasi',
+        days: 'Sekitar hari ke-14',
+        body: 'Pilih antioksidan dan omega-3.',
+      },
+      {
+        title: 'Fase luteal',
+        days: 'Hari ke-15 sampai ke-28',
+        body: 'Dukung sistem sarafmu dan batasi peradangan.',
+      },
+    ],
+    foods: [
+      {
+        title: 'Zat besi',
+        body: 'Lentil, bayam, daging tanpa lemak, buncis kabuli.',
+      },
+      {
+        title: 'Magnesium',
+        body: 'Almon, biji labu, cokelat hitam, pisang.',
+      },
+      {
+        title: 'Omega-3',
+        body: 'Salmon, sarden, kenari, biji rami.',
+      },
+      {
+        title: 'Protein',
+        body: 'Telur, tahu, unggas, yogurt Yunani, quinoa.',
+      },
+      {
+        title: 'Serat & antioksidan',
+        body: 'Beri-berian, alpukat, brokoli, wortel.',
+      },
+    ],
+    limits: [
+      {
+        title: 'Garam berlebih',
+      },
+      {
+        title: 'Makanan manis',
+      },
+      {
+        title: 'Makanan ultra-olahan',
+      },
+      {
+        title: 'Kafein berlebih',
+      },
+      {
+        title: 'Alkohol',
+      },
+    ],
+    limitText: 'Nikmati secukupnya agar keseimbanganmu tetap terjaga.',
+    meals: [
+      {
+        tag: 'Sarapan',
+        body: 'Bubur oat, beri-berian, almon, dan chia',
+      },
+      {
+        tag: 'Makan siang',
+        body: 'Salmon, quinoa, brokoli kukus, dan minyak zaitun',
+      },
+      {
+        tag: 'Camilan',
+        body: 'Yogurt plain, blueberry, dan biji rami',
+      },
+      {
+        tag: 'Makan malam',
+        body: 'Sup lentil, sayuran panggang, dan roti gandum utuh',
+      },
+    ],
+    shareMessage: 'Nutrisi dan siklusmu: yang disukai tubuhmu — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -769,70 +868,49 @@ export default function NutritionCycleArticleScreen({
                 paddingTop: getTopPadding(insets.top, true),
               },
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.bookmarkA11y')}
-                onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={
+                icon={
                     saved
                       ? 'bookmark'
                       : 'bookmark-outline'
                   }
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                iconSize={20}
+                onPress={handleBookmark}
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">
               {content.badge}
-            </Text>
+            </AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.titleLine1}{`\n`}
             {content.titleLine2}
-          </Text>
+          </AwaText>
 
           {/* META COMME TA CAPTURE */}
           <View style={styles.metas}>
@@ -843,9 +921,9 @@ export default function NutritionCycleArticleScreen({
                   size={19}
                   color={theme.colors.textMuted}
                 />
-                <Text style={styles.metaText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                   {content.metaDuration}
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.metaDivider} />
@@ -856,9 +934,9 @@ export default function NutritionCycleArticleScreen({
                   size={19}
                   color={theme.colors.textMuted}
                 />
-                <Text style={styles.metaText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                   {content.metaType}
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.metaDivider} />
@@ -869,9 +947,9 @@ export default function NutritionCycleArticleScreen({
                   size={19}
                   color={theme.colors.textMuted}
                 />
-                <Text style={styles.metaText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                   {content.metaLevel}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -881,33 +959,33 @@ export default function NutritionCycleArticleScreen({
                 size={19}
                 color={theme.colors.textMuted}
               />
-              <Text style={styles.metaText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                 {content.metaValidated}
-              </Text>
+              </AwaText>
             </View>
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="titleSmall" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleSmall" emphasized style={styles.contentsTitle}>
               {content.contentsTitle}
-            </Text>
+            </AwaText>
 
             {content.topics.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.contentNumber}>
                     {index + 1}.
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.contentText}>
+                  <AwaText variant="bodySmall" style={styles.contentText}>
                     {item}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -917,16 +995,16 @@ export default function NutritionCycleArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 1 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             1. {content.topics[0]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section1Body}
-          </Text>
+          </AwaText>
 
           <ScrollView
             horizontal
@@ -944,25 +1022,25 @@ export default function NutritionCycleArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.cardTitle}>
+                <AwaText variant="titleSmall" emphasized style={styles.cardTitle}>
                   {phase.title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.days}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.days}>
                   {phase.days}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.cardBody}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardBody}>
                   {phase.body}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </ScrollView>
 
           {/* SECTION 2 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             2. {content.topics[1]}
-          </Text>
+          </AwaText>
 
           <ScrollView
             horizontal
@@ -976,21 +1054,21 @@ export default function NutritionCycleArticleScreen({
                   style={styles.foodImage}
                 />
 
-                <Text style={styles.cardTitle}>
+                <AwaText variant="titleSmall" emphasized style={styles.cardTitle}>
                   {food.title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.cardBody}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardBody}>
                   {food.body}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </ScrollView>
 
           {/* SECTION 3 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             3. {content.topics[2]}
-          </Text>
+          </AwaText>
 
           <ScrollView
             horizontal
@@ -1008,21 +1086,21 @@ export default function NutritionCycleArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.cardTitle}>
+                <AwaText variant="titleSmall" emphasized style={styles.cardTitle}>
                   {limit.title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.limitText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.limitText}>
                   {content.limitText}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </ScrollView>
 
           {/* SECTION 4 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             4. {content.topics[3]}
-          </Text>
+          </AwaText>
 
           <ScrollView
             horizontal
@@ -1038,13 +1116,13 @@ export default function NutritionCycleArticleScreen({
                   style={styles.mealImage}
                 />
 
-                <Text style={styles.mealTag}>
+                <AwaText variant="labelSmall" style={styles.mealTag}>
                   {meal.tag}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.mealText}>
+                <AwaText variant="bodySmall" style={styles.mealText}>
                   {meal.body}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </ScrollView>
@@ -1096,54 +1174,32 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 11,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 10.5,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 24, // avant 28
-    lineHeight: 29,
-    color: theme.colors.text,
-    fontWeight: '700',
+    // avant 28
   },
 
   metas: {
-    marginTop: 15,
+    marginTop: 16,
   },
 
   metaTopRow: {
@@ -1155,48 +1211,36 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: 8,
   },
 
   metaDivider: {
     width: 1,
     height: 20,
-    marginHorizontal: 11,
+    marginHorizontal: 12,
     backgroundColor: theme.colors.border,
   },
 
   metaValidatedRow: {
-    marginTop: 11,
+    marginTop: 12,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: 8,
   },
 
-  metaText: {
-    color: theme.colors.textMuted,
-    fontSize: 11,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 13.5, // avant 15
-    lineHeight: 20,
-    color: theme.colors.text,
-    fontWeight: '600',
+    marginTop: 16,
+    // avant 15
   },
 
   contents: {
-    marginTop: 19,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -1214,37 +1258,25 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 23,
-    color: theme.colors.primary,
-    fontSize: 11.5,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 16,
-    color: theme.colors.text,
   },
 
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 20, // avant 22
-    lineHeight: 25,
-    color: theme.colors.text,
-    fontWeight: '700',
+    // avant 22
   },
 
   body: {
     marginTop: 8,
-    fontSize: 13, // avant 14
-    lineHeight: 20,
-    color: theme.colors.text,
+    // avant 14
   },
 
   row: {
-    gap: 9,
-    paddingTop: 13,
+    gap: 8,
+    paddingTop: 12,
     paddingBottom: 3,
   },
 
@@ -1255,14 +1287,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     borderWidth: 1,
     borderColor: theme.colors.border,
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
   phaseIcon: {
     width: 42,
     height: 42,
-    borderRadius: 13,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
@@ -1274,7 +1306,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: theme.colors.border,
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
@@ -1285,54 +1317,44 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   cardTitle: {
     marginTop: 8,
-    paddingHorizontal: 7,
-    fontSize: 12, // avant 13
-    lineHeight: 16,
-    color: theme.colors.text,
-    fontWeight: '800',
+    paddingHorizontal: 8,
+    // avant 13
     textAlign: 'center',
   },
 
   days: {
     marginTop: 4,
-    fontSize: 9.5,
-    color: theme.colors.textMuted,
   },
 
   cardBody: {
-    marginTop: 6,
+    marginTop: 8,
     paddingHorizontal: 8,
-    fontSize: 10.5, // avant 11.5
-    lineHeight: 15,
-    color: theme.colors.textSecondary,
+    // avant 11.5
     textAlign: 'center',
   },
 
   limit: {
     width: 122,
     minHeight: 148,
-    padding: 11,
+    padding: 12,
     alignItems: 'center',
     borderWidth: 1,
     borderColor: theme.colors.border,
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
   limitIcon: {
     width: 42,
     height: 42,
-    borderRadius: 13,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
 
   limitText: {
-    marginTop: 7,
-    color: theme.colors.textSecondary,
-    fontSize: 10,
-    lineHeight: 14,
+    marginTop: 8,
     textAlign: 'center',
   },
 
@@ -1342,7 +1364,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: theme.colors.border,
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
@@ -1356,19 +1378,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     top: 0,
     left: 0,
     paddingHorizontal: 8,
-    paddingVertical: 5,
+    paddingVertical: 4,
     backgroundColor: theme.colors.primary,
     color: onPrimaryTextColor(theme),
-    fontSize: 9.5,
-    fontWeight: '700',
   },
 
   mealText: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    color: theme.colors.text,
-    fontSize: 10.5,
-    lineHeight: 15,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
   },
 
   });

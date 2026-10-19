@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -1003,6 +1004,123 @@ const CONTENT = {
       disclaimerText: '科普内容。这里提供的医学信息属于一般性信息，不能替代医疗专业人员的建议。如有具体的宗教问题，建议咨询有资质的宗教人士。',
       shareMessage: '产后恶露期（Nifas）：医学角度 — AWA',
     },
+  id: {
+    badge: 'PASCAPERSALINAN • NIFAS',
+    title: 'Nifas:\naspek medis',
+    metaDuration: '5 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten informatif',
+    intro: 'Setelah melahirkan, tubuh melalui masa pemulihan yang berlangsung bertahap. Memahami perdarahan pascapersalinan, perkembangannya, dan tanda-tanda yang perlu diperhatikan bisa membuatmu lebih tenang dan terinformasi selama masa ini.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Memahami istilah Nifas',
+      'Pola medis setelah melahirkan',
+      'Perkembangan lokia',
+      'Merawat dirimu',
+      'Kapan perlu meminta saran',
+      'Poin-poin penting',
+    ],
+    h2Section1: '1. Memahami istilah "Nifas"',
+    body1a: 'Istilah "Nifas" termasuk dalam kosakata keagamaan dan merujuk pada masa yang berkaitan dengan perdarahan setelah melahirkan menurut kaidah fikih Islam.',
+    body1b: 'Secara medis, perdarahan yang terjadi setelah melahirkan disebut "lokia." Kedua pengertian ini bisa dipahami secara terpisah: yang satu berada dalam kerangka keagamaan, yang lain menggambarkan fenomena fisiologis.',
+    distinction: {
+      nifasTitle: 'Nifas',
+      nifasText: 'Pengertian dalam kerangka keagamaan setelah melahirkan.',
+      lochiaTitle: 'Lokia',
+      lochiaText: 'Istilah medis untuk perdarahan pascapersalinan.',
+    },
+    h2Section2: '2. Pola medis setelah melahirkan',
+    body2: 'Pemulihan pascapersalinan berlangsung bertahap. Perdarahan pascapersalinan umumnya berubah seiring waktu karena rahim terus kembali ke kondisi biasanya.',
+    schemaTitle: 'Perkembangan pascapersalinan',
+    schemaSubtitle: 'Acuan medis yang disederhanakan',
+    stages: [
+      {
+        title: 'Setelah melahirkan',
+        subtitle: 'Awal masa pascapersalinan',
+        text: 'Tubuh mulai pulih secara bertahap setelah melahirkan.',
+      },
+      {
+        title: 'Lokia',
+        subtitle: 'Perdarahan pascapersalinan',
+        text: 'Perdarahan berubah secara bertahap dalam jumlah dan warna.',
+      },
+      {
+        title: 'Menurun bertahap',
+        subtitle: 'Selama beberapa minggu',
+        text: 'Perdarahan umumnya berkurang seiring waktu.',
+      },
+      {
+        title: 'Kembali bertahap',
+        subtitle: 'Menuju siklus yang biasa',
+        text: 'Siklus menstruasi kemudian bisa kembali secara bertahap.',
+      },
+    ],
+    h2Section3: '3. Perkembangan lokia',
+    body3: 'Lokia umumnya berubah warna secara bertahap dan jumlahnya berkurang. Namun, perkembangan ini bisa berbeda dari satu orang ke orang lain.',
+    lochiaEvolution: [
+      {
+        title: 'Lokia merah',
+        period: 'Beberapa hari pertama',
+        text: 'Perdarahan biasanya berwarna merah dan bisa lebih banyak di awal.',
+      },
+      {
+        title: 'Lokia merah muda / kecokelatan',
+        period: 'Setelah beberapa hari',
+        text: 'Warnanya bisa menjadi lebih terang atau kecokelatan seiring berkurangnya aliran darah.',
+      },
+      {
+        title: 'Lokia keputihan',
+        period: 'Minggu-minggu berikutnya',
+        text: 'Perdarahan perlahan menjadi lebih ringan dan lebih sedikit.',
+      },
+    ],
+    infoTitle: 'Poin-poin penting',
+    infoText: 'Warna dan jumlah lokia bisa berubah secara bertahap. Perkembangannya tidak persis sama pada setiap orang.',
+    h2Section4: '4. Merawat dirimu',
+    body4: 'Selama masa ini, beberapa kebiasaan sederhana bisa membantu kenyamananmu dan mendukung pemulihan tubuh.',
+    careTips: [
+      {
+        title: 'Kebersihan yang lembut',
+        text: 'Jaga rutinitas kebersihan harian yang sederhana dan nyaman.',
+      },
+      {
+        title: 'Istirahat',
+        text: 'Beri tubuhmu waktu untuk pulih.',
+      },
+      {
+        title: 'Asupan air',
+        text: 'Ingatlah untuk minum secara teratur sesuai kebutuhanmu.',
+      },
+      {
+        title: 'Nutrisi',
+        text: 'Makanan yang bervariasi mendukung pemulihan.',
+      },
+    ],
+    h2Section5: '5. Kapan perlu meminta saran',
+    body5: 'Beberapa kondisi memerlukan saran cepat dari tenaga kesehatan, terutama jika perubahan yang terjadi terasa signifikan, mendadak, atau tidak biasa.',
+    warningTitle: 'Tanda yang tidak boleh diabaikan',
+    warningSubtitle: 'Minta saran profesional jika perlu',
+    warningSigns: [
+      'Bau yang kuat atau tidak biasa pada perdarahan',
+      'Demam atau kondisi umum yang memburuk',
+      'Perdarahan yang tiba-tiba menjadi sangat banyak',
+      'Nyeri yang hebat, menetap, atau tidak biasa',
+      'Gejala baru yang membuatmu khawatir',
+    ],
+    tipTitle: 'Perlu diketahui',
+    tipText: 'Setiap pemulihan pascapersalinan berbeda-beda. Informasi dalam artikel ini dimaksudkan sebagai panduan umum dan tidak menggantikan konsultasi medis.',
+    summaryHeading: 'Poin-poin penting',
+    summary: [
+      'Nifas adalah istilah yang digunakan dalam konteks keagamaan setelah melahirkan.',
+      'Secara medis, perdarahan pascapersalinan disebut lokia.',
+      'Lokia berubah secara bertahap dalam warna dan jumlah.',
+      'Istirahat, kebersihan yang lembut, dan asupan air yang cukup mendukung pemulihan.',
+      'Perubahan yang tidak biasa atau mengkhawatirkan perlu dikonsultasikan kepada profesional.',
+    ],
+    disclaimerText: 'Konten informatif. Informasi medis yang disajikan di sini bersifat umum dan tidak menggantikan saran tenaga kesehatan. Untuk pertanyaan keagamaan yang spesifik, disarankan merujuk pada sumber keagamaan yang kompeten.',
+    shareMessage: 'Nifas: aspek medis — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -1103,58 +1221,34 @@ export default function NifasMedicalArticleScreen({
               },
             ]}
           >
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}
-            >
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
-                onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <MaterialDesignIcons
-                  name={
+                icon={
                     saved
                       ? 'bookmark'
                       : 'bookmark-outline'
                   }
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                iconSize={20}
+                onPress={handleBookmark}
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -1167,16 +1261,16 @@ export default function NifasMedicalArticleScreen({
           {/* Badge */}
 
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">
               {content.badge}
-            </Text>
+            </AwaText>
           </View>
 
           {/* Title */}
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           {/* Metadata */}
 
@@ -1205,9 +1299,9 @@ export default function NifasMedicalArticleScreen({
                     size={16}
                   />
 
-                  <Text style={styles.meta}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                     {text}
-                  </Text>
+                  </AwaText>
                 </View>
               </React.Fragment>
             ))}
@@ -1215,18 +1309,18 @@ export default function NifasMedicalArticleScreen({
 
           {/* Introduction */}
 
-          <Text style={styles.intro}>
+          <AwaText variant="titleSmall" colorRole="onSurfaceVariant" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
           {/* ---------------------------------------------------------------- */}
           {/* CONTENTS */}
           {/* ---------------------------------------------------------------- */}
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>
               {content.contentsTitle}
-            </Text>
+            </AwaText>
 
             {content.topics.map((item, index) => (
               <View
@@ -1234,13 +1328,13 @@ export default function NifasMedicalArticleScreen({
                 style={styles.contentRow}
               >
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.contentNumber}>
                     {String(index + 1).padStart(2, '0')}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.contentText}>
+                  <AwaText variant="bodySmall" style={styles.contentText}>
                     {item}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -1250,27 +1344,27 @@ export default function NifasMedicalArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ---------------------------------------------------------------- */}
           {/* SECTION 1 */}
           {/* ---------------------------------------------------------------- */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.h2Section1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body1a}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body1b}
-          </Text>
+          </AwaText>
 
           {/* Distinction card */}
 
-          <View style={styles.distinctionCard}>
+          <AwaCard variant="filled" padding="none" style={styles.distinctionCard}>
             <View style={styles.distinctionItem}>
               <View style={styles.distinctionIcon}>
                 <MaterialDesignIcons
@@ -1281,13 +1375,13 @@ export default function NifasMedicalArticleScreen({
               </View>
 
               <View style={styles.distinctionCopy}>
-                <Text style={styles.distinctionTitle}>
+                <AwaText variant="titleSmall" emphasized>
                   {content.distinction.nifasTitle}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.distinctionText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.distinctionText}>
                   {content.distinction.nifasText}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -1303,32 +1397,32 @@ export default function NifasMedicalArticleScreen({
               </View>
 
               <View style={styles.distinctionCopy}>
-                <Text style={styles.distinctionTitle}>
+                <AwaText variant="titleSmall" emphasized>
                   {content.distinction.lochiaTitle}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.distinctionText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.distinctionText}>
                   {content.distinction.lochiaText}
-                </Text>
+                </AwaText>
               </View>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ---------------------------------------------------------------- */}
           {/* SECTION 2 */}
           {/* ---------------------------------------------------------------- */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.h2Section2}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body2}
-          </Text>
+          </AwaText>
 
           {/* SCHEMA */}
 
-          <View style={styles.schemaCard}>
+          <AwaCard variant="filled" padding="none" style={styles.schemaCard}>
             <View style={styles.schemaHeader}>
               <View style={styles.schemaHeaderIcon}>
                 <MaterialDesignIcons
@@ -1339,13 +1433,13 @@ export default function NifasMedicalArticleScreen({
               </View>
 
               <View style={styles.schemaHeaderCopy}>
-                <Text style={styles.schemaTitle}>
+                <AwaText variant="titleSmall" emphasized>
                   {content.schemaTitle}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.schemaSubtitle}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.schemaSubtitle}>
                   {content.schemaSubtitle}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -1357,11 +1451,10 @@ export default function NifasMedicalArticleScreen({
                 >
                   <View style={styles.schemaRail}>
                     <View style={styles.schemaNode}>
-                      <Text
-                        style={styles.schemaNodeNumber}
+                      <AwaText variant="labelSmall" emphasized colorRole="primary"
                       >
                         {NIFAS_STAGE_META[index].number}
-                      </Text>
+                      </AwaText>
                     </View>
 
                     {index <
@@ -1389,48 +1482,45 @@ export default function NifasMedicalArticleScreen({
                       <View
                         style={styles.schemaStageHeading}
                       >
-                        <Text
-                          style={
-                            styles.schemaStageTitle
-                          }
+                        <AwaText variant="titleSmall" emphasized
                         >
                           {stage.title}
-                        </Text>
+                        </AwaText>
 
-                        <Text
+                        <AwaText variant="labelSmall" colorRole="primary"
                           style={
                             styles.schemaStageSubtitle
                           }
                         >
                           {stage.subtitle}
-                        </Text>
+                        </AwaText>
                       </View>
                     </View>
 
-                    <Text
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant"
                       style={styles.schemaStageText}
                     >
                       {stage.text}
-                    </Text>
+                    </AwaText>
                   </View>
                 </View>
               ))}
             </View>
-          </View>
+          </AwaCard>
 
           {/* ---------------------------------------------------------------- */}
           {/* SECTION 3 */}
           {/* ---------------------------------------------------------------- */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.h2Section3}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body3}
-          </Text>
+          </AwaText>
 
-          <View style={styles.evolutionCard}>
+          <AwaCard variant="filled" padding="none" style={styles.evolutionCard}>
             {content.lochiaEvolution.map((item, index) => (
               <View
                 key={item.title}
@@ -1456,27 +1546,27 @@ export default function NifasMedicalArticleScreen({
                 </View>
 
                 <View style={styles.evolutionCopy}>
-                  <Text style={styles.evolutionTitle}>
+                  <AwaText variant="titleSmall" emphasized>
                     {item.title}
-                  </Text>
+                  </AwaText>
 
-                  <Text
+                  <AwaText variant="labelSmall" colorRole="primary"
                     style={styles.evolutionPeriod}
                   >
                     {item.period}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.evolutionText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.evolutionText}>
                     {item.text}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* Info */}
 
-          <View style={styles.infoCard}>
+          <AwaCard variant="filled" padding="none" style={styles.infoCard}>
             <MaterialDesignIcons
               name="information-outline"
               size={22}
@@ -1484,31 +1574,31 @@ export default function NifasMedicalArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.infoTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.infoText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>
                 {content.infoText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ---------------------------------------------------------------- */}
           {/* SECTION 4 */}
           {/* ---------------------------------------------------------------- */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.h2Section4}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body4}
-          </Text>
+          </AwaText>
 
           <View style={styles.careGrid}>
             {content.careTips.map((item, index) => (
-              <View
+              <AwaCard variant="filled" padding="none"
                 key={item.title}
                 style={styles.careCard}
               >
@@ -1520,14 +1610,14 @@ export default function NifasMedicalArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.careTitle}>
+                <AwaText variant="titleSmall" emphasized style={styles.careTitle}>
                   {item.title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.careText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.careText}>
                   {item.text}
-                </Text>
-              </View>
+                </AwaText>
+              </AwaCard>
             ))}
           </View>
 
@@ -1535,15 +1625,15 @@ export default function NifasMedicalArticleScreen({
           {/* SECTION 5 */}
           {/* ---------------------------------------------------------------- */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.h2Section5}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body5}
-          </Text>
+          </AwaText>
 
-          <View style={styles.warningCard}>
+          <AwaCard variant="filled" padding="none" style={styles.warningCard}>
             <View style={styles.warningHeader}>
               <View style={styles.warningHeaderIcon}>
                 <MaterialDesignIcons
@@ -1554,15 +1644,15 @@ export default function NifasMedicalArticleScreen({
               </View>
 
               <View style={styles.warningHeaderCopy}>
-                <Text style={styles.warningTitle}>
+                <AwaText variant="titleSmall" emphasized>
                   {content.warningTitle}
-                </Text>
+                </AwaText>
 
-                <Text
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant"
                   style={styles.warningSubtitle}
                 >
                   {content.warningSubtitle}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -1577,18 +1667,18 @@ export default function NifasMedicalArticleScreen({
                   color={theme.colors.warning}
                 />
 
-                <Text style={styles.warningText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.warningText}>
                   {item}
-                </Text>
+                </AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ---------------------------------------------------------------- */}
           {/* TIP */}
           {/* ---------------------------------------------------------------- */}
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -1596,25 +1686,25 @@ export default function NifasMedicalArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.tipTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ---------------------------------------------------------------- */}
           {/* SUMMARY */}
           {/* ---------------------------------------------------------------- */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.summaryHeading}
-          </Text>
+          </AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             {content.summary.map(item => (
               <View
                 key={item}
@@ -1626,12 +1716,12 @@ export default function NifasMedicalArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.summaryText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
                   {item}
-                </Text>
+                </AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* Disclaimer */}
 
@@ -1642,9 +1732,9 @@ export default function NifasMedicalArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>
               {content.disclaimerText}
-            </Text>
+            </AwaText>
           </View>
         </View>
       </ScrollView>
@@ -1670,7 +1760,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   /* HERO */
@@ -1700,68 +1790,44 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.92),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.72,
-  },
 
   /* ARTICLE */
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    paddingBottom: 30,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    paddingBottom: 32,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 27,
-    lineHeight: 32,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    gap: 9,
+    gap: 8,
   },
 
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -1770,35 +1836,20 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 9.5,
-    color: theme.colors.textMuted,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '600',
+    marginTop: 16,
   },
 
   /* CONTENTS */
 
   contents: {
     marginTop: 20,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -1816,45 +1867,27 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 31,
-    color: theme.colors.primary,
-    fontSize: 10.5,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.2,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   /* HEADINGS */
 
   h2: {
     marginTop: 28,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   body: {
-    marginTop: 9,
-    fontSize: 14,
-    lineHeight: 21.5,
-    color: theme.colors.textSecondary,
+    marginTop: 8,
   },
 
   /* DISTINCTION */
 
   distinctionCard: {
-    marginTop: 15,
-    padding: 14,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   distinctionItem: {
@@ -1873,43 +1906,31 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   distinctionCopy: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 12,
   },
 
-  distinctionTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   distinctionText: {
     marginTop: 3,
-    fontSize: 10.8,
-    lineHeight: 16,
-    color: theme.colors.textSecondary,
   },
 
   distinctionDivider: {
     height: 1,
-    marginVertical: 13,
+    marginVertical: 12,
     backgroundColor: theme.colors.border,
   },
 
   /* SCHEMA */
 
   schemaCard: {
-    marginTop: 15,
-    padding: 15,
-    borderRadius: 16,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   schemaHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: 14,
+    paddingBottom: 16,
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.border,
   },
@@ -1925,19 +1946,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   schemaHeaderCopy: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 12,
   },
 
-  schemaTitle: {
-    fontSize: 13.5,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   schemaSubtitle: {
     marginTop: 2,
-    fontSize: 10,
-    color: theme.colors.textMuted,
   },
 
   schemaTimeline: {
@@ -1968,11 +1982,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     zIndex: 2,
   },
 
-  schemaNodeNumber: {
-    fontSize: 9,
-    color: theme.colors.primary,
-    fontWeight: '900',
-  },
 
   schemaConnector: {
     position: 'absolute',
@@ -1984,9 +1993,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   schemaContent: {
     flex: 1,
-    paddingTop: 13,
-    paddingLeft: 9,
-    paddingBottom: 10,
+    paddingTop: 12,
+    paddingLeft: 8,
+    paddingBottom: 12,
   },
 
   schemaStageTop: {
@@ -2008,35 +2017,20 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginLeft: 8,
   },
 
-  schemaStageTitle: {
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   schemaStageSubtitle: {
     marginTop: 1,
-    fontSize: 9.5,
-    color: theme.colors.primary,
-    fontWeight: '700',
   },
 
   schemaStageText: {
-    marginTop: 7,
-    fontSize: 10.7,
-    lineHeight: 16,
-    color: theme.colors.textSecondary,
+    marginTop: 8,
   },
 
   /* EVOLUTION */
 
   evolutionCard: {
-    marginTop: 14,
-    padding: 14,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   evolutionItem: {
@@ -2071,77 +2065,50 @@ function createStyles(theme: ResolvedAwaTheme) {
   evolutionCopy: {
     flex: 1,
     marginLeft: 8,
-    paddingBottom: 13,
+    paddingBottom: 12,
   },
 
-  evolutionTitle: {
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   evolutionPeriod: {
     marginTop: 2,
-    fontSize: 9.5,
-    color: theme.colors.primary,
-    fontWeight: '700',
   },
 
   evolutionText: {
     marginTop: 4,
-    fontSize: 10.8,
-    lineHeight: 16,
-    color: theme.colors.textSecondary,
   },
 
   /* INFO */
 
   infoCard: {
-    marginTop: 14,
-    padding: 13,
+    marginTop: 16,
+    padding: 12,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   infoCopy: {
     flex: 1,
-    marginLeft: 9,
+    marginLeft: 8,
   },
 
-  infoTitle: {
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   infoText: {
     marginTop: 3,
-    fontSize: 10.8,
-    lineHeight: 16,
-    color: theme.colors.textSecondary,
   },
 
   /* CARE */
 
   careGrid: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 9,
+    gap: 8,
   },
 
   careCard: {
     width: '48%',
     minHeight: 135,
     padding: 12,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   careIcon: {
@@ -2154,35 +2121,25 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   careTitle: {
-    marginTop: 9,
-    fontSize: 12,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginTop: 8,
   },
 
   careText: {
     marginTop: 4,
-    fontSize: 10.4,
-    lineHeight: 15.5,
-    color: theme.colors.textSecondary,
   },
 
   /* WARNING */
 
   warningCard: {
-    marginTop: 14,
-    padding: 14,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   warningHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingBottom: 12,
-    marginBottom: 10,
+    marginBottom: 12,
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.border,
   },
@@ -2198,106 +2155,74 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   warningHeaderCopy: {
     flex: 1,
-    marginLeft: 9,
+    marginLeft: 8,
   },
 
-  warningTitle: {
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   warningSubtitle: {
     marginTop: 2,
-    fontSize: 9.8,
-    color: theme.colors.textMuted,
   },
 
   warningRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 10,
+    marginBottom: 12,
     gap: 8,
   },
 
   warningText: {
     flex: 1,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   /* TIP */
 
   tip: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 4,
-    fontSize: 11.2,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   /* SUMMARY */
 
   summaryCard: {
-    marginTop: 14,
-    padding: 14,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   summaryRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 11,
+    marginBottom: 12,
   },
 
   summaryText: {
     flex: 1,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   /* DISCLAIMER */
 
   disclaimer: {
-    marginTop: 18,
+    marginTop: 20,
     paddingHorizontal: 3,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 7,
+    gap: 8,
   },
 
   disclaimerText: {
     flex: 1,
-    fontSize: 10,
-    lineHeight: 15,
-    color: theme.colors.textMuted,
   },
   });
 }

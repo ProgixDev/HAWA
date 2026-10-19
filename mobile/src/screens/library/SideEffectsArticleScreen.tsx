@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -838,6 +839,97 @@ const CONTENT = {
       disclaimerText: '本文仅供参考，不能替代个性化的医生建议。如果你出现明显或不寻常的症状，请咨询医疗专业人员。',
       shareMessage: '识别可能的副作用 — AWA',
     },
+  id: {
+    badge: 'EFEK SAMPING',
+    title: 'Mengenali kemungkinan\nefek samping',
+    metaDuration: '8 menit baca',
+    metaType: 'Artikel',
+    metaLevel: 'Menengah',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Beberapa efek bisa umum dan sementara. Efek lainnya perlu perhatian lebih. Pelajari cara membedakan reaksi yang biasa dari tanda-tanda yang perlu dievaluasi.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Efek ringan yang umum',
+      'Masa penyesuaian tubuh',
+      'Mengamati apa yang berubah',
+      'Kapan perlu meminta saran medis',
+      'Kapan perlu segera mencari pertolongan',
+      'Poin-poin penting',
+    ],
+    body1: 'Ketika seseorang mulai menggunakan metode kontrasepsi hormonal yang baru, tubuh mungkin membutuhkan waktu untuk menyesuaikan diri. Perubahan kecil bisa muncul pada siklus, suasana hati, atau kenyamanan fisik.',
+    body2: 'Efek ini sering kali ringan dan bisa berkurang secara bertahap. Munculnya efek tersebut tidak otomatis berarti metodenya berbahaya atau harus dihentikan.',
+    commonEffects: [
+      {
+        title: 'Perdarahan ringan',
+        text: 'Perdarahan tidak teratur bisa terjadi, terutama pada awal penggunaan metode baru.',
+      },
+      {
+        title: 'Payudara nyeri',
+        text: 'Payudara terasa kencang atau nyeri untuk sementara.',
+      },
+      {
+        title: 'Suasana hati',
+        text: 'Sebagian orang merasakan perubahan suasana hati atau kepekaan emosi yang meningkat.',
+      },
+      {
+        title: 'Sakit kepala',
+        text: 'Sakit kepala ringan bisa terjadi selama masa penyesuaian.',
+      },
+    ],
+    body3: 'Beberapa minggu atau siklus pertama mungkin berbeda dari yang biasa kamu alami sebelumnya. Tubuh bisa menyesuaikan diri secara bertahap dengan keseimbangan hormon yang baru.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Efek yang muncul tak lama setelah memulai suatu metode layak dipantau dari waktu ke waktu. Jika mengganggu atau terus berlanjut, bicaralah dengan tenaga kesehatan.',
+    body4: 'Mencatat gejala di aplikasimu bisa membantu memantau perubahannya dari satu siklus ke siklus berikutnya.',
+    trackingTitle: 'Pantau perkembangannya',
+    trackingSubtitle: 'Beberapa penanda bisa membantu',
+    trackingLines: [
+      'Catat tanggal gejala muncul.',
+      'Catat tingkat keparahan dan durasinya.',
+      'Perhatikan apakah gejala membaik atau memburuk.',
+    ],
+    body5: 'Tidak semua gejala berkaitan dengan kontrasepsi. Stres, tidur, pola makan, siklusmu, atau pengobatan lain juga bisa memengaruhi apa yang kamu rasakan.',
+    body6: 'Untuk memahami keadaannya, cobalah melihat konteks secara keseluruhan, bukan satu gejala secara terpisah.',
+    worthMentioning: [
+      'Perubahan suasana hati yang nyata dan menetap',
+      'Penurunan libido yang mengganggumu',
+      'Perdarahan tidak teratur yang berlangsung lebih dari 3 siklus',
+      'Mual atau sakit kepala yang tetap mengganggu',
+    ],
+    questionsTitle: 'Beberapa pertanyaan yang membantu',
+    questions: [
+      'Sudah berapa lama gejala ini berlangsung?',
+      'Apakah gejala muncul setelah memulai atau mengganti metode kontrasepsi?',
+      'Apakah gejalanya ringan, mengganggu, atau benar-benar tidak biasa bagimu?',
+      'Apakah gejalanya membaik seiring waktu atau makin sering muncul?',
+    ],
+    body7: 'Meskipun suatu gejala tidak mendesak, ada baiknya dibicarakan jika mengganggu, terus berlanjut, atau benar-benar memengaruhi kualitas hidupmu.',
+    infoTitle: 'Mungkin ada baiknya meminta saran jika…',
+    infoText: 'gejala terus berlanjut, makin berat, atau membuatmu tidak bisa menjalani hidup dengan normal.',
+    body8: 'Dokter, bidan, atau apoteker bisa membantumu menentukan apakah gejala tersebut mungkin berkaitan dengan metode yang kamu gunakan dan apakah metode itu perlu disesuaikan.',
+    body9: 'Beberapa tanda tidak biasa dan memerlukan evaluasi medis segera. Tanda-tanda itu belum tentu berarti ada komplikasi, tetapi tidak boleh diabaikan.',
+    alertTitle: 'Segera cari pertolongan',
+    alertIntro: 'Segera minta saran medis jika kamu mengalami, terutama:',
+    urgentSigns: [
+      'Nyeri dada yang hebat atau tidak biasa',
+      'Sesak napas yang tiba-tiba',
+      'Pembengkakan atau nyeri yang tidak biasa pada salah satu kaki',
+      'Sakit kepala yang tiba-tiba, sangat hebat, atau tidak biasa',
+      'Gangguan penglihatan, bicara, atau kekuatan tubuh yang tiba-tiba',
+    ],
+    emergencyTitle: 'Dalam keadaan yang berat',
+    emergencyText: 'Jika gejala muncul tiba-tiba, sangat berat, atau disertai sesak napas, rasa akan pingsan, atau tanda serius lainnya, segera cari pertolongan medis darurat.',
+    summaryTitle: 'Intinya',
+    summaryItems: [
+      'Beberapa efek bisa muncul pada awal penggunaan metode kontrasepsi hormonal yang baru.',
+      'Banyak efek bersifat sementara dan bisa berkurang seiring waktu.',
+      'Gejala yang mengganggu atau menetap layak dibicarakan dengan tenaga profesional.',
+      'Beberapa tanda yang tidak biasa memerlukan saran medis segera.',
+    ],
+    finalTipTitle: 'Poin penting',
+    finalTipText: 'Mendengarkan tubuhmu tidak selalu berarti langsung menghentikan suatu metode. Catat apa yang kamu rasakan, pantau perkembangannya, dan mintalah saran setiap kali ada gejala yang membuatmu khawatir.',
+    disclaimerText: 'Artikel ini bersifat informatif dan tidak menggantikan nasihat medis yang dipersonalisasi. Jika kamu mengalami gejala yang berat atau tidak biasa, mintalah saran dari tenaga kesehatan.',
+    shareMessage: 'Mengenali kemungkinan efek samping — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -912,48 +1004,30 @@ export default function SideEffectsArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -962,10 +1036,10 @@ export default function SideEffectsArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>{content.title}</Text>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>{content.title}</AwaText>
 
           <View style={styles.metas}>
             {[
@@ -984,25 +1058,25 @@ export default function SideEffectsArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>{content.intro}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.intro}>{content.intro}</AwaText>
 
           {/* CONTENTS */}
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
 
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -1012,21 +1086,21 @@ export default function SideEffectsArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 1 */}
 
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>{content.body1}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.body1}</AwaText>
 
-          <Text style={styles.body}>{content.body2}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.body2}</AwaText>
 
           <View style={styles.commonGrid}>
             {COMMON_EFFECT_ICONS.map((icon, index) => {
               const item = content.commonEffects[index];
               return (
-                <View key={item.title} style={styles.commonCard}>
+                <AwaCard variant="filled" padding="none" key={item.title} style={styles.commonCard}>
                   <View style={styles.commonIcon}>
                     <MaterialDesignIcons
                       name={icon as never}
@@ -1035,21 +1109,21 @@ export default function SideEffectsArticleScreen({
                     />
                   </View>
 
-                  <Text style={styles.commonTitle}>{item.title}</Text>
+                  <AwaText variant="titleSmall" emphasized style={styles.commonTitle}>{item.title}</AwaText>
 
-                  <Text style={styles.commonText}>{item.text}</Text>
-                </View>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.commonText}>{item.text}</AwaText>
+                </AwaCard>
               );
             })}
           </View>
 
           {/* SECTION 2 */}
 
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>{content.body3}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.body3}</AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -1057,17 +1131,17 @@ export default function SideEffectsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
 
-              <Text style={styles.tipText}>{content.tip1Text}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.tip1Text}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.body}>{content.body4}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.body4}</AwaText>
 
           {/* TRACKING CARD */}
 
-          <View style={styles.trackingCard}>
+          <AwaCard variant="filled" padding="none" style={styles.trackingCard}>
             <View style={styles.trackingHeader}>
               <View style={styles.trackingIcon}>
                 <MaterialDesignIcons
@@ -1078,13 +1152,13 @@ export default function SideEffectsArticleScreen({
               </View>
 
               <View style={styles.trackingHeaderCopy}>
-                <Text style={styles.trackingTitle}>
+                <AwaText variant="titleSmall" emphasized>
                   {content.trackingTitle}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.trackingSubtitle}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.trackingSubtitle}>
                   {content.trackingSubtitle}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -1096,20 +1170,20 @@ export default function SideEffectsArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.trackingText}>{line}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.trackingText}>{line}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 3 */}
 
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.body}>{content.body5}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.body5}</AwaText>
 
-          <Text style={styles.body}>{content.body6}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.body6}</AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.worthMentioning.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -1118,14 +1192,14 @@ export default function SideEffectsArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* QUESTIONS */}
 
-          <View style={styles.questionCard}>
+          <AwaCard variant="filled" padding="none" style={styles.questionCard}>
             <View style={styles.questionHeader}>
               <MaterialDesignIcons
                 name="help-circle-outline"
@@ -1133,29 +1207,29 @@ export default function SideEffectsArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.questionTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.questionsTitle}
-              </Text>
+              </AwaText>
             </View>
 
             {content.questions.map((item, index) => (
               <View key={item} style={styles.questionRow}>
                 <View style={styles.questionNumberCircle}>
-                  <Text style={styles.questionNumber}>{index + 1}</Text>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary">{index + 1}</AwaText>
                 </View>
 
-                <Text style={styles.questionText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.questionText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 4 */}
 
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <Text style={styles.body}>{content.body7}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.body7}</AwaText>
 
-          <View style={styles.infoCard}>
+          <AwaCard variant="filled" padding="none" style={styles.infoCard}>
             <View style={styles.infoIcon}>
               <MaterialDesignIcons
                 name="stethoscope"
@@ -1165,21 +1239,21 @@ export default function SideEffectsArticleScreen({
             </View>
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>{content.infoTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.infoTitle}</AwaText>
 
-              <Text style={styles.infoText}>{content.infoText}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>{content.infoText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.body}>{content.body8}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.body8}</AwaText>
 
           {/* SECTION 5 */}
 
-          <Text style={styles.h2}>5. {content.topics[4]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>5. {content.topics[4]}</AwaText>
 
-          <Text style={styles.body}>{content.body9}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.body9}</AwaText>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-circle-outline"
               size={25}
@@ -1187,23 +1261,23 @@ export default function SideEffectsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.alertTitle}>{content.alertTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.alertTitle}</AwaText>
 
-              <Text style={styles.alertIntro}>{content.alertIntro}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.alertIntro}>{content.alertIntro}</AwaText>
 
               {content.urgentSigns.map(item => (
                 <View key={item} style={styles.alertRow}>
                   <View style={styles.alertDot} />
 
-                  <Text style={styles.alertText}>{item}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.alertText}>{item}</AwaText>
                 </View>
               ))}
             </View>
-          </View>
+          </AwaCard>
 
           {/* EMERGENCY NOTE */}
 
-          <View style={styles.emergencyCard}>
+          <AwaCard variant="filled" padding="none" style={styles.emergencyCard}>
             <MaterialDesignIcons
               name="phone-alert-outline"
               size={23}
@@ -1211,21 +1285,21 @@ export default function SideEffectsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.emergencyTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.emergencyTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.emergencyText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.emergencyText}>
                 {content.emergencyText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 6 */}
 
-          <Text style={styles.h2}>6. {content.topics[5]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>6. {content.topics[5]}</AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
               <MaterialDesignIcons
                 name="check-decagram-outline"
@@ -1233,7 +1307,7 @@ export default function SideEffectsArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.summaryTitle}>{content.summaryTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.summaryTitle}</AwaText>
             </View>
 
             {content.summaryItems.map(item => (
@@ -1244,14 +1318,14 @@ export default function SideEffectsArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.summaryText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* FINAL TIP */}
 
-          <View style={styles.finalTip}>
+          <AwaCard variant="filled" padding="none" style={styles.finalTip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={25}
@@ -1259,11 +1333,11 @@ export default function SideEffectsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.finalTipTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.finalTipTitle}</AwaText>
 
-              <Text style={styles.tipText}>{content.finalTipText}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.finalTipText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* DISCLAIMER */}
 
@@ -1274,9 +1348,9 @@ export default function SideEffectsArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>
               {content.disclaimerText}
-            </Text>
+            </AwaText>
           </View>
         </View>
       </ScrollView>
@@ -1298,7 +1372,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   heroWrap: {
@@ -1326,55 +1400,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -1384,7 +1434,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -1393,33 +1443,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 10,
-    color: theme.colors.textMuted,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '500',
+    marginTop: 16,
   },
 
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -1437,45 +1472,27 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 24,
-    color: theme.colors.primary,
-    fontSize: 12,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.5,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   h2: {
-    marginTop: 27,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 28,
   },
 
   body: {
-    marginTop: 9,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
+    marginTop: 8,
   },
 
   commonGrid: {
-    marginTop: 14,
-    gap: 10,
+    marginTop: 16,
+    gap: 12,
   },
 
   commonCard: {
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 16,
   },
 
   commonIcon: {
@@ -1488,61 +1505,39 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   commonTitle: {
-    marginTop: 9,
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginTop: 8,
   },
 
   commonText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   trackingCard: {
-    marginTop: 15,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   trackingHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 14,
+    marginBottom: 16,
   },
 
   trackingIcon: {
@@ -1556,84 +1551,58 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   trackingHeaderCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  trackingTitle: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   trackingSubtitle: {
     marginTop: 2,
-    fontSize: 10.5,
-    color: theme.colors.textMuted,
   },
 
   trackingLine: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 9,
+    marginBottom: 8,
   },
 
   trackingText: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 18,
-    color: theme.colors.textSecondary,
   },
 
   checkList: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
 
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 10,
+    marginBottom: 12,
   },
 
   checkText: {
     flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 12.5,
-    lineHeight: 18,
   },
 
   questionCard: {
-    marginTop: 15,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   questionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
-    marginBottom: 14,
+    gap: 8,
+    marginBottom: 16,
   },
 
-  questionTitle: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   questionRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 11,
+    marginBottom: 12,
   },
 
   questionNumberCircle: {
@@ -1645,30 +1614,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  questionNumber: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   questionText: {
     flex: 1,
-    marginLeft: 9,
+    marginLeft: 8,
     paddingTop: 2,
-    fontSize: 12,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   infoCard: {
-    marginTop: 15,
-    padding: 15,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   infoIcon: {
@@ -1682,44 +1639,25 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   infoCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  infoTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   infoText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   alert: {
-    marginTop: 15,
-    padding: 15,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
-  alertTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   alertIntro: {
-    marginTop: 5,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
+    marginTop: 4,
   },
 
   alertRow: {
@@ -1732,92 +1670,62 @@ function createStyles(theme: ResolvedAwaTheme) {
     width: 5,
     height: 5,
     borderRadius: 3,
-    marginTop: 6,
+    marginTop: 8,
     marginRight: 8,
     backgroundColor: theme.colors.warning,
   },
 
   alertText: {
     flex: 1,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   emergencyCard: {
     marginTop: 12,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
-  emergencyTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   emergencyText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   summaryCard: {
-    marginTop: 15,
+    marginTop: 16,
     padding: 16,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   summaryHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
-    marginBottom: 13,
+    gap: 8,
+    marginBottom: 12,
   },
 
-  summaryTitle: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   summaryItem: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 10,
+    marginBottom: 12,
     gap: 8,
   },
 
   summaryText: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 18,
-    color: theme.colors.textSecondary,
   },
 
   finalTip: {
-    marginTop: 15,
-    padding: 15,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   disclaimer: {
     marginTop: 20,
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
@@ -1825,9 +1733,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   disclaimerText: {
     flex: 1,
-    fontSize: 10.5,
-    lineHeight: 16,
-    color: theme.colors.textMuted,
   },
   });
 }

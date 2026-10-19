@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -28,7 +29,7 @@ import {
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 /* -------------------------------------------------------------------------- */
@@ -573,6 +574,79 @@ const CONTENT = {
       disclaimerText: '科普内容。本文不能替代医疗建议或检查。如有疑虑或出现令你担心的症状，请向医疗专业人员咨询。',
       shareMessage: '流产之后的身体恢复 — AWA',
     },
+  id: {
+    badge: 'SETELAH KEGUGURAN • PEMULIHAN',
+    title: 'Pemulihan fisik setelah \nkeguguran',
+    metaDuration: '7 menit baca',
+    metaType: 'Artikel',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten informatif',
+    intro: 'Tubuhmu butuh waktu untuk menemukan keseimbangannya kembali. Berikut hal-hal yang dapat membantumu memahami tahap ini dengan lebih tenang.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Apa itu keguguran?',
+      'Apa yang bisa terjadi secara fisik',
+      'Kembalinya siklusmu',
+      'Pemeriksaan medis yang menenangkan',
+      'Kapan harus mencari perawatan medis',
+      'Poin penting',
+    ],
+    section1Body1: 'Keguguran adalah berakhirnya kehamilan secara spontan, paling sering sebelum minggu ke-12 sampai ke-14. Diperkirakan satu dari enam sampai tujuh kehamilan yang terkonfirmasi berakhir dengan cara ini, paling sering di awal kehamilan.',
+    section1Body2: 'Keguguran bukan hal yang jarang, dan bukan pula tanda adanya masalah kesuburan di masa depan. Pada sebagian besar kasus, keguguran berkaitan dengan faktor di luar kendali siapa pun, misalnya kelainan kromosom yang terjadi secara kebetulan selama perkembangan.',
+    infoCard1Title: 'Poin utama',
+    infoCard1Text: 'Keguguran tidak disebabkan oleh sesuatu yang kamu lakukan atau tidak kamu lakukan. Kamu tidak bertanggung jawab atas apa yang terjadi.',
+    section2Body: 'Setiap pengalaman berbeda dari satu orang ke orang lain. Berikut tanda yang paling umum:',
+    physicalSigns: [
+      {
+        title: 'Perdarahan',
+        text: 'Banyaknya dan lamanya dapat bervariasi tergantung situasinya, lalu berangsur berkurang.',
+      },
+      {
+        title: 'Kram',
+        text: 'Nyeri yang mirip kram haid, kadang lebih kuat, dapat menyertai tahap ini.',
+      },
+      {
+        title: 'Durasi yang bervariasi',
+        text: 'Pemulihan fisik biasanya berlangsung beberapa hari sampai beberapa minggu.',
+      },
+    ],
+    section3Body: 'Tubuhmu umumnya butuh beberapa minggu untuk memulihkan keseimbangan hormon setelah keguguran. Siklus bisa kembali paling cepat 4 sampai 6 minggu, tetapi setiap perjalanan berbeda.',
+    comfortTips: [
+      {
+        title: 'Izinkan dirimu beristirahat',
+        text: 'Tubuhmu butuh waktu untuk menemukan keseimbangannya kembali, tanpa tekanan untuk mencapai hasil tertentu.',
+      },
+      {
+        title: 'Cukupi asupan air',
+        text: 'Asupan air yang baik secara alami mendukung pemulihan.',
+      },
+      {
+        title: 'Dengarkan tubuhmu',
+        text: 'Setiap perjalanan berbeda: jalani dengan kecepatanmu sendiri, tanpa membandingkan diri dengan orang lain.',
+      },
+    ],
+    section4Body: 'Pemeriksaan medis membantu memastikan bahwa semuanya berjalan normal, sehingga kamu bisa benar-benar tenang. Pertemuan ini juga kesempatan untuk menanyakan semua pertanyaanmu.',
+    infoCard2Title: 'Apa saja yang bisa tercakup dalam pertemuan ini',
+    infoCard2Text: 'Percakapan tentang apa yang telah kamu alami, pemeriksaan bila diperlukan, dan ruang untuk menjawab pertanyaanmu tentang langkah selanjutnya.',
+    section5Body: 'Jika salah satu tanda ini muncul, penting untuk segera menghubungi tenaga kesehatan.',
+    warningTitle: 'Tanda yang memerlukan saran medis',
+    warningSigns: [
+      'Demam atau kondisi umum yang memburuk',
+      'Perdarahan yang sangat deras (perlu mengganti pembalutmu dalam waktu kurang dari satu jam)',
+      'Nyeri hebat yang tidak membaik',
+      'Bau yang tidak biasa',
+    ],
+    tipTitle: 'Perlu diketahui',
+    tipText: 'Merawat tubuhmu bukan berarti mengendalikan segalanya: terutama berarti memberi dirimu waktu yang kamu butuhkan.',
+    summaryPoints: [
+      'Keguguran tidak disebabkan oleh sesuatu yang kamu lakukan atau tidak kamu lakukan.',
+      'Tubuhmu umumnya butuh beberapa minggu untuk memulihkan keseimbangan hormon.',
+      'Siklus bisa kembali paling cepat 4 sampai 6 minggu, tetapi setiap perjalanan berbeda.',
+      'Pemeriksaan medis memungkinkanmu memastikan bahwa semuanya berjalan normal, sehingga kamu bisa benar-benar tenang.',
+    ],
+    disclaimerText: 'Konten informatif. Artikel ini tidak menggantikan saran atau pemeriksaan medis. Jika ragu atau mengalami gejala yang mengkhawatirkan, mintalah saran dari tenaga kesehatan.',
+    shareMessage: 'Pemulihan fisik setelah keguguran — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -661,53 +735,32 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
-              hitSlop={8}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={
                   saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
-                hitSlop={8}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
-                hitSlop={8}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -718,10 +771,10 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>{content.title}</Text>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>{content.title}</AwaText>
 
           <View style={styles.metas}>
             {[
@@ -740,26 +793,26 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>{content.intro}</Text>
+          <AwaText variant="titleSmall" colorRole="onSurfaceVariant" style={styles.intro}>{content.intro}</AwaText>
 
           {/* -------------------------------------------------------------- */}
           {/* CONTENTS                                                        */}
           {/* -------------------------------------------------------------- */}
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -769,19 +822,19 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>{content.section1Body1}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section1Body1}</AwaText>
 
-          <Text style={styles.body}>{content.section1Body2}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section1Body2}</AwaText>
 
-          <View style={styles.infoCard}>
+          <AwaCard variant="filled" padding="none" style={styles.infoCard}>
             <MaterialDesignIcons
               name="information-outline"
               size={23}
@@ -789,22 +842,22 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>{content.infoCard1Title}</Text>
-              <Text style={styles.infoText}>{content.infoCard1Text}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.infoCard1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>{content.infoCard1Text}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>{content.section2Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section2Body}</AwaText>
 
           <View style={styles.normalGrid}>
             {content.physicalSigns.map((item, index) => (
-              <View key={item.title} style={styles.normalCard}>
+              <AwaCard variant="filled" padding="none" key={item.title} style={styles.normalCard}>
                 <View style={styles.normalIcon}>
                   <MaterialDesignIcons
                     name={PHYSICAL_SIGNS_ICONS[index] as never}
@@ -813,9 +866,9 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.normalTitle}>{item.title}</Text>
-                <Text style={styles.normalText}>{item.text}</Text>
-              </View>
+                <AwaText variant="titleSmall" emphasized style={styles.normalTitle}>{item.title}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.normalText}>{item.text}</AwaText>
+              </AwaCard>
             ))}
           </View>
 
@@ -823,11 +876,11 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
           {/* SECTION 3                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.body}>{content.section3Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section3Body}</AwaText>
 
-          <View style={styles.comfortCard}>
+          <AwaCard variant="filled" padding="none" style={styles.comfortCard}>
             {content.comfortTips.map((item, index) => (
               <View
                 key={item.title}
@@ -844,22 +897,22 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
                 </View>
 
                 <View style={styles.comfortCopy}>
-                  <Text style={styles.comfortTitle}>{item.title}</Text>
-                  <Text style={styles.comfortText}>{item.text}</Text>
+                  <AwaText variant="titleSmall" emphasized>{item.title}</AwaText>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.comfortText}>{item.text}</AwaText>
                 </View>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <Text style={styles.body}>{content.section4Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section4Body}</AwaText>
 
-          <View style={styles.infoCard}>
+          <AwaCard variant="filled" padding="none" style={styles.infoCard}>
             <MaterialDesignIcons
               name="stethoscope"
               size={23}
@@ -867,20 +920,20 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>{content.infoCard2Title}</Text>
-              <Text style={styles.infoText}>{content.infoCard2Text}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.infoCard2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>{content.infoCard2Text}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 5                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>5. {content.topics[4]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>5. {content.topics[4]}</AwaText>
 
-          <Text style={styles.body}>{content.section5Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section5Body}</AwaText>
 
-          <View style={styles.warningCard}>
+          <AwaCard variant="filled" padding="none" style={styles.warningCard}>
             <View style={styles.warningHeader}>
               <MaterialDesignIcons
                 name="alert-circle-outline"
@@ -888,7 +941,7 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
                 color={theme.colors.warning}
               />
 
-              <Text style={styles.warningTitle}>{content.warningTitle}</Text>
+              <AwaText variant="titleSmall" emphasized style={styles.warningTitle}>{content.warningTitle}</AwaText>
             </View>
 
             {content.warningSigns.map(item => (
@@ -901,16 +954,16 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.warningText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.warningText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* TIP                                                               */}
           {/* ================================================================= */}
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -918,18 +971,18 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
-              <Text style={styles.tipText}>{content.tipText}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tipTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.tipText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SUMMARY                                                           */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>{content.topics[5]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>{content.topics[5]}</AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             {content.summaryPoints.map(item => (
               <View key={item} style={styles.summaryRow}>
                 <MaterialDesignIcons
@@ -938,10 +991,10 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.summaryText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* DISCLAIMER                                                        */}
@@ -954,7 +1007,7 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>{content.disclaimerText}</Text>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>{content.disclaimerText}</AwaText>
           </View>
         </View>
       </ScrollView>
@@ -971,7 +1024,7 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
 
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
@@ -986,77 +1039,46 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
-  },
-  badgeText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
   },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 27,
-    lineHeight: 32,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 9.5, color: theme.colors.textMuted},
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '600',
+    marginTop: 16,
   },
 
   contents: {
     marginTop: 20,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 16,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
+  contentsTitle: {marginBottom: 8},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -1064,40 +1086,26 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 25, color: theme.colors.primary, fontSize: 11.5, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.3, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 25},
+  contentText: {flex: 1},
 
   h2: {
-    marginTop: 27,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 28,
   },
-  body: {marginTop: 9, fontSize: 14, lineHeight: 21.5, color: theme.colors.textSecondary},
+  body: {marginTop: 8},
 
   infoCard: {
-    marginTop: 14,
-    padding: 13,
+    marginTop: 16,
+    padding: 12,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
-  infoCopy: {flex: 1, marginLeft: 9},
-  infoTitle: {fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  infoText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  infoCopy: {flex: 1, marginLeft: 8},
+  infoText: {marginTop: 3},
 
-  normalGrid: {marginTop: 13, gap: 9},
+  normalGrid: {marginTop: 12, gap: 8},
   normalCard: {
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 12,
   },
   normalIcon: {
     width: 36,
@@ -1107,18 +1115,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
-  normalTitle: {marginTop: 8, fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  normalText: {marginTop: 4, fontSize: 11, lineHeight: 16, color: theme.colors.textSecondary},
+  normalTitle: {marginTop: 8},
+  normalText: {marginTop: 4},
 
   comfortCard: {
-    marginTop: 13,
-    paddingHorizontal: 13,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    paddingHorizontal: 12,
   },
-  comfortRow: {flexDirection: 'row', alignItems: 'flex-start', paddingVertical: 13},
+  comfortRow: {flexDirection: 'row', alignItems: 'flex-start', paddingVertical: 12},
   comfortRowBorder: {borderBottomWidth: 1, borderBottomColor: theme.colors.border},
   comfortIcon: {
     width: 35,
@@ -1128,56 +1132,42 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
-  comfortCopy: {flex: 1, marginLeft: 10},
-  comfortTitle: {fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  comfortText: {marginTop: 3, fontSize: 10.8, lineHeight: 16, color: theme.colors.textSecondary},
+  comfortCopy: {flex: 1, marginLeft: 12},
+  comfortText: {marginTop: 3},
 
   warningCard: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
   warningHeader: {flexDirection: 'row', alignItems: 'center', marginBottom: 12},
-  warningTitle: {flex: 1, marginLeft: 8, fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  warningRow: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 9},
+  warningTitle: {flex: 1, marginLeft: 8},
+  warningRow: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 8},
   warningBullet: {width: 20, alignItems: 'flex-start'},
-  warningText: {flex: 1, marginLeft: 5, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 17},
+  warningText: {flex: 1, marginLeft: 4},
 
   tip: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
-  tipText: {marginTop: 4, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  tipCopy: {flex: 1, marginLeft: 12},
+  tipText: {marginTop: 4},
 
   summaryCard: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
-  summaryRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 10},
-  summaryText: {flex: 1, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  summaryRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 12},
+  summaryText: {flex: 1},
 
   disclaimer: {
-    marginTop: 18,
+    marginTop: 20,
     paddingHorizontal: 3,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 7,
+    gap: 8,
   },
-  disclaimerText: {flex: 1, fontSize: 10, lineHeight: 15, color: theme.colors.textMuted},
+  disclaimerText: {flex: 1},
   });
 }

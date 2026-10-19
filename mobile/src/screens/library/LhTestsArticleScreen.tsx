@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -28,7 +29,7 @@ import {
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 /* -------------------------------------------------------------------------- */
@@ -530,6 +531,61 @@ const CONTENT = {
       disclaimerText: '仅供参考。本文不能替代个性化的医疗建议。如有疑问，请向医疗专业人员寻求指导。',
       shareMessage: '了解排卵试纸（LH 检测） — AWA',
     },
+  id: {
+    badge: 'KESUBURAN • TES OVULASI',
+    title: 'Memahami tes\novulasi (LH)',
+    metaDuration: '6 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Menengah',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Cara kerja strip ini, dan kapan menggunakannya.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Apa itu LH?',
+      'Cara kerja tes ini',
+      'Kapan mulai melakukan tes',
+      'Membaca hasil tes',
+      'Hasil positif palsu dan keterbatasannya',
+      'Menggabungkannya dengan tanda lain',
+      'Poin penting',
+    ],
+    section1Body: 'LH (hormon luteinisasi) dihasilkan oleh otak dan mengatur cara kerja ovarium. Tes ovulasi mendeteksi lonjakan hormon ini, yang memicu pelepasan sel telur 24 hingga 36 jam kemudian.',
+    section2Body: 'Strip tes urine mengukur kadar LH: garis tes yang sama gelap atau lebih gelap daripada garis kontrol menandakan adanya lonjakan.',
+    section3Body: 'Disarankan untuk mulai melakukan tes beberapa hari sebelum tanggal ovulasi yang diperkirakan dari siklusmu.',
+    testingTips: [
+      {
+        title: 'Sesuaikan dengan siklusmu',
+        text: 'Mulai beberapa hari sebelum tanggal ovulasi yang diperkirakan dari rata-rata panjang siklusmu.',
+      },
+      {
+        title: 'Tes pada jam yang sama setiap hari',
+        text: 'Idealnya sekitar tengah hari, hindari urine pertama di pagi hari.',
+      },
+      {
+        title: 'Hindari mengencerkan urine',
+        text: 'Batasi minum dalam jumlah besar pada beberapa jam sebelum tes.',
+      },
+    ],
+    section4Body: 'Hasil positif menandakan waktu paling subur untuk berhubungan intim dalam 1 hingga 2 hari berikutnya. Hasil negatif hanya berarti lonjakan belum terjadi.',
+    limitations: [
+      'PCOS dapat menyebabkan kadar LH yang secara alami lebih tinggi, sehingga hasil bisa menjadi kabur',
+      'Beberapa terapi kesuburan dapat memengaruhi hasil',
+      'Urine yang sangat encer dapat memberi hasil negatif palsu',
+      'Tes dengan kualitas lebih rendah bisa kurang andal',
+    ],
+    infoTitle: 'Perlu diingat',
+    infoText: 'Lonjakan LH menunjukkan adanya sinyal hormonal pemicu, tetapi dengan sendirinya tidak menjamin bahwa sel telur benar-benar telah dilepaskan.',
+    tipTitle: 'Perlu diketahui',
+    tipText: 'Menggabungkan tes ovulasi dengan suhu tubuh basal atau pengamatan lendir serviks memberi gambaran siklusmu yang lebih lengkap.',
+    summaryPoints: [
+      'Tes ovulasi mendeteksi lonjakan LH, yang memicu pelepasan sel telur 24 hingga 36 jam kemudian.',
+      'Disarankan untuk mulai melakukan tes beberapa hari sebelum tanggal ovulasi yang diperkirakan dari siklusmu.',
+      'Hasil positif menandakan waktu paling subur untuk berhubungan intim dalam 1 hingga 2 hari berikutnya.',
+      'Lonjakan LH saja tidak menjamin bahwa ovulasi benar-benar terjadi.',
+    ],
+    disclaimerText: 'Konten informatif. Artikel ini tidak menggantikan saran medis yang dipersonalisasi. Jika ragu, mintalah bimbingan dari tenaga kesehatan.',
+    shareMessage: 'Memahami tes ovulasi (LH) — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -618,49 +674,32 @@ export default function LhTestsArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
-              hitSlop={8}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={
                   saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
-                hitSlop={8}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
-                hitSlop={8}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -671,10 +710,10 @@ export default function LhTestsArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>{content.title}</Text>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>{content.title}</AwaText>
 
           <View style={styles.metas}>
             {[
@@ -693,26 +732,26 @@ export default function LhTestsArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>{content.intro}</Text>
+          <AwaText variant="titleSmall" style={styles.intro}>{content.intro}</AwaText>
 
           {/* -------------------------------------------------------------- */}
           {/* CONTENTS                                                        */}
           {/* -------------------------------------------------------------- */}
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={index} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -722,33 +761,33 @@ export default function LhTestsArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>{content.section1Body}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.section1Body}</AwaText>
 
           {/* ================================================================= */}
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>{content.section2Body}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.section2Body}</AwaText>
 
           {/* ================================================================= */}
           {/* SECTION 3                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.body}>{content.section3Body}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.section3Body}</AwaText>
 
-          <View style={styles.comfortCard}>
+          <AwaCard variant="filled" padding="none" style={styles.comfortCard}>
             {TESTING_TIP_ICONS.map((icon, index) => (
               <View
                 key={icon}
@@ -765,28 +804,28 @@ export default function LhTestsArticleScreen({
                 </View>
 
                 <View style={styles.comfortCopy}>
-                  <Text style={styles.comfortTitle}>{content.testingTips[index].title}</Text>
-                  <Text style={styles.comfortText}>{content.testingTips[index].text}</Text>
+                  <AwaText variant="titleSmall" emphasized>{content.testingTips[index].title}</AwaText>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.comfortText}>{content.testingTips[index].text}</AwaText>
                 </View>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <Text style={styles.body}>{content.section4Body}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.section4Body}</AwaText>
 
           {/* ================================================================= */}
           {/* SECTION 5                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>5. {content.topics[4]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>5. {content.topics[4]}</AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.limitations.map((item, index) => (
               <View key={index} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -795,12 +834,12 @@ export default function LhTestsArticleScreen({
                   color={theme.colors.primary}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.infoCard}>
+          <AwaCard variant="filled" padding="none" style={styles.infoCard}>
             <MaterialDesignIcons
               name="information-outline"
               size={23}
@@ -808,16 +847,16 @@ export default function LhTestsArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>{content.infoTitle}</Text>
-              <Text style={styles.infoText}>{content.infoText}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.infoTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>{content.infoText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* TIP                                                               */}
           {/* ================================================================= */}
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -825,18 +864,18 @@ export default function LhTestsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
-              <Text style={styles.tipText}>{content.tipText}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tipTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.tipText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SUMMARY                                                           */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>{content.topics[6]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>{content.topics[6]}</AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             {content.summaryPoints.map((item, index) => (
               <View key={index} style={styles.summaryRow}>
                 <MaterialDesignIcons
@@ -845,10 +884,10 @@ export default function LhTestsArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.summaryText}>{item}</Text>
+                <AwaText variant="bodySmall" style={styles.summaryText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* DISCLAIMER                                                        */}
@@ -861,7 +900,7 @@ export default function LhTestsArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>{content.disclaimerText}</Text>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>{content.disclaimerText}</AwaText>
           </View>
         </View>
       </ScrollView>
@@ -878,7 +917,7 @@ export default function LhTestsArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
 
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
@@ -893,77 +932,46 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
-  },
-  badgeText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
   },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 27,
-    lineHeight: 32,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 9.5, color: theme.colors.textMuted},
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '600',
+    marginTop: 16,
   },
 
   contents: {
     marginTop: 20,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 16,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
+  contentsTitle: {marginBottom: 8},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -971,28 +979,19 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 25, color: theme.colors.primary, fontSize: 11.5, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.3, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 25},
+  contentText: {flex: 1},
 
   h2: {
-    marginTop: 27,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 28,
   },
-  body: {marginTop: 9, fontSize: 14, lineHeight: 21.5, color: theme.colors.text},
+  body: {marginTop: 8},
 
   comfortCard: {
-    marginTop: 13,
-    paddingHorizontal: 13,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    paddingHorizontal: 12,
   },
-  comfortRow: {flexDirection: 'row', alignItems: 'flex-start', paddingVertical: 13},
+  comfortRow: {flexDirection: 'row', alignItems: 'flex-start', paddingVertical: 12},
   comfortRowBorder: {borderBottomWidth: 1, borderBottomColor: theme.colors.border},
   comfortIcon: {
     width: 35,
@@ -1002,67 +1001,48 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
-  comfortCopy: {flex: 1, marginLeft: 10},
-  comfortTitle: {fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  comfortText: {marginTop: 3, fontSize: 10.8, lineHeight: 16, color: theme.colors.textSecondary},
+  comfortCopy: {flex: 1, marginLeft: 12},
+  comfortText: {marginTop: 3},
 
   checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 12,
   },
-  checkRow: {flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 6},
-  checkText: {flex: 1, color: theme.colors.text, fontSize: 12.5, lineHeight: 17},
+  checkRow: {flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 8},
+  checkText: {flex: 1},
 
   infoCard: {
-    marginTop: 13,
-    padding: 13,
+    marginTop: 12,
+    padding: 12,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
-  infoCopy: {flex: 1, marginLeft: 9},
-  infoTitle: {fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  infoText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  infoCopy: {flex: 1, marginLeft: 8},
+  infoText: {marginTop: 3},
 
   tip: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
-  tipText: {marginTop: 4, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  tipCopy: {flex: 1, marginLeft: 12},
+  tipText: {marginTop: 4},
 
   summaryCard: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
-  summaryRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 10},
-  summaryText: {flex: 1, fontSize: 11.5, lineHeight: 17, color: theme.colors.text},
+  summaryRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 12},
+  summaryText: {flex: 1},
 
   disclaimer: {
-    marginTop: 18,
+    marginTop: 20,
     paddingHorizontal: 3,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 7,
+    gap: 8,
   },
-  disclaimerText: {flex: 1, fontSize: 10, lineHeight: 15, color: theme.colors.textMuted},
+  disclaimerText: {flex: 1},
   });
 }

@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -22,6 +20,9 @@ import {
   toggleBookmark,
 } from '../../state/libraryStore';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {getBottomPadding, getTopPadding, READING_CONTROLS_SPACE} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -655,6 +656,111 @@ const CONTENT = {
       ],
       shareMessage: '经血：读懂颜色与质地 — AWA',
     },
+  id: {
+    badge: 'SIKLUS & KESEHATAN',
+    title: 'Aliran darah haid: memahami\nwarna dan teksturnya',
+    metaDuration: '4 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Warna dan tekstur darah haidmu banyak bercerita tentang kesehatan hormonalmu. Pelajari cara membacanya untuk lebih memahami siklusmu.',
+    contentsTitle: 'Dalam artikel ini',
+    contents: [
+      'Warna aliran darah haid',
+      'Tekstur aliran darah',
+      'Apa yang mungkin ditunjukkan tiap warna',
+      'Kapan kamu perlu waspada?',
+      'Tips kami untuk membantumu mengenal dirimu lebih baik',
+    ],
+    colors: [
+      {
+        name: 'Merah terang',
+        text: 'Aliran segar, darah baru. Umum terjadi di awal haid.',
+      },
+      {
+        name: 'Merah tua',
+        text: 'Darah yang lebih lama, wajar di pertengahan haid.',
+      },
+      {
+        name: 'Cokelat',
+        text: 'Darah yang teroksidasi, sering muncul di akhir haid.',
+      },
+      {
+        name: 'Merah muda',
+        text: 'Bisa menandakan aliran yang ringan atau perubahan hormon.',
+      },
+      {
+        name: 'Oranye',
+        text: 'Bisa berkaitan dengan infeksi atau ketidakseimbangan.',
+      },
+    ],
+    textures: [
+      {
+        name: 'Cair',
+        text: 'Aliran encer, tanpa gumpalan.',
+      },
+      {
+        name: 'Berkrim',
+        text: 'Tekstur kental dan halus.',
+      },
+      {
+        name: 'Gumpalan',
+        text: 'Gumpalan darah kecil atau besar.',
+      },
+      {
+        name: 'Berserabut / Lendir',
+        text: 'Kenyal, bening atau keputihan.',
+      },
+      {
+        name: 'Jaringan',
+        text: 'Serpihan jaringan atau selaput lendir.',
+      },
+    ],
+    meanings: [
+      {
+        name: 'Merah terang hingga merah tua',
+        text: 'Siklus normal. Tubuhmu sedang meluruhkan lapisan rahim.',
+      },
+      {
+        name: 'Cokelat',
+        text: 'Darah yang lebih lama, tidak perlu dikhawatirkan.',
+      },
+      {
+        name: 'Merah muda',
+        text: 'Bisa terjadi di awal/akhir haid atau saat hormon tidak seimbang.',
+      },
+      {
+        name: 'Oranye',
+        text: 'Perhatikan jika disertai bau menyengat, gatal, atau nyeri.',
+      },
+    ],
+    warningTitle: 'Tanda yang perlu diwaspadai',
+    warningItems: [
+      'Perdarahan sangat deras (mengganti pembalut setiap 1–2 jam)',
+      'Sering mengeluarkan gumpalan yang sangat besar',
+      'Bau tidak sedap atau gatal yang menetap',
+      'Nyeri yang luar biasa hebat',
+    ],
+    advice: [
+      {
+        title: 'Amati aliran darahmu',
+        text: 'Catat setiap perubahan tiap bulan.',
+      },
+      {
+        title: 'Pilih pelindung yang tepat',
+        text: 'Sesuaikan dengan aliran darah dan kenyamananmu.',
+      },
+      {
+        title: 'Dengarkan tubuhmu',
+        text: 'Tubuhmu memberimu sinyal yang berharga.',
+      },
+      {
+        title: 'Jika ragu',
+        text: 'Bicaralah dengan tenaga kesehatan.',
+      },
+    ],
+    shareMessage: 'Aliran darah haid: memahami warna dan teksturnya — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -740,55 +846,34 @@ export default function FlowColorsTexturesArticleScreen({
                 paddingTop: getTopPadding(insets.top, true),
               },
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.bookmarkA11y')}
-                onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={
+                icon={
                     saved
                       ? 'bookmark'
                       : 'bookmark-outline'
                   }
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                iconSize={20}
+                onPress={handleBookmark}
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -796,14 +881,14 @@ export default function FlowColorsTexturesArticleScreen({
         {/* ARTICLE */}
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">
               {content.badge}
-            </Text>
+            </AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           {/* MÉTADONNÉES */}
           <View style={styles.metas}>
@@ -814,9 +899,9 @@ export default function FlowColorsTexturesArticleScreen({
                   size={19}
                   color={theme.colors.textMuted}
                 />
-                <Text style={styles.metaText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                   {content.metaDuration}
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.metaDivider} />
@@ -827,9 +912,9 @@ export default function FlowColorsTexturesArticleScreen({
                   size={19}
                   color={theme.colors.textMuted}
                 />
-                <Text style={styles.metaText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                   {content.metaType}
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.metaDivider} />
@@ -840,9 +925,9 @@ export default function FlowColorsTexturesArticleScreen({
                   size={19}
                   color={theme.colors.textMuted}
                 />
-                <Text style={styles.metaText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                   {content.metaLevel}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -852,34 +937,34 @@ export default function FlowColorsTexturesArticleScreen({
                 size={19}
                 color={theme.colors.textMuted}
               />
-              <Text style={styles.metaText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                 {content.metaValidated}
-              </Text>
+              </AwaText>
             </View>
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="bodyMedium" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
           {/* SOMMAIRE */}
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleSmall" emphasized style={styles.contentsTitle}>
               {content.contentsTitle}
-            </Text>
+            </AwaText>
 
             {content.contents.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.contentNumber}>
                     {index + 1}.
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.contentText}>
+                  <AwaText variant="bodySmall" style={styles.contentText}>
                     {item}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -889,12 +974,12 @@ export default function FlowColorsTexturesArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 1 */}
-          <Text style={styles.sectionTitle}>
+          <AwaText variant="titleLarge" emphasized style={styles.sectionTitle}>
             1. {content.contents[0]}
-          </Text>
+          </AwaText>
 
           <ScrollView
             horizontal
@@ -912,21 +997,21 @@ export default function FlowColorsTexturesArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.cardTitle}>
+                <AwaText variant="titleSmall" emphasized style={styles.cardTitle}>
                   {name}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.cardText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardText}>
                   {text}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </ScrollView>
 
           {/* SECTION 2 */}
-          <Text style={styles.sectionTitle}>
+          <AwaText variant="titleLarge" emphasized style={styles.sectionTitle}>
             2. {content.contents[1]}
-          </Text>
+          </AwaText>
 
           <ScrollView
             horizontal
@@ -942,21 +1027,21 @@ export default function FlowColorsTexturesArticleScreen({
                   style={styles.textureImage}
                 />
 
-                <Text style={styles.cardTitle}>
+                <AwaText variant="titleSmall" emphasized style={styles.cardTitle}>
                   {name}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.cardText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardText}>
                   {text}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </ScrollView>
 
           {/* SECTION 3 */}
-          <Text style={styles.sectionTitle}>
+          <AwaText variant="titleLarge" emphasized style={styles.sectionTitle}>
             3. {content.contents[2]}
-          </Text>
+          </AwaText>
 
           <View style={styles.meanings}>
             {content.meanings.map(({name, text}, index) => (
@@ -971,24 +1056,24 @@ export default function FlowColorsTexturesArticleScreen({
                 />
 
                 <View style={styles.meaningCopy}>
-                  <Text style={styles.meaningName}>
+                  <AwaText variant="labelSmall" emphasized>
                     {name}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.meaningText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.meaningText}>
                     {text}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
             ))}
           </View>
 
           {/* SECTION 4 */}
-          <Text style={styles.sectionTitle}>
+          <AwaText variant="titleLarge" emphasized style={styles.sectionTitle}>
             4. {content.contents[3]}
-          </Text>
+          </AwaText>
 
-          <View style={styles.warning}>
+          <AwaCard variant="filled" padding="none" style={styles.warning}>
             <Image
               source={WARNING}
               resizeMode="cover"
@@ -1005,9 +1090,9 @@ export default function FlowColorsTexturesArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.warningTitle}>
+                <AwaText variant="titleSmall" emphasized style={styles.warningTitle}>
                   {content.warningTitle}
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.warningList}>
@@ -1016,19 +1101,19 @@ export default function FlowColorsTexturesArticleScreen({
                     key={item}
                     style={styles.warningRow}>
                     <View style={styles.warningBullet} />
-                    <Text style={styles.warningText}>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.warningText}>
                       {item}
-                    </Text>
+                    </AwaText>
                   </View>
                 ))}
               </View>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 5 */}
-          <Text style={styles.sectionTitle}>
+          <AwaText variant="titleLarge" emphasized style={styles.sectionTitle}>
             5. {content.contents[4]}
-          </Text>
+          </AwaText>
 
           <View style={styles.advice}>
             {content.advice.map(({title, text}, index) => (
@@ -1043,13 +1128,13 @@ export default function FlowColorsTexturesArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.adviceTitle}>
+                <AwaText variant="labelSmall" emphasized style={styles.adviceTitle}>
                   {title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.adviceText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.adviceText}>
                   {text}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </View>
@@ -1074,7 +1159,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 26,
+    paddingBottom: 28,
   },
 
   heroWrap: {
@@ -1102,54 +1187,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: withAlpha(theme.colors.surface, 0.92),
-  },
 
-  pressed: {
-    opacity: 0.72,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 10.5,
-    fontWeight: '800',
-    color: theme.colors.primary,
-  },
 
   title: {
     marginTop: 12,
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 24,
-    lineHeight: 29,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 15,
+    marginTop: 16,
   },
 
   metaTopRow: {
@@ -1161,47 +1223,35 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: 8,
   },
 
   metaDivider: {
     width: 1,
     height: 20,
-    marginHorizontal: 11,
+    marginHorizontal: 12,
     backgroundColor: theme.colors.border,
   },
 
   metaValidatedRow: {
-    marginTop: 11,
+    marginTop: 12,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: 8,
   },
 
-  metaText: {
-    color: theme.colors.textMuted,
-    fontSize: 11,
-  },
 
   intro: {
-    marginTop: 17,
-    color: theme.colors.text,
-    fontSize: 13.5,
-    lineHeight: 20,
+    marginTop: 16,
   },
 
   contents: {
-    marginTop: 19,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    color: theme.colors.text,
-    fontSize: 14,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -1219,30 +1269,19 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 23,
-    color: theme.colors.primary,
-    fontSize: 11.5,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    color: theme.colors.text,
-    fontSize: 12,
-    lineHeight: 16,
   },
 
   sectionTitle: {
     marginTop: 24,
-    marginBottom: 11,
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 20,
-    lineHeight: 25,
-    fontWeight: '700',
+    marginBottom: 12,
   },
 
   cards: {
-    gap: 9,
+    gap: 8,
     paddingRight: 8,
     paddingBottom: 3,
   },
@@ -1250,9 +1289,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   smallCard: {
     width: 136,
     minHeight: 178,
-    padding: 11,
+    padding: 12,
     alignItems: 'center',
-    borderRadius: 11,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surface,
@@ -1263,43 +1302,36 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 58,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 18,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
   textureImage: {
     width: 84,
     height: 68,
-    borderRadius: 10,
+    borderRadius: 12,
   },
 
   cardTitle: {
     marginTop: 8,
-    color: theme.colors.text,
-    fontSize: 12,
-    lineHeight: 16,
-    fontWeight: '800',
     textAlign: 'center',
   },
 
   cardText: {
-    marginTop: 6,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
+    marginTop: 8,
     textAlign: 'center',
   },
 
   meanings: {
-    gap: 7,
+    gap: 8,
   },
 
   meaning: {
     minHeight: 54,
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
-    borderRadius: 11,
+    padding: 12,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
@@ -1307,32 +1339,21 @@ function createStyles(theme: ResolvedAwaTheme) {
     width: 23,
     height: 23,
     borderRadius: 12,
-    marginRight: 11,
+    marginRight: 12,
   },
 
   meaningCopy: {
     flex: 1,
   },
 
-  meaningName: {
-    color: theme.colors.text,
-    fontSize: 11.5,
-    fontWeight: '800',
-  },
 
   meaningText: {
     marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
   },
 
   warning: {
     marginTop: 3,
     overflow: 'hidden',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
@@ -1342,7 +1363,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   warningOverlay: {
-    padding: 13,
+    padding: 12,
   },
 
   warningHeader: {
@@ -1353,22 +1374,19 @@ function createStyles(theme: ResolvedAwaTheme) {
   warningIcon: {
     width: 34,
     height: 34,
-    borderRadius: 11,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: withAlpha(theme.colors.warning, 0.18),
   },
 
   warningTitle: {
-    marginLeft: 10,
-    color: theme.colors.text,
-    fontSize: 13,
-    fontWeight: '800',
+    marginLeft: 12,
   },
 
   warningList: {
-    marginTop: 10,
-    gap: 7,
+    marginTop: 12,
+    gap: 8,
   },
 
   warningRow: {
@@ -1379,7 +1397,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   warningBullet: {
     width: 5,
     height: 5,
-    marginTop: 6,
+    marginTop: 8,
     marginRight: 8,
     borderRadius: 3,
     backgroundColor: theme.colors.warning,
@@ -1387,9 +1405,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   warningText: {
     flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 10.8,
-    lineHeight: 16,
   },
 
   advice: {
@@ -1401,10 +1416,10 @@ function createStyles(theme: ResolvedAwaTheme) {
   adviceCard: {
     width: '48.7%',
     minHeight: 124,
-    padding: 11,
+    padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 11,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surface,
@@ -1413,26 +1428,19 @@ function createStyles(theme: ResolvedAwaTheme) {
   adviceIcon: {
     width: 42,
     height: 42,
-    borderRadius: 13,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
 
   adviceTitle: {
-    marginTop: 7,
-    color: theme.colors.text,
-    fontSize: 11.5,
-    lineHeight: 15,
-    fontWeight: '800',
+    marginTop: 8,
     textAlign: 'center',
   },
 
   adviceText: {
-    marginTop: 5,
-    color: theme.colors.textSecondary,
-    fontSize: 10,
-    lineHeight: 14,
+    marginTop: 4,
     textAlign: 'center',
   },
 

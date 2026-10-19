@@ -7,7 +7,6 @@ import {
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -22,6 +21,9 @@ import {
   toggleBookmark,
 } from '../../state/libraryStore';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {getBottomPadding, getTopPadding, READING_CONTROLS_SPACE} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -653,6 +655,92 @@ const CONTENT = {
       endText: '你越是留意自己的周期，就越能了解什么对你来说是常态。',
       shareMessage: '月经周期各个阶段详解 — AWA',
     },
+  id: {
+    badge: 'Siklus menstruasi',
+    title: 'Penjelasan berbagai fase\ndalam siklus',
+    metaDuration: '6 menit baca',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Siklus menstruasimu terdiri dari beberapa fase, yang masing-masing berperan penting dalam keseimbangan hormon dan kesehatanmu.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      '4 fase siklus',
+      'Bagaimana tubuhmu berubah',
+      'Mengapa memahami siklusmu itu penting',
+      'Pertanyaan yang sering diajukan',
+    ],
+    body1: 'Siklusmu umumnya dibagi menjadi empat fase utama. Lamanya bisa berbeda dari satu orang ke orang lain: setiap tubuh punya iramanya sendiri.',
+    diagram: {
+      menstrual: {
+        name: 'Fase menstruasi',
+        days: 'Hari ke-1 sampai ke-5',
+      },
+      follicular: {
+        name: 'Fase folikuler',
+        days: 'Hari ke-1 sampai ke-13',
+      },
+      luteal: {
+        name: 'Fase luteal',
+        days: 'Hari ke-15 sampai ke-28',
+      },
+      ovulatory: {
+        name: 'Fase ovulasi',
+        days: 'Sekitar hari ke-14',
+      },
+    },
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Setiap perempuan unik: amati tubuhmu dan kenali iramamu sendiri.',
+    body2: 'Perubahan hormon bisa memengaruhi energi, suasana hati, tidur, dan beberapa sensasi fisik sepanjang siklus.',
+    bodyChanges: [
+      {
+        title: 'Saat haid',
+        text: 'Energimu mungkin lebih rendah dan tubuhmu mungkin butuh lebih banyak istirahat.',
+      },
+      {
+        title: 'Fase folikuler',
+        text: 'Energi naik secara bertahap dan kamu mungkin merasa lebih bersemangat.',
+      },
+      {
+        title: 'Sekitar ovulasi',
+        text: 'Sebagian perempuan merasa lebih berenergi, termotivasi, dan percaya diri.',
+      },
+      {
+        title: 'Fase luteal',
+        text: 'Kelelahan, kembung, atau perubahan suasana hati bisa muncul.',
+      },
+    ],
+    softTipTitle: 'Dengarkan tubuhmu',
+    softTipText: 'Tidak hanya ada satu cara untuk menjalani setiap fase. Sensasi yang kamu rasakan sendiri tetap menjadi panduan terbaik.',
+    body3: 'Mengenal siklusmu lebih baik dapat membantumu mengantisipasi masa-masa tertentu dan memahami perubahan yang kamu rasakan dari hari ke hari.',
+    whyItems: [
+      'Lebih memahami sinyal dari tubuhmu',
+      'Mengantisipasi haidmu dan berbagai fasenya',
+      'Memahami beberapa perubahan suasana hati',
+      'Menyesuaikan aktivitas dengan tingkat energimu',
+      'Meningkatkan pencatatan harianmu',
+    ],
+    body4: 'Berikut beberapa jawaban atas pertanyaan yang sering diajukan tentang berbagai fase siklus.',
+    faq: [
+      {
+        question: 'Apakah normal jika siklusku tidak persis 28 hari?',
+        answer: 'Ya. Panjang siklus bisa berbeda dari satu orang ke orang lain, bahkan sedikit berbeda dari bulan ke bulan.',
+      },
+      {
+        question: 'Apakah ovulasi selalu terjadi pada hari ke-14?',
+        answer: 'Tidak. Hari ke-14 adalah perkiraan umum untuk siklus 28 hari, tetapi ovulasi bisa terjadi lebih awal atau lebih lambat.',
+      },
+      {
+        question: 'Mengapa gejalaku berubah tergantung fasenya?',
+        answer: 'Perubahan hormon sepanjang siklus bisa memengaruhi energi, suasana hati, tidur, dan beberapa sensasi fisik.',
+      },
+      {
+        question: 'Apakah berguna mencatat gejalaku?',
+        answer: 'Ya. Mencatatnya secara teratur dapat membantumu mengenali pola dirimu sendiri dan lebih memahami iramamu.',
+      },
+    ],
+    endTitle: 'Siklusmu, iramamu',
+    endText: 'Semakin sering kamu mengamati siklusmu, semakin kamu bisa memahami apa yang wajar bagimu.',
+    shareMessage: 'Penjelasan berbagai fase dalam siklus — AWA',
+  },
 } as const;
 
 function CyclePhasesArticleScreen({
@@ -738,64 +826,40 @@ function CyclePhasesArticleScreen({
                 ),
               },
             ]}>
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
-              accessibilityRole="button"
-              hitSlop={10}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() =>
                 navigation.goBack()
               }
-              style={({pressed}) => [
-                styles.circleButton,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                color={theme.colors.text}
-                name="chevron-left"
-                size={23}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.topActions}>
-              <Pressable
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.bookmarkA11y')}
-                accessibilityRole="button"
-                hitSlop={10}
+                icon={
+                    bookmarked
+                      ? 'bookmark'
+                      : 'bookmark-outline'
+                  }
+                iconSize={20}
                 onPress={() =>
                   setBookmarked(
                     toggleBookmark(ARTICLE_ID),
                   )
                 }
-                style={({pressed}) => [
-                  styles.circleButton,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name={
-                    bookmarked
-                      ? 'bookmark'
-                      : 'bookmark-outline'
-                  }
-                  size={20}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
-                accessibilityRole="button"
-                hitSlop={10}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circleButton,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="share-variant-outline"
-                  size={20}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -803,14 +867,14 @@ function CyclePhasesArticleScreen({
         {/* ARTICLE */}
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>
+            <AwaText variant="labelSmall" colorRole="primary">
               {content.badge}
-            </Text>
+            </AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metaRow}>
             {[
@@ -837,38 +901,38 @@ function CyclePhasesArticleScreen({
                     color={theme.colors.textMuted}
                   />
 
-                  <Text style={styles.metaText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                     {text}
-                  </Text>
+                  </AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="bodyMedium" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
           {/* SOMMAIRE */}
-          <View style={styles.contentsCard}>
-            <Text style={styles.contentsTitle}>
+          <AwaCard variant="filled" padding="none" style={styles.contentsCard}>
+            <AwaText variant="titleSmall" emphasized style={styles.contentsTitle}>
               {content.contentsTitle}
-            </Text>
+            </AwaText>
 
             {content.topics.map((text, index) => (
               <View
                 key={text}
                 style={styles.contentsRow}>
                 <View style={styles.contentsLeft}>
-                  <Text
+                  <AwaText variant="labelSmall" emphasized colorRole="primary"
                     style={styles.contentsNumber}>
                     {index + 1}.
-                  </Text>
+                  </AwaText>
 
-                  <Text
+                  <AwaText variant="bodySmall"
                     style={styles.contentsText}>
                     {text}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 {/* Kept as textMuted (not the dominant accent): this chevron
@@ -881,45 +945,45 @@ function CyclePhasesArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 1 */}
-          <Text style={styles.sectionTitle}>
+          <AwaText variant="titleLarge" emphasized style={styles.sectionTitle}>
             1. {content.topics[0]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.body1}
-          </Text>
+          </AwaText>
 
-          <View style={styles.diagramCard}>
+          <AwaCard variant="filled" padding="none" style={styles.diagramCard}>
             <View style={styles.phaseRow}>
               <View style={styles.phaseCopy}>
-                <Text style={styles.phaseName}>
+                <AwaText variant="labelSmall" style={styles.phaseName}>
                   {content.diagram.menstrual.name}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.phaseDays}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.phaseDays}>
                   {content.diagram.menstrual.days}
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.phaseCopy}>
-                <Text
+                <AwaText variant="labelSmall"
                   style={[
                     styles.phaseName,
                     styles.right,
                   ]}>
                   {content.diagram.follicular.name}
-                </Text>
+                </AwaText>
 
-                <Text
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant"
                   style={[
                     styles.phaseDays,
                     styles.right,
                   ]}>
                   {content.diagram.follicular.days}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -931,36 +995,36 @@ function CyclePhasesArticleScreen({
 
             <View style={styles.phaseRow}>
               <View style={styles.phaseCopy}>
-                <Text style={styles.phaseName}>
+                <AwaText variant="labelSmall" style={styles.phaseName}>
                   {content.diagram.luteal.name}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.phaseDays}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.phaseDays}>
                   {content.diagram.luteal.days}
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.phaseCopy}>
-                <Text
+                <AwaText variant="labelSmall"
                   style={[
                     styles.phaseName,
                     styles.right,
                   ]}>
                   {content.diagram.ovulatory.name}
-                </Text>
+                </AwaText>
 
-                <Text
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant"
                   style={[
                     styles.phaseDays,
                     styles.right,
                   ]}>
                   {content.diagram.ovulatory.days}
-                </Text>
+                </AwaText>
               </View>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               color={theme.colors.primary}
               name="lightbulb-outline"
@@ -968,24 +1032,24 @@ function CyclePhasesArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized colorRole="primary">
                 {content.tip1Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 2 */}
-          <Text style={styles.sectionTitle}>
+          <AwaText variant="titleLarge" emphasized style={styles.sectionTitle}>
             2. {content.topics[1]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.body2}
-          </Text>
+          </AwaText>
 
           <View style={styles.changeGrid}>
             {BODY_CHANGES_ICONS.map((iconItem, index) => {
@@ -1003,19 +1067,19 @@ function CyclePhasesArticleScreen({
                     />
                   </View>
 
-                  <Text style={styles.changeTitle}>
+                  <AwaText variant="titleSmall" emphasized style={styles.changeTitle}>
                     {item.title}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.changeText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.changeText}>
                     {item.text}
-                  </Text>
+                  </AwaText>
                 </View>
               );
             })}
           </View>
 
-          <View style={styles.softTip}>
+          <AwaCard variant="filled" padding="none" style={styles.softTip}>
             <MaterialDesignIcons
               name="heart-outline"
               size={23}
@@ -1023,26 +1087,26 @@ function CyclePhasesArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized colorRole="primary">
                 {content.softTipTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.softTipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 3 */}
-          <Text style={styles.sectionTitle}>
+          <AwaText variant="titleLarge" emphasized style={styles.sectionTitle}>
             3. {content.topics[2]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.body3}
-          </Text>
+          </AwaText>
 
-          <View style={styles.whyCard}>
+          <AwaCard variant="filled" padding="none" style={styles.whyCard}>
             {WHY_ITEMS_ICONS.map((iconItem, index) => {
               const text = content.whyItems[index];
 
@@ -1063,22 +1127,22 @@ function CyclePhasesArticleScreen({
                     />
                   </View>
 
-                  <Text style={styles.whyText}>
+                  <AwaText variant="labelSmall" style={styles.whyText}>
                     {text}
-                  </Text>
+                  </AwaText>
                 </View>
               );
             })}
-          </View>
+          </AwaCard>
 
           {/* SECTION 4 */}
-          <Text style={styles.sectionTitle}>
+          <AwaText variant="titleLarge" emphasized style={styles.sectionTitle}>
             4. {content.topics[3]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.body4}
-          </Text>
+          </AwaText>
 
           <View style={styles.faqList}>
             {content.faq.map((item, index) => {
@@ -1099,10 +1163,10 @@ function CyclePhasesArticleScreen({
                     pressed && styles.pressed,
                   ]}>
                   <View style={styles.faqHeader}>
-                    <Text
+                    <AwaText variant="labelSmall"
                       style={styles.faqQuestion}>
                       {item.question}
-                    </Text>
+                    </AwaText>
 
                     <View
                       style={[
@@ -1123,16 +1187,16 @@ function CyclePhasesArticleScreen({
                   </View>
 
                   {opened ? (
-                    <Text style={styles.faqAnswer}>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.faqAnswer}>
                       {item.answer}
-                    </Text>
+                    </AwaText>
                   ) : null}
                 </Pressable>
               );
             })}
           </View>
 
-          <View style={styles.endCard}>
+          <AwaCard variant="filled" padding="none" style={styles.endCard}>
             <MaterialDesignIcons
               name="calendar-heart"
               size={25}
@@ -1140,15 +1204,15 @@ function CyclePhasesArticleScreen({
             />
 
             <View style={styles.endCopy}>
-              <Text style={styles.endTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.endTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.endText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.endText}>
                 {content.endText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
         </View>
       </ScrollView>
 
@@ -1169,7 +1233,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     scroll: {
-      paddingBottom: 30,
+      paddingBottom: 32,
     },
 
     heroWrap: {
@@ -1197,24 +1261,14 @@ function createStyles(theme: ResolvedAwaTheme) {
       gap: 8,
     },
 
-    circleButton: {
-      width: 40,
-      height: 40,
-      borderRadius: 20,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: withAlpha(theme.colors.surface, 0.90),
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-    },
 
     pressed: {
       opacity: 0.72,
     },
 
     article: {
-      marginTop: -14,
-      paddingHorizontal: 19,
+      marginTop: -16,
+      paddingHorizontal: 20,
       paddingTop: 20,
       borderTopLeftRadius: 16,
       borderTopRightRadius: 16,
@@ -1223,29 +1277,19 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     badge: {
       alignSelf: 'flex-start',
-      paddingHorizontal: 10,
-      paddingVertical: 5,
-      borderRadius: 10,
+      paddingHorizontal: 12,
+      paddingVertical: 4,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
 
-    badgeText: {
-      color: theme.colors.primary,
-      fontSize: 11,
-      fontWeight: '700',
-    },
 
     title: {
       marginTop: 12,
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 25,
-      lineHeight: 30,
-      fontWeight: '700',
     },
 
     metaRow: {
-      marginTop: 13,
+      marginTop: 12,
       flexDirection: 'row',
       flexWrap: 'wrap',
       alignItems: 'center',
@@ -1264,30 +1308,18 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: theme.colors.border,
     },
 
-    metaText: {
-      color: theme.colors.textMuted,
-      fontSize: 10,
-    },
 
     intro: {
-      marginTop: 17,
-      color: theme.colors.text,
-      fontSize: 14,
-      lineHeight: 21,
+      marginTop: 16,
     },
 
     contentsCard: {
-      marginTop: 18,
-      padding: 14,
-      borderRadius: 12,
-      backgroundColor: theme.colors.surfaceSecondary,
+      marginTop: 20,
+      padding: 16,
     },
 
     contentsTitle: {
-      marginBottom: 7,
-      color: theme.colors.text,
-      fontSize: 14,
-      fontWeight: '700',
+      marginBottom: 8,
     },
 
     contentsRow: {
@@ -1305,41 +1337,23 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     contentsNumber: {
       width: 23,
-      color: theme.colors.primary,
-      fontSize: 11.5,
-      fontWeight: '800',
     },
 
     contentsText: {
       flex: 1,
-      color: theme.colors.text,
-      fontSize: 12,
-      lineHeight: 16,
     },
 
     sectionTitle: {
       marginTop: 24,
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 21,
-      lineHeight: 27,
-      fontWeight: '700',
     },
 
     body: {
-      marginTop: 9,
-      color: theme.colors.text,
-      fontSize: 14,
-      lineHeight: 21,
+      marginTop: 8,
     },
 
     diagramCard: {
       marginTop: 16,
-      padding: 14,
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surface,
+      padding: 16,
     },
 
     diagram: {
@@ -1359,16 +1373,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     phaseName: {
-      color: theme.colors.text,
-      fontSize: 11,
-      lineHeight: 15,
-      fontWeight: '700',
     },
 
     phaseDays: {
       marginTop: 3,
-      color: theme.colors.textMuted,
-      fontSize: 9.5,
     },
 
     right: {
@@ -1376,23 +1384,17 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     tip: {
-      marginTop: 17,
-      padding: 15,
+      marginTop: 16,
+      padding: 16,
       flexDirection: 'row',
       alignItems: 'center',
-      borderRadius: 12,
-      backgroundColor: withAlpha(theme.colors.primary, 0.08),
     },
 
     softTip: {
-      marginTop: 15,
-      padding: 14,
+      marginTop: 16,
+      padding: 16,
       flexDirection: 'row',
       alignItems: 'center',
-      borderRadius: 12,
-      backgroundColor: withAlpha(theme.colors.primary, 0.08),
-      borderWidth: 1,
-      borderColor: theme.colors.border,
     },
 
     tipCopy: {
@@ -1400,21 +1402,13 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginLeft: 12,
     },
 
-    tipTitle: {
-      color: theme.colors.primary,
-      fontSize: 12.5,
-      fontWeight: '800',
-    },
 
     tipText: {
       marginTop: 4,
-      color: theme.colors.textSecondary,
-      fontSize: 11.5,
-      lineHeight: 17,
     },
 
     changeGrid: {
-      marginTop: 14,
+      marginTop: 16,
       flexDirection: 'row',
       flexWrap: 'wrap',
       gap: 8,
@@ -1424,7 +1418,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       width: '48.7%',
       minHeight: 142,
       padding: 12,
-      borderRadius: 11,
+      borderRadius: 12,
       borderWidth: 1,
       borderColor: theme.colors.border,
       backgroundColor: theme.colors.surface,
@@ -1433,34 +1427,23 @@ function createStyles(theme: ResolvedAwaTheme) {
     changeIcon: {
       width: 40,
       height: 40,
-      borderRadius: 13,
+      borderRadius: 12,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: theme.colors.primarySoft,
     },
 
     changeTitle: {
-      marginTop: 9,
-      color: theme.colors.text,
-      fontSize: 12,
-      lineHeight: 16,
-      fontWeight: '800',
+      marginTop: 8,
     },
 
     changeText: {
-      marginTop: 5,
-      color: theme.colors.textSecondary,
-      fontSize: 10.5,
-      lineHeight: 15,
+      marginTop: 4,
     },
 
     whyCard: {
-      marginTop: 14,
-      paddingHorizontal: 14,
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surface,
+      marginTop: 16,
+      paddingHorizontal: 16,
     },
 
     whyRow: {
@@ -1486,22 +1469,18 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     whyText: {
       flex: 1,
-      marginLeft: 11,
-      color: theme.colors.text,
-      fontSize: 11.5,
-      lineHeight: 16,
-      fontWeight: '600',
+      marginLeft: 12,
     },
 
     faqList: {
-      marginTop: 14,
+      marginTop: 16,
       gap: 8,
     },
 
     faqCard: {
-      paddingHorizontal: 13,
+      paddingHorizontal: 12,
       paddingVertical: 12,
-      borderRadius: 11,
+      borderRadius: 12,
       borderWidth: 1,
       borderColor: theme.colors.border,
       backgroundColor: theme.colors.surface,
@@ -1519,17 +1498,13 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     faqQuestion: {
       flex: 1,
-      paddingRight: 10,
-      color: theme.colors.text,
-      fontSize: 11.5,
-      lineHeight: 16,
-      fontWeight: '700',
+      paddingRight: 12,
     },
 
     faqChevron: {
       width: 28,
       height: 28,
-      borderRadius: 9,
+      borderRadius: 12,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: theme.colors.primarySoft,
@@ -1540,23 +1515,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     faqAnswer: {
-      marginTop: 10,
-      paddingTop: 10,
+      marginTop: 12,
+      paddingTop: 12,
       borderTopWidth:
         StyleSheet.hairlineWidth,
       borderTopColor: theme.colors.border,
-      color: theme.colors.textSecondary,
-      fontSize: 11,
-      lineHeight: 17,
     },
 
     endCard: {
-      marginTop: 18,
-      padding: 14,
+      marginTop: 20,
+      padding: 16,
       flexDirection: 'row',
       alignItems: 'center',
-      borderRadius: 12,
-      backgroundColor: withAlpha(theme.colors.primary, 0.08),
     },
 
     endCopy: {
@@ -1564,17 +1534,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginLeft: 12,
     },
 
-    endTitle: {
-      color: theme.colors.text,
-      fontSize: 12.5,
-      fontWeight: '800',
-    },
 
     endText: {
       marginTop: 4,
-      color: theme.colors.textSecondary,
-      fontSize: 11,
-      lineHeight: 16,
     },
   });
 }

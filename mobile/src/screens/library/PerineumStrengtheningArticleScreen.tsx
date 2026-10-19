@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -1636,6 +1637,192 @@ const CONTENT = {
       finalTipText: '分娩后，你的身体经历了许多变化。会阴值得和身体其他部位一样得到关注：循序渐进、规律坚持，不给自己压力。',
       disclaimerText: '本文仅供参考，不能替代个性化的医疗建议。如果你感到疼痛、症状持续，或对自己的恢复有任何担忧，请咨询医疗专业人员。',
     },
+  id: {
+    badge: 'PASCAPERSALINAN • PEMULIHAN',
+    title: 'Memperkuat otot dasar panggul\nsetelah melahirkan',
+    metaDuration: '8 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Setelah hamil dan melahirkan, otot dasar panggul membutuhkan waktu untuk pulih. Latihan yang sederhana, rutin, dan bertahap bisa membantumu mendapatkan kembali kekuatan, kendali, dan rasa percaya diri, tanpa perlu terburu-buru.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Memahami peran perineum',
+      'Mengapa persalinan membuatnya tertekan',
+      'Kapan mulai merehabilitasi otot dasar panggul',
+      'Belajar berkontraksi dengan benar',
+      'Menyusun rutinitas bertahap',
+      'Kesalahan yang perlu dihindari',
+      'Kapan perlu meminta bantuan',
+      'Kembali berolahraga secara bertahap',
+      'Mempersiapkan janji temu',
+      'Poin-poin penting',
+    ],
+    shareMessage: 'Memperkuat otot dasar panggul setelah melahirkan — AWA',
+    s1Heading: 'Memahami peran perineum',
+    s1Body1: 'Perineum, yang juga disebut otot dasar panggul, adalah sekelompok otot yang terletak di dasar panggul. Otot ini berperan dalam mengendalikan kandung kemih dan usus, serta membantu menopang organ-organ panggul.',
+    s1Body2: 'Selama kehamilan, otot-otot ini harus menahan beban tambahan selama berbulan-bulan. Otot-otot ini juga mengalami tekanan yang besar saat persalinan.',
+    s1HighlightTitle: 'Otot yang tak terlihat tetapi sangat penting',
+    s1HighlightText: 'Otot dasar panggul terlibat dalam berbagai fungsi sehari-hari: menahan urine dan tinja, mengendalikan gas, menopang organ-organ panggul, dan berperan dalam beberapa fungsi seksual.',
+    benefitsHeading: 'Manfaat otot dasar panggul yang lebih kuat',
+    benefitsIntro: 'Penguatan yang dilakukan secara bertahap dan dengan cara yang benar bisa membantu meningkatkan kendali dan penopang otot dasar panggul.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Kendali kandung kemih yang lebih baik',
+        text: 'Otot dasar panggul berperan dalam mengendalikan kandung kemih. Menguatkannya secara bertahap dapat membantu mengurangi beberapa kebocoran urine.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Menunjang fungsi usus',
+        text: 'Otot-otot ini juga membantu mengendalikan gas dan tinja serta ikut menopang organ-organ panggul.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Menopang organ-organ panggul',
+        text: 'Otot dasar panggul membentuk landasan otot yang sesungguhnya untuk membantu menopang kandung kemih, rahim, dan usus.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Pelan-pelan mendapatkan kembali sensasi',
+        text: 'Rehabilitasi yang tepat juga bisa membantumu memiliki kesadaran dan kendali yang lebih baik pada area ini.',
+      },
+    ],
+    s2Heading: 'Mengapa kehamilan dan persalinan membuatnya tertekan',
+    s2Body1: 'Kehamilan secara bertahap memberi tekanan yang makin besar pada otot dasar panggul. Persalinan normal kemudian bisa meregangkan otot dan jaringan di area ini secara signifikan.',
+    s2Body2: 'Operasi caesar juga tidak sepenuhnya melindungi otot dasar panggul: kehamilan itu sendiri tetap merupakan masa yang berat bagi otot-otot ini.',
+    s2Body3: 'Setelah melahirkan, wajar jika pemulihan membutuhkan waktu. Sebagian perempuan hampir tidak merasakan gejala, sementara yang lain mungkin mengalami kebocoran, rasa berat, atau kendali otot yang berkurang.',
+    s2TipTitle: 'Setiap pemulihan berbeda',
+    s2TipText: 'Jenis persalinan, adanya robekan atau episiotomi, ada tidaknya nyeri, dan kondisi tubuhmu secara umum setelah melahirkan, semuanya bisa memengaruhi pemulihan.',
+    s3Heading: 'Kapan mulai merehabilitasi otot dasar panggul?',
+    s3Body1: 'Setelah persalinan tanpa komplikasi, kontraksi lembut otot dasar panggul biasanya bisa dilanjutkan secara bertahap. Tetap penting untuk menyesuaikan latihan dengan kondisimu dan meminta saran jika kamu mengalami komplikasi, nyeri yang hebat, atau tindakan tertentu.',
+    s3Body2: 'Jika kamu memakai kateter urine, sebagian anjuran menyarankan untuk menunggu sampai kateter dilepas dan buang air kecil sudah normal kembali sebelum mulai latihan perineum.',
+    s3AlertTitle: 'Jangan memaksakan diri saat nyeri',
+    s3AlertText: 'Nyeri yang hebat, gejala yang memburuk, luka yang sembuh dengan buruk, atau kekhawatiran apa pun perlu dikonsultasikan dengan bidan, dokter, atau tenaga rehabilitasi.',
+    s4Heading: 'Belajar berkontraksi dengan benar',
+    s4Body1: 'Untuk mengenali gerakannya, bayangkan kamu sedang berusaha menahan gas sekaligus menahan keinginan buang air kecil. Gerakan yang kamu cari adalah sensasi mengencang dan terangkat ke arah dalam.',
+    s4Body2: 'Tujuannya bukan menegangkan seluruh tubuh dengan kuat. Bokong, paha, dan perut sebaiknya tetap serileks mungkin, sementara napas tetap berjalan normal.',
+    exercises: [
+      {
+        icon: 'weather-windy',
+        label: 'Pernapasan',
+      },
+      {
+        icon: 'human-handsup',
+        label: 'Kontraksi lembut',
+      },
+      {
+        icon: 'arrow-up-bold-circle-outline',
+        label: 'Kontraksi panjang',
+      },
+      {
+        icon: 'gesture-tap-button',
+        label: 'Kontraksi cepat',
+      },
+    ],
+    s4HighlightTitle: 'Relaksasi sama pentingnya',
+    s4HighlightText: 'Setelah setiap kontraksi, biarkan otot rileks sepenuhnya. Rehabilitasi yang baik bukan berarti menjaga perineum tetap mengencang sepanjang hari.',
+    s5Heading: 'Menyusun rutinitas bertahap',
+    s5Body1: 'Pada awalnya, hal terpenting adalah belajar mengenali ototnya dan melakukan gerakan dengan benar. Konsistensi lebih penting daripada intensitas.',
+    s5h3a: 'Kontraksi panjang',
+    s5Body2: 'Kencangkan otot dasar panggul dengan lembut, lalu tahan kontraksi selama beberapa detik tanpa menahan napas. Setelah itu lepaskan sepenuhnya sebelum mengulang lagi.',
+    s5h3b: 'Kontraksi pendek',
+    s5Body3: 'Setelah gerakannya dikuasai, kontraksi kecil yang cepat bisa ditambahkan. Kontraksi ini melatih kemampuanmu mengencangkan otot dengan cepat saat tekanan perut meningkat, misalnya tepat sebelum batuk atau bersin.',
+    dailyTips: [
+      {
+        icon: 'clock-outline',
+        label: 'Kaitkan latihan dengan kebiasaan harian',
+      },
+      {
+        icon: 'human-sitting',
+        label: 'Mulailah dalam posisi yang nyaman',
+      },
+      {
+        icon: 'weather-windy',
+        label: 'Bernapaslah secara normal saat berkontraksi',
+      },
+      {
+        icon: 'sleep',
+        label: 'Hargai fase relaksasi',
+      },
+      {
+        icon: 'chart-line',
+        label: 'Tingkatkan tingkat kesulitan secara bertahap',
+      },
+      {
+        icon: 'doctor',
+        label: 'Mintalah saran jika kamu ragu',
+      },
+    ],
+    s5TipTitle: 'Yang utama adalah konsisten',
+    s5TipText: 'Mengaitkan latihan dengan kebiasaan yang sudah ada dalam harimu bisa membuatmu lebih mudah konsisten: setelah menyusui, setelah menyikat gigi, atau di waktu lain yang cocok untukmu.',
+    s6Heading: 'Kesalahan umum yang perlu dihindari',
+    s6Body1: 'Latihan perineum mungkin terlihat sederhana, tetapi mudah sekali terjadi kompensasi dengan otot lain atau terlalu memaksakan diri.',
+    commonMistakes: [
+      'Mengencangkan bokong atau paha, bukan otot dasar panggul',
+      'Menahan napas saat berkontraksi',
+      'Terus-menerus menahan otot tetap mengencang tanpa membiarkannya rileks',
+      'Berlatih hanya beberapa hari lalu berhenti',
+      'Sengaja menghentikan aliran urine untuk memeriksa kontraksi',
+    ],
+    s6TipTitle: 'Yang tidak boleh dilakukan',
+    s6TipText: 'Tidak dianjurkan berlatih dengan sengaja menghentikan aliran urine. Cara ini tidak melatih perineum dengan benar dan dapat mengganggu fungsi normal kandung kemih.',
+    s7Heading: 'Gejala apa yang sebaiknya membuatmu berkonsultasi?',
+    s7Body1: 'Kebocoran ringan atau sensasi yang tidak biasa kadang bisa muncul setelah melahirkan. Namun, jangan diabaikan jika berlangsung terus, memburuk, atau mengganggu aktivitas sehari-harimu.',
+    warningSigns: [
+      'Urine bocor saat batuk, bersin, tertawa, atau mengejan',
+      'Rasa berat atau tekanan di panggul bagian bawah',
+      'Rasa seperti ada benjolan atau sesuatu yang turun ke dalam vagina',
+      'Sulit menahan gas atau tinja',
+      'Nyeri yang menetap di perineum',
+      'Nyeri saat atau setelah berhubungan seksual',
+      'Sulit mengenali atau mengencangkan otot perineum dengan benar',
+    ],
+    consultLabel: 'Kapan sebaiknya meminta saran?',
+    s7Body2: 'Bidan, dokter, atau fisioterapis yang mendalami rehabilitasi otot dasar panggul dapat memeriksa fungsi ototmu dan menyarankan program yang sesuai.',
+    s8Heading: 'Bagaimana setelah robekan, episiotomi, atau operasi caesar?',
+    s8Body1: 'Robekan atau episiotomi memerlukan perawatan khusus selama penyembuhan. Saat kembali beraktivitas, pertimbangkan rasa nyeri, kondisi bekas luka, dan arahan yang diberikan setelah persalinan.',
+    s8Body2: 'Setelah operasi caesar, pemulihan juga melibatkan dinding perut dan bekas luka. Meskipun persalinannya tidak lewat vagina, kehamilan itu sendiri tetap memberi tekanan pada otot dasar panggul.',
+    s8HighlightTitle: 'Perawatan yang dipersonalisasi bisa membantu',
+    s8HighlightText: 'Jika robekannya cukup besar, ada nyeri, gejala pada kandung kemih atau usus, atau kesulitan yang menetap, pemeriksaan oleh tenaga kesehatan bisa sangat membantu.',
+    s9Heading: 'Kembali berolahraga secara bertahap',
+    s9Body1: 'Kembali bergerak setelah melahirkan sebaiknya dilakukan bertahap. Berjalan kaki dan gerakan ringan umumnya bisa dilanjutkan sesuai yang kamu rasakan, sedangkan aktivitas berdampak tinggi memerlukan kehati-hatian lebih.',
+    s9Body2: 'Sebelum kembali berlari, melompat, atau berlatih dengan intensitas sangat tinggi, sebaiknya nilai dulu pemulihan otot dasar panggul dan perhatikan gejala yang ada.',
+    s9AlertTitle: 'Jangan terburu-buru melewati tahapan',
+    s9AlertText: 'Kebocoran, rasa berat, atau nyeri saat atau setelah berolahraga adalah tanda bahwa kamu perlu memperlambat dan meminta saran sebelum menambah intensitas.',
+    s10Heading: 'Kapan perlu menemui spesialis?',
+    s10Body1: 'Rehabilitasi otot dasar panggul bersama bidan atau fisioterapis bisa membantu jika kamu ragu apakah kontraksimu sudah benar, jika gejalamu menetap, atau jika kamu ingin kembali melakukan aktivitas fisik tertentu dengan percaya diri.',
+    questionCardTitle: 'Pertanyaan yang berguna untuk diajukan',
+    appointmentQuestions: [
+      'Apakah gejalaku sesuai dengan kelemahan otot dasar panggul?',
+      'Apakah aku sudah melakukan kontraksi dengan benar?',
+      'Berapa kali pengulangan yang harus kulakukan setiap hari?',
+      'Bolehkah aku kembali berlari, berolahraga, atau melakukan latihan berdampak tinggi?',
+      'Apakah aku perlu menjalani rehabilitasi bersama bidan atau fisioterapis?',
+      'Apakah bekas luka, robekan, atau operasi caesarku memerlukan kehati-hatian khusus?',
+    ],
+    s10TipTitle: 'Perlu diketahui',
+    s10TipText: 'Menemui tenaga profesional tidak selalu berarti ada yang salah. Satu sesi bisa sekadar membantu memeriksa tekniknya, menilai pemulihanmu, dan belajar maju dengan cara yang benar.',
+    s11Heading: 'Pemulihan yang membutuhkan waktu',
+    s11Body1: 'Setelah melahirkan, wajar jika kamu tidak langsung mendapatkan kembali sensasi atau kekuatan otot yang sama seperti sebelum hamil.',
+    s11Body2: 'Tujuannya bukan melakukan kontraksi sebanyak mungkin. Yang lebih penting adalah pelan-pelan memulihkan koordinasi yang baik antara kontraksi dan relaksasi, lalu bisa menggunakan otot-otot ini secara alami dalam aktivitas sehari-hari.',
+    s11HighlightTitle: 'Kemajuan kecil adalah kemajuan nyata',
+    s11HighlightText: 'Kesadaran yang lebih baik akan gerakannya, beberapa detik tambahan saat berkontraksi, atau kebocoran yang berkurang sudah merupakan tanda yang menggembirakan.',
+    s12Heading: 'Poin-poin penting',
+    summaryTitle: 'Intinya',
+    summaryItems: [
+      'Kehamilan dan persalinan memberi tekanan yang besar pada otot dasar panggul.',
+      'Pemulihan yang bertahap adalah hal yang wajar setelah melahirkan.',
+      'Dalam berlatih, utamakan kualitas gerakan daripada kekuatan.',
+      'Pernapasan dan relaksasi sama pentingnya dengan kontraksi.',
+      'Kebocoran urine, rasa berat, atau nyeri yang menetap perlu diperiksakan ke tenaga profesional.',
+      'Rehabilitasi bersama bidan atau fisioterapis bisa membantumu mendapatkan kembali kendali yang lebih baik.',
+      'Kembali berolahraga sebaiknya bertahap, terutama untuk aktivitas berdampak tinggi.',
+    ],
+    finalTipTitle: 'Luangkan waktu untuk pulih',
+    finalTipText: 'Setelah melahirkan, tubuhmu telah melalui banyak perubahan. Perineum pantas mendapat perhatian yang sama seperti bagian tubuhmu yang lain: secara bertahap, rutin, dan tanpa tekanan.',
+    disclaimerText: 'Artikel ini hanya untuk tujuan informasi dan tidak menggantikan saran medis yang dipersonalisasi. Jika kamu mengalami nyeri, gejala yang menetap, atau memiliki kekhawatiran tentang pemulihanmu, mintalah saran dari tenaga kesehatan.',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -1727,55 +1914,34 @@ export default function PerineumStrengtheningArticleScreen({
                 ),
               },
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
-                onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={
+                icon={
                     saved
                       ? 'bookmark'
                       : 'bookmark-outline'
                   }
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                iconSize={20}
+                onPress={handleBookmark}
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -1784,14 +1950,14 @@ export default function PerineumStrengtheningArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">
               {content.badge}
-            </Text>
+            </AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metas}>
             {[
@@ -1815,37 +1981,37 @@ export default function PerineumStrengtheningArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                     {text}
-                  </Text>
+                  </AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="titleSmall" colorRole="onSurfaceVariant" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
           {/* TABLE OF CONTENTS */}
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>
               {content.contentsTitle}
-            </Text>
+            </AwaText>
 
             {content.topics.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.contentNumber}>
                     {index + 1}.
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.contentText}>
+                  <AwaText variant="bodySmall" style={styles.contentText}>
                     {item}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -1855,23 +2021,23 @@ export default function PerineumStrengtheningArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 1 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             1. {content.s1Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s1Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s1Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.highlight}>
+          <AwaCard variant="filled" padding="none" style={styles.highlight}>
             <MaterialDesignIcons
               name="human-female"
               size={24}
@@ -1879,29 +2045,29 @@ export default function PerineumStrengtheningArticleScreen({
             />
 
             <View style={styles.highlightCopy}>
-              <Text style={styles.highlightTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.s1HighlightTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.highlightText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.highlightText}>
                 {content.s1HighlightText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
 
           {/* BENEFITS */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.benefitsHeading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.benefitsIntro}
-          </Text>
+          </AwaText>
 
           <View style={styles.benefitsGrid}>
             {content.benefits.map(item => (
-              <View key={item.title} style={styles.benefitCard}>
+              <AwaCard variant="filled" padding="none" key={item.title} style={styles.benefitCard}>
                 <View style={styles.benefitIcon}>
                   <MaterialDesignIcons
                     name={item.icon as never}
@@ -1910,36 +2076,36 @@ export default function PerineumStrengtheningArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.benefitTitle}>
+                <AwaText variant="titleSmall" emphasized style={styles.benefitTitle}>
                   {item.title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.benefitText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.benefitText}>
                   {item.text}
-                </Text>
-              </View>
+                </AwaText>
+              </AwaCard>
             ))}
           </View>
 
           {/* SECTION 2 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             2. {content.s2Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s2Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s2Body2}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s2Body3}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="information-outline"
               size={24}
@@ -1947,31 +2113,31 @@ export default function PerineumStrengtheningArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.s2TipTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.s2TipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 3 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             3. {content.s3Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s3Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s3Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-circle-outline"
               size={24}
@@ -1979,29 +2145,29 @@ export default function PerineumStrengtheningArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.s3AlertTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.s3AlertText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 4 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             4. {content.s4Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s4Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s4Body2}
-          </Text>
+          </AwaText>
 
           <View style={styles.daily}>
             {content.exercises.map(item => (
@@ -2014,14 +2180,14 @@ export default function PerineumStrengtheningArticleScreen({
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>
+                <AwaText variant="bodySmall" style={styles.dailyText}>
                   {item.label}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </View>
 
-          <View style={styles.highlight}>
+          <AwaCard variant="filled" padding="none" style={styles.highlight}>
             <MaterialDesignIcons
               name="target"
               size={24}
@@ -2029,43 +2195,43 @@ export default function PerineumStrengtheningArticleScreen({
             />
 
             <View style={styles.highlightCopy}>
-              <Text style={styles.highlightTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.s4HighlightTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.highlightText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.highlightText}>
                 {content.s4HighlightText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 5 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             5. {content.s5Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s5Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.h3}>
+          <AwaText variant="titleMedium" emphasized style={styles.h3}>
             {content.s5h3a}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s5Body2}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.h3}>
+          <AwaText variant="titleMedium" emphasized style={styles.h3}>
             {content.s5h3b}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s5Body3}
-          </Text>
+          </AwaText>
 
-          <View style={styles.dailyTips}>
+          <AwaCard variant="filled" padding="none" style={styles.dailyTips}>
             {content.dailyTips.map(item => (
               <View
                 key={item.label}
@@ -2078,14 +2244,14 @@ export default function PerineumStrengtheningArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.dailyTipText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.dailyTipText}>
                   {item.label}
-                </Text>
+                </AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="calendar-check-outline"
               size={24}
@@ -2093,27 +2259,27 @@ export default function PerineumStrengtheningArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.s5TipTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.s5TipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 6 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             6. {content.s6Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s6Body1}
-          </Text>
+          </AwaText>
 
-          <View style={styles.warningList}>
+          <AwaCard variant="filled" padding="none" style={styles.warningList}>
             {content.commonMistakes.map(item => (
               <View
                 key={item}
@@ -2124,14 +2290,14 @@ export default function PerineumStrengtheningArticleScreen({
                   color={theme.colors.warning}
                 />
 
-                <Text style={styles.warningText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.warningText}>
                   {item}
-                </Text>
+                </AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -2139,29 +2305,29 @@ export default function PerineumStrengtheningArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.s6TipTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.s6TipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 7 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             7. {content.s7Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s7Body1}
-          </Text>
+          </AwaText>
 
           <View style={styles.consultList}>
             {content.warningSigns.map((item, index) => (
-              <View
+              <AwaCard variant="filled" padding="none"
                 key={item}
                 style={styles.consultCard}>
                 <View style={styles.consultIcon}>
@@ -2173,37 +2339,37 @@ export default function PerineumStrengtheningArticleScreen({
                 </View>
 
                 <View style={styles.consultCopy}>
-                  <Text style={styles.consultTitle}>
+                  <AwaText variant="titleSmall" emphasized>
                     {index + 1}. {content.consultLabel}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.consultText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.consultText}>
                     {item}
-                  </Text>
+                  </AwaText>
                 </View>
-              </View>
+              </AwaCard>
             ))}
           </View>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s7Body2}
-          </Text>
+          </AwaText>
 
           {/* SECTION 8 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             8. {content.s8Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s8Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s8Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.highlight}>
+          <AwaCard variant="filled" padding="none" style={styles.highlight}>
             <MaterialDesignIcons
               name="doctor"
               size={24}
@@ -2211,31 +2377,31 @@ export default function PerineumStrengtheningArticleScreen({
             />
 
             <View style={styles.highlightCopy}>
-              <Text style={styles.highlightTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.s8HighlightTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.highlightText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.highlightText}>
                 {content.s8HighlightText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 9 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             9. {content.s9Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s9Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s9Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="run-fast"
               size={24}
@@ -2243,27 +2409,27 @@ export default function PerineumStrengtheningArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.s9AlertTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.s9AlertText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 10 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             10. {content.s10Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s10Body1}
-          </Text>
+          </AwaText>
 
-          <View style={styles.questionCard}>
+          <AwaCard variant="filled" padding="none" style={styles.questionCard}>
             <View style={styles.questionHeader}>
               <MaterialDesignIcons
                 name="message-question-outline"
@@ -2271,9 +2437,9 @@ export default function PerineumStrengtheningArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.questionTitle}>
+              <AwaText variant="titleSmall" emphasized style={styles.questionTitle}>
                 {content.questionCardTitle}
-              </Text>
+              </AwaText>
             </View>
 
             {content.appointmentQuestions.map(
@@ -2282,20 +2448,20 @@ export default function PerineumStrengtheningArticleScreen({
                   key={item}
                   style={styles.questionRow}>
                   <View style={styles.questionBullet}>
-                    <Text style={styles.questionNumber}>
+                    <AwaText variant="labelSmall" emphasized colorRole="primary">
                       {index + 1}
-                    </Text>
+                    </AwaText>
                   </View>
 
-                  <Text style={styles.questionText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.questionText}>
                     {item}
-                  </Text>
+                  </AwaText>
                 </View>
               ),
             )}
-          </View>
+          </AwaCard>
 
-          <View style={styles.professionalTip}>
+          <AwaCard variant="filled" padding="none" style={styles.professionalTip}>
             <MaterialDesignIcons
               name="doctor"
               size={25}
@@ -2303,31 +2469,31 @@ export default function PerineumStrengtheningArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.s10TipTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.s10TipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 11 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             11. {content.s11Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s11Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.s11Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.highlight}>
+          <AwaCard variant="filled" padding="none" style={styles.highlight}>
             <MaterialDesignIcons
               name="progress-check"
               size={24}
@@ -2335,23 +2501,23 @@ export default function PerineumStrengtheningArticleScreen({
             />
 
             <View style={styles.highlightCopy}>
-              <Text style={styles.highlightTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.s11HighlightTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.highlightText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.highlightText}>
                 {content.s11HighlightText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SUMMARY */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             12. {content.s12Heading}
-          </Text>
+          </AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
               <MaterialDesignIcons
                 name="check-decagram-outline"
@@ -2359,9 +2525,9 @@ export default function PerineumStrengtheningArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.summaryTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.summaryTitle}
-              </Text>
+              </AwaText>
             </View>
 
             {content.summaryItems.map(item => (
@@ -2374,16 +2540,16 @@ export default function PerineumStrengtheningArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.summaryText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
                   {item}
-                </Text>
+                </AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* FINAL TIP */}
 
-          <View style={styles.finalTip}>
+          <AwaCard variant="filled" padding="none" style={styles.finalTip}>
             <MaterialDesignIcons
               name="heart-outline"
               size={25}
@@ -2391,15 +2557,15 @@ export default function PerineumStrengtheningArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.finalTipTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.finalTipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* DISCLAIMER */}
 
@@ -2410,9 +2576,9 @@ export default function PerineumStrengtheningArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>
               {content.disclaimerText}
-            </Text>
+            </AwaText>
           </View>
         </View>
       </ScrollView>
@@ -2434,7 +2600,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   heroWrap: {
@@ -2462,65 +2628,41 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 27,
-    lineHeight: 32,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
   },
 
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -2529,31 +2671,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 9.5,
-    color: theme.colors.textMuted,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '600',
+    marginTop: 16,
   },
 
   contents: {
     marginTop: 20,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -2571,115 +2700,69 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 25,
-    color: theme.colors.primary,
-    fontSize: 11.5,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.3,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   h2: {
-    marginTop: 27,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 28,
   },
 
   h3: {
-    marginTop: 21,
-    fontSize: 16,
-    lineHeight: 22,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginTop: 20,
   },
 
   body: {
-    marginTop: 9,
-    fontSize: 14,
-    lineHeight: 21.5,
-    color: theme.colors.textSecondary,
+    marginTop: 8,
   },
 
   highlight: {
     marginTop: 16,
-    padding: 15,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   highlightCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  highlightTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   highlightText: {
     marginTop: 4,
-    fontSize: 12,
-    lineHeight: 18,
-    color: theme.colors.textMuted,
   },
 
   tip: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textMuted,
   },
 
 
   benefitsGrid: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 9,
+    gap: 8,
   },
 
   benefitCard: {
     width: '48.5%',
-    padding: 13,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 12,
   },
 
   benefitIcon: {
@@ -2692,22 +2775,15 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   benefitTitle: {
-    marginTop: 9,
-    fontSize: 12.5,
-    lineHeight: 17,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginTop: 8,
   },
 
   benefitText: {
-    marginTop: 5,
-    fontSize: 11,
-    lineHeight: 16.5,
-    color: theme.colors.textMuted,
+    marginTop: 4,
   },
 
   daily: {
-    marginTop: 13,
+    marginTop: 12,
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
@@ -2719,33 +2795,26 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
 
   dailyText: {
-    marginTop: 7,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.text,
+    marginTop: 8,
     textAlign: 'center',
   },
 
   dailyTips: {
-    marginTop: 14,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   dailyTipRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 12,
   },
 
   dailyTipIcon: {
@@ -2759,59 +2828,42 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   dailyTipText: {
     flex: 1,
-    marginLeft: 10,
-    fontSize: 12,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
+    marginLeft: 12,
   },
 
   warningList: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
 
   warningRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 11,
+    marginBottom: 12,
   },
 
   warningText: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 18,
-    color: theme.colors.textSecondary,
   },
 
   alert: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   consultList: {
-    marginTop: 14,
-    gap: 10,
+    marginTop: 16,
+    gap: 12,
   },
 
   consultCard: {
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   consultIcon: {
@@ -2825,50 +2877,34 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   consultCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  consultTitle: {
-    fontSize: 13,
-    lineHeight: 18,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   consultText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textMuted,
   },
 
   questionCard: {
-    marginTop: 15,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   questionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
-    marginBottom: 13,
+    gap: 8,
+    marginBottom: 12,
   },
 
   questionTitle: {
     flex: 1,
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
 
   questionRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 11,
+    marginBottom: 12,
   },
 
   questionBullet: {
@@ -2880,80 +2916,54 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  questionNumber: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   questionText: {
     flex: 1,
-    marginLeft: 9,
+    marginLeft: 8,
     paddingTop: 2,
-    fontSize: 12,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   professionalTip: {
-    marginTop: 14,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   summaryCard: {
-    marginTop: 15,
+    marginTop: 16,
     padding: 16,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   summaryHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
-    marginBottom: 13,
+    gap: 8,
+    marginBottom: 12,
   },
 
-  summaryTitle: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   summaryItem: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 10,
+    marginBottom: 12,
     gap: 8,
   },
 
   summaryText: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 18,
-    color: theme.colors.textSecondary,
   },
 
   finalTip: {
-    marginTop: 15,
-    padding: 15,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   disclaimer: {
     marginTop: 20,
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
@@ -2961,9 +2971,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   disclaimerText: {
     flex: 1,
-    fontSize: 10.5,
-    lineHeight: 16,
-    color: theme.colors.textMuted,
   },
   });
 }

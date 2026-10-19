@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -512,6 +513,69 @@ const CONTENT = {
       disclaimerText: '仅供参考。本文不能替代个性化的医疗建议。如有疑问，请向医疗专业人员咨询。',
       shareMessage: '记录基础体温 — AWA',
     },
+  id: {
+    badge: 'KESUBURAN • SUHU TUBUH BASAL',
+    title: 'Memantau\nsuhu tubuh basalmu',
+    metaDuration: '6 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Menengah',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Metode sederhana untuk memastikan, setelah kejadiannya, bahwa ovulasi sudah terjadi.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Apa itu suhu tubuh basal?',
+      'Kapan dan bagaimana mengukurnya',
+      'Mengenali kenaikan setelah ovulasi',
+      'Apa yang bisa memengaruhi hasil ukur',
+      'Keterbatasan metode ini',
+      'Kapan perlu bicara dengan tenaga profesional',
+      'Poin penting',
+    ],
+    section1Body: 'Suhu tubuh basal adalah suhu tubuhmu saat benar-benar beristirahat, sebelum melakukan aktivitas apa pun. Suhu ini berubah sangat tipis sepanjang siklus, di bawah pengaruh hormonmu.',
+    section2Body: 'Suhu ini diukur setiap pagi, sebelum bangun dari tempat tidur, selalu pada jam yang sama dan dengan termometer yang sama.',
+    measuringTips: [
+      {
+        title: 'Termometer yang sama',
+        text: 'Selalu gunakan termometer yang sama, sebaiknya termometer basal (lebih akurat, sampai sepersepuluh derajat).',
+      },
+      {
+        title: 'Jam yang sama',
+        text: 'Ukur pada jam yang tetap, sebelum bangun, setelah tidur tanpa terputus setidaknya 3 jam.',
+      },
+      {
+        title: 'Langsung catat',
+        text: 'Catat hasil pengukuran segera, bahkan sebelum bangun atau berbicara.',
+      },
+    ],
+    section3Body: 'Suhu tubuh basal naik sedikit (0,2 hingga 0,5°C) tepat setelah ovulasi, karena pengaruh progesteron, dan tetap lebih tinggi sampai haid berikutnya.',
+    curveTitle: 'Seperti apa bentuk grafiknya',
+    curveText: 'Suhu lebih rendah pada paruh pertama siklus, lalu naik setelah ovulasi dan bertahan di sana — pola yang baru terlihat jelas setelah beberapa hari pengukuran.',
+    disruptingFactors: [
+      'Tidur yang singkat atau gelisah',
+      'Bangun pada jam yang tidak biasa',
+      'Demam atau sakit',
+      'Alkohol pada malam sebelumnya',
+      'Jet lag baru-baru ini',
+    ],
+    section5Body: 'Ini bukan metode untuk memprediksi, melainkan untuk mengonfirmasi: metode ini membantumu lebih memahami siklusmu sendiri, setelah ovulasi terjadi — bukan untuk mengantisipasinya.',
+    section5Caption: 'Mengamatinya sendirian selama satu atau dua siklus biasanya belum cukup: polanya muncul lewat pengulangan.',
+    warningTitle: 'Perlu disampaikan kepada tenaga profesional',
+    consultSituations: [
+      'Tidak ada kenaikan suhu selama beberapa siklus penuh',
+      'Suhu tetap sangat tidak teratur meski pengukuran sudah dilakukan dengan cermat',
+      'Kamu punya pertanyaan tentang kesuburanmu yang tidak bisa dijawab oleh pemantauan ini saja',
+    ],
+    tipTitle: 'Perlu diketahui',
+    tipText: 'Menggabungkan suhu tubuh basal dengan pengamatan lendir serviks atau tes ovulasi memberi gambaran siklusmu yang lebih lengkap.',
+    summaryPoints: [
+      'Suhu tubuh basal naik sedikit (0,2 hingga 0,5°C) tepat setelah ovulasi, karena pengaruh progesteron.',
+      'Suhu ini diukur setiap pagi, sebelum bangun, selalu pada jam yang sama dan dengan termometer yang sama.',
+      'Ini bukan metode untuk memprediksi, melainkan untuk mengonfirmasi: membantumu lebih memahami siklusmu sendiri.',
+      'Menggabungkannya dengan tanda lain (lendir serviks, tes ovulasi) memberi gambaran yang lebih lengkap.',
+    ],
+    disclaimerText: 'Konten informatif. Artikel ini tidak menggantikan saran medis yang dipersonalisasi. Jika ragu, mintalah bimbingan dari tenaga kesehatan.',
+    shareMessage: 'Memantau suhu tubuh basal — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -600,49 +664,32 @@ export default function BasalTemperatureArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
-              hitSlop={8}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={
                   saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
-                hitSlop={8}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
-                hitSlop={8}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -653,10 +700,10 @@ export default function BasalTemperatureArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>{content.title}</Text>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>{content.title}</AwaText>
 
           <View style={styles.metas}>
             {[
@@ -675,26 +722,26 @@ export default function BasalTemperatureArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>{content.intro}</Text>
+          <AwaText variant="titleSmall" style={styles.intro}>{content.intro}</AwaText>
 
           {/* -------------------------------------------------------------- */}
           {/* CONTENTS                                                        */}
           {/* -------------------------------------------------------------- */}
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -704,25 +751,25 @@ export default function BasalTemperatureArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>{content.section1Body}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.section1Body}</AwaText>
 
           {/* ================================================================= */}
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>{content.section2Body}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.section2Body}</AwaText>
 
-          <View style={styles.comfortCard}>
+          <AwaCard variant="filled" padding="none" style={styles.comfortCard}>
             {content.measuringTips.map((item, index) => (
               <View
                 key={item.title}
@@ -740,22 +787,22 @@ export default function BasalTemperatureArticleScreen({
                 </View>
 
                 <View style={styles.comfortCopy}>
-                  <Text style={styles.comfortTitle}>{item.title}</Text>
-                  <Text style={styles.comfortText}>{item.text}</Text>
+                  <AwaText variant="titleSmall" emphasized>{item.title}</AwaText>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.comfortText}>{item.text}</AwaText>
                 </View>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 3                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.body}>{content.section3Body}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.section3Body}</AwaText>
 
-          <View style={styles.infoCard}>
+          <AwaCard variant="filled" padding="none" style={styles.infoCard}>
             <MaterialDesignIcons
               name="chart-line"
               size={23}
@@ -763,18 +810,18 @@ export default function BasalTemperatureArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>{content.curveTitle}</Text>
-              <Text style={styles.infoText}>{content.curveText}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.curveTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>{content.curveText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.disruptingFactors.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -783,28 +830,28 @@ export default function BasalTemperatureArticleScreen({
                   color={theme.colors.primary}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 5                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>5. {content.topics[4]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>5. {content.topics[4]}</AwaText>
 
-          <Text style={styles.body}>{content.section5Body}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.section5Body}</AwaText>
 
-          <Text style={styles.caption}>{content.section5Caption}</Text>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.caption}>{content.section5Caption}</AwaText>
 
           {/* ================================================================= */}
           {/* SECTION 6                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>6. {content.topics[5]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>6. {content.topics[5]}</AwaText>
 
-          <View style={styles.warningCard}>
+          <AwaCard variant="filled" padding="none" style={styles.warningCard}>
             <View style={styles.warningHeader}>
               <MaterialDesignIcons
                 name="calendar-account-outline"
@@ -812,9 +859,9 @@ export default function BasalTemperatureArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={[styles.warningTitle, styles.warningTitleNeutral]}>
+              <AwaText variant="titleSmall" emphasized colorRole="onSurfaceVariant" style={[styles.warningTitle, styles.warningTitleNeutral]}>
                 {content.warningTitle}
-              </Text>
+              </AwaText>
             </View>
 
             {content.consultSituations.map(item => (
@@ -827,16 +874,16 @@ export default function BasalTemperatureArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.warningText}>{item}</Text>
+                <AwaText variant="bodySmall" style={styles.warningText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* TIP                                                               */}
           {/* ================================================================= */}
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -844,18 +891,18 @@ export default function BasalTemperatureArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
-              <Text style={styles.tipText}>{content.tipText}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tipTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.tipText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SUMMARY                                                           */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>{content.topics[6]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>{content.topics[6]}</AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             {content.summaryPoints.map(item => (
               <View key={item} style={styles.summaryRow}>
                 <MaterialDesignIcons
@@ -864,10 +911,10 @@ export default function BasalTemperatureArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.summaryText}>{item}</Text>
+                <AwaText variant="bodySmall" style={styles.summaryText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* DISCLAIMER                                                        */}
@@ -880,7 +927,7 @@ export default function BasalTemperatureArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>{content.disclaimerText}</Text>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>{content.disclaimerText}</AwaText>
           </View>
         </View>
       </ScrollView>
@@ -897,7 +944,7 @@ export default function BasalTemperatureArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
 
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
@@ -912,77 +959,46 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
-  },
-  badgeText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
   },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 27,
-    lineHeight: 32,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 9.5, color: theme.colors.textMuted},
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '600',
+    marginTop: 16,
   },
 
   contents: {
     marginTop: 20,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 16,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
+  contentsTitle: {marginBottom: 8},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -990,43 +1006,29 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 25, color: theme.colors.primary, fontSize: 11.5, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.3, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 25},
+  contentText: {flex: 1},
 
   h2: {
-    marginTop: 27,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 28,
   },
-  body: {marginTop: 9, fontSize: 14, lineHeight: 21.5, color: theme.colors.text},
-  caption: {marginTop: 10, fontSize: 11, lineHeight: 16, color: theme.colors.textMuted, fontStyle: 'italic'},
+  body: {marginTop: 8},
+  caption: {marginTop: 12, fontStyle: 'italic'},
 
   infoCard: {
-    marginTop: 14,
-    padding: 13,
+    marginTop: 16,
+    padding: 12,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
-  infoCopy: {flex: 1, marginLeft: 9},
-  infoTitle: {fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  infoText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  infoCopy: {flex: 1, marginLeft: 8},
+  infoText: {marginTop: 3},
 
   comfortCard: {
-    marginTop: 13,
-    paddingHorizontal: 13,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    paddingHorizontal: 12,
   },
-  comfortRow: {flexDirection: 'row', alignItems: 'flex-start', paddingVertical: 13},
+  comfortRow: {flexDirection: 'row', alignItems: 'flex-start', paddingVertical: 12},
   comfortRowBorder: {borderBottomWidth: 1, borderBottomColor: theme.colors.border},
   comfortIcon: {
     width: 35,
@@ -1036,68 +1038,51 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
-  comfortCopy: {flex: 1, marginLeft: 10},
-  comfortTitle: {fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  comfortText: {marginTop: 3, fontSize: 10.8, lineHeight: 16, color: theme.colors.textSecondary},
+  comfortCopy: {flex: 1, marginLeft: 12},
+  comfortText: {marginTop: 3},
 
   checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 12,
   },
-  checkRow: {flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 6},
-  checkText: {flex: 1, color: theme.colors.text, fontSize: 12.5, lineHeight: 17},
+  checkRow: {flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 8},
+  checkText: {flex: 1},
 
   warningCard: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 12,
+    marginTop: 12,
+    padding: 16,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
   warningHeader: {flexDirection: 'row', alignItems: 'center', marginBottom: 12},
-  warningTitle: {flex: 1, marginLeft: 8, fontSize: 12.5, color: theme.colors.textSecondary, fontWeight: '800'},
+  warningTitle: {flex: 1, marginLeft: 8},
   warningTitleNeutral: {color: theme.colors.text},
-  warningRow: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 9},
+  warningRow: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 8},
   warningBullet: {width: 20, alignItems: 'flex-start'},
-  warningText: {flex: 1, marginLeft: 5, color: theme.colors.text, fontSize: 11.5, lineHeight: 17},
+  warningText: {flex: 1, marginLeft: 4},
 
   tip: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
-  tipText: {marginTop: 4, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  tipCopy: {flex: 1, marginLeft: 12},
+  tipText: {marginTop: 4},
 
   summaryCard: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
-  summaryRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 10},
-  summaryText: {flex: 1, fontSize: 11.5, lineHeight: 17, color: theme.colors.text},
+  summaryRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 12},
+  summaryText: {flex: 1},
 
   disclaimer: {
-    marginTop: 18,
+    marginTop: 20,
     paddingHorizontal: 3,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 7,
+    gap: 8,
   },
-  disclaimerText: {flex: 1, fontSize: 10, lineHeight: 15, color: theme.colors.textMuted},
+  disclaimerText: {flex: 1},
   });
 }

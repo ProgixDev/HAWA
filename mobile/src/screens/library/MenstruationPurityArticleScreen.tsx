@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -470,6 +471,59 @@ const CONTENT = {
       tip2Text: '这些标志只是一般性的科普提示。每个人的情况可能各有特点：遇到疑问时，与有资质的学者交流始终是获得契合你情况的答案的最佳途径。',
       shareMessage: '洁净状态：基础知识 — AWA',
     },
+  id: {
+    badge: 'HAID & KESUCIAN',
+    title: 'Status kesucian:\nhal-hal dasar',
+    metaDuration: '6 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Memahami kaitan antara siklus dan status kesucian ritual, agar kamu bisa menjalani masa ini dengan lebih jelas.',
+    disclaimerTitle: 'Informasi penting',
+    disclaimerText: 'Konten ini murni bersifat edukatif. Pertanyaan keagamaan sebaiknya dipastikan kepada ulama yang kompeten. AWA tidak mengeluarkan fatwa atau keputusan keagamaan yang dipersonalisasi.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Memahami arti kesucian ritual',
+      'Haid dan keringanan dari ibadah',
+      'Setelah haid: mengenali kembalinya kesucian',
+      'Mandi wajib: memahami perannya',
+      'Apa yang dilakukan saat tidak yakin?',
+      'Poin-poin penting',
+    ],
+    section1Body: 'Dalam tradisi Islam, kesucian ritual (tahara) merujuk pada keadaan yang disyaratkan untuk melakukan ibadah tertentu, seperti salat. Kesucian ini bukan kebersihan dalam arti sehari-hari, melainkan keadaan khusus yang diakui oleh fikih, yang berubah sesuai tahapan siklus perempuan.',
+    section2Body: 'Selama haid, perempuan mendapat keringanan dari beberapa ibadah, terutama salat dan puasa Ramadan, yang puasanya dapat diganti di kemudian hari. Keringanan ini diakui sebagai kemudahan, bukan hukuman.',
+    checkList1Title: 'Yang tetap bisa dilakukan saat haid',
+    duringPeriod: [
+      'Zikir (mengingat Allah) dan doa',
+      'Mendengarkan atau membaca konten edukatif dan spiritual',
+      'Mendukung ibadah orang-orang terdekatmu',
+      'Merenung dan belajar tentang agama',
+    ],
+    noteTitle: 'Harap diperhatikan',
+    noteText: 'Beberapa rincian (seperti membaca Al-Qur\'an secara langsung atau memasuki masjid) bisa berbeda menurut mazhab fikih; sebaiknya rujuklah pendapat yang biasa kamu ikuti atau tanyakan kepada ulama yang kompeten untuk kasus-kasus khusus ini.',
+    section3Body: 'Berakhirnya haid menandai kembalinya keadaan suci secara bertahap. Secara fisik, hal ini berarti berhentinya perdarahan, sebuah penanda yang bisa didefinisikan dengan nuansa yang sedikit berbeda oleh berbagai tradisi keulamaan.',
+    visual1Title: 'Proses fisiologis',
+    visual1Text: 'Memahami tahapan siklus membantumu mengenali dengan lebih baik saat haid benar-benar berakhir.',
+    section3Body2: 'Setelah penanda ini teramati, mandi wajib (ghusl) memungkinkan seseorang kembali suci dan melanjutkan ibadah yang sempat ditangguhkan.',
+    section4Body: 'Mandi wajib (ghusl) adalah mandi ritual besar yang dilakukan dengan membasuh seluruh tubuh disertai niat untuk bersuci. Mandi ini menandai berakhirnya keringanan dan memungkinkan salat dilakukan kembali seperti biasa, tanpa perlu mengganti salat yang terlewat selama haid.',
+    visual2Title: 'Ritual penyucian',
+    visual2Text: 'Tata cara mandi wajib yang tepat bisa sedikit berbeda menurut mazhab fikih yang diikuti.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Jika kamu belum tahu langkah-langkah yang tepat menurut mazhabmu, orang yang kamu percaya atau ulama yang kompeten dapat menjelaskannya dengan jelas kepadamu.',
+    section5Body: 'Wajar jika kamu merasa ragu kapan haid benar-benar berakhir, terutama ketika perdarahan berkurang perlahan, bukan berhenti mendadak.',
+    checkList2Title: 'Beberapa penanda yang berguna',
+    doubtMarkers: [
+      'Amati apakah perdarahan benar-benar tidak ada lagi, bukan hanya berkurang',
+      'Beri waktu yang cukup berlalu sebelum menyimpulkan bahwa haid telah berakhir',
+      'Andalkan pengamatan yang jelas, bukan sekadar kesan',
+      'Perhatikan ritmemu sendiri yang biasa, yang bisa berbeda dari satu siklus ke siklus lain',
+    ],
+    alert2Title: 'Informasi penting',
+    alert2Text: 'Dalam kasus perdarahan yang berkepanjangan atau tidak teratur, atau keraguan yang menetap, situasi tersebut sebaiknya dibicarakan dengan ulama yang kompeten, yang dapat membimbingmu sesuai situasi pribadimu. Konten ini tetap bersifat informatif dan tidak menggantikan bimbingan keagamaan yang individual.',
+    tip2Title: 'Perlu diketahui',
+    tip2Text: 'Penanda ini adalah pengingat edukatif yang umum. Setiap situasi bisa memiliki kekhususannya sendiri: jika ragu, berdialog dengan ulama yang kompeten tetap menjadi sumber terbaik untuk jawaban yang sesuai dengan situasimu.',
+    shareMessage: 'Status kesucian: hal-hal dasar — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -542,56 +596,42 @@ export default function MenstruationPurityArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metas}>
             {[
@@ -610,17 +650,17 @@ export default function MenstruationPurityArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="bodyMedium" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="information-outline"
               size={24}
@@ -628,19 +668,19 @@ export default function MenstruationPurityArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.disclaimerTitle}</Text>
-              <Text style={styles.tipText}>{content.disclaimerText}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.disclaimerTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.disclaimerText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -650,26 +690,26 @@ export default function MenstruationPurityArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             1. {content.topics[0]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section2Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.checkList}>
-            <Text style={styles.checkListTitle}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
+            <AwaText variant="titleSmall" emphasized style={styles.checkListTitle}>
               {content.checkList1Title}
-            </Text>
+            </AwaText>
 
             {content.duringPeriod.map(item => (
               <View key={item} style={styles.checkRow}>
@@ -679,12 +719,12 @@ export default function MenstruationPurityArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
@@ -692,22 +732,22 @@ export default function MenstruationPurityArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.noteTitle}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.noteTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.noteText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             3. {content.topics[2]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section3Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.visualCard}>
+          <AwaCard variant="filled" padding="none" style={styles.visualCard}>
             <Image
               source={ART.process}
               resizeMode="cover"
@@ -715,25 +755,25 @@ export default function MenstruationPurityArticleScreen({
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{content.visual1Title}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.visual1Title}</AwaText>
 
-              <Text style={styles.visualText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.visualText}>
                 {content.visual1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section3Body2}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section4Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.visualCard}>
+          <AwaCard variant="filled" padding="none" style={styles.visualCard}>
             <Image
               source={ART.ghusl}
               resizeMode="cover"
@@ -741,15 +781,15 @@ export default function MenstruationPurityArticleScreen({
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{content.visual2Title}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.visual2Title}</AwaText>
 
-              <Text style={styles.visualText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.visualText}>
                 {content.visual2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -757,23 +797,23 @@ export default function MenstruationPurityArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             5. {content.topics[4]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section5Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.checkList}>
-            <Text style={styles.checkListTitle}>{content.checkList2Title}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
+            <AwaText variant="titleSmall" emphasized style={styles.checkListTitle}>{content.checkList2Title}</AwaText>
 
             {content.doubtMarkers.map(item => (
               <View key={item} style={styles.checkRow}>
@@ -783,12 +823,12 @@ export default function MenstruationPurityArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-circle-outline"
               size={24}
@@ -796,16 +836,16 @@ export default function MenstruationPurityArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.alert2Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.alert2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.alert2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>6. {content.topics[5]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>6. {content.topics[5]}</AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -813,12 +853,12 @@ export default function MenstruationPurityArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
         </View>
       </ScrollView>
 
@@ -830,7 +870,7 @@ export default function MenstruationPurityArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
   top: {
@@ -843,72 +883,47 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  badgeText: {fontSize: 11, color: theme.colors.primary, fontWeight: '800'},
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
     gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 10, color: theme.colors.textMuted},
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '500',
+    marginTop: 16,
   },
   alert: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
+  contentsTitle: {marginBottom: 8},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -916,56 +931,41 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 24, color: theme.colors.primary, fontSize: 12, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.5, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 24},
+  contentText: {flex: 1},
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
-  body: {marginTop: 8, fontSize: 14, lineHeight: 21, color: theme.colors.textSecondary},
+  body: {marginTop: 8},
   visualCard: {
-    marginTop: 15,
+    marginTop: 16,
     minHeight: 98,
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: theme.colors.surface,
+    padding: 12,
   },
   visualImage: {width: 72, height: 72, borderRadius: 12},
   visualCopy: {flex: 1, marginLeft: 12},
-  visualTitle: {color: theme.colors.text, fontSize: 13, lineHeight: 17, fontWeight: '800'},
-  visualText: {marginTop: 4, color: theme.colors.textMuted, fontSize: 11, lineHeight: 16},
+  visualText: {marginTop: 4},
   checkList: {
-    marginTop: 15,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 16,
+    padding: 12,
   },
-  checkListTitle: {marginBottom: 9, fontSize: 13, color: theme.colors.text, fontWeight: '800'},
+  checkListTitle: {marginBottom: 8},
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 9,
+    marginBottom: 8,
   },
-  checkText: {flex: 1, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
+  checkText: {flex: 1},
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
-  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: theme.colors.textMuted},
+  tipCopy: {flex: 1, marginLeft: 12},
+  tipText: {marginTop: 3},
   });
 }

@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -707,6 +708,77 @@ const CONTENT = {
       finalNoteText: '本文仅供一般性参考，不能替代医生的诊疗。如有疑问或症状持续，请咨询医疗专业人员。',
       shareMessage: '了解激素性痤疮 — AWA',
     },
+  id: {
+    badge: 'PCOS • JERAWAT HORMONAL',
+    title: 'Memahami\njerawat hormonal',
+    metaDuration: '7 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten edukatif',
+    intro: 'Mengapa jerawat hormonal bisa muncul pada PCOS, bagaimana mengenalinya, dan solusi apa yang mungkin membantu mengatasinya.',
+    introSecondary: 'Jerawat ini dialami banyak perempuan dan bukan karena kurang bersih ataupun sesuatu yang tak terelakkan: memahami asalnya membantu mengatasinya dengan lebih baik.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Apa itu jerawat hormonal?',
+      'Mengapa PCOS bisa menyebabkan jerawat?',
+      'Cara mengenali jerawat hormonal',
+      'Jerawat hormonal dan siklus menstruasi',
+      'Apa yang bisa membantu',
+      'Kapan perlu ke dokter?',
+      'Poin-poin penting',
+    ],
+    h1: 'Apa itu jerawat hormonal?',
+    body1a: 'Jerawat hormonal adalah jenis jerawat yang berkaitan langsung dengan fluktuasi atau ketidakseimbangan hormon, terutama androgen. Berbeda dengan jerawat remaja yang lebih khas, jerawat ini sering menyerang perempuan dewasa dan bisa menetap atau muncul setelah masa remaja.',
+    body1b: 'Jerawat ini juga dikenali dari lokasinya, kedalamannya, dan kecenderungannya muncul kembali di tempat yang sama meskipun rutinitas perawatan kulit sudah dijalani dengan baik.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Jerawat hormonal tidak berkaitan dengan kurangnya kebersihan: mencuci wajah lebih sering tidak membuatnya hilang, dan bahkan bisa mengiritasi kulit.',
+    h2Title: 'Mengapa PCOS bisa menyebabkan jerawat?',
+    body2: 'Pada PCOS, kelebihan androgen yang relatif merangsang kelenjar sebasea, sehingga menghasilkan lebih banyak sebum. Sebagian kulit juga lebih sensitif terhadap hormon ini, sehingga jerawat bisa tampak jelas bahkan tanpa ketidakseimbangan besar yang terukur di laboratorium.',
+    neutralText: 'Ini bukan soal kemauan: kepekaan ini berbeda dari satu orang ke orang lain dan tidak bergantung pada kebiasaan gaya hidupmu.',
+    h3Title: 'Cara mengenali jerawat hormonal',
+    body3: 'Beberapa ciri sering berulang, meskipun tidak selalu:',
+    recognizeSigns: [
+      'Wajah bagian bawah: garis rahang, dagu',
+      'Jerawat lebih dalam, kadang terasa nyeri',
+      'Sering muncul kembali di tempat yang sama',
+      'Kemerahan atau bekas yang bertahan lama',
+    ],
+    h4Title: 'Jerawat hormonal dan siklus menstruasi',
+    body4: 'Jerawat hormonal bisa naik turun sepanjang siklus. Banyak perempuan menyadari jerawatnya kambuh beberapa hari sebelum haid, saat progesteron naik lalu turun tajam, yang sementara merangsang produksi sebum.',
+    highlightTitle: 'Mencatat jerawat yang kambuh',
+    highlightText: 'Mencatat kapan jerawat muncul terhadap siklusmu bisa membantu kamu dan dokter kulitmu memahami kaitan hormonalnya dengan lebih baik.',
+    h5Title: 'Apa yang bisa membantu',
+    body5a: 'Beberapa kebiasaan perawatan sederhana bisa membantu membatasi kekambuhan, meski tidak menghilangkannya sepenuhnya:',
+    careHabits: [
+      'Bersihkan kulit dengan lembut pagi dan malam',
+      'Hindari produk yang keras atau membuat kulit kering',
+      'Lindungi kulit dari sinar matahari setiap hari',
+      'Hindari memencet atau mengorek jerawat',
+    ],
+    body5b: 'Tergantung situasinya, dokter kulit atau dokter kandungan dapat menyarankan perawatan topikal (krim, gel) atau, jika perlu, pengobatan hormonal yang sesuai.',
+    alertTitle: 'Jangan mengobati sendiri',
+    alertText: 'Pengobatan jerawat hormonal (topikal atau hormonal) harus diresepkan dan dipantau oleh tenaga kesehatan, terutama jika kamu berharap untuk hamil.',
+    h6Title: 'Kapan perlu ke dokter?',
+    body6: 'Saran medis sangat membantu dalam beberapa situasi:',
+    consultReasons: [
+      'Jerawat yang menetap meski sudah dirawat dengan tepat',
+      'Jerawat yang nyeri atau dalam (nodul, kista)',
+      'Jerawat parah atau yang memburuk dengan cepat',
+      'Bekas atau jaringan parut yang mulai menetap',
+    ],
+    h7Title: 'Poin-poin penting',
+    summaryTitle: 'Hal-hal pokok',
+    keyPoints: [
+      'Jerawat hormonal punya penyebab yang bisa dikenali, yang berkaitan dengan androgen.',
+      'Jerawat ini sering muncul di wajah bagian bawah dan bisa memburuk sebelum haid.',
+      'Jerawat ini bukan karena kurang bersih ataupun sesuatu yang tak terelakkan.',
+      'Perawatan yang lembut dan, jika perlu, pengobatan yang sesuai bisa memperbaikinya.',
+      'Dokter kulit atau dokter kandungan dapat mendampingimu jika jerawat menetap.',
+    ],
+    finalNoteTitle: 'Panduan untuk memahami lebih baik',
+    finalNoteText: 'Artikel ini hanya untuk informasi umum dan tidak menggantikan konsultasi medis. Jika ragu atau gejala menetap, mintalah saran tenaga kesehatan.',
+    shareMessage: 'Memahami jerawat hormonal — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -780,44 +852,30 @@ export default function PcosHormonalAcneArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -825,12 +883,12 @@ export default function PcosHormonalAcneArticleScreen({
         <View style={styles.article}>
           {/* HEADER */}
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metas}>
             {[
@@ -849,29 +907,29 @@ export default function PcosHormonalAcneArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="titleSmall" colorRole="onSurfaceVariant" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.introSecondary}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.introSecondary}>
             {content.introSecondary}
-          </Text>
+          </AwaText>
 
           {/* CONTENTS */}
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -881,20 +939,20 @@ export default function PcosHormonalAcneArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* 1 */}
-          <Text style={styles.h2}>1. {content.h1}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.h1}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body1a}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body1b}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -902,42 +960,42 @@ export default function PcosHormonalAcneArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* 2 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             2. {content.h2Title}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.neutralBox}>
+          <AwaCard variant="filled" padding="none" style={styles.neutralBox}>
             <MaterialDesignIcons
               name="information-outline"
               size={22}
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.neutralText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.neutralText}>
               {content.neutralText}
-            </Text>
-          </View>
+            </AwaText>
+          </AwaCard>
 
           {/* 3 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             3. {content.h3Title}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body3}
-          </Text>
+          </AwaText>
 
           <View style={styles.daily}>
             {RECOGNIZE_SIGN_ICONS.map((icon, index) => (
@@ -948,21 +1006,21 @@ export default function PcosHormonalAcneArticleScreen({
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>
+                <AwaText variant="bodySmall" style={styles.dailyText}>
                   {content.recognizeSigns[index]}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </View>
 
           {/* 4 */}
-          <Text style={styles.h2}>4. {content.h4Title}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.h4Title}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body4}
-          </Text>
+          </AwaText>
 
-          <View style={styles.highlightBox}>
+          <AwaCard variant="filled" padding="none" style={styles.highlightBox}>
             <MaterialDesignIcons
               name="calendar-heart"
               size={23}
@@ -970,20 +1028,20 @@ export default function PcosHormonalAcneArticleScreen({
             />
 
             <View style={styles.highlightCopy}>
-              <Text style={styles.highlightTitle}>{content.highlightTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.highlightTitle}</AwaText>
 
-              <Text style={styles.highlightText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.highlightText}>
                 {content.highlightText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* 5 */}
-          <Text style={styles.h2}>5. {content.h5Title}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>5. {content.h5Title}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body5a}
-          </Text>
+          </AwaText>
 
           <View style={styles.daily}>
             {CARE_HABIT_ICONS.map((icon, index) => (
@@ -994,36 +1052,36 @@ export default function PcosHormonalAcneArticleScreen({
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>
+                <AwaText variant="bodySmall" style={styles.dailyText}>
                   {content.careHabits[index]}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </View>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body5b}
-          </Text>
+          </AwaText>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons name="doctor" size={24} color={theme.colors.warning} />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.alertTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.alertText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* 6 */}
-          <Text style={styles.h2}>6. {content.h6Title}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>6. {content.h6Title}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body6}
-          </Text>
+          </AwaText>
 
-          <View style={styles.consultCard}>
+          <AwaCard variant="filled" padding="none" style={styles.consultCard}>
             {CONSULT_REASON_ICONS.map((icon, index) => (
               <View key={icon} style={styles.consultRow}>
                 <View style={styles.consultIcon}>
@@ -1034,17 +1092,17 @@ export default function PcosHormonalAcneArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.consultText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.consultText}>
                   {content.consultReasons[index]}
-                </Text>
+                </AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* 7 */}
-          <Text style={styles.h2}>7. {content.h7Title}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>7. {content.h7Title}</AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
               <MaterialDesignIcons
                 name="check-decagram-outline"
@@ -1052,19 +1110,19 @@ export default function PcosHormonalAcneArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.summaryTitle}>{content.summaryTitle}</Text>
+              <AwaText variant="titleMedium" emphasized>{content.summaryTitle}</AwaText>
             </View>
 
             {content.keyPoints.map(item => (
               <View key={item} style={styles.summaryRow}>
                 <MaterialDesignIcons name="check" size={17} color={theme.colors.success} />
-                <Text style={styles.summaryText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* FINAL NOTE */}
-          <View style={styles.finalNote}>
+          <AwaCard variant="filled" padding="none" style={styles.finalNote}>
             <MaterialDesignIcons
               name="shield-check-outline"
               size={23}
@@ -1072,15 +1130,15 @@ export default function PcosHormonalAcneArticleScreen({
             />
 
             <View style={styles.finalNoteCopy}>
-              <Text style={styles.finalNoteTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.finalNoteTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.finalNoteText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.finalNoteText}>
                 {content.finalNoteText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
         </View>
       </ScrollView>
 
@@ -1092,7 +1150,7 @@ export default function PcosHormonalAcneArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
   top: {
@@ -1105,75 +1163,43 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
-  },
-  badgeText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
   },
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 27,
-    lineHeight: 32,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 9.5, color: theme.colors.textMuted},
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '600',
+    marginTop: 16,
   },
   introSecondary: {
-    marginTop: 9,
-    fontSize: 13.5,
-    lineHeight: 20.5,
-    color: theme.colors.textMuted,
+    marginTop: 8,
   },
   contents: {
     marginTop: 20,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    padding: 16,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
+  contentsTitle: {marginBottom: 8},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -1181,147 +1207,107 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 25, color: theme.colors.primary, fontSize: 11.5, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.3, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 25},
+  contentText: {flex: 1},
   h2: {
-    marginTop: 25,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 24,
   },
-  body: {marginTop: 9, fontSize: 14, lineHeight: 21.5, color: theme.colors.textSecondary},
+  body: {marginTop: 8},
   tip: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
-  tipText: {marginTop: 4, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  tipCopy: {flex: 1, marginLeft: 12},
+  tipText: {marginTop: 4},
   neutralBox: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 9,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    gap: 8,
   },
-  neutralText: {flex: 1, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
-  daily: {marginTop: 13, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
+  neutralText: {flex: 1},
+  daily: {marginTop: 12, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
   dailyItem: {
     width: '48.7%',
     minHeight: 108,
     padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
   dailyText: {
-    marginTop: 7,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.text,
+    marginTop: 8,
     textAlign: 'center',
   },
   highlightBox: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
-  highlightCopy: {flex: 1, marginLeft: 10},
-  highlightTitle: {color: theme.colors.text, fontSize: 13, fontWeight: '800'},
+  highlightCopy: {flex: 1, marginLeft: 12},
   highlightText: {
     marginTop: 4,
-    color: theme.colors.textSecondary,
-    fontSize: 11.5,
-    lineHeight: 17,
   },
   alert: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
   consultCard: {
-    marginTop: 14,
-    padding: 13,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 12,
   },
   consultRow: {
     minHeight: 43,
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 7,
+    marginBottom: 8,
   },
   consultIcon: {
     width: 34,
     height: 34,
-    borderRadius: 10,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
   consultText: {
     flex: 1,
-    marginLeft: 10,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 17,
+    marginLeft: 12,
   },
   summaryCard: {
-    marginTop: 15,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
   summaryHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
+    gap: 8,
     marginBottom: 12,
   },
-  summaryTitle: {color: theme.colors.text, fontSize: 15, fontWeight: '800'},
   summaryRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 9,
+    marginBottom: 8,
   },
-  summaryText: {flex: 1, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
+  summaryText: {flex: 1},
   finalNote: {
-    marginTop: 18,
-    padding: 14,
+    marginTop: 20,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
   },
-  finalNoteCopy: {flex: 1, marginLeft: 10},
-  finalNoteTitle: {color: theme.colors.text, fontSize: 13, fontWeight: '800'},
+  finalNoteCopy: {flex: 1, marginLeft: 12},
   finalNoteText: {
     marginTop: 4,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    lineHeight: 16.5,
   },
   });
 }

@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -635,6 +636,96 @@ const CONTENT = {
       tip2Text: '阴道环将持续的激素释放与无需每天服药的使用节奏结合在一起。不过，避孕方式的选择应因人而异，并与医疗专业人员讨论。',
       shareMessage: '避孕阴道环 — AWA',
     },
+  id: {
+    badge: 'CINCIN VAGINA',
+    title: 'Cincin vagina\nkontrasepsi',
+    metaDuration: '5 menit baca',
+    metaType: 'Artikel',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Cincin yang lentur, dipakai selama tiga minggu.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Cara kerja cincin',
+      'Pemasangan dan pelepasan',
+      'Yang perlu kamu ketahui',
+      'Poin penting',
+    ],
+    body1: 'Cincin ini adalah alat lentur yang terus-menerus melepaskan hormon dosis rendah langsung di dalam vagina, dengan kerja kontrasepsi yang sama seperti pil kombinasi.',
+    flowTitle: 'Cara kerjanya',
+    flowSteps: [
+      {
+        title: 'Cincin',
+        text: 'Ditempatkan di dalam vagina',
+      },
+      {
+        title: 'Hormon',
+        text: 'Dilepaskan terus-menerus',
+      },
+      {
+        title: 'Perlindungan',
+        text: 'Kerja kontrasepsi',
+      },
+    ],
+    body2: 'Kamu memasangnya sendiri, cincin tetap berada di tempatnya terus-menerus selama tiga minggu, lalu dilepas untuk jeda satu minggu, dan haid terjadi pada masa jeda itu.',
+    calendarTitle: 'Ritme sederhana yang mudah diikuti',
+    weekLabelActive: 'Cincin',
+    weekLabelPause: 'Jeda',
+    legendActive: 'Minggu dengan cincin',
+    legendPause: 'Minggu jeda',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Posisi pastinya di dalam vagina tidak perlu tepat agar cincin tetap efektif, sehingga penggunaannya mudah.',
+    body3: 'Cincin ini memiliki beberapa hal praktis yang perlu diketahui sebelum kamu memilihnya.',
+    careTips: [
+      {
+        title: 'Mudah digunakan',
+        text: 'Kamu memasang dan melepasnya sendiri.',
+      },
+      {
+        title: 'Ritme yang teratur',
+        text: 'Cincin umumnya tetap berada di tempatnya selama tiga minggu.',
+      },
+      {
+        title: 'Kerja yang berkelanjutan',
+        text: 'Hormon dilepaskan terus-menerus selama masa pemakaian.',
+      },
+      {
+        title: 'Tidak melindungi dari IMS',
+        text: 'Perlindungan tambahan mungkin diperlukan tergantung situasinya.',
+      },
+    ],
+    checkListTitle: 'Kebiasaan baik yang perlu dijaga',
+    practicalSteps: [
+      'Cuci tangan sebelum memasang atau melepasnya',
+      'Pilih waktu yang mudah diingat agar jadwalnya terpantau',
+      'Sesekali periksa bahwa cincin masih di tempatnya',
+      'Baca leaflet jika cincin bergeser atau keluar sendiri',
+    ],
+    alertTitle: 'Harap diperhatikan',
+    alertText: 'Cincin yang keluar sendiri atau bergeser dalam waktu lama mungkin memerlukan panduan khusus. Selalu periksa leaflet alatnya atau tanyakan kepada tenaga kesehatan jika kamu ragu.',
+    summaryTitle: 'Intinya dalam 4 poin',
+    summaryItems: [
+      {
+        title: 'Pemasangan yang mudah',
+        text: 'Cincin bisa dipasang dan dilepas sendiri.',
+      },
+      {
+        title: 'Ritme mingguan',
+        text: 'Umumnya mengikuti siklus tiga minggu dengan jeda satu minggu.',
+      },
+      {
+        title: 'Pemeriksaan sesekali',
+        text: 'Memeriksa secara teratur bahwa cincin masih di tempatnya membantumu menggunakan alat ini dengan tenang.',
+      },
+      {
+        title: 'Tidak melindungi dari IMS',
+        text: 'Perlindungan yang sesuai mungkin diperlukan tergantung situasinya.',
+      },
+    ],
+    tip2Title: 'Poin penting',
+    tip2Text: 'Cincin vagina memadukan pelepasan hormon yang berkelanjutan dengan ritme pemakaian yang tidak memerlukan dosis harian. Namun, pilihan kontrasepsi sebaiknya disesuaikan dengan masing-masing orang dan dibicarakan dengan tenaga kesehatan.',
+    shareMessage: 'Cincin vagina kontrasepsi — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -708,51 +799,30 @@ export default function VaginalRingArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -760,10 +830,10 @@ export default function VaginalRingArticleScreen({
         {/* ARTICLE */}
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>{content.title}</Text>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>{content.title}</AwaText>
 
           {/* META */}
           <View style={styles.metas}>
@@ -783,24 +853,24 @@ export default function VaginalRingArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>{content.intro}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.intro}>{content.intro}</AwaText>
 
           {/* TABLE OF CONTENTS */}
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
 
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -810,16 +880,16 @@ export default function VaginalRingArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 1 */}
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>{content.body1}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.body1}</AwaText>
 
           {/* VISUAL SCHEMA */}
-          <View style={styles.flowCard}>
-            <Text style={styles.flowTitle}>{content.flowTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.flowCard}>
+            <AwaText variant="titleSmall" emphasized style={styles.flowTitle}>{content.flowTitle}</AwaText>
 
             <View style={styles.flow}>
               <View style={styles.flowStep}>
@@ -831,13 +901,13 @@ export default function VaginalRingArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.flowStepTitle}>
+                <AwaText variant="labelSmall" emphasized style={styles.flowStepTitle}>
                   {content.flowSteps[0].title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.flowStepText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.flowStepText}>
                   {content.flowSteps[0].text}
-                </Text>
+                </AwaText>
               </View>
 
               <MaterialDesignIcons
@@ -855,13 +925,13 @@ export default function VaginalRingArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.flowStepTitle}>
+                <AwaText variant="labelSmall" emphasized style={styles.flowStepTitle}>
                   {content.flowSteps[1].title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.flowStepText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.flowStepText}>
                   {content.flowSteps[1].text}
-                </Text>
+                </AwaText>
               </View>
 
               <MaterialDesignIcons
@@ -879,60 +949,60 @@ export default function VaginalRingArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.flowStepTitle}>
+                <AwaText variant="labelSmall" emphasized style={styles.flowStepTitle}>
                   {content.flowSteps[2].title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.flowStepText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.flowStepText}>
                   {content.flowSteps[2].text}
-                </Text>
+                </AwaText>
               </View>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 2 */}
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>{content.body2}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.body2}</AwaText>
 
           {/* 3 WEEK SCHEMA */}
-          <View style={styles.calendarCard}>
-            <Text style={styles.calendarTitle}>{content.calendarTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.calendarCard}>
+            <AwaText variant="titleSmall" emphasized style={styles.calendarTitle}>{content.calendarTitle}</AwaText>
 
             <View style={styles.weekRow}>
               <View style={styles.weekItemActive}>
-                <Text style={styles.weekNumber}>1</Text>
-                <Text style={styles.weekLabel}>{content.weekLabelActive}</Text>
+                <AwaText variant="titleMedium" emphasized colorRole="primary">1</AwaText>
+                <AwaText variant="labelSmall" style={styles.weekLabel}>{content.weekLabelActive}</AwaText>
               </View>
 
               <View style={styles.weekItemActive}>
-                <Text style={styles.weekNumber}>2</Text>
-                <Text style={styles.weekLabel}>{content.weekLabelActive}</Text>
+                <AwaText variant="titleMedium" emphasized colorRole="primary">2</AwaText>
+                <AwaText variant="labelSmall" style={styles.weekLabel}>{content.weekLabelActive}</AwaText>
               </View>
 
               <View style={styles.weekItemActive}>
-                <Text style={styles.weekNumber}>3</Text>
-                <Text style={styles.weekLabel}>{content.weekLabelActive}</Text>
+                <AwaText variant="titleMedium" emphasized colorRole="primary">3</AwaText>
+                <AwaText variant="labelSmall" style={styles.weekLabel}>{content.weekLabelActive}</AwaText>
               </View>
 
               <View style={styles.weekItemPause}>
-                <Text style={styles.weekNumber}>4</Text>
-                <Text style={styles.weekLabel}>{content.weekLabelPause}</Text>
+                <AwaText variant="titleMedium" emphasized colorRole="primary">4</AwaText>
+                <AwaText variant="labelSmall" style={styles.weekLabel}>{content.weekLabelPause}</AwaText>
               </View>
             </View>
 
             <View style={styles.calendarLegend}>
               <View style={styles.legendDotActive} />
 
-              <Text style={styles.legendText}>{content.legendActive}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{content.legendActive}</AwaText>
 
               <View style={styles.legendDotPause} />
 
-              <Text style={styles.legendText}>{content.legendPause}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{content.legendPause}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -940,21 +1010,21 @@ export default function VaginalRingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
 
-              <Text style={styles.tipText}>{content.tip1Text}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.tip1Text}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 3 */}
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.body}>{content.body3}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.body3}</AwaText>
 
           {/* INFORMATION GRID */}
           <View style={styles.infoGrid}>
             {CARE_TIP_ICONS.map((icon, index) => (
-              <View key={content.careTips[index].title} style={styles.infoCard}>
+              <AwaCard variant="filled" padding="none" key={content.careTips[index].title} style={styles.infoCard}>
                 <View style={styles.infoIcon}>
                   <MaterialDesignIcons
                     name={icon as never}
@@ -963,20 +1033,20 @@ export default function VaginalRingArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.infoTitle}>
+                <AwaText variant="titleSmall" emphasized style={styles.infoTitle}>
                   {content.careTips[index].title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.infoText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>
                   {content.careTips[index].text}
-                </Text>
-              </View>
+                </AwaText>
+              </AwaCard>
             ))}
           </View>
 
           {/* PRACTICAL CHECKLIST */}
-          <View style={styles.checkList}>
-            <Text style={styles.checkListTitle}>{content.checkListTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
+            <AwaText variant="titleSmall" emphasized style={styles.checkListTitle}>{content.checkListTitle}</AwaText>
 
             {content.practicalSteps.map(item => (
               <View key={item} style={styles.checkRow}>
@@ -986,13 +1056,13 @@ export default function VaginalRingArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* WARNING */}
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
@@ -1000,17 +1070,17 @@ export default function VaginalRingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.alertTitle}</AwaText>
 
-              <Text style={styles.tipText}>{content.alertText}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.alertText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 4 */}
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
           {/* SUMMARY SCHEMA */}
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
               <MaterialDesignIcons
                 name="check-decagram-outline"
@@ -1018,75 +1088,75 @@ export default function VaginalRingArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.summaryTitle}>{content.summaryTitle}</Text>
+              <AwaText variant="titleSmall" emphasized style={styles.summaryTitle}>{content.summaryTitle}</AwaText>
             </View>
 
             <View style={styles.summaryItem}>
               <View style={styles.summaryNumber}>
-                <Text style={styles.summaryNumberText}>1</Text>
+                <AwaText variant="labelSmall" emphasized colorRole="primary">1</AwaText>
               </View>
 
               <View style={styles.summaryCopy}>
-                <Text style={styles.summaryItemTitle}>
+                <AwaText variant="titleSmall" emphasized>
                   {content.summaryItems[0].title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.summaryItemText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryItemText}>
                   {content.summaryItems[0].text}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
             <View style={styles.summaryItem}>
               <View style={styles.summaryNumber}>
-                <Text style={styles.summaryNumberText}>2</Text>
+                <AwaText variant="labelSmall" emphasized colorRole="primary">2</AwaText>
               </View>
 
               <View style={styles.summaryCopy}>
-                <Text style={styles.summaryItemTitle}>
+                <AwaText variant="titleSmall" emphasized>
                   {content.summaryItems[1].title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.summaryItemText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryItemText}>
                   {content.summaryItems[1].text}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
             <View style={styles.summaryItem}>
               <View style={styles.summaryNumber}>
-                <Text style={styles.summaryNumberText}>3</Text>
+                <AwaText variant="labelSmall" emphasized colorRole="primary">3</AwaText>
               </View>
 
               <View style={styles.summaryCopy}>
-                <Text style={styles.summaryItemTitle}>
+                <AwaText variant="titleSmall" emphasized>
                   {content.summaryItems[2].title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.summaryItemText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryItemText}>
                   {content.summaryItems[2].text}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
             <View style={styles.summaryItem}>
               <View style={styles.summaryNumber}>
-                <Text style={styles.summaryNumberText}>4</Text>
+                <AwaText variant="labelSmall" emphasized colorRole="primary">4</AwaText>
               </View>
 
               <View style={styles.summaryCopy}>
-                <Text style={styles.summaryItemTitle}>
+                <AwaText variant="titleSmall" emphasized>
                   {content.summaryItems[3].title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.summaryItemText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryItemText}>
                   {content.summaryItems[3].text}
-                </Text>
+                </AwaText>
               </View>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="heart-outline"
               size={24}
@@ -1094,11 +1164,11 @@ export default function VaginalRingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tip2Title}</AwaText>
 
-              <Text style={styles.tipText}>{content.tip2Text}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.tip2Text}</AwaText>
             </View>
-          </View>
+          </AwaCard>
         </View>
       </ScrollView>
 
@@ -1119,7 +1189,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   heroWrap: {
@@ -1147,54 +1217,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -1204,7 +1251,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -1213,31 +1260,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 10,
-    color: theme.colors.textMuted,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '500',
+    marginTop: 16,
   },
 
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -1255,48 +1289,29 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 24,
-    color: theme.colors.primary,
-    fontSize: 12,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.5,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   body: {
     marginTop: 8,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
   },
 
   /* FUNCTIONING SCHEMA */
 
   flowCard: {
-    marginTop: 14,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 16,
+    padding: 16,
   },
 
   flowTitle: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
-    marginBottom: 15,
+    marginBottom: 16,
   },
 
   flow: {
@@ -1322,48 +1337,35 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   flowStepTitle: {
-    marginTop: 7,
-    fontSize: 11.5,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginTop: 8,
     textAlign: 'center',
   },
 
   flowStepText: {
     marginTop: 3,
-    fontSize: 9.5,
-    lineHeight: 13,
-    color: theme.colors.textMuted,
     textAlign: 'center',
   },
 
   /* CALENDAR SCHEMA */
 
   calendarCard: {
-    marginTop: 14,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   calendarTitle: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
-    marginBottom: 14,
+    marginBottom: 16,
   },
 
   weekRow: {
     flexDirection: 'row',
-    gap: 7,
+    gap: 8,
   },
 
   weekItemActive: {
     flex: 1,
     minHeight: 68,
-    borderRadius: 11,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
@@ -1374,7 +1376,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   weekItemPause: {
     flex: 1,
     minHeight: 68,
-    borderRadius: 11,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.surfaceSecondary,
@@ -1382,25 +1384,17 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderColor: theme.colors.border,
   },
 
-  weekNumber: {
-    fontSize: 18,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   weekLabel: {
     marginTop: 3,
-    fontSize: 10,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   calendarLegend: {
-    marginTop: 13,
+    marginTop: 12,
     flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap',
-    gap: 5,
+    gap: 4,
   },
 
   legendDotActive: {
@@ -1418,58 +1412,40 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.textMuted,
   },
 
-  legendText: {
-    fontSize: 9.5,
-    color: theme.colors.textMuted,
-  },
 
   /* TIP */
 
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 3,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   /* INFORMATION GRID */
 
   infoGrid: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    gap: 9,
+    gap: 8,
   },
 
   infoCard: {
     width: '48.5%',
     minHeight: 150,
-    padding: 13,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 12,
   },
 
   infoIcon: {
@@ -1484,92 +1460,67 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   infoTitle: {
-    marginTop: 10,
-    fontSize: 12,
-    lineHeight: 16,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginTop: 12,
   },
 
   infoText: {
-    marginTop: 5,
-    fontSize: 10.5,
-    lineHeight: 15,
-    color: theme.colors.textSecondary,
+    marginTop: 4,
   },
 
   /* CHECKLIST */
 
   checkList: {
-    marginTop: 14,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   checkListTitle: {
-    marginBottom: 11,
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 12,
   },
 
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 9,
+    marginBottom: 8,
   },
 
   checkText: {
     flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 17,
   },
 
   /* ALERT */
 
   alert: {
-    marginTop: 14,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   /* SUMMARY */
 
   summaryCard: {
-    marginTop: 14,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   summaryHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
-    marginBottom: 14,
+    gap: 8,
+    marginBottom: 16,
   },
 
   summaryTitle: {
     flex: 1,
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
 
   summaryItem: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 13,
+    marginBottom: 12,
   },
 
   summaryNumber: {
@@ -1581,28 +1532,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  summaryNumberText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   summaryCopy: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 12,
   },
 
-  summaryItemTitle: {
-    fontSize: 12,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   summaryItemText: {
     marginTop: 2,
-    fontSize: 10.5,
-    lineHeight: 15,
-    color: theme.colors.textSecondary,
   },
   });
 }

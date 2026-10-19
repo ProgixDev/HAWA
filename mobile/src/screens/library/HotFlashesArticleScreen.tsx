@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -868,6 +869,108 @@ const CONTENT = {
       disclaimerText: '本文仅供参考，不能替代个性化的医疗建议。',
       shareMessage: '从容应对潮热 — AWA',
     },
+  id: {
+    badge: 'HOT FLASH',
+    title: 'Mengatasi\nhot flash',
+    metaDuration: '10 menit baca',
+    metaType: 'Artikel',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten yang telah ditinjau',
+    intro: 'Mengapa hot flash terjadi, cara mengenali pemicunya, dan solusi apa yang mungkin membantu ketika gejala ini mulai mengganggu.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Mengapa hot flash terjadi',
+      'Keringat malam',
+      'Pemicu yang umum',
+      'Kebiasaan sehari-hari yang membantu',
+      'Kapan harus bicara dengan tenaga profesional',
+      'Poin-poin penting',
+    ],
+    section1Body1: 'Hot flash sangat umum terjadi pada masa transisi menuju menopause. Gejala ini sebagian berkaitan dengan perubahan hormon yang memengaruhi cara otak mengatur suhu tubuh.',
+    section1Body2: 'Pergeseran kecil pada suhu tubuh kemudian bisa terasa seperti panas yang tiba-tiba. Tubuh merespons dengan melebarkan pembuluh darah di kulit, yang dapat menimbulkan sensasi panas, wajah memerah, dan terkadang keringat yang banyak.',
+    highlight1Title: 'Setiap orang berbeda',
+    highlight1Text: 'Sebagian wanita mengalami beberapa kali dalam seminggu, sementara yang lain bisa mengalaminya beberapa kali sehari. Intensitas dan durasinya juga bisa bervariasi.',
+    section2Body1: 'Ketika terjadi saat tidur, hot flash dapat menyebabkan keringat malam. Hal ini bisa membuatmu terbangun berulang kali dan membuat tidur kurang nyenyak.',
+    section2Body2: 'Kurang tidur kemudian dapat menambah rasa lelah, sulit berkonsentrasi, dan mudah tersinggung di siang hari. Karena itu, kualitas tidur sebaiknya ikut dipertimbangkan saat menilai dampak gejalamu.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Piama yang menyerap keringat, seprai yang tipis, dan kamar tidur yang cukup sejuk dapat membantu mengurangi rasa tidak nyaman di malam hari.',
+    section3Body1: 'Beberapa faktor dapat memicu atau memperkuat hot flash. Faktor-faktor ini belum tentu menimbulkan gejala pada semua orang, tetapi mengenalinya dapat membantumu memahami pola dirimu sendiri.',
+    triggers: [
+      'Kafein dan alkohol',
+      'Makanan pedas',
+      'Stres dan emosi yang kuat',
+      'Ruangan yang terlalu panas atau pakaian yang terlalu tebal',
+    ],
+    tip2Title: 'Kebiasaan kecil yang membantu',
+    tip2Text: 'Selama beberapa minggu, catat kapan hot flash terjadi, seberapa kuat, dan apa yang terjadi tepat sebelumnya. Ini dapat membantumu mengenali pemicu pribadimu.',
+    dailyHabits: [
+      'Kenakan pakaian tipis berlapis',
+      'Jaga ruanganmu tetap sejuk dan berventilasi baik',
+      'Latih pernapasan perlahan saat hot flash terjadi',
+      'Minum air dingin secara teratur',
+    ],
+    section4Body1: 'Langkah-langkah ini belum tentu membuat hot flash hilang, tetapi dapat membuat setiap episode lebih mudah dihadapi dan mengurangi rasa tidak nyaman saat terjadi.',
+    section5Body1: 'Hot flash umum terjadi pada masa perimenopause dan menopause. Meski begitu, kamu tidak harus sekadar menahannya jika sudah sulit dijalani. Dokter atau bidan dapat menilai gejalamu dan membahas berbagai pilihan bersamamu.',
+    whenAppointmentTitle: 'Kapan sebaiknya membuat janji?',
+    section5Body2: 'Konsultasi bisa sangat membantu ketika gejala berdampak besar pada kehidupan sehari-harimu atau ketika kamu ingin tahu pilihan apa saja yang tersedia.',
+    consultReasons: [
+      {
+        title: 'Ketika tidur terganggu',
+        text: 'Hot flash atau keringat malam yang sering, yang menyebabkan terbangun berulang kali, rasa lelah yang berat, atau kesulitan menjalani hari dengan normal.',
+      },
+      {
+        title: 'Ketika kehidupan sehari-hari menjadi sulit',
+        text: 'Jika hot flash mengganggu pekerjaan, aktivitas, perjalanan, hubungan sosial, atau sekadar kenyamanan harianmu.',
+      },
+      {
+        title: 'Ketika gejala makin sering',
+        text: 'Peningkatan frekuensi atau intensitas gejala yang jelas layak dibicarakan agar bisa ditemukan solusi yang paling sesuai.',
+      },
+      {
+        title: 'Jika kamu mempertimbangkan pengobatan',
+        text: 'Pilihan hormonal dan nonhormonal dapat ditawarkan sesuai kondisimu. Tenaga profesional dapat membantumu menimbang manfaat, risiko, dan kemungkinan kontraindikasinya.',
+      },
+    ],
+    notMenopauseTitle: 'Jangan mengaitkan semuanya dengan menopause',
+    notMenopauseBody: 'Hot flash bisa memiliki berbagai penyebab. Beberapa gejala juga mungkin berkaitan dengan obat, kondisi medis lain, atau perubahan penting pada kesehatanmu. Jika ada yang terasa tidak biasa, baru, atau sangat kuat, sebaiknya bicarakan dengan tenaga profesional, bukan langsung menganggapnya menopause.',
+    alertTitle: 'Segera cari pertolongan',
+    alertText: 'Nyeri dada, sesak napas mendadak, rasa akan pingsan, kelemahan mendadak, atau pembengkakan yang tidak biasa dan nyeri pada satu tungkai memerlukan penanganan medis segera.',
+    emergencySignsTitle: 'Tanda apa yang perlu diperhatikan secara khusus?',
+    emergencySigns: [
+      'Nyeri dada yang tidak biasa atau berat',
+      'Sesak napas mendadak atau kesulitan bernapas yang berat',
+      'Rasa akan pingsan atau kehilangan kesadaran',
+      'Kelemahan mendadak, atau kesulitan berbicara atau melihat',
+      'Pembengkakan yang nyeri dan tidak biasa pada satu tungkai',
+    ],
+    solutionsTitle: 'Solusi apa yang mungkin tersedia?',
+    solutionsBody: 'Jika hot flash cukup mengganggu sehingga perlu ditangani, beberapa pendekatan dapat dipertimbangkan. Tergantung kondisimu, tenaga profesional dapat membahas langkah gaya hidup, pengobatan nonhormonal, atau, bila sesuai, terapi hormon.',
+    highlight2Title: 'Pengobatan dipilih kasus per kasus',
+    highlight2Text: 'Usia, gejala, riwayat kesehatan, pengobatan yang sedang dijalani, dan preferensi pribadi semuanya dapat memengaruhi pilihan yang ditawarkan.',
+    prepareTitle: 'Mempersiapkan janji temumu',
+    prepareBody: 'Datang dengan sedikit informasi dapat membuat konsultasi lebih bermanfaat. Selama beberapa hari atau minggu, kamu bisa mencatat seberapa sering episode terjadi, seberapa kuat, dan dampaknya pada tidur atau aktivitasmu.',
+    questionsTitle: 'Informasi berguna untuk disiapkan',
+    appointmentQuestions: [
+      'Seberapa sering hot flash terjadi?',
+      'Sudah berapa lama kamu mengalaminya?',
+      'Apakah cenderung terjadi di siang hari, malam hari, atau keduanya?',
+      'Apakah mengganggu tidur atau aktivitasmu?',
+      'Apakah kamu sudah mengenali pemicunya?',
+      'Apakah kamu sedang mengonsumsi obat atau memakai kontrasepsi hormonal?',
+    ],
+    professionalTipText: 'Kamu tidak perlu menunggu gejala menjadi sangat berat sebelum membicarakannya. Konsultasi juga bisa sekadar membantumu memahami apa yang terjadi dan mengetahui solusi yang tersedia.',
+    summaryTitle: 'Intinya',
+    summaryItems: [
+      'Hot flash umum terjadi pada masa transisi menopause.',
+      'Mengenali pemicumu dapat membantu menghadapi setiap episode dengan lebih baik.',
+      'Kebiasaan sederhana dapat mengurangi rasa tidak nyaman sehari-hari.',
+      'Jika gejala mengganggu tidur atau kehidupan sehari-harimu, bicarakan dengan tenaga profesional.',
+      'Beberapa pilihan penanganan dapat dibahas sesuai kondisimu.',
+    ],
+    finalTipText: 'Hot flash memang umum, tetapi jangan diabaikan ketika memengaruhi tidur, pekerjaan, atau kesejahteraanmu. Memperhatikan gejalamu dan berbicara dengan tenaga profesional dapat membantumu memahami penyebabnya dan menjajaki solusi yang sesuai.',
+    disclaimerText: 'Artikel ini hanya untuk tujuan informasi dan tidak menggantikan saran medis yang dipersonalisasi.',
+    shareMessage: 'Mengatasi hot flash — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -959,55 +1062,34 @@ export default function HotFlashesArticleScreen({
                 ),
               },
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
-                onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={
+                icon={
                     saved
                       ? 'bookmark'
                       : 'bookmark-outline'
                   }
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                iconSize={20}
+                onPress={handleBookmark}
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -1018,16 +1100,16 @@ export default function HotFlashesArticleScreen({
           {/* BADGE */}
 
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">
               {content.badge}
-            </Text>
+            </AwaText>
           </View>
 
           {/* TITLE */}
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           {/* METADATA */}
 
@@ -1053,9 +1135,9 @@ export default function HotFlashesArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                     {text}
-                  </Text>
+                  </AwaText>
                 </View>
               </React.Fragment>
             ))}
@@ -1063,29 +1145,29 @@ export default function HotFlashesArticleScreen({
 
           {/* INTRO */}
 
-          <Text style={styles.intro}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
           {/* TABLE OF CONTENTS */}
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>
               {content.contentsTitle}
-            </Text>
+            </AwaText>
 
             {content.topics.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>
                     {index + 1}.
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.contentText}>
+                  <AwaText variant="bodySmall" style={styles.contentText}>
                     {item}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -1095,23 +1177,23 @@ export default function HotFlashesArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 1 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             1. {content.topics[0]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.highlight}>
+          <AwaCard variant="filled" padding="none" style={styles.highlight}>
             <MaterialDesignIcons
               name="thermometer"
               size={23}
@@ -1119,31 +1201,31 @@ export default function HotFlashesArticleScreen({
             />
 
             <View style={styles.highlightCopy}>
-              <Text style={styles.highlightTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.highlight1Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.highlightText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.highlightText}>
                 {content.highlight1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 2 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             2. {content.topics[1]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section2Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section2Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -1151,27 +1233,27 @@ export default function HotFlashesArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.tip1Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 3 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             3. {content.topics[2]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section3Body1}
-          </Text>
+          </AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.triggers.map(item => (
               <View
                 key={item}
@@ -1182,14 +1264,14 @@ export default function HotFlashesArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>
                   {item}
-                </Text>
+                </AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="notebook-edit-outline"
               size={24}
@@ -1197,21 +1279,21 @@ export default function HotFlashesArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.tip2Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 4 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             4. {content.topics[3]}
-          </Text>
+          </AwaText>
 
           <View style={styles.daily}>
             {content.dailyHabits.map((label, index) => (
@@ -1224,38 +1306,38 @@ export default function HotFlashesArticleScreen({
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>
+                <AwaText variant="bodySmall" style={styles.dailyText}>
                   {label}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </View>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section4Body1}
-          </Text>
+          </AwaText>
 
           {/* SECTION 5 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             5. {content.topics[4]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section5Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.h3}>
+          <AwaText variant="titleMedium" emphasized style={styles.h3}>
             {content.whenAppointmentTitle}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section5Body2}
-          </Text>
+          </AwaText>
 
           <View style={styles.consultList}>
             {content.consultReasons.map((item, index) => (
-              <View
+              <AwaCard variant="filled" padding="none"
                 key={item.title}
                 style={styles.consultCard}>
                 <View style={styles.consultIcon}>
@@ -1267,29 +1349,29 @@ export default function HotFlashesArticleScreen({
                 </View>
 
                 <View style={styles.consultCopy}>
-                  <Text style={styles.consultTitle}>
+                  <AwaText variant="titleSmall" emphasized>
                     {item.title}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.consultText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.consultText}>
                     {item.text}
-                  </Text>
+                  </AwaText>
                 </View>
-              </View>
+              </AwaCard>
             ))}
           </View>
 
-          <Text style={styles.h3}>
+          <AwaText variant="titleMedium" emphasized style={styles.h3}>
             {content.notMenopauseTitle}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.notMenopauseBody}
-          </Text>
+          </AwaText>
 
           {/* ALERT */}
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-circle-outline"
               size={24}
@@ -1297,21 +1379,21 @@ export default function HotFlashesArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.alertTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.alertText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h3}>
+          <AwaText variant="titleMedium" emphasized style={styles.h3}>
             {content.emergencySignsTitle}
-          </Text>
+          </AwaText>
 
-          <View style={styles.warningList}>
+          <AwaCard variant="filled" padding="none" style={styles.warningList}>
             {content.emergencySigns.map(item => (
               <View
                 key={item}
@@ -1322,22 +1404,22 @@ export default function HotFlashesArticleScreen({
                   color={theme.colors.warning}
                 />
 
-                <Text style={styles.warningText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.warningText}>
                   {item}
-                </Text>
+                </AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h3}>
+          <AwaText variant="titleMedium" emphasized style={styles.h3}>
             {content.solutionsTitle}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.solutionsBody}
-          </Text>
+          </AwaText>
 
-          <View style={styles.highlight}>
+          <AwaCard variant="filled" padding="none" style={styles.highlight}>
             <MaterialDesignIcons
               name="medical-bag"
               size={23}
@@ -1345,27 +1427,27 @@ export default function HotFlashesArticleScreen({
             />
 
             <View style={styles.highlightCopy}>
-              <Text style={styles.highlightTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.highlight2Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.highlightText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.highlightText}>
                 {content.highlight2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h3}>
+          <AwaText variant="titleMedium" emphasized style={styles.h3}>
             {content.prepareTitle}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.prepareBody}
-          </Text>
+          </AwaText>
 
           {/* QUESTIONS */}
 
-          <View style={styles.questionCard}>
+          <AwaCard variant="filled" padding="none" style={styles.questionCard}>
             <View style={styles.questionHeader}>
               <MaterialDesignIcons
                 name="message-question-outline"
@@ -1373,9 +1455,9 @@ export default function HotFlashesArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.questionTitle}>
+              <AwaText variant="titleSmall" emphasized style={styles.questionTitle}>
                 {content.questionsTitle}
-              </Text>
+              </AwaText>
             </View>
 
             {content.appointmentQuestions.map(
@@ -1384,22 +1466,22 @@ export default function HotFlashesArticleScreen({
                   key={item}
                   style={styles.questionRow}>
                   <View style={styles.questionBullet}>
-                    <Text style={styles.questionNumber}>
+                    <AwaText variant="labelSmall" emphasized colorRole="primary">
                       {index + 1}
-                    </Text>
+                    </AwaText>
                   </View>
 
-                  <Text style={styles.questionText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.questionText}>
                     {item}
-                  </Text>
+                  </AwaText>
                 </View>
               ),
             )}
-          </View>
+          </AwaCard>
 
           {/* PROFESSIONAL TIP */}
 
-          <View style={styles.professionalTip}>
+          <AwaCard variant="filled" padding="none" style={styles.professionalTip}>
             <MaterialDesignIcons
               name="doctor"
               size={25}
@@ -1407,23 +1489,23 @@ export default function HotFlashesArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.tip1Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.professionalTipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 6 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             6. {content.topics[5]}
-          </Text>
+          </AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
               <MaterialDesignIcons
                 name="check-decagram-outline"
@@ -1431,9 +1513,9 @@ export default function HotFlashesArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.summaryTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.summaryTitle}
-              </Text>
+              </AwaText>
             </View>
 
             {content.summaryItems.map(item => (
@@ -1444,16 +1526,16 @@ export default function HotFlashesArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.summaryText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
                   {item}
-                </Text>
+                </AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* FINAL TIP */}
 
-          <View style={styles.finalTip}>
+          <AwaCard variant="filled" padding="none" style={styles.finalTip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={25}
@@ -1461,15 +1543,15 @@ export default function HotFlashesArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.topics[5]}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.finalTipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* DISCLAIMER */}
 
@@ -1480,9 +1562,9 @@ export default function HotFlashesArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>
               {content.disclaimerText}
-            </Text>
+            </AwaText>
           </View>
         </View>
       </ScrollView>
@@ -1506,7 +1588,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   heroWrap: {
@@ -1534,54 +1616,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -1591,7 +1650,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -1600,31 +1659,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 10,
-    color: theme.colors.textMuted,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '500',
+    marginTop: 16,
   },
 
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -1642,96 +1688,59 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 24,
-    color: theme.colors.primary,
-    fontSize: 12,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.5,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   h2: {
-    marginTop: 27,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 28,
   },
 
   h3: {
-    marginTop: 22,
-    fontSize: 16,
-    lineHeight: 22,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginTop: 24,
   },
 
   body: {
     marginTop: 8,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
   },
 
   highlight: {
     marginTop: 16,
-    padding: 15,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   highlightCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  highlightTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   highlightText: {
     marginTop: 4,
-    fontSize: 12,
-    lineHeight: 18,
-    color: theme.colors.textSecondary,
   },
 
   checkList: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
 
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 10,
+    marginBottom: 12,
   },
 
   checkText: {
     flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 12.5,
-    lineHeight: 18,
   },
 
   daily: {
-    marginTop: 13,
+    marginTop: 12,
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
@@ -1743,33 +1752,26 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
 
   dailyText: {
-    marginTop: 7,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.text,
+    marginTop: 8,
     textAlign: 'center',
   },
 
   consultList: {
-    marginTop: 14,
-    gap: 10,
+    marginTop: 16,
+    gap: 12,
   },
 
   consultCard: {
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   consultIcon: {
@@ -1783,84 +1785,58 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   consultCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  consultTitle: {
-    fontSize: 13,
-    lineHeight: 18,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   consultText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   alert: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   warningList: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
 
   warningRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 10,
+    marginBottom: 12,
   },
 
   warningText: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 18,
-    color: theme.colors.textSecondary,
   },
 
   questionCard: {
-    marginTop: 15,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   questionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
-    marginBottom: 13,
+    gap: 8,
+    marginBottom: 12,
   },
 
   questionTitle: {
     flex: 1,
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
 
   questionRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 11,
+    marginBottom: 12,
   },
 
   questionBullet: {
@@ -1872,109 +1848,71 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  questionNumber: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   questionText: {
     flex: 1,
-    marginLeft: 9,
+    marginLeft: 8,
     paddingTop: 2,
-    fontSize: 12,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   professionalTip: {
-    marginTop: 14,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   summaryCard: {
-    marginTop: 15,
+    marginTop: 16,
     padding: 16,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   summaryHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
-    marginBottom: 13,
+    gap: 8,
+    marginBottom: 12,
   },
 
-  summaryTitle: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   summaryItem: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 10,
+    marginBottom: 12,
     gap: 8,
   },
 
   summaryText: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 18,
-    color: theme.colors.textSecondary,
   },
 
   finalTip: {
-    marginTop: 15,
-    padding: 15,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   disclaimer: {
     marginTop: 20,
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
@@ -1982,9 +1920,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   disclaimerText: {
     flex: 1,
-    fontSize: 10.5,
-    lineHeight: 16,
-    color: theme.colors.textMuted,
   },
   });
 }

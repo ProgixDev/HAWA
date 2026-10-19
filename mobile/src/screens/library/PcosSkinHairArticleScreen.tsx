@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -878,6 +879,116 @@ const CONTENT = {
       disclaimerText: '本文仅供参考，不能替代医疗咨询、诊断或个性化治疗。',
       shareMessage: '皮肤、毛发与 PCOS 的可见症状 — AWA',
     },
+  id: {
+    badge: 'PCOS',
+    title: 'Kulit, rambut, dan\ngejala yang terlihat',
+    metaDuration: '9 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten yang telah ditinjau',
+    intro: 'PCOS dapat menimbulkan perubahan yang terlihat pada kulit, rambut tubuh, atau rambut kepala. Memahami asal perubahan ini membuatmu lebih mudah mengenalinya dan mengetahui solusi apa yang bisa dipertimbangkan.',
+    infoBannerText: 'Tanda-tanda ini umum terjadi, tetapi dengan sendirinya tidak wajib ada dan tidak cukup untuk mendiagnosis PCOS.',
+    contentsTitle: 'Dalam artikel ini',
+    contents: [
+      'Mengapa gejala ini muncul',
+      'Jerawat hormonal',
+      'Pertumbuhan rambut berlebih',
+      'Rambut menipis',
+      'Merawat kulitmu',
+      'Merawat rambutmu',
+      'Apa yang bisa membantu sehari-hari',
+      'Kapan harus ke dokter',
+      'Kesalahpahaman umum',
+      'Poin-poin penting',
+    ],
+    section1Body1: 'PCOS dapat melibatkan peningkatan produksi atau aktivitas androgen, hormon yang secara alami juga ada pada wanita. Ketika pengaruhnya lebih kuat, hormon ini dapat memengaruhi kelenjar sebasea, folikel rambut, dan siklus pertumbuhan rambut.',
+    section1Body2: 'Pengaruh hormonal inilah yang sebagian besar dapat menjelaskan munculnya jerawat yang membandel, pertumbuhan rambut yang meningkat, atau, pada sebagian wanita, rambut yang menipis.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Gejala yang terlihat belum tentu mencerminkan seberapa berat PCOS. Seorang wanita mungkin memiliki beberapa gejala yang terlihat, sementara yang lain hanya sedikit atau bahkan tidak ada sama sekali.',
+    section2Body1: 'Jerawat yang berkaitan dengan perubahan hormon bisa muncul atau bertahan hingga melewati masa remaja. Jerawat ini cenderung muncul di dagu, garis rahang, pipi bagian bawah, atau terkadang leher.',
+    section2Body2: 'Pada sebagian orang, lesinya dalam, terasa nyeri, dan berulang. Jerawat juga bisa meninggalkan bercak berpigmen atau bekas luka jika dipencet atau ketika peradangannya sangat berat.',
+    skinSignsTitle: 'Kemungkinan tanda pada kulit',
+    skinSigns: [
+      'Jerawat yang membandel, terutama di wajah bagian bawah',
+      'Kulit yang lebih berminyak dari sebelumnya',
+      'Jerawat yang kambuh dan terkadang mengikuti perubahan hormon',
+      'Noda atau bekas luka setelah jerawat kambuh',
+    ],
+    section3Body1: 'Hirsutisme adalah meningkatnya pertumbuhan rambut terminal di area yang biasanya tidak ditumbuhi rambut pada wanita. Dalam konteks PCOS, hal ini bisa berkaitan dengan pengaruh androgen pada folikel rambut.',
+    section3Body2: 'Area yang paling sering terkena adalah dagu, bibir atas, dada, perut, atau punggung. Seberapa banyak rambut yang tumbuh sangat bervariasi dari satu orang ke orang lain.',
+    hairSignsTitle: 'Kemungkinan tanda',
+    hairSigns: [
+      'Pertumbuhan rambut yang lebih terlihat di wajah',
+      'Rambut yang lebih kasar di dagu atau bibir atas',
+      'Pertumbuhan rambut yang bisa muncul di dada, perut, atau punggung',
+      'Rambut yang menipis secara bertahap di bagian puncak kepala',
+    ],
+    tip2Title: 'Perlu diketahui',
+    tip2Text: 'Pertumbuhan rambut juga bergantung pada faktor genetik dan individu. Rambut yang tumbuh terlihat jelas tidak otomatis berarti PCOS.',
+    section4Body1: 'Sebagian wanita dengan PCOS juga merasakan kepadatan rambut yang berkurang. Penipisannya bisa terlihat jelas terutama di puncak kepala atau di sepanjang belahan rambut.',
+    section4Body2: 'Hal ini bisa berkembang secara bertahap. Penting untuk membedakan kerontokan akibat hormon dari penyebab lain yang mungkin, seperti kekurangan zat gizi, masalah tiroid, obat-obatan tertentu, atau masa stres yang berat.',
+    alert1Title: 'Perlu dicatat',
+    alert1Text: 'Kerontokan rambut yang banyak, cepat, atau tidak biasa perlu dievaluasi secara medis untuk mencari penyebabnya.',
+    section5Body: 'Rutinitas yang sederhana dan konsisten umumnya lebih baik daripada memakai banyak produk sekaligus. Tujuannya adalah membersihkan, melembapkan, dan melindungi kulit sambil membatasi hal-hal yang dapat memperpanjang iritasi.',
+    careHabits: [
+      'Rutinitas perawatan kulit yang lembut dan konsisten',
+      'Perlindungan dari sinar matahari setiap hari',
+      'Pola makan seimbang',
+      'Kesabaran: hasilnya butuh waktu',
+    ],
+    section6Body1: 'Ketika rambut menjadi lebih halus, ada baiknya membatasi tekanan yang berulang pada rambut: panas berlebihan, model rambut yang sangat kencang, atau perawatan kimia yang terlalu sering.',
+    section6Body2: 'Konsultasi dengan dokter kulit bisa bermanfaat jika kepadatan rambut terus berkurang, untuk membantu menentukan penyebabnya dan membahas pengobatan yang tersedia.',
+    practicalTitle: 'Tips praktis',
+    practicalTips: [
+      'Pilih produk yang lembut dan hindari menumpuk beberapa perawatan yang mengiritasi',
+      'Bersihkan kulit tanpa membuatnya kering, pagi dan malam jika perlu',
+      'Gunakan pelindung dari sinar matahari saat kulit terpapar',
+      'Hindari memencet jerawat untuk membatasi noda dan bekas luka',
+      'Minta saran dari tenaga profesional jika gejala menetap atau memburuk',
+    ],
+    section7Body: 'Penanganan bergantung pada gejalanya, seberapa kuat gejala itu, dampaknya pada kualitas hidup, dan tujuan masing-masing wanita. Akan membantu jika kamu menangani dari beberapa sisi sekaligus, bukan mencari satu solusi saja.',
+    miniCards: [
+      {
+        title: 'Kulit',
+        text: 'Rutinitas yang sesuai dan saran dokter kulit jika perlu.',
+      },
+      {
+        title: 'Pertumbuhan rambut',
+        text: 'Solusi kosmetik atau medis sesuai situasinya.',
+      },
+      {
+        title: 'Rambut',
+        text: 'Kenali penyebabnya sebelum memilih pengobatan.',
+      },
+      {
+        title: 'Kesejahteraan',
+        text: 'Perhatikan dampak emosional dari gejala.',
+      },
+    ],
+    section8Body1: 'Sebaiknya bicara dengan tenaga kesehatan ketika jerawat menjadi membandel atau nyeri, ketika pertumbuhan rambut meningkat dengan cepat, ketika rambut menipis secara nyata, atau ketika perubahan ini disertai siklus yang sangat tidak teratur.',
+    section8Body2: 'Dokter kulit dapat menangani gejala pada kulit dan rambut. Dokter kandungan atau tenaga profesional berkualifikasi lainnya juga dapat menilai konteks hormonal dan tanda-tanda PCOS lain yang mungkin ada.',
+    alert2Title: 'Temui dokter jika perlu',
+    alert2Text: 'Pertumbuhan rambut yang cepat dan banyak, kerontokan rambut yang tiba-tiba, atau perubahan hormon yang tidak biasa memerlukan saran medis.',
+    ideasReceived: [
+      'Berjerawat tidak otomatis berarti kamu menderita PCOS',
+      'Pertumbuhan rambut yang terlihat belum tentu hanya berkaitan dengan hormon',
+      'PCOS dapat dialami wanita dengan bentuk tubuh apa pun',
+      'Gejala bisa berubah seiring waktu dan tidak sama pada setiap wanita',
+    ],
+    quoteText: 'Gejala PCOS yang terlihat memang bisa membuat frustrasi, tetapi tidak menentukan kefemininanmu, harga dirimu, atau kebersihanmu.',
+    summaryTitle: 'Intinya',
+    summaryItems: [
+      'PCOS dapat memengaruhi kulit, rambut tubuh, dan rambut kepala.',
+      'Gejala sangat bervariasi dari satu wanita ke wanita lain.',
+      'Satu gejala saja tidak cukup untuk mendiagnosis PCOS.',
+      'Ada solusi yang dapat membantu memperbaiki gejala.',
+      'Pendampingan medis dapat membantumu memilih pendekatan yang tepat untukmu.',
+    ],
+    finalTipTitle: 'Poin-poin penting',
+    finalTipText: 'Jerawat, pertumbuhan rambut berlebih, atau kerontokan rambut bisa menjadi gejala PCOS, tetapi bukan sesuatu yang tak terelakkan. Pendekatan yang dipersonalisasi dapat membantumu menangani gejala dengan lebih baik dan merasa lebih nyaman sehari-hari.',
+    disclaimerText: 'Artikel ini hanya untuk informasi dan tidak menggantikan konsultasi medis, diagnosis, atau pengobatan yang dipersonalisasi.',
+    shareMessage: 'Kulit, rambut, dan gejala PCOS yang terlihat — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -950,58 +1061,40 @@ export default function PcosSkinHairArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>{content.title}</Text>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>{content.title}</AwaText>
 
           <View style={styles.metas}>
             {[
@@ -1020,32 +1113,32 @@ export default function PcosSkinHairArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>{content.intro}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.intro}>{content.intro}</AwaText>
 
-          <View style={styles.infoBanner}>
+          <AwaCard variant="filled" padding="none" style={styles.infoBanner}>
             <MaterialDesignIcons
               name="information-outline"
               size={21}
               color={theme.colors.primary}
             />
 
-            <Text style={styles.infoBannerText}>{content.infoBannerText}</Text>
-          </View>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoBannerText}>{content.infoBannerText}</AwaText>
+          </AwaCard>
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.contents.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -1055,15 +1148,15 @@ export default function PcosSkinHairArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>1. {content.contents[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.contents[0]}</AwaText>
 
-          <Text style={styles.body}>{content.section1Body1}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section1Body1}</AwaText>
 
-          <Text style={styles.body}>{content.section1Body2}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section1Body2}</AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -1071,19 +1164,19 @@ export default function PcosSkinHairArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
-              <Text style={styles.tipText}>{content.tip1Text}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.tip1Text}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>2. {content.contents[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.contents[1]}</AwaText>
 
-          <Text style={styles.body}>{content.section2Body1}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section2Body1}</AwaText>
 
-          <Text style={styles.body}>{content.section2Body2}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section2Body2}</AwaText>
 
-          <View style={styles.sectionCard}>
-            <Text style={styles.cardTitle}>{content.skinSignsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.sectionCard}>
+            <AwaText variant="titleSmall" emphasized style={styles.cardTitle}>{content.skinSignsTitle}</AwaText>
 
             {content.skinSigns.map(item => (
               <View key={item} style={styles.cardRow}>
@@ -1093,19 +1186,19 @@ export default function PcosSkinHairArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.cardText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>3. {content.contents[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.contents[2]}</AwaText>
 
-          <Text style={styles.body}>{content.section3Body1}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section3Body1}</AwaText>
 
-          <Text style={styles.body}>{content.section3Body2}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section3Body2}</AwaText>
 
-          <View style={styles.sectionCard}>
-            <Text style={styles.cardTitle}>{content.hairSignsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.sectionCard}>
+            <AwaText variant="titleSmall" emphasized style={styles.cardTitle}>{content.hairSignsTitle}</AwaText>
 
             {content.hairSigns.map(item => (
               <View key={item} style={styles.cardRow}>
@@ -1115,12 +1208,12 @@ export default function PcosSkinHairArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.cardText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -1128,18 +1221,18 @@ export default function PcosSkinHairArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
-              <Text style={styles.tipText}>{content.tip2Text}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tip2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.tip2Text}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>4. {content.contents[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.contents[3]}</AwaText>
 
-          <Text style={styles.body}>{content.section4Body1}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section4Body1}</AwaText>
 
-          <Text style={styles.body}>{content.section4Body2}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section4Body2}</AwaText>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
@@ -1147,14 +1240,14 @@ export default function PcosSkinHairArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.alert1Title}</Text>
-              <Text style={styles.tipText}>{content.alert1Text}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.alert1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.alert1Text}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>5. {content.contents[4]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>5. {content.contents[4]}</AwaText>
 
-          <Text style={styles.body}>{content.section5Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section5Body}</AwaText>
 
           <View style={styles.daily}>
             {CARE_HABIT_ICONS.map((icon, index) => (
@@ -1165,18 +1258,18 @@ export default function PcosSkinHairArticleScreen({
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{content.careHabits[index]}</Text>
+                <AwaText variant="bodySmall" style={styles.dailyText}>{content.careHabits[index]}</AwaText>
               </View>
             ))}
           </View>
 
-          <Text style={styles.h2}>6. {content.contents[5]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>6. {content.contents[5]}</AwaText>
 
-          <Text style={styles.body}>{content.section6Body1}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section6Body1}</AwaText>
 
-          <Text style={styles.body}>{content.section6Body2}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section6Body2}</AwaText>
 
-          <View style={styles.practicalBox}>
+          <AwaCard variant="filled" padding="none" style={styles.practicalBox}>
             <View style={styles.practicalHeader}>
               <MaterialDesignIcons
                 name="heart-outline"
@@ -1184,51 +1277,51 @@ export default function PcosSkinHairArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.practicalTitle}>{content.practicalTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.practicalTitle}</AwaText>
             </View>
 
             {content.practicalTips.map((item, index) => (
               <View key={item} style={styles.practicalRow}>
                 <View style={styles.practicalNumber}>
-                  <Text style={styles.practicalNumberText}>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary">
                     {index + 1}
-                  </Text>
+                  </AwaText>
                 </View>
 
-                <Text style={styles.practicalText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.practicalText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>7. {content.contents[6]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>7. {content.contents[6]}</AwaText>
 
-          <Text style={styles.body}>{content.section7Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section7Body}</AwaText>
 
           <View style={styles.twoColumn}>
             {MINI_CARD_ICONS.map((icon, index) => (
-              <View key={icon} style={styles.miniCard}>
+              <AwaCard variant="filled" padding="none" key={icon} style={styles.miniCard}>
                 <MaterialDesignIcons
                   name={icon as never}
                   size={25}
                   color={theme.colors.primary}
                 />
-                <Text style={styles.miniTitle}>
+                <AwaText variant="titleSmall" emphasized style={styles.miniTitle}>
                   {content.miniCards[index].title}
-                </Text>
-                <Text style={styles.miniText}>
+                </AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.miniText}>
                   {content.miniCards[index].text}
-                </Text>
-              </View>
+                </AwaText>
+              </AwaCard>
             ))}
           </View>
 
-          <Text style={styles.h2}>8. {content.contents[7]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>8. {content.contents[7]}</AwaText>
 
-          <Text style={styles.body}>{content.section8Body1}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section8Body1}</AwaText>
 
-          <Text style={styles.body}>{content.section8Body2}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section8Body2}</AwaText>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="medical-bag"
               size={24}
@@ -1236,14 +1329,14 @@ export default function PcosSkinHairArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.alert2Title}</Text>
-              <Text style={styles.tipText}>{content.alert2Text}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.alert2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.alert2Text}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>9. {content.contents[8]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>9. {content.contents[8]}</AwaText>
 
-          <View style={styles.mythList}>
+          <AwaCard variant="filled" padding="none" style={styles.mythList}>
             {content.ideasReceived.map(item => (
               <View key={item} style={styles.mythRow}>
                 <MaterialDesignIcons
@@ -1252,24 +1345,24 @@ export default function PcosSkinHairArticleScreen({
                   color={theme.colors.warning}
                 />
 
-                <Text style={styles.mythText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.mythText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.quoteBox}>
+          <AwaCard variant="filled" padding="none" style={styles.quoteBox}>
             <MaterialDesignIcons
               name="format-quote-open"
               size={28}
               color={theme.colors.primary}
             />
 
-            <Text style={styles.quoteText}>{content.quoteText}</Text>
-          </View>
+            <AwaText variant="titleMedium" style={styles.quoteText}>{content.quoteText}</AwaText>
+          </AwaCard>
 
-          <Text style={styles.h2}>10. {content.contents[9]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>10. {content.contents[9]}</AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
               <MaterialDesignIcons
                 name="check-decagram-outline"
@@ -1277,7 +1370,7 @@ export default function PcosSkinHairArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.summaryTitle}>{content.summaryTitle}</Text>
+              <AwaText variant="titleMedium" emphasized>{content.summaryTitle}</AwaText>
             </View>
 
             {content.summaryItems.map(item => (
@@ -1287,12 +1380,12 @@ export default function PcosSkinHairArticleScreen({
                   size={18}
                   color={theme.colors.success}
                 />
-                <Text style={styles.summaryText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.finalTip}>
+          <AwaCard variant="filled" padding="none" style={styles.finalTip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={25}
@@ -1300,10 +1393,10 @@ export default function PcosSkinHairArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.finalTipTitle}</Text>
-              <Text style={styles.tipText}>{content.finalTipText}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.finalTipTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.finalTipText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           <View style={styles.disclaimer}>
             <MaterialDesignIcons
@@ -1312,7 +1405,7 @@ export default function PcosSkinHairArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>{content.disclaimerText}</Text>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>{content.disclaimerText}</AwaText>
           </View>
         </View>
       </ScrollView>
@@ -1334,7 +1427,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   heroWrap: {
@@ -1362,54 +1455,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -1419,7 +1489,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -1428,50 +1498,30 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 10,
-    color: theme.colors.textMuted,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '500',
+    marginTop: 16,
   },
 
   infoBanner: {
-    marginTop: 15,
-    padding: 13,
+    marginTop: 16,
+    padding: 12,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 9,
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    gap: 8,
   },
 
   infoBannerText: {
     flex: 1,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -1489,93 +1539,59 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 25,
-    color: theme.colors.primary,
-    fontSize: 12,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.5,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   h2: {
-    marginTop: 26,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 28,
   },
 
   body: {
-    marginTop: 9,
-    fontSize: 14,
-    lineHeight: 21.5,
-    color: theme.colors.textSecondary,
+    marginTop: 8,
   },
 
   tip: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   sectionCard: {
-    marginTop: 14,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   cardTitle: {
-    marginBottom: 11,
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 12,
   },
 
   cardRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 10,
+    marginBottom: 12,
   },
 
   cardText: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   daily: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
@@ -1587,53 +1603,40 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
   dailyText: {
-    marginTop: 7,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.text,
+    marginTop: 8,
     textAlign: 'center',
   },
 
   alert: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   practicalBox: {
-    marginTop: 17,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   practicalHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    marginBottom: 13,
+    marginBottom: 12,
   },
 
-  practicalTitle: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   practicalRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 11,
+    marginBottom: 12,
   },
 
   practicalNumber: {
@@ -1645,22 +1648,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  practicalNumberText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   practicalText: {
     flex: 1,
-    marginLeft: 9,
-    fontSize: 12,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
+    marginLeft: 8,
   },
 
   twoColumn: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
@@ -1669,114 +1664,80 @@ function createStyles(theme: ResolvedAwaTheme) {
   miniCard: {
     width: '48.7%',
     minHeight: 135,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    padding: 12,
     alignItems: 'center',
   },
 
   miniTitle: {
     marginTop: 8,
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
 
   miniText: {
-    marginTop: 5,
-    fontSize: 10.5,
-    lineHeight: 15,
-    color: theme.colors.textSecondary,
+    marginTop: 4,
     textAlign: 'center',
   },
 
   mythList: {
-    marginTop: 14,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 16,
+    padding: 12,
   },
 
   mythRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 11,
+    marginBottom: 12,
   },
 
   mythText: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   quoteBox: {
-    marginTop: 17,
-    padding: 17,
-    borderRadius: 14,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
+    marginTop: 16,
+    padding: 16,
     alignItems: 'center',
   },
 
   quoteText: {
-    marginTop: 6,
-    fontFamily: 'serif',
-    fontSize: 16,
-    lineHeight: 23,
-    color: theme.colors.text,
+    marginTop: 8,
     textAlign: 'center',
-    fontWeight: '600',
   },
 
   summaryCard: {
-    marginTop: 14,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   summaryHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    marginBottom: 13,
+    marginBottom: 12,
   },
 
-  summaryTitle: {
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   summaryRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 10,
+    marginBottom: 12,
   },
 
   summaryText: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   finalTip: {
-    marginTop: 17,
-    padding: 15,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   disclaimer: {
     marginTop: 20,
-    paddingTop: 15,
+    paddingTop: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
@@ -1786,9 +1747,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   disclaimerText: {
     flex: 1,
-    fontSize: 10.5,
-    lineHeight: 15.5,
-    color: theme.colors.textMuted,
   },
   });
 }
