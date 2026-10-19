@@ -77,6 +77,9 @@ import {
   formatHijriDate,
   startOfDay,
 } from '../../utils/cycleMath';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 
 const MISCARRIAGE_DASHBOARD_WOMAN = require('../../assets/images/miscarriage/miscarriage-dashboard-woman.png');
 
@@ -216,45 +219,38 @@ function ConceiveTransitionModal({
             <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={32} />
           </View>
 
-          <Text style={transitionModalStyles.title}>{t('miscarriageDashboard.conceiveTransitionModal.title')}</Text>
+          <AwaText variant="headlineSmall" style={transitionModalStyles.title}>{t('miscarriageDashboard.conceiveTransitionModal.title')}</AwaText>
 
-          <Text style={transitionModalStyles.message}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={transitionModalStyles.message}>
             {t('miscarriageDashboard.conceiveTransitionModal.message')}
-          </Text>
+          </AwaText>
 
           <View style={transitionModalStyles.reassurance}>
             <MaterialDesignIcons color={theme.colors.primary} name="check-circle-outline" size={16} />
-            <Text style={transitionModalStyles.reassuranceText}>
+            <AwaText variant="labelMedium" colorRole="onSurfaceVariant" style={transitionModalStyles.reassuranceText}>
               {t('miscarriageDashboard.conceiveTransitionModal.dataKept')}
-            </Text>
+            </AwaText>
           </View>
 
-          <Pressable
+          <AwaButton
             accessibilityLabel={t('miscarriageDashboard.conceiveTransitionModal.confirmAccessibility')}
             accessibilityRole="button"
             accessibilityState={{ disabled: confirming }}
             disabled={confirming}
             onPress={onConfirm}
-            style={({ pressed }) => [
-              transitionModalStyles.primary,
-              pressed && transitionModalStyles.primaryPressed,
-              confirming && transitionModalStyles.primaryDisabled,
-            ]}
-          >
-            <Text style={transitionModalStyles.primaryText}>{t('common.continue')}</Text>
-          </Pressable>
+            label={t('common.continue')}
+            size="large"
+            style={transitionModalStyles.primary}
+          />
 
-          <Pressable
+          <AwaButton
             accessibilityLabel={t('common.cancel')}
             accessibilityRole="button"
             onPress={onCancel}
-            style={({ pressed }) => [
-              transitionModalStyles.secondary,
-              pressed && transitionModalStyles.secondaryPressed,
-            ]}
-          >
-            <Text style={transitionModalStyles.secondaryText}>{t('common.cancel')}</Text>
-          </Pressable>
+            label={t('common.cancel')}
+            variant="tonal"
+            style={transitionModalStyles.secondary}
+          />
         </Animated.View>
       </View>
     </Modal>
@@ -279,7 +275,7 @@ function createTransitionModalStyles(theme: ResolvedAwaTheme) {
   card: {
     width: '100%',
     maxWidth: 390,
-    borderRadius: 28,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surface,
@@ -299,24 +295,8 @@ function createTransitionModalStyles(theme: ResolvedAwaTheme) {
     borderRadius: 33,
     backgroundColor: theme.colors.primarySoft,
   },
-  title: {
-    marginTop: 16,
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 21,
-    fontWeight: '800',
-    lineHeight: 27,
-    textAlign: 'center',
-    flexShrink: 1,
-  },
-  message: {
-    marginTop: 10,
-    color: theme.colors.textSecondary,
-    fontSize: 13.5,
-    lineHeight: 20,
-    textAlign: 'center',
-    flexShrink: 1,
-  },
+  title: {marginTop: 16, color: theme.colors.accent, textAlign: 'center', flexShrink: 1},
+  message: {marginTop: 10, textAlign: 'center', flexShrink: 1},
   reassurance: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -325,65 +305,12 @@ function createTransitionModalStyles(theme: ResolvedAwaTheme) {
     marginTop: 16,
     paddingVertical: 10,
     paddingHorizontal: 12,
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  reassuranceText: {
-    flex: 1,
-    minWidth: 0,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 16,
-    fontWeight: '700',
-    textAlign: 'center',
-    flexShrink: 1,
-  },
-  primary: {
-    minHeight: 52,
-    marginTop: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOpacity: 0.22,
-    shadowRadius: 9,
-    shadowOffset: { width: 0, height: 5 },
-    elevation: 4,
-  },
-  primaryPressed: {
-    opacity: 0.9,
-  },
-  primaryDisabled: {
-    opacity: 0.7,
-  },
-  primaryText: {
-    color: onPrimaryTextColor(theme),
-    fontSize: 15,
-    lineHeight: 19,
-    fontWeight: '800',
-    textAlign: 'center',
-    flexShrink: 1,
-  },
-  secondary: {
-    minHeight: 48,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 8,
-    borderRadius: 16,
-    backgroundColor: theme.colors.primarySoft,
-  },
-  secondaryPressed: {
-    opacity: 0.85,
-  },
-  secondaryText: {
-    color: theme.colors.primary,
-    fontSize: 14,
-    lineHeight: 18,
-    fontWeight: '800',
-    textAlign: 'center',
-    flexShrink: 1,
-  },
+  reassuranceText: {flex: 1, minWidth: 0, textAlign: 'center', flexShrink: 1},
+  primary: {marginTop: 20},
+  secondary: {marginTop: 8},
   });
 }
 
@@ -710,11 +637,6 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
@@ -741,26 +663,24 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
           <Animated.View style={entranceStyle}>
             {miscarriageDate ? (
               <View style={styles.heroCard}>
-                <View style={styles.heroGlowTop} />
 
-                <View style={styles.heroGlowBottom} />
 
                 <View style={styles.heroHeader}>
                   <View style={styles.heroTitleRow}>
                     <View style={styles.heroTitleDot} />
-                    <Text style={styles.heroTitle}>
+                    <AwaText variant="headlineSmall" style={styles.heroTitle}>
                       {t('miscarriageDashboard.hero.title')}
-                    </Text>
+                    </AwaText>
                   </View>
 
-                  <Text style={styles.heroSubtitle}>
+                  <AwaText variant="bodySmall" style={styles.heroSubtitle}>
                     {t('miscarriageDashboard.hero.subtitle')}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <View style={styles.heroContentRow}>
                   <View style={styles.heroStatsRow}>
-                    <View style={styles.heroStatCard}>
+                    <AwaCard padding="none" variant="filled" style={styles.heroStatCard}>
                       <View style={styles.heroStatIcon}>
                         <MaterialDesignIcons
                           color={PURPLE}
@@ -769,12 +689,12 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                         />
                       </View>
 
-                      <Text style={styles.heroStatLabel}>
+                      <AwaText variant="labelSmall" style={styles.heroStatLabel}>
                         {t('miscarriageDashboard.hero.sinceLoss')}
-                      </Text>
+                      </AwaText>
 
-                      <Text style={styles.heroStatValue}>{daysSinceLabel}</Text>
-                    </View>
+                      <AwaText variant="titleMedium" style={styles.heroStatValue}>{daysSinceLabel}</AwaText>
+                    </AwaCard>
 
                     {/* PHASE D7 — this stat card's pink icon
                         (theme.colors.secondary, was fixed '#B65376') is a
@@ -784,7 +704,9 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                         unlike a real semantic marker would. Same finding as
                         Postpartum D6's lochia icon and Conceive D4's hero
                         badge. */}
-                    <Pressable
+                    <AwaCard
+                      padding="none"
+                      variant="filled"
                       accessibilityHint={t('miscarriageDashboard.hero.cycleReturnHint')}
                       accessibilityLabel={t('miscarriageDashboard.hero.cycleReturn')}
                       accessibilityRole="button"
@@ -802,18 +724,18 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                         />
                       </View>
 
-                      <Text style={styles.heroStatLabel}>{t('miscarriageDashboard.hero.cycleReturn')}</Text>
+                      <AwaText variant="labelSmall" style={styles.heroStatLabel}>{t('miscarriageDashboard.hero.cycleReturn')}</AwaText>
 
-                      <Text style={styles.heroStatValueSmall}>
+                      <AwaText variant="labelMedium" style={styles.heroStatValueSmall}>
                         {cycleReturnLabel}
-                      </Text>
+                      </AwaText>
 
                       {cycleReturnSubvalue ? (
-                        <Text style={styles.heroStatSubvalue}>
+                        <AwaText variant="bodySmall" style={styles.heroStatSubvalue}>
                           {cycleReturnSubvalue}
-                        </Text>
+                        </AwaText>
                       ) : null}
-                    </Pressable>
+                    </AwaCard>
                   </View>
 
                   <Image
@@ -824,7 +746,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                   />
                 </View>
 
-                <View style={styles.supportStrip}>
+                <AwaCard padding="none" variant="filled" style={styles.supportStrip}>
                   <View style={styles.supportIcon}>
                     <MaterialDesignIcons
                       color={PURPLE}
@@ -833,14 +755,13 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                     />
                   </View>
 
-                  <Text style={styles.supportText}>
+                  <AwaText variant="labelSmall" style={styles.supportText}>
                     {t('miscarriageDashboard.hero.supportText')}
-                  </Text>
-                </View>
+                  </AwaText>
+                </AwaCard>
               </View>
             ) : (
-              <View style={styles.unconfiguredCard}>
-                <View style={styles.unconfiguredGlow} />
+              <AwaCard padding="none" variant="elevated" style={styles.unconfiguredCard}>
 
                 <View style={styles.unconfiguredIcon}>
                   <MaterialDesignIcons
@@ -850,44 +771,26 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                   />
                 </View>
 
-                <Text style={styles.unconfiguredEyebrow}>
+                <AwaText variant="labelSmall" style={styles.unconfiguredEyebrow}>
                   {t('miscarriageDashboard.unconfigured.eyebrow')}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.unconfiguredTitle}>
+                <AwaText variant="headlineSmall" style={styles.unconfiguredTitle}>
                   {t('miscarriageDashboard.unconfigured.title')}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.unconfiguredText}>
+                <AwaText variant="bodySmall" style={styles.unconfiguredText}>
                   {t('miscarriageDashboard.unconfigured.text')}
-                </Text>
+                </AwaText>
 
-                <Pressable
+                <AwaButton
                   accessibilityLabel={t('miscarriageDashboard.unconfigured.buttonAccessibility')}
-                  accessibilityRole="button"
+                  icon="calendar-edit"
+                  label={t('miscarriageDashboard.unconfigured.button')}
                   onPress={() => navigation.navigate('MiscarriageDate', {mode: 'edit'})}
-                  style={({ pressed }) => [
-                    styles.unconfiguredButton,
-                    pressed && styles.pressed,
-                  ]}
-                >
-                  <MaterialDesignIcons
-                    color={onPrimaryTextColor(theme)}
-                    name="calendar-edit"
-                    size={18}
-                  />
-
-                  <Text style={styles.unconfiguredButtonText}>
-                    {t('miscarriageDashboard.unconfigured.button')}
-                  </Text>
-
-                  <MaterialDesignIcons
-                    color={onPrimaryTextColor(theme)}
-                    name="arrow-right"
-                    size={17}
-                  />
-                </Pressable>
-              </View>
+                  style={styles.unconfiguredButton}
+                />
+              </AwaCard>
             )}
 
             {miscarriage.tryingAgainStatus === 'ready' ? (
@@ -897,29 +800,22 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                 </View>
 
                 <View style={styles.conceiveTransitionCopy}>
-                  <Text style={styles.conceiveTransitionTitle}>
+                  <AwaText variant="titleSmall" style={styles.conceiveTransitionTitle}>
                     {t('miscarriageDashboard.conceiveTransition.title')}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.conceiveTransitionText}>
+                  <AwaText variant="bodySmall" style={styles.conceiveTransitionText}>
                     {t('miscarriageDashboard.conceiveTransition.text')}
-                  </Text>
+                  </AwaText>
 
-                  <Pressable
+                  <AwaButton
                     accessibilityLabel={t('miscarriageDashboard.conceiveTransition.button')}
-                    accessibilityRole="button"
+                    fullWidth
+                    label={t('miscarriageDashboard.conceiveTransition.button')}
                     onPress={openConceiveTransitionModal}
-                    style={({ pressed }) => [
-                      styles.conceiveTransitionButton,
-                      pressed && styles.pressed,
-                    ]}
-                  >
-                    <Text style={styles.conceiveTransitionButtonText}>
-                      {t('miscarriageDashboard.conceiveTransition.button')}
-                    </Text>
-
-                    <MaterialDesignIcons color={PURPLE} name="arrow-right" size={15} />
-                  </Pressable>
+                    style={styles.conceiveTransitionButton}
+                    variant="outlined"
+                  />
                 </View>
               </View>
             ) : null}
@@ -951,7 +847,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
               </View>
             ) : null}
 
-            <View style={styles.dailyCard}>
+            <AwaCard variant="elevated" style={styles.dailyCard}>
               <View style={styles.dailyHeader}>
                 <View style={styles.dailyHeaderLeft}>
                   <View style={styles.dailyTitleIcon}>
@@ -963,11 +859,11 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                   </View>
 
                   <View style={styles.dailyTitleCopy}>
-                    <Text style={styles.dailyTitle}>{t('miscarriageDashboard.daily.title')}</Text>
+                    <AwaText variant="titleLarge" style={styles.dailyTitle}>{t('miscarriageDashboard.daily.title')}</AwaText>
 
-                    <Text style={styles.dailySubtitle}>
+                    <AwaText variant="bodySmall" style={styles.dailySubtitle}>
                       {t('miscarriageDashboard.daily.subtitle')}
-                    </Text>
+                    </AwaText>
                   </View>
                 </View>
 
@@ -992,9 +888,9 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                   />
                 </View>
 
-                <Text style={styles.progressPercent}>
+                <AwaText variant="labelSmall" style={styles.progressPercent}>
                   {progressPercentage}%
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.dailyGrid}>
@@ -1058,9 +954,9 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                         )}
                       </View>
 
-                      <Text style={styles.dailyLabel}>
+                      <AwaText variant="labelMedium" style={styles.dailyLabel}>
                         {item.dashboardLabel}
-                      </Text>
+                      </AwaText>
 
                       <View style={styles.dailyStateRow}>
                         <View
@@ -1070,27 +966,25 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                           ]}
                         />
 
-                        <Text
+                        <AwaText variant="labelSmall" colorRole="onSurfaceVariant"
                           style={[
                             styles.dailyStateText,
                             done && styles.dailyStateTextDone,
                           ]}
                         >
                           {done ? t('miscarriageDashboard.daily.filled') : t('miscarriageDashboard.notProvided')}
-                        </Text>
+                        </AwaText>
                       </View>
                     </Pressable>
                   );
                 })}
               </View>
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaCard
+                padding="none"
+                variant="filled"
                 onPress={openMiscarriageJournal}
-                style={({ pressed }) => [
-                  styles.completeJournalButton,
-                  pressed && styles.pressed,
-                ]}
+                style={styles.completeJournalButton}
               >
                 <View style={styles.completeJournalIcon}>
                   <MaterialDesignIcons
@@ -1101,22 +995,22 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                 </View>
 
                 <View style={styles.completeJournalCopy}>
-                  <Text style={styles.completeJournalTitle}>
+                  <AwaText variant="labelSmall" style={styles.completeJournalTitle}>
                     {t('miscarriageDashboard.daily.openJournal')}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.completeJournalSubtitle}>
+                  <AwaText variant="bodySmall" style={styles.completeJournalSubtitle}>
                     {t('miscarriageDashboard.daily.openJournalSubtitle')}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <MaterialDesignIcons
                   color={PURPLE}
-                  name="arrow-right"
+                  name="chevron-right"
                   size={19}
                 />
-              </Pressable>
-            </View>
+              </AwaCard>
+            </AwaCard>
 
             <ObjectiveArticlesSection
               objective="loss"
@@ -1158,40 +1052,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.background,
   },
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
 
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
 
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
 
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   safeArea: {
     flex: 1,
@@ -1215,37 +1078,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 18,
     borderWidth: 1,
     borderColor: BORDER,
-    borderRadius: 30,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.97),
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.11,
-    shadowRadius: 22,
-    elevation: 6,
   },
 
-  heroGlowTop: {
-    position: 'absolute',
-    top: -55,
-    right: -35,
-    width: 155,
-    height: 155,
-    borderRadius: 78,
-    backgroundColor: withAlpha(theme.colors.primary, 0.13),
-  },
 
-  heroGlowBottom: {
-    position: 'absolute',
-    bottom: -65,
-    left: -45,
-    width: 145,
-    height: 145,
-    borderRadius: 73,
-    backgroundColor: withAlpha(theme.colors.secondary, 0.11),
-  },
 
   heroHeader: {
     zIndex: 2,
@@ -1266,25 +1103,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: PURPLE,
   },
 
-  heroTitle: {
-    flex: 1,
-    minWidth: 0,
-    flexShrink: 1,
-    color: DEEP_PURPLE,
-    fontFamily: 'serif',
-    fontSize: 21,
-    fontWeight: '800',
-    lineHeight: 26,
-  },
+  heroTitle: {flex: 1, minWidth: 0, flexShrink: 1, color: DEEP_PURPLE},
 
-  heroSubtitle: {
-    marginTop: 5,
-    marginLeft: 20,
-    color: MUTED,
-    fontSize: 11,
-    lineHeight: 16,
-    flexShrink: 1,
-  },
+  heroSubtitle: {marginTop: 5, marginLeft: 20, color: MUTED, flexShrink: 1},
 
   heroContentRow: {
     flexDirection: 'row',
@@ -1302,17 +1123,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingRight: 112,
   },
 
-  heroStatCard: {
-    width: '100%',
-    minWidth: 0,
-    minHeight: 108,
-    paddingHorizontal: 11,
-    paddingVertical: 11,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.12),
-    borderRadius: 18,
-    backgroundColor: withAlpha(theme.colors.surface, 0.93),
-  },
+  heroStatCard: {width: '100%', minWidth: 0, minHeight: 108, paddingHorizontal: 11, paddingVertical: 11},
 
   heroWoman: {
     position: 'absolute',
@@ -1327,7 +1138,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 38,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1339,171 +1150,57 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 38,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.secondary, 0.16),
   },
 
-  heroStatLabel: {
-    marginTop: 9,
-    color: PURPLE,
-    fontSize: 10,
-    fontWeight: '600',
-    lineHeight: 14,
-    flexShrink: 1,
-  },
+  heroStatLabel: {marginTop: 9, color: PURPLE, flexShrink: 1},
 
-  heroStatValue: {
-    marginTop: 4,
-    color: DEEP_PURPLE,
-    fontFamily: 'serif',
-    fontSize: 17,
-    lineHeight: 21,
-    fontWeight: '800',
-    flexShrink: 1,
-  },
+  heroStatValue: {marginTop: 4, color: DEEP_PURPLE, flexShrink: 1},
 
-  heroStatValueSmall: {
-    marginTop: 4,
-    color: DEEP_PURPLE,
-    fontFamily: 'serif',
-    fontSize: 12.5,
-    fontWeight: '800',
-    lineHeight: 18,
-    flexShrink: 1,
-  },
+  heroStatValueSmall: {marginTop: 4, color: DEEP_PURPLE, flexShrink: 1},
 
-  heroStatSubvalue: {
-    marginTop: 4,
-    color: MUTED,
-    fontSize: 9.5,
-    lineHeight: 13,
-    flexShrink: 1,
-  },
+  heroStatSubvalue: {marginTop: 4, color: MUTED, flexShrink: 1},
 
-  supportStrip: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 13,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 17,
-    backgroundColor: withAlpha(theme.colors.primarySoft, 0.72),
-  },
+  supportStrip: {flexDirection: 'row', alignItems: 'center', marginTop: 13, paddingHorizontal: 12, paddingVertical: 10},
 
   supportIcon: {
     width: 28,
     height: 28,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.74),
   },
 
-  supportText: {
-    flex: 1,
-    minWidth: 0,
-    marginLeft: 9,
-    color: PURPLE,
-    fontSize: 10.5,
-    fontWeight: '600',
-    lineHeight: 15,
-  },
+  supportText: {flex: 1, minWidth: 0, marginLeft: 9, color: PURPLE},
 
   unconfiguredCard: {
-    ...theme.shadow,
-    position: 'relative',
     overflow: 'hidden',
     alignItems: 'center',
     marginTop: 14,
     paddingHorizontal: 22,
     paddingTop: 24,
     paddingBottom: 22,
-    borderWidth: 1,
-    borderColor: BORDER,
-    borderRadius: 29,
-    backgroundColor: withAlpha(theme.colors.surface, 0.97),
   },
 
-  unconfiguredGlow: {
-    position: 'absolute',
-    top: -55,
-    right: -45,
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    backgroundColor: withAlpha(theme.colors.primary, 0.06),
-  },
 
   unconfiguredIcon: {
     width: 66,
     height: 66,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 25,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  unconfiguredEyebrow: {
-    marginTop: 15,
-    color: PURPLE,
-    fontSize: 9,
-    fontWeight: '800',
-    letterSpacing: 1.1,
-  },
+  unconfiguredEyebrow: {marginTop: 15, color: PURPLE},
 
-  unconfiguredTitle: {
-    width: '100%',
-    maxWidth: 300,
-    marginTop: 7,
-    color: DEEP_PURPLE,
-    fontFamily: 'serif',
-    fontSize: 20,
-    fontWeight: '800',
-    lineHeight: 25,
-    textAlign: 'center',
-    flexShrink: 1,
-  },
+  unconfiguredTitle: {width: '100%', maxWidth: 300, marginTop: 7, color: DEEP_PURPLE, textAlign: 'center', flexShrink: 1},
 
-  unconfiguredText: {
-    width: '100%',
-    maxWidth: 300,
-    marginTop: 8,
-    color: MUTED,
-    fontSize: 11.5,
-    lineHeight: 17,
-    textAlign: 'center',
-    flexShrink: 1,
-  },
+  unconfiguredText: {width: '100%', maxWidth: 300, marginTop: 8, color: MUTED, textAlign: 'center', flexShrink: 1},
 
-  unconfiguredButton: {
-    minHeight: 50,
-    width: '100%',
-    maxWidth: 300,
-    marginTop: 18,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 9,
-    paddingHorizontal: 16,
-    borderRadius: 17,
-    backgroundColor: PURPLE,
-    shadowColor: PURPLE,
-    shadowOffset: {width: 0, height: 6},
-    shadowOpacity: 0.22,
-    shadowRadius: 10,
-    elevation: 5,
-  },
-
-  unconfiguredButtonText: {
-    flexShrink: 1,
-    color: onPrimaryTextColor(theme),
-    fontSize: 13.5,
-    lineHeight: 17,
-    fontWeight: '700',
-    textAlign: 'center',
-  },
+  unconfiguredButton: {width: '100%', maxWidth: 300, marginTop: 18},
 
   // Secondary, supportive-tone card — deliberately lighter than heroCard
   // (tinted background, thin border, no shadow) so it reads as a gentle
@@ -1515,7 +1212,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 14,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.10),
-    borderRadius: 22,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.primarySoft, 0.55),
   },
 
@@ -1526,7 +1223,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 11,
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
@@ -1535,48 +1232,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  conceiveTransitionTitle: {
-    color: DEEP_PURPLE,
-    fontFamily: 'serif',
-    fontSize: 14.5,
-    lineHeight: 19,
-    fontWeight: '800',
-    flexShrink: 1,
-  },
+  conceiveTransitionTitle: {color: DEEP_PURPLE, flexShrink: 1},
 
-  conceiveTransitionText: {
-    marginTop: 4,
-    color: MUTED,
-    fontSize: 11.5,
-    lineHeight: 16,
-    flexShrink: 1,
-  },
+  conceiveTransitionText: {marginTop: 4, color: MUTED, flexShrink: 1},
 
-  conceiveTransitionButton: {
-    flexDirection: 'row',
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 11,
-    gap: 7,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    borderWidth: 1.3,
-    borderColor: PURPLE,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surface,
-  },
-
-  conceiveTransitionButtonText: {
-    flex: 1,
-    minWidth: 0,
-    color: PURPLE,
-    fontSize: 12,
-    lineHeight: 16,
-    fontWeight: '700',
-    textAlign: 'center',
-    flexShrink: 1,
-  },
+  conceiveTransitionButton: {marginTop: 11},
 
   sectionHeader: {
     flexDirection: 'row',
@@ -1605,8 +1265,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   sectionSubtitle: {
     marginTop: 3,
     color: MUTED,
-    fontSize: 10.5,
-    lineHeight: 14,
+    fontSize: 11,
+    lineHeight: 16,
     flexShrink: 1,
   },
 
@@ -1616,7 +1276,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1626,7 +1286,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1638,23 +1298,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginTop: 2,
   },
 
-  dailyCard: {
-    ...theme.shadow,
-    marginTop: 22,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: BORDER,
-    borderRadius: 28,
-    backgroundColor: withAlpha(theme.colors.surface, 0.97),
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 9,
-    },
-    shadowOpacity: 0.08,
-    shadowRadius: 20,
-    elevation: 5,
-  },
+  dailyCard: {marginTop: 22},
 
   dailyHeader: {
     flexDirection: 'row',
@@ -1686,22 +1330,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  dailyTitle: {
-    color: DEEP_PURPLE,
-    fontFamily: 'serif',
-    fontSize: 19,
-    lineHeight: 23,
-    fontWeight: '800',
-    flexShrink: 1,
-  },
+  dailyTitle: {color: DEEP_PURPLE, flexShrink: 1},
 
-  dailySubtitle: {
-    marginTop: 3,
-    color: MUTED,
-    fontSize: 10.5,
-    lineHeight: 14,
-    flexShrink: 1,
-  },
+  dailySubtitle: {marginTop: 3, color: MUTED, flexShrink: 1},
 
   progressBadge: {
     minWidth: 62,
@@ -1709,7 +1340,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     paddingHorizontal: 9,
     paddingVertical: 7,
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1722,7 +1353,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   progressBadgeLabel: {
     marginTop: 1,
     color: MUTED,
-    fontSize: 8.5,
+    fontSize: 11,
   },
 
   progressRow: {
@@ -1746,13 +1377,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: PURPLE,
   },
 
-  progressPercent: {
-    width: 32,
-    color: MUTED,
-    fontSize: 9.5,
-    fontWeight: '700',
-    textAlign: 'right',
-  },
+  progressPercent: {width: 32, color: MUTED, textAlign: 'right'},
 
   dailyGrid: {
     flexDirection: 'row',
@@ -1769,7 +1394,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 13,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: SOFT_PURPLE_2,
   },
 
@@ -1789,7 +1414,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 42,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1804,24 +1429,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     borderRadius: 12,
     backgroundColor: SUCCESS,
-    shadowColor: SUCCESS,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 4,
-    elevation: 2,
   },
 
-  dailyLabel: {
-    marginTop: 10,
-    color: DEEP_PURPLE,
-    fontSize: 12.5,
-    fontWeight: '700',
-    lineHeight: 17,
-    flexShrink: 1,
-  },
+  dailyLabel: {marginTop: 10, color: DEEP_PURPLE, flexShrink: 1},
 
   dailyStateRow: {
     flexDirection: 'row',
@@ -1842,15 +1452,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: SUCCESS,
   },
 
-  dailyStateText: {
-    flex: 1,
-    minWidth: 0,
-    color: theme.colors.textMuted,
-    fontSize: 9.5,
-    lineHeight: 13,
-    fontWeight: '600',
-    flexShrink: 1,
-  },
+  dailyStateText: {flex: 1, minWidth: 0, flexShrink: 1},
 
   // Generic "logged today" completion text — success token, not a
   // symptom-severity claim (same DailyJournalCard/Irregular D3/Postpartum
@@ -1868,7 +1470,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 12,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.10),
-    borderRadius: 18,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1877,7 +1478,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 39,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.80),
   },
 
@@ -1887,21 +1488,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginHorizontal: 10,
   },
 
-  completeJournalTitle: {
-    color: DEEP_PURPLE,
-    fontSize: 11.5,
-    lineHeight: 15,
-    fontWeight: '700',
-    flexShrink: 1,
-  },
+  completeJournalTitle: {color: DEEP_PURPLE, flexShrink: 1},
 
-  completeJournalSubtitle: {
-    marginTop: 2,
-    color: MUTED,
-    fontSize: 9.5,
-    lineHeight: 13,
-    flexShrink: 1,
-  },
+  completeJournalSubtitle: {marginTop: 2, color: MUTED, flexShrink: 1},
 
   pressed: {
     opacity: 0.82,
