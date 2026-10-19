@@ -46,7 +46,7 @@ function PartnerBottomTabBar({state, navigation}: BottomTabBarProps): React.JSX.
           return (
             <AnimatedTabItem
               focused={isFocused}
-              icon={<MaterialDesignIcons color={isFocused ? theme.colors.primary : onPill} name={meta.icon} size={22} />}
+              icon={<MaterialDesignIcons color={isFocused ? theme.colors.primary : onPill} name={meta.icon} size={24} />}
               key={route.key}
               label={meta.label}
               onPress={onPress}
