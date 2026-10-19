@@ -27,6 +27,7 @@ export const WEEK_DAYS_TR = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
 export const WEEK_DAYS_RU = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 export const WEEK_DAYS_DE = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
 export const WEEK_DAYS_ZH = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+export const WEEK_DAYS_ID = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
 export const localizedWeekDays = (): string[] => {
   const language = getAppLanguage();
   if (language === 'en') {return WEEK_DAYS_EN;}
@@ -36,6 +37,7 @@ export const localizedWeekDays = (): string[] => {
   if (language === 'ru') {return WEEK_DAYS_RU;}
   if (language === 'de') {return WEEK_DAYS_DE;}
   if (language === 'zh') {return WEEK_DAYS_ZH;}
+  if (language === 'id') {return WEEK_DAYS_ID;}
   return WEEK_DAYS;
 };
 
@@ -85,6 +87,7 @@ export const dateFormatLocale = (): string => {
   if (language === 'ru') {return 'ru-RU';}
   if (language === 'de') {return 'de-DE';}
   if (language === 'zh') {return 'zh-CN';}
+  if (language === 'id') {return 'id-ID';}
   return 'fr-FR';
 };
 

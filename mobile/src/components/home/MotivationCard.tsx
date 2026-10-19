@@ -1,9 +1,10 @@
 import React, {memo, useMemo} from 'react';
-import {ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {ImageBackground, StyleSheet, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from './homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {AwaText} from '../ui/AwaText';
 import '../../i18n';
 import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
@@ -31,8 +32,8 @@ function MotivationCard(): React.JSX.Element {
       style={styles.card}>
       <View style={styles.spacer} />
       <View style={styles.copy}>
-        <Text style={styles.title}>{t('motivationCard.title')}</Text>
-        <Text style={styles.subtitle}>{t('motivationCard.subtitle')}</Text>
+        <AwaText emphasized style={styles.title} variant="titleMedium">{t('motivationCard.title')}</AwaText>
+        <AwaText style={styles.subtitle} variant="bodySmall">{t('motivationCard.subtitle')}</AwaText>
       </View>
     </ImageBackground>
   );
@@ -56,17 +57,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     title: {
   marginLeft: -14,
   color: '#2F2258',
-  fontFamily: 'serif',
-  fontSize: 15.5,
-  fontWeight: '700',
-  lineHeight: 21,
 },
 
 subtitle: {
-  marginTop: 5,
+  marginTop: 4,
   marginLeft: -14,
   color: '#746D92',
-  fontSize: 12,
 },
   });
 }

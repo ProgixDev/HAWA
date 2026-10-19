@@ -309,6 +309,10 @@ describe('CycleHomeScreen — localization (English)', () => {
     // assertions (e.g. QuickActionsGrid, hidden for a managed profile) are
     // not accidentally run against the wrong active profile.
     await resetActiveProfileForTests();
+    // Pin "today" inside the owner's fixture cycle (1 Sep 2026, day 20). The managed-daughter tests above append
+    // period records (e.g. 18–22 Oct 2026) to the shared persisted history; without a pinned clock the real date
+    // falling inside such a record hides the "My period started" CTA, so this block failed only on 18–22 Oct 2026.
+    jest.setSystemTime(new Date(2026, 8, 20, 10, 0, 0));
   });
 
   it('renders the migrated static dashboard chrome in English when the app language is English', async () => {

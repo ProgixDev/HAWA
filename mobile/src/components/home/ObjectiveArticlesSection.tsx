@@ -9,6 +9,9 @@ import {getLibraryConfigForObjective} from '../../data/libraryObjectiveConfig';
 import {getLibraryArticles, type LibraryArticle, type LibraryCategoryId} from '../../data/libraryContent';
 import {ArticlePremiumBadge} from '../library/ArticlePremiumBadge';
 import {homeRadii} from './homeTheme';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
@@ -103,12 +106,16 @@ function ObjectiveArticlesSection({objective, onOpenArticle, onSeeAll}: Props): 
   }
 
   return (
-    <View style={styles.articlesCard}>
+    <AwaCard padding="none" style={styles.articlesCard}>
       <View style={styles.articlesHeader}>
-        <Text style={styles.articlesTitle}>{t('objectiveArticles.title')}</Text>
-        <Pressable accessibilityRole="button" hitSlop={8} onPress={onSeeAll}>
-          <Text style={styles.articlesSeeAll}>{t('objectiveArticles.seeAll')}</Text>
-        </Pressable>
+        <AwaText style={styles.articlesTitle} variant="titleMedium">{t('objectiveArticles.title')}</AwaText>
+        <AwaButton
+          hitSlop={8}
+          label={t('objectiveArticles.seeAll')}
+          onPress={onSeeAll}
+          size="compact"
+          variant="text"
+        />
       </View>
       <ScrollView contentContainerStyle={styles.articlesRow} horizontal showsHorizontalScrollIndicator={false}>
         {articles.map(article => (
@@ -128,23 +135,15 @@ function ObjectiveArticlesSection({objective, onOpenArticle, onSeeAll}: Props): 
           </Pressable>
         ))}
       </ScrollView>
-    </View>
+    </AwaCard>
   );
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    articlesCard: {
-      marginTop: 16,
-      borderRadius: homeRadii.card,
-      backgroundColor: theme.colors.surface,
-      paddingVertical: 16,
-      paddingLeft: 16,
-      ...theme.shadow,
-    },
+    articlesCard: {marginTop: 16, paddingVertical: 16, paddingLeft: 16},
     articlesHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingRight: 16},
-    articlesTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-    articlesSeeAll: {color: theme.colors.primary, fontSize: 12.5, fontWeight: '700'},
+    articlesTitle: {flexShrink: 1},
     articlesRow: {marginTop: 12, gap: 10, paddingRight: 16},
     articleTile: {
       width: 140,
@@ -158,7 +157,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     articleImage: {width: '100%', height: 76},
     articleTileTitle: {marginTop: 8, marginHorizontal: 9, color: theme.colors.text, fontSize: 11.5, fontWeight: '700', lineHeight: 15},
     articleTileMetaRow: {marginTop: 6, marginHorizontal: 9, flexDirection: 'row', alignItems: 'center', gap: 4},
-    articleTileMeta: {color: theme.colors.textSecondary, fontSize: 9.5},
+    articleTileMeta: {color: theme.colors.textSecondary, fontSize: 11},
     pressed: {opacity: 0.82, transform: [{scale: 0.98}]},
   });
 }

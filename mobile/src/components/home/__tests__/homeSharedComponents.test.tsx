@@ -83,7 +83,8 @@ describe('QuickActionsGrid — theme reactivity and preserved per-action colors'
 
   it('generic chrome (title) responds to palette changes', async () => {
     const renderer = await renderWithProviders(<QuickActionsGrid items={items} />);
-    const title = renderer.root.findAll(node => node.props.children === 'Actions rapides')[0];
+    // Material 3 migration: the label is now an AwaText, so the first match is the composite; the host Text (last match) carries the resolved style.
+    const title = renderer.root.findAll(node => node.props.children === 'Actions rapides').slice(-1)[0];
     expect(flattenStyle(title.props.style).color).toBe('#2F2258'); // awa-original text
 
     await act(async () => {
@@ -111,7 +112,8 @@ describe('SpiritualGuidanceCard — structural chrome themed, religious/health m
     const renderer = await renderWithProviders(
       <SpiritualGuidanceCard locationConfigured={false} />,
     );
-    const title = renderer.root.findAll(node => node.props.children === 'Repères spirituels')[0];
+    // Material 3 migration: the title is an AwaText; the host Text (last match) carries the resolved style.
+    const title = renderer.root.findAll(node => node.props.children === 'Repères spirituels').slice(-1)[0];
     expect(flattenStyle(title.props.style).color).toBe('#2F2258');
 
     await act(async () => {
@@ -210,7 +212,8 @@ describe('ObjectiveArticlesSection — theme reactivity', () => {
     const renderer = await renderWithProviders(
       <ObjectiveArticlesSection objective="cycle" onOpenArticle={() => {}} onSeeAll={() => {}} />,
     );
-    const seeAll = renderer.root.findAll(node => node.props.children === 'Voir tout')[0];
+    // Material 3 migration: the label is now an AwaText, so the first match is the composite; the host Text (last match) carries the resolved style.
+    const seeAll = renderer.root.findAll(node => node.props.children === 'Voir tout').slice(-1)[0];
     if (!seeAll) {
       // No recommended articles configured for 'cycle' in this build —
       // the component correctly renders nothing (see its own null-return
@@ -223,7 +226,9 @@ describe('ObjectiveArticlesSection — theme reactivity', () => {
       await setSelectedThemeId('warm-sand');
     });
 
-    expect(flattenStyle(seeAll.props.style).color).toBe('#B08A5C');
+    // Material 3 migration: the link is an AwaButton text variant, whose label uses the AA-safe primary-as-text role
+    // (DESIGN.md), a darker shift of warm-sand's #B08A5C primary. It still follows the palette.
+    expect(flattenStyle(seeAll.props.style).color).toBe('#7B6041');
   });
 
   // Phase 5 localization — article titles/summaries shown in this shared
@@ -265,7 +270,8 @@ describe('ObjectiveArticlesSection — theme reactivity', () => {
 describe('DailyJournalCard — theme + Premium fallback + true-black', () => {
   it('generic chrome (title) responds to palette changes', async () => {
     const renderer = await renderWithProviders(<DailyJournalCard onNavigate={() => {}} />);
-    const title = renderer.root.findAll(node => node.props.children === 'Journal du jour')[0];
+    // Material 3 migration: the label is now an AwaText, so the first match is the composite; the host Text (last match) carries the resolved style.
+    const title = renderer.root.findAll(node => node.props.children === 'Journal du jour').slice(-1)[0];
     expect(flattenStyle(title.props.style).color).toBe('#2F2258');
 
     await act(async () => {

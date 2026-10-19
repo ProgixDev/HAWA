@@ -1,12 +1,15 @@
 import React, {memo, useEffect, useMemo, useRef, useState} from 'react';
-import {Animated, Easing, Pressable, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
+import {Animated, Easing, Pressable, StyleSheet, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from './homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import '../../i18n';
-import {onPrimaryTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import {
   applyVisibleOrderToFullOrder,
   filterQuickActionsForSpiritualMarkers,
@@ -69,14 +72,10 @@ function QuickActionTile({item, armed, reorderMode, compact, onLongPress, onTap,
     }).start();
 
     if (armed) {
-      const pulse = Animated.loop(
-        Animated.sequence([
-          Animated.timing(glow, {toValue: 1, duration: 550, easing: Easing.inOut(Easing.quad), useNativeDriver: true}),
-          Animated.timing(glow, {toValue: 0.35, duration: 550, easing: Easing.inOut(Easing.quad), useNativeDriver: true}),
-        ]),
-      );
-      pulse.start();
-      return () => pulse.stop();
+      // DESIGN.md: no decorative looping pulse — the armed tile (reorder mode) fades its halo in once and holds it;
+      // the 1.5 px primary border and the scale-up remain the functional "armed" feedback.
+      Animated.timing(glow, {toValue: 1, duration: 200, easing: Easing.out(Easing.quad), useNativeDriver: true}).start();
+      return undefined;
     }
 
     glow.setValue(0);
@@ -91,7 +90,7 @@ function QuickActionTile({item, armed, reorderMode, compact, onLongPress, onTap,
           styles.glow,
           {
             opacity: glow,
-            shadowOpacity: glow.interpolate({inputRange: [0, 1], outputRange: [0, 0.45]}),
+            shadowOpacity: glow.interpolate({inputRange: [0, 1], outputRange: [0, 0.15]}),
           },
         ]}
       />
@@ -105,7 +104,7 @@ function QuickActionTile({item, armed, reorderMode, compact, onLongPress, onTap,
         style={({pressed}) => [styles.tile, armed && styles.tileArmed, pressed && !armed && styles.pressed]}>
         <Pressable
           accessibilityLabel={t('cycleHome.quickActions.optionsFor', {label: item.label})}
-          hitSlop={8}
+          hitSlop={14}
           onPress={onLongPress}
           style={styles.menuDot}>
           <MaterialDesignIcons color={theme.colors.textMuted} name="dots-vertical" size={14} />
@@ -115,7 +114,7 @@ function QuickActionTile({item, armed, reorderMode, compact, onLongPress, onTap,
           <MaterialDesignIcons color={item.iconColor} name={item.icon} size={20} />
         </View>
 
-        <Text numberOfLines={2} style={styles.tileLabel}>{item.label}</Text>
+        <AwaText style={styles.tileLabel} variant="labelMedium">{item.label}</AwaText>
       </Pressable>
     </Animated.View>
   );
@@ -203,29 +202,23 @@ function QuickActionsGrid({items}: Props): React.JSX.Element {
   const ordered = visibleOrder.map(key => byKey.get(key)).filter((item): item is QuickActionItem => Boolean(item));
 
   return (
-    <View style={styles.card}>
+    <AwaCard style={styles.card}>
       <View style={styles.header}>
         <View style={styles.headerCopy}>
-          <Text style={styles.title}>{t('cycleHome.quickActions.title')}</Text>
-          <Text style={styles.subtitle}>{t('cycleHome.quickActions.subtitle')}</Text>
+          <AwaText variant="titleMedium">{t('cycleHome.quickActions.title')}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodySmall">{t('cycleHome.quickActions.subtitle')}</AwaText>
         </View>
 
-        <Pressable
-          accessibilityRole="button"
+        <AwaButton
+          icon={reorderMode ? 'check' : 'pencil-outline'}
+          label={reorderMode ? t('cycleHome.quickActions.done') : t('cycleHome.quickActions.customize')}
           onPress={() => {
             setReorderMode(value => !value);
             setArmedKey(null);
           }}
-          style={({pressed}) => [styles.customizeButton, reorderMode && styles.customizeButtonActive, pressed && styles.pressed]}>
-          <MaterialDesignIcons
-            color={reorderMode ? onPrimaryTextColor(theme) : theme.colors.primary}
-            name={reorderMode ? 'check' : 'pencil-outline'}
-            size={14}
-          />
-          <Text style={[styles.customizeText, reorderMode && styles.customizeTextActive]}>
-            {reorderMode ? t('cycleHome.quickActions.done') : t('cycleHome.quickActions.customize')}
-          </Text>
-        </Pressable>
+          size="compact"
+          variant={reorderMode ? 'filled' : 'tonal'}
+        />
       </View>
 
       <View style={styles.grid}>
@@ -243,35 +236,16 @@ function QuickActionsGrid({items}: Props): React.JSX.Element {
           />
         ))}
       </View>
-    </View>
+    </AwaCard>
   );
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    card: {
-      marginTop: 16,
-      borderRadius: homeRadii.card,
-      backgroundColor: theme.colors.surface,
-      padding: 16,
-      ...theme.shadow,
-    },
+    card: {marginTop: 16},
     header: {flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between'},
     headerCopy: {flex: 1, marginRight: 10},
-    title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-    subtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11},
-    customizeButton: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 5,
-      minHeight: 30,
-      borderRadius: homeRadii.button,
-      backgroundColor: theme.colors.primarySoft,
-      paddingHorizontal: 11,
-    },
-    customizeButtonActive: {backgroundColor: theme.colors.primary},
-    customizeText: {color: theme.colors.primary, fontSize: 11.5, fontWeight: '700'},
-    customizeTextActive: {color: onPrimaryTextColor(theme)},
+    subtitle: {marginTop: 3},
     grid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 10},
     tileWrap: {position: 'relative', flexGrow: 1},
     tileWrapWide: {flexBasis: '30%'},
@@ -283,7 +257,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       shadowColor: theme.colors.primary,
       shadowOffset: {width: 0, height: 0},
       shadowRadius: 12,
-      elevation: 6,
+      elevation: 4,
     },
     tile: {
       minHeight: 96,
@@ -295,11 +269,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: theme.colors.surface,
       paddingVertical: 12,
       paddingHorizontal: 4,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 4},
-      shadowOpacity: 0.06,
-      shadowRadius: 8,
-      elevation: 2,
     },
     tileArmed: {borderColor: theme.colors.primary, borderWidth: 1.5},
     menuDot: {position: 'absolute', top: 6, right: 6, padding: 3},
@@ -312,11 +281,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     tileLabel: {
       marginTop: 8,
-      color: theme.colors.text,
-      fontSize: 10.5,
-      fontWeight: '600',
       textAlign: 'center',
-      lineHeight: 13,
     },
     pressed: {opacity: 0.85, transform: [{scale: 0.98}]},
   });

@@ -11,7 +11,9 @@ import {
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useTranslation} from 'react-i18next';
 
-import {homeColors, homeRadii} from './homeTheme';
+import {homeColors} from './homeTheme';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale} from '../../utils/cycleMath';
@@ -102,9 +104,9 @@ function InfoBlock({
         size={19}
       />
 
-      <Text style={styles.infoLabel}>
+      <AwaText colorRole="onSurfaceVariant" style={styles.infoLabel} variant="labelSmall">
         {label}
-      </Text>
+      </AwaText>
 
       {/*
        * IMPORTANT:
@@ -113,9 +115,9 @@ function InfoBlock({
        * Ainsi, "Jour 3 · Pertes en cours" peut passer
        * sur plusieurs lignes sans être coupé.
        */}
-      <Text style={styles.infoValue}>
+      <AwaText emphasized style={styles.infoValue} variant="labelMedium">
         {value}
-      </Text>
+      </AwaText>
     </View>
   );
 }
@@ -214,7 +216,6 @@ function SpiritualGuidanceCard({
 
   return (
     <Animated.View
-      accessibilityLabel={cardAccessibilityLabel}
       style={[
         styles.card,
         {
@@ -235,27 +236,12 @@ function SpiritualGuidanceCard({
           ],
         },
       ]}>
-      {/* Watermark */}
-      <MaterialDesignIcons
-        color={theme.colors.primarySoft}
-        name="mosque"
-        size={110}
-        style={styles.watermark}
-      />
-
+      <AwaCard accessibilityLabel={cardAccessibilityLabel} style={styles.cardSurface}>
       {/* Header */}
       <View style={styles.headingRow}>
-        <View style={styles.mosqueCircle}>
-          <MaterialDesignIcons
-            color={theme.colors.primary}
-            name="mosque"
-            size={22}
-          />
-        </View>
-
-        <Text style={styles.title}>
+        <AwaText style={styles.title} variant="titleMedium">
           {t('spiritualGuidance.title')}
-        </Text>
+        </AwaText>
       </View>
 
       {/* Badges */}
@@ -309,9 +295,9 @@ function SpiritualGuidanceCard({
           size={15}
         />
 
-        <Text style={styles.locationText}>
+        <AwaText colorRole="onSurfaceVariant" style={styles.locationText} variant="bodySmall">
           {locationName ?? t('spiritualGuidance.locationPlaceholder')}
-        </Text>
+        </AwaText>
       </View>
 
       {/* Informations principales */}
@@ -382,16 +368,12 @@ function SpiritualGuidanceCard({
           </View>
 
           <View style={styles.puritySummaryCopy}>
-            <Text
-              numberOfLines={1}
-              style={styles.puritySummaryPrimary}>
+            <Text style={styles.puritySummaryPrimary}>
               {purityPrimaryLine}
             </Text>
 
             {nextPrayerAfterPurityLine ? (
-              <Text
-                numberOfLines={2}
-                style={styles.puritySummarySecondary}>
+              <Text style={styles.puritySummarySecondary}>
                 {nextPrayerAfterPurityLine}
               </Text>
             ) : null}
@@ -421,13 +403,13 @@ function SpiritualGuidanceCard({
           />
 
           <View style={styles.nifasEducationCopy}>
-            <Text style={styles.nifasEducationTitle}>
+            <AwaText emphasized variant="labelLarge">
               {t('spiritualGuidance.understandNifas')}
-            </Text>
+            </AwaText>
 
-            <Text style={styles.nifasEducationText}>
+            <AwaText colorRole="onSurfaceVariant" style={styles.nifasEducationText} variant="bodySmall">
               {t('spiritualGuidance.nifasDisclaimer')}
-            </Text>
+            </AwaText>
           </View>
 
           <MaterialDesignIcons
@@ -457,24 +439,25 @@ function SpiritualGuidanceCard({
           </View>
 
           <View style={styles.nifasReminderCopy}>
-            <Text style={styles.nifasReminderTitle}>
+            <AwaText emphasized variant="labelLarge">
               {t('spiritualGuidance.nifasReminderTitle')}
-            </Text>
+            </AwaText>
 
-            <Text style={styles.nifasReminderText}>
+            <AwaText colorRole="onSurfaceVariant" style={styles.nifasReminderText} variant="bodySmall">
               {nifasReminderStatus === 'reference_reached'
                 ? `${nifasReferenceReachedHeadline()}.`
                 : `${nifasReferenceApproachingHeadline()}.`}
-            </Text>
+            </AwaText>
           </View>
 
-          <Text style={styles.nifasReminderLink}>
+          <AwaText colorRole="primary" emphasized style={styles.nifasReminderLink} variant="labelMedium">
             {nifasReminderStatus === 'reference_reached'
               ? t('spiritualGuidance.consult')
               : t('spiritualGuidance.learnMore')}
-          </Text>
+          </AwaText>
         </Pressable>
       ) : null}
+      </AwaCard>
     </Animated.View>
   );
 }
@@ -482,19 +465,11 @@ function SpiritualGuidanceCard({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     card: {
-      overflow: 'hidden',
       marginTop: 16,
-      borderRadius: homeRadii.card,
-      backgroundColor: theme.colors.surface,
-      padding: 16,
-      ...theme.shadow,
     },
 
-    watermark: {
-      position: 'absolute',
-      right: -22,
-      bottom: -22,
-      opacity: 0.5,
+    cardSurface: {
+      overflow: 'hidden',
     },
 
     headingRow: {
@@ -502,23 +477,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
     },
 
-    mosqueCircle: {
-      width: 40,
-      height: 40,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 20,
-      backgroundColor: theme.colors.primarySoft,
-    },
-
     title: {
       flex: 1,
       minWidth: 0,
-      marginLeft: 10,
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 17,
-      fontWeight: '700',
     },
 
     badgeRow: {
@@ -526,7 +487,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexWrap: 'wrap',
       gap: 8,
       marginTop: 10,
-      marginLeft: 50,
     },
 
     badge: {
@@ -547,7 +507,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     activeBadgeText: {
       color: pickReadableTextColor(theme.colors.success),
-      fontSize: 10.5,
+      fontSize: 11,
       fontWeight: '700',
     },
 
@@ -561,7 +521,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     badgeText: {
-      fontSize: 10.5,
+      fontSize: 11,
       fontWeight: '700',
     },
 
@@ -584,9 +544,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     locationText: {
       flex: 1,
       minWidth: 0,
-      color: theme.colors.textSecondary,
-      fontSize: 11.5,
-      lineHeight: 16,
     },
 
     /**
@@ -613,9 +570,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     infoLabel: {
       marginTop: 6,
-      color: theme.colors.textSecondary,
-      fontSize: 9.5,
-      lineHeight: 13,
       textAlign: 'center',
     },
 
@@ -634,10 +588,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       width: '100%',
       flexShrink: 1,
       marginTop: 3,
-      color: theme.colors.text,
-      fontSize: 10.5,
-      lineHeight: 14,
-      fontWeight: '700',
       textAlign: 'center',
     },
 
@@ -701,7 +651,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 9,
-      borderRadius: 15,
+      borderRadius: 16,
       backgroundColor: theme.colors.primarySoft,
       paddingHorizontal: 12,
       paddingVertical: 10,
@@ -712,17 +662,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       minWidth: 0,
     },
 
-    nifasEducationTitle: {
-      color: theme.colors.text,
-      fontSize: 12,
-      fontWeight: '800',
-    },
-
     nifasEducationText: {
       marginTop: 2,
-      color: theme.colors.textSecondary,
-      fontSize: 10,
-      lineHeight: 14,
     },
 
     nifasReminder: {
@@ -732,9 +673,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginTop: 10,
       borderWidth: 1,
       borderColor: theme.colors.border,
-      borderRadius: 15,
+      borderRadius: 16,
       backgroundColor: theme.colors.primarySoft,
-      paddingHorizontal: 11,
+      paddingHorizontal: 12,
       paddingVertical: 10,
     },
 
@@ -753,24 +694,12 @@ function createStyles(theme: ResolvedAwaTheme) {
       minWidth: 0,
     },
 
-    nifasReminderTitle: {
-      color: theme.colors.text,
-      fontSize: 12,
-      fontWeight: '800',
-    },
-
     nifasReminderText: {
       marginTop: 2,
-      color: theme.colors.textSecondary,
-      fontSize: 10,
-      lineHeight: 14,
     },
 
     nifasReminderLink: {
       flexShrink: 0,
-      color: theme.colors.primary,
-      fontSize: 9.5,
-      fontWeight: '800',
     },
   });
 }

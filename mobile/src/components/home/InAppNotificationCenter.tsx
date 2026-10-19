@@ -7,7 +7,6 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
@@ -29,6 +28,9 @@ import { subscribeActiveProfileId } from '../../state/activeProfileStore';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import type { ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 import { dateFormatLocale } from '../../utils/cycleMath';
+import { AwaButton } from '../ui/AwaButton';
+import { AwaIconButton } from '../ui/AwaIconButton';
+import { AwaText } from '../ui/AwaText';
 import { formatTimeOfDay } from '../../utils/timeOfDay';
 import i18n from '../../i18n';
 
@@ -155,28 +157,33 @@ function NotificationItem({
       <View style={styles.itemCopy}>
         <View style={styles.itemTitleRow}>
           {!notification.read ? <View style={styles.unreadDot} /> : null}
-          <Text
-            numberOfLines={1}
+          <AwaText
+            emphasized={!notification.read}
             style={[
               styles.itemTitle,
               notification.read && styles.itemTitleRead,
             ]}
+            variant="labelLarge"
           >
             {notification.title}
-          </Text>
+          </AwaText>
         </View>
-        <Text numberOfLines={2} style={styles.itemMessage}>
+        <AwaText
+          colorRole="onSurfaceVariant"
+          style={styles.itemMessage}
+          variant="bodySmall"
+        >
           {notification.message}
-        </Text>
-        <Text style={styles.itemDate}>
+        </AwaText>
+        <AwaText colorRole="onSurfaceVariant" style={styles.itemDate} variant="labelSmall">
           {formatReceivedAt(notification.receivedAt)}
           {categoryLabel ? ` · ${categoryLabel}` : ''}
-        </Text>
+        </AwaText>
       </View>
       <Pressable
         accessibilityLabel={t('inAppNotifications.deleteNotification')}
         accessibilityRole="button"
-        hitSlop={8}
+        hitSlop={12}
         onPress={event => {
           event.stopPropagation();
           onDelete();
@@ -354,33 +361,24 @@ function InAppNotificationCenter({
           ]}
         >
           <View style={styles.header}>
-            <Text style={styles.title}>{t('inAppNotifications.title')}</Text>
+            <AwaText style={styles.title} variant="titleMedium">{t('inAppNotifications.title')}</AwaText>
             <View style={styles.headerActions}>
               {unreadCount > 0 ? (
-                <Pressable
-                  accessibilityRole="button"
+                <AwaButton
+                  label={t('inAppNotifications.readAll')}
                   onPress={() =>
                     markAllInAppNotificationsAsReadForActiveProfile().catch(() => {})
                   }
-                  style={styles.readAllButton}
-                >
-                  <Text style={styles.readAllText}>{t('inAppNotifications.readAll')}</Text>
-                </Pressable>
+                  size="compact"
+                  variant="tonal"
+                />
               ) : null}
               {notifications.length > 0 ? (
-                <Pressable
+                <AwaIconButton
                   accessibilityLabel={t('inAppNotifications.moreActions')}
-                  accessibilityRole="button"
-                  hitSlop={8}
+                  icon="dots-horizontal"
                   onPress={() => setOverflowVisible(value => !value)}
-                  style={styles.moreButton}
-                >
-                  <MaterialDesignIcons
-                    color={theme.colors.primary}
-                    name="dots-horizontal"
-                    size={21}
-                  />
-                </Pressable>
+                />
               ) : null}
             </View>
           </View>
@@ -394,10 +392,10 @@ function InAppNotificationCenter({
                   size={27}
                 />
               </View>
-              <Text style={styles.emptyTitle}>{t('inAppNotifications.emptyTitle')}</Text>
-              <Text style={styles.emptyText}>
+              <AwaText style={styles.emptyTitle} variant="titleSmall">{t('inAppNotifications.emptyTitle')}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={styles.emptyText} variant="bodySmall">
                 {t('inAppNotifications.emptyText')}
-              </Text>
+              </AwaText>
             </View>
           ) : (
             <ScrollView
@@ -421,18 +419,14 @@ function InAppNotificationCenter({
           )}
 
           {overflowVisible ? (
-            <Pressable
-              accessibilityRole="button"
+            <AwaButton
+              icon="trash-can-outline"
+              label={t('inAppNotifications.clearAll')}
               onPress={confirmClearAll}
+              size="compact"
               style={styles.overflowMenu}
-            >
-              <MaterialDesignIcons
-                color={theme.colors.danger}
-                name="trash-can-outline"
-                size={15}
-              />
-              <Text style={styles.overflowText}>{t('inAppNotifications.clearAll')}</Text>
-            </Pressable>
+              variant="destructive"
+            />
           ) : null}
         </Animated.View>
       </View>
@@ -460,9 +454,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       left: 16,
       maxHeight: '54%',
       overflow: 'hidden',
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 22,
+      borderRadius: 12,
       backgroundColor: theme.colors.surface,
       padding: 14,
       ...theme.shadow,
@@ -477,52 +469,26 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderBottomColor: theme.colors.border,
     },
     title: {
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 19,
-      fontWeight: '800',
+      flexShrink: 1,
     },
     headerActions: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-    readAllButton: {
-      borderRadius: 11,
-      backgroundColor: theme.colors.primarySoft,
-      paddingHorizontal: 9,
-      paddingVertical: 6,
-    },
-    readAllText: { color: theme.colors.primary, fontSize: 10.5, fontWeight: '800' },
-    moreButton: {
-      width: 30,
-      height: 30,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 15,
-    },
     overflowMenu: {
       position: 'absolute',
       zIndex: 20,
       top: 54,
       right: 14,
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 6,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 12,
       backgroundColor: theme.colors.surface,
-      paddingHorizontal: 10,
-      paddingVertical: 9,
       ...theme.shadow,
-      elevation: 20,
+      elevation: 8,
     },
-    overflowText: { color: theme.colors.danger, fontSize: 10.5, fontWeight: '700' },
     list: { gap: 7, paddingTop: 10 },
     item: {
       flexDirection: 'row',
       alignItems: 'flex-start',
-      borderRadius: 15,
+      borderRadius: 16,
       backgroundColor: theme.colors.surface,
       paddingVertical: 9,
-      paddingHorizontal: 8,
+      paddingHorizontal: 12,
     },
     itemUnread: {
       borderWidth: 1,
@@ -547,22 +513,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     itemTitle: {
       flexShrink: 1,
-      color: theme.colors.text,
-      fontSize: 11.5,
-      fontWeight: '800',
     },
-    itemTitleRead: { color: theme.colors.textMuted, fontWeight: '700' },
+    itemTitleRead: { color: theme.colors.textMuted },
     itemMessage: {
       marginTop: 2,
-      color: theme.colors.textSecondary,
-      fontSize: 9.5,
-      lineHeight: 13,
     },
     itemDate: {
       marginTop: 4,
-      color: theme.colors.textMuted,
-      fontSize: 8.5,
-      fontWeight: '600',
     },
     deleteButton: {
       width: 24,
@@ -587,14 +544,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     emptyTitle: {
       marginTop: 11,
-      color: theme.colors.text,
-      fontSize: 13,
-      fontWeight: '800',
     },
     emptyText: {
       marginTop: 4,
-      color: theme.colors.textSecondary,
-      fontSize: 10,
       textAlign: 'center',
     },
     pressed: { opacity: 0.74, transform: [{ scale: 0.98 }] },

@@ -1,17 +1,18 @@
 import React, {useEffect, useMemo, useRef} from 'react';
-import {Animated, Easing, StyleSheet, Text, View} from 'react-native';
+import {Animated, Easing, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import Svg, {Circle, Defs, LinearGradient as SvgGradient, Stop} from 'react-native-svg';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {interpolateHex, onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {interpolateHex, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaText} from '../ui/AwaText';
 
 // The single animated progress ring shared across objective Dashboards —
 // originally built (and still used) as ContraceptionDashboard.tsx's
-// "PillPackProgressRing", extracted here unchanged (same layers, same
-// durations/easings, same SVG gradient/dash-array arc, same breathe/glint/
-// float/sparkle loops) so every consumer gets an IDENTICAL animation, never
-// an approximation. This component is deliberately PRESENTATIONAL: it never
+// "PillPackProgressRing". Material 3 migration: the decorative looping layers
+// (breathing glow, rotating dashed halo, orbiting glint, floating core, sparkles)
+// were removed; the ring is now the track, the progress arc (animated once to
+// `progress`) and the centre label. This component is deliberately PRESENTATIONAL: it never
 // computes `progress` itself (e.g. never a hardcoded day/totalDays or
 // day/28 division) — every caller computes its own real `progress` value
 // and passes it in, so the same visual ring can represent a genuinely
@@ -75,10 +76,6 @@ export function AnimatedProgressRing({
   );
 
   const progressAnimation = useRef(new Animated.Value(0)).current;
-  const breatheAnimation = useRef(new Animated.Value(0)).current;
-  const glintAnimation = useRef(new Animated.Value(0)).current;
-  const floatAnimation = useRef(new Animated.Value(0)).current;
-  const sparkleAnimation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     progressAnimation.setValue(0);
@@ -89,69 +86,16 @@ export function AnimatedProgressRing({
       easing: Easing.out(Easing.cubic),
       useNativeDriver: false,
     }).start();
-
-    const breathe = Animated.loop(
-      Animated.sequence([
-        Animated.timing(breatheAnimation, {toValue: 1, duration: 1750, easing: Easing.inOut(Easing.sin), useNativeDriver: true}),
-        Animated.timing(breatheAnimation, {toValue: 0, duration: 1750, easing: Easing.inOut(Easing.sin), useNativeDriver: true}),
-      ]),
-    );
-
-    const glint = Animated.loop(
-      Animated.timing(glintAnimation, {toValue: 1, duration: 5600, easing: Easing.linear, useNativeDriver: true}),
-    );
-
-    const floating = Animated.loop(
-      Animated.sequence([
-        Animated.timing(floatAnimation, {toValue: 1, duration: 1600, easing: Easing.inOut(Easing.sin), useNativeDriver: true}),
-        Animated.timing(floatAnimation, {toValue: 0, duration: 1600, easing: Easing.inOut(Easing.sin), useNativeDriver: true}),
-      ]),
-    );
-
-    const sparkle = Animated.loop(
-      Animated.sequence([
-        Animated.timing(sparkleAnimation, {toValue: 1, duration: 850, easing: Easing.inOut(Easing.quad), useNativeDriver: true}),
-        Animated.timing(sparkleAnimation, {toValue: 0, duration: 850, easing: Easing.inOut(Easing.quad), useNativeDriver: true}),
-      ]),
-    );
-
-    breathe.start();
-    glint.start();
-    floating.start();
-    sparkle.start();
-
-    return () => {
-      breathe.stop();
-      glint.stop();
-      floating.stop();
-      sparkle.stop();
-    };
-  }, [breatheAnimation, floatAnimation, glintAnimation, progress, progressAnimation, sparkleAnimation]);
+  }, [progress, progressAnimation]);
 
   const dashOffset = progressAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: [RING_CIRCUMFERENCE, 0],
   });
 
-  const breatheScale = breatheAnimation.interpolate({inputRange: [0, 1], outputRange: [1, 1.035]});
-  const coreScale = breatheAnimation.interpolate({inputRange: [0, 1], outputRange: [1, 1.018]});
-  const breatheOpacity = breatheAnimation.interpolate({inputRange: [0, 1], outputRange: [0.09, 0.25]});
-  const floatTranslateY = floatAnimation.interpolate({inputRange: [0, 1], outputRange: [1.5, -3.5]});
-  const glintRotation = glintAnimation.interpolate({inputRange: [0, 1], outputRange: ['0deg', '360deg']});
-  const haloRotation = glintAnimation.interpolate({inputRange: [0, 1], outputRange: ['360deg', '0deg']});
-  const sparkleOpacity = sparkleAnimation.interpolate({inputRange: [0, 1], outputRange: [0.35, 1]});
-  const sparkleScale = sparkleAnimation.interpolate({inputRange: [0, 1], outputRange: [0.78, 1.16]});
-
   return (
     <View accessibilityLabel={accessibilityLabel} accessibilityRole="image" style={styles.outer}>
-      <Animated.View style={[styles.premiumCore, {transform: [{translateY: floatTranslateY}, {scale: coreScale}]}]}>
-        <Animated.View
-          pointerEvents="none"
-          style={[styles.glow, {opacity: breatheOpacity, transform: [{scale: breatheScale}]}]}
-        />
-
-        <Animated.View pointerEvents="none" style={[styles.halo, {transform: [{rotate: haloRotation}]}]} />
-
+      <View style={styles.core}>
         <Svg height={RING_SIZE} width={RING_SIZE}>
           <Defs>
             <SvgGradient id="animatedProgressRingGradient" x1="0" x2="1" y1="0" y2="1">
@@ -189,171 +133,68 @@ export function AnimatedProgressRing({
         <View pointerEvents="none" style={styles.inner}>
           {isConfigured ? (
             <>
-              {centerCaption ? <Text style={styles.caption}>{centerCaption}</Text> : null}
-              <Text style={styles.value}>{centerValue}</Text>
-              {centerDetail ? <Text style={styles.detail}>{centerDetail}</Text> : null}
+              {centerCaption ? (
+                <AwaText colorRole="onSurfaceVariant" variant="labelSmall">{centerCaption}</AwaText>
+              ) : null}
+              <AwaText color={theme.colors.accent} variant="headlineSmall">{centerValue}</AwaText>
+              {centerDetail ? (
+                <AwaText colorRole="primary" variant="labelSmall">{centerDetail}</AwaText>
+              ) : null}
             </>
           ) : (
             <>
               <View style={[styles.statusIcon, {backgroundColor: `${statusColor}18`}]}>
                 <MaterialDesignIcons color={statusColor} name={statusIcon} size={23} />
               </View>
-              <Text style={[styles.status, {color: statusColor}]}>{statusText}</Text>
+              <AwaText color={statusColor} style={styles.status} variant="labelMedium">{statusText}</AwaText>
             </>
           )}
         </View>
+      </View>
 
-        <Animated.View pointerEvents="none" style={[styles.glintOrbit, {transform: [{rotate: glintRotation}]}]}>
-          <View style={styles.glintDot}>
-            <View style={styles.glintCore} />
-          </View>
-        </Animated.View>
-
-        <Animated.View
-          pointerEvents="none"
-          style={[styles.sparkleTop, {opacity: sparkleOpacity, transform: [{scale: sparkleScale}]}]}>
-          <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="creation" size={10} />
-        </Animated.View>
-
-        <Animated.View
-          pointerEvents="none"
-          style={[styles.sparkleBottom, {opacity: sparkleOpacity, transform: [{scale: sparkleScale}]}]}>
-          <View style={styles.miniSparkle} />
-        </Animated.View>
-      </Animated.View>
-
-      <Text pointerEvents="none" style={styles.footnote}>{footnote}</Text>
+      <AwaText colorRole="primary" pointerEvents="none" style={styles.footnote} variant="labelSmall">{footnote}</AwaText>
     </View>
   );
 }
 
-// PHASE D2 — converted to a createStyles(theme) factory (same pattern as
-// ContraceptionDashboard.tsx and D1's CycleHomeScreen.tsx). glintDot/
-// glintCore stay fixed WHITE — a genuine "shine" highlight, not a
-// palette-hued accent, the same way a reflection stays white regardless of
-// the surface it glints off. Everything else here is decorative-brand-purple
-// and is now theme-derived.
+// PHASE D2 — createStyles(theme) factory. Material 3 migration: only the ring
+// layout, the centre disc and the status chip remain.
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-  outer: {
-    position: 'relative',
-    width: RING_SIZE,
-    height: RING_SIZE + 27,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    flexShrink: 0,
-  },
+    outer: {
+      position: 'relative',
+      width: RING_SIZE,
+      minHeight: RING_SIZE + 27,
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      flexShrink: 0,
+    },
 
-  premiumCore: {
-    position: 'relative',
-    width: RING_SIZE,
-    height: RING_SIZE,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    core: {
+      position: 'relative',
+      width: RING_SIZE,
+      height: RING_SIZE,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
 
-  glow: {
-    position: 'absolute',
-    top: 6,
-    left: 6,
-    width: RING_SIZE - 12,
-    height: RING_SIZE - 12,
-    borderRadius: (RING_SIZE - 12) / 2,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 7},
-    shadowOpacity: 0.28,
-    shadowRadius: 18,
-    elevation: 5,
-  },
+    inner: {
+      position: 'absolute',
+      top: 22,
+      left: 22,
+      width: RING_SIZE - 44,
+      height: RING_SIZE - 44,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: (RING_SIZE - 44) / 2,
+      backgroundColor: theme.colors.surface,
+    },
 
-  halo: {
-    position: 'absolute',
-    top: -5,
-    left: -5,
-    width: RING_SIZE + 10,
-    height: RING_SIZE + 10,
-    borderRadius: (RING_SIZE + 10) / 2,
-    borderWidth: 1.25,
-    borderStyle: 'dashed',
-    borderColor: withAlpha(theme.colors.primary, 0.32),
-  },
+    statusIcon: {width: 32, height: 32, marginTop: 3, alignItems: 'center', justifyContent: 'center', borderRadius: 16},
+    status: {marginTop: 2, textAlign: 'center'},
 
-  inner: {
-    position: 'absolute',
-    top: 22,
-    left: 22,
-    width: RING_SIZE - 44,
-    height: RING_SIZE - 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: (RING_SIZE - 44) / 2,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.08),
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.13,
-    shadowRadius: 12,
-    elevation: 4,
-  },
-
-  caption: {color: theme.colors.textMuted, fontSize: 10, fontWeight: '800', letterSpacing: 0.2},
-  value: {marginTop: -2, color: theme.colors.accent, fontFamily: 'serif', fontSize: 31, lineHeight: 34, fontWeight: '900'},
-  detail: {marginTop: -2, color: theme.colors.primary, fontSize: 9.5, fontWeight: '900'},
-
-  statusIcon: {width: 32, height: 32, marginTop: 3, alignItems: 'center', justifyContent: 'center', borderRadius: 16},
-  status: {marginTop: 2, fontSize: 10.5, fontWeight: '900'},
-
-  glintOrbit: {position: 'absolute', top: 0, left: 0, width: RING_SIZE, height: RING_SIZE},
-  glintDot: {
-    position: 'absolute',
-    top: -1,
-    left: RING_SIZE / 2 - 5,
-    width: 10,
-    height: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    backgroundColor: 'rgba(255,255,255,0.46)',
-    shadowColor: '#FFFFFF',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 1,
-    shadowRadius: 9,
-    elevation: 4,
-  },
-  glintCore: {width: 5, height: 5, borderRadius: 2.5, backgroundColor: '#FFFFFF'},
-
-  sparkleTop: {
-    position: 'absolute',
-    top: 15,
-    right: 7,
-    width: 19,
-    height: 19,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 9.5,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.32,
-    shadowRadius: 6,
-    elevation: 3,
-  },
-  sparkleBottom: {position: 'absolute', left: 7, bottom: 23, width: 12, height: 12, alignItems: 'center', justifyContent: 'center'},
-  miniSparkle: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: theme.colors.secondary,
-    shadowColor: theme.colors.primary,
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.65,
-    shadowRadius: 5,
-    elevation: 2,
-  },
-
-  footnote: {position: 'absolute', bottom: 0, color: theme.colors.primary, fontSize: 9, fontWeight: '800', textAlign: 'center', letterSpacing: 0.1},
+    // DESIGN.md: in flow (not absolutely pinned) so a longer / wrapped footnote grows the block instead of overlapping the ring.
+    footnote: {marginTop: 8, textAlign: 'center'},
   });
 }
 
