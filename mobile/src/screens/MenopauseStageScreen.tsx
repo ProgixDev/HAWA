@@ -3,11 +3,9 @@ import {
   AccessibilityInfo,
   Animated,
   Easing,
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -20,7 +18,7 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
 import PremiumChoiceCard from '../components/onboarding/PremiumChoiceCard';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {
   getMenopausePreferences,
   hydrateMenopausePreferences,
@@ -29,6 +27,8 @@ import {
 } from '../state/menopausePreferences';
 import '../i18n';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaText} from '../components/ui/AwaText';
+import {AwaButton} from '../components/ui/AwaButton';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MenopauseStage'>;
 
@@ -77,7 +77,6 @@ function MenopauseStageScreen({
   const OPTIONS = useMemo(() => buildOptions(t), [t]);
 
   const entrance = useRef(new Animated.Value(0)).current;
-  const floatAnimation = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
 
   const [selected, setSelected] = useState<MenopauseStage | null>(
@@ -115,32 +114,6 @@ function MenopauseStageScreen({
     }).start();
   }, [entrance]);
 
-  useEffect(() => {
-    if (reduceMotion.current) {
-      return;
-    }
-
-    const animation = Animated.loop(
-      Animated.sequence([
-        Animated.timing(floatAnimation, {
-          toValue: 1,
-          duration: 2400,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-        Animated.timing(floatAnimation, {
-          toValue: 0,
-          duration: 2400,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-
-    animation.start();
-
-    return () => animation.stop();
-  }, [floatAnimation]);
 
   const handleNext = async () => {
     if (saving || !selected) {
@@ -175,22 +148,6 @@ function MenopauseStageScreen({
     ],
   };
 
-  const floatingIconStyle = {
-    transform: [
-      {
-        translateY: floatAnimation.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, -7],
-        }),
-      },
-      {
-        rotate: floatAnimation.interpolate({
-          inputRange: [0, 1],
-          outputRange: ['0deg', '3deg'],
-        }),
-      },
-    ],
-  };
 
   return (
     <LinearGradient
@@ -200,20 +157,6 @@ function MenopauseStageScreen({
       end={{x: 1, y: 1}}
       style={styles.background}>
 
-      <View
-        pointerEvents="none"
-        style={styles.pageBackgroundDecor}>
-
-        <View style={styles.pageGlowTop} />
-
-        <View style={styles.pageGlowLeft} />
-
-        <View style={styles.pageGlowBottom} />
-
-        <View style={styles.smallDecorCircleOne} />
-
-        <View style={styles.smallDecorCircleTwo} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar
@@ -242,44 +185,17 @@ function MenopauseStageScreen({
 
             <View style={styles.heroSection}>
 
-              <Animated.View
-                style={[
-                  styles.heroIconOuter,
-                  floatingIconStyle,
-                ]}>
-
-                <LinearGradient
-                  colors={[
-                    theme.colors.surface,
-                    theme.colors.primarySoft,
-                  ]}
-                  start={{x: 0, y: 0}}
-                  end={{x: 1, y: 1}}
-                  style={styles.heroIconInner}>
-
-                  <MaterialDesignIcons
-                    color={theme.colors.primary}
-                    name="flower-outline"
-                    size={31}
-                  />
-
-                </LinearGradient>
-
-                <View style={styles.heroIconGlow} />
-
-              </Animated.View>
-
-              <Text style={styles.eyebrow}>
+              <AwaText variant="labelSmall" colorRole="primary" style={styles.eyebrow}>
                 {t('menopauseStage.eyebrow')}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.title}>
+              <AwaText variant="headlineMedium" style={styles.title}>
                 {t('menopauseStage.title')}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.subtitle}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>
                 {t('menopauseStage.subtitle')}
-              </Text>
+              </AwaText>
 
             </View>
 
@@ -287,9 +203,9 @@ function MenopauseStageScreen({
 
               <View style={styles.optionsIntroRow}>
 
-                <Text style={styles.optionsTitle}>
+                <AwaText variant="labelMedium">
                   {t('menopauseStage.optionsTitle')}
-                </Text>
+                </AwaText>
 
                 <View style={styles.optionsLine} />
 
@@ -317,56 +233,20 @@ function MenopauseStageScreen({
 
           <View style={styles.bottomSection}>
 
-            <Text style={styles.helperText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.helperText}>
               {t('menopauseStage.helperText')}
-            </Text>
+            </AwaText>
 
-            <Pressable
-              accessibilityRole="button"
-              accessibilityState={{
-                disabled: saving || !selected,
-              }}
+            <AwaButton
               disabled={saving || !selected}
-              onPress={handleNext}
-              style={({pressed}) => [
-                styles.buttonPressable,
-                pressed && selected && styles.buttonPressed,
-              ]}>
-
-              <LinearGradient
-                colors={
-                  selected
-                    ? [theme.colors.primary, theme.colors.primary]
-                    : [withAlpha(theme.colors.primary, 0.45), withAlpha(theme.colors.primary, 0.45)]
-                }
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 1}}
-                style={[
-                  styles.nextButton,
-                  !selected && styles.nextButtonDisabled,
-                ]}>
-
-                <Text style={styles.nextText}>
-                  {saving
+              label={saving
                     ? t('menopauseStage.saving')
                     : route.params?.mode === 'edit'
                       ? t('common.save')
                       : t('common.continue')}
-                </Text>
-
-                {!saving && (
-                  <View style={styles.arrowCircle}>
-                    <MaterialDesignIcons
-                      color={onPrimaryTextColor(theme)}
-                      name="arrow-right"
-                      size={19}
-                    />
-                  </View>
-                )}
-
-              </LinearGradient>
-
-            </Pressable>
+              onPress={handleNext}
+              size="large"
+            />
 
           </View>
 
@@ -387,60 +267,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       flex: 1,
     },
 
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
 
-    pageGlowTop: {
-      position: 'absolute',
-      top: -170,
-      right: -105,
-      width: 360,
-      height: 360,
-      borderRadius: 180,
-      backgroundColor: withAlpha(theme.colors.primary, 0.09),
-    },
 
-    pageGlowLeft: {
-      position: 'absolute',
-      top: '34%',
-      left: -155,
-      width: 320,
-      height: 320,
-      borderRadius: 160,
-      backgroundColor: withAlpha(theme.colors.primary, 0.10),
-    },
 
-    pageGlowBottom: {
-      position: 'absolute',
-      bottom: -190,
-      right: -110,
-      width: 350,
-      height: 350,
-      borderRadius: 175,
-      backgroundColor: withAlpha(theme.colors.primary, 0.075),
-    },
 
-    smallDecorCircleOne: {
-      position: 'absolute',
-      top: 105,
-      left: 27,
-      width: 8,
-      height: 8,
-      borderRadius: 4,
-      backgroundColor: withAlpha(theme.colors.primary, 0.18),
-    },
 
-    smallDecorCircleTwo: {
-      position: 'absolute',
-      top: 176,
-      right: 42,
-      width: 5,
-      height: 5,
-      borderRadius: 2.5,
-      backgroundColor: withAlpha(theme.colors.primary, 0.17),
-    },
 
     content: {
       flexGrow: 1,
@@ -457,70 +288,14 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 6,
     },
 
-    heroIconOuter: {
-      position: 'relative',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginBottom: 18,
-    },
 
-    heroIconInner: {
-      width: 68,
-      height: 68,
-      borderRadius: 24,
-      alignItems: 'center',
-      justifyContent: 'center',
 
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.10),
 
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 9,
-      },
-      shadowOpacity: 0.17,
-      shadowRadius: 16,
-      elevation: 7,
-    },
+    eyebrow: {marginBottom: 9},
 
-    heroIconGlow: {
-      position: 'absolute',
-      width: 70,
-      height: 35,
-      borderRadius: 40,
-      bottom: -13,
-      backgroundColor: withAlpha(theme.colors.primary, 0.10),
-      transform: [{scaleX: 1.3}],
-      zIndex: -1,
-    },
+    title: {textAlign: 'center'},
 
-    eyebrow: {
-      color: theme.colors.primary,
-      fontSize: 10.5,
-      fontWeight: '800',
-      letterSpacing: 1.6,
-      marginBottom: 9,
-    },
-
-    title: {
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 28,
-      fontWeight: '700',
-      lineHeight: 35,
-      textAlign: 'center',
-      letterSpacing: -0.3,
-    },
-
-    subtitle: {
-      marginTop: 12,
-      maxWidth: 335,
-      color: theme.colors.textSecondary,
-      fontSize: 13,
-      lineHeight: 20,
-      textAlign: 'center',
-    },
+    subtitle: {marginTop: 12, maxWidth: 335, textAlign: 'center'},
 
     optionsWrapper: {
       marginTop: 31,
@@ -533,11 +308,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 2,
     },
 
-    optionsTitle: {
-      color: theme.colors.text,
-      fontSize: 13,
-      fontWeight: '700',
-    },
 
     optionsLine: {
       flex: 1,
@@ -554,70 +324,13 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginTop: 28,
     },
 
-    helperText: {
-      marginBottom: 10,
-      color: theme.colors.textMuted,
-      fontSize: 11.5,
-      lineHeight: 16,
-      textAlign: 'center',
-    },
+    helperText: {marginBottom: 10, textAlign: 'center'},
 
-    buttonPressable: {
-      borderRadius: 20,
-    },
 
-    buttonPressed: {
-      transform: [{scale: 0.985}],
-      opacity: 0.92,
-    },
 
-    nextButton: {
-      minHeight: 58,
-      borderRadius: 20,
 
-      paddingHorizontal: 18,
 
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
 
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 7,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 13,
-      elevation: 7,
-    },
-
-    nextButtonDisabled: {
-      shadowOpacity: 0,
-      elevation: 0,
-    },
-
-    nextText: {
-      color: onPrimaryTextColor(theme),
-      fontSize: 17,
-      fontWeight: '700',
-      letterSpacing: 0.1,
-    },
-
-    arrowCircle: {
-      position: 'absolute',
-      right: 12,
-
-      width: 36,
-      height: 36,
-      borderRadius: 18,
-
-      alignItems: 'center',
-      justifyContent: 'center',
-
-      backgroundColor: withAlpha(onPrimaryTextColor(theme), 0.16),
-      borderWidth: 1,
-      borderColor: withAlpha(onPrimaryTextColor(theme), 0.12),
-    },
   });
 }
 

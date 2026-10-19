@@ -3,7 +3,6 @@ import {
   AccessibilityInfo,
   Animated,
   Easing,
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -29,6 +28,9 @@ import {
 } from '../state/menopausePreferences';
 import '../i18n';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaText} from '../components/ui/AwaText';
+import {AwaButton} from '../components/ui/AwaButton';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -104,7 +106,6 @@ function MenopauseSymptomsScreen({
   const OPTIONS = useMemo(() => buildOptions(t), [t]);
 
   const entrance = useRef(new Animated.Value(0)).current;
-  const floatAnimation = useRef(new Animated.Value(0)).current;
 
   const reduceMotion = useRef(false);
   const hasHydratedRef = useRef(false);
@@ -150,32 +151,6 @@ function MenopauseSymptomsScreen({
     }).start();
   }, [entrance]);
 
-  useEffect(() => {
-    if (reduceMotion.current) {
-      return;
-    }
-
-    const animation = Animated.loop(
-      Animated.sequence([
-        Animated.timing(floatAnimation, {
-          toValue: 1,
-          duration: 2500,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-        Animated.timing(floatAnimation, {
-          toValue: 0,
-          duration: 2500,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-
-    animation.start();
-
-    return () => animation.stop();
-  }, [floatAnimation]);
 
   const toggle = (id: MenopauseSymptom) => {
     setSelected(current =>
@@ -218,16 +193,6 @@ function MenopauseSymptomsScreen({
     ],
   };
 
-  const floatingIconStyle = {
-    transform: [
-      {
-        translateY: floatAnimation.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, -4],
-        }),
-      },
-    ],
-  };
 
   return (
     <LinearGradient
@@ -237,13 +202,6 @@ function MenopauseSymptomsScreen({
       end={{x: 1, y: 1}}
       style={styles.background}>
 
-      <View
-        pointerEvents="none"
-        style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowLeft} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar
@@ -271,41 +229,20 @@ function MenopauseSymptomsScreen({
             ]}>
 
             <View style={styles.heroSection}>
-              <Animated.View
-                style={[
-                  styles.heroIconOuter,
-                  floatingIconStyle,
-                ]}>
-
-                <LinearGradient
-                  colors={[theme.colors.surface, theme.colors.primarySoft]}
-                  start={{x: 0, y: 0}}
-                  end={{x: 1, y: 1}}
-                  style={styles.heroIconInner}>
-
-                  <MaterialDesignIcons
-                    color={theme.colors.primary}
-                    name="heart-pulse"
-                    size={22}
-                  />
-
-                </LinearGradient>
-              </Animated.View>
-
-              <Text style={styles.eyebrow}>
+              <AwaText variant="labelSmall" colorRole="primary" style={styles.eyebrow}>
                 {t('menopauseSymptoms.eyebrow')}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.title}>
+              <AwaText variant="titleLarge" style={styles.title}>
                 {t('menopauseSymptoms.title')}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.subtitle}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>
                 {t('menopauseSymptoms.subtitle')}
-              </Text>
+              </AwaText>
             </View>
 
-            <View style={styles.summaryCard}>
+            <AwaCard padding="none" variant="filled" style={styles.summaryCard}>
               <View style={styles.summaryLeft}>
 
                 <View style={styles.summaryIcon}>
@@ -317,17 +254,17 @@ function MenopauseSymptomsScreen({
                 </View>
 
                 <View style={styles.summaryTextWrapper}>
-                  <Text style={styles.summaryTitle}>
+                  <AwaText variant="labelSmall">
                     {t('menopauseSymptoms.summary.title')}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.summarySubtitle}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summarySubtitle}>
                     {selected.length === 0
                       ? t('menopauseSymptoms.summary.none')
                       : t('menopauseSymptoms.summary.selectedCount', {
                           count: selected.length,
                         })}
-                  </Text>
+                  </AwaText>
                 </View>
 
               </View>
@@ -349,27 +286,23 @@ function MenopauseSymptomsScreen({
                 </Text>
 
               </View>
-            </View>
+            </AwaCard>
 
             <View style={styles.optionsWrapper}>
 
               <View style={styles.optionsHeader}>
-                <Text style={styles.optionsTitle}>
+                <AwaText variant="labelSmall" style={styles.optionsTitle}>
                   {t('menopauseSymptoms.options.title')}
-                </Text>
+                </AwaText>
 
                 {selected.length > 0 && (
-                  <Pressable
-                    accessibilityRole="button"
+                  <AwaButton
+                    label={t('menopauseSymptoms.options.clear')}
                     onPress={() => setSelected([])}
-                    style={({pressed}) => [
-                      styles.clearButton,
-                      pressed && styles.clearButtonPressed,
-                    ]}>
-                    <Text style={styles.clearText}>
-                      {t('menopauseSymptoms.options.clear')}
-                    </Text>
-                  </Pressable>
+                    size="compact"
+                    style={styles.clearButton}
+                    variant="text"
+                  />
                 )}
               </View>
 
@@ -401,54 +334,21 @@ function MenopauseSymptomsScreen({
                 size={14}
               />
 
-              <Text style={styles.helperText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.helperText}>
                 {t('menopauseSymptoms.helper')}
-              </Text>
+              </AwaText>
             </View>
 
-            <Pressable
-              accessibilityRole="button"
-              accessibilityState={{
-                disabled: saving,
-              }}
+            <AwaButton
               disabled={saving}
-              onPress={handleNext}
-              style={({pressed}) => [
-                styles.buttonPressable,
-                pressed && styles.buttonPressed,
-              ]}>
-
-              <LinearGradient
-                colors={
-                  saving
-                    ? [withAlpha(theme.colors.primary, 0.45), withAlpha(theme.colors.primary, 0.45)]
-                    : [theme.colors.primary, theme.colors.primary]
-                }
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 1}}
-                style={styles.nextButton}>
-
-                <Text style={styles.nextText}>
-                  {saving
+              label={saving
                     ? t('menopauseSymptoms.saving')
                     : route.params?.mode === 'edit'
                       ? t('common.save')
                       : t('common.continue')}
-                </Text>
-
-                {!saving && (
-                  <View style={styles.arrowCircle}>
-                    <MaterialDesignIcons
-                      color={onPrimaryTextColor(theme)}
-                      name="arrow-right"
-                      size={16}
-                    />
-                  </View>
-                )}
-
-              </LinearGradient>
-
-            </Pressable>
+              onPress={handleNext}
+              size="large"
+            />
 
           </View>
 
@@ -471,40 +371,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       flex: 1,
     },
 
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
 
-    pageGlowTop: {
-      position: 'absolute',
-      top: -190,
-      right: -125,
-      width: 370,
-      height: 370,
-      borderRadius: 185,
-      backgroundColor: withAlpha(theme.colors.primary, 0.065),
-    },
 
-    pageGlowLeft: {
-      position: 'absolute',
-      top: '38%',
-      left: -165,
-      width: 320,
-      height: 320,
-      borderRadius: 160,
-      backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
 
-    pageGlowBottom: {
-      position: 'absolute',
-      bottom: -200,
-      right: -120,
-      width: 350,
-      height: 350,
-      borderRadius: 175,
-      backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
 
     content: {
       flexGrow: 1,
@@ -521,72 +390,15 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 8,
     },
 
-    heroIconOuter: {
-      marginBottom: 10,
-    },
 
-    heroIconInner: {
-      width: 50,
-      height: 50,
-      borderRadius: 17,
 
-      alignItems: 'center',
-      justifyContent: 'center',
+    eyebrow: {marginBottom: 5},
 
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.09),
+    title: {maxWidth: 310, textAlign: 'center'},
 
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 5,
-      },
-      shadowOpacity: 0.10,
-      shadowRadius: 9,
-      elevation: 3,
-    },
+    subtitle: {maxWidth: 300, marginTop: 7, textAlign: 'center'},
 
-    eyebrow: {
-      marginBottom: 5,
-      color: theme.colors.primary,
-      fontSize: 7.8,
-      fontWeight: '800',
-      letterSpacing: 1.2,
-    },
-
-    title: {
-      maxWidth: 310,
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 19,
-      fontWeight: '700',
-      lineHeight: 24,
-      letterSpacing: -0.15,
-      textAlign: 'center',
-    },
-
-    subtitle: {
-      maxWidth: 300,
-      marginTop: 7,
-      color: theme.colors.textSecondary,
-      fontSize: 10,
-      lineHeight: 15,
-      textAlign: 'center',
-    },
-
-    summaryCard: {
-      minHeight: 52,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      marginTop: 16,
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.07),
-      borderRadius: 14,
-      backgroundColor: withAlpha(theme.colors.surface, 0.72),
-      paddingHorizontal: 10,
-      paddingVertical: 7,
-    },
+    summaryCard: {minHeight: 52, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 16, paddingHorizontal: 12, paddingVertical: 12},
 
     summaryLeft: {
       flex: 1,
@@ -602,7 +414,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       justifyContent: 'center',
       marginRight: 8,
-      borderRadius: 10,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
 
@@ -611,21 +423,12 @@ function createStyles(theme: ResolvedAwaTheme) {
       minWidth: 0,
     },
 
-    summaryTitle: {
-      color: theme.colors.text,
-      fontSize: 9.8,
-      fontWeight: '700',
-    },
 
-    summarySubtitle: {
-      marginTop: 2,
-      color: theme.colors.textMuted,
-      fontSize: 7.8,
-    },
+    summarySubtitle: {marginTop: 2},
 
     counterBadge: {
       minWidth: 25,
-      height: 25,
+      minHeight: 25,
       alignItems: 'center',
       justifyContent: 'center',
       marginLeft: 7,
@@ -640,7 +443,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     counterText: {
       color: onPrimaryTextColor(theme),
-      fontSize: 9.5,
+      fontSize: 11,
       fontWeight: '800',
     },
 
@@ -661,31 +464,12 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 2,
     },
 
-    optionsTitle: {
-      flex: 1,
-      minWidth: 0,
-      color: theme.colors.text,
-      fontSize: 10,
-      fontWeight: '700',
-    },
+    optionsTitle: {flex: 1, minWidth: 0},
 
     clearButton: {
       marginLeft: 8,
-      borderRadius: 8,
-      backgroundColor: theme.colors.primarySoft,
-      paddingHorizontal: 7,
-      paddingVertical: 3.5,
     },
 
-    clearButtonPressed: {
-      opacity: 0.7,
-    },
-
-    clearText: {
-      color: theme.colors.primary,
-      fontSize: 7.8,
-      fontWeight: '700',
-    },
 
     optionsList: {
       gap: 8,
@@ -700,70 +484,18 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexDirection: 'row',
       alignItems: 'center',
       marginBottom: 8,
-      borderRadius: 10,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.primary, 0.045),
-      paddingHorizontal: 8,
-      paddingVertical: 6,
+      paddingHorizontal: 12,
+      paddingVertical: 12,
     },
 
-    helperText: {
-      flex: 1,
-      minWidth: 0,
-      marginLeft: 5,
-      color: theme.colors.textMuted,
-      fontSize: 8.8,
-      lineHeight: 12,
-    },
+    helperText: {flex: 1, minWidth: 0, marginLeft: 5},
 
-    buttonPressable: {
-      borderRadius: 17,
-    },
 
-    buttonPressed: {
-      opacity: 0.92,
-      transform: [{scale: 0.985}],
-    },
 
-    nextButton: {
-      minHeight: 48,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
 
-      borderRadius: 17,
-      paddingHorizontal: 14,
 
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 4,
-      },
-      shadowOpacity: 0.16,
-      shadowRadius: 8,
-      elevation: 4,
-    },
-
-    nextText: {
-      color: onPrimaryTextColor(theme),
-      fontSize: 14,
-      fontWeight: '700',
-    },
-
-    arrowCircle: {
-      position: 'absolute',
-      right: 8,
-
-      width: 30,
-      height: 30,
-
-      alignItems: 'center',
-      justifyContent: 'center',
-
-      borderWidth: 1,
-      borderColor: withAlpha(onPrimaryTextColor(theme), 0.12),
-      borderRadius: 15,
-      backgroundColor: withAlpha(onPrimaryTextColor(theme), 0.14),
-    },
   });
 }
 

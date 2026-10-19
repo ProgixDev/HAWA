@@ -31,7 +31,6 @@ import {useJournalSheet} from '../../navigation/JournalSheetContext';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {
   interpolateHex,
-  onPrimaryTextColor,
   pickReadableTextColor,
   withAlpha,
   type ResolvedAwaTheme,
@@ -84,6 +83,9 @@ import {formatHijriDate} from '../../utils/cycleMath';
 
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
+import {AwaText} from '../ui/AwaText';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
 
 const RING_SIZE = 126;
 const RING_STROKE = 10;
@@ -190,9 +192,6 @@ function PremiumProgressRing({
 }): React.JSX.Element {
   const {t} = useTranslation();
   const ringAnimation = useRef(new Animated.Value(0)).current;
-  const pulseAnimation = useRef(new Animated.Value(0)).current;
-  const glowAnimation = useRef(new Animated.Value(0)).current;
-  const rotateAnimation = useRef(new Animated.Value(0)).current;
 
   React.useEffect(() => {
     ringAnimation.stopAnimation();
@@ -205,114 +204,16 @@ function PremiumProgressRing({
     }).start();
   }, [progress, ringAnimation]);
 
-  React.useEffect(() => {
-    const pulseLoop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(pulseAnimation, {
-          toValue: 1,
-          duration: 1300,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-        Animated.timing(pulseAnimation, {
-          toValue: 0,
-          duration: 1300,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-
-    const glowLoop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(glowAnimation, {
-          toValue: 1,
-          duration: 1700,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-        Animated.timing(glowAnimation, {
-          toValue: 0,
-          duration: 1700,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-
-    const rotateLoop = Animated.loop(
-      Animated.timing(rotateAnimation, {
-        toValue: 1,
-        duration: 9000,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-    );
-
-    pulseLoop.start();
-    glowLoop.start();
-    rotateLoop.start();
-
-    return () => {
-      pulseLoop.stop();
-      glowLoop.stop();
-      rotateLoop.stop();
-    };
-  }, [glowAnimation, pulseAnimation, rotateAnimation]);
-
   const dashOffset = ringAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: [RING_CIRCUMFERENCE, 0],
-  });
-
-  const pulseScale = pulseAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 1.06],
-  });
-
-  const glowOpacity = glowAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0.24, 0.58],
-  });
-
-  const glowScale = glowAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0.94, 1.08],
-  });
-
-  const rotation = rotateAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '360deg'],
   });
 
   const safeTotal = Math.max(totalCount, 1);
 
   return (
     <View style={styles.ringArea}>
-      <Animated.View
-        pointerEvents="none"
-        style={[
-          styles.ringGlow,
-          {
-            opacity: glowOpacity,
-            transform: [{scale: glowScale}],
-          },
-        ]}
-      />
-
-      <Animated.View
-        pointerEvents="none"
-        style={[
-          styles.ringOrbit,
-          {
-            transform: [{rotate: rotation}],
-          },
-        ]}>
-        <View style={styles.ringOrbitDotLarge} />
-        <View style={styles.ringOrbitDotSmall} />
-      </Animated.View>
-
-      <Animated.View style={{transform: [{scale: pulseScale}]}}>
+      <View>
         <View style={styles.ringShell}>
           <Svg height={RING_SIZE} width={RING_SIZE}>
             <Defs>
@@ -369,7 +270,7 @@ function PremiumProgressRing({
             </Text>
           </View>
         </View>
-      </Animated.View>
+      </View>
     </View>
   );
 }
@@ -420,18 +321,17 @@ function DailyRow({
       </View>
 
       <View style={styles.dailyStatTextGroup}>
-        <Text numberOfLines={1} style={styles.dailyStatLabel}>
+        <AwaText variant="labelMedium" style={styles.dailyStatLabel}>
           {label}
-        </Text>
+        </AwaText>
 
-        <Text
-          numberOfLines={1}
+        <AwaText variant="bodyMedium" colorRole="onSurfaceVariant"
           style={[
             styles.dailyStatValue,
             !completed && styles.dailyValueMuted,
           ]}>
           {value}
-        </Text>
+        </AwaText>
       </View>
 
       <MaterialDesignIcons
@@ -464,7 +364,6 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
   const {todayKey: today} = useToday();
 
   const entranceAnimation = useRef(new Animated.Value(0)).current;
-  const decorativeAnimation = useRef(new Animated.Value(0)).current;
 
   const [preferences, setPreferences] =
     useState<MenopausePreferences>(getMenopausePreferences);
@@ -496,46 +395,13 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
       easing: Easing.out(Easing.cubic),
       useNativeDriver: true,
     }).start();
-
-    const loop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(decorativeAnimation, {
-          toValue: 1,
-          duration: 3000,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-        Animated.timing(decorativeAnimation, {
-          toValue: 0,
-          duration: 3000,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-
-    loop.start();
-
-    return () => {
-      loop.stop();
-    };
-  }, [decorativeAnimation, entranceAnimation]);
+  }, [entranceAnimation]);
 
   const entranceOpacity = entranceAnimation;
 
   const entranceTranslateY = entranceAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: [18, 0],
-  });
-
-  const decorativeTranslateY = decorativeAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, -6],
-  });
-
-  const decorativeScale = decorativeAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 1.04],
   });
 
   /* ================================================================
@@ -866,11 +732,6 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
@@ -903,36 +764,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                 transform: [{translateY: entranceTranslateY}],
               },
             ]}>
-            <LinearGradient
-              colors={[
-                theme.colors.surface,
-                interpolateHex(theme.colors.surface, theme.colors.primarySoft, 0.5),
-                theme.colors.primarySoft,
-              ]}
-              end={{x: 1, y: 1}}
-              start={{x: 0, y: 0}}
-              style={styles.heroCard}>
-              <View style={styles.heroDecorCircleTop} />
-              <View style={styles.heroDecorCircleBottom} />
-
-              <Animated.View
-                pointerEvents="none"
-                style={[
-                  styles.heroFloatingFlower,
-                  {
-                    transform: [
-                      {translateY: decorativeTranslateY},
-                      {scale: decorativeScale},
-                    ],
-                  },
-                ]}>
-                <MaterialDesignIcons
-                  color={withAlpha(theme.colors.primary, 0.16)}
-                  name="flower-outline"
-                  size={82}
-                />
-              </Animated.View>
-
+            <AwaCard padding="none" style={styles.heroCard}>
               <View style={styles.heroTopRow}>
                 <View style={styles.heroBadge}>
                   <MaterialDesignIcons
@@ -941,11 +773,11 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                     size={14}
                   />
 
-                  <Text
+                  <AwaText variant="labelSmall" colorRole="primary"
                     numberOfLines={1}
                     style={styles.heroEyebrow}>
                     {stageLabel}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <View style={styles.heroTodayBadge}>
@@ -966,9 +798,9 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                     {heroStatusText}
                   </Text>
 
-                  <Text style={styles.heroSubtitle}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.heroSubtitle}>
                     {heroSupportingText}
-                  </Text>
+                  </AwaText>
 
                   <View style={styles.heroMiniStatusRow}>
                     <View style={styles.heroMiniStatusIcon}>
@@ -979,9 +811,9 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                       />
                     </View>
 
-                    <Text style={styles.heroMiniStatusText}>
+                    <AwaText variant="labelSmall" colorRole="primary">
                       {t('menopauseDashboard.hero.miniStatus')}
-                    </Text>
+                    </AwaText>
                   </View>
                 </View>
 
@@ -993,7 +825,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                   totalCount={dailySections.length}
                 />
               </View>
-            </LinearGradient>
+            </AwaCard>
           </Animated.View>
 
           {/* =====================================================
@@ -1008,43 +840,27 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                 transform: [{translateY: entranceTranslateY}],
               },
             ]}>
-            <LinearGradient
-              colors={[
-                theme.colors.surface,
-                interpolateHex(theme.colors.surface, theme.colors.primarySoft, 0.3),
-              ]}
-              end={{x: 1, y: 1}}
-              start={{x: 0, y: 0}}
-              style={styles.stageCard}>
+            <AwaCard padding="none" style={styles.stageCard} variant="filled">
               <View style={styles.stageHeader}>
                 <View>
-                  <Text style={styles.stageEyebrow}>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant">
                     {t('menopauseDashboard.stageCard.eyebrow')}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.stageSectionTitle}>
+                  <AwaText variant="titleMedium" style={styles.stageSectionTitle}>
                     {t('menopauseDashboard.stageCard.title')}
-                  </Text>
+                  </AwaText>
                 </View>
 
-                <Pressable
+                <AwaButton
                   accessibilityLabel={t('menopauseDashboard.stageCard.editAccessibility')}
-                  accessibilityRole="button"
+                  icon="pencil-outline"
+                  label={t('menopauseDashboard.stageCard.editLabel')}
                   onPress={openStageModal}
-                  style={({pressed}) => [
-                    styles.stageEditButton,
-                    pressed && styles.pressed,
-                  ]}>
-                  <MaterialDesignIcons
-                    color={theme.colors.primary}
-                    name="pencil-outline"
-                    size={15}
-                  />
-
-                  <Text style={styles.stageEditText}>
-                    {t('menopauseDashboard.stageCard.editLabel')}
-                  </Text>
-                </Pressable>
+                  size="compact"
+                  style={styles.stageEditButton}
+                  variant="tonal"
+                />
               </View>
 
               <View style={styles.stageDivider} />
@@ -1074,17 +890,17 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                 </View>
 
                 <View style={styles.flexOne}>
-                  <Text style={styles.stageCurrentLabel}>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant">
                     {t('menopauseDashboard.stageCard.currentLabel')}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.stageValue}>
+                  <AwaText variant="titleMedium" style={styles.stageValue}>
                     {currentStageLabel}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.stageHint}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.stageHint}>
                     {currentStageSubtitle}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <View style={styles.stageChevron}>
@@ -1095,7 +911,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                   />
                 </View>
               </Pressable>
-            </LinearGradient>
+            </AwaCard>
           </Animated.View>
 
           {/* =====================================================
@@ -1103,7 +919,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
               DESIGN CONSERVÉ
           ====================================================== */}
 
-          <View style={styles.dailyCard}>
+          <AwaCard style={styles.dailyCard}>
             <View style={styles.dailyHeader}>
               <View style={styles.dailyTitleIcon}>
                 <MaterialDesignIcons
@@ -1114,13 +930,13 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
               </View>
 
               <View style={styles.flexOne}>
-                <Text style={styles.dailyTitle}>
+                <AwaText variant="titleMedium" style={styles.dailyTitle}>
                   {t('menopauseDashboard.daily.title')}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.dailySubtitle}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.dailySubtitle}>
                   {t('menopauseDashboard.daily.subtitle')}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -1249,7 +1065,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                 }
               />
             </View>
-          </View>
+          </AwaCard>
 
           {/* =====================================================
               ACTIONS RAPIDES
@@ -1319,13 +1135,13 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
               />
             </View>
 
-            <Text style={styles.modalTitle}>
+            <AwaText variant="headlineSmall" style={styles.modalTitle}>
               {t('menopauseDashboard.stageModal.title')}
-            </Text>
+            </AwaText>
 
-            <Text style={styles.modalSubtitle}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.modalSubtitle}>
               {t('menopauseDashboard.stageModal.subtitle')}
-            </Text>
+            </AwaText>
 
             <ScrollView
               contentContainerStyle={styles.modalScrollContent}
@@ -1353,30 +1169,18 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
               </View>
             </ScrollView>
 
-            <Pressable
-              accessibilityRole="button"
-              accessibilityState={{
-                disabled:
-                  savingStage || !pendingStage,
-              }}
+            <AwaButton
               disabled={
                 savingStage || !pendingStage
               }
+              fullWidth
+              label={savingStage
+                ? t('menopauseDashboard.stageModal.saving')
+                : t('menopauseDashboard.stageModal.confirm')}
               onPress={confirmStage}
-              style={({pressed}) => [
-                styles.modalConfirmButton,
-                (!pendingStage || savingStage) &&
-                  styles.modalConfirmButtonDisabled,
-                pressed &&
-                  pendingStage &&
-                  styles.pressed,
-              ]}>
-              <Text style={styles.modalConfirmText}>
-                {savingStage
-                  ? t('menopauseDashboard.stageModal.saving')
-                  : t('menopauseDashboard.stageModal.confirm')}
-              </Text>
-            </Pressable>
+              size="large"
+              style={styles.modalConfirmButton}
+            />
           </Pressable>
         </Pressable>
       </Modal>
@@ -1411,40 +1215,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.background,
   },
 
-  // Exact same canonical AWA page background decor as ProfileScreen —
-  // reused verbatim (colors/locations already set on the LinearGradient
-  // above; this is the 3-glow overlay), never a per-screen approximation.
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   safeArea: {
     flex: 1,
@@ -1473,47 +1243,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   heroCard: {
     overflow: 'hidden',
-    borderRadius: 30,
     paddingHorizontal: 18,
     paddingTop: 17,
     paddingBottom: 20,
-
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-
-    ...theme.shadow,
-  },
-
-  heroDecorCircleTop: {
-    position: 'absolute',
-    right: -34,
-    top: -50,
-
-    width: 154,
-    height: 154,
-
-    borderRadius: 77,
-
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-  },
-
-  heroDecorCircleBottom: {
-    position: 'absolute',
-    left: -58,
-    bottom: -92,
-
-    width: 170,
-    height: 170,
-
-    borderRadius: 85,
-
-    backgroundColor: withAlpha(theme.colors.primary, 0.14),
-  },
-
-  heroFloatingFlower: {
-    position: 'absolute',
-    right: 68,
-    bottom: -22,
   },
 
   heroTopRow: {
@@ -1540,17 +1272,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: withAlpha(theme.colors.primary, 0.09),
   },
 
-  heroEyebrow: {
-    flexShrink: 1,
-
-    marginLeft: 5,
-
-    color: theme.colors.primary,
-
-    fontSize: 10.5,
-    fontWeight: '800',
-    letterSpacing: 0.25,
-  },
+  heroEyebrow: {flexShrink: 1, marginLeft: 5},
 
   heroTodayBadge: {
     flexDirection: 'row',
@@ -1578,7 +1300,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   heroTodayText: {
     color: theme.colors.textSecondary,
 
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '700',
   },
 
@@ -1610,16 +1332,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     lineHeight: 25,
   },
 
-  heroSubtitle: {
-    maxWidth: 220,
-
-    marginTop: 8,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 11.5,
-    lineHeight: 17,
-  },
+  heroSubtitle: {maxWidth: 220, marginTop: 8},
 
   heroMiniStatusRow: {
     alignSelf: 'flex-start',
@@ -1629,8 +1342,8 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginTop: 12,
 
-    paddingHorizontal: 8,
-    paddingVertical: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
 
     borderRadius: 12,
 
@@ -1651,12 +1364,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  heroMiniStatusText: {
-    color: theme.colors.primary,
-
-    fontSize: 9.5,
-    fontWeight: '700',
-  },
 
   /* ================================================================
    * PREMIUM RING
@@ -1670,64 +1377,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
   },
 
-  ringGlow: {
-    position: 'absolute',
 
-    width: 115,
-    height: 115,
 
-    borderRadius: 58,
 
-    backgroundColor: withAlpha(theme.colors.primary, 0.17),
-  },
-
-  ringOrbit: {
-    position: 'absolute',
-
-    width: 138,
-    height: 138,
-  },
-
-  ringOrbitDotLarge: {
-    position: 'absolute',
-
-    top: 8,
-    left: 61,
-
-    width: 10,
-    height: 10,
-
-    borderRadius: 5,
-
-    backgroundColor: theme.colors.surface,
-
-    borderWidth: 2,
-    borderColor: withAlpha(theme.colors.primary, 0.45),
-
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 4,
-
-    elevation: 3,
-  },
-
-  ringOrbitDotSmall: {
-    position: 'absolute',
-
-    right: 10,
-    bottom: 35,
-
-    width: 6,
-    height: 6,
-
-    borderRadius: 3,
-
-    backgroundColor: withAlpha(theme.colors.primary, 0.35),
-  },
 
   ringShell: {
     width: RING_SIZE,
@@ -1767,7 +1419,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginBottom: 2,
 
-    borderRadius: 10,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -1791,7 +1443,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     color: theme.colors.textSecondary,
 
-    fontSize: 8.5,
+    fontSize: 11,
     fontWeight: '700',
   },
 
@@ -1806,14 +1458,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   stageCard: {
     overflow: 'hidden',
 
-    borderRadius: 25,
-
     padding: 16,
-
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.11),
-
-    ...theme.shadow,
   },
 
   stageHeader: {
@@ -1822,44 +1467,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
 
-  stageEyebrow: {
-    color: theme.colors.textSecondary,
 
-    fontSize: 9,
-    fontWeight: '800',
-    letterSpacing: 1,
-  },
-
-  stageSectionTitle: {
-    marginTop: 2,
-
-    color: theme.colors.accent,
-
-    fontFamily: 'serif',
-    fontSize: 18,
-    fontWeight: '700',
-  },
+  stageSectionTitle: {marginTop: 2, color: theme.colors.accent},
 
   stageEditButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-
-    minHeight: 36,
-
-    paddingHorizontal: 11,
-
-    borderRadius: 14,
-
-    backgroundColor: theme.colors.primarySoft,
-  },
-
-  stageEditText: {
-    marginLeft: 4,
-
-    color: theme.colors.primary,
-
-    fontSize: 10.5,
-    fontWeight: '700',
+    flexShrink: 1,
   },
 
   stageDivider: {
@@ -1878,7 +1490,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingVertical: 10,
     paddingHorizontal: 3,
 
-    borderRadius: 18,
+    borderRadius: 12,
   },
 
   stageBodyPressed: {
@@ -1896,7 +1508,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginRight: 13,
 
-    borderRadius: 20,
+    borderRadius: 12,
   },
 
   stageIconBox: {
@@ -1906,36 +1518,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 15,
+    borderRadius: 16,
 
     backgroundColor: withAlpha(theme.colors.surface, 0.72),
   },
 
-  stageCurrentLabel: {
-    color: theme.colors.textSecondary,
 
-    fontSize: 9.5,
-    fontWeight: '600',
-  },
+  stageValue: {marginTop: 1, color: theme.colors.accent},
 
-  stageValue: {
-    marginTop: 1,
-
-    color: theme.colors.accent,
-
-    fontFamily: 'serif',
-    fontSize: 17,
-    fontWeight: '700',
-  },
-
-  stageHint: {
-    marginTop: 3,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 10.5,
-    lineHeight: 15,
-  },
+  stageHint: {marginTop: 3},
 
   stageChevron: {
     width: 32,
@@ -1960,17 +1551,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   dailyCard: {
     marginTop: 16,
-
-    borderRadius: 22,
-
-    backgroundColor: theme.colors.surface,
-
-    padding: 16,
-
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.1),
-
-    ...theme.shadow,
   },
 
   dailyHeader: {
@@ -1985,28 +1565,16 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 14,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
 
     marginRight: 10,
   },
 
-  dailyTitle: {
-    color: theme.colors.accent,
+  dailyTitle: {color: theme.colors.accent},
 
-    fontFamily: 'serif',
-    fontSize: 16,
-    fontWeight: '700',
-  },
-
-  dailySubtitle: {
-    marginTop: 2,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 11,
-  },
+  dailySubtitle: {marginTop: 2},
 
   dailyStatsList: {
     marginTop: 12,
@@ -2029,7 +1597,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 14,
+    borderRadius: 12,
 
     marginRight: 11,
   },
@@ -2047,12 +1615,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  dailyStatLabel: {
-    color: theme.colors.accent,
-
-    fontSize: 13,
-    fontWeight: '600',
-  },
+  dailyStatLabel: {color: theme.colors.accent},
 
   dailyStatValue: {
     marginTop: 2,
@@ -2066,9 +1629,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     fontWeight: '600',
   },
 
-  dailyValueMuted: {
-    color: theme.colors.textSecondary,
-  },
+  dailyValueMuted: {},
 
   /* ================================================================
    * MODAL
@@ -2087,8 +1648,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   modalSheet: {
     maxHeight: '84%',
 
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
 
     backgroundColor: theme.colors.surface,
 
@@ -2120,33 +1681,16 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 18,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
 
     marginBottom: 10,
   },
 
-  modalTitle: {
-    color: theme.colors.accent,
+  modalTitle: {color: theme.colors.accent, textAlign: 'center'},
 
-    fontFamily: 'serif',
-    fontSize: 22,
-    fontWeight: '700',
-
-    textAlign: 'center',
-  },
-
-  modalSubtitle: {
-    marginTop: 6,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 12.5,
-    lineHeight: 18,
-
-    textAlign: 'center',
-  },
+  modalSubtitle: {marginTop: 6, textAlign: 'center'},
 
   modalScrollContent: {
     paddingBottom: 4,
@@ -2158,34 +1702,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   modalConfirmButton: {
-    minHeight: 54,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
     marginTop: 18,
-
-    borderRadius: 18,
-
-    backgroundColor: theme.colors.primary,
-
-    ...theme.shadow,
   },
 
-  modalConfirmButtonDisabled: {
-    backgroundColor: withAlpha(theme.colors.primary, 0.35),
-
-    shadowOpacity: 0,
-
-    elevation: 0,
-  },
-
-  modalConfirmText: {
-    color: onPrimaryTextColor(theme),
-
-    fontSize: 16,
-    fontWeight: '700',
-  },
   });
 }
 

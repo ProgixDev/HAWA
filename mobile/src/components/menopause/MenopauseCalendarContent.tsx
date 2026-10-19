@@ -69,6 +69,11 @@ import {computeMenopauseMonthlySummary} from '../../utils/menopauseCalendarMath'
 import {displayTitleCase, displayUpperCase} from '../../utils/textCase';
 
 import '../../i18n';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaSwitch} from '../ui/AwaSwitch';
+import {AwaText} from '../ui/AwaText';
+import {CalendarHeaderAction as HeaderAction} from '../calendar/CalendarHeaderAction';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -381,11 +386,6 @@ function MenopauseCalendarContent(): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <SafeAreaView style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
@@ -396,8 +396,8 @@ function MenopauseCalendarContent(): React.JSX.Element {
           {/* HEADER */}
           <View style={styles.header}>
             <View style={styles.headerCopy}>
-              <Text style={styles.title}>{t('menopauseCalendar.title')}</Text>
-              <Text style={styles.subtitle}>{t('menopauseCalendar.subtitle')}</Text>
+              <AwaText variant="headlineSmall" style={styles.title}>{t('menopauseCalendar.title')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>{t('menopauseCalendar.subtitle')}</AwaText>
             </View>
 
             <HeaderAction icon="tune-variant" label={t('menopauseCalendar.filtersLabel')} onPress={() => setSheet('filters')} />
@@ -405,7 +405,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
           </View>
 
           {/* MONTH CARD */}
-          <View style={styles.card}>
+          <AwaCard padding="none" variant="filled" style={styles.card}>
             <View style={styles.monthHeader}>
               <Pressable
                 accessibilityLabel={t('menopauseCalendar.prevMonthAccessibility')}
@@ -416,11 +416,11 @@ function MenopauseCalendarContent(): React.JSX.Element {
               </Pressable>
 
               <View style={styles.monthTitleBlock}>
-                <Text numberOfLines={1} style={styles.monthTitle}>
+                <AwaText variant="titleMedium" style={styles.monthTitle}>
                   {displayTitleCase(new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(visibleMonth))}
-                </Text>
+                </AwaText>
                 {hijriRangeLabel ? (
-                  <Text numberOfLines={2} style={styles.hijriRange}>{hijriRangeLabel}</Text>
+                  <AwaText variant="labelSmall" colorRole="primary" numberOfLines={2} style={styles.hijriRange}>{hijriRangeLabel}</AwaText>
                 ) : null}
               </View>
 
@@ -576,16 +576,16 @@ function MenopauseCalendarContent(): React.JSX.Element {
                 </>
               ) : null}
             </View>
-          </View>
+          </AwaCard>
 
           {/* SELECTED DAY CARD */}
-          <View style={styles.card}>
+          <AwaCard padding="none" variant="filled" style={styles.card}>
             <View style={styles.selectedHeader}>
-              <Text style={styles.selectedDateText}>
+              <AwaText variant="titleMedium" style={styles.selectedDateText}>
                 {displayTitleCase(new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(selectedDate))}
-              </Text>
+              </AwaText>
               {selectedHijriDate ? (
-                <Text style={styles.selectedHijriText}>{selectedHijriDate}</Text>
+                <AwaText variant="labelSmall" colorRole="primary" style={styles.selectedHijriText}>{selectedHijriDate}</AwaText>
               ) : null}
             </View>
 
@@ -668,14 +668,14 @@ function MenopauseCalendarContent(): React.JSX.Element {
                 <View style={styles.emptyIcon}>
                   <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={22} />
                 </View>
-                <Text style={styles.emptyTitle}>{t('menopauseCalendar.emptyState.title')}</Text>
-                <Text style={styles.emptyText}>{t('menopauseCalendar.emptyState.text')}</Text>
+                <AwaText variant="labelMedium" style={styles.emptyTitle}>{t('menopauseCalendar.emptyState.title')}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.emptyText}>{t('menopauseCalendar.emptyState.text')}</AwaText>
               </View>
             )}
 
             {isSelectedPast ? (
               <View style={styles.pastEntryBlock}>
-                <Text style={styles.pastEntryTitle}>{t('menopauseCalendar.pastEntry.title')}</Text>
+                <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.pastEntryTitle}>{t('menopauseCalendar.pastEntry.title')}</AwaText>
                 <View style={styles.pastEntryChips}>
                   {PAST_ENTRY_CATEGORIES.filter(category => category !== 'treatment' || trackingTreatment).map(category => {
                     const label = MENOPAUSE_JOURNAL_ITEMS.find(item => item.key === category)?.label ?? category;
@@ -687,7 +687,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
                         onPress={() => navigation.navigate('MenopauseJournalEntry', {category, date: selectedDateKey})}
                         style={({pressed}) => [styles.pastEntryChip, pressed && styles.pressed]}>
                         <MaterialDesignIcons color={MENOPAUSE_CATEGORY_VISUALS[category].iconColor} name={MENOPAUSE_CATEGORY_VISUALS[category].icon} size={14} />
-                        <Text style={styles.pastEntryChipText}>{label}</Text>
+                        <AwaText variant="labelMedium" style={styles.pastEntryChipText}>{label}</AwaText>
                       </Pressable>
                     );
                   })}
@@ -696,51 +696,51 @@ function MenopauseCalendarContent(): React.JSX.Element {
             ) : null}
 
             {isSelectedToday ? (
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('menopauseCalendar.selected.editTodayAccessibility')}
-                accessibilityRole="button"
+                fullWidth
+                label={t('menopauseCalendar.selected.editToday')}
                 onPress={openJournal}
-                style={({pressed}) => [styles.editRow, pressed && styles.pressed]}>
-                <Text style={styles.editRowText}>{t('menopauseCalendar.selected.editToday')}</Text>
-                <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={18} />
-              </Pressable>
+                style={styles.editRow}
+                variant="tonal"
+              />
             ) : null}
-          </View>
+          </AwaCard>
 
           {/* MONTHLY SUMMARY */}
-          <View style={styles.card}>
-            <Text style={styles.summaryTitle}>{t('menopauseCalendar.summary.title')}</Text>
+          <AwaCard padding="none" variant="filled" style={styles.card}>
+            <AwaText variant="titleMedium" style={styles.summaryTitle}>{t('menopauseCalendar.summary.title')}</AwaText>
 
             {hasAnyDataAtAll ? (
               <View style={styles.summaryGrid}>
                 <View style={[styles.summaryTile, styles.summaryTileRose]}>
                   <MaterialDesignIcons color={MENOPAUSE_CATEGORY_VISUALS.symptoms.iconColor} name="clipboard-pulse-outline" size={18} />
-                  <Text style={[styles.summaryValue, {color: symptomsTileText}]}>{monthlySummary.daysWithSymptoms}</Text>
-                  <Text style={[styles.summaryLabel, {color: symptomsTileText}]}>{t('menopauseCalendar.summary.daysWithSymptoms')}</Text>
+                  <AwaText variant="titleLarge" style={[styles.summaryValue, {color: symptomsTileText}]}>{monthlySummary.daysWithSymptoms}</AwaText>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={[styles.summaryLabel, {color: symptomsTileText}]}>{t('menopauseCalendar.summary.daysWithSymptoms')}</AwaText>
                 </View>
 
                 <View style={[styles.summaryTile, styles.summaryTileAmber]}>
                   <MaterialDesignIcons color={MENOPAUSE_CATEGORY_VISUALS.energy.iconColor} name="weather-sunny" size={18} />
-                  <Text style={[styles.summaryValue, {color: energyTileText}]}>{monthlySummary.hotFlashDays}</Text>
-                  <Text style={[styles.summaryLabel, {color: energyTileText}]}>{t('menopauseCalendar.summary.hotFlashDays')}</Text>
+                  <AwaText variant="titleLarge" style={[styles.summaryValue, {color: energyTileText}]}>{monthlySummary.hotFlashDays}</AwaText>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={[styles.summaryLabel, {color: energyTileText}]}>{t('menopauseCalendar.summary.hotFlashDays')}</AwaText>
                 </View>
 
                 <View style={[styles.summaryTile, styles.summaryTileBlue]}>
                   <MaterialDesignIcons color={MENOPAUSE_CATEGORY_VISUALS.sleep.iconColor} name="water-outline" size={18} />
-                  <Text style={[styles.summaryValue, {color: sleepTileText}]}>{monthlySummary.nightSweatNights}</Text>
-                  <Text style={[styles.summaryLabel, {color: sleepTileText}]}>{t('menopauseCalendar.summary.nightSweatNights')}</Text>
+                  <AwaText variant="titleLarge" style={[styles.summaryValue, {color: sleepTileText}]}>{monthlySummary.nightSweatNights}</AwaText>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={[styles.summaryLabel, {color: sleepTileText}]}>{t('menopauseCalendar.summary.nightSweatNights')}</AwaText>
                 </View>
 
                 <View style={[styles.summaryTile, styles.summaryTileNeutral]}>
                   <MaterialDesignIcons color={theme.colors.textSecondary} name="battery-low" size={18} />
-                  <Text style={styles.summaryValue}>{monthlySummary.fatigueDays}</Text>
-                  <Text style={styles.summaryLabel}>{t('menopauseCalendar.summary.fatigueDays')}</Text>
+                  <AwaText variant="titleLarge" style={styles.summaryValue}>{monthlySummary.fatigueDays}</AwaText>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.summaryLabel}>{t('menopauseCalendar.summary.fatigueDays')}</AwaText>
                 </View>
               </View>
             ) : (
-              <Text style={styles.emptySummaryText}>{t('menopauseCalendar.summary.empty')}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{t('menopauseCalendar.summary.empty')}</AwaText>
             )}
-          </View>
+          </AwaCard>
         </ScrollView>
 
         <MenopauseCalendarSheet
@@ -758,28 +758,6 @@ function MenopauseCalendarContent(): React.JSX.Element {
   );
 }
 
-function HeaderAction({
-  icon,
-  label,
-  onPress,
-}: {
-  icon: IconName;
-  label: string;
-  onPress: () => void;
-}): React.JSX.Element {
-  const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
-  return (
-    <Pressable
-      accessibilityLabel={label}
-      accessibilityRole="button"
-      onPress={onPress}
-      style={({pressed}) => [styles.headerAction, pressed && styles.pressed]}>
-      <MaterialDesignIcons color={theme.colors.primary} name={icon} size={18} />
-      <Text style={styles.headerActionLabel}>{label}</Text>
-    </Pressable>
-  );
-}
 
 function LegendItem({
   color,
@@ -803,7 +781,7 @@ function LegendItem({
       ) : (
         <View style={[styles.legendDot, color ? {backgroundColor: color} : null]} />
       )}
-      <Text numberOfLines={1} style={styles.legendText}>{label}</Text>
+      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.legendLabel}>{label}</AwaText>
     </View>
   );
 }
@@ -829,8 +807,8 @@ function SelectedRow({
         <MaterialDesignIcons color={iconColor} name={icon} size={17} />
       </View>
       <View style={styles.selectedRowTextGroup}>
-        <Text style={styles.selectedRowLabel}>{label}</Text>
-        <Text numberOfLines={1} style={styles.selectedRowValue}>{value}</Text>
+        <AwaText variant="labelSmall" colorRole="onSurfaceVariant">{label}</AwaText>
+        <AwaText variant="labelMedium" style={styles.selectedRowValue}>{value}</AwaText>
       </View>
     </View>
   );
@@ -863,7 +841,6 @@ function MenopauseCalendarSheet({
 }): React.JSX.Element {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
   const sheetStyles = useMemo(() => createSheetStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const categoryCopy = useMemo(() => calendarCategoryCopyFor(t), [t]);
@@ -916,12 +893,12 @@ function MenopauseCalendarSheet({
             <View style={sheetStyles.handle} />
 
             <View style={sheetStyles.sheetHeader}>
-              <Text style={sheetStyles.sheetTitle}>{t('menopauseCalendar.sheet.filters.title')}</Text>
-              <Text style={sheetStyles.sheetSubtitle}>{t('menopauseCalendar.sheet.filters.subtitle')}</Text>
+              <AwaText variant="headlineSmall" style={sheetStyles.sheetTitle}>{t('menopauseCalendar.sheet.filters.title')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={sheetStyles.sheetSubtitle}>{t('menopauseCalendar.sheet.filters.subtitle')}</AwaText>
             </View>
 
             <ScrollView bounces={false} contentContainerStyle={sheetStyles.filterRows} showsVerticalScrollIndicator={false} style={sheetStyles.filterScroll}>
-              <Text style={sheetStyles.groupTitle}>{displayUpperCase(t('menopauseCalendar.sheet.filters.trackingGroupTitle'))}</Text>
+              <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={sheetStyles.groupTitle}>{displayUpperCase(t('menopauseCalendar.sheet.filters.trackingGroupTitle'))}</AwaText>
               {trackingFilterRows.map((row, index) => (
                 <FilterRow
                   active={filters[row.key]}
@@ -934,7 +911,7 @@ function MenopauseCalendarSheet({
 
               {spiritualMarkersEnabled ? (
                 <>
-                  <Text style={sheetStyles.groupTitle}>{displayUpperCase(t('menopauseCalendar.sheet.filters.spiritualGroupTitle'))}</Text>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={sheetStyles.groupTitle}>{displayUpperCase(t('menopauseCalendar.sheet.filters.spiritualGroupTitle'))}</AwaText>
                   {spiritualFilterRows.map((row, index) => (
                     <FilterRow
                       active={filters[row.key]}
@@ -949,12 +926,11 @@ function MenopauseCalendarSheet({
             </ScrollView>
 
             <View style={sheetStyles.footer}>
-              <Pressable
+              <AwaButton
                 accessibilityRole="button"
                 onPress={onClose}
-                style={({pressed}) => [sheetStyles.doneButton, pressed && styles.pressed]}>
-                <Text style={sheetStyles.doneText}>{t('menopauseCalendar.sheet.filters.doneLabel')}</Text>
-              </Pressable>
+                label={t('menopauseCalendar.sheet.filters.doneLabel')}
+              />
             </View>
           </View>
         ) : mode === 'legend' ? (
@@ -963,8 +939,8 @@ function MenopauseCalendarSheet({
 
             <ScrollView bounces={false} contentContainerStyle={sheetStyles.legendScrollContent} showsVerticalScrollIndicator={false} style={sheetStyles.legendScroll}>
               <View style={sheetStyles.sheetHeader}>
-                <Text style={sheetStyles.sheetTitle}>{t('menopauseCalendar.sheet.legend.title')}</Text>
-                <Text style={sheetStyles.sheetSubtitle}>{t('menopauseCalendar.sheet.legend.subtitle')}</Text>
+                <AwaText variant="headlineSmall" style={sheetStyles.sheetTitle}>{t('menopauseCalendar.sheet.legend.title')}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={sheetStyles.sheetSubtitle}>{t('menopauseCalendar.sheet.legend.subtitle')}</AwaText>
               </View>
 
               <View style={sheetStyles.legendRowsGroup}>
@@ -974,8 +950,8 @@ function MenopauseCalendarSheet({
                       <MaterialDesignIcons color={row.color} name={row.icon} size={22} />
                     </View>
                     <View style={sheetStyles.legendRowCopy}>
-                      <Text style={sheetStyles.legendRowTitle}>{row.title}</Text>
-                      <Text style={sheetStyles.legendRowText}>{row.description}</Text>
+                      <AwaText variant="titleSmall" style={sheetStyles.legendRowTitle}>{row.title}</AwaText>
+                      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={sheetStyles.legendRowText}>{row.description}</AwaText>
                     </View>
                   </View>
                 ))}
@@ -985,10 +961,10 @@ function MenopauseCalendarSheet({
                     <MaterialDesignIcons color={theme.colors.primary} name={WELLBEING_MARKER_ICON} size={22} />
                   </View>
                   <View style={sheetStyles.legendRowCopy}>
-                    <Text style={sheetStyles.legendRowTitle}>{t('menopauseCalendar.wellbeing.legendTitle')}</Text>
-                    <Text style={sheetStyles.legendRowText}>
+                    <AwaText variant="titleSmall" style={sheetStyles.legendRowTitle}>{t('menopauseCalendar.wellbeing.legendTitle')}</AwaText>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={sheetStyles.legendRowText}>
                       {t('menopauseCalendar.wellbeing.legendDescription')}
-                    </Text>
+                    </AwaText>
                   </View>
                 </View>
 
@@ -997,8 +973,8 @@ function MenopauseCalendarSheet({
                     <View style={sheetStyles.legendTodayPreview} />
                   </View>
                   <View style={sheetStyles.legendRowCopy}>
-                    <Text style={sheetStyles.legendRowTitle}>{t('menopauseCalendar.todayLabel')}</Text>
-                    <Text style={sheetStyles.legendRowText}>{t('menopauseCalendar.sheet.legend.todayDescription')}</Text>
+                    <AwaText variant="titleSmall" style={sheetStyles.legendRowTitle}>{t('menopauseCalendar.todayLabel')}</AwaText>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={sheetStyles.legendRowText}>{t('menopauseCalendar.sheet.legend.todayDescription')}</AwaText>
                   </View>
                 </View>
 
@@ -1009,8 +985,8 @@ function MenopauseCalendarSheet({
                         <MaterialDesignIcons color={RAMADAN_MARKER_COLOR} name="moon-waning-crescent" size={22} />
                       </View>
                       <View style={sheetStyles.legendRowCopy}>
-                        <Text style={sheetStyles.legendRowTitle}>{t('menopauseCalendar.ramadanLabel')}</Text>
-                        <Text style={sheetStyles.legendRowText}>{t('menopauseCalendar.sheet.legend.ramadanDescription')}</Text>
+                        <AwaText variant="titleSmall" style={sheetStyles.legendRowTitle}>{t('menopauseCalendar.ramadanLabel')}</AwaText>
+                        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={sheetStyles.legendRowText}>{t('menopauseCalendar.sheet.legend.ramadanDescription')}</AwaText>
                       </View>
                     </View>
                     <View style={[sheetStyles.legendRow, sheetStyles.legendRowLast]}>
@@ -1018,8 +994,8 @@ function MenopauseCalendarSheet({
                         <MaterialDesignIcons color={DHOUL_HIJJA_MARKER_COLOR} name="moon-waning-crescent" size={22} />
                       </View>
                       <View style={sheetStyles.legendRowCopy}>
-                        <Text style={sheetStyles.legendRowTitle}>{t('menopauseCalendar.dhoulHijjaLabel')}</Text>
-                        <Text style={sheetStyles.legendRowText}>{t('menopauseCalendar.sheet.legend.dhoulHijjaDescription')}</Text>
+                        <AwaText variant="titleSmall" style={sheetStyles.legendRowTitle}>{t('menopauseCalendar.dhoulHijjaLabel')}</AwaText>
+                        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={sheetStyles.legendRowText}>{t('menopauseCalendar.sheet.legend.dhoulHijjaDescription')}</AwaText>
                       </View>
                     </View>
                   </>
@@ -1028,13 +1004,12 @@ function MenopauseCalendarSheet({
             </ScrollView>
 
             <View style={sheetStyles.footer}>
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('menopauseCalendar.sheet.legend.closeAccessibility')}
                 accessibilityRole="button"
                 onPress={onClose}
-                style={({pressed}) => [sheetStyles.doneButton, pressed && styles.pressed]}>
-                <Text style={sheetStyles.doneText}>{t('menopauseCalendar.sheet.legend.closeLabel')}</Text>
-              </Pressable>
+                label={t('menopauseCalendar.sheet.legend.closeLabel')}
+              />
             </View>
           </View>
         ) : null}
@@ -1058,20 +1033,17 @@ function FilterRow({
   const sheetStyles = useMemo(() => createSheetStyles(theme), [theme]);
   return (
     <Pressable
-      accessibilityRole="switch"
-      accessibilityState={{checked: active}}
+      accessible={false}
       onPress={onPress}
       style={[sheetStyles.filterRow, last && sheetStyles.filterRowLast]}>
       <View style={sheetStyles.filterIcon}>
         <MaterialDesignIcons color={row.color} name={row.icon} size={20} />
       </View>
       <View style={sheetStyles.filterCopy}>
-        <Text style={sheetStyles.filterTitle}>{row.title}</Text>
-        <Text style={sheetStyles.filterDescription}>{row.description}</Text>
+        <AwaText variant="labelMedium" style={sheetStyles.filterTitle}>{row.title}</AwaText>
+        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={sheetStyles.filterDescription}>{row.description}</AwaText>
       </View>
-      <View style={[sheetStyles.switchTrack, active && sheetStyles.switchTrackActive]}>
-        <View style={[sheetStyles.switchThumb, active && sheetStyles.switchThumbActive]} />
-      </View>
+      <AwaSwitch accessibilityLabel={row.title} onValueChange={onPress} value={active} />
     </Pressable>
   );
 }
@@ -1088,26 +1060,22 @@ function createSheetStyles(theme: ResolvedAwaTheme) {
   handle: {width: 44, height: 5, alignSelf: 'center', flexShrink: 0, borderRadius: 3, backgroundColor: withAlpha(theme.colors.primary, 0.30)},
 
   sheetHeader: {flexShrink: 0, marginTop: 18, marginBottom: 10, paddingHorizontal: 22},
-  sheetTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 24, fontWeight: '800'},
-  sheetSubtitle: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 18},
+  sheetTitle: {color: theme.colors.accent},
+  sheetSubtitle: {marginTop: 8},
 
   filterSheet: {height: '80%'},
   filterScroll: {flex: 1, minHeight: 0},
   filterRows: {paddingHorizontal: 22, paddingBottom: 10},
-  groupTitle: {marginTop: 14, marginBottom: 4, color: theme.colors.textSecondary, fontSize: 11, fontWeight: '800', textTransform: 'uppercase'},
+  groupTitle: {marginTop: 14, marginBottom: 4, textTransform: 'uppercase'},
   filterRow: {
     minHeight: 66, flexDirection: 'row', alignItems: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: withAlpha(theme.colors.primary, 0.10),
   },
   filterRowLast: {borderBottomWidth: 0},
-  filterIcon: {width: 44, height: 44, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 15, backgroundColor: theme.colors.primarySoft},
+  filterIcon: {width: 44, height: 44, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: theme.colors.primarySoft},
   filterCopy: {flex: 1, minWidth: 0, marginHorizontal: 12},
-  filterTitle: {color: theme.colors.accent, fontSize: 13, fontWeight: '800'},
-  filterDescription: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 14},
-  switchTrack: {width: 42, height: 24, flexShrink: 0, justifyContent: 'center', paddingHorizontal: 2, borderRadius: 13, backgroundColor: theme.colors.surfaceSecondary},
-  switchTrackActive: {backgroundColor: theme.colors.primary},
-  switchThumb: {...theme.shadow, width: 20, height: 20, borderRadius: 10, backgroundColor: theme.colors.surface},
-  switchThumbActive: {alignSelf: 'flex-end'},
+  filterTitle: {color: theme.colors.accent},
+  filterDescription: {marginTop: 2},
 
   legendSheet: {height: '80%', paddingHorizontal: 0},
   legendScroll: {flex: 1, minHeight: 0},
@@ -1118,137 +1086,105 @@ function createSheetStyles(theme: ResolvedAwaTheme) {
     borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: withAlpha(theme.colors.primary, 0.10),
   },
   legendRowLast: {borderBottomWidth: 0},
-  legendLargeIcon: {width: 44, height: 44, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 15, backgroundColor: theme.colors.primarySoft},
+  legendLargeIcon: {width: 44, height: 44, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: theme.colors.primarySoft},
   legendTodayPreview: {
     width: 22, height: 22, borderWidth: 1.8, borderStyle: 'dashed', borderColor: theme.colors.text, borderRadius: 8,
     backgroundColor: theme.colors.primarySoft,
   },
   legendRowCopy: {flex: 1, minWidth: 0, marginLeft: 14},
-  legendRowTitle: {color: theme.colors.accent, fontSize: 14, fontWeight: '800'},
-  legendRowText: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 15},
+  legendRowTitle: {color: theme.colors.accent},
+  legendRowText: {marginTop: 3},
 
   footer: {
     flexShrink: 0, paddingHorizontal: 22, paddingTop: 10, paddingBottom: 4,
     borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: withAlpha(theme.colors.primary, 0.10), backgroundColor: theme.colors.surface,
   },
-  doneButton: {height: 50, alignItems: 'center', justifyContent: 'center', borderRadius: 18, backgroundColor: theme.colors.primary},
-  doneText: {color: onPrimaryTextColor(theme), fontSize: 14, fontWeight: '800'},
   });
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   background: {flex: 1, backgroundColor: theme.colors.background},
-  pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
-  pageGlowTop: {
-    position: 'absolute', top: -150, right: -110, width: 330, height: 330,
-    borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-  pageGlowMiddle: {
-    position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
-    borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
-  pageGlowBottom: {
-    position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
-    borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   safeArea: {flex: 1},
   content: {flexGrow: 1, paddingHorizontal: 16, paddingTop: TOP_SPACING_EXTRA},
 
   header: {flexDirection: 'row', alignItems: 'center'},
   headerCopy: {flex: 1, minWidth: 0},
-  title: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 23, fontWeight: '800'},
-  subtitle: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 12.5},
-  headerAction: {
-    ...theme.shadow,
-    width: 52, height: 52, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-    marginLeft: 8, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 17, backgroundColor: theme.colors.surface,
-  },
-  headerActionLabel: {marginTop: 2, color: theme.colors.primary, fontSize: 8, fontWeight: '800'},
+  title: {color: theme.colors.accent},
+  subtitle: {marginTop: 4},
 
-  card: {
-    marginTop: 16, padding: 16, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 24,
-    backgroundColor: withAlpha(theme.colors.surface, 0.98),
-    ...theme.shadow,
-  },
+  card: {marginTop: 16, padding: 16},
 
   monthHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
   monthTitleBlock: {flex: 1, alignItems: 'center', paddingHorizontal: 6, minWidth: 0},
-  monthTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 18, fontWeight: '800', textTransform: 'capitalize'},
-  hijriRange: {marginTop: 2, color: theme.colors.primary, fontSize: 10, fontWeight: '600', textAlign: 'center'},
+  monthTitle: {color: theme.colors.accent, textTransform: 'capitalize'},
+  hijriRange: {marginTop: 2, textAlign: 'center'},
 
   weekRow: {flexDirection: 'row', marginTop: 14},
-  weekDay: {width: '14.2857%', color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700', textAlign: 'center'},
+  weekDay: {width: '14.2857%', color: theme.colors.textSecondary, fontSize: 11, fontWeight: '700', textAlign: 'center'},
   daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 4},
   dayCell: {width: '14.2857%', minHeight: 54, alignItems: 'center', justifyContent: 'center', paddingVertical: 2},
   day: {
     position: 'relative', width: '86%', minHeight: 42, maxWidth: 42, paddingVertical: 4,
-    alignItems: 'center', justifyContent: 'center', borderRadius: 14,
+    alignItems: 'center', justifyContent: 'center', borderRadius: 12,
   },
   dayHasMarker: {backgroundColor: theme.colors.primarySoft},
   daySelected: {backgroundColor: theme.colors.primary},
   dayToday: {
-    backgroundColor: theme.colors.primarySoft, borderWidth: 1.8, borderStyle: 'dashed', borderColor: theme.colors.text, borderRadius: 14,
+    backgroundColor: theme.colors.primarySoft, borderWidth: 1.8, borderStyle: 'dashed', borderColor: theme.colors.text, borderRadius: 12,
   },
   dayText: {color: theme.colors.accent, fontSize: 13, fontWeight: '600'},
   dayTextLight: {color: onPrimaryTextColor(theme)},
   dayTextToday: {color: theme.colors.text, fontWeight: '800'},
-  hijriDayText: {color: theme.colors.textSecondary, fontSize: 8.5, marginTop: 1},
+  hijriDayText: {color: theme.colors.textSecondary, fontSize: 11, marginTop: 1},
   dayMarkerRow: {flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', maxWidth: 34, marginTop: 1, gap: 1.5},
   spiritualMarker: {position: 'absolute', top: 3, right: 3},
 
   legendRow: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 12},
-  legendItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  legendItem: {flexDirection: 'row', alignItems: 'center', gap: 5, maxWidth: '100%'},
+  legendLabel: {flexShrink: 1},
   legendDot: {width: 9, height: 9, borderRadius: 5, backgroundColor: theme.colors.textSecondary},
   legendDashedRing: {width: 11, height: 11, borderRadius: 6, borderWidth: 1.3, borderStyle: 'dashed', borderColor: theme.colors.text},
-  legendText: {color: theme.colors.textSecondary, fontSize: 10.5},
 
   selectedHeader: {marginBottom: 4},
-  selectedDateText: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 16.5, fontWeight: '800', textTransform: 'capitalize'},
-  selectedHijriText: {marginTop: 2, color: theme.colors.primary, fontSize: 11, fontWeight: '600'},
+  selectedDateText: {color: theme.colors.accent, textTransform: 'capitalize'},
+  selectedHijriText: {marginTop: 2},
 
   selectedRow: {flexDirection: 'row', alignItems: 'center', paddingVertical: 8, gap: 10},
   selectedRowIcon: {width: 34, height: 34, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 12},
   selectedRowTextGroup: {flex: 1, minWidth: 0},
-  selectedRowLabel: {color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700'},
-  selectedRowValue: {marginTop: 2, color: theme.colors.accent, fontSize: 12.5, fontWeight: '800'},
+  selectedRowValue: {marginTop: 2, color: theme.colors.accent},
 
-  editRow: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 8,
-    paddingHorizontal: 12, paddingVertical: 12, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 15,
-    backgroundColor: theme.colors.surfaceSecondary,
-  },
-  editRowText: {color: theme.colors.primary, fontSize: 12.5, fontWeight: '800'},
+  editRow: {marginTop: 8},
 
   pastEntryBlock: {marginTop: 10},
-  pastEntryTitle: {color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700', marginBottom: 6},
+  pastEntryTitle: {marginBottom: 6},
   pastEntryChips: {flexDirection: 'row', flexWrap: 'wrap', gap: 8},
   pastEntryChip: {
     flexDirection: 'row', alignItems: 'center', gap: 6, minHeight: 40, paddingHorizontal: 12,
-    borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 14,
+    borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
-  pastEntryChipText: {color: theme.colors.accent, fontSize: 12, fontWeight: '700'},
+  pastEntryChipText: {color: theme.colors.accent},
 
-  summaryTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 16, fontWeight: '800', marginBottom: 12},
+  summaryTitle: {color: theme.colors.accent, marginBottom: 12},
   summaryGrid: {flexDirection: 'row', flexWrap: 'wrap', gap: 10},
   summaryTile: {
-    flexGrow: 1, flexBasis: '46%', minWidth: 130, alignItems: 'center', paddingVertical: 14,
-    borderRadius: 18, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14),
+    flexGrow: 1, flexBasis: '46%', minWidth: 130, alignItems: 'center', paddingVertical: 14, paddingHorizontal: 12,
+    borderRadius: 12, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14),
   },
   summaryTileRose: {backgroundColor: MENOPAUSE_CATEGORY_VISUALS.symptoms.tint},
   summaryTileAmber: {backgroundColor: MENOPAUSE_CATEGORY_VISUALS.energy.tint},
   summaryTileBlue: {backgroundColor: MENOPAUSE_CATEGORY_VISUALS.sleep.tint},
   summaryTileNeutral: {backgroundColor: theme.colors.surfaceSecondary},
-  summaryValue: {marginTop: 6, color: theme.colors.accent, fontSize: 20, fontWeight: '900'},
-  summaryLabel: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700', textAlign: 'center'},
-  emptySummaryText: {color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
+  summaryValue: {marginTop: 6, color: theme.colors.accent},
+  summaryLabel: {marginTop: 2, textAlign: 'center'},
 
   emptyState: {alignItems: 'center', paddingVertical: 14},
   emptyIcon: {width: 44, height: 44, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: theme.colors.primarySoft, marginBottom: 8},
-  emptyTitle: {color: theme.colors.accent, fontSize: 13, fontWeight: '700', textAlign: 'center'},
-  emptyText: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 11.5, textAlign: 'center'},
+  emptyTitle: {color: theme.colors.accent, textAlign: 'center'},
+  emptyText: {marginTop: 4, textAlign: 'center'},
 
   pressed: {opacity: 0.82},
   });
