@@ -1,4 +1,5 @@
 import {useToday} from '../../hooks/useToday';
+import {useDaughterJournal} from '../../hooks/useDaughterJournal';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Animated, Easing, ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -9,15 +10,21 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {presentSaveFailure} from '../../services/saveFailure';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
+import {JOURNAL_HERO_INK} from '../../components/journal/journalHeroInk';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import type {MoodLevel} from '../../types/journal';
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {deriveAwaRoles} from '../../theme/semanticRoles';
 import '../../i18n';
 
-type MoodOption = {labelKey: string; emoji: string; value: MoodLevel; tint: string};
+type MoodOption = {labelKey: string; emoji: string; value: MoodLevel};
 type LevelRowProps = {
   label: string;
   value: number;
@@ -29,15 +36,15 @@ type LevelRowProps = {
 // Labels reuse the same cycleHome.mood.* glossary entries HeroCycleCard reads
 // for these exact 9 mood levels — never a second, duplicated translation.
 const MOODS: MoodOption[] = [
-  {labelKey: 'cycleHome.mood.veryGood', emoji: '😊', value: 'veryGood', tint: '#DCEFE4'},
-  {labelKey: 'cycleHome.mood.good', emoji: '🙂', value: 'good', tint: '#E5EED6'},
-  {labelKey: 'cycleHome.mood.neutral', emoji: '😐', value: 'neutral', tint: '#F7E4C4'},
-  {labelKey: 'cycleHome.mood.stressed', emoji: '😟', value: 'stressed', tint: '#F8DDE0'},
-  {labelKey: 'cycleHome.mood.irritable', emoji: '😠', value: 'irritable', tint: '#F6D0C3'},
-  {labelKey: 'cycleHome.mood.anxious', emoji: '😰', value: 'anxious', tint: '#DEE0F5'},
-  {labelKey: 'cycleHome.mood.sad', emoji: '😢', value: 'sad', tint: '#DCEAF4'},
-  {labelKey: 'cycleHome.mood.tired', emoji: '😴', value: 'tired', tint: '#E5E1F6'},
-  {labelKey: 'cycleHome.mood.motivated', emoji: '🤩', value: 'motivated', tint: '#FFF0CB'},
+  {labelKey: 'cycleHome.mood.veryGood', emoji: '😊', value: 'veryGood'},
+  {labelKey: 'cycleHome.mood.good', emoji: '🙂', value: 'good'},
+  {labelKey: 'cycleHome.mood.neutral', emoji: '😐', value: 'neutral'},
+  {labelKey: 'cycleHome.mood.stressed', emoji: '😟', value: 'stressed'},
+  {labelKey: 'cycleHome.mood.irritable', emoji: '😠', value: 'irritable'},
+  {labelKey: 'cycleHome.mood.anxious', emoji: '😰', value: 'anxious'},
+  {labelKey: 'cycleHome.mood.sad', emoji: '😢', value: 'sad'},
+  {labelKey: 'cycleHome.mood.tired', emoji: '😴', value: 'tired'},
+  {labelKey: 'cycleHome.mood.motivated', emoji: '🤩', value: 'motivated'},
 ];
 
 function LevelRow({label, value, color, paleColor, onChange}: LevelRowProps) {
@@ -68,6 +75,9 @@ function LevelRow({label, value, color, paleColor, onChange}: LevelRowProps) {
 
 export default function JournalMoodScreen(): React.JSX.Element {
   const {t} = useTranslation();
+  // Managed daughter profile only (null for the mother, whose screen renders exactly as before): no illustrated hero,
+  // no encouragement card, compact mood grid, third-person wording with her first name.
+  const {daughter, tx} = useDaughterJournal();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -224,7 +234,7 @@ export default function JournalMoodScreen(): React.JSX.Element {
 
       showSuccessToast();
     } catch (saveError) {
-      presentSaveFailure(saveError, {title: t('journalMood.errorTitle'), message: t('journalMood.errorMessage')});
+      presentSaveFailure(saveError, {title: t('journalMood.errorTitle'), message: tx('journalMood.errorMessage', 'mood.errorMessage')});
     } finally {
       setSaving(false);
     }
@@ -240,47 +250,42 @@ export default function JournalMoodScreen(): React.JSX.Element {
             isSmallScreen && styles.topBarSmall,
             isVerySmallScreen && styles.topBarVerySmall,
           ]}>
-          <Pressable accessibilityLabel={t('common.back')} onPress={navigation.goBack} style={styles.roundButton}>
-            <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={25} />
-          </Pressable>
+          <AwaIconButton
+            accessibilityLabel={t('common.back')}
+            icon="arrow-left"
+            onPress={navigation.goBack}
+          />
           <View style={styles.headerCopy}>
-            <Text style={[styles.pageTitle, isSmallScreen && styles.pageTitleSmall]}>
-              {t('dailyJournalSheet.items.mood.title')}
-            </Text>
-            <Text numberOfLines={1} style={[styles.date, isSmallScreen && styles.dateSmall]}>
+            <AwaText numberOfLines={daughter ? 2 : undefined} style={daughter ? styles.daughterTitle : undefined} variant="headlineSmall">
+              {tx('dailyJournalSheet.items.mood.title', 'titles.mood')}
+            </AwaText>
+            <AwaText colorRole="onSurfaceVariant" numberOfLines={1} variant="bodySmall">
               {cycleDay !== null ? t('journalMood.dateWithCycleDay', {date: dateLabel, day: cycleDay}) : dateLabel}
-            </Text>
+            </AwaText>
           </View>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('journalMood.saveMood')}
-            accessibilityRole="button"
             disabled={saving}
+            icon="check"
             onPress={save}
-            style={[
-              styles.roundButton,
-              styles.saveHeaderButton,
-              saving && styles.saveDisabled,
-            ]}>
-            <MaterialDesignIcons
-              color={onPrimaryTextColor(theme)}
-              name="check"
-              size={24}
-            />
-          </Pressable>
+            variant="filled"
+          />
         </View>
 
         <ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + 24}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-          <ImageBackground imageStyle={styles.heroImage} source={require('../../assets/images/mood-header-woman.png')} style={styles.hero}>
-            <View style={styles.heroCopy}>
-              <Text style={styles.heroTitle}>{t('journalMood.heroTitle')}</Text>
-              <Text style={styles.heroSubtitle}>{t('journalMood.heroSubtitle')}</Text>
-            </View>
-          </ImageBackground>
+          {daughter ? null : (
+            <ImageBackground imageStyle={styles.heroImage} source={require('../../assets/images/mood-header-woman.png')} style={styles.hero}>
+              <View style={styles.heroCopy}>
+                <Text style={styles.heroTitle}>{t('journalMood.heroTitle')}</Text>
+                <Text style={styles.heroSubtitle}>{t('journalMood.heroSubtitle')}</Text>
+              </View>
+            </ImageBackground>
+          )}
 
-          <View style={styles.card}>
+          <AwaCard padding="compact" variant="outlined">
             <View style={styles.sectionHeading}>
               <View style={styles.headingIcon}><Text style={styles.headingEmoji}>☺</Text></View>
-              <Text style={styles.sectionTitle}>{t('journalMood.mainMoodSectionTitle')}</Text>
+              <Text style={[styles.sectionTitle, daughter && styles.daughterSectionTitle]}>{daughter ? tx('', 'mood.question') : t('journalMood.mainMoodSectionTitle')}</Text>
             </View>
             <View style={styles.moodGrid}>
               {MOODS.map(option => {
@@ -292,33 +297,32 @@ export default function JournalMoodScreen(): React.JSX.Element {
                     accessibilityState={{checked: selected}}
                     onPress={() => setMood(option.value)}
                     style={({pressed}) => [styles.moodCard, selected && styles.moodCardSelected, pressed && styles.pressed]}>
-                    <View style={[styles.emojiCircle, {backgroundColor: option.tint}]}><Text style={styles.emoji}>{option.emoji}</Text></View>
-                    <Text numberOfLines={1} style={[styles.moodLabel, selected && styles.moodLabelSelected]}>{t(option.labelKey)}</Text>
+                    <Text style={styles.emoji}>{option.emoji}</Text>
+                    <Text numberOfLines={2} style={[styles.moodLabel, selected && styles.moodLabelSelected]}>{t(option.labelKey)}</Text>
                   </Pressable>
                 );
               })}
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.card}>
+          <AwaCard padding="compact" variant="outlined">
             <View style={styles.sectionHeading}>
-              <View style={styles.headingIcon}><MaterialDesignIcons color={theme.colors.primary} name="chart-bar" size={18} /></View>
-              <Text style={styles.sectionTitle}>{t('journalMood.levelsSectionTitle')}</Text>
+              <Text style={styles.sectionTitleFlush}>{t('journalMood.levelsSectionTitle')}</Text>
             </View>
             <LevelRow color="#2B7656" label={t('cycleHome.energyChipLabel')} onChange={setEnergy} paleColor="#DAE9DD" value={energy} />
             <LevelRow color="#EA788A" label={t('journalMood.stressLabel')} onChange={setStress} paleColor="#F9E0E5" value={stress} />
             <LevelRow color="#EF984D" label={t('journalMood.irritabilityLabel')} onChange={setIrritability} paleColor="#FAE5D1" value={irritability} />
             <LevelRow color="#A480C0" label={t('journalMood.motivationLabel')} onChange={setMotivation} paleColor="#EDE4F3" value={motivation} />
-          </View>
+          </AwaCard>
 
-          <View style={styles.card}>
+          <AwaCard padding="compact" variant="outlined">
             <View style={styles.sectionHeading}>
               <View style={styles.headingIcon}><MaterialDesignIcons color={theme.colors.primary} name="pencil-outline" size={17} /></View>
               <Text style={styles.sectionTitle}>{t('journalMood.commentSectionTitle')} <Text style={styles.optional}>{t('journalMood.optional')}</Text></Text>
             </View>
             <View style={styles.noteBox}>
               <TextInput
-                accessibilityLabel={t('journalMood.commentAccessibility')}
+                accessibilityLabel={tx('journalMood.commentAccessibility', 'mood.commentAccessibility')}
                 maxLength={300}
                 multiline
                 onChangeText={setNote}
@@ -330,36 +334,27 @@ export default function JournalMoodScreen(): React.JSX.Element {
               />
               <Text style={styles.counter}>{300 - remaining} / 300</Text>
             </View>
-            <View style={styles.kindnessBox}>
-              <View style={styles.kindnessIcon}><Text style={styles.kindnessEmoji}>💚</Text></View>
-              <View style={styles.kindnessCopy}>
-                <Text style={styles.kindnessTitle}>{t('journalMood.kindnessTitle')}</Text>
-                <Text style={styles.kindnessText}>{t('journalMood.kindnessText')}</Text>
+            {daughter ? null : (
+              <View style={styles.kindnessBox}>
+                <View style={styles.kindnessIcon}><Text style={styles.kindnessEmoji}>💚</Text></View>
+                <View style={styles.kindnessCopy}>
+                  <Text style={styles.kindnessTitle}>{t('journalMood.kindnessTitle')}</Text>
+                  <Text style={styles.kindnessText}>{t('journalMood.kindnessText')}</Text>
+                </View>
+                <MaterialDesignIcons color={withAlpha(theme.colors.primary, 0.45)} name="sprout" size={34} />
               </View>
-              <MaterialDesignIcons color={withAlpha(theme.colors.primary, 0.45)} name="sprout" size={34} />
-            </View>
-          </View>
+            )}
+          </AwaCard>
 
-          <Pressable
+          <AwaButton
             accessibilityLabel={t('journalMood.saveMood')}
-            accessibilityRole="button"
-            disabled={saving}
+            icon="content-save-outline"
+            label={saving ? t('periodStartSheet.saving') : t('common.save')}
+            loading={saving}
             onPress={save}
-            style={({pressed}) => [
-              styles.saveButton,
-              pressed && styles.pressed,
-              saving && styles.saveDisabled,
-            ]}>
-            <MaterialDesignIcons
-              color={onPrimaryTextColor(theme)}
-              name={saving ? 'loading' : 'content-save-outline'}
-              size={20}
-            />
-
-            <Text style={styles.saveText}>
-              {saving ? t('periodStartSheet.saving') : t('common.save')}
-            </Text>
-          </Pressable>
+            size="large"
+            style={styles.saveButton}
+          />
 
           {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject={t('journalMood.clearSubject')} /> : null}
         </ScrollView>
@@ -428,32 +423,32 @@ function createStyles(theme: ResolvedAwaTheme) {
   topBar: {minHeight: 68, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingTop: TOP_SPACING_EXTRA, paddingBottom: 8, paddingHorizontal: 14},
   topBarSmall: {minHeight: 62, paddingTop: TOP_SPACING_EXTRA_COMPACT, paddingBottom: 7, paddingHorizontal: 10},
   topBarVerySmall: {minHeight: 58, paddingTop: TOP_SPACING_EXTRA_COMPACT, paddingBottom: 6, paddingHorizontal: 8},
-  roundButton: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21, backgroundColor: theme.colors.primarySoft},
   headerCopy: {flex: 1, minWidth: 0, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 8},
-  pageTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 22, fontWeight: '700'},
-  pageTitleSmall: {fontSize: 19},
-  date: {maxWidth: '100%', marginTop: 2, color: theme.colors.textSecondary, fontSize: 11, textAlign: 'center'},
-  dateSmall: {fontSize: 9.5},
   content: {paddingHorizontal: 11, paddingBottom: 34, gap: 8},
-  hero: {height: 125, justifyContent: 'center', overflow: 'hidden', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 20, backgroundColor: theme.colors.surface},
-  heroImage: {borderRadius: 20, resizeMode: 'cover'},
+  // Daughter journal only: the title wraps between the back and save buttons; mood tiles and labels grow with the text.
+  daughterTitle: {flex: 1, minWidth: 0, textAlign: 'center'},
+  daughterSectionTitle: {flex: 1, minWidth: 0, marginLeft: 8},
+  hero: {minHeight: 125, justifyContent: 'center', overflow: 'hidden', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 12, backgroundColor: theme.colors.surface},
+  heroImage: {borderRadius: 12, resizeMode: 'cover'},
   heroCopy: {width: '58%', paddingLeft: 26},
-  heroTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 19, lineHeight: 23, fontWeight: '700'},
-  heroSubtitle: {marginTop: 7, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
-  card: {borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 20, backgroundColor: theme.colors.surface, padding: 12, shadowColor: theme.shadow.shadowColor, shadowOpacity: 0.05, shadowRadius: 8, shadowOffset: {width: 0, height: 2}, elevation: 1},
+  heroTitle: {color: JOURNAL_HERO_INK.title, fontSize: 19, lineHeight: 23, fontWeight: '700'},
+  heroSubtitle: {marginTop: 7, color: JOURNAL_HERO_INK.body, fontSize: 11.5, lineHeight: 16},
   sectionHeading: {flexDirection: 'row', alignItems: 'center', marginBottom: 10},
   headingIcon: {width: 27, height: 27, alignItems: 'center', justifyContent: 'center', borderRadius: 14, backgroundColor: theme.colors.primarySoft},
   headingEmoji: {color: theme.colors.primary, fontSize: 20, lineHeight: 23},
-  sectionTitle: {marginLeft: 8, color: theme.colors.accent, fontFamily: 'serif', fontSize: 15.5, fontWeight: '700'},
+  sectionTitle: {marginLeft: 8, color: theme.colors.accent, fontSize: 15.5, fontWeight: '700'},
+  // A section title with no icon before it ("Niveaux du jour"): it starts at the card's own padding edge.
+  sectionTitleFlush: {color: theme.colors.accent, fontSize: 15.5, fontWeight: '700'},
   optional: {fontFamily: undefined, fontSize: 11, fontWeight: '400'},
   moodGrid: {flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 8},
-  moodCard: {width: '18.2%', minWidth: 67, height: 78, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 13, backgroundColor: theme.colors.surfaceSecondary},
+  moodCard: {width: '18.2%', minWidth: 67, minHeight: 88, alignItems: 'center', justifyContent: 'center', paddingVertical: 8, paddingHorizontal: 4, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 12, backgroundColor: theme.colors.surfaceSecondary},
   moodCardSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
-  emojiCircle: {width: 39, height: 39, alignItems: 'center', justifyContent: 'center', borderRadius: 20},
-  emoji: {fontSize: 25},
-  moodLabel: {marginTop: 5, color: theme.colors.text, fontSize: 10.5},
-  moodLabelSelected: {color: theme.colors.primary, fontWeight: '700'},
-  levelRow: {height: 48, flexDirection: 'row', alignItems: 'center', borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: withAlpha(theme.colors.primary, 0.14)},
+  // The emoji sits directly on the card (no circular badge): larger, with its own line height so Android never clips it.
+  emoji: {fontSize: 32, lineHeight: 40, textAlign: 'center'},
+  moodLabel: {marginTop: 4, color: theme.colors.text, fontSize: 11, textAlign: 'center'},
+  // DESIGN.md: selected text = onPrimaryContainer (primary text on the soft fill fails contrast in some palettes).
+  moodLabelSelected: {color: deriveAwaRoles(theme).onPrimaryContainer, fontWeight: '700'},
+  levelRow: {minHeight: 48, flexDirection: 'row', alignItems: 'center', borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: withAlpha(theme.colors.primary, 0.14)},
   levelLabel: {width: 92, color: theme.colors.accent, fontSize: 13, fontWeight: '700'},
   scale: {flex: 1, height: 28, flexDirection: 'row', alignItems: 'center'},
   scaleStep: {flex: 1, height: 28, alignItems: 'center', justifyContent: 'center'},
@@ -461,38 +456,16 @@ function createStyles(theme: ResolvedAwaTheme) {
   scaleFill: {position: 'absolute', left: 0, height: 6, borderRadius: 3},
   scaleThumb: {position: 'absolute', width: 17, height: 17, marginLeft: -8.5, borderWidth: 2, borderColor: theme.colors.surface, borderRadius: 9},
   levelValue: {width: 46, marginLeft: 12, color: theme.colors.textSecondary, fontSize: 13, textAlign: 'right'},
-  noteBox: {height: 82, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 13, backgroundColor: theme.colors.surface},
+  noteBox: {height: 82, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 12, backgroundColor: theme.colors.surface},
   noteInput: {flex: 1, paddingHorizontal: 11, paddingTop: 9, paddingBottom: 20, color: theme.colors.text, fontSize: 11.5},
-  counter: {position: 'absolute', right: 9, bottom: 6, color: theme.colors.textMuted, fontSize: 9.5},
-  kindnessBox: {minHeight: 54, flexDirection: 'row', alignItems: 'center', marginTop: 8, borderRadius: 12, backgroundColor: theme.colors.surfaceSecondary, paddingHorizontal: 10},
+  counter: {position: 'absolute', right: 9, bottom: 6, color: theme.colors.textMuted, fontSize: 11},
+  kindnessBox: {minHeight: 54, flexDirection: 'row', alignItems: 'center', marginTop: 8, borderRadius: 12, backgroundColor: theme.colors.surfaceSecondary, paddingHorizontal: 12},
   kindnessIcon: {width: 30, height: 30, alignItems: 'center', justifyContent: 'center', borderRadius: 15, backgroundColor: theme.colors.primarySoft},
   kindnessEmoji: {fontSize: 16},
   kindnessCopy: {flex: 1, marginLeft: 9},
   kindnessTitle: {color: theme.colors.accent, fontSize: 11, fontWeight: '700'},
-  kindnessText: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 10},
- saveButton: {
-  width: '88%',
-  maxWidth: 360,
-  minHeight: 54,
-  alignSelf: 'center',
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: 8,
-  marginTop: 12,
-  marginBottom: 8,
-  borderRadius: 18,
-  backgroundColor: theme.colors.primary,
-},
-  saveText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '700'},
-
-  saveHeaderButton: {
-    backgroundColor: theme.colors.primary,
-  },
-
-  saveDisabled: {
-    opacity: 0.55,
-  },
+  kindnessText: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11},
+ saveButton: {width: '88%', maxWidth: 360, alignSelf: 'center', marginTop: 12, marginBottom: 8},
 
   toast: {
     position: 'absolute',
@@ -504,15 +477,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 9,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
     paddingHorizontal: 14,
     paddingVertical: 12,
     shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.17,
-    shadowRadius: 13,
-    elevation: 7,
+    shadowOpacity: 0.14,
+    shadowRadius: 12,
+    elevation: 6,
   },
 
   toastIcon: {

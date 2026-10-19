@@ -9,7 +9,6 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  Text,
   useWindowDimensions,
   View,
 } from 'react-native';
@@ -18,9 +17,12 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme, softTone} from '../../theme/awaThemeTokens';
 import i18n from '../../i18n';
 import {lowerCaseFor} from '../../utils/textCase';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaIconButton} from '../ui/AwaIconButton';
+import {AwaText} from '../ui/AwaText';
 
 const JOURNAL_HEADER = require('../../assets/images/daily-journal-header.png');
 
@@ -64,6 +66,8 @@ type Props = {
   title?: string;
   subtitle?: string;
   actions: JournalSheetAction[];
+  /** Managed daughter profile only: no illustrated header and room for a longer card subtitle. Omitted = the original sheet. */
+  compact?: boolean;
 };
 
 // Cycle's own action list/copy — unchanged from before this component became
@@ -141,7 +145,7 @@ export function getCycleJournalItems(): Array<{
   ];
 }
 
-function DailyJournalSheet({visible, onClose, title, subtitle, actions}: Props): React.JSX.Element {
+function DailyJournalSheet({visible, onClose, title, subtitle, actions, compact = false}: Props): React.JSX.Element {
   const {t} = useTranslation();
   const resolvedTitle = title ?? t('dailyJournalSheet.defaultTitle');
   const resolvedSubtitle = subtitle ?? t('dailyJournalSheet.defaultSubtitle');
@@ -207,13 +211,17 @@ function DailyJournalSheet({visible, onClose, title, subtitle, actions}: Props):
           {...panResponder.panHandlers}
           style={[styles.sheet, {opacity: progress, transform: [{translateY: sheetTranslateY}]}]}>
           <View style={styles.handle} />
-          <Pressable accessibilityLabel={t('common.close')} accessibilityRole="button" hitSlop={10} onPress={close} style={styles.closeButton}>
-            <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="close" size={20} />
-          </Pressable>
+          <AwaIconButton
+            accessibilityLabel={t('common.close')}
+            icon="close"
+            onPress={close}
+            style={styles.closeButton}
+            variant="filled"
+          />
           <ScrollView contentContainerStyle={[styles.scrollContent, {paddingBottom: Math.max(insets.bottom, 16) + 20}]} showsVerticalScrollIndicator={false}>
-            <Image accessibilityIgnoresInvertColors resizeMode="cover" source={JOURNAL_HEADER} style={styles.headerImage} />
-            <Text style={styles.title}>{resolvedTitle}</Text>
-            <Text style={styles.subtitle}>{resolvedSubtitle}</Text>
+            {compact ? null : <Image accessibilityIgnoresInvertColors resizeMode="cover" source={JOURNAL_HEADER} style={styles.headerImage} />}
+            <AwaText variant="headlineSmall" style={compact ? styles.titleCompact : styles.title}>{resolvedTitle}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.subtitle}>{resolvedSubtitle}</AwaText>
             <View style={styles.cards}>
               {actions.map((action, index) => {
                 const start = 0.34 + index * 0.055;
@@ -222,22 +230,22 @@ function DailyJournalSheet({visible, onClose, title, subtitle, actions}: Props):
                 const cardTranslateY = progress.interpolate({inputRange: [0, start, end, 1], outputRange: [16, 16, 0, 0]});
                 return (
                   <Animated.View key={action.key} style={{opacity: cardOpacity, transform: [{translateY: cardTranslateY}]}}>
-                    <Pressable
-                      accessibilityHint={t('dailyJournalSheet.openEntryHint', {category: lowerCaseFor(action.title)})}
-                      accessibilityLabel={action.title}
-                      accessibilityRole="button"
-                      android_ripple={{color: withAlpha(theme.colors.primary, 0.10)}}
-                      onPress={action.onPress}
-                      style={({pressed}) => [styles.card, pressed && styles.cardPressed]}>
-                      <View style={[styles.iconCircle, {backgroundColor: action.tint}]}>
+                    <AwaCard
+                        accessibilityHint={t('dailyJournalSheet.openEntryHint', {category: lowerCaseFor(action.title)})}
+                        accessibilityLabel={action.title}
+                        onPress={action.onPress}
+                        padding="none"
+                        style={styles.card}
+                        variant="outlined">
+                      <View style={[styles.iconCircle, {backgroundColor: softTone(theme, action.tint, theme.colors.primary)}]}>
                         <MaterialDesignIcons color={theme.colors.primary} name={action.icon as never} size={25} />
                       </View>
                       <View style={styles.cardCopy}>
-                        <Text style={styles.cardTitle}>{action.title}</Text>
-                        <Text numberOfLines={1} style={styles.cardSubtitle}>{action.subtitle}</Text>
+                        <AwaText variant="titleMedium">{action.title}</AwaText>
+                        <AwaText colorRole="onSurfaceVariant" variant="bodySmall" numberOfLines={2}>{action.subtitle}</AwaText>
                       </View>
                       <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={26} />
-                    </Pressable>
+                    </AwaCard>
                   </Animated.View>
                 );
               })}
@@ -254,20 +262,19 @@ function createStyles(theme: ResolvedAwaTheme) {
     modalRoot: {flex: 1, justifyContent: 'flex-end'},
     // Fixed modal scrim — never themed, same precedent as every migrated screen.
     overlay: {...StyleSheet.absoluteFillObject, backgroundColor: '#17102F'},
-    sheet: {height: '88%', overflow: 'hidden', borderTopLeftRadius: 30, borderTopRightRadius: 30, backgroundColor: theme.colors.surface, elevation: 24},
+    sheet: {height: '88%', overflow: 'hidden', borderTopLeftRadius: 28, borderTopRightRadius: 28, backgroundColor: theme.colors.surface, elevation: 24},
     handle: {width: 46, height: 5, alignSelf: 'center', marginTop: 10, borderRadius: 3, backgroundColor: withAlpha(theme.colors.primary, 0.30)},
-    closeButton: {position: 'absolute', right: 18, top: 17, zIndex: 3, width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21, backgroundColor: theme.colors.primary},
+    closeButton: {position: 'absolute', right: 16, top: 16, zIndex: 3},
     scrollContent: {paddingHorizontal: 16, paddingBottom: 30},
-    headerImage: {width: '100%', height: 145, marginTop: 5, borderRadius: 20},
-    title: {marginTop: 3, color: theme.colors.accent, fontFamily: 'serif', fontSize: 29, fontWeight: '700', textAlign: 'center'},
-    subtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 14, textAlign: 'center'},
+    headerImage: {width: '100%', height: 145, marginTop: 5, borderRadius: 12},
+    title: {marginTop: 3, textAlign: 'center'},
+    // Without the header illustration the title clears the close button instead.
+    titleCompact: {marginTop: 28, paddingHorizontal: 44, textAlign: 'center'},
+    subtitle: {marginTop: 2, textAlign: 'center'},
     cards: {gap: 10, marginTop: 18},
-    card: {minHeight: 72, flexDirection: 'row', alignItems: 'center', overflow: 'hidden', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.12), borderRadius: 23, backgroundColor: theme.colors.surface, paddingHorizontal: 13, shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 2},
-    cardPressed: {opacity: 0.8, transform: [{scale: 0.99}]},
+    card: {minHeight: 72, flexDirection: 'row', alignItems: 'center', overflow: 'hidden', paddingHorizontal: 12},
     iconCircle: {width: 48, height: 48, alignItems: 'center', justifyContent: 'center', borderRadius: 24},
     cardCopy: {flex: 1, marginHorizontal: 12},
-    cardTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-    cardSubtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 12},
   });
 }
 

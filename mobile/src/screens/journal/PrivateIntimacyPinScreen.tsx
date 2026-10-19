@@ -9,6 +9,8 @@ import {hasPrivatePin, savePrivatePin, verifyPrivatePin} from '../../services/pr
 import {replaceWithIntimacyDestination, unlockIntimacy} from '../../state/privateSectionAuthStore';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import '../../i18n';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PrivateIntimacyPin'>;
@@ -70,9 +72,12 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
         <View style={styles.content}>
-          <Pressable accessibilityLabel={t('common.back')} onPress={navigation.goBack} style={styles.back}>
-            <MaterialDesignIcons color={theme.colors.accent} name="arrow-left" size={27} />
-          </Pressable>
+          <AwaIconButton
+            accessibilityLabel={t('common.back')}
+            icon="arrow-left"
+            onPress={navigation.goBack}
+            style={styles.back}
+          />
 
           <View style={styles.topGap} />
 
@@ -80,10 +85,10 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
             <View style={styles.lockBadge}>
               <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="lock" size={26} />
             </View>
-            <Text style={[styles.title, compact && styles.titleCompact]}>
+            <AwaText variant={compact ? 'titleLarge' : 'headlineSmall'} style={styles.title}>
               {configured ? t('privateIntimacyPin.enterYourCode') : first ? t('privateIntimacyPin.confirmYourCode') : t('privateIntimacyPin.createYourCode')}
-            </Text>
-            <Text style={styles.subtitle}>{t('privateIntimacyPin.secureCodeSubtitle')}</Text>
+            </AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.subtitle}>{t('privateIntimacyPin.secureCodeSubtitle')}</AwaText>
           </View>
 
           <View style={styles.gapSmall} />
@@ -130,22 +135,21 @@ function createStyles(theme: ResolvedAwaTheme) {
     flex: {flex: 1},
     content: {flex: 1, alignItems: 'center', paddingHorizontal: 22, paddingBottom: 12},
     topGap: {height: 20},
-    back: {position: 'absolute', top: 12, left: 16, zIndex: 2, width: 48, height: 48, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 16, backgroundColor: theme.colors.surface},
+    back: {position: 'absolute', top: 12, left: 16, zIndex: 2},
     titleBlock: {alignItems: 'center'},
-    lockBadge: {width: 64, height: 64, marginBottom: 14, alignItems: 'center', justifyContent: 'center', borderRadius: 32, backgroundColor: theme.colors.primary, shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.22, shadowRadius: 14, elevation: 4},
-    title: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 24, fontWeight: '800', textAlign: 'center'},
-    titleCompact: {fontSize: 21},
-    subtitle: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 12},
+    lockBadge: {width: 64, height: 64, marginBottom: 14, alignItems: 'center', justifyContent: 'center', borderRadius: 32, backgroundColor: theme.colors.primary, shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.15, shadowRadius: 14, elevation: 4},
+    title: {textAlign: 'center'},
+    subtitle: {marginTop: 6},
     gapSmall: {flexGrow: 0.4, minHeight: 18},
     dotsBlock: {alignItems: 'center'},
     dots: {flexDirection: 'row', gap: 15},
     dot: {width: 14, height: 14, borderWidth: 1.5, borderColor: withAlpha(theme.colors.primary, 0.4), borderRadius: 7, backgroundColor: theme.colors.surface},
     dotFilled: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primary},
-    error: {height: 31, marginTop: 10, color: theme.colors.danger, fontSize: 11, textAlign: 'center'},
+    error: {minHeight: 31, marginTop: 10, color: theme.colors.danger, fontSize: 11, textAlign: 'center'},
     gapLarge: {flexGrow: 0.8, minHeight: 28},
     keypad: {width: 264, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: 13},
     keypadCompact: {rowGap: 7},
-    key: {width: 72, height: 60, alignItems: 'center', justifyContent: 'center', borderRadius: 25},
+    key: {width: 72, height: 60, alignItems: 'center', justifyContent: 'center', borderRadius: 12},
     keyActive: {backgroundColor: theme.colors.primarySoft},
     number: {color: theme.colors.accent, fontSize: 23, fontWeight: '600'},
     pressed: {opacity: 0.65, transform: [{scale: 0.96}]},

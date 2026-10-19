@@ -1,4 +1,5 @@
 import {useToday} from '../../hooks/useToday';
+import {useDaughterJournal} from '../../hooks/useDaughterJournal';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Alert,
@@ -33,6 +34,10 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {presentSaveFailure} from '../../services/saveFailure';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {dateFormatLocale} from '../../utils/cycleMath';
@@ -144,6 +149,9 @@ function durationBetween(
 
 export default function JournalSleepScreen(): React.JSX.Element {
   const {t} = useTranslation();
+  // Managed daughter profile only (null for the mother, whose screen renders exactly as before): no illustrated hero,
+  // no tip boxes or leaf decoration, the two lower sections stacked full width, third-person wording with her first name.
+  const {daughter, tx} = useDaughterJournal();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation =
@@ -376,7 +384,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
 
       showSuccessToast();
     } catch (saveError) {
-      presentSaveFailure(saveError, {title: t('journalSleep.errorTitle'), message: t('journalSleep.errorMessage')});
+      presentSaveFailure(saveError, {title: t('journalSleep.errorTitle'), message: tx('journalSleep.errorMessage', 'sleep.errorMessage')});
     } finally {
       setSaving(false);
     }
@@ -409,55 +417,29 @@ export default function JournalSleepScreen(): React.JSX.Element {
               paddingTop: headerTopPadding,
             },
           ]}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
+            icon="chevron-left"
             onPress={navigation.goBack}
-            style={[
-              styles.back,
-              isSmallScreen && styles.backSmall,
-            ]}>
-            <MaterialDesignIcons
-              color={theme.colors.accent}
-              name="chevron-left"
-              size={isSmallScreen ? 24 : 28}
-            />
-          </Pressable>
+          />
 
           <View style={styles.headerCopy}>
-            <Text
-              style={[
-                styles.title,
-                isSmallScreen && styles.titleSmall,
-              ]}>
-              {t('dailyJournalSheet.items.sleep.title')}
-            </Text>
+            <AwaText numberOfLines={daughter ? 2 : undefined} style={daughter ? styles.daughterTitle : undefined} variant={isSmallScreen ? 'titleLarge' : 'headlineSmall'}>
+              {tx('dailyJournalSheet.items.sleep.title', 'titles.sleep')}
+            </AwaText>
 
-            <Text
-              numberOfLines={1}
-              style={[
-                styles.date,
-                isSmallScreen && styles.dateSmall,
-              ]}>
+            <AwaText colorRole="onSurfaceVariant" numberOfLines={1} variant="bodySmall">
               {cycleDay !== null ? t('journalSleep.dateWithCycleDay', {date: dateLabel, day: cycleDay}) : dateLabel}
-            </Text>
+            </AwaText>
           </View>
 
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.save')}
-            accessibilityRole="button"
             disabled={saving}
+            icon="check"
             onPress={save}
-            style={[
-              styles.check,
-              isSmallScreen && styles.checkSmall,
-            ]}>
-            <MaterialDesignIcons
-              color={onPrimaryTextColor(theme)}
-              name="check"
-              size={isSmallScreen ? 21 : 25}
-            />
-          </Pressable>
+            variant="filled"
+          />
         </View>
 
         <ScrollView
@@ -477,6 +459,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
           ]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
+          {daughter ? null : (
           <ImageBackground
             imageStyle={styles.heroImage}
             source={require('../../assets/images/sleep-header-woman.png')}
@@ -514,6 +497,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
               </Text>
             </View>
           </ImageBackground>
+          )}
 
           <Card>
             <Heading
@@ -652,14 +636,14 @@ export default function JournalSleepScreen(): React.JSX.Element {
             style={[
               styles.twoColumns,
 
-              isSmallScreen &&
+              (isSmallScreen || daughter) &&
                 styles.twoColumnsSmall,
             ]}>
-            <Card style={styles.halfCard}>
+            <Card style={daughter ? undefined : styles.halfCard}>
               <Heading
                 icon="alarm"
                 title={t('journalSleep.awakeningsTitle')}
-                subtitle={t('journalSleep.awakeningsSubtitle')}
+                subtitle={tx('journalSleep.awakeningsSubtitle', 'sleep.awakeningsSubtitle')}
               />
 
               <View style={styles.counterRow}>
@@ -670,6 +654,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
                       Math.max(0, value - 1),
                     )
                   }
+                  hitSlop={8}
                   style={styles.roundButton}>
                   <Text style={styles.sign}>−</Text>
                 </Pressable>
@@ -691,11 +676,13 @@ export default function JournalSleepScreen(): React.JSX.Element {
                       Math.min(20, value + 1),
                     )
                   }
+                  hitSlop={8}
                   style={styles.roundButton}>
                   <Text style={styles.sign}>+</Text>
                 </Pressable>
               </View>
 
+              {daughter ? null : (
               <View style={styles.tip}>
                 <MaterialDesignIcons
                   color={theme.colors.primary}
@@ -707,13 +694,14 @@ export default function JournalSleepScreen(): React.JSX.Element {
                   {t('journalSleep.awakeningsTip')}
                 </Text>
               </View>
+              )}
             </Card>
 
-            <Card style={styles.halfCard}>
+            <Card style={daughter ? undefined : styles.halfCard}>
               <Heading
                 icon="weather-sunset-up"
                 title={t('journalSleep.wakeFeelingTitle')}
-                subtitle={t('journalSleep.wakeFeelingSubtitle')}
+                subtitle={tx('journalSleep.wakeFeelingSubtitle', 'sleep.wakeFeelingSubtitle')}
               />
 
               <View style={styles.feelingRow}>
@@ -754,6 +742,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
                 })}
               </View>
 
+              {daughter ? null : (
               <View style={styles.tip}>
                 <MaterialDesignIcons
                   color={theme.colors.primary}
@@ -765,6 +754,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
                   {t('journalSleep.wakeFeelingTip')}
                 </Text>
               </View>
+              )}
             </Card>
           </View>
 
@@ -792,34 +782,25 @@ export default function JournalSleepScreen(): React.JSX.Element {
                 {note.length} / 300
               </Text>
 
+              {daughter ? null : (
               <MaterialDesignIcons
                 color={theme.colors.primary}
                 name="sprout"
                 size={37}
                 style={styles.leaf}
               />
+              )}
             </View>
           </Card>
 
-          <Pressable
-            disabled={saving}
+          <AwaButton
+            fullWidth
+            icon="content-save"
+            label={saving ? t('periodStartSheet.saving') : t('common.save')}
+            loading={saving}
             onPress={save}
-            style={[
-              styles.save,
-              saving && styles.disabled,
-            ]}>
-            <MaterialDesignIcons
-              color={onPrimaryTextColor(theme)}
-              name="content-save"
-              size={20}
-            />
-
-            <Text style={styles.saveText}>
-              {saving
-                ? t('periodStartSheet.saving')
-                : t('common.save')}
-            </Text>
-          </Pressable>
+            size="large"
+          />
 
           {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject={t('journalSleep.clearSubject')} /> : null}
         </ScrollView>
@@ -923,17 +904,11 @@ export default function JournalSleepScreen(): React.JSX.Element {
                 </Text>
               </View>
 
-              <Pressable
+              <AwaIconButton
                 accessibilityLabel={t('common.close')}
-                hitSlop={8}
+                icon="close"
                 onPress={closeTimePicker}
-                style={styles.sheetClose}>
-                <MaterialDesignIcons
-                  color={theme.colors.accent}
-                  name="close"
-                  size={21}
-                />
-              </Pressable>
+              />
             </View>
 
             <ScrollView
@@ -1017,12 +992,10 @@ function Card({
   children: React.ReactNode;
   style?: object;
 }): React.JSX.Element {
-  const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
   return (
-    <View style={[styles.card, style]}>
+    <AwaCard padding="compact" style={style} variant="outlined">
       {children}
-    </View>
+    </AwaCard>
   );
 }
 
@@ -1165,17 +1138,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     minHeight: 64,
   },
 
-  back: {
-    width: 46,
-    height: 46,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 18,
-    backgroundColor: theme.colors.surface,
-  },
-
   headerCopy: {
     flex: 1,
     minWidth: 0,
@@ -1183,26 +1145,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
   },
 
-  title: {
-    color: theme.colors.accent,
-    fontSize: 27,
-    fontWeight: '800',
-  },
-
-  date: {
-    marginTop: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-  },
-
-  check: {
-    width: 46,
-    height: 46,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    backgroundColor: theme.colors.primary,
-  },
+  // Daughter journal only: the title wraps between the back and save buttons.
+  daughterTitle: {textAlign: 'center'},
 
   content: {
     paddingHorizontal: 13,
@@ -1215,15 +1159,15 @@ function createStyles(theme: ResolvedAwaTheme) {
   // this hero uses a real illustration image with calibrated overlay text,
   // so it stays untouched by theming.
   hero: {
-    height: 150,
+    minHeight: 150,
     justifyContent: 'center',
     overflow: 'hidden',
-    borderRadius: 18,
+    borderRadius: 12,
     backgroundColor: SLEEP_HERO_FALLBACK_BG,
   },
 
   heroImage: {
-    borderRadius: 18,
+    borderRadius: 12,
     resizeMode: 'cover',
   },
 
@@ -1242,17 +1186,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   heroText: {
     marginTop: 12,
     color: SLEEP_HERO_TEXT_COLOR,
-    fontSize: 9.8,
-    lineHeight: 15,
-  },
-
-  card: {
-    padding: 11,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 19,
-    backgroundColor: theme.colors.surface,
-    elevation: 1,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   heading: {
@@ -1266,7 +1201,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 35,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1285,11 +1220,11 @@ function createStyles(theme: ResolvedAwaTheme) {
   subtitle: {
     marginTop: 2,
     color: theme.colors.textSecondary,
-    fontSize: 8.5,
+    fontSize: 11,
   },
 
   optional: {
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '500',
   },
 
@@ -1305,12 +1240,12 @@ function createStyles(theme: ResolvedAwaTheme) {
   timeLabel: {
     marginBottom: 5,
     color: theme.colors.text,
-    fontSize: 9.5,
+    fontSize: 11,
     textAlign: 'center',
   },
 
   timeBox: {
-    height: 47,
+    minHeight: 47,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 10,
@@ -1356,7 +1291,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   smallLabel: {
     color: theme.colors.text,
-    fontSize: 9,
+    fontSize: 11,
   },
 
   durationValue: {
@@ -1391,10 +1326,10 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   quality: {
     flex: 1,
-    height: 76,
+    minHeight: 76,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 2,
+    paddingHorizontal: 4,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
     borderRadius: 12,
@@ -1410,7 +1345,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   choiceText: {
     marginTop: 5,
     color: theme.colors.accent,
-    fontSize: 7.8,
+    fontSize: 11,
     fontWeight: '600',
     textAlign: 'center',
   },
@@ -1426,7 +1361,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   counterRow: {
-    height: 65,
+    minHeight: 65,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -1460,7 +1395,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   countLabel: {
     marginTop: 4,
     color: theme.colors.textSecondary,
-    fontSize: 8,
+    fontSize: 11,
   },
 
   tip: {
@@ -1470,15 +1405,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 7,
     marginTop: 6,
     paddingHorizontal: 8,
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
   tipText: {
     flex: 1,
     color: theme.colors.textSecondary,
-    fontSize: 7.5,
-    lineHeight: 11,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   feelingRow: {
@@ -1493,7 +1428,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 11,
+    borderRadius: 12,
   },
 
   noteBox: {
@@ -1510,7 +1445,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 11,
     paddingTop: 9,
     color: theme.colors.text,
-    fontSize: 10.5,
+    fontSize: 11,
   },
 
   noteCount: {
@@ -1518,7 +1453,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     right: 10,
     bottom: 7,
     color: theme.colors.textMuted,
-    fontSize: 8,
+    fontSize: 11,
   },
 
   leaf: {
@@ -1526,22 +1461,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     right: -3,
     bottom: -4,
     opacity: 0.7,
-  },
-
-  save: {
-    height: 48,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 9,
-    borderRadius: 18,
-    backgroundColor: theme.colors.primary,
-  },
-
-  saveText: {
-    color: onPrimaryTextColor(theme),
-    fontSize: 14,
-    fontWeight: '700',
   },
 
   timeBoxPressed: {
@@ -1558,8 +1477,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   timeSheet: {
     height: '88%',
     overflow: 'hidden',
-    borderTopLeftRadius: 26,
-    borderTopRightRadius: 26,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.surface,
     paddingTop: 9,
     paddingHorizontal: 14,
@@ -1587,7 +1506,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 42,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1606,7 +1525,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   sheetSubtitle: {
     marginTop: 2,
     color: theme.colors.textSecondary,
-    fontSize: 10.5,
+    fontSize: 11,
   },
 
   sheetClose: {
@@ -1616,7 +1535,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
@@ -1629,14 +1548,14 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   timeOption: {
     width: '23.5%',
-    height: 48,
+    minHeight: 48,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 9,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
@@ -1685,27 +1604,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     minHeight: 54,
   },
 
-  backSmall: {
-    width: 40,
-    height: 40,
-    borderRadius: 14,
-  },
-
-  checkSmall: {
-    width: 40,
-    height: 40,
-    borderRadius: 14,
-  },
-
-  titleSmall: {
-    fontSize: 22,
-  },
-
-  dateSmall: {
-    maxWidth: 210,
-    fontSize: 9.5,
-  },
-
   contentSmall: {
     paddingHorizontal: 10,
     paddingTop: 7,
@@ -1719,12 +1617,12 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   heroSmall: {
-    height: 128,
+    minHeight: 128,
     borderRadius: 16,
   },
 
   heroVerySmall: {
-    height: 112,
+    minHeight: 112,
   },
 
   heroCopySmall: {
@@ -1739,8 +1637,8 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   heroTextSmall: {
     marginTop: 8,
-    fontSize: 8.6,
-    lineHeight: 12,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   timesVerySmall: {
@@ -1761,11 +1659,11 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   timeLabelCompact: {
     marginBottom: 4,
-    fontSize: 8.6,
+    fontSize: 11,
   },
 
   timeBoxCompact: {
-    height: 42,
+    minHeight: 42,
     paddingHorizontal: 8,
   },
 
@@ -1778,8 +1676,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   qualitySmall: {
-    height: 64,
-    borderRadius: 10,
+    minHeight: 64,
+    borderRadius: 12,
   },
 
   twoColumnsSmall: {
@@ -1794,7 +1692,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   timeOptionSmall: {
     width: '31.5%',
-    height: 44,
+    minHeight: 44,
     marginBottom: 7,
   },
 
@@ -1808,7 +1706,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 9,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
     paddingHorizontal: 14,
     paddingVertical: 12,
@@ -1817,9 +1715,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       width: 0,
       height: 5,
     },
-    shadowOpacity: 0.17,
-    shadowRadius: 13,
-    elevation: 7,
+    shadowOpacity: 0.14,
+    shadowRadius: 12,
+    elevation: 6,
   },
 
   toastIcon: {
@@ -1855,8 +1753,5 @@ function createStyles(theme: ResolvedAwaTheme) {
     opacity: 0.8,
   },
 
-  disabled: {
-    opacity: 0.55,
-  },
   });
 }

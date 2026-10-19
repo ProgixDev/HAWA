@@ -1,4 +1,5 @@
 import {useToday} from '../../hooks/useToday';
+import {useDaughterJournal} from '../../hooks/useDaughterJournal';
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   Alert,
@@ -25,6 +26,11 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {presentSaveFailure} from '../../services/saveFailure';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
+import {JOURNAL_HERO_INK} from '../../components/journal/journalHeroInk';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {encryptNoteSection, resolveNoteSection} from '../../services/privateNotesEncryption';
 import {resolvePrivatePhotos} from '../../types/journal';
@@ -39,6 +45,10 @@ const MAX = 1000;
 
 export default function JournalNoteScreen(): React.JSX.Element | null {
   const {t} = useTranslation();
+  // Managed daughter profile only (null for the mother, whose screen renders exactly as before): no illustrated hero,
+  // no leaf / folder decorations, an "observation" wording from a parent's point of view with her first name. The
+  // private-section gate and what is stored are unchanged.
+  const {daughter, tx} = useDaughterJournal();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
@@ -222,7 +232,7 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
 
       showSuccessToast();
     } catch (saveError) {
-      presentSaveFailure(saveError, {title: t('journalNote.errorTitle'), message: t('journalNote.errorMessage')});
+      presentSaveFailure(saveError, {title: t('journalNote.errorTitle'), message: tx('journalNote.errorMessage', 'note.errorMessage')});
     } finally {
       setSaving(false);
     }
@@ -262,33 +272,17 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
             isSmallScreen && styles.headerSmall,
             isVerySmallScreen && styles.headerVerySmall,
           ]}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
-            hitSlop={10}
+            icon="chevron-left"
             onPress={navigation.goBack}
-            style={({pressed}) => [
-              styles.headerButton,
-              isSmallScreen && styles.headerButtonSmall,
-              pressed && styles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="chevron-left"
-              size={isSmallScreen ? 24 : 28}
-            />
-          </Pressable>
+          />
 
           <View style={styles.headerCopy}>
             <View style={styles.titleRow}>
-              <Text
-                numberOfLines={1}
-                style={[
-                  styles.title,
-                  isSmallScreen && styles.titleSmall,
-                ]}>
-                {t('journalNote.personalNotesTitle')}
-              </Text>
+              <AwaText numberOfLines={2} style={styles.title} variant="headlineSmall">
+                {tx('journalNote.personalNotesTitle', 'titles.note')}
+              </AwaText>
 
               <MaterialDesignIcons
                 color={theme.colors.primary}
@@ -297,42 +291,28 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
               />
             </View>
 
-            <Text
-              numberOfLines={1}
-              style={[
-                styles.date,
-                isSmallScreen && styles.dateSmall,
-              ]}>
+            <AwaText colorRole="onSurfaceVariant" numberOfLines={2} style={styles.date} variant="bodySmall">
               {cycleDay !== null ? t('journalActivity.dateWithCycleDay', {date: shortDate, day: cycleDay}) : shortDate}
-            </Text>
+            </AwaText>
           </View>
 
-          <Pressable
-            accessibilityLabel={hidden ? t('journalNote.showNote') : t('journalNote.hideNote')}
-            accessibilityRole="button"
-            hitSlop={8}
-            onPress={() => setHidden(value => !value)}
-            style={({pressed}) => [
-              styles.hideButton,
-              isSmallScreen && styles.hideButtonSmall,
-              pressed && styles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name={hidden ? 'eye-outline' : 'eye-off-outline'}
-              size={isSmallScreen ? 17 : 19}
+          {width >= 400 ? (
+            <AwaButton
+              accessibilityLabel={hidden ? t('journalNote.showNote') : t('journalNote.hideNote')}
+              icon={hidden ? 'eye-outline' : 'eye-off-outline'}
+              label={hidden ? t('journalNote.show') : t('journalNote.hide')}
+              onPress={() => setHidden(value => !value)}
+              size="compact"
+              variant="outlined"
             />
-
-            {!isVerySmallScreen ? (
-              <Text
-                style={[
-                  styles.hideText,
-                  isSmallScreen && styles.hideTextSmall,
-                ]}>
-                {hidden ? t('journalNote.show') : t('journalNote.hide')}
-              </Text>
-            ) : null}
-          </Pressable>
+          ) : (
+            <AwaIconButton
+              accessibilityLabel={hidden ? t('journalNote.showNote') : t('journalNote.hideNote')}
+              icon={hidden ? 'eye-outline' : 'eye-off-outline'}
+              onPress={() => setHidden(value => !value)}
+              variant="outlined"
+            />
+          )}
         </View>
 
         <ScrollView
@@ -344,6 +324,7 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
           ]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
+          {daughter ? null : (
           <ImageBackground
             imageStyle={styles.heroImage}
             source={require('../../assets/images/notes-header-woman.png')}
@@ -360,16 +341,17 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
               <Text style={styles.heroTitle}>{t('journalNote.heroTitle')}</Text>
               <Text style={styles.heroText}>{t('journalNote.heroText')}</Text>
               <View style={styles.privateBadge}>
-                <MaterialDesignIcons color={theme.colors.primary} name="lock" size={15} />
+                <MaterialDesignIcons color={JOURNAL_HERO_INK.accent} name="lock" size={15} />
                 <Text style={styles.privateBadgeText}>{t('journalNote.privateBadge')}</Text>
               </View>
             </View>
           </ImageBackground>
+          )}
 
-          <View style={styles.card}>
+          <AwaCard padding="default" variant="outlined" style={styles.card}>
             <View style={styles.sectionHeader}>
               <View style={styles.sectionIcon}><MaterialDesignIcons color={theme.colors.primary} name="pencil-outline" size={23} /></View>
-              <Text style={styles.sectionTitle}>{t('journalNote.todaysNoteTitle')}</Text>
+              <Text style={styles.sectionTitle}>{tx('journalNote.todaysNoteTitle', 'note.observationTitle')}</Text>
             </View>
             <View style={styles.noteBox}>
               <TextInput
@@ -385,15 +367,15 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
               />
               {hidden && <View pointerEvents="none" style={styles.hiddenOverlay}><MaterialDesignIcons color={theme.colors.textMuted} name="lock-outline" size={24} /><Text style={styles.hiddenText}>{t('journalNote.noteHidden')}</Text></View>}
               <Text style={styles.counter}>{text.length} / {MAX}</Text>
-              <MaterialDesignIcons color={theme.colors.secondary} name="sprout" size={34} style={styles.noteLeaf} />
+              {daughter ? null : <MaterialDesignIcons color={theme.colors.secondary} name="sprout" size={34} style={styles.noteLeaf} />}
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.card}>
+          <AwaCard padding="default" variant="outlined" style={styles.card}>
             <View style={styles.photoHeader}>
               <View style={styles.sectionHeaderNoMargin}>
                 <View style={styles.sectionIcon}><MaterialDesignIcons color={theme.colors.primary} name="camera-outline" size={23} /></View>
-                <View><Text style={styles.sectionTitle}>{t('journalNote.privatePhotosTitle')} <Text style={styles.optional}>{t('journalMood.optional')}</Text></Text><Text style={styles.photoHint}>{t('journalNote.privatePhotosHint')}</Text></View>
+                <View style={styles.photoHeaderCopy}><Text style={styles.sectionTitle}>{t('journalNote.privatePhotosTitle')} <Text style={styles.optional}>{t('journalMood.optional')}</Text></Text><Text style={styles.photoHint}>{tx('journalNote.privatePhotosHint', 'note.photosHint')}</Text></View>
               </View>
 
             </View>
@@ -407,16 +389,16 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
               <Pressable onPress={() => navigation.navigate('PrivatePhotoEntry')} style={styles.photoEmpty}>
                 <View style={styles.photoPlus}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="plus" size={29} /></View>
                 <Text style={styles.photoEmptyTitle}>{t('journalNote.addPrivatePhotos')}</Text>
-                <Text style={styles.photoEmptyText}>{t('journalNote.photosStayOnDevice')}</Text>
+                <Text style={styles.photoEmptyText}>{tx('journalNote.photosStayOnDevice', 'note.photosOnDevice')}</Text>
               </Pressable>
             )}
 
             <View style={styles.protection}>
               <View style={styles.protectionIcon}><MaterialDesignIcons color={theme.colors.primary} name="shield-lock-outline" size={27} /></View>
-              <View style={styles.protectionCopy}><Text style={styles.protectionTitle}>{t('journalNote.dataProtectedTitle')}</Text><Text style={styles.protectionText}>{t('journalNote.dataProtectedText')}</Text></View>
-              <MaterialDesignIcons color={theme.colors.secondary} name="folder-lock-outline" size={39} />
+              <View style={styles.protectionCopy}><Text style={styles.protectionTitle}>{tx('journalNote.dataProtectedTitle', 'note.protectedTitle')}</Text><Text style={styles.protectionText}>{tx('journalNote.dataProtectedText', 'note.protectedText')}</Text></View>
+              {daughter ? null : <MaterialDesignIcons color={theme.colors.secondary} name="folder-lock-outline" size={39} />}
             </View>
-          </View>
+          </AwaCard>
 
           <View style={styles.infoCard}>
             <Info icon="calendar-month-outline" label={t('journalNote.dateLabel')} value={longDate} />
@@ -430,25 +412,15 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
             ) : null}
           </View>
 
-          <Pressable
-            accessibilityLabel={t('journalNote.saveMyNote')}
-            accessibilityRole="button"
-            disabled={saving}
+          <AwaButton
+            accessibilityLabel={tx('journalNote.saveMyNote', 'note.saveLabel')}
+            icon="content-save"
+            label={saving ? t('periodStartSheet.saving') : tx('journalNote.saveMyNote', 'note.saveLabel')}
+            loading={saving}
             onPress={save}
-            style={({pressed}) => [
-              styles.saveButton,
-              pressed && styles.pressed,
-              saving && styles.saveButtonDisabled,
-            ]}>
-            <MaterialDesignIcons
-              color={onPrimaryTextColor(theme)}
-              name={saving ? 'loading' : 'content-save'}
-              size={22}
-            />
-            <Text style={styles.saveText}>
-              {saving ? t('periodStartSheet.saving') : t('journalNote.saveMyNote')}
-            </Text>
-          </Pressable>
+            size="large"
+            style={styles.saveButton}
+          />
 
           {hasSavedNote ? <ClearEntryButton onConfirm={clearNote} subject={t('journalNote.clearSubject')} /> : null}
         </ScrollView>
@@ -513,7 +485,7 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
 function Info({icon, label, value}: {icon: string; label: string; value: string}): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  return <View style={styles.info}><View style={styles.infoLabel}><MaterialDesignIcons color={theme.colors.primary} name={icon as never} size={19} /><Text style={styles.infoLabelText}>{label}</Text></View><Text numberOfLines={1} style={styles.infoValue}>{value}</Text></View>;
+  return <View style={styles.info}><View style={styles.infoLabel}><MaterialDesignIcons color={theme.colors.primary} name={icon as never} size={19} /><Text style={styles.infoLabelText}>{label}</Text></View><Text numberOfLines={2} style={styles.infoValue}>{value}</Text></View>;
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
@@ -553,24 +525,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       gap: 6,
     },
 
-    headerButton: {
-      width: 42,
-      height: 42,
-      flexShrink: 0,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.12),
-      borderRadius: 14,
-      backgroundColor: theme.colors.surface,
-    },
-
-    headerButtonSmall: {
-      width: 38,
-      height: 38,
-      borderRadius: 13,
-    },
-
     headerCopy: {
       flex: 1,
       minWidth: 0,
@@ -586,29 +540,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       gap: 6,
     },
 
-    title: {
-      flexShrink: 1,
-      color: theme.colors.accent,
-      fontSize: 19,
-      fontWeight: '800',
-      textAlign: 'center',
-    },
+    title: {flexShrink: 1, textAlign: 'center'},
 
-    titleSmall: {
-      fontSize: 16,
-    },
+    photoHeaderCopy: {flex: 1, minWidth: 0},
 
-    date: {
-      maxWidth: '100%',
-      marginTop: 3,
-      color: theme.colors.textSecondary,
-      fontSize: 10.5,
-      textAlign: 'center',
-    },
-
-    dateSmall: {
-      fontSize: 8.8,
-    },
+    date: {maxWidth: '100%', textAlign: 'center'},
 
     hideButton: {
       height: 39,
@@ -620,7 +556,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 10,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.12),
-      borderRadius: 13,
+      borderRadius: 12,
       backgroundColor: theme.colors.surface,
     },
 
@@ -632,12 +568,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     hideText: {
       color: theme.colors.primary,
-      fontSize: 10.5,
+      fontSize: 11,
       fontWeight: '700',
     },
 
     hideTextSmall: {
-      fontSize: 9,
+      fontSize: 11,
     },
 
     content: {
@@ -659,41 +595,42 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     hero: {
-      height: 174,
+      minHeight: 174,
       justifyContent: 'center',
+      paddingVertical: 12,
       overflow: 'hidden',
-      borderRadius: 18,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
 
     heroSmall: {
-      height: 150,
+      minHeight: 150,
       borderRadius: 16,
     },
 
     heroVerySmall: {
-      height: 136,
+      minHeight: 136,
     },
 
     heroImage: {
-      borderRadius: 18,
+      borderRadius: 12,
       resizeMode: 'cover',
     },
 
     heroCopy: {
-      width: '53%',
+      width: '48%',
       paddingLeft: 17,
       paddingTop: 10,
     },
 
     heroCopySmall: {
-      width: '56%',
+      width: '52%',
       paddingLeft: 13,
       paddingTop: 7,
     },
 
     heroTitle: {
-      color: theme.colors.accent,
+      color: JOURNAL_HERO_INK.title,
       fontSize: 17,
       fontWeight: '800',
       lineHeight: 22,
@@ -701,9 +638,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     heroText: {
       marginTop: 8,
-      color: theme.colors.textSecondary,
-      fontSize: 10.5,
-      lineHeight: 15,
+      color: JOURNAL_HERO_INK.body,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     // Sits on top of the fixed illustration photo (FIXED VISUAL ISLAND) — a
@@ -711,8 +648,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     // stays legible against that same unthemed image.
     privateBadge: {
       alignSelf: 'flex-start',
-      height: 30,
+      minHeight: 30,
       marginTop: 12,
+      paddingVertical: 4,
       flexDirection: 'row',
       alignItems: 'center',
       gap: 6,
@@ -722,21 +660,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     privateBadgeText: {
-      color: theme.colors.primary,
-      fontSize: 9.5,
+      color: JOURNAL_HERO_INK.accent,
+      fontSize: 11,
       fontWeight: '700',
     },
 
-    card: {
-      paddingHorizontal: 11,
-      paddingTop: 14,
-      paddingBottom: 12,
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.12),
-      borderRadius: 18,
-      backgroundColor: theme.colors.surface,
-      elevation: 1,
-    },
+    card: {paddingHorizontal: 11, paddingTop: 14, paddingBottom: 12},
 
     sectionHeader: {
       flexDirection: 'row',
@@ -772,7 +701,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     optional: {
-      fontSize: 9,
+      fontSize: 11,
       fontWeight: '500',
     },
 
@@ -781,7 +710,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       overflow: 'hidden',
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.14),
-      borderRadius: 13,
+      borderRadius: 12,
       backgroundColor: theme.colors.surfaceSecondary,
     },
 
@@ -818,7 +747,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       right: 11,
       bottom: 8,
       color: theme.colors.textMuted,
-      fontSize: 8.5,
+      fontSize: 11,
     },
 
     noteLeaf: {
@@ -836,10 +765,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     photoHint: {
-      maxWidth: 210,
       marginTop: 2,
       color: theme.colors.textSecondary,
-      fontSize: 8.3,
+      fontSize: 11,
+      lineHeight: 15,
     },
 
     addPhotoButton: {
@@ -851,24 +780,25 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 9,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.4),
-      borderRadius: 10,
+      borderRadius: 12,
     },
 
     addPhotoText: {
       color: theme.colors.primary,
-      fontSize: 8.8,
+      fontSize: 11,
       fontWeight: '700',
     },
 
     photoEmpty: {
       minHeight: 92,
       marginTop: 10,
+      paddingVertical: 10, paddingHorizontal: 12,
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 1,
       borderStyle: 'dashed',
       borderColor: withAlpha(theme.colors.primary, 0.35),
-      borderRadius: 13,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
 
@@ -893,23 +823,29 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     photoEmptyTitle: {
       marginTop: 6,
+      paddingHorizontal: 12,
       color: theme.colors.primary,
-      fontSize: 10,
+      fontSize: 12,
       fontWeight: '700',
+      textAlign: 'center',
     },
 
     photoEmptyText: {
       marginTop: 2,
+      paddingHorizontal: 12,
       color: theme.colors.textSecondary,
-      fontSize: 8.2,
+      fontSize: 11,
+      lineHeight: 15,
+      textAlign: 'center',
     },
 
     protection: {
       minHeight: 67,
       marginTop: 10,
+      paddingVertical: 10,
       flexDirection: 'row',
       alignItems: 'center',
-      paddingHorizontal: 10,
+      paddingHorizontal: 12,
       borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
@@ -934,19 +870,20 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     protectionTitle: {
       color: theme.colors.accent,
-      fontSize: 10.5,
+      fontSize: 12,
       fontWeight: '800',
     },
 
     protectionText: {
       marginTop: 3,
       color: theme.colors.textSecondary,
-      fontSize: 8.3,
-      lineHeight: 12,
+      fontSize: 11,
+      lineHeight: 15,
     },
 
     infoCard: {
       minHeight: 72,
+      paddingVertical: 10, paddingHorizontal: 12,
       flexDirection: 'row',
       alignItems: 'center',
       marginTop: 2,
@@ -965,20 +902,24 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     infoLabel: {
       flexDirection: 'row',
+      flexWrap: 'wrap',
       alignItems: 'center',
+      justifyContent: 'center',
       gap: 5,
     },
 
     infoLabelText: {
+      flexShrink: 1,
       color: theme.colors.textSecondary,
-      fontSize: 9,
+      fontSize: 11,
     },
 
     infoValue: {
       maxWidth: '100%',
       marginTop: 5,
       color: theme.colors.accent,
-      fontSize: 9.5,
+      fontSize: 11,
+      textAlign: 'center',
       fontWeight: '800',
     },
 
@@ -988,30 +929,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: withAlpha(theme.colors.primary, 0.12),
     },
 
-    saveButton: {
-      width: '88%',
-      maxWidth: 360,
-      height: 50,
-      alignSelf: 'center',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 9,
-      marginTop: 4,
-      marginBottom: 8,
-      borderRadius: 16,
-      backgroundColor: theme.colors.primary,
-    },
-
-    saveText: {
-      color: onPrimaryTextColor(theme),
-      fontSize: 14,
-      fontWeight: '700',
-    },
-
-    saveButtonDisabled: {
-      opacity: 0.55,
-    },
+    saveButton: {width: '88%', maxWidth: 360, alignSelf: 'center', marginTop: 4, marginBottom: 8},
 
     toast: {
       position: 'absolute',
@@ -1023,7 +941,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       gap: 9,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.16),
-      borderRadius: 20,
+      borderRadius: 12,
       backgroundColor: theme.colors.surface,
       paddingHorizontal: 14,
       paddingVertical: 12,
@@ -1032,9 +950,9 @@ function createStyles(theme: ResolvedAwaTheme) {
         width: 0,
         height: 5,
       },
-      shadowOpacity: 0.17,
-      shadowRadius: 13,
-      elevation: 7,
+      shadowOpacity: 0.14,
+      shadowRadius: 12,
+      elevation: 6,
     },
 
     toastIcon: {

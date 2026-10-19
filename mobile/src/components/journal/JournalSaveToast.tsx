@@ -3,7 +3,7 @@ import {Animated, Easing, Pressable, StyleSheet, Text, View} from 'react-native'
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useTranslation} from 'react-i18next';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {onPrimaryTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import '../../i18n';
 
 // The one shared "premium save toast" for journal entry screens. This exact
@@ -128,7 +128,7 @@ export function JournalSaveToast({visible, title, message, animation, onDismiss,
         hitSlop={10}
         onPress={onDismiss}
         style={({pressed}) => [styles.toastCloseButton, pressed && styles.toastCloseButtonPressed]}>
-        <MaterialDesignIcons color={theme.colors.textSecondary} name="close" size={17} />
+        <MaterialDesignIcons color={theme.colors.textSecondary} name="close" size={18} />
       </Pressable>
     </Animated.View>
   );
@@ -144,17 +144,12 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 9,
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.14),
-      borderRadius: 20,
+      borderRadius: 12,
+      // Material 3: flat surface, no border, a single soft elevation.
       backgroundColor: theme.colors.surface,
-      paddingHorizontal: 14,
+      paddingHorizontal: 16,
       paddingVertical: 12,
-      shadowColor: theme.colors.primary,
-      shadowOffset: {width: 0, height: 5},
-      shadowOpacity: 0.17,
-      shadowRadius: 13,
-      elevation: 7,
+      elevation: 6,
     },
     toastIcon: {
       width: 24,
@@ -166,8 +161,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: theme.colors.primary,
     },
     toastCopy: {flex: 1, minWidth: 0},
-    toastTitle: {color: theme.colors.accent, fontSize: 12.5, lineHeight: 16, fontWeight: '800'},
-    toastMessage: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 15, fontWeight: '600'},
+    toastTitle: {color: theme.colors.accent, fontSize: 14, lineHeight: 20, fontWeight: '600'},
+    toastMessage: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 16, fontWeight: '400'},
     toastCloseButton: {width: 32, height: 32, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 16},
     toastCloseButtonPressed: {backgroundColor: theme.colors.surfaceSecondary, opacity: 0.8},
   });

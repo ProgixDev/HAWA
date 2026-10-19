@@ -9,6 +9,9 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {presentSaveFailure} from '../../services/saveFailure';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {resolvePrivatePhotos, type PrivatePhoto} from '../../types/journal';
 import {isIntimacyUnlocked, lockIntimacy} from '../../state/privateSectionAuthStore';
 import {copyPrivatePhotoToAppStorage, deletePrivatePhotoFile, isAppOwnedPrivatePhotoUri, isEncryptedPrivatePhotoUri, readPrivatePhotoAsDataUri} from '../../services/privatePhotoStorage';
@@ -307,22 +310,21 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
       <StatusBar backgroundColor={theme.colors.background} barStyle={theme.statusBarStyle} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.flex}>
         <View style={[styles.header, {paddingTop: veryCompact ? TOP_SPACING_EXTRA_COMPACT : TOP_SPACING_EXTRA}]}>
-          <Pressable accessibilityLabel={t('common.back')} accessibilityRole="button" onPress={navigation.goBack} style={styles.headerButton}>
-            <MaterialDesignIcons color={theme.colors.accent} name="chevron-left" size={27} />
-          </Pressable>
+          <AwaIconButton
+            accessibilityLabel={t('common.back')}
+            icon="chevron-left"
+            onPress={navigation.goBack}
+          />
           <View style={styles.headerCopy}>
-            <Text style={styles.title}>{t('journalNote.privatePhotosTitle')}</Text>
-            <Text style={styles.date}>{dateLabel}</Text>
+            <AwaText variant="headlineSmall">{t('journalNote.privatePhotosTitle')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall">{dateLabel}</AwaText>
           </View>
-          <Pressable accessibilityLabel={t('journalPrivatePhotos.hide')} accessibilityRole="button" onPress={mask} style={styles.mask}>
-            <MaterialDesignIcons color={theme.colors.primary} name="eye-off-outline" size={17} />
-            <Text style={styles.maskText}>{t('journalPrivatePhotos.hide')}</Text>
-          </Pressable>
+          <AwaButton accessibilityLabel={t('journalPrivatePhotos.hide')} icon="eye-off-outline" label={t('journalPrivatePhotos.hide')} onPress={mask} size="compact" variant="outlined" />
         </View>
 
         <Animated.View style={[styles.flex, {opacity: entrance, transform: [{translateY: entrance.interpolate({inputRange: [0, 1], outputRange: [10, 0]})}]}]}>
           <ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + 22}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-            <Text style={styles.subtitle}>{t('journalPrivatePhotos.subtitle')}</Text>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium">{t('journalPrivatePhotos.subtitle')}</AwaText>
 
             <View style={styles.photoCard}>
               <View style={styles.photoCardHeader}>
@@ -393,10 +395,15 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
               <Text style={styles.securityText}>{t('journalPrivatePhotos.securityText')}</Text>
             </View>
 
-            <Pressable accessibilityLabel={t('common.save')} accessibilityRole="button" disabled={saving} onPress={save} style={({pressed}) => [styles.save, pressed && styles.pressed, saving && styles.disabled]}>
-              <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={saving ? 'loading' : 'content-save-outline'} size={20} />
-              <Text style={styles.saveText}>{saving ? t('periodStartSheet.saving') : t('common.save')}</Text>
-            </Pressable>
+            <AwaButton
+              accessibilityLabel={t('common.save')}
+              fullWidth
+              icon="content-save-outline"
+              label={saving ? t('periodStartSheet.saving') : t('common.save')}
+              loading={saving}
+              onPress={save}
+              size="large"
+            />
           </ScrollView>
         </Animated.View>
       </KeyboardAvoidingView>
@@ -529,49 +536,45 @@ function createStyles(theme: ResolvedAwaTheme) {
     flex: {flex: 1},
 
     header: {minHeight: 88, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, paddingBottom: 8, gap: 8},
-    headerButton: {width: 43, height: 43, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 15, backgroundColor: theme.colors.surface},
     headerCopy: {flex: 1, alignItems: 'center', minWidth: 0},
-    title: {color: theme.colors.accent, fontSize: 20, fontWeight: '800'},
-    date: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11},
-    mask: {height: 39, flexDirection: 'row', alignItems: 'center', gap: 4, paddingHorizontal: 9, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 14, backgroundColor: theme.colors.surface},
-    maskText: {color: theme.colors.primary, fontSize: 10, fontWeight: '700'},
+    mask: {height: 39, flexDirection: 'row', alignItems: 'center', gap: 4, paddingHorizontal: 9, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 12, backgroundColor: theme.colors.surface},
+    maskText: {color: theme.colors.primary, fontSize: 11, fontWeight: '700'},
 
     content: {paddingHorizontal: 14, paddingTop: 6, gap: 14},
-    subtitle: {color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19},
 
-    photoCard: {overflow: 'hidden', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 24, backgroundColor: theme.colors.surface, padding: 14, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.07, shadowRadius: 14, elevation: 3},
+    photoCard: {overflow: 'hidden', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 12, backgroundColor: theme.colors.surface, padding: 14, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.07, shadowRadius: 14, elevation: 3},
     photoCardHeader: {flexDirection: 'row', alignItems: 'center', marginBottom: 14},
-    photoCardHeaderIcon: {width: 40, height: 40, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primarySoft},
+    photoCardHeaderIcon: {width: 40, height: 40, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: theme.colors.primarySoft},
     photoCardHeaderCopy: {flex: 1, minWidth: 0, marginLeft: 9},
-    photoCardEyebrow: {color: theme.colors.primary, fontSize: 7.5, fontWeight: '900', letterSpacing: 1},
+    photoCardEyebrow: {color: theme.colors.primary, fontSize: 11, fontWeight: '900', letterSpacing: 1},
     photoCardTitle: {marginTop: 2, color: theme.colors.accent, fontSize: 14, fontWeight: '800'},
-    counterPill: {flexShrink: 0, borderRadius: 11, backgroundColor: withAlpha(theme.colors.primary, 0.20), paddingHorizontal: 9, paddingVertical: 6},
-    counterPillText: {color: theme.colors.accent, fontSize: 10, fontWeight: '800'},
+    counterPill: {flexShrink: 0, borderRadius: 12, backgroundColor: withAlpha(theme.colors.primary, 0.20), paddingHorizontal: 9, paddingVertical: 6},
+    counterPillText: {color: theme.colors.accent, fontSize: 11, fontWeight: '800'},
 
     empty: {alignItems: 'center', paddingTop: 12, paddingBottom: 18, paddingHorizontal: 10},
     emptyCompact: {paddingVertical: 11},
     emptyIconOuter: {position: 'relative', width: 82, height: 82, alignItems: 'center', justifyContent: 'center'},
-    emptyIcon: {width: 72, height: 72, alignItems: 'center', justifyContent: 'center', borderRadius: 24, backgroundColor: theme.colors.primarySoft, transform: [{rotate: '-3deg'}]},
+    emptyIcon: {width: 72, height: 72, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: theme.colors.primarySoft, transform: [{rotate: '-3deg'}]},
     emptyLockBadge: {position: 'absolute', right: 0, bottom: 2, width: 25, height: 25, alignItems: 'center', justifyContent: 'center', borderWidth: 3, borderColor: theme.colors.surface, borderRadius: 13, backgroundColor: theme.colors.primary},
     emptyTitle: {marginTop: 13, color: theme.colors.accent, fontSize: 17, fontWeight: '800', textAlign: 'center'},
     emptyText: {maxWidth: 300, marginTop: 6, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 18, textAlign: 'center'},
 
     choiceDivider: {flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10},
     choiceDividerLine: {flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: withAlpha(theme.colors.primary, 0.14)},
-    choiceDividerText: {color: theme.colors.textMuted, fontSize: 7.5, fontWeight: '800', letterSpacing: 0.8},
+    choiceDividerText: {color: theme.colors.textMuted, fontSize: 11, fontWeight: '800', letterSpacing: 0.8},
 
-    sourceCard: {minHeight: 72, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 18, backgroundColor: theme.colors.surfaceSecondary, paddingHorizontal: 11, paddingVertical: 10, marginBottom: 9},
+    sourceCard: {minHeight: 72, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 12, backgroundColor: theme.colors.surfaceSecondary, paddingHorizontal: 12, paddingVertical: 10, marginBottom: 9},
     galleryCard: {borderColor: withAlpha(theme.colors.primary, 0.20), backgroundColor: theme.colors.primarySoft},
     sourceCardPressed: {opacity: 0.8, transform: [{scale: 0.992}]},
     sourceCardIconPurple: {width: 47, height: 47, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: theme.colors.primarySoft},
     sourceCardIconNeutral: {width: 47, height: 47, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: theme.colors.surfaceSecondary},
     sourceCardCopy: {flex: 1, minWidth: 0, marginLeft: 11},
     sourceCardTitle: {color: theme.colors.accent, fontSize: 13, fontWeight: '800'},
-    sourceCardText: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 9.5, lineHeight: 13},
-    sourceArrow: {width: 31, height: 31, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 11, backgroundColor: theme.colors.surface},
+    sourceCardText: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 16},
+    sourceArrow: {width: 31, height: 31, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: theme.colors.surface},
 
     grid: {flexDirection: 'row', flexWrap: 'wrap', gap: 10},
-    gridCell: {width: '47%', aspectRatio: 1, borderRadius: 18, overflow: 'hidden', backgroundColor: theme.colors.surfaceSecondary},
+    gridCell: {width: '47%', aspectRatio: 1, borderRadius: 12, overflow: 'hidden', backgroundColor: theme.colors.surfaceSecondary},
     gridCellImage: {width: '100%', height: '100%'},
     gridCellUnavailable: {flex: 1, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderStyle: 'dashed', borderColor: withAlpha(theme.colors.primary, 0.30), backgroundColor: theme.colors.surfaceSecondary},
     gridCellLoading: {flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: theme.colors.surfaceSecondary},
@@ -580,41 +583,38 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     actionSectionLabel: {marginTop: 14, marginBottom: 8, color: theme.colors.text, fontSize: 11.5, fontWeight: '800'},
     actionCardsRow: {flexDirection: 'row', gap: 9},
-    actionCard: {flex: 1, minWidth: 0, minHeight: 74, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.25), borderRadius: 17, backgroundColor: theme.colors.surfaceSecondary, paddingHorizontal: 9, paddingVertical: 9},
+    actionCard: {flex: 1, minWidth: 0, minHeight: 74, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.25), borderRadius: 16, backgroundColor: theme.colors.surfaceSecondary, paddingHorizontal: 12, paddingVertical: 12},
     actionCardDanger: {borderColor: withAlpha(theme.colors.danger, 0.35), backgroundColor: withAlpha(theme.colors.danger, 0.08)},
     actionCardIcon: {width: 36, height: 36, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: theme.colors.primarySoft},
     actionCardIconDanger: {backgroundColor: withAlpha(theme.colors.danger, 0.18)},
     actionCardCopy: {flex: 1, minWidth: 0, marginLeft: 8},
     actionCardTitle: {color: theme.colors.accent, fontSize: 11, fontWeight: '800'},
     actionCardTitleDanger: {color: theme.colors.danger},
-    actionCardSubtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 8, lineHeight: 11},
+    actionCardSubtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 16},
 
-    errorCard: {flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 11, borderRadius: 14, backgroundColor: withAlpha(theme.colors.danger, 0.08), paddingHorizontal: 10, paddingVertical: 9},
-    errorIcon: {width: 30, height: 30, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 10, backgroundColor: withAlpha(theme.colors.danger, 0.15)},
-    pickerErrorText: {flex: 1, color: theme.colors.danger, fontSize: 10.5, lineHeight: 15},
+    errorCard: {flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 11, borderRadius: 12, backgroundColor: withAlpha(theme.colors.danger, 0.08), paddingHorizontal: 12, paddingVertical: 12},
+    errorIcon: {width: 30, height: 30, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: withAlpha(theme.colors.danger, 0.15)},
+    pickerErrorText: {flex: 1, color: theme.colors.danger, fontSize: 11, lineHeight: 16},
 
-    security: {minHeight: 58, flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: 12, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 17, backgroundColor: theme.colors.primarySoft},
+    security: {minHeight: 58, flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: 12, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 16, backgroundColor: theme.colors.primarySoft},
     securityIcon: {width: 36, height: 36, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: theme.colors.surface},
-    securityText: {flex: 1, color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 15},
+    securityText: {flex: 1, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 16},
 
-    save: {height: 54, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, borderRadius: 18, backgroundColor: theme.colors.primary, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.2, shadowRadius: 10, elevation: 4},
-    saveText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '800'},
-    pressed: {opacity: 0.82, transform: [{scale: 0.985}]},
     disabled: {opacity: 0.55},
 
     overlay: {flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(31,18,61,0.42)'},
     handle: {width: 44, height: 5, alignSelf: 'center', borderRadius: 3, backgroundColor: withAlpha(theme.colors.primary, 0.25), marginBottom: 14},
 
-    detailSheet: {borderTopLeftRadius: 26, borderTopRightRadius: 26, backgroundColor: theme.colors.surface, paddingHorizontal: 16, paddingTop: 12},
-    detailImage: {width: '100%', height: 320, borderRadius: 18, backgroundColor: theme.colors.surfaceSecondary},
+    detailSheet: {borderTopLeftRadius: 28, borderTopRightRadius: 28, backgroundColor: theme.colors.surface, paddingHorizontal: 16, paddingTop: 12},
+    detailImage: {width: '100%', height: 320, borderRadius: 12, backgroundColor: theme.colors.surfaceSecondary},
     detailImageCompact: {height: 220},
     detailLoading: {alignItems: 'center', justifyContent: 'center'},
-    detailUnavailable: {width: '100%', height: 220, borderRadius: 18, borderWidth: 1, borderStyle: 'dashed', borderColor: withAlpha(theme.colors.primary, 0.30), backgroundColor: theme.colors.surfaceSecondary, alignItems: 'center', justifyContent: 'center', gap: 10, paddingHorizontal: 24},
-    detailUnavailableCompact: {height: 160},
+    detailUnavailable: {width: '100%', minHeight: 220, borderRadius: 12, borderWidth: 1, borderStyle: 'dashed', borderColor: withAlpha(theme.colors.primary, 0.30), backgroundColor: theme.colors.surfaceSecondary, alignItems: 'center', justifyContent: 'center', gap: 10, paddingHorizontal: 24},
+    detailUnavailableCompact: {minHeight: 160},
     detailUnavailableText: {color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18, textAlign: 'center'},
     detailActionsRow: {flexDirection: 'row', gap: 9, marginTop: 14},
 
-    sourceSheet: {borderTopLeftRadius: 26, borderTopRightRadius: 26, backgroundColor: theme.colors.surface, paddingHorizontal: 16, paddingTop: 12},
+    sourceSheet: {borderTopLeftRadius: 28, borderTopRightRadius: 28, backgroundColor: theme.colors.surface, paddingHorizontal: 16, paddingTop: 12},
     sourceSheetTitle: {marginBottom: 14, color: theme.colors.accent, fontSize: 17, fontWeight: '800'},
   });
 }

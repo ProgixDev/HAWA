@@ -1,34 +1,91 @@
 import React, {useEffect, useMemo, useRef} from 'react';
-import {AccessibilityInfo, Animated, Image, type ImageSourcePropType, KeyboardAvoidingView, Platform, Pressable, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {AccessibilityInfo, Animated, Image, type ImageSourcePropType, KeyboardAvoidingView, Platform, Pressable, SafeAreaView, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {awaShapes} from '../../theme/shapes';
+import {awaSpace} from '../../theme/spaceScale';
+import {useAwaTokens} from '../../theme/useAwaTokens';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaIcon, type AwaIconName} from '../ui/AwaIcon';
+import {AwaIconButton} from '../ui/AwaIconButton';
+import {AwaText} from '../ui/AwaText';
+import {pressedStyle} from '../ui/pressFeedback';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import '../../i18n';
 
-type Props = {title: string; icon: string; children: React.ReactNode; onSave?: () => void; saving?: boolean; error?: string; heroSource?: ImageSourcePropType; heroLabel?: string; saveLabel?: string ; heroLabelBesideIcon?: boolean; hideJournalHeader?: boolean; toast?: React.ReactNode; /** Replaces the default "Aujourd’hui · <date>" header line — only for a journal opened on an explicit PAST day (M21). */ dateLabel?: string;};
+// Shared journal layout (DESIGN.md, Material 3): a top app bar with a standard icon button and a Fraunces title, content
+// on filled cards, filter-chip choices, a full-width filled button, one quiet privacy line. Colours come from the
+// resolved theme roles; nothing here changes what a journal screen saves or navigates to.
 
-export function JournalScreenLayout({title, icon, children, onSave, saving, error, heroSource, heroLabel, saveLabel, hideJournalHeader = false, toast, dateLabel}: Props): React.JSX.Element {
+type Props = {title: string; icon: string; children: React.ReactNode; onSave?: () => void; saving?: boolean; error?: string; heroSource?: ImageSourcePropType; heroLabel?: string; saveLabel?: string ; heroLabelBesideIcon?: boolean; /** Hero card without the small icon before its label (default: the icon is shown). */ hideHeroIcon?: boolean; hideJournalHeader?: boolean; toast?: React.ReactNode; /** Replaces the default "Aujourd’hui · <date>" header line — only for a journal opened on an explicit PAST day (M21). */ dateLabel?: string;};
+
+const BACK_SLOT = 48;
+
+export function JournalScreenLayout({title, icon, children, onSave, saving, error, heroSource, heroLabel, saveLabel, hideHeroIcon = false, hideJournalHeader = false, toast, dateLabel}: Props): React.JSX.Element {
   const {t} = useTranslation();
   const resolvedSaveLabel = saveLabel ?? t('common.save');
   const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
+  const {roles} = useAwaTokens();
+  const styles = useMemo(() => createStyles(roles), [roles]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
   const entrance = useRef(new Animated.Value(0)).current;
   useEffect(() => {AccessibilityInfo.isReduceMotionEnabled().then(reduce => Animated.timing(entrance, {toValue: 1, duration: reduce ? 0 : 280, useNativeDriver: true}).start());}, [entrance]);
   const date = new Intl.DateTimeFormat(dateFormatLocale(), {weekday: 'long', day: 'numeric', month: 'long'}).format(new Date());
-  return <SafeAreaView style={styles.safe}><StatusBar backgroundColor={theme.colors.background} barStyle={theme.statusBarStyle} /><KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={insets.top} style={styles.flex}><View style={styles.header}><Pressable accessibilityLabel={t('common.back')} accessibilityRole="button" onPress={navigation.goBack} style={styles.back}><MaterialDesignIcons color={theme.colors.accent} name="chevron-left" size={28} /></Pressable><View style={styles.headerCopy}>{!hideJournalHeader ? <Text style={styles.eyebrow}>{t('dailyJournalSheet.defaultTitle')}</Text> : null}<Text style={styles.title}>{title}</Text><Text style={styles.date}>{dateLabel ?? t('journalScreenLayout.todayDate', {date})}</Text></View><View style={styles.headerIcon}><MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={22} /></View></View><Animated.View style={[styles.flex, {opacity: entrance, transform: [{translateY: entrance.interpolate({inputRange: [0, 1], outputRange: [10, 0]})}]}]}><ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + 30}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>{heroSource ? <View style={styles.hero}><View style={styles.heroCopy}><View style={styles.heroIcon}><MaterialDesignIcons color={theme.colors.primary} name={icon as never} size={21} /></View><Text style={styles.heroLabel}>{heroLabel ?? title}</Text></View><Image resizeMode="contain" source={heroSource} style={styles.heroImage} /></View> : null}{children}{error ? <Text accessibilityRole="alert" style={styles.error}>{error}</Text> : null}{onSave ? <Pressable accessibilityLabel={resolvedSaveLabel} accessibilityRole="button" disabled={saving} onPress={onSave} style={({pressed}) => [styles.save, pressed && styles.pressed, saving && styles.disabled]}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check-circle-outline" size={22} /><Text style={styles.saveText}>{saving ? t('periodStartSheet.saving') : resolvedSaveLabel}</Text></Pressable> : null}<View style={styles.privacy}><MaterialDesignIcons color={theme.colors.textSecondary} name="lock-outline" size={15} /><Text style={styles.privacyText}>{t('journalScreenLayout.privacyFooter')}</Text></View></ScrollView></Animated.View></KeyboardAvoidingView>{toast}</SafeAreaView>;
+  return (
+    <SafeAreaView style={styles.safe}>
+      <StatusBar backgroundColor={theme.colors.background} barStyle={theme.statusBarStyle} />
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={insets.top} style={styles.flex}>
+        <View style={styles.header}>
+          <AwaIconButton accessibilityLabel={t('common.back')} icon="chevron-left" iconSize={28} onPress={navigation.goBack} />
+          <View style={styles.headerCopy}>
+            {!hideJournalHeader ? <AwaText colorRole="primary" emphasized variant="labelSmall">{t('dailyJournalSheet.defaultTitle')}</AwaText> : null}
+            <AwaText accessibilityRole="header" style={styles.title} variant="headlineSmall">{title}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall">{dateLabel ?? t('journalScreenLayout.todayDate', {date})}</AwaText>
+          </View>
+          <View style={styles.backSlot} />
+        </View>
+        <Animated.View style={[styles.flex, {opacity: entrance, transform: [{translateY: entrance.interpolate({inputRange: [0, 1], outputRange: [10, 0]})}]}]}>
+          <ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + 30}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+            {heroSource ? (
+              <AwaCard padding="none" style={styles.hero} variant="filled">
+                <View style={styles.heroCopy}>
+                  {hideHeroIcon ? null : <AwaIcon colorRole="primary" decorative name={icon as AwaIconName} size="md" />}
+                  <AwaText emphasized style={hideHeroIcon ? undefined : styles.heroLabel} variant="titleSmall">{heroLabel ?? title}</AwaText>
+                </View>
+                <Image resizeMode="contain" source={heroSource} style={styles.heroImage} />
+              </AwaCard>
+            ) : null}
+            {children}
+            {error ? <AwaText accessibilityRole="alert" colorRole="error" style={styles.error} variant="bodyMedium">{error}</AwaText> : null}
+            {onSave ? (
+              <AwaButton accessibilityLabel={resolvedSaveLabel} disabled={saving} fullWidth icon="check-circle-outline" label={saving ? t('periodStartSheet.saving') : resolvedSaveLabel} onPress={onSave} size="large" />
+            ) : null}
+            <View style={styles.privacy}>
+              <AwaIcon decorative name="lock-outline" size="xs" />
+              <AwaText colorRole="onSurfaceVariant" variant="labelSmall">{t('journalScreenLayout.privacyFooter')}</AwaText>
+            </View>
+          </ScrollView>
+        </Animated.View>
+      </KeyboardAvoidingView>
+      {toast}
+    </SafeAreaView>
+  );
 }
 
+const sectionTitleStyle = {marginBottom: awaSpace.s12};
+
 export function SectionCard({title, children}: {title: string; children: React.ReactNode}) {
-  const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
-  return <View style={styles.section}><Text style={styles.sectionTitle}>{title}</Text>{children}</View>;
+  return (
+    <AwaCard variant="filled">
+      <AwaText emphasized style={sectionTitleStyle} variant="titleMedium">{title}</AwaText>
+      {children}
+    </AwaCard>
+  );
 }
 
 // `labelFor` is optional and display-only: when provided, it renders a
@@ -38,11 +95,47 @@ export function SectionCard({title, children}: {title: string; children: React.R
 // JournalTemperatureScreen.tsx's `method` chips (PHASE 7H). Every other
 // caller omits it and keeps today's exact behavior (renders `option` as-is).
 export function ChoiceChips({options, value, values, onChange, multiple, labelFor}: {options: string[]; value?: string; values?: string[]; onChange: (value: string) => void; multiple?: boolean; labelFor?: (option: string) => string}) {
-  const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
-  return <View style={styles.chips}>{options.map(option => {const selected = multiple ? values?.includes(option) : value === option; return <Pressable key={option} accessibilityLabel={labelFor ? labelFor(option) : undefined} accessibilityRole={multiple ? 'checkbox' : 'radio'} accessibilityState={{checked: Boolean(selected)}} onPress={() => onChange(option)} style={({pressed}) => [styles.chip, selected && styles.chipSelected, pressed && styles.pressed]}><Text style={[styles.chipText, selected && styles.chipTextSelected]}>{labelFor ? labelFor(option) : option}</Text></Pressable>;})}</View>;
+  const {roles} = useAwaTokens();
+  const styles = useMemo(() => createStyles(roles), [roles]);
+  return (
+    <View style={styles.chips}>
+      {options.map(option => {
+        const selected = multiple ? values?.includes(option) : value === option;
+        const label = labelFor ? labelFor(option) : option;
+        return (
+          <Pressable
+            key={option}
+            accessibilityLabel={labelFor ? label : undefined}
+            accessibilityRole={multiple ? 'checkbox' : 'radio'}
+            accessibilityState={{checked: Boolean(selected)}}
+            hitSlop={4}
+            onPress={() => onChange(option)}
+            style={({pressed}) => [styles.chip, selected && styles.chipSelected, pressed && pressedStyle(selected ? roles.primaryContainer : undefined, roles.onSurface)]}>
+            <AwaText colorRole={selected ? 'onPrimaryContainer' : 'onSurfaceVariant'} emphasized={Boolean(selected)} variant="labelLarge">{label}</AwaText>
+          </Pressable>
+        );
+      })}
+    </View>
+  );
 }
 
-function createStyles(theme: ResolvedAwaTheme) {
-  return StyleSheet.create({safe: {flex: 1, backgroundColor: theme.colors.background}, flex: {flex: 1}, header: {minHeight: 104, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, paddingVertical: 8}, back: {width: 44, height: 44, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: theme.colors.surface, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14)}, headerCopy: {flex: 1, alignItems: 'center', paddingHorizontal: 6}, eyebrow: {color: theme.colors.primary, fontSize: 11, fontWeight: '700'}, title: {marginTop: 3, color: theme.colors.accent, fontSize: 22, fontWeight: '800', textAlign: 'center'}, date: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 11}, headerIcon: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: theme.colors.surface, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14)}, content: {paddingHorizontal: 14, paddingTop: 4, paddingBottom: 30, gap: 12}, hero: {height: 126, flexDirection: 'row', alignItems: 'center', overflow: 'hidden', borderRadius: 24, backgroundColor: theme.colors.primarySoft, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14)}, heroCopy: {flex: 1, paddingLeft: 18}, heroIcon: {width: 38, height: 38, alignItems: 'center', justifyContent: 'center', borderRadius: 14, backgroundColor: withAlpha(theme.colors.surface, 0.82)}, heroLabel: {marginTop: 8, color: theme.colors.accent, fontSize: 14, lineHeight: 18, fontWeight: '800'}, heroImage: {width: 132, height: 132, marginRight: -4}, section: {borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 22, backgroundColor: theme.colors.surface, padding: 15, shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 12, elevation: 2}, sectionTitle: {marginBottom: 12, color: theme.colors.accent, fontSize: 15, fontWeight: '800'}, chips: {flexDirection: 'row', flexWrap: 'wrap', gap: 8}, chip: {minHeight: 44, justifyContent: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 15, backgroundColor: theme.colors.surface, paddingHorizontal: 14}, chipSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft}, chipText: {color: theme.colors.textSecondary, fontSize: 13}, chipTextSelected: {color: theme.colors.primary, fontWeight: '800'}, save: {height: 54, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 18, backgroundColor: theme.colors.primary, shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.2, shadowRadius: 10, elevation: 4}, saveText: {marginLeft: 9, color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '800'}, privacy: {flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 6, paddingVertical: 2}, privacyText: {color: theme.colors.textSecondary, fontSize: 10}, pressed: {opacity: 0.82, transform: [{scale: 0.985}]}, disabled: {opacity: 0.55}, error: {color: theme.colors.danger, fontSize: 13, textAlign: 'center'}});
+function createStyles(roles: ReturnType<typeof useAwaTokens>['roles']) {
+  return StyleSheet.create({
+    safe: {flex: 1, backgroundColor: roles.background},
+    flex: {flex: 1},
+    header: {minHeight: 64, flexDirection: 'row', alignItems: 'center', paddingHorizontal: awaSpace.s8, paddingVertical: awaSpace.s8},
+    headerCopy: {flex: 1, alignItems: 'center', paddingHorizontal: awaSpace.s8},
+    backSlot: {width: BACK_SLOT},
+    title: {marginTop: awaSpace.s4, textAlign: 'center'},
+    content: {paddingHorizontal: awaSpace.s16, paddingTop: awaSpace.s4, gap: awaSpace.s12},
+    hero: {height: 126, flexDirection: 'row', alignItems: 'center', overflow: 'hidden'},
+    heroCopy: {flex: 1, paddingLeft: awaSpace.s16},
+    heroLabel: {marginTop: awaSpace.s8},
+    heroImage: {width: 132, height: 132, marginRight: -4},
+    chips: {flexDirection: 'row', flexWrap: 'wrap', gap: awaSpace.s8},
+    chip: {minHeight: 40, justifyContent: 'center', borderWidth: 1, borderColor: roles.outline, borderRadius: awaShapes.small, paddingHorizontal: awaSpace.s16},
+    chipSelected: {borderColor: roles.primaryContainer, backgroundColor: roles.primaryContainer},
+    error: {textAlign: 'center'},
+    privacy: {flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: awaSpace.s4, paddingVertical: awaSpace.s4},
+  });
 }

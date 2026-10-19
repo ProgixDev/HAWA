@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
-import {Alert, Pressable, Text} from 'react-native';
+import {Pressable, Text} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -168,12 +168,10 @@ describe.each(CASES)('$name - M25 clear a saved value', ({Screen, section, value
     expect(pressableByLabel(first, 'Effacer cette saisie')).toBeDefined();
 
     // clear: confirmation dialog, then the section is removed.
-    const alertSpy = jest.spyOn(Alert, 'alert').mockImplementation((_title, _message, buttons) => {
-      const destructive = buttons?.find(button => button.style === 'destructive');
-      destructive?.onPress?.();
-    });
+    // The confirmation is the in-app ClearEntryButton dialog (it replaced the native Alert so it follows the AWA theme).
     await press(first, 'Effacer cette saisie');
-    expect(alertSpy).toHaveBeenCalledTimes(1);
+    expect((await getJournalEntry(PAST))?.[section]).toBeDefined();
+    await press(first, 'Effacer');
     await flush();
 
     const entry = await getJournalEntry(PAST);
@@ -193,8 +191,8 @@ describe.each(CASES)('$name - M25 clear a saved value', ({Screen, section, value
   it('cancelling the confirmation keeps the saved value', async () => {
     await saveJournalSection(PAST, section, value);
     const renderer = await renderScreen(Screen, PAST);
-    jest.spyOn(Alert, 'alert').mockImplementation(() => undefined);
     await press(renderer, 'Effacer cette saisie');
+    await press(renderer, 'Annuler');
     expect((await getJournalEntry(PAST))?.[section]).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 import {useToday} from '../../hooks/useToday';
+import {useDaughterJournal} from '../../hooks/useDaughterJournal';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, useWindowDimensions, View} from 'react-native';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
-import LinearGradient from 'react-native-linear-gradient';
 import Animated, {
   FadeIn,
   FadeInUp,
@@ -22,6 +22,9 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import PeriodEndBottomSheet from '../../components/prayer/PeriodEndBottomSheet';
 import {getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {presentSaveFailure} from '../../services/saveFailure';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {getCyclePreferences, getPeriodEndDateTime, hydratePeriodEndDateTime} from '../../state/onboardingPreferences';
 import type {FlowIntensity} from '../../types/journal';
 import {formatFullDate} from '../../utils/cycleMath';
@@ -29,7 +32,8 @@ import {formatTimeOfDay} from '../../utils/timeOfDay';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {isCurrentlyMenstruating} from '../../utils/menstruationStatus';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {interpolateHex, onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme, softTone} from '../../theme/awaThemeTokens';
+import {deriveAwaRoles} from '../../theme/semanticRoles';
 import '../../i18n';
 
 // SEMANTIC — cycle-tracking "period in progress" identity color, same exact
@@ -43,12 +47,6 @@ const PERIOD_PINK_LIGHT = '#F7D7D6';
 // medical/tracking value (see FlowIntensity 'moderate'), not decorative
 // chrome, so it stays a fixed literal rather than becoming theme-driven.
 const FLOW_MODERATE_COLOR = '#6D4AE8';
-
-// Category E — fixed visual island: this hero card's gradient + hand-tuned
-// icon palette (leaves, water drop, sparkles) is a single calibrated
-// illustration; its overlay title text is calibrated to sit on that
-// composition and stays fixed alongside it rather than becoming theme-driven.
-const FLOW_HERO_TITLE_COLOR = '#2F2258';
 
 type IntensityOption = {
   labelKey: string;
@@ -143,6 +141,9 @@ function Selectable({
 }
 
 export default function MenstrualFlowScreen(): React.JSX.Element {
+  // Managed daughter profile only (null for the mother, whose screen renders exactly as before): no illustrated hero
+  // card, third-person wording with her first name.
+  const {daughter, tx} = useDaughterJournal();
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -300,7 +301,7 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
 
       showSuccessToastThenGoBack();
     } catch (saveError) {
-      presentSaveFailure(saveError, {title: t('journalMenstrualFlow.errorTitle'), message: t('journalMenstrualFlow.errorMessage')});
+      presentSaveFailure(saveError, {title: t('journalMenstrualFlow.errorTitle'), message: tx('journalMenstrualFlow.errorMessage', 'flow.errorMessage')});
     } finally {
       setSaving(false);
     }
@@ -336,21 +337,18 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}>
         <Animated.View entering={FadeIn.duration(320)} style={styles.header}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
-            hitSlop={10}
+            icon="chevron-left"
             onPress={navigation.goBack}
-            style={({pressed}) => [styles.backButton, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
-          </Pressable>
+          />
           <View style={styles.headerCopy}>
-            <Text adjustsFontSizeToFit minimumFontScale={0.86} style={styles.title}>
-              {t('dailyJournalSheet.items.menstrualFlow.title')}
-            </Text>
-            <Text style={styles.subtitle}>
+            <AwaText variant="headlineSmall" style={styles.title} adjustsFontSizeToFit minimumFontScale={0.86}>
+              {tx('dailyJournalSheet.items.menstrualFlow.title', 'titles.menstrualFlow')}
+            </AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.subtitle}>
               {cycleDay !== null ? t('journalMenstrualFlow.todayWithCycleDay', {day: cycleDay}) : t('journalMenstrualFlow.today')}
-            </Text>
+            </AwaText>
           </View>
           <View style={styles.headerSpacer} />
         </Animated.View>
@@ -362,29 +360,23 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
               <Text style={styles.periodStatusTitle}>{t('journalMenstrualFlow.periodInProgress')}</Text>
             </View>
             <Text style={styles.periodStatusSubtitle}>{t('journalMenstrualFlow.since', {date: periodStartLabel})}</Text>
-            <Pressable
-              accessibilityLabel={t('journalMenstrualFlow.periodEnded')}
-              accessibilityRole="button"
+            <AwaButton
+              accessibilityLabel={tx('journalMenstrualFlow.periodEnded', 'flow.periodEnded')}
+              fullWidth
+              icon="check-circle-outline"
+              label={tx('journalMenstrualFlow.periodEnded', 'flow.periodEnded')}
               onPress={() => setPeriodEndSheetVisible(true)}
-              style={({pressed}) => [styles.periodEndButton, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={PERIOD_PINK} name="check-circle-outline" size={17} />
-              <Text style={styles.periodEndButtonText}>{t('journalMenstrualFlow.periodEnded')}</Text>
-            </Pressable>
+              style={styles.periodEndButton}
+              variant="outlined"
+            />
           </Animated.View>
         ) : null}
 
+        {daughter ? null : (
         <Animated.View entering={FadeInUp.delay(80).duration(430)}>
-          <LinearGradient
-            colors={['#F1E2FF', '#E7D2FB', '#F8F0FF']}
-            end={{x: 1, y: 1}}
-            start={{x: 0, y: 0}}
-            style={styles.heroCard}>
+          <View style={styles.heroCard}>
             <View style={styles.heroCopy}>
               <Text style={styles.heroTitle}>{t('journalMenstrualFlow.heroTitle')}</Text>
-              <View style={styles.heroSparkles}>
-                <MaterialDesignIcons color="#A17CE9" name="star-four-points" size={13} />
-                <MaterialDesignIcons color="#C49DEB" name="star-four-points" size={8} />
-              </View>
             </View>
             <Animated.View style={[styles.heroArt, heroDropAnimatedStyle]}>
               <MaterialDesignIcons color="#BE9BEF" name="leaf" size={47} style={styles.leftLeaf} />
@@ -394,8 +386,9 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
               </View>
               <MaterialDesignIcons color="#A981E2" name="leaf" size={42} style={styles.rightLeaf} />
             </Animated.View>
-          </LinearGradient>
+          </View>
         </Animated.View>
+        )}
 
         <Animated.View entering={FadeInUp.delay(170).duration(430)} style={styles.card}>
           <Text style={styles.sectionTitle}>{t('journalMenstrualFlow.intensitySectionTitle')}</Text>
@@ -411,7 +404,7 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
                   selected={selected}
                   style={styles.intensityOption}>
                   <MaterialDesignIcons color={option.color} name={option.icon} size={24} />
-                  <Text numberOfLines={2} style={[styles.smallChoiceLabel, selected && styles.selectedLabel]}>
+                  <Text style={[styles.smallChoiceLabel, selected && styles.selectedLabel]}>
                     {label}
                   </Text>
                 </Selectable>
@@ -491,7 +484,7 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
                       </View>
                     ) : null}
                   </View>
-                  <Text numberOfLines={2} style={[styles.choiceLabel, selected && styles.selectedLabel]}>
+                  <Text style={[styles.choiceLabel, selected && styles.selectedLabel]}>
                     {t(option.labelKey)}
                   </Text>
                 </Selectable>
@@ -513,7 +506,7 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
               onChangeText={setComment}
               onFocus={() => setInputFocused(true)}
               placeholder={t('journalMenstrualFlow.commentPlaceholder')}
-              placeholderTextColor={theme.colors.textMuted}
+              placeholderTextColor={theme.colors.textSecondary}
               style={styles.input}
               textAlignVertical="top"
               value={comment}
@@ -524,10 +517,11 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
 
         <Animated.View entering={FadeIn.delay(530).duration(400)}>
           <Animated.View style={saveAnimatedStyle}>
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('journalMenstrualFlow.saveFlow')}
-              accessibilityRole="button"
-              disabled={saving}
+              fullWidth
+              label={saving ? t('periodStartSheet.saving') : t('common.save')}
+              loading={saving}
               onPress={save}
               onPressIn={() => {
                 if (!saving) {
@@ -537,23 +531,8 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
               onPressOut={() => {
                 saveScale.value = withSpring(1);
               }}
-              style={[
-                styles.savePressable,
-                saving && styles.savePressableDisabled,
-              ]}>
-              <LinearGradient
-                colors={[
-                  interpolateHex(theme.colors.primary, '#FFFFFF', 0.08),
-                  interpolateHex(theme.colors.primary, '#000000', 0.08),
-                ]}
-                end={{x: 1, y: 1}}
-                start={{x: 0, y: 0}}
-                style={styles.saveGradient}>
-                <Text style={styles.saveText}>
-                  {saving ? t('periodStartSheet.saving') : t('common.save')}
-                </Text>
-              </LinearGradient>
-            </Pressable>
+              size="large"
+            />
           </Animated.View>
         </Animated.View>
       </ScrollView>
@@ -566,7 +545,7 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
             <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={14} />
           </View>
           <Text style={styles.toastText}>{t('journalMenstrualFlow.flowSavedToast')}</Text>
-          <Pressable accessibilityLabel={t('common.close')} hitSlop={10} onPress={() => setSuccessVisible(false)}>
+          <Pressable accessibilityLabel={t('common.close')} hitSlop={16} onPress={() => setSuccessVisible(false)}>
             <MaterialDesignIcons color={theme.colors.textSecondary} name="close" size={17} />
           </Pressable>
         </Animated.View>
@@ -580,7 +559,7 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
             <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={14} />
           </View>
           <Text style={styles.toastText}>{t('journalMenstrualFlow.periodEndSavedToast')}</Text>
-          <Pressable accessibilityLabel={t('common.close')} hitSlop={10} onPress={() => setPeriodEndToastVisible(false)}>
+          <Pressable accessibilityLabel={t('common.close')} hitSlop={16} onPress={() => setPeriodEndToastVisible(false)}>
             <MaterialDesignIcons color={theme.colors.textSecondary} name="close" size={17} />
           </Pressable>
         </Animated.View>
@@ -605,46 +584,36 @@ function createStyles(theme: ResolvedAwaTheme) {
   contentRegular: {paddingHorizontal: 16},
   header: {flexDirection: 'row', alignItems: 'center', paddingBottom: 3},
   periodStatusCard: {
-    borderWidth: 1, borderColor: 'rgba(220,123,130,0.22)', borderRadius: 22,
-    backgroundColor: PERIOD_PINK_LIGHT, padding: 14,
+    borderWidth: 1, borderColor: 'rgba(220,123,130,0.22)', borderRadius: 12,
+    backgroundColor: softTone(theme, PERIOD_PINK_LIGHT, PERIOD_PINK), padding: 14,
   },
   periodStatusHeading: {flexDirection: 'row', alignItems: 'center', gap: 8},
   periodStatusDot: {width: 8, height: 8, borderRadius: 4, backgroundColor: PERIOD_PINK},
-  periodStatusTitle: {color: '#8E3E48', fontSize: 14.5, fontWeight: '700'},
-  periodStatusSubtitle: {marginTop: 4, color: '#9A5C63', fontSize: 12},
-  periodEndButton: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7,
-    marginTop: 12, minHeight: 46, borderRadius: 18, borderWidth: 1.4, borderColor: PERIOD_PINK,
-    backgroundColor: theme.colors.surface,
-  },
-  periodEndButtonText: {color: PERIOD_PINK, fontSize: 13.5, fontWeight: '700'},
-  backButton: {
-    alignItems: 'center', justifyContent: 'center', borderRadius: 999,
-    backgroundColor: theme.colors.surface, padding: 9, elevation: 2,
-    shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.09, shadowRadius: 8,
-  },
+  periodStatusTitle: {color: theme.isDark ? theme.colors.text : '#8E3E48', fontSize: 14.5, fontWeight: '700'},
+  periodStatusSubtitle: {marginTop: 4, color: theme.isDark ? theme.colors.textSecondary : '#9A5C63', fontSize: 12},
+  periodEndButton: {marginTop: 12},
   headerCopy: {flex: 1, alignItems: 'center', paddingHorizontal: 6},
   headerSpacer: {padding: 23},
-  title: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 23, fontWeight: '700', textAlign: 'center'},
-  subtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11.5, textAlign: 'center'},
+  title: {textAlign: 'center'},
+  subtitle: {marginTop: 3, textAlign: 'center'},
   pressed: {opacity: 0.78, transform: [{scale: 0.985}]},
-  // Category E — fixed visual island (see FLOW_HERO_TITLE_COLOR note above):
-  // this hand-tuned gradient + icon composition stays untouched by theming.
+  // The hero card sits on theme.colors.primarySoft, so its title uses the theme's accent role
+  // (readable in Light, Dark and True Black); only the leaf/drop icons stay fixed colours.
   heroCard: {
-    flexDirection: 'row', alignItems: 'center', overflow: 'hidden', borderRadius: 26,
-    paddingHorizontal: 18, paddingVertical: 18, aspectRatio: 2.65,
-    shadowColor: '#7045C4', shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.11, shadowRadius: 13, elevation: 3,
+    flexDirection: 'row', alignItems: 'center', overflow: 'hidden', borderRadius: 12,
+    paddingHorizontal: 18, paddingVertical: 18, minHeight: 118,
+    backgroundColor: theme.colors.primarySoft,
+    shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.11, shadowRadius: 13, elevation: 3,
   },
   heroCopy: {flex: 1, alignSelf: 'stretch', justifyContent: 'center'},
-  heroTitle: {color: FLOW_HERO_TITLE_COLOR, fontFamily: 'serif', fontSize: 18, fontWeight: '700', lineHeight: 24},
-  heroSparkles: {flexDirection: 'row', gap: 7, marginTop: 9},
+  heroTitle: {color: theme.colors.accent, fontSize: 18, fontWeight: '700', lineHeight: 24},
   heroArt: {flex: 0.8, alignItems: 'center', justifyContent: 'center', alignSelf: 'stretch'},
   heroDropCircle: {alignItems: 'center', justifyContent: 'center', zIndex: 2},
   dropShine: {position: 'absolute', transform: [{translateX: 7}, {translateY: 4}]},
   leftLeaf: {position: 'absolute', left: 0, bottom: 0, transform: [{rotate: '-30deg'}]},
   rightLeaf: {position: 'absolute', right: 0, bottom: 2, transform: [{rotate: '22deg'}]},
   card: {
-    borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.09), borderRadius: 26,
+    borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.09), borderRadius: 12,
     backgroundColor: theme.colors.surface, padding: 13,
     shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.07, shadowRadius: 12, elevation: 2,
   },
@@ -652,39 +621,36 @@ function createStyles(theme: ResolvedAwaTheme) {
   fiveColumnRow: {flexDirection: 'row', gap: 5, marginTop: 11},
   fourColumnRow: {flexDirection: 'row', gap: 7, marginTop: 11},
   selectable: {
-    overflow: 'visible', borderWidth: 1, borderRadius: 17, backgroundColor: theme.colors.surface,
+    overflow: 'visible', borderWidth: 1, borderRadius: 16, backgroundColor: theme.colors.surface,
     shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 3}, shadowRadius: 8,
   },
   selectablePressable: {flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 2, paddingVertical: 10},
-  intensityOption: {flex: 1, aspectRatio: 0.72},
-  fourColumnOption: {flex: 1, aspectRatio: 0.92},
-  smallChoiceLabel: {marginTop: 5, color: theme.colors.textSecondary, fontSize: 8.5, lineHeight: 11, textAlign: 'center'},
-  choiceLabel: {marginTop: 5, color: theme.colors.textSecondary, fontSize: 9.5, lineHeight: 12, textAlign: 'center'},
-  selectedLabel: {color: theme.colors.primary, fontWeight: '700'},
+  intensityOption: {flex: 1, minHeight: 96},
+  fourColumnOption: {flex: 1, minHeight: 92},
+  smallChoiceLabel: {marginTop: 5, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 14, textAlign: 'center'},
+  choiceLabel: {marginTop: 5, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 14, textAlign: 'center'},
+  // DESIGN.md: selected text = onPrimaryContainer.
+  selectedLabel: {color: deriveAwaRoles(theme).onPrimaryContainer, fontWeight: '700'},
   colorRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 12, paddingHorizontal: 2},
   colorRing: {alignItems: 'center', justifyContent: 'center', flexBasis: '14%', aspectRatio: 1, borderWidth: 2, borderColor: 'transparent', borderRadius: 999, padding: 4},
-  colorRingSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft, shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 2}, shadowOpacity: 0.18, shadowRadius: 6, elevation: 2, transform: [{scale: 1.08}]},
+  colorRingSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft, shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 2}, shadowOpacity: 0.15, shadowRadius: 6, elevation: 2, transform: [{scale: 1.08}]},
   colorChip: {width: '100%', aspectRatio: 1, borderRadius: 999},
   colorPressed: {transform: [{scale: 0.92}]},
   sectionDivider: {height: StyleSheet.hairlineWidth, backgroundColor: theme.colors.border, marginVertical: 14},
   checkBadge: {position: 'absolute', right: -7, top: -6, alignItems: 'center', justifyContent: 'center', borderRadius: 999, backgroundColor: theme.colors.primary, padding: 2},
-  optional: {color: theme.colors.textMuted, fontSize: 11, fontWeight: '500'},
+  optional: {color: theme.colors.textSecondary, fontSize: 11, fontWeight: '500'},
   inputWrap: {
-    marginTop: 10, borderWidth: 1, borderRadius: 20, backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 10, borderWidth: 1, borderRadius: 12, backgroundColor: theme.colors.surfaceSecondary,
     paddingHorizontal: 12, paddingTop: 10, paddingBottom: 8,
     shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 3}, shadowRadius: 8,
   },
   input: {color: theme.colors.text, fontSize: 12.5, lineHeight: 18, padding: 0, paddingBottom: 24},
-  counter: {position: 'absolute', right: 11, bottom: 8, color: theme.colors.textMuted, fontSize: 10},
-  savePressable: {overflow: 'hidden', borderRadius: 18, shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.24, shadowRadius: 10, elevation: 4},
-  saveGradient: {alignItems: 'center', justifyContent: 'center', paddingHorizontal: 18, paddingVertical: 15},
-  saveText: {color: onPrimaryTextColor(theme), fontSize: 15.5, fontWeight: '700'},
-  savePressableDisabled: {opacity: 0.55},
+  counter: {position: 'absolute', right: 11, bottom: 8, color: theme.colors.textSecondary, fontSize: 11},
   toast: {
     position: 'absolute', left: '7%', right: '7%', flexDirection: 'row', alignItems: 'center', gap: 9,
-    borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 20, backgroundColor: theme.colors.surface,
+    borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 12, backgroundColor: theme.colors.surface,
     paddingHorizontal: 14, paddingVertical: 12,
-    shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.17, shadowRadius: 13, elevation: 7,
+    shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.14, shadowRadius: 12, elevation: 6,
   },
   toastIcon: {alignItems: 'center', justifyContent: 'center', borderRadius: 999, backgroundColor: theme.colors.primary, padding: 4},
   toastText: {flex: 1, color: theme.colors.accent, fontSize: 12.5, fontWeight: '700'},

@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {AccessibilityInfo, Animated, Easing, Pressable, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {AccessibilityInfo, Animated, Easing, StatusBar, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -9,7 +9,10 @@ import {authenticateWithBiometry, getBiometryDeviceName, getBiometryIcon, getBio
 import {replaceWithIntimacyDestination, unlockIntimacy} from '../../state/privateSectionAuthStore';
 import type * as Keychain from 'react-native-keychain';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import '../../i18n';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
@@ -88,9 +91,12 @@ export default function PrivateIntimacyFaceIdScreen({navigation, route}: Props):
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
         <View style={[styles.content, {paddingBottom: Math.max(insets.bottom, 14)}]}>
-          <Pressable accessibilityLabel={t('common.back')} onPress={navigation.goBack} style={styles.back}>
-            <MaterialDesignIcons color={theme.colors.accent} name="arrow-left" size={27} />
-          </Pressable>
+          <AwaIconButton
+            accessibilityLabel={t('common.back')}
+            icon="arrow-left"
+            onPress={navigation.goBack}
+            style={styles.back}
+          />
 
           <Animated.View
             style={[
@@ -104,27 +110,32 @@ export default function PrivateIntimacyFaceIdScreen({navigation, route}: Props):
               <MaterialDesignIcons color={theme.colors.primary} name={icon} size={64} />
             </View>
 
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.subtitle}>{subtitle}</Text>
+            <AwaText variant="headlineSmall" style={styles.title}>{title}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.subtitle}>{subtitle}</AwaText>
           </Animated.View>
 
           <Animated.Text accessibilityLiveRegion="polite" style={[styles.error, {transform: [{translateX: shake}]}]}>
             {error || ' '}
           </Animated.Text>
 
-          <Pressable
+          <AwaButton
             accessibilityLabel={buttonLabel}
-            accessibilityRole="button"
-            disabled={busy}
+            fullWidth
+            icon={icon}
+            label={busy ? t('privateIntimacyFaceId.verifying') : buttonLabel}
+            loading={busy}
             onPress={attempt}
-            style={({pressed}) => [styles.primary, pressed && styles.pressed, busy && styles.disabled]}>
-            <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={icon} size={22} />
-            <Text style={styles.primaryText}>{busy ? t('privateIntimacyFaceId.verifying') : buttonLabel}</Text>
-          </Pressable>
+            size="large"
+          />
 
-          <Pressable accessibilityLabel={t('privateIntimacyFaceId.usePinCode')} hitSlop={10} onPress={() => navigation.replace('PrivateIntimacyPin', {target: route.params?.target})}>
-            <Text style={styles.link}>{t('privateIntimacyFaceId.usePinCodeInstead')}</Text>
-          </Pressable>
+          <AwaButton
+            accessibilityLabel={t('privateIntimacyFaceId.usePinCode')}
+            hitSlop={10}
+            label={t('privateIntimacyFaceId.usePinCodeInstead')}
+            onPress={() => navigation.replace('PrivateIntimacyPin', {target: route.params?.target})}
+            style={styles.link}
+            variant="text"
+          />
         </View>
       </SafeAreaView>
   );
@@ -141,16 +152,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     flatBackground: {backgroundColor: theme.colors.background},
     flex: {flex: 1},
     content: {flex: 1, alignItems: 'center', paddingTop: 32, paddingHorizontal: 26},
-    back: {position: 'absolute', top: 12, left: 16, zIndex: 2, width: 48, height: 48, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 16, backgroundColor: theme.colors.surface},
+    back: {position: 'absolute', top: 12, left: 16, zIndex: 2},
     main: {alignItems: 'center'},
     badge: {width: 118, height: 118, alignItems: 'center', justifyContent: 'center', borderRadius: 59, backgroundColor: theme.colors.primarySoft},
-    title: {marginTop: 18, color: theme.colors.accent, fontFamily: 'serif', fontSize: 24, fontWeight: '800'},
-    subtitle: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19, textAlign: 'center'},
-    error: {height: 31, marginTop: 16, color: theme.colors.danger, fontSize: 11, textAlign: 'center'},
-    primary: {width: '100%', minHeight: 56, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, borderRadius: 18, backgroundColor: theme.colors.primary},
-    primaryText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '700'},
-    link: {marginTop: 18, color: theme.colors.accent, fontSize: 13, fontWeight: '600', textAlign: 'center'},
-    pressed: {opacity: 0.82, transform: [{scale: 0.99}]},
-    disabled: {opacity: 0.55},
+    title: {marginTop: 18, textAlign: 'center'},
+    subtitle: {marginTop: 8, textAlign: 'center'},
+    error: {minHeight: 31, marginTop: 16, color: theme.colors.danger, fontSize: 11, textAlign: 'center'},
+    link: {marginTop: 10},
   });
 }

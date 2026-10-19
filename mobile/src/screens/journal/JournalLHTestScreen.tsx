@@ -52,6 +52,8 @@ import {
   JournalScreenLayout,
   SectionCard,
 } from '../../components/journal/JournalScreenLayout';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
 
 import {
   JournalSaveToast,
@@ -528,6 +530,7 @@ export default function JournalLHTestScreen(): React.JSX.Element {
         }
         heroLabelBesideIcon
         heroSource={require('../../assets/images/conception-journal/lh-test.png')}
+        hideHeroIcon
         hideJournalHeader
         icon="test-tube"
         onSave={save}
@@ -561,26 +564,6 @@ export default function JournalLHTestScreen(): React.JSX.Element {
                   currentConfig.borderColor,
               },
             ]}>
-
-            <View
-              style={[
-                styles.resultPreviewIcon,
-                {
-                  backgroundColor:
-                    currentConfig.iconBackground,
-                },
-              ]}>
-
-              <MaterialDesignIcons
-                color={
-                  currentConfig.iconColor
-                }
-                name={
-                  currentConfig.icon
-                }
-                size={27}
-              />
-            </View>
 
             <View
               style={
@@ -1045,26 +1028,16 @@ export default function JournalLHTestScreen(): React.JSX.Element {
                   </Text>
                 </View>
 
-                <Pressable
+                <AwaIconButton
                   accessibilityLabel={t('common.close')}
-                  accessibilityRole="button"
+                  icon="close"
                   onPress={() =>
                     setTimePickerVisible(
                       false,
                     )
                   }
-                  style={
-                    styles.closeButton
-                  }>
-
-                  <MaterialDesignIcons
-                    color={
-                      theme.colors.textSecondary
-                    }
-                    name="close"
-                    size={20}
-                  />
-                </Pressable>
+                  variant="tonal"
+                />
               </View>
 
               <View
@@ -1102,32 +1075,16 @@ export default function JournalLHTestScreen(): React.JSX.Element {
                 }
               </Text>
 
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('journalLHTest.confirmTime')}
-                accessibilityRole="button"
+                icon="check"
+                label={t('journalLHTest.confirmTime')}
                 onPress={
-                  confirmIosTime
-                }
-                style={({pressed}) => [
-                  styles.confirmButton,
-
-                  pressed &&
-                    styles.confirmButtonPressed,
-                ]}>
-
-                <MaterialDesignIcons
-                  color={pickReadableTextColor(theme.colors.accent)}
-                  name="check"
-                  size={18}
-                />
-
-                <Text
-                  style={
-                    styles.confirmButtonText
-                  }>
-                  {t('journalLHTest.confirmTime')}
-                </Text>
-              </Pressable>
+                                confirmIosTime
+                              }
+                size="large"
+                style={styles.confirmButton}
+              />
             </View>
           </View>
         </Modal>
@@ -1253,37 +1210,20 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       borderWidth: 1,
 
-      borderRadius: 21,
+      borderRadius: 12,
 
       paddingHorizontal: 14,
       paddingVertical: 14,
-    },
-
-    resultPreviewIcon: {
-      width: 55,
-      height: 55,
-
-      flexShrink: 0,
-
-      alignItems:
-        'center',
-
-      justifyContent:
-        'center',
-
-      borderRadius: 18,
     },
 
     resultPreviewCopy: {
       flex: 1,
 
       minWidth: 0,
-
-      marginLeft: 12,
     },
 
     resultEyebrow: {
-      fontSize: 7.8,
+      fontSize: 11,
 
       fontWeight: '900',
 
@@ -1309,9 +1249,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 9.5,
+      fontSize: 11,
 
-      lineHeight: 14,
+      lineHeight: 16,
     },
 
     resultMessageStrong: {
@@ -1342,9 +1282,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 9.5,
+      fontSize: 11,
 
-      lineHeight: 14,
+      lineHeight: 16,
     },
 
     resultOptions: {
@@ -1373,12 +1313,12 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         withAlpha(theme.colors.primary, 0.14),
 
-      borderRadius: 18,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surface,
 
-      paddingHorizontal: 5,
+      paddingHorizontal: 8,
 
       paddingVertical: 10,
     },
@@ -1415,7 +1355,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 13,
+      borderRadius: 12,
     },
 
     resultChoiceText: {
@@ -1424,7 +1364,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 10.5,
+      fontSize: 11,
 
       fontWeight: '700',
 
@@ -1468,12 +1408,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       marginTop: 12,
 
-      borderRadius: 14,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surfaceSecondary,
 
-      padding: 9,
+      padding: 12,
     },
 
     helperIcon: {
@@ -1486,7 +1426,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 10,
+      borderRadius: 12,
     },
 
     resultHelperText: {
@@ -1495,9 +1435,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 9.5,
+      fontSize: 11,
 
-      lineHeight: 14,
+      lineHeight: 16,
     },
 
     detailHeading: {
@@ -1518,7 +1458,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 13,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -1547,9 +1487,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 9.3,
+      fontSize: 11,
 
-      lineHeight: 13.5,
+      lineHeight: 16,
     },
 
     /* ========================================================
@@ -1581,12 +1521,12 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         withAlpha(theme.colors.primary, 0.14),
 
-      borderRadius: 18,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surfaceSecondary,
 
-      paddingHorizontal: 11,
+      paddingHorizontal: 12,
 
       paddingVertical: 9,
     },
@@ -1621,7 +1561,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 14,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -1639,7 +1579,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 9,
+      fontSize: 11,
     },
 
     timeValue: {
@@ -1672,7 +1612,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 10,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surface,
@@ -1697,7 +1637,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         withAlpha(theme.colors.primary, 0.10),
 
-      borderRadius: 20,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -1715,7 +1655,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 13,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surface,
@@ -1733,7 +1673,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.primary,
 
-      fontSize: 7.5,
+      fontSize: 11,
 
       fontWeight: '900',
 
@@ -1756,7 +1696,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       color: theme.colors.textSecondary,
 
-      fontSize: 10.5,
+      fontSize: 11,
 
       lineHeight: 16,
     },
@@ -1821,7 +1761,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 14,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -1837,7 +1777,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.primary,
 
-      fontSize: 8,
+      fontSize: 11,
 
       fontWeight: '900',
 
@@ -1889,44 +1829,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       textAlign: 'center',
     },
 
-    confirmButton: {
-      minHeight: 52,
+    confirmButton: {marginTop: 16},
 
-      flexDirection:
-        'row',
-
-      alignItems:
-        'center',
-
-      justifyContent:
-        'center',
-
-      gap: 7,
-
-      marginTop: 16,
-
-      borderRadius: 26,
-
-      backgroundColor:
-        theme.colors.accent,
-    },
-
-    confirmButtonPressed: {
-      opacity: 0.87,
-
-      transform: [
-        {
-          scale: 0.99,
-        },
-      ],
-    },
-
-    confirmButtonText: {
-      color: pickReadableTextColor(theme.colors.accent),
-
-      fontSize: 14,
-
-      fontWeight: '800',
-    },
   });
 }
