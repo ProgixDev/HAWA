@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {Pressable, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -8,6 +8,9 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 
 type LegalSection = {title: string; body: string};
 
@@ -28,7 +31,7 @@ type LegalSection = {title: string; body: string};
 // validation — it carries no clause beyond the English). Russian likewise carries the same
 // provisional placeholder text and no clause beyond the English. German (de) carries the same
 // provisional placeholder text as well, with no clause beyond the English. Simplified Chinese (zh) likewise.
-type LegalLanguage = 'fr' | 'en' | 'es' | 'tr' | 'ru' | 'de' | 'zh';
+type LegalLanguage = 'fr' | 'en' | 'es' | 'tr' | 'ru' | 'de' | 'zh' | 'id';
 
 export const TERMS: Record<LegalLanguage, LegalSection[]> = {
   fr: [
@@ -84,6 +87,12 @@ export const TERMS: Record<LegalLanguage, LegalSection[]> = {
     {title: '应用的使用', body: 'AWA 提供个人记录与健康管理工具。说明用户权利与责任的正式内容，将在法律审核完成后补充。'},
     {title: '服务可用性', body: '关于服务可用性、维护与更新的正式条款仍有待确认。'},
     {title: '联系方式', body: '官方联系方式将在 AWA 团队确认后补充。'},
+  ],
+  id: [
+    {title: 'Tujuan', body: 'Dokumen ini memuat struktur sementara ketentuan penggunaan aplikasi AWA.'},
+    {title: 'Penggunaan aplikasi', body: 'AWA menyediakan alat pencatatan pribadi dan kesehatan. Isi final yang menjelaskan hak dan tanggung jawab pengguna akan ditambahkan setelah validasi hukum selesai.'},
+    {title: 'Ketersediaan layanan', body: 'Ketentuan final tentang ketersediaan, pemeliharaan, dan pengembangan layanan masih perlu dipastikan.'},
+    {title: 'Kontak', body: 'Rincian kontak resmi akan ditambahkan setelah divalidasi oleh tim AWA.'},
   ],
 };
 
@@ -142,6 +151,12 @@ export const PRIVACY: Record<LegalLanguage, LegalSection[]> = {
     {title: '你的权利', body: '访问、更正或删除你的数据的方式，将在审核通过的版本中详细说明。'},
     {title: '隐私联系方式', body: '隐私负责人的官方联系地址将在发布前补充。'},
   ],
+  id: [
+    {title: 'Data yang diproses', body: 'Bagian ini akan menjelaskan secara rinci data yang diproses oleh AWA beserta tujuannya, setelah validasi hukum selesai.'},
+    {title: 'Penyimpanan dan keamanan', body: 'Dokumen final akan merinci langkah penyimpanan, perlindungan, dan jangka waktu penyimpanan data.'},
+    {title: 'Hak Anda', body: 'Tata cara mengakses, memperbaiki, atau menghapus data Anda akan dijelaskan dalam versi yang telah divalidasi.'},
+    {title: 'Kontak privasi', body: 'Alamat kontak resmi penanggung jawab privasi akan ditambahkan sebelum dipublikasikan.'},
+  ],
 };
 
 /** Resolves the app's current language to one of the 6 legal-content keys —
@@ -156,6 +171,7 @@ function resolveLegalLanguage(language: string): LegalLanguage {
   if (language === 'ru') {return 'ru';}
   if (language === 'de') {return 'de';}
   if (language === 'zh') {return 'zh';}
+  if (language === 'id') {return 'id';}
   return 'en';
 }
 
@@ -166,12 +182,12 @@ function LegalDocument({navigation, title, sections, theme}: {navigation: {goBac
   return <SafeAreaView edges={['left','right']} style={styles.safe}>
     <StatusBar translucent backgroundColor="transparent" barStyle={theme.statusBarStyle} />
     <View style={[styles.header, {paddingTop: Math.max(insets.top, 18) + 8}]}>
-      <Pressable accessibilityLabel={t('common.back')} onPress={navigation.goBack} style={styles.back}><MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28}/></Pressable>
-      <Text style={styles.title}>{title}</Text><View style={styles.spacer}/>
+      <AwaIconButton accessibilityLabel={t('common.back')} icon="chevron-left" onPress={navigation.goBack} variant="tonal" />
+      <AwaText accessibilityRole="header" style={styles.title} variant="headlineSmall">{title}</AwaText><View style={styles.spacer}/>
     </View>
     <ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom,18)+24}]} showsVerticalScrollIndicator={false}>
-      <View style={styles.notice}><MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={21}/><Text style={styles.noticeText}>{t('legalDocument.provisionalNotice')}</Text></View>
-      {sections.map(section => <View key={section.title} style={styles.section}><Text style={styles.sectionTitle}>{section.title}</Text><Text style={styles.body}>{section.body}</Text></View>)}
+      <AwaCard padding="compact" style={styles.notice} variant="filled"><MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={21}/><AwaText colorRole="onSurfaceVariant" style={styles.noticeText} variant="bodySmall">{t('legalDocument.provisionalNotice')}</AwaText></AwaCard>
+      {sections.map(section => <AwaCard key={section.title} style={styles.section} variant="filled"><AwaText variant="titleMedium">{section.title}</AwaText><AwaText colorRole="onSurfaceVariant" style={styles.body} variant="bodyMedium">{section.body}</AwaText></AwaCard>)}
     </ScrollView>
   </SafeAreaView>;
 }
@@ -193,14 +209,12 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     safe: {flex: 1, backgroundColor: theme.colors.background},
     header: {flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingBottom: 12},
-    back: {alignItems: 'center', justifyContent: 'center', borderRadius: 999, backgroundColor: theme.colors.surface, padding: 9, elevation: 2},
-    title: {flex: 1, color: theme.colors.accent, fontFamily: 'serif', fontSize: 20, fontWeight: '700', textAlign: 'center', paddingHorizontal: 8},
-    spacer: {padding: 23},
+    title: {flex: 1, textAlign: 'center', paddingHorizontal: 8},
+    spacer: {width: 40},
     content: {paddingHorizontal: 16, gap: 12},
-    notice: {flexDirection: 'row', alignItems: 'center', gap: 10, borderRadius: 18, backgroundColor: theme.colors.primarySoft, padding: 14},
-    noticeText: {flex: 1, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 17},
-    section: {borderWidth: 1, borderColor: theme.colors.border, borderRadius: 22, backgroundColor: theme.colors.surface, padding: 17},
-    sectionTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
-    body: {marginTop: 7, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 20},
+    notice: {flexDirection: 'row', alignItems: 'center', gap: 12},
+    noticeText: {flex: 1},
+    section: {},
+    body: {marginTop: 8},
   });
 }

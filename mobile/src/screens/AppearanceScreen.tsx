@@ -6,7 +6,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Switch,
   Text,
   useWindowDimensions,
   View,
@@ -58,19 +57,25 @@ import {
 
 import {
   getAppLanguage,
-  setAppLanguage,
+  getAppLanguagePreference,
+  setAppLanguagePreference,
   setAppearanceMode,
   setSelectedThemeId,
   setTrueBlackEnabled,
   subscribeThemePreferences,
   type AwaAppLanguage,
   type AwaAppearanceMode,
+  type AwaLanguagePreference,
 } from '../state/themePreferences';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha} from '../theme/awaThemeTokens';
 import type {ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {getBottomPadding} from '../theme/spacing';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaSwitch} from '../components/ui/AwaSwitch';
+import {AwaText} from '../components/ui/AwaText';
 
 /* -------------------------------------------------------------------------- */
 /*                                   TYPES                                    */
@@ -818,6 +823,20 @@ const LANGUAGE_SELF_LABELS: Record<AwaAppLanguage, {label: string; subtitle: str
   ru: {label: 'Русский', subtitle: 'Использовать AWA на русском'},
   de: {label: 'Deutsch', subtitle: 'AWA auf Deutsch verwenden'},
   zh: {label: '简体中文', subtitle: '使用简体中文的 AWA'},
+  id: {label: 'Bahasa Indonesia', subtitle: 'Gunakan AWA dalam Bahasa Indonesia'},
+};
+
+// i18n key of each language's own name (shown for the language currently in force).
+const LANGUAGE_NAME_KEYS: Record<AwaAppLanguage, string> = {
+  fr: 'frenchName',
+  en: 'englishName',
+  es: 'spanishName',
+  it: 'italianName',
+  tr: 'turkishName',
+  ru: 'russianName',
+  de: 'germanName',
+  zh: 'chineseName',
+  id: 'indonesianName',
 };
 
 const LANGUAGE_OPTIONS: LanguageOption[] = [
@@ -829,19 +848,27 @@ const LANGUAGE_OPTIONS: LanguageOption[] = [
   {id: 'ru', flag: '🇷🇺', ...LANGUAGE_SELF_LABELS.ru},
   {id: 'de', flag: '🇩🇪', ...LANGUAGE_SELF_LABELS.de},
   {id: 'zh', flag: '🇨🇳', ...LANGUAGE_SELF_LABELS.zh},
+  {id: 'id', flag: '🇮🇩', ...LANGUAGE_SELF_LABELS.id},
+];
+
+// "System default" first, then the eight languages. Only AWA's own eight languages are offered; an unsupported phone
+// language resolves to English.
+const SHEET_LANGUAGE_OPTIONS: ReadonlyArray<{id: AwaLanguagePreference; flag: string; label: string; subtitle: string}> = [
+  {id: 'system', flag: '', label: '', subtitle: ''},
+  ...LANGUAGE_OPTIONS,
 ];
 
 function LanguageBottomSheet({
   visible,
-  currentLanguage,
+  currentPreference,
   onClose,
   onApply,
   theme,
 }: {
   visible: boolean;
-  currentLanguage: AwaAppLanguage;
+  currentPreference: AwaLanguagePreference;
   onClose: () => void;
-  onApply: (language: AwaAppLanguage) => void;
+  onApply: (preference: AwaLanguagePreference) => void;
   theme: ResolvedAwaTheme;
 }): React.JSX.Element {
   const {t} = useTranslation();
@@ -851,12 +878,12 @@ function LanguageBottomSheet({
   // (see onApply below). Re-synced to the real saved value every time the
   // sheet opens, so a dismissal without applying never leaks a stale draft
   // into the next time it's opened.
-  const [draft, setDraft] = useState<AwaAppLanguage>(currentLanguage);
+  const [draft, setDraft] = useState<AwaLanguagePreference>(currentPreference);
   useEffect(() => {
     if (visible) {
-      setDraft(currentLanguage);
+      setDraft(currentPreference);
     }
-  }, [visible, currentLanguage]);
+  }, [visible, currentPreference]);
 
   return (
     <Modal animationType="slide" onRequestClose={onClose} statusBarTranslucent transparent visible={visible}>
@@ -874,26 +901,22 @@ function LanguageBottomSheet({
           ]}>
           <View style={[styles.langSheetHandle, {backgroundColor: withAlpha(theme.colors.primary, 0.22)}]} />
 
-          <View style={[styles.langIconBadge, {backgroundColor: theme.colors.primarySoft}]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="earth" size={26} />
-          </View>
-
-          <Text accessibilityRole="header" style={[styles.langSheetTitle, {color: theme.colors.accent}]}>
+          <AwaText accessibilityRole="header" style={styles.langSheetTitle} variant="titleLarge">
             {t('appearance.language.title')}
-          </Text>
-          <Text style={[styles.langSheetSubtitle, {color: theme.colors.textSecondary}]}>
+          </AwaText>
+          <AwaText colorRole="onSurfaceVariant" style={styles.langSheetSubtitle} variant="bodyMedium">
             {t('appearance.language.description')}
-          </Text>
+          </AwaText>
 
           {/* Five languages no longer always fit above the Apply button on a small phone: the list scrolls
               inside a height bound, the title and the Apply button stay in view. */}
           <ScrollView nestedScrollEnabled showsVerticalScrollIndicator={false} style={{maxHeight: Math.max(220, windowHeight * 0.44)}}>
           <View accessibilityRole="radiogroup" style={styles.langOptionsList}>
-            {LANGUAGE_OPTIONS.map(option => {
+            {SHEET_LANGUAGE_OPTIONS.map(option => {
               const selected = draft === option.id;
               return (
                 <Pressable
-                  accessibilityLabel={option.label}
+                  accessibilityLabel={option.id === 'system' ? t('appearance.language.systemName') : option.label}
                   accessibilityRole="radio"
                   accessibilityState={{checked: selected}}
                   key={option.id}
@@ -908,11 +931,23 @@ function LanguageBottomSheet({
                     selected && styles.langOptionSelected,
                     pressed && styles.pressedSubtle,
                   ]}>
-                  <Text style={styles.langFlag}>{option.flag}</Text>
+                  {option.id === 'system' ? (
+                    <View style={styles.langFlag}>
+                      <MaterialDesignIcons color={theme.colors.primary} name="cellphone" size={28} />
+                    </View>
+                  ) : (
+                    <Text style={styles.langFlag}>{option.flag}</Text>
+                  )}
 
                   <View style={styles.langCopy}>
-                    <Text style={[styles.langLabel, {color: theme.colors.text}]}>{option.label}</Text>
-                    <Text style={[styles.langOptionSubtitle, {color: theme.colors.textSecondary}]}>{option.subtitle}</Text>
+                    {/* The "System default" card describes a behaviour, so it follows the language AWA is displayed in
+                        (unlike the language cards, which always describe themselves in their own language). */}
+                    <Text style={[styles.langLabel, {color: theme.colors.text}]}>
+                      {option.id === 'system' ? t('appearance.language.systemName') : option.label}
+                    </Text>
+                    <Text style={[styles.langOptionSubtitle, {color: theme.colors.textSecondary}]}>
+                      {option.id === 'system' ? t('appearance.language.systemDescription') : option.subtitle}
+                    </Text>
                   </View>
 
                   <View
@@ -928,13 +963,14 @@ function LanguageBottomSheet({
           </View>
           </ScrollView>
 
-          <Pressable
+          <AwaButton
             accessibilityLabel={t('common.apply')}
-            accessibilityRole="button"
+            fullWidth
+            label={t('common.apply')}
             onPress={() => onApply(draft)}
-            style={({pressed}) => [styles.langApplyButton, {backgroundColor: theme.colors.primary}, pressed && styles.pressedSubtle]}>
-            <Text style={[styles.langApplyText, {color: onPrimaryTextColor(theme)}]}>{t('common.apply')}</Text>
-          </Pressable>
+            size="large"
+            style={styles.langApplyButton}
+          />
         </View>
       </View>
     </Modal>
@@ -986,17 +1022,20 @@ export default function AppearanceScreen({
   // already live in — already hydrated by AwaThemeProvider's own
   // hydrateAppearancePreferences() call before this screen can mount.
   const [appLanguage, setAppLanguageState] = useState<AwaAppLanguage>(getAppLanguage);
+  // 'system' while AWA follows the phone's language, otherwise the language the user chose.
+  const [languagePreference, setLanguagePreferenceState] = useState<AwaLanguagePreference>(getAppLanguagePreference);
   const [languageSheetVisible, setLanguageSheetVisible] = useState(false);
 
   useEffect(() => {
     const unsubscribe = subscribeThemePreferences(() => {
       setAppLanguageState(getAppLanguage());
+      setLanguagePreferenceState(getAppLanguagePreference());
     });
     return unsubscribe;
   }, []);
 
-  const handleApplyLanguage = (language: AwaAppLanguage): void => {
-    setAppLanguage(language).catch(() => {});
+  const handleApplyLanguage = (preference: AwaLanguagePreference): void => {
+    setAppLanguagePreference(preference).catch(() => {});
     setLanguageSheetVisible(false);
   };
 
@@ -1333,39 +1372,18 @@ export default function AppearanceScreen({
           style={
             styles.header
           }>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
             hitSlop={10}
-            onPress={
-              navigation.goBack
-            }
-            style={({pressed}) => [
-              styles.backButton,
+            icon="chevron-left"
+            onPress={navigation.goBack}
+          />
 
-              pressed &&
-                styles.pressedSubtle,
-            ]}>
-            <MaterialDesignIcons
-              color={
-                theme.colors.text
-              }
-              name="chevron-left"
-              size={28}
-            />
-          </Pressable>
-
-          <Text
-            style={[
-              styles.headerTitle,
-
-              {
-                color:
-                  theme.colors.text,
-              },
-            ]}>
+          <AwaText
+            style={styles.headerTitle}
+            variant="headlineSmall">
             {t('appearance.headerTitle')}
-          </Text>
+          </AwaText>
 
           <View
             style={
@@ -1386,17 +1404,12 @@ export default function AppearanceScreen({
                   .delay(40)
                   .duration(320)
           }>
-          <Text
-            style={[
-              styles.subtitle,
-
-              {
-                color:
-                  theme.colors.textSecondary,
-              },
-            ]}>
+          <AwaText
+            colorRole="onSurfaceVariant"
+            style={styles.subtitle}
+            variant="bodyMedium">
             {t('appearance.subtitle')}
-          </Text>
+          </AwaText>
         </Animated.View>
 
         {/* -------------------------------------------------------------- */}
@@ -1447,39 +1460,13 @@ export default function AppearanceScreen({
           <SectionHeader
             icon="palette-swatch-outline"
             right={
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('appearance.seeAllPalettes')}
-                accessibilityRole="button"
-                hitSlop={6}
-                onPress={
-                  handleSeeAll
-                }
-                style={({pressed}) => [
-                  styles.seeAll,
-
-                  pressed &&
-                    styles.pressedSubtle,
-                ]}>
-                <Text
-                  style={[
-                    styles.seeAllText,
-
-                    {
-                      color:
-                        theme.colors.primary,
-                    },
-                  ]}>
-                  {t('common.seeAll')}
-                </Text>
-
-                <MaterialDesignIcons
-                  color={
-                    theme.colors.primary
-                  }
-                  name="chevron-right"
-                  size={16}
-                />
-              </Pressable>
+                label={t('common.seeAll')}
+                onPress={handleSeeAll}
+                size="compact"
+                variant="text"
+              />
             }
             theme={theme}
             title={t('appearance.palettesSection')}
@@ -1614,31 +1601,15 @@ export default function AppearanceScreen({
             ]}>
             <AppearanceSettingRow
               control={
-                <Switch
+                <AwaSwitch
+                  accessibilityLabel={t('appearance.trueBlackTitle')}
                   disabled={
                     !isDark
-                  }
-
-                  ios_backgroundColor={
-                    theme.colors.surfaceSecondary
                   }
 
                   onValueChange={
                     handleTrueBlackToggle
                   }
-
-                  // Fixed native-switch thumb color — a physical control
-                  // affordance, not an app surface; white reads correctly
-                  // against every trackColor below regardless of palette.
-                  thumbColor="#FFFFFF"
-
-                  trackColor={{
-                    false:
-                      theme.colors.surfaceSecondary,
-
-                    true:
-                      theme.colors.primary,
-                  }}
 
                   value={
                     trueBlackEnabled
@@ -1706,21 +1677,9 @@ export default function AppearanceScreen({
               }
 
               subtitle={
-                appLanguage === 'en'
-                  ? t('appearance.language.englishName')
-                  : appLanguage === 'es'
-                    ? t('appearance.language.spanishName')
-                    : appLanguage === 'it'
-                      ? t('appearance.language.italianName')
-                      : appLanguage === 'tr'
-                        ? t('appearance.language.turkishName')
-                        : appLanguage === 'ru'
-                          ? t('appearance.language.russianName')
-                          : appLanguage === 'de'
-                            ? t('appearance.language.germanName')
-                            : appLanguage === 'zh'
-                              ? t('appearance.language.chineseName')
-                              : t('appearance.language.frenchName')
+                languagePreference === 'system'
+                  ? `${t('appearance.language.systemName')} · ${t(`appearance.language.${LANGUAGE_NAME_KEYS[appLanguage]}`)}`
+                  : t(`appearance.language.${LANGUAGE_NAME_KEYS[appLanguage]}`)
               }
 
               theme={theme}
@@ -1760,7 +1719,7 @@ export default function AppearanceScreen({
       />
 
       <LanguageBottomSheet
-        currentLanguage={appLanguage}
+        currentPreference={languagePreference}
         onApply={handleApplyLanguage}
         onClose={() => setLanguageSheetVisible(false)}
         theme={theme}
@@ -1797,22 +1756,10 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
 
-  backButton: {
-    width: 42,
-
-    height: 42,
-
-    alignItems:
-      'flex-start',
-
-    justifyContent:
-      'center',
-  },
-
   headerPlaceholder: {
-    width: 42,
+    width: 40,
 
-    height: 42,
+    height: 40,
   },
 
   headerTitle: {
@@ -1820,25 +1767,13 @@ const styles = StyleSheet.create({
 
     textAlign:
       'center',
-
-    fontFamily:
-      'serif',
-
-    fontSize: 21,
-
-    fontWeight:
-      '800',
   },
 
   subtitle: {
     textAlign:
       'center',
 
-    fontSize: 13.5,
-
-    lineHeight: 20,
-
-    marginBottom: 22,
+    marginBottom: 24,
   },
 
   /* ---------------------------------------------------------------------- */
@@ -1876,7 +1811,7 @@ const styles = StyleSheet.create({
 
     height: 27,
 
-    borderRadius: 9,
+    borderRadius: 12,
 
     alignItems:
       'center',
@@ -1896,23 +1831,6 @@ const styles = StyleSheet.create({
   /* SEE ALL                                                                */
   /* ---------------------------------------------------------------------- */
 
-  seeAll: {
-    flexDirection:
-      'row',
-
-    alignItems:
-      'center',
-  },
-
-  seeAllText: {
-    fontSize: 12.5,
-
-    fontWeight:
-      '700',
-
-    marginRight: 2,
-  },
-
   /* ---------------------------------------------------------------------- */
   /* MODE                                                                   */
   /* ---------------------------------------------------------------------- */
@@ -1921,7 +1839,7 @@ const styles = StyleSheet.create({
     flexDirection:
       'row',
 
-    borderRadius: 18,
+    borderRadius: 12,
 
     padding: 4,
 
@@ -1944,7 +1862,7 @@ const styles = StyleSheet.create({
 
     gap: 6,
 
-    borderRadius: 14,
+    borderRadius: 12,
 
     paddingHorizontal: 5,
   },
@@ -1953,7 +1871,7 @@ const styles = StyleSheet.create({
     ...homeShadow,
 
     shadowOpacity:
-      0.2,
+      0.15,
   },
 
   segmentLabel: {
@@ -1983,13 +1901,13 @@ const styles = StyleSheet.create({
   paletteCard: {
     minHeight: 214,
 
-    paddingTop: 7,
+    paddingTop: 10,
 
     paddingHorizontal: 7,
 
     paddingBottom: 10,
 
-    borderRadius: 15,
+    borderRadius: 16,
 
     borderWidth: 1,
 
@@ -2025,7 +1943,7 @@ const styles = StyleSheet.create({
 
     height: 132,
 
-    borderRadius: 11,
+    borderRadius: 12,
 
     overflow:
       'hidden',
@@ -2038,7 +1956,7 @@ const styles = StyleSheet.create({
     height:
       '100%',
 
-    borderRadius: 11,
+    borderRadius: 12,
   },
 
   /* ---------------------------------------------------------------------- */
@@ -2051,7 +1969,7 @@ const styles = StyleSheet.create({
 
     height: 132,
 
-    borderRadius: 11,
+    borderRadius: 12,
 
     padding: 7,
 
@@ -2068,7 +1986,7 @@ const styles = StyleSheet.create({
     paddingVertical:
       11,
 
-    borderRadius: 9,
+    borderRadius: 12,
 
     justifyContent:
       'space-between',
@@ -2101,7 +2019,7 @@ const styles = StyleSheet.create({
 
     height: 36,
 
-    borderRadius: 9,
+    borderRadius: 12,
 
     opacity: 0.55,
   },
@@ -2204,10 +2122,10 @@ const styles = StyleSheet.create({
   },
 
   paletteDescription: {
-    fontSize: 9.8,
+    fontSize: 11,
 
     lineHeight:
-      13.5,
+      16,
 
     fontWeight:
       '400',
@@ -2349,7 +2267,7 @@ const styles = StyleSheet.create({
 
     gap: 10,
 
-    borderRadius: 18,
+    borderRadius: 12,
 
     padding: 15,
 
@@ -2423,27 +2341,13 @@ const styles = StyleSheet.create({
     height: 5,
     borderRadius: 3,
   },
-  langIconBadge: {
-    alignSelf: 'center',
-    marginTop: 18,
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   langSheetTitle: {
-    marginTop: 14,
-    fontFamily: 'serif',
-    fontSize: 19,
-    fontWeight: '700',
+    marginTop: 18,
     textAlign: 'center',
   },
   langSheetSubtitle: {
-    marginTop: 6,
-    marginBottom: 18,
-    fontSize: 13,
-    lineHeight: 19,
+    marginTop: 8,
+    marginBottom: 16,
     textAlign: 'center',
   },
   langOptionsList: {gap: 12},
@@ -2452,7 +2356,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1.4,
-    borderRadius: 18,
+    borderRadius: 12,
     paddingHorizontal: 14,
     paddingVertical: 12,
     shadowOffset: {width: 0, height: 4},
@@ -2477,11 +2381,6 @@ const styles = StyleSheet.create({
   langRadioDot: {width: 10, height: 10, borderRadius: 5},
   langApplyButton: {
     marginTop: 20,
-    minHeight: 54,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 27,
   },
-  langApplyText: {fontSize: 16, fontWeight: '700'},
 });
 

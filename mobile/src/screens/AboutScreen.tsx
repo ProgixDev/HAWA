@@ -7,13 +7,11 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
   useWindowDimensions,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import LinearGradient from 'react-native-linear-gradient';
 import Animated, {FadeIn, FadeInUp} from 'react-native-reanimated';
 import {
   SafeAreaView,
@@ -24,6 +22,11 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {APP_METADATA} from '../utils/appMetadata';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaInfoRow} from '../components/ui/AwaInfoRow';
+import {AwaText} from '../components/ui/AwaText';
 import {
   interpolateHex,
   onPrimaryTextColor,
@@ -46,8 +49,6 @@ type AboutRowProps = {
   value: string;
   onPress?: () => void;
   last?: boolean;
-  theme: ResolvedAwaTheme;
-  styles: ReturnType<typeof createStyles>;
 };
 
 function AboutRow({
@@ -56,40 +57,18 @@ function AboutRow({
   value,
   onPress,
   last,
-  theme,
-  styles,
 }: AboutRowProps) {
   return (
-    <Pressable
+    <AwaInfoRow
       accessibilityLabel={`${label}, ${value}`}
-      disabled={!onPress}
+      icon={icon}
+      iconTone="primary"
+      last={last}
       onPress={onPress}
-      style={({pressed}) => [
-        styles.row,
-        !last && styles.rowBorder,
-        pressed && styles.pressed,
-      ]}>
-      <View style={styles.rowIcon}>
-        <MaterialDesignIcons
-          color={theme.colors.primary}
-          name={icon}
-          size={20}
-        />
-      </View>
-
-      <View style={styles.rowCopy}>
-        <Text style={styles.rowLabel}>{label}</Text>
-        <Text style={styles.rowValue}>{value}</Text>
-      </View>
-
-      {onPress ? (
-        <MaterialDesignIcons
-          color={theme.colors.textMuted}
-          name="chevron-right"
-          size={23}
-        />
-      ) : null}
-    </Pressable>
+      subtitle={value}
+      title={label}
+      trailing={onPress ? 'chevron' : 'none'}
+    />
   );
 }
 
@@ -97,32 +76,23 @@ type ValueBlockProps = {
   icon: IconName;
   title: string;
   text: string;
-  theme: ResolvedAwaTheme;
-  styles: ReturnType<typeof createStyles>;
+  last?: boolean;
 };
 
 function ValueBlock({
   icon,
   title,
   text,
-  theme,
-  styles,
+  last,
 }: ValueBlockProps) {
   return (
-    <View style={styles.valueBlock}>
-      <View style={styles.valueIcon}>
-        <MaterialDesignIcons
-          color={theme.colors.primary}
-          name={icon}
-          size={25}
-        />
-      </View>
-
-      <View style={styles.valueCopy}>
-        <Text style={styles.valueTitle}>{title}</Text>
-        <Text style={styles.valueText}>{text}</Text>
-      </View>
-    </View>
+    <AwaInfoRow
+      icon={icon}
+      iconTone="primary"
+      last={last}
+      subtitle={text}
+      title={title}
+    />
   );
 }
 
@@ -214,51 +184,31 @@ export default function AboutScreen({
         <Animated.View
           entering={FadeIn.duration(300)}
           style={styles.header}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
+            icon="chevron-left"
             onPress={navigation.goBack}
-            style={({pressed}) => [
-              styles.back,
-              pressed && styles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="chevron-left"
-              size={28}
-            />
-          </Pressable>
+            variant="tonal"
+          />
 
           <View style={styles.headerCopy}>
-            <Text style={styles.title}>
+            <AwaText accessibilityRole="header" style={styles.title} variant="headlineSmall">
               {t('about.title')}
-            </Text>
+            </AwaText>
 
-            <Text style={styles.subtitle}>
+            <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodySmall">
               {t('about.subtitle')}
-            </Text>
+            </AwaText>
           </View>
 
-          <View style={styles.decor}>
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="leaf"
-              size={45}
-            />
-
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="star-four-points"
-              size={11}
-            />
-          </View>
+          
         </Animated.View>
 
         {/* AWA IDENTITY */}
 
         <Animated.View
-          entering={FadeInUp.delay(70).duration(420)}
-          style={styles.identity}>
-
+          entering={FadeInUp.delay(70).duration(420)}>
+          <AwaCard style={styles.identity} variant="elevated">
           <View style={styles.logoWrap}>
             <Image
               accessibilityLabel={t('about.logoA11y')}
@@ -270,46 +220,42 @@ export default function AboutScreen({
 
           <View style={styles.identityCopy}>
             <View style={styles.nameRow}>
-              <Text style={styles.appName}>
+              <AwaText style={styles.appName} variant="headlineSmall">
                 AWA
-              </Text>
+              </AwaText>
 
               <View style={styles.badge}>
-                <Text style={styles.badgeText}>
+                <AwaText colorRole="onPrimaryContainer" style={styles.badgeText} variant="labelSmall">
                   {t('about.versionBadge', {version: APP_METADATA.version})}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
-            <Text style={styles.description}>
+            <AwaText colorRole="onSurfaceVariant" style={styles.description} variant="bodySmall">
               {t('about.appDescription')}
-            </Text>
+            </AwaText>
           </View>
+          </AwaCard>
         </Animated.View>
-
         {/* APPLICATION INFORMATION */}
 
-        <Text style={styles.sectionTitle}>
+        <AwaText accessibilityRole="header" style={styles.sectionTitle} variant="titleMedium">
           {t('about.sectionAppInfo')}
-        </Text>
+        </AwaText>
 
         <Animated.View
-          entering={FadeInUp.delay(130).duration(420)}
-          style={styles.card}>
+          entering={FadeInUp.delay(130).duration(420)}>
+          <AwaCard padding="none" style={styles.card} variant="filled">
           <AboutRow
             icon="cellphone"
             label={t('about.rowVersion')}
             onPress={() => setModal('version')}
-            styles={styles}
-            theme={theme}
             value={`${APP_METADATA.version} (${APP_METADATA.buildNumber})`}
           />
 
           <AboutRow
             icon="calendar-month-outline"
             label={t('about.rowPublicationDate')}
-            styles={styles}
-            theme={theme}
             value={
               APP_METADATA.publicationDate ??
               t('about.rowPublicationDateEmpty')
@@ -320,8 +266,6 @@ export default function AboutScreen({
             icon="shield-outline"
             label={t('about.rowDesignedWith')}
             onPress={() => setModal('team')}
-            styles={styles}
-            theme={theme}
             value={t('about.rowDesignedWithValue')}
           />
 
@@ -329,8 +273,6 @@ export default function AboutScreen({
             icon="web"
             label={t('about.rowWebsite')}
             onPress={() => openLink('website')}
-            styles={styles}
-            theme={theme}
             value={
               APP_METADATA.websiteUrl ??
               t('about.rowWebsiteEmpty')
@@ -342,66 +284,59 @@ export default function AboutScreen({
             label={t('about.rowEmail')}
             last
             onPress={() => openLink('email')}
-            styles={styles}
-            theme={theme}
             value={
               APP_METADATA.contactEmail ??
               t('about.rowEmailEmpty')
             }
           />
+          </AwaCard>
         </Animated.View>
 
         {/* ABOUT */}
 
-        <Text style={styles.sectionTitle}>
+        <AwaText accessibilityRole="header" style={styles.sectionTitle} variant="titleMedium">
           {t('about.sectionAbout')}
-        </Text>
+        </AwaText>
 
         <Animated.View
-          entering={FadeInUp.delay(190).duration(420)}
-          style={styles.card}>
+          entering={FadeInUp.delay(190).duration(420)}>
+          <AwaCard padding="none" style={styles.card} variant="filled">
           <ValueBlock
             icon="hand-heart-outline"
-            styles={styles}
             text={t('about.missionText')}
-            theme={theme}
             title={t('about.missionTitle')}
           />
 
           <ValueBlock
             icon="lock-outline"
-            styles={styles}
             text={t('about.privacyValueText')}
-            theme={theme}
             title={t('about.privacyValueTitle')}
           />
 
           <ValueBlock
             icon="leaf"
-            styles={styles}
+            last
             text={t('about.valuesText')}
-            theme={theme}
             title={t('about.valuesTitle')}
           />
+          </AwaCard>
         </Animated.View>
 
         {/* LEGAL */}
 
-        <Text style={styles.sectionTitle}>
+        <AwaText accessibilityRole="header" style={styles.sectionTitle} variant="titleMedium">
           {t('about.sectionLegal')}
-        </Text>
+        </AwaText>
 
         <Animated.View
-          entering={FadeInUp.delay(250).duration(420)}
-          style={styles.card}>
+          entering={FadeInUp.delay(250).duration(420)}>
+          <AwaCard padding="none" style={styles.card} variant="filled">
           <AboutRow
             icon="file-document-outline"
             label={t('about.termsOfUse')}
             onPress={() =>
               navigation.navigate('TermsOfUse')
             }
-            styles={styles}
-            theme={theme}
             value={t('about.viewDocument')}
           />
 
@@ -414,17 +349,13 @@ export default function AboutScreen({
                 'PrivacyPolicy',
               )
             }
-            styles={styles}
-            theme={theme}
             value={t('about.viewDocument')}
           />
+          </AwaCard>
         </Animated.View>
-
         {/* COMMUNITY */}
 
-        <LinearGradient
-          colors={[withAlpha(theme.colors.primary, 0.09), withAlpha(theme.colors.primary, 0.14)]}
-          style={styles.community}>
+        <AwaCard padding="default" style={styles.community} variant="filled">
           <MaterialDesignIcons
             color={theme.colors.primary}
             name="leaf"
@@ -432,21 +363,16 @@ export default function AboutScreen({
           />
 
           <View style={styles.communityCopy}>
-            <Text style={styles.communityTitle}>
+            <AwaText colorRole="primary" style={styles.communityTitle} variant="titleSmall">
               {t('about.communityTitle')}
-            </Text>
+            </AwaText>
 
-            <Text style={styles.communityText}>
+            <AwaText colorRole="onSurfaceVariant" style={styles.communityText} variant="bodySmall">
               {t('about.communityText')}
-            </Text>
+            </AwaText>
           </View>
 
-          <MaterialDesignIcons
-            color={theme.colors.primary}
-            name="star-four-points"
-            size={14}
-          />
-        </LinearGradient>
+          </AwaCard>
       </ScrollView>
 
       {/* MODAL */}
@@ -487,35 +413,35 @@ export default function AboutScreen({
               style={styles.modalIcon}
             />
 
-            <Text style={styles.sheetTitle}>
+            <AwaText style={styles.sheetTitle} variant="titleLarge">
               {modal === 'version'
                 ? t('about.versionModalTitle')
                 : t('about.teamModalTitle')}
-            </Text>
+            </AwaText>
 
             {modal === 'version' ? (
               <>
-                <Text style={styles.sheetText}>
+                <AwaText colorRole="onSurfaceVariant" style={styles.sheetText} variant="bodyMedium">
                   {t('about.versionLabel', {version: APP_METADATA.version})}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.sheetText}>
+                <AwaText colorRole="onSurfaceVariant" style={styles.sheetText} variant="bodyMedium">
                   {t('about.buildLabel', {build: APP_METADATA.buildNumber})}
-                </Text>
+                </AwaText>
               </>
             ) : (
-              <Text style={styles.teamText}>
+              <AwaText colorRole="onSurfaceVariant" style={styles.teamText} variant="bodyMedium">
                 {t('about.teamText')}
-              </Text>
+              </AwaText>
             )}
 
-            <Pressable
+            <AwaButton
+              fullWidth
+              label={t('about.close')}
               onPress={() => setModal(null)}
-              style={styles.done}>
-              <Text style={styles.doneText}>
-                {t('about.close')}
-              </Text>
-            </Pressable>
+              size="large"
+              style={styles.done}
+            />
           </Animated.View>
         </View>
       </Modal>
@@ -539,9 +465,9 @@ export default function AboutScreen({
             size={17}
           />
 
-          <Text style={styles.toastText}>
+          <AwaText style={styles.toastText} variant="bodySmall">
             {toast}
-          </Text>
+          </AwaText>
         </Animated.View>
       ) : null}
     </SafeAreaView>
@@ -586,14 +512,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
   },
 
-  back: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 999,
-    backgroundColor: theme.colors.surface,
-    padding: 9,
-    elevation: 2,
-  },
 
   headerCopy: {
     flex: 1,
@@ -601,45 +519,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 10,
   },
 
-  title: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 22,
-    fontWeight: '700',
-  },
+  title: {},
 
-  subtitle: {
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 11.5,
-  },
+  subtitle: {marginTop: 3},
 
-  decor: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
 
   /* IDENTITY CARD */
 
-  identity: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 26,
-    backgroundColor: theme.colors.surface,
-    padding: 16,
-
-    elevation: 2,
-
-    shadowColor: theme.shadow.shadowColor,
-    shadowOpacity: 0.07,
-    shadowRadius: 12,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-  },
+  identity: {flexDirection: 'row', alignItems: 'center'},
 
   logoWrap: {
     flexBasis: '27%',
@@ -648,19 +535,19 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 22,
+    borderRadius: 12,
 
     backgroundColor: logoWrapBackground,
 
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.45),
 
-    padding: 7,
+    padding: 12,
 
     elevation: 3,
 
     shadowColor: theme.colors.primary,
-    shadowOpacity: 0.16,
+    shadowOpacity: 0.12,
     shadowRadius: 10,
     shadowOffset: {
       width: 0,
@@ -686,12 +573,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  appName: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 24,
-    fontWeight: '700',
-  },
 
   badge: {
     borderRadius: 12,
@@ -700,160 +581,39 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingVertical: 4,
   },
 
-  badgeText: {
-    color: theme.colors.primary,
-    fontSize: 9.5,
-    fontWeight: '700',
-  },
 
-  description: {
-    marginTop: 7,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 18,
-  },
 
   /* SECTIONS */
 
-  sectionTitle: {
-    marginTop: 2,
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 16,
-    fontWeight: '700',
-  },
+  sectionTitle: {marginTop: 4},
 
-  card: {
-    overflow: 'hidden',
-
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-
-    borderRadius: 24,
-
-    backgroundColor: theme.colors.surface,
-
-    paddingHorizontal: 12,
-  },
+  card: {overflow: 'hidden'},
 
   /* ROW */
 
-  row: {
-    minHeight: 62,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 8,
-  },
 
-  rowBorder: {
-    borderBottomWidth:
-      StyleSheet.hairlineWidth,
-    borderBottomColor: theme.colors.border,
-  },
 
-  rowIcon: {
-    alignItems: 'center',
-    justifyContent: 'center',
 
-    borderRadius: 13,
 
-    backgroundColor: theme.colors.primarySoft,
 
-    padding: 9,
-  },
-
-  rowCopy: {
-    flex: 1,
-    minWidth: 0,
-    marginHorizontal: 11,
-  },
-
-  rowLabel: {
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-  },
-
-  rowValue: {
-    marginTop: 2,
-    color: theme.colors.accent,
-    fontSize: 12.5,
-    fontWeight: '700',
-  },
 
   /* ABOUT VALUE BLOCK */
 
-  valueBlock: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    paddingVertical: 13,
-  },
 
-  valueIcon: {
-    alignItems: 'center',
-    justifyContent: 'center',
 
-    borderRadius: 999,
 
-    backgroundColor: theme.colors.primarySoft,
 
-    padding: 12,
-  },
-
-  valueCopy: {
-    flex: 1,
-    marginLeft: 13,
-  },
-
-  valueTitle: {
-    color: theme.colors.accent,
-    fontSize: 13.5,
-    fontWeight: '700',
-  },
-
-  valueText: {
-    marginTop: 4,
-    color: theme.colors.textSecondary,
-    fontSize: 11.5,
-    lineHeight: 17,
-  },
 
   /* COMMUNITY */
 
-  community: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  community: {flexDirection: 'row', alignItems: 'center', gap: 12},
 
-    borderRadius: 22,
+  communityCopy: {flex: 1},
 
-    padding: 16,
-  },
 
-  communityCopy: {
-    flex: 1,
-    alignItems: 'center',
-    paddingHorizontal: 7,
-  },
-
-  communityTitle: {
-    color: theme.colors.primary,
-    fontSize: 11.5,
-    fontWeight: '700',
-    textAlign: 'center',
-  },
-
-  communityText: {
-    marginTop: 5,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    textAlign: 'center',
-  },
 
   /* PRESS */
 
-  pressed: {
-    opacity: 0.78,
-    transform: [{scale: 0.985}],
-  },
 
   /* MODAL */
 
@@ -868,8 +628,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   sheet: {
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
 
     backgroundColor: theme.colors.surface,
 
@@ -893,57 +653,19 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginTop: 18,
   },
 
-  sheetTitle: {
-    marginTop: 8,
+  sheetTitle: {marginTop: 8, textAlign: 'center'},
+  sheetText: {marginTop: 8, textAlign: 'center'},
+  teamText: {marginTop: 9, textAlign: 'center'},
+  description: {marginTop: 6},
+  appName: {},
+  badgeText: {},
+  communityTitle: {textAlign: 'center'},
+  communityText: {marginTop: 4, textAlign: 'center'},
 
-    color: theme.colors.accent,
 
-    fontFamily: 'serif',
-    fontSize: 22,
-    fontWeight: '700',
 
-    textAlign: 'center',
-  },
+  done: {marginTop: 18},
 
-  sheetText: {
-    marginTop: 7,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 13,
-
-    textAlign: 'center',
-  },
-
-  teamText: {
-    marginTop: 9,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 13,
-    lineHeight: 19,
-
-    textAlign: 'center',
-  },
-
-  done: {
-    alignItems: 'center',
-
-    marginTop: 18,
-
-    borderRadius: 18,
-
-    backgroundColor: theme.colors.primary,
-
-    padding: 14,
-  },
-
-  doneText: {
-    color: onPrimaryTextColor(theme),
-
-    fontSize: 14,
-    fontWeight: '700',
-  },
 
   /* TOAST */
 
@@ -959,22 +681,15 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     gap: 8,
 
-    borderRadius: 18,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primary,
 
-    padding: 13,
+    padding: 16,
 
-    elevation: 8,
+    elevation: 6,
   },
 
-  toastText: {
-    flex: 1,
-
-    color: onPrimaryTextColor(theme),
-
-    fontSize: 11.5,
-    fontWeight: '600',
-  },
+  toastText: {flex: 1, color: onPrimaryTextColor(theme)},
   });
 }

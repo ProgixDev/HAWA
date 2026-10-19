@@ -130,13 +130,7 @@ import {
   loadPersonalInformation,
   updatePersonalInformation,
 } from '../state/personalInformationStore';
-import {
-  getProfileAvatarPreferences,
-  hydrateProfileAvatarPreferences,
-  subscribeProfileAvatarPreferences,
-  type AnonymousAvatarStyleId,
-} from '../state/profileAvatarPreferences';
-import AnonymousAvatar from '../components/profile/AnonymousAvatar';
+import AnonymousProfileIcon from '../components/profile/AnonymousProfileIcon';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 import {getDemoPartnerState} from '../state/awaADeuxDemoStore';
@@ -161,7 +155,11 @@ import {formatAgeInYears} from '../utils/age';
 import ManagedProfileSwipeRow from '../components/profile/ManagedProfileSwipeRow';
 import ManagedProfileDeleteConfirmModal from '../components/profile/ManagedProfileDeleteConfirmModal';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {interpolateHex, onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {ObjectiveIcon} from '../components/onboarding/ObjectiveIcon';
+import {AwaText} from '../components/ui/AwaText';
 import '../i18n';
 import {upperCaseFor} from '../utils/textCase';
 import {presentSaveFailure} from '../services/saveFailure';
@@ -286,72 +284,52 @@ function miscarriageTryingAgainLabels(t: (key: string) => string): Record<Miscar
   };
 }
 
-// PHASE E2 — each objective's `tint` stays a fixed literal (Category E,
-// same reasoning as MENU_TONES below): a decorative identity badge for one
-// of 8 self-selected life-tracking objectives, not a themed role.
+// The objective's icon is drawn by the shared ObjectiveIcon (same outlined icons and frame as the onboarding picker).
 function objectivesList(t: (key: string) => string): Array<{
   id: ObjectiveId;
-  icon: string;
   label: string;
   subtitle: string;
-  tint: string;
 }> {
   return [
   {
     id: 'cycle',
-    icon: '🗓️',
     label: t('objectives.cycle'),
     subtitle: t('profile.objectivePicker.subtitles.cycle'),
-    tint: '#E7F0E8',
   },
   {
     id: 'conceive',
-    icon: '💗',
     label: t('objectives.conceive'),
     subtitle: t('profile.objectivePicker.subtitles.conceive'),
-    tint: '#FBE8E8',
   },
   {
     id: 'contraception',
-    icon: '💊',
     label: t('objectives.contraception'),
     subtitle: t('profile.objectivePicker.subtitles.contraception'),
-    tint: '#F1E8F5',
   },
   {
     id: 'irregular',
-    icon: '🪷',
     label: t('objectives.irregular'),
     subtitle: t('profile.objectivePicker.subtitles.irregular'),
-    tint: '#FBE9E7',
   },
   {
     id: 'menopause',
-    icon: '👤',
     label: t('objectives.menopause'),
     subtitle: t('profile.objectivePicker.subtitles.menopause'),
-    tint: '#EFE7F4',
   },
   {
     id: 'pregnancy',
-    icon: '🤰',
     label: t('objectives.pregnancy'),
     subtitle: t('profile.objectivePicker.subtitles.pregnancy'),
-    tint: '#FBE9EB',
   },
   {
     id: 'postpartum',
-    icon: '🍼',
     label: t('objectives.postpartum'),
     subtitle: t('profile.objectivePicker.subtitles.postpartum'),
-    tint: '#E8F1E9',
   },
   {
     id: 'loss',
-    icon: '☁️',
     label: t('objectives.loss'),
     subtitle: t('profile.objectivePicker.subtitles.loss'),
-    tint: '#EDF2E9',
   },
   ];
 }
@@ -460,10 +438,6 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
   const styles = useMemo(() => createStyles(theme), [theme]);
   const entrance = useRef(new Animated.Value(0)).current;
   const pressScale = useRef(new Animated.Value(1)).current;
-  const shine = useRef(new Animated.Value(-1)).current;
-  const float = useRef(new Animated.Value(0)).current;
-  const sparkle = useRef(new Animated.Value(0)).current;
-  const arrow = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.spring(entrance, {
@@ -473,85 +447,7 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
       mass: 0.9,
       useNativeDriver: true,
     }).start();
-
-    const shineLoop = Animated.loop(
-      Animated.sequence([
-        Animated.delay(3000),
-        Animated.timing(shine, {
-          toValue: 1,
-          duration: 1050,
-          useNativeDriver: true,
-        }),
-        Animated.timing(shine, {
-          toValue: -1,
-          duration: 0,
-          useNativeDriver: true,
-        }),
-        Animated.delay(2400),
-      ]),
-    );
-
-    const floatLoop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(float, {
-          toValue: 1,
-          duration: 2400,
-          useNativeDriver: true,
-        }),
-        Animated.timing(float, {
-          toValue: 0,
-          duration: 2400,
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-
-    const sparkleLoop = Animated.loop(
-      Animated.sequence([
-        Animated.delay(700),
-        Animated.timing(sparkle, {
-          toValue: 1,
-          duration: 750,
-          useNativeDriver: true,
-        }),
-        Animated.timing(sparkle, {
-          toValue: 0,
-          duration: 750,
-          useNativeDriver: true,
-        }),
-        Animated.delay(1300),
-      ]),
-    );
-
-    const arrowLoop = Animated.loop(
-      Animated.sequence([
-        Animated.delay(1800),
-        Animated.timing(arrow, {
-          toValue: 1,
-          duration: 420,
-          useNativeDriver: true,
-        }),
-        Animated.timing(arrow, {
-          toValue: 0,
-          duration: 420,
-          useNativeDriver: true,
-        }),
-        Animated.delay(1700),
-      ]),
-    );
-
-    shineLoop.start();
-    floatLoop.start();
-    sparkleLoop.start();
-    arrowLoop.start();
-
-    return () => {
-      shineLoop.stop();
-      floatLoop.stop();
-      sparkleLoop.stop();
-      arrowLoop.stop();
-    };
-  }, [arrow, entrance, float, shine, sparkle]);
+  }, [entrance]);
 
   const handlePressIn = () => {
     Animated.spring(pressScale, {
@@ -576,26 +472,6 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
     outputRange: [14, 0],
   });
 
-  const glowOpacity = float.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0.14, 0.3],
-  });
-
-  const crownTranslateY = float.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, -2],
-  });
-
-  const sparkleScale = sparkle.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0.85, 1.1],
-  });
-
-  const arrowTranslateX = arrow.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 3],
-  });
-
   return (
     <Animated.View
       style={{
@@ -613,39 +489,10 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
         style={styles.premiumCard}>
-        <Animated.View
-          pointerEvents="none"
-          style={[styles.premiumGlow, {opacity: glowOpacity}]}
-        />
-        <View pointerEvents="none" style={styles.premiumAmbientOrbOne} />
-        <View pointerEvents="none" style={styles.premiumAmbientOrbTwo} />
-
-        <Animated.View
-          pointerEvents="none"
-          style={[
-            styles.premiumShine,
-            {
-              transform: [
-                {
-                  translateX: shine.interpolate({
-                    inputRange: [-1, 1],
-                    outputRange: [-240, 330],
-                  }),
-                },
-                {rotate: '18deg'},
-              ],
-            },
-          ]}
-        />
-
         <View style={styles.premiumHeaderRow}>
-          <Animated.View
-            style={[
-              styles.premiumCrownWrap,
-              {transform: [{translateY: crownTranslateY}]},
-            ]}>
+          <View style={styles.premiumCrownWrap}>
             <MaterialDesignIcons color="#FFD85F" name="crown" size={25} />
-          </Animated.View>
+          </View>
 
           <View style={styles.premiumCopy}>
             {/* Same key as the Premium sheet's hero title: one localized product title on every Premium surface. */}
@@ -656,24 +503,6 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
                 : t('profile.premiumCard.inactiveSubtitle')}
             </Text>
           </View>
-
-          <Animated.View
-            style={[
-              styles.premiumStarWrap,
-              {
-                opacity: sparkle.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0.55, 1],
-                }),
-                transform: [{scale: sparkleScale}],
-              },
-            ]}>
-            <MaterialDesignIcons
-              color="#FFFFFF"
-              name="star-four-points"
-              size={18}
-            />
-          </Animated.View>
         </View>
 
         <View style={styles.premiumFeaturesGrid}>
@@ -708,17 +537,6 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
     </Text>
   </View>
 
-  <Animated.View
-    style={[
-      styles.premiumButtonArrow,
-      {transform: [{translateX: arrowTranslateX}]},
-    ]}>
-    <MaterialDesignIcons
-      color="#4F2A96"
-      name="chevron-right"
-      size={22}
-    />
-  </Animated.View>
 </View>
 
       </Pressable>
@@ -848,9 +666,9 @@ function MenuRow({
       </View>
 
       <View style={styles.menuCopy}>
-        <Text style={styles.menuTitle}>{title}</Text>
-        <Text style={styles.menuSubtitle}>{subtitle}</Text>
-        {status ? <Text style={styles.menuStatus}>{status}</Text> : null}
+        <AwaText emphasized variant="titleSmall">{title}</AwaText>
+        <AwaText colorRole="onSurfaceVariant" style={styles.menuSubtitle} variant="bodySmall">{subtitle}</AwaText>
+        {status ? <AwaText colorRole="primary" emphasized style={styles.menuStatus} variant="labelMedium">{status}</AwaText> : null}
       </View>
 
       <View style={styles.menuChevron}>
@@ -898,25 +716,25 @@ function LogoutConfirmModal({
             <MaterialDesignIcons color={theme.colors.danger} name="logout" size={26} />
           </View>
 
-          <Text accessibilityRole="header" style={styles.logoutDialogTitle}>{t('profile.logoutDialog.title')}</Text>
-          <Text style={styles.logoutDialogBody}>{t('profile.logoutDialog.body')}</Text>
-          <Text style={styles.logoutDialogReassurance}>{t('profile.logoutDialog.reassurance')}</Text>
+          <AwaText accessibilityRole="header" style={styles.logoutDialogTitle} variant="titleLarge">{t('profile.logoutDialog.title')}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" style={styles.logoutDialogBody} variant="bodyMedium">{t('profile.logoutDialog.body')}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" style={styles.logoutDialogReassurance} variant="bodyMedium">{t('profile.logoutDialog.reassurance')}</AwaText>
 
           <View style={styles.logoutDialogActions}>
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('common.cancel')}
-              accessibilityRole="button"
+              label={t('common.cancel')}
               onPress={onCancel}
-              style={({pressed}) => [styles.logoutDialogButton, styles.logoutDialogCancelButton, pressed && styles.logoutDialogPressed]}>
-              <Text style={styles.logoutDialogCancelText}>{t('common.cancel')}</Text>
-            </Pressable>
-            <Pressable
+              style={styles.logoutDialogButton}
+              variant="outlined"
+            />
+            <AwaButton
               accessibilityLabel={t('profile.logoutDialog.confirmAccessibilityLabel')}
-              accessibilityRole="button"
+              label={t('profile.signOut')}
               onPress={confirm}
-              style={({pressed}) => [styles.logoutDialogButton, styles.logoutDialogDestructiveButton, pressed && styles.logoutDialogPressed]}>
-              <Text style={[styles.logoutDialogDestructiveText, {color: pickReadableTextColor(theme.colors.danger)}]}>{t('profile.signOut')}</Text>
-            </Pressable>
+              style={styles.logoutDialogButton}
+              variant="destructive"
+            />
           </View>
         </View>
       </View>
@@ -942,10 +760,10 @@ function SectionHeader({
           <MaterialDesignIcons color={theme.colors.primary} name={icon} size={18} />
         </View>
 
-        <Text style={styles.sectionTitle}>{title}</Text>
+        <AwaText style={styles.sectionTitle} variant="titleMedium">{title}</AwaText>
       </View>
 
-      {subtitle ? <Text style={styles.sectionSubtitle}>{subtitle}</Text> : null}
+      {subtitle ? <AwaText colorRole="onSurfaceVariant" style={styles.sectionSubtitle} variant="bodySmall">{subtitle}</AwaText> : null}
     </View>
   );
 }
@@ -979,31 +797,23 @@ function DurationStepper({
   const canIncrease = value < max;
   return (
     <View style={styles.stepperCard}>
-      <Pressable
+      <AwaIconButton
         accessibilityLabel={t('profile.durationStepper.decrease')}
-        accessibilityRole="button"
-        accessibilityState={{disabled: !canDecrease}}
         disabled={!canDecrease}
-        hitSlop={4}
+        icon="minus"
         onPress={() => onChange(Math.max(min, value - 1))}
-        style={({pressed}) => [styles.stepperButton, !canDecrease && styles.stepperButtonDisabled, pressed && styles.pressed]}
-      >
-        <MaterialDesignIcons color={theme.colors.primary} name="minus" size={20} />
-      </Pressable>
+        variant="tonal"
+      />
       <View style={styles.stepperValueBox}>
         <Text style={styles.stepperValue}>{value} {unit}</Text>
       </View>
-      <Pressable
+      <AwaIconButton
         accessibilityLabel={t('profile.durationStepper.increase')}
-        accessibilityRole="button"
-        accessibilityState={{disabled: !canIncrease}}
         disabled={!canIncrease}
-        hitSlop={4}
+        icon="plus"
         onPress={() => onChange(Math.min(max, value + 1))}
-        style={({pressed}) => [styles.stepperButton, !canIncrease && styles.stepperButtonDisabled, pressed && styles.pressed]}
-      >
-        <MaterialDesignIcons color={theme.colors.primary} name="plus" size={20} />
-      </Pressable>
+        variant="tonal"
+      />
     </View>
   );
 }
@@ -1432,14 +1242,15 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   }, [anonymousMode, anonymousAccount]);
 
   /* ========================================================
-   * PROFILE PHOTO (normal mode) / ANONYMOUS AVATAR (anonymous mode)
+   * PROFILE PHOTO (normal mode) / ANONYMOUS PROFILE ICON (anonymous mode)
    *
    * Normal mode reuses the SAME store PersonalInformationScreen already
    * writes to (state/personalInformationStore.ts's avatarUri) — no second
-   * copy of the photo. Anonymous mode reads its own tiny, independent
-   * style/color preference (state/profileAvatarPreferences.ts) — the two
-   * never mix, satisfying the "never show the real photo while anonymous"
-   * rule structurally rather than by an extra runtime check.
+   * copy of the photo. Anonymous mode shows a fixed, neutral silhouette
+   * (components/profile/AnonymousProfileIcon.tsx) that reads no stored
+   * data at all — it never shows the real photo and cannot be edited,
+   * satisfying the "never show the real photo while anonymous" rule
+   * structurally rather than by an extra runtime check.
    * ======================================================== */
 
   const [photoUri, setPhotoUri] = useState<string | null>(
@@ -1461,34 +1272,13 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     }, []),
   );
 
-  const [anonymousAvatarStyle, setAnonymousAvatarStyle] =
-    useState<AnonymousAvatarStyleId>(
-      () => getProfileAvatarPreferences().anonymousAvatarStyle,
-    );
-  const [anonymousAvatarColor, setAnonymousAvatarColor] = useState<string>(
-    () => getProfileAvatarPreferences().anonymousAvatarColor,
-  );
-
-  useFocusEffect(
-    useCallback(() => {
-      let active = true;
-      const refreshAvatar = () => {
-        const value = getProfileAvatarPreferences();
-        if (active) {
-          setAnonymousAvatarStyle(value.anonymousAvatarStyle);
-          setAnonymousAvatarColor(value.anonymousAvatarColor);
-        }
-      };
-      hydrateProfileAvatarPreferences().then(refreshAvatar);
-      const unsubscribe = subscribeProfileAvatarPreferences(refreshAvatar);
-      return () => {
-        active = false;
-        unsubscribe();
-      };
-    }, []),
-  );
-
   const choosePhoto = async (useCamera: boolean) => {
+    // Anonymous mode has no avatar editing at all (no camera, no gallery): the badge that opens this sheet is not rendered
+    // either; this guard keeps the real profile photo untouched even if the sheet were reached some other way.
+    if (anonymousMode) {
+      setPhotoSheetVisible(false);
+      return;
+    }
     try {
       const result = useCamera
         ? await launchCamera({mediaType: 'photo', quality: 0.8})
@@ -1513,6 +1303,10 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   };
 
   const removePhoto = async () => {
+    if (anonymousMode) {
+      setPhotoSheetVisible(false);
+      return;
+    }
     try {
       const updated = await updatePersonalInformation({avatarUri: undefined});
       setPhotoUri(updated.avatarUri ?? null);
@@ -1698,11 +1492,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   start={{x: 0, y: 0}}
   end={{x: 1, y: 1}}
   style={styles.page}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <SafeAreaView style={styles.safe}>
         <StatusBar
@@ -1733,22 +1522,12 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               </Text>
             </View>
 
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('profile.managedProfiles.sheetTitle')}
-              accessibilityRole="button"
-              hitSlop={8}
+              icon="account-multiple-plus-outline"
               onPress={() => setManageProfilesVisible(true)}
-              style={({ pressed }) => [
-                styles.manageProfilesButton,
-                pressed && styles.pressed,
-              ]}
-            >
-              <MaterialDesignIcons
-                color={theme.colors.primary}
-                name="account-multiple-plus-outline"
-                size={20}
-              />
-            </Pressable>
+              variant="outlined"
+            />
           </View>
 
           {/* =================================================
@@ -1757,17 +1536,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               dedicated sections further down, not duplicated here.
           ================================================= */}
 
-          <LinearGradient
-            colors={[
-              theme.colors.surface,
-              interpolateHex(theme.colors.surface, theme.colors.primarySoft, 0.5),
-              theme.colors.primarySoft,
-            ]}
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 1}}
-            style={styles.identityCard}>
-            <View pointerEvents="none" style={styles.identityGlow} />
-            <View pointerEvents="none" style={styles.identityDecorTopRight} />
+          {/* DESIGN.md: a plain surface card — no gradient fill on cards. */}
+          <View style={styles.identityCard}>
 
             <View style={styles.identityTopRow}>
               <View style={styles.avatarOuterRing}>
@@ -1784,11 +1554,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                       style={styles.avatar}
                     />
                   ) : anonymousMode ? (
-                    <AnonymousAvatar
-                      color={anonymousAvatarColor}
-                      size={64}
-                      style={anonymousAvatarStyle}
-                    />
+                    <AnonymousProfileIcon size={64} />
                   ) : photoUri ? (
                     <Image
                       accessibilityIgnoresInvertColors
@@ -1806,27 +1572,22 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
                   {/* No photo-edit badge for a managed profile — her photo is only ever
                       set from the daughter-creation flow / a future edit screen, never
-                      from here (this pressable edits the MOTHER's own avatarUri). */}
-                  {isManagedProfileActive ? null : (
+                      from here (this pressable edits the MOTHER's own avatarUri).
+                      None in anonymous mode either: the anonymous avatar shown above is
+                      fixed, with no way to add or change it (no camera, no gallery, no
+                      avatar picker). */}
+                  {isManagedProfileActive || anonymousMode ? null : (
                     <Pressable
-                      accessibilityLabel={
-                        anonymousMode
-                          ? t('profile.editAnonymousAvatarAccessibility')
-                          : t('profile.editAvatarAccessibility')
-                      }
+                      accessibilityLabel={t('profile.editAvatarAccessibility')}
                       hitSlop={8}
-                      onPress={() =>
-                        anonymousMode
-                          ? navigation.navigate('AnonymousAvatarCustomizer')
-                          : setPhotoSheetVisible(true)
-                      }
+                      onPress={() => setPhotoSheetVisible(true)}
                       style={({pressed}) => [
                         styles.avatarBadge,
                         pressed && styles.pressed,
                       ]}>
                       <MaterialDesignIcons
                         color={onPrimaryTextColor(theme)}
-                        name={anonymousMode ? 'pencil-outline' : 'camera-outline'}
+                        name="camera-outline"
                         size={12}
                       />
                     </Pressable>
@@ -1873,7 +1634,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
                       <Pressable
                         accessibilityLabel={t('profile.editProfile')}
-                        hitSlop={10}
+                        hitSlop={12}
                         onPress={() => navigation.navigate('PersonalInformation')}
                         style={({pressed}) => [
                           styles.identityEditButton,
@@ -1903,7 +1664,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 </View>
               </View>
             </View>
-          </LinearGradient>
+          </View>
 
           {/* STATS */}
 
@@ -2810,23 +2571,13 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               ))}
             </View>
 
-            <Pressable
-              accessibilityRole="button"
+            <AwaButton
+              fullWidth
+              label={t('profile.spiritualMarkers.manageMarkers')}
               onPress={() => setSpiritualModalVisible(true)}
-              style={({ pressed }) => [
-                styles.manageButton,
-
-                pressed && styles.pressed,
-              ]}
-            >
-              <Text style={styles.manageButtonText}>{t('profile.spiritualMarkers.manageMarkers')}</Text>
-
-              <MaterialDesignIcons
-                color={onPrimaryTextColor(theme)}
-                name="tune-variant"
-                size={17}
-              />
-            </Pressable>
+              style={styles.manageButton}
+              trailingIcon="tune-variant"
+            />
           </View>
           ) : null}
 
@@ -2857,45 +2608,25 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
           </View>
 
           {anonymousMode ? (
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('profile.anonymousMode.exit')}
-              accessibilityRole="button"
+              fullWidth
+              icon="incognito"
+              label={t('profile.anonymousMode.exit')}
               onPress={() => navigation.navigate('AnonymousMode')}
-              style={({pressed}) => [
-                styles.simpleAccountButton,
-                styles.anonymousExit,
-                pressed && styles.simpleAccountButtonPressed,
-              ]}>
-              <MaterialDesignIcons
-                color={theme.colors.primary}
-                name="incognito"
-                size={18}
-              />
-
-              <Text style={styles.anonymousExitText}>
-                {t('profile.anonymousMode.exit')}
-              </Text>
-            </Pressable>
+              style={styles.accountButton}
+              variant="outlined"
+            />
           ) : (
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('profile.signOut')}
-              accessibilityRole="button"
+              fullWidth
+              icon="logout"
+              label={t('profile.signOut')}
               onPress={confirmSignOut}
-              style={({pressed}) => [
-                styles.simpleAccountButton,
-                styles.signOut,
-                pressed && styles.simpleAccountButtonPressed,
-              ]}>
-              <MaterialDesignIcons
-                color={theme.colors.danger}
-                name="logout"
-                size={18}
-              />
-
-              <Text style={styles.signOutText}>
-                {t('profile.signOut')}
-              </Text>
-            </Pressable>
+              style={styles.accountButton}
+              variant="destructive"
+            />
           )}
         </ScrollView>
         <HawaPremiumBottomSheet visible={premiumVisible} onClose={() => setPremiumVisible(false)} />
@@ -2939,17 +2670,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   </Text>
                 </View>
 
-                <Pressable
-                  accessibilityLabel={t('common.close')}
-                  onPress={() => setManageProfilesVisible(false)}
-                  style={styles.sheetClose}
-                >
-                  <MaterialDesignIcons
-                    color={theme.colors.accent}
-                    name="close"
-                    size={21}
-                  />
-                </Pressable>
+                <AwaIconButton accessibilityLabel={t('common.close')} icon="close" onPress={() => setManageProfilesVisible(false)} />
               </View>
 
               <ScrollView
@@ -2971,11 +2692,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 >
                   <View style={styles.profileRowAvatarWrap}>
                     {anonymousMode ? (
-                      <AnonymousAvatar
-                        color={anonymousAvatarColor}
-                        size={44}
-                        style={anonymousAvatarStyle}
-                      />
+                      <AnonymousProfileIcon size={44} />
                     ) : photoUri ? (
                       <Image
                         accessibilityIgnoresInvertColors
@@ -3073,24 +2790,15 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   );
                 })}
 
-                <Pressable
+                <AwaButton
                   accessibilityLabel={t('profile.managedProfiles.addProfile')}
-                  accessibilityRole="button"
+                  fullWidth
+                  icon="plus"
+                  label={t('profile.managedProfiles.addDaughterProfile')}
                   onPress={handleAddProfile}
-                  style={({ pressed }) => [
-                    styles.simpleAccountButton,
-                    styles.addProfileButton,
-                    pressed && styles.simpleAccountButtonPressed,
-                  ]}
-                >
-                  <MaterialDesignIcons
-                    color={theme.colors.primary}
-                    name="plus"
-                    size={18}
-                  />
-
-                  <Text style={styles.addProfileButtonText}>{t('profile.managedProfiles.addDaughterProfile')}</Text>
-                </Pressable>
+                  style={styles.accountButton}
+                  variant="tonal"
+                />
               </ScrollView>
             </View>
           </View>
@@ -3131,16 +2839,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   </Text>
                 </View>
 
-                <Pressable
-                  onPress={() => setObjectiveModalVisible(false)}
-                  style={styles.sheetClose}
-                >
-                  <MaterialDesignIcons
-                    color={theme.colors.accent}
-                    name="close"
-                    size={21}
-                  />
-                </Pressable>
+                <AwaIconButton accessibilityLabel={t('common.close')} icon="close" onPress={() => setObjectiveModalVisible(false)} />
               </View>
 
               <ScrollView
@@ -3172,17 +2871,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                         pressed && styles.optionPressed,
                       ]}
                     >
-                      <View
-                        style={[
-                          styles.objectiveIcon,
-
-                          {
-                            backgroundColor: item.tint,
-                          },
-                        ]}
-                      >
-                        <Text style={styles.objectiveEmoji}>{item.icon}</Text>
-                      </View>
+                      <ObjectiveIcon objective={item.id} selected={active} />
 
                       <View style={styles.objectiveOptionCopy}>
                         <Text
@@ -3256,16 +2945,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   </Text>
                 </View>
 
-                <Pressable
-                  onPress={() => setSpiritualModalVisible(false)}
-                  style={styles.sheetClose}
-                >
-                  <MaterialDesignIcons
-                    color={theme.colors.accent}
-                    name="close"
-                    size={21}
-                  />
-                </Pressable>
+                <AwaIconButton accessibilityLabel={t('common.close')} icon="close" onPress={() => setSpiritualModalVisible(false)} />
               </View>
 
               <ScrollView
@@ -3515,18 +3195,14 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   </Text>
                 </View>
 
-                <Pressable
+                <AwaButton
+                  fullWidth
+                  icon="check"
+                  label={t('cycleHome.quickActions.done')}
                   onPress={() => setSpiritualModalVisible(false)}
-                  style={({ pressed }) => [
-                    styles.doneButton,
-
-                    pressed && styles.optionPressed,
-                  ]}
-                >
-                  <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={19} />
-
-                  <Text style={styles.doneButtonText}>{t('cycleHome.quickActions.done')}</Text>
-                </Pressable>
+                  size="large"
+                  style={styles.doneButton}
+                />
               </ScrollView>
             </View>
           </View>
@@ -3561,16 +3237,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   </Text>
                 </View>
 
-                <Pressable
-                  onPress={() => setAccountInfoModalVisible(false)}
-                  style={styles.sheetClose}
-                >
-                  <MaterialDesignIcons
-                    color={theme.colors.accent}
-                    name="close"
-                    size={21}
-                  />
-                </Pressable>
+                <AwaIconButton accessibilityLabel={t('common.close')} icon="close" onPress={() => setAccountInfoModalVisible(false)} />
               </View>
 
               <View style={[styles.accountInfoList, {paddingBottom: Math.max(insets.bottom, 14) + 14}]}>
@@ -3660,9 +3327,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   <Text style={styles.sheetTitle}>{t('profile.cycleDurationEditor.title')}</Text>
                   <Text style={styles.sheetSubtitle}>{t('profile.cycleDurationEditor.subtitle')}</Text>
                 </View>
-                <Pressable onPress={() => setCycleDurationEditorVisible(false)} style={styles.sheetClose}>
-                  <MaterialDesignIcons color={theme.colors.accent} name="close" size={21} />
-                </Pressable>
+                <AwaIconButton accessibilityLabel={t('common.close')} icon="close" onPress={() => setCycleDurationEditorVisible(false)} />
               </View>
 
               <View style={{paddingBottom: Math.max(insets.bottom, 14) + 14}}>
@@ -3675,22 +3340,19 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 />
 
                 <View style={styles.editorActions}>
-                  <Pressable
+                  <AwaButton
                     accessibilityLabel={t('common.cancel')}
-                    accessibilityRole="button"
+                    label={t('common.cancel')}
                     onPress={() => setCycleDurationEditorVisible(false)}
-                    style={({pressed}) => [styles.editorCancelButton, pressed && styles.pressed]}
-                  >
-                    <Text style={styles.editorCancelText}>{t('common.cancel')}</Text>
-                  </Pressable>
-                  <Pressable
+                    style={styles.editorButton}
+                    variant="outlined"
+                  />
+                  <AwaButton
                     accessibilityLabel={t('common.save')}
-                    accessibilityRole="button"
+                    label={t('common.save')}
                     onPress={saveCycleDuration}
-                    style={({pressed}) => [styles.editorSaveButton, pressed && styles.pressed]}
-                  >
-                    <Text style={[styles.editorSaveText, {color: onPrimaryTextColor(theme)}]}>{t('common.save')}</Text>
-                  </Pressable>
+                    style={styles.editorButton}
+                  />
                 </View>
               </View>
             </View>
@@ -3718,9 +3380,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   <Text style={styles.sheetTitle}>{t('profile.periodDurationEditor.title')}</Text>
                   <Text style={styles.sheetSubtitle}>{t('profile.periodDurationEditor.subtitle')}</Text>
                 </View>
-                <Pressable onPress={() => setPeriodDurationEditorVisible(false)} style={styles.sheetClose}>
-                  <MaterialDesignIcons color={theme.colors.accent} name="close" size={21} />
-                </Pressable>
+                <AwaIconButton accessibilityLabel={t('common.close')} icon="close" onPress={() => setPeriodDurationEditorVisible(false)} />
               </View>
 
               <View style={{paddingBottom: Math.max(insets.bottom, 14) + 14}}>
@@ -3733,22 +3393,19 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 />
 
                 <View style={styles.editorActions}>
-                  <Pressable
+                  <AwaButton
                     accessibilityLabel={t('common.cancel')}
-                    accessibilityRole="button"
+                    label={t('common.cancel')}
                     onPress={() => setPeriodDurationEditorVisible(false)}
-                    style={({pressed}) => [styles.editorCancelButton, pressed && styles.pressed]}
-                  >
-                    <Text style={styles.editorCancelText}>{t('common.cancel')}</Text>
-                  </Pressable>
-                  <Pressable
+                    style={styles.editorButton}
+                    variant="outlined"
+                  />
+                  <AwaButton
                     accessibilityLabel={t('common.save')}
-                    accessibilityRole="button"
+                    label={t('common.save')}
                     onPress={savePeriodDuration}
-                    style={({pressed}) => [styles.editorSaveButton, pressed && styles.pressed]}
-                  >
-                    <Text style={[styles.editorSaveText, {color: onPrimaryTextColor(theme)}]}>{t('common.save')}</Text>
-                  </Pressable>
+                    style={styles.editorButton}
+                  />
                 </View>
               </View>
             </View>
@@ -3776,9 +3433,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   <Text style={styles.sheetTitle}>{t('profile.regularityEditor.title')}</Text>
                   <Text style={styles.sheetSubtitle}>{t('profile.regularityEditor.subtitle')}</Text>
                 </View>
-                <Pressable onPress={() => setRegularityEditorVisible(false)} style={styles.sheetClose}>
-                  <MaterialDesignIcons color={theme.colors.accent} name="close" size={21} />
-                </Pressable>
+                <AwaIconButton accessibilityLabel={t('common.close')} icon="close" onPress={() => setRegularityEditorVisible(false)} />
               </View>
 
               <View style={{paddingBottom: Math.max(insets.bottom, 14) + 14}}>
@@ -3820,22 +3475,19 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 ))}
 
                 <View style={styles.editorActions}>
-                  <Pressable
+                  <AwaButton
                     accessibilityLabel={t('common.cancel')}
-                    accessibilityRole="button"
+                    label={t('common.cancel')}
                     onPress={() => setRegularityEditorVisible(false)}
-                    style={({pressed}) => [styles.editorCancelButton, pressed && styles.pressed]}
-                  >
-                    <Text style={styles.editorCancelText}>{t('common.cancel')}</Text>
-                  </Pressable>
-                  <Pressable
+                    style={styles.editorButton}
+                    variant="outlined"
+                  />
+                  <AwaButton
                     accessibilityLabel={t('common.save')}
-                    accessibilityRole="button"
+                    label={t('common.save')}
                     onPress={saveRegularity}
-                    style={({pressed}) => [styles.editorSaveButton, pressed && styles.pressed]}
-                  >
-                    <Text style={[styles.editorSaveText, {color: onPrimaryTextColor(theme)}]}>{t('common.save')}</Text>
-                  </Pressable>
+                    style={styles.editorButton}
+                  />
                 </View>
               </View>
             </View>
@@ -3876,16 +3528,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   </Text>
                 </View>
 
-                <Pressable
-                  onPress={() => setManagedProfileInfoModalVisible(false)}
-                  style={styles.sheetClose}
-                >
-                  <MaterialDesignIcons
-                    color={theme.colors.accent}
-                    name="close"
-                    size={21}
-                  />
-                </Pressable>
+                <AwaIconButton accessibilityLabel={t('common.close')} icon="close" onPress={() => setManagedProfileInfoModalVisible(false)} />
               </View>
 
               <View style={[styles.accountInfoList, {paddingBottom: Math.max(insets.bottom, 14) + 14}]}>
@@ -3955,16 +3598,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   <Text style={styles.sheetTitle}>{t('profile.photoModal.editTitle')}</Text>
                 </View>
 
-                <Pressable
-                  onPress={() => setPhotoSheetVisible(false)}
-                  style={styles.sheetClose}
-                >
-                  <MaterialDesignIcons
-                    color={theme.colors.accent}
-                    name="close"
-                    size={21}
-                  />
-                </Pressable>
+                <AwaIconButton accessibilityLabel={t('common.close')} icon="close" onPress={() => setPhotoSheetVisible(false)} />
               </View>
 
               <View style={{paddingBottom: Math.max(insets.bottom, 14) + 14}}>
@@ -4024,40 +3658,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   backgroundColor: theme.colors.background,
 },
 
-pageBackgroundDecor: {
-  ...StyleSheet.absoluteFillObject,
-  overflow: 'hidden',
-},
 
-pageGlowTop: {
-  position: 'absolute',
-  top: -150,
-  right: -110,
-  width: 330,
-  height: 330,
-  borderRadius: 165,
-  backgroundColor: withAlpha(theme.colors.primary, 0.07),
-},
 
-pageGlowMiddle: {
-  position: 'absolute',
-  top: '38%',
-  left: -130,
-  width: 260,
-  height: 260,
-  borderRadius: 130,
-  backgroundColor: withAlpha(theme.colors.primary, 0.045),
-},
 
-pageGlowBottom: {
-  position: 'absolute',
-  bottom: -150,
-  right: -100,
-  width: 310,
-  height: 310,
-  borderRadius: 155,
-  backgroundColor: withAlpha(theme.colors.primary, 0.05),
-},
   // Fixed brand identity — see the header comment above (Step 17).
   premiumCard: {
     position: 'relative',
@@ -4066,55 +3669,22 @@ pageGlowBottom: {
     marginBottom: 18,
     borderWidth: 1.6,
     borderColor: '#E97BFF',
-    borderRadius: 24,
+    borderRadius: 12,
     backgroundColor: '#4A2398',
-    paddingHorizontal: 15,
-    paddingTop: 14,
-    paddingBottom: 13,
-    shadowColor: '#D85BFF',
-    shadowOpacity: 0.38,
-    shadowRadius: 13,
-    shadowOffset: {width: 0, height: 6},
-    elevation: 7,
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 16,
+    // DESIGN.md: no coloured glow — a soft neutral shadow within the elevation budget.
+    shadowColor: '#251059',
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    shadowOffset: {width: 0, height: 4},
+    elevation: 4,
   },
 
-  premiumGlow: {
-    position: 'absolute',
-    top: -54,
-    right: -38,
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    backgroundColor: '#A874FF',
-  },
 
-  premiumAmbientOrbOne: {
-    position: 'absolute',
-    left: -52,
-    bottom: -72,
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    backgroundColor: 'rgba(112,69,215,0.34)',
-  },
 
-  premiumAmbientOrbTwo: {
-    position: 'absolute',
-    right: 22,
-    bottom: -62,
-    width: 112,
-    height: 112,
-    borderRadius: 56,
-    backgroundColor: 'rgba(255,185,225,0.10)',
-  },
 
-  premiumShine: {
-    position: 'absolute',
-    top: -62,
-    bottom: -62,
-    width: 42,
-    backgroundColor: 'rgba(255,255,255,0.16)',
-  },
 
   premiumHeaderRow: {
     flexDirection: 'row',
@@ -4129,7 +3699,7 @@ pageGlowBottom: {
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: 'rgba(255,221,115,0.26)',
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: 'rgba(255,216,95,0.10)',
   },
 
@@ -4151,19 +3721,10 @@ pageGlowBottom: {
   premiumSubtitle: {
     marginTop: 3,
     color: '#F1E9FF',
-    fontSize: 10.8,
-    lineHeight: 15.5,
+    fontSize: 12,
+    lineHeight: 17,
   },
 
-  premiumStarWrap: {
-    width: 28,
-    height: 28,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 14,
-    backgroundColor: 'rgba(255,255,255,0.07)',
-  },
 
   premiumFeaturesGrid: {
     marginTop: 11,
@@ -4190,13 +3751,13 @@ pageGlowBottom: {
     flex: 1,
     marginLeft: 8,
     color: '#FFFFFF',
-    fontSize: 10.8,
+    fontSize: 12,
     fontWeight: '600',
-    lineHeight: 14.5,
+    lineHeight: 17,
   },
 
   premiumButton: {
-    minHeight: 44,
+    minHeight: 48,
     marginTop: 12,
     flexDirection: 'row',
     alignItems: 'center',
@@ -4207,11 +3768,6 @@ pageGlowBottom: {
     borderRadius: 16,
     backgroundColor: '#FFFDFE',
     paddingHorizontal: 14,
-    shadowColor: '#251059',
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.15,
-    shadowRadius: 6,
-    elevation: 2,
   },
 
   premiumButtonText: {
@@ -4257,16 +3813,6 @@ pageGlowBottom: {
 
   // Compact header icon button — same chrome already used for this exact purpose
   // elsewhere in the header row (44px, subtle border + soft surface).
-  manageProfilesButton: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.16),
-    borderRadius: 16,
-    backgroundColor: withAlpha(theme.colors.surface, 0.92),
-  },
 
   notificationDot: {
     position: 'absolute',
@@ -4290,9 +3836,10 @@ pageGlowBottom: {
     minHeight: 108,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.11),
-    borderRadius: 22,
-    paddingHorizontal: 14,
-    paddingVertical: 14,
+    borderRadius: 12,
+    backgroundColor: theme.colors.surface,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
     shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 5},
     shadowOpacity: 0.06,
@@ -4300,25 +3847,7 @@ pageGlowBottom: {
     elevation: 3,
   },
 
-  identityGlow: {
-    position: 'absolute',
-    top: -92,
-    left: -62,
-    width: 190,
-    height: 190,
-    borderRadius: 95,
-    backgroundColor: withAlpha(theme.colors.surface, 0.82),
-  },
 
-  identityDecorTopRight: {
-    position: 'absolute',
-    top: -42,
-    right: -30,
-    width: 116,
-    height: 116,
-    borderRadius: 58,
-    backgroundColor: withAlpha(theme.colors.primary, 0.055),
-  },
 
   identityTopRow: {
     flexDirection: 'row',
@@ -4364,7 +3893,6 @@ pageGlowBottom: {
 
   avatarFallbackText: {
     color: theme.colors.primary,
-    fontFamily: 'serif',
     fontSize: 24,
     fontWeight: '700',
   },
@@ -4383,7 +3911,7 @@ pageGlowBottom: {
     backgroundColor: theme.colors.primary,
     shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.16,
+    shadowOpacity: 0.15,
     shadowRadius: 4,
     elevation: 2,
   },
@@ -4403,8 +3931,8 @@ pageGlowBottom: {
 
   identityEyebrow: {
     color: theme.colors.primary,
-    fontSize: 8.5,
-    lineHeight: 11,
+    fontSize: 11,
+    lineHeight: 16,
     fontWeight: '800',
     letterSpacing: 0.9,
   },
@@ -4426,19 +3954,18 @@ pageGlowBottom: {
   name: {
     flexShrink: 1,
     color: theme.colors.text,
-    fontFamily: 'serif',
     fontSize: 19,
     lineHeight: 24,
     fontWeight: '700',
   },
 
   identityEditButton: {
-    width: 26,
-    height: 26,
+    width: 28,
+    height: 28,
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 9,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.88),
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.12),
@@ -4447,7 +3974,6 @@ pageGlowBottom: {
   identityTitle: {
     flexShrink: 1,
     color: theme.colors.text,
-    fontFamily: 'serif',
     fontSize: 18,
     fontWeight: '700',
     lineHeight: 23,
@@ -4465,8 +3991,8 @@ pageGlowBottom: {
     flexShrink: 1,
     marginTop: 2,
     color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 14,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   // Generic "toggle currently on" status — theme.colors.success, same
@@ -4491,7 +4017,7 @@ pageGlowBottom: {
 
   activeBadgeText: {
     color: theme.colors.success,
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '800',
   },
 
@@ -4511,8 +4037,8 @@ pageGlowBottom: {
 
   identityPrivacyText: {
     color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    lineHeight: 12,
+    fontSize: 11,
+    lineHeight: 16,
     fontWeight: '700',
   },
 
@@ -4528,7 +4054,7 @@ pageGlowBottom: {
     flexGrow: 1,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 18,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.9),
     paddingVertical: 12,
     paddingHorizontal: 12,
@@ -4539,7 +4065,7 @@ pageGlowBottom: {
     height: 32,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 11,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -4574,7 +4100,7 @@ pageGlowBottom: {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 11,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.09),
@@ -4587,20 +4113,12 @@ pageGlowBottom: {
   },
 
   sectionTitle: {
-    marginLeft: 9,
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 17,
-    lineHeight: 22,
-    fontWeight: '700',
+    marginLeft: 12,
   },
 
   sectionSubtitle: {
-    marginTop: 5,
-    marginLeft: 43,
-    color: theme.colors.textSecondary,
-    fontSize: 11.5,
-    lineHeight: 16,
+    marginTop: 4,
+    marginLeft: 46,
   },
 
   menuCard: {
@@ -4622,7 +4140,7 @@ pageGlowBottom: {
     paddingVertical: 10,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.10),
-    borderRadius: 18,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.96),
     shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 3},
@@ -4660,7 +4178,7 @@ pageGlowBottom: {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 13,
+    borderRadius: 12,
   },
 
   // Dead/unused (MenuRow sources its icon background from MENU_TONES
@@ -4687,26 +4205,12 @@ pageGlowBottom: {
     marginRight: 7,
   },
 
-  menuTitle: {
-    color: theme.colors.text,
-    fontSize: 14,
-    lineHeight: 18,
-    fontWeight: '700',
-  },
-
   menuSubtitle: {
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    lineHeight: 15.5,
+    marginTop: 4,
   },
 
   menuStatus: {
-    marginTop: 3,
-    color: theme.colors.primary,
-    fontSize: 10.5,
-    lineHeight: 14,
-    fontWeight: '700',
+    marginTop: 4,
   },
 
   menuChevron: {
@@ -4715,7 +4219,7 @@ pageGlowBottom: {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 9,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -4726,7 +4230,7 @@ pageGlowBottom: {
     marginTop: 14,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.warning, 0.28),
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.10),
     paddingHorizontal: 12,
     paddingVertical: 10,
@@ -4738,7 +4242,7 @@ pageGlowBottom: {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.20),
   },
 
@@ -4779,7 +4283,7 @@ pageGlowBottom: {
     marginTop: 16,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.18),
-    borderRadius: 24,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.94),
     padding: 14,
   },
@@ -4830,7 +4334,6 @@ pageGlowBottom: {
 
   spiritualTitle: {
     color: theme.colors.accent,
-    fontFamily: 'serif',
     fontSize: 16,
     fontWeight: '700',
   },
@@ -4840,7 +4343,7 @@ pageGlowBottom: {
   },
 
   statusBadge: {
-    borderRadius: 10,
+    borderRadius: 12,
     paddingHorizontal: 8,
     paddingVertical: 3,
   },
@@ -4854,7 +4357,7 @@ pageGlowBottom: {
   },
 
   statusBadgeText: {
-    fontSize: 10.5,
+    fontSize: 11,
     fontWeight: '700',
   },
 
@@ -4886,9 +4389,9 @@ pageGlowBottom: {
     minHeight: 42,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
   },
 
   spiritualMiniFeatureDisabled: {
@@ -4913,56 +4416,16 @@ pageGlowBottom: {
   },
 
   manageButton: {
-    minHeight: 44,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 7,
-    marginTop: 13,
-    borderRadius: 15,
-    backgroundColor: theme.colors.primary,
+    marginTop: 16,
   },
 
-  manageButtonText: {
-    color: onPrimaryTextColor(theme),
-    fontSize: 14,
-    fontWeight: '700',
+  accountButton: {
+    marginTop: 16,
   },
 
   /* ========================================================
    * SIMPLE ACCOUNT ACTION
    * ======================================================== */
-
-  simpleAccountButton: {
-    minHeight: 48,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    marginTop: 16,
-    paddingHorizontal: 16,
-    paddingVertical: 11,
-    borderWidth: 1,
-    borderRadius: 15,
-  },
-
-  simpleAccountButtonPressed: {
-    opacity: 0.72,
-  },
-
-  // Destructive action — theme.colors.danger, preserving semantic identity
-  // (Step 15). Never becomes theme.primary regardless of active palette.
-  signOut: {
-    borderColor: withAlpha(theme.colors.danger, 0.30),
-    backgroundColor: withAlpha(theme.colors.surface, 0.72),
-  },
-
-  signOutText: {
-    color: theme.colors.danger,
-    fontSize: 14,
-    lineHeight: 19,
-    fontWeight: '700',
-  },
 
   // "Se déconnecter ?" confirmation — same destructive-confirmation visual pattern
   // already established elsewhere in AWA (QadaaDeleteConfirmModal.tsx / the AWA à deux
@@ -4975,7 +4438,7 @@ pageGlowBottom: {
     width: '100%',
     maxWidth: 400,
     alignItems: 'center',
-    borderRadius: 26,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surface,
@@ -4995,41 +4458,15 @@ pageGlowBottom: {
     backgroundColor: withAlpha(theme.colors.danger, 0.12),
   },
   logoutDialogTitle: {
-    marginTop: 14,
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 21,
-    fontWeight: '700',
-    lineHeight: 27,
+    marginTop: 16,
     textAlign: 'center',
   },
-  logoutDialogBody: {marginTop: 10, color: theme.colors.textSecondary, fontSize: 13.5, lineHeight: 20, textAlign: 'center'},
-  logoutDialogReassurance: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18, textAlign: 'center'},
+  logoutDialogBody: {marginTop: 12, textAlign: 'center'},
+  logoutDialogReassurance: {marginTop: 8, textAlign: 'center'},
   logoutDialogActions: {marginTop: 20, flexDirection: 'row', gap: 10, alignSelf: 'stretch'},
   logoutDialogButton: {
     flex: 1,
-    minHeight: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    paddingHorizontal: 10,
-  },
-  logoutDialogCancelButton: {borderWidth: 1.4, borderColor: theme.colors.primary, backgroundColor: theme.colors.surface},
-  logoutDialogCancelText: {color: theme.colors.primary, fontSize: 15, fontWeight: '700'},
-  logoutDialogDestructiveButton: {backgroundColor: theme.colors.danger},
-  logoutDialogDestructiveText: {fontSize: 15, fontWeight: '700'},
-  logoutDialogPressed: {opacity: 0.85},
-
-  anonymousExit: {
-    borderColor: withAlpha(theme.colors.primary, 0.28),
-    backgroundColor: withAlpha(theme.colors.surface, 0.72),
-  },
-
-  anonymousExitText: {
-    color: theme.colors.primary,
-    fontSize: 14,
-    lineHeight: 19,
-    fontWeight: '700',
+    paddingHorizontal: 12,
   },
 
   /* MODAL */
@@ -5045,8 +4482,8 @@ pageGlowBottom: {
   objectiveSheet: {
     maxHeight: '88%',
     overflow: 'hidden',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.surface,
     paddingHorizontal: 16,
     paddingTop: 10,
@@ -5055,8 +4492,8 @@ pageGlowBottom: {
   spiritualSheet: {
     maxHeight: '90%',
     overflow: 'hidden',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.surface,
     paddingHorizontal: 16,
     paddingTop: 10,
@@ -5068,8 +4505,8 @@ pageGlowBottom: {
   manageProfilesSheet: {
     maxHeight: '70%',
     overflow: 'hidden',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.surface,
     paddingHorizontal: 16,
     paddingTop: 10,
@@ -5115,17 +4552,6 @@ pageGlowBottom: {
     lineHeight: 17,
   },
 
-  sheetClose: {
-    width: 40,
-    height: 40,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 14,
-    backgroundColor: theme.colors.surface,
-  },
 
   objectiveList: {
     gap: 9,
@@ -5173,11 +4599,9 @@ pageGlowBottom: {
     borderWidth: 1.4,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.background,
-    paddingHorizontal: 6,
+    paddingHorizontal: 8,
     marginTop: 4,
   },
-  stepperButton: {width: 44, height: 44, alignItems: 'center', justifyContent: 'center'},
-  stepperButtonDisabled: {opacity: 0.35},
   stepperValueBox: {flex: 1, alignItems: 'center'},
   stepperValue: {color: theme.colors.text, fontSize: 16, fontWeight: '700'},
 
@@ -5205,25 +4629,7 @@ pageGlowBottom: {
     gap: 10,
     marginTop: 18,
   },
-  editorCancelButton: {
-    flex: 1,
-    minHeight: 48,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.2),
-  },
-  editorCancelText: {color: theme.colors.textSecondary, fontSize: 13.5, fontWeight: '700'},
-  editorSaveButton: {
-    flex: 1,
-    minHeight: 48,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 16,
-    backgroundColor: theme.colors.primary,
-  },
-  editorSaveText: {fontSize: 13.5, fontWeight: '700'},
+  editorButton: {flex: 1},
 
   objectiveOption: {
     minHeight: 72,
@@ -5231,31 +4637,15 @@ pageGlowBottom: {
     alignItems: 'center',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 19,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
-    paddingHorizontal: 11,
+    paddingHorizontal: 12,
     paddingVertical: 10,
   },
 
   objectiveOptionActive: {
     borderColor: theme.colors.primary,
     backgroundColor: theme.colors.primarySoft,
-  },
-
-  // Per-objective `tint` (from the OBJECTIVES array) stays a fixed literal
-  // — a decorative identity badge for each of the 8 objectives, not a
-  // themed role (Category E, same reasoning as MENU_TONES above).
-  objectiveIcon: {
-    width: 46,
-    height: 46,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: 0,
-    borderRadius: 15,
-  },
-
-  objectiveEmoji: {
-    fontSize: 23,
   },
 
   objectiveOptionCopy: {
@@ -5279,8 +4669,8 @@ pageGlowBottom: {
   objectiveOptionSubtitle: {
     marginTop: 3,
     color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   objectiveRadio: {
@@ -5325,24 +4715,10 @@ pageGlowBottom: {
   },
   profileRowAvatarFallbackText: {
     color: theme.colors.primary,
-    fontFamily: 'serif',
     fontSize: 17,
     fontWeight: '700',
   },
 
-  // Same pill-button skeleton as signOut/anonymousExit (simpleAccountButton +
-  // simpleAccountButtonPressed), only the color variant is new — a soft primary/lilac
-  // action, never a hardcoded color.
-  addProfileButton: {
-    borderColor: withAlpha(theme.colors.primary, 0.35),
-    backgroundColor: theme.colors.primarySoft,
-  },
-  addProfileButtonText: {
-    color: theme.colors.primary,
-    fontSize: 14,
-    lineHeight: 19,
-    fontWeight: '700',
-  },
 
   /* SPIRITUAL SHEET */
 
@@ -5352,7 +4728,7 @@ pageGlowBottom: {
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 11,
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -5381,23 +4757,16 @@ pageGlowBottom: {
     alignItems: 'center',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.16),
-    borderRadius: 18,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
-    paddingHorizontal: 12,
-    paddingVertical: 9,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
 
+  // DESIGN.md selected state: primaryContainer fill + primary border (the radio dot + check keep it readable without colour alone).
   activationChoiceActive: {
     borderColor: theme.colors.primary,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.17,
-    shadowRadius: 7,
-    elevation: 2,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   activationRadio: {
@@ -5412,14 +4781,14 @@ pageGlowBottom: {
   },
 
   activationRadioActive: {
-    borderColor: withAlpha(onPrimaryTextColor(theme), 0.7),
+    borderColor: theme.colors.primary,
   },
 
   activationRadioDot: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: onPrimaryTextColor(theme),
+    backgroundColor: theme.colors.primary,
   },
 
   activationCopy: {
@@ -5435,18 +4804,18 @@ pageGlowBottom: {
   },
 
   activationTitleActive: {
-    color: onPrimaryTextColor(theme),
+    color: theme.colors.text,
   },
 
   activationDescription: {
     marginTop: 2,
     color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   activationDescriptionActive: {
-    color: withAlpha(onPrimaryTextColor(theme), 0.85),
+    color: theme.colors.textSecondary,
   },
 
   activationCheck: {
@@ -5476,7 +4845,7 @@ pageGlowBottom: {
   },
 
   featuresStatus: {
-    borderRadius: 10,
+    borderRadius: 12,
     paddingHorizontal: 8,
     paddingVertical: 4,
   },
@@ -5490,7 +4859,7 @@ pageGlowBottom: {
   },
 
   featuresStatusText: {
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '800',
   },
 
@@ -5512,10 +4881,10 @@ pageGlowBottom: {
     alignItems: 'center',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 17,
+    borderRadius: 16,
     backgroundColor: theme.colors.surface,
-    paddingHorizontal: 11,
-    paddingVertical: 9,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
 
   spiritualFeatureCardDisabled: {
@@ -5529,7 +4898,7 @@ pageGlowBottom: {
     alignItems: 'center',
     justifyContent: 'center',
     flexShrink: 0,
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -5561,8 +4930,8 @@ pageGlowBottom: {
   spiritualFeatureDescription: {
     marginTop: 2,
     color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   spiritualFeatureDescriptionDisabled: {
@@ -5591,7 +4960,7 @@ pageGlowBottom: {
     alignItems: 'center',
     gap: 9,
     marginTop: 13,
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
     paddingHorizontal: 12,
     paddingVertical: 10,
@@ -5600,25 +4969,12 @@ pageGlowBottom: {
   spiritualInfoText: {
     flex: 1,
     color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   doneButton: {
-    minHeight: 50,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    marginTop: 14,
-    borderRadius: 18,
-    backgroundColor: theme.colors.primary,
-  },
-
-  doneButtonText: {
-    color: onPrimaryTextColor(theme),
-    fontSize: 15,
-    fontWeight: '700',
+    marginTop: 16,
   },
 
   optionPressed: {
@@ -5644,18 +5000,10 @@ pageGlowBottom: {
   alignItems: 'center',
   justifyContent: 'center',
   gap: 8,
-  // Reserve the (absolutely positioned) arrow's lane symmetrically so a long
-  // Russian/German CTA wraps instead of running under it.
+  // A long Russian/German CTA wraps instead of overflowing.
   flexShrink: 1,
-  paddingHorizontal: 22,
 },
 
-premiumButtonArrow: {
-  position: 'absolute',
-  right: 16,
-  alignItems: 'center',
-  justifyContent: 'center',
-},
 
   });
 }

@@ -407,8 +407,9 @@ describe('ProfileScreen — "Gérer les profils" (manage-profiles entry point)',
     await act(async () => {
       renderer.root.findAll(node => node.props.accessibilityLabel === 'Gérer les profils' && node.props.accessibilityRole === 'button')[0].props.onPress();
     });
+    // DESIGN.md: lookups follow the Material 3 radii now written in the source (sheet top corners 28, dialog card 12).
     const light = resolveAwaTheme('awa-original', false, false);
-    const sheetOf = () => renderer.root.findAll(node => typeof node.type === 'string' && flattenStyle(node.props?.style).borderTopLeftRadius === 30 && flattenStyle(node.props?.style).maxHeight === '70%')[0];
+    const sheetOf = () => renderer.root.findAll(node => typeof node.type === 'string' && flattenStyle(node.props?.style).borderTopLeftRadius === 28 && flattenStyle(node.props?.style).maxHeight === '70%')[0];
     expect(flattenStyle(sheetOf().props.style).backgroundColor).toBe(light.colors.surface);
 
     await act(async () => {
@@ -655,7 +656,7 @@ describe('ProfileScreen — "Se déconnecter" confirmation dialog', () => {
     const iconCircle = () => renderer.root.findAll(node => typeof node.type === 'string' && flattenStyle(node.props?.style).borderRadius === 28 && flattenStyle(node.props?.style).width === 56)[0];
     expect(flattenStyle(iconCircle().props.style).backgroundColor).not.toBe(flattenStyle(iconCircle().props.style).borderColor);
 
-    const cardOf = () => renderer.root.findAll(node => typeof node.type === 'string' && flattenStyle(node.props?.style).borderRadius === 26 && flattenStyle(node.props?.style).maxWidth === 400)[0];
+    const cardOf = () => renderer.root.findAll(node => typeof node.type === 'string' && flattenStyle(node.props?.style).borderRadius === 12 && flattenStyle(node.props?.style).maxWidth === 400)[0];
     expect(flattenStyle(cardOf().props.style).backgroundColor).toBe(light.colors.surface);
 
     await act(async () => {

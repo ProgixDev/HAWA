@@ -1,12 +1,14 @@
 import React, {memo, useEffect, useMemo, useRef, useState} from 'react';
-import {Modal, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Modal, Pressable, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 
-import {homeRadii} from '../home/homeTheme';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {ManagedProfile} from '../../state/managedProfilesStore';
 
 type Props = {
@@ -62,8 +64,6 @@ function ManagedProfileDeleteConfirmModal({profile, onCancel, onConfirm}: Props)
     }
   };
 
-  const destructiveText = pickReadableTextColor(theme.colors.danger);
-
   return (
     <Modal animationType="fade" onRequestClose={cancel} statusBarTranslucent transparent visible={profile !== null}>
       <View
@@ -77,47 +77,44 @@ function ManagedProfileDeleteConfirmModal({profile, onCancel, onConfirm}: Props)
           onPress={cancel}
           style={styles.backdrop}
         />
-        <View accessibilityViewIsModal style={styles.card}>
+        <AwaCard accessibilityViewIsModal padding="none" shape="large" style={styles.card}>
           <View style={styles.content}>
             <View importantForAccessibility="no-hide-descendants" style={styles.iconCircle}>
               <MaterialDesignIcons color={theme.colors.danger} name="trash-can-outline" size={26} />
             </View>
 
-            <Text accessibilityRole="header" style={styles.title}>{t('managedProfile.deleteModal.title')}</Text>
+            <AwaText accessibilityRole="header" style={styles.title} variant="titleLarge">{t('managedProfile.deleteModal.title')}</AwaText>
 
             {shown ? (
               <>
-                <Text style={styles.body}>{t('managedProfile.deleteModal.body', {firstName: shown.firstName})}</Text>
-                <Text style={styles.reassurance}>
+                <AwaText colorRole="onSurfaceVariant" style={styles.body} variant="bodyMedium">{t('managedProfile.deleteModal.body', {firstName: shown.firstName})}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" style={styles.reassurance} variant="bodyMedium">
                   {t('managedProfile.deleteModal.reassurance')}
-                </Text>
+                </AwaText>
               </>
             ) : null}
           </View>
 
           <View style={styles.actions}>
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('managedProfile.deleteModal.cancelAccessibility')}
-              accessibilityRole="button"
-              accessibilityState={{disabled: deleting}}
               disabled={deleting}
+              label={t('managedProfile.deleteModal.cancelText')}
               onPress={cancel}
-              style={({pressed}) => [styles.button, styles.cancelButton, pressed && styles.pressed]}>
-              <Text style={styles.cancelText}>{t('managedProfile.deleteModal.cancelText')}</Text>
-            </Pressable>
-            <Pressable
+              style={styles.button}
+              variant="outlined"
+            />
+            <AwaButton
               accessibilityLabel={shown ? t('managedProfile.deleteModal.confirmAccessibilityNamed', {firstName: shown.firstName}) : t('managedProfile.deleteModal.confirmAccessibility')}
-              accessibilityRole="button"
-              accessibilityState={{disabled: deleting, busy: deleting}}
+              accessibilityState={{busy: deleting}}
               disabled={deleting}
+              label={deleting ? t('managedProfile.deleteModal.deleting') : t('managedProfile.deleteModal.confirmText')}
               onPress={confirm}
-              style={({pressed}) => [styles.button, styles.deleteButton, (pressed || deleting) && styles.pressed]}>
-              <Text style={[styles.deleteText, {color: destructiveText}]}>
-                {deleting ? t('managedProfile.deleteModal.deleting') : t('managedProfile.deleteModal.confirmText')}
-              </Text>
-            </Pressable>
+              style={styles.button}
+              variant="destructive"
+            />
           </View>
-        </View>
+        </AwaCard>
       </View>
     </Modal>
   );
@@ -131,10 +128,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       width: '100%',
       maxWidth: 400,
       overflow: 'hidden',
-      borderRadius: homeRadii.card,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surface,
       elevation: 12,
     },
     content: {alignItems: 'center', paddingHorizontal: 20, paddingTop: 24, paddingBottom: 8},
@@ -148,32 +141,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor: withAlpha(theme.colors.danger, 0.3),
       backgroundColor: withAlpha(theme.colors.danger, 0.12),
     },
-    title: {
-      marginTop: 14,
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 21,
-      fontWeight: '700',
-      lineHeight: 27,
-      textAlign: 'center',
-    },
-    body: {marginTop: 10, color: theme.colors.textSecondary, fontSize: 13.5, lineHeight: 20, textAlign: 'center'},
-    reassurance: {marginTop: 10, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18, textAlign: 'center'},
-    actions: {flexDirection: 'row', gap: 10, paddingHorizontal: 20, paddingTop: 12, paddingBottom: 20},
-    button: {
-      flex: 1,
-      minHeight: 50,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: homeRadii.button,
-      paddingHorizontal: 10,
-      paddingVertical: 8,
-    },
-    cancelButton: {borderWidth: 1.4, borderColor: theme.colors.primary, backgroundColor: theme.colors.surface},
-    cancelText: {color: theme.colors.primary, fontSize: 15, fontWeight: '700', textAlign: 'center'},
-    deleteButton: {backgroundColor: theme.colors.danger},
-    deleteText: {fontSize: 15, fontWeight: '700', textAlign: 'center'},
-    pressed: {opacity: 0.85},
+    title: {marginTop: 16, textAlign: 'center'},
+    body: {marginTop: 12, textAlign: 'center'},
+    reassurance: {marginTop: 12, textAlign: 'center'},
+    actions: {flexDirection: 'row', gap: 12, paddingHorizontal: 24, paddingTop: 16, paddingBottom: 24},
+    button: {flex: 1, paddingHorizontal: 12},
   });
 }
 

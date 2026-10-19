@@ -35,6 +35,8 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awa
 import {getAppLanguage} from '../state/themePreferences';
 import '../i18n';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaText} from '../components/ui/AwaText';
 
 const CALENDAR_ICON = require('../assets/images/cycle-calendar-icon.png');
 const CHEVRON_ICON = require('../assets/images/cycle-chevron-icon.png');
@@ -50,6 +52,7 @@ const WEEK_DAYS_TR = ['P', 'S', 'Ç', 'P', 'C', 'C', 'P'];
 const WEEK_DAYS_RU = ['П', 'В', 'С', 'Ч', 'П', 'С', 'В'];
 const WEEK_DAYS_DE = ['M', 'D', 'M', 'D', 'F', 'S', 'S'];
 const WEEK_DAYS_ZH = ['一', '二', '三', '四', '五', '六', '日'];
+const WEEK_DAYS_ID = ['S', 'S', 'R', 'K', 'J', 'S', 'M'];
 const localizedSingleLetterWeekDays = (): string[] => {
   const language = getAppLanguage();
   if (language === 'en') {return WEEK_DAYS_EN;}
@@ -59,6 +62,7 @@ const localizedSingleLetterWeekDays = (): string[] => {
   if (language === 'ru') {return WEEK_DAYS_RU;}
   if (language === 'de') {return WEEK_DAYS_DE;}
   if (language === 'zh') {return WEEK_DAYS_ZH;}
+  if (language === 'id') {return WEEK_DAYS_ID;}
   return WEEK_DAYS_FR;
 };
 const PERIOD_DURATIONS = Array.from({length: 9}, (_, index) => index + 2);
@@ -334,11 +338,6 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar
@@ -357,18 +356,18 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
           ]}
           showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
-            <Text style={styles.title}>{habitsOnly ? t('cycleInformation.habitsTitle') : t('cycleInformation.title')}</Text>
-            <Text style={styles.subtitle}>
+            <AwaText accessibilityRole="header" style={styles.title} variant="headlineMedium">{habitsOnly ? t('cycleInformation.habitsTitle') : t('cycleInformation.title')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">
               {habitsOnly
                 ? t('cycleInformation.habitsSubtitle')
                 : t('cycleInformation.subtitle')}
-            </Text>
+            </AwaText>
           </View>
 
           <View style={styles.form}>
             {habitsOnly ? null : (
             <>
-            <Text style={styles.label}>{t('cycleInformation.periodStartDateLabel')}</Text>
+            <AwaText colorRole="onSurfaceVariant" emphasized style={styles.label} variant="labelLarge">{t('cycleInformation.periodStartDateLabel')}</AwaText>
             <Pressable
               accessibilityLabel={t('cycleInformation.choosePeriodStartDate')}
               accessibilityRole="button"
@@ -390,9 +389,9 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
                 style={styles.calendarFieldIcon}
               />
             </Pressable>
-            {errors.start ? <Text style={styles.fieldErrorText}>{errors.start}</Text> : null}
+            {errors.start ? <AwaText colorRole="error" style={styles.fieldErrorText} variant="bodySmall">{errors.start}</AwaText> : null}
 
-            <Text style={styles.label}>{t('cycleInformation.periodEndedQuestion')}</Text>
+            <AwaText colorRole="onSurfaceVariant" emphasized style={styles.label} variant="labelLarge">{t('cycleInformation.periodEndedQuestion')}</AwaText>
             <View accessibilityRole="radiogroup" style={styles.regularityRow}>
               {[
                 {id: 'yes' as const, label: t('journalIntimacy.yes')},
@@ -410,11 +409,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
                       selected && styles.regularitySelected,
                       pressed && styles.pressed,
                     ]}>
-                    <Text
-                      adjustsFontSizeToFit
-                      minimumFontScale={0.82}
-                      numberOfLines={1}
-                      style={styles.regularityText}>
+                    <Text style={[styles.regularityText, selected && styles.regularityTextSelected]}>
                       {option.label}
                     </Text>
                   </Pressable>
@@ -424,7 +419,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
 
             {periodTerminated === 'yes' ? (
               <>
-                <Text style={styles.label}>{t('cycleInformation.periodEndDateLabel')}</Text>
+                <AwaText colorRole="onSurfaceVariant" emphasized style={styles.label} variant="labelLarge">{t('cycleInformation.periodEndDateLabel')}</AwaText>
                 <Pressable
                   accessibilityLabel={t('cycleInformation.choosePeriodEndDate')}
                   accessibilityRole="button"
@@ -448,13 +443,13 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
                     style={styles.calendarFieldIcon}
                   />
                 </Pressable>
-                {errors.end ? <Text style={styles.fieldErrorText}>{errors.end}</Text> : null}
+                {errors.end ? <AwaText colorRole="error" style={styles.fieldErrorText} variant="bodySmall">{errors.end}</AwaText> : null}
               </>
             ) : null}
             </>
             )}
 
-            <Text style={styles.label}>{t('cycleInformation.usualPeriodDurationLabel')}</Text>
+            <AwaText colorRole="onSurfaceVariant" emphasized style={styles.label} variant="labelLarge">{t('cycleInformation.usualPeriodDurationLabel')}</AwaText>
             <Pressable
               accessibilityRole="button"
               onPress={() => setDurationPicker('period')}
@@ -466,9 +461,9 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
                 style={styles.chevronIcon}
               />
             </Pressable>
-            <Text style={styles.helperText}>{t('cycleInformation.usedToEstimateNextPeriod')}</Text>
+            <AwaText colorRole="onSurfaceVariant" style={styles.helperText} variant="bodySmall">{t('cycleInformation.usedToEstimateNextPeriod')}</AwaText>
 
-            <Text style={styles.label}>{t('cycleInformation.usualCycleDurationLabel')}</Text>
+            <AwaText colorRole="onSurfaceVariant" emphasized style={styles.label} variant="labelLarge">{t('cycleInformation.usualCycleDurationLabel')}</AwaText>
             <Pressable
               accessibilityRole="button"
               onPress={() => setDurationPicker('cycle')}
@@ -481,7 +476,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
               />
             </Pressable>
 
-            <Text style={styles.label}>{t('cycleInformation.cycleRegularQuestion')}</Text>
+            <AwaText colorRole="onSurfaceVariant" emphasized style={styles.label} variant="labelLarge">{t('cycleInformation.cycleRegularQuestion')}</AwaText>
             <View accessibilityRole="radiogroup" style={styles.regularityRow}>
               {[
                 {id: 'yes' as const, label: t('journalIntimacy.yes')},
@@ -500,11 +495,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
                       selected && styles.regularitySelected,
                       pressed && styles.pressed,
                     ]}>
-                    <Text
-                      adjustsFontSizeToFit
-                      minimumFontScale={0.82}
-                      numberOfLines={1}
-                      style={styles.regularityText}>
+                    <Text style={[styles.regularityText, selected && styles.regularityTextSelected]}>
                       {option.label}
                     </Text>
                   </Pressable>
@@ -514,13 +505,13 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
           </View>
 
           <View style={styles.spacer} />
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={submitting}
+            fullWidth
+            label={submitting ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('cycleInformation.next')}
             onPress={handleNext}
-            style={({pressed}) => [styles.nextButton, (pressed || submitting) && styles.pressed]}>
-            <Text style={styles.nextText}>{submitting ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('cycleInformation.next')}</Text>
-          </Pressable>
+            size="large"
+          />
         </ScrollView>
       </View>
 
@@ -568,6 +559,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
                   <View key={`${day ?? 'empty'}-${index}`} style={styles.dayCell}>
                     {day && (
                       <Pressable
+                        hitSlop={4}
                         onPress={() => chooseDay(day)}
                         style={[styles.dayButton, selected && styles.daySelected]}>
                         <Text style={[styles.dayText, selected && styles.dayTextSelected]}>
@@ -590,11 +582,11 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
         visible={durationPicker !== null}>
         <Pressable style={styles.modalBackdrop} onPress={() => setDurationPicker(null)}>
           <Pressable style={styles.durationCard} onPress={() => {}}>
-            <Text style={styles.durationTitle}>
+            <AwaText style={styles.durationTitle} variant="titleLarge">
               {durationPicker === 'period'
                 ? t('profile.periodLengthLabel')
                 : t('profile.cycleLengthLabel')}
-            </Text>
+            </AwaText>
             <View style={styles.durationGrid}>
               {durationOptions.map(duration => (
                 <Pressable
@@ -619,40 +611,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     background: {flex: 1, backgroundColor: theme.colors.background},
 
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
 
-    pageGlowTop: {
-      position: 'absolute',
-      top: -150,
-      right: -110,
-      width: 330,
-      height: 330,
-      borderRadius: 165,
-      backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
 
-    pageGlowMiddle: {
-      position: 'absolute',
-      top: '38%',
-      left: -130,
-      width: 260,
-      height: 260,
-      borderRadius: 130,
-      backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
 
-    pageGlowBottom: {
-      position: 'absolute',
-      bottom: -150,
-      right: -100,
-      width: 310,
-      height: 310,
-      borderRadius: 155,
-      backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
 
     safeArea: {flex: 1},
     content: {
@@ -661,17 +622,10 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingBottom: spacing.md,
     },
     header: {alignItems: 'center', marginBottom: spacing.lg},
-    title: {
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 30,
-      fontWeight: '700',
-      lineHeight: 36,
-      textAlign: 'center',
-    },
-    subtitle: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19, textAlign: 'center'},
+    title: {textAlign: 'center'},
+    subtitle: {marginTop: 8, textAlign: 'center'},
     form: {gap: 7},
-    label: {marginTop: 5, color: theme.colors.textSecondary, fontSize: 13, fontWeight: '600'},
+    label: {marginTop: 5},
     field: {
       minHeight: 52,
       flexDirection: 'row',
@@ -680,7 +634,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor: withAlpha(theme.colors.primary, 0.24),
       borderRadius: 16,
       backgroundColor: withAlpha(theme.colors.surface, 0.94),
-      paddingHorizontal: 13,
+      paddingHorizontal: 16,
       shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 2},
       shadowOpacity: 0.045,
@@ -690,11 +644,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     fieldText: {flex: 1, marginHorizontal: 10, color: theme.colors.text, fontSize: 14},
     fieldPlaceholder: {flex: 1, marginHorizontal: 10, color: theme.colors.textMuted, fontSize: 14},
     fieldError: {borderColor: theme.colors.danger},
-    fieldErrorText: {marginTop: 4, marginBottom: 2, marginLeft: 4, color: theme.colors.danger, fontSize: 10.5},
-    helperText: {marginTop: 4, marginLeft: 4, color: theme.colors.textMuted, fontSize: 11},
+    fieldErrorText: {marginTop: 4, marginBottom: 2, marginLeft: 4},
+    helperText: {marginTop: 4, marginLeft: 4},
     calendarFieldIcon: {width: 22, height: 22, resizeMode: 'contain'},
     chevronIcon: {width: 20, height: 20, resizeMode: 'contain'},
-    regularityRow: {flexDirection: 'row', gap: 8},
+    regularityRow: {flexDirection: 'row', flexWrap: 'wrap', gap: 8},
     regularityOption: {
       minHeight: 48,
       flex: 1,
@@ -703,9 +657,10 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent: 'center',
       borderWidth: 1.25,
       borderColor: withAlpha(theme.colors.primary, 0.22),
-      borderRadius: 15,
+      borderRadius: 16,
       backgroundColor: withAlpha(theme.colors.surface, 0.92),
-      paddingHorizontal: 5,
+      paddingHorizontal: 12,
+      paddingVertical: 8,
       shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 2},
       shadowOpacity: 0.035,
@@ -722,25 +677,18 @@ function createStyles(theme: ResolvedAwaTheme) {
       shadowRadius: 7,
       elevation: 2,
     },
+    // DESIGN.md: labels wrap instead of shrinking/truncating (DE/TR/RU are longer); selected = bold (theme text equals onPrimaryContainer on primarySoft).
     regularityText: {
       color: theme.colors.text,
       fontSize: 13,
+      lineHeight: 18,
       textAlign: 'center',
     },
-    spacer: {flex: 1},
-    nextButton: {
-      minHeight: 52,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 18,
-      backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 5},
-      shadowOpacity: 0.25,
-      shadowRadius: 9,
-      elevation: 5,
+    regularityTextSelected: {
+      color: theme.colors.text,
+      fontWeight: '600',
     },
-    nextText: {color: onPrimaryTextColor(theme), fontSize: 18, fontWeight: '600'},
+    spacer: {flex: 1},
     pressed: {opacity: 0.8},
     modalBackdrop: {
       flex: 1,
@@ -752,7 +700,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     calendarCard: {
       width: '100%',
       maxWidth: 380,
-      borderRadius: 22,
+      borderRadius: 12,
       backgroundColor: theme.colors.surface,
       padding: spacing.md,
       elevation: 12,
@@ -772,26 +720,26 @@ function createStyles(theme: ResolvedAwaTheme) {
       fontWeight: '600',
       lineHeight: 30,
     },
-    calendarTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 19, fontWeight: '600'},
+    calendarTitle: {color: theme.colors.text, fontSize: 19, fontWeight: '600'},
     weekRow: {flexDirection: 'row', marginTop: spacing.md},
     weekDay: {width: '14.2857%', color: theme.colors.textSecondary, fontSize: 12, textAlign: 'center'},
     daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: spacing.sm},
-    dayCell: {width: '14.2857%', height: 39, alignItems: 'center', justifyContent: 'center'},
-    dayButton: {width: 34, height: 34, alignItems: 'center', justifyContent: 'center', borderRadius: 17},
+    dayCell: {width: '14.2857%', minHeight: 44, alignItems: 'center', justifyContent: 'center'},
+    dayButton: {width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 20},
     daySelected: {backgroundColor: theme.colors.primary},
     dayText: {color: theme.colors.text, fontSize: 14},
     dayTextSelected: {color: onPrimaryTextColor(theme), fontWeight: '700'},
     durationCard: {
       width: '100%',
       maxWidth: 360,
-      borderRadius: 22,
+      borderRadius: 12,
       backgroundColor: theme.colors.surface,
       padding: spacing.md,
       elevation: 12,
     },
-    durationTitle: {marginBottom: spacing.md, color: theme.colors.text, fontFamily: 'serif', fontSize: 20, fontWeight: '600', textAlign: 'center'},
+    durationTitle: {marginBottom: spacing.md, textAlign: 'center'},
     durationGrid: {flexDirection: 'row', flexWrap: 'wrap', gap: 8, justifyContent: 'center'},
-    durationOption: {minWidth: 82, minHeight: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12, backgroundColor: theme.colors.primarySoft},
+    durationOption: {minWidth: 82, minHeight: 48, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12, backgroundColor: theme.colors.primarySoft},
     durationOptionText: {color: theme.colors.text, fontSize: 13},
   });
 }
