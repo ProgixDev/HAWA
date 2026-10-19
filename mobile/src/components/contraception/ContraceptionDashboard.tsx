@@ -27,7 +27,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import type {MainTabScreenProps} from '../../navigation/MainTabNavigator';
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme, softTone} from '../../theme/awaThemeTokens';
 import {getFloatingTabBarClearance} from '../../theme/spacing';
 
 import HomeHeader from '../home/HomeHeader';
@@ -114,6 +114,10 @@ import {
 import {formatTimeOfDay} from '../../utils/timeOfDay';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaIconButton} from '../ui/AwaIconButton';
+import {AwaText} from '../ui/AwaText';
 
 // PHASE D2 — PURPLE/PURPLE_DARK/PURPLE_SOFT/BORDER_STRONG/MUTED/CARD_BACKGROUND
 // used to be fixed literals here; they are now derived from useAwaTheme() at
@@ -146,7 +150,6 @@ const HERO_ACTION_COLORS: Record<ContraceptionIntakeStatus, {color: string; soft
   missed: {color: DANGER, soft: DANGER_SOFT},
 };
 
-const CONTRACEPTION_CAPSULE_IMAGE = require('../../assets/images/contraception/contraception-capsule.png');
 const CONTRACEPTION_PILL_PACK_IMAGE = require('../../assets/images/contraception/contraception-pill-pack.png');
 
 type Props = MainTabScreenProps<'CycleHome'>;
@@ -287,11 +290,10 @@ function HeroIntakeActionButton({
         <MaterialDesignIcons color={selected ? '#FFFFFF' : color} name={icon} size={compact ? 14 : 15} />
       </View>
 
-      <Text
-        numberOfLines={2}
+      <AwaText variant="bodyMedium"
         style={[styles.heroActionText, selected && styles.heroActionTextSelected]}>
         {label}
-      </Text>
+      </AwaText>
     </Pressable>
   );
 }
@@ -340,7 +342,6 @@ function ContraceptionDashboard({
   // SUCCESS/WARNING/DANGER (health-status semantics) stay fixed module
   // consts, untouched.
   const PURPLE = theme.colors.primary;
-  const PURPLE_DARK = theme.colors.accent;
   const PURPLE_SOFT = theme.colors.primarySoft;
   const MUTED = theme.colors.textMuted;
 
@@ -1225,29 +1226,6 @@ function ContraceptionDashboard({
         y: 1,
       }}
       style={styles.background}>
-      <View
-        pointerEvents="none"
-        style={
-          styles.pageBackgroundDecor
-        }>
-        <View
-          style={
-            styles.pageGlowTop
-          }
-        />
-
-        <View
-          style={
-            styles.pageGlowMiddle
-          }
-        />
-
-        <View
-          style={
-            styles.pageGlowBottom
-          }
-        />
-      </View>
 
       <SafeAreaView
         style={styles.safeArea}>
@@ -1285,19 +1263,7 @@ function ContraceptionDashboard({
             style={
               styles.todayHeroCard
             }>
-            <View
-              pointerEvents="none"
-              style={
-                styles.todayHeroGlowOne
-              }
-            />
 
-            <View
-              pointerEvents="none"
-              style={
-                styles.todayHeroGlowTwo
-              }
-            />
 
             <View
               style={
@@ -1330,24 +1296,18 @@ function ContraceptionDashboard({
                     {heroTitle}
                   </Text>
 
-                  <View
-                    style={
-                      styles.todayMethodMiniIcon
-                    }>
-                    {isPill ? (
-                      <Image
-                        resizeMode="cover"
-                        source={CONTRACEPTION_CAPSULE_IMAGE}
-                        style={styles.todayMethodImage}
-                      />
-                    ) : (
+                  {isPill ? null : (
+                    <View
+                      style={
+                        styles.todayMethodMiniIcon
+                      }>
                       <MaterialDesignIcons
                         color={PURPLE}
                         name={methodIcon}
                         size={18}
                       />
-                    )}
-                  </View>
+                    </View>
+                  )}
                 </View>
 
                 <View
@@ -1479,17 +1439,16 @@ function ContraceptionDashboard({
               style={
                 styles.methodCardHeader
               }>
-              <Text
+              <AwaText variant="titleSmall"
                 style={
                   styles.methodCardEyebrow
                 }>
                 {t('contraceptionDashboard.method.eyebrow')}
-              </Text>
+              </AwaText>
 
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('contraceptionDashboard.method.editAccessibility')}
-                accessibilityRole="button"
-                hitSlop={8}
+                label={t('contraceptionDashboard.method.editLabel')}
                 onPress={() =>
                   navigation.navigate(
                     'ContraceptionMethod',
@@ -1498,38 +1457,15 @@ function ContraceptionDashboard({
                     },
                   )
                 }
-                style={({
-                  pressed,
-                }) =>
-                  pressed &&
-                  styles.pressed
-                }>
-                <View
-                  style={
-                    styles.methodEditRow
-                  }>
-                  <Text
-                    style={
-                      styles.methodEditText
-                    }>
-                    {t('contraceptionDashboard.method.editLabel')}
-                  </Text>
-
-                  <MaterialDesignIcons
-                    color={PURPLE}
-                    name="chevron-right"
-                    size={17}
-                  />
-                </View>
-              </Pressable>
+                size="compact"
+                variant="tonal"
+              />
             </View>
 
             <View style={styles.methodCardBody}>
               <View style={styles.methodOverviewRow}>
                 <View style={styles.methodLargeIcon}>
-                  <LinearGradient
-                    colors={[withAlpha(theme.colors.primary, 0.06), theme.colors.primarySoft]}
-                    style={styles.methodLargeIconGradient}>
+                  <View style={styles.methodLargeIconGradient}>
                     {isPill ? (
                       <Image
                         resizeMode="cover"
@@ -1543,15 +1479,15 @@ function ContraceptionDashboard({
                         size={30}
                       />
                     )}
-                  </LinearGradient>
+                  </View>
                 </View>
 
                 <View style={styles.methodMainCopy}>
-                  <Text style={styles.methodName}>{methodLabel}</Text>
+                  <AwaText variant="labelMedium" style={styles.methodName}>{methodLabel}</AwaText>
 
-                  <Text style={styles.methodDescription}>
+                  <AwaText variant="bodySmall" style={styles.methodDescription}>
                     {methodScheduleLabel}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
 
@@ -1565,13 +1501,13 @@ function ContraceptionDashboard({
                 </View>
 
                 <View style={styles.methodStartCopy}>
-                  <Text style={styles.methodStartLabel}>
+                  <AwaText variant="labelSmall" style={styles.methodStartLabel}>
                     {isPill ? t('contraceptionDashboard.method.packStartLabel') : t('contraceptionDashboard.method.trackingStartLabel')}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.methodStartValue}>
+                  <AwaText variant="labelSmall" style={styles.methodStartValue}>
                     {startDate ? formatFullDate(startDate) : t('profile.notProvided')}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
 
@@ -1586,19 +1522,19 @@ function ContraceptionDashboard({
                   </View>
 
                   <View style={styles.methodStartCopy}>
-                    <Text style={styles.methodStartLabel}>{t('contraceptionDashboard.method.scheduleLabel')}</Text>
-                    <Text style={styles.methodStartValue}>
+                    <AwaText variant="labelSmall" style={styles.methodStartLabel}>{t('contraceptionDashboard.method.scheduleLabel')}</AwaText>
+                    <AwaText variant="labelSmall" style={styles.methodStartValue}>
                       {pillScheduleType === 'cyclic' && activeDays !== null && breakDays !== null
                         ? t('contraceptionDashboard.method.scheduleCyclicValue', {active: activeDays, breakDays})
                         : pillScheduleType === 'continuous'
                           ? t('contraceptionDashboard.method.scheduleContinuousValue')
                           : t('profile.notProvided')}
-                    </Text>
+                    </AwaText>
                   </View>
 
                   {pillScheduleType === null || pillScheduleType === 'unknown' ? (
                     <View style={styles.methodConfigureBadge}>
-                      <Text style={styles.methodConfigureText}>{t('contraceptionDashboard.method.configureBadge')}</Text>
+                      <AwaText variant="labelSmall" colorRole="onPrimary">{t('contraceptionDashboard.method.configureBadge')}</AwaText>
                     </View>
                   ) : (
                     <MaterialDesignIcons color={MUTED} name="chevron-right" size={18} />
@@ -1681,18 +1617,18 @@ function ContraceptionDashboard({
                 </View>
 
                 <View style={styles.flexOne}>
-                  <Text style={styles.dailyTitle}>
+                  <AwaText variant="titleMedium" style={styles.dailyTitle}>
                     {t('conceiveDashboard.dailyJournalTitle')}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.dailySubtitle}>
+                  <AwaText variant="bodySmall" style={styles.dailySubtitle}>
                     {t('contraceptionDashboard.daily.subtitle')}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
             </View>
 
-            <View style={styles.dailyStatsList}>
+            <AwaCard padding="none" variant="filled" style={styles.dailyStatsList}>
               {/* LIGNE 1 — PRISE / UTILISATION DU JOUR */}
               <Pressable
                 accessibilityLabel={intakeActionLabel}
@@ -1744,12 +1680,11 @@ function ContraceptionDashboard({
                 </View>
 
                 <View style={styles.dailyStatTextGroup}>
-                  <Text numberOfLines={1} style={styles.dailyStatLabel}>
+                  <AwaText variant="labelSmall" style={styles.dailyStatLabel}>
                     {intakeActionLabel}
-                  </Text>
+                  </AwaText>
 
                   <Text
-                    numberOfLines={1}
                     style={[
                       styles.dailyStatValue,
                       isEventMethod
@@ -1796,12 +1731,11 @@ function ContraceptionDashboard({
                 </View>
 
                 <View style={styles.dailyStatTextGroup}>
-                  <Text numberOfLines={1} style={styles.dailyStatLabel}>
+                  <AwaText variant="labelSmall" style={styles.dailyStatLabel}>
                     {t('contraceptionJournalConfig.feelings.label')}
-                  </Text>
+                  </AwaText>
 
                   <Text
-                    numberOfLines={1}
                     style={[
                       styles.dailyStatValue,
                       feelingsCount > 0 ? undefined : styles.dailyValueMuted,
@@ -1836,12 +1770,11 @@ function ContraceptionDashboard({
                 </View>
 
                 <View style={styles.dailyStatTextGroup}>
-                  <Text numberOfLines={1} style={styles.dailyStatLabel}>
+                  <AwaText variant="labelSmall" style={styles.dailyStatLabel}>
                     {t('contraceptionJournalConfig.notes.label')}
-                  </Text>
+                  </AwaText>
 
                   <Text
-                    numberOfLines={1}
                     style={[
                       styles.dailyStatValue,
                       hasNotesToday ? undefined : styles.dailyValueMuted,
@@ -1854,7 +1787,7 @@ function ContraceptionDashboard({
                   <MaterialDesignIcons color={MUTED} name="chevron-right" size={18} />
                 </View>
               </Pressable>
-            </View>
+            </AwaCard>
           </View>
 
           {/* ===========================
@@ -1870,14 +1803,14 @@ function ContraceptionDashboard({
                   </View>
 
                   <View style={styles.historyHeaderCopy}>
-                    <Text style={styles.historyTitle}>{t('contraceptionDashboard.history.title')}</Text>
-                    <Text style={styles.historySubtitle}>{t('contraceptionDashboard.history.subtitle')}</Text>
+                    <AwaText variant="titleSmall" style={styles.historyTitle}>{t('contraceptionDashboard.history.title')}</AwaText>
+                    <AwaText variant="bodySmall" style={styles.historySubtitle}>{t('contraceptionDashboard.history.subtitle')}</AwaText>
                   </View>
                 </View>
               </View>
 
               {currentMethodRecentEvents.length === 0 ? (
-                <Text style={styles.emptySummaryText}>{t('contraceptionDashboard.history.empty')}</Text>
+                <AwaText variant="bodySmall" style={styles.emptySummaryText}>{t('contraceptionDashboard.history.empty')}</AwaText>
               ) : (
                 <View style={styles.recentEventsList}>
                   {currentMethodRecentEvents.map(event => (
@@ -1886,9 +1819,9 @@ function ContraceptionDashboard({
                         <MaterialDesignIcons color={PURPLE} name={CONTRACEPTION_EVENT_ICONS[event.type]} size={16} />
                       </View>
                       <View style={styles.dailyStatTextGroup}>
-                        <Text numberOfLines={1} style={styles.dailyStatLabel}>
+                        <AwaText variant="labelSmall" numberOfLines={1} style={styles.dailyStatLabel}>
                           {contraceptionEventLabels(t)[event.type]}
-                        </Text>
+                        </AwaText>
                         <Text numberOfLines={1} style={styles.dailyValueMuted}>
                           {formatRecordDate(event.date)}
                         </Text>
@@ -1906,7 +1839,7 @@ function ContraceptionDashboard({
                   styles.historyViewAllButton,
                   pressed && styles.historyViewAllButtonPressed,
                 ]}>
-                <Text style={styles.historyViewAllText}>{t('contraceptionDashboard.history.viewAll')}</Text>
+                <AwaText variant="labelSmall" style={styles.historyViewAllText}>{t('contraceptionDashboard.history.viewAll')}</AwaText>
 
                 <View style={styles.historyViewAllIcon}>
                   <MaterialDesignIcons color={PURPLE} name="chevron-right" size={19} />
@@ -1926,13 +1859,13 @@ function ContraceptionDashboard({
                   </View>
 
                   <View style={styles.historyHeaderCopy}>
-                    <Text style={styles.historyTitle}>
+                    <AwaText variant="titleSmall" style={styles.historyTitle}>
                       {t('contraceptionDashboard.history.intakeTitle')}
-                    </Text>
+                    </AwaText>
 
-                    <Text style={styles.historySubtitle}>
+                    <AwaText variant="bodySmall" style={styles.historySubtitle}>
                       {t('contraceptionDashboard.history.intakeSubtitle')}
-                    </Text>
+                    </AwaText>
                   </View>
                 </View>
               </View>
@@ -2024,9 +1957,9 @@ function ContraceptionDashboard({
                   styles.historyViewAllButton,
                   pressed && styles.historyViewAllButtonPressed,
                 ]}>
-                <Text style={styles.historyViewAllText}>
+                <AwaText variant="labelSmall" style={styles.historyViewAllText}>
                   {t('contraceptionDashboard.history.viewAll')}
-                </Text>
+                </AwaText>
 
                 <View style={styles.historyViewAllIcon}>
                   <MaterialDesignIcons
@@ -2079,31 +2012,25 @@ function ContraceptionDashboard({
                   </View>
 
                   <View style={styles.historyModalHeaderCopy}>
-                    <Text style={styles.historyModalTitle}>
+                    <AwaText variant="titleMedium" style={styles.historyModalTitle}>
                       {isEventMethod ? t('contraceptionDashboard.historyModal.eventsTitle') : t('contraceptionDashboard.historyModal.intakeTitle')}
-                    </Text>
+                    </AwaText>
 
-                    <Text style={styles.historyModalSubtitle}>
+                    <AwaText variant="bodySmall" style={styles.historyModalSubtitle}>
                       {isEventMethod ? t('contraceptionDashboard.historyModal.eventsSubtitle') : t('contraceptionDashboard.historyModal.intakeSubtitle')}
-                    </Text>
+                    </AwaText>
                   </View>
                 </View>
 
-                <Pressable
+                <AwaIconButton
                   accessibilityLabel={t('contraceptionDashboard.historyModal.closeAccessibilityShort')}
                   accessibilityRole="button"
                   hitSlop={8}
                   onPress={() => setHistoryVisible(false)}
-                  style={({pressed}) => [
-                    styles.historyModalClose,
-                    pressed && styles.pressed,
-                  ]}>
-                  <MaterialDesignIcons
-                    color={PURPLE_DARK}
-                    name="close"
-                    size={20}
-                  />
-                </Pressable>
+                  icon="close"
+                  iconSize={20}
+                  style={styles.historyModalClose}
+                />
               </View>
 
               <View style={styles.historyModalDivider} />
@@ -2177,27 +2104,29 @@ function ContraceptionDashboard({
                         <MaterialDesignIcons color={PURPLE} name="calendar-blank-outline" size={25} />
                       </View>
 
-                      <Text style={styles.historyModalEmptyTitle}>{t('contraceptionDashboard.historyModal.emptyTitle')}</Text>
+                      <AwaText variant="titleMedium" style={styles.historyModalEmptyTitle}>{t('contraceptionDashboard.historyModal.emptyTitle')}</AwaText>
 
-                      <Text style={styles.historyModalEmptyText}>
+                      <AwaText variant="bodySmall" style={styles.historyModalEmptyText}>
                         {t('contraceptionDashboard.historyModal.emptyEventsText')}
-                      </Text>
+                      </AwaText>
                     </View>
                   ) : (
                     currentMethodAllHistoryEvents.filter(event => historyEventFilters[event.type]).map(event => (
-                      <Pressable
+                      <AwaCard
+                        padding="none"
+                        variant="elevated"
                         accessibilityHint={t('contraceptionDashboard.historyModal.deleteHint')}
                         accessibilityLabel={`${contraceptionEventLabels(t)[event.type]}, ${formatRecordDate(event.date)}`}
                         accessibilityRole="button"
                         key={event.id}
                         onPress={() => confirmDeleteEvent(event)}
-                        style={({pressed}) => [styles.historyModalRow, pressed && styles.pressed]}>
+                        style={styles.historyModalRow}>
                         <View style={[styles.historyModalStatusIcon, styles.historyModalPurpleIcon]}>
                           <MaterialDesignIcons color={PURPLE} name={CONTRACEPTION_EVENT_ICONS[event.type]} size={15} />
                         </View>
 
                         <View style={styles.historyModalMainCopy}>
-                          <Text style={styles.historyModalDate}>{formatRecordDate(event.date)}</Text>
+                          <AwaText variant="labelMedium" style={styles.historyModalDate}>{formatRecordDate(event.date)}</AwaText>
                           <Text style={[styles.historyModalStatus, styles.historyModalStatusPurple]}>
                             {contraceptionEventLabels(t)[event.type]}
                           </Text>
@@ -2205,9 +2134,9 @@ function ContraceptionDashboard({
 
                         <View style={styles.historyModalTimeBox}>
                           <MaterialDesignIcons color={MUTED} name="clock-outline" size={13} />
-                          <Text style={styles.historyModalTime}>{formatRecordTime(event.recordedAt)}</Text>
+                          <AwaText variant="labelSmall" style={styles.historyModalTime}>{formatRecordTime(event.recordedAt)}</AwaText>
                         </View>
-                      </Pressable>
+                      </AwaCard>
                     ))
                   )
                 ) : allHistoryRecords.filter(record => historyIntakeFilters[record.status]).length === 0 ? (
@@ -2220,13 +2149,13 @@ function ContraceptionDashboard({
                       />
                     </View>
 
-                    <Text style={styles.historyModalEmptyTitle}>
+                    <AwaText variant="titleMedium" style={styles.historyModalEmptyTitle}>
                       {t('contraceptionDashboard.historyModal.emptyTitle')}
-                    </Text>
+                    </AwaText>
 
-                    <Text style={styles.historyModalEmptyText}>
+                    <AwaText variant="bodySmall" style={styles.historyModalEmptyText}>
                       {t('contraceptionDashboard.historyModal.emptyIntakeText')}
-                    </Text>
+                    </AwaText>
                   </View>
                 ) : (
                   allHistoryRecords.filter(record => historyIntakeFilters[record.status]).map(record => {
@@ -2234,7 +2163,9 @@ function ContraceptionDashboard({
                     const late = record.status === 'late';
 
                     return (
-                      <Pressable
+                      <AwaCard
+                        padding="none"
+                        variant="elevated"
                         accessibilityHint={t('contraceptionDashboard.historyModal.editDeleteHint')}
                         accessibilityLabel={`${
                           taken
@@ -2246,7 +2177,7 @@ function ContraceptionDashboard({
                         accessibilityRole="button"
                         key={record.date}
                         onPress={() => setRecordActionTarget(record)}
-                        style={({pressed}) => [styles.historyModalRow, pressed && styles.pressed]}>
+                        style={styles.historyModalRow}>
                         <View
                           style={[
                             styles.historyModalStatusIcon,
@@ -2264,9 +2195,9 @@ function ContraceptionDashboard({
                         </View>
 
                         <View style={styles.historyModalMainCopy}>
-                          <Text style={styles.historyModalDate}>
+                          <AwaText variant="labelMedium" style={styles.historyModalDate}>
                             {formatRecordDate(record.date)}
-                          </Text>
+                          </AwaText>
 
                           <Text
                             style={[
@@ -2292,11 +2223,11 @@ function ContraceptionDashboard({
                             size={13}
                           />
 
-                          <Text style={styles.historyModalTime}>
+                          <AwaText variant="labelSmall" style={styles.historyModalTime}>
                             {formatRecordTime(record.recordedAt)}
-                          </Text>
+                          </AwaText>
                         </View>
-                      </Pressable>
+                      </AwaCard>
                     );
                   })
                 )}
@@ -2312,9 +2243,9 @@ function ContraceptionDashboard({
                     ]}>
                     <MaterialDesignIcons color={PURPLE} name="infinity" size={16} />
 
-                    <Text style={styles.historyPremiumHintText}>
+                    <AwaText variant="labelMedium" style={styles.historyPremiumHintText}>
                       {t('contraceptionDashboard.historyModal.premiumHint')}
-                    </Text>
+                    </AwaText>
 
                     <MaterialDesignIcons color={PURPLE} name="chevron-right" size={16} />
                   </Pressable>
@@ -2345,10 +2276,10 @@ function ContraceptionDashboard({
             <View style={[styles.recordActionSheet, {paddingBottom: Math.max(insets.bottom, 14)}]}>
               <View style={styles.historyModalHandle} />
 
-              <Text style={styles.recordActionTitle}>
+              <AwaText variant="titleMedium" style={styles.recordActionTitle}>
                 {recordActionTarget ? formatRecordDate(recordActionTarget.date) : ''}
-              </Text>
-              <Text style={styles.recordActionSubtitle}>{t('contraceptionDashboard.recordAction.subtitle')}</Text>
+              </AwaText>
+              <AwaText variant="bodySmall" style={styles.recordActionSubtitle}>{t('contraceptionDashboard.recordAction.subtitle')}</AwaText>
 
               {(['taken', 'late', 'missed'] as ContraceptionIntakeStatus[]).map(status => {
                 const active = recordActionTarget?.status === status;
@@ -2434,40 +2365,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       flex: 1,
     },
 
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
 
-    pageGlowTop: {
-      position: 'absolute',
-      top: -150,
-      right: -110,
-      width: 330,
-      height: 330,
-      borderRadius: 165,
-      backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
 
-    pageGlowMiddle: {
-      position: 'absolute',
-      top: '37%',
-      left: -135,
-      width: 270,
-      height: 270,
-      borderRadius: 135,
-      backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
 
-    pageGlowBottom: {
-      position: 'absolute',
-      bottom: -150,
-      right: -100,
-      width: 310,
-      height: 310,
-      borderRadius: 155,
-      backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
 
     scrollContent: {
       flexGrow: 1,
@@ -2494,7 +2394,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderWidth: 1,
       borderColor:
         BORDER_STRONG,
-      borderRadius: 28,
+      borderRadius: 12,
       backgroundColor:
         CARD_BACKGROUND,
 
@@ -2506,29 +2406,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       },
 
       shadowOpacity: 0.12,
-      shadowRadius: 23,
-      elevation: 7,
+      shadowRadius: 20,
+      elevation: 6,
     },
 
-    todayHeroGlowOne: {
-      position: 'absolute',
-      width: 190,
-      height: 190,
-      top: -100,
-      right: -62,
-      borderRadius: 95,
-      backgroundColor: withAlpha(theme.colors.primary, 0.10),
-    },
 
-    todayHeroGlowTwo: {
-      position: 'absolute',
-      width: 170,
-      height: 170,
-      left: -90,
-      bottom: -105,
-      borderRadius: 85,
-      backgroundColor: withAlpha(theme.colors.secondary, 0.11),
-    },
 
     todayBadge: {
       alignSelf: 'flex-start',
@@ -2540,7 +2422,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     todayBadgeText: {
       color: PURPLE,
-      fontSize: 9,
+      fontSize: 11,
       fontWeight: '900',
       letterSpacing: 0.5,
     },
@@ -2566,7 +2448,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     todayHeroTitle: {
       flexShrink: 1,
       color: PURPLE_DARK,
-      fontFamily: 'serif',
       fontSize: 17,
       lineHeight: 24,
       fontWeight: '900',
@@ -2578,15 +2459,10 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       justifyContent: 'center',
       flexShrink: 0,
-      borderRadius: 11,
+      borderRadius: 12,
       backgroundColor:
         PURPLE_SOFT,
       overflow: 'hidden',
-    },
-
-    todayMethodImage: {
-      width: 31,
-      height: 31,
     },
 
     todayMetaRow: {
@@ -2598,8 +2474,8 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     todayMetaText: {
       color: PURPLE,
-      fontSize: 10,
-      lineHeight: 14,
+      fontSize: 11,
+      lineHeight: 16,
       fontWeight: '700',
     },
 
@@ -2607,8 +2483,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       maxWidth: 205,
       marginTop: 8,
       color: MUTED,
-      fontSize: 10.5,
-      lineHeight: 15,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     /* CIRCLE — see src/components/home/AnimatedProgressRing.tsx, the shared
@@ -2641,7 +2517,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 10,
       paddingVertical: 7,
       borderWidth: 1,
-      borderRadius: 14,
+      borderRadius: 12,
       shadowOffset: {width: 0, height: 3},
       shadowRadius: 6,
       elevation: 2,
@@ -2682,15 +2558,13 @@ function createStyles(theme: ResolvedAwaTheme) {
       // against that always-light background — see MotivationCard's
       // identical "fixed text over a fixed surface" precedent (Phase D1).
       color: '#28166F',
-      fontSize: 10.5,
-      lineHeight: 14,
+      fontSize: 11,
+      lineHeight: 16,
       fontWeight: '800',
       textAlign: 'center',
     },
 
-    heroActionTextSelected: {
-      color: '#FFFFFF',
-    },
+    heroActionTextSelected: {color: '#FFFFFF'},
 
     /* METHOD */
 
@@ -2699,7 +2573,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       padding: 16,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.12),
-      borderRadius: 26,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.98),
       shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 8},
@@ -2716,35 +2590,14 @@ function createStyles(theme: ResolvedAwaTheme) {
       gap: 10,
     },
 
-    methodCardEyebrow: {
-      color: PURPLE_DARK,
-      fontFamily: 'serif',
-      fontSize: 14.5,
-      fontWeight: '900',
-      letterSpacing: 0.1,
-    },
+    methodCardEyebrow: {color: PURPLE_DARK},
 
-    methodEditRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 3,
-      paddingHorizontal: 10,
-      paddingVertical: 6,
-      borderRadius: 999,
-      backgroundColor: PURPLE_SOFT,
-    },
-
-    methodEditText: {
-      color: PURPLE,
-      fontSize: 10.5,
-      fontWeight: '800',
-    },
 
     methodCardBody: {
       marginTop: 15,
       gap: 12,
       padding: 13,
-      borderRadius: 20,
+      borderRadius: 12,
       backgroundColor: theme.colors.surfaceSecondary,
     },
 
@@ -2757,7 +2610,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     methodLargeIcon: {
       width: 58,
       height: 58,
-      borderRadius: 19,
+      borderRadius: 12,
       overflow: 'hidden',
       flexShrink: 0,
       shadowColor: theme.shadow.shadowColor,
@@ -2769,6 +2622,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     methodLargeIconGradient: {
       flex: 1,
+      backgroundColor: PURPLE_SOFT,
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -2783,28 +2637,19 @@ function createStyles(theme: ResolvedAwaTheme) {
       minWidth: 0,
     },
 
-    methodName: {
-      color: PURPLE_DARK,
-      fontSize: 13.5,
-      fontWeight: '900',
-    },
+    methodName: {color: PURPLE_DARK},
 
-    methodDescription: {
-      marginTop: 4,
-      color: MUTED,
-      fontSize: 9.8,
-      lineHeight: 14.5,
-    },
+    methodDescription: {marginTop: 4, color: MUTED},
 
     methodStartBox: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 10,
-      paddingHorizontal: 11,
+      paddingHorizontal: 12,
       paddingVertical: 10,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.09),
-      borderRadius: 15,
+      borderRadius: 16,
       backgroundColor: theme.colors.surface,
     },
 
@@ -2814,7 +2659,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       justifyContent: 'center',
       flexShrink: 0,
-      borderRadius: 11,
+      borderRadius: 12,
       backgroundColor: PURPLE_SOFT,
     },
 
@@ -2823,20 +2668,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       minWidth: 0,
     },
 
-    methodStartLabel: {
-      color: MUTED,
-      fontSize: 9.5,
-      lineHeight: 13,
-      fontWeight: '700',
-    },
+    methodStartLabel: {color: MUTED},
 
-    methodStartValue: {
-      marginTop: 2,
-      color: PURPLE_DARK,
-      fontSize: 10.5,
-      lineHeight: 15,
-      fontWeight: '900',
-    },
+    methodStartValue: {marginTop: 2, color: PURPLE_DARK},
 
     methodScheduleBox: {
       marginTop: 10,
@@ -2850,11 +2684,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: PURPLE,
     },
 
-    methodConfigureText: {
-      color: onPrimaryTextColor(theme),
-      fontSize: 9.5,
-      fontWeight: '800',
-    },
 
     /* SECTIONS */
 
@@ -2870,7 +2699,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     sectionTitle: {
       color: PURPLE_DARK,
-      fontFamily: 'serif',
       fontSize: 18,
       fontWeight: '900',
     },
@@ -2878,7 +2706,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     sectionSubtitle: {
       marginTop: 3,
       color: MUTED,
-      fontSize: 10.5,
+      fontSize: 11,
     },
 
     sectionSparkle: {
@@ -2886,7 +2714,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       height: 34,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 13,
+      borderRadius: 12,
       backgroundColor: PURPLE_SOFT,
     },
 
@@ -2895,7 +2723,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       height: 34,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 13,
+      borderRadius: 12,
       backgroundColor: PURPLE_SOFT,
     },
 
@@ -2914,7 +2742,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       padding: 15,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.11),
-      borderRadius: 24,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.98),
       shadowColor: theme.shadow.shadowColor,
       shadowOffset: {
@@ -2944,34 +2772,17 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       justifyContent: 'center',
       flexShrink: 0,
-      borderRadius: 13,
+      borderRadius: 12,
       backgroundColor: PURPLE_SOFT,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.07),
     },
 
-    dailyTitle: {
-      color: PURPLE_DARK,
-      fontFamily: 'serif',
-      fontSize: 16,
-      fontWeight: '900',
-    },
+    dailyTitle: {color: PURPLE_DARK},
 
-    dailySubtitle: {
-      marginTop: 2,
-      color: MUTED,
-      fontSize: 9.8,
-      lineHeight: 13,
-    },
+    dailySubtitle: {marginTop: 2, color: MUTED},
 
-    dailyStatsList: {
-      marginTop: 14,
-      overflow: 'hidden',
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.08),
-      borderRadius: 17,
-      backgroundColor: theme.colors.surfaceSecondary,
-    },
+    dailyStatsList: {marginTop: 14, overflow: 'hidden'},
 
     dailyStatRow: {
       minHeight: 60,
@@ -2990,7 +2801,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       justifyContent: 'center',
       flexShrink: 0,
-      borderRadius: 11,
+      borderRadius: 12,
     },
 
     dailyStatTextGroup: {
@@ -3012,15 +2823,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     dailyStatusGreen: {
-      backgroundColor: SUCCESS_SOFT,
+      backgroundColor: softTone(theme, SUCCESS_SOFT, SUCCESS),
     },
 
     dailyStatusRed: {
-      backgroundColor: DANGER_SOFT,
+      backgroundColor: softTone(theme, DANGER_SOFT, DANGER),
     },
 
     dailyStatusAmber: {
-      backgroundColor: WARNING_SOFT,
+      backgroundColor: softTone(theme, WARNING_SOFT, WARNING),
     },
 
     dailyStatusMuted: {
@@ -3049,18 +2860,13 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: MUTED,
     },
 
-    dailyStatLabel: {
-      color: MUTED,
-      fontSize: 9.4,
-      lineHeight: 12,
-      fontWeight: '700',
-    },
+    dailyStatLabel: {color: MUTED},
 
     dailyStatValue: {
       marginTop: 2,
       color: PURPLE_DARK,
-      fontSize: 10.8,
-      lineHeight: 15,
+      fontSize: 11,
+      lineHeight: 16,
       fontWeight: '900',
     },
 
@@ -3090,7 +2896,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingBottom: 13,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.11),
-      borderRadius: 25,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.98),
       shadowColor: theme.shadow.shadowColor,
       shadowOffset: {
@@ -3108,12 +2914,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent: 'space-between',
     },
 
-    emptySummaryText: {
-      marginTop: 12,
-      color: MUTED,
-      fontSize: 11.5,
-      lineHeight: 16,
-    },
+    emptySummaryText: {marginTop: 12, color: MUTED},
 
     recentEventsList: {
       marginTop: 12,
@@ -3149,20 +2950,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       minWidth: 0,
     },
 
-    historyTitle: {
-      color: PURPLE_DARK,
-      fontFamily: 'serif',
-      fontSize: 14.5,
-      lineHeight: 19,
-      fontWeight: '900',
-    },
+    historyTitle: {color: PURPLE_DARK},
 
-    historySubtitle: {
-      marginTop: 1,
-      color: MUTED,
-      fontSize: 9.2,
-      lineHeight: 13,
-    },
+    historySubtitle: {marginTop: 1, color: MUTED},
 
     historyWeekRow: {
       width: '100%',
@@ -3183,7 +2973,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingBottom: 7,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.075),
-      borderRadius: 14,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.98),
     },
 
@@ -3203,8 +2993,8 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     historyWeekday: {
       color: MUTED,
-      fontSize: 8.1,
-      lineHeight: 11,
+      fontSize: 11,
+      lineHeight: 16,
       fontWeight: '700',
       textTransform: 'capitalize',
       textAlign: 'center',
@@ -3245,7 +3035,7 @@ function createStyles(theme: ResolvedAwaTheme) {
         width: 0,
         height: 2,
       },
-      shadowOpacity: 0.18,
+      shadowOpacity: 0.15,
       shadowRadius: 4,
       elevation: 2,
     },
@@ -3257,7 +3047,7 @@ function createStyles(theme: ResolvedAwaTheme) {
         width: 0,
         height: 2,
       },
-      shadowOpacity: 0.16,
+      shadowOpacity: 0.15,
       shadowRadius: 4,
       elevation: 2,
     },
@@ -3269,7 +3059,7 @@ function createStyles(theme: ResolvedAwaTheme) {
         width: 0,
         height: 2,
       },
-      shadowOpacity: 0.16,
+      shadowOpacity: 0.15,
       shadowRadius: 4,
       elevation: 2,
     },
@@ -3291,8 +3081,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       width: '100%',
       marginTop: 7,
       paddingHorizontal: 1,
-      fontSize: 7.2,
-      lineHeight: 9.5,
+      fontSize: 11,
+      lineHeight: 16,
       fontWeight: '800',
       textAlign: 'center',
     },
@@ -3328,7 +3118,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 14,
       borderWidth: 1.25,
       borderColor: PURPLE,
-      borderRadius: 15,
+      borderRadius: 16,
       backgroundColor: withAlpha(theme.colors.surface, 0.66),
     },
 
@@ -3341,14 +3131,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       ],
     },
 
-    historyViewAllText: {
-      paddingHorizontal: 28,
-      color: PURPLE_DARK,
-      fontSize: 11.5,
-      lineHeight: 16,
-      fontWeight: '800',
-      textAlign: 'center',
-    },
+    historyViewAllText: {paddingHorizontal: 28, color: PURPLE_DARK, textAlign: 'center'},
 
     historyViewAllIcon: {
       position: 'absolute',
@@ -3357,7 +3140,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       height: 29,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 10,
+      borderRadius: 12,
       backgroundColor: PURPLE_SOFT,
     },
 
@@ -3379,8 +3162,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       height: '55%',
       minHeight: 390,
       overflow: 'hidden',
-      borderTopLeftRadius: 30,
-      borderTopRightRadius: 30,
+      borderTopLeftRadius: 28,
+      borderTopRightRadius: 28,
       backgroundColor: theme.colors.surface,
       shadowColor: theme.shadow.shadowColor,
       shadowOffset: {
@@ -3404,8 +3187,8 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     recordActionSheet: {
       paddingHorizontal: 18,
-      borderTopLeftRadius: 30,
-      borderTopRightRadius: 30,
+      borderTopLeftRadius: 28,
+      borderTopRightRadius: 28,
       backgroundColor: theme.colors.surface,
       shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: -8},
@@ -3414,21 +3197,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       elevation: 24,
     },
 
-    recordActionTitle: {
-      color: PURPLE_DARK,
-      fontFamily: 'serif',
-      fontSize: 16,
-      fontWeight: '800',
-      textAlign: 'center',
-    },
+    recordActionTitle: {color: PURPLE_DARK, textAlign: 'center'},
 
-    recordActionSubtitle: {
-      marginTop: 4,
-      marginBottom: 14,
-      color: MUTED,
-      fontSize: 11,
-      textAlign: 'center',
-    },
+    recordActionSubtitle: {marginTop: 4, marginBottom: 14, color: MUTED, textAlign: 'center'},
 
     recordActionRow: {
       flexDirection: 'row',
@@ -3482,7 +3253,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent: 'center',
       flexShrink: 0,
       marginRight: 11,
-      borderRadius: 14,
+      borderRadius: 12,
       backgroundColor: PURPLE_SOFT,
     },
 
@@ -3491,31 +3262,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       minWidth: 0,
     },
 
-    historyModalTitle: {
-      color: PURPLE_DARK,
-      fontFamily: 'serif',
-      fontSize: 18,
-      lineHeight: 23,
-      fontWeight: '900',
-    },
+    historyModalTitle: {color: PURPLE_DARK},
 
-    historyModalSubtitle: {
-      marginTop: 2,
-      color: MUTED,
-      fontSize: 11,
-      lineHeight: 15,
-    },
+    historyModalSubtitle: {marginTop: 2, color: MUTED},
 
-    historyModalClose: {
-      width: 38,
-      height: 38,
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexShrink: 0,
-      marginLeft: 10,
-      borderRadius: 13,
-      backgroundColor: PURPLE_SOFT,
-    },
+    historyModalClose: {marginLeft: 10},
 
     historyModalDivider: {
       height: StyleSheet.hairlineWidth,
@@ -3534,7 +3285,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     historyFilterChip: {
       paddingHorizontal: 12,
       paddingVertical: 7,
-      borderRadius: 14,
+      borderRadius: 12,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.16),
       backgroundColor: theme.colors.surface,
@@ -3547,7 +3298,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     historyFilterChipText: {
       color: MUTED,
-      fontSize: 10.5,
+      fontSize: 11,
       fontWeight: '700',
     },
 
@@ -3578,34 +3329,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: withAlpha(theme.colors.primary, 0.06),
     },
 
-    historyPremiumHintText: {
-      flex: 1,
-      fontSize: 12.5,
-      lineHeight: 17,
-      fontWeight: '600',
-      color: PURPLE_DARK,
-    },
+    historyPremiumHintText: {flex: 1, color: PURPLE_DARK},
 
-    historyModalRow: {
-      minHeight: 67,
-      flexDirection: 'row',
-      alignItems: 'center',
-      paddingHorizontal: 13,
-      paddingVertical: 10,
-      marginBottom: 9,
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.09),
-      borderRadius: 18,
-      backgroundColor: theme.colors.surface,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-      shadowOpacity: 0.045,
-      shadowRadius: 8,
-      elevation: 1,
-    },
+    historyModalRow: {minHeight: 67, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 13, paddingVertical: 10, marginBottom: 9},
 
     historyModalStatusIcon: {
       width: 37,
@@ -3614,19 +3340,19 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent: 'center',
       flexShrink: 0,
       marginRight: 11,
-      borderRadius: 13,
+      borderRadius: 12,
     },
 
     historyModalTakenIcon: {
-      backgroundColor: SUCCESS_SOFT,
+      backgroundColor: softTone(theme, SUCCESS_SOFT, SUCCESS),
     },
 
     historyModalMissedIcon: {
-      backgroundColor: DANGER_SOFT,
+      backgroundColor: softTone(theme, DANGER_SOFT, DANGER),
     },
 
     historyModalLateIcon: {
-      backgroundColor: WARNING_SOFT,
+      backgroundColor: softTone(theme, WARNING_SOFT, WARNING),
     },
 
     historyModalPurpleIcon: {
@@ -3638,12 +3364,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       minWidth: 0,
     },
 
-    historyModalDate: {
-      color: PURPLE_DARK,
-      fontSize: 13,
-      lineHeight: 18,
-      fontWeight: '800',
-    },
+    historyModalDate: {color: PURPLE_DARK},
 
     historyModalStatus: {
       marginTop: 3,
@@ -3674,18 +3395,13 @@ function createStyles(theme: ResolvedAwaTheme) {
       gap: 4,
       flexShrink: 0,
       marginLeft: 8,
-      paddingHorizontal: 9,
-      paddingVertical: 6,
-      borderRadius: 10,
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+      borderRadius: 12,
       backgroundColor: theme.colors.surfaceSecondary,
     },
 
-    historyModalTime: {
-      color: MUTED,
-      fontSize: 10,
-      lineHeight: 14,
-      fontWeight: '700',
-    },
+    historyModalTime: {color: MUTED},
 
     historyModalEmpty: {
       minHeight: 230,
@@ -3700,26 +3416,13 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       justifyContent: 'center',
       marginBottom: 12,
-      borderRadius: 18,
+      borderRadius: 12,
       backgroundColor: PURPLE_SOFT,
     },
 
-    historyModalEmptyTitle: {
-      color: PURPLE_DARK,
-      fontFamily: 'serif',
-      fontSize: 17,
-      fontWeight: '900',
-      textAlign: 'center',
-    },
+    historyModalEmptyTitle: {color: PURPLE_DARK, textAlign: 'center'},
 
-    historyModalEmptyText: {
-      maxWidth: 280,
-      marginTop: 7,
-      color: MUTED,
-      fontSize: 12,
-      lineHeight: 18,
-      textAlign: 'center',
-    },
+    historyModalEmptyText: {maxWidth: 280, marginTop: 7, color: MUTED, textAlign: 'center'},
 
   });
 }

@@ -19,7 +19,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {
   getContraceptionPreferences,
   hydrateContraceptionPreferences,
@@ -28,6 +28,10 @@ import {
 } from '../../state/contraceptionPreferences';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 
 const ACTIVE_DAYS_MIN = 1;
 const ACTIVE_DAYS_MAX = 90;
@@ -107,7 +111,6 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
 
   // --- entrance animation, staged, reduced-motion aware ---
   const reduceMotion = useRef(false);
-  const iconEntrance = useRef(new Animated.Value(0)).current;
   const titleEntrance = useRef(new Animated.Value(0)).current;
   const card1Entrance = useRef(new Animated.Value(0)).current;
   const card2Entrance = useRef(new Animated.Value(0)).current;
@@ -128,7 +131,6 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
         });
 
       Animated.parallel([
-        stage(iconEntrance, 0),
         stage(titleEntrance, 90),
         stage(card1Entrance, 180),
         stage(card2Entrance, 260),
@@ -136,7 +138,7 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
         stage(ctaEntrance, 420),
       ]).start();
     });
-  }, [iconEntrance, titleEntrance, card1Entrance, card2Entrance, summaryEntrance, ctaEntrance]);
+  }, [titleEntrance, card1Entrance, card2Entrance, summaryEntrance, ctaEntrance]);
 
   const fadeUp = (animatedValue: Animated.Value) => ({
     opacity: animatedValue,
@@ -182,11 +184,6 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} hidden={false} translucent />
@@ -198,134 +195,128 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
           ]}
           showsVerticalScrollIndicator={false}>
           {isEdit ? (
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={12}
               onPress={navigation.goBack}
-              style={({pressed}) => [styles.backButton, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
-            </Pressable>
+              icon="arrow-left"
+              style={styles.backButton}
+            />
           ) : null}
 
-          <Animated.View style={[styles.header, fadeUp(iconEntrance)]}>
-            <View style={styles.heroIcon}>
-              <View pointerEvents="none" style={styles.heroGlowOuter} />
-              <View pointerEvents="none" style={styles.heroGlowInner} />
-              <LinearGradient
-                colors={[theme.colors.surface, theme.colors.primarySoft]}
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 1}}
-                style={styles.heroInner}>
-                <MaterialDesignIcons color={theme.colors.primary} name="calendar-month-outline" size={30} />
-              </LinearGradient>
-            </View>
-          </Animated.View>
-
           <Animated.View style={fadeUp(titleEntrance)}>
-            <Text style={styles.title}>{t('pillSchedule.title')}</Text>
-            <Text style={styles.subtitle}>{t('pillSchedule.subtitle')}</Text>
+            <AwaText variant="headlineSmall" style={styles.title}>{t('pillSchedule.title')}</AwaText>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>{t('pillSchedule.subtitle')}</AwaText>
           </Animated.View>
 
           {isCyclic ? (
             <>
-              <Animated.View style={[styles.card, fadeUp(card1Entrance)]}>
-                <View style={styles.cardHeaderRow}>
-                  <View style={styles.cardIcon}>
-                    <MaterialDesignIcons color={theme.colors.primary} name="pill" size={18} />
-                  </View>
-                  <View style={styles.cardCopy}>
-                    <Text style={styles.cardTitle}>{t('pillSchedule.activeDays.title')}</Text>
-                    <Text style={styles.cardSubtitle}>{t('pillSchedule.activeDays.subtitle')}</Text>
-                  </View>
-                </View>
-
-                <View style={styles.stepperRow}>
-                  <Pressable
-                    accessibilityLabel={t('pillSchedule.decreaseAccessibility')}
-                    accessibilityRole="button"
-                    disabled={unknown}
-                    onPress={() => adjustActiveDays(-1)}
-                    style={({pressed}) => [styles.stepperButton, (pressed || unknown) && styles.pressed]}>
-                    <MaterialDesignIcons color={theme.colors.primary} name="minus" size={20} />
-                  </Pressable>
-
-                  <View style={styles.stepperValueBlock}>
-                    <Text style={styles.stepperValue}>{activeDays}</Text>
-                    <Text style={styles.stepperUnit}>{t('profile.durationStepper.unit')}</Text>
+              <Animated.View style={fadeUp(card1Entrance)}>
+                <AwaCard style={styles.card} variant="outlined">
+                  <View style={styles.cardHeaderRow}>
+                    <View style={styles.cardIcon}>
+                      <MaterialDesignIcons color={theme.colors.primary} name="pill" size={18} />
+                    </View>
+                    <View style={styles.cardCopy}>
+                      <AwaText variant="titleSmall">{t('pillSchedule.activeDays.title')}</AwaText>
+                      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardSubtitle}>{t('pillSchedule.activeDays.subtitle')}</AwaText>
+                    </View>
                   </View>
 
-                  <Pressable
-                    accessibilityLabel={t('pillSchedule.increaseAccessibility')}
-                    accessibilityRole="button"
-                    disabled={unknown}
-                    onPress={() => adjustActiveDays(1)}
-                    style={({pressed}) => [styles.stepperButton, (pressed || unknown) && styles.pressed]}>
-                    <MaterialDesignIcons color={theme.colors.primary} name="plus" size={20} />
-                  </Pressable>
-                </View>
+                  <View style={styles.stepperRow}>
+                    <AwaIconButton
+                      accessibilityLabel={t('pillSchedule.decreaseAccessibility')}
+                      accessibilityRole="button"
+                      disabled={unknown}
+                      onPress={() => adjustActiveDays(-1)}
+                      icon="minus"
+                      iconSize={20}
+                      variant="tonal"
+                    />
+
+                    <View style={styles.stepperValueBlock}>
+                      <Text style={styles.stepperValue}>{activeDays}</Text>
+                      <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.stepperUnit}>{t('profile.durationStepper.unit')}</AwaText>
+                    </View>
+
+                    <AwaIconButton
+                      accessibilityLabel={t('pillSchedule.increaseAccessibility')}
+                      accessibilityRole="button"
+                      disabled={unknown}
+                      onPress={() => adjustActiveDays(1)}
+                      icon="plus"
+                      iconSize={20}
+                      variant="tonal"
+                    />
+                  </View>
+                </AwaCard>
               </Animated.View>
 
-              <Animated.View style={[styles.card, styles.cardAccentWarning, fadeUp(card2Entrance)]}>
-                <View style={styles.cardHeaderRow}>
-                  <View style={[styles.cardIcon, styles.cardIconWarning]}>
-                    <MaterialDesignIcons color={theme.colors.warning} name="pause-circle-outline" size={18} />
-                  </View>
-                  <View style={styles.cardCopy}>
-                    <Text style={styles.cardTitle}>{t('pillSchedule.breakDays.title')}</Text>
-                    <Text style={styles.cardSubtitle}>{t('pillSchedule.breakDays.subtitle')}</Text>
-                  </View>
-                </View>
-
-                <View style={styles.stepperRow}>
-                  <Pressable
-                    accessibilityLabel={t('pillSchedule.decreaseAccessibility')}
-                    accessibilityRole="button"
-                    disabled={unknown}
-                    onPress={() => adjustBreakDays(-1)}
-                    style={({pressed}) => [styles.stepperButton, (pressed || unknown) && styles.pressed]}>
-                    <MaterialDesignIcons color={theme.colors.warning} name="minus" size={20} />
-                  </Pressable>
-
-                  <View style={styles.stepperValueBlock}>
-                    <Text style={styles.stepperValue}>{breakDays}</Text>
-                    <Text style={styles.stepperUnit}>{t('profile.durationStepper.unit')}</Text>
+              <Animated.View style={fadeUp(card2Entrance)}>
+                <AwaCard style={[styles.card, styles.cardAccentWarning]} variant="outlined">
+                  <View style={styles.cardHeaderRow}>
+                    <View style={[styles.cardIcon, styles.cardIconWarning]}>
+                      <MaterialDesignIcons color={theme.colors.warning} name="pause-circle-outline" size={18} />
+                    </View>
+                    <View style={styles.cardCopy}>
+                      <AwaText variant="titleSmall">{t('pillSchedule.breakDays.title')}</AwaText>
+                      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardSubtitle}>{t('pillSchedule.breakDays.subtitle')}</AwaText>
+                    </View>
                   </View>
 
-                  <Pressable
-                    accessibilityLabel={t('pillSchedule.increaseAccessibility')}
-                    accessibilityRole="button"
-                    disabled={unknown}
-                    onPress={() => adjustBreakDays(1)}
-                    style={({pressed}) => [styles.stepperButton, (pressed || unknown) && styles.pressed]}>
-                    <MaterialDesignIcons color={theme.colors.warning} name="plus" size={20} />
-                  </Pressable>
-                </View>
+                  <View style={styles.stepperRow}>
+                    <AwaIconButton
+                      accessibilityLabel={t('pillSchedule.decreaseAccessibility')}
+                      accessibilityRole="button"
+                      disabled={unknown}
+                      onPress={() => adjustBreakDays(-1)}
+                      icon="minus"
+                      iconSize={20}
+                      variant="tonal"
+                    />
 
-                <Text style={styles.cardFootnote}>{t('pillSchedule.breakDays.footnote')}</Text>
+                    <View style={styles.stepperValueBlock}>
+                      <Text style={styles.stepperValue}>{breakDays}</Text>
+                      <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.stepperUnit}>{t('profile.durationStepper.unit')}</AwaText>
+                    </View>
+
+                    <AwaIconButton
+                      accessibilityLabel={t('pillSchedule.increaseAccessibility')}
+                      accessibilityRole="button"
+                      disabled={unknown}
+                      onPress={() => adjustBreakDays(1)}
+                      icon="plus"
+                      iconSize={20}
+                      variant="tonal"
+                    />
+                  </View>
+
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardFootnote}>{t('pillSchedule.breakDays.footnote')}</AwaText>
+                </AwaCard>
               </Animated.View>
 
               {!unknown ? (
                 <Animated.View style={[styles.summaryCard, fadeUp(summaryEntrance)]}>
                   <View style={styles.summaryHeaderRow}>
                     <MaterialDesignIcons color={theme.colors.primary} name="calendar-check-outline" size={16} />
-                    <Text style={styles.summaryTitle}>{t('pillSchedule.summary.title')}</Text>
+                    <AwaText variant="labelMedium">{t('pillSchedule.summary.title')}</AwaText>
                   </View>
 
                   <View style={styles.summaryRow}>
-                    <Text style={styles.summaryLabel}>{t('pillSchedule.summary.intakeLabel')}</Text>
-                    <Text style={styles.summaryValue}>{t('pillSchedule.summary.daysValue', {count: activeDays})}</Text>
+                    <AwaText variant="labelMedium" colorRole="onSurfaceVariant">{t('pillSchedule.summary.intakeLabel')}</AwaText>
+                    <AwaText variant="labelMedium">{t('pillSchedule.summary.daysValue', {count: activeDays})}</AwaText>
                   </View>
                   <View style={styles.summaryRow}>
-                    <Text style={styles.summaryLabel}>{t('pillSchedule.summary.breakLabel')}</Text>
-                    <Text style={styles.summaryValue}>{t('pillSchedule.summary.daysValue', {count: breakDays})}</Text>
+                    <AwaText variant="labelMedium" colorRole="onSurfaceVariant">{t('pillSchedule.summary.breakLabel')}</AwaText>
+                    <AwaText variant="labelMedium">{t('pillSchedule.summary.daysValue', {count: breakDays})}</AwaText>
                   </View>
 
                   <View style={styles.summaryDivider} />
 
                   <View style={styles.summaryRow}>
-                    <Text style={styles.summaryTotalLabel}>{t('pillSchedule.summary.totalLabel')}</Text>
-                    <Text style={styles.summaryTotalValue}>{t('pillSchedule.summary.daysValue', {count: totalDays})}</Text>
+                    <AwaText variant="labelMedium">{t('pillSchedule.summary.totalLabel')}</AwaText>
+                    <AwaText variant="labelMedium" colorRole="primary">{t('pillSchedule.summary.daysValue', {count: totalDays})}</AwaText>
                   </View>
                 </Animated.View>
               ) : null}
@@ -346,43 +337,44 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
                     <Text style={[styles.unknownText, unknown && styles.unknownTextActive]}>
                       {t('pillSchedule.unknown.text')}
                     </Text>
-                    <Text style={styles.unknownSubtext}>{t('pillSchedule.unknown.subtext')}</Text>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.unknownSubtext}>{t('pillSchedule.unknown.subtext')}</AwaText>
                   </View>
                 </Pressable>
               </Animated.View>
             </>
           ) : (
-            <Animated.View style={[styles.card, fadeUp(card1Entrance)]}>
-              <View style={styles.cardHeaderRow}>
-                <View style={styles.cardIcon}>
-                  <MaterialDesignIcons color={theme.colors.primary} name="infinity" size={18} />
+            <Animated.View style={fadeUp(card1Entrance)}>
+              <AwaCard style={styles.card} variant="outlined">
+                <View style={styles.cardHeaderRow}>
+                  <View style={styles.cardIcon}>
+                    <MaterialDesignIcons color={theme.colors.primary} name="infinity" size={18} />
+                  </View>
+                  <View style={styles.cardCopy}>
+                    <AwaText variant="titleSmall">{t('pillSchedule.continuous.title')}</AwaText>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardSubtitle}>
+                      {t('pillSchedule.continuous.subtitle')}
+                    </AwaText>
+                  </View>
                 </View>
-                <View style={styles.cardCopy}>
-                  <Text style={styles.cardTitle}>{t('pillSchedule.continuous.title')}</Text>
-                  <Text style={styles.cardSubtitle}>
-                    {t('pillSchedule.continuous.subtitle')}
-                  </Text>
-                </View>
-              </View>
 
-              <Text style={styles.cardFootnote}>
-                {t('pillSchedule.continuous.footnote')}
-              </Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardFootnote}>
+                  {t('pillSchedule.continuous.footnote')}
+                </AwaText>
+              </AwaCard>
             </Animated.View>
           )}
 
           <View style={styles.spacer} />
 
           <Animated.View style={fadeUp(ctaEntrance)}>
-            <Pressable
+            <AwaButton
               accessibilityRole="button"
               disabled={saving}
               onPress={handleContinue}
-              style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
-              <Text style={styles.nextText}>
-                {saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('common.continue')}
-              </Text>
-            </Pressable>
+              label={saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('common.continue')}
+              size="large"
+              style={styles.nextButton}
+            />
           </Animated.View>
         </ScrollView>
       </View>
@@ -394,59 +386,21 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     background: {flex: 1, backgroundColor: theme.colors.background},
 
-    pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
 
-    pageGlowTop: {
-      position: 'absolute', top: -150, right: -110, width: 330, height: 330,
-      borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
-    pageGlowMiddle: {
-      position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
-      borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
-    pageGlowBottom: {
-      position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
-      borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
 
     safeArea: {flex: 1},
     content: {flexGrow: 1, paddingHorizontal: spacing.lg, paddingBottom: spacing.md},
     pressed: {opacity: 0.82},
 
-    backButton: {
-      width: 42, height: 42, alignItems: 'center', justifyContent: 'center',
-      marginBottom: 5, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08),
-      borderRadius: 16, backgroundColor: withAlpha(theme.colors.surface, 0.88),
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
-    },
+    backButton: {marginBottom: 5},
 
     header: {alignItems: 'center', marginBottom: 14},
-    heroIcon: {
-      position: 'relative', width: 72, height: 72,
-      alignItems: 'center', justifyContent: 'center', marginBottom: 4,
-    },
-    heroGlowOuter: {position: 'absolute', width: 78, height: 78, borderRadius: 39, backgroundColor: withAlpha(theme.colors.primary, 0.055)},
-    heroGlowInner: {position: 'absolute', width: 66, height: 66, borderRadius: 33, backgroundColor: withAlpha(theme.colors.primary, 0.07)},
-    heroInner: {
-      width: 56, height: 56, alignItems: 'center', justifyContent: 'center',
-      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 19,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.10, shadowRadius: 12, elevation: 4,
-    },
 
-    title: {
-      color: theme.colors.text, fontFamily: 'serif', fontSize: 23, lineHeight: 29,
-      fontWeight: '800', textAlign: 'center',
-    },
-    subtitle: {
-      maxWidth: 320, alignSelf: 'center', marginTop: 6, marginBottom: 18,
-      color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19, textAlign: 'center',
-    },
+    title: {textAlign: 'center'},
+    subtitle: {maxWidth: 320, alignSelf: 'center', marginTop: 6, marginBottom: 18, textAlign: 'center'},
 
-    card: {
-      marginBottom: 14, padding: 16, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 22,
-      backgroundColor: withAlpha(theme.colors.surface, 0.94),
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 10, elevation: 1,
-    },
+    // AwaCard (outlined) supplies the surface, border, radius and 16 dp padding.
+    card: {marginBottom: 14},
     // "Jours d'arrêt" (pause) card accent — a structural pause/caution
     // indicator, not a dose-tracking status (there is no taken/late/missed
     // grid in this file; that lives in ContraceptionJournalEntryScreen's own
@@ -457,54 +411,39 @@ function createStyles(theme: ResolvedAwaTheme) {
     cardHeaderRow: {flexDirection: 'row', alignItems: 'center', gap: 10},
     cardIcon: {
       width: 36, height: 36, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-      borderRadius: 13, backgroundColor: theme.colors.primarySoft,
+      borderRadius: 12, backgroundColor: theme.colors.primarySoft,
     },
     cardIconWarning: {backgroundColor: withAlpha(theme.colors.warning, 0.15)},
     cardCopy: {flex: 1, minWidth: 0},
-    cardTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 15, lineHeight: 20, fontWeight: '700'},
-    cardSubtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
-    cardFootnote: {marginTop: 12, color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 15},
+    cardSubtitle: {marginTop: 2},
+    cardFootnote: {marginTop: 12},
 
     stepperRow: {marginTop: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 18},
-    stepperButton: {
-      width: 44, height: 44, alignItems: 'center', justifyContent: 'center',
-      borderRadius: 22, backgroundColor: theme.colors.primarySoft,
-    },
     stepperValueBlock: {alignItems: 'center', minWidth: 76},
-    stepperValue: {color: theme.colors.text, fontFamily: 'serif', fontSize: 34, fontWeight: '800'},
-    stepperUnit: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '700'},
+    stepperValue: {color: theme.colors.text, fontSize: 34, fontWeight: '800'},
+    stepperUnit: {marginTop: 1},
 
     summaryCard: {
-      marginBottom: 14, padding: 15, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
+      marginBottom: 14, padding: 16, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
     summaryHeaderRow: {flexDirection: 'row', alignItems: 'center', gap: 7, marginBottom: 10},
-    summaryTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 13.5, fontWeight: '800'},
     summaryRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 4},
-    summaryLabel: {color: theme.colors.textSecondary, fontSize: 12.5, fontWeight: '600'},
-    summaryValue: {color: theme.colors.text, fontSize: 12.5, fontWeight: '800'},
     summaryDivider: {height: 1, marginVertical: 6, backgroundColor: theme.colors.border},
-    summaryTotalLabel: {color: theme.colors.text, fontSize: 13, fontWeight: '800'},
-    summaryTotalValue: {color: theme.colors.primary, fontSize: 13, fontWeight: '900'},
 
     unknownRow: {
-      flexDirection: 'row', alignItems: 'center', gap: 10, padding: 13, marginBottom: 10,
+      flexDirection: 'row', alignItems: 'center', gap: 10, padding: 16, marginBottom: 10,
       borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.22), borderRadius: 16, backgroundColor: withAlpha(theme.colors.surface, 0.7),
     },
     unknownRowActive: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
     unknownCopy: {flex: 1, minWidth: 0},
     unknownText: {color: theme.colors.textSecondary, fontSize: 12.5, fontWeight: '700'},
     unknownTextActive: {color: theme.colors.text},
-    unknownSubtext: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 14},
+    unknownSubtext: {marginTop: 2},
 
     spacer: {flex: 1, minHeight: 12},
 
-    nextButton: {
-      minHeight: 54, alignItems: 'center', justifyContent: 'center',
-      marginTop: 12, borderRadius: 20, backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 7}, shadowOpacity: 0.25, shadowRadius: 12, elevation: 6,
-    },
-    nextText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '800', letterSpacing: 0.2},
+    nextButton: {marginTop: 12},
   });
 }
 

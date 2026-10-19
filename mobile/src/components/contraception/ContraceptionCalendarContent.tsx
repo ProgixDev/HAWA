@@ -68,7 +68,7 @@ import {
 
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme, softTone} from '../../theme/awaThemeTokens';
 
 import {
   formatFullDate,
@@ -89,6 +89,11 @@ import {
   isPillBreakDay,
 } from '../../utils/contraceptionMath';
 import '../../i18n';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaIconButton} from '../ui/AwaIconButton';
+import {AwaText} from '../ui/AwaText';
+import {CalendarHeaderAction as HeaderAction} from '../calendar/CalendarHeaderAction';
 
 // SUCCESS/WARNING/DANGER (health-status semantics) stay fixed module
 // literals, exactly the pre-existing values this file already used (via
@@ -437,11 +442,6 @@ function ContraceptionCalendarContent(): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <SafeAreaView style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
@@ -452,8 +452,8 @@ function ContraceptionCalendarContent(): React.JSX.Element {
           {/* HEADER */}
           <View style={styles.header}>
             <View style={styles.headerCopy}>
-              <Text style={styles.title}>{t('contraceptionCalendar.title')}</Text>
-              <Text style={styles.subtitle}>{t('contraceptionCalendar.subtitle')}</Text>
+              <AwaText variant="headlineSmall" style={styles.title}>{t('contraceptionCalendar.title')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>{t('contraceptionCalendar.subtitle')}</AwaText>
             </View>
 
             <HeaderAction icon="tune-variant" label={t('contraceptionCalendar.filtersLabel')} onPress={() => setSheet('filters')} />
@@ -461,32 +461,30 @@ function ContraceptionCalendarContent(): React.JSX.Element {
           </View>
 
           {/* MONTH CARD */}
-          <View style={styles.card}>
+          <AwaCard padding="none" variant="filled" style={styles.card}>
             <View style={styles.monthHeader}>
-              <Pressable
+              <AwaIconButton
                 accessibilityLabel={t('contraceptionCalendar.prevMonthAccessibility')}
-                accessibilityRole="button"
-                hitSlop={12}
-                onPress={goToPreviousMonth}>
-                <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={24} />
-              </Pressable>
+                icon="chevron-left"
+                onPress={goToPreviousMonth}
+                variant="tonal"
+              />
 
               <View style={styles.monthTitleBlock}>
-                <Text numberOfLines={1} style={styles.monthTitle}>
+                <AwaText variant="titleMedium" style={styles.monthTitle}>
                   {displayTitleCase(new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(visibleMonth))}
-                </Text>
+                </AwaText>
                 {hijriRangeLabel ? (
-                  <Text numberOfLines={2} style={styles.hijriRange}>{hijriRangeLabel}</Text>
+                  <AwaText variant="labelSmall" colorRole="primary" style={styles.hijriRange}>{hijriRangeLabel}</AwaText>
                 ) : null}
               </View>
 
-              <Pressable
+              <AwaIconButton
                 accessibilityLabel={t('contraceptionCalendar.nextMonthAccessibility')}
-                accessibilityRole="button"
-                hitSlop={12}
-                onPress={goToNextMonth}>
-                <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={24} />
-              </Pressable>
+                icon="chevron-right"
+                onPress={goToNextMonth}
+                variant="tonal"
+              />
             </View>
 
             <View style={styles.weekRow}>
@@ -662,14 +660,14 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                 </>
               ) : null}
             </View>
-          </View>
+          </AwaCard>
 
           {/* SELECTED DAY CARD */}
-          <View style={styles.card}>
+          <AwaCard padding="none" variant="filled" style={styles.card}>
             <View style={styles.selectedHeader}>
-              <Text style={styles.selectedDateText}>{formatFullDate(selectedDate)}</Text>
+              <AwaText variant="titleMedium" style={styles.selectedDateText}>{formatFullDate(selectedDate)}</AwaText>
               {selectedHijriDate ? (
-                <Text style={styles.selectedHijriText}>{selectedHijriDate}</Text>
+                <AwaText variant="labelSmall" colorRole="primary" style={styles.selectedHijriText}>{selectedHijriDate}</AwaText>
               ) : null}
             </View>
 
@@ -678,8 +676,8 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                 <MaterialDesignIcons color={theme.colors.primary} name={methodIcon} size={17} />
               </View>
               <View style={styles.selectedRowTextGroup}>
-                <Text style={styles.selectedRowLabel}>{t('contraceptionCalendar.selected.method')}</Text>
-                <Text numberOfLines={1} style={styles.selectedRowValue}>{methodLabel}</Text>
+                <AwaText variant="labelSmall" colorRole="onSurfaceVariant">{t('contraceptionCalendar.selected.method')}</AwaText>
+                <Text style={styles.selectedRowValue}>{methodLabel}</Text>
               </View>
               {selectedPillPackDay !== null ? (
                 <View style={styles.packBadge}>
@@ -704,10 +702,10 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                         />
                       </View>
                       <View style={styles.selectedRowTextGroup}>
-                        <Text numberOfLines={1} style={styles.selectedRowLabel}>
+                        <AwaText variant="labelSmall" colorRole="onSurfaceVariant">
                           {contraceptionEventLabels(t)[event.type]}
-                        </Text>
-                        <Text numberOfLines={1} style={styles.selectedRowValue}>
+                        </AwaText>
+                        <Text style={styles.selectedRowValue}>
                           {time ? t('contraceptionCalendar.selected.recordedAt', {time}) : t('contraceptionCalendar.selected.recorded')}
                         </Text>
                       </View>
@@ -720,8 +718,8 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                     <MaterialDesignIcons color={theme.colors.textSecondary} name="clock-outline" size={17} />
                   </View>
                   <View style={styles.selectedRowTextGroup}>
-                    <Text numberOfLines={1} style={styles.selectedRowLabel}>{intakeActionLabel}</Text>
-                    <Text numberOfLines={1} style={styles.selectedRowValue}>{t('contraceptionCalendar.selected.noEvent')}</Text>
+                    <AwaText variant="labelSmall" colorRole="onSurfaceVariant">{intakeActionLabel}</AwaText>
+                    <Text style={styles.selectedRowValue}>{t('contraceptionCalendar.selected.noEvent')}</Text>
                   </View>
                 </View>
               )
@@ -761,9 +759,8 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                   />
                 </View>
                 <View style={styles.selectedRowTextGroup}>
-                  <Text numberOfLines={1} style={styles.selectedRowLabel}>{intakeActionLabel}</Text>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant">{intakeActionLabel}</AwaText>
                   <Text
-                    numberOfLines={1}
                     style={[
                       styles.selectedRowValue,
                       selectedRecord?.status === 'taken' && styles.valueSuccess,
@@ -785,7 +782,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                 />
               </View>
               <View style={styles.selectedRowTextGroup}>
-                <Text style={styles.selectedRowLabel}>{t('contraceptionCalendar.selected.feelingsLabel')}</Text>
+                <AwaText variant="labelSmall" colorRole="onSurfaceVariant">{t('contraceptionCalendar.selected.feelingsLabel')}</AwaText>
                 <Text style={styles.selectedRowValue}>
                   {selectedFeelingsCount > 0
                     ? t('contraceptionCalendar.selected.feelingsCount', {count: selectedFeelingsCount})
@@ -803,7 +800,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                 />
               </View>
               <View style={styles.selectedRowTextGroup}>
-                <Text style={styles.selectedRowLabel}>{t('contraceptionCalendar.selected.remindersLabel')}</Text>
+                <AwaText variant="labelSmall" colorRole="onSurfaceVariant">{t('contraceptionCalendar.selected.remindersLabel')}</AwaText>
                 <Text style={styles.selectedRowValue}>
                   {reminderIndicator === 'enabled'
                     ? t('contraceptionCalendar.selected.remindersEnabled')
@@ -820,7 +817,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                 accessibilityRole="button"
                 onPress={openJournal}
                 style={({pressed}) => [styles.editRow, pressed && styles.pressed]}>
-                <Text style={styles.editRowText}>{t('contraceptionCalendar.selected.edit')}</Text>
+                <AwaText variant="labelMedium" colorRole="primary">{t('contraceptionCalendar.selected.edit')}</AwaText>
                 <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={18} />
               </Pressable>
             ) : null}
@@ -837,31 +834,31 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                 accessibilityRole="button"
                 onPress={() => navigation.navigate('ContraceptionJournalEntry', {category: 'feelings', date: selectedDateKey})}
                 style={({pressed}) => [styles.editRow, pressed && styles.pressed]}>
-                <Text style={styles.editRowText}>
+                <AwaText variant="labelMedium" colorRole="primary">
                   {selectedFeelingsCount > 0
                     ? t('contraceptionCalendar.selected.editFeelings')
                     : t('contraceptionCalendar.selected.fillFeelings')}
-                </Text>
+                </AwaText>
                 <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={18} />
               </Pressable>
             ) : null}
-          </View>
+          </AwaCard>
 
           {/* MONTHLY SUMMARY */}
-          <View style={styles.card}>
-            <Text style={styles.summaryTitle}>{t('contraceptionCalendar.summary.title')}</Text>
+          <AwaCard padding="none" variant="filled" style={styles.card}>
+            <AwaText variant="titleMedium" style={styles.summaryTitle}>{t('contraceptionCalendar.summary.title')}</AwaText>
 
             {isEventMethod ? (
               methodEventTypes.every(type => !monthlyEventCounts[type]) ? (
-                <Text style={styles.emptySummaryText}>{t('contraceptionCalendar.summary.emptyEvents')}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{t('contraceptionCalendar.summary.emptyEvents')}</AwaText>
               ) : (
                 <View style={styles.summaryGrid}>
                   {methodEventTypes.map(type =>
                     monthlyEventCounts[type] ? (
                       <View key={type} style={[styles.summaryTile, styles.summaryTilePurple]}>
                         <MaterialDesignIcons color={theme.colors.primary} name={CONTRACEPTION_EVENT_ICONS[type]} size={18} />
-                        <Text style={styles.summaryValue}>{monthlyEventCounts[type]}</Text>
-                        <Text style={styles.summaryLabel}>{contraceptionEventLabels(t)[type]}</Text>
+                        <AwaText variant="titleLarge" style={styles.summaryValue}>{monthlyEventCounts[type]}</AwaText>
+                        <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.summaryLabel}>{contraceptionEventLabels(t)[type]}</AwaText>
                       </View>
                     ) : null,
                   )}
@@ -871,46 +868,46 @@ function ContraceptionCalendarContent(): React.JSX.Element {
               <View style={styles.summaryGrid}>
                 <View style={[styles.summaryTile, styles.summaryTileGreen]}>
                   <MaterialDesignIcons color={SUCCESS} name="check-circle-outline" size={18} />
-                  <Text style={styles.summaryValue}>{monthlySummary.taken}</Text>
-                  <Text style={styles.summaryLabel}>{t('contraceptionCalendar.summary.taken')}</Text>
+                  <AwaText variant="titleLarge" style={styles.summaryValue}>{monthlySummary.taken}</AwaText>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.summaryLabel}>{t('contraceptionCalendar.summary.taken')}</AwaText>
                 </View>
 
                 <View style={[styles.summaryTile, styles.summaryTileAmber]}>
                   <MaterialDesignIcons color={WARNING} name="clock-alert-outline" size={18} />
-                  <Text style={styles.summaryValue}>{monthlySummary.late}</Text>
-                  <Text style={styles.summaryLabel}>{t('contraceptionCalendar.summary.late')}</Text>
+                  <AwaText variant="titleLarge" style={styles.summaryValue}>{monthlySummary.late}</AwaText>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.summaryLabel}>{t('contraceptionCalendar.summary.late')}</AwaText>
                 </View>
 
                 <View style={[styles.summaryTile, styles.summaryTileRed]}>
                   <MaterialDesignIcons color={DANGER} name="alert-circle-outline" size={18} />
-                  <Text style={styles.summaryValue}>{monthlySummary.missed}</Text>
-                  <Text style={styles.summaryLabel}>{t('contraceptionCalendar.summary.missed')}</Text>
+                  <AwaText variant="titleLarge" style={styles.summaryValue}>{monthlySummary.missed}</AwaText>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.summaryLabel}>{t('contraceptionCalendar.summary.missed')}</AwaText>
                 </View>
 
                 {monthlySummary.notRecorded !== null ? (
                   <View style={[styles.summaryTile, styles.summaryTileMuted]}>
                     <MaterialDesignIcons color={theme.colors.textSecondary} name="clock-outline" size={18} />
-                    <Text style={styles.summaryValue}>{monthlySummary.notRecorded}</Text>
-                    <Text style={styles.summaryLabel}>{t('contraceptionCalendar.summary.notRecorded')}</Text>
+                    <AwaText variant="titleLarge" style={styles.summaryValue}>{monthlySummary.notRecorded}</AwaText>
+                    <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.summaryLabel}>{t('contraceptionCalendar.summary.notRecorded')}</AwaText>
                   </View>
                 ) : null}
 
                 {monthlySummary.regularityPercent !== null ? (
                   <View style={[styles.summaryTile, styles.summaryTilePurple]}>
                     <MaterialDesignIcons color={theme.colors.primary} name="chart-line" size={18} />
-                    <Text style={styles.summaryValue}>{monthlySummary.regularityPercent}%</Text>
-                    <Text style={styles.summaryLabel}>{t('contraceptionCalendar.summary.regularity')}</Text>
+                    <AwaText variant="titleLarge" style={styles.summaryValue}>{monthlySummary.regularityPercent}%</AwaText>
+                    <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.summaryLabel}>{t('contraceptionCalendar.summary.regularity')}</AwaText>
                   </View>
                 ) : null}
               </View>
             )}
 
             {!isEventMethod && monthlySummary.regularityPercent !== null ? (
-              <Text style={styles.regularityDisclaimer}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.regularityDisclaimer}>
                 {t('contraceptionCalendar.summary.disclaimer')}
-              </Text>
+              </AwaText>
             ) : null}
-          </View>
+          </AwaCard>
         </ScrollView>
 
         <ContraceptionCalendarSheet
@@ -929,28 +926,6 @@ function ContraceptionCalendarContent(): React.JSX.Element {
   );
 }
 
-function HeaderAction({
-  icon,
-  label,
-  onPress,
-}: {
-  icon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
-  label: string;
-  onPress: () => void;
-}): React.JSX.Element {
-  const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
-  return (
-    <Pressable
-      accessibilityLabel={label}
-      accessibilityRole="button"
-      onPress={onPress}
-      style={({pressed}) => [styles.headerAction, pressed && styles.pressed]}>
-      <MaterialDesignIcons color={theme.colors.primary} name={icon} size={18} />
-      <Text style={styles.headerActionLabel}>{label}</Text>
-    </Pressable>
-  );
-}
 
 function LegendItem({
   color,
@@ -978,7 +953,7 @@ function LegendItem({
       ) : (
         <View style={[styles.legendDot, color ? {backgroundColor: color} : null]} />
       )}
-      <Text numberOfLines={1} style={styles.legendText}>{label}</Text>
+      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.legendLabel}>{label}</AwaText>
     </View>
   );
 }
@@ -1010,7 +985,6 @@ function ContraceptionCalendarSheet({
 }): React.JSX.Element {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
   const sheetStyles = useMemo(() => createSheetStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
 
@@ -1098,12 +1072,12 @@ function ContraceptionCalendarSheet({
             <View style={sheetStyles.handle} />
 
             <View style={sheetStyles.sheetHeader}>
-              <Text style={sheetStyles.sheetTitle}>{t('contraceptionCalendar.sheet.filtersTitle')}</Text>
-              <Text style={sheetStyles.sheetSubtitle}>{t('contraceptionCalendar.sheet.filtersSubtitle')}</Text>
+              <AwaText variant="headlineSmall" style={sheetStyles.sheetTitle}>{t('contraceptionCalendar.sheet.filtersTitle')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={sheetStyles.sheetSubtitle}>{t('contraceptionCalendar.sheet.filtersSubtitle')}</AwaText>
             </View>
 
             <ScrollView bounces={false} contentContainerStyle={sheetStyles.filterRows} showsVerticalScrollIndicator={false} style={sheetStyles.filterScroll}>
-              <Text style={sheetStyles.groupTitle}>{displayUpperCase(t('contraceptionCalendar.sheet.trackingGroupTitle'))}</Text>
+              <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={sheetStyles.groupTitle}>{displayUpperCase(t('contraceptionCalendar.sheet.trackingGroupTitle'))}</AwaText>
               {trackingFilterRows.map((row, index) => (
                 <FilterRow
                   active={filters[row.key]}
@@ -1116,7 +1090,7 @@ function ContraceptionCalendarSheet({
 
               {spiritualMarkersEnabled ? (
                 <>
-                  <Text style={sheetStyles.groupTitle}>{displayUpperCase(t('contraceptionCalendar.sheet.spiritualGroupTitle'))}</Text>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={sheetStyles.groupTitle}>{displayUpperCase(t('contraceptionCalendar.sheet.spiritualGroupTitle'))}</AwaText>
                   {spiritualFilterRows.map((row, index) => (
                     <FilterRow
                       active={filters[row.key]}
@@ -1131,12 +1105,11 @@ function ContraceptionCalendarSheet({
             </ScrollView>
 
             <View style={sheetStyles.footer}>
-              <Pressable
+              <AwaButton
                 accessibilityRole="button"
                 onPress={onClose}
-                style={({pressed}) => [sheetStyles.doneButton, pressed && styles.pressed]}>
-                <Text style={sheetStyles.doneText}>{t('contraceptionCalendar.sheet.done')}</Text>
-              </Pressable>
+                label={t('contraceptionCalendar.sheet.done')}
+              />
             </View>
           </View>
         ) : mode === 'legend' ? (
@@ -1145,8 +1118,8 @@ function ContraceptionCalendarSheet({
 
             <ScrollView bounces={false} contentContainerStyle={sheetStyles.legendScrollContent} showsVerticalScrollIndicator={false} style={sheetStyles.legendScroll}>
               <View style={sheetStyles.sheetHeader}>
-                <Text style={sheetStyles.sheetTitle}>{t('contraceptionCalendar.sheet.legendTitle')}</Text>
-                <Text style={sheetStyles.sheetSubtitle}>{t('contraceptionCalendar.sheet.legendSubtitle')}</Text>
+                <AwaText variant="headlineSmall" style={sheetStyles.sheetTitle}>{t('contraceptionCalendar.sheet.legendTitle')}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={sheetStyles.sheetSubtitle}>{t('contraceptionCalendar.sheet.legendSubtitle')}</AwaText>
               </View>
 
               <View style={sheetStyles.legendRowsGroup}>
@@ -1156,8 +1129,8 @@ function ContraceptionCalendarSheet({
                       <MaterialDesignIcons color={row.color} name={row.icon} size={22} />
                     </View>
                     <View style={sheetStyles.legendRowCopy}>
-                      <Text style={sheetStyles.legendRowTitle}>{row.title}</Text>
-                      <Text style={sheetStyles.legendRowText}>{row.description}</Text>
+                      <AwaText variant="titleSmall" style={sheetStyles.legendRowTitle}>{row.title}</AwaText>
+                      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={sheetStyles.legendRowText}>{row.description}</AwaText>
                     </View>
                   </View>
                 ))}
@@ -1167,8 +1140,8 @@ function ContraceptionCalendarSheet({
                     <View style={sheetStyles.legendTodayPreview} />
                   </View>
                   <View style={sheetStyles.legendRowCopy}>
-                    <Text style={sheetStyles.legendRowTitle}>{t('contraceptionCalendar.sheet.todayTitle')}</Text>
-                    <Text style={sheetStyles.legendRowText}>{t('contraceptionCalendar.sheet.todayDescription')}</Text>
+                    <AwaText variant="titleSmall" style={sheetStyles.legendRowTitle}>{t('contraceptionCalendar.sheet.todayTitle')}</AwaText>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={sheetStyles.legendRowText}>{t('contraceptionCalendar.sheet.todayDescription')}</AwaText>
                   </View>
                 </View>
 
@@ -1179,8 +1152,8 @@ function ContraceptionCalendarSheet({
                         <MaterialDesignIcons color={RAMADAN_MARKER_COLOR} name="moon-waning-crescent" size={22} />
                       </View>
                       <View style={sheetStyles.legendRowCopy}>
-                        <Text style={sheetStyles.legendRowTitle}>{t('contraceptionCalendar.legend.ramadan')}</Text>
-                        <Text style={sheetStyles.legendRowText}>{t('contraceptionCalendar.sheet.ramadanDescription')}</Text>
+                        <AwaText variant="titleSmall" style={sheetStyles.legendRowTitle}>{t('contraceptionCalendar.legend.ramadan')}</AwaText>
+                        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={sheetStyles.legendRowText}>{t('contraceptionCalendar.sheet.ramadanDescription')}</AwaText>
                       </View>
                     </View>
                     <View style={[sheetStyles.legendRow, sheetStyles.legendRowLast]}>
@@ -1188,8 +1161,8 @@ function ContraceptionCalendarSheet({
                         <MaterialDesignIcons color={DHOUL_HIJJA_MARKER_COLOR} name="moon-waning-crescent" size={22} />
                       </View>
                       <View style={sheetStyles.legendRowCopy}>
-                        <Text style={sheetStyles.legendRowTitle}>{t('contraceptionCalendar.legend.dhoulHijja')}</Text>
-                        <Text style={sheetStyles.legendRowText}>{t('contraceptionCalendar.sheet.dhoulHijjaDescription')}</Text>
+                        <AwaText variant="titleSmall" style={sheetStyles.legendRowTitle}>{t('contraceptionCalendar.legend.dhoulHijja')}</AwaText>
+                        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={sheetStyles.legendRowText}>{t('contraceptionCalendar.sheet.dhoulHijjaDescription')}</AwaText>
                       </View>
                     </View>
                   </>
@@ -1198,13 +1171,12 @@ function ContraceptionCalendarSheet({
             </ScrollView>
 
             <View style={sheetStyles.footer}>
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('conceiveCalendar.legendSheet.closeAccessibility')}
                 accessibilityRole="button"
                 onPress={onClose}
-                style={({pressed}) => [sheetStyles.doneButton, pressed && styles.pressed]}>
-                <Text style={sheetStyles.doneText}>{t('contraceptionCalendar.sheet.close')}</Text>
-              </Pressable>
+                label={t('contraceptionCalendar.sheet.close')}
+              />
             </View>
           </View>
         ) : null}
@@ -1236,8 +1208,8 @@ function FilterRow({
         <MaterialDesignIcons color={row.color} name={row.icon} size={20} />
       </View>
       <View style={sheetStyles.filterCopy}>
-        <Text style={sheetStyles.filterTitle}>{row.title}</Text>
-        <Text style={sheetStyles.filterDescription}>{row.description}</Text>
+        <AwaText variant="labelMedium" style={sheetStyles.filterTitle}>{row.title}</AwaText>
+        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={sheetStyles.filterDescription}>{row.description}</AwaText>
       </View>
       <View style={[sheetStyles.switchTrack, active && sheetStyles.switchTrackActive]}>
         <View style={[sheetStyles.switchThumb, active && sheetStyles.switchThumbActive]} />
@@ -1258,22 +1230,22 @@ function createSheetStyles(theme: ResolvedAwaTheme) {
   handle: {width: 44, height: 5, alignSelf: 'center', flexShrink: 0, borderRadius: 3, backgroundColor: withAlpha(theme.colors.primary, 0.30)},
 
   sheetHeader: {flexShrink: 0, marginTop: 18, marginBottom: 10, paddingHorizontal: 22},
-  sheetTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 24, fontWeight: '800'},
-  sheetSubtitle: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 18},
+  sheetTitle: {color: theme.colors.accent},
+  sheetSubtitle: {marginTop: 8},
 
   filterSheet: {height: '80%'},
   filterScroll: {flex: 1, minHeight: 0},
   filterRows: {paddingHorizontal: 22, paddingBottom: 10},
-  groupTitle: {marginTop: 14, marginBottom: 4, color: theme.colors.textSecondary, fontSize: 11, fontWeight: '800', textTransform: 'uppercase'},
+  groupTitle: {marginTop: 14, marginBottom: 4, textTransform: 'uppercase'},
   filterRow: {
     minHeight: 66, flexDirection: 'row', alignItems: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: withAlpha(theme.colors.primary, 0.10),
   },
   filterRowLast: {borderBottomWidth: 0},
-  filterIcon: {width: 44, height: 44, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 15, backgroundColor: theme.colors.primarySoft},
+  filterIcon: {width: 44, height: 44, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: theme.colors.primarySoft},
   filterCopy: {flex: 1, minWidth: 0, marginHorizontal: 12},
-  filterTitle: {color: theme.colors.accent, fontSize: 13, fontWeight: '800'},
-  filterDescription: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 14},
+  filterTitle: {color: theme.colors.accent},
+  filterDescription: {marginTop: 2},
   switchTrack: {width: 42, height: 24, flexShrink: 0, justifyContent: 'center', paddingHorizontal: 2, borderRadius: 13, backgroundColor: theme.colors.surfaceSecondary},
   switchTrackActive: {backgroundColor: theme.colors.primary},
   switchThumb: {...theme.shadow, width: 20, height: 20, borderRadius: 10, backgroundColor: theme.colors.surface},
@@ -1288,141 +1260,113 @@ function createSheetStyles(theme: ResolvedAwaTheme) {
     borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: withAlpha(theme.colors.primary, 0.10),
   },
   legendRowLast: {borderBottomWidth: 0},
-  legendLargeIcon: {width: 44, height: 44, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 15, backgroundColor: theme.colors.primarySoft},
+  legendLargeIcon: {width: 44, height: 44, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: theme.colors.primarySoft},
   legendTodayPreview: {
     width: 22, height: 22, borderWidth: 1.8, borderStyle: 'dashed', borderColor: theme.colors.text, borderRadius: 8,
     backgroundColor: theme.colors.primarySoft,
   },
   legendRowCopy: {flex: 1, minWidth: 0, marginLeft: 14},
-  legendRowTitle: {color: theme.colors.accent, fontSize: 14, fontWeight: '800'},
-  legendRowText: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 15},
+  legendRowTitle: {color: theme.colors.accent},
+  legendRowText: {marginTop: 3},
 
   footer: {
     flexShrink: 0, paddingHorizontal: 22, paddingTop: 10, paddingBottom: 4,
     borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: withAlpha(theme.colors.primary, 0.10), backgroundColor: theme.colors.surface,
   },
-  doneButton: {height: 50, alignItems: 'center', justifyContent: 'center', borderRadius: 18, backgroundColor: theme.colors.primary},
-  doneText: {color: onPrimaryTextColor(theme), fontSize: 14, fontWeight: '800'},
   });
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   background: {flex: 1, backgroundColor: theme.colors.background},
-  pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
-  pageGlowTop: {
-    position: 'absolute', top: -150, right: -110, width: 330, height: 330,
-    borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-  pageGlowMiddle: {
-    position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
-    borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
-  pageGlowBottom: {
-    position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
-    borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   safeArea: {flex: 1},
   content: {flexGrow: 1, paddingHorizontal: 16, paddingTop: TOP_SPACING_EXTRA},
 
   header: {flexDirection: 'row', alignItems: 'center'},
   headerCopy: {flex: 1, minWidth: 0},
-  title: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 23, fontWeight: '800'},
-  subtitle: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 12.5},
-  headerAction: {
-    ...theme.shadow,
-    width: 52, height: 52, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-    marginLeft: 8, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 17, backgroundColor: theme.colors.surface,
-  },
-  headerActionLabel: {marginTop: 2, color: theme.colors.primary, fontSize: 8, fontWeight: '800'},
+  title: {color: theme.colors.accent},
+  subtitle: {marginTop: 4},
 
-  card: {
-    marginTop: 16, padding: 16, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 24,
-    backgroundColor: withAlpha(theme.colors.surface, 0.98),
-    ...theme.shadow,
-  },
+  card: {marginTop: 16, padding: 16},
 
   monthHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
   monthTitleBlock: {flex: 1, alignItems: 'center', paddingHorizontal: 6, minWidth: 0},
-  monthTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 18, fontWeight: '800', textTransform: 'capitalize'},
-  hijriRange: {marginTop: 2, color: theme.colors.primary, fontSize: 10, fontWeight: '600', textAlign: 'center'},
+  monthTitle: {color: theme.colors.accent, textTransform: 'capitalize'},
+  hijriRange: {marginTop: 2, textAlign: 'center'},
 
   weekRow: {flexDirection: 'row', marginTop: 14},
-  weekDay: {width: '14.2857%', color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700', textAlign: 'center'},
+  weekDay: {width: '14.2857%', color: theme.colors.textSecondary, fontSize: 11, fontWeight: '700', textAlign: 'center'},
   daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 4},
   dayCell: {width: '14.2857%', minHeight: 52, alignItems: 'center', justifyContent: 'center', paddingVertical: 2},
   day: {
     position: 'relative', width: '86%', minHeight: 40, maxWidth: 42, paddingVertical: 4,
-    alignItems: 'center', justifyContent: 'center', borderRadius: 14,
+    alignItems: 'center', justifyContent: 'center', borderRadius: 12,
   },
-  dayTaken: {backgroundColor: SUCCESS_SOFT},
-  dayLate: {backgroundColor: WARNING_SOFT},
-  dayMissed: {backgroundColor: DANGER_SOFT},
+  dayTaken: {backgroundColor: softTone(theme, SUCCESS_SOFT, SUCCESS)},
+  dayLate: {backgroundColor: softTone(theme, WARNING_SOFT, WARNING)},
+  dayMissed: {backgroundColor: softTone(theme, DANGER_SOFT, DANGER)},
   dayHasEvent: {backgroundColor: theme.colors.primarySoft},
   dayNotRecorded: {borderWidth: 1, borderColor: withAlpha(theme.colors.textSecondary, 0.28)},
   daySelected: {backgroundColor: theme.colors.primary},
   dayToday: {
-    backgroundColor: theme.colors.primarySoft, borderWidth: 1.8, borderStyle: 'dashed', borderColor: theme.colors.text, borderRadius: 14,
+    backgroundColor: theme.colors.primarySoft, borderWidth: 1.8, borderStyle: 'dashed', borderColor: theme.colors.text, borderRadius: 12,
   },
   dayText: {color: theme.colors.accent, fontSize: 13, fontWeight: '600'},
   dayTextLight: {color: onPrimaryTextColor(theme)},
   dayTextToday: {color: theme.colors.text, fontWeight: '800'},
-  hijriDayText: {color: theme.colors.textSecondary, fontSize: 8.5, marginTop: 1},
+  hijriDayText: {color: theme.colors.textSecondary, fontSize: 11, marginTop: 1},
   statusIcon: {marginTop: 1},
   eventMarkerRow: {flexDirection: 'row', marginTop: 1, gap: 2},
   spiritualMarker: {position: 'absolute', top: 3, right: 3},
 
   legendRow: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 12},
-  legendItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  legendItem: {flexDirection: 'row', alignItems: 'center', gap: 5, maxWidth: '100%'},
+  legendLabel: {flexShrink: 1},
   legendDot: {width: 9, height: 9, borderRadius: 5, backgroundColor: theme.colors.textSecondary},
   legendOutlineRing: {width: 9, height: 9, borderRadius: 5, borderWidth: 1, borderColor: withAlpha(theme.colors.textSecondary, 0.5)},
   legendDashedRing: {width: 11, height: 11, borderRadius: 6, borderWidth: 1.3, borderStyle: 'dashed', borderColor: theme.colors.text},
-  legendText: {color: theme.colors.textSecondary, fontSize: 10.5},
 
   selectedHeader: {marginBottom: 12},
-  selectedDateText: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 16.5, fontWeight: '800', textTransform: 'capitalize'},
-  selectedHijriText: {marginTop: 2, color: theme.colors.primary, fontSize: 11, fontWeight: '600'},
+  selectedDateText: {color: theme.colors.accent, textTransform: 'capitalize'},
+  selectedHijriText: {marginTop: 2},
 
   selectedRow: {flexDirection: 'row', alignItems: 'center', paddingVertical: 8, gap: 10},
   selectedRowIcon: {width: 34, height: 34, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 12},
   selectedRowIconPurple: {backgroundColor: theme.colors.primarySoft},
-  selectedRowIconGreen: {backgroundColor: SUCCESS_SOFT},
-  selectedRowIconAmber: {backgroundColor: WARNING_SOFT},
-  selectedRowIconRed: {backgroundColor: DANGER_SOFT},
+  selectedRowIconGreen: {backgroundColor: softTone(theme, SUCCESS_SOFT, SUCCESS)},
+  selectedRowIconAmber: {backgroundColor: softTone(theme, WARNING_SOFT, WARNING)},
+  selectedRowIconRed: {backgroundColor: softTone(theme, DANGER_SOFT, DANGER)},
   selectedRowIconMuted: {backgroundColor: theme.colors.surfaceSecondary},
   selectedRowTextGroup: {flex: 1, minWidth: 0},
-  selectedRowLabel: {color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700'},
   selectedRowValue: {marginTop: 2, color: theme.colors.accent, fontSize: 12.5, fontWeight: '800'},
   valueSuccess: {color: SUCCESS},
   valueWarning: {color: WARNING},
   valueDanger: {color: DANGER},
 
   packBadge: {flexShrink: 0, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 12, backgroundColor: theme.colors.primarySoft},
-  packBadgeText: {color: theme.colors.primary, fontSize: 10.5, fontWeight: '800'},
+  packBadgeText: {color: theme.colors.primary, fontSize: 11, fontWeight: '800'},
 
   editRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 8,
-    paddingHorizontal: 12, paddingVertical: 12, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 15,
+    paddingHorizontal: 12, paddingVertical: 12, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 16,
     backgroundColor: theme.colors.surfaceSecondary,
   },
-  editRowText: {color: theme.colors.primary, fontSize: 12.5, fontWeight: '800'},
 
-  summaryTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 16, fontWeight: '800', marginBottom: 12},
+  summaryTitle: {color: theme.colors.accent, marginBottom: 12},
   summaryGrid: {flexDirection: 'row', flexWrap: 'wrap', gap: 10},
   summaryTile: {
-    flexGrow: 1, flexBasis: '46%', minWidth: 130, alignItems: 'center', paddingVertical: 14,
-    borderRadius: 18, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14),
+    flexGrow: 1, flexBasis: '46%', minWidth: 130, alignItems: 'center', paddingVertical: 14, paddingHorizontal: 12,
+    borderRadius: 12, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14),
   },
-  summaryTileGreen: {backgroundColor: SUCCESS_SOFT},
-  summaryTileAmber: {backgroundColor: WARNING_SOFT},
-  summaryTileRed: {backgroundColor: DANGER_SOFT},
+  summaryTileGreen: {backgroundColor: softTone(theme, SUCCESS_SOFT, SUCCESS)},
+  summaryTileAmber: {backgroundColor: softTone(theme, WARNING_SOFT, WARNING)},
+  summaryTileRed: {backgroundColor: softTone(theme, DANGER_SOFT, DANGER)},
   summaryTileMuted: {backgroundColor: theme.colors.surfaceSecondary},
   summaryTilePurple: {backgroundColor: theme.colors.primarySoft},
-  summaryValue: {marginTop: 6, color: theme.colors.accent, fontSize: 20, fontWeight: '900'},
-  summaryLabel: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700', textAlign: 'center'},
-  emptySummaryText: {color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
-  regularityDisclaimer: {marginTop: 10, color: theme.colors.textSecondary, fontSize: 9.5, lineHeight: 13, fontStyle: 'italic'},
+  summaryValue: {marginTop: 6, color: theme.colors.accent},
+  summaryLabel: {marginTop: 2, textAlign: 'center'},
+  regularityDisclaimer: {marginTop: 10, fontStyle: 'italic'},
 
   pressed: {opacity: 0.82},
   });

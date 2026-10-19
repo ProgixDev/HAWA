@@ -16,7 +16,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import InlineCalendarPickerModal from '../../components/onboarding/InlineCalendarPickerModal';
 import {
@@ -27,6 +27,10 @@ import {
 } from '../../state/contraceptionPreferences';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 
 type MaterialDesignIconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 const TREATMENT_BREAK_ICON: MaterialDesignIconName = 'clock-outline';
@@ -156,11 +160,6 @@ function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.E
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} hidden={false} translucent />
@@ -173,41 +172,29 @@ function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.E
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
           {isEdit ? (
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={12}
               onPress={navigation.goBack}
-              style={({pressed}) => [styles.backButton, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
-            </Pressable>
+              icon="arrow-left"
+              style={styles.backButton}
+            />
           ) : null}
 
           <View style={styles.header}>
-            <View style={styles.heroIcon}>
-              <View pointerEvents="none" style={styles.heroGlowOuter} />
-              <View pointerEvents="none" style={styles.heroGlowInner} />
-              <LinearGradient
-                colors={[theme.colors.surface, theme.colors.primarySoft]}
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 1}}
-                style={styles.heroInner}>
-                <MaterialDesignIcons color={theme.colors.primary} name="clipboard-text-outline" size={30} />
-              </LinearGradient>
-            </View>
-
-            <Text style={styles.title}>{t('contraceptionInformation.title')}</Text>
-            <Text style={styles.subtitle}>
+            <AwaText variant="headlineSmall" style={styles.title}>{t('contraceptionInformation.title')}</AwaText>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>
               {t('contraceptionInformation.subtitle')}
-            </Text>
+            </AwaText>
           </View>
 
-          <View style={styles.card}>
+          <AwaCard style={styles.card} variant="outlined">
             <View style={styles.fieldLabelRow}>
               <View style={styles.fieldIcon}>
                 <MaterialDesignIcons color={theme.colors.primary} name="calendar-month-outline" size={16} />
               </View>
-              <Text style={styles.fieldLabel}>{question}</Text>
+              <AwaText variant="labelMedium" style={styles.fieldLabel}>{question}</AwaText>
             </View>
 
             <Pressable
@@ -220,17 +207,17 @@ function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.E
               </Text>
               <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={20} />
             </Pressable>
-          </View>
+          </AwaCard>
 
           {askTreatmentBreak ? (
-          <View style={[styles.card, styles.cardSpaced]}>
+          <AwaCard style={[styles.card, styles.cardSpaced]} variant="outlined">
             <View style={styles.fieldLabelRow}>
               <View style={styles.fieldIcon}>
                 <MaterialDesignIcons color={theme.colors.primary} name={TREATMENT_BREAK_ICON} size={16} />
               </View>
-              <Text style={styles.fieldLabel}>
+              <AwaText variant="labelMedium" style={styles.fieldLabel}>
                 {t('contraceptionInformation.treatmentBreakQuestion')}
-              </Text>
+              </AwaText>
             </View>
 
             <View accessibilityRole="radiogroup" style={styles.choiceRow}>
@@ -255,25 +242,20 @@ function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.E
                 );
               })}
             </View>
-          </View>
+          </AwaCard>
           ) : null}
 
           <View style={styles.spacer} />
 
-          <Pressable
+          <AwaButton
             accessibilityRole="button"
             accessibilityState={{disabled: !canContinue}}
             disabled={!canContinue || saving}
             onPress={handleNext}
-            style={({pressed}) => [
-              styles.nextButton,
-              (!canContinue || saving) && styles.nextButtonDisabled,
-              pressed && canContinue && styles.pressed,
-            ]}>
-            <Text style={styles.nextText}>
-              {saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('common.continue')}
-            </Text>
-          </Pressable>
+            label={saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('common.continue')}
+            size="large"
+            style={styles.nextButton}
+          />
         </ScrollView>
 
         <InlineCalendarPickerModal
@@ -292,68 +274,31 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     background: {flex: 1, backgroundColor: theme.colors.background},
 
-    pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
 
-    pageGlowTop: {
-      position: 'absolute', top: -150, right: -110, width: 330, height: 330,
-      borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
-    pageGlowMiddle: {
-      position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
-      borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
-    pageGlowBottom: {
-      position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
-      borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
 
     safeArea: {flex: 1},
     content: {flexGrow: 1, paddingHorizontal: spacing.lg, paddingBottom: spacing.md},
     pressed: {opacity: 0.82},
 
-    backButton: {
-      width: 42, height: 42, alignItems: 'center', justifyContent: 'center',
-      marginBottom: 5, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08),
-      borderRadius: 16, backgroundColor: withAlpha(theme.colors.surface, 0.88),
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
-    },
+    backButton: {marginBottom: 5},
 
     header: {alignItems: 'center', marginBottom: 18},
-    heroIcon: {
-      position: 'relative', width: 76, height: 76,
-      alignItems: 'center', justifyContent: 'center', marginBottom: 12,
-    },
-    heroGlowOuter: {position: 'absolute', width: 82, height: 82, borderRadius: 41, backgroundColor: withAlpha(theme.colors.primary, 0.055)},
-    heroGlowInner: {position: 'absolute', width: 70, height: 70, borderRadius: 35, backgroundColor: withAlpha(theme.colors.primary, 0.07)},
-    heroInner: {
-      width: 58, height: 58, alignItems: 'center', justifyContent: 'center',
-      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.10, shadowRadius: 12, elevation: 4,
-    },
 
-    title: {
-      color: theme.colors.text, fontFamily: 'serif', fontSize: 24, lineHeight: 30,
-      fontWeight: '800', textAlign: 'center',
-    },
-    subtitle: {
-      maxWidth: 320, marginTop: 8, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19, textAlign: 'center',
-    },
+    title: {textAlign: 'center'},
+    subtitle: {maxWidth: 320, marginTop: 8, textAlign: 'center'},
 
-    card: {
-      padding: 15, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
-      backgroundColor: withAlpha(theme.colors.surface, 0.9),
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 10, elevation: 1,
-    },
+    // AwaCard (outlined) supplies the surface, border, radius and 16 dp padding.
+    card: {},
     cardSpaced: {marginTop: 14},
     fieldLabelRow: {flexDirection: 'row', alignItems: 'center', gap: 8},
     fieldIcon: {
       width: 30, height: 30, alignItems: 'center', justifyContent: 'center',
-      borderRadius: 10, backgroundColor: theme.colors.primarySoft,
+      borderRadius: 12, backgroundColor: theme.colors.primarySoft,
     },
-    fieldLabel: {flex: 1, color: theme.colors.text, fontSize: 13.5, fontWeight: '700', lineHeight: 18},
+    fieldLabel: {flex: 1},
     dateField: {
       minHeight: 50, marginTop: 12, flexDirection: 'row', alignItems: 'center',
-      paddingHorizontal: 12, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 15, backgroundColor: theme.colors.surface,
+      paddingHorizontal: 16, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 16, backgroundColor: theme.colors.surface,
     },
     dateFieldValue: {flex: 1, color: theme.colors.text, fontSize: 14, fontWeight: '700'},
     dateFieldPlaceholder: {flex: 1, color: theme.colors.textMuted, fontSize: 14},
@@ -361,22 +306,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     choiceRow: {marginTop: 12, flexDirection: 'row', gap: 10},
     choiceOption: {
       flex: 1, minHeight: 48, alignItems: 'center', justifyContent: 'center',
-      borderWidth: 1.25, borderColor: withAlpha(theme.colors.primary, 0.20), borderRadius: 15,
-      backgroundColor: theme.colors.primarySoft,
+      borderWidth: 1.25, borderColor: theme.colors.border, borderRadius: 16,
+      backgroundColor: theme.colors.surface,
     },
-    choiceOptionSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primary},
-    choiceText: {color: theme.colors.text, fontSize: 14, fontWeight: '700'},
-    choiceTextSelected: {color: onPrimaryTextColor(theme)},
+    // DESIGN.md selected state: primaryContainer fill + onSurface text on a primary border; the bolder weight keeps the
+    // selection readable without colour alone.
+    choiceOptionSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
+    choiceText: {color: theme.colors.text, fontSize: 14, fontWeight: '500'},
+    choiceTextSelected: {fontWeight: '700'},
 
     spacer: {flex: 1, minHeight: 18},
 
-    nextButton: {
-      minHeight: 54, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-      gap: 8, marginTop: 12, borderRadius: 20, backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 7}, shadowOpacity: 0.25, shadowRadius: 12, elevation: 6,
-    },
-    nextButtonDisabled: {opacity: 0.5, elevation: 0, shadowOpacity: 0},
-    nextText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '800', letterSpacing: 0.2},
+    nextButton: {marginTop: 12},
   });
 }
 

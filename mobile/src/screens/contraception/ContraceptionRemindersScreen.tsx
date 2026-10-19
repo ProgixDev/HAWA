@@ -2,12 +2,9 @@ import {continueAfterObjectiveSetup} from '../../state/objectiveSetupFlow';
 import React, {useMemo, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Switch,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -19,7 +16,12 @@ import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-comm
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaSwitch} from '../../components/ui/AwaSwitch';
+import {AwaText} from '../../components/ui/AwaText';
 import {dateAtTimeOfDay, formatTimeOfDay} from '../../utils/timeOfDay';
 import {
   getContraceptionPreferences,
@@ -27,7 +29,6 @@ import {
 } from '../../state/contraceptionPreferences';
 import {
   contraceptionDefaultReminderContent,
-  CONTRACEPTION_METHOD_ICONS,
   contraceptionReminderContent,
 } from '../../config/contraceptionLabels';
 import {contraceptionMethodSupportsDailyReminder} from '../../utils/contraceptionReminderScheduling';
@@ -84,7 +85,6 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
   const content = method
     ? contraceptionReminderContent(t)[method]
     : contraceptionDefaultReminderContent(t);
-  const illustrationIcon = method ? CONTRACEPTION_METHOD_ICONS[method] : 'pill';
 
   // 'ring'/'patch' have no daily action to remind about — see
   // contraceptionReminderScheduling.ts's own comment on why no schedule is
@@ -150,11 +150,6 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} hidden={false} translucent />
@@ -166,81 +161,81 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
           ]}
           showsVerticalScrollIndicator={false}>
           {isEdit ? (
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('common.back')}
-              accessibilityRole="button"
-              hitSlop={12}
+              icon="arrow-left"
               onPress={navigation.goBack}
-              style={({pressed}) => [styles.backButton, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
-            </Pressable>
+              style={styles.backButton}
+            />
           ) : null}
 
           <View style={styles.header}>
-            <View style={styles.heroIcon}>
-              <View pointerEvents="none" style={styles.heroGlowOuter} />
-              <View pointerEvents="none" style={styles.heroGlowInner} />
-              <LinearGradient
-                colors={[theme.colors.surface, theme.colors.primarySoft]}
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 1}}
-                style={styles.heroInner}>
-                <MaterialDesignIcons color={theme.colors.primary} name="bell-outline" size={30} />
-              </LinearGradient>
-            </View>
-
-            <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={styles.title}>{t('contraceptionReminders.title')}</Text>
-            <Text style={styles.subtitle}>{content.subtitle}</Text>
+            <AwaText
+              style={styles.title}
+              variant="headlineMedium">
+              {t('contraceptionReminders.title')}
+            </AwaText>
+            <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">
+              {content.subtitle}
+            </AwaText>
           </View>
 
-          <View style={styles.card}>
+          <AwaCard style={styles.card} variant="filled">
             <View style={styles.cardIcon}>
               <MaterialDesignIcons color={theme.colors.primary} name="bell-ring-outline" size={22} />
             </View>
 
             <View style={styles.cardCopy}>
-              <Text style={styles.cardTitle}>{content.cardTitle}</Text>
-              <Text style={styles.cardDescription}>{content.cardDescription}</Text>
+              <AwaText variant="titleMedium">{content.cardTitle}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={styles.cardDescription} variant="bodySmall">
+                {content.cardDescription}
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {supportsDailyReminder ? (
             <>
-              <View style={styles.toggleRow}>
-                <Text style={styles.toggleLabel}>{t('contraceptionReminders.toggleLabel')}</Text>
-                <Switch
-                  ios_backgroundColor={theme.colors.surfaceSecondary}
+              <AwaCard style={styles.toggleRow} variant="filled">
+                <AwaText style={styles.toggleLabel} variant="titleSmall">
+                  {t('contraceptionReminders.toggleLabel')}
+                </AwaText>
+                <AwaSwitch
+                  accessibilityLabel={t('contraceptionReminders.toggleLabel')}
                   onValueChange={value => {
                     setEnabled(value);
                     setError('');
                   }}
-                  thumbColor="#FFFFFF"
-                  trackColor={{false: theme.colors.surfaceSecondary, true: theme.colors.primary}}
                   value={enabled}
                 />
-              </View>
+              </AwaCard>
 
               {enabled ? (
-                <Pressable
+                <AwaCard
                   accessibilityLabel={
                     reminderTime
                       ? t('contraceptionReminders.timeAccessibility.withValue', {time: reminderTime})
                       : t('contraceptionReminders.timeAccessibility.empty')
                   }
-                  accessibilityRole="button"
                   onPress={() => setTimePickerVisible(true)}
-                  style={({pressed}) => [styles.timeRow, pressed && styles.pressed]}>
+                  style={styles.timeRow}
+                  variant="filled">
                   <View style={styles.timeIconBox}>
                     <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
                   </View>
                   <View style={styles.timeCopy}>
-                    <Text style={styles.timeLabel}>{t('contraceptionReminders.timeLabel')}</Text>
-                    <Text style={reminderTime ? styles.timeValue : styles.timeValuePlaceholder}>
+                    <AwaText colorRole="onSurfaceVariant" variant="labelMedium">
+                      {t('contraceptionReminders.timeLabel')}
+                    </AwaText>
+                    <AwaText
+                      colorRole={reminderTime ? 'onSurface' : 'onSurfaceVariant'}
+                      emphasized={Boolean(reminderTime)}
+                      style={styles.timeValue}
+                      variant="bodyLarge">
                       {reminderTime ?? t('contraceptionReminders.chooseTime')}
-                    </Text>
+                    </AwaText>
                   </View>
                   <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={20} />
-                </Pressable>
+                </AwaCard>
               ) : null}
 
               {timePickerVisible ? (
@@ -261,7 +256,9 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
               {error ? (
                 <View accessibilityRole="alert" style={styles.errorCard}>
                   <MaterialDesignIcons color={theme.colors.danger} name="alert-outline" size={16} />
-                  <Text style={styles.errorText}>{error}</Text>
+                  <AwaText colorRole="error" style={styles.errorText} variant="bodySmall">
+                    {error}
+                  </AwaText>
                 </View>
               ) : null}
 
@@ -286,9 +283,9 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
               <View style={styles.infoIconBox}>
                 <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
               </View>
-              <Text style={styles.infoText}>
+              <AwaText colorRole="onSurfaceVariant" style={styles.infoText} variant="bodySmall">
                 {t('contraceptionReminders.unavailableInfo')}
-              </Text>
+              </AwaText>
             </View>
           )}
 
@@ -297,32 +294,22 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
               <View style={styles.infoIconBox}>
                 <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
               </View>
-              <Text style={styles.infoText}>
+              <AwaText colorRole="onSurfaceVariant" style={styles.infoText} variant="bodySmall">
                 {t('contraceptionReminders.settingsInfo')}
-              </Text>
+              </AwaText>
             </View>
           ) : null}
 
-          <View pointerEvents="none" style={styles.illustrationRow}>
-            <View style={[styles.illustrationBadge, styles.illustrationBadgeBack]}>
-              <MaterialDesignIcons color={theme.colors.primary} name={illustrationIcon} size={30} />
-            </View>
-            <View style={[styles.illustrationBadge, styles.illustrationBadgeFront]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="alarm" size={34} />
-            </View>
-          </View>
-
           <View style={styles.spacer} />
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={saving}
+            fullWidth
+            label={saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('contraceptionReminders.finish')}
             onPress={handleFinish}
-            style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
-            <Text style={styles.nextText}>
-              {saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('contraceptionReminders.finish')}
-            </Text>
-          </Pressable>
+            size="large"
+            style={styles.nextButton}
+          />
         </ScrollView>
       </View>
     </LinearGradient>
@@ -333,94 +320,45 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     background: {flex: 1, backgroundColor: theme.colors.background},
 
-    pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
 
-    pageGlowTop: {
-      position: 'absolute', top: -150, right: -110, width: 330, height: 330,
-      borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
-    pageGlowMiddle: {
-      position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
-      borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
-    pageGlowBottom: {
-      position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
-      borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
 
     safeArea: {flex: 1},
     content: {flexGrow: 1, paddingHorizontal: spacing.lg, paddingBottom: spacing.md},
-    pressed: {opacity: 0.82},
 
-    backButton: {
-      width: 42, height: 42, alignItems: 'center', justifyContent: 'center',
-      marginBottom: 5, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08),
-      borderRadius: 16, backgroundColor: withAlpha(theme.colors.surface, 0.88),
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
-    },
+    backButton: {alignSelf: 'flex-start', marginBottom: 8},
 
-    header: {alignItems: 'center', marginBottom: 18},
-    heroIcon: {
-      position: 'relative', width: 76, height: 76,
-      alignItems: 'center', justifyContent: 'center', marginBottom: 12,
-    },
-    heroGlowOuter: {position: 'absolute', width: 82, height: 82, borderRadius: 41, backgroundColor: withAlpha(theme.colors.primary, 0.055)},
-    heroGlowInner: {position: 'absolute', width: 70, height: 70, borderRadius: 35, backgroundColor: withAlpha(theme.colors.primary, 0.07)},
-    heroInner: {
-      width: 58, height: 58, alignItems: 'center', justifyContent: 'center',
-      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.10, shadowRadius: 12, elevation: 4,
-    },
+    header: {alignItems: 'center', marginBottom: 16},
 
-    title: {
-      color: theme.colors.text, fontFamily: 'serif', fontSize: 26, lineHeight: 32,
-      fontWeight: '800', textAlign: 'center',
-    },
-    subtitle: {
-      maxWidth: 320, marginTop: 8, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19, textAlign: 'center',
-    },
+    title: {textAlign: 'center'},
+    subtitle: {maxWidth: 320, marginTop: 8, textAlign: 'center'},
 
-    card: {
-      flexDirection: 'row', alignItems: 'flex-start', gap: 12, padding: 15,
-      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
-      backgroundColor: withAlpha(theme.colors.surface, 0.92),
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 10, elevation: 1,
-    },
+    card: {flexDirection: 'row', alignItems: 'flex-start', gap: 12},
     cardIcon: {
-      width: 42, height: 42, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-      borderRadius: 14, backgroundColor: theme.colors.primarySoft,
+      width: 40, height: 40, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
+      borderRadius: 12, backgroundColor: theme.colors.primarySoft,
     },
     cardCopy: {flex: 1, minWidth: 0},
-    cardTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 16, lineHeight: 21, fontWeight: '700'},
-    cardDescription: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
+    cardDescription: {marginTop: 4},
 
     toggleRow: {
-      minHeight: 58, marginTop: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-      paddingHorizontal: 16, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 18,
-      backgroundColor: withAlpha(theme.colors.surface, 0.92),
+      minHeight: 56, marginTop: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     },
-    toggleLabel: {color: theme.colors.text, fontSize: 14, fontWeight: '700'},
+    toggleLabel: {flex: 1, marginRight: 12},
 
-    timeRow: {
-      minHeight: 58, marginTop: 10, flexDirection: 'row', alignItems: 'center', gap: 12,
-      paddingHorizontal: 14, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 18,
-      backgroundColor: withAlpha(theme.colors.surface, 0.92),
-    },
+    timeRow: {minHeight: 56, marginTop: 8, flexDirection: 'row', alignItems: 'center', gap: 12},
     timeIconBox: {
-      width: 34, height: 34, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
+      width: 36, height: 36, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
       borderRadius: 12, backgroundColor: theme.colors.primarySoft,
     },
     timeCopy: {flex: 1, minWidth: 0},
-    timeLabel: {color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700'},
-    timeValue: {marginTop: 2, color: theme.colors.text, fontSize: 14, fontWeight: '800'},
-    timeValuePlaceholder: {marginTop: 2, color: theme.colors.textMuted, fontSize: 14, fontWeight: '600'},
+    timeValue: {marginTop: 2},
 
     errorCard: {
       flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 10,
-      paddingHorizontal: 12, paddingVertical: 10, borderRadius: 14,
+      paddingHorizontal: 12, paddingVertical: 10, borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.danger, 0.1), borderWidth: 1, borderColor: withAlpha(theme.colors.danger, 0.3),
     },
-    errorText: {flex: 1, color: theme.colors.danger, fontSize: 11.5, lineHeight: 16},
+    errorText: {flex: 1},
 
     info: {
       flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 12,
@@ -428,32 +366,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     infoIconBox: {
       width: 32, height: 32, alignItems: 'center', justifyContent: 'center',
-      borderRadius: 11, backgroundColor: theme.colors.surface,
+      borderRadius: 12, backgroundColor: theme.colors.surface,
     },
-    infoText: {flex: 1, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+    infoText: {flex: 1},
 
-    illustrationRow: {
-      marginTop: 24, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-    },
-    illustrationBadge: {
-      width: 78, height: 78, alignItems: 'center', justifyContent: 'center',
-      borderRadius: 39, backgroundColor: theme.colors.primarySoft,
-      borderWidth: 1, borderColor: theme.colors.border,
-    },
-    illustrationBadgeBack: {opacity: 0.7, marginRight: -18},
-    illustrationBadgeFront: {
-      backgroundColor: theme.colors.surface,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.12, shadowRadius: 12, elevation: 4,
-    },
+    spacer: {flex: 1, minHeight: 16},
 
-    spacer: {flex: 1, minHeight: 18},
-
-    nextButton: {
-      minHeight: 54, alignItems: 'center', justifyContent: 'center',
-      marginTop: 12, borderRadius: 20, backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 7}, shadowOpacity: 0.25, shadowRadius: 12, elevation: 6,
-    },
-    nextText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '800', letterSpacing: 0.2},
+    nextButton: {marginTop: 12},
   });
 }
 

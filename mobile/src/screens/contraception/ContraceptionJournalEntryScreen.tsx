@@ -9,7 +9,6 @@ import {
 } from '@react-navigation/native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
-import LinearGradient from 'react-native-linear-gradient';
 
 import {
   PostpartumInfoPanel,
@@ -17,7 +16,7 @@ import {
 } from '../../components/postpartum/PostpartumJournalScreenLayout';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme, softTone, softToneInk, softToneOpaque} from '../../theme/awaThemeTokens';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 
@@ -68,6 +67,8 @@ import {
   saveContraceptionJournalField,
 } from '../../state/contraceptionJournalStore';
 import {presentSaveFailure} from '../../services/saveFailure';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaText} from '../../components/ui/AwaText';
 
 // PHASE E4 — PURPLE/PURPLE_DARK/TEXT_SECONDARY/LAVENDER used to be fixed
 // literals sourced from homeColors here; every decorative usage below is now
@@ -132,8 +133,8 @@ function SectionHeader({
       </View>
 
       <View style={styles.sectionHeaderCopy}>
-        <Text style={styles.sectionTitle}>{title}</Text>
-        {subtitle ? <Text style={styles.sectionSubtitle}>{subtitle}</Text> : null}
+        <AwaText variant="titleMedium" style={styles.sectionTitle}>{title}</AwaText>
+        {subtitle ? <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.sectionSubtitle}>{subtitle}</AwaText> : null}
       </View>
     </View>
   );
@@ -179,10 +180,10 @@ function PremiumTextArea({
       <View style={styles.noteFooter}>
         <View style={styles.privatePill}>
           <MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={11} />
-          <Text style={styles.privatePillText}>{t('contraceptionJournalEntry.private')}</Text>
+          <AwaText variant="labelSmall" colorRole="primary">{t('contraceptionJournalEntry.private')}</AwaText>
         </View>
 
-        <Text style={styles.noteCounter}>{value.length}/{maxLength}</Text>
+        <AwaText variant="labelSmall" colorRole="onSurfaceVariant">{value.length}/{maxLength}</AwaText>
       </View>
     </View>
   );
@@ -198,7 +199,6 @@ function PremiumHero({
   subtitle,
   icon,
   accent,
-  tint,
 }: {
   title: string;
   subtitle: string;
@@ -211,17 +211,9 @@ function PremiumHero({
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   const effectiveAccent = accent ?? theme.colors.primary;
-  const effectiveTint = tint ?? theme.colors.primarySoft;
 
   return (
-    <LinearGradient
-      colors={[theme.colors.surface, theme.colors.surfaceSecondary, effectiveTint]}
-      locations={[0, 0.58, 1]}
-      start={{x: 0, y: 0}}
-      end={{x: 1, y: 1}}
-      style={styles.hero}>
-      <View pointerEvents="none" style={styles.heroGlow} />
-      <View pointerEvents="none" style={styles.heroGlowSecondary} />
+    <AwaCard padding="none" style={styles.hero}>
 
       <View style={[styles.heroLargeIconRing, {borderColor: `${effectiveAccent}26`}]}>
         <View style={styles.heroLargeIcon}>
@@ -232,13 +224,13 @@ function PremiumHero({
       <View style={styles.heroCopy}>
         <View style={styles.heroEyebrowRow}>
           <View style={[styles.heroEyebrowDot, {backgroundColor: effectiveAccent}]} />
-          <Text style={[styles.heroEyebrow, {color: effectiveAccent}]}>{t('contraceptionJournalEntry.todayEyebrow')}</Text>
+          <AwaText variant="labelSmall" style={[styles.heroEyebrow, {color: effectiveAccent}]}>{t('contraceptionJournalEntry.todayEyebrow')}</AwaText>
         </View>
 
-        <Text style={styles.heroTitle}>{title}</Text>
-        <Text style={styles.heroSubtitle}>{subtitle}</Text>
+        <AwaText variant="titleMedium" style={styles.heroTitle}>{title}</AwaText>
+        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.heroSubtitle}>{subtitle}</AwaText>
       </View>
-    </LinearGradient>
+    </AwaCard>
   );
 }
 
@@ -272,7 +264,7 @@ function IntakeStatusContent({
         title={heroTitle}
       />
 
-      <View style={styles.card}>
+      <AwaCard padding="none" variant="filled" style={styles.card}>
         <SectionHeader
           icon="calendar-today"
           subtitle={t('contraceptionJournalEntry.today.subtitle')}
@@ -292,9 +284,9 @@ function IntakeStatusContent({
             ]}>
             <View style={[styles.statusChoiceIcon, status === 'taken' && styles.statusChoiceIconTakenActive]}>
               <MaterialDesignIcons
-                color={status === 'taken' ? '#FFFFFF' : GREEN}
+                color={GREEN}
                 name="check-bold"
-                size={20}
+                size={18}
               />
             </View>
 
@@ -302,7 +294,7 @@ function IntakeStatusContent({
               <Text style={[styles.statusChoiceText, status === 'taken' && styles.statusChoiceTextActive]}>
                 {intakeStatusLabels.taken}
               </Text>
-              <Text style={styles.statusChoiceSubtitle}>{t('contraceptionJournalEntry.intake.takenSubtitle')}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.statusChoiceSubtitle}>{t('contraceptionJournalEntry.intake.takenSubtitle')}</AwaText>
             </View>
 
             <View style={[styles.radioOuter, status === 'taken' && styles.radioOuterActive]}>
@@ -322,9 +314,9 @@ function IntakeStatusContent({
             ]}>
             <View style={[styles.statusChoiceIcon, status === 'late' && styles.statusChoiceIconLateActive]}>
               <MaterialDesignIcons
-                color={status === 'late' ? '#FFFFFF' : ORANGE}
+                color={ORANGE}
                 name="clock-alert-outline"
-                size={20}
+                size={18}
               />
             </View>
 
@@ -332,7 +324,7 @@ function IntakeStatusContent({
               <Text style={[styles.statusChoiceText, status === 'late' && styles.statusChoiceTextActive]}>
                 {intakeStatusLabels.late}
               </Text>
-              <Text style={styles.statusChoiceSubtitle}>{t('contraceptionJournalEntry.intake.lateSubtitle')}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.statusChoiceSubtitle}>{t('contraceptionJournalEntry.intake.lateSubtitle')}</AwaText>
             </View>
 
             <View style={[styles.radioOuter, status === 'late' && styles.radioOuterActive]}>
@@ -352,9 +344,9 @@ function IntakeStatusContent({
             ]}>
             <View style={[styles.statusChoiceIcon, status === 'missed' && styles.statusChoiceIconMissedActive]}>
               <MaterialDesignIcons
-                color={status === 'missed' ? '#FFFFFF' : DANGER}
+                color={DANGER}
                 name="alert-outline"
-                size={20}
+                size={18}
               />
             </View>
 
@@ -362,7 +354,7 @@ function IntakeStatusContent({
               <Text style={[styles.statusChoiceText, status === 'missed' && styles.statusChoiceTextActive]}>
                 {intakeStatusLabels.missed}
               </Text>
-              <Text style={styles.statusChoiceSubtitle}>{t('contraceptionJournalEntry.intake.missedSubtitle')}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.statusChoiceSubtitle}>{t('contraceptionJournalEntry.intake.missedSubtitle')}</AwaText>
             </View>
 
             <View style={[styles.radioOuter, status === 'missed' && styles.radioOuterActive]}>
@@ -370,7 +362,7 @@ function IntakeStatusContent({
             </View>
           </Pressable>
         </View>
-      </View>
+      </AwaCard>
 
       <PostpartumInfoPanel
         icon="information-outline"
@@ -414,7 +406,7 @@ function EventTypeContent({
         title={heroTitle}
       />
 
-      <View style={styles.card}>
+      <AwaCard padding="none" variant="filled" style={styles.card}>
         <SectionHeader
           icon="calendar-today"
           subtitle={t('contraceptionJournalEntry.today.subtitle')}
@@ -448,7 +440,7 @@ function EventTypeContent({
                   <Text style={[styles.statusChoiceText, active && styles.statusChoiceTextActive]}>
                     {eventLabels[type]}
                   </Text>
-                  <Text style={styles.statusChoiceSubtitle}>{t('contraceptionJournalEntry.event.optionSubtitle')}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.statusChoiceSubtitle}>{t('contraceptionJournalEntry.event.optionSubtitle')}</AwaText>
                 </View>
 
                 <View style={[styles.radioOuter, active && styles.radioOuterActive]}>
@@ -458,18 +450,18 @@ function EventTypeContent({
             );
           })}
         </View>
-      </View>
+      </AwaCard>
 
       {todayEvents.length > 0 ? (
         <View style={styles.selectedSummary}>
           <View style={styles.selectedSummaryIcon}>
             <MaterialDesignIcons color={GREEN} name="check" size={12} />
           </View>
-          <Text style={styles.selectedSummaryText}>
+          <AwaText variant="labelSmall" style={styles.selectedSummaryText}>
             {t('contraceptionJournalEntry.event.alreadyRecorded', {
               list: todayEvents.map(event => eventLabels[event.type]).join(', '),
             })}
-          </Text>
+          </AwaText>
         </View>
       ) : null}
 
@@ -510,7 +502,7 @@ function FeelingsContent({
         title={t('contraceptionJournalEntry.feelings.heroTitle')}
       />
 
-      <View style={styles.card}>
+      <AwaCard padding="none" variant="filled" style={styles.card}>
         <SectionHeader
           icon="clipboard-pulse-outline"
           subtitle={t('contraceptionJournalEntry.feelings.sectionSubtitle')}
@@ -548,12 +540,12 @@ function FeelingsContent({
             <View style={styles.selectedSummaryIcon}>
               <MaterialDesignIcons color={GREEN} name="check" size={12} />
             </View>
-            <Text style={styles.selectedSummaryText}>
+            <AwaText variant="labelSmall" style={styles.selectedSummaryText}>
               {t('contraceptionJournalEntry.feelings.selectedCount', {count: selected.length})}
-            </Text>
+            </AwaText>
           </View>
         ) : null}
-      </View>
+      </AwaCard>
 
       <PostpartumInfoPanel
         icon="shield-check-outline"
@@ -589,7 +581,7 @@ function NotesContent({
         title={t('contraceptionJournalEntry.notes.heroTitle')}
       />
 
-      <View style={styles.card}>
+      <AwaCard padding="none" variant="filled" style={styles.card}>
         <SectionHeader
           icon="notebook-edit-outline"
           subtitle={t('contraceptionJournalEntry.notes.sectionSubtitle')}
@@ -603,7 +595,7 @@ function NotesContent({
           placeholder={t('contraceptionJournalEntry.notes.placeholder')}
           value={note}
         />
-      </View>
+      </AwaCard>
     </>
   );
 }
@@ -959,19 +951,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     transform: [{scale: 0.987}],
   },
 
-  card: {
-    marginBottom: 18,
-    padding: 17,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.10),
-    borderRadius: 28,
-    backgroundColor: withAlpha(theme.colors.surface, 0.985),
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 8},
-    shadowOpacity: 0.075,
-    shadowRadius: 18,
-    elevation: 4,
-  },
+  card: {marginBottom: 18, padding: 17},
 
   sectionHeader: {
     flexDirection: 'row',
@@ -996,20 +976,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  sectionTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 17.5,
-    lineHeight: 22,
-    fontWeight: '900',
-  },
+  sectionTitle: {color: theme.colors.accent},
 
-  sectionSubtitle: {
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 10.2,
-    lineHeight: 14.5,
-  },
+  sectionSubtitle: {marginTop: 3},
 
   hero: {
     position: 'relative',
@@ -1020,35 +989,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 18,
     paddingHorizontal: 18,
     paddingVertical: 19,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.10),
-    borderRadius: 30,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 8},
-    shadowOpacity: 0.075,
-    shadowRadius: 17,
-    elevation: 3,
   },
 
-  heroGlow: {
-    position: 'absolute',
-    top: -65,
-    right: -40,
-    width: 175,
-    height: 175,
-    borderRadius: 88,
-    backgroundColor: withAlpha(theme.colors.surface, 0.58),
-  },
 
-  heroGlowSecondary: {
-    position: 'absolute',
-    bottom: -70,
-    left: -50,
-    width: 155,
-    height: 155,
-    borderRadius: 78,
-    backgroundColor: withAlpha(theme.colors.primary, 0.055),
-  },
 
   heroLargeIconRing: {
     width: 72,
@@ -1057,7 +1000,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderRadius: 24,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.48),
   },
 
@@ -1066,7 +1009,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 58,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
     shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 5},
@@ -1094,26 +1037,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderRadius: 3,
   },
 
-  heroEyebrow: {
-    fontSize: 8.6,
-    letterSpacing: 0.8,
-    fontWeight: '900',
-  },
+  heroEyebrow: {},
 
-  heroTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 18.5,
-    lineHeight: 24,
-    fontWeight: '900',
-  },
+  heroTitle: {color: theme.colors.accent},
 
-  heroSubtitle: {
-    marginTop: 5,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15.5,
-  },
+  heroSubtitle: {marginTop: 5},
 
   statusChoiceList: {
     gap: 12,
@@ -1127,7 +1055,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingVertical: 12,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.10),
-    borderRadius: 21,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
     shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 3},
@@ -1141,53 +1069,56 @@ function createStyles(theme: ResolvedAwaTheme) {
   // module-level comment at the top of this file.
   statusChoiceTakenActive: {
     borderColor: 'rgba(66,166,106,0.50)',
-    backgroundColor: '#F1FAF4',
-    shadowColor: GREEN,
-    shadowOpacity: 0.09,
-    elevation: 2,
+    backgroundColor: softToneOpaque(theme, '#F1FAF4', GREEN, theme.colors.surface),
+    // One flat surface: no shadow on the selected card (a shadow on a tinted fill shows as a dark block behind the text).
+    shadowOpacity: 0,
+    elevation: 0,
   },
 
   statusChoiceLateActive: {
     borderColor: 'rgba(199,123,46,0.46)',
-    backgroundColor: '#FFF7ED',
-    shadowColor: ORANGE,
-    shadowOpacity: 0.08,
-    elevation: 2,
+    backgroundColor: softToneOpaque(theme, '#FFF7ED', ORANGE, theme.colors.surface),
+    // One flat surface: no shadow on the selected card (a shadow on a tinted fill shows as a dark block behind the text).
+    shadowOpacity: 0,
+    elevation: 0,
   },
 
   statusChoiceMissedActive: {
     borderColor: 'rgba(217,97,118,0.46)',
-    backgroundColor: '#FFF3F5',
-    shadowColor: DANGER,
-    shadowOpacity: 0.08,
-    elevation: 2,
+    backgroundColor: softToneOpaque(theme, '#FFF3F5', DANGER, theme.colors.surface),
+    // One flat surface: no shadow on the selected card (a shadow on a tinted fill shows as a dark block behind the text).
+    shadowOpacity: 0,
+    elevation: 0,
   },
 
+  // A round 40 dp icon holder (it was a 44 dp rounded square). Selected, it keeps the status colour as a soft tint with a
+  // thin ring and a coloured glyph instead of a solid saturated fill with a white glyph, so the icon no longer dominates
+  // the option while taken / late / missed still read green / amber / red.
   statusChoiceIcon: {
-    width: 44,
-    height: 44,
+    width: 40,
+    height: 40,
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.07),
-    borderRadius: 16,
+    borderColor: withAlpha(theme.colors.primary, 0.12),
+    borderRadius: 20,
     backgroundColor: theme.colors.surface,
   },
 
   statusChoiceIconTakenActive: {
-    borderColor: GREEN,
-    backgroundColor: GREEN,
+    borderColor: withAlpha(GREEN, 0.5),
+    backgroundColor: withAlpha(GREEN, 0.16),
   },
 
   statusChoiceIconLateActive: {
-    borderColor: ORANGE,
-    backgroundColor: ORANGE,
+    borderColor: withAlpha(ORANGE, 0.5),
+    backgroundColor: withAlpha(ORANGE, 0.16),
   },
 
   statusChoiceIconMissedActive: {
-    borderColor: DANGER,
-    backgroundColor: DANGER,
+    borderColor: withAlpha(DANGER, 0.5),
+    backgroundColor: withAlpha(DANGER, 0.16),
   },
 
   statusChoiceCopy: {
@@ -1207,12 +1138,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     fontWeight: '900',
   },
 
-  statusChoiceSubtitle: {
-    marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 9.1,
-    lineHeight: 13,
-  },
+  statusChoiceSubtitle: {marginTop: 2},
 
   radioOuter: {
     width: 24,
@@ -1253,7 +1179,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingVertical: 10,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.11),
-    borderRadius: 18,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
@@ -1296,7 +1222,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1,
     borderColor: 'rgba(66,166,106,0.13)',
     borderRadius: 16,
-    backgroundColor: GREEN_LIGHT,
+    backgroundColor: softTone(theme, GREEN_LIGHT, GREEN),
   },
 
   selectedSummaryIcon: {
@@ -1306,26 +1232,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 9,
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
-  selectedSummaryText: {
-    flex: 1,
-    minWidth: 0,
-    paddingTop: 4,
-    color: '#3B6B48',
-    fontSize: 9.9,
-    lineHeight: 14,
-    fontWeight: '700',
-  },
+  selectedSummaryText: {flex: 1, minWidth: 0, paddingTop: 4, color: softToneInk(theme, '#3B6B48')},
 
   noteBox: {
     overflow: 'hidden',
     minHeight: 136,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.13),
-    borderRadius: 22,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
@@ -1373,20 +1291,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingVertical: 5,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  privatePillText: {
-    color: theme.colors.primary,
-    fontSize: 8.4,
-    fontWeight: '800',
-  },
 
-  noteCounter: {
-    color: theme.colors.textSecondary,
-    fontSize: 8.8,
-    fontWeight: '600',
-  },
   });
 }
