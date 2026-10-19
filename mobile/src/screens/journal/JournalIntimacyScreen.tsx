@@ -11,6 +11,11 @@ import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../s
 import {presentSaveFailure} from '../../services/saveFailure';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
+import {JOURNAL_HERO_INK} from '../../components/journal/journalHeroInk';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {isIntimacyUnlocked, lockIntimacy} from '../../state/privateSectionAuthStore';
 import {encryptIntimacySection, resolveIntimacySection} from '../../services/privateJournalEncryption';
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
@@ -35,7 +40,6 @@ import '../../i18n';
 const LIBIDOS = ['Très faible', 'Faible', 'Modérée', 'Élevée', 'Très élevée'];
 const SYMPTOMS = ['Douleur pendant le rapport', 'Sécheresse vaginale', 'Saignement après rapport', 'Fatigue', 'Douleurs pelviennes', 'Irritation', 'Aucun', 'Autre'];
 
-
 type PickerType = 'time';
 
 const TIME_OPTIONS = Array.from({length: 96}, (_, index) => {
@@ -45,7 +49,6 @@ const TIME_OPTIONS = Array.from({length: 96}, (_, index) => {
 
   return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
 });
-
 
 export default function JournalIntimacyScreen(): React.JSX.Element {
   const {t} = useTranslation();
@@ -275,13 +278,17 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
           isSmallScreen && styles.headerSmall,
           isVerySmallScreen && styles.headerVerySmall,
         ]}>
-        <Pressable accessibilityLabel={t('common.back')} onPress={navigation.goBack} style={styles.headerButton}><MaterialDesignIcons color={theme.colors.accent} name="chevron-left" size={27} /></Pressable>
-        <View style={styles.headerCopy}><View style={styles.titleRow}><Text style={styles.title}>{t('journalIntimacy.title')}</Text><MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={21} /></View><Text style={styles.date}>{cycleDay !== null ? t('journalActivity.dateWithCycleDay', {date: dateLabel, day: cycleDay}) : dateLabel}</Text></View>
-        <Pressable accessibilityLabel={t('journalIntimacy.hideAndLock')} accessibilityRole="button" onPress={() => {lockIntimacy(); navigation.reset({index:1,routes:[{name:'MainTabs',params:{screen:'CycleHome'}},{name:'PrivateIntimacyUnlock'}]});}} style={styles.hide}><MaterialDesignIcons color={theme.colors.primary} name="eye-off-outline" size={18} /><Text style={styles.hideText}>{t('journalPrivatePhotos.hide')}</Text></Pressable>
+        <AwaIconButton
+          accessibilityLabel={t('common.back')}
+          icon="chevron-left"
+          onPress={navigation.goBack}
+        />
+        <View style={styles.headerCopy}><View style={styles.titleRow}><AwaText variant="headlineSmall">{t('journalIntimacy.title')}</AwaText><MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={21} /></View><AwaText colorRole="onSurfaceVariant" variant="bodySmall">{cycleDay !== null ? t('journalActivity.dateWithCycleDay', {date: dateLabel, day: cycleDay}) : dateLabel}</AwaText></View>
+        <AwaButton accessibilityLabel={t('journalIntimacy.hideAndLock')} icon="eye-off-outline" label={t('journalPrivatePhotos.hide')} onPress={() => {lockIntimacy(); navigation.reset({index:1,routes:[{name:'MainTabs',params:{screen:'CycleHome'}},{name:'PrivateIntimacyUnlock'}]});}} size="compact" variant="outlined" />
       </View>
       <ScrollView contentContainerStyle={[styles.content, {paddingBottom:Math.max(insets.bottom, 16) + 16}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
         <ImageBackground imageStyle={styles.heroImage} source={require('../../assets/images/intimacy-header-woman.png')} style={styles.hero}>
-          <View style={styles.heroCopy}><Text style={styles.heroTitle}>{t('journalIntimacy.heroTitle')}</Text><Text style={styles.heroText}>{t('journalIntimacy.heroText')}</Text><View style={styles.learn}><Text style={styles.learnText}>{t('journalIntimacy.learnMore')}</Text><MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={17} /></View></View>
+          <View style={styles.heroCopy}><Text style={styles.heroTitle}>{t('journalIntimacy.heroTitle')}</Text><Text style={styles.heroText}>{t('journalIntimacy.heroText')}</Text><View style={styles.learn}><Text style={styles.learnText}>{t('journalIntimacy.learnMore')}</Text><MaterialDesignIcons color={JOURNAL_HERO_INK.accent} name="information-outline" size={17} /></View></View>
         </ImageBackground>
 
         <View style={styles.privateArea}>
@@ -419,25 +426,15 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
         </View>
 
         <View style={styles.security}><MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={22} /><Text style={styles.securityText}>{t('journalIntimacy.securityText')}</Text><MaterialDesignIcons color={withAlpha(theme.colors.primary, 0.5)} name="shield-lock-outline" size={26} /></View>
-        <Pressable
+        <AwaButton
           accessibilityLabel={t('journalIntimacy.saveIntimacy')}
-          accessibilityRole="button"
-          disabled={saving}
+          icon="lock-outline"
+          label={saving ? t('periodStartSheet.saving') : t('common.save')}
+          loading={saving}
           onPress={save}
-          style={({pressed}) => [
-            styles.save,
-            pressed && styles.pressed,
-            saving && styles.saveDisabled,
-          ]}>
-          <MaterialDesignIcons
-            color={onPrimaryTextColor(theme)}
-            name={saving ? 'loading' : 'lock-outline'}
-            size={20}
-          />
-          <Text style={styles.saveText}>
-            {saving ? t('periodStartSheet.saving') : t('common.save')}
-          </Text>
-        </Pressable>
+          size="large"
+          style={styles.save}
+        />
 
         {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject={t('journalIntimacy.clearSubject')} /> : null}
       </ScrollView>
@@ -533,17 +530,11 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
               </Text>
             </View>
 
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('common.close')}
-              hitSlop={8}
+              icon="close"
               onPress={closePicker}
-              style={styles.sheetClose}>
-              <MaterialDesignIcons
-                color={theme.colors.accent}
-                name="close"
-                size={21}
-              />
-            </Pressable>
+            />
           </View>
 
           <ScrollView
@@ -600,9 +591,7 @@ function Card({
 }: {
   children: React.ReactNode;
 }): React.JSX.Element {
-  const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
-  return <View style={styles.card}>{children}</View>;
+  return <AwaCard padding="compact" variant="outlined">{children}</AwaCard>;
 }
 
 function Heading({
@@ -775,17 +764,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 8,
   },
 
-  headerButton: {
-    width: 43,
-    height: 43,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 15,
-    backgroundColor: theme.colors.surface,
-  },
-
   headerCopy: {
     flex: 1,
     alignItems: 'center',
@@ -797,18 +775,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 6,
   },
 
-  title: {
-    color: theme.colors.accent,
-    fontSize: 24,
-    fontWeight: '800',
-  },
-
-  date: {
-    marginTop: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-  },
-
   hide: {
     height: 40,
     flexDirection: 'row',
@@ -817,13 +783,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 10,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
   hideText: {
     color: theme.colors.primary,
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '700',
   },
 
@@ -834,25 +800,25 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   hero: {
-    height: 151,
+    minHeight: 151,
     justifyContent: 'center',
     overflow: 'hidden',
-    borderRadius: 18,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
   heroImage: {
-    borderRadius: 18,
+    borderRadius: 12,
     resizeMode: 'cover',
   },
 
   heroCopy: {
-    width: '52%',
+    width: '50%',
     paddingLeft: 16,
   },
 
   heroTitle: {
-    color: theme.colors.accent,
+    color: JOURNAL_HERO_INK.title,
     fontSize: 16.5,
     lineHeight: 21,
     fontWeight: '800',
@@ -860,9 +826,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   heroText: {
     marginTop: 9,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    lineHeight: 14,
+    color: JOURNAL_HERO_INK.body,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   learn: {
@@ -874,27 +840,19 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 7,
     paddingHorizontal: 11,
     borderRadius: 14,
-    backgroundColor: withAlpha(theme.colors.surface, 0.88),
+    // Fixed light scrim (the photo is light in every theme), like the Notes badge: never the themed surface.
+    backgroundColor: 'rgba(255,255,255,0.88)',
   },
 
   learnText: {
-    color: theme.colors.primary,
-    fontSize: 8.7,
+    color: JOURNAL_HERO_INK.accent,
+    fontSize: 11,
     fontWeight: '700',
   },
 
   privateArea: {
     position: 'relative',
     gap: 8,
-  },
-
-  card: {
-    padding: 12,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 20,
-    backgroundColor: theme.colors.surface,
-    elevation: 1,
   },
 
   heading: {
@@ -910,7 +868,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -929,12 +887,12 @@ function createStyles(theme: ResolvedAwaTheme) {
   subtitle: {
     marginTop: 3,
     color: theme.colors.textSecondary,
-    fontSize: 8.8,
-    lineHeight: 12,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   optional: {
-    fontSize: 8.5,
+    fontSize: 11,
     fontWeight: '500',
   },
 
@@ -948,7 +906,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
     paddingHorizontal: 8,
     paddingVertical: 5,
@@ -956,7 +914,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   reportPrivacyText: {
     color: theme.colors.primary,
-    fontSize: 8.5,
+    fontSize: 11,
     fontWeight: '700',
   },
 
@@ -989,7 +947,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1029,9 +987,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     borderWidth: 1,
     borderColor: theme.colors.border,
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.background,
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
   },
 
   fieldIcon: {
@@ -1040,7 +998,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1052,7 +1010,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   fieldLabel: {
     color: theme.colors.textSecondary,
-    fontSize: 8.7,
+    fontSize: 11,
   },
 
   selectFieldValue: {
@@ -1068,7 +1026,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 9,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1078,15 +1036,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     gap: 8,
     marginTop: 12,
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
-    paddingHorizontal: 11,
+    paddingHorizontal: 12,
   },
 
   noReportText: {
     flex: 1,
     color: theme.colors.textSecondary,
-    fontSize: 9.5,
+    fontSize: 11,
   },
 
   libidoRow: {
@@ -1115,7 +1073,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   choiceLabel: {
     marginTop: 5,
     color: theme.colors.text,
-    fontSize: 7.2,
+    fontSize: 11,
     fontWeight: '600',
     textAlign: 'center',
   },
@@ -1135,10 +1093,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     borderWidth: 1,
     borderColor: theme.colors.border,
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.surface,
-    paddingHorizontal: 10,
-    paddingVertical: 9,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
   },
 
   symptomSelected: {
@@ -1152,7 +1110,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1165,8 +1123,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 1,
     marginRight: 8,
     color: theme.colors.text,
-    fontSize: 9.2,
-    lineHeight: 12.5,
+    fontSize: 11,
+    lineHeight: 16,
     fontWeight: '600',
   },
 
@@ -1211,7 +1169,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 10,
     paddingTop: 8,
     color: theme.colors.text,
-    fontSize: 9.5,
+    fontSize: 11,
   },
 
   counter: {
@@ -1219,7 +1177,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     right: 10,
     bottom: 7,
     color: theme.colors.textSecondary,
-    fontSize: 7.5,
+    fontSize: 11,
   },
 
   leaf: {
@@ -1234,7 +1192,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     zIndex: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 19,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.background, 0.97),
   },
 
@@ -1248,7 +1206,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   hiddenText: {
     marginTop: 4,
     color: theme.colors.textSecondary,
-    fontSize: 9,
+    fontSize: 11,
   },
 
   security: {
@@ -1257,43 +1215,22 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     gap: 9,
     paddingHorizontal: 13,
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
   securityText: {
     flex: 1,
     color: theme.colors.textSecondary,
-    fontSize: 8.4,
-    lineHeight: 12,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
-  save: {
-    width: '88%',
-    maxWidth: 360,
-    height: 47,
-    alignSelf: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 9,
-    borderRadius: 17,
-    backgroundColor: theme.colors.primary,
-  },
-
-  saveText: {
-    color: onPrimaryTextColor(theme),
-    fontSize: 14,
-    fontWeight: '700',
-  },
+  save: {width: '88%', maxWidth: 360, alignSelf: 'center'},
 
   pressed: {
     opacity: 0.8,
     transform: [{scale: 0.985}],
-  },
-
-  saveDisabled: {
-    opacity: 0.55,
   },
 
   toast: {
@@ -1306,7 +1243,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 9,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
     paddingHorizontal: 14,
     paddingVertical: 12,
@@ -1315,9 +1252,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       width: 0,
       height: 5,
     },
-    shadowOpacity: 0.17,
-    shadowRadius: 13,
-    elevation: 7,
+    shadowOpacity: 0.14,
+    shadowRadius: 12,
+    elevation: 6,
   },
 
   toastIcon: {
@@ -1362,8 +1299,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   pickerSheet: {
     height: '84%',
     overflow: 'hidden',
-    borderTopLeftRadius: 26,
-    borderTopRightRadius: 26,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.surface,
     paddingTop: 9,
     paddingHorizontal: 14,
@@ -1396,7 +1333,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 42,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1414,7 +1351,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   sheetSubtitle: {
     marginTop: 2,
     color: theme.colors.textSecondary,
-    fontSize: 10.5,
+    fontSize: 11,
   },
 
   sheetClose: {
@@ -1424,7 +1361,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: theme.colors.border,
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
@@ -1437,13 +1374,13 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   timeOption: {
     width: '23.5%',
-    height: 48,
+    minHeight: 48,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 9,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.background,
   },
 

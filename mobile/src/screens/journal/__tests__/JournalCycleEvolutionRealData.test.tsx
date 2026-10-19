@@ -8,6 +8,7 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import JournalCycleEvolutionScreen from '../JournalCycleEvolutionScreen';
+import {JournalScreenLayout} from '../../../components/journal/JournalScreenLayout';
 import {getCyclePreferences, setCyclePreferences} from '../../../state/onboardingPreferences';
 import {addDays, computeNextPeriod, computeIrregularWindow, formatDateRange, formatShortDate, startOfDay} from '../../../utils/cycleMath';
 import i18n from '../../../i18n';
@@ -97,6 +98,8 @@ describe('JournalCycleEvolutionScreen - real data only', () => {
     expect(texts).not.toContain('Repères du cycle');
     expect(texts).not.toContain('Prochaines règles estimées');
     expect(texts.some(text => /^Jour \d+ sur/.test(text))).toBe(false);
+    // the first card has no small icon in its upper-left corner (the empty-state view)
+    expect(renderer.root.findByType(JournalScreenLayout).props.hideHeroIcon).toBe(true);
   });
 
   it('2. regular declared cycle: shows the real cycle day, phase and an exact next-period date', async () => {
@@ -109,6 +112,9 @@ describe('JournalCycleEvolutionScreen - real data only', () => {
     expect(texts).toContain('Jour 6 sur 28');
     expect(texts).toContain('Repères du cycle');
     expect(texts).toContain(formatShortDate(computeNextPeriod(getCyclePreferences(), startOfDay(NOW))));
+    // the first card has no small icon in its upper-left corner (the real-data view); the icons of the sections stay
+    expect(renderer.root.findByType(JournalScreenLayout).props.hideHeroIcon).toBe(true);
+    expect(renderer.root.findAll(node => node.props.name === 'chart-donut')).toHaveLength(0);
   });
 
   it('the empty state turns into the real view live once a cycle is confirmed (store subscription)', async () => {

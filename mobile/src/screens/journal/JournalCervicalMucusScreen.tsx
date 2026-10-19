@@ -45,6 +45,7 @@ import {
   JournalScreenLayout,
   SectionCard,
 } from '../../components/journal/JournalScreenLayout';
+import {AwaText} from '../../components/ui/AwaText';
 
 import {
   JournalSaveToast,
@@ -334,6 +335,7 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
         t('journalCervicalMucus.heroLabel')
       }
       heroSource={require('../../assets/images/conception-journal/cervical-mucus.png')}
+      hideHeroIcon
       hideJournalHeader
       icon="water-outline"
       onSave={save}
@@ -389,30 +391,21 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
               styles.currentCopy
             }>
 
-            <Text
-              style={
-                styles.currentEyebrow
-              }>
+            <AwaText colorRole="onSurfaceVariant" variant="labelMedium">
               {t('journalCervicalMucus.observationOfTheDay')}
-            </Text>
+            </AwaText>
 
-            <Text
-              style={
-                styles.currentTitle
-              }>
+            <AwaText variant="titleMedium" style={styles.currentTitle}>
               {
                 currentConfig.title
               }
-            </Text>
+            </AwaText>
 
-            <Text
-              style={
-                styles.currentDescription
-              }>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.currentDescription}>
               {
                 currentConfig.description
               }
-            </Text>
+            </AwaText>
           </View>
         </View>
 
@@ -423,19 +416,13 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
             styles.choiceHeader
           }>
 
-          <Text
-            style={
-              styles.choiceTitle
-            }>
+          <AwaText variant="titleSmall">
             {t('journalCervicalMucus.chooseAspectTitle')}
-          </Text>
+          </AwaText>
 
-          <Text
-            style={
-              styles.choiceSubtitle
-            }>
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.choiceSubtitle}>
             {t('journalCervicalMucus.chooseAspectSubtitle')}
-          </Text>
+          </AwaText>
         </View>
 
         <View
@@ -529,12 +516,9 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
             size={17}
           />
 
-          <Text
-            style={
-              styles.selectionInfoText
-            }>
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.selectionInfoText}>
             {t('journalCervicalMucus.evolvesInfo')}
-          </Text>
+          </AwaText>
         </View>
       </SectionCard>
 
@@ -569,19 +553,13 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
               styles.commentHeadingCopy
             }>
 
-            <Text
-              style={
-                styles.commentTitle
-              }>
+            <AwaText variant="titleMedium">
               {t('journalCervicalMucus.addDetailTitle')}
-            </Text>
+            </AwaText>
 
-            <Text
-              style={
-                styles.commentSubtitle
-              }>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.commentSubtitle}>
               {t('journalCervicalMucus.addDetailSubtitle')}
-            </Text>
+            </AwaText>
           </View>
         </View>
 
@@ -625,26 +603,17 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
             styles.tipCopy
           }>
 
-          <Text
-            style={
-              styles.tipEyebrow
-            }>
+          <AwaText colorRole="onSurfaceVariant" variant="labelMedium">
             {t('common.goodToKnow')}
-          </Text>
+          </AwaText>
 
-          <Text
-            style={
-              styles.tipTitle
-            }>
+          <AwaText variant="titleSmall" style={styles.tipTitle}>
             {t('journalCervicalMucus.tipTitle')}
-          </Text>
+          </AwaText>
 
-          <Text
-            style={
-              styles.tipText
-            }>
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.tipText}>
             {t('journalCervicalMucus.tipText')}
-          </Text>
+          </AwaText>
         </View>
       </View>
 
@@ -765,7 +734,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         withAlpha(theme.colors.primary, 0.10),
 
-      borderRadius: 21,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surfaceSecondary,
@@ -787,7 +756,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 18,
+      borderRadius: 12,
     },
 
     currentCopy: {
@@ -798,42 +767,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginLeft: 12,
     },
 
-    currentEyebrow: {
-      color:
-        theme.colors.primary,
+    currentTitle: {marginTop: 4},
 
-      fontSize: 7.8,
-
-      fontWeight:
-        '900',
-
-      letterSpacing: 1.05,
-    },
-
-    currentTitle: {
-      marginTop: 4,
-
-      color:
-        theme.colors.accent,
-
-      fontSize: 18,
-
-      lineHeight: 22,
-
-      fontWeight:
-        '900',
-    },
-
-    currentDescription: {
-      marginTop: 4,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 9.5,
-
-      lineHeight: 14,
-    },
+    currentDescription: {marginTop: 4},
 
     /* ========================================================
        CHOICE HEADER
@@ -845,26 +781,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginBottom: 10,
     },
 
-    choiceTitle: {
-      color:
-        theme.colors.text,
-
-      fontSize: 12.5,
-
-      fontWeight:
-        '800',
-    },
-
-    choiceSubtitle: {
-      marginTop: 3,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 9.5,
-
-      lineHeight: 14,
-    },
+    choiceSubtitle: {marginTop: 3},
 
     /* ========================================================
        OPTIONS
@@ -899,12 +816,12 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         withAlpha(theme.colors.primary, 0.14),
 
-      borderRadius: 17,
+      borderRadius: 16,
 
       backgroundColor:
         theme.colors.surface,
 
-      paddingHorizontal: 5,
+      paddingHorizontal: 8,
 
       paddingVertical: 10,
     },
@@ -953,7 +870,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 13,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surfaceSecondary,
@@ -970,7 +887,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 10.5,
+      fontSize: 11,
 
       fontWeight:
         '700',
@@ -1024,26 +941,17 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       marginTop: 12,
 
-      borderRadius: 13,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surfaceSecondary,
 
-      paddingHorizontal: 10,
+      paddingHorizontal: 12,
 
       paddingVertical: 9,
     },
 
-    selectionInfoText: {
-      flex: 1,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 9.5,
-
-      lineHeight: 14,
-    },
+    selectionInfoText: {flex: 1},
 
     /* ========================================================
        COMMENT
@@ -1071,7 +979,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 13,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -1085,26 +993,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginLeft: 9,
     },
 
-    commentTitle: {
-      color:
-        theme.colors.text,
-
-      fontSize: 12,
-
-      fontWeight:
-        '800',
-    },
-
-    commentSubtitle: {
-      marginTop: 2,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 9.3,
-
-      lineHeight: 13.5,
-    },
+    commentSubtitle: {marginTop: 2},
 
     /* ========================================================
        TIP
@@ -1122,7 +1011,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         withAlpha(theme.colors.primary, 0.10),
 
-      borderRadius: 20,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -1142,7 +1031,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 13,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surface,
@@ -1156,39 +1045,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginLeft: 10,
     },
 
-    tipEyebrow: {
-      color:
-        theme.colors.primary,
+    tipTitle: {marginTop: 2},
 
-      fontSize: 7.5,
-
-      fontWeight:
-        '900',
-
-      letterSpacing: 1,
-    },
-
-    tipTitle: {
-      marginTop: 2,
-
-      color:
-        theme.colors.accent,
-
-      fontSize: 12.5,
-
-      fontWeight:
-        '800',
-    },
-
-    tipText: {
-      marginTop: 4,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 10.5,
-
-      lineHeight: 16,
-    },
+    tipText: {marginTop: 4},
   });
 }

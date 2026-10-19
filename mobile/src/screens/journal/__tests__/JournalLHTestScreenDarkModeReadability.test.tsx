@@ -78,6 +78,12 @@ function findIconByNameAndSize(renderer: ReactTestRenderer.ReactTestRenderer, na
   return renderer.root.findAll(node => node.props.name === name && node.props.size === size)[0];
 }
 
+// The result card's coloured eyebrow ("RÉSULTAT NÉGATIF"...) carries the tone's accent (the card no longer has a circular
+// icon at its left: it was removed).
+function findResultEyebrow(renderer: ReactTestRenderer.ReactTestRenderer) {
+  return renderer.root.findAll(node => flattenStyle(node.props.style).letterSpacing === 1.1)[0];
+}
+
 function findResultPreviewCard(renderer: ReactTestRenderer.ReactTestRenderer) {
   return renderer.root.findAll(node => flattenStyle(node.props.style).minHeight === 110)[0];
 }
@@ -105,18 +111,15 @@ describe('JournalLHTestScreen — "Résultat du test" card readable in dark mode
     const renderer = await renderScreen();
 
     const expectedCardBg = interpolateHex(AWA_ORIGINAL_LIGHT_SURFACE, '#4F8E68', CARD_TINT_RATIO);
-    const expectedIconBg = interpolateHex(AWA_ORIGINAL_LIGHT_SURFACE, '#4F8E68', ICON_TINT_RATIO);
 
     const card = findResultPreviewCard(renderer);
     expect(flattenStyle(card.props.style).backgroundColor).toBe(expectedCardBg);
 
-    const bigIcon = findIconByNameAndSize(renderer, 'minus-circle-outline', 27);
-    // The glyph/eyebrow accent stays byte-identical to the original light
+    // The eyebrow accent stays byte-identical to the original light
     // literal — only the pale backgrounds behind it are formula-derived.
-    expect(bigIcon.props.color).toBe('#4F8E68');
-
-    const iconBox = bigIcon.parent!;
-    expect(flattenStyle(iconBox.props.style).backgroundColor).toBe(expectedIconBg);
+    expect(flattenStyle(findResultEyebrow(renderer).props.style).color).toBe('#4F8E68');
+    // The circular icon at the left of the result card is gone.
+    expect(findIconByNameAndSize(renderer, 'minus-circle-outline', 27)).toBeUndefined();
 
     const titleNode = renderer.root.findAll(node => node.props.children === 'Ton test est négatif')[0];
     expect(titleNode).toBeDefined();
@@ -134,17 +137,12 @@ describe('JournalLHTestScreen — "Résultat du test" card readable in dark mode
     expect(cardBg).not.toBe('#F8FCFA');
     expect(cardBg).not.toBe('#FFFFFF');
 
-    const bigIcon = findIconByNameAndSize(renderer, 'minus-circle-outline', 27);
+    const accent = flattenStyle(findResultEyebrow(renderer).props.style).color;
     // Never the flat light-mode hex, and never plain white/black — a real
     // lightened variant of the semantic green accent.
-    expect(bigIcon.props.color).not.toBe('#4F8E68');
-    expect(bigIcon.props.color).not.toBe('#FFFFFF');
-    expect(bigIcon.props.color).not.toBe('#000000');
-
-    const iconBox = bigIcon.parent!;
-    const iconBoxBg = flattenStyle(iconBox.props.style).backgroundColor as string;
-    expect(iconBoxBg).not.toBe('#EAF5EE');
-    expect(iconBoxBg).not.toBe(cardBg); // chip stays visually distinguishable from the card itself
+    expect(accent).not.toBe('#4F8E68');
+    expect(accent).not.toBe('#FFFFFF');
+    expect(accent).not.toBe('#000000');
   });
 
   it('switching the visible result (Négatif -> Positif -> Invalide) keeps each tone\'s card/chip visually distinct in dark mode', async () => {

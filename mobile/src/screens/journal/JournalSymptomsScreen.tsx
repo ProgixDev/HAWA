@@ -1,4 +1,5 @@
 import {useToday} from '../../hooks/useToday';
+import {useDaughterJournal} from '../../hooks/useDaughterJournal';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Animated, Easing, Image, ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, useWindowDimensions, type ImageSourcePropType} from 'react-native';
 
@@ -17,9 +18,15 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {presentSaveFailure} from '../../services/saveFailure';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import type {SymptomSeverity} from '../../types/journal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {JOURNAL_HERO_INK} from '../../components/journal/journalHeroInk';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {deriveAwaRoles} from '../../theme/semanticRoles';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import '../../i18n';
 
@@ -174,6 +181,9 @@ const LOCATION_IMAGES: Record<string, ImageSourcePropType> = {
 
 export default function JournalSymptomsScreen(): React.JSX.Element {
   const {t} = useTranslation();
+  // Managed daughter profile only (null for the mother, whose screen renders exactly as before): no illustrated hero,
+  // no symptom photos or body-zone drawings, compact rows, third-person wording with her first name.
+  const {daughter, tx} = useDaughterJournal();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const {width} = useWindowDimensions();
@@ -536,7 +546,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
 
       showSuccessToast();
     } catch (saveError) {
-      presentSaveFailure(saveError, {title: t('journalSymptoms.errorTitle'), message: t('journalSymptoms.errorMessage')});
+      presentSaveFailure(saveError, {title: t('journalSymptoms.errorTitle'), message: tx('journalSymptoms.errorMessage', 'symptoms.errorMessage')});
     } finally {
       setSaving(false);
     }
@@ -567,50 +577,27 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
             topBarResponsiveStyle,
           ]}>
           {/* RETOUR */}
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
-            hitSlop={10}
+            icon="arrow-left"
             onPress={() =>
               navigation.goBack()
             }
-            style={({pressed}) => [
-              styles.roundButton,
-              pressed &&
-                styles.roundButtonPressed,
-            ]}>
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="arrow-left"
-              size={24}
-            />
-          </Pressable>
+          />
 
           {/* TITRE */}
-          <Text style={styles.pageTitle}>
-            {t('dailyJournal.symptoms')}
-          </Text>
+          <AwaText numberOfLines={daughter ? 2 : undefined} style={daughter ? styles.daughterTitle : undefined} variant="headlineSmall">
+            {tx('dailyJournal.symptoms', 'titles.symptoms')}
+          </AwaText>
 
           {/* CHECK */}
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('journalSymptoms.saveSymptoms')}
-            accessibilityRole="button"
             disabled={saving}
-            hitSlop={10}
+            icon="check"
             onPress={save}
-            style={({pressed}) => [
-              styles.checkButton,
-              pressed &&
-                styles.roundButtonPressed,
-              saving &&
-                styles.disabled,
-            ]}>
-            <MaterialDesignIcons
-              color={onPrimaryTextColor(theme)}
-              name="check"
-              size={24}
-            />
-          </Pressable>
+            variant="filled"
+          />
         </View>
 
         <ScrollView
@@ -626,24 +613,26 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
           ]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
-          {/* HERO */}
-          <ImageBackground
-            imageStyle={styles.heroImage}
-            source={require('../../assets/images/symptoms-header-woman.png')}
-            style={styles.hero}>
-            <View style={styles.heroCopy}>
-              <Text style={styles.heroTitle}>
-                {t('journalSymptoms.heroTitle')}
-              </Text>
+          {/* HERO (not shown for a daughter's journal) */}
+          {daughter ? null : (
+            <ImageBackground
+              imageStyle={styles.heroImage}
+              source={require('../../assets/images/symptoms-header-woman.png')}
+              style={styles.hero}>
+              <View style={styles.heroCopy}>
+                <Text style={styles.heroTitle}>
+                  {t('journalSymptoms.heroTitle')}
+                </Text>
 
-              <Text style={styles.heroSubtitle}>
-                {t('journalSymptoms.heroSubtitle')}
-              </Text>
-            </View>
-          </ImageBackground>
+                <Text style={styles.heroSubtitle}>
+                  {t('journalSymptoms.heroSubtitle')}
+                </Text>
+              </View>
+            </ImageBackground>
+          )}
 
           {/* SYMPTÔMES */}
-          <View style={styles.card}>
+          <AwaCard padding="compact" variant="outlined">
             <View style={styles.symptomsHeader}>
               <View style={styles.symptomsHeaderMain}>
                 <View style={styles.headingIcon}>
@@ -656,11 +645,11 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
 
                 <View style={styles.headingCopy}>
                   <Text style={styles.sectionTitle}>
-                    {t('journalSymptoms.symptomsFeltTitle')}
+                    {tx('journalSymptoms.symptomsFeltTitle', 'symptoms.observedTitle')}
                   </Text>
 
                   <Text style={styles.sectionSubtitle}>
-                    {t('journalSymptoms.symptomsFeltSubtitle')}
+                    {tx('journalSymptoms.symptomsFeltSubtitle', 'symptoms.observedSubtitle')}
                   </Text>
                 </View>
               </View>
@@ -698,7 +687,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                         styles.symptomIconContainer,
                         active && styles.symptomIconContainerActive,
                       ]}>
-                      {item.image ? (
+                      {item.image && !daughter ? (
                         <Image
                           resizeMode="contain"
                           source={item.image}
@@ -725,13 +714,15 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                         {journalOptionLabel('cycleSymptom', item.label, t)}
                       </Text>
 
-                      <Text
-                        style={[
-                          styles.symptomHelperText,
-                          active && styles.symptomHelperTextActive,
-                        ]}>
-                        {active ? t('journalSymptoms.addedToJournal') : t('journalSymptoms.tapToSelect')}
-                      </Text>
+                      {daughter ? null : (
+                        <Text
+                          style={[
+                            styles.symptomHelperText,
+                            active && styles.symptomHelperTextActive,
+                          ]}>
+                          {active ? t('journalSymptoms.addedToJournal') : t('journalSymptoms.tapToSelect')}
+                        </Text>
+                      )}
                     </View>
 
                     <View
@@ -757,10 +748,10 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                 );
               })}
             </View>
-          </View>
+          </AwaCard>
 
           {/* INTENSITÉ */}
-          <View style={styles.card}>
+          <AwaCard padding="compact" variant="outlined">
             <View
               style={
                 styles.intensityHeader
@@ -791,7 +782,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                   style={
                     styles.sectionSubtitle
                   }>
-                  {t('journalSymptoms.intensitySectionSubtitle')}
+                  {tx('journalSymptoms.intensitySectionSubtitle', 'symptoms.intensitySubtitle')}
                 </Text>
               </View>
             </View>
@@ -930,10 +921,10 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                 },
               )}
             </View>
-          </View>
+          </AwaCard>
 
           {/* LOCALISATION */}
-          <View style={styles.card}>
+          <AwaCard padding="compact" variant="outlined">
             <Text style={styles.sectionTitleStandalone}>
               {t('journalSymptoms.locationSectionTitle')}{' '}
               <Text style={styles.optional}>
@@ -942,10 +933,11 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
             </Text>
 
             <Text style={styles.sectionSubtitle}>
-              {t('journalSymptoms.locationSectionSubtitle')}
+              {tx('journalSymptoms.locationSectionSubtitle', 'symptoms.locationSubtitle')}
             </Text>
 
             <View style={styles.locationPanel}>
+              {daughter ? null : (
               <View
                 style={[
                   styles.locationVisual,
@@ -989,7 +981,9 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                   </Text>
                 </View>
               </View>
+              )}
 
+              {daughter ? null : (
               <Animated.View
                 style={[
                   styles.selectedLocationBadge,
@@ -1020,6 +1014,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                   />
                 </View>
               </Animated.View>
+              )}
 
               <View style={styles.locationOptionsModern}>
                 {LOCATIONS.map(item => {
@@ -1076,10 +1071,10 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                 })}
               </View>
             </View>
-          </View>
+          </AwaCard>
 
           {/* NOTES */}
-          <View style={styles.card}>
+          <AwaCard padding="compact" variant="outlined">
             <Text
               style={
                 styles.sectionTitleStandalone
@@ -1115,47 +1110,18 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                 {note.length} / 300
               </Text>
             </View>
-          </View>
+          </AwaCard>
 
           {/* BOUTON ENREGISTRER */}
-          <Pressable
+          <AwaButton
             accessibilityLabel={t('journalSymptoms.saveMySymptoms')}
-            accessibilityRole="button"
-            disabled={saving}
+            icon="content-save-outline"
+            label={saving ? t('periodStartSheet.saving') : t('common.save')}
+            loading={saving}
             onPress={save}
-            style={({pressed}) => [
-              styles.saveButton,
-
-              pressed &&
-                styles.pressed,
-
-              saving &&
-                styles.disabled,
-            ]}>
-            {saving ? (
-              <Text
-                style={
-                  styles.saveText
-                }>
-                {t('periodStartSheet.saving')}
-              </Text>
-            ) : (
-              <>
-                <MaterialDesignIcons
-                  color={onPrimaryTextColor(theme)}
-                  name="content-save-outline"
-                  size={20}
-                />
-
-                <Text
-                  style={
-                    styles.saveText
-                  }>
-                  {t('common.save')}
-                </Text>
-              </>
-            )}
-          </Pressable>
+            size="large"
+            style={styles.saveButton}
+          />
 
           {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject={t('journalSymptoms.clearSubject')} /> : null}
         </ScrollView>
@@ -1241,46 +1207,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingBottom: 8,
   },
 
-  roundButton: {
-    width: 42,
-    height: 42,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 18,
-    backgroundColor: theme.colors.surface,
-  },
-
   /**
    * Même style de ✓ que Sommeil :
    * fond violet + icône blanche.
    */
-  checkButton: {
-    width: 42,
-    height: 42,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    backgroundColor: theme.colors.primary,
-    elevation: 2,
-  },
-
-  roundButtonPressed: {
-    opacity: 0.75,
-    transform: [
-      {
-        scale: 0.95,
-      },
-    ],
-  },
-
-  pageTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 22,
-    fontWeight: '700',
-  },
 
   content: {
     paddingHorizontal: 11,
@@ -1288,27 +1218,34 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
+  // Daughter journal: the title can wrap and shrinks between the back and save buttons.
+  daughterTitle: {
+    flex: 1,
+    minWidth: 0,
+    textAlign: 'center',
+  },
+
   hero: {
-    height: 115,
+    minHeight: 115,
     justifyContent: 'center',
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
   heroImage: {
-    borderRadius: 20,
+    borderRadius: 12,
   },
 
   heroCopy: {
-    width: '58%',
+    width: '48%',
     paddingLeft: 28,
   },
 
   heroTitle: {
-    color: theme.colors.accent,
+    color: JOURNAL_HERO_INK.title,
     fontFamily: 'serif',
     fontSize: 20,
     fontWeight: '700',
@@ -1316,25 +1253,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   heroSubtitle: {
     marginTop: 7,
-    color: theme.colors.textSecondary,
+    color: JOURNAL_HERO_INK.body,
     fontSize: 11.5,
     lineHeight: 16,
-  },
-
-  card: {
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 20,
-    backgroundColor: theme.colors.surface,
-    padding: 12,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.04,
-    shadowRadius: 7,
-    elevation: 1,
   },
 
   sectionHeading: {
@@ -1359,14 +1280,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   sectionTitle: {
     color: theme.colors.accent,
-    fontFamily: 'serif',
     fontSize: 15.5,
     fontWeight: '700',
   },
 
   sectionTitleStandalone: {
     color: theme.colors.accent,
-    fontFamily: 'serif',
     fontSize: 14,
     fontWeight: '700',
   },
@@ -1374,13 +1293,13 @@ function createStyles(theme: ResolvedAwaTheme) {
   sectionSubtitle: {
     marginTop: 3,
     color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 14,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   optional: {
     fontFamily: undefined,
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '400',
   },
 
@@ -1403,13 +1322,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingVertical: 6,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
   symptomCountText: {
     color: theme.colors.primary,
-    fontSize: 10.5,
+    fontSize: 11,
     fontWeight: '700',
   },
 
@@ -1424,9 +1343,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 18,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
-    paddingHorizontal: 11,
+    paddingHorizontal: 12,
     paddingVertical: 10,
     shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
@@ -1458,7 +1377,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
@@ -1490,20 +1409,21 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 1,
   },
 
+  // DESIGN.md: text on the selected (primarySoft) card = onPrimaryContainer.
   symptomTextActive: {
-    color: theme.colors.primary,
+    color: deriveAwaRoles(theme).onPrimaryContainer,
     fontWeight: '800',
   },
 
   symptomHelperText: {
     marginTop: 3,
     color: theme.colors.textMuted,
-    fontSize: 9.5,
-    lineHeight: 13,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   symptomHelperTextActive: {
-    color: theme.colors.primary,
+    color: deriveAwaRoles(theme).onPrimaryContainer,
     fontWeight: '600',
   },
 
@@ -1556,7 +1476,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 18,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
     paddingHorizontal: 12,
     paddingVertical: 11,
@@ -1585,7 +1505,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1615,18 +1535,18 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   intensityLabelActive: {
-    color: theme.colors.primary,
+    color: deriveAwaRoles(theme).onPrimaryContainer,
   },
 
   intensityDescription: {
     marginTop: 4,
     color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 14,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   intensityDescriptionActive: {
-    color: theme.colors.primary,
+    color: deriveAwaRoles(theme).onPrimaryContainer,
   },
 
   intensityLevel: {
@@ -1670,7 +1590,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginTop: 12,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 22,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
     padding: 12,
   },
@@ -1683,7 +1603,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
@@ -1695,14 +1615,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     left: 5,
     borderWidth: 2,
     borderColor: theme.colors.primary,
-    borderRadius: 17,
+    borderRadius: 16,
     backgroundColor: withAlpha(theme.colors.primary, 0.035),
   },
 
   zoneImage: {
     width: '100%',
     height: '100%',
-    borderRadius: 20,
+    borderRadius: 12,
   },
 
   zoneImageOverlay: {
@@ -1730,7 +1650,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   locationVisualTopBadgeText: {
     color: theme.colors.text,
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '700',
   },
 
@@ -1743,7 +1663,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingVertical: 9,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 17,
+    borderRadius: 16,
     backgroundColor: theme.colors.surface,
     shadowColor: theme.colors.primary,
     shadowOffset: {width: 0, height: 3},
@@ -1757,7 +1677,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 38,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1769,7 +1689,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   selectedLocationEyebrow: {
     color: theme.colors.textMuted,
-    fontSize: 8.5,
+    fontSize: 11,
     fontWeight: '600',
   },
 
@@ -1806,8 +1726,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderColor: withAlpha(theme.colors.primary, 0.14),
     borderRadius: 16,
     backgroundColor: theme.colors.surface,
-    paddingHorizontal: 9,
-    paddingVertical: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
   },
 
   locationChoiceSmall: {
@@ -1835,7 +1755,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 11,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
@@ -1855,7 +1775,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   locationChoiceTextActive: {
-    color: theme.colors.primary,
+    color: deriveAwaRoles(theme).onPrimaryContainer,
     fontWeight: '800',
   },
 
@@ -1881,7 +1801,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginTop: 8,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
@@ -1890,7 +1810,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 10,
     paddingBottom: 20,
     color: theme.colors.text,
-    fontSize: 10.5,
+    fontSize: 11,
   },
 
   counter: {
@@ -1898,29 +1818,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     right: 8,
     bottom: 6,
     color: theme.colors.textMuted,
-    fontSize: 8.5,
+    fontSize: 11,
   },
 
-  saveButton: {
-    width: '88%',
-    maxWidth: 360,
-    minHeight: 54,
-    alignSelf: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    marginTop: 12,
-    marginBottom: 8,
-    borderRadius: 18,
-    backgroundColor: theme.colors.primary,
-  },
-
-  saveText: {
-    color: onPrimaryTextColor(theme),
-    fontSize: 15,
-    fontWeight: '700',
-  },
+  saveButton: {width: '88%', maxWidth: 360, alignSelf: 'center', marginTop: 12, marginBottom: 8},
 
   pressed: {
     opacity: 0.8,
@@ -1941,7 +1842,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 9,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
     paddingHorizontal: 14,
     paddingVertical: 12,
@@ -1950,9 +1851,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       width: 0,
       height: 5,
     },
-    shadowOpacity: 0.17,
-    shadowRadius: 13,
-    elevation: 7,
+    shadowOpacity: 0.14,
+    shadowRadius: 12,
+    elevation: 6,
   },
 
   toastIcon: {
@@ -1988,8 +1889,5 @@ function createStyles(theme: ResolvedAwaTheme) {
     opacity: 0.8,
   },
 
-  disabled: {
-    opacity: 0.55,
-  },
   });
 }

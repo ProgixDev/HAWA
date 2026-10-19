@@ -96,8 +96,9 @@ describe('JournalHydrationWeightScreen — static guard', () => {
   it('reads its structural chrome from the global theme', () => {
     expect(source).toMatch(/useAwaTheme/);
     expect(source).toMatch(/theme\.colors\.primary/);
-    expect(source).toMatch(/theme\.colors\.primarySoft/);
-    expect(source).toMatch(/theme\.colors\.textSecondary/);
+    // DESIGN.md: the hand-made quick-add pills (primarySoft fill) and the reset link (textSecondary) are now
+    // AwaButton (tonal / text), which resolves its own theme roles, so the screen no longer references those two tokens.
+    expect(source).toMatch(/AwaButton/);
   });
 });
 

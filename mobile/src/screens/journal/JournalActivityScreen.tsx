@@ -1,4 +1,5 @@
 import {useToday} from '../../hooks/useToday';
+import {useDaughterJournal} from '../../hooks/useDaughterJournal';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Animated, Easing, ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, useWindowDimensions} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -10,6 +11,11 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {presentSaveFailure} from '../../services/saveFailure';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
+import {JOURNAL_HERO_INK} from '../../components/journal/journalHeroInk';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {
   TOP_SPACING_EXTRA,
@@ -18,6 +24,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {deriveAwaRoles} from '../../theme/semanticRoles';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import '../../i18n';
 
@@ -135,6 +142,9 @@ const INTENSITY_DESCRIPTION_KEYS: Record<string, string> = {
 };
 export default function JournalActivityScreen(): React.JSX.Element {
   const {t} = useTranslation();
+  // Managed daughter profile only (null for the mother, whose screen renders exactly as before): no illustrated hero,
+  // no encouragement card, third-person wording with her first name.
+  const {daughter, tx} = useDaughterJournal();
   const navigation =
     useNavigation<NavigationProp<RootStackParamList>>();
   // Re-evaluated when the local day changes / the app returns to the
@@ -302,7 +312,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
       showSuccessToast();
     } catch (saveError) {
-      presentSaveFailure(saveError, {title: t('journalActivity.errorTitle'), message: t('journalActivity.errorMessage')});
+      presentSaveFailure(saveError, {title: t('journalActivity.errorTitle'), message: tx('journalActivity.errorMessage', 'activity.errorMessage')});
     } finally {
       setSaving(false);
     }
@@ -350,69 +360,31 @@ export default function JournalActivityScreen(): React.JSX.Element {
               styles.headerVerySmall,
           ]}>
 
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
-            hitSlop={10}
+            icon="chevron-left"
             onPress={() => navigation.goBack()}
-            style={({pressed}) => [
-              styles.headerButton,
-              isSmallScreen &&
-                styles.headerButtonSmall,
-              pressed && styles.pressed,
-            ]}>
-
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="chevron-left"
-              size={isSmallScreen ? 22 : 25}
-            />
-
-          </Pressable>
+          />
 
           <View style={styles.headerCopy}>
 
-            <Text
-              numberOfLines={1}
-              style={[
-                styles.title,
-                isSmallScreen && styles.titleSmall,
-              ]}>
-              {t('dailyJournalSheet.items.activity.title')}
-            </Text>
+            <AwaText numberOfLines={2} style={[styles.title, daughter && styles.daughterTitle]} variant="headlineSmall">
+              {tx('dailyJournalSheet.items.activity.title', 'titles.activity')}
+            </AwaText>
 
-            <Text
-              numberOfLines={1}
-              style={[
-                styles.date,
-                isSmallScreen && styles.dateSmall,
-              ]}>
+            <AwaText colorRole="onSurfaceVariant" numberOfLines={2} style={styles.date} variant="bodySmall">
               {cycleDay !== null ? t('journalActivity.dateWithCycleDay', {date: dateLabel, day: cycleDay}) : dateLabel}
-            </Text>
+            </AwaText>
 
           </View>
 
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.save')}
-            accessibilityRole="button"
             disabled={saving}
-            hitSlop={10}
+            icon="check"
             onPress={save}
-            style={({pressed}) => [
-              styles.headerButton,
-              styles.headerSave,
-              isSmallScreen &&
-                styles.headerButtonSmall,
-              pressed && styles.pressed,
-            ]}>
-
-            <MaterialDesignIcons
-              color={onPrimaryTextColor(theme)}
-              name="check"
-              size={isSmallScreen ? 18 : 20}
-            />
-
-          </Pressable>
+            variant="filled"
+          />
 
         </View>
 
@@ -431,7 +403,8 @@ export default function JournalActivityScreen(): React.JSX.Element {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
 
-          {/* HERO — IMAGE CONSERVÉE */}
+          {/* HERO — IMAGE CONSERVÉE (not shown for a daughter's journal) */}
+          {daughter ? null : (
           <ImageBackground
             imageStyle={styles.heroImage}
             source={require('../../assets/images/activity-header-woman.png')}
@@ -450,9 +423,10 @@ export default function JournalActivityScreen(): React.JSX.Element {
             </View>
 
           </ImageBackground>
+          )}
 
           {/* TYPE D'ACTIVITÉ */}
-          <View style={styles.card}>
+          <AwaCard padding="compact" variant="outlined">
 
             <View style={styles.sectionHeader}>
 
@@ -470,7 +444,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
                 </Text>
 
                 <Text style={styles.hint}>
-                  {t('journalActivity.typeSectionHint')}
+                  {tx('journalActivity.typeSectionHint', 'activity.typeHint')}
                 </Text>
               </View>
 
@@ -521,7 +495,9 @@ export default function JournalActivityScreen(): React.JSX.Element {
                     </View>
 
                     <Text
-                      numberOfLines={1}
+                      adjustsFontSizeToFit
+                      minimumFontScale={0.85}
+                      numberOfLines={2}
                       style={[
                         styles.activityLabel,
                         active &&
@@ -546,10 +522,10 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
             </View>
 
-          </View>
+          </AwaCard>
 
           {/* DURÉE */}
-          <View style={styles.card}>
+          <AwaCard padding="compact" variant="outlined">
 
             <View style={styles.sectionHeader}>
 
@@ -567,7 +543,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
                 </Text>
 
                 <Text style={styles.hint}>
-                  {t('journalActivity.durationSectionHint')}
+                  {tx('journalActivity.durationSectionHint', 'activity.durationHint')}
                 </Text>
               </View>
 
@@ -657,6 +633,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
                   return (
                     <Pressable
+                      hitSlop={{top: 10, bottom: 10, left: 6, right: 6}}
                       key={value}
                       onPress={() =>
                         setDuration(value)
@@ -683,10 +660,10 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
             </View>
 
-          </View>
+          </AwaCard>
 
           {/* INTENSITÉ */}
-          <View style={styles.card}>
+          <AwaCard padding="compact" variant="outlined">
 
             <View style={styles.sectionHeader}>
 
@@ -704,7 +681,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
                 </Text>
 
                 <Text style={styles.hint}>
-                  {t('journalActivity.intensitySectionHint')}
+                  {tx('journalActivity.intensitySectionHint', 'activity.intensityHint')}
                 </Text>
               </View>
 
@@ -790,10 +767,10 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
             </View>
 
-          </View>
+          </AwaCard>
 
           {/* RESSENTI */}
-          <View style={styles.card}>
+          <AwaCard padding="compact" variant="outlined">
 
             <View style={styles.sectionHeader}>
 
@@ -807,7 +784,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
               <View style={styles.sectionHeaderCopy}>
                 <Text style={styles.sectionTitle}>
-                  {t('journalActivity.feelingSectionTitle')}
+                  {tx('journalActivity.feelingSectionTitle', 'activity.feelingTitle')}
                 </Text>
               </View>
 
@@ -853,10 +830,10 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
             </View>
 
-          </View>
+          </AwaCard>
 
           {/* COMMENTAIRE */}
-          <View style={styles.card}>
+          <AwaCard padding="compact" variant="outlined">
 
             <View style={styles.sectionHeader}>
 
@@ -920,8 +897,9 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
             </View>
 
-          </View>
+          </AwaCard>
 
+          {daughter ? null : (
           <View style={styles.kindness}>
 
             <View style={styles.kindnessIcon}>
@@ -937,35 +915,17 @@ export default function JournalActivityScreen(): React.JSX.Element {
             </Text>
 
           </View>
+          )}
 
-          <Pressable
+          <AwaButton
             accessibilityLabel={t('journalActivity.saveActivity')}
-            accessibilityRole="button"
-            disabled={saving}
+            icon="content-save"
+            label={saving ? t('periodStartSheet.saving') : t('common.save')}
+            loading={saving}
             onPress={save}
-            style={({pressed}) => [
-              styles.save,
-              pressed && styles.pressed,
-              saving && styles.saveDisabled,
-            ]}>
-
-            <MaterialDesignIcons
-              color={onPrimaryTextColor(theme)}
-              name={
-                saving
-                  ? 'loading'
-                  : 'content-save'
-              }
-              size={18}
-            />
-
-            <Text style={styles.saveText}>
-              {saving
-                ? t('periodStartSheet.saving')
-                : t('common.save')}
-            </Text>
-
-          </Pressable>
+            size="large"
+            style={styles.save}
+          />
 
           {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject={t('journalActivity.clearSubject')} /> : null}
 
@@ -1078,29 +1038,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 8,
   },
 
-  headerButton: {
-    width: 40,
-    height: 40,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 15,
-    backgroundColor: theme.colors.surface,
-  },
-
-  headerButtonSmall: {
-    width: 36,
-    height: 36,
-    borderRadius: 13,
-  },
-
-  headerSave: {
-    borderColor: theme.colors.primary,
-    backgroundColor: theme.colors.primary,
-  },
-
   headerCopy: {
     flex: 1,
     minWidth: 0,
@@ -1109,28 +1046,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 8,
   },
 
-  title: {
-    color: theme.colors.accent,
-    fontSize: 22,
-    fontWeight: '700',
-    textAlign: 'center',
-  },
+  title: {textAlign: 'center'},
 
-  titleSmall: {
-    fontSize: 19,
-  },
+  // Daughter journal only: the title wraps between the back and save buttons.
+  daughterTitle: {flexShrink: 1},
 
-  date: {
-    maxWidth: '100%',
-    marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    textAlign: 'center',
-  },
-
-  dateSmall: {
-    fontSize: 9.5,
-  },
+  date: {maxWidth: '100%', textAlign: 'center'},
 
   content: {
     paddingTop: 8,
@@ -1152,15 +1073,16 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   /* HERO IMAGE */
   hero: {
-    height: 112,
+    minHeight: 112,
     justifyContent: 'center',
+    paddingVertical: 10,
     overflow: 'hidden',
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
   heroImage: {
-    borderRadius: 20,
+    borderRadius: 12,
     resizeMode: 'cover',
   },
 
@@ -1174,7 +1096,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   // preserved illustration (`activity-header-woman.png`); their color is
   // calibrated for contrast against that specific image, not the theme.
   heroTitle: {
-    color: '#32205F',
+    color: JOURNAL_HERO_INK.title,
     fontSize: 16,
     lineHeight: 22,
     fontWeight: '700',
@@ -1182,27 +1104,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   heroText: {
     marginTop: 6,
-    color: '#4E4860',
-    fontSize: 10,
-    lineHeight: 15,
+    color: JOURNAL_HERO_INK.body,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   /* CARDS */
-  card: {
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 20,
-    backgroundColor: theme.colors.surface,
-    padding: 12,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.035,
-    shadowRadius: 7,
-    elevation: 1,
-  },
 
   sectionHeader: {
     flexDirection: 'row',
@@ -1217,7 +1124,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 8,
-    borderRadius: 11,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1235,26 +1142,27 @@ function createStyles(theme: ResolvedAwaTheme) {
   hint: {
     marginTop: 2,
     color: theme.colors.textSecondary,
-    fontSize: 9.5,
+    fontSize: 11,
+    lineHeight: 15,
   },
 
   /* ACTIVITÉS */
   activityGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    rowGap: 8,
+    justifyContent: 'flex-start',
+    gap: 8,
   },
 
   activity: {
     position: 'relative',
-    width: '18.5%',
-    minHeight: 76,
+    width: '23%',
+    minHeight: 84,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
     paddingHorizontal: 3,
     paddingVertical: 7,
@@ -1277,7 +1185,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 6,
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1288,7 +1196,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       width: 0,
       height: 3,
     },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.15,
     shadowRadius: 5,
     elevation: 3,
   },
@@ -1296,14 +1204,15 @@ function createStyles(theme: ResolvedAwaTheme) {
   activityLabel: {
     maxWidth: '100%',
     color: theme.colors.text,
-    fontSize: 8.5,
-    lineHeight: 11,
+    fontSize: 11,
+    lineHeight: 14,
     fontWeight: '600',
     textAlign: 'center',
   },
 
+  // DESIGN.md: selected text = onPrimaryContainer (the fill is primarySoft).
   activityLabelSelected: {
-    color: theme.colors.primary,
+    color: deriveAwaRoles(theme).onPrimaryContainer,
     fontWeight: '700',
   },
 
@@ -1327,10 +1236,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 17,
+    borderRadius: 16,
     backgroundColor: theme.colors.surfaceSecondary,
     paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingVertical: 10,
   },
 
   durationButton: {
@@ -1340,7 +1249,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
     shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
@@ -1373,7 +1282,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   durationUnit: {
     marginTop: 2,
     color: theme.colors.textSecondary,
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '500',
   },
 
@@ -1406,7 +1315,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.25,
+    shadowOpacity: 0.15,
     shadowRadius: 4,
     elevation: 3,
   },
@@ -1418,8 +1327,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scaleButton: {
-    minWidth: 30,
-    height: 25,
+    minWidth: 34,
+    minHeight: 28,
+    paddingHorizontal: 4,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,
@@ -1431,11 +1341,11 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   scaleText: {
     color: theme.colors.textSecondary,
-    fontSize: 9,
+    fontSize: 11,
   },
 
   scaleTextSelected: {
-    color: theme.colors.primary,
+    color: deriveAwaRoles(theme).onPrimaryContainer,
     fontWeight: '800',
   },
 
@@ -1449,7 +1359,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     position: 'relative',
     flex: 1,
     minWidth: 0,
-    minHeight: 92,
+    minHeight: 104,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
@@ -1477,7 +1387,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 7,
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1487,8 +1397,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   intensityText: {
     color: theme.colors.text,
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: '700',
+    textAlign: 'center',
   },
 
   intensityTextSelected: {
@@ -1498,7 +1409,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   intensityDescription: {
     marginTop: 3,
     color: theme.colors.textSecondary,
-    fontSize: 7.5,
+    fontSize: 11,
+    lineHeight: 14,
     textAlign: 'center',
   },
 
@@ -1527,9 +1439,11 @@ function createStyles(theme: ResolvedAwaTheme) {
   feeling: {
     flex: 1,
     minWidth: 0,
-    height: 58,
+    minHeight: 66,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 2,
+    paddingVertical: 10,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
     borderRadius: 12,
@@ -1547,18 +1461,19 @@ function createStyles(theme: ResolvedAwaTheme) {
   feelingText: {
     marginTop: 3,
     color: theme.colors.text,
-    fontSize: 8.5,
+    fontSize: 11,
+    lineHeight: 14,
     textAlign: 'center',
   },
 
   feelingTextSelected: {
-    color: theme.colors.primary,
+    color: deriveAwaRoles(theme).onPrimaryContainer,
     fontWeight: '700',
   },
 
   /* NOTE */
   optional: {
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: '400',
   },
 
@@ -1566,7 +1481,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     minHeight: 78,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
@@ -1590,7 +1505,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   counter: {
     marginRight: 'auto',
     color: theme.colors.textMuted,
-    fontSize: 9,
+    fontSize: 11,
   },
 
   /* MESSAGE */
@@ -1600,10 +1515,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
-    paddingHorizontal: 10,
-    paddingVertical: 7,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
   },
 
   kindnessIcon: {
@@ -1611,7 +1526,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 28,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
@@ -1619,41 +1534,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     flex: 1,
     marginLeft: 8,
     color: theme.colors.textSecondary,
-    fontSize: 10,
-    lineHeight: 14,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   /* SAVE */
-  save: {
-    width: '88%',
-    maxWidth: 360,
-    height: 47,
-    alignSelf: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 14,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.colors.primary,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.17,
-    shadowRadius: 7,
-    elevation: 4,
-  },
-
-  saveText: {
-    marginLeft: 7,
-    color: onPrimaryTextColor(theme),
-    fontSize: 15,
-    fontWeight: '700',
-  },
-
-  saveDisabled: {
-    opacity: 0.55,
-  },
+  save: {width: '88%', maxWidth: 360, alignSelf: 'center'},
 
   /* TOAST */
   toast: {
@@ -1666,7 +1552,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 9,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
     paddingHorizontal: 14,
     paddingVertical: 12,
@@ -1675,9 +1561,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       width: 0,
       height: 5,
     },
-    shadowOpacity: 0.17,
-    shadowRadius: 13,
-    elevation: 7,
+    shadowOpacity: 0.14,
+    shadowRadius: 12,
+    elevation: 6,
   },
 
   toastIcon: {
@@ -1713,9 +1599,5 @@ function createStyles(theme: ResolvedAwaTheme) {
     opacity: 0.8,
   },
 
-  pressed: {
-    opacity: 0.8,
-    transform: [{scale: 0.98}],
-  },
   });
 }

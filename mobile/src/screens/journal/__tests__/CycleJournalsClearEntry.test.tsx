@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
-import {Alert, Pressable} from 'react-native';
+import {Pressable} from 'react-native';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
@@ -86,6 +86,10 @@ const leave = (renderer: ReactTestRenderer.ReactTestRenderer) => {
 
 const clearButton = (renderer: ReactTestRenderer.ReactTestRenderer) =>
   renderer.root.findAllByType(Pressable).find(node => node.props.accessibilityLabel === 'Effacer cette saisie');
+
+// The confirmation is the in-app ClearEntryButton dialog (it replaced the native Alert so it follows the AWA theme).
+const dialogButton = (renderer: ReactTestRenderer.ReactTestRenderer, label: 'Effacer' | 'Annuler') =>
+  renderer.root.findAllByType(Pressable).find(node => node.props.accessibilityLabel === label && node.props.accessibilityRole !== undefined && node.props.onPress);
 
 beforeEach(async () => {
   testIndex += 1;
@@ -182,14 +186,16 @@ describe.each(CASES)('$name - M25 clear', ({render, section, seed}) => {
     const first = await renderScreen(render());
     expect(clearButton(first)).toBeDefined();
 
-    const alertSpy = jest.spyOn(Alert, 'alert').mockImplementation((_title, _message, buttons) => {
-      buttons?.find(button => button.style === 'destructive')?.onPress?.();
-    });
     await act(async () => {
       await clearButton(first)!.props.onPress();
     });
     await settle();
-    expect(alertSpy).toHaveBeenCalledTimes(1);
+    // Nothing is cleared until the dialog is confirmed.
+    expect((await getJournalEntry(todayKey()))?.[section]).toBeDefined();
+    await act(async () => {
+      await dialogButton(first, 'Effacer')!.props.onPress();
+    });
+    await settle();
 
     const entry = await getJournalEntry(todayKey());
     expect(entry?.[section]).toBeUndefined();
@@ -208,9 +214,12 @@ describe.each(CASES)('$name - M25 clear', ({render, section, seed}) => {
   it('cancelling the confirmation keeps the saved value', async () => {
     await seed();
     const renderer = await renderScreen(render());
-    jest.spyOn(Alert, 'alert').mockImplementation(() => undefined);
     await act(async () => {
       await clearButton(renderer)!.props.onPress();
+    });
+    await settle();
+    await act(async () => {
+      await dialogButton(renderer, 'Annuler')!.props.onPress();
     });
     await settle();
     expect((await getJournalEntry(todayKey()))?.[section]).toBeDefined();

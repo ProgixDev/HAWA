@@ -23,6 +23,7 @@ import {
   JournalScreenLayout,
   SectionCard,
 } from '../../components/journal/JournalScreenLayout';
+import {AwaText} from '../../components/ui/AwaText';
 
 import {
   type CyclePreferences,
@@ -130,6 +131,7 @@ export default function JournalCycleEvolutionScreen(): React.JSX.Element {
       <JournalScreenLayout
         heroLabel={t('journalCycleEvolution.heroLabel')}
         heroSource={require('../../assets/images/conception-journal/cycle-evolution.png')}
+        hideHeroIcon
         hideJournalHeader
         icon="chart-donut"
         title={t('journalCycleEvolution.title')}>
@@ -139,10 +141,10 @@ export default function JournalCycleEvolutionScreen(): React.JSX.Element {
               <MaterialDesignIcons color={theme.colors.primary} name="calendar-question" size={20} />
             </View>
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>{t('journalCycleEvolution.notEnoughDataTitle')}</Text>
-              <Text style={styles.infoText}>
+              <AwaText variant="titleSmall">{t('journalCycleEvolution.notEnoughDataTitle')}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.infoText}>
                 {t('journalCycleEvolution.notEnoughDataText')}
-              </Text>
+              </AwaText>
             </View>
           </View>
         </SectionCard>
@@ -216,16 +218,6 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
       new Animated.Value(0),
     ).current;
 
-  const pulse =
-    useRef(
-      new Animated.Value(0),
-    ).current;
-
-  const glow =
-    useRef(
-      new Animated.Value(0),
-    ).current;
-
   const contentEntrance =
     useRef(
       new Animated.Value(0),
@@ -291,100 +283,12 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
         },
       ),
     ]).start();
-
-    const pulseLoop =
-      Animated.loop(
-        Animated.sequence([
-          Animated.timing(
-            pulse,
-            {
-              toValue: 1,
-
-              duration: 1700,
-
-              easing:
-                Easing.inOut(
-                  Easing.ease,
-                ),
-
-              useNativeDriver:
-                true,
-            },
-          ),
-
-          Animated.timing(
-            pulse,
-            {
-              toValue: 0,
-
-              duration: 1700,
-
-              easing:
-                Easing.inOut(
-                  Easing.ease,
-                ),
-
-              useNativeDriver:
-                true,
-            },
-          ),
-        ]),
-      );
-
-    const glowLoop =
-      Animated.loop(
-        Animated.sequence([
-          Animated.timing(
-            glow,
-            {
-              toValue: 1,
-
-              duration: 1900,
-
-              easing:
-                Easing.inOut(
-                  Easing.ease,
-                ),
-
-              useNativeDriver:
-                true,
-            },
-          ),
-
-          Animated.timing(
-            glow,
-            {
-              toValue: 0,
-
-              duration: 1900,
-
-              easing:
-                Easing.inOut(
-                  Easing.ease,
-                ),
-
-              useNativeDriver:
-                true,
-            },
-          ),
-        ]),
-      );
-
-    pulseLoop.start();
-    glowLoop.start();
-
-    return () => {
-      pulseLoop.stop();
-      glowLoop.stop();
-    };
   }, [
     cycleLength,
     circleEntrance,
     contentEntrance,
     day,
-    glow,
     progress,
-    pulse,
   ]);
 
   /* ==========================================================
@@ -410,39 +314,6 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
 
         outputRange:
           ['-18deg', '0deg'],
-      },
-    );
-
-  const pulseScale =
-    pulse.interpolate(
-      {
-        inputRange:
-          [0, 1],
-
-        outputRange:
-          [1, 1.04],
-      },
-    );
-
-  const glowScale =
-    glow.interpolate(
-      {
-        inputRange:
-          [0, 1],
-
-        outputRange:
-          [0.92, 1.12],
-      },
-    );
-
-  const glowOpacity =
-    glow.interpolate(
-      {
-        inputRange:
-          [0, 1],
-
-        outputRange:
-          [0.18, 0.35],
       },
     );
 
@@ -488,6 +359,7 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
     <JournalScreenLayout
       heroLabel={t('journalCycleEvolution.heroLabel')}
       heroSource={require('../../assets/images/conception-journal/cycle-evolution.png')}
+      hideHeroIcon
       hideJournalHeader
       icon="chart-donut"
       title={t('journalCycleEvolution.title')}>
@@ -513,25 +385,6 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
             }>
 
             <Animated.View
-              pointerEvents="none"
-              style={[
-                styles.circleGlow,
-
-                {
-                  opacity:
-                    glowOpacity,
-
-                  transform: [
-                    {
-                      scale:
-                        glowScale,
-                    },
-                  ],
-                },
-              ]}
-            />
-
-            <Animated.View
               style={[
                 styles.ringOuter,
 
@@ -550,19 +403,7 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
                 },
               ]}>
 
-              <Animated.View
-                style={[
-                  styles.ring,
-
-                  {
-                    transform: [
-                      {
-                        scale:
-                          pulseScale,
-                      },
-                    ],
-                  },
-                ]}>
+              <View style={styles.ring}>
 
                 <View
                   style={
@@ -583,7 +424,7 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
                     {displayUpperCase(t('journalCycleEvolution.dayUnit'))}
                   </Text>
                 </View>
-              </Animated.View>
+              </View>
             </Animated.View>
           </View>
 
@@ -626,35 +467,26 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
                 />
               </View>
 
-              <Text
-                style={
-                  styles.phase
-                }>
+              <AwaText variant="titleMedium" style={styles.phase}>
                 {
                   labels[
                     phase
                   ]
                 }
-              </Text>
+              </AwaText>
             </View>
 
-            <Text
-              style={
-                styles.meta
-              }>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.meta}>
               {day <= cycleLength
                 ? t('journalCycleEvolution.dayOfTotal', {day, total: cycleLength})
                 : t('journalCycleEvolution.dayBeyondTotal', {day, total: cycleLength})}
-            </Text>
+            </AwaText>
 
-            <Text
-              style={
-                styles.phaseDescription
-              }>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.phaseDescription}>
               {
                 phaseDescription
               }
-            </Text>
+            </AwaText>
 
             {/* PROGRESS */}
 
@@ -779,19 +611,13 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
             styles.infoCopy
           }>
 
-          <Text
-            style={
-              styles.infoTitle
-            }>
+          <AwaText variant="titleSmall">
             {t('journalCycleEvolution.aboutEstimatesTitle')}
-          </Text>
+          </AwaText>
 
-          <Text
-            style={
-              styles.infoText
-            }>
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.infoText}>
             {t('journalCycleEvolution.aboutEstimatesText')}
-          </Text>
+          </AwaText>
         </View>
       </View>
     </JournalScreenLayout>
@@ -950,19 +776,6 @@ function createStyles(theme: ResolvedAwaTheme) {
         'center',
     },
 
-    circleGlow: {
-      position:
-        'absolute',
-
-      width: 104,
-      height: 104,
-
-      borderRadius: 52,
-
-      backgroundColor:
-        theme.colors.primary,
-    },
-
     ringOuter: {
       width: 96,
       height: 96,
@@ -1061,7 +874,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 9,
+      fontSize: 11,
 
       fontWeight:
         '600',
@@ -1104,50 +917,17 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 11,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
     },
 
-    phase: {
-      flex: 1,
+    phase: {flex: 1, marginLeft: 8},
 
-      marginLeft: 8,
+    meta: {marginTop: 7},
 
-      color:
-        theme.colors.accent,
-
-      fontSize: 17,
-
-      lineHeight: 21,
-
-      fontWeight:
-        '900',
-    },
-
-    meta: {
-      marginTop: 7,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 11.5,
-
-      fontWeight:
-        '600',
-    },
-
-    phaseDescription: {
-      marginTop: 5,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 9.5,
-
-      lineHeight: 14,
-    },
+    phaseDescription: {marginTop: 5},
 
     /* ========================================================
        PROGRESS
@@ -1170,7 +950,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textMuted,
 
-      fontSize: 8.5,
+      fontSize: 11,
 
       fontWeight:
         '700',
@@ -1180,7 +960,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.primary,
 
-      fontSize: 9,
+      fontSize: 11,
 
       fontWeight:
         '900',
@@ -1246,7 +1026,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 14,
+      borderRadius: 12,
     },
 
     markerCopy: {
@@ -1261,7 +1041,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 10,
+      fontSize: 11,
 
       fontWeight:
         '600',
@@ -1308,7 +1088,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         withAlpha(theme.colors.primary, 0.10),
 
-      borderRadius: 20,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -1328,7 +1108,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 13,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surface,
@@ -1342,28 +1122,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginLeft: 10,
     },
 
-    infoTitle: {
-      color:
-        theme.colors.accent,
-
-      fontSize: 12,
-
-      fontWeight:
-        '800',
-    },
-
-    infoText: {
-      marginTop: 4,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 10,
-
-      lineHeight: 15,
-
-      fontWeight:
-        '500',
-    },
+    infoText: {marginTop: 4},
   });
 }

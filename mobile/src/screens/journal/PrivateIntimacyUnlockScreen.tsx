@@ -10,6 +10,8 @@ import {isIntimacyUnlocked, replaceWithIntimacyDestination} from '../../state/pr
 import {getBiometryLabel, getBiometryType, hasPrivatePin} from '../../services/privateSectionAuth';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import '../../i18n';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PrivateIntimacyUnlock'>;
@@ -77,9 +79,9 @@ export default function PrivateIntimacyUnlockScreen({navigation, route}: Props):
   const hero = (
     <Animated.View style={[styles.main,styles.mainUnified,heroAnimatedStyle]}>
       <View style={styles.lockBadge}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="lock" size={30}/></View>
-      <Text style={[styles.title,compact&&styles.titleCompact]}>{t('privateIntimacyUnlock.title')}</Text>
-      <Text style={styles.purposeLine}>{purposeLine}</Text>
-      <Text style={styles.subtitle}>{t('privateIntimacyUnlock.subtitle')}</Text>
+      <AwaText variant={compact ? 'headlineSmall' : 'headlineMedium'}>{t('privateIntimacyUnlock.title')}</AwaText>
+      <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.purposeLine}>{purposeLine}</AwaText>
+      <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.subtitle}>{t('privateIntimacyUnlock.subtitle')}</AwaText>
     </Animated.View>
   );
 
@@ -87,7 +89,13 @@ export default function PrivateIntimacyUnlockScreen({navigation, route}: Props):
     <SafeAreaView edges={['top','bottom']} style={styles.flex}>
     <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
     <View style={[styles.content,{paddingBottom:Math.max(insets.bottom,14)}]}>
-      <Pressable accessibilityLabel={t('privateIntimacyUnlock.backToJournal')} accessibilityRole="button" hitSlop={10} onPress={navigation.goBack} style={styles.back}><MaterialDesignIcons color={theme.colors.accent} name="arrow-left" size={26}/></Pressable>
+      <AwaIconButton
+        accessibilityLabel={t('privateIntimacyUnlock.backToJournal')}
+        hitSlop={10}
+        icon="arrow-left"
+        onPress={navigation.goBack}
+        style={styles.back}
+      />
       {hero}
 
       <View style={[styles.actionsCard,compact&&styles.actionsCardCompact]}>
@@ -110,21 +118,19 @@ function createStyles(theme: ResolvedAwaTheme) {
   flatBackground:{backgroundColor:theme.colors.background},
   flex:{flex:1},
   content:{flex:1,paddingTop:12,paddingHorizontal:16},
-  back:{position:'absolute',top:12,left:16,zIndex:2,width:48,height:48,alignItems:'center',justifyContent:'center',borderWidth:1,borderColor:theme.colors.border,borderRadius:17,backgroundColor:theme.colors.surface,elevation:2},
+  back:{position: 'absolute', top: 12, left: 16, zIndex: 2},
   main:{alignItems:'center'},
   mainUnified:{marginTop:32},
-  lockBadge:{width:76,height:76,marginBottom:16,alignItems:'center',justifyContent:'center',borderRadius:38,backgroundColor:theme.colors.primary,shadowColor:theme.colors.primary,shadowOffset:{width:0,height:6},shadowOpacity:0.22,shadowRadius:14,elevation:4},
-  purposeLine:{marginTop:10,color:theme.colors.textSecondary,fontSize:13,textAlign:'center'},
-  title:{color:theme.colors.accent,fontFamily:'serif',fontSize:31,fontWeight:'800'},
-  titleCompact:{fontSize:26},
-  subtitle:{color:theme.colors.textSecondary,fontSize:15,lineHeight:21,textAlign:'center'},
+  lockBadge:{width:76,height:76,marginBottom:16,alignItems:'center',justifyContent:'center',borderRadius:38,backgroundColor:theme.colors.primary,shadowColor:theme.colors.primary,shadowOffset:{width:0,height:6},shadowOpacity:0.15,shadowRadius:14,elevation:4},
+  purposeLine:{marginTop: 10, textAlign: 'center'},
+  subtitle:{textAlign: 'center'},
  actionsCard: {
   marginTop: 10,
   gap: 10,
   padding: 14,
   borderWidth: 1,
   borderColor: theme.colors.border,
-  borderRadius: 26,
+  borderRadius: 12,
   backgroundColor: theme.colors.surface,
   elevation: 3,
 },
@@ -134,20 +140,20 @@ actionsCardCompact: {
   gap: 7,
   padding: 11,
 },
-  primary:{minHeight:72,flexDirection:'row',alignItems:'center',paddingHorizontal:13,borderRadius:18,backgroundColor:theme.colors.primary},
+  primary:{minHeight:72,flexDirection:'row',alignItems:'center',paddingHorizontal:13,borderRadius:12,backgroundColor:theme.colors.primary},
   buttonCompact:{minHeight:58},
-  primaryIcon:{width:48,height:48,alignItems:'center',justifyContent:'center',borderRadius:14,backgroundColor:withAlpha(onPrimaryTextColor(theme),0.12)},
+  primaryIcon:{width:48,height:48,alignItems:'center',justifyContent:'center',borderRadius:12,backgroundColor:withAlpha(onPrimaryTextColor(theme),0.12)},
   buttonCopy:{flex:1,marginHorizontal:11},
   primaryTitle:{color:onPrimaryTextColor(theme),fontSize:16,fontWeight:'800'},
   primarySubtitle:{marginTop:3,color:withAlpha(onPrimaryTextColor(theme),0.85),fontSize:11},
-  secondary:{minHeight:72,flexDirection:'row',alignItems:'center',paddingHorizontal:13,borderWidth:1.5,borderColor:theme.colors.primary,borderRadius:18,backgroundColor:theme.colors.surface},
-  secondaryIcon:{width:48,height:48,alignItems:'center',justifyContent:'center',borderWidth:1,borderColor:theme.colors.border,borderRadius:14},
-  secondaryTitle:{color:theme.colors.accent,fontFamily:'serif',fontSize:15,fontWeight:'800'},
+  secondary:{minHeight:72,flexDirection:'row',alignItems:'center',paddingHorizontal:13,borderWidth:1.5,borderColor:theme.colors.primary,borderRadius:12,backgroundColor:theme.colors.surface},
+  secondaryIcon:{width:48,height:48,alignItems:'center',justifyContent:'center',borderWidth:1,borderColor:theme.colors.border,borderRadius:12},
+  secondaryTitle:{color:theme.colors.accent,fontSize:15,fontWeight:'800'},
   secondarySubtitle:{marginTop:3,color:theme.colors.textSecondary,fontSize:11},
-  privacy:{minHeight:79,flexDirection:'row',alignItems:'center',marginTop:2,paddingHorizontal:12,borderRadius:17,backgroundColor:theme.colors.primarySoft},
+  privacy:{minHeight:79,flexDirection:'row',alignItems:'center',marginTop:2,paddingHorizontal:12,borderRadius:16,backgroundColor:theme.colors.primarySoft},
   privacyCompact:{minHeight:60,paddingVertical:6},
   privacyIcon:{width:46,height:46,alignItems:'center',justifyContent:'center',borderRadius:23,backgroundColor:theme.colors.surface,elevation:2},
   privacyCopy:{flex:1,marginLeft:11},privacyTitle:{color:theme.colors.accent,fontSize:12,fontWeight:'800'},
-  privacyText:{marginTop:4,color:theme.colors.textSecondary,fontSize:10,lineHeight:14},
-  cancel:{minHeight:38,color:theme.colors.primary,fontSize:13,fontWeight:'700',textAlign:'center',textAlignVertical:'center'},error:{color:theme.colors.danger,fontSize:10.5,lineHeight:15,textAlign:'center'},pressed:{opacity:.82,transform:[{scale:.99}]},disabled:{opacity:.55}});
+  privacyText:{marginTop:4,color:theme.colors.textSecondary,fontSize:11,lineHeight:16},
+  cancel:{minHeight:38,color:theme.colors.primary,fontSize:13,fontWeight:'700',textAlign:'center',textAlignVertical:'center'},error:{color:theme.colors.danger,fontSize:11,lineHeight:16,textAlign:'center'},pressed:{opacity:.82,transform:[{scale:.99}]},disabled:{opacity:.55}});
 }
