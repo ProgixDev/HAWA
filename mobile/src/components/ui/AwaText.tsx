@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, type TextProps} from 'react-native';
 
+import {AWA_DISPLAY_FONT} from '../../theme/awaTypography';
 import {awaTextStyle, type AwaTextRole} from '../../theme/typescale';
 import {useAwaTokens} from '../../theme/useAwaTokens';
 import {resolveColorRole, type AwaColorRole, type AwaLegacyWeight} from './types';
@@ -27,6 +28,15 @@ export type AwaTextProps = TextProps & {
   weight?: AwaLegacyWeight;
 };
 
+const DISPLAY_ROLES = new Set<AwaTextRole>([
+  'displayLarge',
+  'displayMedium',
+  'displaySmall',
+  'headlineLarge',
+  'headlineMedium',
+  'headlineSmall',
+]);
+
 export const AwaText = React.forwardRef<Text, AwaTextProps>(function AwaText(
   {variant = 'bodyMedium', emphasized = false, colorRole = 'onSurface', accessible = true, color, weight, style, ...rest},
   ref,
@@ -34,11 +44,13 @@ export const AwaText = React.forwardRef<Text, AwaTextProps>(function AwaText(
   const {roles} = useAwaTokens();
   const resolvedColor = color ?? resolveColorRole(roles, colorRole, accessible);
   const base = awaTextStyle(variant, {emphasized, color: resolvedColor});
+  // DESIGN.md: Fraunces is the display face of screen titles (the display and headline roles); Inter everywhere else.
+  const titleFace = DISPLAY_ROLES.has(variant) ? {fontFamily: AWA_DISPLAY_FONT} : null;
   return (
     <Text
       ref={ref}
       {...rest}
-      style={weight ? [base, {fontWeight: weight}, style] : [base, style]}
+      style={weight ? [base, titleFace, {fontWeight: weight}, style] : [base, titleFace, style]}
     />
   );
 });

@@ -297,7 +297,16 @@ const WARM_SAND_DARK: AwaThemeColors = {
   danger: WARM_SAND_LIGHT.danger,
 };
 
-function buildVariant(base: AwaThemeColors, isDark: boolean): ThemeVariant {
+// Dark selected / soft-primary surface. In four of the dark palettes `primarySoft` was byte-identical to
+// `surfaceSecondary`, so a selected card, an icon chip or a highlighted tile was indistinguishable from an ordinary
+// one. It is now a calm tint of the palette's OWN primary over its secondary surface (same hue family, never a new
+// colour), which gives selected states a clear but quiet lift in every palette.
+const DARK_PRIMARY_SOFT_AMOUNT = 0.14;
+
+function buildVariant(baseColors: AwaThemeColors, isDark: boolean): ThemeVariant {
+  const base: AwaThemeColors = isDark
+    ? {...baseColors, primarySoft: interpolateHex(baseColors.surfaceSecondary, baseColors.primary, DARK_PRIMARY_SOFT_AMOUNT)}
+    : baseColors;
   const textMuted = interpolateHex(base.textSecondary, base.background, 0.35);
   return {
     colors: withDerivedFields(base, {
@@ -418,6 +427,39 @@ export function onPrimaryTextColor(theme: ResolvedAwaTheme): string {
 export function withAlpha(hex: string, alpha: number): string {
   const [r, g, b] = hexToRgb(hex);
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+/**
+ * A soft semantic tile fill (a "taken" / "late" / "missed" tile, a period or fertile icon chip). Light mode keeps its
+ * original light pastel exactly; Dark and True Black use a translucent tint of the SAME semantic colour over the
+ * surface instead, so the meaning (green / amber / red / blue ...) is unchanged but the tile no longer glares as a
+ * light block on a dark card.
+ */
+export function softTone(theme: {isDark: boolean}, lightFill: string, semantic: string, alpha: number = 0.18): string {
+  return theme.isDark ? withAlpha(semantic, alpha) : lightFill;
+}
+
+/**
+ * Text drawn on a softTone fill: the original dark-green / amber / red ink in Light, the theme text colour in Dark
+ * and True Black (a fixed dark ink would not read on the translucent dark tint).
+ */
+export function softToneInk(theme: {isDark: boolean; colors: {text: string}}, lightInk: string): string {
+  return theme.isDark ? theme.colors.text : lightInk;
+}
+
+/**
+ * Same idea as `softTone`, but OPAQUE: in Dark / True Black the semantic colour is blended over `surface` instead of
+ * being laid on it with transparency. Use it for a fill that also carries an elevation or shadow — Android draws a
+ * shadow through a translucent surface, which shows as a darker rectangle behind the content.
+ */
+export function softToneOpaque(
+  theme: {isDark: boolean},
+  lightFill: string,
+  semantic: string,
+  surface: string,
+  amount: number = 0.16,
+): string {
+  return theme.isDark ? interpolateHex(surface, semantic, amount) : lightFill;
 }
 
 /* -------------------------------------------------------------------------- */

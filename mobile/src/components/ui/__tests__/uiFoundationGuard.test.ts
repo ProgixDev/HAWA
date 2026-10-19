@@ -54,18 +54,25 @@ describe('shared UI components — token discipline', () => {
   });
 });
 
-// Phase 2 asserted that NO file imported these components (`offenders` toEqual []). Phase 3 adopts them in the pilot
-// batch only; every later batch has to extend this allow-list on purpose.
-const MIGRATED_ALLOWLIST = ['screens/NameOnboardingScreen.tsx', 'screens/WelcomeScreen.tsx'];
+// Phase 2 asserted that NO file imported these components; Phase 3 adopted them in a two-screen pilot. The DESIGN.md
+// migration adopts them application-wide, so the guard now limits WHO may import them instead of which screens: only
+// presentation code (screens/ and components/), never services, state, navigation or utilities.
+const PILOT_SCREENS = ['screens/NameOnboardingScreen.tsx', 'screens/WelcomeScreen.tsx'];
 
-describe('adoption is limited to the approved migration batches', () => {
-  it('only the allow-listed screens import src/components/ui (their own tests may too)', () => {
-    const offenders = walk(SRC_DIR)
-      .filter(file => /\.tsx?$/.test(file))
-      .filter(file => !file.startsWith(UI_DIR + path.sep))
-      .filter(file => !file.includes(`${path.sep}__tests__${path.sep}`))
-      .filter(file => /from '[^']*components\/ui(\/[^']*)?'|from '\.\/ui(\/[^']*)?'|from '\.\.\/ui(\/[^']*)?'/.test(fs.readFileSync(file, 'utf8')))
-      .map(file => path.relative(SRC_DIR, file));
-    expect(offenders.map(file => file.split(path.sep).join('/')).sort()).toEqual(MIGRATED_ALLOWLIST);
+describe('adoption is limited to presentation code', () => {
+  const importers = walk(SRC_DIR)
+    .filter(file => /\.tsx?$/.test(file))
+    .filter(file => !file.startsWith(UI_DIR + path.sep))
+    .filter(file => !file.includes(`${path.sep}__tests__${path.sep}`))
+    .filter(file => /from '[^']*components\/ui(\/[^']*)?'|from '\.\/ui(\/[^']*)?'|from '\.\.\/ui(\/[^']*)?'/.test(fs.readFileSync(file, 'utf8')))
+    .map(file => path.relative(SRC_DIR, file).split(path.sep).join('/'))
+    .sort();
+
+  it('is imported by screens and components only (no service, state, navigation or util module)', () => {
+    expect(importers.filter(file => !/^(screens|components)\//.test(file))).toEqual([]);
+  });
+
+  it('still includes the two pilot screens', () => {
+    PILOT_SCREENS.forEach(screen => expect(importers).toContain(screen));
   });
 });

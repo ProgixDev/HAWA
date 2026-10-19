@@ -51,7 +51,8 @@ describe('Floating tab bar content clearance — adoption guard', () => {
   it('ProfileScreen: logout logic and control are untouched', () => {
     const source = readSource('screens/ProfileScreen.tsx');
     expect(source).toContain('confirmSignOut');
-    expect(source).toContain('styles.signOut');
+    // The sign-out control is now the shared AwaButton (DESIGN.md) with the same label and the same handler.
+    expect(source).toMatch(/<AwaButton[^>]*label=\{t\('profile\.signOut'\)\}[^>]*onPress=\{confirmSignOut\}/s);
   });
 
   it('CycleHomeScreen: the recommended-articles section is untouched', () => {

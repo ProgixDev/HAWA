@@ -91,7 +91,11 @@ describe('Turkish layout resilience', () => {
     const textProps = text.props as TextProps;
     expect(textProps.numberOfLines).toBeUndefined();
     expect(flatten(textProps.style).flexShrink).toBe(1);
-    const button = renderer.root.find(node => node.props.accessibilityRole === 'button' && node.props.accessibilityLabel === label);
+    // The CTA is the shared AwaButton now (it enforces its own 48 dp minHeight on the innermost pressable host), so the
+    // deepest node carrying the button role/label is the one whose resolved style is checked.
+    const button = renderer.root
+      .findAll(node => node.props.accessibilityRole === 'button' && node.props.accessibilityLabel === label)
+      .slice(-1)[0];
     const style = flatten(typeof button.props.style === 'function' ? button.props.style({pressed: false}) : button.props.style);
     expect(style.height).toBeUndefined();
     expect(style.minHeight).toBeGreaterThanOrEqual(44);
