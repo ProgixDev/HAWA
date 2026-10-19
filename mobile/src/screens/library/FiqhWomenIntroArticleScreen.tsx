@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -631,6 +632,77 @@ const CONTENT = {
       tip3Text: '女性教法学是一个不断被阐释的领域，不同学派之间的观点有时并不相同。AWA 帮助你了解基础知识并梳理自己的问题，但对于任何个人的宗教决定，合格学者的意见仍然是依据。',
       shareMessage: '女性教法学入门介绍 — AWA',
     },
+  id: {
+    badge: 'FIKIH PEREMPUAN',
+    title: 'Fikih perempuan:\nsebuah pengantar',
+    metaDuration: '7 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Gambaran menyeluruh tentang topik-topik utama dalam fikih perempuan, antara ibadah dan kehidupan sehari-hari.',
+    disclaimerTitle: 'Informasi penting',
+    disclaimerText: 'Konten ini murni bersifat edukatif. Pertanyaan keagamaan sebaiknya dipastikan kepada ulama yang berkompeten. AWA tidak mengeluarkan fatwa maupun hukum agama yang dipersonalisasi.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Cakupan fikih perempuan',
+      'Mengapa fikih perempuan penting?',
+      'Mazhab fikih (madhab)',
+      'Fikih, kesehatan, dan praktik sehari-hari',
+      'Peran edukatif AWA',
+      'Kapan perlu meminta saran dari orang yang berkompeten?',
+      'Poin penting',
+    ],
+    section1Body: 'Fikih perempuan adalah cabang ilmu fikih (hukum Islam) yang membahas persoalan praktis terkait tubuh perempuan dan ibadah. Ilmu ini membantu memahami cara menyelaraskan kehidupan beragama sehari-hari dengan berbagai tahap dalam siklus perempuan.',
+    dailyTopics: [
+      'Menstruasi dan siklus menstruasi',
+      'Darah haid dan statusnya',
+      'Kesucian ritual',
+      'Mandi wajib (ghusl) setelah haid',
+      'Salat selama dan setelah haid',
+      'Puasa Ramadan dan hari-hari yang harus diganti',
+      'Perdarahan tidak teratur (istihadah)',
+      'Nifas setelah melahirkan',
+      'Kehidupan sehari-hari dan praktik ibadah',
+    ],
+    section1Body2: 'Fikih adalah bidang penafsiran hukum: sebagian persoalan memiliki pendapat yang berbeda menurut ulama dan mazhab, tanpa ada satu pendapat pun yang mutlak dengan sendirinya.',
+    section2Body: 'Memahami fikih perempuan memungkinkan kamu menjalani ibadah dengan lebih tenang, tanpa kebingungan, pada saat tubuh melewati tahap-tahap tertentu (menstruasi, kehamilan, pascapersalinan, menopause). Ini juga membantu membedakan mana yang termasuk kewajiban, keringanan, atau sekadar anjuran.',
+    visual1Title: 'Ibadah yang lebih tenteram',
+    visual1Text: 'Mengetahui apa yang diharapkan pada setiap tahap siklus membuat kamu bisa menjalani keimanan dengan lebih percaya diri.',
+    section3Body: 'Mazhab adalah aliran pemikiran hukum, yaitu metode terstruktur yang digunakan para ulama untuk menafsirkan sumber-sumber agama (Al-Qur\'an, Sunnah, ijmak, penalaran) dan menjawab persoalan praktis sehari-hari. Ada beberapa mazhab, karena para ulama tidak selalu menggunakan metodologi yang sama atau menafsirkan teks yang sama dengan cara yang sama.',
+    section3Body2: 'Itulah sebabnya sebagian persoalan terkait menstruasi, kesucian ritual, salat, atau puasa bisa memiliki pendapat yang berbeda tergantung ulama yang dirujuk. Perbedaan pendapat tidak berarti satu pendapat “salah”: perbedaan itu mencerminkan metodologi dan cara membaca yang berbeda terhadap sumber yang sama.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Umumnya orang mengikuti pendekatan atau mazhab yang secara turun-temurun dianut keluarga atau komunitasnya.',
+    noteTitle: 'Harap diperhatikan',
+    noteText: 'Jika suatu situasi keagamaan tertentu masih belum jelas, sangat wajar untuk meminta pendapat ulama yang berkompeten.',
+    section4Body: 'Informasi medis tentang siklus (durasi, gejala, fase hormonal) dan aturan agama yang mengikutinya (kesucian, salat, puasa) berangkat dari dua logika yang berbeda: yang satu menggambarkan fenomena biologis, yang lain menetapkan kerangka untuk ibadah. Keduanya bisa saling melengkapi, tetapi tidak boleh dicampuradukkan.',
+    visual2Title: 'Dua sudut pandang yang saling melengkapi',
+    visual2Text: 'Pemantauan siklus secara medis dan penanda keagamaan yang mengikutinya masing-masing memberikan wawasan yang berguna.',
+    tip2Title: 'Perlu diketahui',
+    tip2Text: 'Tenaga kesehatan dapat menjawab pertanyaan medis; ulama yang berkompeten tetap menjadi rujukan untuk pertanyaan keagamaan.',
+    section5Body: 'AWA mendampingi pengguna dalam memahami siklusnya, di persimpangan antara kesehatan dan praktik ibadah, dengan pendekatan edukatif yang menghormati perbedaan antarmazhab.',
+    awaRole: [
+      'Memahami konsep dasar fikih perempuan',
+      'Lebih memahami siklusmu, baik dari sisi medis maupun keagamaan',
+      'Mengenali pertanyaan yang memerlukan pendapat ulama yang berkompeten',
+      'Menemukan arah di tengah perbedaan antarmazhab tanpa kebingungan',
+      'Mengakses penjelasan edukatif yang jelas dan netral',
+      'Membedakan informasi medis dari keputusan keagamaan',
+      'Mencatat informasi yang berguna bagi ibadahmu, jika diperlukan',
+      'Menyiapkan pertanyaan khusus untuk diajukan kepada ulama yang berkompeten',
+    ],
+    alert3Title: 'Informasi penting',
+    alert3Text: 'AWA adalah alat edukasi dan informasi: dalam keadaan apa pun tidak menggantikan pendapat ulama yang berkompeten atau otoritas keagamaan.',
+    section6Body: 'Sebagian situasi sebaiknya disampaikan langsung kepada ulama yang kamu percaya, terutama ketika:',
+    whenToAsk: [
+      'Situasi pribadimu tidak cocok dengan kasus umum mana pun (perdarahan tidak biasa, keraguan yang berkepanjangan...)',
+      'Beberapa pendapat tampak saling bertentangan dan kamu tidak tahu mana yang harus diikuti',
+      'Suatu keputusan keagamaan berdampak besar pada ibadah sehari-harimu',
+      'Kamu merasa perlu bimbingan yang sesuai dengan situasi pribadimu',
+    ],
+    tip3Title: 'Perlu diketahui',
+    tip3Text: 'Fikih perempuan adalah bidang penafsiran yang hidup, dengan pendapat yang terkadang berbeda antarmazhab. AWA membantumu memahami dasar-dasarnya dan menyusun pertanyaanmu, tetapi pendapat ulama yang berkompeten tetap menjadi rujukan untuk setiap keputusan keagamaan pribadi.',
+    shareMessage: 'Fikih perempuan, sebuah pengantar — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -703,56 +775,42 @@ export default function FiqhWomenIntroArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metas}>
             {[
@@ -771,17 +829,17 @@ export default function FiqhWomenIntroArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="bodyMedium" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="information-outline"
               size={24}
@@ -789,19 +847,19 @@ export default function FiqhWomenIntroArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.disclaimerTitle}</Text>
-              <Text style={styles.tipText}>{content.disclaimerText}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.disclaimerTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.disclaimerText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -811,13 +869,13 @@ export default function FiqhWomenIntroArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body}
-          </Text>
+          </AwaText>
 
           <View style={styles.daily}>
             {TOPIC_ICONS.map((icon, index) => (
@@ -828,24 +886,24 @@ export default function FiqhWomenIntroArticleScreen({
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{content.dailyTopics[index]}</Text>
+                <AwaText variant="bodySmall" style={styles.dailyText}>{content.dailyTopics[index]}</AwaText>
               </View>
             ))}
           </View>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body2}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             2. {content.topics[1]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section2Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.visualCard}>
+          <AwaCard variant="filled" padding="none" style={styles.visualCard}>
             <Image
               source={resolveEditorialImage(ART.importance, lang)}
               resizeMode="cover"
@@ -853,21 +911,21 @@ export default function FiqhWomenIntroArticleScreen({
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.visual1Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.visualText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.visualText}>
                 {content.visual1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section3Body}
-          </Text>
+          </AwaText>
 
           <Image
             source={ART.madhahib}
@@ -875,11 +933,11 @@ export default function FiqhWomenIntroArticleScreen({
             style={styles.wideImage}
           />
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section3Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -887,14 +945,14 @@ export default function FiqhWomenIntroArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
@@ -902,22 +960,22 @@ export default function FiqhWomenIntroArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.noteTitle}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.noteTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.noteText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             4. {content.topics[3]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section4Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.visualCard}>
+          <AwaCard variant="filled" padding="none" style={styles.visualCard}>
             <Image
               source={ART.consult}
               resizeMode="cover"
@@ -925,17 +983,17 @@ export default function FiqhWomenIntroArticleScreen({
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.visual2Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.visualText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.visualText}>
                 {content.visual2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -943,18 +1001,18 @@ export default function FiqhWomenIntroArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>5. {content.topics[4]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>5. {content.topics[4]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section5Body}
-          </Text>
+          </AwaText>
 
           <Image
             source={ART.awaRole}
@@ -962,7 +1020,7 @@ export default function FiqhWomenIntroArticleScreen({
             style={styles.wideImage}
           />
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.awaRole.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -971,12 +1029,12 @@ export default function FiqhWomenIntroArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-circle-outline"
               size={24}
@@ -984,22 +1042,22 @@ export default function FiqhWomenIntroArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.alert3Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.alert3Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.alert3Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             6. {content.topics[5]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section6Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.whenToAsk.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -1008,14 +1066,14 @@ export default function FiqhWomenIntroArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>7. {content.topics[6]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>7. {content.topics[6]}</AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -1023,12 +1081,12 @@ export default function FiqhWomenIntroArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip3Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip3Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip3Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
         </View>
       </ScrollView>
 
@@ -1040,7 +1098,7 @@ export default function FiqhWomenIntroArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
   top: {
@@ -1053,72 +1111,47 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  badgeText: {fontSize: 11, color: theme.colors.primary, fontWeight: '800'},
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
     gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 10, color: theme.colors.textMuted},
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '500',
+    marginTop: 16,
   },
   alert: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
+  contentsTitle: {marginBottom: 8},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -1126,73 +1159,55 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 24, color: theme.colors.primary, fontSize: 12, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.5, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 24},
+  contentText: {flex: 1},
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
-  body: {marginTop: 8, fontSize: 14, lineHeight: 21, color: theme.colors.textSecondary},
+  body: {marginTop: 8},
   visualCard: {
-    marginTop: 15,
+    marginTop: 16,
     minHeight: 98,
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: theme.colors.surface,
+    padding: 12,
   },
   visualImage: {width: 72, height: 72, borderRadius: 12},
   visualCopy: {flex: 1, marginLeft: 12},
-  visualTitle: {color: theme.colors.text, fontSize: 13, lineHeight: 17, fontWeight: '800'},
-  visualText: {marginTop: 4, color: theme.colors.textMuted, fontSize: 11, lineHeight: 16},
-  wideImage: {width: '100%', height: 120, marginTop: 14, borderRadius: 12},
-  daily: {marginTop: 13, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
+  visualText: {marginTop: 4},
+  wideImage: {width: '100%', height: 120, marginTop: 16, borderRadius: 12},
+  daily: {marginTop: 12, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
   dailyItem: {
     width: '48.7%',
     minHeight: 108,
     padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
   dailyText: {
-    marginTop: 7,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.text,
+    marginTop: 8,
     textAlign: 'center',
   },
   checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 12,
+    padding: 12,
   },
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 9,
+    marginBottom: 8,
   },
-  checkText: {flex: 1, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
+  checkText: {flex: 1},
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
-  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: theme.colors.textMuted},
+  tipCopy: {flex: 1, marginLeft: 12},
+  tipText: {marginTop: 3},
   });
 }

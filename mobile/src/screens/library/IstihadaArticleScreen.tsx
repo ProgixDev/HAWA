@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -561,6 +562,77 @@ const CONTENT = {
       tip3Text: 'Istihada 是一个用来把异常出血与月经或产后恶露期（Nifas）区分开的概念，对礼拜和斋戒有特定的影响。有疑问时，仔细观察并请教有资质的学者，仍然是最好的依靠。',
       shareMessage: '了解伊斯提哈达（Istihada） — AWA',
     },
+  id: {
+    badge: 'ISTIHADAH',
+    title: 'Memahami Istihadah',
+    metaDuration: '7 menit baca',
+    metaType: 'FAQ',
+    metaLevel: 'Menengah',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Membedakan perdarahan tidak teratur dari haid biasa, dengan penanda umum sebagai panduan.',
+    disclaimerTitle: 'Informasi penting',
+    disclaimerText: 'Konten ini murni bersifat edukatif. Pertanyaan keagamaan sebaiknya dipastikan kepada ulama yang kompeten. AWA tidak mengeluarkan fatwa atau keputusan keagamaan yang dipersonalisasi.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Apa itu Istihadah?',
+      'Mengapa sulit dikenali?',
+      'Perbedaan antara haid dan Istihadah',
+      'Bagaimana mengamati perdarahan?',
+      'Salat dan puasa saat Istihadah',
+      'Apa yang dilakukan jika ragu?',
+      'Poin-poin penting',
+    ],
+    section1Body: 'Istihadah adalah perdarahan yang terjadi di luar siklus haid yang biasa, atau yang berlanjut melampaui lamanya haid yang dikenal dalam tradisi Islam. Berbeda dengan haid (hayd) atau nifas (perdarahan setelah melahirkan), perdarahan ini tidak memiliki status ibadah yang sama: umumnya dianggap sebagai perdarahan yang berbeda sifatnya, kadang berkaitan dengan penyebab medis.',
+    note1Title: 'Harap diperhatikan',
+    note1Text: 'Konten ini menjelaskan konsep tersebut secara umum; konten ini tidak memungkinkanmu menentukan apakah suatu perdarahan tertentu termasuk Istihadah dalam situasi pribadimu.',
+    section2Body: 'Istihadah bisa sulit dibedakan dari haid atau siklus yang tidak teratur, karena perdarahannya kadang terlihat mirip, intensitasnya bervariasi, atau berlanjut dengan cara yang tidak biasa. Kesulitan ini diakui oleh para ulama sendiri, sehingga ada beberapa pendekatan untuk mengenalinya.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Wajar jika kamu tidak langsung tahu perdarahan yang tidak biasa itu termasuk jenis apa; ketidakpastian ini hal yang umum, bukan kesalahanmu.',
+    section3Body: 'Beberapa hal bisa membantu memandu pertimbanganmu, tanpa menjadi aturan yang berlaku universal, karena penanda yang tepat berbeda-beda menurut mazhab fikih.',
+    differences: [
+      [
+        'calendar-clock-outline',
+        'Lama perdarahan dibandingkan siklusmu yang biasa',
+      ],
+      [
+        'repeat-variant',
+        'Keteraturan atau sifat perdarahan yang tidak biasa',
+      ],
+      [
+        'water-outline',
+        'Bagaimana perdarahan berkembang dari waktu ke waktu',
+      ],
+      [
+        'clipboard-pulse-outline',
+        'Kemungkinan adanya penyebab medis yang diketahui',
+      ],
+    ],
+    note2Title: 'Harap diperhatikan',
+    note2Text: 'Hal-hal ini adalah penanda umum, bukan kriteria mutlak: ulama dan mazhab fikih bisa menafsirkannya secara berbeda.',
+    section4Body: 'Meluangkan waktu untuk mengamati perdarahanmu selama beberapa hari, tanpa terburu-buru, membantumu memahami situasimu sendiri dengan lebih baik sebelum menarik kesimpulan.',
+    checkList1Title: 'Beberapa petunjuk praktis',
+    observeTips: [
+      'Catat tanggal mulai dan, jika memungkinkan, lama siklusmu yang biasa',
+      'Amati apakah perdarahan mengikuti pola yang mirip dengan haid-haidmu sebelumnya',
+      'Jangan hanya bergantung pada satu hari yang terpisah',
+      'Catat pengamatan ini jika kamu berencana berkonsultasi dengan ulama atau tenaga kesehatan',
+    ],
+    section5Body: 'Pada kasus Istihadah, salat dan puasa umumnya tetap wajib, berbeda dengan saat haid. Tindakan kebersihan (seperti memakai pembalut yang sesuai) kemudian dianjurkan agar ibadah tetap bisa dilakukan, sesuai cara yang diajarkan oleh berbagai mazhab fikih.',
+    tip2Title: 'Perlu diketahui',
+    tip2Text: 'Langkah-langkah yang tepat (seperti memperbarui wudu) bisa berbeda menurut mazhab yang diikuti; merujuk pada pendapat yang biasa kamu ikuti atau bertanya kepada ulama yang kompeten membantumu menerapkannya dengan benar.',
+    section6Body: 'Keraguan yang berlanjut tentang sifat suatu perdarahan adalah hal yang umum, dan tidak perlu menjadi sumber kekhawatiran berlebihan.',
+    doubtSteps: [
+      'Rujuk lama dan ritme haidmu yang biasa',
+      'Konsultasikan dengan tenaga kesehatan jika perdarahan tidak biasa atau berkepanjangan',
+      'Tanyakan pendapat ulama yang kompeten mengenai sisi keagamaannya',
+      'Ingat bahwa jawaban yang umum tidak menggantikan bimbingan yang sesuai dengan situasimu',
+    ],
+    alert2Title: 'Informasi penting',
+    alert2Text: 'Konten ini tetap bersifat edukatif dan umum: bukan fatwa atau keputusan keagamaan individual. Untuk setiap situasi pribadi, terutama jika keraguan berlanjut, pendapat ulama yang kompeten tetap menjadi rujukan.',
+    tip3Title: 'Perlu diketahui',
+    tip3Text: 'Istihadah adalah konsep yang membedakan perdarahan tidak biasa dari haid atau nifas, dengan konsekuensi tertentu bagi salat dan puasa. Jika ragu, pengamatan yang cermat dan pendapat ulama yang kompeten tetap menjadi sumber terbaik.',
+    shareMessage: 'Memahami Istihadah — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -633,54 +705,40 @@ export default function IstihadaArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>{content.title}</Text>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>{content.title}</AwaText>
 
           <View style={styles.metas}>
             {[
@@ -699,15 +757,15 @@ export default function IstihadaArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>{content.intro}</Text>
+          <AwaText variant="bodyMedium" style={styles.intro}>{content.intro}</AwaText>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="information-outline"
               size={24}
@@ -715,19 +773,19 @@ export default function IstihadaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.disclaimerTitle}</Text>
-              <Text style={styles.tipText}>{content.disclaimerText}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.disclaimerTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.disclaimerText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -737,13 +795,13 @@ export default function IstihadaArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>{content.section1Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section1Body}</AwaText>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
@@ -751,16 +809,16 @@ export default function IstihadaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.note1Title}</Text>
-              <Text style={styles.tipText}>{content.note1Text}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.note1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.note1Text}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>{content.section2Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section2Body}</AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -768,14 +826,14 @@ export default function IstihadaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
-              <Text style={styles.tipText}>{content.tip1Text}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.tip1Text}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.body}>{content.section3Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section3Body}</AwaText>
 
           <View style={styles.daily}>
             {content.differences.map(([icon, label]) => (
@@ -786,12 +844,12 @@ export default function IstihadaArticleScreen({
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{label}</Text>
+                <AwaText variant="bodySmall" style={styles.dailyText}>{label}</AwaText>
               </View>
             ))}
           </View>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
@@ -799,14 +857,14 @@ export default function IstihadaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.note2Title}</Text>
-              <Text style={styles.tipText}>{content.note2Text}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.note2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.note2Text}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <Text style={styles.body}>{content.section4Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section4Body}</AwaText>
 
           <Image
             source={ART.observe}
@@ -814,8 +872,8 @@ export default function IstihadaArticleScreen({
             style={styles.wideImage}
           />
 
-          <View style={styles.checkList}>
-            <Text style={styles.checkListTitle}>{content.checkList1Title}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
+            <AwaText variant="titleSmall" emphasized style={styles.checkListTitle}>{content.checkList1Title}</AwaText>
 
             {content.observeTips.map(item => (
               <View key={item} style={styles.checkRow}>
@@ -825,16 +883,16 @@ export default function IstihadaArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>5. {content.topics[4]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>5. {content.topics[4]}</AwaText>
 
-          <Text style={styles.body}>{content.section5Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section5Body}</AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -842,16 +900,16 @@ export default function IstihadaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
-              <Text style={styles.tipText}>{content.tip2Text}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tip2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.tip2Text}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>6. {content.topics[5]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>6. {content.topics[5]}</AwaText>
 
-          <Text style={styles.body}>{content.section6Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section6Body}</AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.doubtSteps.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -860,12 +918,12 @@ export default function IstihadaArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-circle-outline"
               size={24}
@@ -873,14 +931,14 @@ export default function IstihadaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.alert2Title}</Text>
-              <Text style={styles.tipText}>{content.alert2Text}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.alert2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.alert2Text}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>7. {content.topics[6]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>7. {content.topics[6]}</AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -888,10 +946,10 @@ export default function IstihadaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip3Title}</Text>
-              <Text style={styles.tipText}>{content.tip3Text}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tip3Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.tip3Text}</AwaText>
             </View>
-          </View>
+          </AwaCard>
         </View>
       </ScrollView>
 
@@ -903,7 +961,7 @@ export default function IstihadaArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
   top: {
@@ -916,72 +974,47 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  badgeText: {fontSize: 11, color: theme.colors.primary, fontWeight: '800'},
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
     gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 10, color: theme.colors.textMuted},
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '500',
+    marginTop: 16,
   },
   alert: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
+  contentsTitle: {marginBottom: 8},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -989,59 +1022,46 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 24, color: theme.colors.primary, fontSize: 12, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.5, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 24},
+  contentText: {flex: 1},
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
-  body: {marginTop: 8, fontSize: 14, lineHeight: 21, color: theme.colors.textSecondary},
-  wideImage: {width: '100%', height: 120, marginTop: 14, borderRadius: 12},
-  daily: {marginTop: 13, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
+  body: {marginTop: 8},
+  wideImage: {width: '100%', height: 120, marginTop: 16, borderRadius: 12},
+  daily: {marginTop: 12, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
   dailyItem: {
     width: '48.7%',
     minHeight: 108,
     padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
-    backgroundColor: theme.colors.surfaceSecondary,
-  },
-  dailyText: {
-    marginTop: 7,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.text,
-    textAlign: 'center',
-  },
-  checkList: {
-    marginTop: 13,
-    padding: 13,
     borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
-  checkListTitle: {marginBottom: 9, fontSize: 13, color: theme.colors.text, fontWeight: '800'},
+  dailyText: {
+    marginTop: 8,
+    textAlign: 'center',
+  },
+  checkList: {
+    marginTop: 12,
+    padding: 12,
+  },
+  checkListTitle: {marginBottom: 8},
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 9,
+    marginBottom: 8,
   },
-  checkText: {flex: 1, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
+  checkText: {flex: 1},
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
-  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: theme.colors.textMuted},
+  tipCopy: {flex: 1, marginLeft: 12},
+  tipText: {marginTop: 3},
   });
 }

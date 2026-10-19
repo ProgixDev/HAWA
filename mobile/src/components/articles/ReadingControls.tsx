@@ -1,13 +1,16 @@
 import React, {useMemo} from 'react';
-import {type LayoutChangeEvent, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {type LayoutChangeEvent, ScrollView, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {useArticleReadingProgress, type ReadingStatus} from '../../hooks/useArticleReadingProgress';
 import {getReadingSessionState} from '../../state/libraryStore';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 
 // PHASE C — no reading meaning here at all (no health/tracking semantics),
 // every color is decorative chrome, fully migrated to `useAwaTheme()`.
@@ -107,21 +110,22 @@ function ReadingControls({articleId, durationMinutes, scrollRef, onLayout}: Read
     <View
       onLayout={onLayout}
       style={[styles.bottomReadingArea, {paddingBottom: Math.max(insets.bottom, 10) + 10}]}>
-      <Pressable
+      <AwaCard
         accessibilityLabel={`${title}. ${subtitle}`}
-        accessibilityRole="button"
         onPress={handleCardPress}
-        style={({pressed}) => [styles.resumeCard, pressed && styles.pressed]}>
+        padding="none"
+        style={styles.resumeCard}
+        variant="filled">
         <View style={styles.resumeIconWrap}>
           <MaterialDesignIcons color={theme.colors.primary} name={cardIcon.name} size={20} />
         </View>
 
         <View style={styles.resumeCopy}>
           <View style={styles.resumeTopRow}>
-            <Text numberOfLines={1} style={styles.resumeTitle}>{title}</Text>
-            {showMeta && <Text style={styles.resumePercent}>{roundedPercent}%</Text>}
+            <AwaText style={styles.resumeTitle} variant="titleSmall" emphasized>{title}</AwaText>
+            {showMeta && <AwaText colorRole="primary" variant="labelLarge">{roundedPercent}%</AwaText>}
           </View>
-          <Text numberOfLines={1} style={styles.resumeSubtitle}>{subtitle}</Text>
+          <AwaText colorRole="onSurfaceVariant" style={styles.resumeSubtitle} variant="bodySmall">{subtitle}</AwaText>
           {showMeta && (
             <View style={styles.progressTrack}>
               <View style={[styles.progressFill, {width: `${roundedPercent}%`}]} />
@@ -130,16 +134,16 @@ function ReadingControls({articleId, durationMinutes, scrollRef, onLayout}: Read
         </View>
 
         <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={20} style={styles.chevron} />
-      </Pressable>
+      </AwaCard>
 
-      <Pressable
-        accessibilityLabel={buttonCopy.label}
-        accessibilityRole="button"
+      <AwaButton
+        fullWidth
+        icon={buttonCopy.icon}
+        label={buttonCopy.label}
         onPress={handleButtonPress}
-        style={({pressed}) => [styles.primaryReadingButton, pressed && styles.pressed]}>
-        <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={buttonCopy.icon} size={19} />
-        <Text style={styles.primaryReadingText}>{buttonCopy.label}</Text>
-      </Pressable>
+        size="large"
+        variant="filled"
+      />
     </View>
   );
 }
@@ -151,9 +155,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       left: 0,
       right: 0,
       bottom: 0,
-      gap: 10,
+      gap: 12,
       paddingHorizontal: 16,
-      paddingTop: 10,
+      paddingTop: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.98),
       borderTopWidth: 1,
       borderTopColor: theme.colors.border,
@@ -161,24 +165,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     resumeCard: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 10,
-      minHeight: 66,
-      borderRadius: 18,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surface,
+      gap: 12,
+      minHeight: 68,
       paddingHorizontal: 12,
-      paddingVertical: 9,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 3},
-      shadowOpacity: 0.06,
-      shadowRadius: 8,
-      elevation: 1,
+      paddingVertical: 8,
     },
     resumeIconWrap: {
       width: 42,
       height: 42,
-      borderRadius: 14,
+      borderRadius: 12,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: theme.colors.primarySoft,
@@ -186,28 +181,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     resumeCopy: {flex: 1, minWidth: 0},
     resumeTopRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8},
-    resumeTitle: {flex: 1, minWidth: 0, color: theme.colors.text, fontSize: 14.5, fontWeight: '700'},
-    resumePercent: {color: theme.colors.primary, fontSize: 13, fontWeight: '700'},
-    resumeSubtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11},
+    resumeTitle: {flex: 1, minWidth: 0},
+    resumeSubtitle: {marginTop: 2},
     progressTrack: {marginTop: 6, height: 4, borderRadius: 2, backgroundColor: theme.colors.primarySoft, overflow: 'hidden'},
     progressFill: {height: '100%', borderRadius: 2, backgroundColor: theme.colors.primary},
     chevron: {flexShrink: 0},
-    primaryReadingButton: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 8,
-      minHeight: 56,
-      borderRadius: 17,
-      backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 4},
-      shadowOpacity: 0.16,
-      shadowRadius: 10,
-      elevation: 3,
-    },
-    primaryReadingText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '800'},
-    pressed: {opacity: 0.85},
   });
 }
 

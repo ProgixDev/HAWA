@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -610,6 +611,89 @@ const CONTENT = {
       ],
       disclaimerText: '仅供参考。具体时间可能因个人情况而异，不能替代医疗建议。',
     },
+  id: {
+    badge: 'FREEMIUM • PASCAPERSALINAN',
+    title: 'Kembalinya haid setelah melahirkan,\napa yang bisa diharapkan',
+    metaDuration: '5 menit baca',
+    metaType: 'Panduan',
+    intro: 'Setelah melahirkan, haid bisa butuh waktu untuk kembali. Waktunya bervariasi, antara lain bergantung pada menyusui, dan setiap orang bisa mengalami masa ini dengan cara yang berbeda.',
+    shareMessage: 'Kembalinya haid setelah melahirkan, apa yang bisa diharapkan — AWA',
+    h2_1: '1. Apa itu kembalinya haid setelah melahirkan?',
+    body1: '“Kembalinya haid” berarti haidmu datang lagi setelah melahirkan. Siklus menstruasi belum tentu langsung kembali ke ritme biasanya.',
+    highlightTitle: 'Poin utama',
+    highlightText: 'Tidak ada satu jadwal yang berlaku untuk semua orang.',
+    h2_2: '2. Kapan haidmu bisa kembali?',
+    body2: 'Waktunya sangat bergantung pada menyusui. Tanpa menyusui, haid umumnya dapat kembali sekitar 6 sampai 8 minggu. Dengan menyusui eksklusif, haid bisa tertunda beberapa bulan.',
+    simpleInfoTitle1: 'Tanpa menyusui',
+    simpleInfoText1: 'Umumnya sekitar 6 sampai 8 minggu.',
+    simpleInfoTitle2: 'Dengan menyusui eksklusif',
+    simpleInfoText2: 'Kembalinya haid bisa tertunda beberapa bulan.',
+    h2_3: '3. Pola kembalinya siklus',
+    body3: 'Siklus kembali secara bertahap setelah melahirkan. Menyusui dapat memengaruhi kapan haidmu muncul lagi.',
+    schemaTitle: 'Kembalinya siklus secara bertahap',
+    schemaSubtitle: 'Gambaran umum, langkah demi langkah',
+    cycleStages: [
+      {
+        title: 'Setelah melahirkan',
+        text: 'Siklus menstruasi berhenti sementara setelah persalinan.',
+      },
+      {
+        title: 'Masa pascapersalinan',
+        text: 'Tubuh pulih secara bertahap dan kadar hormon bergeser.',
+      },
+      {
+        title: 'Menyusui',
+        text: 'Menyusui dapat menunda kembalinya haidmu, tetapi pengaruhnya berbeda-beda pada setiap orang.',
+      },
+      {
+        title: 'Kembalinya haid',
+        text: 'Haid pertamamu bisa kembali setelah beberapa minggu atau beberapa bulan.',
+      },
+      {
+        title: 'Siklus-siklus pertama',
+        text: 'Siklus bisa tidak teratur sebelum berangsur kembali ke ritme biasanya.',
+      },
+    ],
+    schemaNoteText: 'Tidak ada jadwal yang sama untuk semua orang. Waktu kembalinya haidmu bisa berbeda dari satu orang ke orang lain, terutama bergantung pada menyusui.',
+    h2_4: '4. Siklus-siklus pertama',
+    body4: 'Saat haidmu kembali, siklus-siklus pertama mungkin berbeda dari sebelum hamil. Misalnya, pada awalnya siklus bisa tidak teratur.',
+    card1Title: 'Ritme yang bervariasi',
+    card1Text: 'Siklus mungkin butuh waktu untuk kembali ke ritme yang dikenal.',
+    card2Title: 'Aliran yang berbeda',
+    card2Text: 'Aliran darah haid bisa berbeda dari yang kamu amati sebelum hamil.',
+    h2_5: '5. Apa yang bisa kamu amati?',
+    body5: 'Pencatatan sederhana membantumu mengamati perkembangan siklusmu dari waktu ke waktu.',
+    observations: [
+      {
+        title: 'Tanggal',
+        text: 'Catat hari pertama haidmu.',
+      },
+      {
+        title: 'Ritme',
+        text: 'Amati jarak antarsiklus secara bertahap.',
+      },
+      {
+        title: 'Aliran',
+        text: 'Cukup amati perubahan dibandingkan dengan yang biasa kamu alami.',
+      },
+    ],
+    h2_6: '6. Kapan sebaiknya meminta saran?',
+    body6: 'Jika ada yang terasa tidak biasa, berlangsung terus-menerus, atau mengkhawatirkan, mintalah saran dari tenaga kesehatan.',
+    warningSigns: [
+      'Perdarahan yang terasa tidak biasa bagimu',
+      'Nyeri hebat atau terus-menerus',
+      'Demam atau rasa tidak nyaman yang hebat',
+      'Gejala baru apa pun yang membuatmu khawatir',
+    ],
+    summaryTitle: 'Poin penting',
+    summaryPoints: [
+      'Kembalinya haid setelah melahirkan berarti haidmu datang lagi setelah persalinan.',
+      'Menyusui dapat menunda kembalinya haidmu.',
+      'Siklus-siklus pertama bisa tidak teratur.',
+      'Mencatat tanggal dapat membantumu memantau perkembangan siklusmu.',
+    ],
+    disclaimerText: 'Konten informatif. Jadwal dapat bervariasi tergantung pada tiap situasi dan tidak menggantikan saran medis.',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -728,61 +812,37 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
             ]}
           >
             {/* BACK */}
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}
-            >
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             {/* ACTIONS */}
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={
                   saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
-                onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <MaterialDesignIcons
-                  name={
+                icon={
                     saved
                       ? 'bookmark'
                       : 'bookmark-outline'
                   }
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                iconSize={20}
+                onPress={handleBookmark}
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -798,18 +858,18 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">
               {content.badge}
-            </Text>
+            </AwaText>
           </View>
 
           {/* ---------------------------------------------------------------- */}
           {/* TITLE                                                            */}
           {/* ---------------------------------------------------------------- */}
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           {/* ---------------------------------------------------------------- */}
           {/* METADATA                                                         */}
@@ -823,9 +883,9 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                 color={theme.colors.textMuted}
               />
 
-              <Text style={styles.meta}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                 {content.metaDuration}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.metaDivider} />
@@ -837,9 +897,9 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                 color={theme.colors.textMuted}
               />
 
-              <Text style={styles.meta}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                 {content.metaType}
-              </Text>
+              </AwaText>
             </View>
           </View>
 
@@ -847,23 +907,23 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
           {/* INTRODUCTION                                                     */}
           {/* ---------------------------------------------------------------- */}
 
-          <Text style={styles.intro}>
+          <AwaText variant="titleSmall" colorRole="onSurfaceVariant" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
           {/* ================================================================= */}
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.h2_1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body1}
-          </Text>
+          </AwaText>
 
-          <View style={styles.highlight}>
+          <AwaCard variant="filled" padding="none" style={styles.highlight}>
             <MaterialDesignIcons
               name="information-outline"
               size={23}
@@ -871,29 +931,29 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
             />
 
             <View style={styles.highlightCopy}>
-              <Text style={styles.highlightTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.highlightTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.highlightText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.highlightText}>
                 {content.highlightText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.h2_2}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.simpleInfo}>
+          <AwaCard variant="filled" padding="none" style={styles.simpleInfo}>
 
             <View style={styles.simpleInfoRow}>
               <MaterialDesignIcons
@@ -903,13 +963,13 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
               />
 
               <View style={styles.simpleInfoCopy}>
-                <Text style={styles.simpleInfoTitle}>
+                <AwaText variant="titleSmall" emphasized>
                   {content.simpleInfoTitle1}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.simpleInfoText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.simpleInfoText}>
                   {content.simpleInfoText1}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -923,33 +983,33 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
               />
 
               <View style={styles.simpleInfoCopy}>
-                <Text style={styles.simpleInfoTitle}>
+                <AwaText variant="titleSmall" emphasized>
                   {content.simpleInfoTitle2}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.simpleInfoText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.simpleInfoText}>
                   {content.simpleInfoText2}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 3 — SCHEMA                                                */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.h2_3}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body3}
-          </Text>
+          </AwaText>
 
           {/* TIMELINE CARD */}
 
-          <View style={styles.schemaCard}>
+          <AwaCard variant="filled" padding="none" style={styles.schemaCard}>
 
             {/* HEADER */}
 
@@ -963,13 +1023,13 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
               </View>
 
               <View style={styles.schemaHeaderCopy}>
-                <Text style={styles.schemaTitle}>
+                <AwaText variant="titleSmall" emphasized>
                   {content.schemaTitle}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.schemaSubtitle}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.schemaSubtitle}>
                   {content.schemaSubtitle}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -992,9 +1052,9 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                     <View style={styles.timelineLeft}>
 
                       <View style={styles.timelineNode}>
-                        <Text style={styles.timelineNumber}>
+                        <AwaText variant="labelSmall" emphasized colorRole="primary">
                           {meta.number}
-                        </Text>
+                        </AwaText>
                       </View>
 
                       {!isLast && (
@@ -1013,14 +1073,14 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                           color={theme.colors.primary}
                         />
 
-                        <Text style={styles.timelineTitle}>
+                        <AwaText variant="titleSmall" emphasized style={styles.timelineTitle}>
                           {stage.title}
-                        </Text>
+                        </AwaText>
                       </View>
 
-                      <Text style={styles.timelineText}>
+                      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.timelineText}>
                         {stage.text}
-                      </Text>
+                      </AwaText>
 
                     </View>
                   </View>
@@ -1037,28 +1097,28 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.schemaNoteText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.schemaNoteText}>
                 {content.schemaNoteText}
-              </Text>
+              </AwaText>
             </View>
 
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.h2_4}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body4}
-          </Text>
+          </AwaText>
 
           <View style={styles.cards}>
 
-            <View style={styles.smallCard}>
+            <AwaCard variant="filled" padding="none" style={styles.smallCard}>
               <View style={styles.cardIcon}>
                 <MaterialDesignIcons
                   name="calendar-alert-outline"
@@ -1067,16 +1127,16 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                 />
               </View>
 
-              <Text style={styles.cardTitle}>
+              <AwaText variant="titleSmall" emphasized style={styles.cardTitle}>
                 {content.card1Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.cardText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardText}>
                 {content.card1Text}
-              </Text>
-            </View>
+              </AwaText>
+            </AwaCard>
 
-            <View style={styles.smallCard}>
+            <AwaCard variant="filled" padding="none" style={styles.smallCard}>
               <View style={styles.cardIcon}>
                 <MaterialDesignIcons
                   name="water-outline"
@@ -1085,14 +1145,14 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                 />
               </View>
 
-              <Text style={styles.cardTitle}>
+              <AwaText variant="titleSmall" emphasized style={styles.cardTitle}>
                 {content.card2Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.cardText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardText}>
                 {content.card2Text}
-              </Text>
-            </View>
+              </AwaText>
+            </AwaCard>
 
           </View>
 
@@ -1100,15 +1160,15 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
           {/* SECTION 5                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.h2_5}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body5}
-          </Text>
+          </AwaText>
 
-          <View style={styles.observationCard}>
+          <AwaCard variant="filled" padding="none" style={styles.observationCard}>
             {OBSERVATIONS_META.map((meta, index) => {
               const observation = content.observations[index];
 
@@ -1126,32 +1186,32 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                   </View>
 
                   <View style={styles.observationCopy}>
-                    <Text style={styles.observationTitle}>
+                    <AwaText variant="titleSmall" emphasized>
                       {observation.title}
-                    </Text>
+                    </AwaText>
 
-                    <Text style={styles.observationText}>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.observationText}>
                       {observation.text}
-                    </Text>
+                    </AwaText>
                   </View>
                 </View>
               );
             })}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 6                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.h2_6}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body6}
-          </Text>
+          </AwaText>
 
-          <View style={styles.warningCard}>
+          <AwaCard variant="filled" padding="none" style={styles.warningCard}>
             {content.warningSigns.map(item => (
               <View
                 key={item}
@@ -1163,22 +1223,22 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                   color={theme.colors.warning}
                 />
 
-                <Text style={styles.warningText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.warningText}>
                   {item}
-                </Text>
+                </AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SUMMARY                                                           */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.summaryTitle}
-          </Text>
+          </AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             {content.summaryPoints.map(item => (
               <View
                 key={item}
@@ -1190,12 +1250,12 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.summaryText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
                   {item}
-                </Text>
+                </AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* DISCLAIMER                                                        */}
@@ -1208,9 +1268,9 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>
               {content.disclaimerText}
-            </Text>
+            </AwaText>
           </View>
 
         </View>
@@ -1245,7 +1305,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1277,57 +1337,33 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.92),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.7,
-  },
 
   /* ------------------------------------------------------------------------ */
   /* ARTICLE                                                                  */
   /* ------------------------------------------------------------------------ */
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     paddingHorizontal: 20,
     paddingTop: 20,
-    paddingBottom: 10,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    paddingBottom: 12,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 9.5,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 27,
-    lineHeight: 33,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1335,7 +1371,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   metas: {
-    marginTop: 13,
+    marginTop: 12,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -1354,10 +1390,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 9.5,
-    color: theme.colors.textMuted,
-  },
 
   /* ------------------------------------------------------------------------ */
   /* INTRO                                                                    */
@@ -1365,10 +1397,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   intro: {
     marginTop: 16,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '600',
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1376,19 +1404,11 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   h2: {
-    marginTop: 27,
-    fontFamily: 'serif',
-    fontSize: 20,
-    lineHeight: 26,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 28,
   },
 
   body: {
     marginTop: 8,
-    fontSize: 13.5,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1396,32 +1416,20 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   highlight: {
-    marginTop: 14,
-    padding: 13,
+    marginTop: 16,
+    padding: 12,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   highlightCopy: {
     flex: 1,
-    marginLeft: 9,
+    marginLeft: 8,
   },
 
-  highlightTitle: {
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   highlightText: {
     marginTop: 3,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1429,12 +1437,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   simpleInfo: {
-    marginTop: 14,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   simpleInfoRow: {
@@ -1444,25 +1448,17 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   simpleInfoCopy: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 12,
   },
 
-  simpleInfoTitle: {
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   simpleInfoText: {
     marginTop: 3,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.textMuted,
   },
 
   separator: {
     height: 1,
-    marginVertical: 13,
+    marginVertical: 12,
     backgroundColor: theme.colors.border,
   },
 
@@ -1471,18 +1467,14 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   schemaCard: {
-    marginTop: 14,
+    marginTop: 16,
     padding: 16,
-    borderRadius: 16,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   schemaHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: 15,
+    paddingBottom: 16,
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.border,
   },
@@ -1498,19 +1490,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   schemaHeaderCopy: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 12,
   },
 
-  schemaTitle: {
-    fontSize: 13.5,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   schemaSubtitle: {
     marginTop: 3,
-    fontSize: 10.5,
-    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1535,7 +1520,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   timelineNode: {
     width: 34,
     height: 34,
-    marginTop: 14,
+    marginTop: 16,
     borderRadius: 17,
     alignItems: 'center',
     justifyContent: 'center',
@@ -1545,11 +1530,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     zIndex: 2,
   },
 
-  timelineNumber: {
-    fontSize: 9.5,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   timelineLine: {
     position: 'absolute',
@@ -1561,30 +1541,23 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   timelineContent: {
     flex: 1,
-    paddingTop: 13,
-    paddingLeft: 10,
+    paddingTop: 12,
+    paddingLeft: 12,
     paddingBottom: 12,
   },
 
   timelineTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: 8,
   },
 
   timelineTitle: {
     flex: 1,
-    fontSize: 13,
-    lineHeight: 18,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
 
   timelineText: {
     marginTop: 4,
-    fontSize: 10.8,
-    lineHeight: 16,
-    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1593,10 +1566,10 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   schemaNote: {
     marginTop: 8,
-    padding: 11,
+    padding: 12,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 11,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.primary, 0.08),
     borderWidth: 1,
     borderColor: theme.colors.border,
@@ -1605,9 +1578,6 @@ function createStyles(theme: ResolvedAwaTheme) {
   schemaNoteText: {
     flex: 1,
     marginLeft: 8,
-    fontSize: 10.5,
-    lineHeight: 15.5,
-    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1615,19 +1585,15 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   cards: {
-    marginTop: 13,
+    marginTop: 12,
     flexDirection: 'row',
-    gap: 9,
+    gap: 8,
   },
 
   smallCard: {
     flex: 1,
     minHeight: 135,
     padding: 12,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   cardIcon: {
@@ -1641,16 +1607,10 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   cardTitle: {
     marginTop: 8,
-    fontSize: 12,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
 
   cardText: {
     marginTop: 4,
-    fontSize: 10.5,
-    lineHeight: 15.5,
-    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1658,12 +1618,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   observationCard: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
 
   observationRow: {
@@ -1683,20 +1639,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   observationCopy: {
     flex: 1,
-    marginLeft: 9,
+    marginLeft: 8,
   },
 
-  observationTitle: {
-    fontSize: 12,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   observationText: {
     marginTop: 2,
-    fontSize: 10.7,
-    lineHeight: 16,
-    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1704,26 +1652,19 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   warningCard: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 12,
   },
 
   warningRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 7,
-    marginBottom: 9,
+    gap: 8,
+    marginBottom: 8,
   },
 
   warningText: {
     flex: 1,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1731,26 +1672,19 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   summaryCard: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
 
   summaryRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 9,
+    marginBottom: 8,
   },
 
   summaryText: {
     flex: 1,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1758,18 +1692,15 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   disclaimer: {
-    marginTop: 18,
+    marginTop: 20,
     paddingHorizontal: 3,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 7,
+    gap: 8,
   },
 
   disclaimerText: {
     flex: 1,
-    fontSize: 10,
-    lineHeight: 15,
-    color: theme.colors.textMuted,
   },
   });
 }

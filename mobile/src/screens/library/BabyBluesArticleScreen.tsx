@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 
 import {
   isArticleBookmarked,
@@ -994,6 +995,113 @@ const CONTENT = {
       shareTitle: '产后情绪低落与产后情绪健康',
       shareMessage: '产后情绪低落与产后情绪健康 — AWA\n\n一份帮助你了解分娩后常见情绪变化的指南。',
     },
+  id: {
+    badgeText: 'PASCAPERSALINAN • KESEHATAN EMOSIONAL',
+    title: 'Baby blues dan kesehatan emosional\npascapersalinan',
+    subtitle: 'Memahami apa saja yang bisa berubah secara emosional setelah melahirkan dan kapan perlu mencari dukungan.',
+    metaItems: [
+      '10 menit baca',
+      'Artikel',
+      'Pemula',
+      'Konten telah ditinjau',
+    ],
+    introTitle: 'Perlu diketahui',
+    introText: 'Setelah melahirkan, wajar jika kamu melewati masa dengan kepekaan emosi yang meningkat. Baby blues biasanya bersifat sementara, tetapi tekanan batin yang berlanjut atau makin berat perlu mendapat perhatian profesional.',
+    contentsEyebrow: 'PANDUAN',
+    contentsTitle: 'Dalam artikel ini',
+    contents: [
+      'Memahami baby blues',
+      'Tanda yang paling umum',
+      'Apa yang membantu sehari-hari',
+      'Baby blues atau depresi pascapersalinan?',
+      'Kapan perlu meminta bantuan',
+      'Poin-poin penting',
+    ],
+    section1Kicker: 'MEMAHAMI',
+    section1Title: 'Apa itu baby blues?',
+    section1Body1: 'Baby blues adalah masa perubahan emosi yang bisa terjadi dalam beberapa hari pertama setelah melahirkan. Perubahan hormon, kelelahan, kurang tidur, dan penyesuaian terhadap tahap baru ini semuanya bisa berperan dalam kepekaan tersebut.',
+    section1Body2: 'Ini bukan kegagalan dan bukan berarti kamu ibu yang buruk. Setiap orang menjalani hari-hari pertama pascapersalinan dengan caranya sendiri.',
+    statTitle: 'Pengalaman yang umum',
+    statText: 'Baby blues umum terjadi setelah melahirkan dan cenderung membaik dengan sendirinya dalam beberapa hari.',
+    section2Kicker: 'TANDA-TANDANYA',
+    section2Title: 'Apa yang mungkin kamu rasakan',
+    section2Body: 'Pengalaman setiap orang berbeda-beda. Sebagian terutama merasakan kelelahan dan kepekaan, sementara yang lain mungkin mengalami perubahan suasana hati yang lebih terasa.',
+    commonSigns: [
+      {
+        title: 'Mudah emosional',
+        description: 'Lebih mudah menangis atau merasa sangat sensitif.',
+      },
+      {
+        title: 'Hipersensitivitas',
+        description: 'Emosi bisa terasa lebih kuat dan berubah dengan cepat.',
+      },
+      {
+        title: 'Suasana hati berubah-ubah',
+        description: 'Perasaan rapuh bisa berganti-ganti dengan saat-saat merasa baik.',
+      },
+      {
+        title: 'Kelelahan',
+        description: 'Kelelahan dari hari-hari pertama bisa memperkuat emosi.',
+      },
+    ],
+    section3Kicker: 'SEHARI-HARI',
+    section3Title: 'Apa yang bisa membantu',
+    section3Body: 'Pada masa ini, kebutuhan akan istirahat sangat besar. Hal-hal kecil dan sederhana bisa membuat hari-harimu lebih nyaman.',
+    dailySupport: [
+      {
+        title: 'Beristirahat',
+        description: 'Manfaatkan setiap waktu luang untuk memulihkan diri.',
+      },
+      {
+        title: 'Menerima bantuan',
+        description: 'Jangan ragu meminta dukungan dari orang-orang di sekitarmu.',
+      },
+      {
+        title: 'Minum secara teratur',
+        description: 'Menjaga asupan air yang cukup sepanjang hari.',
+      },
+      {
+        title: 'Makan secukupnya',
+        description: 'Utamakan makanan yang sederhana dan teratur.',
+      },
+    ],
+    quoteText: '“Meminta bantuan di masa pascapersalinan adalah cara untuk merawat dirimu dan bayimu.”',
+    section4Kicker: 'MEMBEDAKANNYA',
+    section4Title: 'Baby blues atau depresi pascapersalinan?',
+    section4Body: 'Baby blues biasanya singkat dan membaik secara bertahap. Depresi pascapersalinan berbeda: bisa lebih menetap, lebih berat, dan berdampak besar pada kehidupan sehari-hari.',
+    compareTitle: 'Dua keadaan yang perlu dibedakan',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText: 'Biasanya singkat, dengan perbaikan bertahap dalam beberapa hari berikutnya.',
+    comparePostpartumTitle: 'Depresi pascapersalinan',
+    comparePostpartumText: 'Bisa berlangsung lebih lama, makin berat, dan membutuhkan dukungan profesional.',
+    section5Kicker: 'TETAP WASPADA',
+    section5Title: 'Kapan perlu meminta bantuan?',
+    section5Body: 'Penting untuk berbicara dengan tenaga kesehatan jika tekanan emosional tidak membaik, menjadi lebih berat, atau mulai mempersulit kehidupan sehari-hari.',
+    attentionTitle: 'Tanda yang perlu diwaspadai',
+    attentionSubtitle: 'Bicaralah dengan tenaga profesional jika…',
+    attentionSigns: [
+      'Gejala berlangsung lebih dari dua minggu.',
+      'Kesedihan atau kecemasan menjadi lebih berat.',
+      'Menjadi sulit untuk merawat dirimu atau bayimu.',
+      'Muncul perasaan tertekan yang berat.',
+    ],
+    professionalTitle: 'Dukungan tersedia untukmu',
+    professionalText: 'Bidan, dokter, psikolog, atau tenaga kesehatan lainnya bisa mendengarkanmu, menilai keadaanmu, dan menawarkan dukungan yang sesuai.',
+    tipTitle: 'Perlu diketahui',
+    tipText: 'Emosi di masa pascapersalinan bukan ukuran seberapa baik kamu sebagai ibu. Kamu berhak membutuhkan istirahat, didengarkan, dan didukung.',
+    section6Kicker: 'POIN PENTING',
+    section6Title: 'Poin-poin penting',
+    takeaways: [
+      'Baby blues umum terjadi setelah melahirkan.',
+      'Kelelahan dan perubahan hormon bisa memengaruhi suasana hati.',
+      'Dukungan dari orang-orang di sekitarmu bisa membuat masa ini lebih mudah.',
+      'Tekanan batin yang menetap atau berat perlu dievaluasi oleh tenaga profesional.',
+    ],
+    disclaimerText: 'Artikel ini bersifat informatif dan tidak menggantikan nasihat medis yang dipersonalisasi. Jika ragu atau mengalami tekanan batin yang berat, bicaralah dengan tenaga kesehatan.',
+    endText: 'Merawat dirimu sendiri juga bagian dari masa pascapersalinan.',
+    shareTitle: 'Baby blues dan kesehatan emosional pascapersalinan',
+    shareMessage: 'Baby blues dan kesehatan emosional pascapersalinan — AWA\n\nPanduan untuk memahami perubahan emosi yang umum terjadi setelah melahirkan.',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -1113,56 +1221,32 @@ export default function BabyBluesArticleScreen({
                 paddingTop: getTopPadding(insets.top, true),
               },
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
-              hitSlop={8}
+              icon="chevron-left"
+              iconSize={24}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={24}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={
                   saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
-                hitSlop={8}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
-                hitSlop={8}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
 
@@ -1184,22 +1268,22 @@ export default function BabyBluesArticleScreen({
               color={theme.colors.primary}
             />
 
-            <Text style={styles.badgeText}>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">
               {content.badgeText}
-            </Text>
+            </AwaText>
           </View>
 
           {/* TITLE */}
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           {/* SUBTITLE */}
 
-          <Text style={styles.subtitle}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.subtitle}>
             {content.subtitle}
-          </Text>
+          </AwaText>
 
           {/* ================================================================= */}
           {/* META                                                              */}
@@ -1220,9 +1304,9 @@ export default function BabyBluesArticleScreen({
                       size={16}
                     />
 
-                    <Text style={styles.meta}>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                       {text}
-                    </Text>
+                    </AwaText>
                   </View>
                 </React.Fragment>
               );
@@ -1233,7 +1317,7 @@ export default function BabyBluesArticleScreen({
           {/* INTRODUCTION                                                      */}
           {/* ================================================================= */}
 
-          <View style={styles.introCard}>
+          <AwaCard variant="filled" padding="none" style={styles.introCard}>
             <View style={styles.introIcon}>
               <MaterialDesignIcons
                 name="information-outline"
@@ -1243,36 +1327,36 @@ export default function BabyBluesArticleScreen({
             </View>
 
             <View style={styles.introCopy}>
-              <Text style={styles.introTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.introTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.introText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.introText}>
                 {content.introText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* TABLE OF CONTENTS                                                 */}
           {/* ================================================================= */}
 
-          <View style={styles.contents}>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
             <View style={styles.contentsHeader}>
               <View>
-                <Text style={styles.contentsEyebrow}>
+                <AwaText variant="labelSmall" emphasized colorRole="primary">
                   {content.contentsEyebrow}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.contentsTitle}>
+                <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>
                   {content.contentsTitle}
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.contentsCount}>
-                <Text style={styles.contentsCountText}>
+                <AwaText variant="labelSmall" emphasized colorRole="primary">
                   {String(content.contents.length).padStart(2, '0')}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -1286,14 +1370,14 @@ export default function BabyBluesArticleScreen({
                 ]}>
                 <View style={styles.contentLeft}>
                   <View style={styles.numberCircle}>
-                    <Text style={styles.numberText}>
+                    <AwaText variant="labelSmall" emphasized colorRole="primary">
                       {index + 1}
-                    </Text>
+                    </AwaText>
                   </View>
 
-                  <Text style={styles.contentText}>
+                  <AwaText variant="bodySmall" style={styles.contentText}>
                     {item}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -1303,7 +1387,7 @@ export default function BabyBluesArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 01                                                        */}
@@ -1316,17 +1400,17 @@ export default function BabyBluesArticleScreen({
             title={content.section1Title}
           />
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body2}
-          </Text>
+          </AwaText>
 
           {/* STAT CARD */}
 
-          <View style={styles.statCard}>
+          <AwaCard variant="filled" padding="none" style={styles.statCard}>
             <View style={styles.statIcon}>
               <MaterialDesignIcons
                 name="account-heart-outline"
@@ -1336,15 +1420,15 @@ export default function BabyBluesArticleScreen({
             </View>
 
             <View style={styles.statCopy}>
-              <Text style={styles.statTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.statTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.statText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.statText}>
                 {content.statText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 02                                                        */}
@@ -1357,9 +1441,9 @@ export default function BabyBluesArticleScreen({
             title={content.section2Title}
           />
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section2Body}
-          </Text>
+          </AwaText>
 
           {/* SIGNS GRID */}
 
@@ -1369,7 +1453,7 @@ export default function BabyBluesArticleScreen({
                 const {title, description} = content.commonSigns[index];
 
                 return (
-                  <View
+                  <AwaCard variant="filled" padding="none"
                     key={title}
                     style={styles.signCard}>
                     <View style={styles.signIcon}>
@@ -1380,14 +1464,14 @@ export default function BabyBluesArticleScreen({
                       />
                     </View>
 
-                    <Text style={styles.signTitle}>
+                    <AwaText variant="titleSmall" emphasized style={styles.signTitle}>
                       {title}
-                    </Text>
+                    </AwaText>
 
-                    <Text style={styles.signDescription}>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.signDescription}>
                       {description}
-                    </Text>
-                  </View>
+                    </AwaText>
+                  </AwaCard>
                 );
               },
             )}
@@ -1404,9 +1488,9 @@ export default function BabyBluesArticleScreen({
             title={content.section3Title}
           />
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section3Body}
-          </Text>
+          </AwaText>
 
           {/* SUPPORT LIST */}
 
@@ -1416,7 +1500,7 @@ export default function BabyBluesArticleScreen({
                 const {title, description} = content.dailySupport[index];
 
                 return (
-                  <View
+                  <AwaCard variant="filled" padding="none"
                     key={title}
                     style={styles.supportRow}>
                     <View style={styles.supportIcon}>
@@ -1428,21 +1512,21 @@ export default function BabyBluesArticleScreen({
                     </View>
 
                     <View style={styles.supportCopy}>
-                      <Text style={styles.supportTitle}>
+                      <AwaText variant="titleSmall" emphasized>
                         {title}
-                      </Text>
+                      </AwaText>
 
-                      <Text style={styles.supportDescription}>
+                      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.supportDescription}>
                         {description}
-                      </Text>
+                      </AwaText>
                     </View>
 
                     <View style={styles.supportNumber}>
-                      <Text style={styles.supportNumberText}>
+                      <AwaText variant="labelSmall" emphasized colorRole="success">
                         {index + 1}
-                      </Text>
+                      </AwaText>
                     </View>
-                  </View>
+                  </AwaCard>
                 );
               },
             )}
@@ -1450,7 +1534,7 @@ export default function BabyBluesArticleScreen({
 
           {/* QUOTE */}
 
-          <View style={styles.quoteCard}>
+          <AwaCard variant="filled" padding="none" style={styles.quoteCard}>
             <View style={styles.quoteIcon}>
               <MaterialDesignIcons
                 name="format-quote-open"
@@ -1459,10 +1543,10 @@ export default function BabyBluesArticleScreen({
               />
             </View>
 
-            <Text style={styles.quoteText}>
+            <AwaText variant="bodyLarge" style={styles.quoteText}>
               {content.quoteText}
-            </Text>
-          </View>
+            </AwaText>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 04                                                        */}
@@ -1475,13 +1559,13 @@ export default function BabyBluesArticleScreen({
             title={content.section4Title}
           />
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section4Body}
-          </Text>
+          </AwaText>
 
           {/* COMPARISON */}
 
-          <View style={styles.compareCard}>
+          <AwaCard variant="filled" padding="none" style={styles.compareCard}>
             <View style={styles.compareHeader}>
               <View style={styles.compareHeaderIcon}>
                 <MaterialDesignIcons
@@ -1491,22 +1575,22 @@ export default function BabyBluesArticleScreen({
                 />
               </View>
 
-              <Text style={styles.compareTitle}>
+              <AwaText variant="titleSmall" emphasized style={styles.compareTitle}>
                 {content.compareTitle}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.compareItem}>
               <View style={styles.compareDotNormal} />
 
               <View style={styles.compareCopy}>
-                <Text style={styles.compareItemTitle}>
+                <AwaText variant="titleSmall" emphasized>
                   {content.compareBabyBluesTitle}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.compareItemText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.compareItemText}>
                   {content.compareBabyBluesText}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -1516,16 +1600,16 @@ export default function BabyBluesArticleScreen({
               <View style={styles.compareDotAttention} />
 
               <View style={styles.compareCopy}>
-                <Text style={styles.compareItemTitle}>
+                <AwaText variant="titleSmall" emphasized>
                   {content.comparePostpartumTitle}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.compareItemText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.compareItemText}>
                   {content.comparePostpartumText}
-                </Text>
+                </AwaText>
               </View>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 05                                                        */}
@@ -1538,13 +1622,13 @@ export default function BabyBluesArticleScreen({
             title={content.section5Title}
           />
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section5Body}
-          </Text>
+          </AwaText>
 
           {/* ATTENTION CARD */}
 
-          <View style={styles.attentionCard}>
+          <AwaCard variant="filled" padding="none" style={styles.attentionCard}>
             <View style={styles.attentionHeader}>
               <View style={styles.attentionIcon}>
                 <MaterialDesignIcons
@@ -1555,13 +1639,13 @@ export default function BabyBluesArticleScreen({
               </View>
 
               <View style={styles.attentionHeaderCopy}>
-                <Text style={styles.attentionTitle}>
+                <AwaText variant="titleSmall" emphasized>
                   {content.attentionTitle}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.attentionSubtitle}>
+                <AwaText variant="bodySmall" colorRole="warning" style={styles.attentionSubtitle}>
                   {content.attentionSubtitle}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -1570,23 +1654,23 @@ export default function BabyBluesArticleScreen({
                 key={item}
                 style={styles.attentionRow}>
                 <View style={styles.attentionBullet}>
-                  <Text style={styles.attentionBulletText}>
+                  <AwaText variant="labelSmall" emphasized colorRole="warning">
                     {index + 1}
-                  </Text>
+                  </AwaText>
                 </View>
 
-                <Text style={styles.attentionText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.attentionText}>
                   {item}
-                </Text>
+                </AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* PROFESSIONAL SUPPORT                                              */}
           {/* ================================================================= */}
 
-          <View style={styles.professionalCard}>
+          <AwaCard variant="filled" padding="none" style={styles.professionalCard}>
             <View style={styles.professionalIcon}>
               <MaterialDesignIcons
                 name="stethoscope"
@@ -1596,21 +1680,21 @@ export default function BabyBluesArticleScreen({
             </View>
 
             <View style={styles.professionalCopy}>
-              <Text style={styles.professionalTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.professionalTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.professionalText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.professionalText}>
                 {content.professionalText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* GOOD TO KNOW                                                      */}
           {/* ================================================================= */}
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <View style={styles.tipIcon}>
               <MaterialDesignIcons
                 name="lightbulb-outline"
@@ -1620,15 +1704,15 @@ export default function BabyBluesArticleScreen({
             </View>
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.tipTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 06                                                        */}
@@ -1641,7 +1725,7 @@ export default function BabyBluesArticleScreen({
             title={content.section6Title}
           />
 
-          <View style={styles.takeawayList}>
+          <AwaCard variant="filled" padding="none" style={styles.takeawayList}>
             {content.takeaways.map((text, index) => (
               <Takeaway
                 key={text}
@@ -1651,23 +1735,23 @@ export default function BabyBluesArticleScreen({
                 last={index === content.takeaways.length - 1}
               />
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* DISCLAIMER                                                         */}
           {/* ================================================================= */}
 
-          <View style={styles.disclaimer}>
+          <AwaCard variant="filled" padding="none" style={styles.disclaimer}>
             <MaterialDesignIcons
               name="shield-check-outline"
               size={19}
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>
               {content.disclaimerText}
-            </Text>
-          </View>
+            </AwaText>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* END                                                                */}
@@ -1687,9 +1771,9 @@ export default function BabyBluesArticleScreen({
             <View style={styles.endLine} />
           </View>
 
-          <Text style={styles.endText}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.endText}>
             {content.endText}
-          </Text>
+          </AwaText>
         </View>
       </ScrollView>
 
@@ -1724,19 +1808,19 @@ function SectionHeading({
   return (
     <View style={styles.sectionHeading}>
       <View style={styles.sectionNumber}>
-        <Text style={styles.sectionNumberText}>
+        <AwaText variant="labelSmall" emphasized colorRole="primary">
           {number}
-        </Text>
+        </AwaText>
       </View>
 
       <View style={styles.sectionHeadingCopy}>
-        <Text style={styles.sectionKicker}>
+        <AwaText variant="labelSmall" emphasized colorRole="primary">
           {kicker}
-        </Text>
+        </AwaText>
 
-        <Text style={styles.h2}>
+        <AwaText variant="titleLarge" emphasized style={styles.h2}>
           {title}
-        </Text>
+        </AwaText>
       </View>
     </View>
   );
@@ -1771,9 +1855,9 @@ function Takeaway({
         />
       </View>
 
-      <Text style={styles.takeawayText}>
+      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.takeawayText}>
         {text}
-      </Text>
+      </AwaText>
     </View>
   );
 }
@@ -1794,7 +1878,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1834,23 +1918,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.94),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
 
-    ...theme.shadow,
-  },
-
-  pressed: {
-    opacity: 0.72,
-    transform: [{scale: 0.96}],
-  },
 
   /* ------------------------------------------------------------------------ */
   /* HERO LABEL (currently unused, kept theme-safe for future use)           */
@@ -1864,14 +1932,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexDirection: 'row',
     alignItems: 'center',
 
-    paddingHorizontal: 11,
-    paddingVertical: 7,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
 
-    borderRadius: 20,
+    borderRadius: 12,
 
     backgroundColor: withAlpha(theme.colors.text, 0.72),
 
-    gap: 6,
+    gap: 8,
   },
 
   heroLabelIcon: {
@@ -1887,7 +1955,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   heroLabelText: {
     color: theme.colors.surface,
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '800',
     letterSpacing: 0.8,
   },
@@ -1897,11 +1965,11 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   article: {
-    marginTop: -22,
+    marginTop: -24,
 
-    paddingTop: 25,
+    paddingTop: 24,
     paddingHorizontal: 20,
-    paddingBottom: 35,
+    paddingBottom: 36,
 
     borderTopLeftRadius: 28,
     borderTopRightRadius: 28,
@@ -1919,46 +1987,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexDirection: 'row',
     alignItems: 'center',
 
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
 
     borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
 
-    gap: 5,
+    gap: 4,
   },
 
-  badgeText: {
-    fontSize: 9.5,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.35,
-  },
 
   /* ------------------------------------------------------------------------ */
   /* TITLE                                                                   */
   /* ------------------------------------------------------------------------ */
 
   title: {
-    marginTop: 13,
+    marginTop: 12,
 
-    fontFamily: 'serif',
-    fontSize: 29,
-    lineHeight: 35,
 
-    color: theme.colors.text,
-    fontWeight: '700',
-    letterSpacing: -0.3,
   },
 
   subtitle: {
-    marginTop: 10,
+    marginTop: 12,
 
-    fontSize: 14,
-    lineHeight: 21,
 
-    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1966,19 +2019,19 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   metas: {
-    marginTop: 17,
+    marginTop: 16,
 
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
 
-    gap: 9,
+    gap: 8,
   },
 
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -1987,36 +2040,28 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 9.5,
-    color: theme.colors.textMuted,
-  },
 
   /* ------------------------------------------------------------------------ */
   /* INTRO CARD                                                              */
   /* ------------------------------------------------------------------------ */
 
   introCard: {
-    marginTop: 21,
+    marginTop: 20,
 
-    padding: 15,
+    padding: 16,
 
     flexDirection: 'row',
     alignItems: 'flex-start',
 
-    borderRadius: 17,
 
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
 
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   introIcon: {
     width: 41,
     height: 41,
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     alignItems: 'center',
     justifyContent: 'center',
@@ -2026,22 +2071,14 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   introCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  introTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   introText: {
     marginTop: 4,
 
-    fontSize: 11.5,
-    lineHeight: 17,
 
-    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -2049,18 +2086,14 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   contents: {
-    marginTop: 22,
+    marginTop: 24,
 
     paddingHorizontal: 16,
     paddingTop: 16,
-    paddingBottom: 5,
+    paddingBottom: 4,
 
-    borderRadius: 18,
 
-    backgroundColor: theme.colors.surfaceSecondary,
 
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   contentsHeader: {
@@ -2068,22 +2101,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'space-between',
 
-    marginBottom: 6,
+    marginBottom: 8,
   },
 
-  contentsEyebrow: {
-    fontSize: 8.5,
-    color: theme.colors.primary,
-    fontWeight: '900',
-    letterSpacing: 1,
-  },
 
   contentsTitle: {
     marginTop: 2,
 
-    fontSize: 16,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
 
   contentsCount: {
@@ -2098,11 +2122,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.surface,
   },
 
-  contentsCountText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   contentRow: {
     minHeight: 48,
@@ -2137,22 +2156,14 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     backgroundColor: theme.colors.surface,
 
-    marginRight: 10,
+    marginRight: 12,
   },
 
-  numberText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   contentText: {
     flex: 1,
 
-    fontSize: 12.2,
-    lineHeight: 17,
 
-    color: theme.colors.text,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -2160,7 +2171,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   sectionHeading: {
-    marginTop: 31,
+    marginTop: 32,
 
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -2170,7 +2181,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     width: 39,
     height: 39,
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     alignItems: 'center',
     justifyContent: 'center',
@@ -2178,38 +2189,19 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  sectionNumberText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '900',
-    letterSpacing: 0.3,
-  },
 
   sectionHeadingCopy: {
     flex: 1,
 
-    marginLeft: 11,
+    marginLeft: 12,
     paddingTop: 1,
   },
 
-  sectionKicker: {
-    fontSize: 8.5,
-
-    color: theme.colors.primary,
-    fontWeight: '900',
-
-    letterSpacing: 1,
-  },
 
   h2: {
     marginTop: 2,
 
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
 
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   /* ------------------------------------------------------------------------ */
@@ -2217,12 +2209,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   body: {
-    marginTop: 11,
+    marginTop: 12,
 
-    fontSize: 14,
-    lineHeight: 22,
 
-    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -2230,26 +2219,22 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   statCard: {
-    marginTop: 17,
+    marginTop: 16,
 
-    padding: 15,
+    padding: 16,
 
     flexDirection: 'row',
     alignItems: 'center',
 
-    borderRadius: 16,
 
-    backgroundColor: theme.colors.surfaceSecondary,
 
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   statIcon: {
     width: 45,
     height: 45,
 
-    borderRadius: 14,
+    borderRadius: 12,
 
     alignItems: 'center',
     justifyContent: 'center',
@@ -2262,19 +2247,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginLeft: 12,
   },
 
-  statTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   statText: {
     marginTop: 4,
 
-    fontSize: 11.5,
-    lineHeight: 17,
 
-    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -2282,29 +2259,24 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   signGrid: {
-    marginTop: 14,
+    marginTop: 16,
 
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
 
-    gap: 9,
+    gap: 8,
   },
 
   signCard: {
     width: '48.3%',
     minHeight: 158,
 
-    padding: 13,
+    padding: 12,
 
-    borderRadius: 16,
 
-    backgroundColor: theme.colors.surface,
 
-    borderWidth: 1,
-    borderColor: theme.colors.border,
 
-    ...theme.shadow,
   },
 
   signIcon: {
@@ -2320,20 +2292,14 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   signTitle: {
-    marginTop: 10,
+    marginTop: 12,
 
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
 
   signDescription: {
-    marginTop: 5,
+    marginTop: 4,
 
-    fontSize: 10.5,
-    lineHeight: 15.5,
 
-    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -2341,31 +2307,28 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   supportList: {
-    marginTop: 14,
-    gap: 9,
+    marginTop: 16,
+    gap: 8,
   },
 
   supportRow: {
     minHeight: 77,
 
-    padding: 11,
+    padding: 12,
 
     flexDirection: 'row',
     alignItems: 'center',
 
-    borderRadius: 16,
 
     backgroundColor: withAlpha(theme.colors.success, 0.12),
 
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   supportIcon: {
     width: 42,
     height: 42,
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     alignItems: 'center',
     justifyContent: 'center',
@@ -2375,22 +2338,14 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   supportCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  supportTitle: {
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   supportDescription: {
     marginTop: 3,
 
-    fontSize: 10.5,
-    lineHeight: 15,
 
-    color: theme.colors.textMuted,
   },
 
   supportNumber: {
@@ -2405,27 +2360,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.surface,
   },
 
-  supportNumberText: {
-    fontSize: 9,
-    color: theme.colors.success,
-    fontWeight: '900',
-  },
 
   /* ------------------------------------------------------------------------ */
   /* QUOTE                                                                    */
   /* ------------------------------------------------------------------------ */
 
   quoteCard: {
-    marginTop: 19,
+    marginTop: 20,
 
-    padding: 18,
+    padding: 20,
 
-    borderRadius: 18,
 
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
 
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   quoteIcon: {
@@ -2435,7 +2381,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 10,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.surface,
   },
@@ -2443,11 +2389,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   quoteText: {
     marginTop: 8,
 
-    fontFamily: 'serif',
-    fontSize: 16,
-    lineHeight: 23,
 
-    color: theme.colors.text,
     fontStyle: 'italic',
   },
 
@@ -2456,25 +2398,20 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   compareCard: {
-    marginTop: 15,
+    marginTop: 16,
 
-    padding: 15,
+    padding: 16,
 
-    borderRadius: 18,
 
-    backgroundColor: theme.colors.surface,
 
-    borderWidth: 1,
-    borderColor: theme.colors.border,
 
-    ...theme.shadow,
   },
 
   compareHeader: {
     flexDirection: 'row',
     alignItems: 'center',
 
-    marginBottom: 13,
+    marginBottom: 12,
   },
 
   compareHeaderIcon: {
@@ -2492,11 +2429,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   compareTitle: {
     flex: 1,
 
-    marginLeft: 10,
+    marginLeft: 12,
 
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
 
   compareItem: {
@@ -2533,28 +2467,20 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   compareCopy: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 12,
   },
 
-  compareItemTitle: {
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   compareItemText: {
     marginTop: 4,
 
-    fontSize: 10.8,
-    lineHeight: 16,
 
-    color: theme.colors.textMuted,
   },
 
   compareLine: {
     height: 1,
 
-    marginVertical: 14,
+    marginVertical: 16,
 
     backgroundColor: theme.colors.border,
   },
@@ -2564,16 +2490,13 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   attentionCard: {
-    marginTop: 15,
+    marginTop: 16,
 
-    padding: 15,
+    padding: 16,
 
-    borderRadius: 18,
 
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
 
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   attentionHeader: {
@@ -2587,7 +2510,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     width: 42,
     height: 42,
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     alignItems: 'center',
     justifyContent: 'center',
@@ -2597,27 +2520,20 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   attentionHeaderCopy: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 12,
   },
 
-  attentionTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   attentionSubtitle: {
     marginTop: 3,
 
-    fontSize: 10.5,
-    color: theme.colors.warning,
   },
 
   attentionRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
 
-    marginTop: 9,
+    marginTop: 8,
   },
 
   attentionBullet: {
@@ -2632,22 +2548,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.surface,
   },
 
-  attentionBulletText: {
-    fontSize: 9,
-    color: theme.colors.warning,
-    fontWeight: '900',
-  },
 
   attentionText: {
     flex: 1,
 
-    marginLeft: 9,
+    marginLeft: 8,
     paddingTop: 2,
 
-    fontSize: 11.5,
-    lineHeight: 17,
 
-    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -2657,24 +2565,20 @@ function createStyles(theme: ResolvedAwaTheme) {
   professionalCard: {
     marginTop: 16,
 
-    padding: 15,
+    padding: 16,
 
     flexDirection: 'row',
     alignItems: 'flex-start',
 
-    borderRadius: 18,
 
-    backgroundColor: theme.colors.surfaceSecondary,
 
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   professionalIcon: {
     width: 43,
     height: 43,
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     alignItems: 'center',
     justifyContent: 'center',
@@ -2684,22 +2588,14 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   professionalCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  professionalTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   professionalText: {
-    marginTop: 5,
+    marginTop: 4,
 
-    fontSize: 11,
-    lineHeight: 16.5,
 
-    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -2707,19 +2603,15 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   tip: {
-    marginTop: 17,
+    marginTop: 16,
 
-    padding: 15,
+    padding: 16,
 
     flexDirection: 'row',
     alignItems: 'flex-start',
 
-    borderRadius: 18,
 
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
 
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   tipIcon: {
@@ -2736,22 +2628,14 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
-    marginTop: 5,
+    marginTop: 4,
 
-    fontSize: 11.5,
-    lineHeight: 17,
 
-    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -2759,23 +2643,20 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   takeawayList: {
-    marginTop: 14,
+    marginTop: 16,
 
-    padding: 15,
+    padding: 16,
 
-    borderRadius: 18,
 
     backgroundColor: withAlpha(theme.colors.success, 0.12),
 
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   takeawayRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
 
-    marginBottom: 13,
+    marginBottom: 12,
   },
 
   takeawayRowLast: {
@@ -2797,13 +2678,10 @@ function createStyles(theme: ResolvedAwaTheme) {
   takeawayText: {
     flex: 1,
 
-    marginLeft: 9,
+    marginLeft: 8,
     paddingTop: 3,
 
-    fontSize: 11.5,
-    lineHeight: 17,
 
-    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -2813,14 +2691,12 @@ function createStyles(theme: ResolvedAwaTheme) {
   disclaimer: {
     marginTop: 20,
 
-    padding: 13,
+    padding: 12,
 
     flexDirection: 'row',
     alignItems: 'flex-start',
 
-    borderRadius: 14,
 
-    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   disclaimerText: {
@@ -2828,10 +2704,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginLeft: 8,
 
-    fontSize: 10,
-    lineHeight: 15,
 
-    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -2839,7 +2712,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   endMark: {
-    marginTop: 29,
+    marginTop: 28,
 
     flexDirection: 'row',
     alignItems: 'center',
@@ -2857,7 +2730,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     width: 35,
     height: 35,
 
-    marginHorizontal: 10,
+    marginHorizontal: 12,
 
     borderRadius: 18,
 
@@ -2868,15 +2741,11 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   endText: {
-    marginTop: 10,
+    marginTop: 12,
 
     textAlign: 'center',
 
-    fontFamily: 'serif',
-    fontSize: 14,
-    lineHeight: 20,
 
-    color: theme.colors.textMuted,
     fontStyle: 'italic',
   },
   });

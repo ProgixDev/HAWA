@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -723,6 +724,106 @@ const CONTENT = {
       disclaimerText: '本文仅供参考，不能替代个性化的医疗建议。',
       shareMessage: '选择适合你的避孕方式 — AWA',
     },
+  id: {
+    badge: 'MEMILIH METODE',
+    title: 'Memilih metode\nyang cocok untukmu',
+    metaDuration: '7 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Menengah',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Pertanyaan-pertanyaan yang tepat untuk membantumu menemukan metode kontrasepsi yang sesuai dengan keseharian, kebutuhan, dan rencanamu.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Pertanyaan untuk dirimu sendiri',
+      'Tidak ada metode yang “terbaik” secara mutlak',
+      'Kriteria yang bisa menentukan',
+      'Mendiskusikannya dengan tenaga profesional',
+      'Poin penting',
+    ],
+    section1Body: 'Tidak ada satu metode kontrasepsi ideal yang cocok untuk semua orang. Sebelum memilih metode, ada baiknya kamu memikirkan kebiasaan, preferensi, toleransi, dan rencanamu.',
+    questions: [
+      'Bagaimana tubuhku bereaksi terhadap hormon?',
+      'Apakah aku butuh tindakan harian atau mingguan, atau solusi jangka panjang?',
+      'Apakah aku punya rencana kehamilan dalam waktu menengah?',
+      'Berapa anggaranku, dan seberapa mudah metode kontrasepsi ini diakses?',
+    ],
+    section2Body: 'Dua orang bisa memilih metode yang berbeda dan keduanya sama-sama membuat pilihan yang sangat cocok dengan situasinya. Pilihan yang tepat bergantung terutama pada cara kamu ingin menggunakan kontrasepsi dan apa yang kamu cari.',
+    highlightTitle: 'Hal kunci yang perlu diingat',
+    highlightText: 'Metode yang tampak menarik di atas kertas belum tentu yang paling sederhana atau paling nyaman untukmu dalam keseharian.',
+    section3Body: 'Untuk membandingkan beberapa pilihan, kamu bisa melihat berbagai kriteria. Tujuannya bukan menghafal semuanya, melainkan mengenali apa yang benar-benar penting bagimu.',
+    priorities: [
+      {
+        title: 'Kemudahan',
+        text: 'Sebagian metode memerlukan tindakan setiap hari, sementara yang lain hanya perlu perhatian mingguan, atau jauh lebih jarang.',
+      },
+      {
+        title: 'Toleransi',
+        text: 'Efek yang kamu rasakan bisa berbeda dari satu orang ke orang lain. Penting untuk memperhatikan reaksi tubuhmu dan membicarakannya jika ada yang mengganggu.',
+      },
+      {
+        title: 'Rencana kehamilan',
+        text: 'Jika kamu berharap segera hamil, lama pemakaian dan kembalinya kesuburan setelah berhenti bisa menjadi bagian dari hal yang kamu diskusikan.',
+      },
+      {
+        title: 'Efektivitas',
+        text: 'Efektivitas tidak hanya bergantung pada metode yang dipilih, tetapi juga pada pemakaian yang benar dan konsisten.',
+      },
+    ],
+    rhythmTitle: 'Seberapa sering perlu digunakan',
+    rhythmBody: 'Salah satu perbedaan penting antarmetode adalah seberapa sering kamu perlu memikirkan kontrasepsimu.',
+    comparison: [
+      {
+        title: 'Pil',
+        detail: 'Tindakan harian',
+      },
+      {
+        title: 'Koyo',
+        detail: 'Diganti setiap minggu',
+      },
+      {
+        title: 'Cincin vagina',
+        detail: 'Siklus beberapa minggu',
+      },
+      {
+        title: 'Implan',
+        detail: 'Solusi jangka panjang',
+      },
+      {
+        title: 'AKDR hormonal',
+        detail: 'Solusi jangka panjang',
+      },
+    ],
+    bodyReactionTitle: 'Memperhatikan reaksi tubuhmu',
+    bodyReactionText: 'Metode hormonal bisa terasa berbeda dari satu orang ke orang lain. Sebagian merasakan perubahan pada siklus, perdarahan, atau efek samping lainnya. Reaksi ini tidak otomatis berarti metode tersebut tidak cocok untukmu, tetapi layak diperhatikan.',
+    alertTitle: 'Perlu diwaspadai',
+    alertText: 'Jika suatu efek terasa berat, menetap, atau tidak biasa, jangan menghadapi pertanyaanmu sendirian. Dokter, bidan, atau tenaga kesehatan lain dapat membantumu menentukan apakah metode itu dilanjutkan, disesuaikan, atau diganti.',
+    projectsTitle: 'Mempertimbangkan rencanamu',
+    projectsBody: 'Rencana kehamilanmu juga dapat memengaruhi pilihanmu. Jika kamu ingin menghindari kehamilan selama beberapa tahun, metode jangka panjang mungkin layak dipertimbangkan. Jika kamu memikirkan kehamilan dalam waktu dekat, pilihan lain mungkin lebih sesuai dengan jadwalmu.',
+    keepInMindTitle: 'Perlu diingat',
+    keepInMindText: 'Membicarakan rencana kehamilanmu, meskipun masih jauh atau belum pasti, membantu tenaga kesehatan mengarahkan diskusi dengan lebih baik.',
+    section4Body: 'Janji temu memungkinkan kamu menimbang manfaat, kendala, dan kemungkinan kontraindikasi dari setiap metode. Kamu bisa menyiapkan beberapa pertanyaan sebelumnya agar tidak ada hal penting yang terlupa.',
+    questionCardTitle: 'Pertanyaan yang berguna untuk diajukan',
+    professionalQuestions: [
+      'Apa manfaat metode ini untukku?',
+      'Efek samping apa yang mungkin kualami?',
+      'Bagaimana cara menggunakannya dengan benar?',
+      'Apa yang harus kulakukan jika aku lupa, jika posisinya bergeser, atau jika aku ingin menghentikannya?',
+      'Apakah metode ini sesuai dengan rencana kehamilanku?',
+    ],
+    professionalTipTitle: 'Perlu diketahui',
+    professionalTipText: 'Bidan atau dokter dapat mempertimbangkan riwayat medis, pengobatan, preferensi, dan gaya hidupmu sebelum menyarankan suatu metode.',
+    summaryTitle: 'Intinya',
+    summaryItems: [
+      'Pilih metode yang sesuai dengan keseharianmu.',
+      'Pertimbangkan toleransi dan preferensimu.',
+      'Pikirkan rencana kehamilan dan jadwalmu.',
+      'Minta saran tenaga profesional jika kamu ragu.',
+    ],
+    finalTipTitle: 'Ingat',
+    finalTipText: 'Metode terbaik belum tentu yang tampak paling praktis atau paling populer. Metode terbaik adalah yang sesuai dengan situasi, kebutuhan, dan preferensimu, setelah berdiskusi dengan tenaga kesehatan secara terinformasi.',
+    disclaimerText: 'Artikel ini hanya untuk tujuan informasi dan tidak menggantikan saran medis yang dipersonalisasi.',
+    shareMessage: 'Memilih metode yang cocok untukmu — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -805,58 +906,40 @@ export default function ChooseHormonalMethodArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>{content.title}</Text>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>{content.title}</AwaText>
 
           <View style={styles.metas}>
             {[
@@ -875,22 +958,22 @@ export default function ChooseHormonalMethodArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>{content.intro}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.intro}>{content.intro}</AwaText>
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -900,13 +983,13 @@ export default function ChooseHormonalMethodArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>{content.section1Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section1Body}</AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.questions.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -915,16 +998,16 @@ export default function ChooseHormonalMethodArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>{content.section2Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section2Body}</AwaText>
 
-          <View style={styles.highlight}>
+          <AwaCard variant="filled" padding="none" style={styles.highlight}>
             <MaterialDesignIcons
               name="information-outline"
               size={23}
@@ -932,19 +1015,19 @@ export default function ChooseHormonalMethodArticleScreen({
             />
 
             <View style={styles.highlightCopy}>
-              <Text style={styles.highlightTitle}>{content.highlightTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.highlightTitle}</AwaText>
 
-              <Text style={styles.highlightText}>{content.highlightText}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.highlightText}>{content.highlightText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.body}>{content.section3Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section3Body}</AwaText>
 
           <View style={styles.priorityList}>
             {priorities.map(item => (
-              <View key={item.title} style={styles.priorityCard}>
+              <AwaCard variant="filled" padding="none" key={item.title} style={styles.priorityCard}>
                 <View style={styles.priorityIcon}>
                   <MaterialDesignIcons
                     name={item.icon as never}
@@ -954,19 +1037,19 @@ export default function ChooseHormonalMethodArticleScreen({
                 </View>
 
                 <View style={styles.priorityCopy}>
-                  <Text style={styles.priorityTitle}>{item.title}</Text>
+                  <AwaText variant="titleSmall" emphasized>{item.title}</AwaText>
 
-                  <Text style={styles.priorityText}>{item.text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.priorityText}>{item.text}</AwaText>
                 </View>
-              </View>
+              </AwaCard>
             ))}
           </View>
 
-          <Text style={styles.h3}>{content.rhythmTitle}</Text>
+          <AwaText variant="titleMedium" emphasized style={styles.h3}>{content.rhythmTitle}</AwaText>
 
-          <Text style={styles.body}>{content.rhythmBody}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.rhythmBody}</AwaText>
 
-          <View style={styles.comparison}>
+          <AwaCard variant="filled" padding="none" style={styles.comparison}>
             {comparison.map((item, index) => (
               <View
                 key={item.title}
@@ -984,8 +1067,8 @@ export default function ChooseHormonalMethodArticleScreen({
                 </View>
 
                 <View style={styles.comparisonCopy}>
-                  <Text style={styles.comparisonTitle}>{item.title}</Text>
-                  <Text style={styles.comparisonDetail}>{item.detail}</Text>
+                  <AwaText variant="titleSmall" emphasized>{item.title}</AwaText>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.comparisonDetail}>{item.detail}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -995,13 +1078,13 @@ export default function ChooseHormonalMethodArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h3}>{content.bodyReactionTitle}</Text>
+          <AwaText variant="titleMedium" emphasized style={styles.h3}>{content.bodyReactionTitle}</AwaText>
 
-          <Text style={styles.body}>{content.bodyReactionText}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.bodyReactionText}</AwaText>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-circle-outline"
               size={24}
@@ -1009,17 +1092,17 @@ export default function ChooseHormonalMethodArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.alertTitle}</AwaText>
 
-              <Text style={styles.tipText}>{content.alertText}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.alertText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h3}>{content.projectsTitle}</Text>
+          <AwaText variant="titleMedium" emphasized style={styles.h3}>{content.projectsTitle}</AwaText>
 
-          <Text style={styles.body}>{content.projectsBody}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.projectsBody}</AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="calendar-heart"
               size={24}
@@ -1027,17 +1110,17 @@ export default function ChooseHormonalMethodArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.keepInMindTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.keepInMindTitle}</AwaText>
 
-              <Text style={styles.tipText}>{content.keepInMindText}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.keepInMindText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <Text style={styles.body}>{content.section4Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section4Body}</AwaText>
 
-          <View style={styles.questionCard}>
+          <AwaCard variant="filled" padding="none" style={styles.questionCard}>
             <View style={styles.questionHeader}>
               <MaterialDesignIcons
                 name="message-question-outline"
@@ -1045,23 +1128,23 @@ export default function ChooseHormonalMethodArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.questionTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.questionCardTitle}
-              </Text>
+              </AwaText>
             </View>
 
             {content.professionalQuestions.map((item, index) => (
               <View key={item} style={styles.questionRow}>
                 <View style={styles.questionBullet}>
-                  <Text style={styles.questionNumber}>{index + 1}</Text>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary">{index + 1}</AwaText>
                 </View>
 
-                <Text style={styles.questionText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.questionText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.professionalTip}>
+          <AwaCard variant="filled" padding="none" style={styles.professionalTip}>
             <MaterialDesignIcons
               name="doctor"
               size={25}
@@ -1069,15 +1152,15 @@ export default function ChooseHormonalMethodArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.professionalTipTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.professionalTipTitle}</AwaText>
 
-              <Text style={styles.tipText}>{content.professionalTipText}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.professionalTipText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>5. {content.topics[4]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>5. {content.topics[4]}</AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
               <MaterialDesignIcons
                 name="check-decagram-outline"
@@ -1085,7 +1168,7 @@ export default function ChooseHormonalMethodArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.summaryTitle}>{content.summaryTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.summaryTitle}</AwaText>
             </View>
 
             {content.summaryItems.map(item => (
@@ -1096,12 +1179,12 @@ export default function ChooseHormonalMethodArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.summaryText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.finalTip}>
+          <AwaCard variant="filled" padding="none" style={styles.finalTip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={25}
@@ -1109,11 +1192,11 @@ export default function ChooseHormonalMethodArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.finalTipTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.finalTipTitle}</AwaText>
 
-              <Text style={styles.tipText}>{content.finalTipText}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.finalTipText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           <View style={styles.disclaimer}>
             <MaterialDesignIcons
@@ -1122,7 +1205,7 @@ export default function ChooseHormonalMethodArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>{content.disclaimerText}</Text>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>{content.disclaimerText}</AwaText>
           </View>
         </View>
       </ScrollView>
@@ -1144,7 +1227,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   heroWrap: {
@@ -1172,54 +1255,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -1229,7 +1289,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -1238,31 +1298,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 10,
-    color: theme.colors.textMuted,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '500',
+    marginTop: 16,
   },
 
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -1280,107 +1327,66 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 24,
-    color: theme.colors.primary,
-    fontSize: 12,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.5,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   h2: {
-    marginTop: 27,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 28,
   },
 
   h3: {
-    marginTop: 22,
-    fontSize: 16,
-    lineHeight: 22,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginTop: 24,
   },
 
   body: {
     marginTop: 8,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
   },
 
   checkList: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
 
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 10,
+    marginBottom: 12,
   },
 
   checkText: {
     flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 12.5,
-    lineHeight: 18,
   },
 
   highlight: {
     marginTop: 16,
-    padding: 15,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   highlightCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  highlightTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   highlightText: {
     marginTop: 4,
-    fontSize: 12,
-    lineHeight: 18,
-    color: theme.colors.textSecondary,
   },
 
   priorityList: {
-    marginTop: 14,
-    gap: 10,
+    marginTop: 16,
+    gap: 12,
   },
 
   priorityCard: {
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   priorityIcon: {
@@ -1394,34 +1400,22 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   priorityCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  priorityTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   priorityText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   comparison: {
-    marginTop: 14,
+    marginTop: 16,
     overflow: 'hidden',
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   comparisonRow: {
     minHeight: 61,
-    paddingHorizontal: 13,
+    paddingHorizontal: 12,
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,
@@ -1443,87 +1437,56 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   comparisonCopy: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 12,
   },
 
-  comparisonTitle: {
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   comparisonDetail: {
     marginTop: 2,
-    fontSize: 11,
-    color: theme.colors.textMuted,
   },
 
   alert: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   questionCard: {
-    marginTop: 15,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   questionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
-    marginBottom: 13,
+    gap: 8,
+    marginBottom: 12,
   },
 
-  questionTitle: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   questionRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 11,
+    marginBottom: 12,
   },
 
   questionBullet: {
@@ -1535,80 +1498,54 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  questionNumber: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   questionText: {
     flex: 1,
-    marginLeft: 9,
+    marginLeft: 8,
     paddingTop: 2,
-    fontSize: 12,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   professionalTip: {
-    marginTop: 14,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   summaryCard: {
-    marginTop: 15,
+    marginTop: 16,
     padding: 16,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   summaryHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
-    marginBottom: 13,
+    gap: 8,
+    marginBottom: 12,
   },
 
-  summaryTitle: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   summaryItem: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 10,
+    marginBottom: 12,
     gap: 8,
   },
 
   summaryText: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 18,
-    color: theme.colors.textSecondary,
   },
 
   finalTip: {
-    marginTop: 15,
-    padding: 15,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   disclaimer: {
     marginTop: 20,
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
@@ -1616,9 +1553,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   disclaimerText: {
     flex: 1,
-    fontSize: 10.5,
-    lineHeight: 16,
-    color: theme.colors.textMuted,
   },
   });
 }

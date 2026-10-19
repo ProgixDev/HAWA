@@ -1,23 +1,25 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
   NativeScrollEvent,
   NativeSyntheticEvent,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {
   isArticleBookmarked,
@@ -32,15 +34,6 @@ import {
 } from '../../theme/spacing';
 
 const ARTICLE_ID = 'cycle-comprendre-ton-cycle';
-
-const INK = '#282238';
-const INK_SOFT = '#4A4357';
-const PURPLE = '#5B43A5';
-const BORDER = '#E8E4EC';
-const SURFACE = '#FFFFFF';
-const BACKGROUND = '#FAF9FB';
-const MUTED = '#756F7E';
-const PINK = '#C96F83';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
@@ -219,13 +212,54 @@ const CONTENT = {
     wellTitle: '健康小建议',
     wellText: '倾听身体的声音，留意自己的感受，并记下日常的变化。',
   },
+  id: {
+    shareTitle: 'Memahami siklus menstruasimu',
+    shareMessage: 'Memahami siklus menstruasimu · AWA',
+    pill: 'Memahami siklus',
+    title: 'Memahami siklus menstruasimu',
+    duration: 'Baca 6 menit',
+    type: 'Panduan',
+    level: 'Pemula',
+    validated: 'Konten tervalidasi',
+    summary: 'Tahapan utama siklusmu, dijelaskan dengan sederhana.',
+    stats: [
+      {title: 'Durasi rata-rata', text: '28 hari'},
+      {title: 'Durasi normal', text: '21 sampai 35 hari'},
+      {title: '4 fase utama', text: 'dalam siklusmu'},
+      {title: 'Setiap siklus', text: 'itu unik'},
+    ],
+    phasesEyebrow: 'FASE SIKLUS',
+    phasesTitle: '4 fase utama',
+    phasesIntro: 'Setiap fase punya peran penting di tubuhmu dan bisa memengaruhi energi, suasana hati, serta gejala yang kamu rasakan.',
+    phases: [
+      {title: 'Haid', days: 'Hari 1 sampai 5', text: 'Tubuhmu meluruhkan lapisan dinding rahim.'},
+      {title: 'Fase folikuler', days: 'Hari 6 sampai 13', text: 'Tubuhmu bersiap untuk ovulasi.'},
+      {title: 'Ovulasi', days: 'Sekitar hari ke-14', text: 'Sel telur dilepaskan. Ini adalah masa paling subur.'},
+      {title: 'Fase luteal', days: 'Hari 15 sampai 28', text: 'Tubuhmu bersiap untuk kemungkinan kehamilan.'},
+    ],
+    knowTitle: 'Perlu diketahui',
+    knowText: 'Siklusmu bisa berbeda dari bulan ke bulan. Stres, tidur, pola makan, atau penyakit dapat memengaruhi lama dan ritmenya.',
+    reasonsEyebrow: 'MENGAPA PERLU DICATAT',
+    reasonsTitle: 'Memahami siklusmu lebih baik',
+    reasons: [
+      'Lebih memahami tubuhmu',
+      'Menyesuaikan energimu',
+      'Mengantisipasi suasana hatimu',
+      'Menjaga kesehatanmu',
+      'Mencatat siklusmu dengan mudah',
+    ],
+    wellTitle: 'Saran kesehatan',
+    wellText: 'Dengarkan tubuhmu, perhatikan apa yang kamu rasakan, dan catat perubahan dari hari ke hari.',
+  },
 } as const;
 
 function UnderstandCycleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const content = CONTENT[i18n.language === 'ru' ? 'ru' : i18n.language === 'de' ? 'de' : i18n.language === 'zh' ? 'zh' : 'fr'];
+  const content = CONTENT[i18n.language === 'ru' ? 'ru' : i18n.language === 'de' ? 'de' : i18n.language === 'zh' ? 'zh' : i18n.language === 'id' ? 'id' : 'fr'];
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const scrollRef = useRef<ScrollView>(null);
 
@@ -258,7 +292,7 @@ function UnderstandCycleArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -277,87 +311,62 @@ function UnderstandCycleArticleScreen({
           },
         ]}>
         <View style={styles.header}>
-          <Pressable
-            onPress={navigation.goBack}
-            accessibilityRole="button"
+          <AwaIconButton
             accessibilityLabel={t('library.reader.back')}
-            style={({pressed}) => [
-              styles.circle,
-              pressed && styles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              name="chevron-left"
-              size={25}
-              color={INK}
-            />
-          </Pressable>
+            icon="chevron-left"
+            iconSize={25}
+            onPress={navigation.goBack}
+            variant="tonal"
+          />
 
           <View style={styles.actions}>
-            <Pressable
+            <AwaIconButton
+              accessibilityLabel={t('libraryArticle.bookmarkA11y')}
+              icon={
+                  bookmarked
+                    ? 'bookmark'
+                    : 'bookmark-outline'
+                }
+              iconSize={19}
               onPress={() =>
                 setBookmarked(
                   toggleBookmark(ARTICLE_ID),
                 )
               }
-              accessibilityRole="button"
-              accessibilityLabel={t('libraryArticle.bookmarkA11y')}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name={
-                  bookmarked
-                    ? 'bookmark'
-                    : 'bookmark-outline'
-                }
-                size={19}
-                color={PURPLE}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
-            <Pressable
+            <AwaIconButton
+              accessibilityLabel={t('libraryArticle.shareA11y')}
+              icon="share-variant-outline"
+              iconSize={19}
               onPress={() =>
                 Share.share({
                   title: content.shareTitle,
                   message: content.shareMessage,
                 })
               }
-              accessibilityRole="button"
-              accessibilityLabel={t('libraryArticle.shareA11y')}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="share-variant-outline"
-                size={19}
-                color={PURPLE}
-              />
-            </Pressable>
+              variant="tonal"
+            />
           </View>
         </View>
 
-        <LinearGradient
-          colors={['#F7F3FB', '#F5EFFA', '#F2EBF9']}
-          start={{x: 0, y: 0.55}}
-          end={{x: 1, y: 0.45}}
-          style={styles.hero}>
+        <AwaCard variant="filled" padding="none" style={styles.hero}>
           <View style={styles.heroCopy}>
             <View style={styles.pill}>
               <MaterialDesignIcons
                 name="feather"
                 size={12}
-                color={PURPLE}
+                color={theme.colors.primary}
               />
-              <Text style={styles.pillText}>
+              <AwaText variant="labelSmall" colorRole="primary">
                 {content.pill}
-              </Text>
+              </AwaText>
             </View>
 
-            <Text style={styles.title}>
+            <AwaText variant="titleMedium" style={styles.title}>
               {content.title}
-            </Text>
+            </AwaText>
 
             <View style={styles.metaContainer}>
               <View style={styles.metaTopRow}>
@@ -365,11 +374,11 @@ function UnderstandCycleArticleScreen({
                   <MaterialDesignIcons
                     name="clock-outline"
                     size={14}
-                    color={MUTED}
+                    color={theme.colors.textMuted}
                   />
-                  <Text style={styles.metaText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                     {content.duration}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <View style={styles.metaDivider} />
@@ -378,11 +387,11 @@ function UnderstandCycleArticleScreen({
                   <MaterialDesignIcons
                     name="book-open-page-variant-outline"
                     size={14}
-                    color={MUTED}
+                    color={theme.colors.textMuted}
                   />
-                  <Text style={styles.metaText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                     {content.type}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <View style={styles.metaDivider} />
@@ -391,11 +400,11 @@ function UnderstandCycleArticleScreen({
                   <MaterialDesignIcons
                     name="chart-bar"
                     size={14}
-                    color={MUTED}
+                    color={theme.colors.textMuted}
                   />
-                  <Text style={styles.metaText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                     {content.level}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
 
@@ -403,17 +412,17 @@ function UnderstandCycleArticleScreen({
                 <MaterialDesignIcons
                   name="shield-check-outline"
                   size={14}
-                  color={MUTED}
+                  color={theme.colors.textMuted}
                 />
-                <Text style={styles.metaText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                   {content.validated}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
-            <Text style={styles.summary}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summary}>
               {content.summary}
-            </Text>
+            </AwaText>
           </View>
 
           <View style={styles.heroImageWrap}>
@@ -423,9 +432,9 @@ function UnderstandCycleArticleScreen({
               style={styles.heroImage}
             />
           </View>
-        </LinearGradient>
+        </AwaCard>
 
-        <View style={styles.statsCard}>
+        <AwaCard variant="filled" padding="none" style={styles.statsCard}>
           {content.stats.map((item, index) => (
             <View
               key={STAT_ICONS[index]}
@@ -437,31 +446,31 @@ function UnderstandCycleArticleScreen({
               <MaterialDesignIcons
                 name={STAT_ICONS[index]}
                 size={20}
-                color={PURPLE}
+                color={theme.colors.primary}
               />
-              <Text style={styles.statTitle}>
+              <AwaText variant="labelSmall" style={styles.statTitle}>
                 {item.title}
-              </Text>
-              <Text style={styles.statText}>
+              </AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.statText}>
                 {item.text}
-              </Text>
+              </AwaText>
             </View>
           ))}
-        </View>
+        </AwaCard>
 
-        <View style={styles.sectionCard}>
+        <AwaCard variant="filled" padding="none" style={styles.sectionCard}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionEyebrow}>
+            <AwaText variant="labelSmall" colorRole="onSurfaceVariant">
               {content.phasesEyebrow}
-            </Text>
-            <Text style={styles.sectionTitle}>
+            </AwaText>
+            <AwaText variant="titleMedium" emphasized style={styles.sectionTitle}>
               {content.phasesTitle}
-            </Text>
+            </AwaText>
           </View>
 
-          <Text style={styles.sectionIntro}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
             {content.phasesIntro}
-          </Text>
+          </AwaText>
 
           <View style={styles.phaseList}>
             {content.phases.map((phaseCopy, index) => {
@@ -475,9 +484,9 @@ function UnderstandCycleArticleScreen({
                     styles.phaseDivider,
                 ]}>
                 <View style={styles.phaseNumberBox}>
-                  <Text style={styles.phaseNumber}>
+                  <AwaText variant="labelSmall" emphasized colorRole="onSurfaceVariant">
                     {phase.number}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <View style={styles.phaseCopy}>
@@ -487,47 +496,45 @@ function UnderstandCycleArticleScreen({
                       size={17}
                       color={phase.color}
                     />
-                    <Text
+                    <AwaText variant="titleSmall" emphasized
                       style={[
                         styles.phaseTitle,
                         {color: phase.color},
                       ]}>
                       {phase.title}
-                    </Text>
+                    </AwaText>
                   </View>
 
-                  <Text style={styles.phaseDays}>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.phaseDays}>
                     {phase.days}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.phaseText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.phaseText}>
                     {phase.text}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
               );
             })}
           </View>
-        </View>
+        </AwaCard>
 
-        <LinearGradient
-          colors={['#F3F0F8', '#FAF8FC']}
-          style={styles.knowCard}>
+        <AwaCard variant="filled" padding="none" style={styles.knowCard}>
           <View style={styles.knowIcon}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={19}
-              color={PURPLE}
+              color={theme.colors.primary}
             />
           </View>
 
           <View style={styles.knowCopy}>
-            <Text style={styles.knowTitle}>
+            <AwaText variant="titleSmall" emphasized>
               {content.knowTitle}
-            </Text>
-            <Text style={styles.knowText}>
+            </AwaText>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.knowText}>
               {content.knowText}
-            </Text>
+            </AwaText>
           </View>
 
           <Image
@@ -535,16 +542,16 @@ function UnderstandCycleArticleScreen({
             resizeMode="cover"
             style={styles.journalImage}
           />
-        </LinearGradient>
+        </AwaCard>
 
-        <View style={styles.sectionCard}>
+        <AwaCard variant="filled" padding="none" style={styles.sectionCard}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionEyebrow}>
+            <AwaText variant="labelSmall" colorRole="onSurfaceVariant">
               {content.reasonsEyebrow}
-            </Text>
-            <Text style={styles.sectionTitle}>
+            </AwaText>
+            <AwaText variant="titleMedium" emphasized style={styles.sectionTitle}>
               {content.reasonsTitle}
-            </Text>
+            </AwaText>
           </View>
 
           <View style={styles.reasonsList}>
@@ -559,36 +566,34 @@ function UnderstandCycleArticleScreen({
                 <MaterialDesignIcons
                   name={REASON_ICONS[index]}
                   size={18}
-                  color={PURPLE}
+                  color={theme.colors.primary}
                 />
-                <Text style={styles.reasonText}>
+                <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.reasonText}>
                   {label}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </View>
-        </View>
+        </AwaCard>
 
-        <LinearGradient
-          colors={['#F8F4F5', '#FCFAFA']}
-          style={styles.wellbeing}>
+        <AwaCard variant="filled" padding="none" style={styles.wellbeing}>
           <View style={styles.wellIcon}>
             <MaterialDesignIcons
               name="heart-outline"
               size={19}
-              color={PINK}
+              color={theme.colors.secondary}
             />
           </View>
 
           <View style={styles.wellCopy}>
-            <Text style={styles.wellTitle}>
+            <AwaText variant="titleSmall" emphasized>
               {content.wellTitle}
-            </Text>
-            <Text style={styles.wellText}>
+            </AwaText>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.wellText}>
               {content.wellText}
-            </Text>
+            </AwaText>
           </View>
-        </LinearGradient>
+        </AwaCard>
       </ScrollView>
 
       <ReadingControls
@@ -600,22 +605,15 @@ function UnderstandCycleArticleScreen({
   );
 }
 
-const shadow = {
-  shadowColor: '#211B2A',
-  shadowOffset: {width: 0, height: 3},
-  shadowOpacity: 0.05,
-  shadowRadius: 8,
-  elevation: 2,
-};
-
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: BACKGROUND,
+    backgroundColor: theme.colors.background,
   },
 
   content: {
-    paddingHorizontal: 18,
+    paddingHorizontal: 20,
   },
 
   header: {
@@ -630,73 +628,45 @@ const styles = StyleSheet.create({
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: SURFACE,
-    borderWidth: 1,
-    borderColor: BORDER,
-  },
 
-  pressed: {
-    opacity: 0.72,
-    transform: [{scale: 0.98}],
-  },
 
   hero: {
     minHeight: 232,
     marginTop: 16,
     flexDirection: 'row',
     overflow: 'hidden',
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: '#EBE2F4',
     paddingLeft: 16,
     paddingVertical: 16,
-    ...shadow,
   },
 
   heroCopy: {
     width: '65%',
     zIndex: 2,
     paddingTop: 0,
-    paddingRight: 7,
+    paddingRight: 8,
   },
 
   pill: {
     alignSelf: 'flex-start',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: 8,
     borderWidth: 1,
-    borderColor: 'rgba(91,67,165,0.20)',
-    borderRadius: 10,
-    backgroundColor: 'rgba(255,255,255,0.58)',
-    paddingHorizontal: 9,
-    paddingVertical: 5,
+    borderColor: theme.colors.border,
+    borderRadius: 12,
+    backgroundColor: theme.colors.primarySoft,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
   },
 
-  pillText: {
-    color: PURPLE,
-    fontSize: 10.5,
-    fontWeight: '700',
-  },
 
   title: {
-    marginTop: 10,
+    marginTop: 12,
     maxWidth: '100%',
-    color: INK,
-    fontFamily: 'serif',
-    fontSize: 17,
-    lineHeight: 21.5,
-    fontWeight: '700',
   },
 
   metaContainer: {
-    marginTop: 11,
+    marginTop: 12,
     alignItems: 'flex-start',
   },
 
@@ -715,8 +685,8 @@ const styles = StyleSheet.create({
   metaDivider: {
     width: 1,
     height: 18,
-    marginHorizontal: 6,
-    backgroundColor: '#D8D2DC',
+    marginHorizontal: 8,
+    backgroundColor: theme.colors.border,
   },
 
   metaValidatedRow: {
@@ -726,17 +696,9 @@ const styles = StyleSheet.create({
     gap: 4,
   },
 
-  metaText: {
-    color: MUTED,
-    fontSize: 9.2,
-    lineHeight: 12,
-  },
 
   summary: {
-    marginTop: 11,
-    color: INK_SOFT,
-    fontSize: 10.8,
-    lineHeight: 15.5,
+    marginTop: 12,
   },
 
   heroImageWrap: {
@@ -746,8 +708,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '38%',
     overflow: 'hidden',
-    borderTopRightRadius: 20,
-    borderBottomRightRadius: 20,
+    borderTopRightRadius: 28,
+    borderBottomRightRadius: 12,
     backgroundColor: 'transparent',
   },
 
@@ -758,94 +720,62 @@ const styles = StyleSheet.create({
 
   statsCard: {
     flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: BORDER,
-    borderRadius: 16,
-    backgroundColor: SURFACE,
     paddingVertical: 12,
-    ...shadow,
   },
 
   stat: {
     flex: 1,
     minWidth: 0,
     alignItems: 'center',
-    paddingHorizontal: 6,
+    paddingHorizontal: 8,
   },
 
   statBorder: {
     borderRightWidth: StyleSheet.hairlineWidth,
-    borderRightColor: BORDER,
+    borderRightColor: theme.colors.border,
   },
 
   statTitle: {
-    marginTop: 7,
-    color: INK,
-    fontSize: 8.5,
-    lineHeight: 11,
-    fontWeight: '700',
+    marginTop: 8,
     textAlign: 'center',
   },
 
   statText: {
     marginTop: 3,
-    color: MUTED,
-    fontSize: 9,
-    lineHeight: 12,
     textAlign: 'center',
   },
 
   sectionCard: {
-    marginTop: 14,
-    borderWidth: 1,
-    borderColor: BORDER,
-    borderRadius: 16,
-    backgroundColor: SURFACE,
-    padding: 14,
-    ...shadow,
+    marginTop: 16,
+    padding: 16,
   },
 
   sectionHeader: {
     marginBottom: 8,
   },
 
-  sectionEyebrow: {
-    color: MUTED,
-    fontSize: 9.5,
-    letterSpacing: 1.1,
-    fontWeight: '700',
-  },
 
   sectionTitle: {
     marginTop: 4,
-    color: INK,
-    fontSize: 15,
-    lineHeight: 19.5,
-    fontWeight: '800',
   },
 
-  sectionIntro: {
-    color: INK_SOFT,
-    fontSize: 11,
-    lineHeight: 16,
-  },
 
   phaseList: {
     marginTop: 12,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: BORDER,
+    borderTopColor: theme.colors.border,
   },
 
   phaseRow: {
     minHeight: 88,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    paddingVertical: 14,
+    paddingVertical: 16,
   },
 
   phaseDivider: {
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: BORDER,
+    borderBottomColor: theme.colors.border,
   },
 
   phaseNumberBox: {
@@ -853,12 +783,6 @@ const styles = StyleSheet.create({
     paddingTop: 1,
   },
 
-  phaseNumber: {
-    color: '#A39CA9',
-    fontSize: 11,
-    fontWeight: '800',
-    letterSpacing: 0.7,
-  },
 
   phaseCopy: {
     flex: 1,
@@ -868,28 +792,19 @@ const styles = StyleSheet.create({
   phaseTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 7,
+    gap: 8,
   },
 
   phaseTitle: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 15.5,
-    fontWeight: '800',
   },
 
   phaseDays: {
     marginTop: 4,
-    color: MUTED,
-    fontSize: 10,
-    fontWeight: '600',
   },
 
   phaseText: {
-    marginTop: 5,
-    color: INK_SOFT,
-    fontSize: 10.5,
-    lineHeight: 15,
+    marginTop: 4,
   },
 
   knowCard: {
@@ -897,12 +812,9 @@ const styles = StyleSheet.create({
     minHeight: 112,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 11,
+    gap: 12,
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: '#E5E0EC',
-    borderRadius: 16,
-    padding: 15,
+    padding: 16,
   },
 
   knowIcon: {
@@ -912,9 +824,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#DCD5E8',
+    borderColor: theme.colors.border,
     borderRadius: 12,
-    backgroundColor: '#F8F6FA',
+    backgroundColor: theme.colors.surface,
   },
 
   knowCopy: {
@@ -923,17 +835,9 @@ const styles = StyleSheet.create({
     paddingRight: 72,
   },
 
-  knowTitle: {
-    color: INK,
-    fontSize: 12.5,
-    fontWeight: '800',
-  },
 
   knowText: {
-    marginTop: 5,
-    color: INK_SOFT,
-    fontSize: 10.5,
-    lineHeight: 15,
+    marginTop: 4,
   },
 
   journalImage: {
@@ -943,7 +847,7 @@ const styles = StyleSheet.create({
     width: 78,
     height: 82,
     opacity: 0.9,
-    borderRadius: 14,
+    borderRadius: 12,
   },
 
   reasonsList: {
@@ -954,21 +858,17 @@ const styles = StyleSheet.create({
     minHeight: 46,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 11,
-    paddingVertical: 10,
+    gap: 12,
+    paddingVertical: 12,
   },
 
   reasonDivider: {
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: BORDER,
+    borderBottomColor: theme.colors.border,
   },
 
   reasonText: {
     flex: 1,
-    color: INK_SOFT,
-    fontSize: 11,
-    lineHeight: 15.5,
-    fontWeight: '600',
   },
 
   wellbeing: {
@@ -976,11 +876,8 @@ const styles = StyleSheet.create({
     minHeight: 96,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 11,
-    borderWidth: 1,
-    borderColor: '#ECE1E4',
-    borderRadius: 16,
-    padding: 15,
+    gap: 12,
+    padding: 16,
   },
 
   wellIcon: {
@@ -990,9 +887,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#E8D5DA',
+    borderColor: theme.colors.border,
     borderRadius: 12,
-    backgroundColor: '#FBF7F8',
+    backgroundColor: theme.colors.surface,
   },
 
   wellCopy: {
@@ -1000,19 +897,12 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
 
-  wellTitle: {
-    color: INK,
-    fontSize: 12.5,
-    fontWeight: '800',
-  },
 
   wellText: {
-    marginTop: 5,
-    color: INK_SOFT,
-    fontSize: 10.5,
-    lineHeight: 15,
+    marginTop: 4,
   },
 
 });
+}
 
 export default UnderstandCycleArticleScreen;

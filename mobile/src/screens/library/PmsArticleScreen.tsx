@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -15,6 +13,9 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {
   isArticleBookmarked,
@@ -489,6 +490,72 @@ const CONTENT = {
       consultText: '如果症状非常严重并影响日常生活，可能是经前焦虑障碍（PMDD）。不要犹豫，请咨询医疗专业人员。',
       shareMessage: '经前期综合征（PMS）：更好地了解它 — AWA',
     },
+  id: {
+    badge: 'SIKLUS & KESEJAHTERAAN',
+    title: 'Sindrom pramenstruasi (PMS):\nmemahaminya dengan lebih baik',
+    metaDuration: '4 menit baca',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'PMS dialami hingga 8 dari 10 perempuan. Lelah, mudah tersinggung, perut kembung… Memahami penyebabnya dan menerapkan kebiasaan yang tepat bisa sangat memperbaiki masa ini setiap bulannya.',
+    contentsTitle: 'Dalam artikel ini',
+    contents: [
+      'Apa itu PMS?',
+      'Gejala yang umum',
+      'Kemungkinan penyebab',
+      'Tips agar lebih nyaman',
+      'Kapan perlu ke dokter?',
+    ],
+    section1Body: 'Sindrom pramenstruasi mencakup gejala fisik dan emosional yang biasanya muncul 5 sampai 10 hari sebelum haid dan hilang saat siklus menstruasi dimulai.',
+    visual1Title: 'Fase yang terkait dengan siklusmu',
+    visual1Text: 'Gejala muncul sebelum haid dan biasanya mereda begitu haid dimulai.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Intensitas dan jenis gejala bisa sangat bervariasi dari satu perempuan ke perempuan lain, dan dari satu siklus ke siklus berikutnya.',
+    symptoms: [
+      {
+        title: 'Emosi',
+        text: 'Mudah tersinggung, cemas, sedih, suasana hati berubah-ubah',
+      },
+      {
+        title: 'Fisik',
+        text: 'Perut kembung, nyeri, lelah, sakit kepala',
+      },
+      {
+        title: 'Perilaku',
+        text: 'Ngidam makanan manis, nafsu makan berubah, lelah',
+      },
+      {
+        title: 'Tidur',
+        text: 'Sulit tidur atau tidur kurang nyenyak',
+      },
+    ],
+    section3Body: 'Fluktuasi hormon, terutama progesteron dan estrogen, memengaruhi neurotransmiter di otak (serotonin, dopamin), yang mungkin menjelaskan gejala emosional dan fisik PMS.',
+    tip2Title: 'Hormon berperan penting',
+    tip2Text: 'Fluktuasi hormon dapat memengaruhi suasana hati, energi, tidur, dan sensasi fisik tertentu.',
+    tips: [
+      {
+        title: 'Jaga asupan air',
+        text: 'Minum air yang cukup membantu mengurangi perut kembung.',
+      },
+      {
+        title: 'Makan seimbang',
+        text: 'Pilih makanan kaya magnesium, omega-3, dan vitamin B.',
+      },
+      {
+        title: 'Tetap aktif',
+        text: 'Aktivitas fisik melepaskan endorfin dan mengurangi stres.',
+      },
+      {
+        title: 'Kelola stresmu',
+        text: 'Latihan pernapasan, meditasi, menulis jurnal… Temukan yang cocok untukmu.',
+      },
+      {
+        title: 'Tidur cukup',
+        text: 'Tidur berkualitas mendukung keseimbangan hormon.',
+      },
+    ],
+    consultTitle: 'Kapan sebaiknya meminta saran medis?',
+    consultText: 'Jika gejala sangat intens dan memengaruhi kehidupan sehari-harimu, bisa jadi itu gangguan disforia pramenstruasi (PMDD). Jangan ragu berkonsultasi dengan tenaga kesehatan.',
+    shareMessage: 'Sindrom pramenstruasi (PMS): memahaminya dengan lebih baik — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -573,69 +640,48 @@ export default function PmsArticleScreen({
                 paddingTop: getTopPadding(insets.top, true),
               },
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
-                onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={
+                icon={
                     saved
                       ? 'bookmark'
                       : 'bookmark-outline'
                   }
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                iconSize={20}
+                onPress={handleBookmark}
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">
               {content.badge}
-            </Text>
+            </AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metas}>
             {[
@@ -654,35 +700,35 @@ export default function PmsArticleScreen({
                     color={theme.colors.textMuted}
                   />
 
-                  <Text style={styles.meta}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                     {text}
-                  </Text>
+                  </AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="bodyMedium" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>
               {content.contentsTitle}
-            </Text>
+            </AwaText>
 
             {content.contents.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>
                     {index + 1}.
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.contentText}>
+                  <AwaText variant="bodySmall" style={styles.contentText}>
                     {item}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -692,17 +738,17 @@ export default function PmsArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             1. {content.contents[0]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section1Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.visualCard}>
+          <AwaCard variant="filled" padding="none" style={styles.visualCard}>
             <Image
               source={WOMAN}
               resizeMode="cover"
@@ -710,17 +756,17 @@ export default function PmsArticleScreen({
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.visual1Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.visualText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.visualText}>
                 {content.visual1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -728,19 +774,19 @@ export default function PmsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.tip1Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             2. {content.contents[1]}
-          </Text>
+          </AwaText>
 
           <View style={styles.symptomGrid}>
             {SYMPTOM_ICONS.map((icon, index) => {
@@ -755,21 +801,21 @@ export default function PmsArticleScreen({
                     color={theme.colors.primary}
                   />
 
-                  <Text style={styles.symptomTitle}>
+                  <AwaText variant="titleSmall" emphasized style={styles.symptomTitle}>
                     {symptom.title}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.symptomText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.symptomText}>
                     {symptom.text}
-                  </Text>
+                  </AwaText>
                 </View>
               );
             })}
           </View>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             3. {content.contents[2]}
-          </Text>
+          </AwaText>
 
           <Image
             source={CAUSES}
@@ -777,11 +823,11 @@ export default function PmsArticleScreen({
             style={styles.wideImage}
           />
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section3Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="molecule"
               size={24}
@@ -789,19 +835,19 @@ export default function PmsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.tip2Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             4. {content.contents[3]}
-          </Text>
+          </AwaText>
 
           <ScrollView
             horizontal
@@ -819,23 +865,23 @@ export default function PmsArticleScreen({
                     style={styles.tipImage}
                   />
 
-                  <Text style={styles.tipCardTitle}>
+                  <AwaText variant="titleSmall" emphasized style={styles.tipCardTitle}>
                     {tip.title}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.tipCardText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipCardText}>
                     {tip.text}
-                  </Text>
+                  </AwaText>
                 </View>
               );
             })}
           </ScrollView>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             5. {content.contents[4]}
-          </Text>
+          </AwaText>
 
-          <View style={styles.consultCard}>
+          <AwaCard variant="filled" padding="none" style={styles.consultCard}>
             <Image
               source={CONSULT}
               resizeMode="cover"
@@ -852,16 +898,16 @@ export default function PmsArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.consultTitle}>
+                <AwaText variant="titleSmall" emphasized style={styles.consultTitle}>
                   {content.consultTitle}
-                </Text>
+                </AwaText>
               </View>
 
-              <Text style={styles.consultText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.consultText}>
                 {content.consultText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
         </View>
       </ScrollView>
@@ -883,7 +929,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   heroWrap: {
@@ -911,54 +957,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -968,7 +991,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -977,31 +1000,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 10,
-    color: theme.colors.textMuted,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '500',
+    marginTop: 16,
   },
 
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -1019,44 +1029,26 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 24,
-    color: theme.colors.primary,
-    fontSize: 12,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.5,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   body: {
     marginTop: 8,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
   },
 
   visualCard: {
-    marginTop: 15,
+    marginTop: 16,
     minHeight: 98,
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: theme.colors.surface,
+    padding: 12,
   },
 
   visualImage: {
@@ -1070,49 +1062,30 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginLeft: 12,
   },
 
-  visualTitle: {
-    color: theme.colors.text,
-    fontSize: 13,
-    lineHeight: 17,
-    fontWeight: '800',
-  },
 
   visualText: {
     marginTop: 4,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    lineHeight: 16,
   },
 
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 3,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   symptomGrid: {
-    marginTop: 13,
+    marginTop: 12,
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
@@ -1124,46 +1097,40 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.primarySoft,
   },
 
   symptomTitle: {
-    marginTop: 7,
-    color: theme.colors.text,
-    fontSize: 12,
-    fontWeight: '800',
+    marginTop: 8,
     textAlign: 'center',
   },
 
   symptomText: {
-    marginTop: 5,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
+    marginTop: 4,
     textAlign: 'center',
   },
 
   wideImage: {
     width: '100%',
     height: 120,
-    marginTop: 14,
+    marginTop: 16,
     borderRadius: 12,
   },
 
   tips: {
     gap: 8,
-    paddingTop: 13,
+    paddingTop: 12,
     paddingBottom: 3,
   },
 
   tipCard: {
     width: 142,
     minHeight: 215,
-    padding: 9,
-    borderRadius: 10,
+    padding: 12,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surface,
@@ -1172,30 +1139,20 @@ function createStyles(theme: ResolvedAwaTheme) {
   tipImage: {
     width: '100%',
     height: 82,
-    borderRadius: 9,
+    borderRadius: 12,
   },
 
   tipCardTitle: {
     marginTop: 8,
-    color: theme.colors.text,
-    fontSize: 12,
-    lineHeight: 16,
-    fontWeight: '800',
   },
 
   tipCardText: {
-    marginTop: 5,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
+    marginTop: 4,
   },
 
   consultCard: {
-    marginTop: 14,
+    marginTop: 16,
     overflow: 'hidden',
-    borderRadius: 13,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
@@ -1205,9 +1162,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   consultContent: {
-    paddingHorizontal: 14,
-    paddingTop: 13,
-    paddingBottom: 15,
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 16,
   },
 
   consultTitleRow: {
@@ -1226,18 +1183,11 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   consultTitle: {
     flex: 1,
-    marginLeft: 10,
-    color: theme.colors.text,
-    fontSize: 13,
-    lineHeight: 17,
-    fontWeight: '800',
+    marginLeft: 12,
   },
 
   consultText: {
-    marginTop: 10,
-    color: theme.colors.textSecondary,
-    fontSize: 11.5,
-    lineHeight: 18,
+    marginTop: 12,
   },
 
   });

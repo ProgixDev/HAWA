@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -607,6 +608,86 @@ const CONTENT = {
       disclaimerText: '仅供参考。本文不能替代个性化的医生建议。如有疑虑，请咨询医疗专业人员。',
       shareMessage: '整个周期都要保持水分 — AWA',
     },
+  id: {
+    badge: 'SIKLUS MENSTRUASI • ASUPAN AIR',
+    title: 'Tetap terhidrasi\nsepanjang siklusmu',
+    metaDuration: '6 menit baca',
+    metaType: 'Artikel',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Terdengar berlawanan, tetapi benar: cukup minum membantu tubuhmu menahan lebih sedikit air sepanjang siklus.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Mengapa hidrasi penting',
+      'Kebutuhan di setiap fase siklus',
+      'Apa yang diminum sehari-hari',
+      'Tanda kurang cairan',
+      'Tips praktis',
+      'Anggapan keliru yang umum',
+      'Poin penting',
+    ],
+    section1Body: 'Terdengar berlawanan, tetapi benar: cukup minum membantu tubuh menahan lebih sedikit air dan mengurangi perut kembung, terutama menjelang akhir siklus.',
+    infoTitle: 'Perlu diketahui',
+    infoText: 'Saat tubuh kekurangan air, ia cenderung menyimpan lebih banyak air sebagai langkah berjaga-jaga. Minum yang cukup justru memberi tahu tubuh bahwa ia bisa melepas air dengan lebih mudah.',
+    section2Body: 'Kebutuhan airmu secara keseluruhan cukup stabil, dengan sedikit perbedaan tergantung fasenya:',
+    phaseNeeds: [
+      {
+        title: 'Saat haid',
+        text: 'Sedikit tambahan air membantu menggantikan cairan yang hilang dan membatasi kembung.',
+      },
+      {
+        title: 'Sekitar ovulasi',
+        text: 'Kebutuhan tetap stabil; kenaikan ringan suhu tubuh bisa membuatmu lebih sering haus.',
+      },
+      {
+        title: 'Fase pramenstruasi',
+        text: 'Hidrasi yang baik membantu mengurangi rasa bengkak yang sering muncul pada masa ini.',
+      },
+    ],
+    section3Body: 'Usahakan sekitar 1,5 hingga 2 liter sehari, sedikit lebih banyak saat haid untuk menggantikan cairan yang hilang.',
+    dailyDrinks: [
+      {
+        title: 'Air putih, yang utama',
+        text: 'Sekitar 1,5 hingga 2 liter sehari, sedikit lebih banyak saat haid.',
+      },
+      {
+        title: 'Teh herbal yang menenangkan',
+        text: 'Jahe atau chamomile memberi hidrasi yang lembut saat kram.',
+      },
+      {
+        title: 'Gula dan kafein, secukupnya',
+        text: 'Membatasi minuman yang sangat manis atau berkafein bisa membantu menjelang akhir siklus.',
+      },
+    ],
+    warningTitle: 'Perlu diperhatikan',
+    lowHydrationSigns: [
+      'Rasa haus yang kuat atau tidak biasa',
+      'Urine lebih gelap dari biasanya',
+      'Sakit kepala yang sering',
+      'Kelelahan tanpa penyebab lain yang jelas',
+    ],
+    section5Body: 'Beberapa kebiasaan sederhana sering kali sudah cukup untuk tetap terhidrasi tanpa perlu memikirkannya:',
+    practicalTips: [
+      'Letakkan botol air dalam jangkauan sepanjang hari',
+      'Padukan segelas air dengan kebiasaan yang sudah ada (saat bangun tidur, setiap makan)',
+      'Selingi dengan seduhan herbal jika air putih terasa membosankan',
+    ],
+    section5Body2: 'Saat beraktivitas fisik, ingatlah untuk minum sebelum, selama, dan sesudah berolahraga untuk menggantikan cairan yang hilang lewat keringat.',
+    compareTitle1: 'Anggapan umum',
+    compareText1: '"Kalau banyak minum, perutku makin kembung."',
+    compareTitle2: 'Sebenarnya justru sebaliknya',
+    compareText2: 'Hidrasi yang baik membantu tubuh menahan lebih sedikit air.',
+    tipTitle: 'Perlu diketahui',
+    tipText: 'Teh jahe atau chamomile juga memberi hidrasi yang menenangkan saat kram.',
+    summaryPoints: [
+      'Cukup minum membantu tubuh menahan lebih sedikit air dan mengurangi kembung.',
+      'Usahakan sekitar 1,5 hingga 2 liter sehari, sedikit lebih banyak saat haid.',
+      'Teh jahe atau chamomile juga dapat menenangkan saat kram.',
+      'Rasa haus yang kuat dan berkepanjangan perlu disampaikan kepada tenaga kesehatan.',
+    ],
+    disclaimerText: 'Konten informatif. Artikel ini tidak menggantikan saran medis yang dipersonalisasi. Jika ragu, mintalah bimbingan dari tenaga kesehatan.',
+    shareMessage: 'Tetap terhidrasi sepanjang siklusmu — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -695,49 +776,32 @@ export default function HydrationCycleArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
-              hitSlop={8}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={
                   saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
-                hitSlop={8}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
-                hitSlop={8}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -748,10 +812,10 @@ export default function HydrationCycleArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>{content.title}</Text>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>{content.title}</AwaText>
 
           <View style={styles.metas}>
             {[
@@ -770,26 +834,26 @@ export default function HydrationCycleArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>{content.intro}</Text>
+          <AwaText variant="titleSmall" style={styles.intro}>{content.intro}</AwaText>
 
           {/* -------------------------------------------------------------- */}
           {/* CONTENTS                                                        */}
           {/* -------------------------------------------------------------- */}
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -799,17 +863,17 @@ export default function HydrationCycleArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>{content.section1Body}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.section1Body}</AwaText>
 
-          <View style={styles.infoCard}>
+          <AwaCard variant="filled" padding="none" style={styles.infoCard}>
             <MaterialDesignIcons
               name="information-outline"
               size={23}
@@ -817,22 +881,22 @@ export default function HydrationCycleArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>{content.infoTitle}</Text>
-              <Text style={styles.infoText}>{content.infoText}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.infoTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>{content.infoText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>{content.section2Body}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.section2Body}</AwaText>
 
           <View style={styles.normalGrid}>
             {content.phaseNeeds.map((item, index) => (
-              <View key={item.title} style={styles.normalCard}>
+              <AwaCard variant="filled" padding="none" key={item.title} style={styles.normalCard}>
                 <View style={styles.normalIcon}>
                   <MaterialDesignIcons
                     name={PHASE_NEEDS_ICONS[index] as never}
@@ -841,9 +905,9 @@ export default function HydrationCycleArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.normalTitle}>{item.title}</Text>
-                <Text style={styles.normalText}>{item.text}</Text>
-              </View>
+                <AwaText variant="titleSmall" emphasized style={styles.normalTitle}>{item.title}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.normalText}>{item.text}</AwaText>
+              </AwaCard>
             ))}
           </View>
 
@@ -851,11 +915,11 @@ export default function HydrationCycleArticleScreen({
           {/* SECTION 3                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.body}>{content.section3Body}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.section3Body}</AwaText>
 
-          <View style={styles.comfortCard}>
+          <AwaCard variant="filled" padding="none" style={styles.comfortCard}>
             {content.dailyDrinks.map((item, index) => (
               <View
                 key={item.title}
@@ -872,20 +936,20 @@ export default function HydrationCycleArticleScreen({
                 </View>
 
                 <View style={styles.comfortCopy}>
-                  <Text style={styles.comfortTitle}>{item.title}</Text>
-                  <Text style={styles.comfortText}>{item.text}</Text>
+                  <AwaText variant="titleSmall" emphasized>{item.title}</AwaText>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.comfortText}>{item.text}</AwaText>
                 </View>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <View style={styles.warningCard}>
+          <AwaCard variant="filled" padding="none" style={styles.warningCard}>
             <View style={styles.warningHeader}>
               <MaterialDesignIcons
                 name="alert-circle-outline"
@@ -893,7 +957,7 @@ export default function HydrationCycleArticleScreen({
                 color={theme.colors.warning}
               />
 
-              <Text style={styles.warningTitle}>{content.warningTitle}</Text>
+              <AwaText variant="titleSmall" emphasized style={styles.warningTitle}>{content.warningTitle}</AwaText>
             </View>
 
             {content.lowHydrationSigns.map(item => (
@@ -906,20 +970,20 @@ export default function HydrationCycleArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.warningText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.warningText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 5                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>5. {content.topics[4]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>5. {content.topics[4]}</AwaText>
 
-          <Text style={styles.body}>{content.section5Body}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.section5Body}</AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.practicalTips.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -928,20 +992,20 @@ export default function HydrationCycleArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.body}>{content.section5Body2}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.section5Body2}</AwaText>
 
           {/* ================================================================= */}
           {/* SECTION 6                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>6. {content.topics[5]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>6. {content.topics[5]}</AwaText>
 
-          <View style={styles.compareCard}>
+          <AwaCard variant="filled" padding="none" style={styles.compareCard}>
             <View style={styles.compareColumn}>
               <View style={styles.compareIcon}>
                 <MaterialDesignIcons
@@ -951,8 +1015,8 @@ export default function HydrationCycleArticleScreen({
                 />
               </View>
 
-              <Text style={styles.compareTitle}>{content.compareTitle1}</Text>
-              <Text style={styles.compareText}>{content.compareText1}</Text>
+              <AwaText variant="titleSmall" emphasized style={styles.compareTitle}>{content.compareTitle1}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.compareText}>{content.compareText1}</AwaText>
             </View>
 
             <View style={styles.compareDivider} />
@@ -966,16 +1030,16 @@ export default function HydrationCycleArticleScreen({
                 />
               </View>
 
-              <Text style={styles.compareTitle}>{content.compareTitle2}</Text>
-              <Text style={styles.compareText}>{content.compareText2}</Text>
+              <AwaText variant="titleSmall" emphasized style={styles.compareTitle}>{content.compareTitle2}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.compareText}>{content.compareText2}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* TIP                                                               */}
           {/* ================================================================= */}
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -983,18 +1047,18 @@ export default function HydrationCycleArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
-              <Text style={styles.tipText}>{content.tipText}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tipTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.tipText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SUMMARY                                                           */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>{content.topics[6]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>{content.topics[6]}</AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             {content.summaryPoints.map(item => (
               <View key={item} style={styles.summaryRow}>
                 <MaterialDesignIcons
@@ -1003,10 +1067,10 @@ export default function HydrationCycleArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.summaryText}>{item}</Text>
+                <AwaText variant="bodySmall" style={styles.summaryText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* DISCLAIMER                                                        */}
@@ -1019,7 +1083,7 @@ export default function HydrationCycleArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>{content.disclaimerText}</Text>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>{content.disclaimerText}</AwaText>
           </View>
         </View>
       </ScrollView>
@@ -1036,7 +1100,7 @@ export default function HydrationCycleArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
 
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
@@ -1051,77 +1115,46 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
-  },
-  badgeText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
   },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 27,
-    lineHeight: 32,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 9.5, color: theme.colors.textMuted},
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '600',
+    marginTop: 16,
   },
 
   contents: {
     marginTop: 20,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 16,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
+  contentsTitle: {marginBottom: 8},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -1129,40 +1162,26 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 25, color: theme.colors.primary, fontSize: 11.5, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.3, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 25},
+  contentText: {flex: 1},
 
   h2: {
-    marginTop: 27,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 28,
   },
-  body: {marginTop: 9, fontSize: 14, lineHeight: 21.5, color: theme.colors.text},
+  body: {marginTop: 8},
 
   infoCard: {
-    marginTop: 14,
-    padding: 13,
+    marginTop: 16,
+    padding: 12,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
-  infoCopy: {flex: 1, marginLeft: 9},
-  infoTitle: {fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  infoText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  infoCopy: {flex: 1, marginLeft: 8},
+  infoText: {marginTop: 3},
 
-  normalGrid: {marginTop: 13, gap: 9},
+  normalGrid: {marginTop: 12, gap: 8},
   normalCard: {
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 12,
   },
   normalIcon: {
     width: 36,
@@ -1172,18 +1191,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
-  normalTitle: {marginTop: 8, fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  normalText: {marginTop: 4, fontSize: 11, lineHeight: 16, color: theme.colors.textSecondary},
+  normalTitle: {marginTop: 8},
+  normalText: {marginTop: 4},
 
   comfortCard: {
-    marginTop: 13,
-    paddingHorizontal: 13,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    paddingHorizontal: 12,
   },
-  comfortRow: {flexDirection: 'row', alignItems: 'flex-start', paddingVertical: 13},
+  comfortRow: {flexDirection: 'row', alignItems: 'flex-start', paddingVertical: 12},
   comfortRowBorder: {borderBottomWidth: 1, borderBottomColor: theme.colors.border},
   comfortIcon: {
     width: 35,
@@ -1193,44 +1208,32 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
-  comfortCopy: {flex: 1, marginLeft: 10},
-  comfortTitle: {fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  comfortText: {marginTop: 3, fontSize: 10.8, lineHeight: 16, color: theme.colors.textSecondary},
+  comfortCopy: {flex: 1, marginLeft: 12},
+  comfortText: {marginTop: 3},
 
   warningCard: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 12,
+    marginTop: 12,
+    padding: 16,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
   warningHeader: {flexDirection: 'row', alignItems: 'center', marginBottom: 12},
-  warningTitle: {flex: 1, marginLeft: 8, fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  warningRow: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 9},
+  warningTitle: {flex: 1, marginLeft: 8},
+  warningRow: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 8},
   warningBullet: {width: 20, alignItems: 'flex-start'},
-  warningText: {flex: 1, marginLeft: 5, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 17},
+  warningText: {flex: 1, marginLeft: 4},
 
   checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 12,
   },
-  checkRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 10},
-  checkText: {flex: 1, color: theme.colors.text, fontSize: 12, lineHeight: 17},
+  checkRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 12},
+  checkText: {flex: 1},
 
   compareCard: {
-    marginTop: 13,
-    padding: 14,
+    marginTop: 12,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'stretch',
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
   compareColumn: {flex: 1},
   compareIcon: {
@@ -1241,42 +1244,33 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
-  compareTitle: {marginTop: 8, fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  compareText: {marginTop: 4, fontSize: 10.5, lineHeight: 15.5, color: theme.colors.textSecondary},
+  compareTitle: {marginTop: 8},
+  compareText: {marginTop: 4},
   compareDivider: {width: 1, marginHorizontal: 12, backgroundColor: theme.colors.border},
 
   tip: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
-  tipText: {marginTop: 4, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  tipCopy: {flex: 1, marginLeft: 12},
+  tipText: {marginTop: 4},
 
   summaryCard: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
-  summaryRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 10},
-  summaryText: {flex: 1, fontSize: 11.5, lineHeight: 17, color: theme.colors.text},
+  summaryRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 12},
+  summaryText: {flex: 1},
 
   disclaimer: {
-    marginTop: 18,
+    marginTop: 20,
     paddingHorizontal: 3,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 7,
+    gap: 8,
   },
-  disclaimerText: {flex: 1, fontSize: 10, lineHeight: 15, color: theme.colors.textMuted},
+  disclaimerText: {flex: 1},
   });
 }

@@ -1,14 +1,12 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
-Image,
-Pressable,
-ScrollView,
-Share,
-StatusBar,
-StyleSheet,
-Text,
-View,
+  Image,
+  ScrollView,
+  Share,
+  StatusBar,
+  StyleSheet,
+  View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
 isArticleBookmarked,
 loadLibraryState,
@@ -681,6 +682,86 @@ const CONTENT = {
       disclaimer: '本文仅供参考和科普之用，不构成医学诊断，也不能替代与医疗专业人员的咨询。',
       shareMessage: 'PCOS 中的周期、排卵与生育力 — AWA',
     },
+  id: {
+    badge: 'PCOS',
+    title: 'Siklus, ovulasi,\ndan kesuburan pada PCOS',
+    metaDuration: '8 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Menengah',
+    metaValidated: 'Konten yang telah ditinjau',
+    intro: 'Pada PCOS, siklusmu bisa menjadi panjang, tidak teratur, dan terkadang sulit diprediksi. Memahami apa yang terjadi di sekitar ovulasi dapat membantumu mengerti siklusmu dan pertanyaan seputar kesuburan dengan lebih baik.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Mengapa siklus menjadi tidak teratur',
+      'Apa yang terjadi di sekitar ovulasi',
+      'Cara mengenali ovulasi',
+      'PCOS dan kesuburan',
+      'Mengapa aplikasi bisa kurang akurat',
+      'Memantau siklusmu dengan PCOS',
+      'Kapan harus ke dokter jika ingin hamil',
+      'Poin-poin penting',
+    ],
+    section1Body1: 'Siklus menstruasi bergantung pada rangkaian sinyal hormon yang terkoordinasi. Pada PCOS, keteraturan ini dapat terganggu, terutama dalam perkembangan folikel dan ovulasi.',
+    section1Body2: 'Ovarium bisa mengandung banyak folikel kecil yang mulai berkembang tanpa ada folikel dominan yang secara teratur mencapai kematangan. Akibatnya, ovulasi dapat tertunda, terjadi tanpa pola yang pasti, atau bahkan tidak terjadi sama sekali pada siklus tertentu.',
+    section1Body3: 'Inilah salah satu alasan sebagian orang dengan PCOS memiliki siklus 35, 45, atau terkadang lebih dari itu hari, sementara yang lain mungkin memiliki siklus dengan panjang yang mendekati normal.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Panjang siklus saja tidak menunjukkan apakah ovulasi terjadi. Dua siklus dengan panjang yang sama bisa punya kisah hormonal yang berbeda.',
+    section2Body1: 'Ovulasi adalah pelepasan sel telur dari ovarium. Ovulasi terjadi setelah fase pematangan folikel dan sebelum fase luteal dalam siklus.',
+    section2Body2: 'Pada siklus yang teratur, ovulasi sering terjadi di sekitar pertengahan siklus. Namun pada PCOS, aturan sederhana ini tidak selalu berlaku. Ovulasi bisa terjadi jauh lebih lambat atau bahkan tidak terjadi sama sekali pada suatu siklus.',
+    infoTitle: 'Mengapa ini penting',
+    infoText: 'Ketika ovulasi sulit diprediksi, masa subur menjadi lebih sulit diperkirakan hanya berdasarkan tanggal haid.',
+    section3Body1: 'Ada beberapa tanda fisik yang dapat menyertai perubahan hormon di sekitar ovulasi. Tanda-tanda ini berguna untuk mengamati siklusmu sendiri, tetapi tidak ada satu tanda pun yang dapat memastikan ovulasi dengan pasti.',
+    ovulationSigns: [
+      'Perubahan lendir serviks, yang bisa menjadi lebih banyak, bening, dan elastis',
+      'Nyeri atau rasa tidak nyaman ringan di panggul pada sebagian wanita',
+      'Perubahan suhu tubuh setelah ovulasi',
+      'Perubahan kelembapan vagina',
+      'Kemungkinan peningkatan gairah seksual pada sebagian wanita',
+    ],
+    section3Body2: 'Lendir serviks sangat layak diamati. Menjelang masa subur, lendir ini bisa menjadi lebih banyak, bening, licin, dan elastis. Namun, tampilannya bisa berbeda dari satu orang ke orang lain dan dari satu siklus ke siklus lainnya.',
+    alert1Title: 'Berhati-hatilah dengan prediksi',
+    alert1Text: 'Pada siklus yang sangat tidak teratur, tanggal ovulasi yang dihitung otomatis dari siklus-siklus sebelumnya bisa sangat kasar. Prediksi bukanlah konfirmasi medis bahwa ovulasi telah terjadi.',
+    section4Body1: 'PCOS dapat membuat kehamilan lebih sulit terjadi, terutama ketika ovulasi jarang atau sulit diprediksi. Namun, memiliki PCOS bukan berarti tidak subur.',
+    section4Body2: 'Sebagian wanita dengan PCOS berovulasi secara teratur dan hamil tanpa kesulitan berarti. Bagi yang lain, ovulasinya cukup tidak teratur sehingga perlu dievaluasi dan mungkin memerlukan penanganan medis.',
+    fertilityPoints: [
+      'PCOS tidak otomatis menyebabkan ketidaksuburan',
+      'Kesulitan utamanya sering kali adalah ovulasi yang tidak teratur atau sulit diprediksi',
+      'Ovulasi tetap bisa terjadi meskipun siklus sangat panjang',
+      'Penanganan yang tepat dapat meningkatkan peluang kehamilan',
+      'Perjalanan kesuburan bergantung pada setiap individu dan banyak faktor lainnya',
+    ],
+    section4Body3: 'Kesuburan juga tidak hanya bergantung pada ovulasi. Usia, kualitas sperma pasangan, kondisi saluran tuba, endometrium, dan faktor lain juga dapat berperan. Karena itu, evaluasi menyeluruh penting dilakukan ketika kehamilan memerlukan waktu lebih lama dari yang diharapkan.',
+    section5Body1: 'Aplikasi pemantau haid umumnya menggunakan data dari siklus-siklus sebelumnya untuk membuat perkiraan. Ketika siklus relatif teratur, perkiraan ini bisa berguna sebagai acuan.',
+    section5Body2: 'Namun pada PCOS, variasi siklus dapat membuat perhitungan ini kurang andal. Sebuah aplikasi tidak bisa memastikan bahwa ovulasi telah terjadi hanya karena tanggal teoretisnya sudah tiba.',
+    tip2Title: 'Gunakan sebagai titik acuan',
+    tip2Text: 'Pencatatan digital paling berguna untuk mengamati tren siklusmu sendiri dan menyimpan riwayat yang bisa dibagikan kepada tenaga kesehatan.',
+    section6Body1: 'Pemantauan yang rutin dapat membantumu memahami variasi pribadimu dengan lebih baik. Tujuannya bukan membuat siklus dapat diprediksi dengan sempurna, melainkan mengumpulkan cukup informasi untuk mengenali tren.',
+    trackingTips: [
+      'Catat tanggal hari pertama setiap siklus, bahkan ketika siklus sangat berjarak',
+      'Amati perubahan lendir serviks sepanjang siklus',
+      'Catat nyeri panggul atau tanda lain yang mungkin menyertai ovulasi',
+      'Hindari hanya mengandalkan rata-rata siklus 28 hari untuk memprediksi ovulasi',
+      'Gunakan tes ovulasi dengan hati-hati dan, jika perlu, minta saran dari tenaga profesional',
+      'Bagikan informasi yang kamu kumpulkan kepada tenaga kesehatan jika kamu ingin hamil',
+    ],
+    section6Body2: 'Mencatat gejala yang menyertai juga bisa membantu: nyeri, jerawat, perubahan lendir, perdarahan yang tidak biasa, suasana hati, tidur, atau pengamatan pribadi lainnya. Informasi ini dapat membantu membentuk gambaran siklusmu yang lebih lengkap.',
+    section7Body1: 'Berkonsultasi bisa bermanfaat bahkan sebelum mulai berusaha hamil, ketika siklus sangat tidak teratur, sangat berjarak, atau ketika haid tidak datang dalam waktu lama.',
+    section7Body2: 'Tenaga kesehatan dapat menelusuri penyebab ketidakteraturan, menilai ovulasi, dan jika perlu, menyarankan strategi yang sesuai dengan rencana kehamilanmu.',
+    alert2Title: 'Kapan perlu mencari saran',
+    alert2Text: 'Jika haidmu sangat berjarak, jika kamu tidak haid selama beberapa bulan, atau jika kehamilan tidak terjadi meskipun berhubungan intim secara teratur, bicarakan dengan tenaga kesehatan.',
+    summaryTitle: 'Poin-poin utama',
+    summaryRows: [
+      'PCOS dapat membuat siklus menjadi panjang dan sulit diprediksi.',
+      'Ovulasi bisa tidak teratur atau tidak terjadi pada beberapa siklus.',
+      'Siklus yang tidak teratur tidak otomatis berarti kurang subur.',
+      'Prediksi yang hanya berdasarkan kalender bisa kurang andal pada PCOS.',
+      'Mengamati siklus dan menyimpan riwayat bisa berguna, terutama untuk konsultasi.',
+    ],
+    finalTipTitle: 'Satu pesan terakhir',
+    finalTipText: 'PCOS tidak muncul dengan cara yang sama pada setiap wanita. Siklusmu juga bisa berubah seiring waktu. Pencatatan hadir untuk membantumu lebih memahami cara kerja tubuhmu, bukan untuk menggantikan saran medis.',
+    disclaimer: 'Artikel ini hanya untuk tujuan informasi dan edukasi. Artikel ini bukan diagnosis medis dan tidak menggantikan konsultasi dengan tenaga kesehatan.',
+    shareMessage: 'Siklus, ovulasi, dan kesuburan pada PCOS — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -752,63 +833,42 @@ return (
             paddingTop: getTopPadding(insets.top, true),
           },
         ]}>
-        <Pressable
-          accessibilityRole="button"
+        <AwaIconButton
           accessibilityLabel={t('library.reader.back')}
+          icon="chevron-left"
+          iconSize={23}
           onPress={() => navigation.goBack()}
-          style={({pressed}) => [
-            styles.circle,
-            pressed && styles.pressed,
-          ]}>
-          <MaterialDesignIcons
-            name="chevron-left"
-            size={23}
-            color={theme.colors.text}
-          />
-        </Pressable>
+          variant="tonal"
+        />
 
         <View style={styles.actions}>
-          <Pressable
-            accessibilityRole="button"
+          <AwaIconButton
             accessibilityLabel={t('library.screen.addBookmark')}
+            icon={saved ? 'bookmark' : 'bookmark-outline'}
+            iconSize={20}
             onPress={handleBookmark}
-            style={({pressed}) => [
-              styles.circle,
-              pressed && styles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              name={saved ? 'bookmark' : 'bookmark-outline'}
-              size={20}
-              color={theme.colors.primary}
-            />
-          </Pressable>
+            variant="tonal"
+          />
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaIconButton
             accessibilityLabel={t('libraryArticle.shareA11y')}
+            icon="share-variant-outline"
+            iconSize={20}
             onPress={handleShare}
-            style={({pressed}) => [
-              styles.circle,
-              pressed && styles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              name="share-variant-outline"
-              size={20}
-              color={theme.colors.primary}
-            />
-          </Pressable>
+            variant="tonal"
+          />
         </View>
       </View>
     </View>
 
     <View style={styles.article}>
       <View style={styles.badge}>
-        <Text style={styles.badgeText}>{content.badge}</Text>
+        <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
       </View>
 
-      <Text style={styles.title}>
+      <AwaText variant="headlineMedium" weight="700" style={styles.title}>
         {content.title}
-      </Text>
+      </AwaText>
 
       <View style={styles.metas}>
         {[
@@ -827,24 +887,24 @@ return (
                 size={17}
               />
 
-              <Text style={styles.meta}>{text}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
             </View>
           </React.Fragment>
         ))}
       </View>
 
-      <Text style={styles.intro}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.intro}>
         {content.intro}
-      </Text>
+      </AwaText>
 
-      <View style={styles.contents}>
-        <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+      <AwaCard variant="filled" padding="none" style={styles.contents}>
+        <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
         {content.topics.map((item, index) => (
           <View key={item} style={styles.contentRow}>
             <View style={styles.contentLeft}>
-              <Text style={styles.contentNumber}>{index + 1}.</Text>
-              <Text style={styles.contentText}>{item}</Text>
+              <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+              <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
             </View>
 
             <MaterialDesignIcons
@@ -854,25 +914,25 @@ return (
             />
           </View>
         ))}
-      </View>
+      </AwaCard>
 
-      <Text style={styles.h2}>
+      <AwaText variant="titleLarge" emphasized style={styles.h2}>
         1. {content.topics[0]}
-      </Text>
+      </AwaText>
 
-      <Text style={styles.body}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
         {content.section1Body1}
-      </Text>
+      </AwaText>
 
-      <Text style={styles.body}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
         {content.section1Body2}
-      </Text>
+      </AwaText>
 
-      <Text style={styles.body}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
         {content.section1Body3}
-      </Text>
+      </AwaText>
 
-      <View style={styles.tip}>
+      <AwaCard variant="filled" padding="none" style={styles.tip}>
         <MaterialDesignIcons
           name="lightbulb-outline"
           size={24}
@@ -880,25 +940,25 @@ return (
         />
 
         <View style={styles.tipCopy}>
-          <Text style={styles.tipTitle}>{content.tip1Title}</Text>
+          <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
 
-          <Text style={styles.tipText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
             {content.tip1Text}
-          </Text>
+          </AwaText>
         </View>
-      </View>
+      </AwaCard>
 
-      <Text style={styles.h2}>2. {content.topics[1]}</Text>
+      <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-      <Text style={styles.body}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
         {content.section2Body1}
-      </Text>
+      </AwaText>
 
-      <Text style={styles.body}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
         {content.section2Body2}
-      </Text>
+      </AwaText>
 
-      <View style={styles.infoCard}>
+      <AwaCard variant="filled" padding="none" style={styles.infoCard}>
         <MaterialDesignIcons
           name="information-outline"
           size={23}
@@ -906,23 +966,23 @@ return (
         />
 
         <View style={styles.tipCopy}>
-          <Text style={styles.tipTitle}>{content.infoTitle}</Text>
+          <AwaText variant="titleSmall" emphasized>{content.infoTitle}</AwaText>
 
-          <Text style={styles.tipText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
             {content.infoText}
-          </Text>
+          </AwaText>
         </View>
-      </View>
+      </AwaCard>
 
-      <Text style={styles.h2}>
+      <AwaText variant="titleLarge" emphasized style={styles.h2}>
         3. {content.topics[2]}
-      </Text>
+      </AwaText>
 
-      <Text style={styles.body}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
         {content.section3Body1}
-      </Text>
+      </AwaText>
 
-      <View style={styles.checkList}>
+      <AwaCard variant="filled" padding="none" style={styles.checkList}>
         {content.ovulationSigns.map(item => (
           <View key={item} style={styles.checkRow}>
             <MaterialDesignIcons
@@ -931,16 +991,16 @@ return (
               color={theme.colors.success}
             />
 
-            <Text style={styles.checkText}>{item}</Text>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
           </View>
         ))}
-      </View>
+      </AwaCard>
 
-      <Text style={styles.body}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
         {content.section3Body2}
-      </Text>
+      </AwaText>
 
-      <View style={styles.alert}>
+      <AwaCard variant="filled" padding="none" style={styles.alert}>
         <MaterialDesignIcons
           name="alert-outline"
           size={24}
@@ -948,25 +1008,25 @@ return (
         />
 
         <View style={styles.tipCopy}>
-          <Text style={styles.tipTitle}>{content.alert1Title}</Text>
+          <AwaText variant="titleSmall" emphasized>{content.alert1Title}</AwaText>
 
-          <Text style={styles.tipText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
             {content.alert1Text}
-          </Text>
+          </AwaText>
         </View>
-      </View>
+      </AwaCard>
 
-      <Text style={styles.h2}>4. {content.topics[3]}</Text>
+      <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-      <Text style={styles.body}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
         {content.section4Body1}
-      </Text>
+      </AwaText>
 
-      <Text style={styles.body}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
         {content.section4Body2}
-      </Text>
+      </AwaText>
 
-      <View style={styles.checkList}>
+      <AwaCard variant="filled" padding="none" style={styles.checkList}>
         {content.fertilityPoints.map(item => (
           <View key={item} style={styles.checkRow}>
             <MaterialDesignIcons
@@ -975,28 +1035,28 @@ return (
               color={theme.colors.primary}
             />
 
-            <Text style={styles.checkText}>{item}</Text>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
           </View>
         ))}
-      </View>
+      </AwaCard>
 
-      <Text style={styles.body}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
         {content.section4Body3}
-      </Text>
+      </AwaText>
 
-      <Text style={styles.h2}>
+      <AwaText variant="titleLarge" emphasized style={styles.h2}>
         5. {content.topics[4]}
-      </Text>
+      </AwaText>
 
-      <Text style={styles.body}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
         {content.section5Body1}
-      </Text>
+      </AwaText>
 
-      <Text style={styles.body}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
         {content.section5Body2}
-      </Text>
+      </AwaText>
 
-      <View style={styles.tip}>
+      <AwaCard variant="filled" padding="none" style={styles.tip}>
         <MaterialDesignIcons
           name="calendar-clock"
           size={24}
@@ -1004,21 +1064,21 @@ return (
         />
 
         <View style={styles.tipCopy}>
-          <Text style={styles.tipTitle}>{content.tip2Title}</Text>
+          <AwaText variant="titleSmall" emphasized>{content.tip2Title}</AwaText>
 
-          <Text style={styles.tipText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
             {content.tip2Text}
-          </Text>
+          </AwaText>
         </View>
-      </View>
+      </AwaCard>
 
-      <Text style={styles.h2}>6. {content.topics[5]}</Text>
+      <AwaText variant="titleLarge" emphasized style={styles.h2}>6. {content.topics[5]}</AwaText>
 
-      <Text style={styles.body}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
         {content.section6Body1}
-      </Text>
+      </AwaText>
 
-      <View style={styles.checkList}>
+      <AwaCard variant="filled" padding="none" style={styles.checkList}>
         {content.trackingTips.map(item => (
           <View key={item} style={styles.checkRow}>
             <MaterialDesignIcons
@@ -1027,28 +1087,28 @@ return (
               color={theme.colors.success}
             />
 
-            <Text style={styles.checkText}>{item}</Text>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
           </View>
         ))}
-      </View>
+      </AwaCard>
 
-      <Text style={styles.body}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
         {content.section6Body2}
-      </Text>
+      </AwaText>
 
-      <Text style={styles.h2}>
+      <AwaText variant="titleLarge" emphasized style={styles.h2}>
         7. {content.topics[6]}
-      </Text>
+      </AwaText>
 
-      <Text style={styles.body}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
         {content.section7Body1}
-      </Text>
+      </AwaText>
 
-      <Text style={styles.body}>
+      <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
         {content.section7Body2}
-      </Text>
+      </AwaText>
 
-      <View style={styles.alert}>
+      <AwaCard variant="filled" padding="none" style={styles.alert}>
         <MaterialDesignIcons
           name="doctor"
           size={24}
@@ -1056,17 +1116,17 @@ return (
         />
 
         <View style={styles.tipCopy}>
-          <Text style={styles.tipTitle}>{content.alert2Title}</Text>
+          <AwaText variant="titleSmall" emphasized>{content.alert2Title}</AwaText>
 
-          <Text style={styles.tipText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
             {content.alert2Text}
-          </Text>
+          </AwaText>
         </View>
-      </View>
+      </AwaCard>
 
-      <Text style={styles.h2}>8. {content.topics[7]}</Text>
+      <AwaText variant="titleLarge" emphasized style={styles.h2}>8. {content.topics[7]}</AwaText>
 
-      <View style={styles.summaryCard}>
+      <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
         <View style={styles.summaryHeader}>
           <MaterialDesignIcons
             name="bookmark-check-outline"
@@ -1074,51 +1134,51 @@ return (
             color={theme.colors.primary}
           />
 
-          <Text style={styles.summaryTitle}>{content.summaryTitle}</Text>
+          <AwaText variant="titleSmall" emphasized>{content.summaryTitle}</AwaText>
         </View>
 
         <View style={styles.summaryRow}>
-          <Text style={styles.summaryNumber}>01</Text>
+          <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.summaryNumber}>01</AwaText>
 
-          <Text style={styles.summaryText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
             {content.summaryRows[0]}
-          </Text>
+          </AwaText>
         </View>
 
         <View style={styles.summaryRow}>
-          <Text style={styles.summaryNumber}>02</Text>
+          <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.summaryNumber}>02</AwaText>
 
-          <Text style={styles.summaryText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
             {content.summaryRows[1]}
-          </Text>
+          </AwaText>
         </View>
 
         <View style={styles.summaryRow}>
-          <Text style={styles.summaryNumber}>03</Text>
+          <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.summaryNumber}>03</AwaText>
 
-          <Text style={styles.summaryText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
             {content.summaryRows[2]}
-          </Text>
+          </AwaText>
         </View>
 
         <View style={styles.summaryRow}>
-          <Text style={styles.summaryNumber}>04</Text>
+          <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.summaryNumber}>04</AwaText>
 
-          <Text style={styles.summaryText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
             {content.summaryRows[3]}
-          </Text>
+          </AwaText>
         </View>
 
         <View style={styles.summaryRow}>
-          <Text style={styles.summaryNumber}>05</Text>
+          <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.summaryNumber}>05</AwaText>
 
-          <Text style={styles.summaryText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
             {content.summaryRows[4]}
-          </Text>
+          </AwaText>
         </View>
-      </View>
+      </AwaCard>
 
-      <View style={styles.tip}>
+      <AwaCard variant="filled" padding="none" style={styles.tip}>
         <MaterialDesignIcons
           name="lightbulb-outline"
           size={24}
@@ -1126,17 +1186,17 @@ return (
         />
 
         <View style={styles.tipCopy}>
-          <Text style={styles.tipTitle}>{content.finalTipTitle}</Text>
+          <AwaText variant="titleSmall" emphasized>{content.finalTipTitle}</AwaText>
 
-          <Text style={styles.tipText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
             {content.finalTipText}
-          </Text>
+          </AwaText>
         </View>
-      </View>
+      </AwaCard>
 
-      <Text style={styles.disclaimer}>
+      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimer}>
         {content.disclaimer}
-      </Text>
+      </AwaText>
     </View>
   </ScrollView>
 
@@ -1158,7 +1218,7 @@ backgroundColor: theme.colors.background,
 },
 
 scroll: {
-paddingBottom: 30,
+paddingBottom: 32,
 },
 
 heroWrap: {
@@ -1186,54 +1246,31 @@ flexDirection: 'row',
 gap: 8,
 },
 
-circle: {
-width: 40,
-height: 40,
-borderRadius: 20,
-alignItems: 'center',
-justifyContent: 'center',
-backgroundColor: withAlpha(theme.colors.surface, 0.90),
-borderWidth: 1,
-borderColor: theme.colors.border,
-},
 
-pressed: {
-opacity: 0.74,
-},
 
 article: {
-marginTop: -15,
+marginTop: -16,
 padding: 20,
-borderTopLeftRadius: 22,
-borderTopRightRadius: 22,
+borderTopLeftRadius: 28,
+borderTopRightRadius: 28,
 backgroundColor: theme.colors.background,
 },
 
 badge: {
 alignSelf: 'flex-start',
-paddingHorizontal: 10,
-paddingVertical: 5,
-borderRadius: 10,
+paddingHorizontal: 12,
+paddingVertical: 4,
+borderRadius: 12,
 backgroundColor: theme.colors.primarySoft,
 },
 
-badgeText: {
-fontSize: 11,
-color: theme.colors.primary,
-fontWeight: '800',
-},
 
 title: {
 marginTop: 12,
-fontFamily: 'serif',
-fontSize: 25,
-lineHeight: 31,
-color: theme.colors.text,
-fontWeight: '700',
 },
 
 metas: {
-marginTop: 14,
+marginTop: 16,
 flexDirection: 'row',
 flexWrap: 'wrap',
 alignItems: 'center',
@@ -1243,7 +1280,7 @@ gap: 12,
 metaItem: {
 flexDirection: 'row',
 alignItems: 'center',
-gap: 5,
+gap: 4,
 },
 
 metaDivider: {
@@ -1252,31 +1289,18 @@ height: 20,
 backgroundColor: theme.colors.border,
 },
 
-meta: {
-fontSize: 10,
-color: theme.colors.textMuted,
-},
 
 intro: {
-marginTop: 17,
-fontSize: 14,
-lineHeight: 21,
-color: theme.colors.textSecondary,
-fontWeight: '500',
+marginTop: 16,
 },
 
 contents: {
-marginTop: 19,
-padding: 15,
-borderRadius: 13,
-backgroundColor: theme.colors.surfaceSecondary,
+marginTop: 20,
+padding: 16,
 },
 
 contentsTitle: {
-marginBottom: 7,
-fontSize: 15,
-color: theme.colors.text,
-fontWeight: '800',
+marginBottom: 8,
 },
 
 contentRow: {
@@ -1294,152 +1318,100 @@ alignItems: 'center',
 
 contentNumber: {
 width: 24,
-color: theme.colors.primary,
-fontSize: 12,
-fontWeight: '800',
 },
 
 contentText: {
 flex: 1,
-fontSize: 12.5,
-lineHeight: 17,
-color: theme.colors.text,
 },
 
 h2: {
 marginTop: 24,
-fontFamily: 'serif',
-fontSize: 21,
-lineHeight: 27,
-color: theme.colors.text,
-fontWeight: '700',
 },
 
 body: {
-marginTop: 9,
-fontSize: 14,
-lineHeight: 22,
-color: theme.colors.textSecondary,
+marginTop: 8,
 },
 
 checkList: {
-marginTop: 13,
-padding: 13,
-borderRadius: 12,
-backgroundColor: theme.colors.surfaceSecondary,
+marginTop: 12,
+padding: 12,
 },
 
 checkRow: {
 flexDirection: 'row',
 alignItems: 'flex-start',
 gap: 8,
-marginBottom: 11,
+marginBottom: 12,
 },
 
 checkText: {
 flex: 1,
-color: theme.colors.textSecondary,
-fontSize: 12.5,
-lineHeight: 18,
 },
 
 alert: {
-marginTop: 14,
-padding: 14,
+marginTop: 16,
+padding: 16,
 flexDirection: 'row',
 alignItems: 'flex-start',
-borderRadius: 12,
 backgroundColor: withAlpha(theme.colors.warning, 0.12),
 },
 
 infoCard: {
-marginTop: 14,
-padding: 14,
+marginTop: 16,
+padding: 16,
 flexDirection: 'row',
 alignItems: 'flex-start',
-borderRadius: 12,
-backgroundColor: withAlpha(theme.colors.primary, 0.08),
-borderWidth: 1,
-borderColor: theme.colors.border,
 },
 
 tip: {
-marginTop: 15,
-padding: 14,
+marginTop: 16,
+padding: 16,
 flexDirection: 'row',
 alignItems: 'flex-start',
-borderRadius: 12,
-backgroundColor: withAlpha(theme.colors.primary, 0.08),
 },
 
 tipCopy: {
 flex: 1,
-marginLeft: 11,
+marginLeft: 12,
 },
 
-tipTitle: {
-fontSize: 13,
-color: theme.colors.text,
-fontWeight: '800',
-},
 
 tipText: {
 marginTop: 4,
-fontSize: 11.5,
-lineHeight: 17,
-color: theme.colors.textSecondary,
 },
 
 summaryCard: {
-marginTop: 15,
-padding: 15,
-borderRadius: 14,
-backgroundColor: theme.colors.surfaceSecondary,
-borderWidth: 1,
-borderColor: theme.colors.border,
+marginTop: 16,
+padding: 16,
 },
 
 summaryHeader: {
 flexDirection: 'row',
 alignItems: 'center',
-gap: 9,
+gap: 8,
 marginBottom: 12,
 },
 
-summaryTitle: {
-fontSize: 14,
-color: theme.colors.text,
-fontWeight: '800',
-},
 
 summaryRow: {
 flexDirection: 'row',
 alignItems: 'flex-start',
-marginTop: 10,
+marginTop: 12,
 },
 
 summaryNumber: {
 width: 31,
-fontSize: 10,
-color: theme.colors.primary,
-fontWeight: '800',
 marginTop: 2,
 },
 
 summaryText: {
 flex: 1,
-fontSize: 12.5,
-lineHeight: 18,
-color: theme.colors.textSecondary,
 },
 
 disclaimer: {
-marginTop: 22,
+marginTop: 24,
 paddingHorizontal: 4,
-fontSize: 10.5,
-lineHeight: 16,
 textAlign: 'center',
-color: theme.colors.textMuted,
 },
 });
 }

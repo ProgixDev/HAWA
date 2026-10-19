@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -22,6 +20,9 @@ import {
   toggleBookmark,
 } from '../../state/libraryStore';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {getBottomPadding, getTopPadding, READING_CONTROLS_SPACE} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -474,6 +475,53 @@ const CONTENT = {
       ],
       shareMessage: '周期规律还是不规律：有什么区别？ — AWA',
     },
+  id: {
+    badge: 'SIKLUS & HAID',
+    title: 'Siklus teratur atau tidak teratur:\napa bedanya?',
+    metaDuration: '5 menit baca',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Setiap siklus menstruasi itu unik. Memahami apa yang dianggap “normal” bisa membantumu memantau kesehatan lebih dekat dan mengenali kemungkinan ketidakseimbangan.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Siklus menstruasi teratur: apa itu?',
+      'Siklus tidak teratur: apa artinya?',
+      'Kemungkinan penyebab siklus tidak teratur',
+      'Kapan kamu perlu ke dokter?',
+      'Tips untuk siklus yang lebih seimbang',
+    ],
+    section1Body: 'Siklus dianggap teratur jika panjangnya berkisar antara 21 dan 35 hari, dengan selisih kurang dari 7 hari dari satu siklus ke siklus berikutnya.',
+    section1VisualTitle: 'Ritme yang cukup stabil',
+    section1VisualText: 'Yang terpenting adalah mengamati ritmemu sendiri dari bulan ke bulan.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Setiap perempuan berbeda. Yang penting adalah mengenal ritmemu sendiri beserta variasi normalnya.',
+    section2Body: 'Siklus dianggap tidak teratur jika panjangnya sering berubah atau tidak bisa diprediksi (selisih lebih dari 7 hari). Hal ini bisa berupa siklus yang sangat pendek, siklus yang sangat panjang, atau tidak adanya ovulasi.',
+    section2VisualTitle: 'Variasi yang lebih terasa',
+    section2VisualText: 'Perbedaan ini bisa bersifat sementara atau berlanjut selama beberapa siklus.',
+    alertTitle: 'Harap diperhatikan',
+    alertText: 'Ketidakteraturan sementara bisa saja normal (stres, perubahan hormon, kelelahan…). Tetapi jika berlanjut, penting untuk mencari penyebabnya.',
+    causes: [
+      'Stres & kecemasan',
+      'Ketidakseimbangan hormon',
+      'Kurang tidur & kelelahan',
+      'Berat badan terlalu rendah atau terlalu tinggi',
+      'PCOS atau kondisi medis lainnya',
+    ],
+    checklist: [
+      'Tidak haid lebih dari 3 bulan (di luar kehamilan/menyusui)',
+      'Siklus sangat panjang (lebih dari 90 hari) atau sangat pendek (kurang dari 21 hari)',
+      'Nyeri hebat yang membuatmu tidak bisa beraktivitas normal',
+      'Perdarahan yang sangat deras atau tidak teratur',
+      'Jika kamu sedang program hamil dan ovulasi tampaknya tidak terjadi',
+    ],
+    advice: [
+      'Pola makan seimbang',
+      'Asupan air yang cukup',
+      'Aktivitas fisik',
+      'Pengelolaan stres',
+      'Tidur berkualitas',
+    ],
+    shareMessage: 'Siklus teratur atau tidak teratur: apa bedanya? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -555,55 +603,34 @@ export default function RegularIrregularCycleArticleScreen({
                   getTopPadding(insets.top, true),
               },
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
-                onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={
+                icon={
                     saved
                       ? 'bookmark'
                       : 'bookmark-outline'
                   }
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                iconSize={20}
+                onPress={handleBookmark}
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -611,14 +638,14 @@ export default function RegularIrregularCycleArticleScreen({
         {/* ARTICLE */}
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">
               {content.badge}
-            </Text>
+            </AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           {/* META */}
           <View style={styles.metas}>
@@ -638,36 +665,36 @@ export default function RegularIrregularCycleArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                     {text}
-                  </Text>
+                  </AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="bodyMedium" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
           {/* SOMMAIRE */}
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>
               {content.contentsTitle}
-            </Text>
+            </AwaText>
 
             {content.topics.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>
                     {index + 1}.
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.contentText}>
+                  <AwaText variant="bodySmall" style={styles.contentText}>
                     {item}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -677,18 +704,18 @@ export default function RegularIrregularCycleArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 1 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             1. {content.topics[0]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section1Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.visualCard}>
+          <AwaCard variant="filled" padding="none" style={styles.visualCard}>
             <Image
               source={ART.calendar}
               resizeMode="cover"
@@ -696,17 +723,17 @@ export default function RegularIrregularCycleArticleScreen({
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.section1VisualTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.visualText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.visualText}>
                 {content.section1VisualText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -714,26 +741,26 @@ export default function RegularIrregularCycleArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.tip1Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 2 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             2. {content.topics[1]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section2Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.visualCard}>
+          <AwaCard variant="filled" padding="none" style={styles.visualCard}>
             <Image
               source={ART.heartbeat}
               resizeMode="cover"
@@ -741,17 +768,17 @@ export default function RegularIrregularCycleArticleScreen({
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.section2VisualTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.visualText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.visualText}>
                 {content.section2VisualText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
@@ -759,20 +786,20 @@ export default function RegularIrregularCycleArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.alertTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.alertText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 3 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             3. {content.topics[2]}
-          </Text>
+          </AwaText>
 
           <Image
             source={ART.causes}
@@ -791,17 +818,17 @@ export default function RegularIrregularCycleArticleScreen({
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>
+                <AwaText variant="bodySmall" style={styles.dailyText}>
                   {content.causes[index]}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </View>
 
           {/* SECTION 4 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             4. {content.topics[3]}
-          </Text>
+          </AwaText>
 
           <Image
             source={ART.consult}
@@ -809,7 +836,7 @@ export default function RegularIrregularCycleArticleScreen({
             style={styles.wideImage}
           />
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.checklist.map(item => (
               <View
                 key={item}
@@ -820,17 +847,17 @@ export default function RegularIrregularCycleArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>
+                <AwaText variant="bodySmall" style={styles.checkText}>
                   {item}
-                </Text>
+                </AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 5 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             5. {content.topics[4]}
-          </Text>
+          </AwaText>
 
           <Image
             source={ART.balance}
@@ -849,9 +876,9 @@ export default function RegularIrregularCycleArticleScreen({
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>
+                <AwaText variant="bodySmall" style={styles.dailyText}>
                   {content.advice[index]}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </View>
@@ -876,7 +903,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   heroWrap: {
@@ -904,54 +931,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -961,7 +965,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -970,31 +974,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 10,
-    color: theme.colors.textMuted,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '500',
+    marginTop: 16,
   },
 
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -1012,44 +1003,26 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 24,
-    color: theme.colors.primary,
-    fontSize: 12,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.5,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   body: {
     marginTop: 8,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
   },
 
   visualCard: {
-    marginTop: 15,
+    marginTop: 16,
     minHeight: 98,
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: theme.colors.surface,
+    padding: 12,
   },
 
   visualImage: {
@@ -1063,65 +1036,45 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginLeft: 12,
   },
 
-  visualTitle: {
-    color: theme.colors.text,
-    fontSize: 13,
-    lineHeight: 17,
-    fontWeight: '800',
-  },
 
   visualText: {
     marginTop: 4,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    lineHeight: 16,
   },
 
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   alert: {
-    marginTop: 14,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 3,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   wideImage: {
     width: '100%',
     height: 120,
-    marginTop: 14,
+    marginTop: 16,
     borderRadius: 12,
   },
 
   daily: {
-    marginTop: 13,
+    marginTop: 12,
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
@@ -1133,37 +1086,29 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
   dailyText: {
-    marginTop: 7,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.text,
+    marginTop: 8,
     textAlign: 'center',
   },
 
   checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 12,
+    padding: 12,
   },
 
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 9,
+    marginBottom: 8,
   },
 
   checkText: {
     flex: 1,
-    color: theme.colors.text,
-    fontSize: 12,
-    lineHeight: 17,
   },
 
   });

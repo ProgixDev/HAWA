@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -729,6 +730,102 @@ const CONTENT = {
       finalTipText: '漏服一片并不一定意味着避孕已经失效。正确的做法取决于避孕药的类型和漏服的具体情况。如有疑问，请查看说明书并尽快寻求建议。',
       disclaimerText: '本文仅供参考，不能替代你所用药品的说明书或个性化的医疗建议。具体建议可能因避孕药类型而异。',
     },
+  id: {
+    shareMessage: 'Lupa minum pil: apa yang harus dilakukan? — AWA',
+    badge: 'LUPA MINUM PIL',
+    title: 'Lupa minum pil:\napa yang harus dilakukan?',
+    metaDuration: '7 menit baca',
+    metaType: 'Tanya jawab',
+    metaLevel: 'Menengah',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Lupa minum pil bisa terjadi pada siapa saja. Tindakan yang tepat terutama bergantung pada seberapa lama keterlambatannya, jenis pil, dan di bagian mana dalam kemasan hal itu terjadi.',
+    importantTitle: 'Poin utama',
+    importantText: 'Jangan panik. Pertama, periksa jenis pil yang kamu pakai dan baca brosur kemasannya untuk mengetahui langkah yang dianjurkan.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Terlambat kurang dari 12 jam',
+      'Terlambat lebih dari 12 jam',
+      'Situasi yang perlu perhatian ekstra',
+      'Brosur kemasan adalah rujukanmu',
+      'Kapan perlu meminta saran',
+      'Poin penting',
+    ],
+    body1: 'Pada sebagian pil, keterlambatan kurang dari 12 jam umumnya tidak mengurangi perlindungan kontrasepsi. Dalam hal ini, anjuran yang biasa adalah segera minum pil yang terlewat, lalu melanjutkan kemasan pada jam yang biasa.',
+    step1Title: 'Minum pilnya',
+    step1Text: 'Minum pil segera setelah kamu sadar terlambat.',
+    step2Title: 'Lanjutkan seperti biasa',
+    step2Text: 'Setelah itu, kembali ke jadwal biasa untuk pil-pil berikutnya.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Jika kamu meminum pil yang terlewat lalu pil yang dijadwalkan pada jam biasa, bisa saja dua pil diminum pada hari yang sama.',
+    body2: 'Jika keterlambatan melebihi batas waktu yang diizinkan untuk pilmu, perlindungan bisa berkurang. Tindakan selanjutnya bergantung pada jenis pil, jumlah pil yang terlewat, dan posisi pil yang terlewat dalam kemasan.',
+    alertTitle: 'Peringatan',
+    alertText: 'Jangan hanya mengandalkan jumlah jam yang disebutkan di sini: sebagian pil memiliki petunjuk yang berbeda. Selalu periksa brosur kemasan obatmu.',
+    reflexesTitle: 'Hal pertama yang perlu dilakukan',
+    checkPoints: [
+      {
+        title: 'Bertindak dengan cepat',
+        text: 'Semakin cepat kamu bertindak setelah menyadari pil terlewat, semakin mudah mengikuti anjuran yang sesuai.',
+      },
+      {
+        title: 'Periksa brosur kemasan',
+        text: 'Petunjuknya bisa berbeda tergantung jenis pil yang tepat dan jumlah pil yang terlewat.',
+      },
+      {
+        title: 'Siapkan perlindungan tambahan',
+        text: 'Pada sebagian situasi, kondom mungkin dianjurkan untuk jangka waktu tertentu.',
+      },
+    ],
+    body3: 'Tidak semua situasi sama. Sebagian kasus pil terlewat memerlukan pemeriksaan anjuran yang lebih teliti.',
+    situations: [
+      {
+        title: 'Hanya satu pil yang terlewat',
+        text: 'Tindakan yang tepat terutama bergantung pada waktu yang telah berlalu sejak jam minum yang biasa.',
+      },
+      {
+        title: 'Lebih dari satu pil terlewat',
+        text: 'Situasi ini perlu perhatian khusus, dan sebaiknya periksa brosur kemasan dengan teliti.',
+      },
+      {
+        title: 'Tidak yakin harus berbuat apa',
+        text: 'Apoteker atau tenaga kesehatan dapat dengan cepat membantumu menemukan langkah yang tepat.',
+      },
+    ],
+    body4: 'Brosur kemasan pilmu memberikan petunjuk yang tepat untuk obat yang kamu pakai. Anjurannya bisa berbeda tergantung apakah pilmu pil kombinasi atau pil yang hanya mengandung progestin.',
+    referenceTitle: 'Hal-hal berguna untuk diperiksa',
+    referenceTips: [
+      'Simpan brosur kemasan agar mudah dijangkau (misalnya berupa foto di ponselmu)',
+      'Hubungi apoteker jika ada pertanyaan singkat',
+      'Temui dokter jika hal ini sering terjadi',
+    ],
+    guideTitle: 'Mengapa waktu pil terlewat itu penting?',
+    guideText: 'Posisi pil yang terlewat dalam kemasan dapat mengubah tindakan yang perlu dilakukan. Karena itu, brosur kemasan sering memberikan anjuran yang berbeda tergantung minggu dalam kemasan.',
+    body5: 'Jika kamu tidak tahu harus berbuat apa, lebih baik meminta saran daripada tetap ragu. Apoteker, bidan, atau dokter dapat membantumu memeriksa anjuran yang sesuai dengan situasimu.',
+    questionTitle: 'Informasi yang perlu disiapkan',
+    questions: [
+      'Pil jenis apa tepatnya?',
+      'Berapa lama waktu telah berlalu sejak jam minum yang biasa?',
+      'Berapa pil yang terlewat?',
+      'Di bagian mana dalam kemasan pil itu terlewat?',
+      'Apakah belakangan ini ada hubungan seksual tanpa perlindungan?',
+    ],
+    proTipTitle: 'Perlu diketahui',
+    proTipText: 'Jika terjadi hubungan seksual tanpa perlindungan sekitar waktu pil terlewat, segera minta saran tenaga profesional untuk mengetahui pilihan apa yang tersedia.',
+    repeatTitle: 'Jika kamu sering lupa minum pil',
+    body6: 'Pil yang sering terlewat bisa menjadi tanda bahwa rutinitas harian kurang cocok dengan gaya hidupmu. Jangan ragu berbicara dengan tenaga kesehatan untuk mempelajari pilihan kontrasepsi lain.',
+    methodTipTitle: 'Metode yang berbeda?',
+    methodTipText: 'Jika minum pil setiap hari sulit dijalani, ada metode lain dengan frekuensi pemakaian yang berbeda.',
+    summaryTitle: 'Intinya',
+    summaryItems: [
+      'Segera bertindak begitu kamu menyadari pil terlewat.',
+      'Periksa jenis pilmu dengan tepat.',
+      'Periksa brosur kemasan untuk mengetahui langkah yang tepat.',
+      'Gunakan perlindungan tambahan jika brosur kemasan menganjurkannya.',
+      'Minta saran jika ragu atau setelah hubungan yang berisiko.',
+    ],
+    finalTipTitle: 'Poin penting',
+    finalTipText: 'Pil yang terlewat tidak otomatis berarti kontrasepsimu berhenti bekerja. Tindakan yang tepat bergantung pada jenis pil dan keadaan saat dosis terlewat. Jika ragu, periksa brosur kemasan dan segera minta saran.',
+    disclaimerText: 'Artikel ini disediakan hanya untuk tujuan informasi dan tidak menggantikan brosur kemasan obatmu maupun saran medis yang dipersonalisasi. Anjuran dapat berbeda tergantung jenis pil.',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -805,51 +902,30 @@ export default function MissedPillsArticleScreen({
                 paddingTop: getTopPadding(insets.top, true),
               },
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -860,14 +936,14 @@ export default function MissedPillsArticleScreen({
           {/* CATEGORY */}
 
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
           {/* TITLE */}
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           {/* METADATA */}
 
@@ -888,7 +964,7 @@ export default function MissedPillsArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
@@ -896,13 +972,13 @@ export default function MissedPillsArticleScreen({
 
           {/* INTRO */}
 
-          <Text style={styles.intro}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
           {/* IMPORTANT */}
 
-          <View style={styles.importantCard}>
+          <AwaCard variant="filled" padding="none" style={styles.importantCard}>
             <View style={styles.importantIcon}>
               <MaterialDesignIcons
                 name="information-outline"
@@ -912,25 +988,25 @@ export default function MissedPillsArticleScreen({
             </View>
 
             <View style={styles.importantCopy}>
-              <Text style={styles.importantTitle}>{content.importantTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.importantTitle}</AwaText>
 
-              <Text style={styles.importantText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.importantText}>
                 {content.importantText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* TABLE OF CONTENTS */}
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
 
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -940,45 +1016,45 @@ export default function MissedPillsArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 1 */}
 
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body1}
-          </Text>
+          </AwaText>
 
-          <View style={styles.stepCard}>
+          <AwaCard variant="filled" padding="none" style={styles.stepCard}>
             <View style={styles.stepHeader}>
               <View style={styles.stepNumber}>
-                <Text style={styles.stepNumberText}>1</Text>
+                <AwaText variant="titleSmall" emphasized colorRole="primary">1</AwaText>
               </View>
 
-              <Text style={styles.stepTitle}>{content.step1Title}</Text>
+              <AwaText variant="titleSmall" emphasized style={styles.stepTitle}>{content.step1Title}</AwaText>
             </View>
 
-            <Text style={styles.stepText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.stepText}>
               {content.step1Text}
-            </Text>
-          </View>
+            </AwaText>
+          </AwaCard>
 
-          <View style={styles.stepCard}>
+          <AwaCard variant="filled" padding="none" style={styles.stepCard}>
             <View style={styles.stepHeader}>
               <View style={styles.stepNumber}>
-                <Text style={styles.stepNumberText}>2</Text>
+                <AwaText variant="titleSmall" emphasized colorRole="primary">2</AwaText>
               </View>
 
-              <Text style={styles.stepTitle}>{content.step2Title}</Text>
+              <AwaText variant="titleSmall" emphasized style={styles.stepTitle}>{content.step2Title}</AwaText>
             </View>
 
-            <Text style={styles.stepText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.stepText}>
               {content.step2Text}
-            </Text>
-          </View>
+            </AwaText>
+          </AwaCard>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -986,23 +1062,23 @@ export default function MissedPillsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 2 */}
 
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-circle-outline"
               size={25}
@@ -1010,19 +1086,19 @@ export default function MissedPillsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.alertTitle}</AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.alertText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* QUICK GUIDE */}
 
-          <Text style={styles.h3}>{content.reflexesTitle}</Text>
+          <AwaText variant="titleMedium" emphasized style={styles.h3}>{content.reflexesTitle}</AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.checkPoints.map((item, index) => (
               <View key={item.title} style={styles.checkRow}>
                 <View style={styles.checkIcon}>
@@ -1034,27 +1110,27 @@ export default function MissedPillsArticleScreen({
                 </View>
 
                 <View style={styles.checkCopy}>
-                  <Text style={styles.checkTitle}>{item.title}</Text>
+                  <AwaText variant="titleSmall" emphasized>{item.title}</AwaText>
 
-                  <Text style={styles.checkText}>{item.text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item.text}</AwaText>
                 </View>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 3 */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             3. {content.topics[2]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body3}
-          </Text>
+          </AwaText>
 
           <View style={styles.situationList}>
             {content.situations.map((item, index) => (
-              <View key={item.title} style={styles.situationCard}>
+              <AwaCard variant="filled" padding="none" key={item.title} style={styles.situationCard}>
                 <View style={styles.situationIcon}>
                   <MaterialDesignIcons
                     name={SITUATION_ICONS[index] as never}
@@ -1064,23 +1140,23 @@ export default function MissedPillsArticleScreen({
                 </View>
 
                 <View style={styles.situationCopy}>
-                  <Text style={styles.situationTitle}>{item.title}</Text>
+                  <AwaText variant="titleSmall" emphasized>{item.title}</AwaText>
 
-                  <Text style={styles.situationText}>{item.text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.situationText}>{item.text}</AwaText>
                 </View>
-              </View>
+              </AwaCard>
             ))}
           </View>
 
           {/* SECTION 4 */}
 
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body4}
-          </Text>
+          </AwaText>
 
-          <View style={styles.referenceCard}>
+          <AwaCard variant="filled" padding="none" style={styles.referenceCard}>
             <View style={styles.referenceHeader}>
               <MaterialDesignIcons
                 name="file-document-check-outline"
@@ -1088,27 +1164,27 @@ export default function MissedPillsArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.referenceTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.referenceTitle}
-              </Text>
+              </AwaText>
             </View>
 
             {content.referenceTips.map((item, index) => (
               <View key={item} style={styles.referenceRow}>
                 <View style={styles.referenceNumber}>
-                  <Text style={styles.referenceNumberText}>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary">
                     {index + 1}
-                  </Text>
+                  </AwaText>
                 </View>
 
-                <Text style={styles.referenceText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.referenceText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* MINI GUIDE */}
 
-          <View style={styles.guideCard}>
+          <AwaCard variant="filled" padding="none" style={styles.guideCard}>
             <View style={styles.guideHeader}>
               <MaterialDesignIcons
                 name="compass-outline"
@@ -1116,25 +1192,25 @@ export default function MissedPillsArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.guideTitle}>
+              <AwaText variant="titleSmall" emphasized style={styles.guideTitle}>
                 {content.guideTitle}
-              </Text>
+              </AwaText>
             </View>
 
-            <Text style={styles.guideText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.guideText}>
               {content.guideText}
-            </Text>
-          </View>
+            </AwaText>
+          </AwaCard>
 
           {/* SECTION 5 */}
 
-          <Text style={styles.h2}>5. {content.topics[4]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>5. {content.topics[4]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body5}
-          </Text>
+          </AwaText>
 
-          <View style={styles.questionCard}>
+          <AwaCard variant="filled" padding="none" style={styles.questionCard}>
             <View style={styles.questionHeader}>
               <MaterialDesignIcons
                 name="message-question-outline"
@@ -1142,23 +1218,23 @@ export default function MissedPillsArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.questionTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.questionTitle}
-              </Text>
+              </AwaText>
             </View>
 
             {content.questions.map((item, index) => (
               <View key={item} style={styles.questionRow}>
                 <View style={styles.questionBullet}>
-                  <Text style={styles.questionNumber}>{index + 1}</Text>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary">{index + 1}</AwaText>
                 </View>
 
-                <Text style={styles.questionText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.questionText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.professionalTip}>
+          <AwaCard variant="filled" padding="none" style={styles.professionalTip}>
             <MaterialDesignIcons
               name="doctor"
               size={25}
@@ -1166,23 +1242,23 @@ export default function MissedPillsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.proTipTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.proTipTitle}</AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.proTipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* REPEATED FORGETTING */}
 
-          <Text style={styles.h3}>{content.repeatTitle}</Text>
+          <AwaText variant="titleMedium" emphasized style={styles.h3}>{content.repeatTitle}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.body6}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="calendar-sync-outline"
               size={24}
@@ -1190,19 +1266,19 @@ export default function MissedPillsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.methodTipTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.methodTipTitle}</AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.methodTipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 6 */}
 
-          <Text style={styles.h2}>6. {content.topics[5]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>6. {content.topics[5]}</AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
               <MaterialDesignIcons
                 name="check-decagram-outline"
@@ -1210,7 +1286,7 @@ export default function MissedPillsArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.summaryTitle}>{content.summaryTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.summaryTitle}</AwaText>
             </View>
 
             <View style={styles.summaryItem}>
@@ -1220,9 +1296,9 @@ export default function MissedPillsArticleScreen({
                 color={theme.colors.success}
               />
 
-              <Text style={styles.summaryText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
                 {content.summaryItems[0]}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.summaryItem}>
@@ -1232,9 +1308,9 @@ export default function MissedPillsArticleScreen({
                 color={theme.colors.success}
               />
 
-              <Text style={styles.summaryText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
                 {content.summaryItems[1]}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.summaryItem}>
@@ -1244,9 +1320,9 @@ export default function MissedPillsArticleScreen({
                 color={theme.colors.success}
               />
 
-              <Text style={styles.summaryText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
                 {content.summaryItems[2]}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.summaryItem}>
@@ -1256,9 +1332,9 @@ export default function MissedPillsArticleScreen({
                 color={theme.colors.success}
               />
 
-              <Text style={styles.summaryText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
                 {content.summaryItems[3]}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.summaryItem}>
@@ -1268,15 +1344,15 @@ export default function MissedPillsArticleScreen({
                 color={theme.colors.success}
               />
 
-              <Text style={styles.summaryText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
                 {content.summaryItems[4]}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* FINAL MESSAGE */}
 
-          <View style={styles.finalTip}>
+          <AwaCard variant="filled" padding="none" style={styles.finalTip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={25}
@@ -1284,13 +1360,13 @@ export default function MissedPillsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.finalTipTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.finalTipTitle}</AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.finalTipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* DISCLAIMER */}
 
@@ -1301,9 +1377,9 @@ export default function MissedPillsArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>
               {content.disclaimerText}
-            </Text>
+            </AwaText>
           </View>
         </View>
       </ScrollView>
@@ -1327,7 +1403,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   heroWrap: {
@@ -1355,55 +1431,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -1413,7 +1465,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -1422,28 +1474,16 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 10,
-    color: theme.colors.textMuted,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '500',
+    marginTop: 16,
   },
 
   importantCard: {
-    marginTop: 17,
-    padding: 15,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 14,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   importantIcon: {
@@ -1457,36 +1497,21 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   importantCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  importantTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   importantText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -1504,49 +1529,27 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 24,
-    color: theme.colors.primary,
-    fontSize: 12,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.5,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   h2: {
-    marginTop: 27,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 28,
   },
 
   h3: {
-    marginTop: 22,
-    fontSize: 16,
-    lineHeight: 22,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginTop: 24,
   },
 
   body: {
     marginTop: 8,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
   },
 
   stepCard: {
-    marginTop: 11,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
 
   stepHeader: {
@@ -1563,74 +1566,44 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  stepNumberText: {
-    fontSize: 12,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   stepTitle: {
-    marginLeft: 10,
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginLeft: 12,
   },
 
   stepText: {
     marginTop: 8,
     marginLeft: 40,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   alert: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   checkList: {
-    marginTop: 14,
-    padding: 13,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 12,
   },
 
   checkRow: {
@@ -1650,35 +1623,23 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   checkCopy: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 12,
   },
 
-  checkTitle: {
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   checkText: {
     marginTop: 3,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   situationList: {
-    marginTop: 14,
-    gap: 10,
+    marginTop: 16,
+    gap: 12,
   },
 
   situationCard: {
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   situationIcon: {
@@ -1692,48 +1653,31 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   situationCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  situationTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   situationText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   referenceCard: {
-    marginTop: 15,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   referenceHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
-    marginBottom: 13,
+    gap: 8,
+    marginBottom: 12,
   },
 
-  referenceTitle: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   referenceRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 11,
+    marginBottom: 12,
   },
 
   referenceNumber: {
@@ -1745,77 +1689,49 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  referenceNumberText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   referenceText: {
     flex: 1,
-    marginLeft: 9,
+    marginLeft: 8,
     paddingTop: 2,
-    fontSize: 12,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   guideCard: {
-    marginTop: 15,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   guideHeader: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 9,
+    gap: 8,
   },
 
   guideTitle: {
     flex: 1,
-    fontSize: 13,
-    lineHeight: 18,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
 
   guideText: {
-    marginTop: 9,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
+    marginTop: 8,
   },
 
   questionCard: {
-    marginTop: 15,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   questionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
-    marginBottom: 13,
+    gap: 8,
+    marginBottom: 12,
   },
 
-  questionTitle: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   questionRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 11,
+    marginBottom: 12,
   },
 
   questionBullet: {
@@ -1827,82 +1743,54 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  questionNumber: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   questionText: {
     flex: 1,
-    marginLeft: 9,
+    marginLeft: 8,
     paddingTop: 2,
-    fontSize: 12,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   professionalTip: {
-    marginTop: 14,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   summaryCard: {
-    marginTop: 15,
+    marginTop: 16,
     padding: 16,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   summaryHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
-    marginBottom: 13,
+    gap: 8,
+    marginBottom: 12,
   },
 
-  summaryTitle: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   summaryItem: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 10,
+    marginBottom: 12,
     gap: 8,
   },
 
   summaryText: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 18,
-    color: theme.colors.textSecondary,
   },
 
   finalTip: {
-    marginTop: 15,
-    padding: 15,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   disclaimer: {
     marginTop: 20,
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
@@ -1910,9 +1798,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   disclaimerText: {
     flex: 1,
-    fontSize: 10.5,
-    lineHeight: 16,
-    color: theme.colors.textMuted,
   },
   });
 }

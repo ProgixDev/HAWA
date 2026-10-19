@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -555,6 +556,77 @@ const CONTENT = {
       reliefText: '休息、热敷和轻柔的活动会有帮助。如果疼痛仍然非常剧烈或异常，请就医咨询。',
       shareMessage: '了解你的月经：身体里究竟发生了什么 — AWA',
     },
+  id: {
+    badge: 'SIKLUS MENSTRUASI',
+    title: 'Memahami haidmu:\napa yang sebenarnya terjadi',
+    metaDuration: '5 menit baca',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Haid adalah bagian dari proses alami yang penting bagi kesehatan hormonal dan reproduksi. Memahami apa yang terjadi di tubuhmu dapat membantumu merasa lebih tenang pada setiap siklus.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Apa itu haid?',
+      'Bagaimana haid berlangsung',
+      'Apa yang normal (dan apa yang tidak)',
+      'Meredakan nyeri secara alami',
+    ],
+    body1: 'Haid adalah luruhnya lapisan rahim ketika tidak terjadi pembuahan. Hal ini terjadi rata-rata sekali sebulan.',
+    knowTitle: 'Perlu diketahui',
+    knowText: 'Setiap perempuan itu unik: lama, intensitas, dan sensasinya bisa berbeda dari satu siklus ke siklus berikutnya.',
+    body2: 'Aliran darah tidak sama sepanjang haid. Biasanya berubah dari hari ke hari, dalam intensitas, warna, dan teksturnya.',
+    flowSteps: [
+      {
+        title: 'Awal haid',
+        text: 'Aliran darah sering lebih deras pada beberapa hari pertama.',
+      },
+      {
+        title: 'Pertengahan haid',
+        text: 'Aliran darah umumnya mulai berkurang secara bertahap.',
+      },
+      {
+        title: 'Akhir haid',
+        text: 'Aliran darah menjadi lebih ringan dan warnanya bisa lebih gelap.',
+      },
+    ],
+    softInfoTitle: 'Ingatlah',
+    softInfoText: 'Hal ini bisa berbeda dari satu siklus ke siklus lainnya. Yang terpenting adalah mengenali ritme biasamu sendiri.',
+    body3: 'Beberapa variasi umum terjadi selama haid. Tanda lainnya layak mendapat perhatian lebih, terutama jika baru muncul atau sangat intens.',
+    normalSigns: [
+      {
+        title: 'Lama',
+        text: 'Haid yang biasanya berlangsung beberapa hari.',
+      },
+      {
+        title: 'Aliran yang berubah-ubah',
+        text: 'Aliran lebih deras di awal, lalu lebih ringan.',
+      },
+      {
+        title: 'Warna',
+        text: 'Dari merah terang hingga merah tua atau cokelat menjelang akhir haid.',
+      },
+      {
+        title: 'Sensasi',
+        text: 'Kram ringan hingga sedang mungkin terasa.',
+      },
+    ],
+    warningTitle: 'Kapan harus mencari saran medis?',
+    warningSigns: [
+      'Nyeri yang sangat intens atau tidak biasa',
+      'Perdarahan yang membuat pembalut atau tampon basah kuyup dengan sangat cepat',
+      'Kelelahan yang berat, rasa akan pingsan, atau pusing',
+      'Perubahan mendadak dan menetap dari pola biasamu',
+    ],
+    body4: 'Kebiasaan sederhana dapat membantu meredakan rasa tidak nyaman dan membuat hari-hari pertama haid lebih nyaman.',
+    tipsTitle: 'Tips praktis',
+    tips: [
+      'Minum air yang\ncukup untuk membantu\nmengurangi kelelahan.',
+      'Kompres hangat\npada perut bagian\nbawah jika perlu.',
+      'Coba aktivitas\nringan: jalan kaki,\nyoga, peregangan.',
+      'Beri dirimu\nistirahat dan tidur\nyang berkualitas.',
+    ],
+    reliefTitle: 'Dengarkan tubuhmu',
+    reliefText: 'Istirahat, kehangatan, dan aktivitas ringan dapat membantu. Jika nyeri tetap sangat intens atau tidak biasa, carilah saran medis.',
+    shareMessage: 'Memahami haidmu: apa yang sebenarnya terjadi — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -639,65 +711,44 @@ export default function UnderstandMenstrualFlowArticleScreen({
                   getTopPadding(insets.top, true),
               },
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={navigation.goBack}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                color={theme.colors.text}
-                size={23}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
-                onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={
+                icon={
                     saved
                       ? 'bookmark'
                       : 'bookmark-outline'
                   }
-                  color={theme.colors.primary}
-                  size={20}
-                />
-              </Pressable>
+                iconSize={20}
+                onPress={handleBookmark}
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  color={theme.colors.primary}
-                  size={20}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>{content.title}</Text>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>{content.title}</AwaText>
 
           <View style={styles.metas}>
             {[
@@ -713,31 +764,31 @@ export default function UnderstandMenstrualFlowArticleScreen({
                   size={14}
                 />
 
-                <Text style={styles.metaText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                   {text}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </View>
 
-          <Text style={styles.intro}>{content.intro}</Text>
+          <AwaText variant="bodyMedium" style={styles.intro}>{content.intro}</AwaText>
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleSmall" emphasized style={styles.contentsTitle}>
               {content.contentsTitle}
-            </Text>
+            </AwaText>
 
             {content.topics.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}>
-                <Text style={styles.contentNumber}>
+                <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.contentNumber}>
                   {index + 1}.
-                </Text>
+                </AwaText>
 
-                <Text style={styles.contentText}>
+                <AwaText variant="bodySmall" style={styles.contentText}>
                   {item}
-                </Text>
+                </AwaText>
 
                 <MaterialDesignIcons
                   name="chevron-right"
@@ -746,11 +797,11 @@ export default function UnderstandMenstrualFlowArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.sectionTitle}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.sectionTitle}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>{content.body1}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.body1}</AwaText>
 
           <View style={styles.processCard}>
             <Image
@@ -760,7 +811,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
             />
           </View>
 
-          <View style={styles.know}>
+          <AwaCard variant="filled" padding="none" style={styles.know}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               color={theme.colors.primary}
@@ -768,21 +819,21 @@ export default function UnderstandMenstrualFlowArticleScreen({
             />
 
             <View style={styles.knowCopy}>
-              <Text style={styles.knowTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.knowTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.knowText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.knowText}>
                 {content.knowText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.sectionTitle}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.sectionTitle}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>{content.body2}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.body2}</AwaText>
 
-          <View style={styles.timelineCard}>
+          <AwaCard variant="filled" padding="none" style={styles.timelineCard}>
             {FLOW_STEPS.map((step, index) => {
               const stepContent = content.flowSteps[index];
 
@@ -795,9 +846,9 @@ export default function UnderstandMenstrualFlowArticleScreen({
                       styles.timelineDivider,
                   ]}>
                   <View style={styles.timelineNumber}>
-                    <Text style={styles.timelineNumberText}>
+                    <AwaText variant="labelSmall" emphasized colorRole="onSurfaceVariant">
                       {step.number}
-                    </Text>
+                    </AwaText>
                   </View>
 
                   <View style={styles.timelineIcon}>
@@ -809,19 +860,19 @@ export default function UnderstandMenstrualFlowArticleScreen({
                   </View>
 
                   <View style={styles.timelineCopy}>
-                    <Text style={styles.timelineTitle}>
+                    <AwaText variant="titleSmall" emphasized>
                       {stepContent.title}
-                    </Text>
-                    <Text style={styles.timelineText}>
+                    </AwaText>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.timelineText}>
                       {stepContent.text}
-                    </Text>
+                    </AwaText>
                   </View>
                 </View>
               );
             })}
-          </View>
+          </AwaCard>
 
-          <View style={styles.softInfo}>
+          <AwaCard variant="filled" padding="none" style={styles.softInfo}>
             <MaterialDesignIcons
               name="information-outline"
               size={22}
@@ -829,18 +880,18 @@ export default function UnderstandMenstrualFlowArticleScreen({
             />
 
             <View style={styles.softInfoCopy}>
-              <Text style={styles.softInfoTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.softInfoTitle}
-              </Text>
-              <Text style={styles.softInfoText}>
+              </AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.softInfoText}>
                 {content.softInfoText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.sectionTitle}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.sectionTitle}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.body}>{content.body3}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.body3}</AwaText>
 
           <View style={styles.normalGrid}>
             {NORMAL_SIGNS.map((item, index) => {
@@ -858,19 +909,19 @@ export default function UnderstandMenstrualFlowArticleScreen({
                     />
                   </View>
 
-                  <Text style={styles.normalTitle}>
+                  <AwaText variant="titleSmall" emphasized style={styles.normalTitle}>
                     {signContent.title}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.normalText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.normalText}>
                     {signContent.text}
-                  </Text>
+                  </AwaText>
                 </View>
               );
             })}
           </View>
 
-          <View style={styles.warningCard}>
+          <AwaCard variant="filled" padding="none" style={styles.warningCard}>
             <View style={styles.warningHeader}>
               <View style={styles.warningIcon}>
                 <MaterialDesignIcons
@@ -880,9 +931,9 @@ export default function UnderstandMenstrualFlowArticleScreen({
                 />
               </View>
 
-              <Text style={styles.warningTitle}>
+              <AwaText variant="titleSmall" emphasized style={styles.warningTitle}>
                 {content.warningTitle}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.warningList}>
@@ -891,19 +942,19 @@ export default function UnderstandMenstrualFlowArticleScreen({
                   key={item}
                   style={styles.warningRow}>
                   <View style={styles.warningBullet} />
-                  <Text style={styles.warningText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.warningText}>
                     {item}
-                  </Text>
+                  </AwaText>
                 </View>
               ))}
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.sectionTitle}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.sectionTitle}>4. {content.topics[3]}</AwaText>
 
-          <Text style={styles.body}>{content.body4}</Text>
+          <AwaText variant="bodyMedium" style={styles.body}>{content.body4}</AwaText>
 
-          <View style={styles.tipsCard}>
+          <AwaCard variant="filled" padding="none" style={styles.tipsCard}>
             <View style={styles.tipsTitleRow}>
               <MaterialDesignIcons
                 name="heart-outline"
@@ -911,9 +962,9 @@ export default function UnderstandMenstrualFlowArticleScreen({
                 size={21}
               />
 
-              <Text style={styles.tipsTitle}>
+              <AwaText variant="titleMedium">
                 {content.tipsTitle}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.tipsRow}>
@@ -930,15 +981,15 @@ export default function UnderstandMenstrualFlowArticleScreen({
                     style={styles.tipImage}
                   />
 
-                  <Text style={styles.tipText}>
+                  <AwaText variant="bodySmall" style={styles.tipText}>
                     {content.tips[index]}
-                  </Text>
+                  </AwaText>
                 </View>
               ))}
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.reliefTip}>
+          <AwaCard variant="filled" padding="none" style={styles.reliefTip}>
             <MaterialDesignIcons
               name="spa-outline"
               size={22}
@@ -946,14 +997,14 @@ export default function UnderstandMenstrualFlowArticleScreen({
             />
 
             <View style={styles.reliefCopy}>
-              <Text style={styles.reliefTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.reliefTitle}
-              </Text>
-              <Text style={styles.reliefText}>
+              </AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.reliefText}>
                 {content.reliefText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
         </View>
       </ScrollView>
@@ -975,7 +1026,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     scroll: {
-      paddingBottom: 26,
+      paddingBottom: 28,
     },
 
     heroWrap: {
@@ -1004,90 +1055,55 @@ function createStyles(theme: ResolvedAwaTheme) {
       gap: 8,
     },
 
-    circle: {
-      width: 38,
-      height: 38,
-      borderRadius: 19,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: withAlpha(theme.colors.surface, 0.90),
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-    },
 
-    pressed: {
-      opacity: 0.75,
-    },
 
     article: {
-      marginTop: -14,
+      marginTop: -16,
       paddingHorizontal: 20,
-      paddingTop: 23,
-      borderTopLeftRadius: 22,
-      borderTopRightRadius: 22,
+      paddingTop: 24,
+      borderTopLeftRadius: 28,
+      borderTopRightRadius: 28,
       backgroundColor: theme.colors.background,
     },
 
     badge: {
       alignSelf: 'flex-start',
-      paddingHorizontal: 11,
-      paddingVertical: 5,
-      borderRadius: 10,
+      paddingHorizontal: 12,
+      paddingVertical: 4,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
 
-    badgeText: {
-      color: theme.colors.primary,
-      fontSize: 10.5,
-      fontWeight: '800',
-    },
 
     title: {
-      marginTop: 13,
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 24,
-      lineHeight: 29,
-      fontWeight: '700',
+      marginTop: 12,
     },
 
     metas: {
-      marginTop: 14,
+      marginTop: 16,
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: 13,
+      gap: 12,
     },
 
     meta: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 5,
+      gap: 4,
     },
 
-    metaText: {
-      color: theme.colors.textMuted,
-      fontSize: 10,
-    },
 
     intro: {
-      marginTop: 17,
-      color: theme.colors.text,
-      fontSize: 13.5,
-      lineHeight: 21,
+      marginTop: 16,
     },
 
     contents: {
-      marginTop: 19,
-      padding: 14,
-      borderRadius: 13,
-      backgroundColor: theme.colors.surfaceSecondary,
+      marginTop: 20,
+      padding: 16,
     },
 
     contentsTitle: {
       marginBottom: 8,
-      color: theme.colors.text,
-      fontSize: 14,
-      fontWeight: '800',
     },
 
     contentRow: {
@@ -1098,36 +1114,22 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     contentNumber: {
       width: 23,
-      color: theme.colors.primary,
-      fontSize: 11.5,
-      fontWeight: '800',
     },
 
     contentText: {
       flex: 1,
-      color: theme.colors.text,
-      fontSize: 12,
-      lineHeight: 16,
     },
 
     sectionTitle: {
       marginTop: 24,
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 20,
-      lineHeight: 25,
-      fontWeight: '700',
     },
 
     body: {
-      marginTop: 10,
-      color: theme.colors.text,
-      fontSize: 13.5,
-      lineHeight: 21,
+      marginTop: 12,
     },
 
     processCard: {
-      marginTop: 17,
+      marginTop: 16,
       height: 116,
       overflow: 'hidden',
       borderRadius: 12,
@@ -1141,12 +1143,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     know: {
-      marginTop: 17,
-      padding: 14,
+      marginTop: 16,
+      padding: 16,
       flexDirection: 'row',
       alignItems: 'center',
-      borderRadius: 13,
-      backgroundColor: withAlpha(theme.colors.primary, 0.08),
     },
 
     knowCopy: {
@@ -1154,26 +1154,14 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginLeft: 12,
     },
 
-    knowTitle: {
-      color: theme.colors.text,
-      fontSize: 13,
-      fontWeight: '800',
-    },
 
     knowText: {
       marginTop: 4,
-      color: theme.colors.textSecondary,
-      fontSize: 11.5,
-      lineHeight: 17,
     },
 
     timelineCard: {
-      marginTop: 15,
-      paddingHorizontal: 13,
-      borderRadius: 13,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surface,
+      marginTop: 16,
+      paddingHorizontal: 12,
     },
 
     timelineRow: {
@@ -1195,11 +1183,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     // Kept as textMuted (not the dominant accent): the numbering column was
     // already a distinct muted gray-purple in the original design, not the
     // PURPLE accent used for the icon circles.
-    timelineNumberText: {
-      color: theme.colors.textMuted,
-      fontSize: 10.5,
-      fontWeight: '800',
-    },
 
     timelineIcon: {
       width: 38,
@@ -1212,52 +1195,33 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     timelineCopy: {
       flex: 1,
-      marginLeft: 11,
+      marginLeft: 12,
     },
 
-    timelineTitle: {
-      color: theme.colors.text,
-      fontSize: 12.5,
-      lineHeight: 16,
-      fontWeight: '800',
-    },
 
     timelineText: {
       marginTop: 4,
-      color: theme.colors.textSecondary,
-      fontSize: 11,
-      lineHeight: 16,
     },
 
     softInfo: {
-      marginTop: 14,
-      padding: 13,
+      marginTop: 16,
+      padding: 12,
       flexDirection: 'row',
       alignItems: 'center',
-      borderRadius: 12,
-      backgroundColor: withAlpha(theme.colors.primary, 0.08),
     },
 
     softInfoCopy: {
       flex: 1,
-      marginLeft: 10,
+      marginLeft: 12,
     },
 
-    softInfoTitle: {
-      color: theme.colors.text,
-      fontSize: 12.5,
-      fontWeight: '800',
-    },
 
     softInfoText: {
       marginTop: 3,
-      color: theme.colors.textSecondary,
-      fontSize: 11,
-      lineHeight: 16,
     },
 
     normalGrid: {
-      marginTop: 14,
+      marginTop: 16,
       flexDirection: 'row',
       flexWrap: 'wrap',
       gap: 8,
@@ -1266,8 +1230,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     normalCard: {
       width: '48.7%',
       minHeight: 122,
-      padding: 11,
-      borderRadius: 11,
+      padding: 12,
+      borderRadius: 12,
       borderWidth: 1,
       borderColor: theme.colors.border,
       backgroundColor: theme.colors.surface,
@@ -1284,24 +1248,15 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     normalTitle: {
       marginTop: 8,
-      color: theme.colors.text,
-      fontSize: 12,
-      fontWeight: '800',
     },
 
     normalText: {
-      marginTop: 5,
-      color: theme.colors.textSecondary,
-      fontSize: 10.5,
-      lineHeight: 15,
+      marginTop: 4,
     },
 
     warningCard: {
-      marginTop: 14,
-      padding: 13,
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.warning, 0.3),
+      marginTop: 16,
+      padding: 12,
       backgroundColor: withAlpha(theme.colors.warning, 0.12),
     },
 
@@ -1313,7 +1268,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     warningIcon: {
       width: 34,
       height: 34,
-      borderRadius: 11,
+      borderRadius: 12,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: withAlpha(theme.colors.warning, 0.18),
@@ -1321,16 +1276,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     warningTitle: {
       flex: 1,
-      marginLeft: 10,
-      color: theme.colors.text,
-      fontSize: 12.5,
-      lineHeight: 16,
-      fontWeight: '800',
+      marginLeft: 12,
     },
 
     warningList: {
-      marginTop: 10,
-      gap: 7,
+      marginTop: 12,
+      gap: 8,
     },
 
     warningRow: {
@@ -1341,7 +1292,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     warningBullet: {
       width: 5,
       height: 5,
-      marginTop: 6,
+      marginTop: 8,
       marginRight: 8,
       borderRadius: 3,
       backgroundColor: theme.colors.warning,
@@ -1349,34 +1300,22 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     warningText: {
       flex: 1,
-      color: theme.colors.textSecondary,
-      fontSize: 10.8,
-      lineHeight: 16,
     },
 
     tipsCard: {
-      marginTop: 15,
-      padding: 14,
-      borderRadius: 14,
-      backgroundColor: theme.colors.surfaceSecondary,
+      marginTop: 16,
+      padding: 16,
     },
 
     tipsTitleRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 9,
+      gap: 8,
     },
 
-    tipsTitle: {
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 19,
-      lineHeight: 23,
-      fontWeight: '700',
-    },
 
     tipsRow: {
-      marginTop: 14,
+      marginTop: 16,
       flexDirection: 'row',
     },
 
@@ -1398,38 +1337,25 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     tipText: {
-      marginTop: 7,
-      color: theme.colors.text,
-      fontSize: 10,
-      lineHeight: 14,
+      marginTop: 8,
       textAlign: 'center',
     },
 
     reliefTip: {
-      marginTop: 14,
-      padding: 13,
+      marginTop: 16,
+      padding: 12,
       flexDirection: 'row',
       alignItems: 'center',
-      borderRadius: 12,
-      backgroundColor: withAlpha(theme.colors.primary, 0.08),
     },
 
     reliefCopy: {
       flex: 1,
-      marginLeft: 10,
+      marginLeft: 12,
     },
 
-    reliefTitle: {
-      color: theme.colors.text,
-      fontSize: 12.5,
-      fontWeight: '800',
-    },
 
     reliefText: {
       marginTop: 3,
-      color: theme.colors.textSecondary,
-      fontSize: 11,
-      lineHeight: 16,
     },
 
   });

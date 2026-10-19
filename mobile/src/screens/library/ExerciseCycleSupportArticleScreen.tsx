@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -28,7 +29,7 @@ import {
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 import {EDITORIAL_IMAGE_ALT, resolveEditorialImage, EXERCISE_HERO} from '../../i18n/editorialImages';
 
@@ -742,6 +743,90 @@ const CONTENT = {
       finalNoteText: '本文仅供一般了解，不能替代医生建议。请务必根据你的个人情况调整身体活动，如有疑问，请咨询医疗专业人员。',
       shareMessage: '动一动，呵护你的周期 — AWA',
     },
+  id: {
+    badge: 'SIKLUS • AKTIVITAS FISIK',
+    title: 'Bergerak untuk\nmendukung siklusmu',
+    metaDuration: '8 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten edukatif',
+    intro: 'Mengapa aktivitas fisik secara teratur dapat mendukung keseimbangan siklusmu, jenis gerakan apa yang sebaiknya dipilih, dan cara menyesuaikan ritmemu tanpa tekanan atau rasa bersalah.',
+    introSecondary: 'Bukan soal melakukan lebih banyak, melainkan bergerak dengan cara yang cocok untukmu dan bisa kamu pertahankan dalam jangka panjang.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Mengapa bergerak dapat mendukung siklusmu',
+      'Apa manfaatnya untuk siklusmu?',
+      'Jenis aktivitas apa yang dipilih?',
+      'Seberapa banyak sebaiknya bergerak?',
+      'Menyesuaikan aktivitas dengan siklusmu',
+      'Bergerak saat kamu menderita PCOS',
+      'Kesalahan yang perlu dihindari',
+      'Kapan perlu meminta saran',
+      'Poin penting',
+    ],
+    section1Body1: 'Aktivitas fisik yang teratur memengaruhi banyak sistem tubuh, termasuk yang berperan dalam pengaturan hormon dan cara kerja siklus menstruasi. Aktivitas fisik bekerja terutama pada sensitivitas insulin, pengelolaan stres, dan kualitas tidur — tiga faktor yang saling berinteraksi dengan keseimbangan hormonal.',
+    section1Body2: 'Bergerak secara teratur tidak menjamin siklus yang “sempurna”, tetapi merupakan salah satu kebiasaan yang mendukung kesehatan secara keseluruhan, dengan efek yang pada sebagian perempuan dapat tercermin pada siklusnya.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Hubungan antara aktivitas fisik dan siklus bersifat individual: sebagian perempuan merasakan efek yang jelas, sebagian lain kurang. Bagaimanapun, ini tetap kebiasaan yang bermanfaat.',
+    section2Intro: 'Aktivitas yang teratur dapat berkontribusi di beberapa tingkat, tanpa efek ini dijamin atau sama bagi semua orang:',
+    benefits: [
+      'Mendukung kesehatan metabolik',
+      'Membantu mengatur gula darah',
+      'Mendukung keseimbangan hormonal',
+      'Meningkatkan tingkat energi',
+      'Mengurangi stres',
+      'Mendukung kualitas tidur',
+      'Pada sebagian perempuan, mendorong keteraturan siklus yang lebih baik',
+    ],
+    neutral1Text: 'Manfaat ini terbentuk secara bertahap: bukan efek instan setelah satu sesi.',
+    section3Intro: 'Tidak ada aktivitas yang “lebih baik” daripada yang lain: yang paling efektif adalah yang kamu nikmati dan lakukan secara teratur.',
+    activities: [
+      'Berjalan kaki',
+      'Yoga / mobilitas ringan',
+      'Latihan kekuatan',
+      'Bersepeda',
+      'Berenang',
+      'Menari',
+    ],
+    section4Body1: 'Tidak ada aturan yang berlaku untuk semua: yang terpenting adalah keteraturan, bukan performa. Menyelipkan gerakan singkat dalam harimu (berjalan, naik tangga, peregangan) sama berartinya dengan latihan yang terjadwal.',
+    section4Body2: 'Intensitas yang tepat bergantung pada tingkat kebugaran, kesehatan, energimu saat itu, dan tujuan pribadimu: apa yang cocok untuk satu orang belum tentu cocok untuk orang lain.',
+    highlightTitle: 'Utamakan keteraturan',
+    highlightText: 'Tiga sesi singkat seminggu yang dipertahankan dalam jangka panjang sering kali lebih bermanfaat daripada target ambisius yang ditinggalkan setelah beberapa hari.',
+    section5Body: 'Energi dan kenyamanan fisik bisa berubah sepanjang siklus. Menyesuaikan intensitas aktivitasmu berdasarkan apa yang kamu rasakan adalah hal yang sangat wajar.',
+    cyclePhases: [
+      'Saat haid: gerakan lembut jika itu cocok untukmu',
+      'Setelah haid: tingkatkan secara bertahap jika energimu mengizinkan',
+      'Sekitar ovulasi: pertahankan aktivitas normal sesuai kenyamananmu',
+      'Sebelum haid: pilih gerakan yang terjangkau, dan istirahat jika perlu',
+    ],
+    neutral2Text: 'Ini bukan aturan fisiologis yang ketat: setiap perempuan menjalani siklusnya dengan cara berbeda, dan contoh-contoh ini hanyalah patokan, bukan kewajiban.',
+    section6Body: 'Bagi perempuan dengan PCOS, aktivitas fisik secara teratur bisa sangat membantu: mendukung sensitivitas insulin, mekanisme yang sering terpengaruh dalam kondisi ini, dan dapat berkontribusi pada keseimbangan metabolik dan hormonal yang lebih baik dalam jangka panjang.',
+    tip2Title: 'Perlu diketahui',
+    tip2Text: 'Ini bukan obat, melainkan dukungan pelengkap bagi perawatan secara keseluruhan, yang perlu disesuaikan bersama tenaga kesehatan.',
+    section7Intro: 'Beberapa anggapan keliru atau kebiasaan justru bisa lebih merugikan daripada bermanfaat:',
+    mistakes: [
+      'Ingin berolahraga secara berlebihan',
+      'Mengira hanya latihan yang intens yang berguna',
+      'Berolahraga hanya dengan tujuan menurunkan berat badan',
+      'Mengabaikan kelelahan atau rasa nyeri',
+      'Merasa bersalah setelah melewatkan satu sesi',
+    ],
+    section8Intro: 'Pada situasi tertentu, saran tenaga kesehatan sangat berguna sebelum memulai kembali atau menyesuaikan aktivitas fisik:',
+    consultReasons: [
+      'Nyeri yang menetap',
+      'Perdarahan yang tidak biasa',
+      'Pusing',
+      'Kelelahan yang berat dan tidak biasa',
+      'Kondisi medis tertentu',
+      'Memulai kembali aktivitas setelah kehamilan atau persalinan',
+      'Situasi apa pun ketika aktivitas telah dibatasi secara medis',
+    ],
+    tip3Title: 'Perlu diketahui',
+    tip3Text: 'Gerakan tidak perlu intens atau sempurna agar bermanfaat. Aktivitas yang teratur, menyenangkan, dan berkelanjutan dapat mendukung kesehatanmu secara keseluruhan dan, pada sebagian perempuan, berkontribusi pada pengelolaan siklus yang lebih baik.',
+    finalNoteTitle: 'Panduan untuk membantumu memahami',
+    finalNoteText: 'Artikel ini ditujukan sebagai informasi umum dan tidak menggantikan saran medis. Selalu sesuaikan aktivitas fisik dengan situasi pribadimu, dan minta saran tenaga kesehatan jika ragu.',
+    shareMessage: 'Bergerak untuk mendukung siklusmu — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -815,44 +900,30 @@ export default function ExerciseCycleSupportArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -860,12 +931,12 @@ export default function ExerciseCycleSupportArticleScreen({
         <View style={styles.article}>
           {/* HEADER */}
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metas}>
             {[
@@ -884,29 +955,29 @@ export default function ExerciseCycleSupportArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="titleSmall" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.introSecondary}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.introSecondary}>
             {content.introSecondary}
-          </Text>
+          </AwaText>
 
           {/* CONTENTS */}
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -916,20 +987,20 @@ export default function ExerciseCycleSupportArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* 1 */}
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section1Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section1Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -937,21 +1008,21 @@ export default function ExerciseCycleSupportArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* 2 */}
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section2Intro}
-          </Text>
+          </AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.benefits.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -960,29 +1031,29 @@ export default function ExerciseCycleSupportArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.neutralBox}>
+          <AwaCard variant="filled" padding="none" style={styles.neutralBox}>
             <MaterialDesignIcons
               name="information-outline"
               size={22}
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.neutralText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.neutralText}>
               {content.neutral1Text}
-            </Text>
-          </View>
+            </AwaText>
+          </AwaCard>
 
           {/* 3 */}
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section3Intro}
-          </Text>
+          </AwaText>
 
           <View style={styles.daily}>
             {ACTIVITY_ICONS.map((icon, index) => (
@@ -993,23 +1064,23 @@ export default function ExerciseCycleSupportArticleScreen({
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{content.activities[index]}</Text>
+                <AwaText variant="bodySmall" style={styles.dailyText}>{content.activities[index]}</AwaText>
               </View>
             ))}
           </View>
 
           {/* 4 */}
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section4Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section4Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.highlightBox}>
+          <AwaCard variant="filled" padding="none" style={styles.highlightBox}>
             <MaterialDesignIcons
               name="calendar-heart"
               size={23}
@@ -1017,24 +1088,24 @@ export default function ExerciseCycleSupportArticleScreen({
             />
 
             <View style={styles.highlightCopy}>
-              <Text style={styles.highlightTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.highlightTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.highlightText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.highlightText}>
                 {content.highlightText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* 5 */}
-          <Text style={styles.h2}>5. {content.topics[4]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>5. {content.topics[4]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section5Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.consultCard}>
+          <AwaCard variant="filled" padding="none" style={styles.consultCard}>
             {CYCLE_PHASE_ICONS.map((icon, index) => (
               <View key={icon} style={styles.consultRow}>
                 <View style={styles.consultIcon}>
@@ -1045,31 +1116,31 @@ export default function ExerciseCycleSupportArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.consultText}>{content.cyclePhases[index]}</Text>
+                <AwaText variant="bodySmall" style={styles.consultText}>{content.cyclePhases[index]}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.neutralBox}>
+          <AwaCard variant="filled" padding="none" style={styles.neutralBox}>
             <MaterialDesignIcons
               name="information-outline"
               size={22}
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.neutralText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.neutralText}>
               {content.neutral2Text}
-            </Text>
-          </View>
+            </AwaText>
+          </AwaCard>
 
           {/* 6 */}
-          <Text style={styles.h2}>6. {content.topics[5]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>6. {content.topics[5]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section6Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -1077,21 +1148,21 @@ export default function ExerciseCycleSupportArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* 7 */}
-          <Text style={styles.h2}>7. {content.topics[6]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>7. {content.topics[6]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section7Intro}
-          </Text>
+          </AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.mistakes.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -1100,19 +1171,19 @@ export default function ExerciseCycleSupportArticleScreen({
                   color={theme.colors.warning}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* 8 */}
-          <Text style={styles.h2}>8. {content.topics[7]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>8. {content.topics[7]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section8Intro}
-          </Text>
+          </AwaText>
 
-          <View style={styles.consultCard}>
+          <AwaCard variant="filled" padding="none" style={styles.consultCard}>
             {CONSULT_ICONS.map((icon, index) => (
               <View key={icon} style={styles.consultRow}>
                 <View style={styles.consultIcon}>
@@ -1123,15 +1194,15 @@ export default function ExerciseCycleSupportArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.consultText}>{content.consultReasons[index]}</Text>
+                <AwaText variant="bodySmall" style={styles.consultText}>{content.consultReasons[index]}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* 9 */}
-          <Text style={styles.h2}>9. {content.topics[8]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>9. {content.topics[8]}</AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -1139,15 +1210,15 @@ export default function ExerciseCycleSupportArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip3Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip3Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip3Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* FINAL NOTE */}
-          <View style={styles.finalNote}>
+          <AwaCard variant="filled" padding="none" style={styles.finalNote}>
             <MaterialDesignIcons
               name="shield-check-outline"
               size={23}
@@ -1155,15 +1226,15 @@ export default function ExerciseCycleSupportArticleScreen({
             />
 
             <View style={styles.finalNoteCopy}>
-              <Text style={styles.finalNoteTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.finalNoteTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.finalNoteText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.finalNoteText}>
                 {content.finalNoteText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
         </View>
       </ScrollView>
 
@@ -1175,7 +1246,7 @@ export default function ExerciseCycleSupportArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
   top: {
@@ -1188,75 +1259,43 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
-  },
-  badgeText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
   },
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 27,
-    lineHeight: 32,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 9.5, color: theme.colors.textMuted},
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '600',
+    marginTop: 16,
   },
   introSecondary: {
-    marginTop: 9,
-    fontSize: 13.5,
-    lineHeight: 20.5,
-    color: theme.colors.textMuted,
+    marginTop: 8,
   },
   contents: {
     marginTop: 20,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    padding: 16,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
+  contentsTitle: {marginBottom: 8},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -1264,130 +1303,94 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 25, color: theme.colors.primary, fontSize: 11.5, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.3, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 25},
+  contentText: {flex: 1},
   h2: {
-    marginTop: 25,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 24,
   },
-  body: {marginTop: 9, fontSize: 14, lineHeight: 21.5, color: theme.colors.text},
+  body: {marginTop: 8},
   tip: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
-  tipText: {marginTop: 4, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  tipCopy: {flex: 1, marginLeft: 12},
+  tipText: {marginTop: 4},
   checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 12,
+    padding: 12,
   },
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 10,
+    marginBottom: 12,
   },
-  checkText: {flex: 1, color: theme.colors.text, fontSize: 12, lineHeight: 17},
+  checkText: {flex: 1},
   neutralBox: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 9,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    gap: 8,
   },
-  neutralText: {flex: 1, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
-  daily: {marginTop: 13, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
+  neutralText: {flex: 1},
+  daily: {marginTop: 12, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
   dailyItem: {
     width: '48.7%',
     minHeight: 108,
     padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   dailyText: {
-    marginTop: 7,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.text,
+    marginTop: 8,
     textAlign: 'center',
   },
   highlightBox: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
-  highlightCopy: {flex: 1, marginLeft: 10},
-  highlightTitle: {color: theme.colors.text, fontSize: 13, fontWeight: '800'},
+  highlightCopy: {flex: 1, marginLeft: 12},
   highlightText: {
     marginTop: 4,
-    color: theme.colors.textSecondary,
-    fontSize: 11.5,
-    lineHeight: 17,
   },
   consultCard: {
-    marginTop: 14,
-    padding: 13,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 12,
   },
   consultRow: {
     minHeight: 43,
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 7,
+    marginBottom: 8,
   },
   consultIcon: {
     width: 34,
     height: 34,
-    borderRadius: 10,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
   consultText: {
     flex: 1,
-    marginLeft: 10,
-    color: theme.colors.text,
-    fontSize: 12,
-    lineHeight: 17,
+    marginLeft: 12,
   },
   finalNote: {
-    marginTop: 18,
-    padding: 14,
+    marginTop: 20,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
   },
-  finalNoteCopy: {flex: 1, marginLeft: 10},
-  finalNoteTitle: {color: theme.colors.text, fontSize: 13, fontWeight: '800'},
+  finalNoteCopy: {flex: 1, marginLeft: 12},
   finalNoteText: {
     marginTop: 4,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    lineHeight: 16.5,
   },
   });
 }

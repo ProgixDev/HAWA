@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -737,6 +738,93 @@ const CONTENT = {
       ],
       shareMessage: '女性教法学常见问题 — AWA',
     },
+  id: {
+    badge: 'PERTANYAAN YANG SERING DIAJUKAN',
+    title: 'Pertanyaan yang sering diajukan\ntentang fikih perempuan',
+    metaDuration: '8 menit baca',
+    metaType: 'FAQ',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Pertanyaan yang paling sering muncul tentang fikih perempuan, dikumpulkan di satu tempat beserta jawaban yang jelas.',
+    disclaimerTitle: 'Informasi penting',
+    disclaimerText: 'Konten ini murni bersifat edukatif. Pertanyaan keagamaan sebaiknya divalidasi oleh ulama yang berkompeten. AWA tidak mengeluarkan fatwa atau keputusan keagamaan yang bersifat pribadi.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Pertanyaan yang sering muncul',
+      'Mazhab yang bisa berbeda pendapat',
+      'Jika keraguan terus berlanjut',
+      'Poin-poin penting',
+    ],
+    section1Body: 'Banyak pertanyaan tentang siklus, salat, dan puasa yang rutin muncul dari satu perempuan ke perempuan lain. Berikut jawaban umum untuk pertanyaan yang paling sering diajukan; untuk mendalaminya, setiap topik juga dibahas lebih lengkap dalam artikelnya sendiri.',
+    faqItems: [
+      [
+        'Apa itu fikih perempuan?',
+        'Fikih perempuan menghimpun aturan-aturan praktis yang secara khusus berkaitan dengan tubuh dan ibadah perempuan: siklus, kesucian, salat, puasa, nifas, dan istihadah.',
+      ],
+      [
+        'Apa saja topik utama yang dibahas dalam fikih perempuan?',
+        'Fikih perempuan membahas antara lain haid dan siklus, kesucian ritual, mandi wajib, salat dan puasa selama dan setelah haid, nifas, serta istihadah.',
+      ],
+      [
+        'Apa perbedaan antara haid, nifas, dan perdarahan tidak teratur?',
+        'Haid (hayd) mengikuti siklus yang biasa, nifas terjadi setelah melahirkan, dan istihadah merujuk pada perdarahan tidak teratur di luar siklus. Masing-masing memiliki status yang berbeda.',
+      ],
+      [
+        'Apa yang terjadi pada salat selama haid?',
+        'Salat ditiadakan selama masa ini: ini adalah keringanan yang diakui, dan sebaiknya dijalani tanpa rasa bersalah.',
+      ],
+      [
+        'Apa yang terjadi pada puasa selama haid?',
+        'Puasa juga ditiadakan; hari-hari yang tidak berpuasa diganti kemudian (qada), di luar bulan Ramadan.',
+      ],
+      [
+        'Mengapa salat yang terlewat umumnya tidak diganti, berbeda dengan puasa?',
+        'Perbedaan ini disebabkan oleh sifat kedua ibadah tersebut: salat dilakukan setiap hari dan berulang, sedangkan puasa dilakukan setahun sekali dan terpusat dalam satu bulan. Mengikuti keringanan ini merupakan bagian utuh dari pengamalan agama.',
+      ],
+      [
+        'Kapan salat dimulai kembali setelah haid?',
+        'Begitu haid berhenti dan mandi wajib telah dilakukan, salat dilanjutkan seperti biasa, tanpa ditunda.',
+      ],
+      [
+        'Apa peran mandi wajib?',
+        'Mandi wajib (ghusl) adalah mandi besar yang memungkinkan seseorang kembali ke keadaan suci secara ritual, yang dibutuhkan untuk melanjutkan salat dan ibadah lainnya.',
+      ],
+      [
+        'Apa yang sebaiknya dilakukan jika kamu tidak yakin haidmu sudah berhenti?',
+        'Mengamati tidak adanya perdarahan sama sekali dalam waktu yang cukup, alih-alih mengandalkan kesan sesaat, membantu memperjelas keadaan.',
+      ],
+      [
+        'Bolehkah ibadah lain dilakukan selama haid?',
+        'Boleh: zikir, doa, sedekah, menuntut ilmu agama, dan amal kebaikan lainnya tetap bisa dilakukan.',
+      ],
+      [
+        'Mengapa sebagian jawaban bisa berbeda-beda tergantung situasinya?',
+        'Fikih adalah bidang yang melibatkan penafsiran: pendapat bisa berbeda tergantung mazhab dan keadaan pribadi, tanpa ada satu pendapat pun yang mutlak dengan sendirinya.',
+      ],
+    ],
+    section2Body1: 'Fikih Islam mencakup perbedaan penafsiran yang diakui pada beberapa hal yang bersifat rinci. Perbedaan ini sudah ada selama berabad-abad dan dianggap sah dalam tradisi keagamaan.',
+    section2Body2: 'Tergantung sumber yang dirujuk, pertanyaan yang sama bisa mendapat jawaban yang sedikit berbeda. Ini tidak berarti salah satu jawaban otomatis keliru: perbedaan itu mencerminkan metodologi dan cara membaca yang berbeda terhadap sumber-sumber yang sama.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Konsisten mengikuti satu sumber yang berkompeten, alih-alih terus berganti pendapat sesuai jawaban yang kamu temukan, membantu menjaga pengamalanmu tetap jelas dan tenang.',
+    section3Body: 'Beberapa situasi tetap sulit diputuskan hanya berdasarkan satu penjelasan umum. Hal ini terutama terjadi ketika:',
+    doubtSituations: [
+      'Ada ketidakpastian tentang kapan haid benar-benar berakhir',
+      'Jenis perdarahan masih belum jelas (haid, istihadah, atau yang lain)',
+      'Keraguan tentang perlunya mandi wajib terus berlanjut',
+      'Pertanyaan tentang kapan salat dilanjutkan masih belum pasti',
+      'Kamu menemukan informasi yang saling bertentangan di internet',
+    ],
+    alert2Title: 'Informasi penting',
+    alert2Text: 'Ketika suatu situasi bersifat pribadi, rumit, atau terus berlanjut, situasi itu tidak bisa diselesaikan dengan informasi umum. Bertanya kepada ulama yang berkompeten, yang mampu mempertimbangkan keadaanmu secara khusus, tetap menjadi langkah terbaik dalam kasus seperti itu. AWA tidak mengeluarkan fatwa atau keputusan keagamaan yang bersifat pribadi.',
+    keyPoints: [
+      'Fikih perempuan mencakup banyak aspek pengamalan agama perempuan',
+      'Sebagian detail bisa berbeda secara sah tergantung mazhab',
+      'Informasi umum tidak menggantikan bimbingan keagamaan yang bersifat pribadi',
+      'Keraguan yang terus berlanjut layak ditanyakan kepada ulama yang berkompeten',
+      'Peran AWA bersifat edukatif, bukan mengeluarkan fatwa',
+    ],
+    shareMessage: 'Pertanyaan yang sering diajukan tentang fikih perempuan — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -809,56 +897,42 @@ export default function ReligiousFaqArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metas}>
             {[
@@ -877,17 +951,17 @@ export default function ReligiousFaqArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="bodyMedium" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="information-outline"
               size={24}
@@ -895,19 +969,19 @@ export default function ReligiousFaqArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.disclaimerTitle}</Text>
-              <Text style={styles.tipText}>{content.disclaimerText}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.disclaimerTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.disclaimerText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -917,13 +991,13 @@ export default function ReligiousFaqArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body}
-          </Text>
+          </AwaText>
 
           <View style={styles.faqList}>
             {content.faqItems.map(([question, answer], index) => (
@@ -933,23 +1007,23 @@ export default function ReligiousFaqArticleScreen({
                   styles.faqItem,
                   index === 0 && styles.faqItemFirst,
                 ]}>
-                <Text style={styles.faqQuestion}>{question}</Text>
-                <Text style={styles.faqAnswer}>{answer}</Text>
+                <AwaText variant="titleSmall" emphasized>{question}</AwaText>
+                <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.faqAnswer}>{answer}</AwaText>
               </View>
             ))}
           </View>
 
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section2Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section2Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -957,20 +1031,20 @@ export default function ReligiousFaqArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section3Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.doubtSituations.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -979,12 +1053,12 @@ export default function ReligiousFaqArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-circle-outline"
               size={24}
@@ -992,16 +1066,16 @@ export default function ReligiousFaqArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.alert2Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.alert2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.alert2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.keyPoints.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -1010,10 +1084,10 @@ export default function ReligiousFaqArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
         </View>
       </ScrollView>
 
@@ -1025,7 +1099,7 @@ export default function ReligiousFaqArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
   top: {
@@ -1038,72 +1112,47 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  badgeText: {fontSize: 11, color: theme.colors.primary, fontWeight: '800'},
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
     gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 10, color: theme.colors.textMuted},
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '500',
+    marginTop: 16,
   },
   alert: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
+  contentsTitle: {marginBottom: 8},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -1111,17 +1160,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 24, color: theme.colors.primary, fontSize: 12, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.5, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 24},
+  contentText: {flex: 1},
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
-  body: {marginTop: 8, fontSize: 14, lineHeight: 21, color: theme.colors.textSecondary},
+  body: {marginTop: 8},
   faqList: {marginTop: 4},
   faqItem: {
     marginTop: 16,
@@ -1130,36 +1174,27 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderTopColor: theme.colors.border,
   },
   faqItemFirst: {marginTop: 16, paddingTop: 0, borderTopWidth: 0},
-  faqQuestion: {fontSize: 14.5, lineHeight: 20, color: theme.colors.text, fontWeight: '800'},
   faqAnswer: {
-    marginTop: 5,
-    fontSize: 13.5,
-    lineHeight: 20,
-    color: theme.colors.textSecondary,
+    marginTop: 4,
   },
   checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 12,
+    padding: 12,
   },
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 9,
+    marginBottom: 8,
   },
-  checkText: {flex: 1, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
+  checkText: {flex: 1},
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
-  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: theme.colors.textMuted},
+  tipCopy: {flex: 1, marginLeft: 12},
+  tipText: {marginTop: 3},
   });
 }

@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -503,6 +504,58 @@ const CONTENT = {
       finalText: '照顾好自己、寻求支持、怀抱希望，可以逐渐引领你走向平静。',
       shareMessage: '失去宝宝之后的心灵指引 — AWA',
     },
+  id: {
+    badge: 'PANDUAN SPIRITUAL',
+    title: 'Panduan spiritual\nsetelah kehilangan',
+    metaDuration: '5 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaEducational: 'Konten edukatif',
+    intro: 'Beberapa poin panduan spiritual untuk membantumu melewati kehilangan dengan kelembutan, kesabaran, dan kasih sayang.',
+    disclaimerTitle: 'Informasi penting',
+    disclaimerText: 'Konten ini bersifat edukatif. Pertanyaan keagamaan yang spesifik sebaiknya dipastikan kepada ulama yang berkompeten. AWA tidak mengeluarkan fatwa pribadi.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Sebuah ujian yang diakui',
+      'Status yang bergantung pada situasi',
+      'Kesabaran dan harapan',
+      'Beberapa poin panduan untuk melangkah maju',
+    ],
+    section1H2: '1. Sebuah ujian yang diakui',
+    section1Body1: 'Kehilangan kehamilan bisa menjadi ujian yang sangat menyakitkan. Kesedihan, keheningan, kebingungan, atau keinginan untuk menarik diri adalah reaksi manusiawi yang wajar.',
+    section1Body2: 'Merasakan emosi-emosi ini bukan berarti kurang beriman. Setiap perempuan bisa melalui dukanya dengan kecepatannya sendiri.',
+    visual1Title: 'Menerima perasaanmu',
+    visual1Body: 'Sedih • butuh istirahat • hening • dukungan',
+    section2H2: '2. Status yang bisa berbeda tergantung situasi',
+    section2Body1: 'Setelah kehilangan, hukum agama bisa bergantung pada situasi dan jenis perdarahannya.',
+    section2Body2: 'Khususnya, mungkin perlu dibedakan antara berbagai jenis perdarahan sebelum menentukan ibadah apa yang perlu dijalankan.',
+    schemaTitle: 'Prinsip umum',
+    schemaLabel1: 'Situasi',
+    schemaLabel2: 'Jenis perdarahan',
+    schemaLabel3: 'Panduan yang sesuai',
+    doubtTipTitle: 'Jika ragu',
+    doubtTipText: 'Situasi pribadi bisa memerlukan jawaban yang berbeda. Sebaiknya minta pendapat dari orang yang berkompeten.',
+    section3H2: '3. Kesabaran dan harapan',
+    section3Body1: 'Sabar tidak berarti tidak menangis atau tidak merasakan sakit. Sabar bisa sekadar menemani perjalananmu dengan iman dan harapan.',
+    section3Body2: 'Hal-hal kecil bisa membantu mengembalikan rasa damai secara perlahan: sebuah doa, sesaat berzikir, mendengarkan nasihat rohani, atau kehadiran orang yang kamu sayangi.',
+    spiritual1: 'Doa',
+    spiritual2: 'Zikir',
+    spiritual3: 'Dukungan',
+    retainTipTitle: 'Ingat selalu',
+    retainTipText: 'Pemulihan butuh waktu. Tidak ada kecepatan yang berlaku untuk semua orang dalam melewati kehilangan.',
+    section4H2: '4. Beberapa poin panduan untuk melangkah maju',
+    section4Body: 'Kamu tidak perlu melakukan semuanya sekaligus. Pilih apa yang sesuai dengan perasaanmu dan apa yang kamu butuhkan saat ini.',
+    gentleSteps: [
+      'Beri dirimu waktu untuk menjalani dukamu',
+      'Dekatkan dirimu dengan orang-orang yang peduli',
+      'Teruskan amalan-amalan spiritual kecil jika memberimu ketenangan',
+      'Mintalah nasihat untuk setiap pertanyaan keagamaan yang spesifik',
+      'Cari dukungan jika duka terasa terlalu berat untuk ditanggung',
+    ],
+    finalTitle: 'Perjalanan sesuai kecepatanmu',
+    finalText: 'Merawat dirimu, mencari dukungan, dan terus berpegang pada harapan bisa perlahan-lahan menuntun jalan menuju kedamaian.',
+    shareMessage: 'Panduan spiritual setelah kehilangan — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -576,51 +629,30 @@ export default function ReligiousFaqAfterLossArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -628,10 +660,10 @@ export default function ReligiousFaqAfterLossArticleScreen({
         <View style={styles.article}>
           {/* HEADER */}
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>{content.title}</Text>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>{content.title}</AwaText>
 
           <View style={styles.metas}>
             {[
@@ -649,16 +681,16 @@ export default function ReligiousFaqAfterLossArticleScreen({
                     color={theme.colors.textMuted}
                     size={17}
                   />
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>{content.intro}</Text>
+          <AwaText variant="bodyMedium" style={styles.intro}>{content.intro}</AwaText>
 
           {/* DISCLAIMER */}
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="information-outline"
               size={23}
@@ -666,20 +698,20 @@ export default function ReligiousFaqAfterLossArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.disclaimerTitle}</Text>
-              <Text style={styles.tipText}>{content.disclaimerText}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.disclaimerTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.disclaimerText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* CONTENTS */}
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -689,17 +721,17 @@ export default function ReligiousFaqAfterLossArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 1 */}
-          <Text style={styles.h2}>{content.section1H2}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>{content.section1H2}</AwaText>
 
-          <Text style={styles.body}>{content.section1Body1}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section1Body1}</AwaText>
 
-          <Text style={styles.body}>{content.section1Body2}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section1Body2}</AwaText>
 
           {/* SIMPLE VISUAL */}
-          <View style={styles.visualCard}>
+          <AwaCard variant="filled" padding="none" style={styles.visualCard}>
             <View style={styles.visualIcon}>
               <MaterialDesignIcons
                 name="heart-outline"
@@ -709,28 +741,28 @@ export default function ReligiousFaqAfterLossArticleScreen({
             </View>
 
             <View style={styles.visualText}>
-              <Text style={styles.visualTitle}>{content.visual1Title}</Text>
-              <Text style={styles.visualBody}>{content.visual1Body}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.visual1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.visualBody}>{content.visual1Body}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 2 */}
-          <Text style={styles.h2}>{content.section2H2}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>{content.section2H2}</AwaText>
 
-          <Text style={styles.body}>{content.section2Body1}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section2Body1}</AwaText>
 
-          <Text style={styles.body}>{content.section2Body2}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section2Body2}</AwaText>
 
           {/* SCHEMA */}
-          <View style={styles.schema}>
-            <Text style={styles.schemaTitle}>{content.schemaTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.schema}>
+            <AwaText variant="titleSmall" emphasized style={styles.schemaTitle}>{content.schemaTitle}</AwaText>
 
             <View style={styles.schemaRow}>
               <View style={styles.schemaStep}>
                 <View style={styles.schemaCircle}>
-                  <Text style={styles.schemaNumber}>1</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary">1</AwaText>
                 </View>
-                <Text style={styles.schemaLabel}>{content.schemaLabel1}</Text>
+                <AwaText variant="bodySmall" style={styles.schemaLabel}>{content.schemaLabel1}</AwaText>
               </View>
 
               <MaterialDesignIcons
@@ -741,9 +773,9 @@ export default function ReligiousFaqAfterLossArticleScreen({
 
               <View style={styles.schemaStep}>
                 <View style={styles.schemaCircle}>
-                  <Text style={styles.schemaNumber}>2</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary">2</AwaText>
                 </View>
-                <Text style={styles.schemaLabel}>{content.schemaLabel2}</Text>
+                <AwaText variant="bodySmall" style={styles.schemaLabel}>{content.schemaLabel2}</AwaText>
               </View>
 
               <MaterialDesignIcons
@@ -754,14 +786,14 @@ export default function ReligiousFaqAfterLossArticleScreen({
 
               <View style={styles.schemaStep}>
                 <View style={styles.schemaCircle}>
-                  <Text style={styles.schemaNumber}>3</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary">3</AwaText>
                 </View>
-                <Text style={styles.schemaLabel}>{content.schemaLabel3}</Text>
+                <AwaText variant="bodySmall" style={styles.schemaLabel}>{content.schemaLabel3}</AwaText>
               </View>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-circle-outline"
               size={23}
@@ -769,27 +801,27 @@ export default function ReligiousFaqAfterLossArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.doubtTipTitle}</Text>
-              <Text style={styles.tipText}>{content.doubtTipText}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.doubtTipTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.doubtTipText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 3 */}
-          <Text style={styles.h2}>{content.section3H2}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>{content.section3H2}</AwaText>
 
-          <Text style={styles.body}>{content.section3Body1}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section3Body1}</AwaText>
 
-          <Text style={styles.body}>{content.section3Body2}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section3Body2}</AwaText>
 
           {/* SPIRITUALITY VISUAL */}
-          <View style={styles.spiritualCard}>
+          <AwaCard variant="filled" padding="none" style={styles.spiritualCard}>
             <View style={styles.spiritualItem}>
               <MaterialDesignIcons
                 name="heart-outline"
                 size={23}
                 color={theme.colors.primary}
               />
-              <Text style={styles.spiritualText}>{content.spiritual1}</Text>
+              <AwaText variant="labelSmall" style={styles.spiritualText}>{content.spiritual1}</AwaText>
             </View>
 
             <View style={styles.spiritualItem}>
@@ -798,7 +830,7 @@ export default function ReligiousFaqAfterLossArticleScreen({
                 size={23}
                 color={theme.colors.primary}
               />
-              <Text style={styles.spiritualText}>{content.spiritual2}</Text>
+              <AwaText variant="labelSmall" style={styles.spiritualText}>{content.spiritual2}</AwaText>
             </View>
 
             <View style={styles.spiritualItem}>
@@ -807,11 +839,11 @@ export default function ReligiousFaqAfterLossArticleScreen({
                 size={23}
                 color={theme.colors.primary}
               />
-              <Text style={styles.spiritualText}>{content.spiritual3}</Text>
+              <AwaText variant="labelSmall" style={styles.spiritualText}>{content.spiritual3}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={23}
@@ -819,17 +851,17 @@ export default function ReligiousFaqAfterLossArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.retainTipTitle}</Text>
-              <Text style={styles.tipText}>{content.retainTipText}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.retainTipTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.retainTipText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 4 */}
-          <Text style={styles.h2}>{content.section4H2}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>{content.section4H2}</AwaText>
 
-          <Text style={styles.body}>{content.section4Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section4Body}</AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.gentleSteps.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -838,23 +870,23 @@ export default function ReligiousFaqAfterLossArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* FINAL MESSAGE */}
-          <View style={styles.finalCard}>
+          <AwaCard variant="filled" padding="none" style={styles.finalCard}>
             <MaterialDesignIcons
               name="flower-outline"
               size={28}
               color={theme.colors.primary}
             />
 
-            <Text style={styles.finalTitle}>{content.finalTitle}</Text>
+            <AwaText variant="titleMedium" emphasized style={styles.finalTitle}>{content.finalTitle}</AwaText>
 
-            <Text style={styles.finalText}>{content.finalText}</Text>
-          </View>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.finalText}>{content.finalText}</AwaText>
+          </AwaCard>
         </View>
       </ScrollView>
 
@@ -875,7 +907,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   heroWrap: {
@@ -903,54 +935,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -960,7 +969,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -969,40 +978,26 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 10,
-    color: theme.colors.textMuted,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '500',
+    marginTop: 16,
   },
 
   alert: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -1020,70 +1015,42 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 24,
-    color: theme.colors.primary,
-    fontSize: 12,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.5,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   body: {
     marginTop: 8,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
   },
 
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 3,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textMuted,
   },
 
   visualCard: {
-    marginTop: 15,
-    padding: 15,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 14,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   visualIcon: {
@@ -1100,31 +1067,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginLeft: 12,
   },
 
-  visualTitle: {
-    fontSize: 13,
-    fontWeight: '800',
-    color: theme.colors.text,
-  },
 
   visualBody: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textMuted,
   },
 
   schema: {
     marginTop: 16,
     padding: 16,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   schemaTitle: {
     marginBottom: 16,
-    fontSize: 13,
-    fontWeight: '800',
-    color: theme.colors.text,
     textAlign: 'center',
   },
 
@@ -1148,30 +1102,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  schemaNumber: {
-    fontSize: 13,
-    fontWeight: '800',
-    color: theme.colors.primary,
-  },
 
   schemaLabel: {
-    marginTop: 7,
-    fontSize: 10,
-    lineHeight: 14,
-    color: theme.colors.text,
+    marginTop: 8,
     textAlign: 'center',
   },
 
   spiritualCard: {
-    marginTop: 15,
-    paddingVertical: 15,
+    marginTop: 16,
+    paddingVertical: 16,
     paddingHorizontal: 8,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   spiritualItem: {
@@ -1181,55 +1123,39 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   spiritualText: {
-    marginTop: 7,
-    fontSize: 11,
-    color: theme.colors.text,
-    fontWeight: '600',
+    marginTop: 8,
     textAlign: 'center',
   },
 
   checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 12,
+    padding: 12,
   },
 
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 10,
+    marginBottom: 12,
   },
 
   checkText: {
     flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 17,
   },
 
   finalCard: {
-    marginTop: 18,
-    padding: 18,
+    marginTop: 20,
+    padding: 20,
     alignItems: 'center',
-    borderRadius: 15,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   finalTitle: {
     marginTop: 8,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
     textAlign: 'center',
   },
 
   finalText: {
-    marginTop: 6,
-    fontSize: 12,
-    lineHeight: 18,
-    color: theme.colors.textMuted,
+    marginTop: 8,
     textAlign: 'center',
   },
   });

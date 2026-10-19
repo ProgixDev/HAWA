@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -980,6 +981,142 @@ const CONTENT = {
       disclaimerText: '本文仅供参考，不能替代个性化的医疗建议。如果出现明显、持续或令你担心的症状，请联系医疗专业人员。',
       shareMessage: '分娩后的身体恢复 — AWA',
     },
+  id: {
+    badge: 'PASCAPERSALINAN • PEMULIHAN',
+    title: 'Pemulihan\nsetelah melahirkan',
+    metaDuration: '10 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Tubuhmu butuh waktu: apa saja yang wajar terjadi setelah melahirkan.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Memahami masa pascapersalinan',
+      'Hari-hari pertama: memperlambat ritme dan memulihkan diri',
+      'Apa yang bisa dianggap wajar selama pemulihan',
+      'Merawat diri sehari-hari',
+      'Bergerak dan kembali beraktivitas secara bertahap',
+      'Tidur, kelelahan, dan rutinitas baru',
+      'Emosi setelah melahirkan',
+      'Kapan perlu meminta saran',
+      'Kontrol ke tenaga kesehatan',
+      'Hal yang perlu diingat',
+    ],
+    headings: [
+      'Memahami masa pascapersalinan',
+      'Hari-hari pertama: memperlambat ritme dan memulihkan diri',
+      'Apa yang bisa dianggap wajar selama pemulihan',
+      'Merawat diri sehari-hari',
+      'Bergerak dan kembali beraktivitas secara bertahap',
+      'Tidur, kelelahan, dan rutinitas baru',
+      'Emosi setelah melahirkan',
+      'Kapan sebaiknya meminta saran?',
+      'Kontrol ke tenaga kesehatan',
+      'Hal yang perlu diingat',
+    ],
+    section1Body1: 'Masa pascapersalinan dimulai setelah melahirkan. Masa ini tidak terbatas pada beberapa hari saja: tubuh, ritme harian, dan emosi bisa terus berubah secara bertahap selama minggu-minggu berikutnya.',
+    section1Body2: '“Quarantaine” adalah ungkapan tradisional yang sering dipakai untuk menggambarkan beberapa minggu pertama pemulihan. Ungkapan ini bisa menjadi pengingat yang baik: setelah hamil dan melahirkan, sebaiknya kamu memperlambat ritme dan memberi waktu bagi tubuh.',
+    highlight1Title: 'Pemulihan seluruh tubuh',
+    highlight1Text: 'Pemulihan menyangkut tubuh, tetapi juga tidur, energi, pengaturan kegiatan sehari-hari, dan penyesuaian emosi terhadap tahap kehidupan yang baru.',
+    section2Body: 'Hari-hari pertama bisa terasa intens. Istirahat, perawatan dasar, dan penyesuaian dengan ritme baru sering menjadi prioritas. Kamu tidak perlu langsung mendapatkan kembali tingkat energimu yang biasa.',
+    recoveryPillars: [
+      {
+        title: 'Istirahat',
+        text: 'Menyelingi aktivitas dengan istirahat membantu tubuh pulih secara bertahap.',
+      },
+      {
+        title: 'Nutrisi',
+        text: 'Makan secara teratur dan minum sesuai kebutuhanmu menunjang pemulihan sehari-hari.',
+      },
+      {
+        title: 'Dukungan',
+        text: 'Menerima bantuan memungkinkanmu menghemat energi untuk perawatan dan pemulihan yang esensial.',
+      },
+      {
+        title: 'Gerakan lembut',
+        text: 'Kembalilah bergerak dan beraktivitas secara bertahap, dengan menghargai kondisi dan kenyamananmu.',
+      },
+    ],
+    section3Body1: 'Setiap pemulihan berbeda. Beberapa perubahan bisa menjadi bagian dari masa penyesuaian dan berkembang secara bertahap:',
+    normalSigns: [
+      'Kelelahan yang signifikan',
+      'Pendarahan yang berangsur berkurang',
+      'Fluktuasi hormonal dan emosional',
+    ],
+    section3Body2: 'Intensitas dan lamanya gejala bisa berbeda dari satu orang ke orang lain. Yang terpenting adalah memperhatikan perkembangannya dan meminta saran jika ada perubahan yang terasa mengkhawatirkan atau tidak biasa.',
+    section4Body: 'Pada masa pascapersalinan, kebiasaan kecil yang realistis sering kali lebih membantu daripada rutinitas yang menuntut. Tujuannya adalah menunjang pemulihan tanpa menambah tekanan.',
+    selfCareTips: [
+      'Jadwalkan waktu istirahat yang sungguh-sungguh kapan pun memungkinkan.',
+      'Mintalah bantuan untuk pekerjaan rumah dan makanan.',
+      'Minumlah secara teratur dan jaga pola makan yang beragam.',
+      'Hindari membandingkan pemulihanmu dengan pemulihan orang lain.',
+      'Kembalilah beraktivitas secara bertahap, tanpa mencoba melakukan semuanya sekaligus.',
+    ],
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Dikelilingi dukungan dan menerima bantuan bukanlah kemewahan. Hal ini bisa membantu menjaga energi dan membuat pemulihan berjalan lebih bertahap.',
+    section5Body1: 'Kembali beraktivitas bisa dilakukan selangkah demi selangkah, sesuai kenyamanan, energi, dan anjuran yang diterima setelah melahirkan. Gerakan lembut dan aktivitas sehari-hari sudah termasuk kembali bergerak.',
+    section5Body2: 'Untuk aktivitas yang lebih berat, sebaiknya maju tanpa melewati tahapan dan memperhatikan gejala atau rasa tidak nyaman yang muncul.',
+    alertTitle: 'Dengarkan sinyal dari tubuhmu',
+    alertText: 'Rasa tidak nyaman yang bertambah saat beraktivitas adalah alasan untuk memperlambat dan, bila perlu, meminta saran yang sesuai sebelum melanjutkan atau menambah intensitas.',
+    section6Body: 'Tidur bisa menjadi tidak teratur setelah melahirkan. Kelelahan yang menumpuk dapat memengaruhi energi, konsentrasi, dan suasana hati. Jika memungkinkan, menyederhanakan beberapa tugas dan berbagi tanggung jawab bisa membantu.',
+    milestones: [
+      [
+        'Hari-hari pertama',
+        'Istirahat, penyesuaian, dan perawatan esensial.',
+      ],
+      [
+        'Minggu-minggu pertama',
+        'Pemulihan bertahap dan awal rutinitas baru.',
+      ],
+      [
+        'Setelah pemeriksaan pascapersalinan',
+        'Meninjau perkembangan pemulihan dan membahas kembali beraktivitas secara bertahap.',
+      ],
+    ],
+    section7Body1: 'Masa pascapersalinan bisa membawa banyak emosi: bahagia, khawatir, lelah, sensitif, atau merasa kewalahan. Perasaan ini bisa berubah dengan cepat, terutama pada masa ketika tidur dan kebiasaan sehari-hari sedang berubah.',
+    section7Body2: 'Berbicara dengan orang yang kamu percaya atau dengan tenaga profesional bisa membantu ketika emosi sulit dikendalikan atau menyita banyak ruang dalam kehidupan sehari-hari.',
+    highlight2Title: 'Meminta dukungan adalah hal yang wajar',
+    highlight2Text: 'Kamu tidak perlu menunggu sampai benar-benar kehabisan tenaga atau kewalahan untuk membicarakan perasaanmu dan mencari dukungan.',
+    section8Body: 'Beberapa situasi layak dibicarakan dengan tenaga kesehatan, terutama jika memburuk, menetap, atau menimbulkan kekhawatiran yang besar.',
+    consultationSigns: [
+      {
+        title: 'Gejala yang memburuk',
+        text: 'Nyeri atau rasa tidak nyaman yang bertambah, bukannya membaik, perlu mendapat saran dari tenaga profesional.',
+      },
+      {
+        title: 'Pendarahan yang tidak biasa',
+        text: 'Pendarahan yang tiba-tiba menjadi lebih banyak atau tidak biasa sebaiknya dilaporkan kepada tenaga kesehatan.',
+      },
+      {
+        title: 'Tekanan batin yang menetap',
+        text: 'Jika tekanan emosional menyita banyak ruang atau membuat kehidupan sehari-hari sulit, penting untuk membicarakannya dan meminta dukungan.',
+      },
+      {
+        title: 'Kekhawatiran yang besar',
+        text: 'Jika kamu ragu tentang pemulihanmu, meminta saran membantumu mendapatkan anjuran yang sesuai dengan situasimu.',
+      },
+    ],
+    section9Body: 'Janji kontrol adalah kesempatan untuk membahas pemulihan, gejala, kembali beraktivitas, dan pertanyaan yang masih tersisa. Menyiapkan beberapa pertanyaan sebelumnya bisa membantu memastikan tidak ada yang terlupa.',
+    questionTitle: 'Pertanyaan yang bisa kamu siapkan',
+    questions: [
+      'Apakah pemulihanku berjalan sesuai harapan untuk kondisiku?',
+      'Aktivitas apa saja yang boleh kulanjutkan secara bertahap?',
+      'Gejala apa yang perlu kuwaspadai?',
+      'Kapan aku bisa mempertimbangkan kembali berolahraga dengan intensitas lebih berat?',
+      'Apakah aku memerlukan saran khusus atau rehabilitasi?',
+    ],
+    summaryItems: [
+      'Pemulihan setelah melahirkan berlangsung bertahap dan berbeda bagi setiap orang.',
+      'Istirahat dan dukungan bisa menjadi bagian yang tak terpisahkan dari pemulihan.',
+      'Perubahan fisik, tidur, dan emosi bisa terus berkembang selama beberapa minggu.',
+      'Kembali beraktivitas secara bertahap membantumu lebih menghargai energi dan kenyamananmu.',
+      'Jika kamu menyadari gejala yang tidak biasa, menetap, atau mengkhawatirkan, meminta saran adalah langkah yang baik.',
+    ],
+    finalTipTitle: 'Luangkan waktu yang kamu butuhkan',
+    finalTipText: 'Pemulihan bukanlah perlombaan. Maju secara bertahap, menghargai kebutuhanmu, dan meminta dukungan saat diperlukan sudah merupakan langkah-langkah penting.',
+    disclaimerText: 'Artikel ini hanya untuk tujuan informasi dan tidak menggantikan saran medis yang dipersonalisasi. Jika kamu mengalami gejala yang signifikan, menetap, atau mengkhawatirkan, hubungi tenaga kesehatan.',
+    shareMessage: 'Pemulihan setelah melahirkan — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -1052,56 +1189,42 @@ export default function PostpartumRecoveryArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metas}>
             {[
@@ -1120,24 +1243,24 @@ export default function PostpartumRecoveryArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="titleSmall" colorRole="onSurfaceVariant" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -1147,45 +1270,45 @@ export default function PostpartumRecoveryArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 1 */}
-          <Text style={styles.h2}>1. {content.headings[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.headings[0]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.highlight}>
+          <AwaCard variant="filled" padding="none" style={styles.highlight}>
             <MaterialDesignIcons
               name="heart-pulse"
               size={24}
               color={theme.colors.primary}
             />
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.highlight1Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.highlight1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.highlight1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 2 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             2. {content.headings[1]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section2Body}
-          </Text>
+          </AwaText>
 
           <View style={styles.pillarGrid}>
             {RECOVERY_PILLAR_ICONS.map((icon, index) => (
-              <View key={icon} style={styles.pillarCard}>
+              <AwaCard variant="filled" padding="none" key={icon} style={styles.pillarCard}>
                 <View style={styles.pillarIcon}>
                   <MaterialDesignIcons
                     name={icon as never}
@@ -1193,22 +1316,22 @@ export default function PostpartumRecoveryArticleScreen({
                     color={theme.colors.primary}
                   />
                 </View>
-                <Text style={styles.pillarTitle}>{content.recoveryPillars[index].title}</Text>
-                <Text style={styles.pillarText}>{content.recoveryPillars[index].text}</Text>
-              </View>
+                <AwaText variant="titleSmall" emphasized style={styles.pillarTitle}>{content.recoveryPillars[index].title}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.pillarText}>{content.recoveryPillars[index].text}</AwaText>
+              </AwaCard>
             ))}
           </View>
 
           {/* SECTION 3 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             3. {content.headings[2]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section3Body1}
-          </Text>
+          </AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.normalSigns.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -1216,136 +1339,136 @@ export default function PostpartumRecoveryArticleScreen({
                   size={18}
                   color={theme.colors.success}
                 />
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section3Body2}
-          </Text>
+          </AwaText>
 
           {/* SECTION 4 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             4. {content.headings[3]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section4Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tipList}>
+          <AwaCard variant="filled" padding="none" style={styles.tipList}>
             {content.selfCareTips.map((item, index) => (
               <View key={item} style={styles.tipRow}>
                 <View style={styles.tipNumber}>
-                  <Text style={styles.tipNumberText}>{index + 1}</Text>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary">{index + 1}</AwaText>
                 </View>
-                <Text style={styles.tipRowText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipRowText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
               color={theme.colors.primary}
             />
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 5 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             5. {content.headings[4]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section5Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section5Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="run-fast"
               size={24}
               color={theme.colors.warning}
             />
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.alertTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.alertText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 6 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             6. {content.headings[5]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section6Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.timeline}>
+          <AwaCard variant="filled" padding="none" style={styles.timeline}>
             {content.milestones.map(([period, description], index) => (
               <View key={period} style={styles.timelineRow}>
                 <View style={styles.timelineMarker}>
-                  <Text style={styles.timelineNumber}>{index + 1}</Text>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary">{index + 1}</AwaText>
                 </View>
                 <View style={styles.timelineCopy}>
-                  <Text style={styles.timelineTitle}>{period}</Text>
-                  <Text style={styles.timelineText}>{description}</Text>
+                  <AwaText variant="titleSmall" emphasized>{period}</AwaText>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.timelineText}>{description}</AwaText>
                 </View>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 7 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             7. {content.headings[6]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section7Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section7Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.highlight}>
+          <AwaCard variant="filled" padding="none" style={styles.highlight}>
             <MaterialDesignIcons
               name="account-heart-outline"
               size={24}
               color={theme.colors.primary}
             />
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.highlight2Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.highlight2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.highlight2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 8 */}
-          <Text style={styles.h2}>8. {content.headings[7]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>8. {content.headings[7]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section8Body}
-          </Text>
+          </AwaText>
 
           <View style={styles.consultList}>
             {CONSULTATION_SIGN_ICONS.map((icon, index) => (
-              <View key={icon} style={styles.consultCard}>
+              <AwaCard variant="filled" padding="none" key={icon} style={styles.consultCard}>
                 <View style={styles.consultIcon}>
                   <MaterialDesignIcons
                     name={icon as never}
@@ -1354,48 +1477,48 @@ export default function PostpartumRecoveryArticleScreen({
                   />
                 </View>
                 <View style={styles.consultCopy}>
-                  <Text style={styles.consultTitle}>{content.consultationSigns[index].title}</Text>
-                  <Text style={styles.consultText}>{content.consultationSigns[index].text}</Text>
+                  <AwaText variant="titleSmall" emphasized>{content.consultationSigns[index].title}</AwaText>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.consultText}>{content.consultationSigns[index].text}</AwaText>
                 </View>
-              </View>
+              </AwaCard>
             ))}
           </View>
 
           {/* SECTION 9 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             9. {content.headings[8]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section9Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.questionCard}>
+          <AwaCard variant="filled" padding="none" style={styles.questionCard}>
             <View style={styles.questionHeader}>
               <MaterialDesignIcons
                 name="message-question-outline"
                 size={22}
                 color={theme.colors.primary}
               />
-              <Text style={styles.questionTitle}>
+              <AwaText variant="titleSmall" emphasized style={styles.questionTitle}>
                 {content.questionTitle}
-              </Text>
+              </AwaText>
             </View>
 
             {content.questions.map((item, index) => (
               <View key={item} style={styles.questionRow}>
                 <View style={styles.questionBullet}>
-                  <Text style={styles.questionNumber}>{index + 1}</Text>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary">{index + 1}</AwaText>
                 </View>
-                <Text style={styles.questionText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.questionText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 10 */}
-          <Text style={styles.h2}>10. {content.headings[9]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>10. {content.headings[9]}</AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             {content.summaryItems.map(item => (
               <View key={item} style={styles.summaryItem}>
                 <MaterialDesignIcons
@@ -1403,24 +1526,24 @@ export default function PostpartumRecoveryArticleScreen({
                   size={18}
                   color={theme.colors.success}
                 />
-                <Text style={styles.summaryText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.finalTip}>
+          <AwaCard variant="filled" padding="none" style={styles.finalTip}>
             <MaterialDesignIcons
               name="heart-outline"
               size={25}
               color={theme.colors.primary}
             />
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.finalTipTitle}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.finalTipTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.finalTipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           <View style={styles.disclaimer}>
             <MaterialDesignIcons
@@ -1428,9 +1551,9 @@ export default function PostpartumRecoveryArticleScreen({
               size={19}
               color={theme.colors.textMuted}
             />
-            <Text style={styles.disclaimerText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>
               {content.disclaimerText}
-            </Text>
+            </AwaText>
           </View>
         </View>
       </ScrollView>
@@ -1443,7 +1566,7 @@ export default function PostpartumRecoveryArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
   top: {
@@ -1456,73 +1579,41 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
-  },
-  badgeText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
   },
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 27,
-    lineHeight: 32,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 9.5, color: theme.colors.textMuted},
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '600',
+    marginTop: 16,
   },
   contents: {
     marginTop: 20,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    padding: 16,
   },
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
   contentRow: {
     minHeight: 40,
@@ -1531,73 +1622,46 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 25, color: theme.colors.primary, fontSize: 11.5, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.3, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 25},
+  contentText: {flex: 1},
   h2: {
-    marginTop: 27,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 28,
   },
   body: {
-    marginTop: 9,
-    fontSize: 14,
-    lineHeight: 21.5,
-    color: theme.colors.textSecondary,
+    marginTop: 8,
   },
   highlight: {
     marginTop: 16,
-    padding: 15,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
   tip: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
   alert: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
+  tipCopy: {flex: 1, marginLeft: 12},
   tipText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textMuted,
   },
   pillarGrid: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 9,
+    gap: 8,
   },
   pillarCard: {
     width: '48.5%',
-    padding: 13,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 12,
   },
   pillarIcon: {
     width: 40,
@@ -1608,49 +1672,32 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
   pillarTitle: {
-    marginTop: 9,
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginTop: 8,
   },
   pillarText: {
-    marginTop: 5,
-    fontSize: 11,
-    lineHeight: 16.5,
-    color: theme.colors.textMuted,
+    marginTop: 4,
   },
   checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 12,
   },
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 10,
+    marginBottom: 12,
   },
   checkText: {
     flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 17,
   },
   tipList: {
-    marginTop: 14,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
   tipRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 11,
+    marginBottom: 12,
   },
   tipNumber: {
     width: 25,
@@ -1660,27 +1707,19 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
-  tipNumberText: {fontSize: 10, color: theme.colors.primary, fontWeight: '800'},
   tipRowText: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 12,
     paddingTop: 2,
-    fontSize: 12,
-    lineHeight: 17.5,
-    color: theme.colors.textSecondary,
   },
   timeline: {
-    marginTop: 15,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
   timelineRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 14,
+    marginBottom: 16,
   },
   timelineMarker: {
     width: 32,
@@ -1690,24 +1729,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
-  timelineNumber: {fontSize: 11, color: theme.colors.primary, fontWeight: '800'},
-  timelineCopy: {flex: 1, marginLeft: 11},
-  timelineTitle: {fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
+  timelineCopy: {flex: 1, marginLeft: 12},
   timelineText: {
     marginTop: 3,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textMuted,
   },
-  consultList: {marginTop: 14, gap: 10},
+  consultList: {marginTop: 16, gap: 12},
   consultCard: {
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
   consultIcon: {
     width: 40,
@@ -1717,38 +1747,27 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
-  consultCopy: {flex: 1, marginLeft: 11},
-  consultTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
+  consultCopy: {flex: 1, marginLeft: 12},
   consultText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textMuted,
   },
   questionCard: {
-    marginTop: 15,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
   questionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
-    marginBottom: 13,
+    gap: 8,
+    marginBottom: 12,
   },
   questionTitle: {
     flex: 1,
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
   questionRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 11,
+    marginBottom: 12,
   },
   questionBullet: {
     width: 24,
@@ -1758,55 +1777,39 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
-  questionNumber: {fontSize: 10, color: theme.colors.primary, fontWeight: '800'},
   questionText: {
     flex: 1,
-    marginLeft: 9,
+    marginLeft: 8,
     paddingTop: 2,
-    fontSize: 12,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
   summaryCard: {
-    marginTop: 15,
+    marginTop: 16,
     padding: 16,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
   summaryItem: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 10,
+    marginBottom: 12,
     gap: 8,
   },
   summaryText: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 18,
-    color: theme.colors.textSecondary,
   },
   finalTip: {
-    marginTop: 15,
-    padding: 15,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
   disclaimer: {
     marginTop: 20,
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
   },
   disclaimerText: {
     flex: 1,
-    fontSize: 10.5,
-    lineHeight: 16,
-    color: theme.colors.textMuted,
   },
   });
 }

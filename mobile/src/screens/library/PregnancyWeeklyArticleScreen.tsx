@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -28,7 +29,7 @@ import {
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 import {EDITORIAL_IMAGE_ALT, resolveEditorialImage, PREGNANCY_FOLLOW_UP_HERO} from '../../i18n/editorialImages';
 
@@ -467,6 +468,57 @@ const CONTENT = {
       tip2Text: '每个孕期都会带来各自的变化：提前了解有助于你更好地度过每个阶段，但并不能替代与助产士或医生的定期随访。',
       shareMessage: '你的孕期，一周一周地走过 — AWA',
     },
+  id: {
+    badge: 'KEHAMILAN • GAMBARAN UMUM',
+    title: 'Kehamilanmu,\nminggu demi minggu',
+    metaDuration: '8 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Tonggak-tonggak utama dari trimester pertama hingga ketiga, agar kamu tahu apa yang bisa diharapkan di setiap tahap.',
+    introSecondary: 'Setiap kehamilan mengikuti ritmenya sendiri: patokan ini bersifat umum dan bisa berbeda dari satu perempuan ke perempuan lain.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Trimester pertama: meletakkan fondasi',
+      'Trimester kedua: lebih nyaman',
+      'Trimester ketiga: bersiap',
+      'Tonggak penting di setiap trimester',
+      'Gejala umum di setiap tahap',
+      'Kapan harus segera mencari pertolongan',
+      'Poin penting',
+    ],
+    body1: 'Trimester pertama meletakkan fondasi: semua organ utama bayi terbentuk secara bertahap. Ini juga masa ketika kelelahan dan mual sering terjadi, dengan tingkat yang sangat berbeda-beda pada tiap perempuan.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Gejala-gejala ini, meskipun terkadang tidak nyaman, menandakan bahwa tubuh sedang beradaptasi secara aktif dengan kehamilan.',
+    body2: 'Trimester kedua sering kali yang paling nyaman, dengan munculnya gerakan pertama bayi.',
+    highlightTitle: 'Gerakan pertama',
+    highlightText: 'Biasanya terasa antara minggu ke-18 dan ke-22, sedikit lebih awal jika ini bukan kehamilan pertamamu.',
+    body3: 'Trimester ketiga mempersiapkan tubuh untuk persalinan, dengan kenaikan berat badan dan kelelahan yang lebih terasa. Kontraksi latihan (dikenal sebagai Braxton Hicks) juga bisa muncul.',
+    neutralText: 'Kontraksi ini biasanya tidak teratur dan tidak terlalu nyeri; kontraksi ini berbeda dari kontraksi persalinan.',
+    trimesters: [
+      'Trimester ke-1: pembentukan organ',
+      'Trimester ke-2: gerakan pertama',
+      'Trimester ke-3: bersiap untuk kelahiran',
+      'Pemeriksaan medis di setiap tahap',
+    ],
+    commonSymptoms: [
+      'Mual dan kelelahan, terutama pada trimester pertama',
+      'Nyeri menusuk di perut akibat peregangan ligamen',
+      'Sesak napas ringan pada kehamilan lanjut',
+      'Gangguan tidur pada akhir trimester ketiga',
+    ],
+    consultIntro: 'Tanda-tanda tertentu memerlukan saran medis segera, pada trimester mana pun:',
+    urgentSigns: [
+      'Perdarahan, meskipun ringan',
+      'Nyeri perut yang hebat',
+      'Tidak ada gerakan yang terasa',
+      'Sakit kepala berat atau gangguan penglihatan',
+      'Demam yang tidak biasa',
+    ],
+    tip2Title: 'Perlu diketahui',
+    tip2Text: 'Setiap trimester membawa perubahannya sendiri: mengetahuinya sebelumnya membantumu menjalani setiap tahap dengan lebih baik, tanpa menggantikan pemeriksaan rutin bersama bidan atau dokter.',
+    shareMessage: 'Kehamilanmu, minggu demi minggu — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -539,56 +591,42 @@ export default function PregnancyWeeklyArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metas}>
             {[
@@ -607,28 +645,28 @@ export default function PregnancyWeeklyArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="titleSmall" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.introSecondary}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.introSecondary}>
             {content.introSecondary}
-          </Text>
+          </AwaText>
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -638,15 +676,15 @@ export default function PregnancyWeeklyArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.body1}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -654,22 +692,22 @@ export default function PregnancyWeeklyArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             2. {content.topics[1]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.highlightBox}>
+          <AwaCard variant="filled" padding="none" style={styles.highlightBox}>
             <MaterialDesignIcons
               name="baby-face-outline"
               size={23}
@@ -677,37 +715,37 @@ export default function PregnancyWeeklyArticleScreen({
             />
 
             <View style={styles.highlightCopy}>
-              <Text style={styles.highlightTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.highlightTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.highlightText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.highlightText}>
                 {content.highlightText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             3. {content.topics[2]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.body3}
-          </Text>
+          </AwaText>
 
-          <View style={styles.neutralBox}>
+          <AwaCard variant="filled" padding="none" style={styles.neutralBox}>
             <MaterialDesignIcons
               name="information-outline"
               size={22}
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.neutralText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.neutralText}>
               {content.neutralText}
-            </Text>
-          </View>
+            </AwaText>
+          </AwaCard>
 
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
           <View style={styles.daily}>
             {TRIMESTER_ICONS.map((icon, index) => (
@@ -718,16 +756,16 @@ export default function PregnancyWeeklyArticleScreen({
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{content.trimesters[index]}</Text>
+                <AwaText variant="bodySmall" style={styles.dailyText}>{content.trimesters[index]}</AwaText>
               </View>
             ))}
           </View>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             5. {content.topics[4]}
-          </Text>
+          </AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.commonSymptoms.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -736,18 +774,18 @@ export default function PregnancyWeeklyArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>6. {content.topics[5]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>6. {content.topics[5]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.consultIntro}
-          </Text>
+          </AwaText>
 
-          <View style={styles.consultCard}>
+          <AwaCard variant="filled" padding="none" style={styles.consultCard}>
             {URGENT_SIGN_ICONS.map((icon, index) => (
               <View key={content.urgentSigns[index]} style={styles.consultRow}>
                 <View style={styles.consultIcon}>
@@ -758,14 +796,14 @@ export default function PregnancyWeeklyArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.consultText}>{content.urgentSigns[index]}</Text>
+                <AwaText variant="bodySmall" style={styles.consultText}>{content.urgentSigns[index]}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>7. {content.topics[6]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>7. {content.topics[6]}</AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -773,12 +811,12 @@ export default function PregnancyWeeklyArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
         </View>
       </ScrollView>
 
@@ -790,7 +828,7 @@ export default function PregnancyWeeklyArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
   top: {
@@ -803,75 +841,43 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
-  },
-  badgeText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
   },
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 27,
-    lineHeight: 32,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 9.5, color: theme.colors.textMuted},
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '600',
+    marginTop: 16,
   },
   introSecondary: {
-    marginTop: 9,
-    fontSize: 13.5,
-    lineHeight: 20.5,
-    color: theme.colors.textMuted,
+    marginTop: 8,
   },
   contents: {
     marginTop: 20,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    padding: 16,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
+  contentsTitle: {marginBottom: 8},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -879,114 +885,84 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 25, color: theme.colors.primary, fontSize: 11.5, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.3, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 25},
+  contentText: {flex: 1},
   h2: {
-    marginTop: 25,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 24,
   },
-  body: {marginTop: 9, fontSize: 14, lineHeight: 21.5, color: theme.colors.text},
+  body: {marginTop: 8},
   tip: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
-  tipText: {marginTop: 4, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  tipCopy: {flex: 1, marginLeft: 12},
+  tipText: {marginTop: 4},
   highlightBox: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
-  highlightCopy: {flex: 1, marginLeft: 10},
-  highlightTitle: {color: theme.colors.text, fontSize: 13, fontWeight: '800'},
+  highlightCopy: {flex: 1, marginLeft: 12},
   highlightText: {
     marginTop: 4,
-    color: theme.colors.textSecondary,
-    fontSize: 11.5,
-    lineHeight: 17,
   },
   neutralBox: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 9,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    gap: 8,
   },
-  neutralText: {flex: 1, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
-  daily: {marginTop: 13, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
+  neutralText: {flex: 1},
+  daily: {marginTop: 12, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
   dailyItem: {
     width: '48.7%',
     minHeight: 108,
     padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   dailyText: {
-    marginTop: 7,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.text,
+    marginTop: 8,
     textAlign: 'center',
   },
   checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 12,
+    padding: 12,
   },
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 10,
+    marginBottom: 12,
   },
-  checkText: {flex: 1, color: theme.colors.text, fontSize: 12, lineHeight: 17},
+  checkText: {flex: 1},
   consultCard: {
-    marginTop: 14,
-    padding: 13,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 12,
   },
   consultRow: {
     minHeight: 43,
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 7,
+    marginBottom: 8,
   },
   consultIcon: {
     width: 34,
     height: 34,
-    borderRadius: 10,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
   consultText: {
     flex: 1,
-    marginLeft: 10,
-    color: theme.colors.text,
-    fontSize: 12,
-    lineHeight: 17,
+    marginLeft: 12,
   },
   });
 }

@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -28,7 +29,7 @@ import {
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 const ID = 'firstperiod-gerer-quotidien';
@@ -388,6 +389,47 @@ const CONTENT = {
       ],
       shareMessage: '初潮期间的日常该怎么应对？ — AWA',
     },
+  id: {
+    badge: 'HAID PERTAMA',
+    title: 'Bagaimana menjalani\nhaid pertama sehari-hari?',
+    metaDuration: '5 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Dengan beberapa kebiasaan kecil, haid pertamamu bisa menyatu dengan mudah dalam kehidupan sehari-hari, di sekolah maupun di luar sekolah.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Mengatur diri sehari-hari',
+      'Menyiapkan kit darurat kecil',
+      'Jika haidmu datang tiba-tiba',
+    ],
+    body1: 'Sekolah, olahraga, tidur: haid tidak menghalangimu melanjutkan aktivitas seperti biasa. Kamu hanya perlu menyesuaikan beberapa kebiasaan agar tetap nyaman sepanjang hari.',
+    dailyTips: [
+      'Sekolah atau kegiatan: simpan pembalut atau tampon di tasmu',
+      'Olahraga: kamu tetap bisa berolahraga, cukup sesuaikan temponya',
+      'Tidur: pembalut malam yang sesuai sudah cukup',
+    ],
+    body2: 'Kit kecil berisi satu atau dua pembalut atau tampon, satu celana dalam cadangan, dan beberapa tisu basah mudah dimasukkan ke dalam tas sekolah atau tas olahraga. Ini membuatmu merasa tenang apa pun yang terjadi.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Selalu membawa pembalut atau tampon menghindarkanmu dari stres karena terlanjur tidak siap.',
+    body3: 'Hal ini sering terjadi, terutama di awal. Petugas UKS, seorang guru, atau seorang teman hampir selalu punya sesuatu yang bisa membantu. Mengikatkan sepotong pakaian di pinggang juga bisa membantu sementara kamu mencari pembalut atau tampon.',
+    relatedTitle: '♥  Mungkin kamu juga suka',
+    related: [
+      {
+        title: 'Pembalut atau tampon apa yang sebaiknya kupilih untuk haid pertamaku?',
+        meta: '6 mnt  ·  Panduan',
+      },
+      {
+        title: 'Mengatasi nyeri haid',
+        meta: '7 mnt  ·  Panduan',
+      },
+      {
+        title: 'Haid pertamaku tidak teratur: apakah itu normal?',
+        meta: '5 mnt  ·  Panduan',
+      },
+    ],
+    shareMessage: 'Bagaimana menjalani haid pertama sehari-hari? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -460,56 +502,42 @@ export default function FirstPeriodDailyLifeArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metas}>
             {[
@@ -528,24 +556,24 @@ export default function FirstPeriodDailyLifeArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="bodyMedium" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -555,30 +583,30 @@ export default function FirstPeriodDailyLifeArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.body1}
-          </Text>
+          </AwaText>
 
           <View style={styles.daily}>
             {DAILY_ICONS.map((icon, index) => (
               <View key={icon} style={styles.dailyItem}>
                 <MaterialDesignIcons name={icon as never} color={theme.colors.primary} size={25} />
-                <Text style={styles.dailyText}>{content.dailyTips[index]}</Text>
+                <AwaText variant="bodySmall" style={styles.dailyText}>{content.dailyTips[index]}</AwaText>
               </View>
             ))}
           </View>
 
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -586,24 +614,24 @@ export default function FirstPeriodDailyLifeArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             3. {content.topics[2]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.body3}
-          </Text>
+          </AwaText>
         </View>
 
         <View style={styles.relatedHeader}>
-          <Text style={styles.relatedTitle}>{content.relatedTitle}</Text>
+          <AwaText variant="titleMedium" emphasized>{content.relatedTitle}</AwaText>
         </View>
 
         <ScrollView
@@ -611,7 +639,7 @@ export default function FirstPeriodDailyLifeArticleScreen({
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.relatedRow}>
           {RELATED_META.map((item, index) => (
-            <Pressable
+            <AwaCard variant="filled" padding="none"
               key={item.articleId}
               onPress={() =>
                 navigation.push('ArticleReader', {articleId: item.articleId})
@@ -624,12 +652,12 @@ export default function FirstPeriodDailyLifeArticleScreen({
               />
 
               <View style={styles.relatedCopy}>
-                <Text numberOfLines={3} style={styles.relatedCardTitle}>
+                <AwaText variant="labelSmall" emphasized>
                   {content.related[index].title}
-                </Text>
-                <Text style={styles.relatedMeta}>{content.related[index].meta}</Text>
+                </AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.relatedMeta}>{content.related[index].meta}</AwaText>
               </View>
-            </Pressable>
+            </AwaCard>
           ))}
         </ScrollView>
       </ScrollView>
@@ -642,7 +670,7 @@ export default function FirstPeriodDailyLifeArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
   top: {
@@ -655,64 +683,40 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  badgeText: {fontSize: 11, color: theme.colors.primary, fontWeight: '800'},
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 32,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
     gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 10, color: theme.colors.textMuted},
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '500',
+    marginTop: 16,
   },
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
+  contentsTitle: {marginBottom: 8},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -720,43 +724,32 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 24, color: theme.colors.primary, fontSize: 12, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.5, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 24},
+  contentText: {flex: 1},
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
-  body: {marginTop: 8, fontSize: 14, lineHeight: 21, color: theme.colors.text},
+  body: {marginTop: 8},
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
-  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
-  daily: {marginTop: 13, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
+  tipCopy: {flex: 1, marginLeft: 12},
+  tipText: {marginTop: 3},
+  daily: {marginTop: 12, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
   dailyItem: {
     width: '48.7%',
     minHeight: 108,
     padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
   dailyText: {
-    marginTop: 7,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.text,
+    marginTop: 8,
     textAlign: 'center',
   },
   relatedHeader: {
@@ -766,22 +759,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  relatedTitle: {color: theme.colors.text, fontSize: 16, fontWeight: '800'},
-  relatedRow: {gap: 10, paddingHorizontal: 20, paddingTop: 14, paddingBottom: 5},
+  relatedRow: {gap: 12, paddingHorizontal: 20, paddingTop: 16, paddingBottom: 4},
   relatedCard: {
     width: 230,
-    height: 105,
-    borderRadius: 20,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    minHeight: 105,
     flexDirection: 'row',
     overflow: 'hidden',
-    ...theme.shadow,
   },
-  relatedImage: {width: 80, height: '100%'},
+  relatedImage: {width: 80, alignSelf: 'stretch'},
   relatedCopy: {flex: 1, padding: 12},
-  relatedCardTitle: {color: theme.colors.text, fontSize: 11.5, lineHeight: 15, fontWeight: '800'},
-  relatedMeta: {marginTop: 9, color: theme.colors.textMuted, fontSize: 9.5},
+  relatedMeta: {marginTop: 8},
   });
 }

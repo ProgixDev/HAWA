@@ -1,10 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
@@ -15,11 +13,15 @@ import { useTranslation } from 'react-i18next';
 import { usePremium } from '../../hooks/usePremium';
 import type { RootStackParamList } from '../../navigation/AppNavigator';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
-import { onPrimaryTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
+import { withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 import BookmarkButton from '../../components/library/BookmarkButton';
 import { HawaPremiumBottomSheet } from '../../components/premium/HawaPremiumBottomSheet';
 import { PremiumLockedCard } from '../../components/premium/PremiumLockedCard';
 import ReadingControls from '../../components/articles/ReadingControls';
+import { AwaButton } from '../../components/ui/AwaButton';
+import { AwaCard } from '../../components/ui/AwaCard';
+import { AwaIconButton } from '../../components/ui/AwaIconButton';
+import { AwaText } from '../../components/ui/AwaText';
 import {
   getArticleById,
   getCategoryById,
@@ -251,14 +253,12 @@ function PremiumArticleGate({ route, navigation }: Props): React.JSX.Element {
           onUpgrade={() => setPremiumVisible(true)}
           title={article?.title ?? t('library.reader.premiumFallbackTitle')}
         />
-        <Pressable
+        <AwaButton
           accessibilityLabel={t('library.reader.back')}
-          accessibilityRole="button"
+          label={t('library.reader.back')}
           onPress={navigation.goBack}
-          style={styles.missingButton}
-        >
-          <Text style={styles.missingButtonText}>{t('library.reader.back')}</Text>
-        </Pressable>
+          variant="filled"
+        />
       </View>
       <HawaPremiumBottomSheet
         onClose={() => setPremiumVisible(false)}
@@ -310,16 +310,14 @@ function GenericArticleReaderScreen({
           },
         ]}
       >
-        <Text style={styles.missingText}>
+        <AwaText colorRole="onSurfaceVariant" variant="bodyMedium">
           {t('library.reader.missingArticle')}
-        </Text>
-        <Pressable
-          accessibilityRole="button"
+        </AwaText>
+        <AwaButton
+          label={t('library.reader.back')}
           onPress={navigation.goBack}
-          style={styles.missingButton}
-        >
-          <Text style={styles.missingButtonText}>{t('library.reader.back')}</Text>
-        </Pressable>
+          variant="filled"
+        />
       </View>
     );
   }
@@ -355,22 +353,12 @@ function GenericArticleReaderScreen({
             },
           ]}
         >
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('library.reader.back')}
-            accessibilityRole="button"
-            hitSlop={8}
+            icon="chevron-left"
             onPress={navigation.goBack}
-            style={({ pressed }) => [
-              styles.backButton,
-              pressed && styles.pressed,
-            ]}
-          >
-            <MaterialDesignIcons
-              color={tint.fg}
-              name="chevron-left"
-              size={24}
-            />
-          </Pressable>
+            variant="tonal"
+          />
 
           <BookmarkButton
             active={bookmarked}
@@ -391,9 +379,9 @@ function GenericArticleReaderScreen({
           <View style={styles.pillRow}>
             {category ? (
               <View style={[styles.categoryPill, { backgroundColor: tint.bg }]}>
-                <Text style={[styles.categoryPillText, { color: tint.fg }]}>
+                <AwaText color={tint.fg} emphasized variant="labelMedium">
                   {categoryLabel}
-                </Text>
+                </AwaText>
               </View>
             ) : null}
             {isReligious && (
@@ -403,12 +391,14 @@ function GenericArticleReaderScreen({
                   name="school-outline"
                   size={11}
                 />
-                <Text style={styles.educationalPillText}>{t('library.reader.educationalContent')}</Text>
+                <AwaText colorRole="warning" emphasized variant="labelMedium">
+                  {t('library.reader.educationalContent')}
+                </AwaText>
               </View>
             )}
           </View>
 
-          <Text style={styles.title}>{article.title}</Text>
+          <AwaText style={styles.title} variant="headlineSmall" weight="700">{article.title}</AwaText>
 
           <View style={styles.metaRow}>
             <MaterialDesignIcons
@@ -416,32 +406,36 @@ function GenericArticleReaderScreen({
               name="clock-outline"
               size={13}
             />
-            <Text style={styles.metaText}>{t('library.reader.durationMinutes', {count: article.durationMinutes})}</Text>
-            <Text style={styles.metaDot}>•</Text>
-            <Text style={styles.metaText}>{typeLabel(article.type, t)}</Text>
-            <Text style={styles.metaDot}>•</Text>
-            <Text style={styles.metaText}>{levelLabel(article.level, t)}</Text>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
+              {t('library.reader.durationMinutes', {count: article.durationMinutes})}
+            </AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall">•</AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall">{typeLabel(article.type, t)}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall">•</AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall">{levelLabel(article.level, t)}</AwaText>
           </View>
 
-          <Text style={styles.summary}>{article.summary}</Text>
+          <AwaText emphasized style={styles.summary} variant="titleMedium">{article.summary}</AwaText>
 
           <View style={styles.divider} />
 
           {isReligious && (
-            <View style={styles.disclaimer}>
+            <AwaCard padding="none" style={styles.disclaimer} variant="filled">
               <MaterialDesignIcons
                 color={theme.colors.warning}
                 name="information-outline"
                 size={16}
               />
-              <Text style={styles.disclaimerText}>{getReligiousDisclaimer(t)}</Text>
-            </View>
+              <AwaText colorRole="warning" style={styles.disclaimerText} variant="bodySmall">
+                {getReligiousDisclaimer(t)}
+              </AwaText>
+            </AwaCard>
           )}
 
           {article.content.map((paragraph, index) => (
-            <Text key={index} style={styles.paragraph}>
+            <AwaText key={index} style={styles.paragraph} variant="bodyLarge">
               {paragraph}
-            </Text>
+            </AwaText>
           ))}
 
           <View
@@ -472,18 +466,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 16,
       paddingVertical: 20,
     },
-    backButton: {
-      width: 40,
-      height: 40,
-      borderRadius: 20,
-      alignItems: 'center',
-      justifyContent: 'center',
-      // Sits on top of `tint.bg`, a fixed per-category editorial color
-      // (see LIBRARY_TINTS) that is always a light pastel regardless of the
-      // active theme — this translucent-white overlay is tuned to that
-      // fixed background, not the global theme, so it stays a literal.
-      backgroundColor: 'rgba(255,255,255,0.6)',
-    },
     heroIconWrap: {
       position: 'absolute',
       right: 24,
@@ -494,53 +476,40 @@ function createStyles(theme: ResolvedAwaTheme) {
     pillRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
     categoryPill: {
       alignSelf: 'flex-start',
-      borderRadius: 10,
-      paddingHorizontal: 10,
+      borderRadius: 8,
+      paddingHorizontal: 12,
       paddingVertical: 4,
     },
-    categoryPillText: { fontSize: 11, fontWeight: '700' },
     educationalPill: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 4,
       alignSelf: 'flex-start',
-      borderRadius: 10,
+      borderRadius: 8,
       backgroundColor: withAlpha(theme.colors.warning, 0.15),
-      paddingHorizontal: 10,
+      paddingHorizontal: 12,
       paddingVertical: 4,
     },
-    educationalPillText: { color: theme.colors.warning, fontSize: 11, fontWeight: '700' },
     disclaimer: {
       flexDirection: 'row',
       gap: 8,
       marginBottom: 8,
-      borderRadius: 14,
+      // The warning tint is meaningful (educational / religious notice), so it stays on the card.
       backgroundColor: withAlpha(theme.colors.warning, 0.15),
       padding: 12,
     },
-    disclaimerText: { flex: 1, color: theme.colors.warning, fontSize: 12, lineHeight: 17 },
+    disclaimerText: { flex: 1 },
     title: {
       marginTop: 12,
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 23,
-      fontWeight: '700',
-      lineHeight: 29,
     },
     metaRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 6,
-      marginTop: 10,
+      gap: 8,
+      marginTop: 12,
     },
-    metaText: { color: theme.colors.textSecondary, fontSize: 12 },
-    metaDot: { color: theme.colors.textSecondary, fontSize: 12 },
     summary: {
-      marginTop: 14,
-      color: theme.colors.text,
-      fontSize: 15,
-      fontWeight: '600',
-      lineHeight: 21,
+      marginTop: 16,
     },
     divider: {
       height: 1,
@@ -550,11 +519,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     paragraph: {
       marginTop: 16,
-      color: theme.colors.text,
-      fontSize: 14.5,
-      lineHeight: 23,
     },
-    pressed: { opacity: 0.85 },
     missingContainer: {
       flex: 1,
       alignItems: 'center',
@@ -562,17 +527,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       gap: 12,
       backgroundColor: theme.colors.background,
     },
-    missingText: { color: theme.colors.textSecondary, fontSize: 14 },
     gateContent: { width: '100%', paddingHorizontal: 20, gap: 16, alignItems: 'center' },
-    missingButton: {
-      minHeight: 44,
-      paddingHorizontal: 20,
-      borderRadius: 22,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: theme.colors.primary,
-    },
-    missingButtonText: { color: onPrimaryTextColor(theme), fontWeight: '700' },
   });
 }
 

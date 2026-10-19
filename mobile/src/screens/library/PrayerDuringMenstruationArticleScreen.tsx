@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -389,6 +390,47 @@ const CONTENT = {
       tip2Text: '月经期间暂停礼拜是一种被认可的宽免，应当不带愧疚地度过。这段时间里，许多灵修的方式依然可以进行；对于任何具体的问题，仍以具备资质的学者的建议为准。',
       shareMessage: '月经期间的礼拜 — AWA',
     },
+  id: {
+    badge: 'SALAT SAAT MENSTRUASI',
+    title: 'Salat saat\nmenstruasi',
+    metaDuration: '6 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Mengapa salat ditangguhkan pada masa ini, dan bagaimana menjalani masa ini dengan hati yang tenang.',
+    disclaimerTitle: 'Informasi penting',
+    disclaimerText: 'Konten ini murni bersifat edukatif. Pertanyaan keagamaan sebaiknya dipastikan kepada ulama yang berkompeten. AWA tidak mengeluarkan fatwa atau keputusan keagamaan yang dipersonalisasi.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Salat yang ditangguhkan saat menstruasi',
+      'Salat yang terlewat tidak diganti, berbeda dengan puasa',
+      'Ibadah lain tetap bisa dilakukan',
+      'Poin penting',
+    ],
+    section1Body1: 'Saat menstruasi, kewajiban salat ditangguhkan: seorang perempuan tidak diwajibkan salat selama masa ini. Penangguhan ini merupakan bagian dari praktik keagamaan itu sendiri, yang sudah lama diakui oleh tradisi.',
+    section1Body2: 'Penangguhan ini sama sekali tidak berarti menjauh dari iman atau lalai dalam praktik keagamaan. Ini adalah keringanan yang diakui, yang dijalani tanpa rasa bersalah: ia bagian dari kerangka alami kehidupan spiritual seorang perempuan.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Masa ini bisa dijalani dengan tenang: ia tidak mempersoalkan nilai imanmu maupun keteraturan praktik keagamaanmu.',
+    section1Body3: 'Jika menstruasi dimulai saat salat sedang berlangsung, salat itu terhenti: tidak perlu diselesaikan atau diganti. Sebaliknya, ketika menstruasi berakhir, salat dilanjutkan seperti biasa setelah mandi wajib (ghusl), yang menandai kembalinya keadaan suci secara ritual.',
+    section2Body1: 'Berbeda dengan puasa Ramadan, yang hari-harinya terlewat saat menstruasi lalu diganti kemudian (qada), salat yang terlewat karena alasan yang sama pada umumnya tidak diganti setelahnya. Perbedaan ini dijelaskan oleh sifat kedua ibadah tersebut: salat adalah ibadah harian yang diulang beberapa kali sehari, sedangkan puasa dilakukan setahun sekali dan terpusat pada satu bulan tertentu.',
+    section2Body2: 'Perbedaan ini bisa terasa mengejutkan saat pertama kali mengenal fikih. Ini tidak berarti salat bernilai lebih rendah: mengikuti keringanan sebagaimana yang ditetapkan adalah bagian penuh dari praktik keagamaan itu sendiri.',
+    section3Body: 'Tidak salat saat menstruasi tidak berarti terputus dari spiritualitasmu. Banyak bentuk ibadah dan kegiatan keagamaan yang tetap bisa dijalani pada masa ini.',
+    worshipActs: [
+      'Zikir (mengingat Allah)',
+      'Doa (permohonan)',
+      'Bersedekah',
+      'Membantu sesama',
+      'Belajar agama',
+      'Mendengarkan konten keagamaan',
+      'Merenung dan bersyukur',
+      'Berbuat baik',
+    ],
+    noteTitle: 'Harap diperhatikan',
+    noteText: 'Beberapa amalan, seperti membaca atau menyentuh langsung Al-Qur\'an, bisa menjadi bahan perbedaan pendapat menurut mazhab fikih. Merujuk pada pendapat yang biasa kamu ikuti, atau meminta saran ulama yang berkompeten, membantu memperjelas hal-hal ini.',
+    tip2Title: 'Perlu diketahui',
+    tip2Text: 'Salat yang ditangguhkan saat menstruasi adalah keringanan yang diakui, yang dijalani tanpa rasa bersalah. Banyak bentuk spiritualitas yang tetap bisa dijalani pada masa ini, dan saran ulama yang berkompeten tetap menjadi rujukan untuk setiap pertanyaan khusus.',
+    shareMessage: 'Salat saat menstruasi — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -462,51 +504,30 @@ export default function PrayerDuringMenstruationArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -515,15 +536,15 @@ export default function PrayerDuringMenstruationArticleScreen({
         <View style={styles.article}>
           {/* CATEGORY */}
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">
               {content.badge}
-            </Text>
+            </AwaText>
           </View>
 
           {/* TITLE */}
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           {/* METADATA */}
           <View style={styles.metas}>
@@ -543,19 +564,19 @@ export default function PrayerDuringMenstruationArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
           {/* INTRODUCTION */}
-          <Text style={styles.intro}>
+          <AwaText variant="bodyMedium" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
           {/* DISCLAIMER */}
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="information-outline"
               size={24}
@@ -563,32 +584,32 @@ export default function PrayerDuringMenstruationArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.disclaimerTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.disclaimerText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* TABLE OF CONTENTS */}
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>
               {content.contentsTitle}
-            </Text>
+            </AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>
                     {index + 1}.
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.contentText}>
+                  <AwaText variant="bodySmall" style={styles.contentText}>
                     {item}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -598,23 +619,23 @@ export default function PrayerDuringMenstruationArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 1 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             1. {content.topics[0]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body2}
-          </Text>
+          </AwaText>
 
           {/* TIP */}
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -622,41 +643,41 @@ export default function PrayerDuringMenstruationArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.tip1Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body3}
-          </Text>
+          </AwaText>
 
           {/* SECTION 2 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             2. {content.topics[1]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section2Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section2Body2}
-          </Text>
+          </AwaText>
 
           {/* SECTION 3 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             3. {content.topics[2]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section3Body}
-          </Text>
+          </AwaText>
 
           {/* WORSHIP GRID */}
           <View style={styles.daily}>
@@ -668,15 +689,15 @@ export default function PrayerDuringMenstruationArticleScreen({
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>
+                <AwaText variant="bodySmall" style={styles.dailyText}>
                   {label}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </View>
 
           {/* ONLY NECESSARY "À NOTER" */}
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
@@ -684,22 +705,22 @@ export default function PrayerDuringMenstruationArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.noteTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.noteText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 4 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             4. {content.topics[3]}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -707,15 +728,15 @@ export default function PrayerDuringMenstruationArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.tip2Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
         </View>
       </ScrollView>
 
@@ -737,7 +758,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   /* HERO */
@@ -766,58 +787,35 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   /* ARTICLE */
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   /* BADGE */
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   /* TITLE */
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   /* METADATA */
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -827,7 +825,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -836,43 +834,29 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 10,
-    color: theme.colors.textMuted,
-  },
 
   /* INTRO */
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '500',
+    marginTop: 16,
   },
 
   /* ALERT */
   alert: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   /* TABLE OF CONTENTS */
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -890,39 +874,25 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 24,
-    color: theme.colors.primary,
-    fontSize: 12,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.5,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   /* SECTION TITLES */
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   /* BODY */
   body: {
     marginTop: 8,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
   },
 
   /* WORSHIP GRID */
   daily: {
-    marginTop: 13,
+    marginTop: 12,
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
@@ -934,44 +904,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
   dailyText: {
-    marginTop: 7,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.text,
+    marginTop: 8,
     textAlign: 'center',
   },
 
   /* TIP */
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 3,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textMuted,
   },
   });
 }

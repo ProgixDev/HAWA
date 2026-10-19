@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -391,6 +392,57 @@ const CONTENT = {
       ],
       shareMessage: '应对经期疼痛 — AWA',
     },
+  id: {
+    badge: 'NYERI',
+    title: 'Mengatasi\nnyeri haid',
+    metaDuration: '7 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Kehangatan, gerakan lembut, pola makan: kebiasaan yang benar-benar meredakan nyeri.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Memahami nyeri haid',
+      'Solusi alami yang efektif',
+      'Kapan harus ke dokter?',
+      'Tips praktis sehari-hari',
+    ],
+    section1Text: 'Kram berasal dari kontraksi rahim yang membantu meluruhkan lapisan dinding rahim. Kram ini disebabkan oleh prostaglandin. Setiap tubuh bereaksi secara berbeda.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Nyeri bisa berbeda dari satu siklus ke siklus berikutnya dan tidak selalu sama.',
+    solutions: [
+      {
+        title: 'Kehangatan',
+        text: 'Botol air panas di perut bagian bawah dapat merelaksasi otot.',
+      },
+      {
+        title: 'Gerakan lembut',
+        text: 'Yoga, peregangan, dan jalan kaki ringan meredakan ketegangan.',
+      },
+      {
+        title: 'Pola makan',
+        text: 'Magnesium, omega-3, dan makanan antiradang.',
+      },
+      {
+        title: 'Asupan air',
+        text: 'Minum air yang cukup membantu mengurangi kembung.',
+      },
+      {
+        title: 'Pijat',
+        text: 'Pijatan melingkar di perut bagian bawah membantumu rileks.',
+      },
+    ],
+    section3Text: 'Jika nyeri membuatmu tidak bisa beraktivitas normal setiap bulan meski sudah mencoba solusi-solusi ini, penting untuk berbicara dengan tenaga kesehatan.',
+    alertTitle: 'Temui dokter jika',
+    alertText: 'Nyeri yang sangat hebat, perdarahan deras, kelelahan ekstrem, atau gejala yang tidak biasa.',
+    dailyTips: [
+      'Hangatkan tubuhmu dengan lembut saat bangun tidur',
+      'Utamakan pola makan seimbang',
+      'Luangkan waktu untuk bernapas dan rileks',
+      'Catat siklusmu agar lebih memahami nyerimu',
+    ],
+    shareMessage: 'Mengatasi nyeri haid — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -475,69 +527,48 @@ export default function PeriodPainArticleScreen({
                 paddingTop: getTopPadding(insets.top, true),
               },
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
-                onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={
+                icon={
                     saved
                       ? 'bookmark'
                       : 'bookmark-outline'
                   }
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                iconSize={20}
+                onPress={handleBookmark}
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">
               {content.badge}
-            </Text>
+            </AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metas}>
             {[
@@ -564,35 +595,35 @@ export default function PeriodPainArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                     {text}
-                  </Text>
+                  </AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="titleMedium" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>
               {content.contentsTitle}
-            </Text>
+            </AwaText>
 
             {content.topics.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>
                     {index + 1}.
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.contentText}>
+                  <AwaText variant="bodyMedium" style={styles.contentText}>
                     {item}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -602,17 +633,17 @@ export default function PeriodPainArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             1. {content.topics[0]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section1Text}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -620,19 +651,19 @@ export default function PeriodPainArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.tip1Title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             2. {content.topics[1]}
-          </Text>
+          </AwaText>
 
           <ScrollView
             horizontal
@@ -648,26 +679,26 @@ export default function PeriodPainArticleScreen({
                   style={styles.solImage}
                 />
 
-                <Text style={styles.solTitle}>
+                <AwaText variant="titleSmall" emphasized style={styles.solTitle}>
                   {title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.solText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.solText}>
                   {text}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </ScrollView>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             3. {content.topics[2]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" style={styles.body}>
             {content.section3Text}
-          </Text>
+          </AwaText>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-circle-outline"
               size={24}
@@ -675,19 +706,19 @@ export default function PeriodPainArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.alertTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.alertText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             4. {content.topics[3]}
-          </Text>
+          </AwaText>
 
           <View style={styles.daily}>
             {content.dailyTips.map((text, index) => (
@@ -700,9 +731,9 @@ export default function PeriodPainArticleScreen({
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>
+                <AwaText variant="bodySmall" style={styles.dailyText}>
                   {text}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </View>
@@ -726,7 +757,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   heroWrap: {
@@ -753,54 +784,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 32,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -810,7 +818,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -819,31 +827,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 10,
-    color: theme.colors.textMuted,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 15,
-    lineHeight: 22,
-    color: theme.colors.text,
-    fontWeight: '600',
+    marginTop: 16,
   },
 
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -861,82 +856,57 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 24,
-    color: theme.colors.primary,
-    fontSize: 12,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 13,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 22,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   body: {
     marginTop: 8,
-    fontSize: 14.5,
-    lineHeight: 22,
-    color: theme.colors.text,
   },
 
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   alert: {
-    marginTop: 14,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 3,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   solutions: {
     gap: 8,
-    paddingTop: 13,
+    paddingTop: 12,
     paddingBottom: 3,
   },
 
   solution: {
     width: 132,
     minHeight: 215,
-    padding: 9,
+    padding: 12,
     alignItems: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surface,
@@ -950,21 +920,15 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   solTitle: {
     marginTop: 8,
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
 
   solText: {
-    marginTop: 6,
-    fontSize: 10.5,
-    lineHeight: 15,
-    color: theme.colors.textSecondary,
+    marginTop: 8,
     textAlign: 'center',
   },
 
   daily: {
-    marginTop: 13,
+    marginTop: 12,
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
@@ -976,15 +940,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
   dailyText: {
-    marginTop: 7,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.text,
+    marginTop: 8,
     textAlign: 'center',
   },
   });

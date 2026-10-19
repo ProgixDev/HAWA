@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -544,6 +545,72 @@ const CONTENT = {
       ],
       shareMessage: '避孕贴 — AWA',
     },
+  id: {
+    badge: 'KOYO KONTRASEPSI',
+    title: 'Koyo\nkontrasepsi',
+    metaDuration: '5 menit baca',
+    metaType: 'Artikel',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten yang telah ditinjau',
+    intro: 'Alternatif mingguan pengganti pil harian.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Cara kerja koyo',
+      'Jadwal pemasangan',
+      'Yang perlu kamu ketahui',
+      'Poin-poin penting',
+    ],
+    section1Body: 'Koyo melepaskan hormon secara terus-menerus melalui kulit, dengan cara kerja yang sebanding dengan pil kombinasi: mencegah ovulasi dan mengentalkan lendir serviks.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Keunggulan utamanya adalah tidak perlu dikonsumsi setiap hari.',
+    section2Body: 'Koyo umumnya diganti seminggu sekali selama tiga minggu, lalu diikuti satu minggu tanpa koyo.',
+    applicationTips: [
+      'Ganti lokasi penempelan setiap kali',
+      'Periksa bahwa koyo masih menempel dengan kuat',
+      'Tempelkan pada kulit yang bersih dan kering',
+    ],
+    sectionIntro: 'Hal-hal penting yang perlu diketahui sebelum dan selama pemakaian.',
+    facts: [
+      {
+        title: 'Setiap minggu',
+        text: 'Koyo diganti seminggu sekali.',
+      },
+      {
+        title: 'Kulit kering',
+        text: 'Koyo harus ditempelkan pada kulit yang bersih dan kering.',
+      },
+      {
+        title: 'Perlindungan',
+        text: 'Koyo bekerja terus-menerus bila digunakan dengan benar.',
+      },
+      {
+        title: 'Waspadai',
+        text: 'Iritasi lokal terkadang bisa terjadi.',
+      },
+    ],
+    comparisonTitle: 'Kelebihan & keterbatasan',
+    advantageTitle: 'Kelebihan',
+    advantages: [
+      '• Satu kali pemasangan per minggu',
+      '• Tanpa dosis harian',
+      '• Pelepasan hormon yang terus-menerus',
+    ],
+    limitTitle: 'Keterbatasan',
+    limits: [
+      'Tidak melindungi dari infeksi menular seksual',
+      'Dapat menyebabkan iritasi kulit',
+      'Perlu mematuhi jadwal penggantian',
+    ],
+    alertTitle: 'Harap diperhatikan',
+    alertText: 'Iritasi ringan bisa muncul di lokasi penempelan. Berganti-ganti lokasi penempelan dapat membantu membatasinya.',
+    rememberTitle: '3 hal penting',
+    remember: [
+      'Ganti koyo setiap minggu.',
+      'Periksa secara berkala bahwa koyo menempel dengan baik.',
+      'Mintalah saran tenaga kesehatan bila perlu.',
+    ],
+    shareMessage: 'Koyo kontrasepsi — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -619,51 +686,30 @@ export default function PatchArticleScreen({
                 paddingTop: getTopPadding(insets.top, true),
               },
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -671,10 +717,10 @@ export default function PatchArticleScreen({
         {/* ARTICLE */}
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>{content.title}</Text>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>{content.title}</AwaText>
 
           {/* METADATA */}
           <View style={styles.metas}>
@@ -694,24 +740,24 @@ export default function PatchArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>{content.intro}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.intro}>{content.intro}</AwaText>
 
           {/* TABLE OF CONTENTS */}
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
 
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -721,14 +767,14 @@ export default function PatchArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 1 */}
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>{content.section1Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section1Body}</AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -736,18 +782,18 @@ export default function PatchArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
 
-              <Text style={styles.tipText}>{content.tip1Text}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.tip1Text}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 2 */}
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>{content.section2Body}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>{content.section2Body}</AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.applicationTips.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -756,20 +802,20 @@ export default function PatchArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 3 */}
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.sectionIntro}>{content.sectionIntro}</Text>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.sectionIntro}>{content.sectionIntro}</AwaText>
 
           {/* VISUAL FACT CARDS */}
           <View style={styles.factGrid}>
             {content.facts.map((item, index) => (
-              <View key={item.title} style={styles.factCard}>
+              <AwaCard variant="filled" padding="none" key={item.title} style={styles.factCard}>
                 <View style={styles.factIcon}>
                   <MaterialDesignIcons
                     name={PATCH_FACT_ICONS[index] as never}
@@ -778,15 +824,15 @@ export default function PatchArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.factTitle}>{item.title}</Text>
+                <AwaText variant="titleSmall" emphasized>{item.title}</AwaText>
 
-                <Text style={styles.factText}>{item.text}</Text>
-              </View>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.factText}>{item.text}</AwaText>
+              </AwaCard>
             ))}
           </View>
 
           {/* ADVANTAGES / LIMITS SCHEMA */}
-          <View style={styles.comparisonCard}>
+          <AwaCard variant="filled" padding="none" style={styles.comparisonCard}>
             <View style={styles.comparisonHeader}>
               <MaterialDesignIcons
                 name="scale-balance"
@@ -794,9 +840,9 @@ export default function PatchArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.comparisonTitle}>
+              <AwaText variant="titleMedium" emphasized>
                 {content.comparisonTitle}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.comparisonColumns}>
@@ -809,13 +855,13 @@ export default function PatchArticleScreen({
                     color={theme.colors.success}
                   />
 
-                  <Text style={styles.advantageTitle}>{content.advantageTitle}</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="success">{content.advantageTitle}</AwaText>
                 </View>
 
                 {content.advantages.map(item => (
-                  <Text key={item} style={styles.columnItem}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" key={item} style={styles.columnItem}>
                     {item}
-                  </Text>
+                  </AwaText>
                 ))}
               </View>
 
@@ -828,20 +874,20 @@ export default function PatchArticleScreen({
                     color={theme.colors.warning}
                   />
 
-                  <Text style={styles.limitTitle}>{content.limitTitle}</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="warning">{content.limitTitle}</AwaText>
                 </View>
 
                 {content.limits.map(item => (
-                  <Text key={item} style={styles.columnItem}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" key={item} style={styles.columnItem}>
                     • {item}
-                  </Text>
+                  </AwaText>
                 ))}
               </View>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ALERT */}
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
@@ -849,16 +895,16 @@ export default function PatchArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.alertTitle}</AwaText>
 
-              <Text style={styles.tipText}>{content.alertText}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.alertText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 4 */}
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <View style={styles.rememberCard}>
+          <AwaCard variant="filled" padding="none" style={styles.rememberCard}>
             <View style={styles.rememberIcon}>
               <MaterialDesignIcons
                 name="check-decagram-outline"
@@ -868,20 +914,20 @@ export default function PatchArticleScreen({
             </View>
 
             <View style={styles.rememberContent}>
-              <Text style={styles.rememberTitle}>
+              <AwaText variant="titleSmall" emphasized style={styles.rememberTitle}>
                 {content.rememberTitle}
-              </Text>
+              </AwaText>
 
               {content.remember.map((item, index) => (
                 <View key={item} style={styles.rememberRow}>
-                  <Text style={styles.rememberNumber}>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.rememberNumber}>
                     {String(index + 1).padStart(2, '0')}
-                  </Text>
-                  <Text style={styles.rememberText}>{item}</Text>
+                  </AwaText>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.rememberText}>{item}</AwaText>
                 </View>
               ))}
             </View>
-          </View>
+          </AwaCard>
         </View>
       </ScrollView>
 
@@ -902,7 +948,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   heroWrap: {
@@ -930,54 +976,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -987,7 +1010,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -996,31 +1019,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 10,
-    color: theme.colors.textMuted,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '500',
+    marginTop: 16,
   },
 
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -1038,80 +1048,54 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 24,
-    color: theme.colors.primary,
-    fontSize: 12,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.5,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   body: {
     marginTop: 8,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
   },
 
   sectionIntro: {
     marginTop: 8,
-    fontSize: 13,
-    lineHeight: 19,
-    color: theme.colors.textMuted,
   },
 
   checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 12,
+    padding: 12,
   },
 
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 9,
+    marginBottom: 8,
   },
 
   checkText: {
     flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 17,
   },
 
   /* FACT CARDS */
 
   factGrid: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    gap: 9,
+    gap: 8,
   },
 
   factCard: {
     width: '48.5%',
     minHeight: 145,
-    padding: 13,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 12,
   },
 
   factIcon: {
@@ -1121,134 +1105,89 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
-    marginBottom: 9,
+    marginBottom: 8,
   },
 
-  factTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   factText: {
-    marginTop: 5,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.textSecondary,
+    marginTop: 4,
   },
 
   /* COMPARISON */
 
   comparisonCard: {
-    marginTop: 15,
-    padding: 15,
-    borderRadius: 15,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   comparisonHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    marginBottom: 13,
+    marginBottom: 12,
   },
 
-  comparisonTitle: {
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   comparisonColumns: {
     flexDirection: 'row',
-    gap: 10,
+    gap: 12,
   },
 
   column: {
     flex: 1,
-    padding: 11,
-    borderRadius: 11,
+    padding: 12,
+    borderRadius: 12,
     backgroundColor: theme.colors.background,
   },
 
   columnTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
-    marginBottom: 9,
+    gap: 4,
+    marginBottom: 8,
   },
 
-  advantageTitle: {
-    fontSize: 12,
-    color: theme.colors.success,
-    fontWeight: '800',
-  },
 
-  limitTitle: {
-    fontSize: 12,
-    color: theme.colors.warning,
-    fontWeight: '800',
-  },
 
   columnItem: {
-    marginBottom: 7,
-    fontSize: 10.5,
-    lineHeight: 15,
-    color: theme.colors.textSecondary,
+    marginBottom: 8,
   },
 
   /* TIP */
 
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 3,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   /* ALERT */
 
   alert: {
-    marginTop: 14,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   /* REMEMBER */
 
   rememberCard: {
-    marginTop: 14,
-    padding: 15,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
-    borderRadius: 15,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   rememberIcon: {
@@ -1266,31 +1205,22 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   rememberTitle: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
     marginBottom: 8,
   },
 
   rememberRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 7,
+    marginBottom: 8,
   },
 
   rememberNumber: {
     width: 28,
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
     marginTop: 2,
   },
 
   rememberText: {
     flex: 1,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
   });
 }

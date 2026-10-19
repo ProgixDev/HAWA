@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -28,7 +29,7 @@ import {
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 /* -------------------------------------------------------------------------- */
@@ -1004,6 +1005,136 @@ const CONTENT = {
       disclaimerText: '仅供参考。本文不能替代个性化的医生建议。如有疑虑，请咨询医疗专业人员。',
       shareMessage: '绝经期间的激素变化 — AWA',
     },
+  id: {
+    badge: 'PERIMENOPAUSE & MENOPAUSE • HORMON',
+    title: 'Hormon\nselama menopause',
+    metaDuration: '10 menit baca',
+    metaType: 'Artikel',
+    metaLevel: 'Menengah',
+    metaValidated: 'Konten yang telah ditinjau',
+    intro: 'Menjelang menopause, hormonmu tidak berhenti secara tiba-tiba: hormon berfluktuasi, dan inilah yang menjelaskan perubahan siklus sekaligus beragamnya gejala yang mungkin muncul.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Hormon-hormon utama yang terlibat',
+      'Apa yang terjadi selama perimenopause?',
+      'Ketika estrogen berfluktuasi',
+      'Peran progesteron',
+      'Mengapa gejala bisa berbeda-beda',
+      'Gejala yang paling umum',
+      'Hormon dan tidur',
+      'Hormon dan suasana hati',
+      'Apakah hormon bisa diukur?',
+      'Cara memantau perubahan dengan lebih baik',
+      'Kapan harus ke tenaga profesional?',
+      'Solusi apa yang mungkin disarankan?',
+      'Poin-poin penting',
+    ],
+    section1Body: 'Tiga hormon utama berubah selama masa transisi ini, masing-masing dengan peran yang berbeda:',
+    keyHormones: [
+      {
+        title: 'Estrogen',
+        text: 'Memengaruhi siklus, kulit, tulang, jantung, dan ikut mengatur tidur serta suasana hati.',
+      },
+      {
+        title: 'Progesteron',
+        text: 'Diproduksi setelah ovulasi, hormon ini memiliki efek yang cukup menenangkan dan menyiapkan tubuh untuk kemungkinan kehamilan.',
+      },
+      {
+        title: 'FSH dan LH',
+        text: 'Dikendalikan oleh otak, keduanya merangsang ovarium; kadarnya berubah karena ovarium merespons secara berbeda.',
+      },
+    ],
+    infoCard1Title: 'Perlu dicatat',
+    infoCard1Text: 'Kadar hormon tidak menurun secara lurus sempurna selama perimenopause: kadarnya bisa berfluktuasi, naik dan turun, sebelum menetap pada tingkat yang lebih rendah setelah menopause.',
+    section2Body: 'Ovarium secara bertahap merespons sinyal hormonal dari otak dengan kurang teratur. Inilah yang membuat siklus menjadi tidak teratur dan menjelaskan mengapa gejala bisa berubah dari bulan ke bulan.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Sangat mungkin kamu mengalami gejala yang jelas pada satu bulan, lalu hampir tidak ada pada bulan berikutnya. Ini tidak abnormal: hal ini hanya mencerminkan fluktuasi hormon pada masa ini.',
+    section3Body: 'Perubahan estrogen dapat dikaitkan dengan beberapa perubahan:',
+    estrogenSymptoms: [
+      'Hot flash',
+      'Keringat malam',
+      'Kekeringan vagina',
+      'Perubahan siklus',
+      'Perasaan lebih sensitif secara emosional',
+      'Perubahan pola tidur',
+    ],
+    section3Body2: 'Gejala-gejala ini bisa memiliki beberapa penyebab: tidak selalu berkaitan dengan hormon, dan intensitasnya sangat bervariasi dari satu orang ke orang lain.',
+    section4Body: 'Progesteron hanya diproduksi setelah ovulasi. Namun selama perimenopause, ovulasi itu sendiri menjadi lebih tidak teratur — sehingga produksinya menjadi kurang dapat diprediksi.',
+    section4Body2: 'Ketidakteraturan ini sebagian menjelaskan perubahan yang terlihat pada siklus: panjang yang bervariasi, haid yang terkadang lebih deras atau lebih ringan dari sebelumnya.',
+    section5Body: 'Selain fluktuasi hormon, beberapa faktor lain ikut berperan: kualitas tidur, tingkat stres, gaya hidup, dan perbedaan khas pada setiap orang.',
+    highlightText: '"Setiap wanita mengalami masa transisi ini dengan cara yang berbeda."',
+    commonSymptoms: [
+      'Siklus tidak teratur',
+      'Hot flash',
+      'Keringat malam',
+      'Masalah tidur',
+      'Perubahan suasana hati',
+      'Kelelahan',
+      'Kekeringan vagina',
+      'Perubahan gairah seksual',
+      'Sulit berkonsentrasi',
+    ],
+    section6Caption: 'Daftar ini hanya untuk informasi: bukan diagnosis. Setiap orang mengalami kombinasi perubahan yang berbeda.',
+    section7Body: 'Keringat malam dapat mengganggu tidur, sehingga menyebabkan kelelahan dan sulit berkonsentrasi keesokan harinya — pola yang umum terjadi pada masa ini.',
+    infoCard2Title: 'Tips praktis',
+    infoCard2Text: 'Kamar tidur yang sejuk, pakaian yang ringan, dan rutinitas tidur yang stabil dapat membantu membatasi terbangun di malam hari.',
+    section8Body: 'Fluktuasi hormon bisa bersamaan dengan perubahan suasana hati, tanpa menjadi satu-satunya penjelasan: tidur, stres, perubahan dalam hidup, dan gejala fisik juga berperan.',
+    infoCard3Title: 'Agar kamu tenang',
+    infoCard3Text: 'Merasa lebih emosional pada masa ini tidak berarti ada yang salah: ini pengalaman yang umum dan bisa memiliki beberapa penyebab sekaligus.',
+    section9Body: 'Kadar hormon dapat sangat bervariasi dari satu hari ke hari berikutnya selama perimenopause. Karena itu, satu kali pemeriksaan tidak selalu memberikan gambaran yang lengkap tentang kondisimu.',
+    infoCard4Title: 'Perlu diingat',
+    infoCard4Text: 'Penilaian medis terutama bergantung pada usiamu, gejalamu, dan riwayat siklusmu — bukan hanya satu angka.',
+    section10Body: 'Menuliskan apa yang kamu alami dari bulan ke bulan membantumu mengenali pola dirimu sendiri, bukan membandingkan diri dengan orang lain:',
+    trackingItems: [
+      'Tanggal siklusmu',
+      'Gejalamu dari hari ke hari',
+      'Tidurmu',
+      'Suasana hatimu',
+      'Hot flash-mu',
+      'Perubahan pada perdarahanmu',
+      'Apa yang tampaknya memicu gejala tertentu',
+    ],
+    tip2Title: 'Kebiasaan yang membantu',
+    tip2Text: 'Mencatat siklusmu di AWA dapat membantumu mengenali pola dirimu sendiri dari bulan ke bulan, tanpa usaha tambahan.',
+    section11Body: 'Sebagian besar situasi ini cukup ditangani dengan konsultasi rutin, sesuai waktu yang kamu inginkan:',
+    warningTitle: 'Layak disampaikan kepada tenaga profesional',
+    consultSituations: [
+      'Gejala yang memengaruhi kehidupan sehari-harimu secara signifikan',
+      'Masalah tidur yang menetap',
+      'Hot flash yang sangat mengganggu',
+      'Gejala baru atau tidak biasa',
+      'Perubahan perdarahan yang signifikan',
+      'Pertanyaan tentang pilihan pengobatan',
+      'Kekhawatiran terkait kekeringan vagina atau kehidupan seksualmu',
+    ],
+    infoCard5Title: 'Kasus khusus',
+    infoCard5Text: 'Sebaliknya, perdarahan yang sangat deras atau tidak biasa sebaiknya segera dilaporkan kepada tenaga kesehatan.',
+    section12Body: 'Tergantung situasinya, tenaga profesional mungkin menyarankan berbagai pilihan:',
+    solutions: [
+      {
+        title: 'Langkah gaya hidup',
+        text: 'Aktivitas fisik, pola makan, serta pengelolaan stres dan tidur.',
+      },
+      {
+        title: 'Pengobatan nonhormonal',
+        text: 'Beberapa pilihan dapat menargetkan gejala tertentu, tergantung situasinya.',
+      },
+      {
+        title: 'Pengobatan hormonal',
+        text: 'Dibahas bersama dokter bila sesuai dengan profil dan kebutuhanmu.',
+      },
+    ],
+    section12Caption: 'Keputusan ini tetap bersifat individual: bergantung pada riwayatmu, gejalamu, risikonya, dan preferensi pribadimu.',
+    summaryPoints: [
+      'Perubahan hormon adalah bagian yang tidak terpisahkan dari masa transisi menopause.',
+      'Kadar hormon dapat berfluktuasi signifikan selama perimenopause, tanpa penurunan yang lurus sempurna.',
+      'Gejala sangat bervariasi dari satu orang ke orang lain, dan dari bulan ke bulan.',
+      'Mencatat gejalamu dapat membantumu mengenali pola dirimu sendiri dengan lebih baik.',
+      'Tenaga kesehatan dapat mendampingimu jika gejala menjadi sulit dikelola.',
+    ],
+    disclaimerText: 'Konten informasi. Artikel ini tidak menggantikan saran medis yang dipersonalisasi. Jika ragu, mintalah arahan dari tenaga kesehatan.',
+    shareMessage: 'Hormon selama menopause — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -1092,49 +1223,32 @@ export default function MenopauseHormonesArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
-              hitSlop={8}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={
                   saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
-                hitSlop={8}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
-                hitSlop={8}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -1145,12 +1259,12 @@ export default function MenopauseHormonesArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metas}>
             {[
@@ -1169,28 +1283,28 @@ export default function MenopauseHormonesArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="titleSmall" colorRole="onSurfaceVariant" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
           {/* -------------------------------------------------------------- */}
           {/* CONTENTS                                                        */}
           {/* -------------------------------------------------------------- */}
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -1200,21 +1314,21 @@ export default function MenopauseHormonesArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body}
-          </Text>
+          </AwaText>
 
           <View style={styles.normalGrid}>
             {content.keyHormones.map((item, index) => (
-              <View key={item.title} style={styles.normalCard}>
+              <AwaCard variant="filled" padding="none" key={item.title} style={styles.normalCard}>
                 <View style={styles.normalIcon}>
                   <MaterialDesignIcons
                     name={KEY_HORMONES_ICONS[index] as never}
@@ -1223,13 +1337,13 @@ export default function MenopauseHormonesArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.normalTitle}>{item.title}</Text>
-                <Text style={styles.normalText}>{item.text}</Text>
-              </View>
+                <AwaText variant="titleSmall" emphasized style={styles.normalTitle}>{item.title}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.normalText}>{item.text}</AwaText>
+              </AwaCard>
             ))}
           </View>
 
-          <View style={styles.infoCard}>
+          <AwaCard variant="filled" padding="none" style={styles.infoCard}>
             <MaterialDesignIcons
               name="information-outline"
               size={23}
@@ -1237,26 +1351,26 @@ export default function MenopauseHormonesArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>{content.infoCard1Title}</Text>
-              <Text style={styles.infoText}>
+              <AwaText variant="titleSmall" emphasized>{content.infoCard1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>
                 {content.infoCard1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             2. {content.topics[1]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section2Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -1264,24 +1378,24 @@ export default function MenopauseHormonesArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 3                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section3Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.estrogenSymptoms.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -1290,52 +1404,52 @@ export default function MenopauseHormonesArticleScreen({
                   color={theme.colors.primary}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section3Body2}
-          </Text>
+          </AwaText>
 
           {/* ================================================================= */}
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section4Body}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section4Body2}
-          </Text>
+          </AwaText>
 
           {/* ================================================================= */}
           {/* SECTION 5                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>5. {content.topics[4]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>5. {content.topics[4]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section5Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.highlight}>
-            <Text style={styles.highlightText}>
+          <AwaCard variant="filled" padding="none" style={styles.highlight}>
+            <AwaText variant="bodyLarge" style={styles.highlightText}>
               {content.highlightText}
-            </Text>
-          </View>
+            </AwaText>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 6                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>6. {content.topics[5]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>6. {content.topics[5]}</AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.commonSymptoms.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -1344,26 +1458,26 @@ export default function MenopauseHormonesArticleScreen({
                   color={theme.colors.primary}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.caption}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.caption}>
             {content.section6Caption}
-          </Text>
+          </AwaText>
 
           {/* ================================================================= */}
           {/* SECTION 7                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>7. {content.topics[6]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>7. {content.topics[6]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section7Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.infoCard}>
+          <AwaCard variant="filled" padding="none" style={styles.infoCard}>
             <MaterialDesignIcons
               name="weather-night"
               size={23}
@@ -1371,24 +1485,24 @@ export default function MenopauseHormonesArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>{content.infoCard2Title}</Text>
-              <Text style={styles.infoText}>
+              <AwaText variant="titleSmall" emphasized>{content.infoCard2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>
                 {content.infoCard2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 8                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>8. {content.topics[7]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>8. {content.topics[7]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section8Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.infoCard}>
+          <AwaCard variant="filled" padding="none" style={styles.infoCard}>
             <MaterialDesignIcons
               name="heart-outline"
               size={23}
@@ -1396,24 +1510,24 @@ export default function MenopauseHormonesArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>{content.infoCard3Title}</Text>
-              <Text style={styles.infoText}>
+              <AwaText variant="titleSmall" emphasized>{content.infoCard3Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>
                 {content.infoCard3Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 9                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>9. {content.topics[8]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>9. {content.topics[8]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section9Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.infoCard}>
+          <AwaCard variant="filled" padding="none" style={styles.infoCard}>
             <MaterialDesignIcons
               name="test-tube"
               size={23}
@@ -1421,24 +1535,24 @@ export default function MenopauseHormonesArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>{content.infoCard4Title}</Text>
-              <Text style={styles.infoText}>
+              <AwaText variant="titleSmall" emphasized>{content.infoCard4Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>
                 {content.infoCard4Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 10                                                        */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>10. {content.topics[9]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>10. {content.topics[9]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section10Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.comfortCard}>
+          <AwaCard variant="filled" padding="none" style={styles.comfortCard}>
             {content.trackingItems.map((item, index) => (
               <View
                 key={item}
@@ -1453,12 +1567,12 @@ export default function MenopauseHormonesArticleScreen({
                   color={theme.colors.primary}
                 />
 
-                <Text style={styles.trackingText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.trackingText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -1466,24 +1580,24 @@ export default function MenopauseHormonesArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 11                                                        */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>11. {content.topics[10]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>11. {content.topics[10]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section11Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.warningCard}>
+          <AwaCard variant="filled" padding="none" style={styles.warningCard}>
             <View style={styles.warningHeader}>
               <MaterialDesignIcons
                 name="calendar-account-outline"
@@ -1491,9 +1605,9 @@ export default function MenopauseHormonesArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={[styles.warningTitle, styles.warningTitleNeutral]}>
+              <AwaText variant="titleSmall" emphasized colorRole="onSurfaceVariant" style={[styles.warningTitle, styles.warningTitleNeutral]}>
                 {content.warningTitle}
-              </Text>
+              </AwaText>
             </View>
 
             {content.consultSituations.map(item => (
@@ -1506,12 +1620,12 @@ export default function MenopauseHormonesArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.warningText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.warningText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.infoCard}>
+          <AwaCard variant="filled" padding="none" style={styles.infoCard}>
             <MaterialDesignIcons
               name="alert-circle-outline"
               size={23}
@@ -1519,28 +1633,28 @@ export default function MenopauseHormonesArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>{content.infoCard5Title}</Text>
-              <Text style={styles.infoText}>
+              <AwaText variant="titleSmall" emphasized>{content.infoCard5Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>
                 {content.infoCard5Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 12                                                        */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             12. {content.topics[11]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section12Body}
-          </Text>
+          </AwaText>
 
           <View style={styles.normalGrid}>
             {content.solutions.map((item, index) => (
-              <View key={item.title} style={styles.normalCard}>
+              <AwaCard variant="filled" padding="none" key={item.title} style={styles.normalCard}>
                 <View style={styles.normalIcon}>
                   <MaterialDesignIcons
                     name={SOLUTIONS_ICONS[index] as never}
@@ -1549,23 +1663,23 @@ export default function MenopauseHormonesArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.normalTitle}>{item.title}</Text>
-                <Text style={styles.normalText}>{item.text}</Text>
-              </View>
+                <AwaText variant="titleSmall" emphasized style={styles.normalTitle}>{item.title}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.normalText}>{item.text}</AwaText>
+              </AwaCard>
             ))}
           </View>
 
-          <Text style={styles.caption}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.caption}>
             {content.section12Caption}
-          </Text>
+          </AwaText>
 
           {/* ================================================================= */}
           {/* SUMMARY                                                           */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>13. {content.topics[12]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>13. {content.topics[12]}</AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             {content.summaryPoints.map(item => (
               <View key={item} style={styles.summaryRow}>
                 <MaterialDesignIcons
@@ -1574,10 +1688,10 @@ export default function MenopauseHormonesArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.summaryText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* DISCLAIMER                                                        */}
@@ -1590,9 +1704,9 @@ export default function MenopauseHormonesArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>
               {content.disclaimerText}
-            </Text>
+            </AwaText>
           </View>
         </View>
       </ScrollView>
@@ -1609,7 +1723,7 @@ export default function MenopauseHormonesArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
 
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
@@ -1624,77 +1738,46 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
-  },
-  badgeText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
   },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 27,
-    lineHeight: 32,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 9.5, color: theme.colors.textMuted},
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '600',
+    marginTop: 16,
   },
 
   contents: {
     marginTop: 20,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 16,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
+  contentsTitle: {marginBottom: 8},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -1702,41 +1785,27 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 25, color: theme.colors.primary, fontSize: 11.5, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.3, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 25},
+  contentText: {flex: 1},
 
   h2: {
-    marginTop: 27,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 28,
   },
-  body: {marginTop: 9, fontSize: 14, lineHeight: 21.5, color: theme.colors.textSecondary},
-  caption: {marginTop: 10, fontSize: 11, lineHeight: 16, color: theme.colors.textMuted, fontStyle: 'italic'},
+  body: {marginTop: 8},
+  caption: {marginTop: 12, fontStyle: 'italic'},
 
   infoCard: {
-    marginTop: 14,
-    padding: 13,
+    marginTop: 16,
+    padding: 12,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
-  infoCopy: {flex: 1, marginLeft: 9},
-  infoTitle: {fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  infoText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  infoCopy: {flex: 1, marginLeft: 8},
+  infoText: {marginTop: 3},
 
-  normalGrid: {marginTop: 13, gap: 9},
+  normalGrid: {marginTop: 12, gap: 8},
   normalCard: {
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 12,
   },
   normalIcon: {
     width: 36,
@@ -1746,16 +1815,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
-  normalTitle: {marginTop: 8, fontSize: 12.5, color: theme.colors.text, fontWeight: '800'},
-  normalText: {marginTop: 4, fontSize: 11, lineHeight: 16, color: theme.colors.textSecondary},
+  normalTitle: {marginTop: 8},
+  normalText: {marginTop: 4},
 
   checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 12,
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
@@ -1763,95 +1828,70 @@ function createStyles(theme: ResolvedAwaTheme) {
     width: '50%',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 7,
-    paddingVertical: 6,
-    paddingRight: 6,
+    gap: 8,
+    paddingVertical: 8,
+    paddingRight: 8,
   },
-  checkText: {flex: 1, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 16},
+  checkText: {flex: 1},
 
   highlight: {
-    marginTop: 15,
+    marginTop: 16,
     paddingVertical: 20,
-    paddingHorizontal: 18,
-    borderRadius: 15,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    paddingHorizontal: 20,
     alignItems: 'center',
   },
   highlightText: {
-    fontFamily: 'serif',
-    fontSize: 16,
-    lineHeight: 23,
-    color: theme.colors.text,
     fontStyle: 'italic',
     textAlign: 'center',
   },
 
   comfortCard: {
-    marginTop: 13,
-    paddingHorizontal: 13,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    paddingHorizontal: 12,
   },
   comfortRowBorder: {borderBottomWidth: 1, borderBottomColor: theme.colors.border},
   trackingRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
+    gap: 8,
     paddingVertical: 12,
   },
-  trackingText: {flex: 1, fontSize: 12.5, lineHeight: 17, color: theme.colors.textSecondary},
+  trackingText: {flex: 1},
 
   warningCard: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
   warningHeader: {flexDirection: 'row', alignItems: 'center', marginBottom: 12},
-  warningTitle: {flex: 1, marginLeft: 8, fontSize: 12.5, color: theme.colors.textSecondary, fontWeight: '800'},
+  warningTitle: {flex: 1, marginLeft: 8},
   warningTitleNeutral: {color: theme.colors.text},
-  warningRow: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 9},
+  warningRow: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 8},
   warningBullet: {width: 20, alignItems: 'flex-start'},
-  warningText: {flex: 1, marginLeft: 5, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 17},
+  warningText: {flex: 1, marginLeft: 4},
 
   tip: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
-  tipText: {marginTop: 4, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  tipCopy: {flex: 1, marginLeft: 12},
+  tipText: {marginTop: 4},
 
   summaryCard: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
-  summaryRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 10},
-  summaryText: {flex: 1, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  summaryRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 12},
+  summaryText: {flex: 1},
 
   disclaimer: {
-    marginTop: 18,
+    marginTop: 20,
     paddingHorizontal: 3,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 7,
+    gap: 8,
   },
-  disclaimerText: {flex: 1, fontSize: 10, lineHeight: 15, color: theme.colors.textMuted},
+  disclaimerText: {flex: 1},
   });
 }

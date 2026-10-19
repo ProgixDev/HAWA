@@ -213,10 +213,11 @@ describe('Premium affordance on cards and lists', () => {
     let renderer!: ReactTestRenderer.ReactTestRenderer;
     await act(async () => {
       renderer = ReactTestRenderer.create(
-        <>
+        // The badge now reads the Material 3 tokens, so it needs the theme provider like every other surface.
+        <AwaThemeProvider>
           <ArticlePremiumBadge article={PREMIUM_GENERIC} />
           <ArticlePremiumBadge article={FREE_GENERIC} />
-        </>,
+        </AwaThemeProvider>,
       );
     });
     activeRenderers.push(renderer);

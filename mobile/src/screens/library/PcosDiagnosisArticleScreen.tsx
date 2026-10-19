@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -727,6 +728,103 @@ const CONTENT = {
       disclaimerText: '本文仅供参考，不能替代医疗就诊，也不能替代对你检查结果的个性化解读。',
       shareMessage: 'PCOS 诊断：检查与评估 — AWA',
     },
+  id: {
+    badge: 'PCOS',
+    title: 'Diagnosis PCOS:\npemeriksaan dan rangkaian tesnya',
+    metaDuration: '7 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Menengah',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Bagaimana PCOS didiagnosis, tes apa saja yang mungkin ditawarkan, dan cara mempersiapkan diri dengan tenang untuk janji temumu.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Memahami rangkaian pemeriksaan diagnosis',
+      'Langkah-langkah utama pemeriksaan',
+      'Tes darah hormonal',
+      'USG panggul',
+      'Hal yang tidak dikatakan oleh diagnosis',
+      'Mempersiapkan janji temumu',
+      'Poin penting',
+    ],
+    section1Body1: 'Diagnosis sindrom ovarium polikistik (PCOS) tidak bergantung pada satu tes saja. Tenaga kesehatan menggabungkan beberapa informasi: riwayat siklusmu, gejala yang ada, pemeriksaan fisik, tes laboratorium, dan, sesuai situasinya, USG.',
+    section1Body2: 'Tujuannya adalah mencari ciri-ciri yang sesuai dengan PCOS sekaligus menyingkirkan penyebab lain yang dapat menjelaskan haid tidak teratur atau gejala hormonal tertentu.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Diagnosis selalu bersifat personal. Dua perempuan dengan PCOS bisa memiliki gejala dan hasil tes yang sangat berbeda.',
+    section2Body: 'Rangkaian pemeriksaan dapat terdiri dari beberapa langkah. Tidak semuanya harus dilakukan dengan cara yang sama untuk setiap orang.',
+    diagnosisSteps: [
+      {
+        title: 'Anamnesis',
+        text: 'Tenaga kesehatan menggali riwayatmu: siklus, gejala, latar belakang medis, dan pengobatan.',
+      },
+      {
+        title: 'Pemeriksaan fisik',
+        text: 'Mereka terutama mencari tanda kelebihan androgen dan menilai kondisi umummu.',
+      },
+      {
+        title: 'Pemeriksaan darah',
+        text: 'Tes hormonal dan metabolik mungkin diminta untuk memperjelas situasi.',
+      },
+      {
+        title: 'USG',
+        text: 'USG dapat melengkapi pemeriksaan dengan mengamati tampilan ovarium.',
+      },
+    ],
+    flowTitle: 'Gambaran alurnya',
+    flowItems: [
+      'Riwayat dan gejala',
+      'Pemeriksaan fisik',
+      'Tes sesuai situasi',
+      'USG jika diperlukan',
+    ],
+    section3Body1: 'Tes darah mungkin ditawarkan untuk mencari tanda kelebihan androgen, menilai hormon tertentu yang berperan dalam fungsi reproduksi, dan mencari kemungkinan penyebab lain dari gejalamu.',
+    section3Body2: 'Tes yang dipilih bergantung pada usia, gejala, riwayat medis, dan hal yang ingin diperiksa oleh tenaga kesehatan.',
+    bloodTests: [
+      {
+        title: 'Androgen',
+        text: 'Testosteron dan hormon lain sesuai situasi.',
+      },
+      {
+        title: 'Fungsi tiroid',
+        text: 'Membantu terutama dalam menyingkirkan sebagian penyebab siklus tidak teratur.',
+      },
+      {
+        title: 'Pemeriksaan metabolik',
+        text: 'Gula darah, terkadang panel lipid tergantung faktor risiko.',
+      },
+    ],
+    alertTitle: 'Penting',
+    alertText: 'Hasil hormonal perlu ditafsirkan bersama konteks klinis. Satu nilai biasanya tidak cukup, dengan sendirinya, untuk menyimpulkan diagnosis PCOS.',
+    section4Body: 'USG dapat digunakan untuk mengamati tampilan ovarium dan terutama mencari jumlah folikel kecil yang banyak. USG juga memungkinkan tenaga kesehatan mencari faktor lain yang dapat menjelaskan gejala tertentu.',
+    tip2Title: 'Perlu diketahui',
+    tip2Text: 'Melihat banyak folikel pada USG tidak otomatis berarti kamu menderita PCOS. Hasilnya perlu ditafsirkan bersama pemeriksaan lainnya.',
+    section5Body: 'Menerima diagnosis PCOS tidak memungkinkan untuk memprediksi secara pasti bagaimana perkembangannya padamu. Sindrom ini bisa muncul dengan sangat berbeda dari satu orang ke orang lain.',
+    mythItems: [
+      'PCOS tidak otomatis berarti infertilitas.',
+      'PCOS tidak selalu berarti memiliki kista.',
+      'Diagnosis saja tidak menentukan pengobatannya.',
+      'USG yang normal belum tentu menyingkirkan PCOS.',
+    ],
+    section6Body: 'Beberapa informasi yang disiapkan sebelumnya dapat membantu tenaga kesehatan memahami riwayatmu dan memilih tes yang paling relevan.',
+    appointmentQuestions: [
+      'Sudah berapa lama siklusmu tidak teratur?',
+      'Apakah kamu memperhatikan jerawat, pertumbuhan rambut yang tidak biasa, atau rambut rontok?',
+      'Apakah ada riwayat PCOS atau diabetes dalam keluarga?',
+      'Apakah kamu ingin hamil dalam waktu dekat atau menengah?',
+    ],
+    preparationTitle: 'Tips kecil sebelum janji temu',
+    preparationText: 'Jika memungkinkan, catat tanggal haid terakhirmu, perkiraan lama siklusmu, gejala yang kamu rasakan, serta pengobatan atau suplemen yang kamu konsumsi.',
+    summaryTitle: 'Intinya dari pemeriksaan',
+    summaryItems: [
+      'Diagnosis bergantung pada beberapa faktor, bukan satu tes saja.',
+      'Tes darah dapat mencari ketidakseimbangan hormonal tertentu dan menyingkirkan penyebab lain.',
+      'USG dapat melengkapi pemeriksaan sesuai situasi.',
+      'Hasil selalu perlu ditafsirkan oleh tenaga kesehatan.',
+    ],
+    finalTipTitle: 'Poin penting',
+    finalTipText: 'Pemeriksaan PCOS bukan satu tes atau vonis akhir. Pemeriksaan ini membantumu memahami cara kerja hormonmu, mencari kemungkinan penyebab lain, dan menyusun perawatan yang sesuai dengan situasimu.',
+    disclaimerText: 'Artikel ini hanya untuk informasi dan tidak menggantikan konsultasi medis atau penafsiran hasil tesmu yang dipersonalisasi.',
+    shareMessage: 'Diagnosis PCOS: pemeriksaan dan rangkaian tesnya — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -802,51 +900,30 @@ export default function PcosDiagnosisArticleScreen({
                 paddingTop: getTopPadding(insets.top, true),
               },
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
@@ -854,12 +931,12 @@ export default function PcosDiagnosisArticleScreen({
         {/* ARTICLE */}
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           {/* METADATA */}
           <View style={styles.metas}>
@@ -879,26 +956,26 @@ export default function PcosDiagnosisArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
           {/* SOMMAIRE */}
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
 
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -908,22 +985,22 @@ export default function PcosDiagnosisArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* SECTION 1 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             1. {content.topics[0]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -931,32 +1008,32 @@ export default function PcosDiagnosisArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 2 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             2. {content.topics[1]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section2Body}
-          </Text>
+          </AwaText>
 
           {/* DIAGNOSTIC STEPS */}
           <View style={styles.stepsContainer}>
             {DIAGNOSIS_STEP_META.map((step, index) => (
-              <View key={step.number} style={styles.stepCard}>
+              <AwaCard variant="filled" padding="none" key={step.number} style={styles.stepCard}>
                 <View style={styles.stepTop}>
                   <View style={styles.stepNumber}>
-                    <Text style={styles.stepNumberText}>
+                    <AwaText variant="labelSmall" emphasized colorRole="primary">
                       {step.number}
-                    </Text>
+                    </AwaText>
                   </View>
 
                   <MaterialDesignIcons
@@ -966,19 +1043,19 @@ export default function PcosDiagnosisArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.stepTitle}>
+                <AwaText variant="titleSmall" emphasized style={styles.stepTitle}>
                   {content.diagnosisSteps[index].title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.stepText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.stepText}>
                   {content.diagnosisSteps[index].text}
-                </Text>
-              </View>
+                </AwaText>
+              </AwaCard>
             ))}
           </View>
 
           {/* FLOW */}
-          <View style={styles.flowCard}>
+          <AwaCard variant="filled" padding="none" style={styles.flowCard}>
             <View style={styles.flowHeader}>
               <MaterialDesignIcons
                 name="format-list-numbered"
@@ -986,48 +1063,48 @@ export default function PcosDiagnosisArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.flowTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.flowTitle}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.flowLine}>
               <View style={styles.flowDot} />
-              <Text style={styles.flowText}>{content.flowItems[0]}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{content.flowItems[0]}</AwaText>
             </View>
 
             <View style={styles.flowLine}>
               <View style={styles.flowDot} />
-              <Text style={styles.flowText}>{content.flowItems[1]}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{content.flowItems[1]}</AwaText>
             </View>
 
             <View style={styles.flowLine}>
               <View style={styles.flowDot} />
-              <Text style={styles.flowText}>{content.flowItems[2]}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{content.flowItems[2]}</AwaText>
             </View>
 
             <View style={styles.flowLine}>
               <View style={styles.flowDot} />
-              <Text style={styles.flowText}>{content.flowItems[3]}</Text>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{content.flowItems[3]}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 3 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             3. {content.topics[2]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section3Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section3Body2}
-          </Text>
+          </AwaText>
 
           <View style={styles.testsGrid}>
             {BLOOD_TEST_META.map((test, index) => (
-              <View key={content.bloodTests[index].title} style={styles.testCard}>
+              <AwaCard variant="filled" padding="none" key={content.bloodTests[index].title} style={styles.testCard}>
                 <View style={styles.testIcon}>
                   <MaterialDesignIcons
                     name={test.icon as never}
@@ -1036,18 +1113,18 @@ export default function PcosDiagnosisArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.testTitle}>
+                <AwaText variant="titleSmall" emphasized style={styles.testTitle}>
                   {content.bloodTests[index].title}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.testText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.testText}>
                   {content.bloodTests[index].text}
-                </Text>
-              </View>
+                </AwaText>
+              </AwaCard>
             ))}
           </View>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
@@ -1055,24 +1132,24 @@ export default function PcosDiagnosisArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.alertTitle}</AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.alertText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 4 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             4. {content.topics[3]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section4Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -1080,24 +1157,24 @@ export default function PcosDiagnosisArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.tip2Title}</AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 5 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             5. {content.topics[4]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section5Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.mythList}>
+          <AwaCard variant="filled" padding="none" style={styles.mythList}>
             <View style={styles.mythRow}>
               <MaterialDesignIcons
                 name="close-circle-outline"
@@ -1105,9 +1182,9 @@ export default function PcosDiagnosisArticleScreen({
                 color={theme.colors.warning}
               />
 
-              <Text style={styles.mythText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.mythText}>
                 {content.mythItems[0]}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.mythRow}>
@@ -1117,9 +1194,9 @@ export default function PcosDiagnosisArticleScreen({
                 color={theme.colors.warning}
               />
 
-              <Text style={styles.mythText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.mythText}>
                 {content.mythItems[1]}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.mythRow}>
@@ -1129,9 +1206,9 @@ export default function PcosDiagnosisArticleScreen({
                 color={theme.colors.warning}
               />
 
-              <Text style={styles.mythText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.mythText}>
                 {content.mythItems[2]}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.mythRow}>
@@ -1141,22 +1218,22 @@ export default function PcosDiagnosisArticleScreen({
                 color={theme.colors.warning}
               />
 
-              <Text style={styles.mythText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.mythText}>
                 {content.mythItems[3]}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* SECTION 6 */}
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             6. {content.topics[5]}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section6Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.appointmentQuestions.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -1165,12 +1242,12 @@ export default function PcosDiagnosisArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.preparationCard}>
+          <AwaCard variant="filled" padding="none" style={styles.preparationCard}>
             <View style={styles.preparationHeader}>
               <MaterialDesignIcons
                 name="notebook-edit-outline"
@@ -1178,20 +1255,20 @@ export default function PcosDiagnosisArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.preparationTitle}>
+              <AwaText variant="titleSmall" emphasized style={styles.preparationTitle}>
                 {content.preparationTitle}
-              </Text>
+              </AwaText>
             </View>
 
-            <Text style={styles.preparationText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.preparationText}>
               {content.preparationText}
-            </Text>
-          </View>
+            </AwaText>
+          </AwaCard>
 
           {/* SECTION 7 */}
-          <Text style={styles.h2}>7. {content.topics[6]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>7. {content.topics[6]}</AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
               <MaterialDesignIcons
                 name="check-decagram-outline"
@@ -1199,45 +1276,45 @@ export default function PcosDiagnosisArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.summaryTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.summaryTitle}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.summaryRow}>
-              <Text style={styles.summaryNumber}>01</Text>
+              <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.summaryNumber}>01</AwaText>
 
-              <Text style={styles.summaryText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
                 {content.summaryItems[0]}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.summaryRow}>
-              <Text style={styles.summaryNumber}>02</Text>
+              <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.summaryNumber}>02</AwaText>
 
-              <Text style={styles.summaryText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
                 {content.summaryItems[1]}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.summaryRow}>
-              <Text style={styles.summaryNumber}>03</Text>
+              <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.summaryNumber}>03</AwaText>
 
-              <Text style={styles.summaryText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
                 {content.summaryItems[2]}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.summaryRow}>
-              <Text style={styles.summaryNumber}>04</Text>
+              <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.summaryNumber}>04</AwaText>
 
-              <Text style={styles.summaryText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
                 {content.summaryItems[3]}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.finalTip}>
+          <AwaCard variant="filled" padding="none" style={styles.finalTip}>
             <MaterialDesignIcons
               name="heart-outline"
               size={24}
@@ -1245,13 +1322,13 @@ export default function PcosDiagnosisArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.finalTipTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.finalTipTitle}</AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.finalTipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           <View style={styles.disclaimer}>
             <MaterialDesignIcons
@@ -1260,9 +1337,9 @@ export default function PcosDiagnosisArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>
               {content.disclaimerText}
-            </Text>
+            </AwaText>
           </View>
         </View>
       </ScrollView>
@@ -1284,7 +1361,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   heroWrap: {
@@ -1312,55 +1389,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 11,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -1370,7 +1423,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -1379,31 +1432,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 10,
-    color: theme.colors.textMuted,
-  },
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '500',
+    marginTop: 16,
   },
 
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -1421,52 +1461,34 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 24,
-    color: theme.colors.primary,
-    fontSize: 12,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.5,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   h2: {
-    marginTop: 26,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 28,
   },
 
   body: {
-    marginTop: 9,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
+    marginTop: 8,
   },
 
   /* PRINCIPALES ÉTAPES */
 
   stepsContainer: {
-    marginTop: 15,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    gap: 9,
+    gap: 8,
   },
 
   stepCard: {
     width: '48.5%',
     minHeight: 178,
-    padding: 13,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 12,
   },
 
   stepTop: {
@@ -1478,59 +1500,41 @@ function createStyles(theme: ResolvedAwaTheme) {
   stepNumber: {
     width: 31,
     height: 31,
-    borderRadius: 10,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
 
-  stepNumberText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '900',
-  },
 
   stepTitle: {
-    marginTop: 13,
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginTop: 12,
   },
 
   stepText: {
-    marginTop: 6,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
+    marginTop: 8,
   },
 
   /* PARCOURS */
 
   flowCard: {
-    marginTop: 14,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 16,
+    padding: 16,
   },
 
   flowHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    marginBottom: 11,
+    marginBottom: 12,
   },
 
-  flowTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   flowLine: {
     minHeight: 31,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
   },
 
   flowDot: {
@@ -1540,144 +1544,105 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primary,
   },
 
-  flowText: {
-    fontSize: 12,
-    color: theme.colors.textSecondary,
-  },
 
   /* ANALYSES */
 
   testsGrid: {
-    marginTop: 14,
+    marginTop: 16,
     gap: 8,
   },
 
   testCard: {
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 12,
   },
 
   testIcon: {
     width: 38,
     height: 38,
-    borderRadius: 11,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.primarySoft,
   },
 
   testTitle: {
-    marginTop: 9,
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginTop: 8,
   },
 
   testText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   /* CHECK LIST */
 
   checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 12,
+    padding: 12,
   },
 
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 10,
+    marginBottom: 12,
   },
 
   checkText: {
     flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 17,
   },
 
   /* MYTHES */
 
   mythList: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 12,
+    padding: 16,
   },
 
   mythRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 9,
-    marginBottom: 10,
+    gap: 8,
+    marginBottom: 12,
   },
 
   mythText: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   /* TIP */
 
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   /* ALERT */
 
   alert: {
-    marginTop: 14,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   /* PREPARATION */
 
   preparationCard: {
-    marginTop: 14,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   preparationHeader: {
@@ -1688,25 +1653,17 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   preparationTitle: {
     flex: 1,
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
 
   preparationText: {
-    marginTop: 9,
-    fontSize: 12,
-    lineHeight: 18,
-    color: theme.colors.textSecondary,
+    marginTop: 8,
   },
 
   /* SUMMARY */
 
   summaryCard: {
-    marginTop: 14,
-    padding: 15,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 16,
+    padding: 16,
   },
 
   summaryHeader: {
@@ -1716,55 +1673,39 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 12,
   },
 
-  summaryTitle: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   summaryRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 11,
+    marginBottom: 12,
   },
 
   summaryNumber: {
     width: 31,
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '900',
     paddingTop: 2,
   },
 
   summaryText: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 18,
-    color: theme.colors.textSecondary,
   },
 
   finalTip: {
-    marginTop: 14,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   disclaimer: {
-    marginTop: 18,
-    paddingHorizontal: 5,
+    marginTop: 20,
+    paddingHorizontal: 4,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 7,
+    gap: 8,
   },
 
   disclaimerText: {
     flex: 1,
-    fontSize: 10.5,
-    lineHeight: 16,
-    color: theme.colors.textMuted,
   },
   });
 }

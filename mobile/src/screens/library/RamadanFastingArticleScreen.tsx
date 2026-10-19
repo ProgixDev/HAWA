@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -459,6 +460,56 @@ const CONTENT = {
       tip3Text: '月经期间暂停斋戒是一种被认可的宽免，并不是与宗教实践的中断。以不同的方式度过这段时间、记录好自己的天数，并在有疑问时寻求指导，都有助于你平静地度过斋月。',
       shareMessage: '斋月期间的斋戒 — AWA',
     },
+  id: {
+    badge: 'RAMADAN',
+    title: 'Puasa di bulan\nRamadan',
+    metaDuration: '6 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten telah ditinjau',
+    intro: 'Tips praktis dan petunjuk edukatif untuk menjalani bulan Ramadan saat kamu sedang haid, dengan hati yang tenang.',
+    disclaimerTitle: 'Informasi penting',
+    disclaimerText: 'Konten ini murni bersifat edukatif. Pertanyaan keagamaan sebaiknya dipastikan kepada ulama yang berkompeten. AWA tidak mengeluarkan fatwa atau keputusan keagamaan yang dipersonalisasi.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Puasa ditangguhkan saat haid',
+      'Menjalani spiritualitas dengan cara yang berbeda',
+      'Mencatat hari-hari untuk puasa qada',
+      'Poin penting',
+    ],
+    section1Body1: 'Saat haid, puasa tidak diwajibkan: masa ini menempatkan seorang perempuan dalam keadaan yang membuat beberapa ibadah, termasuk puasa, ditangguhkan untuk sementara. Penangguhan ini dipahami sebagai keringanan, bukan larangan atau hukuman.',
+    section1Body2: 'Menangguhkan puasa saat haid tidak berarti menjauh dari praktik keagamaanmu. Ibadah ini hanya dijeda untuk waktu yang terbatas, lalu dilanjutkan seperti biasa setelah haid selesai, tanpa ada amal yang hilang. Hari-hari yang tidak berpuasa akan diganti nanti (qada), di luar bulan Ramadan.',
+    tip1Title: 'Perlu diketahui',
+    tip1Text: 'Jeda ini juga bisa dijalani sebagai waktu yang berbeda di dalam bulan Ramadan, ketika spiritualitas tetap bisa diungkapkan dengan cara lain, tanpa berpuasa.',
+    note1Title: 'Harap diperhatikan',
+    note1Text: 'Keadaan ini tidak perlu dijalani dengan rasa bersalah: ia bagian dari siklus alami tubuh dan sudah diperhitungkan oleh tradisi keagamaan itu sendiri.',
+    section2Body: 'Tidak berpuasa tidak berarti terpisah dari bulan Ramadan. Banyak bentuk spiritualitas yang tetap bisa kamu jalani, sehingga kamu tetap dapat menghayati waktu ini sepenuhnya.',
+    spiritualActs: [
+      'Zikir (mengingat Allah)',
+      'Doa (permohonan)',
+      'Mendengarkan konten keagamaan',
+      'Membaca konten edukatif',
+      'Bersedekah dan berbuat baik',
+      'Membantu menyiapkan hidangan berbuka',
+      'Waktu untuk merenung secara pribadi',
+      'Menjaga rutinitas spiritual',
+    ],
+    tip2Title: 'Perlu diketahui',
+    tip2Text: 'Tindakan-tindakan kecil ini, sesederhana apa pun, membantumu tetap terhubung dengan semangat bulan Ramadan, apa pun keadaanmu.',
+    section3Body: 'Mencatat hari-hari haidmu selama Ramadan memudahkanmu menghitung jumlah hari yang harus diganti (qada) setelahnya, dan kamu tidak perlu mengandalkan ingatan begitu bulan itu berakhir.',
+    trackingTips: [
+      'Catat tanggal setiap hari yang tidak berpuasa selagi berjalan',
+      'Gunakan kalender, aplikasi, atau buku catatan khusus',
+      'Lakukan pengecekan singkat di akhir bulan untuk memastikan totalnya',
+    ],
+    visualTitle: 'Pencatatan yang lebih mudah',
+    visualText: 'AWA bisa membantumu memantau siklusmu sepanjang Ramadan, sehingga kamu mudah menemukan kembali informasi ini nanti.',
+    note2Title: 'Harap diperhatikan',
+    note2Text: 'Ketentuan pasti dalam mengganti hari yang terlewat (waktu pelaksanaan, keadaan khusus seperti kehamilan atau menyusui) bisa berbeda menurut mazhab fikih. Untuk keadaan yang khusus atau rumit, pendapat ulama yang berkompeten tetap menjadi rujukan.',
+    tip3Title: 'Perlu diketahui',
+    tip3Text: 'Puasa yang ditangguhkan saat haid adalah keringanan yang diakui, bukan terputusnya praktik keagamaanmu. Menjalani masa ini dengan cara berbeda, mencatat hari-harimu, dan meminta bimbingan saat ragu, semuanya membantumu melewati Ramadan dengan tenang.',
+    shareMessage: 'Puasa di bulan Ramadan — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -531,56 +582,42 @@ export default function RamadanFastingArticleScreen({
               styles.top,
               {paddingTop: getTopPadding(insets.top, true)},
             ]}>
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
-            </Pressable>
+              variant="tonal"
+            />
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('library.screen.addBookmark')}
+                icon={saved ? 'bookmark' : 'bookmark-outline'}
+                iconSize={20}
                 onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={saved ? 'bookmark' : 'bookmark-outline'}
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
           </View>
         </View>
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{content.badge}</Text>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">{content.badge}</AwaText>
           </View>
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           <View style={styles.metas}>
             {[
@@ -599,17 +636,17 @@ export default function RamadanFastingArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>{text}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{text}</AwaText>
                 </View>
               </React.Fragment>
             ))}
           </View>
 
-          <Text style={styles.intro}>
+          <AwaText variant="bodyMedium" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="information-outline"
               size={24}
@@ -617,19 +654,19 @@ export default function RamadanFastingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.disclaimerTitle}</Text>
-              <Text style={styles.tipText}>{content.disclaimerText}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.disclaimerTitle}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>{content.disclaimerText}</AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>{content.contentsTitle}</AwaText>
 
             {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <AwaText variant="titleSmall" emphasized colorRole="primary" style={styles.contentNumber}>{index + 1}.</AwaText>
+                  <AwaText variant="bodySmall" style={styles.contentText}>{item}</AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -639,19 +676,19 @@ export default function RamadanFastingArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>1. {content.topics[0]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>1. {content.topics[0]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -659,14 +696,14 @@ export default function RamadanFastingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
@@ -674,18 +711,18 @@ export default function RamadanFastingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.note1Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.note1Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.note1Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>2. {content.topics[1]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>2. {content.topics[1]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section2Body}
-          </Text>
+          </AwaText>
 
           <View style={styles.daily}>
             {SPIRITUAL_ACT_ICONS.map((icon, index) => (
@@ -696,12 +733,12 @@ export default function RamadanFastingArticleScreen({
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{content.spiritualActs[index]}</Text>
+                <AwaText variant="bodySmall" style={styles.dailyText}>{content.spiritualActs[index]}</AwaText>
               </View>
             ))}
           </View>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -709,20 +746,20 @@ export default function RamadanFastingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>3. {content.topics[2]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>3. {content.topics[2]}</AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section3Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.checkList}>
+          <AwaCard variant="filled" padding="none" style={styles.checkList}>
             {content.trackingTips.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
@@ -731,12 +768,12 @@ export default function RamadanFastingArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.checkText}>{item}</Text>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.checkText}>{item}</AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
-          <View style={styles.visualCard}>
+          <AwaCard variant="filled" padding="none" style={styles.visualCard}>
             <Image
               source={ART.tracking}
               resizeMode="cover"
@@ -744,15 +781,15 @@ export default function RamadanFastingArticleScreen({
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{content.visualTitle}</Text>
+              <AwaText variant="titleSmall" emphasized>{content.visualTitle}</AwaText>
 
-              <Text style={styles.visualText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.visualText}>
                 {content.visualText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <View style={styles.alert}>
+          <AwaCard variant="filled" padding="none" style={styles.alert}>
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
@@ -760,16 +797,16 @@ export default function RamadanFastingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.note2Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.note2Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.note2Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Text style={styles.h2}>4. {content.topics[3]}</Text>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>4. {content.topics[3]}</AwaText>
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -777,12 +814,12 @@ export default function RamadanFastingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>{content.tip3Title}</Text>
-              <Text style={styles.tipText}>
+              <AwaText variant="titleSmall" emphasized>{content.tip3Title}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tip3Text}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
         </View>
       </ScrollView>
 
@@ -794,7 +831,7 @@ export default function RamadanFastingArticleScreen({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   screen: {flex: 1, backgroundColor: theme.colors.background},
-  scroll: {paddingBottom: 30},
+  scroll: {paddingBottom: 32},
   heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
   top: {
@@ -807,72 +844,47 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   actions: {flexDirection: 'row', gap: 8},
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  pressed: {opacity: 0.74},
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  badgeText: {fontSize: 11, color: theme.colors.primary, fontWeight: '800'},
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 31,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
     gap: 12,
   },
-  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  metaItem: {flexDirection: 'row', alignItems: 'center', gap: 4},
   metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
-  meta: {fontSize: 10, color: theme.colors.textMuted},
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.text,
-    fontWeight: '500',
+    marginTop: 16,
   },
   alert: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
   contents: {
-    marginTop: 19,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 20,
+    padding: 16,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
+  contentsTitle: {marginBottom: 8},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -880,72 +892,54 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 24, color: theme.colors.primary, fontSize: 12, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.5, lineHeight: 17, color: theme.colors.text},
+  contentNumber: {width: 24},
+  contentText: {flex: 1},
   h2: {
     marginTop: 24,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
-  body: {marginTop: 8, fontSize: 14, lineHeight: 21, color: theme.colors.textSecondary},
+  body: {marginTop: 8},
   visualCard: {
-    marginTop: 15,
+    marginTop: 16,
     minHeight: 98,
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: theme.colors.surface,
+    padding: 12,
   },
   visualImage: {width: 72, height: 72, borderRadius: 12},
   visualCopy: {flex: 1, marginLeft: 12},
-  visualTitle: {color: theme.colors.text, fontSize: 13, lineHeight: 17, fontWeight: '800'},
-  visualText: {marginTop: 4, color: theme.colors.textMuted, fontSize: 11, lineHeight: 16},
-  daily: {marginTop: 13, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
+  visualText: {marginTop: 4},
+  daily: {marginTop: 12, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
   dailyItem: {
     width: '48.7%',
     minHeight: 108,
     padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
   dailyText: {
-    marginTop: 7,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.text,
+    marginTop: 8,
     textAlign: 'center',
   },
   checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    marginTop: 12,
+    padding: 12,
   },
   checkRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 9,
+    marginBottom: 8,
   },
-  checkText: {flex: 1, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
+  checkText: {flex: 1},
   tip: {
-    marginTop: 15,
-    padding: 14,
+    marginTop: 16,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
-  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: theme.colors.textMuted},
+  tipCopy: {flex: 1, marginLeft: 12},
+  tipText: {marginTop: 3},
   });
 }

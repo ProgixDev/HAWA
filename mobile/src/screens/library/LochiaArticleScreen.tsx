@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
-  Pressable,
   ScrollView,
   Share,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,6 +14,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import ReadingControls from '../../components/articles/ReadingControls';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   isArticleBookmarked,
   loadLibraryState,
@@ -28,7 +29,7 @@ import {
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 
 /* -------------------------------------------------------------------------- */
@@ -956,6 +957,109 @@ const CONTENT = {
       disclaimerText: '科普内容。本文不能替代医疗建议或检查。如有疑虑，或出现令你担心的症状，请咨询医疗专业人员。',
       shareMessage: '了解产后恶露 — AWA',
     },
+  id: {
+    badgeText: 'PASCAPERSALINAN • LOKIA',
+    title: 'Memahami lokia\nsetelah melahirkan',
+    metaDuration: '6 menit baca',
+    metaType: 'Panduan',
+    metaLevel: 'Pemula',
+    metaValidated: 'Konten informatif',
+    intro: 'Setelah melahirkan, lokia adalah keluarnya cairan dari vagina yang berkaitan dengan proses alami pemulihan rahim. Warna dan jumlahnya berubah secara bertahap selama hari dan minggu berikutnya.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Apa itu lokia?',
+      'Bagaimana perubahannya seiring waktu?',
+      'Apa yang bisa dianggap normal',
+      'Tips kenyamanan',
+      'Kapan perlu berkonsultasi ke tenaga medis?',
+      'Poin-poin penting',
+    ],
+    section1Heading: '1. Apa itu lokia?',
+    section1Body1: 'Lokia adalah cairan dari vagina yang muncul setelah melahirkan. Cairan ini terutama terdiri dari darah, sekret, dan jaringan yang secara bertahap dikeluarkan dari rahim selama proses pemulihannya.',
+    section1Body2: 'Lokia berbeda dari haid biasa. Lokia memang diharapkan terjadi pada masa pascapersalinan dan umumnya berkurang secara bertahap.',
+    infoTitle: 'Poin-poin penting',
+    infoText: 'Lokia tidak berarti haidmu sudah kembali. Kembalinya haid adalah peristiwa yang terpisah dan terjadi lebih lambat.',
+    section2Heading: '2. Bagaimana lokia berubah seiring waktu?',
+    section2Body: 'Tampilannya biasanya berubah selama beberapa minggu pertama. Warnanya berangsur-angsur menjadi lebih terang dan jumlahnya cenderung berkurang.',
+    evolutionTitle: 'Perkembangan yang bertahap',
+    evolutionSubtitle: 'Tahapannya bisa berbeda dari satu orang ke orang lain',
+    evolution: [
+      {
+        label: 'Merah terang',
+        period: 'Beberapa hari pertama',
+        text: 'Cairan biasanya berwarna merah dan bisa lebih banyak pada awalnya.',
+      },
+      {
+        label: 'Merah muda / kecokelatan',
+        period: 'Setelah beberapa hari',
+        text: 'Warnanya berangsur-angsur menjadi lebih terang dan bisa bergeser ke merah muda atau cokelat.',
+      },
+      {
+        label: 'Putih kekuningan',
+        period: 'Selama minggu-minggu berikutnya',
+        text: 'Cairan biasanya menjadi lebih ringan, kekuningan atau keputihan, sebelum akhirnya berhenti.',
+      },
+    ],
+    section3Heading: '3. Apa yang bisa dianggap normal',
+    section3Body: 'Perkembangan lokia tidak persis sama pada setiap orang. Beberapa perubahan bisa menyertai pemulihan setelah melahirkan secara alami.',
+    normalPoints: [
+      {
+        title: 'Jumlah yang bervariasi',
+        text: 'Jumlahnya bisa berubah selama beberapa hari pertama lalu berkurang secara bertahap.',
+      },
+      {
+        title: 'Warna yang berubah',
+        text: 'Lokia biasanya bergeser dari merah ke warna yang lebih terang seiring waktu.',
+      },
+      {
+        title: 'Durasi yang bervariasi',
+        text: 'Lokia bisa berlangsung selama beberapa minggu, dan perkembangannya berbeda dari satu orang ke orang lain.',
+      },
+    ],
+    section4Heading: '4. Tips kenyamanan dan pemantauan',
+    section4Body: 'Pada masa ini, pemantauan sederhana bisa membantumu mengamati perubahan tubuhmu tanpa membandingkan pengalamanmu dengan orang lain.',
+    comfortTips: [
+      {
+        title: 'Kebersihan yang lembut',
+        text: 'Utamakan membasuh dengan lembut dan teratur tanpa produk yang mengiritasi.',
+      },
+      {
+        title: 'Amati perkembangannya',
+        text: 'Kamu bisa mencatat warna, jumlah, dan perkembangan cairan jika itu membantumu memantau pemulihan.',
+      },
+      {
+        title: 'Beri dirimu waktu istirahat',
+        text: 'Masa pascapersalinan membutuhkan waktu. Dengarkan tubuhmu dan hargai kebutuhanmu untuk pulih.',
+      },
+    ],
+    section5Heading: '5. Lokia atau haid yang kembali?',
+    section5Body: 'Lokia muncul pada hari-hari setelah melahirkan dan berkurang secara bertahap. Sebaliknya, kembalinya haid menandakan siklus menstruasimu dimulai lagi setelah masa ini.',
+    compareLochiaTitle: 'Lokia',
+    compareLochiaText: 'Cairan yang berkaitan dengan pemulihan rahim setelah melahirkan.',
+    compareReturnTitle: 'Haid kembali',
+    compareReturnText: 'Siklus menstruasi dimulai lagi, pada waktu yang berbeda-beda dari satu orang ke orang lain.',
+    section6Heading: '6. Kapan perlu berkonsultasi ke tenaga medis?',
+    section6Body: 'Jika perkembangannya terasa tidak biasa bagimu, atau kondisi umummu memburuk, penting untuk meminta saran dari tenaga kesehatan.',
+    warningTitle: 'Tanda yang memerlukan saran medis',
+    warningSigns: [
+      'Bau yang kuat atau tidak biasa',
+      'Demam atau kondisi umum yang memburuk',
+      'Aliran darah yang tiba-tiba menjadi jauh lebih banyak',
+      'Nyeri yang hebat, menetap, atau tidak biasa',
+      'Gejala baru yang membuatmu khawatir',
+    ],
+    tipTitle: 'Perlu diketahui',
+    tipText: 'Lokia biasanya berkembang secara bertahap: bisa berwarna merah pada awalnya, lalu menjadi lebih terang sebelum akhirnya berhenti. Namun, setiap pemulihan bersifat individual.',
+    summaryHeading: 'Poin-poin penting',
+    summaryPoints: [
+      'Lokia adalah cairan normal setelah persalinan.',
+      'Warna dan jumlahnya biasanya berubah selama beberapa minggu.',
+      'Durasi dan perkembangannya bisa berbeda dari satu orang ke orang lain.',
+      'Bau yang tidak biasa, demam, nyeri hebat, atau perdarahan yang tiba-tiba sangat banyak memerlukan saran medis.',
+    ],
+    disclaimerText: 'Konten informatif. Artikel ini tidak menggantikan saran atau pemeriksaan medis. Jika ragu atau kamu menemukan gejala yang mengkhawatirkan, mintalah saran dari tenaga kesehatan.',
+    shareMessage: 'Memahami lokia setelah melahirkan — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -1077,62 +1181,38 @@ export default function LochiaArticleScreen({
 
             {/* BACK */}
 
-            <Pressable
-              accessibilityRole="button"
+            <AwaIconButton
               accessibilityLabel={t('library.reader.back')}
+              icon="chevron-left"
+              iconSize={23}
               onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.circle,
-                pressed && styles.pressed,
-              ]}
-            >
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={23}
-                color={theme.colors.text}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             {/* ACTIONS */}
 
             <View style={styles.actions}>
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={
                   saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
-                onPress={handleBookmark}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <MaterialDesignIcons
-                  name={
+                icon={
                     saved
                       ? 'bookmark'
                       : 'bookmark-outline'
                   }
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                iconSize={20}
+                onPress={handleBookmark}
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaIconButton
                 accessibilityLabel={t('libraryArticle.shareA11y')}
+                icon="share-variant-outline"
+                iconSize={20}
                 onPress={handleShare}
-                style={({pressed}) => [
-                  styles.circle,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <MaterialDesignIcons
-                  name="share-variant-outline"
-                  size={20}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
 
           </View>
@@ -1149,18 +1229,18 @@ export default function LochiaArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>
+            <AwaText variant="labelSmall" emphasized colorRole="primary">
               {content.badgeText}
-            </Text>
+            </AwaText>
           </View>
 
           {/* ---------------------------------------------------------------- */}
           {/* TITLE                                                            */}
           {/* ---------------------------------------------------------------- */}
 
-          <Text style={styles.title}>
+          <AwaText variant="headlineMedium" weight="700" style={styles.title}>
             {content.title}
-          </Text>
+          </AwaText>
 
           {/* ---------------------------------------------------------------- */}
           {/* METADATA                                                         */}
@@ -1185,9 +1265,9 @@ export default function LochiaArticleScreen({
                     size={17}
                   />
 
-                  <Text style={styles.meta}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                     {text}
-                  </Text>
+                  </AwaText>
                 </View>
               </React.Fragment>
             ))}
@@ -1197,18 +1277,18 @@ export default function LochiaArticleScreen({
           {/* INTRO                                                            */}
           {/* ---------------------------------------------------------------- */}
 
-          <Text style={styles.intro}>
+          <AwaText variant="titleSmall" colorRole="onSurfaceVariant" style={styles.intro}>
             {content.intro}
-          </Text>
+          </AwaText>
 
           {/* ---------------------------------------------------------------- */}
           {/* CONTENTS                                                         */}
           {/* ---------------------------------------------------------------- */}
 
-          <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>
+          <AwaCard variant="filled" padding="none" style={styles.contents}>
+            <AwaText variant="titleMedium" emphasized style={styles.contentsTitle}>
               {content.contentsTitle}
-            </Text>
+            </AwaText>
 
             {content.topics.map((item, index) => (
               <View
@@ -1216,13 +1296,13 @@ export default function LochiaArticleScreen({
                 style={styles.contentRow}
               >
                 <View style={styles.contentLeft}>
-                  <Text style={styles.contentNumber}>
+                  <AwaText variant="labelSmall" emphasized colorRole="primary" style={styles.contentNumber}>
                     {index + 1}.
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.contentText}>
+                  <AwaText variant="bodySmall" style={styles.contentText}>
                     {item}
-                  </Text>
+                  </AwaText>
                 </View>
 
                 <MaterialDesignIcons
@@ -1232,25 +1312,25 @@ export default function LochiaArticleScreen({
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.section1Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body1}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section1Body2}
-          </Text>
+          </AwaText>
 
-          <View style={styles.infoCard}>
+          <AwaCard variant="filled" padding="none" style={styles.infoCard}>
             <MaterialDesignIcons
               name="information-outline"
               size={23}
@@ -1258,31 +1338,31 @@ export default function LochiaArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.infoTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.infoText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>
                 {content.infoText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.section2Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section2Body}
-          </Text>
+          </AwaText>
 
           {/* EVOLUTION TIMELINE */}
 
-          <View style={styles.evolutionCard}>
+          <AwaCard variant="filled" padding="none" style={styles.evolutionCard}>
 
             <View style={styles.evolutionHeader}>
               <View style={styles.evolutionHeaderIcon}>
@@ -1294,13 +1374,13 @@ export default function LochiaArticleScreen({
               </View>
 
               <View style={styles.evolutionHeaderCopy}>
-                <Text style={styles.evolutionTitle}>
+                <AwaText variant="titleSmall" emphasized>
                   {content.evolutionTitle}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.evolutionSubtitle}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.evolutionSubtitle}>
                   {content.evolutionSubtitle}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -1318,9 +1398,9 @@ export default function LochiaArticleScreen({
 
                     <View style={styles.timelineLeft}>
                       <View style={styles.timelineNode}>
-                        <Text style={styles.timelineNumber}>
+                        <AwaText variant="labelSmall" emphasized colorRole="primary">
                           {meta.number}
-                        </Text>
+                        </AwaText>
                       </View>
 
                       {!isLast ? (
@@ -1337,44 +1417,44 @@ export default function LochiaArticleScreen({
                           color={theme.colors.primary}
                         />
 
-                        <Text style={styles.timelineTitle}>
+                        <AwaText variant="titleSmall" emphasized style={styles.timelineTitle}>
                           {item.label}
-                        </Text>
+                        </AwaText>
                       </View>
 
-                      <Text style={styles.timelinePeriod}>
+                      <AwaText variant="labelSmall" colorRole="primary" style={styles.timelinePeriod}>
                         {item.period}
-                      </Text>
+                      </AwaText>
 
-                      <Text style={styles.timelineText}>
+                      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.timelineText}>
                         {item.text}
-                      </Text>
+                      </AwaText>
 
                     </View>
                   </View>
                 );
               })}
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 3                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.section3Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section3Body}
-          </Text>
+          </AwaText>
 
           <View style={styles.normalGrid}>
             {content.normalPoints.map((item, index) => {
               const meta = NORMAL_META[index];
 
               return (
-                <View
+                <AwaCard variant="filled" padding="none"
                   key={item.title}
                   style={styles.normalCard}
                 >
@@ -1386,14 +1466,14 @@ export default function LochiaArticleScreen({
                     />
                   </View>
 
-                  <Text style={styles.normalTitle}>
+                  <AwaText variant="titleSmall" emphasized style={styles.normalTitle}>
                     {item.title}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.normalText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.normalText}>
                     {item.text}
-                  </Text>
-                </View>
+                  </AwaText>
+                </AwaCard>
               );
             })}
           </View>
@@ -1402,15 +1482,15 @@ export default function LochiaArticleScreen({
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.section4Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section4Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.comfortCard}>
+          <AwaCard variant="filled" padding="none" style={styles.comfortCard}>
             {content.comfortTips.map((item, index) => {
               const meta = COMFORT_META[index];
 
@@ -1432,32 +1512,32 @@ export default function LochiaArticleScreen({
                   </View>
 
                   <View style={styles.comfortCopy}>
-                    <Text style={styles.comfortTitle}>
+                    <AwaText variant="titleSmall" emphasized>
                       {item.title}
-                    </Text>
+                    </AwaText>
 
-                    <Text style={styles.comfortText}>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.comfortText}>
                       {item.text}
-                    </Text>
+                    </AwaText>
                   </View>
                 </View>
               );
             })}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* DIFFERENCE LOCHIES / RULES                                        */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.section5Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section5Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.compareCard}>
+          <AwaCard variant="filled" padding="none" style={styles.compareCard}>
 
             <View style={styles.compareColumn}>
               <View style={styles.compareIcon}>
@@ -1468,13 +1548,13 @@ export default function LochiaArticleScreen({
                 />
               </View>
 
-              <Text style={styles.compareTitle}>
+              <AwaText variant="titleSmall" emphasized style={styles.compareTitle}>
                 {content.compareLochiaTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.compareText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.compareText}>
                 {content.compareLochiaText}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.compareDivider} />
@@ -1488,30 +1568,30 @@ export default function LochiaArticleScreen({
                 />
               </View>
 
-              <Text style={styles.compareTitle}>
+              <AwaText variant="titleSmall" emphasized style={styles.compareTitle}>
                 {content.compareReturnTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.compareText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.compareText}>
                 {content.compareReturnText}
-              </Text>
+              </AwaText>
             </View>
 
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SECTION 6                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.section6Heading}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.body}>
+          <AwaText variant="bodyMedium" colorRole="onSurfaceVariant" style={styles.body}>
             {content.section6Body}
-          </Text>
+          </AwaText>
 
-          <View style={styles.warningCard}>
+          <AwaCard variant="filled" padding="none" style={styles.warningCard}>
 
             <View style={styles.warningHeader}>
               <MaterialDesignIcons
@@ -1520,9 +1600,9 @@ export default function LochiaArticleScreen({
                 color={theme.colors.warning}
               />
 
-              <Text style={styles.warningTitle}>
+              <AwaText variant="titleSmall" emphasized style={styles.warningTitle}>
                 {content.warningTitle}
-              </Text>
+              </AwaText>
             </View>
 
             {content.warningSigns.map(item => (
@@ -1538,18 +1618,18 @@ export default function LochiaArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.warningText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.warningText}>
                   {item}
-                </Text>
+                </AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* TIP                                                                 */}
           {/* ================================================================= */}
 
-          <View style={styles.tip}>
+          <AwaCard variant="filled" padding="none" style={styles.tip}>
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
@@ -1557,25 +1637,25 @@ export default function LochiaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>
+              <AwaText variant="titleSmall" emphasized>
                 {content.tipTitle}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.tipText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.tipText}>
                 {content.tipText}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* SUMMARY                                                            */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
+          <AwaText variant="titleLarge" emphasized style={styles.h2}>
             {content.summaryHeading}
-          </Text>
+          </AwaText>
 
-          <View style={styles.summaryCard}>
+          <AwaCard variant="filled" padding="none" style={styles.summaryCard}>
             {content.summaryPoints.map(item => (
               <View
                 key={item}
@@ -1587,12 +1667,12 @@ export default function LochiaArticleScreen({
                   color={theme.colors.success}
                 />
 
-                <Text style={styles.summaryText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.summaryText}>
                   {item}
-                </Text>
+                </AwaText>
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {/* ================================================================= */}
           {/* DISCLAIMER                                                         */}
@@ -1605,9 +1685,9 @@ export default function LochiaArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.disclaimerText}>
               {content.disclaimerText}
-            </Text>
+            </AwaText>
           </View>
 
         </View>
@@ -1642,7 +1722,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   scroll: {
-    paddingBottom: 30,
+    paddingBottom: 32,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1674,55 +1754,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: withAlpha(theme.colors.surface, 0.90),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
 
-  pressed: {
-    opacity: 0.74,
-  },
 
   /* ------------------------------------------------------------------------ */
   /* ARTICLE                                                                  */
   /* ------------------------------------------------------------------------ */
 
   article: {
-    marginTop: -15,
+    marginTop: -16,
     padding: 20,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.background,
   },
 
   badge: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
-  badgeText: {
-    fontSize: 10,
-    color: theme.colors.primary,
-    fontWeight: '800',
-    letterSpacing: 0.3,
-  },
 
   title: {
     marginTop: 12,
-    fontFamily: 'serif',
-    fontSize: 27,
-    lineHeight: 32,
-    color: theme.colors.text,
-    fontWeight: '700',
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1730,17 +1786,17 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   metas: {
-    marginTop: 14,
+    marginTop: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
   },
 
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
 
   metaDivider: {
@@ -1749,21 +1805,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.border,
   },
 
-  meta: {
-    fontSize: 9.5,
-    color: theme.colors.textMuted,
-  },
 
   /* ------------------------------------------------------------------------ */
   /* INTRO                                                                    */
   /* ------------------------------------------------------------------------ */
 
   intro: {
-    marginTop: 17,
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.textSecondary,
-    fontWeight: '600',
+    marginTop: 16,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1772,18 +1820,11 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contents: {
     marginTop: 20,
-    padding: 15,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 16,
   },
 
   contentsTitle: {
-    marginBottom: 7,
-    fontSize: 15,
-    color: theme.colors.text,
-    fontWeight: '800',
+    marginBottom: 8,
   },
 
   contentRow: {
@@ -1801,16 +1842,10 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   contentNumber: {
     width: 25,
-    color: theme.colors.primary,
-    fontSize: 11.5,
-    fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    fontSize: 12.3,
-    lineHeight: 17,
-    color: theme.colors.text,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1818,19 +1853,11 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   h2: {
-    marginTop: 27,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    color: theme.colors.text,
-    fontWeight: '700',
+    marginTop: 28,
   },
 
   body: {
-    marginTop: 9,
-    fontSize: 14,
-    lineHeight: 21.5,
-    color: theme.colors.textSecondary,
+    marginTop: 8,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1838,32 +1865,20 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   infoCard: {
-    marginTop: 14,
-    padding: 13,
+    marginTop: 16,
+    padding: 12,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   infoCopy: {
     flex: 1,
-    marginLeft: 9,
+    marginLeft: 8,
   },
 
-  infoTitle: {
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   infoText: {
     marginTop: 3,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1871,18 +1886,14 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   evolutionCard: {
-    marginTop: 14,
-    padding: 15,
-    borderRadius: 15,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 16,
+    padding: 16,
   },
 
   evolutionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: 13,
+    paddingBottom: 12,
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.border,
   },
@@ -1898,24 +1909,16 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   evolutionHeaderCopy: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 12,
   },
 
-  evolutionTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   evolutionSubtitle: {
     marginTop: 3,
-    fontSize: 10,
-    lineHeight: 14,
-    color: theme.colors.textMuted,
   },
 
   timeline: {
-    marginTop: 5,
+    marginTop: 4,
   },
 
   timelineItem: {
@@ -1932,7 +1935,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   timelineNode: {
     width: 32,
     height: 32,
-    marginTop: 14,
+    marginTop: 16,
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
@@ -1942,11 +1945,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     zIndex: 2,
   },
 
-  timelineNumber: {
-    fontSize: 9,
-    color: theme.colors.primary,
-    fontWeight: '800',
-  },
 
   timelineLine: {
     position: 'absolute',
@@ -1958,37 +1956,27 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   timelineContent: {
     flex: 1,
-    paddingTop: 13,
-    paddingLeft: 9,
+    paddingTop: 12,
+    paddingLeft: 8,
     paddingBottom: 12,
   },
 
   timelineTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: 8,
   },
 
   timelineTitle: {
     flex: 1,
-    fontSize: 13,
-    lineHeight: 18,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
 
   timelinePeriod: {
     marginTop: 2,
-    fontSize: 9.5,
-    color: theme.colors.primary,
-    fontWeight: '700',
   },
 
   timelineText: {
     marginTop: 4,
-    fontSize: 10.8,
-    lineHeight: 16,
-    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1996,16 +1984,12 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   normalGrid: {
-    marginTop: 13,
-    gap: 9,
+    marginTop: 12,
+    gap: 8,
   },
 
   normalCard: {
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    padding: 12,
   },
 
   normalIcon: {
@@ -2019,16 +2003,10 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   normalTitle: {
     marginTop: 8,
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
 
   normalText: {
     marginTop: 4,
-    fontSize: 11,
-    lineHeight: 16,
-    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -2036,18 +2014,14 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   comfortCard: {
-    marginTop: 13,
-    paddingHorizontal: 13,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    paddingHorizontal: 12,
   },
 
   comfortRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    paddingVertical: 13,
+    paddingVertical: 12,
   },
 
   comfortRowBorder: {
@@ -2066,20 +2040,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   comfortCopy: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 12,
   },
 
-  comfortTitle: {
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   comfortText: {
     marginTop: 3,
-    fontSize: 10.8,
-    lineHeight: 16,
-    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -2087,14 +2053,10 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   compareCard: {
-    marginTop: 13,
-    padding: 14,
+    marginTop: 12,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'stretch',
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   compareColumn: {
@@ -2112,16 +2074,10 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   compareTitle: {
     marginTop: 8,
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
 
   compareText: {
     marginTop: 4,
-    fontSize: 10.5,
-    lineHeight: 15.5,
-    color: theme.colors.textSecondary,
   },
 
   compareDivider: {
@@ -2135,12 +2091,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   warningCard: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
 
   warningHeader: {
@@ -2152,15 +2104,12 @@ function createStyles(theme: ResolvedAwaTheme) {
   warningTitle: {
     flex: 1,
     marginLeft: 8,
-    fontSize: 12.5,
-    color: theme.colors.text,
-    fontWeight: '800',
   },
 
   warningRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 9,
+    marginBottom: 8,
   },
 
   warningBullet: {
@@ -2170,10 +2119,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   warningText: {
     flex: 1,
-    marginLeft: 5,
-    color: theme.colors.textSecondary,
-    fontSize: 11.5,
-    lineHeight: 17,
+    marginLeft: 4,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -2182,31 +2128,19 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   tip: {
     marginTop: 16,
-    padding: 14,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderRadius: 12,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   tipCopy: {
     flex: 1,
-    marginLeft: 11,
+    marginLeft: 12,
   },
 
-  tipTitle: {
-    fontSize: 13,
-    color: theme.colors.text,
-    fontWeight: '800',
-  },
 
   tipText: {
     marginTop: 4,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -2214,26 +2148,19 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   summaryCard: {
-    marginTop: 13,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: theme.colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    marginTop: 12,
+    padding: 16,
   },
 
   summaryRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    marginBottom: 10,
+    marginBottom: 12,
   },
 
   summaryText: {
     flex: 1,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -2241,18 +2168,15 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ------------------------------------------------------------------------ */
 
   disclaimer: {
-    marginTop: 18,
+    marginTop: 20,
     paddingHorizontal: 3,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 7,
+    gap: 8,
   },
 
   disclaimerText: {
     flex: 1,
-    fontSize: 10,
-    lineHeight: 15,
-    color: theme.colors.textMuted,
   },
   });
 }
