@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
 import {Text} from 'react-native';
+import {AwaText} from '../../../components/ui/AwaText';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
@@ -55,11 +56,22 @@ async function renderOverview() {
 const textOf = (node: ReactTestRenderer.ReactTestInstance): string => [node.props.children].flat(Infinity).join('');
 const isGlyph = (text: string) => /^[-\u{F0000}-\u{FFFFF}]+$/u.test(text);
 
+// Labels are rendered through AwaText (a wrapper around Text) since the Material 3 migration: a label's `parent` is
+// that wrapper, so the row/tile container is the first ancestor that is not an AwaText.
+const containerOf = (node: ReactTestRenderer.ReactTestInstance): ReactTestRenderer.ReactTestInstance | null => {
+  let current = node.parent;
+  while (current && current.type === AwaText) {
+    current = current.parent;
+  }
+  return current;
+};
+
 /** The value line of the "Règles" row. */
 const rulesRowValue = (renderer: ReactTestRenderer.ReactTestRenderer): string | undefined => {
   for (const label of renderer.root.findAllByType(Text).filter(node => textOf(node) === 'Règles')) {
-    const value = label.parent
-      ? label.parent.findAllByType(Text).map(textOf).filter(text => !isGlyph(text)).find(text => text !== 'Règles')
+    const row = containerOf(label);
+    const value = row
+      ? row.findAllByType(Text).map(textOf).filter(text => !isGlyph(text)).find(text => text !== 'Règles')
       : undefined;
     if (value) {return value;}
   }
