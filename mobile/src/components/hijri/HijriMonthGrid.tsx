@@ -1,10 +1,12 @@
 import React, {memo, useEffect, useMemo} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import Animated, {useAnimatedStyle, useSharedValue, withTiming} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 
-import {homeRadii} from '../home/homeTheme';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaIconButton} from '../ui/AwaIconButton';
+import {AwaText} from '../ui/AwaText';
 import {dateFormatLocale, sameDay, localizedWeekDays} from '../../utils/cycleMath';
 import {getHijriMonthDays, hijriPartsFor, type HijriMonthDay} from '../../utils/hijriCalendar';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -118,35 +120,34 @@ function HijriMonthGrid({
   }));
 
   return (
-    <View style={styles.card}>
+    <AwaCard>
       <View style={styles.monthHeader}>
-        <Pressable
+        <AwaIconButton
           accessibilityLabel={t('hijriCalendar.previousMonthAccessibility')}
-          hitSlop={10}
+          icon="chevron-left"
           onPress={onPrevious}
-          style={({pressed}) => [styles.navButton, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={22} />
-        </Pressable>
+          variant="tonal"
+        />
 
-        <Text numberOfLines={1} style={styles.monthTitle}>{monthLabel}</Text>
+        <AwaText variant="titleMedium" style={styles.monthTitle}>{monthLabel}</AwaText>
 
-        <Pressable
+        <AwaIconButton
           accessibilityLabel={t('hijriCalendar.nextMonthAccessibility')}
-          hitSlop={10}
+          icon="chevron-right"
           onPress={onNext}
-          style={({pressed}) => [styles.navButton, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={22} />
-        </Pressable>
+          variant="tonal"
+        />
       </View>
 
       {!isViewingCurrentMonth ? (
-        <Pressable
-          accessibilityRole="button"
+        <AwaButton
+          icon="calendar-today"
+          label={t('hijriCalendar.todayAccessibility')}
           onPress={onToday}
-          style={({pressed}) => [styles.todayButton, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={theme.colors.primary} name="calendar-today" size={12} />
-          <Text style={styles.todayButtonText}>{t('hijriCalendar.todayAccessibility')}</Text>
-        </Pressable>
+          size="compact"
+          style={styles.todayButton}
+          variant="tonal"
+        />
       ) : null}
 
       <View style={styles.weekRow}>
@@ -172,33 +173,23 @@ function HijriMonthGrid({
           );
         })}
       </Animated.View>
-    </View>
+    </AwaCard>
   );
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    card: {borderRadius: homeRadii.card, backgroundColor: theme.colors.surface, padding: 16, ...theme.shadow},
     monthHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10},
-    navButton: {
-      width: 36, height: 36, alignItems: 'center', justifyContent: 'center',
-      borderRadius: 18, backgroundColor: theme.colors.primarySoft,
-    },
-    monthTitle: {flex: 1, textAlign: 'center', color: theme.colors.text, fontFamily: 'serif', fontSize: 18, fontWeight: '700'},
-    todayButton: {
-      flexDirection: 'row', alignItems: 'center', gap: 5, alignSelf: 'center',
-      marginTop: 10, borderRadius: 12, backgroundColor: theme.colors.primarySoft,
-      paddingHorizontal: 10, paddingVertical: 5,
-    },
-    todayButtonText: {color: theme.colors.primary, fontSize: 11, fontWeight: '700'},
+    monthTitle: {flex: 1, textAlign: 'center'},
+    todayButton: {alignSelf: 'center', marginTop: 10},
     weekRow: {flexDirection: 'row', marginTop: 16},
     weekDay: {width: '14.2857%', color: theme.colors.textSecondary, fontSize: 11, fontWeight: '600', textAlign: 'center'},
     daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 6},
     dayCell: {width: '14.2857%', minHeight: 52, alignItems: 'center', justifyContent: 'center', paddingVertical: 2},
-    day: {width: '88%', minHeight: 42, maxWidth: 44, borderRadius: 14, overflow: 'hidden'},
-    dayFill: {flex: 1, width: '100%', paddingVertical: 4, alignItems: 'center', justifyContent: 'center', borderRadius: 14},
+    day: {width: '88%', minHeight: 42, maxWidth: 44, borderRadius: 12, overflow: 'hidden'},
+    dayFill: {flex: 1, width: '100%', paddingVertical: 4, alignItems: 'center', justifyContent: 'center', borderRadius: 12},
     dayText: {color: theme.colors.text, fontSize: 14.5, fontWeight: '700'},
-    dayGregorian: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 8.5},
+    dayGregorian: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 11},
     dayTextLight: {color: onPrimaryTextColor(theme)},
     dayToday: {borderWidth: 1.6, borderStyle: 'dashed', borderColor: theme.shadow.shadowColor},
     daySelected: {backgroundColor: theme.colors.primary},

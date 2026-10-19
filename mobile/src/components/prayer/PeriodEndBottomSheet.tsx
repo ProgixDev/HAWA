@@ -8,7 +8,6 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-community/datetimepicker';
@@ -16,9 +15,12 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 
-import {homeRadii} from '../home/homeTheme';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {awaShapes} from '../../theme/shapes';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {setPeriodEndDateTime} from '../../state/onboardingPreferences';
 import {recordConfirmedPeriodEnd} from '../../state/confirmedPeriodHistoryStore';
 import {formatFullDate} from '../../utils/cycleMath';
@@ -159,28 +161,28 @@ function PeriodEndBottomSheet({
           <View style={styles.handle} />
 
           <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
-            <Text style={styles.title}>{t('periodEndBottomSheet.title')}</Text>
-            <Text style={styles.description}>
+            <AwaText variant="titleLarge">{t('periodEndBottomSheet.title')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.description}>
               {t('periodEndBottomSheet.description')}
-            </Text>
+            </AwaText>
 
-            <Pressable
-              accessibilityRole="button"
+            <AwaCard
+              accessibilityLabel={`${t('periodEndBottomSheet.endDateLabel')}, ${formatDateLabel(draft)}`}
               onPress={() => setActivePicker(current => (current === 'date' ? null : 'date'))}
-              style={({pressed}) => [styles.field, activePicker === 'date' && styles.fieldActive, pressed && styles.pressed]}>
-              <View style={styles.fieldIcon}>
-                <MaterialDesignIcons color={theme.colors.primary} name="calendar-outline" size={18} />
-              </View>
+              padding="none"
+              style={[styles.field, activePicker === 'date' && styles.fieldActive]}
+              variant="outlined">
+              <MaterialDesignIcons color={theme.colors.primary} name="calendar-outline" size={20} />
               <View style={styles.fieldCopy}>
-                <Text style={styles.fieldLabel}>{t('periodEndBottomSheet.endDateLabel')}</Text>
-                <Text style={styles.fieldValue}>{formatDateLabel(draft)}</Text>
+                <AwaText colorRole="onSurfaceVariant" variant="labelMedium">{t('periodEndBottomSheet.endDateLabel')}</AwaText>
+                <AwaText variant="titleSmall" style={styles.fieldValue}>{formatDateLabel(draft)}</AwaText>
               </View>
               <MaterialDesignIcons
                 color={theme.colors.textSecondary}
                 name={activePicker === 'date' ? 'chevron-up' : 'chevron-down'}
                 size={20}
               />
-            </Pressable>
+            </AwaCard>
 
             {activePicker === 'date' ? (
               <DateTimePicker
@@ -194,23 +196,23 @@ function PeriodEndBottomSheet({
               />
             ) : null}
 
-            <Pressable
-              accessibilityRole="button"
+            <AwaCard
+              accessibilityLabel={`${t('periodEndBottomSheet.endTimeLabel')}, ${formatTimeLabel(draft)}`}
               onPress={() => setActivePicker(current => (current === 'time' ? null : 'time'))}
-              style={({pressed}) => [styles.field, activePicker === 'time' && styles.fieldActive, pressed && styles.pressed]}>
-              <View style={styles.fieldIcon}>
-                <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
-              </View>
+              padding="none"
+              style={[styles.field, activePicker === 'time' && styles.fieldActive]}
+              variant="outlined">
+              <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={20} />
               <View style={styles.fieldCopy}>
-                <Text style={styles.fieldLabel}>{t('periodEndBottomSheet.endTimeLabel')}</Text>
-                <Text style={styles.fieldValue}>{formatTimeLabel(draft)}</Text>
+                <AwaText colorRole="onSurfaceVariant" variant="labelMedium">{t('periodEndBottomSheet.endTimeLabel')}</AwaText>
+                <AwaText variant="titleSmall" style={styles.fieldValue}>{formatTimeLabel(draft)}</AwaText>
               </View>
               <MaterialDesignIcons
                 color={theme.colors.textSecondary}
                 name={activePicker === 'time' ? 'chevron-up' : 'chevron-down'}
                 size={20}
               />
-            </Pressable>
+            </AwaCard>
 
             {activePicker === 'time' ? (
               <DateTimePicker
@@ -223,21 +225,22 @@ function PeriodEndBottomSheet({
             ) : null}
           </ScrollView>
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={saving}
+            fullWidth
+            label={saving ? t('periodStartSheet.saving') : t('periodEndBottomSheet.confirmEnd')}
             onPress={confirm}
-            style={({pressed}) => [styles.confirmButton, (pressed || saving) && styles.pressed]}>
-            <Text style={styles.confirmText}>{saving ? t('periodStartSheet.saving') : t('periodEndBottomSheet.confirmEnd')}</Text>
-          </Pressable>
+            style={styles.confirmButton}
+          />
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={saving}
+            fullWidth
+            label={t('common.cancel')}
             onPress={close}
-            style={({pressed}) => [styles.cancelButton, pressed && styles.pressed]}>
-            <Text style={styles.cancelText}>{t('common.cancel')}</Text>
-          </Pressable>
+            style={styles.cancelButton}
+            variant="text"
+          />
         </Animated.View>
       </View>
     </Modal>
@@ -253,8 +256,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     overlay: {...StyleSheet.absoluteFillObject, backgroundColor: theme.shadow.shadowColor},
     sheet: {
       maxHeight: '88%',
-      borderTopLeftRadius: homeRadii.card,
-      borderTopRightRadius: homeRadii.card,
+      borderTopLeftRadius: awaShapes.extraLarge,
+      borderTopRightRadius: awaShapes.extraLarge,
       backgroundColor: theme.colors.surface,
       paddingHorizontal: 18,
       paddingTop: 10,
@@ -262,44 +265,20 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     handle: {width: 42, height: 5, alignSelf: 'center', borderRadius: 3, backgroundColor: theme.colors.border},
     scroll: {flexGrow: 0, marginTop: 14},
-    title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 19, fontWeight: '700', lineHeight: 25},
-    description: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19},
+    description: {marginTop: 8},
     field: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 11,
+      gap: 12,
       minHeight: 62,
       marginTop: 14,
-      borderWidth: 1.4,
-      borderColor: theme.colors.border,
-      borderRadius: homeRadii.button,
-      backgroundColor: theme.colors.surface,
-      paddingHorizontal: 13,
+      paddingHorizontal: 14,
     },
     fieldActive: {borderColor: theme.colors.primary},
-    fieldIcon: {
-      width: 36,
-      height: 36,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 18,
-      backgroundColor: theme.colors.primarySoft,
-    },
     fieldCopy: {flex: 1},
-    fieldLabel: {color: theme.colors.textSecondary, fontSize: 11.5},
-    fieldValue: {marginTop: 2, color: theme.colors.text, fontSize: 14.5, fontWeight: '700'},
-    confirmButton: {
-      marginTop: 18,
-      minHeight: 52,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: homeRadii.button,
-      backgroundColor: theme.colors.primary,
-    },
-    confirmText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '700'},
-    cancelButton: {marginTop: 10, minHeight: 44, alignItems: 'center', justifyContent: 'center'},
-    cancelText: {color: theme.colors.textSecondary, fontSize: 14, fontWeight: '600'},
-    pressed: {opacity: 0.85},
+    fieldValue: {marginTop: 2},
+    confirmButton: {marginTop: 18},
+    cancelButton: {marginTop: 8},
   });
 }
 

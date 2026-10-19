@@ -24,7 +24,11 @@ import {
 } from '../state/onboardingPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import type {AwaRoles} from '../theme/semanticRoles';
+import {useAwaTokens} from '../theme/useAwaTokens';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaText} from '../components/ui/AwaText';
 
 const featureIcons = ['🗓️', '🤲', '🌙', '🔔'];
 const featureLabelKeys = [
@@ -40,7 +44,8 @@ function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Ele
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
+  const {roles} = useAwaTokens();
+  const styles = useMemo(() => createStyles(theme, roles), [theme, roles]);
   const features = featureIcons.map((icon, index) => ({icon, label: t(featureLabelKeys[index])}));
   // null = no explicit choice yet (brand-new users start here — never
   // silently treated as true or false). Pre-fills her real answer if she's
@@ -143,11 +148,6 @@ function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Ele
       end={{x: 1, y: 1}}
       style={styles.background}
     >
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
@@ -164,12 +164,12 @@ function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Ele
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.header}>
-            <Text style={styles.title}>
+            <AwaText accessibilityRole="header" style={styles.title} variant="headlineMedium">
               {t('onboarding.spiritual.title')}
-            </Text>
-            <Text style={styles.subtitle}>
+            </AwaText>
+            <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">
               {t('onboarding.spiritual.subtitle')}
-            </Text>
+            </AwaText>
           </View>
 
           <View style={styles.choices} accessibilityRole="radiogroup">
@@ -186,11 +186,12 @@ function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Ele
               <View style={[styles.radio, isYes && styles.radioActive]}>
                 {isYes && <View style={styles.radioDot} />}
               </View>
-              <Text
+              <AwaText
                 style={[styles.choiceText, isYes && styles.choiceTextActive]}
+                variant="bodyLarge"
               >
                 {t('onboarding.spiritual.enable')}
-              </Text>
+              </AwaText>
               {isYes && (
                 <View style={styles.checkCircle}>
                   <Text style={styles.check}>✓</Text>
@@ -211,11 +212,12 @@ function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Ele
               <View style={[styles.radio, isNo && styles.radioActive]}>
                 {isNo && <View style={styles.radioDot} />}
               </View>
-              <Text
+              <AwaText
                 style={[styles.choiceText, isNo && styles.choiceTextActive]}
+                variant="bodyLarge"
               >
                 {t('onboarding.spiritual.disable')}
-              </Text>
+              </AwaText>
               {isNo && (
                 <View style={styles.checkCircle}>
                   <Text style={styles.check}>✓</Text>
@@ -241,75 +243,41 @@ function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Ele
                     {feature.icon}
                   </Text>
                 </View>
-                <Text
+                <AwaText
                   style={[
                     styles.featureText,
                     isNo && styles.featureTextDisabled,
                   ]}
+                  variant="bodyMedium"
                 >
                   {feature.label}
-                </Text>
+                </AwaText>
               </View>
             ))}
           </View>
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={enabled === null}
+            fullWidth
+            label={route.params?.mode === 'edit' ? t('common.save') : t('onboarding.spiritual.next')}
             onPress={handleNext}
-            style={({ pressed }) => [
-              styles.nextButton,
-              enabled === null && styles.disabled,
-              pressed && enabled !== null && styles.pressed,
-            ]}
-          >
-            <Text style={styles.nextText}>{route.params?.mode === 'edit' ? t('common.save') : t('onboarding.spiritual.next')}</Text>
-          </Pressable>
+            size="large"
+            style={styles.nextButton}
+          />
         </ScrollView>
       </SafeAreaView>
     </LinearGradient>
   );
 }
 
-function createStyles(theme: ResolvedAwaTheme) {
+function createStyles(theme: ResolvedAwaTheme, roles: AwaRoles) {
   const onPrimary = onPrimaryTextColor(theme);
   return StyleSheet.create({
     background: { flex: 1, backgroundColor: theme.colors.background },
 
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
 
-    pageGlowTop: {
-      position: 'absolute',
-      top: -150,
-      right: -110,
-      width: 330,
-      height: 330,
-      borderRadius: 165,
-      backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
 
-    pageGlowMiddle: {
-      position: 'absolute',
-      top: '38%',
-      left: -130,
-      width: 260,
-      height: 260,
-      borderRadius: 130,
-      backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
 
-    pageGlowBottom: {
-      position: 'absolute',
-      bottom: -150,
-      right: -100,
-      width: 310,
-      height: 310,
-      borderRadius: 155,
-      backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
 
     safeArea: { flex: 1 },
     content: {
@@ -320,21 +288,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingBottom: 10,
     },
     header: { alignItems: 'center', marginBottom: spacing.lg },
-    title: {
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 28,
-      fontWeight: '700',
-      lineHeight: 36,
-      textAlign: 'center',
-    },
-    subtitle: {
-      marginTop: 12,
-      color: theme.colors.textSecondary,
-      fontSize: 14,
-      lineHeight: 21,
-      textAlign: 'center',
-    },
+    title: {textAlign: 'center'},
+    subtitle: {marginTop: 12, textAlign: 'center'},
     choices: { gap: 8 },
     choice: {
       minHeight: 56,
@@ -342,18 +297,16 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.16),
-      borderRadius: 18,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.86),
       paddingHorizontal: spacing.md,
+      paddingVertical: 12,
     },
+    // DESIGN.md selected state: primaryContainer fill + onPrimaryContainer text + primary border (no filled primary
+    // block, no custom shadow); the radio dot and the check mark keep the selection readable without colour alone.
     choiceActive: {
       borderColor: theme.colors.primary,
-      backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: { width: 0, height: 3 },
-      shadowOpacity: 0.2,
-      shadowRadius: 7,
-      elevation: 3,
+      backgroundColor: roles.primaryContainer,
     },
     radio: {
       width: 22,
@@ -364,29 +317,27 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor: withAlpha(theme.colors.primary, 0.35),
       borderRadius: 11,
     },
-    radioActive: { borderColor: withAlpha(onPrimary, 0.55) },
+    radioActive: { borderColor: theme.colors.primary },
     radioDot: {
       width: 10,
       height: 10,
       borderRadius: 5,
-      backgroundColor: onPrimary,
+      backgroundColor: theme.colors.primary,
     },
     choiceText: {
       flex: 1,
       marginLeft: spacing.md,
-      color: theme.colors.text,
-      fontSize: 17,
     },
-    choiceTextActive: { color: onPrimary, fontWeight: '600' },
+    choiceTextActive: { color: roles.onPrimaryContainer },
     checkCircle: {
       width: 28,
       height: 28,
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 14,
-      backgroundColor: theme.colors.primarySoft,
+      backgroundColor: theme.colors.primary,
     },
-    check: { color: theme.colors.primary, fontSize: 18, fontWeight: '700' },
+    check: { color: onPrimary, fontSize: 18, fontWeight: '700' },
     pressed: { opacity: 0.82 },
     features: { gap: 7, marginTop: spacing.md },
     featureCard: {
@@ -395,9 +346,10 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.14),
-      borderRadius: 17,
+      borderRadius: 16,
       backgroundColor: withAlpha(theme.colors.surface, 0.84),
-      paddingHorizontal: 12,
+      paddingHorizontal: 16,
+      paddingVertical: 8,
     },
     featureCardDisabled: {
       borderColor: withAlpha(theme.colors.textMuted, 0.2),
@@ -415,23 +367,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     iconBoxDisabled: { backgroundColor: theme.colors.surfaceSecondary },
     icon: { fontSize: 21 },
     iconDisabled: { opacity: 0.32 },
-    featureText: { flex: 1, color: theme.colors.text, fontSize: 15, lineHeight: 19 },
+    featureText: { flex: 1 },
     featureTextDisabled: { color: theme.colors.textMuted },
-    nextButton: {
-      minHeight: 50,
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginTop: spacing.md,
-      borderRadius: 19,
-      backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: { width: 0, height: 5 },
-      shadowOpacity: 0.25,
-      shadowRadius: 9,
-      elevation: 5,
-    },
-    nextText: { color: onPrimary, fontSize: 18, fontWeight: '600' },
-    disabled: { opacity: 0.55 },
+    nextButton: {marginTop: spacing.md},
   });
 }
 

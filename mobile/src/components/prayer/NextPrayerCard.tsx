@@ -1,19 +1,12 @@
-import React, {memo, useEffect, useMemo} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {memo, useMemo} from 'react';
+import {Image, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
-import Animated, {
-  Easing,
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withSequence,
-  withTiming,
-} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 
-import {homeRadii} from '../home/homeTheme';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import {formatClockTimeInZone} from '../../utils/timeOfDay';
 import {displayUpperCase} from '../../utils/textCase';
@@ -49,52 +42,29 @@ function NextPrayerCard({window, timezone, loading, error, now}: Props): React.J
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  // A very subtle, continuous breathing/floating effect on the
-  // illustration only — no JS timer involved, driven entirely on the UI
-  // thread — to feel calmly "alive" without distracting from the prayer
-  // name/time below.
-  const breathe = useSharedValue(0);
-
-  useEffect(() => {
-    breathe.value = withRepeat(
-      withSequence(
-        withTiming(1, {duration: 3400, easing: Easing.inOut(Easing.ease)}),
-        withTiming(0, {duration: 3400, easing: Easing.inOut(Easing.ease)}),
-      ),
-      -1,
-      true,
-    );
-  }, [breathe]);
-
-  const floatStyle = useAnimatedStyle(() => ({
-    transform: [
-      {scale: 1 + breathe.value * 0.04},
-      {translateY: -breathe.value * 3},
-    ],
-  }));
-
+  // Material 3 migration: the continuous "breathing" loop on the illustration was removed (motion for its own sake).
   return (
-    <View style={styles.card}>
-      <Animated.Image resizeMode="contain" source={PRAYER_IMAGE} style={[styles.prayerImage, floatStyle]} />
+    <AwaCard padding="none" style={styles.card} variant="filled">
+      <Image resizeMode="contain" source={PRAYER_IMAGE} style={styles.prayerImage} />
 
-      <Text style={styles.eyebrow}>{displayUpperCase(t('spiritualGuidance.nextPrayerLabel'))}</Text>
+      <AwaText colorRole="onSurfaceVariant" variant="labelMedium" style={styles.eyebrow}>{displayUpperCase(t('spiritualGuidance.nextPrayerLabel'))}</AwaText>
 
       {window ? (
         <>
-          <Text style={styles.name}>{window.name}</Text>
-          <Text style={styles.time}>{formatTime(window.start, timezone)}</Text>
+          <AwaText variant="headlineMedium" style={styles.name}>{window.name}</AwaText>
+          <AwaText variant="titleLarge" style={styles.time}>{formatTime(window.start, timezone)}</AwaText>
 
           <View style={styles.countdownPill}>
             <MaterialDesignIcons color={theme.colors.primary} name="clock-time-four-outline" size={13} />
-            <Text style={styles.countdownText}>{formatCountdown(t, window.start.getTime(), now.getTime())}</Text>
+            <AwaText colorRole="primary" emphasized variant="labelMedium">{formatCountdown(t, window.start.getTime(), now.getTime())}</AwaText>
           </View>
 
-          <Text style={styles.endCaption}>{t('prayerTimes.nextPrayerEndCaption', {time: formatTime(window.end, timezone)})}</Text>
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.endCaption}>{t('prayerTimes.nextPrayerEndCaption', {time: formatTime(window.end, timezone)})}</AwaText>
         </>
       ) : (
-        <Text style={styles.name}>{loading ? t('prayerTimes.calculating') : error ? t('spiritualGuidance.unavailable') : '—'}</Text>
+        <AwaText variant="headlineMedium" style={styles.name}>{loading ? t('prayerTimes.calculating') : error ? t('spiritualGuidance.unavailable') : '—'}</AwaText>
       )}
-    </View>
+    </AwaCard>
   );
 }
 
@@ -102,40 +72,22 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     card: {
       alignItems: 'center',
-      borderRadius: homeRadii.card,
-      backgroundColor: theme.colors.primarySoft,
-      paddingVertical: 26,
+      paddingVertical: 24,
       paddingHorizontal: 20,
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.10),
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 10},
-      shadowOpacity: 0.1,
-      shadowRadius: 20,
-      elevation: 4,
     },
     prayerImage: {
       width: 96,
       height: 96 / PRAYER_IMAGE_RATIO,
     },
-    eyebrow: {
-      marginTop: 14,
-      color: theme.colors.textSecondary,
-      fontSize: 11.5,
-      fontWeight: '700',
-      letterSpacing: 1.4,
-      textTransform: 'uppercase',
-    },
-    name: {marginTop: 6, color: theme.colors.text, fontFamily: 'serif', fontSize: 30, fontWeight: '700'},
-    time: {marginTop: 2, color: theme.colors.text, fontSize: 20, fontWeight: '600'},
+    eyebrow: {marginTop: 14, letterSpacing: 1.4, textTransform: 'uppercase'},
+    name: {marginTop: 6, textAlign: 'center'},
+    time: {marginTop: 2},
     countdownPill: {
       flexDirection: 'row', alignItems: 'center', gap: 6,
-      marginTop: 14, borderRadius: 14, backgroundColor: theme.colors.surface,
+      marginTop: 14, borderRadius: 12, backgroundColor: theme.colors.surface,
       paddingHorizontal: 12, paddingVertical: 6,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 2}, shadowOpacity: 0.06, shadowRadius: 5,
     },
-    countdownText: {color: theme.colors.primary, fontSize: 12.5, fontWeight: '700'},
-    endCaption: {marginTop: 12, color: theme.colors.textSecondary, fontSize: 11.5},
+    endCaption: {marginTop: 12},
   });
 }
 
