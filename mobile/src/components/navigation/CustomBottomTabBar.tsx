@@ -103,7 +103,7 @@ function CustomBottomTabBar({state, navigation}: BottomTabBarProps): React.JSX.E
     return (
       <AnimatedTabItem
         focused={isFocused}
-        icon={<MaterialDesignIcons color={isFocused ? theme.colors.primary : onPill} name={meta.icon} size={22} />}
+        icon={<MaterialDesignIcons color={isFocused ? theme.colors.primary : onPill} name={meta.icon} size={24} />}
         key={route.key}
         label={meta.label}
         onPress={onPress}
@@ -161,7 +161,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 24,
+    // DESIGN.md floating action control: square-rounded (16) instead of a perfect circle.
+    borderRadius: 16,
     backgroundColor: theme.colors.primary,
     elevation: 4,
   },

@@ -174,12 +174,12 @@ describe('CustomBottomTabBar — resolved global theme', () => {
 });
 
 describe('AnimatedTabItem — resolved global theme', () => {
-  it('the focused halo/indicator colors resolve from the theme and change Light -> Dark', async () => {
+  it('the focused pill indicator colour resolves from the theme and changes Light -> Dark', async () => {
     const renderer = await renderTabItem(true);
     const findIndicatorColor = () => {
       const match = renderer.root.findAll(node => {
         const style = flattenStyle(node.props?.style);
-        return style.width === 13 && style.height === 2.5;
+        return style.borderRadius === 13 && style.backgroundColor !== undefined && style.position === 'absolute';
       })[0];
       return match ? flattenStyle(match.props.style).backgroundColor : undefined;
     };

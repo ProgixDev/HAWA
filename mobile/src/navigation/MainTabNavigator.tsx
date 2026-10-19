@@ -19,6 +19,7 @@ import DataAvailabilityBanner from '../components/security/DataAvailabilityBanne
 import ProfileScreen from '../screens/ProfileScreen';
 import {getActiveObjective, hydrateActiveObjective, subscribeActiveObjective, type ObjectiveId} from '../state/onboardingPreferences';
 import {isOwnerActive, subscribeActiveProfileId} from '../state/activeProfileStore';
+import {useDaughterJournal} from '../hooks/useDaughterJournal';
 import {POSTPARTUM_JOURNAL_ITEMS} from '../config/postpartumJournalConfig';
 import {MISCARRIAGE_JOURNAL_ITEMS} from '../config/miscarriageJournalConfig';
 import {IRREGULAR_JOURNAL_ITEMS} from '../config/irregularJournalConfig';
@@ -94,6 +95,7 @@ function renderTabBar(props: BottomTabBarProps): React.JSX.Element {
 
 function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.Element {
   const {t} = useTranslation();
+  const {daughter, tx} = useDaughterJournal();
   const {visible, close} = useJournalSheet();
   const [objective, setObjective] = useState<ObjectiveId>(getActiveObjective);
   const [ownerActive, setOwnerActive] = useState<boolean>(isOwnerActive);
@@ -321,14 +323,37 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
   const cycleJournalItems = ownerActive
     ? allCycleJournalItems
     : allCycleJournalItems.filter(item => item.route !== 'PrivateIntimacyUnlock');
+  // A managed daughter profile gets a compact sheet (no illustrated header) worded for a parent recording her day; the
+  // mother's sheet is unchanged. Same routes and same navigation either way.
+  const daughterSubtitleKeys: Record<string, string> = {
+    SymptomEntry: 'sheetItems.symptom',
+    MoodEntry: 'sheetItems.mood',
+    ActivityEntry: 'sheetItems.activity',
+    SleepEntry: 'sheetItems.sleep',
+    HydrationScreen: 'sheetItems.hydration',
+    MenstrualFlowScreen: 'sheetItems.menstrualFlow',
+    NoteEntry: 'sheetItems.note',
+  };
   const cycleActions: JournalSheetAction[] = cycleJournalItems.map(item => ({
     key: item.route,
     icon: item.icon,
     title: item.title,
-    subtitle: item.subtitle,
+    subtitle: daughter && daughterSubtitleKeys[item.route] ? tx('', daughterSubtitleKeys[item.route]) : item.subtitle,
     tint: item.tint,
     onPress: () => {close(); navigation.navigate(item.route);},
   }));
+  if (daughter && !ownerActive) {
+    return (
+      <DailyJournalSheet
+        actions={cycleActions}
+        compact
+        onClose={close}
+        subtitle={tx('', 'sheetSubtitle')}
+        title={tx('', 'sheetTitle')}
+        visible={visible}
+      />
+    );
+  }
   return <DailyJournalSheet actions={cycleActions} onClose={close} visible={visible} />;
 }
 
