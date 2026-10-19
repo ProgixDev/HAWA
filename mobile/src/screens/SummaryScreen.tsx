@@ -3,11 +3,9 @@ import {CYCLE_RETURN_DATE_TO_CHECK, classifyStoredCycleReturnDate} from '../util
 import React, {useCallback, useMemo, useReducer} from 'react';
 import {
   Image,
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
   useWindowDimensions,
 } from 'react-native';
@@ -26,7 +24,10 @@ import {
   TOP_SPACING_EXTRA_COMPACT,
 } from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import type {ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaText} from '../components/ui/AwaText';
 import {
   getCyclePreferences,
   getSelectedLocation,
@@ -923,11 +924,6 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <SafeAreaView
         edges={['top', 'left', 'right']}
@@ -951,35 +947,26 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
             },
           ]}
           showsVerticalScrollIndicator={false}>
-          <View style={styles.heroCard}>
-            <View style={styles.heroGlowOne} />
-            <View style={styles.heroGlowTwo} />
+          <AwaCard padding="none" style={styles.heroCard} variant="elevated">
 
             <View style={styles.heroCopy}>
               <View style={styles.stepBadge}>
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="check-decagram"
-                  size={16}
-                />
-                <Text style={styles.stepBadgeText}>{t('onboarding.summary.stepBadge')}</Text>
+                <AwaText colorRole="onPrimaryContainer" emphasized variant="labelSmall">{t('onboarding.summary.stepBadge')}</AwaText>
               </View>
 
-              <Text
-                style={[
-                  styles.title,
-                  isSmallScreen && styles.titleSmall,
-                ]}>
+              <AwaText
+                accessibilityRole="header"
+                style={styles.title}
+                variant={isSmallScreen ? 'headlineSmall' : 'headlineMedium'}>
                 {t('onboarding.summary.heroTitle')}
-              </Text>
+              </AwaText>
 
-              <Text
-                style={[
-                  styles.subtitle,
-                  isSmallScreen && styles.subtitleSmall,
-                ]}>
+              <AwaText
+                colorRole="onSurfaceVariant"
+                style={styles.subtitle}
+                variant="bodySmall">
                 {t('onboarding.summary.heroSubtitle')}
-              </Text>
+              </AwaText>
 
               <View style={styles.editTip}>
                 <MaterialDesignIcons
@@ -987,9 +974,9 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
                   name="gesture-tap"
                   size={17}
                 />
-                <Text style={styles.editTipText}>
+                <AwaText colorRole="primary" emphasized style={styles.editTipText} variant="labelSmall">
                   {t('onboarding.summary.editTip')}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -1003,18 +990,18 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
                 ]}
               />
             </View>
-          </View>
+          </AwaCard>
 
           <View style={styles.sectionHeader}>
-            <View>
-              <Text style={styles.sectionTitle}>{t('onboarding.summary.sectionTitle')}</Text>
-              <Text style={styles.sectionSubtitle}>
+            <View style={styles.sectionHeaderCopy}>
+              <AwaText accessibilityRole="header" variant="titleMedium">{t('onboarding.summary.sectionTitle')}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={styles.sectionSubtitle} variant="bodySmall">
                 {t('onboarding.summary.sectionSubtitle')}
-              </Text>
+              </AwaText>
             </View>
 
             <View style={styles.sectionCount}>
-              <Text style={styles.sectionCountText}>{rows.length}</Text>
+              <AwaText colorRole="onPrimaryContainer" emphasized variant="labelMedium">{rows.length}</AwaText>
             </View>
           </View>
 
@@ -1023,17 +1010,17 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
               const missing = row.value === notProvidedFem || row.value === notProvidedMasc;
 
               return (
-                <Pressable
+                <AwaCard
                   accessibilityHint={t('onboarding.summary.cardA11yHint')}
                   accessibilityLabel={`${row.label}, ${row.value}`}
-                  accessibilityRole="button"
                   key={row.label}
                   onPress={() => navigateToEdit(row.route)}
-                  style={({pressed}) => [
+                  padding="compact"
+                  style={[
                     styles.infoCard,
                     isSmallScreen && styles.infoCardSmall,
-                    pressed && styles.infoCardPressed,
-                  ]}>
+                  ]}
+                  variant="filled">
                   <View
                     style={[
                       styles.iconWrap,
@@ -1047,20 +1034,21 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
                   </View>
 
                   <View style={styles.infoCopy}>
-                    <Text
-                      numberOfLines={1}
-                      style={styles.label}>
+                    <AwaText
+                      colorRole="onSurfaceVariant"
+                      variant="labelMedium">
                       {row.label}
-                    </Text>
+                    </AwaText>
 
-                    <Text
-                      numberOfLines={2}
+                    <AwaText
+                      emphasized
                       style={[
                         styles.value,
                         missing && styles.valueMissing,
-                      ]}>
+                      ]}
+                      variant="bodyMedium">
                       {row.value}
-                    </Text>
+                    </AwaText>
                   </View>
 
                   <View style={styles.editIcon}>
@@ -1070,49 +1058,35 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
                       size={16}
                     />
                   </View>
-                </Pressable>
+                </AwaCard>
               );
             })}
           </View>
 
-          <View style={styles.reassuranceCard}>
-            <View style={styles.reassuranceIcon}>
-              <MaterialDesignIcons
-                color={theme.colors.primary}
-                name="shield-check-outline"
-                size={23}
-              />
-            </View>
+          <AwaCard padding="compact" style={styles.reassuranceCard} variant="filled">
+            <MaterialDesignIcons
+              color={theme.colors.primary}
+              name="shield-check-outline"
+              size={23}
+            />
 
             <View style={styles.reassuranceCopy}>
-              <Text style={styles.reassuranceTitle}>
+              <AwaText variant="titleSmall">
                 {t('onboarding.summary.reassuranceTitle')}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.reassuranceText}>
+              <AwaText colorRole="onSurfaceVariant" style={styles.reassuranceText} variant="bodySmall">
                 {t('onboarding.summary.reassuranceText')}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
+            label={t('onboarding.summary.start')}
             onPress={() => navigation.navigate('Auth')}
-            style={({pressed}) => [
-              styles.startButton,
-              isSmallScreen && styles.startButtonSmall,
-              pressed && styles.pressed,
-            ]}>
-            <Text style={styles.startText}>{t('onboarding.summary.start')}</Text>
-
-            <View style={styles.startIcon}>
-              <MaterialDesignIcons
-                color={theme.colors.primary}
-                name="arrow-right"
-                size={20}
-              />
-            </View>
-          </Pressable>
+            size="large"
+            style={styles.startButton}
+          />
         </ScrollView>
       </SafeAreaView>
     </LinearGradient>
@@ -1126,40 +1100,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.background,
   },
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
 
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
 
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.secondary, 0.045),
-  },
 
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.shadow.shadowColor, 0.05),
-  },
 
   safeArea: {
     flex: 1,
@@ -1182,38 +1125,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     minHeight: 190,
     overflow: 'hidden',
     flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 28,
-    backgroundColor: withAlpha(theme.colors.surface, 0.88),
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.08,
-    shadowRadius: 14,
-    elevation: 3,
-  },
-
-  heroGlowOne: {
-    position: 'absolute',
-    top: -62,
-    right: -38,
-    width: 180,
-    height: 180,
-    borderRadius: 90,
-    backgroundColor: withAlpha(theme.colors.primary, 0.12),
-  },
-
-  heroGlowTwo: {
-    position: 'absolute',
-    right: 90,
-    bottom: -72,
-    width: 170,
-    height: 170,
-    borderRadius: 85,
-    backgroundColor: withAlpha(theme.colors.surface, 0.55),
   },
 
   heroCopy: {
@@ -1226,45 +1137,18 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   stepBadge: {
     alignSelf: 'flex-start',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
     paddingHorizontal: 10,
     paddingVertical: 6,
   },
 
-  stepBadgeText: {
-    color: theme.colors.primary,
-    fontSize: 9.5,
-    fontWeight: '800',
-  },
-
   title: {
     marginTop: 12,
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 30,
-    lineHeight: 35,
-    fontWeight: '800',
-  },
-
-  titleSmall: {
-    fontSize: 25,
-    lineHeight: 30,
   },
 
   subtitle: {
-    marginTop: 7,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 17,
-  },
-
-  subtitleSmall: {
-    fontSize: 10.8,
-    lineHeight: 15,
+    marginTop: 8,
   },
 
   editTip: {
@@ -1272,13 +1156,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    marginTop: 13,
+    marginTop: 12,
   },
 
   editTipText: {
-    color: theme.colors.primary,
-    fontSize: 9,
-    fontWeight: '700',
+    flexShrink: 1,
   },
 
   heroArt: {
@@ -1307,36 +1189,27 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 18,
-    marginBottom: 10,
-    paddingHorizontal: 3,
+    marginTop: 16,
+    marginBottom: 12,
+    paddingHorizontal: 4,
   },
 
-  sectionTitle: {
-    color: theme.colors.text,
-    fontSize: 16,
-    fontWeight: '800',
+  sectionHeaderCopy: {
+    flex: 1,
+    paddingRight: 12,
   },
 
   sectionSubtitle: {
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
+    marginTop: 4,
   },
 
   sectionCount: {
-    width: 30,
-    height: 30,
+    minWidth: 32,
+    minHeight: 32,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
-  },
-
-  sectionCountText: {
-    color: theme.colors.primary,
-    fontSize: 11,
-    fontWeight: '800',
   },
 
   grid: {
@@ -1349,30 +1222,10 @@ function createStyles(theme: ResolvedAwaTheme) {
   infoCard: {
     width: '48.7%',
     minHeight: 126,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 20,
-    backgroundColor: withAlpha(theme.colors.surface, 0.92),
-    padding: 12,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 1,
   },
 
   infoCardSmall: {
     minHeight: 120,
-    padding: 10,
-  },
-
-  infoCardPressed: {
-    opacity: 0.84,
-    transform: [{scale: 0.985}],
-    backgroundColor: theme.colors.primarySoft,
   },
 
   // Per-row category-identity accent backgrounds — fixed decorative tints
@@ -1407,18 +1260,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginTop: 12,
   },
 
-  label: {
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    fontWeight: '600',
-  },
-
   value: {
     marginTop: 4,
-    color: theme.colors.text,
-    fontSize: 11.5,
-    lineHeight: 15,
-    fontWeight: '800',
   },
 
   valueMissing: {
@@ -1434,97 +1277,28 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 28,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 9,
-    backgroundColor: theme.colors.primarySoft,
   },
 
   reassuranceCard: {
-    minHeight: 68,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
     marginTop: 12,
-    borderRadius: 18,
-    backgroundColor: withAlpha(theme.colors.primarySoft, 0.92),
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-  },
-
-  reassuranceIcon: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 13,
-    backgroundColor: theme.colors.surface,
   },
 
   reassuranceCopy: {
     flex: 1,
   },
 
-  reassuranceTitle: {
-    color: theme.colors.text,
-    fontSize: 11,
-    fontWeight: '800',
-  },
-
   reassuranceText: {
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 9,
-    lineHeight: 13,
+    marginTop: 4,
   },
 
   startButton: {
-    position: 'relative',
     width: '86%',
     maxWidth: 360,
-    minHeight: 54,
     alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 14,
-    paddingHorizontal: 54,
-    borderRadius: 19,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.24,
-    shadowRadius: 10,
-    elevation: 5,
-  },
-
-  startButtonSmall: {
-    width: '90%',
-    minHeight: 50,
-    paddingHorizontal: 50,
-  },
-
-  startText: {
-    color: onPrimaryTextColor(theme),
-    fontSize: 17,
-    fontWeight: '800',
-    textAlign: 'center',
-  },
-
-  startIcon: {
-    position: 'absolute',
-    right: 12,
-    width: 32,
-    height: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 11,
-    backgroundColor: theme.colors.surface,
-  },
-
-  pressed: {
-    opacity: 0.84,
-    transform: [{scale: 0.99}],
+    marginTop: 16,
   },
   });
 }

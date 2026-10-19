@@ -161,9 +161,11 @@ describe('E10 — per-option decorative icon-tint palettes survive verbatim', ()
     }
   });
 
-  it('ObjectiveScreen keeps its own per-objective decorative tints', () => {
+  it('ObjectiveScreen draws one outlined theme-coloured icon per objective (no emoji, no fixed pastel tints)', () => {
     const source = fs.readFileSync(path.resolve(__dirname, '../ObjectiveScreen.tsx'), 'utf8');
-    expect(source).toMatch(/tint:\s*['"]#[0-9A-Fa-f]{6}['"]/);
+    expect(source).not.toMatch(/tint:\s*['"]#[0-9A-Fa-f]{6}['"]/);
+    expect(source).not.toMatch(/icon:\s*'[^'\w-]/); // no emoji icon strings
+    expect(source).toContain('ObjectiveIcon'); // the shared outlined icon (also used by the Profile objective sheet)
   });
 });
 
@@ -207,6 +209,20 @@ describe('ObjectiveScreen — resolved global theme', () => {
     });
 
     expect(firstBackgroundColor(renderer)).not.toBe(before);
+  });
+
+  it('lists the eight objectives with their outlined icons, coloured from the theme', async () => {
+    const renderer = await renderScreen(() => <ObjectiveScreen navigation={{} as any} route={{params: undefined} as any} />);
+    const names = ['calendar-month-outline', 'dna', 'plus-circle-outline', 'chart-line-variant', 'face-woman-shimmer-outline', 'human-pregnant', 'human-female-girl', 'sprout-outline'];
+    const icons = names.map(name => renderer.root.findAll(node => node.props.name === name && node.props.size === 26)[0]);
+    icons.forEach(icon => expect(icon).toBeDefined());
+    const before = icons[0].props.color as string;
+
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+    const after = renderer.root.findAll(node => node.props.name === names[0] && node.props.size === 26)[0].props.color as string;
+    expect(after).not.toBe(before); // the icon colour follows the resolved theme
   });
 
   it('True Black is inherited from the Provider without any local handling', async () => {

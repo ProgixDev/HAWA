@@ -1,8 +1,9 @@
 import React, {useMemo} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {AwaText} from '../ui/AwaText';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 // Shared selectable option card for the single-choice onboarding steps
@@ -68,8 +69,8 @@ function PremiumChoiceCard({
         </View>
 
         <View style={styles.copy}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.subtitle}>{subtitle}</Text>
+          <AwaText style={styles.title} variant="titleSmall">{title}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodySmall">{subtitle}</AwaText>
         </View>
 
         {isCheckbox ? (
@@ -94,15 +95,10 @@ function createStyles(theme: ResolvedAwaTheme) {
       minHeight: 74,
       borderWidth: 1.4,
       borderColor: theme.colors.border,
-      borderRadius: 18,
+      borderRadius: 12,
       backgroundColor: theme.colors.surface,
-      paddingHorizontal: 13,
+      paddingHorizontal: 16,
       paddingVertical: 12,
-      elevation: 3,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 4},
-      shadowOpacity: 0.07,
-      shadowRadius: 9,
     },
     cardSelected: {
       borderColor: theme.colors.primary,
@@ -115,11 +111,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexShrink: 0,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 15,
+      borderRadius: 16,
     },
     copy: {flex: 1, minWidth: 0, marginHorizontal: 12},
-    title: {color: theme.colors.text, fontSize: 14.5, fontWeight: '700', lineHeight: 19},
-    subtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+    title: {},
+    subtitle: {marginTop: 2},
     radio: {
       width: 22,
       height: 22,

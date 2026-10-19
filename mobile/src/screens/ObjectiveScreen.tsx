@@ -4,7 +4,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -17,28 +16,27 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
 import {setSelectedObjective, type ObjectiveId} from '../state/onboardingPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaText} from '../components/ui/AwaText';
+import {ObjectiveIcon} from '../components/onboarding/ObjectiveIcon';
 
 type Objective = {
   id: ObjectiveId;
-  icon: string;
   labelKey: string;
-  tint: string;
 };
 
-// Per-option decorative icon-tint palette — each objective keeps its own
-// fixed pastel identity color (category accents, not a theme-structural
-// color) and is deliberately left untouched by the theme migration.
+// The icon of each objective comes from the shared ObjectiveIcon (also used by the Profile's "Changer mon objectif" sheet).
 const objectives: Objective[] = [
-  {id: 'cycle', icon: '🗓️', labelKey: 'objectives.cycle', tint: '#E7F0E8'},
-  {id: 'conceive', icon: '💗', labelKey: 'objectives.conceive', tint: '#FBE8E8'},
-  {id: 'contraception', icon: '💊', labelKey: 'objectives.contraception', tint: '#F1E8F5'},
-  {id: 'irregular', icon: '🪷', labelKey: 'objectives.irregular', tint: '#FBE9E7'},
-  {id: 'menopause', icon: '👤', labelKey: 'objectiveScreen.menopauseLabel', tint: '#EFE7F4'},
-  {id: 'pregnancy', icon: '🤰', labelKey: 'objectives.pregnancy', tint: '#FBE9EB'},
-  {id: 'postpartum', icon: '🍼', labelKey: 'objectiveScreen.postpartumLabel', tint: '#E8F1E9'},
-  {id: 'loss', icon: '☁️', labelKey: 'objectives.loss', tint: '#EDF2E9'},
+  {id: 'cycle', labelKey: 'objectives.cycle'},
+  {id: 'conceive', labelKey: 'objectives.conceive'},
+  {id: 'contraception', labelKey: 'objectives.contraception'},
+  {id: 'irregular', labelKey: 'objectives.irregular'},
+  {id: 'menopause', labelKey: 'objectiveScreen.menopauseLabel'},
+  {id: 'pregnancy', labelKey: 'objectives.pregnancy'},
+  {id: 'postpartum', labelKey: 'objectiveScreen.postpartumLabel'},
+  {id: 'loss', labelKey: 'objectives.loss'},
 ];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Objective'>;
@@ -68,11 +66,6 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar
@@ -82,7 +75,9 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
           translucent
         />
         <ScrollView contentContainerStyle={[styles.content, {paddingTop: getTopPadding(insets.top), paddingBottom: Math.max(insets.bottom, 16) + spacing.sm}]} showsVerticalScrollIndicator={false}>
-          <Text style={styles.title}>{t('objectiveScreen.title')}</Text>
+          <AwaText accessibilityRole="header" style={styles.title} variant="headlineMedium">
+            {t('objectiveScreen.title')}
+          </AwaText>
 
           <View style={styles.list}>
             {objectives.map(objective => {
@@ -102,24 +97,22 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
                   <View style={[styles.radio, selected && styles.radioSelected]}>
                     {selected && <View style={styles.radioDot} />}
                   </View>
-                  <View style={[styles.iconBox, {backgroundColor: objective.tint}]}>
-                    <Text style={styles.icon}>{objective.icon}</Text>
-                  </View>
-                  <Text style={styles.optionLabel}>{t(objective.labelKey)}</Text>
+                  <ObjectiveIcon objective={objective.id} selected={selected} style={styles.icon} />
+                  <AwaText style={styles.optionLabel} variant="titleMedium">
+                    {t(objective.labelKey)}
+                  </AwaText>
                 </Pressable>
               );
             })}
           </View>
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
+            fullWidth
+            label={t('objectiveScreen.next')}
             onPress={handleNext}
-            style={({pressed}) => [
-              styles.nextButton,
-              pressed && styles.nextButtonPressed,
-            ]}>
-            <Text style={styles.nextButtonText}>{t('objectiveScreen.next')}</Text>
-          </Pressable>
+            size="large"
+            style={styles.nextButton}
+          />
         </ScrollView>
       </View>
     </LinearGradient>
@@ -130,40 +123,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     background: {flex: 1, backgroundColor: theme.colors.background},
 
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
 
-    pageGlowTop: {
-      position: 'absolute',
-      top: -150,
-      right: -110,
-      width: 330,
-      height: 330,
-      borderRadius: 165,
-      backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
 
-    pageGlowMiddle: {
-      position: 'absolute',
-      top: '38%',
-      left: -130,
-      width: 260,
-      height: 260,
-      borderRadius: 130,
-      backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
 
-    pageGlowBottom: {
-      position: 'absolute',
-      bottom: -150,
-      right: -100,
-      width: 310,
-      height: 310,
-      borderRadius: 155,
-      backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
 
     safeArea: {flex: 1},
     content: {
@@ -174,11 +136,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     title: {
       marginBottom: spacing.lg,
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 29,
-      fontWeight: '700',
-      lineHeight: 36,
       textAlign: 'center',
     },
     list: {gap: 7},
@@ -188,15 +145,18 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       borderWidth: 1,
       borderColor: theme.colors.border,
-      borderRadius: 18,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.88),
-      paddingHorizontal: 12,
+      paddingHorizontal: 16,
+      // DESIGN.md: a long label (DE/TR/RU) that wraps to two lines must never touch the card edge.
+      paddingVertical: 12,
     },
     optionSelected: {borderColor: theme.colors.primary, backgroundColor: withAlpha(theme.colors.primarySoft, 0.96)},
     optionPressed: {opacity: 0.78},
     radio: {
       width: 20,
       height: 20,
+      flexShrink: 0,
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 2,
@@ -210,41 +170,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderRadius: 5,
       backgroundColor: theme.colors.primary,
     },
-    iconBox: {
-      width: 38,
-      height: 38,
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginHorizontal: 12,
-      borderRadius: 12,
-    },
-    icon: {fontSize: 21},
-    optionLabel: {
-      flex: 1,
-      color: theme.colors.text,
-      fontSize: 15,
-      fontWeight: '500',
-      lineHeight: 19,
-    },
-    nextButton: {
-      minHeight: 50,
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginTop: spacing.md,
-      borderRadius: 19,
-      backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 5},
-      shadowOpacity: 0.25,
-      shadowRadius: 9,
-      elevation: 5,
-    },
-    nextButtonPressed: {opacity: 0.86, transform: [{scale: 0.99}]},
-    nextButtonText: {
-      color: onPrimaryTextColor(theme),
-      fontSize: 18,
-      fontWeight: '600',
-    },
+    icon: {marginHorizontal: 12},
+    optionLabel: {flex: 1},
+    nextButton: {marginTop: spacing.md},
   });
 }
 

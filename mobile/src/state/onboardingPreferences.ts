@@ -320,8 +320,10 @@ export const getSelectedObjective = getActiveObjective;
    `hasConfirmedSpiritualMarkersChoice`/`hasConfirmedCycleData` (each of
    those only proves ONE narrow sub-answer was made deliberately, never that
    the whole journey was completed). THE only legitimate place to call
-   setHasCompletedOnboarding(true) is AnonymousAvatarCustomizerScreen.tsx's
-   `enterApp()` — the single real convergence point every onboarding path
+   setHasCompletedOnboarding(true) is AnonymousModeSuccessScreen.tsx's
+   `finish()` for a fresh setup from AuthScreen (it replaced
+   AnonymousAvatarCustomizerScreen.tsx's `enterApp()` when anonymous mode lost
+   its avatar step) — the single real convergence point every onboarding path
    reaches today (Auth/Registration cannot complete it themselves: no
    backend account/session exists yet, see CLAUDE.md). If a real backend
    registration/login path is added later, its own successful-completion

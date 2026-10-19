@@ -4,7 +4,10 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {AwaText} from '../ui/AwaText';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import type {AwaRoles} from '../../theme/semanticRoles';
+import {useAwaTokens} from '../../theme/useAwaTokens';
 import {capitalize, dateFormatLocale} from '../../utils/cycleMath';
 import {displayUpperCase} from '../../utils/textCase';
 
@@ -53,7 +56,8 @@ type Props = {
 function BirthDatePickerModal({visible, value, onClose, onSelect, title, maximumDate, minimumDate}: Props): React.JSX.Element {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
+  const {roles} = useAwaTokens();
+  const styles = useMemo(() => createStyles(theme, roles), [theme, roles]);
   const MONTHS = monthNames();
   const today = maximumDate ?? new Date();
   const minYear = minimumDate ? minimumDate.getFullYear() : today.getFullYear() - DEFAULT_YEAR_SPAN;
@@ -115,14 +119,14 @@ function BirthDatePickerModal({visible, value, onClose, onSelect, title, maximum
     <Modal animationType="fade" onRequestClose={onClose} transparent visible={visible}>
       <Pressable onPress={onClose} style={styles.modalBackdrop}>
         <Pressable onPress={() => {}} style={styles.card}>
-          {title ? <Text style={styles.title}>{title}</Text> : null}
+          {title ? <AwaText accessibilityRole="header" style={styles.title} variant="titleLarge">{title}</AwaText> : null}
 
           {stage !== 'year' ? (
             <View style={styles.breadcrumb}>
               <Pressable
                 accessibilityLabel={t('birthDatePicker.backToYearA11y', {year})}
                 accessibilityRole="button"
-                hitSlop={6}
+                hitSlop={8}
                 onPress={() => setStage('year')}
                 style={({pressed}) => [styles.breadcrumbChip, pressed && styles.pressed]}>
                 <Text style={styles.breadcrumbText}>{year}</Text>
@@ -133,7 +137,7 @@ function BirthDatePickerModal({visible, value, onClose, onSelect, title, maximum
                   <Pressable
                     accessibilityLabel={t('birthDatePicker.backToMonthA11y', {month: MONTHS[month]})}
                     accessibilityRole="button"
-                    hitSlop={6}
+                    hitSlop={8}
                     onPress={() => setStage('month')}
                     style={({pressed}) => [styles.breadcrumbChip, pressed && styles.pressed]}>
                     <Text style={styles.breadcrumbText}>{MONTHS[month]}</Text>
@@ -143,7 +147,7 @@ function BirthDatePickerModal({visible, value, onClose, onSelect, title, maximum
             </View>
           ) : null}
 
-          <Text style={styles.stageTitle}>{displayUpperCase(stageTitle)}</Text>
+          <AwaText colorRole="onSurfaceVariant" emphasized style={styles.stageTitle} variant="labelLarge">{displayUpperCase(stageTitle)}</AwaText>
 
           {stage === 'year' ? (
             <FlatList
@@ -232,34 +236,35 @@ function BirthDatePickerModal({visible, value, onClose, onSelect, title, maximum
   );
 }
 
-function createStyles(theme: ResolvedAwaTheme) {
+function createStyles(theme: ResolvedAwaTheme, roles: AwaRoles) {
   return StyleSheet.create({
     modalBackdrop: {flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: withAlpha(theme.shadow.shadowColor, 0.40), paddingHorizontal: 24},
-    card: {width: '100%', maxWidth: 380, maxHeight: '80%', borderRadius: 22, backgroundColor: theme.colors.surface, padding: 16, elevation: 12},
-    title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 18, fontWeight: '700', textAlign: 'center'},
+    card: {width: '100%', maxWidth: 380, maxHeight: '80%', borderRadius: 12, backgroundColor: theme.colors.surface, padding: 16, elevation: 12},
+    title: {textAlign: 'center'},
     breadcrumb: {flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 12},
     breadcrumbChip: {borderRadius: 999, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 12, paddingVertical: 6},
-    breadcrumbText: {color: theme.colors.primary, fontSize: 13, fontWeight: '700'},
-    stageTitle: {marginTop: 14, marginBottom: 10, color: theme.colors.textSecondary, fontSize: 13, fontWeight: '700', textAlign: 'center', textTransform: 'uppercase', letterSpacing: 0.4},
+    // DESIGN.md: text on a primaryContainer fill uses onPrimaryContainer.
+    breadcrumbText: {color: roles.onPrimaryContainer, fontSize: 13, fontWeight: '700'},
+    stageTitle: {marginTop: 14, marginBottom: 10, textAlign: 'center', textTransform: 'uppercase', letterSpacing: 0.4},
     yearList: {maxHeight: 280},
     yearRow: {
       height: YEAR_ROW_HEIGHT,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      borderRadius: 14,
+      borderRadius: 12,
       paddingHorizontal: 14,
     },
     yearRowSelected: {backgroundColor: theme.colors.primarySoft},
     yearRowText: {color: theme.colors.text, fontSize: 16, fontWeight: '600'},
-    yearRowTextSelected: {color: theme.colors.primary, fontWeight: '800'},
+    yearRowTextSelected: {color: roles.onPrimaryContainer, fontWeight: '800'},
     monthGrid: {flexDirection: 'row', flexWrap: 'wrap', gap: 8, justifyContent: 'space-between'},
     monthCell: {
       width: '31%',
-      minHeight: 46,
+      minHeight: 48,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 14,
+      borderRadius: 12,
       borderWidth: 1.2,
       borderColor: theme.colors.border,
       backgroundColor: theme.colors.background,
@@ -268,11 +273,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     monthCellSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
     monthCellDisabled: {opacity: 0.35},
     monthCellText: {color: theme.colors.text, fontSize: 12.5, fontWeight: '600', textAlign: 'center'},
-    monthCellTextSelected: {color: theme.colors.primary, fontWeight: '800'},
+    monthCellTextSelected: {color: roles.onPrimaryContainer, fontWeight: '800'},
     monthCellTextDisabled: {color: theme.colors.textMuted},
-    dayGrid: {flexDirection: 'row', flexWrap: 'wrap', gap: 6, justifyContent: 'flex-start'},
+    dayGrid: {flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start'},
     dayCell: {
-      width: '12.5%',
+      width: '14.2857%',
       aspectRatio: 1,
       alignItems: 'center',
       justifyContent: 'center',

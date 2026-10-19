@@ -160,28 +160,29 @@ describe('Name N1 — the new form keys', () => {
   });
 
   it.each(LANGUAGES.map(([code, dictionary]) => [code, dictionary] as const))(
-    '%s: the field label is shown once; the placeholder is a different string (no repeated label)',
+    '%s: no visible field label above the input (it was redundant); the input keeps its placeholder and accessible name',
     async (code, dictionary) => {
       await setAppLanguage(code);
       await i18n.changeLanguage(code);
       const {renderer} = await renderWithAwaTheme(wrap(nameScreen()));
       const label = dig(dictionary, 'onboarding.name.cardTitle');
-      const placeholder = renderer.root.findByType(TextInput).props.placeholder as string;
-      expect(placeholder).toBe(dig(dictionary, 'onboarding.name.formPlaceholder'));
-      expect(placeholder.trim().toLowerCase()).not.toBe(label.trim().toLowerCase());
-      expect(renderer.root.findAllByType(Text).map(joinedText).filter(text => text === label)).toHaveLength(1);
+      const input = renderer.root.findByType(TextInput);
+      expect(input.props.placeholder).toBe(dig(dictionary, 'onboarding.name.formPlaceholder'));
+      expect(input.props.accessibilityLabel).toBe(dig(dictionary, 'onboarding.name.inputLabel'));
+      expect(renderer.root.findAllByType(Text).map(joinedText).filter(text => text === label)).toHaveLength(0);
     },
   );
 
-  it('shows the simplified form in French: the short subtitle, the field label, the helper line and the button', async () => {
+  it('shows the simplified form in French: the title, the short subtitle, the helper line and the button (no field label)', async () => {
     await setAppLanguage('fr');
     await i18n.changeLanguage('fr');
     const {renderer} = await renderWithAwaTheme(wrap(nameScreen()));
     const texts = renderer.root.findAllByType(Text).map(joinedText);
     // The strings come from the dictionary on purpose: the copy is edited by the product owner, and the structure
     // (which key goes where) is what this test pins.
-    [fr.onboarding.name.eyebrow, fr.onboarding.name.title, fr.onboarding.name.formSubtitle, fr.onboarding.name.cardTitle,
+    [fr.onboarding.name.eyebrow, fr.onboarding.name.title, fr.onboarding.name.formSubtitle,
       fr.onboarding.name.formFooter, fr.onboarding.name.next].forEach(copy => expect(texts).toContain(copy));
+    expect(texts).not.toContain(fr.onboarding.name.cardTitle);
   });
 });
 
@@ -210,12 +211,11 @@ describe('Typography (Option A) on the real screens, Android', () => {
     return flattenStyle(node.props.style).fontWeight;
   };
 
-  it('Name: emphasized roles render at 700, the title and both labels at 700, the input and body at 400 / 500', async () => {
+  it('Name: emphasized roles render at 700, the title and the button label at 700, the input and body at 400 / 500', async () => {
     const replaced = jest.replaceProperty(Platform, 'OS', 'android');
     try {
       const {renderer} = await renderWithAwaTheme(wrap(nameScreen()));
       expect(weightOf(renderer as never, en.onboarding.name.eyebrow)).toBe('700'); // labelSmall emphasized (600 -> 700)
-      expect(weightOf(renderer as never, en.onboarding.name.cardTitle)).toBe('700'); // titleSmall emphasized
       expect(weightOf(renderer as never, en.onboarding.name.title)).toBe('700'); // explicit 700 on headlineMedium
       expect(weightOf(renderer as never, en.onboarding.name.formSubtitle)).toBe('400'); // bodyMedium regular
       expect(weightOf(renderer as never, en.onboarding.name.next)).toBe(AWA_PRIMARY_ACTION_LABEL.fontWeight);
