@@ -1,7 +1,7 @@
 import {rollSelectedDate} from '../utils/dayRollover';
 import {useToday} from '../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Image, Pressable, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {Image, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -10,7 +10,11 @@ import Animated, {FadeIn, FadeInUp, useAnimatedStyle, useSharedValue, withTiming
 import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {homeRadii} from '../components/home/homeTheme';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaInfoRow} from '../components/ui/AwaInfoRow';
+import {AwaText} from '../components/ui/AwaText';
 import HijriMonthGrid from '../components/hijri/HijriMonthGrid';
 import {
   capitalize,
@@ -30,7 +34,7 @@ import {
 } from '../utils/hijriCalendar';
 import {getBottomPadding, getTopPadding} from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {displayUpperCase} from '../utils/textCase';
 
 const MOSQUE_BANNER = require('../assets/images/auth-mosque-background.png');
@@ -38,24 +42,15 @@ const MOSQUE_BANNER_RATIO = 848 / 1854;
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
+// DESIGN.md: a navigation row with a chevron is an AwaInfoRow; the negative margin cancels the card padding so the
+// row's own 16 dp inset and divider line up with the card edges.
 function ShortcutRow({
-  icon, label, onPress, last, theme, styles,
+  icon, label, onPress, last, styles,
 }: {
   icon: IconName; label: string; onPress: () => void; last?: boolean;
-  theme: ResolvedAwaTheme; styles: ReturnType<typeof createStyles>;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
-  return (
-    <Pressable
-      accessibilityRole="button"
-      onPress={onPress}
-      style={({pressed}) => [styles.shortcutRow, !last && styles.shortcutRowBorder, pressed && styles.pressed]}>
-      <View style={styles.shortcutIcon}>
-        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={17} />
-      </View>
-      <Text style={styles.shortcutLabel}>{label}</Text>
-      <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={18} />
-    </Pressable>
-  );
+  return <AwaInfoRow icon={icon} last={last} onPress={onPress} style={styles.shortcutRow} title={label} />;
 }
 
 function HijriCalendarScreen(): React.JSX.Element {
@@ -174,36 +169,31 @@ function HijriCalendarScreen(): React.JSX.Element {
         ]}
         showsVerticalScrollIndicator={false}>
         <Animated.View entering={FadeIn.duration(380)} style={styles.header}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
-            hitSlop={10}
+            icon="chevron-left"
+            iconSize={26}
             onPress={navigation.goBack}
-            style={({pressed}) => [styles.headerButton, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={26} />
-          </Pressable>
+          />
           <View style={styles.headerTitleRow}>
-            <MaterialDesignIcons color={theme.colors.primary} name="moon-waning-crescent" size={16} />
-            <Text adjustsFontSizeToFit minimumFontScale={0.85} numberOfLines={1} style={styles.headerTitle}>
+            <AwaText variant="headlineSmall" style={styles.headerTitle}>
               {t('hijriCalendar.title')}
-            </Text>
+            </AwaText>
           </View>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('hijriCalendar.todayAccessibility')}
-            accessibilityRole="button"
-            hitSlop={10}
+            icon="calendar-today"
             onPress={goToToday}
-            style={({pressed}) => [styles.headerButton, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="calendar-today" size={20} />
-          </Pressable>
+          />
         </Animated.View>
 
-        <Animated.View entering={FadeInUp.delay(60).duration(450)} style={styles.heroCard}>
-          <MaterialDesignIcons color={theme.colors.primary} name="mosque" size={128} style={styles.heroWatermark} />
-          <Text style={styles.heroEyebrow}>{displayUpperCase(t('hijriCalendar.today'))}</Text>
-          <Text style={styles.heroDay}>{todayHijriDay}</Text>
-          <Text style={styles.heroMonth}>{todayHijriMonthYear}</Text>
-          <Text style={styles.heroGregorian}>{todayWeekdayDate}</Text>
+        <Animated.View entering={FadeInUp.delay(60).duration(450)}>
+          <AwaCard style={styles.heroCard} variant="filled">
+            <AwaText colorRole="onSurfaceVariant" emphasized variant="labelMedium" style={styles.heroEyebrow}>{displayUpperCase(t('hijriCalendar.today'))}</AwaText>
+            <AwaText variant="displaySmall" style={styles.heroDay}>{todayHijriDay}</AwaText>
+            <AwaText colorRole="primary" variant="titleMedium" style={styles.heroMonth}>{todayHijriMonthYear}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.heroGregorian}>{todayWeekdayDate}</AwaText>
+          </AwaCard>
         </Animated.View>
 
         <Animated.View entering={FadeInUp.delay(120).duration(420)}>
@@ -221,79 +211,69 @@ function HijriCalendarScreen(): React.JSX.Element {
         </Animated.View>
 
         <Animated.View entering={FadeInUp.delay(180).duration(420)}>
-          <Animated.View style={[styles.selectedCard, selectedAnimatedStyle]}>
-            <Text style={styles.selectedLabel}>{displayUpperCase(t('hijriCalendar.selectedDateLabel'))}</Text>
-            <View style={styles.selectedRow}>
-              <View style={styles.selectedCopy}>
-                <Text style={styles.selectedHijri}>{selectedHijriDate}</Text>
-                <Text style={styles.selectedGregorian}>{selectedWeekdayDate}</Text>
-              </View>
-              {selectedIsToday ? (
-                <View style={styles.todayPill}>
-                  <Text style={styles.todayPillText}>{t('hijriCalendar.today')}</Text>
+          <Animated.View style={selectedAnimatedStyle}>
+            <AwaCard variant="outlined">
+              <AwaText colorRole="onSurfaceVariant" emphasized variant="labelSmall" style={styles.selectedLabel}>{displayUpperCase(t('hijriCalendar.selectedDateLabel'))}</AwaText>
+              <View style={styles.selectedRow}>
+                <View style={styles.selectedCopy}>
+                  <AwaText variant="titleMedium">{selectedHijriDate}</AwaText>
+                  <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.selectedGregorian}>{selectedWeekdayDate}</AwaText>
                 </View>
-              ) : null}
-            </View>
+                {selectedIsToday ? (
+                  <View style={styles.todayPill}>
+                    <AwaText colorRole="success" emphasized variant="labelSmall">{t('hijriCalendar.today')}</AwaText>
+                  </View>
+                ) : null}
+              </View>
+            </AwaCard>
           </Animated.View>
         </Animated.View>
 
-        <Animated.View
-          style={[
-            styles.monthRefCard,
-            ramadan && styles.monthRefCardRamadan,
-            monthRefAnimatedStyle,
-          ]}>
-          {ramadan ? (
-            <MaterialDesignIcons color={theme.colors.primary} name="moon-waning-crescent" size={96} style={styles.monthRefWatermark} />
-          ) : null}
+        <Animated.View style={monthRefAnimatedStyle}>
+          <AwaCard variant={ramadan ? 'filled' : 'outlined'}>
+            <AwaText colorRole="onSurfaceVariant" emphasized variant="labelSmall" style={styles.monthRefEyebrow}>{displayUpperCase(t('hijriCalendar.monthReferenceEyebrow'))}</AwaText>
 
-          <View style={styles.monthRefHeadingRow}>
-            <View style={styles.monthRefIcon}>
-              <MaterialDesignIcons color={theme.colors.primary} name="calendar-star" size={16} />
-            </View>
-            <Text style={styles.monthRefEyebrow}>{displayUpperCase(t('hijriCalendar.monthReferenceEyebrow'))}</Text>
-          </View>
+            {ramadan ? (
+              <View style={styles.monthPill}>
+                <AwaText colorRole="warning" emphasized variant="labelSmall">{t('hijriCalendar.ramadanPill')}</AwaText>
+              </View>
+            ) : null}
 
-          {ramadan ? (
-            <View style={styles.monthPill}>
-              <Text style={styles.monthPillText}>{t('hijriCalendar.ramadanPill')}</Text>
-            </View>
-          ) : null}
+            <AwaText variant="titleMedium" style={styles.monthRefTitle}>{monthLabel}</AwaText>
 
-          <Text style={styles.monthRefTitle}>{monthLabel}</Text>
-
-          {ramadan ? (
-            <>
-              <Text style={styles.monthRefText}>
-                {t('hijriCalendar.ramadanText')}
-              </Text>
-              <Pressable
-                accessibilityRole="button"
-                onPress={() => navigation.navigate('FastingQadaa')}
-                style={({pressed}) => [styles.monthRefButton, pressed && styles.pressed]}>
-                <Text style={styles.monthRefButtonText}>{t('hijriCalendar.ramadanButton')}</Text>
-              </Pressable>
-            </>
-          ) : dhoulHijja ? (
-            <>
-              <Text style={styles.monthRefText}>{t('hijriCalendar.dhoulHijjaText')}</Text>
-              <Pressable
-                accessibilityRole="button"
-                onPress={() => navigation.navigate('SpiritualPreferences', {mode: 'edit'})}
-                style={({pressed}) => [styles.monthRefButton, pressed && styles.pressed]}>
-                <Text style={styles.monthRefButtonText}>{t('hijriCalendar.dhoulHijjaButton')}</Text>
-              </Pressable>
-            </>
-          ) : (
-            <Text style={styles.monthRefText}>{t('hijriCalendar.noSpecialReference')}</Text>
-          )}
+            {ramadan ? (
+              <>
+                <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.monthRefText}>
+                  {t('hijriCalendar.ramadanText')}
+                </AwaText>
+                <AwaButton
+                  label={t('hijriCalendar.ramadanButton')}
+                  onPress={() => navigation.navigate('FastingQadaa')}
+                  style={styles.monthRefButton}
+                />
+              </>
+            ) : dhoulHijja ? (
+              <>
+                <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.monthRefText}>{t('hijriCalendar.dhoulHijjaText')}</AwaText>
+                <AwaButton
+                  label={t('hijriCalendar.dhoulHijjaButton')}
+                  onPress={() => navigation.navigate('SpiritualPreferences', {mode: 'edit'})}
+                  style={styles.monthRefButton}
+                />
+              </>
+            ) : (
+              <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.monthRefText}>{t('hijriCalendar.noSpecialReference')}</AwaText>
+            )}
+          </AwaCard>
         </Animated.View>
 
-        <Animated.View entering={FadeInUp.delay(300).duration(420)} style={styles.shortcutsCard}>
-          <Text style={styles.shortcutsTitle}>{t('hijriCalendar.shortcutsTitle')}</Text>
-          <ShortcutRow icon="mosque" label={t('hijriCalendar.shortcutPrayerTimes')} onPress={() => navigation.navigate('PrayerTimes')} styles={styles} theme={theme} />
-          <ShortcutRow icon="silverware-fork-knife" label={t('hijriCalendar.shortcutQadaa')} onPress={() => navigation.navigate('FastingQadaa')} styles={styles} theme={theme} />
-          <ShortcutRow icon="book-open-page-variant-outline" label={t('hijriCalendar.shortcutLibrary')} last onPress={() => navigation.navigate('Library')} styles={styles} theme={theme} />
+        <Animated.View entering={FadeInUp.delay(300).duration(420)}>
+          <AwaCard variant="outlined">
+          <AwaText variant="titleMedium">{t('hijriCalendar.shortcutsTitle')}</AwaText>
+          <ShortcutRow icon="mosque" label={t('hijriCalendar.shortcutPrayerTimes')} onPress={() => navigation.navigate('PrayerTimes')} styles={styles} />
+          <ShortcutRow icon="silverware-fork-knife" label={t('hijriCalendar.shortcutQadaa')} onPress={() => navigation.navigate('FastingQadaa')} styles={styles} />
+          <ShortcutRow icon="book-open-page-variant-outline" label={t('hijriCalendar.shortcutLibrary')} last onPress={() => navigation.navigate('Library')} styles={styles} />
+          </AwaCard>
         </Animated.View>
       </ScrollView>
     </View>
@@ -308,61 +288,31 @@ function createStyles(theme: ResolvedAwaTheme) {
     bannerFade: {...StyleSheet.absoluteFillObject},
     content: {paddingHorizontal: 16, gap: 14},
     header: {flexDirection: 'row', alignItems: 'center', gap: 8},
-    headerButton: {
-      width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21,
-      backgroundColor: theme.colors.surface, elevation: 2,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.09, shadowRadius: 8,
-    },
     headerTitleRow: {flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6},
-    headerTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 20, fontWeight: '700'},
-    pressed: {opacity: 0.8},
+    headerTitle: {color: theme.colors.text, textAlign: 'center'},
 
-    heroCard: {
-      overflow: 'hidden',
-      alignItems: 'center', borderRadius: homeRadii.card, backgroundColor: theme.colors.primarySoft,
-      paddingVertical: 22, paddingHorizontal: 20, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.10),
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 10}, shadowOpacity: 0.1, shadowRadius: 20, elevation: 4,
-    },
-    heroWatermark: {position: 'absolute', right: -26, bottom: -30, opacity: 0.09},
-    heroEyebrow: {color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '700', letterSpacing: 1.2, textTransform: 'uppercase'},
-    heroDay: {marginTop: 6, color: theme.colors.text, fontFamily: 'serif', fontSize: 46, fontWeight: '700', lineHeight: 52},
-    heroMonth: {marginTop: 2, color: theme.colors.primary, fontSize: 17, fontWeight: '700'},
-    heroGregorian: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 12.5},
+    heroCard: {alignItems: 'center', paddingVertical: 22, paddingHorizontal: 20},
+    heroEyebrow: {letterSpacing: 0.5, textTransform: 'uppercase'},
+    heroDay: {marginTop: 6},
+    heroMonth: {marginTop: 2},
+    heroGregorian: {marginTop: 8},
 
-    selectedCard: {borderRadius: homeRadii.card, backgroundColor: theme.colors.surface, padding: 16, ...theme.shadow},
-    selectedLabel: {color: theme.colors.textSecondary, fontSize: 11, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.6},
+    selectedLabel: {textTransform: 'uppercase', letterSpacing: 0.6},
     selectedRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 8, gap: 10},
     selectedCopy: {flex: 1},
-    selectedHijri: {color: theme.colors.text, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-    selectedGregorian: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 12.5},
-    todayPill: {borderRadius: 10, backgroundColor: withAlpha(theme.colors.success, 0.18), paddingHorizontal: 9, paddingVertical: 4},
-    todayPillText: {color: theme.colors.success, fontSize: 10.5, fontWeight: '700'},
+    selectedGregorian: {marginTop: 2},
+    todayPill: {borderRadius: 12, backgroundColor: withAlpha(theme.colors.success, 0.18), paddingHorizontal: 9, paddingVertical: 4},
 
-    monthRefCard: {overflow: 'hidden', borderRadius: homeRadii.card, backgroundColor: theme.colors.surface, padding: 16, ...theme.shadow},
-    monthRefCardRamadan: {backgroundColor: theme.colors.primarySoft},
-    monthRefWatermark: {position: 'absolute', right: -20, top: -18, opacity: 0.08},
-    monthRefHeadingRow: {flexDirection: 'row', alignItems: 'center', gap: 8},
-    monthRefIcon: {width: 26, height: 26, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primarySoft},
-    monthRefEyebrow: {color: theme.colors.textSecondary, fontSize: 11, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.6},
+    monthRefEyebrow: {textTransform: 'uppercase', letterSpacing: 0.6},
     monthPill: {
-      alignSelf: 'flex-start', marginTop: 10, borderRadius: 10,
+      alignSelf: 'flex-start', marginTop: 10, borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.warning, 0.15), paddingHorizontal: 9, paddingVertical: 3,
     },
-    monthPillText: {color: theme.colors.warning, fontSize: 10.5, fontWeight: '700'},
-    monthRefTitle: {marginTop: 6, color: theme.colors.text, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-    monthRefText: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
-    monthRefButton: {
-      alignSelf: 'flex-start', marginTop: 12, minHeight: 40, alignItems: 'center', justifyContent: 'center',
-      borderRadius: homeRadii.button, backgroundColor: theme.colors.primary, paddingHorizontal: 16,
-    },
-    monthRefButtonText: {color: onPrimaryTextColor(theme), fontSize: 12.5, fontWeight: '700'},
+    monthRefTitle: {marginTop: 6},
+    monthRefText: {marginTop: 8},
+    monthRefButton: {alignSelf: 'flex-start', marginTop: 12},
 
-    shortcutsCard: {borderRadius: homeRadii.card, backgroundColor: theme.colors.surface, padding: 16, ...theme.shadow},
-    shortcutsTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
-    shortcutRow: {flexDirection: 'row', alignItems: 'center', gap: 11, paddingVertical: 10, minHeight: 44},
-    shortcutRowBorder: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: theme.colors.border},
-    shortcutIcon: {width: 32, height: 32, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: theme.colors.primarySoft},
-    shortcutLabel: {flex: 1, color: theme.colors.text, fontSize: 13.5, fontWeight: '600'},
+    shortcutRow: {marginHorizontal: -16},
   });
 }
 

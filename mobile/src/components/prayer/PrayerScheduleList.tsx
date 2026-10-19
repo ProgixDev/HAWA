@@ -1,10 +1,11 @@
 import React, {memo, useMemo} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import Animated, {FadeInUp} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 
-import {homeRadii} from '../home/homeTheme';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale} from '../../utils/cycleMath';
@@ -26,12 +27,12 @@ function PrayerScheduleList({windows, timezone, highlightName}: Props): React.JS
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
-    <View style={styles.card}>
+    <AwaCard variant="outlined">
       <View style={styles.headingRow}>
-        <Text style={styles.title}>{t('prayerTimes.schedule.title')}</Text>
+        <AwaText variant="titleMedium" style={styles.title}>{t('prayerTimes.schedule.title')}</AwaText>
         <View style={styles.headingRight}>
           <MaterialDesignIcons color={theme.colors.textSecondary} name="clock-outline" size={13} />
-          <Text style={styles.headingRightText}>{t('prayerTimes.schedule.localTimes')}</Text>
+          <AwaText colorRole="onSurfaceVariant" variant="labelSmall">{t('prayerTimes.schedule.localTimes')}</AwaText>
         </View>
       </View>
 
@@ -50,36 +51,34 @@ function PrayerScheduleList({windows, timezone, highlightName}: Props): React.JS
 
             <View style={styles.rowBody}>
               <View style={styles.rowHeadLine}>
-                <Text style={[styles.name, active && styles.nameActive]}>{window.name}</Text>
-                <Text style={[styles.start, active && styles.nameActive]}>{formatTime(window.start, timezone)}</Text>
+                <AwaText colorRole={active ? 'onPrimaryContainer' : 'onSurface'} emphasized style={styles.name} variant="titleSmall">{window.name}</AwaText>
+                <AwaText colorRole={active ? 'onPrimaryContainer' : 'onSurface'} emphasized variant="titleMedium">{formatTime(window.start, timezone)}</AwaText>
               </View>
               {active ? (
                 <View style={styles.nextBadge}>
-                  <Text style={styles.nextBadgeText}>{t('spiritualGuidance.nextPrayerLabel')}</Text>
+                  <AwaText colorRole="primary" emphasized variant="labelSmall">{t('spiritualGuidance.nextPrayerLabel')}</AwaText>
                 </View>
               ) : (
-                <Text style={styles.endLabel}>{t('prayerTimes.nextPrayerEndCaption', {time: formatTime(window.end, timezone)})}</Text>
+                <AwaText colorRole="onSurfaceVariant" style={styles.endLabel} variant="bodySmall">{t('prayerTimes.nextPrayerEndCaption', {time: formatTime(window.end, timezone)})}</AwaText>
               )}
             </View>
           </Animated.View>
         );
       })}
 
-      <Text style={styles.footnote}>
+      <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.footnote}>
         {t('prayerTimes.schedule.footnote')}
-      </Text>
-    </View>
+      </AwaText>
+    </AwaCard>
   );
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    card: {borderRadius: homeRadii.card, backgroundColor: theme.colors.surface, padding: 16, ...theme.shadow},
     headingRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-    title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
+    title: {flexShrink: 1},
     headingRight: {flexDirection: 'row', alignItems: 'center', gap: 4},
-    headingRightText: {color: theme.colors.textSecondary, fontSize: 11},
-    row: {flexDirection: 'row', alignItems: 'stretch', borderRadius: 14, paddingHorizontal: 6},
+    row: {flexDirection: 'row', alignItems: 'stretch', borderRadius: 12, paddingHorizontal: 12},
     rowActive: {backgroundColor: theme.colors.primarySoft},
     timelineColumn: {width: 22, alignItems: 'center'},
     dot: {
@@ -98,17 +97,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     dotActive: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primary},
     timelineLine: {flex: 1, width: 2, marginTop: 2, marginBottom: 2, backgroundColor: theme.colors.border},
     rowBody: {flex: 1, paddingVertical: 12, paddingLeft: 8},
-    rowHeadLine: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-    name: {color: theme.colors.text, fontSize: 14.5, fontWeight: '700'},
-    nameActive: {color: theme.colors.primary},
-    start: {color: theme.colors.text, fontSize: 15.5, fontWeight: '700'},
-    endLabel: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11.5},
+    rowHeadLine: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8},
+    name: {flexShrink: 1},
+    endLabel: {marginTop: 2},
     nextBadge: {
-      alignSelf: 'flex-start', marginTop: 5, borderRadius: 10,
+      alignSelf: 'flex-start', marginTop: 5, borderRadius: 12,
       backgroundColor: theme.colors.surface, paddingHorizontal: 8, paddingVertical: 2,
     },
-    nextBadgeText: {color: theme.colors.primary, fontSize: 10.5, fontWeight: '700'},
-    footnote: {marginTop: 10, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 15, textAlign: 'center'},
+    footnote: {marginTop: 10, textAlign: 'center'},
   });
 }
 

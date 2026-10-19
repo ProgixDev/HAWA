@@ -14,9 +14,13 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 
-import {homeRadii} from '../home/homeTheme';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaIconButton} from '../ui/AwaIconButton';
+import {AwaText} from '../ui/AwaText';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {awaShapes} from '../../theme/shapes';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {
   addManualQadaaEntry,
   QADAA_MAX_DAYS_PER_ENTRY,
@@ -149,28 +153,30 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
   const stepTitle = (index: number, title: string) => (
     <View style={styles.stepHeader}>
       <View style={styles.stepBadge}>
-        <Text style={styles.stepBadgeText}>{index}</Text>
+        <AwaText colorRole="primary" emphasized variant="labelMedium">{index}</AwaText>
       </View>
-      <Text accessibilityRole="header" style={styles.stepTitle}>{title}</Text>
+      <AwaText accessibilityRole="header" variant="titleSmall" style={styles.stepTitle}>{title}</AwaText>
     </View>
   );
 
   const radioCard = (selected: boolean, title: string, subtitle: string, onPress: () => void) => (
-    <Pressable
-      accessibilityLabel={title}
+    <AwaCard
       accessibilityHint={subtitle}
+      accessibilityLabel={title}
       accessibilityRole="radio"
       accessibilityState={{selected}}
       onPress={onPress}
-      style={({pressed}) => [styles.radioCard, selected && styles.radioCardSelected, pressed && styles.pressed]}>
+      padding="none"
+      style={[styles.radioCard, selected && styles.radioCardSelected]}
+      variant="outlined">
       <View style={[styles.radioDot, selected && styles.radioDotSelected]}>
         {selected ? <View style={styles.radioDotInner} /> : null}
       </View>
       <View style={styles.radioCopy}>
-        <Text style={[styles.radioTitle, selected && styles.radioTitleSelected]}>{title}</Text>
-        <Text style={styles.radioSubtitle}>{subtitle}</Text>
+        <AwaText colorRole={selected ? 'onPrimaryContainer' : 'onSurface'} emphasized variant="titleSmall">{title}</AwaText>
+        <AwaText colorRole={selected ? 'onPrimaryContainer' : 'onSurfaceVariant'} variant="bodySmall" style={styles.radioSubtitle}>{subtitle}</AwaText>
       </View>
-    </Pressable>
+    </AwaCard>
   );
 
   const canDecrease = quantity !== null && quantity > 1;
@@ -187,12 +193,12 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
             style={styles.scroll}>
-            <Text accessibilityRole="header" style={styles.title}>
+            <AwaText accessibilityRole="header" variant="titleLarge">
               {editing ? t('qadaa.form.titleEdit') : t('qadaa.form.titleAdd')}
-            </Text>
-            <Text style={styles.description}>
+            </AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.description}>
               {t('qadaa.form.description')}
-            </Text>
+            </AwaText>
 
             {/* 1 — how many days */}
             {stepTitle(1, t('qadaa.form.step1Title'))}
@@ -209,32 +215,26 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
                 style={styles.stepperInput}
                 value={quantityText}
               />
-              <Pressable
+              <AwaIconButton
                 accessibilityLabel={t('qadaa.form.decreaseAccessibility')}
-                accessibilityRole="button"
-                accessibilityState={{disabled: !canDecrease}}
                 disabled={!canDecrease}
-                hitSlop={4}
+                icon="minus"
                 onPress={() => changeQuantity(-1)}
-                style={({pressed}) => [styles.stepperButton, !canDecrease && styles.stepperButtonDisabled, pressed && styles.pressed]}>
-                <MaterialDesignIcons color={theme.colors.primary} name="minus" size={22} />
-              </Pressable>
+                style={styles.stepperButton}
+              />
               <View style={styles.stepperDivider} />
-              <Pressable
+              <AwaIconButton
                 accessibilityLabel={t('qadaa.form.increaseAccessibility')}
-                accessibilityRole="button"
-                accessibilityState={{disabled: !canIncrease}}
                 disabled={!canIncrease}
-                hitSlop={4}
+                icon="plus"
                 onPress={() => changeQuantity(1)}
-                style={({pressed}) => [styles.stepperButton, !canIncrease && styles.stepperButtonDisabled, pressed && styles.pressed]}>
-                <MaterialDesignIcons color={theme.colors.primary} name="plus" size={22} />
-              </Pressable>
+                style={styles.stepperButton}
+              />
             </View>
             {error?.field === 'quantity' ? (
-              <Text accessibilityRole="alert" style={styles.error}>{error.message}</Text>
+              <AwaText accessibilityRole="alert" colorRole="error" variant="bodySmall" style={styles.error}>{error.message}</AwaText>
             ) : (
-              <Text style={styles.helper}>{t('qadaa.form.quantityHelper')}</Text>
+              <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.helper}>{t('qadaa.form.quantityHelper')}</AwaText>
             )}
 
             {/* 2 — which Ramadan */}
@@ -250,7 +250,7 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
 
             {knowsYear ? (
               <View style={styles.yearBlock}>
-                <Text style={styles.fieldLabel}>{t('qadaa.form.yearFieldLabel')}</Text>
+                <AwaText colorRole="onSurfaceVariant" emphasized variant="labelLarge">{t('qadaa.form.yearFieldLabel')}</AwaText>
                 <Pressable
                   accessibilityLabel={t('qadaa.form.yearAccessibility', {value: selectedYearOption?.label ?? t('qadaa.form.yearNotChosen')})}
                   accessibilityRole="button"
@@ -286,7 +286,7 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
                             if (error?.field === 'year') {setError(null);}
                           }}
                           style={({pressed}) => [styles.yearRow, selected && styles.yearRowSelected, pressed && styles.pressed]}>
-                          <Text style={[styles.yearRowText, selected && styles.yearRowTextSelected]}>{option.label}</Text>
+                          <AwaText colorRole={selected ? 'onPrimaryContainer' : 'onSurface'} emphasized={selected} style={styles.yearRowText} variant="bodyMedium">{option.label}</AwaText>
                           {selected ? <MaterialDesignIcons color={theme.colors.primary} name="check" size={18} /> : null}
                         </Pressable>
                       );
@@ -294,7 +294,7 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
                   </ScrollView>
                 ) : null}
                 {error?.field === 'year' ? (
-                  <Text accessibilityRole="alert" style={styles.error}>{error.message}</Text>
+                  <AwaText accessibilityRole="alert" colorRole="error" variant="bodySmall" style={styles.error}>{error.message}</AwaText>
                 ) : null}
               </View>
             ) : null}
@@ -316,29 +316,28 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
               textAlignVertical="top"
               value={note}
             />
-            <Text accessibilityLabel={t('qadaa.form.noteCounterAccessibility', {length: note.length, max: QADAA_MAX_NOTE_LENGTH})} style={styles.counter}>
+            <AwaText accessibilityLabel={t('qadaa.form.noteCounterAccessibility', {length: note.length, max: QADAA_MAX_NOTE_LENGTH})} colorRole="onSurfaceVariant" variant="bodySmall" style={styles.counter}>
               {note.length}/{QADAA_MAX_NOTE_LENGTH}
-            </Text>
+            </AwaText>
           </ScrollView>
 
           <View style={styles.footer}>
-            <Pressable
+            <AwaButton
               accessibilityLabel={formatQadaaSubmitLabel(quantityText, editing)}
-              accessibilityRole="button"
-              accessibilityState={{disabled: saving}}
               disabled={saving}
+              fullWidth
+              label={saving ? t('qadaa.saving') : formatQadaaSubmitLabel(quantityText, editing)}
               onPress={submit}
-              style={({pressed}) => [styles.confirm, (pressed || saving) && styles.pressed]}>
-              <Text style={styles.confirmText}>{saving ? t('qadaa.saving') : formatQadaaSubmitLabel(quantityText, editing)}</Text>
-            </Pressable>
-            <Pressable
+            />
+            <AwaButton
               accessibilityLabel={t('qadaa.form.cancel')}
-              accessibilityRole="button"
               disabled={saving}
+              fullWidth
+              label={t('qadaa.form.cancel')}
               onPress={onClose}
-              style={({pressed}) => [styles.cancel, pressed && styles.pressed]}>
-              <Text style={styles.cancelText}>{t('qadaa.form.cancel')}</Text>
-            </Pressable>
+              style={styles.cancel}
+              variant="text"
+            />
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -354,7 +353,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexShrink: 1,
       marginHorizontal: 16,
       overflow: 'hidden',
-      borderRadius: homeRadii.card,
+      borderRadius: awaShapes.extraLarge,
       borderWidth: 1,
       borderColor: theme.colors.border,
       backgroundColor: theme.colors.surface,
@@ -362,8 +361,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     scroll: {flexShrink: 1},
     scrollContent: {paddingHorizontal: 18, paddingTop: 20, paddingBottom: 12},
-    title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 22, fontWeight: '700', lineHeight: 28},
-    description: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19},
+    description: {marginTop: 8},
     stepHeader: {marginTop: 22, flexDirection: 'row', alignItems: 'center', gap: 10},
     stepBadge: {
       width: 26,
@@ -373,35 +371,29 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderRadius: 13,
       backgroundColor: theme.colors.primarySoft,
     },
-    stepBadgeText: {color: theme.colors.primary, fontSize: 13, fontWeight: '800'},
-    stepTitle: {flex: 1, color: theme.colors.text, fontSize: 15, fontWeight: '700', lineHeight: 20},
+    stepTitle: {flex: 1},
     stepper: {
       marginTop: 12,
       minHeight: 52,
       flexDirection: 'row',
       alignItems: 'center',
-      borderRadius: homeRadii.button,
+      borderRadius: awaShapes.medium,
       borderWidth: 1.4,
       borderColor: theme.colors.border,
       backgroundColor: theme.colors.background,
     },
     stepperInput: {flex: 1, minHeight: 50, paddingHorizontal: 14, color: theme.colors.text, fontSize: 18, fontWeight: '700'},
-    stepperButton: {width: 52, minHeight: 50, alignItems: 'center', justifyContent: 'center'},
-    stepperButtonDisabled: {opacity: 0.35},
+    stepperButton: {marginHorizontal: 6},
     stepperDivider: {width: StyleSheet.hairlineWidth, alignSelf: 'stretch', marginVertical: 10, backgroundColor: theme.colors.border},
     fieldError: {borderColor: theme.colors.danger},
-    helper: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
-    error: {marginTop: 6, color: theme.colors.danger, fontSize: 12.5, lineHeight: 18},
+    helper: {marginTop: 6},
+    error: {marginTop: 6},
     radioGroup: {marginTop: 12, gap: 10},
     radioCard: {
       minHeight: 64,
       flexDirection: 'row',
       alignItems: 'center',
       gap: 12,
-      borderRadius: homeRadii.button,
-      borderWidth: 1.4,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surface,
       paddingHorizontal: 14,
       paddingVertical: 12,
     },
@@ -418,18 +410,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     radioDotSelected: {borderColor: theme.colors.primary},
     radioDotInner: {width: 10, height: 10, borderRadius: 5, backgroundColor: theme.colors.primary},
     radioCopy: {flex: 1},
-    radioTitle: {color: theme.colors.text, fontSize: 14, fontWeight: '700'},
-    radioTitleSelected: {color: theme.colors.primary},
-    radioSubtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
+    radioSubtitle: {marginTop: 2},
     yearBlock: {marginTop: 14},
-    fieldLabel: {color: theme.colors.text, fontSize: 13, fontWeight: '700'},
     select: {
       marginTop: 8,
       minHeight: 50,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      borderRadius: homeRadii.button,
+      borderRadius: awaShapes.medium,
       borderWidth: 1.4,
       borderColor: theme.colors.border,
       backgroundColor: theme.colors.background,
@@ -440,7 +429,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     yearList: {
       marginTop: 6,
       maxHeight: 220,
-      borderRadius: homeRadii.button,
+      borderRadius: awaShapes.medium,
       borderWidth: 1,
       borderColor: theme.colors.border,
       backgroundColor: theme.colors.background,
@@ -453,12 +442,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 14,
     },
     yearRowSelected: {backgroundColor: theme.colors.primarySoft},
-    yearRowText: {color: theme.colors.text, fontSize: 14},
-    yearRowTextSelected: {color: theme.colors.primary, fontWeight: '700'},
+    yearRowText: {flexShrink: 1},
     noteInput: {
       marginTop: 12,
       minHeight: 72,
-      borderRadius: homeRadii.button,
+      borderRadius: awaShapes.medium,
       borderWidth: 1.4,
       borderColor: theme.colors.border,
       backgroundColor: theme.colors.background,
@@ -467,7 +455,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color: theme.colors.text,
       fontSize: 14,
     },
-    counter: {marginTop: 6, alignSelf: 'flex-end', color: theme.colors.textSecondary, fontSize: 12},
+    counter: {marginTop: 6, alignSelf: 'flex-end'},
     footer: {
       paddingHorizontal: 18,
       paddingTop: 10,
@@ -476,17 +464,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderTopColor: theme.colors.border,
       backgroundColor: theme.colors.surface,
     },
-    confirm: {
-      minHeight: 52,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: homeRadii.button,
-      backgroundColor: theme.colors.primary,
-      paddingHorizontal: 12,
-    },
-    confirmText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '700', textAlign: 'center'},
-    cancel: {marginTop: 2, minHeight: 44, alignItems: 'center', justifyContent: 'center'},
-    cancelText: {color: theme.colors.textSecondary, fontSize: 14, fontWeight: '600'},
+    cancel: {marginTop: 2},
     pressed: {opacity: 0.85},
   });
 }

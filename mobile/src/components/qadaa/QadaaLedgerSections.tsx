@@ -1,9 +1,13 @@
 import React, {useMemo} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import Animated, {FadeInUp} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
+import type {AwaIconName} from '../ui/AwaIcon';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {QadaaCompletionEntry, QadaaManualEntry} from '../../state/qadaaLedgerStore';
@@ -33,7 +37,7 @@ type Props = {
   onUndoCompletion: (entry: QadaaCompletionEntry) => void;
 };
 
-type RowAction = {label: string; accessibilityLabel: string; icon: string; destructive?: boolean; onPress: () => void};
+type RowAction = {label: string; accessibilityLabel: string; icon: AwaIconName; destructive?: boolean; onPress: () => void};
 
 function HistoryRow({
   index,
@@ -64,35 +68,28 @@ function HistoryRow({
       <View style={styles.rowContent}>
         <View style={styles.rowTop}>
           <View style={styles.rowTitleBlock}>
-            <Text numberOfLines={1} style={styles.rowTitle}>{title}</Text>
-            <Text style={styles.rowSubtitle}>{subtitle}</Text>
+            <AwaText variant="titleSmall">{title}</AwaText>
+            <AwaText variant="bodySmall" style={styles.rowSubtitle}>{subtitle}</AwaText>
           </View>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{badge}</Text>
+            <AwaText colorRole="onPrimaryContainer" emphasized variant="labelSmall">{badge}</AwaText>
           </View>
         </View>
         {lines?.map(line => (
-          <Text key={line} style={styles.rowLine}>{line}</Text>
+          <AwaText colorRole="onSurfaceVariant" key={line} variant="bodySmall" style={styles.rowLine}>{line}</AwaText>
         ))}
         {actions?.length ? (
           <View style={styles.actions}>
             {actions.map(action => (
-              <Pressable
+              <AwaButton
                 key={action.label}
                 accessibilityLabel={action.accessibilityLabel}
-                accessibilityRole="button"
-                hitSlop={6}
+                icon={action.icon}
+                label={action.label}
                 onPress={action.onPress}
-                style={({pressed}) => [styles.action, pressed && styles.pressed]}>
-                <MaterialDesignIcons
-                  color={action.destructive ? theme.colors.danger : theme.colors.primary}
-                  name={action.icon as never}
-                  size={15}
-                />
-                <Text style={[styles.actionText, action.destructive && styles.actionTextDestructive]}>
-                  {action.label}
-                </Text>
-              </Pressable>
+                size="compact"
+                variant={action.destructive ? 'destructive' : 'text'}
+              />
             ))}
           </View>
         ) : null}
@@ -141,53 +138,48 @@ export default function QadaaLedgerSections({
 
   return (
     <>
-      <View style={styles.card}>
+      <AwaCard padding="none" style={styles.card} variant="outlined">
         <View style={styles.header}>
-          <View style={styles.headerIcon}>
-            <MaterialDesignIcons color={theme.colors.primary} name="scale-balance" size={16} />
-          </View>
-          <Text style={styles.headerTitle}>{t('qadaa.ledger.balanceTitle')}</Text>
+          <AwaText variant="titleMedium" style={styles.headerTitle}>{t('qadaa.ledger.balanceTitle')}</AwaText>
         </View>
         <View style={styles.divider} />
         <View style={styles.summary}>
           {summaryRows.map(row => (
             <View key={row.label} style={styles.summaryRow}>
-              <Text style={[styles.summaryLabel, row.strong && styles.summaryStrong]}>{row.label}</Text>
-              <Text style={[styles.summaryValue, row.strong && styles.summaryStrong]}>{row.value}</Text>
+              <AwaText colorRole={row.strong ? 'onSurface' : 'onSurfaceVariant'} emphasized={row.strong} variant="bodyMedium" style={styles.summaryLabel}>{row.label}</AwaText>
+              <AwaText emphasized={row.strong} variant="titleSmall">{row.value}</AwaText>
             </View>
           ))}
           {balance.surplusCompletedDays > 0 ? (
-            <Text style={styles.note}>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.note}>
               {t('qadaa.ledger.surplusNote', {count: balance.surplusCompletedDays})}
-            </Text>
+            </AwaText>
           ) : null}
-          <Pressable
+          <AwaButton
             accessibilityLabel={t('qadaa.ledger.addDaysAccessibility')}
-            accessibilityRole="button"
+            fullWidth
+            icon="plus-circle-outline"
+            label={t('qadaa.ledger.addDays')}
             onPress={onAdd}
-            style={({pressed}) => [styles.addButton, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="plus-circle-outline" size={18} />
-            <Text style={styles.addButtonText}>{t('qadaa.ledger.addDays')}</Text>
-          </Pressable>
+            style={styles.addButton}
+            variant="outlined"
+          />
         </View>
-      </View>
+      </AwaCard>
 
       {hasHistory ? (
-        <View style={styles.card}>
+        <AwaCard padding="none" style={styles.card} variant="outlined">
           <View style={styles.header}>
-            <View style={styles.headerIcon}>
-              <MaterialDesignIcons color={theme.colors.primary} name="calendar-star" size={16} />
-            </View>
-            <Text style={styles.headerTitle}>{t('qadaa.ledger.historyTitle')}</Text>
+            <AwaText variant="titleMedium" style={styles.headerTitle}>{t('qadaa.ledger.historyTitle')}</AwaText>
             <View style={styles.statusPill}>
-              <Text style={styles.statusPillText}>{status.label}</Text>
+              <AwaText colorRole="onPrimaryContainer" emphasized variant="labelSmall">{status.label}</AwaText>
             </View>
           </View>
           <View style={styles.divider} />
 
           {automaticEntries.length > 0 ? (
             <>
-              <Text style={styles.groupTitle}>{displayUpperCase(t('qadaa.ledger.automaticDetected'))}</Text>
+              <AwaText colorRole="onSurfaceVariant" emphasized variant="labelSmall" style={styles.groupTitle}>{displayUpperCase(t('qadaa.ledger.automaticDetected'))}</AwaText>
               {automaticEntries.map((entry, index) => (
                 <HistoryRow
                   key={entry.id}
@@ -210,7 +202,7 @@ export default function QadaaLedgerSections({
 
           {sortedManual.length > 0 ? (
             <>
-              <Text style={styles.groupTitle}>{displayUpperCase(t('qadaa.ledger.manuallyAdded'))}</Text>
+              <AwaText colorRole="onSurfaceVariant" emphasized variant="labelSmall" style={styles.groupTitle}>{displayUpperCase(t('qadaa.ledger.manuallyAdded'))}</AwaText>
               {sortedManual.map((entry, index) => (
                 <HistoryRow
                   key={entry.id}
@@ -244,7 +236,7 @@ export default function QadaaLedgerSections({
 
           {sortedCompletions.length > 0 ? (
             <>
-              <Text style={styles.groupTitle}>{displayUpperCase(t('qadaa.ledger.completedGroupTitle'))}</Text>
+              <AwaText colorRole="onSurfaceVariant" emphasized variant="labelSmall" style={styles.groupTitle}>{displayUpperCase(t('qadaa.ledger.completedGroupTitle'))}</AwaText>
               {sortedCompletions.map((entry, index) => (
                 <HistoryRow
                   key={entry.id}
@@ -268,7 +260,7 @@ export default function QadaaLedgerSections({
               ))}
             </>
           ) : null}
-        </View>
+        </AwaCard>
       ) : null}
     </>
   );
@@ -276,32 +268,9 @@ export default function QadaaLedgerSections({
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    card: {
-      marginTop: 12,
-      overflow: 'hidden',
-      borderRadius: 17,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surface,
-      ...theme.shadow,
-    },
+    card: {marginTop: 12, overflow: 'hidden'},
     header: {minHeight: 57, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14},
-    headerIcon: {
-      width: 32,
-      height: 32,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 10,
-      backgroundColor: theme.colors.primarySoft,
-    },
-    headerTitle: {
-      flex: 1,
-      marginLeft: 9,
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 17,
-      fontWeight: '700',
-    },
+    headerTitle: {flex: 1},
     divider: {height: StyleSheet.hairlineWidth, backgroundColor: theme.colors.border},
     statusPill: {
       maxWidth: '48%',
@@ -310,7 +279,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 9,
       paddingVertical: 5,
     },
-    statusPillText: {color: theme.colors.primary, fontSize: 11, fontWeight: '800'},
     summary: {paddingHorizontal: 14, paddingVertical: 12},
     summaryRow: {
       minHeight: 30,
@@ -319,30 +287,13 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent: 'space-between',
       gap: 12,
     },
-    summaryLabel: {flex: 1, color: theme.colors.textSecondary, fontSize: 13},
-    summaryValue: {color: theme.colors.text, fontSize: 14, fontWeight: '700'},
-    summaryStrong: {color: theme.colors.text, fontWeight: '800'},
-    note: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 17},
-    addButton: {
-      minHeight: 46,
-      marginTop: 12,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 7,
-      borderRadius: 12,
-      borderWidth: 1.2,
-      borderColor: theme.colors.primary,
-      backgroundColor: theme.colors.surface,
-    },
-    addButtonText: {color: theme.colors.primary, fontSize: 13, fontWeight: '800'},
+    summaryLabel: {flex: 1},
+    note: {marginTop: 8},
+    addButton: {marginTop: 12},
     groupTitle: {
       paddingHorizontal: 14,
       paddingTop: 12,
       paddingBottom: 2,
-      color: theme.colors.textSecondary,
-      fontSize: 11,
-      fontWeight: '800',
       letterSpacing: 0.4,
       textTransform: 'uppercase',
     },
@@ -358,15 +309,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     rowContent: {flex: 1, minWidth: 0, marginLeft: 11},
     rowTop: {flexDirection: 'row', alignItems: 'center', gap: 6},
     rowTitleBlock: {flex: 1, minWidth: 0},
-    rowTitle: {color: theme.colors.text, fontSize: 13, fontWeight: '800'},
-    rowSubtitle: {marginTop: 2, color: theme.colors.text, fontSize: 12, fontWeight: '600'},
+    rowSubtitle: {marginTop: 2},
     badge: {borderRadius: 8, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 8, paddingVertical: 4},
-    badgeText: {color: theme.colors.primary, fontSize: 10, fontWeight: '800'},
-    rowLine: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 16},
-    actions: {marginTop: 8, flexDirection: 'row', flexWrap: 'wrap', gap: 16},
-    action: {minHeight: 32, flexDirection: 'row', alignItems: 'center', gap: 5},
-    actionText: {color: theme.colors.primary, fontSize: 12.5, fontWeight: '700'},
-    actionTextDestructive: {color: theme.colors.danger},
-    pressed: {opacity: 0.72},
+    rowLine: {marginTop: 3},
+    actions: {marginTop: 8, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
   });
 }

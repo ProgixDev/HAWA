@@ -7,7 +7,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   useWindowDimensions,
   View,
 } from 'react-native';
@@ -19,9 +18,12 @@ import Animated, {FadeIn, FadeInUp} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {homeRadii} from '../components/home/homeTheme';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import NextPrayerCard from '../components/prayer/NextPrayerCard';
 import PurityStatusCard from '../components/prayer/PurityStatusCard';
 import PrayerScheduleList from '../components/prayer/PrayerScheduleList';
@@ -123,44 +125,41 @@ function PrayerTimesScreen(): React.JSX.Element {
         refreshControl={<RefreshControl onRefresh={onRefresh} refreshing={refreshing} tintColor={theme.colors.primary} />}
         showsVerticalScrollIndicator={false}>
         <Animated.View entering={FadeIn.duration(380)} style={styles.header}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
-            hitSlop={10}
+            icon="chevron-left"
+            iconSize={26}
             onPress={navigation.goBack}
-            style={({pressed}) => [styles.headerButton, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={26} />
-          </Pressable>
-          <Text adjustsFontSizeToFit minimumFontScale={0.85} numberOfLines={1} style={styles.headerTitle}>
+          />
+          <AwaText variant="headlineSmall" style={styles.headerTitle}>
             {t('prayerTimes.title')}
-          </Text>
-          <Pressable
+          </AwaText>
+          <AwaIconButton
             accessibilityLabel={t('prayerTimes.settingsAccessibility')}
-            accessibilityRole="button"
-            hitSlop={10}
+            icon="cog-outline"
             onPress={() => navigation.navigate('SpiritualPreferences', {mode: 'edit'})}
-            style={({pressed}) => [styles.headerButton, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="cog-outline" size={22} />
-          </Pressable>
+          />
         </Animated.View>
 
         <Animated.View entering={FadeInUp.delay(60).duration(400)} style={[styles.metaBlock, compact && styles.metaBlockCompact]}>
-          <Pressable
-            accessibilityRole="button"
+          <AwaCard
             onPress={() => navigation.navigate('Location', {mode: 'edit'})}
-            style={({pressed}) => [styles.locationPill, pressed && styles.pressed]}>
+            padding="none"
+            shape="full"
+            style={styles.locationPill}
+            variant="outlined">
             <MaterialDesignIcons color={theme.colors.primary} name="map-marker-outline" size={15} />
-            <Text numberOfLines={1} style={styles.locationText}>
+            <AwaText variant="labelLarge" style={styles.locationText}>
               {selectedLocation ? `${selectedLocation.city}, ${selectedLocation.country}` : t('spiritualGuidance.locationRequired')}
-            </Text>
-            <Text style={styles.locationModify}>{t('prayerTimes.modify')}</Text>
-          </Pressable>
+            </AwaText>
+            <AwaText colorRole="primary" emphasized variant="labelMedium">{t('prayerTimes.modify')}</AwaText>
+          </AwaCard>
 
-          <Text numberOfLines={2} style={styles.dateText}>
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.dateText}>
             {hijriLabel} · {metaDateLabel}
-          </Text>
+          </AwaText>
           {schedule?.fajrAngle ? (
-            <Text style={styles.angleText}>{t('prayerTimes.fajrAngle', {angle: schedule.fajrAngle})}</Text>
+            <AwaText colorRole="onSurfaceVariant" variant="labelSmall" style={styles.angleText}>{t('prayerTimes.fajrAngle', {angle: schedule.fajrAngle})}</AwaText>
           ) : null}
         </Animated.View>
 
@@ -188,91 +187,87 @@ function PrayerTimesScreen(): React.JSX.Element {
         ) : null}
 
         {shouldShowMenstrualPurity && purityResult.status !== 'unknown' ? (
-          <Animated.View entering={FadeInUp.delay(280).duration(420)} style={styles.noteCard}>
-            <Text style={styles.noteEyebrow}>{displayUpperCase(t('prayerTimes.spiritualAdviceEyebrow'))}</Text>
-            <View style={styles.noteRow}>
-              <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={15} />
-              <Text style={styles.noteText}>
-                {t('prayerTimes.missedPrayersNote')}
-              </Text>
-            </View>
+          <Animated.View entering={FadeInUp.delay(280).duration(420)}>
+            <AwaCard variant="filled">
+              <AwaText colorRole="onSurfaceVariant" emphasized variant="labelSmall" style={styles.noteEyebrow}>{displayUpperCase(t('prayerTimes.spiritualAdviceEyebrow'))}</AwaText>
+              <View style={styles.noteRow}>
+                <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={15} />
+                <AwaText variant="bodySmall" style={styles.noteText}>
+                  {t('prayerTimes.missedPrayersNote')}
+                </AwaText>
+              </View>
+            </AwaCard>
           </Animated.View>
         ) : null}
 
         <Animated.View entering={FadeInUp.delay(320).duration(420)}>
-          <Pressable
-            accessibilityRole="button"
+          <AwaCard
             onPress={() => navigation.navigate('SpiritualPreferences', {mode: 'edit'})}
-            style={({pressed}) => [styles.guidanceCard, pressed && styles.pressed]}>
-            <View style={styles.guidanceIcon}>
-              <MaterialDesignIcons color={theme.colors.primary} name="book-open-page-variant-outline" size={18} />
-            </View>
+            style={styles.guidanceCard}
+            variant="outlined">
+            <MaterialDesignIcons color={theme.colors.primary} name="book-open-page-variant-outline" size={22} />
             <View style={styles.guidanceCopy}>
-              <Text style={styles.guidanceTitle}>{t('spiritualGuidance.title')}</Text>
-              <Text style={styles.guidanceSubtitle}>{t('prayerTimes.guidanceSubtitle')}</Text>
+              <AwaText variant="titleSmall">{t('spiritualGuidance.title')}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.guidanceSubtitle}>{t('prayerTimes.guidanceSubtitle')}</AwaText>
             </View>
             <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={19} />
-          </Pressable>
+          </AwaCard>
         </Animated.View>
 
-        <Animated.View entering={FadeInUp.delay(360).duration(420)} style={styles.hijriCard}>
-          <Text style={styles.hijriEyebrow}>{displayUpperCase(t('prayerTimes.hijriSectionTitle'))}</Text>
+        <Animated.View entering={FadeInUp.delay(360).duration(420)}>
+          <AwaCard variant="outlined">
+          <AwaText colorRole="onSurfaceVariant" emphasized variant="labelSmall" style={styles.hijriEyebrow}>{displayUpperCase(t('prayerTimes.hijriSectionTitle'))}</AwaText>
 
           <View style={styles.hijriRow}>
-            <Text style={styles.hijriRowLabel}>{t('prayerTimes.countryLabel')}</Text>
-            <Text numberOfLines={1} style={styles.hijriRowValue}>
+            <AwaText emphasized variant="bodyMedium">{t('prayerTimes.countryLabel')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.hijriRowValue}>
               {selectedLocation?.country ?? t('prayerTimes.locationUndefined')}
-            </Text>
+            </AwaText>
           </View>
 
-          <Text style={[styles.hijriRowLabel, styles.hijriAdjustmentLabel]}>{t('prayerTimes.adjustHijriLabel')}</Text>
+          <AwaText emphasized variant="bodyMedium" style={styles.hijriAdjustmentLabel}>{t('prayerTimes.adjustHijriLabel')}</AwaText>
           <View accessibilityRole="radiogroup" style={styles.hijriAdjustmentRow}>
             {([-1, 0, 1] as const).map(value => {
               const selected = hijriAdjustment === value;
               const label = value === 0 ? t('prayerTimes.adjustmentNone') : value > 0 ? t('prayerTimes.adjustmentPlusOneDay') : t('prayerTimes.adjustmentMinusOneDay');
               return (
-                <Pressable
+                <AwaCard
                   key={value}
                   accessibilityLabel={t('prayerTimes.adjustmentAccessibility', {label})}
                   accessibilityRole="radio"
                   accessibilityState={{checked: selected}}
                   onPress={() => handleSetHijriAdjustment(value)}
-                  style={({pressed}) => [
-                    styles.hijriAdjustmentOption,
-                    selected && styles.hijriAdjustmentOptionSelected,
-                    pressed && styles.pressed,
-                  ]}>
-                  <Text
-                    style={[
-                      styles.hijriAdjustmentOptionText,
-                      selected && styles.hijriAdjustmentOptionTextSelected,
-                    ]}>
+                  padding="none"
+                  style={[styles.hijriAdjustmentOption, selected && styles.hijriAdjustmentOptionSelected]}
+                  variant="outlined">
+                  <AwaText colorRole={selected ? 'onPrimaryContainer' : 'onSurfaceVariant'} emphasized variant="labelLarge" style={styles.hijriAdjustmentOptionText}>
                     {label}
-                  </Text>
-                </Pressable>
+                  </AwaText>
+                </AwaCard>
               );
             })}
           </View>
 
-          <Text style={styles.hijriHelperText}>
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.hijriHelperText}>
             {t('prayerTimes.adjustmentHelper')}
-          </Text>
+          </AwaText>
 
           {hijriAdjustment !== 0 ? (
-            <Text style={styles.hijriActiveNote}>
+            <AwaText colorRole="primary" emphasized variant="bodySmall" style={styles.hijriActiveNote}>
               {t(hijriAdjustment > 0 ? 'prayerTimes.adjustmentActiveNotePlus' : 'prayerTimes.adjustmentActiveNoteMinus')}
-            </Text>
+            </AwaText>
           ) : null}
 
-          <Pressable
+          <AwaButton
             accessibilityLabel={t('prayerTimes.aboutHijri')}
-            accessibilityRole="button"
-            hitSlop={8}
+            icon="information-outline"
+            label={t('prayerTimes.aboutHijri')}
             onPress={() => setHijriInfoVisible(true)}
-            style={({pressed}) => [styles.hijriInfoRow, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.textSecondary} name="information-outline" size={14} />
-            <Text style={styles.hijriInfoText}>{t('prayerTimes.aboutHijri')}</Text>
-          </Pressable>
+            size="compact"
+            style={styles.hijriInfoRow}
+            variant="text"
+          />
+          </AwaCard>
         </Animated.View>
       </ScrollView>
 
@@ -300,22 +295,22 @@ function PrayerTimesScreen(): React.JSX.Element {
           />
           <View style={[styles.infoSheet, {paddingBottom: getBottomPadding(insets.bottom) + 8}]}>
             <View style={styles.infoHandle} />
-            <Text style={styles.infoTitle}>{t('prayerTimes.aboutHijri')}</Text>
+            <AwaText variant="titleLarge" style={styles.infoTitle}>{t('prayerTimes.aboutHijri')}</AwaText>
 
-            <Text style={styles.infoParagraph}>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.infoParagraph}>
               {t('prayerTimes.aboutHijriParagraph1')}
-            </Text>
-            <Text style={styles.infoParagraph}>{t('prayerTimes.aboutHijriMethod')}</Text>
-            <Text style={styles.infoParagraph}>
+            </AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.infoParagraph}>{t('prayerTimes.aboutHijriMethod')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.infoParagraph}>
               {t('prayerTimes.aboutHijriParagraph2')}
-            </Text>
+            </AwaText>
 
-            <Pressable
-              accessibilityRole="button"
+            <AwaButton
+              fullWidth
+              label={t('common.close')}
               onPress={() => setHijriInfoVisible(false)}
-              style={({pressed}) => [styles.infoCloseButton, pressed && styles.pressed]}>
-              <Text style={styles.infoCloseText}>{t('common.close')}</Text>
-            </Pressable>
+              style={styles.infoCloseButton}
+            />
           </View>
         </View>
       </Modal>
@@ -331,87 +326,46 @@ function createStyles(theme: ResolvedAwaTheme) {
     bannerFade: {...StyleSheet.absoluteFillObject},
     content: {paddingHorizontal: 16, gap: 14},
     header: {flexDirection: 'row', alignItems: 'center', gap: 8},
-    headerButton: {
-      width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21,
-      backgroundColor: theme.colors.surface, elevation: 2,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.09, shadowRadius: 8,
-    },
-    headerTitle: {flex: 1, color: theme.colors.text, fontFamily: 'serif', fontSize: 21, fontWeight: '700', textAlign: 'center'},
-    pressed: {opacity: 0.8},
+    headerTitle: {flex: 1, color: theme.colors.text, textAlign: 'center'},
     metaBlock: {alignItems: 'center', paddingHorizontal: 4},
     metaBlockCompact: {paddingHorizontal: 0},
     locationPill: {
       flexDirection: 'row', alignItems: 'center', gap: 6, maxWidth: '100%',
-      borderRadius: homeRadii.button, backgroundColor: theme.colors.surface, paddingHorizontal: 14, paddingVertical: 8,
-      ...theme.shadow,
+      minHeight: 40, paddingHorizontal: 14, paddingVertical: 8,
     },
-    locationText: {flexShrink: 1, color: theme.colors.text, fontSize: 13, fontWeight: '700'},
-    locationModify: {color: theme.colors.primary, fontSize: 11.5, fontWeight: '700'},
-    dateText: {marginTop: 10, color: theme.colors.textSecondary, fontSize: 12.5, textAlign: 'center'},
-    angleText: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 10.5, textAlign: 'center'},
-    noteCard: {
-      borderRadius: 18, backgroundColor: theme.colors.primarySoft,
-      paddingHorizontal: 14, paddingVertical: 13,
-    },
-    noteEyebrow: {color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.6},
+    locationText: {flexShrink: 1},
+    dateText: {marginTop: 10, textAlign: 'center'},
+    angleText: {marginTop: 2, textAlign: 'center'},
+    noteEyebrow: {textTransform: 'uppercase', letterSpacing: 0.6},
     noteRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 9, marginTop: 6},
-    noteText: {flex: 1, color: theme.colors.text, fontSize: 12.5, lineHeight: 18},
-    guidanceCard: {
-      flexDirection: 'row', alignItems: 'center', gap: 12, borderRadius: homeRadii.card,
-      backgroundColor: theme.colors.surface, padding: 15, ...theme.shadow,
-    },
-    guidanceIcon: {width: 38, height: 38, alignItems: 'center', justifyContent: 'center', borderRadius: 19, backgroundColor: theme.colors.primarySoft},
+    noteText: {flex: 1},
+    guidanceCard: {flexDirection: 'row', alignItems: 'center', gap: 12},
     guidanceCopy: {flex: 1},
-    guidanceTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 15, fontWeight: '700'},
-    guidanceSubtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
-    hijriCard: {
-      borderRadius: homeRadii.card, backgroundColor: theme.colors.surface,
-      padding: 15, ...theme.shadow,
-    },
-    hijriEyebrow: {
-      color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700',
-      textTransform: 'uppercase', letterSpacing: 0.6,
-    },
+    guidanceSubtitle: {marginTop: 3},
+    hijriEyebrow: {textTransform: 'uppercase', letterSpacing: 0.6},
     hijriRow: {
       marginTop: 12, flexDirection: 'row', alignItems: 'center',
       justifyContent: 'space-between', gap: 10,
     },
-    hijriRowLabel: {color: theme.colors.text, fontSize: 13, fontWeight: '700'},
-    hijriRowValue: {flexShrink: 1, color: theme.colors.textSecondary, fontSize: 13, textAlign: 'right'},
+    hijriRowValue: {flexShrink: 1, textAlign: 'right'},
     hijriAdjustmentLabel: {marginTop: 16},
     hijriAdjustmentRow: {marginTop: 8, flexDirection: 'row', gap: 8},
-    hijriAdjustmentOption: {
-      flex: 1, minHeight: 44, alignItems: 'center', justifyContent: 'center',
-      borderRadius: homeRadii.button, borderWidth: 1.25, borderColor: theme.colors.border,
-      backgroundColor: theme.colors.primarySoft,
-    },
-    hijriAdjustmentOptionSelected: {borderColor: theme.colors.primary, backgroundColor: withAlpha(theme.colors.primary, 0.12)},
-    hijriAdjustmentOptionText: {color: theme.colors.textSecondary, fontSize: 12.5, fontWeight: '700'},
-    hijriAdjustmentOptionTextSelected: {color: theme.colors.primary},
-    hijriHelperText: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 15},
-    hijriActiveNote: {marginTop: 8, color: theme.colors.primary, fontSize: 11.5, fontWeight: '700'},
-    hijriInfoRow: {
-      marginTop: 14, flexDirection: 'row', alignItems: 'center', gap: 6,
-      alignSelf: 'flex-start',
-    },
-    hijriInfoText: {color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '600'},
+    hijriAdjustmentOption: {flex: 1, minHeight: 48, alignItems: 'center', justifyContent: 'center'},
+    hijriAdjustmentOptionSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
+    hijriAdjustmentOptionText: {textAlign: 'center'},
+    hijriHelperText: {marginTop: 8},
+    hijriActiveNote: {marginTop: 8},
+    hijriInfoRow: {marginTop: 10, alignSelf: 'flex-start'},
     infoModalRoot: {flex: 1, justifyContent: 'flex-end'},
     infoOverlay: {...StyleSheet.absoluteFillObject, backgroundColor: withAlpha(theme.shadow.shadowColor, 0.40)},
     infoSheet: {
-      borderTopLeftRadius: homeRadii.card, borderTopRightRadius: homeRadii.card,
+      borderTopLeftRadius: 28, borderTopRightRadius: 28,
       backgroundColor: theme.colors.surface, paddingHorizontal: 18, paddingTop: 10, elevation: 20,
     },
     infoHandle: {width: 42, height: 5, alignSelf: 'center', borderRadius: 3, backgroundColor: theme.colors.border},
-    infoTitle: {
-      marginTop: 14, color: theme.colors.text, fontFamily: 'serif',
-      fontSize: 18, fontWeight: '700', lineHeight: 23,
-    },
-    infoParagraph: {marginTop: 12, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19},
-    infoCloseButton: {
-      marginTop: 20, minHeight: 50, alignItems: 'center', justifyContent: 'center',
-      borderRadius: homeRadii.button, backgroundColor: theme.colors.primary,
-    },
-    infoCloseText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '700'},
+    infoTitle: {marginTop: 14},
+    infoParagraph: {marginTop: 12},
+    infoCloseButton: {marginTop: 20},
   });
 }
 

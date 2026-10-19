@@ -12,7 +12,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 
@@ -40,6 +39,10 @@ import QadaaLedgerSections from '../components/qadaa/QadaaLedgerSections';
 import QadaaDeleteConfirmModal from '../components/qadaa/QadaaDeleteConfirmModal';
 import QadaaManualEntryModal from '../components/qadaa/QadaaManualEntryModal';
 import {JournalSaveToast, useJournalSaveToast} from '../components/journal/JournalSaveToast';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 
 import {
   removeManualQadaaEntry,
@@ -62,11 +65,10 @@ import {
 } from '../theme/spacing';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {presentSaveFailure} from '../services/saveFailure';
 
 const MOSQUE_IMAGE = require('../assets/images/qadaa-mosque.png');
-const LANTERN_IMAGE = require('../assets/images/qadaa-lantern.png');
 
 /* -------------------------------------------------------------------------- */
 /*                                   SCREEN                                   */
@@ -397,57 +399,28 @@ function FastingQadaaScreen(): React.JSX.Element {
           {/* HEADER */}
 
           <View style={styles.header}>
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('common.back')}
-              accessibilityRole="button"
-              hitSlop={10}
+              icon="chevron-left"
+              iconSize={26}
               onPress={navigation.goBack}
-              style={({pressed}) => [
-                styles.headerButton,
-                pressed && styles.pressed,
-              ]}>
-
-              <MaterialDesignIcons
-                name="chevron-left"
-                size={22}
-                color={theme.colors.primary}
-              />
-            </Pressable>
+            />
 
             <View style={styles.headerCenter}>
-              <MaterialDesignIcons
-                name="moon-waning-crescent"
-                size={15}
-                color={theme.colors.primary}
-              />
-
-              <Text
-                adjustsFontSizeToFit
-                minimumFontScale={0.82}
-                numberOfLines={1}
+              <AwaText
+                variant="headlineSmall"
                 style={styles.headerTitle}>
                 {t('qadaa.title')}
-              </Text>
+              </AwaText>
             </View>
 
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('qadaa.aboutAccessibility')}
-              accessibilityRole="button"
-              hitSlop={10}
+              icon="help-circle-outline"
               onPress={() =>
                 setHelpVisible(true)
               }
-              style={({pressed}) => [
-                styles.headerButton,
-                pressed && styles.pressed,
-              ]}>
-
-              <MaterialDesignIcons
-                name="help-circle-outline"
-                size={20}
-                color={theme.colors.primary}
-              />
-            </Pressable>
+            />
           </View>
 
           {/* HERO */}
@@ -473,39 +446,25 @@ function FastingQadaaScreen(): React.JSX.Element {
 
             <View style={styles.heroOverlay} />
 
-            <MaterialDesignIcons
-              name="star-four-points"
-              size={9}
-              color={theme.colors.primary}
-              style={styles.starOne}
-            />
-
-            <MaterialDesignIcons
-              name="star-four-points"
-              size={7}
-              color={theme.colors.primary}
-              style={styles.starTwo}
-            />
-
             {loading ? (
               <View style={styles.heroContent}>
-                <Text style={styles.heroEyebrow}>
+                <AwaText colorRole="onSurfaceVariant" emphasized variant="labelSmall" style={styles.heroEyebrow}>
                   {t('qadaa.eyebrow')}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.loadingDash}>
+                <AwaText colorRole="onSurfaceVariant" variant="displaySmall" style={styles.loadingDash}>
                   —
-                </Text>
+                </AwaText>
 
-                <Text style={styles.loadingText}>
+                <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.loadingText}>
                   {t('qadaa.loading')}
-                </Text>
+                </AwaText>
               </View>
             ) : (
               <View style={styles.heroContent}>
-                <Text style={styles.heroEyebrow}>
+                <AwaText colorRole="onSurfaceVariant" emphasized variant="labelSmall" style={styles.heroEyebrow}>
                   {t('qadaa.eyebrow')}
-                </Text>
+                </AwaText>
 
                 <Animated.Text
                   style={[
@@ -515,9 +474,9 @@ function FastingQadaaScreen(): React.JSX.Element {
                   {remainingQadaaDays}
                 </Animated.Text>
 
-                <Text style={styles.heroLabel}>
+                <AwaText emphasized variant="titleSmall">
                   {dayLabel}
-                </Text>
+                </AwaText>
 
                 {isZero ? (
                   <View style={styles.greenPill}>
@@ -527,31 +486,22 @@ function FastingQadaaScreen(): React.JSX.Element {
                       color={theme.colors.success}
                     />
 
-                    <Text
-                      style={
-                        styles.greenPillText
-                      }>
+                    <AwaText colorRole="success" emphasized variant="labelSmall">
                       {t('spiritualGuidance.upToDate')}
-                    </Text>
+                    </AwaText>
                   </View>
                 ) : hijriYear ? (
                   <View style={styles.yearPill}>
-                    <Text
-                      style={
-                        styles.yearPillText
-                      }>
+                    <AwaText colorRole="warning" emphasized variant="labelSmall">
                       {t('qadaa.ramadanYearHijri', {year: hijriYear})}
-                    </Text>
+                    </AwaText>
                   </View>
                 ) : null}
 
                 {isZero ? (
-                  <Text
-                    style={
-                      styles.zeroSubtitle
-                    }>
+                  <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.zeroSubtitle}>
                     {t('qadaa.allHamdulillahSubtitle')}
-                  </Text>
+                  </AwaText>
                 ) : null}
               </View>
             )}
@@ -560,46 +510,32 @@ function FastingQadaaScreen(): React.JSX.Element {
           {/* REMINDER */}
 
           {!loading ? (
-            <Animated.View
-              style={[
-                styles.reminderCard,
-                reminderAnimatedStyle,
-              ]}>
-
-              <View
-                style={
-                  styles.reminderIcon
-                }>
+            <Animated.View style={[styles.reminderWrap, reminderAnimatedStyle]}>
+              <AwaCard style={styles.reminderCard} variant="outlined">
                 <MaterialDesignIcons
                   name="bell-outline"
-                  size={21}
+                  size={22}
                   color={theme.colors.primary}
                 />
-              </View>
 
-              <View
-                style={
-                  styles.reminderContent
-                }>
-
-                <Text
+                <View
                   style={
-                    styles.reminderTitle
+                    styles.reminderContent
                   }>
-                  {showReminder
-                    ? t('qadaa.reminderTitleActive')
-                    : t('qadaa.reminderTitleIdle')}
-                </Text>
 
-                <Text
-                  style={
-                    styles.reminderText
-                  }>
-                  {showReminder
-                    ? t('qadaa.reminderTextActive')
-                    : t('qadaa.reminderTextIdle')}
-                </Text>
-              </View>
+                  <AwaText variant="titleMedium">
+                    {showReminder
+                      ? t('qadaa.reminderTitleActive')
+                      : t('qadaa.reminderTitleIdle')}
+                  </AwaText>
+
+                  <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.reminderText}>
+                    {showReminder
+                      ? t('qadaa.reminderTextActive')
+                      : t('qadaa.reminderTextIdle')}
+                  </AwaText>
+                </View>
+              </AwaCard>
             </Animated.View>
           ) : null}
 
@@ -620,155 +556,57 @@ function FastingQadaaScreen(): React.JSX.Element {
 
           {/* ABOUT */}
 
-          <View style={styles.aboutCard}>
-            <View style={styles.aboutContent}>
-              <View
-                style={
-                  styles.aboutHeading
-                }>
-
-                <View
-                  style={
-                    styles.aboutIcon
-                  }>
-                  <MaterialDesignIcons
-                    name="information-outline"
-                    size={17}
-                    color={theme.colors.primary}
-                  />
-                </View>
-
-                <Text
-                  style={
-                    styles.aboutTitle
-                  }>
-                  {t('qadaa.aboutTitle')}
-                </Text>
-              </View>
-
-              <Text style={styles.aboutText}>
-                {t('qadaa.aboutText')}
-              </Text>
-            </View>
-
-            <View
-              style={
-                styles.lanternContainer
-              }>
-              <Image
-                source={LANTERN_IMAGE}
-                resizeMode="contain"
-                style={styles.lantern}
+          <AwaCard style={styles.aboutCard} variant="filled">
+            <View style={styles.aboutHeading}>
+              <MaterialDesignIcons
+                name="information-outline"
+                size={20}
+                color={theme.colors.primary}
               />
+
+              <AwaText variant="titleMedium" style={styles.aboutTitle}>
+                {t('qadaa.aboutTitle')}
+              </AwaText>
             </View>
-          </View>
+
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.aboutText}>
+              {t('qadaa.aboutText')}
+            </AwaText>
+          </AwaCard>
 
           {/* ================================================================ */}
           {/* FUNCTIONAL QADAA COMPLETION                                      */}
           {/* ================================================================ */}
 
           {hasDaysDue ? (
-            <View
-              style={
-                styles.completionCard
-              }>
+            <AwaCard style={styles.completionCard} variant="outlined">
 
-              <View
-                style={
-                  styles.completionHeader
-                }>
+              <AwaText variant="titleMedium">
+                {t('qadaa.completionTitle')}
+              </AwaText>
 
-                <View
-                  style={
-                    styles.completionIcon
-                  }>
-                  <MaterialDesignIcons
-                    name="check-circle-outline"
-                    size={18}
-                    color={theme.colors.primary}
-                  />
-                </View>
+              <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.completionSubtitle}>
+                {t('qadaa.completionSubtitle')}
+              </AwaText>
 
-                <View
-                  style={
-                    styles.completionHeaderCopy
-                  }>
-
-                  <Text
-                    style={
-                      styles.completionTitle
-                    }>
-                    {t('qadaa.completionTitle')}
-                  </Text>
-
-                  <Text
-                    style={
-                      styles.completionSubtitle
-                    }>
-                    {t('qadaa.completionSubtitle')}
-                  </Text>
-                </View>
-              </View>
-
-              <Pressable
-                accessibilityRole="button"
+              <AwaButton
                 accessibilityLabel={t('qadaa.markCompletedAccessibility')}
-                accessibilityState={{
-                  disabled:
-                    markingCompleted,
-                }}
+                fullWidth
+                icon={markingCompleted ? 'clock-outline' : 'check'}
+                label={markingCompleted
+                  ? t('qadaa.saving')
+                  : t('qadaa.markCompleted')}
                 disabled={markingCompleted}
-                onPress={
-                  handleMarkOneCompleted
-                }
-                style={({pressed}) => [
-                  styles.completionButton,
+                onPress={handleMarkOneCompleted}
+                style={styles.completionButton}
+              />
 
-                  pressed &&
-                    !markingCompleted &&
-                    styles.completionButtonPressed,
-
-                  markingCompleted &&
-                    styles.completionButtonLoading,
-                ]}>
-
-                <MaterialDesignIcons
-                  name={
-                    markingCompleted
-                      ? 'clock-outline'
-                      : 'check'
-                  }
-                  size={17}
-                  color={onPrimaryTextColor(theme)}
-                />
-
-                <Text
-                  style={
-                    styles.completionButtonText
-                  }>
-                  {markingCompleted
-                    ? t('qadaa.saving')
-                    : t('qadaa.markCompleted')}
-                </Text>
-              </Pressable>
-
-              <View style={styles.remainingHint}>
-                <MaterialDesignIcons
-                  name="information-outline"
-                  size={14}
-                  color={theme.colors.textSecondary}
-                />
-
-                <Text
-                  style={
-                    styles.remainingHintText
-                  }>
-                  {t('qadaa.remainingDays', {count: remainingQadaaDays ?? 0})}
-                </Text>
-              </View>
-            </View>
+              <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.remainingHintText}>
+                {t('qadaa.remainingDays', {count: remainingQadaaDays ?? 0})}
+              </AwaText>
+            </AwaCard>
           ) : !loading ? (
-            <View style={styles.completedCard}>
+            <AwaCard style={styles.completedCard}>
               <View style={styles.completedIcon}>
                 <MaterialDesignIcons
                   name="check"
@@ -778,50 +616,30 @@ function FastingQadaaScreen(): React.JSX.Element {
               </View>
 
               <View style={styles.completedCopy}>
-                <Text
-                  style={
-                    styles.completedTitle
-                  }>
+                <AwaText colorRole="success" variant="titleMedium">
                   {t('qadaa.allCompletedTitle')}
-                </Text>
+                </AwaText>
 
-                <Text
-                  style={
-                    styles.completedText
-                  }>
+                <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.completedText}>
                   {t('qadaa.allCompletedText')}
-                </Text>
+                </AwaText>
               </View>
-            </View>
+            </AwaCard>
           ) : null}
 
           {/* MOTIVATION */}
 
-          <View style={styles.motivationCard}>
-            <View
-              style={
-                styles.motivationIcon
-              }>
-              <MaterialDesignIcons
-                name="hands-pray"
-                size={20}
-                color={theme.colors.primary}
-              />
-            </View>
-
-            <Text
-              style={
-                styles.motivationText
-              }>
-              {t('qadaa.motivationText')}
-            </Text>
-
+          <AwaCard style={styles.motivationCard} variant="filled">
             <MaterialDesignIcons
-              name="heart"
-              size={18}
+              name="hands-pray"
+              size={22}
               color={theme.colors.primary}
             />
-          </View>
+
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.motivationText}>
+              {t('qadaa.motivationText')}
+            </AwaText>
+          </AwaCard>
         </Animated.View>
       </ScrollView>
 
@@ -873,44 +691,27 @@ function FastingQadaaScreen(): React.JSX.Element {
             onPress={() => {}}
             style={styles.modalCard}>
 
-            <View style={styles.modalIcon}>
-              <MaterialDesignIcons
-                name="moon-waning-crescent"
-                size={21}
-                color={theme.colors.primary}
-              />
-            </View>
-
-            <Text style={styles.modalTitle}>
+            <AwaText variant="titleLarge" style={styles.modalTitle}>
               {t('qadaa.title')}
-            </Text>
+            </AwaText>
 
-            <Text style={styles.modalText}>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.modalText}>
               {t('qadaa.helpParagraph1')}
-            </Text>
+            </AwaText>
 
-            <Text style={styles.modalText}>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.modalText}>
               {t('qadaa.helpParagraph2')}
-            </Text>
+            </AwaText>
 
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('qadaa.closeHelpAccessibility')}
-              accessibilityRole="button"
+              fullWidth
+              label={t('common.close')}
               onPress={() =>
                 setHelpVisible(false)
               }
-              style={({pressed}) => [
-                styles.modalButton,
-                pressed && styles.pressed,
-              ]}>
-
-              <Text
-                style={
-                  styles.modalButtonText
-                }>
-                {t('common.close')}
-              </Text>
-            </Pressable>
+              style={styles.modalButton}
+            />
           </Pressable>
         </Pressable>
       </Modal>
@@ -924,676 +725,115 @@ function FastingQadaaScreen(): React.JSX.Element {
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: theme.colors.background,
-  },
+    screen: {flex: 1, backgroundColor: theme.colors.background},
+    content: {paddingHorizontal: 16},
+    header: {minHeight: 56, flexDirection: 'row', alignItems: 'center', marginBottom: 12},
+    headerCenter: {flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 5},
+    headerTitle: {color: theme.colors.text, textAlign: 'center'},
 
-  content: {
-    paddingHorizontal: 16,
-  },
-
-  pressed: {
-    opacity: 0.72,
-  },
-
-  header: {
-    height: 54,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-
-  headerButton: {
-    width: 40,
-    height: 40,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 20,
-
-    backgroundColor: theme.colors.surface,
-
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-
-    elevation: 1,
-
-    shadowColor: theme.shadow.shadowColor,
-
-    shadowOffset: {
-      width: 0,
-      height: 2,
+    // The mosque photo with its theme scrim is the hero's brand imagery; the text sits on the scrim.
+    hero: {
+      minHeight: 235,
+      overflow: 'hidden',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.primarySoft,
     },
-
-    shadowOpacity: 0.06,
-    shadowRadius: 5,
-  },
-
-  headerCenter: {
-    flex: 1,
-
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    gap: 5,
-
-    paddingHorizontal: 5,
-  },
-
-  headerTitle: {
-    color: theme.colors.text,
-
-    fontFamily: 'serif',
-    fontSize: 20,
-    fontWeight: '700',
-  },
-
-  hero: {
-    minHeight: 235,
-
-    overflow: 'hidden',
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 20,
-
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-
-    backgroundColor:
-      theme.colors.primarySoft,
-  },
-
-  heroBackground: {
-    ...StyleSheet.absoluteFillObject,
-
-    width: '100%',
-    height: '100%',
-  },
-
-  heroOverlay: {
-    ...StyleSheet.absoluteFillObject,
-
-    // Theme-driven, not a fixed literal: heroEyebrow/heroNumber/heroLabel
-    // above render directly on this scrim (no opaque card behind them), so
-    // it must carry real theme-background opacity in every mode. A fixed
-    // 10% white wash left the MOSQUE_IMAGE photo essentially undimmed in
-    // Dark Mode, so the resolved light-on-dark text colors had almost no
-    // contrast against the still-bright photo behind them.
-    backgroundColor:
-      withAlpha(theme.colors.background, 0.72),
-  },
-
-  heroContent: {
-    width: '100%',
-
-    alignItems: 'center',
-
-    paddingHorizontal: 20,
-    paddingVertical: 22,
-  },
-
-  starOne: {
-    position: 'absolute',
-
-    left: 20,
-    top: 22,
-
-    opacity: 0.3,
-  },
-
-  starTwo: {
-    position: 'absolute',
-
-    right: 25,
-    top: 38,
-
-    opacity: 0.25,
-  },
-
-  heroEyebrow: {
-    color: theme.colors.textSecondary,
-
-    fontSize: 10.5,
-    letterSpacing: 1.5,
-
-    fontWeight: '800',
-  },
-
-  heroNumber: {
-    marginTop: 7,
-
-    color: theme.colors.accent,
-
-    fontFamily: 'serif',
-
-    fontSize: 58,
-    lineHeight: 63,
-
-    fontWeight: '700',
-  },
-
-  heroLabel: {
-    color: theme.colors.text,
-
-    fontSize: 14,
-
-    fontWeight: '700',
-  },
-
-  yearPill: {
-    marginTop: 12,
-
-    paddingHorizontal: 12,
-    paddingVertical: 5,
-
-    borderRadius: 8,
-
-    backgroundColor: withAlpha(theme.colors.warning, 0.15),
-  },
-
-  yearPillText: {
-    color: theme.colors.warning,
-
-    fontSize: 10.5,
-
-    fontWeight: '800',
-  },
-
-  greenPill: {
-    marginTop: 11,
-
-    flexDirection: 'row',
-    alignItems: 'center',
-
-    gap: 4,
-
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-
-    borderRadius: 8,
-
-    backgroundColor: withAlpha(theme.colors.success, 0.14),
-  },
-
-  greenPillText: {
-    color: theme.colors.success,
-
-    fontSize: 10.5,
-
-    fontWeight: '800',
-  },
-
-  zeroSubtitle: {
-    maxWidth: 260,
-
-    marginTop: 10,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 11.5,
-    lineHeight: 17,
-
-    textAlign: 'center',
-  },
-
-  loadingDash: {
-    marginTop: 8,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 38,
-  },
-
-  loadingText: {
-    marginTop: 5,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 11,
-  },
-
-  reminderCard: {
-    minHeight: 92,
-
-    marginTop: 12,
-
-    flexDirection: 'row',
-    alignItems: 'center',
-
-    paddingHorizontal: 14,
-    paddingVertical: 14,
-
-    borderRadius: 17,
-
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-
-    backgroundColor: theme.colors.surface,
-
-    ...theme.shadow,
-  },
-
-  reminderIcon: {
-    width: 42,
-    height: 42,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 13,
-
-    backgroundColor: theme.colors.primarySoft,
-  },
-
-  reminderContent: {
-    flex: 1,
-
-    marginLeft: 12,
-  },
-
-  reminderTitle: {
-    color: theme.colors.text,
-
-    fontFamily: 'serif',
-
-    fontSize: 16,
-    lineHeight: 20,
-
-    fontWeight: '700',
-  },
-
-  reminderText: {
-    marginTop: 3,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 11.5,
-    lineHeight: 17,
-  },
-
-  aboutCard: {
-    minHeight: 150,
-
-    marginTop: 12,
-
-    overflow: 'hidden',
-
-    flexDirection: 'row',
-    alignItems: 'stretch',
-
-    borderRadius: 17,
-
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-
-    backgroundColor: theme.colors.primarySoft,
-  },
-
-  aboutContent: {
-    flex: 1,
-
-    zIndex: 2,
-
-    paddingLeft: 14,
-    paddingTop: 14,
-    paddingBottom: 14,
-  },
-
-  aboutHeading: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-
-  aboutIcon: {
-    width: 30,
-    height: 30,
-
-    flexShrink: 0,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 10,
-
-    backgroundColor: theme.colors.primarySoft,
-  },
-
-  aboutTitle: {
-    flex: 1,
-
-    marginLeft: 8,
-
-    color: theme.colors.text,
-
-    fontFamily: 'serif',
-
-    fontSize: 15.5,
-    lineHeight: 19,
-
-    fontWeight: '700',
-  },
-
-  aboutText: {
-    maxWidth: 215,
-
-    marginTop: 10,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 11.2,
-    lineHeight: 17,
-  },
-
-  lanternContainer: {
-    width: 120,
-
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end',
-  },
-
-  lantern: {
-    width: 125,
-    height: 145,
-  },
-
-  /* FUNCTIONAL COMPLETION */
-
-  completionCard: {
-    marginTop: 12,
-
-    padding: 14,
-
-    borderRadius: 17,
-
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-
-    backgroundColor: theme.colors.surface,
-
-    ...theme.shadow,
-  },
-
-  completionHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  completionIcon: {
-    width: 38,
-    height: 38,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 12,
-
-    backgroundColor: theme.colors.primarySoft,
-  },
-
-  completionHeaderCopy: {
-    flex: 1,
-
-    marginLeft: 10,
-  },
-
-  completionTitle: {
-    color: theme.colors.text,
-
-    fontSize: 12.8,
-
-    fontWeight: '800',
-  },
-
-  completionSubtitle: {
-    marginTop: 3,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 10.5,
-    lineHeight: 15,
-  },
-
-  completionButton: {
-    minHeight: 46,
-
-    marginTop: 12,
-
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    gap: 7,
-
-    borderRadius: 12,
-
-    backgroundColor: theme.colors.primary,
-  },
-
-  completionButtonPressed: {
-    opacity: 0.82,
-
-    transform: [
-      {
-        scale: 0.99,
-      },
-    ],
-  },
-
-  completionButtonLoading: {
-    opacity: 0.65,
-  },
-
-  completionButtonText: {
-    color: onPrimaryTextColor(theme),
-
-    fontSize: 12,
-
-    fontWeight: '800',
-  },
-
-  remainingHint: {
-    marginTop: 9,
-
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    gap: 5,
-  },
-
-  remainingHintText: {
-    color: theme.colors.textSecondary,
-
-    fontSize: 9.7,
-
-    fontWeight: '600',
-  },
-
-  completedCard: {
-    minHeight: 72,
-
-    marginTop: 12,
-
-    flexDirection: 'row',
-    alignItems: 'center',
-
-    paddingHorizontal: 14,
-
-    borderRadius: 17,
-
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.success, 0.28),
-
-    backgroundColor: withAlpha(theme.colors.success, 0.14),
-  },
-
-  completedIcon: {
-    width: 38,
-    height: 38,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 12,
-
-    backgroundColor: theme.colors.success,
-  },
-
-  completedCopy: {
-    flex: 1,
-
-    marginLeft: 10,
-  },
-
-  completedTitle: {
-    color: theme.colors.success,
-
-    fontSize: 12.5,
-
-    fontWeight: '800',
-  },
-
-  completedText: {
-    marginTop: 2,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 10.5,
-  },
-
-  motivationCard: {
-    minHeight: 68,
-
-    marginTop: 12,
-
-    flexDirection: 'row',
-    alignItems: 'center',
-
-    paddingHorizontal: 14,
-
-    borderRadius: 17,
-
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-
-    backgroundColor: theme.colors.surface,
-
-    ...theme.shadow,
-  },
-
-  motivationIcon: {
-    width: 38,
-    height: 38,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 12,
-
-    backgroundColor: theme.colors.primarySoft,
-  },
-
-  motivationText: {
-    flex: 1,
-
-    marginHorizontal: 11,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 12.5,
-    lineHeight: 17,
-
-    fontWeight: '600',
-  },
-
-  modalBackdrop: {
-    flex: 1,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    paddingHorizontal: 22,
-
-    backgroundColor:
-      withAlpha(theme.shadow.shadowColor, 0.42),
-  },
-
-  modalCard: {
-    width: '100%',
-    maxWidth: 370,
-
-    alignItems: 'center',
-
-    padding: 20,
-
-    borderRadius: 20,
-
-    backgroundColor: theme.colors.surface,
-
-    elevation: 12,
-  },
-
-  modalIcon: {
-    width: 42,
-    height: 42,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 13,
-
-    backgroundColor: theme.colors.primarySoft,
-  },
-
-  modalTitle: {
-    marginTop: 11,
-
-    color: theme.colors.text,
-
-    fontFamily: 'serif',
-
-    fontSize: 17,
-
-    fontWeight: '700',
-  },
-
-  modalText: {
-    marginTop: 9,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 11.5,
-    lineHeight: 17,
-
-    textAlign: 'center',
-  },
-
-  modalButton: {
-    width: '100%',
-    minHeight: 44,
-
-    marginTop: 16,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 12,
-
-    backgroundColor: theme.colors.primary,
-  },
-
-  modalButtonText: {
-    color: onPrimaryTextColor(theme),
-
-    fontSize: 12.5,
-
-    fontWeight: '800',
-  },
+    heroBackground: {...StyleSheet.absoluteFillObject, width: '100%', height: '100%'},
+    // Theme-driven, not a fixed literal: heroEyebrow/heroNumber/dayLabel render directly on this scrim (no opaque
+    // card behind them), so it must carry real theme-background opacity in every mode (Light and Dark).
+    heroOverlay: {...StyleSheet.absoluteFillObject, backgroundColor: withAlpha(theme.colors.background, 0.72)},
+    heroContent: {width: '100%', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 22},
+    heroEyebrow: {letterSpacing: 0.5, textAlign: 'center'},
+    heroNumber: {
+      marginTop: 7,
+      color: theme.colors.accent,
+      fontFamily: 'serif',
+      fontSize: 58,
+      lineHeight: 63,
+      fontWeight: '700',
+    },
+    yearPill: {
+      marginTop: 12,
+      paddingHorizontal: 12,
+      paddingVertical: 5,
+      borderRadius: 8,
+      backgroundColor: withAlpha(theme.colors.warning, 0.15),
+    },
+    greenPill: {
+      marginTop: 11,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      borderRadius: 8,
+      backgroundColor: withAlpha(theme.colors.success, 0.14),
+    },
+    zeroSubtitle: {maxWidth: 260, marginTop: 10, textAlign: 'center'},
+    loadingDash: {marginTop: 8},
+    loadingText: {marginTop: 5},
+
+    reminderWrap: {marginTop: 12},
+    reminderCard: {minHeight: 76, flexDirection: 'row', alignItems: 'center'},
+    reminderContent: {flex: 1, marginLeft: 12},
+    reminderText: {marginTop: 3},
+
+    aboutCard: {marginTop: 12},
+    aboutHeading: {flexDirection: 'row', alignItems: 'center'},
+    aboutTitle: {flex: 1, marginLeft: 8},
+    aboutText: {marginTop: 10},
+
+    completionCard: {marginTop: 12},
+    completionSubtitle: {marginTop: 3},
+    completionButton: {marginTop: 12},
+    remainingHintText: {marginTop: 9, textAlign: 'center'},
+
+    completedCard: {
+      minHeight: 72,
+      marginTop: 12,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: withAlpha(theme.colors.success, 0.28),
+      backgroundColor: withAlpha(theme.colors.success, 0.14),
+    },
+    completedIcon: {
+      width: 38,
+      height: 38,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 12,
+      backgroundColor: theme.colors.success,
+    },
+    completedCopy: {flex: 1, marginLeft: 10},
+    completedText: {marginTop: 2},
+
+    motivationCard: {marginTop: 12, flexDirection: 'row', alignItems: 'center'},
+    motivationText: {flex: 1, marginLeft: 12},
+
+    modalBackdrop: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingHorizontal: 22,
+      backgroundColor: withAlpha(theme.shadow.shadowColor, 0.42),
+    },
+    modalCard: {
+      width: '100%',
+      maxWidth: 370,
+      alignItems: 'center',
+      padding: 20,
+      borderRadius: 12,
+      backgroundColor: theme.colors.surface,
+      elevation: 12,
+    },
+    modalTitle: {textAlign: 'center'},
+    modalText: {marginTop: 9, textAlign: 'center'},
+    modalButton: {marginTop: 16},
   });
 }
 

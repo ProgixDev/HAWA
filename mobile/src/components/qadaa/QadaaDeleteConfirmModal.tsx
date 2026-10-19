@@ -1,12 +1,14 @@
 import React, {memo, useEffect, useMemo, useRef, useState} from 'react';
-import {Modal, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Modal, Pressable, ScrollView, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 
-import {homeRadii} from '../home/homeTheme';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaText} from '../ui/AwaText';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {awaShapes} from '../../theme/shapes';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {QadaaManualEntry} from '../../state/qadaaLedgerStore';
 import {describeQadaaManualEntryForDelete} from '../../utils/qadaaManualEntryForm';
 import {presentSaveFailure} from '../../services/saveFailure';
@@ -67,8 +69,6 @@ function QadaaDeleteConfirmModal({entry, onCancel, onConfirm}: Props): React.JSX
     }
   };
 
-  const destructiveText = pickReadableTextColor(theme.colors.danger);
-
   return (
     <Modal animationType="fade" onRequestClose={cancel} statusBarTranslucent transparent visible={entry !== null}>
       <View
@@ -88,52 +88,50 @@ function QadaaDeleteConfirmModal({entry, onCancel, onConfirm}: Props): React.JSX
               <MaterialDesignIcons color={theme.colors.danger} name="trash-can-outline" size={26} />
             </View>
 
-            <Text accessibilityRole="header" style={styles.title}>{t('qadaa.deleteModal.title')}</Text>
+            <AwaText accessibilityRole="header" variant="titleLarge" style={styles.title}>{t('qadaa.deleteModal.title')}</AwaText>
 
             {summary ? (
               <>
-                <Text style={styles.body}>
+                <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.body}>
                   {t('qadaa.deleteModal.body', {count: shown?.quantity ?? 0, quantityLabel: summary.quantityLabel})}
-                </Text>
+                </AwaText>
 
                 <View style={styles.summaryCard}>
-                  <Text style={styles.summaryQuantity}>{summary.quantityLabel}</Text>
-                  <Text style={styles.summaryYear}>{summary.yearLabel}</Text>
-                  {summary.yearHint ? <Text style={styles.summaryHint}>{summary.yearHint}</Text> : null}
+                  <AwaText variant="titleMedium">{summary.quantityLabel}</AwaText>
+                  <AwaText colorRole="primary" variant="labelLarge" style={styles.summaryYear}>{summary.yearLabel}</AwaText>
+                  {summary.yearHint ? <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.summaryHint}>{summary.yearHint}</AwaText> : null}
                   {summary.note ? (
                     <View style={styles.noteBlock}>
-                      <Text style={styles.noteLabel}>{t('qadaa.deleteModal.noteLabel')}</Text>
-                      <Text numberOfLines={4} style={styles.noteText}>« {summary.note} »</Text>
+                      <AwaText colorRole="onSurfaceVariant" emphasized variant="labelMedium">{t('qadaa.deleteModal.noteLabel')}</AwaText>
+                      <AwaText numberOfLines={4} variant="bodyMedium" style={styles.noteText}>« {summary.note} »</AwaText>
                     </View>
                   ) : null}
                 </View>
 
-                <Text style={styles.reassurance}>
+                <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.reassurance}>
                   {t('qadaa.deleteModal.reassurance')}
-                </Text>
+                </AwaText>
               </>
             ) : null}
           </ScrollView>
 
           <View style={styles.actions}>
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('qadaa.deleteModal.cancelAccessibility')}
-              accessibilityRole="button"
-              accessibilityState={{disabled: deleting}}
               disabled={deleting}
+              label={t('qadaa.deleteModal.cancelText')}
               onPress={cancel}
-              style={({pressed}) => [styles.button, styles.cancelButton, pressed && styles.pressed]}>
-              <Text style={styles.cancelText}>{t('qadaa.deleteModal.cancelText')}</Text>
-            </Pressable>
-            <Pressable
+              style={styles.button}
+              variant="outlined"
+            />
+            <AwaButton
               accessibilityLabel={t('qadaa.deleteModal.confirmAccessibility')}
-              accessibilityRole="button"
-              accessibilityState={{disabled: deleting, busy: deleting}}
-              disabled={deleting}
+              label={deleting ? t('qadaa.deleteModal.deleting') : t('qadaa.deleteModal.confirmText')}
+              loading={deleting}
               onPress={confirm}
-              style={({pressed}) => [styles.button, styles.deleteButton, (pressed || deleting) && styles.pressed]}>
-              <Text style={[styles.deleteText, {color: destructiveText}]}>{deleting ? t('qadaa.deleteModal.deleting') : t('qadaa.deleteModal.confirmText')}</Text>
-            </Pressable>
+              style={styles.button}
+              variant="destructive"
+            />
           </View>
         </View>
       </View>
@@ -150,7 +148,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       maxWidth: 400,
       maxHeight: '100%',
       overflow: 'hidden',
-      borderRadius: homeRadii.card,
+      borderRadius: awaShapes.extraLarge,
       borderWidth: 1,
       borderColor: theme.colors.border,
       backgroundColor: theme.colors.surface,
@@ -168,53 +166,29 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor: withAlpha(theme.colors.danger, 0.3),
       backgroundColor: withAlpha(theme.colors.danger, 0.12),
     },
-    title: {
-      marginTop: 14,
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 21,
-      fontWeight: '700',
-      lineHeight: 27,
-      textAlign: 'center',
-    },
-    body: {marginTop: 10, color: theme.colors.textSecondary, fontSize: 13.5, lineHeight: 20, textAlign: 'center'},
+    title: {marginTop: 14, textAlign: 'center'},
+    body: {marginTop: 10, textAlign: 'center'},
+    // A plain tonal block (no border): the dialog card itself is the only bordered surface.
     summaryCard: {
       alignSelf: 'stretch',
       marginTop: 16,
-      borderRadius: homeRadii.button,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.primarySoft,
+      borderRadius: awaShapes.medium,
+      backgroundColor: theme.colors.surfaceSecondary,
       paddingHorizontal: 16,
       paddingVertical: 14,
     },
-    summaryQuantity: {color: theme.colors.text, fontSize: 18, fontWeight: '800'},
-    summaryYear: {marginTop: 3, color: theme.colors.primary, fontSize: 14, fontWeight: '700'},
-    summaryHint: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 12.5},
+    summaryYear: {marginTop: 3},
+    summaryHint: {marginTop: 2},
     noteBlock: {
       marginTop: 10,
       paddingTop: 10,
       borderTopWidth: StyleSheet.hairlineWidth,
       borderTopColor: theme.colors.border,
     },
-    noteLabel: {color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '700'},
-    noteText: {marginTop: 2, color: theme.colors.text, fontSize: 13, lineHeight: 18},
-    reassurance: {marginTop: 14, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18, textAlign: 'center'},
+    noteText: {marginTop: 2},
+    reassurance: {marginTop: 14, textAlign: 'center'},
     actions: {flexDirection: 'row', gap: 10, paddingHorizontal: 20, paddingTop: 12, paddingBottom: 20},
-    button: {
-      flex: 1,
-      minHeight: 50,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: homeRadii.button,
-      paddingHorizontal: 10,
-      paddingVertical: 8,
-    },
-    cancelButton: {borderWidth: 1.4, borderColor: theme.colors.primary, backgroundColor: theme.colors.surface},
-    cancelText: {color: theme.colors.primary, fontSize: 15, fontWeight: '700', textAlign: 'center'},
-    deleteButton: {backgroundColor: theme.colors.danger},
-    deleteText: {fontSize: 15, fontWeight: '700', textAlign: 'center'},
-    pressed: {opacity: 0.85},
+    button: {flex: 1},
   });
 }
 
