@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
@@ -8,7 +8,9 @@ import {useAwaADeuxSharing} from '../../../hooks/useAwaADeuxSharing';
 import PartnerScreenBackground from './PartnerScreenBackground';
 import {useAwaTheme} from '../../../theme/AwaThemeProvider';
 import {getFloatingTabBarClearance, getTopPadding} from '../../../theme/spacing';
-import {withAlpha, type ResolvedAwaTheme} from '../../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../../theme/awaThemeTokens';
+import {AwaCard} from '../../../components/ui/AwaCard';
+import {AwaText} from '../../../components/ui/AwaText';
 import {computePartnerVisibility} from '../../../utils/awaADeuxSharing';
 import {computePartnerCycleInfo} from '../../../utils/awaADeuxPartnerCycleInfo';
 import type {ComputedCyclePhase} from '../../../utils/cycleMath';
@@ -48,64 +50,48 @@ export default function PartnerAdviceScreen(): React.JSX.Element {
       <ScrollView
         contentContainerStyle={[styles.content, {paddingTop: getTopPadding(insets.top), paddingBottom: getFloatingTabBarClearance(insets.bottom, 16)}]}
         showsVerticalScrollIndicator={false}>
-        <Text accessibilityRole="header" style={styles.title}>{t('awaADeux.partnerSide.advice.title')}</Text>
-        <Text style={styles.subtitle}>{t('awaADeux.partnerSide.advice.subtitle')}</Text>
+        <AwaText accessibilityRole="header" variant="headlineMedium" style={styles.title}>{t('awaADeux.partnerSide.advice.title')}</AwaText>
+        <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.subtitle}>{t('awaADeux.partnerSide.advice.subtitle')}</AwaText>
 
-        <SectionHeader icon="heart-outline" styles={styles} theme={theme} title={t('awaADeux.partnerSide.advice.supportSectionTitle')} />
-        <View style={styles.card}>
+        <SectionHeader styles={styles} title={t('awaADeux.partnerSide.advice.supportSectionTitle')} />
+        <AwaCard padding="compact" style={styles.card} variant="filled">
           <View style={styles.cardIcon}>
             <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={24} />
           </View>
-          <Text style={styles.cardText}>{phaseTip}</Text>
-        </View>
+          <AwaText variant="bodyMedium" style={styles.cardText}>{phaseTip}</AwaText>
+        </AwaCard>
 
-        <SectionHeader icon="information-outline" styles={styles} theme={theme} title={t('awaADeux.partnerSide.advice.infoSectionTitle')} />
-        <View style={styles.card}>
+        <SectionHeader styles={styles} title={t('awaADeux.partnerSide.advice.infoSectionTitle')} />
+        <AwaCard padding="compact" style={styles.card} variant="filled">
           <View style={styles.cardIcon}>
             <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={24} />
           </View>
-          <Text style={styles.cardText}>
+          <AwaText variant="bodyMedium" style={styles.cardText}>
             {t('awaADeux.partnerSide.advice.infoText')}
-          </Text>
-        </View>
+          </AwaText>
+        </AwaCard>
 
-        <SectionHeader icon="format-list-bulleted" styles={styles} theme={theme} title={t('awaADeux.partnerSide.advice.gesturesSectionTitle')} />
-        <View style={styles.attentionCard}>
+        <SectionHeader styles={styles} title={t('awaADeux.partnerSide.advice.gesturesSectionTitle')} />
+        <AwaCard padding="none" style={styles.attentionCard} variant="filled">
           {smallGestures.map((gesture, index) => (
             <View key={gesture.text} style={[styles.attentionRow, index > 0 && styles.attentionRowDivider]}>
               <View style={styles.attentionIcon}>
                 <MaterialDesignIcons color={theme.colors.primary} name={gesture.icon} size={20} />
               </View>
-              <Text style={styles.attentionText}>{gesture.text}</Text>
-              <View importantForAccessibility="no-hide-descendants" style={styles.attentionChevron}>
-                <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={20} />
-              </View>
+              <AwaText variant="bodyMedium" style={styles.attentionText}>{gesture.text}</AwaText>
             </View>
           ))}
-        </View>
+        </AwaCard>
       </ScrollView>
     </PartnerScreenBackground>
   );
 }
 
-/** A section title with its small soft-circle icon, matching the reference's hierarchy. */
-function SectionHeader({
-  icon,
-  title,
-  theme,
-  styles,
-}: {
-  icon: IconName;
-  title: string;
-  theme: ResolvedAwaTheme;
-  styles: ReturnType<typeof createStyles>;
-}): React.JSX.Element {
+/** A section title (the cards below carry their own icon, so the title itself has none). */
+function SectionHeader({title, styles}: {title: string; styles: ReturnType<typeof createStyles>}): React.JSX.Element {
   return (
     <View style={styles.sectionHeader}>
-      <View style={styles.sectionIcon}>
-        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={16} />
-      </View>
-      <Text accessibilityRole="header" style={styles.sectionTitle}>{title}</Text>
+      <AwaText accessibilityRole="header" variant="titleSmall" style={styles.sectionTitle}>{title}</AwaText>
     </View>
   );
 }
@@ -127,32 +113,11 @@ const smallGesturesOf = (t: (key: string) => string): Array<{text: string; icon:
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     content: {paddingHorizontal: 20, paddingBottom: 20},
-    title: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 26, lineHeight: 32, fontWeight: '700'},
-    subtitle: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 14.5, lineHeight: 20},
-    sectionHeader: {marginTop: 18, marginBottom: 8, flexDirection: 'row', alignItems: 'center', gap: 9},
-    sectionIcon: {
-      width: 30,
-      height: 30,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 15,
-      backgroundColor: theme.colors.primarySoft,
-    },
-    sectionTitle: {flex: 1, minWidth: 0, color: theme.colors.text, fontSize: 14.5, lineHeight: 19, fontWeight: '800'},
-    // Compact phone-first version of the reference cards. Every tint comes from the
-    // resolved AWA theme; translucency only softens the existing surface token.
-    card: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 12,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 20,
-      backgroundColor: withAlpha(theme.colors.surface, theme.isDark ? 0.9 : 0.94),
-      paddingHorizontal: 14,
-      paddingVertical: 12,
-      ...theme.shadow,
-    },
+    title: {color: theme.colors.accent},
+    subtitle: {marginTop: 4},
+    sectionHeader: {marginTop: 18, marginBottom: 8, flexDirection: 'row', alignItems: 'center'},
+    sectionTitle: {flex: 1, minWidth: 0},
+    card: {flexDirection: 'row', alignItems: 'center', gap: 12},
     cardIcon: {
       width: 48,
       height: 48,
@@ -162,17 +127,10 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderRadius: 16,
       backgroundColor: theme.colors.primarySoft,
     },
-    cardText: {flex: 1, minWidth: 0, color: theme.colors.text, fontSize: 13, lineHeight: 18.5},
-    // One grouped card with compact rows. Chevrons reproduce the visual direction of the
-    // reference but remain decorative: the rows deliberately stay non-Pressable.
-    attentionCard: {
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 20,
-      backgroundColor: withAlpha(theme.colors.surface, theme.isDark ? 0.9 : 0.94),
-      paddingHorizontal: 12,
-      ...theme.shadow,
-    },
+    cardText: {flex: 1, minWidth: 0},
+    // One grouped card with compact rows. The rows are not interactive, so they carry no chevron
+    // (DESIGN.md: a chevron promises navigation).
+    attentionCard: {paddingHorizontal: 12},
     attentionRow: {minHeight: 56, flexDirection: 'row', alignItems: 'center', gap: 11, paddingVertical: 9},
     attentionRowDivider: {borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: theme.colors.border},
     attentionIcon: {
@@ -181,10 +139,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexShrink: 0,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 13,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
-    attentionText: {flex: 1, minWidth: 0, color: theme.colors.text, fontSize: 13, lineHeight: 18.5},
-    attentionChevron: {width: 20, flexShrink: 0, alignItems: 'center', justifyContent: 'center'},
+    attentionText: {flex: 1, minWidth: 0},
   });
 }

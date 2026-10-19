@@ -1,9 +1,9 @@
 import React, {useMemo} from 'react';
-import {StatusBar, StyleSheet, View} from 'react-native';
+import {StatusBar, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {useAwaTheme} from '../../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../../theme/awaThemeTokens';
 
 // The SAME background system every AWA dashboard already uses (PregnancyDashboard.tsx,
 // CycleHomeScreen.tsx, ConceiveDashboard.tsx, ContraceptionDashboard.tsx,
@@ -28,11 +28,6 @@ export default function PartnerScreenBackground({children}: {children: React.Rea
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.decor}>
-        <View style={styles.glowTop} />
-        <View style={styles.glowMiddle} />
-        <View style={styles.glowBottom} />
-      </View>
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
       {children}
     </LinearGradient>
@@ -42,33 +37,5 @@ export default function PartnerScreenBackground({children}: {children: React.Rea
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     background: {flex: 1, backgroundColor: theme.colors.background},
-    decor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
-    glowTop: {
-      position: 'absolute',
-      top: -150,
-      right: -110,
-      width: 330,
-      height: 330,
-      borderRadius: 165,
-      backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
-    glowMiddle: {
-      position: 'absolute',
-      top: '38%',
-      left: -130,
-      width: 260,
-      height: 260,
-      borderRadius: 130,
-      backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
-    glowBottom: {
-      position: 'absolute',
-      bottom: -150,
-      right: -100,
-      width: 310,
-      height: 310,
-      borderRadius: 155,
-      backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
   });
 }

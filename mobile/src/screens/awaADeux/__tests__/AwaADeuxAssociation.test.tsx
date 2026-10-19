@@ -11,6 +11,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import {resolveAwaTheme} from '../../../theme/awaThemeTokens';
+import {deriveAwaRoles} from '../../../theme/semanticRoles';
 import AwaADeuxIntroScreen from '../AwaADeuxIntroScreen';
 import AwaADeuxPartnerNameScreen from '../AwaADeuxPartnerNameScreen';
 import AwaADeuxPartnerViewScreen from '../AwaADeuxPartnerViewScreen';
@@ -119,8 +120,9 @@ const press = async (renderer: Root, label: string) => {
 };
 const openModal = (renderer: ReactTestRenderer.ReactTestRenderer) =>
   renderer.root.findAllByType(Modal).filter(modal => modal.props.visible === true).pop();
+// DESIGN.md: the dialog card uses the Material 3 medium shape (12) like every other dialog card.
 const cardOf = (modal: ReactTestRenderer.ReactTestInstance) =>
-  modal.findAll(node => typeof node.type === 'string' && flat(node.props?.style).borderRadius === 28 && flat(node.props?.style).maxHeight === '100%')[0];
+  modal.findAll(node => typeof node.type === 'string' && flat(node.props?.style).borderRadius === 12 && flat(node.props?.style).maxHeight === '100%')[0];
 // The invite screen's own email field.
 const emailField = (renderer: Root) =>
   rootOf(renderer).findAllByType(TextInput).find(node => node.props.accessibilityLabel === 'Adresse e-mail de votre partenaire')!;
@@ -236,6 +238,7 @@ describe('"Continuer" (frontend demo progression) — no DEV button', () => {
 
   it('the CTA follows the theme (primary background, readable text) in Light and Dark', async () => {
     const renderer = await renderFlow();
+    await enterEmail(renderer, 'sami@exemple.fr'); // the CTA is disabled (disabled container colours) until the address is valid
     const ctaStyle = () => {
       const cta = buttons(renderer, 'Envoyer l’invitation')[0];
       return flat(typeof cta.props.style === 'function' ? cta.props.style({pressed: false}) : cta.props.style);
@@ -367,13 +370,13 @@ describe('Partner connected screen', () => {
     for (const key of ['minHeight', 'borderRadius', 'paddingHorizontal', 'flexDirection', 'gap']) {
       expect(stop[key]).toBe(manage[key]);
     }
-    const danger = resolveAwaTheme('awa-original', false, false).colors.danger;
+    // Material 3: Stop is an AwaButton "destructive" (AA-safe error text colour); press feedback is a state layer.
+    const danger = deriveAwaRoles(resolveAwaTheme('awa-original', false, false)).accessible.dangerText;
     expect(stop.borderColor).not.toBe(manage.borderColor);
     const stopText = renderer.root.findAllByType(Text).find(node => textOf(node) === 'Arrêter le partage')!;
     expect(flat(stopText.props.style).color).toBe(danger);
     const pressed = flat(buttons(renderer, 'Gérer les informations partagées')[0].props.style({pressed: true}));
-    expect(pressed.transform[0].scale).toBeGreaterThan(0.95);
-    expect(pressed.transform[0].scale).toBeLessThan(1);
+    expect(pressed.backgroundColor).toBeDefined();
   });
 
   it('is compact: the illustration is medium sized (about 17% of the height, 96–150 dp) and the title stays visible at 24', async () => {
@@ -472,13 +475,16 @@ describe('Stop sharing', () => {
     simulatePartnerConnected();
     const renderer = await renderFlow('AwaADeuxPartnerConnected');
     await press(renderer, 'Arrêter le partage');
-    const destructive = () =>
-      openModal(renderer)!.findAll(node => typeof node.type === 'string' && flat(node.props?.style).minHeight === 52 && flat(node.props?.style).backgroundColor !== undefined)[0];
-    expect(flat(destructive().props.style).backgroundColor).toBe(resolveAwaTheme('awa-original', false, false).colors.danger);
+    // Material 3: the confirm action is an AwaButton "destructive" (outlined, AA-safe error label colour).
+    const destructiveLabelColor = () => {
+      const label = openModal(renderer)!.findAllByType(Text).find(node => textOf(node) === 'Arrêter le partage')!;
+      return flat(label.props.style).color;
+    };
+    expect(destructiveLabelColor()).toBe(deriveAwaRoles(resolveAwaTheme('awa-original', false, false)).accessible.dangerText);
     await act(async () => {
       await setAppearanceMode('dark');
     });
-    expect(flat(destructive().props.style).backgroundColor).toBe(resolveAwaTheme('awa-original', true, false).colors.danger);
+    expect(destructiveLabelColor()).toBe(deriveAwaRoles(resolveAwaTheme('awa-original', true, false)).accessible.dangerText);
   });
 });
 
@@ -530,8 +536,9 @@ describe('Theme', () => {
       await setAppearanceMode('dark');
     });
     const dark = resolveAwaTheme('awa-original', true, false);
-    const card = renderer.root.findAll(node => typeof node.type === 'string' && flat(node.props?.style).borderRadius === 24 && flat(node.props?.style).padding === 18)[0];
-    expect(flat(card.props.style).backgroundColor).toBe(dark.colors.surface);
+    // Material 3: the email field is an AwaTextField (no surrounding card); its text colour is the on-surface role.
+    const field = renderer.root.findAllByType(TextInput).find(node => node.props.accessibilityLabel === 'Adresse e-mail de votre partenaire')!;
+    expect(flat(field.props.style).color).toBe(dark.colors.text);
   });
 });
 

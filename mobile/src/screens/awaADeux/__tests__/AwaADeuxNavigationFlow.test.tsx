@@ -267,7 +267,8 @@ describe('ONE linear onboarding path', () => {
     const defining = (needle: string) => sources.filter(([name, source]) => !name.endsWith('.ts') && source.includes(needle)).map(([name]) => name);
     expect(defining('awaADeux.partnerView.titleNeutral')).toEqual(['AwaADeuxPartnerViewScreen.tsx']);
     expect(defining("title={t('awaADeux.sharing.title')}")).toEqual(['AwaADeuxSharingScreen.tsx']);
-    expect(defining('<Switch')).toEqual(['AwaADeuxSharingScreen.tsx']); // the only place permissions are edited
+    // Material 3 migration: the screen uses the shared AwaSwitch wrapper (one native Switch) instead of a bare <Switch.
+    expect(defining('<AwaSwitch')).toEqual(['AwaADeuxSharingScreen.tsx']); // the only place permissions are edited
     expect(defining('export function PartnerPreviewModal')).toEqual(['AwaADeuxDialogs.tsx']); // one partner preview
     const nav = fs.readFileSync(path.resolve(__dirname, '../../../navigation/AppNavigator.tsx'), 'utf8');
     expect((nav.match(/name="AwaADeux\w+"/g) ?? []).length).toBe(10);

@@ -10,6 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, resolveAwaTheme} from '../../../theme/awaThemeTokens';
+import {deriveAwaRoles} from '../../../theme/semanticRoles';
 import ProfileScreen from '../../ProfileScreen';
 import AwaADeuxIntroScreen from '../AwaADeuxIntroScreen';
 import {INTRO_HERO_MIN_HEIGHT, getIntroLayout} from '../awaADeuxIntroLayout';
@@ -193,7 +194,8 @@ describe('Theme: only existing AWA tokens', () => {
     const benefit = renderer.root.findAllByType(Text).find(node => textOf(node) === 'Recevez plus de soutien au quotidien')!;
     expect(flat(benefit.props.style).color).toBe(theme.colors.text);
     const subtitle = renderer.root.findAllByType(Text).find(node => textOf(node).startsWith('Avancez ensemble'))!;
-    expect(flat(subtitle.props.style).color).toBe(theme.colors.textSecondary);
+    // Material 3: secondary text uses the AA-safe on-surface-variant companion (equal to textSecondary when it passes AA).
+    expect(flat(subtitle.props.style).color).toBe(deriveAwaRoles(theme).accessible.onSurfaceVariant);
   };
 
   it('Light: resolves the light theme', async () => {
@@ -333,7 +335,7 @@ describe('One screen, no scrolling', () => {
   it('every card is the same size; content is compact (smaller than before)', async () => {
     const renderer = await renderApp('AwaADeuxIntro');
     const cards = renderer.root
-      .findAll(node => typeof node.type === 'string' && flat(node.props?.style).borderRadius === 18 && flat(node.props?.style).minHeight !== undefined)
+      .findAll(node => typeof node.type === 'string' && flat(node.props?.style).borderRadius === 12 && flat(node.props?.style).minHeight !== undefined)
       .map(node => flat(node.props.style));
     expect(cards).toHaveLength(4);
     cards.forEach(card => {
@@ -417,7 +419,7 @@ describe('Cards follow the theme', () => {
   it('surface, border and icon container come from the resolved theme in Light and Dark', async () => {
     const renderer = await renderApp('AwaADeuxIntro');
     const card = () =>
-      flat(renderer.root.findAll(node => typeof node.type === 'string' && flat(node.props?.style).borderRadius === 18 && flat(node.props?.style).minHeight !== undefined)[0].props.style);
+      flat(renderer.root.findAll(node => typeof node.type === 'string' && flat(node.props?.style).borderRadius === 12 && flat(node.props?.style).minHeight !== undefined)[0].props.style);
     const iconBox = () =>
       flat(renderer.root.findAll(node => typeof node.type === 'string' && flat(node.props?.style).borderRadius === (flat(node.props?.style).width as number) / 2 && flat(node.props?.style).width !== undefined)[0].props.style);
     const light = resolveAwaTheme('awa-original', false, false);

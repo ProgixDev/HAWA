@@ -5,11 +5,8 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   StatusBar,
   StyleSheet,
-  Text,
-  TextInput,
   View,
   useWindowDimensions,
 } from 'react-native';
@@ -24,7 +21,11 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {useAwaADeuxPartnerName} from '../../hooks/useAwaADeuxPartnerName';
 import {PARTNER_NAME_MAX_LENGTH, normalizePartnerName} from '../../state/awaADeuxPartnerStore';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
+import {AwaTextField} from '../../components/ui/AwaTextField';
 
 // "AWA à deux" — "Comment s'appelle votre partenaire ?" (Intro → Découvrir → this screen).
 //
@@ -81,11 +82,11 @@ export default function AwaADeuxPartnerNameScreen({navigation}: Props): React.JS
   const reduceMotion = useReducedMotion();
   const compact = width < 360 || height < 700;
   const styles = useMemo(() => createStyles(theme, compact, height), [theme, compact, height]);
+  const ctaHeight = compact ? 46 : 50;
 
   const {partnerName: savedName, loaded, setPartnerName} = useAwaADeuxPartnerName();
   const [name, setName] = useState(savedName);
   const edited = useRef(false);
-  const [focused, setFocused] = useState(false);
   const [keyboardOpen, setKeyboardOpen] = useState(false);
   const partnerName = normalizePartnerName(name);
   const canContinue = partnerName.length > 0;
@@ -122,14 +123,13 @@ export default function AwaADeuxPartnerNameScreen({navigation}: Props): React.JS
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
       <View style={[styles.header, {paddingTop: Math.max(insets.top, 18) + 8}]}>
-        <Pressable
+        <AwaIconButton
           accessibilityLabel={t('common.back')}
-          accessibilityRole="button"
-          hitSlop={8}
+          icon="chevron-left"
+          iconSize={28}
           onPress={navigation.goBack}
-          style={({pressed}) => [styles.back, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
-        </Pressable>
+          style={styles.back}
+        />
       </View>
 
       <KeyboardAvoidingView
@@ -143,40 +143,31 @@ export default function AwaADeuxPartnerNameScreen({navigation}: Props): React.JS
           )}
 
           <Animated.View style={titleEntrance}>
-            <Text accessibilityRole="header" maxFontSizeMultiplier={1.15} style={styles.title}>
+            <AwaText accessibilityRole="header" maxFontSizeMultiplier={1.15} variant="headlineSmall" style={styles.title}>
               {t('awaADeux.partnerName.title')}
-            </Text>
-            <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={styles.divider}>
-              <View style={styles.dividerLine} />
-              <MaterialDesignIcons color={theme.colors.primary} name="heart" size={12} />
-              <View style={styles.dividerLine} />
-            </View>
+            </AwaText>
             {keyboardOpen && compact ? null : (
-              <Text maxFontSizeMultiplier={1.15} style={styles.description}>
+              <AwaText colorRole="onSurfaceVariant" maxFontSizeMultiplier={1.15} variant="bodyMedium" style={styles.description}>
                 {t('awaADeux.partnerName.description')}
-              </Text>
+              </AwaText>
             )}
           </Animated.View>
 
           <Animated.View style={[styles.card, cardEntrance]}>
-            <Text maxFontSizeMultiplier={1.2} style={styles.label}>{t('awaADeux.partnerName.fieldLabel')}</Text>
-            <TextInput
+            <AwaTextField
               accessibilityLabel={t('awaADeux.partnerName.fieldLabel')}
               autoCapitalize="words"
               autoComplete="off"
               autoCorrect={false}
+              label={t('awaADeux.partnerName.fieldLabel')}
               maxLength={PARTNER_NAME_MAX_LENGTH}
-              onBlur={() => setFocused(false)}
               onChangeText={value => {
                 edited.current = true;
                 setName(value);
               }}
-              onFocus={() => setFocused(true)}
               placeholder={t('awaADeux.partnerName.placeholder')}
-              placeholderTextColor={theme.colors.textMuted}
               returnKeyType="done"
               selectionColor={theme.colors.primary}
-              style={[styles.input, focused && styles.inputFocused]}
               textContentType="givenName"
               value={name}
             />
@@ -199,18 +190,14 @@ export default function AwaADeuxPartnerNameScreen({navigation}: Props): React.JS
         </View>
 
         <View style={[styles.footer, {paddingBottom: Math.max(insets.bottom, 16) + 8}]}>
-          <Pressable
+          <AwaButton
             accessibilityLabel={t('common.continue')}
-            accessibilityRole="button"
-            accessibilityState={{disabled: !canContinue}}
             disabled={!canContinue}
+            fullWidth
+            label={t('common.continue')}
+            minHeight={ctaHeight}
             onPress={onContinue}
-            style={({pressed}) => [styles.cta, !canContinue && styles.ctaDisabled, pressed && styles.pressed]}>
-            <Text maxFontSizeMultiplier={1.15} style={styles.ctaText}>{t('common.continue')}</Text>
-            <View style={styles.ctaArrow}>
-              <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="arrow-right" size={20} />
-            </View>
-          </Pressable>
+          />
         </View>
       </KeyboardAvoidingView>
     </LinearGradient>
@@ -218,7 +205,6 @@ export default function AwaADeuxPartnerNameScreen({navigation}: Props): React.JS
 }
 
 function createStyles(theme: ResolvedAwaTheme, compact: boolean, windowHeight: number) {
-  const ctaHeight = compact ? 46 : 50;
   // About 21% of the window height (18% on a compact phone) — clearly smaller than the old
   // "whatever is left" box; it still shrinks (maxHeight: '100%') when the space is short.
   const heroHeight = Math.round(windowHeight * (compact ? 0.18 : 0.21));
@@ -226,15 +212,7 @@ function createStyles(theme: ResolvedAwaTheme, compact: boolean, windowHeight: n
     screen: {flex: 1, backgroundColor: theme.colors.background},
     flex: {flex: 1},
     header: {paddingHorizontal: 20, paddingBottom: 4},
-    back: {
-      alignSelf: 'flex-start',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 999,
-      backgroundColor: theme.colors.surface,
-      padding: 9,
-      elevation: 2,
-    },
+    back: {alignSelf: 'flex-start'},
     // A plain column that fits the screen: nothing scrolls, anything that does not fit is clipped, never scrolled.
     content: {flex: 1, minHeight: 0, overflow: 'hidden', paddingHorizontal: 20, paddingTop: compact ? 4 : 10},
     heartBadge: {
@@ -249,60 +227,23 @@ function createStyles(theme: ResolvedAwaTheme, compact: boolean, windowHeight: n
     title: {
       marginTop: compact ? 12 : 18,
       color: theme.colors.accent,
-      fontFamily: 'serif',
       fontSize: compact ? 24 : 27,
       lineHeight: compact ? 30 : 34,
-      fontWeight: '700',
       textAlign: 'center',
     },
-    divider: {marginTop: compact ? 8 : 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10},
-    dividerLine: {width: 52, height: 1, backgroundColor: withAlpha(theme.colors.primary, 0.35)},
     description: {
       marginTop: compact ? 8 : 12,
-      color: theme.colors.textSecondary,
       fontSize: compact ? 13.5 : 14.5,
       lineHeight: compact ? 20 : 21,
       textAlign: 'center',
     },
-    card: {
-      marginTop: compact ? 16 : 22,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 22,
-      backgroundColor: theme.colors.surface,
-      padding: 16,
-      ...theme.shadow,
-    },
-    label: {marginBottom: 8, color: theme.colors.text, fontSize: 14.5, fontWeight: '700'},
-    input: {
-      minHeight: 50,
-      borderRadius: 16,
-      borderWidth: 1.2,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.background,
-      paddingHorizontal: 14,
-      color: theme.colors.text,
-      fontSize: 15,
-    },
-    inputFocused: {borderColor: theme.colors.primary},
+    // Wrapper of the text field (the field draws its own label and border).
+    card: {marginTop: compact ? 16 : 22},
     // The space between the card and the CTA; the illustration sits in its middle, a little above centre.
     heroZone: {flex: 1, minHeight: 0, alignItems: 'center', justifyContent: 'center', paddingTop: 4, paddingBottom: compact ? 8 : 16},
     // Fixed share of the window height, shrinking with the zone; `contain` keeps the PNG's ratio.
     heroBox: {width: '100%', height: heroHeight, maxHeight: '100%'},
     heroImage: {width: '100%', height: '100%'},
     footer: {paddingHorizontal: 20, paddingTop: 10},
-    cta: {
-      minHeight: ctaHeight,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: ctaHeight / 2,
-      backgroundColor: theme.colors.primary,
-      paddingHorizontal: 20,
-    },
-    ctaDisabled: {opacity: 0.45},
-    ctaText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '700'},
-    ctaArrow: {position: 'absolute', right: 22},
-    pressed: {opacity: 0.85},
   });
 }

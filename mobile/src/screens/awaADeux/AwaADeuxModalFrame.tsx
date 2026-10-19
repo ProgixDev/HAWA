@@ -1,6 +1,5 @@
 import React, {useMemo} from 'react';
-import {KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StyleSheet, View} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useReducedMotion,
@@ -11,7 +10,10 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {useEntrance} from './useEntrance';
 
 // Shared frame of the "AWA à deux" dialogs (QR code, share the invitation, e-mail
@@ -46,15 +48,14 @@ function ModalCard({title, onClose, children, ctaLabel, onCta, ctaDisabled}: Omi
   return (
     <Animated.View accessibilityViewIsModal style={[styles.card, entrance]}>
       <View style={styles.header}>
-        <Text accessibilityRole="header" maxFontSizeMultiplier={1.2} numberOfLines={2} style={styles.title}>{title}</Text>
-        <Pressable
-          accessibilityLabel={t('common.close')}
-          accessibilityRole="button"
-          hitSlop={8}
-          onPress={onClose}
-          style={({pressed}) => [styles.close, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={theme.colors.textSecondary} name="close" size={22} />
-        </Pressable>
+        <AwaText
+          accessibilityRole="header"
+          maxFontSizeMultiplier={1.2}
+          variant="titleLarge"
+          style={styles.title}>
+          {title}
+        </AwaText>
+        <AwaIconButton accessibilityLabel={t('common.close')} icon="close" onPress={onClose} />
       </View>
 
       <ScrollView
@@ -68,11 +69,11 @@ function ModalCard({title, onClose, children, ctaLabel, onCta, ctaDisabled}: Omi
       {ctaLabel ? (
         <View style={styles.footer}>
           <Animated.View style={ctaPress}>
-            <Pressable
+            <AwaButton
               accessibilityLabel={ctaLabel}
-              accessibilityRole="button"
-              accessibilityState={{disabled: Boolean(ctaDisabled)}}
               disabled={ctaDisabled}
+              fullWidth
+              label={ctaLabel}
               onPress={onCta}
               onPressIn={() => {
                 pressScale.value = withTiming(0.97, {duration: 90});
@@ -80,9 +81,7 @@ function ModalCard({title, onClose, children, ctaLabel, onCta, ctaDisabled}: Omi
               onPressOut={() => {
                 pressScale.value = withTiming(1, {duration: 140});
               }}
-              style={({pressed}) => [styles.cta, ctaDisabled && styles.ctaDisabled, pressed && styles.pressed]}>
-              <Text maxFontSizeMultiplier={1.2} style={styles.ctaText}>{ctaLabel}</Text>
-            </Pressable>
+            />
           </Animated.View>
         </View>
       ) : null}
@@ -121,28 +120,16 @@ function createStyles(theme: ResolvedAwaTheme) {
       width: '100%',
       maxWidth: 420,
       maxHeight: '100%',
-      borderRadius: 28,
+      borderRadius: 12,
       borderWidth: 1,
       borderColor: theme.colors.border,
       backgroundColor: theme.colors.background,
       elevation: 12,
     },
     header: {flexDirection: 'row', alignItems: 'center', gap: 8, paddingLeft: 20, paddingRight: 10, paddingTop: 14},
-    title: {flex: 1, color: theme.colors.accent, fontFamily: 'serif', fontSize: 19, lineHeight: 25, fontWeight: '700'},
-    close: {width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 20},
+    title: {flex: 1, color: theme.colors.accent},
     scroll: {flexGrow: 0, flexShrink: 1},
     scrollContent: {paddingHorizontal: 20, paddingTop: 10, paddingBottom: 16},
     footer: {paddingHorizontal: 20, paddingTop: 4, paddingBottom: 20},
-    cta: {
-      minHeight: 52,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 26,
-      backgroundColor: theme.colors.primary,
-      paddingHorizontal: 20,
-    },
-    ctaDisabled: {opacity: 0.45},
-    ctaText: {color: onPrimaryTextColor(theme), fontSize: 15.5, fontWeight: '700'},
-    pressed: {opacity: 0.85},
   });
 }

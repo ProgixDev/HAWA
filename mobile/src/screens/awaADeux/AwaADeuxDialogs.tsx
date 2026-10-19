@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {Modal, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Modal, Pressable, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -9,7 +9,9 @@ import {useAwaADeuxPartnerName} from '../../hooks/useAwaADeuxPartnerName';
 import {useAwaADeuxSharing} from '../../hooks/useAwaADeuxSharing';
 import {partnerSubject} from '../../utils/awaADeuxPartnerWording';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {computePartnerVisibility} from '../../utils/awaADeuxSharing';
 import AwaADeuxModalFrame from './AwaADeuxModalFrame';
 import PartnerPreviewCard from './PartnerPreviewCard';
@@ -55,10 +57,10 @@ export function PartnerPreviewModal({
         showSupportContent
         visibility={visibility}
       />
-      <Text style={[styles.body, styles.spaced]}>
+      <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={[styles.body, styles.spaced]}>
         {`Ceci est un aperçu. ${partnerSubject(partnerName)} verra uniquement les informations que vous avez activées.`}
-      </Text>
-      <Text style={styles.demoNote}>Aperçu d’exemple : données fictives.</Text>
+      </AwaText>
+      <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.demoNote}>Aperçu d’exemple : données fictives.</AwaText>
     </AwaADeuxModalFrame>
   );
 }
@@ -103,27 +105,28 @@ export function StopSharingModal({
           <View importantForAccessibility="no-hide-descendants" style={styles.sheetIcon}>
             <MaterialDesignIcons color={theme.colors.danger} name="account-cancel-outline" size={28} />
           </View>
-          <Text accessibilityRole="header" style={styles.sheetTitle}>{t('awaADeux.stopSharingModal.title')}</Text>
-          <Text style={styles.sheetText}>
+          <AwaText accessibilityRole="header" variant="titleLarge" style={styles.sheetTitle}>{t('awaADeux.stopSharingModal.title')}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.sheetText}>
             {t('awaADeux.stopSharingModal.body', {Partner: partnerSubject(partnerName)})}
-          </Text>
-          <Pressable
+          </AwaText>
+          <AwaButton
             accessibilityLabel={t('awaADeux.stopSharingModal.confirm')}
-            accessibilityRole="button"
-            accessibilityState={{disabled: busy}}
             disabled={busy}
+            fullWidth
+            label={t('awaADeux.stopSharingModal.confirm')}
             onPress={confirm}
-            style={({pressed}) => [styles.destructive, pressed && styles.pressed]}>
-            <Text style={[styles.destructiveText, {color: pickReadableTextColor(theme.colors.danger)}]}>{t('awaADeux.stopSharingModal.confirm')}</Text>
-          </Pressable>
-          <Pressable
+            style={styles.destructive}
+            variant="destructive"
+          />
+          <AwaButton
             accessibilityLabel={t('common.cancel')}
-            accessibilityRole="button"
             disabled={busy}
+            fullWidth
+            label={t('common.cancel')}
             onPress={onCancel}
-            style={({pressed}) => [styles.cancel, pressed && styles.pressed]}>
-            <Text style={styles.cancelText}>{t('common.cancel')}</Text>
-          </Pressable>
+            style={styles.cancel}
+            variant="text"
+          />
         </View>
       </View>
     </Modal>
@@ -132,8 +135,8 @@ export function StopSharingModal({
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    demoNote: {marginTop: 6, color: theme.colors.textMuted, fontSize: 11.5},
-    body: {marginTop: 12, color: theme.colors.textSecondary, fontSize: 13.5, lineHeight: 20, textAlign: 'center'},
+    demoNote: {marginTop: 6},
+    body: {marginTop: 12, textAlign: 'center'},
     spaced: {marginTop: 14},
     backdrop: {...StyleSheet.absoluteFillObject, backgroundColor: withAlpha(theme.shadow.shadowColor, 0.55)},
     sheetRoot: {flex: 1, justifyContent: 'flex-end'},
@@ -158,29 +161,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderRadius: 30,
       backgroundColor: withAlpha(theme.colors.danger, 0.12),
     },
-    sheetTitle: {marginTop: 14, color: theme.colors.text, fontFamily: 'serif', fontSize: 21, fontWeight: '700', textAlign: 'center'},
-    sheetText: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 14, lineHeight: 21, textAlign: 'center'},
-    destructive: {
-      marginTop: 20,
-      alignSelf: 'stretch',
-      minHeight: 52,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 26,
-      backgroundColor: theme.colors.danger,
-    },
-    destructiveText: {fontSize: 15.5, fontWeight: '700'},
-    cancel: {
-      marginTop: 8,
-      alignSelf: 'stretch',
-      minHeight: 50,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 25,
-      borderWidth: 1.2,
-      borderColor: theme.colors.primary,
-    },
-    cancelText: {color: theme.colors.primary, fontSize: 15.5, fontWeight: '700'},
-    pressed: {opacity: 0.85},
+    sheetTitle: {marginTop: 14, textAlign: 'center'},
+    sheetText: {marginTop: 8, textAlign: 'center'},
+    destructive: {marginTop: 20},
+    cancel: {marginTop: 8},
   });
 }

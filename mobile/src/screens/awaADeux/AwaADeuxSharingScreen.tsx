@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {StyleSheet, Switch, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
@@ -9,7 +9,10 @@ import {useAwaADeuxPartnerName} from '../../hooks/useAwaADeuxPartnerName';
 import {partnerSubject} from '../../utils/awaADeuxPartnerWording';
 import {useAwaADeuxSharing} from '../../hooks/useAwaADeuxSharing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaSwitch} from '../../components/ui/AwaSwitch';
+import {AwaText} from '../../components/ui/AwaText';
 import AwaADeuxStepLayout, {Reveal} from './AwaADeuxStepLayout';
 import {sharingSections, supportContent} from './awaADeuxDemo';
 
@@ -52,22 +55,17 @@ export default function AwaADeuxSharingScreen({navigation, route}: Props): React
       title={t('awaADeux.sharing.title')}>
       {sections.map((section, sectionIndex) => (
         <Reveal key={section.id} index={sectionIndex}>
-          <Text accessibilityRole="header" style={styles.sectionTitle}>{section.title}</Text>
-          <View style={styles.card}>
+          <AwaText accessibilityRole="header" variant="titleMedium" style={styles.sectionTitle}>{section.title}</AwaText>
+          <AwaCard padding="none" style={styles.card} variant="filled">
             {section.items.map((item, itemIndex) => (
               <View key={item.key} style={[styles.row, itemIndex > 0 && styles.rowDivider]}>
                 <View style={styles.rowIcon}>
                   <MaterialDesignIcons color={theme.colors.primary} name={item.icon as IconName} size={19} />
                 </View>
-                <Text maxFontSizeMultiplier={1.2} style={styles.rowLabel}>{item.label}</Text>
-                <Switch
+                <AwaText maxFontSizeMultiplier={1.2} variant="bodyMedium" style={styles.rowLabel}>{item.label}</AwaText>
+                <AwaSwitch
                   accessibilityLabel={item.label}
-                  accessibilityRole="switch"
-                  accessibilityState={{checked: toggles[item.key]}}
-                  ios_backgroundColor={withAlpha(theme.colors.primary, 0.14)}
                   onValueChange={value => setToggle(item.key, value)}
-                  thumbColor={theme.colors.surface}
-                  trackColor={{false: withAlpha(theme.colors.primary, 0.18), true: theme.colors.primary}}
                   value={toggles[item.key]}
                 />
               </View>
@@ -80,13 +78,13 @@ export default function AwaADeuxSharingScreen({navigation, route}: Props): React
                       <MaterialDesignIcons color={theme.colors.primary} name={item.icon as IconName} size={19} />
                     </View>
                     <View style={styles.rowCopy}>
-                      <Text maxFontSizeMultiplier={1.2} style={styles.rowLabel}>{item.label}</Text>
-                      <Text maxFontSizeMultiplier={1.2} style={styles.rowNote}>{item.note}</Text>
+                      <AwaText maxFontSizeMultiplier={1.2} variant="bodyMedium" style={styles.rowLabel}>{item.label}</AwaText>
+                      <AwaText colorRole="onSurfaceVariant" maxFontSizeMultiplier={1.2} variant="bodySmall" style={styles.rowNote}>{item.note}</AwaText>
                     </View>
                   </View>
                 ))
               : null}
-          </View>
+          </AwaCard>
         </Reveal>
       ))}
     </AwaADeuxStepLayout>
@@ -99,18 +97,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginBottom: 8,
       marginLeft: 4,
       color: theme.colors.accent,
-      fontFamily: 'serif',
-      fontSize: 16.5,
-      fontWeight: '700',
     },
-    card: {
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 22,
-      backgroundColor: theme.colors.surface,
-      paddingHorizontal: 14,
-      ...theme.shadow,
-    },
+    card: {paddingHorizontal: 14},
     row: {minHeight: 60, flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 8},
     rowDivider: {borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: theme.colors.border},
     rowIcon: {
@@ -123,7 +111,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: theme.colors.primarySoft,
     },
     rowCopy: {flex: 1, minWidth: 0},
-    rowLabel: {flex: 1, minWidth: 0, color: theme.colors.text, fontSize: 14.5, lineHeight: 20, fontWeight: '600'},
-    rowNote: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
+    rowLabel: {flex: 1, minWidth: 0},
+    rowNote: {marginTop: 2},
   });
 }

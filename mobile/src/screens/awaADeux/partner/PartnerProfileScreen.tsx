@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Animated, KeyboardAvoidingView, Linking, Modal, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Animated, KeyboardAvoidingView, Linking, Modal, Platform, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation} from '@react-navigation/native';
 import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
@@ -10,7 +10,11 @@ import type {TFunction} from 'i18next';
 
 import type {RootStackParamList} from '../../../navigation/AppNavigator';
 import type {PartnerMainTabParamList} from '../../../navigation/PartnerMainTabNavigator';
-import {homeColors, homeRadii} from '../../../components/home/homeTheme';
+import {homeColors} from '../../../components/home/homeTheme';
+import {AwaButton} from '../../../components/ui/AwaButton';
+import {AwaCard} from '../../../components/ui/AwaCard';
+import {AwaText} from '../../../components/ui/AwaText';
+import {AwaTextField} from '../../../components/ui/AwaTextField';
 import {useAwaADeuxPartnerIdentity} from '../../../hooks/useAwaADeuxPartnerIdentity';
 import {useAwaADeuxPartnerProfile} from '../../../hooks/useAwaADeuxPartnerProfile';
 import {useAwaADeuxSharing} from '../../../hooks/useAwaADeuxSharing';
@@ -20,7 +24,8 @@ import {getFirstName} from '../../../state/onboardingPreferences';
 import type {SharingKey} from '../../../state/awaADeuxSharingStore';
 import {useAwaTheme} from '../../../theme/AwaThemeProvider';
 import {getFloatingTabBarClearance, getTopPadding} from '../../../theme/spacing';
-import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../../theme/awaThemeTokens';
+import {awaShapes} from '../../../theme/shapes';
 import {computePartnerVisibility} from '../../../utils/awaADeuxSharing';
 import {partnerSubject} from '../../../utils/awaADeuxPartnerWording';
 import {APP_METADATA} from '../../../utils/appMetadata';
@@ -126,17 +131,13 @@ export default function PartnerProfileScreen(): React.JSX.Element {
       <ScrollView
         contentContainerStyle={[styles.content, {paddingTop: getTopPadding(insets.top), paddingBottom: getFloatingTabBarClearance(insets.bottom, 16)}]}
         showsVerticalScrollIndicator={false}>
-        <Text accessibilityRole="header" style={styles.title}>{t('awaADeux.partnerSide.profile.title')}</Text>
-        <Text style={styles.subtitle}>{t('awaADeux.partnerSide.profile.subtitle')}</Text>
+        <AwaText accessibilityRole="header" variant="headlineMedium" style={styles.title}>{t('awaADeux.partnerSide.profile.title')}</AwaText>
+        <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.subtitle}>{t('awaADeux.partnerSide.profile.subtitle')}</AwaText>
 
         {/* Welcome / identity card — compact HORIZONTAL layout: avatar left, greeting
-            centered, a very subtle decorative heart behind the content on the right. No
-            "Connecté" badge here anymore — that status already lives in the "AWA à deux"
-            section subtitle below, so it isn't duplicated. */}
-        <View style={styles.identityCard}>
-          <View importantForAccessibility="no-hide-descendants" pointerEvents="none" style={styles.identityDecor}>
-            <MaterialDesignIcons color={withAlpha(theme.colors.primary, theme.isDark ? 0.16 : 0.1)} name="heart" size={56} />
-          </View>
+            centered. No "Connecté" badge here anymore — that status already lives in the
+            "AWA à deux" section subtitle below, so it isn't duplicated. */}
+        <AwaCard padding="none" style={styles.identityCard} variant="filled">
           <View style={styles.avatarOuterRing}>
             <View style={styles.avatarFallback}>
               {hasPartnerName ? (
@@ -147,14 +148,14 @@ export default function PartnerProfileScreen(): React.JSX.Element {
             </View>
           </View>
           <View style={styles.identityCopy}>
-            <Text style={styles.identityName}>{t('awaADeux.partnerSide.profile.greeting', {name: identityName})}</Text>
-           <Text style={styles.welcomeLine}>{t('awaADeux.partnerSide.profile.welcomeLine1')}</Text>
-<Text style={styles.welcomeLine}>{t('awaADeux.partnerSide.profile.welcomeLine2')}</Text>
+            <AwaText variant="titleMedium">{t('awaADeux.partnerSide.profile.greeting', {name: identityName})}</AwaText>
+           <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.welcomeLine}>{t('awaADeux.partnerSide.profile.welcomeLine1')}</AwaText>
+<AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.welcomeLine}>{t('awaADeux.partnerSide.profile.welcomeLine2')}</AwaText>
           </View>
-        </View>
+        </AwaCard>
 
-        <SectionHeader icon="account-outline" styles={styles} subtitle={t('awaADeux.partnerSide.profile.personalInfoSubtitle')} theme={theme} title={t('awaADeux.partnerSide.profile.personalInfoTitle')} />
-        <View style={styles.personalInfoCard}>
+        <SectionHeader styles={styles} subtitle={t('awaADeux.partnerSide.profile.personalInfoSubtitle')} title={t('awaADeux.partnerSide.profile.personalInfoTitle')} />
+        <AwaCard padding="none" style={styles.personalInfoCard} variant="filled">
           <InfoRow
             accessibilityLabel={t('awaADeux.partnerSide.profile.editFirstNameAccessibility')}
             icon="account-outline"
@@ -167,7 +168,7 @@ export default function PartnerProfileScreen(): React.JSX.Element {
           <View style={styles.infoRowDivider} />
           {/* Read-only — no onPress, so InfoRow renders it as a plain View with no chevron. */}
           <InfoRow icon="account-heart-outline" label={t('awaADeux.partnerSide.profile.roleLabel')} styles={styles} theme={theme} value={t('awaADeux.partnerSide.profile.roleValue')} />
-        </View>
+        </AwaCard>
 
         <EditFirstNameModal
           initialValue={hasPartnerName ? identityName : ''}
@@ -178,7 +179,7 @@ export default function PartnerProfileScreen(): React.JSX.Element {
           visible={nameModalVisible}
         />
 
-        <SectionHeader icon="link-variant" styles={styles} subtitle={t('awaADeux.partnerSide.profile.connectedToSubtitle', {owner: ownerLabel.toLowerCase()})} theme={theme} title={t('profile.awaADeuxTitle')} />
+        <SectionHeader styles={styles} subtitle={t('awaADeux.partnerSide.profile.connectedToSubtitle', {owner: ownerLabel.toLowerCase()})} title={t('profile.awaADeuxTitle')} />
 
         {/* Same accordion component/visual system as Confidentialité below (Row +
             privacyRow/privacyIcon/privacyText/privacyDivider) — only the content differs:
@@ -302,14 +303,15 @@ export default function PartnerProfileScreen(): React.JSX.Element {
           </View>
         </Row>
 
-        <Pressable
+        <AwaButton
           accessibilityLabel={t('awaADeux.partnerSide.profile.signOut')}
-          accessibilityRole="button"
+          fullWidth
+          icon="logout"
+          label={t('awaADeux.partnerSide.profile.signOut')}
           onPress={() => setLogoutConfirmVisible(true)}
-          style={({pressed}) => [styles.signOut, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={theme.colors.danger} name="logout" size={20} />
-          <Text style={styles.signOutText}>{t('awaADeux.partnerSide.profile.signOut')}</Text>
-        </Pressable>
+          style={styles.signOut}
+          variant="destructive"
+        />
       </ScrollView>
 
       <LogoutConfirmModal
@@ -449,32 +451,23 @@ const helpFaqOf = (t: TFunction): FaqItem[] => [
   },
 ];
 
-/** Icon-circle + title + subtitle, matching the owner ProfileScreen's own SectionHeader
+/** Title + subtitle (the former icon circle was decorative and was removed), matching the owner ProfileScreen's own SectionHeader
  * ahead of its "Mes informations" block (that component is private to ProfileScreen.tsx,
  * so this reproduces its visual structure/tokens locally rather than duplicating a store
  * or business logic). */
 function SectionHeader({
-  icon,
   title,
   subtitle,
-  theme,
   styles,
 }: {
-  icon: IconName;
   title: string;
   subtitle: string;
-  theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <View style={styles.sectionHeader}>
-      <View style={styles.sectionHeaderTopRow}>
-        <View style={styles.sectionHeaderIcon}>
-          <MaterialDesignIcons color={theme.colors.primary} name={icon} size={18} />
-        </View>
-        <Text accessibilityRole="header" style={styles.sectionTitle}>{title}</Text>
-      </View>
-      <Text style={styles.sectionSubtitle}>{subtitle}</Text>
+      <AwaText accessibilityRole="header" variant="titleMedium" style={styles.sectionTitle}>{title}</AwaText>
+      <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.sectionSubtitle}>{subtitle}</AwaText>
     </View>
   );
 }
@@ -510,8 +503,8 @@ function InfoRow({
         <MaterialDesignIcons color={theme.colors.primary} name={icon} size={18} />
       </View>
       <View style={styles.infoCopy}>
-        <Text style={styles.infoLabel}>{label}</Text>
-        <Text numberOfLines={1} style={styles.infoValue}>{value}</Text>
+        <AwaText colorRole="onSurfaceVariant" variant="bodySmall">{label}</AwaText>
+        <AwaText variant="titleSmall" style={styles.infoValue}>{value}</AwaText>
       </View>
       {onPress ? <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={18} /> : null}
     </>
@@ -577,43 +570,40 @@ function EditFirstNameModal({
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.nameModalRoot}>
         <Pressable accessibilityLabel={t('common.close')} onPress={onClose} style={styles.nameModalOverlay} />
         <View style={styles.nameModalCard}>
-          <Text accessibilityRole="header" style={styles.nameModalTitle}>{t('awaADeux.partnerSide.profile.editNameModal.title')}</Text>
-          <Text style={styles.nameModalSubtitle}>{t('awaADeux.partnerSide.profile.editNameModal.subtitle')}</Text>
+          <AwaText accessibilityRole="header" variant="titleLarge">{t('awaADeux.partnerSide.profile.editNameModal.title')}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.nameModalSubtitle}>{t('awaADeux.partnerSide.profile.editNameModal.subtitle')}</AwaText>
 
-          <Text style={styles.nameModalLabel}>{t('awaADeux.partnerSide.profile.editNameModal.label')}</Text>
-          <TextInput
+          <AwaTextField
             accessibilityLabel={t('awaADeux.partnerSide.profile.editNameModal.label')}
             autoCapitalize="words"
             autoComplete="off"
             autoCorrect={false}
+            label={t('awaADeux.partnerSide.profile.editNameModal.label')}
             maxLength={PARTNER_PROFILE_FIRST_NAME_MAX_LENGTH}
             onChangeText={setValue}
             onSubmitEditing={submit}
-            placeholderTextColor={theme.colors.textMuted}
             returnKeyType="done"
             selectionColor={theme.colors.primary}
-            style={styles.nameModalInput}
             textContentType="givenName"
             value={value}
+            wrapperStyle={styles.nameModalField}
           />
 
           <View style={styles.nameModalFooter}>
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('common.cancel')}
-              accessibilityRole="button"
+              label={t('common.cancel')}
               onPress={onClose}
-              style={({pressed}) => [styles.nameModalCancel, pressed && styles.pressed]}>
-              <Text style={styles.nameModalCancelText}>{t('common.cancel')}</Text>
-            </Pressable>
-            <Pressable
+              style={styles.nameModalAction}
+              variant="outlined"
+            />
+            <AwaButton
               accessibilityLabel={t('common.save')}
-              accessibilityRole="button"
-              accessibilityState={{disabled: !canSave}}
               disabled={!canSave}
+              label={t('common.save')}
               onPress={submit}
-              style={({pressed}) => [styles.nameModalSave, !canSave && styles.nameModalSaveDisabled, pressed && canSave && styles.pressed]}>
-              <Text style={styles.nameModalSaveText}>{t('common.save')}</Text>
-            </Pressable>
+              style={styles.nameModalAction}
+            />
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -651,25 +641,25 @@ function LogoutConfirmModal({
             <MaterialDesignIcons color={theme.colors.danger} name="logout" size={26} />
           </View>
 
-          <Text accessibilityRole="header" style={styles.logoutTitle}>{t('awaADeux.partnerSide.profile.logoutModal.title')}</Text>
-          <Text style={styles.logoutBody}>{t('awaADeux.partnerSide.profile.logoutModal.body')}</Text>
-          <Text style={styles.logoutReassurance}>{t('awaADeux.partnerSide.profile.logoutModal.reassurance')}</Text>
+          <AwaText accessibilityRole="header" variant="titleLarge" style={styles.logoutTitle}>{t('awaADeux.partnerSide.profile.logoutModal.title')}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.logoutBody}>{t('awaADeux.partnerSide.profile.logoutModal.body')}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.logoutReassurance}>{t('awaADeux.partnerSide.profile.logoutModal.reassurance')}</AwaText>
 
           <View style={styles.logoutActions}>
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('common.cancel')}
-              accessibilityRole="button"
+              label={t('common.cancel')}
               onPress={onCancel}
-              style={({pressed}) => [styles.logoutButton, styles.logoutCancelButton, pressed && styles.pressed]}>
-              <Text style={styles.logoutCancelText}>{t('common.cancel')}</Text>
-            </Pressable>
-            <Pressable
+              style={styles.logoutButton}
+              variant="outlined"
+            />
+            <AwaButton
               accessibilityLabel={t('awaADeux.partnerSide.profile.signOut')}
-              accessibilityRole="button"
+              label={t('awaADeux.partnerSide.profile.signOut')}
               onPress={onConfirm}
-              style={({pressed}) => [styles.logoutButton, styles.logoutDestructiveButton, pressed && styles.pressed]}>
-              <Text style={[styles.logoutDestructiveText, {color: pickReadableTextColor(theme.colors.danger)}]}>{t('awaADeux.partnerSide.profile.signOut')}</Text>
-            </Pressable>
+              style={styles.logoutButton}
+              variant="destructive"
+            />
           </View>
         </View>
       </View>
@@ -747,14 +737,14 @@ function FaqRow({
               DIFFERENT accessibility label than the header above, so a screen reader never
               announces two "Contacter le support" buttons. */}
           {item.contact ? (
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('awaADeux.partnerSide.profile.faq.contactAccessibility')}
-              accessibilityRole="button"
+              icon="email-outline"
+              label={t('awaADeux.partnerSide.profile.faq.contactButton')}
               onPress={onContactPress}
-              style={({pressed}) => [styles.faqContactButton, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="email-outline" size={18} />
-              <Text style={styles.faqContactButtonText}>{t('awaADeux.partnerSide.profile.faq.contactButton')}</Text>
-            </Pressable>
+              style={styles.faqContactButton}
+              variant="tonal"
+            />
           ) : null}
         </RowBody>
       ) : null}
@@ -786,7 +776,7 @@ function Row({
 }): React.JSX.Element {
   const {t} = useTranslation();
   return (
-    <View style={styles.row}>
+    <AwaCard padding="none" style={styles.row} variant="filled">
       <Pressable
         accessibilityLabel={title}
         accessibilityRole="button"
@@ -797,13 +787,13 @@ function Row({
           <MaterialDesignIcons color={theme.colors.primary} name={icon as never} size={20} />
         </View>
         <View style={styles.rowCopy}>
-          <Text style={styles.rowTitle}>{title}</Text>
-          {!expanded ? <Text numberOfLines={2} style={styles.rowHint}>{rowHintsOf(t)[id]}</Text> : null}
+          <AwaText variant="titleSmall">{title}</AwaText>
+          {!expanded ? <AwaText colorRole="onSurfaceVariant" numberOfLines={2} variant="bodySmall" style={styles.rowHint}>{rowHintsOf(t)[id]}</AwaText> : null}
         </View>
         <MaterialDesignIcons color={theme.colors.textMuted} name={expanded ? 'chevron-up' : 'chevron-down'} size={20} />
       </Pressable>
       {expanded ? <RowBody styles={styles}>{children}</RowBody> : null}
-    </View>
+    </AwaCard>
   );
 }
 
@@ -834,8 +824,8 @@ function RowBody({children, styles}: {children: React.ReactNode; styles: ReturnT
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     content: {paddingHorizontal: 20, paddingBottom: 20},
-    title: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 26, lineHeight: 32, fontWeight: '700'},
-    subtitle: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 14.5, lineHeight: 20},
+    title: {color: theme.colors.accent},
+    subtitle: {marginTop: 4},
     // Identity card — avatar-initial ring + name, mirroring ProfileScreen's own identity
     // Compact HORIZONTAL welcome card: avatar left, greeting centered vertically next to
     // it. `overflow: hidden` clips the decorative heart to the card's rounded corners.
@@ -845,20 +835,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 14,
-      overflow: 'hidden',
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 26,
-      backgroundColor: theme.colors.surface,
-      // Trimmed from 18 — a touch less horizontal padding frees a little more room for
-      // the text column, alongside the smaller avatar below.
       paddingHorizontal: 16,
       paddingVertical: 16,
-      ...theme.shadow,
     },
-    // A very subtle, decorative-only heart sitting behind the content in the bottom-right
-    // corner (never interactive, never shrinking the text column below).
-    identityDecor: {position: 'absolute', right: 10, bottom: 8},
     // Smaller than the previous pass (was 84/70) so the text column gets more width to
     // wrap the two welcome sentences without breaking mid-word.
     avatarOuterRing: {
@@ -882,15 +861,14 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor: theme.colors.surface,
       backgroundColor: theme.colors.primarySoft,
     },
-    avatarFallbackText: {color: theme.colors.primary, fontFamily: 'serif', fontSize: 26, fontWeight: '700'},
+    avatarFallbackText: {color: theme.colors.primary, fontSize: 26, fontWeight: '700'},
     // flex: 1 + minWidth: 0 so the greeting always has the remaining row width to wrap
     // into — never numberOfLines/ellipsis, so a normal first name is never truncated.
     identityCopy: {flex: 1, minWidth: 0},
-    identityName: {color: theme.colors.text, fontFamily: 'serif', fontSize: 18, lineHeight: 23, fontWeight: '700'},
     // The two compact welcome sentences below the greeting — kept short (per spec) rather
     // than one long paragraph, so each can also be asserted on independently. Left to wrap
     // naturally (no manual line splitting).
-    welcomeLine: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 17},
+    welcomeLine: {marginTop: 3},
     // Same "toggle currently active" convention as ProfileScreen's own activeBadge.
     activeBadge: {
       flexShrink: 0,
@@ -903,37 +881,16 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: withAlpha(theme.colors.success, 0.16),
     },
     activeDot: {width: 5, height: 5, borderRadius: 3, backgroundColor: theme.colors.success},
-    activeBadgeText: {color: theme.colors.success, fontSize: 10.5, fontWeight: '800'},
+    activeBadgeText: {color: theme.colors.success, fontSize: 11, fontWeight: '800'},
     // Same border/radius/surface/shadow/horizontal-padding tokens the rest of this screen
     // uses, with the vertical padding trimmed for "Informations personnelles" specifically.
-    personalInfoCard: {
-      marginTop: 14,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 26,
-      backgroundColor: theme.colors.surface,
-      paddingHorizontal: 16,
-      paddingVertical: 8,
-      ...theme.shadow,
-    },
+    personalInfoCard: {marginTop: 14, paddingHorizontal: 16, paddingVertical: 8},
     // Section header — icon circle + serif title + secondary subtitle — reproducing the
     // owner ProfileScreen's own SectionHeader tokens (34px icon circle, 17px serif title,
     // subtitle indented under it) ahead of both "Informations personnelles" and "AWA à deux".
     sectionHeader: {marginTop: 22, marginBottom: 10, paddingHorizontal: 2},
-    sectionHeaderTopRow: {flexDirection: 'row', alignItems: 'center'},
-    sectionHeaderIcon: {
-      width: 34,
-      height: 34,
-      flexShrink: 0,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 11,
-      backgroundColor: theme.colors.primarySoft,
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.09),
-    },
-    sectionTitle: {marginLeft: 9, color: theme.colors.accent, fontFamily: 'serif', fontSize: 17, lineHeight: 22, fontWeight: '700'},
-    sectionSubtitle: {marginTop: 5, marginLeft: 43, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+    sectionTitle: {color: theme.colors.accent},
+    sectionSubtitle: {marginTop: 4},
     // "Informations personnelles" — read-only Prénom + Rôle rows. The trailing chevron is
     // decorative only (see InfoRow's own comment) — neither row is a Pressable. Compact but
     // still breathable: paddingVertical (not just minHeight) keeps a consistent ~56px row
@@ -946,23 +903,13 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexShrink: 0,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 14,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
     infoCopy: {flex: 1, minWidth: 0},
-    infoLabel: {color: theme.colors.textSecondary, fontSize: 12, lineHeight: 16},
-    infoValue: {marginTop: 1, color: theme.colors.text, fontSize: 14.5, fontWeight: '700'},
+    infoValue: {marginTop: 1},
     infoChevron: {flexShrink: 0, marginLeft: 4},
-    row: {
-      marginTop: 12,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 22,
-      backgroundColor: theme.colors.surface,
-      paddingHorizontal: 14,
-      paddingVertical: 14,
-      ...theme.shadow,
-    },
+    row: {marginTop: 12, paddingHorizontal: 14, paddingVertical: 14},
     rowHeader: {flexDirection: 'row', alignItems: 'center', gap: 12},
     rowIcon: {
       width: 40,
@@ -974,8 +921,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: theme.colors.primarySoft,
     },
     rowCopy: {flex: 1, minWidth: 0},
-    rowTitle: {color: theme.colors.text, fontSize: 14.5, fontWeight: '700'},
-    rowHint: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 16},
+    rowHint: {marginTop: 2},
     rowBodyWrap: {marginTop: 10},
     // "Confidentialité" expanded content — two compact privacy rows (icon + title +
     // description) inside the SAME card, one subtle divider between them, then a small
@@ -1035,38 +981,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     faqDefinitionTerm: {color: theme.colors.text, fontSize: 12.5, fontWeight: '700'},
     faqDefinitionDescription: {color: theme.colors.textSecondary, fontSize: 12, lineHeight: 16},
     // The one real action in this section — reuses `primarySoft`, never a hardcoded color.
-    faqContactButton: {
-      marginTop: 12,
-      alignSelf: 'flex-start',
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 8,
-      paddingHorizontal: 14,
-      paddingVertical: 10,
-      borderRadius: 16,
-      backgroundColor: theme.colors.primarySoft,
-    },
-    faqContactButtonText: {color: theme.colors.primary, fontSize: 13, fontWeight: '700'},
-    signOut: {
-      marginTop: 20,
-      minHeight: 52,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 8,
-      borderRadius: 22,
-      backgroundColor: withAlpha(theme.colors.danger, 0.06),
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.danger, 0.4),
-    },
-    signOutText: {color: theme.colors.danger, fontSize: 14.5, fontWeight: '700'},
+    faqContactButton: {marginTop: 12, alignSelf: 'flex-start'},
+    signOut: {marginTop: 20},
     // "Modifier mon prénom" sheet — same fade-in transparent Modal + dismiss-on-overlay-tap
     // + KeyboardAvoidingView + card + footer pattern already used by QadaaManualEntryModal.
     nameModalRoot: {flex: 1, justifyContent: 'flex-end'},
     nameModalOverlay: {...StyleSheet.absoluteFillObject, backgroundColor: withAlpha(theme.shadow.shadowColor, 0.45)},
     nameModalCard: {
-      borderTopLeftRadius: 26,
-      borderTopRightRadius: 26,
+      borderTopLeftRadius: 28,
+      borderTopRightRadius: 28,
       borderWidth: 1,
       borderBottomWidth: 0,
       borderColor: theme.colors.border,
@@ -1076,41 +999,10 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingBottom: 20,
       ...theme.shadow,
     },
-    nameModalTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 20, fontWeight: '700'},
-    nameModalSubtitle: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19},
-    nameModalLabel: {marginTop: 18, marginBottom: 8, color: theme.colors.text, fontSize: 14.5, fontWeight: '700'},
-    nameModalInput: {
-      minHeight: 50,
-      borderRadius: 16,
-      borderWidth: 1.2,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.background,
-      paddingHorizontal: 14,
-      color: theme.colors.text,
-      fontSize: 15,
-    },
+    nameModalSubtitle: {marginTop: 6},
+    nameModalField: {marginTop: 18},
     nameModalFooter: {marginTop: 20, flexDirection: 'row', gap: 12},
-    nameModalCancel: {
-      flex: 1,
-      minHeight: 50,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 16,
-      borderWidth: 1.2,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surface,
-    },
-    nameModalCancelText: {color: theme.colors.textSecondary, fontSize: 14.5, fontWeight: '700'},
-    nameModalSave: {
-      flex: 1,
-      minHeight: 50,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 16,
-      backgroundColor: theme.colors.primary,
-    },
-    nameModalSaveDisabled: {opacity: 0.45},
-    nameModalSaveText: {color: onPrimaryTextColor(theme), fontSize: 14.5, fontWeight: '700'},
+    nameModalAction: {flex: 1},
     // "Se déconnecter ?" — same visual pattern as QadaaDeleteConfirmModal.tsx (danger-
     // tinted icon circle, serif title, centered body, bordered-cancel + solid-destructive
     // action row). Nothing here is hardcoded — every color comes from `theme`.
@@ -1120,7 +1012,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       width: '100%',
       maxWidth: 400,
       alignItems: 'center',
-      borderRadius: homeRadii.card,
+      borderRadius: awaShapes.extraLarge,
       borderWidth: 1,
       borderColor: theme.colors.border,
       backgroundColor: theme.colors.surface,
@@ -1139,22 +1031,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor: withAlpha(theme.colors.danger, 0.3),
       backgroundColor: withAlpha(theme.colors.danger, 0.12),
     },
-    logoutTitle: {marginTop: 14, color: theme.colors.text, fontFamily: 'serif', fontSize: 21, fontWeight: '700', lineHeight: 27, textAlign: 'center'},
-    logoutBody: {marginTop: 10, color: theme.colors.textSecondary, fontSize: 13.5, lineHeight: 20, textAlign: 'center'},
-    logoutReassurance: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18, textAlign: 'center'},
+    logoutTitle: {marginTop: 14, textAlign: 'center'},
+    logoutBody: {marginTop: 10, textAlign: 'center'},
+    logoutReassurance: {marginTop: 6, textAlign: 'center'},
     logoutActions: {marginTop: 20, flexDirection: 'row', gap: 10, alignSelf: 'stretch'},
-    logoutButton: {
-      flex: 1,
-      minHeight: 50,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: homeRadii.button,
-      paddingHorizontal: 10,
-    },
-    logoutCancelButton: {borderWidth: 1.4, borderColor: theme.colors.primary, backgroundColor: theme.colors.surface},
-    logoutCancelText: {color: theme.colors.primary, fontSize: 15, fontWeight: '700'},
-    logoutDestructiveButton: {backgroundColor: theme.colors.danger},
-    logoutDestructiveText: {fontSize: 15, fontWeight: '700'},
+    logoutButton: {flex: 1},
     pressed: {opacity: 0.85},
   });
 }

@@ -61,6 +61,15 @@ async function renderFlow(metrics: Metrics = {frame: {x: 0, y: 0, width: 360, he
 
 const button = (renderer: ReactTestRenderer.ReactTestRenderer, label: string) =>
   renderer.root.findAll(node => node.props.accessibilityLabel === label && node.props.accessibilityRole === 'button' && typeof node.props.onPress === 'function').pop()!;
+// The CTA is an AwaButton (one more composite level than a bare Pressable), so the footer is the closest ancestor
+// carrying a paddingBottom rather than "parent of parent".
+const paddingBottomAbove = (node: ReactTestRenderer.ReactTestInstance) => {
+  for (let current = node.parent; current; current = current.parent) {
+    const value = flat(current.props.style).paddingBottom;
+    if (value !== undefined) {return value;}
+  }
+  return undefined;
+};
 const press = async (renderer: ReactTestRenderer.ReactTestRenderer, label: string) => {
   await act(async () => {
     button(renderer, label).props.onPress();
@@ -257,7 +266,7 @@ describe('Keyboard and layout', () => {
     it('keeps the CTA visible below the content column', async () => {
       const renderer = await openSized();
       expect(button(renderer, 'Continuer')).toBeDefined();
-      expect(flat(button(renderer, 'Continuer').parent!.parent!.props.style).paddingBottom).toBe(Math.max(16, 16) + 8);
+      expect(paddingBottomAbove(button(renderer, 'Continuer'))).toBe(Math.max(16, 16) + 8);
     });
   });
 
@@ -308,9 +317,7 @@ describe('Keyboard and layout', () => {
   it('keeps the CTA above the bottom safe area on a small phone (320 × 568) and on a large one', async () => {
     for (const [width, height, bottom] of [[320, 568, 0], [430, 932, 34]] as const) {
       const renderer = await openNameScreen({frame: {x: 0, y: 0, width, height}, insets: {top: 24, left: 0, right: 0, bottom}});
-      const footer = button(renderer, 'Continuer').parent!.parent!;
-      const footerStyle = flat(footer.props.style);
-      expect(footerStyle.paddingBottom).toBe(Math.max(bottom, 16) + 8);
+      expect(paddingBottomAbove(button(renderer, 'Continuer'))).toBe(Math.max(bottom, 16) + 8);
       expect(button(renderer, 'Retour')).toBeDefined();
       act(() => renderer.unmount());
       activeRenderers.pop();
@@ -336,6 +343,7 @@ describe('Theme: only AWA tokens', () => {
   it.each([false, true])('follows the resolved theme (dark = %s): gradient, CTA and text colors', async dark => {
     await setAppearanceMode(dark ? 'dark' : 'light');
     const renderer = await openNameScreen();
+    await type(renderer, 'Yacine'); // "Continuer" is disabled (disabled container colours) until a name is typed
     const theme = resolveAwaTheme('awa-original', dark, false);
     const gradient = renderer.root.findAllByType(LinearGradient).pop()!;
     expect(gradient.props.colors).toEqual([...theme.gradients.pageBackground]);

@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {Image, Pressable, StyleSheet, Text, View, useWindowDimensions} from 'react-native';
+import {Image, StyleSheet, View, useWindowDimensions} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import Animated, {
@@ -18,7 +18,10 @@ import {useAwaADeuxPartnerName} from '../../hooks/useAwaADeuxPartnerName';
 import {stopDemoSharing} from '../../state/awaADeuxDemoStore';
 import {partnerSubject} from '../../utils/awaADeuxPartnerWording';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaText} from '../../components/ui/AwaText';
 import {computePartnerVisibility} from '../../utils/awaADeuxSharing';
 import AwaADeuxStepLayout, {Reveal} from './AwaADeuxStepLayout';
 import {StopSharingModal} from './AwaADeuxDialogs';
@@ -99,50 +102,51 @@ export default function AwaADeuxPartnerConnectedScreen({navigation}: Props): Rea
       </Animated.View>
 
       <Reveal index={1}>
-        <Text style={styles.partnerName}>{partnerSubject(partnerName)}</Text>
-        <Text style={styles.since}>{t('awaADeux.connected.since')}</Text>
+        <AwaText variant="titleLarge" style={styles.partnerName}>{partnerSubject(partnerName)}</AwaText>
+        <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.since}>{t('awaADeux.connected.since')}</AwaText>
       </Reveal>
 
       <Reveal index={2}>
-        <View style={styles.card}>
-          <Text accessibilityRole="header" style={styles.cardTitle}>{t('awaADeux.connected.sharedInfoTitle')}</Text>
+        <AwaCard padding="none" style={styles.card} variant="filled">
+          <AwaText accessibilityRole="header" variant="titleSmall" style={styles.cardTitle}>{t('awaADeux.connected.sharedInfoTitle')}</AwaText>
           {sharedItems.length === 0 ? (
-            <Text style={styles.emptyText}>{t('awaADeux.connected.emptyShared')}</Text>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.emptyText}>{t('awaADeux.connected.emptyShared')}</AwaText>
           ) : (
             sharedItems.map((item, index) => (
               <View key={item.key} style={[styles.sharedRow, index > 0 && styles.sharedRowDivider]}>
                 <MaterialDesignIcons color={theme.colors.primary} name={item.icon as never} size={20} />
-                <Text maxFontSizeMultiplier={1.2} style={styles.sharedLabel}>{item.label}</Text>
+                <AwaText maxFontSizeMultiplier={1.2} variant="bodyMedium" style={styles.sharedLabel}>{item.label}</AwaText>
                 <View importantForAccessibility="no-hide-descendants" style={styles.tick}>
                   <MaterialDesignIcons color={pickReadableTextColor(theme.colors.success)} name="check" size={12} />
                 </View>
               </View>
             ))
           )}
-        </View>
+        </AwaCard>
       </Reveal>
 
       <Reveal index={3}>
-        <Pressable
+        <AwaButton
           accessibilityLabel={t('awaADeux.connected.manageAction')}
-          accessibilityRole="button"
+          fullWidth
+          icon="tune-variant"
+          label={t('awaADeux.connected.manageAction')}
+          minHeight={short ? 50 : 54}
           onPress={() => navigation.navigate('AwaADeuxSharing', {mode: 'manage'})}
-          style={({pressed}) => [styles.action, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={theme.colors.primary} name="tune-variant" size={20} />
-          <Text maxFontSizeMultiplier={1.2} style={styles.actionText}>{t('awaADeux.connected.manageAction')}</Text>
-          <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={22} />
-        </Pressable>
+          variant="outlined"
+        />
       </Reveal>
 
       <Reveal index={4}>
-        <Pressable
+        <AwaButton
           accessibilityLabel={t('awaADeux.connected.stopAction')}
-          accessibilityRole="button"
+          fullWidth
+          icon="account-cancel-outline"
+          label={t('awaADeux.connected.stopAction')}
+          minHeight={short ? 50 : 54}
           onPress={() => setStopOpen(true)}
-          style={({pressed}) => [styles.action, styles.stop, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={theme.colors.danger} name="account-cancel-outline" size={20} />
-          <Text maxFontSizeMultiplier={1.2} style={[styles.actionText, styles.stopText]}>{t('awaADeux.connected.stopAction')}</Text>
-        </Pressable>
+          variant="destructive"
+        />
 
         <StopSharingModal
           onCancel={() => setStopOpen(false)}
@@ -172,30 +176,14 @@ function createStyles(theme: ResolvedAwaTheme, heroHeight: number, short: boolea
       borderColor: theme.colors.background,
       backgroundColor: theme.colors.success,
     },
-    partnerName: {
-      color: theme.colors.accent,
-      fontFamily: 'serif',
-      fontSize: 22,
-      lineHeight: 27,
-      fontWeight: '700',
-      textAlign: 'center',
-    },
-    since: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 13, textAlign: 'center'},
-    card: {
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 22,
-      backgroundColor: theme.colors.surface,
-      paddingHorizontal: 16,
-      paddingTop: 12,
-      paddingBottom: 6,
-      ...theme.shadow,
-    },
-    cardTitle: {color: theme.colors.text, fontSize: 15, fontWeight: '800', marginBottom: 2},
-    emptyText: {color: theme.colors.textSecondary, fontSize: 13.5, lineHeight: 20, paddingVertical: 8},
+    partnerName: {color: theme.colors.accent, textAlign: 'center'},
+    since: {marginTop: 2, textAlign: 'center'},
+    card: {paddingHorizontal: 16, paddingTop: 12, paddingBottom: 6},
+    cardTitle: {marginBottom: 2},
+    emptyText: {paddingVertical: 8},
     sharedRow: {minHeight: short ? 40 : 44, flexDirection: 'row', alignItems: 'center', gap: 12},
     sharedRowDivider: {borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: theme.colors.border},
-    sharedLabel: {flex: 1, minWidth: 0, color: theme.colors.text, fontSize: 14, lineHeight: 19},
+    sharedLabel: {flex: 1, minWidth: 0},
     tick: {
       width: 20,
       height: 20,
@@ -204,27 +192,5 @@ function createStyles(theme: ResolvedAwaTheme, heroHeight: number, short: boolea
       borderRadius: 10,
       backgroundColor: theme.colors.success,
     },
-    // The three actions share one structure: height, radius, padding, icon / text / chevron alignment.
-    action: {
-      minHeight: short ? 50 : 54,
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 12,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 20,
-      backgroundColor: theme.colors.surface,
-      paddingHorizontal: 16,
-      paddingVertical: 8,
-    },
-    actionText: {flex: 1, minWidth: 0, color: theme.colors.text, fontSize: 14.5, lineHeight: 19, fontWeight: '700'},
-    stop: {
-      justifyContent: 'center',
-      borderWidth: 1.2,
-      borderColor: withAlpha(theme.colors.danger, 0.5),
-      backgroundColor: withAlpha(theme.colors.danger, 0.06),
-    },
-    stopText: {flex: 0, color: theme.colors.danger},
-    pressed: {opacity: 0.85, transform: [{scale: 0.985}]},
   });
 }

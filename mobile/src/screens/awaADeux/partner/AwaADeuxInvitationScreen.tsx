@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {Animated, Image, StyleSheet, Text, View} from 'react-native';
+import {Animated, Image, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
@@ -7,7 +7,8 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../../navigation/AppNavigator';
 import {getFirstName} from '../../../state/onboardingPreferences';
 import {useAwaTheme} from '../../../theme/AwaThemeProvider';
-import type {ResolvedAwaTheme} from '../../../theme/awaThemeTokens';
+import {AwaCard} from '../../../components/ui/AwaCard';
+import {AwaText} from '../../../components/ui/AwaText';
 import AwaADeuxStepLayout, {Reveal} from '../AwaADeuxStepLayout';
 import {useHeroEntrance} from '../useEntrance';
 
@@ -32,7 +33,7 @@ const INVITATION_IMAGE = require('../../../assets/images/invitation.png');
 export default function AwaADeuxInvitationScreen({navigation}: Props): React.JSX.Element {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
+  const styles = useMemo(() => createStyles(), []);
   const heroEntrance = useHeroEntrance();
 
   // Read-only, synchronous, cached mirror of personalInformationStore — the same source
@@ -64,65 +65,32 @@ export default function AwaADeuxInvitationScreen({navigation}: Props): React.JSX
       onContinue={() => navigation.navigate('AwaADeuxAcceptInvitation')}
       title={t('awaADeux.partnerSide.invitation.title')}>
       <Reveal index={0}>
-        <View style={styles.card}>
-          <View style={styles.cardIcon}>
-            <MaterialDesignIcons color={theme.colors.primary} name="text-box-outline" size={20} />
-          </View>
-          <Text style={styles.body}>
+        <AwaCard variant="filled">
+          <AwaText variant="bodyMedium">
             {t('awaADeux.partnerSide.invitation.cardBody')}
-          </Text>
-        </View>
+          </AwaText>
+        </AwaCard>
       </Reveal>
 
       <Reveal index={1}>
         <View style={styles.privacy}>
           <MaterialDesignIcons color={theme.colors.primary} name="shield-check-outline" size={20} />
-          <Text style={styles.privacyText}>
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.privacyText}>
             {t('awaADeux.partnerSide.invitation.privacyText')}
-          </Text>
+          </AwaText>
         </View>
       </Reveal>
     </AwaADeuxStepLayout>
   );
 }
 
-function createStyles(theme: ResolvedAwaTheme) {
+function createStyles() {
   return StyleSheet.create({
     // Transparent PNG, no background box behind it — sits straight on AwaADeuxStepLayout's
     // existing page gradient, same compact treatment as AwaADeuxPendingScreen's own hero.
     hero: {width: '100%', height: 120, alignItems: 'center', justifyContent: 'center'},
     heroImage: {width: '100%', height: '100%'},
-    card: {
-      flexDirection: 'row',
-      alignItems: 'flex-start',
-      gap: 12,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 22,
-      backgroundColor: theme.colors.surface,
-      padding: 16,
-      ...theme.shadow,
-    },
-    cardIcon: {
-      width: 38,
-      height: 38,
-      flexShrink: 0,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 14,
-      backgroundColor: theme.colors.primarySoft,
-    },
-    body: {flex: 1, minWidth: 0, color: theme.colors.text, fontSize: 14.5, lineHeight: 21},
-    privacy: {
-      marginTop: 12,
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 10,
-      borderRadius: 18,
-      backgroundColor: theme.colors.primarySoft,
-      paddingHorizontal: 14,
-      paddingVertical: 12,
-    },
-    privacyText: {flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19},
+    privacy: {marginTop: 12, flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: 4, paddingVertical: 8},
+    privacyText: {flex: 1, minWidth: 0},
   });
 }

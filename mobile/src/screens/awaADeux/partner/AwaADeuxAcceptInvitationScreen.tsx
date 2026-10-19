@@ -1,5 +1,5 @@
 import React, {useMemo, useRef, useState} from 'react';
-import {Animated, Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Animated, Image, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
@@ -9,7 +9,10 @@ import {useAwaADeuxSharing} from '../../../hooks/useAwaADeuxSharing';
 import {simulatePartnerAccepted} from '../../../state/awaADeuxDemoStore';
 import {getFirstName} from '../../../state/onboardingPreferences';
 import {useAwaTheme} from '../../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../../theme/awaThemeTokens';
+import {AwaButton} from '../../../components/ui/AwaButton';
+import {AwaCard} from '../../../components/ui/AwaCard';
+import {AwaText} from '../../../components/ui/AwaText';
 import {computePartnerVisibility} from '../../../utils/awaADeuxSharing';
 import AwaADeuxStepLayout, {Reveal} from '../AwaADeuxStepLayout';
 import {sharingSections} from '../awaADeuxDemo';
@@ -74,45 +77,43 @@ export default function AwaADeuxAcceptInvitationScreen({navigation}: Props): Rea
       // left empty here and no sticky CTA is used either (see the actionsRow at the bottom).
       title="">
       <Reveal index={0}>
-        <Text
+        <AwaText
           accessibilityRole="header"
-          adjustsFontSizeToFit
-          minimumFontScale={0.82}
-          numberOfLines={1}
+          variant="headlineMedium"
           style={styles.title}>
           <Text style={styles.titlePrimary}>{t('awaADeux.partnerSide.accept.titlePrimary')}</Text>
           <Text style={styles.titleAccent}>{t('awaADeux.partnerSide.accept.titleAccent')}</Text>
-        </Text>
-        <Text style={styles.subtitle}>
+        </AwaText>
+        <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.subtitle}>
           {ownerName
             ? t('awaADeux.partnerSide.accept.subtitleWithName', {name: ownerName})
             : t('awaADeux.partnerSide.accept.subtitleNeutral')}
-        </Text>
+        </AwaText>
       </Reveal>
 
       <Reveal index={1}>
-        <View style={styles.card}>
+        <AwaCard padding="none" style={styles.card} variant="filled">
           {sharedItems.length === 0 ? (
-            <Text style={styles.emptyText}>{t('awaADeux.partnerSide.accept.emptyShared')}</Text>
+            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.emptyText}>{t('awaADeux.partnerSide.accept.emptyShared')}</AwaText>
           ) : (
             sharedItems.map((item, index) => (
               <View key={item.key} style={[styles.row, index > 0 && styles.rowDivider]}>
                 <View style={styles.rowIcon}>
                   <MaterialDesignIcons color={theme.colors.primary} name={item.icon as never} size={18} />
                 </View>
-                <Text style={styles.rowLabel}>{item.label}</Text>
+                <AwaText variant="bodyMedium" style={styles.rowLabel}>{item.label}</AwaText>
               </View>
             ))
           )}
-        </View>
+        </AwaCard>
       </Reveal>
 
       <Reveal index={2}>
         <View style={styles.privacy}>
           <MaterialDesignIcons color={theme.colors.primary} name="shield-check-outline" size={20} />
-          <Text style={styles.privacyText}>
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.privacyText}>
             {t('awaADeux.partnerSide.accept.privacyText')}
-          </Text>
+          </AwaText>
         </View>
       </Reveal>
 
@@ -122,23 +123,23 @@ export default function AwaADeuxAcceptInvitationScreen({navigation}: Props): Rea
 
       <Reveal index={3}>
         <View style={styles.actionsRow}>
-          <Pressable
+          <AwaButton
             accessibilityLabel={t('awaADeux.partnerSide.accept.acceptCta')}
-            accessibilityRole="button"
-            accessibilityState={{disabled: busy}}
             disabled={busy}
+            label={t('awaADeux.partnerSide.accept.acceptCta')}
             onPress={accept}
-            style={({pressed}) => [styles.acceptButton, pressed && styles.pressed]}>
-            <Text style={styles.acceptButtonText}>{t('awaADeux.partnerSide.accept.acceptCta')}</Text>
-          </Pressable>
-          <Pressable
+            size="large"
+            style={styles.acceptButton}
+          />
+          <AwaButton
             accessibilityLabel={t('awaADeux.partnerSide.accept.later')}
-            accessibilityRole="button"
             disabled={busy}
+            label={t('awaADeux.partnerSide.accept.later')}
             onPress={navigation.goBack}
-            style={({pressed}) => [styles.later, pressed && styles.pressed]}>
-            <Text style={styles.laterText}>{t('awaADeux.partnerSide.accept.later')}</Text>
-          </Pressable>
+            size="large"
+            style={styles.later}
+            variant="outlined"
+          />
         </View>
       </Reveal>
     </AwaADeuxStepLayout>
@@ -153,21 +154,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     heroImage: {width: '100%', height: '100%'},
     // Two-tone, one-line title ("Accepter" light/cream, "l'invitation ?" the AWA accent
     // color) — same serif family as every other AWA à deux step title.
-    title: {textAlign: 'center', fontFamily: 'serif', fontWeight: '700', fontSize: 28, lineHeight: 33},
+    title: {textAlign: 'center', fontSize: 28, lineHeight: 33},
     titlePrimary: {color: theme.colors.text},
     titleAccent: {color: theme.colors.accent},
-    subtitle: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 14.5, lineHeight: 20, fontWeight: '600', textAlign: 'center'},
-    card: {
-      marginTop: 4,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 22,
-      backgroundColor: theme.colors.surface,
-      paddingHorizontal: 16,
-      paddingVertical: 6,
-      ...theme.shadow,
-    },
-    emptyText: {color: theme.colors.textSecondary, fontSize: 13.5, lineHeight: 20, paddingVertical: 12},
+    subtitle: {marginTop: 8, textAlign: 'center'},
+    card: {marginTop: 4, paddingHorizontal: 16, paddingVertical: 6},
+    emptyText: {paddingVertical: 12},
     row: {minHeight: 52, flexDirection: 'row', alignItems: 'center', gap: 12},
     rowDivider: {borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: theme.colors.border},
     rowIcon: {
@@ -179,46 +171,14 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
-    rowLabel: {flex: 1, minWidth: 0, color: theme.colors.text, fontSize: 14, lineHeight: 19},
-    privacy: {
-      marginTop: 4,
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 10,
-      borderRadius: 18,
-      backgroundColor: theme.colors.primarySoft,
-      paddingHorizontal: 14,
-      paddingVertical: 12,
-    },
-    privacyText: {flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19},
+    rowLabel: {flex: 1, minWidth: 0},
+    privacy: {marginTop: 4, flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: 4, paddingVertical: 8},
+    privacyText: {flex: 1, minWidth: 0},
     // Pushes actionsRow to the bottom of the (flexGrow: 1) content area below.
     spacer: {flex: 1, minHeight: 16},
     actionsRow: {flexDirection: 'row', alignItems: 'center', gap: 10},
-    // The primary AWA CTA, same visual language as every other primary button in the app
-    // (theme.colors.primary fill, pill radius, onPrimaryTextColor text, subtle shadow),
-    // now sized to share the row with "Plus tard" instead of being full-width.
-    acceptButton: {
-      flex: 1.8,
-      minHeight: 54,
-      justifyContent: 'center',
-      borderRadius: 27,
-      backgroundColor: theme.colors.primary,
-      paddingHorizontal: 16,
-      ...theme.shadow,
-    },
-    acceptButtonText: {color: onPrimaryTextColor(theme), fontSize: 14.5, fontWeight: '700', textAlign: 'center'},
-    // Clearly secondary to the accept button: outline only, primary tones, same height.
-    later: {
-      flex: 0.9,
-      minHeight: 54,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.35),
-      borderRadius: 27,
-      paddingHorizontal: 12,
-    },
-    laterText: {color: theme.colors.primary, fontSize: 13.5, fontWeight: '700'},
-    pressed: {opacity: 0.75},
+    // The primary button shares the row with the secondary "Plus tard" (outlined).
+    acceptButton: {flex: 1.8},
+    later: {flex: 0.9},
   });
 }
