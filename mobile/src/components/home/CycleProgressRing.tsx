@@ -4,6 +4,7 @@ import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaText} from '../ui/AwaText';
 import '../../i18n';
 
 const SEGMENT_COUNT = 60;
@@ -130,8 +131,8 @@ export default function CycleProgressRing({
       })}
 
       <View style={styles.ringCenter}>
-        <Text style={styles.ringEyebrow}>{t('journalNote.cycleDayLabel')}</Text>
-        <Text style={styles.ringNumber}>{currentDay === null ? '—' : String(currentDay)}</Text>
+        <AwaText colorRole="onSurfaceVariant" variant="labelSmall">{t('journalNote.cycleDayLabel')}</AwaText>
+        <AwaText emphasized style={styles.ringNumber} variant="headlineSmall">{currentDay === null ? '—' : String(currentDay)}</AwaText>
         {phaseLabel ? (
           <Text
             maxFontSizeMultiplier={1.1}
@@ -171,10 +172,9 @@ function createStyles(theme: ResolvedAwaTheme, size: number) {
       borderRadius: centerSize / 2,
       backgroundColor: theme.colors.primarySoft,
     },
-    ringEyebrow: {color: theme.colors.textSecondary, fontSize: 9.5, fontWeight: '600'},
-    ringNumber: {marginTop: 1, color: theme.colors.text, fontFamily: 'serif', fontSize: 30, fontWeight: '700', lineHeight: 34},
+    ringNumber: {marginTop: 1},
     // `ringPhase`'s `color` is set per-render from the `ringColor` prop (SEMANTIC) at the
     // JSX call site above — no color here.
-    ringPhase: {marginTop: 1, fontSize: 9.5, fontWeight: '700', textAlign: 'center', paddingHorizontal: 6},
+    ringPhase: {marginTop: 1, fontSize: 11, fontWeight: '700', textAlign: 'center', paddingHorizontal: 6},
   });
 }

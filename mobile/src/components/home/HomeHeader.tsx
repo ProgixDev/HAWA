@@ -6,7 +6,8 @@ import { useTranslation } from 'react-i18next';
 
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import '../../i18n';
-import { withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
+import { type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
+import { AwaText } from '../ui/AwaText';
 import InAppNotificationCenter from './InAppNotificationCenter';
 import {
   getUnreadInAppNotificationCountForActiveProfile,
@@ -86,15 +87,15 @@ function HomeHeader({
       ]}
     >
       <View style={styles.greetingCopy}>
-        <Text style={styles.greeting}>{t('cycleHome.greeting')}</Text>
+        <AwaText variant="bodyLarge">{t('cycleHome.greeting')}</AwaText>
 
         {firstName.trim().length > 0 && (
-          <Text numberOfLines={2} style={styles.name}>
+          <AwaText numberOfLines={2} style={styles.name} variant="headlineSmall">
             {firstName} 🌸
-          </Text>
+          </AwaText>
         )}
 
-        <Text style={styles.subtitle}>{subtitle}</Text>
+        <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">{subtitle}</AwaText>
       </View>
 
       <View style={styles.actions}>
@@ -171,27 +172,12 @@ function createStyles(theme: ResolvedAwaTheme) {
       minWidth: 0,
     },
 
-    greeting: {
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 17,
-      lineHeight: 22,
-    },
-
     name: {
       marginTop: 2,
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 25,
-      fontWeight: '700',
-      lineHeight: 32,
     },
 
     subtitle: {
-      marginTop: 3,
-      color: theme.colors.textSecondary,
-      fontSize: 13,
-      lineHeight: 18,
+      marginTop: 4,
     },
 
     actions: {
@@ -206,15 +192,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 22,
-      backgroundColor: withAlpha(theme.colors.surface, 0.85),
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: 6,
-      elevation: 2,
+      backgroundColor: theme.colors.surfaceSecondary,
     },
 
     // SEMANTIC — fixed unread-notification red, never theme-driven.
@@ -233,7 +211,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     badgeText: {
       color: '#FFFFFF',
-      fontSize: 9,
+      fontSize: 11,
       fontWeight: '700',
     },
 

@@ -3,12 +3,10 @@ import {
   ActivityIndicator,
   Animated,
   Easing,
-  Pressable,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
@@ -20,8 +18,9 @@ import {useTranslation} from 'react-i18next';
 import type {MainTabScreenProps} from '../navigation/MainTabNavigator';
 import '../i18n';
 import type {CyclePhase} from '../components/home/CycleStatusCard';
+import {AwaButton} from '../components/ui/AwaButton';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {type ResolvedAwaTheme, softTone, withAlpha} from '../theme/awaThemeTokens';
 import HomeHeader from '../components/home/HomeHeader';
 import HeroCycleCard from '../components/home/HeroCycleCard';
 import CycleOverviewCard, {type OverviewItem} from '../components/home/CycleOverviewCard';
@@ -29,6 +28,8 @@ import QuickActionsGrid, {type QuickActionItem} from '../components/home/QuickAc
 import SpiritualGuidanceCard from '../components/home/SpiritualGuidanceCard';
 import DailyJournalCard from '../components/home/DailyJournalCard';
 import MotivationCard from '../components/home/MotivationCard';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaText} from '../components/ui/AwaText';
 import ObjectiveArticlesSection from '../components/home/ObjectiveArticlesSection';
 import PeriodStartBottomSheet from '../components/calendar/PeriodStartBottomSheet';
 import {useJournalSheet} from '../navigation/JournalSheetContext';
@@ -322,7 +323,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       key: 'next-period',
       icon: 'water',
       iconColor: PERIOD,
-      iconBg: PERIOD_LIGHT,
+      iconBg: softTone(theme, PERIOD_LIGHT, PERIOD),
       label: t('cycleHome.nextPeriodLabel'),
       value: nextPeriodTile.value,
       subtitle: nextPeriodTile.subtitle,
@@ -331,7 +332,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       key: 'fertile-window',
       icon: 'leaf',
       iconColor: FERTILE,
-      iconBg: FERTILE_LIGHT,
+      iconBg: softTone(theme, FERTILE_LIGHT, FERTILE),
       label: t('cycleHome.fertileWindowLabel'),
       value: fertileTile.value,
       subtitle: fertileTile.subtitle,
@@ -340,7 +341,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       key: 'ovulation',
       icon: 'egg-outline',
       iconColor: OVULATION,
-      iconBg: OVULATION_LIGHT,
+      iconBg: softTone(theme, OVULATION_LIGHT, OVULATION),
       label: t('cycleHome.ovulationLabel'),
       value: ovulationTile.value,
       subtitle: ovulationTile.subtitle,
@@ -365,10 +366,10 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   const quickActionItems: QuickActionItem[] = [
     {key: 'prayer-times', icon: 'mosque', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: t('cycleHome.quickActions.prayerTimes'), onPress: () => navigation.navigate('PrayerTimes')},
     {key: 'library', icon: 'book-open-page-variant-outline', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: t('cycleHome.quickActions.library'), onPress: () => navigation.navigate('Library')},
-    {key: 'daily-journal', icon: 'notebook-edit-outline', iconColor: DAILY_JOURNAL_ACCENT, iconBg: DAILY_JOURNAL_ACCENT_LIGHT, label: t('cycleHome.quickActions.dailyJournal'), onPress: openJournal},
+    {key: 'daily-journal', icon: 'notebook-edit-outline', iconColor: DAILY_JOURNAL_ACCENT, iconBg: softTone(theme, DAILY_JOURNAL_ACCENT_LIGHT, DAILY_JOURNAL_ACCENT), label: t('cycleHome.quickActions.dailyJournal'), onPress: openJournal},
     {key: 'hijri-calendar', icon: 'moon-waning-crescent', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: t('cycleHome.quickActions.hijriCalendar'), onPress: () => navigation.navigate('HijriCalendar')},
     {key: 'qadaa', icon: 'silverware-fork-knife', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: t('cycleHome.quickActions.qadaa'), onPress: () => navigation.navigate('FastingQadaa')},
-    {key: 'statistics', icon: 'chart-donut', iconColor: STATISTICS_ACCENT, iconBg: STATISTICS_ACCENT_LIGHT, label: t('cycleHome.quickActions.statistics'), onPress: () => navigation.navigate('Statistics')},
+    {key: 'statistics', icon: 'chart-donut', iconColor: STATISTICS_ACCENT, iconBg: softTone(theme, STATISTICS_ACCENT_LIGHT, STATISTICS_ACCENT), label: t('cycleHome.quickActions.statistics'), onPress: () => navigation.navigate('Statistics')},
   ];
 
   const animatedStyle = {
@@ -390,11 +391,6 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
@@ -415,41 +411,30 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
 
           <View style={styles.heroSpacer}>
             {isPreFirstPeriodDaughter ? (
-              <View style={styles.preFirstPeriodCard}>
-                <View style={styles.preFirstPeriodIconBadge}>
-                  <MaterialDesignIcons color={theme.colors.primary} name="flower-tulip-outline" size={26} />
-                </View>
-                <Text style={styles.preFirstPeriodTitle}>{t('cycleHome.preFirstPeriod.title')}</Text>
-                <Text style={styles.preFirstPeriodSubtitle}>{t('cycleHome.preFirstPeriod.subtitle')}</Text>
-              </View>
+              <AwaCard style={styles.preFirstPeriodCard}>
+                <AwaText style={styles.preFirstPeriodTitle} variant="titleMedium">{t('cycleHome.preFirstPeriod.title')}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" style={styles.preFirstPeriodSubtitle} variant="bodyMedium">{t('cycleHome.preFirstPeriod.subtitle')}</AwaText>
+              </AwaCard>
             ) : !cycleDataReady ? (
-              <View accessibilityRole="progressbar" style={styles.preFirstPeriodCard}>
+              <AwaCard accessibilityRole="progressbar" style={styles.preFirstPeriodCard}>
                 <ActivityIndicator color={theme.colors.primary} />
-              </View>
+              </AwaCard>
             ) : cycleDataUnavailable ? (
-              <View accessibilityRole="alert" style={styles.preFirstPeriodCard}>
-                <View style={styles.preFirstPeriodIconBadge}>
-                  <MaterialDesignIcons color={theme.colors.primary} name="lock-alert-outline" size={26} />
-                </View>
-                <Text style={styles.preFirstPeriodTitle}>{t('dataSafety.banner.title')}</Text>
-                <Text style={styles.preFirstPeriodSubtitle}>{t('dataSafety.banner.body')}</Text>
-              </View>
+              <AwaCard accessibilityRole="alert" style={styles.preFirstPeriodCard}>
+                <MaterialDesignIcons color={theme.colors.primary} name="lock-alert-outline" size={26} />
+                <AwaText style={styles.preFirstPeriodTitle} variant="titleMedium">{t('dataSafety.banner.title')}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" style={styles.preFirstPeriodSubtitle} variant="bodyMedium">{t('dataSafety.banner.body')}</AwaText>
+              </AwaCard>
             ) : noRecordedPeriod ? (
-              <View style={styles.preFirstPeriodCard}>
-                <View style={styles.preFirstPeriodIconBadge}>
-                  <MaterialDesignIcons color={theme.colors.primary} name="flower-tulip-outline" size={26} />
-                </View>
-                <Text style={styles.preFirstPeriodTitle}>{t('cycleHome.preFirstPeriod.title')}</Text>
-                <Text style={styles.preFirstPeriodSubtitle}>{t('cycleHome.preFirstPeriod.subtitleOwner')}</Text>
-              </View>
+              <AwaCard style={styles.preFirstPeriodCard}>
+                <AwaText style={styles.preFirstPeriodTitle} variant="titleMedium">{t('cycleHome.preFirstPeriod.title')}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" style={styles.preFirstPeriodSubtitle} variant="bodyMedium">{t('cycleHome.preFirstPeriod.subtitleOwner')}</AwaText>
+              </AwaCard>
             ) : cycleLengthIsPlaceholder ? (
-              <View style={styles.preFirstPeriodCard}>
-                <View style={styles.preFirstPeriodIconBadge}>
-                  <MaterialDesignIcons color={theme.colors.primary} name="flower-tulip-outline" size={26} />
-                </View>
-                <Text style={styles.preFirstPeriodTitle}>{t('calendar.dayCard.cycleDayBadge', {day: rawCycleDay})}</Text>
-                <Text style={styles.preFirstPeriodSubtitle}>{t('calendar.predictionsPendingMoreData')}</Text>
-              </View>
+              <AwaCard style={styles.preFirstPeriodCard}>
+                <AwaText style={styles.preFirstPeriodTitle} variant="titleMedium">{t('calendar.dayCard.cycleDayBadge', {day: rawCycleDay})}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" style={styles.preFirstPeriodSubtitle} variant="bodyMedium">{t('calendar.predictionsPendingMoreData')}</AwaText>
+              </AwaCard>
             ) : (
               <HeroCycleCard
                 currentDay={currentCycleDay}
@@ -486,14 +471,15 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
                   ],
                 },
               ]}>
-              <Pressable
-                accessibilityLabel={t('cycleHome.herPeriodStartedCta')}
-                accessibilityRole="button"
+              <AwaButton
+                icon="water-plus-outline"
+                label={t('cycleHome.herPeriodStartedCta')}
+                labelStyle={styles.periodStartCtaText}
                 onPress={() => setPeriodStartSheetVisible(true)}
-                style={({pressed}) => [styles.periodStartCta, pressed && styles.periodStartCtaPressed]}>
-                <MaterialDesignIcons color={PERIOD} name="water-plus-outline" size={16} />
-                <Text style={styles.periodStartCtaText}>{t('cycleHome.herPeriodStartedCta')}</Text>
-              </Pressable>
+                size="compact"
+                style={styles.periodStartCta}
+                variant="tonal"
+              />
             </Animated.View>
           ) : !hasActiveConfirmedPeriod && !cycleDataUnavailable ? (
             <Animated.View
@@ -511,14 +497,15 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
                   ],
                 },
               ]}>
-              <Pressable
-                accessibilityLabel={t('cycleHome.myPeriodStartedCta')}
-                accessibilityRole="button"
+              <AwaButton
+                icon="water-plus-outline"
+                label={t('cycleHome.myPeriodStartedCta')}
+                labelStyle={styles.periodStartCtaText}
                 onPress={() => setPeriodStartSheetVisible(true)}
-                style={({pressed}) => [styles.periodStartCta, pressed && styles.periodStartCtaPressed]}>
-                <MaterialDesignIcons color={PERIOD} name="water-plus-outline" size={16} />
-                <Text style={styles.periodStartCtaText}>{t('cycleHome.myPeriodStartedCta')}</Text>
-              </Pressable>
+                size="compact"
+                style={styles.periodStartCta}
+                variant="tonal"
+              />
             </Animated.View>
           ) : null}
 
@@ -557,17 +544,15 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
               articles section (that one, ObjectiveArticlesSection/"Pour
               t'accompagner", stays hidden for a managed profile below). */}
           {isPreFirstPeriodDaughter ? (
-            <View style={styles.educationCard}>
-              <View style={styles.educationIconBadge}>
-                <MaterialDesignIcons color={theme.colors.primary} name="school-outline" size={18} />
-              </View>
+            <AwaCard style={styles.educationCard} variant="filled">
+              <MaterialDesignIcons color={theme.colors.primary} name="school-outline" size={20} />
               <View style={styles.educationCopy}>
-                <Text style={styles.educationTitle}>{t('cycleHome.education.title')}</Text>
-                <Text style={styles.educationBody}>
+                <AwaText variant="titleSmall">{t('cycleHome.education.title')}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" style={styles.educationBody} variant="bodySmall">
                   {t('cycleHome.education.body')}
-                </Text>
+                </AwaText>
               </View>
-            </View>
+            </AwaCard>
           ) : null}
 
           <MotivationCard />
@@ -608,8 +593,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
 }
 
 // PHASE D1 — page-level background/decor is now theme-driven; the
-// "Mes règles ont commencé" CTA (border/background/text) stays fixed in the
-// period-pink family (SEMANTIC — see the constants above), unchanged here.
+// "Mes règles ont commencé" CTA is an AwaButton (tonal) — DESIGN.md: no ad-hoc button.
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     background: {
@@ -617,40 +601,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: theme.colors.background,
     },
 
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
 
-    pageGlowTop: {
-      position: 'absolute',
-      top: -150,
-      right: -110,
-      width: 330,
-      height: 330,
-      borderRadius: 165,
-      backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
 
-    pageGlowMiddle: {
-      position: 'absolute',
-      top: '38%',
-      left: -130,
-      width: 260,
-      height: 260,
-      borderRadius: 130,
-      backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
 
-    pageGlowBottom: {
-      position: 'absolute',
-      bottom: -150,
-      right: -100,
-      width: 310,
-      height: 310,
-      borderRadius: 155,
-      backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
 
     safeArea: {
       flex: 1,
@@ -672,62 +625,27 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
     },
 
-    // SEMANTIC (period-pink family) — never theme-driven.
-    periodStartCta: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 7,
-      minHeight: 40,
-      borderWidth: 1.2,
-      borderColor: 'rgba(220,123,130,0.35)',
-      borderRadius: 20,
-      backgroundColor: '#FCEEEF',
-      paddingHorizontal: 16,
-      paddingVertical: 9,
-    },
-
-    periodStartCtaPressed: {
-      opacity: 0.78,
-    },
-
-    periodStartCtaText: {
-      color: PERIOD,
-      fontSize: 12.5,
-      fontWeight: '700',
-    },
-
     // Pre-first-period daughter state — replaces HeroCycleCard when there is
     // no real cycle data to show yet (CLAUDE.md §5: never fabricate one).
+    // SEMANTIC (period-pink family) — never theme-driven: the AwaButton keeps the period-rose label and a rose tint
+    // (an alpha of the same hue, so it also reads on Dark / True Black instead of a fixed light #FCEEEF fill).
+    periodStartCta: {
+      borderWidth: 1,
+      borderColor: 'rgba(220,123,130,0.35)',
+      backgroundColor: withAlpha(PERIOD, 0.12),
+    },
+    periodStartCtaText: {color: PERIOD},
+
     preFirstPeriodCard: {
       alignItems: 'center',
-      gap: 10,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 26,
-      backgroundColor: theme.colors.surface,
-      paddingVertical: 28,
+      gap: 12,
+      paddingVertical: 24,
       paddingHorizontal: 20,
-      ...theme.shadow,
-    },
-    preFirstPeriodIconBadge: {
-      width: 56,
-      height: 56,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 28,
-      backgroundColor: theme.colors.primarySoft,
     },
     preFirstPeriodTitle: {
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 17,
-      fontWeight: '700',
       textAlign: 'center',
     },
     preFirstPeriodSubtitle: {
-      color: theme.colors.textSecondary,
-      fontSize: 13,
-      lineHeight: 19,
       textAlign: 'center',
       paddingHorizontal: 8,
     },
@@ -735,30 +653,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     // "Se préparer aux premières règles" — informational only, same row-card
     // shape as AwaADeuxInvitationScreen.tsx's own icon+text card.
     educationCard: {
-      marginTop: 14,
+      marginTop: 16,
       flexDirection: 'row',
       alignItems: 'flex-start',
       gap: 12,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 22,
-      backgroundColor: theme.colors.surface,
-      paddingHorizontal: 16,
-      paddingVertical: 14,
-      ...theme.shadow,
-    },
-    educationIconBadge: {
-      width: 36,
-      height: 36,
-      flexShrink: 0,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 18,
-      backgroundColor: theme.colors.primarySoft,
     },
     educationCopy: {flex: 1, minWidth: 0},
-    educationTitle: {color: theme.colors.text, fontSize: 14.5, fontWeight: '700', lineHeight: 19},
-    educationBody: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
+    educationBody: {marginTop: 4},
   });
 }
 

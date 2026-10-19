@@ -49,7 +49,8 @@ describe('HeroCycleCard — theme reactivity + semantic phase colors', () => {
     const renderer = await renderWithTheme(
       <HeroCycleCard currentDay={5} cycleLength={28} phase="follicular" />,
     );
-    const title = renderer.root.findAll(node => node.props.children === 'Aujourd’hui')[0];
+    // Material 3 migration: the label is now an AwaText, so the first match is the composite; the host Text (last match) carries the resolved style.
+    const title = renderer.root.findAll(node => node.props.children === 'Aujourd’hui').slice(-1)[0];
     expect(flattenStyle(title.props.style).color).toBe('#2F2258');
 
     await act(async () => {
@@ -111,7 +112,8 @@ describe('CycleOverviewCard — theme reactivity + preserved caller-supplied col
 
   it('generic chrome (title) responds to palette changes', async () => {
     const renderer = await renderWithTheme(<CycleOverviewCard items={items} />);
-    const title = renderer.root.findAll(node => node.props.children === 'Aperçu de ton cycle')[0];
+    // Material 3 migration: the label is now an AwaText, so the first match is the composite; the host Text (last match) carries the resolved style.
+    const title = renderer.root.findAll(node => node.props.children === 'Aperçu de ton cycle').slice(-1)[0];
     expect(flattenStyle(title.props.style).color).toBe('#2F2258');
 
     await act(async () => {

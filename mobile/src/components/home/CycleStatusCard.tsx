@@ -12,12 +12,12 @@ import {
   ImageBackground,
   Pressable,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 
 import {colors} from '../../theme/colors';
 import {spacing} from '../../theme/spacing';
+import {AwaText} from '../ui/AwaText';
 
 export type CyclePhase =
   | 'menstruation'
@@ -351,27 +351,32 @@ function CycleStatusCardComponent({
                 opacity: textEntrance,
               },
             ]}>
-            <Text
+            <AwaText
               allowFontScaling
-              style={styles.eyebrow}>
+              emphasized
+              style={styles.eyebrow}
+              variant="titleSmall">
               Statut actuel
-            </Text>
+            </AwaText>
 
             {hasData ? (
               <>
-                <Text
+                <AwaText
                   allowFontScaling
                   numberOfLines={2}
-                  style={styles.phase}>
+                  style={styles.phase}
+                  variant="titleLarge">
                   {config.label}
-                </Text>
+                </AwaText>
 
-                <Text
+                <AwaText
                   allowFontScaling
-                  style={styles.cycleDay}>
+                  emphasized
+                  style={styles.cycleDay}
+                  variant="bodyMedium">
                   Jour {safeCurrentDay} sur{' '}
                   {safeCycleLength}
-                </Text>
+                </AwaText>
 
                 <Animated.Text
                   allowFontScaling
@@ -384,12 +389,13 @@ function CycleStatusCardComponent({
                 </Animated.Text>
               </>
             ) : (
-              <Text
+              <AwaText
                 allowFontScaling
-                style={styles.emptyText}>
+                style={styles.emptyText}
+                variant="bodyMedium">
                 Ajoute tes dernières règles pour commencer
                 ton suivi.
-              </Text>
+              </AwaText>
             )}
           </Animated.View>
 
@@ -494,7 +500,7 @@ const styles = StyleSheet.create({
 
     borderWidth: 1,
     borderColor: 'rgba(105, 73, 190, 0.12)',
-    borderRadius: 27,
+    borderRadius: 12,
 
     backgroundColor: '#FFFDF9',
 
@@ -519,7 +525,7 @@ const styles = StyleSheet.create({
   },
 
   backgroundImage: {
-    borderRadius: 27,
+    borderRadius: 12,
   },
 
   botanicalDecoration: {
@@ -606,26 +612,18 @@ const styles = StyleSheet.create({
 
   eyebrow: {
     color: colors.primary,
-    fontSize: 15,
-    fontWeight: '700',
   },
 
   phase: {
     marginTop: 12,
 
     color: '#28166F',
-    fontFamily: 'serif',
-    fontSize: 23,
-    fontWeight: '600',
-    lineHeight: 28,
   },
 
   cycleDay: {
-    marginTop: 9,
+    marginTop: 8,
 
     color: '#655A8D',
-    fontSize: 15,
-    fontWeight: '600',
   },
 
   phaseDescription: {
@@ -642,8 +640,6 @@ const styles = StyleSheet.create({
     marginTop: 11,
 
     color: '#655A8D',
-    fontSize: 14,
-    lineHeight: 20,
   },
 
   ring: {

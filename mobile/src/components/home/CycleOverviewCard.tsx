@@ -1,10 +1,12 @@
 import React, {memo, useMemo} from 'react';
-import {Pressable, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
+import {StyleSheet, Text, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useTranslation} from 'react-i18next';
 
-import {homeRadii} from './homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import '../../i18n';
 import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
@@ -44,9 +46,9 @@ function OverviewColumn({
       <View style={[styles.iconCircle, {backgroundColor: item.iconBg}]}>
         <MaterialDesignIcons color={item.iconColor} name={item.icon} size={17} />
       </View>
-      <Text numberOfLines={2} style={styles.label}>{item.label}</Text>
-      <Text numberOfLines={2} style={styles.value}>{item.value}</Text>
-      <Text numberOfLines={2} style={styles.subtitle}>{item.subtitle}</Text>
+      <Text style={styles.label}>{item.label}</Text>
+      <Text style={styles.value}>{item.value}</Text>
+      <Text style={styles.subtitle}>{item.subtitle}</Text>
     </View>
   );
 }
@@ -59,19 +61,19 @@ function CycleOverviewCard({items, onPressMore}: Props): React.JSX.Element {
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
-    <View style={styles.card}>
+    <AwaCard style={styles.card}>
       <View style={styles.header}>
-        <Text style={styles.title}>{t('cycleHome.overview.title')}</Text>
+        <AwaText style={styles.title} variant="titleMedium">{t('cycleHome.overview.title')}</AwaText>
         {/* Only rendered when there is somewhere to go — never a link that
             looks tappable but does nothing. */}
         {onPressMore ? (
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             hitSlop={8}
+            label={t('cycleHome.overview.seeMore')}
             onPress={onPressMore}
-            style={({pressed}) => pressed && styles.pressed}>
-            <Text style={styles.more}>{t('cycleHome.overview.seeMore')}</Text>
-          </Pressable>
+            size="compact"
+            variant="text"
+          />
         ) : null}
       </View>
 
@@ -80,22 +82,15 @@ function CycleOverviewCard({items, onPressMore}: Props): React.JSX.Element {
           <OverviewColumn compact={compact} item={item} key={item.key} styles={styles} />
         ))}
       </View>
-    </View>
+    </AwaCard>
   );
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    card: {
-      marginTop: 16,
-      borderRadius: homeRadii.card,
-      backgroundColor: theme.colors.surface,
-      padding: 16,
-      ...theme.shadow,
-    },
+    card: {marginTop: 16},
     header: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-    title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-    more: {color: theme.colors.primary, fontSize: 12.5, fontWeight: '700'},
+    title: {flexShrink: 1},
     row: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 12},
     column: {alignItems: 'center', paddingHorizontal: 3},
     columnWide: {flexBasis: '20%', flexGrow: 1},
@@ -107,10 +102,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent: 'center',
       borderRadius: 17,
     },
-    label: {marginTop: 7, color: theme.colors.textSecondary, fontSize: 10, textAlign: 'center'},
+    label: {marginTop: 7, color: theme.colors.textSecondary, fontSize: 11, textAlign: 'center'},
     value: {marginTop: 3, color: theme.colors.text, fontSize: 12.5, fontWeight: '700', textAlign: 'center'},
-    subtitle: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 9.5, textAlign: 'center'},
-    pressed: {opacity: 0.7},
+    subtitle: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 11, textAlign: 'center'},
   });
 }
 

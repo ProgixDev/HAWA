@@ -3,7 +3,8 @@ import {AccessibilityInfo, Animated, Easing, Pressable, StyleSheet, Text, View} 
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useTranslation} from 'react-i18next';
 
-import {homeRadii} from './homeTheme';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import '../../i18n';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -91,10 +92,10 @@ function DailyJournalCard({entry, onNavigate, shortcuts, title, hideIntimacy = f
   }, [progress, ratio]);
 
   return (
-    <View style={styles.card}>
+    <AwaCard style={styles.card}>
       <View style={styles.header}>
-        <Text style={styles.title}>{resolvedTitle}</Text>
-        <Text style={styles.progressLabel}>{t('dailyJournal.completedOf', {completed, total: visibleShortcuts.length})}</Text>
+        <AwaText style={styles.title} variant="titleMedium">{resolvedTitle}</AwaText>
+        <AwaText colorRole="onSurfaceVariant" variant="labelMedium">{t('dailyJournal.completedOf', {completed, total: visibleShortcuts.length})}</AwaText>
       </View>
 
       <View style={styles.track}>
@@ -127,27 +128,20 @@ function DailyJournalCard({entry, onNavigate, shortcuts, title, hideIntimacy = f
                   </View>
                 )}
               </View>
-              <Text numberOfLines={2} style={styles.label}>{shortcut.label}</Text>
+              <Text style={styles.label}>{shortcut.label}</Text>
             </Pressable>
           );
         })}
       </View>
-    </View>
+    </AwaCard>
   );
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    card: {
-      marginTop: 16,
-      borderRadius: homeRadii.card,
-      backgroundColor: theme.colors.surface,
-      padding: 16,
-      ...theme.shadow,
-    },
+    card: {marginTop: 16},
     header: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-    title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-    progressLabel: {color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '600'},
+    title: {flexShrink: 1, marginRight: 8},
     track: {marginTop: 10, height: 6, borderRadius: 3, backgroundColor: theme.colors.primarySoft, overflow: 'hidden'},
     fill: {height: '100%', borderRadius: 3, backgroundColor: theme.colors.primary},
     row: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, rowGap: 12},
@@ -177,7 +171,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor: theme.colors.surface,
       backgroundColor: theme.colors.success,
     },
-    label: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 9, lineHeight: 11.5, textAlign: 'center'},
+    label: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 16, textAlign: 'center'},
     pressed: {opacity: 0.75},
   });
 }

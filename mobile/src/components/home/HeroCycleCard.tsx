@@ -3,9 +3,7 @@ import {
   AccessibilityInfo,
   Animated,
   Easing,
-  Image,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,10 +14,10 @@ import {homeRadii} from './homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {CyclePhase} from './CycleStatusCard';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import type {DailyJournalEntry, MoodLevel} from '../../types/journal';
 import '../../i18n';
-
-const FLOWER = require('../../assets/images/flower.png');
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -161,8 +159,8 @@ function Chip({
   return (
     <View style={styles.chip}>
       <MaterialDesignIcons color={theme.colors.primary} name={icon} size={16} />
-      <Text numberOfLines={2} style={styles.chipLabel}>{label}</Text>
-      <Text numberOfLines={2} style={styles.chipValue}>{value}</Text>
+      <AwaText colorRole="onSurfaceVariant" style={styles.chipLabel} variant="labelSmall">{label}</AwaText>
+      <AwaText style={styles.chipValue} variant="labelMedium">{value}</AwaText>
     </View>
   );
 }
@@ -210,24 +208,20 @@ function HeroCycleCard({currentDay, cycleLength, moodEntry, phase}: Props): Reac
 
   return (
     <Animated.View
-      style={[
-        styles.card,
-        {
-          opacity: entrance,
-          transform: [{translateY: entrance.interpolate({inputRange: [0, 1], outputRange: [14, 0]})}],
-        },
-      ]}>
-      <Image accessibilityIgnoresInvertColors source={FLOWER} style={styles.flower} />
-
+      style={{
+        opacity: entrance,
+        transform: [{translateY: entrance.interpolate({inputRange: [0, 1], outputRange: [14, 0]})}],
+      }}>
+      <AwaCard padding="none" style={styles.card}>
       <View style={styles.topRow}>
         <CycleProgressRing currentDay={currentDay} cycleLength={cycleLength} phaseLabel={insight.label} ringColor={ringColor} />
 
         <View style={styles.todayColumn}>
           <View style={styles.todayHeader}>
-            <Text style={styles.todayTitle}>{t('cycleHome.todayLabel')}</Text>
+            <AwaText variant="titleMedium">{t('cycleHome.todayLabel')}</AwaText>
             <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={16} />
           </View>
-          <Text style={styles.todayMessage}>{insight.message}</Text>
+          <AwaText colorRole="onSurfaceVariant" style={styles.todayMessage} variant="bodyMedium">{insight.message}</AwaText>
         </View>
       </View>
 
@@ -238,6 +232,7 @@ function HeroCycleCard({currentDay, cycleLength, moodEntry, phase}: Props): Reac
         <View style={styles.chipDivider} />
         <Chip icon="heart-outline" label={t('cycleHome.tipChipLabel')} styles={styles} theme={theme} value={insight.tip} />
       </View>
+      </AwaCard>
     </Animated.View>
   );
 }
@@ -246,27 +241,14 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     card: {
       overflow: 'hidden',
-      borderRadius: homeRadii.card,
-      backgroundColor: theme.colors.surface,
       paddingHorizontal: 16,
-      paddingTop: 18,
-      paddingBottom: 14,
-      ...theme.shadow,
-    },
-    flower: {
-      position: 'absolute',
-      top: '6%',
-      right: -8,
-      width: 66,
-      height: 62,
-      resizeMode: 'contain',
-      transform: [{rotate: '8deg'}],
+      paddingTop: 16,
+      paddingBottom: 16,
     },
     topRow: {flexDirection: 'row', alignItems: 'center'},
     todayColumn: {flex: 1, marginLeft: 14},
-    todayHeader: {flexDirection: 'row', alignItems: 'center', gap: 6, paddingRight: 44},
-    todayTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
-    todayMessage: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
+    todayHeader: {flexDirection: 'row', alignItems: 'center', gap: 6},
+    todayMessage: {marginTop: 6},
     chipsRow: {
       flexDirection: 'row',
       alignItems: 'stretch',
@@ -278,8 +260,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     chip: {flex: 1, alignItems: 'center', paddingHorizontal: 1, minWidth: 0},
     chipDivider: {width: StyleSheet.hairlineWidth, backgroundColor: theme.colors.border},
-    chipLabel: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 9.5, textAlign: 'center'},
-    chipValue: {marginTop: 2, color: theme.colors.text, fontSize: 11, fontWeight: '700', textAlign: 'center'},
+    chipLabel: {marginTop: 4, textAlign: 'center'},
+    chipValue: {marginTop: 2, textAlign: 'center'},
   });
 }
 

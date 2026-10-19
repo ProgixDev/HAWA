@@ -71,7 +71,8 @@ describe('AnimatedProgressRing — theme reactivity, caller API unchanged', () =
         statusText="Cycle à renseigner"
       />,
     );
-    const status = renderer.root.findAll(node => node.props.children === 'Cycle à renseigner')[0];
+    // Material 3 migration: the status is an AwaText; the host Text (last match) carries the resolved style.
+    const status = renderer.root.findAll(node => node.props.children === 'Cycle à renseigner').slice(-1)[0];
     expect(status.props.style).toEqual(
       expect.arrayContaining([expect.objectContaining({color: '#8B6FD1'})]),
     );
