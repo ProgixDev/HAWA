@@ -4,25 +4,22 @@ import {
   AccessibilityInfo,
   Animated,
   Easing,
-  Image,
   Modal,
   Pressable,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-import {homeColors, homeRadii} from '../home/homeTheme';
+import {homeRadii} from '../home/homeTheme';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaText} from '../ui/AwaText';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {setActiveObjective} from '../../state/onboardingPreferences';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
-
-// Reusing the existing flower illustration (already used by HeroCycleCard)
-// instead of adding a new asset, per the "reuse existing assets" guidance.
-const FLOWER = require('../../assets/images/flower.png');
 
 // STEP 2 of the Pregnancy → Postpartum transition — the emotional moment,
 // shown only after DeliveryDateSheet has already persisted a real delivery
@@ -46,6 +43,7 @@ type Props = {
 function PostpartumCongratsCard({visible, deliveryDate, onStarted, onLater}: Props): React.JSX.Element {
   const {t} = useTranslation();
   const insets = useSafeAreaInsets();
+  const {theme} = useAwaTheme();
   const opacity = useRef(new Animated.Value(0)).current;
   const scale = useRef(new Animated.Value(0.94)).current;
   const translateY = useRef(new Animated.Value(20)).current;
@@ -112,39 +110,39 @@ function PostpartumCongratsCard({visible, deliveryDate, onStarted, onLater}: Pro
         ]}>
         <Pressable accessibilityLabel={t('common.close')} onPress={handleLater} style={styles.backdrop} />
 
-        <Animated.View style={[styles.card, {opacity, transform: [{scale}, {translateY}]}]}>
-          <Image accessibilityIgnoresInvertColors resizeMode="contain" source={FLOWER} style={styles.flower} />
-
-          <View style={styles.iconCircle}>
-            <MaterialDesignIcons color={homeColors.primary} name="heart-outline" size={26} />
+        <Animated.View style={[styles.card, theme.shadow, {backgroundColor: theme.colors.surface, borderColor: theme.colors.border, opacity, transform: [{scale}, {translateY}]}]}>
+          <View style={[styles.iconCircle, {backgroundColor: theme.colors.primarySoft}]}>
+            <MaterialDesignIcons color={theme.colors.primary}name="heart-outline" size={26} />
           </View>
 
-          <Text style={styles.title}>{t('pregnancyPostpartumCongrats.title')}</Text>
-          <Text style={styles.subtitle}>{t('pregnancyPostpartumCongrats.subtitle')}</Text>
-          <Text style={styles.message}>{t('pregnancyPostpartumCongrats.message')}</Text>
+          <AwaText variant="headlineSmall" style={styles.title}>{t('pregnancyPostpartumCongrats.title')}</AwaText>
+          <AwaText colorRole="primary" variant="titleSmall" style={styles.subtitle}>{t('pregnancyPostpartumCongrats.subtitle')}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.message}>{t('pregnancyPostpartumCongrats.message')}</AwaText>
 
           {deliveryDate ? (
-            <Text style={styles.deliveryLine}>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.deliveryLine}>
               {t('pregnancyPostpartumCongrats.deliveryRecordedOn')}{' '}
               {new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(deliveryDate)}
-            </Text>
+            </AwaText>
           ) : null}
 
-          <Pressable
-            accessibilityRole="button"
-            disabled={starting}
+          <AwaButton
+            fullWidth
+            label={starting ? t('pregnancyPostpartumCongrats.preparing') : t('pregnancyPostpartumCongrats.startPostpartumTracking')}
+            loading={starting}
             onPress={handleStart}
-            style={({pressed}) => [styles.primaryButton, (pressed || starting) && styles.pressed]}>
-            <Text style={styles.primaryText}>{starting ? t('pregnancyPostpartumCongrats.preparing') : t('pregnancyPostpartumCongrats.startPostpartumTracking')}</Text>
-          </Pressable>
+            size="large"
+            style={styles.primaryButton}
+          />
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={starting}
+            fullWidth
+            label={t('pregnancyPostpartumCongrats.later')}
             onPress={handleLater}
-            style={({pressed}) => [styles.laterButton, pressed && styles.pressed]}>
-            <Text style={styles.laterText}>{t('pregnancyPostpartumCongrats.later')}</Text>
-          </Pressable>
+            style={styles.laterButton}
+            variant="text"
+          />
         </Animated.View>
       </View>
     </Modal>
@@ -173,22 +171,7 @@ const styles = StyleSheet.create({
     paddingBottom: 22,
     borderRadius: homeRadii.card,
     borderWidth: 1,
-    borderColor: 'rgba(111,78,190,0.14)',
-    backgroundColor: '#FEFCFF',
-    shadowColor: '#7A56D6',
-    shadowOffset: {width: 0, height: 14},
-    shadowOpacity: 0.28,
-    shadowRadius: 30,
-    elevation: 16,
-  },
-  flower: {
-    position: 'absolute',
-    top: -10,
-    right: -14,
-    width: 74,
-    height: 70,
-    opacity: 0.5,
-    transform: [{rotate: '10deg'}],
+    // Surface, border and shadow come from the theme at render time (DESIGN.md).
   },
   iconCircle: {
     width: 58,
@@ -196,54 +179,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 29,
-    backgroundColor: '#F1EAFB',
   },
-  title: {
-    marginTop: 16,
-    color: homeColors.textPrimary,
-    fontFamily: 'serif',
-    fontSize: 22,
-    fontWeight: '800',
-    textAlign: 'center',
-  },
-  subtitle: {
-    marginTop: 6,
-    color: homeColors.primary,
-    fontSize: 13.5,
-    fontWeight: '700',
-    textAlign: 'center',
-  },
-  message: {
-    marginTop: 12,
-    color: homeColors.textSecondary,
-    fontSize: 13.5,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  deliveryLine: {
-    marginTop: 12,
-    color: homeColors.textSecondary,
-    fontSize: 11.5,
-    textAlign: 'center',
-  },
-  primaryButton: {
-    width: '100%',
-    marginTop: 22,
-    minHeight: 52,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: homeRadii.button,
-    backgroundColor: homeColors.primary,
-  },
-  primaryText: {color: '#FFFFFF', fontSize: 14.5, fontWeight: '700'},
-  laterButton: {
-    marginTop: 10,
-    minHeight: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  laterText: {color: homeColors.textSecondary, fontSize: 13.5, fontWeight: '600'},
-  pressed: {opacity: 0.85},
+  title: {marginTop: 16, textAlign: 'center'},
+  subtitle: {marginTop: 6, textAlign: 'center'},
+  message: {marginTop: 12, textAlign: 'center'},
+  deliveryLine: {marginTop: 12, textAlign: 'center'},
+  primaryButton: {marginTop: 22},
+  laterButton: {marginTop: 10},
 });
 
 export default memo(PostpartumCongratsCard);

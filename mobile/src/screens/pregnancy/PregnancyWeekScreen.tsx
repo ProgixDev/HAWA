@@ -26,8 +26,11 @@ import {
   spacing,
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
-  onPrimaryTextColor,
   withAlpha,
   type ResolvedAwaTheme,
 } from '../../theme/awaThemeTokens';
@@ -327,26 +330,13 @@ export default function PregnancyWeekScreen({
         />
 
         <View style={styles.header}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
-            hitSlop={10}
+            icon="arrow-left"
             onPress={
               navigation.goBack
             }
-            style={({pressed}) => [
-              styles.backButton,
-              pressed &&
-                styles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              color={
-                theme.colors.primary
-              }
-              name="arrow-left"
-              size={23}
-            />
-          </Pressable>
+          />
         </View>
 
         <View
@@ -366,40 +356,25 @@ export default function PregnancyWeekScreen({
             />
           </View>
 
-          <Text
-            style={
-              styles.unconfiguredTitle
-            }>
+          <AwaText variant="headlineSmall" style={styles.unconfiguredTitle}>
             {t('pregnancyWeekScreen.unconfigured.title')}
-          </Text>
+          </AwaText>
 
-          <Text
-            style={
-              styles.unconfiguredText
-            }>
+          <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.unconfiguredText}>
             {t('pregnancyWeekScreen.unconfigured.text')}
-          </Text>
+          </AwaText>
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
+            label={t('pregnancyWeekScreen.unconfigured.button')}
             onPress={() =>
-              navigation.navigate(
-                'PregnancyDatingSetup',
-                {mode: 'edit'},
-              )
-            }
-            style={({pressed}) => [
-              styles.unconfiguredButton,
-              pressed &&
-                styles.pressed,
-            ]}>
-            <Text
-              style={
-                styles.unconfiguredButtonText
-              }>
-              {t('pregnancyWeekScreen.unconfigured.button')}
-            </Text>
-          </Pressable>
+                        navigation.navigate(
+                          'PregnancyDatingSetup',
+                          {mode: 'edit'},
+                        )
+                      }
+            size="large"
+            style={styles.unconfiguredButton}
+          />
         </View>
       </SafeAreaView>
     );
@@ -424,44 +399,23 @@ export default function PregnancyWeekScreen({
       ======================================================= */}
 
       <View style={styles.header}>
-        <Pressable
+        <AwaIconButton
           accessibilityLabel={t('common.back')}
-          accessibilityRole="button"
-          hitSlop={10}
+          icon="arrow-left"
           onPress={
             navigation.goBack
           }
-          style={({pressed}) => [
-            styles.backButton,
-            pressed &&
-              styles.pressed,
-          ]}>
-          <MaterialDesignIcons
-            color={
-              theme.colors.primary
-            }
-            name="arrow-left"
-            size={23}
-          />
-        </Pressable>
+        />
 
         <View
           style={
             styles.headerCopy
           }>
-          <Text
-            numberOfLines={1}
-            style={
-              styles.headerTitle
-            }>
+          <AwaText variant="headlineSmall">
             {t('pregnancyWeekScreen.header.weekTitle', {week: displayedWeek})}
-          </Text>
+          </AwaText>
 
-          <Text
-            numberOfLines={1}
-            style={
-              styles.headerSubtitle
-            }>
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
             {displayedWeek === actualPregnancyWeek
               ? t('pregnancyWeekScreen.header.gestationalAge', {
                   weeks: status.gestationalWeeks,
@@ -472,7 +426,7 @@ export default function PregnancyWeekScreen({
                   context: viewedWeekContext,
                   week: actualPregnancyWeek,
                 })}
-          </Text>
+          </AwaText>
         </View>
 
         <View
@@ -482,28 +436,26 @@ export default function PregnancyWeekScreen({
         />
       </View>
 
-      <View style={styles.weekBrowser}>
-        <Pressable
+      <AwaCard padding="default" variant="outlined" style={styles.weekBrowser}>
+        <AwaIconButton
           accessibilityLabel={t('pregnancyWeekScreen.header.previousWeek')}
-          accessibilityRole="button"
           disabled={displayedWeek <= MIN_PREGNANCY_WEEK}
+          icon="chevron-left"
           onPress={() => setViewedWeek(current => Math.max(MIN_PREGNANCY_WEEK, (current ?? actualPregnancyWeek) - 1))}
-          style={[styles.weekArrow, displayedWeek <= MIN_PREGNANCY_WEEK && styles.weekArrowDisabled]}>
-          <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={22} />
-        </Pressable>
+          variant="tonal"
+        />
         <View style={styles.weekBrowserCopy}>
           <Text style={styles.weekBrowserTitle}>{t('pregnancyWeekScreen.header.weekTitle', {week: displayedWeek})}</Text>
           <Text style={styles.weekBrowserContext}>{viewedWeekContext}</Text>
         </View>
-        <Pressable
+        <AwaIconButton
           accessibilityLabel={t('pregnancyWeekScreen.header.nextWeek')}
-          accessibilityRole="button"
           disabled={displayedWeek >= MAX_PREGNANCY_WEEK}
+          icon="chevron-right"
           onPress={() => setViewedWeek(current => Math.min(MAX_PREGNANCY_WEEK, (current ?? actualPregnancyWeek) + 1))}
-          style={[styles.weekArrow, displayedWeek >= MAX_PREGNANCY_WEEK && styles.weekArrowDisabled]}>
-          <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={22} />
-        </Pressable>
-      </View>
+          variant="tonal"
+        />
+      </AwaCard>
 
       {/* ======================================================
           TABS
@@ -1061,26 +1013,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingBottom: 5,
     },
 
-    backButton: {
-      ...theme.shadow,
-
-      width: 44,
-      height: 44,
-
-      alignItems: 'center',
-      justifyContent:
-        'center',
-
-      borderWidth: 1,
-      borderColor:
-        withAlpha(theme.colors.primary, 0.08),
-
-      borderRadius: 16,
-
-      backgroundColor:
-        theme.colors.surface,
-    },
-
     headerCopy: {
       flex: 1,
       minWidth: 0,
@@ -1090,54 +1022,14 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginHorizontal: 10,
     },
 
-    headerTitle: {
-      color:
-        theme.colors.text,
-
-      fontFamily: 'serif',
-      fontSize: 21,
-      fontWeight: '800',
-    },
-
-    headerSubtitle: {
-      marginTop: 3,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 11.5,
-    },
-
     headerSpacer: {
-      width: 44,
+      width: 40,
     },
 
-    weekBrowser: {
-      minHeight: 58,
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginHorizontal: spacing.md,
-      marginTop: 7,
-      paddingHorizontal: 8,
-      paddingVertical: 7,
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.10),
-      borderRadius: 19,
-      backgroundColor: theme.colors.surface,
-      ...theme.shadow,
-    },
-    weekArrow: {
-      width: 42,
-      height: 42,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 14,
-      backgroundColor: theme.colors.primarySoft,
-    },
-    weekArrowDisabled: {opacity: 0.3},
+    weekBrowser: {minHeight: 58, flexDirection: 'row', alignItems: 'center', marginHorizontal: spacing.md, marginTop: 7, paddingHorizontal: 8, paddingVertical: 7},
     weekBrowserCopy: {flex: 1, minWidth: 0, alignItems: 'center'},
-    weekBrowserTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 16, fontWeight: '800'},
-    weekBrowserContext: {marginTop: 2, color: theme.colors.primary, fontSize: 10.5, fontWeight: '700'},
+    weekBrowserTitle: {color: theme.colors.text, fontSize: 16, fontWeight: '800'},
+    weekBrowserContext: {marginTop: 2, color: theme.colors.primary, fontSize: 11, fontWeight: '700'},
 
     /* ========================================================
        TABS
@@ -1159,7 +1051,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         withAlpha(theme.colors.primary, 0.08),
 
-      borderRadius: 18,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -1177,7 +1069,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       gap: 5,
 
-      borderRadius: 14,
+      borderRadius: 12,
     },
 
     tabButtonActive: {
@@ -1234,7 +1126,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         withAlpha(theme.colors.primary, 0.07),
 
-      borderRadius: 28,
+      borderRadius: 12,
 
       backgroundColor:
         withAlpha(theme.colors.surface, 0.72),
@@ -1251,7 +1143,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 11,
       paddingVertical: 6,
 
-      borderRadius: 14,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -1261,7 +1153,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.primary,
 
-      fontSize: 10.5,
+      fontSize: 11,
       fontWeight: '800',
     },
 
@@ -1307,7 +1199,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.text,
 
-      fontFamily: 'serif',
       fontSize: 19,
       fontWeight: '800',
 
@@ -1346,7 +1237,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         theme.colors.border,
 
-      borderRadius: 20,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surface,
@@ -1362,7 +1253,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 13,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -1395,7 +1286,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         theme.colors.border,
 
-      borderRadius: 22,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surface,
@@ -1407,7 +1298,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.text,
 
-      fontFamily: 'serif',
       fontSize: 15,
       fontWeight: '800',
     },
@@ -1454,7 +1344,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 10.5,
+      fontSize: 11,
       fontWeight: '600',
     },
 
@@ -1482,7 +1372,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       padding: 13,
 
-      borderRadius: 18,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -1498,7 +1388,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 10,
+      borderRadius: 12,
 
       backgroundColor:
         withAlpha(theme.colors.primary, 0.18),
@@ -1510,7 +1400,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 10.5,
+      fontSize: 11,
       lineHeight: 16,
     },
 
@@ -1536,7 +1426,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       marginRight: 10,
 
-      borderRadius: 14,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -1546,7 +1436,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.text,
 
-      fontFamily: 'serif',
       fontSize: 17,
       fontWeight: '800',
     },
@@ -1557,7 +1446,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 10.5,
+      fontSize: 11,
     },
 
     /* ========================================================
@@ -1574,7 +1463,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       padding: 14,
 
-      borderRadius: 18,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -1609,7 +1498,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         theme.colors.border,
 
-      borderRadius: 22,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surface,
@@ -1690,59 +1579,11 @@ function createStyles(theme: ResolvedAwaTheme) {
         theme.colors.primarySoft,
     },
 
-    unconfiguredTitle: {
-      marginTop: 16,
+    unconfiguredTitle: {marginTop: 16, textAlign: 'center'},
 
-      color:
-        theme.colors.text,
+    unconfiguredText: {maxWidth: 310, marginTop: 8, textAlign: 'center'},
 
-      fontFamily: 'serif',
-      fontSize: 20,
-      fontWeight: '800',
+    unconfiguredButton: {marginTop: 20},
 
-      textAlign: 'center',
-    },
-
-    unconfiguredText: {
-      maxWidth: 310,
-
-      marginTop: 8,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 13,
-      lineHeight: 19,
-
-      textAlign: 'center',
-    },
-
-    unconfiguredButton: {
-      minHeight: 51,
-
-      alignItems: 'center',
-      justifyContent:
-        'center',
-
-      marginTop: 20,
-
-      paddingHorizontal: 24,
-
-      borderRadius: 18,
-
-      backgroundColor:
-        theme.colors.primary,
-    },
-
-    unconfiguredButtonText: {
-      color: onPrimaryTextColor(theme),
-
-      fontSize: 14,
-      fontWeight: '800',
-    },
-
-    pressed: {
-      opacity: 0.82,
-    },
   });
 }

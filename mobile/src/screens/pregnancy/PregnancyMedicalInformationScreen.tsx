@@ -40,6 +40,9 @@ import {
 } from '../../state/pregnancyJournalStore';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   onPrimaryTextColor,
   withAlpha,
@@ -106,6 +109,7 @@ const WEEK_DAYS_TR = ['P', 'S', 'Ç', 'P', 'C', 'C', 'P'] as const;
 const WEEK_DAYS_RU = ['П', 'В', 'С', 'Ч', 'П', 'С', 'В'] as const;
 const WEEK_DAYS_DE = ['M', 'D', 'M', 'D', 'F', 'S', 'S'] as const;
 const WEEK_DAYS_ZH = ['一', '二', '三', '四', '五', '六', '日'] as const;
+const WEEK_DAYS_ID = ['S', 'S', 'R', 'K', 'J', 'S', 'M'] as const;
 
 function localizedSingleLetterWeekDays(): readonly string[] {
   const language = getAppLanguage();
@@ -116,6 +120,7 @@ function localizedSingleLetterWeekDays(): readonly string[] {
   if (language === 'ru') {return WEEK_DAYS_RU;}
   if (language === 'de') {return WEEK_DAYS_DE;}
   if (language === 'zh') {return WEEK_DAYS_ZH;}
+  if (language === 'id') {return WEEK_DAYS_ID;}
   return WEEK_DAYS_FR;
 }
 
@@ -496,9 +501,6 @@ function PremiumDatePickerModal({
               </Text>
 
               <Text
-                numberOfLines={
-                  1
-                }
                 style={
                   styles.calendarSelectedText
                 }>
@@ -508,22 +510,20 @@ function PremiumDatePickerModal({
               </Text>
             </View>
 
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t(
                 'common.close',
               )}
+              icon="close"
               onPress={
                 onClose
               }
+              size="small"
               style={
                 styles.calendarClose
-              }>
-              <MaterialDesignIcons
-                color={theme.colors.textSecondary}
-                name="close"
-                size={19}
-              />
-            </Pressable>
+              }
+              variant="tonal"
+            />
           </View>
 
           {/* MONTH */}
@@ -532,10 +532,11 @@ function PremiumDatePickerModal({
             style={
               styles.monthNavigation
             }>
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t(
                 'pregnancyMedicalInformation.calendar.previousMonth',
               )}
+              icon="chevron-left"
               onPress={() =>
                 setVisibleMonth(
                   current =>
@@ -547,17 +548,8 @@ function PremiumDatePickerModal({
                     ),
                 )
               }
-              style={
-                styles.monthArrow
-              }>
-              <MaterialDesignIcons
-                color={
-                  theme.colors.primary
-                }
-                name="chevron-left"
-                size={20}
-              />
-            </Pressable>
+              variant="tonal"
+            />
 
             <Text
               style={
@@ -566,10 +558,11 @@ function PremiumDatePickerModal({
               {displayTitleCase(monthTitle)}
             </Text>
 
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t(
                 'pregnancyMedicalInformation.calendar.nextMonth',
               )}
+              icon="chevron-right"
               onPress={() =>
                 setVisibleMonth(
                   current =>
@@ -581,17 +574,8 @@ function PremiumDatePickerModal({
                     ),
                 )
               }
-              style={
-                styles.monthArrow
-              }>
-              <MaterialDesignIcons
-                color={
-                  theme.colors.primary
-                }
-                name="chevron-right"
-                size={20}
-              />
-            </Pressable>
+              variant="tonal"
+            />
           </View>
 
           {/* WEEK */}
@@ -702,8 +686,9 @@ function PremiumDatePickerModal({
 
           {/* QUICK TODAY */}
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
+            icon="calendar-today"
+            label={t('pregnancyMedicalInformation.calendar.today')}
             onPress={() => {
               const now =
                 new Date();
@@ -720,26 +705,10 @@ function PremiumDatePickerModal({
                 ),
               );
             }}
-            style={
-              styles.todayButton
-            }>
-            <MaterialDesignIcons
-              color={
-                theme.colors.primary
-              }
-              name="calendar-today"
-              size={15}
-            />
-
-            <Text
-              style={
-                styles.todayButtonText
-              }>
-              {t(
-                'pregnancyMedicalInformation.calendar.today',
-              )}
-            </Text>
-          </Pressable>
+            size="compact"
+            style={styles.todayButton}
+            variant="text"
+          />
 
           {/* FOOTER */}
 
@@ -747,72 +716,42 @@ function PremiumDatePickerModal({
             style={
               styles.calendarFooter
             }>
-            <Pressable
-              accessibilityRole="button"
+            <AwaButton
+              label={t('pregnancyMedicalInformation.calendar.clear')}
               onPress={() => {
                 onClear();
                 onClose();
               }}
-              style={
-                styles.clearButton
-              }>
-              <Text
-                style={
-                  styles.clearButtonText
-                }>
-                {t(
-                  'pregnancyMedicalInformation.calendar.clear',
-                )}
-              </Text>
-            </Pressable>
+              size="compact"
+              style={styles.clearButton}
+              variant="text"
+            />
 
             <View
               style={
                 styles.calendarFooterRight
               }>
-              <Pressable
-                accessibilityRole="button"
+              <AwaButton
+                label={t('common.cancel')}
                 onPress={
                   onClose
                 }
-                style={
-                  styles.cancelButton
-                }>
-                <Text
-                  style={
-                    styles.cancelButtonText
-                  }>
-                  {t(
-                    'common.cancel',
-                  )}
-                </Text>
-              </Pressable>
+                size="compact"
+                style={styles.cancelButton}
+                variant="tonal"
+              />
 
-              <Pressable
-                accessibilityRole="button"
+              <AwaButton
+                icon="check"
+                label={t('pregnancyMedicalInformation.calendar.choose')}
                 onPress={() => {
                   onConfirm(
                     selectedDate,
                   );
                 }}
-                style={
-                  styles.confirmDateButton
-                }>
-                <MaterialDesignIcons
-                  color={onPrimaryTextColor(theme)}
-                  name="check"
-                  size={17}
-                />
-
-                <Text
-                  style={
-                    styles.confirmDateText
-                  }>
-                  {t(
-                    'pregnancyMedicalInformation.calendar.choose',
-                  )}
-                </Text>
-              </Pressable>
+                size="compact"
+                style={styles.confirmDateButton}
+              />
             </View>
           </View>
         </View>
@@ -1236,53 +1175,29 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
                   ),
               },
             ]}>
-            <Pressable
-              accessibilityLabel={t(
-                'common.back',
-              )}
-              accessibilityRole="button"
-              hitSlop={10}
+            <AwaIconButton
+              accessibilityLabel={t('common.back')}
+              icon="arrow-left"
               onPress={
                 navigation.goBack
               }
-              style={({
-                pressed,
-              }) => [
-                styles.backButton,
-
-                pressed &&
-                  styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                color={
-                  theme.colors.primary
-                }
-                name="arrow-left"
-                size={23}
-              />
-            </Pressable>
+            />
 
             <View
               style={
                 styles.headerCopy
               }>
-              <Text
-                style={
-                  styles.title
-                }>
+              <AwaText variant="headlineSmall">
                 {t(
                   'pregnancyMedicalInformation.header.title',
                 )}
-              </Text>
+              </AwaText>
 
-              <Text
-                style={
-                  styles.subtitle
-                }>
+              <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.subtitle}>
                 {t(
                   'pregnancyMedicalInformation.header.subtitle',
                 )}
-              </Text>
+              </AwaText>
             </View>
           </View>
 
@@ -1585,53 +1500,16 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
 
             {/* SAVE */}
 
-            <Pressable
-              accessibilityLabel={t(
-                'common.save',
-              )}
-              accessibilityRole="button"
-              accessibilityState={{
-                disabled:
-                  saving,
-              }}
-              disabled={
-                saving
-              }
-              onPress={
-                save
-              }
-              style={({
-                pressed,
-              }) => [
-                styles.saveButton,
-
-                (pressed ||
-                  saving) &&
-                  styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                color={onPrimaryTextColor(theme)}
-                name={
-                  saving
-                    ? 'loading'
-                    : 'content-save-outline'
-                }
-                size={20}
-              />
-
-              <Text
-                style={
-                  styles.saveText
-                }>
-                {saving
-                  ? t(
-                      'pregnancyMedicalInformation.save.saving',
-                    )
-                  : t(
-                      'common.save',
-                    )}
-              </Text>
-            </Pressable>
+            <AwaButton
+              accessibilityLabel={t('common.save')}
+              fullWidth
+              icon={saving ? 'loading' : 'content-save-outline'}
+              label={saving ? t('pregnancyMedicalInformation.save.saving') : t('common.save')}
+              loading={saving}
+              onPress={save}
+              size="large"
+              style={styles.saveButton}
+            />
           </Animated.View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -1740,29 +1618,16 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
             )}
           </Text>
 
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t(
               'common.close',
             )}
-            accessibilityRole="button"
-            hitSlop={10}
+            icon="close"
             onPress={
               hideSuccessToast
             }
-            style={({
-              pressed,
-            }) => [
-              styles.toastCloseButton,
-
-              pressed &&
-                styles.toastCloseButtonPressed,
-            ]}>
-            <MaterialDesignIcons
-              color={theme.colors.textSecondary}
-              name="close"
-              size={17}
-            />
-          </Pressable>
+            size="small"
+          />
         </Animated.View>
       ) : null}
     </View>
@@ -1803,39 +1668,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingBottom: 12,
     },
 
-    backButton: {
-      width: 42,
-      height: 42,
-
-      flexShrink: 0,
-
-      alignItems: 'center',
-      justifyContent:
-        'center',
-
-      borderWidth: 1,
-      borderColor:
-        withAlpha(theme.colors.primary, 0.07),
-
-      borderRadius: 15,
-
-      backgroundColor:
-        theme.colors.primarySoft,
-
-      shadowColor:
-        theme.colors.primary,
-
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-
-      shadowOpacity: 0.07,
-      shadowRadius: 7,
-
-      elevation: 2,
-    },
-
     headerCopy: {
       flex: 1,
 
@@ -1846,29 +1678,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingTop: 1,
     },
 
-    title: {
-      color:
-        theme.colors.accent,
-
-      fontFamily: 'serif',
-
-      fontSize: 22,
-      lineHeight: 27,
-
-      fontWeight: '800',
-    },
-
-    subtitle: {
-      maxWidth: 305,
-
-      marginTop: 5,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 11.5,
-      lineHeight: 17,
-    },
+    subtitle: {maxWidth: 305, marginTop: 5},
 
     /* HERO */
 
@@ -1901,7 +1711,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         withAlpha(theme.colors.primary, 0.14),
 
-      borderRadius: 18,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surface,
@@ -1931,7 +1741,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 14,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primary,
@@ -1959,8 +1769,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 10.5,
-      lineHeight: 15,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     /* FIELD */
@@ -2004,7 +1814,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       marginTop: 8,
 
-      paddingHorizontal: 11,
+      paddingHorizontal: 12,
 
       borderWidth: 1,
 
@@ -2051,7 +1861,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 8.5,
+      fontSize: 11,
       fontWeight: '600',
     },
 
@@ -2079,7 +1889,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 10,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -2093,7 +1903,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 10,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surfaceSecondary,
@@ -2107,8 +1917,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 10.5,
-      lineHeight: 15,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     /* NOTE */
@@ -2118,7 +1928,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       marginTop: 8,
 
-      padding: 11,
+      padding: 12,
 
       borderWidth: 1,
 
@@ -2187,7 +1997,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 10,
+      fontSize: 11,
     },
 
     error: {
@@ -2195,53 +2005,14 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       color: theme.colors.danger,
 
-      fontSize: 10.5,
+      fontSize: 11,
 
       textAlign: 'center',
     },
 
     /* SAVE */
 
-    saveButton: {
-      minHeight: 51,
-
-      flexDirection: 'row',
-
-      alignItems: 'center',
-      justifyContent:
-        'center',
-
-      gap: 8,
-
-      marginTop: 21,
-
-      borderRadius: 18,
-
-      backgroundColor:
-        theme.colors.primary,
-
-      shadowColor:
-        theme.colors.primary,
-
-      shadowOffset: {
-        width: 0,
-        height: 5,
-      },
-
-      shadowOpacity: 0.23,
-
-      shadowRadius: 9,
-
-      elevation: 5,
-    },
-
-    saveText: {
-      color: onPrimaryTextColor(theme),
-
-      fontSize: 14.5,
-
-      fontWeight: '800',
-    },
+    saveButton: {marginTop: 21},
 
     pressed: {
       opacity: 0.82,
@@ -2287,7 +2058,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         withAlpha(theme.colors.primary, 0.1),
 
-      borderRadius: 24,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surface,
@@ -2323,7 +2094,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 13,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -2341,8 +2112,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.accent,
 
-      fontFamily: 'serif',
-
       fontSize: 16,
       fontWeight: '800',
     },
@@ -2353,23 +2122,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 9.5,
+      fontSize: 11,
     },
 
     calendarClose: {
-      width: 32,
-      height: 32,
-
       flexShrink: 0,
-
-      alignItems: 'center',
-      justifyContent:
-        'center',
-
-      borderRadius: 11,
-
-      backgroundColor:
-        theme.colors.surfaceSecondary,
     },
 
     /* MONTH */
@@ -2386,25 +2143,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginBottom: 11,
     },
 
-    monthArrow: {
-      width: 34,
-      height: 34,
-
-      alignItems: 'center',
-      justifyContent:
-        'center',
-
-      borderRadius: 11,
-
-      backgroundColor:
-        theme.colors.primarySoft,
-    },
-
     monthTitle: {
       color:
         theme.colors.accent,
-
-      fontFamily: 'serif',
 
       fontSize: 14,
 
@@ -2427,7 +2168,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       color: theme.colors.textSecondary,
 
-      fontSize: 9,
+      fontSize: 11,
 
       fontWeight: '800',
 
@@ -2482,20 +2223,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     calendarDaySelected: {
       backgroundColor:
         theme.colors.primary,
-
-      shadowColor:
-        theme.colors.primary,
-
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-
-      shadowOpacity: 0.22,
-
-      shadowRadius: 5,
-
-      elevation: 3,
     },
 
     calendarDayText: {
@@ -2529,38 +2256,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     /* TODAY */
 
-    todayButton: {
-      minHeight: 34,
-
-      flexDirection: 'row',
-
-      alignItems: 'center',
-
-      justifyContent:
-        'center',
-
-      alignSelf: 'center',
-
-      gap: 5,
-
-      marginTop: 8,
-
-      paddingHorizontal: 11,
-
-      borderRadius: 12,
-
-      backgroundColor:
-        theme.colors.primarySoft,
-    },
-
-    todayButtonText: {
-      color:
-        theme.colors.primary,
-
-      fontSize: 9.5,
-
-      fontWeight: '800',
-    },
+    todayButton: {alignSelf: 'center', marginTop: 8},
 
     /* FOOTER */
 
@@ -2591,87 +2287,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       gap: 7,
     },
 
-    clearButton: {
-      minHeight: 37,
+    clearButton: {paddingHorizontal: 12},
 
-      justifyContent:
-        'center',
+    cancelButton: {paddingHorizontal: 12},
 
-      paddingHorizontal: 10,
-    },
-
-    clearButtonText: {
-      color: theme.colors.textSecondary,
-
-      fontSize: 10.5,
-
-      fontWeight: '700',
-    },
-
-    cancelButton: {
-      minHeight: 37,
-
-      alignItems: 'center',
-      justifyContent:
-        'center',
-
-      paddingHorizontal: 11,
-
-      borderRadius: 12,
-
-      backgroundColor:
-        theme.colors.surfaceSecondary,
-    },
-
-    cancelButtonText: {
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 10.5,
-
-      fontWeight: '700',
-    },
-
-    confirmDateButton: {
-      minHeight: 38,
-
-      flexDirection: 'row',
-
-      alignItems: 'center',
-      justifyContent:
-        'center',
-
-      gap: 5,
-
-      paddingHorizontal: 13,
-
-      borderRadius: 12,
-
-      backgroundColor:
-        theme.colors.primary,
-
-      shadowColor:
-        theme.colors.primary,
-
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-
-      shadowOpacity: 0.18,
-
-      shadowRadius: 6,
-
-      elevation: 3,
-    },
-
-    confirmDateText: {
-      color: onPrimaryTextColor(theme),
-
-      fontSize: 10.5,
-
-      fontWeight: '800',
-    },
+    confirmDateButton: {paddingHorizontal: 12},
 
     /* ========================================================
        SUCCESS TOAST — matches JournalMoodScreen.tsx exactly.
@@ -2696,7 +2316,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         withAlpha(theme.colors.primary, 0.14),
 
-      borderRadius: 20,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surface,
@@ -2712,11 +2332,11 @@ function createStyles(theme: ResolvedAwaTheme) {
         height: 5,
       },
 
-      shadowOpacity: 0.17,
+      shadowOpacity: 0.15,
 
-      shadowRadius: 13,
+      shadowRadius: 12,
 
-      elevation: 7,
+      elevation: 6,
     },
 
     toastIcon: {
@@ -2747,26 +2367,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       lineHeight: 17,
 
       fontWeight: '700',
-    },
-
-    toastCloseButton: {
-      width: 32,
-      height: 32,
-
-      flexShrink: 0,
-
-      alignItems: 'center',
-      justifyContent:
-        'center',
-
-      borderRadius: 16,
-    },
-
-    toastCloseButtonPressed: {
-      backgroundColor:
-        theme.colors.surfaceSecondary,
-
-      opacity: 0.8,
     },
   });
 }

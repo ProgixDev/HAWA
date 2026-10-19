@@ -111,6 +111,7 @@ type PregnancyWeekEntry = {
     ru: PregnancyWeekEditorialContent;
     de: PregnancyWeekEditorialContent;
     zh: PregnancyWeekEditorialContent;
+    id: PregnancyWeekEditorialContent;
   };
 };
 
@@ -207,6 +208,16 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '这一阶段没有任何变化是很常见的。',
         ],
       },
+      id: {
+        babyDescription: 'Kehamilan dihitung mulai dari hari pertama haid terakhirmu, sesuai kesepakatan medis. Pada tahap ini, pembuahan umumnya belum terjadi.',
+        bodyChanges: [
+          'Masa ini umumnya terjadi sebelum pembuahan; biasanya belum ada perubahan fisik yang berkaitan dengan kehamilan.',
+        ],
+        toKnow: [
+          'Menghitung kehamilan dari haid terakhir memberi cara yang terstandar untuk memperkirakan tanggal persalinan, meskipun pembuahan sebenarnya terjadi sedikit lebih lambat.',
+          'Wajar jika kamu belum merasakan perubahan apa pun pada tahap ini.',
+        ],
+      },
     },
   },
   {
@@ -293,6 +304,16 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '排卵的确切时间因人而异，所以这段时间仍然只是估算。',
         ],
       },
+      id: {
+        babyDescription: 'Ovulasi dan kemungkinan pembuahan umumnya terjadi sekitar waktu ini, tergantung pada panjang siklus masing-masing.',
+        bodyChanges: [
+          'Waktu ovulasi bisa berbeda-beda tergantung panjang siklus, sehingga memengaruhi tanggal pembuahan yang mungkin sebenarnya.',
+          'Pada tahap ini umumnya belum ada perubahan fisik khusus akibat kehamilan.',
+        ],
+        toKnow: [
+          'Waktu ovulasi yang tepat berbeda dari satu orang ke orang lain, sehingga masa ini tetap berupa perkiraan.',
+        ],
+      },
     },
   },
   {
@@ -369,6 +390,15 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '大多数尿液验孕试纸要到下周前后、着床开始之后才比较可靠。',
+        ],
+      },
+      id: {
+        babyDescription: 'Jika pembuahan telah terjadi, sel telur mulai membelah dan bergerak menuju rahim, tetapi belum bisa terdeteksi oleh tes kehamilan.',
+        bodyChanges: [
+          'Minggu ini masih termasuk masa penghitungan medis di sekitar pembuahan; umumnya belum ada tanda fisik yang terasa pada tahap ini.',
+        ],
+        toKnow: [
+          'Sebagian besar tes kehamilan urine baru dapat diandalkan mulai sekitar minggu berikutnya, setelah implantasi dimulai.',
         ],
       },
     },
@@ -479,6 +509,18 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '这通常是验孕可以开始出现阳性结果的时间。',
         ],
       },
+      id: {
+        babyDescription: 'Embrio baru saja menempel pada dinding rahim. Kantung ketuban dan kantung kuning telur, yang akan menyuplai nutrisi pada hari-hari pertama, mulai terbentuk.',
+        length: 'Sekitar 2 mm',
+        comparison: 'Biji poppy',
+        bodyChanges: [
+          'Sebagian orang belum merasakan tanda apa pun pada tahap yang sangat awal ini.',
+          'Tes kehamilan urine umumnya dapat mendeteksi kehamilan mulai minggu ini.',
+        ],
+        toKnow: [
+          'Inilah waktu yang biasanya sudah memungkinkan tes kehamilan memberikan hasil positif.',
+        ],
+      },
     },
   },
   {
@@ -569,6 +611,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '建议在这个时候预约医疗专业人员，开始孕期检查。',
+        ],
+      },
+      id: {
+        babyDescription: 'Sistem saraf mulai terbentuk, dan jantung yang masih sangat kecil akan segera berdetak untuk pertama kalinya.',
+        length: 'Sekitar 2 mm',
+        comparison: 'Biji wijen',
+        bodyChanges: [
+          'Kelelahan yang tidak biasa, mual ringan, atau payudara terasa nyeri bisa muncul.',
+        ],
+        toKnow: [
+          'Inilah waktu yang dianjurkan untuk membuat janji dengan tenaga kesehatan guna memulai pemeriksaan kehamilan.',
         ],
       },
     },
@@ -663,6 +716,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '早期超声检查有时最早在这一周就能看到心脏活动。',
         ],
       },
+      id: {
+        babyDescription: 'Tunas lengan dan kaki mulai muncul, bersama lekukan kecil tempat telinga akan terbentuk. Jantung terkadang sudah dapat terdeteksi lewat USG.',
+        length: 'Sekitar 6 mm',
+        comparison: 'Kacang polong',
+        bodyChanges: [
+          'Mual dan kelelahan bisa makin terasa pada sebagian orang selama masa ini.',
+        ],
+        toKnow: [
+          'Aktivitas jantung terkadang sudah dapat terlihat sejak minggu ini pada USG dini.',
+        ],
+      },
     },
   },
   {
@@ -753,6 +817,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '神经管会发育成大脑和脊髓，在这几周里仍在继续闭合。',
+        ],
+      },
+      id: {
+        babyDescription: 'Otak berkembang lebih cepat daripada bagian tubuh lainnya, sehingga dahi tampak menonjol. Tunas tangan yang kecil mulai muncul di ujung lengan.',
+        length: 'Sekitar 10 mm',
+        comparison: 'Anggur',
+        bodyChanges: [
+          'Keinginan makan makanan tertentu, atau sebaliknya rasa tidak suka pada makanan tertentu, mungkin saja terjadi.',
+        ],
+        toKnow: [
+          'Tabung saraf, yang akan menjadi otak dan sumsum tulang belakang, terus menutup selama minggu-minggu ini.',
         ],
       },
     },
@@ -849,6 +924,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '第一次核对孕周的超声检查通常安排在孕 8 周到孕 14 周之间。',
         ],
       },
+      id: {
+        babyDescription: 'Embrio kini disebut janin. Lengan makin panjang, kepala mulai sedikit menegak, dan plasenta terus terbentuk.',
+        length: 'Sekitar 16 mm',
+        comparison: 'Raspberi',
+        bodyChanges: [
+          'Sensitivitas terhadap bau dan mual di pagi hari umum terjadi pada tahap ini, meski tidak dialami semua orang.',
+        ],
+        toKnow: [
+          'USG pertama untuk menentukan usia kehamilan umumnya dijadwalkan antara minggu ke-8 dan minggu ke-14.',
+        ],
+      },
     },
   },
   {
@@ -939,6 +1025,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '生殖器官刚刚开始分化，但通常要到很久以后的系统超声检查时才能看出性别。',
+        ],
+      },
+      id: {
+        babyDescription: 'Fitur wajah makin jelas, kelopak mata melindungi mata, dan tangan serta kaki mulai terbentuk bersama calon jari tangan dan jari kaki.',
+        length: 'Sekitar 22 mm',
+        comparison: 'Stroberi',
+        bodyChanges: [
+          'Kelelahan dan mual yang cukup terasa mungkin masih ada; keduanya sering mulai mereda menjelang akhir trimester pertama.',
+        ],
+        toKnow: [
+          'Organ kelamin baru mulai berdiferensiasi, tetapi jenis kelamin umumnya baru dapat diketahui jauh kemudian, saat USG morfologi.',
         ],
       },
     },
@@ -1033,6 +1130,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '孕早期联合筛查（如果提供的话）通常在孕 11 周到孕 14 周之间进行。',
         ],
       },
+      id: {
+        babyDescription: 'Wajah makin mudah dikenali, kelopak mata bereaksi terhadap cahaya, dan jantung berdetak cepat, sekitar tiga kali lebih cepat daripada jantung orang dewasa.',
+        length: 'Sekitar 30 mm',
+        comparison: 'Aprikot kecil',
+        bodyChanges: [
+          'Lingkar pinggangmu mungkin mulai sedikit berubah, meskipun perut umumnya belum terlihat.',
+        ],
+        toKnow: [
+          'Skrining kombinasi trimester pertama, jika ditawarkan, umumnya dilakukan antara minggu ke-11 dan minggu ke-14.',
+        ],
+      },
     },
   },
   {
@@ -1123,6 +1231,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '宝宝已经开始活动，但这个阶段通常还感觉不到。',
+        ],
+      },
+      id: {
+        babyDescription: 'Jari tangan dan jari kaki mulai terpisah, kuku-kuku kecil muncul, dan plasenta berangsur menggantikan kantung kuning telur dalam menyuplai nutrisi bagi janin.',
+        length: 'Sekitar 41 mm',
+        comparison: 'Ara',
+        bodyChanges: [
+          'Kamu mungkin merasakan suasana hati yang naik turun, yang berkaitan terutama dengan perubahan hormon.',
+        ],
+        toKnow: [
+          'Gerakan bayi sudah dimulai, tetapi umumnya belum terasa pada tahap ini.',
         ],
       },
     },
@@ -1217,6 +1336,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '孕早期结束时，流产风险通常被认为比之前几周要低。',
         ],
       },
+      id: {
+        babyDescription: 'Organ dalam dan otot telah tumbuh dengan baik, dan kerangka mulai mengeras. Organ reproduksi sudah terbentuk, meski belum terlihat pada USG.',
+        length: 'Sekitar 5,4 cm',
+        comparison: 'Plum',
+        bodyChanges: [
+          'Mual sering mulai mereda secara bertahap sekitar waktu ini, meski hal ini sangat berbeda dari satu orang ke orang lain.',
+        ],
+        toKnow: [
+          'Akhir trimester pertama sering dikaitkan dengan risiko keguguran yang lebih rendah dibandingkan minggu-minggu sebelumnya.',
+        ],
+      },
     },
   },
   {
@@ -1307,6 +1437,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '孕早期通常在这一周前后结束，之后的产检间隔会拉长一些。',
+        ],
+      },
+      id: {
+        babyDescription: 'Gerakan yang masih kaku menjadi sedikit lebih terkoordinasi. Beberapa bayi bahkan sudah menunjukkan refleks mengisap jempol.',
+        length: 'Sekitar 7,4 cm',
+        comparison: 'Persik',
+        bodyChanges: [
+          'Banyak orang berangsur-angsur memiliki sedikit lebih banyak energi menjelang trimester kedua.',
+        ],
+        toKnow: [
+          'Trimester pertama umumnya berakhir sekitar minggu ini; pemeriksaan kehamilan berlanjut dengan jadwal kunjungan yang lebih jarang.',
         ],
       },
     },
@@ -1403,6 +1544,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '医疗专业人员有时可以用放在肚子上的超声设备开始听到胎心。',
         ],
       },
+      id: {
+        babyDescription: 'Kepala menjadi lebih bulat dan lebih proporsional dengan tubuh. Janin menelan sedikit air ketuban, yang kemudian melewati lambung dan ginjal.',
+        length: 'Sekitar 8,5 cm',
+        comparison: 'Kiwi',
+        bodyChanges: [
+          'Perut mulai tampak lebih membulat pada sebagian orang.',
+        ],
+        toKnow: [
+          'Tenaga kesehatan terkadang sudah mulai bisa mendengar detak jantung bayi dengan alat USG yang ditempelkan di perut.',
+        ],
+      },
     },
   },
   {
@@ -1495,6 +1647,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '听觉大约在这个时候开始发育：你的声音和身体内部的声音会逐渐被听到。',
         ],
       },
+      id: {
+        babyDescription: 'Bulu halus yang disebut lanugo berangsur menutupi kulit, dan alis serta bulu mata mulai muncul. Mata menjadi peka terhadap cahaya.',
+        length: 'Sekitar 10,1 cm',
+        comparison: 'Apel',
+        bodyChanges: [
+          'Nafsu makanmu bisa berubah, terkadang dengan keinginan atau rasa tidak suka baru pada makanan tertentu.',
+        ],
+        toKnow: [
+          'Pendengaran mulai berkembang sekitar waktu ini: suaramu dan bunyi-bunyi dari dalam tubuh berangsur dapat ditangkap.',
+        ],
+      },
     },
   },
   {
@@ -1582,6 +1745,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '第一次感觉到胎动的时间因每次怀孕而差别很大，尤其取决于是不是第一次怀孕。',
+        ],
+      },
+      id: {
+        babyDescription: 'Sistem saraf memungkinkan gerakan lengan dan kaki. Tangan sudah bisa mengepal menjadi kepalan kecil.',
+        length: 'Sekitar 11,6 cm',
+        comparison: 'Alpukat',
+        bodyChanges: [
+          'Sebagian orang mulai merasakan gerakan yang sangat ringan sejak sekitar waktu ini, yang sering digambarkan seperti kepakan halus.',
+        ],
+        toKnow: [
+          'Waktu pertama kali merasakan gerakan bayi sangat bervariasi dari satu kehamilan ke kehamilan lain, terutama tergantung apakah ini kehamilan pertama.',
         ],
       },
     },
@@ -1676,6 +1850,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '外界的声音开始透过羊水，以模糊的方式被宝宝听到。',
         ],
       },
+      id: {
+        babyDescription: 'Mata, yang masih tertutup, bisa bergerak, dan bayi kini bereaksi terhadap suara keras. Sidik jari mulai terbentuk.',
+        length: 'Sekitar 12 cm',
+        comparison: 'Delima',
+        bodyChanges: [
+          'Nyeri punggung ringan bisa muncul seiring bergesernya pusat gravitasimu.',
+        ],
+        toKnow: [
+          'Suara dari luar mulai terdengar, secara samar, melalui air ketuban.',
+        ],
+      },
     },
   },
   {
@@ -1768,6 +1953,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '检查宝宝整体发育情况的系统超声检查，通常安排在孕 18 周到孕 21 周之间。',
         ],
       },
+      id: {
+        babyDescription: 'Pendengaran, indra peraba, kemampuan menelan, dan refleks mengisap terus berkembang. Bayi makin aktif, dengan lebih banyak gerakan lengan dan kaki.',
+        length: 'Sekitar 14,2 cm',
+        comparison: 'Paprika',
+        bodyChanges: [
+          'Perut sering sudah terlihat jelas pada tahap ini, dan pusat gravitasimu terus bergeser.',
+        ],
+        toKnow: [
+          'USG morfologi, yang memeriksa perkembangan keseluruhan bayi, umumnya ditawarkan antara minggu ke-18 dan minggu ke-21.',
+        ],
+      },
     },
   },
   {
@@ -1858,6 +2054,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '这通常是开始更明显地感觉到宝宝胎动的时期。',
+        ],
+      },
+      id: {
+        babyDescription: 'Calon gigi permanen mulai terbentuk di balik gigi susu yang sedang dipersiapkan, dan berat badan bayi terus bertambah secara bertahap.',
+        length: 'Sekitar 15,3 cm',
+        comparison: 'Tomat besar',
+        bodyChanges: [
+          'Sensasi tertarik di sisi perut (nyeri ligamen bulat) bisa terjadi seiring membesarnya rahim.',
+        ],
+        toKnow: [
+          'Inilah waktu yang umum untuk mulai merasakan gerakan bayi dengan lebih jelas.',
         ],
       },
     },
@@ -1954,6 +2161,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '孕期过半时，通常会由负责你孕期照护的医疗专业人员做一次全面检查。',
         ],
       },
+      id: {
+        babyDescription: 'Mulai minggu ini, panjang diukur dari kepala hingga tumit, bukan dari kepala hingga bokong, karena kaki kini bisa diluruskan dan diukur — inilah yang menjelaskan lonjakan ukuran acuan yang tampak dibandingkan minggu-minggu sebelumnya.',
+        length: 'Sekitar 25,6 cm',
+        comparison: 'Pisang',
+        bodyChanges: [
+          'Perutmu yang membulat indah mungkin mulai memengaruhi keseimbangan dan posturmu.',
+        ],
+        toKnow: [
+          'Pertengahan kehamilan sering ditandai dengan pemeriksaan menyeluruh oleh tenaga kesehatan yang mendampingi kehamilanmu.',
+        ],
+      },
     },
   },
   {
@@ -2041,6 +2259,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '熟悉宝宝平时的胎动规律，更容易察觉到异常的变化。',
+        ],
+      },
+      id: {
+        babyDescription: 'Gerakan makin jelas dan terkoordinasi, dan wajar jika kamu mulai merasakannya dengan jelas pada masa ini.',
+        length: 'Sekitar 26,7 cm',
+        comparison: 'Wortel',
+        bodyChanges: [
+          'Sesak napas ringan saat beraktivitas bisa muncul seiring rahim yang memakan lebih banyak ruang.',
+        ],
+        toKnow: [
+          'Mengenali pola gerakan bayi yang biasa membuatmu lebih mudah menyadari perubahan yang tidak biasa.',
         ],
       },
     },
@@ -2135,6 +2364,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '你吃的食物可能会影响羊水，而宝宝会经常吞咽羊水。',
         ],
       },
+      id: {
+        babyDescription: 'Paru-paru terus berkembang, dan bayi berlatih gerakan bernapas kecil. Kuncup pengecap juga sedang terbentuk.',
+        length: 'Sekitar 27,8 cm',
+        comparison: 'Ubi jalar',
+        bodyChanges: [
+          'Kram kaki, terutama pada malam hari, mungkin terjadi pada sebagian orang.',
+        ],
+        toKnow: [
+          'Apa yang kamu makan dapat memengaruhi air ketuban, yang rutin ditelan oleh bayi.',
+        ],
+      },
     },
   },
   {
@@ -2225,6 +2465,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '观察宝宝活跃和安静的时段，可以帮你了解他自己的节奏。',
+        ],
+      },
+      id: {
+        babyDescription: 'Anggota tubuh kini sudah proporsional. Bayi berlatih bernapas dan mulai bergantian antara fase tidur dan terjaga.',
+        length: 'Sekitar 28,9 cm',
+        comparison: 'Mangga besar',
+        bodyChanges: [
+          'Nyeri punggung yang lebih terasa bisa muncul seiring bertambahnya berat badan secara bertahap.',
+        ],
+        toKnow: [
+          'Mengamati masa aktif dan masa tenang bayi membantumu mengenali ritmenya sendiri.',
         ],
       },
     },
@@ -2319,6 +2570,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '妊娠期糖尿病筛查通常在这个时期进行。',
         ],
       },
+      id: {
+        babyDescription: 'Bayi mencapai ambang viabilitas: jika lahir sangat prematur pada tahap ini, perawatan medis neonatal khusus dapat membuatnya bertahan hidup, dengan dukungan yang sesuai.',
+        length: 'Sekitar 30 cm',
+        comparison: 'Tongkol jagung',
+        bodyChanges: [
+          'Tekanan yang meningkat pada kandung kemih dan dorongan sering buang air kecil bisa muncul.',
+        ],
+        toKnow: [
+          'Skrining diabetes gestasional umumnya ditawarkan sekitar waktu ini.',
+        ],
+      },
     },
   },
   {
@@ -2411,6 +2673,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '偶尔感觉到胎儿打嗝，一般被认为是正常的。',
         ],
       },
+      id: {
+        babyDescription: 'Bayi kini bereaksi terhadap suara keras dengan terkejut atau menendang, dan sesekali cegukan bisa terasa. Bayi buang air kecil secara teratur ke dalam air ketuban.',
+        length: 'Sekitar 34,6 cm',
+        comparison: 'Zukini',
+        bodyChanges: [
+          'Rasa panas di dada atau refluks asam lambung bisa makin sering terjadi.',
+        ],
+        toKnow: [
+          'Cegukan janin yang sesekali terasa umumnya dianggap normal.',
+        ],
+      },
     },
   },
   {
@@ -2499,6 +2772,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '孕晚期即将到来，产检通常会变得更频繁。',
+        ],
+      },
+      id: {
+        babyDescription: 'Mata terbuka untuk pertama kalinya. Warna matanya yang sebenarnya umumnya baru diketahui beberapa bulan setelah lahir.',
+        length: 'Sekitar 35,6 cm',
+        comparison: 'Mentimun',
+        bodyChanges: [
+          'Pembengkakan ringan pada pergelangan kaki atau telapak kaki bisa muncul, terutama menjelang akhir hari.',
+        ],
+        toKnow: [
+          'Trimester ketiga sudah dekat, dengan pemeriksaan medis yang umumnya menjadi lebih sering.',
         ],
       },
     },
@@ -2591,6 +2875,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '孕晚期刚开始时，往往是开始考虑分娩计划的好时机。',
+        ],
+      },
+      id: {
+        babyDescription: 'Paru-paru menjadi mampu memulai pernapasan, dan bayi terus berisi seiring penumpukan lemak di bawah kulit.',
+        length: 'Sekitar 36,6 cm',
+        comparison: 'Kembang kol',
+        bodyChanges: [
+          'Kelelahan mungkin kembali muncul karena tubuhmu menanggung beban yang makin bertambah.',
+        ],
+        toKnow: [
+          'Awal trimester ketiga sering menjadi waktu yang tepat untuk mulai memikirkan rencana persalinanmu.',
         ],
       },
     },
@@ -2687,6 +2982,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '孕晚期通常从这一周前后开始，产检也会变得更频繁。',
         ],
       },
+      id: {
+        babyDescription: 'Detak jantung, yang lebih cepat pada awal kehamilan, telah stabil di sekitar 130 hingga 140 denyut per menit dan kini dapat didengar dengan stetoskop.',
+        length: 'Sekitar 37,6 cm',
+        comparison: 'Terong',
+        bodyChanges: [
+          'Sesak napas atau rasa panas di dada bisa makin sering terjadi seiring rahim yang memakan lebih banyak ruang.',
+        ],
+        toKnow: [
+          'Trimester ketiga umumnya dimulai sekitar minggu ini, dengan jadwal kunjungan yang makin sering.',
+        ],
+      },
     },
   },
   {
@@ -2777,6 +3083,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '孕晚期通常建议向左侧卧休息，以帮助血液循环。',
+        ],
+      },
+      id: {
+        babyDescription: 'Bayi sudah terbentuk dengan baik; minggu-minggu mendatang terutama dipakai untuk pematangan organ dan penambahan berat badan. Lapisan pelindung tipis yang menutupi kulitnya mulai terserap kembali.',
+        length: 'Sekitar 38,6 cm',
+        comparison: 'Labu butternut',
+        bodyChanges: [
+          'Tidur mungkin makin sulit didapat karena perutmu yang makin besar.',
+        ],
+        toKnow: [
+          'Beristirahat dengan berbaring miring ke kiri sering dianjurkan pada akhir kehamilan untuk membantu sirkulasi darah.',
         ],
       },
     },
@@ -2871,6 +3188,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '从这个阶段起，产检通常会变得更频繁。',
         ],
       },
+      id: {
+        babyDescription: 'Penglihatan terus berkembang; saat lahir, bayi akan mampu mengenali wajah yang berada dekat dengannya, sebelum berangsur belajar mengikuti benda yang bergerak.',
+        length: 'Sekitar 39,9 cm',
+        comparison: 'Kubis',
+        bodyChanges: [
+          'Rasa berat di punggung bawah atau panggul bisa makin terasa.',
+        ],
+        toKnow: [
+          'Kunjungan pemeriksaan kehamilan umumnya menjadi lebih sering mulai tahap ini.',
+        ],
+      },
     },
   },
   {
@@ -2961,6 +3289,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '宝宝开始能够辨认外界经常听到的某些熟悉的声音。',
+        ],
+      },
+      id: {
+        babyDescription: 'Bayi bergerak aktif, terkadang mengisap jarinya, dan bisa melakukan gerakan yang luas. Kulitnya menjadi lebih tidak keriput seiring menumpuknya lemak.',
+        length: 'Sekitar 41,1 cm',
+        comparison: 'Kelapa',
+        bodyChanges: [
+          'Kontraksi latihan, yang dikenal sebagai Braxton Hicks, mungkin mulai sesekali terasa.',
+        ],
+        toKnow: [
+          'Bayi mulai mengenali suara-suara akrab tertentu yang sering didengarnya dari luar.',
         ],
       },
     },
@@ -3055,6 +3394,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '随着预产期临近，头朝下的胎位（头位）会越来越常见。',
         ],
       },
+      id: {
+        babyDescription: 'Bayi sudah terbentuk dengan baik dan berangsur mengambil posisi kepala di bawah sebagai persiapan lahir. Selama minggu-minggu yang tersisa, bayi terutama terus bertambah berat badannya.',
+        length: 'Sekitar 42,4 cm',
+        comparison: 'Seikat seledri',
+        bodyChanges: [
+          'Penambahan berat badan yang lebih terasa umum terjadi pada masa ini, berkaitan dengan pertumbuhan bayi.',
+        ],
+        toKnow: [
+          'Posisi kepala di bawah (presentasi kepala) makin umum seiring mendekati waktu persalinan.',
+        ],
+      },
     },
   },
   {
@@ -3145,6 +3495,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '宝宝出生时头骨的柔韧性是暂时的，会在出生后第一年逐渐闭合。',
+        ],
+      },
+      id: {
+        babyDescription: 'Otak dan sistem saraf kini sudah berkembang dengan baik. Tulang terus mengeras, kecuali tulang tengkorak yang tetap lentur agar lebih mudah melewati jalan lahir saat persalinan.',
+        length: 'Sekitar 43,7 cm',
+        comparison: 'Nanas',
+        bodyChanges: [
+          'Kesulitan menemukan posisi tidur yang nyaman umum terjadi pada tahap ini.',
+        ],
+        toKnow: [
+          'Kelenturan tulang tengkorak saat lahir bersifat sementara dan berangsur menutup selama tahun pertama.',
         ],
       },
     },
@@ -3238,6 +3599,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '一直到分娩，持续关注宝宝平时的胎动仍然很重要。',
         ],
       },
+      id: {
+        babyDescription: 'Bayi, yang meringkuk karena kurang ruang, umumnya menjaga kakinya tetap terlipat ke arah dada sambil terus bergerak secara teratur.',
+        length: 'Sekitar 45 cm',
+        comparison: 'Melon kantaloup',
+        bodyChanges: [
+          'Meski ruang makin sempit, gerakan bayi dan perubahan bentuk perutmu biasanya tetap terasa jelas.',
+        ],
+        toKnow: [
+          'Terus memperhatikan gerakan bayi yang biasa tetap penting hingga saat persalinan.',
+        ],
+      },
     },
   },
   {
@@ -3325,6 +3697,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '尽管空间有限，宝宝仍应保持与前几周相近的活动规律。',
+        ],
+      },
+      id: {
+        babyDescription: 'Bayi terus bertambah berisi, yang akan membantunya mengatur suhu tubuh setelah lahir. Ruang yang tersedia di dalam rahim makin terbatas.',
+        length: 'Sekitar 46,2 cm',
+        comparison: 'Melon honeydew',
+        bodyChanges: [
+          'Tekanan di panggul yang lebih terasa bisa muncul seiring bayi berangsur turun.',
+        ],
+        toKnow: [
+          'Meski ruang terbatas, bayi seharusnya tetap bergerak dengan keteraturan yang mirip dengan minggu-minggu sebelumnya.',
         ],
       },
     },
@@ -3419,6 +3802,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '孕 37 周到孕 42 周之间被认为是足月妊娠。',
         ],
       },
+      id: {
+        babyDescription: 'Paru-paru umumnya sudah cukup matang untuk memungkinkan pernapasan mandiri, dan bayi mampu mengisap serta mencerna.',
+        length: 'Sekitar 47,4 cm',
+        comparison: 'Selada romaine',
+        bodyChanges: [
+          'Kamu mungkin sesekali merasa lebih sesak napas, karena rahim memakan banyak ruang di bawah tulang rusuk.',
+        ],
+        toKnow: [
+          'Kehamilan dianggap cukup bulan antara minggu ke-37 dan minggu ke-42.',
+        ],
+      },
     },
   },
   {
@@ -3506,6 +3900,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '从这一周起，就被认为已经足月，随时都可能分娩。',
+        ],
+      },
+      id: {
+        babyDescription: 'Bayi dianggap sudah cukup matang untuk dilahirkan. Sebagian besar bayi kini berada dalam posisi kepala di bawah.',
+        length: 'Sekitar 48,6 cm',
+        comparison: 'Daun bawang besar',
+        bodyChanges: [
+          'Rasa tekanan di panggul yang makin besar umum terjadi saat bayi masuk ke dalam panggul.',
+        ],
+        toKnow: [
+          'Mulai minggu ini, usia kehamilan dianggap sudah cukup bulan dan persalinan bisa terjadi kapan saja.',
         ],
       },
     },
@@ -3596,6 +4001,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '没有医学指征的计划性分娩，通常不建议安排在孕 39 周之前。',
+        ],
+      },
+      id: {
+        babyDescription: 'Bulu halus yang menutupi kulit sebagian besar sudah hilang, dan usus mengumpulkan mekonium, tinja pertama bayi baru lahir.',
+        length: 'Sekitar 49,8 cm',
+        comparison: 'Batang rhubarb',
+        bodyChanges: [
+          'Mengenali tanda-tanda persalinan bisa berguna seiring mendekatnya hari kelahiran.',
+        ],
+        toKnow: [
+          'Persalinan terjadwal tanpa indikasi medis umumnya tidak dianjurkan sebelum minggu ke-39.',
         ],
       },
     },
@@ -3690,6 +4106,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '新生儿的血液循环在出生后仍在调整，这可能会让手或脚暂时带点淡淡的青紫色。',
         ],
       },
+      id: {
+        babyDescription: 'Kulit yang sebelumnya lebih tipis kini sudah menebal dan melindungi bayi dengan lebih baik. Lapisan pelindung yang disebut vernix juga memudahkan bayi saat melewati jalan lahir.',
+        length: 'Sekitar 50,7 cm',
+        comparison: 'Semangka',
+        bodyChanges: [
+          'Rasa tidak sabar dan kelelahan tertentu umum terjadi menjelang hari perkiraan lahir.',
+        ],
+        toKnow: [
+          'Sirkulasi darah bayi baru lahir terus menyesuaikan diri tepat setelah lahir, yang dapat membuat tangan atau kakinya sementara tampak sedikit kebiruan.',
+        ],
+      },
     },
   },
   {
@@ -3782,6 +4209,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '稍微超过预产期仍然很常见，不一定意味着有问题；通常会安排更密切的监测。',
         ],
       },
+      id: {
+        babyDescription: 'Bayi sudah berkembang sepenuhnya dan siap dilahirkan. Hari perkiraan lahir hanyalah perkiraan: banyak persalinan terjadi pada hari-hari di sekitarnya, sebelum atau sesudahnya.',
+        length: 'Sekitar 51,2 cm',
+        comparison: 'Labu',
+        bodyChanges: [
+          'Menunggu tanda-tanda persalinan (kontraksi teratur, ketuban pecah) umum dialami pada masa ini.',
+        ],
+        toKnow: [
+          'Melewati hari perkiraan lahir sedikit masih umum terjadi dan belum tentu berarti ada masalah; pemantauan yang lebih ketat umumnya ditawarkan.',
+        ],
+      },
     },
   },
 
@@ -3856,6 +4294,15 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '超过足月后，医疗团队通常会加强监测。',
+        ],
+      },
+      id: {
+        babyDescription: 'Bayi tetap sudah berkembang sepenuhnya. Setelah lewat hari perkiraan lahir, pemantauan yang lebih ketat umumnya ditawarkan untuk memeriksa kesejahteraan bayi.',
+        bodyChanges: [
+          'Penantian yang berkepanjangan bisa disertai kelelahan yang meningkat dan rasa tidak sabar.',
+        ],
+        toKnow: [
+          'Melewati usia cukup bulan umumnya membuat tim medis meningkatkan pemantauan.',
         ],
       },
     },

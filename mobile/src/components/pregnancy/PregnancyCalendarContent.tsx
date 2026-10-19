@@ -74,6 +74,11 @@ import type {
 import {TOP_SPACING_EXTRA, getFloatingTabBarClearance} from '../../theme/spacing';
 import '../../i18n';
 import {displayUpperCase} from '../../utils/textCase';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaIconButton} from '../ui/AwaIconButton';
+import {AwaSwitch} from '../ui/AwaSwitch';
+import {CalendarHeaderAction as HeaderAction} from '../calendar/CalendarHeaderAction';
 
 /* ============================================================
    CALENDAR MODES
@@ -918,11 +923,6 @@ function PregnancyCalendarContent(): React.JSX.Element {
       style={
         styles.background
       }>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
       <SafeAreaView
         style={
           styles.safeArea
@@ -951,7 +951,6 @@ function PregnancyCalendarContent(): React.JSX.Element {
             style={
               styles.header
             }>
-
 
             <View
               style={
@@ -997,10 +996,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
               CALENDAR CARD
           ===================================================== */}
 
-          <View
-            style={
-              styles.calendarCard
-            }>
+          <AwaCard padding="compact" variant="outlined">
             {/* MODE */}
 
             {spiritualMarkersEnabled ? (
@@ -1050,21 +1046,12 @@ function PregnancyCalendarContent(): React.JSX.Element {
               style={
                 styles.monthHeader
               }>
-              <Pressable
+              <AwaIconButton
                 accessibilityLabel={t('calendar.previousMonth')}
-                accessibilityRole="button"
+                icon="chevron-left"
                 onPress={goToPreviousMonth}
-                style={
-                  styles.arrowButton
-                }>
-                <MaterialDesignIcons
-                  color={
-                    theme.colors.primary
-                  }
-                  name="chevron-left"
-                  size={23}
-                />
-              </Pressable>
+                variant="tonal"
+              />
 
               <View
                 style={
@@ -1089,21 +1076,12 @@ function PregnancyCalendarContent(): React.JSX.Element {
                 ) : null}
               </View>
 
-              <Pressable
+              <AwaIconButton
                 accessibilityLabel={t('calendar.nextMonth')}
-                accessibilityRole="button"
+                icon="chevron-right"
                 onPress={goToNextMonth}
-                style={
-                  styles.arrowButton
-                }>
-                <MaterialDesignIcons
-                  color={
-                    theme.colors.primary
-                  }
-                  name="chevron-right"
-                  size={23}
-                />
-              </Pressable>
+                variant="tonal"
+              />
             </View>
 
             {/* WEEK DAYS */}
@@ -1398,16 +1376,13 @@ function PregnancyCalendarContent(): React.JSX.Element {
                 </>
               ) : null}
             </View>
-          </View>
+          </AwaCard>
 
           {/* ====================================================
               SELECTED CARD
           ===================================================== */}
 
-          <View
-            style={
-              styles.selectedCard
-            }>
+          <AwaCard padding="default" variant="outlined" style={styles.selectedCard}>
             <View
               style={
                 styles.selectedHeader
@@ -1557,16 +1532,13 @@ function PregnancyCalendarContent(): React.JSX.Element {
                   ),
                 )}
             </View>
-          </View>
+          </AwaCard>
 
           {/* ====================================================
               UPCOMING
           ===================================================== */}
 
-          <View
-            style={
-              styles.upcomingCard
-            }>
+          <AwaCard padding="default" variant="outlined" style={styles.upcomingCard}>
             <Text
               style={
                 styles.sectionTitle
@@ -1697,7 +1669,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
                 );
               },
             )}
-          </View>
+          </AwaCard>
         </ScrollView>
 
         {/* ======================================================
@@ -1770,51 +1742,6 @@ function PregnancyInfo({
    HEADER ACTION
 ============================================================ */
 
-function HeaderAction({
-  icon,
-  label,
-  onPress,
-}: {
-  icon: React.ComponentProps<
-    typeof MaterialDesignIcons
-  >['name'];
-
-  label: string;
-
-  onPress: () => void;
-}): React.JSX.Element {
-  const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
-  return (
-    <Pressable
-      accessibilityLabel={
-        label
-      }
-      accessibilityRole="button"
-      onPress={onPress}
-      style={({pressed}) => [
-        styles.headerAction,
-
-        pressed &&
-          styles.pressed,
-      ]}>
-      <MaterialDesignIcons
-        color={
-          theme.colors.primary
-        }
-        name={icon}
-        size={18}
-      />
-
-      <Text
-        style={
-          styles.headerActionLabel
-        }>
-        {label}
-      </Text>
-    </Pressable>
-  );
-}
 
 /* ============================================================
    CALENDAR SHEET
@@ -2158,27 +2085,14 @@ function PregnancyCalendarSheet({
               style={
                 styles.legendFooter
               }>
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('pregnancyCalendar.sheet.legend.closeAccessibility')}
-                accessibilityRole="button"
-                onPress={
-                  onClose
-                }
-                style={({
-                  pressed,
-                }) => [
-                  styles.closeLegendButton,
-
-                  pressed &&
-                    styles.pressed,
-                ]}>
-                <Text
-                  style={
-                    styles.closeLegendText
-                  }>
-                  {t('pregnancyCalendar.sheet.legend.closeLabel')}
-                </Text>
-              </Pressable>
+                fullWidth
+                label={t('pregnancyCalendar.sheet.legend.closeLabel')}
+                onPress={onClose}
+                size="large"
+                style={styles.closeLegendButton}
+              />
             </View>
           </View>
         ) : mode ===
@@ -2260,19 +2174,9 @@ function PregnancyCalendarSheet({
                     );
 
                   return (
-                    <Pressable
-                      accessibilityRole="switch"
-                      accessibilityState={{
-                        checked:
-                          active,
-                      }}
+                    <View
                       key={
                         key
-                      }
-                      onPress={() =>
-                        onToggle(
-                          key,
-                        )
                       }
                       style={[
                         styles.filterRow,
@@ -2322,23 +2226,17 @@ function PregnancyCalendarSheet({
                         </Text>
                       </View>
 
-                      <View
-                        style={[
-                          styles.switchTrack,
-
-                          active &&
-                            styles.switchTrackActive,
-                        ]}>
-                        <View
-                          style={[
-                            styles.switchThumb,
-
-                            active &&
-                              styles.switchThumbActive,
-                          ]}
-                        />
-                      </View>
-                    </Pressable>
+                      {/* DESIGN.md: shared AwaSwitch (same control as the shared calendar FiltersSheet). */}
+                      <AwaSwitch
+                        accessibilityLabel={meta.label}
+                        onValueChange={() =>
+                          onToggle(
+                            key,
+                          )
+                        }
+                        value={active}
+                      />
+                    </View>
                   );
                 },
               )}
@@ -2350,26 +2248,13 @@ function PregnancyCalendarSheet({
               style={
                 styles.filterFooter
               }>
-              <Pressable
-                accessibilityRole="button"
-                onPress={
-                  onClose
-                }
-                style={({
-                  pressed,
-                }) => [
-                  styles.doneButton,
-
-                  pressed &&
-                    styles.pressed,
-                ]}>
-                <Text
-                  style={
-                    styles.doneText
-                  }>
-                  {t('pregnancyCalendar.sheet.filters.doneLabel')}
-                </Text>
-              </Pressable>
+              <AwaButton
+                fullWidth
+                label={t('pregnancyCalendar.sheet.filters.doneLabel')}
+                onPress={onClose}
+                size="large"
+                style={styles.doneButton}
+              />
             </View>
           </View>
         ) : null}
@@ -2393,41 +2278,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       backgroundColor:
         theme.colors.background,
-    },
-
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
-
-    pageGlowTop: {
-      position: 'absolute',
-      top: -150,
-      right: -110,
-      width: 330,
-      height: 330,
-      borderRadius: 165,
-      backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
-
-    pageGlowMiddle: {
-      position: 'absolute',
-      top: '38%',
-      left: -130,
-      width: 260,
-      height: 260,
-      borderRadius: 130,
-      backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
-
-    pageGlowBottom: {
-      position: 'absolute',
-      bottom: -150,
-      right: -100,
-      width: 310,
-      height: 310,
-      borderRadius: 155,
-      backgroundColor: withAlpha(theme.colors.primary, 0.05),
     },
 
     safeArea: {
@@ -2492,64 +2342,15 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 10.5,
+      fontSize: 11,
     },
 
-    headerAction: {
-      ...theme.shadow,
-
-      width: 52,
-      height: 52,
-
-      alignItems: 'center',
-
-      justifyContent:
-        'center',
-
-      marginLeft: 6,
-
-      borderWidth: 1,
-
-      borderColor:
-        withAlpha(theme.colors.primary, 0.14),
-
-      borderRadius: 17,
-
-      backgroundColor:
-        theme.colors.surface,
-    },
-
-    headerActionLabel: {
-      marginTop: 2,
-
-      color:
-        theme.colors.primary,
-
-      fontSize: 8,
-
-      fontWeight: '800',
-    },
 
     /* ==========================================================
        CALENDAR
     ========================================================== */
 
-    calendarCard: {
-      ...theme.shadow,
-
-      padding: 12,
-
-      borderWidth: 1,
-
-      borderColor:
-        withAlpha(theme.colors.primary, 0.14),
-
-      borderRadius: 23,
-
-      backgroundColor:
-        theme.colors.surface,
-    },
-
+    // DESIGN.md: segmented selector - selected segment = primaryContainer + on-container text, track outlined (same as MonthCalendarCard).
     modeRow: {
       flexDirection: 'row',
 
@@ -2557,36 +2358,44 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       borderRadius: 12,
 
+      borderWidth: 1,
+
+      borderColor: theme.colors.border,
+
       backgroundColor:
-        theme.colors.surfaceSecondary,
+        theme.colors.surface,
     },
 
     modeButton: {
       flex: 1,
 
+      minHeight: 40,
+
       alignItems: 'center',
+
+      justifyContent: 'center',
 
       paddingVertical: 7,
 
-      borderRadius: 9,
+      borderRadius: 12,
     },
 
     modeButtonActive: {
       backgroundColor:
-        theme.colors.primary,
+        theme.colors.primarySoft,
     },
 
     modeText: {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 10.5,
+      fontSize: 11,
 
       fontWeight: '700',
     },
 
     modeTextActive: {
-      color: onPrimaryTextColor(theme),
+      color: theme.colors.text,
     },
 
     monthHeader: {
@@ -2598,21 +2407,6 @@ function createStyles(theme: ResolvedAwaTheme) {
         'space-between',
 
       marginVertical: 11,
-    },
-
-    arrowButton: {
-      width: 35,
-      height: 35,
-
-      alignItems: 'center',
-
-      justifyContent:
-        'center',
-
-      borderRadius: 12,
-
-      backgroundColor:
-        theme.colors.surfaceSecondary,
     },
 
     monthCopy: {
@@ -2627,8 +2421,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.accent,
 
-      fontFamily: 'serif',
-
       fontSize: 17,
 
       fontWeight: '800',
@@ -2640,7 +2432,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 9,
+      fontSize: 11,
     },
 
     weekRow: {
@@ -2653,7 +2445,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 9.5,
+      fontSize: 11,
 
       fontWeight: '700',
 
@@ -2708,7 +2500,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderStyle:
         'dashed',
 
-      borderRadius: 13,
+      borderRadius: 12,
 
       // Neutral fill — matches the same "Aujourd'hui" treatment used by
       // every other objective's calendar (Cycle/Conceive/Miscarriage/
@@ -2732,7 +2524,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 7,
+      fontSize: 11,
     },
 
     selectedDayText: {
@@ -2831,7 +2623,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 8.5,
+      fontSize: 11,
 
       fontWeight: '600',
     },
@@ -2844,23 +2636,7 @@ function createStyles(theme: ResolvedAwaTheme) {
        SELECTED CARD
     ========================================================== */
 
-    selectedCard: {
-      ...theme.shadow,
-
-      marginTop: 12,
-
-      padding: 15,
-
-      borderWidth: 1,
-
-      borderColor:
-        withAlpha(theme.colors.primary, 0.14),
-
-      borderRadius: 22,
-
-      backgroundColor:
-        theme.colors.surface,
-    },
+    selectedCard: {marginTop: 12},
 
     selectedHeader: {
       flexDirection: 'row',
@@ -2887,7 +2663,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       marginRight: 10,
 
-      borderRadius: 13,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -2896,8 +2672,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     selectedTitle: {
       color:
         theme.colors.accent,
-
-      fontFamily: 'serif',
 
       fontSize: 16,
 
@@ -2910,7 +2684,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 10,
+      fontSize: 11,
     },
 
     pregnancyGrid: {
@@ -2928,9 +2702,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       minWidth: 0,
 
-      padding: 11,
+      padding: 12,
 
-      borderRadius: 15,
+      borderRadius: 16,
 
       backgroundColor:
         theme.colors.surfaceSecondary,
@@ -2944,7 +2718,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 9.5,
+      fontSize: 11,
     },
 
     pregnancyInfoValue: {
@@ -2981,14 +2755,14 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       alignItems: 'center',
 
-      padding: 9,
+      padding: 12,
 
       borderWidth: 1,
 
       borderColor:
         withAlpha(theme.colors.primary, 0.14),
 
-      borderRadius: 15,
+      borderRadius: 16,
 
       backgroundColor:
         theme.colors.surface,
@@ -3012,7 +2786,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       marginRight: 8,
 
-      borderRadius: 11,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -3022,7 +2796,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.accent,
 
-      fontSize: 10.5,
+      fontSize: 11,
 
       fontWeight: '800',
     },
@@ -3033,38 +2807,20 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 9.5,
+      fontSize: 11,
 
-      lineHeight: 13,
+      lineHeight: 16,
     },
 
     /* ==========================================================
        UPCOMING
     ========================================================== */
 
-    upcomingCard: {
-      ...theme.shadow,
-
-      marginTop: 12,
-
-      padding: 15,
-
-      borderWidth: 1,
-
-      borderColor:
-        withAlpha(theme.colors.primary, 0.14),
-
-      borderRadius: 21,
-
-      backgroundColor:
-        theme.colors.surface,
-    },
+    upcomingCard: {marginTop: 12},
 
     sectionTitle: {
       color:
         theme.colors.accent,
-
-      fontFamily: 'serif',
 
       fontSize: 15.5,
 
@@ -3112,7 +2868,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       marginRight: 10,
 
-      borderRadius: 13,
+      borderRadius: 12,
     },
 
     upcomingDay: {
@@ -3125,7 +2881,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 8,
+      fontSize: 11,
 
       textTransform:
         'uppercase',
@@ -3146,7 +2902,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 10,
+      fontSize: 11,
     },
 
     /* ==========================================================
@@ -3280,7 +3036,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 15,
+      borderRadius: 16,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -3309,50 +3065,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 10.5,
+      fontSize: 11,
 
-      lineHeight: 14,
-    },
-
-    switchTrack: {
-      width: 42,
-
-      height: 24,
-
-      flexShrink: 0,
-
-      justifyContent:
-        'center',
-
-      paddingHorizontal: 2,
-
-      borderRadius: 13,
-
-      backgroundColor:
-        theme.colors.surfaceSecondary,
-    },
-
-    switchTrackActive: {
-      backgroundColor:
-        theme.colors.primary,
-    },
-
-    switchThumb: {
-      ...theme.shadow,
-
-      width: 20,
-
-      height: 20,
-
-      borderRadius: 10,
-
-      backgroundColor:
-        theme.colors.surface,
-    },
-
-    switchThumbActive: {
-      alignSelf:
-        'flex-end',
+      lineHeight: 16,
     },
 
     filterFooter: {
@@ -3374,27 +3089,7 @@ function createStyles(theme: ResolvedAwaTheme) {
         theme.colors.surface,
     },
 
-    doneButton: {
-      height: 50,
-
-      alignItems: 'center',
-
-      justifyContent:
-        'center',
-
-      borderRadius: 18,
-
-      backgroundColor:
-        theme.colors.primary,
-    },
-
-    doneText: {
-      color: onPrimaryTextColor(theme),
-
-      fontSize: 14,
-
-      fontWeight: '800',
-    },
+    doneButton: {width: '100%'},
 
     /* ==========================================================
        LEGEND — IMPORTANT FIX
@@ -3486,7 +3181,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 18,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.primarySoft,
@@ -3552,7 +3247,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor:
         withAlpha(theme.colors.primary, 0.14),
 
-      borderRadius: 20,
+      borderRadius: 12,
 
       backgroundColor:
         theme.colors.surfaceSecondary,
@@ -3580,7 +3275,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderStyle:
         'dashed',
 
-      borderRadius: 15,
+      borderRadius: 16,
 
       backgroundColor:
         theme.colors.surface,
@@ -3601,7 +3296,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.textSecondary,
 
-      fontSize: 9,
+      fontSize: 11,
 
       fontWeight: '600',
     },
@@ -3655,45 +3350,8 @@ function createStyles(theme: ResolvedAwaTheme) {
         theme.colors.surface,
     },
 
-    closeLegendButton: {
-      width: '100%',
+    closeLegendButton: {width: '100%', flexShrink: 0},
 
-      height: 52,
-
-      flexShrink: 0,
-
-      alignItems: 'center',
-
-      justifyContent:
-        'center',
-
-      borderRadius: 18,
-
-      backgroundColor:
-        theme.colors.primary,
-
-      shadowColor:
-        theme.colors.primary,
-
-      shadowOffset: {
-        width: 0,
-        height: 4,
-      },
-
-      shadowOpacity: 0.18,
-
-      shadowRadius: 7,
-
-      elevation: 5,
-    },
-
-    closeLegendText: {
-      color: onPrimaryTextColor(theme),
-
-      fontSize: 16,
-
-      fontWeight: '800',
-    },
   });
 }
 

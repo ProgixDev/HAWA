@@ -3,6 +3,7 @@ import {AccessibilityInfo, Animated, Easing, type ImageSourcePropType, type Imag
 
 type Props = {
   accessibilityLabel: string;
+  /** Accepted for API compatibility only: the decorative idle float loop was removed (DESIGN.md: no decorative looping motion). */
   idle?: boolean;
   source: ImageSourcePropType;
   style: StyleProp<ImageStyle>;
@@ -11,16 +12,14 @@ type Props = {
 const ENTER_DURATION = 560;
 const EXIT_DURATION = 170;
 
-export default function BabyDevelopmentImage({accessibilityLabel, idle = false, source, style}: Props): React.JSX.Element {
+export default function BabyDevelopmentImage({accessibilityLabel, source, style}: Props): React.JSX.Element {
   const [displayedSource, setDisplayedSource] = useState(source);
   const opacity = useRef(new Animated.Value(0)).current;
   const scale = useRef(new Animated.Value(0.94)).current;
   const translateY = useRef(new Animated.Value(8)).current;
-  const float = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     let mounted = true;
-    let idleLoop: Animated.CompositeAnimation | undefined;
 
     const enter = (reduceMotion: boolean) => {
       if (!mounted) {return;}
@@ -31,15 +30,7 @@ export default function BabyDevelopmentImage({accessibilityLabel, idle = false, 
         Animated.timing(opacity, {toValue: 1, duration: reduceMotion ? 0 : ENTER_DURATION, easing: Easing.out(Easing.cubic), useNativeDriver: true}),
         Animated.timing(scale, {toValue: 1, duration: reduceMotion ? 0 : ENTER_DURATION, easing: Easing.out(Easing.cubic), useNativeDriver: true}),
         Animated.timing(translateY, {toValue: 0, duration: reduceMotion ? 0 : ENTER_DURATION, easing: Easing.out(Easing.cubic), useNativeDriver: true}),
-      ]).start(() => {
-        if (idle && !reduceMotion && mounted) {
-          idleLoop = Animated.loop(Animated.sequence([
-            Animated.timing(float, {toValue: -3, duration: 1500, easing: Easing.inOut(Easing.sin), useNativeDriver: true}),
-            Animated.timing(float, {toValue: 0, duration: 1500, easing: Easing.inOut(Easing.sin), useNativeDriver: true}),
-          ]));
-          idleLoop.start();
-        }
-      });
+      ]).start();
     };
 
     AccessibilityInfo.isReduceMotionEnabled().then(reduceMotion => {
@@ -51,15 +42,15 @@ export default function BabyDevelopmentImage({accessibilityLabel, idle = false, 
       });
     });
 
-    return () => {mounted = false; idleLoop?.stop();};
-  }, [float, idle, opacity, scale, source, translateY]);
+    return () => {mounted = false;};
+  }, [opacity, scale, source, translateY]);
 
   return (
     <Animated.Image
       accessibilityLabel={accessibilityLabel}
       resizeMode="contain"
       source={displayedSource}
-      style={[style, {opacity, transform: [{scale}, {translateY: Animated.add(translateY, float)}]}]}
+      style={[style, {opacity, transform: [{scale}, {translateY}]}]}
     />
   );
 }
