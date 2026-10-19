@@ -5,7 +5,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Switch,
   Text,
   View,
 } from 'react-native';
@@ -36,6 +35,11 @@ import {
   type OvulationAwareness,
 } from '../state/conceptionPreferences';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaSwitch} from '../components/ui/AwaSwitch';
+import {AwaText} from '../components/ui/AwaText';
 
 /* ============================================================
  * ASSETS
@@ -314,49 +318,28 @@ function Shell({
         ]}
         showsVerticalScrollIndicator={false}>
         <View style={styles.progressRow}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('conceptionOnboarding.shell.backAccessibility')}
-            accessibilityRole="button"
             hitSlop={8}
+            icon="arrow-left"
             onPress={navigation.goBack}
-            style={({pressed}) => [
-              styles.back,
-              pressed && styles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="arrow-left"
-              size={24}
-            />
-          </Pressable>
+          />
         </View>
 
-        <Text style={styles.title}>{title}</Text>
+        <AwaText accessibilityRole="header" style={styles.title} variant="headlineSmall">{title}</AwaText>
 
-        <Text style={styles.subtitle}>{subtitle}</Text>
+        <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">{subtitle}</AwaText>
 
         {children}
 
         <View style={styles.navRow}>
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={nextDisabled}
+            fullWidth
+            label={isEdit ? t('common.save') : step === 4 ? t('common.continue') : t('conceptionOnboarding.shell.next')}
             onPress={onNext}
-            style={({pressed}) => [
-              styles.primary,
-              nextDisabled && styles.disabled,
-              pressed && !nextDisabled && styles.primaryPressed,
-            ]}>
-            <Text style={styles.primaryText}>
-              {isEdit ? t('common.save') : step === 4 ? t('common.continue') : t('conceptionOnboarding.shell.next')}
-            </Text>
-
-            <MaterialDesignIcons
-              color={onPrimaryTextColor(theme)}
-              name="arrow-right"
-              size={18}
-            />
-          </Pressable>
+            size="large"
+          />
         </View>
       </ScrollView>
     </>
@@ -369,11 +352,6 @@ function Shell({
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.profileGradientBackground}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
       {body}
     </LinearGradient>
   );
@@ -768,23 +746,21 @@ export function ConceptionRemindersScreen({
           ]}
           showsVerticalScrollIndicator={false}>
           <View style={editStyles.header}>
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('common.back')}
-              accessibilityRole="button"
               hitSlop={10}
+              icon="chevron-left"
               onPress={navigation.goBack}
-              style={({pressed}) => [editStyles.back, pressed && editStyles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={26} />
-            </Pressable>
+            />
             <View style={editStyles.headerCopy}>
-              <Text style={editStyles.title}>{t('profile.notificationsAndReminders')}</Text>
-              <Text style={editStyles.subtitle}>
+              <AwaText accessibilityRole="header" style={editStyles.title} variant="headlineSmall">{t('profile.notificationsAndReminders')}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={editStyles.subtitle} variant="bodySmall">
                 {t('conceptionOnboarding.reminders.editSubtitle')}
-              </Text>
+              </AwaText>
             </View>
           </View>
 
-          <View style={editStyles.card}>
+          <AwaCard padding="none" style={editStyles.card} variant="outlined">
             {reminderOptions.map((item, index) => (
               <View
                 key={item.id}
@@ -793,30 +769,28 @@ export function ConceptionRemindersScreen({
                   <MaterialDesignIcons color={item.accent} name={item.icon} size={18} />
                 </View>
                 <View style={editStyles.rowCopy}>
-                  <Text style={editStyles.rowTitle}>{item.label}</Text>
-                  <Text style={editStyles.rowSubtitle}>{item.description}</Text>
+                  <AwaText style={editStyles.rowTitle} variant="titleSmall">{item.label}</AwaText>
+                  <AwaText colorRole="onSurfaceVariant" style={editStyles.rowSubtitle} variant="bodySmall">{item.description}</AwaText>
                 </View>
-                <Switch
+                <AwaSwitch
                   accessibilityLabel={item.label}
-                  ios_backgroundColor={theme.colors.surfaceSecondary}
                   onValueChange={value => toggleReminder(item.id, value)}
-                  thumbColor={theme.colors.surface}
-                  trackColor={{false: theme.colors.surfaceSecondary, true: theme.colors.primary}}
                   value={values[item.id]}
                 />
               </View>
             ))}
-          </View>
+          </AwaCard>
 
           {permissionNotice}
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={saving}
+            fullWidth
+            label={saving ? t('conceptionOnboarding.reminders.saving') : t('common.save')}
             onPress={handleSave}
-            style={({pressed}) => [editStyles.saveButton, (pressed || saving) && editStyles.pressed]}>
-            <Text style={editStyles.saveButtonText}>{saving ? t('conceptionOnboarding.reminders.saving') : t('common.save')}</Text>
-          </Pressable>
+            size="large"
+            style={editStyles.saveButton}
+          />
         </ScrollView>
       </SafeAreaView>
     );
@@ -882,19 +856,14 @@ export function ConceptionRemindersScreen({
                   </Text>
                 </View>
 
-                <Switch
-                  ios_backgroundColor={theme.colors.surfaceSecondary}
+                <AwaSwitch
+                  accessibilityLabel={item.label}
                   onValueChange={value =>
                     toggleReminder(
                       item.id,
                       value,
                     )
                   }
-                  thumbColor={theme.colors.surface}
-                  trackColor={{
-                    false: theme.colors.surfaceSecondary,
-                    true: theme.colors.primary,
-                  }}
                   value={enabled}
                 />
               </View>
@@ -930,16 +899,7 @@ export function ConceptionRemindersScreen({
                   style={
                     styles.journalIncludedBox
                   }>
-                  <View
-                    style={
-                      styles.journalIncludedIcon
-                    }>
-                    <MaterialDesignIcons
-                      color={theme.colors.primary}
-                      name="creation"
-                      size={15}
-                    />
-                  </View>
+                  
 
                   <Text
                     style={
@@ -1048,13 +1008,7 @@ function Choice({
           </View>
         </View>
       ) : (
-        <View style={[styles.optionAccent, selected && styles.optionAccentSelected]}>
-          <MaterialDesignIcons
-            color={selected ? theme.colors.primary : theme.colors.textMuted}
-            name="star-four-points-outline"
-            size={17}
-          />
-        </View>
+        null
       )}
 
       <View style={styles.copy}>
@@ -1134,32 +1088,20 @@ function createEditStyles(theme: ResolvedAwaTheme) {
     pressed: {opacity: 0.82},
 
     header: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 18},
-    back: {
-      alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-      width: 40, height: 40, borderRadius: 20, backgroundColor: theme.colors.surface,
-      elevation: 2, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.08, shadowRadius: 6,
-    },
     headerCopy: {flex: 1, minWidth: 0, marginLeft: 12, paddingTop: 6},
-    title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 21, fontWeight: '700'},
-    subtitle: {marginTop: 5, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 17},
+    title: {},
+    subtitle: {marginTop: 4},
 
-    card: {
-      overflow: 'hidden', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
-      backgroundColor: theme.colors.surface, paddingHorizontal: 12,
-    },
+    // AwaCard (outlined, padding none) supplies the surface, border and radius; rows keep their own padding.
+    card: {overflow: 'hidden', paddingHorizontal: 16},
     row: {minHeight: 68, flexDirection: 'row', alignItems: 'center', paddingVertical: 10, gap: 11},
     rowBorder: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: theme.colors.border},
-    rowIcon: {width: 38, height: 38, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 13},
+    rowIcon: {width: 38, height: 38, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 12},
     rowCopy: {flex: 1, minWidth: 0},
-    rowTitle: {color: theme.colors.text, fontSize: 13.5, fontWeight: '700'},
-    rowSubtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 15.5},
+    rowTitle: {},
+    rowSubtitle: {marginTop: 3},
 
-    saveButton: {
-      minHeight: 54, alignItems: 'center', justifyContent: 'center', marginTop: 18,
-      borderRadius: 18, backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.2, shadowRadius: 10, elevation: 4,
-    },
-    saveButtonText: {color: onPrimaryTextColor(theme), fontSize: 15.5, fontWeight: '800'},
+    saveButton: {marginTop: 18},
   });
 }
 
@@ -1173,37 +1115,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     profileGradientBackground: {
       flex: 1,
       backgroundColor: theme.colors.background,
-    },
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
-    pageGlowTop: {
-      position: 'absolute',
-      top: -150,
-      right: -110,
-      width: 330,
-      height: 330,
-      borderRadius: 165,
-      backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
-    pageGlowMiddle: {
-      position: 'absolute',
-      top: '38%',
-      left: -130,
-      width: 260,
-      height: 260,
-      borderRadius: 130,
-      backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
-    pageGlowBottom: {
-      position: 'absolute',
-      bottom: -150,
-      right: -100,
-      width: 310,
-      height: 310,
-      borderRadius: 155,
-      backgroundColor: withAlpha(theme.colors.primary, 0.05),
     },
 
     content: {
@@ -1220,41 +1131,18 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginBottom: 2,
     },
 
-    back: {
-      width: 40,
-      height: 40,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 14,
-      backgroundColor: withAlpha(theme.colors.surface, 0.92),
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 3},
-      shadowOpacity: 0.06,
-      shadowRadius: 8,
-      elevation: 2,
-    },
 
     title: {
       alignSelf: 'center',
       maxWidth: 330,
       marginTop: 8,
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 24,
-      lineHeight: 30,
-      fontWeight: '700',
       textAlign: 'center',
     },
 
     subtitle: {
       alignSelf: 'center',
       maxWidth: 315,
-      marginTop: 5,
-      color: theme.colors.textSecondary,
-      fontSize: 11.5,
-      lineHeight: 17,
+      marginTop: 6,
       textAlign: 'center',
     },
 
@@ -1274,11 +1162,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexDirection: 'row',
       alignItems: 'center',
       overflow: 'hidden',
-      paddingHorizontal: 12,
-      paddingVertical: 9,
+      paddingHorizontal: 16,
+      paddingVertical: 12,
       borderWidth: 1,
       borderColor: theme.colors.border,
-      borderRadius: 18,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.94),
       shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 4},
@@ -1307,7 +1195,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginRight: 10,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 13,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
 
@@ -1336,8 +1224,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     description: {
       marginTop: 4,
       color: theme.colors.textSecondary,
-      fontSize: 10.6,
-      lineHeight: 15,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     radio: {
@@ -1373,7 +1261,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginRight: 11,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 17,
+      borderRadius: 16,
       backgroundColor: theme.colors.primarySoft,
     },
 
@@ -1392,11 +1280,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     iconInnerSelected: {
       backgroundColor: theme.colors.primary,
-      shadowColor: theme.colors.primary,
-      shadowOffset: {width: 0, height: 4},
-      shadowOpacity: 0.22,
-      shadowRadius: 7,
-      elevation: 3,
     },
 
     /* INFO */
@@ -1407,7 +1290,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       gap: 9,
       marginTop: 12,
       paddingHorizontal: 12,
-      paddingVertical: 10,
+      paddingVertical: 12,
       borderWidth: 1,
       borderColor: theme.colors.border,
       borderRadius: 16,
@@ -1432,8 +1315,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     infoText: {
       flex: 1,
       color: theme.colors.textSecondary,
-      fontSize: 10.5,
-      lineHeight: 15,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     /* REMINDER SCREEN */
@@ -1446,10 +1329,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     reminderCard: {
       position: 'relative',
       overflow: 'hidden',
-      padding: 14,
+      padding: 16,
       borderWidth: 1,
       borderColor: theme.colors.border,
-      borderRadius: 22,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.95),
       shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 6},
@@ -1494,7 +1377,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent: 'center',
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.surface, 0.75),
-      borderRadius: 18,
+      borderRadius: 12,
     },
 
     reminderCopy: {
@@ -1513,8 +1396,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     reminderDescription: {
       marginTop: 4,
       color: theme.colors.textSecondary,
-      fontSize: 10.8,
-      lineHeight: 15,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     reminderDetailBox: {
@@ -1522,11 +1405,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       gap: 8,
       marginTop: 12,
-      paddingHorizontal: 10,
-      paddingVertical: 9,
+      paddingHorizontal: 12,
+      paddingVertical: 12,
       borderWidth: 1,
       borderColor: theme.colors.border,
-      borderRadius: 14,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
 
@@ -1536,15 +1419,15 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexShrink: 0,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 11,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
 
     reminderDetailText: {
       flex: 1,
       color: theme.colors.textSecondary,
-      fontSize: 9.8,
-      lineHeight: 14,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     journalIncludedBox: {
@@ -1552,9 +1435,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'flex-start',
       gap: 8,
       marginTop: 8,
-      paddingHorizontal: 10,
-      paddingVertical: 9,
-      borderRadius: 14,
+      paddingHorizontal: 12,
+      paddingVertical: 12,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.primarySoft, 0.72),
     },
 
@@ -1564,15 +1447,15 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexShrink: 0,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 11,
+      borderRadius: 12,
       backgroundColor: theme.colors.surface,
     },
 
     journalIncludedText: {
       flex: 1,
       color: theme.colors.textSecondary,
-      fontSize: 9.6,
-      lineHeight: 14,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     privacyReminderCard: {
@@ -1583,7 +1466,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingVertical: 13,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.success, 0.15),
-      borderRadius: 20,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.94),
       shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 4},
@@ -1617,8 +1500,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     privacyReminderText: {
       marginTop: 3,
       color: theme.colors.textSecondary,
-      fontSize: 9.7,
-      lineHeight: 14,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     settingsNotice: {
@@ -1627,16 +1510,16 @@ function createStyles(theme: ResolvedAwaTheme) {
       gap: 10,
       marginTop: 11,
       paddingHorizontal: 14,
-      paddingVertical: 11,
-      borderRadius: 17,
+      paddingVertical: 12,
+      borderRadius: 16,
       backgroundColor: withAlpha(theme.colors.primarySoft, 0.84),
     },
 
     settingsNoticeText: {
       flex: 1,
       color: theme.colors.textSecondary,
-      fontSize: 10.2,
-      lineHeight: 15,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     /* NAVIGATION */
@@ -1646,42 +1529,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent: 'center',
       marginTop: 'auto',
       paddingTop: 14,
-    },
-
-    primary: {
-      width: '72%',
-      minHeight: 50,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 7,
-      borderRadius: 17,
-      backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 5},
-      shadowOpacity: 0.20,
-      shadowRadius: 9,
-      elevation: 4,
-    },
-
-    primaryPressed: {
-      opacity: 0.89,
-      transform: [{scale: 0.985}],
-    },
-
-    disabled: {
-      opacity: 0.42,
-      elevation: 0,
-    },
-
-    primaryText: {
-      color: onPrimaryTextColor(theme),
-      fontSize: 14,
-      fontWeight: '800',
-    },
-
-    pressed: {
-      opacity: 0.7,
     },
   });
 }

@@ -63,6 +63,11 @@ import {rollSelectedDate, rollVisibleMonth} from '../../utils/dayRollover';
 import { HawaPremiumBottomSheet } from '../premium/HawaPremiumBottomSheet';
 import { isMonthWithinHistoryAccess } from '../../utils/historyAccess';
 import { normalizeTimeOfDay } from '../../utils/timeOfDay';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaIconButton} from '../ui/AwaIconButton';
+import {AwaText} from '../ui/AwaText';
+import {CalendarHeaderAction as HeaderAction} from '../calendar/CalendarHeaderAction';
 
 // Trying-to-Conceive Calendar — a dedicated content branch for the ONE
 // global Calendar tab (see ObjectiveAwareCalendarScreen.tsx), structurally
@@ -531,11 +536,6 @@ function ConceiveCalendarContent(): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
@@ -553,10 +553,10 @@ function ConceiveCalendarContent(): React.JSX.Element {
           {/* HEADER */}
           <View style={styles.header}>
             <View style={styles.headerCopy}>
-              <Text style={styles.title}>{t('calendar.title')}</Text>
-              <Text style={styles.subtitle}>
+              <AwaText variant="headlineSmall" style={styles.title}>{t('calendar.title')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>
                 {t('conceiveCalendar.subtitle')}
-              </Text>
+              </AwaText>
             </View>
 
             <HeaderAction
@@ -599,40 +599,32 @@ function ConceiveCalendarContent(): React.JSX.Element {
             ) : null}
 
             <View style={styles.monthHeader}>
-              <Pressable
+              <AwaIconButton
                 accessibilityLabel={t('calendar.previousMonth')}
                 accessibilityRole="button"
                 onPress={goToPreviousMonth}
-                style={styles.arrowButton}
-              >
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="chevron-left"
-                  size={23}
-                />
-              </Pressable>
+                icon="chevron-left"
+                iconSize={23}
+                variant="tonal"
+              />
 
               <View style={styles.monthCopy}>
-                <Text style={styles.monthTitle}>{monthTitle}</Text>
+                <AwaText variant="titleMedium" style={styles.monthTitle}>{monthTitle}</AwaText>
                 {showHijri ? (
-                  <Text style={styles.hijriMonth}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.hijriMonth}>
                     {formatHijriMonthYear(visibleMonth)}
-                  </Text>
+                  </AwaText>
                 ) : null}
               </View>
 
-              <Pressable
+              <AwaIconButton
                 accessibilityLabel={t('calendar.nextMonth')}
                 accessibilityRole="button"
                 onPress={goToNextMonth}
-                style={styles.arrowButton}
-              >
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="chevron-right"
-                  size={23}
-                />
-              </Pressable>
+                icon="chevron-right"
+                iconSize={23}
+                variant="tonal"
+              />
             </View>
 
             <View style={styles.weekRow}>
@@ -798,12 +790,12 @@ function ConceiveCalendarContent(): React.JSX.Element {
                               // negative/invalid tests never reach this list
                               // (see journalMarkersPresent), so this marker
                               // only ever means a positive result.
-                              <Text
+                              <AwaText variant="bodyMedium" colorRole="onPrimary"
                                 key={key}
                                 style={[styles.lhMarker, lightText && styles.lightText]}
                               >
                                 LH+
-                              </Text>
+                              </AwaText>
                             ) : (
                               <View
                                 key={key}
@@ -836,24 +828,24 @@ function ConceiveCalendarContent(): React.JSX.Element {
                       backgroundColorStyle(CATEGORY_META[key].color),
                     ]}
                   />
-                  <Text style={styles.inlineLegendText}>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant">
                     {CATEGORY_META[key].label}
-                  </Text>
+                  </AwaText>
                 </View>
               ))}
               <View style={styles.inlineLegendItem}>
                 <View style={styles.inlineTodayIndicator} />
-                <Text style={styles.inlineLegendText}>{t('conceiveCalendar.todayLegend')}</Text>
+                <AwaText variant="labelSmall" colorRole="onSurfaceVariant">{t('conceiveCalendar.todayLegend')}</AwaText>
               </View>
               {spiritualMarkersEnabled ? (
                 <>
                   <View style={styles.inlineLegendItem}>
                     <MaterialDesignIcons color={RAMADAN_MARKER_COLOR} name="moon-waning-crescent" size={11} />
-                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>{t('calendar.legendRamadan')}</Text>
+                    <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>{t('calendar.legendRamadan')}</AwaText>
                   </View>
                   <View style={styles.inlineLegendItem}>
                     <MaterialDesignIcons color={DHOUL_HIJJA_MARKER_COLOR} name="moon-waning-crescent" size={11} />
-                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>{t('calendar.legendDhoulHijja')}</Text>
+                    <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>{t('calendar.legendDhoulHijja')}</AwaText>
                   </View>
                 </>
               ) : null}
@@ -871,11 +863,11 @@ function ConceiveCalendarContent(): React.JSX.Element {
                 />
               </View>
               <View style={styles.flexCopy}>
-                <Text style={styles.selectedTitle}>{selectedTitle}</Text>
-                <Text style={styles.selectedDate}>
+                <AwaText variant="titleMedium" style={styles.selectedTitle}>{selectedTitle}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.selectedDate}>
                   {formatFullDate(selectedDate)}
                   {showHijri ? ` · ${formatHijriDate(selectedDate) ?? ''}` : ''}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -887,16 +879,16 @@ function ConceiveCalendarContent(): React.JSX.Element {
             {hasConfirmedCycleData ? (
               <View style={styles.statusGrid}>
                 <View style={styles.statusInfo}>
-                  <Text style={styles.statusInfoLabel}>{t('journalNote.cycleDayLabel')}</Text>
-                  <Text style={styles.statusInfoValue}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{t('journalNote.cycleDayLabel')}</AwaText>
+                  <AwaText variant="labelMedium" colorRole="primary" style={styles.statusInfoValue}>
                     {t('journalNote.cycleDayValue', {day: selectedCycleDay})}
-                  </Text>
+                  </AwaText>
                 </View>
                 <View style={styles.statusInfo}>
-                  <Text style={styles.statusInfoLabel}>{t('conceiveCalendar.selectedStatus.fertilityStatus')}</Text>
-                  <Text style={styles.statusInfoValue}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{t('conceiveCalendar.selectedStatus.fertilityStatus')}</AwaText>
+                  <AwaText variant="labelMedium" colorRole="primary" style={styles.statusInfoValue}>
                     {PHASE_LABEL[selectedPhase]}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
             ) : (
@@ -906,18 +898,17 @@ function ConceiveCalendarContent(): React.JSX.Element {
                   name="calendar-alert-outline"
                   size={19}
                 />
-                <Text style={styles.emptyText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.emptyText}>
                   {t('conceiveCalendar.emptyState.configureCycle')}
-                </Text>
-                <Pressable
+                </AwaText>
+                <AwaButton
                   accessibilityLabel={t('conceiveCalendar.configureCycleCta')}
                   accessibilityRole="button"
                   onPress={() => navigation.navigate('CycleInformation', { fromDashboardCTA: true })}
-                  style={({ pressed }) => [styles.addButton, pressed && styles.pressed]}
-                >
-                  <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="calendar-edit" size={16} />
-                  <Text style={styles.addButtonText}>{t('conceiveCalendar.configureCycleCta')}</Text>
-                </Pressable>
+                  label={t('conceiveCalendar.configureCycleCta')}
+                  icon="calendar-edit"
+                  style={styles.addButton}
+                />
               </View>
             )}
 
@@ -939,10 +930,10 @@ function ConceiveCalendarContent(): React.JSX.Element {
                         />
                       </View>
                       <View style={styles.flexCopy}>
-                        <Text style={styles.dailyInfoLabel}>{item.label}</Text>
-                        <Text numberOfLines={2} style={styles.dailyInfoValue}>
+                        <AwaText variant="labelSmall" style={styles.dailyInfoLabel}>{item.label}</AwaText>
+                        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.dailyInfoValue}>
                           {item.value}
-                        </Text>
+                        </AwaText>
                       </View>
                       {canEditDay ? (
                         <MaterialDesignIcons
@@ -954,20 +945,22 @@ function ConceiveCalendarContent(): React.JSX.Element {
                     </>
                   );
                   return canEditDay ? (
-                    <Pressable
+                    <AwaCard
+                      padding="none"
+                      variant="filled"
                       accessibilityHint={t('conceiveCalendar.openJournalDayHint')}
                       accessibilityLabel={`${item.label}, ${item.value}`}
                       accessibilityRole="button"
                       key={item.key}
                       onPress={() => navigation.navigate(entryRoute, { date: selectedKey })}
-                      style={({ pressed }) => [styles.dailyInfoItem, pressed && styles.pressed]}
+                      style={styles.dailyInfoItem}
                     >
                       {content}
-                    </Pressable>
+                    </AwaCard>
                   ) : (
-                    <View key={item.key} style={styles.dailyInfoItem}>
+                    <AwaCard padding="none" variant="filled" key={item.key} style={styles.dailyInfoItem}>
                       {content}
-                    </View>
+                    </AwaCard>
                   );
                 })}
               </View>
@@ -978,9 +971,9 @@ function ConceiveCalendarContent(): React.JSX.Element {
                   name="information-outline"
                   size={19}
                 />
-                <Text style={styles.emptyText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.emptyText}>
                   {t('conceiveCalendar.emptyState.noFilters')}
-                </Text>
+                </AwaText>
               </View>
             )}
 
@@ -989,30 +982,25 @@ function ConceiveCalendarContent(): React.JSX.Element {
                 Calendar. Not offered for a future day, nor for a day already
                 inside a real confirmed period. */}
             {startOfDay(selectedDate).getTime() <= startOfDay(today).getTime() && !isDateWithinConfirmedPeriod(selectedDate) ? (
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('calendar.dayCard.declareCta')}
-                accessibilityRole="button"
+                label={t('cycleHome.myPeriodStartedCta')}
+                labelStyle={styles.periodStartButtonText}
                 onPress={() => setPeriodStartSheetVisible(true)}
-                style={({ pressed }) => [styles.periodStartButton, pressed && styles.pressed]}
-              >
-                <MaterialDesignIcons color={PERIOD} name="water-plus-outline" size={16} />
-                <Text style={styles.periodStartButtonText}>{t('cycleHome.myPeriodStartedCta')}</Text>
-              </Pressable>
+                style={styles.periodStartButton}
+                variant="outlined"
+              />
             ) : null}
 
             {isTodaySelected ? (
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('conceiveCalendar.addToJournal')}
                 accessibilityRole="button"
                 onPress={openJournal}
-                style={({ pressed }) => [
-                  styles.addButton,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="plus" size={16} />
-                <Text style={styles.addButtonText}>{t('conceiveCalendar.addToJournal')}</Text>
-              </Pressable>
+                label={t('conceiveCalendar.addToJournal')}
+                icon="plus"
+                style={styles.addButton}
+              />
             ) : null}
           </View>
         </ScrollView>
@@ -1045,29 +1033,6 @@ function ConceiveCalendarContent(): React.JSX.Element {
    HEADER ACTION
 ============================================================ */
 
-function HeaderAction({
-  icon,
-  label,
-  onPress,
-}: {
-  icon: IconName;
-  label: string;
-  onPress: () => void;
-}): React.JSX.Element {
-  const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
-  return (
-    <Pressable
-      accessibilityLabel={label}
-      accessibilityRole="button"
-      onPress={onPress}
-      style={({ pressed }) => [styles.headerAction, pressed && styles.pressed]}
-    >
-      <MaterialDesignIcons color={theme.colors.primary} name={icon} size={18} />
-      <Text style={styles.headerActionLabel}>{label}</Text>
-    </Pressable>
-  );
-}
 
 /* ============================================================
    CALENDAR SHEET — Filtres / Légende, same premium bottom-sheet
@@ -1131,12 +1096,12 @@ function ConceiveCalendarSheet({
               style={styles.legendScroll}
             >
               <View style={styles.legendSheetHeader}>
-                <Text style={styles.legendSheetTitle}>
+                <AwaText variant="headlineSmall" style={styles.legendSheetTitle}>
                   {t('conceiveCalendar.legendSheet.title')}
-                </Text>
-                <Text style={styles.legendSheetSubtitle}>
+                </AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.legendSheetSubtitle}>
                   {t('conceiveCalendar.legendSheet.subtitle')}
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.legendRows}>
@@ -1166,10 +1131,10 @@ function ConceiveCalendarSheet({
                         ]}
                       />
                       <View style={styles.legendRowCopy}>
-                        <Text style={styles.legendRowTitle}>{meta.label}</Text>
-                        <Text style={styles.legendRowText}>
+                        <AwaText variant="titleSmall" style={styles.legendRowTitle}>{meta.label}</AwaText>
+                        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.legendRowText}>
                           {meta.description}
-                        </Text>
+                        </AwaText>
                       </View>
                     </View>
                   );
@@ -1182,8 +1147,8 @@ function ConceiveCalendarSheet({
                       </View>
                       <View style={[styles.legendDotLarge, backgroundColorStyle(RAMADAN_MARKER_COLOR)]} />
                       <View style={styles.legendRowCopy}>
-                        <Text style={styles.legendRowTitle}>{t('calendar.legendRamadan')}</Text>
-                        <Text style={styles.legendRowText}>{t('conceiveCalendar.legendSheet.ramadanDescription')}</Text>
+                        <AwaText variant="titleSmall" style={styles.legendRowTitle}>{t('calendar.legendRamadan')}</AwaText>
+                        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.legendRowText}>{t('conceiveCalendar.legendSheet.ramadanDescription')}</AwaText>
                       </View>
                     </View>
                     <View style={[styles.legendRow, styles.legendRowLast]}>
@@ -1192,15 +1157,15 @@ function ConceiveCalendarSheet({
                       </View>
                       <View style={[styles.legendDotLarge, backgroundColorStyle(DHOUL_HIJJA_MARKER_COLOR)]} />
                       <View style={styles.legendRowCopy}>
-                        <Text style={styles.legendRowTitle}>{t('calendar.legendDhoulHijja')}</Text>
-                        <Text style={styles.legendRowText}>{t('conceiveCalendar.legendSheet.dhoulHijjaDescription')}</Text>
+                        <AwaText variant="titleSmall" style={styles.legendRowTitle}>{t('calendar.legendDhoulHijja')}</AwaText>
+                        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.legendRowText}>{t('conceiveCalendar.legendSheet.dhoulHijjaDescription')}</AwaText>
                       </View>
                     </View>
                   </>
                 ) : null}
               </View>
 
-              <View style={styles.todayLegend}>
+              <AwaCard padding="none" variant="elevated" style={styles.todayLegend}>
                 <View style={styles.todayLegendPreview}>
                   <Text style={styles.todayLegendDay}>{today.getDate()}</Text>
                   {showHijri ? (
@@ -1215,21 +1180,18 @@ function ConceiveCalendarSheet({
                     {t('conceiveCalendar.legendSheet.todayDescription')}
                   </Text>
                 </View>
-              </View>
+              </AwaCard>
             </ScrollView>
 
             <View style={styles.legendFooter}>
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('conceiveCalendar.legendSheet.closeAccessibility')}
                 accessibilityRole="button"
                 onPress={onClose}
-                style={({ pressed }) => [
-                  styles.closeLegendButton,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <Text style={styles.closeLegendText}>{t('common.close')}</Text>
-              </Pressable>
+                label={t('common.close')}
+                size="large"
+                style={styles.closeLegendButton}
+              />
             </View>
           </View>
         ) : mode === 'filters' ? (
@@ -1243,10 +1205,10 @@ function ConceiveCalendarSheet({
             <View style={styles.handle} />
 
             <View style={styles.filterSheetHeader}>
-              <Text style={styles.filterSheetTitle}>{t('conceiveCalendar.filtersSheet.title')}</Text>
-              <Text style={styles.filterSheetSubtitle}>
+              <AwaText variant="headlineSmall" style={styles.filterSheetTitle}>{t('conceiveCalendar.filtersSheet.title')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.filterSheetSubtitle}>
                 {t('conceiveCalendar.filtersSheet.subtitle')}
-              </Text>
+              </AwaText>
             </View>
 
             <ScrollView
@@ -1278,10 +1240,10 @@ function ConceiveCalendarSheet({
                       />
                     </View>
                     <View style={styles.filterCopy}>
-                      <Text style={styles.filterTitle}>{meta.label}</Text>
-                      <Text style={styles.filterDescription}>
+                      <AwaText variant="labelMedium" style={styles.filterTitle}>{meta.label}</AwaText>
+                      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.filterDescription}>
                         {meta.description}
-                      </Text>
+                      </AwaText>
                     </View>
                     <View
                       style={[
@@ -1302,16 +1264,11 @@ function ConceiveCalendarSheet({
             </ScrollView>
 
             <View style={styles.filterFooter}>
-              <Pressable
+              <AwaButton
                 accessibilityRole="button"
                 onPress={onClose}
-                style={({ pressed }) => [
-                  styles.doneButton,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <Text style={styles.doneText}>{t('cycleHome.quickActions.done')}</Text>
-              </Pressable>
+                label={t('cycleHome.quickActions.done')}
+              />
             </View>
           </View>
         ) : null}
@@ -1327,34 +1284,6 @@ function ConceiveCalendarSheet({
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   background: { flex: 1, backgroundColor: theme.colors.background },
-  pageBackgroundDecor: { ...StyleSheet.absoluteFillObject, overflow: 'hidden' },
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
   safeArea: { flex: 1 },
   content: { paddingHorizontal: 16, paddingTop: TOP_SPACING_EXTRA },
   flexCopy: { flex: 1, minWidth: 0 },
@@ -1363,31 +1292,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* HEADER */
   header: { flexDirection: 'row', alignItems: 'center', marginBottom: 12 },
   headerCopy: { flex: 1, minWidth: 0 },
-  title: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 24,
-    fontWeight: '800',
-  },
-  subtitle: { marginTop: 2, color: theme.colors.textSecondary, fontSize: 10.5 },
-  headerAction: {
-    ...theme.shadow,
-    width: 52,
-    height: 52,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 6,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 17,
-    backgroundColor: theme.colors.surface,
-  },
-  headerActionLabel: {
-    marginTop: 2,
-    color: theme.colors.primary,
-    fontSize: 8,
-    fontWeight: '800',
-  },
+  title: {color: theme.colors.accent},
+  subtitle: {marginTop: 2},
 
   /* CALENDAR */
   calendarCard: {
@@ -1395,7 +1301,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 12,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 23,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
   modeRow: {
@@ -1407,13 +1313,15 @@ function createStyles(theme: ResolvedAwaTheme) {
   modeButton: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: 40,
     paddingVertical: 7,
-    borderRadius: 9,
+    borderRadius: 12,
   },
   modeButtonActive: { backgroundColor: theme.colors.primary },
   modeText: {
     color: theme.colors.textSecondary,
-    fontSize: 10.5,
+    fontSize: 11,
     fontWeight: '700',
   },
   modeTextActive: { color: onPrimaryTextColor(theme) },
@@ -1424,28 +1332,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
     marginVertical: 11,
   },
-  arrowButton: {
-    width: 35,
-    height: 35,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-  },
   monthCopy: { flex: 1, alignItems: 'center', paddingHorizontal: 5 },
-  monthTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 17,
-    fontWeight: '800',
-  },
-  hijriMonth: { marginTop: 1, color: theme.colors.textSecondary, fontSize: 9 },
+  monthTitle: {color: theme.colors.accent},
+  hijriMonth: {marginTop: 1},
 
   weekRow: { flexDirection: 'row' },
   weekDay: {
     width: '14.2857%',
     color: theme.colors.textSecondary,
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '700',
     textAlign: 'center',
   },
@@ -1473,7 +1368,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1.7,
     borderColor: theme.colors.text,
     borderStyle: 'dashed',
-    borderRadius: 13,
+    borderRadius: 12,
   },
   menstruationDay: { backgroundColor: PERIOD_LIGHT },
   fertileDay: { backgroundColor: FERTILE_LIGHT },
@@ -1484,17 +1379,17 @@ function createStyles(theme: ResolvedAwaTheme) {
   // without overlapping — independent channel from the marker dots below.
   spiritualMarkerBadge: { position: 'absolute', top: 2, left: 2 },
   dayText: { color: theme.colors.accent, fontSize: 12, fontWeight: '700' },
-  lightText: { color: onPrimaryTextColor(theme) },
+  lightText: {},
   // Wins over `lightText`/any background tint whenever a day is today —
   // today's number must always stay readable, regardless of selection or
   // event-day overlap (same rule MonthCalendarCard.tsx already applies).
   todayDayText: { color: theme.colors.text, fontWeight: '800', zIndex: 4 },
-  hijriDay: { marginTop: 1, color: theme.colors.textSecondary, fontSize: 7 },
+  hijriDay: { marginTop: 1, color: theme.colors.textSecondary, fontSize: 11 },
   todayHijriText: { color: theme.colors.text },
 
   markerRow: { position: 'absolute', bottom: 3, flexDirection: 'row', alignItems: 'center', gap: 2 },
   marker: { width: 3.5, height: 3.5, borderRadius: 2 },
-  lhMarker: { color: '#B23F63', fontSize: 6, lineHeight: 7, fontWeight: '800' },
+  lhMarker: { color: '#B23F63', fontSize: 11, lineHeight: 16, fontWeight: '800' },
 
   /* INLINE LEGEND */
   inlineLegend: {
@@ -1518,11 +1413,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderStyle: 'dashed',
     borderRadius: 5,
   },
-  inlineLegendText: {
-    color: theme.colors.textSecondary,
-    fontSize: 8.5,
-    fontWeight: '600',
-  },
+  inlineLegendText: {},
   inlineLegendTextWithIcon: { marginLeft: 4 },
 
   /* SELECTED CARD */
@@ -1532,7 +1423,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 15,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 22,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
   selectedHeader: {
@@ -1548,32 +1439,21 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 10,
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  selectedTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 16,
-    fontWeight: '800',
-  },
-  selectedDate: { marginTop: 2, color: theme.colors.textSecondary, fontSize: 10 },
+  selectedTitle: {color: theme.colors.accent},
+  selectedDate: {marginTop: 2},
 
   statusGrid: { flexDirection: 'row', gap: 8, marginTop: 12 },
   statusInfo: {
     flex: 1,
     minWidth: 0,
-    padding: 11,
-    borderRadius: 15,
+    padding: 12,
+    borderRadius: 16,
     backgroundColor: theme.colors.surfaceSecondary,
   },
-  statusInfoLabel: { color: theme.colors.textSecondary, fontSize: 9.5 },
-  statusInfoValue: {
-    marginTop: 4,
-    color: theme.colors.primary,
-    fontSize: 12.5,
-    fontWeight: '800',
-  },
+  statusInfoValue: {marginTop: 4},
 
   /* DAILY INFO */
   dailyInfoGrid: {
@@ -1582,17 +1462,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
     marginTop: 12,
   },
-  dailyInfoItem: {
-    width: '100%',
-    minHeight: 62,
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 10,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 15,
-    backgroundColor: theme.colors.surface,
-  },
+  dailyInfoItem: {width: '100%', minHeight: 62, flexDirection: 'row', alignItems: 'center', padding: 10},
   dailyInfoIcon: {
     width: 34,
     height: 34,
@@ -1600,20 +1470,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 9,
-    borderRadius: 11,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  dailyInfoLabel: {
-    color: theme.colors.accent,
-    fontSize: 10.5,
-    fontWeight: '800',
-  },
-  dailyInfoValue: {
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    lineHeight: 13,
-  },
+  dailyInfoLabel: {color: theme.colors.accent},
+  dailyInfoValue: {marginTop: 3},
 
   emptyBox: {
     alignItems: 'center',
@@ -1622,39 +1483,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderRadius: 16,
     backgroundColor: theme.colors.surfaceSecondary,
   },
-  emptyText: {
-    marginTop: 7,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 17,
-    textAlign: 'center',
-  },
-  addButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 7,
-    marginTop: 12,
-    minHeight: 42,
-    paddingHorizontal: 16,
-    borderRadius: 15,
-    backgroundColor: theme.colors.primary,
-  },
-  addButtonText: { color: onPrimaryTextColor(theme), fontSize: 12.5, fontWeight: '800' },
+  emptyText: {marginTop: 7, textAlign: 'center'},
+  addButton: {marginTop: 12},
   // SEMANTIC (period-pink family, same as Cycle's CTA) — never theme-driven.
   periodStartButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 7,
     marginTop: 12,
-    minHeight: 42,
-    paddingHorizontal: 16,
-    borderRadius: 15,
-    borderWidth: 1.2,
     borderColor: 'rgba(220,123,130,0.35)',
     backgroundColor: '#FCEEEF',
   },
-  periodStartButtonText: { color: PERIOD, fontSize: 12.5, fontWeight: '800' },
+  periodStartButtonText: {color: PERIOD},
 
   /* MODAL */
   modalRoot: { flex: 1, justifyContent: 'flex-end' },
@@ -1689,18 +1526,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 10,
     paddingHorizontal: 22,
   },
-  filterSheetTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 24,
-    fontWeight: '800',
-  },
-  filterSheetSubtitle: {
-    marginTop: 8,
-    color: theme.colors.textSecondary,
-    fontSize: 13,
-    lineHeight: 18,
-  },
+  filterSheetTitle: {color: theme.colors.accent},
+  filterSheetSubtitle: {marginTop: 8},
   filterRows: { paddingHorizontal: 22, paddingBottom: 10 },
   filterRow: {
     minHeight: 66,
@@ -1716,21 +1543,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.primarySoft,
   },
   filterCopy: { flex: 1, minWidth: 0, marginHorizontal: 12 },
-  filterTitle: {
-    color: theme.colors.accent,
-    fontSize: 13,
-    fontWeight: '800',
-  },
-  filterDescription: {
-    marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 14,
-  },
+  filterTitle: {color: theme.colors.accent},
+  filterDescription: {marginTop: 2},
   switchTrack: {
     width: 42,
     height: 24,
@@ -1758,14 +1576,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderTopColor: withAlpha(theme.colors.primary, 0.10),
     backgroundColor: theme.colors.surface,
   },
-  doneButton: {
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    backgroundColor: theme.colors.primary,
-  },
-  doneText: { color: onPrimaryTextColor(theme), fontSize: 14, fontWeight: '800' },
 
   /* LEGEND SHEET */
   legendSheet: { height: '88%', paddingHorizontal: 0 },
@@ -1776,17 +1586,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingBottom: 16,
   },
   legendSheetHeader: { marginTop: 18 },
-  legendSheetTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 24,
-    fontWeight: '800',
-  },
-  legendSheetSubtitle: {
-    marginTop: 7,
-    color: theme.colors.textSecondary,
-    fontSize: 13,
-  },
+  legendSheetTitle: {color: theme.colors.accent},
+  legendSheetSubtitle: {marginTop: 7},
   legendRows: { marginTop: 16 },
   legendRow: {
     minHeight: 88,
@@ -1802,7 +1603,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 18,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   legendDotLarge: {
@@ -1813,29 +1614,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderRadius: 6,
   },
   legendRowCopy: { flex: 1, minWidth: 0, marginLeft: 14 },
-  legendRowTitle: {
-    color: theme.colors.accent,
-    fontSize: 15,
-    fontWeight: '800',
-  },
-  legendRowText: {
-    marginTop: 4,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    lineHeight: 16,
-  },
+  legendRowTitle: {color: theme.colors.accent},
+  legendRowText: {marginTop: 4},
 
-  todayLegend: {
-    minHeight: 90,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 14,
-    padding: 13,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 20,
-    backgroundColor: theme.colors.surfaceSecondary,
-  },
+  todayLegend: {minHeight: 90, flexDirection: 'row', alignItems: 'center', marginTop: 14, padding: 13},
   todayLegendPreview: {
     width: 52,
     height: 58,
@@ -1846,7 +1628,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1.8,
     borderColor: theme.colors.text,
     borderStyle: 'dashed',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.surface,
   },
   todayLegendDay: {
@@ -1857,7 +1639,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   todayLegendHijri: {
     marginTop: 2,
     color: theme.colors.textSecondary,
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '600',
   },
   todayCopy: { flex: 1, minWidth: 0 },
@@ -1882,21 +1664,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderTopColor: withAlpha(theme.colors.primary, 0.10),
     backgroundColor: theme.colors.surface,
   },
-  closeLegendButton: {
-    width: '100%',
-    height: 52,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.18,
-    shadowRadius: 7,
-    elevation: 5,
-  },
-  closeLegendText: { color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '800' },
+  closeLegendButton: {width: '100%', flexShrink: 0},
   });
 }
 

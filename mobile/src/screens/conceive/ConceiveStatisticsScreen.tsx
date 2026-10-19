@@ -31,7 +31,7 @@ import type { RootStackParamList } from '../../navigation/AppNavigator';
 import '../../i18n';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme, softTone} from '../../theme/awaThemeTokens';
 
 import { getTopPadding, getFloatingTabBarClearance, spacing } from '../../theme/spacing';
 
@@ -79,6 +79,10 @@ import {
 import { usePremium } from '../../hooks/usePremium';
 import {useToday} from '../../hooks/useToday';
 import { HawaPremiumBottomSheet } from '../../components/premium/HawaPremiumBottomSheet';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 
 // Trying-to-Conceive Statistics — structurally modeled after
 // MiscarriageStatisticsScreen.tsx (same premium HAWA card language, tabs,
@@ -310,8 +314,8 @@ function EmptyState({
       <View style={styles.emptyIcon}>
         <MaterialDesignIcons color={theme.colors.primary} name={icon} size={27} />
       </View>
-      <Text style={styles.emptyTitle}>{t('conceiveStatistics.emptyTitle')}</Text>
-      <Text style={styles.emptyText}>{text}</Text>
+      <AwaText variant="titleSmall" style={styles.emptyTitle}>{t('conceiveStatistics.emptyTitle')}</AwaText>
+      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.emptyText}>{text}</AwaText>
     </Animated.View>
   );
 }
@@ -337,7 +341,7 @@ function SectionHeader({
     purple: { bg: theme.colors.primarySoft, color: theme.colors.primary },
     pink: { bg: withAlpha(theme.colors.secondary, 0.16), color: theme.colors.secondary },
     green: { bg: withAlpha(theme.colors.success, 0.16), color: theme.colors.success },
-    blue: { bg: BLUE_SOFT, color: BLUE },
+    blue: { bg: softTone(theme, BLUE_SOFT, BLUE), color: BLUE },
   }[accent];
 
   return (
@@ -346,8 +350,8 @@ function SectionHeader({
         <MaterialDesignIcons color={palette.color} name={icon} size={20} />
       </View>
       <View style={styles.sectionHeaderCopy}>
-        <Text style={styles.cardTitle}>{title}</Text>
-        {subtitle ? <Text style={styles.cardSubtitle}>{subtitle}</Text> : null}
+        <AwaText variant="titleMedium" style={styles.cardTitle}>{title}</AwaText>
+        {subtitle ? <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardSubtitle}>{subtitle}</AwaText> : null}
       </View>
     </View>
   );
@@ -377,29 +381,29 @@ function KpiCard({
     purple: { bg: theme.colors.primarySoft, color: theme.colors.primary },
     pink: { bg: withAlpha(theme.colors.secondary, 0.16), color: theme.colors.secondary },
     green: { bg: withAlpha(theme.colors.success, 0.16), color: theme.colors.success },
-    blue: { bg: BLUE_SOFT, color: BLUE },
+    blue: { bg: softTone(theme, BLUE_SOFT, BLUE), color: BLUE },
   }[accent];
 
   return (
-    <View style={styles.kpiCard}>
+    <AwaCard padding="none" variant="filled" style={styles.kpiCard}>
       <View style={styles.kpiTop}>
         <View style={[styles.kpiIcon, { backgroundColor: palette.bg }]}>
           <MaterialDesignIcons color={palette.color} name={icon} size={19} />
         </View>
         <View style={[styles.kpiDot, { backgroundColor: palette.color }]} />
       </View>
-      <Text adjustsFontSizeToFit numberOfLines={1} style={styles.kpiValue}>
+      <AwaText variant="titleLarge" adjustsFontSizeToFit numberOfLines={1} style={styles.kpiValue}>
         {value}
-      </Text>
-      <Text numberOfLines={2} style={styles.kpiLabel}>
+      </AwaText>
+      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.kpiLabel}>
         {label}
-      </Text>
+      </AwaText>
       {caption ? (
-        <Text numberOfLines={2} style={styles.kpiCaption}>
+        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.kpiCaption}>
           {caption}
-        </Text>
+        </AwaText>
       ) : null}
-    </View>
+    </AwaCard>
   );
 }
 
@@ -455,13 +459,13 @@ function DistributionRow({
   return (
     <View style={[styles.distributionRow, last && styles.lastRow]}>
       <View style={styles.distributionTop}>
-        <Text numberOfLines={2} style={styles.distributionLabel}>
+        <AwaText variant="labelSmall" style={styles.distributionLabel}>
           {label}
-        </Text>
+        </AwaText>
         <View style={styles.distributionBadge}>
-          <Text style={styles.distributionCount}>
+          <AwaText variant="labelSmall" colorRole="onSurfaceVariant">
             {count} {count > 1 ? 'jours' : 'jour'}
-          </Text>
+          </AwaText>
         </View>
       </View>
       <View style={styles.distributionTrack}>
@@ -857,11 +861,6 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.safe}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
       <StatusBar
         backgroundColor="transparent"
         barStyle={theme.statusBarStyle}
@@ -872,19 +871,18 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
       <View
         style={[styles.header, { paddingTop: getTopPadding(insets.top, true) }]}
       >
-        <Pressable
+        <AwaIconButton
           accessibilityLabel={t('common.back')}
           accessibilityRole="button"
           hitSlop={10}
           onPress={navigation.goBack}
-          style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
-        >
-          <MaterialDesignIcons color={theme.colors.accent} name="chevron-left" size={25} />
-        </Pressable>
+          icon="chevron-left"
+          iconSize={25}
+        />
 
         <View style={styles.headerCopy}>
-          <Text style={styles.headerTitle}>{t('navigation.statistics')}</Text>
-          <Text style={styles.headerSubtitle}>{t('conceiveStatistics.headerSubtitle')}</Text>
+          <AwaText variant="headlineSmall" style={styles.headerTitle}>{t('navigation.statistics')}</AwaText>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.headerSubtitle}>{t('conceiveStatistics.headerSubtitle')}</AwaText>
         </View>
 
         <View style={styles.headerBadgeIcon}>
@@ -903,8 +901,8 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
             <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={20} />
           </View>
           <View style={styles.objectiveCopy}>
-            <Text style={styles.objectiveLabel}>{t('conceiveStatistics.objectiveLabel')}</Text>
-            <Text style={styles.objectiveValue}>{t('objectives.conceive')}</Text>
+            <AwaText variant="labelSmall" colorRole="onSurfaceVariant">{t('conceiveStatistics.objectiveLabel')}</AwaText>
+            <AwaText variant="labelMedium" style={styles.objectiveValue}>{t('objectives.conceive')}</AwaText>
           </View>
           <View style={styles.objectiveDot} />
         </View>
@@ -1108,8 +1106,6 @@ function SummaryTab({
     <>
       <AnimatedSection>
         <View style={styles.heroCard}>
-          <View style={styles.heroGlowOne} />
-          <View style={styles.heroGlowTwo} />
 
           <SectionHeader
             icon="chart-box-outline"
@@ -1135,19 +1131,17 @@ function SummaryTab({
               <View style={styles.insufficientDataIcon}>
                 <MaterialDesignIcons color={theme.colors.primary} name="calendar-alert-outline" size={22} />
               </View>
-              <Text style={styles.insufficientDataTitle}>{t('conceiveDashboard.insufficientData.title')}</Text>
-              <Text style={styles.insufficientDataText}>
+              <AwaText variant="titleMedium" style={styles.insufficientDataTitle}>{t('conceiveDashboard.insufficientData.title')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.insufficientDataText}>
                 {t('conceiveDashboard.insufficientData.text')}
-              </Text>
-              <Pressable
+              </AwaText>
+              <AwaButton
                 accessibilityLabel={t('conceiveDashboard.insufficientData.cta')}
-                accessibilityRole="button"
+                icon="calendar-edit"
+                label={t('conceiveDashboard.insufficientData.cta')}
                 onPress={onConfigureCycle}
-                style={({ pressed }) => [styles.insufficientDataCta, pressed && { opacity: 0.85 }]}
-              >
-                <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="calendar-edit" size={16} />
-                <Text style={styles.insufficientDataCtaText}>{t('conceiveDashboard.insufficientData.cta')}</Text>
-              </Pressable>
+                style={styles.insufficientDataCta}
+              />
               <View style={styles.kpiGrid}>
                 <KpiCard accent="pink" icon="thermometer" label={t('conceiveStatistics.summary.temperaturesRecorded')} value={String(temperatureCount)} />
                 <KpiCard accent="pink" icon="test-tube" label={t('conceiveStatistics.summary.positiveLhTests')} value={String(positiveLhCount)} />
@@ -1193,10 +1187,10 @@ function SummaryTab({
             <View style={styles.statusIconPurple}>
               <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={23} />
             </View>
-            <Text style={styles.statusLabel}>{t('conceiveStatistics.summary.intercourseThisCycle')}</Text>
-            <Text numberOfLines={2} style={styles.statusValue}>
+            <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.statusLabel}>{t('conceiveStatistics.summary.intercourseThisCycle')}</AwaText>
+            <AwaText variant="titleSmall" style={styles.statusValue}>
               {intercourseThisCycle}
-            </Text>
+            </AwaText>
           </View>
 
           {hasConfirmedCycleData ? (
@@ -1204,10 +1198,10 @@ function SummaryTab({
               <View style={styles.statusIconPink}>
                 <MaterialDesignIcons color={theme.colors.secondary} name="egg-outline" size={23} />
               </View>
-              <Text style={styles.statusLabel}>{t('journalCycleEvolution.phase.ovulation')}</Text>
-              <Text numberOfLines={2} style={styles.statusValue}>
+              <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.statusLabel}>{t('journalCycleEvolution.phase.ovulation')}</AwaText>
+              <AwaText variant="titleSmall" style={styles.statusValue}>
                 {ovulationDate}
-              </Text>
+              </AwaText>
             </View>
           ) : null}
         </View>
@@ -1215,15 +1209,14 @@ function SummaryTab({
 
       <AnimatedSection delay={160}>
         <View style={styles.adviceCard}>
-          <View style={styles.adviceGlow} />
           <View style={styles.adviceIcon}>
             <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={22} />
           </View>
           <View style={styles.adviceCopy}>
-            <Text style={styles.adviceTitle}>{t('conceiveStatistics.summary.adviceTitle')}</Text>
-            <Text style={styles.adviceText}>
+            <AwaText variant="titleSmall" style={styles.adviceTitle}>{t('conceiveStatistics.summary.adviceTitle')}</AwaText>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.adviceText}>
               {t('conceiveStatistics.summary.adviceText')}
-            </Text>
+            </AwaText>
           </View>
         </View>
       </AnimatedSection>
@@ -1312,17 +1305,17 @@ function TemperatureTab({
       </AnimatedSection>
 
       <AnimatedSection delay={110}>
-        <View style={styles.softInfoCard}>
+        <AwaCard padding="none" variant="filled" style={styles.softInfoCard}>
           <View style={styles.softInfoIcon}>
             <MaterialDesignIcons color={theme.colors.secondary} name="information-outline" size={18} />
           </View>
-          <Text style={styles.softInfoText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.softInfoText}>
             {t('conceiveStatistics.temperature.infoText', {unit})}
             {hasConvertedReadings
               ? t('conceiveStatistics.temperature.infoConvertedSuffix')
               : ''}
-          </Text>
-        </View>
+          </AwaText>
+        </AwaCard>
       </AnimatedSection>
     </>
   );
@@ -1452,9 +1445,9 @@ function FertilityTab({
                       />
                     ))}
                   </View>
-                  <Text style={styles.softInfoText}>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.softInfoText}>
                     {t('conceiveStatistics.fertility.lhEvolutionInfo', {count: totalLhTests, period: periodLabel})}
-                  </Text>
+                  </AwaText>
                 </>
               );
             })()}
@@ -1519,7 +1512,7 @@ function FertilityTab({
                     />
                   ))}
                 </View>
-                <Text style={styles.softInfoText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.softInfoText}>
                   {t('conceiveStatistics.fertility.mucusEvolutionInfo', {
                     dry: MUCUS_LABEL.dry,
                     sticky: MUCUS_LABEL.sticky,
@@ -1527,7 +1520,7 @@ function FertilityTab({
                     watery: MUCUS_LABEL.watery,
                     eggWhite: MUCUS_LABEL.eggWhite,
                   })}
-                </Text>
+                </AwaText>
               </>
             )}
           </View>
@@ -1535,14 +1528,14 @@ function FertilityTab({
       ) : null}
 
       <AnimatedSection delay={140}>
-        <View style={styles.softInfoCard}>
+        <AwaCard padding="none" variant="filled" style={styles.softInfoCard}>
           <View style={styles.softInfoIcon}>
             <MaterialDesignIcons color={theme.colors.secondary} name="heart-outline" size={18} />
           </View>
-          <Text style={styles.softInfoText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.softInfoText}>
             {t('conceiveStatistics.fertility.disclaimer')}
-          </Text>
-        </View>
+          </AwaText>
+        </AwaCard>
       </AnimatedSection>
     </>
   );
@@ -1614,14 +1607,14 @@ function CycleTab({
       </AnimatedSection>
 
       <AnimatedSection delay={110}>
-        <View style={styles.softInfoCard}>
+        <AwaCard padding="none" variant="filled" style={styles.softInfoCard}>
           <View style={styles.softInfoIconPurple}>
             <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
           </View>
-          <Text style={styles.softInfoText}>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.softInfoText}>
             {t('conceiveStatistics.cycle.infoText')}
-          </Text>
-        </View>
+          </AwaText>
+        </AwaCard>
       </AnimatedSection>
     </>
   );
@@ -1640,34 +1633,6 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   safe: { flex: 1, backgroundColor: theme.colors.background },
 
-  pageBackgroundDecor: { ...StyleSheet.absoluteFillObject, overflow: 'hidden' },
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   header: {
     minHeight: 64,
@@ -1677,29 +1642,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingBottom: 10,
     gap: 11,
   },
-  backButton: {
-    width: 42,
-    height: 42,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: border,
-    borderRadius: 16,
-    backgroundColor: theme.colors.surface,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.07,
-    shadowRadius: 7,
-    elevation: 3,
-  },
   headerCopy: { flex: 1, minWidth: 0 },
-  headerTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 24,
-    fontWeight: '800',
-  },
-  headerSubtitle: { marginTop: 2, color: theme.colors.textSecondary, fontSize: 10.5 },
+  headerTitle: {color: theme.colors.accent},
+  headerSubtitle: {marginTop: 2},
   headerBadgeIcon: {
     width: 42,
     height: 42,
@@ -1718,7 +1663,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 12,
     borderWidth: 1,
     borderColor: border,
-    borderRadius: 19,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.96),
   },
   objectiveIcon: {
@@ -1726,22 +1671,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 39,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   objectiveCopy: { flex: 1, minWidth: 0, marginHorizontal: 10 },
-  objectiveLabel: {
-    color: theme.colors.textMuted,
-    fontSize: 8.5,
-    fontWeight: '800',
-    letterSpacing: 1.05,
-  },
-  objectiveValue: {
-    marginTop: 2,
-    color: theme.colors.accent,
-    fontSize: 12.5,
-    fontWeight: '700',
-  },
+  objectiveValue: {marginTop: 2, color: theme.colors.accent},
   objectiveDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: theme.colors.success },
 
   periodFilters: {
@@ -1751,28 +1685,28 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 4,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.05),
-    borderRadius: 17,
+    borderRadius: 16,
     backgroundColor: theme.colors.surfaceSecondary,
   },
   periodFilterButton: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 38,
-    borderRadius: 13,
+    minHeight: 44,
+    borderRadius: 12,
   },
   periodFilterButtonActive: {
     ...theme.shadow,
     backgroundColor: theme.colors.surface,
   },
   periodFilterButtonContent: { flexDirection: 'row', alignItems: 'center', gap: 3 },
-  periodFilterText: { color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700' },
+  periodFilterText: { color: theme.colors.textSecondary, fontSize: 11, fontWeight: '700' },
   periodFilterTextActive: { color: theme.colors.primary, fontWeight: '800' },
 
   tabsScroll: { flexGrow: 0, marginTop: 11 },
   tabsScrollContent: { paddingHorizontal: 16, paddingBottom: 10, gap: 8 },
   tabPill: {
-    minHeight: 39,
+    minHeight: 44,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -1780,7 +1714,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 14,
     borderWidth: 1,
     borderColor: 'transparent',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: 'transparent',
   },
   tabPillActive: {
@@ -1805,7 +1739,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 16,
     borderWidth: 1,
     borderColor: border,
-    borderRadius: 25,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
     shadowColor: theme.shadow.shadowColor,
     shadowOffset: { width: 0, height: 7 },
@@ -1822,26 +1756,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 16,
     borderWidth: 1,
     borderColor: border,
-    borderRadius: 28,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
-  },
-  heroGlowOne: {
-    position: 'absolute',
-    top: -65,
-    right: -35,
-    width: 160,
-    height: 160,
-    borderRadius: 80,
-    backgroundColor: withAlpha(theme.colors.primary, 0.11),
-  },
-  heroGlowTwo: {
-    position: 'absolute',
-    bottom: -70,
-    left: -50,
-    width: 155,
-    height: 155,
-    borderRadius: 78,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   sectionHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 5 },
@@ -1852,16 +1768,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 10,
-    borderRadius: 14,
+    borderRadius: 12,
   },
   sectionHeaderCopy: { flex: 1, minWidth: 0 },
-  cardTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 16.5,
-    fontWeight: '800',
-  },
-  cardSubtitle: { marginTop: 2, color: theme.colors.textSecondary, fontSize: 10, lineHeight: 14 },
+  cardTitle: {color: theme.colors.accent},
+  cardSubtitle: {marginTop: 2},
 
   kpiGrid: {
     marginTop: 13,
@@ -1877,51 +1788,19 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 46,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 17,
+    borderRadius: 16,
     backgroundColor: theme.colors.primarySoft,
   },
-  insufficientDataTitle: {
-    marginTop: 11,
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 16,
-    fontWeight: '700',
-  },
-  insufficientDataText: {
-    marginTop: 6,
-    color: theme.colors.textSecondary,
-    fontSize: 12.5,
-    lineHeight: 18,
-    textAlign: 'center',
-    paddingHorizontal: 8,
-  },
-  insufficientDataCta: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    marginTop: 15,
-    minHeight: 42,
-    borderRadius: 21,
-    backgroundColor: theme.colors.primary,
-    paddingHorizontal: 18,
-  },
-  insufficientDataCtaText: { color: onPrimaryTextColor(theme), fontSize: 12.5, fontWeight: '700' },
-  kpiCard: {
-    width: '48.4%',
-    minWidth: 0,
-    minHeight: 112,
-    padding: 12,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.07),
-    borderRadius: 19,
-    backgroundColor: theme.colors.surfaceSecondary,
-  },
+  insufficientDataTitle: {marginTop: 11, color: theme.colors.accent},
+  insufficientDataText: {marginTop: 6, textAlign: 'center', paddingHorizontal: 8},
+  insufficientDataCta: {marginTop: 15},
+  kpiCard: {width: '48.4%', minWidth: 0, minHeight: 112, padding: 12},
   kpiTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  kpiIcon: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center', borderRadius: 13 },
+  kpiIcon: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center', borderRadius: 12 },
   kpiDot: { width: 6, height: 6, borderRadius: 3, opacity: 0.5 },
-  kpiValue: { marginTop: 11, color: theme.colors.accent, fontSize: 20, fontWeight: '800' },
-  kpiLabel: { marginTop: 3, color: theme.colors.textSecondary, fontSize: 9.7, lineHeight: 13 },
-  kpiCaption: { marginTop: 1, color: theme.colors.textMuted, fontSize: 9, lineHeight: 12 },
+  kpiValue: {marginTop: 11, color: theme.colors.accent},
+  kpiLabel: {marginTop: 3},
+  kpiCaption: {marginTop: 1},
 
   chart: { height: 155, marginTop: 16, flexDirection: 'row', alignItems: 'flex-end', gap: 5 },
   barColumn: { flex: 1, minWidth: 0, height: '100%', alignItems: 'center' },
@@ -1933,7 +1812,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'flex-end',
     overflow: 'hidden',
     marginVertical: 6,
-    borderRadius: 9,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   barFill: { width: '100%', minHeight: 6, borderRadius: 9, backgroundColor: theme.colors.primary },
@@ -1945,7 +1824,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 25,
     backgroundColor: 'rgba(255,255,255,0.14)',
   },
-  barLabel: { color: theme.colors.textSecondary, fontSize: 7.5, textAlign: 'center' },
+  barLabel: { color: theme.colors.textSecondary, fontSize: 11, textAlign: 'center' },
 
   statusGrid: { flexDirection: 'row', justifyContent: 'space-between', gap: 10, marginTop: 12 },
   statusCard: {
@@ -1955,7 +1834,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 14,
     borderWidth: 1,
     borderColor: border,
-    borderRadius: 22,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
     ...theme.shadow,
   },
@@ -1964,7 +1843,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   statusIconPink: {
@@ -1972,18 +1851,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.secondary, 0.16),
   },
-  statusLabel: { marginTop: 11, color: theme.colors.textSecondary, fontSize: 9.5, fontWeight: '600' },
-  statusValue: {
-    marginTop: 4,
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 15,
-    lineHeight: 19,
-    fontWeight: '800',
-  },
+  statusLabel: {marginTop: 11},
+  statusValue: {marginTop: 4, color: theme.colors.accent},
 
   adviceCard: {
     ...theme.shadow,
@@ -1996,17 +1868,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 15,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 22,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
-  },
-  adviceGlow: {
-    position: 'absolute',
-    right: -35,
-    top: -45,
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    backgroundColor: withAlpha(theme.colors.surface, 0.30),
   },
   adviceIcon: {
     width: 42,
@@ -2014,12 +1877,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: withAlpha(theme.colors.surface, 0.80),
   },
   adviceCopy: { flex: 1, minWidth: 0 },
-  adviceTitle: { color: theme.colors.accent, fontFamily: 'serif', fontSize: 14.5, fontWeight: '800' },
-  adviceText: { marginTop: 3, color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 15 },
+  adviceTitle: {color: theme.colors.accent},
+  adviceText: {marginTop: 3},
 
   distributionList: { marginTop: 11 },
   distributionRow: {
@@ -2029,22 +1892,14 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
   lastRow: { borderBottomWidth: 0 },
   distributionTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 },
-  distributionLabel: {
-    flex: 1,
-    minWidth: 0,
-    color: theme.colors.accent,
-    fontSize: 11.5,
-    fontWeight: '700',
-    lineHeight: 15,
-  },
+  distributionLabel: {flex: 1, minWidth: 0, color: theme.colors.accent},
   distributionBadge: {
     flexShrink: 0,
     paddingHorizontal: 9,
     paddingVertical: 4,
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  distributionCount: { color: theme.colors.textSecondary, fontSize: 8.7, fontWeight: '700' },
   distributionTrack: {
     height: 7,
     overflow: 'hidden',
@@ -2060,36 +1915,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 56,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  emptyTitle: {
-    marginTop: 12,
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 14,
-    fontWeight: '800',
-  },
-  emptyText: {
-    maxWidth: 285,
-    marginTop: 5,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
-    textAlign: 'center',
-  },
+  emptyTitle: {marginTop: 12, color: theme.colors.accent},
+  emptyText: {maxWidth: 285, marginTop: 5, textAlign: 'center'},
 
-  softInfoCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    marginTop: 12,
-    padding: 13,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.07),
-    borderRadius: 18,
-    backgroundColor: theme.colors.surfaceSecondary,
-  },
+  softInfoCard: {flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 12, padding: 13},
   softInfoIcon: {
     width: 34,
     height: 34,
@@ -2108,9 +1940,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  softInfoText: { flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 10.3, lineHeight: 15 },
+  softInfoText: {flex: 1, minWidth: 0},
 
-  pressed: { opacity: 0.78, transform: [{ scale: 0.97 }] },
   });
 }
 
