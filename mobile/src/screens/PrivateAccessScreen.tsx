@@ -34,6 +34,9 @@ import {
 } from '../services/privateSectionAuth';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 
 const PIN_LENGTH = 6;
 
@@ -569,20 +572,14 @@ export default function PrivateAccessScreen({
           showsVerticalScrollIndicator={
             false
           }>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
-            hitSlop={10}
+            icon="arrow-left"
             onPress={
               navigation.goBack
             }
-            style={styles.back}>
-            <MaterialDesignIcons
-              color={theme.colors.accent}
-              name="arrow-left"
-              size={26}
-            />
-          </Pressable>
+            style={styles.back}
+          />
 
           <Animated.View
             style={[
@@ -612,13 +609,7 @@ export default function PrivateAccessScreen({
               style={
                 styles.lockBadgeRow
               }>
-              <View style={styles.leaf}>
-                <MaterialDesignIcons
-                  color={withAlpha(theme.colors.primary, 0.5)}
-                  name="sprout-outline"
-                  size={18}
-                />
-              </View>
+              
 
               <View
                 style={
@@ -631,52 +622,43 @@ export default function PrivateAccessScreen({
                 />
               </View>
 
-              <View
-                style={[
-                  styles.leaf,
-                  styles.leafRight,
-                ]}>
-                <MaterialDesignIcons
-                  color={withAlpha(theme.colors.primary, 0.5)}
-                  name="sprout-outline"
-                  size={18}
-                />
-              </View>
+              
             </View>
 
-            <Text
-              style={[
-                styles.title,
-                compact &&
-                  styles.titleCompact,
-              ]}>
+            <AwaText
+              accessibilityRole="header"
+              style={styles.title}
+              variant={compact ? 'headlineSmall' : 'headlineMedium'}>
               {t('privateAccess.title')}
-            </Text>
-
-            <Text
+            </AwaText>
+            <AwaText
+              colorRole="onSurfaceVariant"
               style={
                 styles.subtitle
-              }>
+              }
+              variant="bodyMedium">
               {t('privateAccess.subtitle')}
-            </Text>
-
-            <Text
+            </AwaText>
+            <AwaText
+              emphasized
               style={
                 styles.purposeLine
-              }>
+              }
+              variant="bodyMedium">
               {
                 PURPOSE_COPY[
                   purpose
                 ]
               }
-            </Text>
-
-            <Text
+            </AwaText>
+            <AwaText
+              colorRole="onSurfaceVariant"
               style={
                 styles.instruction
-              }>
+              }
+              variant="bodySmall">
               {instruction}
-            </Text>
+            </AwaText>
           </Animated.View>
 
           <Animated.View
@@ -711,11 +693,13 @@ export default function PrivateAccessScreen({
             )}
           </Animated.View>
 
-          <Text
+          <AwaText
             accessibilityLiveRegion="polite"
-            style={styles.error}>
+            colorRole="error"
+            style={styles.error}
+            variant="bodySmall">
             {error || ' '}
-          </Text>
+          </AwaText>
 
           <View
             style={[
@@ -810,42 +794,36 @@ export default function PrivateAccessScreen({
             })}
           </View>
 
-          <View
+          <AwaCard
+            padding="compact"
             style={[
               styles.privacyCard,
               compact &&
                 styles.privacyCardCompact,
-            ]}>
-            <View
-              style={
-                styles.privacyIcon
-              }>
-              <MaterialDesignIcons
-                color={theme.colors.primary}
-                name="shield-check-outline"
-                size={22}
-              />
-            </View>
-
+            ]}
+            variant="filled">
+            <MaterialDesignIcons
+              color={theme.colors.primary}
+              name="shield-check-outline"
+              size={22}
+            />
             <View
               style={
                 styles.privacyCopy
               }>
-              <Text
-                style={
-                  styles.privacyTitle
-                }>
+              <AwaText variant="titleSmall">
                 {t('privateAccess.privacyCardTitle')}
-              </Text>
-
-              <Text
+              </AwaText>
+              <AwaText
+                colorRole="onSurfaceVariant"
                 style={
                   styles.privacyText
-                }>
+                }
+                variant="bodySmall">
                 {t('privateAccess.privacyCardText')}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
         </ScrollView>
       </SafeAreaView>
     </View>
@@ -876,15 +854,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   back: {
     alignSelf: 'flex-start',
-    width: 48,
-    height: 48,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 16,
-    backgroundColor:
-      withAlpha(theme.colors.surface, 0.86),
   },
 
   hero: {
@@ -912,55 +881,26 @@ function createStyles(theme: ResolvedAwaTheme) {
     elevation: 4,
   },
 
-  leaf: {
-    transform: [
-      {
-        rotate: '-18deg',
-      },
-    ],
-  },
 
-  leafRight: {
-    transform: [
-      {
-        rotate: '18deg',
-      },
-      {
-        scaleX: -1,
-      },
-    ],
-  },
 
   title: {
     marginTop: 16,
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 28,
-    fontWeight: '800',
+    textAlign: 'center',
   },
 
-  titleCompact: {
-    fontSize: 24,
-  },
 
   subtitle: {
     marginTop: 6,
-    color: theme.colors.textSecondary,
-    fontSize: 14,
-    fontWeight: '600',
+    textAlign: 'center',
   },
 
   purposeLine: {
     marginTop: 10,
-    color: theme.colors.textSecondary,
-    fontSize: 12.5,
     textAlign: 'center',
   },
 
   instruction: {
     marginTop: 4,
-    color: theme.colors.text,
-    fontSize: 13.5,
     textAlign: 'center',
   },
 
@@ -990,10 +930,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   error: {
-    height: 28,
+    minHeight: 28,
     marginTop: 8,
-    color: theme.colors.danger,
-    fontSize: 11.5,
     textAlign: 'center',
   },
 
@@ -1037,7 +975,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   letters: {
     color: theme.colors.textSecondary,
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: '700',
     letterSpacing: 1,
   },
@@ -1047,14 +985,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     minHeight: 66,
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 12,
     marginTop: 22,
-    borderRadius: 18,
-    backgroundColor:
-      withAlpha(theme.colors.surface, 0.78),
-    borderWidth: 1,
-    borderColor:
-      withAlpha(theme.colors.primary, 0.14),
-    paddingHorizontal: 14,
   },
 
   privacyCardCompact: {
@@ -1062,31 +994,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     minHeight: 56,
   },
 
-  privacyIcon: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-    backgroundColor: theme.colors.primarySoft,
-  },
 
   privacyCopy: {
     flex: 1,
-    marginLeft: 12,
   },
 
-  privacyTitle: {
-    color: theme.colors.accent,
-    fontSize: 13,
-    fontWeight: '700',
-  },
 
   privacyText: {
     marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    lineHeight: 15,
   },
   });
 }

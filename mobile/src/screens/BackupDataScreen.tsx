@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {ActivityIndicator, Modal, Pressable, ScrollView, Share, StatusBar, StyleSheet, Switch, Text, useWindowDimensions, View} from 'react-native';
+import {Modal, Pressable, ScrollView, Share, StatusBar, StyleSheet, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import Animated, {FadeIn, FadeInUp} from 'react-native-reanimated';
@@ -14,6 +14,11 @@ import {dateFormatLocale} from '../utils/cycleMath';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaSwitch} from '../components/ui/AwaSwitch';
+import {AwaText} from '../components/ui/AwaText';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'BackupData'>;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
@@ -31,10 +36,10 @@ function DataRow({
       </View>
       <View style={styles.rowCopy}>
         <View style={styles.rowTitleLine}>
-          <Text style={[styles.rowTitle, danger && styles.dangerText]}>{title}</Text>
-          {badge ? <View style={styles.badge}><Text style={styles.badgeText}>{badge}</Text></View> : null}
+          <AwaText colorRole={danger ? 'error' : 'onSurface'} emphasized style={styles.rowTitle} variant="titleSmall">{title}</AwaText>
+          {badge ? <View style={styles.badge}><AwaText colorRole="primary" emphasized variant="labelSmall">{badge}</AwaText></View> : null}
         </View>
-        <Text style={styles.rowSubtitle}>{subtitle}</Text>
+        <AwaText colorRole="onSurfaceVariant" style={styles.rowSubtitle} variant="bodySmall">{subtitle}</AwaText>
       </View>
       <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={22} />
     </Pressable>
@@ -126,73 +131,69 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
         ]}
         showsVerticalScrollIndicator={false}>
         <Animated.View entering={FadeIn.duration(300)} style={styles.header}>
-          <Pressable accessibilityLabel={t('common.back')} onPress={navigation.goBack} style={({pressed}) => [styles.back, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
-          </Pressable>
+          <AwaIconButton accessibilityLabel={t('common.back')} icon="chevron-left" onPress={navigation.goBack} />
           <View style={styles.headerCopy}>
-            <Text style={styles.title}>{t('backupData.title')}</Text>
-            <Text style={styles.subtitle}>
+            <AwaText variant="headlineSmall">{t('backupData.title')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodySmall">
               {activeIdentity.isManagedProfile
                 ? t('backupData.subtitleDaughter', {firstName: daughterFirstName})
                 : t('backupData.subtitleOwner')}
-            </Text>
-          </View>
-          <View style={styles.decor}>
-            <MaterialDesignIcons color={theme.colors.primary} name="cloud-upload-outline" size={41} />
-            <MaterialDesignIcons color={theme.colors.secondary} name="leaf" size={32} />
+            </AwaText>
           </View>
         </Animated.View>
 
-        <Animated.View entering={FadeInUp.delay(70).duration(420)} style={styles.intro}>
-          <View style={styles.introIcon}>
-            <MaterialDesignIcons color={theme.colors.primary} name="cloud-lock-outline" size={30} />
-          </View>
-          <View style={styles.introCopy}>
-            <Text style={styles.introTitle}>{t('backupData.introTitle')}</Text>
-            <Text style={styles.introText}>{t('backupData.introText')}</Text>
-          </View>
-        </Animated.View>
-
-        <Text style={styles.sectionTitle}>{t('backupData.sectionSecureBackup')}</Text>
-        <Animated.View entering={FadeInUp.delay(130).duration(420)} style={styles.backupCard}>
-          <Pressable onPress={() => setSettingsOpen(true)} style={({pressed}) => [styles.backupTop, pressed && styles.pressed]}>
-            <View style={styles.cloudIcon}>
-              <MaterialDesignIcons color={theme.colors.primary} name="cloud-upload-outline" size={35} />
+        <Animated.View entering={FadeInUp.delay(70).duration(420)}>
+          <AwaCard style={styles.intro} variant="filled">
+            <MaterialDesignIcons color={theme.colors.primary} name="cloud-lock-outline" size={28} />
+            <View style={styles.introCopy}>
+              <AwaText variant="titleSmall">{t('backupData.introTitle')}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={styles.introText} variant="bodySmall">{t('backupData.introText')}</AwaText>
             </View>
+          </AwaCard>
+        </Animated.View>
+
+        <AwaText style={styles.sectionTitle} variant="titleMedium">{t('backupData.sectionSecureBackup')}</AwaText>
+        <Animated.View entering={FadeInUp.delay(130).duration(420)}>
+          <AwaCard style={styles.backupCard}>
+          <Pressable onPress={() => setSettingsOpen(true)} style={({pressed}) => [styles.backupTop, pressed && styles.pressed]}>
             <View style={styles.backupCopy}>
               <View style={styles.statusLine}>
-                <Text style={styles.backupTitle}>{settings.enabled ? t('backupData.statusEnabled') : t('backupData.statusDisabled')}</Text>
-                <View style={styles.localBadge}><Text style={styles.localText}>{t('backupData.localCopyBadge')}</Text></View>
+                <AwaText emphasized variant="titleSmall">{settings.enabled ? t('backupData.statusEnabled') : t('backupData.statusDisabled')}</AwaText>
+                <View style={styles.localBadge}><AwaText colorRole="success" emphasized variant="labelSmall">{t('backupData.localCopyBadge')}</AwaText></View>
               </View>
-              <Text style={styles.metaLabel}>{t('backupData.lastBackupLabel')}</Text>
-              <Text style={styles.metaValue}>{backupDate}</Text>
-              <Text style={styles.metaLabel}>{t('backupData.dataSizeLabel')}</Text>
-              <Text style={styles.metaValue}>{snapshot ? formatBytes(snapshot.sizeBytes) : '—'}</Text>
+              <AwaText colorRole="onSurfaceVariant" style={styles.metaLabel} variant="bodySmall">{t('backupData.lastBackupLabel')}</AwaText>
+              <AwaText emphasized style={styles.metaValue} variant="bodyMedium">{backupDate}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={styles.metaLabel} variant="bodySmall">{t('backupData.dataSizeLabel')}</AwaText>
+              <AwaText emphasized style={styles.metaValue} variant="bodyMedium">{snapshot ? formatBytes(snapshot.sizeBytes) : '—'}</AwaText>
             </View>
             <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={22} />
           </Pressable>
           <View style={styles.separator} />
           <View style={styles.backupAction}>
-            <MaterialDesignIcons color={theme.colors.primary} name="sync" size={23} />
             <View style={styles.actionCopy}>
-              <Text style={styles.actionTitle}>
+              <AwaText emphasized variant="titleSmall">
                 {activeIdentity.isManagedProfile
                   ? t('backupData.backupNowTitleDaughter', {firstName: daughterFirstName})
                   : t('backupData.backupNowTitleOwner')}
-              </Text>
-              <Text style={styles.actionText}>
+              </AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={styles.actionText} variant="bodySmall">
                 {activeIdentity.isManagedProfile
                   ? t('backupData.backupNowTextDaughter', {firstName: daughterFirstName})
                   : t('backupData.backupNowTextOwner')}
-              </Text>
+              </AwaText>
             </View>
-            <Pressable disabled={backingUp} onPress={runBackup} style={[styles.saveButton, backingUp && styles.disabled]}>
-              {backingUp ? <ActivityIndicator color={onPrimaryTextColor(theme)} size="small" /> : <Text style={styles.saveText}>{t('backupData.backupButton')}</Text>}
-            </Pressable>
+            <AwaButton
+              disabled={backingUp}
+              label={t('backupData.backupButton')}
+              loading={backingUp}
+              onPress={runBackup}
+              size="compact"
+            />
           </View>
+          </AwaCard>
         </Animated.View>
 
-        <Text style={styles.sectionTitle}>{t('backupData.sectionRestore')}</Text>
+        <AwaText style={styles.sectionTitle} variant="titleMedium">{t('backupData.sectionRestore')}</AwaText>
         <DataRow
           icon="backup-restore" onPress={() => navigation.navigate('RestoreBackup')} styles={styles} theme={theme}
           subtitle={
@@ -211,11 +212,11 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
           title={t('portableBackup.entryTitle')}
         />
 
-        <Text style={styles.sectionTitle}>
+        <AwaText style={styles.sectionTitle} variant="titleMedium">
           {activeIdentity.isManagedProfile
             ? t('backupData.sectionManageDaughter', {firstName: daughterFirstName})
             : t('backupData.sectionManageOwner')}
-        </Text>
+        </AwaText>
         <Animated.View entering={FadeInUp.delay(220).duration(420)} style={styles.card}>
           <DataRow
             icon="download-outline" onPress={download} styles={styles} theme={theme}
@@ -248,13 +249,13 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
 
         <View style={styles.info}>
           <MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={21} />
-          <Text style={styles.infoText}>{t('backupData.infoText')}</Text>
+          <AwaText colorRole="onSurfaceVariant" style={styles.infoText} variant="bodySmall">{t('backupData.infoText')}</AwaText>
         </View>
 
         {/* Private photo FILES are not part of any backup (only their paths are) — said here as well as in the portable backup. */}
         <View style={styles.info}>
           <MaterialDesignIcons color={theme.colors.primary} name="image-off-outline" size={21} />
-          <Text style={styles.infoText}>{t('portableBackup.photosNote')}</Text>
+          <AwaText colorRole="onSurfaceVariant" style={styles.infoText} variant="bodySmall">{t('portableBackup.photosNote')}</AwaText>
         </View>
       </ScrollView>
 
@@ -263,34 +264,32 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
           <Pressable onPress={() => setSettingsOpen(false)} style={styles.backdrop} />
           <View style={[styles.sheet, {paddingBottom: Math.max(insets.bottom, 18)}]}>
             <View style={styles.handle} />
-            <Text style={styles.sheetTitle}>{t('backupData.modal.title')}</Text>
+            <AwaText style={styles.sheetTitle} variant="titleLarge">{t('backupData.modal.title')}</AwaText>
             <View style={styles.settingRow}>
               <View style={styles.settingCopy}>
-                <Text style={styles.settingTitle}>{t('backupData.modal.enabledTitle')}</Text>
-                <Text style={styles.settingText}>{t('backupData.modal.enabledText')}</Text>
+                <AwaText emphasized variant="titleSmall">{t('backupData.modal.enabledTitle')}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" style={styles.settingText} variant="bodySmall">{t('backupData.modal.enabledText')}</AwaText>
               </View>
-              <Switch onValueChange={value => updateSettings({enabled: value})} trackColor={{false: theme.colors.surfaceSecondary, true: theme.colors.primary}} value={settings.enabled} />
+              <AwaSwitch accessibilityLabel={t('backupData.modal.enabledTitle')} onValueChange={value => updateSettings({enabled: value})} value={settings.enabled} />
             </View>
             <View style={styles.settingRow}>
               <View style={styles.settingCopy}>
-                <Text style={styles.settingTitle}>{t('backupData.modal.wifiTitle')}</Text>
-                <Text style={styles.settingText}>{t('backupData.modal.wifiText')}</Text>
+                <AwaText emphasized variant="titleSmall">{t('backupData.modal.wifiTitle')}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" style={styles.settingText} variant="bodySmall">{t('backupData.modal.wifiText')}</AwaText>
               </View>
-              <Switch onValueChange={value => updateSettings({wifiOnly: value})} trackColor={{false: theme.colors.surfaceSecondary, true: theme.colors.primary}} value={settings.wifiOnly} />
+              <AwaSwitch accessibilityLabel={t('backupData.modal.wifiTitle')} onValueChange={value => updateSettings({wifiOnly: value})} value={settings.wifiOnly} />
             </View>
-            <Text style={styles.settingTitle}>{t('backupData.modal.frequencyTitle')}</Text>
+            <AwaText emphasized style={styles.frequencyTitle} variant="titleSmall">{t('backupData.modal.frequencyTitle')}</AwaText>
             <View style={styles.frequency}>
               {(['daily', 'weekly', 'manual'] as const).map(value => (
-                <Pressable key={value} onPress={() => updateSettings({frequency: value})} style={[styles.frequencyOption, settings.frequency === value && styles.frequencySelected]}>
-                  <Text style={[styles.frequencyText, settings.frequency === value && styles.frequencyTextSelected]}>
+                <Pressable accessibilityRole="button" accessibilityState={{selected: settings.frequency === value}} key={value} onPress={() => updateSettings({frequency: value})} style={[styles.frequencyOption, settings.frequency === value && styles.frequencySelected]}>
+                  <AwaText colorRole={settings.frequency === value ? 'primary' : 'onSurfaceVariant'} emphasized={settings.frequency === value} variant="labelLarge">
                     {t(`backupData.modal.frequency.${value}`)}
-                  </Text>
+                  </AwaText>
                 </Pressable>
               ))}
             </View>
-            <Pressable onPress={() => setSettingsOpen(false)} style={styles.done}>
-              <Text style={styles.doneText}>{t('backupData.modal.done')}</Text>
-            </Pressable>
+            <AwaButton fullWidth label={t('backupData.modal.done')} onPress={() => setSettingsOpen(false)} size="large" style={styles.done} />
           </View>
         </View>
       </Modal>
@@ -298,7 +297,7 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
       {toast ? (
         <Animated.View entering={FadeInUp.springify()} style={[styles.toast, {bottom: Math.max(insets.bottom, 18) + 12}]}>
           <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={16} />
-          <Text style={styles.toastText}>{toast}</Text>
+          <AwaText color={onPrimaryTextColor(theme)} emphasized variant="labelLarge">{toast}</AwaText>
         </Animated.View>
       ) : null}
     </SafeAreaView>
@@ -311,76 +310,58 @@ function createStyles(theme: ResolvedAwaTheme) {
     content: {flexGrow: 1, gap: 12, paddingHorizontal: 16},
     contentCompact: {paddingHorizontal: 11},
     header: {flexDirection: 'row', alignItems: 'center'},
-    back: {alignItems: 'center', justifyContent: 'center', borderRadius: 999, backgroundColor: theme.colors.surface, padding: 9, elevation: 2},
     headerCopy: {flex: 1, minWidth: 0, paddingHorizontal: 10},
-    title: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 23, fontWeight: '700'},
-    subtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11.5},
-    decor: {flexDirection: 'row', alignItems: 'center'},
-    intro: {flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 24, backgroundColor: theme.colors.surface, padding: 14},
-    introIcon: {alignItems: 'center', justifyContent: 'center', borderRadius: 999, backgroundColor: theme.colors.primarySoft, padding: 13},
+    subtitle: {marginTop: 4},
+    intro: {flexDirection: 'row', alignItems: 'center'},
     introCopy: {flex: 1, marginLeft: 12},
-    introTitle: {color: theme.colors.text, fontSize: 13.5, fontWeight: '700'},
-    introText: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 16},
-    sectionTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 15.5, fontWeight: '700'},
-    backupCard: {borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 24, backgroundColor: theme.colors.surface, padding: 13},
+    introText: {marginTop: 4},
+    sectionTitle: {marginTop: 4},
+    backupCard: {},
     backupTop: {flexDirection: 'row', alignItems: 'center'},
-    cloudIcon: {alignItems: 'center', justifyContent: 'center', borderRadius: 999, backgroundColor: theme.colors.primarySoft, padding: 13},
-    backupCopy: {flex: 1, minWidth: 0, marginHorizontal: 12},
-    statusLine: {flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 6},
-    backupTitle: {color: theme.colors.text, fontSize: 13, fontWeight: '700'},
+    backupCopy: {flex: 1, minWidth: 0, marginRight: 12},
+    statusLine: {flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8},
     // Generic "on/enabled" status — theme.colors.success.
-    localBadge: {borderRadius: 10, backgroundColor: withAlpha(theme.colors.success, 0.16), paddingHorizontal: 7, paddingVertical: 3},
-    localText: {color: theme.colors.success, fontSize: 8.5, fontWeight: '700'},
-    metaLabel: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 9},
-    metaValue: {marginTop: 1, color: theme.colors.text, fontSize: 10.5, fontWeight: '700'},
+    localBadge: {borderRadius: 12, backgroundColor: withAlpha(theme.colors.success, 0.16), paddingHorizontal: 8, paddingVertical: 4},
+    metaLabel: {marginTop: 8},
+    metaValue: {marginTop: 2},
     separator: {height: StyleSheet.hairlineWidth, backgroundColor: withAlpha(theme.colors.primary, 0.10), marginVertical: 12},
     backupAction: {flexDirection: 'row', alignItems: 'center'},
-    actionCopy: {flex: 1, minWidth: 0, marginHorizontal: 9},
-    actionTitle: {color: theme.colors.text, fontSize: 11.5, fontWeight: '700'},
-    actionText: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 9.5},
-    saveButton: {borderRadius: 15, backgroundColor: theme.colors.primary, paddingHorizontal: 12, paddingVertical: 9},
-    saveText: {color: onPrimaryTextColor(theme), fontSize: 9.5, fontWeight: '700'},
-    disabled: {opacity: 0.55},
-    card: {overflow: 'hidden', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 24, backgroundColor: theme.colors.surface, paddingHorizontal: 11},
+    actionCopy: {flex: 1, minWidth: 0, marginRight: 12},
+    actionText: {marginTop: 4},
+    card: {overflow: 'hidden', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 12, backgroundColor: theme.colors.surface, paddingHorizontal: 12},
     row: {
       minHeight: 65, flexDirection: 'row', alignItems: 'center', borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 22,
-      backgroundColor: theme.colors.surface, paddingHorizontal: 11, paddingVertical: 9,
+      borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 12,
+      backgroundColor: theme.colors.surface, paddingHorizontal: 16, paddingVertical: 12,
     },
     rowBorder: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: withAlpha(theme.colors.primary, 0.08)},
-    rowIcon: {alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primarySoft, padding: 9},
+    rowIcon: {alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: theme.colors.primarySoft, padding: 9},
     dangerIcon: {backgroundColor: withAlpha(theme.colors.danger, 0.15)},
     rowCopy: {flex: 1, minWidth: 0, marginHorizontal: 10},
     rowTitleLine: {flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 6},
-    rowTitle: {color: theme.colors.text, fontSize: 11.5, fontWeight: '700'},
-    dangerText: {color: theme.colors.danger},
-    badge: {borderRadius: 9, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 6, paddingVertical: 2},
-    badgeText: {color: theme.colors.primary, fontSize: 8, fontWeight: '700'},
-    rowSubtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 9.5, lineHeight: 14},
-    info: {flexDirection: 'row', alignItems: 'center', gap: 10, borderRadius: 18, backgroundColor: theme.colors.primarySoft, padding: 13},
-    infoText: {flex: 1, color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 15},
+    rowTitle: {flexShrink: 1},
+    badge: {borderRadius: 12, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 8, paddingVertical: 2},
+    rowSubtitle: {marginTop: 3},
+    info: {flexDirection: 'row', alignItems: 'center', gap: 12, borderRadius: 16, backgroundColor: theme.colors.primarySoft, padding: 16},
+    infoText: {flex: 1},
     pressed: {opacity: 0.78, transform: [{scale: 0.985}]},
     modalRoot: {flex: 1, justifyContent: 'flex-end'},
     // Fixed modal scrim — never themed, same precedent as every migrated screen.
     backdrop: {...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(35,21,72,.38)'},
-    sheet: {borderTopLeftRadius: 30, borderTopRightRadius: 30, backgroundColor: theme.colors.surface, paddingHorizontal: 18, paddingTop: 10},
+    sheet: {borderTopLeftRadius: 28, borderTopRightRadius: 28, backgroundColor: theme.colors.surface, paddingHorizontal: 18, paddingTop: 10},
     handle: {alignSelf: 'center', width: '14%', aspectRatio: 8, borderRadius: 999, backgroundColor: withAlpha(theme.colors.primary, 0.25)},
-    sheetTitle: {marginTop: 16, marginBottom: 12, color: theme.colors.accent, fontFamily: 'serif', fontSize: 21, fontWeight: '700', textAlign: 'center'},
+    sheetTitle: {marginTop: 16, marginBottom: 12, textAlign: 'center'},
     settingRow: {flexDirection: 'row', alignItems: 'center', borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: withAlpha(theme.colors.primary, 0.10), paddingVertical: 12},
     settingCopy: {flex: 1},
-    settingTitle: {color: theme.colors.text, fontSize: 12.5, fontWeight: '700'},
-    settingText: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 10.5},
-    frequency: {flexDirection: 'row', gap: 7, marginTop: 9},
-    frequencyOption: {flex: 1, alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 14, padding: 10},
+    settingText: {marginTop: 4},
+    frequencyTitle: {marginTop: 12},
+    frequency: {flexDirection: 'row', gap: 8, marginTop: 8},
+    frequencyOption: {flex: 1, minHeight: 48, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 12, padding: 12},
     frequencySelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
-    frequencyText: {color: theme.colors.textSecondary, fontSize: 10},
-    frequencyTextSelected: {color: theme.colors.primary, fontWeight: '700'},
-    done: {alignItems: 'center', marginTop: 16, borderRadius: 17, backgroundColor: theme.colors.primary, padding: 14},
-    doneText: {color: onPrimaryTextColor(theme), fontSize: 14, fontWeight: '700'},
+    done: {marginTop: 16},
     toast: {
       position: 'absolute', left: '10%', right: '10%', flexDirection: 'row', alignItems: 'center',
-      justifyContent: 'center', gap: 8, borderRadius: 18, backgroundColor: theme.colors.primary, padding: 13, elevation: 8,
+      justifyContent: 'center', gap: 8, borderRadius: 12, backgroundColor: theme.colors.primary, padding: 16, elevation: 6,
     },
-    toastText: {color: onPrimaryTextColor(theme), fontSize: 11.5, fontWeight: '700'},
   });
 }

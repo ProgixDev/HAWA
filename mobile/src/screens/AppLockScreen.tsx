@@ -7,10 +7,8 @@ import React, {
 } from 'react';
 import {
   BackHandler,
-  Pressable,
   StatusBar,
   StyleSheet,
-  Text,
   useWindowDimensions,
   View,
 } from 'react-native';
@@ -39,7 +37,9 @@ import {
 import {unlockApp} from '../state/appLockStore';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaText} from '../components/ui/AwaText';
 
 export default function AppLockScreen(): React.JSX.Element {
   const {t} = useTranslation();
@@ -260,29 +260,6 @@ export default function AppLockScreen(): React.JSX.Element {
       style={styles.page}>
       {/* SAME AWA BACKGROUND */}
 
-      <View
-        pointerEvents="none"
-        style={
-          styles.pageBackgroundDecor
-        }>
-        <View
-          style={
-            styles.pageGlowTop
-          }
-        />
-
-        <View
-          style={
-            styles.pageGlowMiddle
-          }
-        />
-
-        <View
-          style={
-            styles.pageGlowBottom
-          }
-        />
-      </View>
 
       <SafeAreaView
         edges={[
@@ -350,48 +327,27 @@ export default function AppLockScreen(): React.JSX.Element {
                 }
               />
 
-              <View
-                style={[
-                  styles.heroBadge,
-
-                  veryCompact &&
-                    styles.heroBadgeVeryCompact,
-                ]}>
-                <MaterialDesignIcons
-                  color={onPrimaryTextColor(theme)}
-                  name="lock"
-                  size={
-                    veryCompact
-                      ? 9
-                      : 11
-                  }
-                />
-              </View>
+              
             </View>
 
-            <Text
-              style={[
-                styles.title,
-
-                compact &&
-                  styles.titleCompact,
-
-                veryCompact &&
-                  styles.titleVeryCompact,
-              ]}>
+            <AwaText
+              accessibilityRole="header"
+              style={styles.title}
+              variant={veryCompact ? 'titleLarge' : compact ? 'headlineSmall' : 'headlineMedium'}>
               {t('appLock.title')}
-            </Text>
+            </AwaText>
 
             {!veryCompact ? (
-              <Text
+              <AwaText
+                colorRole="onSurfaceVariant"
                 style={[
                   styles.subtitle,
-
                   compact &&
                     styles.subtitleCompact,
-                ]}>
+                ]}
+                variant="bodySmall">
                 {t('appLock.subtitle')}
-              </Text>
+              </AwaText>
             ) : null}
           </View>
 
@@ -413,12 +369,14 @@ export default function AppLockScreen(): React.JSX.Element {
                 size={17}
               />
 
-              <Text
+              <AwaText
+                colorRole="error"
                 style={
                   styles.errorText
-                }>
+                }
+                variant="bodySmall">
                 {error}
-              </Text>
+              </AwaText>
             </View>
           ) : null}
 
@@ -440,45 +398,25 @@ export default function AppLockScreen(): React.JSX.Element {
                     compact &&
                       styles.pinHeaderCompact,
                   ]}>
-                  <View
-                    style={
-                      styles.pinIcon
-                    }>
-                    <MaterialDesignIcons
-                      color={
-                        theme.colors.primary
-                      }
-                      name="dialpad"
-                      size={18}
-                    />
-                  </View>
+                  
 
                   <View
                     style={
                       styles.pinHeaderCopy
                     }>
-                    <Text
-                      style={
-                        styles.pinTitle
-                      }>
+                    <AwaText variant="titleSmall">
                       {t('appLock.enterPinTitle')}
-                    </Text>
+                    </AwaText>
 
-                    <Text
-                      style={
-                        styles.pinSubtitle
-                      }>
+                    <AwaText
+                      colorRole="onSurfaceVariant"
+                      style={styles.pinSubtitle}
+                      variant="bodySmall">
                       {t('appLock.enterPinSubtitle', {length: PIN_LENGTH})}
-                    </Text>
+                    </AwaText>
                   </View>
 
-                  <MaterialDesignIcons
-                    color={
-                      theme.colors.success
-                    }
-                    name="shield-check-outline"
-                    size={19}
-                  />
+                  
                 </View>
 
                 <View
@@ -525,19 +463,22 @@ export default function AppLockScreen(): React.JSX.Element {
                   />
                 </View>
 
-                <Text
+                <AwaText
                   style={
                     styles.biometricTitle
-                  }>
+                  }
+                  variant="titleLarge">
                   {t('appLock.biometricAreaTitle')}
-                </Text>
+                </AwaText>
 
-                <Text
+                <AwaText
+                  colorRole="onSurfaceVariant"
                   style={
                     styles.biometricText
-                  }>
+                  }
+                  variant="bodySmall">
                   {t('appLock.biometricAreaText')}
-                </Text>
+                </AwaText>
               </View>
             )}
           </View>
@@ -552,129 +493,58 @@ export default function AppLockScreen(): React.JSX.Element {
             }>
             {biometricEnabled &&
             capability ? (
-              <Pressable
-                accessibilityRole="button"
+              <AwaButton
                 disabled={
                   biometricBusy
+                }
+                fullWidth
+                icon={biometricIcon}
+                label={
+                  biometricBusy
+                    ? t('appLock.verifying')
+                    : capability.actionLabel
                 }
                 onPress={
                   runBiometric
                 }
-                style={({
-                  pressed,
-                }) => [
-                  styles.biometricButton,
-
-                  compact &&
-                    styles.biometricButtonCompact,
-
-                  biometricBusy &&
-                    styles.buttonDisabled,
-
-                  pressed &&
-                    !biometricBusy &&
-                    styles.buttonPressed,
-                ]}>
-                <MaterialDesignIcons
-                  color={onPrimaryTextColor(theme)}
-                  name={
-                    biometricIcon
-                  }
-                  size={21}
-                />
-
-                <Text
-                  style={
-                    styles.biometricButtonText
-                  }>
-                  {biometricBusy
-                    ? t('appLock.verifying')
-                    : capability.actionLabel}
-                </Text>
-
-                <MaterialDesignIcons
-                  color={withAlpha(onPrimaryTextColor(theme), 0.85)}
-                  name="arrow-right"
-                  size={18}
-                />
-              </Pressable>
+              />
             ) : null}
 
             {pinEnabled &&
             biometricEnabled &&
             !showPin ? (
-              <Pressable
-                accessibilityRole="button"
+              <AwaButton
+                fullWidth
+                icon="dialpad"
+                label={t('appLock.usePin')}
                 onPress={() => {
                   setShowPin(
                     true,
                   );
-
                   setError('');
                 }}
-                style={({
-                  pressed,
-                }) => [
-                  styles.secondaryButton,
-
-                  pressed &&
-                    styles.secondaryPressed,
-                ]}>
-                <MaterialDesignIcons
-                  color={
-                    theme.colors.primary
-                  }
-                  name="dialpad"
-                  size={18}
-                />
-
-                <Text
-                  style={
-                    styles.secondaryButtonText
-                  }>
-                  {t('appLock.usePin')}
-                </Text>
-              </Pressable>
+                size={compact ? 'compact' : 'default'}
+                variant="tonal"
+              />
             ) : null}
 
             {showPin &&
             biometricEnabled &&
             capability ? (
-              <Pressable
-                accessibilityRole="button"
+              <AwaButton
+                fullWidth
+                icon={biometricIcon}
+                label={t('appLock.useBiometrics')}
                 onPress={() => {
                   setShowPin(
                     false,
                   );
-
                   setPin('');
                   setError('');
                 }}
-                style={({
-                  pressed,
-                }) => [
-                  styles.secondaryButton,
-
-                  pressed &&
-                    styles.secondaryPressed,
-                ]}>
-                <MaterialDesignIcons
-                  color={
-                    theme.colors.primary
-                  }
-                  name={
-                    biometricIcon
-                  }
-                  size={18}
-                />
-
-                <Text
-                  style={
-                    styles.secondaryButtonText
-                  }>
-                  {t('appLock.useBiometrics')}
-                </Text>
-              </Pressable>
+                size={compact ? 'compact' : 'default'}
+                variant="tonal"
+              />
             ) : null}
           </View>
         </View>
@@ -697,56 +567,9 @@ function createStyles(theme: ResolvedAwaTheme) {
         theme.colors.background,
     },
 
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
 
-      overflow: 'hidden',
-    },
 
-    pageGlowTop: {
-      position: 'absolute',
 
-      top: -150,
-      right: -110,
-
-      width: 330,
-      height: 330,
-
-      borderRadius: 165,
-
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.07),
-    },
-
-    pageGlowMiddle: {
-      position: 'absolute',
-
-      top: '38%',
-      left: -130,
-
-      width: 260,
-      height: 260,
-
-      borderRadius: 130,
-
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.045),
-    },
-
-    pageGlowBottom: {
-      position: 'absolute',
-
-      bottom: -150,
-      right: -100,
-
-      width: 310,
-      height: 310,
-
-      borderRadius: 155,
-
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.05),
-    },
 
     safe: {
       flex: 1,
@@ -840,83 +663,23 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderRadius: 29,
     },
 
-    heroBadge: {
-      position: 'absolute',
 
-      right: -2,
-      bottom: 2,
-
-      width: 25,
-      height: 25,
-
-      alignItems: 'center',
-      justifyContent: 'center',
-
-      borderWidth: 3,
-
-      borderColor:
-        theme.colors.background,
-
-      borderRadius: 13,
-
-      backgroundColor:
-        theme.colors.primary,
-    },
-
-    heroBadgeVeryCompact: {
-      width: 21,
-      height: 21,
-
-      borderRadius: 11,
-    },
 
     title: {
       marginTop: 11,
-
-      color:
-        theme.colors.text,
-
-      fontFamily: 'serif',
-
-      fontSize: 25,
-      lineHeight: 31,
-
-      fontWeight: '700',
-
       textAlign: 'center',
     },
 
-    titleCompact: {
-      marginTop: 8,
 
-      fontSize: 22,
-      lineHeight: 27,
-    },
-
-    titleVeryCompact: {
-      fontSize: 20,
-      lineHeight: 24,
-    },
 
     subtitle: {
       maxWidth: 320,
-
       marginTop: 5,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 11.5,
-      lineHeight: 16,
-
       textAlign: 'center',
     },
 
     subtitleCompact: {
       maxWidth: 285,
-
-      fontSize: 10.5,
-      lineHeight: 14,
     },
 
     /* ========================================================
@@ -933,15 +696,15 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       marginBottom: 6,
 
-      paddingHorizontal: 11,
-      paddingVertical: 8,
+      paddingHorizontal: 12,
+      paddingVertical: 10,
 
       borderWidth: 1,
 
       borderColor:
         withAlpha(theme.colors.danger, 0.13),
 
-      borderRadius: 14,
+      borderRadius: 12,
 
       backgroundColor:
         withAlpha(theme.colors.danger, 0.08),
@@ -949,12 +712,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     errorText: {
       flex: 1,
-
-      color:
-        theme.colors.danger,
-
-      fontSize: 10,
-      lineHeight: 14,
     },
 
     /* ========================================================
@@ -987,18 +744,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingVertical: 4,
     },
 
-    pinIcon: {
-      width: 34,
-      height: 34,
-
-      alignItems: 'center',
-      justifyContent: 'center',
-
-      borderRadius: 11,
-
-      backgroundColor:
-        theme.colors.primarySoft,
-    },
 
     pinHeaderCopy: {
       flex: 1,
@@ -1006,22 +751,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginHorizontal: 9,
     },
 
-    pinTitle: {
-      color:
-        theme.colors.text,
-
-      fontSize: 12,
-
-      fontWeight: '800',
-    },
 
     pinSubtitle: {
       marginTop: 1,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 9,
     },
 
     keypadArea: {
@@ -1067,30 +799,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     biometricTitle: {
       marginTop: 14,
-
-      color:
-        theme.colors.text,
-
-      fontFamily: 'serif',
-
-      fontSize: 18,
-
-      fontWeight: '700',
-
       textAlign: 'center',
     },
 
     biometricText: {
       maxWidth: 290,
-
       marginTop: 6,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 10.5,
-      lineHeight: 15,
-
       textAlign: 'center',
     },
 
@@ -1106,105 +820,12 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingTop: 6,
     },
 
-    biometricButton: {
-      width: '100%',
 
-      minHeight: 54,
 
-      flexDirection: 'row',
-      alignItems: 'center',
 
-      justifyContent:
-        'space-between',
 
-      paddingHorizontal: 18,
 
-      borderRadius: 18,
 
-      backgroundColor:
-        theme.colors.primary,
 
-      shadowColor:
-        theme.shadow.shadowColor,
-
-      shadowOffset: {
-        width: 0,
-        height: 5,
-      },
-
-      shadowOpacity: 0.18,
-      shadowRadius: 9,
-
-      elevation: 4,
-    },
-
-    biometricButtonCompact: {
-      minHeight: 49,
-
-      borderRadius: 16,
-    },
-
-    biometricButtonText: {
-      flex: 1,
-
-      marginHorizontal: 10,
-
-      color:
-        onPrimaryTextColor(theme),
-
-      fontSize: 14,
-
-      fontWeight: '800',
-
-      textAlign: 'center',
-    },
-
-    buttonPressed: {
-      opacity: 0.88,
-
-      transform: [
-        {
-          scale: 0.988,
-        },
-      ],
-    },
-
-    buttonDisabled: {
-      opacity: 0.62,
-    },
-
-    secondaryButton: {
-      minHeight: 43,
-
-      flexDirection: 'row',
-
-      alignItems: 'center',
-      justifyContent: 'center',
-
-      gap: 7,
-
-      borderWidth: 1,
-
-      borderColor:
-        theme.colors.border,
-
-      borderRadius: 15,
-
-      backgroundColor:
-        withAlpha(theme.colors.surface, 0.72),
-    },
-
-    secondaryButtonText: {
-      color:
-        theme.colors.primary,
-
-      fontSize: 11.5,
-
-      fontWeight: '700',
-    },
-
-    secondaryPressed: {
-      opacity: 0.7,
-    },
   });
 }

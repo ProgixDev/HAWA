@@ -1,11 +1,9 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {
   ActivityIndicator,
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -30,10 +28,13 @@ import {
 } from '../state/securityPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {
-  onPrimaryTextColor,
   withAlpha,
   type ResolvedAwaTheme,
 } from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -183,11 +184,6 @@ export default function FaceIdSetupScreen({
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.page}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <SafeAreaView style={styles.safe}>
         <StatusBar
@@ -203,20 +199,11 @@ export default function FaceIdSetupScreen({
             styles.topBar,
             {paddingTop: Math.max(insets.top, 16) + 4},
           ]}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
+            icon="arrow-left"
             onPress={navigation.goBack}
-            style={({pressed}) => [
-              styles.back,
-              pressed && styles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              name="arrow-left"
-              size={24}
-              color={theme.colors.primary}
-            />
-          </Pressable>
+          />
 
           <View style={styles.securityBadge}>
             <MaterialDesignIcons
@@ -225,9 +212,9 @@ export default function FaceIdSetupScreen({
               color={theme.colors.primary}
             />
 
-            <Text style={styles.securityBadgeText}>
+            <AwaText colorRole="onPrimaryContainer" emphasized variant="labelSmall">
               {t('faceIdSetup.securityBadge')}
-            </Text>
+            </AwaText>
           </View>
         </View>
 
@@ -245,56 +232,40 @@ export default function FaceIdSetupScreen({
           {/* HERO */}
 
           <View style={styles.hero}>
-            <View style={styles.glowOuter}>
-              <View style={styles.glowMiddle}>
-                <View style={styles.biometricCircle}>
-                  <MaterialDesignIcons
-                    name={biometricIcon}
-                    size={52}
-                    color={theme.colors.primary}
-                  />
-                </View>
-              </View>
-            </View>
-
-            <View style={styles.miniShield}>
-              <MaterialDesignIcons
-                name="lock-outline"
-                size={15}
-                color={onPrimaryTextColor(theme)}
-              />
-            </View>
+            <MaterialDesignIcons
+              name={biometricIcon}
+              size={56}
+              color={theme.colors.primary}
+            />
           </View>
 
           {/* TITLE */}
 
-          <Text style={styles.title}>{title}</Text>
+          <AwaText accessibilityRole="header" style={styles.title} variant="headlineMedium">{title}</AwaText>
 
-          <Text style={styles.subtitle}>
+          <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">
             {subtitle}
-          </Text>
+          </AwaText>
 
           {/* SECURITY CARD */}
 
-          <View style={styles.securityCard}>
-            <View style={styles.securityCardIcon}>
-              <MaterialDesignIcons
-                name="cellphone-lock"
-                size={24}
-                color={theme.colors.primary}
-              />
-            </View>
+          <AwaCard padding="default" style={styles.securityCard} variant="filled">
+            <MaterialDesignIcons
+              name="cellphone-lock"
+              size={24}
+              color={theme.colors.primary}
+            />
 
             <View style={styles.securityCardCopy}>
-              <Text style={styles.securityCardTitle}>
+              <AwaText variant="titleSmall">
                 {t('faceIdSetup.secureVerificationTitle')}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.securityCardText}>
+              <AwaText colorRole="onSurfaceVariant" style={styles.securityCardText} variant="bodySmall">
                 {t('faceIdSetup.secureVerificationText')}
-              </Text>
+              </AwaText>
             </View>
-          </View>
+          </AwaCard>
 
           {/* MESSAGE */}
 
@@ -329,15 +300,12 @@ export default function FaceIdSetupScreen({
                 />
               </View>
 
-              <Text
-                style={[
-                  styles.messageText,
-                  message.type === 'success'
-                    ? styles.successText
-                    : styles.errorText,
-                ]}>
+              <AwaText
+                colorRole={message.type === 'success' ? 'success' : 'error'}
+                style={styles.messageText}
+                variant="bodySmall">
                 {message.text}
-              </Text>
+              </AwaText>
             </View>
           ) : null}
 
@@ -352,67 +320,36 @@ export default function FaceIdSetupScreen({
                 size="large"
               />
 
-              <Text style={styles.loadingText}>
+              <AwaText colorRole="onSurfaceVariant" style={styles.loadingText} variant="bodySmall">
                 {t('faceIdSetup.verifyingBiometrics')}
-              </Text>
+              </AwaText>
             </View>
           ) : action === 'enable' ? (
             <>
-              <Pressable
-                accessibilityRole="button"
+              <AwaButton
+                fullWidth
+                icon={biometricIcon}
+                label={t('faceIdSetup.enableTitle', {label})}
                 onPress={() => run('enable')}
-                style={({pressed}) => [
-                  styles.primary,
-                  pressed && styles.primaryPressed,
-                ]}>
-                <View style={styles.primaryGlowLeft} />
-                <View style={styles.primaryGlowRight} />
+                size="large"
+              />
 
-                <MaterialDesignIcons
-                  name={biometricIcon}
-                  size={23}
-                  color={onPrimaryTextColor(theme)}
-                />
-
-                <Text style={styles.primaryText}>
-                  {t('faceIdSetup.enableTitle', {label})}
-                </Text>
-
-                <View style={styles.primaryArrow}>
-                  <MaterialDesignIcons
-                    name="arrow-right"
-                    size={17}
-                    color={onPrimaryTextColor(theme)}
-                  />
-                </View>
-              </Pressable>
-
-              <Text style={styles.footerHint}>
+              <AwaText colorRole="onSurfaceVariant" style={styles.footerHint} variant="bodySmall">
                 {t('faceIdSetup.footerHint')}
-              </Text>
+              </AwaText>
             </>
           ) : (
             <>
-              <Pressable
-                accessibilityRole="button"
+              <AwaButton
+                icon="lock-off-outline"
+                label={t('faceIdSetup.disableAction', {label})}
                 onPress={() => {
                   setAction('disable');
                   run('disable');
                 }}
-                style={({pressed}) => [
-                  styles.danger,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  name="lock-off-outline"
-                  size={18}
-                  color={theme.colors.danger}
-                />
-
-                <Text style={styles.dangerText}>
-                  {t('faceIdSetup.disableAction', {label})}
-                </Text>
-              </Pressable>
+                style={styles.danger}
+                variant="destructive"
+              />
             </>
           )}
         </ScrollView>
@@ -428,20 +365,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.background,
   },
 
-  pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
 
-  pageGlowTop: {
-    position: 'absolute', top: -150, right: -110, width: 330, height: 330,
-    borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-  pageGlowMiddle: {
-    position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
-    borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
-  pageGlowBottom: {
-    position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
-    borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   safe: {
     flex: 1,
@@ -459,31 +383,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 20,
   },
 
-  back: {
-    width: 44,
-    height: 44,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.10),
-
-    borderRadius: 17,
-
-    backgroundColor: withAlpha(theme.colors.surface, 0.94),
-
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.08,
-    shadowRadius: 9,
-
-    elevation: 2,
-  },
-
   securityBadge: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -493,7 +392,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.10),
 
-    borderRadius: 15,
+    borderRadius: 16,
 
     backgroundColor: theme.colors.primarySoft,
 
@@ -501,167 +400,27 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingVertical: 7,
   },
 
-  securityBadgeText: {
-    color: theme.colors.primary,
-
-    fontSize: 10,
-    fontWeight: '800',
-  },
-
   hero: {
-    position: 'relative',
-
     alignSelf: 'center',
-
-    width: 150,
-    height: 150,
-
-    marginTop: 42,
-
+    marginTop: 40,
     alignItems: 'center',
     justifyContent: 'center',
   },
-
-  glowOuter: {
-    width: 146,
-    height: 146,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 73,
-
-    backgroundColor: withAlpha(theme.colors.primary, 0.12),
-  },
-
-  glowMiddle: {
-    width: 122,
-    height: 122,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 61,
-
-    backgroundColor: withAlpha(theme.colors.primary, 0.18),
-  },
-
-  biometricCircle: {
-    width: 94,
-    height: 94,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.16),
-
-    borderRadius: 47,
-
-    backgroundColor: theme.colors.surface,
-
-    shadowColor: theme.colors.primary,
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-    shadowOpacity: 0.14,
-    shadowRadius: 15,
-
-    elevation: 5,
-  },
-
-  miniShield: {
-    position: 'absolute',
-
-    right: 16,
-    bottom: 17,
-
-    width: 32,
-    height: 32,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderWidth: 3,
-    borderColor: theme.colors.background,
-
-    borderRadius: 16,
-
-    backgroundColor: theme.colors.primary,
-  },
-
   title: {
-    marginTop: 23,
-
-    color: theme.colors.text,
-
-    fontFamily: 'serif',
-
-    fontSize: 28,
-    lineHeight: 34,
-
-    fontWeight: '700',
-
+    marginTop: 20,
     textAlign: 'center',
   },
-
   subtitle: {
     alignSelf: 'center',
-
     maxWidth: 335,
-
-    marginTop: 9,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 13,
-    lineHeight: 20,
-
+    marginTop: 8,
     textAlign: 'center',
   },
-
   securityCard: {
     flexDirection: 'row',
     alignItems: 'center',
-
     marginTop: 24,
-
-    padding: 14,
-
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-
-    borderRadius: 20,
-
-    backgroundColor:
-      withAlpha(theme.colors.surface, 0.92),
-
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-
-    elevation: 1,
   },
-
-  securityCardIcon: {
-    width: 46,
-    height: 46,
-
-    flexShrink: 0,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 15,
-
-    backgroundColor: theme.colors.primarySoft,
-  },
-
   securityCardCopy: {
     flex: 1,
 
@@ -670,22 +429,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginLeft: 11,
   },
 
-  securityCardTitle: {
-    color: theme.colors.text,
-
-    fontSize: 12.5,
-    fontWeight: '800',
-  },
-
   securityCardText: {
     marginTop: 4,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 9.8,
-    lineHeight: 14,
   },
-
   message: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -697,7 +443,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderRadius: 16,
 
     paddingHorizontal: 12,
-    paddingVertical: 11,
+    paddingVertical: 12,
   },
 
   successMessage: {
@@ -721,7 +467,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 11,
+    borderRadius: 12,
   },
 
   successIcon: {
@@ -734,18 +480,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   messageText: {
     flex: 1,
-
-    fontSize: 10.5,
-    lineHeight: 15,
   },
 
-  successText: {
-    color: theme.colors.success,
-  },
 
-  errorText: {
-    color: theme.colors.danger,
-  },
 
   spacer: {
     flex: 1,
@@ -755,9 +492,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   loadingCard: {
     alignItems: 'center',
 
-    paddingVertical: 18,
+    paddingVertical: 18, paddingHorizontal: 12,
 
-    borderRadius: 20,
+    borderRadius: 12,
 
     backgroundColor:
       withAlpha(theme.colors.surface, 0.78),
@@ -765,121 +502,18 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   loadingText: {
     marginTop: 10,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 11,
   },
 
-  primary: {
-    position: 'relative',
 
-    width: '100%',
-    minHeight: 58,
 
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
 
-    gap: 9,
 
-    // Reserve room for the absolutely-positioned arrow on the right so a long label (tr "Parmak izi özelliğini
-    // etkinleştir") wraps instead of running underneath it.
-    paddingVertical: 8,
-    paddingLeft: 16,
-    paddingRight: 56,
 
-    overflow: 'hidden',
-
-    borderRadius: 20,
-
-    backgroundColor: theme.colors.primary,
-
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 12,
-
-    elevation: 6,
-  },
-
-  primaryGlowLeft: {
-    position: 'absolute',
-
-    top: -35,
-    left: -24,
-
-    width: 120,
-    height: 120,
-
-    borderRadius: 60,
-
-    backgroundColor:
-      withAlpha(theme.colors.primary, 0.65),
-  },
-
-  primaryGlowRight: {
-    position: 'absolute',
-
-    top: -40,
-    right: -25,
-
-    width: 130,
-    height: 130,
-
-    borderRadius: 65,
-
-    backgroundColor:
-      withAlpha(theme.colors.secondary, 0.40),
-  },
-
-  primaryPressed: {
-    opacity: 0.9,
-
-    transform: [{scale: 0.985}],
-  },
-
-  primaryText: {
-    flexShrink: 1,
-
-    color: onPrimaryTextColor(theme),
-
-    fontSize: 16,
-    fontWeight: '800',
-  },
-
-  primaryArrow: {
-    position: 'absolute',
-
-    right: 15,
-
-    width: 31,
-    height: 31,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 11,
-
-    backgroundColor:
-      withAlpha(onPrimaryTextColor(theme), 0.14),
-  },
 
   footerHint: {
     alignSelf: 'center',
-
     maxWidth: 300,
-
     marginTop: 12,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 9.8,
-    lineHeight: 14,
-
     textAlign: 'center',
   },
 
@@ -889,30 +523,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   danger: {
     alignSelf: 'center',
-
-    flexDirection: 'row',
-    alignItems: 'center',
-
-    gap: 6,
-
-    marginTop: 11,
-
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-
-    borderRadius: 15,
-
-    backgroundColor: withAlpha(theme.colors.danger, 0.10),
+    marginTop: 12,
   },
 
-  dangerText: {
-    flexShrink: 1,
-
-    color: theme.colors.danger,
-
-    fontSize: 12.5,
-    fontWeight: '800',
-  },
 
   pressed: {
     opacity: 0.7,

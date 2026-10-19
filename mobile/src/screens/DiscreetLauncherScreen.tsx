@@ -11,7 +11,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   useWindowDimensions,
   View,
 } from 'react-native';
@@ -34,6 +33,10 @@ import {
   withAlpha,
   type ResolvedAwaTheme,
 } from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 
 const AWA_LOGO = require('../assets/images/hawa-logo.png');
 
@@ -148,45 +151,44 @@ export default function DiscreetLauncherScreen({navigation}: Props): React.JSX.E
         ]}
         showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('discreetLauncher.backA11y')}
-            accessibilityRole="button"
+            icon="chevron-left"
             onPress={navigation.goBack}
-            style={({pressed}) => [styles.back, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
-          </Pressable>
+            variant="tonal"
+          />
           <View style={styles.headerCopy}>
-            <Text style={styles.title}>{t('discreetLauncher.title')}</Text>
-            <Text style={styles.subtitle}>{t('discreetLauncher.subtitle')}</Text>
+            <AwaText accessibilityRole="header" style={styles.title} variant="headlineSmall">{t('discreetLauncher.title')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodySmall">{t('discreetLauncher.subtitle')}</AwaText>
           </View>
         </View>
 
-        <View style={styles.infoCard}>
+        <AwaCard padding="compact" style={styles.infoCard} variant="filled">
           <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={20} />
-          <Text style={styles.infoText}>{t('discreetLauncher.infoCard')}</Text>
-        </View>
+          <AwaText colorRole="onSurfaceVariant" style={styles.infoText} variant="bodySmall">{t('discreetLauncher.infoCard')}</AwaText>
+        </AwaCard>
 
         {!IS_ANDROID ? (
-          <View style={styles.infoCard}>
+          <AwaCard padding="compact" style={styles.infoCard} variant="filled">
             <MaterialDesignIcons color={theme.colors.textSecondary} name="cellphone-off" size={20} />
-            <Text style={styles.infoText}>{t('discreetLauncher.androidOnly')}</Text>
-          </View>
+            <AwaText colorRole="onSurfaceVariant" style={styles.infoText} variant="bodySmall">{t('discreetLauncher.androidOnly')}</AwaText>
+          </AwaCard>
         ) : (
           <>
-            <Text style={styles.sectionTitle}>{t('discreetLauncher.sectionChoose')}</Text>
+            <AwaText style={styles.sectionTitle} variant="titleMedium">{t('discreetLauncher.sectionChoose')}</AwaText>
 
             {loadError ? (
-              <View style={styles.infoCardWarning}>
+              <AwaCard padding="compact" style={styles.infoCardWarning} variant="filled">
                 <MaterialDesignIcons color={theme.colors.warning} name="alert-circle-outline" size={20} />
-                <Text style={styles.infoTextWarning}>{t('discreetLauncher.loadError')}</Text>
-                <Pressable
+                <AwaText colorRole="warning" style={styles.infoTextWarning} variant="bodySmall">{t('discreetLauncher.loadError')}</AwaText>
+                <AwaButton
                   accessibilityLabel={t('discreetLauncher.retry')}
-                  accessibilityRole="button"
+                  label={t('discreetLauncher.retry')}
                   onPress={refreshIdentity}
-                  style={({pressed}) => [styles.retryButton, pressed && styles.pressed]}>
-                  <Text style={styles.retryButtonText}>{t('discreetLauncher.retry')}</Text>
-                </Pressable>
-              </View>
+                  size="compact"
+                  variant="tonal"
+                />
+              </AwaCard>
             ) : identity === null ? (
               <View style={styles.loading}>
                 <ActivityIndicator color={theme.colors.primary} />
@@ -219,20 +221,20 @@ export default function DiscreetLauncherScreen({navigation}: Props): React.JSX.E
             {switching ? (
               <View style={styles.switchingRow}>
                 <ActivityIndicator color={theme.colors.primary} size="small" />
-                <Text style={styles.switchingText}>{t('discreetLauncher.switching')}</Text>
+                <AwaText colorRole="onSurfaceVariant" style={styles.switchingText} variant="labelLarge">{t('discreetLauncher.switching')}</AwaText>
               </View>
             ) : null}
 
             {supportState === 'unsupported_vendor' ? (
-              <View style={styles.infoCardWarning}>
+              <AwaCard padding="compact" style={styles.infoCardWarning} variant="filled">
                 <MaterialDesignIcons color={theme.colors.warning} name="cellphone-remove" size={20} />
-                <Text style={styles.infoTextWarning}>{t('discreetLauncher.unsupportedVendor')}</Text>
-              </View>
+                <AwaText colorRole="warning" style={styles.infoTextWarning} variant="bodySmall">{t('discreetLauncher.unsupportedVendor')}</AwaText>
+              </AwaCard>
             ) : (
-              <View style={styles.noteCard}>
+              <AwaCard padding="compact" style={styles.noteCard} variant="filled">
                 <MaterialDesignIcons color={theme.colors.textSecondary} name="clock-outline" size={17} />
-                <Text style={styles.noteText}>{t('discreetLauncher.noteDelay')}</Text>
-              </View>
+                <AwaText colorRole="onSurfaceVariant" style={styles.noteText} variant="bodySmall">{t('discreetLauncher.noteDelay')}</AwaText>
+              </AwaCard>
             )}
           </>
         )}
@@ -289,8 +291,8 @@ function IdentityCard({
       ]}>
       <View style={styles.identityPreviewWrap}>{preview}</View>
       <View style={styles.identityCopy}>
-        <Text style={styles.identityTitle}>{title}</Text>
-        <Text style={styles.identityDescription}>{description}</Text>
+        <AwaText style={styles.identityTitle} variant="titleSmall">{title}</AwaText>
+        <AwaText colorRole="onSurfaceVariant" style={styles.identityDescription} variant="bodySmall">{description}</AwaText>
       </View>
       <View style={[styles.radio, selected && styles.radioSelected]}>
         {selected ? <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={13} /> : null}
@@ -369,37 +371,33 @@ function LauncherSwitchConfirmModal({
 
         {copy ? (
           <Animated.View accessibilityRole="alert" style={[modalStyles.card, cardStyle]}>
-            <View style={modalStyles.icon}>
+            <View>
               <MaterialDesignIcons
                 color={theme.colors.primary}
                 name={target === 'discreet' ? 'calendar-blank-outline' : 'flower-outline'}
                 size={30}
               />
             </View>
-            <Text style={modalStyles.title}>{copy.title}</Text>
-            <Text style={modalStyles.message}>{copy.body}</Text>
+            <AwaText style={modalStyles.title} variant="titleLarge">{copy.title}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" style={modalStyles.message} variant="bodyMedium">{copy.body}</AwaText>
 
-            <Pressable
+            <AwaButton
               accessibilityLabel={copy.confirmLabel}
-              accessibilityRole="button"
-              accessibilityState={{disabled: switching}}
               disabled={switching}
+              fullWidth
+              label={switching ? t('discreetLauncher.confirming') : copy.confirmLabel}
               onPress={onConfirm}
-              style={({pressed}) => [
-                modalStyles.primary,
-                pressed && modalStyles.primaryPressed,
-                switching && modalStyles.primaryDisabled,
-              ]}>
-              <Text style={modalStyles.primaryText}>{switching ? t('discreetLauncher.confirming') : copy.confirmLabel}</Text>
-            </Pressable>
-
-            <Pressable
+              size="large"
+              style={modalStyles.primary}
+            />
+            <AwaButton
               accessibilityLabel={t('discreetLauncher.cancel')}
-              accessibilityRole="button"
+              fullWidth
+              label={t('discreetLauncher.cancel')}
               onPress={onCancel}
-              style={({pressed}) => [modalStyles.secondary, pressed && modalStyles.secondaryPressed]}>
-              <Text style={modalStyles.secondaryText}>{t('discreetLauncher.cancel')}</Text>
-            </Pressable>
+              style={modalStyles.secondary}
+              variant="tonal"
+            />
           </Animated.View>
         ) : null}
       </View>
@@ -417,18 +415,19 @@ function ErrorModal({visible, onClose}: {visible: boolean; onClose: () => void})
       <View style={modalStyles.overlay}>
         <Pressable accessibilityLabel={t('discreetLauncher.close')} accessibilityRole="button" onPress={onClose} style={StyleSheet.absoluteFill} />
         <View accessibilityRole="alert" style={modalStyles.card}>
-          <View style={[modalStyles.icon, modalStyles.iconWarning]}>
+          <View>
             <MaterialDesignIcons color={theme.colors.warning} name="alert-circle-outline" size={30} />
           </View>
-          <Text style={modalStyles.title}>{t('discreetLauncher.errorModalTitle')}</Text>
-          <Text style={modalStyles.message}>{t('discreetLauncher.errorModalBody')}</Text>
-          <Pressable
+          <AwaText style={modalStyles.title} variant="titleLarge">{t('discreetLauncher.errorModalTitle')}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" style={modalStyles.message} variant="bodyMedium">{t('discreetLauncher.errorModalBody')}</AwaText>
+          <AwaButton
             accessibilityLabel={t('discreetLauncher.close')}
-            accessibilityRole="button"
+            fullWidth
+            label={t('discreetLauncher.close')}
             onPress={onClose}
-            style={({pressed}) => [modalStyles.primary, pressed && modalStyles.primaryPressed]}>
-            <Text style={modalStyles.primaryText}>{t('discreetLauncher.close')}</Text>
-          </Pressable>
+            size="large"
+            style={modalStyles.primary}
+          />
         </View>
       </View>
     </Modal>
@@ -452,18 +451,19 @@ function UnsupportedVendorModal({visible, onClose}: {visible: boolean; onClose: 
       <View style={modalStyles.overlay}>
         <Pressable accessibilityLabel={t('discreetLauncher.close')} accessibilityRole="button" onPress={onClose} style={StyleSheet.absoluteFill} />
         <View accessibilityRole="alert" style={modalStyles.card}>
-          <View style={[modalStyles.icon, modalStyles.iconWarning]}>
+          <View>
             <MaterialDesignIcons color={theme.colors.warning} name="cellphone-remove" size={30} />
           </View>
-          <Text style={modalStyles.title}>{t('discreetLauncher.unsupportedVendorModalTitle')}</Text>
-          <Text style={modalStyles.message}>{t('discreetLauncher.unsupportedVendorModalBody')}</Text>
-          <Pressable
+          <AwaText style={modalStyles.title} variant="titleLarge">{t('discreetLauncher.unsupportedVendorModalTitle')}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" style={modalStyles.message} variant="bodyMedium">{t('discreetLauncher.unsupportedVendorModalBody')}</AwaText>
+          <AwaButton
             accessibilityLabel={t('discreetLauncher.close')}
-            accessibilityRole="button"
+            fullWidth
+            label={t('discreetLauncher.close')}
             onPress={onClose}
-            style={({pressed}) => [modalStyles.primary, pressed && modalStyles.primaryPressed]}>
-            <Text style={modalStyles.primaryText}>{t('discreetLauncher.close')}</Text>
-          </Pressable>
+            size="large"
+            style={modalStyles.primary}
+          />
         </View>
       </View>
     </Modal>
@@ -476,29 +476,16 @@ function createStyles(theme: ResolvedAwaTheme) {
   content: {flexGrow: 1, gap: 14, paddingHorizontal: 16},
   contentCompact: {paddingHorizontal: 11},
   header: {flexDirection: 'row', alignItems: 'center'},
-  back: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 999,
-    backgroundColor: theme.colors.surface,
-    padding: 9,
-    elevation: 2,
-  },
   headerCopy: {flex: 1, minWidth: 0, paddingHorizontal: 9},
-  title: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 21, fontWeight: '700'},
-  subtitle: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 16},
-  sectionTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
+  title: {},
+  subtitle: {marginTop: 4},
+  sectionTitle: {},
   infoCard: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 10,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 18,
-    backgroundColor: theme.colors.primarySoft,
-    padding: 14,
   },
-  infoText: {flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
+  infoText: {flex: 1, minWidth: 0},
   infoCardWarning: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -506,18 +493,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 10,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.warning, 0.35),
-    borderRadius: 18,
     backgroundColor: withAlpha(theme.colors.warning, 0.12),
-    padding: 14,
   },
-  infoTextWarning: {flex: 1, minWidth: 120, color: theme.colors.warning, fontSize: 12, lineHeight: 17},
-  retryButton: {
-    paddingHorizontal: 14,
-    paddingVertical: 9,
-    borderRadius: 12,
-    backgroundColor: theme.colors.warning,
-  },
-  retryButtonText: {color: onPrimaryTextColor(theme), fontSize: 12, fontWeight: '700'},
+  infoTextWarning: {flex: 1, minWidth: 120},
   choices: {gap: 11},
   loading: {paddingVertical: 30, alignItems: 'center'},
   identityCard: {
@@ -526,9 +504,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     minHeight: 78,
     borderWidth: 1.4,
     borderColor: theme.colors.border,
-    borderRadius: 18,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.94),
-    paddingHorizontal: 13,
+    paddingHorizontal: 16,
     paddingVertical: 12,
     elevation: 3,
     shadowColor: theme.shadow.shadowColor,
@@ -544,7 +522,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.primarySoft,
     overflow: 'hidden',
   },
@@ -558,12 +536,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: '#EEF0F3',
   },
   identityCopy: {flex: 1, minWidth: 0, marginHorizontal: 12},
-  identityTitle: {color: theme.colors.text, fontSize: 14.5, fontWeight: '700', lineHeight: 19},
-  identityDescription: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+  identityTitle: {},
+  identityDescription: {marginTop: 2},
   radio: {
     width: 24,
     height: 24,
@@ -576,16 +554,13 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
   radioSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primary},
   switchingRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8},
-  switchingText: {color: theme.colors.textSecondary, fontSize: 12, fontWeight: '600'},
+  switchingText: {},
   noteCard: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
-    borderRadius: 16,
-    backgroundColor: theme.colors.primarySoft,
-    padding: 12,
   },
-  noteText: {flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 15},
+  noteText: {flex: 1, minWidth: 0},
   pressed: {opacity: 0.78, transform: [{scale: 0.985}]},
   });
 }
@@ -598,7 +573,7 @@ function createModalStyles(theme: ResolvedAwaTheme) {
     width: '100%',
     maxWidth: 390,
     alignItems: 'center',
-    borderRadius: 28,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surface,
@@ -609,52 +584,17 @@ function createModalStyles(theme: ResolvedAwaTheme) {
     shadowOffset: {width: 0, height: 10},
     elevation: 10,
   },
-  icon: {
-    width: 66,
-    height: 66,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 33,
-    backgroundColor: theme.colors.primarySoft,
-  },
-  iconWarning: {backgroundColor: withAlpha(theme.colors.warning, 0.15)},
+  iconWarning: {},
   title: {
     marginTop: 16,
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 21,
-    fontWeight: '800',
-    lineHeight: 27,
     textAlign: 'center',
   },
-  message: {marginTop: 10, color: theme.colors.textSecondary, fontSize: 13.5, lineHeight: 20, textAlign: 'center'},
+  message: {marginTop: 10, textAlign: 'center'},
   primary: {
-    width: '100%',
-    minHeight: 52,
     marginTop: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOpacity: 0.22,
-    shadowRadius: 9,
-    shadowOffset: {width: 0, height: 5},
-    elevation: 4,
   },
-  primaryPressed: {opacity: 0.9},
-  primaryDisabled: {opacity: 0.7},
-  primaryText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '800'},
   secondary: {
-    width: '100%',
-    minHeight: 48,
-    alignItems: 'center',
-    justifyContent: 'center',
     marginTop: 8,
-    borderRadius: 16,
-    backgroundColor: theme.colors.primarySoft,
   },
-  secondaryPressed: {opacity: 0.85},
-  secondaryText: {color: theme.colors.primary, fontSize: 14, fontWeight: '800'},
   });
 }
