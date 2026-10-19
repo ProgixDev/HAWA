@@ -6,7 +6,6 @@ import React, {
 } from 'react';
 import {
   AccessibilityInfo,
-  ActivityIndicator,
   Animated,
   Easing,
   Modal,
@@ -33,6 +32,7 @@ import {usePremium} from '../../hooks/usePremium';
 import {purchasePremium, restorePurchases} from '../../services/purchaseService';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../ui/AwaButton';
 
 type Props = {
   visible: boolean;
@@ -143,9 +143,6 @@ export function HawaPremiumBottomSheet({
   const [feedback, setFeedback] = useState<{tone: 'success' | 'neutral' | 'error'; message: string} | null>(null);
 
   const progress = useRef(new Animated.Value(0)).current;
-  const crownFloat = useRef(new Animated.Value(0)).current;
-  const sparkle = useRef(new Animated.Value(0)).current;
-  const buttonScale = useRef(new Animated.Value(1)).current;
 
   /*
    * ============================================================
@@ -228,70 +225,6 @@ export function HawaPremiumBottomSheet({
     }
   }, [progress, reduceMotion, visible]);
 
-  /*
-   * Animations Premium :
-   *
-   * - couronne
-   * - halo / sparkle
-   */
-  useEffect(() => {
-    if (!visible || reduceMotion) {
-      crownFloat.setValue(0);
-      sparkle.setValue(0);
-
-      return;
-    }
-
-    const crownLoop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(crownFloat, {
-          toValue: 1,
-          duration: 1800,
-          easing: Easing.inOut(Easing.ease),
-          useNativeDriver: true,
-        }),
-
-        Animated.timing(crownFloat, {
-          toValue: 0,
-          duration: 1800,
-          easing: Easing.inOut(Easing.ease),
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-
-    const sparkleLoop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(sparkle, {
-          toValue: 1,
-          duration: 1500,
-          easing: Easing.inOut(Easing.ease),
-          useNativeDriver: true,
-        }),
-
-        Animated.timing(sparkle, {
-          toValue: 0,
-          duration: 1500,
-          easing: Easing.inOut(Easing.ease),
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-
-    crownLoop.start();
-    sparkleLoop.start();
-
-    return () => {
-      crownLoop.stop();
-      sparkleLoop.stop();
-    };
-  }, [
-    crownFloat,
-    reduceMotion,
-    sparkle,
-    visible,
-  ]);
-
   const planLabels = useMemo(() => premiumPlanLabels(t), [t]);
 
   const selectedPricing = useMemo(
@@ -337,26 +270,6 @@ export function HawaPremiumBottomSheet({
     outputRange: [18, 0],
   });
 
-  const crownTranslateY = crownFloat.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, -4],
-  });
-
-  const crownRotate = crownFloat.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['-2deg', '2deg'],
-  });
-
-  const sparkleScale = sparkle.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0.86, 1.08],
-  });
-
-  const sparkleOpacity = sparkle.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0.45, 0.95],
-  });
-
   /*
    * Ici les Animated.Value sont séparés des valeurs
    * responsive classiques.
@@ -385,43 +298,6 @@ export function HawaPremiumBottomSheet({
       ],
     }),
     [heroOpacity, heroTranslateY],
-  );
-
-  const emblemGlowAnimatedStyle = useMemo(
-    () => ({
-      opacity: sparkleOpacity,
-      transform: [
-        {
-          scale: sparkleScale,
-        },
-      ],
-    }),
-    [sparkleOpacity, sparkleScale],
-  );
-
-  const crownAnimatedStyle = useMemo(
-    () => ({
-      transform: [
-        {
-          translateY: crownTranslateY,
-        },
-        {
-          rotate: crownRotate,
-        },
-      ],
-    }),
-    [crownRotate, crownTranslateY],
-  );
-
-  const buttonAnimatedStyle = useMemo(
-    () => ({
-      transform: [
-        {
-          scale: buttonScale,
-        },
-      ],
-    }),
-    [buttonScale],
   );
 
   if (!mounted) {
@@ -485,15 +361,6 @@ export function HawaPremiumBottomSheet({
       return;
     }
     setFeedback({tone: 'error', message: t('premium.sheet.feedback.restoreError')});
-  };
-
-  const animateButton = (pressed: boolean) => {
-    Animated.spring(buttonScale, {
-      toValue: pressed ? 0.975 : 1,
-      friction: 7,
-      tension: 120,
-      useNativeDriver: true,
-    }).start();
   };
 
   return (
@@ -560,11 +427,6 @@ export function HawaPremiumBottomSheet({
             isCompact && styles.heroCompact,
           ]}>
 
-          {/* Decorative glow */}
-          <View style={styles.heroOrbTop} />
-          <View style={styles.heroOrbBottom} />
-          <View style={styles.heroOrbSmall} />
-
           {/* Handle */}
           <View style={styles.handle} />
 
@@ -580,26 +442,14 @@ export function HawaPremiumBottomSheet({
 
             <View style={styles.emblemWrapper}>
 
-              <Animated.View
-                pointerEvents="none"
-                style={[
-                  styles.emblemGlow,
-                  emblemGlowAnimatedStyle,
-                ]}
-              />
-
               <View style={styles.emblemOuter}>
-                <Animated.View
-                  style={[
-                    styles.emblemInner,
-                    crownAnimatedStyle,
-                  ]}>
+                <View style={styles.emblemInner}>
                   <MaterialDesignIcons
                     color={COLORS.gold}
                     name="crown"
                     size={isVeryCompact ? 27 : 31}
                   />
-                </Animated.View>
+                </View>
               </View>
 
               <View style={styles.emblemStar}>
@@ -619,9 +469,6 @@ export function HawaPremiumBottomSheet({
 
               <View style={styles.titleLine}>
                 <Text
-                  adjustsFontSizeToFit
-                  minimumFontScale={0.8}
-                  numberOfLines={1}
                   style={[
                     styles.heroTitle,
                     isCompact &&
@@ -768,7 +615,6 @@ export function HawaPremiumBottomSheet({
 
                     <View style={styles.benefitCopy}>
                       <Text
-                        numberOfLines={2}
                         style={
                           styles.benefitTitle
                         }>
@@ -903,13 +749,6 @@ export function HawaPremiumBottomSheet({
               </Text>
             </View>
 
-            {purchaseAvailable ? (
-              <MaterialDesignIcons
-                color={theme.colors.textMuted}
-                name="chevron-right"
-                size={20}
-              />
-            ) : null}
           </View>
 
           {/* ==================================================
@@ -939,87 +778,29 @@ export function HawaPremiumBottomSheet({
               </View>
             </View>
           ) : (
-            <Animated.View
-              style={[
-                styles.ctaWrapper,
-                buttonAnimatedStyle,
-              ]}>
-
-              <Pressable
+            <View style={styles.ctaWrapper}>
+              {/* DESIGN.md: shared AwaButton (no ad-hoc gradient Pressable, no
+                  arrow glyph). The Premium violet stays the brand fill and the
+                  label is white because it sits on that fixed fill, not on the
+                  themed primary. */}
+              <AwaButton
                 accessibilityHint={purchaseInProgress ? t('premium.sheet.ctaInProgressHint') : undefined}
                 accessibilityLabel={t('premium.sheet.ctaAccessibilityLabel')}
-                accessibilityRole="button"
-                accessibilityState={{disabled: purchaseInProgress || restoreInProgress, busy: purchaseInProgress}}
-                disabled={purchaseInProgress || restoreInProgress}
+                disabled={restoreInProgress}
+                fullWidth
+                label={purchaseInProgress ? t('premium.sheet.ctaInProgressText') : t('premium.sheet.ctaText')}
+                labelStyle={restoreInProgress ? undefined : styles.ctaLabel}
+                loading={purchaseInProgress}
+                minHeight={56}
                 onPress={handleSubscribe}
-                onPressIn={() =>
-                  animateButton(true)
-                }
-                onPressOut={() =>
-                  animateButton(false)
-                }
-                style={(purchaseInProgress || restoreInProgress) && styles.ctaDisabled}>
-
-                <LinearGradient
-                  colors={[
-                    '#4B278E',
-                    '#6740B7',
-                    '#8D4EB5',
-                  ]}
-                  end={{
-                    x: 1,
-                    y: 1,
-                  }}
-                  start={{
-                    x: 0,
-                    y: 0,
-                  }}
-                  style={styles.cta}>
-
-                  <View style={styles.ctaShine} />
-
-                  <View
-                    style={
-                      styles.ctaIconCircle
-                    }>
-                    {purchaseInProgress ? (
-                      <ActivityIndicator color="#FFFFFF" size="small" />
-                    ) : (
-                      <MaterialDesignIcons
-                        color={COLORS.gold}
-                        name="crown"
-                        size={20}
-                      />
-                    )}
-                  </View>
-
-                  <View style={styles.ctaCopy}>
-                    <Text style={styles.ctaText}>
-                      {purchaseInProgress ? t('premium.sheet.ctaInProgressText') : t('premium.sheet.ctaText')}
-                    </Text>
-
-                    <Text
-                      numberOfLines={1}
-                      style={styles.ctaSubText}>
-                      {selectedPricing.label}
-                      {' · '}
-                      {selectedPricing.price}
-                    </Text>
-                  </View>
-
-                  <View
-                    style={
-                      styles.ctaArrowCircle
-                    }>
-                    <MaterialDesignIcons
-                      color="#FFFFFF"
-                      name="arrow-right"
-                      size={18}
-                    />
-                  </View>
-                </LinearGradient>
-              </Pressable>
-            </Animated.View>
+                style={restoreInProgress ? undefined : styles.ctaFill}
+              />
+              <Text style={styles.ctaSubText}>
+                {selectedPricing.label}
+                {' · '}
+                {selectedPricing.price}
+              </Text>
+            </View>
           )}
 
           {/* ==================================================
@@ -1027,31 +808,17 @@ export function HawaPremiumBottomSheet({
           ================================================== */}
 
           {!isPremium && purchaseAvailable ? (
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('premium.sheet.restoreText')}
-              accessibilityRole="button"
-              accessibilityState={{disabled: purchaseInProgress || restoreInProgress, busy: restoreInProgress}}
               disabled={purchaseInProgress || restoreInProgress}
+              icon="restore"
+              label={restoreInProgress ? t('premium.sheet.restoreInProgressText') : t('premium.sheet.restoreText')}
+              loading={restoreInProgress}
               onPress={handleRestore}
-              style={({pressed}) => [
-                styles.restoreButton,
-                pressed && styles.pressed,
-                (purchaseInProgress || restoreInProgress) && styles.ctaDisabled,
-              ]}>
-              {restoreInProgress ? (
-                <ActivityIndicator color={theme.colors.primary} size="small" />
-              ) : (
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="restore"
-                  size={17}
-                />
-              )}
-
-              <Text style={styles.restoreText}>
-                {restoreInProgress ? t('premium.sheet.restoreInProgressText') : t('premium.sheet.restoreText')}
-              </Text>
-            </Pressable>
+              size="default"
+              style={styles.restoreButton}
+              variant="text"
+            />
           ) : null}
 
           {feedback ? (
@@ -1197,11 +964,7 @@ function PlanCard({
       </View>
 
       <View style={styles.planPriceArea}>
-        <Text
-          adjustsFontSizeToFit
-          minimumFontScale={0.72}
-          numberOfLines={1}
-          style={styles.planPrice}>
+        <Text style={styles.planPrice}>
           {price}
         </Text>
       </View>
@@ -1232,8 +995,8 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     overflow: 'hidden',
 
-    borderTopLeftRadius: 34,
-    borderTopRightRadius: 34,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
 
     backgroundColor: theme.colors.surface,
 
@@ -1264,51 +1027,6 @@ function createStyles(theme: ResolvedAwaTheme) {
   heroCompact: {
     paddingHorizontal: 14,
     paddingBottom: 18,
-  },
-
-  heroOrbTop: {
-    position: 'absolute',
-
-    top: -95,
-    right: -55,
-
-    width: 205,
-    height: 205,
-
-    borderRadius: 103,
-
-    backgroundColor:
-      'rgba(188,126,255,0.19)',
-  },
-
-  heroOrbBottom: {
-    position: 'absolute',
-
-    bottom: -95,
-    left: -52,
-
-    width: 180,
-    height: 180,
-
-    borderRadius: 90,
-
-    backgroundColor:
-      'rgba(228,114,175,0.15)',
-  },
-
-  heroOrbSmall: {
-    position: 'absolute',
-
-    top: 22,
-    right: 86,
-
-    width: 45,
-    height: 45,
-
-    borderRadius: 23,
-
-    backgroundColor:
-      'rgba(255,255,255,0.035)',
   },
 
   handle: {
@@ -1345,18 +1063,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     alignItems: 'center',
     justifyContent: 'center',
-  },
-
-  emblemGlow: {
-    position: 'absolute',
-
-    width: 64,
-    height: 64,
-
-    borderRadius: 32,
-
-    backgroundColor:
-      'rgba(229,180,255,0.28)',
   },
 
   emblemOuter: {
@@ -1461,7 +1167,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   premiumBadgeText: {
     color: '#FFE5A2',
 
-    fontSize: 7.5,
+    fontSize: 11,
     fontWeight: '900',
 
     letterSpacing: 0.7,
@@ -1481,13 +1187,13 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   heroSubtitleCompact: {
-    fontSize: 10.5,
-    lineHeight: 14,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   closeButton: {
-    width: 39,
-    height: 39,
+    width: 40,
+    height: 40,
 
     flexShrink: 0,
 
@@ -1526,10 +1232,10 @@ function createStyles(theme: ResolvedAwaTheme) {
   eyebrow: {
     color: theme.colors.primary,
 
-    fontSize: 8.5,
+    fontSize: 11,
     fontWeight: '900',
 
-    letterSpacing: 1.15,
+    letterSpacing: 0.5,
   },
 
   introRow: {
@@ -1583,7 +1289,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginLeft: 10,
 
-    borderRadius: 14,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -1614,14 +1320,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1,
     borderColor: theme.colors.border,
 
-    borderRadius: 19,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.surface,
 
-    paddingTop: 15,
-    paddingRight: 13,
-    paddingBottom: 15,
-    paddingLeft: 13,
+    paddingTop: 16,
+    paddingRight: 16,
+    paddingBottom: 16,
+    paddingLeft: 16,
 
     shadowColor: '#563892',
 
@@ -1666,7 +1372,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginRight: 11,
 
-    borderRadius: 14,
+    borderRadius: 12,
   },
 
   benefitCopy: {
@@ -1696,8 +1402,8 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     color: theme.colors.textSecondary,
 
-    fontSize: 10,
-    lineHeight: 14,
+    fontSize: 11,
+    lineHeight: 16,
 
     fontWeight: '500',
   },
@@ -1750,7 +1456,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginLeft: 8,
 
-    borderRadius: 11,
+    borderRadius: 12,
 
     backgroundColor: withAlpha(theme.colors.success, 0.14),
 
@@ -1761,7 +1467,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   secureBadgeText: {
     color: theme.colors.success,
 
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '800',
   },
 
@@ -1782,11 +1488,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1,
     borderColor: theme.colors.border,
 
-    borderRadius: 21,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.surface,
 
-    paddingHorizontal: 13,
+    paddingHorizontal: 16,
     paddingVertical: 14,
   },
 
@@ -1844,7 +1550,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     gap: 4,
 
-    borderRadius: 10,
+    borderRadius: 12,
 
     backgroundColor: COLORS.deepSecondary,
 
@@ -1855,7 +1561,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   recommendedText: {
     color: '#FFFFFF',
 
-    fontSize: 7.5,
+    fontSize: 11,
     fontWeight: '900',
 
     letterSpacing: 0.5,
@@ -1928,7 +1634,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   savingText: {
     color: '#B95786',
 
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: '800',
   },
 
@@ -1937,8 +1643,8 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     color: theme.colors.textSecondary,
 
-    fontSize: 10.2,
-    lineHeight: 14,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   planFeatureRow: {
@@ -1955,7 +1661,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     color: theme.colors.success,
 
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
   },
 
@@ -1989,12 +1695,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1,
     borderColor: theme.colors.border,
 
-    borderRadius: 18,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.surface,
 
-    paddingHorizontal: 11,
-    paddingVertical: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
 
   securityIcon: {
@@ -2006,7 +1712,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     backgroundColor: withAlpha(theme.colors.success, 0.14),
   },
@@ -2031,8 +1737,8 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     color: theme.colors.textSecondary,
 
-    fontSize: 9.3,
-    lineHeight: 13,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   /* ============================================================
@@ -2041,72 +1747,14 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   ctaWrapper: {
     marginTop: 18,
-
-    borderRadius: 29,
-
-    // Shadow beneath the CTA's own fixed Premium gradient — stays fixed
-    // alongside it, not theme-derived.
-    shadowColor: '#7252C7',
-
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-
-    shadowOpacity: 0.23,
-    shadowRadius: 13,
-
-    elevation: 7,
   },
 
-  cta: {
-    position: 'relative',
-
-    minHeight: 60,
-
-    flexDirection: 'row',
-    alignItems: 'center',
-
-    overflow: 'hidden',
-
-    borderRadius: 29,
-
-    paddingHorizontal: 12,
-    paddingVertical: 9,
+  ctaFill: {
+    backgroundColor: '#4F2A96',
   },
 
-  ctaShine: {
-    position: 'absolute',
-
-    top: -42,
-    right: -15,
-
-    width: 130,
-    height: 130,
-
-    borderRadius: 65,
-
-    backgroundColor:
-      'rgba(255,255,255,0.08)',
-  },
-
-  ctaIconCircle: {
-    width: 39,
-    height: 39,
-
-    flexShrink: 0,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderWidth: 1,
-    borderColor:
-      'rgba(255,255,255,0.14)',
-
-    borderRadius: 20,
-
-    backgroundColor:
-      'rgba(255,255,255,0.10)',
+  ctaLabel: {
+    color: '#FFFFFF',
   },
 
   ctaCopy: {
@@ -2116,60 +1764,26 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginLeft: 10,
   },
 
-  ctaText: {
-    color: '#FFFFFF',
-
-    fontSize: 14.5,
-    fontWeight: '900',
-  },
-
-  ctaSubText: {
-    marginTop: 1,
-
-    color: '#E9DDF8',
-
-    fontSize: 9.2,
-    fontWeight: '600',
-  },
-
-  ctaArrowCircle: {
-    width: 35,
-    height: 35,
-
-    flexShrink: 0,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 18,
-
-    backgroundColor:
-      'rgba(255,255,255,0.12)',
-  },
-
   /* ============================================================
      RESTORE / FOOTER
   ============================================================ */
 
+  ctaSubText: {
+    marginTop: 6,
+
+    color: theme.colors.textSecondary,
+
+    fontSize: 12,
+    lineHeight: 17,
+    fontWeight: '600',
+
+    textAlign: 'center',
+  },
+
   restoreButton: {
     alignSelf: 'center',
 
-    flexDirection: 'row',
-    alignItems: 'center',
-
-    gap: 6,
-
     marginTop: 8,
-
-    paddingHorizontal: 15,
-    paddingVertical: 11,
-  },
-
-  restoreText: {
-    color: theme.colors.primary,
-
-    fontSize: 11.5,
-    fontWeight: '800',
   },
 
   footerText: {
@@ -2178,25 +1792,17 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     color: theme.colors.textMuted,
 
-    fontSize: 8.3,
-    lineHeight: 12,
+    fontSize: 11,
+    lineHeight: 16,
 
     textAlign: 'center',
-  },
-
-  pressed: {
-    opacity: 0.75,
-  },
-
-  ctaDisabled: {
-    opacity: 0.6,
   },
 
   activeStatusCard: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
-    borderRadius: 20,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.success, 0.14),
     backgroundColor: withAlpha(theme.colors.success, 0.14),
@@ -2208,7 +1814,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     gap: 12,
     marginTop: 18,
-    borderRadius: 20,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surfaceSecondary,
@@ -2238,7 +1844,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   feedbackCard: {
     marginTop: 10,
     marginHorizontal: 4,
-    borderRadius: 14,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surfaceSecondary,

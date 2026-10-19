@@ -59,12 +59,12 @@ async function renderSheet(onClose: () => void = jest.fn()) {
 
 function sheetBackground(renderer: ReactTestRenderer.ReactTestRenderer): unknown {
   // The sheet root is the only node whose flattened style carries both a
-  // borderTopLeftRadius (34) and a backgroundColor — a stable structural
+  // borderTopLeftRadius (28, DESIGN.md sheet radius) and a backgroundColor — a stable structural
   // marker independent of theme values.
   const match = renderer.root.findAll(node => {
     if (!node.props?.style) {return false;}
     const flat = flattenStyle(node.props.style);
-    return flat.borderTopLeftRadius === 34 && typeof flat.backgroundColor !== 'undefined';
+    return flat.borderTopLeftRadius === 28 && typeof flat.backgroundColor !== 'undefined';
   })[0];
   return match ? flattenStyle(match.props.style).backgroundColor : undefined;
 }
@@ -131,9 +131,9 @@ describe('HawaPremiumBottomSheet — static guard', () => {
     expect(source).toContain("'#2B155E'");
     expect(source).toContain("'#482589'");
     expect(source).toContain("'#663EB1'");
-    expect(source).toContain("'#4B278E'");
-    expect(source).toContain("'#6740B7'");
-    expect(source).toContain("'#8D4EB5'");
+    // DESIGN.md: the CTA is now a flat AwaButton on the Premium violet
+    // (#4F2A96) instead of its own 3-stop gradient Pressable.
+    expect(source).toContain("'#4F2A96'");
     expect(source).toContain("gold: '#F2C76D'");
   });
 

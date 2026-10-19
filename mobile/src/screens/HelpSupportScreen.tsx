@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {KeyboardAvoidingView, Linking, Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, useWindowDimensions, View} from 'react-native';
+import {KeyboardAvoidingView, Linking, Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import Animated, {FadeIn, FadeInUp} from 'react-native-reanimated';
@@ -14,26 +14,30 @@ import {getActiveProfileIdentity} from '../state/activeProfileStore';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaInfoRow} from '../components/ui/AwaInfoRow';
+import {AwaText} from '../components/ui/AwaText';
+import {AwaTextField} from '../components/ui/AwaTextField';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'HelpSupport'>;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 type Form = 'feedback' | 'bug' | null;
 
-function HelpRow({icon, title, subtitle, onPress, last, theme, styles}: {
+function HelpRow({icon, title, subtitle, onPress, last}: {
   icon: IconName; title: string; subtitle: string; onPress: () => void; last?: boolean;
-  theme: ResolvedAwaTheme; styles: ReturnType<typeof createStyles>;
 }) {
   return (
-    <Pressable accessibilityLabel={title} onPress={onPress} style={({pressed}) => [styles.row, !last && styles.rowBorder, pressed && styles.pressed]}>
-      <View style={styles.rowIcon}>
-        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={19} />
-      </View>
-      <View style={styles.rowCopy}>
-        <Text style={styles.rowTitle}>{title}</Text>
-        <Text style={styles.rowSubtitle}>{subtitle}</Text>
-      </View>
-      <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={22} />
-    </Pressable>
+    <AwaInfoRow
+      accessibilityLabel={title}
+      icon={icon}
+      iconTone="primary"
+      last={last}
+      onPress={onPress}
+      subtitle={subtitle}
+      title={title}
+    />
   );
 }
 
@@ -43,12 +47,10 @@ function Method({icon, title, value, helper, onPress, theme, styles}: {
 }) {
   return (
     <Pressable accessibilityLabel={title} onPress={onPress} style={({pressed}) => [styles.method, pressed && styles.pressed]}>
-      <View style={styles.methodIcon}>
-        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={22} />
-      </View>
-      <Text style={styles.methodTitle}>{title}</Text>
-      <Text style={styles.methodValue}>{value}</Text>
-      <Text style={styles.methodHelper}>{helper}</Text>
+      <MaterialDesignIcons color={theme.colors.primary} name={icon} size={24} />
+      <AwaText emphasized style={styles.methodTitle} variant="labelLarge">{title}</AwaText>
+      <AwaText colorRole="primary" style={styles.methodValue} variant="labelMedium">{value}</AwaText>
+      <AwaText colorRole="onSurfaceVariant" style={styles.methodHelper} variant="bodySmall">{helper}</AwaText>
     </Pressable>
   );
 }
@@ -117,47 +119,42 @@ export default function HelpSupportScreen({navigation}: Props): React.JSX.Elemen
         ]}
         showsVerticalScrollIndicator={false}>
         <Animated.View entering={FadeIn.duration(300)} style={styles.header}>
-          <Pressable accessibilityLabel={t('common.back')} onPress={navigation.goBack} style={({pressed}) => [styles.back, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
-          </Pressable>
+          <AwaIconButton accessibilityLabel={t('common.back')} icon="chevron-left" onPress={navigation.goBack} variant="tonal" />
           <View style={styles.headerCopy}>
-            <Text style={styles.title}>{t('help.helpSupport.title')}</Text>
-            <Text style={styles.subtitle}>{t('help.helpSupport.subtitle')}</Text>
-          </View>
-          <View style={styles.decor}>
-            <MaterialDesignIcons color={theme.colors.primary} name="headset" size={23} />
+            <AwaText accessibilityRole="header" variant="headlineSmall">{t('help.helpSupport.title')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodySmall">{t('help.helpSupport.subtitle')}</AwaText>
           </View>
         </Animated.View>
 
-        <Animated.View entering={FadeInUp.delay(70).duration(420)} style={styles.supportCard}>
+        <Animated.View entering={FadeInUp.delay(70).duration(420)}>
+          <AwaCard style={styles.supportCard} variant="elevated">
           <View style={styles.supportTop}>
-            <View style={styles.supportIcon}>
-              <MaterialDesignIcons color={theme.colors.primary} name="face-agent" size={37} />
-            </View>
+            <MaterialDesignIcons color={theme.colors.primary} name="face-agent" size={37} />
             <View style={styles.supportCopy}>
-              <Text style={styles.supportTitle}>{t('help.helpSupport.supportTitle')}</Text>
-              <Text style={styles.supportText}>{t('help.helpSupport.supportText')}</Text>
+              <AwaText variant="titleMedium">{t('help.helpSupport.supportTitle')}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={styles.supportText} variant="bodySmall">{t('help.helpSupport.supportText')}</AwaText>
             </View>
           </View>
           <View style={styles.methods}>
             <Method helper={t('help.helpSupport.emailMethodHelper')} icon="email-outline" onPress={() => openEmail()} styles={styles} theme={theme} title={t('help.helpSupport.emailMethodTitle')} value={APP_METADATA.contactEmail ?? t('help.helpSupport.emailUnavailable')} />
-            <View style={styles.divider} />
             <Method helper={t('help.helpSupport.faqMethodHelper')} icon="help-circle-outline" onPress={() => navigation.navigate('FAQ')} styles={styles} theme={theme} title={t('help.helpSupport.faqMethodTitle')} value={t('help.helpSupport.faqMethodValue')} />
           </View>
+          </AwaCard>
         </Animated.View>
-
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>{t('help.helpSupport.faqSectionTitle')}</Text>
-          <Pressable onPress={() => navigation.navigate('FAQ')}><Text style={styles.seeAll}>{`${t('common.seeAll')}  ›`}</Text></Pressable>
+          <AwaText accessibilityRole="header" variant="titleMedium">{t('help.helpSupport.faqSectionTitle')}</AwaText>
+          <AwaButton label={t('common.seeAll')} onPress={() => navigation.navigate('FAQ')} size="compact" variant="text" />
         </View>
-        <Animated.View entering={FadeInUp.delay(150).duration(420)} style={styles.card}>
+        <Animated.View entering={FadeInUp.delay(150).duration(420)}>
+        <AwaCard padding="none" style={styles.card} variant="filled">
           {faqItems.map((item, index) => (
             <HelpRow
               icon={item.icon as never} key={item.id} last={index === faqItems.length - 1}
-              onPress={() => navigation.navigate('FAQDetail', {id: item.id})} styles={styles} theme={theme}
+              onPress={() => navigation.navigate('FAQDetail', {id: item.id})}
               subtitle={item.subtitle} title={item.question}
             />
           ))}
+        </AwaCard>
         </Animated.View>
 
         {/* "Autres sujets d'aide" (Guides/Nouveautés/feedback/bug report) and its
@@ -167,21 +164,22 @@ export default function HelpSupportScreen({navigation}: Props): React.JSX.Elemen
             no orphan title/card/banner is left; the owner's Help is unchanged. */}
         {!isManagedProfile ? (
           <>
-            <Text style={styles.sectionTitle}>{t('help.helpSupport.otherTopicsTitle')}</Text>
-            <Animated.View entering={FadeInUp.delay(220).duration(420)} style={styles.card}>
-              <HelpRow icon="school-outline" onPress={() => navigation.navigate('Guides')} styles={styles} theme={theme} subtitle={t('help.helpSupport.guidesSubtitle')} title={t('help.helpSupport.guidesTitle')} />
-              <HelpRow icon="star-outline" onPress={() => navigation.navigate('WhatsNew')} styles={styles} theme={theme} subtitle={t('help.helpSupport.whatsNewSubtitle')} title={t('help.helpSupport.whatsNewTitle')} />
-              <HelpRow icon="lightbulb-outline" onPress={() => openForm('feedback')} styles={styles} theme={theme} subtitle={t('help.helpSupport.feedbackSubtitle')} title={t('help.helpSupport.feedbackTitle')} />
-              <HelpRow last icon="alert-outline" onPress={() => openForm('bug')} styles={styles} theme={theme} subtitle={t('help.helpSupport.bugReportSubtitle')} title={t('help.helpSupport.bugReportTitle')} />
+            <AwaText accessibilityRole="header" variant="titleMedium">{t('help.helpSupport.otherTopicsTitle')}</AwaText>
+            <Animated.View entering={FadeInUp.delay(220).duration(420)}>
+              <AwaCard padding="none" style={styles.card} variant="filled">
+                <HelpRow icon="school-outline" onPress={() => navigation.navigate('Guides')} subtitle={t('help.helpSupport.guidesSubtitle')} title={t('help.helpSupport.guidesTitle')} />
+                <HelpRow icon="star-outline" onPress={() => navigation.navigate('WhatsNew')} subtitle={t('help.helpSupport.whatsNewSubtitle')} title={t('help.helpSupport.whatsNewTitle')} />
+                <HelpRow icon="lightbulb-outline" onPress={() => openForm('feedback')} subtitle={t('help.helpSupport.feedbackSubtitle')} title={t('help.helpSupport.feedbackTitle')} />
+                <HelpRow last icon="alert-outline" onPress={() => openForm('bug')} subtitle={t('help.helpSupport.bugReportSubtitle')} title={t('help.helpSupport.bugReportTitle')} />
+              </AwaCard>
             </Animated.View>
-
-            <View style={styles.banner}>
+            <AwaCard padding="compact" style={styles.banner} variant="filled">
               <MaterialDesignIcons color={theme.colors.secondary} name="email-newsletter" size={34} />
               <View style={styles.bannerCopy}>
-                <Text style={styles.bannerTitle}>{t('help.helpSupport.bannerTitle')}</Text>
-                <Text style={styles.bannerText}>{t('help.helpSupport.bannerText')}</Text>
+                <AwaText colorRole="primary" variant="titleSmall">{t('help.helpSupport.bannerTitle')}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" style={styles.bannerText} variant="bodySmall">{t('help.helpSupport.bannerText')}</AwaText>
               </View>
-            </View>
+            </AwaCard>
           </>
         ) : null}
       </ScrollView>
@@ -191,8 +189,8 @@ export default function HelpSupportScreen({navigation}: Props): React.JSX.Elemen
           <Pressable onPress={() => setForm(null)} style={styles.backdrop} />
           <View style={[styles.sheet, {paddingBottom: Math.max(insets.bottom, 18)}]}>
             <View style={styles.handle} />
-            <Text style={styles.sheetTitle}>{form === 'bug' ? t('help.helpSupport.modal.bugTitle') : t('help.helpSupport.modal.feedbackTitle')}</Text>
-            <Text style={styles.inputLabel}>{form === 'bug' ? t('help.helpSupport.modal.categoryLabelBug') : t('help.helpSupport.modal.categoryLabelFeedback')}</Text>
+            <AwaText accessibilityRole="header" style={styles.sheetTitle} variant="titleLarge">{form === 'bug' ? t('help.helpSupport.modal.bugTitle') : t('help.helpSupport.modal.feedbackTitle')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" emphasized style={styles.inputLabel} variant="labelMedium">{form === 'bug' ? t('help.helpSupport.modal.categoryLabelBug') : t('help.helpSupport.modal.categoryLabelFeedback')}</AwaText>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chips}>
               {(form === 'bug'
                 ? [
@@ -210,30 +208,37 @@ export default function HelpSupportScreen({navigation}: Props): React.JSX.Elemen
                     t('help.helpSupport.modal.feedbackCategories.other'),
                   ]
               ).map(item => (
-                <Pressable key={item} onPress={() => setCategory(item)} style={[styles.chip, category === item && styles.chipSelected]}>
-                  <Text style={[styles.chipText, category === item && styles.chipTextSelected]}>{item}</Text>
+                <Pressable accessibilityRole="button" accessibilityState={{selected: category === item}} hitSlop={4} key={item} onPress={() => setCategory(item)} style={[styles.chip, category === item && styles.chipSelected]}>
+                  <AwaText colorRole={category === item ? 'onPrimaryContainer' : 'onSurfaceVariant'} emphasized variant="labelMedium">{item}</AwaText>
                 </Pressable>
               ))}
             </ScrollView>
-            <Text style={styles.inputLabel}>{form === 'bug' ? t('help.helpSupport.modal.descriptionLabel') : t('help.helpSupport.modal.messageLabel')}</Text>
-            <TextInput
+            <AwaTextField
+              errorText={error || undefined}
+              label={form === 'bug' ? t('help.helpSupport.modal.descriptionLabel') : t('help.helpSupport.modal.messageLabel')}
               maxLength={1000} multiline onChangeText={value => {setMessage(value); setError('');}}
               placeholder={t('help.helpSupport.modal.placeholderDescribe')} placeholderTextColor={theme.colors.textMuted}
-              style={[styles.input, styles.messageInput, error && styles.inputError]} textAlignVertical="top" value={message}
+              textAlignVertical="top" value={message}
+              wrapperStyle={styles.field}
             />
-            {error ? <Text style={styles.error}>{error}</Text> : null}
             {form === 'bug' ? (
-              <>
-                <Text style={styles.inputLabel}>{t('help.helpSupport.modal.stepsLabel')}</Text>
-                <TextInput multiline onChangeText={setSteps} placeholder={t('help.helpSupport.modal.placeholderSteps')} placeholderTextColor={theme.colors.textMuted} style={[styles.input, styles.stepsInput]} value={steps} />
-              </>
+              <AwaTextField
+                label={t('help.helpSupport.modal.stepsLabel')}
+                multiline onChangeText={setSteps} placeholder={t('help.helpSupport.modal.placeholderSteps')} placeholderTextColor={theme.colors.textMuted}
+                value={steps}
+                wrapperStyle={styles.field}
+              />
             ) : null}
-            <Text style={styles.inputLabel}>{t('help.helpSupport.modal.emailLabel')}</Text>
-            <TextInput autoCapitalize="none" keyboardType="email-address" onChangeText={setEmail} placeholder={t('help.helpSupport.modal.placeholderEmail')} placeholderTextColor={theme.colors.textMuted} style={styles.input} value={email} />
-            <Pressable onPress={submit} style={({pressed}) => [styles.send, pressed && styles.pressed]}>
-              <Text style={styles.sendText}>{form === 'bug' ? t('help.helpSupport.modal.sendBug') : t('help.helpSupport.modal.send')}</Text>
-            </Pressable>
-            <Pressable onPress={() => setForm(null)} style={styles.cancel}><Text style={styles.cancelText}>{t('common.cancel')}</Text></Pressable>
+            <AwaTextField
+              autoCapitalize="none"
+              keyboardType="email-address"
+              label={t('help.helpSupport.modal.emailLabel')}
+              onChangeText={setEmail} placeholder={t('help.helpSupport.modal.placeholderEmail')} placeholderTextColor={theme.colors.textMuted}
+              value={email}
+              wrapperStyle={styles.field}
+            />
+            <AwaButton fullWidth label={form === 'bug' ? t('help.helpSupport.modal.sendBug') : t('help.helpSupport.modal.send')} onPress={submit} size="large" style={styles.send} />
+            <AwaButton fullWidth label={t('common.cancel')} onPress={() => setForm(null)} style={styles.cancel} variant="text" />
           </View>
         </KeyboardAvoidingView>
       </Modal>
@@ -241,7 +246,7 @@ export default function HelpSupportScreen({navigation}: Props): React.JSX.Elemen
       {toast ? (
         <Animated.View entering={FadeInUp.springify()} style={[styles.toast, {bottom: Math.max(insets.bottom, 18) + 12}]}>
           <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="information-outline" size={17} />
-          <Text style={styles.toastText}>{toast}</Text>
+          <AwaText style={styles.toastText} variant="bodySmall">{toast}</AwaText>
         </Animated.View>
       ) : null}
     </SafeAreaView>
@@ -254,80 +259,47 @@ function createStyles(theme: ResolvedAwaTheme) {
     content: {flexGrow: 1, gap: 14, paddingHorizontal: 17},
     contentCompact: {paddingHorizontal: 11},
     header: {flexDirection: 'row', alignItems: 'center'},
-    back: {
-      width: 44, height: 44, alignItems: 'center', justifyContent: 'center', borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.12), borderRadius: 22, backgroundColor: withAlpha(theme.colors.surface, 0.94),
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 2,
-    },
     headerCopy: {flex: 1, minWidth: 0, paddingHorizontal: 10},
-    title: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 23, fontWeight: '700'},
-    subtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
-    decor: {width: 46, height: 46, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: theme.colors.primarySoft},
-    supportCard: {
-      borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.12), borderRadius: 28, backgroundColor: theme.colors.surface,
-      padding: 16, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.06, shadowRadius: 14, elevation: 2,
-    },
+    subtitle: {marginTop: 3},
+    supportCard: {},
     supportTop: {flexDirection: 'row', alignItems: 'center'},
-    supportIcon: {width: 62, height: 62, alignItems: 'center', justifyContent: 'center', borderRadius: 20, backgroundColor: theme.colors.primarySoft},
     supportCopy: {flex: 1, marginLeft: 14},
-    supportTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-    supportText: {marginTop: 5, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 17},
+    supportText: {marginTop: 4},
     methods: {flexDirection: 'row', alignItems: 'stretch', gap: 8, marginTop: 16},
     method: {
-      flex: 1, minWidth: 0, alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.11),
-      borderRadius: 18, backgroundColor: theme.colors.surfaceSecondary, paddingHorizontal: 6, paddingVertical: 12,
+      flex: 1, minWidth: 0, alignItems: 'center', borderRadius: 16, backgroundColor: theme.colors.surfaceSecondary,
+      paddingHorizontal: 12, paddingVertical: 12,
     },
-    methodIcon: {width: 38, height: 38, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primarySoft},
-    methodTitle: {marginTop: 8, color: theme.colors.text, fontSize: 11, fontWeight: '700', textAlign: 'center'},
-    methodValue: {marginTop: 3, color: theme.colors.primary, fontSize: 8.7, fontWeight: '600', textAlign: 'center'},
-    methodHelper: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 8, textAlign: 'center'},
-    divider: {display: 'none'},
+    methodTitle: {marginTop: 8, textAlign: 'center'},
+    methodValue: {marginTop: 3, textAlign: 'center'},
+    methodHelper: {marginTop: 3, textAlign: 'center'},
     sectionHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-    sectionTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-    seeAll: {color: theme.colors.primary, fontSize: 10.5, fontWeight: '700'},
-    card: {overflow: 'hidden', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.12), borderRadius: 24, backgroundColor: theme.colors.surface},
-    row: {minHeight: 68, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 13, paddingVertical: 9},
-    rowBorder: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: withAlpha(theme.colors.primary, 0.08)},
-    rowIcon: {width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primarySoft},
-    rowCopy: {flex: 1, minWidth: 0, marginHorizontal: 11},
-    rowTitle: {color: theme.colors.text, fontSize: 12.5, fontWeight: '700'},
-    rowSubtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 15},
-    banner: {flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.12), borderRadius: 22, backgroundColor: theme.colors.primarySoft, padding: 14},
+    sectionTitle: {color: theme.colors.accent, fontSize: 17, fontWeight: '700'},
+    card: {overflow: 'hidden'},
+    banner: {flexDirection: 'row', alignItems: 'center'},
     bannerCopy: {flex: 1, marginLeft: 12},
-    bannerTitle: {color: theme.colors.primary, fontSize: 11.5, fontWeight: '700'},
-    bannerText: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 10.5},
+    bannerText: {marginTop: 4},
     pressed: {opacity: 0.78, transform: [{scale: 0.985}]},
     modalRoot: {flex: 1, justifyContent: 'flex-end'},
     // Fixed modal scrim — never themed, same precedent as every migrated screen.
     backdrop: {...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(35,21,72,.38)'},
     sheet: {
-      maxHeight: '92%', borderTopLeftRadius: 30, borderTopRightRadius: 30, backgroundColor: theme.colors.surface,
+      maxHeight: '92%', borderTopLeftRadius: 28, borderTopRightRadius: 28, backgroundColor: theme.colors.surface,
       paddingHorizontal: 18, paddingTop: 10, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: -5}, shadowOpacity: 0.12, shadowRadius: 16, elevation: 12,
     },
     handle: {alignSelf: 'center', width: '14%', aspectRatio: 8, borderRadius: 999, backgroundColor: withAlpha(theme.colors.primary, 0.25)},
-    sheetTitle: {marginTop: 16, color: theme.colors.accent, fontFamily: 'serif', fontSize: 21, fontWeight: '700', textAlign: 'center'},
-    inputLabel: {marginTop: 13, marginBottom: 7, color: theme.colors.text, fontSize: 11.5, fontWeight: '700'},
+    sheetTitle: {marginTop: 16, textAlign: 'center'},
+    inputLabel: {marginTop: 13, marginBottom: 7},
     chips: {gap: 7},
-    chip: {borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 15, paddingHorizontal: 11, paddingVertical: 8},
+    field: {marginTop: 13},
+    chip: {minHeight: 40, justifyContent: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 16, paddingHorizontal: 12, paddingVertical: 8},
     chipSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
-    chipText: {color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '600'},
-    chipTextSelected: {color: theme.colors.primary},
-    input: {borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.16), borderRadius: 18, backgroundColor: theme.colors.surface, paddingHorizontal: 13, paddingVertical: 11, color: theme.colors.text, fontSize: 12.5},
-    messageInput: {minHeight: 92},
-    stepsInput: {minHeight: 60},
-    inputError: {borderColor: theme.colors.danger},
-    error: {marginTop: 5, color: theme.colors.danger, fontSize: 10.5},
-    send: {
-      minHeight: 50, alignItems: 'center', justifyContent: 'center', marginTop: 15, borderRadius: 18, backgroundColor: theme.colors.primary,
-      paddingHorizontal: 14, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.18, shadowRadius: 10, elevation: 3,
-    },
-    sendText: {color: onPrimaryTextColor(theme), fontSize: 14, fontWeight: '700'},
-    cancel: {alignItems: 'center', marginTop: 7, padding: 11},
-    cancelText: {color: theme.colors.textSecondary, fontSize: 12.5, fontWeight: '600'},
+    send: {marginTop: 15},
+    cancel: {marginTop: 7},
     toast: {
-      position: 'absolute', left: '8%', right: '8%', flexDirection: 'row', alignItems: 'center', gap: 8, borderRadius: 18,
-      backgroundColor: theme.colors.accent, paddingHorizontal: 13, paddingVertical: 12, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.22, shadowRadius: 10, elevation: 8,
+      position: 'absolute', left: '8%', right: '8%', flexDirection: 'row', alignItems: 'center', gap: 8, borderRadius: 12,
+      backgroundColor: theme.colors.accent, paddingHorizontal: 16, paddingVertical: 12, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.15, shadowRadius: 10, elevation: 6,
     },
-    toastText: {flex: 1, color: pickReadableTextColor(theme.colors.accent), fontSize: 11.5, fontWeight: '600'},
+    toastText: {flex: 1, color: pickReadableTextColor(theme.colors.accent)},
   });
 }
