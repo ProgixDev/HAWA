@@ -4,11 +4,9 @@ import {
   Animated,
   Easing,
   Image,
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -29,8 +27,10 @@ import {
   type MiscarriageBleedingStatus,
 } from '../state/miscarriagePreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaText} from '../components/ui/AwaText';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MiscarriageBleeding'>;
 
@@ -116,11 +116,6 @@ function MiscarriageBleedingScreen({navigation, route}: Props): React.JSX.Elemen
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} hidden={false} translucent />
@@ -140,8 +135,8 @@ function MiscarriageBleedingScreen({navigation, route}: Props): React.JSX.Elemen
                 source={require('../assets/images/miscarriage/miscarriage-bleeding.png')}
                 style={styles.headerImage}
               />
-              <Text style={styles.title}>{t('miscarriageBleeding.title')}</Text>
-              <Text style={styles.subtitle}>{t('miscarriageBleeding.subtitle')}</Text>
+              <AwaText variant="headlineMedium" style={styles.title}>{t('miscarriageBleeding.title')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>{t('miscarriageBleeding.subtitle')}</AwaText>
             </View>
 
             <View style={styles.optionsCenterContainer}>
@@ -161,26 +156,21 @@ function MiscarriageBleedingScreen({navigation, route}: Props): React.JSX.Elemen
 
               <View style={styles.infoRow}>
                 <MaterialDesignIcons color={theme.colors.primary} name="notebook-outline" size={17} />
-                <Text style={styles.infoText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>
                   {t('miscarriageBleeding.infoText')}
-                </Text>
+                </AwaText>
               </View>
             </View>
           </Animated.View>
 
-          <Pressable
+          <AwaButton
             accessibilityRole="button"
             disabled={saving || !selected}
             onPress={handleNext}
-            style={({pressed}) => [
-              styles.nextButton,
-              !selected && styles.nextButtonDisabled,
-              (pressed || saving) && selected && styles.pressed,
-            ]}>
-            <Text style={styles.nextText}>
-              {saving ? t('miscarriageBleeding.saving') : route.params?.mode === 'edit' ? t('common.save') : t('miscarriageBleeding.next')}
-            </Text>
-          </Pressable>
+            label={saving ? t('miscarriageBleeding.saving') : route.params?.mode === 'edit' ? t('common.save') : t('miscarriageBleeding.next')}
+            size="large"
+            style={styles.nextButton}
+          />
         </ScrollView>
       </View>
     </LinearGradient>
@@ -191,62 +181,17 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   background: {flex: 1, backgroundColor: theme.colors.background},
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
 
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
 
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
 
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   safeArea: {flex: 1},
   content: {flexGrow: 1, paddingHorizontal: spacing.lg},
   mainContent: {flex: 1},
   header: {alignItems: 'center', paddingTop: 8, marginBottom: spacing.md},
   headerImage: {width: 142, height: 126, marginBottom: 4},
-  title: {
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 26,
-    fontWeight: '700',
-    lineHeight: 32,
-    textAlign: 'center',
-  },
-  subtitle: {
-    marginTop: 10,
-    maxWidth: 310,
-    color: theme.colors.textSecondary,
-    fontSize: 13,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
+  title: {textAlign: 'center'},
+  subtitle: {marginTop: 10, maxWidth: 310, textAlign: 'center'},
   optionsCenterContainer: {flex: 1, justifyContent: 'center', paddingVertical: spacing.md},
   optionsList: {gap: 12},
   infoRow: {
@@ -256,23 +201,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginTop: spacing.lg,
     paddingHorizontal: 4,
   },
-  infoText: {flex: 1, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
-  nextButton: {
-    minHeight: 54,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: spacing.sm,
-    borderRadius: 18,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.25,
-    shadowRadius: 9,
-    elevation: 5,
-  },
-  nextButtonDisabled: {backgroundColor: withAlpha(theme.colors.primary, 0.45), shadowOpacity: 0, elevation: 0},
-  nextText: {color: onPrimaryTextColor(theme), fontSize: 18, fontWeight: '600'},
-  pressed: {opacity: 0.82},
+  infoText: {flex: 1},
+  nextButton: {marginTop: spacing.sm},
   });
 }
 

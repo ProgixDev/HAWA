@@ -78,6 +78,9 @@ import {
 } from '../../utils/cycleStatisticsMath';
 import {resolveCycleReturnEventInPeriod} from '../../utils/miscarriageStatisticsMath';
 import {classifyStoredCycleReturnDate} from '../../utils/lossDateValidation';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 
 /* ============================================================
    THEME
@@ -412,9 +415,9 @@ function EmptyState({
         <MaterialDesignIcons color={theme.colors.primary} name={icon} size={27} />
       </View>
 
-      <Text style={styles.emptyTitle}>{t('miscarriageStatistics.emptyTitle')}</Text>
+      <AwaText variant="titleSmall" style={styles.emptyTitle}>{t('miscarriageStatistics.emptyTitle')}</AwaText>
 
-      <Text style={styles.emptyText}>{text}</Text>
+      <AwaText variant="bodySmall" style={styles.emptyText}>{text}</AwaText>
     </Animated.View>
   );
 }
@@ -474,9 +477,9 @@ function SectionHeader({
       </View>
 
       <View style={styles.sectionHeaderCopy}>
-        <Text style={styles.cardTitle}>{title}</Text>
+        <AwaText variant="titleMedium" style={styles.cardTitle}>{title}</AwaText>
 
-        {subtitle ? <Text style={styles.cardSubtitle}>{subtitle}</Text> : null}
+        {subtitle ? <AwaText variant="bodySmall" style={styles.cardSubtitle}>{subtitle}</AwaText> : null}
       </View>
     </View>
   );
@@ -545,13 +548,13 @@ function KpiCard({
         />
       </View>
 
-      <Text numberOfLines={1} adjustsFontSizeToFit style={styles.kpiValue}>
+      <AwaText variant="titleLarge" numberOfLines={1} adjustsFontSizeToFit style={styles.kpiValue}>
         {value}
-      </Text>
+      </AwaText>
 
-      <Text numberOfLines={2} style={styles.kpiLabel}>
+      <AwaText variant="bodySmall" style={styles.kpiLabel}>
         {label}
-      </Text>
+      </AwaText>
     </View>
   );
 }
@@ -623,14 +626,14 @@ function DistributionRow({
   return (
     <View style={[styles.distributionRow, last && styles.lastRow]}>
       <View style={styles.distributionTop}>
-        <Text numberOfLines={2} style={styles.distributionLabel}>
+        <AwaText variant="labelSmall" style={styles.distributionLabel}>
           {label}
-        </Text>
+        </AwaText>
 
         <View style={styles.distributionBadge}>
-          <Text style={styles.distributionCount}>
+          <AwaText variant="labelSmall" style={styles.distributionCount}>
             {t('miscarriageStatistics.daysCount', {count})}
-          </Text>
+          </AwaText>
         </View>
       </View>
 
@@ -743,7 +746,6 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
   // (below) — same PHASE E5 derivation as every other component in this
   // file; see the module-level THEME comment.
   const PURPLE = theme.colors.primary;
-  const PURPLE_DARK = theme.colors.accent;
   const TEXT_SECONDARY = theme.colors.textSecondary;
 
   const insets = useSafeAreaInsets();
@@ -1078,11 +1080,6 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.safe}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
       <StatusBar
         backgroundColor="transparent"
         barStyle={theme.statusBarStyle}
@@ -1099,27 +1096,19 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
           },
         ]}
       >
-        <Pressable
+        <AwaIconButton
           accessibilityLabel={t('common.back')}
           accessibilityRole="button"
           hitSlop={10}
           onPress={navigation.goBack}
-          style={({ pressed }) => [
-            styles.backButton,
-            pressed && styles.pressed,
-          ]}
-        >
-          <MaterialDesignIcons
-            color={PURPLE_DARK}
-            name="chevron-left"
-            size={25}
-          />
-        </Pressable>
+          icon="chevron-left"
+          iconSize={25}
+        />
 
         <View style={styles.headerCopy}>
-          <Text style={styles.headerTitle}>{t('miscarriageStatistics.header.title')}</Text>
+          <AwaText variant="headlineSmall" style={styles.headerTitle}>{t('miscarriageStatistics.header.title')}</AwaText>
 
-          <Text style={styles.headerSubtitle}>{t('miscarriageStatistics.header.subtitle')}</Text>
+          <AwaText variant="bodySmall" style={styles.headerSubtitle}>{t('miscarriageStatistics.header.subtitle')}</AwaText>
         </View>
 
         <View style={styles.headerBadgeIcon}>
@@ -1144,9 +1133,9 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
           </View>
 
           <View style={styles.objectiveCopy}>
-            <Text style={styles.objectiveLabel}>{t('miscarriageStatistics.objectiveLabel')}</Text>
+            <AwaText variant="labelSmall" style={styles.objectiveLabel}>{t('miscarriageStatistics.objectiveLabel')}</AwaText>
 
-            <Text style={styles.objectiveValue}>{t('objectives.loss')}</Text>
+            <AwaText variant="labelMedium" style={styles.objectiveValue}>{t('objectives.loss')}</AwaText>
           </View>
 
           <View style={styles.objectiveDot} />
@@ -1165,7 +1154,7 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
           />
 
           {coverageMessage ? (
-            <Text style={styles.coverageText}>{coverageMessage}</Text>
+            <AwaText variant="bodySmall" style={styles.coverageText}>{coverageMessage}</AwaText>
           ) : null}
         </View>
       </AnimatedSection>
@@ -1374,9 +1363,7 @@ function SummaryTab({
     <>
       <AnimatedSection>
         <View style={styles.heroCard}>
-          <View style={styles.heroGlowOne} />
 
-          <View style={styles.heroGlowTwo} />
 
           <SectionHeader
             icon="chart-box-outline"
@@ -1494,16 +1481,16 @@ function SummaryTab({
               />
             </View>
 
-            <Text style={styles.statusLabel}>{t('miscarriageStatistics.cycleReturnLabel')}</Text>
+            <AwaText variant="labelSmall" style={styles.statusLabel}>{t('miscarriageStatistics.cycleReturnLabel')}</AwaText>
 
-            <Text numberOfLines={2} style={styles.statusValue}>
+            <AwaText variant="titleSmall" style={styles.statusValue}>
               {cycleReturnLabel}
-            </Text>
+            </AwaText>
 
             {firstReturnedPeriodDate ? (
-              <Text style={styles.statusMeta}>
+              <AwaText variant="bodySmall" style={styles.statusMeta}>
                 {formatFullDate(firstReturnedPeriodDate)}
-              </Text>
+              </AwaText>
             ) : null}
           </View>
 
@@ -1516,29 +1503,28 @@ function SummaryTab({
               />
             </View>
 
-            <Text style={styles.statusLabel}>{t('miscarriageStatistics.tryingAgainLabel')}</Text>
+            <AwaText variant="labelSmall" style={styles.statusLabel}>{t('miscarriageStatistics.tryingAgainLabel')}</AwaText>
 
-            <Text numberOfLines={2} style={styles.statusValue}>
+            <AwaText variant="titleSmall" style={styles.statusValue}>
               {tryingAgainLabel}
-            </Text>
+            </AwaText>
           </View>
         </View>
       </AnimatedSection>
 
       <AnimatedSection delay={160}>
         <View style={styles.adviceCard}>
-          <View style={styles.adviceGlow} />
 
           <View style={styles.adviceIcon}>
             <MaterialDesignIcons color={PURPLE} name="sprout" size={22} />
           </View>
 
           <View style={styles.adviceCopy}>
-            <Text style={styles.adviceTitle}>{t('miscarriageStatistics.summary.adviceTitle')}</Text>
+            <AwaText variant="titleSmall" style={styles.adviceTitle}>{t('miscarriageStatistics.summary.adviceTitle')}</AwaText>
 
-            <Text style={styles.adviceText}>
+            <AwaText variant="bodySmall" style={styles.adviceText}>
               {t('miscarriageStatistics.summary.adviceText')}
-            </Text>
+            </AwaText>
           </View>
         </View>
       </AnimatedSection>
@@ -1708,15 +1694,15 @@ function BleedingTab({
       </AnimatedSection>
 
       <AnimatedSection delay={150}>
-        <View style={styles.softInfoCard}>
+        <AwaCard padding="none" variant="filled" style={styles.softInfoCard}>
           <View style={styles.softInfoIcon}>
             <MaterialDesignIcons color={PINK} name="heart-outline" size={18} />
           </View>
 
-          <Text style={styles.softInfoText}>
+          <AwaText variant="bodySmall" style={styles.softInfoText}>
             {t('miscarriageStatistics.bleeding.infoText')}
-          </Text>
-        </View>
+          </AwaText>
+        </AwaCard>
       </AnimatedSection>
     </>
   );
@@ -1833,12 +1819,12 @@ function SymptomsTab({
                       index === monthlyHistory.length - 1 && styles.lastRow,
                     ]}
                   >
-                    <Text style={styles.monthlyRowLabel}>{item.label}</Text>
+                    <AwaText variant="labelSmall" style={styles.monthlyRowLabel}>{item.label}</AwaText>
 
-                    <Text style={styles.monthlyRowMeta}>
+                    <AwaText variant="bodySmall" style={styles.monthlyRowMeta}>
                       {t('miscarriageStatistics.daysCount', {count: item.daysCount})}
                       {item.mostFrequent ? ` · ${journalOptionLabel('miscarriagePhysicalSymptom', item.mostFrequent, t)}` : ''}
-                    </Text>
+                    </AwaText>
                   </View>
                 ))}
               </View>
@@ -1909,11 +1895,11 @@ function TrackingTab({
             </View>
 
             <View style={styles.trackingCopy}>
-              <Text style={styles.trackingTitle}>{t('miscarriageStatistics.tracking.notesTitle')}</Text>
+              <AwaText variant="titleSmall" style={styles.trackingTitle}>{t('miscarriageStatistics.tracking.notesTitle')}</AwaText>
 
-              <Text style={styles.trackingSubtitle}>
+              <AwaText variant="bodySmall" style={styles.trackingSubtitle}>
                 {t('miscarriageStatistics.tracking.notesSubtitle')}
-              </Text>
+              </AwaText>
             </View>
 
             <MaterialDesignIcons
@@ -1926,9 +1912,9 @@ function TrackingTab({
           <View style={styles.trackingValueRow}>
             <Text style={styles.trackingBigValue}>{notesCount}</Text>
 
-            <Text style={styles.trackingValueLabel}>
+            <AwaText variant="bodySmall" style={styles.trackingValueLabel}>
               {t('miscarriageStatistics.tracking.notesCount', {count: notesCount})}
-            </Text>
+            </AwaText>
           </View>
         </View>
       </AnimatedSection>
@@ -1943,9 +1929,9 @@ function TrackingTab({
           />
 
           <View style={styles.currentStatusBox}>
-            <Text style={styles.currentStatusLabel}>{t('miscarriageStatistics.tracking.currentStatusLabel')}</Text>
+            <AwaText variant="bodySmall" style={styles.currentStatusLabel}>{t('miscarriageStatistics.tracking.currentStatusLabel')}</AwaText>
 
-            <Text style={styles.currentStatusValue}>{tryingAgainLabel}</Text>
+            <AwaText variant="titleMedium" style={styles.currentStatusValue}>{tryingAgainLabel}</AwaText>
           </View>
 
           {tryingAgainCounts.length > 0 ? (
@@ -1977,13 +1963,13 @@ function TrackingTab({
             </View>
 
             <View style={styles.trackingCopy}>
-              <Text style={styles.trackingTitle}>{t('miscarriageStatistics.cycleReturnLabel')}</Text>
+              <AwaText variant="titleSmall" style={styles.trackingTitle}>{t('miscarriageStatistics.cycleReturnLabel')}</AwaText>
 
-              <Text style={styles.trackingSubtitle}>{t('miscarriageStatistics.tracking.cycleReturnSubtitle')}</Text>
+              <AwaText variant="bodySmall" style={styles.trackingSubtitle}>{t('miscarriageStatistics.tracking.cycleReturnSubtitle')}</AwaText>
             </View>
           </View>
 
-          <Text style={styles.trackingStatusValue}>{cycleReturnLabel}</Text>
+          <AwaText variant="titleLarge" style={styles.trackingStatusValue}>{cycleReturnLabel}</AwaText>
 
           {firstReturnedPeriodDate ? (
             <View style={styles.datePill}>
@@ -1993,11 +1979,11 @@ function TrackingTab({
                 size={16}
               />
 
-              <Text style={styles.datePillText}>
+              <AwaText variant="labelSmall" style={styles.datePillText}>
                 {t('miscarriageStatistics.tracking.datePillText', {
                   date: formatFullDate(firstReturnedPeriodDate),
                 })}
-              </Text>
+              </AwaText>
             </View>
           ) : null}
         </View>
@@ -2020,15 +2006,15 @@ function TrackingTab({
 
             {cycleReturnEventInPeriod ? (
               <View style={styles.currentStatusBox}>
-                <Text style={styles.currentStatusLabel}>
+                <AwaText variant="bodySmall" style={styles.currentStatusLabel}>
                   {t('miscarriageStatistics.tracking.confirmedLabel')}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.currentStatusValue}>
+                <AwaText variant="titleMedium" style={styles.currentStatusValue}>
                   {t('miscarriageStatistics.tracking.confirmedText', {
                     date: formatFullDate(cycleReturnEventInPeriod),
                   })}
-                </Text>
+                </AwaText>
               </View>
             ) : (
               <EmptyState
@@ -2043,7 +2029,7 @@ function TrackingTab({
       ) : null}
 
       <AnimatedSection delay={160}>
-        <View style={styles.softInfoCard}>
+        <AwaCard padding="none" variant="filled" style={styles.softInfoCard}>
           <View style={styles.softInfoIconPurple}>
             <MaterialDesignIcons
               color={PURPLE}
@@ -2052,10 +2038,10 @@ function TrackingTab({
             />
           </View>
 
-          <Text style={styles.softInfoText}>
+          <AwaText variant="bodySmall" style={styles.softInfoText}>
             {t('miscarriageStatistics.tracking.infoText')}
-          </Text>
-        </View>
+          </AwaText>
+        </AwaCard>
       </AnimatedSection>
     </>
   );
@@ -2090,37 +2076,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: BACKGROUND,
   },
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   header: {
     minHeight: 64,
@@ -2131,42 +2086,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 11,
   },
 
-  backButton: {
-    width: 42,
-    height: 42,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: BORDER,
-    borderRadius: 16,
-    backgroundColor: theme.colors.surface,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.07,
-    shadowRadius: 7,
-    elevation: 3,
-  },
 
   headerCopy: {
     flex: 1,
     minWidth: 0,
   },
 
-  headerTitle: {
-    color: PURPLE_DARK,
-    fontFamily: 'serif',
-    fontSize: 24,
-    fontWeight: '800',
-  },
+  headerTitle: {color: PURPLE_DARK},
 
-  headerSubtitle: {
-    marginTop: 2,
-    color: TEXT_SECONDARY,
-    fontSize: 10.5,
-  },
+  headerSubtitle: {marginTop: 2, color: TEXT_SECONDARY},
 
   headerBadgeIcon: {
     width: 42,
@@ -2186,7 +2114,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 12,
     borderWidth: 1,
     borderColor: BORDER,
-    borderRadius: 19,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.96),
   },
 
@@ -2195,7 +2123,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 39,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: PURPLE_SOFT,
   },
 
@@ -2205,19 +2133,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginHorizontal: 10,
   },
 
-  objectiveLabel: {
-    color: TEXT_SECONDARY,
-    fontSize: 8.5,
-    fontWeight: '800',
-    letterSpacing: 1.05,
-  },
+  objectiveLabel: {color: TEXT_SECONDARY},
 
-  objectiveValue: {
-    marginTop: 2,
-    color: PURPLE_DARK,
-    fontSize: 12.5,
-    fontWeight: '700',
-  },
+  objectiveValue: {marginTop: 2, color: PURPLE_DARK},
 
   objectiveDot: {
     width: 8,
@@ -2246,7 +2164,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 14,
     borderWidth: 1,
     borderColor: 'transparent',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: 'transparent',
   },
 
@@ -2298,7 +2216,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 16,
     borderWidth: 1,
     borderColor: BORDER,
-    borderRadius: 25,
+    borderRadius: 12,
     backgroundColor: CARD,
     shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
@@ -2318,29 +2236,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 16,
     borderWidth: 1,
     borderColor: BORDER,
-    borderRadius: 28,
+    borderRadius: 12,
     backgroundColor: CARD,
   },
 
-  heroGlowOne: {
-    position: 'absolute',
-    top: -65,
-    right: -35,
-    width: 160,
-    height: 160,
-    borderRadius: 80,
-    backgroundColor: withAlpha(theme.colors.primary, 0.11),
-  },
 
-  heroGlowTwo: {
-    position: 'absolute',
-    bottom: -70,
-    left: -50,
-    width: 155,
-    height: 155,
-    borderRadius: 78,
-    backgroundColor: withAlpha(theme.colors.secondary, 0.08),
-  },
 
   sectionHeader: {
     flexDirection: 'row',
@@ -2355,7 +2255,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 10,
-    borderRadius: 14,
+    borderRadius: 12,
   },
 
   sectionHeaderCopy: {
@@ -2363,19 +2263,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  cardTitle: {
-    color: PURPLE_DARK,
-    fontFamily: 'serif',
-    fontSize: 16.5,
-    fontWeight: '800',
-  },
+  cardTitle: {color: PURPLE_DARK},
 
-  cardSubtitle: {
-    marginTop: 2,
-    color: TEXT_SECONDARY,
-    fontSize: 10,
-    lineHeight: 14,
-  },
+  cardSubtitle: {marginTop: 2, color: TEXT_SECONDARY},
 
   kpiGrid: {
     marginTop: 13,
@@ -2392,7 +2282,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 12,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.07),
-    borderRadius: 19,
+    borderRadius: 12,
     backgroundColor: CARD_SOFT,
   },
 
@@ -2407,7 +2297,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 36,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 13,
+    borderRadius: 12,
   },
 
   kpiDot: {
@@ -2417,19 +2307,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     opacity: 0.5,
   },
 
-  kpiValue: {
-    marginTop: 11,
-    color: PURPLE_DARK,
-    fontSize: 20,
-    fontWeight: '800',
-  },
+  kpiValue: {marginTop: 11, color: PURPLE_DARK},
 
-  kpiLabel: {
-    marginTop: 3,
-    color: TEXT_SECONDARY,
-    fontSize: 9.7,
-    lineHeight: 13,
-  },
+  kpiLabel: {marginTop: 3, color: TEXT_SECONDARY},
 
   chart: {
     height: 155,
@@ -2454,7 +2334,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'flex-end',
     overflow: 'hidden',
     marginVertical: 6,
-    borderRadius: 9,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
@@ -2479,7 +2359,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   barLabel: {
     color: TEXT_SECONDARY,
-    fontSize: 7.5,
+    fontSize: 11,
     textAlign: 'center',
   },
 
@@ -2497,7 +2377,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 14,
     borderWidth: 1,
     borderColor: BORDER,
-    borderRadius: 22,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
     ...theme.shadow,
   },
@@ -2507,7 +2387,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: PURPLE_SOFT,
   },
 
@@ -2516,31 +2396,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: PINK_SOFT,
   },
 
-  statusLabel: {
-    marginTop: 11,
-    color: TEXT_SECONDARY,
-    fontSize: 9.5,
-    fontWeight: '600',
-  },
+  statusLabel: {marginTop: 11, color: TEXT_SECONDARY},
 
-  statusValue: {
-    marginTop: 4,
-    color: PURPLE_DARK,
-    fontFamily: 'serif',
-    fontSize: 15,
-    lineHeight: 19,
-    fontWeight: '800',
-  },
+  statusValue: {marginTop: 4, color: PURPLE_DARK},
 
-  statusMeta: {
-    marginTop: 5,
-    color: TEXT_SECONDARY,
-    fontSize: 9,
-  },
+  statusMeta: {marginTop: 5, color: TEXT_SECONDARY},
 
   adviceCard: {
     ...theme.shadow,
@@ -2553,19 +2417,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 15,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 22,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
-  adviceGlow: {
-    position: 'absolute',
-    right: -35,
-    top: -45,
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    backgroundColor: withAlpha(theme.colors.surface, 0.30),
-  },
 
   adviceIcon: {
     width: 42,
@@ -2573,7 +2428,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: withAlpha(theme.colors.surface, 0.80),
   },
 
@@ -2582,19 +2437,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  adviceTitle: {
-    color: PURPLE_DARK,
-    fontFamily: 'serif',
-    fontSize: 14.5,
-    fontWeight: '800',
-  },
+  adviceTitle: {color: PURPLE_DARK},
 
-  adviceText: {
-    marginTop: 3,
-    color: TEXT_SECONDARY,
-    fontSize: 10.5,
-    lineHeight: 15,
-  },
+  adviceText: {marginTop: 3, color: TEXT_SECONDARY},
 
   distributionList: {
     marginTop: 11,
@@ -2617,28 +2462,17 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 8,
   },
 
-  distributionLabel: {
-    flex: 1,
-    minWidth: 0,
-    color: PURPLE_DARK,
-    fontSize: 11.5,
-    fontWeight: '700',
-    lineHeight: 15,
-  },
+  distributionLabel: {flex: 1, minWidth: 0, color: PURPLE_DARK},
 
   distributionBadge: {
     flexShrink: 0,
     paddingHorizontal: 9,
     paddingVertical: 4,
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
-  distributionCount: {
-    color: TEXT_SECONDARY,
-    fontSize: 8.7,
-    fontWeight: '700',
-  },
+  distributionCount: {color: TEXT_SECONDARY},
 
   distributionTrack: {
     height: 7,
@@ -2664,38 +2498,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 56,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: PURPLE_SOFT,
   },
 
-  emptyTitle: {
-    marginTop: 12,
-    color: PURPLE_DARK,
-    fontFamily: 'serif',
-    fontSize: 14,
-    fontWeight: '800',
-  },
+  emptyTitle: {marginTop: 12, color: PURPLE_DARK},
 
-  emptyText: {
-    maxWidth: 285,
-    marginTop: 5,
-    color: TEXT_SECONDARY,
-    fontSize: 10.5,
-    lineHeight: 15,
-    textAlign: 'center',
-  },
+  emptyText: {maxWidth: 285, marginTop: 5, color: TEXT_SECONDARY, textAlign: 'center'},
 
-  softInfoCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    marginTop: 12,
-    padding: 13,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.07),
-    borderRadius: 18,
-    backgroundColor: theme.colors.surfaceSecondary,
-  },
+  softInfoCard: {flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 12, padding: 13},
 
   softInfoIcon: {
     width: 34,
@@ -2717,13 +2528,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: PURPLE_SOFT,
   },
 
-  softInfoText: {
-    flex: 1,
-    minWidth: 0,
-    color: TEXT_SECONDARY,
-    fontSize: 10.3,
-    lineHeight: 15,
-  },
+  softInfoText: {flex: 1, minWidth: 0, color: TEXT_SECONDARY},
 
   trackingStatusCard: {
     ...theme.shadow,
@@ -2731,7 +2536,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 15,
     borderWidth: 1,
     borderColor: BORDER,
-    borderRadius: 23,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
 
@@ -2746,7 +2551,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: PURPLE_SOFT,
   },
 
@@ -2756,18 +2561,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginHorizontal: 10,
   },
 
-  trackingTitle: {
-    color: PURPLE_DARK,
-    fontFamily: 'serif',
-    fontSize: 15.5,
-    fontWeight: '800',
-  },
+  trackingTitle: {color: PURPLE_DARK},
 
-  trackingSubtitle: {
-    marginTop: 2,
-    color: TEXT_SECONDARY,
-    fontSize: 9.5,
-  },
+  trackingSubtitle: {marginTop: 2, color: TEXT_SECONDARY},
 
   trackingValueRow: {
     flexDirection: 'row',
@@ -2783,40 +2579,20 @@ function createStyles(theme: ResolvedAwaTheme) {
     fontWeight: '800',
   },
 
-  trackingValueLabel: {
-    flex: 1,
-    paddingBottom: 3,
-    color: TEXT_SECONDARY,
-    fontSize: 10.5,
-  },
+  trackingValueLabel: {flex: 1, paddingBottom: 3, color: TEXT_SECONDARY},
 
-  trackingStatusValue: {
-    marginTop: 15,
-    color: PURPLE_DARK,
-    fontFamily: 'serif',
-    fontSize: 19,
-    fontWeight: '800',
-  },
+  trackingStatusValue: {marginTop: 15, color: PURPLE_DARK},
 
   currentStatusBox: {
     marginTop: 14,
     padding: 13,
-    borderRadius: 17,
+    borderRadius: 16,
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
-  currentStatusLabel: {
-    color: TEXT_SECONDARY,
-    fontSize: 9,
-  },
+  currentStatusLabel: {color: TEXT_SECONDARY},
 
-  currentStatusValue: {
-    marginTop: 4,
-    color: PURPLE_DARK,
-    fontFamily: 'serif',
-    fontSize: 17,
-    fontWeight: '800',
-  },
+  currentStatusValue: {marginTop: 4, color: PURPLE_DARK},
 
   datePill: {
     alignSelf: 'flex-start',
@@ -2830,24 +2606,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: PURPLE_SOFT,
   },
 
-  datePillText: {
-    color: PURPLE,
-    fontSize: 9.5,
-    fontWeight: '700',
-  },
+  datePillText: {color: PURPLE},
 
   periodSelectorWrap: {
     marginTop: 12,
     marginHorizontal: 16,
   },
 
-  coverageText: {
-    marginTop: -8,
-    marginBottom: 10,
-    color: TEXT_SECONDARY,
-    fontSize: 9.5,
-    textAlign: 'center',
-  },
+  coverageText: {marginTop: -8, marginBottom: 10, color: TEXT_SECONDARY, textAlign: 'center'},
 
   monthlyChartScroll: {
     marginTop: 16,
@@ -2881,27 +2647,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderBottomColor: withAlpha(theme.colors.primary, 0.10),
   },
 
-  monthlyRowLabel: {
-    color: PURPLE_DARK,
-    fontSize: 11.5,
-    fontWeight: '700',
-  },
+  monthlyRowLabel: {color: PURPLE_DARK},
 
-  monthlyRowMeta: {
-    flexShrink: 1,
-    color: TEXT_SECONDARY,
-    fontSize: 9.7,
-    textAlign: 'right',
-  },
+  monthlyRowMeta: {flexShrink: 1, color: TEXT_SECONDARY, textAlign: 'right'},
 
-  pressed: {
-    opacity: 0.78,
-    transform: [
-      {
-        scale: 0.97,
-      },
-    ],
-  },
   });
 }
 

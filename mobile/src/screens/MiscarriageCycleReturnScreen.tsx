@@ -5,7 +5,6 @@ import {
   Animated,
   Easing,
   Image,
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -33,8 +32,11 @@ import {
 import {dateFormatLocale, startOfDay} from '../utils/cycleMath';
 import {validateCycleReturnDate} from '../utils/lossDateValidation';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaText} from '../components/ui/AwaText';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MiscarriageCycleReturn'>;
 
@@ -176,11 +178,6 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} hidden={false} translucent />
@@ -200,8 +197,8 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
                 source={require('../assets/images/miscarriage/miscarriage-calendar.png')}
                 style={styles.headerImage}
               />
-              <Text style={styles.title}>{t('miscarriageCycleReturn.title')}</Text>
-              <Text style={styles.subtitle}>{t('miscarriageCycleReturn.subtitle')}</Text>
+              <AwaText variant="headlineMedium" style={styles.title}>{t('miscarriageCycleReturn.title')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>{t('miscarriageCycleReturn.subtitle')}</AwaText>
             </View>
 
             <View style={styles.optionsCenterContainer}>
@@ -216,40 +213,43 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
                     subtitle={option.subtitle}
                     title={option.title}>
                     {option.id === 'yes' ? (
-                      <Pressable
+                      <AwaCard
+                        padding="none"
+                        variant="filled"
                         accessibilityLabel={t('miscarriageCycleReturn.dateField.accessibilityLabel')}
                         accessibilityRole="button"
                         onPress={() => setPickerVisible(true)}
-                        style={({pressed}) => [styles.dateField, pressed && styles.pressed]}>
+                        style={styles.dateField}>
                         <View style={styles.dateFieldIcon}>
                           <MaterialDesignIcons color={theme.colors.primary} name="calendar-month-outline" size={18} />
                         </View>
                         <View style={styles.dateFieldCopy}>
-                          <Text style={styles.dateFieldLabel}>
+                          <AwaText variant="bodySmall" colorRole="onSurfaceVariant">
                             {t('miscarriageCycleReturn.dateField.label')}{' '}
                             <Text style={styles.dateFieldOptional}>{t('miscarriageCycleReturn.dateField.optional')}</Text>
-                          </Text>
+                          </AwaText>
                           <Text style={[styles.dateFieldValue, !returnedDate && styles.dateFieldPlaceholder]}>
                             {returnedDate ? formatFullDate(returnedDate) : t('miscarriageCycleReturn.dateField.placeholder')}
                           </Text>
                         </View>
                         <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={18} />
-                      </Pressable>
+                      </AwaCard>
                     ) : null}
                     {option.id === 'yes' && returnedDate ? (
                       <>
                         {returnedDateProblem && !returnedDateProblem.valid ? (
-                          <Text accessibilityRole="alert" style={styles.dateWarning}>
+                          <AwaText variant="bodySmall" colorRole="error" accessibilityRole="alert" style={styles.dateWarning}>
                             {t('miscarriageCycleReturn.dateWarning', {message: returnedDateProblem.message})}
-                          </Text>
+                          </AwaText>
                         ) : null}
-                        <Pressable
+                        <AwaButton
                           accessibilityLabel={t('miscarriageCycleReturn.removeDate')}
-                          accessibilityRole="button"
+                          label={t('miscarriageCycleReturn.removeDate')}
                           onPress={() => setReturnedDate(null)}
-                          style={({pressed}) => [styles.clearDate, pressed && styles.pressed]}>
-                          <Text style={styles.clearDateText}>{t('miscarriageCycleReturn.removeDate')}</Text>
-                        </Pressable>
+                          size="compact"
+                          style={styles.clearDate}
+                          variant="text"
+                        />
                       </>
                     ) : null}
                   </PremiumChoiceCard>
@@ -258,19 +258,14 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
             </View>
           </Animated.View>
 
-          <Pressable
+          <AwaButton
             accessibilityRole="button"
             disabled={saving || !selected}
             onPress={handleNext}
-            style={({pressed}) => [
-              styles.nextButton,
-              !selected && styles.nextButtonDisabled,
-              (pressed || saving) && selected && styles.pressed,
-            ]}>
-            <Text style={styles.nextText}>
-              {saving ? t('miscarriageCycleReturn.saving') : route.params?.mode === 'edit' ? t('common.save') : t('miscarriageCycleReturn.next')}
-            </Text>
-          </Pressable>
+            label={saving ? t('miscarriageCycleReturn.saving') : route.params?.mode === 'edit' ? t('common.save') : t('miscarriageCycleReturn.next')}
+            size="large"
+            style={styles.nextButton}
+          />
         </ScrollView>
       </View>
 
@@ -292,107 +287,36 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   background: {flex: 1, backgroundColor: theme.colors.background},
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
 
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
 
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
 
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   safeArea: {flex: 1},
   content: {flexGrow: 1, paddingHorizontal: spacing.lg},
   mainContent: {flex: 1},
   header: {alignItems: 'center', paddingTop: 5, marginBottom: spacing.md},
   headerImage: {width: 210, height: 135, marginBottom: 2},
-  title: {
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 26,
-    fontWeight: '700',
-    lineHeight: 32,
-    textAlign: 'center',
-  },
-  subtitle: {
-    marginTop: 10,
-    maxWidth: 310,
-    color: theme.colors.textSecondary,
-    fontSize: 13,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
+  title: {textAlign: 'center'},
+  subtitle: {marginTop: 10, maxWidth: 310, textAlign: 'center'},
   optionsCenterContainer: {flex: 1, justifyContent: 'center', paddingVertical: spacing.md},
   optionsList: {gap: 12},
-  dateField: {
-    minHeight: 52,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surface,
-    paddingHorizontal: 10,
-  },
+  dateField: {minHeight: 52, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12},
   dateFieldIcon: {
     width: 32,
     height: 32,
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 11,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   dateFieldCopy: {flex: 1, minWidth: 0, marginHorizontal: 9},
-  dateFieldLabel: {color: theme.colors.textSecondary, fontSize: 9.5, lineHeight: 13},
   dateFieldOptional: {fontStyle: 'italic'},
   dateFieldValue: {marginTop: 2, color: theme.colors.text, fontSize: 12.5, fontWeight: '700'},
   dateFieldPlaceholder: {color: theme.colors.textMuted, fontWeight: '500'},
-  dateWarning: {marginTop: 8, color: theme.colors.danger, fontSize: 11, lineHeight: 15},
-  clearDate: {alignSelf: 'flex-start', marginTop: 6, paddingVertical: 6, paddingHorizontal: 4},
-  clearDateText: {color: theme.colors.primary, fontSize: 11.5, fontWeight: '700'},
-  nextButton: {
-    minHeight: 54,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: spacing.sm,
-    borderRadius: 18,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.25,
-    shadowRadius: 9,
-    elevation: 5,
-  },
-  nextButtonDisabled: {backgroundColor: withAlpha(theme.colors.primary, 0.45), shadowOpacity: 0, elevation: 0},
-  nextText: {color: onPrimaryTextColor(theme), fontSize: 18, fontWeight: '600'},
-  pressed: {opacity: 0.82},
+  dateWarning: {marginTop: 8},
+  clearDate: {alignSelf: 'flex-start', marginTop: 6},
+  nextButton: {marginTop: spacing.sm},
   });
 }
 

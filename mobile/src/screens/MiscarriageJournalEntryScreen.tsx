@@ -67,6 +67,7 @@ import {
 
 import { parseLossDateKey, validateLossJournalDate } from '../utils/lossDateValidation';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaText} from '../components/ui/AwaText';
 
 type Props = RouteProp<RootStackParamList, 'MiscarriageJournalEntry'>;
 
@@ -735,10 +736,10 @@ function SectionHeader({
       </View>
 
       <View style={styles.sectionHeaderCopy}>
-        <Text style={styles.sectionTitle}>{title}</Text>
+        <AwaText variant="titleMedium" style={styles.sectionTitle}>{title}</AwaText>
 
         {subtitle ? (
-          <Text style={styles.sectionSubtitle}>{subtitle}</Text>
+          <AwaText variant="bodySmall" style={styles.sectionSubtitle}>{subtitle}</AwaText>
         ) : null}
       </View>
     </View>
@@ -888,7 +889,6 @@ function BleedingContent({
                 </View>
 
                 <Text
-                  numberOfLines={2}
                   style={[
                     styles.qualityLabel,
 
@@ -974,7 +974,6 @@ function BleedingContent({
                 </View>
 
                 <Text
-                  numberOfLines={2}
                   style={[styles.colorLabel, active && styles.colorLabelActive]}
                 >
                   {journalOptionLabel('miscarriageBleedingColor', option.label, t)}
@@ -1010,9 +1009,9 @@ function BleedingContent({
             </View>
 
             <View style={styles.dateCopy}>
-              <Text style={styles.dateEyebrow}>{t('miscarriageJournalEntry.bleeding.duration.since')}</Text>
+              <AwaText variant="labelSmall" style={styles.dateEyebrow}>{t('miscarriageJournalEntry.bleeding.duration.since')}</AwaText>
 
-              <Text style={styles.dateValue}>{formattedDate}</Text>
+              <AwaText variant="labelMedium" style={styles.dateValue}>{formattedDate}</AwaText>
             </View>
           </View>
 
@@ -1113,12 +1112,12 @@ function PremiumTextArea({
             size={11}
           />
 
-          <Text style={styles.privatePillText}>{t('miscarriageJournalEntry.private')}</Text>
+          <AwaText variant="labelSmall" style={styles.privatePillText}>{t('miscarriageJournalEntry.private')}</AwaText>
         </View>
 
-        <Text style={styles.noteCounter}>
+        <AwaText variant="bodySmall" style={styles.noteCounter}>
           {value.length}/{maxLength}
-        </Text>
+        </AwaText>
       </View>
     </View>
   );
@@ -1212,7 +1211,6 @@ function SymptomChoice({
         </View>
 
         <Text
-          numberOfLines={2}
           style={[styles.symptomName, active && styles.symptomNameActive]}
         >
           {journalOptionLabel('miscarriagePhysicalSymptom', option, t)}
@@ -1261,7 +1259,6 @@ function SymptomsContent({
       {/* HERO */}
 
       <AnimatedSection style={styles.symptomHero}>
-        <View style={styles.heroGlow} />
 
         <View style={styles.heroLargeIcon}>
           <MaterialDesignIcons
@@ -1272,11 +1269,11 @@ function SymptomsContent({
         </View>
 
         <View style={styles.heroCopy}>
-          <Text style={styles.heroTitle}>{t('miscarriageJournalEntry.symptoms.hero.title')}</Text>
+          <AwaText variant="titleMedium" style={styles.heroTitle}>{t('miscarriageJournalEntry.symptoms.hero.title')}</AwaText>
 
-          <Text style={styles.heroSubtitle}>
+          <AwaText variant="bodySmall" style={styles.heroSubtitle}>
             {t('miscarriageJournalEntry.symptoms.hero.subtitle')}
-          </Text>
+          </AwaText>
         </View>
       </AnimatedSection>
 
@@ -1310,9 +1307,9 @@ function SymptomsContent({
               />
             </View>
 
-            <Text style={styles.selectedSummaryText}>
+            <AwaText variant="labelSmall" style={styles.selectedSummaryText}>
               {t('miscarriageJournalEntry.symptoms.selectedSummary', {count: selected.length})}
-            </Text>
+            </AwaText>
           </View>
         ) : null}
       </AnimatedSection>
@@ -1364,7 +1361,6 @@ function NotesContent({
       {/* HERO */}
 
       <AnimatedSection style={styles.notesHero}>
-        <View style={styles.notesGlow} />
 
         <View style={styles.notesHeroIcon}>
           <MaterialDesignIcons
@@ -1375,11 +1371,11 @@ function NotesContent({
         </View>
 
         <View style={styles.heroCopy}>
-          <Text style={styles.heroTitle}>{t('miscarriageJournalEntry.personalNotes.hero.title')}</Text>
+          <AwaText variant="titleMedium" style={styles.heroTitle}>{t('miscarriageJournalEntry.personalNotes.hero.title')}</AwaText>
 
-          <Text style={styles.heroSubtitle}>
+          <AwaText variant="bodySmall" style={styles.heroSubtitle}>
             {t('miscarriageJournalEntry.personalNotes.hero.subtitle')}
-          </Text>
+          </AwaText>
         </View>
       </AnimatedSection>
 
@@ -1409,9 +1405,9 @@ function NotesContent({
             />
           </View>
 
-          <Text style={styles.encouragementText}>
+          <AwaText variant="bodySmall" style={styles.encouragementText}>
             {t('miscarriageJournalEntry.personalNotes.encouragement')}
-          </Text>
+          </AwaText>
         </View>
       </AnimatedSection>
 
@@ -1544,7 +1540,7 @@ function TryingAgainChoice({
             {option.label}
           </Text>
 
-          <Text style={styles.tryingSubtitle}>{option.subtitle}</Text>
+          <AwaText variant="bodySmall" style={styles.tryingSubtitle}>{option.subtitle}</AwaText>
         </View>
 
         <View style={[styles.radioOuter, active && styles.radioOuterActive]}>
@@ -1576,7 +1572,6 @@ function TryingAgainContent({
       {/* HERO */}
 
       <AnimatedSection style={styles.tryingHero}>
-        <View style={styles.tryingHeroGlow} />
 
         <View style={styles.tryingHeroIcon}>
           <MaterialDesignIcons
@@ -1587,11 +1582,11 @@ function TryingAgainContent({
         </View>
 
         <View style={styles.heroCopy}>
-          <Text style={styles.heroTitle}>{t('miscarriageJournalEntry.tryingAgain.hero.title')}</Text>
+          <AwaText variant="titleMedium" style={styles.heroTitle}>{t('miscarriageJournalEntry.tryingAgain.hero.title')}</AwaText>
 
-          <Text style={styles.heroSubtitle}>
+          <AwaText variant="bodySmall" style={styles.heroSubtitle}>
             {t('miscarriageJournalEntry.tryingAgain.hero.subtitle')}
-          </Text>
+          </AwaText>
         </View>
       </AnimatedSection>
 
@@ -1693,7 +1688,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     borderColor: BORDER,
 
-    borderRadius: 24,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.surface,
 
@@ -1735,7 +1730,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginRight: 10,
 
-    borderRadius: 14,
+    borderRadius: 12,
   },
 
   sectionHeaderCopy: {
@@ -1744,25 +1739,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  sectionTitle: {
-    color: PURPLE_DARK,
+  sectionTitle: {color: PURPLE_DARK},
 
-    fontFamily: 'serif',
-
-    fontSize: 16,
-
-    fontWeight: '800',
-  },
-
-  sectionSubtitle: {
-    marginTop: 2,
-
-    color: TEXT_SECONDARY,
-
-    fontSize: 9.6,
-
-    lineHeight: 14,
-  },
+  sectionSubtitle: {marginTop: 2, color: TEXT_SECONDARY},
 
   /* ========================================================
        SAIGNEMENTS — FLUX
@@ -1845,7 +1824,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     color: TEXT_SECONDARY,
 
-    fontSize: 9.5,
+    fontSize: 11,
 
     fontWeight: '600',
 
@@ -1878,7 +1857,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     borderWidth: 2,
 
-    borderColor: '#FFFFFF',
+    borderColor: theme.colors.surface,
 
     borderRadius: 9,
 
@@ -1963,7 +1942,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     borderWidth: 2,
 
-    borderColor: '#FFFFFF',
+    borderColor: theme.colors.surface,
 
     borderRadius: 9,
 
@@ -1977,9 +1956,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     color: TEXT_SECONDARY,
 
-    fontSize: 8.5,
+    fontSize: 11,
 
-    lineHeight: 11,
+    lineHeight: 16,
 
     textAlign: 'center',
   },
@@ -2009,7 +1988,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     borderColor: BORDER,
 
-    borderRadius: 18,
+    borderRadius: 12,
 
     backgroundColor: LAVENDER_LIGHT,
   },
@@ -2034,7 +2013,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     justifyContent: 'center',
 
-    borderRadius: 14,
+    borderRadius: 12,
 
     backgroundColor: LAVENDER,
   },
@@ -2047,23 +2026,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginLeft: 10,
   },
 
-  dateEyebrow: {
-    color: TEXT_SECONDARY,
+  dateEyebrow: {color: TEXT_SECONDARY},
 
-    fontSize: 9.5,
-
-    fontWeight: '600',
-  },
-
-  dateValue: {
-    marginTop: 3,
-
-    color: PURPLE_DARK,
-
-    fontSize: 13,
-
-    fontWeight: '800',
-  },
+  dateValue: {marginTop: 3, color: PURPLE_DARK},
 
   dateArrow: {
     width: 33,
@@ -2091,7 +2056,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     borderColor: withAlpha(theme.colors.primary, 0.14),
 
-    borderRadius: 18,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.surface,
   },
@@ -2160,42 +2125,15 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     paddingVertical: 4,
 
-    borderRadius: 9,
+    borderRadius: 12,
 
     backgroundColor: LAVENDER,
   },
 
-  privatePillText: {
-    color: PURPLE,
+  privatePillText: {color: PURPLE},
 
-    fontSize: 8,
+  noteCounter: {color: TEXT_SECONDARY},
 
-    fontWeight: '700',
-  },
-
-  noteCounter: {
-    color: TEXT_SECONDARY,
-
-    fontSize: 8.5,
-  },
-
-  /* ========================================================
-       GENERIC HERO
-    ======================================================== */
-
-  heroGlow: {
-    position: 'absolute',
-
-    top: -35,
-    right: -25,
-
-    width: 110,
-    height: 110,
-
-    borderRadius: 55,
-
-    backgroundColor: withAlpha(theme.colors.surface, 0.40),
-  },
 
   heroLargeIcon: {
     width: 54,
@@ -2207,7 +2145,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     justifyContent: 'center',
 
-    borderRadius: 19,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.surface,
   },
@@ -2220,27 +2158,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginLeft: 12,
   },
 
-  heroTitle: {
-    color: PURPLE_DARK,
+  heroTitle: {color: PURPLE_DARK},
 
-    fontFamily: 'serif',
-
-    fontSize: 16.5,
-
-    fontWeight: '800',
-
-    lineHeight: 21,
-  },
-
-  heroSubtitle: {
-    marginTop: 4,
-
-    color: TEXT_SECONDARY,
-
-    fontSize: 9.7,
-
-    lineHeight: 14,
-  },
+  heroSubtitle: {marginTop: 4, color: TEXT_SECONDARY},
 
   /* ========================================================
        SYMPTOMS HERO
@@ -2259,7 +2179,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     padding: 15,
 
-    borderRadius: 23,
+    borderRadius: 12,
 
     backgroundColor: LAVENDER,
   },
@@ -2295,7 +2215,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     borderColor: withAlpha(theme.colors.primary, 0.08),
 
-    borderRadius: 18,
+    borderRadius: 12,
 
     backgroundColor: LAVENDER_LIGHT,
   },
@@ -2327,7 +2247,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     justifyContent: 'center',
 
-    borderRadius: 14,
+    borderRadius: 12,
   },
 
   symptomName: {
@@ -2339,9 +2259,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     color: PURPLE_DARK,
 
-    fontSize: 10.5,
+    fontSize: 11,
 
-    lineHeight: 14,
+    lineHeight: 16,
 
     fontWeight: '700',
   },
@@ -2385,9 +2305,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginTop: 12,
 
-    padding: 10,
+    padding: 12,
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     backgroundColor: GREEN_LIGHT,
   },
@@ -2402,18 +2322,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginRight: 8,
 
-    borderRadius: 9,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.surface,
   },
 
-  selectedSummaryText: {
-    color: GREEN,
-
-    fontSize: 9.4,
-
-    fontWeight: '700',
-  },
+  selectedSummaryText: {color: GREEN},
 
   /* ========================================================
        NOTES HERO
@@ -2436,24 +2350,11 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     borderColor: withAlpha(theme.colors.primary, 0.07),
 
-    borderRadius: 24,
+    borderRadius: 12,
 
     backgroundColor: LAVENDER,
   },
 
-  notesGlow: {
-    position: 'absolute',
-
-    top: -45,
-    right: -25,
-
-    width: 120,
-    height: 120,
-
-    borderRadius: 60,
-
-    backgroundColor: withAlpha(theme.colors.surface, 0.46),
-  },
 
   notesHeroIcon: {
     width: 55,
@@ -2465,7 +2366,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     justifyContent: 'center',
 
-    borderRadius: 20,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.surface,
 
@@ -2490,9 +2391,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginTop: 12,
 
-    padding: 10,
+    padding: 12,
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     backgroundColor: PINK_LIGHT,
   },
@@ -2509,20 +2410,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginRight: 8,
 
-    borderRadius: 9,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.surface,
   },
 
-  encouragementText: {
-    flex: 1,
-
-    color: TEXT_SECONDARY,
-
-    fontSize: 9.2,
-
-    lineHeight: 13.5,
-  },
+  encouragementText: {flex: 1, color: TEXT_SECONDARY},
 
   /* ========================================================
        TRYING HERO
@@ -2541,24 +2434,11 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     padding: 16,
 
-    borderRadius: 24,
+    borderRadius: 12,
 
     backgroundColor: PINK_LIGHT,
   },
 
-  tryingHeroGlow: {
-    position: 'absolute',
-
-    top: -40,
-    right: -25,
-
-    width: 115,
-    height: 115,
-
-    borderRadius: 58,
-
-    backgroundColor: withAlpha(theme.colors.surface, 0.42),
-  },
 
   tryingHeroIcon: {
     width: 55,
@@ -2570,7 +2450,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     justifyContent: 'center',
 
-    borderRadius: 20,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.surface,
   },
@@ -2596,7 +2476,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     borderColor: BORDER,
 
-    borderRadius: 19,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.surface,
   },
@@ -2655,15 +2535,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     fontWeight: '800',
   },
 
-  tryingSubtitle: {
-    marginTop: 3,
-
-    color: TEXT_SECONDARY,
-
-    fontSize: 8.8,
-
-    lineHeight: 13,
-  },
+  tryingSubtitle: {marginTop: 3, color: TEXT_SECONDARY},
 
   radioOuter: {
     width: 23,

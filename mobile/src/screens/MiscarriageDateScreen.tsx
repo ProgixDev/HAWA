@@ -31,8 +31,11 @@ import {dateFormatLocale, diffDays, localizedWeekDays, startOfDay} from '../util
 import {validateLossDate} from '../utils/postpartumLossDateValidation';
 import {capitalizeFor, displayTitleCase} from '../utils/textCase';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {onPrimaryTextColor, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaText} from '../components/ui/AwaText';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MiscarriageDate'>;
 
@@ -192,11 +195,6 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} hidden={false} translucent />
@@ -220,8 +218,8 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
             </View>
 
             <View style={styles.header}>
-              <Text style={styles.title}>{t('miscarriageDate.title')}</Text>
-              <Text style={styles.subtitle}>{t('miscarriageDate.subtitle')}</Text>
+              <AwaText variant="headlineMedium" style={styles.title}>{t('miscarriageDate.title')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>{t('miscarriageDate.subtitle')}</AwaText>
             </View>
           </Animated.View>
 
@@ -235,7 +233,7 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
                 <Text style={styles.calendarArrowText}>{'<'}</Text>
               </Pressable>
 
-              <Text style={styles.calendarTitle}>{displayTitleCase(formatMonthYear(visibleMonth))}</Text>
+              <AwaText variant="titleMedium" style={styles.calendarTitle}>{displayTitleCase(formatMonthYear(visibleMonth))}</AwaText>
 
               <Pressable
                 accessibilityLabel={t('calendar.nextMonth')}
@@ -276,6 +274,7 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
                       accessibilityLabel={`${day} ${formatMonthYear(visibleMonth)}`}
                       accessibilityState={{disabled: future, selected}}
                       disabled={future}
+                      hitSlop={4}
                       onPress={() => chooseDay(day)}
                       style={[styles.dayButton, selected && styles.daySelected]}>
                       <Text style={[styles.dayText, future && styles.dayTextDisabled, selected && styles.dayTextSelected]}>
@@ -288,41 +287,39 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
             </View>
           </Animated.View>
 
-          <Animated.View style={[styles.selectedCard, cardStyle]}>
-            <View style={styles.selectedIcon}>
-              <MaterialDesignIcons color={theme.colors.primary} name="calendar-heart" size={20} />
-            </View>
-            <View style={styles.selectedCopy}>
-              <Text style={styles.selectedLabel}>{t('miscarriageDate.selectedLabel')}</Text>
-              <Text style={styles.selectedValue}>{formatFullDate(selectedDate)}</Text>
-            </View>
-            <Pressable accessibilityRole="button" hitSlop={8} onPress={scrollToCalendar}>
-              <Text style={styles.modifyText}>{t('miscarriageDate.modify')}</Text>
-            </Pressable>
+          <Animated.View style={[styles.selectedWrap, cardStyle]}>
+            <AwaCard padding="none" style={styles.selectedCard} variant="outlined">
+              <View style={styles.selectedIcon}>
+                <MaterialDesignIcons color={theme.colors.primary} name="calendar-heart" size={20} />
+              </View>
+              <View style={styles.selectedCopy}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{t('miscarriageDate.selectedLabel')}</AwaText>
+                <AwaText variant="titleSmall" style={styles.selectedValue}>{formatFullDate(selectedDate)}</AwaText>
+              </View>
+              <AwaButton label={t('miscarriageDate.modify')} onPress={scrollToCalendar} size="compact" variant="text" />
+            </AwaCard>
           </Animated.View>
 
           <Animated.View style={[styles.infoCard, cardStyle]}>
             <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={17} />
-            <Text style={styles.infoText}>{t('miscarriageDate.infoText')}</Text>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>{t('miscarriageDate.infoText')}</AwaText>
           </Animated.View>
 
           <View style={styles.spacer} />
 
           {dateError ? (
-            <Text accessibilityRole="alert" style={styles.dateError}>
+            <AwaText variant="labelMedium" colorRole="error" accessibilityRole="alert" style={styles.dateError}>
               {dateError}
-            </Text>
+            </AwaText>
           ) : null}
 
-          <Pressable
+          <AwaButton
             accessibilityRole="button"
             disabled={saving}
             onPress={handleNext}
-            style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
-            <Text style={styles.nextText}>
-              {saving ? t('miscarriageDate.saving') : isEdit ? t('common.save') : t('miscarriageDate.next')}
-            </Text>
-          </Pressable>
+            label={saving ? t('miscarriageDate.saving') : isEdit ? t('common.save') : t('miscarriageDate.next')}
+            size="large"
+          />
         </ScrollView>
       </View>
     </LinearGradient>
@@ -333,40 +330,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   background: {flex: 1, backgroundColor: theme.colors.background},
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
 
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
 
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
 
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   safeArea: {flex: 1},
   content: {
@@ -381,52 +347,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: spacing.sm,
   },
   illustrationImage: {width: 230, height: 150},
-  illustrationGlowOne: {
-    position: 'absolute',
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-  },
-  illustrationGlowTwo: {
-    position: 'absolute',
-    top: 8,
-    right: '24%',
-    width: 46,
-    height: 46,
-    borderRadius: 23,
-    backgroundColor: withAlpha(theme.colors.primary, 0.22),
-  },
-  illustrationCircle: {
-    width: 104,
-    height: 104,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 52,
-    backgroundColor: theme.colors.primarySoft,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
   header: {alignItems: 'center', marginBottom: spacing.lg},
-  title: {
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 27,
-    fontWeight: '700',
-    lineHeight: 34,
-    textAlign: 'center',
-  },
-  subtitle: {
-    marginTop: 8,
-    maxWidth: 300,
-    color: theme.colors.textSecondary,
-    fontSize: 13,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
+  title: {textAlign: 'center'},
+  subtitle: {marginTop: 8, maxWidth: 300, textAlign: 'center'},
   calendarCard: {
     width: '100%',
-    borderRadius: 22,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surface,
@@ -449,78 +375,48 @@ function createStyles(theme: ResolvedAwaTheme) {
   calendarArrowButtonDisabled: {opacity: 0.4},
   calendarArrowText: {color: theme.colors.primary, fontSize: 22, fontWeight: '600', lineHeight: 26},
   calendarArrowTextDisabled: {color: theme.colors.textSecondary},
-  calendarTitle: {
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 18,
-    fontWeight: '600',
-    textTransform: 'capitalize',
-  },
+  calendarTitle: {textTransform: 'capitalize'},
   weekRow: {flexDirection: 'row', marginTop: spacing.md},
-  weekDay: {width: '14.2857%', color: theme.colors.textSecondary, fontSize: 11.5, textAlign: 'center'},
+  weekDay: {width: '14.2857%', color: theme.colors.textSecondary, fontSize: 12, textAlign: 'center'},
   daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: spacing.sm},
-  dayCell: {width: '14.2857%', height: 40, alignItems: 'center', justifyContent: 'center'},
-  dayButton: {width: 34, height: 34, alignItems: 'center', justifyContent: 'center', borderRadius: 17},
+  dayCell: {width: '14.2857%', minHeight: 44, alignItems: 'center', justifyContent: 'center'},
+  dayButton: {width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 20},
   daySelected: {backgroundColor: theme.colors.primary},
   dayText: {color: theme.colors.text, fontSize: 14},
   dayTextDisabled: {color: theme.colors.textMuted},
   dayTextSelected: {color: onPrimaryTextColor(theme), fontWeight: '700'},
+  selectedWrap: {marginTop: spacing.md},
+  // AwaCard (outlined) supplies the surface, border and radius.
   selectedCard: {
     flexDirection: 'row',
     alignItems: 'center',
     minHeight: 66,
-    marginTop: spacing.md,
-    borderRadius: 17,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: theme.colors.surface,
-    paddingHorizontal: 14,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
   },
   selectedIcon: {
     width: 40,
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   selectedCopy: {flex: 1, minWidth: 0, marginHorizontal: 12},
-  selectedLabel: {color: theme.colors.textSecondary, fontSize: 11.5},
-  selectedValue: {marginTop: 2, color: theme.colors.text, fontSize: 15, fontWeight: '700'},
-  modifyText: {color: theme.colors.primary, fontSize: 13, fontWeight: '700'},
+  selectedValue: {marginTop: 2},
   infoCard: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
     marginTop: spacing.sm,
     padding: 12,
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.primarySoft,
   },
-  infoText: {flex: 1, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
+  infoText: {flex: 1},
   spacer: {flex: 1, minHeight: spacing.lg},
-  dateError: {
-    marginBottom: 12,
-    color: theme.colors.danger,
-    fontSize: 13,
-    fontWeight: '600',
-    lineHeight: 18,
-    textAlign: 'center',
-  },
+  dateError: {marginBottom: 12, textAlign: 'center'},
 
-  nextButton: {
-    minHeight: 52,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.25,
-    shadowRadius: 9,
-    elevation: 5,
-  },
-  nextText: {color: onPrimaryTextColor(theme), fontSize: 18, fontWeight: '600'},
   pressed: {opacity: 0.82},
   });
 }

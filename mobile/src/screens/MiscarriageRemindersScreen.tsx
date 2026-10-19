@@ -5,7 +5,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Switch,
   Text,
   View,
 } from 'react-native';
@@ -31,8 +30,13 @@ import {
   setMiscarriageDailyTrackingReminder,
 } from '../state/miscarriagePreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaSwitch} from '../components/ui/AwaSwitch';
+import {AwaText} from '../components/ui/AwaText';
 
 // Same 'HH:mm' formatting/parsing convention as
 // PostpartumRemindersScreen.tsx's/MenopauseRemindersScreen.tsx's own
@@ -165,42 +169,39 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
           ]}
           showsVerticalScrollIndicator={false}>
           <View style={editStyles.header}>
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={10}
               onPress={navigation.goBack}
-              style={({pressed}) => [editStyles.back, pressed && editStyles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={26} />
-            </Pressable>
+              icon="chevron-left"
+              iconSize={26}
+            />
             <View style={editStyles.headerCopy}>
-              <Text style={editStyles.title}>{t('miscarriageReminders.editTitle')}</Text>
-              <Text style={editStyles.subtitle}>
+              <AwaText variant="headlineSmall">{t('miscarriageReminders.editTitle')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={editStyles.subtitle}>
                 {t('miscarriageReminders.editSubtitle')}
-              </Text>
+              </AwaText>
             </View>
           </View>
 
-          <View style={editStyles.card}>
+          <AwaCard padding="none" variant="filled" style={editStyles.card}>
             <View style={editStyles.row}>
               <View style={editStyles.rowIcon}>
                 <MaterialDesignIcons color={theme.colors.primary} name="leaf" size={18} />
               </View>
               <View style={editStyles.rowCopy}>
-                <Text style={editStyles.rowTitle}>{t('miscarriageReminders.dailyTracking')}</Text>
-                <Text style={editStyles.rowSubtitle}>
+                <AwaText variant="labelMedium">{t('miscarriageReminders.dailyTracking')}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={editStyles.rowSubtitle}>
                   {t('miscarriageReminders.dailyTrackingDescription')}
-                </Text>
+                </AwaText>
               </View>
-              <Switch
+              <AwaSwitch
                 accessibilityLabel={t('miscarriageReminders.dailyTracking')}
-                ios_backgroundColor={theme.colors.primarySoft}
                 onValueChange={value => {
                   setDailyEnabled(value);
                   setError('');
                 }}
-                thumbColor={theme.colors.surface}
-                trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
                 value={dailyEnabled}
               />
             </View>
@@ -211,7 +212,7 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
                 accessibilityRole="button"
                 onPress={() => setTimePickerVisible(true)}
                 style={({pressed}) => [editStyles.timeRow, pressed && editStyles.pressed]}>
-                <Text style={editStyles.timeRowLabel}>{t('miscarriageReminders.timeLabel')}</Text>
+                <AwaText variant="labelMedium" colorRole="onSurfaceVariant">{t('miscarriageReminders.timeLabel')}</AwaText>
                 <View style={editStyles.timeRowValueGroup}>
                   <Text style={dailyTime ? editStyles.timeValue : editStyles.timeValuePlaceholder}>
                     {dailyTime ?? t('miscarriageReminders.choose')}
@@ -220,7 +221,7 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
                 </View>
               </Pressable>
             ) : null}
-          </View>
+          </AwaCard>
 
           {timePickerVisible ? (
             <DateTimePicker
@@ -239,19 +240,20 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
           {error ? (
             <View accessibilityRole="alert" style={editStyles.errorCard}>
               <MaterialDesignIcons color={theme.colors.danger} name="alert-outline" size={16} />
-              <Text style={editStyles.errorText}>{error}</Text>
+              <AwaText variant="bodySmall" colorRole="error" style={editStyles.errorText}>{error}</AwaText>
             </View>
           ) : null}
 
           {permissionNotice}
 
-          <Pressable
+          <AwaButton
             accessibilityRole="button"
             disabled={saving}
             onPress={handleContinue}
-            style={({pressed}) => [editStyles.saveButton, (pressed || saving) && editStyles.pressed]}>
-            <Text style={editStyles.saveButtonText}>{saving ? t('miscarriageReminders.saving') : t('common.save')}</Text>
-          </Pressable>
+            label={saving ? t('miscarriageReminders.saving') : t('common.save')}
+            size="large"
+            style={editStyles.saveButton}
+          />
         </ScrollView>
       </SafeAreaView>
     );
@@ -264,11 +266,6 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
@@ -280,25 +277,13 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
           ]}
           showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
-            <View style={styles.heroIcon}>
-              <View pointerEvents="none" style={styles.heroGlowOuter} />
-              <View pointerEvents="none" style={styles.heroGlowInner} />
-              <LinearGradient
-                colors={[theme.colors.surface, theme.colors.primarySoft]}
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 1}}
-                style={styles.heroInner}>
-                <MaterialDesignIcons color={theme.colors.primary} name="leaf" size={30} />
-              </LinearGradient>
-            </View>
-
-            <Text style={styles.title}>{t('miscarriageReminders.title')}</Text>
-            <Text style={styles.subtitle}>
+            <AwaText variant="headlineSmall" style={styles.title}>{t('miscarriageReminders.title')}</AwaText>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>
               {t('miscarriageReminders.subtitle')}
-            </Text>
+            </AwaText>
           </View>
 
-          <View style={styles.card}>
+          <AwaCard padding="none" variant="filled" style={styles.card}>
             <View style={styles.cardTopRow}>
               <View style={styles.cardIcon}>
                 <MaterialDesignIcons color={theme.colors.primary} name="leaf" size={22} />
@@ -308,18 +293,15 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
                     scheduleLocalNotification() actually uses in
                     miscarriageReminderScheduling.ts, so this card can never
                     disagree with what the real notification will say. */}
-                <Text style={styles.cardTitle}>{miscarriageDailyTrackingNotificationTitle(t)}</Text>
-                <Text style={styles.cardDescription}>{miscarriageDailyTrackingNotificationBody(t)}</Text>
+                <AwaText variant="titleSmall">{miscarriageDailyTrackingNotificationTitle(t)}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardDescription}>{miscarriageDailyTrackingNotificationBody(t)}</AwaText>
               </View>
-              <Switch
+              <AwaSwitch
                 accessibilityLabel={t('miscarriageReminders.enableDailyReminder')}
-                ios_backgroundColor={theme.colors.primarySoft}
                 onValueChange={value => {
                   setDailyEnabled(value);
                   setError('');
                 }}
-                thumbColor={theme.colors.surface}
-                trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
                 value={dailyEnabled}
               />
             </View>
@@ -334,7 +316,7 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
                   <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
                 </View>
                 <View style={styles.timeCopy}>
-                  <Text style={styles.timeLabel}>{t('miscarriageReminders.timeLabel')}</Text>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant">{t('miscarriageReminders.timeLabel')}</AwaText>
                   <Text style={dailyTime ? styles.timeValue : styles.timeValuePlaceholder}>
                     {dailyTime ?? t('miscarriageReminders.chooseTimeLong')}
                   </Text>
@@ -342,7 +324,7 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
                 <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={20} />
               </Pressable>
             ) : null}
-          </View>
+          </AwaCard>
 
           {timePickerVisible ? (
             <DateTimePicker
@@ -361,7 +343,7 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
           {error ? (
             <View accessibilityRole="alert" style={styles.errorCard}>
               <MaterialDesignIcons color={theme.colors.danger} name="alert-outline" size={16} />
-              <Text style={styles.errorText}>{error}</Text>
+              <AwaText variant="bodySmall" colorRole="error" style={styles.errorText}>{error}</AwaText>
             </View>
           ) : null}
 
@@ -371,30 +353,30 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
             <View style={styles.infoIconBox}>
               <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
             </View>
-            <Text style={styles.infoText}>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>
               {t('miscarriageReminders.infoText')}
-            </Text>
+            </AwaText>
           </View>
 
           <View style={styles.spacer} />
 
-          <Pressable
+          <AwaButton
             accessibilityRole="button"
             disabled={saving}
             onPress={handleContinue}
-            style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
-            <Text style={styles.nextText}>
-              {saving ? t('miscarriageReminders.saving') : t('miscarriageReminders.continue')}
-            </Text>
-          </Pressable>
+            label={saving ? t('miscarriageReminders.saving') : t('miscarriageReminders.continue')}
+            size="large"
+            style={styles.nextButton}
+          />
 
-          <Pressable
+          <AwaButton
             accessibilityRole="button"
             disabled={saving}
             onPress={handleSkip}
-            style={({pressed}) => [styles.skipButton, pressed && styles.pressed]}>
-            <Text style={styles.skipText}>{t('miscarriageReminders.notNow')}</Text>
-          </Pressable>
+            label={t('miscarriageReminders.notNow')}
+            variant="text"
+            style={styles.skipButton}
+          />
         </ScrollView>
       </View>
     </LinearGradient>
@@ -412,51 +394,35 @@ function createEditStyles(theme: ResolvedAwaTheme) {
   pressed: {opacity: 0.82},
 
   header: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 18},
-  back: {
-    alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-    width: 40, height: 40, borderRadius: 20, backgroundColor: theme.colors.surface,
-    elevation: 2, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.08, shadowRadius: 6,
-  },
   headerCopy: {flex: 1, minWidth: 0, marginLeft: 12, paddingTop: 6},
-  title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 21, fontWeight: '700'},
-  subtitle: {marginTop: 5, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 17},
+  subtitle: {marginTop: 5},
 
-  card: {
-    overflow: 'hidden', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
-    backgroundColor: theme.colors.surface, paddingHorizontal: 12,
-  },
+  card: {overflow: 'hidden', paddingHorizontal: 12},
   row: {minHeight: 68, flexDirection: 'row', alignItems: 'center', paddingVertical: 10, gap: 11},
   rowIcon: {
     width: 38, height: 38, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 13, backgroundColor: theme.colors.primarySoft,
+    borderRadius: 12, backgroundColor: theme.colors.primarySoft,
   },
   rowCopy: {flex: 1, minWidth: 0},
-  rowTitle: {color: theme.colors.text, fontSize: 13.5, fontWeight: '700'},
-  rowSubtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 15.5},
+  rowSubtitle: {marginTop: 3},
 
   timeRow: {
-    minHeight: 44, marginBottom: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    paddingHorizontal: 14, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 14,
+    minHeight: 48, marginBottom: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    paddingHorizontal: 14, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
-  timeRowLabel: {color: theme.colors.textSecondary, fontSize: 12, fontWeight: '700'},
   timeRowValueGroup: {flexDirection: 'row', alignItems: 'center', gap: 4},
   timeValue: {color: theme.colors.text, fontSize: 14, fontWeight: '800'},
   timeValuePlaceholder: {color: theme.colors.textMuted, fontSize: 14, fontWeight: '600'},
 
   errorCard: {
     flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4, marginBottom: 12,
-    paddingHorizontal: 12, paddingVertical: 10, borderRadius: 14,
+    paddingHorizontal: 12, paddingVertical: 10, borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.danger, 0.08), borderWidth: 1, borderColor: withAlpha(theme.colors.danger, 0.15),
   },
-  errorText: {flex: 1, color: theme.colors.danger, fontSize: 11.5, lineHeight: 16},
+  errorText: {flex: 1},
 
-  saveButton: {
-    minHeight: 54, alignItems: 'center', justifyContent: 'center', marginTop: 6,
-    borderRadius: 18, backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.2, shadowRadius: 10, elevation: 4,
-  },
-  saveButtonText: {color: onPrimaryTextColor(theme), fontSize: 15.5, fontWeight: '800'},
+  saveButton: {marginTop: 6},
   });
 }
 
@@ -464,64 +430,29 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   background: {flex: 1, backgroundColor: theme.colors.background},
 
-  pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
 
-  pageGlowTop: {
-    position: 'absolute', top: -150, right: -110, width: 330, height: 330,
-    borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-  pageGlowMiddle: {
-    position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
-    borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
-  pageGlowBottom: {
-    position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
-    borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   safeArea: {flex: 1},
   content: {flexGrow: 1, paddingHorizontal: spacing.lg, paddingBottom: spacing.md},
   pressed: {opacity: 0.82},
 
   header: {alignItems: 'center', marginBottom: 18},
-  heroIcon: {
-    position: 'relative', width: 76, height: 76,
-    alignItems: 'center', justifyContent: 'center', marginBottom: 12,
-  },
-  heroGlowOuter: {position: 'absolute', width: 82, height: 82, borderRadius: 41, backgroundColor: withAlpha(theme.colors.primary, 0.055)},
-  heroGlowInner: {position: 'absolute', width: 70, height: 70, borderRadius: 35, backgroundColor: withAlpha(theme.colors.primary, 0.07)},
-  heroInner: {
-    width: 58, height: 58, alignItems: 'center', justifyContent: 'center',
-    borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
-    shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.10, shadowRadius: 12, elevation: 4,
-  },
 
-  title: {
-    color: theme.colors.text, fontFamily: 'serif', fontSize: 24, lineHeight: 30,
-    fontWeight: '800', textAlign: 'center', paddingHorizontal: 8,
-  },
-  subtitle: {
-    maxWidth: 320, marginTop: 8, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19, textAlign: 'center',
-  },
+  title: {textAlign: 'center', paddingHorizontal: 8},
+  subtitle: {maxWidth: 320, marginTop: 8, textAlign: 'center'},
 
-  card: {
-    marginTop: 14, padding: 15,
-    borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
-    backgroundColor: theme.colors.surface,
-    shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 10, elevation: 1,
-  },
+  card: {marginTop: 14, padding: 15},
   cardTopRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 12},
   cardIcon: {
     width: 42, height: 42, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 14, backgroundColor: theme.colors.primarySoft,
+    borderRadius: 12, backgroundColor: theme.colors.primarySoft,
   },
   cardCopy: {flex: 1, minWidth: 0},
-  cardTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 15.5, lineHeight: 20, fontWeight: '700'},
-  cardDescription: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+  cardDescription: {marginTop: 4},
 
   timeRow: {
     minHeight: 58, marginTop: 12, flexDirection: 'row', alignItems: 'center', gap: 12,
-    paddingHorizontal: 14, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 18,
+    paddingHorizontal: 14, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12,
     backgroundColor: theme.colors.surfaceSecondary,
   },
   timeIconBox: {
@@ -529,16 +460,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderRadius: 12, backgroundColor: theme.colors.primarySoft,
   },
   timeCopy: {flex: 1, minWidth: 0},
-  timeLabel: {color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700', lineHeight: 14},
   timeValue: {marginTop: 3, color: theme.colors.text, fontSize: 14, fontWeight: '800'},
   timeValuePlaceholder: {marginTop: 3, color: theme.colors.textMuted, fontSize: 14, fontWeight: '600'},
 
   errorCard: {
     flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 12,
-    paddingHorizontal: 12, paddingVertical: 10, borderRadius: 14,
+    paddingHorizontal: 12, paddingVertical: 10, borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.danger, 0.08), borderWidth: 1, borderColor: withAlpha(theme.colors.danger, 0.15),
   },
-  errorText: {flex: 1, color: theme.colors.danger, fontSize: 11.5, lineHeight: 16},
+  errorText: {flex: 1},
 
   info: {
     flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 14,
@@ -546,21 +476,15 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
   infoIconBox: {
     width: 32, height: 32, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 11, backgroundColor: theme.colors.surface,
+    borderRadius: 12, backgroundColor: theme.colors.surface,
   },
-  infoText: {flex: 1, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+  infoText: {flex: 1},
 
   spacer: {flex: 1, minHeight: 14},
 
-  nextButton: {
-    minHeight: 54, alignItems: 'center', justifyContent: 'center',
-    marginTop: 12, borderRadius: 20, backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 7}, shadowOpacity: 0.25, shadowRadius: 12, elevation: 6,
-  },
-  nextText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '800', letterSpacing: 0.2},
+  nextButton: {marginTop: 12},
 
-  skipButton: {minHeight: 46, alignItems: 'center', justifyContent: 'center', marginTop: 4},
-  skipText: {color: theme.colors.textSecondary, fontSize: 13, fontWeight: '700'},
+  skipButton: {marginTop: 4},
   });
 }
 
