@@ -70,6 +70,7 @@ import {recoverInterruptedManagedProfileDeletions} from './src/services/managedP
 import {recoverInterruptedRestore} from './src/services/restoreJournal';
 import {runStructuredMigration} from './src/services/structuredDataMigration';
 import {getAppLanguage, hydrateAppearancePreferences, subscribeThemePreferences} from './src/state/themePreferences';
+import {initializeAppLanguage, refreshAppLanguageOnForeground} from './src/i18n/appLanguage';
 import AppLockScreen from './src/screens/AppLockScreen';
 import {AUTO_LOCK_TIMEOUT_MS,getAppLockState,lockApp,setAppLockState,subscribeAppLock} from './src/state/appLockStore';
 import {isBiometricPromptActive} from './src/services/appSecurityService';
@@ -399,13 +400,19 @@ function App(): React.JSX.Element {
     // version of this line unconditionally set 'unlocked' here, which left a
     // real (if brief) window on every cold launch where the app was
     // unlocked despite an app-wide PIN/biometric lock being configured.
-    loadSecurityPreferences().finally(() => {if (mounted) {setAppLockState(requiresAppLock() ? 'locked' : 'unlocked');}});
+    // The boot placeholder also waits for the language (stored choice, else the phone's language, else English), so the
+    // first real screen — the splash and onboarding included — is already in the right language and never switches after.
+    Promise.all([loadSecurityPreferences().catch(() => undefined), initializeAppLanguage()]).then(() => {
+      if (mounted) {setAppLockState(requiresAppLock() ? 'locked' : 'unlocked');}
+    });
     const unsubscribeLock = subscribeAppLock(() => {if (mounted) {setLockState(getAppLockState());}});
     reconcileInAppNotifications().catch(() => {});
     const subscription = AppState.addEventListener('change', state => {
       if (isBiometricPromptActive()) {return;}
       if (state === 'active') {
         setPrivacyCover(false);
+        // Following the system language: pick up a language the phone was switched to while AWA was in the background.
+        refreshAppLanguageOnForeground().catch(() => undefined);
         if (backgroundedAt.current && Date.now() - backgroundedAt.current >= AUTO_LOCK_TIMEOUT_MS && requiresAppLock()) {lockApp();}
         backgroundedAt.current = null;
         reconcileInAppNotifications().catch(() => {});

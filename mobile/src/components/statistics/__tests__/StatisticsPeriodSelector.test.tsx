@@ -57,16 +57,17 @@ afterEach(() => {
 describe('StatisticsPeriodSelector — resolved theme tokens', () => {
   it('active-period text uses theme.colors.primary', async () => {
     const {renderer} = await renderSelector({period: '1'});
+    // Material 3 migration: the label is an AwaText; the host Text (last match) carries the resolved style.
     const activeLabel = renderer.root.findAll(
       node => node.props.children === STATISTICS_PERIOD_LABELS['1'],
-    )[0];
+    ).slice(-1)[0];
     expect(flattenStyle(activeLabel.props.style).color).toBe('#6D4AE8');
   });
 
   it('changes when the palette changes', async () => {
     const {renderer} = await renderSelector({period: '1'});
     const activeLabelColor = () => {
-      const label = renderer.root.findAll(node => node.props.children === STATISTICS_PERIOD_LABELS['1'])[0];
+      const label = renderer.root.findAll(node => node.props.children === STATISTICS_PERIOD_LABELS['1']).slice(-1)[0];
       return flattenStyle(label.props.style).color;
     };
     expect(activeLabelColor()).toBe('#6D4AE8');
@@ -107,8 +108,8 @@ describe('StatisticsPeriodSelector — FREE/PREMIUM period rules unchanged', () 
       await setAppearanceMode('dark');
     });
     const {renderer} = await renderSelector({period: '1'});
-    const activeLabel = renderer.root.findAll(node => node.props.children === STATISTICS_PERIOD_LABELS['1'])[0];
-    const inactiveLabel = renderer.root.findAll(node => node.props.children === STATISTICS_PERIOD_LABELS['3'])[0];
+    const activeLabel = renderer.root.findAll(node => node.props.children === STATISTICS_PERIOD_LABELS['1']).slice(-1)[0];
+    const inactiveLabel = renderer.root.findAll(node => node.props.children === STATISTICS_PERIOD_LABELS['3']).slice(-1)[0];
     const activeColor = flattenStyle(activeLabel.props.style).color;
     const inactiveColor = flattenStyle(inactiveLabel.props.style).color;
     expect(activeColor).not.toBe(inactiveColor);
