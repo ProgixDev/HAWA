@@ -7,7 +7,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -25,11 +24,12 @@ import {
 } from '../state/libraryStore';
 import {getBottomPadding, getTopPadding} from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {
-  onPrimaryTextColor,
-  withAlpha,
-  type ResolvedAwaTheme,
-} from '../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
+import BookmarkButton from '../components/library/BookmarkButton';
 
 const HERO = require('../assets/images/library/featured-cycle.png');
 const COMFORT_HERO = require('../assets/images/library/featured-comfort-hero.png');
@@ -190,50 +190,28 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
         ]}
         showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
-            hitSlop={10}
+            icon="chevron-left"
             onPress={() => navigation.goBack()}
-            style={({pressed}) => [
-              styles.headerButton,
-              pressed && styles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              color={theme.colors.text}
-              name="chevron-left"
-              size={21}
-            />
-          </Pressable>
+            variant="tonal"
+          />
 
           <View style={styles.headerCopy}>
-            <Text style={styles.pageTitle}>{t('library.screen.featuredTitle')}</Text>
-            <Text style={styles.pageSubtitle}>
+            <AwaText style={styles.pageTitle} variant="headlineSmall">{t('library.screen.featuredTitle')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" style={styles.pageSubtitle} variant="bodySmall">
               {t('library.featured.headerSubtitle')}
-            </Text>
+            </AwaText>
           </View>
 
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('library.featured.addMomentToFavorites')}
-            accessibilityRole="button"
-            hitSlop={10}
+            icon={saved.has(activeHero.id) ? 'bookmark' : 'bookmark-outline'}
+            iconSize={20}
             onPress={() => toggle(activeHero.id)}
-            style={({pressed}) => [
-              styles.headerButton,
-              saved.has(activeHero.id) &&
-                styles.headerButtonActive,
-              pressed && styles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name={
-                saved.has(activeHero.id)
-                  ? 'bookmark'
-                  : 'bookmark-outline'
-              }
-              size={20}
-            />
-          </Pressable>
+            selected={saved.has(activeHero.id)}
+            variant="tonal"
+          />
         </View>
 
         <Pressable
@@ -259,18 +237,18 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
 
             <View style={styles.heroCopy}>
               <View style={styles.badge}>
-                <Text style={styles.badgeText}>
+                <AwaText emphasized style={styles.badgeText} variant="labelSmall">
                   {t('library.featured.momentBadge')}
-                </Text>
+                </AwaText>
               </View>
 
-              <Text style={styles.heroTitle}>
+              <AwaText emphasized style={styles.heroTitle} variant="titleLarge">
                 {activeHero.title}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.heroSummary}>
+              <AwaText style={styles.heroSummary} variant="bodySmall">
                 {activeHero.summary}
-              </Text>
+              </AwaText>
 
               <View style={styles.heroFooter}>
                 <View style={styles.timeChip}>
@@ -279,23 +257,17 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
                     name="clock-outline"
                     size={14}
                   />
-                  <Text style={styles.timeText}>
+                  <AwaText color={theme.colors.textSecondary} variant="labelSmall" emphasized>
                     {t('library.screen.durationMin', {count: activeHero.minutes})}
-                  </Text>
+                  </AwaText>
                 </View>
 
-                <View style={styles.readButton}>
-                  <Text
-                    numberOfLines={1}
-                    style={styles.readButtonText}>
-                    {t('library.screen.readArticle')}
-                  </Text>
-                  <MaterialDesignIcons
-                    color={onPrimaryTextColor(theme)}
-                    name="arrow-right"
-                    size={15}
-                  />
-                </View>
+                <AwaButton
+                  label={t('library.screen.readArticle')}
+                  onPress={() => open(activeHero.id)}
+                  size="compact"
+                  variant="filled"
+                />
               </View>
             </View>
           </ImageBackground>
@@ -317,14 +289,16 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
         </View>
 
         <View style={styles.heading}>
-          <Text style={styles.headingText}>
+          <AwaText style={styles.headingText} variant="titleMedium">
             {t('library.screen.popularSectionTitle')}
-          </Text>
-          <Pressable accessibilityLabel={t('library.featured.seeAllPopular')} accessibilityRole="button" hitSlop={10}>
-            <Text style={styles.seeAll}>
-              {t('library.screen.seeAll')}
-            </Text>
-          </Pressable>
+          </AwaText>
+          <AwaButton
+            accessibilityLabel={t('library.featured.seeAllPopular')}
+            hitSlop={10}
+            label={t('library.screen.seeAll')}
+            size="compact"
+            variant="text"
+          />
         </View>
 
         <ScrollView
@@ -332,22 +306,21 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.cards}>
           {POPULAR.map(item => (
-            <Pressable
+            <AwaCard
               key={item.id}
               onPress={() => open(item.id)}
-              style={({pressed}) => [
-                styles.card,
-                pressed && styles.cardPressed,
-              ]}>
+              padding="compact"
+              style={styles.card}
+              variant="filled">
               <Image
                 source={item.image}
                 resizeMode="cover"
                 style={styles.cardImage}
               />
 
-              <Text style={styles.cardTitle}>
+              <AwaText emphasized style={styles.cardTitle} variant="labelMedium">
                 {item.title}
-              </Text>
+              </AwaText>
 
               <View style={styles.cardMetaRow}>
                 <MaterialDesignIcons
@@ -355,23 +328,25 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
                   name="clock-outline"
                   size={11}
                 />
-                <Text style={styles.cardMeta}>
+                <AwaText colorRole="onSurfaceVariant" variant="labelSmall">
                   {t('library.screen.durationMinRead', {count: item.minutes})}
-                </Text>
+                </AwaText>
               </View>
-            </Pressable>
+            </AwaCard>
           ))}
         </ScrollView>
 
         <View style={styles.heading}>
-          <Text style={styles.headingText}>
+          <AwaText style={styles.headingText} variant="titleMedium">
             {t('library.featured.newHeading')}
-          </Text>
-          <Pressable accessibilityLabel={t('library.featured.seeAllNew')} accessibilityRole="button" hitSlop={10}>
-            <Text style={styles.seeAll}>
-              {t('library.screen.seeAll')}
-            </Text>
-          </Pressable>
+          </AwaText>
+          <AwaButton
+            accessibilityLabel={t('library.featured.seeAllNew')}
+            hitSlop={10}
+            label={t('library.screen.seeAll')}
+            size="compact"
+            variant="text"
+          />
         </View>
 
         {NEW_ARTICLES.map(item => (
@@ -389,62 +364,38 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
             />
 
             <View style={styles.articleCopy}>
-              <Text style={styles.articleTitle}>
+              <AwaText emphasized variant="titleSmall">
                 {item.title}
-              </Text>
-              <Text style={styles.articleMeta}>
+              </AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={styles.articleMeta} variant="bodySmall">
                 {item.meta}
-              </Text>
+              </AwaText>
             </View>
 
-            <Pressable
-              accessibilityLabel={t('library.screen.addBookmark')}
-              hitSlop={10}
-              onPress={event => {
-                event.stopPropagation();
-                toggle(item.id);
-              }}
-              style={({pressed}) => [
-                styles.rowBookmark,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                color={theme.colors.primary}
-                name={
-                  saved.has(item.id)
-                    ? 'bookmark'
-                    : 'bookmark-outline'
-                }
-                size={19}
-              />
-            </Pressable>
+            <BookmarkButton
+              active={saved.has(item.id)}
+              onPress={() => toggle(item.id)}
+              size="small"
+            />
           </Pressable>
         ))}
 
-        <View style={styles.trust}>
-          <View style={styles.shield}>
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="shield-check-outline"
-              size={24}
-            />
-          </View>
+        <AwaCard style={styles.trust} variant="filled">
+          <MaterialDesignIcons
+            color={theme.colors.primary}
+            name="shield-check-outline"
+            size={24}
+          />
 
           <View style={styles.trustCopy}>
-            <Text style={styles.trustTitle}>
+            <AwaText emphasized variant="titleSmall">
               {t('library.featured.trustTitle')}
-            </Text>
-            <Text style={styles.trustText}>
+            </AwaText>
+            <AwaText colorRole="onSurfaceVariant" style={styles.trustText} variant="bodySmall">
               {t('library.featured.trustText')}
-            </Text>
+            </AwaText>
           </View>
-
-          <MaterialDesignIcons
-            color={theme.colors.text}
-            name="chevron-right"
-            size={19}
-          />
-        </View>
+        </AwaCard>
       </ScrollView>
     </View>
   );
@@ -458,7 +409,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     content: {
-      paddingHorizontal: 17,
+      paddingHorizontal: 16,
     },
 
     header: {
@@ -474,51 +425,17 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 12,
     },
 
-    headerButton: {
-      width: 36,
-      height: 36,
-      borderRadius: 12,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surface,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 2},
-      shadowOpacity: 0.05,
-      shadowRadius: 5,
-      elevation: 1,
-    },
-
-    headerButtonActive: {
-      // No dedicated "active border" token exists yet — closest available
-      // token is `primary` softened with alpha, matching the original
-      // literal's mid-tone lavender-gray read.
-      borderColor: withAlpha(theme.colors.primary, 0.35),
-      backgroundColor: theme.colors.primarySoft,
-    },
-
-    pressed: {
-      opacity: 0.72,
-    },
-
     pageTitle: {
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 24,
-      lineHeight: 29,
-      fontWeight: '700',
+      textAlign: 'center',
     },
 
     pageSubtitle: {
       marginTop: 2,
-      color: theme.colors.textSecondary,
-      fontSize: 11.5,
-      lineHeight: 15,
+      textAlign: 'center',
     },
 
     hero: {
-      height: 244,
+      minHeight: 244,
       overflow: 'hidden',
       borderRadius: 12,
       backgroundColor: theme.colors.surfaceSecondary,
@@ -554,39 +471,30 @@ function createStyles(theme: ResolvedAwaTheme) {
     badge: {
       alignSelf: 'flex-start',
       marginTop: 8,
-      borderRadius: 5,
+      borderRadius: 8,
       backgroundColor: theme.colors.primarySoft,
       paddingHorizontal: 8,
-      paddingVertical: 5,
+      paddingVertical: 4,
     },
 
     badgeText: {
       color: theme.colors.primary,
-      fontSize: 8.5,
-      lineHeight: 10,
-      fontWeight: '800',
-      letterSpacing: 0.2,
     },
 
     heroTitle: {
-      marginTop: 11,
+      marginTop: 12,
       color: HERO_TITLE_ON_SCRIM,
-      fontFamily: 'serif',
-      fontSize: 21,
-      lineHeight: 25,
-      fontWeight: '700',
     },
 
     heroSummary: {
-      marginTop: 9,
+      marginTop: 8,
       color: HERO_SUMMARY_ON_SCRIM,
-      fontSize: 11,
-      lineHeight: 16,
     },
 
     heroFooter: {
       marginTop: 6,
       flexDirection: 'row',
+      flexWrap: 'wrap',
       alignItems: 'center',
       gap: 8,
       transform: [{translateY: -8}],
@@ -597,7 +505,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 5,
-      borderRadius: 9,
+      borderRadius: 12,
       borderWidth: 1,
       // Translucent frosted chip drawn on top of the hero photo — sourced
       // from theme tokens (not new literals) but kept as a soft neutral
@@ -605,30 +513,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       // text shadow below.
       borderColor: withAlpha(theme.colors.textSecondary, 0.18),
       backgroundColor: withAlpha(theme.colors.surface, 0.72),
-      paddingHorizontal: 9,
-    },
-
-    timeText: {
-      color: theme.colors.textSecondary,
-      fontSize: 9.5,
-      fontWeight: '600',
-    },
-
-    readButton: {
-      minHeight: 32,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 5,
-      borderRadius: 9,
-      backgroundColor: theme.colors.primary,
       paddingHorizontal: 12,
-    },
-
-    readButtonText: {
-      color: onPrimaryTextColor(theme),
-      fontSize: 9.8,
-      fontWeight: '700',
     },
 
     dots: {
@@ -662,16 +547,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     headingText: {
-      color: theme.colors.text,
-      fontSize: 15,
-      lineHeight: 19,
-      fontWeight: '700',
-    },
-
-    seeAll: {
-      color: theme.colors.primary,
-      fontSize: 11,
-      fontWeight: '600',
+      flexShrink: 1,
     },
 
     cards: {
@@ -680,18 +556,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     card: {
-      width: 112,
+      width: 136,
       minHeight: 182,
-      padding: 7,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 10,
-      backgroundColor: theme.colors.surface,
-    },
-
-    cardPressed: {
-      opacity: 0.84,
-      transform: [{scale: 0.985}],
     },
 
     cardImage: {
@@ -702,10 +568,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     cardTitle: {
       marginTop: 8,
-      color: theme.colors.text,
-      fontSize: 10.7,
-      lineHeight: 14,
-      fontWeight: '700',
     },
 
     cardMetaRow: {
@@ -713,11 +575,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 4,
-    },
-
-    cardMeta: {
-      color: theme.colors.textSecondary,
-      fontSize: 8.6,
     },
 
     articleRow: {
@@ -743,62 +600,23 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 11,
     },
 
-    articleTitle: {
-      color: theme.colors.text,
-      fontSize: 12,
-      lineHeight: 16,
-      fontWeight: '700',
-    },
-
     articleMeta: {
-      marginTop: 5,
-      color: theme.colors.textSecondary,
-      fontSize: 8.8,
-      lineHeight: 12,
-    },
-
-    rowBookmark: {
-      width: 30,
-      height: 30,
-      alignItems: 'center',
-      justifyContent: 'center',
+      marginTop: 4,
     },
 
     trust: {
-      marginTop: 18,
-      padding: 13,
+      marginTop: 16,
       flexDirection: 'row',
       alignItems: 'center',
-      borderRadius: 11,
-      backgroundColor: theme.colors.surfaceSecondary,
-    },
-
-    shield: {
-      width: 42,
-      height: 42,
-      borderRadius: 14,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: theme.colors.primarySoft,
     },
 
     trustCopy: {
       flex: 1,
-      paddingHorizontal: 11,
-    },
-
-    trustTitle: {
-      color: theme.colors.text,
-      fontSize: 12,
-      lineHeight: 15,
-      fontWeight: '700',
+      paddingLeft: 12,
     },
 
     trustText: {
       marginTop: 4,
-      color: theme.colors.textSecondary,
-      fontSize: 9.5,
-      lineHeight: 14,
     },
   });
 }

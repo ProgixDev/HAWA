@@ -1,23 +1,22 @@
 import React, {memo, useRef} from 'react';
-import {Animated, Easing, Pressable, StyleSheet} from 'react-native';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {Animated, Easing} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
-import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {AwaIconButton} from '../ui/AwaIconButton';
 
 type Props = {
   active: boolean;
   onPress: () => void;
   size?: 'small' | 'medium';
+  /** `onDark` sits on a photo / hero background: the button is filled with the primary role so it stays legible. */
   tone?: 'light' | 'onDark';
 };
 
+// A Material 3 icon button (touch target 48 dp) with the existing bookmark spring: tonal when idle, the `selected`
+// state (primary container) when the article is bookmarked.
 function BookmarkButton({active, onPress, size = 'medium', tone = 'light'}: Props): React.JSX.Element {
   const {t} = useTranslation();
-  const {theme} = useAwaTheme();
   const scale = useRef(new Animated.Value(1)).current;
-  const dimension = size === 'small' ? 30 : 36;
-  const iconSize = size === 'small' ? 15 : 17;
 
   const handlePress = () => {
     Animated.sequence([
@@ -28,33 +27,18 @@ function BookmarkButton({active, onPress, size = 'medium', tone = 'light'}: Prop
   };
 
   return (
-    <Pressable
-      accessibilityLabel={active ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')}
-      accessibilityRole="button"
-      hitSlop={8}
-      onPress={handlePress}
-      style={[
-        styles.button,
-        {width: dimension, height: dimension, borderRadius: dimension / 2},
-        // 'onDark' sits on an arbitrary tinted/hero background (not the app's
-        // global theme surface), so its translucent-white treatment stays a
-        // fixed literal — see the style below.
-        tone === 'onDark' ? styles.onDark : {backgroundColor: theme.colors.primarySoft},
-      ]}>
-      <Animated.View style={{transform: [{scale}]}}>
-        <MaterialDesignIcons
-          color={active ? theme.colors.primary : (tone === 'onDark' ? '#FFFFFF' : theme.colors.textSecondary)}
-          name={active ? 'bookmark' : 'bookmark-outline'}
-          size={iconSize}
-        />
-      </Animated.View>
-    </Pressable>
+    <Animated.View style={{transform: [{scale}]}}>
+      <AwaIconButton
+        accessibilityLabel={active ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')}
+        icon={active ? 'bookmark' : 'bookmark-outline'}
+        iconSize={size === 'small' ? 16 : 18}
+        onPress={handlePress}
+        selected={active}
+        size={size === 'small' ? 'small' : 'medium'}
+        variant={tone === 'onDark' ? 'filled' : 'tonal'}
+      />
+    </Animated.View>
   );
 }
-
-const styles = StyleSheet.create({
-  button: {alignItems: 'center', justifyContent: 'center'},
-  onDark: {backgroundColor: 'rgba(255,255,255,0.24)'},
-});
 
 export default memo(BookmarkButton);

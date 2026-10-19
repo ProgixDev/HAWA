@@ -1,9 +1,10 @@
 import React, {memo, useEffect, useRef} from 'react';
-import {AccessibilityInfo, Animated, Easing, Modal, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {AccessibilityInfo, Animated, Easing, Modal, Pressable, ScrollView, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
-import {homeColors, homeRadii} from '../home/homeTheme';
+import {useAwaTokens} from '../../theme/useAwaTokens';
 import {LIBRARY_TINTS, type LibraryCategory} from '../../data/libraryContent';
+import {AwaText} from '../ui/AwaText';
 
 type Props = {
   visible: boolean;
@@ -14,6 +15,7 @@ type Props = {
 };
 
 function CategoryListSheet({visible, categories, articleCountByCategory, onSelect, onClose}: Props): React.JSX.Element {
+  const {roles} = useAwaTokens();
   const progress = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
 
@@ -39,7 +41,7 @@ function CategoryListSheet({visible, categories, articleCountByCategory, onSelec
   return (
     <Modal animationType="none" onRequestClose={close} statusBarTranslucent transparent visible={visible}>
       <View style={styles.modalRoot}>
-        <Animated.View style={[styles.overlay, {opacity: progress.interpolate({inputRange: [0, 1], outputRange: [0, 0.35]})}]}>
+        <Animated.View style={[styles.overlay, {backgroundColor: roles.scrim, opacity: progress}]}>
           <Pressable accessibilityLabel="Fermer" onPress={close} style={StyleSheet.absoluteFill} />
         </Animated.View>
 
@@ -47,13 +49,16 @@ function CategoryListSheet({visible, categories, articleCountByCategory, onSelec
           style={[
             styles.sheet,
             {
+              backgroundColor: roles.surface,
               opacity: progress,
               transform: [{translateY: progress.interpolate({inputRange: [0, 1], outputRange: [320, 0]})}],
             },
           ]}>
-          <View style={styles.handle} />
-          <Text style={styles.title}>Toutes les catégories</Text>
-          <Text style={styles.subtitle}>Adaptées à ton objectif actuel.</Text>
+          <View style={[styles.handle, {backgroundColor: roles.outline}]} />
+          <AwaText style={styles.title} variant="titleLarge">Toutes les catégories</AwaText>
+          <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">
+            Adaptées à ton objectif actuel.
+          </AwaText>
 
           <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
             {categories.map(category => {
@@ -66,13 +71,15 @@ function CategoryListSheet({visible, categories, articleCountByCategory, onSelec
                     onSelect(category);
                     close();
                   }}
-                  style={({pressed}) => [styles.row, pressed && styles.pressed]}>
+                  style={styles.row}>
                   <View style={[styles.rowIcon, {backgroundColor: tint.bg}]}>
-                    <MaterialDesignIcons color={tint.fg} name={category.icon} size={19} />
+                    <MaterialDesignIcons color={tint.fg} name={category.icon} size={20} />
                   </View>
-                  <Text numberOfLines={1} style={styles.rowLabel}>{category.label}</Text>
-                  <Text style={styles.rowCount}>{articleCountByCategory[category.id] ?? 0}</Text>
-                  <MaterialDesignIcons color={homeColors.textSecondary} name="chevron-right" size={18} />
+                  <AwaText style={styles.rowLabel} variant="bodyLarge">{category.label}</AwaText>
+                  <AwaText colorRole="onSurfaceVariant" variant="labelMedium">
+                    {articleCountByCategory[category.id] ?? 0}
+                  </AwaText>
+                  <MaterialDesignIcons color={roles.accessible.onSurfaceVariant} name="chevron-right" size={20} />
                 </Pressable>
               );
             })}
@@ -85,26 +92,22 @@ function CategoryListSheet({visible, categories, articleCountByCategory, onSelec
 
 const styles = StyleSheet.create({
   modalRoot: {flex: 1, justifyContent: 'flex-end'},
-  overlay: {...StyleSheet.absoluteFillObject, backgroundColor: '#17102F'},
+  overlay: {...StyleSheet.absoluteFillObject},
   sheet: {
     maxHeight: '80%',
-    borderTopLeftRadius: homeRadii.card,
-    borderTopRightRadius: homeRadii.card,
-    backgroundColor: '#FCFAFF',
-    paddingHorizontal: 18,
-    paddingTop: 10,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    paddingHorizontal: 20,
+    paddingTop: 12,
     paddingBottom: 16,
-    elevation: 20,
   },
-  handle: {width: 42, height: 5, alignSelf: 'center', borderRadius: 3, backgroundColor: homeColors.cardBorder},
-  title: {marginTop: 14, color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 19, fontWeight: '700'},
-  subtitle: {marginTop: 3, color: homeColors.textSecondary, fontSize: 12.5},
-  list: {marginTop: 12, paddingBottom: 4, gap: 6},
+  handle: {width: 32, height: 4, alignSelf: 'center', borderRadius: 2},
+  title: {marginTop: 16},
+  subtitle: {marginTop: 4},
+  list: {marginTop: 12, paddingBottom: 4, gap: 4},
   row: {flexDirection: 'row', alignItems: 'center', gap: 12, minHeight: 56},
-  rowIcon: {width: 38, height: 38, borderRadius: 14, alignItems: 'center', justifyContent: 'center'},
-  rowLabel: {flex: 1, minWidth: 0, color: homeColors.textPrimary, fontSize: 14, fontWeight: '600'},
-  rowCount: {color: homeColors.textSecondary, fontSize: 12, fontWeight: '600'},
-  pressed: {opacity: 0.75},
+  rowIcon: {width: 40, height: 40, borderRadius: 12, alignItems: 'center', justifyContent: 'center'},
+  rowLabel: {flex: 1, minWidth: 0},
 });
 
 export default memo(CategoryListSheet);

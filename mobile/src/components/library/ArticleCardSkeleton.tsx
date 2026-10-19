@@ -1,7 +1,8 @@
 import React, {memo, useEffect, useRef} from 'react';
 import {Animated, Easing, StyleSheet, View} from 'react-native';
 
-import {homeColors, homeRadii} from '../home/homeTheme';
+import {useAwaTokens} from '../../theme/useAwaTokens';
+import {AwaCard} from '../ui/AwaCard';
 
 type Props = {
   variant: 'card' | 'row' | 'grid';
@@ -25,14 +26,19 @@ function useShimmer() {
 
 function ArticleCardSkeleton({variant, width}: Props): React.JSX.Element {
   const opacity = useShimmer();
+  const {roles} = useAwaTokens();
+  // The placeholder blocks use the tonal container so they read on the filled card in every palette and appearance.
+  const block = {backgroundColor: roles.surfaceContainerHigh};
 
   if (variant === 'card') {
     return (
-      <Animated.View style={[styles.card, width ? {width} : styles.cardFallbackWidth, {opacity}]}>
-        <View style={styles.cardThumb} />
-        <View style={styles.line} />
-        <View style={[styles.line, styles.lineShort]} />
-        <View style={styles.track} />
+      <Animated.View style={[width ? {width} : styles.cardFallbackWidth, {opacity}]}>
+        <AwaCard padding="compact" variant="filled">
+          <View style={[styles.cardThumb, block]} />
+          <View style={[styles.line, block]} />
+          <View style={[styles.line, styles.lineShort, block]} />
+          <View style={[styles.track, block]} />
+        </AwaCard>
       </Animated.View>
     );
   }
@@ -40,56 +46,41 @@ function ArticleCardSkeleton({variant, width}: Props): React.JSX.Element {
   if (variant === 'grid') {
     return (
       <Animated.View style={[styles.grid, {opacity}]}>
-        <View style={styles.gridIcon} />
-        <View style={styles.line} />
-        <View style={[styles.line, styles.lineShort]} />
+        <AwaCard padding="default" style={styles.gridCard} variant="filled">
+          <View style={[styles.gridIcon, block]} />
+          <View style={[styles.line, block]} />
+          <View style={[styles.line, styles.lineShort, block]} />
+        </AwaCard>
       </Animated.View>
     );
   }
 
   return (
-    <Animated.View style={[styles.row, {opacity}]}>
-      <View style={styles.rowThumb} />
-      <View style={styles.rowContent}>
-        <View style={styles.line} />
-        <View style={[styles.line, styles.lineShort]} />
-        <View style={styles.track} />
-      </View>
+    <Animated.View style={{opacity}}>
+      <AwaCard padding="default" style={styles.row} variant="filled">
+        <View style={[styles.rowThumb, block]} />
+        <View style={styles.rowContent}>
+          <View style={[styles.line, block]} />
+          <View style={[styles.line, styles.lineShort, block]} />
+          <View style={[styles.track, block]} />
+        </View>
+      </AwaCard>
     </Animated.View>
   );
 }
 
-const PLACEHOLDER = '#E9E2FA';
-
 const styles = StyleSheet.create({
-  card: {borderRadius: homeRadii.card, backgroundColor: '#FFFFFF', padding: 12, borderWidth: 1, borderColor: homeColors.cardBorder},
-  cardFallbackWidth: {flexGrow: 1, minWidth: 150},
-  cardThumb: {height: 96, borderRadius: 16, backgroundColor: PLACEHOLDER},
-  grid: {
-    flexBasis: '48%',
-    flexGrow: 1,
-    borderRadius: homeRadii.card,
-    backgroundColor: '#FFFFFF',
-    padding: 14,
-    borderWidth: 1,
-    borderColor: homeColors.cardBorder,
-    gap: 8,
-  },
-  gridIcon: {width: 40, height: 40, borderRadius: 14, backgroundColor: PLACEHOLDER},
-  row: {
-    flexDirection: 'row',
-    gap: 12,
-    borderRadius: homeRadii.card,
-    backgroundColor: '#FFFFFF',
-    padding: 14,
-    borderWidth: 1,
-    borderColor: homeColors.cardBorder,
-  },
-  rowThumb: {width: 64, height: 64, borderRadius: 16, backgroundColor: PLACEHOLDER, flexShrink: 0},
+  cardFallbackWidth: {flexGrow: 1, minWidth: 152},
+  cardThumb: {height: 96, borderRadius: 12},
+  grid: {flexBasis: '48%', flexGrow: 1},
+  gridCard: {gap: 8},
+  gridIcon: {width: 40, height: 40, borderRadius: 12},
+  row: {flexDirection: 'row', gap: 12},
+  rowThumb: {width: 64, height: 64, borderRadius: 12, flexShrink: 0},
   rowContent: {flex: 1, minWidth: 0, gap: 8, justifyContent: 'center'},
-  line: {height: 10, marginTop: 10, borderRadius: 5, backgroundColor: PLACEHOLDER, width: '90%'},
-  lineShort: {width: '55%', marginTop: 6},
-  track: {height: 6, marginTop: 10, borderRadius: 3, backgroundColor: PLACEHOLDER, width: '100%'},
+  line: {height: 10, marginTop: 8, borderRadius: 5, width: '90%'},
+  lineShort: {width: '55%', marginTop: 8},
+  track: {height: 6, marginTop: 8, borderRadius: 3, width: '100%'},
 });
 
 export default memo(ArticleCardSkeleton);

@@ -1,19 +1,19 @@
-import React, {memo, useRef, useState} from 'react';
+import React, {memo, useState} from 'react';
 import {
-  Animated,
   NativeScrollEvent,
   NativeSyntheticEvent,
-  Pressable,
   ScrollView,
   StyleSheet,
-  Text,
   useWindowDimensions,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
-import {homeColors, homeRadii, homeShadow} from '../home/homeTheme';
+import {useAwaTokens} from '../../theme/useAwaTokens';
 import {getCategoryById, LIBRARY_TINTS, type LibraryArticle} from '../../data/libraryContent';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import {ArticlePremiumBadge} from './ArticlePremiumBadge';
 import BookmarkButton from './BookmarkButton';
 
@@ -37,23 +37,15 @@ function RecommendedCard({
   onToggleBookmark: () => void;
   onPress: () => void;
 }) {
-  const scale = useRef(new Animated.Value(1)).current;
+  const {roles} = useAwaTokens();
   const category = getCategoryById(article.categoryId);
   const tint = LIBRARY_TINTS[category?.tint ?? 'purple'];
 
-  const pressIn = () => Animated.spring(scale, {toValue: 0.97, useNativeDriver: true, damping: 16, stiffness: 220}).start();
-  const pressOut = () => Animated.spring(scale, {toValue: 1, useNativeDriver: true, damping: 16, stiffness: 220}).start();
-
   return (
-    <Animated.View style={{width: cardWidth, transform: [{scale}]}}>
-      <Pressable
-        accessibilityRole="button"
-        onPress={onPress}
-        onPressIn={pressIn}
-        onPressOut={pressOut}
-        style={styles.card}>
+    <View style={{width: cardWidth}}>
+      <AwaCard onPress={onPress} padding="compact" variant="filled">
         <View style={[styles.thumb, {backgroundColor: tint.bg}]}>
-          <MaterialDesignIcons color={tint.fg} name={category?.icon ?? 'book-open-page-variant-outline'} size={34} />
+          <MaterialDesignIcons color={tint.fg} name={category?.icon ?? 'book-open-page-variant-outline'} size={32} />
           <View style={styles.bookmarkOverlay}>
             <BookmarkButton active={bookmarked} onPress={onToggleBookmark} size="small" />
           </View>
@@ -61,32 +53,35 @@ function RecommendedCard({
 
         {category ? (
           <View style={[styles.categoryPill, {backgroundColor: tint.bg}]}>
-            <Text numberOfLines={1} style={[styles.categoryPillText, {color: tint.fg}]}>{category.label}</Text>
+            <AwaText color={tint.fg} emphasized variant="labelSmall">{category.label}</AwaText>
           </View>
         ) : null}
 
-        <Text numberOfLines={2} style={styles.title}>{article.title}</Text>
+        <AwaText emphasized numberOfLines={2} style={styles.title} variant="titleSmall">{article.title}</AwaText>
         <ArticlePremiumBadge article={article} />
 
         <View style={styles.metaRow}>
-          <MaterialDesignIcons color={homeColors.textSecondary} name="clock-outline" size={13} />
-          <Text style={styles.metaText}>{article.durationMinutes} min</Text>
+          <MaterialDesignIcons color={roles.accessible.onSurfaceVariant} name="clock-outline" size={14} />
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall">{article.durationMinutes} min</AwaText>
         </View>
 
-        <View style={styles.progressTrack}>
-          <View style={[styles.progressFill, {width: `${progress}%`}]} />
+        <View style={[styles.progressTrack, {backgroundColor: roles.surface}]}>
+          <View style={[styles.progressFill, {width: `${progress}%`, backgroundColor: roles.primary}]} />
         </View>
-        {progress > 0 ? <Text style={styles.progressText}>{progress}%</Text> : null}
-      </Pressable>
-    </Animated.View>
+        {progress > 0 ? (
+          <AwaText colorRole="onSurfaceVariant" style={styles.progressText} variant="labelSmall">{progress}%</AwaText>
+        ) : null}
+      </AwaCard>
+    </View>
   );
 }
 
 function RecommendedCarousel({
   articles, objectiveLabel, bookmarkedIds, progressByArticle, onToggleBookmark, onPressArticle, onPressSeeAll,
 }: Props): React.JSX.Element | null {
+  const {roles} = useAwaTokens();
   const {width} = useWindowDimensions();
-  const cardWidth = Math.min(190, Math.max(150, width * 0.42));
+  const cardWidth = Math.min(192, Math.max(152, width * 0.42));
   const gap = 12;
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -98,25 +93,29 @@ function RecommendedCarousel({
   };
 
   return (
-    <View style={styles.card_container}>
+    <View style={styles.container}>
       <View style={styles.headerRow}>
-        <MaterialDesignIcons color={homeColors.primary} name="creation" size={16} />
-        <Text style={styles.headerTitle}>Recommandé pour toi</Text>
+        <MaterialDesignIcons color={roles.accessible.primaryAsText} name="creation" size={18} />
+        <AwaText emphasized variant="titleMedium">Recommandé pour toi</AwaText>
       </View>
 
-      <Text style={styles.reasonLabel}>Basé sur ton objectif actuel</Text>
-      <Text numberOfLines={1} style={styles.objectiveLabel}>{objectiveLabel}</Text>
-      <Text numberOfLines={2} style={styles.description}>
+      <AwaText colorRole="onSurfaceVariant" style={styles.reasonLabel} variant="bodySmall">
+        Basé sur ton objectif actuel
+      </AwaText>
+      <AwaText colorRole="primary" emphasized style={styles.objectiveLabel} variant="titleMedium">
+        {objectiveLabel}
+      </AwaText>
+      <AwaText colorRole="onSurfaceVariant" style={styles.description} variant="bodyMedium">
         Ces articles peuvent t’aider à mieux comprendre ton corps.
-      </Text>
+      </AwaText>
 
-      <Pressable
-        accessibilityRole="button"
+      <AwaButton
+        label="Voir mes recommandations"
         onPress={onPressSeeAll}
-        style={({pressed}) => [styles.seeAllButton, pressed && styles.pressed]}>
-        <Text style={styles.seeAllText}>Voir mes recommandations</Text>
-        <MaterialDesignIcons color={homeColors.primary} name="arrow-right" size={15} />
-      </Pressable>
+        size="compact"
+        style={styles.seeAllButton}
+        variant="outlined"
+      />
 
       <ScrollView
         contentContainerStyle={[styles.scrollContent, {gap}]}
@@ -143,7 +142,15 @@ function RecommendedCarousel({
       {articles.length > 1 && (
         <View style={styles.dotsRow}>
           {articles.map((article, index) => (
-            <View key={article.id} style={[styles.dot, index === activeIndex && styles.dotActive]} />
+            <View
+              key={article.id}
+              style={[
+                styles.dot,
+                index === activeIndex
+                  ? [styles.dotActive, {backgroundColor: roles.primary}]
+                  : {backgroundColor: roles.outline},
+              ]}
+            />
           ))}
         </View>
       )}
@@ -152,54 +159,26 @@ function RecommendedCarousel({
 }
 
 const styles = StyleSheet.create({
-  card_container: {
-    marginTop: 16,
-    borderRadius: homeRadii.card,
-    backgroundColor: '#FFFFFF',
-    padding: 16,
-    ...homeShadow,
-  },
-  headerRow: {flexDirection: 'row', alignItems: 'center', gap: 6},
-  headerTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
-  reasonLabel: {marginTop: 10, color: homeColors.textSecondary, fontSize: 11.5},
-  objectiveLabel: {marginTop: 2, color: homeColors.primary, fontFamily: 'serif', fontSize: 18, fontWeight: '700'},
-  description: {marginTop: 4, color: homeColors.textSecondary, fontSize: 12.5, lineHeight: 17},
-  seeAllButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    alignSelf: 'flex-start',
-    marginTop: 12,
-    minHeight: 40,
-    borderRadius: 20,
-    borderWidth: 1.4,
-    borderColor: homeColors.primary,
-    paddingHorizontal: 14,
-  },
-  seeAllText: {color: homeColors.primary, fontSize: 12.5, fontWeight: '700'},
+  // The section itself carries no surface: the article cards inside are the only cards (never nested).
+  container: {marginTop: 16, paddingHorizontal: 16},
+  headerRow: {flexDirection: 'row', alignItems: 'center', gap: 8},
+  reasonLabel: {marginTop: 12},
+  objectiveLabel: {marginTop: 4},
+  description: {marginTop: 4},
+  seeAllButton: {alignSelf: 'flex-start', marginTop: 12},
   scroll: {marginTop: 16},
   scrollContent: {paddingRight: 4},
-  card: {
-    borderRadius: 20,
-    backgroundColor: '#FCFAFF',
-    borderWidth: 1,
-    borderColor: homeColors.cardBorder,
-    padding: 10,
-  },
-  thumb: {height: 88, borderRadius: 14, alignItems: 'center', justifyContent: 'center'},
-  bookmarkOverlay: {position: 'absolute', top: 6, right: 6},
-  categoryPill: {alignSelf: 'flex-start', marginTop: 10, borderRadius: 10, paddingHorizontal: 8, paddingVertical: 3},
-  categoryPillText: {fontSize: 9.5, fontWeight: '700'},
-  title: {marginTop: 8, color: homeColors.textPrimary, fontSize: 13, fontWeight: '700', lineHeight: 17, minHeight: 34},
+  thumb: {height: 88, borderRadius: 12, alignItems: 'center', justifyContent: 'center'},
+  bookmarkOverlay: {position: 'absolute', top: 8, right: 8},
+  categoryPill: {alignSelf: 'flex-start', marginTop: 12, borderRadius: 8, paddingHorizontal: 8, paddingVertical: 4},
+  title: {marginTop: 8, minHeight: 40},
   metaRow: {flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 8},
-  metaText: {color: homeColors.textSecondary, fontSize: 11},
-  progressTrack: {marginTop: 8, height: 5, borderRadius: 3, backgroundColor: homeColors.lightLavender, overflow: 'hidden'},
-  progressFill: {height: '100%', borderRadius: 3, backgroundColor: homeColors.primary},
-  progressText: {marginTop: 4, alignSelf: 'flex-end', color: homeColors.textSecondary, fontSize: 10, fontWeight: '600'},
-  dotsRow: {flexDirection: 'row', alignSelf: 'center', gap: 5, marginTop: 12},
-  dot: {width: 6, height: 6, borderRadius: 3, backgroundColor: homeColors.cardBorder},
-  dotActive: {width: 16, backgroundColor: homeColors.primary},
-  pressed: {opacity: 0.85},
+  progressTrack: {marginTop: 8, height: 4, borderRadius: 2, overflow: 'hidden'},
+  progressFill: {height: '100%', borderRadius: 2},
+  progressText: {marginTop: 4, alignSelf: 'flex-end'},
+  dotsRow: {flexDirection: 'row', alignSelf: 'center', gap: 4, marginTop: 12},
+  dot: {width: 6, height: 6, borderRadius: 3},
+  dotActive: {width: 16},
 });
 
 export default memo(RecommendedCarousel);

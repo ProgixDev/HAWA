@@ -7,13 +7,11 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  Switch,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
-import {homeColors, homeRadii} from '../home/homeTheme';
+import {useAwaTokens} from '../../theme/useAwaTokens';
 import {OBJECTIVE_HEADLINES} from '../../data/libraryContent';
 import type {ObjectiveId} from '../../state/onboardingPreferences';
 import {
@@ -24,6 +22,9 @@ import {
   type LibraryFilters,
 } from '../../utils/libraryFilters';
 import {displayUpperCase} from '../../utils/textCase';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaSwitch} from '../ui/AwaSwitch';
+import {AwaText} from '../ui/AwaText';
 
 export type LibraryContentScope = 'medical' | 'religious';
 
@@ -42,14 +43,31 @@ type Props = {
 
 const OBJECTIVE_IDS = Object.keys(OBJECTIVE_HEADLINES) as ObjectiveId[];
 
+// The "Religieux" scope keeps its dedicated gold identity (religious content colour, not a Material role).
+const RELIGIOUS_GOLD = '#B7791F';
+
+// Material 3 filter chip: selected = primary container, others outlined with the `outline` role. The touch target is
+// 48 dp (visual 40 dp + hitSlop).
 function OptionChip({label, active, onPress}: {label: string; active: boolean; onPress: () => void}) {
+  const {roles} = useAwaTokens();
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityState={{selected: active}}
+      hitSlop={4}
       onPress={onPress}
-      style={({pressed}) => [styles.chip, active && styles.chipActive, pressed && styles.pressed]}>
-      <Text numberOfLines={1} style={[styles.chipLabel, active && styles.chipLabelActive]}>{label}</Text>
+      style={[
+        styles.chip,
+        active
+          ? {backgroundColor: roles.primaryContainer, borderColor: roles.primaryContainer}
+          : {borderColor: roles.outline},
+      ]}>
+      <AwaText
+        colorRole={active ? 'onPrimaryContainer' : 'onSurfaceVariant'}
+        emphasized={active}
+        variant="labelLarge">
+        {label}
+      </AwaText>
     </Pressable>
   );
 }
@@ -58,6 +76,7 @@ function LibraryFiltersSheet({
   visible, filters, contentScope, objectiveOverride, resultCount,
   onChange, onChangeContentScope, onChangeObjectiveOverride, onReset, onClose,
 }: Props): React.JSX.Element {
+  const {roles} = useAwaTokens();
   const progress = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
 
@@ -80,10 +99,13 @@ function LibraryFiltersSheet({
     }).start(({finished}) => finished && onClose());
   };
 
+  const medicalActive = contentScope === 'medical';
+  const religiousActive = contentScope === 'religious';
+
   return (
     <Modal animationType="none" onRequestClose={close} statusBarTranslucent transparent visible={visible}>
       <View style={styles.modalRoot}>
-        <Animated.View style={[styles.overlay, {opacity: progress.interpolate({inputRange: [0, 1], outputRange: [0, 0.35]})}]}>
+        <Animated.View style={[styles.overlay, {backgroundColor: roles.scrim, opacity: progress}]}>
           <Pressable accessibilityLabel="Fermer les filtres" onPress={close} style={StyleSheet.absoluteFill} />
         </Animated.View>
 
@@ -91,42 +113,74 @@ function LibraryFiltersSheet({
           style={[
             styles.sheet,
             {
+              backgroundColor: roles.surface,
               opacity: progress,
               transform: [{translateY: progress.interpolate({inputRange: [0, 1], outputRange: [320, 0]})}],
             },
           ]}>
-          <View style={styles.handle} />
+          <View style={[styles.handle, {backgroundColor: roles.outline}]} />
           <View style={styles.titleRow}>
-            <Text style={styles.title}>Filtres avancés</Text>
-            <Pressable accessibilityRole="button" hitSlop={8} onPress={onReset}>
-              <Text style={styles.reset}>Réinitialiser</Text>
-            </Pressable>
+            <AwaText variant="titleLarge">Filtres avancés</AwaText>
+            <AwaButton label="Réinitialiser" onPress={onReset} size="compact" variant="text" />
           </View>
 
           <ScrollView contentContainerStyle={styles.body} showsVerticalScrollIndicator={false}>
-            <Text style={styles.sectionLabel}>{displayUpperCase('Type de contenu')}</Text>
+            <AwaText colorRole="onSurfaceVariant" style={styles.sectionLabel} variant="labelMedium">
+              {displayUpperCase('Type de contenu')}
+            </AwaText>
             <View style={styles.scopeRow}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityState={{selected: contentScope === 'medical'}}
+                accessibilityState={{selected: medicalActive}}
                 onPress={() => onChangeContentScope('medical')}
-                style={({pressed}) => [styles.scopeButton, contentScope === 'medical' && styles.scopeButtonActive, pressed && styles.pressed]}>
-                <MaterialDesignIcons color={contentScope === 'medical' ? '#FFFFFF' : homeColors.primary} name="stethoscope" size={16} />
-                <Text style={[styles.scopeLabel, contentScope === 'medical' && styles.scopeLabelActive]}>Médical</Text>
+                style={[
+                  styles.scopeButton,
+                  medicalActive
+                    ? {backgroundColor: roles.primaryContainer, borderColor: roles.primaryContainer}
+                    : {borderColor: roles.outline},
+                ]}>
+                <MaterialDesignIcons
+                  color={medicalActive ? roles.onPrimaryContainer : roles.accessible.primaryAsText}
+                  name="stethoscope"
+                  size={18}
+                />
+                <AwaText
+                  colorRole={medicalActive ? 'onPrimaryContainer' : 'onSurface'}
+                  emphasized={medicalActive}
+                  variant="labelLarge">
+                  Médical
+                </AwaText>
               </Pressable>
               <Pressable
                 accessibilityRole="button"
-                accessibilityState={{selected: contentScope === 'religious'}}
+                accessibilityState={{selected: religiousActive}}
                 onPress={() => onChangeContentScope('religious')}
-                style={({pressed}) => [styles.scopeButton, contentScope === 'religious' && styles.scopeButtonActiveGold, pressed && styles.pressed]}>
-                <MaterialDesignIcons color={contentScope === 'religious' ? '#FFFFFF' : '#B7791F'} name="mosque-outline" size={16} />
-                <Text style={[styles.scopeLabel, contentScope === 'religious' && styles.scopeLabelActive]}>Religieux</Text>
+                style={[
+                  styles.scopeButton,
+                  religiousActive
+                    ? {backgroundColor: RELIGIOUS_GOLD, borderColor: RELIGIOUS_GOLD}
+                    : {borderColor: roles.outline},
+                ]}>
+                <MaterialDesignIcons
+                  color={religiousActive ? '#FFFFFF' : RELIGIOUS_GOLD}
+                  name="mosque-outline"
+                  size={18}
+                />
+                <AwaText
+                  color={religiousActive ? '#FFFFFF' : undefined}
+                  colorRole="onSurface"
+                  emphasized={religiousActive}
+                  variant="labelLarge">
+                  Religieux
+                </AwaText>
               </Pressable>
             </View>
 
             {contentScope === 'medical' && (
               <>
-                <Text style={styles.sectionLabel}>{displayUpperCase('Objectif')}</Text>
+                <AwaText colorRole="onSurfaceVariant" style={styles.sectionLabel} variant="labelMedium">
+                  {displayUpperCase('Objectif')}
+                </AwaText>
                 <View style={styles.chipRow}>
                   <OptionChip
                     active={objectiveOverride === null}
@@ -145,7 +199,9 @@ function LibraryFiltersSheet({
               </>
             )}
 
-            <Text style={styles.sectionLabel}>{displayUpperCase('Temps de lecture')}</Text>
+            <AwaText colorRole="onSurfaceVariant" style={styles.sectionLabel} variant="labelMedium">
+              {displayUpperCase('Temps de lecture')}
+            </AwaText>
             <View style={styles.chipRow}>
               {READING_TIME_OPTIONS.map(option => (
                 <OptionChip
@@ -157,7 +213,9 @@ function LibraryFiltersSheet({
               ))}
             </View>
 
-            <Text style={styles.sectionLabel}>{displayUpperCase('Niveau')}</Text>
+            <AwaText colorRole="onSurfaceVariant" style={styles.sectionLabel} variant="labelMedium">
+              {displayUpperCase('Niveau')}
+            </AwaText>
             <View style={styles.chipRow}>
               {LEVEL_OPTIONS.map(option => (
                 <OptionChip
@@ -169,7 +227,9 @@ function LibraryFiltersSheet({
               ))}
             </View>
 
-            <Text style={styles.sectionLabel}>{displayUpperCase('Type de format')}</Text>
+            <AwaText colorRole="onSurfaceVariant" style={styles.sectionLabel} variant="labelMedium">
+              {displayUpperCase('Type de format')}
+            </AwaText>
             <View style={styles.chipRow}>
               {TYPE_OPTIONS.map(option => (
                 <OptionChip
@@ -182,42 +242,40 @@ function LibraryFiltersSheet({
             </View>
 
             <View style={styles.switchRow}>
-              <Text style={styles.switchLabel}>Favoris uniquement</Text>
-              <Switch
-                ios_backgroundColor={homeColors.cardBorder}
+              <AwaText style={styles.switchLabel} variant="bodyLarge">Favoris uniquement</AwaText>
+              <AwaSwitch
+                accessibilityLabel="Favoris uniquement"
                 onValueChange={value => onChange({...filters, favoritesOnly: value})}
-                thumbColor="#FFFFFF"
-                trackColor={{false: homeColors.cardBorder, true: homeColors.primary}}
                 value={filters.favoritesOnly}
               />
             </View>
 
             <View style={styles.switchRow}>
-              <Text style={styles.switchLabel}>Récemment lus</Text>
-              <Switch
-                ios_backgroundColor={homeColors.cardBorder}
+              <AwaText style={styles.switchLabel} variant="bodyLarge">Récemment lus</AwaText>
+              <AwaSwitch
+                accessibilityLabel="Récemment lus"
                 onValueChange={value => onChange({...filters, recentlyRead: value})}
-                thumbColor="#FFFFFF"
-                trackColor={{false: homeColors.cardBorder, true: homeColors.primary}}
                 value={filters.recentlyRead}
               />
             </View>
 
             <View style={styles.switchRow}>
-              <Text style={styles.switchLabel}>Déjà lus</Text>
-              <Switch
-                ios_backgroundColor={homeColors.cardBorder}
+              <AwaText style={styles.switchLabel} variant="bodyLarge">Déjà lus</AwaText>
+              <AwaSwitch
+                accessibilityLabel="Déjà lus"
                 onValueChange={value => onChange({...filters, alreadyRead: value})}
-                thumbColor="#FFFFFF"
-                trackColor={{false: homeColors.cardBorder, true: homeColors.primary}}
                 value={filters.alreadyRead}
               />
             </View>
           </ScrollView>
 
-          <Pressable accessibilityRole="button" onPress={close} style={({pressed}) => [styles.doneButton, pressed && styles.pressed]}>
-            <Text style={styles.doneText}>Voir les résultats ({resultCount})</Text>
-          </Pressable>
+          <AwaButton
+            fullWidth
+            label={`Voir les résultats (${resultCount})`}
+            onPress={close}
+            style={styles.doneButton}
+            variant="filled"
+          />
         </Animated.View>
       </View>
     </Modal>
@@ -226,57 +284,46 @@ function LibraryFiltersSheet({
 
 const styles = StyleSheet.create({
   modalRoot: {flex: 1, justifyContent: 'flex-end'},
-  overlay: {...StyleSheet.absoluteFillObject, backgroundColor: '#17102F'},
+  overlay: {...StyleSheet.absoluteFillObject},
   sheet: {
     maxHeight: '82%',
-    borderTopLeftRadius: homeRadii.card,
-    borderTopRightRadius: homeRadii.card,
-    backgroundColor: '#FCFAFF',
-    paddingHorizontal: 18,
-    paddingTop: 10,
-    paddingBottom: 18,
-    elevation: 20,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    paddingHorizontal: 20,
+    paddingTop: 12,
+    paddingBottom: 20,
   },
-  handle: {width: 42, height: 5, alignSelf: 'center', borderRadius: 3, backgroundColor: homeColors.cardBorder},
-  titleRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 14},
-  title: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 19, fontWeight: '700'},
-  reset: {color: homeColors.primary, fontSize: 12.5, fontWeight: '700'},
+  handle: {width: 32, height: 4, alignSelf: 'center', borderRadius: 2},
+  titleRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 12},
   body: {marginTop: 8, paddingBottom: 8},
-  sectionLabel: {marginTop: 16, color: homeColors.textSecondary, fontSize: 12, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.4},
-  scopeRow: {flexDirection: 'row', gap: 10, marginTop: 10},
+  sectionLabel: {marginTop: 16},
+  scopeRow: {flexDirection: 'row', gap: 12, marginTop: 8},
   scopeButton: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 7,
-    minHeight: 46,
-    borderRadius: 23,
-    borderWidth: 1.4,
-    borderColor: homeColors.cardBorder,
-    backgroundColor: '#FFFFFF',
+    gap: 8,
+    minHeight: 48,
+    borderRadius: 12,
+    borderWidth: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
   },
-  scopeButtonActive: {backgroundColor: homeColors.primary, borderColor: homeColors.primary},
-  scopeButtonActiveGold: {backgroundColor: '#B7791F', borderColor: '#B7791F'},
-  scopeLabel: {color: homeColors.textPrimary, fontSize: 13, fontWeight: '700'},
-  scopeLabelActive: {color: '#FFFFFF'},
-  chipRow: {flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 10},
-  chip: {minHeight: 38, borderRadius: 19, borderWidth: 1.4, borderColor: homeColors.cardBorder, paddingHorizontal: 14, alignItems: 'center', justifyContent: 'center'},
-  chipActive: {backgroundColor: homeColors.primary, borderColor: homeColors.primary},
-  chipLabel: {color: homeColors.textPrimary, fontSize: 12.5, fontWeight: '600'},
-  chipLabelActive: {color: '#FFFFFF'},
-  switchRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', minHeight: 48, marginTop: 8},
-  switchLabel: {color: homeColors.textPrimary, fontSize: 14, fontWeight: '600'},
-  doneButton: {
-    marginTop: 10,
-    minHeight: 50,
+  chipRow: {flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 8},
+  chip: {
+    minHeight: 40,
+    maxWidth: '100%',
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: homeRadii.button,
-    backgroundColor: homeColors.primary,
   },
-  doneText: {color: '#FFFFFF', fontSize: 15, fontWeight: '700'},
-  pressed: {opacity: 0.85},
+  switchRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', minHeight: 48, marginTop: 8},
+  switchLabel: {flex: 1, marginRight: 12},
+  doneButton: {marginTop: 12},
 });
 
 export default memo(LibraryFiltersSheet);

@@ -151,7 +151,9 @@ describe('E6.1 Library family — static appearance-resolution guard', () => {
 
   it.each(LIBRARY_SOURCE_FILES)('%s consumes useAwaTheme()', (_name, relativePath) => {
     const source = fs.readFileSync(path.resolve(__dirname, relativePath), 'utf8');
-    expect(source).toMatch(/useAwaTheme\s*\(/);
+    // Material 3 migration: a file may consume the resolved theme through the shared AwaIconButton / useAwaTokens
+    // (both wrap useAwaTheme) instead of calling the hook itself — still no local appearance resolution.
+    expect(source).toMatch(/useAwaTheme\s*\(|useAwaTokens\s*\(|<AwaIconButton/);
   });
 
   it('ArticleReaderScreen.tsx still imports every bespoke article screen unchanged (E6.2 boundary respected)', () => {
@@ -311,14 +313,19 @@ describe('FeaturedArticlesScreen — hero card photo-legibility scrim (Dark Mode
       flattenStyle(renderer.root.findAll(node => node.props?.children === text)[0].props.style).color;
 
     const badgeBefore = findColor('ARTICLE DU MOMENT');
-    const ctaBefore = findColor('Lire l\'article');
+    // DESIGN.md: the CTA is now an AwaButton; its label colour lives on the host Text node, not on the composite.
+    const findCtaColor = () =>
+      flattenStyle(
+        renderer.root.findAll(node => typeof node.type === 'string' && node.props?.children === 'Lire l\'article')[0].props.style,
+      ).color;
+    const ctaBefore = findCtaColor();
 
     await act(async () => {
       await setSelectedThemeId('rose-quartz');
     });
 
     expect(findColor('ARTICLE DU MOMENT')).not.toBe(badgeBefore);
-    expect(findColor('Lire l\'article')).not.toBe(ctaBefore);
+    expect(findCtaColor()).not.toBe(ctaBefore);
   });
 });
 
@@ -359,8 +366,9 @@ describe('LibraryScreen — inline bookmark toggle exposes a dynamic label and a
     // literals (library.screen.removeBookmark / .addBookmark resolve to the
     // exact same 'Retirer des favoris' / 'Ajouter aux favoris' strings for
     // French users — see src/i18n/locales/fr.ts).
-    expect(source).toMatch(/accessibilityLabel=\{\s*\n\s*bookmarks\.has\(article\.id,?\)\s*\n\s*\?\s*t\('library\.screen\.removeBookmark'\)\s*\n\s*:\s*t\('library\.screen\.addBookmark'\)/);
-    expect(source).toMatch(/accessibilityRole="button"/);
+    // DESIGN.md: the inline Pressable bookmark was replaced by the shared BookmarkButton (AwaIconButton), which computes
+    // the same dynamic label (library.screen.removeBookmark / addBookmark) from its `active` state.
+    expect(source).toMatch(/<BookmarkButton\s+active=\{bookmarks\.has\(article\.id\)\}/);
   });
 
   it('renders with accessibilityRole="button" on at least one bookmark toggle', async () => {
@@ -383,12 +391,18 @@ describe('"Voir tout" links expose role + a contextual label (Phase 3 fix)', () 
 
   it('FeaturedArticlesScreen ("Articles populaires" and "Nouveautés")', async () => {
     const renderer = await renderScreen(() => <FeaturedArticlesScreen navigation={{} as any} route={{} as any} />);
+    // Material 3 migration: the links are AwaButtons, so the label is on the composite AND its host Pressable;
+    // the role lives on the host Pressable (findAllByProps + some, instead of the single-match findByProps).
     expect(
-      renderer.root.findByProps({accessibilityLabel: 'Voir tout : Articles populaires'}).props.accessibilityRole,
-    ).toBe('button');
+      renderer.root
+        .findAllByProps({accessibilityLabel: 'Voir tout : Articles populaires'})
+        .some(node => node.props.accessibilityRole === 'button'),
+    ).toBe(true);
     expect(
-      renderer.root.findByProps({accessibilityLabel: 'Voir tout : Nouveautés'}).props.accessibilityRole,
-    ).toBe('button');
+      renderer.root
+        .findAllByProps({accessibilityLabel: 'Voir tout : Nouveautés'})
+        .some(node => node.props.accessibilityRole === 'button'),
+    ).toBe(true);
   });
 });
 
@@ -495,7 +509,8 @@ describe('LibraryScreen — "À la une" featured card readable over its fixed ph
     expect(findFeaturedDuration(renderer)).toBeDefined();
     expect(findFeaturedRead(renderer)).toBeDefined();
     expect(findFeaturedIcon(renderer, 'clock-outline')).toBeDefined();
-    expect(findFeaturedIcon(renderer, 'arrow-right')).toBeDefined();
+    // DESIGN.md: the CTA arrow glyph was removed from the featured card's read CTA (no arrows in CTAs).
+    expect(findFeaturedIcon(renderer, 'arrow-right')).toBeUndefined();
   });
 
   it('title, reading-time text and clock icon stay the EXACT SAME fixed color across Light, Dark and True Black — they are derived from the photo, not the theme', async () => {
@@ -522,12 +537,10 @@ describe('LibraryScreen — "À la une" featured card readable over its fixed ph
     expect(findFeaturedIcon(renderer, 'clock-outline').props.color).toBe(lightClockColor);
   });
 
-  it('CTA text/arrow legitimately follow theme.colors.primary (brand identity) but are darkened whenever primary itself is too light to read over the photo', async () => {
+  it('CTA text legitimately follow theme.colors.primary (brand identity) but are darkened whenever primary itself is too light to read over the photo', async () => {
     const renderer = await renderScreen(() => <LibraryScreen navigation={{} as any} route={{} as any} />);
 
     const lightReadColor = flattenNodeStyle(findFeaturedRead(renderer)).color as string;
-    const lightArrowColor = findFeaturedIcon(renderer, 'arrow-right').props.color as string;
-    expect(lightReadColor).toBe(lightArrowColor);
     // AWA Original Light's primary (#6D4AE8) is already dark enough on its
     // own — the CTA must stay byte-identical to it, zero regression.
     expect(lightReadColor).toBe('#6D4AE8');
@@ -537,8 +550,6 @@ describe('LibraryScreen — "À la une" featured card readable over its fixed ph
     });
 
     const darkReadColor = flattenNodeStyle(findFeaturedRead(renderer)).color as string;
-    const darkArrowColor = findFeaturedIcon(renderer, 'arrow-right').props.color as string;
-    expect(darkReadColor).toBe(darkArrowColor);
     // Dark theme's primary is light-toned (meant for a dark surface) and
     // unreadable on the pale photo, so it must be darkened toward black —
     // never left as-is, and never the same hex as the raw (light) primary.
@@ -555,7 +566,6 @@ describe('LibraryScreen — "À la une" featured card readable over its fixed ph
     // True Black changes the page background only, not theme.colors.primary
     // — the CTA's own gating logic is unaffected, so it must match Dark.
     expect(flattenNodeStyle(findFeaturedRead(renderer)).color).toBe(darkReadColor);
-    expect(findFeaturedIcon(renderer, 'arrow-right').props.color).toBe(darkArrowColor);
   });
 
   it('the title color is genuinely derived from the photo, not accidentally identical to theme.colors.text, and reads with strong contrast', async () => {
