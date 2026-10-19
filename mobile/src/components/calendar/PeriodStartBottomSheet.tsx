@@ -7,7 +7,6 @@ import {
   Platform,
   Pressable,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-community/datetimepicker';
@@ -20,7 +19,9 @@ import {confirmPeriodStart} from '../../state/onboardingPreferences';
 import {formatFullDate, formatShortDate, startOfDay} from '../../utils/cycleMath';
 import {getBottomPadding} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaText} from '../ui/AwaText';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
 
@@ -147,46 +148,48 @@ function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed, onC
           ]}>
           <View style={styles.handle} />
 
-          <Text style={styles.title}>
+          <AwaText style={styles.title} variant="titleLarge">
             {title ?? (isToday ? t('periodStartSheet.titleToday') : t('periodStartSheet.titleOther', {date: formatShortDate(draft)}))}
-          </Text>
-          <Text style={styles.description}>
+          </AwaText>
+          <AwaText colorRole="onSurfaceVariant" style={styles.description} variant="bodyMedium">
             {description ??
               (isToday ? t('periodStartSheet.descriptionToday') : t('periodStartSheet.descriptionOther'))}
-          </Text>
+          </AwaText>
 
           <View style={styles.field}>
             <View style={styles.fieldIcon}>
               <MaterialDesignIcons color={theme.colors.primary} name="water" size={18} />
             </View>
             <View style={styles.fieldCopy}>
-              <Text style={styles.fieldLabel}>{t('periodStartSheet.fieldLabel')}</Text>
-              <Text style={styles.fieldValue}>{formatDateLabel(draft)}</Text>
+              <AwaText colorRole="onSurfaceVariant" variant="labelMedium">{t('periodStartSheet.fieldLabel')}</AwaText>
+              <AwaText style={styles.fieldValue} variant="titleSmall">{formatDateLabel(draft)}</AwaText>
             </View>
           </View>
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={saving || isFuture}
-            onPress={() => commit(isToday ? new Date() : draft)}
-            style={({pressed}) => [styles.confirmButton, (pressed || saving || isFuture) && styles.pressed]}>
-            <Text style={styles.confirmText}>
-              {saving
+            fullWidth
+            label={
+              saving
                 ? t('periodStartSheet.saving')
                 : isToday
                   ? t('periodStartSheet.confirmToday')
-                  : t('periodStartSheet.confirmOther', {date: formatShortDate(draft)})}
-            </Text>
-          </Pressable>
+                  : t('periodStartSheet.confirmOther', {date: formatShortDate(draft)})
+            }
+            onPress={() => commit(isToday ? new Date() : draft)}
+            size="large"
+            style={styles.confirmButton}
+          />
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={saving}
+            fullWidth
+            icon="calendar-month-outline"
+            label={t('periodStartSheet.chooseAnotherDate')}
             onPress={() => setPickerOpen(current => !current)}
-            style={({pressed}) => [styles.secondaryButton, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="calendar-month-outline" size={17} />
-            <Text style={styles.secondaryText}>{t('periodStartSheet.chooseAnotherDate')}</Text>
-          </Pressable>
+            style={styles.secondaryButton}
+            variant="outlined"
+          />
 
           {pickerOpen ? (
             <DateTimePicker
@@ -199,13 +202,14 @@ function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed, onC
             />
           ) : null}
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={saving}
+            fullWidth
+            label={t('periodStartSheet.cancel')}
             onPress={close}
-            style={({pressed}) => [styles.cancelButton, pressed && styles.pressed]}>
-            <Text style={styles.cancelText}>{t('periodStartSheet.cancel')}</Text>
-          </Pressable>
+            style={styles.cancelButton}
+            variant="text"
+          />
         </Animated.View>
       </View>
     </Modal>
@@ -226,8 +230,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       elevation: 20,
     },
     handle: {width: 42, height: 5, alignSelf: 'center', borderRadius: 3, backgroundColor: withAlpha(theme.colors.primary, 0.14)},
-    title: {marginTop: 14, color: theme.colors.text, fontFamily: 'serif', fontSize: 19, fontWeight: '700', lineHeight: 25},
-    description: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19},
+    title: {marginTop: 14},
+    description: {marginTop: 8},
     field: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -249,33 +253,10 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: theme.colors.primarySoft,
     },
     fieldCopy: {flex: 1, minWidth: 0},
-    fieldLabel: {color: theme.colors.textSecondary, fontSize: 11.5},
-    fieldValue: {marginTop: 2, color: theme.colors.text, fontSize: 14.5, fontWeight: '700'},
-    confirmButton: {
-      marginTop: 18,
-      minHeight: 52,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: homeRadii.button,
-      backgroundColor: theme.colors.primary,
-    },
-    confirmText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '700'},
-    secondaryButton: {
-      flexDirection: 'row',
-      gap: 8,
-      marginTop: 10,
-      minHeight: 48,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: 1.4,
-      borderColor: withAlpha(theme.colors.primary, 0.14),
-      borderRadius: homeRadii.button,
-      backgroundColor: theme.colors.surface,
-    },
-    secondaryText: {color: theme.colors.primary, fontSize: 14, fontWeight: '700'},
-    cancelButton: {marginTop: 10, minHeight: 44, alignItems: 'center', justifyContent: 'center'},
-    cancelText: {color: theme.colors.textSecondary, fontSize: 14, fontWeight: '600'},
-    pressed: {opacity: 0.85},
+    fieldValue: {marginTop: 2},
+    confirmButton: {marginTop: 16},
+    secondaryButton: {marginTop: 8},
+    cancelButton: {marginTop: 8},
   });
 }
 

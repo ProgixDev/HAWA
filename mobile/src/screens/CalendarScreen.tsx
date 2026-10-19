@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {Alert, Pressable, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {Alert, SafeAreaView, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
@@ -18,7 +18,9 @@ import LegendSheet from '../components/calendar/LegendSheet';
 import PeriodStartBottomSheet from '../components/calendar/PeriodStartBottomSheet';
 import {homeColors} from '../components/home/homeTheme';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaText} from '../components/ui/AwaText';
 import {getCycleObservationStartedAt, getCyclePreferences, getHasConfirmedCycleDuration, getHasRecordedFirstPeriod, getIsCycleStateReady, getRecordedPeriodHistory, getSpiritualMarkersEnabled, correctPeriodOccurrence, hydrateCyclePreferences, isDateWithinConfirmedPeriod, setPeriodEndDateTime, subscribeCyclePreferences} from '../state/onboardingPreferences';
 import {recordConfirmedPeriodEnd} from '../state/confirmedPeriodHistoryStore';
 import {getJournalEntriesForMonth, getJournalEntry} from '../state/dailyJournalStore';
@@ -524,11 +526,6 @@ function CalendarScreen(_: Props): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
       <SafeAreaView style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
@@ -558,7 +555,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
           />
 
           {predictionsPending ? (
-            <Text style={styles.predictionsNote}>
+            <AwaText colorRole="onSurfaceVariant" style={styles.predictionsNote} variant="bodySmall">
               {t(
                 hasRecordedFirstPeriod
                   ? 'calendar.predictionsPendingMoreData'
@@ -566,7 +563,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
                     ? 'calendar.predictionsPendingFirstPeriod'
                     : 'calendar.predictionsPendingFirstPeriodOwner',
               )}
-            </Text>
+            </AwaText>
           ) : null}
 
           <SelectedDayCard
@@ -617,7 +614,18 @@ function CalendarScreen(_: Props): React.JSX.Element {
         />
 
         <LegendSheet onClose={() => setLegendVisible(false)} showSpiritualMarkers={spiritualMarkersEnabled} visible={legendVisible} />
-        {editingPeriod ? <View style={[styles.editBar, {bottom: Math.max(insets.bottom, 8)}]}><View style={styles.editBarCopy}><Text style={styles.editBarTitle}>{t('calendar.editPeriodTitle')}</Text><Text style={styles.editBarSubtitle}>{t('calendar.daysSelected', {count: draftPeriodDays.size})}</Text></View><View style={styles.editActions}><Pressable onPress={cancelPeriodEditing} style={styles.cancelButton}><Text style={styles.cancelText}>{t('common.cancel')}</Text></Pressable><Pressable onPress={savePeriodEditing} style={styles.saveButton}><Text style={styles.saveText}>{t('common.save')}</Text></Pressable></View></View> : null}
+        {editingPeriod ? (
+          <View style={[styles.editBar, {bottom: Math.max(insets.bottom, 8)}]}>
+            <View style={styles.editBarCopy}>
+              <AwaText variant="titleSmall">{t('calendar.editPeriodTitle')}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={styles.editBarSubtitle} variant="bodySmall">{t('calendar.daysSelected', {count: draftPeriodDays.size})}</AwaText>
+            </View>
+            <View style={styles.editActions}>
+              <AwaButton label={t('common.cancel')} onPress={cancelPeriodEditing} style={styles.cancelButton} variant="outlined" />
+              <AwaButton label={t('common.save')} onPress={savePeriodEditing} style={styles.saveButton} />
+            </View>
+          </View>
+        ) : null}
 
         <PeriodStartBottomSheet
           description={isPreFirstPeriodDaughter ? t('cycleHome.preFirstPeriod.question') : undefined}
@@ -642,22 +650,15 @@ function CalendarScreen(_: Props): React.JSX.Element {
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   background: {flex: 1, backgroundColor: theme.colors.background},
-  pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
-  pageGlowTop: {position: 'absolute', top: -150, right: -110, width: 330, height: 330, borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07)},
-  pageGlowMiddle: {position: 'absolute', top: '38%', left: -130, width: 260, height: 260, borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045)},
-  pageGlowBottom: {position: 'absolute', bottom: -150, right: -100, width: 310, height: 310, borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05)},
   safeArea: {flex: 1, backgroundColor: 'transparent'},
   scrollContent: {paddingHorizontal: 16, paddingTop: TOP_SPACING_EXTRA},
-  predictionsNote: {marginTop: 12, paddingHorizontal: 12, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17, textAlign: 'center'},
-  editBar: {position: 'absolute', left: 12, right: 12, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.16), borderRadius: 18, backgroundColor: theme.colors.surface, padding: 13, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: -3}, shadowOpacity: 0.12, shadowRadius: 12, elevation: 8},
-  editBarCopy: {marginBottom: 10},
-  editBarTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 15, fontWeight: '700'},
-  editBarSubtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11.5},
-  editActions: {flexDirection: 'row', gap: 10},
-  cancelButton: {flex: 1, minHeight: 42, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: theme.colors.primary, borderRadius: 12, backgroundColor: theme.colors.surface},
-  cancelText: {color: theme.colors.primary, fontSize: 13, fontWeight: '700'},
-  saveButton: {flex: 1.3, minHeight: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: theme.colors.primary},
-  saveText: {color: onPrimaryTextColor(theme), fontSize: 13, fontWeight: '800'},
+  predictionsNote: {marginTop: 12, paddingHorizontal: 12, textAlign: 'center'},
+  editBar: {position: 'absolute', left: 12, right: 12, borderRadius: 16, backgroundColor: theme.colors.surface, padding: 16, ...theme.shadow, elevation: 6},
+  editBarCopy: {marginBottom: 12},
+  editBarSubtitle: {marginTop: 2},
+  editActions: {flexDirection: 'row', gap: 12},
+  cancelButton: {flex: 1},
+  saveButton: {flex: 1.3},
   });
 }
 

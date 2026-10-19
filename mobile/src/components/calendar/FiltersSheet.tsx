@@ -7,8 +7,6 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  Switch,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -18,7 +16,10 @@ import {useTranslation} from 'react-i18next';
 import {homeRadii} from '../home/homeTheme';
 import type {CalendarFilterKey, CalendarFilters} from '../../state/calendarFilters';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaSwitch} from '../ui/AwaSwitch';
+import {AwaText} from '../ui/AwaText';
 import '../../i18n';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
@@ -96,8 +97,8 @@ function FiltersSheet({visible, filters, onToggle, onClose, hideIntimacy = false
             },
           ]}>
           <View style={styles.handle} />
-          <Text style={styles.title}>{t('calendar.filtersTitle')}</Text>
-          <Text style={styles.subtitle}>{t('calendar.filtersSubtitle')}</Text>
+          <AwaText style={styles.title} variant="titleLarge">{t('calendar.filtersTitle')}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodySmall">{t('calendar.filtersSubtitle')}</AwaText>
 
           <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
             {options.map(option => (
@@ -105,21 +106,22 @@ function FiltersSheet({visible, filters, onToggle, onClose, hideIntimacy = false
                 <View style={styles.rowIcon}>
                   <MaterialDesignIcons color={theme.colors.primary} name={option.icon} size={19} />
                 </View>
-                <Text numberOfLines={1} style={styles.rowLabel}>{t(option.labelKey)}</Text>
-                <Switch
-                  ios_backgroundColor={withAlpha(theme.colors.primary, 0.14)}
+                <AwaText style={styles.rowLabel} variant="titleSmall">{t(option.labelKey)}</AwaText>
+                <AwaSwitch
+                  accessibilityLabel={t(option.labelKey)}
                   onValueChange={() => onToggle(option.key)}
-                  thumbColor="#FFFFFF"
-                  trackColor={{false: withAlpha(theme.colors.primary, 0.14), true: theme.colors.primary}}
                   value={filters[option.key]}
                 />
               </View>
             ))}
           </ScrollView>
 
-          <Pressable accessibilityRole="button" onPress={close} style={({pressed}) => [styles.doneButton, pressed && styles.pressed]}>
-            <Text style={styles.doneText}>{t('cycleHome.quickActions.done')}</Text>
-          </Pressable>
+          <AwaButton
+            fullWidth
+            label={t('cycleHome.quickActions.done')}
+            onPress={close}
+            style={styles.doneButton}
+          />
         </Animated.View>
       </View>
     </Modal>
@@ -141,22 +143,13 @@ function createStyles(theme: ResolvedAwaTheme) {
       elevation: 20,
     },
     handle: {width: 42, height: 5, alignSelf: 'center', borderRadius: 3, backgroundColor: withAlpha(theme.colors.primary, 0.14)},
-    title: {marginTop: 14, color: theme.colors.text, fontFamily: 'serif', fontSize: 20, fontWeight: '700'},
-    subtitle: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 12.5},
+    title: {marginTop: 14},
+    subtitle: {marginTop: 4},
     list: {marginTop: 12, paddingBottom: 4},
     row: {flexDirection: 'row', alignItems: 'center', minHeight: 52, gap: 12},
     rowIcon: {width: 36, height: 36, alignItems: 'center', justifyContent: 'center', borderRadius: 18, backgroundColor: theme.colors.primarySoft},
-    rowLabel: {flex: 1, color: theme.colors.text, fontSize: 14, fontWeight: '600'},
-    doneButton: {
-      marginTop: 8,
-      minHeight: 48,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: homeRadii.button,
-      backgroundColor: theme.colors.primary,
-    },
-    doneText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '700'},
-    pressed: {opacity: 0.85},
+    rowLabel: {flex: 1},
+    doneButton: {marginTop: 8},
   });
 }
 
