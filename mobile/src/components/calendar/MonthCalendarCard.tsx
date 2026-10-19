@@ -5,6 +5,7 @@ import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {useAwaTokens} from '../../theme/useAwaTokens';
 import {onPrimaryTextColor, pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {
   type CycleBasics,
@@ -19,6 +20,8 @@ import {
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
 import type {CalendarFilters} from '../../state/calendarFilters';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import '../../i18n';
 import {displayTitleCase} from '../../utils/textCase';
 
@@ -301,7 +304,8 @@ function MonthCalendarCard({
 }: Props): React.JSX.Element {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
+  const {roles} = useAwaTokens();
+  const styles = useMemo(() => createStyles(theme, roles), [theme, roles]);
 
   const calendarDays = useMemo(() => {
     const year = visibleMonth.getFullYear();
@@ -339,16 +343,16 @@ function MonthCalendarCard({
   }, [showHijri, visibleMonth]);
 
   return (
-    <View style={styles.card}>
+    <AwaCard style={styles.card}>
       <View style={styles.monthHeader}>
         <Pressable accessibilityLabel={t('calendar.previousMonth')} accessibilityRole="button" hitSlop={12} onPress={() => onChangeMonth(-1)}>
           <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={24} />
         </Pressable>
 
         <View style={styles.monthTitleBlock}>
-          <Text numberOfLines={1} style={styles.monthTitle}>
+          <AwaText numberOfLines={2} style={styles.monthTitle} variant="titleLarge">
             {displayTitleCase(new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(visibleMonth))}
-          </Text>
+          </AwaText>
           {hijriRangeLabel ? (
             <Text numberOfLines={2} style={styles.hijriRange}>{hijriRangeLabel}</Text>
           ) : null}
@@ -366,10 +370,11 @@ function MonthCalendarCard({
           return (
             <Pressable
               accessibilityRole="button"
+              accessibilityState={{selected: active}}
               key={mode.key}
               onPress={() => onChangeDisplayMode(mode.key)}
               style={({pressed}) => [styles.modeButton, active && styles.modeButtonActive, pressed && styles.pressed]}>
-              <Text numberOfLines={1} style={[styles.modeText, active && styles.modeTextActive]}>{t(mode.labelKey)}</Text>
+              <Text style={[styles.modeText, active && styles.modeTextActive]}>{t(mode.labelKey)}</Text>
             </Pressable>
           );
         })}
@@ -420,7 +425,7 @@ function MonthCalendarCard({
           </>
         ) : null}
       </View>
-    </View>
+    </AwaCard>
   );
 }
 
@@ -456,31 +461,26 @@ function LegendDot({
   );
 }
 
-function createStyles(theme: ResolvedAwaTheme) {
+function createStyles(theme: ResolvedAwaTheme, roles: ReturnType<typeof useAwaTokens>['roles']) {
   return StyleSheet.create({
-    card: {
-      marginTop: 16,
-      borderRadius: homeRadii.card,
-      backgroundColor: theme.colors.surface,
-      padding: 16,
-      ...theme.shadow,
-    },
+    card: {marginTop: 16},
     monthHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
     monthTitleBlock: {flex: 1, alignItems: 'center', paddingHorizontal: 6},
-    monthTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 19, fontWeight: '700', textTransform: 'capitalize'},
-    hijriRange: {marginTop: 2, color: theme.colors.primary, fontSize: 10, fontWeight: '600', textAlign: 'center'},
-    modeRow: {flexDirection: 'row', marginTop: 12, gap: 8, backgroundColor: theme.colors.primarySoft, borderRadius: homeRadii.button, padding: 4},
-    modeButton: {flex: 1, minHeight: 30, alignItems: 'center', justifyContent: 'center', borderRadius: homeRadii.button - 2},
-    modeButtonActive: {backgroundColor: theme.colors.primary},
-    modeText: {color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '700'},
-    modeTextActive: {color: onPrimaryTextColor(theme)},
+    monthTitle: {textTransform: 'capitalize'},
+    hijriRange: {marginTop: 2, color: theme.colors.primary, fontSize: 11, fontWeight: '600', textAlign: 'center'},
+    // DESIGN.md: segmented selector — selected segment = primaryContainer + onPrimaryContainer, track outlined.
+    modeRow: {flexDirection: 'row', marginTop: 12, gap: 8, borderWidth: 1, borderColor: roles.outlineVariant, backgroundColor: roles.surface, borderRadius: homeRadii.button, padding: 4},
+    modeButton: {flex: 1, minHeight: 40, alignItems: 'center', justifyContent: 'center', borderRadius: homeRadii.button - 2},
+    modeButtonActive: {backgroundColor: roles.primaryContainer},
+    modeText: {color: roles.accessible.onSurfaceVariant, fontSize: 12, fontWeight: '600'},
+    modeTextActive: {color: roles.onPrimaryContainer},
     weekRow: {flexDirection: 'row', marginTop: 14},
     weekDay: {width: '14.2857%', color: theme.colors.textSecondary, fontSize: 11, fontWeight: '600', textAlign: 'center'},
     daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 6},
     dayCell: {width: '14.2857%', minHeight: 56, alignItems: 'center', justifyContent: 'center', paddingVertical: 2},
-    day: {width: '86%', minHeight: 40, maxWidth: 42, paddingVertical: 4, alignItems: 'center', justifyContent: 'center', borderRadius: 14},
+    day: {width: '86%', minHeight: 40, maxWidth: 42, paddingVertical: 4, alignItems: 'center', justifyContent: 'center', borderRadius: 12},
     dayText: {color: theme.colors.text, fontSize: 13, fontWeight: '600'},
-    hijriDayText: {color: theme.colors.textSecondary, fontSize: 8.5, marginTop: 1},
+    hijriDayText: {color: theme.colors.textSecondary, fontSize: 11, marginTop: 1},
     // SEMANTIC backgrounds — never theme-driven, see file header note.
     periodDay: {backgroundColor: PERIOD_FILL_COLOR},
     fertileDay: {backgroundColor: FERTILE_FILL_COLOR},
@@ -494,7 +494,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderWidth: 1.8,
       borderStyle: 'dashed',
       borderColor: theme.colors.text,
-      borderRadius: 14,
+      borderRadius: 12,
     },
     todayDayText: {
       color: theme.colors.text,
@@ -516,7 +516,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderRadius: 6,
       backgroundColor: 'transparent',
     },
-    legendText: {color: theme.colors.textSecondary, fontSize: 10.5},
+    legendText: {color: theme.colors.textSecondary, fontSize: 11},
     pressed: {opacity: 0.8},
   });
 }

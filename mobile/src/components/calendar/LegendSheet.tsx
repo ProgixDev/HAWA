@@ -7,7 +7,6 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,7 +15,9 @@ import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaText} from '../ui/AwaText';
 import '../../i18n';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
@@ -216,13 +217,13 @@ function LegendSheet({
           ]}>
           <View style={styles.handle} />
 
-          <Text style={styles.title}>
+          <AwaText style={styles.title} variant="titleLarge">
             {t('calendar.legendSheet.title')}
-          </Text>
+          </AwaText>
 
-          <Text style={styles.subtitle}>
+          <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodySmall">
             {t('calendar.legendSheet.subtitle')}
-          </Text>
+          </AwaText>
 
           <ScrollView
             contentContainerStyle={
@@ -267,36 +268,27 @@ function LegendSheet({
                 )}
 
                 <View style={styles.copy}>
-                  <Text
-                    numberOfLines={1}
-                    style={styles.label}>
+                  <AwaText variant="titleSmall">
                     {t(entry.labelKey)}
-                  </Text>
+                  </AwaText>
 
-                  <Text
-                    style={
-                      styles.description
-                    }>
+                  <AwaText
+                    colorRole="onSurfaceVariant"
+                    style={styles.description}
+                    variant="bodySmall">
                     {t(entry.descriptionKey)}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
             ))}
           </ScrollView>
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
+            fullWidth
+            label={t('common.close')}
             onPress={close}
-            style={({pressed}) => [
-              styles.doneButton,
-              pressed &&
-                styles.pressed,
-            ]}>
-            <Text
-              style={styles.doneText}>
-              {t('common.close')}
-            </Text>
-          </Pressable>
+            style={styles.doneButton}
+          />
         </Animated.View>
       </View>
     </Modal>
@@ -339,17 +331,10 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     title: {
       marginTop: 14,
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 20,
-      fontWeight: '700',
     },
 
     subtitle: {
       marginTop: 4,
-      color:
-        theme.colors.textSecondary,
-      fontSize: 12.5,
     },
 
     list: {
@@ -398,39 +383,12 @@ function createStyles(theme: ResolvedAwaTheme) {
       flex: 1,
     },
 
-    label: {
-      color: theme.colors.text,
-      fontSize: 14,
-      fontWeight: '700',
-    },
-
     description: {
       marginTop: 2,
-      color:
-        theme.colors.textSecondary,
-      fontSize: 12,
-      lineHeight: 16,
     },
 
     doneButton: {
-      minHeight: 48,
-      alignItems: 'center',
-      justifyContent: 'center',
       marginTop: 8,
-      borderRadius:
-        homeRadii.button,
-      backgroundColor:
-        theme.colors.primary,
-    },
-
-    doneText: {
-      color: onPrimaryTextColor(theme),
-      fontSize: 15,
-      fontWeight: '700',
-    },
-
-    pressed: {
-      opacity: 0.85,
     },
   });
 }

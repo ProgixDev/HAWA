@@ -1,15 +1,18 @@
 import React, {memo, useMemo} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useTranslation} from 'react-i18next';
 import i18n from '../../i18n';
 
 import {homeRadii} from '../home/homeTheme';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import {formatFullDate, formatHijriDate, formatShortDate, type ComputedCyclePhase} from '../../utils/cycleMath';
 import type {CalendarFilters} from '../../state/calendarFilters';
 import type {DailyJournalEntry, MoodLevel} from '../../types/journal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme, withAlpha} from '../../theme/awaThemeTokens';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
@@ -200,15 +203,15 @@ function SelectedDayCard({
   const rows = buildHealthRows(entry).filter(row => filters[row.key] && !(hideIntimacy && row.key === 'intimacy'));
 
   return (
-    <View style={styles.card}>
+    <AwaCard style={styles.card}>
       <View style={styles.topRow}>
         <View style={styles.dateBlock}>
-          <Text numberOfLines={2} style={styles.gregorianDate}>{formatFullDate(date)}</Text>
-          {hijriDate ? <Text numberOfLines={2} style={styles.hijriDate}>{hijriDate}</Text> : null}
+          <AwaText variant="titleMedium">{formatFullDate(date)}</AwaText>
+          {hijriDate ? <Text style={styles.hijriDate}>{hijriDate}</Text> : null}
         </View>
         {cycleDay !== undefined ? (
           <View style={styles.cycleDayBadge}>
-            <Text numberOfLines={1} style={styles.cycleDayText}>{t('calendar.dayCard.cycleDayBadge', {day: cycleDay})}</Text>
+            <Text style={styles.cycleDayText}>{t('calendar.dayCard.cycleDayBadge', {day: cycleDay})}</Text>
           </View>
         ) : null}
       </View>
@@ -218,8 +221,8 @@ function SelectedDayCard({
           <MaterialDesignIcons color={meta.color} name={meta.icon} size={26} />
         </View>
         <View style={styles.phaseCopy}>
-          <Text numberOfLines={2} style={[styles.phaseTitle, {color: meta.color}]}>{meta.label}</Text>
-          <Text numberOfLines={2} style={styles.phaseSubtitle}>{meta.subtitle}</Text>
+          <Text style={[styles.phaseTitle, {color: meta.color}]}>{meta.label}</Text>
+          <Text style={styles.phaseSubtitle}>{meta.subtitle}</Text>
         </View>
       </View>
 
@@ -228,79 +231,83 @@ function SelectedDayCard({
           <View key={row.key} style={styles.healthRow}>
             <MaterialDesignIcons color={theme.colors.primary} name={row.icon} size={16} />
             <View style={styles.healthCopy}>
-              <Text numberOfLines={2} style={styles.healthLabel}>{row.label}</Text>
+              <Text style={styles.healthLabel}>{row.label}</Text>
               <Text style={styles.healthValue}>{row.value}</Text>
             </View>
           </View>
         ))}
       </View>
 
-      <View style={styles.periodSectionHeader}><Text style={styles.periodSectionTitle}>{t('calendar.dayCard.periodSectionTitle')}</Text>{hideEditPeriod ? null : <Pressable accessibilityRole="button" onPress={onEditPeriod} style={({pressed}) => [styles.editPeriodButton, pressed && styles.pressed]}><MaterialDesignIcons color={theme.colors.primary} name={editingPeriod ? 'pencil-off-outline' : 'pencil-outline'} size={15} /><Text style={styles.editPeriodText}>{editingPeriod ? t('calendar.dayCard.editing') : t('calendar.dayCard.edit')}</Text></Pressable>}</View>
+      <View style={styles.periodSectionHeader}>
+        <AwaText style={styles.periodSectionTitle} variant="titleSmall">{t('calendar.dayCard.periodSectionTitle')}</AwaText>
+        {hideEditPeriod ? null : (
+          <AwaButton
+            icon={editingPeriod ? 'pencil-off-outline' : 'pencil-outline'}
+            label={editingPeriod ? t('calendar.dayCard.editing') : t('calendar.dayCard.edit')}
+            onPress={onEditPeriod}
+            size="compact"
+            variant="outlined"
+          />
+        )}
+      </View>
       {periodUnrecorded ? (
         <Text style={styles.periodUnrecordedText}>{t('calendar.dayCard.periodUnrecorded')}</Text>
       ) : (
       <View style={styles.periodRow}>
         <View style={styles.periodBox}>
-          <Text numberOfLines={2} style={styles.periodLabel}>{t('calendar.periodStart')}</Text>
+          <Text style={styles.periodLabel}>{t('calendar.periodStart')}</Text>
           <Text style={styles.periodValue}>{formatShortDate(periodStartDate)}</Text>
         </View>
         <View style={styles.periodBox}>
-          <Text numberOfLines={2} style={styles.periodLabel}>{t('calendar.periodEnd')}</Text>
+          <Text style={styles.periodLabel}>{t('calendar.periodEnd')}</Text>
           <Text style={styles.periodValue}>{formatShortDate(periodEndDate)}</Text>
         </View>
         <View style={styles.periodBox}>
-          <Text numberOfLines={2} style={styles.periodLabel}>{t('calendar.dayCard.periodDurationLabel')}</Text>
+          <Text style={styles.periodLabel}>{t('calendar.dayCard.periodDurationLabel')}</Text>
           <Text style={styles.periodValue}>{t('averageCycle.days', {count: periodDuration})}</Text>
         </View>
       </View>
       )}
 
       {onDeclarePeriodStart && !editingPeriod ? (
-        <Pressable
+        <AwaButton
           accessibilityLabel={t('calendar.dayCard.declareCta')}
-          accessibilityRole="button"
+          fullWidth
+          icon="water-plus-outline"
+          label={t('calendar.dayCard.declareCta')}
+          labelStyle={styles.declareText}
           onPress={onDeclarePeriodStart}
-          style={({pressed}) => [styles.declareButton, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={PERIOD_COLOR} name="water-plus-outline" size={15} />
-          <Text style={styles.declareText}>{t('calendar.dayCard.declareCta')}</Text>
-        </Pressable>
+          size="compact"
+          style={styles.declareButton}
+          variant="tonal"
+        />
       ) : null}
-    </View>
+    </AwaCard>
   );
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    card: {
-      marginTop: 16,
-      borderRadius: homeRadii.card,
-      backgroundColor: theme.colors.surface,
-      padding: 16,
-      ...theme.shadow,
-    },
+    card: {marginTop: 16},
     topRow: {flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8},
     dateBlock: {flexShrink: 1, minWidth: '55%'},
-    gregorianDate: {color: theme.colors.text, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
     hijriDate: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11.5},
     cycleDayBadge: {borderRadius: 12, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 10, paddingVertical: 6},
     cycleDayText: {color: theme.colors.primary, fontSize: 11, fontWeight: '700'},
     phaseRow: {flexDirection: 'row', alignItems: 'center', marginTop: 14},
     phaseIcon: {width: 48, height: 48, alignItems: 'center', justifyContent: 'center', borderRadius: 24},
     phaseCopy: {flex: 1, marginLeft: 12},
-    phaseTitle: {fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
+    phaseTitle: {fontSize: 16, fontWeight: '700'},
     phaseSubtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 12},
     healthGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 16, gap: 10},
     healthRow: {flexDirection: 'row', alignItems: 'flex-start', flexBasis: '47%', flexGrow: 1, gap: 8},
     healthCopy: {flex: 1, minWidth: 0},
-    healthLabel: {color: theme.colors.textSecondary, fontSize: 10.5},
+    healthLabel: {color: theme.colors.textSecondary, fontSize: 11},
     healthValue: {marginTop: 1, color: theme.colors.text, fontSize: 12.5, fontWeight: '700'},
     periodRow: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 16, gap: 10},
     periodUnrecordedText: {marginTop: 14, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
     periodSectionHeader: {marginTop: 18, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10},
-    periodSectionTitle: {flex: 1, color: theme.colors.text, fontFamily: 'serif', fontSize: 15, fontWeight: '700'},
-    editPeriodButton: {flexDirection: 'row', alignItems: 'center', gap: 5, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 11, backgroundColor: withAlpha(theme.colors.surface, 0.97), paddingHorizontal: 10, paddingVertical: 7},
-    editPeriodText: {color: theme.colors.primary, fontSize: 11.5, fontWeight: '700'},
-    pressed: {opacity: 0.72},
+    periodSectionTitle: {flex: 1},
     periodBox: {
       flexBasis: '30%',
       flexGrow: 1,
@@ -309,23 +316,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingVertical: 10,
       paddingHorizontal: 10,
     },
-    periodLabel: {color: theme.colors.textSecondary, fontSize: 10},
+    periodLabel: {color: theme.colors.textSecondary, fontSize: 11},
     periodValue: {marginTop: 3, color: theme.colors.text, fontSize: 12, fontWeight: '700'},
-    // Period-semantic decorative tint — fixed, matches PERIOD_COLOR above.
-    declareButton: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 7,
-      marginTop: 12,
-      minHeight: 40,
-      borderWidth: 1.2,
-      borderColor: 'rgba(220,123,130,0.35)',
-      borderRadius: 14,
-      backgroundColor: '#FCEEEF',
-      paddingHorizontal: 12,
-    },
-    declareText: {color: PERIOD_COLOR, fontSize: 12, fontWeight: '700', textAlign: 'center'},
+    // Period-semantic rose tint — fixed hue (matches PERIOD_COLOR above), as an alpha so it also reads on Dark.
+    declareButton: {marginTop: 12, borderWidth: 1, borderColor: 'rgba(220,123,130,0.35)', backgroundColor: withAlpha(PERIOD_COLOR, 0.12)},
+    declareText: {color: PERIOD_COLOR},
   });
 }
 

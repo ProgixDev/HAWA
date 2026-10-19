@@ -292,10 +292,13 @@ describe('Calendar family — month-navigation buttons expose accessibilityRole=
       /accessibilityLabel=\{t\('calendar\.nextMonth'\)\}[\s\S]{0,40}accessibilityRole="button"/,
     ],
     [
+      // Material 3 migration: the month arrows are now <AwaIconButton>, which sets accessibilityRole="button"
+      // itself (components/ui/AwaIconButton.tsx), so the legacy "Pressable + explicit role" shape is replaced
+      // by "AwaIconButton carrying the localized label".
       'PregnancyCalendarContent',
       '../../pregnancy/PregnancyCalendarContent.tsx',
-      /accessibilityLabel=\{t\('calendar\.previousMonth'\)\}[\s\S]{0,40}accessibilityRole="button"/,
-      /accessibilityLabel=\{t\('calendar\.nextMonth'\)\}[\s\S]{0,40}accessibilityRole="button"/,
+      /<AwaIconButton\s+accessibilityLabel=\{t\('calendar\.previousMonth'\)\}/,
+      /<AwaIconButton\s+accessibilityLabel=\{t\('calendar\.nextMonth'\)\}/,
     ],
   ];
 

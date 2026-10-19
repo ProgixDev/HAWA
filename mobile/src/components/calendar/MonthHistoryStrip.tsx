@@ -1,12 +1,15 @@
 import React, {memo, useMemo} from 'react';
-import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Pressable, ScrollView, StyleSheet, Text} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
 import {capitalize, dateFormatLocale, sameDay} from '../../utils/cycleMath';
 import type {PeriodHistoryRecord} from '../../state/onboardingPreferences';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {useAwaTokens} from '../../theme/useAwaTokens';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import '../../i18n';
 
 type Props = {
@@ -19,7 +22,8 @@ type Props = {
 function MonthHistoryStrip({visibleMonth, monthsBack = 8, onSelectMonth, periodHistory = []}: Props): React.JSX.Element {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
+  const {roles} = useAwaTokens();
+  const styles = useMemo(() => createStyles(theme, roles), [theme, roles]);
 
   const now = new Date();
   const months = Array.from({length: monthsBack}, (_, index) =>
@@ -27,8 +31,8 @@ function MonthHistoryStrip({visibleMonth, monthsBack = 8, onSelectMonth, periodH
   );
 
   return (
-    <View style={styles.card}>
-      <Text style={styles.title}>{t('calendar.monthHistoryTitle')}</Text>
+    <AwaCard padding="none" style={styles.card} variant="filled">
+      <AwaText variant="titleMedium">{t('calendar.monthHistoryTitle')}</AwaText>
 
       <ScrollView contentContainerStyle={styles.row} horizontal showsHorizontalScrollIndicator={false}>
         {months.map(month => {
@@ -39,6 +43,8 @@ function MonthHistoryStrip({visibleMonth, monthsBack = 8, onSelectMonth, periodH
           return (
             <Pressable
               accessibilityRole="button"
+              accessibilityState={{selected: active}}
+              hitSlop={4}
               key={month.toISOString()}
               onPress={() => onSelectMonth(month)}
               style={({pressed}) => [styles.chip, active && styles.chipActive, pressed && styles.pressed]}>
@@ -50,35 +56,28 @@ function MonthHistoryStrip({visibleMonth, monthsBack = 8, onSelectMonth, periodH
           );
         })}
       </ScrollView>
-    </View>
+    </AwaCard>
   );
 }
 
-function createStyles(theme: ResolvedAwaTheme) {
+function createStyles(theme: ResolvedAwaTheme, roles: ReturnType<typeof useAwaTokens>['roles']) {
   return StyleSheet.create({
-    card: {
-      marginTop: 16,
-      borderRadius: homeRadii.card,
-      backgroundColor: theme.colors.surface,
-      paddingVertical: 14,
-      paddingLeft: 16,
-      ...theme.shadow,
-    },
-    title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
+    card: {marginTop: 16, paddingVertical: 16, paddingLeft: 16},
     row: {flexDirection: 'row', gap: 8, marginTop: 12, paddingRight: 16},
     chip: {
       borderRadius: homeRadii.button,
       borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.14),
-      backgroundColor: theme.colors.primarySoft,
+      borderColor: roles.outline,
+      backgroundColor: roles.surface,
       paddingHorizontal: 14,
       paddingVertical: 9,
     },
-    chipActive: {backgroundColor: theme.colors.primary, borderColor: theme.colors.primary},
+    // DESIGN.md: selected = primaryContainer + onPrimaryContainer (same M3 filter chip as the library / journal chips).
+    chipActive: {backgroundColor: roles.primaryContainer, borderColor: roles.primaryContainer},
     chipText: {color: theme.colors.text, fontSize: 12, fontWeight: '600', textTransform: 'capitalize'},
-    chipTextActive: {color: onPrimaryTextColor(theme)},
-    rangeText: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 9.5, fontWeight: '600'},
-    rangeTextActive: {color: withAlpha(onPrimaryTextColor(theme), 0.85)},
+    chipTextActive: {color: roles.onPrimaryContainer},
+    rangeText: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11, fontWeight: '600'},
+    rangeTextActive: {color: roles.onPrimaryContainer},
     pressed: {opacity: 0.8},
   });
 }

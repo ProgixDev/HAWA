@@ -1,16 +1,13 @@
 import React, {memo, useMemo} from 'react';
 import {
-  Pressable,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 
-import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaText} from '../ui/AwaText';
+import {CalendarHeaderAction} from './CalendarHeaderAction';
 import '../../i18n';
 
 type Props = {
@@ -23,8 +20,7 @@ function CalendarHeader({
   onPressLegend,
 }: Props): React.JSX.Element {
   const {t} = useTranslation();
-  const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
+  const styles = useMemo(() => createStyles(), []);
   const insets = useSafeAreaInsets();
 
   const topSpacing = Math.max(insets.top + 6, 16);
@@ -38,65 +34,28 @@ function CalendarHeader({
         },
       ]}>
       <View style={styles.titleBlock}>
-        <Text style={styles.title}>
+        <AwaText variant="headlineSmall">
           {t('calendar.title')}
-        </Text>
+        </AwaText>
 
-        <Text
+        <AwaText
+          colorRole="onSurfaceVariant"
           numberOfLines={3}
-          style={styles.subtitle}>
+          style={styles.subtitle}
+          variant="bodySmall">
           {t('calendar.subtitle')}
-        </Text>
+        </AwaText>
       </View>
 
       <View style={styles.actions}>
-        <Pressable
-          accessibilityLabel={t('calendar.filters')}
-          accessibilityRole="button"
-          onPress={onPressFilters}
-          style={({pressed}) => [
-            styles.actionButton,
-            pressed && styles.pressed,
-          ]}>
-          <MaterialDesignIcons
-            color={theme.colors.primary}
-            name="tune-variant"
-            size={18}
-          />
-
-          <Text
-            numberOfLines={1}
-            style={styles.actionLabel}>
-            {t('calendar.filters')}
-          </Text>
-        </Pressable>
-
-        <Pressable
-          accessibilityLabel={t('calendar.legend')}
-          accessibilityRole="button"
-          onPress={onPressLegend}
-          style={({pressed}) => [
-            styles.actionButton,
-            pressed && styles.pressed,
-          ]}>
-          <MaterialDesignIcons
-            color={theme.colors.primary}
-            name="format-list-bulleted"
-            size={18}
-          />
-
-          <Text
-            numberOfLines={1}
-            style={styles.actionLabel}>
-            {t('calendar.legend')}
-          </Text>
-        </Pressable>
+        <CalendarHeaderAction icon="tune-variant" label={t('calendar.filters')} onPress={onPressFilters} />
+        <CalendarHeaderAction icon="format-list-bulleted" label={t('calendar.legend')} onPress={onPressLegend} />
       </View>
     </View>
   );
 }
 
-function createStyles(theme: ResolvedAwaTheme) {
+function createStyles() {
   return StyleSheet.create({
     header: {
       flexDirection: 'row',
@@ -112,55 +71,13 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingTop: 2,
     },
 
-    title: {
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 24,
-      fontWeight: '700',
-    },
-
     subtitle: {
       marginTop: 2,
-      color: theme.colors.textSecondary,
-      fontSize: 12,
-      lineHeight: 17,
     },
 
     actions: {
       flexDirection: 'row',
-      gap: 8,
       flexShrink: 0,
-    },
-
-    actionButton: {
-      minWidth: 56,
-      minHeight: 48,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 16,
-      backgroundColor: withAlpha(theme.colors.surface, 0.85),
-      paddingVertical: 7,
-      paddingHorizontal: 8,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: 6,
-      elevation: 2,
-    },
-
-    actionLabel: {
-      marginTop: 3,
-      color: theme.colors.primary,
-      fontSize: 9.5,
-      fontWeight: '700',
-    },
-
-    pressed: {
-      opacity: 0.8,
-      transform: [{scale: 0.97}],
     },
   });
 }

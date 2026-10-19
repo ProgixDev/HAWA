@@ -1,11 +1,13 @@
 import React, {memo, useMemo} from 'react';
-import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useTranslation} from 'react-i18next';
 
-import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import '../../i18n';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
@@ -26,15 +28,19 @@ function CycleTimelineCard({steps, onPressSeeAll}: Props): React.JSX.Element {
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
-    <View style={styles.card}>
+    <AwaCard style={styles.card} variant="filled">
       <View style={styles.header}>
-        <Text style={styles.title}>{t('calendar.timelineTitle')}</Text>
+        <AwaText style={styles.title} variant="titleMedium">{t('calendar.timelineTitle')}</AwaText>
         {/* Only rendered when a destination is supplied — never a link that
             looks tappable but does nothing. */}
         {onPressSeeAll ? (
-          <Pressable accessibilityRole="button" hitSlop={8} onPress={onPressSeeAll} style={({pressed}) => pressed && styles.pressed}>
-            <Text style={styles.seeAll}>{t('objectiveArticles.seeAll')}</Text>
-          </Pressable>
+          <AwaButton
+            hitSlop={8}
+            label={t('objectiveArticles.seeAll')}
+            onPress={onPressSeeAll}
+            size="compact"
+            variant="text"
+          />
         ) : null}
       </View>
 
@@ -51,36 +57,28 @@ function CycleTimelineCard({steps, onPressSeeAll}: Props): React.JSX.Element {
               </View>
               {index < steps.length - 1 ? <View style={styles.connector} /> : <View style={styles.connectorHidden} />}
             </View>
-            <Text numberOfLines={2} style={styles.stepLabel}>{step.label}</Text>
-            <Text numberOfLines={1} style={styles.stepDate}>{step.date}</Text>
+            <Text style={styles.stepLabel}>{step.label}</Text>
+            <Text style={styles.stepDate}>{step.date}</Text>
           </View>
         ))}
       </ScrollView>
-    </View>
+    </AwaCard>
   );
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    card: {
-      marginTop: 16,
-      borderRadius: homeRadii.card,
-      backgroundColor: theme.colors.surface,
-      padding: 16,
-      ...theme.shadow,
-    },
+    card: {marginTop: 16},
     header: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-    title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
-    seeAll: {color: theme.colors.primary, fontSize: 12, fontWeight: '700'},
+    title: {flexShrink: 1},
     row: {flexDirection: 'row', marginTop: 16, paddingRight: 8},
     step: {minWidth: 84, paddingHorizontal: 4, alignItems: 'center'},
     stepHeader: {flexDirection: 'row', alignItems: 'center', width: '100%'},
     connector: {flex: 1, height: 2, backgroundColor: withAlpha(theme.colors.primary, 0.14)},
     connectorHidden: {flex: 1, height: 2, backgroundColor: 'transparent'},
     dot: {width: 30, height: 30, alignItems: 'center', justifyContent: 'center', borderRadius: 15},
-    stepLabel: {marginTop: 8, color: theme.colors.text, fontSize: 10.5, fontWeight: '600', textAlign: 'center', lineHeight: 13},
-    stepDate: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 9.5, textAlign: 'center'},
-    pressed: {opacity: 0.7},
+    stepLabel: {marginTop: 8, color: theme.colors.text, fontSize: 11, fontWeight: '600', textAlign: 'center', lineHeight: 16},
+    stepDate: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11, textAlign: 'center'},
   });
 }
 
