@@ -232,13 +232,14 @@ describe('TEST 6 — AnonymousModeCreatingScreen renders translated step labels 
 });
 
 describe('TEST 7 — AnonymousModeSuccessScreen follows the app language for both finish labels', () => {
-  it('French, fromAuth=true: shows "Continuer" and proceeds to the avatar customizer', async () => {
+  it('French, fromAuth=true: shows "Continuer" and enters the app (anonymous mode has no avatar step)', async () => {
     const {renderer, navigation} = await renderWithNavigation(AnonymousModeSuccessScreen, 'AnonymousModeSuccess', {source: 'auth'});
     expect(textsOf(renderer)).toContain('Mode anonyme activé');
     act(() => {
       renderer.root.findByProps({accessibilityLabel: 'Continuer'}).props.onPress();
     });
-    expect(navigation.replace).toHaveBeenCalledWith('AnonymousAvatarCustomizer', {source: 'auth'});
+    expect(navigation.replace).toHaveBeenCalledWith('MainTabs', {screen: 'CycleHome'});
+    expect(navigation.replace).not.toHaveBeenCalledWith('AnonymousAvatarCustomizer', expect.anything());
   });
 
   it('English, fromAuth=false: shows "Done" and pops 3 screens back to the settings entry point', async () => {

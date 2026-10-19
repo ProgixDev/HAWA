@@ -110,7 +110,7 @@ afterEach(async () => {
 });
 
 describe('Italian language selector — the Italian card among the five options', () => {
-  it('shows exactly eight language cards: English, Français, Español, Italiano, Türkçe, Русский, Deutsch, 简体中文', async () => {
+  it('shows exactly nine language cards: English, Français, Español, Italiano, Türkçe, Русский, Deutsch, 简体中文, Bahasa Indonesia (plus the "System default" option)', async () => {
     const renderer = await renderScreen();
     await openLanguageSheet(renderer);
     for (const [label] of SELF_DESCRIPTIONS) {
@@ -119,7 +119,7 @@ describe('Italian language selector — the Italian card among the five options'
     const allRadioLabels = new Set(
       renderer.root.findAll(node => node.props.accessibilityRole === 'radio').map(node => node.props.accessibilityLabel),
     );
-    expect(allRadioLabels).toEqual(new Set([...SELF_DESCRIPTIONS.map(([label]) => label), 'Türkçe', 'Русский', 'Deutsch', '简体中文']));
+    expect(allRadioLabels).toEqual(new Set(['System default', ...SELF_DESCRIPTIONS.map(([label]) => label), 'Türkçe', 'Русский', 'Deutsch', '简体中文', 'Bahasa Indonesia']));
   });
 
   it('the Italian card has the 🇮🇹 flag and the native-language subtitle "Usare AWA in italiano"', async () => {
@@ -131,13 +131,14 @@ describe('Italian language selector — the Italian card among the five options'
     expect(texts).toContain('Usare AWA in italiano');
   });
 
-  it('English is not special-cased: no "Default language" wording anywhere, and it is selected by default', async () => {
+  it('English is not special-cased: no "Default language" wording anywhere; with no choice made "System default" is selected (English here), not a language card', async () => {
     const renderer = await renderScreen();
     await openLanguageSheet(renderer);
     const texts = textsOf(renderer);
     expect(texts).toContain('Use AWA in English');
     expect(texts.some(text => /default language|langue par d[ée]faut|idioma predeterminado|lingua predefinita/i.test(text))).toBe(false);
-    expect(radios(renderer, 'English')[0].props.accessibilityState).toEqual({checked: true});
+    expect(radios(renderer, 'System default')[0].props.accessibilityState).toEqual({checked: true});
+    expect(radios(renderer, 'English')[0].props.accessibilityState).toEqual({checked: false});
     expect(radios(renderer, 'Italiano')[0].props.accessibilityState).toEqual({checked: false});
   });
 

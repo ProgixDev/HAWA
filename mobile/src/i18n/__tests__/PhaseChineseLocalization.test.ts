@@ -541,8 +541,8 @@ describe('editorial content: library articles, pregnancy weeks, legal text', () 
   });
 
   it('legal placeholder text exists in Chinese with the same sections as English', () => {
-    expect(Object.keys(TERMS).sort()).toEqual(['de', 'en', 'es', 'fr', 'ru', 'tr', 'zh']);
-    expect(Object.keys(PRIVACY).sort()).toEqual(['de', 'en', 'es', 'fr', 'ru', 'tr', 'zh']);
+    expect(Object.keys(TERMS).sort()).toEqual(['de', 'en', 'es', 'fr', 'id', 'ru', 'tr', 'zh']);
+    expect(Object.keys(PRIVACY).sort()).toEqual(['de', 'en', 'es', 'fr', 'id', 'ru', 'tr', 'zh']);
     expect(TERMS.zh).toHaveLength(TERMS.en.length);
     expect(PRIVACY.zh).toHaveLength(PRIVACY.en.length);
     TERMS.zh.concat(PRIVACY.zh).forEach(section => {

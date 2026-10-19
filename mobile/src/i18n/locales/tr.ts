@@ -154,6 +154,9 @@ export const tr = {
       russianName: 'Русский',
       germanName: 'Deutsch',
       chineseName: '简体中文',
+      indonesianName: 'Bahasa Indonesia',
+      systemName: 'Sistem dili',
+      systemDescription: 'Cihaz dilini kullan',
     },
   },
   cycleHome: {
@@ -8741,6 +8744,70 @@ export const tr = {
       swelling: 'Şişlik',
       dizziness: 'Baş dönmesi',
       sleepTrouble: 'Uyku sorunu',
+    },
+  },
+  // Managed daughter profile only: the mother's own journal screens never read these keys. Wording is for a
+  // parent recording a child's day (third person), with the daughter's first name filled in as {{name}}.
+  daughterJournal: {
+    sheetTitle: 'Günlük: {{name}}',
+    sheetSubtitle: 'Bugün neyi not etmek istersin?',
+    titles: {
+      symptoms: 'Belirtiler: {{name}}',
+      mood: 'Ruh hali: {{name}}',
+      activity: 'Fiziksel aktivite: {{name}}',
+      sleep: 'Uyku: {{name}}',
+      hydration: 'Su tüketimi: {{name}}',
+      menstrualFlow: 'Adet akışı: {{name}}',
+      note: 'Gözlemler: {{name}}',
+    },
+    sheetItems: {
+      symptom: 'Gözlemlenen belirtiler',
+      mood: 'Günün ruh hali',
+      activity: 'Bugünkü hareket ve aktivite',
+      sleep: 'Uykunun süresi ve kalitesi',
+      hydration: 'Su miktarını takip et',
+      menstrualFlow: 'Akışın yoğunluğu ve özellikleri',
+      note: 'Günün gözlemi ve özel fotoğraflar',
+    },
+    symptoms: {
+      observedTitle: 'Gözlemlenen belirtiler',
+      observedSubtitle: 'Bugün gözlemlenen belirtileri seç.',
+      intensitySubtitle: 'Onun hissettiğini en iyi anlatan düzeyi seç.',
+      locationSubtitle: 'Bu belirtileri esas olarak nerede hissediyor?',
+      errorMessage: 'Belirtiler şu anda kaydedilemedi.',
+    },
+    mood: {
+      question: 'Bugün nasıl hissediyor?',
+      commentAccessibility: 'Ruh haline dair yorum',
+      errorMessage: 'Ruh hali şu anda kaydedilemedi.',
+    },
+    activity: {
+      typeHint: 'Yaptığı aktiviteyi seç',
+      durationHint: 'Ne kadar süre hareket etti?',
+      intensityHint: 'Efor düzeyi neydi?',
+      feelingTitle: 'Aktiviteden sonra nasıl hissediyor?',
+      errorMessage: 'Aktivite şu anda kaydedilemedi.',
+    },
+    sleep: {
+      awakeningsSubtitle: 'Kaç kez uyandı?',
+      wakeFeelingSubtitle: 'Uyandığında nasıl hissediyor?',
+      errorMessage: 'Uyku şu anda kaydedilemedi.',
+    },
+    note: {
+      observationTitle: 'Günün gözlemi',
+      photosHint: 'Cilt, saç veya bir belirtideki değişiklikleri takip et.',
+      photosOnDevice: 'Fotoğraflar yalnızca bu cihazda kalır.',
+      protectedText: 'Notlar ve fotoğraflar yalnızca bu cihazda saklanır. Başka hiç kimse bunlara erişemez.',
+      protectedTitle: 'Veriler korunuyor',
+      saveLabel: 'Gözlemi kaydet',
+      errorMessage: 'Gözlem şu anda kaydedilemedi.',
+    },
+    flow: {
+      periodEnded: 'Adet kanaması sona erdi',
+      errorMessage: 'Akış şu anda kaydedilemedi.',
+    },
+    hydration: {
+      advice: 'Yeterli su içmek şişkinliği azaltmaya ve enerjiyi desteklemeye yardımcı olur.',
     },
   },
 };

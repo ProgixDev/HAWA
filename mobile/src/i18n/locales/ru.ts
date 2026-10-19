@@ -159,6 +159,9 @@ export const ru = {
       russianName: 'Русский',
       germanName: 'Deutsch',
       chineseName: '简体中文',
+      indonesianName: 'Bahasa Indonesia',
+      systemName: 'Язык системы',
+      systemDescription: 'Использовать язык устройства',
     },
   },
   cycleHome: {
@@ -8919,6 +8922,70 @@ export const ru = {
       swelling: 'Отёки',
       dizziness: 'Головокружение',
       sleepTrouble: 'Проблемы со сном',
+    },
+  },
+  // Managed daughter profile only: the mother's own journal screens never read these keys. Wording is for a
+  // parent recording a child's day (third person), with the daughter's first name filled in as {{name}}.
+  daughterJournal: {
+    sheetTitle: 'Дневник: {{name}}',
+    sheetSubtitle: 'Что вы хотите отметить сегодня?',
+    titles: {
+      symptoms: 'Симптомы: {{name}}',
+      mood: 'Настроение: {{name}}',
+      activity: 'Физическая активность: {{name}}',
+      sleep: 'Сон: {{name}}',
+      hydration: 'Питьевой режим: {{name}}',
+      menstrualFlow: 'Менструальные выделения: {{name}}',
+      note: 'Наблюдения: {{name}}',
+    },
+    sheetItems: {
+      symptom: 'Наблюдаемые симптомы',
+      mood: 'Настроение за день',
+      activity: 'Движение и активность за сегодня',
+      sleep: 'Длительность и качество сна',
+      hydration: 'Следите за количеством выпитой воды',
+      menstrualFlow: 'Интенсивность и характер выделений',
+      note: 'Наблюдение дня и личные фото',
+    },
+    symptoms: {
+      observedTitle: 'Наблюдаемые симптомы',
+      observedSubtitle: 'Отметьте симптомы, которые наблюдались сегодня.',
+      intensitySubtitle: 'Выберите уровень, который лучше всего описывает её состояние.',
+      locationSubtitle: 'Где она в основном ощущает эти симптомы?',
+      errorMessage: 'Сейчас не удалось сохранить симптомы.',
+    },
+    mood: {
+      question: 'Как она себя чувствует сегодня?',
+      commentAccessibility: 'Комментарий о её настроении',
+      errorMessage: 'Сейчас не удалось сохранить настроение.',
+    },
+    activity: {
+      typeHint: 'Выберите, чем она занималась',
+      durationHint: 'Как долго она двигалась?',
+      intensityHint: 'Насколько сильной была нагрузка?',
+      feelingTitle: 'Как она себя чувствует после активности?',
+      errorMessage: 'Сейчас не удалось сохранить активность.',
+    },
+    sleep: {
+      awakeningsSubtitle: 'Сколько раз она просыпалась?',
+      wakeFeelingSubtitle: 'Как она себя чувствует после пробуждения?',
+      errorMessage: 'Сейчас не удалось сохранить данные о сне.',
+    },
+    note: {
+      observationTitle: 'Наблюдение дня',
+      photosHint: 'Отслеживайте изменения кожи, волос или симптома.',
+      photosOnDevice: 'Фото хранятся только на этом устройстве.',
+      protectedText: 'Заметки и фото хранятся только на этом устройстве. Доступа к ним ни у кого нет.',
+      protectedTitle: 'Данные защищены',
+      saveLabel: 'Сохранить наблюдение',
+      errorMessage: 'Сейчас не удалось сохранить наблюдение.',
+    },
+    flow: {
+      periodEnded: 'Менструация закончилась',
+      errorMessage: 'Сейчас не удалось сохранить данные о выделениях.',
+    },
+    hydration: {
+      advice: 'Достаточное количество воды помогает уменьшить вздутие и поддерживает энергию.',
     },
   },
 };

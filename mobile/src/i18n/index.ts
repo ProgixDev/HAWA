@@ -10,6 +10,7 @@ import {ru} from './locales/ru';
 import {de} from './locales/de';
 import {zh} from './locales/zh';
 import {tr} from './locales/tr';
+import {id} from './locales/id';
 import './pluralRules';
 
 // Centralized localization (i18next + react-i18next) — imported once, as a
@@ -19,6 +20,11 @@ import './pluralRules';
 // detection — the active language is entirely driven by AWA's own "Langue de
 // l'application" preference (themePreferences.ts's getAppLanguage/
 // setAppLanguage).
+//
+// SYSTEM LANGUAGE (supersedes the paragraph below for first launch): the language in force is the user's manual choice,
+// otherwise the phone's language, otherwise English (state/themePreferences.ts). The `lng` below is only i18next's value
+// until App.tsx's start-up gate has called initializeAppLanguage() (i18n/appLanguage.ts), which resolves it before the
+// first screen renders; `fallbackLng` stays English for any missing translation.
 //
 // PHASE 7M — English-first default: `lng`/`fallbackLng` are both 'en' now,
 // matching themePreferences.ts's DEFAULT_APP_LANGUAGE. A brand-new install
@@ -53,6 +59,7 @@ i18n.use(initReactI18next).init({
     ru: {translation: ru},
     de: {translation: de},
     zh: {translation: zh},
+    id: {translation: id},
   },
   lng: getAppLanguage(),
   fallbackLng: 'en',

@@ -177,6 +177,9 @@ export const en = {
       russianName: 'Русский',
       germanName: 'Deutsch',
       chineseName: '简体中文',
+      indonesianName: 'Bahasa Indonesia',
+      systemName: 'System default',
+      systemDescription: 'Use device language',
     },
   },
 
@@ -8293,6 +8296,70 @@ export const en = {
       swelling: 'Swelling',
       dizziness: 'Dizziness',
       sleepTrouble: 'Sleep trouble',
+    },
+  },
+  // Managed daughter profile only: the mother's own journal screens never read these keys. Wording is for a
+  // parent recording a child's day (third person), with the daughter's first name filled in as {{name}}.
+  daughterJournal: {
+    sheetTitle: '{{name}}’s journal',
+    sheetSubtitle: 'What would you like to note today?',
+    titles: {
+      symptoms: '{{name}}’s symptoms',
+      mood: '{{name}}’s mood',
+      activity: '{{name}}’s physical activity',
+      sleep: '{{name}}’s sleep',
+      hydration: '{{name}}’s hydration',
+      menstrualFlow: '{{name}}’s menstrual flow',
+      note: '{{name}}’s observations',
+    },
+    sheetItems: {
+      symptom: 'Observed symptoms',
+      mood: 'Mood of the day',
+      activity: 'Today’s movement and activity',
+      sleep: 'Sleep duration and quality',
+      hydration: 'Track water intake',
+      menstrualFlow: 'Intensity and characteristics of the flow',
+      note: 'Daily observation and private photos',
+    },
+    symptoms: {
+      observedTitle: 'Observed symptoms',
+      observedSubtitle: 'Select the symptoms observed today.',
+      intensitySubtitle: 'Choose the level that best describes what she is feeling.',
+      locationSubtitle: 'Where does she mainly feel these symptoms?',
+      errorMessage: 'We couldn’t save the symptoms right now.',
+    },
+    mood: {
+      question: 'How is she feeling today?',
+      commentAccessibility: 'Comment on her mood',
+      errorMessage: 'We couldn’t save the mood right now.',
+    },
+    activity: {
+      typeHint: 'Select the activity she did',
+      durationHint: 'How long did she move for?',
+      intensityHint: 'What was her effort level?',
+      feelingTitle: 'How does she feel after the activity?',
+      errorMessage: 'We couldn’t save the activity right now.',
+    },
+    sleep: {
+      awakeningsSubtitle: 'How many times did she wake up?',
+      wakeFeelingSubtitle: 'How does she feel on waking?',
+      errorMessage: 'We couldn’t save the sleep right now.',
+    },
+    note: {
+      observationTitle: 'Observation of the day',
+      photosHint: 'Track changes in the skin, hair or a symptom.',
+      photosOnDevice: 'Photos stay only on this device.',
+      protectedText: 'Notes and photos are stored only on this device. No one else has access to them.',
+      protectedTitle: 'Data is protected',
+      saveLabel: 'Save observation',
+      errorMessage: 'We couldn’t save the observation right now.',
+    },
+    flow: {
+      periodEnded: 'Her period has ended',
+      errorMessage: 'We couldn’t save the flow right now.',
+    },
+    hydration: {
+      advice: 'Drinking enough water helps reduce bloating and supports energy.',
     },
   },
 } as const;

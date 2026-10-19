@@ -549,8 +549,8 @@ describe('editorial content: library articles, pregnancy weeks, legal text', () 
   });
 
   it('legal placeholder text exists in German with the same sections as English', () => {
-    expect(Object.keys(TERMS).sort()).toEqual(['de', 'en', 'es', 'fr', 'ru', 'tr', 'zh']);
-    expect(Object.keys(PRIVACY).sort()).toEqual(['de', 'en', 'es', 'fr', 'ru', 'tr', 'zh']);
+    expect(Object.keys(TERMS).sort()).toEqual(['de', 'en', 'es', 'fr', 'id', 'ru', 'tr', 'zh']);
+    expect(Object.keys(PRIVACY).sort()).toEqual(['de', 'en', 'es', 'fr', 'id', 'ru', 'tr', 'zh']);
     expect(TERMS.de).toHaveLength(TERMS.en.length);
     expect(PRIVACY.de).toHaveLength(PRIVACY.en.length);
     TERMS.de.concat(PRIVACY.de).forEach(section => {

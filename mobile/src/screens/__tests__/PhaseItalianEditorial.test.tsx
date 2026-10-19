@@ -123,9 +123,9 @@ describe('Library articles — Italian content exists and mirrors the English st
     expect(withoutItalian).toEqual([]);
   });
 
-  it('CONTENT has exactly fr, en, es, it, tr, ru, de, zh — in that order — and the existing fr/en/es blocks are all still present', () => {
+  it('CONTENT has exactly fr, en, es, it, tr, ru, de, zh, id — in that order — and the existing fr/en/es blocks are all still present', () => {
     for (const [file, content] of contents) {
-      expect([file, Object.keys(content).join()]).toEqual([file, 'fr,en,es,it,tr,ru,de,zh']);
+      expect([file, Object.keys(content).join()]).toEqual([file, 'fr,en,es,it,tr,ru,de,zh,id']);
     }
   });
 

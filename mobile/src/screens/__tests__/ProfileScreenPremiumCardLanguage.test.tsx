@@ -23,6 +23,7 @@ import {tr} from '../../i18n/locales/tr';
 import {ru} from '../../i18n/locales/ru';
 import {de} from '../../i18n/locales/de';
 import {zh} from '../../i18n/locales/zh';
+import {id} from '../../i18n/locales/id';
 
 // The Profile "AWA Premium" card: the title (premium.sheet.heroTitle, shared with the Premium sheet; "AWA" stays, the
 // Premium designation is adapted per language), subtitle, benefit list and CTA follow the selected app language and must update at runtime (no restart) through the real setAppLanguage → i18n subscription.
@@ -52,6 +53,7 @@ const LANGUAGES = [
   ['ru', ru],
   ['de', de],
   ['zh', zh],
+  ['id', id],
 ] as const;
 
 const textsOf = (renderer: ReactTestRenderer.ReactTestRenderer): string[] =>
@@ -147,9 +149,9 @@ describe('Profile Premium card — every language', () => {
 });
 
 describe('Profile Premium card — runtime language switching', () => {
-  it('re-renders the same mounted card through all seven languages and back, without a remount', async () => {
+  it('re-renders the same mounted card through all nine languages and back, without a remount', async () => {
     const renderer = await renderProfile();
-    const order = ['en', 'ru', 'zh', 'de', 'tr', 'it', 'es', 'fr', 'zh', 'en'] as const;
+    const order = ['en', 'ru', 'zh', 'id', 'de', 'tr', 'it', 'es', 'fr', 'zh', 'en'] as const;
     for (const code of order) {
       await selectLanguage(code);
       const copy = cardOf(LANGUAGES.find(([key]) => key === code)![1]);
