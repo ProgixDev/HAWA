@@ -1,13 +1,18 @@
 import React, {memo, useRef} from 'react';
-import {Animated, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Animated, Pressable, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
 import {homeRadii} from '../home/homeTheme';
 import {LIBRARY_TINTS, RELIGIOUS_DISCLAIMER, type LibraryCategory} from '../../data/libraryContent';
+import {AwaText} from '../ui/AwaText';
 
 const GOLD = '#B7791F';
 const GOLD_LIGHT = '#FBEFD9';
 const GOLD_DARK = '#5C4212';
+// Religious-content palette (gold family): intentionally not Material roles, kept as-is (DESIGN.md: spiritual colours
+// stay in their feature files).
+const GOLD_MUTED = '#8A6A2E';
+const RELIGIOUS_INK = '#2F2258';
 
 type Props = {
   categories: LibraryCategory[];
@@ -38,8 +43,12 @@ function ReligiousCategoryTile({
         <View style={[styles.tileIcon, {backgroundColor: tint.bg}]}>
           <MaterialDesignIcons color={tint.fg} name={category.icon} size={20} />
         </View>
-        <Text numberOfLines={2} style={styles.tileLabel}>{category.label}</Text>
-        <Text style={styles.tileCount}>{count} article{count > 1 ? 's' : ''}</Text>
+        <AwaText color={RELIGIOUS_INK} emphasized style={styles.tileLabel} variant="titleSmall">
+          {category.label}
+        </AwaText>
+        <AwaText color={GOLD_MUTED} style={styles.tileCount} variant="bodySmall">
+          {count} article{count > 1 ? 's' : ''}
+        </AwaText>
       </Pressable>
     </Animated.View>
   );
@@ -55,14 +64,16 @@ function ReligiousPracticeSection({categories, articleCountByCategory, onPressCa
           <MaterialDesignIcons color={GOLD} name="mosque-outline" size={20} />
         </View>
         <View style={styles.headerCopy}>
-          <Text style={styles.headerTitle}>Cycle & pratique religieuse</Text>
-          <Text style={styles.headerSubtitle}>Un espace séparé, dédié aux repères religieux</Text>
+          <AwaText color={GOLD_DARK} emphasized variant="titleMedium">Cycle & pratique religieuse</AwaText>
+          <AwaText color={GOLD_MUTED} style={styles.headerSubtitle} variant="bodySmall">
+            Un espace séparé, dédié aux repères religieux
+          </AwaText>
         </View>
       </View>
 
       <View style={styles.disclaimer}>
         <MaterialDesignIcons color={GOLD_DARK} name="information-outline" size={15} />
-        <Text style={styles.disclaimerText}>{RELIGIOUS_DISCLAIMER}</Text>
+        <AwaText color={GOLD_DARK} style={styles.disclaimerText} variant="bodySmall">{RELIGIOUS_DISCLAIMER}</AwaText>
       </View>
 
       <View style={styles.grid}>
@@ -80,8 +91,7 @@ function ReligiousPracticeSection({categories, articleCountByCategory, onPressCa
         accessibilityRole="button"
         onPress={onPressSeeAll}
         style={({pressed}) => [styles.seeAllButton, pressed && styles.pressed]}>
-        <Text style={styles.seeAllText}>Voir tout le contenu religieux</Text>
-        <MaterialDesignIcons color={GOLD} name="arrow-right" size={15} />
+        <AwaText color={GOLD} emphasized style={styles.seeAllLabel} variant="labelLarge">Voir tout le contenu religieux</AwaText>
       </Pressable>
     </View>
   );
@@ -93,7 +103,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     borderRadius: homeRadii.card,
     backgroundColor: '#FFFDF7',
-    borderWidth: 1.4,
+    borderWidth: 1,
     borderColor: '#F0DDB2',
     padding: 16,
   },
@@ -101,24 +111,23 @@ const styles = StyleSheet.create({
   headerIcon: {
     width: 40,
     height: 40,
-    borderRadius: 14,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: GOLD_LIGHT,
     flexShrink: 0,
   },
   headerCopy: {flex: 1, minWidth: 0},
-  headerTitle: {color: GOLD_DARK, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
-  headerSubtitle: {marginTop: 2, color: '#8A6A2E', fontSize: 11.5},
+  headerSubtitle: {marginTop: 2},
   disclaimer: {
     flexDirection: 'row',
     gap: 8,
     marginTop: 12,
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: GOLD_LIGHT,
-    padding: 10,
+    padding: 12,
   },
-  disclaimerText: {flex: 1, color: GOLD_DARK, fontSize: 11, lineHeight: 15.5},
+  disclaimerText: {flex: 1},
   grid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 10},
   tileWrap: {flexBasis: '46%', flexGrow: 1},
   tile: {
@@ -130,20 +139,22 @@ const styles = StyleSheet.create({
     minHeight: 96,
   },
   tileIcon: {width: 36, height: 36, borderRadius: 12, alignItems: 'center', justifyContent: 'center'},
-  tileLabel: {marginTop: 9, color: '#2F2258', fontSize: 12, fontWeight: '700', lineHeight: 16, minHeight: 32},
-  tileCount: {marginTop: 3, color: '#8A6A2E', fontSize: 10.5},
+  tileLabel: {marginTop: 8, minHeight: 40},
+  tileCount: {marginTop: 4},
   seeAllButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 6,
     marginTop: 14,
-    minHeight: 44,
-    borderRadius: 22,
-    borderWidth: 1.4,
+    minHeight: 48,
+    borderRadius: 24,
+    borderWidth: 1,
     borderColor: GOLD,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
   },
-  seeAllText: {color: GOLD, fontSize: 12.5, fontWeight: '700'},
+  seeAllLabel: {flexShrink: 1, textAlign: 'center'},
   pressed: {opacity: 0.85},
 });
 

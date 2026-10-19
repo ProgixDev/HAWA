@@ -1,9 +1,12 @@
 import React, {memo} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
-import {homeColors, homeRadii, homeShadow} from '../home/homeTheme';
+import {useAwaTokens} from '../../theme/useAwaTokens';
 import {getCategoryById, LIBRARY_TINTS, type LibraryArticle} from '../../data/libraryContent';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import BookmarkButton from './BookmarkButton';
 
 type Props = {
@@ -18,6 +21,7 @@ type Props = {
 function ContinueReadingSection({
   article, progress, bookmarked, onToggleBookmark, onPressResume, onPressSeeAll,
 }: Props): React.JSX.Element {
+  const {roles} = useAwaTokens();
   const category = getCategoryById(article.categoryId);
   const tint = LIBRARY_TINTS[category?.tint ?? 'purple'];
   const remainingMinutes = Math.max(1, Math.round(article.durationMinutes * (1 - progress / 100)));
@@ -25,46 +29,39 @@ function ContinueReadingSection({
   return (
     <View style={styles.section}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Continuer la lecture</Text>
-        <Pressable accessibilityRole="button" hitSlop={8} onPress={onPressSeeAll}>
-          <View style={styles.seeAllRow}>
-            <Text style={styles.seeAll}>Voir tout</Text>
-            <MaterialDesignIcons color={homeColors.primary} name="chevron-right" size={16} />
-          </View>
-        </Pressable>
+        <AwaText emphasized variant="titleMedium">Continuer la lecture</AwaText>
+        <AwaButton label="Voir tout" onPress={onPressSeeAll} size="compact" variant="text" />
       </View>
 
-      <Pressable
-        accessibilityRole="button"
-        onPress={onPressResume}
-        style={({pressed}) => [styles.card, pressed && styles.pressed]}>
+      <AwaCard onPress={onPressResume} padding="default" style={styles.card} variant="filled">
         <View style={[styles.thumb, {backgroundColor: tint.bg}]}>
           <MaterialDesignIcons color={tint.fg} name={category?.icon ?? 'book-open-page-variant-outline'} size={26} />
         </View>
 
         <View style={styles.content}>
-          <Text numberOfLines={2} style={styles.title}>{article.title}</Text>
-          <Text numberOfLines={2} style={styles.summary}>{article.summary}</Text>
-          <View style={styles.progressTrack}>
-            <View style={[styles.progressFill, {width: `${progress}%`}]} />
+          <AwaText emphasized numberOfLines={2} variant="titleSmall">{article.title}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" numberOfLines={2} style={styles.summary} variant="bodySmall">
+            {article.summary}
+          </AwaText>
+          <View style={[styles.progressTrack, {backgroundColor: roles.surface}]}>
+            <View style={[styles.progressFill, {width: `${progress}%`, backgroundColor: roles.primary}]} />
           </View>
-          <Text style={styles.progressLabel}>{progress}% terminé</Text>
+          <AwaText colorRole="onSurfaceVariant" style={styles.progressLabel} variant="labelSmall">
+            {progress}% terminé
+          </AwaText>
         </View>
 
         <View style={styles.actions}>
-          <Pressable
-            accessibilityRole="button"
-            onPress={onPressResume}
-            style={({pressed}) => [styles.resumeButton, pressed && styles.pressed]}>
-            <Text style={styles.resumeText}>Reprendre</Text>
-          </Pressable>
+          <AwaButton label="Reprendre" onPress={onPressResume} size="compact" variant="outlined" />
           <View style={styles.remainingRow}>
-            <MaterialDesignIcons color={homeColors.textSecondary} name="book-open-page-variant-outline" size={12} />
-            <Text numberOfLines={1} style={styles.remainingText}>{remainingMinutes} min restantes</Text>
+            <MaterialDesignIcons color={roles.accessible.onSurfaceVariant} name="book-open-page-variant-outline" size={12} />
+            <AwaText colorRole="onSurfaceVariant" numberOfLines={1} variant="labelSmall">
+              {remainingMinutes} min restantes
+            </AwaText>
           </View>
           <BookmarkButton active={bookmarked} onPress={onToggleBookmark} size="small" />
         </View>
-      </Pressable>
+      </AwaCard>
     </View>
   );
 }
@@ -72,40 +69,15 @@ function ContinueReadingSection({
 const styles = StyleSheet.create({
   section: {marginTop: 20},
   header: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16},
-  headerTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-  seeAllRow: {flexDirection: 'row', alignItems: 'center', gap: 2},
-  seeAll: {color: homeColors.primary, fontSize: 12.5, fontWeight: '700'},
-  card: {
-    flexDirection: 'row',
-    marginTop: 12,
-    marginHorizontal: 16,
-    borderRadius: homeRadii.card,
-    backgroundColor: '#FFFFFF',
-    padding: 14,
-    gap: 12,
-    ...homeShadow,
-  },
-  thumb: {width: 64, height: 64, borderRadius: 16, alignItems: 'center', justifyContent: 'center', flexShrink: 0},
+  card: {flexDirection: 'row', marginTop: 12, marginHorizontal: 16, gap: 12},
+  thumb: {width: 64, height: 64, borderRadius: 12, alignItems: 'center', justifyContent: 'center', flexShrink: 0},
   content: {flex: 1, minWidth: 0, justifyContent: 'center'},
-  title: {color: homeColors.textPrimary, fontSize: 14, fontWeight: '700', lineHeight: 18},
-  summary: {marginTop: 3, color: homeColors.textSecondary, fontSize: 11.5, lineHeight: 15},
-  progressTrack: {marginTop: 8, height: 5, borderRadius: 3, backgroundColor: homeColors.lightLavender, overflow: 'hidden'},
-  progressFill: {height: '100%', borderRadius: 3, backgroundColor: homeColors.primary},
-  progressLabel: {marginTop: 4, color: homeColors.textSecondary, fontSize: 10.5, fontWeight: '600'},
-  actions: {alignItems: 'flex-end', justifyContent: 'space-between', flexShrink: 0, gap: 6},
-  resumeButton: {
-    minHeight: 32,
-    borderRadius: 16,
-    borderWidth: 1.4,
-    borderColor: homeColors.primary,
-    paddingHorizontal: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  resumeText: {color: homeColors.primary, fontSize: 11.5, fontWeight: '700'},
-  remainingRow: {flexDirection: 'row', alignItems: 'center', gap: 3},
-  remainingText: {color: homeColors.textSecondary, fontSize: 9.5},
-  pressed: {opacity: 0.85},
+  summary: {marginTop: 4},
+  progressTrack: {marginTop: 8, height: 4, borderRadius: 2, overflow: 'hidden'},
+  progressFill: {height: '100%', borderRadius: 2},
+  progressLabel: {marginTop: 4},
+  actions: {alignItems: 'flex-end', justifyContent: 'space-between', flexShrink: 0, gap: 8},
+  remainingRow: {flexDirection: 'row', alignItems: 'center', gap: 4},
 });
 
 export default memo(ContinueReadingSection);

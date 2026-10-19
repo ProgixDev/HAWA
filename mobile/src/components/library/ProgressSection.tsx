@@ -1,9 +1,11 @@
 import React, {memo} from 'react';
-import {Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native';
 
-import {homeColors, homeRadii} from '../home/homeTheme';
+import {useAwaTokens} from '../../theme/useAwaTokens';
 import {getCategoryById, LIBRARY_TINTS, type LibraryArticle} from '../../data/libraryContent';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import BookmarkButton from './BookmarkButton';
 
 type Props = {
@@ -18,21 +20,17 @@ type Props = {
 function ProgressSection({
   articles, progressByArticle, bookmarkedIds, onToggleBookmark, onPressArticle, onPressSeeAll,
 }: Props): React.JSX.Element | null {
+  const {roles} = useAwaTokens();
   const {width} = useWindowDimensions();
-  const cardWidth = Math.min(210, Math.max(170, width * 0.5));
+  const cardWidth = Math.min(210, Math.max(172, width * 0.5));
 
   if (articles.length === 0) {return null;}
 
   return (
     <View style={styles.section}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Reprendre selon ta progression</Text>
-        <Pressable accessibilityRole="button" hitSlop={8} onPress={onPressSeeAll}>
-          <View style={styles.seeAllRow}>
-            <Text style={styles.seeAll}>Voir tout</Text>
-            <MaterialDesignIcons color={homeColors.primary} name="chevron-right" size={16} />
-          </View>
-        </Pressable>
+        <AwaText emphasized style={styles.headerTitle} variant="titleMedium">Reprendre selon ta progression</AwaText>
+        <AwaButton label="Voir tout" onPress={onPressSeeAll} size="compact" variant="text" />
       </View>
 
       <ScrollView
@@ -46,27 +44,28 @@ function ProgressSection({
           const progress = progressByArticle[article.id] ?? 0;
 
           return (
-            <Pressable
-              accessibilityRole="button"
+            <AwaCard
               key={article.id}
               onPress={() => onPressArticle(article)}
-              style={({pressed}) => [styles.card, {width: cardWidth}, pressed && styles.pressed]}>
+              padding="default"
+              style={{width: cardWidth}}
+              variant="filled">
               <View style={styles.cardTop}>
                 {category ? (
                   <View style={[styles.categoryPill, {backgroundColor: tint.bg}]}>
-                    <Text numberOfLines={1} style={[styles.categoryPillText, {color: tint.fg}]}>{category.label}</Text>
+                    <AwaText color={tint.fg} emphasized variant="labelSmall">{category.label}</AwaText>
                   </View>
                 ) : <View />}
                 <BookmarkButton active={bookmarkedIds.has(article.id)} onPress={() => onToggleBookmark(article.id)} size="small" />
               </View>
 
-              <Text numberOfLines={2} style={styles.title}>{article.title}</Text>
+              <AwaText emphasized numberOfLines={2} style={styles.title} variant="titleSmall">{article.title}</AwaText>
 
-              <View style={styles.progressTrack}>
+              <View style={[styles.progressTrack, {backgroundColor: roles.surface}]}>
                 <View style={[styles.progressFill, {width: `${progress}%`, backgroundColor: tint.fg}]} />
               </View>
-              <Text style={styles.progressLabel}>{progress}% lu</Text>
-            </Pressable>
+              <AwaText colorRole="onSurfaceVariant" style={styles.progressLabel} variant="labelSmall">{progress}% lu</AwaText>
+            </AwaCard>
           );
         })}
       </ScrollView>
@@ -77,26 +76,15 @@ function ProgressSection({
 const styles = StyleSheet.create({
   section: {marginTop: 20},
   header: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16},
-  headerTitle: {flex: 1, marginRight: 8, color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-  seeAllRow: {flexDirection: 'row', alignItems: 'center', gap: 2, flexShrink: 0},
-  seeAll: {color: homeColors.primary, fontSize: 12.5, fontWeight: '700'},
+  headerTitle: {flex: 1, marginRight: 8},
   scroll: {marginTop: 12},
   scrollContent: {paddingHorizontal: 16, gap: 12},
-  card: {
-    borderRadius: homeRadii.card,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: homeColors.cardBorder,
-    padding: 14,
-  },
   cardTop: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-  categoryPill: {flexShrink: 1, borderRadius: 10, paddingHorizontal: 8, paddingVertical: 3},
-  categoryPillText: {fontSize: 9.5, fontWeight: '700'},
-  title: {marginTop: 10, color: homeColors.textPrimary, fontSize: 13, fontWeight: '700', lineHeight: 17, minHeight: 34},
-  progressTrack: {marginTop: 10, height: 5, borderRadius: 3, backgroundColor: homeColors.lightLavender, overflow: 'hidden'},
-  progressFill: {height: '100%', borderRadius: 3},
-  progressLabel: {marginTop: 5, color: homeColors.textSecondary, fontSize: 10.5, fontWeight: '600'},
-  pressed: {opacity: 0.88},
+  categoryPill: {flexShrink: 1, borderRadius: 8, paddingHorizontal: 8, paddingVertical: 4},
+  title: {marginTop: 12, minHeight: 40},
+  progressTrack: {marginTop: 12, height: 4, borderRadius: 2, overflow: 'hidden'},
+  progressFill: {height: '100%', borderRadius: 2},
+  progressLabel: {marginTop: 4},
 });
 
 export default memo(ProgressSection);

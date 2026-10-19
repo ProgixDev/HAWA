@@ -1,11 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useTranslation} from 'react-i18next';
 
 import {isPremiumArticle, type LibraryArticle} from '../../data/libraryContent';
 import {usePremium} from '../../hooks/usePremium';
-import {homeColors} from '../home/homeTheme';
+import {useAwaTokens} from '../../theme/useAwaTokens';
+import {AwaText} from '../ui/AwaText';
 
 type Props = {
   article: Pick<LibraryArticle, 'premium'>;
@@ -20,6 +21,7 @@ type Props = {
 export function ArticlePremiumBadge({article}: Props): React.JSX.Element | null {
   const {t} = useTranslation();
   const {isPremium} = usePremium();
+  const {roles} = useAwaTokens();
 
   if (!isPremiumArticle(article)) {
     return null;
@@ -28,9 +30,13 @@ export function ArticlePremiumBadge({article}: Props): React.JSX.Element | null 
   return (
     <View
       accessibilityLabel={isPremium ? t('premium.articleBadge.unlocked') : t('premium.articleBadge.locked')}
-      style={styles.badge}>
-      <MaterialDesignIcons color={homeColors.primary} name={isPremium ? 'crown' : 'lock-outline'} size={11} />
-      <Text style={styles.text}>{t('premium.articleBadge.label')}</Text>
+      style={[styles.badge, {backgroundColor: roles.primaryContainer}]}>
+      <MaterialDesignIcons
+        color={roles.accessible.primaryAsText}
+        name={isPremium ? 'crown' : 'lock-outline'}
+        size={12}
+      />
+      <AwaText colorRole="primary" emphasized variant="labelSmall">{t('premium.articleBadge.label')}</AwaText>
     </View>
   );
 }
@@ -43,9 +49,7 @@ const styles = StyleSheet.create({
     gap: 4,
     marginTop: 4,
     borderRadius: 8,
-    backgroundColor: homeColors.lightLavender,
-    paddingHorizontal: 7,
-    paddingVertical: 3,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
   },
-  text: {color: homeColors.primary, fontSize: 10, fontWeight: '800'},
 });

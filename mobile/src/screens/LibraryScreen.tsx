@@ -56,6 +56,11 @@ import {
 } from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {lowerCaseFor} from '../utils/textCase';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
+import {AwaCard} from '../components/ui/AwaCard';
+import BookmarkButton from '../components/library/BookmarkButton';
 import {
   interpolateHex,
   onPrimaryTextColor,
@@ -439,20 +444,19 @@ function SectionTitle({
 
   return (
     <View style={styles.sectionHeading}>
-      <Text style={styles.sectionTitle}>
+      <AwaText style={styles.sectionTitle} variant="titleMedium">
         {title}
-      </Text>
+      </AwaText>
 
       {action ? (
-        <Pressable
+        <AwaButton
           accessibilityLabel={t('library.screen.sectionActionA11y', {action, title})}
-          accessibilityRole="button"
           hitSlop={10}
-          onPress={onPress}>
-          <Text style={styles.sectionAction}>
-            {action}
-          </Text>
-        </Pressable>
+          label={action}
+          onPress={onPress}
+          size="compact"
+          variant="text"
+        />
       ) : null}
     </View>
   );
@@ -828,47 +832,34 @@ function LibraryScreen({
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}>
         <View style={styles.headerRow}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('library.screen.backA11y')}
-            accessibilityRole="button"
-            hitSlop={8}
+            icon="chevron-left"
             onPress={() =>
               navigation.goBack()
             }
-            style={styles.backButton}>
-            <MaterialDesignIcons
-              color={theme.colors.text}
-              name="chevron-left"
-              size={25}
-            />
-          </Pressable>
+            variant="tonal"
+          />
 
           <View style={styles.headerCopy}>
-            <Text style={styles.title}>
+            <AwaText variant="headlineMedium">
               {t('library.screen.title')}
-            </Text>
+            </AwaText>
 
-            <Text style={styles.subtitle}>
+            <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodySmall">
               {t('library.screen.subtitle')}
-            </Text>
+            </AwaText>
           </View>
 
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('library.screen.searchA11y')}
+            icon={searchOpen ? 'close' : 'magnify'}
             onPress={() =>
               setSearchOpen(value => !value)
             }
-            style={styles.searchButton}>
-            <MaterialDesignIcons
-              color={theme.colors.text}
-              name={
-                searchOpen
-                  ? 'close'
-                  : 'magnify'
-              }
-              size={23}
-            />
-          </Pressable>
+            selected={searchOpen}
+            variant="tonal"
+          />
         </View>
 
         {searchOpen ? (
@@ -967,17 +958,17 @@ function LibraryScreen({
                   }
                 />
 
-                <Text
-                  adjustsFontSizeToFit
-                  minimumFontScale={0.8}
-                  numberOfLines={1}
-                  style={[
-                    styles.tabText,
-                    active &&
-                      styles.activeTabText,
-                  ]}>
+                <AwaText
+                  color={
+                    active
+                      ? onPrimaryTextColor(theme)
+                      : theme.colors.textSecondary
+                  }
+                  emphasized={active}
+                  style={styles.tabText}
+                  variant="labelMedium">
                   {tab.label}
-                </Text>
+                </AwaText>
               </Pressable>
             );
           })}
@@ -1077,7 +1068,6 @@ function LibraryScreen({
                       styles.categoryTextBlock
                     }>
                     <Text
-                      numberOfLines={2}
                       style={[
                         styles.categoryLabel,
                         selected &&
@@ -1146,16 +1136,18 @@ function LibraryScreen({
               }>
               {recommendedArticles.map(
                 article => (
-                  <Pressable
+                  <AwaCard
                     key={article.id}
                     onPress={() =>
                       openArticle(
                         article.id,
                       )
                     }
+                    padding="none"
                     style={
                       styles.recommendedCard
-                    }>
+                    }
+                    variant="filled">
                     <Image
                       source={getArticleThumbnail(
                         article.categoryId,
@@ -1165,21 +1157,24 @@ function LibraryScreen({
                       }
                     />
 
-                    <Text
-                      numberOfLines={3}
+                    <AwaText
+                      emphasized
                       style={
                         styles.recommendedTitle
-                      }>
+                      }
+                      variant="labelMedium">
                       {article.title}
-                    </Text>
+                    </AwaText>
 
-                    <Text
+                    <AwaText
+                      colorRole="onSurfaceVariant"
                       style={
                         styles.recommendedMeta
-                      }>
+                      }
+                      variant="labelSmall">
                       {t('library.screen.durationMin', {count: article.durationMinutes})}
-                    </Text>
-                  </Pressable>
+                    </AwaText>
+                  </AwaCard>
                 ),
               )}
             </ScrollView>
@@ -1258,11 +1253,6 @@ function LibraryScreen({
                       {t('library.screen.readArticle')}
                     </Text>
 
-                    <MaterialDesignIcons
-                      color={styles.readText.color}
-                      name="arrow-right"
-                      size={16}
-                    />
                   </View>
                 </View>
               </ImageBackground>
@@ -1295,10 +1285,11 @@ function LibraryScreen({
               size={17}
             />
 
-            <Text
-              style={styles.infoText}>
+            <AwaText
+              style={styles.infoText}
+              variant="bodySmall">
               {t('library.screen.religiousInfo')}
-            </Text>
+            </AwaText>
           </View>
         ) : null}
 
@@ -1360,13 +1351,15 @@ function LibraryScreen({
 
               <View
                 style={styles.articleCopy}>
-                <Text
+                <AwaText
+                  emphasized
                   numberOfLines={2}
                   style={
                     styles.articleTitle
-                  }>
+                  }
+                  variant="titleSmall">
                   {title}
-                </Text>
+                </AwaText>
 
                 <View
                   style={
@@ -1378,46 +1371,23 @@ function LibraryScreen({
                     size={12}
                   />
 
-                  <Text
-                    style={
-                      styles.articleMeta
-                    }>
+                  <AwaText
+                    colorRole="onSurfaceVariant"
+                    variant="bodySmall">
                     {t('library.screen.durationMinRead', {count: duration})}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
 
-              <Pressable
-                accessibilityLabel={
-                  bookmarks.has(article.id)
-                    ? t('library.screen.removeBookmark')
-                    : t('library.screen.addBookmark')
-                }
-                accessibilityRole="button"
-                hitSlop={12}
+              <BookmarkButton
+                active={bookmarks.has(article.id)}
                 onPress={() =>
                   toggleSaved(
                     article.id,
                   )
-                }>
-                <MaterialDesignIcons
-                  color={
-                    bookmarks.has(
-                      article.id,
-                    )
-                      ? theme.colors.primary
-                      : theme.colors.textSecondary
-                  }
-                  name={
-                    bookmarks.has(
-                      article.id,
-                    )
-                      ? 'bookmark'
-                      : 'bookmark-outline'
-                  }
-                  size={20}
-                />
-              </Pressable>
+                }
+                size="small"
+              />
             </Pressable>
           );
         })}
@@ -1433,23 +1403,23 @@ function LibraryScreen({
               size={26}
             />
 
-            <Text
-              style={styles.emptyTitle}>
+            <AwaText
+              emphasized
+              style={styles.emptyTitle}
+              variant="titleSmall">
               {t('library.screen.emptyTitle')}
-            </Text>
+            </AwaText>
 
-            <Pressable
+            <AwaButton
+              label={t('library.screen.emptyReset')}
               onPress={() => {
                 setSearch('');
                 setSelectedCategory(null);
-              }}>
-              <Text
-                style={
-                  styles.emptyAction
-                }>
-                {t('library.screen.emptyReset')}
-              </Text>
-            </Pressable>
+              }}
+              size="compact"
+              style={styles.emptyAction}
+              variant="text"
+            />
           </View>
         ) : null}
       </ScrollView>
@@ -1505,64 +1475,14 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingTop: 1,
     },
 
-    backButton: {
-      width: 36,
-      height: 36,
-      borderRadius: 12,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: theme.colors.surface,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.045,
-      shadowRadius: 6,
-      elevation: 1,
-    },
-
-    title: {
-      color: theme.colors.primary,
-      fontFamily: 'serif',
-      fontSize: 28,
-      lineHeight: 32,
-      fontWeight: '700',
-      letterSpacing: -0.35,
-    },
-
     subtitle: {
-      marginTop: 5,
-      color: theme.colors.textSecondary,
-      fontSize: 11.8,
-      lineHeight: 16.5,
-    },
-
-    searchButton: {
-      width: 38,
-      height: 38,
-      borderRadius: 12,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: theme.colors.surface,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.045,
-      shadowRadius: 6,
-      elevation: 1,
+      marginTop: 4,
     },
 
     searchField: {
-      height: 43,
-      marginTop: 14,
-      paddingHorizontal: 13,
+      minHeight: 48,
+      marginTop: 16,
+      paddingHorizontal: 16,
       flexDirection: 'row',
       alignItems: 'center',
       borderRadius: 12,
@@ -1576,11 +1496,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginLeft: 8,
       paddingVertical: 0,
       color: theme.colors.text,
-      fontSize: 13,
+      fontSize: 14,
     },
 
     tabs: {
-      height: 40,
+      minHeight: 48,
       marginTop: 17,
       padding: 3,
       flexDirection: 'row',
@@ -1597,7 +1517,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       left: 3,
       top: 3,
       bottom: 3,
-      borderRadius: 9,
+      borderRadius: 12,
       backgroundColor: theme.colors.primary,
       shadowColor: theme.shadow.shadowColor,
       shadowOffset: {
@@ -1611,13 +1531,14 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     tab: {
       flex: 1,
-      height: '100%',
+      alignSelf: 'stretch',
       zIndex: 2,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
       gap: 4,
       paddingHorizontal: 4,
+      paddingVertical: 4,
     },
 
     tabPressed: {
@@ -1626,14 +1547,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     tabText: {
       flexShrink: 1,
-      color: theme.colors.textSecondary,
-      fontSize: 9.8,
-      fontWeight: '600',
-    },
-
-    activeTabText: {
-      color: onPrimaryTextColor(theme),
-      fontWeight: '700',
+      textAlign: 'center',
     },
 
     sectionHeading: {
@@ -1645,24 +1559,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     sectionTitle: {
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 16,
-      lineHeight: 20,
-      fontWeight: '700',
-    },
-
-    sectionAction: {
-      color: theme.colors.primary,
-      fontSize: 10.3,
-      fontWeight: '700',
+      flexShrink: 1,
     },
 
     objectiveLabel: {
       marginTop: -5,
       marginBottom: 10,
       color: theme.colors.textSecondary,
-      fontSize: 10.5,
+      fontSize: 11,
     },
 
     recommendedRow: {
@@ -1671,13 +1575,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     recommendedCard: {
-      width: 126,
+      width: 140,
       minHeight: 154,
       overflow: 'hidden',
-      borderRadius: 10,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surface,
     },
 
     recommendedImage: {
@@ -1686,20 +1586,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     recommendedTitle: {
-      paddingHorizontal: 9,
+      paddingHorizontal: 12,
       marginTop: 8,
-      color: theme.colors.text,
-      fontSize: 10.5,
-      lineHeight: 14,
-      fontWeight: '700',
     },
 
     recommendedMeta: {
-      paddingHorizontal: 9,
-      marginTop: 5,
-      marginBottom: 8,
-      color: theme.colors.textSecondary,
-      fontSize: 8.5,
+      paddingHorizontal: 12,
+      marginTop: 4,
+      marginBottom: 12,
     },
 
     categoryGrid: {
@@ -1712,10 +1606,10 @@ function createStyles(theme: ResolvedAwaTheme) {
       width: '31.6%',
       minHeight: 108,
       overflow: 'hidden',
-      paddingHorizontal: 8,
-      paddingTop: 10,
-      paddingBottom: 8,
-      borderRadius: 13,
+      paddingHorizontal: 12,
+      paddingTop: 12,
+      paddingBottom: 12,
+      borderRadius: 12,
       borderWidth: 1,
       borderColor: theme.colors.border,
       backgroundColor: theme.colors.surface,
@@ -1792,9 +1686,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     categoryCountPill: {
       minWidth: 25,
-      height: 21,
+      minHeight: 21,
       paddingHorizontal: 6,
-      borderRadius: 7,
+      borderRadius: 8,
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 1,
@@ -1809,7 +1703,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     categoryCountPillText: {
       color: theme.colors.textSecondary,
-      fontSize: 8.3,
+      fontSize: 11,
       fontWeight: '800',
     },
 
@@ -1826,8 +1720,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     categoryLabel: {
       minHeight: 27,
       color: theme.colors.text,
-      fontSize: 9.6,
-      lineHeight: 12.5,
+      fontSize: 11,
+      lineHeight: 16,
       fontWeight: '700',
     },
 
@@ -1844,7 +1738,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     categoryCount: {
       color: theme.colors.textSecondary,
-      fontSize: 8,
+      fontSize: 11,
       fontWeight: '500',
     },
 
@@ -1853,9 +1747,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     featuredCard: {
-      height: 150,
+      minHeight: 150,
       overflow: 'hidden',
-      borderRadius: 13,
+      borderRadius: 12,
       borderWidth: 1,
       borderColor: theme.colors.border,
       backgroundColor: theme.colors.surfaceSecondary,
@@ -1867,7 +1761,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     featuredImage: {
-      borderRadius: 13,
+      borderRadius: 12,
     },
 
     featuredCopy: {
@@ -1879,14 +1773,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     badge: {
       alignSelf: 'flex-start',
       paddingHorizontal: 8,
-      paddingVertical: 3,
-      borderRadius: 5,
+      paddingVertical: 4,
+      borderRadius: 8,
       backgroundColor: withAlpha(theme.colors.primary, 0.92),
     },
 
     badgeText: {
       color: onPrimaryTextColor(theme),
-      fontSize: 7.4,
+      fontSize: 11,
       fontWeight: '700',
       letterSpacing: 0.3,
     },
@@ -1895,21 +1789,12 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginTop: 9,
       // Fixed, image-derived literal on purpose: this sits on top of a
       // fixed photographic ImageBackground (ART.featured), not a
-      // theme-driven surface — see FEATURED_CARD_TEXT above. The white
-      // text-shadow below is a legibility scrim for that specific photo,
-      // same reasoning as any other overlay drawn on top of real image
-      // content, and now correctly softens a genuinely DARK title.
+      // theme-driven surface — see FEATURED_CARD_TEXT above. No text shadow
+      // (DESIGN.md): the title colour is contrast-checked against the photo base.
       color: FEATURED_CARD_TEXT,
-      fontFamily: 'serif',
       fontSize: 18,
-      lineHeight: 22,
+      lineHeight: 24,
       fontWeight: '700',
-      textShadowColor: 'rgba(255,255,255,0.30)',
-      textShadowOffset: {
-        width: 0,
-        height: 1,
-      },
-      textShadowRadius: 2,
     },
 
     durationRow: {
@@ -1921,7 +1806,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     durationText: {
       color: FEATURED_CARD_TEXT_SECONDARY,
-      fontSize: 9.5,
+      fontSize: 11,
       fontWeight: '500',
     },
 
@@ -1934,7 +1819,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     readText: {
       color: featuredCtaColor,
-      fontSize: 10.5,
+      fontSize: 11,
       fontWeight: '700',
     },
 
@@ -1950,7 +1835,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     articleThumb: {
       width: 56,
       height: 56,
-      borderRadius: 9,
+      borderRadius: 12,
       backgroundColor: theme.colors.surfaceSecondary,
     },
 
@@ -1959,32 +1844,19 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 12,
     },
 
-    articleTitle: {
-      color: theme.colors.text,
-      fontSize: 11.7,
-      lineHeight: 15.5,
-      fontWeight: '700',
-    },
-
-    articleMeta: {
-      color: theme.colors.textSecondary,
-      fontSize: 8.8,
-    },
+    articleTitle: {flexShrink: 1},
 
     infoBox: {
-      marginBottom: 7,
-      padding: 10,
+      marginBottom: 8,
+      padding: 12,
       flexDirection: 'row',
       gap: 8,
-      borderRadius: 9,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.warning, 0.15),
     },
 
     infoText: {
       flex: 1,
-      color: theme.colors.warning,
-      fontSize: 9.5,
-      lineHeight: 13.5,
     },
 
     emptyState: {
@@ -1994,16 +1866,10 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     emptyTitle: {
       marginTop: 8,
-      color: theme.colors.text,
-      fontSize: 13,
-      fontWeight: '700',
     },
 
     emptyAction: {
       marginTop: 8,
-      color: theme.colors.primary,
-      fontSize: 11,
-      fontWeight: '700',
     },
   });
 }

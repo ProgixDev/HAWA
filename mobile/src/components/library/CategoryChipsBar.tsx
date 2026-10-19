@@ -1,9 +1,10 @@
-import React, {memo, useEffect, useRef} from 'react';
-import {Animated, Pressable, ScrollView, StyleSheet, Text} from 'react-native';
+import React, {memo} from 'react';
+import {Pressable, ScrollView, StyleSheet} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
-import {homeColors} from '../home/homeTheme';
+import {useAwaTokens} from '../../theme/useAwaTokens';
 import type {IconName, LibraryCategory, LibraryCategoryId} from '../../data/libraryContent';
+import {AwaText} from '../ui/AwaText';
 
 export type ChipId = LibraryCategoryId | 'all';
 
@@ -21,48 +22,26 @@ type ChipProps = {
   onPress: () => void;
 };
 
+// Material 3 filter chip: the selected chip is filled with the primary container, the others are outlined with the
+// `outline` role. The touch target is 48 dp (visual 40 dp + hitSlop).
 function Chip({label, icon, active, onPress}: ChipProps) {
-  const progress = useRef(new Animated.Value(active ? 1 : 0)).current;
-
-  useEffect(() => {
-    Animated.spring(progress, {toValue: active ? 1 : 0, damping: 16, stiffness: 220, useNativeDriver: false}).start();
-  }, [active, progress]);
+  const {roles} = useAwaTokens();
+  const foreground = active ? roles.onPrimaryContainer : roles.accessible.onSurfaceVariant;
 
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityState={{selected: active}}
+      hitSlop={4}
       onPress={onPress}
-      style={({pressed}) => [pressed && styles.pressed]}>
-      <Animated.View
-        style={[
-          styles.chip,
-          {
-            backgroundColor: progress.interpolate({
-              inputRange: [0, 1],
-              outputRange: ['#FFFFFF', homeColors.primary],
-            }),
-            borderColor: progress.interpolate({
-              inputRange: [0, 1],
-              outputRange: [homeColors.cardBorder, homeColors.primary],
-            }),
-            transform: [{scale: progress.interpolate({inputRange: [0, 1], outputRange: [1, 1.04]})}],
-          },
-        ]}>
-        <Animated.View
-          style={[
-            styles.chipIconWrap,
-            {
-              backgroundColor: progress.interpolate({
-                inputRange: [0, 1],
-                outputRange: [homeColors.lightLavender, 'rgba(255,255,255,0.22)'],
-              }),
-            },
-          ]}>
-          <MaterialDesignIcons color={active ? '#FFFFFF' : homeColors.primary} name={icon} size={17} />
-        </Animated.View>
-        <Text numberOfLines={1} style={[styles.chipLabel, active && styles.chipLabelActive]}>{label}</Text>
-      </Animated.View>
+      style={[
+        styles.chip,
+        active
+          ? {backgroundColor: roles.primaryContainer, borderColor: roles.primaryContainer}
+          : {borderColor: roles.outline},
+      ]}>
+      <MaterialDesignIcons color={foreground} name={icon} size={18} />
+      <AwaText color={foreground} emphasized={active} variant="labelLarge">{label}</AwaText>
     </Pressable>
   );
 }
@@ -91,21 +70,16 @@ function CategoryChipsBar({categories, selectedId, onSelect, onPressMore}: Props
 
 const styles = StyleSheet.create({
   scroll: {marginTop: 16},
-  content: {paddingHorizontal: 16, gap: 9, paddingBottom: 2},
+  content: {paddingHorizontal: 16, gap: 8, paddingBottom: 4},
   chip: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    minHeight: 44,
-    borderRadius: 22,
-    borderWidth: 1.4,
+    minHeight: 40,
+    borderRadius: 8,
+    borderWidth: 1,
     paddingHorizontal: 12,
-    paddingRight: 16,
   },
-  chipIconWrap: {width: 26, height: 26, borderRadius: 13, alignItems: 'center', justifyContent: 'center'},
-  chipLabel: {color: homeColors.textPrimary, fontSize: 12.5, fontWeight: '700'},
-  chipLabelActive: {color: '#FFFFFF'},
-  pressed: {opacity: 0.9},
 });
 
 export default memo(CategoryChipsBar);
