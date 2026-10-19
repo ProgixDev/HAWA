@@ -33,7 +33,10 @@ import {
 } from '../../state/pregnancyJournalStore';
 import {JournalSaveToast, useJournalSaveToast} from '../../components/journal/JournalSaveToast';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
@@ -254,26 +257,17 @@ function WeightEntrySheet({
             </View>
           ) : null}
 
-          <Pressable
+          <AwaButton
             accessibilityLabel={t('pregnancyWeight.sheet.saveAccessibility')}
-            accessibilityRole="button"
-            accessibilityState={{disabled: saving || !isValid}}
-            disabled={saving || !isValid}
+            disabled={!isValid}
+            fullWidth
+            icon={saving ? 'loading' : 'check-circle-outline'}
+            label={saving ? t('periodStartSheet.saving') : t('pregnancyWeight.sheet.save')}
+            loading={saving}
             onPress={handleSubmit}
-            style={({pressed}) => [
-              styles.saveButton,
-              (!isValid || saving) && styles.saveButtonDisabled,
-              pressed && isValid && !saving && styles.saveButtonPressed,
-            ]}>
-            <MaterialDesignIcons
-              color={onPrimaryTextColor(theme)}
-              name={saving ? 'loading' : 'check-circle-outline'}
-              size={19}
-            />
-            <Text style={styles.saveText}>
-              {saving ? t('periodStartSheet.saving') : t('pregnancyWeight.sheet.save')}
-            </Text>
-          </Pressable>
+            size="large"
+            style={styles.saveButton}
+          />
         </View>
       </KeyboardAvoidingView>
     </Modal>
@@ -387,17 +381,14 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
     <View style={styles.safe}>
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
       <View style={[styles.header, {paddingTop: getTopPadding(insets.top, true)}]}>
-        <Pressable
+        <AwaIconButton
           accessibilityLabel={t('common.back')}
-          accessibilityRole="button"
-          hitSlop={10}
+          icon="chevron-left"
           onPress={navigation.goBack}
-          style={({pressed}) => [styles.backButton, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={26} />
-        </Pressable>
+        />
         <View style={styles.headerCopy}>
-          <Text style={styles.title}>{t('pregnancyWeight.header.title')}</Text>
-          <Text style={styles.subtitle}>{t('pregnancyWeight.header.subtitle', {date: todayLabel})}</Text>
+          <AwaText variant="headlineSmall" style={styles.title}>{t('pregnancyWeight.header.title')}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.subtitle}>{t('pregnancyWeight.header.subtitle', {date: todayLabel})}</AwaText>
         </View>
         <View style={styles.headerSpacer} />
       </View>
@@ -453,27 +444,27 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
                 </View>
               ) : null}
 
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('pregnancyWeight.clearToday')}
-                accessibilityRole="button"
                 disabled={saving}
+                label={t('pregnancyWeight.clearToday')}
                 onPress={handleClear}
-                style={({pressed}) => [styles.clearButton, pressed && styles.pressed]}>
-                <Text style={styles.clearText}>{t('pregnancyWeight.clearToday')}</Text>
-              </Pressable>
+                style={styles.clearButton}
+                variant="text"
+              />
             </View>
           )}
         </Animated.View>
       </ScrollView>
 
       <Animated.View style={[styles.ctaWrap, {paddingBottom: Math.max(insets.bottom, 16)}, entranceStyle]}>
-        <Pressable
+        <AwaButton
           accessibilityLabel={todayEntry ? t('pregnancyWeight.cta.editAccessibility') : t('pregnancyWeight.cta.addAccessibility')}
-          accessibilityRole="button"
+          fullWidth
+          label={todayEntry ? t('pregnancyWeight.cta.edit') : t('pregnancyWeight.cta.add')}
           onPress={openSheet}
-          style={({pressed}) => [styles.cta, pressed && styles.pressed]}>
-          <Text style={styles.ctaText}>{todayEntry ? t('pregnancyWeight.cta.edit') : t('pregnancyWeight.cta.add')}</Text>
-        </Pressable>
+          size="large"
+        />
       </Animated.View>
 
       <WeightEntrySheet
@@ -508,39 +499,10 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 14,
       paddingBottom: 8,
     },
-    backButton: {
-      width: 40,
-      height: 40,
-      flexShrink: 0,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.08),
-      borderRadius: 14,
-      backgroundColor: theme.colors.surface,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 3},
-      shadowOpacity: 0.06,
-      shadowRadius: 7,
-      elevation: 2,
-    },
     headerSpacer: {width: 40},
-    pressed: {opacity: 0.78},
     headerCopy: {flex: 1, minWidth: 0, alignItems: 'center', paddingHorizontal: 6},
-    title: {
-      color: theme.colors.accent,
-      fontFamily: 'serif',
-      fontSize: 20,
-      lineHeight: 24,
-      fontWeight: '800',
-    },
-    subtitle: {
-      marginTop: 2,
-      color: theme.colors.textSecondary,
-      fontSize: 10.5,
-      lineHeight: 14,
-      textAlign: 'center',
-    },
+    title: {textAlign: 'center'},
+    subtitle: {marginTop: 2, textAlign: 'center'},
 
     content: {flexGrow: 1, paddingHorizontal: 18, paddingTop: 10},
     contentCompact: {paddingHorizontal: 14, paddingTop: 6},
@@ -566,9 +528,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     sectionBadgeText: {
       color: theme.colors.primary,
-      fontSize: 8.5,
+      fontSize: 11,
       fontWeight: '800',
-      letterSpacing: 0.7,
+      letterSpacing: 0.5,
     },
 
     emptyBlock: {
@@ -578,14 +540,13 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginTop: 15,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.08),
-      borderRadius: 20,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.84),
       paddingHorizontal: 16,
       paddingVertical: 15,
     },
     emptyTitle: {
       color: theme.colors.accent,
-      fontFamily: 'serif',
       fontSize: 16,
       lineHeight: 20,
       fontWeight: '800',
@@ -606,7 +567,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginTop: 14,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.09),
-      borderRadius: 22,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.90),
       paddingHorizontal: 16,
       paddingVertical: 15,
@@ -618,19 +579,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     recordedLabel: {
       color: theme.colors.textSecondary,
-      fontSize: 10.5,
-      lineHeight: 13,
+      fontSize: 11,
+      lineHeight: 16,
       fontWeight: '700',
     },
     recordedValue: {
       marginTop: 4,
       color: theme.colors.accent,
-      fontFamily: 'serif',
       fontSize: 34,
       lineHeight: 39,
       fontWeight: '800',
     },
-    recordedDate: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 10},
+    recordedDate: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11},
 
     evolutionCard: {
       width: '100%',
@@ -640,35 +600,22 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginTop: 14,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.07),
-      borderRadius: 14,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
-      paddingHorizontal: 11,
-      paddingVertical: 9,
+      paddingHorizontal: 12,
+      paddingVertical: 12,
     },
     evolutionCopy: {flex: 1, minWidth: 0},
-    evolutionTitle: {color: theme.colors.accent, fontSize: 10.5, fontWeight: '800'},
+    evolutionTitle: {color: theme.colors.accent, fontSize: 11, fontWeight: '800'},
     evolutionText: {
       marginTop: 2,
       color: theme.colors.textSecondary,
-      fontSize: 9.5,
-      lineHeight: 13,
+      fontSize: 11,
+      lineHeight: 16,
       flexShrink: 1,
     },
 
     ctaWrap: {paddingHorizontal: 18},
-    cta: {
-      minHeight: 52,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 17,
-      backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 5},
-      shadowOpacity: 0.20,
-      shadowRadius: 9,
-      elevation: 5,
-    },
-    ctaText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '700'},
 
     // Modal scrim — a fixed dim backdrop, not a themeable surface (see
     // classification rule E: backdrops/scrims stay fixed).
@@ -705,13 +652,12 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       justifyContent: 'center',
       marginRight: 10,
-      borderRadius: 14,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
     sheetHeaderCopy: {flex: 1, minWidth: 0},
     sheetTitle: {
       color: theme.colors.accent,
-      fontFamily: 'serif',
       fontSize: 17,
       lineHeight: 21,
       fontWeight: '800',
@@ -719,14 +665,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     sheetSubtitle: {
       marginTop: 2,
       color: theme.colors.textSecondary,
-      fontSize: 10,
-      lineHeight: 14,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     weightInputCard: {
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.09),
-      borderRadius: 20,
+      borderRadius: 12,
       backgroundColor: theme.colors.surfaceSecondary,
       padding: 13,
     },
@@ -743,7 +689,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginTop: 8,
       borderWidth: 1.2,
       borderColor: withAlpha(theme.colors.primary, 0.14),
-      borderRadius: 17,
+      borderRadius: 16,
       backgroundColor: theme.colors.surface,
       paddingHorizontal: 12,
     },
@@ -760,7 +706,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       minWidth: 0,
       paddingVertical: 0,
       color: theme.colors.accent,
-      fontFamily: 'serif',
       fontSize: 30,
       lineHeight: 36,
       fontWeight: '800',
@@ -768,7 +713,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     unitBadge: {
       minWidth: 44,
-      height: 38,
+      minHeight: 38,
       alignItems: 'center',
       justifyContent: 'center',
       marginLeft: 8,
@@ -781,18 +726,18 @@ function createStyles(theme: ResolvedAwaTheme) {
       flex: 1,
       minWidth: 0,
       color: theme.colors.textSecondary,
-      fontSize: 9,
-      lineHeight: 12.5,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
     previousValueCard: {
       flexDirection: 'row',
       alignItems: 'center',
       marginTop: 10,
-      borderRadius: 14,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
-      paddingHorizontal: 10,
-      paddingVertical: 8,
+      paddingHorizontal: 12,
+      paddingVertical: 10,
     },
     previousValueIcon: {
       width: 30,
@@ -801,11 +746,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       justifyContent: 'center',
       marginRight: 8,
-      borderRadius: 10,
+      borderRadius: 12,
       backgroundColor: theme.colors.surface,
     },
     previousValueCopy: {flex: 1, minWidth: 0},
-    previousValueLabel: {color: theme.colors.textSecondary, fontSize: 8.8, lineHeight: 12},
+    previousValueLabel: {color: theme.colors.textSecondary, fontSize: 11, lineHeight: 16},
     previousValueText: {
       marginTop: 1,
       color: theme.colors.accent,
@@ -820,40 +765,18 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginTop: 10,
       borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.danger, 0.12),
-      paddingHorizontal: 10,
-      paddingVertical: 8,
+      paddingHorizontal: 12,
+      paddingVertical: 10,
     },
     sheetError: {
       flex: 1,
       minWidth: 0,
       color: theme.colors.danger,
-      fontSize: 10.5,
-      lineHeight: 14,
+      fontSize: 11,
+      lineHeight: 16,
     },
 
-    saveButton: {
-      minHeight: 52,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 8,
-      marginTop: 14,
-      borderRadius: 17,
-      backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 5},
-      shadowOpacity: 0.20,
-      shadowRadius: 9,
-      elevation: 4,
-    },
-    saveButtonDisabled: {
-      backgroundColor: withAlpha(theme.colors.primary, 0.45),
-      shadowOpacity: 0,
-      elevation: 0,
-    },
-    saveButtonPressed: {opacity: 0.88, transform: [{scale: 0.99}]},
-    saveText: {color: onPrimaryTextColor(theme), fontSize: 14.5, fontWeight: '700'},
-    clearButton: {minHeight: 44, alignSelf: 'center', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 16, marginTop: 8},
-    clearText: {color: theme.colors.textSecondary, fontSize: 13, fontWeight: '600', textDecorationLine: 'underline'},
+    saveButton: {marginTop: 14},
+    clearButton: {alignSelf: 'center', marginTop: 8},
   });
 }

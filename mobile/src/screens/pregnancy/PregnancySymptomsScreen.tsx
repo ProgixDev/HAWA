@@ -25,10 +25,15 @@ import {getTopPadding, spacing} from '../../theme/spacing';
 import {deletePregnancySymptoms, getPregnancyJournalState, savePregnancySymptoms} from '../../state/pregnancyJournalStore';
 import {JournalSaveToast, useJournalSaveToast} from '../../components/journal/JournalSaveToast';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {JOURNAL_HERO_INK} from '../../components/journal/journalHeroInk';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 
 // Pregnancy's "Symptômes ressentis" — visually rebuilt to match Cycle's own
 // JournalSymptomsScreen.tsx (src/screens/journal/JournalSymptomsScreen.tsx)
@@ -184,27 +189,21 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={insets.top} style={styles.flex}>
         <View style={[styles.topBar, {paddingTop: getTopPadding(insets.top, true)}]}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
-            hitSlop={10}
+            icon="arrow-left"
             onPress={navigation.goBack}
-            style={({pressed}) => [styles.roundButton, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
-          </Pressable>
+          />
 
-          <Text style={styles.pageTitle}>{t('pregnancySymptoms.pageTitle')}</Text>
+          <AwaText variant="headlineSmall">{t('pregnancySymptoms.pageTitle')}</AwaText>
 
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('pregnancySymptoms.saveSymptomsAccessibility')}
-            accessibilityRole="button"
-            accessibilityState={{disabled: saving}}
             disabled={saving}
-            hitSlop={10}
+            icon={saving ? 'loading' : 'check'}
             onPress={save}
-            style={({pressed}) => [styles.roundButton, styles.checkButton, (pressed || saving) && styles.pressed]}>
-            <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={saving ? 'loading' : 'check'} size={22} />
-          </Pressable>
+            variant="filled"
+          />
         </View>
 
         <ScrollView
@@ -219,7 +218,7 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
               </View>
             </ImageBackground>
 
-            <View style={styles.card}>
+            <AwaCard padding="compact" variant="outlined" style={styles.card}>
               <View style={styles.symptomsHeader}>
                 <View style={styles.headingIcon}>
                   <MaterialDesignIcons color={theme.colors.primary} name="clipboard-pulse-outline" size={18} />
@@ -265,9 +264,9 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
                   );
                 })}
               </View>
-            </View>
+            </AwaCard>
 
-            <View style={styles.card}>
+            <AwaCard padding="compact" variant="outlined" style={styles.card}>
               <Text style={styles.sectionTitleStandalone}>
                 {t('pregnancySymptoms.notes.title')} <Text style={styles.optional}>{t('pregnancySymptoms.notes.optional')}</Text>
               </Text>
@@ -286,30 +285,29 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
                 />
                 <Text style={styles.counter}>{note.length} / 300</Text>
               </View>
-            </View>
+            </AwaCard>
 
             {error ? <Text accessibilityRole="alert" style={styles.error}>{error}</Text> : null}
 
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('pregnancySymptoms.saveMineAccessibility')}
-              accessibilityRole="button"
-              accessibilityState={{disabled: saving}}
-              disabled={saving}
+              icon="content-save-outline"
+              label={saving ? t('periodStartSheet.saving') : t('common.save')}
+              loading={saving}
               onPress={save}
-              style={({pressed}) => [styles.saveButton, (pressed || saving) && styles.pressedRow]}>
-              <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={saving ? 'loading' : 'content-save-outline'} size={20} />
-              <Text style={styles.saveText}>{saving ? t('periodStartSheet.saving') : t('common.save')}</Text>
-            </Pressable>
+              size="large"
+              style={styles.saveButton}
+            />
 
             {hasSavedEntry ? (
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('pregnancySymptoms.clearToday')}
-                accessibilityRole="button"
                 disabled={saving}
+                label={t('pregnancySymptoms.clearToday')}
                 onPress={clearEntry}
-                style={({pressed}) => [styles.clearButton, pressed && styles.pressedRow]}>
-                <Text style={styles.clearText}>{t('pregnancySymptoms.clearToday')}</Text>
-              </Pressable>
+                style={styles.clearButton}
+                variant="text"
+              />
             ) : null}
           </Animated.View>
         </ScrollView>
@@ -333,40 +331,24 @@ function createStyles(theme: ResolvedAwaTheme) {
     flex: {flex: 1},
 
     topBar: {minHeight: 64, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 14, paddingBottom: 8},
-    roundButton: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 18, backgroundColor: theme.colors.surface},
-    checkButton: {borderWidth: 0, backgroundColor: theme.colors.primary, elevation: 2},
-    pressed: {opacity: 0.75, transform: [{scale: 0.95}]},
-    pageTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 22, fontWeight: '700'},
 
     content: {paddingHorizontal: 11, paddingBottom: 34, gap: 8},
 
-    hero: {height: 115, justifyContent: 'center', overflow: 'hidden', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 20, backgroundColor: theme.colors.surface},
-    heroImage: {borderRadius: 20},
-    heroCopy: {width: '58%', paddingLeft: 28},
-    heroTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 20, fontWeight: '700'},
-    heroSubtitle: {marginTop: 7, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+    hero: {minHeight: 115, paddingVertical: 12, justifyContent: 'center', overflow: 'hidden', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 12, backgroundColor: theme.colors.surface},
+    heroImage: {borderRadius: 12},
+    heroCopy: {width: '48%', paddingLeft: 28},
+    heroTitle: {color: JOURNAL_HERO_INK.title, fontFamily: 'serif', fontSize: 20, fontWeight: '700'},
+    heroSubtitle: {marginTop: 7, color: JOURNAL_HERO_INK.body, fontSize: 11.5, lineHeight: 16},
 
-    card: {
-      marginTop: 8,
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.14),
-      borderRadius: 20,
-      backgroundColor: theme.colors.surface,
-      padding: 12,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 2},
-      shadowOpacity: 0.04,
-      shadowRadius: 7,
-      elevation: 1,
-    },
+    card: {marginTop: 8},
 
     symptomsHeader: {marginBottom: 12},
     headingIcon: {width: 30, height: 30, alignItems: 'center', justifyContent: 'center', borderRadius: 15, backgroundColor: theme.colors.primarySoft},
     headingCopy: {marginTop: 9},
-    sectionTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 15.5, fontWeight: '700'},
-    sectionTitleStandalone: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 14, fontWeight: '700'},
-    sectionSubtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 14},
-    optional: {fontFamily: undefined, fontSize: 9.5, fontWeight: '400'},
+    sectionTitle: {color: theme.colors.accent, fontSize: 15.5, fontWeight: '700'},
+    sectionTitleStandalone: {color: theme.colors.accent, fontSize: 14, fontWeight: '700'},
+    sectionSubtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 16},
+    optional: {fontFamily: undefined, fontSize: 11, fontWeight: '400'},
 
     countBadge: {
       alignSelf: 'flex-start',
@@ -378,10 +360,10 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingVertical: 6,
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.14),
-      borderRadius: 14,
+      borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
-    countBadgeText: {color: theme.colors.accent, fontSize: 10.5, fontWeight: '700'},
+    countBadgeText: {color: theme.colors.accent, fontSize: 11, fontWeight: '700'},
 
     symptomsList: {gap: 8},
     symptomRow: {
@@ -391,9 +373,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.14),
-      borderRadius: 18,
+      borderRadius: 12,
       backgroundColor: theme.colors.surface,
-      paddingHorizontal: 11,
+      paddingHorizontal: 12,
       paddingVertical: 10,
       shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 2},
@@ -403,43 +385,23 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     symptomRowActive: {borderColor: withAlpha(theme.colors.primary, 0.35), backgroundColor: theme.colors.primarySoft, shadowColor: theme.shadow.shadowColor, shadowOpacity: 0.1, shadowRadius: 7, elevation: 2},
     pressedRow: {opacity: 0.82, transform: [{scale: 0.992}]},
-    symptomIconContainer: {width: 44, height: 44, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 15, backgroundColor: theme.colors.primarySoft},
+    symptomIconContainer: {width: 44, height: 44, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: theme.colors.primarySoft},
     symptomIconContainerActive: {backgroundColor: theme.colors.primary},
     symptomCopy: {flex: 1, minWidth: 0, marginHorizontal: 11},
     symptomText: {color: theme.colors.text, fontSize: 12.5, lineHeight: 17, fontWeight: '700', flexShrink: 1},
     symptomTextActive: {color: theme.colors.accent, fontWeight: '800'},
-    symptomHelperText: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 9.5, lineHeight: 13},
+    symptomHelperText: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 16},
     symptomHelperTextActive: {color: theme.colors.primary, fontWeight: '600'},
     selectionIndicator: {width: 28, height: 28, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderWidth: 1.5, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 14, backgroundColor: theme.colors.surface},
     selectionIndicatorActive: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primary},
 
-    noteBox: {minHeight: 120, marginTop: 8, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 13, backgroundColor: theme.colors.surface},
-    noteInput: {flex: 1, padding: 10, paddingBottom: 20, color: theme.colors.text, fontSize: 10.5},
-    counter: {position: 'absolute', right: 8, bottom: 6, color: theme.colors.textMuted, fontSize: 8.5},
+    noteBox: {minHeight: 120, marginTop: 8, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 12, backgroundColor: theme.colors.surface},
+    noteInput: {flex: 1, padding: 10, paddingBottom: 20, color: theme.colors.text, fontSize: 11},
+    counter: {position: 'absolute', right: 8, bottom: 6, color: theme.colors.textMuted, fontSize: 11},
 
     error: {marginTop: 10, color: theme.colors.danger, fontSize: 12.5, textAlign: 'center'},
 
-    saveButton: {
-      width: '88%',
-      maxWidth: 360,
-      minHeight: 54,
-      alignSelf: 'center',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 8,
-      marginTop: 12,
-      marginBottom: 8,
-      borderRadius: 18,
-      backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 5},
-      shadowOpacity: 0.22,
-      shadowRadius: 9,
-      elevation: 5,
-    },
-    saveText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '700'},
-    clearButton: {minHeight: 44, alignSelf: 'center', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 16, marginTop: 4},
-    clearText: {color: theme.colors.textSecondary, fontSize: 13, fontWeight: '600', textDecorationLine: 'underline'},
+    saveButton: {width: '88%', maxWidth: 360, alignSelf: 'center', marginTop: 12, marginBottom: 8},
+    clearButton: {alignSelf: 'center', marginTop: 4},
   });
 }

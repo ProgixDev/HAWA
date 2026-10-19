@@ -6,9 +6,7 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Switch,
   Text,
-  TextInput,
   View,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
@@ -21,7 +19,13 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {getBottomPadding, spacing} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaSwitch} from '../../components/ui/AwaSwitch';
+import {AwaText} from '../../components/ui/AwaText';
+import {AwaTextField} from '../../components/ui/AwaTextField';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import {dateAtTimeOfDay, formatTimeOfDay} from '../../utils/timeOfDay';
 import {
@@ -191,11 +195,9 @@ function ToggleRow({
           <Text style={styles.toggleTitle}>{title}</Text>
           <Text style={styles.toggleDescription}>{description}</Text>
         </View>
-        <Switch
-          ios_backgroundColor={theme.colors.primarySoft}
+        <AwaSwitch
+          accessibilityLabel={title}
           onValueChange={onValueChange}
-          thumbColor={theme.colors.surface}
-          trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
           value={value}
         />
       </View>
@@ -221,6 +223,7 @@ function OffsetPicker({
         <Pressable
           accessibilityRole="button"
           accessibilityState={{selected: value === option}}
+          hitSlop={4}
           key={option}
           onPress={() => onChange(option)}
           style={[styles.chip, value === option && styles.chipActive]}>
@@ -262,14 +265,12 @@ function ReminderListRow({
         <Text numberOfLines={1} style={styles.rowTitle}>{title}</Text>
         <Text numberOfLines={1} style={styles.rowMeta}>{meta}</Text>
       </View>
-      <Switch
-        ios_backgroundColor={theme.colors.primarySoft}
+      <AwaSwitch
+        accessibilityLabel={title}
         onValueChange={onToggle}
-        thumbColor={theme.colors.surface}
-        trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
         value={enabled}
       />
-      <Pressable accessibilityLabel={t('pregnancyNotifications.deleteReminderAccessibility', {title})} hitSlop={8} onPress={onDelete} style={styles.rowDelete}>
+      <Pressable accessibilityLabel={t('pregnancyNotifications.deleteReminderAccessibility', {title})} hitSlop={12} onPress={onDelete} style={styles.rowDelete}>
         <MaterialDesignIcons color={theme.colors.danger} name="trash-can-outline" size={17} />
       </Pressable>
     </Pressable>
@@ -286,7 +287,6 @@ function TextField({
   onChangeText,
   placeholder,
   multiline,
-  theme,
   styles,
 }: {
   label: string;
@@ -294,22 +294,18 @@ function TextField({
   onChangeText: (text: string) => void;
   placeholder: string;
   multiline?: boolean;
-  theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
-    <View style={styles.textFieldWrap}>
-      <Text style={styles.fieldLabel}>{label}</Text>
-      <TextInput
-        accessibilityLabel={label}
-        multiline={multiline}
-        onChangeText={onChangeText}
-        placeholder={placeholder}
-        placeholderTextColor={theme.colors.textMuted}
-        style={[styles.textInput, multiline && styles.textInputMultiline]}
-        value={value}
-      />
-    </View>
+    <AwaTextField
+      accessibilityLabel={label}
+      label={label}
+      multiline={multiline}
+      onChangeText={onChangeText}
+      placeholder={placeholder}
+      value={value}
+      wrapperStyle={styles.textFieldWrap}
+    />
   );
 }
 
@@ -397,7 +393,6 @@ function HealthReminderModal({
               onChangeText={name => onChange({...draft, name})}
               placeholder={isMedication ? t('pregnancyNotifications.healthModal.medicationNamePlaceholder') : t('pregnancyNotifications.healthModal.vitaminNamePlaceholder')}
               styles={styles}
-              theme={theme}
               value={draft.name}
             />
 
@@ -460,29 +455,37 @@ function HealthReminderModal({
                   />
                 ) : null}
                 {draft.endDate ? (
-                  <Pressable accessibilityRole="button" onPress={() => onChange({...draft, endDate: null})} style={styles.clearLink}>
-                    <Text style={styles.clearLinkText}>{t('pregnancyNotifications.healthModal.removeEndDate')}</Text>
-                  </Pressable>
+                  <AwaButton
+                    label={t('pregnancyNotifications.healthModal.removeEndDate')}
+                    onPress={() => onChange({...draft, endDate: null})}
+                    style={styles.clearLink}
+                    variant="text"
+                  />
                 ) : null}
               </>
             ) : null}
 
             <View style={styles.modalActionsRow}>
               {onDelete ? (
-                <Pressable accessibilityRole="button" onPress={onDelete} style={({pressed}) => [styles.deleteButton, pressed && styles.pressed]}>
-                  <Text style={styles.deleteButtonText}>{t('pregnancyNotifications.delete')}</Text>
-                </Pressable>
+                <AwaButton
+                  label={t('pregnancyNotifications.delete')}
+                  onPress={onDelete}
+                  style={styles.deleteButton}
+                  variant="destructive"
+                />
               ) : null}
-              <Pressable accessibilityRole="button" onPress={onDismiss} style={({pressed}) => [styles.cancelButton, pressed && styles.pressed]}>
-                <Text style={styles.cancelButtonText}>{t('common.cancel')}</Text>
-              </Pressable>
-              <Pressable
-                accessibilityRole="button"
+              <AwaButton
+                label={t('common.cancel')}
+                onPress={onDismiss}
+                style={styles.cancelButton}
+                variant="outlined"
+              />
+              <AwaButton
                 disabled={!draft.name.trim()}
+                label={t('common.save')}
                 onPress={onSave}
-                style={({pressed}) => [styles.saveButton, !draft.name.trim() && styles.saveButtonDisabled, pressed && styles.pressed]}>
-                <Text style={styles.saveButtonText}>{t('common.save')}</Text>
-              </Pressable>
+                style={styles.saveButton}
+              />
             </View>
           </ScrollView>
         </View>
@@ -539,14 +542,13 @@ function CustomReminderModal({
           <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
             <Text style={styles.modalTitle}>{t('pregnancyNotifications.customModal.title')}</Text>
 
-            <TextField label={t('pregnancyNotifications.customModal.titleLabel')} onChangeText={title => onChange({...draft, title})} placeholder={t('pregnancyNotifications.customModal.titlePlaceholder')} styles={styles} theme={theme} value={draft.title} />
+            <TextField label={t('pregnancyNotifications.customModal.titleLabel')} onChangeText={title => onChange({...draft, title})} placeholder={t('pregnancyNotifications.customModal.titlePlaceholder')} styles={styles} value={draft.title} />
             <TextField
               label={t('pregnancyNotifications.customModal.descriptionLabel')}
               multiline
               onChangeText={description => onChange({...draft, description})}
               placeholder={t('pregnancyNotifications.customModal.descriptionPlaceholder')}
               styles={styles}
-              theme={theme}
               value={draft.description}
             />
 
@@ -592,6 +594,7 @@ function CustomReminderModal({
                 <Pressable
                   accessibilityRole="button"
                   accessibilityState={{selected: draft.repeat === option.key}}
+                  hitSlop={4}
                   key={option.key}
                   onPress={() => onChange({...draft, repeat: option.key})}
                   style={[styles.chip, draft.repeat === option.key && styles.chipActive]}>
@@ -602,20 +605,25 @@ function CustomReminderModal({
 
             <View style={styles.modalActionsRow}>
               {onDelete ? (
-                <Pressable accessibilityRole="button" onPress={onDelete} style={({pressed}) => [styles.deleteButton, pressed && styles.pressed]}>
-                  <Text style={styles.deleteButtonText}>{t('pregnancyNotifications.delete')}</Text>
-                </Pressable>
+                <AwaButton
+                  label={t('pregnancyNotifications.delete')}
+                  onPress={onDelete}
+                  style={styles.deleteButton}
+                  variant="destructive"
+                />
               ) : null}
-              <Pressable accessibilityRole="button" onPress={onDismiss} style={({pressed}) => [styles.cancelButton, pressed && styles.pressed]}>
-                <Text style={styles.cancelButtonText}>{t('common.cancel')}</Text>
-              </Pressable>
-              <Pressable
-                accessibilityRole="button"
+              <AwaButton
+                label={t('common.cancel')}
+                onPress={onDismiss}
+                style={styles.cancelButton}
+                variant="outlined"
+              />
+              <AwaButton
                 disabled={!draft.title.trim()}
+                label={t('common.save')}
                 onPress={onSave}
-                style={({pressed}) => [styles.saveButton, !draft.title.trim() && styles.saveButtonDisabled, pressed && styles.pressed]}>
-                <Text style={styles.saveButtonText}>{t('common.save')}</Text>
-              </Pressable>
+                style={styles.saveButton}
+              />
             </View>
           </ScrollView>
         </View>
@@ -905,35 +913,20 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
     <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
-      <View pointerEvents="none" style={styles.backgroundDecor}>
-        <View style={styles.glowTop} />
-        <View style={styles.glowMiddle} />
-      </View>
-
       <View style={styles.header}>
-        <Pressable
+        <AwaIconButton
           accessibilityLabel={t('common.back')}
-          accessibilityRole="button"
-          hitSlop={10}
+          icon="chevron-left"
           onPress={navigation.goBack}
-          style={({pressed}) => [
-            styles.backButton,
-            pressed && styles.backButtonPressed,
-          ]}>
-          <MaterialDesignIcons color={theme.colors.text} name="chevron-left" size={22} />
-        </Pressable>
+        />
 
         <View style={styles.headerCopy}>
-          <Text
-            adjustsFontSizeToFit
-            minimumFontScale={0.78}
-            numberOfLines={2}
-            style={styles.headerTitle}>
+          <AwaText variant="titleLarge" style={styles.headerTitle}>
             {t('pregnancyNotifications.headerTitle')}
-          </Text>
-          <Text numberOfLines={1} style={styles.headerSubtitle}>
+          </AwaText>
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.headerSubtitle}>
             {t('pregnancyNotifications.headerSubtitle')}
-          </Text>
+          </AwaText>
         </View>
 
         <View style={styles.headerSpacer} />
@@ -965,7 +958,7 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
         ) : null}
 
         {/* ============================= A. GROSSESSE ============================= */}
-        <View style={styles.card}>
+        <AwaCard padding="compact" variant="outlined" style={styles.card}>
           <SectionHeader icon="human-pregnant" styles={styles} theme={theme} title={t('pregnancyNotifications.sections.pregnancy.title')} />
 
           <ToggleRow
@@ -1009,10 +1002,10 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
               />
             ) : null}
           </ToggleRow>
-        </View>
+        </AwaCard>
 
         {/* ===================== B. RENDEZ-VOUS & EXAMENS ===================== */}
-        <View style={styles.card}>
+        <AwaCard padding="compact" variant="outlined" style={styles.card}>
           <SectionHeader icon="calendar-heart" styles={styles} theme={theme} title={t('pregnancyNotifications.sections.appointmentsExams.title')} />
 
           <ToggleRow
@@ -1050,17 +1043,21 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
           </ToggleRow>
 
           <Text style={styles.cardFootnote}>{t('pregnancyNotifications.sections.appointmentsExams.footnote')}</Text>
-        </View>
+        </AwaCard>
 
         {/* ============================== C. SANTÉ ============================== */}
-        <View style={styles.card}>
+        <AwaCard padding="compact" variant="outlined" style={styles.card}>
           <SectionHeader icon="pill" styles={styles} theme={theme} title={t('pregnancyNotifications.sections.health.title')} />
 
           <View style={styles.subsectionHeaderRow}>
             <Text style={styles.subsectionTitle}>{t('pregnancyNotifications.sections.health.vitaminsSubsectionTitle')}</Text>
-            <Pressable accessibilityLabel={t('pregnancyNotifications.sections.health.addVitaminAccessibility')} accessibilityRole="button" onPress={() => openNewHealthReminder('vitamin')} style={styles.addChip}>
-              <MaterialDesignIcons color={theme.colors.primary} name="plus" size={16} />
-            </Pressable>
+            <AwaIconButton
+              accessibilityLabel={t('pregnancyNotifications.sections.health.addVitaminAccessibility')}
+              icon="plus"
+              onPress={() => openNewHealthReminder('vitamin')}
+              size="small"
+              variant="tonal"
+            />
           </View>
           {vitamins.length === 0 ? (
             <EmptyRow styles={styles} text={t('pregnancyNotifications.sections.health.noVitaminsText')} />
@@ -1085,9 +1082,13 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
 
           <View style={[styles.subsectionHeaderRow, styles.subsectionSpacing]}>
             <Text style={styles.subsectionTitle}>{t('pregnancyNotifications.sections.health.medicationsSubsectionTitle')}</Text>
-            <Pressable accessibilityLabel={t('pregnancyNotifications.sections.health.addMedicationAccessibility')} accessibilityRole="button" onPress={() => openNewHealthReminder('medication')} style={styles.addChip}>
-              <MaterialDesignIcons color={theme.colors.primary} name="plus" size={16} />
-            </Pressable>
+            <AwaIconButton
+              accessibilityLabel={t('pregnancyNotifications.sections.health.addMedicationAccessibility')}
+              icon="plus"
+              onPress={() => openNewHealthReminder('medication')}
+              size="small"
+              variant="tonal"
+            />
           </View>
           {medications.length === 0 ? (
             <EmptyRow styles={styles} text={t('pregnancyNotifications.sections.health.noMedicationsText')} />
@@ -1111,15 +1112,19 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
           )}
 
           <Text style={styles.cardFootnote}>{t('pregnancyNotifications.sections.health.footnote')}</Text>
-        </View>
+        </AwaCard>
 
         {/* ======================= D. RAPPELS PERSONNALISÉS ======================= */}
-        <View style={styles.card}>
+        <AwaCard padding="compact" variant="outlined" style={styles.card}>
           <View style={styles.subsectionHeaderRow}>
             <SectionHeader icon="bell-plus-outline" styles={styles} theme={theme} title={t('pregnancyNotifications.sections.custom.title')} />
-            <Pressable accessibilityLabel={t('pregnancyNotifications.sections.custom.addAccessibility')} accessibilityRole="button" onPress={openNewCustomReminder} style={styles.addChip}>
-              <MaterialDesignIcons color={theme.colors.primary} name="plus" size={16} />
-            </Pressable>
+            <AwaIconButton
+              accessibilityLabel={t('pregnancyNotifications.sections.custom.addAccessibility')}
+              icon="plus"
+              onPress={openNewCustomReminder}
+              size="small"
+              variant="tonal"
+            />
           </View>
 
           {customReminders.length === 0 ? (
@@ -1142,7 +1147,7 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
               ))}
             </View>
           )}
-        </View>
+        </AwaCard>
       </ScrollView>
 
       {healthDraft ? (
@@ -1185,29 +1190,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.background,
   },
 
-  backgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
-  glowTop: {
-    position: 'absolute',
-    top: -155,
-    right: -125,
-    width: 320,
-    height: 320,
-    borderRadius: 160,
-    backgroundColor: withAlpha(theme.colors.primary, 0.055),
-  },
-  glowMiddle: {
-    position: 'absolute',
-    top: '42%',
-    left: -150,
-    width: 280,
-    height: 280,
-    borderRadius: 140,
-    backgroundColor: withAlpha(theme.colors.primary, 0.035),
-  },
-
   header: {
     minHeight: 66,
     flexDirection: 'row',
@@ -1216,26 +1198,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingTop: 5,
     paddingBottom: 6,
   },
-  backButton: {
-    width: 38,
-    height: 38,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.09),
-    borderRadius: 13,
-    backgroundColor: withAlpha(theme.colors.surface, 0.94),
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.05,
-    shadowRadius: 7,
-    elevation: 2,
-  },
-  backButtonPressed: {
-    opacity: 0.72,
-    transform: [{scale: 0.96}],
-  },
   headerCopy: {
     flex: 1,
     minWidth: 0,
@@ -1243,28 +1205,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     paddingHorizontal: 6,
   },
-  headerTitle: {
-    width: '100%',
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 19,
-    lineHeight: 24,
-    fontWeight: '800',
-    textAlign: 'center',
-  },
-  headerSubtitle: {
-    maxWidth: '100%',
-    marginTop: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 14,
-    textAlign: 'center',
-  },
-  headerSpacer: {
-    width: 38,
-    height: 38,
-    flexShrink: 0,
-  },
+  headerTitle: {width: '100%', textAlign: 'center'},
+  headerSubtitle: {maxWidth: '100%', marginTop: 1, textAlign: 'center'},
+  headerSpacer: {width: 40, height: 40, flexShrink: 0},
 
   content: {
     paddingHorizontal: 12,
@@ -1277,10 +1220,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 2,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.085),
-    borderRadius: 17,
+    borderRadius: 16,
     backgroundColor: withAlpha(theme.colors.surface, 0.76),
-    paddingHorizontal: 11,
-    paddingVertical: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
   },
   introIcon: {
     width: 38,
@@ -1289,7 +1232,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 9,
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   introCopy: {
@@ -1305,23 +1248,11 @@ function createStyles(theme: ResolvedAwaTheme) {
   introText: {
     marginTop: 2,
     color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 15,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
-  card: {
-    marginTop: 10,
-    padding: 11,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.09),
-    borderRadius: 18,
-    backgroundColor: withAlpha(theme.colors.surface, 0.95),
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.035,
-    shadowRadius: 8,
-    elevation: 1,
-  },
+  card: {marginTop: 10},
 
   sectionHeader: {
     flex: 1,
@@ -1337,7 +1268,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 8,
-    borderRadius: 11,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   sectionCopy: {
@@ -1346,7 +1277,6 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
   sectionTitle: {
     color: theme.colors.text,
-    fontFamily: 'serif',
     fontSize: 15,
     lineHeight: 19,
     fontWeight: '800',
@@ -1354,8 +1284,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   sectionSubtitle: {
     marginTop: 1,
     color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 14,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   divider: {
@@ -1367,10 +1297,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.075),
-    borderRadius: 14,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
-    paddingHorizontal: 9,
-    paddingVertical: 9,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
   },
   toggleHeaderRow: {
     flexDirection: 'row',
@@ -1382,7 +1312,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   toggleCopy: {
@@ -1399,8 +1329,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   toggleDescription: {
     marginTop: 2,
     color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 14,
+    fontSize: 11,
+    lineHeight: 16,
   },
   toggleBody: {
     marginTop: 8,
@@ -1419,16 +1349,19 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 5,
   },
   chip: {
+    minHeight: 40,
+    justifyContent: 'center',
     borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.09),
-    borderRadius: 10,
-    backgroundColor: theme.colors.primarySoft,
-    paddingHorizontal: 9,
+    borderColor: theme.colors.border,
+    borderRadius: 12,
+    backgroundColor: theme.colors.surface,
+    paddingHorizontal: 12,
     paddingVertical: 6,
   },
+  // DESIGN.md: selected = primaryContainer fill + on-container text + primary border (same look as ChoiceChips).
   chipActive: {
     borderColor: theme.colors.primary,
-    backgroundColor: theme.colors.primary,
+    backgroundColor: theme.colors.primarySoft,
   },
   chipText: {
     color: theme.colors.textSecondary,
@@ -1436,14 +1369,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     fontWeight: '700',
   },
   chipTextActive: {
-    color: onPrimaryTextColor(theme),
+    color: theme.colors.text,
   },
 
   cardFootnote: {
     marginTop: 9,
     color: theme.colors.textMuted,
-    fontSize: 10,
-    lineHeight: 14,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   subsectionHeaderRow: {
@@ -1465,23 +1398,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     lineHeight: 16,
     fontWeight: '800',
   },
-  addChip: {
-    width: 27,
-    height: 27,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.09),
-    borderRadius: 9,
-    backgroundColor: theme.colors.primarySoft,
-  },
 
   emptyText: {
     marginTop: 7,
     color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 14,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   list: {
@@ -1494,10 +1416,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 7,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.075),
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
-    paddingHorizontal: 8,
-    paddingVertical: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
   },
   rowIcon: {
     width: 30,
@@ -1505,7 +1427,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   rowCopy: {
@@ -1521,16 +1443,16 @@ function createStyles(theme: ResolvedAwaTheme) {
   rowMeta: {
     marginTop: 1,
     color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    lineHeight: 12,
+    fontSize: 11,
+    lineHeight: 16,
   },
   rowDelete: {
-    width: 27,
-    height: 27,
+    width: 32,
+    height: 32,
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 9,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.danger, 0.1),
   },
 
@@ -1546,9 +1468,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginTop: 7,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.09),
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
-    paddingHorizontal: 9,
+    paddingHorizontal: 12,
   },
   fieldActive: {
     borderColor: theme.colors.primary,
@@ -1559,7 +1481,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
   fieldLabel: {
     color: theme.colors.textSecondary,
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: '600',
   },
   fieldValue: {
@@ -1579,31 +1501,10 @@ function createStyles(theme: ResolvedAwaTheme) {
   textFieldWrap: {
     marginTop: 10,
   },
-  textInput: {
-    minHeight: 45,
-    marginTop: 5,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.09),
-    borderRadius: 13,
-    backgroundColor: theme.colors.surface,
-    paddingHorizontal: 11,
-    color: theme.colors.text,
-    fontSize: 12,
-  },
-  textInputMultiline: {
-    minHeight: 72,
-    paddingTop: 9,
-    textAlignVertical: 'top',
-  },
 
   clearLink: {
     marginTop: 8,
     alignSelf: 'flex-start',
-  },
-  clearLinkText: {
-    color: theme.colors.primary,
-    fontSize: 10.5,
-    fontWeight: '700',
   },
 
   modalOverlay: {
@@ -1614,14 +1515,13 @@ function createStyles(theme: ResolvedAwaTheme) {
   modalCard: {
     maxHeight: '88%',
     padding: 16,
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     backgroundColor: theme.colors.surface,
   },
   modalTitle: {
     marginBottom: 3,
     color: theme.colors.text,
-    fontFamily: 'serif',
     fontSize: 17,
     fontWeight: '800',
   },
@@ -1632,52 +1532,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 6,
   },
 
-  deleteButton: {
-    minHeight: 44,
-    paddingHorizontal: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 13,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.danger, 0.3),
-    backgroundColor: withAlpha(theme.colors.danger, 0.1),
-  },
-  deleteButtonText: {
-    color: theme.colors.danger,
-    fontSize: 12,
-    fontWeight: '700',
-  },
-  cancelButton: {
-    flex: 1,
-    minHeight: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 13,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.09),
-    backgroundColor: theme.colors.surface,
-  },
-  cancelButtonText: {
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    fontWeight: '700',
-  },
-  saveButton: {
-    flex: 1,
-    minHeight: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 13,
-    backgroundColor: theme.colors.primary,
-  },
-  saveButtonDisabled: {
-    opacity: 0.45,
-  },
-  saveButtonText: {
-    color: onPrimaryTextColor(theme),
-    fontSize: 12,
-    fontWeight: '700',
-  },
+  deleteButton: {paddingHorizontal: 12},
+  cancelButton: {flex: 1, paddingHorizontal: 12},
+  saveButton: {flex: 1, paddingHorizontal: 12},
   });
 }
 

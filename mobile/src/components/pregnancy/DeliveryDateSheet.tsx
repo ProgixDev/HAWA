@@ -8,10 +8,8 @@ import {
   Modal,
   Pressable,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {homeColors, homeRadii} from '../home/homeTheme';
@@ -20,6 +18,9 @@ import {confirmDelivery, getPostpartumPreferences} from '../../state/postpartumP
 import {startOfDay} from '../../utils/cycleMath';
 import {validateDeliveryDate} from '../../utils/postpartumLossDateValidation';
 import {getBottomPadding} from '../../theme/spacing';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaText} from '../ui/AwaText';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
 
@@ -47,6 +48,7 @@ type Props = {
 function DeliveryDateSheet({visible, onClose, onConfirmed, pregnancyStart}: Props): React.JSX.Element {
   const {t} = useTranslation();
   const insets = useSafeAreaInsets();
+  const {theme} = useAwaTheme();
   const progress = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
   const [pickerOpen, setPickerOpen] = useState(false);
@@ -118,6 +120,7 @@ function DeliveryDateSheet({visible, onClose, onConfirmed, pregnancyStart}: Prop
           style={[
             styles.sheet,
             {
+              backgroundColor: theme.colors.surface,
               paddingBottom: getBottomPadding(insets.bottom),
               opacity: progress,
               transform: [{translateY: progress.interpolate({inputRange: [0, 1], outputRange: [320, 0]})}],
@@ -125,34 +128,37 @@ function DeliveryDateSheet({visible, onClose, onConfirmed, pregnancyStart}: Prop
           ]}>
           <View style={styles.handle} />
 
-          <Text style={styles.title}>{t('pregnancyDeliveryDateSheet.title')}</Text>
-          <Text style={styles.description}>{t('pregnancyDeliveryDateSheet.description')}</Text>
+          <AwaText style={styles.title} variant="titleLarge">{t('pregnancyDeliveryDateSheet.title')}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" style={styles.description} variant="bodyMedium">{t('pregnancyDeliveryDateSheet.description')}</AwaText>
 
-          <Pressable
-            accessibilityRole="button"
-            disabled={saving}
+          <AwaButton
+            fullWidth
+            icon="heart-outline"
+            label={saving ? t('periodStartSheet.saving') : t('pregnancyDeliveryDateSheet.confirmToday')}
+            loading={saving}
             onPress={() => commit(new Date())}
-            style={({pressed}) => [styles.confirmButton, (pressed || saving) && styles.pressed]}>
-            <MaterialDesignIcons color="#FFFFFF" name="heart-outline" size={17} />
-            <Text style={styles.confirmText}>{saving ? t('periodStartSheet.saving') : t('pregnancyDeliveryDateSheet.confirmToday')}</Text>
-          </Pressable>
+            size="large"
+            style={styles.confirmButton}
+          />
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={saving}
+            fullWidth
+            icon="calendar-month-outline"
+            label={t('pregnancyDeliveryDateSheet.chooseAnotherDate')}
             onPress={() => setPickerOpen(true)}
-            style={({pressed}) => [styles.secondaryButton, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={homeColors.primary} name="calendar-month-outline" size={17} />
-            <Text style={styles.secondaryText}>{t('pregnancyDeliveryDateSheet.chooseAnotherDate')}</Text>
-          </Pressable>
+            style={styles.secondaryButton}
+            variant="outlined"
+          />
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={saving}
+            fullWidth
+            label={t('common.cancel')}
             onPress={close}
-            style={({pressed}) => [styles.cancelButton, pressed && styles.pressed]}>
-            <Text style={styles.cancelText}>{t('common.cancel')}</Text>
-          </Pressable>
+            style={styles.cancelButton}
+            variant="text"
+          />
         </Animated.View>
 
         <InlineCalendarPickerModal
@@ -174,41 +180,16 @@ const styles = StyleSheet.create({
   sheet: {
     borderTopLeftRadius: homeRadii.card,
     borderTopRightRadius: homeRadii.card,
-    backgroundColor: '#FCFAFF',
     paddingHorizontal: 18,
     paddingTop: 10,
     elevation: 20,
   },
   handle: {width: 42, height: 5, alignSelf: 'center', borderRadius: 3, backgroundColor: homeColors.cardBorder},
-  title: {marginTop: 14, color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 19, fontWeight: '700', lineHeight: 25},
-  description: {marginTop: 8, color: homeColors.textSecondary, fontSize: 13, lineHeight: 19},
-  confirmButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    marginTop: 18,
-    minHeight: 52,
-    borderRadius: homeRadii.button,
-    backgroundColor: homeColors.primary,
-  },
-  confirmText: {color: '#FFFFFF', fontSize: 15, fontWeight: '700'},
-  secondaryButton: {
-    flexDirection: 'row',
-    gap: 8,
-    marginTop: 10,
-    minHeight: 48,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1.4,
-    borderColor: homeColors.cardBorder,
-    borderRadius: homeRadii.button,
-    backgroundColor: '#FFFFFF',
-  },
-  secondaryText: {color: homeColors.primary, fontSize: 14, fontWeight: '700'},
-  cancelButton: {marginTop: 10, minHeight: 44, alignItems: 'center', justifyContent: 'center'},
-  cancelText: {color: homeColors.textSecondary, fontSize: 14, fontWeight: '600'},
-  pressed: {opacity: 0.85},
+  title: {marginTop: 14},
+  description: {marginTop: 8},
+  confirmButton: {marginTop: 18},
+  secondaryButton: {marginTop: 10},
+  cancelButton: {marginTop: 10},
 });
 
 export default memo(DeliveryDateSheet);

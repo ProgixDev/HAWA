@@ -18,7 +18,10 @@ import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {getBottomPadding, spacing} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import PregnancyEventForm, {TYPE_LABELS, fromISODate} from '../../components/pregnancy/PregnancyEventForm';
 import {
   deletePregnancyMedicalEvent,
@@ -181,10 +184,12 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={insets.top} style={styles.flex}>
         <View style={styles.header}>
-          <Pressable accessibilityLabel="Retour" accessibilityRole="button" hitSlop={10} onPress={handleBack} style={styles.backButton}>
-            <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
-          </Pressable>
-          <Text numberOfLines={1} style={styles.headerTitle}>{headerTitle}</Text>
+          <AwaIconButton
+            accessibilityLabel="Retour"
+            icon="arrow-left"
+            onPress={handleBack}
+          />
+          <AwaText variant="headlineSmall" style={styles.headerTitle}>{headerTitle}</AwaText>
           <View style={styles.headerSpacer} />
         </View>
 
@@ -202,23 +207,23 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
             />
           ) : (
             <>
-              <Pressable
-                accessibilityRole="button"
+              <AwaButton
+                fullWidth
+                icon="plus"
+                label="Ajouter un événement"
                 onPress={() => resetForm('appointment')}
-                style={({pressed}) => [styles.addButton, pressed && styles.pressed]}>
-                <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="plus" size={19} />
-                <Text style={styles.addButtonText}>Ajouter un événement</Text>
-              </Pressable>
+                size="large"
+              />
 
               {events.length === 0 ? (
                 <View style={styles.empty}>
                   <View style={styles.emptyIcon}>
                     <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={34} />
                   </View>
-                  <Text style={styles.emptyTitle}>Aucun rendez-vous enregistré</Text>
-                  <Text style={styles.emptyText}>
+                  <AwaText variant="titleMedium" style={styles.emptyTitle}>Aucun rendez-vous enregistré</AwaText>
+                  <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.emptyText}>
                     Ajoute un rendez-vous ou un examen pour le retrouver ici, sur ton tableau de bord et dans ton calendrier.
-                  </Text>
+                  </AwaText>
                 </View>
               ) : (
                 <View style={styles.list}>
@@ -269,37 +274,16 @@ function createStyles(theme: ResolvedAwaTheme) {
   safeArea: {flex: 1, backgroundColor: theme.colors.background},
   flex: {flex: 1},
   header: {minHeight: 56, flexDirection: 'row', alignItems: 'center', paddingHorizontal: spacing.md, paddingTop: spacing.sm},
-  backButton: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 22,
-    backgroundColor: theme.colors.surface,
-    ...theme.shadow,
-  },
-  headerTitle: {flex: 1, marginHorizontal: 10, color: theme.colors.text, fontFamily: 'serif', fontSize: 19, fontWeight: '700', textAlign: 'center'},
-  headerSpacer: {width: 44},
+  headerTitle: {flex: 1, marginHorizontal: 10, textAlign: 'center'},
+  headerSpacer: {width: 40},
   content: {paddingHorizontal: spacing.md, paddingTop: spacing.sm},
 
   pressed: {opacity: 0.85},
 
-  addButton: {
-    flexDirection: 'row',
-    gap: 8,
-    minHeight: 52,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    backgroundColor: theme.colors.primary,
-    ...theme.shadow,
-  },
-  addButtonText: {color: onPrimaryTextColor(theme), fontSize: 14.5, fontWeight: '700'},
-
   empty: {alignItems: 'center', marginTop: 28, paddingHorizontal: 12},
-  emptyIcon: {width: 68, height: 68, alignItems: 'center', justifyContent: 'center', borderRadius: 24, backgroundColor: theme.colors.primarySoft},
-  emptyTitle: {marginTop: 13, color: theme.colors.text, fontSize: 15, fontWeight: '800', textAlign: 'center'},
-  emptyText: {marginTop: 7, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 18, textAlign: 'center'},
+  emptyIcon: {width: 68, height: 68, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: theme.colors.primarySoft},
+  emptyTitle: {marginTop: 13, textAlign: 'center'},
+  emptyText: {marginTop: 8, textAlign: 'center'},
 
   list: {marginTop: 18, gap: 10},
   row: {
@@ -308,7 +292,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     gap: 10,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    borderRadius: 18,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
     paddingHorizontal: 13,
     paddingVertical: 12,

@@ -20,6 +20,9 @@ import {spacing, getTopPadding} from '../../theme/spacing';
 import {formatFullDate} from '../../utils/cycleMath';
 import InlineCalendarPickerModal from '../../components/onboarding/InlineCalendarPickerModal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {
   getPregnancyDating,
@@ -349,11 +352,6 @@ function PregnancyDatingSetupScreen({
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar
@@ -386,23 +384,15 @@ function PregnancyDatingSetupScreen({
               BACK BUTTON
           ===================================================== */}
 
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
             hitSlop={12}
+            icon="arrow-left"
             onPress={
               navigation.goBack
             }
-            style={({pressed}) => [
-              styles.backButton,
-              pressed &&
-                styles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="arrow-left"
-              size={24}
-            />
-          </Pressable>
+            style={styles.backButton}
+          />
 
           {/* ====================================================
               PREMIUM HEADER
@@ -410,31 +400,6 @@ function PregnancyDatingSetupScreen({
 
           <Animated.View style={headerStyle}>
             <View style={styles.header}>
-              <View style={styles.pregnancyHeroIcon}>
-                <View pointerEvents="none" style={styles.pregnancyHeroGlowOuter} />
-                <View pointerEvents="none" style={styles.pregnancyHeroGlowInner} />
-
-                <LinearGradient
-                  colors={[theme.colors.surface, theme.colors.primarySoft]}
-                  start={{x: 0, y: 0}}
-                  end={{x: 1, y: 1}}
-                  style={styles.pregnancyHeroInner}>
-                  <MaterialDesignIcons
-                    color={theme.colors.primary}
-                    name="human-pregnant"
-                    size={34}
-                  />
-                </LinearGradient>
-
-                <View style={styles.pregnancyAccent}>
-                  <MaterialDesignIcons
-                    color={onPrimaryTextColor(theme)}
-                    name="baby-face-outline"
-                    size={14}
-                  />
-                </View>
-              </View>
-
               <View style={styles.eyebrowPill}>
                 <MaterialDesignIcons
                   color={theme.colors.textSecondary}
@@ -444,15 +409,13 @@ function PregnancyDatingSetupScreen({
                 <Text style={styles.eyebrow}>{t('pregnancyDatingSetup.eyebrow')}</Text>
               </View>
 
-              <Text style={styles.title}>{t('pregnancyDatingSetup.title')}</Text>
+              <AwaText variant="headlineMedium" style={styles.title}>{t('pregnancyDatingSetup.title')}</AwaText>
 
-              <Text style={styles.subtitle}>
+              <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.subtitle}>
                 {t('pregnancyDatingSetup.subtitle')}
-              </Text>
+              </AwaText>
             </View>
           </Animated.View>
-
-
 
           {/* ====================================================
               OPTIONS
@@ -651,43 +614,14 @@ function PregnancyDatingSetupScreen({
               NEXT BUTTON
           ===================================================== */}
 
-          <Pressable
-            accessibilityRole="button"
-            accessibilityState={{
-              disabled:
-                !canContinue,
-            }}
-            disabled={
-              !canContinue
-            }
-            onPress={
-              handleNext
-            }
-            style={({
-              pressed,
-            }) => [
-              styles.nextButton,
-
-              !canContinue &&
-                styles.nextButtonDisabled,
-
-              pressed &&
-                canContinue &&
-                styles.nextButtonPressed,
-            ]}>
-            <Text
-              style={
-                styles.nextText
-              }>
-              {route.params?.mode === 'edit' ? t('common.save') : t('pregnancyDatingSetup.next')}
-            </Text>
-
-            <MaterialDesignIcons
-              color={onPrimaryTextColor(theme)}
-              name="arrow-right"
-              size={20}
-            />
-          </Pressable>
+          <AwaButton
+            disabled={!canContinue}
+            fullWidth
+            label={route.params?.mode === 'edit' ? t('common.save') : t('pregnancyDatingSetup.next')}
+            onPress={handleNext}
+            size="large"
+            style={styles.nextButton}
+          />
         </ScrollView>
 
         {/* ======================================================
@@ -739,41 +673,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.background,
   },
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
-
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.secondary, 0.045),
-  },
-
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.shadow.shadowColor, 0.05),
-  },
-
   safeArea: {
     flex: 1,
   },
@@ -796,34 +695,7 @@ function createStyles(theme: ResolvedAwaTheme) {
      BACK
   ========================================================== */
 
-  backButton: {
-    width: 42,
-    height: 42,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    marginBottom: 5,
-
-    borderWidth: 1,
-    borderColor:
-      withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 16,
-
-    backgroundColor:
-      withAlpha(theme.colors.surface, 0.88),
-
-    shadowColor:
-      theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-
-    elevation: 3,
-  },
+  backButton: {alignSelf: 'flex-start', marginBottom: 5},
 
   /* ==========================================================
      PREMIUM HEADER
@@ -834,65 +706,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginTop: -10,
     marginBottom: 16,
     paddingHorizontal: 8,
-  },
-
-  pregnancyHeroIcon: {
-    position: 'relative',
-    width: 76,
-    height: 76,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 8,
-  },
-
-  pregnancyHeroGlowOuter: {
-    position: 'absolute',
-    width: 82,
-    height: 82,
-    borderRadius: 41,
-    backgroundColor: withAlpha(theme.colors.primary, 0.055),
-  },
-
-  pregnancyHeroGlowInner: {
-    position: 'absolute',
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-
-  pregnancyHeroInner: {
-    width: 58,
-    height: 58,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 20,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 6},
-    shadowOpacity: 0.10,
-    shadowRadius: 12,
-    elevation: 4,
-  },
-
-  pregnancyAccent: {
-    position: 'absolute',
-    right: 1,
-    bottom: 6,
-    width: 27,
-    height: 27,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 3,
-    borderColor: theme.colors.surface,
-    borderRadius: 14,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.16,
-    shadowRadius: 5,
-    elevation: 3,
   },
 
   eyebrowPill: {
@@ -910,31 +723,16 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   eyebrow: {
     color: theme.colors.textSecondary,
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1.25,
+    letterSpacing: 0.5,
+    flexShrink: 1,
     textAlign: 'center',
   },
 
-  title: {
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 26,
-    lineHeight: 32,
-    fontWeight: '800',
-    textAlign: 'center',
-  },
+  title: {textAlign: 'center'},
 
-  subtitle: {
-    maxWidth: 330,
-    marginTop: 0,
-    color: theme.colors.textSecondary,
-    fontSize: 12.5,
-    lineHeight: 18,
-    textAlign: 'center',
-  },
-
-
+  subtitle: {maxWidth: 330, marginTop: 0, textAlign: 'center'},
 
   /* ==========================================================
      OPTIONS
@@ -945,10 +743,10 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   card: {
-    padding: 13,
+    padding: 16,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.88),
     shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 4},
@@ -1025,7 +823,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
 
@@ -1107,7 +905,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginTop: 8,
 
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
 
     borderWidth: 1,
     borderColor:
@@ -1138,7 +936,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginRight: 9,
 
-    borderRadius: 11,
+    borderRadius: 12,
 
     backgroundColor:
       theme.colors.primarySoft,
@@ -1162,7 +960,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 10,
+    borderRadius: 12,
 
     backgroundColor:
       theme.colors.primarySoft,
@@ -1182,61 +980,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     textAlign: 'center',
   },
 
-  nextButton: {
-    minHeight: 54,
+  nextButton: {marginTop: 20},
 
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    gap: 8,
-
-    marginTop: 20,
-
-    borderRadius: 20,
-
-    backgroundColor:
-      theme.colors.primary,
-
-    shadowColor:
-      theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 12,
-
-    elevation: 6,
-  },
-
-  nextButtonPressed: {
-    opacity: 0.88,
-
-    transform: [
-      {
-        scale: 0.99,
-      },
-    ],
-  },
-
-  nextButtonDisabled: {
-    backgroundColor:
-      withAlpha(theme.colors.primary, 0.45),
-
-    elevation: 0,
-
-    shadowOpacity: 0,
-  },
-
-  nextText: {
-    color: onPrimaryTextColor(theme),
-
-    fontSize: 16,
-    fontWeight: '800',
-
-    letterSpacing: 0.2,
-  },
   });
 }
 

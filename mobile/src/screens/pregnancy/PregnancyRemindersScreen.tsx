@@ -7,7 +7,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Switch,
   Text,
   View,
 } from 'react-native';
@@ -20,7 +19,11 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaSwitch} from '../../components/ui/AwaSwitch';
+import {AwaText} from '../../components/ui/AwaText';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {
   getPregnancyNotificationSettings,
   hydratePregnancyNotificationSettings,
@@ -155,19 +158,9 @@ function ReminderRow({
         </View>
 
         {/* SWITCH */}
-        <Switch
+        <AwaSwitch
           accessibilityLabel={option.label}
-          accessibilityRole="switch"
-          accessibilityState={{
-            checked: enabled,
-          }}
-          ios_backgroundColor={theme.colors.primarySoft}
           onValueChange={onToggle}
-          thumbColor={theme.colors.surface}
-          trackColor={{
-            false: theme.colors.primarySoft,
-            true: theme.colors.primary,
-          }}
           value={enabled}
         />
       </View>
@@ -380,11 +373,6 @@ function PregnancyRemindersScreen({
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar
@@ -413,52 +401,32 @@ function PregnancyRemindersScreen({
             false
           }>
           {/* BACK */}
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            hitSlop={12}
+            icon="arrow-left"
             onPress={
               navigation.goBack
             }
-            style={styles.backButton}>
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="arrow-left"
-              size={25}
-            />
-          </Pressable>
+            style={styles.backButton}
+          />
 
           {/* HEADER */}
           <Animated.View
             style={headerStyle}>
             <View style={styles.header}>
-              <View
-                style={styles.headerIcon}>
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="bell-ring-outline"
-                  size={26}
-                />
-              </View>
-
-              <Text
-                adjustsFontSizeToFit
-                minimumFontScale={0.7}
-                numberOfLines={1}
-                style={styles.title}>
+              <AwaText variant="headlineMedium" style={styles.title}>
                 {t('pregnancyReminders.title')}
-              </Text>
+              </AwaText>
 
-              <Text
-                style={styles.subtitle}>
+              <AwaText variant="bodyLarge" style={styles.subtitle}>
                 {t('pregnancyReminders.subtitle')}
-              </Text>
+              </AwaText>
 
-              <Text
-                style={styles.description}>
+              <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.description}>
                 {
                   t('pregnancyReminders.description')
                 }
-              </Text>
+              </AwaText>
             </View>
           </Animated.View>
 
@@ -551,20 +519,14 @@ function PregnancyRemindersScreen({
           {/* BUTTON */}
           <Animated.View
             style={buttonStyle}>
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('pregnancyReminders.finishButton')}
-              accessibilityRole="button"
+              fullWidth
+              label={t('pregnancyReminders.finishButton')}
               onPress={handleFinish}
-              style={({pressed}) => [
-                styles.nextButton,
-                pressed &&
-                  styles.pressed,
-              ]}>
-              <Text
-                style={styles.nextText}>
-                {t('pregnancyReminders.finishButton')}
-              </Text>
-            </Pressable>
+              size="large"
+              style={styles.nextButton}
+            />
           </Animated.View>
         </ScrollView>
       </View>
@@ -579,40 +541,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.background,
   },
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
-
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.secondary, 0.045),
-  },
-
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.shadow.shadowColor, 0.05),
-  },
 
   safeArea: {
     flex: 1,
@@ -623,91 +551,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: spacing.lg,
   },
 
-  backButton: {
-    width: 42,
-    height: 42,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 21,
-
-    backgroundColor:
-      withAlpha(theme.colors.surface, 0.88),
-
-    elevation: 3,
-
-    shadowColor: theme.shadow.shadowColor,
-
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-
-    shadowOpacity: 0.08,
-    shadowRadius: 7,
-
-    marginBottom: 6,
-  },
+  backButton: {alignSelf: 'flex-start', marginBottom: 8},
 
   header: {
     alignItems: 'center',
     marginBottom: spacing.lg,
   },
 
-  headerIcon: {
-    width: 52,
-    height: 52,
+  title: {textAlign: 'center'},
 
-    alignItems: 'center',
-    justifyContent: 'center',
+  subtitle: {marginTop: 8, textAlign: 'center'},
 
-    borderRadius: 26,
-
-    backgroundColor:
-      withAlpha(theme.colors.surface, 0.75),
-
-    marginBottom: 10,
-  },
-
-  title: {
-    color: theme.colors.text,
-
-    fontFamily: 'serif',
-
-    fontSize: 26,
-    fontWeight: '700',
-
-    lineHeight: 32,
-
-    textAlign: 'center',
-  },
-
-  subtitle: {
-    marginTop: 8,
-
-    color: theme.colors.text,
-
-    fontSize: 14.5,
-
-    lineHeight: 20,
-
-    textAlign: 'center',
-  },
-
-  description: {
-    maxWidth: 300,
-
-    marginTop: 6,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 12.5,
-
-    lineHeight: 18,
-
-    textAlign: 'center',
-  },
+  description: {maxWidth: 300, marginTop: 6, textAlign: 'center'},
 
   list: {
     gap: 9,
@@ -797,7 +652,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginTop: spacing.md,
 
-    borderRadius: 14,
+    borderRadius: 12,
 
     backgroundColor:
       withAlpha(theme.colors.primarySoft, 0.75),
@@ -822,39 +677,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     opacity: 0.82,
   },
 
-  nextButton: {
-    minHeight: 52,
+  nextButton: {marginTop: spacing.md},
 
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    marginTop: spacing.md,
-
-    borderRadius: 18,
-
-    backgroundColor: theme.colors.primary,
-
-    shadowColor: theme.shadow.shadowColor,
-
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-
-    shadowOpacity: 0.25,
-
-    shadowRadius: 9,
-
-    elevation: 5,
-  },
-
-  nextText: {
-    color: onPrimaryTextColor(theme),
-
-    fontSize: 17,
-
-    fontWeight: '600',
-  },
   });
 }
 

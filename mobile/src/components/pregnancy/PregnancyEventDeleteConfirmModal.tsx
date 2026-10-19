@@ -1,12 +1,14 @@
 import React, {memo, useEffect, useMemo, useRef, useState} from 'react';
-import {Modal, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Modal, Pressable, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaText} from '../ui/AwaText';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {PregnancyMedicalEventType} from '../../state/pregnancyMedicalEventsStore';
 
 /** The minimal identity PregnancyEventForm.tsx needs to ask for a delete —
@@ -72,7 +74,6 @@ function PregnancyEventDeleteConfirmModal({event, onCancel, onConfirm}: Props): 
     }
   };
 
-  const destructiveText = pickReadableTextColor(theme.colors.danger);
   const isExam = shown?.type === 'exam';
   const title = isExam ? t('pregnancyEvent.form.deleteExamTitle') : t('pregnancyEvent.form.deleteAppointmentTitle');
   const confirmAccessibility = isExam
@@ -98,31 +99,27 @@ function PregnancyEventDeleteConfirmModal({event, onCancel, onConfirm}: Props): 
               <MaterialDesignIcons color={theme.colors.danger} name="trash-can-outline" size={26} />
             </View>
 
-            <Text accessibilityRole="header" style={styles.title}>{title}</Text>
-            {shown ? <Text style={styles.body}>{t('pregnancyEvent.form.deleteMessage')}</Text> : null}
+            <AwaText variant="titleLarge" style={styles.title} accessibilityRole="header">{title}</AwaText>
+            {shown ? <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.body}>{t('pregnancyEvent.form.deleteMessage')}</AwaText> : null}
           </View>
 
           <View style={styles.actions}>
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('common.cancel')}
-              accessibilityRole="button"
-              accessibilityState={{disabled: deleting}}
               disabled={deleting}
+              label={t('common.cancel')}
               onPress={cancel}
-              style={({pressed}) => [styles.button, styles.cancelButton, pressed && styles.pressed]}>
-              <Text style={styles.cancelText}>{t('common.cancel')}</Text>
-            </Pressable>
-            <Pressable
+              style={styles.button}
+              variant="outlined"
+            />
+            <AwaButton
               accessibilityLabel={confirmAccessibility}
-              accessibilityRole="button"
-              accessibilityState={{disabled: deleting, busy: deleting}}
-              disabled={deleting}
+              label={deleting ? t('pregnancyEvent.form.deleting') : t('pregnancyEvent.form.delete')}
+              loading={deleting}
               onPress={confirm}
-              style={({pressed}) => [styles.button, styles.deleteButton, (pressed || deleting) && styles.pressed]}>
-              <Text style={[styles.deleteText, {color: destructiveText}]}>
-                {deleting ? t('pregnancyEvent.form.deleting') : t('pregnancyEvent.form.delete')}
-              </Text>
-            </Pressable>
+              style={styles.button}
+              variant="destructive"
+            />
           </View>
         </View>
       </View>
@@ -155,31 +152,10 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor: withAlpha(theme.colors.danger, 0.3),
       backgroundColor: withAlpha(theme.colors.danger, 0.12),
     },
-    title: {
-      marginTop: 14,
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 21,
-      fontWeight: '700',
-      lineHeight: 27,
-      textAlign: 'center',
-    },
-    body: {marginTop: 10, color: theme.colors.textSecondary, fontSize: 13.5, lineHeight: 20, textAlign: 'center'},
+    title: {marginTop: 14, textAlign: 'center'},
+    body: {marginTop: 10, textAlign: 'center'},
     actions: {flexDirection: 'row', gap: 10, paddingHorizontal: 20, paddingTop: 12, paddingBottom: 20},
-    button: {
-      flex: 1,
-      minHeight: 50,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: homeRadii.button,
-      paddingHorizontal: 10,
-      paddingVertical: 8,
-    },
-    cancelButton: {borderWidth: 1.4, borderColor: theme.colors.primary, backgroundColor: theme.colors.surface},
-    cancelText: {color: theme.colors.primary, fontSize: 15, fontWeight: '700', textAlign: 'center'},
-    deleteButton: {backgroundColor: theme.colors.danger},
-    deleteText: {fontSize: 15, fontWeight: '700', textAlign: 'center'},
-    pressed: {opacity: 0.85},
+    button: {flex: 1, paddingHorizontal: 10},
   });
 }
 

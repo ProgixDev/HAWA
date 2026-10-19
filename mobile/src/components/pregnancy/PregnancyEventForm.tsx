@@ -1,12 +1,12 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Alert, type AlertButton, Platform, Pressable, StyleSheet, Switch, Text, TextInput, View} from 'react-native';
+import {Alert, type AlertButton, Platform, Pressable, StyleSheet, Text, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-community/datetimepicker';
 
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import {dateAtTimeOfDay, formatTimeOfDay} from '../../utils/timeOfDay';
 import {
@@ -40,6 +40,10 @@ import {useReminderDeliveryState} from '../../hooks/useReminderDeliveryState';
 import {openNotificationSettings} from '../../services/pregnancyNotifications';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaSwitch} from '../ui/AwaSwitch';
+import {AwaTextField} from '../ui/AwaTextField';
 
 // Shared Appointment/Exam form — extracted so PregnancyAppointmentScreen.tsx
 // and PregnancyExamScreen.tsx (each locked to one `type`, no selector) and
@@ -178,7 +182,6 @@ function TextField({
   onChangeText,
   placeholder,
   multiline,
-  theme,
   styles,
 }: {
   label: string;
@@ -186,22 +189,18 @@ function TextField({
   onChangeText: (text: string) => void;
   placeholder: string;
   multiline?: boolean;
-  theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
-    <View style={styles.textFieldWrap}>
-      <Text style={styles.fieldLabel}>{label}</Text>
-      <TextInput
-        accessibilityLabel={label}
-        multiline={multiline}
-        onChangeText={onChangeText}
-        placeholder={placeholder}
-        placeholderTextColor={theme.colors.textMuted}
-        style={[styles.textInput, multiline && styles.textInputMultiline]}
-        value={value}
-      />
-    </View>
+    <AwaTextField
+      accessibilityLabel={label}
+      label={label}
+      multiline={multiline}
+      onChangeText={onChangeText}
+      placeholder={placeholder}
+      value={value}
+      wrapperStyle={styles.textFieldWrap}
+    />
   );
 }
 
@@ -507,7 +506,6 @@ function PregnancyEventForm({
         onChangeText={text => {setTitle(text); setError('');}}
         placeholder={placeholders[type]}
         styles={styles}
-        theme={theme}
         value={title}
       />
       <TextField
@@ -515,7 +513,6 @@ function PregnancyEventForm({
         onChangeText={setPractitioner}
         placeholder={t('pregnancyEvent.form.practitionerPlaceholder')}
         styles={styles}
-        theme={theme}
         value={practitioner}
       />
       <TextField
@@ -523,7 +520,6 @@ function PregnancyEventForm({
         onChangeText={setLocation}
         placeholder={t('pregnancyEvent.form.locationPlaceholder')}
         styles={styles}
-        theme={theme}
         value={location}
       />
       <TextField
@@ -532,27 +528,21 @@ function PregnancyEventForm({
         onChangeText={setNotes}
         placeholder={t('pregnancyEvent.form.notesPlaceholder')}
         styles={styles}
-        theme={theme}
         value={notes}
       />
 
-      <View style={styles.reminderCard}>
+      <AwaCard padding="default" variant="outlined" style={styles.reminderCard}>
         <View style={styles.reminderHeaderRow}>
           <View style={styles.fieldIcon}>
             <MaterialDesignIcons color={theme.colors.primary} name="bell-outline" size={18} />
           </View>
           <Text style={styles.reminderLabel}>{t('pregnancyEvent.form.reminderLabel')}</Text>
-          <Switch
+          <AwaSwitch
             accessibilityLabel={t('pregnancyEvent.form.reminderLabel')}
-            accessibilityRole="switch"
-            accessibilityState={{checked: reminderEnabled}}
-            ios_backgroundColor={theme.colors.primarySoft}
             onValueChange={value => {
               setReminderEnabled(value);
               if (!value) {setReminderOffsetOpen(false); if (activePicker === 'reminderTime') {setActivePicker(null);}}
             }}
-            thumbColor={theme.colors.surface}
-            trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
             value={reminderEnabled}
           />
         </View>
@@ -577,6 +567,7 @@ function PregnancyEventForm({
                     accessibilityState={{selected: reminderOffset === option}}
                     key={option}
                     onPress={() => {setReminderOffset(option); setReminderOffsetOpen(false);}}
+                    hitSlop={4}
                     style={[styles.reminderChip, reminderOffset === option && styles.reminderChipActive]}>
                     <Text style={[styles.reminderChipText, reminderOffset === option && styles.reminderChipTextActive]}>
                       {offsetLabels[option]}
@@ -644,50 +635,44 @@ function PregnancyEventForm({
                 <Text style={styles.categoryNoticeText}>
                   {type === 'exam' ? t('pregnancyEvent.reminder.categoryOffExam') : t('pregnancyEvent.reminder.categoryOffAppointment')}
                 </Text>
-                <Pressable
+                <AwaButton
                   accessibilityLabel={type === 'exam' ? t('pregnancyEvent.reminder.turnOnExam') : t('pregnancyEvent.reminder.turnOnAppointment')}
-                  accessibilityRole="button"
+                  label={type === 'exam' ? t('pregnancyEvent.reminder.turnOnExam') : t('pregnancyEvent.reminder.turnOnAppointment')}
                   onPress={() => {turnOnCategory(type).catch(() => {});}}
-                  style={({pressed}) => [styles.categoryNoticeButton, pressed && styles.pressed]}>
-                  <Text style={styles.categoryNoticeButtonText}>
-                    {type === 'exam' ? t('pregnancyEvent.reminder.turnOnExam') : t('pregnancyEvent.reminder.turnOnAppointment')}
-                  </Text>
-                </Pressable>
+                  size="compact"
+                  style={styles.categoryNoticeButton}
+                  variant="tonal"
+                />
               </View>
             ) : null}
 
             <NotificationPermissionNotice onRecheck={delivery.refresh} state={delivery.state} testID="pregnancy-event-permission-notice" />
           </View>
         )}
-      </View>
+      </AwaCard>
 
       {error ? <Text accessibilityRole="alert" style={styles.error}>{error}</Text> : null}
 
       <View style={styles.actionsRow}>
         {initialEvent ? (
-          <Pressable
+          <AwaButton
             accessibilityLabel={type === 'exam' ? t('pregnancyEvent.form.deleteExamAccessibility') : t('pregnancyEvent.form.deleteAppointmentAccessibility')}
-            accessibilityRole="button"
+            label={t('pregnancyEvent.form.delete')}
             onPress={requestDelete}
-            style={({pressed}) => [styles.deleteButton, pressed && styles.pressed]}>
-            <Text style={styles.deleteButtonText}>{t('pregnancyEvent.form.delete')}</Text>
-          </Pressable>
+            size="large"
+            style={styles.deleteButton}
+            variant="destructive"
+          />
         ) : null}
 
-        <Pressable
+        <AwaButton
           accessibilityLabel={t('common.save')}
-          accessibilityRole="button"
-          accessibilityState={{disabled: !canSave}}
           disabled={!canSave}
+          label={t('common.save')}
           onPress={save}
-          style={({pressed}) => [
-            styles.saveButton,
-            initialEvent ? styles.saveButtonFlex : styles.saveButtonFull,
-            !canSave && styles.saveButtonDisabled,
-            pressed && canSave && styles.pressed,
-          ]}>
-          <Text style={styles.saveButtonText}>{t('common.save')}</Text>
-        </Pressable>
+          size="large"
+          style={styles.saveButton}
+        />
       </View>
 
       <PregnancyEventDeleteConfirmModal
@@ -701,11 +686,12 @@ function PregnancyEventForm({
 
 export function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    segment: {flexDirection: 'row', gap: 8, padding: 4, borderRadius: homeRadii.button, backgroundColor: theme.colors.primarySoft},
+    segment: {flexDirection: 'row', gap: 8, padding: 4, borderRadius: homeRadii.button, borderWidth: 1, borderColor: theme.colors.border, backgroundColor: theme.colors.surface},
     segmentOption: {flex: 1, minHeight: 44, alignItems: 'center', justifyContent: 'center', borderRadius: homeRadii.button - 4},
-    segmentOptionActive: {backgroundColor: theme.colors.primary, ...theme.shadow},
+    // DESIGN.md: selected = primaryContainer fill + on-container text + primary border (same look as ChoiceChips).
+    segmentOptionActive: {borderWidth: 1.5, borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
     segmentText: {color: theme.colors.textSecondary, fontSize: 14, fontWeight: '700'},
-    segmentTextActive: {color: onPrimaryTextColor(theme)},
+    segmentTextActive: {color: theme.colors.text},
 
     field: {
       flexDirection: 'row',
@@ -724,30 +710,11 @@ export function createStyles(theme: ResolvedAwaTheme) {
     fieldCopy: {flex: 1, minWidth: 0},
     fieldLabel: {color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '600'},
     fieldValue: {marginTop: 2, color: theme.colors.text, fontSize: 14.5, fontWeight: '700'},
-    fieldClear: {padding: 4},
+    fieldClear: {padding: 8},
 
     textFieldWrap: {marginTop: 16},
-    textInput: {
-      minHeight: 52,
-      marginTop: 7,
-      borderWidth: 1.4,
-      borderColor: theme.colors.border,
-      borderRadius: homeRadii.button,
-      backgroundColor: theme.colors.surface,
-      paddingHorizontal: 15,
-      color: theme.colors.text,
-      fontSize: 14.5,
-    },
-    textInputMultiline: {minHeight: 96, paddingTop: 14, textAlignVertical: 'top'},
 
-    reminderCard: {
-      marginTop: 18,
-      padding: 15,
-      borderWidth: 1.4,
-      borderColor: theme.colors.border,
-      borderRadius: homeRadii.card,
-      backgroundColor: theme.colors.surface,
-    },
+    reminderCard: {marginTop: 18},
     reminderHeaderRow: {flexDirection: 'row', alignItems: 'center', gap: 11},
     reminderLabel: {flex: 1, color: theme.colors.text, fontSize: 15, fontWeight: '700'},
     reminderEmptyText: {marginTop: 10, color: theme.colors.textSecondary, fontSize: 12.5},
@@ -766,10 +733,10 @@ export function createStyles(theme: ResolvedAwaTheme) {
     reminderRowValueWrap: {flexDirection: 'row', alignItems: 'center', gap: 4},
     reminderRowValue: {color: theme.colors.text, fontSize: 13.5, fontWeight: '700'},
     reminderChips: {flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 10},
-    reminderChip: {borderWidth: 1, borderColor: theme.colors.border, borderRadius: 14, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 12, paddingVertical: 9},
-    reminderChipActive: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primary},
+    reminderChip: {minHeight: 40, justifyContent: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12, backgroundColor: theme.colors.surface, paddingHorizontal: 12, paddingVertical: 9},
+    reminderChipActive: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
     reminderChipText: {color: theme.colors.textSecondary, fontSize: 12, fontWeight: '700'},
-    reminderChipTextActive: {color: onPrimaryTextColor(theme)},
+    reminderChipTextActive: {color: theme.colors.text},
     reminderPreview: {
       flexDirection: 'row',
       alignItems: 'flex-start',
@@ -788,54 +755,19 @@ export function createStyles(theme: ResolvedAwaTheme) {
     categoryNotice: {
       marginTop: 12,
       padding: 12,
-      borderRadius: 14,
+      borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.danger, 0.1),
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.danger, 0.15),
     },
     categoryNoticeText: {color: theme.colors.text, fontSize: 12, lineHeight: 17},
-    categoryNoticeButton: {
-      alignSelf: 'flex-start',
-      minHeight: 40,
-      justifyContent: 'center',
-      marginTop: 8,
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.danger, 0.3),
-      paddingHorizontal: 14,
-    },
-    categoryNoticeButtonText: {color: theme.colors.danger, fontSize: 12, fontWeight: '700'},
+    categoryNoticeButton: {alignSelf: 'flex-start', marginTop: 8},
 
     error: {marginTop: 14, color: theme.colors.danger, fontSize: 12.5, textAlign: 'center'},
 
     actionsRow: {flexDirection: 'row', gap: 10, marginTop: 22},
-    saveButton: {
-      minHeight: 54,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: homeRadii.button,
-      backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 6},
-      shadowOpacity: 0.22,
-      shadowRadius: 12,
-      elevation: 4,
-    },
-    saveButtonFull: {flex: 1},
-    saveButtonFlex: {flex: 1},
-    saveButtonDisabled: {opacity: 0.45},
-    saveButtonText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '700'},
-    deleteButton: {
-      flex: 1,
-      minHeight: 54,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: homeRadii.button,
-      borderWidth: 1.4,
-      borderColor: withAlpha(theme.colors.danger, 0.3),
-      backgroundColor: withAlpha(theme.colors.danger, 0.1),
-    },
-    deleteButtonText: {color: theme.colors.danger, fontSize: 15, fontWeight: '700'},
+    saveButton: {flex: 1},
+    deleteButton: {flex: 1},
     pressed: {opacity: 0.85},
   });
 }

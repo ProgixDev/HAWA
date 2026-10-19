@@ -22,6 +22,8 @@ import {
 } from 'react-native-safe-area-context';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaText} from '../../components/ui/AwaText';
 import {
   withAlpha,
   type ResolvedAwaTheme,
@@ -75,7 +77,6 @@ import StatisticsPeriodSelector from '../../components/statistics/StatisticsPeri
 // text tone) now live on the resolved theme's `colors.*` (see useAwaTheme())
 // and are read fresh inside every component/createStyles() below instead of
 // being frozen at module scope.
-
 
 /** One real calendar month's aggregate for the Premium longitudinal
  * ("Évolution mensuelle") view — counts/dates only, never medical-event
@@ -348,20 +349,14 @@ function SectionHeader({
         style={
           styles.sectionHeaderCopy
         }>
-        <Text
-          style={
-            styles.cardTitle
-          }>
+        <AwaText variant="titleMedium">
           {title}
-        </Text>
+        </AwaText>
 
         {subtitle ? (
-          <Text
-            style={
-              styles.cardSubtitle
-            }>
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.cardSubtitle}>
             {subtitle}
-          </Text>
+          </AwaText>
         ) : null}
       </View>
     </View>
@@ -408,7 +403,6 @@ function KpiCard({
           styles.kpiCopy
         }>
         <Text
-          numberOfLines={2}
           style={
             styles.kpiValue
           }>
@@ -475,7 +469,6 @@ function WellnessCard({
       </View>
 
       <Text
-        numberOfLines={2}
         style={
           styles.wellnessValue
         }>
@@ -1659,11 +1652,6 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
       style={
         styles.background
       }>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
       <SafeAreaView
         edges={[
           'top',
@@ -1705,33 +1693,15 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               style={
                 styles.headerCopy
               }>
-              <Text
-                style={
-                  styles.title
-                }>
+              <AwaText variant="headlineMedium">
                 {t('pregnancyStatistics.header.title')}
-              </Text>
+              </AwaText>
 
-              <Text
-                style={
-                  styles.subtitle
-                }>
+              <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.subtitle}>
                 {t('pregnancyStatistics.header.subtitle')}
-              </Text>
+              </AwaText>
             </View>
 
-            <View
-              style={
-                styles.headerIcon
-              }>
-              <MaterialDesignIcons
-                color={
-                  theme.colors.primary
-                }
-                name="chart-timeline-variant-shimmer"
-                size={25}
-              />
-            </View>
           </View>
 
           {/* ==================================================
@@ -1753,17 +1723,6 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               style={
                 styles.heroCard
               }>
-              <View
-                style={
-                  styles.heroDecorOne
-                }
-              />
-
-              <View
-                style={
-                  styles.heroDecorTwo
-                }
-              />
 
               <View
                 style={
@@ -1960,9 +1919,6 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                     </Text>
 
                     <Text
-                      numberOfLines={
-                        1
-                      }
                       style={
                         styles.heroMetaValue
                       }>
@@ -2047,19 +2003,13 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               styles.sectionHeadingRow
             }>
             <View>
-              <Text
-                style={
-                  styles.sectionTitle
-                }>
+              <AwaText variant="titleMedium">
                 {t('pregnancyStatistics.overview.sectionTitle')}
-              </Text>
+              </AwaText>
 
-              <Text
-                style={
-                  styles.sectionDescription
-                }>
+              <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.sectionDescription}>
                 {t('pregnancyStatistics.overview.sectionDescription')}
-              </Text>
+              </AwaText>
             </View>
           </View>
 
@@ -2121,10 +2071,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               WEIGHT
           =================================================== */}
 
-          <View
-            style={
-              styles.card
-            }>
+          <AwaCard padding="default" variant="outlined" style={styles.card}>
             <SectionHeader
               icon="scale-bathroom"
               subtitle={t('pregnancyStatistics.weight.sectionSubtitle')}
@@ -2490,16 +2437,13 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                   ))}
               </View>
             ) : null}
-          </View>
+          </AwaCard>
 
           {/* ==================================================
               SYMPTOMS
           =================================================== */}
 
-          <View
-            style={
-              styles.card
-            }>
+          <AwaCard padding="default" variant="outlined" style={styles.card}>
             <SectionHeader
               icon="heart-pulse"
               subtitle={
@@ -2695,7 +2639,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                   ))}
               </View>
             ) : null}
-          </View>
+          </AwaCard>
 
           {/* ==================================================
               WELLNESS
@@ -2706,21 +2650,15 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               styles.sectionHeadingRow
             }>
             <View>
-              <Text
-                style={
-                  styles.sectionTitle
-                }>
+              <AwaText variant="titleMedium">
                 {t('pregnancyStatistics.wellness.sectionTitle')}
-              </Text>
+              </AwaText>
 
-              <Text
-                style={
-                  styles.sectionDescription
-                }>
+              <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.sectionDescription}>
                 {showLongitudinalView
                   ? t('pregnancyStatistics.wellness.subtitleLongitudinal')
                   : t('pregnancyStatistics.wellness.subtitleDefault')}
-              </Text>
+              </AwaText>
             </View>
           </View>
 
@@ -2785,10 +2723,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               month.sleepCount >
                 0,
           ) ? (
-            <View
-              style={
-                styles.card
-              }>
+            <AwaCard padding="default" variant="outlined" style={styles.card}>
               <SectionHeader
                 icon="chart-box-outline"
                 subtitle={t('pregnancyStatistics.wellness.monthlySubtitle')}
@@ -2893,7 +2828,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                     ),
                   )}
               </View>
-            </View>
+            </AwaCard>
           ) : null}
 
           {/* ==================================================
@@ -2904,10 +2839,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
             0 ||
             hasMedicalInfoInPeriod ||
             hasAppointmentsInPeriod) && (
-            <View
-              style={
-                styles.card
-              }>
+            <AwaCard padding="default" variant="outlined" style={styles.card}>
               <SectionHeader
                 icon="chart-box-outline"
                 subtitle={t('pregnancyStatistics.details.sectionSubtitle')}
@@ -3034,7 +2966,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                     ))}
                 </View>
               ) : null}
-            </View>
+            </AwaCard>
           )}
         </ScrollView>
       </SafeAreaView>
@@ -3101,7 +3033,6 @@ function DetailRow({
         </Text>
 
         <Text
-          numberOfLines={2}
           style={
             styles.detailValue
           }>
@@ -3125,37 +3056,6 @@ function createStyles(theme: ResolvedAwaTheme) {
   background: {
     flex: 1,
     backgroundColor: theme.colors.background,
-  },
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
   },
 
   safeArea: {
@@ -3188,49 +3088,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  title: {
-    color:
-      theme.colors.accent,
-
-    fontFamily: 'serif',
-    fontSize: 27,
-    lineHeight: 33,
-    fontWeight: '800',
-  },
-
-  subtitle: {
-    maxWidth: 290,
-
-    marginTop: 3,
-
-    color:
-      theme.colors.textSecondary,
-
-    fontSize: 11.5,
-    lineHeight: 17,
-  },
-
-  headerIcon: {
-    ...theme.shadow,
-
-    width: 48,
-    height: 48,
-
-    flexShrink: 0,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    marginLeft: 10,
-
-    borderWidth: 1,
-    borderColor:
-      withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 16,
-
-    backgroundColor:
-      theme.colors.primarySoft,
-  },
+  subtitle: {maxWidth: 290, marginTop: 3},
 
   /* ==========================================================
      HERO
@@ -3248,40 +3106,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1,
     borderColor:
       withAlpha(theme.colors.primary, 0.09),
-    borderRadius: 27,
+    borderRadius: 12,
 
     backgroundColor:
       withAlpha(theme.colors.surface, 0.96),
-  },
-
-  heroDecorOne: {
-    position: 'absolute',
-
-    top: -45,
-    right: -35,
-
-    width: 130,
-    height: 130,
-
-    borderRadius: 65,
-
-    backgroundColor:
-      withAlpha(theme.colors.primary, 0.055),
-  },
-
-  heroDecorTwo: {
-    position: 'absolute',
-
-    top: 18,
-    right: 25,
-
-    width: 50,
-    height: 50,
-
-    borderRadius: 25,
-
-    backgroundColor:
-      withAlpha(theme.colors.primary, 0.17),
   },
 
   heroTop: {
@@ -3299,10 +3127,10 @@ function createStyles(theme: ResolvedAwaTheme) {
   heroEyebrow: {
     color: theme.colors.primary,
 
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '800',
 
-    letterSpacing: 1.4,
+    letterSpacing: 0.5,
   },
 
   heroWeekRow: {
@@ -3315,7 +3143,6 @@ function createStyles(theme: ResolvedAwaTheme) {
   heroWeekNumber: {
     color: theme.colors.accent,
 
-    fontFamily: 'serif',
     fontSize: 48,
     lineHeight: 53,
     fontWeight: '800',
@@ -3329,7 +3156,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.accent,
 
-    fontFamily: 'serif',
     fontSize: 17,
     fontWeight: '800',
   },
@@ -3340,7 +3166,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 10.5,
+    fontSize: 11,
     fontWeight: '600',
   },
 
@@ -3377,7 +3203,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 7.5,
+    fontSize: 11,
   },
 
   heroProgressHeader: {
@@ -3393,7 +3219,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.accent,
 
-    fontSize: 10.5,
+    fontSize: 11,
     fontWeight: '800',
   },
 
@@ -3401,7 +3227,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 9,
+    fontSize: 11,
   },
 
   heroProgressTrack: {
@@ -3457,7 +3283,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 11,
+    borderRadius: 12,
 
     backgroundColor:
       theme.colors.primarySoft,
@@ -3474,7 +3300,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 8.5,
+    fontSize: 11,
   },
 
   heroMetaValue: {
@@ -3514,23 +3340,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 10,
   },
 
-  sectionTitle: {
-    color:
-      theme.colors.accent,
-
-    fontFamily: 'serif',
-    fontSize: 18,
-    fontWeight: '800',
-  },
-
-  sectionDescription: {
-    marginTop: 2,
-
-    color:
-      theme.colors.textSecondary,
-
-    fontSize: 10.5,
-  },
+  sectionDescription: {marginTop: 2},
 
   /* ==========================================================
      KPI
@@ -3556,7 +3366,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1,
     borderColor:
       withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 19,
+    borderRadius: 12,
 
     backgroundColor:
       theme.colors.surface,
@@ -3606,28 +3416,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 9.5,
+    fontSize: 11,
   },
 
   /* ==========================================================
      GENERIC CARD
   ========================================================== */
 
-  card: {
-    ...theme.shadow,
-
-    marginTop: 14,
-
-    padding: 15,
-
-    borderWidth: 1,
-    borderColor:
-      withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 23,
-
-    backgroundColor:
-      theme.colors.surface,
-  },
+  card: {marginTop: 14},
 
   sectionHeader: {
     flexDirection: 'row',
@@ -3645,7 +3441,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginRight: 10,
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     backgroundColor:
       theme.colors.primarySoft,
@@ -3656,24 +3452,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  cardTitle: {
-    color:
-      theme.colors.accent,
-
-    fontFamily: 'serif',
-    fontSize: 16,
-    fontWeight: '800',
-  },
-
-  cardSubtitle: {
-    marginTop: 2,
-
-    color:
-      theme.colors.textSecondary,
-
-    fontSize: 9.5,
-    lineHeight: 13,
-  },
+  cardSubtitle: {marginTop: 2},
 
   /* ==========================================================
      EMPTY
@@ -3693,7 +3472,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 15,
+    borderRadius: 16,
 
     backgroundColor:
       theme.colors.primarySoft,
@@ -3727,7 +3506,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     padding: 13,
 
-    borderRadius: 18,
+    borderRadius: 12,
 
     backgroundColor:
       theme.colors.primarySoft,
@@ -3742,7 +3521,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 9.5,
+    fontSize: 11,
   },
 
   metricValue: {
@@ -3750,7 +3529,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     color: theme.colors.accent,
 
-    fontFamily: 'serif',
     fontSize: 23,
     fontWeight: '800',
   },
@@ -3761,7 +3539,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 9,
+    fontSize: 11,
   },
 
   deltaBadge: {
@@ -3777,7 +3555,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 9,
     paddingVertical: 7,
 
-    borderRadius: 14,
+    borderRadius: 12,
 
     backgroundColor:
       theme.colors.primarySoft,
@@ -3791,7 +3569,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   deltaValue: {
     color: theme.colors.primary,
 
-    fontSize: 10.5,
+    fontSize: 11,
     fontWeight: '800',
   },
 
@@ -3805,7 +3583,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 6.8,
+    fontSize: 11,
   },
 
   hintCard: {
@@ -3816,9 +3594,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginTop: 12,
 
-    padding: 10,
+    padding: 12,
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     backgroundColor:
       theme.colors.primarySoft,
@@ -3830,8 +3608,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 10,
-    lineHeight: 14,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   /* ==========================================================
@@ -3859,7 +3637,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 8.5,
+    fontSize: 11,
   },
 
   weightChart: {
@@ -3888,7 +3666,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.accent,
 
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: '700',
   },
 
@@ -3924,7 +3702,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 7,
+    fontSize: 11,
   },
 
   /* ==========================================================
@@ -3952,7 +3730,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 8,
     paddingVertical: 4,
 
-    borderRadius: 9,
+    borderRadius: 12,
 
     backgroundColor:
       theme.colors.primarySoft,
@@ -3962,7 +3740,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: '700',
   },
 
@@ -3992,7 +3770,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginRight: 7,
 
-    borderRadius: 9,
+    borderRadius: 12,
 
     backgroundColor:
       theme.colors.primarySoft,
@@ -4005,7 +3783,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 10.5,
+    fontSize: 11,
   },
 
   weightHistoryValue: {
@@ -4023,7 +3801,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     color: theme.colors.primary,
 
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '800',
 
     textAlign: 'right',
@@ -4073,7 +3851,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 9,
+    borderRadius: 12,
 
     backgroundColor:
       theme.colors.primarySoft,
@@ -4082,7 +3860,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   rankText: {
     color: theme.colors.primary,
 
-    fontSize: 10.5,
+    fontSize: 11,
     fontWeight: '800',
   },
 
@@ -4103,7 +3881,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 8,
     paddingVertical: 4,
 
-    borderRadius: 9,
+    borderRadius: 12,
 
     backgroundColor:
       theme.colors.primarySoft,
@@ -4113,7 +3891,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 8.5,
+    fontSize: 11,
     fontWeight: '700',
   },
 
@@ -4164,7 +3942,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1,
     borderColor:
       withAlpha(theme.colors.primary, 0.07),
-    borderRadius: 20,
+    borderRadius: 12,
 
     backgroundColor:
       theme.colors.surface,
@@ -4188,7 +3966,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 13,
+    borderRadius: 12,
 
     backgroundColor:
       theme.colors.primarySoft,
@@ -4200,7 +3978,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.accent,
 
-    fontFamily: 'serif',
     fontSize: 17,
     lineHeight: 21,
     fontWeight: '800',
@@ -4212,7 +3989,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.accent,
 
-    fontSize: 10.5,
+    fontSize: 11,
     fontWeight: '700',
   },
 
@@ -4222,7 +3999,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 8.5,
+    fontSize: 11,
   },
 
   /* ==========================================================
@@ -4253,7 +4030,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     marginRight: 9,
 
-    borderRadius: 11,
+    borderRadius: 12,
 
     backgroundColor:
       theme.colors.primarySoft,
@@ -4268,7 +4045,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.accent,
 
-    fontSize: 10.5,
+    fontSize: 11,
     fontWeight: '800',
   },
 
@@ -4278,8 +4055,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 9.5,
-    lineHeight: 13,
+    fontSize: 11,
+    lineHeight: 16,
   },
 
   /* ==========================================================
@@ -4332,7 +4109,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 9.5,
+    fontSize: 11,
   },
 
   chipRow: {
@@ -4348,7 +4125,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 9,
     paddingVertical: 5,
 
-    borderRadius: 10,
+    borderRadius: 12,
 
     backgroundColor:
       theme.colors.primarySoft,
@@ -4358,7 +4135,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     color:
       theme.colors.textSecondary,
 
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '700',
   },
   });

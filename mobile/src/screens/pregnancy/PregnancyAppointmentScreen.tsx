@@ -1,14 +1,15 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {KeyboardAvoidingView, Platform, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {getBottomPadding, spacing} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import PregnancyEventForm from '../../components/pregnancy/PregnancyEventForm';
 import {getPregnancyMedicalEvents, type PregnancyMedicalEvent} from '../../state/pregnancyMedicalEventsStore';
 import '../../i18n';
@@ -51,10 +52,12 @@ function PregnancyAppointmentScreen({navigation, route}: Props): React.JSX.Eleme
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={insets.top} style={styles.flex}>
         <View style={styles.header}>
-          <Pressable accessibilityLabel={t('common.back')} accessibilityRole="button" hitSlop={10} onPress={() => navigation.goBack()} style={styles.backButton}>
-            <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
-          </Pressable>
-          <Text numberOfLines={1} style={styles.headerTitle}>{headerTitle}</Text>
+          <AwaIconButton
+            accessibilityLabel={t('common.back')}
+            icon="arrow-left"
+            onPress={() => navigation.goBack()}
+          />
+          <AwaText variant="headlineSmall" style={styles.headerTitle}>{headerTitle}</AwaText>
           <View style={styles.headerSpacer} />
         </View>
 
@@ -100,17 +103,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     safeArea: {flex: 1, backgroundColor: theme.colors.background},
     flex: {flex: 1},
     header: {minHeight: 56, flexDirection: 'row', alignItems: 'center', paddingHorizontal: spacing.md, paddingTop: spacing.sm},
-    backButton: {
-      width: 44,
-      height: 44,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 22,
-      backgroundColor: theme.colors.surface,
-      ...theme.shadow,
-    },
-    headerTitle: {flex: 1, marginHorizontal: 10, color: theme.colors.text, fontFamily: 'serif', fontSize: 19, fontWeight: '700', textAlign: 'center'},
-    headerSpacer: {width: 44},
+    headerTitle: {flex: 1, marginHorizontal: 10, textAlign: 'center'},
+    headerSpacer: {width: 40},
     content: {paddingHorizontal: spacing.md, paddingTop: spacing.sm},
   });
 }

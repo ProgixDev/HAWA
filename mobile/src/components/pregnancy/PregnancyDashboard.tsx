@@ -79,6 +79,9 @@ import { getPregnancyWeekData } from '../../data/pregnancyWeekData';
 import type { DailyJournalEntry } from '../../types/journal';
 import BabyDevelopmentImage from './BabyDevelopmentImage';
 import { resolveEditorialLanguage } from '../../i18n/editorialLanguage';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 import '../../i18n';
 
 const WOMAN = require('../../assets/images/pregnancy/pregnancy-woman-week18.png');
@@ -181,7 +184,6 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
   const dailyItemLabels = useMemo(() => pregnancyDailyItemLabels(t), [t]);
 
   const entrance = useRef(new Animated.Value(0)).current;
-  const float = useRef(new Animated.Value(0)).current;
 
   // Canonical pregnancy onboarding data (src/state/pregnancyPreferences.ts)
   // — the same source SummaryScreen reads. Core values (week, gestational
@@ -451,7 +453,6 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
   const spiritual = usePregnancySpiritualStatus(spiritualMarkersEnabled);
 
   useEffect(() => {
-    let loop: Animated.CompositeAnimation | undefined;
     let active = true;
 
     AccessibilityInfo.isReduceMotionEnabled().then(reduce => {
@@ -464,32 +465,12 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
         duration: reduce ? 0 : 520,
         useNativeDriver: true,
       }).start();
-
-      if (!reduce) {
-        loop = Animated.loop(
-          Animated.sequence([
-            Animated.timing(float, {
-              toValue: 1,
-              duration: 2200,
-              useNativeDriver: true,
-            }),
-            Animated.timing(float, {
-              toValue: 0,
-              duration: 2200,
-              useNativeDriver: true,
-            }),
-          ]),
-        );
-
-        loop.start();
-      }
     });
 
     return () => {
       active = false;
-      loop?.stop();
     };
-  }, [entrance, float]);
+  }, [entrance]);
 
   return (
     <LinearGradient
@@ -498,11 +479,6 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
@@ -591,11 +567,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                     </Text>
                   </View>
 
-                  <Text
-                    numberOfLines={1}
-                    adjustsFontSizeToFit
-                    style={[styles.age, compact && styles.ageCompact]}
-                  >
+                  <Text style={[styles.age, compact && styles.ageCompact]}>
                     {status.gestationalWeeks} {t('pregnancyDashboard.hero.weeksUnit')} +{' '}
                     {t('pregnancyDashboard.hero.daysCount', {count: status.gestationalDays})}
                   </Text>
@@ -647,11 +619,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                     <Text style={styles.muted}>{t('pregnancyDashboard.due.dueDateLabel')}</Text>
                   </View>
 
-                  <Text
-                    numberOfLines={1}
-                    adjustsFontSizeToFit
-                    style={styles.dueValue}
-                  >
+                  <Text style={styles.dueValue}>
                     {status.estimatedDueDate
                       ? new Intl.DateTimeFormat(dateFormatLocale(), {
                           day: 'numeric',
@@ -677,11 +645,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                     <Text style={styles.muted}>{t('pregnancyDashboard.due.remainingTimeLabel')}</Text>
                   </View>
 
-                  <Text
-                    numberOfLines={1}
-                    adjustsFontSizeToFit
-                    style={styles.remainingValue}
-                  >
+                  <Text style={styles.remainingValue}>
                     {t('pregnancyDashboard.due.remainingWeeksCount', {count: status.remainingWeeks})}
                     {status.remainingDaysRemainder > 0
                       ? ` ${t('pregnancyDashboard.due.remainingDaysSuffix', {count: status.remainingDaysRemainder})}`
@@ -703,26 +667,15 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
               ======================================================== */}
 
               {showDeliveryCta ? (
-                <Pressable
+                <AwaButton
                   accessibilityLabel={deliveryCtaLabel}
-                  accessibilityRole="button"
+                  icon="heart-outline"
+                  label={deliveryCtaLabel}
                   onPress={handleDeliveryCtaPress}
-                  style={({ pressed }) => [
-                    styles.deliveryCta,
-                    pressed && styles.pressed,
-                  ]}
-                >
-                  <MaterialDesignIcons
-                    color={theme.colors.primary}
-                    name={
-                      hasConfirmedDelivery
-                        ? 'arrow-right-circle-outline'
-                        : 'flower-outline'
-                    }
-                    size={16}
-                  />
-                  <Text style={styles.deliveryCtaText}>{deliveryCtaLabel}</Text>
-                </Pressable>
+                  size="compact"
+                  style={styles.deliveryCta}
+                  variant="outlined"
+                />
               ) : null}
 
               {/* =======================================================
@@ -740,7 +693,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                 ]}
               >
                 <View style={styles.babyCopy}>
-                  <Text style={styles.cardTitle}>{t('pregnancyDashboard.baby.title')}</Text>
+                  <AwaText variant="titleMedium">{t('pregnancyDashboard.baby.title')}</AwaText>
 
                   <Text style={styles.babyEyebrow}>{t('pregnancyDashboard.baby.eyebrow')}</Text>
 
@@ -875,10 +828,10 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
               SUIVI DU JOUR
           ======================================================== */}
 
-          <View style={styles.dailyCard}>
+          <AwaCard padding="default" variant="outlined" style={styles.dailyCard}>
             <View style={styles.dailyHeader}>
               <View>
-                <Text style={styles.cardTitle}>{t('pregnancyDashboard.daily.title')}</Text>
+                <AwaText variant="titleMedium">{t('pregnancyDashboard.daily.title')}</AwaText>
 
                 <Text style={styles.dailySubtitle}>
                   {t('pregnancyDashboard.daily.subtitle')}
@@ -913,19 +866,14 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                 <Text style={styles.dailySubtitle}>
                   {t('pregnancyDashboard.daily.noCategoriesSelected')}
                 </Text>
-                <Pressable
+                <AwaButton
                   accessibilityLabel={t('pregnancyDashboard.daily.chooseTrackingCta')}
-                  accessibilityRole="button"
+                  label={t('pregnancyDashboard.daily.chooseTrackingCta')}
                   onPress={() =>
                     navigation.navigate('PregnancyTrackingPreferences', {mode: 'edit'})
                   }
-                  style={({ pressed }) => [
-                    styles.unconfiguredButton,
-                    pressed && styles.pressed,
-                  ]}
-                >
-                  <Text style={styles.unconfiguredButtonText}>{t('pregnancyDashboard.daily.chooseTrackingCta')}</Text>
-                </Pressable>
+                  style={styles.unconfiguredButton}
+                />
               </View>
             ) : null}
 
@@ -976,14 +924,14 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                     ) : null}
                   </View>
 
-                  <Text numberOfLines={2} style={styles.dailyLabel}>
+                  <Text style={styles.dailyLabel}>
                     {itemLabel}
                   </Text>
                 </Pressable>
                 );
               })}
             </View>
-          </View>
+          </AwaCard>
 
           {/* =======================================================
               ACTIONS RAPIDES
@@ -1069,7 +1017,7 @@ function UnconfiguredPregnancyCard({
   t: (key: string) => string;
 }): React.JSX.Element {
   return (
-    <View style={styles.unconfiguredCard}>
+    <AwaCard padding="default" variant="outlined" style={styles.unconfiguredCard}>
       <View style={styles.unconfiguredIcon}>
         <MaterialDesignIcons
           color={theme.colors.primary}
@@ -1077,24 +1025,17 @@ function UnconfiguredPregnancyCard({
           size={30}
         />
       </View>
-      <Text style={styles.unconfiguredTitle}>{t('pregnancyDashboard.unconfigured.title')}</Text>
-      <Text style={styles.unconfiguredText}>
+      <AwaText variant="titleMedium" style={styles.unconfiguredTitle}>{t('pregnancyDashboard.unconfigured.title')}</AwaText>
+      <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.unconfiguredText}>
         {t('pregnancyDashboard.unconfigured.description')}
-      </Text>
-      <Pressable
+      </AwaText>
+      <AwaButton
         accessibilityLabel={t('pregnancyDashboard.unconfigured.title')}
-        accessibilityRole="button"
+        label={t('pregnancyDashboard.unconfigured.title')}
         onPress={onConfigure}
-        style={({ pressed }) => [
-          styles.unconfiguredButton,
-          pressed && styles.pressed,
-        ]}
-      >
-        <Text style={styles.unconfiguredButtonText}>
-          {t('pregnancyDashboard.unconfigured.title')}
-        </Text>
-      </Pressable>
-    </View>
+        style={styles.unconfiguredButton}
+      />
+    </AwaCard>
   );
 }
 
@@ -1187,41 +1128,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.background,
   },
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
-
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
-
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
-
   safeArea: {
     flex: 1,
   },
@@ -1241,16 +1147,17 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   heroSection: {
     position: 'relative',
-    height: 300,
+    // DESIGN.md: minHeight + in-flow week panel so the hero grows with large fonts / long labels.
+    minHeight: 300,
     marginTop: 12,
   },
 
   heroSectionCompact: {
-    height: 285,
+    minHeight: 285,
   },
 
   heroSectionVeryCompact: {
-    height: 270,
+    minHeight: 270,
   },
 
   /* ==========================================================
@@ -1260,9 +1167,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   weekPanel: {
     ...theme.shadow,
 
-    position: 'absolute',
-    left: 2,
-    top: 25,
+    position: 'relative',
+    marginLeft: 2,
+    marginTop: 25,
     zIndex: 4,
 
     width: '53%',
@@ -1276,7 +1183,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.12),
-    borderRadius: 28,
+    borderRadius: 12,
 
     backgroundColor: withAlpha(theme.colors.surface, 0.95),
 
@@ -1299,14 +1206,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingTop: 14,
     paddingBottom: 13,
 
-    borderRadius: 25,
+    borderRadius: 12,
   },
 
   weekPanelVeryCompact: {
     width: '55%',
     minHeight: 208,
 
-    top: 20,
+    marginTop: 20,
 
     paddingHorizontal: 8,
   },
@@ -1328,7 +1235,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 10,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -1378,7 +1285,6 @@ function createStyles(theme: ResolvedAwaTheme) {
   weekNumber: {
     color: theme.colors.accent,
 
-    fontFamily: 'serif',
     fontSize: 60,
     lineHeight: 64,
     fontWeight: '800',
@@ -1431,7 +1337,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 11,
     paddingVertical: 6,
 
-    borderRadius: 15,
+    borderRadius: 16,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -1439,7 +1345,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   trimesterText: {
     color: theme.colors.primary,
 
-    fontSize: 10.5,
+    fontSize: 11,
     fontWeight: '800',
   },
 
@@ -1489,7 +1395,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 17,
     paddingVertical: 14,
 
-    borderRadius: 23,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.07),
 
@@ -1519,7 +1425,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 11,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -1572,31 +1478,7 @@ function createStyles(theme: ResolvedAwaTheme) {
      J'AI ACCOUCHÉ CTA
   ========================================================== */
 
-  deliveryCta: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'center',
-    gap: 7,
-
-    marginTop: 12,
-    minHeight: 40,
-
-    paddingHorizontal: 16,
-    paddingVertical: 9,
-
-    borderWidth: 1.2,
-    borderColor: withAlpha(theme.colors.primary, 0.20),
-    borderRadius: 20,
-
-    backgroundColor: theme.colors.primarySoft,
-  },
-
-  deliveryCtaText: {
-    color: theme.colors.primary,
-
-    fontSize: 12.5,
-    fontWeight: '700',
-  },
+  deliveryCta: {alignSelf: 'center', marginTop: 12},
 
   /* ==========================================================
      BABY CARD
@@ -1618,7 +1500,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     overflow: 'hidden',
 
-    borderRadius: 25,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.07),
 
@@ -1636,14 +1518,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
 
     zIndex: 3,
-  },
-
-  cardTitle: {
-    color: theme.colors.text,
-
-    fontFamily: 'serif',
-    fontSize: 19,
-    fontWeight: '800',
   },
 
   babyEyebrow: {
@@ -1703,7 +1577,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 24,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -1734,7 +1608,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     padding: 13,
 
-    borderRadius: 22,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.07),
 
@@ -1754,7 +1628,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 17,
+    borderRadius: 16,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -1788,7 +1662,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     color: theme.colors.textSecondary,
 
-    fontSize: 10.5,
+    fontSize: 11,
   },
 
   appointmentMain: {
@@ -1804,19 +1678,7 @@ function createStyles(theme: ResolvedAwaTheme) {
      DAILY
   ========================================================== */
 
-  dailyCard: {
-    ...theme.shadow,
-
-    marginTop: 14,
-
-    padding: 16,
-
-    borderRadius: 24,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.07),
-
-    backgroundColor: theme.colors.surface,
-  },
+  dailyCard: {marginTop: 14},
 
   dailyHeader: {
     flexDirection: 'row',
@@ -1831,7 +1693,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     color: theme.colors.textSecondary,
 
-    fontSize: 10.5,
+    fontSize: 11,
   },
 
   dailyProgress: {
@@ -1892,7 +1754,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 18,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
@@ -1926,8 +1788,8 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     color: theme.colors.textSecondary,
 
-    fontSize: 9.5,
-    lineHeight: 12,
+    fontSize: 11,
+    lineHeight: 16,
 
     textAlign: 'center',
   },
@@ -1946,20 +1808,7 @@ function createStyles(theme: ResolvedAwaTheme) {
      UNCONFIGURED PREGNANCY STATE
   ========================================================== */
 
-  unconfiguredCard: {
-    ...theme.shadow,
-
-    alignItems: 'center',
-
-    marginTop: 12,
-    padding: 22,
-
-    borderRadius: 25,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.10),
-
-    backgroundColor: theme.colors.surface,
-  },
+  unconfiguredCard: {alignItems: 'center', marginTop: 12},
 
   unconfiguredIcon: {
     width: 60,
@@ -1973,51 +1822,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  unconfiguredTitle: {
-    marginTop: 14,
+  unconfiguredTitle: {marginTop: 14, textAlign: 'center'},
 
-    color: theme.colors.text,
+  unconfiguredText: {marginTop: 8, maxWidth: 300, textAlign: 'center'},
 
-    fontFamily: 'serif',
-    fontSize: 18,
-    fontWeight: '800',
+  unconfiguredButton: {marginTop: 16},
 
-    textAlign: 'center',
-  },
-
-  unconfiguredText: {
-    marginTop: 8,
-
-    maxWidth: 300,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 12.5,
-    lineHeight: 18,
-
-    textAlign: 'center',
-  },
-
-  unconfiguredButton: {
-    minHeight: 48,
-
-    marginTop: 16,
-    paddingHorizontal: 22,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 16,
-
-    backgroundColor: theme.colors.primary,
-  },
-
-  unconfiguredButtonText: {
-    color: onPrimaryTextColor(theme),
-
-    fontSize: 14,
-    fontWeight: '700',
-  },
   });
 }
 
