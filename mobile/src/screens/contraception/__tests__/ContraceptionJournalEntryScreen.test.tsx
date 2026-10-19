@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
-import {Text, TextInput} from 'react-native';
+import {StyleSheet, Text, TextInput} from 'react-native';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
@@ -16,7 +16,7 @@ import {
   saveContraceptionJournalField,
 } from '../../../state/contraceptionJournalStore';
 import {lockIntimacy, unlockIntimacy} from '../../../state/privateSectionAuthStore';
-import {setAppLanguage} from '../../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
 import i18n from '../../../i18n';
 
 const STORAGE_KEY = '@hawa/contraception-journal/v1';
@@ -32,7 +32,7 @@ const TEST_METRICS: Metrics = {
 const activeRenderers: ReactTestRenderer.ReactTestRenderer[] = [];
 const todayKey = () => new Date().toLocaleDateString('en-CA');
 
-async function renderJournal(category: 'feelings' | 'notes') {
+async function renderJournal(category: 'feelings' | 'notes' | 'intake') {
   let renderer!: ReactTestRenderer.ReactTestRenderer;
   await act(async () => {
     renderer = ReactTestRenderer.create(
@@ -223,3 +223,85 @@ describe('Contraception journal — Notes du jour (encrypted): add / edit / dele
     expect(hasText(renderer, 'Ajoute une note avant d’enregistrer.')).toBe(true);
   });
 });
+
+describe('Contraception journal — "Prise du jour" status options', () => {
+  const STATUSES = [
+    {status: 'taken', label: 'Effectuée', color: '#42A66A', icon: 'check-bold'},
+    {status: 'late', label: 'En retard', color: '#C77B2E', icon: 'clock-alert-outline'},
+    {status: 'missed', label: 'Oubliée', color: '#D96176', icon: 'alert-outline'},
+  ] as const;
+
+  const radio = (renderer: ReactTestRenderer.ReactTestRenderer, label: string) =>
+    renderer.root.findAll(node => node.props.accessibilityRole === 'radio' && node.props.accessibilityLabel === label)[0];
+
+  it.each(STATUSES)('$status: the icon holder is a round 40 dp circle and, selected, a soft tint with a coloured glyph (not a solid fill with a white glyph)', async ({label, color, icon}) => {
+    const renderer = await renderJournal('intake');
+    const option = radio(renderer, label);
+    expect(option).toBeDefined();
+    await act(async () => {
+      option.props.onPress();
+    });
+    const selected = radio(renderer, label);
+    expect(selected.props.accessibilityState.checked).toBe(true);
+
+    const glyph = selected.findAll(node => node.props.name === icon)[0];
+    expect(glyph.props.size).toBe(18);
+    expect(glyph.props.color).toBe(color); // never the white glyph of the old solid fill
+    const holder = glyph.parent!;
+    const style = StyleSheet.flatten(holder.props.style) as {width: number; height: number; borderRadius: number; backgroundColor: string};
+    expect([style.width, style.height, style.borderRadius]).toEqual([40, 40, 20]);
+    expect(style.backgroundColor).toMatch(/^rgba\(/); // translucent tint of the status colour, not the solid colour
+    expect(style.backgroundColor).not.toBe(color);
+  });
+
+  it('selection stays exclusive and unchanged: one option checked at a time', async () => {
+    const renderer = await renderJournal('intake');
+    for (const {label} of STATUSES) {
+      await act(async () => {
+        radio(renderer, label).props.onPress();
+      });
+      const checked = STATUSES.filter(({label: other}) => radio(renderer, other).props.accessibilityState.checked === true);
+      expect(checked.map(item => item.label)).toEqual([label]);
+    }
+  });
+});
+
+describe('Contraception journal — "Prise du jour": the selected card is one flat, opaque surface', () => {
+  const OPTIONS = ['Effectuée', 'En retard', 'Oubliée'];
+  const PALETTES = ['awa-original', 'lavender-night', 'rose-quartz', 'sage-serenity', 'ocean-calm', 'warm-sand'] as const;
+  const MODES = [
+    {name: 'light', mode: 'light' as const, trueBlack: false},
+    {name: 'dark', mode: 'dark' as const, trueBlack: false},
+    {name: 'true black', mode: 'dark' as const, trueBlack: true},
+  ];
+
+  afterEach(async () => {
+    await setSelectedThemeId('awa-original');
+    await setAppearanceMode('light');
+    await setTrueBlackEnabled(false);
+  });
+
+  // A translucent fill carrying an elevation / shadow shows the shadow through it on Android (a dark rectangle behind the
+  // text); the selected card therefore has an opaque fill and no shadow.
+  it.each(MODES.flatMap(mode => PALETTES.map(palette => ({...mode, palette}))))(
+    '$name / $palette: Effectuée, En retard and Oubliée selected have an opaque background and no shadow or elevation',
+    async ({mode, trueBlack, palette}) => {
+      await setSelectedThemeId(palette);
+      await setAppearanceMode(mode);
+      await setTrueBlackEnabled(trueBlack);
+      const renderer = await renderJournal('intake');
+      for (const label of OPTIONS) {
+        await act(async () => {
+          renderer.root.findAll(node => node.props.accessibilityRole === 'radio' && node.props.accessibilityLabel === label)[0].props.onPress();
+        });
+        const option = renderer.root.findAll(node => node.props.accessibilityRole === 'radio' && node.props.accessibilityLabel === label && typeof node.type === 'string')[0];
+        expect(option.props.accessibilityState.checked).toBe(true);
+        const style = StyleSheet.flatten(option.props.style) as {backgroundColor: string; elevation?: number; shadowOpacity?: number};
+        expect(style.backgroundColor).toMatch(/^#[0-9A-Fa-f]{6}$/); // opaque (not rgba), whatever the mode
+        expect(style.elevation ?? 0).toBe(0);
+        expect(style.shadowOpacity ?? 0).toBe(0);
+      }
+    },
+  );
+});
+

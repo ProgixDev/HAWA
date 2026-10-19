@@ -221,3 +221,18 @@ describe('ContraceptionDashboard — spiritual quick actions follow the spiritua
     expect(source).not.toMatch(/quickActionItems\s*\.\s*filter\(/);
   });
 });
+
+describe('ContraceptionDashboard — pill hero without the small capsule illustration', () => {
+  it('the pill hero title row no longer draws the 31 dp capsule image (the rest of the hero is unchanged)', async () => {
+    await setContraceptionPreferences({method: 'pill', remindersEnabled: false});
+    const renderer = await renderDashboard();
+    expect(renderer.root.findAll(node => {
+      const style = flattenStyle(node.props?.style);
+      return style.width === 31 && style.height === 31;
+    })).toHaveLength(0);
+    // The pack progress ring and the three intake actions of the hero are still there.
+    const labels = renderer.root.findAll(node => typeof node.props.accessibilityLabel === 'string').map(node => node.props.accessibilityLabel);
+    ['taken', 'late', 'missed'].forEach(status => expect(labels).toContain(i18n.t(`contraceptionLabels.heroActionLabels.pill.${status}`)));
+  });
+});
+

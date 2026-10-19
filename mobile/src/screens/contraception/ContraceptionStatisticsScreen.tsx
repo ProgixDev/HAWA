@@ -21,7 +21,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {onPrimaryTextColor, type ResolvedAwaTheme, softTone} from '../../theme/awaThemeTokens';
 import {getFloatingTabBarClearance} from '../../theme/spacing';
 
 import {usePremium} from '../../hooks/usePremium';
@@ -72,6 +72,8 @@ import {
   diffDays,
   formatFullDate,
 } from '../../utils/cycleMath';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaText} from '../../components/ui/AwaText';
 
 // PHASE E5 — PURPLE/PURPLE_DARK/PURPLE_SOFT/MUTED/BORDER used to be fixed
 // homeColors-derived literals here; they are now derived from useAwaTheme()
@@ -580,29 +582,6 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
       style={
         styles.background
       }>
-      <View
-        pointerEvents="none"
-        style={
-          styles.pageBackgroundDecor
-        }>
-        <View
-          style={
-            styles.pageGlowTop
-          }
-        />
-
-        <View
-          style={
-            styles.pageGlowMiddle
-          }
-        />
-
-        <View
-          style={
-            styles.pageGlowBottom
-          }
-        />
-      </View>
 
       <SafeAreaView
         style={
@@ -636,19 +615,19 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
             style={
               styles.header
             }>
-            <Text
+            <AwaText variant="headlineSmall"
               style={
                 styles.title
               }>
               {t('contraceptionStatistics.header.title')}
-            </Text>
+            </AwaText>
 
-            <Text
+            <AwaText variant="bodySmall"
               style={
                 styles.subtitle
               }>
               {t('contraceptionStatistics.header.subtitle')}
-            </Text>
+            </AwaText>
           </View>
 
           {isIntakeMethod ? (
@@ -735,10 +714,10 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
               </View>
 
               {!hasAnyIntakeRecord ? (
-                <View
-                  style={
-                    styles.card
-                  }>
+                <AwaCard
+                  padding="none"
+                  variant="filled"
+                  style={styles.card}>
                   <View
                     style={
                       styles.emptyIcon
@@ -754,34 +733,34 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                     />
                   </View>
 
-                  <Text
+                  <AwaText variant="titleSmall"
                     style={
                       styles.emptyTitle
                     }>
                     {t('contraceptionStatistics.empty.title')}
-                  </Text>
+                  </AwaText>
 
-                  <Text
+                  <AwaText variant="bodySmall"
                     style={
                       styles.emptyText
                     }>
                     {t('contraceptionStatistics.empty.text')}
-                  </Text>
-                </View>
+                  </AwaText>
+                </AwaCard>
               ) : (
                 <>
                   {/* HERO */}
 
-                  <View
-                    style={
-                      styles.card
-                    }>
-                    <Text
+                  <AwaCard
+                    padding="none"
+                    variant="filled"
+                    style={styles.card}>
+                    <AwaText variant="labelSmall"
                       style={
                         styles.heroEyebrow
                       }>
                       {displayUpperCase(t('contraceptionStatistics.hero.eyebrow'))}
-                    </Text>
+                    </AwaText>
 
                     {summary.regularityPercent !==
                     null ? (
@@ -796,26 +775,26 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                           %
                         </Text>
 
-                        <Text
+                        <AwaText variant="labelMedium"
                           style={
                             styles.heroPercentLabel
                           }>
                           {t('contraceptionStatistics.hero.regularityLabel')}
-                        </Text>
+                        </AwaText>
                       </>
                     ) : (
-                      <Text
+                      <AwaText variant="titleSmall"
                         style={
                           styles.heroNeutral
                         }>
                         {t('contraceptionStatistics.hero.neutral')}
-                      </Text>
+                      </AwaText>
                     )}
 
                     {summary.regularityPercent !== null ? (
-                      <Text style={styles.regularityDisclaimer}>
+                      <AwaText variant="bodySmall" style={styles.regularityDisclaimer}>
                         {t('contraceptionStatistics.hero.disclaimer')}
-                      </Text>
+                      </AwaText>
                     ) : null}
 
                     <View
@@ -836,20 +815,20 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                           ]}
                         />
 
-                        <Text
+                        <AwaText variant="labelMedium"
                           style={
                             styles.heroCountText
                           }>
                           {t('contraceptionStatistics.hero.takenCount', {count: summary.taken})}
-                        </Text>
+                        </AwaText>
                       </View>
 
                       <View style={styles.heroCountItem}>
                         <View style={[styles.heroCountDot, {backgroundColor: WARNING}]} />
 
-                        <Text style={styles.heroCountText}>
+                        <AwaText variant="labelMedium" style={styles.heroCountText}>
                           {t('contraceptionStatistics.hero.lateCount', {count: summary.late})}
-                        </Text>
+                        </AwaText>
                       </View>
 
                       <View
@@ -866,42 +845,42 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                           ]}
                         />
 
-                        <Text
+                        <AwaText variant="labelMedium"
                           style={
                             styles.heroCountText
                           }>
                           {t('contraceptionStatistics.hero.missedCount', {count: summary.missed})}
-                        </Text>
+                        </AwaText>
                       </View>
                     </View>
-                  </View>
+                  </AwaCard>
 
                   {!hasDataInPeriod ? (
-                    <View
-                      style={
-                        styles.card
-                      }>
-                      <Text
+                    <AwaCard
+                      padding="none"
+                      variant="filled"
+                      style={styles.card}>
+                      <AwaText variant="bodySmall"
                         style={
                           styles.emptyText
                         }>
                         {t('contraceptionStatistics.noDataInPeriod')}
-                      </Text>
-                    </View>
+                      </AwaText>
+                    </AwaCard>
                   ) : (
                     <>
                       {/* RÉPARTITION */}
 
-                      <View
-                        style={
-                          styles.card
-                        }>
-                        <Text
+                      <AwaCard
+                        padding="none"
+                        variant="filled"
+                        style={styles.card}>
+                        <AwaText variant="titleSmall"
                           style={
                             styles.sectionTitle
                           }>
                           {t('contraceptionStatistics.distribution.title')}
-                        </Text>
+                        </AwaText>
 
                         <DistributionBar
                           color={
@@ -935,24 +914,24 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                             summary.missed
                           }
                         />
-                      </View>
+                      </AwaCard>
 
                       {/* ÉVOLUTION */}
 
                       {buckets.length >
                       0 ? (
-                        <View
-                          style={
-                            styles.card
-                          }>
-                          <Text
+                        <AwaCard
+                          padding="none"
+                          variant="filled"
+                          style={styles.card}>
+                          <AwaText variant="titleSmall"
                             style={
                               styles.sectionTitle
                             }>
                             {t('contraceptionStatistics.evolution.title')}
-                          </Text>
+                          </AwaText>
 
-                          <Text
+                          <AwaText variant="bodySmall"
                             style={
                               styles.sectionSubtitle
                             }>
@@ -960,7 +939,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                             1
                               ? t('contraceptionStatistics.evolution.byWeek')
                               : t('contraceptionStatistics.evolution.byMonth')}
-                          </Text>
+                          </AwaText>
 
                           <View
                             style={
@@ -1003,17 +982,17 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                               label={t('contraceptionStatistics.evolution.missedLegend')}
                             />
                           </View>
-                        </View>
+                        </AwaCard>
                       ) : null}
 
                       {/* STREAK */}
 
                       {bestStreak >
                       0 ? (
-                        <View
-                          style={
-                            styles.card
-                          }>
+                        <AwaCard
+                          padding="none"
+                          variant="filled"
+                          style={styles.card}>
                           <View
                             style={
                               styles.streakRow
@@ -1037,22 +1016,22 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                               style={
                                 styles.streakTextGroup
                               }>
-                              <Text
+                              <AwaText variant="labelSmall"
                                 style={
                                   styles.streakLabel
                                 }>
                                 {t('contraceptionStatistics.streak.label')}
-                              </Text>
+                              </AwaText>
 
-                              <Text
+                              <AwaText variant="labelMedium"
                                 style={
                                   styles.streakValue
                                 }>
                                 {t('contraceptionStatistics.streak.value', {count: bestStreak})}
-                              </Text>
+                              </AwaText>
                             </View>
                           </View>
-                        </View>
+                        </AwaCard>
                       ) : null}
                     </>
                   )}
@@ -1063,16 +1042,16 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
             <>
               {/* RING / PATCH / NO METHOD CHOSEN */}
 
-              <View
-                style={
-                  styles.card
-                }>
-                <Text
+              <AwaCard
+                padding="none"
+                variant="filled"
+                style={styles.card}>
+                <AwaText variant="titleSmall"
                   style={
                     styles.sectionTitle
                   }>
                   {t('contraceptionStatistics.tracking.title')}
-                </Text>
+                </AwaText>
 
                 <View
                   style={
@@ -1098,14 +1077,14 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                     style={
                       styles.selectedRowTextGroup
                     }>
-                    <Text
+                    <AwaText variant="labelSmall"
                       style={
                         styles.selectedRowLabel
                       }>
                       {t('contraceptionStatistics.tracking.durationLabel')}
-                    </Text>
+                    </AwaText>
 
-                    <Text
+                    <AwaText variant="labelMedium"
                       style={
                         styles.selectedRowValue
                       }>
@@ -1113,10 +1092,10 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                       null
                         ? t('contraceptionStatistics.tracking.durationValue', {count: trackingDurationDays})
                         : t('contraceptionStatistics.tracking.durationNotProvided')}
-                    </Text>
+                    </AwaText>
                   </View>
                 </View>
-              </View>
+              </AwaCard>
 
               {isEventMethod ? (
                 <>
@@ -1152,8 +1131,8 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                   </View>
 
                   {hasAnyEventInPeriod ? (
-                    <View style={styles.card}>
-                      <Text style={styles.sectionTitle}>{t('contraceptionStatistics.events.title')}</Text>
+                    <AwaCard padding="none" variant="filled" style={styles.card}>
+                      <AwaText variant="titleSmall" style={styles.sectionTitle}>{t('contraceptionStatistics.events.title')}</AwaText>
 
                       {methodEventTypes.map(type => {
                         const count = eventCounts[type] ?? 0;
@@ -1167,28 +1146,28 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                           />
                         ) : null;
                       })}
-                    </View>
+                    </AwaCard>
                   ) : (
-                    <View style={styles.card}>
+                    <AwaCard padding="none" variant="filled" style={styles.card}>
                       <View style={styles.emptyIcon}>
                         <MaterialDesignIcons color={PURPLE} name="chart-donut" size={26} />
                       </View>
 
-                      <Text style={styles.emptyTitle}>{t('contraceptionStatistics.events.emptyTitle')}</Text>
+                      <AwaText variant="titleSmall" style={styles.emptyTitle}>{t('contraceptionStatistics.events.emptyTitle')}</AwaText>
 
-                      <Text style={styles.emptyText}>
+                      <AwaText variant="bodySmall" style={styles.emptyText}>
                         {t('contraceptionStatistics.events.emptyText', {
                           types: methodEventTypes.map(type => lowerCaseFor(contraceptionEventLabels(t)[type])).join(', '),
                         })}
-                      </Text>
-                    </View>
+                      </AwaText>
+                    </AwaCard>
                   )}
                 </>
               ) : (
-                <View
-                  style={
-                    styles.card
-                  }>
+                <AwaCard
+                  padding="none"
+                  variant="filled"
+                  style={styles.card}>
                   <View
                     style={
                       styles.emptyIcon
@@ -1204,36 +1183,36 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                     />
                   </View>
 
-                  <Text
+                  <AwaText variant="titleSmall"
                     style={
                       styles.emptyTitle
                     }>
                     {t('contraceptionStatistics.noMethod.title')}
-                  </Text>
+                  </AwaText>
 
-                  <Text
+                  <AwaText variant="bodySmall"
                     style={
                       styles.emptyText
                     }>
                     {t('contraceptionStatistics.noMethod.text')}
-                  </Text>
-                </View>
+                  </AwaText>
+                </AwaCard>
               )}
             </>
           )}
 
           {/* MA MÉTHODE */}
 
-          <View
-            style={
-              styles.card
-            }>
-            <Text
+          <AwaCard
+            padding="none"
+            variant="filled"
+            style={styles.card}>
+            <AwaText variant="titleSmall"
               style={
                 styles.sectionTitle
               }>
               {t('contraceptionStatistics.method.title')}
-            </Text>
+            </AwaText>
 
             <View
               style={
@@ -1261,16 +1240,16 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                 style={
                   styles.selectedRowTextGroup
                 }>
-                <Text
+                <AwaText variant="labelMedium"
                   style={
                     styles.selectedRowValue
                   }>
                   {
                     methodLabel
                   }
-                </Text>
+                </AwaText>
 
-                <Text
+                <AwaText variant="labelSmall"
                   style={
                     styles.selectedRowLabel
                   }>
@@ -1283,7 +1262,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                         ),
                       })
                     : t('contraceptionStatistics.method.startNotProvided')}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -1320,14 +1299,14 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                 style={
                   styles.selectedRowTextGroup
                 }>
-                <Text
+                <AwaText variant="labelSmall"
                   style={
                     styles.selectedRowLabel
                   }>
                   {t('contraceptionStatistics.method.remindersLabel')}
-                </Text>
+                </AwaText>
 
-                <Text
+                <AwaText variant="labelMedium"
                   style={
                     styles.selectedRowValue
                   }>
@@ -1336,10 +1315,10 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                     : reminderIndicator === 'unavailable'
                       ? t('contraceptionStatistics.method.remindersUnavailable')
                       : t('contraceptionStatistics.method.remindersDisabled')}
-                </Text>
+                </AwaText>
               </View>
             </View>
-          </View>
+          </AwaCard>
         </ScrollView>
       </SafeAreaView>
 
@@ -1390,14 +1369,14 @@ function DistributionBar({
         style={
           styles.distributionHeader
         }>
-        <Text
+        <AwaText variant="labelMedium"
           style={
             styles.distributionLabel
           }>
           {label}
-        </Text>
+        </AwaText>
 
-        <Text
+        <AwaText variant="labelMedium"
           style={[
             styles.distributionValue,
             {
@@ -1405,7 +1384,7 @@ function DistributionBar({
             },
           ]}>
           {value}
-        </Text>
+        </AwaText>
       </View>
 
       <View
@@ -1511,7 +1490,7 @@ function TrendColumn({
         />
       </View>
 
-      <Text
+      <AwaText variant="labelSmall"
         numberOfLines={
           1
         }
@@ -1521,7 +1500,7 @@ function TrendColumn({
         {
           bucket.label
         }
-      </Text>
+      </AwaText>
     </View>
   );
 }
@@ -1551,12 +1530,12 @@ function LegendDot({
         ]}
       />
 
-      <Text
+      <AwaText variant="bodySmall"
         style={
           styles.legendText
         }>
         {label}
-      </Text>
+      </AwaText>
     </View>
   );
 }
@@ -1574,43 +1553,9 @@ function createStyles(theme: ResolvedAwaTheme) {
         theme.colors.background,
     },
 
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
 
-    pageGlowTop: {
-      position: 'absolute',
-      top: -150,
-      right: -110,
-      width: 330,
-      height: 330,
-      borderRadius: 165,
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.07),
-    },
 
-    pageGlowMiddle: {
-      position: 'absolute',
-      top: '38%',
-      left: -130,
-      width: 260,
-      height: 260,
-      borderRadius: 130,
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.045),
-    },
 
-    pageGlowBottom: {
-      position: 'absolute',
-      bottom: -150,
-      right: -100,
-      width: 310,
-      height: 310,
-      borderRadius: 155,
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.05),
-    },
 
     safeArea: {
       flex: 1,
@@ -1630,48 +1575,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginBottom: 6,
     },
 
-    title: {
-      color:
-        PURPLE_DARK,
+    title: {color: PURPLE_DARK},
 
-      fontFamily:
-        'serif',
+    subtitle: {marginTop: 5, color: MUTED},
 
-      fontSize: 23,
-
-      fontWeight:
-        '800',
-    },
-
-    subtitle: {
-      marginTop: 5,
-
-      color:
-        MUTED,
-
-      fontSize:
-        12.5,
-
-      lineHeight: 18,
-    },
-
-    card: {
-      marginTop: 16,
-
-      padding: 16,
-
-      borderWidth: 1,
-
-      borderColor:
-        withAlpha(theme.colors.primary, 0.14),
-
-      borderRadius: 24,
-
-      backgroundColor:
-        withAlpha(theme.colors.surface, 0.98),
-
-      ...theme.shadow,
-    },
+    card: {marginTop: 16, padding: 16},
 
     periodRow: {
       flexDirection:
@@ -1683,7 +1591,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       padding: 4,
 
-      borderRadius: 18,
+      borderRadius: 12,
 
       backgroundColor:
         PURPLE_SOFT,
@@ -1692,7 +1600,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     periodButton: {
       flex: 1,
 
-      minHeight: 38,
+      minHeight: 44,
 
       alignItems:
         'center',
@@ -1700,7 +1608,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 14,
+      borderRadius: 12,
     },
 
     periodButtonActive: {
@@ -1748,66 +1656,23 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       marginBottom: 10,
 
-      borderRadius: 18,
+      borderRadius: 12,
 
       backgroundColor:
         PURPLE_SOFT,
     },
 
-    emptyTitle: {
-      color:
-        PURPLE_DARK,
+    emptyTitle: {color: PURPLE_DARK, textAlign: 'center'},
 
-      fontFamily:
-        'serif',
+    emptyText: {marginTop: 6, color: MUTED, textAlign: 'center'},
 
-      fontSize: 15,
-
-      fontWeight:
-        '800',
-
-      textAlign:
-        'center',
-    },
-
-    emptyText: {
-      marginTop: 6,
-
-      color:
-        MUTED,
-
-      fontSize: 12,
-
-      lineHeight: 17,
-
-      textAlign:
-        'center',
-    },
-
-    heroEyebrow: {
-      color:
-        MUTED,
-
-      fontSize: 11,
-
-      fontWeight:
-        '700',
-
-      textAlign:
-        'center',
-
-      textTransform:
-        'uppercase',
-    },
+    heroEyebrow: {color: MUTED, textAlign: 'center', textTransform: 'uppercase'},
 
     heroPercent: {
       marginTop: 6,
 
       color:
         PURPLE_DARK,
-
-      fontFamily:
-        'serif',
 
       fontSize: 40,
 
@@ -1818,46 +1683,11 @@ function createStyles(theme: ResolvedAwaTheme) {
         'center',
     },
 
-    heroPercentLabel: {
-      marginTop: 2,
+    heroPercentLabel: {marginTop: 2, color: PURPLE, textAlign: 'center'},
 
-      color:
-        PURPLE,
+    heroNeutral: {marginTop: 12, marginBottom: 2, color: PURPLE_DARK, textAlign: 'center'},
 
-      fontSize:
-        12.5,
-
-      fontWeight:
-        '700',
-
-      textAlign:
-        'center',
-    },
-
-    heroNeutral: {
-      marginTop: 12,
-      marginBottom: 2,
-
-      color:
-        PURPLE_DARK,
-
-      fontSize: 14,
-
-      fontWeight:
-        '700',
-
-      textAlign:
-        'center',
-    },
-
-    regularityDisclaimer: {
-      marginTop: 6,
-      color: MUTED,
-      fontSize: 9.5,
-      lineHeight: 13,
-      fontStyle: 'italic',
-      textAlign: 'center',
-    },
+    regularityDisclaimer: {marginTop: 6, color: MUTED, fontStyle: 'italic', textAlign: 'center'},
 
     heroCountsRow: {
       flexDirection:
@@ -1891,39 +1721,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderRadius: 4,
     },
 
-    heroCountText: {
-      color:
-        PURPLE_DARK,
+    heroCountText: {color: PURPLE_DARK},
 
-      fontSize: 12,
+    sectionTitle: {color: PURPLE_DARK},
 
-      fontWeight:
-        '700',
-    },
-
-    sectionTitle: {
-      color:
-        PURPLE_DARK,
-
-      fontFamily:
-        'serif',
-
-      fontSize:
-        15.5,
-
-      fontWeight:
-        '800',
-    },
-
-    sectionSubtitle: {
-      marginTop: 2,
-
-      color:
-        MUTED,
-
-      fontSize:
-        10.5,
-    },
+    sectionSubtitle: {marginTop: 2, color: MUTED},
 
     distributionRow: {
       marginTop: 14,
@@ -1940,28 +1742,9 @@ function createStyles(theme: ResolvedAwaTheme) {
         'space-between',
     },
 
-    distributionLabel: {
-      flex: 1,
+    distributionLabel: {flex: 1, minWidth: 0, color: PURPLE_DARK},
 
-      minWidth: 0,
-
-      color:
-        PURPLE_DARK,
-
-      fontSize: 12,
-
-      fontWeight:
-        '700',
-    },
-
-    distributionValue: {
-      marginLeft: 8,
-
-      fontSize: 13,
-
-      fontWeight:
-        '900',
-    },
+    distributionValue: {marginLeft: 8},
 
     distributionTrack: {
       height: 8,
@@ -2028,21 +1811,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderRadius: 4,
     },
 
-    trendColumnLabel: {
-      marginTop: 6,
-
-      color:
-        MUTED,
-
-      fontSize:
-        8.5,
-
-      fontWeight:
-        '600',
-
-      textAlign:
-        'center',
-    },
+    trendColumnLabel: {marginTop: 6, color: MUTED, textAlign: 'center'},
 
     trendLegend: {
       flexDirection:
@@ -2073,13 +1842,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderRadius: 4,
     },
 
-    legendText: {
-      color:
-        MUTED,
-
-      fontSize:
-        10.5,
-    },
+    legendText: {color: MUTED},
 
     streakRow: {
       flexDirection:
@@ -2101,7 +1864,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent:
         'center',
 
-      borderRadius: 15,
+      borderRadius: 16,
 
       backgroundColor:
         PURPLE_SOFT,
@@ -2113,29 +1876,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       minWidth: 0,
     },
 
-    streakLabel: {
-      color:
-        MUTED,
+    streakLabel: {color: MUTED},
 
-      fontSize:
-        10.5,
-
-      fontWeight:
-        '700',
-    },
-
-    streakValue: {
-      marginTop: 2,
-
-      color:
-        PURPLE_DARK,
-
-      fontSize:
-        13.5,
-
-      fontWeight:
-        '800',
-    },
+    streakValue: {marginTop: 2, color: PURPLE_DARK},
 
     selectedRow: {
       flexDirection:
@@ -2173,7 +1916,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     selectedRowIconGreen: {
       backgroundColor:
-        SUCCESS_SOFT,
+        softTone(theme, SUCCESS_SOFT, SUCCESS),
     },
 
     selectedRowIconMuted: {
@@ -2187,31 +1930,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       minWidth: 0,
     },
 
-    selectedRowLabel: {
-      color:
-        MUTED,
+    selectedRowLabel: {color: MUTED},
 
-      fontSize:
-        10.5,
-
-      fontWeight:
-        '700',
-    },
-
-    selectedRowValue: {
-      marginTop: 2,
-
-      color:
-        PURPLE_DARK,
-
-      fontSize:
-        12.5,
-
-      lineHeight: 17,
-
-      fontWeight:
-        '800',
-    },
+    selectedRowValue: {marginTop: 2, color: PURPLE_DARK},
 
     pressed: {
       opacity:

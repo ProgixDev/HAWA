@@ -5,7 +5,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -26,6 +25,9 @@ import {
 import {contraceptionMethodLabels} from '../../config/contraceptionLabels';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ContraceptionMethod'>;
 
@@ -148,11 +150,6 @@ function ContraceptionMethodScreen({navigation, route}: Props): React.JSX.Elemen
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} hidden={false} translucent />
@@ -164,33 +161,21 @@ function ContraceptionMethodScreen({navigation, route}: Props): React.JSX.Elemen
           ]}
           showsVerticalScrollIndicator={false}>
           {isEdit ? (
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={12}
               onPress={navigation.goBack}
-              style={({pressed}) => [styles.backButton, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
-            </Pressable>
+              icon="arrow-left"
+              style={styles.backButton}
+            />
           ) : null}
 
           <View style={styles.header}>
-            <View style={styles.heroIcon}>
-              <View pointerEvents="none" style={styles.heroGlowOuter} />
-              <View pointerEvents="none" style={styles.heroGlowInner} />
-              <LinearGradient
-                colors={[theme.colors.surface, theme.colors.primarySoft]}
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 1}}
-                style={styles.heroInner}>
-                <MaterialDesignIcons color={theme.colors.primary} name="pill" size={34} />
-              </LinearGradient>
-            </View>
-
-            <Text style={styles.title}>{t('contraceptionMethod.title')}</Text>
-            <Text style={styles.subtitle}>
+            <AwaText variant="headlineSmall" style={styles.title}>{t('contraceptionMethod.title')}</AwaText>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>
               {t('contraceptionMethod.subtitle')}
-            </Text>
+            </AwaText>
           </View>
 
           <View style={styles.list}>
@@ -221,8 +206,8 @@ function ContraceptionMethodScreen({navigation, route}: Props): React.JSX.Elemen
                   </View>
 
                   <View style={styles.cardCopy}>
-                    <Text style={styles.cardLabel}>{option.label}</Text>
-                    <Text style={styles.cardDescription}>{option.description}</Text>
+                    <AwaText variant="titleSmall">{option.label}</AwaText>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardDescription}>{option.description}</AwaText>
                   </View>
 
                   {selected ? (
@@ -235,20 +220,15 @@ function ContraceptionMethodScreen({navigation, route}: Props): React.JSX.Elemen
             })}
           </View>
 
-          <Pressable
+          <AwaButton
             accessibilityRole="button"
             accessibilityState={{disabled: !method}}
             disabled={!method || saving}
             onPress={handleNext}
-            style={({pressed}) => [
-              styles.nextButton,
-              (!method || saving) && styles.nextButtonDisabled,
-              pressed && method && styles.pressed,
-            ]}>
-            <Text style={styles.nextText}>
-              {saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('common.continue')}
-            </Text>
-          </Pressable>
+            label={saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('common.continue')}
+            size="large"
+            style={styles.nextButton}
+          />
         </ScrollView>
       </View>
     </LinearGradient>
@@ -259,57 +239,23 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     background: {flex: 1, backgroundColor: theme.colors.background},
 
-    pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
 
-    pageGlowTop: {
-      position: 'absolute', top: -150, right: -110, width: 330, height: 330,
-      borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
-    pageGlowMiddle: {
-      position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
-      borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
-    pageGlowBottom: {
-      position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
-      borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
 
     safeArea: {flex: 1},
     content: {flexGrow: 1, paddingHorizontal: spacing.lg, paddingBottom: spacing.md},
     pressed: {opacity: 0.82},
 
-    backButton: {
-      width: 42, height: 42, alignItems: 'center', justifyContent: 'center',
-      marginBottom: 5, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08),
-      borderRadius: 16, backgroundColor: withAlpha(theme.colors.surface, 0.88),
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
-    },
+    backButton: {marginBottom: 5},
 
     header: {alignItems: 'center', marginBottom: 18},
-    heroIcon: {
-      position: 'relative', width: 76, height: 76,
-      alignItems: 'center', justifyContent: 'center', marginBottom: 12,
-    },
-    heroGlowOuter: {position: 'absolute', width: 82, height: 82, borderRadius: 41, backgroundColor: withAlpha(theme.colors.primary, 0.055)},
-    heroGlowInner: {position: 'absolute', width: 70, height: 70, borderRadius: 35, backgroundColor: withAlpha(theme.colors.primary, 0.07)},
-    heroInner: {
-      width: 58, height: 58, alignItems: 'center', justifyContent: 'center',
-      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.10, shadowRadius: 12, elevation: 4,
-    },
 
-    title: {
-      color: theme.colors.text, fontFamily: 'serif', fontSize: 25, lineHeight: 31,
-      fontWeight: '800', textAlign: 'center',
-    },
-    subtitle: {
-      maxWidth: 320, marginTop: 8, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19, textAlign: 'center',
-    },
+    title: {textAlign: 'center'},
+    subtitle: {maxWidth: 320, marginTop: 8, textAlign: 'center'},
 
     list: {gap: 10},
     card: {
-      padding: 13, flexDirection: 'row', alignItems: 'center',
-      borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.12), borderRadius: 20,
+      padding: 16, flexDirection: 'row', alignItems: 'center',
+      borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.12), borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.88),
       shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.045, shadowRadius: 10, elevation: 1,
     },
@@ -318,31 +264,24 @@ function createStyles(theme: ResolvedAwaTheme) {
       shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.10, shadowRadius: 12, elevation: 3,
     },
     radio: {
-      width: 21, height: 21, alignItems: 'center', justifyContent: 'center',
+      width: 21, height: 21, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
       borderWidth: 1.8, borderColor: withAlpha(theme.colors.primary, 0.35), borderRadius: 11, backgroundColor: theme.colors.surface,
     },
     radioSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
     radioDot: {width: 10, height: 10, borderRadius: 5, backgroundColor: theme.colors.primary},
     iconBox: {
-      width: 40, height: 40, marginHorizontal: 10, alignItems: 'center', justifyContent: 'center',
-      borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 13, backgroundColor: theme.colors.primarySoft,
+      width: 40, height: 40, flexShrink: 0, marginHorizontal: 10, alignItems: 'center', justifyContent: 'center',
+      borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 12, backgroundColor: theme.colors.primarySoft,
     },
     iconBoxSelected: {borderColor: theme.colors.border, backgroundColor: theme.colors.primarySoft},
     cardCopy: {flex: 1, minWidth: 0, paddingTop: 1},
-    cardLabel: {color: theme.colors.text, fontSize: 14, lineHeight: 19, fontWeight: '800'},
-    cardDescription: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 15},
+    cardDescription: {marginTop: 3},
     selectedCheck: {
       width: 24, height: 24, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
       marginLeft: 7, borderRadius: 12, backgroundColor: theme.colors.primary,
     },
 
-    nextButton: {
-      minHeight: 54, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-      gap: 8, marginTop: 20, borderRadius: 20, backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 7}, shadowOpacity: 0.25, shadowRadius: 12, elevation: 6,
-    },
-    nextButtonDisabled: {opacity: 0.5, elevation: 0, shadowOpacity: 0},
-    nextText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '800', letterSpacing: 0.2},
+    nextButton: {marginTop: 20},
   });
 }
 
