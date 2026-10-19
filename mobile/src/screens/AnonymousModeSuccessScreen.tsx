@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useRef} from 'react';
-import {Animated, Easing, Image, Pressable, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {Animated, Easing, Image, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -7,7 +7,11 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import type {ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaText} from '../components/ui/AwaText';
+import {setHasCompletedOnboarding} from '../state/onboardingPreferences';
 
 const HERO = require('../assets/images/privacy/anonymous-mode-woman.png');
 
@@ -64,10 +68,14 @@ export default function AnonymousModeSuccessScreen({navigation, route}: Props): 
 
   const finish = () => {
     if (fromAuth) {
-      // Fresh setup from AuthScreen — next step is choosing the anonymous
-      // avatar, then entering the app. replace() so Success can't be
-      // reached again via back.
-      navigation.replace('AnonymousAvatarCustomizer', {source: 'auth'});
+      // Fresh setup from AuthScreen — enter the app. Anonymous mode has no avatar
+      // choice any more (the anonymous avatar is fixed), so this is where the single
+      // real "onboarding completed" boundary is crossed (see the section comment on
+      // setHasCompletedOnboarding() in onboardingPreferences.ts); it used to be
+      // crossed by the avatar step. Fire-and-forget, never blocks entering the app.
+      // replace() so Success can't be reached again via back.
+      setHasCompletedOnboarding(true).catch(() => {});
+      navigation.replace('MainTabs', {screen: 'CycleHome'});
       return;
     }
     // Stack is [origin, AnonymousMode, AnonymousModeLimitations,
@@ -82,16 +90,12 @@ export default function AnonymousModeSuccessScreen({navigation, route}: Props): 
     <View style={styles.page}>
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
-      <View pointerEvents="none" style={styles.backgroundDecoration}>
-        <View style={styles.blobTopRight} />
-        <View style={styles.blobLeft} />
-        <View style={styles.blobBottom} />
-      </View>
+      
 
       <SafeAreaView edges={['top', 'left', 'right']} style={styles.safe}>
         <View style={styles.header}>
           <View style={styles.headerTitleBlock}>
-            <Text style={styles.headerTitle}>{t('anonymous.success.headerTitle')}</Text>
+            <AwaText accessibilityRole="header" variant="titleMedium">{t('anonymous.success.headerTitle')}</AwaText>
           </View>
         </View>
 
@@ -106,51 +110,42 @@ export default function AnonymousModeSuccessScreen({navigation, route}: Props): 
                 transform: [{scale: heroEntrance.interpolate({inputRange: [0, 1], outputRange: [0.96, 1]})}],
               },
             ]}>
-            <View style={styles.heroHaloOuter}>
-              <View style={styles.heroHaloInner}>
-                <Image accessibilityLabel={t('anonymous.mode.illustrationA11y')} resizeMode="contain" source={HERO} style={styles.heroImage} />
-              </View>
-
-              <View style={styles.successBadge}>
-                <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check-bold" size={17} />
-              </View>
-            </View>
+            <Image accessibilityLabel={t('anonymous.mode.illustrationA11y')} resizeMode="contain" source={HERO} style={styles.heroImage} />
           </Animated.View>
 
           <FadeInUp delay={90} distance={10}>
-            <Text style={styles.title}>{t('anonymous.success.title')}</Text>
-            <Text style={styles.subtitle}>
+            <AwaText style={styles.title} variant="headlineSmall">{t('anonymous.success.title')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">
               {t('anonymous.success.subtitle')}
-            </Text>
+            </AwaText>
           </FadeInUp>
 
           <FadeInUp delay={160}>
-            <View style={styles.card}>
+            <AwaCard style={styles.card} variant="filled">
               <View style={styles.cardHeaderRow}>
                 <View style={styles.cardHeaderIcon}>
                   <MaterialDesignIcons color={theme.colors.primary} name="shield-check-outline" size={20} />
                 </View>
                 <View style={styles.cardHeaderCopy}>
-                  <Text style={styles.cardHeaderTitle}>{t('anonymous.success.cardTitle')}</Text>
-                  <Text style={styles.cardHeaderSubtitle}>
+                  <AwaText variant="titleMedium">{t('anonymous.success.cardTitle')}</AwaText>
+                  <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
                     {t('anonymous.success.cardSubtitle')}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
-            </View>
+            </AwaCard>
           </FadeInUp>
         </ScrollView>
 
         <FadeInUp delay={220} distance={12}>
           <View style={[styles.ctaArea, {paddingBottom: Math.max(insets.bottom, 14)}]}>
-            <Pressable
+            <AwaButton
               accessibilityLabel={fromAuth ? t('anonymous.success.continue') : t('anonymous.success.finish')}
-              accessibilityRole="button"
+              fullWidth
+              label={fromAuth ? t('anonymous.success.continue') : t('anonymous.success.finish')}
               onPress={finish}
-              style={({pressed}) => [styles.primary, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check-circle-outline" size={20} />
-              <Text style={styles.primaryText}>{fromAuth ? t('anonymous.success.continue') : t('anonymous.success.finish')}</Text>
-            </Pressable>
+              size="large"
+            />
           </View>
         </FadeInUp>
       </SafeAreaView>
@@ -163,69 +158,27 @@ function createStyles(theme: ResolvedAwaTheme) {
   page: {flex: 1, backgroundColor: theme.colors.background},
   safe: {flex: 1},
 
-  backgroundDecoration: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
-  blobTopRight: {
-    position: 'absolute', top: -70, right: -60, width: 240, height: 240, borderRadius: 120,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-  blobLeft: {
-    position: 'absolute', top: 230, left: -70, width: 170, height: 170, borderRadius: 85,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
-  blobBottom: {
-    position: 'absolute', bottom: -60, right: -30, width: 200, height: 200, borderRadius: 100,
-    backgroundColor: withAlpha(theme.colors.primary, 0.04),
-  },
 
-  header: {height: 52, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 18},
+  header: {minHeight: 52, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 18},
   headerTitleBlock: {alignItems: 'center'},
-  headerTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
 
   content: {flexGrow: 1, paddingHorizontal: 18, paddingTop: 14},
 
   hero: {alignItems: 'center'},
-  heroHaloOuter: {
-    width: 150, height: 150, alignItems: 'center', justifyContent: 'center', borderRadius: 75, backgroundColor: theme.colors.primarySoft,
-  },
-  heroHaloInner: {
-    width: 118, height: 118, alignItems: 'center', justifyContent: 'center', borderRadius: 59, backgroundColor: theme.colors.surface, overflow: 'hidden',
-    shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
-  },
   heroImage: {width: 118, height: 118},
-  successBadge: {
-    position: 'absolute', bottom: 4, right: 4, width: 34, height: 34, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 17, backgroundColor: theme.colors.success, borderWidth: 2, borderColor: theme.colors.background,
-  },
 
-  title: {
-    marginTop: 22, color: theme.colors.accent, fontFamily: 'serif', fontSize: 24, lineHeight: 30, fontWeight: '700', textAlign: 'center',
-  },
-  subtitle: {
-    maxWidth: 330, alignSelf: 'center', marginTop: 10, color: theme.colors.textSecondary, fontSize: 14, lineHeight: 20, textAlign: 'center',
-  },
+  title: {marginTop: 20, textAlign: 'center'},
+  subtitle: {maxWidth: 330, alignSelf: 'center', marginTop: 8, textAlign: 'center'},
 
-  card: {
-    marginTop: 26, borderRadius: 22, backgroundColor: theme.colors.surface, borderWidth: 1, borderColor: theme.colors.border,
-    padding: 16, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 10, elevation: 2,
-  },
+  card: {marginTop: 24},
   cardHeaderRow: {flexDirection: 'row', alignItems: 'flex-start'},
-  cardHeaderIcon: {
-    width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primarySoft,
-  },
+  cardHeaderIcon: {width: 40, height: 40, alignItems: 'center', justifyContent: 'center'},
   cardHeaderCopy: {flex: 1, minWidth: 0, marginLeft: 12},
-  cardHeaderTitle: {color: theme.colors.text, fontSize: 15, fontWeight: '700'},
-  cardHeaderSubtitle: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
 
   ctaArea: {
     paddingHorizontal: 18, paddingTop: 10, backgroundColor: theme.colors.background,
     borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: theme.colors.border,
   },
-  primary: {
-    minHeight: 56, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 9, borderRadius: 18,
-    backgroundColor: theme.colors.primary, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.22, shadowRadius: 9, elevation: 5,
-  },
-  primaryText: {color: onPrimaryTextColor(theme), fontSize: 15.5, fontWeight: '800'},
 
-  pressed: {opacity: 0.85, transform: [{scale: 0.99}]},
   });
 }

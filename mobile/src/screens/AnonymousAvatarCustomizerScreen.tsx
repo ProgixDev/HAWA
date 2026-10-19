@@ -29,7 +29,11 @@ import {
 } from '../state/profileAvatarPreferences';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {onPrimaryTextColor, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 import {setHasCompletedOnboarding} from '../state/onboardingPreferences';
 
 type Props = NativeStackScreenProps<
@@ -224,8 +228,6 @@ function StyleOption({
       </Animated.View>
 
       <Text
-        adjustsFontSizeToFit
-        minimumFontScale={0.85}
         style={[
           styles.styleLabel,
           selected && styles.styleLabelSelected,
@@ -325,13 +327,6 @@ export default function AnonymousAvatarCustomizerScreen({
       {/*                    BACKGROUND DECORATION                        */}
       {/* -------------------------------------------------------------- */}
 
-      <View
-        pointerEvents="none"
-        style={styles.backgroundDecoration}>
-        <View style={styles.glowTop} />
-        <View style={styles.glowLeft} />
-        <View style={styles.glowBottom} />
-      </View>
 
       <SafeAreaView
         edges={['top', 'left', 'right']}
@@ -347,47 +342,31 @@ export default function AnonymousAvatarCustomizerScreen({
               paddingHorizontal: horizontalPadding,
             },
           ]}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
             hitSlop={10}
+            icon="arrow-left"
             onPress={navigation.goBack}
-            style={({pressed}) => [
-              styles.headerIconButton,
-              pressed && styles.pressOpacity,
-            ]}>
-            <MaterialDesignIcons
-              color={theme.colors.accent}
-              name="arrow-left"
-              size={21}
-            />
-          </Pressable>
+          />
 
           <View style={styles.headerCenter}>
-            <Text
-              adjustsFontSizeToFit
-              minimumFontScale={0.82}
-              style={styles.headerTitle}>
+            <AwaText
+              accessibilityRole="header"
+              style={styles.headerTitle}
+              variant="titleMedium">
               {t('anonymous.avatar.headerTitle')}
-            </Text>
+            </AwaText>
           </View>
 
-          <Pressable
+          <AwaButton
             accessibilityLabel={t('common.save')}
-            accessibilityRole="button"
             hitSlop={8}
+            label={t('common.save')}
             onPress={save}
-            style={({pressed}) => [
-              styles.saveButton,
-              pressed && styles.pressOpacity,
-            ]}>
-            <Text
-              adjustsFontSizeToFit
-              minimumFontScale={0.82}
-              style={styles.saveText}>
-              {t('common.save')}
-            </Text>
-          </Pressable>
+            size="compact"
+            style={styles.saveButton}
+            variant="text"
+          />
         </View>
 
         {/* ------------------------------------------------------------ */}
@@ -410,17 +389,17 @@ export default function AnonymousAvatarCustomizerScreen({
 
           <FadeInUp>
             <View style={styles.intro}>
-              <Text style={styles.eyebrow}>
+              <AwaText colorRole="primary" variant="labelMedium">
                 {t('anonymous.avatar.eyebrow')}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.title}>
+              <AwaText accessibilityRole="header" style={styles.title} variant="headlineSmall">
                 {t('anonymous.avatar.title')}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.subtitle}>
+              <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">
                 {t('anonymous.avatar.subtitle')}
-              </Text>
+              </AwaText>
             </View>
           </FadeInUp>
 
@@ -432,36 +411,18 @@ export default function AnonymousAvatarCustomizerScreen({
             <View style={styles.previewSection}>
               <View
                 style={[
-                  styles.previewOuterRing,
+                  styles.previewHalo,
                   {
-                    width: previewContainerSize + 18,
-                    height: previewContainerSize + 18,
-                    borderRadius: (previewContainerSize + 18) / 2,
+                    width: previewContainerSize,
+                    height: previewContainerSize,
+                    borderRadius: previewContainerSize / 2,
                   },
                 ]}>
-                <View
-                  style={[
-                    styles.previewHalo,
-                    {
-                      width: previewContainerSize,
-                      height: previewContainerSize,
-                      borderRadius: previewContainerSize / 2,
-                    },
-                  ]}>
-                  <AnonymousAvatar
-                    color={draftColor}
-                    size={previewAvatarSize}
-                    style={draftStyle}
-                  />
-
-                  <View style={styles.previewSecurityBadge}>
-                    <MaterialDesignIcons
-                      color={onPrimaryTextColor(theme)}
-                      name="shield-check"
-                      size={15}
-                    />
-                  </View>
-                </View>
+                <AnonymousAvatar
+                  color={draftColor}
+                  size={previewAvatarSize}
+                  style={draftStyle}
+                />
               </View>
 
               <View style={styles.privateBadge}>
@@ -471,9 +432,9 @@ export default function AnonymousAvatarCustomizerScreen({
                   size={14}
                 />
 
-                <Text style={styles.privateBadgeText}>
+                <AwaText style={styles.privateBadgeText} variant="labelMedium">
                   {t('anonymous.avatar.privateProfile')}
-                </Text>
+                </AwaText>
               </View>
             </View>
           </FadeInUp>
@@ -486,17 +447,17 @@ export default function AnonymousAvatarCustomizerScreen({
             <View style={styles.section}>
               <View style={styles.sectionHeading}>
                 <View>
-                  <Text style={styles.sectionTitle}>
+                  <AwaText variant="titleMedium">
                     {t('anonymous.avatar.colorSectionTitle')}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.sectionDescription}>
+                  <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
                     {t('anonymous.avatar.colorSectionDescription')}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
 
-              <View style={styles.colorCard}>
+              <AwaCard padding="compact" style={styles.colorCard} variant="filled">
                 <ScrollView
                   contentContainerStyle={styles.colorRow}
                   horizontal
@@ -512,7 +473,7 @@ export default function AnonymousAvatarCustomizerScreen({
                     />
                   ))}
                 </ScrollView>
-              </View>
+              </AwaCard>
             </View>
           </FadeInUp>
 
@@ -524,13 +485,13 @@ export default function AnonymousAvatarCustomizerScreen({
             <View style={styles.section}>
               <View style={styles.sectionHeading}>
                 <View style={styles.sectionTextContainer}>
-                  <Text style={styles.sectionTitle}>
+                  <AwaText variant="titleMedium">
                     {t('anonymous.avatar.styleSectionTitle')}
-                  </Text>
+                  </AwaText>
 
-                  <Text style={styles.sectionDescription}>
+                  <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
                     {t('anonymous.avatar.styleSectionDescription')}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
 
@@ -557,7 +518,7 @@ export default function AnonymousAvatarCustomizerScreen({
           {/* ---------------------------------------------------------- */}
 
           <FadeInUp delay={210}>
-            <View style={styles.infoCard}>
+            <AwaCard padding="compact" style={styles.infoCard} variant="filled">
               <View style={styles.infoIconContainer}>
                 <MaterialDesignIcons
                   color={theme.colors.primary}
@@ -567,15 +528,15 @@ export default function AnonymousAvatarCustomizerScreen({
               </View>
 
               <View style={styles.infoContent}>
-                <Text style={styles.infoTitle}>
+                <AwaText variant="titleSmall">
                   {t('anonymous.avatar.infoTitle')}
-                </Text>
+                </AwaText>
 
-                <Text style={styles.infoText}>
+                <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
                   {t('anonymous.avatar.infoText')}
-                </Text>
+                </AwaText>
               </View>
-            </View>
+            </AwaCard>
           </FadeInUp>
 
           {/* ---------------------------------------------------------- */}
@@ -585,61 +546,35 @@ export default function AnonymousAvatarCustomizerScreen({
           {fromAuth ? (
             <FadeInUp delay={250}>
               <View style={styles.authActions}>
-                <Pressable
+                <AwaButton
                   accessibilityLabel={t('anonymous.avatar.saveAndContinue')}
-                  accessibilityRole="button"
+                  fullWidth
+                  label={t('anonymous.avatar.saveAndContinue')}
                   onPress={save}
-                  style={({pressed}) => [
-                    styles.continueButton,
-                    pressed && styles.buttonPressed,
-                  ]}>
-                  <Text style={styles.continueButtonText}>
-                    {t('anonymous.avatar.saveAndContinue')}
-                  </Text>
-
-                  <MaterialDesignIcons
-                    color={onPrimaryTextColor(theme)}
-                    name="arrow-right"
-                    size={20}
-                  />
-                </Pressable>
-
-                <Pressable
+                  size="large"
+                />
+                <AwaButton
                   accessibilityLabel={t('anonymous.avatar.later')}
-                  accessibilityRole="button"
+                  fullWidth
                   hitSlop={8}
+                  label={t('anonymous.avatar.later')}
                   onPress={skip}
-                  style={({pressed}) => [
-                    styles.skipButton,
-                    pressed && styles.pressOpacity,
-                  ]}>
-                  <Text style={styles.skipText}>
-                    {t('anonymous.avatar.later')}
-                  </Text>
-                </Pressable>
+                  style={styles.skipButton}
+                  variant="text"
+                />
               </View>
             </FadeInUp>
           ) : (
             <FadeInUp delay={250}>
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('anonymous.avatar.saveChanges')}
-                accessibilityRole="button"
+                fullWidth
+                icon="check"
+                label={t('anonymous.avatar.saveChanges')}
                 onPress={save}
-                style={({pressed}) => [
-                  styles.continueButton,
-                  styles.bottomSaveButton,
-                  pressed && styles.buttonPressed,
-                ]}>
-                <Text style={styles.continueButtonText}>
-                  {t('anonymous.avatar.saveChanges')}
-                </Text>
-
-                <MaterialDesignIcons
-                  color={onPrimaryTextColor(theme)}
-                  name="check"
-                  size={20}
-                />
-              </Pressable>
+                size="large"
+                style={styles.bottomSaveButton}
+              />
             </FadeInUp>
           )}
         </ScrollView>
@@ -663,44 +598,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     flex: 1,
   },
 
-  /* ---------------------------------------------------------------------- */
-  /*                              BACKGROUND                                */
-  /* ---------------------------------------------------------------------- */
 
-  backgroundDecoration: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
 
-  glowTop: {
-    position: 'absolute',
-    top: -110,
-    right: -90,
-    width: 290,
-    height: 290,
-    borderRadius: 145,
-    backgroundColor: withAlpha(theme.colors.primary, 0.09),
-  },
 
-  glowLeft: {
-    position: 'absolute',
-    top: 280,
-    left: -100,
-    width: 220,
-    height: 220,
-    borderRadius: 110,
-    backgroundColor: withAlpha(theme.colors.primary, 0.08),
-  },
-
-  glowBottom: {
-    position: 'absolute',
-    bottom: -120,
-    right: -80,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.055),
-  },
 
   /* ---------------------------------------------------------------------- */
   /*                                HEADER                                  */
@@ -713,31 +613,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingVertical: 7,
   },
 
-  headerIconButton: {
-    width: 42,
-    height: 42,
-    flexShrink: 0,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 15,
-
-    backgroundColor: withAlpha(theme.colors.surface, 0.92),
-
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.07,
-    shadowRadius: 7,
-
-    elevation: 2,
-  },
 
   headerCenter: {
     flex: 1,
@@ -749,36 +624,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 6,
   },
 
-  headerTitle: {
-    width: '100%',
+  headerTitle: {width: '100%', textAlign: 'center'},
 
-    color: theme.colors.accent,
-
-    fontFamily: 'serif',
-    fontSize: 15,
-    fontWeight: '700',
-
-    textAlign: 'center',
+  pressOpacity: {
+    opacity: 0.72,
   },
+  saveButton: {minWidth: 72, maxWidth: 110, flexShrink: 1},
 
-  saveButton: {
-    minWidth: 72,
-    maxWidth: 90,
-    minHeight: 42,
-
-    flexShrink: 1,
-
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-
-    paddingLeft: 5,
-  },
-
-  saveText: {
-    color: theme.colors.primary,
-    fontSize: 12.5,
-    fontWeight: '800',
-  },
 
   /* ---------------------------------------------------------------------- */
   /*                                CONTENT                                 */
@@ -799,43 +651,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginTop: 4,
   },
 
-  eyebrow: {
-    marginBottom: 8,
 
-    color: theme.colors.primary,
+  title: {maxWidth: 330, textAlign: 'center'},
 
-    fontSize: 10.5,
-    fontWeight: '800',
-    letterSpacing: 1.3,
-
-    textAlign: 'center',
-  },
-
-  title: {
-    maxWidth: 330,
-
-    color: theme.colors.accent,
-
-    fontFamily: 'serif',
-    fontSize: 24,
-    lineHeight: 31,
-    fontWeight: '700',
-
-    textAlign: 'center',
-  },
-
-  subtitle: {
-    maxWidth: 330,
-
-    marginTop: 9,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 13,
-    lineHeight: 19,
-
-    textAlign: 'center',
-  },
+  subtitle: {maxWidth: 330, marginTop: 8, textAlign: 'center'},
 
   /* ---------------------------------------------------------------------- */
   /*                               PREVIEW                                  */
@@ -847,72 +666,23 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingBottom: 8,
   },
 
-  previewOuterRing: {
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    backgroundColor: withAlpha(theme.colors.surface, 0.55),
-
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.13),
-  },
 
   previewHalo: {
     alignItems: 'center',
     justifyContent: 'center',
-
     backgroundColor: theme.colors.primarySoft,
-
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.surface, 0.9),
-
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-    shadowOpacity: 0.11,
-    shadowRadius: 16,
-
-    elevation: 4,
   },
 
-  previewSecurityBadge: {
-    position: 'absolute',
-    right: 3,
-    bottom: 8,
-
-    width: 30,
-    height: 30,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 15,
-
-    backgroundColor: theme.colors.primary,
-
-    borderWidth: 3,
-    borderColor: theme.colors.background,
-  },
 
   privateBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-
-    gap: 5,
-
+    gap: 6,
     marginTop: 12,
-
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
     paddingVertical: 6,
-
     borderRadius: 999,
-
     backgroundColor: theme.colors.primarySoft,
-
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
 
   privateBadgeText: {
@@ -941,49 +711,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 0,
   },
 
-  sectionTitle: {
-    color: theme.colors.accent,
 
-    fontFamily: 'serif',
-    fontSize: 17,
-    lineHeight: 22,
-    fontWeight: '700',
-  },
-
-  sectionDescription: {
-    marginTop: 3,
-
-    color: theme.colors.textMuted,
-
-    fontSize: 11.5,
-    lineHeight: 16,
-  },
 
   /* ---------------------------------------------------------------------- */
   /*                              COLOR CARD                                */
   /* ---------------------------------------------------------------------- */
 
-  colorCard: {
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-
-    borderRadius: 20,
-
-    backgroundColor: withAlpha(theme.colors.surface, 0.88),
-
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.045,
-    shadowRadius: 10,
-
-    elevation: 1,
-  },
+  colorCard: {},
 
   colorRow: {
     alignItems: 'center',
@@ -1057,24 +791,19 @@ function createStyles(theme: ResolvedAwaTheme) {
   styleOption: {
     width: '31.5%',
     minHeight: 112,
-
     alignItems: 'center',
     justifyContent: 'center',
-
-    paddingHorizontal: 5,
+    paddingHorizontal: 12,
     paddingVertical: 11,
-
-    borderRadius: 20,
-
-    backgroundColor: withAlpha(theme.colors.surface, 0.88),
-
+    borderRadius: 16,
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: 'transparent',
   },
 
   styleOptionCompact: {
     minHeight: 104,
-    paddingHorizontal: 3,
+    paddingHorizontal: 12,
     paddingVertical: 9,
   },
 
@@ -1158,60 +887,16 @@ function createStyles(theme: ResolvedAwaTheme) {
   /*                             PRIVACY CARD                               */
   /* ---------------------------------------------------------------------- */
 
-  infoCard: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+  infoCard: {flexDirection: 'row', alignItems: 'flex-start', gap: 12, marginTop: 24},
 
-    gap: 12,
-
-    marginTop: 24,
-
-    paddingHorizontal: 14,
-    paddingVertical: 15,
-
-    borderRadius: 20,
-
-    backgroundColor: theme.colors.surfaceSecondary,
-
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-
-  infoIconContainer: {
-    width: 40,
-    height: 40,
-
-    flexShrink: 0,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 14,
-
-    backgroundColor: theme.colors.surface,
-  },
+  infoIconContainer: {width: 32, flexShrink: 0, alignItems: 'center', justifyContent: 'center'},
 
   infoContent: {
     flex: 1,
     minWidth: 0,
   },
 
-  infoTitle: {
-    color: theme.colors.text,
 
-    fontSize: 13,
-    lineHeight: 18,
-    fontWeight: '800',
-  },
-
-  infoText: {
-    marginTop: 4,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 11.5,
-    lineHeight: 17,
-  },
 
   /* ---------------------------------------------------------------------- */
   /*                               ACTIONS                                  */
@@ -1221,75 +906,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginTop: 22,
   },
 
-  continueButton: {
-    width: '100%',
-    minHeight: 54,
 
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    gap: 8,
-
-    paddingHorizontal: 18,
-    paddingVertical: 14,
-
-    borderRadius: 18,
-
-    backgroundColor: theme.colors.primary,
-
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 10,
-
-    elevation: 4,
-  },
-
-  continueButtonText: {
-    flexShrink: 1,
-
-    color: onPrimaryTextColor(theme),
-
-    fontSize: 15,
-    lineHeight: 20,
-    fontWeight: '800',
-
-    textAlign: 'center',
-  },
 
   bottomSaveButton: {
     marginTop: 22,
   },
 
-  skipButton: {
-    minHeight: 48,
+  skipButton: {marginTop: 8},
 
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
 
-    marginTop: 7,
-    paddingHorizontal: 18,
-  },
 
-  skipText: {
-    color: theme.colors.primary,
-
-    fontSize: 13.5,
-    fontWeight: '700',
-  },
-
-  buttonPressed: {
-    opacity: 0.9,
-    transform: [{scale: 0.985}],
-  },
-
-  pressOpacity: {
-    opacity: 0.72,
-  },
   });
 }

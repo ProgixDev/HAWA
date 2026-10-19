@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {Animated, Easing, Image, Pressable, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {Animated, Easing, Image, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useFocusEffect} from '@react-navigation/native';
@@ -16,7 +16,11 @@ import {
 } from '../state/securityPreferences';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import type {ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 
 const HERO = require('../assets/images/privacy/anonymous-mode-woman.png');
 
@@ -114,26 +118,21 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
       <View style={styles.page}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
-        <View pointerEvents="none" style={styles.backgroundDecoration}>
-          <View style={styles.blobTopRight} />
-          <View style={styles.blobLeft} />
-          <View style={styles.blobBottom} />
-        </View>
+        
 
         <SafeAreaView edges={['top', 'left', 'right']} style={styles.safe}>
           <View style={styles.header}>
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('common.back')}
-              accessibilityRole="button"
               hitSlop={10}
+              icon="arrow-left"
               onPress={navigation.goBack}
-              style={({pressed}) => [styles.back, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={22} />
-            </Pressable>
+              variant="standard"
+            />
 
             <View style={styles.headerTitleBlock}>
-              <Text style={styles.headerTitle}>{t('anonymous.mode.headerTitle')}</Text>
-              <Text style={styles.headerSubtitle}>{t('anonymous.mode.headerSubtitle')}</Text>
+              <AwaText accessibilityRole="header" variant="titleMedium">{t('anonymous.mode.headerTitle')}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" variant="bodySmall">{t('anonymous.mode.headerSubtitle')}</AwaText>
             </View>
 
             <View style={styles.headerSpace} />
@@ -144,34 +143,26 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
             showsVerticalScrollIndicator={false}>
             <FadeInUp distance={10}>
               <View style={styles.hero}>
-                <View style={styles.heroHaloOuter}>
-                  <View style={styles.heroHaloInner}>
-                    <Image accessibilityLabel={t('anonymous.mode.illustrationA11y')} resizeMode="contain" source={HERO} style={styles.heroImage} />
-                  </View>
+                <Image accessibilityLabel={t('anonymous.mode.illustrationA11y')} resizeMode="contain" source={HERO} style={styles.heroImage} />
 
-                  <View style={[styles.securityBadge, styles.securityBadgeSuccess]}>
-                    <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check-bold" size={15} />
-                  </View>
-                </View>
-
-                <Text style={styles.title}>{t('anonymous.mode.activeTitle')}</Text>
-                <Text style={styles.subtitle}>
+                <AwaText style={styles.title} variant="headlineSmall">{t('anonymous.mode.activeTitle')}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">
                   {t('anonymous.mode.activeSubtitle')}
-                </Text>
+                </AwaText>
               </View>
             </FadeInUp>
 
             <FadeInUp delay={90}>
-              <View style={styles.card}>
+              <AwaCard style={styles.card} variant="filled">
                 <View style={styles.cardHeaderRow}>
                   <View style={styles.cardHeaderIcon}>
-                    <MaterialDesignIcons color={theme.colors.primary} name="shield-check-outline" size={20} />
+                    <MaterialDesignIcons color={theme.colors.primary} name="shield-check-outline" size={22} />
                   </View>
                   <View style={styles.cardHeaderCopy}>
-                    <Text style={styles.cardHeaderTitle}>{t('anonymous.mode.nothingKeptTitle')}</Text>
-                    <Text style={styles.cardHeaderSubtitle}>
+                    <AwaText variant="titleMedium">{t('anonymous.mode.nothingKeptTitle')}</AwaText>
+                    <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
                       {t('anonymous.mode.nothingKeptSubtitle')}
-                    </Text>
+                    </AwaText>
                   </View>
                 </View>
 
@@ -181,51 +172,51 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
                       <View style={styles.rowIcon}>
                         <MaterialDesignIcons color={theme.colors.accent} name={row.icon} size={19} />
                       </View>
-                      <Text style={styles.rowTitle}>{row.label}</Text>
+                      <AwaText style={styles.rowTitle} variant="bodyMedium">{row.label}</AwaText>
                       <View style={styles.rowStatus}>
-                        <Text style={styles.rowStatusText}>{t('anonymous.mode.notRetained')}</Text>
+                        <AwaText colorRole="success" emphasized variant="labelMedium">{t('anonymous.mode.notRetained')}</AwaText>
                         <MaterialDesignIcons color={theme.colors.success} name="check-circle" size={16} />
                       </View>
                     </View>
                   ))}
                 </View>
-              </View>
+              </AwaCard>
             </FadeInUp>
-
             <FadeInUp delay={150}>
-              <Pressable
+              <AwaCard
                 accessibilityLabel={t('anonymous.mode.appLockA11y')}
-                accessibilityRole="button"
                 onPress={() => navigation.navigate('PrivacySecurity')}
-                style={({pressed}) => [styles.securityCard, pressed && styles.pressed]}>
+                padding="compact"
+                style={styles.securityCard}
+                variant="filled">
                 <View style={styles.securityIcon}>
-                  <MaterialDesignIcons color={theme.colors.primary} name="shield-key-outline" size={20} />
+                  <MaterialDesignIcons color={theme.colors.primary} name="shield-key-outline" size={22} />
                 </View>
                 <View style={styles.securityCopy}>
-                  <Text style={styles.securityTitle}>{t('anonymous.mode.appLockTitle')}</Text>
-                  <Text style={styles.securityText}>{t('anonymous.mode.appLockText')}</Text>
+                  <AwaText variant="titleSmall">{t('anonymous.mode.appLockTitle')}</AwaText>
+                  <AwaText colorRole="onSurfaceVariant" variant="bodySmall">{t('anonymous.mode.appLockText')}</AwaText>
                 </View>
-                <Text style={styles.securityStatus}>{locked ? t('anonymous.mode.appLockEnabled') : t('anonymous.mode.appLockDisabled')}</Text>
+                <AwaText colorRole="primary" emphasized variant="labelMedium">{locked ? t('anonymous.mode.appLockEnabled') : t('anonymous.mode.appLockDisabled')}</AwaText>
                 <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={20} />
-              </Pressable>
+              </AwaCard>
             </FadeInUp>
-
             <FadeInUp delay={210}>
-              <View style={styles.conversionCard}>
-                <Text style={styles.conversionTitle}>{t('anonymous.mode.disableTitle')}</Text>
-                <Text style={styles.conversionText}>
+              <AwaCard style={styles.conversionCard} variant="filled">
+                <AwaText variant="titleMedium">{t('anonymous.mode.disableTitle')}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
                   {t('anonymous.mode.disableText')}
-                </Text>
+                </AwaText>
 
-                <Pressable
+                <AwaButton
                   accessibilityLabel={t('auth.shared.tabRegister')}
-                  accessibilityRole="button"
+                  fullWidth
+                  icon="account-plus-outline"
+                  label={t('auth.shared.tabRegister')}
                   onPress={() => navigation.navigate('Registration')}
-                  style={({pressed}) => [styles.secondaryButton, pressed && styles.pressed]}>
-                  <MaterialDesignIcons color={theme.colors.primary} name="account-plus-outline" size={19} />
-                  <Text style={styles.secondaryButtonText}>{t('auth.shared.tabRegister')}</Text>
-                </Pressable>
-              </View>
+                  style={styles.secondaryButton}
+                  variant="outlined"
+                />
+              </AwaCard>
             </FadeInUp>
           </ScrollView>
         </SafeAreaView>
@@ -237,26 +228,21 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
     <View style={styles.page}>
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
-      <View pointerEvents="none" style={styles.backgroundDecoration}>
-        <View style={styles.blobTopRight} />
-        <View style={styles.blobLeft} />
-        <View style={styles.blobBottom} />
-      </View>
+      
 
       <SafeAreaView edges={['top', 'left', 'right']} style={styles.safe}>
         <View style={styles.header}>
-          <Pressable
-            accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
-            hitSlop={10}
-            onPress={navigation.goBack}
-            style={({pressed}) => [styles.back, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={22} />
-          </Pressable>
+          <AwaIconButton
+              accessibilityLabel={t('common.back')}
+              hitSlop={10}
+              icon="arrow-left"
+              onPress={navigation.goBack}
+              variant="standard"
+            />
 
           <View style={styles.headerTitleBlock}>
-            <Text style={styles.headerTitle}>{t('anonymous.mode.headerTitle')}</Text>
-            <Text style={styles.headerSubtitle}>{t('anonymous.mode.headerSubtitle')}</Text>
+            <AwaText accessibilityRole="header" variant="titleMedium">{t('anonymous.mode.headerTitle')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall">{t('anonymous.mode.headerSubtitle')}</AwaText>
           </View>
 
           <View style={styles.headerSpace} />
@@ -267,34 +253,26 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
           showsVerticalScrollIndicator={false}>
           <FadeInUp distance={10}>
             <View style={styles.hero}>
-              <View style={styles.heroHaloOuter}>
-                <View style={styles.heroHaloInner}>
-                  <Image accessibilityLabel={t('anonymous.mode.illustrationA11y')} resizeMode="contain" source={HERO} style={styles.heroImage} />
-                </View>
+              <Image accessibilityLabel={t('anonymous.mode.illustrationA11y')} resizeMode="contain" source={HERO} style={styles.heroImage} />
 
-                <View style={styles.securityBadge}>
-                  <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="shield-lock-outline" size={16} />
-                </View>
-              </View>
-
-              <Text style={styles.title}>{t('anonymous.mode.pitchTitle')}</Text>
-              <Text style={styles.subtitle}>
+              <AwaText style={styles.title} variant="headlineSmall">{t('anonymous.mode.pitchTitle')}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">
                 {t('anonymous.mode.pitchSubtitle')}
-              </Text>
+              </AwaText>
             </View>
           </FadeInUp>
 
           <FadeInUp delay={90}>
-            <View style={styles.card}>
+            <AwaCard style={styles.card} variant="filled">
               <View style={styles.cardHeaderRow}>
                 <View style={styles.cardHeaderIcon}>
-                  <MaterialDesignIcons color={theme.colors.primary} name="shield-lock-outline" size={20} />
+                  <MaterialDesignIcons color={theme.colors.primary} name="shield-lock-outline" size={22} />
                 </View>
                 <View style={styles.cardHeaderCopy}>
-                  <Text style={styles.cardHeaderTitle}>{t('anonymous.mode.identityPrivateTitle')}</Text>
-                  <Text style={styles.cardHeaderSubtitle}>
+                  <AwaText variant="titleMedium">{t('anonymous.mode.identityPrivateTitle')}</AwaText>
+                  <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
                     {t('anonymous.mode.identityPrivateSubtitle')}
-                  </Text>
+                  </AwaText>
                 </View>
               </View>
 
@@ -304,61 +282,57 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
                     <View style={styles.rowIcon}>
                       <MaterialDesignIcons color={theme.colors.accent} name={row.icon} size={19} />
                     </View>
-                    <Text style={styles.rowTitle}>{row.title}</Text>
+                    <AwaText style={styles.rowTitle} variant="bodyMedium">{row.title}</AwaText>
                     <MaterialDesignIcons color={theme.colors.success} name="check-circle" size={18} />
                   </View>
                 ))}
               </View>
-            </View>
+            </AwaCard>
           </FadeInUp>
-
           <FadeInUp delay={160}>
-            <View style={styles.infoCard}>
+            <AwaCard padding="compact" style={styles.infoCard} variant="filled">
               <MaterialDesignIcons color={theme.colors.accent} name="information-outline" size={19} />
               <View style={styles.infoCopy}>
-                <Text style={styles.infoTitle}>{t('anonymous.mode.infoTitle')}</Text>
-                <Text style={styles.infoText}>
+                <AwaText variant="titleSmall">{t('anonymous.mode.infoTitle')}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
                   {t('anonymous.mode.infoText')}
-                </Text>
+                </AwaText>
               </View>
-            </View>
+            </AwaCard>
           </FadeInUp>
-
           <FadeInUp delay={220}>
-            <View style={styles.securityCard}>
+            <AwaCard padding="compact" style={styles.securityCard} variant="filled">
               <View style={styles.securityIcon}>
                 <MaterialDesignIcons color={theme.colors.primary} name="shield-key-outline" size={20} />
               </View>
               <View style={styles.securityCopy}>
-                <Text style={styles.securityTitle}>{t('anonymous.mode.recommendedProtectionTitle')}</Text>
-                <Text style={styles.securityText}>
+                <AwaText variant="titleSmall">{t('anonymous.mode.recommendedProtectionTitle')}</AwaText>
+                <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
                   {t('anonymous.mode.recommendedProtectionText')}
-                </Text>
+                </AwaText>
               </View>
-              <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={20} />
-            </View>
+            </AwaCard>
           </FadeInUp>
         </ScrollView>
 
         <FadeInUp delay={260} distance={12}>
           <View style={[styles.ctaArea, {paddingBottom: Math.max(insets.bottom, 14)}]}>
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('anonymous.mode.continueInAnonymousMode')}
-              accessibilityRole="button"
+              fullWidth
+              icon="incognito"
+              label={t('anonymous.mode.continueInAnonymousMode')}
               onPress={proceed}
-              style={({pressed}) => [styles.primary, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="incognito" size={20} />
-              <Text style={styles.primaryText}>{t('anonymous.mode.continueInAnonymousMode')}</Text>
-            </Pressable>
-
-            <Pressable
+              size="large"
+            />
+            <AwaButton
               accessibilityLabel={t('common.cancel')}
-              accessibilityRole="button"
-              hitSlop={8}
+              fullWidth
+              label={t('common.cancel')}
               onPress={navigation.goBack}
-              style={styles.cancel}>
-              <Text style={styles.cancelText}>{t('common.cancel')}</Text>
-            </Pressable>
+              style={styles.cancel}
+              variant="text"
+            />
           </View>
         </FadeInUp>
       </SafeAreaView>
@@ -371,123 +345,48 @@ function createStyles(theme: ResolvedAwaTheme) {
   page: {flex: 1, backgroundColor: theme.colors.background},
   safe: {flex: 1},
 
-  backgroundDecoration: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
-  blobTopRight: {
-    position: 'absolute', top: -70, right: -60, width: 240, height: 240, borderRadius: 120,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-  blobLeft: {
-    position: 'absolute', top: 230, left: -70, width: 170, height: 170, borderRadius: 85,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
-  blobBottom: {
-    position: 'absolute', bottom: -60, right: -30, width: 200, height: 200, borderRadius: 100,
-    backgroundColor: withAlpha(theme.colors.primary, 0.04),
-  },
 
   header: {
-    height: 52, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 18,
-  },
-  back: {
-    width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 16,
-    backgroundColor: theme.colors.surface, borderWidth: 1, borderColor: theme.colors.border,
-    shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 2}, shadowOpacity: 0.06, shadowRadius: 4, elevation: 2,
+    minHeight: 52, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 18,
   },
   headerTitleBlock: {alignItems: 'center'},
-  headerTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-  headerSubtitle: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 11},
   headerSpace: {width: 42},
 
   content: {flexGrow: 1, paddingHorizontal: 18, paddingTop: 6},
 
   hero: {alignItems: 'center', paddingTop: 10},
-  heroHaloOuter: {
-    width: 150, height: 150, alignItems: 'center', justifyContent: 'center', borderRadius: 75, backgroundColor: theme.colors.primarySoft,
-  },
-  heroHaloInner: {
-    width: 118, height: 118, alignItems: 'center', justifyContent: 'center', borderRadius: 59, backgroundColor: theme.colors.surface, overflow: 'hidden',
-    shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
-  },
   heroImage: {width: 118, height: 118},
-  securityBadge: {
-    position: 'absolute', bottom: 4, right: 4, width: 32, height: 32, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 16, backgroundColor: theme.colors.primary, borderWidth: 2, borderColor: theme.colors.background,
-  },
-  securityBadgeSuccess: {backgroundColor: theme.colors.success},
 
-  title: {
-    marginTop: 20, color: theme.colors.accent, fontFamily: 'serif', fontSize: 24, lineHeight: 30, fontWeight: '700', textAlign: 'center',
-  },
-  subtitle: {
-    maxWidth: 330, alignSelf: 'center', marginTop: 10, color: theme.colors.textSecondary, fontSize: 14, lineHeight: 20, textAlign: 'center',
-  },
+  title: {marginTop: 16, textAlign: 'center'},
+  subtitle: {maxWidth: 330, alignSelf: 'center', marginTop: 8, textAlign: 'center'},
 
-  card: {
-    marginTop: 26, borderRadius: 22, backgroundColor: theme.colors.surface, borderWidth: 1, borderColor: theme.colors.border,
-    padding: 16, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 10, elevation: 2,
-  },
+  card: {marginTop: 24},
   cardHeaderRow: {flexDirection: 'row', alignItems: 'flex-start'},
-  cardHeaderIcon: {
-    width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primarySoft,
-  },
+  cardHeaderIcon: {width: 40, height: 40, alignItems: 'center', justifyContent: 'center'},
   cardHeaderCopy: {flex: 1, minWidth: 0, marginLeft: 12},
-  cardHeaderTitle: {color: theme.colors.text, fontSize: 15.5, fontWeight: '700'},
-  cardHeaderSubtitle: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
 
   rowsGroup: {marginTop: 14},
   row: {minHeight: 54, flexDirection: 'row', alignItems: 'center'},
   rowBorder: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: theme.colors.border},
-  rowIcon: {
-    width: 34, height: 34, alignItems: 'center', justifyContent: 'center', borderRadius: 11, backgroundColor: theme.colors.primarySoft,
-  },
-  rowTitle: {flex: 1, minWidth: 0, marginHorizontal: 12, color: theme.colors.text, fontSize: 13.5, lineHeight: 18},
+  rowIcon: {width: 34, height: 34, alignItems: 'center', justifyContent: 'center'},
+  rowTitle: {flex: 1, minWidth: 0, marginHorizontal: 12},
   rowStatus: {flexDirection: 'row', alignItems: 'center', gap: 6},
-  rowStatusText: {color: theme.colors.success, fontSize: 11.5, fontWeight: '700'},
 
-  infoCard: {
-    flexDirection: 'row', alignItems: 'flex-start', gap: 10, marginTop: 14, borderRadius: 16, borderWidth: 1,
-    borderColor: theme.colors.border, backgroundColor: theme.colors.surfaceSecondary, paddingHorizontal: 14, paddingVertical: 13,
-  },
+  infoCard: {flexDirection: 'row', alignItems: 'flex-start', gap: 10, marginTop: 12},
   infoCopy: {flex: 1, minWidth: 0},
-  infoTitle: {color: theme.colors.text, fontSize: 13, fontWeight: '700'},
-  infoText: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
 
-  securityCard: {
-    flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 12, borderRadius: 16, backgroundColor: theme.colors.surface,
-    borderWidth: 1, borderColor: theme.colors.border, paddingHorizontal: 14, paddingVertical: 13,
-  },
-  securityIcon: {
-    width: 38, height: 38, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primarySoft,
-  },
+  securityCard: {flexDirection: 'row', alignItems: 'center', gap: 12, marginTop: 12},
+  securityIcon: {width: 38, height: 38, alignItems: 'center', justifyContent: 'center'},
   securityCopy: {flex: 1, minWidth: 0},
-  securityTitle: {color: theme.colors.text, fontSize: 13.5, fontWeight: '700'},
-  securityText: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
-  securityStatus: {color: theme.colors.primary, fontSize: 12, fontWeight: '700'},
 
-  conversionCard: {
-    marginTop: 18, borderRadius: 22, backgroundColor: theme.colors.surface, borderWidth: 1, borderColor: theme.colors.border,
-    padding: 16, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 10, elevation: 2,
-  },
-  conversionTitle: {color: theme.colors.text, fontSize: 15, fontWeight: '700'},
-  conversionText: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
-  secondaryButton: {
-    minHeight: 48, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 14,
-    borderRadius: 15, borderWidth: 1.5, borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft,
-  },
-  secondaryButtonText: {color: theme.colors.primary, fontSize: 14, fontWeight: '700'},
+  conversionCard: {marginTop: 16},
+  secondaryButton: {marginTop: 14},
 
   ctaArea: {
     paddingHorizontal: 18, paddingTop: 10, backgroundColor: theme.colors.background,
     borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: theme.colors.border,
   },
-  primary: {
-    minHeight: 56, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 9, borderRadius: 18,
-    backgroundColor: theme.colors.primary, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.22, shadowRadius: 9, elevation: 5,
-  },
-  primaryText: {color: onPrimaryTextColor(theme), fontSize: 15.5, fontWeight: '800'},
-  cancel: {alignSelf: 'center', minHeight: 44, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 15},
-  cancelText: {color: theme.colors.primary, fontSize: 14, fontWeight: '700'},
+  cancel: {marginTop: 4},
 
-  pressed: {opacity: 0.85, transform: [{scale: 0.99}]},
   });
 }

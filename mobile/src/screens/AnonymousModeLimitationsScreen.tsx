@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Animated, Easing, Pressable, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {Animated, Easing, Pressable, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -7,7 +7,11 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {onPrimaryTextColor, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'AnonymousModeLimitations'>;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
@@ -92,26 +96,20 @@ export default function AnonymousModeLimitationsScreen({navigation, route}: Prop
     <View style={styles.page}>
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
-      <View pointerEvents="none" style={styles.backgroundDecoration}>
-        <View style={styles.blobTopRight} />
-        <View style={styles.blobLeft} />
-        <View style={styles.blobBottom} />
-      </View>
+      
 
       <SafeAreaView edges={['top', 'left', 'right']} style={styles.safe}>
         <View style={styles.header}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
             hitSlop={10}
+            icon="arrow-left"
             onPress={navigation.goBack}
-            style={({pressed}) => [styles.back, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={22} />
-          </Pressable>
+          />
 
           <View style={styles.headerTitleBlock}>
-            <Text style={styles.headerTitle}>{t('anonymous.limitations.headerTitle')}</Text>
-            <Text style={styles.headerSubtitle}>{t('anonymous.limitations.headerSubtitle')}</Text>
+            <AwaText accessibilityRole="header" variant="titleMedium">{t('anonymous.limitations.headerTitle')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" variant="bodySmall">{t('anonymous.limitations.headerSubtitle')}</AwaText>
           </View>
 
           <View style={styles.headerSpace} />
@@ -122,40 +120,29 @@ export default function AnonymousModeLimitationsScreen({navigation, route}: Prop
           showsVerticalScrollIndicator={false}>
           <FadeInUp distance={8}>
             <View style={styles.hero}>
-              <View style={styles.heroHaloOuter}>
-                <View style={styles.heroHaloInner}>
-                  <MaterialDesignIcons color={theme.colors.primary} name="shield-account-outline" size={46} />
-                </View>
+              <MaterialDesignIcons color={theme.colors.primary} name="shield-account-outline" size={46} />
 
-                <View style={styles.lockBadge}>
-                  <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="incognito" size={16} />
-                </View>
-
-                <MaterialDesignIcons color={theme.colors.primarySoft} name="star-four-points" size={14} style={styles.sparkleTop} />
-                <MaterialDesignIcons color={theme.colors.primarySoft} name="star-four-points" size={10} style={styles.sparkleBottom} />
-              </View>
-
-              <Text style={styles.title}>{t('anonymous.limitations.title')}</Text>
-              <Text style={styles.subtitle}>
+              <AwaText style={styles.title} variant="headlineSmall">{t('anonymous.limitations.title')}</AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">
                 {t('anonymous.limitations.subtitle')}
-              </Text>
+              </AwaText>
             </View>
           </FadeInUp>
 
           <FadeInUp delay={90}>
-            <View style={styles.card}>
+            <AwaCard style={styles.card} variant="filled">
               {LIMITATIONS.map((item, index) => (
                 <View key={item.key} style={[styles.row, index < LIMITATIONS.length - 1 && styles.rowBorder]}>
                   <View style={[styles.rowIcon, item.accent === 'success' && styles.rowIconAccent]}>
                     <MaterialDesignIcons color={item.accent === 'success' ? theme.colors.success : theme.colors.accent} name={item.icon} size={20} />
                   </View>
                   <View style={styles.rowCopy}>
-                    <Text style={styles.rowTitle}>{item.title}</Text>
-                    <Text style={styles.rowDescription}>{item.description}</Text>
+                    <AwaText variant="titleSmall">{item.title}</AwaText>
+                    <AwaText colorRole="onSurfaceVariant" variant="bodySmall">{item.description}</AwaText>
                   </View>
                 </View>
               ))}
-            </View>
+            </AwaCard>
           </FadeInUp>
 
           <FadeInUp delay={160}>
@@ -168,32 +155,31 @@ export default function AnonymousModeLimitationsScreen({navigation, route}: Prop
               <View style={[styles.checkbox, accepted && styles.checkboxChecked]}>
                 {accepted ? <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check-bold" size={14} /> : null}
               </View>
-              <Text style={styles.checkboxText}>{t('anonymous.limitations.acknowledgeLabel')}</Text>
+              <AwaText variant="bodyMedium">{t('anonymous.limitations.acknowledgeLabel')}</AwaText>
             </Pressable>
           </FadeInUp>
         </ScrollView>
 
         <FadeInUp delay={220} distance={12}>
           <View style={[styles.ctaArea, {paddingBottom: Math.max(insets.bottom, 14)}]}>
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('anonymous.limitations.activate')}
-              accessibilityRole="button"
               accessibilityState={{disabled: !accepted}}
               disabled={!accepted}
+              fullWidth
+              icon="incognito"
+              label={t('anonymous.limitations.activate')}
               onPress={activate}
-              style={({pressed}) => [styles.primary, !accepted && styles.primaryDisabled, pressed && accepted && styles.pressed]}>
-              <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="incognito" size={20} />
-              <Text style={styles.primaryText}>{t('anonymous.limitations.activate')}</Text>
-            </Pressable>
-
-            <Pressable
+              size="large"
+            />
+            <AwaButton
               accessibilityLabel={t('common.back')}
-              accessibilityRole="button"
-              hitSlop={8}
+              fullWidth
+              label={t('common.back')}
               onPress={navigation.goBack}
-              style={styles.cancel}>
-              <Text style={styles.cancelText}>{t('common.back')}</Text>
-            </Pressable>
+              style={styles.cancel}
+              variant="text"
+            />
           </View>
         </FadeInUp>
       </SafeAreaView>
@@ -206,70 +192,26 @@ function createStyles(theme: ResolvedAwaTheme) {
   page: {flex: 1, backgroundColor: theme.colors.background},
   safe: {flex: 1},
 
-  backgroundDecoration: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
-  blobTopRight: {
-    position: 'absolute', top: -70, right: -60, width: 240, height: 240, borderRadius: 120,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-  blobLeft: {
-    position: 'absolute', top: 230, left: -70, width: 170, height: 170, borderRadius: 85,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
-  blobBottom: {
-    position: 'absolute', bottom: -60, right: -30, width: 200, height: 200, borderRadius: 100,
-    backgroundColor: withAlpha(theme.colors.primary, 0.04),
-  },
 
   header: {
-    height: 52, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 18,
-  },
-  back: {
-    width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 16,
-    backgroundColor: theme.colors.surface, borderWidth: 1, borderColor: theme.colors.border,
-    shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 2}, shadowOpacity: 0.06, shadowRadius: 4, elevation: 2,
+    minHeight: 52, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 18,
   },
   headerTitleBlock: {alignItems: 'center'},
-  headerTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-  headerSubtitle: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 11},
   headerSpace: {width: 42},
 
   content: {flexGrow: 1, paddingHorizontal: 18, paddingTop: 6},
 
   hero: {alignItems: 'center', paddingTop: 10},
-  heroHaloOuter: {
-    width: 130, height: 130, alignItems: 'center', justifyContent: 'center', borderRadius: 65, backgroundColor: theme.colors.primarySoft,
-  },
-  heroHaloInner: {
-    width: 100, height: 100, alignItems: 'center', justifyContent: 'center', borderRadius: 50, backgroundColor: theme.colors.surface,
-    shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
-  },
-  lockBadge: {
-    position: 'absolute', bottom: 2, right: 2, width: 32, height: 32, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 16, backgroundColor: theme.colors.primary, borderWidth: 2, borderColor: theme.colors.background,
-  },
-  sparkleTop: {position: 'absolute', top: 4, left: 10, opacity: 0.9},
-  sparkleBottom: {position: 'absolute', bottom: 18, left: -4, opacity: 0.8},
 
-  title: {
-    marginTop: 20, color: theme.colors.accent, fontFamily: 'serif', fontSize: 24, lineHeight: 30, fontWeight: '700', textAlign: 'center',
-  },
-  subtitle: {
-    maxWidth: 330, alignSelf: 'center', marginTop: 10, color: theme.colors.textSecondary, fontSize: 14, lineHeight: 20, textAlign: 'center',
-  },
+  title: {marginTop: 16, textAlign: 'center'},
+  subtitle: {maxWidth: 330, alignSelf: 'center', marginTop: 8, textAlign: 'center'},
 
-  card: {
-    marginTop: 26, borderRadius: 22, backgroundColor: theme.colors.surface, borderWidth: 1, borderColor: theme.colors.border,
-    padding: 16, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 10, elevation: 2,
-  },
+  card: {marginTop: 24},
   row: {flexDirection: 'row', alignItems: 'flex-start', paddingVertical: 12},
   rowBorder: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: theme.colors.border},
-  rowIcon: {
-    width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primarySoft,
-  },
-  rowIconAccent: {backgroundColor: theme.colors.surfaceSecondary},
+  rowIcon: {width: 40, height: 40, alignItems: 'center', justifyContent: 'center'},
+  rowIconAccent: {},
   rowCopy: {flex: 1, minWidth: 0, marginLeft: 13},
-  rowTitle: {color: theme.colors.text, fontSize: 14, fontWeight: '700'},
-  rowDescription: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
 
   checkboxRow: {
     flexDirection: 'row', alignItems: 'center', minHeight: 44, marginTop: 18, gap: 12,
@@ -279,21 +221,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1.5, borderColor: theme.colors.border, backgroundColor: theme.colors.surface,
   },
   checkboxChecked: {backgroundColor: theme.colors.primary, borderColor: theme.colors.primary},
-  checkboxText: {flex: 1, minWidth: 0, color: theme.colors.text, fontSize: 13.5, lineHeight: 19},
 
   ctaArea: {
     paddingHorizontal: 18, paddingTop: 10, backgroundColor: theme.colors.background,
     borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: theme.colors.border,
   },
-  primary: {
-    minHeight: 56, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 9, borderRadius: 18,
-    backgroundColor: theme.colors.primary, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.22, shadowRadius: 9, elevation: 5,
-  },
-  primaryDisabled: {opacity: 0.45, shadowOpacity: 0, elevation: 0},
-  primaryText: {color: onPrimaryTextColor(theme), fontSize: 15.5, fontWeight: '800'},
-  cancel: {alignSelf: 'center', minHeight: 44, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 15},
-  cancelText: {color: theme.colors.primary, fontSize: 14, fontWeight: '700'},
+  cancel: {marginTop: 4},
 
-  pressed: {opacity: 0.85, transform: [{scale: 0.99}]},
+  pressed: {opacity: 0.85},
   });
 }
