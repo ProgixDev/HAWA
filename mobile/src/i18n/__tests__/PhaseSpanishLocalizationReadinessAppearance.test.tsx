@@ -106,14 +106,27 @@ afterEach(async () => {
 });
 
 describe('TEST — AppearanceScreen "Langue de l\'application" selector (cases 10-15)', () => {
-  it('10. English is shown as selected by default, with no saved preference', async () => {
+  it('10. With no saved preference AWA follows the system language (English here): "System default" is the selected option', async () => {
     const renderer = await renderScreen();
-    expect(textsOf(renderer)).toContain('English'); // the row's own subtitle
+    expect(getAppLanguage()).toBe('en');
+    // the row's own subtitle names the mode and the language in force
+    expect(textsOf(renderer)).toContain('System default · English');
 
     await openLanguageSheet(renderer);
-    expect(radios(renderer, 'English')[0].props.accessibilityState).toEqual({checked: true});
+    expect(radios(renderer, 'System default')[0].props.accessibilityState).toEqual({checked: true});
+    // no language was CHOSEN, so none of the language cards is selected
+    expect(radios(renderer, 'English')[0].props.accessibilityState).toEqual({checked: false});
     expect(radios(renderer, 'Français')[0].props.accessibilityState).toEqual({checked: false});
     expect(radios(renderer, 'Español')[0].props.accessibilityState).toEqual({checked: false});
+  });
+
+  it('10b. A manually chosen English is shown as the selected language, not "System default"', async () => {
+    await setAppLanguage('en');
+    const renderer = await renderScreen();
+    expect(textsOf(renderer)).toContain('English');
+    await openLanguageSheet(renderer);
+    expect(radios(renderer, 'English')[0].props.accessibilityState).toEqual({checked: true});
+    expect(radios(renderer, 'System default')[0].props.accessibilityState).toEqual({checked: false});
   });
 
   it('11. French is present as a selectable option', async () => {

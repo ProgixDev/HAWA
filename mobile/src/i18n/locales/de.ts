@@ -156,6 +156,9 @@ export const de = {
       russianName: 'Русский',
       germanName: 'Deutsch',
       chineseName: '简体中文',
+      indonesianName: 'Bahasa Indonesia',
+      systemName: 'Systemsprache',
+      systemDescription: 'Sprache des Geräts verwenden',
     },
   },
   cycleHome: {
@@ -8742,6 +8745,70 @@ export const de = {
       swelling: 'Schwellungen',
       dizziness: 'Schwindel',
       sleepTrouble: 'Schlafprobleme',
+    },
+  },
+  // Managed daughter profile only: the mother's own journal screens never read these keys. Wording is for a
+  // parent recording a child's day (third person), with the daughter's first name filled in as {{name}}.
+  daughterJournal: {
+    sheetTitle: 'Tagesjournal von {{name}}',
+    sheetSubtitle: 'Was möchtest du heute festhalten?',
+    titles: {
+      symptoms: 'Symptome von {{name}}',
+      mood: 'Stimmung von {{name}}',
+      activity: 'Bewegung von {{name}}',
+      sleep: 'Schlaf von {{name}}',
+      hydration: 'Flüssigkeitszufuhr von {{name}}',
+      menstrualFlow: 'Menstruationsblutung von {{name}}',
+      note: 'Beobachtungen zu {{name}}',
+    },
+    sheetItems: {
+      symptom: 'Beobachtete Symptome',
+      mood: 'Stimmung des Tages',
+      activity: 'Bewegung und Aktivität heute',
+      sleep: 'Dauer und Qualität des Schlafs',
+      hydration: 'Trinkmenge verfolgen',
+      menstrualFlow: 'Stärke und Merkmale der Blutung',
+      note: 'Beobachtung des Tages und private Fotos',
+    },
+    symptoms: {
+      observedTitle: 'Beobachtete Symptome',
+      observedSubtitle: 'Wähle die heute beobachteten Symptome aus.',
+      intensitySubtitle: 'Wähle die Stufe, die am besten beschreibt, was sie spürt.',
+      locationSubtitle: 'Wo spürt sie diese Symptome hauptsächlich?',
+      errorMessage: 'Die Symptome konnten gerade nicht gespeichert werden.',
+    },
+    mood: {
+      question: 'Wie fühlt sie sich heute?',
+      commentAccessibility: 'Kommentar zu ihrer Stimmung',
+      errorMessage: 'Die Stimmung konnte gerade nicht gespeichert werden.',
+    },
+    activity: {
+      typeHint: 'Wähle die Aktivität aus, die sie gemacht hat',
+      durationHint: 'Wie lange hat sie sich bewegt?',
+      intensityHint: 'Wie anstrengend war es für sie?',
+      feelingTitle: 'Wie fühlt sie sich nach der Aktivität?',
+      errorMessage: 'Die Aktivität konnte gerade nicht gespeichert werden.',
+    },
+    sleep: {
+      awakeningsSubtitle: 'Wie oft ist sie aufgewacht?',
+      wakeFeelingSubtitle: 'Wie fühlt sie sich beim Aufwachen?',
+      errorMessage: 'Der Schlaf konnte gerade nicht gespeichert werden.',
+    },
+    note: {
+      observationTitle: 'Beobachtung des Tages',
+      photosHint: 'Veränderungen an Haut, Haaren oder einem Symptom verfolgen.',
+      photosOnDevice: 'Die Fotos bleiben nur auf diesem Gerät.',
+      protectedText: 'Notizen und Fotos werden nur auf diesem Gerät gespeichert. Niemand sonst hat Zugriff darauf.',
+      protectedTitle: 'Daten geschützt',
+      saveLabel: 'Beobachtung speichern',
+      errorMessage: 'Die Beobachtung konnte gerade nicht gespeichert werden.',
+    },
+    flow: {
+      periodEnded: 'Ihre Periode ist beendet',
+      errorMessage: 'Die Blutung konnte gerade nicht gespeichert werden.',
+    },
+    hydration: {
+      advice: 'Ausreichend Wasser zu trinken kann Blähungen verringern und die Energie unterstützen.',
     },
   },
 };

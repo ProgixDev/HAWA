@@ -154,6 +154,9 @@ export const it = {
       russianName: 'Русский',
       germanName: 'Deutsch',
       chineseName: '简体中文',
+      indonesianName: 'Bahasa Indonesia',
+      systemName: 'Lingua di sistema',
+      systemDescription: 'Usa la lingua del dispositivo',
     },
   },
   cycleHome: {
@@ -8743,6 +8746,70 @@ export const it = {
       swelling: 'Gonfiore',
       dizziness: 'Vertigini',
       sleepTrouble: 'Problemi di sonno',
+    },
+  },
+  // Managed daughter profile only: the mother's own journal screens never read these keys. Wording is for a
+  // parent recording a child's day (third person), with the daughter's first name filled in as {{name}}.
+  daughterJournal: {
+    sheetTitle: 'Diario di {{name}}',
+    sheetSubtitle: 'Cosa vuoi annotare oggi?',
+    titles: {
+      symptoms: 'Sintomi di {{name}}',
+      mood: 'Umore di {{name}}',
+      activity: 'Attività fisica di {{name}}',
+      sleep: 'Sonno di {{name}}',
+      hydration: 'Idratazione di {{name}}',
+      menstrualFlow: 'Flusso mestruale di {{name}}',
+      note: 'Osservazioni su {{name}}',
+    },
+    sheetItems: {
+      symptom: 'Sintomi osservati',
+      mood: 'Umore della giornata',
+      activity: 'Il movimento e l’attività di oggi',
+      sleep: 'Durata e qualità del sonno',
+      hydration: 'Tieni traccia dell’acqua bevuta',
+      menstrualFlow: 'Intensità e caratteristiche del flusso',
+      note: 'Osservazione del giorno e foto private',
+    },
+    symptoms: {
+      observedTitle: 'Sintomi osservati',
+      observedSubtitle: 'Seleziona i sintomi osservati oggi.',
+      intensitySubtitle: 'Scegli il livello che descrive meglio ciò che prova.',
+      locationSubtitle: 'Dove sente principalmente questi sintomi?',
+      errorMessage: 'Non è stato possibile salvare i sintomi in questo momento.',
+    },
+    mood: {
+      question: 'Come si sente oggi?',
+      commentAccessibility: 'Commento sul suo umore',
+      errorMessage: 'Non è stato possibile salvare l’umore in questo momento.',
+    },
+    activity: {
+      typeHint: 'Seleziona l’attività che ha svolto',
+      durationHint: 'Per quanto tempo si è mossa?',
+      intensityHint: 'Qual è stato il suo livello di sforzo?',
+      feelingTitle: 'Come si sente dopo l’attività?',
+      errorMessage: 'Non è stato possibile salvare l’attività in questo momento.',
+    },
+    sleep: {
+      awakeningsSubtitle: 'Quante volte si è svegliata?',
+      wakeFeelingSubtitle: 'Come si sente al risveglio?',
+      errorMessage: 'Non è stato possibile salvare il sonno in questo momento.',
+    },
+    note: {
+      observationTitle: 'Osservazione del giorno',
+      photosHint: 'Monitora i cambiamenti della pelle, dei peli o di un sintomo.',
+      photosOnDevice: 'Le foto restano solo su questo dispositivo.',
+      protectedText: 'Note e foto sono conservate solo su questo dispositivo. Nessun altro può accedervi.',
+      protectedTitle: 'Dati protetti',
+      saveLabel: 'Salva l’osservazione',
+      errorMessage: 'Non è stato possibile salvare l’osservazione in questo momento.',
+    },
+    flow: {
+      periodEnded: 'Le mestruazioni sono terminate',
+      errorMessage: 'Non è stato possibile salvare il flusso in questo momento.',
+    },
+    hydration: {
+      advice: 'Bere a sufficienza aiuta a ridurre il gonfiore e a sostenere l’energia.',
     },
   },
 } as const;

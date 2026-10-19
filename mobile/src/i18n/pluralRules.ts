@@ -40,7 +40,8 @@ class AwaPluralRules {
   select(value: number): PluralCategory {
     if (this.language === 'ru') {return russianCardinal(value);}
     // Chinese has no grammatical number: CLDR has the single category "other".
-    if (this.language === 'zh') {return 'other';}
+    if (this.language === 'zh' || this.language === 'id') {return 'other';}
+    // Indonesian likewise has no grammatical number (CLDR: only "other").
     return value === 1 ? 'one' : 'other';
   }
 
@@ -48,7 +49,7 @@ class AwaPluralRules {
     return {
       locale: this.language,
       pluralCategories:
-        this.language === 'ru' ? ['one', 'few', 'many', 'other'] : this.language === 'zh' ? ['other'] : ['one', 'other'],
+        this.language === 'ru' ? ['one', 'few', 'many', 'other'] : this.language === 'zh' || this.language === 'id' ? ['other'] : ['one', 'other'],
     };
   }
 

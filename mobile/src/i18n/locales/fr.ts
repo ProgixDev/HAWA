@@ -190,6 +190,9 @@ export const fr = {
       russianName: 'Русский',
       germanName: 'Deutsch',
       chineseName: '简体中文',
+      indonesianName: 'Bahasa Indonesia',
+      systemName: 'Langue du système',
+      systemDescription: 'Utiliser la langue de l’appareil',
     },
   },
 
@@ -5014,7 +5017,7 @@ export const fr = {
       infoText: 'C’est normal d’avoir un sommeil irrégulier après l’accouchement. Ton corps se régule progressivement.',
     },
     fatigue: {
-      heroTitle: 'Comment est ton énergie ?',
+      heroTitle: 'Comment est\nton énergie ?',
       heroText: 'Ton corps traverse beaucoup de changements. Prends le temps de l’écouter.',
       adviceTitle: 'Ton énergie compte',
       adviceText: 'Observer ta fatigue t’aide à mieux répartir tes moments de repos et à demander du soutien quand il le faut.',
@@ -8409,5 +8412,68 @@ export const fr = {
       sleepTrouble: 'Troubles du sommeil',
     },
   },
-
+  // Managed daughter profile only: the mother's own journal screens never read these keys. Wording is for a
+  // parent recording a child's day (third person), with the daughter's first name filled in as {{name}}.
+  daughterJournal: {
+    sheetTitle: 'Journal de {{name}}',
+    sheetSubtitle: 'Que souhaites-tu noter aujourd’hui ?',
+    titles: {
+      symptoms: 'Symptômes de {{name}}',
+      mood: 'Humeur de {{name}}',
+      activity: 'Activité physique de {{name}}',
+      sleep: 'Sommeil de {{name}}',
+      hydration: 'Hydratation de {{name}}',
+      menstrualFlow: 'Flux menstruel de {{name}}',
+      note: 'Observations de {{name}}',
+    },
+    sheetItems: {
+      symptom: 'Symptômes observés',
+      mood: 'Humeur du jour',
+      activity: 'Mouvement et activité du jour',
+      sleep: 'Durée et qualité du sommeil',
+      hydration: 'Suivi de la consommation d’eau',
+      menstrualFlow: 'Intensité et caractéristiques du flux',
+      note: 'Observation du jour et photos privées',
+    },
+    symptoms: {
+      observedTitle: 'Symptômes observés',
+      observedSubtitle: 'Sélectionne les symptômes observés aujourd’hui.',
+      intensitySubtitle: 'Choisis le niveau qui décrit le mieux ce qu’elle ressent.',
+      locationSubtitle: 'Où ressent-elle principalement ces symptômes ?',
+      errorMessage: 'Impossible d’enregistrer les symptômes pour le moment.',
+    },
+    mood: {
+      question: 'Comment se sent-elle aujourd’hui ?',
+      commentAccessibility: 'Commentaire sur son humeur',
+      errorMessage: 'Impossible d’enregistrer l’humeur pour le moment.',
+    },
+    activity: {
+      typeHint: 'Sélectionne l’activité pratiquée',
+      durationHint: 'Combien de temps a-t-elle bougé ?',
+      intensityHint: 'Quel était son niveau d’effort ?',
+      feelingTitle: 'Comment se sent-elle après l’activité ?',
+      errorMessage: 'Impossible d’enregistrer l’activité pour le moment.',
+    },
+    sleep: {
+      awakeningsSubtitle: 'Combien de fois s’est-elle réveillée ?',
+      wakeFeelingSubtitle: 'Comment se sent-elle au réveil ?',
+      errorMessage: 'Impossible d’enregistrer le sommeil pour le moment.',
+    },
+    note: {
+      observationTitle: 'Observation du jour',
+      photosHint: 'Suivre l’évolution de la peau, de la pilosité ou d’un symptôme.',
+      photosOnDevice: 'Les photos restent uniquement sur cet appareil.',
+      protectedText: 'Les notes et photos sont stockées uniquement sur cet appareil. Personne d’autre n’y a accès.',
+      protectedTitle: 'Données protégées',
+      saveLabel: 'Enregistrer l’observation',
+      errorMessage: 'Impossible d’enregistrer l’observation pour le moment.',
+    },
+    flow: {
+      periodEnded: 'Ses règles sont terminées',
+      errorMessage: 'Impossible d’enregistrer le flux pour le moment.',
+    },
+    hydration: {
+      advice: 'Boire suffisamment d’eau aide à réduire les ballonnements et à soutenir l’énergie.',
+    },
+  },
 } as const;

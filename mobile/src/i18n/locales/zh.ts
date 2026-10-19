@@ -159,6 +159,9 @@ export const zh = {
       russianName: 'Русский',
       germanName: 'Deutsch',
       chineseName: '简体中文',
+      indonesianName: 'Bahasa Indonesia',
+      systemName: '跟随系统',
+      systemDescription: '使用设备语言',
     },
   },
   cycleHome: {
@@ -8745,6 +8748,70 @@ export const zh = {
       swelling: '水肿',
       dizziness: '头晕',
       sleepTrouble: '睡眠困扰',
+    },
+  },
+  // Managed daughter profile only: the mother's own journal screens never read these keys. Wording is for a
+  // parent recording a child's day (third person), with the daughter's first name filled in as {{name}}.
+  daughterJournal: {
+    sheetTitle: '{{name}}的记录',
+    sheetSubtitle: '你今天想记录什么？',
+    titles: {
+      symptoms: '{{name}}的症状',
+      mood: '{{name}}的情绪',
+      activity: '{{name}}的运动',
+      sleep: '{{name}}的睡眠',
+      hydration: '{{name}}的饮水',
+      menstrualFlow: '{{name}}的经量',
+      note: '{{name}}的观察记录',
+    },
+    sheetItems: {
+      symptom: '观察到的症状',
+      mood: '今天的情绪',
+      activity: '今天的活动与运动',
+      sleep: '睡眠时长与质量',
+      hydration: '记录饮水量',
+      menstrualFlow: '经量大小与特点',
+      note: '今日观察与私密照片',
+    },
+    symptoms: {
+      observedTitle: '观察到的症状',
+      observedSubtitle: '选择今天观察到的症状。',
+      intensitySubtitle: '选择最贴近她感受的程度。',
+      locationSubtitle: '这些症状主要出现在哪里？',
+      errorMessage: '暂时无法保存症状。',
+    },
+    mood: {
+      question: '她今天感觉怎么样？',
+      commentAccessibility: '关于她情绪的备注',
+      errorMessage: '暂时无法保存情绪。',
+    },
+    activity: {
+      typeHint: '选择她做的运动',
+      durationHint: '她运动了多久？',
+      intensityHint: '她的运动强度如何？',
+      feelingTitle: '运动后她感觉如何？',
+      errorMessage: '暂时无法保存运动记录。',
+    },
+    sleep: {
+      awakeningsSubtitle: '她醒来了几次？',
+      wakeFeelingSubtitle: '醒来时她感觉如何？',
+      errorMessage: '暂时无法保存睡眠记录。',
+    },
+    note: {
+      observationTitle: '今日观察',
+      photosHint: '记录皮肤、毛发或某个症状的变化。',
+      photosOnDevice: '照片只保存在这台设备上。',
+      protectedText: '笔记和照片只保存在这台设备上，其他人无法访问。',
+      protectedTitle: '数据受到保护',
+      saveLabel: '保存观察',
+      errorMessage: '暂时无法保存观察记录。',
+    },
+    flow: {
+      periodEnded: '她的经期已结束',
+      errorMessage: '暂时无法保存经量记录。',
+    },
+    hydration: {
+      advice: '多喝水有助于减轻腹胀，保持精力。',
     },
   },
 };
