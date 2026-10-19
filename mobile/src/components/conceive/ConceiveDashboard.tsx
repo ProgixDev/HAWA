@@ -29,7 +29,7 @@ import DailyJournalCard, {type Shortcut} from '../home/DailyJournalCard';
 import PeriodStartBottomSheet from '../calendar/PeriodStartBottomSheet';
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {interpolateHex, onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {interpolateHex, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
 import {usePrayerPurityStatus} from '../../hooks/usePrayerPurityStatus';
 import {useQadaaStatus} from '../../hooks/useQadaaStatus';
@@ -67,6 +67,9 @@ import {
   formatShortDate,
   ovulationDayFor,
 } from '../../utils/cycleMath';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaText} from '../ui/AwaText';
 
 // "Essayer de concevoir" Dashboard, redesigned to match an approved visual
 // mockup (fertility ring hero + phase timeline + 2x2 cycle summary grid).
@@ -157,8 +160,6 @@ function FertilityRing({
 }) {
   const {t} = useTranslation();
   const progressAnim = useRef(new Animated.Value(0)).current;
-  const breatheAnim = useRef(new Animated.Value(0)).current;
-  const rotateAnim = useRef(new Animated.Value(0)).current;
   const centerAnim = useRef(new Animated.Value(0)).current;
 
   const clamped = Math.min(Math.max(progress, 0), 1);
@@ -197,60 +198,11 @@ function FertilityRing({
         useNativeDriver: true,
       }),
     ]).start();
-
-    const breathe = Animated.loop(
-      Animated.sequence([
-        Animated.timing(breatheAnim, {
-          toValue: 1,
-          duration: 1800,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-        Animated.timing(breatheAnim, {
-          toValue: 0,
-          duration: 1800,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-
-    const rotate = Animated.loop(
-      Animated.timing(rotateAnim, {
-        toValue: 1,
-        duration: 9000,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-    );
-
-    breathe.start();
-    rotate.start();
-
-    return () => {
-      breathe.stop();
-      rotate.stop();
-    };
-  }, [breatheAnim, centerAnim, clamped, progressAnim, rotateAnim]);
+  }, [centerAnim, clamped, progressAnim]);
 
   const animatedDashOffset = progressAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [RING_CIRCUMFERENCE, 0],
-  });
-
-  const breatheScale = breatheAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 1.045],
-  });
-
-  const breatheOpacity = breatheAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0.10, 0.24],
-  });
-
-  const outerRotate = rotateAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '360deg'],
   });
 
   const centerScale = centerAnim.interpolate({
@@ -265,32 +217,6 @@ function FertilityRing({
 
   return (
     <View style={styles.ringWrap}>
-      <Animated.View
-        pointerEvents="none"
-        style={[
-          styles.ringOuterHalo,
-          {
-            opacity: breatheOpacity,
-            transform: [
-              {scale: breatheScale},
-              {rotate: outerRotate},
-            ],
-          },
-        ]}>
-        <View style={styles.ringHaloDot} />
-      </Animated.View>
-
-      <Animated.View
-        pointerEvents="none"
-        style={[
-          styles.ringGlow,
-          {
-            opacity: breatheOpacity,
-            transform: [{scale: breatheScale}],
-          },
-        ]}
-      />
-
       <Svg height={RING_SIZE} width={RING_SIZE}>
         <Defs>
           <SvgGradient id="fertilityRingGradient" x1="0" x2="1" y1="0" y2="1">
@@ -558,11 +484,6 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
@@ -581,7 +502,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
             />
           </Animated.View>
 
-          <View style={styles.heroCard}>
+          <AwaCard padding="none" variant="filled" style={styles.heroCard}>
             {hasConfirmedCycleData ? (
               <>
                 <View style={styles.heroTopRow}>
@@ -595,8 +516,8 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
                         </View>
                       ) : null}
                     </View>
-                    <Text style={styles.heroTitle}>{heroStatus.title}</Text>
-                    <Text style={styles.heroDescription}>{heroStatus.description}</Text>
+                    <AwaText variant="headlineSmall" style={styles.heroTitle}>{heroStatus.title}</AwaText>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.heroDescription}>{heroStatus.description}</AwaText>
                   </View>
                 </View>
 
@@ -614,23 +535,23 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
                   <View style={styles.timelineLegend}>
                     <View style={styles.timelineLegendItem}>
                       <View style={[styles.timelineDot, {backgroundColor: PERIOD}]} />
-                      <Text style={styles.timelineLegendLabel}>{t('conceiveDashboard.timelineLegend.period')}</Text>
-                      <Text style={styles.timelineLegendValue}>J1-{phaseBasics.periodDuration}</Text>
+                      <AwaText variant="labelSmall" style={styles.timelineLegendLabel}>{t('conceiveDashboard.timelineLegend.period')}</AwaText>
+                      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.timelineLegendValue}>J1-{phaseBasics.periodDuration}</AwaText>
                     </View>
                     <View style={styles.timelineLegendItem}>
                       <View style={[styles.timelineDot, {backgroundColor: FERTILE_COLOR}]} />
-                      <Text style={styles.timelineLegendLabel}>{t('conceiveDashboard.timelineLegend.fertile')}</Text>
-                      <Text style={styles.timelineLegendValue}>J{fertileStartDay}-{fertileEndDay}</Text>
+                      <AwaText variant="labelSmall" style={styles.timelineLegendLabel}>{t('conceiveDashboard.timelineLegend.fertile')}</AwaText>
+                      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.timelineLegendValue}>J{fertileStartDay}-{fertileEndDay}</AwaText>
                     </View>
                     <View style={styles.timelineLegendItem}>
                       <View style={[styles.timelineDot, {backgroundColor: OVULATION}]} />
-                      <Text style={styles.timelineLegendLabel}>{t('conceiveDashboard.timelineLegend.ovulation')}</Text>
-                      <Text style={styles.timelineLegendValue}>J{ovulationDay}</Text>
+                      <AwaText variant="labelSmall" style={styles.timelineLegendLabel}>{t('conceiveDashboard.timelineLegend.ovulation')}</AwaText>
+                      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.timelineLegendValue}>J{ovulationDay}</AwaText>
                     </View>
                     <View style={styles.timelineLegendItem}>
                       <View style={[styles.timelineDot, {backgroundColor: LUTEAL_COLOR}]} />
-                      <Text style={styles.timelineLegendLabel}>{t('conceiveDashboard.timelineLegend.luteal')}</Text>
-                      <Text style={styles.timelineLegendValue}>J{fertileEndDay + 1}-{cycleLength}</Text>
+                      <AwaText variant="labelSmall" style={styles.timelineLegendLabel}>{t('conceiveDashboard.timelineLegend.luteal')}</AwaText>
+                      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.timelineLegendValue}>J{fertileEndDay + 1}-{cycleLength}</AwaText>
                     </View>
                   </View>
                 </View>
@@ -639,18 +560,18 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
 
                 <View style={styles.heroFooterRow}>
                   <View style={styles.heroFooterCopy}>
-                    <Text style={styles.heroFooterLabel}>{t('conceiveDashboard.nextPeriodLabel')}</Text>
-                    <Text style={styles.heroFooterValue}>{nextPeriodTile.value}</Text>
-                    <Text style={styles.heroFooterSubtitle}>{nextPeriodTile.subtitle}</Text>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{t('conceiveDashboard.nextPeriodLabel')}</AwaText>
+                    <AwaText variant="titleSmall" style={styles.heroFooterValue}>{nextPeriodTile.value}</AwaText>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.heroFooterSubtitle}>{nextPeriodTile.subtitle}</AwaText>
                   </View>
-                  <Pressable
+                  <AwaButton
                     accessibilityLabel={t('conceiveDashboard.viewCalendar')}
                     accessibilityRole="button"
                     onPress={() => navigation.navigate('Calendar')}
-                    style={({pressed}) => [styles.calendarCta, pressed && styles.calendarCtaPressed]}>
-                    <MaterialDesignIcons color={PURPLE} name="calendar-month-outline" size={16} />
-                    <Text style={styles.calendarCtaText}>{t('conceiveDashboard.viewCalendar')}</Text>
-                  </Pressable>
+                    label={t('conceiveDashboard.viewCalendar')}
+                    icon="calendar-month-outline"
+                    variant="tonal"
+                  />
                 </View>
               </>
             ) : (
@@ -663,21 +584,20 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
                 <View style={styles.insufficientDataIcon}>
                   <MaterialDesignIcons color={PURPLE} name="calendar-alert-outline" size={24} />
                 </View>
-                <Text style={styles.insufficientDataTitle}>{t('conceiveDashboard.insufficientData.title')}</Text>
-                <Text style={styles.insufficientDataText}>
+                <AwaText variant="titleMedium" style={styles.insufficientDataTitle}>{t('conceiveDashboard.insufficientData.title')}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.insufficientDataText}>
                   {t('conceiveDashboard.insufficientData.text')}
-                </Text>
-                <Pressable
+                </AwaText>
+                <AwaButton
                   accessibilityLabel={t('conceiveDashboard.insufficientData.cta')}
-                  accessibilityRole="button"
+                  icon="calendar-edit"
+                  label={t('conceiveDashboard.insufficientData.cta')}
                   onPress={() => navigation.navigate('CycleInformation', {fromDashboardCTA: true})}
-                  style={({pressed}) => [styles.insufficientDataCta, pressed && styles.calendarCtaPressed]}>
-                  <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="calendar-edit" size={16} />
-                  <Text style={styles.insufficientDataCtaText}>{t('conceiveDashboard.insufficientData.cta')}</Text>
-                </Pressable>
+                  style={styles.insufficientDataCta}
+                />
               </View>
             )}
-          </View>
+          </AwaCard>
 
           {/* Record / correct a period from the Conceive objective — the SAME
               PeriodStartBottomSheet + confirmPeriodStart() path Cycle uses (one
@@ -685,14 +605,14 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
               when today is not already inside a real confirmed period. */}
           {!isDateWithinConfirmedPeriod(today) ? (
             <View style={styles.periodStartCtaWrap}>
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('cycleHome.myPeriodStartedCta')}
-                accessibilityRole="button"
+                label={t('cycleHome.myPeriodStartedCta')}
+                labelStyle={styles.periodStartCtaText}
                 onPress={() => setPeriodStartSheetVisible(true)}
-                style={({pressed}) => [styles.periodStartCta, pressed && styles.pressed]}>
-                <MaterialDesignIcons color={PERIOD} name="water-plus-outline" size={16} />
-                <Text style={styles.periodStartCtaText}>{t('cycleHome.myPeriodStartedCta')}</Text>
-              </Pressable>
+                style={styles.periodStartCta}
+                variant="outlined"
+              />
             </View>
           ) : null}
 
@@ -704,22 +624,24 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
               manual journal entry, so it gets its own dashboard entry point
               here instead of living inside "Suivi du jour" alongside the
               4 real daily-tracking items. */}
-          <Pressable
+          <AwaCard
+            padding="none"
+            variant="filled"
             accessibilityLabel={t('conceiveDashboard.evolutionCard.accessibilityLabel')}
             accessibilityRole="button"
             onPress={() => navigation.navigate('CycleEvolutionEntry')}
-            style={({pressed}) => [styles.evolutionCard, pressed && styles.pressed]}>
+            style={styles.evolutionCard}>
             <View style={styles.evolutionIcon}>
               <MaterialDesignIcons color={PURPLE} name="chart-donut" size={22} />
             </View>
             <View style={styles.evolutionCopy}>
-              <Text style={styles.evolutionTitle}>{t('journalCycleEvolution.title')}</Text>
-              <Text style={styles.evolutionSubtitle}>
+              <AwaText variant="titleSmall">{t('journalCycleEvolution.title')}</AwaText>
+              <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={styles.evolutionSubtitle}>
                 {hasConfirmedCycleData ? t('conceiveDashboard.evolutionCard.subtitleWithStatus', {day: currentCycleDay, status: heroStatus.title}) : t('conceiveDashboard.evolutionCard.subtitleConfigure')}
-              </Text>
+              </AwaText>
             </View>
             <MaterialDesignIcons color={PURPLE} name="chevron-right" size={20} />
-          </Pressable>
+          </AwaCard>
 
           <DailyJournalCard
             entry={journalEntry}
@@ -731,12 +653,12 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
           {advice && hasConfirmedCycleData ? (
             <View style={styles.adviceCard}>
               <View style={styles.adviceIcon}>
-                <Text style={styles.adviceEmoji}>🌸</Text>
+                <AwaText variant="bodyLarge">🌸</AwaText>
               </View>
               <View style={styles.adviceCopy}>
-                <Text style={styles.adviceTitle}>{t('conceiveDashboard.adviceCard.title')}</Text>
-                <Text style={styles.adviceSubtitle}>{heroStatus.title}</Text>
-                <Text style={styles.adviceText}>{advice}</Text>
+                <AwaText variant="labelMedium">{t('conceiveDashboard.adviceCard.title')}</AwaText>
+                <AwaText variant="labelMedium" style={styles.adviceSubtitle}>{heroStatus.title}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.adviceText}>{advice}</AwaText>
               </View>
               {/* No chevron: this card is informational (one static sentence per
                   cycle phase) and has no destination — nothing that looks
@@ -761,11 +683,11 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
             />
           ) : null}
 
-          <View style={styles.articlesCard}>
+          <AwaCard padding="none" variant="filled" style={styles.articlesCard}>
             <View style={styles.articlesHeader}>
-              <Text style={styles.articlesTitle}>{t('objectiveArticles.title')}</Text>
+              <AwaText variant="titleMedium">{t('objectiveArticles.title')}</AwaText>
               <Pressable accessibilityRole="button" hitSlop={8} onPress={() => navigation.navigate('Library')}>
-                <Text style={styles.articlesSeeAll}>{t('objectiveArticles.seeAll')}</Text>
+                <AwaText variant="labelMedium" style={styles.articlesSeeAll}>{t('objectiveArticles.seeAll')}</AwaText>
               </Pressable>
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.articlesRow}>
@@ -777,15 +699,15 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
                   onPress={() => navigation.navigate('ArticleReader', {articleId: article.id})}
                   style={({pressed}) => [styles.articleTile, pressed && styles.pressed]}>
                   <Image resizeMode="cover" source={ARTICLE_IMAGES[article.categoryId] ?? ARTICLE_IMAGES.fertility} style={styles.articleImage} />
-                  <Text numberOfLines={2} style={styles.articleTileTitle}>{article.title}</Text>
+                  <AwaText variant="labelSmall" numberOfLines={2} style={styles.articleTileTitle}>{article.title}</AwaText>
                   <View style={styles.articleTileMetaRow}>
                     <MaterialDesignIcons color={theme.colors.textSecondary} name="book-outline" size={12} />
-                    <Text style={styles.articleTileMeta}>{t('objectiveArticles.readingMinutes', {count: article.durationMinutes})}</Text>
+                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{t('objectiveArticles.readingMinutes', {count: article.durationMinutes})}</AwaText>
                   </View>
                 </Pressable>
               ))}
             </ScrollView>
-          </View>
+          </AwaCard>
         </ScrollView>
       </SafeAreaView>
 
@@ -833,10 +755,6 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   background: {flex: 1, backgroundColor: theme.colors.background},
 
-  pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
-  pageGlowTop: {position: 'absolute', top: -150, right: -110, width: 330, height: 330, borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07)},
-  pageGlowMiddle: {position: 'absolute', top: '38%', left: -130, width: 260, height: 260, borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045)},
-  pageGlowBottom: {position: 'absolute', bottom: -150, right: -100, width: 310, height: 310, borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05)},
 
   safeArea: {flex: 1, backgroundColor: 'transparent'},
 
@@ -846,22 +764,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingBottom: 22,
   },
 
-  heroCard: {
-    marginTop: 16,
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.09),
-    borderRadius: 30,
-    backgroundColor: withAlpha(theme.colors.surface, 0.985),
-    paddingHorizontal: 16,
-    paddingTop: 20,
-    paddingBottom: 17,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 9},
-    shadowOpacity: 0.13,
-    shadowRadius: 22,
-    elevation: 6,
-  },
+  heroCard: {marginTop: 16, overflow: 'hidden', paddingHorizontal: 16, paddingTop: 20, paddingBottom: 17},
   heroTopRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -874,31 +777,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
   },
-  ringOuterHalo: {
-    position: 'absolute',
-    width: RING_SIZE + 12,
-    height: RING_SIZE + 12,
-    borderRadius: (RING_SIZE + 12) / 2,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.18),
-  },
-  ringHaloDot: {
-    position: 'absolute',
-    top: 1,
-    left: '50%',
-    width: 7,
-    height: 7,
-    marginLeft: -3.5,
-    borderRadius: 4,
-    backgroundColor: theme.colors.secondary,
-  },
-  ringGlow: {
-    position: 'absolute',
-    width: RING_SIZE - 8,
-    height: RING_SIZE - 8,
-    borderRadius: (RING_SIZE - 8) / 2,
-    backgroundColor: theme.colors.primary,
-  },
   ringCenter: {
     position: 'absolute',
     alignItems: 'center',
@@ -906,7 +784,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
   ringEyebrow: {
     color: theme.colors.textSecondary,
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '700',
     letterSpacing: 0.5,
     textTransform: 'uppercase',
@@ -914,7 +792,6 @@ function createStyles(theme: ResolvedAwaTheme) {
   ringDay: {
     marginTop: 1,
     color: theme.colors.text,
-    fontFamily: 'serif',
     fontSize: 38,
     fontWeight: '700',
     lineHeight: 41,
@@ -928,7 +805,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
   ringSubtitle: {
     color: theme.colors.textSecondary,
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '600',
   },
 
@@ -953,31 +830,19 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 1,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.secondary, 0.08),
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.secondary, 0.12),
     paddingHorizontal: 10,
     paddingVertical: 6,
   },
   heroBadgeText: {
     color: theme.colors.secondary,
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '800',
     letterSpacing: 0.45,
   },
-  heroTitle: {
-    marginTop: 9,
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 22,
-    lineHeight: 27,
-    fontWeight: '700',
-  },
-  heroDescription: {
-    marginTop: 5,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 17,
-  },
+  heroTitle: {marginTop: 9},
+  heroDescription: {marginTop: 5},
 
   timelineWrap: {
     marginTop: 20,
@@ -1002,12 +867,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 17,
     marginLeft: -8.5,
     borderWidth: 3,
-    borderColor: '#FFFFFF',
+    borderColor: theme.colors.surface,
     borderRadius: 9,
     backgroundColor: PURPLE,
     shadowColor: PURPLE,
     shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.24,
+    shadowOpacity: 0.15,
     shadowRadius: 5,
     elevation: 3,
   },
@@ -1024,17 +889,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     minWidth: 62,
   },
   timelineDot: {width: 8, height: 8, borderRadius: 4},
-  timelineLegendLabel: {
-    marginTop: 5,
-    color: theme.colors.text,
-    fontSize: 10.5,
-    fontWeight: '700',
-  },
-  timelineLegendValue: {
-    marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-  },
+  timelineLegendLabel: {marginTop: 5},
+  timelineLegendValue: {marginTop: 2},
 
   heroDivider: {
     marginTop: 18,
@@ -1049,31 +905,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
   },
   heroFooterCopy: {flex: 1, minWidth: 0, marginRight: 10},
-  heroFooterLabel: {
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-  },
-  heroFooterValue: {
-    marginTop: 3,
-    color: theme.colors.text,
-    fontSize: 15.5,
-    fontWeight: '800',
-  },
-  heroFooterSubtitle: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 10.5},
-
-  calendarCta: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    minHeight: 40,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.08),
-    borderRadius: 20,
-    backgroundColor: theme.colors.primarySoft,
-    paddingHorizontal: 14,
-  },
-  calendarCtaPressed: {opacity: 0.8},
-  calendarCtaText: {color: PURPLE, fontSize: 12, fontWeight: '700'},
+  heroFooterValue: {marginTop: 3},
+  heroFooterSubtitle: {marginTop: 1},
 
   insufficientDataWrap: {alignItems: 'center', paddingVertical: 8},
   insufficientDataIcon: {
@@ -1081,61 +914,24 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 18,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  insufficientDataTitle: {
-    marginTop: 12,
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 17,
-    fontWeight: '700',
-  },
-  insufficientDataText: {
-    marginTop: 6,
-    color: theme.colors.textSecondary,
-    fontSize: 12.5,
-    lineHeight: 18,
-    textAlign: 'center',
-    paddingHorizontal: 8,
-  },
-  insufficientDataCta: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    marginTop: 16,
-    minHeight: 44,
-    borderRadius: 22,
-    backgroundColor: PURPLE,
-    paddingHorizontal: 20,
-  },
-  insufficientDataCtaText: {color: onPrimaryTextColor(theme), fontSize: 13, fontWeight: '700'},
+  insufficientDataTitle: {marginTop: 12},
+  insufficientDataText: {marginTop: 6, textAlign: 'center', paddingHorizontal: 8},
+  insufficientDataCta: {marginTop: 16},
 
   periodStartCtaWrap: {marginTop: 10, alignItems: 'center'},
   // SEMANTIC (period-pink family, same as Cycle's CTA) — never theme-driven.
+  // (AwaButton outlined supplies radius/height/padding; only the period
+  // identity colours are overridden here.)
   periodStartCta: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 7,
-    minHeight: 40,
-    borderWidth: 1.2,
     borderColor: 'rgba(220,123,130,0.35)',
-    borderRadius: 20,
     backgroundColor: '#FCEEEF',
-    paddingHorizontal: 16,
-    paddingVertical: 9,
   },
-  periodStartCtaText: {color: PERIOD, fontSize: 12.5, fontWeight: '700'},
+  periodStartCtaText: {color: PERIOD},
 
-  evolutionCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 16,
-    borderRadius: homeRadii.card,
-    backgroundColor: theme.colors.surface,
-    padding: 16,
-    ...theme.shadow,
-  },
+  evolutionCard: {flexDirection: 'row', alignItems: 'center', marginTop: 16, padding: 16},
   evolutionIcon: {
     width: 44,
     height: 44,
@@ -1145,8 +941,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
   evolutionCopy: {flex: 1, minWidth: 0, marginLeft: 12, marginRight: 8},
-  evolutionTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 15, fontWeight: '700'},
-  evolutionSubtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '600'},
+  evolutionSubtitle: {marginTop: 3},
 
   // Rose "romantic/nurturing" identity card. LIGHT keeps its own fixed pale
   // pink surface ('#FBEFF6') independent of the resolved palette, matching
@@ -1174,31 +969,16 @@ function createStyles(theme: ResolvedAwaTheme) {
     height: 38,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: adviceIconTint,
   },
-  adviceEmoji: {fontSize: 17},
   adviceCopy: {flex: 1, minWidth: 0, marginLeft: 12, marginRight: 8},
-  adviceTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 13.5, fontWeight: '700'},
-  adviceSubtitle: {
-    marginTop: 3,
-    color: adviceSubtitleColor,
-    fontSize: 13,
-    fontWeight: '700',
-  },
-  adviceText: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+  adviceSubtitle: {marginTop: 3, color: adviceSubtitleColor},
+  adviceText: {marginTop: 3},
 
-  articlesCard: {
-    marginTop: 16,
-    borderRadius: homeRadii.card,
-    backgroundColor: theme.colors.surface,
-    paddingVertical: 16,
-    paddingLeft: 16,
-    ...theme.shadow,
-  },
+  articlesCard: {marginTop: 16, paddingVertical: 16, paddingLeft: 16},
   articlesHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingRight: 16},
-  articlesTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-  articlesSeeAll: {color: PURPLE, fontSize: 12.5, fontWeight: '700'},
+  articlesSeeAll: {color: PURPLE},
   articlesRow: {marginTop: 12, gap: 10, paddingRight: 16},
   articleTile: {
     width: 140,
@@ -1210,9 +990,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingBottom: 10,
   },
   articleImage: {width: '100%', height: 76},
-  articleTileTitle: {marginTop: 8, marginHorizontal: 9, color: theme.colors.text, fontSize: 11.5, fontWeight: '700', lineHeight: 15},
+  articleTileTitle: {marginTop: 8, marginHorizontal: 9},
   articleTileMetaRow: {marginTop: 6, marginHorizontal: 9, flexDirection: 'row', alignItems: 'center', gap: 4},
-  articleTileMeta: {color: theme.colors.textSecondary, fontSize: 9.5},
   pressed: {opacity: 0.82, transform: [{scale: 0.98}]},
 
   });
