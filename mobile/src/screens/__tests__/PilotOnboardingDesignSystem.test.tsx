@@ -316,10 +316,12 @@ describe('NameOnboardingScreen', () => {
     await i18n.changeLanguage(code);
     const {renderer} = await renderWithAwaTheme(wrap(nameScreen()));
     const texts = textsOf(renderer as never);
-    // The simplified form: title, field label (cardTitle), the short subtitle, the button and the short helper line.
-    ['onboarding.name.title', 'onboarding.name.cardTitle', 'onboarding.name.formSubtitle', 'onboarding.name.next', 'onboarding.name.formFooter'].forEach(key => {
+    // The simplified form: title, the short subtitle, the button and the short helper line. The field label
+    // (cardTitle) is no longer shown above the input.
+    ['onboarding.name.title', 'onboarding.name.formSubtitle', 'onboarding.name.next', 'onboarding.name.formFooter'].forEach(key => {
       expect([key, texts.includes(dig(dictionary, key))]).toEqual([key, true]);
     });
+    expect(texts.includes(dig(dictionary, 'onboarding.name.cardTitle'))).toBe(false);
     expect(renderer.root.findByType(TextInput).props.placeholder).toBe(dig(dictionary, 'onboarding.name.formPlaceholder'));
     // The two-line subtitle and the previous helper line are no longer shown (keys untouched), nor are the
     // information-card caption, the privacy hint and the preview card.

@@ -43,6 +43,10 @@ import {spacing} from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 
 const LOCATION_PIN = require('../assets/images/location-pin.png');
 const LOCATION_TARGET = require('../assets/images/location-target.png');
@@ -381,11 +385,6 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
       <KeyboardAvoidingView
@@ -400,13 +399,16 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
           ]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
-          <Pressable accessibilityLabel={t('location.back')} hitSlop={12} onPress={navigation.goBack} style={styles.backButton}>
-            <MaterialDesignIcons name="arrow-left" size={25} color={theme.colors.primary} />
-          </Pressable>
+          <AwaIconButton
+            accessibilityLabel={t('location.back')}
+            icon="arrow-left"
+            onPress={navigation.goBack}
+            style={styles.backButton}
+          />
 
           <View style={styles.header}>
-            <Text style={styles.title}>{t('location.title')}</Text>
-            <Text style={styles.subtitle}>{t('location.subtitle')}</Text>
+            <AwaText accessibilityRole="header" style={styles.title} variant="headlineMedium">{t('location.title')}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">{t('location.subtitle')}</AwaText>
           </View>
 
           <View style={styles.searchArea}>
@@ -428,7 +430,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
                 value={query}
               />
               {searching ? <ActivityIndicator color={theme.colors.primary} size="small" /> : null}
-              <Pressable accessibilityLabel={t('location.useMyLocation')} hitSlop={10} onPress={useCurrentLocation}>
+              <Pressable accessibilityLabel={t('location.useMyLocation')} hitSlop={12} onPress={useCurrentLocation}>
                 {locating ? (
                   <ActivityIndicator color={theme.colors.primary} size="small" />
                 ) : (
@@ -445,7 +447,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
                     style={styles.suggestion}>
                     <Image source={LOCATION_PIN} style={styles.suggestionPin} />
                     <View style={styles.flex}>
-                      <Text numberOfLines={1} style={styles.suggestionTitle}>{place.city}, {place.country}</Text>
+                      <Text numberOfLines={2} style={styles.suggestionTitle}>{place.city}, {place.country}</Text>
                       {place.displayName ? <Text numberOfLines={1} style={styles.suggestionDetail}>{place.displayName}</Text> : null}
                     </View>
                   </Pressable>
@@ -479,39 +481,46 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
                 ) : (
                   <MaterialDesignIcons name="map-outline" size={42} color={theme.colors.primary} />
                 )}
-                <Text style={styles.mapUnavailableTitle}>
+                <AwaText style={styles.mapUnavailableTitle} variant="titleMedium">
                   {IS_MAPS_CONFIGURED && !mapStyleFailed ? t('location.map.loading') : t('location.map.unavailable')}
-                </Text>
-                <Text style={styles.mapUnavailableText}>
+                </AwaText>
+                <AwaText colorRole="onSurfaceVariant" style={styles.mapUnavailableText} variant="bodySmall">
                   {IS_MAPS_CONFIGURED ? t('location.map.checkConnection') : t('location.map.addKey')}
-                </Text>
+                </AwaText>
               </View>
             )}
           </View>
 
-          <View style={styles.locationCard}>
+          <AwaCard padding="compact" style={styles.locationCard} variant="filled">
             <Image source={LOCATION_PIN} style={styles.locationPin} />
             <View style={styles.locationCopy}>
-              <Text numberOfLines={1} style={styles.locationText}>
+              <AwaText variant="titleMedium">
                 {resolving ? t('location.resolvingLocation') : selectedLocation ? `${selectedLocation.city}, ${selectedLocation.country}` : t('location.noPositionSelected')}
-              </Text>
-              <Text style={styles.locationHint}>{selectedLocation?.timezone ?? t('location.positionSelectedOnMap')}</Text>
+              </AwaText>
+              <AwaText colorRole="onSurfaceVariant" style={styles.locationHint} variant="bodySmall">{selectedLocation?.timezone ?? t('location.positionSelectedOnMap')}</AwaText>
             </View>
             {resolving ? <ActivityIndicator color={theme.colors.primary} size="small" /> : selectedLocation ? (
               <View style={styles.checkCircle}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={16} /></View>
             ) : null}
-          </View>
+          </AwaCard>
 
-          {feedback ? <Text style={feedback.kind === 'error' ? styles.errorText : styles.infoText}>{feedback.text}</Text> : null}
+          {feedback ? (
+            <AwaText
+              colorRole={feedback.kind === 'error' ? 'error' : 'onSurfaceVariant'}
+              style={feedback.kind === 'error' ? styles.errorText : styles.infoText}
+              variant="bodySmall">
+              {feedback.text}
+            </AwaText>
+          ) : null}
 
-          <Pressable
-            accessibilityRole="button"
-            accessibilityState={{disabled: !selectedLocation}}
+          <AwaButton
             disabled={!selectedLocation}
+            fullWidth
+            label={isEdit ? t('location.save') : t('location.next')}
             onPress={handleNext}
-            style={({pressed}) => [styles.nextButton, !selectedLocation && styles.nextButtonDisabled, pressed && styles.pressed]}>
-            <Text style={styles.nextText}>{isEdit ? t('location.save') : t('location.next')}</Text>
-          </Pressable>
+            size="large"
+            style={styles.nextButton}
+          />
         </ScrollView>
       </KeyboardAvoidingView>
     </LinearGradient>
@@ -523,59 +532,28 @@ function createStyles(theme: ResolvedAwaTheme) {
     flex: {flex: 1},
     background: {flex: 1, backgroundColor: theme.colors.background},
 
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
 
-    pageGlowTop: {
-      position: 'absolute',
-      top: -150,
-      right: -110,
-      width: 330,
-      height: 330,
-      borderRadius: 165,
-      backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
 
-    pageGlowMiddle: {
-      position: 'absolute',
-      top: '38%',
-      left: -130,
-      width: 260,
-      height: 260,
-      borderRadius: 130,
-      backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
 
-    pageGlowBottom: {
-      position: 'absolute',
-      bottom: -150,
-      right: -100,
-      width: 310,
-      height: 310,
-      borderRadius: 155,
-      backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
     content: {flexGrow: 1, paddingHorizontal: spacing.lg},
     contentNotched: {paddingTop: 8},
     contentRegular: {paddingTop: 18},
     contentBottomNotched: {paddingBottom: 10},
     contentBottomRegular: {paddingBottom: 18},
-    backButton: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21, backgroundColor: withAlpha(theme.colors.surface, 0.88), elevation: 3},
-    header: {alignItems: 'center', marginTop: 4, marginBottom: 14},
-    title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 28, fontWeight: '700', lineHeight: 34, textAlign: 'center'},
-    subtitle: {maxWidth: 330, marginTop: 5, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 18, textAlign: 'center'},
+    backButton: {alignSelf: 'flex-start'},
+    header: {alignItems: 'center', marginTop: 4, marginBottom: 16},
+    title: {textAlign: 'center'},
+    subtitle: {maxWidth: 330, marginTop: 4, textAlign: 'center'},
     searchArea: {zIndex: 10},
-    searchBox: {minHeight: 50, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 16, backgroundColor: withAlpha(theme.colors.surface, 0.95), paddingHorizontal: 13, gap: 8},
-    input: {flex: 1, minWidth: 0, height: 50, color: theme.colors.text, fontSize: 14},
+    searchBox: {minHeight: 50, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 16, backgroundColor: withAlpha(theme.colors.surface, 0.95), paddingHorizontal: 16, gap: 8},
+    input: {flex: 1, minWidth: 0, minHeight: 50, color: theme.colors.text, fontSize: 14},
     targetImage: {width: 26, height: 26},
-    suggestions: {position: 'absolute', top: 54, right: 0, left: 0, overflow: 'hidden', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 14, backgroundColor: theme.colors.surface, elevation: 9},
-    suggestion: {minHeight: 50, flexDirection: 'row', alignItems: 'center', borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: theme.colors.border, paddingHorizontal: 12, gap: 10},
+    suggestions: {position: 'absolute', top: 54, right: 0, left: 0, overflow: 'hidden', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12, backgroundColor: theme.colors.surface, elevation: 6},
+    suggestion: {minHeight: 50, flexDirection: 'row', alignItems: 'center', borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: theme.colors.border, paddingHorizontal: 16, gap: 10},
     suggestionPin: {width: 18, height: 22},
     suggestionTitle: {color: theme.colors.text, fontSize: 14, fontWeight: '600'},
-    suggestionDetail: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11},
-    mapCard: {overflow: 'hidden', marginTop: 12, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 22, backgroundColor: theme.colors.primarySoft, elevation: 4},
+    suggestionDetail: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 12},
+    mapCard: {overflow: 'hidden', marginTop: 12, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12, backgroundColor: theme.colors.primarySoft, elevation: 4},
     mapSmall: {height: 260},
     mapMedium: {height: 300},
     mapLarge: {height: 340},
@@ -584,20 +562,16 @@ function createStyles(theme: ResolvedAwaTheme) {
     centerMarkerImage: {width: 36, height: 44},
     markerShadow: {width: 18, height: 5, marginTop: -3, borderRadius: 9, backgroundColor: withAlpha(theme.colors.primary, 0.2)},
     mapUnavailable: {flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 28},
-    mapUnavailableTitle: {marginTop: 8, color: theme.colors.text, fontSize: 16, fontWeight: '700'},
-    mapUnavailableText: {marginTop: 5, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17, textAlign: 'center'},
-    locationCard: {minHeight: 66, flexDirection: 'row', alignItems: 'center', marginTop: 12, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 17, backgroundColor: withAlpha(theme.colors.surface, 0.95), paddingHorizontal: 14},
+    mapUnavailableTitle: {marginTop: 8, textAlign: 'center'},
+    mapUnavailableText: {marginTop: 4, textAlign: 'center'},
+    locationCard: {minHeight: 64, flexDirection: 'row', alignItems: 'center', marginTop: 12, paddingHorizontal: 16},
     locationPin: {width: 25, height: 30},
     locationCopy: {flex: 1, minWidth: 0, marginHorizontal: 12},
-    locationText: {color: theme.colors.text, fontSize: 15, fontWeight: '600'},
-    locationHint: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11},
+    locationHint: {marginTop: 2},
     checkCircle: {width: 25, height: 25, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primary},
-    errorText: {marginTop: 7, color: theme.colors.danger, fontSize: 12, lineHeight: 17, textAlign: 'center'},
-    infoText: {marginTop: 7, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17, textAlign: 'center'},
-    nextButton: {minHeight: 50, alignItems: 'center', justifyContent: 'center', marginTop: 12, borderRadius: 17, backgroundColor: theme.colors.primary, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.22, shadowRadius: 8, elevation: 4},
-    nextButtonDisabled: {backgroundColor: withAlpha(theme.colors.primary, 0.45), elevation: 0, shadowOpacity: 0},
-    nextText: {color: onPrimaryTextColor(theme), fontSize: 17, fontWeight: '600'},
-    pressed: {opacity: 0.82},
+    errorText: {marginTop: 8, textAlign: 'center'},
+    infoText: {marginTop: 8, textAlign: 'center'},
+    nextButton: {marginTop: 16},
   });
 }
 

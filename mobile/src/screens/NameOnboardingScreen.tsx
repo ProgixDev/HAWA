@@ -153,7 +153,7 @@ function NameOnboardingScreen({
 
   const animatedShadow = focusAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 0.16],
+    outputRange: [0, 0.15],
   });
 
   return (
@@ -208,11 +208,8 @@ function NameOnboardingScreen({
               </AwaText>
             </View>
 
-            {/* NAME FIELD */}
-            <AwaText emphasized style={styles.fieldLabel} variant="titleSmall">
-              {t('onboarding.name.cardTitle')}
-            </AwaText>
-
+            {/* NAME FIELD: no visible label above it (the title and subtitle already say what it is); the input keeps its
+                accessible name (accessibilityLabel) for screen readers. */}
             <Animated.View
               style={[
                 styles.inputBox,
@@ -332,10 +329,6 @@ function createStyles(theme: ResolvedAwaTheme, roles: AwaRoles) {
       maxWidth: 340,
       marginTop: awaSpace.s8,
       textAlign: 'center',
-    },
-
-    fieldLabel: {
-      marginBottom: awaSpace.s8,
     },
 
     inputBox: {

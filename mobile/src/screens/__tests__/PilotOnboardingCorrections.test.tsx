@@ -285,7 +285,7 @@ describe('Name screen — simplified form with the same primary button as Welcom
     const texts = renderer.root.findAllByType(Text).map(node => node.props.children).filter(c => typeof c === 'string');
     ['Aperçu', fr.onboarding.name.cardSubtitle, fr.onboarding.name.privacyHint].forEach(copy => expect(texts).not.toContain(copy));
     expect(texts).toContain('TON ESPACE PERSONNEL');
-    expect(texts).toContain('Ton prénom ou pseudo'); // the one visible field label
+    expect(texts).not.toContain('Ton prénom ou pseudo'); // the redundant field label above the input was removed
     expect(renderer.root.findAllByType(LinearGradient)).toHaveLength(1);
     const absolute = renderer.root.findAll(node => String(node.type) === 'View' && flattenStyle(node.props.style).position === 'absolute');
     expect(absolute).toHaveLength(0);

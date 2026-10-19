@@ -3,6 +3,8 @@ import {Modal, Pressable, StyleSheet, Text, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {AwaIconButton} from '../ui/AwaIconButton';
+import {AwaText} from '../ui/AwaText';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale, localizedWeekDays} from '../../utils/cycleMath';
 import {displayTitleCase} from '../../utils/textCase';
@@ -72,34 +74,32 @@ function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, su
         <Pressable onPress={() => {}} style={styles.calendarCard}>
           {title ? (
             <View style={styles.titleBlock}>
-              <Text style={styles.pickerTitle}>{title}</Text>
-              {subtitle ? <Text style={styles.pickerSubtitle}>{subtitle}</Text> : null}
+              <AwaText accessibilityRole="header" style={styles.pickerTitle} variant="titleLarge">{title}</AwaText>
+              {subtitle ? <AwaText colorRole="onSurfaceVariant" style={styles.pickerSubtitle} variant="bodySmall">{subtitle}</AwaText> : null}
             </View>
           ) : null}
 
           <View style={styles.calendarHeader}>
-            <Pressable
+            <AwaIconButton
               accessibilityLabel={t('inlineCalendarPicker.previousMonthA11y')}
-              hitSlop={8}
+              icon="chevron-left"
               onPress={() => changeMonth(-1)}
-              style={styles.calendarArrowButton}>
-              <Text style={styles.calendarArrowText}>{'<'}</Text>
-            </Pressable>
-            <Text style={styles.calendarTitle}>
+              variant="tonal"
+            />
+            <AwaText style={styles.calendarTitle} variant="titleMedium">
               {displayTitleCase(new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(visibleMonth))}
-            </Text>
-            <Pressable
+            </AwaText>
+            <AwaIconButton
               accessibilityLabel={t('inlineCalendarPicker.nextMonthA11y')}
-              hitSlop={8}
+              icon="chevron-right"
               onPress={() => changeMonth(1)}
-              style={styles.calendarArrowButton}>
-              <Text style={styles.calendarArrowText}>{'>'}</Text>
-            </Pressable>
+              variant="tonal"
+            />
           </View>
 
           <View style={styles.weekRow}>
             {weekDays.map((day, index) => (
-              <Text key={`${day}-${index}`} style={styles.weekDay}>{day}</Text>
+              <AwaText colorRole="onSurfaceVariant" key={`${day}-${index}`} style={styles.weekDay} variant="labelMedium">{day}</AwaText>
             ))}
           </View>
 
@@ -117,6 +117,7 @@ function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, su
                       accessibilityLabel={t('inlineCalendarPicker.dayA11y', {day, month: new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long'}).format(visibleMonth)})}
                       accessibilityState={{disabled}}
                       disabled={disabled}
+                      hitSlop={4}
                       onPress={() => chooseDay(day)}
                       style={[styles.dayButton, selected && styles.daySelected]}>
                       <Text style={[styles.dayText, selected && styles.dayTextSelected, disabled && styles.dayTextDisabled]}>
@@ -137,19 +138,17 @@ function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, su
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     modalBackdrop: {flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: withAlpha(theme.shadow.shadowColor, 0.40), paddingHorizontal: 24},
-    calendarCard: {width: '100%', maxWidth: 380, borderRadius: 22, backgroundColor: theme.colors.surface, padding: 16, elevation: 12},
+    calendarCard: {width: '100%', maxWidth: 380, borderRadius: 12, backgroundColor: theme.colors.surface, padding: 16, elevation: 12},
     titleBlock: {marginBottom: 12},
-    pickerTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 18, fontWeight: '700', textAlign: 'center'},
-    pickerSubtitle: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18, textAlign: 'center'},
+    pickerTitle: {textAlign: 'center'},
+    pickerSubtitle: {marginTop: 4, textAlign: 'center'},
     calendarHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-    calendarArrowButton: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21, backgroundColor: theme.colors.primarySoft},
-    calendarArrowText: {color: theme.colors.primary, fontSize: 27, fontWeight: '600', lineHeight: 30},
-    calendarTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 19, fontWeight: '600', textTransform: 'capitalize'},
+    calendarTitle: {textTransform: 'capitalize'},
     weekRow: {flexDirection: 'row', marginTop: 16},
-    weekDay: {width: '14.2857%', color: theme.colors.textSecondary, fontSize: 12, textAlign: 'center'},
+    weekDay: {width: '14.2857%', textAlign: 'center'},
     daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 8},
-    dayCell: {width: '14.2857%', height: 39, alignItems: 'center', justifyContent: 'center'},
-    dayButton: {width: 34, height: 34, alignItems: 'center', justifyContent: 'center', borderRadius: 17},
+    dayCell: {width: '14.2857%', minHeight: 44, alignItems: 'center', justifyContent: 'center'},
+    dayButton: {width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 20},
     daySelected: {backgroundColor: theme.colors.primary},
     dayText: {color: theme.colors.text, fontSize: 14},
     dayTextSelected: {color: onPrimaryTextColor(theme), fontWeight: '700'},

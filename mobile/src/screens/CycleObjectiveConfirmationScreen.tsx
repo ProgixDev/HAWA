@@ -8,11 +8,9 @@ import {
   AccessibilityInfo,
   Animated,
   Easing,
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -27,7 +25,10 @@ import {getTopPadding} from '../theme/spacing';
 import {getSelectedObjective} from '../state/onboardingPreferences';
 import {buildObjectiveConfirmationContent} from '../data/objectiveConfirmationContent';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaText} from '../components/ui/AwaText';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -62,9 +63,6 @@ function CycleObjectiveConfirmationScreen({
   const pageAnim =
     useRef(new Animated.Value(0)).current;
 
-  const haloAnim =
-    useRef(new Animated.Value(0)).current;
-
   const successAnim =
     useRef(new Animated.Value(0)).current;
 
@@ -83,23 +81,12 @@ function CycleObjectiveConfirmationScreen({
   const buttonAnim =
     useRef(new Animated.Value(0)).current;
 
-  const buttonPulseAnim =
-    useRef(new Animated.Value(1)).current;
-
   /* =========================================================
    * ENTRANCE ANIMATION
    * ========================================================= */
 
   useEffect(() => {
     let cancelled = false;
-
-    let haloLoop:
-      | Animated.CompositeAnimation
-      | undefined;
-
-    let buttonLoop:
-      | Animated.CompositeAnimation
-      | undefined;
 
     AccessibilityInfo
       .isReduceMotionEnabled()
@@ -113,7 +100,6 @@ function CycleObjectiveConfirmationScreen({
          */
         if (reduceMotion) {
           pageAnim.setValue(1);
-          haloAnim.setValue(1);
           successAnim.setValue(1);
           checkAnim.setValue(1);
           titleAnim.setValue(1);
@@ -147,24 +133,9 @@ function CycleObjectiveConfirmationScreen({
           Animated.delay(70),
 
           /*
-           * Success halo + central circle.
+           * Success badge (central circle).
            */
           Animated.parallel([
-            Animated.timing(
-              haloAnim,
-              {
-                toValue: 1,
-                duration: gentle
-                  ? 420
-                  : 500,
-                easing:
-                  Easing.out(
-                    Easing.quad,
-                  ),
-                useNativeDriver: true,
-              },
-            ),
-
             Animated.spring(
               successAnim,
               {
@@ -243,103 +214,18 @@ function CycleObjectiveConfirmationScreen({
           ]),
         ]).start();
 
-        /*
-         * Very light ambient animation.
-         * Disabled for "loss".
-         */
-        if (!gentle) {
-          haloLoop =
-            Animated.loop(
-              Animated.sequence([
-                Animated.delay(1100),
-
-                Animated.timing(
-                  haloAnim,
-                  {
-                    toValue: 0.68,
-                    duration: 1450,
-                    easing:
-                      Easing.inOut(
-                        Easing.ease,
-                      ),
-                    useNativeDriver: true,
-                  },
-                ),
-
-                Animated.timing(
-                  haloAnim,
-                  {
-                    toValue: 1,
-                    duration: 1450,
-                    easing:
-                      Easing.inOut(
-                        Easing.ease,
-                      ),
-                    useNativeDriver: true,
-                  },
-                ),
-              ]),
-            );
-
-          haloLoop.start();
-
-          /*
-           * CTA softly calls attention occasionally,
-           * without continuously bouncing.
-           */
-          buttonLoop =
-            Animated.loop(
-              Animated.sequence([
-                Animated.delay(2100),
-
-                Animated.timing(
-                  buttonPulseAnim,
-                  {
-                    toValue: 1.018,
-                    duration: 430,
-                    easing:
-                      Easing.inOut(
-                        Easing.ease,
-                      ),
-                    useNativeDriver: true,
-                  },
-                ),
-
-                Animated.timing(
-                  buttonPulseAnim,
-                  {
-                    toValue: 1,
-                    duration: 430,
-                    easing:
-                      Easing.inOut(
-                        Easing.ease,
-                      ),
-                    useNativeDriver: true,
-                  },
-                ),
-
-                Animated.delay(2300),
-              ]),
-            );
-
-          buttonLoop.start();
-        }
       });
 
     return () => {
       cancelled = true;
 
-      haloLoop?.stop();
-      buttonLoop?.stop();
     };
   }, [
     buttonAnim,
-    buttonPulseAnim,
     checkAnim,
     descriptionAnim,
     detailAnim,
     gentle,
-    haloAnim,
     pageAnim,
     successAnim,
     titleAnim,
@@ -360,30 +246,6 @@ function CycleObjectiveConfirmationScreen({
             outputRange: [
               gentle ? 4 : 9,
               0,
-            ],
-          }),
-      },
-    ],
-  };
-
-  const haloStyle = {
-    opacity:
-      haloAnim.interpolate({
-        inputRange: [0, 1],
-        outputRange: [
-          0.12,
-          gentle ? 0.5 : 1,
-        ],
-      }),
-
-    transform: [
-      {
-        scale:
-          haloAnim.interpolate({
-            inputRange: [0, 1],
-            outputRange: [
-              0.72,
-              1.08,
             ],
           }),
       },
@@ -543,17 +405,13 @@ function CycleObjectiveConfirmationScreen({
 
       {
         scale:
-          Animated.multiply(
-            buttonAnim.interpolate({
-              inputRange: [0, 1],
-              outputRange: [
-                0.975,
-                1,
-              ],
-            }),
-
-            buttonPulseAnim,
-          ),
+          buttonAnim.interpolate({
+            inputRange: [0, 1],
+            outputRange: [
+              0.975,
+              1,
+            ],
+          }),
       },
     ],
   };
@@ -584,29 +442,6 @@ function CycleObjectiveConfirmationScreen({
           SAME BACKGROUND — UNCHANGED
       ===================================================== */}
 
-      <View
-        pointerEvents="none"
-        style={
-          styles.pageBackgroundDecor
-        }>
-        <View
-          style={
-            styles.pageGlowTop
-          }
-        />
-
-        <View
-          style={
-            styles.pageGlowMiddle
-          }
-        />
-
-        <View
-          style={
-            styles.pageGlowBottom
-          }
-        />
-      </View>
 
       <View
         style={
@@ -655,16 +490,6 @@ function CycleObjectiveConfirmationScreen({
                 style={
                   styles.successStage
                 }>
-                {/* Animated halo */}
-
-                <Animated.View
-                  pointerEvents="none"
-                  style={[
-                    styles.successHalo,
-                    haloStyle,
-                  ]}
-                />
-
                 {/* Success circle */}
 
                 <Animated.View
@@ -674,28 +499,12 @@ function CycleObjectiveConfirmationScreen({
                   ]}>
                   <View
                     style={
-                      styles.successOuter
+                      styles.successMiddle
                     }>
                     <View
                       style={
-                        styles.successMiddle
+                        styles.successInner
                       }>
-                      <LinearGradient
-                        colors={[
-                          theme.colors.surface,
-                          theme.colors.surfaceSecondary,
-                        ]}
-                        start={{
-                          x: 0,
-                          y: 0,
-                        }}
-                        end={{
-                          x: 1,
-                          y: 1,
-                        }}
-                        style={
-                          styles.successInner
-                        }>
                         <Animated.View
                           style={
                             checkStyle
@@ -718,22 +527,9 @@ function CycleObjectiveConfirmationScreen({
                             }
                           />
                         </Animated.View>
-                      </LinearGradient>
                     </View>
                   </View>
 
-                  {!gentle ? (
-                    <View
-                      style={
-                        styles.successBadge
-                      }>
-                      <MaterialDesignIcons
-                        color={onPrimaryTextColor(theme)}
-                        name="star-four-points"
-                        size={11}
-                      />
-                    </View>
-                  ) : null}
                 </Animated.View>
               </View>
 
@@ -771,23 +567,13 @@ function CycleObjectiveConfirmationScreen({
                   styles.detailCard,
                   detailStyle,
                 ]}>
-                <View
-                  style={
-                    styles.detailIcon
-                  }>
-                  <MaterialDesignIcons
-                    color={theme.colors.primary}
-                    name="creation-outline"
-                    size={21}
-                  />
-                </View>
-
-                <Text
-                  style={
-                    styles.description
-                  }>
-                  {content.nextStep}
-                </Text>
+                <AwaCard padding="default" variant="filled">
+                  <AwaText
+                    colorRole="onSurfaceVariant"
+                    variant="bodyMedium">
+                    {content.nextStep}
+                  </AwaText>
+                </AwaCard>
               </Animated.View>
             </View>
 
@@ -800,44 +586,19 @@ function CycleObjectiveConfirmationScreen({
                 styles.buttonWrapper,
                 buttonStyle,
               ]}>
-              <Pressable
+              <AwaButton
                 accessibilityLabel={
                   content.buttonLabel
                 }
-                accessibilityRole="button"
+                fullWidth
+                label={content.buttonLabel}
                 onPress={() =>
                   navigation.navigate(
                     'NameOnboarding',
                   )
                 }
-                style={({
-                  pressed,
-                }) => [
-                  styles.button,
-
-                  pressed &&
-                    styles.buttonPressed,
-                ]}>
-                <Text
-                  style={
-                    styles.buttonText
-                  }>
-                  {
-                    content.buttonLabel
-                  }
-                </Text>
-
-                <View
-                  style={
-                    styles.buttonArrow
-                  }>
-                  <MaterialDesignIcons
-                    color={theme.colors.primary}
-                    name="arrow-right"
-                    size={18}
-                  />
-                </View>
-              </Pressable>
+                size="large"
+              />
             </Animated.View>
           </ScrollView>
         </Animated.View>
@@ -863,56 +624,9 @@ function createStyles(theme: ResolvedAwaTheme) {
         theme.colors.background,
     },
 
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
 
-      overflow: 'hidden',
-    },
 
-    pageGlowTop: {
-      position: 'absolute',
 
-      top: -150,
-      right: -110,
-
-      width: 330,
-      height: 330,
-
-      borderRadius: 165,
-
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.07),
-    },
-
-    pageGlowMiddle: {
-      position: 'absolute',
-
-      top: '38%',
-      left: -130,
-
-      width: 260,
-      height: 260,
-
-      borderRadius: 130,
-
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.045),
-    },
-
-    pageGlowBottom: {
-      position: 'absolute',
-
-      bottom: -150,
-      right: -100,
-
-      width: 310,
-      height: 310,
-
-      borderRadius: 155,
-
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.05),
-    },
 
     safeArea: {
       flex: 1,
@@ -960,18 +674,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent: 'center',
     },
 
-    successHalo: {
-      position: 'absolute',
-
-      width: 142,
-      height: 142,
-
-      borderRadius: 71,
-
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.1),
-    },
-
     successArea: {
       position: 'relative',
 
@@ -981,20 +683,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
 
       justifyContent: 'center',
-    },
-
-    successOuter: {
-      width: 126,
-      height: 126,
-
-      alignItems: 'center',
-
-      justifyContent: 'center',
-
-      borderRadius: 63,
-
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.07),
     },
 
     successMiddle: {
@@ -1039,45 +727,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       shadowRadius: 12,
 
       elevation: 4,
+      backgroundColor: theme.colors.surface,
     },
 
-    successBadge: {
-      position: 'absolute',
-
-      right: 2,
-      bottom: 5,
-
-      width: 29,
-      height: 29,
-
-      alignItems: 'center',
-
-      justifyContent: 'center',
-
-      borderWidth: 3,
-
-      borderColor:
-        theme.colors.background,
-
-      borderRadius: 15,
-
-      backgroundColor:
-        theme.colors.primary,
-
-      shadowColor:
-        theme.shadow.shadowColor,
-
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-
-      shadowOpacity: 0.16,
-
-      shadowRadius: 5,
-
-      elevation: 3,
-    },
 
     /* ========================================================
        TITLE
@@ -1091,13 +743,14 @@ function createStyles(theme: ResolvedAwaTheme) {
       color:
         theme.colors.text,
 
+      // DESIGN.md: serif screen title, capped at 28 (was 30) and SemiBold (was a 800 literal).
       fontFamily: 'serif',
 
-      fontSize: 30,
+      fontSize: 28,
 
-      lineHeight: 37,
+      lineHeight: 36,
 
-      fontWeight: '800',
+      fontWeight: '600',
 
       textAlign: 'center',
     },
@@ -1113,7 +766,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       color: theme.colors.text,
 
-      fontSize: 14.5,
+      fontSize: 14,
 
       lineHeight: 21,
 
@@ -1127,66 +780,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     detailCard: {
       width: '100%',
 
-      flexDirection: 'row',
-
-      alignItems: 'flex-start',
-
-      gap: 11,
-
       marginTop: 27,
-
-      paddingHorizontal: 15,
-
-      paddingVertical: 14,
-
-      borderWidth: 1,
-
-      borderColor:
-        withAlpha(theme.colors.primary, 0.17),
-
-      borderRadius: 20,
-
-      /*
-       * IMPORTANT:
-       * Border remains but white rectangle is removed.
-       */
-      backgroundColor: 'transparent',
-
-      elevation: 0,
     },
 
-    detailIcon: {
-      width: 38,
-      height: 38,
 
-      alignItems: 'center',
-
-      justifyContent: 'center',
-
-      flexShrink: 0,
-
-      borderRadius: 12,
-
-      backgroundColor:
-        theme.colors.primarySoft,
-    },
-
-    description: {
-      flex: 1,
-
-      minWidth: 0,
-
-      color:
-        theme.colors.textSecondary,
-
-      fontSize: 13,
-
-      lineHeight: 19,
-
-      fontWeight: '500',
-
-      backgroundColor: 'transparent',
-    },
 
     /* ========================================================
        CTA
@@ -1196,79 +793,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       width: '100%',
     },
 
-    button: {
-      position: 'relative',
 
-      width: '100%',
 
-      minHeight: 57,
 
-      flexDirection: 'row',
-
-      alignItems: 'center',
-
-      justifyContent: 'center',
-
-      borderRadius: 19,
-
-      backgroundColor:
-        theme.colors.primary,
-
-      shadowColor:
-        theme.shadow.shadowColor,
-
-      shadowOffset: {
-        width: 0,
-        height: 6,
-      },
-
-      shadowOpacity: 0.22,
-
-      shadowRadius: 10,
-
-      elevation: 5,
-    },
-
-    buttonText: {
-      paddingHorizontal: 52,
-
-      color:
-        onPrimaryTextColor(theme),
-
-      fontSize: 16,
-
-      fontWeight: '800',
-
-      textAlign: 'center',
-    },
-
-    buttonArrow: {
-      position: 'absolute',
-
-      right: 11,
-
-      width: 34,
-      height: 34,
-
-      alignItems: 'center',
-
-      justifyContent: 'center',
-
-      borderRadius: 12,
-
-      backgroundColor:
-        onPrimaryTextColor(theme),
-    },
-
-    buttonPressed: {
-      opacity: 0.88,
-
-      transform: [
-        {
-          scale: 0.985,
-        },
-      ],
-    },
   });
 }
 

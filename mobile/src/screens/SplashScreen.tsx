@@ -35,7 +35,6 @@ function SplashScreen({navigation}: Props): React.JSX.Element {
   const styles = useMemo(() => createStyles(theme), [theme]);
   const logoOpacity = useRef(new Animated.Value(0)).current;
   const logoTranslateY = useRef(new Animated.Value(18)).current;
-  const logoScale = useRef(new Animated.Value(1)).current;
   const separatorOpacity = useRef(new Animated.Value(0)).current;
   const sloganOpacity = useRef(new Animated.Value(0)).current;
   const progress = useRef(new Animated.Value(0)).current;
@@ -77,24 +76,9 @@ function SplashScreen({navigation}: Props): React.JSX.Element {
       useNativeDriver: false,
     });
 
-    const breathing = Animated.loop(
-      Animated.sequence([
-        Animated.timing(logoScale, {
-          toValue: 1.012,
-          duration: 1100,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-        Animated.timing(logoScale, {
-          toValue: 1,
-          duration: 1100,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-
-    entrance.start(({finished}) => finished && breathing.start());
+    // DESIGN.md: the decorative "breathing" Animated.loop on the logo was removed (motion for its own sake); the
+    // entrance and the functional progress bar remain.
+    entrance.start();
     progressAnimation.start();
 
     // Kicked off immediately so it has the full 5s splash animation window
@@ -124,11 +108,9 @@ function SplashScreen({navigation}: Props): React.JSX.Element {
       clearTimeout(timer);
       entrance.stop();
       progressAnimation.stop();
-      breathing.stop();
     };
   }, [
     logoOpacity,
-    logoScale,
     logoTranslateY,
     navigation,
     progress,
@@ -148,7 +130,7 @@ function SplashScreen({navigation}: Props): React.JSX.Element {
         <Animated.View
           style={{
             opacity: logoOpacity,
-            transform: [{translateY: logoTranslateY}, {scale: logoScale}],
+            transform: [{translateY: logoTranslateY}],
           }}>
           <Image
             source={AWA_LOGO}
