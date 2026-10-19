@@ -6,7 +6,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Switch,
   Text,
   View,
 } from 'react-native';
@@ -35,6 +34,11 @@ import {
 } from '../../state/irregularPreferences';
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
+import {AwaButton} from '../../components/ui/AwaButton';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaSwitch} from '../../components/ui/AwaSwitch';
+import {AwaText} from '../../components/ui/AwaText';
 
 // Onboarding for "Cycles irréguliers / SOPK" (ObjectiveId 'irregular') — the
 // SAME 4-screen Shell/Choice/Info pattern already established by
@@ -184,11 +188,6 @@ function Shell({
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
@@ -202,36 +201,29 @@ function Shell({
         ]}
         showsVerticalScrollIndicator={false}>
         <View style={styles.progressRow}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('irregularOnboarding.shell.backAccessibility')}
             accessibilityRole="button"
             hitSlop={8}
             onPress={navigation.goBack}
-            style={({pressed}) => [styles.back, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
-          </Pressable>
+            icon="arrow-left"
+          />
         </View>
 
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subtitle}>{subtitle}</Text>
+        <AwaText variant="headlineSmall" style={styles.title}>{title}</AwaText>
+        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>{subtitle}</AwaText>
 
         {children}
 
         <View style={styles.navRow}>
-          <Pressable
+          <AwaButton
             accessibilityRole="button"
             disabled={nextDisabled}
             onPress={onNext}
-            style={({pressed}) => [
-              styles.primary,
-              nextDisabled && styles.disabled,
-              pressed && !nextDisabled && styles.primaryPressed,
-            ]}>
-            <Text style={styles.primaryText}>
-              {nextLabel ?? (isEdit ? t('common.save') : step === 4 ? t('common.continue') : t('irregularOnboarding.shell.next'))}
-            </Text>
-            <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="arrow-right" size={18} />
-          </Pressable>
+            label={nextLabel ?? (isEdit ? t('common.save') : step === 4 ? t('common.continue') : t('irregularOnboarding.shell.next'))}
+            size="large"
+            style={styles.primary}
+          />
         </View>
       </ScrollView>
     </LinearGradient>
@@ -590,11 +582,6 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <SafeAreaView edges={['left', 'right']} style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
@@ -610,26 +597,25 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
           showsVerticalScrollIndicator={false}>
           <View style={styles.progressRow}>
             {isEdit ? (
-              <Pressable
+              <AwaIconButton
                 accessibilityLabel={t('common.back')}
                 accessibilityRole="button"
                 hitSlop={8}
                 onPress={navigation.goBack}
-                style={({pressed}) => [styles.back, pressed && styles.pressed]}>
-                <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
-              </Pressable>
+                icon="arrow-left"
+              />
             ) : null}
           </View>
 
-          <Text style={styles.title}>{t('irregularOnboarding.reminders.title')}</Text>
-          <Text style={styles.subtitle}>
+          <AwaText variant="headlineSmall" style={styles.title}>{t('irregularOnboarding.reminders.title')}</AwaText>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>
             {isEdit
               ? t('irregularOnboarding.reminders.subtitleEdit')
               : t('irregularOnboarding.reminders.subtitleOnboarding')}
-          </Text>
+          </AwaText>
 
           <View style={[styles.list, styles.listTop]}>
-            <View style={styles.reminderCard}>
+            <AwaCard padding="none" variant="filled" style={styles.reminderCard}>
               <View style={styles.reminderTopRow}>
                 <View style={styles.reminderIcon}>
                   <MaterialDesignIcons color={theme.colors.primary} name="notebook-edit-outline" size={22} />
@@ -640,15 +626,12 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
                     {t('irregularOnboarding.reminders.dailyJournal.description')}
                   </Text>
                 </View>
-                <Switch
-                  accessibilityRole="switch"
-                  ios_backgroundColor={theme.colors.surfaceSecondary}
+                <AwaSwitch
+accessibilityLabel={t('irregularOnboarding.reminders.dailyJournal.label')}
                   onValueChange={value => {
                     setDailyJournalEnabled(value);
                     setError('');
                   }}
-                  thumbColor={theme.colors.surface}
-                  trackColor={{false: theme.colors.surfaceSecondary, true: theme.colors.primary}}
                   value={dailyJournalEnabled}
                 />
               </View>
@@ -667,7 +650,7 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
                     <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
                   </View>
                   <View style={styles.copy}>
-                    <Text style={styles.timeLabel}>{t('irregularOnboarding.reminders.dailyJournal.timeLabel')}</Text>
+                    <AwaText variant="labelSmall" colorRole="onSurfaceVariant">{t('irregularOnboarding.reminders.dailyJournal.timeLabel')}</AwaText>
                     <Text style={dailyJournalTime ? styles.timeValue : styles.description}>
                       {dailyJournalTime ?? t('irregularOnboarding.reminders.dailyJournal.choosePlaceholder')}
                     </Text>
@@ -675,9 +658,9 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
                   <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={20} />
                 </Pressable>
               ) : null}
-            </View>
+            </AwaCard>
 
-            <View style={styles.reminderCard}>
+            <AwaCard padding="none" variant="filled" style={styles.reminderCard}>
               <View style={styles.reminderTopRow}>
                 <View style={styles.reminderIcon}>
                   <MaterialDesignIcons color={theme.colors.primary} name="calendar-alert-outline" size={22} />
@@ -688,19 +671,16 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
                     {t('irregularOnboarding.reminders.unrecordedPeriod.description')}
                   </Text>
                 </View>
-                <Switch
-                  accessibilityRole="switch"
-                  ios_backgroundColor={theme.colors.surfaceSecondary}
+                <AwaSwitch
+accessibilityLabel={t('irregularOnboarding.reminders.unrecordedPeriod.label')}
                   onValueChange={value => {
                     setUnrecordedPeriodEnabled(value);
                     setError('');
                   }}
-                  thumbColor={theme.colors.surface}
-                  trackColor={{false: theme.colors.surfaceSecondary, true: theme.colors.primary}}
                   value={unrecordedPeriodEnabled}
                 />
               </View>
-            </View>
+            </AwaCard>
           </View>
 
           {timePickerVisible ? (
@@ -721,7 +701,7 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
           {error ? (
             <View accessibilityRole="alert" style={styles.errorCard}>
               <MaterialDesignIcons color={theme.colors.danger} name="alert-outline" size={16} />
-              <Text style={styles.errorText}>{error}</Text>
+              <AwaText variant="bodySmall" colorRole="error" style={styles.errorText}>{error}</AwaText>
             </View>
           ) : null}
 
@@ -738,15 +718,14 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
           ) : null}
 
           <View style={styles.navRow}>
-            <Pressable
+            <AwaButton
               accessibilityRole="button"
               disabled={saving}
               onPress={handleSave}
-              style={({pressed}) => [styles.primary, (pressed || saving) && styles.primaryPressed]}>
-              <Text style={styles.primaryText}>
-                {saving ? t('irregularOnboarding.reminders.saving') : isEdit ? t('common.save') : t('common.continue')}
-              </Text>
-            </Pressable>
+              label={saving ? t('irregularOnboarding.reminders.saving') : isEdit ? t('common.save') : t('common.continue')}
+              size="large"
+              style={styles.primary}
+            />
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -825,12 +804,12 @@ function Choice({
 
 function Info({text, icon = 'heart-outline', theme, styles}: {text: string; icon?: IconName; theme: ResolvedAwaTheme; styles: ReturnType<typeof createStyles>}) {
   return (
-    <View style={styles.info}>
+    <AwaCard padding="none" variant="filled" style={styles.info}>
       <View style={styles.infoIcon}>
         <MaterialDesignIcons color={theme.colors.primary} name={icon} size={22} />
       </View>
-      <Text style={styles.infoText}>{text}</Text>
-    </View>
+      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>{text}</AwaText>
+    </AwaCard>
   );
 }
 
@@ -842,19 +821,6 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     background: {flex: 1, backgroundColor: theme.colors.background},
     safeArea: {flex: 1},
-    pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
-    pageGlowTop: {
-      position: 'absolute', top: -175, right: -120, width: 355, height: 355,
-      borderRadius: 178, backgroundColor: withAlpha(theme.colors.primary, 0.065),
-    },
-    pageGlowMiddle: {
-      position: 'absolute', top: '38%', left: -145, width: 290, height: 290,
-      borderRadius: 145, backgroundColor: withAlpha(theme.colors.primary, 0.04),
-    },
-    pageGlowBottom: {
-      position: 'absolute', bottom: -175, right: -115, width: 335, height: 335,
-      borderRadius: 168, backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
 
     content: {flexGrow: 1, paddingHorizontal: 16},
 
@@ -862,24 +828,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',
       minHeight: 42, marginBottom: 4,
     },
-    back: {
-      width: 38, height: 38, alignItems: 'center', justifyContent: 'center',
-      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 13,
-      backgroundColor: withAlpha(theme.colors.surface, 0.94),
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 3},
-      shadowOpacity: 0.06, shadowRadius: 8, elevation: 2,
-    },
 
-    title: {
-      alignSelf: 'center', width: '100%', maxWidth: 335, marginTop: 8,
-      color: theme.colors.text, fontFamily: 'serif', fontSize: 22, lineHeight: 28,
-      fontWeight: '800', textAlign: 'center', flexShrink: 1,
-    },
-    subtitle: {
-      alignSelf: 'center', width: '100%', maxWidth: 320, marginTop: 7,
-      color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 15.5,
-      textAlign: 'center', flexShrink: 1,
-    },
+    title: {alignSelf: 'center', width: '100%', maxWidth: 335, marginTop: 8, textAlign: 'center', flexShrink: 1},
+    subtitle: {alignSelf: 'center', width: '100%', maxWidth: 320, marginTop: 7, textAlign: 'center', flexShrink: 1},
 
     list: {gap: 9},
     listTop: {marginTop: 18},
@@ -891,8 +842,8 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     choiceCompact: {
       minHeight: 58,
-      paddingHorizontal: 11,
-      paddingVertical: 8,
+      paddingHorizontal: 16,
+      paddingVertical: 12,
       borderRadius: 16,
       backgroundColor: withAlpha(theme.colors.surface, 0.97),
     },
@@ -906,8 +857,8 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     choice: {
       position: 'relative', minHeight: 68, flexDirection: 'row', alignItems: 'center',
-      overflow: 'hidden', paddingHorizontal: 12, paddingVertical: 10,
-      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
+      overflow: 'hidden', paddingHorizontal: 16, paddingVertical: 12,
+      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.95),
       shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4},
       shadowOpacity: 0.035, shadowRadius: 9, elevation: 1,
@@ -921,26 +872,24 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     dateField: {
       minHeight: 68, flexDirection: 'row', alignItems: 'center',
-      paddingHorizontal: 12, paddingVertical: 10,
-      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
+      paddingHorizontal: 16, paddingVertical: 12,
+      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.surface, 0.95),
     },
     dateFieldSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
     dateFieldIcon: {
       width: 40, height: 40, marginRight: 10, flexShrink: 0,
-      alignItems: 'center', justifyContent: 'center', borderRadius: 14,
+      alignItems: 'center', justifyContent: 'center', borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
 
     iconBox: {
       width: 40, height: 40, marginRight: 10, flexShrink: 0,
-      alignItems: 'center', justifyContent: 'center', borderRadius: 14,
+      alignItems: 'center', justifyContent: 'center', borderRadius: 12,
       backgroundColor: theme.colors.primarySoft,
     },
     iconBoxSelected: {
       backgroundColor: theme.colors.primary,
-      shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 3},
-      shadowOpacity: 0.16, shadowRadius: 5, elevation: 2,
     },
 
     copy: {flex: 1, minWidth: 0, paddingRight: 8},
@@ -951,8 +900,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     description: {
       marginTop: 3,
       color: theme.colors.textSecondary,
-      fontSize: 10,
-      lineHeight: 14.5,
+      fontSize: 11,
+      lineHeight: 16,
       flexShrink: 1,
     },
 
@@ -966,61 +915,39 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     selectedMark: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primary},
 
-    info: {
-      flexDirection: 'row', alignItems: 'center', gap: 9, marginTop: 12,
-      paddingHorizontal: 12, paddingVertical: 10,
-      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 17,
-      backgroundColor: withAlpha(theme.colors.primarySoft, 0.86),
-    },
+    info: {flexDirection: 'row', alignItems: 'center', gap: 9, marginTop: 12, paddingHorizontal: 12, paddingVertical: 12},
     infoIcon: {
       width: 34, height: 34, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
       borderRadius: 12, backgroundColor: theme.colors.surface,
       shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 2},
       shadowOpacity: 0.04, shadowRadius: 5, elevation: 1,
     },
-    infoText: {
-      flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 10, lineHeight: 14.5,
-    },
+    infoText: {flex: 1, minWidth: 0},
 
-    reminderCard: {
-      padding: 13, borderWidth: 1, borderColor: theme.colors.border,
-      borderRadius: 21, backgroundColor: withAlpha(theme.colors.surface, 0.95),
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 5},
-      shadowOpacity: 0.04, shadowRadius: 10, elevation: 1,
-    },
+    reminderCard: {padding: 16},
     reminderTopRow: {flexDirection: 'row', alignItems: 'flex-start'},
     reminderIcon: {
       width: 42, height: 42, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-      marginRight: 10, borderRadius: 14, backgroundColor: theme.colors.primarySoft,
+      marginRight: 10, borderRadius: 12, backgroundColor: theme.colors.primarySoft,
     },
 
     timeRow: {
       minHeight: 52, marginTop: 11, flexDirection: 'row', alignItems: 'center',
-      paddingHorizontal: 11, borderWidth: 1,
-      borderColor: theme.colors.border, borderRadius: 15,
+      paddingHorizontal: 16, borderWidth: 1,
+      borderColor: theme.colors.border, borderRadius: 16,
       backgroundColor: theme.colors.surface,
     },
-    timeLabel: {color: theme.colors.textSecondary, fontSize: 10, fontWeight: '700'},
     timeValue: {marginTop: 2, color: theme.colors.text, fontSize: 13.5, fontWeight: '800'},
 
     errorCard: {
       flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 12,
-      paddingHorizontal: 12, paddingVertical: 10, borderRadius: 14,
+      paddingHorizontal: 12, paddingVertical: 12, borderRadius: 12,
       backgroundColor: withAlpha(theme.colors.danger, 0.08), borderWidth: 1, borderColor: withAlpha(theme.colors.danger, 0.15),
     },
-    errorText: {flex: 1, minWidth: 0, color: theme.colors.danger, fontSize: 11, lineHeight: 15},
+    errorText: {flex: 1, minWidth: 0},
 
     navRow: {alignItems: 'center', justifyContent: 'center', marginTop: 18, paddingTop: 12},
-    primary: {
-      width: '86%', maxWidth: 360, minHeight: 52,
-      flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7,
-      borderRadius: 18, backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 5},
-      shadowOpacity: 0.18, shadowRadius: 9, elevation: 4,
-    },
-    primaryPressed: {opacity: 0.90, transform: [{scale: 0.985}]},
-    disabled: {opacity: 0.45, elevation: 0},
-    primaryText: {color: onPrimaryTextColor(theme), fontSize: 14, fontWeight: '800'},
+    primary: {width: '86%', maxWidth: 360},
 
     pressed: {opacity: 0.80},
   });

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
 import {Text} from 'react-native';
+import {AwaText} from '../../ui/AwaText';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
@@ -64,10 +65,21 @@ const isGlyph = (text: string) => /^[-\u{F0000}-\u{FFFFF}]+$/u.test(text);
 const visibleTextsIn = (node: ReactTestRenderer.ReactTestInstance): string[] =>
   node.findAllByType(Text).map(textOf).filter(text => !isGlyph(text));
 
+// Labels are rendered through AwaText (a wrapper around Text) since the Material 3 migration: a label's `parent` is
+// that wrapper, so the row/tile container is the first ancestor that is not an AwaText.
+const containerOf = (node: ReactTestRenderer.ReactTestInstance): ReactTestRenderer.ReactTestInstance | null => {
+  let current = node.parent;
+  while (current && current.type === AwaText) {
+    current = current.parent;
+  }
+  return current;
+};
+
 /** The value rendered next to the "Règles" row of the selected-day card. */
 const selectedRulesValue = (renderer: ReactTestRenderer.ReactTestRenderer): string | undefined => {
   for (const label of renderer.root.findAllByType(Text).filter(node => textOf(node) === 'Règles')) {
-    const value = label.parent ? visibleTextsIn(label.parent).find(text => text !== 'Règles') : undefined;
+    const row = containerOf(label);
+    const value = row ? visibleTextsIn(row).find(text => text !== 'Règles') : undefined;
     if (value) {return value;}
   }
   return undefined;
@@ -76,7 +88,8 @@ const selectedRulesValue = (renderer: ReactTestRenderer.ReactTestRenderer): stri
 /** "Jours de règles" tile value of the monthly summary. */
 const periodDaysTile = (renderer: ReactTestRenderer.ReactTestRenderer): string | undefined => {
   const label = renderer.root.findAllByType(Text).find(node => textOf(node) === 'Jours de règles');
-  return label?.parent ? visibleTextsIn(label.parent)[0] : undefined;
+  const tile = label ? containerOf(label) : null;
+  return tile ? visibleTextsIn(tile)[0] : undefined;
 };
 
 const todayCellLabel = (renderer: ReactTestRenderer.ReactTestRenderer): string => {

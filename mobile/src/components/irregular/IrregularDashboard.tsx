@@ -57,6 +57,8 @@ import {
 import {formatHijriDate} from '../../utils/cycleMath';
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
 import '../../i18n';
+import {AwaText} from '../ui/AwaText';
+import {AwaButton} from '../ui/AwaButton';
 
 // SOPK ("Cycles irréguliers") Dashboard — a COMPOSITION of the exact same
 // shared components every other objective Dashboard already uses
@@ -258,11 +260,6 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
@@ -294,18 +291,18 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
                   <Text style={styles.badgeText}>{t('irregularDashboard.badge')}</Text>
                 </View>
 
-                <Text style={styles.mainTitle}>{t('irregularDashboard.title')}</Text>
+                <AwaText variant="headlineSmall" style={styles.mainTitle}>{t('irregularDashboard.title')}</AwaText>
 
                 <View style={styles.profileLine}>
                   <View style={styles.profileInfoIcon}>
                     <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={15} />
                   </View>
-                  <Text style={styles.mainSubtitle}>{t('irregularDashboard.subtitle')}</Text>
+                  <AwaText variant="labelSmall" colorRole="primary" style={styles.mainSubtitle}>{t('irregularDashboard.subtitle')}</AwaText>
                 </View>
 
-                <Text style={styles.mainDescription}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.mainDescription}>
                   {t('irregularDashboard.description')}
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.ringWrap}>
@@ -344,9 +341,9 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
               <View style={styles.calloutIcon}>
                 <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="information-outline" size={16} />
               </View>
-              <Text style={styles.calloutText}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.calloutText}>
                 {t('irregularDashboard.callout')}
-              </Text>
+              </AwaText>
             </View>
           </View>
 
@@ -396,8 +393,8 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
                   <MaterialDesignIcons color={theme.colors.primary} name="notebook-check-outline" size={20} />
                 </View>
                 <View style={styles.dailyHeaderCopy}>
-                  <Text style={styles.dailyTitle}>{t('irregularDashboard.daily.title')}</Text>
-                  <Text style={styles.dailySubtitle}>{t('irregularDashboard.daily.subtitle')}</Text>
+                  <AwaText variant="titleMedium">{t('irregularDashboard.daily.title')}</AwaText>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.dailySubtitle}>{t('irregularDashboard.daily.subtitle')}</AwaText>
                 </View>
               </View>
 
@@ -411,7 +408,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
               <View style={[styles.progressFill, {width: `${Math.round(progressRatio * 100)}%`}]} />
             </View>
 
-            <Text style={styles.dailySectionLabel}>{t('irregularDashboard.daily.sectionLabel')}</Text>
+            <AwaText variant="labelSmall" colorRole="primary" style={styles.dailySectionLabel}>{t('irregularDashboard.daily.sectionLabel')}</AwaText>
 
             <View style={styles.dailyGrid}>
               <Pressable
@@ -426,8 +423,8 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
                   <MaterialDesignIcons color={periodDoneToday ? onPrimaryTextColor(theme) : theme.colors.primary} name="water-outline" size={20} />
                 </View>
                 <View style={styles.dailyItemCopy}>
-                  <Text style={styles.dailyLabel}>{t('irregularDashboard.daily.period.label')}</Text>
-                  <Text style={styles.dailyItemSubtitle}>{t('irregularDashboard.daily.period.subtitle')}</Text>
+                  <AwaText variant="labelSmall" style={styles.dailyLabel}>{t('irregularDashboard.daily.period.label')}</AwaText>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.dailyItemSubtitle}>{t('irregularDashboard.daily.period.subtitle')}</AwaText>
                 </View>
                 <View style={[styles.dailyStateIndicator, periodDoneToday && styles.dailyStateIndicatorDone]}>
                   {periodDoneToday ? (
@@ -450,8 +447,8 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
                       <MaterialDesignIcons color={done ? onPrimaryTextColor(theme) : theme.colors.primary} name={item.icon} size={20} />
                     </View>
                     <View style={styles.dailyItemCopy}>
-                      <Text style={styles.dailyLabel}>{item.dashboardLabel}</Text>
-                      <Text style={styles.dailyItemSubtitle}>{item.dashboardSubtitle}</Text>
+                      <AwaText variant="labelSmall" style={styles.dailyLabel}>{item.dashboardLabel}</AwaText>
+                      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.dailyItemSubtitle}>{item.dashboardSubtitle}</AwaText>
                     </View>
                     <View style={[styles.dailyStateIndicator, done && styles.dailyStateIndicatorDone]}>
                       {done ? (
@@ -465,14 +462,14 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
               })}
             </View>
 
-            <Pressable
-              accessibilityRole="button"
+            <AwaButton
+              fullWidth
+              icon="plus-circle-outline"
+              label={t('irregularDashboard.daily.completeButton')}
               onPress={() => navigation.navigate('IrregularJournalOverview')}
-              style={({pressed}) => [styles.completeJournalButton, pressed && styles.completeJournalButtonPressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name="plus-circle-outline" size={17} />
-              <Text style={styles.completeJournalText}>{t('irregularDashboard.daily.completeButton')}</Text>
-              <MaterialDesignIcons color={theme.colors.primary} name="arrow-right" size={16} />
-            </Pressable>
+              style={styles.completeJournalButton}
+              variant="tonal"
+            />
           </Animated.View>
 
           {/* ==================================================
@@ -504,19 +501,6 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   background: {flex: 1, backgroundColor: theme.colors.background},
   safeArea: {flex: 1},
-  pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
-  pageGlowTop: {
-    position: 'absolute', top: -150, right: -110, width: 330, height: 330,
-    borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-  pageGlowMiddle: {
-    position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
-    borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
-  pageGlowBottom: {
-    position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
-    borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   scrollContent: {paddingHorizontal: 16},
 
@@ -528,20 +512,20 @@ function createStyles(theme: ResolvedAwaTheme) {
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.10),
-    borderRadius: 28,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.96),
     padding: 16,
   },
-  mainCardCompact: {padding: 14, borderRadius: 24},
+  mainCardCompact: {padding: 14, borderRadius: 12},
   mainCardTopRow: {minHeight: 190, flexDirection: 'row', alignItems: 'center'},
   mainCopy: {flex: 1, minWidth: 0, zIndex: 2, paddingRight: 8},
   badge: {alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center', gap: 5, borderRadius: 12, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 10, paddingVertical: 5},
-  badgeText: {color: theme.colors.primary, fontSize: 9, fontWeight: '800', letterSpacing: 0.7},
-  mainTitle: {marginTop: 13, color: theme.colors.text, fontFamily: 'serif', fontSize: 22, lineHeight: 27, fontWeight: '800', flexShrink: 1},
+  badgeText: {color: theme.colors.primary, fontSize: 11, fontWeight: '800', letterSpacing: 0.7},
+  mainTitle: {marginTop: 13, flexShrink: 1},
   profileLine: {flexDirection: 'row', alignItems: 'center', marginTop: 7},
   profileInfoIcon: {width: 22, height: 22, alignItems: 'center', justifyContent: 'center', marginRight: 6, borderRadius: 11, backgroundColor: theme.colors.primarySoft},
-  mainSubtitle: {flex: 1, minWidth: 0, color: theme.colors.primary, fontSize: 11.5, lineHeight: 15, fontWeight: '700'},
-  mainDescription: {maxWidth: 190, marginTop: 10, color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 15.5, flexShrink: 1},
+  mainSubtitle: {flex: 1, minWidth: 0},
+  mainDescription: {maxWidth: 190, marginTop: 10, flexShrink: 1},
 
   // The ring itself (size, layers, animation) now lives entirely in the
   // shared src/components/home/AnimatedProgressRing.tsx — same component,
@@ -549,40 +533,37 @@ function createStyles(theme: ResolvedAwaTheme) {
   // a small margin wrapper remains here.
   ringWrap: {flexShrink: 0, marginLeft: 6},
 
-  calloutCard: {minHeight: 58, flexDirection: 'row', alignItems: 'center', gap: 9, marginTop: 12, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 18, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 11, paddingVertical: 10},
-  calloutIcon: {width: 31, height: 31, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 11, backgroundColor: theme.colors.primary},
-  calloutText: {flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 10.2, lineHeight: 14.5},
+  calloutCard: {minHeight: 58, flexDirection: 'row', alignItems: 'center', gap: 9, marginTop: 12, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 12, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 12, paddingVertical: 10},
+  calloutIcon: {width: 31, height: 31, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: theme.colors.primary},
+  calloutText: {flex: 1, minWidth: 0},
 
-  dailyCard: {...theme.shadow, marginTop: 16, padding: 15, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.10), borderRadius: 24, backgroundColor: withAlpha(theme.colors.surface, 0.97)},
-  dailyCardCompact: {padding: 13, borderRadius: 21},
+  dailyCard: {...theme.shadow, marginTop: 16, padding: 15, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.10), borderRadius: 12, backgroundColor: withAlpha(theme.colors.surface, 0.97)},
+  dailyCardCompact: {padding: 13, borderRadius: 12},
   dailyHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10},
   dailyHeaderLeft: {flex: 1, minWidth: 0, flexDirection: 'row', alignItems: 'center'},
-  dailyHeaderIcon: {width: 40, height: 40, flexShrink: 0, alignItems: 'center', justifyContent: 'center', marginRight: 9, borderRadius: 14, backgroundColor: theme.colors.primarySoft},
+  dailyHeaderIcon: {width: 40, height: 40, flexShrink: 0, alignItems: 'center', justifyContent: 'center', marginRight: 9, borderRadius: 12, backgroundColor: theme.colors.primarySoft},
   dailyHeaderCopy: {flex: 1, minWidth: 0},
-  dailyTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 17, lineHeight: 21, fontWeight: '800'},
-  dailySubtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 9.5, lineHeight: 13, flexShrink: 1},
-  progressBadge: {minWidth: 62, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 8, paddingVertical: 6},
+  dailySubtitle: {marginTop: 2, flexShrink: 1},
+  progressBadge: {minWidth: 62, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 8, paddingVertical: 6},
   progressBadgeValue: {color: theme.colors.primary, fontSize: 11.5, fontWeight: '800'},
-  progressBadgeLabel: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 7.5, fontWeight: '700'},
+  progressBadgeLabel: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 11, fontWeight: '700'},
   progressTrack: {height: 7, marginTop: 13, overflow: 'hidden', borderRadius: 4, backgroundColor: theme.colors.primarySoft},
   progressFill: {height: '100%', borderRadius: 4, backgroundColor: theme.colors.primary},
-  dailySectionLabel: {marginTop: 14, marginBottom: 8, color: theme.colors.primary, fontSize: 8, fontWeight: '800', letterSpacing: 0.8},
+  dailySectionLabel: {marginTop: 14, marginBottom: 8},
   dailyGrid: {gap: 8},
-  dailyItem: {position: 'relative', minHeight: 68, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 16, backgroundColor: theme.colors.surfaceSecondary, paddingHorizontal: 10, paddingVertical: 9},
+  dailyItem: {position: 'relative', minHeight: 68, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 16, backgroundColor: theme.colors.surfaceSecondary, paddingHorizontal: 12, paddingVertical: 12},
   // Generic "logged today" completion tint — success token, not a
   // symptom-severity claim (see file header comment).
   dailyItemDone: {borderColor: withAlpha(theme.colors.success, 0.18), backgroundColor: withAlpha(theme.colors.success, 0.05)},
   dailyItemPressed: {opacity: 0.82, transform: [{scale: 0.993}]},
-  dailyIcon: {width: 40, height: 40, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primarySoft},
+  dailyIcon: {width: 40, height: 40, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: theme.colors.primarySoft},
   dailyIconDone: {backgroundColor: theme.colors.primary},
   dailyItemCopy: {flex: 1, minWidth: 0, marginLeft: 10},
-  dailyLabel: {color: theme.colors.text, fontSize: 11.5, lineHeight: 14.5, fontWeight: '800', flexShrink: 1},
-  dailyItemSubtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 9, lineHeight: 12.5, flexShrink: 1},
-  dailyStateIndicator: {width: 28, height: 28, flexShrink: 0, alignItems: 'center', justifyContent: 'center', marginLeft: 8, borderRadius: 10, backgroundColor: theme.colors.primarySoft},
+  dailyLabel: {flexShrink: 1},
+  dailyItemSubtitle: {marginTop: 2, flexShrink: 1},
+  dailyStateIndicator: {width: 28, height: 28, flexShrink: 0, alignItems: 'center', justifyContent: 'center', marginLeft: 8, borderRadius: 12, backgroundColor: theme.colors.primarySoft},
   dailyStateIndicatorDone: {backgroundColor: theme.colors.success},
-  completeJournalButton: {minHeight: 43, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7, marginTop: 10, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.11), borderRadius: 14, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 12},
-  completeJournalButtonPressed: {opacity: 0.82},
-  completeJournalText: {flex: 1, minWidth: 0, color: theme.colors.primary, fontSize: 10.5, fontWeight: '800', textAlign: 'center'},
+  completeJournalButton: {marginTop: 10},
 
   });
 }
