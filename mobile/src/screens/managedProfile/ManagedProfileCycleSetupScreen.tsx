@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {ActivityIndicator, Pressable, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
@@ -8,7 +8,10 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import AwaADeuxStepLayout, {Reveal} from '../awaADeux/AwaADeuxStepLayout';
 import InlineCalendarPickerModal from '../../components/onboarding/InlineCalendarPickerModal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AwaCard} from '../../components/ui/AwaCard';
+import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {AwaText} from '../../components/ui/AwaText';
 import {getManagedProfileDraft, updateManagedProfileDraft, clearManagedProfileDraft} from '../../state/managedProfileDraftStore';
 import {addManagedProfile} from '../../state/managedProfilesStore';
 import type {CycleRegularity} from '../../state/onboardingPreferences';
@@ -97,26 +100,25 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
       onContinue={canContinue && !creating ? onCreate : undefined}
       title={t('managedProfile.cycleSetup.title')}>
       <Reveal index={0}>
-        <Pressable
+        <AwaCard
           accessibilityLabel={t('managedProfile.cycleSetup.lastPeriodLabel')}
-          accessibilityRole="button"
           onPress={() => setDatePickerVisible(true)}
-          style={({pressed}) => [styles.fieldCard, pressed && styles.pressed]}>
-          <Text style={styles.label}>{t('managedProfile.cycleSetup.lastPeriodLabel')}</Text>
+          variant="outlined">
+          <AwaText colorRole="onSurfaceVariant" emphasized variant="labelLarge" style={styles.label}>{t('managedProfile.cycleSetup.lastPeriodLabel')}</AwaText>
           <View style={styles.dateRow}>
             <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={18} />
-            <Text style={[styles.dateText, !lastPeriodDate && styles.datePlaceholder]}>
+            <AwaText colorRole={lastPeriodDate ? 'onSurface' : 'onSurfaceVariant'} variant="bodyLarge">
               {lastPeriodDate
                 ? new Intl.DateTimeFormat(dateLocale, {day: '2-digit', month: 'long', year: 'numeric'}).format(lastPeriodDate)
                 : t('managedProfile.cycleSetup.lastPeriodPlaceholder')}
-            </Text>
+            </AwaText>
           </View>
-        </Pressable>
+        </AwaCard>
       </Reveal>
 
       <Reveal index={1}>
-        <View style={styles.fieldCard}>
-          <Text style={styles.label}>{t('managedProfile.cycleSetup.periodLengthLabel')}</Text>
+        <AwaCard variant="outlined">
+          <AwaText colorRole="onSurfaceVariant" emphasized variant="labelLarge" style={styles.label}>{t('managedProfile.cycleSetup.periodLengthLabel')}</AwaText>
           <DurationStepper
             max={PERIOD_LENGTH_MAX}
             min={PERIOD_LENGTH_MIN}
@@ -125,15 +127,14 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
               setPeriodLengthTouched(true);
             }}
             styles={styles}
-            theme={theme}
             value={periodLength}
           />
-        </View>
+        </AwaCard>
       </Reveal>
 
       <Reveal index={2}>
-        <View style={styles.fieldCard}>
-          <Text style={styles.label}>{t('managedProfile.cycleSetup.cycleLengthLabel')}</Text>
+        <AwaCard variant="outlined">
+          <AwaText colorRole="onSurfaceVariant" emphasized variant="labelLarge" style={styles.label}>{t('managedProfile.cycleSetup.cycleLengthLabel')}</AwaText>
           <DurationStepper
             max={CYCLE_LENGTH_MAX}
             min={CYCLE_LENGTH_MIN}
@@ -142,15 +143,14 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
               setCycleLengthTouched(true);
             }}
             styles={styles}
-            theme={theme}
             value={cycleLength}
           />
-        </View>
+        </AwaCard>
       </Reveal>
 
       <Reveal index={3}>
-        <View style={styles.fieldCard}>
-          <Text style={styles.label}>{t('managedProfile.cycleSetup.regularityLabel')}</Text>
+        <AwaCard variant="outlined">
+          <AwaText colorRole="onSurfaceVariant" emphasized variant="labelLarge" style={styles.label}>{t('managedProfile.cycleSetup.regularityLabel')}</AwaText>
           <View accessibilityRole="radiogroup" style={styles.regularityRow}>
             {(
               [
@@ -161,27 +161,33 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
             ).map(option => {
               const selected = regularity === option.id;
               return (
-                <Pressable
+                <AwaCard
                   accessibilityLabel={option.label}
                   accessibilityRole="radio"
                   accessibilityState={{checked: selected}}
                   key={option.id}
                   onPress={() => setRegularity(option.id)}
-                  style={({pressed}) => [styles.regularityOption, selected && styles.regularitySelected, pressed && styles.pressed]}>
-                  <Text adjustsFontSizeToFit minimumFontScale={0.82} numberOfLines={1} style={[styles.regularityText, selected && styles.regularityTextSelected]}>
+                  padding="none"
+                  style={[styles.regularityOption, selected && styles.regularitySelected]}
+                  variant="outlined">
+                  <AwaText
+                    colorRole={selected ? 'onPrimaryContainer' : 'onSurfaceVariant'}
+                    emphasized={selected}
+                    variant="labelLarge"
+                    style={styles.regularityText}>
                     {option.label}
-                  </Text>
-                </Pressable>
+                  </AwaText>
+                </AwaCard>
               );
             })}
           </View>
-        </View>
+        </AwaCard>
       </Reveal>
 
       <Reveal index={4}>
         <View style={styles.helperCard}>
           <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
-          <Text style={styles.helperText}>{t('managedProfile.cycleSetup.helperText')}</Text>
+          <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.helperText}>{t('managedProfile.cycleSetup.helperText')}</AwaText>
         </View>
       </Reveal>
 
@@ -211,80 +217,55 @@ function DurationStepper({
   max,
   onChange,
   styles,
-  theme,
 }: {
   value: number;
   min: number;
   max: number;
   onChange: (value: number) => void;
   styles: ReturnType<typeof createStyles>;
-  theme: ResolvedAwaTheme;
 }): React.JSX.Element {
   const {t} = useTranslation();
   const canDecrease = value > min;
   const canIncrease = value < max;
   return (
     <View style={styles.stepper}>
-      <Pressable
+      <AwaIconButton
         accessibilityLabel={t('managedProfile.cycleSetup.decrease')}
-        accessibilityRole="button"
-        accessibilityState={{disabled: !canDecrease}}
         disabled={!canDecrease}
-        hitSlop={4}
+        icon="minus"
         onPress={() => onChange(Math.max(min, value - 1))}
-        style={({pressed}) => [styles.stepperButton, !canDecrease && styles.stepperButtonDisabled, pressed && styles.pressed]}>
-        <MaterialDesignIcons color={theme.colors.primary} name="minus" size={20} />
-      </Pressable>
+        variant="tonal"
+      />
       <View style={styles.stepperValueBox}>
-        <Text style={styles.stepperValue}>{t('managedProfile.cycleSetup.days', {count: value})}</Text>
+        <AwaText variant="titleMedium">{t('managedProfile.cycleSetup.days', {count: value})}</AwaText>
       </View>
-      <Pressable
+      <AwaIconButton
         accessibilityLabel={t('managedProfile.cycleSetup.increase')}
-        accessibilityRole="button"
-        accessibilityState={{disabled: !canIncrease}}
         disabled={!canIncrease}
-        hitSlop={4}
+        icon="plus"
         onPress={() => onChange(Math.min(max, value + 1))}
-        style={({pressed}) => [styles.stepperButton, !canIncrease && styles.stepperButtonDisabled, pressed && styles.pressed]}>
-        <MaterialDesignIcons color={theme.colors.primary} name="plus" size={20} />
-      </Pressable>
+        variant="tonal"
+      />
     </View>
   );
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    fieldCard: {
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 22,
-      backgroundColor: theme.colors.surface,
-      padding: 16,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 4},
-      shadowOpacity: 0.06,
-      shadowRadius: 10,
-      elevation: 2,
-    },
-    label: {marginBottom: 10, color: theme.colors.text, fontSize: 14.5, fontWeight: '700'},
+    label: {marginBottom: 10},
     dateRow: {flexDirection: 'row', alignItems: 'center', gap: 10},
-    dateText: {color: theme.colors.text, fontSize: 15, fontWeight: '600'},
-    datePlaceholder: {color: theme.colors.textMuted, fontWeight: '400'},
     stepper: {
       minHeight: 52,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
       borderRadius: 16,
-      borderWidth: 1.4,
+      borderWidth: 1,
       borderColor: theme.colors.border,
       backgroundColor: theme.colors.background,
       paddingHorizontal: 6,
     },
-    stepperButton: {width: 44, height: 44, alignItems: 'center', justifyContent: 'center'},
-    stepperButtonDisabled: {opacity: 0.35},
     stepperValueBox: {flex: 1, alignItems: 'center'},
-    stepperValue: {color: theme.colors.text, fontSize: 16, fontWeight: '700'},
     // Same shape/values as CycleInformationScreen.tsx's own regularity chips
     // (the mother's own onboarding) — never a new visual pattern for this choice.
     regularityRow: {flexDirection: 'row', gap: 8},
@@ -294,29 +275,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      borderWidth: 1.25,
-      borderColor: withAlpha(theme.colors.primary, 0.22),
-      borderRadius: 15,
-      backgroundColor: withAlpha(theme.colors.surface, 0.92),
-      paddingHorizontal: 5,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 2},
-      shadowOpacity: 0.035,
-      shadowRadius: 5,
-      elevation: 1,
+      paddingHorizontal: 12,
+      paddingVertical: 8,
     },
-    regularitySelected: {
-      borderWidth: 1.5,
-      borderColor: theme.colors.primary,
-      backgroundColor: theme.colors.primarySoft,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 3},
-      shadowOpacity: 0.10,
-      shadowRadius: 7,
-      elevation: 2,
-    },
-    regularityText: {color: theme.colors.textSecondary, fontSize: 13, fontWeight: '600', textAlign: 'center'},
-    regularityTextSelected: {color: theme.colors.primary, fontWeight: '700'},
+    regularitySelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
+    regularityText: {textAlign: 'center'},
     helperCard: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -326,8 +289,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 14,
       paddingVertical: 12,
     },
-    helperText: {flex: 1, color: theme.colors.primary, fontSize: 12.5, lineHeight: 18, fontWeight: '600'},
-    pressed: {opacity: 0.86},
+    helperText: {flex: 1},
     loadingRow: {marginTop: 6, alignItems: 'center'},
   });
 }
