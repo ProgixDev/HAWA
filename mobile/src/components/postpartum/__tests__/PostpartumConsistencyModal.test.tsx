@@ -73,7 +73,9 @@ afterEach(() => {
 describe('PostpartumConsistencyModal — never a fixed light-mode card in Dark mode', () => {
   it('the card surface changes between Light and Dark, and never stays the fixed light literal ("#FFFDFF")', async () => {
     const renderer = await renderModal();
-    const card = renderer.root.findAll(node => flattenStyle(node.props.style).borderRadius === 28)[0];
+    // DESIGN.md (Material 3) replaced the legacy 28 dp radius with the shared AwaCard (12 dp): the card is now found
+    // by its alert role instead of that pre-migration radius literal. The assertion itself is unchanged.
+    const card = renderer.root.findAll(node => (node.type as unknown) === 'View' && node.props.accessibilityRole === 'alert')[0];
     const lightBg = flattenStyle(card.props.style).backgroundColor;
     expect(lightBg).not.toBe('#FFFDFF');
 
@@ -91,7 +93,9 @@ describe('PostpartumConsistencyModal — never a fixed light-mode card in Dark m
     await setAppearanceMode('dark');
     await setTrueBlackEnabled(true);
     const renderer = await renderModal();
-    const card = renderer.root.findAll(node => flattenStyle(node.props.style).borderRadius === 28)[0];
+    // DESIGN.md (Material 3) replaced the legacy 28 dp radius with the shared AwaCard (12 dp): the card is now found
+    // by its alert role instead of that pre-migration radius literal. The assertion itself is unchanged.
+    const card = renderer.root.findAll(node => (node.type as unknown) === 'View' && node.props.accessibilityRole === 'alert')[0];
     const cardBg = flattenStyle(card.props.style).backgroundColor;
     // True Black's page background is '#030304'; the card must use the
     // separate True Black *card* surface, not the page background itself.
@@ -101,7 +105,8 @@ describe('PostpartumConsistencyModal — never a fixed light-mode card in Dark m
 
   it('primary action text/icon are readable against theme.colors.primary via onPrimaryTextColor, never hardcoded', async () => {
     const renderer = await renderModal();
-    const primaryLabel = renderer.root.findAll(node => node.props.children === 'Modifier la date')[0];
+    // The label is rendered by AwaButton -> AwaText -> host Text; the colour lives on the host node's style.
+    const primaryLabel = renderer.root.findAll(node => (node.type as unknown) === 'Text' && node.props.children === 'Modifier la date')[0];
     const primaryTextColor = flattenStyle(primaryLabel.props.style).color;
     expect(typeof primaryTextColor).toBe('string');
 

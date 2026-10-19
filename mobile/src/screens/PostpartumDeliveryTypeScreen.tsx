@@ -9,7 +9,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -28,6 +27,8 @@ import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import '../i18n';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaText} from '../components/ui/AwaText';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -130,9 +131,9 @@ function OptionCard({
           />
         </View>
 
-        <Text style={styles.optionLabel}>
+        <AwaText variant="titleSmall" style={styles.optionLabel}>
           {label}
-        </Text>
+        </AwaText>
 
         <View
           style={[
@@ -230,11 +231,6 @@ function PostpartumDeliveryTypeScreen({
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar
@@ -267,13 +263,13 @@ function PostpartumDeliveryTypeScreen({
             {/* ============================= */}
 
             <View style={styles.header}>
-              <Text style={styles.title}>
+              <AwaText variant="headlineMedium" style={styles.title}>
                 {t('postpartumDeliveryType.title')}
-              </Text>
+              </AwaText>
 
-              <Text style={styles.subtitle}>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>
                 {t('postpartumDeliveryType.subtitle')}
-              </Text>
+              </AwaText>
             </View>
 
             {/* ============================= */}
@@ -301,9 +297,9 @@ function PostpartumDeliveryTypeScreen({
                   size={17}
                 />
 
-                <Text style={styles.infoText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.infoText}>
                   {t('postpartumDeliveryType.infoText')}
-                </Text>
+                </AwaText>
               </View>
             </View>
           </Animated.View>
@@ -312,18 +308,13 @@ function PostpartumDeliveryTypeScreen({
           {/* BOUTON SUIVANT */}
           {/* ============================= */}
 
-          <Pressable
-            accessibilityRole="button"
+          <AwaButton
             disabled={saving}
+            label={saving ? t('postpartumDeliveryType.saving') : route.params?.mode === 'edit' ? t('common.save') : t('postpartumDeliveryType.next')}
             onPress={handleNext}
-            style={({pressed}) => [
-              styles.nextButton,
-              (pressed || saving) && styles.pressed,
-            ]}>
-            <Text style={styles.nextText}>
-              {saving ? t('postpartumDeliveryType.saving') : route.params?.mode === 'edit' ? t('common.save') : t('postpartumDeliveryType.next')}
-            </Text>
-          </Pressable>
+            size="large"
+            style={styles.nextButton}
+          />
 
         </ScrollView>
       </View>
@@ -338,40 +329,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: theme.colors.background,
     },
 
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
 
-    pageGlowTop: {
-      position: 'absolute',
-      top: -150,
-      right: -110,
-      width: 330,
-      height: 330,
-      borderRadius: 165,
-      backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
 
-    pageGlowMiddle: {
-      position: 'absolute',
-      top: '38%',
-      left: -130,
-      width: 260,
-      height: 260,
-      borderRadius: 130,
-      backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
 
-    pageGlowBottom: {
-      position: 'absolute',
-      bottom: -150,
-      right: -100,
-      width: 310,
-      height: 310,
-      borderRadius: 155,
-      backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
 
     safeArea: {
       flex: 1,
@@ -403,31 +363,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginBottom: spacing.md,
     },
 
-    title: {
-      color: theme.colors.text,
+    title: {textAlign: 'center'},
 
-      fontFamily: 'serif',
-
-      fontSize: 26,
-      fontWeight: '700',
-
-      lineHeight: 32,
-
-      textAlign: 'center',
-    },
-
-    subtitle: {
-      marginTop: 10,
-
-      maxWidth: 310,
-
-      color: theme.colors.textSecondary,
-
-      fontSize: 13,
-      lineHeight: 19,
-
-      textAlign: 'center',
-    },
+    subtitle: {marginTop: 10, maxWidth: 310, textAlign: 'center'},
 
     /*
      * Cette partie prend l'espace disponible
@@ -464,12 +402,12 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       borderColor: theme.colors.border,
 
-      borderRadius: 18,
+      borderRadius: 12,
 
       backgroundColor: theme.colors.surface,
 
-      paddingHorizontal: 14,
-      paddingVertical: 7,
+      paddingHorizontal: 16,
+      paddingVertical: 12,
 
       elevation: 3,
 
@@ -511,21 +449,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       height: 48,
     },
 
-    optionLabel: {
-      flex: 1,
-
-      minWidth: 0,
-
-      marginHorizontal: 13,
-
-      color: theme.colors.text,
-
-      fontSize: 14.5,
-
-      fontWeight: '600',
-
-      lineHeight: 19,
-    },
+    optionLabel: {flex: 1, minWidth: 0, marginHorizontal: 13},
 
     checkBadge: {
       width: 24,
@@ -562,15 +486,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       paddingHorizontal: 4,
     },
 
-    infoText: {
-      flex: 1,
-
-      color: theme.colors.textSecondary,
-
-      fontSize: 12,
-
-      lineHeight: 17,
-    },
+    infoText: {flex: 1},
 
     /*
      * Bouton toujours en bas du contenu,
@@ -579,38 +495,7 @@ function createStyles(theme: ResolvedAwaTheme) {
      * Cela reste responsive.
      */
     nextButton: {
-      minHeight: 54,
-
-      alignItems: 'center',
-
-      justifyContent: 'center',
-
       marginTop: spacing.sm,
-
-      borderRadius: 18,
-
-      backgroundColor: theme.colors.primary,
-
-      shadowColor: theme.shadow.shadowColor,
-
-      shadowOffset: {
-        width: 0,
-        height: 5,
-      },
-
-      shadowOpacity: 0.25,
-
-      shadowRadius: 9,
-
-      elevation: 5,
-    },
-
-    nextText: {
-      color: onPrimaryTextColor(theme),
-
-      fontSize: 18,
-
-      fontWeight: '600',
     },
 
     pressed: {

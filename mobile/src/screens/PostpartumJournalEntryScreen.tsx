@@ -1,6 +1,6 @@
 import {useToday} from '../hooks/useToday';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { type LayoutChangeEvent, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import {
   useNavigation,
   useRoute,
@@ -19,6 +19,8 @@ import {
   PostpartumJournalCard,
 } from '../components/postpartum/PostpartumCycleStyleJournalLayout';
 import {
+  HERO_BANNER_FATIGUE,
+  HERO_BANNER_RECOVERY,
   PostpartumWellnessRatingLayout,
   type WellnessRatingOption,
 } from '../components/postpartum/PostpartumWellnessRatingLayout';
@@ -50,6 +52,9 @@ import { showPostpartumSuccessToast } from '../state/postpartumSuccessToastStore
 import { dateFormatLocale } from '../utils/cycleMath';
 import '../i18n';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 
 // Single generic entry screen for all 5 Postpartum daily-tracking categories
 // — reached from BOTH the shared "Journal quotidien" sheet AND the
@@ -83,6 +88,11 @@ const MOOD_EMOJI: Record<string, string> = {
   Bien: '🙂',
   'Très bien': '😊',
 };
+
+// Humeur: the 5 mood cards share ONE row whenever each card can be at least MOOD_MIN_CARD_WIDTH dp wide (every phone
+// from ~320 dp up); a narrower grid falls back to 3 + 2 cards of one equal width instead of squeezing the labels.
+const MOOD_GAP = 6;
+const MOOD_MIN_CARD_WIDTH = 46;
 
 // Same 5 emoticon icons Cycle's own JournalSleepScreen uses for its quality
 // selector (already proven-valid MaterialDesignIcons names in this
@@ -502,7 +512,6 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
       <PostpartumCycleStyleJournalLayout
         dateLabel={dateLabel}
         error={error}
-        heroIcon="heart-outline"
         heroImage={require('../assets/images/mood-header-woman.png')}
         heroText={t('postpartumJournalEntry.mood.heroText')}
         heroTitle={t('postpartumJournalEntry.mood.heroTitle')}
@@ -526,7 +535,6 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
       <PostpartumCycleStyleJournalLayout
         dateLabel={dateLabel}
         error={error}
-        heroIcon="weather-night"
         heroImage={require('../assets/images/sleep-header-woman.png')}
         heroText={t('postpartumJournalEntry.sleep.heroText')}
         heroTitle={t('postpartumJournalEntry.sleep.heroTitle')}
@@ -553,6 +561,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         adviceTitle={t('postpartumJournalEntry.fatigue.adviceTitle')}
         dateLabel={dateLabel}
         error={error}
+        heroBanner={HERO_BANNER_FATIGUE}
         heroImage={require('../assets/images/postpartum/postpartum-fatigue.png')}
         heroText={t('postpartumJournalEntry.fatigue.heroText')}
         heroTitle={t('postpartumJournalEntry.fatigue.heroTitle')}
@@ -575,6 +584,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         adviceTitle={t('postpartumJournalEntry.pain.adviceTitle')}
         dateLabel={dateLabel}
         error={error}
+        heroBanner
         heroImage={require('../assets/images/postpartum/postpartum-pain.png')}
         heroText={t('postpartumJournalEntry.pain.heroText')}
         heroTitle={t('postpartumJournalEntry.pain.heroTitle')}
@@ -597,6 +607,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         adviceTitle={t('postpartumJournalEntry.physicalRecovery.adviceTitle')}
         dateLabel={dateLabel}
         error={error}
+        heroBanner={HERO_BANNER_RECOVERY}
         heroImage={require('../assets/images/postpartum/postpartum-recovery.png')}
         heroText={t('postpartumJournalEntry.physicalRecovery.heroText')}
         heroTitle={t('postpartumJournalEntry.physicalRecovery.heroTitle')}
@@ -653,8 +664,8 @@ function FatigueContent({
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <>
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>{t('postpartumJournalEntry.fatigue.levelTitle')}</Text>
+      <AwaCard padding="none" variant="filled" style={styles.card}>
+        <AwaText variant="titleSmall" style={styles.cardTitle}>{t('postpartumJournalEntry.fatigue.levelTitle')}</AwaText>
         {/* DATA-BEARING render site — `option` is a raw POSTPARTUM_FATIGUE_OPTIONS
             French string saved verbatim via savePostpartumJournalField(...);
             the chip label itself must stay untranslated (only the card chrome
@@ -681,7 +692,6 @@ function FatigueContent({
                   size={24}
                 />
                 <Text
-                  numberOfLines={2}
                   style={[
                     styles.qualityLabel,
                     active && styles.qualityLabelActive,
@@ -693,7 +703,7 @@ function FatigueContent({
             );
           })}
         </View>
-      </View>
+      </AwaCard>
       <PostpartumInfoPanel
         icon="information-outline"
         text={t('postpartumJournalEntry.fatigue.infoText')}
@@ -719,8 +729,8 @@ function PainContent({
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <>
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>{t('postpartumJournalEntry.pain.levelTitle')}</Text>
+      <AwaCard padding="none" variant="filled" style={styles.card}>
+        <AwaText variant="titleSmall" style={styles.cardTitle}>{t('postpartumJournalEntry.pain.levelTitle')}</AwaText>
         {/* DATA-BEARING render site — see FatigueContent's comment above;
             same rule for POSTPARTUM_PAIN_OPTIONS. */}
         <View style={styles.qualityRow}>
@@ -745,7 +755,6 @@ function PainContent({
                   size={24}
                 />
                 <Text
-                  numberOfLines={2}
                   style={[
                     styles.qualityLabel,
                     active && styles.qualityLabelActive,
@@ -757,7 +766,7 @@ function PainContent({
             );
           })}
         </View>
-      </View>
+      </AwaCard>
       <PostpartumInfoPanel
         icon="information-outline"
         text={t('postpartumJournalEntry.pain.infoText')}
@@ -783,8 +792,8 @@ function RecoveryContent({
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <>
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>{t('postpartumJournalEntry.categoryTitle.physicalRecovery')}</Text>
+      <AwaCard padding="none" variant="filled" style={styles.card}>
+        <AwaText variant="titleSmall" style={styles.cardTitle}>{t('postpartumJournalEntry.categoryTitle.physicalRecovery')}</AwaText>
         {/* DATA-BEARING render site — see FatigueContent's comment above;
             same rule for POSTPARTUM_RECOVERY_OPTIONS. */}
         <View style={styles.qualityRow}>
@@ -809,7 +818,6 @@ function RecoveryContent({
                   size={24}
                 />
                 <Text
-                  numberOfLines={2}
                   style={[
                     styles.qualityLabel,
                     active && styles.qualityLabelActive,
@@ -821,7 +829,7 @@ function RecoveryContent({
             );
           })}
         </View>
-      </View>
+      </AwaCard>
       <PostpartumInfoPanel
         icon="information-outline"
         text={t('postpartumJournalEntry.physicalRecovery.infoText')}
@@ -849,13 +857,21 @@ function MoodContent({
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const [gridWidth, setGridWidth] = useState(0);
+  const count = POSTPARTUM_MOOD_OPTIONS.length;
+  // Before the first layout pass (width 0) the one-row layout is used; flex sizing needs no measured width.
+  const oneRow = gridWidth === 0 || (gridWidth - MOOD_GAP * (count - 1)) / count >= MOOD_MIN_CARD_WIDTH;
+  const wrappedCardWidth = Math.floor((gridWidth - MOOD_GAP * 2) / 3);
   return (
     <>
-      <PostpartumJournalCard icon="heart-outline" title={t('postpartumJournalEntry.mood.mainMoodTitle')}>
+      <PostpartumJournalCard title={t('postpartumJournalEntry.mood.mainMoodTitle')}>
         {/* DATA-BEARING render site — `option` is a raw POSTPARTUM_MOOD_OPTIONS
             French string saved verbatim via savePostpartumJournalField(...);
             the chip label itself must stay untranslated. */}
-        <View style={styles.moodGrid}>
+        <View
+          onLayout={(event: LayoutChangeEvent) => setGridWidth(event.nativeEvent.layout.width)}
+          style={[styles.moodGrid, !oneRow && styles.moodGridWrapped]}
+        >
           {POSTPARTUM_MOOD_OPTIONS.map(option => {
             const active = selected === option;
             return (
@@ -867,6 +883,7 @@ function MoodContent({
                 onPress={() => onSelect(option)}
                 style={({ pressed }) => [
                   styles.moodCard,
+                  oneRow ? styles.moodCardOneRow : { width: wrappedCardWidth },
                   active && styles.moodCardActive,
                   pressed && styles.pressed,
                 ]}
@@ -877,9 +894,11 @@ function MoodContent({
                     active && styles.emojiCircleActive,
                   ]}
                 >
-                  <Text style={styles.moodEmoji}>{MOOD_EMOJI[option]}</Text>
+                  <AwaText variant="titleLarge">{MOOD_EMOJI[option]}</AwaText>
                 </View>
                 <Text
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.8}
                   numberOfLines={2}
                   style={[styles.moodLabel, active && styles.moodLabelActive]}
                 >
@@ -896,7 +915,7 @@ function MoodContent({
         optional
         title={t('postpartumJournalEntry.mood.noteTitle')}
       >
-        <View style={styles.noteBox}>
+        <AwaCard padding="none" variant="filled" style={styles.noteBox}>
           <TextInput
             accessibilityLabel={t('postpartumJournalEntry.mood.noteTitle')}
             maxLength={300}
@@ -907,8 +926,8 @@ function MoodContent({
             style={styles.noteInput}
             value={note}
           />
-          <Text style={styles.noteCounter}>{t('postpartumJournalEntry.mood.noteCounter', {count: note.length})}</Text>
-        </View>
+          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.noteCounter}>{t('postpartumJournalEntry.mood.noteCounter', {count: note.length})}</AwaText>
+        </AwaCard>
       </PostpartumJournalCard>
 
       <PostpartumInfoPanel
@@ -944,21 +963,14 @@ function SleepContent({
     <>
       <PostpartumJournalCard icon="weather-night" title={t('postpartumJournalEntry.sleep.durationTitle')}>
         <View style={styles.stepperRow}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('postpartumJournalEntry.sleep.decreaseDurationLabel')}
             accessibilityRole="button"
             onPress={() => onAdjustDuration(-0.5)}
-            style={({ pressed }) => [
-              styles.stepperButton,
-              pressed && styles.pressed,
-            ]}
-          >
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="minus"
-              size={22}
-            />
-          </Pressable>
+            icon="minus"
+            iconSize={22}
+            variant="tonal"
+          />
 
           <View style={styles.durationBlock}>
             <MaterialDesignIcons
@@ -969,21 +981,14 @@ function SleepContent({
             <Text style={styles.durationValue}>{durationLabel}</Text>
           </View>
 
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('postpartumJournalEntry.sleep.increaseDurationLabel')}
             accessibilityRole="button"
             onPress={() => onAdjustDuration(0.5)}
-            style={({ pressed }) => [
-              styles.stepperButton,
-              pressed && styles.pressed,
-            ]}
-          >
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="plus"
-              size={22}
-            />
-          </Pressable>
+            icon="plus"
+            iconSize={22}
+            variant="tonal"
+          />
         </View>
       </PostpartumJournalCard>
 
@@ -1013,7 +1018,6 @@ function SleepContent({
                   size={24}
                 />
                 <Text
-                  numberOfLines={2}
                   style={[
                     styles.qualityLabel,
                     active && styles.qualityLabelActive,
@@ -1040,24 +1044,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   pressed: { opacity: 0.82, transform: [{ scale: 0.99 }] },
 
-  card: {
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.12),
-    borderRadius: 22,
-    backgroundColor: theme.colors.surface,
-    padding: 16,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.05,
-    shadowRadius: 9,
-    elevation: 1,
-  },
-  cardTitle: {
-    marginBottom: 12,
-    color: theme.colors.accent,
-    fontSize: 15,
-    fontWeight: '800',
-  },
+  card: {padding: 16},
+  cardTitle: {marginBottom: 12, color: theme.colors.accent},
 
   /* DURÉE SOMMEIL — stepper row */
   stepperRow: {
@@ -1065,14 +1053,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     gap: 18,
-  },
-  stepperButton: {
-    width: 46,
-    height: 46,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 23,
-    backgroundColor: theme.colors.primarySoft,
   },
   durationBlock: {
     flexDirection: 'row',
@@ -1083,27 +1063,32 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
   durationValue: {
     color: theme.colors.text,
-    fontFamily: 'serif',
     fontSize: 26,
     fontWeight: '800',
   },
 
   /* HUMEUR — mirrors Cycle's JournalMoodScreen moodGrid/moodCard pattern */
+  // The 5 cards fill one row at one equal width and height (flex: 1, stretched); `moodGridWrapped` is the narrow-grid
+  // fallback (3 + 2 cards of one equal width, see MOOD_MIN_CARD_WIDTH). Every card has the same structure: the emoji
+  // circle at a fixed distance from the top, the label (up to 2 lines, centred) right under it, so the emojis line up
+  // whatever the label length ("Très difficile" wraps to 2 lines, "Bien" is 1).
   moodGrid: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
     justifyContent: 'center',
-    gap: 8,
+    gap: MOOD_GAP,
   },
+  moodGridWrapped: {flexWrap: 'wrap'},
+  moodCardOneRow: {flex: 1, minWidth: 0},
   moodCard: {
-    width: '18.2%',
-    minWidth: 62,
-    minHeight: 76,
+    minHeight: 88,
+    paddingTop: 10,
+    paddingBottom: 8,
+    paddingHorizontal: 3,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
   moodCardActive: {
@@ -1122,12 +1107,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.surface,
     transform: [{ scale: 1.08 }],
   },
-  moodEmoji: { fontSize: 22 },
   moodLabel: {
-    marginTop: 5,
+    alignSelf: 'stretch',
+    marginTop: 6,
+    minHeight: 28,
     color: theme.colors.textSecondary,
-    fontSize: 9.5,
-    lineHeight: 12,
+    fontSize: 11,
+    lineHeight: 14,
     textAlign: 'center',
   },
   moodLabelActive: { color: theme.colors.primary, fontWeight: '800' },
@@ -1139,7 +1125,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     minHeight: 74,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 2,
+    paddingHorizontal: 4,
+    paddingVertical: 6,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
     borderRadius: 12,
@@ -1152,18 +1139,13 @@ function createStyles(theme: ResolvedAwaTheme) {
   qualityLabel: {
     marginTop: 6,
     color: theme.colors.textSecondary,
-    fontSize: 8.2,
+    fontSize: 11,
     fontWeight: '600',
     textAlign: 'center',
   },
   qualityLabelActive: { color: theme.colors.primary, fontWeight: '800' },
 
-  noteBox: {
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 15,
-    backgroundColor: theme.colors.surface,
-  },
+  noteBox: {},
   noteInput: {
     minHeight: 90,
     padding: 12,
@@ -1173,12 +1155,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     lineHeight: 19,
     textAlignVertical: 'top',
   },
-  noteCounter: {
-    position: 'absolute',
-    right: 10,
-    bottom: 7,
-    color: theme.colors.textSecondary,
-    fontSize: 9.5,
-  },
+  noteCounter: {position: 'absolute', right: 10, bottom: 7},
   });
 }

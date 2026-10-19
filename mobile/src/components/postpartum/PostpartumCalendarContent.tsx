@@ -69,6 +69,11 @@ import {
   type PostpartumLochiaEntry,
 } from '../../state/postpartumLochiaStore';
 import '../../i18n';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaIconButton} from '../ui/AwaIconButton';
+import {AwaText} from '../ui/AwaText';
+import {CalendarHeaderAction as HeaderAction} from '../calendar/CalendarHeaderAction';
 
 // Postpartum Calendar — a dedicated content branch for the ONE global
 // Calendar tab (see ObjectiveAwareCalendarScreen.tsx). Same premium HAWA
@@ -475,11 +480,6 @@ function PostpartumCalendarContent(): React.JSX.Element {
       start={{x: 0, y: 0}}
       style={styles.background}
     >
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
@@ -497,8 +497,8 @@ function PostpartumCalendarContent(): React.JSX.Element {
           {/* HEADER */}
           <View style={styles.header}>
             <View style={styles.headerCopy}>
-              <Text style={styles.title}>{t('postpartumCalendar.header.title')}</Text>
-              <Text style={styles.subtitle}>{t('postpartumCalendar.header.subtitle')}</Text>
+              <AwaText variant="headlineSmall" style={styles.title}>{t('postpartumCalendar.header.title')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>{t('postpartumCalendar.header.subtitle')}</AwaText>
             </View>
 
             <HeaderAction
@@ -541,38 +541,30 @@ function PostpartumCalendarContent(): React.JSX.Element {
             ) : null}
 
             <View style={styles.monthHeader}>
-              <Pressable
+              <AwaIconButton
                 accessibilityLabel={t('calendar.previousMonth')}
                 accessibilityRole="button"
                 onPress={goToPreviousMonth}
-                style={styles.arrowButton}
-              >
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="chevron-left"
-                  size={23}
-                />
-              </Pressable>
+                icon="chevron-left"
+                iconSize={23}
+                variant="tonal"
+              />
 
               <View style={styles.monthCopy}>
-                <Text style={styles.monthTitle}>{monthTitle}</Text>
+                <AwaText variant="titleMedium" style={styles.monthTitle}>{monthTitle}</AwaText>
                 {hijriMonthLabel ? (
-                  <Text style={styles.hijriMonth}>{hijriMonthLabel}</Text>
+                  <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.hijriMonth}>{hijriMonthLabel}</AwaText>
                 ) : null}
               </View>
 
-              <Pressable
+              <AwaIconButton
                 accessibilityLabel={t('calendar.nextMonth')}
                 accessibilityRole="button"
                 onPress={goToNextMonth}
-                style={styles.arrowButton}
-              >
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="chevron-right"
-                  size={23}
-                />
-              </Pressable>
+                icon="chevron-right"
+                iconSize={23}
+                variant="tonal"
+              />
             </View>
 
             <View style={styles.weekRow}>
@@ -711,24 +703,24 @@ function PostpartumCalendarContent(): React.JSX.Element {
                       backgroundColorStyle(categoryMeta[key].color),
                     ]}
                   />
-                  <Text style={styles.inlineLegendText}>
+                  <AwaText variant="labelSmall" colorRole="onSurfaceVariant">
                     {categoryMeta[key].label}
-                  </Text>
+                  </AwaText>
                 </View>
               ))}
               <View style={styles.inlineLegendItem}>
                 <View style={styles.inlineTodayIndicator} />
-                <Text style={styles.inlineLegendText}>{t('cycleHome.todayLabel')}</Text>
+                <AwaText variant="labelSmall" colorRole="onSurfaceVariant">{t('cycleHome.todayLabel')}</AwaText>
               </View>
               {spiritualMarkersEnabled ? (
                 <>
                   <View style={styles.inlineLegendItem}>
                     <MaterialDesignIcons color={RAMADAN_MARKER_COLOR} name="moon-waning-crescent" size={11} />
-                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>{t('postpartumCalendar.ramadan')}</Text>
+                    <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>{t('postpartumCalendar.ramadan')}</AwaText>
                   </View>
                   <View style={styles.inlineLegendItem}>
                     <MaterialDesignIcons color={DHOUL_HIJJA_MARKER_COLOR} name="moon-waning-crescent" size={11} />
-                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>{t('postpartumCalendar.dhoulHijja')}</Text>
+                    <AwaText variant="labelSmall" colorRole="onSurfaceVariant" style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>{t('postpartumCalendar.dhoulHijja')}</AwaText>
                   </View>
                 </>
               ) : null}
@@ -746,11 +738,11 @@ function PostpartumCalendarContent(): React.JSX.Element {
                 />
               </View>
               <View style={styles.flexCopy}>
-                <Text style={styles.selectedTitle}>{selectedTitle}</Text>
-                <Text style={styles.selectedDate}>
+                <AwaText variant="titleMedium" style={styles.selectedTitle}>{selectedTitle}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.selectedDate}>
                   {formatFullDate(selectedDate)}
                   {showHijri ? ` · ${formatHijriDate(selectedDate) ?? ''}` : ''}
-                </Text>
+                </AwaText>
               </View>
             </View>
 
@@ -761,11 +753,11 @@ function PostpartumCalendarContent(): React.JSX.Element {
                   name="information-outline"
                   size={19}
                 />
-                <Text style={styles.neutralText}>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.neutralText}>
                   {selectedStatus.configured
                     ? t('postpartumCalendar.selected.beforeTracking')
                     : t('postpartumCalendar.selected.notConfigured')}
-                </Text>
+                </AwaText>
               </View>
             ) : (
               <>
@@ -794,14 +786,13 @@ function PostpartumCalendarContent(): React.JSX.Element {
 
                 <View style={styles.dataRows}>
                   {showLochiaRow ? (
-                    <Pressable
+                    <AwaCard
+                      padding="none"
+                      variant="filled"
                       accessibilityLabel={t('postpartumCalendar.categories.lochia.label')}
                       accessibilityRole="button"
                       onPress={() => navigation.navigate('PostpartumLochia')}
-                      style={({ pressed }) => [
-                        styles.dataRow,
-                        pressed && styles.pressed,
-                      ]}
+                      style={styles.dataRow}
                     >
                       <View style={[styles.dataRowIcon, styles.lochiesIcon]}>
                         <MaterialDesignIcons
@@ -811,8 +802,8 @@ function PostpartumCalendarContent(): React.JSX.Element {
                         />
                       </View>
                       <View style={styles.flexCopy}>
-                        <Text style={styles.dataRowLabel}>{t('postpartumCalendar.categories.lochia.label')}</Text>
-                        <Text style={styles.dataRowValue}>
+                        <AwaText variant="labelMedium" style={styles.dataRowLabel}>{t('postpartumCalendar.categories.lochia.label')}</AwaText>
+                        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.dataRowValue}>
                           {selectedLochia
                             // DATA-BEARING: selectedLochia.flow/.color stay the
                             // raw French strings persisted as-is by
@@ -821,18 +812,18 @@ function PostpartumCalendarContent(): React.JSX.Element {
                             // same as PostpartumDashboard.tsx's identical value.
                             ? `${journalOptionLabel('postpartumLochiaFlow', selectedLochia.flow, t)} · ${journalOptionLabel('postpartumLochiaColor', selectedLochia.color, t)}`
                             : t('postpartumCalendar.selected.lochiaEmpty')}
-                        </Text>
+                        </AwaText>
                       </View>
                       <MaterialDesignIcons
                         color={theme.colors.primary}
                         name="chevron-right"
                         size={18}
                       />
-                    </Pressable>
+                    </AwaCard>
                   ) : null}
 
                   {isFirstPeriodSelected ? (
-                    <View style={styles.dataRow}>
+                    <AwaCard padding="none" variant="filled" style={styles.dataRow}>
                       <View style={[styles.dataRowIcon, styles.lochiesIcon]}>
                         <MaterialDesignIcons
                           color={DELIVERY_COLOR}
@@ -841,17 +832,17 @@ function PostpartumCalendarContent(): React.JSX.Element {
                         />
                       </View>
                       <View style={styles.flexCopy}>
-                        <Text style={styles.dataRowLabel}>{t('postpartumCalendar.selected.cycleReturnTitle')}</Text>
-                        <Text style={styles.dataRowValue}>
+                        <AwaText variant="labelMedium" style={styles.dataRowLabel}>{t('postpartumCalendar.selected.cycleReturnTitle')}</AwaText>
+                        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.dataRowValue}>
                           {t('postpartumCalendar.selected.cycleReturnValue')}
-                        </Text>
+                        </AwaText>
                       </View>
-                    </View>
+                    </AwaCard>
                   ) : null}
 
                   {visibleJournalRows.length > 0
                     ? visibleJournalRows.map(row => (
-                        <View key={row.key} style={styles.dataRow}>
+                        <AwaCard padding="none" variant="filled" key={row.key} style={styles.dataRow}>
                           <View style={styles.dataRowIcon}>
                             <MaterialDesignIcons
                               color={theme.colors.primary}
@@ -860,12 +851,12 @@ function PostpartumCalendarContent(): React.JSX.Element {
                             />
                           </View>
                           <View style={styles.flexCopy}>
-                            <Text style={styles.dataRowLabel}>{row.label}</Text>
-                            <Text numberOfLines={2} style={styles.dataRowValue}>
+                            <AwaText variant="labelMedium" style={styles.dataRowLabel}>{row.label}</AwaText>
+                            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.dataRowValue}>
                               {row.value}
-                            </Text>
+                            </AwaText>
                           </View>
-                        </View>
+                        </AwaCard>
                       ))
                     : !hasAnyVisibleData && !isFirstPeriodSelected ? (
                         <View style={styles.emptyBox}>
@@ -874,28 +865,18 @@ function PostpartumCalendarContent(): React.JSX.Element {
                             name="information-outline"
                             size={19}
                           />
-                          <Text style={styles.emptyText}>
+                          <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.emptyText}>
                             {t('postpartumCalendar.selected.emptyText')}
-                          </Text>
+                          </AwaText>
                           {isTodaySelected ? (
-                            <Pressable
+                            <AwaButton
                               accessibilityLabel={t('postpartumCalendar.selected.addToJournal')}
                               accessibilityRole="button"
                               onPress={openPostpartumJournal}
-                              style={({ pressed }) => [
-                                styles.addButton,
-                                pressed && styles.pressed,
-                              ]}
-                            >
-                              <MaterialDesignIcons
-                                color={onPrimaryTextColor(theme)}
-                                name="plus"
-                                size={16}
-                              />
-                              <Text style={styles.addButtonText}>
-                                {t('postpartumCalendar.selected.addToJournal')}
-                              </Text>
-                            </Pressable>
+                              label={t('postpartumCalendar.selected.addToJournal')}
+                              icon="plus"
+                              style={styles.addButton}
+                            />
                           ) : null}
                         </View>
                       ) : null}
@@ -926,29 +907,6 @@ function PostpartumCalendarContent(): React.JSX.Element {
    HEADER ACTION
 ============================================================ */
 
-function HeaderAction({
-  icon,
-  label,
-  onPress,
-}: {
-  icon: IconName;
-  label: string;
-  onPress: () => void;
-}): React.JSX.Element {
-  const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
-  return (
-    <Pressable
-      accessibilityLabel={label}
-      accessibilityRole="button"
-      onPress={onPress}
-      style={({ pressed }) => [styles.headerAction, pressed && styles.pressed]}
-    >
-      <MaterialDesignIcons color={theme.colors.primary} name={icon} size={18} />
-      <Text style={styles.headerActionLabel}>{label}</Text>
-    </Pressable>
-  );
-}
 
 /* ============================================================
    CALENDAR SHEET — Filtres / Légende, same premium bottom-sheet
@@ -1012,12 +970,12 @@ function PostpartumCalendarSheet({
               style={styles.legendScroll}
             >
               <View style={styles.legendSheetHeader}>
-                <Text style={styles.legendSheetTitle}>
+                <AwaText variant="headlineSmall" style={styles.legendSheetTitle}>
                   {t('postpartumCalendar.legend.title')}
-                </Text>
-                <Text style={styles.legendSheetSubtitle}>
+                </AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.legendSheetSubtitle}>
                   {t('postpartumCalendar.legend.subtitle')}
-                </Text>
+                </AwaText>
               </View>
 
               <View style={styles.legendRows}>
@@ -1047,10 +1005,10 @@ function PostpartumCalendarSheet({
                         ]}
                       />
                       <View style={styles.legendRowCopy}>
-                        <Text style={styles.legendRowTitle}>{meta.label}</Text>
-                        <Text style={styles.legendRowText}>
+                        <AwaText variant="titleSmall" style={styles.legendRowTitle}>{meta.label}</AwaText>
+                        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.legendRowText}>
                           {meta.description}
-                        </Text>
+                        </AwaText>
                       </View>
                     </View>
                   );
@@ -1063,8 +1021,8 @@ function PostpartumCalendarSheet({
                       </View>
                       <View style={[styles.legendDotLarge, backgroundColorStyle(RAMADAN_MARKER_COLOR)]} />
                       <View style={styles.legendRowCopy}>
-                        <Text style={styles.legendRowTitle}>{t('postpartumCalendar.ramadan')}</Text>
-                        <Text style={styles.legendRowText}>{t('postpartumCalendar.legend.ramadanDescription')}</Text>
+                        <AwaText variant="titleSmall" style={styles.legendRowTitle}>{t('postpartumCalendar.ramadan')}</AwaText>
+                        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.legendRowText}>{t('postpartumCalendar.legend.ramadanDescription')}</AwaText>
                       </View>
                     </View>
                     <View style={[styles.legendRow, styles.legendRowLast]}>
@@ -1073,15 +1031,15 @@ function PostpartumCalendarSheet({
                       </View>
                       <View style={[styles.legendDotLarge, backgroundColorStyle(DHOUL_HIJJA_MARKER_COLOR)]} />
                       <View style={styles.legendRowCopy}>
-                        <Text style={styles.legendRowTitle}>{t('postpartumCalendar.dhoulHijja')}</Text>
-                        <Text style={styles.legendRowText}>{t('postpartumCalendar.legend.dhoulHijjaDescription')}</Text>
+                        <AwaText variant="titleSmall" style={styles.legendRowTitle}>{t('postpartumCalendar.dhoulHijja')}</AwaText>
+                        <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.legendRowText}>{t('postpartumCalendar.legend.dhoulHijjaDescription')}</AwaText>
                       </View>
                     </View>
                   </>
                 ) : null}
               </View>
 
-              <View style={styles.todayLegend}>
+              <AwaCard padding="none" variant="elevated" style={styles.todayLegend}>
                 <View style={styles.todayLegendPreview}>
                   <Text style={styles.todayLegendDay}>{today.getDate()}</Text>
                   {showHijri ? (
@@ -1096,21 +1054,17 @@ function PostpartumCalendarSheet({
                     {t('postpartumCalendar.legend.todayDescription')}
                   </Text>
                 </View>
-              </View>
+              </AwaCard>
             </ScrollView>
 
             <View style={styles.legendFooter}>
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('calendar.closeLegend')}
                 accessibilityRole="button"
                 onPress={onClose}
-                style={({ pressed }) => [
-                  styles.closeLegendButton,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <Text style={styles.closeLegendText}>{t('common.close')}</Text>
-              </Pressable>
+                label={t('common.close')}
+                variant="tonal"
+              />
             </View>
           </View>
         ) : mode === 'filters' ? (
@@ -1124,10 +1078,10 @@ function PostpartumCalendarSheet({
             <View style={styles.handle} />
 
             <View style={styles.filterSheetHeader}>
-              <Text style={styles.filterSheetTitle}>{t('postpartumCalendar.filters.title')}</Text>
-              <Text style={styles.filterSheetSubtitle}>
+              <AwaText variant="headlineSmall" style={styles.filterSheetTitle}>{t('postpartumCalendar.filters.title')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.filterSheetSubtitle}>
                 {t('postpartumCalendar.filters.subtitle')}
-              </Text>
+              </AwaText>
             </View>
 
             <ScrollView
@@ -1159,10 +1113,10 @@ function PostpartumCalendarSheet({
                       />
                     </View>
                     <View style={styles.filterCopy}>
-                      <Text style={styles.filterTitle}>{meta.label}</Text>
-                      <Text style={styles.filterDescription}>
+                      <AwaText variant="labelMedium" style={styles.filterTitle}>{meta.label}</AwaText>
+                      <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.filterDescription}>
                         {meta.description}
-                      </Text>
+                      </AwaText>
                     </View>
                     <View
                       style={[
@@ -1183,16 +1137,11 @@ function PostpartumCalendarSheet({
             </ScrollView>
 
             <View style={styles.filterFooter}>
-              <Pressable
+              <AwaButton
                 accessibilityRole="button"
                 onPress={onClose}
-                style={({ pressed }) => [
-                  styles.doneButton,
-                  pressed && styles.pressed,
-                ]}
-              >
-                <Text style={styles.doneText}>{t('cycleHome.quickActions.done')}</Text>
-              </Pressable>
+                label={t('cycleHome.quickActions.done')}
+              />
             </View>
           </View>
         ) : null}
@@ -1205,40 +1154,6 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   background: { flex: 1, backgroundColor: theme.colors.background },
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
-
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: withAlpha(theme.colors.primary, 0.07),
-  },
-
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: withAlpha(theme.colors.primary, 0.045),
-  },
-
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: withAlpha(theme.colors.primary, 0.05),
-  },
 
   safeArea: { flex: 1 },
   content: { paddingHorizontal: 16, paddingTop: TOP_SPACING_EXTRA },
@@ -1248,31 +1163,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* HEADER */
   header: { flexDirection: 'row', alignItems: 'center', marginBottom: 12 },
   headerCopy: { flex: 1, minWidth: 0 },
-  title: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 24,
-    fontWeight: '800',
-  },
-  subtitle: { marginTop: 2, color: theme.colors.textSecondary, fontSize: 10.5 },
-  headerAction: {
-    ...theme.shadow,
-    width: 52,
-    height: 52,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 6,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 17,
-    backgroundColor: theme.colors.surface,
-  },
-  headerActionLabel: {
-    marginTop: 2,
-    color: theme.colors.primary,
-    fontSize: 8,
-    fontWeight: '800',
-  },
+  title: {color: theme.colors.accent},
+  subtitle: {marginTop: 2},
 
   /* CALENDAR */
   calendarCard: {
@@ -1280,28 +1172,35 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 12,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 23,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
+  // DESIGN.md: segmented selector — selected segment = primaryContainer + onPrimaryContainer, track outlined
+  // (same as the Cycle calendar's MonthCalendarCard).
   modeRow: {
     flexDirection: 'row',
-    padding: 3,
+    gap: 8,
+    padding: 4,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
     borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
+    backgroundColor: theme.colors.surface,
   },
   modeButton: {
     flex: 1,
+    minHeight: 40,
     alignItems: 'center',
-    paddingVertical: 7,
-    borderRadius: 9,
+    justifyContent: 'center',
+    borderRadius: 8,
   },
-  modeButtonActive: { backgroundColor: theme.colors.primary },
+  modeButtonActive: { backgroundColor: theme.colors.primarySoft },
   modeText: {
     color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    fontWeight: '700',
+    fontSize: 12,
+    fontWeight: '600',
+    textAlign: 'center',
   },
-  modeTextActive: { color: onPrimaryTextColor(theme) },
+  modeTextActive: { color: theme.colors.text },
 
   monthHeader: {
     flexDirection: 'row',
@@ -1309,28 +1208,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-between',
     marginVertical: 11,
   },
-  arrowButton: {
-    width: 35,
-    height: 35,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 12,
-    backgroundColor: theme.colors.surfaceSecondary,
-  },
   monthCopy: { flex: 1, alignItems: 'center', paddingHorizontal: 5 },
-  monthTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 17,
-    fontWeight: '800',
-  },
-  hijriMonth: { marginTop: 1, color: theme.colors.textSecondary, fontSize: 9 },
+  monthTitle: {color: theme.colors.accent},
+  hijriMonth: {marginTop: 1},
 
   weekRow: { flexDirection: 'row' },
   weekDay: {
     width: '14.2857%',
     color: theme.colors.textSecondary,
-    fontSize: 9.5,
+    fontSize: 11,
     fontWeight: '700',
     textAlign: 'center',
   },
@@ -1352,7 +1238,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
   dayText: { color: theme.colors.accent, fontSize: 12, fontWeight: '700' },
   dayTextLight: { color: onPrimaryTextColor(theme) },
-  hijriDay: { marginTop: 1, color: theme.colors.textSecondary, fontSize: 7 },
+  hijriDay: { marginTop: 1, color: theme.colors.textSecondary, fontSize: 11 },
 
   trackingDay: { backgroundColor: theme.colors.primarySoft },
   deliveryDay: { backgroundColor: DELIVERY_COLOR },
@@ -1364,7 +1250,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1.7,
     borderColor: theme.colors.text,
     borderStyle: 'dashed',
-    borderRadius: 13,
+    borderRadius: 12,
   },
 
   markerRow: { position: 'absolute', bottom: 3, flexDirection: 'row', gap: 2 },
@@ -1393,11 +1279,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderStyle: 'dashed',
     borderRadius: 5,
   },
-  inlineLegendText: {
-    color: theme.colors.textSecondary,
-    fontSize: 8.5,
-    fontWeight: '600',
-  },
+  inlineLegendText: {},
   inlineLegendTextWithIcon: { marginLeft: 4 },
 
   /* SELECTED CARD */
@@ -1407,7 +1289,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     padding: 15,
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 22,
+    borderRadius: 12,
     backgroundColor: theme.colors.surface,
   },
   selectedHeader: {
@@ -1423,16 +1305,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 10,
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  selectedTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 16,
-    fontWeight: '800',
-  },
-  selectedDate: { marginTop: 2, color: theme.colors.textSecondary, fontSize: 10 },
+  selectedTitle: {color: theme.colors.accent},
+  selectedDate: {marginTop: 2},
 
   neutralBox: {
     flexDirection: 'row',
@@ -1443,12 +1320,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderRadius: 16,
     backgroundColor: theme.colors.surfaceSecondary,
   },
-  neutralText: {
-    flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 17,
-  },
+  neutralText: {flex: 1},
 
   dayBadgeRow: {
     flexDirection: 'row',
@@ -1460,7 +1332,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
     paddingHorizontal: 12,
     paddingVertical: 8,
@@ -1470,7 +1342,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: '#F8E3E5',
     paddingHorizontal: 12,
     paddingVertical: 8,
@@ -1478,16 +1350,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   deliveryBadgeText: { color: DELIVERY_COLOR, fontSize: 12, fontWeight: '800' },
 
   dataRows: { marginTop: 12, gap: 8 },
-  dataRow: {
-    minHeight: 62,
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 11,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 17,
-    backgroundColor: theme.colors.surface,
-  },
+  dataRow: {minHeight: 62, flexDirection: 'row', alignItems: 'center', padding: 11},
   dataRowIcon: {
     width: 36,
     height: 36,
@@ -1495,21 +1358,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 10,
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   lochiesIcon: { backgroundColor: '#FCEEEF' },
-  dataRowLabel: {
-    color: theme.colors.accent,
-    fontSize: 12.5,
-    fontWeight: '800',
-  },
-  dataRowValue: {
-    marginTop: 3,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    lineHeight: 15,
-  },
+  dataRowLabel: {color: theme.colors.accent},
+  dataRowValue: {marginTop: 3},
 
   emptyBox: {
     alignItems: 'center',
@@ -1518,24 +1372,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderRadius: 16,
     backgroundColor: theme.colors.surfaceSecondary,
   },
-  emptyText: {
-    marginTop: 4,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 17,
-    textAlign: 'center',
-  },
-  addButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 7,
-    marginTop: 12,
-    minHeight: 42,
-    paddingHorizontal: 16,
-    borderRadius: 15,
-    backgroundColor: theme.colors.primary,
-  },
-  addButtonText: { color: onPrimaryTextColor(theme), fontSize: 12.5, fontWeight: '800' },
+  emptyText: {marginTop: 4, textAlign: 'center'},
+  addButton: {marginTop: 12},
 
   /* MODAL */
   modalRoot: { flex: 1, justifyContent: 'flex-end' },
@@ -1570,18 +1408,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 10,
     paddingHorizontal: 22,
   },
-  filterSheetTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 24,
-    fontWeight: '800',
-  },
-  filterSheetSubtitle: {
-    marginTop: 8,
-    color: theme.colors.textSecondary,
-    fontSize: 13,
-    lineHeight: 18,
-  },
+  filterSheetTitle: {color: theme.colors.accent},
+  filterSheetSubtitle: {marginTop: 8},
   filterRows: { paddingHorizontal: 22, paddingBottom: 10 },
   filterRow: {
     minHeight: 66,
@@ -1597,21 +1425,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.primarySoft,
   },
   filterCopy: { flex: 1, minWidth: 0, marginHorizontal: 12 },
-  filterTitle: {
-    color: theme.colors.accent,
-    fontSize: 13,
-    fontWeight: '800',
-  },
-  filterDescription: {
-    marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 10.5,
-    lineHeight: 14,
-  },
+  filterTitle: {color: theme.colors.accent},
+  filterDescription: {marginTop: 2},
   switchTrack: {
     width: 42,
     height: 24,
@@ -1626,7 +1445,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     ...theme.shadow,
     width: 20,
     height: 20,
-    borderRadius: 10,
+    borderRadius: 8,
     backgroundColor: theme.colors.surface,
   },
   switchThumbActive: { alignSelf: 'flex-end' },
@@ -1639,14 +1458,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderTopColor: withAlpha(theme.colors.primary, 0.10),
     backgroundColor: theme.colors.surface,
   },
-  doneButton: {
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    backgroundColor: theme.colors.primary,
-  },
-  doneText: { color: onPrimaryTextColor(theme), fontSize: 14, fontWeight: '800' },
 
   /* LEGEND SHEET */
   legendSheet: { height: '88%', paddingHorizontal: 0 },
@@ -1657,17 +1468,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingBottom: 16,
   },
   legendSheetHeader: { marginTop: 18 },
-  legendSheetTitle: {
-    color: theme.colors.accent,
-    fontFamily: 'serif',
-    fontSize: 24,
-    fontWeight: '800',
-  },
-  legendSheetSubtitle: {
-    marginTop: 7,
-    color: theme.colors.textSecondary,
-    fontSize: 13,
-  },
+  legendSheetTitle: {color: theme.colors.accent},
+  legendSheetSubtitle: {marginTop: 7},
   legendRows: { marginTop: 16 },
   legendRow: {
     minHeight: 88,
@@ -1683,7 +1485,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 18,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
   legendDotLarge: {
@@ -1694,29 +1496,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderRadius: 6,
   },
   legendRowCopy: { flex: 1, minWidth: 0, marginLeft: 14 },
-  legendRowTitle: {
-    color: theme.colors.accent,
-    fontSize: 15,
-    fontWeight: '800',
-  },
-  legendRowText: {
-    marginTop: 4,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    lineHeight: 16,
-  },
+  legendRowTitle: {color: theme.colors.accent},
+  legendRowText: {marginTop: 4},
 
-  todayLegend: {
-    minHeight: 90,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 14,
-    padding: 13,
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 20,
-    backgroundColor: theme.colors.surfaceSecondary,
-  },
+  todayLegend: {minHeight: 90, flexDirection: 'row', alignItems: 'center', marginTop: 14, padding: 13},
   todayLegendPreview: {
     width: 52,
     height: 58,
@@ -1727,7 +1510,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1.8,
     borderColor: theme.colors.text,
     borderStyle: 'dashed',
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: theme.colors.surface,
   },
   todayLegendDay: {
@@ -1738,7 +1521,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   todayLegendHijri: {
     marginTop: 2,
     color: theme.colors.textSecondary,
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '600',
   },
   todayCopy: { flex: 1, minWidth: 0 },
@@ -1762,18 +1545,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: withAlpha(theme.colors.primary, 0.10),
     backgroundColor: theme.colors.surface,
-  },
-  closeLegendButton: {
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    backgroundColor: theme.colors.primarySoft,
-  },
-  closeLegendText: {
-    color: theme.colors.primary,
-    fontSize: 14,
-    fontWeight: '800',
   },
   });
 }

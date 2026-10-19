@@ -6,7 +6,6 @@ import {
   ImageBackground,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -20,9 +19,14 @@ import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {getTopPadding, spacing} from '../../theme/spacing';
 import '../../i18n';
+import {AwaButton} from '../ui/AwaButton';
+import {AwaCard} from '../ui/AwaCard';
+import {AwaIconButton} from '../ui/AwaIconButton';
+import {AwaText} from '../ui/AwaText';
+import {JOURNAL_HERO_INK} from '../journal/journalHeroInk';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -41,7 +45,8 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 type Props = {
   title: string;
   dateLabel: string;
-  heroIcon: IconName;
+  /** Small icon tile above the hero title; omitted: no tile (the Humeur screen shows none). */
+  heroIcon?: IconName;
   heroImage: number;
   heroTitle: string;
   heroText: string;
@@ -97,30 +102,26 @@ export function PostpartumCycleStyleJournalLayout({
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={insets.top} style={styles.flex}>
         <View style={[styles.topBar, {paddingTop: getTopPadding(insets.top, true)}]}>
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.back')}
-            accessibilityRole="button"
             hitSlop={10}
+            icon="arrow-left"
             onPress={navigation.goBack}
-            style={({pressed}) => [styles.roundButton, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
-          </Pressable>
+          />
 
           <View style={styles.headerCopy}>
-            <Text style={styles.pageTitle}>{title}</Text>
-            <Text numberOfLines={1} style={styles.dateLabel}>{dateLabel}</Text>
+            <AwaText variant="headlineSmall" style={styles.pageTitle}>{title}</AwaText>
+            <AwaText variant="bodySmall" colorRole="onSurfaceVariant" numberOfLines={1} style={styles.dateLabel}>{dateLabel}</AwaText>
           </View>
 
-          <Pressable
+          <AwaIconButton
             accessibilityLabel={t('common.save')}
-            accessibilityRole="button"
-            accessibilityState={{disabled: Boolean(saving)}}
             disabled={saving}
             hitSlop={10}
+            icon={saving ? 'loading' : 'check'}
             onPress={onSave}
-            style={({pressed}) => [styles.roundButton, styles.saveHeaderButton, (pressed || saving) && styles.pressed]}>
-            <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={saving ? 'loading' : 'check'} size={22} />
-          </Pressable>
+            variant="filled"
+          />
         </View>
 
         <ScrollView
@@ -134,38 +135,39 @@ export function PostpartumCycleStyleJournalLayout({
               source={heroImage}
               style={styles.hero}>
               <View style={styles.heroContent}>
-                <View style={styles.heroIconCircle}>
-                  <MaterialDesignIcons color={theme.colors.primary} name={heroIcon} size={24} />
-                </View>
-                <Text style={styles.heroTitle}>{heroTitle}</Text>
-                <Text style={styles.heroText}>{heroText}</Text>
+                {heroIcon ? (
+                  <View style={styles.heroIconCircle}>
+                    <MaterialDesignIcons color={theme.colors.primary} name={heroIcon} size={24} />
+                  </View>
+                ) : null}
+                <AwaText variant="titleMedium" style={[styles.heroTitle, !heroIcon && styles.heroTitleNoIcon]}>{heroTitle}</AwaText>
+                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.heroText}>{heroText}</AwaText>
               </View>
             </ImageBackground>
 
             <View style={styles.body}>{children}</View>
 
-            {error ? <Text accessibilityRole="alert" style={styles.error}>{error}</Text> : null}
+            {error ? <AwaText variant="bodySmall" colorRole="error" accessibilityRole="alert" style={styles.error}>{error}</AwaText> : null}
 
-            <Pressable
+            <AwaButton
               accessibilityLabel={t('common.save')}
-              accessibilityRole="button"
-              accessibilityState={{disabled: Boolean(saving)}}
-              disabled={saving}
+              icon="content-save-outline"
+              loading={Boolean(saving)}
               onPress={onSave}
-              style={({pressed}) => [styles.saveButton, (pressed || saving) && styles.pressed]}>
-              <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={saving ? 'loading' : 'content-save-outline'} size={20} />
-              <Text style={styles.saveText}>{saving ? t('postpartumCycleStyleJournalLayout.saving') : t('common.save')}</Text>
-            </Pressable>
+              label={saving ? t('postpartumCycleStyleJournalLayout.saving') : t('common.save')}
+              style={styles.saveButton}
+            />
 
             {onClear ? (
-              <Pressable
+              <AwaButton
                 accessibilityLabel={t('postpartumCycleStyleJournalLayout.clearAnswer')}
                 accessibilityRole="button"
                 disabled={saving}
                 onPress={onClear}
-                style={({pressed}) => [styles.clearButton, pressed && styles.pressed]}>
-                <Text style={styles.clearText}>{t('postpartumCycleStyleJournalLayout.clearAnswer')}</Text>
-              </Pressable>
+                label={t('postpartumCycleStyleJournalLayout.clearAnswer')}
+                variant="text"
+                style={styles.clearButton}
+              />
             ) : null}
           </Animated.View>
         </ScrollView>
@@ -186,7 +188,8 @@ export function PostpartumJournalCard({
   badge,
   children,
 }: {
-  icon: IconName;
+  /** Small round icon tile before the title; omitted: no tile and the title starts at the card's edge. */
+  icon?: IconName;
   title: string;
   subtitle?: string;
   optional?: boolean;
@@ -197,17 +200,19 @@ export function PostpartumJournalCard({
   const {theme} = useAwaTheme();
   const cardStyles = useMemo(() => createCardStyles(theme), [theme]);
   return (
-    <View style={cardStyles.card}>
+    <AwaCard padding="none" variant="filled" style={cardStyles.card}>
       <View style={cardStyles.heading}>
-        <View style={cardStyles.headingIcon}>
-          <MaterialDesignIcons color={theme.colors.primary} name={icon} size={18} />
-        </View>
-        <View style={cardStyles.headingCopy}>
-          <Text style={cardStyles.title}>
+        {icon ? (
+          <View style={cardStyles.headingIcon}>
+            <MaterialDesignIcons color={theme.colors.primary} name={icon} size={18} />
+          </View>
+        ) : null}
+        <View style={[cardStyles.headingCopy, !icon && cardStyles.headingCopyNoIcon]}>
+          <AwaText variant="titleSmall" style={cardStyles.title}>
             {title}
             {optional ? <Text style={cardStyles.optional}> {t('postpartumCycleStyleJournalLayout.optionalSuffix')}</Text> : null}
-          </Text>
-          {subtitle ? <Text style={cardStyles.subtitle}>{subtitle}</Text> : null}
+          </AwaText>
+          {subtitle ? <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={cardStyles.subtitle}>{subtitle}</AwaText> : null}
         </View>
         {badge ? (
           <View style={cardStyles.badge}>
@@ -217,7 +222,7 @@ export function PostpartumJournalCard({
         ) : null}
       </View>
       {children}
-    </View>
+    </AwaCard>
   );
 }
 
@@ -225,14 +230,11 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   safe: {flex: 1, backgroundColor: theme.colors.background},
   flex: {flex: 1},
-  pressed: {opacity: 0.78, transform: [{scale: 0.98}]},
 
   topBar: {minHeight: 64, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, paddingBottom: 8},
-  roundButton: {width: 44, height: 44, alignItems: 'center', justifyContent: 'center', borderRadius: 18, backgroundColor: theme.colors.surface, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14)},
-  saveHeaderButton: {backgroundColor: theme.colors.primary, borderWidth: 0, ...theme.shadow},
   headerCopy: {flex: 1, minWidth: 0, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 8},
-  pageTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 22, fontWeight: '700'},
-  dateLabel: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11, textAlign: 'center'},
+  pageTitle: {color: theme.colors.accent},
+  dateLabel: {marginTop: 2, textAlign: 'center'},
 
   content: {paddingHorizontal: 13, paddingTop: 6, gap: 10},
 
@@ -241,63 +243,36 @@ function createStyles(theme: ResolvedAwaTheme) {
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  heroImage: {borderRadius: 20},
+  heroImage: {borderRadius: 12},
   heroContent: {width: '59%', minHeight: 158, justifyContent: 'center', paddingHorizontal: 18, paddingVertical: 16},
   heroIconCircle: {width: 46, height: 46, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: theme.colors.surface},
-  heroTitle: {marginTop: 9, color: theme.colors.accent, fontFamily: 'serif', fontSize: 17, lineHeight: 21, fontWeight: '700'},
-  heroText: {marginTop: 5, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 15},
+  // The hero photo is light in every theme (see journalHeroInk.ts): dark ink, not the themed accent / onSurfaceVariant.
+  heroTitle: {marginTop: 9, color: JOURNAL_HERO_INK.title},
+  heroTitleNoIcon: {marginTop: 0},
+  heroText: {marginTop: 5, color: JOURNAL_HERO_INK.body},
 
   body: {marginTop: 10, gap: 10},
 
-  error: {marginTop: 10, color: theme.colors.danger, fontSize: 12.5, textAlign: 'center'},
+  error: {marginTop: 10, textAlign: 'center'},
 
-  saveButton: {
-    width: '88%',
-    maxWidth: 360,
-    minHeight: 54,
-    alignSelf: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    marginTop: 14,
-    borderRadius: 18,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.22,
-    shadowRadius: 9,
-    elevation: 4,
-  },
-  saveText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '700'},
-  clearButton: {minHeight: 44, alignSelf: 'center', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 16, marginTop: 4},
-  clearText: {color: theme.colors.textSecondary, fontSize: 13, fontWeight: '600', textDecorationLine: 'underline'},
+  saveButton: {width: '88%', maxWidth: 360, alignSelf: 'center', marginTop: 14},
+  clearButton: {alignSelf: 'center', marginTop: 4},
   });
 }
 
 function createCardStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-  card: {
-    borderWidth: 1,
-    borderColor: withAlpha(theme.colors.primary, 0.14),
-    borderRadius: 20,
-    backgroundColor: theme.colors.surface,
-    padding: 13,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.045,
-    shadowRadius: 8,
-    elevation: 1,
-  },
+  card: {padding: 13},
   heading: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 12},
   headingIcon: {width: 30, height: 30, alignItems: 'center', justifyContent: 'center', borderRadius: 15, backgroundColor: theme.colors.primarySoft},
   headingCopy: {flex: 1, minWidth: 0, marginLeft: 9},
-  title: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 15, fontWeight: '700'},
+  headingCopyNoIcon: {marginLeft: 0},
+  title: {color: theme.colors.accent},
   optional: {fontFamily: undefined, color: theme.colors.textSecondary, fontSize: 11, fontWeight: '400'},
-  subtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 14},
+  subtitle: {marginTop: 3},
   badge: {
     alignSelf: 'flex-start',
     flexDirection: 'row',
@@ -309,6 +284,6 @@ function createCardStyles(theme: ResolvedAwaTheme) {
     borderRadius: 12,
     backgroundColor: theme.colors.primarySoft,
   },
-  badgeText: {color: theme.colors.primary, fontSize: 10, fontWeight: '700'},
+  badgeText: {color: theme.colors.primary, fontSize: 11, fontWeight: '700'},
   });
 }

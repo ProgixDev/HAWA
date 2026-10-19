@@ -75,9 +75,9 @@ afterEach(() => {
 });
 
 function findConsistencyModal(renderer: ReactTestRenderer.ReactTestRenderer) {
-  // PostpartumConsistencyModal's own card is the only borderRadius:28 node
-  // in this screen's tree once visible.
-  return renderer.root.findAll(node => flattenStyle(node.props.style).borderRadius === 28);
+  // PostpartumConsistencyModal's own card is the only alert-role host View in this screen's tree once visible
+  // (it was located by its legacy 28 dp radius before the Material 3 AwaCard migration).
+  return renderer.root.findAll(node => (node.type as unknown) === 'View' && node.props.accessibilityRole === 'alert');
 }
 
 describe('PostpartumCycleReturnScreen — "Date à vérifier" invalid-date rule preserved', () => {

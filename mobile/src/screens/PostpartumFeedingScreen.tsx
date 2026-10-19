@@ -9,7 +9,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -28,6 +27,9 @@ import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import '../i18n';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostpartumFeeding'>;
 
@@ -98,7 +100,7 @@ function OptionCard({option, selected, onPress}: OptionCardProps): React.JSX.Ele
           <Image accessibilityIgnoresInvertColors resizeMode="contain" source={option.image} style={styles.optionImage} />
         </View>
 
-        <Text style={styles.optionLabel}>{label}</Text>
+        <AwaText variant="titleSmall" style={styles.optionLabel}>{label}</AwaText>
 
         <View style={[styles.checkBadge, selected && styles.checkBadgeSelected]}>
           {selected ? <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={14} /> : null}
@@ -183,11 +185,6 @@ function PostpartumFeedingScreen({navigation, route}: Props): React.JSX.Element 
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       style={styles.background}>
-      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
-        <View style={styles.pageGlowTop} />
-        <View style={styles.pageGlowMiddle} />
-        <View style={styles.pageGlowBottom} />
-      </View>
 
       <View style={styles.safeArea}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} hidden={false} translucent />
@@ -202,17 +199,18 @@ function PostpartumFeedingScreen({navigation, route}: Props): React.JSX.Element 
           <Animated.View style={[styles.mainContent, entranceStyle]}>
             <View style={styles.header}>
               {isEdit ? (
-                <Pressable
+                <AwaIconButton
                   accessibilityLabel={t('common.back')}
                   accessibilityRole="button"
                   hitSlop={10}
                   onPress={navigation.goBack}
-                  style={({pressed}) => [styles.editBackButton, pressed && styles.pressed]}>
-                  <MaterialDesignIcons color={theme.colors.text} name="arrow-left" size={22} />
-                </Pressable>
+                  icon="arrow-left"
+                  iconSize={22}
+                  style={styles.editBackButton}
+                />
               ) : null}
-              <Text style={styles.title}>{t('postpartumFeeding.title')}</Text>
-              <Text style={styles.subtitle}>{t('postpartumFeeding.subtitle')}</Text>
+              <AwaText variant="headlineMedium" style={styles.title}>{t('postpartumFeeding.title')}</AwaText>
+              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>{t('postpartumFeeding.subtitle')}</AwaText>
             </View>
 
             <View style={styles.optionsCenterContainer}>
@@ -229,15 +227,14 @@ function PostpartumFeedingScreen({navigation, route}: Props): React.JSX.Element 
             </View>
           </Animated.View>
 
-          <Pressable
+          <AwaButton
             accessibilityRole="button"
             disabled={saving}
             onPress={handleNext}
-            style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
-            <Text style={styles.nextText}>
-              {saving ? t('postpartumFeeding.saving') : isEdit ? t('common.save') : t('postpartumFeeding.next')}
-            </Text>
-          </Pressable>
+            label={saving ? t('postpartumFeeding.saving') : isEdit ? t('common.save') : t('postpartumFeeding.next')}
+            size="large"
+            style={styles.nextButton}
+          />
         </ScrollView>
       </View>
     </LinearGradient>
@@ -248,79 +245,17 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     background: {flex: 1, backgroundColor: theme.colors.background},
 
-    pageBackgroundDecor: {
-      ...StyleSheet.absoluteFillObject,
-      overflow: 'hidden',
-    },
 
-    pageGlowTop: {
-      position: 'absolute',
-      top: -150,
-      right: -110,
-      width: 330,
-      height: 330,
-      borderRadius: 165,
-      backgroundColor: withAlpha(theme.colors.primary, 0.07),
-    },
 
-    pageGlowMiddle: {
-      position: 'absolute',
-      top: '38%',
-      left: -130,
-      width: 260,
-      height: 260,
-      borderRadius: 130,
-      backgroundColor: withAlpha(theme.colors.primary, 0.045),
-    },
 
-    pageGlowBottom: {
-      position: 'absolute',
-      bottom: -150,
-      right: -100,
-      width: 310,
-      height: 310,
-      borderRadius: 155,
-      backgroundColor: withAlpha(theme.colors.primary, 0.05),
-    },
 
     safeArea: {flex: 1},
     content: {flexGrow: 1, paddingHorizontal: spacing.lg},
     mainContent: {flex: 1},
     header: {alignItems: 'center', paddingTop: 24, marginBottom: spacing.md},
-    editBackButton: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: 42,
-      height: 42,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      borderRadius: 15,
-      backgroundColor: theme.colors.surface,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 3},
-      shadowOpacity: 0.1,
-      shadowRadius: 6,
-      elevation: 3,
-    },
-    title: {
-      color: theme.colors.text,
-      fontFamily: 'serif',
-      fontSize: 26,
-      fontWeight: '700',
-      lineHeight: 32,
-      textAlign: 'center',
-    },
-    subtitle: {
-      marginTop: 10,
-      maxWidth: 310,
-      color: theme.colors.textSecondary,
-      fontSize: 13,
-      lineHeight: 19,
-      textAlign: 'center',
-    },
+    editBackButton: {position: 'absolute', top: 0, left: 0},
+    title: {textAlign: 'center'},
+    subtitle: {marginTop: 10, maxWidth: 310, textAlign: 'center'},
     optionsCenterContainer: {flex: 1, justifyContent: 'center', paddingVertical: spacing.md},
     optionsList: {gap: 12},
     optionWrapper: {width: '100%'},
@@ -331,10 +266,10 @@ function createStyles(theme: ResolvedAwaTheme) {
       alignItems: 'center',
       borderWidth: 1.4,
       borderColor: theme.colors.border,
-      borderRadius: 18,
+      borderRadius: 12,
       backgroundColor: theme.colors.surface,
-      paddingHorizontal: 14,
-      paddingVertical: 7,
+      paddingHorizontal: 16,
+      paddingVertical: 12,
       elevation: 3,
       shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 4},
@@ -352,7 +287,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       overflow: 'hidden',
     },
     optionImage: {width: 48, height: 48},
-    optionLabel: {flex: 1, minWidth: 0, marginHorizontal: 13, color: theme.colors.text, fontSize: 14.5, fontWeight: '600', lineHeight: 19},
+    optionLabel: {flex: 1, minWidth: 0, marginHorizontal: 13},
     checkBadge: {
       width: 24,
       height: 24,
@@ -364,20 +299,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: 'transparent',
     },
     checkBadgeSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primary},
-    nextButton: {
-      minHeight: 54,
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginTop: spacing.sm,
-      borderRadius: 18,
-      backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {width: 0, height: 5},
-      shadowOpacity: 0.25,
-      shadowRadius: 9,
-      elevation: 5,
-    },
-    nextText: {color: onPrimaryTextColor(theme), fontSize: 18, fontWeight: '600'},
+    nextButton: {marginTop: spacing.sm},
     pressed: {opacity: 0.82},
   });
 }
