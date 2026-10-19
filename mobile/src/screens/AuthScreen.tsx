@@ -27,7 +27,13 @@ import {
 } from '../theme/spacing';
 import {updatePrivacySecuritySettings} from '../state/securityPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import type {AwaRoles} from '../theme/semanticRoles';
+import {useAwaTokens} from '../theme/useAwaTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 
 const APPLE_LOGO = require('../assets/images/auth-apple-logo.png');
 const GOOGLE_LOGO = require('../assets/images/auth-google-logo.png');
@@ -37,7 +43,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Auth'>;
 function AuthScreen({navigation}: Props): React.JSX.Element {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
+  const {roles} = useAwaTokens();
+  const styles = useMemo(() => createStyles(theme, roles), [theme, roles]);
   const {height, width} = useWindowDimensions();
   const insets = useSafeAreaInsets();
 
@@ -134,6 +141,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                   <Pressable
                     accessibilityRole="tab"
                     accessibilityState={{selected: active}}
+                    hitSlop={{top: 4, bottom: 4}}
                     key={tab}
                     onPress={() => {
                       if (tab === 'register') {
@@ -232,65 +240,59 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                     value={password}
                   />
 
-                  <Pressable
+                  <AwaIconButton
                     accessibilityLabel={
                       passwordVisible
                         ? t('auth.shared.hidePassword')
                         : t('auth.shared.showPassword')
                     }
-                    hitSlop={10}
+                    accessibilityRole="button"
+                    icon={passwordVisible ? 'eye-outline' : 'eye-off-outline'}
+                    iconSize={20}
                     onPress={() =>
                       setPasswordVisible(current => !current)
-                    }>
-                    <MaterialDesignIcons
-                      color={theme.colors.primary}
-                      name={
-                        passwordVisible
-                          ? 'eye-outline'
-                          : 'eye-off-outline'
-                      }
-                      size={20}
-                    />
-                  </Pressable>
+                    }
+                    size="small"
+                  />
                 </View>
                 {passwordError ? (
                   <Text style={styles.fieldErrorText}>{passwordError}</Text>
                 ) : null}
 
                 {mode === 'login' ? (
-                  <Pressable
+                  <AwaButton
+                    label={t('auth.login.forgotPassword')}
                     onPress={() =>
                       navigation.navigate('ForgotPassword')
-                    }>
-                    <Text style={styles.forgot}>
-                      {t('auth.login.forgotPassword')}
-                    </Text>
-                  </Pressable>
+                    }
+                    size="compact"
+                    style={styles.forgot}
+                    variant="text"
+                  />
                 ) : null}
 
-                <Pressable
-                  accessibilityRole="button"
-                  onPress={submit}
-                  style={({pressed}) => [
-                    styles.primaryButton,
-                    pressed && styles.pressed,
-                  ]}>
-                  <Text style={styles.primaryText}>
-                    {mode === 'login'
+                <AwaButton
+                  fullWidth
+                  label={
+                    mode === 'login'
                       ? t('auth.login.submit')
-                      : t('auth.shared.createAccount')}
-                  </Text>
-                </Pressable>
+                      : t('auth.shared.createAccount')
+                  }
+                  onPress={submit}
+                  size="large"
+                />
 
                 {infoMessage ? (
-                  <View style={styles.infoCard}>
+                  <AwaCard padding="compact" style={styles.infoCard} variant="filled">
                     <MaterialDesignIcons
                       color={theme.colors.primary}
                       name="information-outline"
                       size={16}
                     />
-                    <Text style={styles.infoText}>{infoMessage}</Text>
-                  </View>
+                    <AwaText colorRole="onSurfaceVariant" style={styles.infoText} variant="bodySmall">
+                      {infoMessage}
+                    </AwaText>
+                  </AwaCard>
                 ) : null}
 
                 <Text style={styles.or}>{t('auth.shared.orContinueWith')}</Text>
@@ -339,26 +341,16 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                   </Pressable>
                 </View>
 
-                <Pressable
+                <AwaButton
                   accessibilityLabel={t('auth.shared.useAnonymousMode')}
-                  accessibilityRole="button"
+                  icon="incognito"
+                  label={t('auth.shared.anonymousMode')}
                   onPress={() =>
                     navigation.navigate('AnonymousMode', {source: 'auth'})
                   }
-                  style={({pressed}) => [
-                    styles.anonymous,
-                    pressed && styles.pressed,
-                  ]}>
-                  <MaterialDesignIcons
-                    color={theme.colors.text}
-                    name="incognito"
-                    size={22}
-                  />
-
-                  <Text style={styles.anonymousText}>
-                    {t('auth.shared.anonymousMode')}
-                  </Text>
-                </Pressable>
+                  style={styles.anonymous}
+                  variant="tonal"
+                />
               </View>
             </ScrollView>
           </KeyboardAvoidingView>
@@ -382,7 +374,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
   );
 }
 
-function createStyles(theme: ResolvedAwaTheme) {
+function createStyles(theme: ResolvedAwaTheme, roles: AwaRoles) {
   return StyleSheet.create({
   background: {
     flex: 1,
@@ -415,7 +407,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   brandArea: {
-    height: 190,
+    minHeight: 190,
     alignItems: 'center',
     justifyContent: 'flex-end',
     paddingBottom: 10,
@@ -423,15 +415,10 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   brand: {
     color: theme.colors.text,
+    // Brand logotype (approved): serif display lockup, kept on purpose. The text shadow was removed (DESIGN.md).
     fontFamily: 'serif',
     fontSize: 45,
     letterSpacing: 2,
-    textShadowColor: withAlpha(theme.colors.background, 0.85),
-    textShadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    textShadowRadius: 8,
   },
 
   brandCompact: {
@@ -445,12 +432,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     lineHeight: 17,
     fontWeight: '600',
     textAlign: 'center',
-    textShadowColor: withAlpha(theme.colors.background, 0.85),
-    textShadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    textShadowRadius: 6,
   },
 
   taglineCompact: {
@@ -475,8 +456,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 15,
+    borderColor: roles.outline,
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
     backgroundColor: withAlpha(theme.colors.surface, 0.90),
   },
 
@@ -484,18 +467,21 @@ function createStyles(theme: ResolvedAwaTheme) {
     minHeight: 38,
   },
 
+  // DESIGN.md selected state: primaryContainer fill + onPrimaryContainer text + primary border (bold weight kept).
   tabActive: {
     borderColor: theme.colors.primary,
-    backgroundColor: theme.colors.primary,
+    backgroundColor: roles.primaryContainer,
   },
 
   tabText: {
     color: theme.colors.textSecondary,
     fontSize: 12,
+    lineHeight: 16,
+    textAlign: 'center',
   },
 
   tabTextActive: {
-    color: onPrimaryTextColor(theme),
+    color: roles.onPrimaryContainer,
     fontWeight: '600',
   },
 
@@ -533,25 +519,22 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 11,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.92),
-    paddingHorizontal: 13,
+    paddingHorizontal: 16,
   },
 
   input: {
     flex: 1,
-    height: 48,
+    minHeight: 48,
     paddingVertical: 0,
     color: theme.colors.text,
-    fontSize: 13,
+    fontSize: 14,
   },
 
   forgot: {
-    marginTop: -3,
-    marginBottom: 10,
-    color: theme.colors.primary,
-    fontSize: 11,
-    textAlign: 'right',
+    alignSelf: 'flex-end',
+    marginBottom: 8,
   },
 
   fieldError: {
@@ -563,7 +546,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginBottom: 8,
     marginLeft: 4,
     color: theme.colors.danger,
-    fontSize: 10.5,
+    fontSize: 12,
+    lineHeight: 16,
   },
 
   infoCard: {
@@ -571,47 +555,16 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     gap: 8,
     marginTop: 10,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 14,
-    backgroundColor: theme.colors.primarySoft,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
   },
 
   infoText: {
     flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    lineHeight: 15,
-  },
-
-  primaryButton: {
-    minHeight: 48,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 13,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 9,
-    elevation: 5,
-  },
-
-  primaryText: {
-    color: onPrimaryTextColor(theme),
-    fontSize: 15,
-    fontWeight: '600',
   },
 
   or: {
     marginVertical: 12,
     color: theme.colors.textMuted,
-    fontSize: 11,
+    fontSize: 12,
     textAlign: 'center',
   },
 
@@ -639,22 +592,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   anonymous: {
-    minHeight: 42,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
     alignSelf: 'center',
     marginTop: 15,
-    borderRadius: 21,
-    backgroundColor: withAlpha(theme.colors.primarySoft, 0.9),
-    paddingHorizontal: 25,
-  },
-
-  anonymousText: {
-    marginLeft: 8,
-    color: theme.colors.text,
-    fontSize: 12,
-    fontWeight: '600',
   },
 
   legalArea: {
@@ -670,15 +609,16 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   legal: {
     color: theme.colors.textMuted,
-    fontSize: 9,
+    fontSize: 12,
+    lineHeight: 16,
     textAlign: 'center',
   },
 
   legalStrong: {
     marginTop: 2,
     color: theme.colors.textSecondary,
-    fontSize: 9,
-    lineHeight: 13,
+    fontSize: 12,
+    lineHeight: 16,
     fontWeight: '600',
     textAlign: 'center',
   },

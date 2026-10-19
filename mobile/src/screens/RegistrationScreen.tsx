@@ -11,8 +11,14 @@ import {spacing, TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../theme/sp
 import {updatePersonalInformation} from '../state/personalInformationStore';
 import {updatePrivacySecuritySettings} from '../state/securityPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {withAlpha, onPrimaryTextColor, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import type {AwaRoles} from '../theme/semanticRoles';
+import {useAwaTokens} from '../theme/useAwaTokens';
 import {presentSaveFailure} from '../services/saveFailure';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
 
 const GOOGLE = require('../assets/images/auth-google-logo.png');
 const APPLE = require('../assets/images/auth-apple-logo.png');
@@ -28,7 +34,7 @@ function Field({icon, label, placeholder, value, onChangeText, secure, visible, 
     <View style={[styles.field, error ? styles.fieldError : null]}>
       <MaterialDesignIcons color={theme.colors.primary} name={icon} size={22} />
       <View style={styles.fieldCopy}><Text style={styles.fieldLabel}>{label}</Text><TextInput autoCapitalize={keyboardType === 'email-address' ? 'none' : 'words'} keyboardType={keyboardType} onChangeText={onChangeText} placeholder={placeholder} placeholderTextColor={theme.colors.textMuted} secureTextEntry={secure && !visible} selectionColor={theme.colors.primary} style={styles.input} textContentType={keyboardType === 'email-address' ? 'emailAddress' : secure ? 'password' : 'none'} value={value} /></View>
-      {secure && <Pressable accessibilityLabel={t('auth.registration.toggleVisibilityLabel', {action: toggleAction, label})} accessibilityRole="button" hitSlop={12} onPress={onToggle}><MaterialDesignIcons color={theme.colors.primary} name={visible ? 'eye-outline' : 'eye-off-outline'} size={18} /></Pressable>}
+      {secure && <AwaIconButton accessibilityLabel={t('auth.registration.toggleVisibilityLabel', {action: toggleAction, label})} accessibilityRole="button" icon={visible ? 'eye-outline' : 'eye-off-outline'} iconSize={20} onPress={onToggle} size="small" />}
     </View>
     {error ? <Text style={styles.fieldErrorText}>{error}</Text> : null}
   </View>;
@@ -37,7 +43,8 @@ function Field({icon, label, placeholder, value, onChangeText, secure, visible, 
 function RegistrationScreen({navigation}: Props): React.JSX.Element {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
+  const {roles} = useAwaTokens();
+  const styles = useMemo(() => createStyles(theme, roles), [theme, roles]);
   const {height} = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const compact = height < 700;
@@ -85,16 +92,16 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
       setSubmitting(false);
     }
   };
-  return <LinearGradient colors={[...theme.gradients.pageBackground]} end={{x: 1, y: 1}} locations={[0, 0.32, 0.7, 1]} start={{x: 0, y: 0}} style={styles.background}><View pointerEvents="none" style={styles.pageBackgroundDecor}><View style={styles.pageGlowTop} /><View style={styles.pageGlowMiddle} /><View style={styles.pageGlowBottom} /></View><KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={insets.top} style={styles.page}><SafeAreaView style={styles.safeArea}><StatusBar translucent backgroundColor="transparent" barStyle={theme.statusBarStyle} /><ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + 12, paddingTop: compact ? TOP_SPACING_EXTRA_COMPACT : TOP_SPACING_EXTRA}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+  return <LinearGradient colors={[...theme.gradients.pageBackground]} end={{x: 1, y: 1}} locations={[0, 0.32, 0.7, 1]} start={{x: 0, y: 0}} style={styles.background}><KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={insets.top} style={styles.page}><SafeAreaView style={styles.safeArea}><StatusBar translucent backgroundColor="transparent" barStyle={theme.statusBarStyle} /><ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + 12, paddingTop: compact ? TOP_SPACING_EXTRA_COMPACT : TOP_SPACING_EXTRA}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
     <View style={styles.hero}>
       <View style={styles.brandArea}><Text style={styles.brand}>AWA</Text></View>
-      <Text style={styles.title}>{t('auth.registration.title')}</Text>
-      <Text style={styles.subtitle}>{t('auth.registration.subtitle')}</Text>
+      <AwaText accessibilityRole="header" style={styles.title} variant="headlineSmall">{t('auth.registration.title')}</AwaText>
+      <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">{t('auth.registration.subtitle')}</AwaText>
     </View>
 
     <View style={styles.formArea}>
       <View style={styles.tabs}>
-        <Pressable accessibilityRole="tab" accessibilityState={{selected: false}} onPress={() => navigation.navigate('Auth')} style={styles.tab}>
+        <Pressable accessibilityRole="tab" accessibilityState={{selected: false}} hitSlop={{top: 4, bottom: 4}} onPress={() => navigation.navigate('Auth')} style={styles.tab}>
           <Text style={styles.tabText}>{t('auth.shared.tabLogin')}</Text>
         </Pressable>
         <View accessibilityRole="tab" accessibilityState={{selected: true}} style={[styles.tab, styles.tabActive]}>
@@ -112,12 +119,12 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
         <MaterialDesignIcons color={allRulesValid ? theme.colors.primary : theme.colors.textMuted} name={allRulesValid ? 'check-circle' : 'information-outline'} size={16} />
         <Text style={[styles.hintText, allRulesValid && styles.hintTextValid]}>{t('auth.registration.hint')}</Text>
       </View>
-      <Pressable accessibilityRole="button" accessibilityState={{disabled: submitting}} disabled={submitting} onPress={handleSubmit} style={({pressed}) => [styles.primary, submitting && styles.disabled, pressed && !submitting && styles.pressed]}><Text style={styles.primaryText}>{t('auth.shared.createAccount')}</Text></Pressable>
+      <AwaButton disabled={submitting} fullWidth label={t('auth.shared.createAccount')} onPress={handleSubmit} size="large" style={styles.primary} />
       {infoMessage ? (
-        <View style={styles.infoCard}>
+        <AwaCard padding="compact" style={styles.infoCard} variant="filled">
           <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={16} />
-          <Text style={styles.infoText}>{infoMessage}</Text>
-        </View>
+          <AwaText colorRole="onSurfaceVariant" style={styles.infoText} variant="bodySmall">{infoMessage}</AwaText>
+        </AwaCard>
       ) : null}
       <Text style={styles.or}>{t('auth.shared.orContinueWith')}</Text><View style={styles.socialRow}>
         <Pressable accessibilityLabel={t('auth.shared.continueWithGoogle')} accessibilityRole="button" onPress={() => Alert.alert('Google')} style={styles.social}><Image accessibilityIgnoresInvertColors source={GOOGLE} style={styles.socialLogo} /></Pressable>
@@ -132,34 +139,30 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
   </ScrollView></SafeAreaView></KeyboardAvoidingView></LinearGradient>;
 }
 
-function createStyles(theme: ResolvedAwaTheme) {
+function createStyles(theme: ResolvedAwaTheme, roles: AwaRoles) {
   return StyleSheet.create({
   // Same canonical AWA page-background mechanism as the objective dashboards
   // (e.g. CycleHomeScreen.tsx): a theme-driven gradient plus 3 soft
   // decorative "glow" views, replacing the old auth-mosque-background.png.
   background: {flex: 1, backgroundColor: theme.colors.background},
-  pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
-  pageGlowTop: {position: 'absolute', top: -150, right: -110, width: 330, height: 330, borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07)},
-  pageGlowMiddle: {position: 'absolute', top: '38%', left: -130, width: 260, height: 260, borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045)},
-  pageGlowBottom: {position: 'absolute', bottom: -150, right: -100, width: 310, height: 310, borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05)},
   page: {flex: 1}, safeArea: {flex: 1, backgroundColor: 'transparent'}, content: {flexGrow: 1, justifyContent: 'center'}, hero: {alignItems: 'center'},
   formArea: {marginTop: spacing.xl},
   brandArea: {alignItems: 'center', paddingBottom: 4},
-  brand: {color: theme.colors.text, fontFamily: 'serif', fontSize: 40, letterSpacing: 2, textShadowColor: withAlpha(theme.colors.background, 0.85), textShadowOffset: {width: 0, height: 1}, textShadowRadius: 8},
+  brand: {color: theme.colors.text, fontFamily: 'serif', fontSize: 40, letterSpacing: 2},
   tabs: {flexDirection: 'row', gap: 9, marginHorizontal: spacing.lg},
-  tab: {flex: 1, minHeight: 38, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 14, backgroundColor: withAlpha(theme.colors.surface, 0.90)},
-  tabActive: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primary},
-  tabText: {color: theme.colors.textSecondary, fontSize: 12},
-  tabTextActive: {color: onPrimaryTextColor(theme), fontWeight: '600'},
-  title: {marginTop: 4, color: theme.colors.text, fontSize: 20, fontWeight: '600', textAlign: 'center', textShadowColor: withAlpha(theme.colors.background, 0.85), textShadowOffset: {width: 0, height: 1}, textShadowRadius: 8}, subtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 16, textAlign: 'center', textShadowColor: withAlpha(theme.colors.background, 0.85), textShadowOffset: {width: 0, height: 1}, textShadowRadius: 6},
-  form: {gap: 5, marginTop: 10, paddingHorizontal: spacing.lg}, field: {minHeight: 48, flexDirection: 'row', alignItems: 'center', gap: 10, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 14, backgroundColor: withAlpha(theme.colors.surface, 0.92), paddingHorizontal: 12}, fieldCopy: {flex: 1}, fieldLabel: {color: theme.colors.text, fontSize: 12.5, fontWeight: '500'}, input: {height: 24, paddingVertical: 0, color: theme.colors.text, fontSize: 12.5},
-  fieldError: {borderColor: theme.colors.danger}, fieldErrorText: {marginTop: 4, marginBottom: 2, marginLeft: 4, color: theme.colors.danger, fontSize: 10.5},
-  hint: {flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 8, paddingHorizontal: spacing.lg}, hintText: {flex: 1, color: theme.colors.textMuted, fontSize: 9.5, lineHeight: 13}, hintTextValid: {color: theme.colors.primary},
-  primary: {minHeight: 46, alignItems: 'center', justifyContent: 'center', marginTop: 10, marginHorizontal: spacing.lg, borderRadius: 16, backgroundColor: theme.colors.primary, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.25, shadowRadius: 9, elevation: 5}, primaryText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '600'},
-  disabled: {opacity: 0.55}, pressed: {opacity: 0.85},
-  infoCard: {flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 10, marginHorizontal: spacing.lg, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 14, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 12, paddingVertical: 10}, infoText: {flex: 1, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 15},
-  or: {marginVertical: 8, color: theme.colors.textMuted, fontSize: 11, textAlign: 'center'}, socialRow: {flexDirection: 'row', justifyContent: 'center', gap: 20}, social: {width: 44, height: 44, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 22, backgroundColor: theme.colors.surface}, socialLogo: {width: 26, height: 26, resizeMode: 'contain'},
-  legalArea: {marginTop: 16}, legal: {color: theme.colors.textMuted, fontSize: 9, textAlign: 'center'}, legalStrong: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 9, fontWeight: '600', textAlign: 'center'},
+  tab: {flex: 1, minHeight: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: roles.outline, borderRadius: 12, paddingHorizontal: 12, paddingVertical: 6, backgroundColor: withAlpha(theme.colors.surface, 0.90)},
+  // DESIGN.md selected state: primaryContainer fill + onPrimaryContainer text + primary border (bold weight kept).
+  tabActive: {borderColor: theme.colors.primary, backgroundColor: roles.primaryContainer},
+  tabText: {color: theme.colors.textSecondary, fontSize: 12, lineHeight: 16, textAlign: 'center'},
+  tabTextActive: {color: roles.onPrimaryContainer, fontWeight: '600'},
+  title: {marginTop: 4, textAlign: 'center'}, subtitle: {marginTop: 4, textAlign: 'center'},
+  form: {gap: 5, marginTop: 10, paddingHorizontal: spacing.lg}, field: {minHeight: 48, flexDirection: 'row', alignItems: 'center', gap: 10, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12, backgroundColor: withAlpha(theme.colors.surface, 0.92), paddingHorizontal: 16, paddingVertical: 8}, fieldCopy: {flex: 1}, fieldLabel: {color: theme.colors.text, fontSize: 12.5, fontWeight: '500'}, input: {minHeight: 24, paddingVertical: 0, color: theme.colors.text, fontSize: 12.5},
+  fieldError: {borderColor: theme.colors.danger}, fieldErrorText: {marginTop: 4, marginBottom: 2, marginLeft: 4, color: theme.colors.danger, fontSize: 12, lineHeight: 16},
+  hint: {flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 8, paddingHorizontal: spacing.lg}, hintText: {flex: 1, color: theme.colors.textMuted, fontSize: 12, lineHeight: 16}, hintTextValid: {color: theme.colors.primary},
+  primary: {marginTop: 12, marginHorizontal: spacing.lg},
+  infoCard: {flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 10, marginHorizontal: spacing.lg}, infoText: {flex: 1},
+  or: {marginVertical: 8, color: theme.colors.textMuted, fontSize: 12, textAlign: 'center'}, socialRow: {flexDirection: 'row', justifyContent: 'center', gap: 20}, social: {width: 48, height: 48, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 24, backgroundColor: theme.colors.surface}, socialLogo: {width: 26, height: 26, resizeMode: 'contain'},
+  legalArea: {marginTop: 16}, legal: {color: theme.colors.textMuted, fontSize: 12, textAlign: 'center'}, legalStrong: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 16, fontWeight: '600', textAlign: 'center'},
   });
 }
 

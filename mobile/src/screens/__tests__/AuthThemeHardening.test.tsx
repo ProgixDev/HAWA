@@ -161,12 +161,14 @@ describe('Auth family — static appearance-resolution guard', () => {
       expect(source).toMatch(/placeholderTextColor=\{theme\.colors\.textMuted\}/);
       expect(source).not.toMatch(/placeholderTextColor="#/);
     }
-    // CTA foreground uses onPrimaryTextColor(theme), never a fixed '#FFFFFF' literal.
+    // CTA foreground is theme-derived, never a fixed '#FFFFFF' literal: either through onPrimaryTextColor(theme)
+    // or, since the Material 3 migration (DESIGN.md), through the shared AwaButton, whose label colour comes from the
+    // `onPrimary` role of the resolved theme (the legacy per-screen CTA style was replaced by AwaButton).
     const auth = fs.readFileSync(path.resolve(__dirname, '../AuthScreen.tsx'), 'utf8');
     const registration = fs.readFileSync(path.resolve(__dirname, '../RegistrationScreen.tsx'), 'utf8');
     const forgot = fs.readFileSync(path.resolve(__dirname, '../ForgotPasswordScreen.tsx'), 'utf8');
     for (const source of [auth, registration, forgot]) {
-      expect(source).toMatch(/onPrimaryTextColor\(theme\)/);
+      expect(source).toMatch(/onPrimaryTextColor\(theme\)|<AwaButton/);
     }
   });
 
@@ -294,7 +296,8 @@ describe('Auth family — form/behavior untouched', () => {
     const findFieldBg = () => {
       const match = renderer.root.findAll(node => {
         const style = flattenStyle(node.props?.style);
-        return typeof style.borderRadius === 'number' && style.borderRadius === 13 && typeof style.backgroundColor === 'string';
+        // DESIGN.md: the field radius is now the 12 dp token (the codemod moved the legacy 13 to 12).
+        return typeof style.borderRadius === 'number' && style.borderRadius === 12 && typeof style.backgroundColor === 'string';
       })[0];
       return match ? flattenStyle(match.props.style).backgroundColor : undefined;
     };

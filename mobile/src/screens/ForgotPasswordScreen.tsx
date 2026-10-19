@@ -2,12 +2,9 @@ import React, {useMemo, useState} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
-  TextInput,
   View,
   useWindowDimensions,
 } from 'react-native';
@@ -22,7 +19,12 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
 import {isValidEmail} from '../utils/emailValidation';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {withAlpha, onPrimaryTextColor, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import type {ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {AwaButton} from '../components/ui/AwaButton';
+import {AwaCard} from '../components/ui/AwaCard';
+import {AwaIconButton} from '../components/ui/AwaIconButton';
+import {AwaText} from '../components/ui/AwaText';
+import {AwaTextField} from '../components/ui/AwaTextField';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -109,179 +111,112 @@ function ForgotPasswordScreen({
                 compact && styles.heroCompact,
                 veryCompact && styles.heroVeryCompact,
               ]}>
-              <Pressable
+              <AwaIconButton
                 accessibilityLabel={t('common.back')}
-                accessibilityRole="button"
                 hitSlop={12}
+                icon="arrow-left"
                 onPress={navigation.goBack}
-                style={({pressed}) => [
-                  styles.backButton,
-                  compact && styles.backButtonCompact,
-                  pressed && styles.pressed,
-                ]}>
-                <MaterialDesignIcons
-                  color={theme.colors.text}
-                  name="arrow-left"
-                  size={compact ? 22 : 24}
-                />
-              </Pressable>
+                style={styles.backButton}
+              />
             </View>
 
             <View style={styles.heading}>
-              <Text
-                style={[
-                  styles.title,
-                  compact && styles.titleCompact,
-                ]}>
+              <AwaText
+                accessibilityRole="header"
+                style={styles.title}
+                variant={compact ? 'headlineSmall' : 'headlineMedium'}>
                 {t('auth.forgotPassword.title')}
-              </Text>
+              </AwaText>
 
-              <Text
-                style={[
-                  styles.subtitle,
-                  compact && styles.subtitleCompact,
-                ]}>
+              <AwaText
+                colorRole="onSurfaceVariant"
+                style={styles.subtitle}
+                variant="bodyMedium">
                 {t('auth.forgotPassword.subtitle')}
-              </Text>
+              </AwaText>
             </View>
 
-            <View
-              style={[
-                styles.card,
-                compact && styles.cardCompact,
-                veryCompact && styles.cardVeryCompact,
-              ]}>
-              <View
-                style={[
-                  styles.cardIcon,
-                  compact && styles.cardIconCompact,
-                ]}>
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="email-lock"
-                  size={compact ? 29 : 34}
-                />
-              </View>
-
-              <Text
-                style={[
-                  styles.cardTitle,
-                  compact && styles.cardTitleCompact,
-                ]}>
-                {t('auth.registration.emailLabel')}
-              </Text>
-
-              <Text
-                style={[
-                  styles.cardText,
-                  compact && styles.cardTextCompact,
-                ]}>
+            <AwaCard
+              padding="default"
+              style={[styles.card, compact && styles.cardCompact]}
+              variant="elevated">
+              <AwaText
+                colorRole="onSurfaceVariant"
+                style={styles.cardText}
+                variant="bodyMedium">
                 {t('auth.forgotPassword.cardText')}
-              </Text>
+              </AwaText>
 
-              <View
-                style={[
-                  styles.field,
-                  compact && styles.fieldCompact,
-                  emailError && styles.fieldError,
-                ]}>
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="email-outline"
-                  size={20}
-                />
+              <AwaTextField
+                autoCapitalize="none"
+                autoCorrect={false}
+                errorText={emailError || undefined}
+                keyboardType="email-address"
+                label={t('auth.registration.emailLabel')}
+                leadingIcon="email-outline"
+                onChangeText={value => {
+                  setEmail(value);
+                  setEmailError('');
+                  setInfoMessage('');
+                }}
+                onSubmitEditing={sendResetLink}
+                placeholder={t('auth.forgotPassword.emailFieldPlaceholder')}
+                placeholderTextColor={theme.colors.textMuted}
+                returnKeyType="send"
+                selectionColor={theme.colors.primary}
+                textContentType="emailAddress"
+                value={email}
+                wrapperStyle={styles.fieldWrapper}
+              />
+            </AwaCard>
 
-                <TextInput
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  keyboardType="email-address"
-                  onChangeText={value => {
-                    setEmail(value);
-                    setEmailError('');
-                    setInfoMessage('');
-                  }}
-                  placeholder={t('auth.forgotPassword.emailFieldPlaceholder')}
-                  placeholderTextColor={theme.colors.textMuted}
-                  returnKeyType="send"
-                  onSubmitEditing={sendResetLink}
-                  selectionColor={theme.colors.primary}
-                  style={styles.input}
-                  textContentType="emailAddress"
-                  value={email}
-                />
-              </View>
-              {emailError ? (
-                <Text style={styles.fieldErrorText}>{emailError}</Text>
-              ) : null}
-            </View>
-
-            <Pressable
-              accessibilityRole="button"
+            <AwaButton
+              label={t('auth.forgotPassword.submit')}
               onPress={sendResetLink}
-              style={({pressed}) => [
-                styles.primaryButton,
-                compact && styles.primaryButtonCompact,
-                pressed && styles.pressed,
-              ]}>
-              <Text
-                style={[
-                  styles.primaryText,
-                  compact && styles.primaryTextCompact,
-                ]}>
-                {t('auth.forgotPassword.submit')}
-              </Text>
-            </Pressable>
+              size="large"
+              style={[styles.primaryButton, compact && styles.primaryButtonCompact]}
+            />
 
             {infoMessage ? (
-              <View style={styles.infoCard}>
+              <AwaCard padding="compact" style={styles.infoCard} variant="filled">
                 <MaterialDesignIcons
                   color={theme.colors.primary}
                   name="information-outline"
                   size={16}
                 />
-                <Text style={styles.infoText}>{infoMessage}</Text>
-              </View>
+                <AwaText
+                  colorRole="onSurfaceVariant"
+                  style={styles.infoText}
+                  variant="bodySmall">
+                  {infoMessage}
+                </AwaText>
+              </AwaCard>
             ) : null}
 
             <View style={styles.flexSpacer} />
 
-            <Pressable
-              accessibilityRole="button"
+            <AwaCard
               onPress={contactSupport}
-              style={({pressed}) => [
-                styles.helpCard,
-                compact && styles.helpCardCompact,
-                pressed && styles.pressed,
-              ]}>
-              <View
-                style={[
-                  styles.helpIcon,
-                  compact && styles.helpIconCompact,
-                ]}>
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="headset"
-                  size={compact ? 20 : 22}
-                />
-              </View>
+              padding="compact"
+              style={styles.helpCard}
+              variant="filled">
+              <MaterialDesignIcons
+                color={theme.colors.primary}
+                name="headset"
+                size={compact ? 20 : 22}
+              />
 
               <View style={styles.helpCopy}>
-                <Text
-                  style={[
-                    styles.helpTitle,
-                    compact && styles.helpTitleCompact,
-                  ]}>
+                <AwaText variant="titleSmall">
                   {t('auth.forgotPassword.helpTitle')}
-                </Text>
+                </AwaText>
 
-                <Text
-                  numberOfLines={2}
-                  style={[
-                    styles.helpText,
-                    compact && styles.helpTextCompact,
-                  ]}>
+                <AwaText
+                  colorRole="onSurfaceVariant"
+                  style={styles.helpText}
+                  variant="bodySmall">
                   {t('auth.forgotPassword.helpText')}
-                </Text>
+                </AwaText>
               </View>
 
               <MaterialDesignIcons
@@ -289,7 +224,7 @@ function ForgotPasswordScreen({
                 name="chevron-right"
                 size={compact ? 20 : 22}
               />
-            </Pressable>
+            </AwaCard>
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -341,29 +276,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   backButton: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
     alignSelf: 'flex-start',
     marginTop: 8,
-    borderRadius: 22,
-    backgroundColor: withAlpha(theme.colors.surface, 0.92),
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.14,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-
-  backButtonCompact: {
-    width: 40,
-    height: 40,
-    marginTop: 6,
-    borderRadius: 20,
   },
 
   heading: {
@@ -371,142 +285,28 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   title: {
-    color: theme.colors.text,
-    fontFamily: 'serif',
-    fontSize: 27,
-    fontWeight: '700',
     textAlign: 'center',
-    textShadowColor: withAlpha(theme.colors.background, 0.85),
-    textShadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    textShadowRadius: 8,
-  },
-
-  titleCompact: {
-    fontSize: 24,
   },
 
   subtitle: {
     marginTop: 8,
-    color: theme.colors.textSecondary,
-    fontSize: 13,
-    lineHeight: 19,
     textAlign: 'center',
-    textShadowColor: withAlpha(theme.colors.background, 0.85),
-    textShadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    textShadowRadius: 6,
-  },
-
-  subtitleCompact: {
-    marginTop: 6,
-    fontSize: 11.5,
-    lineHeight: 16,
   },
 
   card: {
-    alignItems: 'center',
     marginTop: 18,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 24,
-    backgroundColor: withAlpha(theme.colors.surface, 0.92),
-    paddingHorizontal: 18,
-    paddingVertical: 20,
   },
 
   cardCompact: {
     marginTop: 14,
-    borderRadius: 21,
-    paddingHorizontal: 15,
-    paddingVertical: 16,
-  },
-
-  cardVeryCompact: {
-    marginTop: 10,
-    paddingVertical: 13,
-  },
-
-  cardIcon: {
-    width: 78,
-    height: 78,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 39,
-    backgroundColor: theme.colors.primarySoft,
-  },
-
-  cardIconCompact: {
-    width: 66,
-    height: 66,
-    borderRadius: 33,
-  },
-
-  cardTitle: {
-    marginTop: 12,
-    color: theme.colors.text,
-    fontSize: 17,
-    fontWeight: '700',
-  },
-
-  cardTitleCompact: {
-    marginTop: 9,
-    fontSize: 15.5,
   },
 
   cardText: {
-    marginTop: 6,
-    color: theme.colors.textSecondary,
-    fontSize: 12,
-    lineHeight: 17,
     textAlign: 'center',
   },
 
-  cardTextCompact: {
-    fontSize: 10.5,
-    lineHeight: 15,
-  },
-
-  field: {
-    width: '100%',
-    minHeight: 52,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    marginTop: 15,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 14,
-    backgroundColor: withAlpha(theme.colors.surface, 0.95),
-    paddingHorizontal: 14,
-  },
-
-  fieldCompact: {
-    minHeight: 48,
-    marginTop: 12,
-  },
-
-  input: {
-    flex: 1,
-    height: 48,
-    paddingVertical: 0,
-    color: theme.colors.text,
-    fontSize: 13.5,
-  },
-
-  fieldError: {
-    borderColor: theme.colors.danger,
-  },
-
-  fieldErrorText: {
-    marginTop: 6,
-    marginLeft: 4,
-    color: theme.colors.danger,
-    fontSize: 11,
+  fieldWrapper: {
+    marginTop: 16,
   },
 
   infoCard: {
@@ -517,57 +317,22 @@ function createStyles(theme: ResolvedAwaTheme) {
     maxWidth: 360,
     alignSelf: 'center',
     marginTop: 12,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 14,
-    backgroundColor: theme.colors.primarySoft,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
   },
 
   infoText: {
     flex: 1,
-    color: theme.colors.textSecondary,
-    fontSize: 11.5,
-    lineHeight: 16,
   },
 
   primaryButton: {
     width: '88%',
     maxWidth: 360,
-    minHeight: 52,
     alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
     marginTop: 16,
-    paddingHorizontal: 18,
-    borderRadius: 16,
-    backgroundColor: theme.colors.primary,
-    shadowColor: theme.shadow.shadowColor,
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 9,
-    elevation: 5,
   },
 
   primaryButtonCompact: {
     width: '90%',
-    minHeight: 48,
     marginTop: 13,
-  },
-
-  primaryText: {
-    color: onPrimaryTextColor(theme),
-    fontSize: 15,
-    fontWeight: '700',
-    textAlign: 'center',
-  },
-
-  primaryTextCompact: {
-    fontSize: 13.5,
   },
 
   flexSpacer: {
@@ -576,69 +341,19 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   helpCard: {
-    minHeight: 74,
+    minHeight: 64,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
     marginTop: -6,
-    borderRadius: 18,
-    backgroundColor: withAlpha(theme.colors.primarySoft, 0.9),
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-  },
-
-  helpCardCompact: {
-    minHeight: 64,
-    marginTop: -4,
-    borderRadius: 16,
-    paddingHorizontal: 11,
-    paddingVertical: 9,
-  },
-
-  helpIcon: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 15,
-    backgroundColor: theme.colors.surface,
-  },
-
-  helpIconCompact: {
-    width: 38,
-    height: 38,
-    borderRadius: 13,
   },
 
   helpCopy: {
     flex: 1,
   },
 
-  helpTitle: {
-    color: theme.colors.text,
-    fontSize: 13.5,
-    fontWeight: '700',
-  },
-
-  helpTitleCompact: {
-    fontSize: 12,
-  },
-
   helpText: {
     marginTop: 2,
-    color: theme.colors.textSecondary,
-    fontSize: 11,
-    lineHeight: 15,
-  },
-
-  helpTextCompact: {
-    fontSize: 9.5,
-    lineHeight: 13,
-  },
-
-  pressed: {
-    opacity: 0.82,
-    transform: [{scale: 0.99}],
   },
   });
 }
