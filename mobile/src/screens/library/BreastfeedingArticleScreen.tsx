@@ -835,6 +835,330 @@ const CONTENT = {
     ],
     disclaimerText: 'Konten informatif. Artikel ini tidak menggantikan panduan personal dari tenaga kesehatan.',
   },
+  hi: {
+    shareMessage: 'भरोसे के साथ स्तनपान की शुरुआत — AWA',
+    badge: 'प्रसवोत्तर • स्तनपान',
+    title: 'भरोसे के साथ\nस्तनपान की शुरुआत',
+    metaDuration: '6 मिनट में पढ़ें',
+    metaType: 'गाइड',
+    metaLevel: 'शुरुआती',
+    metaValidated: 'समीक्षित सामग्री',
+    intro: 'स्तनपान के शुरुआती दिन शिशु और माँ, दोनों के लिए सीखने का समय होते हैं। लैच, लय, बैठने-लेटने की मुद्रा और ध्यान से देखते रहने से धीरे-धीरे आपको वह तरीक़ा मिल जाता है जिसमें आप सहज महसूस करती हैं।',
+    contentsTitle: 'इस लेख में',
+    contentsSubtitle: 'शुरू करने के लिए ज़रूरी बातें',
+    tocItems: [
+      'पहले कदम',
+      'किन संकेतों पर ध्यान दें',
+      'सही लैच',
+      'मदद कब माँगें',
+      'मुख्य बातें',
+    ],
+    h2Step1: '1. पहले कदम',
+    body1: 'स्तनपान धीरे-धीरे स्थापित होता है। पहले कुछ घंटे और फिर पहले कुछ दिन शिशु और माँ को साथ मिलकर सीखने का समय देते हैं।',
+    timelineTitle: 'शुरुआत, कदम-दर-कदम',
+    timelineSubtitle: 'एक सरल गाइड, बिना किसी दबाव के',
+    startingSteps: [
+      {
+        title: 'जन्म के बाद',
+        text: 'त्वचा से त्वचा का संपर्क और जल्दी लैच कराना स्तनपान की अच्छी शुरुआत में मदद कर सकता है।',
+      },
+      {
+        title: 'शुरुआती घंटे',
+        text: 'शिशु बार-बार दूध पी सकता है। लय का बदलते रहना सामान्य है।',
+      },
+      {
+        title: 'शुरुआती दिन',
+        text: 'धीरे-धीरे दूध पिलाना शिशु और माँ की साझा लय बन जाता है।',
+      },
+      {
+        title: 'लय का बैठ जाना',
+        text: 'दूध की मात्रा धीरे-धीरे शिशु की ज़रूरत के हिसाब से ढल जाती है।',
+      },
+    ],
+    h2Step2: '2. किन संकेतों पर ध्यान दें',
+    body2: 'सिर्फ़ घड़ी देखने के बजाय शिशु के जागने के संकेतों, दूध पीने और डायपर के पैटर्न पर ध्यान देना मददगार हो सकता है।',
+    signals: [
+      {
+        title: 'बार-बार दूध पीना',
+        text: 'नवजात शिशु बार-बार दूध माँग सकता है, कभी-कभी 24 घंटे में 8 से 12 बार।',
+      },
+      {
+        title: 'जागने के संकेत',
+        text: 'भूख लगने पर शिशु हिल-डुल सकता है, मुँह खोल सकता है या स्तन की ओर मुँह घुमा सकता है।',
+      },
+      {
+        title: 'डायपर',
+        text: 'गीले और गंदे डायपर की गिनती उन बातों में से है जिन पर रोज़ नज़र रखनी चाहिए।',
+      },
+    ],
+    h2Step3: '3. सही लैच',
+    body3: 'आरामदायक मुद्रा और प्रभावी लैच से दूध पिलाना आसान हो सकता है। अगर दर्द ज़्यादा हो या बना रहे, तो कोई स्वास्थ्य विशेषज्ञ मुद्रा और लैच की जाँच कर सकता है।',
+    latchTitle: 'आराम के 4 संकेत',
+    latchSubtitle: 'दूध पिलाते समय एक सरल जाँच',
+    latchCenterTitle: 'शिशु + स्तन',
+    latchCenterSubtitle: 'आरामदायक मुद्रा',
+    latchPoints: [
+      {
+        title: 'शिशु की सही स्थिति',
+        text: 'शिशु को शरीर के पास रखा जाता है और उसका सिर आरामदायक सीध में होता है।',
+      },
+      {
+        title: 'मुँह पूरा खुला हो',
+        text: 'स्तन देने से पहले शिशु के मुँह के काफ़ी चौड़ा खुलने का इंतज़ार करें।',
+      },
+      {
+        title: 'आरामदायक लैच',
+        text: 'प्रभावी लैच से ज़्यादा या लगातार दर्द नहीं होना चाहिए।',
+      },
+      {
+        title: 'नियमित चूसना',
+        text: 'दूध पिलाते समय चूसने और निगलने की हरकतें दिखाई दे सकती हैं।',
+      },
+    ],
+    h2Step4: '4. मदद कब माँगें?',
+    body4: 'परेशानियों के गंभीर होने तक इंतज़ार करने की ज़रूरत नहीं है। प्रशिक्षित विशेषज्ञ मुद्रा, लैच या शिशु की ज़रूरतों की जाँच में मदद कर सकते हैं।',
+    supportOptions: [
+      {
+        title: 'दाई-नर्स (मिडवाइफ़)',
+        text: 'पहली बार लैच कराने में आपका साथ दे सकती हैं।',
+      },
+      {
+        title: 'स्वास्थ्य विशेषज्ञ',
+        text: 'शिशु और माँ की सेहत की जाँच कर सकते हैं।',
+      },
+      {
+        title: 'लैक्टेशन कंसल्टेंट',
+        text: 'लैच कराने में मुश्किल आने पर मदद कर सकती हैं।',
+      },
+    ],
+    infoTitle: 'हर माँ का स्तनपान का सफ़र अलग होता है',
+    infoText: 'शुरुआती दिन काफ़ी अलग-अलग हो सकते हैं। दूध पिलाने की लय और दूध की मात्रा समय के साथ धीरे-धीरे बदल सकती है। अगर कोई बात आपको चिंतित करे, तो किसी स्वास्थ्य विशेषज्ञ से सलाह लें।',
+    h2Summary: 'मुख्य बातें',
+    summaryItems: [
+      'शुरुआती बार दूध पिलाना शिशु और माँ, दोनों के लिए सीखने का समय है।',
+      'नवजात शिशु बार-बार दूध माँग सकता है।',
+      'आरामदायक मुद्रा और सही लैच मायने रखते हैं।',
+      'बिल्कुल तय समय-सारणी के पीछे भागने से ज़्यादा उपयोगी है शिशु के संकेतों पर ध्यान देना।',
+      'शुरुआती मुश्किलों में दाई-नर्स या लैक्टेशन कंसल्टेंट आपकी मदद कर सकती हैं।',
+    ],
+    disclaimerText: 'जानकारी के लिए सामग्री। यह लेख किसी स्वास्थ्य विशेषज्ञ के व्यक्तिगत मार्गदर्शन का विकल्प नहीं है।',
+  },
+  sq: {
+    shareMessage: 'Fillimi i ushqyerjes me gji me siguri — AWA',
+    badge: 'PAS LINDJES • USHQYERJA ME GJI',
+    title: 'Fillimi i ushqyerjes me gji\nme siguri',
+    metaDuration: '6 min lexim',
+    metaType: 'Udhëzues',
+    metaLevel: 'Fillestar',
+    metaValidated: 'Përmbajtje e shqyrtuar',
+    intro: 'Ditët e para të ushqyerjes me gji janë një periudhë mësimi si për bebin, ashtu edhe për nënën. Kapja e gjirit, ritmi, pozicioni dhe vëzhgimi të ndihmojnë gradualisht të gjesh se çfarë të bën të ndihesh rehat.',
+    contentsTitle: 'Në këtë artikull',
+    contentsSubtitle: 'Gjërat thelbësore për të nisur',
+    tocItems: [
+      'Hapat e parë',
+      'Shenjat që duhen vërejtur',
+      'Një kapje e mirë e gjirit',
+      'Kur duhet kërkuar ndihmë',
+      'Çfarë të mbash mend',
+    ],
+    h2Step1: '1. Hapat e parë',
+    body1: 'Ushqyerja me gji vendoset gradualisht. Orët e para, pastaj ditët e para, u japin kohë bebit dhe nënës të mësojnë së bashku.',
+    timelineTitle: 'Të nisim, hap pas hapi',
+    timelineSubtitle: 'Një udhëzues i thjeshtë, pa presion',
+    startingSteps: [
+      {
+        title: 'Pas lindjes',
+        text: 'Kontakti lëkurë me lëkurë dhe një kapje e hershme e gjirit mund ta ndihmojnë ushqyerjen me gji të nisë mirë.',
+      },
+      {
+        title: 'Orët e para',
+        text: 'Bebi mund të ushqehet shpesh. Është normale që ritmi të ndryshojë.',
+      },
+      {
+        title: 'Ditët e para',
+        text: 'Ushqyerjet bëhen gradualisht një ritëm i përbashkët për bebin dhe nënën.',
+      },
+      {
+        title: 'Gjetja e një ritmi',
+        text: 'Prodhimi i qumështit përshtatet gradualisht me nevojat e bebit.',
+      },
+    ],
+    h2Step2: '2. Shenjat që duhen vërejtur',
+    body2: 'Në vend që të përqendrohesh vetëm te ora, mund të ndihmojë të vëzhgosh shenjat e zgjimit të bebit, ushqyerjet dhe pelenat.',
+    signals: [
+      {
+        title: 'Një ritëm i shpeshtë',
+        text: 'Një i porsalindur mund të kërkojë të ushqehet shpesh, ndonjëherë 8 deri në 12 herë brenda 24 orëve.',
+      },
+      {
+        title: 'Shenjat e zgjimit',
+        text: 'Bebi mund të lëvizë, të hapë gojën ose të kërkojë gjirin kur fillon të ndiejë uri.',
+      },
+      {
+        title: 'Pelenat',
+        text: 'Numri i pelenave të lagura dhe të ndotura është një nga gjërat që duhen ndjekur nga dita në ditë.',
+      },
+    ],
+    h2Step3: '3. Një kapje e mirë e gjirit',
+    body3: 'Një pozicion rehat dhe një kapje efikase e gjirit mund t’i bëjnë ushqyerjet më të lehta. Nëse dhimbja është e fortë ose e vazhdueshme, një profesionist i shëndetësisë mund të kontrollojë pozicionin dhe kapjen.',
+    latchTitle: '4 shenjat e rehatisë',
+    latchSubtitle: 'Një kontroll i thjeshtë gjatë ushqyerjeve',
+    latchCenterTitle: 'Bebi + gjiri',
+    latchCenterSubtitle: 'Pozicion rehat',
+    latchPoints: [
+      {
+        title: 'Bebi i pozicionuar mirë',
+        text: 'Bebi mbahet pranë trupit, me kokën në një drejtim të rehatshëm.',
+      },
+      {
+        title: 'Goja e hapur gjerë',
+        text: 'Prit që goja të hapet mjaftueshëm gjerë përpara se t’i ofrosh gjirin.',
+      },
+      {
+        title: 'Kapje e rehatshme',
+        text: 'Një kapje efikase nuk duhet të shkaktojë dhimbje të fortë ose të vazhdueshme.',
+      },
+      {
+        title: 'Thithje e rregullt',
+        text: 'Lëvizjet e thithjes dhe të gëlltitjes mund të vërehen gjatë ushqyerjes.',
+      },
+    ],
+    h2Step4: '4. Kur duhet kërkuar ndihmë?',
+    body4: 'Nuk ka nevojë të presësh derisa vështirësitë të bëhen serioze. Një profesionist i trajnuar mund të ndihmojë të kontrollohen pozicioni, kapja e gjirit ose nevojat e bebit.',
+    supportOptions: [
+      {
+        title: 'Mamia',
+        text: 'Mund të të mbështesë gjatë kapjeve të para të gjirit.',
+      },
+      {
+        title: 'Profesionisti i shëndetësisë',
+        text: 'Mund të kontrollojë gjendjen shëndetësore të bebit dhe të nënës.',
+      },
+      {
+        title: 'Këshilluesja e laktacionit',
+        text: 'Mund të ndihmojë kur kapja e gjirit del e vështirë.',
+      },
+    ],
+    infoTitle: 'Çdo përvojë ushqyerjeje me gji është ndryshe',
+    infoText: 'Ditët e para mund të ndryshojnë shumë. Ritmi i ushqyerjeve dhe sasia e qumështit mund të ndryshojnë gradualisht me kalimin e kohës. Nëse diçka të shqetëson, kërko këshillë nga një profesionist i shëndetësisë.',
+    h2Summary: 'Çfarë të mbash mend',
+    summaryItems: [
+      'Ushqyerjet e para janë një periudhë mësimi për bebin dhe nënën.',
+      'Një i porsalindur mund të kërkojë të ushqehet shpesh.',
+      'Një pozicion rehat dhe një kapje e mirë e gjirit kanë rëndësi.',
+      'Vëzhgimi i sinjaleve të bebit është më i dobishëm sesa synimi për një orar krejt të fiksuar.',
+      'Një mami ose një këshilluese e laktacionit mund të të ndihmojë gjatë vështirësive të para.',
+    ],
+    disclaimerText: 'Përmbajtje informuese. Ky artikull nuk zëvendëson udhëzimet e personalizuara të një profesionisti të shëndetësisë.',
+  },
+  ja: {
+    shareMessage: '自信を持って授乳を始めるために — AWA',
+    badge: '産後 • 授乳',
+    title: '自信を持って\n授乳を始めるために',
+    metaDuration: '読了目安6分',
+    metaType: 'ガイド',
+    metaLevel: '初級',
+    metaValidated: '確認済みの内容',
+    intro: '授乳の最初の数日は、赤ちゃんにとってもお母さんにとっても学びの時期です。吸着、リズム、抱き方、様子の観察を重ねながら、楽に続けられる形を少しずつ見つけていきます。',
+    contentsTitle: 'この記事の内容',
+    contentsSubtitle: '始めるために大切なこと',
+    tocItems: [
+      '最初のステップ',
+      '注目したいサイン',
+      '上手な吸着',
+      '助けを求めるタイミング',
+      '重要なポイント',
+    ],
+    h2Step1: '1. 最初のステップ',
+    body1: '授乳は少しずつ軌道に乗っていくものです。最初の数時間、そして最初の数日は、赤ちゃんとお母さんがいっしょに学ぶ時間になります。',
+    timelineTitle: 'ステップごとに見る、授乳の始まり',
+    timelineSubtitle: 'プレッシャーのない、シンプルな目安',
+    startingSteps: [
+      {
+        title: '出産後',
+        text: '肌と肌のふれあいと早めの吸着が、授乳の良いスタートにつながることがあります。',
+      },
+      {
+        title: '最初の数時間',
+        text: '赤ちゃんが頻繁に飲みたがることがあります。リズムにばらつきがあるのは普通のことです。',
+      },
+      {
+        title: '最初の数日',
+        text: '授乳は少しずつ、赤ちゃんとお母さんに合ったリズムになっていきます。',
+      },
+      {
+        title: 'リズムが整う',
+        text: '母乳の量は、赤ちゃんの必要に合わせて少しずつ調整されていきます。',
+      },
+    ],
+    h2Step2: '2. 注目したいサイン',
+    body2: '時計ばかりを気にするより、赤ちゃんの目覚めのサイン、授乳の様子、おむつの状態を見ていくと役立ちます。',
+    signals: [
+      {
+        title: '頻繁なリズム',
+        text: '新生児は頻繁に飲みたがることがあり、24時間で8〜12回になることもあります。',
+      },
+      {
+        title: '目覚めのサイン',
+        text: 'お腹がすきはじめると、赤ちゃんは体を動かしたり、口を開けたり、乳房を探したりすることがあります。',
+      },
+      {
+        title: 'おむつ',
+        text: 'おしっこやうんちで濡れたおむつの数は、毎日確認しておきたいことのひとつです。',
+      },
+    ],
+    h2Step3: '3. 上手な吸着',
+    body3: '楽な姿勢と効果的な吸着で、授乳がしやすくなります。強い痛みがある、または痛みが続く場合は、医療従事者が抱き方や吸着を確認できます。',
+    latchTitle: '楽に飲める4つの目安',
+    latchSubtitle: '授乳中にできる簡単なチェック',
+    latchCenterTitle: '赤ちゃん + 乳房',
+    latchCenterSubtitle: '楽な姿勢',
+    latchPoints: [
+      {
+        title: '赤ちゃんの姿勢が整っている',
+        text: '赤ちゃんを体に引き寄せて抱き、頭が楽な位置にそろうようにします。',
+      },
+      {
+        title: '口が大きく開いている',
+        text: '十分に口が大きく開くのを待ってから、乳房を含ませます。',
+      },
+      {
+        title: '楽な吸着',
+        text: '効果的な吸着であれば、強い痛みや続く痛みは起こらないはずです。',
+      },
+      {
+        title: '規則的な吸う動き',
+        text: '授乳中に、吸う動きと飲み込む動きが見られます。',
+      },
+    ],
+    h2Step4: '4. 助けを求めるタイミングは？',
+    body4: '困りごとが深刻になるまで待つ必要はありません。研修を受けた専門家が、抱き方や吸着、赤ちゃんの必要なことを確認する手助けをしてくれます。',
+    supportOptions: [
+      {
+        title: '助産師',
+        text: '最初の吸着を支えてくれます。',
+      },
+      {
+        title: '医療従事者',
+        text: '赤ちゃんとお母さんの健康状態を確認してくれます。',
+      },
+      {
+        title: '母乳育児コンサルタント',
+        text: 'うまく吸着できないときに力になってくれます。',
+      },
+    ],
+    infoTitle: '授乳の道のりは人それぞれ',
+    infoText: '最初の数日の様子は大きく異なることがあります。授乳のリズムや母乳の量は、時間とともに少しずつ変わっていくことがあります。気になることがあれば、医療従事者に相談してください。',
+    h2Summary: '重要なポイント',
+    summaryItems: [
+      '最初の授乳は、赤ちゃんとお母さんにとって学びの時期です。',
+      '新生児は頻繁に飲みたがることがあります。',
+      '楽な姿勢と上手な吸着が大切です。',
+      'きっちり決まった時間割を目指すより、赤ちゃんのサインを見るほうが役立ちます。',
+      '助産師や母乳育児コンサルタントが、最初の困りごとを乗り越える助けになります。',
+    ],
+    disclaimerText: '情報提供を目的とした内容です。この記事は、医療従事者による個別の指導に代わるものではありません。',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */

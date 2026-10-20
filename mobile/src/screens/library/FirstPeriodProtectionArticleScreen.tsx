@@ -471,6 +471,156 @@ const CONTENT = {
     ],
     shareMessage: 'Pelindung apa yang sebaiknya kupilih untuk haid pertama? — AWA',
   },
+  hi: {
+    badge: 'पहला पीरियड',
+    title: 'पहले पीरियड के लिए\nकौन-सा प्रोटेक्शन चुनूँ?',
+    metaDuration: '6 मिनट में पढ़ें',
+    metaType: 'गाइड',
+    metaLevel: 'शुरुआती',
+    metaValidated: 'जाँची गई जानकारी',
+    intro: 'पीरियड के दौरान खुद को सुरक्षित रखने के कई तरीके हैं। कोई भी तरीका दूसरे से बेहतर नहीं है — चुनाव आपके आराम पर निर्भर करता है।',
+    contentsTitle: 'इस लेख में',
+    topics: [
+      'प्रोटेक्शन के अलग-अलग प्रकार',
+      'अपने आराम के हिसाब से कैसे चुनें',
+      'प्रोटेक्शन कैसे बदलें',
+    ],
+    body1: 'पहले पीरियड के लिए पैड आमतौर पर सबसे आसान विकल्प होता है, क्योंकि वह सीधे अंडरवियर में लगाया जाता है। पीरियड अंडरवियर और टैम्पोन दूसरे विकल्प हैं, जिन्हें आप बाद में, जब मन करे, आज़मा सकती हैं।',
+    options: [
+      {
+        title: 'पैड',
+        text: 'इस्तेमाल में आसान। ये अंडरवियर में लगते हैं और नियमित रूप से बदले जाते हैं।',
+      },
+      {
+        title: 'पीरियड अंडरवियर',
+        text: 'सोखने वाला, धोकर दोबारा पहनने लायक अंडरवियर, जो रोज़ के इस्तेमाल के लिए आरामदायक है।',
+      },
+      {
+        title: 'टैम्पोन',
+        text: 'शरीर के अंदर लगाए जाते हैं; इन्हें इस्तेमाल करना है या नहीं और कब करना है, यह आप अपनी रफ़्तार से तय करें।',
+      },
+    ],
+    body2: 'कोई प्रोटेक्शन सही या गलत नहीं होता: हर एक अलग शरीर, आदतों और आराम के स्तर के लिए ठीक बैठता है। जैसे, टैम्पोन शरीर के अंदर लगाए जाते हैं और इसके लिए अपने शरीर से थोड़ी ज़्यादा जान-पहचान चाहिए — ऐसा कहीं नहीं लिखा कि इन्हें पहले ही पीरियड से इस्तेमाल करना ज़रूरी है।',
+    tipTitle: 'जानना अच्छा रहेगा',
+    tipText: 'समय के साथ अलग-अलग प्रकार के प्रोटेक्शन आज़माने से आपको वह मिल जाता है जो आपके लिए सबसे अच्छा हो, और इसमें कोई दबाव नहीं है।',
+    body3: 'औसतन प्रोटेक्शन हर 4 से 6 घंटे में बदलना चाहिए, और ज़्यादा फ़्लो वाले दिनों में और जल्दी-जल्दी। नियमित रूप से बदलने से आप आरामदायक रहती हैं और निजी स्वच्छता बनी रहती है।',
+    relatedTitle: '♥  ये भी आपको पसंद आ सकता है',
+    related: [
+      {
+        title: 'अपने माहवारी के फ़्लो को समझें',
+        meta: '7 मिनट  ·  गाइड',
+      },
+      {
+        title: 'पहले पीरियड को रोज़मर्रा की ज़िंदगी में कैसे संभालें?',
+        meta: '5 मिनट  ·  गाइड',
+      },
+      {
+        title: 'आपका पहला पीरियड: क्या उम्मीद रखें',
+        meta: '5 मिनट  ·  गाइड',
+      },
+    ],
+    shareMessage: 'पहले पीरियड के लिए कौन-सा प्रोटेक्शन चुनूँ? — AWA',
+  },
+  sq: {
+    badge: 'MENSTRUACIONI I PARË',
+    title: 'Cilën mbrojtje duhet të zgjedh\npër menstruacionin tim të parë?',
+    metaDuration: '6 min lexim',
+    metaType: 'Udhëzues',
+    metaLevel: 'Fillestar',
+    metaValidated: 'Përmbajtje e rishikuar',
+    intro: 'Ka disa mënyra për t’u mbrojtur gjatë menstruacioneve. Asnjëra nuk është më e mirë se tjetra — rehatia personale është ajo që drejton zgjedhjen.',
+    contentsTitle: 'Në këtë artikull',
+    topics: [
+      'Llojet e ndryshme të mbrojtjes',
+      'Si të zgjedhësh sipas rehatisë sate',
+      'Si ta ndërrosh mbrojtjen',
+    ],
+    body1: 'Për menstruacionin e parë, një peshqir higjienik është zakonisht mbrojtja më e thjeshtë për t’u përdorur, pasi vendoset drejtpërdrejt në të brendshmet. Të brendshmet për menstruacione dhe tamponët janë opsione të tjera që mund t’i provosh më vonë, kur të ndihesh gati.',
+    options: [
+      {
+        title: 'Peshqirët higjienikë',
+        text: 'Të lehtë për t’u përdorur, vendosen në të brendshme dhe ndërrohen rregullisht.',
+      },
+      {
+        title: 'Të brendshmet për menstruacione',
+        text: 'Të brendshme thithëse e të larshme, të rehatshme për përdorim të përditshëm.',
+      },
+      {
+        title: 'Tamponët',
+        text: 'Vendosen brenda trupit; nëse dhe kur do t’i përdorësh, varet nga ti, në ritmin tënd.',
+      },
+    ],
+    body2: 'Nuk ka mbrojtje të drejtë apo të gabuar: secila i përshtatet trupave, zakoneve dhe niveleve të ndryshme të rehatisë. Tamponët, për shembull, vendosen brenda trupit dhe kërkojnë pak më shumë njohje me të — asgjë nuk thotë se duhet t’i përdorësh që nga menstruacioni i parë.',
+    tipTitle: 'Mirë është ta dish',
+    tipText: 'Të provosh lloje të ndryshme mbrojtjeje me kalimin e kohës të ndihmon të gjesh atë që të përshtatet më mirë, pa presion.',
+    body3: 'Mesatarisht, mbrojtja duhet ndërruar çdo 4 deri në 6 orë, më shpesh në ditët me rrjedhje më të bollshme. Ndërrimi i rregullt të ndihmon të ndihesh rehat dhe të ruash higjienën e mirë intime.',
+    relatedTitle: '♥  Mund të të pëlqejnë edhe',
+    related: [
+      {
+        title: 'Kuptimi i rrjedhjes sate menstruale',
+        meta: '7 min  ·  Udhëzues',
+      },
+      {
+        title: 'Si ta menaxhosh menstruacionin e parë çdo ditë?',
+        meta: '5 min  ·  Udhëzues',
+      },
+      {
+        title: 'Menstruacioni yt i parë: çfarë të presësh',
+        meta: '5 min  ·  Udhëzues',
+      },
+    ],
+    shareMessage: 'Cilën mbrojtje duhet të zgjedh për menstruacionin tim të parë? — AWA',
+  },
+  ja: {
+    badge: '初経',
+    title: '初めての生理には\nどんな生理用品を選べばいい？',
+    metaDuration: '読了6分',
+    metaType: 'ガイド',
+    metaLevel: '初級',
+    metaValidated: '監修済みの内容',
+    intro: '生理中の対策にはいくつかの方法があります。どれが優れているということはなく、自分が心地よいと感じるものを基準に選びます。',
+    contentsTitle: 'この記事の内容',
+    topics: [
+      '生理用品の種類',
+      '心地よさに合わせた選び方',
+      '交換のしかた',
+    ],
+    body1: '初めての生理には、下着に直接つけるナプキンがいちばん使いやすいことが多いです。吸水ショーツやタンポンは、使ってみたくなったときに、あとから試せる選択肢です。',
+    options: [
+      {
+        title: 'ナプキン',
+        text: '使いやすく、下着につけて、こまめに交換します。',
+      },
+      {
+        title: '吸水ショーツ',
+        text: '吸水性があり、洗って繰り返し使える下着で、毎日でも心地よく使えます。',
+      },
+      {
+        title: 'タンポン',
+        text: '体の中に挿入するタイプです。使うかどうか、いつ使うかは、自分のペースで決めて大丈夫です。',
+      },
+    ],
+    body2: '正解や不正解はありません。体や習慣、心地よさは人それぞれで、合う生理用品も違います。たとえばタンポンは体の中に挿入するため、自分の体にもう少し慣れている必要があります。初めての生理から使わなければならないということはありません。',
+    tipTitle: '知っておきたいこと',
+    tipText: '時間をかけていろいろな種類を試すことで、自分に合ったものが見つかります。無理をする必要はありません。',
+    body3: '生理用品は、平均して4〜6時間ごとに交換します。経血量が多い日は、もっとこまめに交換しましょう。定期的に交換すると、快適に過ごせて、デリケートゾーンを清潔に保てます。',
+    relatedTitle: '♥  こちらもおすすめ',
+    related: [
+      {
+        title: '経血量について知ろう',
+        meta: '7分  ·  ガイド',
+      },
+      {
+        title: '初めての生理を毎日の生活でどう過ごす？',
+        meta: '5分  ·  ガイド',
+      },
+      {
+        title: '初めての生理：知っておきたいこと',
+        meta: '5分  ·  ガイド',
+      },
+    ],
+    shareMessage: '初めての生理にはどんな生理用品を選べばいい？ — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

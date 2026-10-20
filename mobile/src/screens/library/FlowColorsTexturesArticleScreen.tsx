@@ -761,6 +761,321 @@ const CONTENT = {
     ],
     shareMessage: 'Aliran darah haid: memahami warna dan teksturnya — AWA',
   },
+  hi: {
+    badge: 'चक्र और सेहत',
+    title: 'पीरियड का फ़्लो: रंग और\nबनावट को समझें',
+    metaDuration: '4 मिनट में पढ़ें',
+    metaType: 'गाइड',
+    metaLevel: 'शुरुआती',
+    metaValidated: 'समीक्षित सामग्री',
+    intro: 'आपके पीरियड का रंग और बनावट आपके हार्मोनल स्वास्थ्य के बारे में काफ़ी कुछ बताते हैं। अपने चक्र को बेहतर समझने के लिए इन्हें पढ़ना सीखें।',
+    contentsTitle: 'इस लेख में',
+    contents: [
+      'पीरियड के फ़्लो के रंग',
+      'फ़्लो की बनावट',
+      'हर रंग क्या संकेत दे सकता है',
+      'कब चिंता करनी चाहिए?',
+      'खुद को बेहतर जानने के हमारे सुझाव',
+    ],
+    colors: [
+      {
+        name: 'चटक लाल',
+        text: 'ताज़ा फ़्लो, नया रक्त। पीरियड की शुरुआत में आम है।',
+      },
+      {
+        name: 'गहरा लाल',
+        text: 'पुराना रक्त, पीरियड के बीच के दिनों में सामान्य।',
+      },
+      {
+        name: 'भूरा',
+        text: 'ऑक्सीकृत रक्त, अक्सर पीरियड के अंत में।',
+      },
+      {
+        name: 'गुलाबी',
+        text: 'हल्के फ़्लो या हार्मोनल बदलाव का संकेत हो सकता है।',
+      },
+      {
+        name: 'नारंगी',
+        text: 'संक्रमण या असंतुलन से जुड़ा हो सकता है।',
+      },
+    ],
+    textures: [
+      {
+        name: 'पतला',
+        text: 'तरल फ़्लो, बिना थक्कों के।',
+      },
+      {
+        name: 'मलाईदार',
+        text: 'गाढ़ी, चिकनी बनावट।',
+      },
+      {
+        name: 'थक्के',
+        text: 'रक्त के छोटे या बड़े थक्के।',
+      },
+      {
+        name: 'तंतुनुमा / म्यूकस',
+        text: 'खिंचने वाला, साफ़ या सफ़ेदी लिए हुए।',
+      },
+      {
+        name: 'ऊतक',
+        text: 'ऊतक या झिल्ली के टुकड़े।',
+      },
+    ],
+    meanings: [
+      {
+        name: 'चटक से गहरा लाल',
+        text: 'सामान्य चक्र। आपका शरीर गर्भाशय की परत को बाहर निकाल रहा है।',
+      },
+      {
+        name: 'भूरा',
+        text: 'पुराना रक्त, चिंता की कोई बात नहीं।',
+      },
+      {
+        name: 'गुलाबी',
+        text: 'पीरियड की शुरुआत/अंत में या हार्मोनल असंतुलन के साथ हो सकता है।',
+      },
+      {
+        name: 'नारंगी',
+        text: 'अगर तेज़ गंध, खुजली या दर्द साथ हो तो ध्यान रखें।',
+      },
+    ],
+    warningTitle: 'इन संकेतों पर ध्यान दें',
+    warningItems: [
+      'बहुत ज़्यादा रक्तस्राव (हर 1–2 घंटे में पैड/प्रोटेक्शन बदलना पड़े)',
+      'बार-बार बहुत बड़े थक्के निकलना',
+      'लगातार बनी रहने वाली बदबू या खुजली',
+      'असामान्य रूप से तेज़ दर्द',
+    ],
+    advice: [
+      {
+        title: 'अपने फ़्लो को देखें',
+        text: 'हर महीने होने वाले बदलाव नोट करें।',
+      },
+      {
+        title: 'सही प्रोटेक्शन चुनें',
+        text: 'अपने फ़्लो और आराम के अनुसार।',
+      },
+      {
+        title: 'अपने शरीर की सुनें',
+        text: 'यह आपको ज़रूरी संकेत देता है।',
+      },
+      {
+        title: 'शक हो तो',
+        text: 'स्वास्थ्य विशेषज्ञ से बात करें।',
+      },
+    ],
+    shareMessage: 'पीरियड का फ़्लो: रंग और बनावट को समझें — AWA',
+  },
+  sq: {
+    badge: 'CIKLI & MIREQENIA',
+    title: 'Rrjedhja e menstruacioneve: t’i kuptojmë\nngjyrat dhe teksturat',
+    metaDuration: '4 min lexim',
+    metaType: 'Udhëzues',
+    metaLevel: 'Fillestar',
+    metaValidated: 'Përmbajtje e rishikuar',
+    intro: 'Ngjyra dhe teksturë e menstruacioneve të tua thonë shumë për shëndetin tënd hormonal. Mëso t’i lexosh për ta kuptuar më mirë ciklin tënd.',
+    contentsTitle: 'Në këtë artikull',
+    contents: [
+      'Ngjyrat e rrjedhjes menstruale',
+      'Teksturat e rrjedhjes',
+      'Çfarë mund të tregojë çdo ngjyrë',
+      'Kur duhet të shqetësohesh?',
+      'Këshillat tona për ta njohur më mirë veten',
+    ],
+    colors: [
+      {
+        name: 'E kuqe e ndezur',
+        text: 'Rrjedhje e freskët, gjak i ri. E zakonshme në fillim të menstruacioneve.',
+      },
+      {
+        name: 'E kuqe e errët',
+        text: 'Gjak më i vjetër, normale në mes të ciklit.',
+      },
+      {
+        name: 'Kafe',
+        text: 'Gjak i oksiduar, shpesh në fund të menstruacioneve.',
+      },
+      {
+        name: 'Rozë',
+        text: 'Mund të tregojë rrjedhje të lehtë ose një ndryshim hormonal.',
+      },
+      {
+        name: 'Portokalli',
+        text: 'Mund të lidhet me një infeksion ose një çekuilibër.',
+      },
+    ],
+    textures: [
+      {
+        name: 'E lëngshme',
+        text: 'Rrjedhje e lëngët, pa copëza.',
+      },
+      {
+        name: 'Kremoze',
+        text: 'Teksturë e trashë dhe e butë.',
+      },
+      {
+        name: 'Mpiksje',
+        text: 'Mpiksje të vogla ose të mëdha gjaku.',
+      },
+      {
+        name: 'Fije / Mukozë',
+        text: 'E shtrirë, e tejdukshme ose e bardhë.',
+      },
+      {
+        name: 'Ind',
+        text: 'Copa indi ose membrane mukoze.',
+      },
+    ],
+    meanings: [
+      {
+        name: 'E kuqe e ndezur deri në të errët',
+        text: 'Cikël normal. Trupi yt po heq shtresën e mitrës.',
+      },
+      {
+        name: 'Kafe',
+        text: 'Gjak më i vjetër, nuk ka çfarë të shqetësohesh.',
+      },
+      {
+        name: 'Rozë',
+        text: 'Mund të ndodhë në fillim/fund të menstruacioneve ose me një çekuilibër hormonal.',
+      },
+      {
+        name: 'Portokalli',
+        text: 'Vëre në vëzhgim nëse shoqërohet me erë të fortë, kruarje ose dhimbje.',
+      },
+    ],
+    warningTitle: 'Shenja për t’u vënë re',
+    warningItems: [
+      'Gjakderdhje shumë e bollshme (ndërrim i mbrojtëses çdo 1–2 orë)',
+      'Dalje e rregullt e mpiksjeve shumë të mëdha',
+      'Erë e keqe ose kruarje që vazhdon',
+      'Dhimbje e pazakontë e fortë',
+    ],
+    advice: [
+      {
+        title: 'Vëzhgo rrjedhjen tënde',
+        text: 'Shëno çdo ndryshim çdo muaj.',
+      },
+      {
+        title: 'Zgjidh mbrojtësen e duhur',
+        text: 'Sipas rrjedhjes sate dhe rehatisë sate.',
+      },
+      {
+        title: 'Dëgjo trupin tënd',
+        text: 'Ai të jep sinjale të çmuara.',
+      },
+      {
+        title: 'Nëse ke dyshime',
+        text: 'Flit me një profesionist të shëndetësisë.',
+      },
+    ],
+    shareMessage: 'Rrjedhja e menstruacioneve: t’i kuptojmë ngjyrat dhe teksturat — AWA',
+  },
+  ja: {
+    badge: '周期とウェルネス',
+    title: '経血の色と質感を\n知ろう',
+    metaDuration: '読了4分',
+    metaType: 'ガイド',
+    metaLevel: '初級',
+    metaValidated: '確認済みの内容',
+    intro: '経血の色や質感は、ホルモンの状態について多くのことを教えてくれます。読み取り方を知って、周期への理解を深めましょう。',
+    contentsTitle: 'この記事の内容',
+    contents: [
+      '経血の色',
+      '経血の質感',
+      'それぞれの色が示すこと',
+      '気をつけたいのはどんなとき？',
+      '自分を知るためのヒント',
+    ],
+    colors: [
+      {
+        name: '鮮やかな赤',
+        text: '新しい血液で、出たばかりの経血です。生理の始まりによく見られます。',
+      },
+      {
+        name: '暗い赤',
+        text: '時間のたった血液で、生理の中ほどでは普通に見られます。',
+      },
+      {
+        name: '茶色',
+        text: '酸化した血液で、生理の終わりごろによく見られます。',
+      },
+      {
+        name: 'ピンク',
+        text: '経血量が少ないか、ホルモンの変化を示していることがあります。',
+      },
+      {
+        name: 'オレンジ',
+        text: '感染症やバランスの乱れと関係していることがあります。',
+      },
+    ],
+    textures: [
+      {
+        name: 'さらさら',
+        text: '液状で、塊のない経血です。',
+      },
+      {
+        name: 'クリーム状',
+        text: 'とろみがあり、なめらかな質感です。',
+      },
+      {
+        name: '血の塊',
+        text: '小さな、または大きな血の塊です。',
+      },
+      {
+        name: '糸を引く / 粘液状',
+        text: 'よく伸びて、透明または白っぽいものです。',
+      },
+      {
+        name: '組織片',
+        text: '組織や粘膜のかけらのようなものです。',
+      },
+    ],
+    meanings: [
+      {
+        name: '鮮やかな赤〜暗い赤',
+        text: '正常な周期です。体が子宮内膜を排出しています。',
+      },
+      {
+        name: '茶色',
+        text: '時間のたった血液で、心配はいりません。',
+      },
+      {
+        name: 'ピンク',
+        text: '生理の始まりや終わりに見られたり、ホルモンバランスの乱れで起こったりすることがあります。',
+      },
+      {
+        name: 'オレンジ',
+        text: '強いにおい、かゆみ、痛みを伴う場合は、様子を見ておきましょう。',
+      },
+    ],
+    warningTitle: '気をつけたい兆候',
+    warningItems: [
+      '非常に多い出血（1〜2時間ごとに生理用品を替える）',
+      '非常に大きな塊が何度も出る',
+      '悪臭やかゆみが続く',
+      'いつもと違う強い痛み',
+    ],
+    advice: [
+      {
+        title: '経血を観察する',
+        text: '毎月の変化を記録しましょう。',
+      },
+      {
+        title: '合った生理用品を選ぶ',
+        text: '経血量と快適さに合わせて選びましょう。',
+      },
+      {
+        title: '体の声に耳を傾ける',
+        text: '体は大切なサインを送ってくれます。',
+      },
+      {
+        title: '迷ったときは',
+        text: '医療従事者に相談しましょう。',
+      },
+    ],
+    shareMessage: '経血の色と質感を知ろう — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<

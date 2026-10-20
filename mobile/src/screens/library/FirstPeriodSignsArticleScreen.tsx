@@ -479,6 +479,183 @@ const CONTENT = {
     ],
     shareMessage: 'Tanda-tanda awal sebelum haid pertamamu — AWA',
   },
+  hi: {
+    badge: 'पहला पीरियड',
+    title: 'पहले पीरियड\nके शुरुआती संकेत',
+    metaDuration: '5 मिनट में पढ़ें',
+    metaType: 'लेख',
+    metaLevel: 'शुरुआती',
+    metaValidated: 'जाँची गई जानकारी',
+    intro: 'आपका पहला पीरियड आने से पहले अक्सर आपका शरीर कुछ इशारे देता है। इन्हें पहचानने से आप कम हैरान होंगी।',
+    contentsTitle: 'इस लेख में',
+    topics: [
+      'धीरे-धीरे होने वाले बदलाव',
+      'किन संकेतों पर ध्यान दें',
+      'इसका क्या मतलब है',
+    ],
+    body1: 'पहले पीरियड से कुछ महीने पहले आपका शरीर धीरे-धीरे बदलता है: शरीर की बनावट बदलती है, नई जगहों पर बाल उगने लगते हैं और पसीना भी अलग तरह से आता है। ये किशोरावस्था के सामान्य असर हैं, जो आपके शरीर को धीरे-धीरे तैयार करते हैं।',
+    tip1Title: 'जानना अच्छा रहेगा',
+    tip1Text: 'ये सारे बदलाव हर किसी में एक ही समय पर या एक ही रफ़्तार से नहीं होते — यह बिल्कुल सामान्य है।',
+    signs: [
+      {
+        title: 'शरीर में बदलाव',
+        text: 'आपका शरीर धीरे-धीरे बदलता है: बनावट, शरीर के बाल और पसीना, सब कुछ बदल सकता है।',
+      },
+      {
+        title: 'योनि से सफ़ेद स्राव',
+        text: 'पहले पीरियड से कुछ महीने पहले अक्सर हल्का, सफ़ेदी लिए स्राव आने लगता है।',
+      },
+      {
+        title: 'हल्का दर्द या खिंचाव',
+        text: 'आपको पेट के निचले हिस्से में हल्का तनाव या खिंचाव महसूस हो सकता है।',
+      },
+      {
+        title: 'मूड में बदलाव',
+        text: 'सामान्य से ज़्यादा संवेदनशील या चिड़चिड़ा महसूस करना आम बात है।',
+      },
+      {
+        title: 'स्तनों में कोमलता',
+        text: 'आपको हल्का दर्द या सूजन महसूस हो सकती है।',
+      },
+    ],
+    body2: 'इन संकेतों का आमतौर पर मतलब होता है कि आपका पहला पीरियड अगले कुछ महीनों में आएगा, हालाँकि सटीक तारीख़ बताना संभव नहीं है। इस समय अपने पास सैनिटरी प्रोटेक्शन रखना एक अच्छी आदत है।',
+    alertTitle: 'ध्यान दें',
+    alertText: 'ये संकेत केवल सामान्य मार्गदर्शन हैं, सटीक अनुमान नहीं। हर शरीर अपनी रफ़्तार से चलता है।',
+    relatedTitle: '♥  ये भी आपको पसंद आ सकता है',
+    related: [
+      {
+        title: 'आपका पहला पीरियड: क्या उम्मीद रखें',
+        meta: '5 मिनट  ·  गाइड',
+      },
+      {
+        title: 'मुझे कैसे पता चलेगा कि मेरा पहला पीरियड आने वाला है?',
+        meta: '5 मिनट  ·  गाइड',
+      },
+      {
+        title: 'मासिक चक्र के अलग-अलग चरण',
+        meta: '5 मिनट  ·  लेख',
+      },
+    ],
+    shareMessage: 'पहले पीरियड से पहले के शुरुआती संकेत — AWA',
+  },
+  sq: {
+    badge: 'MENSTRUACIONI I PARË',
+    title: 'Shenjat e hershme\ntë menstruacionit të parë',
+    metaDuration: '5 min lexim',
+    metaType: 'Artikull',
+    metaLevel: 'Fillestar',
+    metaValidated: 'Përmbajtje e rishikuar',
+    intro: 'Trupi yt shpesh jep sinjale para se të vijë menstruacioni yt i parë. Njohja e tyre mund të të ndihmojë të ndihesh më pak e befasuar.',
+    contentsTitle: 'Në këtë artikull',
+    topics: [
+      'Ndryshimet graduale',
+      'Shenjat që duhen vëzhguar',
+      'Çfarë do të thotë kjo',
+    ],
+    body1: 'Në muajt para menstruacionit të parë, trupi yt ndryshon butësisht: forma e trupit evoluon, qimet e trupit fillojnë të shfaqen në vende të reja dhe edhe djersitja ndryshon. Këto janë efekte normale të pubertetit, që e përgatisin trupin tënd me qetësi.',
+    tip1Title: 'Mirë është ta dish',
+    tip1Text: 'Këto ndryshime nuk ndodhin të gjitha në të njëjtën kohë, as me të njëjtin ritëm te të gjitha vajzat — kjo është plotësisht normale.',
+    signs: [
+      {
+        title: 'Ndryshime në trup',
+        text: 'Trupi yt ndryshon gradualisht: forma e trupit, qimet e trupit dhe djersitja mund të ndryshojnë.',
+      },
+      {
+        title: 'Sekrecione vaginale',
+        text: 'Sekrecione të lehta, të bardhuha shfaqen shpesh disa muaj para menstruacionit të parë.',
+      },
+      {
+        title: 'Dhimbje ose shtrëngime',
+        text: 'Mund të ndjesh pak tension ose shtrëngime në pjesën e poshtme të barkut.',
+      },
+      {
+        title: 'Ndryshime të gjendjes shpirtërore',
+        text: 'Është e zakonshme të ndihesh më e ndjeshme ose më nervoze se zakonisht.',
+      },
+      {
+        title: 'Ndjeshmëri e gjinjve',
+        text: 'Mund të vërejsh një ndjeshmëri ose ënjtje të lehtë.',
+      },
+    ],
+    body2: 'Këto shenja zakonisht tregojnë se menstruacioni yt i parë do të vijë në muajt në vijim, megjithëse është e pamundur të parashikohet një datë e saktë. Të kesh mbrojtje afër bëhet një zakon i mirë në këtë moment.',
+    alertTitle: 'Kujdes',
+    alertText: 'Këto shenja janë orientime të përgjithshme, kurrë një parashikim i saktë. Çdo trup ndjek ritmin e vet.',
+    relatedTitle: '♥  Mund të të pëlqejnë edhe',
+    related: [
+      {
+        title: 'Menstruacioni yt i parë: çfarë të presësh',
+        meta: '5 min  ·  Udhëzues',
+      },
+      {
+        title: 'Si e di nëse menstruacioni im i parë po vjen?',
+        meta: '5 min  ·  Udhëzues',
+      },
+      {
+        title: 'Fazat e ndryshme të ciklit',
+        meta: '5 min  ·  Artikull',
+      },
+    ],
+    shareMessage: 'Shenjat e hershme para menstruacionit të parë — AWA',
+  },
+  ja: {
+    badge: '初経',
+    title: '初経の\n前ぶれとなるサイン',
+    metaDuration: '読了5分',
+    metaType: '記事',
+    metaLevel: '初級',
+    metaValidated: '監修済みの内容',
+    intro: '初めての生理が来る前に、体がサインを出すことはよくあります。知っておくと、驚きがやわらぎます。',
+    contentsTitle: 'この記事の内容',
+    topics: [
+      '少しずつ起こる変化',
+      '気をつけて見たいサイン',
+      'サインの意味',
+    ],
+    body1: '初めての生理の数か月前から、体はゆるやかに変わっていきます。体つきが変化し、これまでなかった場所に体毛が生え始め、汗のかき方も変わります。これらは思春期に見られる自然な変化で、体が少しずつ準備を進めている証拠です。',
+    tip1Title: '知っておきたいこと',
+    tip1Text: 'こうした変化は、すべてが同時に、同じペースで起こるわけではありません。人それぞれで、まったく自然なことです。',
+    signs: [
+      {
+        title: '体の変化',
+        text: '体は少しずつ変わっていきます。体つき、体毛、汗のかき方が変化することがあります。',
+      },
+      {
+        title: 'おりもの',
+        text: '初めての生理の数か月前から、白っぽくさらっとしたおりものが出ることがよくあります。',
+      },
+      {
+        title: '下腹部の違和感やチクチクした痛み',
+        text: '下腹部に軽いはりやチクチクした痛みを感じることがあります。',
+      },
+      {
+        title: '気分の変化',
+        text: 'いつもより敏感になったり、イライラしやすくなったりするのはよくあることです。',
+      },
+      {
+        title: '胸の張り',
+        text: '胸に軽い痛みやふくらみを感じることがあります。',
+      },
+    ],
+    body2: 'これらのサインは、たいてい数か月以内に初めての生理が来ることを示していますが、正確な日を予測することはできません。この時期から、ナプキンなどを手元に用意しておく習慣をつけると安心です。',
+    alertTitle: 'ご注意',
+    alertText: 'これらのサインはあくまでおおよその目安で、正確な予測ではありません。体のペースは人それぞれです。',
+    relatedTitle: '♥  こちらもおすすめ',
+    related: [
+      {
+        title: '初めての生理：知っておきたいこと',
+        meta: '5分  ·  ガイド',
+      },
+      {
+        title: '初めての生理が近いかどうか、どうすればわかる？',
+        meta: '5分  ·  ガイド',
+      },
+      {
+        title: '生理周期のさまざまなフェーズ',
+        meta: '5分  ·  記事',
+      },
+    ],
+    shareMessage: '初めての生理の前ぶれとなるサイン — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
