@@ -36,9 +36,11 @@ import {IS_MAPS_CONFIGURED} from '../config/maps';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {mapPlaceIdentity, mapProvider, MapProviderError} from '../services/maps/mapProvider';
 import {loadMapStyle} from '../services/maps/mapStyle';
+import {localizeMapStyle, mapLanguageFor} from '../services/maps/mapLanguage';
 import type {MapPlace} from '../services/maps/types';
 import {resolveInitialLocation} from '../services/locationInitialization';
 import {getHasConfirmedCycleData, getSelectedObjective, setSelectedLocation as saveSelectedLocation} from '../state/onboardingPreferences';
+import {getAppLanguage, normalizeAppLanguage} from '../state/themePreferences';
 import {spacing} from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
@@ -75,7 +77,9 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
   const {height} = useWindowDimensions();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
+  // The active AWA language (not the Android system locale) drives the map labels, the search results and every address shown here.
+  const mapLanguage = mapLanguageFor(normalizeAppLanguage(i18n.language) ?? getAppLanguage());
   const cameraRef = useRef<CameraRef>(null);
   const reverseTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const reverseRequest = useRef(0);
@@ -117,7 +121,11 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
   const [resolving, setResolving] = useState(true);
   const [locating, setLocating] = useState(false);
   const [locationPermission, setLocationPermission] = useState(false);
-  const [mapStyle, setMapStyle] = useState<StyleSpecification>();
+  // The style as downloaded (English labels) — downloaded once; the labels follow the app language through localizeMapStyle().
+  const [baseMapStyle, setBaseMapStyle] = useState<StyleSpecification>();
+  const mapStyle = useMemo(() => (baseMapStyle ? localizeMapStyle(baseMapStyle, mapLanguage) : undefined), [baseMapStyle, mapLanguage]);
+  // True while the names of the selected place are being re-asked in the current language (see the effect below).
+  const [localizing, setLocalizing] = useState(false);
   const [mapStyleFailed, setMapStyleFailed] = useState(false);
   const [feedback, setFeedback] = useState<Feedback>(
     IS_MAPS_CONFIGURED
@@ -146,6 +154,11 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
     // must never be overridden by re-running this resolution.
   }, []);
 
+  // While the names of the selected place are being re-asked in the current language, its previous names are not shown in the search
+  // field or the card (they would flash English / another language on screen for a moment).
+  const selectedText = selectedLocation ? `${selectedLocation.city}, ${selectedLocation.country}` : null;
+  const displayedQuery = localizing && selectedText !== null && query === selectedText ? '' : query;
+
   const mapHeightStyle =
     height < 720
       ? styles.mapSmall
@@ -156,14 +169,18 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
   useEffect(() => {
     if (!IS_MAPS_CONFIGURED) {return;}
     let cancelled = false;
-    loadMapStyle()
+    const controller = new AbortController();
+    loadMapStyle(controller.signal)
       .then(style => {
-        if (!cancelled) {setMapStyle(style);}
+        if (!cancelled) {setBaseMapStyle(style);}
       })
       .catch(() => {
         if (!cancelled) {setMapStyleFailed(true);}
       });
-    return () => {cancelled = true;};
+    return () => {
+      cancelled = true;
+      controller.abort();
+    };
   }, []);
 
   const reverseGeocode = useCallback(async (latitude: number, longitude: number) => {
@@ -171,7 +188,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
     setResolving(true);
     setFeedback(null);
     try {
-      const place = await mapProvider.reverseGeocode(latitude, longitude);
+      const place = await mapProvider.reverseGeocode(latitude, longitude, {language: mapLanguage});
       if (requestId !== reverseRequest.current) {return;}
       if (place) {
         userChangedLocation.current = true;
@@ -190,7 +207,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
     } finally {
       if (requestId === reverseRequest.current) {setResolving(false);}
     }
-  }, [t]);
+  }, [t, mapLanguage]);
 
   useEffect(() => {
     const trimmed = query.trim();
@@ -200,10 +217,11 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
       return;
     }
     let cancelled = false;
+    const controller = new AbortController();
     setSearching(true);
     const timer = setTimeout(async () => {
       try {
-        const results = await mapProvider.searchPlaces(trimmed);
+        const results = await mapProvider.searchPlaces(trimmed, {language: mapLanguage, signal: controller.signal});
         if (!cancelled) {
           setSuggestions(results.slice(0, 5));
           setFeedback(results.length ? null : {kind: 'info', text: t('location.noResultsFound')});
@@ -220,8 +238,41 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
     return () => {
       cancelled = true;
       clearTimeout(timer);
+      controller.abort();
     };
-  }, [query, showSuggestions, t]);
+  }, [query, showSuggestions, t, mapLanguage]);
+
+  // LANGUAGE FOLLOWS THE APP. A place whose names are not in the current language — the neutral London default (English literals), a
+  // location saved by an older version, a result picked before switching language — gets its names re-asked from the provider in
+  // the current language. Only city / country / address change: the coordinates (and so the camera and the marker) never move, nothing
+  // is persisted until she confirms, and if the provider has no near match or fails she keeps seeing the names she already had.
+  useEffect(() => {
+    if (!IS_MAPS_CONFIGURED || !mapLanguage || !selectedLocation || selectedLocation.language === mapLanguage) {
+      setLocalizing(false);
+      return undefined;
+    }
+    const place = selectedLocation;
+    const controller = new AbortController();
+    let cancelled = false;
+    setLocalizing(true);
+    mapProvider
+      .localizePlace(place, {language: mapLanguage, signal: controller.signal})
+      .then(localized => {
+        if (cancelled || localized === place) {return;}
+        setSelectedLocation(current => (current === place ? localized : current));
+        setQuery(current => (current === `${place.city}, ${place.country}` ? `${localized.city}, ${localized.country}` : current));
+      })
+      .catch(() => {
+        // offline / provider error / aborted: keep the names she already sees
+      })
+      .finally(() => {
+        if (!cancelled) {setLocalizing(false);}
+      });
+    return () => {
+      cancelled = true;
+      controller.abort();
+    };
+  }, [mapLanguage, selectedLocation]);
 
   useEffect(() => () => {
     if (reverseTimer.current) {clearTimeout(reverseTimer.current);}
@@ -427,7 +478,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
                 placeholderTextColor={theme.colors.textMuted}
                 returnKeyType="search"
                 style={styles.input}
-                value={query}
+                value={displayedQuery}
               />
               {searching ? <ActivityIndicator color={theme.colors.primary} size="small" /> : null}
               <Pressable accessibilityLabel={t('location.useMyLocation')} hitSlop={12} onPress={useCurrentLocation}>
@@ -495,11 +546,11 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
             <Image source={LOCATION_PIN} style={styles.locationPin} />
             <View style={styles.locationCopy}>
               <AwaText variant="titleMedium">
-                {resolving ? t('location.resolvingLocation') : selectedLocation ? `${selectedLocation.city}, ${selectedLocation.country}` : t('location.noPositionSelected')}
+                {resolving || localizing ? t('location.resolvingLocation') : selectedText ?? t('location.noPositionSelected')}
               </AwaText>
               <AwaText colorRole="onSurfaceVariant" style={styles.locationHint} variant="bodySmall">{selectedLocation?.timezone ?? t('location.positionSelectedOnMap')}</AwaText>
             </View>
-            {resolving ? <ActivityIndicator color={theme.colors.primary} size="small" /> : selectedLocation ? (
+            {resolving || localizing ? <ActivityIndicator color={theme.colors.primary} size="small" /> : selectedLocation ? (
               <View style={styles.checkCircle}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={16} /></View>
             ) : null}
           </AwaCard>

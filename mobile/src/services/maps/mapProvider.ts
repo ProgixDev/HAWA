@@ -3,14 +3,17 @@ import {
   MAPTILER_PUBLIC_KEY,
 } from '../../config/maps';
 import {getAppLanguage} from '../../state/themePreferences';
-import type {MapPlace, MapProvider} from './types';
+import {mapLanguageFor, type MapLanguage} from './mapLanguage';
+import type {MapPlace, MapProvider, MapRequestOptions} from './types';
 
 export type MapProviderErrorCode =
   | 'NOT_CONFIGURED'
   | 'NETWORK'
   | 'INVALID_KEY'
   | 'HTTP'
-  | 'INVALID_RESPONSE';
+  | 'INVALID_RESPONSE'
+  /** The caller aborted the request (a newer search, a language switch, leaving the screen): not a failure, nothing to show. */
+  | 'CANCELLED';
 
 export class MapProviderError extends Error {
   constructor(
@@ -28,8 +31,8 @@ type GeocodingContext = {
   /** MapTiler returns one `text_<lang>` field per language actually requested
    * (`text_fr`, `text_en`, …) alongside the untranslated `text` — never both
    * at once, since only one `language` is ever sent per request (see
-   * fetchGeocoding below). Read via localizedField() against the CURRENT app
-   * language, never a hardcoded suffix. */
+   * fetchGeocoding below). Read via localizedField() against the language
+   * that was requested, never a hardcoded suffix. */
   [textLangField: `text_${string}`]: string | undefined;
   kind?: string;
   place_designation?: string;
@@ -53,33 +56,40 @@ const configuredKey = () => {
   return MAPTILER_PUBLIC_KEY;
 };
 
+/** The provider language for one request: the explicit option, else the CURRENT app language (read fresh on every call, never
+ * cached, so a mid-session language switch is reflected on the very next search / reverse-geocode). undefined when the provider
+ * does not know that language — the parameter is then omitted instead of earning an HTTP 400. */
+const requestLanguage = (options?: MapRequestOptions): MapLanguage | undefined =>
+  mapLanguageFor(options && 'language' in options && options.language !== undefined ? options.language : getAppLanguage());
+
 /** Reads the field matching whichever language was actually requested
- * (`text_fr`/`text_en`, `place_name_fr`/`place_name_en`) — resolved fresh
- * from `getAppLanguage()` on every call, never cached, so a mid-session
- * language switch is reflected on the very next search/reverse-geocode. */
+ * (`text_fr`/`text_ja`, `place_name_fr`/`place_name_ja`), falling back to the
+ * provider's own untranslated `text` / `place_name` when the place has no name
+ * in that language — a proper name is never translated here. */
 const localizedField = (
   item: GeocodingContext | GeocodingFeature | undefined,
   field: 'text' | 'place_name',
+  language: MapLanguage | undefined,
 ): string | undefined => {
   if (!item) {return undefined;}
   const record = item as unknown as Record<string, string | undefined>;
-  return record[`${field}_${getAppLanguage()}`] ?? record[field];
+  return (language ? record[`${field}_${language}`] : undefined) ?? record[field];
 };
 
-const localizedText = (item?: GeocodingContext) => localizedField(item, 'text');
 const itemKind = (item: GeocodingContext) => item.properties?.kind ?? item.kind;
 const itemDesignation = (item: GeocodingContext) =>
   item.properties?.place_designation ?? item.place_designation;
 const byPrefix = (items: GeocodingContext[], prefix: string) =>
   items.find(item => item.id?.startsWith(prefix));
 
-const cityText = (feature: GeocodingFeature) => {
+const cityText = (feature: GeocodingFeature, language: MapLanguage | undefined) => {
+  const text = (item?: GeocodingContext) => localizedField(item, 'text', language);
   const items = [feature, ...(feature.context ?? [])];
   const virtualPlace = items.find(item =>
     item.id?.startsWith('place.') && itemKind(item) === 'virtual_place',
   );
-  const segmentedVirtualPlace = localizedText(virtualPlace)?.includes('/')
-    ? localizedText(virtualPlace)?.split('/').at(-1)?.trim()
+  const segmentedVirtualPlace = text(virtualPlace)?.includes('/')
+    ? text(virtualPlace)?.split('/').at(-1)?.trim()
     : undefined;
   const namedCity = items.find(item =>
     ['city', 'town', 'village'].includes(itemDesignation(item) ?? ''),
@@ -92,23 +102,23 @@ const cityText = (feature: GeocodingFeature) => {
     byPrefix(items, 'region.') ??
     byPrefix(items, 'municipality.');
   return segmentedVirtualPlace ??
-    localizedText(realPlace ?? namedCity ?? administrativeFallback ?? virtualPlace);
+    text(realPlace ?? namedCity ?? administrativeFallback ?? virtualPlace);
 };
 
-const countryText = (feature: GeocodingFeature) => {
+const countryText = (feature: GeocodingFeature, language: MapLanguage | undefined) => {
   const items = [feature, ...(feature.context ?? [])];
-  return localizedText(byPrefix(items, 'country.'));
+  return localizedField(byPrefix(items, 'country.'), 'text', language);
 };
 
-const toPlace = (feature: GeocodingFeature): MapPlace | null => {
+const toPlace = (feature: GeocodingFeature, language: MapLanguage | undefined): MapPlace | null => {
   const coordinates = feature.center ?? feature.geometry?.coordinates;
   const [longitude, latitude] = coordinates ?? [];
   if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) {
     return null;
   }
 
-  const city = cityText(feature);
-  const country = countryText(feature);
+  const city = cityText(feature, language);
+  const country = countryText(feature, language);
   if (!city || !country) {
     return null;
   }
@@ -119,7 +129,8 @@ const toPlace = (feature: GeocodingFeature): MapPlace | null => {
     country,
     latitude: latitude as number,
     longitude: longitude as number,
-    displayName: localizedField(feature, 'place_name'),
+    displayName: localizedField(feature, 'place_name', language),
+    ...(language ? {language} : {}),
   };
 };
 
@@ -152,25 +163,40 @@ const dedupePlaces = (places: MapPlace[]): MapPlace[] => {
   });
 };
 
+/** A re-localized place must still be the place she chose: results farther than this from its coordinates are ignored. */
+const LOCALIZE_RADIUS_KM = 50;
+
+const distanceKm = (a: {latitude: number; longitude: number}, b: {latitude: number; longitude: number}): number => {
+  const toRadians = (degrees: number) => (degrees * Math.PI) / 180;
+  const dLat = toRadians(b.latitude - a.latitude);
+  const dLon = toRadians(b.longitude - a.longitude);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(toRadians(a.latitude)) * Math.cos(toRadians(b.latitude)) * Math.sin(dLon / 2) ** 2;
+  return 2 * 6371 * Math.asin(Math.min(1, Math.sqrt(h)));
+};
+
 const fetchGeocoding = async (
   path: string,
   mode: 'forward' | 'reverse',
+  language: MapLanguage | undefined,
+  signal?: AbortSignal,
+  extraQuery = '',
 ): Promise<GeocodingResponse> => {
   const forwardLimit = mode === 'forward' ? '&limit=5' : '';
-  // Resolved fresh on every call (never a module-level constant) so a
-  // language switch mid-session is reflected on the very next request,
-  // without requiring an app restart or re-import of this module. This
-  // affects only the LANGUAGE/presentation of results — the geocoder query
+  // The language is resolved fresh on every call (never a module-level
+  // constant) so a language switch mid-session is reflected on the very next
+  // request, without requiring an app restart or re-import of this module.
+  // It affects only the LANGUAGE/presentation of results — the geocoder query
   // itself stays global, with no country/region restriction added here.
   const url =
     `${MAPTILER_GEOCODING_URL}/${path}.json` +
-    `?key=${encodeURIComponent(configuredKey())}&language=${getAppLanguage()}${forwardLimit}`;
+    `?key=${encodeURIComponent(configuredKey())}${language ? `&language=${language}` : ''}${forwardLimit}${extraQuery}`;
 
   let response: Response;
   try {
-    response = await fetch(url);
+    response = await fetch(url, signal ? {signal} : undefined);
   } catch {
-    throw new MapProviderError('NETWORK');
+    // an aborted request is the caller's own decision, not a network failure
+    throw new MapProviderError(signal?.aborted ? 'CANCELLED' : 'NETWORK');
   }
 
   if (__DEV__ && mode === 'reverse') {
@@ -189,16 +215,17 @@ const fetchGeocoding = async (
   try {
     return (await response.json()) as GeocodingResponse;
   } catch {
-    throw new MapProviderError('INVALID_RESPONSE', response.status);
+    throw new MapProviderError(signal?.aborted ? 'CANCELLED' : 'INVALID_RESPONSE', response.status);
   }
 };
 
 class MapTilerProvider implements MapProvider {
-  async searchPlaces(query: string): Promise<MapPlace[]> {
+  async searchPlaces(query: string, options?: MapRequestOptions): Promise<MapPlace[]> {
+    const language = requestLanguage(options);
     const encodedQuery = encodeURIComponent(query.trim());
-    const data = await fetchGeocoding(encodedQuery, 'forward');
+    const data = await fetchGeocoding(encodedQuery, 'forward', language, options?.signal);
     const places = (data.features ?? [])
-      .map(toPlace)
+      .map(feature => toPlace(feature, language))
       .filter((place): place is MapPlace => place !== null);
     return dedupePlaces(places);
   }
@@ -206,16 +233,57 @@ class MapTilerProvider implements MapProvider {
   async reverseGeocode(
     latitude: number,
     longitude: number,
+    options?: MapRequestOptions,
   ): Promise<MapPlace | null> {
     if (__DEV__) {
       console.log('Reverse geocoding coordinates:', {latitude, longitude});
     }
+    const language = requestLanguage(options);
     const coordinatePath = `${longitude},${latitude}`;
-    const data = await fetchGeocoding(coordinatePath, 'reverse');
+    const data = await fetchGeocoding(coordinatePath, 'reverse', language, options?.signal);
     if (__DEV__) {
       console.log('Reverse geocoding feature count:', data.features?.length ?? 0);
     }
-    return (data.features ?? []).map(toPlace).find(place => place !== null) ?? null;
+    return (data.features ?? []).map(feature => toPlace(feature, language)).find(place => place !== null) ?? null;
+  }
+
+  /**
+   * Re-asks the provider for the NAMES of a place she already has (the neutral London default, a location saved by an older
+   * version, a result she picked before switching language), in the requested language. The place's own name is searched with its
+   * coordinates as the proximity bias: the provider matches names in every language, so "London", "Londres" or "ロンドン" all find the
+   * same feature. The result must be within LOCALIZE_RADIUS_KM of the place (the same feature id is preferred, else the provider's
+   * best-ranked nearby feature). Only the names and the language marker change: latitude, longitude, timezone and id stay exactly as
+   * they were, so the map never moves. No near match, or a provider error, leaves the place untouched (callers keep showing it).
+   */
+  async localizePlace(place: MapPlace, options?: MapRequestOptions): Promise<MapPlace> {
+    const language = requestLanguage(options);
+    const query = place.city.trim();
+    if (!language || !query || place.language === language) {
+      return place;
+    }
+    const data = await fetchGeocoding(
+      encodeURIComponent(query),
+      'forward',
+      language,
+      options?.signal,
+      `&proximity=${place.longitude},${place.latitude}`,
+    );
+    const nearby = (data.features ?? [])
+      .map(feature => toPlace(feature, language))
+      .filter((candidate): candidate is MapPlace => candidate !== null)
+      .filter(candidate => distanceKm(candidate, place) <= LOCALIZE_RADIUS_KM);
+    const match = (place.id ? nearby.find(candidate => candidate.id === place.id) : undefined) ?? nearby[0];
+    if (!match) {
+      return place;
+    }
+    return {
+      ...place,
+      id: match.id ?? place.id,
+      city: match.city,
+      country: match.country,
+      displayName: match.displayName,
+      language,
+    };
   }
 }
 

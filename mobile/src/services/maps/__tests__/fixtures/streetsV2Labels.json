@@ -1,0 +1,548 @@
+{
+ "_note": "Labels of MapTiler streets-v2 (fetched 2026-10-20): only the layers that carry a text-field, trimmed to id / source-layer / layout.text-field / layout.text-font. API keys are not part of it.",
+ "version": 8,
+ "name": "Streets",
+ "sources": {},
+ "layers": [
+  {
+   "id": "River labels",
+   "type": "symbol",
+   "source-layer": "waterway",
+   "layout": {
+    "text-field": [
+     "coalesce",
+     [
+      "get",
+      "name:en"
+     ],
+     [
+      "get",
+      "name"
+     ]
+    ],
+    "text-font": [
+     "Roboto Italic",
+     "Noto Sans Italic"
+    ]
+   }
+  },
+  {
+   "id": "Ocean labels",
+   "type": "symbol",
+   "source-layer": "water_name",
+   "layout": {
+    "text-field": "{name:en}",
+    "text-font": [
+     "Roboto Italic",
+     "Noto Sans Italic"
+    ]
+   }
+  },
+  {
+   "id": "Lake labels",
+   "type": "symbol",
+   "source-layer": "water_name",
+   "layout": {
+    "text-field": [
+     "coalesce",
+     [
+      "get",
+      "name:en"
+     ],
+     [
+      "get",
+      "name"
+     ]
+    ],
+    "text-font": [
+     "Roboto Italic",
+     "Noto Sans Italic"
+    ]
+   }
+  },
+  {
+   "id": "Housenumber",
+   "type": "symbol",
+   "source-layer": "housenumber",
+   "layout": {
+    "text-field": "{housenumber}",
+    "text-font": [
+     "Roboto Regular",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Gondola",
+   "type": "symbol",
+   "source-layer": "transportation_name",
+   "layout": {
+    "text-field": [
+     "coalesce",
+     [
+      "get",
+      "name:en"
+     ],
+     [
+      "get",
+      "name"
+     ]
+    ],
+    "text-font": [
+     "Roboto Italic",
+     "Noto Sans Italic"
+    ]
+   }
+  },
+  {
+   "id": "Ferry",
+   "type": "symbol",
+   "source-layer": "transportation_name",
+   "layout": {
+    "text-field": [
+     "coalesce",
+     [
+      "get",
+      "name:en"
+     ],
+     [
+      "get",
+      "name"
+     ]
+    ],
+    "text-font": [
+     "Roboto Italic",
+     "Noto Sans Italic"
+    ]
+   }
+  },
+  {
+   "id": "Road labels",
+   "type": "symbol",
+   "source-layer": "transportation_name",
+   "layout": {
+    "text-field": [
+     "coalesce",
+     [
+      "get",
+      "name:en"
+     ],
+     [
+      "get",
+      "name"
+     ]
+    ],
+    "text-font": [
+     "Roboto Regular",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Highway junction",
+   "type": "symbol",
+   "source-layer": "transportation_name",
+   "layout": {
+    "text-field": "{ref}",
+    "text-font": [
+     "Roboto Regular",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Highway shield",
+   "type": "symbol",
+   "source-layer": "transportation_name",
+   "layout": {
+    "text-field": "{ref}",
+    "text-font": [
+     "match",
+     [
+      "get",
+      "class"
+     ],
+     "motorway",
+     [
+      "literal",
+      [
+       "Roboto Bold",
+       "Noto Sans Bold"
+      ]
+     ],
+     [
+      "literal",
+      [
+       "Roboto Regular"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Highway shield (US)",
+   "type": "symbol",
+   "source-layer": "transportation_name",
+   "layout": {
+    "text-field": "{ref}",
+    "text-font": [
+     "match",
+     [
+      "get",
+      "class"
+     ],
+     "motorway",
+     [
+      "literal",
+      [
+       "Roboto Bold",
+       "Noto Sans Bold"
+      ]
+     ],
+     [
+      "literal",
+      [
+       "Roboto Regular",
+       "Noto Sans Regular"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Highway shield interstate top (US)",
+   "type": "symbol",
+   "source-layer": "transportation_name",
+   "layout": {
+    "text-field": "{ref}",
+    "text-font": [
+     "match",
+     [
+      "get",
+      "class"
+     ],
+     "motorway",
+     [
+      "literal",
+      [
+       "Roboto Bold",
+       "Noto Sans Bold"
+      ]
+     ],
+     [
+      "literal",
+      [
+       "Roboto Regular",
+       "Noto Sans Regular"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Highway shield interstate (US)",
+   "type": "symbol",
+   "source-layer": "transportation_name",
+   "layout": {
+    "text-field": "{ref}",
+    "text-font": [
+     "match",
+     [
+      "get",
+      "class"
+     ],
+     "motorway",
+     [
+      "literal",
+      [
+       "Roboto Bold",
+       "Noto Sans Bold"
+      ]
+     ],
+     [
+      "literal",
+      [
+       "Roboto Regular",
+       "Noto Sans Regular"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Public",
+   "type": "symbol",
+   "source-layer": "poi",
+   "layout": {
+    "text-field": "{name}",
+    "text-font": [
+     "Roboto Regular",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Sport",
+   "type": "symbol",
+   "source-layer": "poi",
+   "layout": {
+    "text-field": "{name}",
+    "text-font": [
+     "Roboto Regular",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Education",
+   "type": "symbol",
+   "source-layer": "poi",
+   "layout": {
+    "text-field": "{name}",
+    "text-font": [
+     "Roboto Regular",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Tourism",
+   "type": "symbol",
+   "source-layer": "poi",
+   "layout": {
+    "text-field": "{name}",
+    "text-font": [
+     "Roboto Regular",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Culture",
+   "type": "symbol",
+   "source-layer": "poi",
+   "layout": {
+    "text-field": "{name}",
+    "text-font": [
+     "Roboto Regular",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Shopping",
+   "type": "symbol",
+   "source-layer": "poi",
+   "layout": {
+    "text-field": "{name}",
+    "text-font": [
+     "Roboto Regular",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Food",
+   "type": "symbol",
+   "source-layer": "poi",
+   "layout": {
+    "text-field": "{name}",
+    "text-font": [
+     "Roboto Regular",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Transport",
+   "type": "symbol",
+   "source-layer": "poi",
+   "layout": {
+    "text-field": "{name}",
+    "text-font": [
+     "Roboto Regular",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Park",
+   "type": "symbol",
+   "source-layer": "poi",
+   "layout": {
+    "text-field": "{name}",
+    "text-font": [
+     "Roboto Regular",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Healthcare",
+   "type": "symbol",
+   "source-layer": "poi",
+   "layout": {
+    "text-field": "{name}",
+    "text-font": [
+     "Roboto Regular",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Place labels",
+   "type": "symbol",
+   "source-layer": "place",
+   "layout": {
+    "text-field": "{name}",
+    "text-font": [
+     "Roboto Regular",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Station",
+   "type": "symbol",
+   "source-layer": "poi",
+   "layout": {
+    "text-field": "{name}",
+    "text-font": [
+     "Roboto Medium",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Airport gate",
+   "type": "symbol",
+   "source-layer": "aeroway",
+   "layout": {
+    "text-field": "{ref}",
+    "text-font": [
+     "Roboto Medium",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Airport",
+   "type": "symbol",
+   "source-layer": "aerodrome_label",
+   "layout": {
+    "text-field": {
+     "stops": [
+      [
+       8,
+       " "
+      ],
+      [
+       9,
+       "{iata}"
+      ],
+      [
+       12,
+       "{name:en}"
+      ]
+     ]
+    },
+    "text-font": [
+     "Roboto Medium",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "State labels",
+   "type": "symbol",
+   "source-layer": "place",
+   "layout": {
+    "text-field": [
+     "coalesce",
+     [
+      "get",
+      "name:en"
+     ],
+     [
+      "get",
+      "name"
+     ]
+    ],
+    "text-font": [
+     "Roboto Medium",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Town labels",
+   "type": "symbol",
+   "source-layer": "place",
+   "layout": {
+    "text-field": [
+     "coalesce",
+     [
+      "get",
+      "name:en"
+     ],
+     [
+      "get",
+      "name"
+     ]
+    ],
+    "text-font": [
+     "Roboto Regular",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "City labels",
+   "type": "symbol",
+   "source-layer": "place",
+   "layout": {
+    "text-field": "{name:en}",
+    "text-font": [
+     "Roboto Medium",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Capital city labels",
+   "type": "symbol",
+   "source-layer": "place",
+   "layout": {
+    "text-field": "{name:en}",
+    "text-font": [
+     "Roboto Medium",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Country labels",
+   "type": "symbol",
+   "source-layer": "place",
+   "layout": {
+    "text-field": "{name:en}",
+    "text-font": [
+     "Roboto Medium",
+     "Noto Sans Regular"
+    ]
+   }
+  },
+  {
+   "id": "Continent labels",
+   "type": "symbol",
+   "source-layer": "place",
+   "layout": {
+    "text-field": "{name:en}",
+    "text-font": [
+     "Roboto Medium",
+     "Noto Sans Regular"
+    ]
+   }
+  }
+ ]
+}

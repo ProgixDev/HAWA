@@ -23,6 +23,10 @@ import i18n from '../../i18n';
 // selected/saved location (TEST 12) must never be affected by a language
 // switch — a language is a display preference, never a reason to mutate or
 // re-derive location data.
+//
+// UPDATE (map localization): the PERSISTED location is still never mutated by a language switch (TEST 12), but what the screen DISPLAYS
+// now follows the active language — the provider is asked for the names of the selected place in the current language, with the same
+// coordinates (LocationScreenMapLanguage.test.tsx). The provider is mocked here as "no answer", which keeps the names as they were.
 
 jest.mock('../../services/countryDetection', () => ({
   detectCountryCode: jest.fn(),
@@ -37,6 +41,8 @@ jest.mock('../../services/maps/mapProvider', () => ({
   mapProvider: {
     searchPlaces: jest.fn(async () => []),
     reverseGeocode: jest.fn(async () => null),
+    // names in the active language: this suite exercises the screen without a provider answer, so the place is returned as it was
+    localizePlace: jest.fn(async (place: unknown) => place),
   },
 }));
 
