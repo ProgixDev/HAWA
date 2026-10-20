@@ -192,7 +192,13 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
                   ? t('appearance.language.chineseName')
                   : getAppLanguage() === 'id'
                     ? t('appearance.language.indonesianName')
-                    : t('appearance.language.frenchName');
+                    : getAppLanguage() === 'hi'
+                      ? t('appearance.language.hindiName')
+                      : getAppLanguage() === 'sq'
+                        ? t('appearance.language.albanianName')
+                        : getAppLanguage() === 'ja'
+                          ? t('appearance.language.japaneseName')
+                          : t('appearance.language.frenchName');
 
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.safe}>

@@ -53,6 +53,9 @@ const WEEK_DAYS_RU = ['П', 'В', 'С', 'Ч', 'П', 'С', 'В'];
 const WEEK_DAYS_DE = ['M', 'D', 'M', 'D', 'F', 'S', 'S'];
 const WEEK_DAYS_ZH = ['一', '二', '三', '四', '五', '六', '日'];
 const WEEK_DAYS_ID = ['S', 'S', 'R', 'K', 'J', 'S', 'M'];
+const WEEK_DAYS_HI = ['सो', 'मं', 'बु', 'गु', 'शु', 'श', 'र'];
+const WEEK_DAYS_SQ = ['H', 'M', 'M', 'E', 'P', 'Sh', 'D'];
+const WEEK_DAYS_JA = ['月', '火', '水', '木', '金', '土', '日'];
 const localizedSingleLetterWeekDays = (): string[] => {
   const language = getAppLanguage();
   if (language === 'en') {return WEEK_DAYS_EN;}
@@ -63,6 +66,9 @@ const localizedSingleLetterWeekDays = (): string[] => {
   if (language === 'de') {return WEEK_DAYS_DE;}
   if (language === 'zh') {return WEEK_DAYS_ZH;}
   if (language === 'id') {return WEEK_DAYS_ID;}
+  if (language === 'hi') {return WEEK_DAYS_HI;}
+  if (language === 'sq') {return WEEK_DAYS_SQ;}
+  if (language === 'ja') {return WEEK_DAYS_JA;}
   return WEEK_DAYS_FR;
 };
 const PERIOD_DURATIONS = Array.from({length: 9}, (_, index) => index + 2);

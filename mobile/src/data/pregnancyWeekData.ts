@@ -112,6 +112,9 @@ type PregnancyWeekEntry = {
     de: PregnancyWeekEditorialContent;
     zh: PregnancyWeekEditorialContent;
     id: PregnancyWeekEditorialContent;
+    hi: PregnancyWeekEditorialContent;
+    sq: PregnancyWeekEditorialContent;
+    ja: PregnancyWeekEditorialContent;
   };
 };
 
@@ -218,6 +221,36 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Wajar jika kamu belum merasakan perubahan apa pun pada tahap ini.',
         ],
       },
+      hi: {
+        babyDescription: 'चिकित्सा परंपरा के अनुसार गर्भावस्था की गिनती आपके आख़िरी पीरियड के पहले दिन से की जाती है। इस चरण में आम तौर पर निषेचन अभी नहीं हुआ होता।',
+        bodyChanges: [
+          'यह समय आम तौर पर गर्भधारण से पहले का होता है; गर्भावस्था से जुड़ा कोई शारीरिक बदलाव अभी प्रायः नहीं होता।',
+        ],
+        toKnow: [
+          'आख़िरी पीरियड से गर्भावस्था की गिनती करने से डिलीवरी की संभावित तारीख़ का अनुमान लगाने का एक मानक तरीक़ा मिलता है, भले ही गर्भधारण असल में कुछ समय बाद होता है।',
+          'इस चरण में कोई बदलाव महसूस न होना आम बात है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Shtatzënia llogaritet nga dita e parë e menstruacioneve të fundit, sipas konventës mjekësore. Në këtë fazë, pjellimi zakonisht nuk ka ndodhur ende.',
+        bodyChanges: [
+          'Kjo periudhë zakonisht vjen para konceptimit; zakonisht nuk ka ende ndonjë ndryshim fizik të lidhur me shtatzëninë.',
+        ],
+        toKnow: [
+          'Llogaritja e shtatzënisë nga menstruacionet e fundit jep një mënyrë të standardizuar për të vlerësuar datën e lindjes, edhe pse konceptimi ndodh në fakt pak më vonë.',
+          'Është e zakonshme të mos vërehet asnjë ndryshim në këtë fazë.',
+        ],
+      },
+      ja: {
+        babyDescription: '妊娠週数は、医学的な慣例により、最後の生理の初日から数えます。この時期は、通常まだ受精は起きていません。',
+        bodyChanges: [
+          'この時期は通常、妊娠成立の前にあたり、妊娠による体の変化はまだほとんどありません。',
+        ],
+        toKnow: [
+          '最後の生理から妊娠週数を数えることで、実際の妊娠成立はもう少し後でも、出産予定日を一定の基準で見積もることができます。',
+          'この時期には特に変化に気づかないのが一般的です。',
+        ],
+      },
     },
   },
   {
@@ -314,6 +347,36 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Waktu ovulasi yang tepat berbeda dari satu orang ke orang lain, sehingga masa ini tetap berupa perkiraan.',
         ],
       },
+      hi: {
+        babyDescription: 'ओव्यूलेशन (अंडोत्सर्ग) और संभावित निषेचन आम तौर पर इसी समय के आसपास होते हैं, जो हर महिला के चक्र की लंबाई पर निर्भर करता है।',
+        bodyChanges: [
+          'ओव्यूलेशन का समय चक्र की लंबाई के अनुसार अलग-अलग हो सकता है, जिससे गर्भधारण की संभावित तारीख़ पर असर पड़ता है।',
+          'इस चरण में आम तौर पर गर्भावस्था से जुड़ा कोई ख़ास शारीरिक बदलाव अभी नहीं होता।',
+        ],
+        toKnow: [
+          'ओव्यूलेशन का सटीक समय हर महिला में अलग होता है, इसलिए यह अवधि केवल एक अनुमान ही रहती है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Ovulacioni dhe pjellimi i mundshëm zakonisht ndodhin rreth kësaj kohe, në varësi të gjatësisë së ciklit të secilës grua.',
+        bodyChanges: [
+          'Koha e ovulacionit mund të ndryshojë sipas gjatësisë së ciklit, gjë që ndikon në datën e mundshme të konceptimit.',
+          'Zakonisht nuk ka ende ndonjë ndryshim fizik specifik të shtatzënisë në këtë fazë.',
+        ],
+        toKnow: [
+          'Koha e saktë e ovulacionit ndryshon nga një grua te tjetra, prandaj kjo periudhë mbetet një vlerësim.',
+        ],
+      },
+      ja: {
+        babyDescription: '排卵と、場合によっては受精が、おおよそこの頃に起こります。時期は人それぞれの周期の長さによって異なります。',
+        bodyChanges: [
+          '排卵の時期は周期の長さによって変わり、実際に妊娠が成立しうる日にも影響します。',
+          'この時期は通常、妊娠特有の体の変化はまだありません。',
+        ],
+        toKnow: [
+          '排卵の正確な時期には個人差があるため、この期間はあくまで目安です。',
+        ],
+      },
     },
   },
   {
@@ -399,6 +462,33 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Sebagian besar tes kehamilan urine baru dapat diandalkan mulai sekitar minggu berikutnya, setelah implantasi dimulai.',
+        ],
+      },
+      hi: {
+        babyDescription: 'अगर निषेचन हो चुका है, तो अंडा विभाजित होना शुरू करता है और गर्भाशय की ओर बढ़ता है, लेकिन प्रेगनेंसी टेस्ट में अभी कुछ पता नहीं चलता।',
+        bodyChanges: [
+          'यह सप्ताह अभी भी गर्भधारण के आसपास की चिकित्सा गणना की अवधि में आता है; इस चरण में आम तौर पर कोई शारीरिक संकेत महसूस नहीं होता।',
+        ],
+        toKnow: [
+          'यूरिन से होने वाले ज़्यादातर प्रेगनेंसी टेस्ट अगले सप्ताह के आसपास, इम्प्लांटेशन शुरू होने के बाद भरोसेमंद हो जाते हैं।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Nëse pjellimi ka ndodhur, veza fillon të ndahet dhe të lëvizë drejt mitrës, por testi i shtatzënisë nuk mund të zbulojë ende asgjë.',
+        bodyChanges: [
+          'Kjo javë bën ende pjesë në periudhën mjekësore të llogaritjes që rrethon konceptimin; zakonisht nuk vërehet asnjë shenjë fizike në këtë fazë.',
+        ],
+        toKnow: [
+          'Shumica e testeve të shtatzënisë me urinë bëhen të besueshme nga java e ardhshme, kur ngjitja e embrionit ka filluar.',
+        ],
+      },
+      ja: {
+        babyDescription: '受精が起きていれば、受精卵は分裂しながら子宮へ向かって進み始めますが、妊娠検査薬ではまだ検出できません。',
+        bodyChanges: [
+          'この週も、妊娠の成立前後にあたる医学上の数え方の期間に含まれます。通常、この時期に体の兆候はほとんど感じられません。',
+        ],
+        toKnow: [
+          '尿による妊娠検査薬の多くは、着床が始まる翌週頃から信頼できる結果が出るようになります。',
         ],
       },
     },
@@ -521,6 +611,42 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Inilah waktu yang biasanya sudah memungkinkan tes kehamilan memberikan hasil positif.',
         ],
       },
+      hi: {
+        babyDescription: 'भ्रूण अभी-अभी गर्भाशय की दीवार में स्थापित (इम्प्लांट) हुआ है। उल्ब थैली (एम्नियोटिक सैक) और योक सैक बन रहे हैं, जो शुरुआती कुछ दिनों में उसे पोषण देंगे।',
+        length: 'लगभग 2 mm',
+        comparison: 'खसखस का दाना',
+        bodyChanges: [
+          'इस बिल्कुल शुरुआती चरण में कुछ महिलाओं को अभी कोई संकेत महसूस नहीं होता।',
+          'यूरिन प्रेगनेंसी टेस्ट से आम तौर पर इसी सप्ताह से गर्भावस्था का पता चल सकता है।',
+        ],
+        toKnow: [
+          'यह वह सामान्य समय है जब प्रेगनेंसी टेस्ट पॉज़िटिव आना शुरू हो सकता है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Embrioni sapo është ngjitur në murin e mitrës. Po formohen qesja amniotike dhe qesja e verdhëzës, që do ta ushqejë atë në ditët e para.',
+        length: 'Rreth 2 mm',
+        comparison: 'Farë lulekuqeje',
+        bodyChanges: [
+          'Disa gra nuk vërejnë ende asnjë shenjë në këtë fazë shumë të hershme.',
+          'Një test shtatzënie me urinë zakonisht mund ta zbulojë shtatzëninë nga kjo javë e tutje.',
+        ],
+        toKnow: [
+          'Kjo është koha e zakonshme kur një test shtatzënie mund të fillojë të japë rezultat pozitiv.',
+        ],
+      },
+      ja: {
+        babyDescription: '胚が子宮の壁に着床したところです。羊膜腔と、ごく初期の数日間に胚へ栄養を届ける卵黄嚢ができ始めています。',
+        length: '約2mm',
+        comparison: 'ケシの実',
+        bodyChanges: [
+          'ごく初期のこの時期は、まだ何も兆候に気づかない人もいます。',
+          '尿による妊娠検査薬では、通常この週から妊娠を検出できます。',
+        ],
+        toKnow: [
+          '妊娠検査薬で陽性の結果が出始めるのは、一般的にこの時期です。',
+        ],
+      },
     },
   },
   {
@@ -622,6 +748,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Inilah waktu yang dianjurkan untuk membuat janji dengan tenaga kesehatan guna memulai pemeriksaan kehamilan.',
+        ],
+      },
+      hi: {
+        babyDescription: 'तंत्रिका तंत्र बनना शुरू होता है, और नन्हा-सा दिल पहली बार धड़कने ही वाला है।',
+        length: 'लगभग 2 mm',
+        comparison: 'तिल का दाना',
+        bodyChanges: [
+          'असामान्य थकान, हल्की मितली या स्तनों में कोमलता महसूस हो सकती है।',
+        ],
+        toKnow: [
+          'गर्भावस्था की देखभाल शुरू करने के लिए स्वास्थ्य विशेषज्ञ से अपॉइंटमेंट लेने का यह अनुशंसित समय है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Sistemi nervor fillon të formohet dhe zemra, ende shumë e vogël, është gati të rrah për herë të parë.',
+        length: 'Rreth 2 mm',
+        comparison: 'Farë susami',
+        bodyChanges: [
+          'Mund të shfaqen lodhje e pazakontë, të përziera të lehta ose ndjeshmëri në gjoks.',
+        ],
+        toKnow: [
+          'Kjo është koha e rekomanduar për të caktuar një takim me një profesionist të shëndetësisë për të nisur kujdesin gjatë shtatzënisë.',
+        ],
+      },
+      ja: {
+        babyDescription: '神経系ができ始め、まだとても小さな心臓が、初めて拍動しようとしています。',
+        length: '約2mm',
+        comparison: 'ゴマ粒',
+        bodyChanges: [
+          'いつもと違う疲れ、軽い吐き気、胸の張りなどが現れることがあります。',
+        ],
+        toKnow: [
+          '妊婦健診を始めるために、医療従事者の予約を取ることをおすすめする時期です。',
         ],
       },
     },
@@ -727,6 +886,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Aktivitas jantung terkadang sudah dapat terlihat sejak minggu ini pada USG dini.',
         ],
       },
+      hi: {
+        babyDescription: 'बाँहों और पैरों की कलियाँ दिखने लगती हैं, साथ ही उन जगहों पर छोटे गड्ढे बनते हैं जहाँ कान बनेंगे। दिल की धड़कन कभी-कभी अल्ट्रासाउंड में पहले से दिख सकती है।',
+        length: 'लगभग 6 mm',
+        comparison: 'मटर का दाना',
+        bodyChanges: [
+          'इस दौरान कुछ महिलाओं में मितली और थकान बढ़ सकती है।',
+        ],
+        toKnow: [
+          'शुरुआती अल्ट्रासाउंड में दिल की गतिविधि कभी-कभी इसी सप्ताह से दिखाई दे सकती है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Shfaqen filizat e krahëve dhe të këmbëve, së bashku me gropëza të vogla ku do të formohen veshët. Zemra ndonjëherë mund të zbulohet tashmë në ekografi.',
+        length: 'Rreth 6 mm',
+        comparison: 'Bizele',
+        bodyChanges: [
+          'Të përzierat dhe lodhja mund të shtohen për disa gra gjatë kësaj periudhe.',
+        ],
+        toKnow: [
+          'Aktiviteti i zemrës ndonjëherë mund të duket që nga kjo javë në një ekografi të hershme.',
+        ],
+      },
+      ja: {
+        babyDescription: '腕や脚のもとになる芽が現れ、耳ができる部分には小さなくぼみができます。心臓の拍動が、すでに超音波検査で確認できることもあります。',
+        length: '約6mm',
+        comparison: 'エンドウ豆',
+        bodyChanges: [
+          'この時期は、吐き気や疲れが強くなる人もいます。',
+        ],
+        toKnow: [
+          '早期の超音波検査では、この週から心拍が確認できることがあります。',
+        ],
+      },
     },
   },
   {
@@ -828,6 +1020,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Tabung saraf, yang akan menjadi otak dan sumsum tulang belakang, terus menutup selama minggu-minggu ini.',
+        ],
+      },
+      hi: {
+        babyDescription: 'दिमाग़ शरीर के बाक़ी हिस्सों से तेज़ी से विकसित होता है, जिससे माथा उभरा हुआ दिखता है। बाँहों के सिरों पर हाथों की छोटी कलियाँ दिखने लगती हैं।',
+        length: 'लगभग 10 mm',
+        comparison: 'अंगूर',
+        bodyChanges: [
+          'खाने की कुछ ख़ास चीज़ों की इच्छा, या इसके उलट कुछ चीज़ों से अरुचि होना संभव है।',
+        ],
+        toKnow: [
+          'न्यूरल ट्यूब, जिससे दिमाग़ और रीढ़ की हड्डी की नस (स्पाइनल कॉर्ड) बनती है, इन सप्ताहों में बंद होती रहती है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Truri zhvillohet më shpejt se pjesa tjetër e trupit, duke dhënë një ballë të dukshme. Në skajet e krahëve fillojnë të shfaqen filizat e vegjël të duarve.',
+        length: 'Rreth 10 mm',
+        comparison: 'Rrush',
+        bodyChanges: [
+          'Janë të mundshme dëshira të veçanta për ushqime, ose përkundrazi ndjesi neverie ndaj disa ushqimeve.',
+        ],
+        toKnow: [
+          'Tubi nervor, nga i cili formohen truri dhe palca kurrizore, vazhdon të mbyllet gjatë këtyre javëve.',
+        ],
+      },
+      ja: {
+        babyDescription: '脳は体のほかの部分より速く発達するため、額が目立つ姿になります。腕の先には、手のもとになる小さな芽が現れ始めます。',
+        length: '約10mm',
+        comparison: 'ブドウ',
+        bodyChanges: [
+          '特定の食べ物が無性に食べたくなったり、逆に苦手になったりすることがあります。',
+        ],
+        toKnow: [
+          '脳と脊髄のもとになる神経管は、この数週間のあいだに閉じ続けていきます。',
         ],
       },
     },
@@ -935,6 +1160,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'USG pertama untuk menentukan usia kehamilan umumnya dijadwalkan antara minggu ke-8 dan minggu ke-14.',
         ],
       },
+      hi: {
+        babyDescription: 'अब भ्रूण को फ़ीटस (गर्भस्थ शिशु) कहा जाता है। बाँहें लंबी हो रही हैं, सिर थोड़ा सीधा होने लगता है और प्लेसेंटा बनता रहता है।',
+        length: 'लगभग 16 mm',
+        comparison: 'रसभरी',
+        bodyChanges: [
+          'इस चरण में गंध के प्रति संवेदनशीलता और मॉर्निंग सिकनेस आम हैं, हालाँकि सभी को नहीं होतीं।',
+        ],
+        toKnow: [
+          'पहला डेटिंग अल्ट्रासाउंड आम तौर पर 8वें और 14वें सप्ताह के बीच करवाया जाता है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Embrioni tani quhet fetus. Krahët po zgjaten, koka fillon të drejtohet pak dhe placenta vazhdon të formohet.',
+        length: 'Rreth 16 mm',
+        comparison: 'Mjedër',
+        bodyChanges: [
+          'Ndjeshmëria ndaj erërave dhe të përzierat e mëngjesit janë të zakonshme në këtë fazë, megjithëse jo për të gjitha gratë.',
+        ],
+        toKnow: [
+          'Ekografia e parë e datimit zakonisht planifikohet midis javës 8 dhe javës 14.',
+        ],
+      },
+      ja: {
+        babyDescription: '胚はここから「胎児」と呼ばれるようになります。腕が伸び、頭が少しずつ起きてきて、胎盤もできあがっていきます。',
+        length: '約16mm',
+        comparison: 'ラズベリー',
+        bodyChanges: [
+          'においに敏感になったり、つわりが出たりすることがよくありますが、全員にあるわけではありません。',
+        ],
+        toKnow: [
+          '最初の妊娠週数を確認する超音波検査は、通常、妊娠8週から14週のあいだに予定されます。',
+        ],
+      },
     },
   },
   {
@@ -1036,6 +1294,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Organ kelamin baru mulai berdiferensiasi, tetapi jenis kelamin umumnya baru dapat diketahui jauh kemudian, saat USG morfologi.',
+        ],
+      },
+      hi: {
+        babyDescription: 'चेहरे की बनावट और साफ़ होती है, पलकें आँखों की रक्षा करती हैं, और हाथ-पैर भविष्य की उँगलियों के साथ आकार ले रहे हैं।',
+        length: 'लगभग 22 mm',
+        comparison: 'स्ट्रॉबेरी',
+        bodyChanges: [
+          'तेज़ थकान और मितली अब भी हो सकती है; पहली तिमाही के अंत तक ये अक्सर कम होने लगती हैं।',
+        ],
+        toKnow: [
+          'जननांग अभी विभेदित होना शुरू ही हुए हैं, लेकिन शिशु का लिंग आम तौर पर बहुत बाद में, एनाटॉमी अल्ट्रासाउंड में ही पहचाना जा सकता है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Tiparet e fytyrës bëhen më të përcaktuara, qepallat mbrojnë sytë dhe duart e këmbët po marrin formë me gishtat e ardhshëm të duarve dhe të këmbëve.',
+        length: 'Rreth 22 mm',
+        comparison: 'Luleshtrydhe',
+        bodyChanges: [
+          'Lodhja e theksuar dhe të përzierat mund të jenë ende të pranishme; shpesh priren të zbuten nga fundi i tremujorit të parë.',
+        ],
+        toKnow: [
+          'Organet gjenitale sapo kanë filluar të diferencohen, por gjinia zakonisht nuk dallohet deri shumë më vonë, në ekografinë e anatomisë.',
+        ],
+      },
+      ja: {
+        babyDescription: '顔立ちがはっきりしてきて、まぶたが目を守るようになり、手足には将来の指のもとができ、形を整えつつあります。',
+        length: '約22mm',
+        comparison: 'イチゴ',
+        bodyChanges: [
+          '強い疲れや吐き気がまだ続くことがありますが、妊娠初期の終わりにかけて和らいでいくことが多いです。',
+        ],
+        toKnow: [
+          '生殖器は分化が始まったばかりで、性別は通常、ずっと後の胎児の形態を調べる超音波検査（形態スクリーニング）まで判別できません。',
         ],
       },
     },
@@ -1141,6 +1432,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Skrining kombinasi trimester pertama, jika ditawarkan, umumnya dilakukan antara minggu ke-11 dan minggu ke-14.',
         ],
       },
+      hi: {
+        babyDescription: 'चेहरा और पहचानने लायक होता जाता है, पलकें रोशनी पर प्रतिक्रिया करती हैं, और दिल तेज़ गति से धड़कता है, यानी किसी वयस्क के दिल से लगभग तीन गुना तेज़।',
+        length: 'लगभग 30 mm',
+        comparison: 'छोटी ख़ुबानी',
+        bodyChanges: [
+          'आपकी कमर में हल्का बदलाव शुरू हो सकता है, भले ही पेट आम तौर पर अभी दिखाई नहीं देता।',
+        ],
+        toKnow: [
+          'पहली तिमाही की संयुक्त स्क्रीनिंग, जब उपलब्ध कराई जाती है, आम तौर पर 11वें और 14वें सप्ताह के बीच की जाती है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Fytyra bëhet më e dallueshme, qepallat reagojnë ndaj dritës dhe zemra rreh me ritëm të shpejtë, rreth tri herë më shpejt se ajo e një të rrituri.',
+        length: 'Rreth 30 mm',
+        comparison: 'Kajsi e vogël',
+        bodyChanges: [
+          'Beli yt mund të fillojë të ndryshojë pak, edhe pse barku zakonisht nuk duket ende.',
+        ],
+        toKnow: [
+          'Skriningu i kombinuar i tremujorit të parë, kur ofrohet, zakonisht bëhet midis javës 11 dhe javës 14.',
+        ],
+      },
+      ja: {
+        babyDescription: '顔立ちがさらに整い、まぶたは光に反応するようになります。心臓は大人のおよそ3倍の速さで拍動しています。',
+        length: '約30mm',
+        comparison: '小さなアンズ',
+        bodyChanges: [
+          'お腹はまだ目立たないのが一般的ですが、ウエストまわりが少し変わり始めることがあります。',
+        ],
+        toKnow: [
+          '妊娠初期の複合スクリーニング検査は、実施される場合、通常、妊娠11週から14週のあいだに行われます。',
+        ],
+      },
     },
   },
   {
@@ -1242,6 +1566,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Gerakan bayi sudah dimulai, tetapi umumnya belum terasa pada tahap ini.',
+        ],
+      },
+      hi: {
+        babyDescription: 'हाथ-पैर की उँगलियाँ अलग-अलग होती हैं, नन्हे नाख़ून दिखने लगते हैं, और प्लेसेंटा धीरे-धीरे योक सैक की जगह लेकर शिशु को पोषण देने लगता है।',
+        length: 'लगभग 41 mm',
+        comparison: 'अंजीर',
+        bodyChanges: [
+          'आपको मूड में उतार-चढ़ाव महसूस हो सकता है, जो ख़ासकर हार्मोन के बदलावों से जुड़ा होता है।',
+        ],
+        toKnow: [
+          'शिशु की हलचल शुरू हो रही है, लेकिन इस चरण में आम तौर पर महसूस नहीं होती।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Gishtat e duarve dhe të këmbëve ndahen, shfaqen thonj të vegjël dhe placenta merr gradualisht përsipër nga qesja e verdhëzës ushqimin e fetusit.',
+        length: 'Rreth 41 mm',
+        comparison: 'Fik',
+        bodyChanges: [
+          'Mund të vërejsh ndryshime të disponimit, të lidhura veçanërisht me ndryshimet hormonale.',
+        ],
+        toKnow: [
+          'Lëvizjet e bebes kanë filluar, por zakonisht nuk ndihen ende në këtë fazë.',
+        ],
+      },
+      ja: {
+        babyDescription: '手足の指が分かれ、小さな爪ができ始めます。胎児に栄養を届ける役割は、卵黄嚢から少しずつ胎盤へと引き継がれていきます。',
+        length: '約41mm',
+        comparison: 'イチジク',
+        bodyChanges: [
+          'ホルモンの変化などの影響で、気分の浮き沈みを感じることがあります。',
+        ],
+        toKnow: [
+          '赤ちゃんの動きは始まっていますが、この時期にはまだ感じられないのが一般的です。',
         ],
       },
     },
@@ -1347,6 +1704,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Akhir trimester pertama sering dikaitkan dengan risiko keguguran yang lebih rendah dibandingkan minggu-minggu sebelumnya.',
         ],
       },
+      hi: {
+        babyDescription: 'भीतरी अंग और मांसपेशियाँ अच्छी तरह बढ़ चुकी हैं, और कंकाल की हड्डियाँ सख़्त होना शुरू हो रही हैं। प्रजनन अंग बन चुके हैं, हालाँकि वे अभी अल्ट्रासाउंड में दिखाई नहीं देते।',
+        length: 'लगभग 5.4 cm',
+        comparison: 'आलू बुखारा',
+        bodyChanges: [
+          'मितली अक्सर इसी समय के आसपास धीरे-धीरे कम होने लगती है, हालाँकि यह हर महिला में काफ़ी अलग होता है।',
+        ],
+        toKnow: [
+          'पहली तिमाही का अंत अक्सर पिछले सप्ताहों की तुलना में गर्भपात के कम जोखिम से जोड़ा जाता है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Organet e brendshme dhe muskujt janë rritur mirë dhe skeleti ka filluar të ngurtësohet (osifikohet). Organet riprodhuese janë formuar, edhe pse nuk duken ende në ekografi.',
+        length: 'Rreth 5.4 cm',
+        comparison: 'Kumbull',
+        bodyChanges: [
+          'Të përzierat shpesh priren të zbuten gradualisht rreth kësaj kohe, megjithëse kjo ndryshon shumë nga një grua te tjetra.',
+        ],
+        toKnow: [
+          'Fundi i tremujorit të parë shpesh lidhet me një rrezik më të ulët aborti spontan krahasuar me javët e mëparshme.',
+        ],
+      },
+      ja: {
+        babyDescription: '内臓や筋肉がしっかり育ち、骨格では骨化が始まっています。生殖器はできあがっていますが、超音波検査ではまだ見えません。',
+        length: '約5.4cm',
+        comparison: 'プラム',
+        bodyChanges: [
+          'この頃から吐き気が少しずつ和らいでくることが多いですが、個人差がとても大きいです。',
+        ],
+        toKnow: [
+          '妊娠初期の終わりは、それまでの週と比べて流産のリスクが低くなる時期とされることが多いです。',
+        ],
+      },
     },
   },
   {
@@ -1448,6 +1838,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Trimester pertama umumnya berakhir sekitar minggu ini; pemeriksaan kehamilan berlanjut dengan jadwal kunjungan yang lebih jarang.',
+        ],
+      },
+      hi: {
+        babyDescription: 'झटकेदार हलचलें अब थोड़ी और तालमेल वाली हो जाती हैं। कुछ शिशुओं में अँगूठा चूसने की प्रतिक्रिया पहले से दिखने लगती है।',
+        length: 'लगभग 7.4 cm',
+        comparison: 'आड़ू',
+        bodyChanges: [
+          'दूसरी तिमाही नज़दीक आने पर कई महिलाओं में धीरे-धीरे कुछ ज़्यादा ऊर्जा लौट आती है।',
+        ],
+        toKnow: [
+          'पहली तिमाही आम तौर पर इसी सप्ताह के आसपास पूरी होती है; देखभाल जारी रहती है, लेकिन अपॉइंटमेंट के बीच अब ज़्यादा अंतर होता है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Lëvizjet, ende të ndërprera, bëhen pak më të koordinuara. Disa bebe tregojnë tashmë refleksin e thithjes së gishtit të madh.',
+        length: 'Rreth 7.4 cm',
+        comparison: 'Pjeshkë',
+        bodyChanges: [
+          'Shumë gra rifitojnë gradualisht pak më shumë energji teksa afron tremujori i dytë.',
+        ],
+        toKnow: [
+          'Tremujori i parë zakonisht mbaron rreth kësaj jave; kujdesi vazhdon me takime më të rralla.',
+        ],
+      },
+      ja: {
+        babyDescription: 'ぎこちなかった動きが、少しずつ協調して動くようになります。すでに指しゃぶりの反射が見られる赤ちゃんもいます。',
+        length: '約7.4cm',
+        comparison: 'モモ',
+        bodyChanges: [
+          '妊娠中期が近づくにつれて、少しずつ元気が戻ってくる人が多いです。',
+        ],
+        toKnow: [
+          '妊娠初期は通常この週頃に終わり、その後は健診の間隔が広がりながら妊娠中のケアが続きます。',
         ],
       },
     },
@@ -1555,6 +1978,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Tenaga kesehatan terkadang sudah mulai bisa mendengar detak jantung bayi dengan alat USG yang ditempelkan di perut.',
         ],
       },
+      hi: {
+        babyDescription: 'सिर और गोल होता है और शरीर के बाक़ी हिस्सों के साथ ज़्यादा अनुपात में आ जाता है। शिशु थोड़ा उल्ब द्रव (एम्नियोटिक फ़्लूइड) निगलता है, जो पेट और गुर्दों से होकर गुज़रता है।',
+        length: 'लगभग 8.5 cm',
+        comparison: 'कीवी',
+        bodyChanges: [
+          'कुछ महिलाओं में पेट अब ज़्यादा साफ़ तौर पर उभरने लगता है।',
+        ],
+        toKnow: [
+          'पेट पर रखे अल्ट्रासाउंड उपकरण से स्वास्थ्य विशेषज्ञ कभी-कभी शिशु की धड़कन सुनना शुरू कर सकते हैं।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Koka bëhet më e rrumbullakët dhe më proporcionale me pjesën tjetër të trupit. Fetusi gëlltit pak lëng amniotik, i cili kalon nëpër stomak dhe veshka.',
+        length: 'Rreth 8.5 cm',
+        comparison: 'Kivi',
+        bodyChanges: [
+          'Barku fillon të rrumbullakoset më dukshëm për disa gra.',
+        ],
+        toKnow: [
+          'Një profesionist i shëndetësisë ndonjëherë mund të fillojë të dëgjojë rrahjet e zemrës me një aparat ekografie të vendosur mbi bark.',
+        ],
+      },
+      ja: {
+        babyDescription: '頭が丸みを帯び、体とのバランスが整ってきます。胎児は羊水を少しずつ飲み込み、それが胃や腎臓を通っていきます。',
+        length: '約8.5cm',
+        comparison: 'キウイ',
+        bodyChanges: [
+          'お腹の丸みがはっきりしてくる人もいます。',
+        ],
+        toKnow: [
+          '医療従事者が、お腹に当てた超音波の機器で、赤ちゃんの心音を聞き取り始めることがあります。',
+        ],
+      },
     },
   },
   {
@@ -1658,6 +2114,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Pendengaran mulai berkembang sekitar waktu ini: suaramu dan bunyi-bunyi dari dalam tubuh berangsur dapat ditangkap.',
         ],
       },
+      hi: {
+        babyDescription: 'त्वचा पर लैनुगो नाम के बारीक रोएँ धीरे-धीरे आ जाते हैं, और भौहें व पलकें उभरने लगती हैं। आँखें रोशनी के प्रति संवेदनशील हो जाती हैं।',
+        length: 'लगभग 10.1 cm',
+        comparison: 'सेब',
+        bodyChanges: [
+          'आपकी भूख बदल सकती है, कभी-कभी खाने की नई इच्छाएँ या कुछ चीज़ों से अरुचि भी हो सकती है।',
+        ],
+        toKnow: [
+          'इसी समय के आसपास सुनने की क्षमता विकसित होने लगती है: आपकी आवाज़ और शरीर की भीतरी आवाज़ें धीरे-धीरे सुनाई देने लगती हैं।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Një push i hollë, i quajtur lanugo, mbulon gradualisht lëkurën, ndërsa vetullat dhe qerpikët fillojnë të shfaqen. Sytë bëhen të ndjeshëm ndaj dritës.',
+        length: 'Rreth 10,1 cm',
+        comparison: 'Mollë',
+        bodyChanges: [
+          'Oreksi yt mund të ndryshojë, ndonjëherë me dëshira të reja për ushqime ose me neveri ndaj disa prej tyre.',
+        ],
+        toKnow: [
+          'Dëgjimi fillon të zhvillohet rreth kësaj kohe: zëri yt dhe tingujt e brendshëm të trupit bëhen gradualisht të perceptueshëm.',
+        ],
+      },
+      ja: {
+        babyDescription: 'ランゴと呼ばれる細かい産毛が少しずつ皮膚をおおい、眉毛やまつ毛も生え始めます。目は光に敏感になります。',
+        length: '約10.1cm',
+        comparison: 'りんご',
+        bodyChanges: [
+          '食欲が変わることがあり、新しく食べたくなるものや苦手になるものが出てくる場合もあります。',
+        ],
+        toKnow: [
+          'このころから聴覚が発達し始め、ご自身の声や体の中の音が少しずつ聞こえるようになります。',
+        ],
+      },
     },
   },
   {
@@ -1756,6 +2245,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Waktu pertama kali merasakan gerakan bayi sangat bervariasi dari satu kehamilan ke kehamilan lain, terutama tergantung apakah ini kehamilan pertama.',
+        ],
+      },
+      hi: {
+        babyDescription: 'तंत्रिका तंत्र की मदद से बाँहों और पैरों की हरकत होने लगती है। हाथ छोटी-छोटी मुट्ठियों में बंद हो सकते हैं।',
+        length: 'लगभग 11.6 cm',
+        comparison: 'एवोकाडो',
+        bodyChanges: [
+          'कुछ महिलाएँ इसी समय के आसपास बहुत हल्की हलचल महसूस करने लगती हैं, जिसे अक्सर फड़फड़ाहट जैसा बताया जाता है।',
+        ],
+        toKnow: [
+          'पहली हलचल महसूस होना हर गर्भावस्था में काफ़ी अलग होता है, ख़ासकर इस पर निर्भर करता है कि यह पहली गर्भावस्था है या नहीं।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Sistemi nervor lejon lëvizjet e krahëve dhe këmbëve. Duart mund të mbyllen si grushte të vegjël.',
+        length: 'Rreth 11,6 cm',
+        comparison: 'Avokado',
+        bodyChanges: [
+          'Disa gra fillojnë të ndjejnë lëvizje shumë të lehta nga kjo kohë, që shpesh përshkruhen si dridhje të buta, si fluturim.',
+        ],
+        toKnow: [
+          'Ndjenja e lëvizjeve të para ndryshon shumë nga një shtatzëni te tjetra, sidomos në varësi të faktit nëse është shtatzënia e parë.',
+        ],
+      },
+      ja: {
+        babyDescription: '神経系が発達して、腕や脚を動かせるようになります。手は小さなこぶしを握ることができます。',
+        length: '約11.6cm',
+        comparison: 'アボカド',
+        bodyChanges: [
+          'このころから、ごく軽い動きを感じ始める人もいます。ふわふわと羽ばたくような感覚と表現されることが多いようです。',
+        ],
+        toKnow: [
+          '初めての胎動を感じる時期は、妊娠ごとに大きく異なります。特に初めての妊娠かどうかによっても変わります。',
         ],
       },
     },
@@ -1861,6 +2383,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Suara dari luar mulai terdengar, secara samar, melalui air ketuban.',
         ],
       },
+      hi: {
+        babyDescription: 'आँखें अभी बंद हैं, फिर भी हिल सकती हैं, और शिशु अब तेज़ आवाज़ों पर प्रतिक्रिया देता है। उँगलियों के निशान बनने शुरू हो रहे हैं।',
+        length: 'लगभग 12 cm',
+        comparison: 'अनार',
+        bodyChanges: [
+          'गुरुत्व केंद्र बदलने के कारण पीठ में हल्का दर्द हो सकता है।',
+        ],
+        toKnow: [
+          'बाहर की आवाज़ें उल्बीय द्रव (एम्नियोटिक फ़्लूइड) के ज़रिए दबी हुई सी सुनाई देने लगती हैं।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Sytë, ende të mbyllur, mund të lëvizin, dhe bebja tani reagon ndaj tingujve të fortë. Gjurmët e gishtave po fillojnë të formohen.',
+        length: 'Rreth 12 cm',
+        comparison: 'Shegë',
+        bodyChanges: [
+          'Një dhimbje e lehtë shpine mund të shfaqet ndërsa qendra jote e gravitetit zhvendoset.',
+        ],
+        toKnow: [
+          'Tingujt e jashtëm fillojnë të perceptohen, të zbutur, përmes lëngut amniotik.',
+        ],
+      },
+      ja: {
+        babyDescription: 'まだ閉じたままの目を動かせるようになり、大きな音にも反応するようになります。指紋ができ始めます。',
+        length: '約12cm',
+        comparison: 'ざくろ',
+        bodyChanges: [
+          '重心が変わることで、軽い腰や背中の痛みが出ることがあります。',
+        ],
+        toKnow: [
+          '外の音が、羊水を通してこもった音として聞こえ始めます。',
+        ],
+      },
     },
   },
   {
@@ -1964,6 +2519,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'USG morfologi, yang memeriksa perkembangan keseluruhan bayi, umumnya ditawarkan antara minggu ke-18 dan minggu ke-21.',
         ],
       },
+      hi: {
+        babyDescription: 'सुनने, छूने, निगलने और चूसने की प्रतिक्रिया का विकास जारी रहता है। शिशु और ज़्यादा सक्रिय होता जाता है, बाँहों और पैरों की हरकतें बढ़ जाती हैं।',
+        length: 'लगभग 14.2 cm',
+        comparison: 'शिमला मिर्च',
+        bodyChanges: [
+          'इस अवस्था में पेट अक्सर साफ़ दिखने लगता है, और आपका गुरुत्व केंद्र बदलता रहता है।',
+        ],
+        toKnow: [
+          'एनाटॉमी अल्ट्रासाउंड, जिसमें शिशु के समग्र विकास की जाँच होती है, आमतौर पर 18वें से 21वें सप्ताह के बीच कराने की सलाह दी जाती है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Dëgjimi, prekja, gëlltitja dhe refleksi i thithjes vazhdojnë të zhvillohen. Bebja bëhet gjithnjë e më aktive, me më shumë lëvizje të krahëve dhe të këmbëve.',
+        length: 'Rreth 14,2 cm',
+        comparison: 'Spec dolli',
+        bodyChanges: [
+          'Barku shpesh duket qartë në këtë fazë, dhe qendra jote e gravitetit vazhdon të zhvendoset.',
+        ],
+        toKnow: [
+          'Ekografia morfologjike, që shqyrton zhvillimin e përgjithshëm të bebes, ofrohet zakonisht mes javës 18 dhe javës 21.',
+        ],
+      },
+      ja: {
+        babyDescription: '聴覚、触覚、飲み込む力、吸う反射の発達が続きます。腕や脚の動きが増え、赤ちゃんはますます活発になっていきます。',
+        length: '約14.2cm',
+        comparison: 'ピーマン',
+        bodyChanges: [
+          'この時期はおなかがはっきり目立つことが多く、重心の変化も続きます。',
+        ],
+        toKnow: [
+          '赤ちゃんの全体的な発育を調べる精密超音波検査（形態異常スクリーニング）は、一般に妊娠18週から21週の間に勧められます。',
+        ],
+      },
     },
   },
   {
@@ -2065,6 +2653,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Inilah waktu yang umum untuk mulai merasakan gerakan bayi dengan lebih jelas.',
+        ],
+      },
+      hi: {
+        babyDescription: 'भविष्य के स्थायी दाँत दूध के दाँतों के पीछे बनना शुरू हो जाते हैं, और शिशु का वज़न धीरे-धीरे बढ़ता रहता है।',
+        length: 'लगभग 15.3 cm',
+        comparison: 'बड़ा टमाटर',
+        bodyChanges: [
+          'गर्भाशय बढ़ने के साथ पेट के दोनों ओर खिंचाव जैसा एहसास (राउंड लिगामेंट का दर्द) हो सकता है।',
+        ],
+        toKnow: [
+          'यह वह समय है जब आम तौर पर शिशु की हलचल ज़्यादा साफ़ महसूस होने लगती है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Dhëmbët e ardhshëm të përhershëm fillojnë të formohen pas dhëmbëve të qumështit që po përgatiten, dhe bebja vazhdon të shtojë gradualisht peshë.',
+        length: 'Rreth 15,3 cm',
+        comparison: 'Domate e madhe',
+        bodyChanges: [
+          'Mund të ndjesh një tërheqje në anët e barkut (dhimbje e ligamentit të rrumbullakët) ndërsa mitra rritet.',
+        ],
+        toKnow: [
+          'Kjo është një kohë e zakonshme për të nisur t’i ndjesh më qartë lëvizjet e bebes.',
+        ],
+      },
+      ja: {
+        babyDescription: '乳歯の準備が進む奥で、将来の永久歯のもとができ始めます。体重も少しずつ増え続けます。',
+        length: '約15.3cm',
+        comparison: '大きなトマト',
+        bodyChanges: [
+          '子宮が大きくなるにつれて、おなかの両側が引っ張られるような感覚（円靭帯痛）が出ることがあります。',
+        ],
+        toKnow: [
+          '赤ちゃんの動きをよりはっきり感じ始める人が多い時期です。',
         ],
       },
     },
@@ -2172,6 +2793,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Pertengahan kehamilan sering ditandai dengan pemeriksaan menyeluruh oleh tenaga kesehatan yang mendampingi kehamilanmu.',
         ],
       },
+      hi: {
+        babyDescription: 'इस सप्ताह से लंबाई सिर से एड़ी तक नापी जाती है, पहले की तरह सिर से नितंब तक नहीं, क्योंकि अब पैर सीधे किए जा सकते हैं और नापे जा सकते हैं। इसी वजह से पिछले सप्ताहों की तुलना में संदर्भ आकार में साफ़ उछाल दिखता है।',
+        length: 'लगभग 25.6 cm',
+        comparison: 'केला',
+        bodyChanges: [
+          'आपका सुंदर गोल पेट आपके संतुलन और चलने-बैठने के ढंग पर असर डाल सकता है।',
+        ],
+        toKnow: [
+          'गर्भावस्था के आधे पड़ाव पर अक्सर आपकी देखभाल कर रहे स्वास्थ्य विशेषज्ञ के साथ पूरी जाँच कराई जाती है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Nga kjo javë e tutje, gjatësia matet nga koka te thembra dhe jo më nga koka te vithet, pasi këmbët tani mund të shtrihen dhe të maten — kjo shpjegon një ndryshim të dukshëm në madhësinë e referencës krahasuar me javët e mëparshme.',
+        length: 'Rreth 25,6 cm',
+        comparison: 'Banane',
+        bodyChanges: [
+          'Barku yt i rrumbullakosur bukur mund të fillojë të ndikojë te ekuilibri dhe qëndrimi i trupit.',
+        ],
+        toKnow: [
+          'Mesi i shtatzënisë shpesh shënohet me një kontroll të plotë te profesionisti i shëndetësisë që të ndjek.',
+        ],
+      },
+      ja: {
+        babyDescription: 'この週からは、頭からおしりまでではなく、頭からかかとまでを測ります。脚を伸ばして測れるようになるためで、これまでの週と比べて目安の大きさが目に見えて大きくなるのはこのためです。',
+        length: '約25.6cm',
+        comparison: 'バナナ',
+        bodyChanges: [
+          '丸みを帯びてきたおなかが、バランスや姿勢に影響し始めることがあります。',
+        ],
+        toKnow: [
+          '妊娠の折り返し地点には、担当の医療従事者による総合的な健診が行われることが多いです。',
+        ],
+      },
     },
   },
   {
@@ -2270,6 +2924,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Mengenali pola gerakan bayi yang biasa membuatmu lebih mudah menyadari perubahan yang tidak biasa.',
+        ],
+      },
+      hi: {
+        babyDescription: 'हरकतें ज़्यादा साफ़ और तालमेल वाली हो जाती हैं, और इस दौरान उन्हें साफ़ महसूस करना आम बात है।',
+        length: 'लगभग 26.7 cm',
+        comparison: 'गाजर',
+        bodyChanges: [
+          'गर्भाशय के ज़्यादा जगह घेरने से मेहनत करने पर हल्की साँस फूल सकती है।',
+        ],
+        toKnow: [
+          'अपने शिशु की हलचल के सामान्य पैटर्न से परिचित होने पर किसी असामान्य बदलाव को पहचानना आसान हो जाता है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Lëvizjet bëhen më të qarta dhe më të koordinuara, dhe është e zakonshme që t’i ndjesh qartë gjatë kësaj periudhe.',
+        length: 'Rreth 26,7 cm',
+        comparison: 'Karrotë',
+        bodyChanges: [
+          'Mund të shfaqet një gulçim i lehtë gjatë përpjekjes fizike, ndërsa mitra zë më shumë hapësirë.',
+        ],
+        toKnow: [
+          'Të njohësh ritmin e zakonshëm të lëvizjeve të bebes e bën më të lehtë të vëresh një ndryshim të pazakontë.',
+        ],
+      },
+      ja: {
+        babyDescription: '動きがよりはっきりと、よりなめらかになります。この時期に、動きをはっきり感じ始める人が多くいます。',
+        length: '約26.7cm',
+        comparison: 'にんじん',
+        bodyChanges: [
+          '子宮が広がってくるにつれて、体を動かしたときに軽い息切れを感じることがあります。',
+        ],
+        toKnow: [
+          '赤ちゃんのいつもの動き方に慣れておくと、普段と違う変化に気づきやすくなります。',
         ],
       },
     },
@@ -2375,6 +3062,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Apa yang kamu makan dapat memengaruhi air ketuban, yang rutin ditelan oleh bayi.',
         ],
       },
+      hi: {
+        babyDescription: 'फेफड़ों का विकास जारी रहता है, और शिशु साँस लेने की छोटी-छोटी हरकतों का अभ्यास करता है। स्वाद की कलियाँ भी बन रही हैं।',
+        length: 'लगभग 27.8 cm',
+        comparison: 'शकरकंद',
+        bodyChanges: [
+          'कुछ महिलाओं को पैरों में ऐंठन हो सकती है, ख़ासकर रात में।',
+        ],
+        toKnow: [
+          'आप जो खाती हैं, उसका असर उल्बीय द्रव (एम्नियोटिक फ़्लूइड) पर पड़ सकता है, जिसे शिशु नियमित रूप से निगलता है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Mushkëritë vazhdojnë të zhvillohen, dhe bebja ushtron lëvizje të vogla frymëmarrjeje. Edhe papilat e shijes po formohen.',
+        length: 'Rreth 27,8 cm',
+        comparison: 'Patate e ëmbël',
+        bodyChanges: [
+          'Kramba në këmbë, sidomos natën, janë të mundshme për disa gra.',
+        ],
+        toKnow: [
+          'Ajo që ha mund të ndikojë te lëngu amniotik, të cilin bebja e gëlltit rregullisht.',
+        ],
+      },
+      ja: {
+        babyDescription: '肺の発達が続き、赤ちゃんは小さな呼吸の動きを練習します。味蕾もできてきます。',
+        length: '約27.8cm',
+        comparison: 'さつまいも',
+        bodyChanges: [
+          '特に夜に、脚がつることがある人もいます。',
+        ],
+        toKnow: [
+          '食べたものが、赤ちゃんが日常的に飲み込んでいる羊水に影響することがあります。',
+        ],
+      },
     },
   },
   {
@@ -2476,6 +3196,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Mengamati masa aktif dan masa tenang bayi membantumu mengenali ritmenya sendiri.',
+        ],
+      },
+      hi: {
+        babyDescription: 'हाथ-पैर अब अच्छी तरह अनुपात में हैं। शिशु साँस लेने का अभ्यास करता है और नींद व जागने के चरण बारी-बारी से आने लगते हैं।',
+        length: 'लगभग 28.9 cm',
+        comparison: 'बड़ा आम',
+        bodyChanges: [
+          'वज़न धीरे-धीरे बढ़ने के साथ पीठ में ज़्यादा दर्द हो सकता है।',
+        ],
+        toKnow: [
+          'शिशु के सक्रिय और शांत समय पर ध्यान देने से आप उसकी अपनी लय को समझ पाती हैं।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Gjymtyrët tani janë mirë të proporcionuara. Bebja ushtron frymëmarrjen dhe fillon të ndërrojë fazat e gjumit me ato të zgjimit.',
+        length: 'Rreth 28,9 cm',
+        comparison: 'Mango e madhe',
+        bodyChanges: [
+          'Një dhimbje më e theksuar shpine mund të shfaqet me shtimin gradual në peshë.',
+        ],
+        toKnow: [
+          'Vëzhgimi i periudhave aktive dhe të qeta të bebes të ndihmon të mësosh ritmin e saj.',
+        ],
+      },
+      ja: {
+        babyDescription: '手足のバランスがとれてきます。赤ちゃんは呼吸の練習をし、眠っている時間と起きている時間を交互に繰り返し始めます。',
+        length: '約28.9cm',
+        comparison: '大きなマンゴー',
+        bodyChanges: [
+          '体重が少しずつ増えるにつれて、腰や背中の痛みが強くなることがあります。',
+        ],
+        toKnow: [
+          '赤ちゃんが活発な時間と静かな時間を観察すると、その子ならではのリズムがわかってきます。',
         ],
       },
     },
@@ -2581,6 +3334,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Skrining diabetes gestasional umumnya ditawarkan sekitar waktu ini.',
         ],
       },
+      hi: {
+        babyDescription: 'शिशु जीवन-क्षमता की सीमा तक पहुँच जाता है: इस अवस्था में बहुत समय से पहले जन्म होने पर, विशेष नवजात चिकित्सा देखभाल और उचित सहारे के साथ शिशु के जीवित रहने की संभावना बन सकती है।',
+        length: 'लगभग 30 cm',
+        comparison: 'भुट्टा',
+        bodyChanges: [
+          'मूत्राशय पर दबाव बढ़ सकता है और बार-बार पेशाब जाने की ज़रूरत महसूस हो सकती है।',
+        ],
+        toKnow: [
+          'गर्भकालीन मधुमेह की जाँच आमतौर पर इसी समय के आसपास कराने की सलाह दी जाती है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Bebja arrin pragun e jetesës jashtë mitrës: në rast të një lindjeje shumë të parakohshme në këtë fazë, kujdesi mjekësor i specializuar neonatal mund të lejojë mbijetesën, me mbështetje të përshtatshme.',
+        length: 'Rreth 30 cm',
+        comparison: 'Kalli misri',
+        bodyChanges: [
+          'Mund të shfaqen shtypje më e madhe mbi fshikëzën urinare dhe nxitje të shpeshta për të urinuar.',
+        ],
+        toKnow: [
+          'Testi i diabetit gjestacional ofrohet zakonisht rreth kësaj kohe.',
+        ],
+      },
+      ja: {
+        babyDescription: '赤ちゃんは生存可能とされる時期に入ります。この段階でごく早く生まれた場合でも、新生児の専門的な医療ケアと適切なサポートによって、命を救える可能性があります。',
+        length: '約30cm',
+        comparison: 'とうもろこし',
+        bodyChanges: [
+          '膀胱への圧迫が強まり、頻繁にトイレに行きたくなることがあります。',
+        ],
+        toKnow: [
+          '妊娠糖尿病のスクリーニングは、一般にこのころに勧められます。',
+        ],
+      },
     },
   },
   {
@@ -2684,6 +3470,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Cegukan janin yang sesekali terasa umumnya dianggap normal.',
         ],
       },
+      hi: {
+        babyDescription: 'शिशु अब तेज़ आवाज़ों पर चौंककर या लात मारकर प्रतिक्रिया देता है, और कभी-कभी हिचकी महसूस हो सकती है। वह नियमित रूप से उल्बीय द्रव में पेशाब करता है।',
+        length: 'लगभग 34.6 cm',
+        comparison: 'तोरी',
+        bodyChanges: [
+          'सीने में जलन या एसिड रिफ़्लक्स ज़्यादा बार हो सकता है।',
+        ],
+        toKnow: [
+          'बीच-बीच में महसूस होने वाली शिशु की हिचकी को आमतौर पर सामान्य माना जाता है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Bebja tani reagon ndaj zhurmave të forta me një spërdredhje ose me një shqelm, dhe mund të ndjehen herë pas here lemzat. Ajo urinon rregullisht në lëngun amniotik.',
+        length: 'Rreth 34,6 cm',
+        comparison: 'Kungulleshkë',
+        bodyChanges: [
+          'Djegia e stomakut ose refluksi acid mund të bëhen më të shpeshta.',
+        ],
+        toKnow: [
+          'Lemzat e fetusit që ndjehen herë pas here konsiderohen zakonisht normale.',
+        ],
+      },
+      ja: {
+        babyDescription: '大きな音にびくっと驚いたり、キックで反応したりするようになります。ときどきしゃっくりを感じることもあります。羊水の中に定期的におしっこをしています。',
+        length: '約34.6cm',
+        comparison: 'ズッキーニ',
+        bodyChanges: [
+          '胸やけや胃酸の逆流が、増えることがあります。',
+        ],
+        toKnow: [
+          'ときどき感じる胎児のしゃっくりは、一般に正常なものと考えられています。',
+        ],
+      },
     },
   },
   {
@@ -2783,6 +3602,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Trimester ketiga sudah dekat, dengan pemeriksaan medis yang umumnya menjadi lebih sering.',
+        ],
+      },
+      hi: {
+        babyDescription: 'आँखें पहली बार खुलती हैं। उनका अंतिम रंग आमतौर पर जन्म के कई महीनों बाद ही पता चलता है।',
+        length: 'लगभग 35.6 cm',
+        comparison: 'खीरा',
+        bodyChanges: [
+          'टखनों या पैरों में हल्की सूजन आ सकती है, ख़ासकर दिन के अंत में।',
+        ],
+        toKnow: [
+          'तीसरी तिमाही नज़दीक आ रही है, और चिकित्सकीय जाँच आमतौर पर पहले से ज़्यादा बार होने लगती है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Sytë hapen për herë të parë. Ngjyra e tyre përfundimtare zakonisht nuk njihet deri disa muaj pas lindjes.',
+        length: 'Rreth 35,6 cm',
+        comparison: 'Kastravec',
+        bodyChanges: [
+          'Mund të shfaqet një ënjtje e lehtë e kyçeve ose e këmbëve, sidomos nga fundi i ditës.',
+        ],
+        toKnow: [
+          'Tremujori i tretë po afron, me ndjekjen mjekësore që zakonisht bëhet më e shpeshtë.',
+        ],
+      },
+      ja: {
+        babyDescription: '目が初めて開きます。最終的な目の色は、一般に生後数か月たつまでわかりません。',
+        length: '約35.6cm',
+        comparison: 'きゅうり',
+        bodyChanges: [
+          '特に夕方になると、足首や足に軽いむくみが出ることがあります。',
+        ],
+        toKnow: [
+          '妊娠後期が近づき、医療機関での健診も一般に回数が増えていきます。',
         ],
       },
     },
@@ -2886,6 +3738,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Awal trimester ketiga sering menjadi waktu yang tepat untuk mulai memikirkan rencana persalinanmu.',
+        ],
+      },
+      hi: {
+        babyDescription: 'फेफड़े साँस शुरू करने के काबिल होने लगते हैं, और त्वचा के नीचे चर्बी जमा होने से शिशु भरा-भरा होता जाता है।',
+        length: 'लगभग 36.6 cm',
+        comparison: 'फूलगोभी',
+        bodyChanges: [
+          'आपके शरीर पर बढ़ते वज़न का बोझ होने से थकान फिर लौट सकती है।',
+        ],
+        toKnow: [
+          'तीसरी तिमाही की शुरुआत अक्सर अपनी डिलीवरी की योजना के बारे में सोचना शुरू करने का अच्छा समय होता है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Mushkëritë bëhen të afta të nisin frymëmarrjen, dhe bebja vazhdon të plotësohet ndërsa yndyra grumbullohet nën lëkurë.',
+        length: 'Rreth 36,6 cm',
+        comparison: 'Lulelakër',
+        bodyChanges: [
+          'Lodhja mund të kthehet, ndërsa trupi yt mban një peshë gjithnjë në rritje.',
+        ],
+        toKnow: [
+          'Fillimi i tremujorit të tretë është shpesh një kohë e mirë për të nisur të mendosh për planin tënd të lindjes.',
+        ],
+      },
+      ja: {
+        babyDescription: '肺が呼吸を始められるようになり、皮膚の下に脂肪がついて、赤ちゃんはふっくらしていきます。',
+        length: '約36.6cm',
+        comparison: 'カリフラワー',
+        bodyChanges: [
+          '体が支える重さが増えていくにつれて、疲れがまた出てくることがあります。',
+        ],
+        toKnow: [
+          '妊娠後期の始まりは、バースプラン（出産の希望）について考え始めるのによい時期であることが多いです。',
         ],
       },
     },
@@ -2993,6 +3878,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Trimester ketiga umumnya dimulai sekitar minggu ini, dengan jadwal kunjungan yang makin sering.',
         ],
       },
+      hi: {
+        babyDescription: 'गर्भावस्था की शुरुआत में तेज़ रहने वाली दिल की धड़कन अब स्थिर होकर लगभग 130 से 140 धड़कन प्रति मिनट हो गई है और अब स्टेथोस्कोप से सुनी जा सकती है।',
+        length: 'लगभग 37.6 cm',
+        comparison: 'बैंगन',
+        bodyChanges: [
+          'गर्भाशय के ज़्यादा जगह घेरने से साँस फूलना या सीने में जलन ज़्यादा बार हो सकती है।',
+        ],
+        toKnow: [
+          'तीसरी तिमाही आमतौर पर इसी सप्ताह के आसपास शुरू होती है, और अपॉइंटमेंट पहले से ज़्यादा बार होने लगते हैं।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Rrahjet e zemrës, më të shpejta në fillimin e shtatzënisë, janë stabilizuar rreth 130 deri në 140 rrahje në minutë dhe tani mund të dëgjohen me stetoskop.',
+        length: 'Rreth 37,6 cm',
+        comparison: 'Patëllxhan',
+        bodyChanges: [
+          'Gulçimi ose djegia e stomakut mund të bëhen më të shpeshta ndërsa mitra zë më shumë hapësirë.',
+        ],
+        toKnow: [
+          'Tremujori i tretë zakonisht fillon rreth kësaj jave, me takimet mjekësore që bëhen më të shpeshta.',
+        ],
+      },
+      ja: {
+        babyDescription: '妊娠のごく初期には速かった心拍数が、毎分130〜140回ほどで安定し、聴診器でも聞こえるようになります。',
+        length: '約37.6cm',
+        comparison: 'なす',
+        bodyChanges: [
+          '子宮が広がるにつれて、息切れや胸やけが増えることがあります。',
+        ],
+        toKnow: [
+          '妊娠後期は一般にこの週ごろから始まり、健診の回数も増えていきます。',
+        ],
+      },
     },
   },
   {
@@ -3094,6 +4012,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Beristirahat dengan berbaring miring ke kiri sering dianjurkan pada akhir kehamilan untuk membantu sirkulasi darah.',
+        ],
+      },
+      hi: {
+        babyDescription: 'शिशु अब काफ़ी हद तक पूरी तरह बन चुका है; आने वाले सप्ताह मुख्य रूप से अंगों के परिपक्व होने और वज़न बढ़ने में लगेंगे। उसकी त्वचा को ढकने वाली पतली सुरक्षात्मक परत धीरे-धीरे सोखी जाने लगती है।',
+        length: 'लगभग 38.6 सेमी',
+        comparison: 'बटरनट कद्दू',
+        bodyChanges: [
+          'बढ़ते पेट के कारण नींद आना और कठिन हो सकता है।',
+        ],
+        toKnow: [
+          'गर्भावस्था के आख़िरी दिनों में बाईं करवट लेकर आराम करना अक्सर सुझाया जाता है, ताकि रक्त संचार को सहारा मिले।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Bebi është tashmë i formuar mirë; javët e ardhshme do t\'i kushtohen kryesisht pjekjes së organeve dhe shtimit në peshë. Shtresa e hollë mbrojtëse që mbulon lëkurën e tij fillon të përthithet.',
+        length: 'Rreth 38.6 cm',
+        comparison: 'Kungull butternut',
+        bodyChanges: [
+          'Gjumi mund të bëhet më i vështirë për shkak të barkut që po rritet.',
+        ],
+        toKnow: [
+          'Pushimi në anën e majtë rekomandohet shpesh në fund të shtatzënisë për të mbështetur qarkullimin e gjakut.',
+        ],
+      },
+      ja: {
+        babyDescription: '赤ちゃんはすでにしっかりと形づくられていて、これからの数週間は主に臓器の成熟と体重の増加に使われます。皮膚を覆っている薄い保護膜は、少しずつ吸収され始めます。',
+        length: '約38.6cm',
+        comparison: 'バターナッツかぼちゃ',
+        bodyChanges: [
+          'おなかが大きくなるにつれて、眠りにくくなることがあります。',
+        ],
+        toKnow: [
+          '妊娠後期は、血流を支えるために左側を下にして休むことがよくすすめられます。',
         ],
       },
     },
@@ -3199,6 +4150,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Kunjungan pemeriksaan kehamilan umumnya menjadi lebih sering mulai tahap ini.',
         ],
       },
+      hi: {
+        babyDescription: 'दृष्टि का विकास जारी रहता है; जन्म के समय शिशु पास के चेहरों को पहचान सकेगा, और फिर धीरे-धीरे हिलती चीज़ों को नज़रों से फ़ॉलो करना सीखेगा।',
+        length: 'लगभग 39.9 सेमी',
+        comparison: 'पत्ता गोभी',
+        bodyChanges: [
+          'पीठ के निचले हिस्से या पेल्विस में भारीपन का एहसास बढ़ सकता है।',
+        ],
+        toKnow: [
+          'इस चरण से प्रसवपूर्व जाँच की मुलाक़ातें आम तौर पर ज़्यादा बार होने लगती हैं।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Shikimi vazhdon të zhvillohet; në lindje, bebi do të mund të dallojë fytyrat e afërta, përpara se të mësojë gradualisht të ndjekë objektet në lëvizje.',
+        length: 'Rreth 39.9 cm',
+        comparison: 'Lakër',
+        bodyChanges: [
+          'Ndjenja e rëndesës në pjesën e poshtme të shpinës ose në legen mund të shtohet.',
+        ],
+        toKnow: [
+          'Vizitat e kontrollit para lindjes zakonisht bëhen më të shpeshta që nga ky stad.',
+        ],
+      },
+      ja: {
+        babyDescription: '視力は発達を続けています。生まれたときには近くの顔をぼんやり見分けられるようになり、その後、動くものを少しずつ目で追えるようになっていきます。',
+        length: '約39.9cm',
+        comparison: 'キャベツ',
+        bodyChanges: [
+          '腰や骨盤の重だるさが強くなることがあります。',
+        ],
+        toKnow: [
+          '妊婦健診は、この時期から一般に回数が増えていきます。',
+        ],
+      },
     },
   },
   {
@@ -3300,6 +4284,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Bayi mulai mengenali suara-suara akrab tertentu yang sering didengarnya dari luar.',
+        ],
+      },
+      hi: {
+        babyDescription: 'शिशु सक्रिय रूप से हिलता-डुलता है, कभी-कभी अपनी उँगलियाँ चूसता है और बड़ी हरकतें कर सकता है। चर्बी जमा होने से उसकी त्वचा की झुर्रियाँ कम होती जाती हैं।',
+        length: 'लगभग 41.1 सेमी',
+        comparison: 'नारियल',
+        bodyChanges: [
+          'अभ्यास संकुचन, जिन्हें ब्रैक्सटन हिक्स कहा जाता है, कभी-कभार महसूस होने लग सकते हैं।',
+        ],
+        toKnow: [
+          'शिशु बाहर से नियमित रूप से सुनाई देने वाली कुछ जानी-पहचानी आवाज़ों को पहचानने लगता है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Bebi lëviz aktivisht, ndonjëherë thith gishtat dhe mund të bëjë lëvizje të gjera. Lëkura e tij bëhet më pak e rrudhosur ndërsa grumbullohet yndyra.',
+        length: 'Rreth 41.1 cm',
+        comparison: 'Arrë kokosi',
+        bodyChanges: [
+          'Kontraksionet stërvitëse, të njohura si Braxton Hicks, mund të fillojnë të ndihen herë pas here.',
+        ],
+        toKnow: [
+          'Bebi po fillon të njohë disa zëra të njohur që dëgjon rregullisht nga jashtë.',
+        ],
+      },
+      ja: {
+        babyDescription: '赤ちゃんは活発に動き、ときどき指をしゃぶり、大きな動きもできます。脂肪がつくにつれて、皮膚のしわが少なくなっていきます。',
+        length: '約41.1cm',
+        comparison: 'ココナッツ',
+        bodyChanges: [
+          'ブラクストン・ヒックスと呼ばれる練習のための収縮（前駆陣痛）を、ときどき感じ始めることがあります。',
+        ],
+        toKnow: [
+          '赤ちゃんは、外からいつも聞こえてくる身近な声を少しずつ聞き分け始めています。',
         ],
       },
     },
@@ -3405,6 +4422,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Posisi kepala di bawah (presentasi kepala) makin umum seiring mendekati waktu persalinan.',
         ],
       },
+      hi: {
+        babyDescription: 'शिशु अब काफ़ी हद तक पूरी तरह बन चुका है और जन्म की तैयारी में धीरे-धीरे सिर नीचे की ओर करके अपनी जगह बना रहा है। बाक़ी सप्ताहों में वह मुख्य रूप से वज़न बढ़ाता रहता है।',
+        length: 'लगभग 42.4 सेमी',
+        comparison: 'सेलरी का गुच्छा',
+        bodyChanges: [
+          'इस दौरान शिशु के बढ़ने के कारण वज़न का ज़्यादा बढ़ना आम बात है।',
+        ],
+        toKnow: [
+          'प्रसव का समय पास आने पर सिर नीचे की स्थिति (सेफ़ेलिक प्रेज़ेंटेशन) ज़्यादा आम हो जाती है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Bebi është tashmë i formuar mirë dhe po zë gradualisht pozicionin me kokën poshtë në përgatitje për lindjen. Gjatë javëve të mbetura vazhdon kryesisht të shtohet në peshë.',
+        length: 'Rreth 42.4 cm',
+        comparison: 'Tufë selinoje',
+        bodyChanges: [
+          'Shtimi më i dukshëm në peshë është i zakonshëm gjatë kësaj periudhe, i lidhur me rritjen e bebit.',
+        ],
+        toKnow: [
+          'Pozicioni me kokën poshtë (prezantimi cefalik) bëhet më i zakonshëm ndërsa i afrohemi afatit.',
+        ],
+      },
+      ja: {
+        babyDescription: '赤ちゃんはすでにしっかりと形づくられていて、出産に備えて少しずつ頭を下に向けた位置に落ち着いていきます。残りの数週間は、主に体重を増やしていきます。',
+        length: '約42.4cm',
+        comparison: 'セロリひと束',
+        bodyChanges: [
+          '赤ちゃんの成長に伴って、この時期は体重の増え方がはっきりしてくることがよくあります。',
+        ],
+        toKnow: [
+          '出産予定日が近づくにつれて、頭が下を向いた状態（頭位）の赤ちゃんが多くなります。',
+        ],
+      },
     },
   },
   {
@@ -3506,6 +4556,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Kelenturan tulang tengkorak saat lahir bersifat sementara dan berangsur menutup selama tahun pertama.',
+        ],
+      },
+      hi: {
+        babyDescription: 'मस्तिष्क और तंत्रिका तंत्र अब अच्छी तरह विकसित हो चुके हैं। हड्डियाँ सख़्त होती जा रही हैं, सिर की हड्डियों को छोड़कर, जो लचीली बनी रहती हैं ताकि जन्म के समय बाहर निकलना आसान हो।',
+        length: 'लगभग 43.7 सेमी',
+        comparison: 'अनानास',
+        bodyChanges: [
+          'इस चरण में सोने की आरामदायक स्थिति ढूँढने में कठिनाई होना आम है।',
+        ],
+        toKnow: [
+          'जन्म के समय सिर की हड्डियों का लचीलापन अस्थायी होता है और पहले साल के दौरान धीरे-धीरे बंद हो जाता है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Truri dhe sistemi nervor janë tashmë të zhvilluar mirë. Kockat vazhdojnë të forcohen, përveç atyre të kafkës, të cilat mbeten fleksibël për ta lehtësuar kalimin gjatë lindjes.',
+        length: 'Rreth 43.7 cm',
+        comparison: 'Ananas',
+        bodyChanges: [
+          'Vështirësia për të gjetur një pozicion të rehatshëm për gjumë është e zakonshme në këtë stad.',
+        ],
+        toKnow: [
+          'Fleksibiliteti i kockave të kafkës në lindje është i përkohshëm dhe mbyllet gradualisht gjatë vitit të parë.',
+        ],
+      },
+      ja: {
+        babyDescription: '脳と神経系はかなり発達しています。骨は固くなり続けますが、頭蓋骨だけは、出産のときに通りやすいように柔らかいままです。',
+        length: '約43.7cm',
+        comparison: 'パイナップル',
+        bodyChanges: [
+          'この時期は、楽な寝姿勢が見つけにくくなることがよくあります。',
+        ],
+        toKnow: [
+          '生まれたときの頭蓋骨の柔らかさは一時的なもので、生後1年のあいだに少しずつ閉じていきます。',
         ],
       },
     },
@@ -3610,6 +4693,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Terus memperhatikan gerakan bayi yang biasa tetap penting hingga saat persalinan.',
         ],
       },
+      hi: {
+        babyDescription: 'जगह की कमी के कारण सिमटा हुआ शिशु आम तौर पर अपने पैर छाती की ओर मोड़े रखता है, फिर भी नियमित रूप से हिलता-डुलता रहता है।',
+        length: 'लगभग 45 सेमी',
+        comparison: 'खरबूजा (कैंटालूप)',
+        bodyChanges: [
+          'जगह कम होने के बावजूद शिशु की हलचल और आपके पेट के बदलते आकार का एहसास आम तौर पर बना रहता है।',
+        ],
+        toKnow: [
+          'शिशु की रोज़ की हलचल पर ध्यान देते रहना जन्म तक ज़रूरी बना रहता है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Bebi, i mbledhur kruspull për mungesë hapësire, zakonisht i mban këmbët të përkulura drejt gjoksit ndërsa vazhdon të lëvizë rregullisht.',
+        length: 'Rreth 45 cm',
+        comparison: 'Pjepër kantalup',
+        bodyChanges: [
+          'Pavarësisht hapësirës së reduktuar, lëvizjet e bebit dhe forma e barkut tënd që ndryshon zakonisht vazhdojnë të jenë të dukshme.',
+        ],
+        toKnow: [
+          'Vëmendja ndaj lëvizjeve të zakonshme të bebit mbetet e rëndësishme deri në lindje.',
+        ],
+      },
+      ja: {
+        babyDescription: '赤ちゃんは、場所が狭くなって体を丸め、ふつう足を胸の方に折りたたんだまま、変わらず規則的に動いています。',
+        length: '約45cm',
+        comparison: 'カンタロープメロン',
+        bodyChanges: [
+          'スペースが狭くなっても、赤ちゃんの動きや、おなかの形の変化は、たいてい感じ取れます。',
+        ],
+        toKnow: [
+          '赤ちゃんのふだんの動きに気を配り続けることは、出産直前まで大切です。',
+        ],
+      },
     },
   },
   {
@@ -3708,6 +4824,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Meski ruang terbatas, bayi seharusnya tetap bergerak dengan keteraturan yang mirip dengan minggu-minggu sebelumnya.',
+        ],
+      },
+      hi: {
+        babyDescription: 'शिशु का शरीर भरता जा रहा है, जिससे जन्म के बाद उसे अपना तापमान नियंत्रित करने में मदद मिलेगी। गर्भाशय में उपलब्ध जगह और कम हो जाती है।',
+        length: 'लगभग 46.2 सेमी',
+        comparison: 'हनीड्यू खरबूजा',
+        bodyChanges: [
+          'जैसे-जैसे शिशु धीरे-धीरे नीचे की ओर आता है, पेल्विस पर दबाव ज़्यादा महसूस हो सकता है।',
+        ],
+        toKnow: [
+          'सीमित जगह के बावजूद शिशु की हलचल पिछले सप्ताहों जैसी ही नियमितता से जारी रहनी चाहिए।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Bebi vazhdon të plotësohet, gjë që do ta ndihmojë të rregullojë temperaturën pasi të lindë. Hapësira e disponueshme në mitër bëhet më e kufizuar.',
+        length: 'Rreth 46.2 cm',
+        comparison: 'Pjepër mjalti',
+        bodyChanges: [
+          'Presioni më i theksuar në legen mund të shfaqet ndërsa bebi zbret gradualisht.',
+        ],
+        toKnow: [
+          'Pavarësisht hapësirës së kufizuar, bebi duhet të vazhdojë të lëvizë me një rregullsi të ngjashme me javët e mëparshme.',
+        ],
+      },
+      ja: {
+        babyDescription: '赤ちゃんはふっくらとしてきて、生まれてからの体温調節に役立ちます。子宮の中のスペースは、さらに限られてきます。',
+        length: '約46.2cm',
+        comparison: 'ハニーデューメロン',
+        bodyChanges: [
+          '赤ちゃんが少しずつ下がってくるにつれて、骨盤への圧迫感がより強くなることがあります。',
+        ],
+        toKnow: [
+          'スペースが限られていても、赤ちゃんはこれまでの週と同じくらいの規則性で動き続けるはずです。',
         ],
       },
     },
@@ -3813,6 +4962,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Kehamilan dianggap cukup bulan antara minggu ke-37 dan minggu ke-42.',
         ],
       },
+      hi: {
+        babyDescription: 'फेफड़े आम तौर पर इतने परिपक्व हो चुके होते हैं कि शिशु अपने आप साँस ले सके, और वह दूध चूसने और पचाने में सक्षम होता है।',
+        length: 'लगभग 47.4 सेमी',
+        comparison: 'रोमेन लेट्यूस',
+        bodyChanges: [
+          'कभी-कभी साँस फूलने जैसा लग सकता है, क्योंकि गर्भाशय पसलियों के नीचे काफ़ी जगह घेर लेता है।',
+        ],
+        toKnow: [
+          'गर्भावस्था को 37वें से 42वें सप्ताह के बीच पूर्ण अवधि (फ़ुल टर्म) माना जाता है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Mushkëritë zakonisht kanë arritur një pjekuri të mjaftueshme për të lejuar frymëmarrjen e pavarur, dhe bebi është i aftë të thithë dhe të tretë.',
+        length: 'Rreth 47.4 cm',
+        comparison: 'Marule romaine',
+        bodyChanges: [
+          'Nganjëherë mund të të merret fryma më shpejt, pasi mitra zë shumë vend nën brinjë.',
+        ],
+        toKnow: [
+          'Shtatzënia konsiderohet në afat të plotë ndërmjet javës 37 dhe javës 42.',
+        ],
+      },
+      ja: {
+        babyDescription: '肺は、自力で呼吸できる程度までにはおおむね成熟していて、赤ちゃんは吸ったり消化したりすることもできます。',
+        length: '約47.4cm',
+        comparison: 'ロメインレタス',
+        bodyChanges: [
+          '子宮が肋骨の下で大きな場所を占めるため、ときどき息苦しく感じることがあります。',
+        ],
+        toKnow: [
+          '妊娠37週から42週のあいだは、正期産とされます。',
+        ],
+      },
     },
   },
   {
@@ -3911,6 +5093,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Mulai minggu ini, usia kehamilan dianggap sudah cukup bulan dan persalinan bisa terjadi kapan saja.',
+        ],
+      },
+      hi: {
+        babyDescription: 'शिशु को जन्म लेने के लिए पर्याप्त परिपक्व माना जाता है। अब ज़्यादातर शिशु सिर नीचे की स्थिति में होते हैं।',
+        length: 'लगभग 48.6 सेमी',
+        comparison: 'लीक (गंदना)',
+        bodyChanges: [
+          'शिशु के पेल्विस में उतरने (एंगेज होने) के साथ पेल्विस पर बढ़ते दबाव का एहसास आम है।',
+        ],
+        toKnow: [
+          'इस सप्ताह से पूर्ण अवधि मानी जाती है और प्रसव कभी भी हो सकता है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Bebi konsiderohet i pjekur sa duhet për t\'u lindur. Shumica dërrmuese e bebeve janë tani të pozicionuara me kokën poshtë.',
+        length: 'Rreth 48.6 cm',
+        comparison: 'Presh',
+        bodyChanges: [
+          'Ndjenja e presionit në rritje në legen është e zakonshme ndërsa bebi zhytet në legen.',
+        ],
+        toKnow: [
+          'Nga kjo javë e tutje, afati konsiderohet i arritur dhe lindja mund të ndodhë në çdo kohë.',
+        ],
+      },
+      ja: {
+        babyDescription: '赤ちゃんは、生まれても大丈夫なほど成熟したと考えられています。大多数の赤ちゃんは、すでに頭を下に向けた位置にいます。',
+        length: '約48.6cm',
+        comparison: 'リーキ（西洋ネギ）',
+        bodyChanges: [
+          '赤ちゃんが骨盤に入り込むにつれて、骨盤への圧迫感が増していくのはよくあることです。',
+        ],
+        toKnow: [
+          'この週からは正期産に入ったとされ、いつ出産が始まってもおかしくありません。',
         ],
       },
     },
@@ -4012,6 +5227,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Persalinan terjadwal tanpa indikasi medis umumnya tidak dianjurkan sebelum minggu ke-39.',
+        ],
+      },
+      hi: {
+        babyDescription: 'त्वचा को ढकने वाले बारीक रोएँ अब ज़्यादातर ग़ायब हो चुके हैं, और आँतों में मेकोनियम इकट्ठा हो रहा है, जो नवजात का पहला मल होता है।',
+        length: 'लगभग 49.8 सेमी',
+        comparison: 'रूबार्ब का डंठल',
+        bodyChanges: [
+          'प्रसव का समय पास आने पर प्रसव के संकेतों से परिचित होना उपयोगी हो सकता है।',
+        ],
+        toKnow: [
+          'बिना किसी चिकित्सकीय कारण के पहले से तय की गई डिलीवरी आम तौर पर 39वें सप्ताह से पहले करने की सलाह नहीं दी जाती।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Push-i i hollë që mbulonte lëkurën është zhdukur në masë të madhe, dhe zorrët po grumbullojnë mekonium, jashtëqitjen e parë të të porsalindurit.',
+        length: 'Rreth 49.8 cm',
+        comparison: 'Kërcell rebarbere',
+        bodyChanges: [
+          'Njohja me shenjat e lindjes mund të jetë e dobishme ndërsa lindja po afrohet.',
+        ],
+        toKnow: [
+          'Një lindje e planifikuar, kur shqyrtohet pa tregues mjekësor, zakonisht nuk rekomandohet para javës 39.',
+        ],
+      },
+      ja: {
+        babyDescription: '皮膚を覆っていた細かい産毛はほとんどなくなり、腸には新生児の最初の便である胎便がたまってきています。',
+        length: '約49.8cm',
+        comparison: 'ルバーブの茎',
+        bodyChanges: [
+          '出産が近づくにつれて、陣痛のサインについて知っておくと役に立ちます。',
+        ],
+        toKnow: [
+          '医学的な理由がない予定出産は、一般に39週より前にはすすめられません。',
         ],
       },
     },
@@ -4117,6 +5365,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Sirkulasi darah bayi baru lahir terus menyesuaikan diri tepat setelah lahir, yang dapat membuat tangan atau kakinya sementara tampak sedikit kebiruan.',
         ],
       },
+      hi: {
+        babyDescription: 'पहले पतली रही त्वचा अब मोटी हो गई है और शिशु की बेहतर सुरक्षा करती है। वर्निक्स नाम की एक सुरक्षात्मक परत जन्म के समय उसके बाहर आने को भी आसान बनाती है।',
+        length: 'लगभग 50.7 सेमी',
+        comparison: 'तरबूज़',
+        bodyChanges: [
+          'डिलीवरी की तारीख़ पास आने पर बेचैनी और कुछ थकान होना आम है।',
+        ],
+        toKnow: [
+          'जन्म के ठीक बाद नवजात का रक्त संचार अपने आप को ढालता रहता है, जिससे हाथ या पैर अस्थायी रूप से हल्के नीले दिख सकते हैं।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Lëkura, më parë më e hollë, është trashur dhe tani e mbron më mirë bebin. Një shtresë mbrojtëse, vernix-i, e lehtëson edhe kalimin e tij gjatë lindjes.',
+        length: 'Rreth 50.7 cm',
+        comparison: 'Shalqi',
+        bodyChanges: [
+          'Padurimi dhe një farë lodhjeje janë të zakonshme ndërsa afrohet data e pritshme e lindjes.',
+        ],
+        toKnow: [
+          'Qarkullimi i gjakut i të porsalindurit vazhdon të përshtatet menjëherë pas lindjes, gjë që përkohësisht mund t\'u japë duarve ose këmbëve një nuancë paksa të kaltërosh.',
+        ],
+      },
+      ja: {
+        babyDescription: '以前は薄かった皮膚が厚くなり、赤ちゃんをよりよく守るようになっています。胎脂と呼ばれる保護膜は、出産のときに赤ちゃんが産道を通りやすくする働きもします。',
+        length: '約50.7cm',
+        comparison: 'スイカ',
+        bodyChanges: [
+          '出産予定日が近づくと、待ちきれない気持ちや、ある程度の疲れを感じるのはよくあることです。',
+        ],
+        toKnow: [
+          '生まれた直後は新生児の血液循環がまだ調整されている途中で、手足が一時的にうっすら青みがかって見えることがあります。',
+        ],
+      },
     },
   },
   {
@@ -4220,6 +5501,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'Melewati hari perkiraan lahir sedikit masih umum terjadi dan belum tentu berarti ada masalah; pemantauan yang lebih ketat umumnya ditawarkan.',
         ],
       },
+      hi: {
+        babyDescription: 'शिशु पूरी तरह विकसित है और जन्म के लिए तैयार है। डिलीवरी की तारीख़ एक अनुमान है: बहुत से जन्म उसके आसपास के दिनों में होते हैं, उससे पहले या बाद में।',
+        length: 'लगभग 51.2 सेमी',
+        comparison: 'कद्दू',
+        bodyChanges: [
+          'इस दौरान प्रसव के संकेतों (नियमित संकुचन, पानी की थैली फटना) का इंतज़ार करना आम है।',
+        ],
+        toKnow: [
+          'डिलीवरी की तारीख़ से थोड़ा आगे निकल जाना आम बात है और इसका मतलब ज़रूरी नहीं कि कोई समस्या हो; आम तौर पर नज़दीकी निगरानी की पेशकश की जाती है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Bebi është plotësisht i zhvilluar dhe gati për t\'u lindur. Data e pritshme e lindjes është një vlerësim: shumë lindje ndodhin në ditët përreth saj, para ose pas.',
+        length: 'Rreth 51.2 cm',
+        comparison: 'Kungull',
+        bodyChanges: [
+          'Pritja e shenjave të lindjes (kontraksione të rregullta, çarja e ujërave) është e zakonshme gjatë kësaj periudhe.',
+        ],
+        toKnow: [
+          'Kalimi pak përtej datës së pritshme mbetet i zakonshëm dhe nuk do të thotë domosdoshmërisht se ka një problem; zakonisht ofrohet monitorim më i afërt.',
+        ],
+      },
+      ja: {
+        babyDescription: '赤ちゃんは完全に成長し、生まれる準備が整っています。出産予定日はあくまで目安で、多くの出産は、その前後の数日のあいだに起こります。',
+        length: '約51.2cm',
+        comparison: 'かぼちゃ',
+        bodyChanges: [
+          'この時期は、陣痛のサイン（規則的な収縮、破水）を待つことがよくあります。',
+        ],
+        toKnow: [
+          '出産予定日を少し過ぎることはよくあり、必ずしも問題があるという意味ではありません。通常は、より注意深い経過観察が提案されます。',
+        ],
+      },
     },
   },
 
@@ -4303,6 +5617,33 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'Melewati usia cukup bulan umumnya membuat tim medis meningkatkan pemantauan.',
+        ],
+      },
+      hi: {
+        babyDescription: 'शिशु पूरी तरह विकसित बना रहता है। डिलीवरी की तारीख़ के बाद शिशु की सेहत जाँचने के लिए आम तौर पर नज़दीकी निगरानी की पेशकश की जाती है।',
+        bodyChanges: [
+          'लंबे इंतज़ार के साथ थकान और बेचैनी बढ़ सकती है।',
+        ],
+        toKnow: [
+          'पूर्ण अवधि से आगे निकल जाने पर आम तौर पर चिकित्सा टीम द्वारा निगरानी बढ़ा दी जाती है।',
+        ],
+      },
+      sq: {
+        babyDescription: 'Bebi mbetet plotësisht i zhvilluar. Pas datës së pritshme të lindjes, zakonisht ofrohet monitorim më i afërt për të kontrolluar mirëqenien e bebit.',
+        bodyChanges: [
+          'Pritja e zgjatur mund të shoqërohet me lodhje dhe padurim më të madh.',
+        ],
+        toKnow: [
+          'Kalimi përtej afatit zakonisht çon në monitorim më të shtuar nga ekipi mjekësor.',
+        ],
+      },
+      ja: {
+        babyDescription: '赤ちゃんは引き続き完全に成長した状態です。出産予定日を過ぎた場合は、赤ちゃんの健康状態を確認するため、通常、より注意深い経過観察が提案されます。',
+        bodyChanges: [
+          '待つ期間が長引くと、疲れや待ちきれない気持ちが強くなることがあります。',
+        ],
+        toKnow: [
+          '正期産を過ぎると、一般に医療チームによる経過観察が強化されます。',
         ],
       },
     },

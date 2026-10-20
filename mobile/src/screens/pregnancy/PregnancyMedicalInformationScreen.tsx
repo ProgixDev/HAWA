@@ -110,6 +110,9 @@ const WEEK_DAYS_RU = ['П', 'В', 'С', 'Ч', 'П', 'С', 'В'] as const;
 const WEEK_DAYS_DE = ['M', 'D', 'M', 'D', 'F', 'S', 'S'] as const;
 const WEEK_DAYS_ZH = ['一', '二', '三', '四', '五', '六', '日'] as const;
 const WEEK_DAYS_ID = ['S', 'S', 'R', 'K', 'J', 'S', 'M'] as const;
+const WEEK_DAYS_HI = ['सो', 'मं', 'बु', 'गु', 'शु', 'श', 'र'] as const;
+const WEEK_DAYS_SQ = ['H', 'M', 'M', 'E', 'P', 'Sh', 'D'] as const;
+const WEEK_DAYS_JA = ['月', '火', '水', '木', '金', '土', '日'] as const;
 
 function localizedSingleLetterWeekDays(): readonly string[] {
   const language = getAppLanguage();
@@ -121,6 +124,9 @@ function localizedSingleLetterWeekDays(): readonly string[] {
   if (language === 'de') {return WEEK_DAYS_DE;}
   if (language === 'zh') {return WEEK_DAYS_ZH;}
   if (language === 'id') {return WEEK_DAYS_ID;}
+  if (language === 'hi') {return WEEK_DAYS_HI;}
+  if (language === 'sq') {return WEEK_DAYS_SQ;}
+  if (language === 'ja') {return WEEK_DAYS_JA;}
   return WEEK_DAYS_FR;
 }
 
