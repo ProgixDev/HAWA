@@ -12,13 +12,14 @@ import {getAllJournalEntries, getJournalEntry, saveJournalSection} from '../dail
 import {
   addPeriodOccurrence,
   getCyclePreferences,
+  getHasConfirmedCycleDuration,
   getRecordedPeriodHistory,
   hydrateCyclePreferences,
   setCyclePreferences,
 } from '../onboardingPreferences';
 import {getRemainingQadaaDays, hydrateRemainingQadaaDays, setRemainingQadaaDays} from '../qadaaStore';
 import {addManualQadaaEntry, getQadaaLedger, hydrateQadaaLedger} from '../qadaaLedgerStore';
-import {seedManagedProfileCycleIfNeeded} from '../managedProfileCycleSeed';
+import {recordManagedProfileFirstPeriod, seedManagedProfileCycleIfNeeded} from '../managedProfileCycleSeed';
 
 // The minimum isolation proof this feature requires (see its own spec, "test with
 // two daughters, not just Mother + one"): every profile-specific store touched by
@@ -342,5 +343,66 @@ describe('Multi-profile — daughter initial cycle data', () => {
     await setActiveProfileId(OWNER_PROFILE_ID);
     await hydrateCyclePreferences();
     expect(getCyclePreferences().periodDuration).toBe(5); // the mother's own, untouched
+  });
+
+  // Creation lets the mother set the two lengths independently, but a profile's cycle can only hold BOTH as confirmed
+  // habits or NEITHER (periodDuration / cycleDuration are not nullable). Choosing one must therefore neither invent the
+  // other nor make the whole thing look confirmed — yet the period length she chose is still the length of the period
+  // she declared.
+  describe('only one of the two lengths was chosen at creation', () => {
+    const create = (lengths: {periodLength: number | null; cycleLength: number | null}) =>
+      addManagedProfile({
+        type: 'daughter',
+        firstName: 'Noor',
+        birthDate: '2014-03-01',
+        hasHadFirstPeriod: true,
+        lastPeriodDate: '2026-09-01',
+        regularity: 'yes',
+        ...lengths,
+      });
+
+    it('a period length alone sets the length of her declared period, and confirms no habit', async () => {
+      const noor = await create({periodLength: 7, cycleLength: null});
+      await setActiveProfileId(noor.id);
+      await seedManagedProfileCycleIfNeeded(noor.id);
+
+      expect(getRecordedPeriodHistory()).toEqual([{id: '2026-09-01', startDate: '2026-09-01', endDate: '2026-09-07'}]);
+      expect(getHasConfirmedCycleDuration()).toBe(false);
+      expect(getCyclePreferences()).toMatchObject({periodDuration: 5, cycleDuration: 28, regularity: 'yes'}); // internal basis, not hers
+
+      // and that is what is stored for HER profile
+      const stored = JSON.parse((await readStoredString(`@hawa/cycle-preferences:profile:${noor.id}`)) as string);
+      expect(stored.periodHistory).toEqual([{id: '2026-09-01', startDate: '2026-09-01', endDate: '2026-09-07'}]);
+      expect(stored.hasConfirmedCycleDuration).toBe(false);
+    });
+
+    it('a cycle length alone changes nothing but the declared date: no half-confirmed habit, the placeholder 5-day period', async () => {
+      const noor = await create({periodLength: null, cycleLength: 31});
+      await setActiveProfileId(noor.id);
+      await seedManagedProfileCycleIfNeeded(noor.id);
+
+      expect(getRecordedPeriodHistory()).toEqual([{id: '2026-09-01', startDate: '2026-09-01', endDate: '2026-09-05'}]);
+      expect(getHasConfirmedCycleDuration()).toBe(false);
+      expect(getCyclePreferences()).toMatchObject({periodDuration: 5, cycleDuration: 28});
+    });
+
+    it('both lengths chosen are confirmed together, and the recorded period has the chosen length', async () => {
+      const noor = await create({periodLength: 7, cycleLength: 31});
+      await setActiveProfileId(noor.id);
+      await seedManagedProfileCycleIfNeeded(noor.id);
+
+      expect(getRecordedPeriodHistory()).toEqual([{id: '2026-09-01', startDate: '2026-09-01', endDate: '2026-09-07'}]);
+      expect(getHasConfirmedCycleDuration()).toBe(true);
+      expect(getCyclePreferences()).toMatchObject({periodDuration: 7, cycleDuration: 31});
+    });
+
+    it('a period recorded later without any length (her first period at the dashboard) keeps the placeholder range', async () => {
+      const noor = await addManagedProfile({type: 'daughter', firstName: 'Noor', birthDate: '2014-03-01', hasHadFirstPeriod: false});
+      await setActiveProfileId(noor.id);
+      await recordManagedProfileFirstPeriod(noor.id, new Date(2026, 8, 1, 12));
+
+      expect(getRecordedPeriodHistory()).toEqual([{id: '2026-09-01', startDate: '2026-09-01', endDate: '2026-09-05'}]);
+      expect(getHasConfirmedCycleDuration()).toBe(false);
+    });
   });
 });
