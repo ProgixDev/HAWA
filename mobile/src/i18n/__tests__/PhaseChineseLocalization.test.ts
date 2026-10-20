@@ -48,7 +48,7 @@ import {getPregnancyWeekData} from '../../data/pregnancyWeekData';
 import {TERMS, PRIVACY} from '../../screens/LegalDocumentScreen';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import {AwaPluralRulesForTests} from '../pluralRules';
-import {phaseLabelFontSize} from '../../components/home/CycleProgressRing';
+import {planCycleRingText} from '../../components/home/cycleRingLayout';
 
 // Simplified Chinese (zh, zh-CN) — dictionary, plurals, runtime, persistence, dates and case rules, editorial content,
 // images, legal text. The language code is the bare "zh"; its Intl locale is "zh-CN".
@@ -381,14 +381,18 @@ describe('Chinese dates, weekdays and time', () => {
   });
 });
 
-describe('cycle ring label: Chinese phase names are short and keep the base size', () => {
-  it('the four phase names are at most 6 characters and render at the original 9.5', () => {
-    for (const key of ['cyclePhase.menstruation', 'cyclePhase.follicular', 'cyclePhase.ovulation', 'cyclePhase.luteal']) {
-      const label = zhMap.get(key) as string;
+describe('cycle ring label: Chinese phase names are short, stay on one line and keep the largest size', () => {
+  it('the four phase names are at most 6 characters, drawn on one line at 9 sp or more', () => {
+    const keys = ['cyclePhase.menstruation', 'cyclePhase.follicular', 'cyclePhase.ovulation', 'cyclePhase.luteal'];
+    const labels = keys.map(key => zhMap.get(key) as string);
+    const plan = planCycleRingText({size: 116, caption: zhMap.get('journalNote.cycleDayLabel') as string, phaseLabels: labels});
+    keys.forEach((key, index) => {
+      const label = labels[index];
       expect(label).toBeTruthy();
       expect([key, Array.from(label).length <= 6]).toEqual([key, true]);
-      expect([key, phaseLabelFontSize(label, 116)]).toEqual([key, 9.5]);
-    }
+      expect([key, plan.phaseLines[label]]).toEqual([key, [label]]);
+    });
+    expect(plan.phase.fontSize).toBeGreaterThanOrEqual(9);
   });
 
   it('bottom-navigation labels and shared buttons stay short enough for a 360 dp row', () => {
@@ -541,8 +545,8 @@ describe('editorial content: library articles, pregnancy weeks, legal text', () 
   });
 
   it('legal placeholder text exists in Chinese with the same sections as English', () => {
-    expect(Object.keys(TERMS).sort()).toEqual(['de', 'en', 'es', 'fr', 'id', 'ru', 'tr', 'zh']);
-    expect(Object.keys(PRIVACY).sort()).toEqual(['de', 'en', 'es', 'fr', 'id', 'ru', 'tr', 'zh']);
+    expect(Object.keys(TERMS).sort()).toEqual(['de', 'en', 'es', 'fr', 'hi', 'id', 'ja', 'ru', 'sq', 'tr', 'zh']);
+    expect(Object.keys(PRIVACY).sort()).toEqual(['de', 'en', 'es', 'fr', 'hi', 'id', 'ja', 'ru', 'sq', 'tr', 'zh']);
     expect(TERMS.zh).toHaveLength(TERMS.en.length);
     expect(PRIVACY.zh).toHaveLength(PRIVACY.en.length);
     TERMS.zh.concat(PRIVACY.zh).forEach(section => {

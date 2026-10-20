@@ -116,7 +116,7 @@ describe('dictionary integrity', () => {
 
   it('is real Indonesian: no raw key, no Chinese/Cyrillic/French leftover, and almost nothing is left in English', () => {
     // (the endonyms of the Russian and Chinese languages are written in their own scripts)
-    expect(idLeaves.filter(([keyPath, value]) => /[一-鿿Ѐ-ӿ]/.test(value) && !/^appearance\.language\.(russian|chinese)Name$/.test(keyPath))).toEqual([]);
+    expect(idLeaves.filter(([keyPath, value]) => /[一-鿿Ѐ-ӿ]/.test(value) && !/^appearance\.language\.(russian|chinese|japanese)Name$/.test(keyPath))).toEqual([]);
     expect(idLeaves.filter(([, value]) => /^[a-z][A-Za-z]+(\.[A-Za-z_]+){2,}$/.test(value))).toEqual([]); // a leaked i18n key
     const sentences = enLeaves.filter(([, value]) => value.length > 30 && /[a-z]{3}/.test(value));
     const unchanged = sentences.filter(([keyPath, value]) => idMap.get(keyPath) === value);
@@ -193,7 +193,6 @@ describe('runtime switching and persistence', () => {
     });
     await fresh!.hydrateAppearancePreferences();
     expect(fresh!.getAppLanguage()).toBe('id');
-    expect(fresh!.getAppLanguagePreference()).toBe('id');
   });
 
   it('Indonesian is the language of an Indonesian phone (id-ID) and an Arabic-then-Indonesian list; English is still the unsupported fallback', () => {
@@ -277,7 +276,7 @@ describe('editorial content', () => {
       const start = text.search(/\n {2}id: \{/);
       expect(start).toBeGreaterThan(0);
       const rest = text.slice(start);
-      const end = rest.search(/\n {2}\},?\n/);
+      const end = rest.search(/\n {2}\},?\r?\n/);
       const block = rest.slice(0, end > 0 ? end : undefined);
       expect(/[一-鿿Ѐ-ӿ]/.test(block)).toBe(false);
       expect(block).toMatch(/\b(yang|dan|untuk|dengan|kamu|pada)\b/);

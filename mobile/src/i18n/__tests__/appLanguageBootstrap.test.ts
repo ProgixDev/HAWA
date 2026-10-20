@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// The language the first screen is rendered in, and what happens when AWA comes back to the foreground. Uses the real
+// The language the first screen is rendered in, and that it does not change when the phone's language does. Uses the real
 // i18next instance and the real preference store; only the phone's language list is mocked.
 
 const mockDevice: {tags: unknown; fail: boolean} = {tags: ['en-US'], fail: false};
@@ -100,71 +100,53 @@ describe('initializeAppLanguage — the language is right before the first scree
   });
 });
 
-describe('refreshAppLanguageOnForeground — returning to the app', () => {
-  it('follows a language change made in the phone settings while AWA was in the background', async () => {
+
+describe('the language of the first launch is kept: a later phone-language change does not move AWA', () => {
+  it('first launch on a French phone stores French; after the phone is switched to English or Arabic AWA still starts in French', async () => {
     mockDevice.tags = ['fr-FR'];
-    const {i18n, boot} = startApp();
-    await boot.initializeAppLanguage();
-    expect(i18n.language).toBe('fr');
+    let app = startApp();
+    await app.boot.initializeAppLanguage();
+    expect(app.i18n.language).toBe('fr');
+    expect(await AsyncStorage.getItem(KEY)).toBe('fr');
 
-    mockDevice.tags = ['en-US']; // French -> English
-    await boot.refreshAppLanguageOnForeground();
-    expect(i18n.language).toBe('en');
-
-    mockDevice.tags = ['es-ES']; // English -> Spanish
-    await boot.refreshAppLanguageOnForeground();
-    expect(i18n.language).toBe('es');
-
-    mockDevice.tags = ['ar-DZ']; // Spanish -> Arabic (unsupported) -> English
-    await boot.refreshAppLanguageOnForeground();
-    expect(i18n.language).toBe('en');
+    for (const tags of [['en-US'], ['ar-DZ'], ['es-ES']]) {
+      mockDevice.tags = tags;
+      app = startApp(); // a new launch after the phone's language changed
+      await app.boot.initializeAppLanguage();
+      expect(app.i18n.language).toBe('fr');
+      expect(app.i18n.t('common.save')).toBe('Enregistrer');
+    }
   });
 
-  it('does nothing when the language has not changed (no language event, no flicker)', async () => {
-    mockDevice.tags = ['fr-FR'];
-    const {i18n, boot} = startApp();
-    await boot.initializeAppLanguage();
-    const changed = jest.fn();
-    i18n.on('languageChanged', changed);
-    await boot.refreshAppLanguageOnForeground();
-    await boot.refreshAppLanguageOnForeground();
-    expect(changed).not.toHaveBeenCalled();
-  });
-
-  it('ignores a phone language change when the user chose a language (the choice is not overwritten, in memory or in storage)', async () => {
-    mockDevice.tags = ['fr-FR'];
-    const {i18n, boot, prefs} = startApp();
-    await boot.initializeAppLanguage();
-    await prefs.setAppLanguage('de');
-    await boot.refreshAppLanguageOnForeground();
-    expect(i18n.language).toBe('de');
-
-    mockDevice.tags = ['es-ES'];
-    await boot.refreshAppLanguageOnForeground();
-    expect(i18n.language).toBe('de');
-    expect(await AsyncStorage.getItem(KEY)).toBe('de');
-  });
-
-  it('after "System default" AWA follows the phone again, and the foreground refresh keeps following it', async () => {
-    mockDevice.tags = ['fr-FR'];
-    const {i18n, boot, prefs} = startApp();
-    await boot.initializeAppLanguage();
-    await prefs.setAppLanguage('de');
-    expect(i18n.language).toBe('de');
-
-    await prefs.setAppLanguagePreference('system');
-    await new Promise(resolve => setTimeout(resolve, 0));
-    expect(i18n.language).toBe('fr');
-
-    mockDevice.tags = ['tr-TR'];
-    await boot.refreshAppLanguageOnForeground();
-    expect(i18n.language).toBe('tr');
-  });
-
-  it('never rejects, even when the phone language cannot be read', async () => {
+  it('there is no foreground refresh any more', () => {
     const {boot} = startApp();
-    await boot.initializeAppLanguage();
-    mockDevice.fail = true;
-    await expect(boot.refreshAppLanguageOnForeground()).resolves.toBeUndefined();
+    expect((boot as Record<string, unknown>).refreshAppLanguageOnForeground).toBeUndefined();
+  });
+
+  it('a manual choice made in Appearance is what the next launch starts in, whatever the phone says', async () => {
+    mockDevice.tags = ['fr-FR'];
+    let app = startApp();
+    await app.boot.initializeAppLanguage();
+    await app.prefs.setAppLanguage('id');
+    expect(app.i18n.language).toBe('id');
+
+    mockDevice.tags = ['de-DE'];
+    app = startApp();
+    await app.boot.initializeAppLanguage();
+    expect(app.i18n.language).toBe('id');
+    expect(app.i18n.t('common.save')).not.toBe('common.save');
+  });
+
+  it('an install whose language was left on the removed "System default" is resolved once at its next launch and keeps it', async () => {
+    // no stored value: exactly what "System default" used to leave behind
+    mockDevice.tags = ['tr-TR'];
+    let app = startApp();
+    await app.boot.initializeAppLanguage();
+    expect(app.i18n.language).toBe('tr');
+
+    mockDevice.tags = ['ru-RU'];
+    app = startApp();
+    await app.boot.initializeAppLanguage();
+    expect(app.i18n.language).toBe('tr');
   });
 });

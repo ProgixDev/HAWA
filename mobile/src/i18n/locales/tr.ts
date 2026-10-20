@@ -155,6 +155,9 @@ export const tr = {
       germanName: 'Deutsch',
       chineseName: '简体中文',
       indonesianName: 'Bahasa Indonesia',
+      hindiName: 'हिन्दी',
+      albanianName: 'Shqip',
+      japaneseName: '日本語',
       systemName: 'Sistem dili',
       systemDescription: 'Cihaz dilini kullan',
     },
@@ -1364,6 +1367,7 @@ export const tr = {
       irregular: 'Düzensiz',
       unknown: 'Emin değilim',
       helperText: 'Bu bilgileri daha sonra güncelleyebileceksin.',
+      savedValuesNote: 'Gösterilen süreler (adet: {{period}}, döngü: {{cycle}}) “{{button}}” düğmesine bastığında kaydedilecek. Bunları daha sonra güncelleyebileceksin.',
       futureDateWarning: 'Bu tarih gelecekte olamaz.',
       creating: 'Oluşturuluyor…',
       createProfile: 'Profil oluştur',
@@ -7944,6 +7948,17 @@ export const tr = {
     'warm-sand': 'Sıcak ve doğal',
     midnight: 'Derin ve sofistike',
   },
+  // The palette names (the cards of Appearance and their accessibility labels). "AWA Original" is the brand name of the original
+  // palette and is the same in every language; the other names are translated. Keyed by the technical palette id, which never changes.
+  appearanceThemeNames: {
+    'awa-original': 'AWA Original',
+    'lavender-night': 'Lavanta Gecesi',
+    'rose-quartz': 'Gül Kuvars',
+    'sage-serenity': 'Adaçayı Dinginliği',
+    'ocean-calm': 'Okyanus Sakinliği',
+    'warm-sand': 'Sıcak Kum',
+    midnight: 'Gece Yarısı',
+  },
   prayerTimes: {
     title: 'Namaz vakitleri',
     settingsAccessibility: 'Namaz vakti ayarları',
@@ -8518,6 +8533,8 @@ export const tr = {
       stretching: 'Esneme',
       pilates: 'Pilates',
       dance: 'Dans',
+      hiking: 'Doğa yürüyüşü',
+      cardio: 'Kardiyo',
       other: 'Diğer',
     },
     cycleActivityFeeling: {

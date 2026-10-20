@@ -154,7 +154,7 @@ export const fr = {
 
   appearance: {
     headerTitle: 'Apparence',
-    subtitle: 'Personnalisez l’apparence de votre application AWA\nselon vos préférences.',
+    subtitle: 'Personnalisez l’apparence de votre application AWA selon vos préférences.',
     themeSection: 'Thème',
     modeSystem: 'Système',
     modeLight: 'Clair',
@@ -191,6 +191,9 @@ export const fr = {
       germanName: 'Deutsch',
       chineseName: '简体中文',
       indonesianName: 'Bahasa Indonesia',
+      hindiName: 'हिन्दी',
+      albanianName: 'Shqip',
+      japaneseName: '日本語',
       systemName: 'Langue du système',
       systemDescription: 'Utiliser la langue de l’appareil',
     },
@@ -1337,6 +1340,7 @@ export const fr = {
       irregular: 'Irrégulier',
       unknown: 'Je ne sais pas',
       helperText: 'Ces informations pourront être modifiées plus tard.',
+      savedValuesNote: 'Les durées affichées (règles : {{period}}, cycle : {{cycle}}) seront enregistrées en appuyant sur « {{button}} ». Elles pourront être modifiées plus tard.',
       futureDateWarning: 'Cette date ne peut pas être dans le futur.',
       creating: 'Création…',
       createProfile: 'Créer le profil',
@@ -7577,6 +7581,17 @@ export const fr = {
     'warm-sand': 'Chaleureux et naturel',
     midnight: 'Profond et sophistiqué',
   },
+  // The palette names (the cards of Appearance and their accessibility labels). "AWA Original" is the brand name of the original
+  // palette and is the same in every language; the other names are translated. Keyed by the technical palette id, which never changes.
+  appearanceThemeNames: {
+    'awa-original': 'AWA Original',
+    'lavender-night': 'Nuit lavande',
+    'rose-quartz': 'Quartz rose',
+    'sage-serenity': 'Sérénité sauge',
+    'ocean-calm': 'Calme océan',
+    'warm-sand': 'Sable chaud',
+    midnight: 'Minuit',
+  },
 
   // Phase 7F — Prayer / Hijri / Qadaa / spiritual feature localization.
   // PrayerTimesScreen.tsx, NextPrayerCard.tsx, PrayerScheduleList.tsx and
@@ -8184,6 +8199,8 @@ export const fr = {
       stretching: 'Étirements',
       pilates: 'Pilates',
       dance: 'Danse',
+      hiking: 'Randonnée',
+      cardio: 'Cardio',
       other: 'Autre',
     },
     cycleActivityFeeling: {

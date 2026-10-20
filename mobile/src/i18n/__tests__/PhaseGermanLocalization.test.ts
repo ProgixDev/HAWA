@@ -46,7 +46,7 @@ import {getPregnancyWeekData} from '../../data/pregnancyWeekData';
 import {TERMS, PRIVACY} from '../../screens/LegalDocumentScreen';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import {AwaPluralRulesForTests} from '../pluralRules';
-import {phaseLabelFontSize} from '../../components/home/CycleProgressRing';
+import {planCycleRingText} from '../../components/home/cycleRingLayout';
 
 // German (de) — dictionary, plurals, runtime, persistence, dates and case rules, editorial content, images, legal text.
 
@@ -384,20 +384,30 @@ describe('German dates, weekdays and time', () => {
   });
 });
 
-describe('cycle ring label: long German/Russian phase names are shrunk, never broken mid-word', () => {
-  it('keeps the original size for every name that already fits (fr/en/es/it/tr/short German)', () => {
-    for (const label of ['Follicular phase', 'Phase folliculaire', 'Fase folicular', 'Fase follicolare', 'Foliküler faz', 'Eisprung', 'Periode', 'Lutealphase', 'Овуляция']) {
-      expect(phaseLabelFontSize(label, 116)).toBe(9.5);
+describe('cycle ring label: long German/Russian phase names are wrapped on whole words and sized to fit, never broken mid-word', () => {
+  const GERMAN = ['Menstruation', 'Follikelphase', 'Fruchtbares Fenster', 'Eisprung', 'Lutealphase'];
+  const RUSSIAN = ['Менструальная фаза', 'Фолликулярная фаза', 'Фертильное окно', 'Овуляция', 'Лютеиновая фаза'];
+
+  it.each([
+    ['de', 'Zyklustag', GERMAN],
+    ['ru', 'День цикла', RUSSIAN],
+  ] as const)('%s: every name is kept in whole words on at most two lines, in the 7–10 band', (_language, caption, names) => {
+    const plan = planCycleRingText({size: 116, caption, phaseLabels: names});
+    for (const name of names) {
+      const lines = plan.phaseLines[name];
+      expect([name, lines.length <= 2]).toEqual([name, true]);
+      expect([name, lines.join(' ')]).toEqual([name, name]);
     }
+    expect(plan.phase.fontSize).toBeGreaterThanOrEqual(7);
+    expect(plan.phase.fontSize).toBeLessThanOrEqual(10);
   });
 
-  it('scales long single words down (Фолликулярная, Follikelphase, Menstruationsphase) within the 7–9.5 band', () => {
-    const russian = phaseLabelFontSize('Фолликулярная фаза', 116);
-    expect(russian).toBeLessThan(9.5);
-    expect(russian).toBeGreaterThanOrEqual(7);
-    expect(phaseLabelFontSize('Follikelphase', 116)).toBeLessThanOrEqual(9.5);
-    expect(phaseLabelFontSize('Menstruationsphase', 116)).toBe(7);
-    expect(phaseLabelFontSize(null, 116)).toBe(9.5);
+  it('the long Russian words get a smaller size than the short German names (Фолликулярная is 13 letters)', () => {
+    const russian = planCycleRingText({size: 116, caption: 'День цикла', phaseLabels: RUSSIAN});
+    const german = planCycleRingText({size: 116, caption: 'Zyklustag', phaseLabels: GERMAN});
+    expect(russian.phase.fontSize).toBeLessThan(german.phase.fontSize);
+    // a name that is a single long word is never split: «Follikelphase» stays one line
+    expect(german.phaseLines.Follikelphase).toEqual(['Follikelphase']);
   });
 
   it('bottom-navigation labels stay short enough for a 360 dp tab (no mid-word break, no ellipsis)', () => {
@@ -549,8 +559,8 @@ describe('editorial content: library articles, pregnancy weeks, legal text', () 
   });
 
   it('legal placeholder text exists in German with the same sections as English', () => {
-    expect(Object.keys(TERMS).sort()).toEqual(['de', 'en', 'es', 'fr', 'id', 'ru', 'tr', 'zh']);
-    expect(Object.keys(PRIVACY).sort()).toEqual(['de', 'en', 'es', 'fr', 'id', 'ru', 'tr', 'zh']);
+    expect(Object.keys(TERMS).sort()).toEqual(['de', 'en', 'es', 'fr', 'hi', 'id', 'ja', 'ru', 'sq', 'tr', 'zh']);
+    expect(Object.keys(PRIVACY).sort()).toEqual(['de', 'en', 'es', 'fr', 'hi', 'id', 'ja', 'ru', 'sq', 'tr', 'zh']);
     expect(TERMS.de).toHaveLength(TERMS.en.length);
     expect(PRIVACY.de).toHaveLength(PRIVACY.en.length);
     TERMS.de.concat(PRIVACY.de).forEach(section => {

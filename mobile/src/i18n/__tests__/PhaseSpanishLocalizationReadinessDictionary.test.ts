@@ -40,7 +40,7 @@ const enPathSet = new Set(enPaths);
 const esPathSet = new Set(esPaths);
 
 describe('TEST — Spanish dictionary leaf-key parity with fr/en (cases 16-18)', () => {
-  it('16. es has exactly 6230 leaf keys, matching fr and en 1:1 (no missing, no extra)', () => {
+  it('16. es has exactly 6231 leaf keys, matching fr and en 1:1 (no missing, no extra)', () => {
     // Grown from the original 6064 across several localization fix passes
     // (dataPrivacy.*, profile.managedProfiles.swipeDeleteLabel,
     // profile.editAvatarAccessibility/editAnonymousAvatarAccessibility,
@@ -75,9 +75,17 @@ describe('TEST — Spanish dictionary leaf-key parity with fr/en (cases 16-18)',
     // name for the journal sheet and the seven journal screens) to every dictionary (6227). The "System default" language
     // option then added appearance.language.systemName / systemDescription to every dictionary (6229). The Indonesian
     // integration then added appearance.language.indonesianName (the endonym "Bahasa Indonesia") to every dictionary (6230).
-    expect(esPaths.length).toBe(6230);
-    expect(frPaths.length).toBe(6230);
-    expect(enPaths.length).toBe(6230);
+    // The daughter cycle-setup form then added managedProfile.cycleSetup.savedValuesNote (the note that says the displayed
+    // period / cycle lengths are saved by "Créer le profil") to every dictionary (6231). The Hindi integration then added
+    // appearance.language.hindiName (the endonym हिन्दी) to every dictionary (6232). The localized palette names then added the
+    // appearanceThemeNames block (7 palette ids: AWA Original, Lavender Night, Rose Quartz, Sage Serenity, Ocean Calm, Warm Sand,
+    // Midnight) to every dictionary (6239). The physical-activity screen then added journalOptions.cycleActivityType.hiking / cardio
+    // (« Randonnée », « Cardio ») to every dictionary (6241). The Albanian integration then added appearance.language.albanianName
+    // (the endonym Shqip) to every dictionary (6242). The Japanese integration then added appearance.language.japaneseName (the
+    // endonym 日本語) to every dictionary (6243).
+    expect(esPaths.length).toBe(6243);
+    expect(frPaths.length).toBe(6243);
+    expect(enPaths.length).toBe(6243);
 
     const missingFromEsVsFr = frPaths.filter(p => !esPathSet.has(p));
     const extraInEsVsFr = esPaths.filter(p => !frPathSet.has(p));

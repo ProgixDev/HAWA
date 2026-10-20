@@ -106,27 +106,27 @@ afterEach(async () => {
 });
 
 describe('TEST — AppearanceScreen "Langue de l\'application" selector (cases 10-15)', () => {
-  it('10. With no saved preference AWA follows the system language (English here): "System default" is the selected option', async () => {
+  it('10. With nothing stored AWA is in English (the fallback): the row names only that language and the English card is the selected one', async () => {
     const renderer = await renderScreen();
     expect(getAppLanguage()).toBe('en');
-    // the row's own subtitle names the mode and the language in force
-    expect(textsOf(renderer)).toContain('System default · English');
+    // the row's own subtitle names the language in force — there is no "System default ·" prefix any more
+    expect(textsOf(renderer)).toContain('English');
+    expect(textsOf(renderer)).not.toContain('System default · English');
 
     await openLanguageSheet(renderer);
-    expect(radios(renderer, 'System default')[0].props.accessibilityState).toEqual({checked: true});
-    // no language was CHOSEN, so none of the language cards is selected
-    expect(radios(renderer, 'English')[0].props.accessibilityState).toEqual({checked: false});
+    expect(radios(renderer, 'System default')).toHaveLength(0);
+    expect(radios(renderer, 'English')[0].props.accessibilityState).toEqual({checked: true});
     expect(radios(renderer, 'Français')[0].props.accessibilityState).toEqual({checked: false});
     expect(radios(renderer, 'Español')[0].props.accessibilityState).toEqual({checked: false});
   });
 
-  it('10b. A manually chosen English is shown as the selected language, not "System default"', async () => {
+  it('10b. A manually chosen English is shown as the selected language', async () => {
     await setAppLanguage('en');
     const renderer = await renderScreen();
     expect(textsOf(renderer)).toContain('English');
     await openLanguageSheet(renderer);
     expect(radios(renderer, 'English')[0].props.accessibilityState).toEqual({checked: true});
-    expect(radios(renderer, 'System default')[0].props.accessibilityState).toEqual({checked: false});
+    expect(radios(renderer, 'System default')).toHaveLength(0);
   });
 
   it('11. French is present as a selectable option', async () => {

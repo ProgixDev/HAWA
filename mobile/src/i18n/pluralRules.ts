@@ -29,6 +29,13 @@ export function russianCardinal(value: number): PluralCategory {
   return 'many';
 }
 
+/** CLDR cardinal rule for Hindi: "one" when the integer part is 0 or the value is exactly 1, otherwise "other". */
+export function hindiCardinal(value: number): PluralCategory {
+  if (!Number.isFinite(value)) {return 'other';}
+  const n = Math.abs(value);
+  return Math.trunc(n) === 0 || n === 1 ? 'one' : 'other';
+}
+
 class AwaPluralRules {
   private readonly language: string;
 
@@ -40,8 +47,10 @@ class AwaPluralRules {
   select(value: number): PluralCategory {
     if (this.language === 'ru') {return russianCardinal(value);}
     // Chinese has no grammatical number: CLDR has the single category "other".
-    if (this.language === 'zh' || this.language === 'id') {return 'other';}
-    // Indonesian likewise has no grammatical number (CLDR: only "other").
+    if (this.language === 'zh' || this.language === 'id' || this.language === 'ja') {return 'other';}
+    // Indonesian and Japanese likewise have no grammatical number (CLDR: only "other").
+    // Hindi (CLDR): one = integer part 0, or exactly 1 (0, 0.5, 1 → one; 1.5, 2 → other).
+    if (this.language === 'hi') {return hindiCardinal(value);}
     return value === 1 ? 'one' : 'other';
   }
 
@@ -49,7 +58,7 @@ class AwaPluralRules {
     return {
       locale: this.language,
       pluralCategories:
-        this.language === 'ru' ? ['one', 'few', 'many', 'other'] : this.language === 'zh' || this.language === 'id' ? ['other'] : ['one', 'other'],
+        this.language === 'ru' ? ['one', 'few', 'many', 'other'] : this.language === 'zh' || this.language === 'id' || this.language === 'ja' ? ['other'] : ['one', 'other'],
     };
   }
 

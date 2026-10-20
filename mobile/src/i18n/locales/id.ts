@@ -150,6 +150,9 @@ export const id = {
       germanName: 'Deutsch',
       chineseName: '简体中文',
       indonesianName: 'Bahasa Indonesia',
+      hindiName: 'हिन्दी',
+      albanianName: 'Shqip',
+      japaneseName: '日本語',
       systemName: 'Bawaan sistem',
       systemDescription: 'Gunakan bahasa perangkat',
     },
@@ -1358,6 +1361,7 @@ export const id = {
       irregular: 'Tidak teratur',
       unknown: 'Tidak yakin',
       helperText: 'Kamu bisa memperbarui informasi ini nanti.',
+      savedValuesNote: 'Durasi yang ditampilkan (haid: {{period}}, siklus: {{cycle}}) akan disimpan saat kamu menekan “{{button}}”. Kamu bisa memperbarui nanti.',
       futureDateWarning: 'Tanggal ini tidak boleh di masa depan.',
       creating: 'Membuat…',
       createProfile: 'Buat profil',
@@ -7938,6 +7942,17 @@ export const id = {
     'warm-sand': 'Hangat dan alami',
     midnight: 'Dalam dan canggih',
   },
+  // The palette names (the cards of Appearance and their accessibility labels). "AWA Original" is the brand name of the original
+  // palette and is the same in every language; the other names are translated. Keyed by the technical palette id, which never changes.
+  appearanceThemeNames: {
+    'awa-original': 'AWA Original',
+    'lavender-night': 'Malam Lavender',
+    'rose-quartz': 'Kuarsa Mawar',
+    'sage-serenity': 'Ketenangan Sage',
+    'ocean-calm': 'Ketenangan Samudra',
+    'warm-sand': 'Pasir Hangat',
+    midnight: 'Tengah Malam',
+  },
   prayerTimes: {
     title: 'Waktu salat',
     settingsAccessibility: 'Pengaturan waktu salat',
@@ -8512,6 +8527,8 @@ export const id = {
       stretching: 'Peregangan',
       pilates: 'Pilates',
       dance: 'Menari',
+      hiking: 'Mendaki',
+      cardio: 'Kardio',
       other: 'Lainnya',
     },
     cycleActivityFeeling: {

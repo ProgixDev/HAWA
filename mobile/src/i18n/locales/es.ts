@@ -168,6 +168,9 @@ export const es = {
       germanName: 'Deutsch',
       chineseName: '简体中文',
       indonesianName: 'Bahasa Indonesia',
+      hindiName: 'हिन्दी',
+      albanianName: 'Shqip',
+      japaneseName: '日本語',
       systemName: 'Idioma del sistema',
       systemDescription: 'Usar el idioma del dispositivo',
     },
@@ -1379,6 +1382,7 @@ export const es = {
       irregular: 'Irregular',
       unknown: 'No lo sé',
       helperText: 'Esta información podrá modificarse más tarde.',
+      savedValuesNote: 'Las duraciones mostradas (menstruación: {{period}}, ciclo: {{cycle}}) se guardarán al pulsar «{{button}}». Podrás modificarlas más tarde.',
       futureDateWarning: 'Esta fecha no puede ser en el futuro.',
       creating: 'Creando…',
       createProfile: 'Crear el perfil',
@@ -7962,6 +7966,17 @@ export const es = {
     'warm-sand': 'Cálido y natural',
     midnight: 'Profundo y sofisticado',
   },
+  // The palette names (the cards of Appearance and their accessibility labels). "AWA Original" is the brand name of the original
+  // palette and is the same in every language; the other names are translated. Keyed by the technical palette id, which never changes.
+  appearanceThemeNames: {
+    'awa-original': 'AWA Original',
+    'lavender-night': 'Noche lavanda',
+    'rose-quartz': 'Cuarzo rosa',
+    'sage-serenity': 'Serenidad salvia',
+    'ocean-calm': 'Calma oceánica',
+    'warm-sand': 'Arena cálida',
+    midnight: 'Medianoche',
+  },
   prayerTimes: {
     title: 'Horarios de oración',
     settingsAccessibility: 'Ajustes de los horarios de oración',
@@ -8536,6 +8551,8 @@ export const es = {
       stretching: 'Estiramientos',
       pilates: 'Pilates',
       dance: 'Baile',
+      hiking: 'Senderismo',
+      cardio: 'Cardio',
       other: 'Otro',
     },
     cycleActivityFeeling: {

@@ -160,6 +160,9 @@ export const zh = {
       germanName: 'Deutsch',
       chineseName: '简体中文',
       indonesianName: 'Bahasa Indonesia',
+      hindiName: 'हिन्दी',
+      albanianName: 'Shqip',
+      japaneseName: '日本語',
       systemName: '跟随系统',
       systemDescription: '使用设备语言',
     },
@@ -1368,6 +1371,7 @@ export const zh = {
       irregular: '不规律',
       unknown: '不确定',
       helperText: '你之后可以更新这些信息。',
+      savedValuesNote: '所示时长（经期：{{period}}，周期：{{cycle}}）将在点击“{{button}}”时保存。你之后可以更新。',
       futureDateWarning: '日期不能晚于今天。',
       creating: '正在创建…',
       createProfile: '创建资料',
@@ -7948,6 +7952,17 @@ export const zh = {
     'warm-sand': '温暖而自然',
     midnight: '深邃而沉稳',
   },
+  // The palette names (the cards of Appearance and their accessibility labels). "AWA Original" is the brand name of the original
+  // palette and is the same in every language; the other names are translated. Keyed by the technical palette id, which never changes.
+  appearanceThemeNames: {
+    'awa-original': 'AWA Original',
+    'lavender-night': '熏衣草之夜',
+    'rose-quartz': '玫瑰石英',
+    'sage-serenity': '鼠尾草宁静',
+    'ocean-calm': '海洋平静',
+    'warm-sand': '暖沙',
+    midnight: '午夜',
+  },
   prayerTimes: {
     title: '礼拜时间',
     settingsAccessibility: '礼拜时间设置',
@@ -8522,6 +8537,8 @@ export const zh = {
       stretching: '拉伸',
       pilates: '普拉提',
       dance: '舞蹈',
+      hiking: '徒步',
+      cardio: '有氧运动',
       other: '其他',
     },
     cycleActivityFeeling: {
