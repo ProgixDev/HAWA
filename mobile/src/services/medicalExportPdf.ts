@@ -1,4 +1,20 @@
-import {PDFDocument, StandardFonts, decodeFromBase64, rgb, type PDFFont, type PDFPage} from 'pdf-lib';
+import {
+  PDFDocument,
+  PDFHexString,
+  StandardFonts,
+  beginText,
+  decodeFromBase64,
+  endText,
+  popGraphicsState,
+  pushGraphicsState,
+  rgb,
+  setFillingColor,
+  setFontAndSize,
+  setTextMatrix,
+  showText,
+  type PDFFont,
+  type PDFPage,
+} from 'pdf-lib';
 import fontkit from '@pdf-lib/fontkit';
 import bidiFactory from 'bidi-js';
 import type {ExportReportModel} from './medicalExportFormatting';
@@ -6,6 +22,8 @@ import {CAIRO_ARABIC_SUBSET_BASE64} from './pdfArabicFont';
 import {CAIRO_BOLD_SUBSET_BASE64} from './pdfCairoBoldFont';
 import {DEJAVU_CYRILLIC_BOLD_SUBSET_BASE64, DEJAVU_CYRILLIC_REGULAR_SUBSET_BASE64} from './pdfCyrillicFont';
 import {NOTO_SANS_SC_BOLD_SUBSET_BASE64, NOTO_SANS_SC_REGULAR_SUBSET_BASE64} from './pdfChineseFont';
+import {NOTO_SANS_JP_BOLD_SUBSET_BASE64, NOTO_SANS_JP_REGULAR_SUBSET_BASE64} from './pdfJapaneseFont';
+import {NOTO_SANS_DEVANAGARI_BOLD_SUBSET_BASE64, NOTO_SANS_DEVANAGARI_REGULAR_SUBSET_BASE64} from './pdfDevanagariFont';
 import i18n from '../i18n';
 
 // Local, on-device PDF generation for the Medical Export "Rapport de suivi" —
@@ -75,10 +93,47 @@ export const containsCyrillic = (text: string): boolean => CYRILLIC_RE.test(text
 const CHINESE_RE = /[\u3040-\u30FF\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF\uFF00-\uFFEF]/;
 
 export const containsChinese = (text: string): boolean => CHINESE_RE.test(text);
+
+/** The Devanagari block (Hindi): drawn with Noto Sans Devanagari, shaped by fontkit (see drawShapedRun). */
+const DEVANAGARI_RE = /[\u0900-\u097F]/;
+export const containsDevanagari = (text: string): boolean => DEVANAGARI_RE.test(text);
+const isDevanagariChar = (codePoint: number): boolean => (codePoint >= 0x0900 && codePoint <= 0x097f) || codePoint === 0x200c || codePoint === 0x200d;
 export const containsTurkishSpecificLetter = (text: string): boolean => TURKISH_SPECIFIC_RE.test(text);
 
 type FontkitFont = {
   layout: (text: string) => {direction?: string; glyphs: unknown[]};
+};
+
+/** What fontkit's layout() returns for a run once the font's OpenType rules have been applied: the glyphs (conjuncts,
+ * reph, half forms already substituted, vowel signs already reordered) and where each one goes, in font units. */
+type ShapedGlyphRun = {
+  glyphs: Array<{id: number}>;
+  positions: Array<{xAdvance: number; yAdvance: number; xOffset: number; yOffset: number}>;
+};
+type ShapingFont = {unitsPerEm: number; layout: (text: string) => ShapedGlyphRun};
+
+/** fontkit's Indic shaper is pre-compiled with Babel's regenerator and calls the GLOBAL `regeneratorRuntime` (its first use is the
+ * syllable state machine, i.e. the first Devanagari run). React Native defines that global only when the engine lacks native
+ * generators, and Hermes has them, so on a phone the call would throw "Property 'regeneratorRuntime' doesn't exist" and the
+ * Hindi export would fail (Jest hides it: its setup always defines the global). @babel/runtime is already a dependency;
+ * its regenerator export is exactly that runtime. Called only for a report that contains Devanagari. */
+export function ensureShapingRuntime(): void {
+  const scope = globalThis as {regeneratorRuntime?: unknown};
+  if (scope.regeneratorRuntime === undefined) {
+    scope.regeneratorRuntime = require('@babel/runtime/regenerator');
+  }
+}
+
+/** The embedded Devanagari faces, by PDFFont, so drawing and measuring can recognise them. */
+const shapedFaces = new WeakMap<PDFFont, ShapingFont>();
+
+type DevanagariFaces = {
+  regular: PDFFont;
+  bold: PDFFont;
+  /** Code points of the Devanagari face (the faces share one character set). */
+  support: PdfCharSupport;
+  /** Code points Helvetica can encode. */
+  latinSupport: PdfCharSupport;
 };
 
 type Fonts = {
@@ -90,6 +145,8 @@ type Fonts = {
   /** fontkit instance of the same face, used only to ask which direction it
    * will lay a string out in (see arrangeForArabicFace). */
   probe: FontkitFont | null;
+  /** Set only for a report that contains Devanagari (Hindi). */
+  devanagari?: DevanagariFaces | null;
 };
 
 type Cursor = {doc: PDFDocument; page: PDFPage; y: number; fonts: Fonts; support: PdfCharSupport};
@@ -187,10 +244,81 @@ export function arrangeForArabicFace(
 
 type DrawRun = {text: string; font: PDFFont};
 
+const wordAdvances = new WeakMap<ShapingFont, Map<string, number>>();
+
+/** Advance of one space-free piece of text in font units, shaped once and remembered: the line breaker measures every growing
+ * candidate line, and re-shaping a whole line for each added word (fontkit's Indic shaper is slow) would be quadratic. */
+function pieceAdvance(face: ShapingFont, piece: string): number {
+  let cache = wordAdvances.get(face);
+  if (!cache) {
+    cache = new Map<string, number>();
+    wordAdvances.set(face, cache);
+  }
+  let advance = cache.get(piece);
+  if (advance === undefined) {
+    advance = face.layout(piece).positions.reduce((sum, position) => sum + position.xAdvance, 0);
+    cache.set(piece, advance);
+  }
+  return advance;
+}
+
+/** Width of a shaped run in points: the glyph advances fontkit computed, summed word by word. Shaping never crosses a space
+ * (a space ends the syllable) and the face has no kerning against it, so the sum equals the advance of the whole run
+ * (a test pins that against the real font). */
+export function shapedWidth(face: ShapingFont, text: string, size: number): number {
+  let units = 0;
+  text.split(' ').forEach((piece, index) => {
+    if (index > 0) {units += pieceAdvance(face, ' ');}
+    if (piece) {units += pieceAdvance(face, piece);}
+  });
+  return (units * size) / face.unitsPerEm;
+}
+
+/** Hindi line: left-to-right runs, each on the face that can draw it. Devanagari letters, signs and the joiners are
+ * drawn with Noto Sans Devanagari; Latin letters, the bullet and degree signs (not in that face) with Helvetica; a stretch
+ * of characters BOTH faces have (spaces, digits, punctuation) follows the Devanagari text it comes after, so a Hindi
+ * sentence stays one shaped run. Never splits inside a syllable: only Devanagari characters are on the Devanagari face. */
+function devanagariRuns(line: string, faces: DevanagariFaces, latinFont: PDFFont, bold: boolean): DrawRun[] {
+  const devFont = bold ? faces.bold : faces.regular;
+  type Kind = 'dev' | 'lat' | 'both';
+  const kinds: Kind[] = Array.from(line).map(char => {
+    const cp = char.codePointAt(0) as number;
+    if (isDevanagariChar(cp)) {return 'dev';}
+    const inDev = faces.support.has(cp);
+    const inLatin = faces.latinSupport.has(cp);
+    if (inDev && inLatin) {return 'both';}
+    return inDev ? 'dev' : 'lat';
+  });
+  let previous: 'dev' | 'lat' = 'lat';
+  const resolved = kinds.map((kind): 'dev' | 'lat' => {
+    const value: 'dev' | 'lat' = kind === 'both' ? previous : kind;
+    previous = value;
+    return value;
+  });
+  const runs: DrawRun[] = [];
+  Array.from(line).forEach((char, index) => {
+    const font = resolved[index] === 'dev' ? devFont : latinFont;
+    const last = runs[runs.length - 1];
+    if (last && last.font === font) {last.text += char;} else {runs.push({text: char, font});}
+  });
+  return runs;
+}
+
+const needsDevanagariFace = (line: string, faces: DevanagariFaces): boolean =>
+  Array.from(line).some(char => {
+    const cp = char.codePointAt(0) as number;
+    return isDevanagariChar(cp) || (faces.support.has(cp) && !faces.latinSupport.has(cp));
+  });
+
 /** The runs of one (already wrapped) line, in VISUAL left-to-right order, each
  * with the exact string to hand to pdf-lib and the face to draw it with. */
 export function layoutLineRuns(line: string, paraLevel: 0 | 1, fonts: Fonts, bold: boolean): DrawRun[] {
   const latinFont = bold ? fonts.latinBold : fonts.latin;
+  // A line takes this path when it holds Devanagari OR any character only the Devanagari face has (a wrapped line that is just
+  // '₹500' must not reach Helvetica, which cannot encode the rupee sign).
+  if (fonts.devanagari && !containsArabicScript(line) && needsDevanagariFace(line, fonts.devanagari)) {
+    return devanagariRuns(line, fonts.devanagari, latinFont, bold);
+  }
   if (!fonts.arabic || !fonts.probe || !containsArabicScript(line)) {
     // No Arabic on this line: plain left-to-right text, exactly as before.
     return line ? [{text: line, font: latinFont}] : [];
@@ -259,13 +387,40 @@ export function layoutLineRuns(line: string, paraLevel: 0 | 1, fonts: Fonts, bol
   return pieces.filter(piece => piece.text.length > 0);
 }
 
-const runsWidth = (runs: DrawRun[], size: number): number =>
-  runs.reduce((sum, run) => sum + run.font.widthOfTextAtSize(run.text, size), 0);
+const runWidth = (run: DrawRun, size: number): number => {
+  const shaped = shapedFaces.get(run.font);
+  return shaped ? shapedWidth(shaped, run.text, size) : run.font.widthOfTextAtSize(run.text, size);
+};
 
-/** Kinsoku (line-breaking) rules for Chinese: these may not START a line (closing punctuation, ellipsis, dashes)... */
-const NO_LINE_START = new Set(Array.from('，。、；：？！）”’】》〉』」…—～·％,.;:?!)]}%'));
+const runsWidth = (runs: DrawRun[], size: number): number => runs.reduce((sum, run) => sum + runWidth(run, size), 0);
+
+/** Draws a run of Devanagari glyph by glyph. pdf-lib's own drawText applies the font's substitutions (conjuncts, reph) when it
+ * encodes text but throws away the glyph POSITIONS, and Devanagari needs them (vowel signs and nuktas are attached to their
+ * base by mark-positioning offsets, not by advance width). So the run is shaped with fontkit and every glyph is placed with
+ * its own text matrix. The face is embedded whole, so the glyph ids fontkit returns are the ids in the PDF. */
+function drawShapedRun(page: PDFPage, face: ShapingFont, font: PDFFont, text: string, x: number, y: number, size: number, color: ReturnType<typeof rgb>): void {
+  const run = face.layout(text);
+  const scale = size / face.unitsPerEm;
+  const fontKey = page.node.newFontDictionary(font.name, font.ref);
+  const operators = [pushGraphicsState(), beginText(), setFillingColor(color), setFontAndSize(fontKey, size)];
+  let pen = 0;
+  run.glyphs.forEach((glyph, index) => {
+    const position = run.positions[index];
+    operators.push(
+      setTextMatrix(1, 0, 0, 1, x + (pen + position.xOffset) * scale, y + position.yOffset * scale),
+      showText(PDFHexString.of(glyph.id.toString(16).padStart(4, '0'))),
+    );
+    pen += position.xAdvance;
+  });
+  operators.push(endText(), popGraphicsState());
+  page.pushOperators(...operators);
+}
+
+/** Kinsoku (line-breaking) rules for Chinese and Japanese: these may not START a line (closing punctuation, ellipsis, dashes, the
+ * long-vowel mark, small kana, the katakana middle dot and the iteration marks)... */
+const NO_LINE_START = new Set(Array.from('，。、；：？！）”’】》〉』」…—～·％,.;:?!)]}%ー〜・゛゜．ゝゞヽヾ々ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮヵヶ］｝〕'));
 /** ...and these may not END a line (opening brackets and quotes). */
-const NO_LINE_END = new Set(Array.from('（“‘【《〈『「([{'));
+const NO_LINE_END = new Set(Array.from('（“‘【《〈『「([{［｛〔'));
 
 function wrapText(
   fonts: Fonts,
@@ -351,14 +506,19 @@ function drawParagraph(
     // right margin); a left-to-right one keeps the left margin, as before.
     let x = paraLevel === 1 ? PAGE_WIDTH - MARGIN - indent - width : MARGIN + indent;
     runs.forEach(run => {
-      cursor.page.drawText(run.text, {
-        x,
-        y: cursor.y,
-        size: opts.size,
-        font: run.font,
-        color: opts.color ?? TEXT_COLOR,
-      });
-      x += run.font.widthOfTextAtSize(run.text, opts.size);
+      const shaped = shapedFaces.get(run.font);
+      if (shaped) {
+        drawShapedRun(cursor.page, shaped, run.font, run.text, x, cursor.y, opts.size, opts.color ?? TEXT_COLOR);
+      } else {
+        cursor.page.drawText(run.text, {
+          x,
+          y: cursor.y,
+          size: opts.size,
+          font: run.font,
+          color: opts.color ?? TEXT_COLOR,
+        });
+      }
+      x += runWidth(run, opts.size);
     });
     cursor.y -= opts.size * 1.4;
   });
@@ -393,6 +553,8 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   // standard marker (documented limitation, the CSV export is lossless).
   const needsChinese = strings.some(containsChinese);
   const needsCyrillic = !needsChinese && strings.some(containsCyrillic);
+  // A Hindi report keeps Helvetica for Latin text and adds Noto Sans Devanagari for the Devanagari runs (the face has no Latin).
+  const needsDevanagari = strings.some(containsDevanagari);
   // In a Cyrillic or Chinese report the embedded face draws the Turkish letters too, so Cairo is only needed there for
   // Arabic text.
   const needsTurkish = !needsCyrillic && !needsChinese && strings.some(containsTurkishSpecificLetter);
@@ -410,12 +572,26 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
     dejaVu = await doc.embedFont(DEJAVU_CYRILLIC_REGULAR_SUBSET_BASE64, {subset: true});
     dejaVuBold = await doc.embedFont(DEJAVU_CYRILLIC_BOLD_SUBSET_BASE64, {subset: true});
   }
+  // CJK text is drawn with Noto Sans JP when the app language is Japanese (Japanese glyph forms, kana, JIS level-1 kanji) and with
+  // Noto Sans SC otherwise (Simplified Chinese), exactly as before. `notoSc` / `notoScBold` hold whichever CJK face the report uses.
+  const japaneseReport = needsChinese && String(i18n.language ?? '').toLowerCase().startsWith('ja');
   let notoSc: PDFFont | null = null;
   let notoScBold: PDFFont | null = null;
   if (needsChinese) {
     doc.registerFontkit(fontkit);
-    notoSc = await doc.embedFont(NOTO_SANS_SC_REGULAR_SUBSET_BASE64, {subset: true});
-    notoScBold = await doc.embedFont(NOTO_SANS_SC_BOLD_SUBSET_BASE64, {subset: true});
+    notoSc = await doc.embedFont(japaneseReport ? NOTO_SANS_JP_REGULAR_SUBSET_BASE64 : NOTO_SANS_SC_REGULAR_SUBSET_BASE64, {subset: true});
+    notoScBold = await doc.embedFont(japaneseReport ? NOTO_SANS_JP_BOLD_SUBSET_BASE64 : NOTO_SANS_SC_BOLD_SUBSET_BASE64, {subset: true});
+  }
+  let devanagari: DevanagariFaces | null = null;
+  if (needsDevanagari) {
+    ensureShapingRuntime();
+    doc.registerFontkit(fontkit);
+    // subset: false — pdf-lib would renumber the glyphs of a subset, and the glyph ids written by drawShapedRun are fontkit's.
+    const regular = await doc.embedFont(NOTO_SANS_DEVANAGARI_REGULAR_SUBSET_BASE64, {subset: false});
+    const boldFace = await doc.embedFont(NOTO_SANS_DEVANAGARI_BOLD_SUBSET_BASE64, {subset: false});
+    shapedFaces.set(regular, fontkit.create(decodeFromBase64(NOTO_SANS_DEVANAGARI_REGULAR_SUBSET_BASE64)) as unknown as ShapingFont);
+    shapedFaces.set(boldFace, fontkit.create(decodeFromBase64(NOTO_SANS_DEVANAGARI_BOLD_SUBSET_BASE64)) as unknown as ShapingFont);
+    devanagari = {regular, bold: boldFace, support: pdfCharSupport(regular), latinSupport: new Set<number>()};
   }
   // A Turkish report is drawn entirely with Cairo (Regular for body text, an embedded Cairo Bold subset with the same
   // code points for titles / headings / dates / category labels), so that no word is split between two typefaces and
@@ -425,9 +601,10 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   const latinBold = notoScBold ?? dejaVuBold ?? cairoBold ?? (await doc.embedFont(StandardFonts.HelveticaBold));
   const arabic: PDFFont | null = needsArabic ? cairo : null;
   const arabicSupport: PdfCharSupport = arabic ? pdfCharSupport(arabic) : new Set<number>();
-  const fonts: Fonts = {latin, latinBold, arabic, arabicSupport, probe: needsArabic ? probe : null};
+  if (devanagari) {devanagari.latinSupport = pdfCharSupport(latin);}
+  const fonts: Fonts = {latin, latinBold, arabic, arabicSupport, probe: needsArabic ? probe : null, devanagari};
   // Bold shares the regular face's character set, so one check covers both.
-  const support: PdfCharSupport = new Set<number>([...pdfCharSupport(latin), ...arabicSupport]);
+  const support: PdfCharSupport = new Set<number>([...pdfCharSupport(latin), ...arabicSupport, ...(devanagari ? devanagari.support : [])]);
   const cursor: Cursor = {doc, page: newPage(doc), y: PAGE_HEIGHT - MARGIN, fonts, support};
 
   drawParagraph(cursor, 'AWA', {size: 22, bold: true, color: TITLE_COLOR, gapAfter: 2});

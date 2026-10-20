@@ -85,7 +85,10 @@ describe('Simplified Chinese PDF export', () => {
     const walk = (node: unknown): void => {
       if (typeof node === 'string') {add(node);} else if (node && typeof node === 'object') {Object.values(node).forEach(walk);}
     };
-    walk(zh);
+    // the language endonyms (appearance.language.*Name, e.g. 日本語) are shown in the language selector only, never in a report
+    const interfaceTexts: Record<string, unknown> = {...(zh.appearance as Record<string, unknown>)};
+    delete interfaceTexts.language;
+    walk({...zh, appearance: interfaceTexts});
     for (let week = 1; week <= 41; week += 1) {
       walk(getPregnancyWeekData(week, 'zh'));
     }
