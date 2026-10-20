@@ -52,14 +52,14 @@ describe('resolveInitialLocation — saved location has highest priority', () =>
 describe('resolveInitialLocation — no saved location: always London, IP/country detection is never consulted', () => {
   it('TEST 2 — no saved location → London, United Kingdom, unconditionally', async () => {
     const result = await resolveInitialLocation();
-    expect(result).toEqual({city: 'London', country: 'United Kingdom', latitude: 51.5074, longitude: -0.1278});
+    expect(result).toEqual({city: 'London', country: 'United Kingdom', latitude: 51.5074, longitude: -0.1278, language: 'en'});
     expect(mockDetectCountryCode).not.toHaveBeenCalled();
   });
 
   it('TEST 5 — an IP result of Algeria does NOT change the initial suggestion away from London (detection is never called)', async () => {
     mockDetectCountryCode.mockResolvedValue('DZ');
     const result = await resolveInitialLocation();
-    expect(result).toEqual({city: 'London', country: 'United Kingdom', latitude: 51.5074, longitude: -0.1278});
+    expect(result).toEqual({city: 'London', country: 'United Kingdom', latitude: 51.5074, longitude: -0.1278, language: 'en'});
     expect(mockDetectCountryCode).not.toHaveBeenCalled();
   });
 
@@ -67,7 +67,7 @@ describe('resolveInitialLocation — no saved location: always London, IP/countr
     for (const code of ['FR', 'GB', 'US', 'ZZ', null]) {
       mockDetectCountryCode.mockResolvedValue(code);
       const result = await resolveInitialLocation();
-      expect(result).toEqual({city: 'London', country: 'United Kingdom', latitude: 51.5074, longitude: -0.1278});
+      expect(result).toEqual({city: 'London', country: 'United Kingdom', latitude: 51.5074, longitude: -0.1278, language: 'en'});
     }
     expect(mockDetectCountryCode).not.toHaveBeenCalled();
   });

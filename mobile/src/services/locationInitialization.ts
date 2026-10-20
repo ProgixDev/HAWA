@@ -24,5 +24,7 @@ export async function resolveInitialLocation(): Promise<MapPlace> {
   if (saved) {
     return saved;
   }
-  return {...LONDON_FALLBACK};
+  // The fallback's names are English literals; the marker lets LocationScreen leave them alone in English and ask the provider for the
+  // names in any other language (coordinates unchanged).
+  return {...LONDON_FALLBACK, language: 'en'};
 }

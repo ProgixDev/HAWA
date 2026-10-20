@@ -24,9 +24,12 @@ const hasSourceData = (source: StyleSource) => {
  * MapTiler currently includes a metadata-only vector source used to carry an
  * attribution string. MapLibre Native requires every vector/raster source to
  * expose `url` or `tiles`, so remove metadata-only sources before parsing.
+ *
+ * The style comes back with ENGLISH labels (`name:en`, see mapLanguage.ts): it is returned as is, and the screen applies the active
+ * AWA language with localizeMapStyle() — so a language switch never needs to download the style again.
  */
-export async function loadMapStyle(): Promise<StyleSpecification> {
-  const response = await fetch(MAP_STYLE_URL);
+export async function loadMapStyle(signal?: AbortSignal): Promise<StyleSpecification> {
+  const response = await fetch(MAP_STYLE_URL, signal ? {signal} : undefined);
   if (!response.ok) {
     throw new Error('MAP_STYLE_UNAVAILABLE');
   }
