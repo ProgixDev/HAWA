@@ -44,7 +44,10 @@ export async function seedManagedProfileCycleIfNeeded(profileId: string): Promis
   // still unknown, fall back to the SAME recordFirstEverPeriod() path
   // recordManagedProfileFirstPeriod() below already uses for this exact
   // reason (see its own comment) — the real date is seeded without
-  // fabricating a duration, and getHasConfirmedCycleData() stays false.
+  // fabricating a duration, and getHasConfirmedCycleDuration() stays false.
+  // A period length she DID choose is not lost, though: it is the length of the
+  // period she just declared (the recorded range follows it, as it does on the
+  // branch below), without becoming a "confirmed habit".
   if (profile.periodLength !== null && profile.cycleLength !== null) {
     // Regularity: whatever the mother declared on ManagedProfileCycleSetupScreen
     // (profile.regularity) — never fabricated from cycleLength/periodLength (a
@@ -59,7 +62,7 @@ export async function seedManagedProfileCycleIfNeeded(profileId: string): Promis
       regularity: profile.regularity ?? 'unknown',
     });
   } else {
-    recordFirstEverPeriod(new Date(`${profile.lastPeriodDate}T12:00:00`), profile.regularity ?? 'unknown');
+    recordFirstEverPeriod(new Date(`${profile.lastPeriodDate}T12:00:00`), profile.regularity ?? 'unknown', profile.periodLength);
   }
 }
 

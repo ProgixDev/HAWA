@@ -51,14 +51,17 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
   const [lastPeriodDate, setLastPeriodDate] = useState<Date | null>(draft.lastPeriodDate);
   const [periodLength, setPeriodLength] = useState(draft.periodLength ?? DEFAULT_PERIOD_LENGTH);
   const [cycleLength, setCycleLength] = useState(draft.cycleLength ?? DEFAULT_CYCLE_LENGTH);
-  // The stepper must show a sensible starting value, but an untouched default
-  // must never be saved as if the mother had actually confirmed it (never
-  // fabricate a 28-day cycle / 5-day period — see CLAUDE.md §5). Each stepper
-  // only becomes "confirmed" once she actually presses + or -; an already-
-  // confirmed value from the draft (e.g. Back then forward with the SAME
-  // mounted flow) stays confirmed. periodLength/cycleLength are only ever
-  // written to the draft at submission time (see onCreate below), so a fresh
-  // mount of this screen always starts untouched, exactly as intended.
+  // The stepper must show a sensible starting value, but a value nobody chose is
+  // never saved as if she had confirmed it (never fabricate a 28-day cycle /
+  // 5-day period — see CLAUDE.md §5). A length is saved when (a) she actually
+  // pressed + or - on its stepper, or (b) she described the cycle as "Régulier"
+  // or "Irrégulier" — then the lengths on screen ARE her answer, and the helper
+  // card below says so, live, before she presses "Créer le profil". With
+  // "Je ne sais pas" an untouched length stays unknown. Nothing is decided
+  // before submission: both are derived in onCreate, and periodLength/
+  // cycleLength are only ever written to the draft there, so a fresh mount of
+  // this screen always starts untouched. An already-confirmed value from the
+  // draft (e.g. Back then forward with the SAME mounted flow) stays confirmed.
   const [periodLengthTouched, setPeriodLengthTouched] = useState(draft.periodLength !== null);
   const [cycleLengthTouched, setCycleLengthTouched] = useState(draft.cycleLength !== null);
   const [regularity, setRegularity] = useState<CycleRegularity>(draft.regularity ?? 'unknown');
@@ -66,13 +69,15 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
   const [creating, setCreating] = useState(false);
 
   const canContinue = lastPeriodDate !== null && !!draft.firstName && !!draft.birthDate;
+  // "Régulier" / "Irrégulier": she asserts a cycle pattern, so the displayed lengths are saved with it.
+  const lengthsFollowRegularity = regularity !== 'unknown';
 
   const onCreate = async () => {
     if (!canContinue || creating || !lastPeriodDate || !draft.firstName || !draft.birthDate) {return;}
     setCreating(true);
     try {
-      const confirmedPeriodLength = periodLengthTouched ? periodLength : null;
-      const confirmedCycleLength = cycleLengthTouched ? cycleLength : null;
+      const confirmedPeriodLength = periodLengthTouched || lengthsFollowRegularity ? periodLength : null;
+      const confirmedCycleLength = cycleLengthTouched || lengthsFollowRegularity ? cycleLength : null;
       updateManagedProfileDraft({lastPeriodDate, periodLength: confirmedPeriodLength, cycleLength: confirmedCycleLength, regularity});
       const profile = await addManagedProfile({
         type: 'daughter',
@@ -187,7 +192,18 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
       <Reveal index={4}>
         <View style={styles.helperCard}>
           <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
-          <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.helperText}>{t('managedProfile.cycleSetup.helperText')}</AwaText>
+          {/* With "Régulier" / "Irrégulier" the card spells out what "Créer le profil" will save (the lengths currently shown,
+              live as the steppers change); with "Je ne sais pas" it keeps its original sentence. It lives in the scrolled
+              content, above the sticky button, and has neither a line cap nor a fixed height, so it is always readable. */}
+          <AwaText accessibilityLiveRegion="polite" colorRole="onSurfaceVariant" variant="bodySmall" style={styles.helperText}>
+            {lengthsFollowRegularity
+              ? t('managedProfile.cycleSetup.savedValuesNote', {
+                  period: t('managedProfile.cycleSetup.days', {count: periodLength}),
+                  cycle: t('managedProfile.cycleSetup.days', {count: cycleLength}),
+                  button: t('managedProfile.cycleSetup.createProfile'),
+                })
+              : t('managedProfile.cycleSetup.helperText')}
+          </AwaText>
         </View>
       </Reveal>
 

@@ -706,11 +706,13 @@ describe('ManagedProfile flow — "Oui" branch (cycle setup)', () => {
       expect(radios(renderer, 'Irrégulier')[0].props.accessibilityState).toEqual({checked: false});
     });
 
+    // "Régulier" / "Irrégulier" is an answer about her cycle: the 5 / 28 days shown on the form are saved with it (the form
+    // says so, see ManagedProfileCycleSetupSavedNote.test.tsx). "Je ne sais pas" keeps untouched lengths unknown.
     it.each([
-      ['Régulier', 'yes'],
-      ['Irrégulier', 'no'],
-      ['Je ne sais pas', 'unknown'],
-    ] as const)('selecting "%s" persists as %s — in the draft, the created profile, and her profile-scoped cycle state', async (label, expected) => {
+      ['Régulier', 'yes', 5, 28, true],
+      ['Irrégulier', 'no', 5, 28, true],
+      ['Je ne sais pas', 'unknown', null, null, false],
+    ] as const)('selecting "%s" persists as %s — in the draft, the created profile, and her profile-scoped cycle state', async (label, expected, period, cycle, confirmed) => {
       const renderer = await renderFlow();
       await walkToFirstPeriod(renderer, 'Lina');
       await selectRadio(renderer, 'Oui');
@@ -725,20 +727,15 @@ describe('ManagedProfile flow — "Oui" branch (cycle setup)', () => {
 
       const profiles = getManagedProfiles();
       expect(profiles[0].regularity).toBe(expected);
-      // Steppers were never touched in this flow — selecting a regularity
-      // radio must never be conflated with confirming a duration (see the
-      // safety fix above): period/cycle length stay null, never the 5/28
-      // displayed default.
-      expect(profiles[0].periodLength).toBeNull();
-      expect(profiles[0].cycleLength).toBeNull();
+      // Steppers were never touched in this flow. With "Je ne sais pas" nothing was chosen for the lengths, so they stay
+      // null (never the 5/28 displayed default); with "Régulier" / "Irrégulier" the displayed lengths are her answer.
+      expect(profiles[0].periodLength).toBe(period);
+      expect(profiles[0].cycleLength).toBe(cycle);
 
       await press(renderer, `Accéder au profil de Lina`);
       expect(getCyclePreferences().regularity).toBe(expected);
-      // The "Oui" path only explicitly asked/confirmed REGULARITY here, not
-      // duration (the steppers were never touched) — so duration must NOT be
-      // treated as genuinely confirmed. [D] above covers the case where she
-      // does touch both steppers.
-      expect(getHasConfirmedCycleDuration()).toBe(false);
+      // Durations count as confirmed only when they were saved: [D] above covers the case where she touches both steppers.
+      expect(getHasConfirmedCycleDuration()).toBe(confirmed);
     });
 
     it('the "Non" branch (never reaches this screen) never fabricates a regularity value', async () => {
