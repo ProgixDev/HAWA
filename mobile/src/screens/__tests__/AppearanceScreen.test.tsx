@@ -210,7 +210,7 @@ describe('AppearanceScreen — Premium gating', () => {
     expect(sheet().props.visible).toBe(false);
 
     const lockedCard = renderer.root.findAll(
-      node => node.props.accessibilityLabel === 'Thème Lavender Night, Premium verrouillé',
+      node => node.props.accessibilityLabel === 'Thème Nuit lavande, Premium verrouillé',
     )[0];
     expect(lockedCard).toBeTruthy();
 

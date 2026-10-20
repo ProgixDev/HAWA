@@ -57,15 +57,13 @@ import {
 
 import {
   getAppLanguage,
-  getAppLanguagePreference,
-  setAppLanguagePreference,
+  setAppLanguage,
   setAppearanceMode,
   setSelectedThemeId,
   setTrueBlackEnabled,
   subscribeThemePreferences,
   type AwaAppLanguage,
   type AwaAppearanceMode,
-  type AwaLanguagePreference,
 } from '../state/themePreferences';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
@@ -409,7 +407,7 @@ function accessibilityLabelFor(
   t: (key: string, options?: Record<string, unknown>) => string,
 ): string {
   const parts = [
-    t('appearance.themeAccessibility', {name: theme.name}),
+    t('appearance.themeAccessibility', {name: t(`appearanceThemeNames.${theme.id}`)}),
   ];
 
   if (theme.isPremium) {
@@ -562,7 +560,7 @@ function ThemePaletteCard({
               appTheme.colors.text,
           },
         ]}>
-        {theme.name}
+        {t(`appearanceThemeNames.${theme.id}`)}
       </Text>
 
       {/* DESCRIPTION */}
@@ -824,6 +822,9 @@ const LANGUAGE_SELF_LABELS: Record<AwaAppLanguage, {label: string; subtitle: str
   de: {label: 'Deutsch', subtitle: 'AWA auf Deutsch verwenden'},
   zh: {label: '简体中文', subtitle: '使用简体中文的 AWA'},
   id: {label: 'Bahasa Indonesia', subtitle: 'Gunakan AWA dalam Bahasa Indonesia'},
+  hi: {label: 'हिन्दी', subtitle: 'AWA को हिन्दी में इस्तेमाल करें'},
+  sq: {label: 'Shqip', subtitle: 'Përdor AWA në shqip'},
+  ja: {label: '日本語', subtitle: 'AWAを日本語で使う'},
 };
 
 // i18n key of each language's own name (shown for the language currently in force).
@@ -837,6 +838,9 @@ const LANGUAGE_NAME_KEYS: Record<AwaAppLanguage, string> = {
   de: 'germanName',
   zh: 'chineseName',
   id: 'indonesianName',
+  hi: 'hindiName',
+  sq: 'albanianName',
+  ja: 'japaneseName',
 };
 
 const LANGUAGE_OPTIONS: LanguageOption[] = [
@@ -849,26 +853,22 @@ const LANGUAGE_OPTIONS: LanguageOption[] = [
   {id: 'de', flag: '🇩🇪', ...LANGUAGE_SELF_LABELS.de},
   {id: 'zh', flag: '🇨🇳', ...LANGUAGE_SELF_LABELS.zh},
   {id: 'id', flag: '🇮🇩', ...LANGUAGE_SELF_LABELS.id},
-];
-
-// "System default" first, then the eight languages. Only AWA's own eight languages are offered; an unsupported phone
-// language resolves to English.
-const SHEET_LANGUAGE_OPTIONS: ReadonlyArray<{id: AwaLanguagePreference; flag: string; label: string; subtitle: string}> = [
-  {id: 'system', flag: '', label: '', subtitle: ''},
-  ...LANGUAGE_OPTIONS,
+  {id: 'hi', flag: '🇮🇳', ...LANGUAGE_SELF_LABELS.hi},
+  {id: 'sq', flag: '🇦🇱', ...LANGUAGE_SELF_LABELS.sq},
+  {id: 'ja', flag: '🇯🇵', ...LANGUAGE_SELF_LABELS.ja},
 ];
 
 function LanguageBottomSheet({
   visible,
-  currentPreference,
+  currentLanguage,
   onClose,
   onApply,
   theme,
 }: {
   visible: boolean;
-  currentPreference: AwaLanguagePreference;
+  currentLanguage: AwaAppLanguage;
   onClose: () => void;
-  onApply: (preference: AwaLanguagePreference) => void;
+  onApply: (language: AwaAppLanguage) => void;
   theme: ResolvedAwaTheme;
 }): React.JSX.Element {
   const {t} = useTranslation();
@@ -878,12 +878,12 @@ function LanguageBottomSheet({
   // (see onApply below). Re-synced to the real saved value every time the
   // sheet opens, so a dismissal without applying never leaks a stale draft
   // into the next time it's opened.
-  const [draft, setDraft] = useState<AwaLanguagePreference>(currentPreference);
+  const [draft, setDraft] = useState<AwaAppLanguage>(currentLanguage);
   useEffect(() => {
     if (visible) {
-      setDraft(currentPreference);
+      setDraft(currentLanguage);
     }
-  }, [visible, currentPreference]);
+  }, [visible, currentLanguage]);
 
   return (
     <Modal animationType="slide" onRequestClose={onClose} statusBarTranslucent transparent visible={visible}>
@@ -912,11 +912,11 @@ function LanguageBottomSheet({
               inside a height bound, the title and the Apply button stay in view. */}
           <ScrollView nestedScrollEnabled showsVerticalScrollIndicator={false} style={{maxHeight: Math.max(220, windowHeight * 0.44)}}>
           <View accessibilityRole="radiogroup" style={styles.langOptionsList}>
-            {SHEET_LANGUAGE_OPTIONS.map(option => {
+            {LANGUAGE_OPTIONS.map(option => {
               const selected = draft === option.id;
               return (
                 <Pressable
-                  accessibilityLabel={option.id === 'system' ? t('appearance.language.systemName') : option.label}
+                  accessibilityLabel={option.label}
                   accessibilityRole="radio"
                   accessibilityState={{checked: selected}}
                   key={option.id}
@@ -931,23 +931,12 @@ function LanguageBottomSheet({
                     selected && styles.langOptionSelected,
                     pressed && styles.pressedSubtle,
                   ]}>
-                  {option.id === 'system' ? (
-                    <View style={styles.langFlag}>
-                      <MaterialDesignIcons color={theme.colors.primary} name="cellphone" size={28} />
-                    </View>
-                  ) : (
-                    <Text style={styles.langFlag}>{option.flag}</Text>
-                  )}
+                  <Text style={styles.langFlag}>{option.flag}</Text>
 
                   <View style={styles.langCopy}>
-                    {/* The "System default" card describes a behaviour, so it follows the language AWA is displayed in
-                        (unlike the language cards, which always describe themselves in their own language). */}
-                    <Text style={[styles.langLabel, {color: theme.colors.text}]}>
-                      {option.id === 'system' ? t('appearance.language.systemName') : option.label}
-                    </Text>
-                    <Text style={[styles.langOptionSubtitle, {color: theme.colors.textSecondary}]}>
-                      {option.id === 'system' ? t('appearance.language.systemDescription') : option.subtitle}
-                    </Text>
+                    {/* Each language card describes itself in its own language (see LANGUAGE_SELF_LABELS). */}
+                    <Text style={[styles.langLabel, {color: theme.colors.text}]}>{option.label}</Text>
+                    <Text style={[styles.langOptionSubtitle, {color: theme.colors.textSecondary}]}>{option.subtitle}</Text>
                   </View>
 
                   <View
@@ -1022,20 +1011,17 @@ export default function AppearanceScreen({
   // already live in — already hydrated by AwaThemeProvider's own
   // hydrateAppearancePreferences() call before this screen can mount.
   const [appLanguage, setAppLanguageState] = useState<AwaAppLanguage>(getAppLanguage);
-  // 'system' while AWA follows the phone's language, otherwise the language the user chose.
-  const [languagePreference, setLanguagePreferenceState] = useState<AwaLanguagePreference>(getAppLanguagePreference);
   const [languageSheetVisible, setLanguageSheetVisible] = useState(false);
 
   useEffect(() => {
     const unsubscribe = subscribeThemePreferences(() => {
       setAppLanguageState(getAppLanguage());
-      setLanguagePreferenceState(getAppLanguagePreference());
     });
     return unsubscribe;
   }, []);
 
-  const handleApplyLanguage = (preference: AwaLanguagePreference): void => {
-    setAppLanguagePreference(preference).catch(() => {});
+  const handleApplyLanguage = (language: AwaAppLanguage): void => {
+    setAppLanguage(language).catch(() => {});
     setLanguageSheetVisible(false);
   };
 
@@ -1676,11 +1662,7 @@ export default function AppearanceScreen({
                 setLanguageSheetVisible(true)
               }
 
-              subtitle={
-                languagePreference === 'system'
-                  ? `${t('appearance.language.systemName')} · ${t(`appearance.language.${LANGUAGE_NAME_KEYS[appLanguage]}`)}`
-                  : t(`appearance.language.${LANGUAGE_NAME_KEYS[appLanguage]}`)
-              }
+              subtitle={t(`appearance.language.${LANGUAGE_NAME_KEYS[appLanguage]}`)}
 
               theme={theme}
 
@@ -1719,7 +1701,7 @@ export default function AppearanceScreen({
       />
 
       <LanguageBottomSheet
-        currentPreference={languagePreference}
+        currentLanguage={appLanguage}
         onApply={handleApplyLanguage}
         onClose={() => setLanguageSheetVisible(false)}
         theme={theme}
