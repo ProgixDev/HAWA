@@ -20,6 +20,7 @@ import type {MoodLevel} from '../../types/journal';
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {dateFormatLocale} from '../../utils/cycleMath';
+import {DAUGHTER_TITLE_MIN_SIZE, planDaughterTitle} from './daughterTitleFit';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {deriveAwaRoles} from '../../theme/semanticRoles';
 import '../../i18n';
@@ -86,12 +87,17 @@ export default function JournalMoodScreen(): React.JSX.Element {
   // always saves to the CURRENT day, never to the day the screen opened.
   const {today, todayKey} = useToday();
   const insets = useSafeAreaInsets();
-  const {width, height} = useWindowDimensions();
+  const {width, height, fontScale} = useWindowDimensions();
+  // Daughter profile only: the width between the back and the save button, to fit her title (see daughterTitleFit.ts).
+  const [headerCopyWidth, setHeaderCopyWidth] = useState(0);
   const isSmallScreen = width < 370 || height < 720;
   const isVerySmallScreen = width < 340 || height < 640;
   // Null (no "Jour N du cycle" in the header) when this objective/state has
   // no valid menstrual cycle day - see journalCycleDayFor().
   const cycleDay = useJournalCycleDay(today);
+  const moodTitle = tx('dailyJournalSheet.items.mood.title', 'titles.mood');
+  // The header copy has 8 dp of padding each side. The title never goes below DAUGHTER_TITLE_MIN_SIZE sp.
+  const daughterTitlePlan = planDaughterTitle({title: moodTitle, availableWidth: headerCopyWidth - 16, fontScale});
   const dateLabel = new Intl.DateTimeFormat(dateFormatLocale(), {
     weekday: 'long',
     day: 'numeric',
@@ -255,10 +261,19 @@ export default function JournalMoodScreen(): React.JSX.Element {
             icon="arrow-left"
             onPress={navigation.goBack}
           />
-          <View style={styles.headerCopy}>
-            <AwaText numberOfLines={daughter ? 2 : undefined} style={daughter ? styles.daughterTitle : undefined} variant="headlineSmall">
-              {tx('dailyJournalSheet.items.mood.title', 'titles.mood')}
-            </AwaText>
+          <View onLayout={daughter ? event => setHeaderCopyWidth(event.nativeEvent.layout.width) : undefined} style={styles.headerCopy}>
+            {daughter ? (
+              <AwaText
+                adjustsFontSizeToFit={daughterTitlePlan.numberOfLines === 1}
+                minimumFontScale={Math.min(1, DAUGHTER_TITLE_MIN_SIZE / daughterTitlePlan.fontSize)}
+                numberOfLines={daughterTitlePlan.numberOfLines}
+                style={[styles.daughterTitle, {fontSize: daughterTitlePlan.fontSize, lineHeight: daughterTitlePlan.lineHeight}]}
+                variant="headlineSmall">
+                {moodTitle}
+              </AwaText>
+            ) : (
+              <AwaText variant="headlineSmall">{moodTitle}</AwaText>
+            )}
             <AwaText colorRole="onSurfaceVariant" numberOfLines={1} variant="bodySmall">
               {cycleDay !== null ? t('journalMood.dateWithCycleDay', {date: dateLabel, day: cycleDay}) : dateLabel}
             </AwaText>
@@ -426,7 +441,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   headerCopy: {flex: 1, minWidth: 0, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 8},
   content: {paddingHorizontal: 11, paddingBottom: 34, gap: 8},
   // Daughter journal only: the title wraps between the back and save buttons; mood tiles and labels grow with the text.
-  daughterTitle: {flex: 1, minWidth: 0, textAlign: 'center'},
+  daughterTitle: {alignSelf: 'stretch', minWidth: 0, textAlign: 'center'},
   daughterSectionTitle: {flex: 1, minWidth: 0, marginLeft: 8},
   hero: {minHeight: 125, justifyContent: 'center', overflow: 'hidden', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 12, backgroundColor: theme.colors.surface},
   heroImage: {borderRadius: 12, resizeMode: 'cover'},

@@ -82,6 +82,14 @@ const ACTIVITIES: Array<{
     icon: 'dance-ballroom',
   },
   {
+    label: 'Randonnée',
+    icon: 'hiking',
+  },
+  {
+    label: 'Cardio',
+    icon: 'heart-pulse',
+  },
+  {
     label: 'Autre',
     icon: 'dots-horizontal-circle-outline',
   },
