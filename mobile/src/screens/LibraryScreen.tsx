@@ -56,6 +56,7 @@ import {
 } from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {lowerCaseFor} from '../utils/textCase';
+import {libraryTabScrollOffset, planLibraryTabs} from './libraryTabsLayout';
 import {AwaButton} from '../components/ui/AwaButton';
 import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {AwaText} from '../components/ui/AwaText';
@@ -490,6 +491,17 @@ function LibraryScreen({
 
   const [tabsWidth, setTabsWidth] = useState(0);
 
+  // Natural single-line width of each tab (icon + label + padding), measured on a hidden row, so no label ever has to wrap: see
+  // libraryTabsLayout.ts. Re-measured whenever the labels change (language) or the font scale changes (the row is re-laid out).
+  const [tabNaturalWidths, setTabNaturalWidths] = useState<number[]>([]);
+
+  const tabScrollRef = useRef<ScrollView>(null);
+
+  const tabsPlan = useMemo(
+    () => planLibraryTabs({containerWidth: tabsWidth, naturalWidths: tabNaturalWidths, count: tabs.length}),
+    [tabsWidth, tabNaturalWidths, tabs.length],
+  );
+
   const [objective, setObjective] =
     useState<ObjectiveId>(
       () => getSelectedObjective(),
@@ -538,6 +550,18 @@ function LibraryScreen({
       useNativeDriver: true,
     }).start();
   }, [activeTab, tabProgress, tabs]);
+
+  // A scrolling strip keeps the active tab in view.
+  useEffect(() => {
+    if (!tabsPlan.scrollable || tabsPlan.itemWidth === null || tabsPlan.contentWidth === null) {
+      return;
+    }
+    const index = Math.max(tabs.findIndex(tab => tab.id === activeTab), 0);
+    tabScrollRef.current?.scrollTo({
+      x: libraryTabScrollOffset({index, itemWidth: tabsPlan.itemWidth, innerWidth: tabsPlan.innerWidth, contentWidth: tabsPlan.contentWidth}),
+      animated: true,
+    });
+  }, [activeTab, tabs, tabsPlan]);
 
   useEffect(() => {
     objectiveFade.setValue(0);
@@ -888,90 +912,105 @@ function LibraryScreen({
             )
           }
           style={styles.tabs}>
-          {tabsWidth > 0 ? (
-            <Animated.View
-              pointerEvents="none"
-              style={[
-                styles.tabIndicator,
-                {
-                  width:
-                    (tabsWidth - 6) /
-                    tabs.length,
-
-                  transform: [
-                    {
-                      translateX:
-                        tabProgress.interpolate(
-                          {
-                            inputRange: [
-                              0,
-                              1,
-                              2,
-                              3,
-                            ],
-                            outputRange: [
-                              0,
-                              (tabsWidth - 6) /
-                                4,
-                              ((tabsWidth - 6) /
-                                4) *
-                                2,
-                              ((tabsWidth - 6) /
-                                4) *
-                                3,
-                            ],
-                          },
-                        ),
-                    },
-                  ],
-                },
-              ]}
-            />
-          ) : null}
-
-          {tabs.map(tab => {
-            const active =
-              activeTab === tab.id;
-
-            return (
-              <Pressable
+          {/* Hidden measuring row: the natural one-line width of every tab (widest weight), never shown or announced. */}
+          <View
+            accessibilityElementsHidden
+            importantForAccessibility="no-hide-descendants"
+            pointerEvents="none"
+            style={styles.tabMeasureRow}>
+            {tabs.map((tab, index) => (
+              <View
                 key={tab.id}
-                accessibilityRole="tab"
-                accessibilityState={{
-                  selected: active,
+                onLayout={event => {
+                  const width = event.nativeEvent.layout.width;
+                  setTabNaturalWidths(previous =>
+                    previous[index] !== undefined && Math.abs(previous[index] - width) < 0.5
+                      ? previous
+                      : Object.assign([...previous], {[index]: width}),
+                  );
                 }}
-                onPress={() =>
-                  chooseTab(tab.id)
-                }
-                style={({pressed}) => [
-                  styles.tab,
-                  pressed &&
-                    styles.tabPressed,
-                ]}>
-                <MaterialDesignIcons
-                  name={tab.icon as any}
-                  size={14}
-                  color={
-                    active
-                      ? onPrimaryTextColor(theme)
-                      : theme.colors.textSecondary
-                  }
-                />
-
-                <AwaText
-                  color={
-                    active
-                      ? onPrimaryTextColor(theme)
-                      : theme.colors.textSecondary
-                  }
-                  emphasized={active}
-                  style={styles.tabText}
-                  variant="labelMedium">
+                style={styles.tabMeasureItem}>
+                <MaterialDesignIcons name={tab.icon as any} size={14} color="transparent" />
+                <AwaText emphasized numberOfLines={1} style={styles.tabText} variant="labelMedium">
                   {tab.label}
                 </AwaText>
-              </Pressable>
-            );
-          })}
+              </View>
+            ))}
+          </View>
+
+          <ScrollView
+            ref={tabScrollRef}
+            bounces={false}
+            horizontal
+            overScrollMode="never"
+            scrollEnabled={tabsPlan.scrollable}
+            showsHorizontalScrollIndicator={false}
+            style={styles.tabsScroll}>
+            <View style={styles.tabsContent}>
+              {tabsPlan.itemWidth !== null ? (
+                <Animated.View
+                  pointerEvents="none"
+                  style={[
+                    styles.tabIndicator,
+                    {
+                      width: tabsPlan.itemWidth,
+
+                      transform: [
+                        {
+                          translateX: tabProgress.interpolate({
+                            inputRange: tabs.map((_tab, index) => index),
+                            outputRange: tabs.map((_tab, index) => index * (tabsPlan.itemWidth as number)),
+                          }),
+                        },
+                      ],
+                    },
+                  ]}
+                />
+              ) : null}
+
+              {tabs.map(tab => {
+                const active = activeTab === tab.id;
+
+                return (
+                  <Pressable
+                    key={tab.id}
+                    accessibilityRole="tab"
+                    accessibilityState={{
+                      selected: active,
+                    }}
+                    onPress={() => chooseTab(tab.id)}
+                    style={({pressed}) => [
+                      styles.tab,
+                      tabsPlan.itemWidth !== null ? {width: tabsPlan.itemWidth} : styles.tabFlexible,
+                      pressed && styles.tabPressed,
+                    ]}>
+                    <MaterialDesignIcons
+                      name={tab.icon as any}
+                      size={14}
+                      color={
+                        active
+                          ? onPrimaryTextColor(theme)
+                          : theme.colors.textSecondary
+                      }
+                    />
+
+                    <AwaText
+                      color={
+                        active
+                          ? onPrimaryTextColor(theme)
+                          : theme.colors.textSecondary
+                      }
+                      emphasized={active}
+                      numberOfLines={1}
+                      style={styles.tabText}
+                      variant="labelMedium">
+                      {tab.label}
+                    </AwaText>
+                  </Pressable>
+                );
+              })}
+            </View>
+          </ScrollView>
         </View>
 
         <SectionTitle
@@ -1512,11 +1551,43 @@ function createStyles(theme: ResolvedAwaTheme) {
       overflow: 'hidden',
     },
 
+    tabsScroll: {
+      flex: 1,
+      alignSelf: 'stretch',
+    },
+
+    tabsContent: {
+      flexDirection: 'row',
+      alignItems: 'stretch',
+      minHeight: 40,
+    },
+
+    tabMeasureRow: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: 4000,
+      flexDirection: 'row',
+      opacity: 0,
+    },
+
+    tabMeasureItem: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+      paddingHorizontal: 4,
+      paddingVertical: 4,
+    },
+
+    tabFlexible: {
+      flex: 1,
+    },
+
     tabIndicator: {
       position: 'absolute',
-      left: 3,
-      top: 3,
-      bottom: 3,
+      left: 0,
+      top: 0,
+      bottom: 0,
       borderRadius: 12,
       backgroundColor: theme.colors.primary,
       shadowColor: theme.shadow.shadowColor,
@@ -1530,8 +1601,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     tab: {
-      flex: 1,
       alignSelf: 'stretch',
+      minHeight: 40,
       zIndex: 2,
       flexDirection: 'row',
       alignItems: 'center',
@@ -1546,7 +1617,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     tabText: {
-      flexShrink: 1,
+      // one line, never shrunk: the tab is as wide as its label (libraryTabsLayout.ts)
+      flexShrink: 0,
       textAlign: 'center',
     },
 
