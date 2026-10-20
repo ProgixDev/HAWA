@@ -87,6 +87,8 @@ jest.mock('../../services/maps/mapProvider', () => ({
   mapProvider: {
     searchPlaces: jest.fn(async () => []),
     reverseGeocode: jest.fn(async () => null),
+    // names in the active language: this suite exercises the screen without a provider answer, so the place is returned as it was
+    localizePlace: jest.fn(async (place: unknown) => place),
   },
 }));
 
