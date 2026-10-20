@@ -11,6 +11,9 @@ import {de} from './locales/de';
 import {zh} from './locales/zh';
 import {tr} from './locales/tr';
 import {id} from './locales/id';
+import {hi} from './locales/hi';
+import {sq} from './locales/sq';
+import {ja} from './locales/ja';
 import './pluralRules';
 
 // Centralized localization (i18next + react-i18next) — imported once, as a
@@ -60,6 +63,9 @@ i18n.use(initReactI18next).init({
     de: {translation: de},
     zh: {translation: zh},
     id: {translation: id},
+    hi: {translation: hi},
+    sq: {translation: sq},
+    ja: {translation: ja},
   },
   lng: getAppLanguage(),
   fallbackLng: 'en',

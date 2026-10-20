@@ -341,7 +341,7 @@ describe('editorial content: explicit English fallback, never French or Spanish'
   });
 
   it('legal documents have no Italian text yet — the screen resolves Italian to English (TERMS/PRIVACY only have fr/en/es/tr/ru/de/zh/id)', () => {
-    expect(Object.keys(TERMS).sort()).toEqual(['de', 'en', 'es', 'fr', 'id', 'ru', 'tr', 'zh']);
-    expect(Object.keys(PRIVACY).sort()).toEqual(['de', 'en', 'es', 'fr', 'id', 'ru', 'tr', 'zh']);
+    expect(Object.keys(TERMS).sort()).toEqual(['de', 'en', 'es', 'fr', 'hi', 'id', 'ja', 'ru', 'sq', 'tr', 'zh']);
+    expect(Object.keys(PRIVACY).sort()).toEqual(['de', 'en', 'es', 'fr', 'hi', 'id', 'ja', 'ru', 'sq', 'tr', 'zh']);
   });
 });

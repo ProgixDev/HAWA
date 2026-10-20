@@ -160,6 +160,9 @@ export const ru = {
       germanName: 'Deutsch',
       chineseName: '简体中文',
       indonesianName: 'Bahasa Indonesia',
+      hindiName: 'हिन्दी',
+      albanianName: 'Shqip',
+      japaneseName: '日本語',
       systemName: 'Язык системы',
       systemDescription: 'Использовать язык устройства',
     },
@@ -1410,6 +1413,7 @@ export const ru = {
       irregular: 'Нерегулярный',
       unknown: 'Не уверена',
       helperText: 'Позже вы сможете изменить эту информацию.',
+      savedValuesNote: 'Показанные значения (месячные: {{period}}, цикл: {{cycle}}) будут сохранены при нажатии «{{button}}». Позже вы сможете их изменить.',
       futureDateWarning: 'Эта дата не может быть в будущем.',
       creating: 'Создание…',
       createProfile: 'Создать профиль',
@@ -8098,6 +8102,17 @@ export const ru = {
     'warm-sand': 'Тёплая и естественная',
     midnight: 'Глубокая и изысканная',
   },
+  // The palette names (the cards of Appearance and their accessibility labels). "AWA Original" is the brand name of the original
+  // palette and is the same in every language; the other names are translated. Keyed by the technical palette id, which never changes.
+  appearanceThemeNames: {
+    'awa-original': 'AWA Original',
+    'lavender-night': 'Лавандовая ночь',
+    'rose-quartz': 'Розовый кварц',
+    'sage-serenity': 'Шалфейная гармония',
+    'ocean-calm': 'Спокойствие океана',
+    'warm-sand': 'Тёплый песок',
+    midnight: 'Полночь',
+  },
   prayerTimes: {
     title: 'Время намаза',
     settingsAccessibility: 'Настройки времени намаза',
@@ -8696,6 +8711,8 @@ export const ru = {
       stretching: 'Растяжка',
       pilates: 'Пилатес',
       dance: 'Танцы',
+      hiking: 'Поход',
+      cardio: 'Кардио',
       other: 'Другое',
     },
     cycleActivityFeeling: {
