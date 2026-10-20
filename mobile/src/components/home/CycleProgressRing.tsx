@@ -5,10 +5,14 @@ import {useTranslation} from 'react-i18next';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {AwaText} from '../ui/AwaText';
+import {RING_CENTER_RATIO, planCycleRingText} from './cycleRingLayout';
 import '../../i18n';
 
 const SEGMENT_COUNT = 60;
 const DEFAULT_SIZE = 116;
+// The phases the cycle dashboards can show. The text sizes are planned for the longest of them in the current language
+// (plus the one passed in), so the caption and the number never change size or place when the phase changes.
+const RING_PHASES = ['menstruation', 'follicular', 'fertile', 'ovulation', 'luteal'] as const;
 
 type Props = {
   /** 1-based day within the cycle. `null` → the center shows "—" and the ring stays empty
@@ -33,36 +37,6 @@ type Props = {
  * supplied color/label/day/length differ per screen. The caller owns everything else
  * (title, message, chips, card chrome) — this component only draws the ring + its center.
  */
-const PHASE_LABEL_BASE_SIZE = 9.5;
-const PHASE_LABEL_MIN_SIZE = 7;
-const PHASE_LABEL_HORIZONTAL_PADDING = 12;
-// Average advance of a bold letter, in em. Calibrated on the shipped copy: "folliculaire" (12 Latin letters) always fit
-// at 9.5 and "Фолликулярная" (13 Cyrillic letters) did not; Cyrillic and capitals are wider than Latin lowercase.
-const EM_LATIN_LOWER = 0.58;
-const EM_LATIN_UPPER = 0.7;
-const EM_OTHER = 0.68;
-
-const wordWidthEm = (word: string): number =>
-  [...word].reduce((sum, letter) => {
-    if (/[a-zà-ÿß]/.test(letter)) {return sum + EM_LATIN_LOWER;}
-    if (/[A-ZÀ-ÞĞİŞ]/.test(letter)) {return sum + EM_LATIN_UPPER;}
-    return sum + EM_OTHER;
-  }, 0);
-
-/**
- * Font size of the phase name in the centre of the ring. The disc is only about 0.7 x the ring wide, so a single long
- * word ("Фолликулярная", "Follikelphase") used to be broken in the middle by the text layout ("Фоллик / улярная").
- * Names whose longest word would not fit at the base size are scaled down, never below PHASE_LABEL_MIN_SIZE; names
- * that already fit (French, English, Spanish, Italian, Turkish) keep the original 9.5. Exported for tests.
- */
-export function phaseLabelFontSize(label: string | null, ringSize: number): number {
-  if (!label) {return PHASE_LABEL_BASE_SIZE;}
-  const longestEm = Math.max(...label.split(/\s+/).map(wordWidthEm), 1);
-  const available = Math.round(ringSize * (82 / 116)) - PHASE_LABEL_HORIZONTAL_PADDING;
-  const fitting = available / longestEm;
-  return Math.max(PHASE_LABEL_MIN_SIZE, Math.min(PHASE_LABEL_BASE_SIZE, Math.round(fitting * 10) / 10));
-}
-
 export default function CycleProgressRing({
   currentDay,
   cycleLength,
@@ -71,15 +45,33 @@ export default function CycleProgressRing({
   size = DEFAULT_SIZE,
   accessibilityLabel,
 }: Props): React.JSX.Element {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
   const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme, size), [theme, size]);
   const progressAnimation = useRef(new Animated.Value(0)).current;
   const [reduceMotion, setReduceMotion] = useState(false);
 
   const safeCycleLength = Math.max(cycleLength, 1);
   const progress = currentDay === null ? 0 : Math.min(Math.max(currentDay / safeCycleLength, 0), 1);
-  const phaseFontSize = phaseLabelFontSize(phaseLabel, size);
+  const caption = t('journalNote.cycleDayLabel');
+  const phaseNames = RING_PHASES.map(phase => t(`cyclePhase.${phase}`));
+  const plan = useMemo(
+    () => planCycleRingText({size, caption, phaseLabels: phaseLabel ? [...phaseNames, phaseLabel] : phaseNames}),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- phaseNames changes only with the language
+    [size, caption, phaseLabel, i18n.language],
+  );
+  const styles = useMemo(() => createStyles(theme, size), [theme, size]);
+  // Planned sizes are applied INLINE, never through StyleSheet.create: the Android shape layer raises any font size below
+  // 11 sp there (and these are deliberately smaller — an 82 dp disc cannot hold 11 sp text), and plain objects are left alone.
+  const textStyles = useMemo(
+    () => ({
+      caption: {fontSize: plan.caption.fontSize, lineHeight: plan.caption.lineHeight, letterSpacing: 0},
+      number: {marginTop: plan.gap, fontSize: plan.number.fontSize, lineHeight: plan.number.lineHeight},
+      phaseBlock: {marginTop: plan.gap, height: plan.phaseReservedLines * plan.phase.lineHeight},
+      phase: {fontSize: plan.phase.fontSize, lineHeight: plan.phase.lineHeight},
+    }),
+    [plan],
+  );
+  const phaseLines = phaseLabel ? plan.phaseLines[phaseLabel] ?? [phaseLabel] : [];
 
   useEffect(() => {
     let mounted = true;
@@ -130,16 +122,22 @@ export default function CycleProgressRing({
         );
       })}
 
+      {/* The three texts are planned to sit inside the disc (cycleRingLayout.ts); the disc does not grow with the system
+          font size, so they do not scale with it either — a larger text would simply spill out of the circle. */}
       <View style={styles.ringCenter}>
-        <AwaText colorRole="onSurfaceVariant" variant="labelSmall">{t('journalNote.cycleDayLabel')}</AwaText>
-        <AwaText emphasized style={styles.ringNumber} variant="headlineSmall">{currentDay === null ? '—' : String(currentDay)}</AwaText>
+        <AwaText allowFontScaling={false} colorRole="onSurfaceVariant" numberOfLines={1} style={[styles.ringText, textStyles.caption]} variant="labelSmall">{caption}</AwaText>
+        <AwaText allowFontScaling={false} emphasized style={[styles.ringText, textStyles.number]} variant="headlineSmall">{currentDay === null ? '—' : String(currentDay)}</AwaText>
         {phaseLabel ? (
-          <Text
-            maxFontSizeMultiplier={1.1}
-            numberOfLines={2}
-            style={[styles.ringPhase, {color: ringColor, fontSize: phaseFontSize}]}>
-            {phaseLabel}
-          </Text>
+          <View style={[styles.ringPhaseBlock, textStyles.phaseBlock]}>
+            <Text
+              accessibilityLabel={phaseLabel}
+              allowFontScaling={false}
+              android_hyphenationFrequency="none"
+              numberOfLines={plan.phaseReservedLines}
+              style={[styles.ringPhase, textStyles.phase, {color: ringColor}]}>
+              {phaseLines.join('\n')}
+            </Text>
+          </View>
         ) : null}
       </View>
     </View>
@@ -148,7 +146,7 @@ export default function CycleProgressRing({
 
 function createStyles(theme: ResolvedAwaTheme, size: number) {
   // Same 116/82 ratio as the original fixed-size ring, just scalable via `size`.
-  const centerSize = Math.round(size * (82 / 116));
+  const centerSize = Math.round(size * RING_CENTER_RATIO);
   return StyleSheet.create({
     ring: {width: size, height: size, flexShrink: 0, alignItems: 'center', justifyContent: 'center'},
     segmentOrbit: {position: 'absolute', width: size, height: size, alignItems: 'center'},
@@ -172,9 +170,14 @@ function createStyles(theme: ResolvedAwaTheme, size: number) {
       borderRadius: centerSize / 2,
       backgroundColor: theme.colors.primarySoft,
     },
-    ringNumber: {marginTop: 1},
+    // Caption, number and phase: their sizes, line heights and spacing come from planCycleRingText (applied inline, see
+    // textStyles above) — never a fixed 11 / 24 / 9.5 any more; no letter-spacing (the small-label tracking would widen
+    // "Jour du cycle" past the circle); everything centred.
+    ringText: {textAlign: 'center', includeFontPadding: false},
+    // Reserves the planned number of lines, so the number stays where it is from one phase to the next.
+    ringPhaseBlock: {alignItems: 'center'},
     // `ringPhase`'s `color` is set per-render from the `ringColor` prop (SEMANTIC) at the
     // JSX call site above — no color here.
-    ringPhase: {marginTop: 1, fontSize: 11, fontWeight: '700', textAlign: 'center', paddingHorizontal: 6},
+    ringPhase: {fontWeight: '700', textAlign: 'center', includeFontPadding: false},
   });
 }

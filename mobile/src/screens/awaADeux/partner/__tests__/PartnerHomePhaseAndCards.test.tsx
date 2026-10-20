@@ -99,11 +99,23 @@ afterEach(async () => {
 });
 
 describe('TEST 4/5 — the cycle-ring phase label follows the app language', () => {
+  // The ring wraps a long phase name on two lines ("Menstrual\nphase", see cycleRingLayout.ts): the drawn text differs from
+  // the name only by that line break, and the full name is the text's accessibility name. Folding the break back into a
+  // space compares the same wording as before — a changed or mixed-language label still fails.
+  const foldedTexts = (renderer: ReactTestRenderer.ReactTestRenderer): string[] => textsOf(renderer).map(text => text.replace(/\n/g, ' '));
+  // texts whose accessibility name is exactly what they draw (line breaks folded): the ring's phase name
+  const ringPhaseNames = (renderer: ReactTestRenderer.ReactTestRenderer): unknown[] =>
+    renderer.root
+      .findAllByType(Text)
+      .filter(node => typeof node.props.accessibilityLabel === 'string' && [node.props.children].flat(Infinity).join('').replace(/\n/g, ' ') === node.props.accessibilityLabel)
+      .map(node => node.props.accessibilityLabel);
+
   it('EN default renders the translated English phase label, never the hardcoded French one', async () => {
     const renderer = await renderPartnerHome();
-    const texts = textsOf(renderer);
+    const texts = foldedTexts(renderer);
     expect(texts).toContain('Menstrual phase');
     expect(texts).not.toContain('Phase menstruelle');
+    expect(ringPhaseNames(renderer)).toContain('Menstrual phase');
   });
 
   it('explicit FR renders the French phase label', async () => {
@@ -111,9 +123,10 @@ describe('TEST 4/5 — the cycle-ring phase label follows the app language', () 
     await i18n.changeLanguage('fr');
 
     const renderer = await renderPartnerHome();
-    const texts = textsOf(renderer);
+    const texts = foldedTexts(renderer);
     expect(texts).toContain('Phase menstruelle');
     expect(texts).not.toContain('Menstrual phase');
+    expect(ringPhaseNames(renderer)).toContain('Phase menstruelle');
   });
 });
 

@@ -28,6 +28,9 @@ export const WEEK_DAYS_RU = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'В
 export const WEEK_DAYS_DE = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
 export const WEEK_DAYS_ZH = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
 export const WEEK_DAYS_ID = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
+export const WEEK_DAYS_HI = ['सोम', 'मंगल', 'बुध', 'गुरु', 'शुक्र', 'शनि', 'रवि'];
+export const WEEK_DAYS_SQ = ['Hën', 'Mar', 'Mër', 'Enj', 'Pre', 'Sht', 'Die'];
+export const WEEK_DAYS_JA = ['月', '火', '水', '木', '金', '土', '日'];
 export const localizedWeekDays = (): string[] => {
   const language = getAppLanguage();
   if (language === 'en') {return WEEK_DAYS_EN;}
@@ -38,6 +41,9 @@ export const localizedWeekDays = (): string[] => {
   if (language === 'de') {return WEEK_DAYS_DE;}
   if (language === 'zh') {return WEEK_DAYS_ZH;}
   if (language === 'id') {return WEEK_DAYS_ID;}
+  if (language === 'hi') {return WEEK_DAYS_HI;}
+  if (language === 'sq') {return WEEK_DAYS_SQ;}
+  if (language === 'ja') {return WEEK_DAYS_JA;}
   return WEEK_DAYS;
 };
 
@@ -88,6 +94,9 @@ export const dateFormatLocale = (): string => {
   if (language === 'de') {return 'de-DE';}
   if (language === 'zh') {return 'zh-CN';}
   if (language === 'id') {return 'id-ID';}
+  if (language === 'hi') {return 'hi-IN';}
+  if (language === 'sq') {return 'sq-AL';}
+  if (language === 'ja') {return 'ja-JP';}
   return 'fr-FR';
 };
 
@@ -115,7 +124,40 @@ export const formatDateRange = (start: Date, end: Date): string => {
 // Dhoul Hijja marker computed from the same underlying date.
 const withHijriAdjustment = (date: Date): Date => addDays(date, getHijriAdjustmentDays());
 
+// JAPANESE. CLDR has no Japanese names for the Hijri months: the ICU output is "AH1447年9月12日", which reads like a Gregorian
+// September. For Japanese the Hijri date is composed from the numeric ICU fields (the same technique as hijriCalendar.ts's
+// hijriPartsFor, with the same single adjustment) with the era 「ヒジュラ暦」 and the month names Japanese Muslims use.
+const HIJRI_MONTHS_JA = [
+  'ムハッラム',
+  'サファル',
+  'ラビーウ・アル＝アウワル',
+  'ラビーウ・アル＝アーヒル',
+  'ジュマーダー・アル＝ウーラー',
+  'ジュマーダー・アル＝アーヒラ',
+  'ラジャブ',
+  'シャアバーン',
+  'ラマダーン',
+  'シャウワール',
+  'ズー・アル＝カアダ',
+  'ズー・アル＝ヒッジャ',
+];
+let hijriFormatterJapanese: Intl.DateTimeFormat | undefined;
+const hijriPartsForJapanese = (date: Date): {year: number; month: number; day: number} => {
+  hijriFormatterJapanese = hijriFormatterJapanese ?? new Intl.DateTimeFormat('en-u-ca-islamic', {year: 'numeric', month: 'numeric', day: 'numeric'});
+  const parts = hijriFormatterJapanese.formatToParts(withHijriAdjustment(date));
+  const value = (type: string) => Number(parts.find(part => part.type === type)?.value ?? NaN);
+  return {year: value('year'), month: value('month'), day: value('day')};
+};
+
 export const formatHijriDate = (date: Date): string | undefined => {
+  if (getAppLanguage() === 'ja') {
+    try {
+      const {year, month, day} = hijriPartsForJapanese(date);
+      return Number.isFinite(year) && HIJRI_MONTHS_JA[month - 1] ? `ヒジュラ暦${year}年${HIJRI_MONTHS_JA[month - 1]}${day}日` : undefined;
+    } catch {
+      return undefined;
+    }
+  }
   try {
     return capitalize(
       new Intl.DateTimeFormat(`${dateFormatLocale()}-u-ca-islamic`, {
@@ -130,6 +172,14 @@ export const formatHijriDate = (date: Date): string | undefined => {
 };
 
 export const formatHijriDay = (date: Date): string | undefined => {
+  if (getAppLanguage() === 'ja') {
+    try {
+      const {day} = hijriPartsForJapanese(date);
+      return Number.isFinite(day) ? String(day) : undefined;
+    } catch {
+      return undefined;
+    }
+  }
   try {
     return new Intl.DateTimeFormat(`${dateFormatLocale()}-u-ca-islamic`, {day: 'numeric'}).format(withHijriAdjustment(date));
   } catch {
@@ -138,6 +188,14 @@ export const formatHijriDay = (date: Date): string | undefined => {
 };
 
 export const formatHijriMonthYear = (date: Date): string | undefined => {
+  if (getAppLanguage() === 'ja') {
+    try {
+      const {year, month} = hijriPartsForJapanese(date);
+      return Number.isFinite(year) && HIJRI_MONTHS_JA[month - 1] ? `ヒジュラ暦${year}年${HIJRI_MONTHS_JA[month - 1]}` : undefined;
+    } catch {
+      return undefined;
+    }
+  }
   try {
     return capitalize(
       new Intl.DateTimeFormat(`${dateFormatLocale()}-u-ca-islamic`, {month: 'long', year: 'numeric'}).format(withHijriAdjustment(date)),
