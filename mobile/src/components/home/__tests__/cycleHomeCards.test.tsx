@@ -64,7 +64,8 @@ describe('HeroCycleCard — theme reactivity + semantic phase colors', () => {
     const renderer = await renderWithTheme(
       <HeroCycleCard currentDay={2} cycleLength={28} phase="menstruation" />,
     );
-    const phaseLabel = () => renderer.root.findAll(node => node.props.children === 'Phase menstruelle')[0];
+    // the name is wrapped on two lines in the ring: it is found by its accessibility name, not by its text
+    const phaseLabel = () => renderer.root.findAll(node => node.props.accessibilityLabel === 'Phase menstruelle')[0];
     expect(flattenStyle(phaseLabel().props.style).color).toBe('#DC7B82');
 
     await act(async () => {
