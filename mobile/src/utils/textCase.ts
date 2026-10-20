@@ -56,8 +56,15 @@ export function displayTitleCase(value: string, language: string = getAppLanguag
  * For comparing a typed confirmation word with the expected one ("DELETE", "SİL"…): upper-cases with the
  * language's rule and, for Turkish, folds İ/ı/I/i together — a person typing "sil", "SIL" or "SİL" on a Latin
  * keyboard means the same word, and none of them should be refused.
+ *
+ * Hindi has no letter case, but a nasal vowel is typed either with the chandrabindu (ँ, U+0901) or with the anusvara
+ * (ं, U+0902) — "हटाएँ" / "हटाएं" — and Unicode can spell a nukta letter two ways (क़ as one code point or as क + ़): both are
+ * folded, so the two ways of writing the same word are accepted, whatever the keyboard produces.
  */
 export function foldForConfirmation(value: string, language: string = getAppLanguage()): string {
   const upper = upperCaseFor(value.trim(), language);
+  if (language === 'hi') {
+    return upper.normalize('NFC').replace(/\u0901/g, '\u0902');
+  }
   return isTurkish(language) ? upper.replace(/İ/g, 'I') : upper;
 }
