@@ -153,11 +153,11 @@ describe('language selector — Türkçe among five options', () => {
     }
   });
 
-  it('exactly nine languages are offered (Bahasa Indonesia is the ninth), after the "System default" option', async () => {
+  it('exactly twelve languages are offered (日本語 is the twelfth) and no "System default" option', async () => {
     const {renderer} = await renderScreen(AppearanceScreen as never);
     await open(renderer);
     const labels = new Set(renderer.root.findAll(node => node.props.accessibilityRole === 'radio').map(node => node.props.accessibilityLabel));
-    expect(labels).toEqual(new Set(['System default', 'English', 'Français', 'Español', 'Italiano', 'Türkçe', 'Русский', 'Deutsch', '简体中文', 'Bahasa Indonesia']));
+    expect(labels).toEqual(new Set(['English', 'Français', 'Español', 'Italiano', 'Türkçe', 'Русский', 'Deutsch', '简体中文', 'Bahasa Indonesia', 'हिन्दी', 'Shqip', '日本語']));
   });
 
   it('selecting Türkçe and pressing Apply switches the mounted screen to Turkish and persists it', async () => {

@@ -30,6 +30,9 @@ export type OnboardingLocation = {
   timezone?: string;
   latitude: number;
   longitude: number;
+  /** Language ('fr', 'ja', …) the city / country were written in when the map provider produced them; absent on a location saved by
+   * an older version (LocationScreen then re-asks the provider for the names in the current language, same coordinates). */
+  language?: string;
 };
 
 const OBJECTIVE_STORAGE_KEY = '@hawa/active-objective';
@@ -823,11 +826,24 @@ export const confirmPeriodStart = (date: Date): Promise<void> => addPeriodOccurr
  * seedManagedProfileCycleIfNeeded's own no-op for hasHadFirstPeriod===false)
  * — an internal computation basis only (cycleDayFor/phaseFor need SOMETHING
  * to divide by while regularity stays 'unknown'/'observing'), never surfaced
- * to the mother as if she confirmed them. */
-export const recordFirstEverPeriod = (date: Date, regularity: CycleRegularity): Promise<void> => {
+ * to the mother as if she confirmed them.
+ *
+ * `periodLength` (optional) is a length someone really provided for THIS
+ * period — a daughter's "Durée des règles" chosen at creation when her cycle
+ * length was not: the recorded range is then start + periodLength − 1 instead
+ * of the internal 5-day placeholder, exactly as setCyclePreferences() would
+ * have recorded it. It only shapes this one recorded period: the habitual
+ * periodDuration/cycleDuration and hasConfirmedCycleDuration are untouched. */
+export const recordFirstEverPeriod = (date: Date, regularity: CycleRegularity, periodLength?: number | null): Promise<void> => {
   const before = captureCycleState();
   const previousRegularity = cyclePreferences.regularity;
   addPeriodOccurrence(date);
+  if (typeof periodLength === 'number' && periodLength >= 1) {
+    const startKey = cycleDateKey(date);
+    periodHistory = periodHistory.map(record =>
+      record.id === startKey ? {...record, endDate: projectedEndKey(startKey, periodLength)} : record,
+    );
+  }
   cyclePreferences = {...cyclePreferences, regularity};
   // Same anchor logic as setCyclePreferences() above — entering 'unknown'
   // starts a new observation window anchored to the real period just declared.
