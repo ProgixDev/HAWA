@@ -114,6 +114,8 @@ const SLUGS: Record<JournalOptionNamespace, Record<string, string>> = {
     'Étirements': 'stretching',
     'Pilates': 'pilates',
     'Danse': 'dance',
+    'Randonnée': 'hiking',
+    'Cardio': 'cardio',
     'Autre': 'other',
   },
   cycleActivityFeeling: {
