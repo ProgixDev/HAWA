@@ -556,6 +556,204 @@ const CONTENT = {
     consultText: 'Jika gejala sangat intens dan memengaruhi kehidupan sehari-harimu, bisa jadi itu gangguan disforia pramenstruasi (PMDD). Jangan ragu berkonsultasi dengan tenaga kesehatan.',
     shareMessage: 'Sindrom pramenstruasi (PMS): memahaminya dengan lebih baik — AWA',
   },
+  hi: {
+    badge: 'चक्र और सेहत',
+    title: 'प्रीमेन्स्ट्रुअल सिंड्रोम (PMS):\nइसे बेहतर समझें',
+    metaDuration: '4 मिनट में पढ़ें',
+    metaValidated: 'समीक्षित सामग्री',
+    intro: 'PMS 10 में से 8 महिलाओं तक को प्रभावित करता है। थकान, चिड़चिड़ापन, पेट फूलना… इसके कारणों को समझना और सही आदतें अपनाना महीने के इस समय को काफ़ी बेहतर बना सकता है।',
+    contentsTitle: 'इस लेख में',
+    contents: [
+      'PMS क्या है?',
+      'आम लक्षण',
+      'संभावित कारण',
+      'बेहतर महसूस करने के सुझाव',
+      'डॉक्टर को कब दिखाएँ?',
+    ],
+    section1Body: 'प्रीमेन्स्ट्रुअल सिंड्रोम में शारीरिक और भावनात्मक लक्षण शामिल होते हैं, जो आमतौर पर पीरियड से 5 से 10 दिन पहले शुरू होते हैं और मासिक चक्र की शुरुआत में ख़त्म हो जाते हैं।',
+    visual1Title: 'आपके चक्र से जुड़ा एक चरण',
+    visual1Text: 'लक्षण पीरियड से पहले दिखते हैं और उसके शुरू होने पर आमतौर पर कम हो जाते हैं।',
+    tip1Title: 'जानने लायक बात',
+    tip1Text: 'लक्षणों की तीव्रता और प्रकार एक महिला से दूसरी में, और एक चक्र से दूसरे चक्र में काफ़ी अलग हो सकते हैं।',
+    symptoms: [
+      {
+        title: 'भावनाएँ',
+        text: 'चिड़चिड़ापन, घबराहट, उदासी, मूड में उतार-चढ़ाव',
+      },
+      {
+        title: 'शारीरिक',
+        text: 'पेट फूलना, दर्द, थकान, सिरदर्द',
+      },
+      {
+        title: 'व्यवहार',
+        text: 'मीठा खाने की इच्छा, भूख में बदलाव, थकान',
+      },
+      {
+        title: 'नींद',
+        text: 'सोने में परेशानी या कम आरामदायक नींद',
+      },
+    ],
+    section3Body: 'हार्मोन में उतार-चढ़ाव, खासकर प्रोजेस्टेरोन और एस्ट्रोजन में, दिमाग़ के न्यूरोट्रांसमीटर (सेरोटोनिन, डोपामाइन) को प्रभावित करते हैं, जो PMS के भावनात्मक और शारीरिक लक्षणों की वजह हो सकता है।',
+    tip2Title: 'हार्मोन की अहम भूमिका',
+    tip2Text: 'हार्मोन में उतार-चढ़ाव मूड, ऊर्जा, नींद और कुछ शारीरिक एहसासों को प्रभावित कर सकता है।',
+    tips: [
+      {
+        title: 'पानी पीती रहें',
+        text: 'पर्याप्त पानी पीने से पेट फूलना कम होता है।',
+      },
+      {
+        title: 'संतुलित आहार लें',
+        text: 'मैग्नीशियम, ओमेगा-3 और B विटामिन से भरपूर चीज़ों को प्राथमिकता दें।',
+      },
+      {
+        title: 'सक्रिय रहें',
+        text: 'शारीरिक गतिविधि से एंडॉर्फ़िन निकलते हैं और तनाव कम होता है।',
+      },
+      {
+        title: 'तनाव को संभालें',
+        text: 'साँस के व्यायाम, ध्यान, जर्नल लिखना… वह चुनें जो आपके लिए काम करे।',
+      },
+      {
+        title: 'भरपूर नींद लें',
+        text: 'अच्छी नींद हार्मोन के संतुलन में मदद करती है।',
+      },
+    ],
+    consultTitle: 'डॉक्टर की सलाह कब लें?',
+    consultText: 'अगर लक्षण बहुत तेज़ हों और आपकी रोज़मर्रा की ज़िंदगी पर असर डालें, तो यह प्रीमेन्स्ट्रुअल डिस्फ़ोरिक डिसऑर्डर (PMDD) हो सकता है। स्वास्थ्य विशेषज्ञ से मिलने में झिझकें नहीं।',
+    shareMessage: 'प्रीमेन्स्ट्रुअल सिंड्रोम (PMS): इसे बेहतर समझें — AWA',
+  },
+  sq: {
+    badge: 'CIKLI & MIREQENIA',
+    title: 'Sindroma paramenstruale (PMS):\npër ta kuptuar më mirë',
+    metaDuration: '4 min lexim',
+    metaValidated: 'Përmbajtje e rishikuar',
+    intro: 'PMS prek deri në 8 nga 10 gra. Lodhje, nervozizëm, fryrje… Të kuptuarit e shkaqeve dhe zakonet e duhura mund ta përmirësojnë shumë këtë periudhë të muajit.',
+    contentsTitle: 'Në këtë artikull',
+    contents: [
+      'Çfarë është PMS?',
+      'Simptomat e zakonshme',
+      'Shkaqet e mundshme',
+      'Këshilla për t’u ndjerë më mirë',
+      'Kur duhet të shkosh te mjeku?',
+    ],
+    section1Body: 'Sindroma paramenstruale bashkon simptoma fizike dhe emocionale që zakonisht shfaqen 5 deri në 10 ditë para menstruacioneve dhe kalojnë në fillim të ciklit menstrual.',
+    visual1Title: 'Një fazë e lidhur me ciklin tënd',
+    visual1Text: 'Simptomat shfaqen para menstruacioneve dhe zakonisht qetësohen sapo ato fillojnë.',
+    tip1Title: 'Mirë është ta dish',
+    tip1Text: 'Intensiteti dhe lloji i simptomave mund të ndryshojë shumë nga një grua te tjetra, dhe nga një cikël te tjetri.',
+    symptoms: [
+      {
+        title: 'Emocionet',
+        text: 'Nervozizëm, ankth, trishtim dhe ndryshime të humorit',
+      },
+      {
+        title: 'Fizike',
+        text: 'Fryrje, dhimbje, lodhje, dhimbje koke',
+      },
+      {
+        title: 'Sjellja',
+        text: 'Dëshirë për sheqerna, ndryshime në oreks, lodhje',
+      },
+      {
+        title: 'Gjumi',
+        text: 'Vështirësi për të fjetur ose gjumë më pak çlodhës',
+      },
+    ],
+    section3Body: 'Luhatjet hormonale, sidomos të progesteronit dhe të estrogjenit, ndikojnë te neurotransmetuesit e trurit (serotonina, dopamina), gjë që mund t’i shpjegojë simptomat emocionale dhe fizike të PMS.',
+    tip2Title: 'Hormonet luajnë një rol kyç',
+    tip2Text: 'Luhatjet hormonale mund të ndikojnë në humor, energji, gjumë dhe disa ndjesi fizike.',
+    tips: [
+      {
+        title: 'Hidratohu mirë',
+        text: 'Të pirët e mjaftueshëm ujë ndihmon të zvogëlohet fryrja.',
+      },
+      {
+        title: 'Ushqehu në mënyrë të ekuilibruar',
+        text: 'Zgjidh ushqime të pasura me magnez, omega-3 dhe vitamina B.',
+      },
+      {
+        title: 'Qëndro aktive',
+        text: 'Aktiviteti fizik çliron endorfina dhe zvogëlon stresin.',
+      },
+      {
+        title: 'Menaxho stresin',
+        text: 'Ushtrime frymëmarrjeje, meditim, shkrim në ditar… Gjej çfarë funksionon për ty.',
+      },
+      {
+        title: 'Fli sa duhet',
+        text: 'Gjumi cilësor mbështet ekuilibrin hormonal.',
+      },
+    ],
+    consultTitle: 'Kur duhet të kërkosh këshillë mjekësore?',
+    consultText: 'Nëse simptomat janë shumë të forta dhe ndikojnë në jetën tënde të përditshme, mund të jetë çrregullimi disforik paramenstrual (PMDD). Mos ngurro të konsultohesh me një profesionist të shëndetësisë.',
+    shareMessage: 'Sindroma paramenstruale (PMS): për ta kuptuar më mirë — AWA',
+  },
+  ja: {
+    badge: '周期とウェルビーイング',
+    title: '月経前症候群（PMS）：\nよりよく理解するために',
+    metaDuration: '読了4分',
+    metaValidated: '確認済みの内容',
+    intro: 'PMSは女性の最大8割に見られます。疲れ、いらいら、むくみ…。原因を理解し、適切な習慣を取り入れることで、この時期をぐっと過ごしやすくできます。',
+    contentsTitle: 'この記事の内容',
+    contents: [
+      'PMSとは？',
+      'よくある症状',
+      '考えられる原因',
+      '楽に過ごすためのヒント',
+      '医師に相談するのはいつ？',
+    ],
+    section1Body: '月経前症候群とは、生理の5〜10日前ごろから現れ、生理が始まると和らぐ、体と心のさまざまな症状の総称です。',
+    visual1Title: '周期と結びついた時期',
+    visual1Text: '症状は生理の前に現れ、生理が始まると通常は和らぎます。',
+    tip1Title: '知っておきたいこと',
+    tip1Text: '症状の強さや種類は、人によって、また周期ごとにも大きく異なることがあります。',
+    symptoms: [
+      {
+        title: '気持ち',
+        text: 'いらいら、不安、悲しみ、気分の波',
+      },
+      {
+        title: '体',
+        text: 'むくみ、痛み、疲れ、頭痛',
+      },
+      {
+        title: '行動',
+        text: '甘いものが欲しくなる、食欲の変化、疲れ',
+      },
+      {
+        title: '睡眠',
+        text: '眠りにくい、眠りが浅い',
+      },
+    ],
+    section3Body: 'ホルモン、特にプロゲステロンとエストロゲンの変動が、脳内の神経伝達物質（セロトニン、ドーパミン）に影響を与えることが、PMSの心身の症状の一因と考えられます。',
+    tip2Title: 'ホルモンが重要な役割を果たします',
+    tip2Text: 'ホルモンの変動は、気分、エネルギー、睡眠、体の感覚に影響することがあります。',
+    tips: [
+      {
+        title: '水分をしっかりとる',
+        text: '十分に水を飲むと、むくみの軽減に役立ちます。',
+      },
+      {
+        title: 'バランスのよい食事',
+        text: 'マグネシウム、オメガ3、ビタミンB群を多く含む食品を選びましょう。',
+      },
+      {
+        title: '体を動かす',
+        text: '運動はエンドルフィンの分泌を促し、ストレスを和らげます。',
+      },
+      {
+        title: 'ストレスと向き合う',
+        text: '呼吸法、瞑想、日記…。自分に合う方法を見つけましょう。',
+      },
+      {
+        title: 'しっかり眠る',
+        text: '質のよい睡眠はホルモンバランスを支えます。',
+      },
+    ],
+    consultTitle: '医師に相談したほうがよいのはどんなとき？',
+    consultText: '症状が非常に強く、日常生活に支障が出る場合は、月経前不快気分障害（PMDD）の可能性があります。ためらわずに医療従事者に相談してください。',
+    shareMessage: '月経前症候群（PMS）：よりよく理解するために — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<

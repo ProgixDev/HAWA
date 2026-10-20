@@ -726,6 +726,276 @@ const CONTENT = {
     tip2Text: 'Cincin vagina memadukan pelepasan hormon yang berkelanjutan dengan ritme pemakaian yang tidak memerlukan dosis harian. Namun, pilihan kontrasepsi sebaiknya disesuaikan dengan masing-masing orang dan dibicarakan dengan tenaga kesehatan.',
     shareMessage: 'Cincin vagina kontrasepsi — AWA',
   },
+  hi: {
+    badge: 'वजाइनल रिंग',
+    title: 'गर्भनिरोधक\nवजाइनल रिंग',
+    metaDuration: '5 मिनट का पाठ',
+    metaType: 'लेख',
+    metaLevel: 'शुरुआती',
+    metaValidated: 'समीक्षा किया गया कंटेंट',
+    intro: 'एक लचीली रिंग, जिसे तीन हफ़्ते तक पहना जाता है।',
+    contentsTitle: 'इस लेख में',
+    topics: [
+      'रिंग कैसे काम करती है',
+      'लगाना और निकालना',
+      'क्या जानना ज़रूरी है',
+      'मुख्य बातें',
+    ],
+    body1: 'रिंग एक लचीला साधन है जो लगातार कम मात्रा में हार्मोन सीधे योनि में छोड़ता है, और इसका गर्भनिरोधक असर कंबाइंड गोली जैसा ही होता है।',
+    flowTitle: 'यह कैसे काम करती है',
+    flowSteps: [
+      {
+        title: 'रिंग',
+        text: 'योनि में लगाई जाती है',
+      },
+      {
+        title: 'हार्मोन',
+        text: 'लगातार रिसाव',
+      },
+      {
+        title: 'सुरक्षा',
+        text: 'गर्भनिरोधक असर',
+      },
+    ],
+    body2: 'इसे आप खुद लगाती हैं, यह तीन हफ़्ते तक लगातार अपनी जगह पर रहती है, फिर एक हफ़्ते के ब्रेक के लिए निकाल दी जाती है, जिसमें आपका पीरियड होता है।',
+    calendarTitle: 'फ़ॉलो करने के लिए एक आसान लय',
+    weekLabelActive: 'रिंग',
+    weekLabelPause: 'ब्रेक',
+    legendActive: 'रिंग वाला हफ़्ता',
+    legendPause: 'ब्रेक का हफ़्ता',
+    tip1Title: 'जानना अच्छा रहेगा',
+    tip1Text: 'असरदार होने के लिए योनि में इसकी जगह बिल्कुल सटीक होना ज़रूरी नहीं है, इसलिए इसका इस्तेमाल आसान है।',
+    body3: 'रिंग चुनने से पहले इसके कई व्यावहारिक पहलू जान लेना अच्छा रहता है।',
+    careTips: [
+      {
+        title: 'इस्तेमाल में आसान',
+        text: 'आप इसे खुद लगाती और निकालती हैं।',
+      },
+      {
+        title: 'नियमित लय',
+        text: 'यह आमतौर पर तीन हफ़्ते तक अपनी जगह पर रहती है।',
+      },
+      {
+        title: 'लगातार असर',
+        text: 'इस्तेमाल की पूरी अवधि में हार्मोन लगातार छोड़े जाते हैं।',
+      },
+      {
+        title: 'STI से बचाव नहीं करती',
+        text: 'स्थिति के अनुसार अतिरिक्त सुरक्षा की ज़रूरत पड़ सकती है।',
+      },
+    ],
+    checkListTitle: 'अपनाने लायक अच्छी आदतें',
+    practicalSteps: [
+      'लगाने या निकालने से पहले हाथ धो लें',
+      'शेड्यूल याद रखने के लिए ऐसा समय चुनें जो आसानी से याद रहे',
+      'बीच-बीच में देख लें कि यह अपनी जगह पर है',
+      'अगर यह खिसक जाए या बाहर निकल जाए तो साथ आए पर्चे को देखें',
+    ],
+    alertTitle: 'ध्यान दें',
+    alertText: 'रिंग के बाहर निकल जाने या लंबे समय तक अपनी जगह से खिसके रहने पर खास मार्गदर्शन की ज़रूरत पड़ सकती है। अगर आप निश्चित नहीं हैं, तो हमेशा साधन के साथ आया पर्चा देखें या किसी स्वास्थ्य विशेषज्ञ से पूछें।',
+    summaryTitle: '4 मुख्य बातें',
+    summaryItems: [
+      {
+        title: 'आसानी से लगाना',
+        text: 'रिंग को आप खुद लगा और निकाल सकती हैं।',
+      },
+      {
+        title: 'हफ़्तों की लय',
+        text: 'आमतौर पर यह तीन हफ़्ते के चक्र और एक हफ़्ते के ब्रेक के हिसाब से चलती है।',
+      },
+      {
+        title: 'बीच-बीच में जाँच',
+        text: 'नियमित रूप से देखते रहना कि यह अपनी जगह पर है, आपको इसे बेफ़िक्र होकर इस्तेमाल करने में मदद करता है।',
+      },
+      {
+        title: 'STI से कोई सुरक्षा नहीं',
+        text: 'स्थिति के अनुसार उपयुक्त सुरक्षा की ज़रूरत पड़ सकती है।',
+      },
+    ],
+    tip2Title: 'मुख्य बातें',
+    tip2Text: 'वजाइनल रिंग लगातार हार्मोन छोड़ने को एक ऐसी लय के साथ जोड़ती है जिसमें रोज़ की खुराक की ज़रूरत नहीं पड़ती। फिर भी, गर्भनिरोध का चुनाव हर महिला के हिसाब से होना चाहिए और इस पर किसी स्वास्थ्य विशेषज्ञ से चर्चा करनी चाहिए।',
+    shareMessage: 'गर्भनिरोधक वजाइनल रिंग — AWA',
+  },
+  sq: {
+    badge: 'UNAZA VAGINALE',
+    title: 'Unaza vaginale\nkontraceptive',
+    metaDuration: '5 min lexim',
+    metaType: 'Artikull',
+    metaLevel: 'Fillestar',
+    metaValidated: 'Përmbajtje e rishikuar',
+    intro: 'Një unazë fleksibël, e veshur për tri javë.',
+    contentsTitle: 'Në këtë artikull',
+    topics: [
+      'Si funksionon unaza',
+      'Vendosja dhe heqja',
+      'Çfarë duhet të dish',
+      'Pikat kryesore',
+    ],
+    body1: 'Unaza është një pajisje fleksibël që çliron vazhdimisht doza të ulëta hormonesh drejtpërdrejt në vaginë, me të njëjtin veprim kontraceptiv si një tabletë e kombinuar.',
+    flowTitle: 'Si funksionon',
+    flowSteps: [
+      {
+        title: 'Unaza',
+        text: 'Vendoset në vaginë',
+      },
+      {
+        title: 'Hormonet',
+        text: 'Çlirim i vazhdueshëm',
+      },
+      {
+        title: 'Mbrojtja',
+        text: 'Veprim kontraceptiv',
+      },
+    ],
+    body2: 'E vendos vetë, qëndron vazhdimisht në vend për tri javë, pastaj hiqet për një pushim njëjavor gjatë të cilit vijnë menstruacionet.',
+    calendarTitle: 'Një ritëm i thjeshtë për t’u ndjekur',
+    weekLabelActive: 'Unaza',
+    weekLabelPause: 'Pushim',
+    legendActive: 'Java me unazën',
+    legendPause: 'Java e pushimit',
+    tip1Title: 'Mirë është ta dish',
+    tip1Text: 'Pozicioni i saktë i saj në vaginë nuk ka nevojë të jetë i përpiktë që të jetë efektive, gjë që e bën të thjeshtë për përdorim.',
+    body3: 'Unaza ka disa pika praktike që vlen t’i dish përpara se ta zgjedhësh.',
+    careTips: [
+      {
+        title: 'E thjeshtë për përdorim',
+        text: 'E vendos dhe e heq vetë.',
+      },
+      {
+        title: 'Ritëm i rregullt',
+        text: 'Zakonisht qëndron në vend për tri javë.',
+      },
+      {
+        title: 'Veprim i vazhdueshëm',
+        text: 'Hormonet çlirohen vazhdimisht në të gjithë periudhën e përdorimit.',
+      },
+      {
+        title: 'Nuk mbron nga IST-të',
+        text: 'Mund të nevojitet mbrojtje shtesë sipas situatës.',
+      },
+    ],
+    checkListTitle: 'Zakone të mira për t’i mbajtur',
+    practicalSteps: [
+      'Laji duart para se ta vendosësh ose ta heqësh',
+      'Zgjidh një orë që është e lehtë për t’u mbajtur mend, për të ndjekur orarin',
+      'Kontrollo herë pas here që është ende në vend',
+      'Shiko fletushkën nëse lëviz ose del jashtë',
+    ],
+    alertTitle: 'Kujdes',
+    alertText: 'Daljia jashtë ose zhvendosja e zgjatur mund të kërkojë udhëzime specifike. Kontrollo gjithmonë fletushkën e pajisjes ose pyet një profesionist të shëndetësisë nëse nuk je e sigurt.',
+    summaryTitle: 'Thelbi në 4 pika',
+    summaryItems: [
+      {
+        title: 'Vendosje e thjeshtë',
+        text: 'Unazën mund ta vendosësh dhe ta heqësh vetë.',
+      },
+      {
+        title: 'Ritëm javor',
+        text: 'Zakonisht ndjek një cikël tri-javor me një pushim njëjavor.',
+      },
+      {
+        title: 'Kontroll herë pas here',
+        text: 'Të kontrollosh rregullisht që është në vend të ndihmon ta përdorësh pajisjen me qetësi.',
+      },
+      {
+        title: 'Nuk mbron nga IST-të',
+        text: 'Mund të nevojitet mbrojtje e përshtatshme sipas situatës.',
+      },
+    ],
+    tip2Title: 'Pikat kryesore',
+    tip2Text: 'Unaza vaginale kombinon çlirimin e vazhdueshëm të hormoneve me një ritëm përdorimi që shmang dozën e përditshme. Megjithatë, zgjedhja e kontracepsionit duhet të përshtatet për çdo person dhe të diskutohet me një profesionist të shëndetësisë.',
+    shareMessage: 'Unaza vaginale kontraceptive — AWA',
+  },
+  ja: {
+    badge: '腟リング',
+    title: '避妊用の\n腟リング',
+    metaDuration: '読了時間5分',
+    metaType: '記事',
+    metaLevel: '初級',
+    metaValidated: '確認済みの内容',
+    intro: '3週間つけて使う、柔らかいリングです。',
+    contentsTitle: 'この記事の内容',
+    topics: [
+      'リングのしくみ',
+      '挿入と取り出し',
+      '知っておきたいこと',
+      'ポイントのまとめ',
+    ],
+    body1: 'リングは柔らかい器具で、少量のホルモンを腟内に直接、継続的に放出します。避妊の作用は、複合ピルと同じです。',
+    flowTitle: 'しくみ',
+    flowSteps: [
+      {
+        title: 'リング',
+        text: '腟内に入れます',
+      },
+      {
+        title: 'ホルモン',
+        text: '継続的に放出されます',
+      },
+      {
+        title: '保護',
+        text: '避妊の作用',
+      },
+    ],
+    body2: 'ご自身で挿入し、3週間ずっとそのまま入れておきます。その後、取り出して1週間の休薬期間をとり、この間に生理が来ます。',
+    calendarTitle: '覚えやすいシンプルなリズム',
+    weekLabelActive: 'リング',
+    weekLabelPause: '休薬',
+    legendActive: 'リングを使う週',
+    legendPause: '休薬の週',
+    tip1Title: '知っておきたいこと',
+    tip1Text: '腟内での正確な位置を気にしなくても効果があるので、使い方が簡単です。',
+    body3: 'リングには、選ぶ前に知っておきたい実用的なポイントがいくつかあります。',
+    careTips: [
+      {
+        title: '使い方が簡単',
+        text: '挿入も取り出しも、ご自身でできます。',
+      },
+      {
+        title: '規則的なリズム',
+        text: '一般に、3週間入れたままにします。',
+      },
+      {
+        title: '継続的な作用',
+        text: '使用期間中、ホルモンが継続的に放出されます。',
+      },
+      {
+        title: '性感染症は防げません',
+        text: '状況によっては、追加の予防が必要になることがあります。',
+      },
+    ],
+    checkListTitle: '続けたいよい習慣',
+    practicalSteps: [
+      '挿入や取り出しの前に手を洗う',
+      '予定を管理しやすいよう、覚えやすい時間を選ぶ',
+      'ときどき、まだ入っているかを確認する',
+      'ずれたり出てしまったりしたときは、添付文書を確認する',
+    ],
+    alertTitle: 'ご注意ください',
+    alertText: 'リングが出てしまったり、長い間ずれたままだったりした場合は、個別の対応が必要になることがあります。迷ったときは、必ず製品の添付文書を確認するか、医療従事者に相談してください。',
+    summaryTitle: '4つのポイント',
+    summaryItems: [
+      {
+        title: '簡単な挿入',
+        text: 'リングは、ご自身で挿入して取り出せます。',
+      },
+      {
+        title: '週単位のリズム',
+        text: '一般に、3週間使用して1週間休む周期で使います。',
+      },
+      {
+        title: 'ときどき確認',
+        text: '入っているかをこまめに確認すると、安心して使えます。',
+      },
+      {
+        title: '性感染症は防げません',
+        text: '状況によっては、適切な予防が必要になることがあります。',
+      },
+    ],
+    tip2Title: 'ポイントのまとめ',
+    tip2Text: '腟リングは、ホルモンの継続的な放出と、毎日の服用が不要な使用リズムを兼ね備えています。ただし、避妊法の選択は一人ひとりに合わせて、医療従事者と相談して決める必要があります。',
+    shareMessage: '避妊用の腟リング — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

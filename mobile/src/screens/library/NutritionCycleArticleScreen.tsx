@@ -784,6 +784,303 @@ const CONTENT = {
     ],
     shareMessage: 'Nutrisi dan siklusmu: yang disukai tubuhmu — AWA',
   },
+  hi: {
+    badge: 'मासिक चक्र',
+    titleLine1: 'पोषण और आपका चक्र:',
+    titleLine2: 'जो आपके शरीर को पसंद है',
+    metaDuration: '4 मिनट में पढ़ें',
+    metaType: 'गाइड',
+    metaLevel: 'शुरुआती',
+    metaValidated: 'समीक्षित सामग्री',
+    intro: 'आपका आहार पूरे चक्र में आपकी ऊर्जा, मूड, हार्मोन और समग्र सेहत को प्रभावित करता है।',
+    contentsTitle: 'इस लेख में',
+    topics: [
+      'हर चरण की पोषण ज़रूरतें',
+      'किन चीज़ों को प्राथमिकता दें',
+      'किन चीज़ों को सीमित करें',
+      'संतुलित भोजन के उदाहरण',
+    ],
+    section1Body: 'आपके शरीर की ज़रूरतें पूरे चक्र में एक जैसी नहीं रहतीं। अपने खान-पान को उसके अनुसार ढालने से सचमुच फ़र्क़ पड़ सकता है।',
+    phases: [
+      {
+        title: 'मासिक धर्म का चरण',
+        days: 'दिन 1 से 5',
+        body: 'आयरन, मैग्नीशियम और B विटामिन को प्राथमिकता दें।',
+      },
+      {
+        title: 'फ़ॉलिकुलर चरण',
+        days: 'दिन 6 से 14',
+        body: 'कम चर्बी वाले प्रोटीन और ताज़ी सब्ज़ियों पर ध्यान दें।',
+      },
+      {
+        title: 'ओव्यूलेशन का चरण',
+        days: 'दिन 14 के आसपास',
+        body: 'एंटीऑक्सीडेंट और ओमेगा-3 चुनें।',
+      },
+      {
+        title: 'ल्यूटियल चरण',
+        days: 'दिन 15 से 28',
+        body: 'अपने तंत्रिका तंत्र को सहारा दें और सूजन को सीमित करें।',
+      },
+    ],
+    foods: [
+      {
+        title: 'आयरन',
+        body: 'दालें, पालक, कम चर्बी वाला मांस, चने।',
+      },
+      {
+        title: 'मैग्नीशियम',
+        body: 'बादाम, कद्दू के बीज, डार्क चॉकलेट, केला।',
+      },
+      {
+        title: 'ओमेगा-3',
+        body: 'सैल्मन, सार्डिन, अखरोट, अलसी।',
+      },
+      {
+        title: 'प्रोटीन',
+        body: 'अंडे, टोफ़ू, मुर्गा, ग्रीक योगर्ट, क्विनोआ।',
+      },
+      {
+        title: 'फ़ाइबर और एंटीऑक्सीडेंट',
+        body: 'बेरीज़, एवोकाडो, ब्रोकली, गाजर।',
+      },
+    ],
+    limits: [
+      {
+        title: 'ज़्यादा नमक',
+      },
+      {
+        title: 'मीठी चीज़ें',
+      },
+      {
+        title: 'अत्यधिक प्रोसेस्ड खाना',
+      },
+      {
+        title: 'ज़्यादा कैफ़ीन',
+      },
+      {
+        title: 'अल्कोहल',
+      },
+    ],
+    limitText: 'संतुलन बनाए रखने के लिए इन्हें सीमित मात्रा में लें।',
+    meals: [
+      {
+        tag: 'नाश्ता',
+        body: 'दलिया, बेरीज़, बादाम और चिया',
+      },
+      {
+        tag: 'दोपहर का खाना',
+        body: 'सैल्मन, क्विनोआ, भाप में पकी ब्रोकली और जैतून का तेल',
+      },
+      {
+        tag: 'स्नैक',
+        body: 'सादा दही, ब्लूबेरी और अलसी',
+      },
+      {
+        tag: 'रात का खाना',
+        body: 'दाल का सूप, भुनी हुई सब्ज़ियाँ और साबुत अनाज की रोटी',
+      },
+    ],
+    shareMessage: 'पोषण और आपका चक्र: जो आपके शरीर को पसंद है — AWA',
+  },
+  sq: {
+    badge: 'CIKLI MENSTRUAL',
+    titleLine1: 'Ushqimi dhe cikli yt:',
+    titleLine2: 'ajo që e do trupi yt',
+    metaDuration: '4 min lexim',
+    metaType: 'Udhëzues',
+    metaLevel: 'Fillestar',
+    metaValidated: 'Përmbajtje e rishikuar',
+    intro: 'Ushqimi yt ndikon në energjinë, gjendjen shpirtërore, hormonet dhe mirëqenien tënde të përgjithshme gjatë gjithë ciklit.',
+    contentsTitle: 'Në këtë artikull',
+    topics: [
+      'Nevojat ushqimore sipas fazës',
+      'Ushqimet që duhen preferuar',
+      'Ushqimet që duhen kufizuar',
+      'Shembuj vaktesh të ekuilibruara',
+    ],
+    section1Body: 'Trupi yt nuk ka të njëjtat nevoja gjatë gjithë ciklit. Përshtatja e asaj që ha mund të bëjë një dallim të vërtetë.',
+    phases: [
+      {
+        title: 'Faza menstruale',
+        days: 'Ditët 1 deri në 5',
+        body: 'Zgjidh hekurin, magnezin dhe vitaminat B.',
+      },
+      {
+        title: 'Faza folikulare',
+        days: 'Ditët 6 deri në 14',
+        body: 'Përqendrohu te proteinat e pakta dhe perimet e freskëta.',
+      },
+      {
+        title: 'Faza e ovulacionit',
+        days: 'Rreth ditës 14',
+        body: 'Zgjidh antioksidantët dhe omega-3.',
+      },
+      {
+        title: 'Faza luteale',
+        days: 'Ditët 15 deri në 28',
+        body: 'Mbështet sistemin nervor dhe kufizo inflamacionin.',
+      },
+    ],
+    foods: [
+      {
+        title: 'Hekuri',
+        body: 'Thjerrëza, spinaq, mish pa yndyrë, qiqra.',
+      },
+      {
+        title: 'Magnezi',
+        body: 'Bajame, fara kungulli, çokollatë e zezë, banane.',
+      },
+      {
+        title: 'Omega-3',
+        body: 'Salmon, sardele, arra, fara liri.',
+      },
+      {
+        title: 'Proteinat',
+        body: 'Vezë, tofu, shpendë, kos grek, kinoa.',
+      },
+      {
+        title: 'Fibrat & antioksidantët',
+        body: 'Fruta të egra, avokado, brokoli, karota.',
+      },
+    ],
+    limits: [
+      {
+        title: 'Kripa e tepërt',
+      },
+      {
+        title: 'Ushqimet e ëmbla',
+      },
+      {
+        title: 'Ushqimet ultra të përpunuara',
+      },
+      {
+        title: 'Kafeina e tepërt',
+      },
+      {
+        title: 'Alkooli',
+      },
+    ],
+    limitText: 'Konsumoji me moderim për të ndihmuar në ruajtjen e ekuilibrit tënd.',
+    meals: [
+      {
+        tag: 'Mëngjesi',
+        body: 'Qull tërshëre, fruta të egra, bajame dhe chia',
+      },
+      {
+        tag: 'Dreka',
+        body: 'Salmon, kinoa, brokoli i zier me avull dhe vaj ulliri',
+      },
+      {
+        tag: 'Ushqim i lehtë',
+        body: 'Kos natyral, boronica dhe fara liri',
+      },
+      {
+        tag: 'Darka',
+        body: 'Supë thjerrëzash, perime të pjekura dhe bukë integrale',
+      },
+    ],
+    shareMessage: 'Ushqimi dhe cikli yt: ajo që e do trupi yt — AWA',
+  },
+  ja: {
+    badge: '生理周期',
+    titleLine1: '栄養と生理周期：',
+    titleLine2: '体が喜ぶ食べ方',
+    metaDuration: '読了4分',
+    metaType: 'ガイド',
+    metaLevel: '初級',
+    metaValidated: '確認済みの内容',
+    intro: '食事は、周期を通じて、元気、気分、ホルモン、そして心身の健やかさに影響します。',
+    contentsTitle: 'この記事の内容',
+    topics: [
+      'フェーズごとに必要な栄養',
+      '積極的にとりたい食品',
+      '控えたい食品',
+      'バランスのよい食事の例',
+    ],
+    section1Body: '体に必要なものは、周期を通じて同じではありません。食べるものを調整すると、大きな違いが生まれます。',
+    phases: [
+      {
+        title: '月経期',
+        days: '1〜5日目',
+        body: '鉄分、マグネシウム、ビタミンB群を意識しましょう。',
+      },
+      {
+        title: '卵胞期',
+        days: '6〜14日目',
+        body: '脂肪の少ないたんぱく質と新鮮な野菜を中心にしましょう。',
+      },
+      {
+        title: '排卵期',
+        days: '14日目ごろ',
+        body: '抗酸化成分とオメガ3を選びましょう。',
+      },
+      {
+        title: '黄体期',
+        days: '15〜28日目',
+        body: '神経系を支え、炎症を抑える食事を心がけましょう。',
+      },
+    ],
+    foods: [
+      {
+        title: '鉄分',
+        body: 'レンズ豆、ほうれん草、脂肪の少ない肉、ひよこ豆。',
+      },
+      {
+        title: 'マグネシウム',
+        body: 'アーモンド、かぼちゃの種、ダークチョコレート、バナナ。',
+      },
+      {
+        title: 'オメガ3',
+        body: 'サケ、イワシ、クルミ、亜麻仁。',
+      },
+      {
+        title: 'たんぱく質',
+        body: '卵、豆腐、鶏肉などの家禽肉、ギリシャヨーグルト、キヌア。',
+      },
+      {
+        title: '食物繊維と抗酸化成分',
+        body: 'ベリー類、アボカド、ブロッコリー、にんじん。',
+      },
+    ],
+    limits: [
+      {
+        title: '塩分のとりすぎ',
+      },
+      {
+        title: '甘い食べ物',
+      },
+      {
+        title: '超加工食品',
+      },
+      {
+        title: 'カフェインのとりすぎ',
+      },
+      {
+        title: 'アルコール',
+      },
+    ],
+    limitText: 'ほどほどに楽しんで、バランスを保ちましょう。',
+    meals: [
+      {
+        tag: '朝食',
+        body: 'オートミールのお粥、ベリー類、アーモンド、チアシード',
+      },
+      {
+        tag: '昼食',
+        body: 'サケ、キヌア、蒸したブロッコリー、オリーブオイル',
+      },
+      {
+        tag: '間食',
+        body: 'プレーンヨーグルト、ブルーベリー、亜麻仁',
+      },
+      {
+        tag: '夕食',
+        body: 'レンズ豆のスープ、焼き野菜、全粒粉のパン',
+      },
+    ],
+    shareMessage: '栄養と生理周期：体が喜ぶ食べ方 — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<

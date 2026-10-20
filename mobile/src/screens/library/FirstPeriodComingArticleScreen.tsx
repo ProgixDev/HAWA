@@ -435,6 +435,159 @@ const CONTENT = {
     ],
     shareMessage: 'Bagaimana aku tahu kalau haid pertamaku akan datang? — AWA',
   },
+  hi: {
+    badge: 'पहला पीरियड',
+    title: 'मुझे कैसे पता चलेगा कि\nमेरा पहला पीरियड आने वाला है?',
+    metaDuration: '5 मिनट में पढ़ें',
+    metaType: 'गाइड',
+    metaLevel: 'शुरुआती',
+    metaValidated: 'समीक्षित सामग्री',
+    intro: 'कुछ ठोस संकेत आपको यह पहचानने में मदद कर सकते हैं कि आपका पहला पीरियड सचमुच आने वाला है।',
+    contentsTitle: 'इस लेख में',
+    topics: [
+      'किन संकेतों पर ध्यान दें',
+      'पहला स्राव: यह कैसा दिखता है?',
+      'योनि का स्राव या मासिक धर्म का रक्त?',
+      'बड़ों से बात कब करनी चाहिए?',
+    ],
+    observe: [
+      {
+        title: 'सफ़ेद स्राव',
+        text: 'हल्का, साफ़ स्राव अक्सर कुछ महीने पहले दिखने लगता है।',
+      },
+      {
+        title: 'स्तनों का विकास',
+        text: 'एक आम संकेत जो आमतौर पर पीरियड से काफ़ी पहले दिखता है।',
+      },
+      {
+        title: 'पेट में हल्की चुभन',
+        text: 'ऐसे छोटे एहसास संकेत दे सकते हैं कि आपका पीरियड जल्द आने वाला है।',
+      },
+    ],
+    body2: 'आपका पहला पीरियड आने से पहले, अंडरवियर में हल्का सफ़ेद या थोड़ा पीलापन लिए स्राव दिखना आम बात है। यह एक सामान्य प्रक्रिया है, जो आपके शरीर में शुरू हो रही हार्मोनल गतिविधि से जुड़ी है।',
+    body3: 'योनि का स्राव साफ़ या सफ़ेद होता है, बिना तेज़ गंध के। वहीं मासिक धर्म का रक्त लाल से भूरे रंग का होता है और पीरियड की असली शुरुआत का संकेत देता है। अगर कभी आपको शक हो, तो इसके बारे में बात करना कोई बड़ी बात नहीं है।',
+    tipTitle: 'जानने लायक बात',
+    tipText: 'सही दिन का अनुमान लगाने का कोई तरीक़ा नहीं है। पहले संकेतों से ही प्रोटेक्शन अपने साथ रखना सबसे अच्छी आदत है।',
+    body4: 'जैसे ही आपको ये संकेत दिखें, या जब भी कोई सवाल या चिंता हो, आप अपनी माँ, बहन, किसी करीबी या अपने भरोसे के स्वास्थ्य विशेषज्ञ से बात कर सकती हैं। मदद माँगने का कभी कोई ग़लत समय नहीं होता।',
+    relatedTitle: '♥  आपको ये भी पसंद आ सकते हैं',
+    related: [
+      {
+        title: 'पीरियड से पहले के पहले संकेत',
+        meta: '5 मिनट  ·  लेख',
+      },
+      {
+        title: 'पहले पीरियड के लिए कौन सा प्रोटेक्शन चुनें?',
+        meta: '6 मिनट  ·  गाइड',
+      },
+      {
+        title: 'आपका पहला पीरियड: क्या उम्मीद रखें',
+        meta: '5 मिनट  ·  गाइड',
+      },
+    ],
+    shareMessage: 'मुझे कैसे पता चलेगा कि मेरा पहला पीरियड आने वाला है? — AWA',
+  },
+  sq: {
+    badge: 'MENSTRUACIONI I PARË',
+    title: 'Si e di nëse po vjen\nmenstruacioni im i parë?',
+    metaDuration: '5 min lexim',
+    metaType: 'Udhëzues',
+    metaLevel: 'Fillestar',
+    metaValidated: 'Përmbajtje e rishikuar',
+    intro: 'Disa shenja konkrete mund të të ndihmojnë të kuptosh se menstruacioni yt i parë po vjen vërtet.',
+    contentsTitle: 'Në këtë artikull',
+    topics: [
+      'Shenjat për t’u vënë re',
+      'Rrjedhja e parë: si duket?',
+      'Sekrecione vaginale apo gjak menstrual?',
+      'Kur duhet të flasësh me një të rritur?',
+    ],
+    observe: [
+      {
+        title: 'Sekrecione të bardha',
+        text: 'Sekrecione të lehta e të tejdukshme shfaqen shpesh disa muaj më parë.',
+      },
+      {
+        title: 'Zhvillimi i gjirit',
+        text: 'Një shenjë e zakonshme që zakonisht shfaqet shumë përpara menstruacioneve.',
+      },
+      {
+        title: 'Shpime të lehta në bark',
+        text: 'Ndjesi të vogla si këto mund të tregojnë se menstruacioni po vjen së shpejti.',
+      },
+    ],
+    body2: 'Përpara se të vijë menstruacioni yt i parë, është e zakonshme të vësh re në të brendshmet sekrecione të lehta të bardha ose paksa të verdha. Ky është një fenomen normal, i lidhur me aktivitetin hormonal që po fillon në trupin tënd.',
+    body3: 'Sekrecionet vaginale janë të tejdukshme ose të bardha, pa erë të fortë. Gjaku menstrual, nga ana tjetër, është i kuq deri në kafe dhe shënon fillimin e vërtetë të menstruacioneve. Nëse ke ndonjë dyshim, nuk është kurrë problem të flasësh për të.',
+    tipTitle: 'Mirë është ta dish',
+    tipText: 'Nuk ka asnjë mënyrë për ta parashikuar ditën e saktë. Të mbash mbrojtëse me vete që nga shenjat e para është zakoni më i mirë që mund të kesh.',
+    body4: 'Sapo t’i vësh re këto shenja, ose sa herë që ke një pyetje apo një shqetësim, mund të flasësh me nënën tënde, me një motër, me dikë të afërt ose me një profesionist të shëndetësisë që i beson. Nuk është kurrë koha e gabuar për të kërkuar ndihmë.',
+    relatedTitle: '♥  Mund të të pëlqejë edhe',
+    related: [
+      {
+        title: 'Shenjat e para përpara menstruacioneve',
+        meta: '5 min  ·  Artikull',
+      },
+      {
+        title: 'Cilën mbrojtëse të zgjedh për menstruacionin tim të parë?',
+        meta: '6 min  ·  Udhëzues',
+      },
+      {
+        title: 'Menstruacioni yt i parë: çfarë të presësh',
+        meta: '5 min  ·  Udhëzues',
+      },
+    ],
+    shareMessage: 'Si e di nëse po vjen menstruacioni im i parë? — AWA',
+  },
+  ja: {
+    badge: '初めての生理',
+    title: '初めての生理が近いか、\nどうすればわかる？',
+    metaDuration: '読了5分',
+    metaType: 'ガイド',
+    metaLevel: '初級',
+    metaValidated: '確認済みの内容',
+    intro: 'いくつかの具体的なサインから、初めての生理が本当に近づいているかどうかに気づくことができます。',
+    contentsTitle: 'この記事の内容',
+    topics: [
+      '気をつけて見たいサイン',
+      '初めてのおりもの：どんな様子？',
+      'おりものか、経血か？',
+      '大人に相談するのはいつ？',
+    ],
+    observe: [
+      {
+        title: '白っぽいおりもの',
+        text: '透明でさらさらしたおりものが、数か月前から出始めることがよくあります。',
+      },
+      {
+        title: '胸のふくらみ',
+        text: 'よく見られるサインで、通常は生理のかなり前から現れます。',
+      },
+      {
+        title: '軽いおなかのつっぱり感',
+        text: 'このような小さな感覚が、もうすぐ生理が来るサインのこともあります。',
+      },
+    ],
+    body2: 'ごく初めての生理が来る前に、下着に白っぽい、または少し黄色みがかったおりものが少量つくことはよくあります。これは自然な現象で、体の中で始まったホルモンの働きによるものです。',
+    body3: 'おりものは透明か白っぽく、強いにおいはありません。一方、経血は赤色から茶色がかった色で、本当の生理の始まりを示します。わからないときは、話してみるのは決して大げさなことではありません。',
+    tipTitle: '知っておきたいこと',
+    tipText: '正確な日を予測する方法はありません。最初のサインが出たころから生理用品を持ち歩いておくのが、いちばんよい習慣です。',
+    body4: 'これらのサインに気づいたときや、疑問や心配があるときはいつでも、お母さん、姉妹、身近な人、または信頼できる医療従事者に話してみましょう。助けを求めるのに遅すぎるときはありません。',
+    relatedTitle: '♥  こちらもおすすめ',
+    related: [
+      {
+        title: '生理の前に現れる最初のサイン',
+        meta: '5分  ·  記事',
+      },
+      {
+        title: '初めての生理には、どの生理用品を選べばいい？',
+        meta: '6分  ·  ガイド',
+      },
+      {
+        title: '初めての生理：何が起こる？',
+        meta: '5分  ·  ガイド',
+      },
+    ],
+    shareMessage: '初めての生理が近いか、どうすればわかる？ — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

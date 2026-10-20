@@ -741,6 +741,264 @@ const CONTENT = {
     endText: 'Semakin sering kamu mengamati siklusmu, semakin kamu bisa memahami apa yang wajar bagimu.',
     shareMessage: 'Penjelasan berbagai fase dalam siklus — AWA',
   },
+  hi: {
+    badge: 'मासिक चक्र',
+    title: 'चक्र के अलग-अलग\nचरण, आसान भाषा में',
+    metaDuration: '6 मिनट का पाठ',
+    metaValidated: 'समीक्षा किया गया कंटेंट',
+    intro: 'आपका मासिक चक्र कई चरणों से मिलकर बनता है, और हर चरण आपके हार्मोनल संतुलन और सेहत में अहम भूमिका निभाता है।',
+    contentsTitle: 'इस लेख में',
+    topics: [
+      'चक्र के 4 चरण',
+      'आपका शरीर कैसे बदलता है',
+      'अपने चक्र को समझना क्यों ज़रूरी है',
+      'अक्सर पूछे जाने वाले सवाल',
+    ],
+    body1: 'आपका चक्र आमतौर पर चार मुख्य चरणों में बँटा होता है। इनकी अवधि हर महिला में अलग हो सकती है: हर शरीर की अपनी लय होती है।',
+    diagram: {
+      menstrual: {
+        name: 'मासिक धर्म चरण',
+        days: 'दिन 1 से 5',
+      },
+      follicular: {
+        name: 'फ़ॉलिकुलर चरण',
+        days: 'दिन 1 से 13',
+      },
+      luteal: {
+        name: 'ल्यूटियल चरण',
+        days: 'दिन 15 से 28',
+      },
+      ovulatory: {
+        name: 'ओव्यूलेशन चरण',
+        days: 'दिन 14 के आसपास',
+      },
+    },
+    tip1Title: 'जानना अच्छा रहेगा',
+    tip1Text: 'हर महिला अलग होती है: अपने शरीर को देखें और अपनी लय पहचानें।',
+    body2: 'हार्मोनल बदलाव पूरे चक्र में आपकी ऊर्जा, मूड, नींद और कुछ शारीरिक एहसासों को प्रभावित कर सकते हैं।',
+    bodyChanges: [
+      {
+        title: 'आपके पीरियड के दौरान',
+        text: 'आपकी ऊर्जा कम हो सकती है और शरीर को ज़्यादा आराम की ज़रूरत पड़ सकती है।',
+      },
+      {
+        title: 'फ़ॉलिकुलर चरण',
+        text: 'ऊर्जा धीरे-धीरे बढ़ती है और आप ज़्यादा तरोताज़ा महसूस कर सकती हैं।',
+      },
+      {
+        title: 'ओव्यूलेशन के आसपास',
+        text: 'कुछ महिलाएँ ज़्यादा ऊर्जा, उत्साह और आत्मविश्वास महसूस करती हैं।',
+      },
+      {
+        title: 'ल्यूटियल चरण',
+        text: 'थकान, पेट फूलना या मूड में बदलाव दिख सकते हैं।',
+      },
+    ],
+    softTipTitle: 'अपने शरीर की सुनें',
+    softTipText: 'हर चरण को महसूस करने का सिर्फ़ एक तरीका नहीं होता। आपके अपने एहसास ही सबसे अच्छा मार्गदर्शन हैं।',
+    body3: 'अपने चक्र को बेहतर जानने से आप कुछ समय का पहले से अंदाज़ा लगा सकती हैं और रोज़ दिखने वाले बदलावों को समझ सकती हैं।',
+    whyItems: [
+      'अपने शरीर के संकेतों को बेहतर समझें',
+      'अपने पीरियड और उसके अलग-अलग चरणों का पहले से अंदाज़ा लगाएँ',
+      'मूड के कुछ बदलावों को समझें',
+      'अपनी ऊर्जा के हिसाब से गतिविधि तय करें',
+      'अपनी रोज़ की ट्रैकिंग बेहतर करें',
+    ],
+    body4: 'चक्र के अलग-अलग चरणों के बारे में अक्सर पूछे जाने वाले कुछ सवालों के जवाब यहाँ हैं।',
+    faq: [
+      {
+        question: 'क्या यह सामान्य है कि मेरा चक्र ठीक 28 दिन का नहीं होता?',
+        answer: 'हाँ। चक्र की अवधि हर महिला में अलग हो सकती है, और एक ही महिला में महीने-दर-महीने थोड़ी बदल भी सकती है।',
+      },
+      {
+        question: 'क्या ओव्यूलेशन हमेशा दिन 14 को ही होता है?',
+        answer: 'नहीं। 28 दिन के चक्र के लिए दिन 14 एक आम अनुमान है, लेकिन ओव्यूलेशन इससे पहले या बाद में भी हो सकता है।',
+      },
+      {
+        question: 'चरण के हिसाब से मेरे लक्षण क्यों बदलते हैं?',
+        answer: 'पूरे चक्र में होने वाले हार्मोनल बदलाव ऊर्जा, मूड, नींद और कुछ शारीरिक एहसासों को प्रभावित कर सकते हैं।',
+      },
+      {
+        question: 'क्या अपने लक्षण ट्रैक करना फ़ायदेमंद है?',
+        answer: 'हाँ। इन्हें नियमित रूप से नोट करने से आप अपने पैटर्न पहचान सकती हैं और अपनी लय को बेहतर समझ सकती हैं।',
+      },
+    ],
+    endTitle: 'आपका चक्र, आपकी लय',
+    endText: 'आप अपने चक्र को जितना ज़्यादा देखेंगी, उतना बेहतर समझ पाएँगी कि आपके लिए क्या सामान्य है।',
+    shareMessage: 'चक्र के अलग-अलग चरण, आसान भाषा में — AWA',
+  },
+  sq: {
+    badge: 'Cikli menstrual',
+    title: 'Fazat e ndryshme\ntë ciklit të shpjeguara',
+    metaDuration: '6 min lexim',
+    metaValidated: 'Përmbajtje e rishikuar',
+    intro: 'Cikli yt menstrual përbëhet nga disa faza, secila me një rol thelbësor në ekuilibrin tënd hormonal dhe në shëndetin tënd.',
+    contentsTitle: 'Në këtë artikull',
+    topics: [
+      '4 fazat e ciklit',
+      'Si ndryshon trupi yt',
+      'Pse ka rëndësi ta kuptosh ciklin tënd',
+      'Pyetje të shpeshta',
+    ],
+    body1: 'Cikli yt ndahet përgjithësisht në katër faza kryesore. Gjatësia e tyre mund të ndryshojë nga një person te tjetri: çdo trup ka ritmin e vet.',
+    diagram: {
+      menstrual: {
+        name: 'Faza menstruale',
+        days: 'Ditët 1 deri në 5',
+      },
+      follicular: {
+        name: 'Faza folikulare',
+        days: 'Ditët 1 deri në 13',
+      },
+      luteal: {
+        name: 'Faza luteale',
+        days: 'Ditët 15 deri në 28',
+      },
+      ovulatory: {
+        name: 'Faza e ovulacionit',
+        days: 'Rreth ditës 14',
+      },
+    },
+    tip1Title: 'Mirë është ta dish',
+    tip1Text: 'Çdo grua është unike: vëzhgo trupin tënd dhe mëso ritmin tënd.',
+    body2: 'Ndryshimet hormonale mund të ndikojnë te energjia, disponimi, gjumi dhe disa ndjesi fizike gjatë ciklit.',
+    bodyChanges: [
+      {
+        title: 'Gjatë menstruacioneve',
+        text: 'Energjia jote mund të jetë më e ulët dhe trupi yt mund të ketë nevojë për më shumë pushim.',
+      },
+      {
+        title: 'Faza folikulare',
+        text: 'Energjia rritet gradualisht dhe mund të ndihesh më plot energji.',
+      },
+      {
+        title: 'Rreth ovulacionit',
+        text: 'Disa gra ndihen me më shumë energji, motivim dhe vetëbesim.',
+      },
+      {
+        title: 'Faza luteale',
+        text: 'Mund të shfaqen lodhje, fryrje ose ndryshime të gjendjes shpirtërore.',
+      },
+    ],
+    softTipTitle: 'Dëgjo trupin tënd',
+    softTipText: 'Nuk ka vetëm një mënyrë për ta përjetuar çdo fazë. Ndjesitë e tua mbeten udhërrëfyesi më i mirë.',
+    body3: 'Ta njohësh më mirë ciklin tënd mund të të ndihmojë t’i parashikosh disa periudha dhe t’i kuptosh ndryshimet që vëren çdo ditë.',
+    whyItems: [
+      'Të kuptosh më mirë sinjalet e trupit tënd',
+      'Të parashikosh menstruacionet dhe fazat e tyre të ndryshme',
+      'Të kuptosh disa ndryshime të gjendjes shpirtërore',
+      'Ta përshtatësh aktivitetin me nivelin e energjisë',
+      'Ta përmirësosh ndjekjen tënde të përditshme',
+    ],
+    body4: 'Ja disa përgjigje për pyetjet që bëhen shpesh rreth fazave të ndryshme të ciklit.',
+    faq: [
+      {
+        question: 'A është normale kur cikli im nuk zgjat saktësisht 28 ditë?',
+        answer: 'Po. Gjatësia e ciklit mund të ndryshojë nga një person te tjetri, madje edhe pak nga një muaj te tjetri.',
+      },
+      {
+        question: 'A ndodh ovulacioni gjithmonë në ditën 14?',
+        answer: 'Jo. Dita 14 është një vlerësim i zakonshëm për një cikël 28-ditor, por ovulacioni mund të ndodhë më herët ose më vonë.',
+      },
+      {
+        question: 'Pse simptomat e mia ndryshojnë sipas fazës?',
+        answer: 'Ndryshimet hormonale gjatë ciklit mund të ndikojnë te energjia, disponimi, gjumi dhe disa ndjesi fizike.',
+      },
+      {
+        question: 'A është e dobishme të ndjek simptomat e mia?',
+        answer: 'Po. T’i shënosh rregullisht mund të të ndihmojë t’i njohësh modelet e tua dhe ta kuptosh më mirë ritmin tënd.',
+      },
+    ],
+    endTitle: 'Cikli yt, ritmi yt',
+    endText: 'Sa më shumë ta vëzhgosh ciklin tënd, aq më shumë mund ta kuptosh se çfarë është tipike për ty.',
+    shareMessage: 'Fazat e ndryshme të ciklit të shpjeguara — AWA',
+  },
+  ja: {
+    badge: '生理周期',
+    title: '周期のフェーズを\nわかりやすく解説',
+    metaDuration: '読了時間6分',
+    metaValidated: '確認済みの内容',
+    intro: '生理周期はいくつかのフェーズで成り立っていて、それぞれがホルモンバランスと健康に大切な役割を果たしています。',
+    contentsTitle: 'この記事の内容',
+    topics: [
+      '周期の4つのフェーズ',
+      '体の変化',
+      '周期を知ることが大切な理由',
+      'よくある質問',
+    ],
+    body1: '周期は一般に、4つの主なフェーズに分けられます。長さは人によって異なり、体にはそれぞれのリズムがあります。',
+    diagram: {
+      menstrual: {
+        name: '月経期',
+        days: '1〜5日目',
+      },
+      follicular: {
+        name: '卵胞期',
+        days: '1〜13日目',
+      },
+      luteal: {
+        name: '黄体期',
+        days: '15〜28日目',
+      },
+      ovulatory: {
+        name: '排卵期',
+        days: '14日目前後',
+      },
+    },
+    tip1Title: '知っておきたいこと',
+    tip1Text: '女性は一人ひとり違います。ご自身の体をよく観察して、自分のリズムを知りましょう。',
+    body2: 'ホルモンの変化は、周期を通じて、エネルギー、気分、睡眠、そして体のいくつかの感覚に影響することがあります。',
+    bodyChanges: [
+      {
+        title: '生理中',
+        text: 'エネルギーが低めになり、体がいつもより休息を必要とすることがあります。',
+      },
+      {
+        title: '卵胞期',
+        text: 'エネルギーが少しずつ高まり、活力を感じやすくなることがあります。',
+      },
+      {
+        title: '排卵の前後',
+        text: 'エネルギーややる気、自信が高まると感じる人もいます。',
+      },
+      {
+        title: '黄体期',
+        text: '疲れ、お腹の張り、気分の変化が現れることがあります。',
+      },
+    ],
+    softTipTitle: '体の声に耳を傾けましょう',
+    softTipText: '各フェーズの感じ方は一通りではありません。ご自身の感覚が、いちばん確かな目安です。',
+    body3: '周期をよく知ることで、ある時期を予測しやすくなり、日々感じる変化も理解しやすくなります。',
+    whyItems: [
+      '体からのサインをよりよく理解できる',
+      '生理や各フェーズを予測しやすくなる',
+      '気分の変化の理由がわかりやすくなる',
+      'エネルギーの状態に合わせて活動を調整できる',
+      '毎日の記録をより充実させられる',
+    ],
+    body4: 'ここでは、周期のフェーズについてよくある質問にお答えします。',
+    faq: [
+      {
+        question: '周期がきっかり28日ではないのは普通ですか？',
+        answer: 'はい。周期の長さは人によって異なり、同じ人でも月ごとに少し変わることがあります。',
+      },
+      {
+        question: '排卵はいつも14日目に起こりますか？',
+        answer: 'いいえ。14日目は28日周期でよく使われる目安ですが、排卵はそれより早く、または遅く起こることもあります。',
+      },
+      {
+        question: 'フェーズによって症状が変わるのはなぜですか？',
+        answer: '周期を通じたホルモンの変化が、エネルギー、気分、睡眠、そして体のいくつかの感覚に影響することがあります。',
+      },
+      {
+        question: '症状を記録するのは役に立ちますか？',
+        answer: 'はい。こまめに記録すると、ご自身のパターンに気づきやすくなり、リズムへの理解が深まります。',
+      },
+    ],
+    endTitle: 'あなたの周期、あなたのリズム',
+    endText: '周期をよく観察するほど、自分にとっての普通がわかるようになります。',
+    shareMessage: '周期のフェーズをわかりやすく解説 — AWA',
+  },
 } as const;
 
 function CyclePhasesArticleScreen({

@@ -383,6 +383,141 @@ const CONTENT = {
     shareTitle: 'Haid pertama · AWA',
     shareMessage: 'Haid pertamamu: apa yang bisa diharapkan · AWA',
   },
+  hi: {
+    badge: 'पहला पीरियड',
+    title: 'आपका पहला पीरियड:\nक्या उम्मीद रखें',
+    metaDuration: '5 मिनट में पढ़ें',
+    metaType: 'गाइड',
+    metaLevel: 'शुरुआती',
+    metaValidated: 'जाँची गई जानकारी',
+    intro: 'क्या सामान्य है, क्या तसल्ली देने वाला है, और आपको क्या जानना चाहिए।',
+    contentsTitle: 'इस लेख में',
+    topics: [
+      'आपका पहला पीरियड कब आता है?',
+      'क्या सामान्य है',
+      'यह कैसे काम करता है',
+      'अपना ख़याल रखना',
+      'बात करना और सहारा पाना',
+    ],
+    details: [
+      {
+        title: 'आपका पहला पीरियड कब आता है?',
+        text: 'यह अक्सर 10 से 15 साल की उम्र के बीच आता है, किशोरावस्था के पहले संकेतों के लगभग दो साल बाद।',
+      },
+      {
+        title: 'क्या बिल्कुल सामान्य है',
+        text: 'शुरुआत में चक्र अनियमित, छोटे या लंबे हो सकते हैं। आपका शरीर बस अपनी लय पाने में समय ले रहा है।',
+      },
+      {
+        title: 'यह कैसे काम करता है, इसे समझें',
+        text: 'पीरियड आमतौर पर 3 से 7 दिन चलते हैं। फ़्लो और रंग एक दिन से दूसरे दिन बदल सकते हैं।',
+      },
+      {
+        title: 'अपना ख़याल रखना',
+        text: 'प्रोटेक्शन नियमित रूप से बदलें, हल्के हाथ से धोएँ और आरामदायक कपड़े चुनें ताकि आप सहज महसूस करें।',
+      },
+      {
+        title: 'बात करना और सहारा पाना',
+        text: 'आप अपनी माँ, बहन, किसी क़रीबी, किसी टीचर या अपने भरोसेमंद स्वास्थ्य विशेषज्ञ से बात कर सकती हैं।',
+      },
+    ],
+    tip1Title: 'जानना अच्छा रहेगा',
+    tip1Text: 'शुरुआत में अनियमित चक्र बिल्कुल सामान्य है। आपका शरीर अभी अपनी लय पाना सीख रहा है।',
+    tip2Title: 'आप अकेली नहीं हैं',
+    tip2Text: 'हर शरीर अनोखा होता है। अपना समय लें, धैर्य रखें और किसी भरोसेमंद व्यक्ति से मदद माँगने में झिझकें नहीं।',
+    shareTitle: 'पहला पीरियड · AWA',
+    shareMessage: 'आपका पहला पीरियड: क्या उम्मीद रखें · AWA',
+  },
+  sq: {
+    badge: 'MENSTRUACIONI I PARË',
+    title: 'Menstruacioni yt i parë:\nçfarë të presësh',
+    metaDuration: '5 min lexim',
+    metaType: 'Udhëzues',
+    metaLevel: 'Fillestar',
+    metaValidated: 'Përmbajtje e rishikuar',
+    intro: 'Çfarë është normale, çfarë është qetësuese dhe çfarë duhet të dish.',
+    contentsTitle: 'Në këtë artikull',
+    topics: [
+      'Kur vjen menstruacioni yt i parë?',
+      'Çfarë është normale',
+      'Si funksionon',
+      'Kujdesi për veten',
+      'Të flasësh për të dhe të marrësh mbështetje',
+    ],
+    details: [
+      {
+        title: 'Kur vjen menstruacioni yt i parë?',
+        text: 'Më shpesh vjen midis moshës 10 dhe 15 vjeç, rreth dy vjet pas shenjave të para të pubertetit.',
+      },
+      {
+        title: 'Çfarë është plotësisht normale',
+        text: 'Në fillim, ciklet mund të jenë të parregullta, të shkurtra ose të gjata. Trupi yt thjesht po merr kohë për të gjetur ritmin e tij.',
+      },
+      {
+        title: 'Të kuptosh si funksionon',
+        text: 'Menstruacionet zakonisht zgjasin 3 deri në 7 ditë. Rrjedhja dhe ngjyra mund të ndryshojnë nga një ditë te tjetra.',
+      },
+      {
+        title: 'Kujdesi për veten',
+        text: 'Ndërro mbrojtjen rregullisht, lahu butë dhe zgjidh veshje të rehatshme që të ndihesh mirë.',
+      },
+      {
+        title: 'Të flasësh për të dhe të marrësh mbështetje',
+        text: 'Mund të flasësh me nënën, një motër, dikë të afërt, një mësuese ose një profesionist të shëndetësisë që i beson.',
+      },
+    ],
+    tip1Title: 'Mirë është ta dish',
+    tip1Text: 'Një cikël i parregullt në fillim është plotësisht normal. Trupi yt është ende duke mësuar si ta gjejë ritmin e tij.',
+    tip2Title: 'Nuk je e vetme',
+    tip2Text: 'Çdo trup është unik. Merr kohën tënde, ki durim dhe mos ngurro të kërkosh ndihmë nga dikush që i beson.',
+    shareTitle: 'Menstruacioni i parë · AWA',
+    shareMessage: 'Menstruacioni yt i parë: çfarë të presësh · AWA',
+  },
+  ja: {
+    badge: '初経',
+    title: '初めての生理：\n知っておきたいこと',
+    metaDuration: '読了5分',
+    metaType: 'ガイド',
+    metaLevel: '初級',
+    metaValidated: '監修済みの内容',
+    intro: '何が普通で、何が安心できることで、何を知っておけばよいかを紹介します。',
+    contentsTitle: 'この記事の内容',
+    topics: [
+      '初めての生理はいつ来る？',
+      '普通のこと',
+      '生理のしくみ',
+      '自分をいたわる',
+      '話すこと、支えてもらうこと',
+    ],
+    details: [
+      {
+        title: '初めての生理はいつ来る？',
+        text: '多くの場合は10〜15歳のあいだに来ます。思春期の最初のサインが現れてから、およそ2年後です。',
+      },
+      {
+        title: 'まったく普通のこと',
+        text: '最初のころは、周期が不規則だったり、短かったり長かったりすることがあります。体が自分のリズムを見つけるまで、ゆっくり時間をかけているだけです。',
+      },
+      {
+        title: 'しくみを知る',
+        text: '生理は通常3〜7日間続きます。経血量や色は、日によって変わることがあります。',
+      },
+      {
+        title: '自分をいたわる',
+        text: '生理用品をこまめに交換し、やさしく洗い、心地よい服を選ぶと、安心して過ごせます。',
+      },
+      {
+        title: '話すこと、支えてもらうこと',
+        text: 'お母さん、姉妹、身近な人、先生、信頼できる医療従事者に話してみてもよいでしょう。',
+      },
+    ],
+    tip1Title: '知っておきたいこと',
+    tip1Text: '最初のころの不規則な周期は、まったく普通のことです。体はまだ、リズムの見つけ方を学んでいる途中です。',
+    tip2Title: 'ひとりではありません',
+    tip2Text: '体はひとりひとり違います。ゆっくり、あせらずに。信頼できる人に助けを求めることをためらわないでください。',
+    shareTitle: '初めての生理 · AWA',
+    shareMessage: '初めての生理：知っておきたいこと · AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

@@ -508,6 +508,156 @@ const CONTENT = {
     ],
     shareMessage: 'Pertanyaan yang sering diajukan tentang haid pertamamu — AWA',
   },
+  hi: {
+    badge: 'पहला पीरियड',
+    title: 'पहले पीरियड के बारे में\nअक्सर पूछे जाने वाले सवाल',
+    metaDuration: '4 मिनट में पढ़ें',
+    metaType: 'अक्सर पूछे जाने वाले सवाल',
+    metaLevel: 'शुरुआती',
+    metaValidated: 'जाँची गई जानकारी',
+    intro: 'पहले पीरियड से जुड़े सबसे आम सवालों के सरल जवाब।',
+    contentsTitle: 'इस लेख में',
+    faq: [
+      {
+        question: '“क्या बहुत कम ब्लीडिंग होना सामान्य है?”',
+        answer: 'हाँ। शुरुआती चक्रों में अक्सर फ़्लो हल्का होता है। खासकर शुरुआत में फ़्लो एक चक्र से दूसरे चक्र में बदल सकता है।',
+      },
+      {
+        question: '“क्या बहुत ज़्यादा ब्लीडिंग होना सामान्य है?”',
+        answer: 'ज़्यादा फ़्लो भी हो सकता है, खासकर पहले दो दिनों में। अगर आपको कई घंटों तक लगातार एक घंटे में एक से ज़्यादा बार प्रोटेक्शन बदलना पड़े, तो किसी स्वास्थ्य विशेषज्ञ से इस बारे में बात करना अच्छा रहेगा।',
+      },
+      {
+        question: '“क्या ऐंठन होना सामान्य है?”',
+        answer: 'पेट के निचले हिस्से में हल्की ऐंठन आम है और आमतौर पर चिंता की बात नहीं होती। गर्म पानी की बोतल से सेंक या थोड़ा आराम मदद कर सकता है। बहुत तेज़ दर्द हो तो किसी को ज़रूर बताएँ।',
+      },
+      {
+        question: '“क्या मैं खेल-कूद कर सकती हूँ?”',
+        answer: 'हाँ, पीरियड में भी आप खेल-कूद कर सकती हैं। बस उस दिन आपका शरीर जैसा महसूस करे, उसके हिसाब से मेहनत कम-ज़्यादा रखें।',
+      },
+      {
+        question: '“क्या मैं तैर सकती हूँ?”',
+        answer: 'हाँ, सही प्रोटेक्शन के साथ आप तैर सकती हैं। कई लड़कियाँ बस तब तक इंतज़ार करना चुनती हैं जब तक वे इस बारे में सहज महसूस न करने लगें।',
+      },
+    ],
+    tipTitle: 'जानना अच्छा रहेगा',
+    tipText: 'कोई सवाल शर्मिंदगी भरा नहीं होता: हर शरीर अलग होता है, और आप हमेशा किसी भरोसेमंद व्यक्ति से बात कर सकती हैं।',
+    relatedTitle: '♥  ये भी आपको पसंद आ सकता है',
+    related: [
+      {
+        title: 'आपका पहला पीरियड: क्या उम्मीद रखें',
+        meta: '5 मिनट  ·  गाइड',
+      },
+      {
+        title: 'पहले पीरियड के लिए कौन-सा प्रोटेक्शन चुनूँ?',
+        meta: '6 मिनट  ·  गाइड',
+      },
+      {
+        title: 'पीरियड के दर्द को संभालना',
+        meta: '7 मिनट  ·  गाइड',
+      },
+    ],
+    shareMessage: 'पहले पीरियड के बारे में अक्सर पूछे जाने वाले सवाल — AWA',
+  },
+  sq: {
+    badge: 'MENSTRUACIONI I PARË',
+    title: 'Pyetje të shpeshta\nmbi menstruacionin e parë',
+    metaDuration: '4 min lexim',
+    metaType: 'Pyetje të shpeshta',
+    metaLevel: 'Fillestar',
+    metaValidated: 'Përmbajtje e rishikuar',
+    intro: 'Përgjigje të thjeshta për pyetjet më të shpeshta rreth menstruacionit të parë.',
+    contentsTitle: 'Në këtë artikull',
+    faq: [
+      {
+        question: '“A është normale të kem shumë pak gjak?”',
+        answer: 'Po. Ciklet e para kanë shpesh rrjedhje të lehtë. Rrjedhja mund të ndryshojë nga një cikël te tjetri, sidomos në fillim.',
+      },
+      {
+        question: '“A është normale të kem shumë gjak?”',
+        answer: 'Mund të ndodhë edhe një rrjedhje më e bollshme, sidomos gjatë dy ditëve të para. Nëse të duhet ta ndërrosh mbrojtjen më shumë se një herë në orë për disa orë radhazi, është mirë të flasësh për këtë me një profesionist të shëndetësisë.',
+      },
+      {
+        question: '“A është normale të kem kramba?”',
+        answer: 'Krambat e lehta në pjesën e poshtme të barkut janë të zakonshme dhe zakonisht nuk ka arsye shqetësimi. Një shishe me ujë të nxehtë ose pak pushim mund të ndihmojë. Dhimbja shumë e fortë ia vlen t’i thuhet dikujt.',
+      },
+      {
+        question: '“A mund të bëj sport?”',
+        answer: 'Po, mund të vazhdosh të bësh sport gjatë menstruacioneve. Thjesht përshtate intensitetin sipas asaj që ndjen trupi yt atë ditë.',
+      },
+      {
+        question: '“A mund të bëj not?”',
+        answer: 'Po, mund të vazhdosh të bësh not me mbrojtjen e duhur. Shumë vajza thjesht zgjedhin të presin derisa të ndihen më rehat me idenë.',
+      },
+    ],
+    tipTitle: 'Mirë është ta dish',
+    tipText: 'Nuk ka pyetje të turpshme: çdo trup është i ndryshëm dhe mund të flasësh gjithmonë me dikë që i beson.',
+    relatedTitle: '♥  Mund të të pëlqejnë edhe',
+    related: [
+      {
+        title: 'Menstruacioni yt i parë: çfarë të presësh',
+        meta: '5 min  ·  Udhëzues',
+      },
+      {
+        title: 'Cilën mbrojtje duhet të zgjedh për menstruacionin tim të parë?',
+        meta: '6 min  ·  Udhëzues',
+      },
+      {
+        title: 'Menaxhimi i dhimbjes menstruale',
+        meta: '7 min  ·  Udhëzues',
+      },
+    ],
+    shareMessage: 'Pyetje të shpeshta mbi menstruacionin e parë — AWA',
+  },
+  ja: {
+    badge: '初経',
+    title: '初めての生理について\nよくある質問',
+    metaDuration: '読了4分',
+    metaType: 'よくある質問',
+    metaLevel: '初級',
+    metaValidated: '監修済みの内容',
+    intro: '初めての生理についてのよくある質問に、わかりやすくお答えします。',
+    contentsTitle: 'この記事の内容',
+    faq: [
+      {
+        question: '「血の量がとても少ないのは普通？」',
+        answer: 'はい。最初のころの周期は、経血量が少ないことがよくあります。特に始めのうちは、周期ごとに量が変わることがあります。',
+      },
+      {
+        question: '「血の量がとても多いのは普通？」',
+        answer: '特に最初の2日間は、経血量が多くなることもあります。数時間続けて、1時間に1回より多く生理用品を交換する必要がある場合は、医療従事者に相談するとよいでしょう。',
+      },
+      {
+        question: '「生理痛があるのは普通？」',
+        answer: '下腹部の軽い痛みはよくあることで、たいていは心配ありません。湯たんぽで温めたり、少し休んだりすると楽になることがあります。とても強い痛みは、誰かに伝えておくとよいでしょう。',
+      },
+      {
+        question: '「運動してもいい？」',
+        answer: 'はい、生理中でも運動できます。その日の体の調子に合わせて、強さを調整してください。',
+      },
+      {
+        question: '「泳いでもいい？」',
+        answer: 'はい、適切な生理用品を使えば泳げます。もう少し慣れるまで待つことを選ぶ人も多くいます。',
+      },
+    ],
+    tipTitle: '知っておきたいこと',
+    tipText: '恥ずかしい質問というものはありません。体は人それぞれ違います。信頼できる人にいつでも話してみてください。',
+    relatedTitle: '♥  こちらもおすすめ',
+    related: [
+      {
+        title: '初めての生理：知っておきたいこと',
+        meta: '5分  ·  ガイド',
+      },
+      {
+        title: '初めての生理にはどんな生理用品を選べばいい？',
+        meta: '6分  ·  ガイド',
+      },
+      {
+        title: '生理痛との付き合い方',
+        meta: '7分  ·  ガイド',
+      },
+    ],
+    shareMessage: '初めての生理についてよくある質問 — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
