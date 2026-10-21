@@ -27,6 +27,7 @@ import {getBottomPadding, getTopPadding, READING_CONTROLS_SPACE} from '../../the
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'cycle-comprendre-ton-cycle';
 
@@ -63,7 +64,7 @@ const ADVICE_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('RegularIrregularCycle', {
   fr: {
     badge: 'CYCLE & RÈGLES',
     title: 'Cycle régulier ou irrégulier :\nquelles différences ?',
@@ -663,7 +664,148 @@ const CONTENT = {
     ],
     shareMessage: '規則的な周期と不規則な周期：その違いは？ — AWA',
   },
-} as const;
+  ko: {
+    badge: '주기와 생리',
+    title: '규칙적인 주기와 불규칙한 주기:\n무엇이 다를까요?',
+    metaDuration: '읽는 데 5분',
+    metaValidated: '검토된 콘텐츠',
+    intro: '생리 주기는 사람마다 달라요. 어떤 경우가 “정상”으로 여겨지는지 알면 건강을 더 꼼꼼히 살피고 불균형 가능성을 알아차리는 데 도움이 돼요.',
+    contentsTitle: '이 아티클에서 다루는 내용',
+    topics: [
+      '규칙적인 생리 주기란?',
+      '불규칙한 주기는 무엇을 의미할까요?',
+      '불규칙한 주기의 가능한 원인',
+      '언제 의사를 만나야 할까요?',
+      '더 균형 잡힌 주기를 위한 팁',
+    ],
+    section1Body: '주기 길이가 21~35일 사이이고 주기마다 차이가 7일 미만이면 규칙적인 주기로 봐요.',
+    section1VisualTitle: '꽤 일정한 리듬',
+    section1VisualText: '가장 중요한 것은 몇 달에 걸쳐 나만의 리듬을 관찰하는 거예요.',
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '사람마다 모두 달라요. 중요한 것은 나만의 리듬과 그 안에서의 정상적인 변동을 아는 거예요.',
+    section2Body: '주기 길이가 자주 또는 예측할 수 없게 달라지면(차이가 7일 넘게 나면) 불규칙한 주기로 봐요. 아주 짧은 주기, 아주 긴 주기, 또는 배란이 없는 형태로 나타날 수 있어요.',
+    section2VisualTitle: '더 뚜렷한 변동',
+    section2VisualText: '이런 차이는 일시적일 수도 있고 여러 주기에 걸쳐 이어질 수도 있어요.',
+    alertTitle: '유의하세요',
+    alertText: '일시적인 불규칙함은 정상일 수 있어요(스트레스, 호르몬 변화, 피로…). 하지만 계속된다면 원인을 살펴보는 것이 중요해요.',
+    causes: [
+      '스트레스와 불안',
+      '호르몬 불균형',
+      '수면 부족과 피로',
+      '너무 낮거나 높은 체중',
+      'PCOS 또는 기타 질환',
+    ],
+    checklist: [
+      '3개월 넘게 생리가 없을 때(임신이나 모유 수유 중인 경우 제외)',
+      '아주 긴 주기(90일 초과) 또는 아주 짧은 주기(21일 미만)',
+      '일상생활이 어려울 정도의 심한 통증',
+      '출혈량이 매우 많거나 불규칙할 때',
+      '임신을 준비 중인데 배란이 없는 것 같을 때',
+    ],
+    advice: [
+      '균형 잡힌 식단',
+      '충분한 수분 섭취',
+      '신체 활동',
+      '스트레스 관리',
+      '질 좋은 수면',
+    ],
+    shareMessage: '규칙적인 주기와 불규칙한 주기: 무엇이 다를까요? — AWA',
+  },
+  'pt-PT': {
+    badge: 'CICLO E PERÍODOS',
+    title: 'Ciclo regular ou irregular:\nqual é a diferença?',
+    metaDuration: '5 min de leitura',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Cada ciclo menstrual é único. Compreender o que se considera “normal” pode ajudá-la a acompanhar melhor a sua saúde e a detetar possíveis desequilíbrios.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Ciclo menstrual regular: o que é?',
+      'Ciclo irregular: o que significa?',
+      'Possíveis causas de um ciclo irregular',
+      'Quando consultar um médico?',
+      'Dicas para um ciclo mais equilibrado',
+    ],
+    section1Body: 'Um ciclo é considerado regular quando a sua duração varia entre 21 e 35 dias, com menos de 7 dias de diferença de um ciclo para o seguinte.',
+    section1VisualTitle: 'Um ritmo bastante estável',
+    section1VisualText: 'O mais importante é observar o seu próprio ritmo ao longo dos meses.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'Cada mulher é diferente. O que importa é conhecer o seu próprio ritmo e as suas variações normais.',
+    section2Body: 'Um ciclo é considerado irregular quando a sua duração varia com frequência ou de forma imprevisível (uma diferença de mais de 7 dias). Pode manifestar-se por ciclos muito curtos, ciclos muito longos ou ausência de ovulação.',
+    section2VisualTitle: 'Variações mais notórias',
+    section2VisualText: 'Estas diferenças podem ser temporárias ou persistir ao longo de vários ciclos.',
+    alertTitle: 'Atenção',
+    alertText: 'Uma irregularidade temporária pode ser normal (stress, alterações hormonais, cansaço…). Mas, se persistir, é importante investigar a causa.',
+    causes: [
+      'Stress e ansiedade',
+      'Desequilíbrios hormonais',
+      'Falta de sono e cansaço',
+      'Peso demasiado baixo ou demasiado elevado',
+      'SOP ou outras doenças',
+    ],
+    checklist: [
+      'Ausência de período há mais de 3 meses (fora da gravidez/amamentação)',
+      'Ciclos muito longos (mais de 90 dias) ou muito curtos (menos de 21 dias)',
+      'Dor intensa que a impede de viver normalmente',
+      'Hemorragia muito abundante ou irregular',
+      'Se está a tentar engravidar e a ovulação parece estar ausente',
+    ],
+    advice: [
+      'Alimentação equilibrada',
+      'Hidratação adequada',
+      'Atividade física',
+      'Gestão do stress',
+      'Sono de qualidade',
+    ],
+    shareMessage: 'Ciclo regular ou irregular: qual é a diferença? — AWA',
+  },
+  bn: {
+    badge: 'চক্র ও মাসিক',
+    title: 'নিয়মিত না অনিয়মিত চক্র:\nপার্থক্য কী?',
+    metaDuration: 'পড়তে 5 মিনিট',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'প্রতিটি মাসিক চক্র আলাদা। “স্বাভাবিক” বলতে কী বোঝায় তা জানলে আপনি স্বাস্থ্য আরও নিবিড়ভাবে পর্যবেক্ষণ করতে এবং সম্ভাব্য ভারসাম্যহীনতা ধরতে পারবেন।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'নিয়মিত মাসিক চক্র: এটি কী?',
+      'অনিয়মিত চক্র: এর অর্থ কী?',
+      'অনিয়মিত চক্রের সম্ভাব্য কারণ',
+      'কখন ডাক্তার দেখাবেন?',
+      'আরও সুষম চক্রের জন্য টিপস',
+    ],
+    section1Body: 'চক্রের দৈর্ঘ্য 21 থেকে 35 দিনের মধ্যে থাকলে এবং এক চক্র থেকে আরেক চক্রে পার্থক্য 7 দিনের কম হলে সেটিকে নিয়মিত ধরা হয়।',
+    section1VisualTitle: 'মোটামুটি স্থির একটি ছন্দ',
+    section1VisualText: 'সবচেয়ে গুরুত্বপূর্ণ হলো মাসের পর মাস নিজের ছন্দ পর্যবেক্ষণ করা।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'প্রতিটি নারী আলাদা। গুরুত্বপূর্ণ হলো নিজের ছন্দ এবং তার স্বাভাবিক ওঠানামা জানা।',
+    section2Body: 'চক্রের দৈর্ঘ্য ঘন ঘন বা অনির্দিষ্টভাবে বদলালে (7 দিনের বেশি পার্থক্য) সেটিকে অনিয়মিত ধরা হয়। এটি খুব ছোট চক্র, খুব লম্বা চক্র বা ডিম্বস্ফোটন না হওয়া হিসেবে দেখা দিতে পারে।',
+    section2VisualTitle: 'আরও স্পষ্ট ওঠানামা',
+    section2VisualText: 'এই পার্থক্যগুলো সাময়িক হতে পারে অথবা কয়েকটি চক্র ধরে থেকে যেতে পারে।',
+    alertTitle: 'লক্ষ্য করুন',
+    alertText: 'সাময়িক অনিয়ম স্বাভাবিক হতে পারে (মানসিক চাপ, হরমোনের পরিবর্তন, ক্লান্তি…)। কিন্তু তা চলতে থাকলে কারণ খুঁজে দেখা গুরুত্বপূর্ণ।',
+    causes: [
+      'মানসিক চাপ ও উদ্বেগ',
+      'হরমোনের ভারসাম্যহীনতা',
+      'ঘুমের অভাব ও ক্লান্তি',
+      'ওজন খুব কম বা খুব বেশি',
+      'পিসিওএস বা অন্যান্য চিকিৎসাগত অবস্থা',
+    ],
+    checklist: [
+      '3 মাসের বেশি সময় মাসিক না হওয়া (গর্ভাবস্থা/বুকের দুধ খাওয়ানোর সময় বাদে)',
+      'খুব লম্বা চক্র (90 দিনের বেশি) অথবা খুব ছোট চক্র (21 দিনের কম)',
+      'এমন তীব্র ব্যথা যা স্বাভাবিকভাবে চলাফেরা করতে দেয় না',
+      'খুব বেশি বা অনিয়মিত রক্তক্ষরণ',
+      'গর্ভধারণের চেষ্টা করছেন এবং ডিম্বস্ফোটন হচ্ছে না বলে মনে হলে',
+    ],
+    advice: [
+      'সুষম খাবার',
+      'পর্যাপ্ত পানি পান',
+      'শারীরিক কার্যকলাপ',
+      'মানসিক চাপ সামলানো',
+      'ভালো মানের ঘুম',
+    ],
+    shareMessage: 'নিয়মিত না অনিয়মিত চক্র: পার্থক্য কী? — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<
   RootStackParamList,

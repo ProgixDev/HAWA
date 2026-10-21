@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'nifas-aspects-medicaux';
 
@@ -77,7 +78,7 @@ const CARE_TIP_ICONS = [
    languages, exactly as the rest of the app does. */
 /* -------------------------------------------------------------------------- */
 
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('NifasMedical', {
   fr: {
     badge: 'POST-PARTUM • NIFAS',
     title: 'Le nifas :\naspects médicaux',
@@ -1472,7 +1473,358 @@ const CONTENT = {
     disclaimerText: '情報提供のための内容です。ここで紹介する医学的な情報は一般的なもので、医療従事者のアドバイスに代わるものではありません。宗教に関する具体的な質問については、資格のある宗教上の情報源を参照することをおすすめします。',
     shareMessage: 'ニファース：医学的な側面 — AWA',
   },
-} as const;
+  ko: {
+    badge: '산후 • 니파스',
+    title: '니파스:\n의학적 측면',
+    metaDuration: '5분 읽기',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '정보 제공용 콘텐츠',
+    intro: '출산 후 몸은 서서히 회복되는 시기를 거쳐요. 산후 출혈이 어떻게 달라지는지, 주의가 필요한 신호는 무엇인지 알아 두면 이 시기를 더 잘 이해하는 데 도움이 돼요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '니파스라는 용어 이해하기',
+      '출산 후의 의학적 흐름',
+      '오로는 어떻게 달라질까요',
+      '나 자신 돌보기',
+      '언제 조언을 구해야 할까요',
+      '핵심 정리',
+    ],
+    h2Section1: '1. “니파스”라는 용어 이해하기',
+    body1a: '“니파스”라는 용어는 종교적 어휘에 속하며, 이슬람 법학의 규정 안에서 출산 후 출혈과 관련된 기간을 가리켜요.',
+    body1b: '의학적으로는 출산 후에 나타나는 출혈을 “오로”라고 해요. 이 두 개념은 따로 생각할 수 있어요. 하나는 종교적인 틀에 속하고, 다른 하나는 생리적인 현상을 설명해요.',
+    distinction: {
+      nifasTitle: '니파스',
+      nifasText: '출산 후의 종교적인 틀에 속하는 개념이에요.',
+      lochiaTitle: '오로',
+      lochiaText: '산후 출혈을 가리키는 의학 용어예요.',
+    },
+    h2Section2: '2. 출산 후의 의학적 흐름',
+    body2: '산후 회복은 서서히 이루어져요. 자궁이 원래 상태로 계속 돌아가면서 산후 출혈도 보통 시간이 지날수록 달라져요.',
+    schemaTitle: '산후 경과',
+    schemaSubtitle: '간단히 정리한 의학적 기준',
+    stages: [
+      {
+        title: '출산 직후',
+        subtitle: '산후 기간의 시작',
+        text: '출산 후 몸이 서서히 회복되기 시작해요.',
+      },
+      {
+        title: '오로',
+        subtitle: '산후 출혈',
+        text: '출혈의 양과 색이 서서히 달라져요.',
+      },
+      {
+        title: '서서히 감소',
+        subtitle: '몇 주에 걸쳐',
+        text: '출혈은 보통 시간이 지나면서 줄어들어요.',
+      },
+      {
+        title: '서서히 회복',
+        subtitle: '평소 주기를 향해',
+        text: '그 후 생리 주기가 서서히 다시 시작될 수 있어요.',
+      },
+    ],
+    h2Section3: '3. 오로는 어떻게 달라질까요',
+    body3: '오로는 보통 색이 서서히 변하고 양이 줄어들어요. 다만 이런 진행은 사람마다 다를 수 있어요.',
+    lochiaEvolution: [
+      {
+        title: '붉은 오로',
+        period: '처음 며칠',
+        text: '출혈은 대개 붉고, 처음에는 양이 더 많을 수 있어요.',
+      },
+      {
+        title: '분홍색 / 갈색빛 오로',
+        period: '며칠 후',
+        text: '양이 줄어들면서 색이 더 옅어지거나 갈색빛으로 바뀔 수 있어요.',
+      },
+      {
+        title: '흰빛 오로',
+        period: '이후 몇 주',
+        text: '출혈이 서서히 옅어지고 양도 적어져요.',
+      },
+    ],
+    infoTitle: '핵심 정리',
+    infoText: '오로의 색과 양은 서서히 달라질 수 있어요. 정확한 진행 과정은 사람마다 같지 않아요.',
+    h2Section4: '4. 나 자신 돌보기',
+    body4: '이 시기에는 몇 가지 간단한 습관이 편안함에 도움이 되고 몸의 회복을 뒷받침해 줄 수 있어요.',
+    careTips: [
+      {
+        title: '부드러운 위생 관리',
+        text: '간단하고 편안한 일상 위생 관리를 유지해요.',
+      },
+      {
+        title: '휴식',
+        text: '몸이 회복할 시간을 주세요.',
+      },
+      {
+        title: '수분 섭취',
+        text: '필요에 맞게 규칙적으로 마시는 것을 잊지 마세요.',
+      },
+      {
+        title: '영양',
+        text: '다양한 음식을 먹으면 회복에 도움이 돼요.',
+      },
+    ],
+    h2Section5: '5. 언제 조언을 구해야 할까요',
+    body5: '변화가 크거나, 갑작스럽거나, 평소와 다르게 느껴질 때처럼 의료 전문가의 빠른 조언이 필요한 상황이 있어요.',
+    warningTitle: '그냥 넘기면 안 되는 신호',
+    warningSubtitle: '필요하다면 전문가의 조언을 구하세요',
+    warningSigns: [
+      '출혈에서 나는 강하거나 평소와 다른 냄새',
+      '열이 나거나 전반적인 상태가 나빠짐',
+      '출혈이 갑자기 매우 많아짐',
+      '심하거나, 계속되거나, 평소와 다른 통증',
+      '걱정되는 새로운 증상',
+    ],
+    tipTitle: '알아 두면 좋아요',
+    tipText: '산후 회복은 사람마다 달라요. 이 아티클의 정보는 일반적인 안내를 위한 것이며 진료를 대신하지 않아요.',
+    summaryHeading: '핵심 정리',
+    summary: [
+      '니파스는 출산 후 종교적인 맥락에서 쓰이는 용어예요.',
+      '의학적으로 산후 출혈은 오로라고 해요.',
+      '오로는 색과 양이 서서히 달라져요.',
+      '휴식, 부드러운 위생 관리, 충분한 수분 섭취가 회복에 도움이 돼요.',
+      '평소와 다르거나 걱정되는 변화는 전문가의 조언을 받는 것이 좋아요.',
+    ],
+    disclaimerText: '정보 제공용 콘텐츠예요. 여기에 나온 의학 정보는 일반적인 내용이며 의료 전문가의 조언을 대신하지 않아요. 구체적인 종교 관련 질문은 믿을 수 있는 종교 자료를 참고하는 것이 좋아요.',
+    shareMessage: '니파스: 의학적 측면 — AWA',
+  },
+  'pt-PT': {
+    badge: 'PÓS-PARTO • NIFAS',
+    title: 'Nifas:\naspetos médicos',
+    metaDuration: '5 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo informativo',
+    intro: 'Depois do parto, o corpo passa por um período de recuperação gradual. Perceber o sangramento pós-parto, a sua evolução e os sinais que exigem atenção pode ajudá-la a sentir-se mais informada nesta fase.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Perceber o termo Nifas',
+      'O padrão médico depois do parto',
+      'Como evoluem os lóquios',
+      'Cuidar de si',
+      'Quando procurar aconselhamento',
+      'Pontos-chave',
+    ],
+    h2Section1: '1. Perceber o termo “Nifas”',
+    body1a: 'O termo “Nifas” pertence ao vocabulário religioso e refere-se ao período associado ao sangramento que se segue ao parto, no quadro das regras da jurisprudência islâmica.',
+    body1b: 'Do ponto de vista médico, o sangramento observado depois do parto chama-se “lóquios”. Estas duas noções podem ser consideradas separadamente: uma pertence a um quadro religioso, a outra descreve um fenómeno fisiológico.',
+    distinction: {
+      nifasTitle: 'Nifas',
+      nifasText: 'Uma noção que pertence ao quadro religioso depois do parto.',
+      lochiaTitle: 'Lóquios',
+      lochiaText: 'Termo médico utilizado para o sangramento pós-parto.',
+    },
+    h2Section2: '2. O padrão médico depois do parto',
+    body2: 'A recuperação pós-parto faz-se de forma gradual. O sangramento pós-parto muda, em geral, ao longo do tempo, à medida que o útero continua a regressar ao seu estado habitual.',
+    schemaTitle: 'Evolução do pós-parto',
+    schemaSubtitle: 'Referência médica simplificada',
+    stages: [
+      {
+        title: 'Depois do parto',
+        subtitle: 'Início do pós-parto',
+        text: 'O corpo começa gradualmente a sua recuperação depois do parto.',
+      },
+      {
+        title: 'Lóquios',
+        subtitle: 'Hemorragia pós-parto',
+        text: 'O sangramento muda gradualmente de quantidade e de cor.',
+      },
+      {
+        title: 'Diminuição gradual',
+        subtitle: 'Ao longo de várias semanas',
+        text: 'O sangramento diminui, em geral, com o tempo.',
+      },
+      {
+        title: 'Regresso gradual',
+        subtitle: 'Rumo ao ciclo habitual',
+        text: 'O ciclo menstrual pode então retomar-se gradualmente.',
+      },
+    ],
+    h2Section3: '3. Como evoluem os lóquios',
+    body3: 'Os lóquios mudam, em geral, gradualmente de cor e diminuem de quantidade. No entanto, esta evolução pode variar de mulher para mulher.',
+    lochiaEvolution: [
+      {
+        title: 'Lóquios vermelhos',
+        period: 'Primeiros dias',
+        text: 'O sangramento é geralmente vermelho e pode ser mais abundante no início.',
+      },
+      {
+        title: 'Lóquios rosados / acastanhados',
+        period: 'Passados alguns dias',
+        text: 'A cor pode tornar-se mais clara ou acastanhada à medida que o fluxo diminui.',
+      },
+      {
+        title: 'Lóquios esbranquiçados',
+        period: 'Semanas seguintes',
+        text: 'O sangramento torna-se gradualmente mais ligeiro e menos abundante.',
+      },
+    ],
+    infoTitle: 'Pontos-chave',
+    infoText: 'A cor e a quantidade dos lóquios podem mudar gradualmente. A evolução exata não é igual para todas as mulheres.',
+    h2Section4: '4. Cuidar de si',
+    body4: 'Durante este período, alguns hábitos simples podem contribuir para o conforto e apoiar a recuperação do corpo.',
+    careTips: [
+      {
+        title: 'Higiene suave',
+        text: 'Mantenha uma rotina de higiene diária simples e confortável.',
+      },
+      {
+        title: 'Descanso',
+        text: 'Dê ao seu corpo tempo para recuperar.',
+      },
+      {
+        title: 'Hidratação',
+        text: 'Lembre-se de beber com regularidade, de acordo com as suas necessidades.',
+      },
+      {
+        title: 'Alimentação',
+        text: 'Uma alimentação variada apoia a recuperação.',
+      },
+    ],
+    h2Section5: '5. Quando procurar aconselhamento',
+    body5: 'Certas situações exigem o conselho rápido de um profissional de saúde, em particular quando uma alteração parece significativa, súbita ou fora do comum.',
+    warningTitle: 'Sinais a não ignorar',
+    warningSubtitle: 'Procure aconselhamento profissional se necessário',
+    warningSigns: [
+      'Um odor forte ou fora do comum no sangramento',
+      'Febre ou agravamento do estado geral',
+      'Uma hemorragia que de repente se torna muito abundante',
+      'Dor intensa, persistente ou fora do comum',
+      'Um novo sintoma que a preocupe',
+    ],
+    tipTitle: 'Bom saber',
+    tipText: 'Cada recuperação no pós-parto é diferente. As informações deste artigo pretendem dar uma orientação geral e não substituem uma consulta médica.',
+    summaryHeading: 'Pontos-chave',
+    summary: [
+      'Nifas é um termo utilizado no contexto religioso depois do parto.',
+      'Do ponto de vista médico, o sangramento pós-parto chama-se lóquios.',
+      'Os lóquios mudam gradualmente de cor e de quantidade.',
+      'O descanso, a higiene suave e uma boa hidratação apoiam a recuperação.',
+      'Uma alteração fora do comum ou preocupante merece aconselhamento profissional.',
+    ],
+    disclaimerText: 'Conteúdo informativo. As informações médicas aqui apresentadas são gerais e não substituem o conselho de um profissional de saúde. Para questões religiosas específicas, é recomendável consultar uma fonte religiosa qualificada.',
+    shareMessage: 'Nifas: aspetos médicos — AWA',
+  },
+  bn: {
+    badge: 'প্রসবোত্তর • নিফাস',
+    title: 'নিফাস:\nচিকিৎসাগত দিক',
+    metaDuration: '5 মিনিটের পাঠ',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'তথ্যমূলক বিষয়বস্তু',
+    intro: 'সন্তান জন্মের পর শরীর ধীরে ধীরে সুস্থ হয়ে ওঠার একটি সময়ের মধ্য দিয়ে যায়। প্রসবোত্তর রক্তস্রাব, তা কীভাবে বদলায় এবং কোন লক্ষণে মনোযোগ দিতে হয়, তা বুঝলে এই সময়ে নিজেকে আরও ওয়াকিবহাল মনে হতে পারে।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'নিফাস শব্দটি বোঝা',
+      'প্রসবের পর চিকিৎসাগত ধারা',
+      'লোকিয়া কীভাবে বদলায়',
+      'নিজের যত্ন নেওয়া',
+      'কখন পরামর্শ নেবেন',
+      'মূল কথা',
+    ],
+    h2Section1: '1. “নিফাস” শব্দটি বোঝা',
+    body1a: '“নিফাস” শব্দটি ধর্মীয় পরিভাষার অন্তর্গত এবং ইসলামি আইনশাস্ত্রের নিয়মের আওতায় সন্তান প্রসবের পরবর্তী রক্তস্রাবের সঙ্গে সম্পর্কিত সময়কে বোঝায়।',
+    body1b: 'চিকিৎসাবিজ্ঞানে প্রসবের পর দেখা দেওয়া রক্তস্রাবকে “লোকিয়া” বলা হয়। এই দুটি ধারণাকে আলাদাভাবে বিবেচনা করা যায়: একটি ধর্মীয় কাঠামোর অন্তর্গত, অন্যটি একটি শারীরবৃত্তীয় ঘটনা বর্ণনা করে।',
+    distinction: {
+      nifasTitle: 'নিফাস',
+      nifasText: 'প্রসবের পর ধর্মীয় কাঠামোর অন্তর্গত একটি ধারণা।',
+      lochiaTitle: 'লোকিয়া',
+      lochiaText: 'প্রসবোত্তর রক্তস্রাবের জন্য ব্যবহৃত চিকিৎসাগত পরিভাষা।',
+    },
+    h2Section2: '2. প্রসবের পর চিকিৎসাগত ধারা',
+    body2: 'প্রসবোত্তর সুস্থ হয়ে ওঠা ধীরে ধীরে ঘটে। জরায়ু তার স্বাভাবিক অবস্থায় ফিরতে থাকায় প্রসবোত্তর রক্তস্রাব সাধারণত সময়ের সঙ্গে বদলায়।',
+    schemaTitle: 'প্রসবোত্তর অগ্রগতি',
+    schemaSubtitle: 'সরলীকৃত চিকিৎসাগত নির্দেশিকা',
+    stages: [
+      {
+        title: 'সন্তান প্রসবের পর',
+        subtitle: 'প্রসবোত্তর সময়ের শুরু',
+        text: 'প্রসবের পর শরীর ধীরে ধীরে সুস্থ হয়ে ওঠা শুরু করে।',
+      },
+      {
+        title: 'লোকিয়া',
+        subtitle: 'প্রসবোত্তর রক্তস্রাব',
+        text: 'রক্তস্রাবের পরিমাণ ও রং ধীরে ধীরে বদলাতে থাকে।',
+      },
+      {
+        title: 'ধীরে ধীরে কমে যাওয়া',
+        subtitle: 'কয়েক সপ্তাহ ধরে',
+        text: 'রক্তস্রাব সাধারণত সময়ের সঙ্গে কমে আসে।',
+      },
+      {
+        title: 'ধীরে ধীরে ফিরে আসা',
+        subtitle: 'স্বাভাবিক চক্রের দিকে',
+        text: 'এরপর মাসিক চক্র ধীরে ধীরে আবার শুরু হতে পারে।',
+      },
+    ],
+    h2Section3: '3. লোকিয়া কীভাবে বদলায়',
+    body3: 'লোকিয়ার রং সাধারণত ধীরে ধীরে বদলায় এবং পরিমাণ কমে যায়। তবে এই অগ্রগতি একেকজনের ক্ষেত্রে আলাদা হতে পারে।',
+    lochiaEvolution: [
+      {
+        title: 'লাল লোকিয়া',
+        period: 'প্রথম কয়েক দিন',
+        text: 'রক্তস্রাব সাধারণত লাল হয় এবং শুরুতে বেশি হতে পারে।',
+      },
+      {
+        title: 'গোলাপি / বাদামি লোকিয়া',
+        period: 'কয়েক দিন পর',
+        text: 'স্রাব কমার সঙ্গে সঙ্গে রং হালকা বা বাদামি হয়ে যেতে পারে।',
+      },
+      {
+        title: 'সাদাটে লোকিয়া',
+        period: 'পরবর্তী কয়েক সপ্তাহ',
+        text: 'রক্তস্রাব ধীরে ধীরে হালকা এবং কম হয়ে আসে।',
+      },
+    ],
+    infoTitle: 'মূল কথা',
+    infoText: 'লোকিয়ার রং ও পরিমাণ ধীরে ধীরে বদলাতে পারে। সঠিক অগ্রগতি সবার ক্ষেত্রে এক নয়।',
+    h2Section4: '4. নিজের যত্ন নেওয়া',
+    body4: 'এই সময়ে কয়েকটি সহজ অভ্যাস আরাম বাড়াতে এবং শরীরের সুস্থ হয়ে ওঠায় সহায়তা করতে পারে।',
+    careTips: [
+      {
+        title: 'কোমল পরিচ্ছন্নতা',
+        text: 'দৈনন্দিন পরিচ্ছন্নতার একটি সহজ ও আরামদায়ক রুটিন বজায় রাখুন।',
+      },
+      {
+        title: 'বিশ্রাম',
+        text: 'শরীরকে সুস্থ হয়ে ওঠার সময় দিন।',
+      },
+      {
+        title: 'পানি পান',
+        text: 'প্রয়োজন অনুযায়ী নিয়মিত পানি পান করার কথা মনে রাখুন।',
+      },
+      {
+        title: 'পুষ্টি',
+        text: 'বৈচিত্র্যময় খাদ্যাভ্যাস সুস্থ হয়ে ওঠায় সহায়তা করে।',
+      },
+    ],
+    h2Section5: '5. কখন পরামর্শ নেবেন',
+    body5: 'কিছু পরিস্থিতিতে স্বাস্থ্যসেবা পেশাজীবীর দ্রুত পরামর্শ প্রয়োজন, বিশেষ করে যখন কোনো পরিবর্তন উল্লেখযোগ্য, আকস্মিক বা অস্বাভাবিক মনে হয়।',
+    warningTitle: 'যেসব লক্ষণ উপেক্ষা করবেন না',
+    warningSubtitle: 'প্রয়োজনে পেশাজীবীর পরামর্শ নিন',
+    warningSigns: [
+      'রক্তস্রাবে তীব্র বা অস্বাভাবিক গন্ধ',
+      'জ্বর বা সার্বিক অবস্থার অবনতি',
+      'রক্তস্রাব হঠাৎ অনেক বেড়ে যাওয়া',
+      'তীব্র, দীর্ঘস্থায়ী বা অস্বাভাবিক ব্যথা',
+      'নতুন কোনো উপসর্গ যা আপনাকে চিন্তায় ফেলে',
+    ],
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'প্রতিটি প্রসবোত্তর সুস্থ হয়ে ওঠা আলাদা। এই নিবন্ধের তথ্য সাধারণ দিকনির্দেশনা দেওয়ার জন্য এবং এটি চিকিৎসকের পরামর্শের বিকল্প নয়।',
+    summaryHeading: 'মূল কথা',
+    summary: [
+      'নিফাস হলো প্রসবের পর ধর্মীয় প্রেক্ষাপটে ব্যবহৃত একটি পরিভাষা।',
+      'চিকিৎসাবিজ্ঞানে প্রসবোত্তর রক্তস্রাবকে লোকিয়া বলা হয়।',
+      'লোকিয়ার রং ও পরিমাণ ধীরে ধীরে বদলায়।',
+      'বিশ্রাম, কোমল পরিচ্ছন্নতা এবং পর্যাপ্ত পানি পান সুস্থ হয়ে ওঠায় সহায়তা করে।',
+      'অস্বাভাবিক বা উদ্বেগজনক কোনো পরিবর্তনে পেশাদার পরামর্শ নেওয়া উচিত।',
+    ],
+    disclaimerText: 'তথ্যমূলক বিষয়বস্তু। এখানে উপস্থাপিত চিকিৎসাগত তথ্য সাধারণ এবং স্বাস্থ্যসেবা পেশাজীবীর পরামর্শের বিকল্প নয়। নির্দিষ্ট ধর্মীয় প্রশ্নের জন্য একজন যোগ্য ধর্মীয় উৎসের শরণাপন্ন হওয়ার পরামর্শ দেওয়া হয়।',
+    shareMessage: 'নিফাস: চিকিৎসাগত দিক — AWA',
+  },
+} as const);
 
 /* -------------------------------------------------------------------------- */
 /* TYPES */

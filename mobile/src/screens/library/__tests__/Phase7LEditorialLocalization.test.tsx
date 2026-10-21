@@ -252,7 +252,7 @@ describe('TEST 11-18 — article identity is unaffected by the language switch',
     ];
     for (const file of files) {
       const source = fs.readFileSync(path.join(dir, file), 'utf8');
-      expect(source).toMatch(/const CONTENT = \{/);
+      expect(source).toMatch(/const CONTENT = (?:withBrazilianPortuguese\('\w+', )?\{/);
       expect(source).toMatch(/fr:\s*\{/);
       expect(source).toMatch(/en:\s*\{/);
       // Every translated article must derive its content reactively from
@@ -581,7 +581,7 @@ describe('Structural completeness audit — full 72-article reachable inventory'
       const componentName = file.replace(/\.tsx$/, '');
       const isWiredIntoReader = reader.includes(componentName);
       const source = fs.readFileSync(path.join(dir, file), 'utf8');
-      const isBilingual = /const CONTENT = \{/.test(source) && /resolveEditorialLanguage\(i18n\.language\)/.test(source);
+      const isBilingual = /const CONTENT = (?:withBrazilianPortuguese\('\w+', )?\{/.test(source) && /resolveEditorialLanguage\(i18n\.language\)/.test(source);
 
       if (dead.has(file)) {
         deadCount += 1;
@@ -647,7 +647,7 @@ describe('Structural completeness audit — full 72-article reachable inventory'
 
     for (const file of files) {
       const source = fs.readFileSync(path.join(dir, file), 'utf8');
-      expect(source).toMatch(/const CONTENT = \{/);
+      expect(source).toMatch(/const CONTENT = (?:withBrazilianPortuguese\('\w+', )?\{/);
       expect(source).toMatch(/\n {2}fr: \{/);
       expect(source).toMatch(/\n {2}en: \{/);
       expect(source).toMatch(/const \{t, i18n\} = useTranslation\(\);/);

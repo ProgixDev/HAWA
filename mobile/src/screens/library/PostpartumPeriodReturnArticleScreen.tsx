@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -66,7 +67,7 @@ const OBSERVATIONS_META = [
 /* remains fully bilingual rather than having French replaced by English.   */
 /* -------------------------------------------------------------------------- */
 
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('PostpartumPeriodReturn', {
   fr: {
     badge: 'FREEMIUM • POST-PARTUM',
     title: 'Le retour de couches,\nà quoi s’attendre',
@@ -943,7 +944,256 @@ const CONTENT = {
     ],
     disclaimerText: '情報提供を目的とした内容です。時期は状況によって異なることがあり、医師のアドバイスに代わるものではありません。',
   },
-} as const;
+  ko: {
+    badge: 'FREEMIUM • 산후',
+    title: '출산 후 생리 재개,\n어떻게 될까요',
+    metaDuration: '읽는 데 5분',
+    metaType: '가이드',
+    intro: '출산 후 생리가 다시 시작되기까지는 시간이 걸릴 수 있어요. 시기는 특히 모유 수유 여부에 따라 달라지고, 사람마다 이 시기를 다르게 겪을 수 있어요.',
+    shareMessage: '출산 후 생리 재개, 어떻게 될까요 — AWA',
+    h2_1: '1. 출산 후 생리 재개란?',
+    body1: '“생리 재개”는 출산 후 생리가 다시 시작되는 것을 말해요. 생리 주기가 반드시 바로 평소의 리듬으로 돌아오는 것은 아니에요.',
+    highlightTitle: '핵심',
+    highlightText: '모든 사람에게 똑같이 적용되는 시기는 없어요.',
+    h2_2: '2. 생리는 언제 다시 시작할 수 있나요?',
+    body2: '시기는 주로 모유 수유 여부에 따라 달라져요. 모유 수유를 하지 않으면 보통 6~8주쯤에 생리가 다시 시작될 수 있어요. 완전 모유 수유를 하면 몇 달 늦어질 수 있어요.',
+    simpleInfoTitle1: '모유 수유를 하지 않을 때',
+    simpleInfoText1: '보통 6~8주쯤이에요.',
+    simpleInfoTitle2: '완전 모유 수유를 할 때',
+    simpleInfoText2: '재개가 몇 달 늦어질 수 있어요.',
+    h2_3: '3. 주기가 돌아오는 과정',
+    body3: '출산 후 주기는 조금씩 돌아와요. 모유 수유는 생리가 다시 시작되는 시기에 영향을 줄 수 있어요.',
+    schemaTitle: '주기가 조금씩 돌아오는 과정',
+    schemaSubtitle: '단계별로 보는 일반적인 안내',
+    cycleStages: [
+      {
+        title: '출산 직후',
+        text: '출산 후에는 생리 주기가 일시적으로 멈춰요.',
+      },
+      {
+        title: '산후 기간',
+        text: '몸이 조금씩 회복되고 호르몬 수치가 달라져요.',
+      },
+      {
+        title: '모유 수유',
+        text: '모유 수유는 생리가 다시 시작되는 것을 늦출 수 있지만, 그 영향은 사람마다 달라요.',
+      },
+      {
+        title: '생리 재개',
+        text: '첫 생리는 몇 주 뒤에 다시 시작할 수도, 몇 달 뒤에 시작할 수도 있어요.',
+      },
+      {
+        title: '첫 주기들',
+        text: '주기가 불규칙할 수 있고, 이후 조금씩 평소의 리듬으로 자리 잡아요.',
+      },
+    ],
+    schemaNoteText: '모든 사람에게 똑같은 시기는 없어요. 생리가 다시 시작되는 시기는 특히 모유 수유 여부에 따라 사람마다 달라질 수 있어요.',
+    h2_4: '4. 첫 주기들',
+    body4: '생리가 다시 시작되면 첫 주기들은 임신 전과 다를 수 있어요. 특히 처음에는 불규칙할 수 있어요.',
+    card1Title: '달라지는 리듬',
+    card1Text: '주기가 익숙한 리듬으로 자리 잡기까지 시간이 걸릴 수 있어요.',
+    card2Title: '달라진 출혈량',
+    card2Text: '출혈량이 임신 전에 보던 것과 다를 수 있어요.',
+    h2_5: '5. 무엇을 관찰할 수 있나요?',
+    body5: '간단히 기록해 두면 시간이 지나면서 주기가 어떻게 달라지는지 더 잘 살펴볼 수 있어요.',
+    observations: [
+      {
+        title: '날짜',
+        text: '생리 첫째 날을 기록해요.',
+      },
+      {
+        title: '리듬',
+        text: '주기 사이의 간격을 조금씩 살펴봐요.',
+      },
+      {
+        title: '출혈량',
+        text: '평소와 비교해 달라진 점이 있는지 가볍게 살펴봐요.',
+      },
+    ],
+    h2_6: '6. 언제 조언을 구해야 할까요?',
+    body6: '평소와 다르거나, 계속되거나, 걱정되는 점이 있으면 의료 전문가에게 조언을 구하세요.',
+    warningSigns: [
+      '평소와 다르다고 느껴지는 출혈',
+      '심하거나 계속되는 통증',
+      '열이 나거나 몸이 많이 불편함',
+      '걱정되는 새로운 증상',
+    ],
+    summaryTitle: '핵심 정리',
+    summaryPoints: [
+      '출산 후 생리 재개는 출산 후 생리가 다시 시작되는 것을 말해요.',
+      '모유 수유는 생리가 다시 시작되는 것을 늦출 수 있어요.',
+      '첫 주기들은 불규칙할 수 있어요.',
+      '날짜를 기록해 두면 주기가 어떻게 달라지는지 살펴보는 데 도움이 될 수 있어요.',
+    ],
+    disclaimerText: '정보 제공용 콘텐츠예요. 시기는 상황에 따라 다를 수 있으며 의학적 조언을 대신하지 않아요.',
+  },
+  'pt-PT': {
+    badge: 'FREEMIUM • PÓS-PARTO',
+    title: 'Regresso do período após o parto,\no que esperar',
+    metaDuration: '5 min de leitura',
+    metaType: 'Guia',
+    intro: 'Depois do parto, o regresso do período pode demorar algum tempo. O momento varia, entre outros fatores, consoante a amamentação, e cada pessoa pode viver esta fase de forma diferente.',
+    shareMessage: 'Regresso do período após o parto, o que esperar — AWA',
+    h2_1: '1. O que é o regresso do período após o parto?',
+    body1: 'O “regresso do período” designa o reaparecimento da menstruação depois do parto. O ciclo menstrual não retoma necessariamente o seu ritmo habitual de imediato.',
+    highlightTitle: 'Ponto essencial',
+    highlightText: 'Não existe um calendário único que se aplique a todas as pessoas.',
+    h2_2: '2. Quando pode o período regressar?',
+    body2: 'O momento depende em grande parte da amamentação. Sem amamentação, o período pode regressar, em geral, por volta das 6 a 8 semanas. Com amamentação exclusiva, pode atrasar-se vários meses.',
+    simpleInfoTitle1: 'Sem amamentação',
+    simpleInfoText1: 'Geralmente por volta das 6 a 8 semanas.',
+    simpleInfoTitle2: 'Com amamentação exclusiva',
+    simpleInfoText2: 'O regresso pode atrasar-se vários meses.',
+    h2_3: '3. O esquema do regresso do ciclo',
+    body3: 'O ciclo regressa de forma gradual depois do parto. A amamentação pode influenciar o momento em que o período reaparece.',
+    schemaTitle: 'Regresso gradual do ciclo',
+    schemaSubtitle: 'Um guia geral, passo a passo',
+    cycleStages: [
+      {
+        title: 'Após o parto',
+        text: 'O ciclo menstrual faz uma pausa temporária depois do parto.',
+      },
+      {
+        title: 'Período pós-parto',
+        text: 'O corpo recupera gradualmente e os níveis hormonais alteram-se.',
+      },
+      {
+        title: 'Amamentação',
+        text: 'A amamentação pode atrasar o regresso do período, mas o seu efeito varia de pessoa para pessoa.',
+      },
+      {
+        title: 'Regresso do período',
+        text: 'O primeiro período pode regressar após algumas semanas ou vários meses.',
+      },
+      {
+        title: 'Primeiros ciclos',
+        text: 'Os ciclos podem ser irregulares antes de retomarem gradualmente o seu ritmo habitual.',
+      },
+    ],
+    schemaNoteText: 'Não existe um calendário idêntico para todas. O momento em que o período regressa pode variar de pessoa para pessoa, em particular consoante a amamentação.',
+    h2_4: '4. Os primeiros ciclos',
+    body4: 'Quando o período regressa, os primeiros ciclos podem ser diferentes dos anteriores à gravidez. Em particular, podem ser irregulares no início.',
+    card1Title: 'Ritmo variável',
+    card1Text: 'O ciclo pode demorar algum tempo a retomar um ritmo familiar.',
+    card2Title: 'Fluxo diferente',
+    card2Text: 'O fluxo pode ser diferente do que observava antes da gravidez.',
+    h2_5: '5. O que pode observar?',
+    body5: 'Um acompanhamento simples ajuda a observar melhor a evolução do seu ciclo ao longo do tempo.',
+    observations: [
+      {
+        title: 'Datas',
+        text: 'Anote o primeiro dia do seu período.',
+      },
+      {
+        title: 'Ritmo',
+        text: 'Observe gradualmente o intervalo entre os ciclos.',
+      },
+      {
+        title: 'Fluxo',
+        text: 'Observe simplesmente as alterações em relação ao que é habitual para si.',
+      },
+    ],
+    h2_6: '6. Quando deve procurar aconselhamento?',
+    body6: 'Se algo lhe parecer invulgar, persistente ou preocupante, procure o aconselhamento de um profissional de saúde.',
+    warningSigns: [
+      'Uma hemorragia que lhe pareça invulgar',
+      'Dor significativa ou persistente',
+      'Febre ou mal-estar significativo',
+      'Qualquer sintoma novo que a preocupe',
+    ],
+    summaryTitle: 'Pontos essenciais',
+    summaryPoints: [
+      'O regresso do período após o parto designa o reaparecimento da menstruação depois de dar à luz.',
+      'A amamentação pode atrasar o regresso do período.',
+      'Os primeiros ciclos podem ser irregulares.',
+      'Anotar as datas pode ajudar a acompanhar a evolução do seu ciclo.',
+    ],
+    disclaimerText: 'Conteúdo informativo. Os prazos podem variar consoante cada situação e não substituem o aconselhamento médico.',
+  },
+  bn: {
+    badge: 'ফ্রিমিয়াম • প্রসবোত্তর',
+    title: 'প্রসবের পর মাসিক ফিরে আসা,\nকী আশা করবেন',
+    metaDuration: 'পড়তে 5 মিনিট',
+    metaType: 'গাইড',
+    intro: 'সন্তান জন্ম দেওয়ার পর আপনার মাসিক ফিরতে কিছু সময় লাগতে পারে। সময়টি অন্যান্য বিষয়ের পাশাপাশি বুকের দুধ খাওয়ানোর ওপর নির্ভর করে এবং প্রত্যেকে এই সময়টি আলাদাভাবে অনুভব করতে পারেন।',
+    shareMessage: 'প্রসবের পর মাসিক ফিরে আসা, কী আশা করবেন — AWA',
+    h2_1: '1. প্রসবের পর মাসিক ফিরে আসা কী?',
+    body1: '“মাসিক ফিরে আসা” বলতে সন্তান জন্ম দেওয়ার পর আপনার মাসিক আবার শুরু হওয়াকে বোঝায়। মাসিক চক্র যে সঙ্গে সঙ্গে আগের ছন্দে ফিরে আসবে এমন নয়।',
+    highlightTitle: 'মূল কথা',
+    highlightText: 'এমন কোনো একক সময়সীমা নেই যা সবার জন্য প্রযোজ্য।',
+    h2_2: '2. আপনার মাসিক কখন ফিরতে পারে?',
+    body2: 'সময়টি মূলত বুকের দুধ খাওয়ানোর ওপর নির্ভর করে। বুকের দুধ না খাওয়ালে সাধারণত প্রায় 6 থেকে 8 সপ্তাহের মধ্যে মাসিক ফিরতে পারে। শুধু বুকের দুধ খাওয়ালে তা কয়েক মাস পর্যন্ত পিছিয়ে যেতে পারে।',
+    simpleInfoTitle1: 'বুকের দুধ না খাওয়ালে',
+    simpleInfoText1: 'সাধারণত প্রায় 6 থেকে 8 সপ্তাহে।',
+    simpleInfoTitle2: 'শুধু বুকের দুধ খাওয়ালে',
+    simpleInfoText2: 'ফিরে আসতে কয়েক মাস দেরি হতে পারে।',
+    h2_3: '3. চক্র ফিরে আসার ধরন',
+    body3: 'সন্তান জন্মের পর চক্র ধীরে ধীরে ফিরে আসে। বুকের দুধ খাওয়ানো মাসিক আবার কখন দেখা দেবে তা প্রভাবিত করতে পারে।',
+    schemaTitle: 'চক্রের ধীরে ধীরে ফিরে আসা',
+    schemaSubtitle: 'ধাপে ধাপে একটি সাধারণ নির্দেশিকা',
+    cycleStages: [
+      {
+        title: 'সন্তান জন্মের পর',
+        text: 'প্রসবের পর মাসিক চক্র সাময়িকভাবে থেমে থাকে।',
+      },
+      {
+        title: 'প্রসবোত্তর সময়',
+        text: 'শরীর ধীরে ধীরে সুস্থ হয় এবং হরমোনের মাত্রা বদলায়।',
+      },
+      {
+        title: 'বুকের দুধ খাওয়ানো',
+        text: 'বুকের দুধ খাওয়ানো মাসিক ফিরে আসা পিছিয়ে দিতে পারে, তবে এর প্রভাব একেক জনের একেক রকম।',
+      },
+      {
+        title: 'মাসিক ফিরে আসা',
+        text: 'আপনার প্রথম মাসিক কয়েক সপ্তাহ বা কয়েক মাস পরে ফিরতে পারে।',
+      },
+      {
+        title: 'প্রথম কয়েকটি চক্র',
+        text: 'ধীরে ধীরে স্বাভাবিক ছন্দে ফেরার আগে চক্র অনিয়মিত হতে পারে।',
+      },
+    ],
+    schemaNoteText: 'সবার জন্য অভিন্ন কোনো সময়সীমা নেই। মাসিক কখন ফিরবে তা একেক জনের একেক রকম হতে পারে, বিশেষ করে বুকের দুধ খাওয়ানোর ওপর নির্ভর করে।',
+    h2_4: '4. প্রথম কয়েকটি চক্র',
+    body4: 'মাসিক ফিরে এলে প্রথম কয়েকটি চক্র গর্ভধারণের আগের চক্র থেকে আলাদা হতে পারে। বিশেষ করে শুরুতে সেগুলো অনিয়মিত হতে পারে।',
+    card1Title: 'পরিবর্তনশীল ছন্দ',
+    card1Text: 'চক্রের পরিচিত ছন্দে ফিরতে সময় লাগতে পারে।',
+    card2Title: 'ভিন্ন রক্তক্ষরণ',
+    card2Text: 'রক্তক্ষরণ গর্ভধারণের আগে আপনি যা লক্ষ করেছিলেন তার থেকে আলাদা হতে পারে।',
+    h2_5: '5. আপনি কী লক্ষ করতে পারেন?',
+    body5: 'সহজ ট্র্যাকিং আপনার চক্র সময়ের সঙ্গে কীভাবে বদলাচ্ছে তা ভালোভাবে লক্ষ করতে সাহায্য করে।',
+    observations: [
+      {
+        title: 'তারিখ',
+        text: 'আপনার মাসিকের প্রথম দিনটি লিখে রাখুন।',
+      },
+      {
+        title: 'ছন্দ',
+        text: 'ধীরে ধীরে এক চক্র থেকে আরেক চক্রের মধ্যবর্তী ব্যবধান লক্ষ করুন।',
+      },
+      {
+        title: 'রক্তক্ষরণ',
+        text: 'আপনার জন্য যা স্বাভাবিক তার তুলনায় কোনো পরিবর্তন হলে শুধু তা লক্ষ করুন।',
+      },
+    ],
+    h2_6: '6. কখন পরামর্শ নেবেন?',
+    body6: 'কিছু অস্বাভাবিক, দীর্ঘস্থায়ী বা দুশ্চিন্তার মনে হলে স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিন।',
+    warningSigns: [
+      'আপনার কাছে অস্বাভাবিক মনে হওয়া রক্তক্ষরণ',
+      'তীব্র বা দীর্ঘস্থায়ী ব্যথা',
+      'জ্বর বা উল্লেখযোগ্য অস্বস্তি',
+      'নতুন কোনো উপসর্গ যা আপনাকে চিন্তিত করে',
+    ],
+    summaryTitle: 'মূল কথা',
+    summaryPoints: [
+      'প্রসবের পর মাসিক ফিরে আসা বলতে সন্তান জন্ম দেওয়ার পর আপনার মাসিক আবার শুরু হওয়াকে বোঝায়।',
+      'বুকের দুধ খাওয়ানো মাসিক ফিরে আসা পিছিয়ে দিতে পারে।',
+      'প্রথম কয়েকটি চক্র অনিয়মিত হতে পারে।',
+      'তারিখ লিখে রাখলে আপনার চক্র কীভাবে বদলাচ্ছে তা অনুসরণ করতে সাহায্য হতে পারে।',
+    ],
+    disclaimerText: 'তথ্যমূলক বিষয়বস্তু। সময়সীমা প্রতিটি পরিস্থিতি অনুযায়ী ভিন্ন হতে পারে এবং এটি চিকিৎসা পরামর্শের বিকল্প নয়।',
+  },
+} as const);
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */

@@ -32,6 +32,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'firstperiod-premieres-regles';
 
@@ -52,7 +53,7 @@ const TOPIC_IMAGES = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('FirstPeriod', {
   fr: {
     badge: 'PREMIÈRES RÈGLES',
     title: 'Tes premières règles :\nà quoi t’attendre',
@@ -518,7 +519,142 @@ const CONTENT = {
     shareTitle: '初めての生理 · AWA',
     shareMessage: '初めての生理：知っておきたいこと · AWA',
   },
-} as const;
+  ko: {
+    badge: '첫 생리',
+    title: '첫 생리,\n무엇을 기대해야 할까요',
+    metaDuration: '5분 읽기',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '무엇이 정상인지, 무엇이 안심되는지, 꼭 알아야 할 점은 무엇인지 알아봐요.',
+    contentsTitle: '이 아티클에서는',
+    topics: [
+      '첫 생리는 언제 시작될까요?',
+      '정상적인 것',
+      '생리의 원리',
+      '나를 돌보기',
+      '이야기하고 도움받기',
+    ],
+    details: [
+      {
+        title: '첫 생리는 언제 시작될까요?',
+        text: '대개 10~15세 사이에 시작돼요. 사춘기의 첫 신호가 나타나고 약 2년 뒤예요.',
+      },
+      {
+        title: '아주 정상적인 것',
+        text: '처음에는 주기가 불규칙하거나 짧거나 길 수 있어요. 몸이 리듬을 찾는 데 시간이 걸리고 있을 뿐이에요.',
+      },
+      {
+        title: '생리의 원리 이해하기',
+        text: '생리는 보통 3~7일 동안 이어져요. 출혈량과 색은 하루하루 달라질 수 있어요.',
+      },
+      {
+        title: '나를 돌보기',
+        text: '생리용품을 정기적으로 갈고, 부드럽게 씻고, 편한 옷을 입어서 마음 편히 지내요.',
+      },
+      {
+        title: '이야기하고 도움받기',
+        text: '엄마, 언니나 누나, 가까운 사람, 선생님, 믿을 수 있는 의료 전문가에게 이야기할 수 있어요.',
+      },
+    ],
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '처음에 주기가 불규칙한 것은 아주 정상이에요. 몸이 아직 리듬을 찾는 법을 배우는 중이에요.',
+    tip2Title: '혼자가 아니에요',
+    tip2Text: '몸은 모두 저마다 달라요. 시간을 갖고 느긋하게 생각하고, 믿을 수 있는 사람에게 도움을 청하는 것을 망설이지 마세요.',
+    shareTitle: '첫 생리 · AWA',
+    shareMessage: '첫 생리, 무엇을 기대해야 할까요 · AWA',
+  },
+  'pt-PT': {
+    badge: 'PRIMEIRO PERÍODO',
+    title: 'O seu primeiro período:\no que esperar',
+    metaDuration: '5 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'O que é normal, o que é tranquilizador e o que precisa de saber.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Quando chega o primeiro período?',
+      'O que é normal',
+      'Como funciona',
+      'Cuidar de si',
+      'Falar sobre o assunto e procurar apoio',
+    ],
+    details: [
+      {
+        title: 'Quando chega o primeiro período?',
+        text: 'Chega mais frequentemente entre os 10 e os 15 anos, cerca de dois anos depois dos primeiros sinais da puberdade.',
+      },
+      {
+        title: 'O que é perfeitamente normal',
+        text: 'No início, os ciclos podem ser irregulares, curtos ou longos. O seu corpo está apenas a levar o seu tempo para encontrar o ritmo.',
+      },
+      {
+        title: 'Compreender como funciona',
+        text: 'Os períodos duram normalmente de 3 a 7 dias. O fluxo e a cor podem mudar de um dia para o outro.',
+      },
+      {
+        title: 'Cuidar de si',
+        text: 'Mude a proteção com regularidade, lave-se com suavidade e escolha roupa confortável para se sentir à vontade.',
+      },
+      {
+        title: 'Falar sobre o assunto e procurar apoio',
+        text: 'Pode falar com a sua mãe, uma irmã, alguém próximo, uma professora ou um profissional de saúde em quem confie.',
+      },
+    ],
+    tip1Title: 'Bom saber',
+    tip1Text: 'Um ciclo irregular no início é perfeitamente normal. O seu corpo ainda está a aprender a encontrar o seu ritmo.',
+    tip2Title: 'Não está sozinha',
+    tip2Text: 'Cada corpo é único. Dê-se tempo, tenha paciência e não hesite em pedir ajuda a alguém em quem confie.',
+    shareTitle: 'Primeiro período · AWA',
+    shareMessage: 'O seu primeiro período: o que esperar · AWA',
+  },
+  bn: {
+    badge: 'প্রথম মাসিক',
+    title: 'আপনার প্রথম মাসিক:\nকী আশা করবেন',
+    metaDuration: 'পড়তে 5 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'কোনটি স্বাভাবিক, কোনটি আশ্বস্ত করে, এবং কী জানা দরকার।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'আপনার প্রথম মাসিক কখন আসে?',
+      'যা স্বাভাবিক',
+      'এটি কীভাবে কাজ করে',
+      'নিজের যত্ন নেওয়া',
+      'কথা বলা ও সহায়তা পাওয়া',
+    ],
+    details: [
+      {
+        title: 'আপনার প্রথম মাসিক কখন আসে?',
+        text: 'এটি সবচেয়ে বেশি আসে 10 থেকে 15 বছর বয়সের মধ্যে, বয়ঃসন্ধির প্রথম লক্ষণ দেখা দেওয়ার প্রায় দুই বছর পর।',
+      },
+      {
+        title: 'যা সম্পূর্ণ স্বাভাবিক',
+        text: 'শুরুতে চক্র অনিয়মিত, ছোট বা বড় হতে পারে। আপনার শরীর শুধু নিজের ছন্দ খুঁজে পেতে সময় নিচ্ছে।',
+      },
+      {
+        title: 'এটি কীভাবে কাজ করে তা বোঝা',
+        text: 'মাসিক সাধারণত 3 থেকে 7 দিন স্থায়ী হয়। রক্তক্ষরণের পরিমাণ ও রং একদিন থেকে আরেকদিনে বদলাতে পারে।',
+      },
+      {
+        title: 'নিজের যত্ন নেওয়া',
+        text: 'নিয়মিত সুরক্ষা সামগ্রী বদলান, আলতো করে ধুয়ে নিন এবং আরামদায়ক পোশাক বেছে নিন, যাতে স্বচ্ছন্দ বোধ করেন।',
+      },
+      {
+        title: 'কথা বলা ও সহায়তা পাওয়া',
+        text: 'আপনি আপনার মা, বোন, কাছের কেউ, কোনো শিক্ষক অথবা বিশ্বস্ত কোনো স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে কথা বলতে পারেন।',
+      },
+    ],
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'শুরুতে অনিয়মিত চক্র সম্পূর্ণ স্বাভাবিক। আপনার শরীর এখনও নিজের ছন্দ খুঁজে নিতে শিখছে।',
+    tip2Title: 'আপনি একা নন',
+    tip2Text: 'প্রতিটি শরীর অনন্য। নিজেকে সময় দিন, ধৈর্য ধরুন এবং বিশ্বস্ত কারও কাছে সাহায্য চাইতে দ্বিধা করবেন না।',
+    shareTitle: 'প্রথম মাসিক · AWA',
+    shareMessage: 'আপনার প্রথম মাসিক: কী আশা করবেন · AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

@@ -32,6 +32,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 import {EDITORIAL_IMAGE_ALT, resolveEditorialImage, PREGNANCY_EXERCISE_HERO} from '../../i18n/editorialImages';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'exercise-bouger-enceinte';
 
@@ -46,7 +47,7 @@ const RECOMMENDED_ICONS = ['walk', 'swim', 'yoga'] as const;
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('PregnancyExercise', {
   fr: {
     badge: 'GROSSESSE • ACTIVITÉ PHYSIQUE',
     title: 'Bouger pendant\nla grossesse',
@@ -495,7 +496,124 @@ const CONTENT = {
     tipText: '穏やかで規則的な運動は、ほとんどの妊娠にとって有益です。大切なのは、時期や体調に合わせて強度を調整することです。',
     shareMessage: '妊娠中も体を動かし続ける — AWA',
   },
-} as const;
+  ko: {
+    badge: '임신 • 신체 활동',
+    title: '임신 중에도\n활동적으로 지내기',
+    metaDuration: '5분 읽기',
+    metaType: '가이드',
+    metaLevel: '초급',
+    metaValidated: '검토된 콘텐츠',
+    intro: '임신 초기, 중기, 후기 모두 안전하게 가볍게 몸을 움직여요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '권장되는 활동',
+      '피하는 것이 좋은 활동',
+      '몸의 신호에 귀 기울이기',
+      '참고',
+      '핵심 정리',
+    ],
+    body1: '걷기, 수영, 임산부 요가는 컨디션에 맞는 속도로 하면 임신 기간 내내 일반적으로 권장돼요.',
+    recommended: [
+      '걷기',
+      '수영',
+      '임산부 요가',
+    ],
+    body2: '충격이 큰 운동이나 넘어질 위험이 있는 활동은 피하세요. 특히 임신 중기부터는 더 주의해야 해요.',
+    toAvoid: [
+      '충격이 큰 운동(강도 높은 달리기, 빠르게 진행되는 라켓 스포츠)',
+      '넘어질 위험이 있는 활동(스키, 승마, 험한 길에서 자전거 타기)',
+      '접촉 또는 격투 스포츠',
+      '고지대나 극심한 더위에서의 강한 운동',
+    ],
+    listenSigns: [
+      '평소와 다른 숨 가쁨이나 어지러움',
+      '운동 중 통증, 출혈 또는 수축',
+      '쉬어도 가시지 않는 피로',
+    ],
+    neutralText: '항상 몸의 신호에 귀 기울이고, 신체 활동을 시작하거나 바꾸기 전에 조산사나 의사와 상담하세요.',
+    tipTitle: '알아 두세요',
+    tipText: '가볍고 규칙적인 활동은 대부분의 임신에 도움이 돼요. 중요한 것은 시기와 컨디션에 맞게 강도를 조절하는 거예요.',
+    shareMessage: '임신 중에도 활동적으로 지내기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'GRAVIDEZ • ATIVIDADE FÍSICA',
+    title: 'Manter-se ativa\ndurante a gravidez',
+    metaDuration: 'Leitura de 5 min',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Manter uma atividade suave, em segurança, em cada trimestre.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Atividades recomendadas',
+      'O que é melhor evitar',
+      'Escutar os sinais do seu corpo',
+      'Nota',
+      'A reter',
+    ],
+    body1: 'A caminhada, a natação e o ioga para grávidas são geralmente recomendados ao longo de toda a gravidez, a um ritmo adequado ao que sente.',
+    recommended: [
+      'Caminhada',
+      'Natação',
+      'Ioga para grávidas',
+    ],
+    body2: 'Evite desportos de alto impacto ou atividades com risco de queda, sobretudo a partir do segundo trimestre:',
+    toAvoid: [
+      'Desportos de alto impacto (corrida intensa, desportos de raquete a ritmo rápido)',
+      'Atividades com risco de queda (esqui, equitação, ciclismo em terreno acidentado)',
+      'Desportos de contacto ou de combate',
+      'Esforço intenso em altitude ou com calor extremo',
+    ],
+    listenSigns: [
+      'Falta de ar ou tonturas fora do habitual',
+      'Dor, perdas de sangue ou contrações durante o esforço',
+      'Cansaço que não passa com o repouso',
+    ],
+    neutralText: 'Escute sempre os sinais do seu corpo e fale com a sua parteira ou com o seu médico antes de iniciar ou alterar uma atividade física.',
+    tipTitle: 'Bom saber',
+    tipText: 'Uma atividade suave e regular é benéfica para a maioria das gravidezes: o essencial é adaptar a intensidade a cada fase e ao que sente.',
+    shareMessage: 'Manter-se ativa durante a gravidez — AWA',
+  },
+  bn: {
+    badge: 'গর্ভাবস্থা • শারীরিক কার্যকলাপ',
+    title: 'গর্ভাবস্থায়\nসক্রিয় থাকা',
+    metaDuration: '5 মিনিটের পাঠ',
+    metaType: 'গাইড',
+    metaLevel: 'নতুনদের জন্য',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'প্রতিটি ত্রৈমাসিকে নিরাপদে, মৃদুভাবে সক্রিয় থাকা।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'প্রস্তাবিত কার্যকলাপ',
+      'যা এড়িয়ে চলাই ভালো',
+      'শরীরের সংকেত শোনা',
+      'লক্ষণীয়',
+      'মূল কথা',
+    ],
+    body1: 'গর্ভাবস্থার পুরো সময়জুড়ে হাঁটা, সাঁতার এবং প্রসবপূর্ব যোগব্যায়াম সাধারণত সুপারিশ করা হয়, আপনি যেমন বোধ করেন সেই গতিতে।',
+    recommended: [
+      'হাঁটা',
+      'সাঁতার',
+      'প্রসবপূর্ব যোগব্যায়াম',
+    ],
+    body2: 'বিশেষ করে দ্বিতীয় ত্রৈমাসিক থেকে শুরু করে জোরালো ঝাঁকুনি বা আঘাতযুক্ত খেলাধুলা অথবা পড়ে যাওয়ার ঝুঁকিযুক্ত কার্যকলাপ এড়িয়ে চলুন:',
+    toAvoid: [
+      'উচ্চ আঘাতের ক্রীড়া (তীব্র দৌড়, দ্রুত গতির র্যাকেট খেলা)',
+      'পড়ে যাওয়ার ঝুঁকিযুক্ত কার্যকলাপ (স্কিইং, ঘোড়ায় চড়া, এবড়োখেবড়ো পথে সাইকেল চালানো)',
+      'সংস্পর্শভিত্তিক বা মারামারির ক্রীড়া',
+      'উচ্চতায় বা প্রচণ্ড গরমে তীব্র পরিশ্রম',
+    ],
+    listenSigns: [
+      'অস্বাভাবিক শ্বাসকষ্ট বা মাথা ঘোরা',
+      'পরিশ্রমের সময় ব্যথা, রক্তপাত বা সংকোচন',
+      'বিশ্রামের পরও না কমা ক্লান্তি',
+    ],
+    neutralText: 'সবসময় শরীরের সংকেত শুনুন, এবং কোনো শারীরিক কার্যকলাপ শুরু বা পরিবর্তন করার আগে আপনার ধাত্রী বা ডাক্তারের সঙ্গে কথা বলুন।',
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'মৃদু ও নিয়মিত কার্যকলাপ বেশিরভাগ গর্ভাবস্থার জন্য উপকারী: মূল কথা হলো প্রতিটি পর্যায় এবং আপনার অনুভূতি অনুযায়ী তীব্রতা মানিয়ে নেওয়া।',
+    shareMessage: 'গর্ভাবস্থায় সক্রিয় থাকা — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

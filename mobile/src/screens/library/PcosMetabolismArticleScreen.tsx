@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'pcos-poids-metabolisme-insuline';
 
@@ -57,7 +58,7 @@ const FOLLOW_UP_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('PcosMetabolism', {
   fr: {
     badge: 'SOPK',
     title: 'Poids, métabolisme et\nrésistance à l’insuline',
@@ -886,7 +887,229 @@ const CONTENT = {
     tip2Text: 'PCOSでは、体重は代謝の全体像の一部にすぎません。総合的な取り組みでは、周期、症状、生活習慣、既往歴、代謝の指標を合わせて考えます。',
     shareMessage: '体重、代謝、インスリン抵抗性 — AWA',
   },
-} as const;
+  ko: {
+    badge: 'PCOS',
+    title: '체중, 대사,\n인슐린 저항성',
+    metaDuration: '6분 읽기',
+    metaType: '가이드',
+    metaLevel: '중급',
+    metaValidated: '검토된 콘텐츠',
+    intro: 'PCOS와 체중, 인슐린 저항성의 관계를 판단하거나 단정하지 않고 알아봐요.',
+    contentsTitle: '이 아티클에서 다루는 내용',
+    topics: [
+      'PCOS와 대사의 관계',
+      '인슐린 저항성 이해하기',
+      '체중에 대해 맞는 것과 틀린 것',
+      '균형을 돕는 습관',
+      '의학적 추적 관찰이 도움이 되는 때',
+      '핵심 정리',
+    ],
+    body1: '다낭성 난소 증후군(PCOS)은 인슐린 저항성을 비롯한 대사 변화와 자주 관련돼요. 하지만 이 관련성이 과체중인 여성에게만 해당하는 것은 아니에요. 대사 상태는 사람마다 달라요.',
+    body2: '인슐린은 세포가 혈액 속 포도당을 사용하도록 돕는 호르몬이에요. 인슐린 저항성이 있으면 세포가 이 호르몬에 덜 잘 반응하고, 몸은 인슐린을 더 많이 만들어 보완하려 할 수 있어요.',
+    body3: 'PCOS에서는 이것이 안드로겐 생성 증가와 관련될 수 있고 일부 증상에 영향을 줄 수 있어요. 하지만 PCOS가 있는 모든 여성의 대사 상태가 같은 것은 아니에요.',
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '의사가 필요하다고 판단하면 혈액 검사로 인슐린 저항성을 확인할 수 있어요. 검사가 필요한지는 개인의 상황에 따라 달라요.',
+    weightFacts: [
+      'PCOS는 마른 체형부터 체격이 큰 체형까지 모든 체형의 여성에게 나타날 수 있어요.',
+      '체중 증가가 늘 나타나는 것은 아니에요.',
+      '증상을 개선하기 위해 체중 감량이 항상 필요한 것은 아니며, 그것만으로 충분하지도 않을 수 있어요.',
+      '과체중이 있는 경우에는 약간의 체중 감량이 일부 대사 지표나 주기의 규칙성을 개선하는 데 도움이 될 때도 있어요.',
+    ],
+    body4: '목표는 “완벽한” 체중을 쫓는 것이 아니라 현실적이고 오래 이어갈 수 있는 습관을 만드는 거예요. 균형 잡힌 식사, 움직임, 규칙적인 수면이 모두 더 나은 대사 건강에 도움이 될 수 있어요.',
+    dailyHabits: [
+      '식이섬유가 풍부한 규칙적이고 다양한 식사',
+      '적당한 정도라도 꾸준한 신체 활동',
+      '충분하고 규칙적인 수면',
+      '하루에 충분한 수분 섭취',
+    ],
+    body5: 'PCOS의 의학적 추적 관찰은 주기나 호르몬 증상에만 그치지 않아요. 상황에 따라 의료진이 일부 대사 지표도 살펴보고, 잠재적인 위험 요인을 일찍 찾아내는 데 도움을 줄 수 있어요.',
+    medicalTitle: '나에게 맞춘 추적 관찰',
+    medicalSubtitle: '검사 항목은 모두에게 같지 않아요.',
+    medicalDescription: '의사는 증상, 병력, 가족 상황, 그 밖의 위험 요인에 따라 일부 지표를 확인하기로 할 수 있어요.',
+    medicalSectionTitle: '살펴볼 수 있는 항목',
+    medicalChecks: [
+      '상황에 따라 혈당 및/또는 당화혈색소(HbA1c)',
+      '지질 검사(콜레스테롤과 중성지방)',
+      '혈압과 심혈관 위험 평가',
+      '판단 없이 체중과 허리둘레 추적',
+    ],
+    subH3: '알려 두면 좋은 상황',
+    body6: '새로 생겼거나 계속되거나 평소와 다른 변화는 진료 때 이야기해 두는 것이 좋아요.',
+    medicalFollowUp: [
+      {
+        title: '매우 불규칙한 주기',
+        description: '간격이 매우 길거나 예측할 수 없는 생리를 알려 주세요.',
+      },
+      {
+        title: '갈증 또는 잦은 소변',
+        description: '이런 증상이 평소와 다르게 나타나면 의사와 상담해 보세요.',
+      },
+      {
+        title: '큰 체중 변화',
+        description: '빠르거나 이유를 알 수 없는 변화는 평가를 받아 보는 것이 좋아요.',
+      },
+      {
+        title: '가족력',
+        description: '당뇨병이나 대사 질환의 가족력이 있다면 알려 주세요.',
+      },
+    ],
+    alertTitle: '참고해 주세요',
+    alertText: '평소와 다른 갈증, 잦은 소변, 계속되는 피로, 이유를 알 수 없는 큰 체중 변화는 의료 전문가에게 알려야 해요. 이런 증상은 여러 원인이 있을 수 있으며, 그것만으로 인슐린 저항성이나 당뇨병을 확진할 수는 없어요.',
+    followUpTipTitle: '추적 관찰은 시간을 두고 이어져요',
+    followUpTipText: '의사가 한 번의 검사 대신 정기적인 점검을 권할 수 있어요. 체중에만 집중하지 않고, 경과에 맞춰 조언과 검사를 조정하는 것이 목표예요.',
+    tip2Title: '알아 두면 좋아요',
+    tip2Text: 'PCOS에서 체중은 대사 상태의 한 부분일 뿐이에요. 종합적인 접근에서는 주기, 증상, 생활 습관, 병력, 대사 지표를 함께 살펴봐요.',
+    shareMessage: '체중, 대사, 인슐린 저항성 — AWA',
+  },
+  'pt-PT': {
+    badge: 'SOP',
+    title: 'Peso, metabolismo e\nresistência à insulina',
+    metaDuration: '6 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Intermédio',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'A relação entre a síndrome do ovário poliquístico (SOP), o peso e a resistência à insulina — sem julgamentos nem atalhos.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'A relação entre a SOP e o metabolismo',
+      'Compreender a resistência à insulina',
+      'Peso: o que é verdade e o que não é',
+      'Hábitos que favorecem o equilíbrio',
+      'Quando o acompanhamento médico é útil',
+      'Pontos essenciais',
+    ],
+    body1: 'A SOP está frequentemente associada a alterações metabólicas, nomeadamente à resistência à insulina. No entanto, esta associação não diz respeito apenas às mulheres com excesso de peso — os perfis metabólicos variam de pessoa para pessoa.',
+    body2: 'A insulina é uma hormona que ajuda as células a utilizar a glicose presente no sangue. Com a resistência à insulina, as células respondem menos bem a esta hormona e o organismo pode compensar produzindo mais insulina.',
+    body3: 'Na SOP, isto pode estar associado a um aumento da produção de androgénios e pode contribuir para certos sintomas. Mas nem todas as mulheres com SOP têm o mesmo perfil metabólico.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'A resistência à insulina pode ser avaliada através de análises ao sangue quando o médico o considera pertinente. A necessidade de exames depende da sua situação individual.',
+    weightFacts: [
+      'A SOP afeta mulheres de todos os tipos físicos, desde as mais magras às de constituição mais forte.',
+      'O aumento de peso não é sistemático.',
+      'Perder peso nem sempre é necessário — nem suficiente por si só — para melhorar os sintomas.',
+      'Uma pequena perda de peso pode, por vezes, melhorar certos marcadores metabólicos ou a regularidade do ciclo quando existe excesso de peso.',
+    ],
+    body4: 'O objetivo não é perseguir um peso “perfeito”, mas construir hábitos realistas e duradouros. Uma alimentação equilibrada, o movimento e um sono regular podem contribuir para uma melhor saúde metabólica.',
+    dailyHabits: [
+      'Refeições regulares e variadas, ricas em fibra',
+      'Atividade física regular, ainda que moderada',
+      'Sono suficiente e regular',
+      'Hidratação diária suficiente',
+    ],
+    body5: 'O acompanhamento médico da SOP não se limita ao ciclo ou aos sintomas hormonais. Consoante o seu perfil, o seu profissional de saúde pode também vigiar certos marcadores metabólicos para ajudar a identificar precocemente potenciais fatores de risco.',
+    medicalTitle: 'Acompanhamento adaptado ao seu perfil',
+    medicalSubtitle: 'A avaliação não é igual para todas as mulheres.',
+    medicalDescription: 'O seu médico pode decidir verificar certos marcadores com base nos seus sintomas, no seu historial médico, na sua situação familiar e noutros fatores de risco.',
+    medicalSectionTitle: 'O que pode ser vigiado',
+    medicalChecks: [
+      'Glicemia e/ou HbA1c, consoante o contexto',
+      'Perfil lipídico (colesterol e triglicéridos)',
+      'Tensão arterial e avaliação do risco cardiovascular',
+      'Acompanhamento do peso e do perímetro da cintura, sem julgamentos',
+    ],
+    subH3: 'Situações a mencionar',
+    body6: 'Certas alterações merecem ser mencionadas numa consulta, sobretudo quando são recentes, persistentes ou fora do habitual para si.',
+    medicalFollowUp: [
+      {
+        title: 'Ciclos muito irregulares',
+        description: 'Mencione períodos muito espaçados ou imprevisíveis.',
+      },
+      {
+        title: 'Sede ou vontade frequente de urinar',
+        description: 'Fale com o seu médico se estes sinais surgirem de forma fora do comum.',
+      },
+      {
+        title: 'Alteração significativa do peso',
+        description: 'Uma alteração rápida ou inexplicada merece ser avaliada.',
+      },
+      {
+        title: 'Antecedentes familiares',
+        description: 'Mencione quaisquer antecedentes familiares de diabetes ou de doenças metabólicas.',
+      },
+    ],
+    alertTitle: 'Atenção',
+    alertText: 'Sede fora do comum, vontade frequente de urinar, cansaço persistente ou uma alteração significativa e inexplicada do peso devem ser comunicados a um profissional de saúde. Estes sinais podem ter várias causas e, por si só, não confirmam resistência à insulina nem diabetes.',
+    followUpTipTitle: 'O acompanhamento faz-se ao longo do tempo',
+    followUpTipText: 'O seu médico pode sugerir controlos regulares em vez de uma única avaliação. O objetivo é adaptar os conselhos e os exames à sua evolução, sem se concentrar apenas no peso.',
+    tip2Title: 'Bom saber',
+    tip2Text: 'O peso é apenas uma parte do quadro metabólico na SOP. Uma abordagem global tem em conta os ciclos, os sintomas, os hábitos de vida, o historial médico e os marcadores metabólicos.',
+    shareMessage: 'Peso, metabolismo e resistência à insulina — AWA',
+  },
+  bn: {
+    badge: 'পিসিওএস',
+    title: 'ওজন, বিপাক ও\nইনসুলিন রেজিস্ট্যান্স',
+    metaDuration: '6 মিনিটের পাঠ',
+    metaType: 'গাইড',
+    metaLevel: 'মধ্যম',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'পিসিওএস, ওজন ও ইনসুলিন রেজিস্ট্যান্সের মধ্যকার সম্পর্ক — বিচার বা সংক্ষিপ্ত সমাধান ছাড়াই।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'পিসিওএস ও বিপাকের সম্পর্ক',
+      'ইনসুলিন রেজিস্ট্যান্স বোঝা',
+      'ওজন: কোনটি সত্য আর কোনটি নয়',
+      'ভারসাম্য বজায় রাখতে সহায়ক অভ্যাস',
+      'কখন চিকিৎসাগত ফলো-আপ সহায়ক',
+      'মূল কথা',
+    ],
+    body1: 'পলিসিস্টিক ওভারি সিনড্রোম (পিসিওএস) প্রায়ই বিপাকীয় পরিবর্তনের সঙ্গে যুক্ত, যার মধ্যে ইনসুলিন রেজিস্ট্যান্স রয়েছে। তবে এই সম্পর্ক শুধু অতিরিক্ত ওজনের নারীদের ক্ষেত্রেই সীমাবদ্ধ নয় — বিপাকীয় চিত্র একজন থেকে আরেকজনে ভিন্ন হয়।',
+    body2: 'ইনসুলিন একটি হরমোন যা কোষগুলোকে রক্তের গ্লুকোজ ব্যবহার করতে সাহায্য করে। ইনসুলিন রেজিস্ট্যান্সে কোষগুলো এই হরমোনে কম সাড়া দেয়, এবং শরীর বেশি ইনসুলিন তৈরি করে তা পূরণ করার চেষ্টা করতে পারে।',
+    body3: 'পিসিওএসে এটি অ্যান্ড্রোজেন উৎপাদন বৃদ্ধির সঙ্গে যুক্ত হতে পারে এবং কিছু উপসর্গের কারণ হতে পারে। তবে পিসিওএসে আক্রান্ত সব নারীর বিপাকীয় চিত্র একই নয়।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'ডাক্তার প্রয়োজনীয় মনে করলে রক্ত পরীক্ষার মাধ্যমে ইনসুলিন রেজিস্ট্যান্স যাচাই করা যায়। পরীক্ষার প্রয়োজন আছে কি না, তা আপনার ব্যক্তিগত অবস্থার ওপর নির্ভর করে।',
+    weightFacts: [
+      'পিসিওএস সব ধরনের শারীরিক গড়নের নারীকে প্রভাবিত করে, রোগা থেকে ভারী গড়ন পর্যন্ত।',
+      'ওজন বাড়া অবধারিত নয়।',
+      'উপসর্গ উন্নত করতে ওজন কমানো সবসময় প্রয়োজন নয় — বা এককভাবে যথেষ্টও নয়।',
+      'অতিরিক্ত ওজন থাকলে সামান্য ওজন কমানো কখনো কখনো কিছু বিপাকীয় নির্দেশক বা চক্রের নিয়মিততা উন্নত করতে পারে।',
+    ],
+    body4: 'লক্ষ্য কোনো “নিখুঁত” ওজনের পেছনে ছোটা নয়, বরং বাস্তবসম্মত ও দীর্ঘস্থায়ী অভ্যাস গড়ে তোলা। সুষম খাদ্য, নিয়মিত চলাফেরা ও নিয়মিত ঘুম — সবই উন্নত বিপাকীয় স্বাস্থ্যে অবদান রাখতে পারে।',
+    dailyHabits: [
+      'আঁশসমৃদ্ধ নিয়মিত ও বৈচিত্র্যময় খাবার',
+      'নিয়মিত শারীরিক কার্যকলাপ, মাঝারি হলেও',
+      'পর্যাপ্ত ও নিয়মিত ঘুম',
+      'প্রতিদিন পর্যাপ্ত পানি পান',
+    ],
+    body5: 'পিসিওএসের চিকিৎসাগত ফলো-আপ শুধু চক্র বা হরমোনজনিত উপসর্গের মধ্যে সীমাবদ্ধ নয়। আপনার অবস্থা অনুযায়ী, সম্ভাব্য ঝুঁকির কারণ আগেভাগে শনাক্ত করতে আপনার স্বাস্থ্যসেবা পেশাজীবী কিছু বিপাকীয় নির্দেশকও পর্যবেক্ষণ করতে পারেন।',
+    medicalTitle: 'আপনার অবস্থা অনুযায়ী ফলো-আপ',
+    medicalSubtitle: 'পরীক্ষানিরীক্ষা সবার জন্য এক নয়।',
+    medicalDescription: 'আপনার উপসর্গ, চিকিৎসা ইতিহাস, পারিবারিক অবস্থা এবং অন্যান্য ঝুঁকির কারণ বিবেচনা করে আপনার ডাক্তার কিছু নির্দেশক যাচাই করার সিদ্ধান্ত নিতে পারেন।',
+    medicalSectionTitle: 'কী কী পর্যবেক্ষণ করা হতে পারে',
+    medicalChecks: [
+      'রক্তের গ্লুকোজ এবং/অথবা HbA1c, পরিস্থিতি অনুযায়ী',
+      'লিপিড প্যানেল (কোলেস্টেরল ও ট্রাইগ্লিসারাইড)',
+      'রক্তচাপ এবং হৃদরোগের ঝুঁকি মূল্যায়ন',
+      'ওজন ও কোমরের পরিধি পর্যবেক্ষণ, কোনো বিচার ছাড়াই',
+    ],
+    subH3: 'যেসব পরিস্থিতি জানানো উচিত',
+    body6: 'কিছু পরিবর্তন পরামর্শের সময় জানানো ভালো, বিশেষ করে যখন সেগুলো নতুন, দীর্ঘস্থায়ী, বা আপনার জন্য অস্বাভাবিক।',
+    medicalFollowUp: [
+      {
+        title: 'খুব অনিয়মিত চক্র',
+        description: 'অনেক বিরতিতে হওয়া বা অনুমান করা যায় না এমন মাসিকের কথা জানান।',
+      },
+      {
+        title: 'তৃষ্ণা বা ঘন ঘন প্রস্রাব',
+        description: 'এই লক্ষণগুলো অস্বাভাবিকভাবে দেখা দিলে ডাক্তারকে বলুন।',
+      },
+      {
+        title: 'ওজনে উল্লেখযোগ্য পরিবর্তন',
+        description: 'দ্রুত বা কারণ ছাড়া পরিবর্তন হলে তা মূল্যায়ন করিয়ে নেওয়া ভালো।',
+      },
+      {
+        title: 'পারিবারিক ইতিহাস',
+        description: 'পরিবারে ডায়াবেটিস বা বিপাকীয় সমস্যার ইতিহাস থাকলে তা জানান।',
+      },
+    ],
+    alertTitle: 'মনে রাখবেন',
+    alertText: 'অস্বাভাবিক তৃষ্ণা, ঘন ঘন প্রস্রাব, স্থায়ী ক্লান্তি, বা ওজনে উল্লেখযোগ্য ও কারণহীন পরিবর্তন কোনো স্বাস্থ্যসেবা পেশাজীবীকে জানানো উচিত। এই লক্ষণগুলোর একাধিক কারণ থাকতে পারে এবং এগুলো এককভাবে ইনসুলিন রেজিস্ট্যান্স বা ডায়াবেটিস নিশ্চিত করে না।',
+    followUpTipTitle: 'ফলো-আপ সময়ের সঙ্গে চলে',
+    followUpTipText: 'আপনার ডাক্তার একবারের পরীক্ষার বদলে নিয়মিত চেক-আপের পরামর্শ দিতে পারেন। লক্ষ্য হলো শুধু ওজনের ওপর মনোযোগ না দিয়ে আপনার অগ্রগতি অনুযায়ী পরামর্শ ও পরীক্ষা মানিয়ে নেওয়া।',
+    tip2Title: 'জেনে রাখা ভালো',
+    tip2Text: 'পিসিওএসে বিপাকীয় চিত্রের একটি অংশ মাত্র ওজন। একটি সামগ্রিক পদ্ধতিতে চক্র, উপসর্গ, জীবনযাত্রার অভ্যাস, চিকিৎসা ইতিহাস ও বিপাকীয় নির্দেশক বিবেচনা করা হয়।',
+    shareMessage: 'ওজন, বিপাক ও ইনসুলিন রেজিস্ট্যান্স — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

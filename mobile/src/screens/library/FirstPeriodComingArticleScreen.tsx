@@ -32,6 +32,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'firstperiod-comment-savoir';
 
@@ -65,7 +66,7 @@ const RELATED_IMAGES = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
   fr: {
     badge: 'PREMIÈRES RÈGLES',
     title: 'Comment savoir si mes\npremières règles arrivent ?',
@@ -588,7 +589,160 @@ const CONTENT = {
     ],
     shareMessage: '初めての生理が近いか、どうすればわかる？ — AWA',
   },
-} as const;
+  ko: {
+    badge: '첫 생리',
+    title: '첫 생리가 다가오는지\n어떻게 알 수 있을까요?',
+    metaDuration: '읽는 데 5분',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '몇 가지 구체적인 신호를 알면 첫 생리가 정말 다가오고 있는지 알아차리는 데 도움이 돼요.',
+    contentsTitle: '이 아티클에서 다루는 내용',
+    topics: [
+      '살펴볼 신호',
+      '처음 보이는 분비물은 어떤 모습일까요?',
+      '질 분비물일까요, 생리혈일까요?',
+      '언제 어른에게 이야기해야 할까요?',
+    ],
+    observe: [
+      {
+        title: '하얀 분비물',
+        text: '연하고 투명한 분비물이 몇 달 전부터 나타나는 경우가 많아요.',
+      },
+      {
+        title: '가슴 발달',
+        text: '생리보다 훨씬 앞서 나타나는 흔한 신호예요.',
+      },
+      {
+        title: '가벼운 아랫배의 찌릿함',
+        text: '이런 작은 느낌은 곧 생리가 시작된다는 신호일 수 있어요.',
+      },
+    ],
+    body2: '아주 첫 생리가 오기 전에는 속옷에 연한 흰색 또는 약간 노르스름한 분비물이 묻어나는 일이 흔해요. 몸에서 호르몬 활동이 시작되면서 나타나는 정상적인 현상이에요.',
+    body3: '질 분비물은 투명하거나 흰색이고 강한 냄새가 없어요. 반면 생리혈은 붉은색에서 갈색을 띠고 진짜 생리가 시작됐다는 표시예요. 헷갈릴 때는 이야기해 보는 것이 전혀 부끄러운 일이 아니에요.',
+    tipTitle: '알아 두면 좋아요',
+    tipText: '정확한 날짜를 예측할 방법은 없어요. 첫 신호가 보이는 때부터 생리용품을 갖고 다니는 것이 가장 좋은 습관이에요.',
+    body4: '이런 신호가 보이거나 궁금한 점, 걱정되는 점이 생기면 언제든 엄마, 언니나 여동생, 가까운 사람, 또는 믿을 수 있는 의료 전문가에게 이야기해도 좋아요. 도움을 청하기에 잘못된 때는 없어요.',
+    relatedTitle: '♥  이런 글도 좋아할 거예요',
+    related: [
+      {
+        title: '생리 전에 나타나는 첫 신호',
+        meta: '5분  ·  아티클',
+      },
+      {
+        title: '첫 생리에는 어떤 생리용품을 골라야 할까요?',
+        meta: '6분  ·  가이드',
+      },
+      {
+        title: '첫 생리: 어떤 일이 있을까요',
+        meta: '5분  ·  가이드',
+      },
+    ],
+    shareMessage: '첫 생리가 다가오는지 어떻게 알 수 있을까요? — AWA',
+  },
+  'pt-PT': {
+    badge: 'PRIMEIRO PERÍODO',
+    title: 'Como saber se o meu\nprimeiro período está a chegar?',
+    metaDuration: '5 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Alguns sinais concretos podem ajudá-la a reconhecer que o seu primeiro período está mesmo a chegar.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Sinais a observar',
+      'Primeiro corrimento: como é?',
+      'Corrimento vaginal ou sangue menstrual?',
+      'Quando falar com um adulto?',
+    ],
+    observe: [
+      {
+        title: 'Corrimento esbranquiçado',
+        text: 'Um corrimento ligeiro e transparente surge muitas vezes alguns meses antes.',
+      },
+      {
+        title: 'Desenvolvimento dos seios',
+        text: 'Um sinal frequente, que costuma surgir bastante antes do período.',
+      },
+      {
+        title: 'Ligeiras pontadas na barriga',
+        text: 'Pequenas sensações como estas podem indicar que o período vem a caminho.',
+      },
+    ],
+    body2: 'Antes de chegar o seu primeiro período, é frequente notar um corrimento ligeiro, esbranquiçado ou ligeiramente amarelado, na roupa interior. É um fenómeno normal, associado à atividade hormonal que começa no seu corpo.',
+    body3: 'O corrimento vaginal é transparente ou esbranquiçado, sem cheiro forte. O sangue menstrual, por sua vez, é de cor vermelha a acastanhada e marca o verdadeiro início do período. Se alguma vez tiver dúvidas, falar sobre isso nunca é um problema.',
+    tipTitle: 'Bom saber',
+    tipText: 'Não há maneira de prever o dia exato. Ter sempre proteção consigo desde os primeiros sinais é o melhor hábito a adotar.',
+    body4: 'Assim que notar estes sinais, ou sempre que tiver uma dúvida ou uma preocupação, pode falar com a sua mãe, uma irmã, alguém próximo ou um profissional de saúde da sua confiança. Nunca há uma má altura para pedir ajuda.',
+    relatedTitle: '♥  Também pode gostar',
+    related: [
+      {
+        title: 'Os primeiros sinais antes do período',
+        meta: '5 min  ·  Artigo',
+      },
+      {
+        title: 'Que proteção escolher para o primeiro período?',
+        meta: '6 min  ·  Guia',
+      },
+      {
+        title: 'O seu primeiro período: o que esperar',
+        meta: '5 min  ·  Guia',
+      },
+    ],
+    shareMessage: 'Como saber se o meu primeiro período está a chegar? — AWA',
+  },
+  bn: {
+    badge: 'প্রথম মাসিক',
+    title: 'আমার প্রথম মাসিক আসছে কি না\nকীভাবে বুঝব?',
+    metaDuration: 'পড়তে 5 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'কয়েকটি সুনির্দিষ্ট লক্ষণ বুঝতে সাহায্য করতে পারে যে আপনার প্রথম মাসিক সত্যিই আসার পথে।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'যেসব লক্ষণে নজর রাখবেন',
+      'প্রথম স্রাব: দেখতে কেমন?',
+      'যোনিপথের স্রাব না মাসিকের রক্ত?',
+      'কখন বড় কারও সঙ্গে কথা বলবেন?',
+    ],
+    observe: [
+      {
+        title: 'সাদাটে স্রাব',
+        text: 'হালকা, স্বচ্ছ স্রাব প্রায়ই কয়েক মাস আগে থেকে দেখা দেয়।',
+      },
+      {
+        title: 'স্তনের বিকাশ',
+        text: 'একটি সাধারণ লক্ষণ যা সাধারণত মাসিকের অনেক আগেই দেখা যায়।',
+      },
+      {
+        title: 'পেটে হালকা খোঁচা খোঁচা অনুভূতি',
+        text: 'এমন ছোট অনুভূতি ইঙ্গিত দিতে পারে যে মাসিক শীঘ্রই আসছে।',
+      },
+    ],
+    body2: 'আপনার একেবারে প্রথম মাসিক আসার আগে অন্তর্বাসে হালকা সাদাটে বা সামান্য হলদেটে স্রাব লক্ষ্য করা সাধারণ। এটি একটি স্বাভাবিক ঘটনা, যা আপনার শরীরে শুরু হতে থাকা হরমোনের কার্যকলাপের সঙ্গে সম্পর্কিত।',
+    body3: 'যোনিপথের স্রাব স্বচ্ছ বা সাদাটে হয়, তীব্র গন্ধ থাকে না। অন্যদিকে মাসিকের রক্ত লাল থেকে বাদামি রঙের হয় এবং এটি আপনার মাসিকের প্রকৃত শুরু বোঝায়। কখনো নিশ্চিত না হলে এ নিয়ে কথা বলা মোটেও বড় কিছু নয়।',
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'সঠিক দিনটি আগে থেকে বলে দেওয়ার কোনো উপায় নেই। একেবারে প্রথম লক্ষণ থেকেই সঙ্গে সুরক্ষা রাখা সবচেয়ে ভালো অভ্যাস।',
+    body4: 'এই লক্ষণগুলো টের পেলেই, অথবা যখনই কোনো প্রশ্ন বা দুশ্চিন্তা থাকে, আপনি আপনার মা, বোন, কাছের কারও বা আপনার বিশ্বাসী একজন স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে কথা বলতে পারেন। সাহায্য চাওয়ার জন্য কখনোই ভুল সময় বলে কিছু নেই।',
+    relatedTitle: '♥  আপনার আরও ভালো লাগতে পারে',
+    related: [
+      {
+        title: 'মাসিকের আগের প্রথম লক্ষণগুলো',
+        meta: '5 মিনিট  ·  নিবন্ধ',
+      },
+      {
+        title: 'প্রথম মাসিকের জন্য কোন সুরক্ষা বেছে নেব?',
+        meta: '6 মিনিট  ·  গাইড',
+      },
+      {
+        title: 'আপনার প্রথম মাসিক: কী আশা করবেন',
+        meta: '5 মিনিট  ·  গাইড',
+      },
+    ],
+    shareMessage: 'আমার প্রথম মাসিক আসছে কি না কীভাবে বুঝব? — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

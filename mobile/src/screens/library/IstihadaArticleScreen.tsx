@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'istihada-comprendre-les-saignements';
 
@@ -53,7 +54,7 @@ const ART = {
 // "sometimes") and every scholarly-attribution phrase is preserved as-is
 // across languages — no ruling is stated more strongly in English than in
 // the French source.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('Istihada', {
   fr: {
     badge: 'ISTIHÂDA',
     title: 'Comprendre l’Istihâda',
@@ -846,7 +847,220 @@ const CONTENT = {
     tip3Text: 'イスティハーダは、いつもと違う出血を月経やニファースと区別する概念で、礼拝や断食に特有の影響があります。迷ったときは、丁寧な観察と、資格のある学者の意見が最も頼りになります。',
     shareMessage: 'イスティハーダを理解する — AWA',
   },
-} as const;
+  ko: {
+    badge: '이스티하다',
+    title: '이스티하다 이해하기',
+    metaDuration: '7분 읽기',
+    metaType: '자주 묻는 질문',
+    metaLevel: '중급',
+    metaValidated: '검토된 콘텐츠',
+    intro: '평소 생리와 다른 불규칙한 출혈을 구분하는 데 도움이 되는 일반적인 기준을 알아봐요.',
+    disclaimerTitle: '중요한 안내',
+    disclaimerText: '이 콘텐츠는 교육을 목적으로 해요. 종교적인 질문은 자격을 갖춘 학자에게 확인해야 해요. AWA는 파트와나 개인별 종교 판단을 내리지 않아요.',
+    contentsTitle: '이 아티클에서 다루는 내용',
+    topics: [
+      '이스티하다란 무엇일까요?',
+      '왜 구분하기 어려울 수 있을까요?',
+      '월경과 이스티하다의 차이',
+      '출혈을 어떻게 관찰할까요?',
+      '이스티하다 중의 예배와 금식',
+      '확신이 서지 않을 때는 어떻게 할까요?',
+      '핵심 정리',
+    ],
+    section1Body: '이스티하다는 평소 생리 주기 밖에서 나타나는 출혈이나, 이슬람 전통에서 인정하는 월경 기간을 넘어 이어지는 출혈을 가리켜요. 월경(하이드)이나 니파스(출산 후 출혈)와는 의례상의 지위가 같지 않아요. 일반적으로 성격이 다른 출혈로 여겨지며, 때로는 의학적인 원인과 관련이 있을 수 있어요.',
+    note1Title: '참고해 주세요',
+    note1Text: '이 콘텐츠는 개념을 일반적으로 설명할 뿐이에요. 내가 겪은 특정 출혈이 개인적인 상황에서 이스티하다에 해당하는지를 판단할 수는 없어요.',
+    section2Body: '출혈의 모양이 비슷해 보이거나 양이 달라지거나 평소와 다르게 이어질 수 있어서, 이스티하다를 월경이나 불규칙한 주기와 구분하기는 어려울 수 있어요. 학자들조차 이 어려움을 인정하고 있으며, 그래서 이를 구분하는 여러 접근 방식이 있어요.',
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '평소와 다른 출혈이 무엇에 해당하는지 바로 알지 못하는 것은 자연스러운 일이에요. 이런 불확실함은 흔한 상황이며 잘못이 아니에요.',
+    section3Body: '정확한 기준은 법학파에 따라 다르기 때문에 보편적인 규칙은 아니지만, 몇 가지 요소가 생각을 정리하는 데 도움이 될 수 있어요.',
+    differences: [
+      [
+        'calendar-clock-outline',
+        '평소 주기와 비교한 기간',
+      ],
+      [
+        'repeat-variant',
+        '출혈의 규칙성 또는 평소와 다른 정도',
+      ],
+      [
+        'water-outline',
+        '시간이 지나며 출혈이 달라지는 양상',
+      ],
+      [
+        'clipboard-pulse-outline',
+        '알려진 의학적 원인이 있을 가능성',
+      ],
+    ],
+    note2Title: '참고해 주세요',
+    note2Text: '이 요소들은 절대적인 기준이 아니라 일반적인 지표예요. 학자와 법학파에 따라 다르게 해석될 수 있어요.',
+    section4Body: '서두르지 않고 며칠 동안 출혈을 차분히 관찰하면, 결론을 내리기 전에 내 상황을 더 잘 이해하는 데 도움이 돼요.',
+    checkList1Title: '실용적인 팁',
+    observeTips: [
+      '시작한 날짜를 적어 두고, 가능하면 평소 주기의 길이도 함께 적어요',
+      '출혈이 이전 생리와 비슷한 흐름을 보이는지 살펴봐요',
+      '하루만 보고 판단하지 않아요',
+      '학자나 의료 전문가와 상담할 계획이라면 이런 관찰 내용을 기록해 두어요',
+    ],
+    section5Body: '이스티하다인 경우 월경 때와 달리 예배와 금식은 일반적으로 계속 의무로 남아 있어요. 그래서 예배를 이어갈 수 있도록 적절한 보호대 사용 같은 위생 조치가 권장되며, 구체적인 방법은 법학파마다 가르치는 바가 달라요.',
+    tip2Title: '알아 두면 좋아요',
+    tip2Text: '우두(소정화)를 다시 하는 것과 같은 구체적인 조치는 따르는 법학파에 따라 다를 수 있어요. 평소 따르는 견해를 참고하거나 자격을 갖춘 학자에게 물어보면 올바르게 적용하는 데 도움이 돼요.',
+    section6Body: '출혈의 성격에 대해 계속 의문이 드는 것은 흔한 일이며, 지나치게 걱정할 일이 아니에요.',
+    doubtSteps: [
+      '내 생리의 평소 기간과 리듬을 참고해요',
+      '출혈이 평소와 다르거나 오래 이어지면 의료 전문가와 상담해요',
+      '종교적인 측면은 자격을 갖춘 학자에게 의견을 물어봐요',
+      '일반적인 답변은 내 상황에 맞는 안내를 대신할 수 없다는 점을 기억해요',
+    ],
+    alert2Title: '중요한 안내',
+    alert2Text: '이 콘텐츠는 교육을 위한 일반적인 내용이며 파트와나 개인별 종교 판단이 아니에요. 개인적인 상황, 특히 의문이 오래 이어질 때는 자격을 갖춘 학자의 의견이 기준이 돼요.',
+    tip3Title: '알아 두면 좋아요',
+    tip3Text: '이스티하다는 평소와 다른 출혈을 월경이나 니파스와 구분하는 개념으로, 예배와 금식에 관해 특별한 의미를 가져요. 확신이 서지 않을 때는 세심한 관찰과 자격을 갖춘 학자의 의견이 가장 좋은 도움이 돼요.',
+    shareMessage: '이스티하다 이해하기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'ISTIHADA',
+    title: 'Compreender a istihada',
+    metaDuration: '7 min de leitura',
+    metaType: 'Perguntas frequentes',
+    metaLevel: 'Intermédio',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Distinguir um sangramento irregular do seu período habitual, com referências gerais para a orientar.',
+    disclaimerTitle: 'Informação importante',
+    disclaimerText: 'Este conteúdo é puramente educativo. As questões religiosas devem ser validadas por sábios qualificados. A AWA não emite fatwas nem pareceres religiosos personalizados.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'O que é a istihada?',
+      'Porque pode ser difícil de identificar?',
+      'Diferenças entre a menstruação e a istihada',
+      'Como observar o sangramento?',
+      'Oração e jejum durante a istihada',
+      'O que fazer em caso de dúvida?',
+      'Pontos essenciais',
+    ],
+    section1Body: 'A istihada designa um sangramento que ocorre fora do ciclo menstrual habitual, ou que se prolonga para além da duração da menstruação reconhecida pela tradição islâmica. Ao contrário da menstruação (hayd) ou do nifas (sangramento após o parto), não tem o mesmo estatuto ritual: é geralmente considerado um sangramento de natureza diferente, por vezes ligada a uma causa médica.',
+    note1Title: 'Atenção',
+    note1Text: 'Este conteúdo explica o conceito em termos gerais; não permite determinar se um sangramento concreto corresponde à istihada na sua situação pessoal.',
+    section2Body: 'Pode ser difícil distinguir a istihada da menstruação ou de um ciclo irregular, porque o sangramento pode por vezes parecer semelhante, variar de intensidade ou prolongar-se de forma incomum. Esta dificuldade é reconhecida pelos próprios sábios, o que explica a existência de várias abordagens para a identificar.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'É normal não saber de imediato a que corresponde um sangramento fora do comum; esta incerteza é uma situação frequente, não um erro da sua parte.',
+    section3Body: 'Certos elementos podem ajudar a orientar a sua reflexão, sem serem regras universais, pois as referências precisas variam consoante as escolas jurídicas.',
+    differences: [
+      [
+        'calendar-clock-outline',
+        'Duração em comparação com o seu ciclo habitual',
+      ],
+      [
+        'repeat-variant',
+        'Regularidade ou caráter incomum do sangramento',
+      ],
+      [
+        'water-outline',
+        'Evolução do sangramento ao longo do tempo',
+      ],
+      [
+        'clipboard-pulse-outline',
+        'Eventual presença de uma causa médica conhecida',
+      ],
+    ],
+    note2Title: 'Atenção',
+    note2Text: 'Estes elementos são referências gerais, não critérios absolutos: podem ser interpretados de forma diferente pelos sábios e pelas escolas jurídicas.',
+    section4Body: 'Dedicar tempo a observar o seu sangramento durante vários dias, sem pressa, ajuda a compreender melhor a sua própria situação antes de tirar uma conclusão.',
+    checkList1Title: 'Algumas indicações práticas',
+    observeTips: [
+      'Anote a data de início e, se possível, a duração habitual dos seus ciclos',
+      'Observe se o sangramento segue um padrão próximo dos seus períodos anteriores',
+      'Não se baseie apenas num único dia isolado',
+      'Registe estas observações se pensa consultar um sábio ou um profissional de saúde',
+    ],
+    section5Body: 'No caso da istihada, a oração e o jejum geralmente continuam a ser obrigatórios, ao contrário do que acontece durante a menstruação. Recomendam-se então precauções de higiene (como uma proteção adequada) para permitir que o culto prossiga, segundo os métodos ensinados pelas diferentes escolas jurídicas.',
+    tip2Title: 'Bom saber',
+    tip2Text: 'As precauções precisas (como renovar as abluções) podem variar consoante a escola jurídica seguida; recorrer à opinião que habitualmente segue ou a um sábio qualificado ajuda a aplicá-las corretamente.',
+    section6Body: 'A dúvida persistente sobre a natureza de um sangramento é uma situação frequente e não deve ser motivo de preocupação excessiva.',
+    doubtSteps: [
+      'Tenha como referência a duração e o ritmo habituais dos seus próprios períodos',
+      'Consulte um profissional de saúde se o sangramento for fora do comum ou prolongado',
+      'Peça a opinião de um sábio qualificado sobre a vertente religiosa',
+      'Não esqueça que uma resposta geral não substitui uma orientação adaptada à sua situação',
+    ],
+    alert2Title: 'Informação importante',
+    alert2Text: 'Este conteúdo permanece educativo e geral: não constitui uma fatwa nem um parecer religioso individual. Em qualquer situação pessoal, sobretudo em caso de dúvida prolongada, a opinião de um sábio qualificado continua a ser a referência.',
+    tip3Title: 'Bom saber',
+    tip3Text: 'A istihada é um conceito que distingue um sangramento fora do comum da menstruação ou do nifas, com implicações específicas para a oração e o jejum. Em caso de dúvida, a observação atenta e a opinião de um sábio qualificado continuam a ser os melhores recursos.',
+    shareMessage: 'Compreender a istihada — AWA',
+  },
+  bn: {
+    badge: 'ইস্তিহাযা',
+    title: 'ইস্তিহাযা বোঝা',
+    metaDuration: '7 মিনিটের পাঠ',
+    metaType: 'প্রশ্নোত্তর',
+    metaLevel: 'মধ্যম',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'আপনার স্বাভাবিক মাসিক থেকে অনিয়মিত রক্তক্ষরণকে আলাদা করা, পথ দেখানোর জন্য কিছু সাধারণ নির্দেশক সহ।',
+    disclaimerTitle: 'গুরুত্বপূর্ণ তথ্য',
+    disclaimerText: 'এই বিষয়বস্তু সম্পূর্ণ শিক্ষামূলক। ধর্মীয় প্রশ্নের উত্তর যোগ্য আলেমদের কাছ থেকে যাচাই করে নেওয়া উচিত। AWA কোনো ফতোয়া বা ব্যক্তিগত ধর্মীয় সিদ্ধান্ত দেয় না।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'ইস্তিহাযা কী?',
+      'চিনতে কেন কঠিন হতে পারে?',
+      'মাসিক ও ইস্তিহাযার মধ্যে পার্থক্য',
+      'রক্তক্ষরণ কীভাবে পর্যবেক্ষণ করবেন?',
+      'ইস্তিহাযার সময় নামাজ ও রোজা',
+      'সন্দেহ হলে কী করবেন?',
+      'মূল কথা',
+    ],
+    section1Body: 'ইস্তিহাযা হলো এমন রক্তক্ষরণ যা স্বাভাবিক মাসিক চক্রের বাইরে ঘটে, অথবা ইসলামি ঐতিহ্যে স্বীকৃত মাসিকের সময়কাল পেরিয়েও চলতে থাকে। মাসিক (হায়েজ) বা নিফাস (সন্তান প্রসবের পরের রক্তস্রাব) থেকে ভিন্ন, এর ধর্মীয় বিধানগত মর্যাদা একই নয়: সাধারণত একে ভিন্ন প্রকৃতির রক্তক্ষরণ হিসেবে গণ্য করা হয়, যা কখনো কখনো কোনো চিকিৎসাগত কারণের সঙ্গে সম্পর্কিত।',
+    note1Title: 'মনে রাখবেন',
+    note1Text: 'এই বিষয়বস্তু ধারণাটি সাধারণভাবে ব্যাখ্যা করে; আপনার ব্যক্তিগত অবস্থায় কোনো নির্দিষ্ট রক্তক্ষরণ ইস্তিহাযা কি না, তা এর মাধ্যমে নির্ধারণ করা যায় না।',
+    section2Body: 'ইস্তিহাযাকে মাসিক বা অনিয়মিত চক্র থেকে আলাদা করা কঠিন হতে পারে, কারণ রক্তক্ষরণ কখনো কখনো একই রকম দেখায়, পরিমাণে তারতম্য হয়, বা অস্বাভাবিকভাবে চলতে থাকে। এই কঠিনতা আলেমরাও স্বীকার করেন, আর সে কারণেই এটি চিহ্নিত করার একাধিক পদ্ধতি রয়েছে।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'অস্বাভাবিক রক্তক্ষরণ কোন ধরনের, তা সঙ্গে সঙ্গে না জানা স্বাভাবিক; এই অনিশ্চয়তা একটি সাধারণ পরিস্থিতি, আপনার কোনো ভুল নয়।',
+    section3Body: 'কিছু বিষয় আপনার চিন্তা করতে সাহায্য করতে পারে, তবে এগুলো সর্বজনীন নিয়ম নয়, কারণ সুনির্দিষ্ট নির্দেশক ফিকহের মাযহাবভেদে ভিন্ন হয়।',
+    differences: [
+      [
+        'calendar-clock-outline',
+        'আপনার স্বাভাবিক চক্রের তুলনায় সময়কাল',
+      ],
+      [
+        'repeat-variant',
+        'রক্তক্ষরণের নিয়মিততা বা অস্বাভাবিক প্রকৃতি',
+      ],
+      [
+        'water-outline',
+        'সময়ের সঙ্গে রক্তক্ষরণ কীভাবে পরিবর্তিত হয়',
+      ],
+      [
+        'clipboard-pulse-outline',
+        'কোনো জানা চিকিৎসাগত কারণ থাকার সম্ভাবনা',
+      ],
+    ],
+    note2Title: 'মনে রাখবেন',
+    note2Text: 'এগুলো সাধারণ নির্দেশক, চূড়ান্ত মানদণ্ড নয়: আলেম ও মাযহাবভেদে এগুলোর ব্যাখ্যা ভিন্ন হতে পারে।',
+    section4Body: 'তাড়াহুড়ো না করে কয়েক দিন ধরে আপনার রক্তক্ষরণ পর্যবেক্ষণ করলে কোনো সিদ্ধান্তে পৌঁছানোর আগে নিজের অবস্থা আরও ভালোভাবে বুঝতে পারবেন।',
+    checkList1Title: 'কিছু ব্যবহারিক পরামর্শ',
+    observeTips: [
+      'শুরুর তারিখ লিখে রাখুন এবং সম্ভব হলে আপনার চক্রের স্বাভাবিক দৈর্ঘ্যও লিখুন',
+      'লক্ষ্য করুন রক্তক্ষরণ আপনার আগের মাসিকের কাছাকাছি কোনো ধরনে চলছে কি না',
+      'শুধু একটি বিচ্ছিন্ন দিনের ওপর নির্ভর করবেন না',
+      'কোনো আলেম বা স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে পরামর্শ করার পরিকল্পনা থাকলে এই পর্যবেক্ষণগুলো লিখে রাখুন',
+    ],
+    section5Body: 'ইস্তিহাযার ক্ষেত্রে সাধারণত নামাজ ও রোজা বাধ্যতামূলক থাকে, মাসিকের সময়ের মতো নয়। তখন ইবাদত চালিয়ে যাওয়ার জন্য স্বাস্থ্যবিধিগত সতর্কতা (যেমন উপযুক্ত সুরক্ষা ব্যবহার) গ্রহণ করা ভালো, বিভিন্ন মাযহাবে শেখানো পদ্ধতি অনুসারে।',
+    tip2Title: 'জেনে রাখা ভালো',
+    tip2Text: 'সুনির্দিষ্ট সতর্কতা (যেমন অজু নবায়ন করা) আপনি যে মাযহাব অনুসরণ করেন তার ওপর নির্ভর করে ভিন্ন হতে পারে; আপনি যে মত সাধারণত অনুসরণ করেন সেটি দেখে নিলে বা কোনো যোগ্য আলেমের কাছে জানলে সেগুলো সঠিকভাবে পালন করতে পারবেন।',
+    section6Body: 'রক্তক্ষরণের প্রকৃতি নিয়ে দীর্ঘস্থায়ী সন্দেহ একটি সাধারণ পরিস্থিতি, এবং এটি অতিরিক্ত দুশ্চিন্তার কারণ হওয়া উচিত নয়।',
+    doubtSteps: [
+      'আপনার নিজের মাসিকের স্বাভাবিক সময়কাল ও ছন্দ দেখে নিন',
+      'রক্তক্ষরণ অস্বাভাবিক বা দীর্ঘস্থায়ী হলে স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিন',
+      'ধর্মীয় দিক নিয়ে একজন যোগ্য আলেমের মত জিজ্ঞাসা করুন',
+      'মনে রাখুন, একটি সাধারণ উত্তর আপনার অবস্থার উপযোগী দিকনির্দেশনার বিকল্প নয়',
+    ],
+    alert2Title: 'গুরুত্বপূর্ণ তথ্য',
+    alert2Text: 'এই বিষয়বস্তু শিক্ষামূলক ও সাধারণ থাকে: এটি কোনো ফতোয়া বা ব্যক্তিগত ধর্মীয় সিদ্ধান্ত নয়। যেকোনো ব্যক্তিগত পরিস্থিতিতে, বিশেষ করে দীর্ঘস্থায়ী সন্দেহের ক্ষেত্রে, একজন যোগ্য আলেমের মতই মূল নির্ভরযোগ্য।',
+    tip3Title: 'জেনে রাখা ভালো',
+    tip3Text: 'ইস্তিহাযা এমন একটি ধারণা যা অস্বাভাবিক রক্তক্ষরণকে মাসিক বা নিফাস থেকে আলাদা করে, এবং নামাজ ও রোজার ক্ষেত্রে এর নির্দিষ্ট প্রভাব রয়েছে। সন্দেহ হলে সতর্ক পর্যবেক্ষণ এবং একজন যোগ্য আলেমের মত সবচেয়ে ভালো সহায়ক।',
+    shareMessage: 'ইস্তিহাযা বোঝা — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -54,7 +55,7 @@ const EVENING_ROUTINE_ICONS = ['clock-outline', 'cellphone-off', 'snowflake'] as
 // is byte-identical to the original — never retyped, only moved into the
 // `fr` key — so the app remains fully bilingual rather than having French
 // replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('SleepHormones', {
   fr: {
     badge: 'CYCLE MENSTRUEL • SOMMEIL',
     title: 'Sommeil et hormones :\nle lien méconnu',
@@ -817,7 +818,220 @@ const CONTENT = {
     disclaimerText: '情報提供を目的とした内容です。この記事は、個別の医療上の助言に代わるものではありません。不安がある場合は、医療従事者に相談してください。',
     shareMessage: '睡眠とホルモン：あまり知られていない関係 — AWA',
   },
-} as const;
+  ko: {
+    badge: '생리 주기 • 수면',
+    title: '수면과 호르몬,\n잘 알려지지 않은 관계',
+    metaDuration: '읽는 데 6분',
+    metaType: '아티클',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '생리 주기의 단계에 따라, 그리고 폐경기에 수면이 달라지는 이유를 알아봐요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '호르몬이 수면에 영향을 주는 이유',
+      '생리 주기 단계별 수면',
+      '스트레스와 수면의 질',
+      '편안한 저녁 루틴',
+      '전문가를 만나야 할 때',
+      '핵심 정리',
+    ],
+    section1Body: '프로게스테론은 가벼운 진정 작용이 있어요. 주기 끝 무렵에 프로게스테론이 줄어들면 잠이 얕아지거나 자주 깰 수 있어요.',
+    infoCard1Title: '알아두면 좋아요',
+    infoCard1Text: '배란 후에 체온이 약간 오르면 사람에 따라 잠들기가 조금 더 어려워질 수도 있어요.',
+    phaseSleep: [
+      {
+        title: '생리 중',
+        text: '몸이 불편하고 피로하면 잠이 얕아질 수 있어요.',
+      },
+      {
+        title: '배란 즈음',
+        text: '대부분은 수면이 비교적 안정적이에요.',
+      },
+      {
+        title: '생리 전',
+        text: '프로게스테론이 줄어들면 잠이 얕아지고 중간에 깰 수 있어요.',
+      },
+    ],
+    section2Body: '폐경기에는 비슷한 호르몬 변화 때문에 야간 발한이 잠에서 깨는 흔한 원인이에요.',
+    section3Body: '스트레스는 이미 더 예민해진 주기 단계에서 수면 방해를 키울 수 있어요. 호흡이나 가벼운 스트레칭 같은 간단한 이완 방법이 잠자리에 들기 전에 긴장을 푸는 데 도움이 될 수 있어요.',
+    section4Body: '일정한 취침 루틴과 시원한 침실은 나이와 상관없이 이런 방해를 줄이는 데 도움이 돼요.',
+    eveningRoutine: [
+      {
+        title: '규칙적인 시간',
+        text: '일정한 시간에 자고 일어나면 체내 시계를 조절하는 데 도움이 돼요.',
+      },
+      {
+        title: '저녁에는 화면 줄이기',
+        text: '블루라이트는 잠드는 시간을 늦출 수 있어요. 화면을 잠시 멀리하면 긴장을 풀기 좋아요.',
+      },
+      {
+        title: '시원한 침실',
+        text: '적당한 온도는 나이와 상관없이 잠들기 쉽게 해 줘요.',
+      },
+    ],
+    section5Body: '좋은 습관만으로는 충분하지 않을 때도 있어요. 다음과 같다면 전문가와 상담해 보는 것이 좋아요.',
+    warningTitle: '진료를 받아 볼 만한 신호',
+    consultSigns: [
+      '수면 문제가 몇 주째 이어지고 있어요',
+      '피로가 일상생활에 크게 영향을 주고 있어요',
+      '좋은 습관을 지켜도 불면이 계속돼요',
+    ],
+    infoCard2Title: '진료 준비하기',
+    infoCard2Text: '문제가 얼마나 오래 이어졌는지, 무엇이 영향을 주는 것 같은지 적어 두면 의료 전문가가 더 잘 안내해 줄 수 있어요.',
+    tipTitle: '알아두면 좋아요',
+    tipText: '이런 수면 변화는 흔하고 대개 일시적이에요. 어딘가 잘못되었다는 뜻은 아니에요.',
+    summaryPoints: [
+      '프로게스테론은 가벼운 진정 작용이 있어서, 주기 끝 무렵에 줄어들면 수면이 방해받을 수 있어요.',
+      '폐경기에는 야간 발한이 잠에서 깨는 흔한 원인이에요.',
+      '일정한 취침 루틴과 시원한 침실은 나이와 상관없이 이런 방해를 줄이는 데 도움이 돼요.',
+      '수면 문제가 계속되면 의료 전문가와 상담해 보는 것이 좋아요.',
+    ],
+    disclaimerText: '정보 제공용 콘텐츠예요. 이 아티클은 개인별 맞춤 의학적 조언을 대신하지 않아요. 궁금한 점이 있다면 의료 전문가에게 안내를 받으세요.',
+    shareMessage: '수면과 호르몬, 잘 알려지지 않은 관계 — AWA',
+  },
+  'pt-PT': {
+    badge: 'CICLO MENSTRUAL • SONO',
+    title: 'Sono e hormonas:\na relação pouco conhecida',
+    metaDuration: '6 min de leitura',
+    metaType: 'Artigo',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Porque é que o seu sono muda consoante a fase do ciclo e na menopausa.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Porque é que as hormonas afetam o sono',
+      'O sono ao longo das fases do ciclo',
+      'Stress e qualidade do sono',
+      'Uma rotina calma ao fim do dia',
+      'Quando consultar um profissional',
+      'Pontos a reter',
+    ],
+    section1Body: 'A progesterona tem um efeito sedativo ligeiro; a sua descida no final do ciclo pode perturbar o sono, tornando-o mais leve ou mais fragmentado.',
+    infoCard1Title: 'Bom saber',
+    infoCard1Text: 'O ligeiro aumento da temperatura corporal após a ovulação também pode tornar o adormecer um pouco mais difícil para algumas pessoas.',
+    phaseSleep: [
+      {
+        title: 'Durante o período',
+        text: 'O desconforto físico e o cansaço podem tornar o sono mais leve.',
+      },
+      {
+        title: 'Perto da ovulação',
+        text: 'O sono é geralmente mais estável para a maioria das pessoas.',
+      },
+      {
+        title: 'Antes do período',
+        text: 'A descida da progesterona pode tornar o sono mais leve, com possíveis despertares.',
+      },
+    ],
+    section2Body: 'Na menopausa, os suores noturnos são uma causa frequente de despertares, por razões hormonais semelhantes.',
+    section3Body: 'O stress pode amplificar as perturbações do sono nas fases do ciclo que já são mais sensíveis. Técnicas simples de relaxamento (respiração, alongamentos suaves) podem ajudar a descontrair antes de dormir.',
+    section4Body: 'Uma rotina de deitar estável e um quarto fresco ajudam a limitar estas perturbações, em qualquer idade.',
+    eveningRoutine: [
+      {
+        title: 'Horários regulares',
+        text: 'Deitar e acordar a horas estáveis ajuda a regular o relógio biológico.',
+      },
+      {
+        title: 'Menos ecrãs ao fim do dia',
+        text: 'A luz azul pode atrasar o adormecer; uma pausa dos ecrãs ajuda a desacelerar.',
+      },
+      {
+        title: 'Um quarto fresco',
+        text: 'Uma temperatura moderada facilita o adormecer, em qualquer idade.',
+      },
+    ],
+    section5Body: 'Os bons hábitos nem sempre bastam. Pode ser útil falar com um profissional se:',
+    warningTitle: 'Sinais que justificam uma avaliação',
+    consultSigns: [
+      'Os problemas de sono duram há várias semanas',
+      'O cansaço afeta fortemente o dia a dia',
+      'A insónia persiste apesar dos bons hábitos',
+    ],
+    infoCard2Title: 'Preparar esta consulta',
+    infoCard2Text: 'Anotar há quanto tempo os problemas duram e o que parece influenciá-los pode ajudar o seu profissional de saúde a orientá-la melhor.',
+    tipTitle: 'Bom saber',
+    tipText: 'Estas alterações do sono são frequentes e, em geral, temporárias: não significam que algo esteja errado.',
+    summaryPoints: [
+      'A progesterona tem um efeito sedativo ligeiro; a sua descida no final do ciclo pode perturbar o sono.',
+      'Na menopausa, os suores noturnos são uma causa frequente de despertares.',
+      'Uma rotina de deitar estável e um quarto fresco ajudam a limitar estas perturbações, em qualquer idade.',
+      'Vale a pena falar com um profissional de saúde sobre problemas de sono persistentes.',
+    ],
+    disclaimerText: 'Conteúdo informativo. Este artigo não substitui um aconselhamento médico personalizado. Em caso de dúvida, procure a orientação de um profissional de saúde.',
+    shareMessage: 'Sono e hormonas: a relação pouco conhecida — AWA',
+  },
+  bn: {
+    badge: 'মাসিক চক্র • ঘুম',
+    title: 'ঘুম ও হরমোন:\nঅজানা সম্পর্ক',
+    metaDuration: 'পড়তে 6 মিনিট',
+    metaType: 'নিবন্ধ',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'চক্রের পর্যায় অনুযায়ী এবং মেনোপজে আপনার ঘুম কেন বদলে যায়।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'হরমোন কেন ঘুমকে প্রভাবিত করে',
+      'চক্রের বিভিন্ন পর্যায়ে ঘুম',
+      'মানসিক চাপ ও ঘুমের মান',
+      'সন্ধ্যার একটি প্রশান্তিদায়ক রুটিন',
+      'কখন বিশেষজ্ঞের কাছে যাবেন',
+      'মূল কথা',
+    ],
+    section1Body: 'প্রোজেস্টেরনের হালকা ঘুমপাড়ানি প্রভাব আছে; চক্রের শেষে এর পরিমাণ কমে গেলে ঘুম ব্যাহত হতে পারে, ঘুম হালকা বা বারবার ভেঙে যেতে পারে।',
+    infoCard1Title: 'জেনে রাখা ভালো',
+    infoCard1Text: 'ডিম্বস্ফোটনের পর শরীরের তাপমাত্রা সামান্য বেড়ে যাওয়ায় কারও কারও ঘুমিয়ে পড়তে একটু কষ্ট হতে পারে।',
+    phaseSleep: [
+      {
+        title: 'মাসিকের সময়',
+        text: 'শারীরিক অস্বস্তি ও ক্লান্তির কারণে ঘুম হালকা হতে পারে।',
+      },
+      {
+        title: 'ডিম্বস্ফোটনের সময়',
+        text: 'বেশিরভাগ মানুষের ক্ষেত্রে ঘুম সাধারণত বেশি স্থিতিশীল থাকে।',
+      },
+      {
+        title: 'মাসিকের আগে',
+        text: 'প্রোজেস্টেরন কমে যাওয়ায় ঘুম হালকা হতে পারে, মাঝে মাঝে ঘুম ভেঙে যেতে পারে।',
+      },
+    ],
+    section2Body: 'মেনোপজে একই ধরনের হরমোনজনিত কারণে রাতে ঘাম হওয়া ঘুম ভেঙে যাওয়ার একটি সাধারণ কারণ।',
+    section3Body: 'যে পর্যায়গুলো আগে থেকেই বেশি সংবেদনশীল, সেখানে মানসিক চাপ ঘুমের ব্যাঘাত আরও বাড়িয়ে দিতে পারে। সহজ শিথিলায়নের কৌশল (শ্বাসের ব্যায়াম, হালকা স্ট্রেচিং) ঘুমের আগে মন শান্ত করতে সাহায্য করতে পারে।',
+    section4Body: 'নিয়মিত ঘুমানোর রুটিন এবং শীতল শোবার ঘর যেকোনো বয়সে এই ব্যাঘাত কমাতে সাহায্য করে।',
+    eveningRoutine: [
+      {
+        title: 'নিয়মিত সময়',
+        text: 'প্রতিদিন নির্দিষ্ট সময়ে ঘুমাতে যাওয়া ও ঘুম থেকে ওঠা আপনার শরীরের অভ্যন্তরীণ ঘড়ি নিয়ন্ত্রণে সাহায্য করে।',
+      },
+      {
+        title: 'সন্ধ্যায় স্ক্রিন কম ব্যবহার',
+        text: 'নীল আলো ঘুম আসতে দেরি করাতে পারে; স্ক্রিন থেকে বিরতি নিলে মন শান্ত হয়।',
+      },
+      {
+        title: 'শীতল শোবার ঘর',
+        text: 'মাঝারি তাপমাত্রা যেকোনো বয়সে ঘুমিয়ে পড়া সহজ করে।',
+      },
+    ],
+    section5Body: 'ভালো অভ্যাসই সবসময় যথেষ্ট নয়। নিচের ক্ষেত্রে কোনো বিশেষজ্ঞের সঙ্গে কথা বলা সহায়ক হতে পারে:',
+    warningTitle: 'যে লক্ষণে পরীক্ষা করানো উচিত',
+    consultSigns: [
+      'ঘুমের সমস্যা বেশ কয়েক সপ্তাহ ধরে চলছে',
+      'ক্লান্তি দৈনন্দিন জীবনে মারাত্মকভাবে প্রভাব ফেলছে',
+      'ভালো অভ্যাস সত্ত্বেও অনিদ্রা থেকে যাচ্ছে',
+    ],
+    infoCard2Title: 'এই অ্যাপয়েন্টমেন্টের প্রস্তুতি',
+    infoCard2Text: 'সমস্যাগুলো কতদিন ধরে চলছে এবং কী কী বিষয় এতে প্রভাব ফেলছে বলে মনে হয়, তা লিখে রাখলে আপনার স্বাস্থ্যসেবা পেশাজীবী আপনাকে আরও ভালোভাবে দিকনির্দেশনা দিতে পারবেন।',
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'ঘুমের এই পরিবর্তনগুলো সাধারণ এবং সাধারণত সাময়িক: এর অর্থ এই নয় যে কিছু ভুল আছে।',
+    summaryPoints: [
+      'প্রোজেস্টেরনের হালকা ঘুমপাড়ানি প্রভাব আছে; চক্রের শেষে এর পরিমাণ কমে গেলে ঘুম ব্যাহত হতে পারে।',
+      'মেনোপজে রাতে ঘাম হওয়া ঘুম ভেঙে যাওয়ার একটি সাধারণ কারণ।',
+      'নিয়মিত ঘুমানোর রুটিন এবং শীতল শোবার ঘর যেকোনো বয়সে এই ব্যাঘাত কমাতে সাহায্য করে।',
+      'ঘুমের স্থায়ী সমস্যা কোনো স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে আলোচনা করা উচিত।',
+    ],
+    disclaimerText: 'তথ্যমূলক বিষয়বস্তু। এই নিবন্ধ ব্যক্তিগত চিকিৎসা পরামর্শের বিকল্প নয়। সন্দেহ থাকলে কোনো স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিন।',
+    shareMessage: 'ঘুম ও হরমোন: অজানা সম্পর্ক — AWA',
+  },
+} as const);
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */

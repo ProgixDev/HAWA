@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -62,7 +63,7 @@ const FOLLOW_UP_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('MiscarriageFertility', {
   fr: {
     badge: 'APRÈS UNE FAUSSE COUCHE • FERTILITÉ',
     title: 'Fertilité et nouvel essai après une perte',
@@ -893,7 +894,202 @@ const CONTENT = {
     disclaimerText: '情報提供を目的とした内容です。この記事は、個別の医療上の助言に代わるものではありません。ご自身の状況については、医師や助産師が基準となります。',
     shareMessage: '流産後の妊娠しやすさと再び妊娠を望むとき — AWA',
   },
-} as const;
+  ko: {
+    badge: '유산 후 • 임신 가능성',
+    title: '유산 후의 임신 가능성과 다시 시도하기',
+    metaDuration: '읽는 데 6분',
+    metaType: '가이드',
+    metaLevel: '중급',
+    metaValidated: '정보 제공 콘텐츠',
+    intro: '다시 시도하는 것을 언제, 어떻게 생각하면 좋을지, 나의 속도로 믿음을 가지고 알아봐요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '임신 가능성의 회복',
+      '전문가들이 일반적으로 하는 이야기',
+      '준비됐다고 느끼는 때, 나의 속도로',
+      '안심이 되는 후속 진료',
+      '핵심 정리',
+    ],
+    body1: '초기 유산 후에는 보통 바로 다음 주기부터 임신 가능성이 돌아와요. 생리가 눈에 띄게 다시 시작되기 전에 배란이 일어나기도 해요.',
+    infoTitle: '핵심 포인트',
+    infoText: '유산이 일어난 시기에 따라 몸이 회복되는 데 걸리는 시간은 상황마다 조금씩 다를 수 있어요.',
+    body2: '많은 전문가들은 의사나 조산사가 다르게 권하지 않는 한, 다시 시도하기 전에 여러 주기를 기다릴 필요는 없다고 봐요.',
+    compareEarlyTitle: '초기 유산',
+    compareEarlyText: '임신 가능성이 빠르게, 일찍은 다음 주기부터 돌아오는 경우가 많아요.',
+    compareLateTitle: '더 늦은 시기의 유산',
+    compareLateText: '의료진이 조금 더 긴 회복 시간을 권할 수 있어요.',
+    body3: '몸과 마음이 모두 준비됐다고 느끼는 것이 이론적인 기간보다 훨씬 더 중요한 기준이에요.',
+    readinessPoints: [
+      {
+        title: '마음으로',
+        text: '스스로 준비됐다고 느끼는 것은 몸의 회복만큼 중요해요.',
+      },
+      {
+        title: '몸으로',
+        text: '규칙적인 주기와 컨디션이 좋다는 느낌이 좋은 지표예요.',
+      },
+      {
+        title: '부부로서 또는 주변의 도움과 함께',
+        text: '파트너와 이야기를 나누면 같은 속도로 나아가는 데 도움이 될 수 있어요.',
+      },
+    ],
+    body4: '다시 시도하기 전에 진료를 받아 보면 더 편안한 마음으로 나아갈 수 있어요.',
+    followUpSteps: [
+      {
+        title: '돌아보기',
+        text: '전문가와 이야기를 나누며 있었던 일을 되짚어 볼 수 있어요.',
+      },
+      {
+        title: '필요하면 검사',
+        text: '상황에 따라 추가 검사를 권할 수 있어요.',
+      },
+      {
+        title: '새로운 시도',
+        text: '그 후에는 후속 진료가 차분하게 다시 시도하는 것을 도와줄 수 있어요.',
+      },
+    ],
+    tipTitle: '알아두면 좋아요',
+    tipText: '한 번의 유산은 일반적으로 임신 가능성에 문제가 있다는 뜻이 아니에요. 개인적인 궁금증에는 의료진이 가장 잘 답해 줄 수 있어요.',
+    summaryPoints: [
+      '초기 유산 후에는 보통 바로 다음 주기부터 임신 가능성이 돌아와요.',
+      '많은 전문가들은 다르게 권하지 않는 한 여러 주기를 기다릴 필요는 없다고 봐요.',
+      '몸과 마음이 모두 준비됐다고 느끼는 것이 가장 중요한 기준이에요.',
+      '다시 시도하기 전에 의료 진료를 받으면 도움과 안심을 얻을 수 있어요.',
+    ],
+    disclaimerText: '정보 제공용 콘텐츠예요. 이 아티클은 개인별 맞춤 의학적 조언을 대신하지 않아요. 나의 상황에 대해서는 의사나 조산사가 기준이 돼요.',
+    shareMessage: '유산 후의 임신 가능성과 다시 시도하기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'APÓS UM ABORTO ESPONTÂNEO • FERTILIDADE',
+    title: 'Fertilidade e voltar a tentar após uma perda',
+    metaDuration: '6 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Intermédio',
+    metaValidated: 'Conteúdo informativo',
+    intro: 'Quando e como pensar em voltar a tentar, ao seu ritmo e com total confiança.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'O regresso da fertilidade',
+      'O que dizem geralmente os profissionais',
+      'Sentir-se pronta, ao seu ritmo',
+      'Acompanhamento que pode tranquilizar',
+      'Pontos a reter',
+    ],
+    body1: 'A fertilidade regressa geralmente logo no ciclo seguinte a um aborto espontâneo precoce. A ovulação pode até ocorrer antes de o período voltar visivelmente.',
+    infoTitle: 'Ponto a reter',
+    infoText: 'Consoante a fase da perda, o tempo de recuperação física pode variar ligeiramente de uma situação para outra.',
+    body2: 'Muitos profissionais consideram que não é necessário esperar vários ciclos antes de voltar a tentar, a menos que o seu médico ou a sua parteira aconselhe o contrário.',
+    compareEarlyTitle: 'Perda precoce',
+    compareEarlyText: 'A fertilidade regressa muitas vezes depressa, logo no ciclo seguinte.',
+    compareLateTitle: 'Perda mais tardia',
+    compareLateText: 'A equipa médica pode recomendar um tempo de recuperação ligeiramente mais longo.',
+    body3: 'Sentir-se pronta, física e emocionalmente, continua a ser o guia mais importante — muito mais do que qualquer prazo teórico.',
+    readinessPoints: [
+      {
+        title: 'Emocionalmente',
+        text: 'Sentir-se pronta por dentro é tão importante como a recuperação física.',
+      },
+      {
+        title: 'Fisicamente',
+        text: 'Um ciclo regular e uma sensação de bem-estar são bons indicadores.',
+      },
+      {
+        title: 'Em casal ou com apoio',
+        text: 'Falar sobre o assunto com o seu parceiro pode ajudar a avançarem ao mesmo ritmo.',
+      },
+    ],
+    body4: 'Antes de voltar a tentar, uma consulta médica pode ajudar a avançar com mais tranquilidade:',
+    followUpSteps: [
+      {
+        title: 'Fazer um balanço',
+        text: 'Uma conversa com um profissional permite revisitar o que aconteceu.',
+      },
+      {
+        title: 'Uma avaliação, se necessário',
+        text: 'Consoante a situação, podem ser propostos exames complementares.',
+      },
+      {
+        title: 'Uma nova tentativa',
+        text: 'O acompanhamento pode depois apoiá-la com serenidade quando voltar a tentar.',
+      },
+    ],
+    tipTitle: 'Bom saber',
+    tipText: 'Um aborto espontâneo isolado não indica, em geral, um problema de fertilidade. A sua equipa médica continua a ser a mais indicada para responder às suas questões pessoais.',
+    summaryPoints: [
+      'A fertilidade regressa geralmente logo no ciclo seguinte a um aborto espontâneo precoce.',
+      'Muitos profissionais consideram que não é necessário esperar vários ciclos, a menos que seja aconselhado o contrário.',
+      'Sentir-se pronta, física e emocionalmente, continua a ser o guia mais importante.',
+      'O acompanhamento médico pode apoiá-la e tranquilizá-la antes de voltar a tentar.',
+    ],
+    disclaimerText: 'Conteúdo informativo. Este artigo não substitui um aconselhamento médico personalizado. O seu médico ou a sua parteira continua a ser a referência para a sua situação.',
+    shareMessage: 'Fertilidade e voltar a tentar após uma perda — AWA',
+  },
+  bn: {
+    badge: 'গর্ভপাতের পর • প্রজনন ক্ষমতা',
+    title: 'গর্ভধারণ হারানোর পর প্রজনন ক্ষমতা ও আবার চেষ্টা করা',
+    metaDuration: '6 মিনিটের পাঠ',
+    metaType: 'গাইড',
+    metaLevel: 'মাঝারি',
+    metaValidated: 'তথ্যমূলক বিষয়বস্তু',
+    intro: 'আবার চেষ্টা করার কথা কখন ও কীভাবে ভাববেন, নিজের গতিতে এবং পূর্ণ আস্থার সঙ্গে।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'প্রজনন ক্ষমতা ফিরে আসা',
+      'বিশেষজ্ঞরা সাধারণত কী বলেন',
+      'নিজের গতিতে প্রস্তুত বোধ করা',
+      'যে ফলো-আপ যত্ন আপনাকে আশ্বস্ত করতে পারে',
+      'মূল কথা',
+    ],
+    body1: 'প্রাথমিক পর্যায়ের গর্ভপাতের পর সাধারণত পরবর্তী চক্র থেকেই প্রজনন ক্ষমতা ফিরে আসে। এমনকি আপনার মাসিক দৃশ্যমানভাবে ফিরে আসার আগেও ডিম্বস্ফোটন হতে পারে।',
+    infoTitle: 'মূল কথা',
+    infoText: 'গর্ভধারণ হারানোর পর্যায় অনুযায়ী শারীরিকভাবে সেরে ওঠার সময় এক পরিস্থিতি থেকে আরেক পরিস্থিতিতে সামান্য আলাদা হতে পারে।',
+    body2: 'অনেক বিশেষজ্ঞ মনে করেন, আপনার ডাক্তার বা ধাত্রী অন্য পরামর্শ না দিলে আবার চেষ্টা করার আগে কয়েকটি চক্র অপেক্ষা করার প্রয়োজন নেই।',
+    compareEarlyTitle: 'প্রাথমিক পর্যায়ে হারানো',
+    compareEarlyText: 'প্রজনন ক্ষমতা প্রায়ই দ্রুত ফিরে আসে, পরবর্তী চক্র থেকেই।',
+    compareLateTitle: 'পরবর্তী পর্যায়ে হারানো',
+    compareLateText: 'চিকিৎসক দল কিছুটা বেশি সময় সেরে ওঠার পরামর্শ দিতে পারেন।',
+    body3: 'শারীরিক ও মানসিকভাবে প্রস্তুত বোধ করাই সবচেয়ে গুরুত্বপূর্ণ পথনির্দেশক — কোনো তাত্ত্বিক সময়সীমার চেয়ে অনেক বেশি।',
+    readinessPoints: [
+      {
+        title: 'মানসিকভাবে',
+        text: 'নিজের ভেতরে প্রস্তুত বোধ করা শারীরিকভাবে সেরে ওঠার মতোই গুরুত্বপূর্ণ।',
+      },
+      {
+        title: 'শারীরিকভাবে',
+        text: 'নিয়মিত চক্র এবং সুস্থতার অনুভূতি ভালো লক্ষণ।',
+      },
+      {
+        title: 'দম্পতি হিসেবে বা সহায়তা নিয়ে',
+        text: 'আপনার সঙ্গীর সঙ্গে এ নিয়ে কথা বললে একই গতিতে এগিয়ে যেতে সহায়তা হতে পারে।',
+      },
+    ],
+    body4: 'আবার চেষ্টা করার আগে ডাক্তারের সঙ্গে সাক্ষাৎ আপনাকে আরও নিশ্চিন্তে এগিয়ে যেতে সাহায্য করতে পারে:',
+    followUpSteps: [
+      {
+        title: 'পরিস্থিতি পর্যালোচনা',
+        text: 'বিশেষজ্ঞের সঙ্গে কথোপকথনে যা ঘটেছিল তা আবার দেখে নেওয়া যায়।',
+      },
+      {
+        title: 'প্রয়োজনে মূল্যায়ন',
+        text: 'পরিস্থিতি অনুযায়ী অতিরিক্ত পরীক্ষার প্রস্তাব দেওয়া হতে পারে।',
+      },
+      {
+        title: 'নতুন চেষ্টা',
+        text: 'এরপর ফলো-আপ যত্ন আপনি আবার চেষ্টা করার সময় শান্তভাবে আপনার পাশে থাকতে পারে।',
+      },
+    ],
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'একটি বিচ্ছিন্ন গর্ভপাত সাধারণত প্রজনন ক্ষমতার সমস্যা নির্দেশ করে না। আপনার ব্যক্তিগত প্রশ্নের উত্তর দেওয়ার জন্য আপনার চিকিৎসক দলই সবচেয়ে উপযুক্ত।',
+    summaryPoints: [
+      'প্রাথমিক পর্যায়ের গর্ভপাতের পর সাধারণত পরবর্তী চক্র থেকেই প্রজনন ক্ষমতা ফিরে আসে।',
+      'অনেক বিশেষজ্ঞ মনে করেন, অন্য পরামর্শ না থাকলে কয়েকটি চক্র অপেক্ষা করার প্রয়োজন নেই।',
+      'শারীরিক ও মানসিকভাবে প্রস্তুত বোধ করাই সবচেয়ে গুরুত্বপূর্ণ পথনির্দেশক।',
+      'আবার চেষ্টা করার আগে চিকিৎসাগত ফলো-আপ আপনাকে সহায়তা ও আশ্বাস দিতে পারে।',
+    ],
+    disclaimerText: 'তথ্যমূলক বিষয়বস্তু। এই নিবন্ধ ব্যক্তিগত চিকিৎসা পরামর্শের বিকল্প নয়। আপনার পরিস্থিতির ক্ষেত্রে আপনার ডাক্তার বা ধাত্রীই নির্ভরযোগ্য দিকনির্দেশক।',
+    shareMessage: 'গর্ভধারণ হারানোর পর প্রজনন ক্ষমতা ও আবার চেষ্টা করা — AWA',
+  },
+} as const);
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */

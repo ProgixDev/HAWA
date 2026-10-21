@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'ovulation-comprendre-ovulation';
 
@@ -45,7 +46,7 @@ const ART = {
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('Ovulation', {
   fr: {
     badge: 'OVULATION',
     title: 'Comprendre\nl’ovulation',
@@ -489,7 +490,109 @@ const CONTENT = {
     tip2Text: 'ひとつのサインだけで完全に確かなものはありません。複数を組み合わせると、いちばん妊娠しやすい時期をよりつかみやすくなります。',
     shareMessage: '排卵を理解する — AWA',
   },
-} as const;
+  ko: {
+    badge: '배란',
+    title: '배란\n이해하기',
+    metaDuration: '6분 읽기',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '주기에서 가장 중요한 순간과 이를 알아차리는 방법이에요.',
+    contentsTitle: '이 아티클에서는',
+    topics: [
+      '배란이란?',
+      '함께 나타날 수 있는 신호',
+      '나만의 리듬 알아차리기',
+      '핵심 정리',
+    ],
+    body1: '배란은 난소 중 한쪽에서 난자가 배출되는 것을 말해요. 주기의 전체 길이와 상관없이 보통 다음 생리 약 14일 전에 일어나요.',
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '사람마다 크게 다른 것은 배란에서 다음 생리까지의 시간보다 다음 생리 날짜예요.',
+    body2: '배란이 가까워지면 몇 가지 신체 신호가 나타날 수 있어요. 정도는 사람마다 달라요.',
+    visualTitle: '더 묽어지는 자궁 경부 점액',
+    visualText: '배란이 가까워지면 자궁 경부 점액이 더 맑고 늘어나며 탄력이 생겨요.',
+    otherSigns: [
+      '아랫배 한쪽의 가벼운 통증(“mittelschmerz”, 배란통)',
+      '가슴 통증',
+      '배란 후 기초체온이 약간 오르는 것',
+      '일부 여성에게 나타나는 에너지 상승',
+    ],
+    body3: '여러 주기에 걸쳐 이런 신호를 관찰하면 나만의 리듬을 알게 되는 데 도움이 돼요. 내 리듬은 일반적인 평균과 다를 수 있어요.',
+    alertTitle: '참고하세요',
+    alertText: '배란이 없는 주기가 가끔 있을 수 있어요. 반드시 걱정해야 하는 일은 아니에요. 생리가 오랫동안 없거나 확실하지 않다면 의학적 조언을 받는 것이 좋아요.',
+    tip2Title: '알아 두면 좋아요',
+    tip2Text: '어떤 신호도 혼자서는 완벽하게 믿을 수 없어요. 여러 신호를 함께 살펴보면 가임기를 더 잘 가늠할 수 있어요.',
+    shareMessage: '배란 이해하기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'OVULAÇÃO',
+    title: 'Compreender\na ovulação',
+    metaDuration: '6 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'O momento-chave do seu ciclo e como reconhecê-lo.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'O que é a ovulação?',
+      'Os sinais que a podem acompanhar',
+      'Reconhecer o seu próprio ritmo',
+      'Pontos essenciais',
+    ],
+    body1: 'A ovulação é a libertação de um óvulo por um dos ovários. Ocorre geralmente cerca de 14 dias antes do próximo período, independentemente da duração total do seu ciclo.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'É a data do próximo período que varia de mulher para mulher, muito mais do que o intervalo entre a ovulação e a sua chegada.',
+    body2: 'Certos sinais físicos podem acompanhar a aproximação da ovulação, em graus variáveis consoante a mulher.',
+    visualTitle: 'Muco cervical mais fluido',
+    visualText: 'À medida que a ovulação se aproxima, o muco cervical torna-se mais claro, mais filamentoso e mais elástico.',
+    otherSigns: [
+      'Dor ligeira num dos lados da parte inferior do abdómen (“mittelschmerz”)',
+      'Sensibilidade nos seios',
+      'Ligeiro aumento da temperatura corporal basal após a ovulação',
+      'Um aumento de energia em algumas mulheres',
+    ],
+    body3: 'Observar estes sinais ao longo de vários ciclos ajuda a conhecer o seu próprio ritmo, que pode diferir das médias gerais.',
+    alertTitle: 'Atenção',
+    alertText: 'Pode ocorrer, ocasionalmente, um ciclo sem ovulação, sem que isso seja necessariamente motivo de preocupação. Se o período estiver ausente durante muito tempo ou se tiver dúvidas, recomenda-se aconselhamento médico.',
+    tip2Title: 'Bom saber',
+    tip2Text: 'Nenhum sinal é perfeitamente fiável por si só: combiná-los dá uma melhor ideia do seu período de maior fertilidade.',
+    shareMessage: 'Compreender a ovulação — AWA',
+  },
+  bn: {
+    badge: 'ডিম্বস্ফোটন',
+    title: 'ডিম্বস্ফোটন\nবোঝা',
+    metaDuration: 'পড়তে 6 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'আপনার চক্রের মূল মুহূর্ত এবং তা কীভাবে চিনবেন।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'ডিম্বস্ফোটন কী?',
+      'যেসব লক্ষণ দেখা দিতে পারে',
+      'নিজের ছন্দ চেনা',
+      'মূল কথা',
+    ],
+    body1: 'ডিম্বস্ফোটন হলো একটি ডিম্বাশয় থেকে ডিম্বাণু নির্গত হওয়া। এটি সাধারণত আপনার পরবর্তী মাসিকের প্রায় 14 দিন আগে ঘটে, চক্রের মোট দৈর্ঘ্য যা-ই হোক না কেন।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'নারীভেদে বেশি বদলায় পরবর্তী মাসিকের তারিখ; ডিম্বস্ফোটন থেকে মাসিক আসা পর্যন্ত সময়ের ব্যবধান তুলনায় অনেক কম বদলায়।',
+    body2: 'ডিম্বস্ফোটন ঘনিয়ে এলে কিছু শারীরিক লক্ষণ দেখা দিতে পারে, যা নারীভেদে কমবেশি হয়।',
+    visualTitle: 'আরও তরল জরায়ুমুখের শ্লেষ্মা',
+    visualText: 'ডিম্বস্ফোটন ঘনিয়ে এলে জরায়ুমুখের শ্লেষ্মা আরও স্বচ্ছ, আরও টানা যায় এমন এবং স্থিতিস্থাপক হয়ে ওঠে।',
+    otherSigns: [
+      'তলপেটের এক পাশে হালকা ব্যথা ("mittelschmerz")',
+      'স্তনে স্পর্শকাতরতা',
+      'ডিম্বস্ফোটনের পর বেসাল শরীরের তাপমাত্রা সামান্য বেড়ে যাওয়া',
+      'কিছু নারীর ক্ষেত্রে শক্তি বেড়ে যাওয়া',
+    ],
+    body3: 'কয়েকটি চক্র ধরে এই লক্ষণগুলো পর্যবেক্ষণ করলে আপনি নিজের ছন্দ চিনতে পারবেন, যা সাধারণ গড় হিসাব থেকে আলাদা হতে পারে।',
+    alertTitle: 'লক্ষ্য করুন',
+    alertText: 'মাঝে মাঝে ডিম্বস্ফোটন ছাড়াই চক্র হতে পারে, এবং এটি অবশ্যই দুশ্চিন্তার কারণ নয়। আপনার মাসিক অনেকদিন বন্ধ থাকলে বা আপনি নিশ্চিত না হলে চিকিৎসকের পরামর্শ নেওয়া ভালো।',
+    tip2Title: 'জেনে রাখা ভালো',
+    tip2Text: 'কোনো একটি লক্ষণ একা পুরোপুরি নির্ভরযোগ্য নয়: একাধিক লক্ষণ একসঙ্গে দেখলে আপনার সবচেয়ে উর্বর সময় সম্পর্কে ভালো ধারণা পাওয়া যায়।',
+    shareMessage: 'ডিম্বস্ফোটন বোঝা — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

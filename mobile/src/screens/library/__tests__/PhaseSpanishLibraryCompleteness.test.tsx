@@ -89,7 +89,7 @@ function splitContent(source: string): ContentSplit | null {
   const esIdx = source.indexOf('\n  es: {');
   // Italian was appended after `es`: the Spanish block now ends where `it` begins.
   const itIdx = source.indexOf('\n  it: {');
-  const endIdx = source.indexOf('} as const;');
+  const endIdx = source.indexOf('} as const'); // ('} as const;' or, since the Brazilian wrapper, '} as const);')
   if (frIdx === -1 || enIdx === -1 || esIdx === -1 || endIdx === -1) {
     return null;
   }
@@ -152,7 +152,7 @@ describe('ITEM 1 — reachable-article discovery matches the real ArticleReaderS
 
     for (const file of reachableFileList) {
       const source = fs.readFileSync(path.join(LIB_DIR, file), 'utf8');
-      expect(source).toMatch(/const CONTENT = \{/);
+      expect(source).toMatch(/const CONTENT = (?:withBrazilianPortuguese\('\w+', )?\{/);
       const split = splitContent(source);
       if (!split) {
         unparseable.push(file);

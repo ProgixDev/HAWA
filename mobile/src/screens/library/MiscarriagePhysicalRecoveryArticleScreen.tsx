@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -61,7 +62,7 @@ const COMFORT_TIPS_ICONS = [
 /* remains fully bilingual rather than having French replaced by English.   */
 /* -------------------------------------------------------------------------- */
 
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('MiscarriagePhysicalRecovery', {
   fr: {
     badge: 'APRÈS UNE FAUSSE COUCHE • RÉCUPÉRATION',
     title: 'La récupération physique après \nune fausse couche',
@@ -866,7 +867,226 @@ const CONTENT = {
     disclaimerText: '情報提供を目的とした内容です。この記事は、医師のアドバイスや診察に代わるものではありません。気になることがある場合や心配な症状がある場合は、医療従事者に相談してください。',
     shareMessage: '流産後の体の回復 — AWA',
   },
-} as const;
+  ko: {
+    badge: '유산 후 • 회복',
+    title: '유산 후\n몸의 회복',
+    metaDuration: '읽는 데 7분',
+    metaType: '아티클',
+    metaLevel: '입문',
+    metaValidated: '정보 제공용 콘텐츠',
+    intro: '몸이 다시 균형을 찾기까지는 시간이 필요해요. 이 시기를 천천히 이해하는 데 도움이 될 만한 내용을 알려 드려요.',
+    contentsTitle: '이 아티클에서 다루는 내용',
+    topics: [
+      '유산이란?',
+      '몸에서 일어날 수 있는 일',
+      '주기의 재개',
+      '안심할 수 있는 진료',
+      '진료를 받아야 할 때',
+      '핵심 정리',
+    ],
+    section1Body1: '유산은 임신이 저절로 끝나는 것으로, 대부분 임신 12~14주 이전에 일어나요. 확인된 임신 6~7건 중 1건이 이렇게 끝나는 것으로 추정되며, 대부분 임신 초기에 일어나요.',
+    section1Body2: '드문 일이 아니며, 앞으로 임신 가능성에 문제가 있다는 신호도 아니에요. 대부분은 발달 과정에서 우연히 생긴 염색체 이상처럼 누구도 통제할 수 없는 요인과 관련이 있어요.',
+    infoCard1Title: '핵심',
+    infoCard1Text: '유산은 내가 한 일이나 하지 않은 일 때문에 생기는 것이 아니에요. 일어난 일은 내 책임이 아니에요.',
+    section2Body: '겪는 경험은 사람마다 달라요. 가장 흔한 신호는 다음과 같아요.',
+    physicalSigns: [
+      {
+        title: '출혈',
+        text: '양과 기간은 상황에 따라 다를 수 있고, 이후 점차 줄어들어요.',
+      },
+      {
+        title: '경련성 통증',
+        text: '생리통과 비슷하거나 때로는 더 강한 통증이 이 시기에 함께 나타날 수 있어요.',
+      },
+      {
+        title: '사람마다 다른 기간',
+        text: '몸의 회복은 보통 며칠에서 몇 주까지 걸려요.',
+      },
+    ],
+    section3Body: '유산 후 호르몬 균형이 돌아오기까지는 보통 몇 주가 걸려요. 빠르면 4~6주 만에 주기가 돌아올 수 있지만, 사람마다 과정은 달라요.',
+    comfortTips: [
+      {
+        title: '충분히 쉬어도 괜찮아요',
+        text: '몸이 다시 균형을 찾기까지는 시간이 필요해요. 어떤 결과를 내야 한다는 부담은 갖지 않아도 돼요.',
+      },
+      {
+        title: '수분을 충분히 섭취해요',
+        text: '충분한 수분 섭취는 자연스럽게 회복에 도움이 돼요.',
+      },
+      {
+        title: '몸의 소리에 귀 기울여요',
+        text: '과정은 모두 달라요. 다른 사람과 비교하지 말고 나만의 속도로 나아가세요.',
+      },
+    ],
+    section4Body: '진료를 받으면 모든 것이 정상적으로 진행되고 있는지 확인할 수 있어 마음이 훨씬 놓여요. 이 진료는 궁금한 점을 모두 물어볼 기회이기도 해요.',
+    infoCard2Title: '이 진료에서 하는 일',
+    infoCard2Text: '겪은 일에 대한 대화, 필요하면 검진, 그리고 앞으로의 일에 대한 질문에 답할 수 있는 시간이 포함될 수 있어요.',
+    section5Body: '다음 중 어느 하나라도 나타나면 바로 의료 전문가에게 연락하는 것이 중요해요.',
+    warningTitle: '의료 전문가의 조언이 필요한 신호',
+    warningSigns: [
+      '열이 나거나 전반적인 상태가 나빠짐',
+      '매우 많은 출혈(1시간도 안 되어 생리용품을 갈아야 하는 경우)',
+      '나아지지 않는 심한 통증',
+      '평소와 다른 냄새',
+    ],
+    tipTitle: '알아 두면 좋아요',
+    tipText: '몸을 돌본다는 것은 모든 것을 통제한다는 뜻이 아니에요. 무엇보다 필요한 시간을 스스로에게 주는 것을 뜻해요.',
+    summaryPoints: [
+      '유산은 내가 한 일이나 하지 않은 일 때문에 생기는 것이 아니에요.',
+      '호르몬 균형이 돌아오기까지는 보통 몇 주가 걸려요.',
+      '빠르면 4~6주 만에 주기가 돌아올 수 있지만, 사람마다 과정은 달라요.',
+      '진료를 받으면 모든 것이 정상적으로 진행되고 있는지 확인하고 마음을 놓을 수 있어요.',
+    ],
+    disclaimerText: '정보 제공용 콘텐츠예요. 이 아티클은 의학적 조언이나 진찰을 대신하지 않아요. 궁금한 점이 있거나 걱정되는 증상이 있으면 의료 전문가의 조언을 구하세요.',
+    shareMessage: '유산 후 몸의 회복 — AWA',
+  },
+  'pt-PT': {
+    badge: 'APÓS UM ABORTO ESPONTÂNEO • RECUPERAÇÃO',
+    title: 'Recuperação física após \num aborto espontâneo',
+    metaDuration: '7 min de leitura',
+    metaType: 'Artigo',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo informativo',
+    intro: 'O seu corpo precisa de tempo para reencontrar o equilíbrio. Eis o que pode ajudá-la a compreender melhor esta fase, com delicadeza.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'O que é um aborto espontâneo?',
+      'O que pode acontecer fisicamente',
+      'O regresso do seu ciclo',
+      'Uma consulta médica tranquilizadora',
+      'Quando procurar cuidados médicos',
+      'Pontos essenciais',
+    ],
+    section1Body1: 'Um aborto espontâneo é o fim espontâneo de uma gravidez, na maioria das vezes antes das 12.ª a 14.ª semanas. Estima-se que uma em cada seis a sete gravidezes confirmadas termina desta forma, na maior parte das vezes no início da gravidez.',
+    section1Body2: 'Não é raro, nem é sinal de um futuro problema de fertilidade. Na grande maioria dos casos, está ligado a fatores que ninguém pode controlar, como uma anomalia cromossómica ocorrida por acaso durante o desenvolvimento.',
+    infoCard1Title: 'Ponto essencial',
+    infoCard1Text: 'Um aborto espontâneo não é causado por nada do que fez ou não fez. Não é responsável pelo que aconteceu.',
+    section2Body: 'Cada experiência é diferente de pessoa para pessoa. Eis os sinais mais frequentes:',
+    physicalSigns: [
+      {
+        title: 'Hemorragia',
+        text: 'A sua intensidade e duração podem variar consoante a situação, diminuindo depois gradualmente.',
+      },
+      {
+        title: 'Cólicas',
+        text: 'Uma dor semelhante às cólicas menstruais, por vezes mais intensa, pode acompanhar esta fase.',
+      },
+      {
+        title: 'Uma duração variável',
+        text: 'A recuperação física estende-se geralmente por alguns dias a algumas semanas.',
+      },
+    ],
+    section3Body: 'O seu corpo demora geralmente algumas semanas a recuperar o equilíbrio hormonal após um aborto espontâneo. Um ciclo pode regressar logo às 4 a 6 semanas, mas cada percurso é diferente.',
+    comfortTips: [
+      {
+        title: 'Permita-se descansar',
+        text: 'O seu corpo precisa de tempo para reencontrar o equilíbrio, sem pressão para alcançar um resultado em particular.',
+      },
+      {
+        title: 'Mantenha-se bem hidratada',
+        text: 'Uma boa hidratação apoia naturalmente a recuperação.',
+      },
+      {
+        title: 'Escute o seu corpo',
+        text: 'Cada percurso é diferente: avance ao seu ritmo, sem se comparar com as outras.',
+      },
+    ],
+    section4Body: 'Uma consulta médica ajuda a confirmar que tudo está a evoluir normalmente, com total tranquilidade. Esta consulta é também uma oportunidade para colocar todas as suas questões.',
+    infoCard2Title: 'O que esta consulta pode incluir',
+    infoCard2Text: 'Uma conversa sobre o que viveu, um exame se necessário e espaço para responder às suas questões sobre o que se segue.',
+    section5Body: 'Se surgir algum destes sinais, é importante contactar de imediato um profissional de saúde.',
+    warningTitle: 'Sinais que exigem aconselhamento médico',
+    warningSigns: [
+      'Febre ou agravamento do estado geral',
+      'Hemorragia muito abundante (necessidade de mudar a proteção em menos de uma hora)',
+      'Dor intensa que não melhora',
+      'Um odor invulgar',
+    ],
+    tipTitle: 'Bom saber',
+    tipText: 'Cuidar do seu corpo não significa controlar tudo: significa sobretudo dar-se o tempo de que precisa.',
+    summaryPoints: [
+      'Um aborto espontâneo não é causado por nada do que fez ou não fez.',
+      'O seu corpo demora geralmente algumas semanas a recuperar o equilíbrio hormonal.',
+      'Um ciclo pode regressar logo às 4 a 6 semanas, mas cada percurso é diferente.',
+      'Uma consulta médica permite-lhe confirmar que tudo está a evoluir normalmente, com total tranquilidade.',
+    ],
+    disclaimerText: 'Conteúdo informativo. Este artigo não substitui o aconselhamento nem o exame médico. Em caso de dúvida ou de sintomas preocupantes, procure o aconselhamento de um profissional de saúde.',
+    shareMessage: 'Recuperação física após um aborto espontâneo — AWA',
+  },
+  bn: {
+    badge: 'গর্ভপাতের পর • সুস্থ হয়ে ওঠা',
+    title: 'গর্ভপাতের পর\nশারীরিক সুস্থতা',
+    metaDuration: '7 মিনিটের পাঠ',
+    metaType: 'নিবন্ধ',
+    metaLevel: 'নতুনদের জন্য',
+    metaValidated: 'তথ্যমূলক বিষয়বস্তু',
+    intro: 'আপনার শরীরের ভারসাম্য ফিরে পেতে সময় লাগে। এই পর্যায়টি আরও ভালোভাবে বুঝতে কী সাহায্য করতে পারে, তা এখানে আলতোভাবে বলা হলো।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'গর্ভপাত কী?',
+      'শারীরিকভাবে কী হতে পারে',
+      'আপনার চক্র ফিরে আসা',
+      'আশ্বস্ত করার মতো একটি চিকিৎসা পরীক্ষা',
+      'কখন চিকিৎসা সহায়তা নেবেন',
+      'মূল কথা',
+    ],
+    section1Body1: 'গর্ভপাত হলো গর্ভাবস্থার স্বতঃস্ফূর্ত সমাপ্তি, যা বেশিরভাগ ক্ষেত্রে 12তম থেকে 14তম সপ্তাহের আগে ঘটে। অনুমান করা হয় নিশ্চিত হওয়া প্রতি ছয় থেকে সাতটি গর্ভাবস্থার একটি এভাবে শেষ হয়, বেশিরভাগ ক্ষেত্রে গর্ভাবস্থার শুরুর দিকে।',
+    section1Body2: 'এটি বিরল নয়, আবার ভবিষ্যতে প্রজনন ক্ষমতার সমস্যার লক্ষণও নয়। অধিকাংশ ক্ষেত্রে এটি কারও নিয়ন্ত্রণের বাইরের কারণের সঙ্গে যুক্ত, যেমন বিকাশের সময় আকস্মিকভাবে ঘটে যাওয়া ক্রোমোজোমের অস্বাভাবিকতা।',
+    infoCard1Title: 'মূল কথা',
+    infoCard1Text: 'আপনি যা করেছেন বা করেননি, তার কারণে গর্ভপাত হয় না। যা ঘটেছে তার জন্য আপনি দায়ী নন।',
+    section2Body: 'প্রতিটি অভিজ্ঞতা একেক জনের একেক রকম। সবচেয়ে সাধারণ লক্ষণগুলো হলো:',
+    physicalSigns: [
+      {
+        title: 'রক্তপাত',
+        text: 'এর তীব্রতা ও সময়কাল পরিস্থিতি অনুযায়ী ভিন্ন হতে পারে, তারপর ধীরে ধীরে কমে আসে।',
+      },
+      {
+        title: 'পেটে মোচড়ানো ব্যথা',
+        text: 'মাসিকের ব্যথার মতো, কখনো কখনো আরও তীব্র ব্যথা এই পর্যায়ে হতে পারে।',
+      },
+      {
+        title: 'পরিবর্তনশীল সময়কাল',
+        text: 'শারীরিকভাবে সুস্থ হতে সাধারণত কয়েক দিন থেকে কয়েক সপ্তাহ লাগে।',
+      },
+    ],
+    section3Body: 'গর্ভপাতের পর আপনার শরীরের হরমোনের ভারসাম্য ফিরে পেতে সাধারণত কয়েক সপ্তাহ লাগে। চক্র 4 থেকে 6 সপ্তাহের মধ্যেই ফিরে আসতে পারে, তবে প্রত্যেকের যাত্রা আলাদা।',
+    comfortTips: [
+      {
+        title: 'নিজেকে বিশ্রাম নিতে দিন',
+        text: 'আপনার শরীরের ভারসাম্য ফিরে পেতে সময় লাগে, কোনো নির্দিষ্ট ফলাফল অর্জনের চাপ ছাড়াই।',
+      },
+      {
+        title: 'পর্যাপ্ত পানি পান করুন',
+        text: 'ভালোভাবে পানি পান স্বাভাবিকভাবেই সুস্থ হয়ে ওঠায় সহায়তা করে।',
+      },
+      {
+        title: 'নিজের শরীরের কথা শুনুন',
+        text: 'প্রত্যেকের যাত্রা আলাদা: অন্যদের সঙ্গে নিজেকে তুলনা না করে নিজের গতিতে এগোন।',
+      },
+    ],
+    section4Body: 'একটি চিকিৎসা পরীক্ষা নিশ্চিত করতে সাহায্য করে যে সবকিছু স্বাভাবিকভাবে এগোচ্ছে, যাতে আপনি পুরোপুরি নিশ্চিন্ত থাকতে পারেন। এই সাক্ষাৎ আপনার সব প্রশ্ন করারও একটি সুযোগ।',
+    infoCard2Title: 'এই সাক্ষাতে যা থাকতে পারে',
+    infoCard2Text: 'আপনি যা পার করে এসেছেন তা নিয়ে আলোচনা, প্রয়োজনে একটি পরীক্ষা এবং এরপর কী হবে সে বিষয়ে আপনার প্রশ্নের উত্তর দেওয়ার সুযোগ।',
+    section5Body: 'এই লক্ষণগুলোর কোনোটি দেখা দিলে অবিলম্বে স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে যোগাযোগ করা গুরুত্বপূর্ণ।',
+    warningTitle: 'যেসব লক্ষণে চিকিৎসা পরামর্শ প্রয়োজন',
+    warningSigns: [
+      'জ্বর বা সার্বিক অবস্থার অবনতি',
+      'অত্যন্ত বেশি রক্তপাত (এক ঘণ্টার কম সময়ে প্যাড বা সুরক্ষা বদলাতে হওয়া)',
+      'তীব্র ব্যথা যা কমছে না',
+      'অস্বাভাবিক দুর্গন্ধ',
+    ],
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'নিজের শরীরের যত্ন নেওয়ার অর্থ সবকিছু নিয়ন্ত্রণ করা নয়: এর মূল অর্থ নিজেকে প্রয়োজনীয় সময়টুকু দেওয়া।',
+    summaryPoints: [
+      'আপনি যা করেছেন বা করেননি, তার কারণে গর্ভপাত হয় না।',
+      'হরমোনের ভারসাম্য ফিরে পেতে আপনার শরীরের সাধারণত কয়েক সপ্তাহ লাগে।',
+      'চক্র 4 থেকে 6 সপ্তাহের মধ্যেই ফিরে আসতে পারে, তবে প্রত্যেকের যাত্রা আলাদা।',
+      'একটি চিকিৎসা পরীক্ষায় আপনি নিশ্চিত হতে পারেন যে সবকিছু স্বাভাবিকভাবে এগোচ্ছে, পুরোপুরি নিশ্চিন্তে।',
+    ],
+    disclaimerText: 'তথ্যমূলক বিষয়বস্তু। এই নিবন্ধ চিকিৎসা পরামর্শ বা পরীক্ষার বিকল্প নয়। সন্দেহ থাকলে বা উদ্বেগজনক উপসর্গ দেখা দিলে স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিন।',
+    shareMessage: 'গর্ভপাতের পর শারীরিক সুস্থতা — AWA',
+  },
+} as const);
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */

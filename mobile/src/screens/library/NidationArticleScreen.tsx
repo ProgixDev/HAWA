@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'conceptiontips-comprendre-nidation';
 
@@ -41,7 +42,7 @@ const HERO = require('../../assets/images/library/featured-cycle.png');
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('Nidation', {
   fr: {
     badge: 'NIDATION',
     title: 'Comprendre\nla nidation',
@@ -442,7 +443,100 @@ const CONTENT = {
     tip2Text: '着床は、目に見えるサインの有無にかかわらず、静かに起こります。検査の前に少し待つことで、信頼できない結果を避けられます。',
     shareMessage: '着床について知る — AWA',
   },
-} as const;
+  ko: {
+    badge: '착상',
+    title: '착상\n이해하기',
+    metaDuration: '5분 읽기',
+    metaType: '아티클',
+    metaLevel: '중급',
+    metaValidated: '검토된 콘텐츠',
+    intro: '수정부터 임신 테스트 양성이 나오기까지 어떤 일이 일어나는지 알아봐요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '수정에서 착상까지',
+      '나타날 수 있는 신호, 확실하지는 않아요',
+      '테스트를 믿을 수 있는 시기',
+      '핵심 정리',
+    ],
+    body1: '수정 후 난자는 보통 6~10일에 걸쳐 자궁에 도달해 그곳에 자리를 잡아요. 이것이 착상이에요. 이 단계가 임신의 진짜 시작점이에요.',
+    body2: '착상할 때 가벼운 출혈이나 복통이 나타나기도 하지만, 항상 그런 것은 아니고 그것만으로는 믿을 만한 신호도 아니에요.',
+    possibleSigns: [
+      '아주 가벼운 출혈, 흔히 “소량 출혈”이라고 해요',
+      '아랫배의 가벼운 통증',
+      '많은 여성에게는 아무런 신호도 없어요',
+    ],
+    tip1Title: '알아 두세요',
+    tip1Text: '신호가 없다고 해서 의미가 있는 것은 아니에요. 많은 임신이 이 단계에서 눈에 띄는 증상 없이 시작돼요.',
+    body3: '착상이 이루어진 뒤에야 hCG 호르몬이 만들어지기 시작하고, 임신 테스트로 검출할 수 있게 돼요. 너무 일찍 테스트하면 실제로는 임신인데 음성으로 나올 수 있어요.',
+    alertTitle: '참고',
+    alertText: '생리 예정일까지 기다린 뒤에 테스트하면 너무 일찍 테스트할 때보다 더 믿을 만한 결과를 얻을 수 있어요.',
+    tip2Title: '알아 두세요',
+    tip2Text: '착상은 눈에 보이는 신호가 있든 없든 조용히 일어나요. 테스트 전에 조금만 기다리면 믿을 수 없는 결과를 피할 수 있어요.',
+    shareMessage: '착상 이해하기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'IMPLANTAÇÃO',
+    title: 'Compreender\na implantação',
+    metaDuration: 'Leitura de 5 min',
+    metaType: 'Artigo',
+    metaLevel: 'Intermédio',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'O que acontece entre a fecundação e um teste de gravidez positivo.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Da fecundação à implantação',
+      'Possíveis sinais, sem certeza',
+      'Quando um teste se torna fiável',
+      'O essencial a reter',
+    ],
+    body1: 'Após a fecundação, o óvulo demora normalmente entre 6 e 10 dias a chegar ao útero e a fixar-se nele: é a implantação. Esta etapa marca o verdadeiro ponto de partida da gravidez.',
+    body2: 'Uma ligeira perda de sangue ou algumas cólicas podem por vezes acompanhar a implantação, mas isso não é sistemático, nem um sinal fiável por si só.',
+    possibleSigns: [
+      'Uma perda de sangue muito ligeira, por vezes chamada “spotting”',
+      'Cólicas leves na parte inferior do abdómen',
+      'Nenhum sinal em particular, para muitas mulheres',
+    ],
+    tip1Title: 'Bom saber',
+    tip1Text: 'A ausência de sinais não significa nada: muitas gravidezes começam sem qualquer sintoma percetível nesta fase.',
+    body3: 'Só depois da implantação é que a hormona hCG começa a ser produzida e se torna detetável por um teste de gravidez. Fazer o teste demasiado cedo pode dar um resultado falsamente negativo.',
+    alertTitle: 'Nota',
+    alertText: 'Esperar pelo dia previsto do período antes de fazer o teste dá um resultado mais fiável do que testar demasiado cedo.',
+    tip2Title: 'Bom saber',
+    tip2Text: 'A implantação decorre de forma discreta, com ou sem sinal visível. Um pouco de paciência antes de fazer o teste evita um resultado pouco fiável.',
+    shareMessage: 'Compreender a implantação — AWA',
+  },
+  bn: {
+    badge: 'ইমপ্ল্যান্টেশন',
+    title: 'ইমপ্ল্যান্টেশন\nবোঝা',
+    metaDuration: '5 মিনিটের পাঠ',
+    metaType: 'নিবন্ধ',
+    metaLevel: 'মাঝারি',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'নিষেকের পর থেকে গর্ভাবস্থার পরীক্ষায় পজিটিভ ফল আসা পর্যন্ত কী ঘটে।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'নিষেক থেকে ইমপ্ল্যান্টেশন',
+      'সম্ভাব্য লক্ষণ, নিশ্চয়তা ছাড়া',
+      'কখন পরীক্ষা নির্ভরযোগ্য হয়',
+      'মূল কথা',
+    ],
+    body1: 'নিষেকের পর ডিম্বাণুটি সাধারণত জরায়ুতে পৌঁছে সেখানে স্থিত হতে 6 থেকে 10 দিন সময় নেয়: একেই বলে ইমপ্ল্যান্টেশন। এই ধাপটি গর্ভাবস্থার প্রকৃত সূচনাবিন্দু।',
+    body2: 'ইমপ্ল্যান্টেশনের সময় কখনো কখনো হালকা রক্তপাত বা তলপেটে ব্যথা হতে পারে, তবে এটি সবসময় হয় না এবং এটি এককভাবে নির্ভরযোগ্য লক্ষণও নয়।',
+    possibleSigns: [
+      'খুব হালকা রক্তপাত, যাকে কখনো কখনো “স্পটিং” বলা হয়',
+      'তলপেটে মৃদু ব্যথা',
+      'অনেক নারীর ক্ষেত্রে কোনো বিশেষ লক্ষণই থাকে না',
+    ],
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'কোনো লক্ষণ না থাকার মানে কিছুই নয়: এই পর্যায়ে অনেক গর্ভাবস্থা কোনো টের পাওয়ার মতো উপসর্গ ছাড়াই শুরু হয়।',
+    body3: 'ইমপ্ল্যান্টেশনের পরই এইচসিজি হরমোন তৈরি হতে শুরু করে এবং গর্ভাবস্থার পরীক্ষায় ধরা পড়ার মতো হয়। খুব আগে পরীক্ষা করলে ভুলভাবে নেগেটিভ ফল আসতে পারে।',
+    alertTitle: 'লক্ষ্য করুন',
+    alertText: 'পরীক্ষা করার আগে আপনার মাসিক হওয়ার সম্ভাব্য দিন পর্যন্ত অপেক্ষা করলে খুব আগে পরীক্ষা করার চেয়ে বেশি নির্ভরযোগ্য ফল পাওয়া যায়।',
+    tip2Title: 'জেনে রাখা ভালো',
+    tip2Text: 'ইমপ্ল্যান্টেশন নীরবে ঘটে, দৃশ্যমান লক্ষণ থাকুক বা না থাকুক। পরীক্ষা করার আগে একটু ধৈর্য ধরলে অনির্ভরযোগ্য ফল এড়ানো যায়।',
+    shareMessage: 'ইমপ্ল্যান্টেশন বোঝা — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

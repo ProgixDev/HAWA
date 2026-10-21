@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'breastfeeding-debuter-allaitement';
 
@@ -72,7 +73,7 @@ const SUPPORT_OPTIONS_META = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('Breastfeeding', {
   fr: {
     shareMessage: 'Débuter l’allaitement en confiance — AWA',
     badge: 'POST-PARTUM • ALLAITEMENT',
@@ -1159,7 +1160,331 @@ const CONTENT = {
     ],
     disclaimerText: '情報提供を目的とした内容です。この記事は、医療従事者による個別の指導に代わるものではありません。',
   },
-} as const;
+  ko: {
+    shareMessage: '자신 있게 모유 수유 시작하기 — AWA',
+    badge: '산후 • 모유 수유',
+    title: '자신 있게\n모유 수유 시작하기',
+    metaDuration: '읽는 데 6분',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '모유 수유를 시작하는 첫 며칠은 아기와 엄마 모두 배우는 시간이에요. 물리기, 리듬, 자세, 관찰을 통해 편안한 방법을 조금씩 찾아갈 수 있어요.',
+    contentsTitle: '이 아티클에서 다루는 내용',
+    contentsSubtitle: '시작하기 위한 핵심',
+    tocItems: [
+      '첫 단계',
+      '살펴볼 신호',
+      '좋은 물리기',
+      '도움을 청해야 할 때',
+      '핵심 정리',
+    ],
+    h2Step1: '1. 첫 단계',
+    body1: '모유 수유는 조금씩 자리를 잡아가요. 첫 몇 시간, 그리고 첫 며칠 동안 아기와 엄마는 함께 배워갈 시간을 가져요.',
+    timelineTitle: '단계별로 시작하기',
+    timelineSubtitle: '부담 없이 따라 할 수 있는 간단한 가이드',
+    startingSteps: [
+      {
+        title: '출산 직후',
+        text: '피부 맞닿기와 이른 시기의 물리기가 모유 수유를 잘 시작하는 데 도움이 될 수 있어요.',
+      },
+      {
+        title: '첫 몇 시간',
+        text: '아기가 자주 먹으려고 할 수 있어요. 리듬이 일정하지 않은 것은 자연스러운 일이에요.',
+      },
+      {
+        title: '첫 며칠',
+        text: '수유가 점차 아기와 엄마가 함께 만드는 리듬이 되어가요.',
+      },
+      {
+        title: '리듬이 자리 잡기',
+        text: '모유량이 아기에게 필요한 만큼으로 조금씩 맞춰져요.',
+      },
+    ],
+    h2Step2: '2. 살펴볼 신호',
+    body2: '시계만 보기보다 아기가 깨어나는 신호, 수유, 기저귀 상태를 살펴보면 도움이 될 수 있어요.',
+    signals: [
+      {
+        title: '잦은 수유 리듬',
+        text: '신생아는 자주 먹으려고 할 수 있어요. 24시간 동안 8~12회까지도 먹을 수 있어요.',
+      },
+      {
+        title: '깨어나는 신호',
+        text: '아기가 배고파지기 시작하면 몸을 움직이거나, 입을 벌리거나, 가슴을 찾는 행동을 할 수 있어요.',
+      },
+      {
+        title: '기저귀',
+        text: '젖은 기저귀와 대변 기저귀의 수는 매일 지켜봐야 할 것 중 하나예요.',
+      },
+    ],
+    h2Step3: '3. 좋은 물리기',
+    body3: '편안한 자세와 효과적인 물리기는 수유를 더 수월하게 해줄 수 있어요. 통증이 심하거나 계속되면 의료 전문가가 자세와 물리기를 확인해 줄 수 있어요.',
+    latchTitle: '편안함을 확인하는 4가지 기준',
+    latchSubtitle: '수유하는 동안 간단히 확인하기',
+    latchCenterTitle: '아기 + 가슴',
+    latchCenterSubtitle: '편안한 자세',
+    latchPoints: [
+      {
+        title: '아기의 자세가 좋아요',
+        text: '아기를 몸 가까이 안고, 머리가 편안하게 정렬되도록 해요.',
+      },
+      {
+        title: '입을 크게 벌려요',
+        text: '가슴을 물리기 전에 입이 충분히 크게 벌어질 때까지 기다려요.',
+      },
+      {
+        title: '편안하게 물어요',
+        text: '효과적으로 물렸다면 심하거나 계속되는 통증이 없어야 해요.',
+      },
+      {
+        title: '규칙적으로 빨아요',
+        text: '수유하는 동안 빠는 움직임과 삼키는 움직임을 볼 수 있어요.',
+      },
+    ],
+    h2Step4: '4. 언제 도움을 청해야 할까요?',
+    body4: '어려움이 심해질 때까지 기다릴 필요는 없어요. 교육받은 전문가가 자세, 물리기, 아기에게 필요한 것을 확인해 줄 수 있어요.',
+    supportOptions: [
+      {
+        title: '조산사',
+        text: '처음 물리는 과정을 곁에서 도와줄 수 있어요.',
+      },
+      {
+        title: '의료 전문가',
+        text: '아기와 엄마의 건강 상태를 확인해 줄 수 있어요.',
+      },
+      {
+        title: '모유 수유 전문가',
+        text: '물리기가 어려울 때 도움을 줄 수 있어요.',
+      },
+    ],
+    infoTitle: '모유 수유의 과정은 모두 달라요',
+    infoText: '첫 며칠은 사람마다 많이 다를 수 있어요. 수유 리듬과 모유량은 시간이 지나면서 조금씩 달라질 수 있어요. 걱정되는 점이 있으면 의료 전문가에게 조언을 구하세요.',
+    h2Summary: '핵심 정리',
+    summaryItems: [
+      '첫 수유는 아기와 엄마가 함께 배우는 시간이에요.',
+      '신생아는 자주 먹으려고 할 수 있어요.',
+      '편안한 자세와 좋은 물리기가 중요해요.',
+      '완벽하게 정해진 시간표를 목표로 하기보다 아기의 신호를 살피는 것이 더 도움이 돼요.',
+      '초기의 어려움은 조산사나 모유 수유 전문가가 도와줄 수 있어요.',
+    ],
+    disclaimerText: '정보 제공용 콘텐츠예요. 이 아티클은 의료 전문가의 맞춤 안내를 대신하지 않아요.',
+  },
+  'pt-PT': {
+    shareMessage: 'Começar a amamentar com confiança — AWA',
+    badge: 'PÓS-PARTO • AMAMENTAÇÃO',
+    title: 'Começar a amamentar\ncom confiança',
+    metaDuration: '6 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Os primeiros dias de amamentação são um período de aprendizagem para o bebé e para a mãe. A pega, o ritmo, o posicionamento e a observação ajudam, aos poucos, a encontrar o que é confortável.',
+    contentsTitle: 'Neste artigo',
+    contentsSubtitle: 'O essencial para começar',
+    tocItems: [
+      'Os primeiros passos',
+      'Sinais a observar',
+      'Uma boa pega',
+      'Quando pedir ajuda',
+      'Pontos essenciais',
+    ],
+    h2Step1: '1. Os primeiros passos',
+    body1: 'A amamentação estabelece-se gradualmente. As primeiras horas e, depois, os primeiros dias dão ao bebé e à mãe tempo para aprenderem em conjunto.',
+    timelineTitle: 'Começar, passo a passo',
+    timelineSubtitle: 'Um guia simples, sem pressão',
+    startingSteps: [
+      {
+        title: 'Após o parto',
+        text: 'O contacto pele com pele e uma pega precoce podem ajudar a amamentação a começar bem.',
+      },
+      {
+        title: 'As primeiras horas',
+        text: 'O bebé pode mamar com frequência. É normal que o ritmo varie.',
+      },
+      {
+        title: 'Os primeiros dias',
+        text: 'As mamadas tornam-se gradualmente um ritmo partilhado entre o bebé e a mãe.',
+      },
+      {
+        title: 'Instalar um ritmo',
+        text: 'A produção de leite ajusta-se progressivamente às necessidades do bebé.',
+      },
+    ],
+    h2Step2: '2. Sinais a observar',
+    body2: 'Em vez de olhar apenas para o relógio, pode ser útil observar os sinais de despertar do bebé, as mamadas e as fraldas.',
+    signals: [
+      {
+        title: 'Um ritmo frequente',
+        text: 'Um recém-nascido pode pedir para mamar muitas vezes, por vezes 8 a 12 vezes em 24 horas.',
+      },
+      {
+        title: 'Sinais de despertar',
+        text: 'O bebé pode mexer-se, abrir a boca ou procurar o peito quando começa a ter fome.',
+      },
+      {
+        title: 'Fraldas',
+        text: 'O número de fraldas molhadas e sujas é uma das coisas a acompanhar de dia para dia.',
+      },
+    ],
+    h2Step3: '3. Uma boa pega',
+    body3: 'Uma posição confortável e uma pega eficaz podem facilitar as mamadas. Se a dor for significativa ou persistente, um profissional de saúde pode verificar o posicionamento e a pega.',
+    latchTitle: 'Os 4 marcadores de conforto',
+    latchSubtitle: 'Uma verificação simples durante as mamadas',
+    latchCenterTitle: 'Bebé + peito',
+    latchCenterSubtitle: 'Posição confortável',
+    latchPoints: [
+      {
+        title: 'Bebé bem posicionado',
+        text: 'O bebé é segurado junto ao corpo, com a cabeça num alinhamento confortável.',
+      },
+      {
+        title: 'Boca bem aberta',
+        text: 'Aguarde por uma abertura da boca suficientemente ampla antes de oferecer o peito.',
+      },
+      {
+        title: 'Pega confortável',
+        text: 'Uma pega eficaz não deve causar dor significativa ou persistente.',
+      },
+      {
+        title: 'Sucção regular',
+        text: 'Podem observar-se movimentos de sucção e de deglutição durante a mamada.',
+      },
+    ],
+    h2Step4: '4. Quando pedir ajuda?',
+    body4: 'Não é preciso esperar que as dificuldades se tornem graves. Um profissional com formação pode ajudar a verificar o posicionamento, a pega ou as necessidades do bebé.',
+    supportOptions: [
+      {
+        title: 'Parteira',
+        text: 'Pode acompanhá-la nas primeiras pegas.',
+      },
+      {
+        title: 'Profissional de saúde',
+        text: 'Pode verificar a saúde do bebé e da mãe.',
+      },
+      {
+        title: 'Consultora de amamentação',
+        text: 'Pode ajudar quando a pega se revela difícil.',
+      },
+    ],
+    infoTitle: 'Cada percurso de amamentação é diferente',
+    infoText: 'Os primeiros dias podem variar muito. O ritmo das mamadas e a quantidade de leite podem mudar gradualmente ao longo do tempo. Se algo a preocupar, peça aconselhamento a um profissional de saúde.',
+    h2Summary: 'Pontos essenciais',
+    summaryItems: [
+      'As primeiras mamadas são um período de aprendizagem para o bebé e para a mãe.',
+      'Um recém-nascido pode pedir para mamar com frequência.',
+      'Uma posição confortável e uma boa pega são importantes.',
+      'Observar os sinais do bebé é mais útil do que procurar um horário perfeitamente fixo.',
+      'Uma parteira ou uma consultora de amamentação pode ajudá-la nas dificuldades iniciais.',
+    ],
+    disclaimerText: 'Conteúdo informativo. Este artigo não substitui o acompanhamento personalizado de um profissional de saúde.',
+  },
+  bn: {
+    shareMessage: 'আত্মবিশ্বাসের সঙ্গে বুকের দুধ খাওয়ানো শুরু করা — AWA',
+    badge: 'প্রসবোত্তর • বুকের দুধ খাওয়ানো',
+    title: 'আত্মবিশ্বাসের সঙ্গে\nবুকের দুধ খাওয়ানো শুরু করা',
+    metaDuration: 'পড়তে 6 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'বুকের দুধ খাওয়ানোর প্রথম দিনগুলো শিশু ও মা দুজনের জন্যই শেখার সময়। স্তনে মুখ লাগানো, ছন্দ, অবস্থান ও পর্যবেক্ষণ ধীরে ধীরে আপনাকে বুঝতে সাহায্য করে কোনটি আরামদায়ক।',
+    contentsTitle: 'এই নিবন্ধে',
+    contentsSubtitle: 'শুরু করার জন্য প্রয়োজনীয় বিষয়গুলো',
+    tocItems: [
+      'প্রথম ধাপগুলো',
+      'যেসব লক্ষণ খেয়াল রাখবেন',
+      'সঠিকভাবে মুখ লাগানো',
+      'কখন সাহায্য চাইবেন',
+      'মূল কথা',
+    ],
+    h2Step1: '1. প্রথম ধাপগুলো',
+    body1: 'বুকের দুধ খাওয়ানো ধীরে ধীরে গড়ে ওঠে। প্রথম কয়েক ঘণ্টা, তারপর প্রথম কয়েক দিন শিশু ও মাকে একসঙ্গে শেখার সময় দেয়।',
+    timelineTitle: 'ধাপে ধাপে শুরু করা',
+    timelineSubtitle: 'কোনো চাপ ছাড়া একটি সহজ গাইড',
+    startingSteps: [
+      {
+        title: 'প্রসবের পর',
+        text: 'ত্বকে ত্বক স্পর্শ এবং তাড়াতাড়ি স্তনে মুখ লাগানো বুকের দুধ খাওয়ানোর ভালো সূচনায় সাহায্য করতে পারে।',
+      },
+      {
+        title: 'প্রথম কয়েক ঘণ্টা',
+        text: 'শিশু ঘন ঘন দুধ খেতে পারে। ছন্দ বদলাতে থাকা স্বাভাবিক।',
+      },
+      {
+        title: 'প্রথম কয়েক দিন',
+        text: 'দুধ খাওয়ানো ধীরে ধীরে শিশু ও মায়ের একটি যৌথ ছন্দে পরিণত হয়।',
+      },
+      {
+        title: 'ছন্দ গড়ে ওঠা',
+        text: 'দুধের সরবরাহ ধীরে ধীরে শিশুর প্রয়োজন অনুযায়ী মানিয়ে নেয়।',
+      },
+    ],
+    h2Step2: '2. যেসব লক্ষণ খেয়াল রাখবেন',
+    body2: 'শুধু ঘড়ির দিকে না তাকিয়ে শিশুর জেগে ওঠার লক্ষণ, দুধ খাওয়া এবং ডায়াপারের ধরন লক্ষ করা সহায়ক হতে পারে।',
+    signals: [
+      {
+        title: 'ঘন ঘন ছন্দ',
+        text: 'নবজাতক ঘন ঘন দুধ চাইতে পারে, কখনো কখনো 24 ঘণ্টায় 8 থেকে 12 বার।',
+      },
+      {
+        title: 'জেগে ওঠার লক্ষণ',
+        text: 'ক্ষুধা পেতে শুরু করলে শিশু নড়াচড়া করতে পারে, মুখ খুলতে পারে বা স্তনের দিকে মুখ ঘোরাতে পারে।',
+      },
+      {
+        title: 'ডায়াপার',
+        text: 'ভেজা ও নোংরা ডায়াপারের সংখ্যা প্রতিদিন নজর রাখার বিষয়গুলোর একটি।',
+      },
+    ],
+    h2Step3: '3. সঠিকভাবে মুখ লাগানো',
+    body3: 'আরামদায়ক অবস্থান এবং কার্যকর মুখ লাগানো দুধ খাওয়ানো সহজ করতে পারে। ব্যথা বেশি বা অব্যাহত থাকলে স্বাস্থ্যসেবা পেশাজীবী অবস্থান ও মুখ লাগানো পরীক্ষা করে দিতে পারেন।',
+    latchTitle: 'আরামের 4টি চিহ্ন',
+    latchSubtitle: 'দুধ খাওয়ানোর সময় একটি সহজ যাচাই',
+    latchCenterTitle: 'শিশু + স্তন',
+    latchCenterSubtitle: 'আরামদায়ক অবস্থান',
+    latchPoints: [
+      {
+        title: 'শিশু ঠিকভাবে অবস্থান করছে',
+        text: 'শিশুকে শরীরের কাছাকাছি ধরা হয়েছে এবং তার মাথা আরামদায়ক সোজা অবস্থানে আছে।',
+      },
+      {
+        title: 'মুখ পুরোপুরি খোলা',
+        text: 'স্তন দেওয়ার আগে মুখ যথেষ্ট বড় করে খোলা পর্যন্ত অপেক্ষা করুন।',
+      },
+      {
+        title: 'আরামদায়ক মুখ লাগানো',
+        text: 'কার্যকর মুখ লাগানোয় উল্লেখযোগ্য বা অব্যাহত ব্যথা হওয়া উচিত নয়।',
+      },
+      {
+        title: 'নিয়মিত চোষা',
+        text: 'দুধ খাওয়ানোর সময় চোষা ও গেলার নড়াচড়া দেখা যেতে পারে।',
+      },
+    ],
+    h2Step4: '4. কখন সাহায্য চাইবেন?',
+    body4: 'সমস্যা গুরুতর হওয়া পর্যন্ত অপেক্ষা করার প্রয়োজন নেই। একজন প্রশিক্ষিত পেশাজীবী অবস্থান, মুখ লাগানো বা শিশুর প্রয়োজন পরীক্ষা করতে সাহায্য করতে পারেন।',
+    supportOptions: [
+      {
+        title: 'ধাত্রী',
+        text: 'প্রথম দিকে মুখ লাগানোর সময় আপনাকে সহায়তা করতে পারেন।',
+      },
+      {
+        title: 'স্বাস্থ্যসেবা পেশাজীবী',
+        text: 'শিশু ও মায়ের স্বাস্থ্য পরীক্ষা করতে পারেন।',
+      },
+      {
+        title: 'স্তন্যদান পরামর্শক',
+        text: 'মুখ লাগানো কঠিন হলে সাহায্য করতে পারেন।',
+      },
+    ],
+    infoTitle: 'প্রতিটি স্তন্যদানের যাত্রা আলাদা',
+    infoText: 'প্রথম কয়েক দিন অনেক রকম হতে পারে। দুধ খাওয়ানোর ছন্দ ও দুধের পরিমাণ সময়ের সঙ্গে ধীরে ধীরে বদলাতে পারে। কোনো কিছু নিয়ে দুশ্চিন্তা হলে স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিন।',
+    h2Summary: 'মূল কথা',
+    summaryItems: [
+      'প্রথম কয়েকবার দুধ খাওয়ানো শিশু ও মায়ের জন্য শেখার সময়।',
+      'নবজাতক ঘন ঘন দুধ চাইতে পারে।',
+      'আরামদায়ক অবস্থান ও সঠিকভাবে মুখ লাগানো গুরুত্বপূর্ণ।',
+      'পুরোপুরি নির্দিষ্ট সময়সূচির চেয়ে শিশুর ইঙ্গিত লক্ষ করা বেশি কার্যকর।',
+      'একজন ধাত্রী বা স্তন্যদান পরামর্শক শুরুর দিকের অসুবিধায় আপনাকে সাহায্য করতে পারেন।',
+    ],
+    disclaimerText: 'তথ্যমূলক বিষয়বস্তু। এই নিবন্ধ স্বাস্থ্যসেবা পেশাজীবীর ব্যক্তিগত নির্দেশনার বিকল্প নয়।',
+  },
+} as const);
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                       */

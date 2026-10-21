@@ -29,6 +29,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ARTICLE_ID = 'cycle-phases-expliquees';
 
@@ -62,7 +63,7 @@ const WHY_ITEMS_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('CyclePhases', {
   fr: {
     badge: 'Cycle menstruel',
     title: 'Les différentes phases\ndu cycle expliquées',
@@ -999,7 +1000,265 @@ const CONTENT = {
     endText: '周期をよく観察するほど、自分にとっての普通がわかるようになります。',
     shareMessage: '周期のフェーズをわかりやすく解説 — AWA',
   },
-} as const;
+  ko: {
+    badge: '생리 주기',
+    title: '생리 주기의 여러 단계,\n쉽게 알아봐요',
+    metaDuration: '읽는 데 6분',
+    metaValidated: '검토된 콘텐츠',
+    intro: '생리 주기는 여러 단계로 이루어져 있고, 각 단계는 호르몬 균형과 건강에 중요한 역할을 해요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '주기의 4단계',
+      '몸은 어떻게 달라질까요',
+      '주기를 이해하는 것이 중요한 이유',
+      '자주 묻는 질문',
+    ],
+    body1: '주기는 보통 크게 네 단계로 나뉘어요. 단계별 길이는 사람마다 다를 수 있어요. 몸마다 자기만의 리듬이 있으니까요.',
+    diagram: {
+      menstrual: {
+        name: '월경기',
+        days: '1~5일째',
+      },
+      follicular: {
+        name: '난포기',
+        days: '1~13일째',
+      },
+      luteal: {
+        name: '황체기',
+        days: '15~28일째',
+      },
+      ovulatory: {
+        name: '배란기',
+        days: '14일째 즈음',
+      },
+    },
+    tip1Title: '알아두면 좋아요',
+    tip1Text: '사람마다 모두 달라요. 몸을 관찰하면서 나만의 리듬을 알아가 보세요.',
+    body2: '호르몬 변화는 주기 내내 에너지, 기분, 수면, 그리고 몇몇 신체 감각에 영향을 줄 수 있어요.',
+    bodyChanges: [
+      {
+        title: '생리 중',
+        text: '에너지가 떨어지고 몸이 더 많은 휴식을 필요로 할 수 있어요.',
+      },
+      {
+        title: '난포기',
+        text: '에너지가 서서히 올라가면서 활력이 느껴질 수 있어요.',
+      },
+      {
+        title: '배란 즈음',
+        text: '에너지, 의욕, 자신감이 더 커졌다고 느끼는 사람도 있어요.',
+      },
+      {
+        title: '황체기',
+        text: '피로감, 복부 팽만, 기분 변화가 나타날 수 있어요.',
+      },
+    ],
+    softTipTitle: '몸의 소리에 귀 기울이기',
+    softTipText: '각 단계를 겪는 방식은 한 가지만 있는 것이 아니에요. 내가 느끼는 감각이 여전히 가장 좋은 길잡이예요.',
+    body3: '주기를 더 잘 알면 특정 시기를 미리 예상하고, 하루하루 느끼는 변화를 이해하는 데 도움이 될 수 있어요.',
+    whyItems: [
+      '몸이 보내는 신호를 더 잘 이해할 수 있어요',
+      '생리와 각 단계를 미리 예상할 수 있어요',
+      '기분 변화를 이해하는 데 도움이 돼요',
+      '에너지 수준에 맞춰 활동을 조절할 수 있어요',
+      '일상 기록을 더 잘 할 수 있어요',
+    ],
+    body4: '주기의 여러 단계에 대해 자주 묻는 질문에 답해 드려요.',
+    faq: [
+      {
+        question: '주기가 정확히 28일이 아니어도 괜찮은가요?',
+        answer: '네. 주기의 길이는 사람마다 다를 수 있고, 같은 사람도 달마다 조금씩 달라질 수 있어요.',
+      },
+      {
+        question: '배란은 항상 14일째에 일어나나요?',
+        answer: '아니에요. 14일째는 28일 주기에서 흔히 쓰는 추정일 뿐이고, 배란은 더 일찍 또는 더 늦게 일어날 수 있어요.',
+      },
+      {
+        question: '단계에 따라 증상이 달라지는 이유는 무엇인가요?',
+        answer: '주기 동안의 호르몬 변화가 에너지, 기분, 수면, 그리고 몇몇 신체 감각에 영향을 줄 수 있어요.',
+      },
+      {
+        question: '증상을 기록하는 것이 도움이 되나요?',
+        answer: '네. 꾸준히 기록하면 나만의 패턴을 알아보고 내 리듬을 더 잘 이해하는 데 도움이 될 수 있어요.',
+      },
+    ],
+    endTitle: '나의 주기, 나의 리듬',
+    endText: '주기를 더 많이 관찰할수록 나에게 평소 어떤 모습이 자연스러운지 더 잘 알 수 있어요.',
+    shareMessage: '생리 주기의 여러 단계, 쉽게 알아봐요 — AWA',
+  },
+  'pt-PT': {
+    badge: 'Ciclo menstrual',
+    title: 'As diferentes fases\ndo ciclo explicadas',
+    metaDuration: '6 min de leitura',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'O seu ciclo menstrual é composto por várias fases, cada uma com um papel essencial no seu equilíbrio hormonal e na sua saúde.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'As 4 fases do ciclo',
+      'Como o seu corpo muda',
+      'Porque é importante compreender o seu ciclo',
+      'Perguntas frequentes',
+    ],
+    body1: 'O ciclo divide-se geralmente em quatro fases principais. A sua duração pode variar de pessoa para pessoa: cada corpo tem o seu ritmo.',
+    diagram: {
+      menstrual: {
+        name: 'Fase menstrual',
+        days: 'Dias 1 a 5',
+      },
+      follicular: {
+        name: 'Fase folicular',
+        days: 'Dias 1 a 13',
+      },
+      luteal: {
+        name: 'Fase lútea',
+        days: 'Dias 15 a 28',
+      },
+      ovulatory: {
+        name: 'Fase ovulatória',
+        days: 'Por volta do dia 14',
+      },
+    },
+    tip1Title: 'Bom saber',
+    tip1Text: 'Cada mulher é única: observe o seu corpo e aprenda o seu próprio ritmo.',
+    body2: 'As alterações hormonais podem influenciar a energia, o humor, o sono e certas sensações físicas ao longo do ciclo.',
+    bodyChanges: [
+      {
+        title: 'Durante o período',
+        text: 'A energia pode estar mais baixa e o corpo pode precisar de mais descanso.',
+      },
+      {
+        title: 'Fase folicular',
+        text: 'A energia aumenta gradualmente e pode sentir-se com mais vitalidade.',
+      },
+      {
+        title: 'Perto da ovulação',
+        text: 'Algumas mulheres sentem mais energia, motivação e confiança.',
+      },
+      {
+        title: 'Fase lútea',
+        text: 'Podem surgir cansaço, inchaço ou alterações de humor.',
+      },
+    ],
+    softTipTitle: 'Ouça o seu corpo',
+    softTipText: 'Não existe uma única forma de viver cada fase. As suas próprias sensações continuam a ser o melhor guia.',
+    body3: 'Conhecer melhor o seu ciclo pode ajudar a antecipar certos períodos e a compreender as alterações que nota no dia a dia.',
+    whyItems: [
+      'Compreender melhor os sinais do seu corpo',
+      'Antecipar o período e as suas diferentes fases',
+      'Compreender certas alterações de humor',
+      'Adaptar a atividade ao seu nível de energia',
+      'Melhorar o seu registo diário',
+    ],
+    body4: 'Eis algumas respostas a perguntas frequentes sobre as diferentes fases do ciclo.',
+    faq: [
+      {
+        question: 'É normal que o meu ciclo não dure exatamente 28 dias?',
+        answer: 'Sim. A duração de um ciclo pode variar de pessoa para pessoa e, até, ligeiramente de mês para mês.',
+      },
+      {
+        question: 'A ovulação acontece sempre no dia 14?',
+        answer: 'Não. O dia 14 é uma estimativa habitual para um ciclo de 28 dias, mas a ovulação pode ocorrer mais cedo ou mais tarde.',
+      },
+      {
+        question: 'Porque é que os meus sintomas mudam consoante a fase?',
+        answer: 'As alterações hormonais ao longo do ciclo podem influenciar a energia, o humor, o sono e certas sensações físicas.',
+      },
+      {
+        question: 'É útil registar os meus sintomas?',
+        answer: 'Sim. Anotá-los com regularidade pode ajudar a reconhecer os seus próprios padrões e a compreender melhor o seu ritmo.',
+      },
+    ],
+    endTitle: 'O seu ciclo, o seu ritmo',
+    endText: 'Quanto mais observar o seu ciclo, mais poderá compreender o que é típico para si.',
+    shareMessage: 'As diferentes fases do ciclo explicadas — AWA',
+  },
+  bn: {
+    badge: 'মাসিক চক্র',
+    title: 'চক্রের বিভিন্ন পর্যায়\nসহজ ভাষায়',
+    metaDuration: 'পড়তে 6 মিনিট',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'আপনার মাসিক চক্র কয়েকটি পর্যায়ে গঠিত, যার প্রতিটি আপনার হরমোনের ভারসাম্য ও স্বাস্থ্যে গুরুত্বপূর্ণ ভূমিকা রাখে।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'চক্রের 4টি পর্যায়',
+      'আপনার শরীর কীভাবে বদলায়',
+      'চক্র বোঝা কেন গুরুত্বপূর্ণ',
+      'সাধারণ জিজ্ঞাসা',
+    ],
+    body1: 'আপনার চক্র সাধারণত চারটি প্রধান পর্যায়ে ভাগ করা হয়। এগুলোর দৈর্ঘ্য একজন থেকে আরেকজনে আলাদা হতে পারে: প্রতিটি শরীরের নিজস্ব ছন্দ আছে।',
+    diagram: {
+      menstrual: {
+        name: 'মাসিক পর্যায়',
+        days: '1 থেকে 5 দিন',
+      },
+      follicular: {
+        name: 'ফলিকুলার পর্যায়',
+        days: '1 থেকে 13 দিন',
+      },
+      luteal: {
+        name: 'লিউটিয়াল পর্যায়',
+        days: '15 থেকে 28 দিন',
+      },
+      ovulatory: {
+        name: 'ডিম্বস্ফোটন পর্যায়',
+        days: 'প্রায় 14তম দিন',
+      },
+    },
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'প্রতিটি নারী অনন্য: নিজের শরীরকে লক্ষ্য করুন এবং নিজের ছন্দ চিনে নিন।',
+    body2: 'হরমোনের পরিবর্তন চক্র জুড়ে আপনার শক্তি, মেজাজ, ঘুম এবং কিছু শারীরিক অনুভূতিকে প্রভাবিত করতে পারে।',
+    bodyChanges: [
+      {
+        title: 'মাসিকের সময়',
+        text: 'আপনার শক্তি কম থাকতে পারে এবং শরীরের আরও বিশ্রামের প্রয়োজন হতে পারে।',
+      },
+      {
+        title: 'ফলিকুলার পর্যায়',
+        text: 'শক্তি ধীরে ধীরে বাড়ে এবং আপনি আরও প্রাণবন্ত বোধ করতে পারেন।',
+      },
+      {
+        title: 'ডিম্বস্ফোটনের সময়',
+        text: 'কিছু নারী বেশি শক্তি, উদ্যম ও আত্মবিশ্বাস অনুভব করেন।',
+      },
+      {
+        title: 'লিউটিয়াল পর্যায়',
+        text: 'ক্লান্তি, পেট ফাঁপা বা মেজাজের পরিবর্তন দেখা দিতে পারে।',
+      },
+    ],
+    softTipTitle: 'নিজের শরীরের কথা শুনুন',
+    softTipText: 'প্রতিটি পর্যায় অনুভব করার একটিমাত্র উপায় নেই। আপনার নিজের অনুভূতিই সবচেয়ে ভালো পথনির্দেশক।',
+    body3: 'নিজের চক্র সম্পর্কে ভালোভাবে জানলে কিছু সময়ের আগাম আন্দাজ করা এবং প্রতিদিন যে পরিবর্তনগুলো লক্ষ্য করেন তা বুঝতে সহজ হয়।',
+    whyItems: [
+      'আপনার শরীরের সংকেত আরও ভালোভাবে বুঝুন',
+      'আপনার মাসিক ও এর বিভিন্ন পর্যায়ের আগাম আন্দাজ করুন',
+      'মেজাজের কিছু পরিবর্তন বুঝুন',
+      'আপনার শক্তির মাত্রা অনুযায়ী কার্যকলাপ ঠিক করুন',
+      'আপনার দৈনিক ট্র্যাকিং উন্নত করুন',
+    ],
+    body4: 'চক্রের বিভিন্ন পর্যায় নিয়ে সচরাচর যেসব প্রশ্ন করা হয়, তার কয়েকটি উত্তর এখানে দেওয়া হলো।',
+    faq: [
+      {
+        question: 'আমার চক্র ঠিক 28 দিনের না হওয়া কি স্বাভাবিক?',
+        answer: 'হ্যাঁ। চক্রের দৈর্ঘ্য একজন থেকে আরেকজনে আলাদা হতে পারে, এমনকি প্রতি মাসেও সামান্য বদলাতে পারে।',
+      },
+      {
+        question: 'ডিম্বস্ফোটন কি সবসময় 14তম দিনে হয়?',
+        answer: 'না। 28 দিনের চক্রে 14তম দিন একটি প্রচলিত আনুমানিক হিসাব, কিন্তু ডিম্বস্ফোটন আগে বা পরেও হতে পারে।',
+      },
+      {
+        question: 'পর্যায় অনুযায়ী আমার উপসর্গ কেন বদলায়?',
+        answer: 'চক্র জুড়ে হরমোনের পরিবর্তন শক্তি, মেজাজ, ঘুম এবং কিছু শারীরিক অনুভূতিকে প্রভাবিত করতে পারে।',
+      },
+      {
+        question: 'আমার উপসর্গ ট্র্যাক করা কি উপকারী?',
+        answer: 'হ্যাঁ। নিয়মিত লিখে রাখলে আপনার নিজের ধরনগুলো চিনতে এবং নিজের ছন্দ আরও ভালোভাবে বুঝতে সাহায্য করে।',
+      },
+    ],
+    endTitle: 'আপনার চক্র, আপনার ছন্দ',
+    endText: 'আপনি যত বেশি আপনার চক্র পর্যবেক্ষণ করবেন, তত ভালোভাবে বুঝতে পারবেন আপনার জন্য কোনটি স্বাভাবিক।',
+    shareMessage: 'চক্রের বিভিন্ন পর্যায় সহজ ভাষায় — AWA',
+  },
+} as const);
 
 function CyclePhasesArticleScreen({
   navigation,

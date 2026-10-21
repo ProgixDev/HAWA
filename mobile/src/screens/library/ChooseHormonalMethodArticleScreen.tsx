@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'hormonaltreatments-choisir-sa-methode';
 
@@ -58,7 +59,7 @@ const COMPARISON_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('ChooseHormonalMethod', {
   fr: {
     badge: 'CHOISIR SA MÉTHODE',
     title: 'Choisir le traitement\nqui te convient',
@@ -1124,7 +1125,307 @@ const CONTENT = {
     disclaimerText: 'この記事は情報提供のみを目的としており、一人ひとりに合わせた医療上のアドバイスに代わるものではありません。',
     shareMessage: '自分に合った方法を選ぶ — AWA',
   },
-} as const;
+  ko: {
+    badge: '나에게 맞는 방법 찾기',
+    title: '나에게 맞는\n피임 방법 고르기',
+    metaDuration: '읽는 시간 7분',
+    metaType: '가이드',
+    metaLevel: '중급',
+    metaValidated: '검토된 콘텐츠',
+    intro: '일상과 필요, 계획에 맞는 피임 방법을 찾기 위해 스스로에게 던져 볼 만한 질문들이에요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '스스로에게 던져 볼 질문',
+      '절대적으로 “가장 좋은” 방법은 없어요',
+      '차이를 만들 수 있는 기준',
+      '전문가와 상담하기',
+      '핵심 정리',
+    ],
+    section1Body: '모든 사람에게 맞는 이상적인 피임 방법이 하나로 정해져 있지는 않아요. 방법을 고르기 전에 생활 습관, 선호, 몸의 적응 정도, 앞으로의 계획을 생각해 보면 도움이 될 수 있어요.',
+    questions: [
+      '내 몸은 호르몬에 어떻게 반응할까?',
+      '매일 또는 매주 챙겨야 하는 방법이 필요할까, 아니면 오래 지속되는 방법이 필요할까?',
+      '가까운 미래에 임신 계획이 있을까?',
+      '예산은 어느 정도이고, 이 피임 방법은 얼마나 구하기 쉬울까?',
+    ],
+    section2Body: '두 사람이 서로 다른 방법을 선택해도, 둘 다 각자의 상황에 꼭 맞는 선택을 한 것일 수 있어요. 올바른 선택은 특히 피임을 어떻게 사용하고 싶은지, 무엇을 원하는지에 따라 달라져요.',
+    highlightTitle: '꼭 기억해 두세요',
+    highlightText: '겉보기에 좋아 보이는 방법이 날마다 가장 간편하고 편안한 방법이라고는 할 수 없어요.',
+    section3Body: '여러 선택지를 비교할 때는 다양한 기준을 살펴볼 수 있어요. 모든 것을 외우는 것이 아니라, 나에게 정말 중요한 것이 무엇인지 알아보는 것이 목표예요.',
+    priorities: [
+      {
+        title: '간편함',
+        text: '어떤 방법은 매일 챙겨야 하고, 어떤 방법은 매주 한 번만 신경 쓰면 되거나 그보다 훨씬 드물게 신경 쓰면 돼요.',
+      },
+      {
+        title: '적응 정도',
+        text: '느끼는 영향은 사람마다 다를 수 있어요. 내 몸이 어떻게 반응하는지 살펴보고, 불편한 점이 있으면 이야기하는 것이 중요해요.',
+      },
+      {
+        title: '임신 계획',
+        text: '곧 임신을 바란다면 사용 기간과 중단한 뒤 임신 가능성이 돌아오는 시기도 상담할 내용에 포함될 수 있어요.',
+      },
+      {
+        title: '효과',
+        text: '효과는 선택한 방법뿐 아니라 올바르게, 꾸준히 사용하는지에도 달려 있어요.',
+      },
+    ],
+    rhythmTitle: '얼마나 자주 사용해야 할까요',
+    rhythmBody: '방법마다 중요한 차이 중 하나는 피임을 얼마나 자주 챙겨야 하는지예요.',
+    comparison: [
+      {
+        title: '피임약',
+        detail: '매일 복용',
+      },
+      {
+        title: '피임 패치',
+        detail: '매주 교체',
+      },
+      {
+        title: '질링',
+        detail: '몇 주 단위의 주기',
+      },
+      {
+        title: '피임 임플란트',
+        detail: '오래 지속되는 방법',
+      },
+      {
+        title: '호르몬 자궁 내 장치',
+        detail: '오래 지속되는 방법',
+      },
+    ],
+    bodyReactionTitle: '내 몸의 반응 살펴보기',
+    bodyReactionText: '호르몬 방법은 사람마다 느낌이 다를 수 있어요. 어떤 사람은 주기나 출혈에 변화를 느끼거나 다른 부작용을 겪기도 해요. 이런 반응이 곧 그 방법이 나에게 맞지 않는다는 뜻은 아니지만, 주의 깊게 살펴볼 필요는 있어요.',
+    alertTitle: '주의해서 살펴보세요',
+    alertText: '증상이 심하거나 계속되거나 평소와 다르다면 혼자 고민하지 마세요. 의사, 조산사 또는 다른 의료 전문가가 방법을 계속할지, 조정할지, 바꿀지 판단하는 데 도움을 줄 수 있어요.',
+    projectsTitle: '나의 계획 고려하기',
+    projectsBody: '임신 계획도 선택에 영향을 줄 수 있어요. 몇 년 동안 임신을 피하고 싶다면 오래 지속되는 방법을 고려해 볼 만해요. 더 이른 시기에 임신을 생각하고 있다면 다른 선택지가 일정에 더 잘 맞을 수 있어요.',
+    keepInMindTitle: '기억해 두면 좋아요',
+    keepInMindText: '임신 계획이 아직 먼 이야기이거나 확실하지 않더라도 이야기해 두면 의료 전문가가 상담을 더 잘 이끌 수 있어요.',
+    section4Body: '진료를 받으면 각 방법의 장점, 제약, 사용하면 안 되는 경우(금기)를 함께 따져 볼 수 있어요. 중요한 것을 놓치지 않도록 미리 몇 가지 질문을 준비해 갈 수 있어요.',
+    questionCardTitle: '물어보면 좋은 질문',
+    professionalQuestions: [
+      '이 방법이 나에게 어떤 장점이 있나요?',
+      '어떤 부작용이 생길 수 있나요?',
+      '어떻게 올바르게 사용하나요?',
+      '깜빡했을 때, 제자리에서 벗어났을 때, 또는 중단하고 싶을 때는 어떻게 해야 하나요?',
+      '이 방법이 제 임신 계획과 맞나요?',
+    ],
+    professionalTipTitle: '알아 두세요',
+    professionalTipText: '조산사나 의사는 방법을 권하기 전에 병력, 복용 중인 치료, 선호, 생활 방식을 함께 고려할 수 있어요.',
+    summaryTitle: '핵심만 짚어 볼게요',
+    summaryItems: [
+      '일상에 맞는 방법을 고르세요.',
+      '몸의 적응 정도와 선호를 고려하세요.',
+      '임신 계획과 일정을 생각해 보세요.',
+      '확신이 서지 않으면 전문가에게 조언을 구하세요.',
+    ],
+    finalTipTitle: '기억하세요',
+    finalTipText: '가장 좋은 방법이 가장 편해 보이거나 가장 인기 있는 방법인 것은 아니에요. 의료 전문가와 충분히 이야기를 나눈 뒤 내 상황과 필요, 선호에 맞게 고른 방법이 가장 좋은 방법이에요.',
+    disclaimerText: '이 아티클은 정보 제공을 위한 것이며, 개인에게 맞춘 의학적 조언을 대신하지 않아요.',
+    shareMessage: '나에게 맞는 피임 방법 고르기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'ESCOLHER O SEU MÉTODO',
+    title: 'Escolher o tratamento\nque lhe convém',
+    metaDuration: '7 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Intermédio',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'As perguntas certas a colocar a si própria para encontrar um método contracetivo adequado ao seu dia a dia, às suas necessidades e aos seus projetos.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Perguntas a colocar a si própria',
+      'Nenhum método é o “melhor” em termos absolutos',
+      'Critérios que podem fazer a diferença',
+      'Conversar com um profissional',
+      'Pontos essenciais',
+    ],
+    section1Body: 'Não existe um único método contracetivo ideal para todas as mulheres. Antes de escolher um método, pode ser útil refletir sobre os seus hábitos, preferências, tolerância e projetos.',
+    questions: [
+      'Como reage o meu corpo às hormonas?',
+      'Preciso de uma ação diária ou semanal, ou de uma solução de longa duração?',
+      'Tenho um projeto de gravidez a médio prazo?',
+      'Qual é o meu orçamento e qual a acessibilidade deste método contracetivo?',
+    ],
+    section2Body: 'Duas pessoas podem escolher métodos diferentes e ambas ter feito uma escolha perfeitamente adequada à sua situação. A escolha certa depende, em particular, da forma como deseja utilizar a sua contraceção e do que procura.',
+    highlightTitle: 'O essencial a reter',
+    highlightText: 'Um método que parece atraente no papel não é necessariamente o mais simples ou o mais confortável para si no dia a dia.',
+    section3Body: 'Para comparar várias opções, pode analisar diferentes critérios. O objetivo não é saber tudo de cor, mas identificar o que realmente importa para si.',
+    priorities: [
+      {
+        title: 'Simplicidade',
+        text: 'Alguns métodos exigem uma ação diária, enquanto outros requerem apenas uma atenção semanal, ou muito menos frequente.',
+      },
+      {
+        title: 'Tolerância',
+        text: 'Os efeitos sentidos podem variar de pessoa para pessoa. É importante observar como o seu corpo reage e falar sobre isso se algo a incomodar.',
+      },
+      {
+        title: 'Projetos de gravidez',
+        text: 'Se pretende uma gravidez em breve, a duração da utilização e o regresso da fertilidade após a interrupção podem fazer parte do que vai discutir.',
+      },
+      {
+        title: 'Eficácia',
+        text: 'A eficácia depende não só do método escolhido, mas também de o utilizar corretamente e de forma regular.',
+      },
+    ],
+    rhythmTitle: 'Com que frequência é preciso utilizá-lo',
+    rhythmBody: 'Uma diferença importante entre os métodos é a frequência com que precisa de pensar na sua contraceção.',
+    comparison: [
+      {
+        title: 'Pílula',
+        detail: 'Ação diária',
+      },
+      {
+        title: 'Adesivo',
+        detail: 'Troca semanal',
+      },
+      {
+        title: 'Anel vaginal',
+        detail: 'Ciclo de várias semanas',
+      },
+      {
+        title: 'Implante',
+        detail: 'Solução de longa duração',
+      },
+      {
+        title: 'DIU hormonal',
+        detail: 'Solução de longa duração',
+      },
+    ],
+    bodyReactionTitle: 'Observar como o seu corpo reage',
+    bodyReactionText: 'Um método hormonal pode ser sentido de forma diferente de pessoa para pessoa. Algumas mulheres notam alterações no ciclo, no sangramento ou outros efeitos secundários. Estas reações não significam automaticamente que o método não é adequado para si, mas merecem a sua atenção.',
+    alertTitle: 'A ter em atenção',
+    alertText: 'Se um efeito for significativo, persistente ou invulgar, não fique sozinha com as suas dúvidas. Um médico, uma parteira ou outro profissional de saúde pode ajudá-la a determinar se deve continuar, ajustar ou mudar de método.',
+    projectsTitle: 'Ter em conta os seus projetos',
+    projectsBody: 'Os seus projetos de gravidez também podem influenciar a sua escolha. Se deseja evitar uma gravidez durante vários anos, um método de longa duração pode ser uma opção a considerar. Se pensa numa gravidez a mais curto prazo, outras opções podem adequar-se melhor ao seu calendário.',
+    keepInMindTitle: 'A ter presente',
+    keepInMindText: 'Falar dos seus projetos de gravidez, mesmo que ainda distantes ou incertos, ajuda o profissional de saúde a orientar melhor a conversa.',
+    section4Body: 'Uma consulta permite ponderar os benefícios, as limitações e as possíveis contraindicações de cada método. Pode preparar algumas perguntas com antecedência para não se esquecer de nada importante.',
+    questionCardTitle: 'Perguntas úteis a colocar',
+    professionalQuestions: [
+      'Quais são os benefícios deste método para mim?',
+      'Que efeitos secundários posso sentir?',
+      'Como o utilizo corretamente?',
+      'O que devo fazer se me esquecer dele, se ele se deslocar ou se quiser interrompê-lo?',
+      'Este método é compatível com os meus projetos de gravidez?',
+    ],
+    professionalTipTitle: 'Bom saber',
+    professionalTipText: 'Uma parteira ou um médico pode ter em conta o seu historial médico, os seus tratamentos, as suas preferências e o seu estilo de vida antes de recomendar um método.',
+    summaryTitle: 'O essencial',
+    summaryItems: [
+      'Escolha um método que se adapte ao seu dia a dia.',
+      'Tenha em conta a sua tolerância e as suas preferências.',
+      'Pense nos seus projetos de gravidez e no seu calendário.',
+      'Peça conselho a um profissional se tiver dúvidas.',
+    ],
+    finalTipTitle: 'Lembre-se',
+    finalTipText: 'O melhor método não é necessariamente o que parece mais prático ou o mais popular. É aquele que se adapta à sua situação, às suas necessidades e às suas preferências, após uma conversa informada com um profissional de saúde.',
+    disclaimerText: 'Este artigo tem apenas fins informativos e não substitui um aconselhamento médico personalizado.',
+    shareMessage: 'Escolher o tratamento que lhe convém — AWA',
+  },
+  bn: {
+    badge: 'আপনার পদ্ধতি বেছে নেওয়া',
+    title: 'আপনার জন্য উপযুক্ত\nপদ্ধতি বেছে নেওয়া',
+    metaDuration: '7 মিনিটের পাঠ',
+    metaType: 'গাইড',
+    metaLevel: 'মধ্যম',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'আপনার দৈনন্দিন জীবন, প্রয়োজন ও পরিকল্পনার সঙ্গে মানানসই জন্মনিয়ন্ত্রণ পদ্ধতি খুঁজে পেতে নিজেকে যে সঠিক প্রশ্নগুলো করা উচিত।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'নিজেকে যে প্রশ্নগুলো করবেন',
+      'কোনো পদ্ধতিই সবদিক থেকে “সেরা” নয়',
+      'যেসব বিষয় পার্থক্য গড়ে দিতে পারে',
+      'পেশাজীবীর সঙ্গে আলোচনা',
+      'মূল বিষয়গুলো',
+    ],
+    section1Body: 'সবার জন্য একটিমাত্র আদর্শ জন্মনিয়ন্ত্রণ পদ্ধতি নেই। কোনো পদ্ধতি বেছে নেওয়ার আগে আপনার অভ্যাস, পছন্দ, সহ্যক্ষমতা ও পরিকল্পনার কথা ভেবে দেখলে সুবিধা হতে পারে।',
+    questions: [
+      'হরমোনের প্রতি আমার শরীর কেমন সাড়া দেয়?',
+      'আমার কি প্রতিদিন বা প্রতি সপ্তাহে কিছু করার দরকার, নাকি দীর্ঘমেয়াদি সমাধান দরকার?',
+      'মাঝারি মেয়াদে গর্ভধারণের কোনো পরিকল্পনা কি আমার আছে?',
+      'আমার বাজেট কত, আর এই জন্মনিয়ন্ত্রণ পদ্ধতি কতটা সহজলভ্য?',
+    ],
+    section2Body: 'দুজন মানুষ ভিন্ন ভিন্ন পদ্ধতি বেছে নিলেও দুজনেরই নিজ নিজ পরিস্থিতির সঙ্গে সম্পূর্ণ মানানসই সিদ্ধান্ত নেওয়া হতে পারে। সঠিক পছন্দ নির্ভর করে বিশেষ করে আপনি আপনার জন্মনিয়ন্ত্রণ কীভাবে ব্যবহার করতে চান এবং কী খুঁজছেন তার ওপর।',
+    highlightTitle: 'মনে রাখার মূল কথা',
+    highlightText: 'কাগজে-কলমে আকর্ষণীয় মনে হওয়া পদ্ধতিটিই যে প্রতিদিনের জীবনে আপনার জন্য সবচেয়ে সহজ বা আরামদায়ক হবে, তা নয়।',
+    section3Body: 'কয়েকটি বিকল্প তুলনা করতে আপনি বিভিন্ন মানদণ্ড দেখতে পারেন। উদ্দেশ্য সবকিছু মুখস্থ করা নয়, বরং আপনার কাছে আসলে কোনটি গুরুত্বপূর্ণ তা চিহ্নিত করা।',
+    priorities: [
+      {
+        title: 'সহজ ব্যবহার',
+        text: 'কিছু পদ্ধতিতে প্রতিদিন কিছু করতে হয়, আবার কিছু পদ্ধতিতে শুধু সাপ্তাহিক মনোযোগ বা তার চেয়েও কম প্রয়োজন হয়।',
+      },
+      {
+        title: 'সহ্যক্ষমতা',
+        text: 'আপনি যেসব প্রভাব অনুভব করেন তা একজন থেকে আরেকজনে ভিন্ন হতে পারে। আপনার শরীর কেমন সাড়া দিচ্ছে তা লক্ষ করা এবং কিছু অস্বস্তিকর লাগলে সে বিষয়ে কথা বলা গুরুত্বপূর্ণ।',
+      },
+      {
+        title: 'গর্ভধারণের পরিকল্পনা',
+        text: 'শিগগিরই গর্ভধারণের আশা থাকলে ব্যবহারের মেয়াদ এবং পদ্ধতি বন্ধ করার পর প্রজনন ক্ষমতা কখন ফিরে আসে, তা আলোচনার অংশ হতে পারে।',
+      },
+      {
+        title: 'কার্যকারিতা',
+        text: 'কার্যকারিতা শুধু বেছে নেওয়া পদ্ধতির ওপর নয়, বরং সেটি সঠিকভাবে ও নিয়মিত ব্যবহারের ওপরও নির্ভর করে।',
+      },
+    ],
+    rhythmTitle: 'কত ঘন ঘন ব্যবহার করতে হয়',
+    rhythmBody: 'বিভিন্ন পদ্ধতির মধ্যে একটি গুরুত্বপূর্ণ পার্থক্য হলো, জন্মনিয়ন্ত্রণের কথা আপনাকে কত ঘন ঘন মনে রাখতে হয়।',
+    comparison: [
+      {
+        title: 'বড়ি',
+        detail: 'প্রতিদিন ব্যবহার',
+      },
+      {
+        title: 'প্যাচ',
+        detail: 'সাপ্তাহিক পরিবর্তন',
+      },
+      {
+        title: 'যোনিপথের রিং',
+        detail: 'কয়েক সপ্তাহের চক্র',
+      },
+      {
+        title: 'ইমপ্ল্যান্ট',
+        detail: 'দীর্ঘমেয়াদি সমাধান',
+      },
+      {
+        title: 'হরমোনযুক্ত আইইউডি',
+        detail: 'দীর্ঘমেয়াদি সমাধান',
+      },
+    ],
+    bodyReactionTitle: 'আপনার শরীর কেমন সাড়া দিচ্ছে তা লক্ষ করা',
+    bodyReactionText: 'হরমোনযুক্ত পদ্ধতি একজন থেকে আরেকজনে ভিন্নভাবে অনুভূত হতে পারে। কেউ কেউ তাঁদের চক্র, রক্তক্ষরণ বা অন্যান্য পার্শ্বপ্রতিক্রিয়ায় পরিবর্তন লক্ষ করেন। এসব প্রতিক্রিয়ার অর্থ এই নয় যে পদ্ধতিটি স্বয়ংক্রিয়ভাবে আপনার জন্য অনুপযুক্ত, তবে এগুলোর প্রতি মনোযোগ দেওয়া উচিত।',
+    alertTitle: 'যা লক্ষ রাখা উচিত',
+    alertText: 'কোনো প্রভাব উল্লেখযোগ্য, দীর্ঘস্থায়ী বা অস্বাভাবিক হলে আপনার প্রশ্নগুলো নিয়ে একা থাকবেন না। ডাক্তার, ধাত্রী বা অন্য কোনো স্বাস্থ্যসেবা পেশাজীবী আপনাকে সিদ্ধান্ত নিতে সাহায্য করতে পারেন যে পদ্ধতিটি চালিয়ে যাবেন, সমন্বয় করবেন, নাকি বদলাবেন।',
+    projectsTitle: 'আপনার পরিকল্পনা বিবেচনায় নেওয়া',
+    projectsBody: 'আপনার গর্ভধারণের পরিকল্পনাও আপনার পছন্দকে প্রভাবিত করতে পারে। আপনি যদি কয়েক বছর গর্ভধারণ এড়াতে চান, তাহলে দীর্ঘমেয়াদি পদ্ধতি বিবেচনা করা যেতে পারে। আপনি যদি আরও কাছাকাছি সময়ে গর্ভধারণের কথা ভাবেন, তাহলে অন্য বিকল্প আপনার সময়সূচির সঙ্গে বেশি মানানসই হতে পারে।',
+    keepInMindTitle: 'মনে রাখার মতো বিষয়',
+    keepInMindText: 'গর্ভধারণের পরিকল্পনা দূরবর্তী বা অনিশ্চিত হলেও তা নিয়ে কথা বললে স্বাস্থ্যসেবা পেশাজীবী আলোচনাটি আরও ভালোভাবে পরিচালনা করতে পারেন।',
+    section4Body: 'অ্যাপয়েন্টমেন্টে প্রতিটি পদ্ধতির সুবিধা, সীমাবদ্ধতা ও সম্ভাব্য প্রতিনির্দেশনা (ব্যবহারে নিষেধ বা সতর্কতা) বিবেচনা করা যায়। গুরুত্বপূর্ণ কিছু যেন ভুলে না যান, সেজন্য আগে থেকেই কয়েকটি প্রশ্ন প্রস্তুত করে রাখতে পারেন।',
+    questionCardTitle: 'জিজ্ঞাসা করার মতো কার্যকর প্রশ্ন',
+    professionalQuestions: [
+      'আমার জন্য এই পদ্ধতির সুবিধাগুলো কী?',
+      'আমি কী কী পার্শ্বপ্রতিক্রিয়া অনুভব করতে পারি?',
+      'এটি সঠিকভাবে কীভাবে ব্যবহার করব?',
+      'ব্যবহার করতে ভুলে গেলে, জায়গা থেকে সরে গেলে বা বন্ধ করতে চাইলে আমার কী করা উচিত?',
+      'এই পদ্ধতি কি আমার গর্ভধারণের পরিকল্পনার সঙ্গে মানানসই?',
+    ],
+    professionalTipTitle: 'জেনে রাখা ভালো',
+    professionalTipText: 'কোনো পদ্ধতির পরামর্শ দেওয়ার আগে ধাত্রী বা ডাক্তার আপনার চিকিৎসা-ইতিহাস, চলমান চিকিৎসা, পছন্দ ও জীবনযাত্রা বিবেচনায় নিতে পারেন।',
+    summaryTitle: 'মূল কথাগুলো',
+    summaryItems: [
+      'এমন পদ্ধতি বেছে নিন যা আপনার দৈনন্দিন জীবনের সঙ্গে মানানসই।',
+      'আপনার সহ্যক্ষমতা ও পছন্দ বিবেচনায় নিন।',
+      'আপনার গর্ভধারণের পরিকল্পনা ও সময়সূচির কথা ভাবুন।',
+      'নিশ্চিত না হলে কোনো পেশাজীবীর পরামর্শ নিন।',
+    ],
+    finalTipTitle: 'মনে রাখুন',
+    finalTipText: 'সবচেয়ে ভালো পদ্ধতি সেটি নয় যা সবচেয়ে সুবিধাজনক বা সবচেয়ে জনপ্রিয় মনে হয়। বরং স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে সুচিন্তিত আলোচনার পর যেটি আপনার পরিস্থিতি, প্রয়োজন ও পছন্দের সঙ্গে মানানসই, সেটিই সবচেয়ে ভালো।',
+    disclaimerText: 'এই নিবন্ধ শুধুমাত্র তথ্যের উদ্দেশ্যে এবং এটি ব্যক্তিগত চিকিৎসা পরামর্শের বিকল্প নয়।',
+    shareMessage: 'আপনার জন্য উপযুক্ত পদ্ধতি বেছে নেওয়া — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

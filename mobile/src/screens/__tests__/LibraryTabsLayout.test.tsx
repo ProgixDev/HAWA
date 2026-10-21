@@ -27,6 +27,9 @@ import {id} from '../../i18n/locales/id';
 import {hi} from '../../i18n/locales/hi';
 import {sq} from '../../i18n/locales/sq';
 import {ja} from '../../i18n/locales/ja';
+import {ko} from '../../i18n/locales/ko';
+import {bn} from '../../i18n/locales/bn';
+import {ptPT, ptBRFull} from '../../testUtils/portugueseDictionaries';
 
 // The category tabs of the Library (Tout · Médical · Religieux · À la une). They are a segmented control whose four equal segments
 // used to be a fixed quarter of the strip each, so a label wider than its quarter ("Religieux") wrapped onto a second line. Now every
@@ -52,7 +55,7 @@ jest.mock('../../state/onboardingPreferences', () => {
   };
 });
 
-const DICTIONARIES = {fr, en, es, it: itDictionary, tr, ru, de, zh, id, hi, sq, ja} as const;
+const DICTIONARIES = {fr, en, es, it: itDictionary, tr, ru, de, zh, id, hi, sq, ja, ko, 'pt-PT': ptPT, 'pt-BR': ptBRFull, bn} as const;
 const LANGUAGES = Object.keys(DICTIONARIES) as AwaAppLanguage[];
 const TAB_KEYS = ['all', 'medical', 'religious', 'featured'] as const;
 const labelsOf = (language: AwaAppLanguage): string[] =>

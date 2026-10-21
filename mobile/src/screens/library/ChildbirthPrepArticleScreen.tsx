@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'childbirthprep-preparer-accouchement';
 
@@ -49,7 +50,7 @@ const PREP_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('ChildbirthPrep', {
   fr: {
     badge: 'GROSSESSE • ACCOUCHEMENT',
     title: 'Se préparer sereinement\nà l’accouchement',
@@ -538,7 +539,124 @@ const CONTENT = {
     tipText: '備えるとは、すべてをコントロールすることではありません。出産の日を、より安心して、不安を少なく迎えるための手段を持つことが大切です。',
     shareMessage: '落ち着いて出産に備える — AWA',
   },
-} as const;
+  ko: {
+    badge: '임신 • 출산',
+    title: '차분하게\n출산 준비하기',
+    metaDuration: '7분 읽기',
+    metaType: '가이드',
+    metaLevel: '초급',
+    metaValidated: '검토된 콘텐츠',
+    intro: '더 자신 있게 그날을 맞이하기 위한 세 가지 기둥이에요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '3단계로 준비하기',
+      '병원 가방',
+      '출산 계획서 작성하기',
+      '알아 두면 좋은 점',
+      '기억할 점',
+    ],
+    prepSteps: [
+      '출산 준비 교실',
+      '호흡법과 이완 기법',
+      '8개월까지 병원 가방 준비하기',
+    ],
+    body1: '출산 준비 교실에서는 진통의 단계와, 그날 도움이 될 호흡법을 이해할 수 있어요.',
+    body2: '8개월까지 병원 가방을 챙겨 두면 막판의 스트레스를 줄일 수 있어요. 보통 이런 것들이 들어가요.',
+    bagItems: [
+      '신분증과 산모수첩',
+      '산모와 아기를 위한 편안한 옷',
+      '세면도구와 산후용 패드',
+      '아기가 퇴원할 때 입을 옷',
+    ],
+    birthPlanPoints: [
+      '통증 관리에 대한 바람',
+      '진통 중에 함께 있었으면 하는 사람',
+      '피부 접촉(캥거루 케어)에 대한 기대',
+    ],
+    neutralText: '간단한 출산 계획서는 의료진에게 바람을 전하는 데 도움이 돼요. 다만 열린 마음을 유지하세요. 실제 진행은 상황에 따라 달라질 수 있어요.',
+    tipTitle: '알아 두세요',
+    tipText: '준비한다는 것은 모든 것을 통제한다는 뜻이 아니에요. 그날을 더 자신 있게, 불확실함은 줄여서 맞이할 수 있도록 스스로에게 힘을 주는 것이 가장 중요해요.',
+    shareMessage: '차분하게 출산 준비하기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'GRAVIDEZ • PARTO',
+    title: 'Preparar o parto\ncom serenidade',
+    metaDuration: 'Leitura de 7 min',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Três pilares para encarar o grande dia com mais confiança.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Preparar-se em 3 passos',
+      'A sua mala da maternidade',
+      'Escrever o seu plano de parto',
+      'A ter em conta',
+      'O que reter',
+    ],
+    prepSteps: [
+      'Aulas de preparação para o parto',
+      'Técnicas de respiração e relaxamento',
+      'Mala da maternidade pronta no 8.º mês',
+    ],
+    body1: 'As aulas de preparação para o parto ajudam a compreender as fases do trabalho de parto e as técnicas de respiração que a vão apoiar no grande dia.',
+    body2: 'Preparar a mala da maternidade no 8.º mês evita o stress de última hora. Inclui habitualmente:',
+    bagItems: [
+      'Documentos de identificação e o boletim de saúde da grávida',
+      'Roupa confortável para si e para o bebé',
+      'Produtos de higiene e pensos pós-parto',
+      'Uma muda de roupa para o bebé ir para casa',
+    ],
+    birthPlanPoints: [
+      'As suas preferências quanto ao controlo da dor',
+      'Quem gostaria de ter presente durante o trabalho de parto',
+      'As suas expectativas quanto ao contacto pele com pele',
+    ],
+    neutralText: 'Um plano de parto simples ajuda a partilhar os seus desejos com a equipa médica, mantendo ao mesmo tempo abertura de espírito: o decurso real pode mudar consoante a situação.',
+    tipTitle: 'Bom saber',
+    tipText: 'Preparar-se não significa controlar tudo: trata-se sobretudo de dar a si mesma os meios para encarar o grande dia com mais confiança e menos incerteza.',
+    shareMessage: 'Preparar o parto com serenidade — AWA',
+  },
+  bn: {
+    badge: 'গর্ভাবস্থা • প্রসব',
+    title: 'নিশ্চিন্তে প্রসবের\nপ্রস্তুতি',
+    metaDuration: '7 মিনিটের পাঠ',
+    metaType: 'গাইড',
+    metaLevel: 'নতুনদের জন্য',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'বড় দিনটির মুখোমুখি হওয়ার জন্য তিনটি স্তম্ভ, আরও আত্মবিশ্বাসের সঙ্গে।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      '3টি ধাপে প্রস্তুতি',
+      'আপনার হাসপাতালের ব্যাগ',
+      'আপনার প্রসব পরিকল্পনা লেখা',
+      'লক্ষণীয় বিষয়',
+      'যা মনে রাখবেন',
+    ],
+    prepSteps: [
+      'প্রসব প্রস্তুতির ক্লাস',
+      'শ্বাস-প্রশ্বাস ও শিথিলায়নের কৌশল',
+      '8ম মাসের মধ্যে হাসপাতালের ব্যাগ প্রস্তুত',
+    ],
+    body1: 'প্রসব প্রস্তুতির ক্লাস আপনাকে প্রসববেদনার ধাপগুলো এবং বড় দিনে আপনাকে সহায়তা করবে এমন শ্বাস-প্রশ্বাসের কৌশল বুঝতে সাহায্য করে।',
+    body2: '8ম মাসের মধ্যে হাসপাতালের ব্যাগ গুছিয়ে রাখলে শেষ মুহূর্তের দুশ্চিন্তা এড়ানো যায়। এতে সাধারণত থাকে:',
+    bagItems: [
+      'পরিচয়পত্র এবং আপনার গর্ভাবস্থার রেকর্ড বই',
+      'আপনার ও শিশুর জন্য আরামদায়ক পোশাক',
+      'প্রসাধনী সামগ্রী এবং প্রসবোত্তর প্যাড',
+      'বাড়ি ফেরার সময় শিশুকে পরানোর একটি পোশাক',
+    ],
+    birthPlanPoints: [
+      'ব্যথা সামলানোর বিষয়ে আপনার পছন্দ',
+      'প্রসববেদনার সময় কাকে আপনার পাশে চান',
+      'ত্বকে ত্বক স্পর্শ (স্কিন-টু-স্কিন) নিয়ে আপনার প্রত্যাশা',
+    ],
+    neutralText: 'একটি সহজ প্রসব পরিকল্পনা চিকিৎসক দলের সঙ্গে আপনার ইচ্ছাগুলো ভাগ করে নিতে সাহায্য করে, একই সঙ্গে মন খোলা রাখাও জরুরি: পরিস্থিতি অনুযায়ী প্রকৃত ঘটনাক্রম বদলে যেতে পারে।',
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'প্রস্তুতি নেওয়ার মানে সবকিছু নিয়ন্ত্রণ করা নয়: এর মূল উদ্দেশ্য হলো বড় দিনটির মুখোমুখি হওয়ার জন্য নিজেকে সক্ষম করা, আরও আত্মবিশ্বাস ও কম অনিশ্চয়তা নিয়ে।',
+    shareMessage: 'নিশ্চিন্তে প্রসবের প্রস্তুতি — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

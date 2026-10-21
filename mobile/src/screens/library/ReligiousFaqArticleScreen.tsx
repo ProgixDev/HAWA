@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'religiousfaq-questions-frequentes';
 
@@ -41,7 +42,7 @@ const HERO = require('../../assets/images/library/popular-flower.png');
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('ReligiousFaq', {
   fr: {
     badge: 'QUESTIONS FRÉQUENTES',
     title: 'Questions fréquentes\nde fiqh féminin',
@@ -1086,7 +1087,268 @@ const CONTENT = {
     ],
     shareMessage: '女性のイスラーム法学に関するよくある質問 — AWA',
   },
-} as const;
+  ko: {
+    badge: '자주 묻는 질문',
+    title: '여성 이슬람 법학에 대해\n자주 묻는 질문',
+    metaDuration: '8분 읽기',
+    metaType: '자주 묻는 질문',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '여성 이슬람 법학에 대해 가장 많이 나오는 질문을 한곳에 모아 명확한 답변과 함께 정리했어요.',
+    disclaimerTitle: '중요한 안내',
+    disclaimerText: '이 콘텐츠는 순수하게 교육용이에요. 종교적인 질문은 자격을 갖춘 학자(울라마)에게 확인받아야 해요. AWA는 파트와나 개인별 종교적 판단을 내리지 않아요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '자주 나오는 질문',
+      '달라질 수 있는 법학파',
+      '의문이 계속될 때',
+      '핵심 정리',
+    ],
+    section1Body: '주기, 예배(살라트), 금식에 대한 많은 질문이 여성들 사이에서 자주 나와요. 가장 흔한 질문에 대한 일반적인 답변을 정리했어요. 더 깊이 알고 싶다면 각 주제를 별도의 아티클에서 더 자세히 다루고 있어요.',
+    faqItems: [
+      [
+        '여성 이슬람 법학이란 무엇인가요?',
+        '여성 이슬람 법학은 여성의 몸과 예배에 특히 관련된 실천 규정을 모은 것이에요. 주기, 정결, 예배, 금식, 니파스, 이스티하다가 여기에 해당해요.',
+      ],
+      [
+        '여성 이슬람 법학에서 다루는 주요 주제는 무엇인가요?',
+        '특히 월경과 주기, 의례적 정결, 구슬(전신 정화 목욕), 월경 중과 월경 후의 예배와 금식, 니파스, 이스티하다를 다뤄요.',
+      ],
+      [
+        '월경, 산후 출혈, 불규칙한 출혈은 어떻게 다른가요?',
+        '월경(하이드)은 평소 주기를 따르고, 니파스는 출산 후에 나타나며, 이스티하다는 주기 밖에서 나타나는 불규칙한 출혈을 가리켜요. 각각 다른 지위를 따라요.',
+      ],
+      [
+        '월경 중에는 예배가 어떻게 되나요?',
+        '이 기간에는 예배가 면제돼요. 인정된 면제이므로 죄책감 없이 지내면 돼요.',
+      ],
+      [
+        '월경 중에는 금식이 어떻게 되나요?',
+        '금식도 면제돼요. 금식하지 못한 날은 라마단이 아닌 때에 나중에 보충해요(카다).',
+      ],
+      [
+        '금식과 달리 놓친 예배는 왜 일반적으로 보충하지 않나요?',
+        '이 차이는 두 행위의 성격에서 비롯돼요. 예배는 매일 반복되지만, 금식은 한 달에 집중되는 연간 행위예요. 면제를 따르는 것도 신앙 실천의 온전한 일부예요.',
+      ],
+      [
+        '월경이 끝난 뒤 예배는 언제 다시 시작하나요?',
+        '월경이 끝나고 구슬(전신 정화 목욕)을 마치는 즉시, 지체 없이 평소처럼 예배를 다시 시작해요.',
+      ],
+      [
+        '구슬(전신 정화 목욕)은 어떤 역할을 하나요?',
+        '구슬은 대정화로, 예배와 그 밖의 예배 행위를 다시 하는 데 필요한 의식적 정결 상태로 돌아가게 해 줘요.',
+      ],
+      [
+        '월경이 끝났는지 확신이 서지 않으면 어떻게 해야 하나요?',
+        '한 순간의 느낌에 의존하기보다 충분한 시간 동안 출혈이 완전히 없는지 지켜보면 상황을 분명히 하는 데 도움이 돼요.',
+      ],
+      [
+        '월경 중에도 다른 예배 행위를 할 수 있나요?',
+        '네. 지크르, 두아(간구), 자선, 종교 공부, 그 밖의 선행은 계속할 수 있어요.',
+      ],
+      [
+        '상황에 따라 답이 달라질 수 있는 이유는 무엇인가요?',
+        '피크흐는 해석의 분야예요. 견해는 법학파와 개인의 상황에 따라 달라질 수 있으며, 어느 하나의 견해만이 그 자체로 절대적이지는 않아요.',
+      ],
+    ],
+    section2Body1: '이슬람 법학(피크흐)에는 세부 사항에 대해 인정된 해석의 차이가 있어요. 이런 차이는 수 세기 동안 존재해 왔고 종교 전통 안에서 정당한 것으로 여겨져요.',
+    section2Body2: '따라서 참고하는 출처에 따라 같은 질문에도 조금씩 다른 답이 나올 수 있어요. 그렇다고 해서 어떤 답이 저절로 틀렸다는 뜻은 아니에요. 같은 근거를 서로 다른 방법론과 해석으로 읽은 결과예요.',
+    tip1Title: '알아 두세요',
+    tip1Text: '눈에 띄는 답에 따라 계속 의견을 바꾸기보다 자격을 갖춘 출처를 꾸준히 따르면 실천을 분명하고 차분하게 이어 가는 데 도움이 돼요.',
+    section3Body: '일부 상황은 하나의 일반적인 설명만으로는 판단하기 어려워요. 특히 다음과 같은 경우예요.',
+    doubtSituations: [
+      '월경이 실제로 언제 끝났는지 확실하지 않을 때',
+      '출혈의 성격이 불확실할 때(월경, 이스티하다, 그 밖의 경우)',
+      '구슬(전신 정화 목욕)을 해야 하는지 의문이 계속될 때',
+      '예배를 다시 시작해도 되는지 확실하지 않을 때',
+      '온라인에서 서로 상충하는 정보를 발견했을 때',
+    ],
+    alert2Title: '중요한 안내',
+    alert2Text: '개인적이거나 복잡하거나 계속되는 상황은 일반적인 정보로 해결할 수 없어요. 그런 경우에는 내 구체적인 상황을 고려할 수 있는 자격을 갖춘 학자(울라마)를 찾는 것이 여전히 가장 좋은 방법이에요. AWA는 파트와나 개인별 종교적 판단을 내리지 않아요.',
+    keyPoints: [
+      '여성 이슬람 법학은 여성의 종교 실천에 관한 많은 측면을 다뤄요',
+      '일부 세부 사항은 법학파에 따라 정당하게 달라질 수 있어요',
+      '일반적인 정보는 개인별 종교 지도를 대신하지 않아요',
+      '계속되는 의문은 자격을 갖춘 학자(울라마)에게 문의할 만해요',
+      'AWA의 역할은 교육이며, 파트와를 내리는 것이 아니에요',
+    ],
+    shareMessage: '여성 이슬람 법학에 대해 자주 묻는 질문 — AWA',
+  },
+  'pt-PT': {
+    badge: 'PERGUNTAS FREQUENTES',
+    title: 'Perguntas frequentes\nsobre o fiqh feminino',
+    metaDuration: '8 min de leitura',
+    metaType: 'Perguntas frequentes',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'As perguntas mais comuns sobre o fiqh feminino, reunidas num só lugar com respostas claras.',
+    disclaimerTitle: 'Informação importante',
+    disclaimerText: 'Este conteúdo é puramente educativo. As questões religiosas devem ser validadas por sábios qualificados. A AWA não emite fatwas nem pareceres religiosos personalizados.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Perguntas que surgem com frequência',
+      'Escolas jurídicas que podem divergir',
+      'Em caso de dúvida persistente',
+      'Pontos essenciais',
+    ],
+    section1Body: 'Muitas questões sobre o ciclo, a oração e o jejum surgem regularmente entre as mulheres. Eis respostas gerais às mais frequentes; para ir mais longe, cada tema é também abordado com maior profundidade no seu próprio artigo.',
+    faqItems: [
+      [
+        'O que é o fiqh feminino?',
+        'O fiqh feminino reúne as regras práticas que dizem especificamente respeito ao corpo e ao culto das mulheres: o ciclo, a pureza, a oração, o jejum, o nifas e a istihada.',
+      ],
+      [
+        'Quais são os principais temas abordados pelo fiqh feminino?',
+        'Abrange, em particular, a menstruação e o ciclo, a pureza ritual, o ghusl, a oração e o jejum durante e após a menstruação, o nifas e a istihada.',
+      ],
+      [
+        'Qual é a diferença entre a menstruação, o sangramento pós-parto e o sangramento irregular?',
+        'A menstruação (hayd) segue o ciclo habitual, o nifas ocorre após o parto e a istihada designa o sangramento irregular, fora do ciclo. Cada um segue um estatuto diferente.',
+      ],
+      [
+        'O que acontece à oração durante a menstruação?',
+        'A oração fica suspensa durante este período: trata-se de uma dispensa reconhecida, a viver sem culpa.',
+      ],
+      [
+        'O que acontece ao jejum durante a menstruação?',
+        'O jejum também fica suspenso; os dias em que não se jejuou são compensados mais tarde (Qada), fora do Ramadão.',
+      ],
+      [
+        'Porque é que as orações perdidas geralmente não são compensadas, ao contrário do jejum?',
+        'Esta diferença deve-se à natureza dos dois atos: a oração é diária e repetida, enquanto o jejum é anual e concentrado num único mês. Seguir a dispensa faz plenamente parte da prática religiosa.',
+      ],
+      [
+        'Quando se retoma a oração após a menstruação?',
+        'Assim que a menstruação terminou e o ghusl foi realizado, a oração é retomada normalmente, sem demora.',
+      ],
+      [
+        'Qual é o papel do ghusl?',
+        'O ghusl é o banho ritual maior que permite regressar ao estado de pureza ritual necessário para retomar a oração e outros atos de culto.',
+      ],
+      [
+        'O que fazer se não tiver a certeza de que a menstruação terminou?',
+        'Observar a ausência total de sangramento durante um período de tempo suficiente, em vez de se basear numa impressão pontual, ajuda a esclarecer a situação.',
+      ],
+      [
+        'Podem praticar-se outras formas de culto durante a menstruação?',
+        'Sim: o dhikr, as súplicas, a caridade, a aprendizagem religiosa e outros atos de bondade continuam acessíveis.',
+      ],
+      [
+        'Porque é que algumas respostas podem variar consoante a situação?',
+        'O fiqh é um domínio de interpretação: as opiniões podem variar consoante a escola jurídica e as circunstâncias pessoais, sem que nenhuma opinião seja absoluta por si só.',
+      ],
+    ],
+    section2Body1: 'O fiqh islâmico inclui diferenças de interpretação reconhecidas em certos pontos de pormenor. Estas diferenças existem há séculos e são consideradas legítimas dentro da tradição religiosa.',
+    section2Body2: 'Consoante a fonte consultada, a mesma questão pode, assim, receber respostas ligeiramente diferentes. Isto não significa que uma resposta esteja automaticamente errada: reflete metodologias e leituras diferentes das mesmas fontes.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'Seguir de forma consistente uma fonte qualificada, em vez de mudar constantemente de opinião consoante a resposta encontrada, ajuda a manter a sua prática clara e serena.',
+    section3Body: 'Algumas situações continuam difíceis de resolver com base numa única explicação geral. É particularmente o caso quando:',
+    doubtSituations: [
+      'Existe incerteza sobre o momento em que a menstruação realmente terminou',
+      'A natureza do sangramento continua incerta (menstruação, istihada, outro)',
+      'Persiste a dúvida sobre a necessidade de realizar o ghusl',
+      'A questão da retoma da oração continua incerta',
+      'Foram encontradas informações contraditórias na internet',
+    ],
+    alert2Title: 'Informação importante',
+    alert2Text: 'Quando uma situação é pessoal, complexa ou persistente, não pode ser resolvida com informação geral. Recorrer a um sábio qualificado, capaz de ter em conta a sua situação específica, continua a ser a melhor abordagem nesse caso. A AWA não emite fatwas nem pareceres religiosos personalizados.',
+    keyPoints: [
+      'O fiqh feminino abrange muitos aspetos da prática religiosa das mulheres',
+      'Alguns pormenores podem variar legitimamente consoante a escola jurídica',
+      'A informação geral não substitui uma orientação religiosa personalizada',
+      'Uma dúvida persistente merece ser colocada a um sábio qualificado',
+      'O papel da AWA é educativo, e não emitir fatwas',
+    ],
+    shareMessage: 'Perguntas frequentes sobre o fiqh feminino — AWA',
+  },
+  bn: {
+    badge: 'সচরাচর জিজ্ঞাসিত প্রশ্ন',
+    title: 'নারীদের ফিকহ বিষয়ে\nসচরাচর জিজ্ঞাসিত প্রশ্ন',
+    metaDuration: '8 মিনিটের পাঠ',
+    metaType: 'প্রশ্নোত্তর',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'নারীদের ফিকহ সম্পর্কে সবচেয়ে প্রচলিত প্রশ্নগুলো, স্পষ্ট উত্তরসহ এক জায়গায় সংকলিত।',
+    disclaimerTitle: 'গুরুত্বপূর্ণ তথ্য',
+    disclaimerText: 'এই বিষয়বস্তু সম্পূর্ণ শিক্ষামূলক। ধর্মীয় প্রশ্নের বিষয়ে যোগ্য আলেমদের কাছ থেকে নিশ্চিত হওয়া উচিত। AWA ফতোয়া বা ব্যক্তিগত ধর্মীয় সিদ্ধান্ত প্রদান করে না।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'যেসব প্রশ্ন প্রায়ই ওঠে',
+      'ফিকহের যেসব মাযহাবে পার্থক্য থাকতে পারে',
+      'স্থায়ী সন্দেহের ক্ষেত্রে',
+      'মূল বিষয়গুলো',
+    ],
+    section1Body: 'চক্র, নামাজ ও রোজা নিয়ে অনেক প্রশ্ন এক নারী থেকে আরেক নারীর কাছে নিয়মিতভাবেই ওঠে। এখানে সবচেয়ে প্রচলিত প্রশ্নগুলোর সাধারণ উত্তর দেওয়া হলো; আরও গভীরে জানতে প্রতিটি বিষয় তার নিজস্ব নিবন্ধেও আরও বিস্তারিতভাবে আলোচিত হয়েছে।',
+    faqItems: [
+      [
+        'নারীদের ফিকহ কী?',
+        'নারীদের ফিকহ নারীর শরীর ও ইবাদতের সঙ্গে বিশেষভাবে সম্পর্কিত ব্যবহারিক বিধানগুলো একত্র করে: চক্র, পবিত্রতা, নামাজ, রোজা, নিফাস ও ইস্তিহাযা।',
+      ],
+      [
+        'নারীদের ফিকহের প্রধান আলোচ্য বিষয়গুলো কী কী?',
+        'এতে বিশেষ করে ঋতুস্রাব ও চক্র, আনুষ্ঠানিক পবিত্রতা, গোসল, ঋতুস্রাবের সময় ও পরে নামাজ ও রোজা, নিফাস এবং ইস্তিহাযা অন্তর্ভুক্ত।',
+      ],
+      [
+        'ঋতুস্রাব, প্রসবোত্তর রক্তস্রাব ও অনিয়মিত রক্তক্ষরণের মধ্যে পার্থক্য কী?',
+        'ঋতুস্রাব (হায়েজ) স্বাভাবিক চক্র অনুসরণ করে, নিফাস সন্তান প্রসবের পর হয়, আর ইস্তিহাযা বলতে চক্রের বাইরে অনিয়মিত রক্তক্ষরণ বোঝায়। প্রতিটির বিধান আলাদা।',
+      ],
+      [
+        'ঋতুস্রাবের সময় নামাজের কী হয়?',
+        'এই সময়ে নামাজ স্থগিত থাকে: এটি একটি স্বীকৃত অব্যাহতি, যা অপরাধবোধ ছাড়াই পালন করা উচিত।',
+      ],
+      [
+        'ঋতুস্রাবের সময় রোজার কী হয়?',
+        'রোজাও স্থগিত থাকে; যে দিনগুলোর রোজা রাখা হয়নি তা পরে, রমজানের বাইরে, কাজা করা হয়।',
+      ],
+      [
+        'রোজার বিপরীতে ছুটে যাওয়া নামাজ সাধারণত কেন কাজা করা হয় না?',
+        'এই পার্থক্য দুটি ইবাদতের প্রকৃতির কারণে: নামাজ প্রতিদিনের ও বারবার আদায়যোগ্য, আর রোজা বার্ষিক এবং এক মাসের মধ্যে সীমিত। অব্যাহতি অনুসরণ করা ধর্মীয় চর্চারই পূর্ণ অংশ।',
+      ],
+      [
+        'ঋতুস্রাবের পর কখন নামাজ আবার শুরু হয়?',
+        'ঋতুস্রাব শেষ হওয়ার পর এবং গোসল করার সঙ্গে সঙ্গেই, দেরি না করে, নামাজ স্বাভাবিকভাবে আবার শুরু হয়।',
+      ],
+      [
+        'গোসলের ভূমিকা কী?',
+        'গোসল হলো বড় ধরনের পবিত্রতা অর্জনের ধর্মীয় প্রক্রিয়া, যা নামাজ ও অন্যান্য ইবাদত আবার শুরু করার জন্য প্রয়োজনীয় আনুষ্ঠানিক পবিত্রতার অবস্থায় ফিরে আসার সুযোগ দেয়।',
+      ],
+      [
+        'ঋতুস্রাব শেষ হয়েছে কি না নিশ্চিত না হলে কী করবেন?',
+        'কোনো সাময়িক অনুভূতির ওপর নির্ভর না করে যথেষ্ট সময় ধরে রক্তক্ষরণ পুরোপুরি না থাকার বিষয়টি পর্যবেক্ষণ করলে পরিস্থিতি স্পষ্ট হতে সাহায্য করে।',
+      ],
+      [
+        'ঋতুস্রাবের সময় কি অন্যান্য ইবাদত পালন করা যায়?',
+        'হ্যাঁ: যিকির, দোয়া, দান, ধর্মীয় জ্ঞান অর্জন এবং অন্যান্য ভালো কাজ করা সম্ভব থাকে।',
+      ],
+      [
+        'পরিস্থিতিভেদে কিছু উত্তর কেন ভিন্ন হতে পারে?',
+        'ফিকহ ব্যাখ্যার একটি ক্ষেত্র: মাযহাব ও ব্যক্তিগত পরিস্থিতি অনুযায়ী মতামত ভিন্ন হতে পারে, কোনো একটি মতই এককভাবে চূড়ান্ত নয়।',
+      ],
+    ],
+    section2Body1: 'ইসলামি ফিকহে কিছু খুঁটিনাটি বিষয়ে ব্যাখ্যার স্বীকৃত পার্থক্য রয়েছে। এই পার্থক্যগুলো শত শত বছর ধরে আছে এবং ধর্মীয় ঐতিহ্যের মধ্যে বৈধ বলে গণ্য করা হয়।',
+    section2Body2: 'কোন উৎস দেখা হচ্ছে তার ওপর নির্ভর করে একই প্রশ্নের কিছুটা ভিন্ন উত্তর হতে পারে। এর অর্থ এই নয় যে কোনো উত্তর স্বয়ংক্রিয়ভাবে ভুল: এটি একই উৎসের ভিন্ন পদ্ধতি ও ভিন্ন পাঠকে প্রতিফলিত করে।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'যে উত্তর পাওয়া যায় তার ভিত্তিতে বারবার মত বদলানোর পরিবর্তে ধারাবাহিকভাবে একটি যোগ্য উৎস অনুসরণ করলে আপনার চর্চা স্পষ্ট ও শান্ত থাকতে সাহায্য করে।',
+    section3Body: 'কিছু পরিস্থিতি একটিমাত্র সাধারণ ব্যাখ্যার ভিত্তিতে সমাধান করা কঠিন থাকে। বিশেষ করে এমন ক্ষেত্রে এটি ঘটে যখন:',
+    doubtSituations: [
+      'ঋতুস্রাব আসলে কখন শেষ হয়েছে তা নিয়ে অনিশ্চয়তা আছে',
+      'রক্তক্ষরণের ধরন অনিশ্চিত থেকে যায় (ঋতুস্রাব, ইস্তিহাযা, অন্য কিছু)',
+      'গোসল করার প্রয়োজন আছে কি না তা নিয়ে সন্দেহ থেকে যায়',
+      'নামাজ আবার শুরু করার প্রশ্নটি অনিশ্চিত থেকে যায়',
+      'অনলাইনে পরস্পরবিরোধী তথ্য পাওয়া গেছে',
+    ],
+    alert2Title: 'গুরুত্বপূর্ণ তথ্য',
+    alert2Text: 'কোনো পরিস্থিতি ব্যক্তিগত, জটিল বা স্থায়ী হলে সাধারণ তথ্য দিয়ে তার সমাধান করা যায় না। সেক্ষেত্রে আপনার নির্দিষ্ট পরিস্থিতি বিবেচনায় নিতে সক্ষম একজন যোগ্য আলেমের শরণাপন্ন হওয়াই সর্বোত্তম পথ। AWA ফতোয়া বা ব্যক্তিগত ধর্মীয় সিদ্ধান্ত প্রদান করে না।',
+    keyPoints: [
+      'নারীদের ফিকহ নারীদের ধর্মীয় চর্চার অনেক দিক জুড়ে রয়েছে',
+      'মাযহাব অনুযায়ী কিছু খুঁটিনাটি বিষয় বৈধভাবে ভিন্ন হতে পারে',
+      'সাধারণ তথ্য ব্যক্তিগত ধর্মীয় দিকনির্দেশনার বিকল্প নয়',
+      'স্থায়ী সন্দেহ একজন যোগ্য আলেমের কাছে তোলার যোগ্য',
+      'AWA-এর ভূমিকা শিক্ষামূলক, ফতোয়া প্রদান করা নয়',
+    ],
+    shareMessage: 'নারীদের ফিকহ বিষয়ে সচরাচর জিজ্ঞাসিত প্রশ্ন — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

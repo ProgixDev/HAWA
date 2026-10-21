@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'ring-anneau-vaginal';
 
@@ -50,7 +51,7 @@ const CARE_TIP_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('VaginalRing', {
   fr: {
     badge: 'ANNEAU VAGINAL',
     title: 'L’anneau vaginal\ncontraceptif',
@@ -996,7 +997,277 @@ const CONTENT = {
     tip2Text: '腟リングは、ホルモンの継続的な放出と、毎日の服用が不要な使用リズムを兼ね備えています。ただし、避妊法の選択は一人ひとりに合わせて、医療従事者と相談して決める必要があります。',
     shareMessage: '避妊用の腟リング — AWA',
   },
-} as const;
+  ko: {
+    badge: '질링',
+    title: '피임용\n질링',
+    metaDuration: '읽는 데 5분',
+    metaType: '아티클',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '3주 동안 착용하는 유연한 링이에요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '링이 작용하는 방식',
+      '삽입과 제거',
+      '알아야 할 점',
+      '핵심 정리',
+    ],
+    body1: '링은 질 안에서 낮은 용량의 호르몬을 지속적으로 직접 방출하는 유연한 기구예요. 복합 피임약과 같은 피임 작용을 해요.',
+    flowTitle: '작용 방식',
+    flowSteps: [
+      {
+        title: '링',
+        text: '질 안에 넣어요',
+      },
+      {
+        title: '호르몬',
+        text: '지속적으로 퍼져요',
+      },
+      {
+        title: '보호',
+        text: '피임 작용',
+      },
+    ],
+    body2: '직접 삽입하고 3주 동안 계속 그대로 둔 다음 제거해요. 이후 1주 동안 쉬는 기간에 생리가 시작돼요.',
+    calendarTitle: '따라 하기 쉬운 리듬',
+    weekLabelActive: '링',
+    weekLabelPause: '휴식',
+    legendActive: '링을 착용하는 주',
+    legendPause: '쉬는 주',
+    tip1Title: '알아두면 좋아요',
+    tip1Text: '질 안에서의 정확한 위치가 꼭 정밀하지 않아도 효과가 있어서 사용하기 간단해요.',
+    body3: '링을 선택하기 전에 알아 두면 좋은 실용적인 점이 몇 가지 있어요.',
+    careTips: [
+      {
+        title: '간편한 사용',
+        text: '직접 삽입하고 제거할 수 있어요.',
+      },
+      {
+        title: '규칙적인 리듬',
+        text: '보통 3주 동안 그대로 두어요.',
+      },
+      {
+        title: '지속적인 작용',
+        text: '사용하는 기간 내내 호르몬이 지속적으로 방출돼요.',
+      },
+      {
+        title: '성병은 막아 주지 않아요',
+        text: '상황에 따라 추가적인 보호가 필요할 수 있어요.',
+      },
+    ],
+    checkListTitle: '지키면 좋은 습관',
+    practicalSteps: [
+      '삽입하거나 제거하기 전에 손을 씻어요',
+      '일정을 챙기기 쉽도록 기억하기 쉬운 시간을 정해요',
+      '가끔 링이 제자리에 있는지 확인해요',
+      '링이 움직이거나 빠졌다면 설명서를 확인해요',
+    ],
+    alertTitle: '유의하세요',
+    alertText: '링이 빠지거나 오랫동안 제자리에서 벗어났다면 별도의 안내가 필요할 수 있어요. 잘 모르겠다면 항상 제품 설명서를 확인하거나 의료 전문가에게 문의하세요.',
+    summaryTitle: '4가지 핵심 정리',
+    summaryItems: [
+      {
+        title: '간단한 삽입',
+        text: '링은 직접 삽입하고 제거할 수 있어요.',
+      },
+      {
+        title: '주 단위 리듬',
+        text: '보통 3주 사용하고 1주 쉬는 주기를 따라요.',
+      },
+      {
+        title: '가끔 확인하기',
+        text: '링이 제자리에 있는지 정기적으로 확인하면 마음 편히 사용할 수 있어요.',
+      },
+      {
+        title: '성병은 막아 주지 않아요',
+        text: '상황에 따라 알맞은 보호가 필요할 수 있어요.',
+      },
+    ],
+    tip2Title: '핵심 정리',
+    tip2Text: '질링은 호르몬을 지속적으로 방출하면서도 매일 복용하지 않아도 되는 사용 리듬을 갖추고 있어요. 다만 피임 방법은 사람마다 알맞게 선택해야 하고, 의료 전문가와 상의하는 것이 좋아요.',
+    shareMessage: '피임용 질링 — AWA',
+  },
+  'pt-PT': {
+    badge: 'ANEL VAGINAL',
+    title: 'O anel vaginal\ncontracetivo',
+    metaDuration: '5 min de leitura',
+    metaType: 'Artigo',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Um anel flexível, usado durante três semanas.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Como funciona o anel',
+      'Inserção e remoção',
+      'O que precisa de saber',
+      'Pontos a reter',
+    ],
+    body1: 'O anel é um dispositivo flexível que liberta continuamente doses baixas de hormonas diretamente na vagina, com a mesma ação contracetiva de uma pílula combinada.',
+    flowTitle: 'Como funciona',
+    flowSteps: [
+      {
+        title: 'Anel',
+        text: 'Colocado na vagina',
+      },
+      {
+        title: 'Hormonas',
+        text: 'Difusão contínua',
+      },
+      {
+        title: 'Proteção',
+        text: 'Ação contracetiva',
+      },
+    ],
+    body2: 'É a própria pessoa que o insere, permanece no lugar de forma contínua durante três semanas e depois é retirado para uma pausa de uma semana, durante a qual ocorre o período.',
+    calendarTitle: 'Um ritmo simples de seguir',
+    weekLabelActive: 'Anel',
+    weekLabelPause: 'Pausa',
+    legendActive: 'Semana com o anel',
+    legendPause: 'Semana de pausa',
+    tip1Title: 'Bom saber',
+    tip1Text: 'A sua posição exata na vagina não precisa de ser precisa para que seja eficaz, o que o torna simples de usar.',
+    body3: 'O anel tem vários aspetos práticos que vale a pena conhecer antes de o escolher.',
+    careTips: [
+      {
+        title: 'Simples de usar',
+        text: 'Pode inseri-lo e retirá-lo por si.',
+      },
+      {
+        title: 'Ritmo regular',
+        text: 'Fica geralmente no lugar durante três semanas.',
+      },
+      {
+        title: 'Ação contínua',
+        text: 'As hormonas são libertadas de forma contínua durante todo o período de utilização.',
+      },
+      {
+        title: 'Não protege contra IST',
+        text: 'Pode ser necessária proteção adicional consoante a situação.',
+      },
+    ],
+    checkListTitle: 'Bons hábitos a manter',
+    practicalSteps: [
+      'Lave as mãos antes de o inserir ou retirar',
+      'Escolha uma hora fácil de memorizar para acompanhar o calendário',
+      'Verifique de vez em quando se continua no lugar',
+      'Consulte o folheto informativo se se deslocar ou for expulso',
+    ],
+    alertTitle: 'Atenção',
+    alertText: 'Uma expulsão ou um deslocamento prolongado pode exigir orientações específicas. Consulte sempre o folheto informativo do dispositivo ou pergunte a um profissional de saúde em caso de dúvida.',
+    summaryTitle: 'O essencial em 4 pontos',
+    summaryItems: [
+      {
+        title: 'Inserção simples',
+        text: 'O anel pode ser inserido e retirado pela própria pessoa.',
+      },
+      {
+        title: 'Ritmo semanal',
+        text: 'Segue geralmente um ciclo de três semanas com uma semana de pausa.',
+      },
+      {
+        title: 'Verificação ocasional',
+        text: 'Verificar regularmente se está no lugar ajuda a usar o dispositivo com tranquilidade.',
+      },
+      {
+        title: 'Sem proteção contra IST',
+        text: 'Pode ser necessária uma proteção adequada consoante a situação.',
+      },
+    ],
+    tip2Title: 'Pontos a reter',
+    tip2Text: 'O anel vaginal combina a libertação contínua de hormonas com um ritmo de utilização que dispensa uma toma diária. No entanto, a escolha da contraceção deve ser adaptada a cada pessoa e discutida com um profissional de saúde.',
+    shareMessage: 'O anel vaginal contracetivo — AWA',
+  },
+  bn: {
+    badge: 'যোনিপথের রিং',
+    title: 'জন্মনিয়ন্ত্রণের\nযোনিপথের রিং',
+    metaDuration: 'পড়তে 5 মিনিট',
+    metaType: 'নিবন্ধ',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'একটি নমনীয় রিং, যা তিন সপ্তাহ ধরে পরা হয়।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'রিং কীভাবে কাজ করে',
+      'পরানো ও খোলা',
+      'যা জানা দরকার',
+      'মূল কথা',
+    ],
+    body1: 'রিং একটি নমনীয় উপকরণ, যা সরাসরি যোনিপথে অবিরাম অল্প মাত্রায় হরমোন নির্গত করে এবং সম্মিলিত জন্মনিয়ন্ত্রণ বড়ির মতোই জন্মনিয়ন্ত্রণে কাজ করে।',
+    flowTitle: 'কীভাবে কাজ করে',
+    flowSteps: [
+      {
+        title: 'রিং',
+        text: 'যোনিপথে স্থাপন করা হয়',
+      },
+      {
+        title: 'হরমোন',
+        text: 'অবিরাম নির্গমন',
+      },
+      {
+        title: 'সুরক্ষা',
+        text: 'গর্ভনিরোধক কার্যকারিতা',
+      },
+    ],
+    body2: 'আপনি নিজেই এটি পরাতে পারেন, এটি তিন সপ্তাহ ধরে টানা জায়গায় থাকে, তারপর এক সপ্তাহের বিরতির জন্য খুলে ফেলা হয়, আর এই বিরতিতে আপনার মাসিক হয়।',
+    calendarTitle: 'অনুসরণ করার মতো সহজ ছন্দ',
+    weekLabelActive: 'রিং',
+    weekLabelPause: 'বিরতি',
+    legendActive: 'রিং পরা থাকার সপ্তাহ',
+    legendPause: 'বিরতির সপ্তাহ',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'কার্যকর হওয়ার জন্য যোনিপথে এর অবস্থান একেবারে নিখুঁত হতে হয় না, যা এটি ব্যবহার করা সহজ করে তোলে।',
+    body3: 'রিং বেছে নেওয়ার আগে এর কয়েকটি বাস্তব দিক জেনে রাখা ভালো।',
+    careTips: [
+      {
+        title: 'ব্যবহার সহজ',
+        text: 'আপনি নিজেই এটি পরাতে ও খুলতে পারেন।',
+      },
+      {
+        title: 'নিয়মিত ছন্দ',
+        text: 'এটি সাধারণত তিন সপ্তাহ জায়গায় থাকে।',
+      },
+      {
+        title: 'অবিরাম কার্যকারিতা',
+        text: 'ব্যবহারের পুরো সময় জুড়ে হরমোন অবিরাম নির্গত হয়।',
+      },
+      {
+        title: 'যৌনবাহিত সংক্রমণ থেকে সুরক্ষা দেয় না',
+        text: 'পরিস্থিতি অনুযায়ী অতিরিক্ত সুরক্ষার প্রয়োজন হতে পারে।',
+      },
+    ],
+    checkListTitle: 'যেসব ভালো অভ্যাস মেনে চলবেন',
+    practicalSteps: [
+      'পরানো বা খোলার আগে হাত ধুয়ে নিন',
+      'সময়সূচি মনে রাখার জন্য সহজে মনে রাখা যায় এমন একটি সময় বেছে নিন',
+      'মাঝে মাঝে দেখে নিন যে এটি এখনও জায়গায় আছে কি না',
+      'এটি সরে গেলে বা বেরিয়ে এলে সঙ্গে থাকা তথ্যপত্র দেখে নিন',
+    ],
+    alertTitle: 'মনে রাখবেন',
+    alertText: 'রিং বেরিয়ে এলে বা দীর্ঘ সময় সরে থাকলে নির্দিষ্ট দিকনির্দেশনার প্রয়োজন হতে পারে। নিশ্চিত না হলে সবসময় উপকরণের সঙ্গে থাকা তথ্যপত্র দেখুন অথবা কোনো স্বাস্থ্যসেবা পেশাজীবীকে জিজ্ঞাসা করুন।',
+    summaryTitle: '4টি পয়েন্টে মূল কথা',
+    summaryItems: [
+      {
+        title: 'পরানো সহজ',
+        text: 'রিং নিজেই পরানো ও খোলা যায়।',
+      },
+      {
+        title: 'সাপ্তাহিক ছন্দ',
+        text: 'এটি সাধারণত তিন সপ্তাহের চক্র অনুসরণ করে এবং তারপর এক সপ্তাহের বিরতি থাকে।',
+      },
+      {
+        title: 'মাঝে মাঝে পরীক্ষা',
+        text: 'নিয়মিত দেখে নেওয়া যে এটি জায়গায় আছে কি না, আপনাকে নিশ্চিন্তে উপকরণটি ব্যবহার করতে সাহায্য করে।',
+      },
+      {
+        title: 'যৌনবাহিত সংক্রমণ থেকে সুরক্ষা নেই',
+        text: 'পরিস্থিতি অনুযায়ী উপযুক্ত সুরক্ষার প্রয়োজন হতে পারে।',
+      },
+    ],
+    tip2Title: 'মূল কথা',
+    tip2Text: 'যোনিপথের রিং অবিরাম হরমোন নির্গমনের সঙ্গে এমন একটি ব্যবহারের ছন্দ মিলিয়েছে, যাতে প্রতিদিন ডোজ নিতে হয় না। তবে জন্মনিয়ন্ত্রণ পদ্ধতি প্রত্যেকের প্রয়োজন অনুযায়ী বেছে নেওয়া উচিত এবং কোনো স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে আলোচনা করা উচিত।',
+    shareMessage: 'জন্মনিয়ন্ত্রণের যোনিপথের রিং — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

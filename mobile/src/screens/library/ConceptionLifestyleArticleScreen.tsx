@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'conceptiontips-hygiene-de-vie';
 
@@ -50,7 +51,7 @@ const SUPPORTIVE_HABITS_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('ConceptionLifestyle', {
   fr: {
     badge: 'MODE DE VIE',
     title: 'Mode de vie et\nparcours de conception',
@@ -471,7 +472,112 @@ const CONTENT = {
     tip2Text: 'やりすぎず、完璧を求めず、全体としてバランスのよい習慣を続けることが、日々の最良の支えになります。',
     shareMessage: '生活習慣と妊活の歩み — AWA',
   },
-} as const;
+  ko: {
+    badge: '생활 습관',
+    title: '생활 습관과\n임신 준비 여정',
+    metaDuration: '5분 읽기',
+    metaType: '아티클',
+    metaLevel: '초급',
+    metaValidated: '검토된 콘텐츠',
+    intro: '부담 없이 여정에 도움이 될 수 있는 간단한 습관이에요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '임신 가능성에 도움이 될 수 있는 것',
+      '스트레스, 간과하면 안 되는 요인',
+      '줄이는 것이 좋은 것',
+      '핵심 정리',
+    ],
+    body1: '간단한 생활 습관은 임신 준비 여정에 도움이 될 수 있어요. 다만 그것만으로 결과를 보장할 수는 없어요.',
+    supportiveHabits: [
+      '균형 잡힌 식사',
+      '적당한 신체 활동',
+      '질 좋은 수면',
+      '휴식하는 시간',
+    ],
+    body2: '만성 스트레스는 호르몬 균형에 영향을 줄 수 있고, 일부 여성에게는 주기의 규칙성에도 영향을 줄 수 있어요. 마음을 편안히 하는 시간을 갖는 것도 여정의 소중한 일부예요.',
+    tip1Title: '알아 두세요',
+    tip1Text: '“모든 것을 완벽하게 해야 한다”는 마음이 오히려 스트레스의 원인이 될 수 있어요. 전반적으로 건강한 습관을 목표로 하면 충분하고, 완벽할 필요는 없어요.',
+    toLimit: [
+      '흡연: 부부 모두의 임신 가능성에 영향을 줄 수 있어요',
+      '지나친 음주',
+      '강도 높은 운동을 오래 하는 것: 오히려 임신 가능성을 낮출 수 있어요',
+      '정제당 과다 섭취: 호르몬 균형을 흐트러뜨릴 수 있어요',
+    ],
+    tip2Title: '알아 두세요',
+    tip2Text: '지나침도 완벽주의도 없는, 전반적으로 균형 잡힌 습관이 일상에서 가장 좋은 도움이 돼요.',
+    shareMessage: '생활 습관과 임신 준비 여정 — AWA',
+  },
+  'pt-PT': {
+    badge: 'ESTILO DE VIDA',
+    title: 'Hábitos de vida e\no seu percurso rumo à conceção',
+    metaDuration: 'Leitura de 5 min',
+    metaType: 'Artigo',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Hábitos simples que podem apoiar o seu percurso, sem pressão.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'O que pode apoiar a fertilidade',
+      'O stress, um fator a não negligenciar',
+      'O que é melhor limitar',
+      'A reter',
+    ],
+    body1: 'Alguns hábitos de vida simples podem apoiar um percurso rumo à conceção, embora não possam garantir um resultado por si só.',
+    supportiveHabits: [
+      'Uma alimentação equilibrada',
+      'Atividade física moderada',
+      'Sono de qualidade',
+      'Momentos de relaxamento',
+    ],
+    body2: 'O stress crónico pode afetar o equilíbrio hormonal e, em algumas mulheres, a regularidade do ciclo. Reservar momentos de calma faz inteiramente parte do percurso.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'Querer “fazer tudo bem” pode tornar-se, por si só, uma fonte de stress: basta procurar hábitos globalmente saudáveis, sem perfeccionismo.',
+    toLimit: [
+      'O tabaco, que pode afetar a fertilidade em ambos os parceiros',
+      'O consumo excessivo de álcool',
+      'O treino desportivo intenso e prolongado, que pode, pelo contrário, reduzir a fertilidade',
+      'O excesso de açúcar refinado, que pode perturbar o equilíbrio hormonal',
+    ],
+    tip2Title: 'Bom saber',
+    tip2Text: 'Hábitos globalmente equilibrados, sem excessos nem perfeccionismo, são o melhor apoio no dia a dia.',
+    shareMessage: 'Hábitos de vida e percurso rumo à conceção — AWA',
+  },
+  bn: {
+    badge: 'জীবনযাপন',
+    title: 'জীবনযাপনের অভ্যাস ও\nআপনার গর্ভধারণের যাত্রা',
+    metaDuration: 'পড়তে 5 মিনিট',
+    metaType: 'নিবন্ধ',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'সহজ কিছু অভ্যাস যা আপনার যাত্রায় সহায়ক হতে পারে, কোনো চাপ ছাড়াই।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'যা প্রজনন ক্ষমতাকে সহায়তা করতে পারে',
+      'মানসিক চাপ, উপেক্ষা না করার মতো একটি কারণ',
+      'যা সীমিত রাখাই ভালো',
+      'মূল কথা',
+    ],
+    body1: 'জীবনযাপনের কিছু সহজ অভ্যাস গর্ভধারণের যাত্রায় সহায়ক হতে পারে, তবে এককভাবে ফলের নিশ্চয়তা দিতে পারে না।',
+    supportiveHabits: [
+      'সুষম খাদ্যাভ্যাস',
+      'পরিমিত শারীরিক কার্যকলাপ',
+      'মানসম্মত ঘুম',
+      'শিথিল হওয়ার মুহূর্ত',
+    ],
+    body2: 'দীর্ঘস্থায়ী মানসিক চাপ হরমোনের ভারসাম্য এবং কিছু নারীর ক্ষেত্রে চক্রের নিয়মিততাকে প্রভাবিত করতে পারে। নিজেকে শান্ত থাকার সময় দেওয়া এই যাত্রারই একটি অংশ।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: '“সবকিছু ঠিকঠাক করার” ইচ্ছাই নিজে মানসিক চাপের উৎস হয়ে উঠতে পারে: সাধারণভাবে স্বাস্থ্যকর অভ্যাস রাখাই যথেষ্ট, নিখুঁত হওয়ার চেষ্টা ছাড়াই।',
+    toLimit: [
+      'ধূমপান, যা উভয় সঙ্গীর প্রজনন ক্ষমতাকে প্রভাবিত করতে পারে',
+      'অতিরিক্ত অ্যালকোহল পান',
+      'তীব্র ও দীর্ঘ সময়ের ক্রীড়া প্রশিক্ষণ, যা উল্টোভাবে প্রজনন ক্ষমতা কমিয়ে দিতে পারে',
+      'অতিরিক্ত পরিশোধিত চিনি, যা হরমোনের ভারসাম্য বিঘ্নিত করতে পারে',
+    ],
+    tip2Title: 'জেনে রাখা ভালো',
+    tip2Text: 'বাড়াবাড়ি বা নিখুঁত হওয়ার চেষ্টা ছাড়া সাধারণভাবে সুষম অভ্যাসই প্রতিদিনের সবচেয়ে ভালো সহায়তা।',
+    shareMessage: 'জীবনযাপনের অভ্যাস ও গর্ভধারণের যাত্রা — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

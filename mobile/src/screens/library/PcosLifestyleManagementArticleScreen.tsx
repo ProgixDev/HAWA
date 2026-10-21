@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'pcos-mode-de-vie-prise-en-charge';
 
@@ -41,7 +42,7 @@ const HERO = require('../../assets/images/library/spm-yoga.png');
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('PcosLifestyleManagement', {
   fr: {
     badge: 'SOPK',
     title: 'Mode de vie et\nprise en charge du SOPK',
@@ -474,7 +475,115 @@ const CONTENT = {
     tip2Text: 'PCOSは、シンプルな習慣と定期的な医療的フォローで日々向き合っていきます。小さな調整の一つひとつが力になります。ご自身のペースで進めましょう。',
     shareMessage: 'PCOSと生活習慣、そのケア — AWA',
   },
-} as const;
+  ko: {
+    badge: 'PCOS',
+    title: 'PCOS 생활 습관과\n관리',
+    metaDuration: '읽는 데 7분',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: 'PCOS 관리 방법과 일상을 돕는 간단한 습관을 알아봐요.',
+    contentsTitle: '이 아티클에서 다루는 내용',
+    topics: [
+      '전문가와 함께 만드는 관리',
+      '균형 잡힌 식단',
+      '알맞은 신체 활동',
+      '수면과 스트레스 관리',
+      '정서적 웰빙',
+      '빨리 살펴봐야 할 신호',
+      '핵심 정리',
+    ],
+    nutritionTips: [
+      '식이섬유를 챙기세요(채소, 콩류, 통곡물).',
+      '심한 허기를 피하도록 식사를 나누어 드세요.',
+      '당이 빨리 흡수되는 음식과 가공도가 높은 음식은 줄이세요.',
+      '먹으면 안 되는 음식은 없어요. 엄격한 규칙보다 전반적인 균형을 목표로 하세요.',
+    ],
+    section1Body: 'PCOS에 모두에게 맞는 단 하나의 치료법은 없어요. 증상과 우선순위(주기, 임신 가능성, 피부, 체중), 개인 상황에 맞춰 관리해요. 필요에 따라 생활 습관 개선, 호르몬 치료, 또는 다른 방법을 함께 쓸 수 있어요.',
+    section3Body: '빠르게 걷기, 자전거 타기, 가벼운 근력 운동처럼 적당한 강도라도 규칙적으로 신체 활동을 하면 호르몬과 대사의 균형을 지키는 데 도움이 돼요. 강도보다 꾸준함이 더 중요해요.',
+    section4Body: '충분히 자고 규칙적으로 긴장을 풀어 주면 스트레스가 호르몬 균형에 미치는 영향을 줄일 수 있어요. 호르몬 균형은 다시 PCOS 증상에 영향을 줄 수 있어요.',
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '유지하기 어려운 급격한 변화보다 작지만 오래가는 변화가 장기적으로 더 효과적인 경우가 많아요.',
+    section5Body: 'PCOS와 함께 살다 보면 눈에 보이는 증상이나 임신 가능성에 대한 걱정 때문에 기분이 무거워질 수 있어요. 그런 감정은 충분히 그럴 수 있는 것이에요. 가까운 사람이나 전문가에게 이야기하는 것도 종합적인 관리의 중요한 부분이에요.',
+    alertTitle: '이럴 때는 의사를 만나세요',
+    alertText: '심하거나 평소와 다른 골반 통증, 매우 많거나 오래 지속되는 출혈, 극심한 피로나 평소와 다른 지속적인 갈증, 또는 시간이 지나도 이어지는 정서적 힘듦이 있을 때예요.',
+    tip2Title: '알아 두면 좋아요',
+    tip2Text: 'PCOS는 간단한 습관과 정기적인 진료로 일상에서 관리해 나가요. 작은 조정 하나하나가 모두 의미 있으니, 내 속도에 맞춰 천천히 해 보세요.',
+    shareMessage: 'PCOS 생활 습관과 관리 — AWA',
+  },
+  'pt-PT': {
+    badge: 'SOP',
+    title: 'SOP: estilo de vida e\nacompanhamento',
+    metaDuration: '7 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'As opções de acompanhamento da síndrome do ovário poliquístico (SOP) e hábitos simples para apoiar o seu dia a dia.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Cuidados construídos em conjunto com um profissional',
+      'Alimentação equilibrada',
+      'Atividade física adequada',
+      'Sono e gestão do stress',
+      'Bem-estar emocional',
+      'Sinais que exigem atenção rápida',
+      'Pontos-chave',
+    ],
+    nutritionTips: [
+      'Privilegie as fibras (legumes, leguminosas, cereais integrais)',
+      'Distribua as refeições ao longo do dia para evitar fome intensa',
+      'Limite os açúcares de absorção rápida e os alimentos muito processados',
+      'Nenhum alimento é proibido: procure o equilíbrio global em vez de regras rígidas',
+    ],
+    section1Body: 'Não existe um tratamento único para a SOP: o acompanhamento é adaptado aos seus sintomas, às suas prioridades (ciclo, fertilidade, pele, peso) e à sua situação pessoal. Pode combinar medidas de estilo de vida, tratamentos hormonais ou outras opções, consoante as suas necessidades.',
+    section3Body: 'A atividade física regular, mesmo moderada (caminhada rápida, ciclismo, musculação leve), ajuda a apoiar o equilíbrio hormonal e metabólico. A regularidade conta mais do que a intensidade.',
+    section4Body: 'Dormir o suficiente e reservar momentos regulares de relaxamento ajudam a limitar o impacto do stress no equilíbrio hormonal, o que pode, por sua vez, influenciar os sintomas da SOP.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'Pequenas mudanças duradouras são muitas vezes mais eficazes a longo prazo do que mudanças radicais difíceis de manter.',
+    section5Body: 'Viver com SOP pode pesar no humor, em especial devido aos sintomas visíveis ou às preocupações com a fertilidade. Estes sentimentos são legítimos: falar com alguém próximo ou com um profissional faz plenamente parte de um acompanhamento completo.',
+    alertTitle: 'Consulte um médico se tiver',
+    alertText: 'Dor pélvica intensa ou invulgar, hemorragia muito abundante ou prolongada, cansaço extremo ou sede persistente invulgar, ou sofrimento emocional que se instala com o tempo.',
+    tip2Title: 'Bom saber',
+    tip2Text: 'A SOP gere-se no dia a dia com hábitos simples e um acompanhamento médico regular: cada pequeno ajuste conta, ao seu ritmo.',
+    shareMessage: 'SOP: estilo de vida e acompanhamento — AWA',
+  },
+  bn: {
+    badge: 'পিসিওএস',
+    title: 'পিসিওএস: জীবনযাত্রা ও\nব্যবস্থাপনা',
+    metaDuration: 'পড়তে 7 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'পলিসিস্টিক ওভারি সিনড্রোমের (পিসিওএস) ব্যবস্থাপনার বিকল্প এবং দৈনন্দিন জীবনে সহায়তা করার মতো সহজ অভ্যাস।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'পেশাজীবীর সঙ্গে মিলে গড়ে তোলা যত্ন',
+      'সুষম খাবার',
+      'উপযুক্ত শারীরিক কার্যকলাপ',
+      'ঘুম ও মানসিক চাপ সামলানো',
+      'মানসিক সুস্থতা',
+      'যেসব লক্ষণে দ্রুত মনোযোগ দরকার',
+      'মূল কথা',
+    ],
+    nutritionTips: [
+      'ফাইবারকে অগ্রাধিকার দিন (সবজি, ডাল-শিমজাতীয় খাবার, গোটা শস্য)',
+      'তীব্র ক্ষুধা এড়াতে খাবার ভাগ করে খান',
+      'দ্রুত শোষিত চিনি ও অতি প্রক্রিয়াজাত খাবার সীমিত করুন',
+      'কোনো খাবারই নিষিদ্ধ নয়: কঠোর নিয়মের বদলে সামগ্রিক ভারসাম্যের লক্ষ্য রাখুন',
+    ],
+    section1Body: 'পিসিওএসের কোনো একক চিকিৎসা নেই: ব্যবস্থাপনা আপনার উপসর্গ, আপনার অগ্রাধিকার (চক্র, প্রজনন ক্ষমতা, ত্বক, ওজন) এবং ব্যক্তিগত অবস্থা অনুযায়ী সাজানো হয়। প্রয়োজন অনুযায়ী এতে জীবনযাত্রার পরিবর্তন, হরমোনাল চিকিৎসা বা অন্যান্য বিকল্প একসঙ্গে থাকতে পারে।',
+    section3Body: 'নিয়মিত শারীরিক কার্যকলাপ, মাঝারি হলেও (জোরে হাঁটা, সাইকেল চালানো, হালকা শক্তি প্রশিক্ষণ), হরমোন ও বিপাকের ভারসাম্য বজায় রাখতে সাহায্য করে। তীব্রতার চেয়ে ধারাবাহিকতা বেশি গুরুত্বপূর্ণ।',
+    section4Body: 'পর্যাপ্ত ঘুম এবং নিয়মিত বিশ্রামের মুহূর্ত হরমোনের ভারসাম্যের ওপর মানসিক চাপের প্রভাব সীমিত করতে সাহায্য করে, যা পালাক্রমে পিসিওএসের উপসর্গকেও প্রভাবিত করতে পারে।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'ধরে রাখা কঠিন এমন আমূল পরিবর্তনের চেয়ে ছোট ও টেকসই পরিবর্তন দীর্ঘমেয়াদে প্রায়ই বেশি কার্যকর।',
+    section5Body: 'পিসিওএস নিয়ে বেঁচে থাকা আপনার মেজাজের ওপর চাপ ফেলতে পারে, বিশেষ করে দৃশ্যমান উপসর্গ বা প্রজনন ক্ষমতা নিয়ে দুশ্চিন্তার কারণে। এই অনুভূতিগুলো বৈধ: কাছের কারও সঙ্গে বা একজন পেশাজীবীর সঙ্গে কথা বলা সামগ্রিক যত্নের একটি পূর্ণাঙ্গ অংশ।',
+    alertTitle: 'ডাক্তার দেখান যদি',
+    alertText: 'তলপেটে তীব্র বা অস্বাভাবিক ব্যথা, খুব বেশি বা দীর্ঘস্থায়ী রক্তক্ষরণ, চরম ক্লান্তি বা অস্বাভাবিক ক্রমাগত পিপাসা, অথবা সময়ের সঙ্গে বেড়ে চলা মানসিক কষ্ট থাকে।',
+    tip2Title: 'জেনে রাখা ভালো',
+    tip2Text: 'পিসিওএস প্রতিদিন সহজ অভ্যাস এবং নিয়মিত চিকিৎসাগত ফলো-আপের মাধ্যমে সামলানো হয়: প্রতিটি ছোট সমন্বয়ই গুরুত্বপূর্ণ, আপনার নিজের গতিতে।',
+    shareMessage: 'পিসিওএস: জীবনযাত্রা ও ব্যবস্থাপনা — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

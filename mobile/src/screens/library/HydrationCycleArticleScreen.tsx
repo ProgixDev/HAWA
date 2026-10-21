@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -57,7 +58,7 @@ const DAILY_DRINKS_ICONS = ['cup-water', 'tea', 'cup-outline'] as const;
 /* remains fully bilingual rather than having French replaced by English.    */
 /* -------------------------------------------------------------------------- */
 
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('HydrationCycle', {
   fr: {
     badge: 'CYCLE MENSTRUEL • HYDRATATION',
     title: 'Bien s’hydrater\npendant le cycle',
@@ -928,7 +929,247 @@ const CONTENT = {
     disclaimerText: '情報提供を目的としたコンテンツです。この記事は、個別の医学的なアドバイスに代わるものではありません。不安なときは、医療従事者に相談してください。',
     shareMessage: '周期を通して水分をしっかりとる — AWA',
   },
-} as const;
+  ko: {
+    badge: '생리 주기 • 수분 섭취',
+    title: '주기 내내\n수분 채우기',
+    metaDuration: '6분 읽기',
+    metaType: '아티클',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '의외지만 사실이에요. 수분을 충분히 섭취하면 주기 내내 몸에 수분이 덜 쌓여요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '수분 섭취가 중요한 이유',
+      '주기 단계별 필요량',
+      '일상에서 마시면 좋은 것',
+      '수분이 부족하다는 신호',
+      '실천 팁',
+      '흔한 오해',
+      '핵심 정리',
+    ],
+    section1Body: '의외지만 사실이에요. 수분을 충분히 섭취하면 몸에 수분이 덜 쌓이고, 특히 주기 후반에 복부 팽만감이 줄어들어요.',
+    infoTitle: '알아 두세요',
+    infoText: '몸에 수분이 부족하면 대비하려고 수분을 더 많이 저장하는 경향이 있어요. 충분히 마시면 오히려 수분을 더 쉽게 내보내도 된다고 몸에 알려 주는 셈이에요.',
+    section2Body: '물이 필요한 양은 전반적으로 꽤 일정하지만, 단계에 따라 조금씩 차이가 있어요.',
+    phaseNeeds: [
+      {
+        title: '생리 중',
+        text: '물을 조금 더 마시면 빠져나간 수분을 채우고 복부 팽만감을 줄이는 데 도움이 돼요.',
+      },
+      {
+        title: '배란 즈음',
+        text: '필요량은 비슷하게 유지돼요. 체온이 약간 오르면 갈증이 더 느껴질 수 있어요.',
+      },
+      {
+        title: '생리 전 단계',
+        text: '수분을 잘 섭취하면 이 시기에 자주 느끼는 붓는 느낌을 줄이는 데 도움이 돼요.',
+      },
+    ],
+    section3Body: '하루에 약 1.5~2리터를 목표로 하고, 생리 중에는 빠져나간 수분을 채우기 위해 조금 더 마셔요.',
+    dailyDrinks: [
+      {
+        title: '무엇보다 물',
+        text: '하루에 약 1.5~2리터, 생리 중에는 조금 더 마셔요.',
+      },
+      {
+        title: '마음을 편안하게 하는 허브차',
+        text: '생강차나 카모마일차는 생리통이 있을 때 부드럽게 수분을 채워 줘요.',
+      },
+      {
+        title: '설탕과 카페인은 적당히',
+        text: '당이 많거나 카페인이 든 음료를 줄이면 주기 후반에 도움이 될 수 있어요.',
+      },
+    ],
+    warningTitle: '눈여겨볼 점',
+    lowHydrationSigns: [
+      '강하거나 평소와 다른 갈증',
+      '평소보다 진한 소변 색',
+      '잦은 두통',
+      '뚜렷한 다른 이유 없이 느껴지는 피로',
+    ],
+    section5Body: '간단한 습관 몇 가지만으로도 별로 신경 쓰지 않고 수분을 채울 수 있는 경우가 많아요.',
+    practicalTips: [
+      '하루 종일 손이 닿는 곳에 물병을 두어요',
+      '이미 있는 습관(일어났을 때, 식사 때마다)에 물 한 잔을 함께해요',
+      '맹물이 물리면 허브차를 섞어 마셔요',
+    ],
+    section5Body2: '신체 활동을 할 때는 땀으로 빠져나간 수분을 채우기 위해 운동 전, 운동 중, 운동 후에 물을 마시는 것을 잊지 마세요.',
+    compareTitle1: '흔한 믿음',
+    compareText1: '“물을 많이 마시면 더 붓는 것 같아요.”',
+    compareTitle2: '사실은 반대예요',
+    compareText2: '수분을 잘 섭취하면 몸에 수분이 덜 쌓여요.',
+    tipTitle: '알아 두세요',
+    tipText: '생강차나 카모마일차는 생리통이 있을 때 부드럽게 수분을 채워 주기도 해요.',
+    summaryPoints: [
+      '수분을 충분히 섭취하면 몸에 수분이 덜 쌓이고 복부 팽만감이 줄어들어요.',
+      '하루에 약 1.5~2리터를 목표로 하고, 생리 중에는 조금 더 마셔요.',
+      '생강차나 카모마일차는 생리통이 있을 때 편안함을 줄 수도 있어요.',
+      '강하고 계속되는 갈증은 의료 전문가에게 이야기해 볼 만해요.',
+    ],
+    disclaimerText: '정보 제공 콘텐츠예요. 이 아티클은 개인에게 맞춘 의학적 조언을 대신하지 않아요. 걱정되는 점이 있다면 의료 전문가의 안내를 받아 보세요.',
+    shareMessage: '주기 내내 수분 채우기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'CICLO MENSTRUAL • HIDRATAÇÃO',
+    title: 'Manter-se hidratada\nao longo do ciclo',
+    metaDuration: '6 min de leitura',
+    metaType: 'Artigo',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Parece contraditório, mas é verdade: estar bem hidratada ajuda o corpo a reter menos água ao longo do ciclo.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Porque é que a hidratação é importante',
+      'Necessidades ao longo das fases do ciclo',
+      'O que beber no dia a dia',
+      'Sinais de hidratação insuficiente',
+      'Dicas práticas',
+      'Ideias feitas',
+      'Pontos-chave',
+    ],
+    section1Body: 'Parece contraditório, mas é verdade: estar bem hidratada ajuda o corpo a reter menos água e reduz o inchaço, sobretudo no final do ciclo.',
+    infoTitle: 'Bom saber',
+    infoText: 'Quando falta água ao corpo, ele tende a armazenar mais por precaução. Beber o suficiente indica-lhe, pelo contrário, que pode libertar água com mais facilidade.',
+    section2Body: 'As suas necessidades de água mantêm-se globalmente bastante estáveis, com algumas nuances consoante a fase:',
+    phaseNeeds: [
+      {
+        title: 'Durante o período',
+        text: 'Um pouco mais de água ajuda a compensar a perda de líquidos e a limitar o inchaço.',
+      },
+      {
+        title: 'Por volta da ovulação',
+        text: 'As necessidades mantêm-se estáveis; uma ligeira subida da temperatura corporal pode aumentar a sede.',
+      },
+      {
+        title: 'Fase pré-menstrual',
+        text: 'Uma boa hidratação ajuda a limitar a sensação de inchaço frequentemente sentida nesta altura.',
+      },
+    ],
+    section3Body: 'Procure beber cerca de 1,5 a 2 litros por dia, um pouco mais durante o período para compensar a perda de líquidos.',
+    dailyDrinks: [
+      {
+        title: 'Água, antes de mais',
+        text: 'Cerca de 1,5 a 2 litros por dia, um pouco mais durante o período.',
+      },
+      {
+        title: 'Chás de ervas reconfortantes',
+        text: 'O gengibre ou a camomila oferecem uma hidratação suave durante as cólicas.',
+      },
+      {
+        title: 'Açúcar e cafeína, com moderação',
+        text: 'Limitar as bebidas muito açucaradas ou com cafeína pode ajudar no final do ciclo.',
+      },
+    ],
+    warningTitle: 'Convém estar atenta',
+    lowHydrationSigns: [
+      'Sede intensa ou fora do habitual',
+      'Urina mais escura do que o habitual',
+      'Dores de cabeça frequentes',
+      'Cansaço sem outra explicação evidente',
+    ],
+    section5Body: 'Alguns hábitos simples costumam bastar para se manter hidratada sem sequer pensar nisso:',
+    practicalTips: [
+      'Tenha uma garrafa de água ao alcance durante todo o dia',
+      'Associe um copo de água a um hábito que já tem (ao acordar, em cada refeição)',
+      'Alterne com infusões de ervas se a água simples se tornar monótona',
+    ],
+    section5Body2: 'Durante a atividade física, lembre-se de beber antes, durante e depois do exercício para compensar a perda de suor.',
+    compareTitle1: 'Ideia comum',
+    compareText1: '“Beber muito faz-me ficar mais inchada.”',
+    compareTitle2: 'Na verdade, é o contrário',
+    compareText2: 'Uma boa hidratação ajuda o corpo a reter menos água.',
+    tipTitle: 'Bom saber',
+    tipText: 'Os chás de gengibre ou de camomila oferecem também uma hidratação reconfortante durante as cólicas.',
+    summaryPoints: [
+      'Estar bem hidratada ajuda o corpo a reter menos água e reduz o inchaço.',
+      'Procure beber cerca de 1,5 a 2 litros por dia, um pouco mais durante o período.',
+      'Os chás de gengibre ou de camomila podem também aliviar durante as cólicas.',
+      'Uma sede intensa e persistente merece ser mencionada a um profissional de saúde.',
+    ],
+    disclaimerText: 'Conteúdo informativo. Este artigo não substitui o aconselhamento médico personalizado. Em caso de dúvida, procure a orientação de um profissional de saúde.',
+    shareMessage: 'Manter-se hidratada ao longo do ciclo — AWA',
+  },
+  bn: {
+    badge: 'মাসিক চক্র • পানি পান',
+    title: 'চক্র জুড়ে\nশরীরে পানির ভারসাম্য রাখা',
+    metaDuration: 'পড়তে 6 মিনিট',
+    metaType: 'নিবন্ধ',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'অদ্ভুত হলেও সত্য: ভালোভাবে পানি পান করলে পুরো চক্র জুড়ে আপনার শরীর কম পানি ধরে রাখে।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'পানি পান কেন গুরুত্বপূর্ণ',
+      'চক্রের বিভিন্ন পর্যায়ে প্রয়োজন',
+      'প্রতিদিন কী পান করবেন',
+      'অপর্যাপ্ত পানি পানের লক্ষণ',
+      'ব্যবহারিক পরামর্শ',
+      'প্রচলিত ভুল ধারণা',
+      'মূল কথা',
+    ],
+    section1Body: 'অদ্ভুত হলেও সত্য: ভালোভাবে পানি পান করলে শরীর কম পানি ধরে রাখে এবং পেট ফাঁপা কমে, বিশেষ করে চক্রের শেষ দিকে।',
+    infoTitle: 'জেনে রাখা ভালো',
+    infoText: 'শরীরে পানির ঘাটতি হলে সতর্কতা হিসেবে সে বেশি পানি জমিয়ে রাখে। পর্যাপ্ত পানি পান করলে বরং শরীর বুঝতে পারে যে সে আরও সহজে পানি ছাড়তে পারে।',
+    section2Body: 'আপনার পানির চাহিদা মোটামুটি স্থিতিশীল থাকে, পর্যায় অনুযায়ী কিছু সূক্ষ্ম পার্থক্য সহ:',
+    phaseNeeds: [
+      {
+        title: 'মাসিকের সময়',
+        text: 'একটু বেশি পানি তরল ক্ষয় পূরণ করতে এবং পেট ফাঁপা সীমিত রাখতে সাহায্য করে।',
+      },
+      {
+        title: 'ডিম্বস্ফোটনের আশপাশে',
+        text: 'চাহিদা স্থিতিশীল থাকে; শরীরের তাপমাত্রা সামান্য বাড়লে পিপাসা বাড়তে পারে।',
+      },
+      {
+        title: 'মাসিকের আগের পর্যায়',
+        text: 'ভালো পানি পান এই সময়ে প্রায়ই অনুভূত ফুলে ওঠার অনুভূতি সীমিত রাখতে সাহায্য করে।',
+      },
+    ],
+    section3Body: 'প্রতিদিন প্রায় 1.5 থেকে 2 লিটার পানি পান করার লক্ষ্য রাখুন, মাসিকের সময় তরল ক্ষয় পূরণ করতে একটু বেশি।',
+    dailyDrinks: [
+      {
+        title: 'সবার আগে পানি',
+        text: 'প্রতিদিন প্রায় 1.5 থেকে 2 লিটার, মাসিকের সময় একটু বেশি।',
+      },
+      {
+        title: 'আরামদায়ক ভেষজ চা',
+        text: 'আদা বা ক্যামোমাইল চা তলপেটে ব্যথার সময় মৃদুভাবে শরীরে পানির জোগান দেয়।',
+      },
+      {
+        title: 'চিনি ও ক্যাফেইন, পরিমিত পরিমাণে',
+        text: 'খুব মিষ্টি বা ক্যাফেইনযুক্ত পানীয় সীমিত রাখলে চক্রের শেষ দিকে উপকার হতে পারে।',
+      },
+    ],
+    warningTitle: 'যা নজরে রাখা ভালো',
+    lowHydrationSigns: [
+      'তীব্র বা অস্বাভাবিক পিপাসা',
+      'স্বাভাবিকের চেয়ে গাঢ় রঙের প্রস্রাব',
+      'ঘন ঘন মাথাব্যথা',
+      'অন্য কোনো স্পষ্ট কারণ ছাড়া ক্লান্তি',
+    ],
+    section5Body: 'কিছু সহজ অভ্যাসই প্রায়ই যথেষ্ট, যাতে না ভেবেই শরীরে পানির ভারসাম্য বজায় থাকে:',
+    practicalTips: [
+      'সারাদিন হাতের নাগালে একটি পানির বোতল রাখুন',
+      'আপনার আগে থেকে থাকা কোনো অভ্যাসের সঙ্গে এক গ্লাস পানি যুক্ত করুন (ঘুম থেকে ওঠা, প্রতিটি খাবার)',
+      'সাধারণ পানি একঘেয়ে লাগলে ভেষজ ইনফিউশন মিশিয়ে নিন',
+    ],
+    section5Body2: 'শারীরিক কার্যকলাপের সময় ঘামে হারানো পানি পূরণ করতে ব্যায়ামের আগে, ব্যায়ামের সময় ও ব্যায়ামের পরে পানি পান করতে মনে রাখবেন।',
+    compareTitle1: 'প্রচলিত বিশ্বাস',
+    compareText1: '“বেশি পানি পান করলে আমার পেট আরও ফাঁপে।”',
+    compareTitle2: 'আসলে ঠিক উল্টো',
+    compareText2: 'ভালো পানি পান শরীরকে কম পানি ধরে রাখতে সাহায্য করে।',
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'আদা বা ক্যামোমাইল চা তলপেটে ব্যথার সময় আরামদায়কভাবে শরীরে পানির জোগানও দেয়।',
+    summaryPoints: [
+      'ভালোভাবে পানি পান করলে শরীর কম পানি ধরে রাখে এবং পেট ফাঁপা কমে।',
+      'প্রতিদিন প্রায় 1.5 থেকে 2 লিটার পানি পান করার লক্ষ্য রাখুন, মাসিকের সময় একটু বেশি।',
+      'আদা বা ক্যামোমাইল চা তলপেটে ব্যথার সময় আরামও দিতে পারে।',
+      'তীব্র ও দীর্ঘস্থায়ী পিপাসার কথা স্বাস্থ্যসেবা পেশাজীবীকে জানানো ভালো।',
+    ],
+    disclaimerText: 'তথ্যমূলক বিষয়বস্তু। এই নিবন্ধ ব্যক্তিগত চিকিৎসা পরামর্শের বিকল্প নয়। সন্দেহ থাকলে স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিন।',
+    shareMessage: 'চক্র জুড়ে শরীরে পানির ভারসাম্য রাখা — AWA',
+  },
+} as const);
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */

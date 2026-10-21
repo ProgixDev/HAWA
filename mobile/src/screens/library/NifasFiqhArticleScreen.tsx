@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'nifasfiqh-repere-fiqh';
 
@@ -47,7 +48,7 @@ const HERO = require('../../assets/images/library/nifas-fiqh-hero.png');
 // "selon l'école juridique", "une référence fréquemment retenue", etc.) is
 // preserved in English with the same scope — no ruling is strengthened,
 // invented, or resolved beyond what the French source states.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('NifasFiqh', {
   fr: {
     badge: 'NIFAS (FIQH)',
     title: 'Le nifas en\npratique religieuse',
@@ -792,7 +793,193 @@ const CONTENT = {
     alert3Text: '個人の状況はさまざまです。迷ったときは、資格のある学者や、広く認められている宗教団体に相談してください。',
     shareMessage: '宗教実践におけるニファース — AWA',
   },
-} as const;
+  ko: {
+    badge: '니파스 (피크흐)',
+    title: '종교 생활에서의\n니파스',
+    metaDuration: '6분 읽기',
+    metaType: '자주 묻는 질문',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '니파스, 그 기간, 예배, 금식, 그리고 출산 후 예배 행위의 재개에 대해 알아봐요.',
+    disclaimerTitle: '중요한 안내',
+    disclaimerText: '이 콘텐츠는 순수하게 교육용이에요. 종교와 관련된 질문은 자격을 갖춘 학자(울라마)에게 확인받아야 해요. AWA는 파트와나 개인별 종교 판단을 내리지 않아요.',
+    contentsTitle: '이 아티클에서 다루는 내용',
+    topics: [
+      '니파스란?',
+      '법학적 기준에 따른 기간',
+      '니파스 중의 예배',
+      '니파스 중의 금식',
+      '정화와 예배 행위의 재개',
+      '자주 묻는 질문',
+    ],
+    section1Body: '종교 생활에서 니파스는 출산 후 출혈과 관련된 기간을 가리켜요. 오로는 이 출혈의 의학적, 생리적인 면을 설명하고, 니파스는 그 출혈의 종교적인 분류예요. 이 두 개념은 혼동하지 말아야 해요.',
+    tip1Title: '핵심',
+    tip1Text: 'AWA는 오로에 대한 의학 정보와 니파스에 대한 종교적 기준을 일부러 구분해서 보여 줘요.',
+    question1: '니파스는 얼마나 이어지나요?',
+    section2Body: '최대 기간은 따르는 법학파나 종교적 기준에 따라 다를 수 있어요. 40일이 자주 쓰이는 기준이지만, AWA는 이를 모든 경우에 통하는 규칙으로 제시하지 않아요.',
+    tip2Title: '자주 쓰이는 기준',
+    tip2Text: '자주 쓰이는 기준은 40일이지만, AWA는 이 수치를 모든 법학파에 통하는 유일한 진리로 제시하지 않아요. 선택한 종교적 기준을 따르세요.',
+    question2: '니파스 중에도 예배를 해야 하나요?',
+    section3Body: '따르는 기준에 따라 니파스로 인정되는 기간에는 의례 예배가 중단돼요. AWA는 출혈을 자동으로 분류하지 않고 개인별 판단도 제공하지 않아요. 이 기간에 대해서는 놓친 예배 횟수가 추가되지 않아요.',
+    question3: '니파스 중에도 금식할 수 있나요?',
+    section4Body: '의무 금식은 니파스로 인정되는 기간에는 하지 않아요. 해당하는 날들은 따르는 기준에 맞는 카다(보충)로 처리해요.',
+    tip3Title: '정리를 돕되, 판단하지는 않아요',
+    tip3Text: 'AWA는 해당하는 날들을 기록하고 정리하는 데 도움을 줄 수 있지만, 개인별 종교 판단을 내리지는 않아요.',
+    section5Body: '재개 여부는 관찰한 신호와 따르는 종교적 기준에 따라 달라져요.',
+    steps: [
+      '출혈이 끝났는지 살펴보기',
+      '의례 정화하기',
+      '해당하는 예배 행위 다시 시작하기',
+    ],
+    alert2Title: '확실하지 않을 때',
+    alert2Text: '출혈이 따르는 기준에서 정한 최대 기간을 넘어서도 계속되면 그 종교적 지위가 달라질 수 있어요. 자격을 갖춘 사람의 의견을 구하는 것이 좋아요.',
+    faq: [
+      {
+        q: '니파스는 항상 40일 동안 이어지나요?',
+        a: '아니요. 40일은 자주 쓰이는 기준이지만, 법학적 기준은 서로 다를 수 있어요.',
+      },
+      {
+        q: '40일이 되기 전에 출혈이 멈추면 어떻게 해야 하나요?',
+        a: '예배 행위의 재개는 관찰한 신호와 따르는 종교적 기준에 따라 달라져요.',
+      },
+      {
+        q: '출혈이 오랫동안 계속되면요?',
+        a: '정한 최대 기간을 넘으면 그 종교적 지위가 달라질 수 있어요. 자격을 갖춘 사람의 의견을 구하세요.',
+      },
+      {
+        q: 'AWA가 내 출혈이 아직 니파스인지 정확히 알려 줄 수 있나요?',
+        a: '아니요. AWA는 일반적인 교육용 기준을 제공할 뿐 파트와나 개인별 판단을 내리지 않아요.',
+      },
+    ],
+    alert3Title: '하나의 기준일 뿐, 파트와가 아니에요',
+    alert3Text: '개인의 상황은 다를 수 있어요. 확실하지 않을 때는 자격을 갖춘 학자(울라마)나 공인된 종교 단체에 문의하세요.',
+    shareMessage: '종교 생활에서의 니파스 — AWA',
+  },
+  'pt-PT': {
+    badge: 'NIFAS (FIQH)',
+    title: 'O nifas na\nprática religiosa',
+    metaDuration: '6 min de leitura',
+    metaType: 'FAQ',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Compreender o nifas, a sua duração, a oração, o jejum e a retoma dos atos de culto após o parto.',
+    disclaimerTitle: 'Informação importante',
+    disclaimerText: 'Este conteúdo é puramente educativo. As questões religiosas devem ser validadas por sábios qualificados. A AWA não emite fatwas nem pareceres religiosos personalizados.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'O que é o nifas?',
+      'A sua duração segundo as referências jurisprudenciais',
+      'A oração durante o nifas',
+      'O jejum durante o nifas',
+      'Purificação e retoma dos atos de culto',
+      'Perguntas frequentes',
+    ],
+    section1Body: 'Na prática religiosa, o nifas designa o período ligado ao sangramento após o parto. Os lóquios descrevem o aspeto médico e fisiológico deste sangramento; o nifas é a sua classificação religiosa. Estas duas noções não devem ser confundidas.',
+    tip1Title: 'Ponto essencial',
+    tip1Text: 'A AWA separa deliberadamente a informação médica sobre os lóquios dos marcadores religiosos sobre o nifas.',
+    question1: 'Quanto tempo dura o nifas?',
+    section2Body: 'A duração máxima pode variar consoante a escola jurídica ou a referência religiosa seguida. 40 dias é uma referência frequentemente utilizada, sem ser apresentada pela AWA como uma regra universal.',
+    tip2Title: 'Um marcador comummente utilizado',
+    tip2Text: 'Uma referência frequentemente utilizada é de 40 dias, mas a AWA não apresenta este valor como a única verdade para todas as escolas jurídicas. Siga a referência religiosa que escolheu.',
+    question2: 'Devo orar durante o nifas?',
+    section3Body: 'Durante um período reconhecido como nifas segundo a referência seguida, a oração ritual fica suspensa. A AWA não classifica automaticamente um sangramento e não fornece uma decisão personalizada. Não é acrescentado nenhum contador de orações em falta para este período.',
+    question3: 'Posso jejuar durante o nifas?',
+    section4Body: 'O jejum obrigatório não é realizado durante um período reconhecido como nifas. Os dias em causa são então tratados através da compensação adequada, segundo a referência seguida.',
+    tip3Title: 'Organizar, sem decidir',
+    tip3Text: 'A AWA pode ajudá-la a acompanhar ou organizar os dias em causa, sem emitir uma decisão religiosa personalizada.',
+    section5Body: 'A retoma depende dos sinais observados e da referência religiosa seguida.',
+    steps: [
+      'Observar o fim do sangramento',
+      'Realizar a purificação ritual',
+      'Retomar os atos de culto em causa',
+    ],
+    alert2Title: 'Em caso de dúvida',
+    alert2Text: 'Se o sangramento persistir para além da duração máxima adotada pela referência seguida, o seu estatuto religioso pode mudar. Recomenda-se um parecer qualificado.',
+    faq: [
+      {
+        q: 'O nifas dura sempre 40 dias?',
+        a: 'Não. 40 dias é uma referência frequentemente utilizada, mas as referências jurisprudenciais podem diferir.',
+      },
+      {
+        q: 'O que fazer se o sangramento parar antes dos 40 dias?',
+        a: 'A retoma dos atos de culto depende dos sinais observados e da referência religiosa seguida.',
+      },
+      {
+        q: 'E se o sangramento continuar durante muito tempo?',
+        a: 'Se ultrapassar a duração máxima adotada, o seu estatuto religioso pode mudar: peça um parecer qualificado.',
+      },
+      {
+        q: 'A AWA pode dizer exatamente se o meu sangramento ainda é nifas?',
+        a: 'Não. A AWA fornece marcadores educativos gerais e não emite fatwas nem decisões personalizadas.',
+      },
+    ],
+    alert3Title: 'Um marcador, não uma fatwa',
+    alert3Text: 'As situações pessoais podem diferir. Em caso de dúvida, contacte um sábio qualificado ou uma organização religiosa reconhecida.',
+    shareMessage: 'O nifas na prática religiosa — AWA',
+  },
+  bn: {
+    badge: 'নিফাস (ফিকহ)',
+    title: 'ধর্মীয় অনুশীলনে\nনিফাস',
+    metaDuration: '6 মিনিটের পাঠ',
+    metaType: 'প্রশ্নোত্তর',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'নিফাস, এর সময়কাল, নামাজ, রোজা এবং প্রসবের পর ইবাদত পুনরায় শুরু করা বোঝা।',
+    disclaimerTitle: 'গুরুত্বপূর্ণ তথ্য',
+    disclaimerText: 'এই বিষয়বস্তু সম্পূর্ণ শিক্ষামূলক। ধর্মীয় প্রশ্নের উত্তর যোগ্য আলেমদের কাছ থেকে যাচাই করে নেওয়া উচিত। AWA কোনো ফতোয়া বা ব্যক্তিগত ধর্মীয় সিদ্ধান্ত দেয় না।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'নিফাস কী?',
+      'ফিকহি সূত্র অনুযায়ী এর সময়কাল',
+      'নিফাসের সময় নামাজ',
+      'নিফাসের সময় রোজা',
+      'পবিত্রতা অর্জন ও ইবাদত পুনরায় শুরু করা',
+      'সচরাচর জিজ্ঞাসিত প্রশ্ন',
+    ],
+    section1Body: 'ধর্মীয় অনুশীলনে নিফাস বলতে প্রসবের পরের রক্তস্রাবের সঙ্গে যুক্ত সময়কে বোঝায়। লোকিয়া এই রক্তস্রাবের চিকিৎসাগত ও শারীরবৃত্তীয় দিকটি বর্ণনা করে; নিফাস হলো এর ধর্মীয় শ্রেণিবিন্যাস। এই দুটি ধারণাকে গুলিয়ে ফেলা উচিত নয়।',
+    tip1Title: 'মূল কথা',
+    tip1Text: 'AWA ইচ্ছাকৃতভাবে লোকিয়া সম্পর্কিত চিকিৎসা তথ্যকে নিফাস সম্পর্কিত ধর্মীয় নির্দেশক থেকে আলাদা রাখে।',
+    question1: 'নিফাস কত দিন স্থায়ী হয়?',
+    section2Body: 'সর্বোচ্চ সময়কাল অনুসরণ করা ফিকহি মাযহাব বা ধর্মীয় সূত্র অনুযায়ী ভিন্ন হতে পারে। 40 দিন একটি বহুল ব্যবহৃত সূত্র, তবে AWA এটিকে সর্বজনীন বিধান হিসেবে উপস্থাপন করে না।',
+    tip2Title: 'একটি বহুল ব্যবহৃত নির্দেশক',
+    tip2Text: 'একটি বহুল ব্যবহৃত সূত্র হলো 40 দিন, কিন্তু AWA এই সংখ্যাকে সব মাযহাবের জন্য একমাত্র সত্য হিসেবে উপস্থাপন করে না। আপনার বেছে নেওয়া ধর্মীয় সূত্র অনুসরণ করুন।',
+    question2: 'নিফাসের সময় কি আমার নামাজ পড়া উচিত?',
+    section3Body: 'অনুসরণ করা সূত্র অনুযায়ী নিফাস হিসেবে স্বীকৃত সময়ে ধর্মীয় নামাজ স্থগিত থাকে। AWA স্বয়ংক্রিয়ভাবে রক্তস্রাবকে শ্রেণিবদ্ধ করে না এবং ব্যক্তিগত সিদ্ধান্ত দেয় না। এই সময়ের জন্য ছুটে যাওয়া নামাজের কোনো গণনা যোগ করা হয় না।',
+    question3: 'নিফাসের সময় কি আমি রোজা রাখতে পারি?',
+    section4Body: 'নিফাস হিসেবে স্বীকৃত সময়ে ফরজ রোজা রাখা হয় না। সংশ্লিষ্ট দিনগুলো অনুসরণ করা সূত্র অনুযায়ী যথাযথ কাজার মাধ্যমে পূরণ করা হয়।',
+    tip3Title: 'সাজিয়ে রাখা, সিদ্ধান্ত দেওয়া নয়',
+    tip3Text: 'AWA আপনাকে সংশ্লিষ্ট দিনগুলোর হিসাব রাখতে বা সাজিয়ে রাখতে সাহায্য করতে পারে, কোনো ব্যক্তিগত ধর্মীয় সিদ্ধান্ত না দিয়েই।',
+    section5Body: 'পুনরায় শুরু করা নির্ভর করে পর্যবেক্ষণ করা লক্ষণ এবং অনুসরণ করা ধর্মীয় সূত্রের ওপর।',
+    steps: [
+      'রক্তস্রাব শেষ হওয়া লক্ষ করুন',
+      'ধর্মীয় রীতি অনুযায়ী পবিত্রতা অর্জন করুন',
+      'সংশ্লিষ্ট ইবাদত পুনরায় শুরু করুন',
+    ],
+    alert2Title: 'সন্দেহ থাকলে',
+    alert2Text: 'অনুসরণ করা সূত্র যে সর্বোচ্চ সময়কাল গ্রহণ করেছে, রক্তস্রাব তা ছাড়িয়ে গেলে এর ধর্মীয় অবস্থান বদলে যেতে পারে। একটি যোগ্য মতামত নেওয়া উত্তম।',
+    faq: [
+      {
+        q: 'নিফাস কি সবসময় 40 দিন স্থায়ী হয়?',
+        a: 'না। 40 দিন একটি বহুল ব্যবহৃত সূত্র, তবে ফিকহি সূত্রগুলোর মধ্যে ভিন্নতা থাকতে পারে।',
+      },
+      {
+        q: '40 দিনের আগে রক্তস্রাব বন্ধ হয়ে গেলে কী করব?',
+        a: 'ইবাদত পুনরায় শুরু করা নির্ভর করে পর্যবেক্ষণ করা লক্ষণ এবং অনুসরণ করা ধর্মীয় সূত্রের ওপর।',
+      },
+      {
+        q: 'রক্তস্রাব দীর্ঘ সময় চলতে থাকলে কী হবে?',
+        a: 'তা গৃহীত সর্বোচ্চ সময়কাল ছাড়িয়ে গেলে এর ধর্মীয় অবস্থান বদলে যেতে পারে: একটি যোগ্য মতামত নিন।',
+      },
+      {
+        q: 'AWA কি ঠিক বলতে পারে আমার রক্তস্রাব এখনো নিফাস কি না?',
+        a: 'না। AWA সাধারণ শিক্ষামূলক নির্দেশক দেয়, কোনো ফতোয়া বা ব্যক্তিগত সিদ্ধান্ত দেয় না।',
+      },
+    ],
+    alert3Title: 'একটি নির্দেশক, ফতোয়া নয়',
+    alert3Text: 'ব্যক্তিগত পরিস্থিতি ভিন্ন হতে পারে। সন্দেহ থাকলে একজন যোগ্য আলেম বা স্বীকৃত কোনো ধর্মীয় প্রতিষ্ঠানের সঙ্গে যোগাযোগ করুন।',
+    shareMessage: 'ধর্মীয় অনুশীলনে নিফাস — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
