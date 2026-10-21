@@ -1,6 +1,7 @@
 import type {ImageSourcePropType} from 'react-native';
 
 import {resolveEditorialLanguage, type EditorialLanguage} from '../i18n/editorialLanguage';
+import {brazilianWeekContent} from '../i18n/ptBrEditorial';
 
 // ============================================================
 // CENTRALIZED WEEK-BY-WEEK PREGNANCY REFERENCE DATA
@@ -115,6 +116,9 @@ type PregnancyWeekEntry = {
     hi: PregnancyWeekEditorialContent;
     sq: PregnancyWeekEditorialContent;
     ja: PregnancyWeekEditorialContent;
+    ko: PregnancyWeekEditorialContent;
+    'pt-PT': PregnancyWeekEditorialContent;
+    bn: PregnancyWeekEditorialContent;
   };
 };
 
@@ -251,6 +255,36 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'この時期には特に変化に気づかないのが一般的です。',
         ],
       },
+      ko: {
+        babyDescription: '임신 주수는 의학적 관례에 따라 마지막 생리 첫날부터 계산해요. 이 시기에는 대개 아직 수정이 일어나지 않았어요.',
+        bodyChanges: [
+          '이 기간은 보통 임신이 되기 전이라, 임신으로 인한 몸의 변화는 대개 아직 없어요.',
+        ],
+        toKnow: [
+          '마지막 생리부터 임신 주수를 세면 실제 임신은 조금 더 늦게 이루어지더라도 출산 예정일을 일정한 기준으로 추정할 수 있어요.',
+          '이 시기에는 아무런 변화를 느끼지 못하는 경우가 흔해요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'Por convenção médica, a gravidez conta-se a partir do primeiro dia do último período. Nesta fase, a fecundação geralmente ainda não ocorreu.',
+        bodyChanges: [
+          'Este período geralmente antecede a conceção; habitualmente ainda não há qualquer alteração física associada à gravidez.',
+        ],
+        toKnow: [
+          'Contar a gravidez a partir do último período permite estimar a data prevista do parto de forma padronizada, ainda que a conceção ocorra, na verdade, um pouco mais tarde.',
+          'É comum não notar qualquer alteração nesta fase.',
+        ],
+      },
+      bn: {
+        babyDescription: 'চিকিৎসা রীতি অনুযায়ী গর্ভাবস্থার হিসাব শুরু হয় আপনার শেষ মাসিকের প্রথম দিন থেকে। এই পর্যায়ে সাধারণত নিষেক এখনও ঘটেনি।',
+        bodyChanges: [
+          'এই সময়টি সাধারণত গর্ভধারণের আগে পড়ে; গর্ভাবস্থার সঙ্গে সম্পর্কিত কোনো শারীরিক পরিবর্তন সাধারণত এখনও থাকে না।',
+        ],
+        toKnow: [
+          'গর্ভধারণ আসলে কিছুটা পরে ঘটলেও শেষ মাসিক থেকে গর্ভাবস্থা গণনা করলে প্রসবের সম্ভাব্য তারিখ অনুমান করার একটি প্রমিত উপায় পাওয়া যায়।',
+          'এই পর্যায়ে কোনো পরিবর্তন টের না পাওয়া সাধারণ ব্যাপার।',
+        ],
+      },
     },
   },
   {
@@ -377,6 +411,36 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '排卵の正確な時期には個人差があるため、この期間はあくまで目安です。',
         ],
       },
+      ko: {
+        babyDescription: '배란과 수정 가능성은 보통 이 무렵에 생기며, 사람마다 주기 길이에 따라 달라요.',
+        bodyChanges: [
+          '배란 시기는 주기 길이에 따라 달라질 수 있고, 이는 실제로 임신이 가능한 날짜에도 영향을 줘요.',
+          '이 시기에는 임신으로 인한 몸의 변화가 대개 아직 없어요.',
+        ],
+        toKnow: [
+          '정확한 배란 시기는 사람마다 달라서 이 기간은 어디까지나 추정이에요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'A ovulação e uma possível fecundação ocorrem geralmente por volta desta altura, consoante a duração do ciclo de cada mulher.',
+        bodyChanges: [
+          'O momento da ovulação pode variar consoante a duração do ciclo, o que influencia a data real em que a conceção pode ocorrer.',
+          'Geralmente ainda não há qualquer alteração física específica da gravidez nesta fase.',
+        ],
+        toKnow: [
+          'O momento exato da ovulação varia de mulher para mulher, por isso este período continua a ser uma estimativa.',
+        ],
+      },
+      bn: {
+        babyDescription: 'প্রত্যেকের চক্রের দৈর্ঘ্যের ওপর নির্ভর করে সাধারণত এই সময়ের কাছাকাছি ডিম্বস্ফোটন এবং সম্ভাব্য নিষেক ঘটে।',
+        bodyChanges: [
+          'চক্রের দৈর্ঘ্য অনুযায়ী ডিম্বস্ফোটনের সময় ভিন্ন হতে পারে, যা গর্ভধারণের প্রকৃত সম্ভাব্য তারিখকে প্রভাবিত করে।',
+          'এই পর্যায়ে সাধারণত গর্ভাবস্থার নির্দিষ্ট কোনো শারীরিক পরিবর্তন এখনও থাকে না।',
+        ],
+        toKnow: [
+          'ডিম্বস্ফোটনের সঠিক সময় এক ব্যক্তি থেকে অন্য ব্যক্তিতে ভিন্ন হয়, তাই এই সময়কালটি একটি অনুমানই থেকে যায়।',
+        ],
+      },
     },
   },
   {
@@ -489,6 +553,33 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '尿による妊娠検査薬の多くは、着床が始まる翌週頃から信頼できる結果が出るようになります。',
+        ],
+      },
+      ko: {
+        babyDescription: '수정이 되었다면 난자가 분열하면서 자궁 쪽으로 이동하기 시작하지만, 아직 임신 테스트로는 확인되지 않아요.',
+        bodyChanges: [
+          '이번 주는 아직 임신 시기를 의학적으로 계산하는 기간에 속해요. 이 시기에는 대개 눈에 띄는 신체 징후가 없어요.',
+        ],
+        toKnow: [
+          '소변 임신 테스트는 대부분 착상이 시작된 다음 주쯤부터 신뢰할 수 있어요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'Se a fecundação ocorreu, o óvulo começa a dividir-se e a deslocar-se em direção ao útero, mas um teste de gravidez ainda não consegue detetar nada.',
+        bodyChanges: [
+          'Esta semana ainda se insere no período de datação médica em torno da conceção; geralmente não se nota nenhum sinal físico nesta fase.',
+        ],
+        toKnow: [
+          'A maioria dos testes de gravidez à urina torna-se fiável a partir da semana seguinte, depois de a implantação ter começado.',
+        ],
+      },
+      bn: {
+        babyDescription: 'নিষেক ঘটে থাকলে ডিম্বাণু বিভক্ত হতে শুরু করে এবং জরায়ুর দিকে এগোতে থাকে, কিন্তু গর্ভাবস্থা পরীক্ষায় এখনও কিছু ধরা পড়ে না।',
+        bodyChanges: [
+          'এই সপ্তাহটিও গর্ভধারণকে ঘিরে চিকিৎসাগত হিসাবের সময়ের মধ্যেই পড়ে; এই পর্যায়ে সাধারণত কোনো শারীরিক লক্ষণ টের পাওয়া যায় না।',
+        ],
+        toKnow: [
+          'বেশিরভাগ প্রস্রাব-ভিত্তিক গর্ভাবস্থা পরীক্ষা পরবর্তী সপ্তাহ থেকে, অর্থাৎ ভ্রূণ জরায়ুতে বসতে শুরু করার পর, নির্ভরযোগ্য হয়।',
         ],
       },
     },
@@ -647,6 +738,42 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '妊娠検査薬で陽性の結果が出始めるのは、一般的にこの時期です。',
         ],
       },
+      ko: {
+        babyDescription: '배아가 막 자궁벽에 착상했어요. 처음 며칠 동안 배아에 영양을 공급할 양막낭과 난황낭이 만들어지고 있어요.',
+        length: '약 2mm',
+        comparison: '양귀비 씨',
+        bodyChanges: [
+          '아주 이른 시기라 아직 아무 징후도 느끼지 못하는 경우도 있어요.',
+          '소변 임신 테스트로는 대개 이번 주부터 임신을 확인할 수 있어요.',
+        ],
+        toKnow: [
+          '임신 테스트에서 양성 결과가 나오기 시작하는 보통의 시기예요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O embrião acabou de se implantar na parede do útero. Formam-se a bolsa amniótica e o saco vitelino, que o vai nutrir nos primeiros dias.',
+        length: 'Cerca de 2 mm',
+        comparison: 'Semente de papoila',
+        bodyChanges: [
+          'Algumas mulheres ainda não notam qualquer sinal nesta fase muito precoce.',
+          'Um teste de gravidez à urina geralmente consegue detetar a gravidez a partir desta semana.',
+        ],
+        toKnow: [
+          'Esta é a altura habitual em que um teste de gravidez pode começar a dar resultado positivo.',
+        ],
+      },
+      bn: {
+        babyDescription: 'ভ্রূণ সবে জরায়ুর দেয়ালে বসেছে। অ্যামনিওটিক থলি এবং কুসুম থলি তৈরি হচ্ছে, যা একেবারে প্রথম কয়েক দিন ভ্রূণকে পুষ্টি জোগাবে।',
+        length: 'প্রায় 2 মিমি',
+        comparison: 'পপি বীজ',
+        bodyChanges: [
+          'এই একেবারে প্রাথমিক পর্যায়ে কেউ কেউ এখনও কোনো লক্ষণ টের পান না।',
+          'প্রস্রাব-ভিত্তিক গর্ভাবস্থা পরীক্ষায় সাধারণত এই সপ্তাহ থেকে গর্ভাবস্থা ধরা পড়তে পারে।',
+        ],
+        toKnow: [
+          'সাধারণত এই সময় থেকেই গর্ভাবস্থা পরীক্ষার ফল পজিটিভ আসতে শুরু করতে পারে।',
+        ],
+      },
     },
   },
   {
@@ -781,6 +908,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '妊婦健診を始めるために、医療従事者の予約を取ることをおすすめする時期です。',
+        ],
+      },
+      ko: {
+        babyDescription: '신경계가 형성되기 시작하고, 아직 아주 작은 심장이 처음으로 뛸 준비를 하고 있어요.',
+        length: '약 2mm',
+        comparison: '참깨',
+        bodyChanges: [
+          '평소와 다른 피로감, 가벼운 메스꺼움, 가슴 통증이 나타날 수 있어요.',
+        ],
+        toKnow: [
+          '의료 전문가와 진료 예약을 잡고 임신 검진을 시작하기에 좋은 시기예요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O sistema nervoso começa a formar-se e o coração, ainda minúsculo, está prestes a bater pela primeira vez.',
+        length: 'Cerca de 2 mm',
+        comparison: 'Semente de sésamo',
+        bodyChanges: [
+          'Podem surgir cansaço fora do habitual, náuseas ligeiras ou sensibilidade nos seios.',
+        ],
+        toKnow: [
+          'Esta é a altura recomendada para marcar uma consulta com um profissional de saúde e iniciar a vigilância da gravidez.',
+        ],
+      },
+      bn: {
+        babyDescription: 'স্নায়ুতন্ত্র গড়ে উঠতে শুরু করেছে, আর এখনও অতি ক্ষুদ্র হৃৎপিণ্ড প্রথমবারের মতো স্পন্দিত হতে যাচ্ছে।',
+        length: 'প্রায় 2 মিমি',
+        comparison: 'তিলের দানা',
+        bodyChanges: [
+          'অস্বাভাবিক ক্লান্তি, হালকা বমি বমি ভাব বা স্তনে ব্যথাভাব দেখা দিতে পারে।',
+        ],
+        toKnow: [
+          'গর্ভাবস্থার যত্ন শুরু করার জন্য স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে অ্যাপয়েন্টমেন্ট নেওয়ার জন্য এটি উপযুক্ত সময়।',
         ],
       },
     },
@@ -919,6 +1079,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '早期の超音波検査では、この週から心拍が確認できることがあります。',
         ],
       },
+      ko: {
+        babyDescription: '팔과 다리의 싹이 나타나고, 귀가 만들어질 자리에는 작은 홈이 생겨요. 초음파로 심장 박동이 벌써 확인되기도 해요.',
+        length: '약 6mm',
+        comparison: '완두콩',
+        bodyChanges: [
+          '이 시기에는 메스꺼움과 피로가 심해지는 사람도 있어요.',
+        ],
+        toKnow: [
+          '초기 초음파에서는 이번 주부터 심장 활동이 보이기도 해요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'Surgem os rudimentos dos braços e das pernas, bem como pequenas reentrâncias onde se formarão as orelhas. O coração já pode, por vezes, ser detetado na ecografia.',
+        length: 'Cerca de 6 mm',
+        comparison: 'Ervilha',
+        bodyChanges: [
+          'As náuseas e o cansaço podem intensificar-se em algumas mulheres durante este período.',
+        ],
+        toKnow: [
+          'A atividade cardíaca pode, por vezes, ser visível logo a partir desta semana numa ecografia precoce.',
+        ],
+      },
+      bn: {
+        babyDescription: 'হাত ও পায়ের কুঁড়ি দেখা দেয়, সঙ্গে কানের ভবিষ্যৎ স্থানে ছোট ছোট খাঁজ তৈরি হয়। হৃৎপিণ্ড কখনও কখনও আলট্রাসাউন্ডে আগেই ধরা পড়তে পারে।',
+        length: 'প্রায় 6 মিমি',
+        comparison: 'মটরশুঁটি',
+        bodyChanges: [
+          'এই সময়ে কারও কারও ক্ষেত্রে বমি বমি ভাব ও ক্লান্তি বেড়ে যেতে পারে।',
+        ],
+        toKnow: [
+          'প্রাথমিক আলট্রাসাউন্ডে কখনও কখনও এই সপ্তাহ থেকেই হৃৎস্পন্দন দেখা যেতে পারে।',
+        ],
+      },
     },
   },
   {
@@ -1053,6 +1246,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '脳と脊髄のもとになる神経管は、この数週間のあいだに閉じ続けていきます。',
+        ],
+      },
+      ko: {
+        babyDescription: '뇌가 몸의 다른 부분보다 빠르게 발달해서 이마가 도드라져 보여요. 팔 끝에는 작은 손 싹이 나타나기 시작해요.',
+        length: '약 10mm',
+        comparison: '포도',
+        bodyChanges: [
+          '특정 음식이 당기거나, 반대로 특정 음식이 싫어질 수 있어요.',
+        ],
+        toKnow: [
+          '뇌와 척수가 만들어지는 신경관은 이 몇 주 동안 계속 닫히고 있어요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O cérebro desenvolve-se mais depressa do que o resto do corpo, o que dá uma testa proeminente. Começam a surgir pequenos rudimentos das mãos nas extremidades dos braços.',
+        length: 'Cerca de 10 mm',
+        comparison: 'Uva',
+        bodyChanges: [
+          'São possíveis desejos alimentares específicos ou, pelo contrário, aversão a certos alimentos.',
+        ],
+        toKnow: [
+          'O tubo neural, que dá origem ao cérebro e à medula espinhal, continua a fechar-se durante estas semanas.',
+        ],
+      },
+      bn: {
+        babyDescription: 'দেহের বাকি অংশের চেয়ে মস্তিষ্ক দ্রুত বিকশিত হয়, ফলে কপাল উঁচু দেখায়। বাহুর প্রান্তে হাতের ছোট কুঁড়ি দেখা দিতে শুরু করে।',
+        length: 'প্রায় 10 মিমি',
+        comparison: 'আঙুর',
+        bodyChanges: [
+          'নির্দিষ্ট কিছু খাবারের প্রতি তীব্র ইচ্ছা, অথবা উল্টো কিছু খাবারের প্রতি অরুচি হতে পারে।',
+        ],
+        toKnow: [
+          'যে নিউরাল টিউব থেকে মস্তিষ্ক ও মেরুদণ্ড তৈরি হয়, এই সপ্তাহগুলোতে তা বন্ধ হওয়ার প্রক্রিয়া চলতে থাকে।',
         ],
       },
     },
@@ -1193,6 +1419,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '最初の妊娠週数を確認する超音波検査は、通常、妊娠8週から14週のあいだに予定されます。',
         ],
       },
+      ko: {
+        babyDescription: '이제 배아는 태아라고 불러요. 팔이 길어지고, 머리가 조금씩 펴지기 시작하며, 태반이 계속 만들어지고 있어요.',
+        length: '약 16mm',
+        comparison: '라즈베리',
+        bodyChanges: [
+          '이 시기에는 냄새에 민감해지고 입덧이 흔하지만, 모든 사람에게 나타나는 것은 아니에요.',
+        ],
+        toKnow: [
+          '첫 번째 임신 주수 확인 초음파는 보통 8주에서 14주 사이에 예약해요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O embrião passa agora a chamar-se feto. Os braços alongam-se, a cabeça começa a endireitar-se ligeiramente e a placenta continua a formar-se.',
+        length: 'Cerca de 16 mm',
+        comparison: 'Framboesa',
+        bodyChanges: [
+          'A sensibilidade aos cheiros e os enjoos matinais são comuns nesta fase, embora não sejam universais.',
+        ],
+        toKnow: [
+          'A primeira ecografia de datação é geralmente marcada entre a semana 8 e a semana 14.',
+        ],
+      },
+      bn: {
+        babyDescription: 'এখন থেকে ভ্রূণকে ফিটাস বলা হয়। বাহু লম্বা হচ্ছে, মাথা সামান্য সোজা হতে শুরু করেছে এবং গর্ভফুল গঠন চলতে থাকে।',
+        length: 'প্রায় 16 মিমি',
+        comparison: 'রাস্পবেরি',
+        bodyChanges: [
+          'এই পর্যায়ে গন্ধের প্রতি সংবেদনশীলতা ও সকালবেলার বমি বমি ভাব সাধারণ, তবে সবার হয় না।',
+        ],
+        toKnow: [
+          'গর্ভকাল নির্ণয়ের প্রথম আলট্রাসাউন্ড সাধারণত 8ম থেকে 14তম সপ্তাহের মধ্যে করার সময় নির্ধারণ করা হয়।',
+        ],
+      },
     },
   },
   {
@@ -1327,6 +1586,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '生殖器は分化が始まったばかりで、性別は通常、ずっと後の胎児の形態を調べる超音波検査（形態スクリーニング）まで判別できません。',
+        ],
+      },
+      ko: {
+        babyDescription: '얼굴의 윤곽이 또렷해지고, 눈꺼풀이 눈을 보호하며, 손과 발에는 앞으로 손가락과 발가락이 될 부분이 자리 잡고 있어요.',
+        length: '약 22mm',
+        comparison: '딸기',
+        bodyChanges: [
+          '심한 피로와 메스꺼움이 아직 이어질 수 있지만, 임신 초기가 끝날 무렵에는 대개 가라앉는 경향이 있어요.',
+        ],
+        toKnow: [
+          '생식기가 막 분화하기 시작하지만, 성별은 보통 훨씬 뒤에 정밀 초음파에서야 확인할 수 있어요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'Os traços do rosto tornam-se mais definidos, as pálpebras protegem os olhos e as mãos e os pés ganham forma, com os futuros dedos.',
+        length: 'Cerca de 22 mm',
+        comparison: 'Morango',
+        bodyChanges: [
+          'O cansaço acentuado e as náuseas podem ainda estar presentes; muitas vezes tendem a atenuar-se no final do primeiro trimestre.',
+        ],
+        toKnow: [
+          'Os órgãos genitais apenas começam a diferenciar-se, mas o sexo geralmente só é identificável bastante depois, na ecografia morfológica.',
+        ],
+      },
+      bn: {
+        babyDescription: 'মুখের গড়ন আরও স্পষ্ট হয়, চোখের পাতা চোখকে ঢেকে রাখে, এবং হাত ও পা ভবিষ্যতের আঙুলসহ আকার পেতে থাকে।',
+        length: 'প্রায় 22 মিমি',
+        comparison: 'স্ট্রবেরি',
+        bodyChanges: [
+          'তীব্র ক্লান্তি ও বমি বমি ভাব এখনও থাকতে পারে; প্রথম ত্রৈমাসিকের শেষ দিকে এগুলো প্রায়ই কমে আসে।',
+        ],
+        toKnow: [
+          'যৌনাঙ্গ আলাদা হতে সবে শুরু করেছে, কিন্তু শিশুর লিঙ্গ সাধারণত অনেক পরে, অ্যানাটমি আলট্রাসাউন্ডের আগে শনাক্ত করা যায় না।',
         ],
       },
     },
@@ -1465,6 +1757,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '妊娠初期の複合スクリーニング検査は、実施される場合、通常、妊娠11週から14週のあいだに行われます。',
         ],
       },
+      ko: {
+        babyDescription: '얼굴이 더 알아볼 만해지고, 눈꺼풀이 빛에 반응하며, 심장은 어른보다 약 세 배 빠른 속도로 뛰어요.',
+        length: '약 30mm',
+        comparison: '작은 살구',
+        bodyChanges: [
+          '아직 배가 눈에 띄지는 않지만, 허리선이 조금씩 달라지기 시작할 수 있어요.',
+        ],
+        toKnow: [
+          '임신 초기 통합 선별검사를 권유받는 경우, 보통 11주에서 14주 사이에 받아요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O rosto fica mais reconhecível, as pálpebras reagem à luz e o coração bate a um ritmo rápido, cerca do triplo da velocidade do coração de um adulto.',
+        length: 'Cerca de 30 mm',
+        comparison: 'Alperce pequeno',
+        bodyChanges: [
+          'A cintura pode começar a alterar-se ligeiramente, embora a barriga ainda não seja geralmente visível.',
+        ],
+        toKnow: [
+          'O rastreio combinado do primeiro trimestre, quando é proposto, é geralmente feito entre a semana 11 e a semana 14.',
+        ],
+      },
+      bn: {
+        babyDescription: 'মুখ আরও চেনা যায়, চোখের পাতা আলোতে সাড়া দেয়, এবং হৃৎপিণ্ড দ্রুত গতিতে স্পন্দিত হয়, যা প্রাপ্তবয়স্কের হৃৎস্পন্দনের প্রায় তিন গুণ দ্রুত।',
+        length: 'প্রায় 30 মিমি',
+        comparison: 'ছোট এপ্রিকট',
+        bodyChanges: [
+          'পেট সাধারণত এখনও দৃশ্যমান না হলেও আপনার কোমরের মাপ সামান্য বদলাতে শুরু করতে পারে।',
+        ],
+        toKnow: [
+          'প্রথম ত্রৈমাসিকের সম্মিলিত স্ক্রিনিং, দেওয়া হলে, সাধারণত 11তম থেকে 14তম সপ্তাহের মধ্যে করা হয়।',
+        ],
+      },
     },
   },
   {
@@ -1599,6 +1924,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '赤ちゃんの動きは始まっていますが、この時期にはまだ感じられないのが一般的です。',
+        ],
+      },
+      ko: {
+        babyDescription: '손가락과 발가락이 서로 분리되고, 아주 작은 손발톱이 나타나며, 태아에게 영양을 주는 역할이 난황낭에서 점차 태반으로 넘어가요.',
+        length: '약 41mm',
+        comparison: '무화과',
+        bodyChanges: [
+          '특히 호르몬 변화 때문에 기분이 오르내릴 수 있어요.',
+        ],
+        toKnow: [
+          '아기의 움직임이 시작되지만, 이 시기에는 보통 아직 느껴지지 않아요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'Os dedos das mãos e dos pés separam-se, surgem minúsculas unhas e a placenta vai assumindo gradualmente, em vez do saco vitelino, a nutrição do feto.',
+        length: 'Cerca de 41 mm',
+        comparison: 'Figo',
+        bodyChanges: [
+          'Pode notar alterações de humor, ligadas em particular às mudanças hormonais.',
+        ],
+        toKnow: [
+          'Os movimentos do bebé estão a começar, mas geralmente ainda não se sentem nesta fase.',
+        ],
+      },
+      bn: {
+        babyDescription: 'হাত ও পায়ের আঙুল আলাদা হয়, ক্ষুদ্র নখ দেখা দেয়, এবং ফিটাসকে পুষ্টি জোগানোর কাজে গর্ভফুল ধীরে ধীরে কুসুম থলির জায়গা নেয়।',
+        length: 'প্রায় 41 মিমি',
+        comparison: 'ডুমুর',
+        bodyChanges: [
+          'বিশেষ করে হরমোনের পরিবর্তনের কারণে আপনি মেজাজের ওঠানামা লক্ষ করতে পারেন।',
+        ],
+        toKnow: [
+          'শিশুর নড়াচড়া শুরু হয়েছে, কিন্তু এই পর্যায়ে সাধারণত তা এখনও অনুভব করা যায় না।',
         ],
       },
     },
@@ -1737,6 +2095,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '妊娠初期の終わりは、それまでの週と比べて流産のリスクが低くなる時期とされることが多いです。',
         ],
       },
+      ko: {
+        babyDescription: '내장 기관과 근육이 잘 자랐고, 골격이 단단해지기(골화) 시작해요. 생식 기관이 형성되었지만 아직 초음파로는 보이지 않아요.',
+        length: '약 5.4cm',
+        comparison: '자두',
+        bodyChanges: [
+          '이 무렵부터 메스꺼움이 점차 가라앉는 경우가 많지만, 사람마다 많이 달라요.',
+        ],
+        toKnow: [
+          '임신 초기가 끝나는 시기에는 그 이전 몇 주에 비해 유산 위험이 낮아지는 것으로 알려져 있어요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'Os órgãos internos e os músculos cresceram bem e o esqueleto começa a ossificar-se. Os órgãos reprodutores já se formaram, embora ainda não sejam visíveis na ecografia.',
+        length: 'Cerca de 5,4 cm',
+        comparison: 'Ameixa',
+        bodyChanges: [
+          'As náuseas tendem frequentemente a atenuar-se gradualmente por volta desta altura, embora isto varie muito de mulher para mulher.',
+        ],
+        toKnow: [
+          'O fim do primeiro trimestre é frequentemente associado a um menor risco de aborto espontâneo em comparação com as semanas anteriores.',
+        ],
+      },
+      bn: {
+        babyDescription: 'অভ্যন্তরীণ অঙ্গ ও পেশি ভালোভাবে বেড়েছে এবং কঙ্কাল শক্ত হতে শুরু করেছে। প্রজনন অঙ্গ গঠিত হয়েছে, যদিও আলট্রাসাউন্ডে তা এখনও দেখা যায় না।',
+        length: 'প্রায় 5.4 সেমি',
+        comparison: 'আলুবুখারা',
+        bodyChanges: [
+          'এই সময়ের কাছাকাছি বমি বমি ভাব প্রায়ই ধীরে ধীরে কমে আসে, যদিও এটি একজন থেকে আরেকজনে অনেক ভিন্ন হয়।',
+        ],
+        toKnow: [
+          'প্রথম ত্রৈমাসিকের শেষ দিকে, আগের সপ্তাহগুলোর তুলনায় গর্ভপাতের ঝুঁকি প্রায়ই কম থাকে।',
+        ],
+      },
     },
   },
   {
@@ -1871,6 +2262,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '妊娠初期は通常この週頃に終わり、その後は健診の間隔が広がりながら妊娠中のケアが続きます。',
+        ],
+      },
+      ko: {
+        babyDescription: '아직 갑작스럽던 움직임이 조금 더 부드럽게 조절되기 시작해요. 벌써 엄지손가락을 빠는 반사를 보이는 아기도 있어요.',
+        length: '약 7.4cm',
+        comparison: '복숭아',
+        bodyChanges: [
+          '임신 중기가 다가오면서 점차 기력을 조금 되찾는 사람이 많아요.',
+        ],
+        toKnow: [
+          '임신 초기는 대개 이번 주 무렵에 끝나며, 이후에는 진료 간격이 더 넓어지면서 검진이 이어져요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'Os movimentos, ainda bruscos, tornam-se um pouco mais coordenados. Alguns bebés já mostram o reflexo de sucção do polegar.',
+        length: 'Cerca de 7,4 cm',
+        comparison: 'Pêssego',
+        bodyChanges: [
+          'Muitas mulheres recuperam gradualmente um pouco mais de energia à medida que o segundo trimestre se aproxima.',
+        ],
+        toKnow: [
+          'O primeiro trimestre termina geralmente por volta desta semana; a vigilância prossegue com consultas mais espaçadas.',
+        ],
+      },
+      bn: {
+        babyDescription: 'এখনও ঝাঁকুনিযুক্ত নড়াচড়া কিছুটা বেশি সমন্বিত হয়ে ওঠে। কিছু শিশুর মধ্যে আঙুল চোষার প্রতিবর্ত ক্রিয়া ইতিমধ্যেই দেখা যায়।',
+        length: 'প্রায় 7.4 সেমি',
+        comparison: 'পীচ',
+        bodyChanges: [
+          'দ্বিতীয় ত্রৈমাসিক ঘনিয়ে আসার সঙ্গে সঙ্গে অনেকে ধীরে ধীরে আরও কিছুটা শক্তি ফিরে পান।',
+        ],
+        toKnow: [
+          'প্রথম ত্রৈমাসিক সাধারণত এই সপ্তাহের কাছাকাছি শেষ হয়; এরপর আরও বিরতি দিয়ে অ্যাপয়েন্টমেন্টের মাধ্যমে যত্ন চলতে থাকে।',
         ],
       },
     },
@@ -2011,6 +2435,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '医療従事者が、お腹に当てた超音波の機器で、赤ちゃんの心音を聞き取り始めることがあります。',
         ],
       },
+      ko: {
+        babyDescription: '머리가 더 둥글어지고 몸과의 비율이 맞아가요. 태아는 양수를 조금씩 삼키고, 양수는 위와 신장을 거쳐 지나가요.',
+        length: '약 8.5cm',
+        comparison: '키위',
+        bodyChanges: [
+          '일부 사람은 배가 눈에 띄게 둥글어지기 시작해요.',
+        ],
+        toKnow: [
+          '의료 전문가가 배 위에 초음파 기기를 대면 심장 박동 소리를 듣기 시작할 수 있어요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'A cabeça arredonda-se e fica proporcional ao resto do corpo. O feto engole um pouco de líquido amniótico, que passa pelo estômago e pelos rins.',
+        length: 'Cerca de 8,5 cm',
+        comparison: 'Quivi',
+        bodyChanges: [
+          'A barriga começa a arredondar-se de forma mais visível em algumas mulheres.',
+        ],
+        toKnow: [
+          'Um profissional de saúde pode, por vezes, começar a ouvir o batimento cardíaco com um aparelho de ecografia colocado sobre a barriga.',
+        ],
+      },
+      bn: {
+        babyDescription: 'মাথা আরও গোলাকার হয় এবং দেহের বাকি অংশের সঙ্গে আরও সামঞ্জস্যপূর্ণ হয়। ফিটাস অল্প পরিমাণে অ্যামনিওটিক তরল গিলে ফেলে, যা পাকস্থলী ও কিডনির মধ্য দিয়ে যায়।',
+        length: 'প্রায় 8.5 সেমি',
+        comparison: 'কিউই',
+        bodyChanges: [
+          'কারও কারও ক্ষেত্রে পেট আরও স্পষ্টভাবে গোলাকার হতে শুরু করে।',
+        ],
+        toKnow: [
+          'পেটের ওপর আলট্রাসাউন্ড যন্ত্র রেখে স্বাস্থ্যসেবা পেশাজীবী কখনও কখনও হৃৎস্পন্দন শুনতে শুরু করতে পারেন।',
+        ],
+      },
     },
   },
   {
@@ -2147,6 +2604,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'このころから聴覚が発達し始め、ご自身の声や体の中の音が少しずつ聞こえるようになります。',
         ],
       },
+      ko: {
+        babyDescription: '라누고라는 가는 솜털이 피부를 서서히 덮고, 눈썹과 속눈썹이 나기 시작해요. 눈은 빛에 민감해져요.',
+        length: '약 10.1cm',
+        comparison: '사과',
+        bodyChanges: [
+          '식욕이 달라질 수 있고, 새로 당기는 음식이나 싫어지는 음식이 생기기도 해요.',
+        ],
+        toKnow: [
+          '이 무렵부터 청각이 발달하기 시작해요. 엄마의 목소리와 몸속 소리가 서서히 들리게 돼요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'Uma penugem fina, chamada lanugo, vai cobrindo gradualmente a pele, e começam a surgir sobrancelhas e pestanas. Os olhos tornam-se sensíveis à luz.',
+        length: 'Cerca de 10,1 cm',
+        comparison: 'Maçã',
+        bodyChanges: [
+          'O seu apetite pode mudar, por vezes com novos desejos ou aversões alimentares.',
+        ],
+        toKnow: [
+          'A audição começa a desenvolver-se por esta altura: a sua voz e os sons internos do corpo tornam-se gradualmente percetíveis.',
+        ],
+      },
+      bn: {
+        babyDescription: 'ল্যানুগো নামের একটি সূক্ষ্ম লোম ধীরে ধীরে ত্বক ঢেকে দেয়, আর ভ্রু ও চোখের পাপড়ি দেখা দিতে শুরু করে। চোখ আলোর প্রতি সংবেদনশীল হয়ে ওঠে।',
+        length: 'প্রায় 10.1 সেমি',
+        comparison: 'আপেল',
+        bodyChanges: [
+          'আপনার ক্ষুধায় পরিবর্তন আসতে পারে, কখনো নতুন খাবারের প্রতি লোভ বা অরুচি দেখা দিতে পারে।',
+        ],
+        toKnow: [
+          'এই সময়ের কাছাকাছি শোনার ক্ষমতা গড়ে উঠতে শুরু করে: আপনার কণ্ঠস্বর ও শরীরের ভেতরের শব্দ ধীরে ধীরে শিশুর কাছে বোধগম্য হতে থাকে।',
+        ],
+      },
     },
   },
   {
@@ -2278,6 +2768,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '初めての胎動を感じる時期は、妊娠ごとに大きく異なります。特に初めての妊娠かどうかによっても変わります。',
+        ],
+      },
+      ko: {
+        babyDescription: '신경계가 발달해 팔다리를 움직일 수 있어요. 손은 작은 주먹을 쥘 수 있어요.',
+        length: '약 11.6cm',
+        comparison: '아보카도',
+        bodyChanges: [
+          '이 무렵부터 아주 가벼운 움직임을 느끼기 시작하는 사람도 있어요. 흔히 뱃속이 간질거리는 느낌이라고 해요.',
+        ],
+        toKnow: [
+          '첫 태동을 느끼는 시기는 임신마다 많이 달라요. 특히 첫 임신인지에 따라 차이가 있어요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O sistema nervoso permite os movimentos dos braços e das pernas. As mãos podem fechar-se em pequenos punhos.',
+        length: 'Cerca de 11,6 cm',
+        comparison: 'Abacate',
+        bodyChanges: [
+          'Algumas pessoas começam a sentir movimentos muito ligeiros a partir desta altura, frequentemente descritos como um esvoaçar.',
+        ],
+        toKnow: [
+          'Sentir os primeiros movimentos varia muito de uma gravidez para outra, em particular consoante se trate ou não de uma primeira gravidez.',
+        ],
+      },
+      bn: {
+        babyDescription: 'স্নায়ুতন্ত্রের কারণে হাত ও পায়ের নড়াচড়া সম্ভব হয়। হাত ছোট মুঠিতে বন্ধ হতে পারে।',
+        length: 'প্রায় 11.6 সেমি',
+        comparison: 'অ্যাভোকাডো',
+        bodyChanges: [
+          'কেউ কেউ এই সময় থেকে খুব মৃদু নড়াচড়া টের পেতে শুরু করেন, যা প্রায়ই পাখনা ঝাপটানোর মতো বলে বর্ণনা করা হয়।',
+        ],
+        toKnow: [
+          'প্রথম নড়াচড়া টের পাওয়া এক গর্ভাবস্থা থেকে আরেক গর্ভাবস্থায় অনেক আলাদা হয়, বিশেষ করে এটি প্রথম গর্ভাবস্থা কি না তার ওপর নির্ভর করে।',
         ],
       },
     },
@@ -2416,6 +2939,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '外の音が、羊水を通してこもった音として聞こえ始めます。',
         ],
       },
+      ko: {
+        babyDescription: '아직 감겨 있는 눈이 움직일 수 있고, 이제 큰 소리에 반응해요. 지문이 만들어지기 시작해요.',
+        length: '약 12cm',
+        comparison: '석류',
+        bodyChanges: [
+          '몸의 무게중심이 바뀌면서 가벼운 허리 통증이 생길 수 있어요.',
+        ],
+        toKnow: [
+          '바깥 소리가 양수를 통해 먹먹하게나마 들리기 시작해요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'Os olhos, ainda fechados, conseguem mexer-se, e o bebé já reage a sons fortes. As impressões digitais começam a formar-se.',
+        length: 'Cerca de 12 cm',
+        comparison: 'Romã',
+        bodyChanges: [
+          'Pode surgir uma dor ligeira nas costas à medida que o seu centro de gravidade se desloca.',
+        ],
+        toKnow: [
+          'Os sons do exterior começam a ser percebidos, de forma abafada, através do líquido amniótico.',
+        ],
+      },
+      bn: {
+        babyDescription: 'চোখ এখনো বন্ধ থাকলেও নড়তে পারে, আর শিশু এখন জোরালো শব্দে সাড়া দেয়। আঙুলের ছাপ তৈরি হতে শুরু করেছে।',
+        length: 'প্রায় 12 সেমি',
+        comparison: 'ডালিম',
+        bodyChanges: [
+          'শরীরের ভারকেন্দ্র সরে যাওয়ায় হালকা পিঠব্যথা দেখা দিতে পারে।',
+        ],
+        toKnow: [
+          'বাইরের শব্দ অ্যামনিওটিক তরলের মধ্য দিয়ে অস্পষ্টভাবে শিশুর কাছে পৌঁছাতে শুরু করে।',
+        ],
+      },
     },
   },
   {
@@ -2552,6 +3108,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '赤ちゃんの全体的な発育を調べる精密超音波検査（形態異常スクリーニング）は、一般に妊娠18週から21週の間に勧められます。',
         ],
       },
+      ko: {
+        babyDescription: '청각, 촉각, 삼키기, 빨기 반사가 계속 발달해요. 아기는 점점 더 활발해지고 팔다리를 더 많이 움직여요.',
+        length: '약 14.2cm',
+        comparison: '파프리카',
+        bodyChanges: [
+          '이 시기에는 배가 눈에 띄게 나오는 경우가 많고, 몸의 무게중심도 계속 바뀌어요.',
+        ],
+        toKnow: [
+          '아기의 전반적인 발달을 살펴보는 정밀 초음파 검사는 보통 18주에서 21주 사이에 받도록 안내해요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'A audição, o tato, a deglutição e o reflexo de sucção continuam a desenvolver-se. O bebé vai ficando cada vez mais ativo, com movimentos de braços e pernas em maior número.',
+        length: 'Cerca de 14,2 cm',
+        comparison: 'Pimento',
+        bodyChanges: [
+          'Nesta fase, a barriga é frequentemente bem visível e o seu centro de gravidade continua a deslocar-se.',
+        ],
+        toKnow: [
+          'A ecografia morfológica, que examina o desenvolvimento global do bebé, é geralmente proposta entre a semana 18 e a semana 21.',
+        ],
+      },
+      bn: {
+        babyDescription: 'শোনা, স্পর্শ, গেলা এবং চোষার প্রতিবর্তক্রিয়া বিকশিত হতে থাকে। শিশু ক্রমেই আরও সক্রিয় হয়ে উঠছে, হাত ও পায়ের নড়াচড়া বাড়ছে।',
+        length: 'প্রায় 14.2 সেমি',
+        comparison: 'ক্যাপসিকাম',
+        bodyChanges: [
+          'এই পর্যায়ে পেট প্রায়ই স্পষ্ট দেখা যায়, আর আপনার শরীরের ভারকেন্দ্র সরতে থাকে।',
+        ],
+        toKnow: [
+          'শিশুর সার্বিক বিকাশ পরীক্ষা করার জন্য অ্যানাটমি আলট্রাসাউন্ড সাধারণত 18 থেকে 21 সপ্তাহের মধ্যে করার পরামর্শ দেওয়া হয়।',
+        ],
+      },
     },
   },
   {
@@ -2686,6 +3275,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '赤ちゃんの動きをよりはっきり感じ始める人が多い時期です。',
+        ],
+      },
+      ko: {
+        babyDescription: '젖니가 준비되는 자리 뒤쪽에서 앞으로 날 영구치가 만들어지기 시작해요. 아기는 계속 조금씩 체중이 늘어요.',
+        length: '약 15.3cm',
+        comparison: '큰 토마토',
+        bodyChanges: [
+          '자궁이 커지면서 배 양옆이 당기는 느낌(원인대 통증)이 생길 수 있어요.',
+        ],
+        toKnow: [
+          '보통 이 무렵부터 아기의 움직임을 더 또렷하게 느끼기 시작해요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'Os futuros dentes definitivos começam a formar-se por trás dos dentes de leite em preparação, e o bebé continua a ganhar peso gradualmente.',
+        length: 'Cerca de 15,3 cm',
+        comparison: 'Tomate grande',
+        bodyChanges: [
+          'Pode ocorrer uma sensação de repuxar nos lados da barriga (dor dos ligamentos redondos) à medida que o útero cresce.',
+        ],
+        toKnow: [
+          'Esta é uma altura comum para começar a sentir os movimentos do bebé de forma mais nítida.',
+        ],
+      },
+      bn: {
+        babyDescription: 'দুধদাঁতের পেছনে ভবিষ্যতের স্থায়ী দাঁত তৈরি হতে শুরু করে, আর শিশুর ওজন ধীরে ধীরে বাড়তে থাকে।',
+        length: 'প্রায় 15.3 সেমি',
+        comparison: 'বড় টমেটো',
+        bodyChanges: [
+          'জরায়ু বড় হওয়ার সঙ্গে পেটের দুই পাশে টান টান অনুভূতি (গোল লিগামেন্টের ব্যথা) হতে পারে।',
+        ],
+        toKnow: [
+          'শিশুর নড়াচড়া আরও স্পষ্টভাবে টের পাওয়া শুরু হওয়ার জন্য এটি একটি সাধারণ সময়।',
         ],
       },
     },
@@ -2826,6 +3448,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '妊娠の折り返し地点には、担当の医療従事者による総合的な健診が行われることが多いです。',
         ],
       },
+      ko: {
+        babyDescription: '이번 주부터는 다리를 펴서 잴 수 있게 되어, 머리에서 엉덩이까지가 아니라 머리에서 발뒤꿈치까지의 길이를 재요. 그래서 이전 주차보다 기준 크기가 눈에 띄게 커져요.',
+        length: '약 25.6cm',
+        comparison: '바나나',
+        bodyChanges: [
+          '동그랗게 나온 배 때문에 균형과 자세에 영향을 받기 시작할 수 있어요.',
+        ],
+        toKnow: [
+          '임신 중반에는 진료를 맡은 의료 전문가와 함께 전반적인 검진을 받는 경우가 많아요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'A partir desta semana, o comprimento passa a ser medido da cabeça ao calcanhar e não da cabeça ao rabiote, visto que as pernas já podem ser esticadas e medidas — isto explica um salto visível no tamanho de referência em comparação com as semanas anteriores.',
+        length: 'Cerca de 25,6 cm',
+        comparison: 'Banana',
+        bodyChanges: [
+          'A sua barriga bem redonda pode começar a afetar o equilíbrio e a postura.',
+        ],
+        toKnow: [
+          'O meio da gravidez é frequentemente assinalado por uma consulta de revisão completa com o profissional de saúde que a acompanha.',
+        ],
+      },
+      bn: {
+        babyDescription: 'এই সপ্তাহ থেকে দৈর্ঘ্য মাথা থেকে নিতম্ব পর্যন্ত না মেপে মাথা থেকে গোড়ালি পর্যন্ত মাপা হয়, কারণ এখন পা সোজা করে মাপা যায়। এ কারণেই আগের সপ্তাহগুলোর তুলনায় রেফারেন্স আকারে চোখে পড়ার মতো লাফ দেখা যায়।',
+        length: 'প্রায় 25.6 সেমি',
+        comparison: 'কলা',
+        bodyChanges: [
+          'আপনার সুন্দর গোলাকার পেট শরীরের ভারসাম্য ও দাঁড়ানোর ভঙ্গিতে প্রভাব ফেলতে শুরু করতে পারে।',
+        ],
+        toKnow: [
+          'গর্ভাবস্থার মধ্যবর্তী সময়কে প্রায়ই আপনার যত্ন নেওয়া স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে একটি পূর্ণাঙ্গ চেক-আপের মাধ্যমে চিহ্নিত করা হয়।',
+        ],
+      },
     },
   },
   {
@@ -2957,6 +3612,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '赤ちゃんのいつもの動き方に慣れておくと、普段と違う変化に気づきやすくなります。',
+        ],
+      },
+      ko: {
+        babyDescription: '움직임이 더 뚜렷하고 조화로워져요. 이 시기에 태동을 또렷하게 느끼기 시작하는 경우가 많아요.',
+        length: '약 26.7cm',
+        comparison: '당근',
+        bodyChanges: [
+          '자궁이 더 많은 공간을 차지하면서 움직일 때 가볍게 숨이 찰 수 있어요.',
+        ],
+        toKnow: [
+          '아기가 평소 움직이는 패턴을 알아 두면 평소와 다른 변화를 알아차리기 쉬워요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'Os movimentos tornam-se mais nítidos e melhor coordenados, e é comum começar a senti-los claramente durante este período.',
+        length: 'Cerca de 26,7 cm',
+        comparison: 'Cenoura',
+        bodyChanges: [
+          'Pode surgir uma ligeira falta de ar ao esforço à medida que o útero ocupa mais espaço.',
+        ],
+        toKnow: [
+          'Familiarizar-se com o padrão habitual de movimentos do seu bebé facilita a perceção de uma alteração fora do normal.',
+        ],
+      },
+      bn: {
+        babyDescription: 'নড়াচড়া আরও স্পষ্ট ও সমন্বিত হয়ে ওঠে, আর এই সময়ে সেগুলো পরিষ্কারভাবে টের পাওয়া শুরু হওয়া খুবই সাধারণ।',
+        length: 'প্রায় 26.7 সেমি',
+        comparison: 'গাজর',
+        bodyChanges: [
+          'জরায়ু বেশি জায়গা নেওয়ায় পরিশ্রম করলে হালকা শ্বাসকষ্ট দেখা দিতে পারে।',
+        ],
+        toKnow: [
+          'আপনার শিশুর স্বাভাবিক নড়াচড়ার ধরনের সঙ্গে পরিচিত হলে অস্বাভাবিক কোনো পরিবর্তন লক্ষ করা সহজ হয়।',
         ],
       },
     },
@@ -3095,6 +3783,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '食べたものが、赤ちゃんが日常的に飲み込んでいる羊水に影響することがあります。',
         ],
       },
+      ko: {
+        babyDescription: '폐가 계속 발달하고, 아기는 작은 호흡 연습을 해요. 미뢰도 만들어지고 있어요.',
+        length: '약 27.8cm',
+        comparison: '고구마',
+        bodyChanges: [
+          '특히 밤에 다리에 쥐가 나는 사람도 있어요.',
+        ],
+        toKnow: [
+          '먹는 음식이 아기가 규칙적으로 삼키는 양수에 영향을 줄 수 있어요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'Os pulmões continuam a desenvolver-se e o bebé pratica pequenos movimentos respiratórios. As papilas gustativas também estão a formar-se.',
+        length: 'Cerca de 27,8 cm',
+        comparison: 'Batata-doce',
+        bodyChanges: [
+          'Cãibras nas pernas, em particular à noite, são possíveis em algumas pessoas.',
+        ],
+        toKnow: [
+          'A sua alimentação pode influenciar o líquido amniótico, que o bebé engole regularmente.',
+        ],
+      },
+      bn: {
+        babyDescription: 'ফুসফুস বিকশিত হতে থাকে, আর শিশু ছোট ছোট শ্বাস নেওয়ার অনুশীলন করে। স্বাদকোরকও তৈরি হচ্ছে।',
+        length: 'প্রায় 27.8 সেমি',
+        comparison: 'মিষ্টি আলু',
+        bodyChanges: [
+          'কারও কারও পায়ে খিঁচুনি হতে পারে, বিশেষ করে রাতে।',
+        ],
+        toKnow: [
+          'আপনি যা খান তা অ্যামনিওটিক তরলকে প্রভাবিত করতে পারে, যা শিশু নিয়মিত গিলে থাকে।',
+        ],
+      },
     },
   },
   {
@@ -3229,6 +3950,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '赤ちゃんが活発な時間と静かな時間を観察すると、その子ならではのリズムがわかってきます。',
+        ],
+      },
+      ko: {
+        babyDescription: '팔다리의 비율이 이제 잘 잡혀요. 아기는 호흡 연습을 하고, 자는 시간과 깨어 있는 시간이 번갈아 나타나기 시작해요.',
+        length: '약 28.9cm',
+        comparison: '큰 망고',
+        bodyChanges: [
+          '체중이 서서히 늘면서 허리 통증이 더 심해질 수 있어요.',
+        ],
+        toKnow: [
+          '아기가 활발한 때와 조용한 때를 관찰하면 아기만의 리듬을 알아 가는 데 도움이 돼요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'Os membros já estão bem proporcionados. O bebé pratica a respiração e começa a alternar fases de sono e de vigília.',
+        length: 'Cerca de 28,9 cm',
+        comparison: 'Manga grande',
+        bodyChanges: [
+          'Pode surgir uma dor nas costas mais acentuada com o aumento gradual de peso.',
+        ],
+        toKnow: [
+          'Observar os períodos ativos e tranquilos do bebé ajuda a conhecer o seu ritmo próprio.',
+        ],
+      },
+      bn: {
+        babyDescription: 'হাত-পা এখন বেশ সুসামঞ্জস্য আকারের। শিশু শ্বাস নেওয়ার অনুশীলন করে এবং ঘুম ও জেগে থাকার পর্যায় পর্যায়ক্রমে আসতে শুরু করে।',
+        length: 'প্রায় 28.9 সেমি',
+        comparison: 'বড় আম',
+        bodyChanges: [
+          'ধীরে ধীরে ওজন বাড়ার সঙ্গে আরও তীব্র পিঠব্যথা দেখা দিতে পারে।',
+        ],
+        toKnow: [
+          'শিশুর সক্রিয় ও শান্ত সময়গুলো লক্ষ করলে তার নিজস্ব ছন্দ বুঝতে সুবিধা হয়।',
         ],
       },
     },
@@ -3367,6 +4121,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '妊娠糖尿病のスクリーニングは、一般にこのころに勧められます。',
         ],
       },
+      ko: {
+        babyDescription: '아기가 생존 가능 시기에 이르렀어요. 이 시기에 매우 이른 조산이 일어나더라도 전문 신생아 의료 치료와 적절한 지원이 있으면 생존할 수 있어요.',
+        length: '약 30cm',
+        comparison: '옥수수',
+        bodyChanges: [
+          '방광이 더 눌리면서 소변이 자주 마려울 수 있어요.',
+        ],
+        toKnow: [
+          '임신성 당뇨병 선별 검사는 보통 이 무렵에 받도록 안내해요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O bebé atinge o limiar de viabilidade: em caso de nascimento muito prematuro nesta fase, os cuidados médicos neonatais especializados podem permitir a sobrevivência, com o apoio adequado.',
+        length: 'Cerca de 30 cm',
+        comparison: 'Espiga de milho',
+        bodyChanges: [
+          'Podem surgir maior pressão na bexiga e vontade frequente de urinar.',
+        ],
+        toKnow: [
+          'O rastreio da diabetes gestacional é geralmente proposto por volta desta altura.',
+        ],
+      },
+      bn: {
+        babyDescription: 'শিশু বেঁচে থাকার সক্ষমতার সীমায় পৌঁছায়: এই পর্যায়ে খুব আগে জন্ম হলে বিশেষায়িত নবজাতক চিকিৎসা সেবা ও উপযুক্ত সহায়তার মাধ্যমে শিশুর বেঁচে থাকা সম্ভব হতে পারে।',
+        length: 'প্রায় 30 সেমি',
+        comparison: 'ভুট্টা',
+        bodyChanges: [
+          'মূত্রথলির ওপর চাপ বাড়তে পারে এবং ঘন ঘন প্রস্রাবের বেগ দেখা দিতে পারে।',
+        ],
+        toKnow: [
+          'গর্ভকালীন ডায়াবেটিসের স্ক্রিনিং সাধারণত এই সময়ের কাছাকাছি করার পরামর্শ দেওয়া হয়।',
+        ],
+      },
     },
   },
   {
@@ -3503,6 +4290,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'ときどき感じる胎児のしゃっくりは、一般に正常なものと考えられています。',
         ],
       },
+      ko: {
+        babyDescription: '아기가 이제 큰 소리에 깜짝 놀라거나 발로 차며 반응해요. 가끔 딸꾹질이 느껴질 수도 있어요. 아기는 양수 속에 규칙적으로 소변을 봐요.',
+        length: '약 34.6cm',
+        comparison: '애호박',
+        bodyChanges: [
+          '속쓰림이나 위산 역류가 더 잦아질 수 있어요.',
+        ],
+        toKnow: [
+          '가끔 느껴지는 태아의 딸꾹질은 보통 정상으로 여겨져요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O bebé reage agora a ruídos fortes com um sobressalto ou um pontapé, e podem sentir-se soluços ocasionais. Urina regularmente para o líquido amniótico.',
+        length: 'Cerca de 34,6 cm',
+        comparison: 'Curgete',
+        bodyChanges: [
+          'A azia ou o refluxo ácido podem tornar-se mais frequentes.',
+        ],
+        toKnow: [
+          'Os soluços fetais sentidos de vez em quando são geralmente considerados normais.',
+        ],
+      },
+      bn: {
+        babyDescription: 'শিশু এখন জোরালো শব্দে চমকে ওঠে বা লাথি মারে, আর মাঝে মাঝে হিক্কার মতো নড়াচড়া টের পাওয়া যেতে পারে। সে নিয়মিত অ্যামনিওটিক তরলে প্রস্রাব করে।',
+        length: 'প্রায় 34.6 সেমি',
+        comparison: 'জুকিনি',
+        bodyChanges: [
+          'বুক জ্বালাপোড়া বা অ্যাসিড রিফ্লাক্স আরও ঘন ঘন হতে পারে।',
+        ],
+        toKnow: [
+          'মাঝে মাঝে শিশুর হিক্কা টের পাওয়া সাধারণত স্বাভাবিক বলে বিবেচিত হয়।',
+        ],
+      },
     },
   },
   {
@@ -3635,6 +4455,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '妊娠後期が近づき、医療機関での健診も一般に回数が増えていきます。',
+        ],
+      },
+      ko: {
+        babyDescription: '눈을 처음으로 떠요. 눈동자의 최종 색은 보통 태어난 뒤 몇 달이 지나야 알 수 있어요.',
+        length: '약 35.6cm',
+        comparison: '오이',
+        bodyChanges: [
+          '특히 하루가 끝날 무렵 발목이나 발이 살짝 부을 수 있어요.',
+        ],
+        toKnow: [
+          '곧 임신 후기가 다가와요. 보통 이때부터 진료 일정이 더 잦아져요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'Os olhos abrem-se pela primeira vez. A sua cor definitiva geralmente só é conhecida vários meses após o nascimento.',
+        length: 'Cerca de 35,6 cm',
+        comparison: 'Pepino',
+        bodyChanges: [
+          'Pode surgir um ligeiro inchaço nos tornozelos ou nos pés, em particular ao fim do dia.',
+        ],
+        toKnow: [
+          'O terceiro trimestre aproxima-se, e o acompanhamento médico torna-se geralmente mais frequente.',
+        ],
+      },
+      bn: {
+        babyDescription: 'চোখ প্রথমবারের মতো খোলে। চোখের চূড়ান্ত রং সাধারণত জন্মের কয়েক মাস পর্যন্ত জানা যায় না।',
+        length: 'প্রায় 35.6 সেমি',
+        comparison: 'শসা',
+        bodyChanges: [
+          'গোড়ালি বা পায়ে হালকা ফোলা দেখা দিতে পারে, বিশেষ করে দিনের শেষে।',
+        ],
+        toKnow: [
+          'তৃতীয় ত্রৈমাসিক ঘনিয়ে আসছে, আর এই সময়ে চিকিৎসা ফলো-আপ সাধারণত আরও ঘন ঘন হয়।',
         ],
       },
     },
@@ -3771,6 +4624,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '妊娠後期の始まりは、バースプラン（出産の希望）について考え始めるのによい時期であることが多いです。',
+        ],
+      },
+      ko: {
+        babyDescription: '폐가 스스로 호흡을 시작할 수 있을 만큼 발달해요. 피부 밑에 지방이 쌓이면서 아기는 계속 통통해져요.',
+        length: '약 36.6cm',
+        comparison: '콜리플라워',
+        bodyChanges: [
+          '몸이 점점 늘어나는 무게를 감당하면서 피로가 다시 느껴질 수 있어요.',
+        ],
+        toKnow: [
+          '임신 후기가 시작되는 이 무렵은 출산 계획을 생각해 보기 좋은 때예요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'Os pulmões tornam-se capazes de iniciar a respiração, e o bebé continua a ganhar volume à medida que se acumulam reservas de gordura sob a pele.',
+        length: 'Cerca de 36,6 cm',
+        comparison: 'Couve-flor',
+        bodyChanges: [
+          'O cansaço pode regressar à medida que o seu corpo carrega um peso cada vez maior.',
+        ],
+        toKnow: [
+          'O início do terceiro trimestre é muitas vezes uma boa altura para começar a pensar no seu plano de parto.',
+        ],
+      },
+      bn: {
+        babyDescription: 'ফুসফুস শ্বাস নেওয়া শুরু করার সক্ষমতা অর্জন করে, আর ত্বকের নিচে চর্বি জমতে থাকায় শিশু আরও পুষ্ট হয়ে ওঠে।',
+        length: 'প্রায় 36.6 সেমি',
+        comparison: 'ফুলকপি',
+        bodyChanges: [
+          'শরীর ক্রমবর্ধমান ওজন বহন করায় ক্লান্তি আবার ফিরে আসতে পারে।',
+        ],
+        toKnow: [
+          'তৃতীয় ত্রৈমাসিকের শুরু প্রায়ই আপনার প্রসবের পরিকল্পনা নিয়ে ভাবতে শুরু করার একটি ভালো সময়।',
         ],
       },
     },
@@ -3911,6 +4797,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '妊娠後期は一般にこの週ごろから始まり、健診の回数も増えていきます。',
         ],
       },
+      ko: {
+        babyDescription: '임신 아주 초기에는 더 빨랐던 심박수가 분당 약 130~140회로 안정되었고, 이제 청진기로 들을 수 있어요.',
+        length: '약 37.6cm',
+        comparison: '가지',
+        bodyChanges: [
+          '자궁이 더 많은 공간을 차지하면서 숨이 차거나 속쓰림이 더 잦아질 수 있어요.',
+        ],
+        toKnow: [
+          '보통 이 무렵부터 임신 후기가 시작되고, 진료 일정이 더 잦아져요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'A frequência cardíaca, mais rápida no início da gravidez, estabilizou nos 130 a 140 batimentos por minuto e já pode ser ouvida com um estetoscópio.',
+        length: 'Cerca de 37,6 cm',
+        comparison: 'Beringela',
+        bodyChanges: [
+          'A falta de ar ou a azia podem tornar-se mais frequentes à medida que o útero ocupa um espaço maior.',
+        ],
+        toKnow: [
+          'O terceiro trimestre começa geralmente por volta desta semana, com consultas cada vez mais frequentes.',
+        ],
+      },
+      bn: {
+        babyDescription: 'গর্ভাবস্থার একেবারে শুরুতে দ্রুত থাকা হৃদস্পন্দন এখন প্রতি মিনিটে প্রায় 130 থেকে 140 বিটে স্থির হয়েছে এবং এখন স্টেথোস্কোপ দিয়ে শোনা যায়।',
+        length: 'প্রায় 37.6 সেমি',
+        comparison: 'বেগুন',
+        bodyChanges: [
+          'জরায়ু বেশি জায়গা নেওয়ায় শ্বাসকষ্ট বা বুক জ্বালাপোড়া আরও ঘন ঘন হতে পারে।',
+        ],
+        toKnow: [
+          'তৃতীয় ত্রৈমাসিক সাধারণত এই সপ্তাহের কাছাকাছি শুরু হয়, আর এ সময় অ্যাপয়েন্টমেন্ট আরও ঘন ঘন হয়ে ওঠে।',
+        ],
+      },
     },
   },
   {
@@ -4045,6 +4964,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '妊娠後期は、血流を支えるために左側を下にして休むことがよくすすめられます。',
+        ],
+      },
+      ko: {
+        babyDescription: '아기는 이미 모양이 잘 갖춰졌고, 앞으로 몇 주는 주로 장기가 성숙하고 몸무게가 늘어나는 시기예요. 피부를 덮고 있던 얇은 보호막이 서서히 흡수되기 시작해요.',
+        length: '약 38.6cm',
+        comparison: '버터넛 스쿼시',
+        bodyChanges: [
+          '배가 커지면서 잠들기가 더 어려워질 수 있어요.',
+        ],
+        toKnow: [
+          '임신 후기에는 혈액 순환을 돕기 위해 왼쪽으로 누워 쉬는 것이 좋다고 권하는 경우가 많아요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O bebé já está bem formado; as próximas semanas serão dedicadas sobretudo à maturação dos órgãos e ao ganho de peso. O fino revestimento protetor que cobre a sua pele começa a ser reabsorvido.',
+        length: 'Cerca de 38,6 cm',
+        comparison: 'Abóbora-menina',
+        bodyChanges: [
+          'Pode tornar-se mais difícil dormir bem por causa da barriga que cresce.',
+        ],
+        toKnow: [
+          'No final da gravidez, recomenda-se com frequência descansar deitada sobre o lado esquerdo, para favorecer a circulação.',
+        ],
+      },
+      bn: {
+        babyDescription: 'শিশুর গঠন ইতিমধ্যেই পূর্ণাঙ্গ; আসন্ন সপ্তাহগুলো মূলত অঙ্গপ্রত্যঙ্গের পরিপক্বতা ও ওজন বৃদ্ধিতে কাটবে। ত্বক ঢেকে রাখা পাতলা সুরক্ষা স্তরটি ধীরে ধীরে শরীরে শোষিত হতে শুরু করে।',
+        length: 'প্রায় 38.6 সেমি',
+        comparison: 'বাটারনাট স্কোয়াশ',
+        bodyChanges: [
+          'পেট বড় হয়ে যাওয়ায় ঘুম আসা কঠিন হয়ে উঠতে পারে।',
+        ],
+        toKnow: [
+          'গর্ভাবস্থার শেষ দিকে রক্তসঞ্চালনে সহায়তার জন্য বাঁ পাশ ফিরে বিশ্রাম নেওয়ার পরামর্শ প্রায়ই দেওয়া হয়।',
         ],
       },
     },
@@ -4183,6 +5135,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '妊婦健診は、この時期から一般に回数が増えていきます。',
         ],
       },
+      ko: {
+        babyDescription: '시력이 계속 발달해요. 태어날 때는 가까이 있는 얼굴을 알아볼 수 있고, 이후 조금씩 움직이는 물체를 눈으로 따라가는 법을 배워요.',
+        length: '약 39.9cm',
+        comparison: '양배추',
+        bodyChanges: [
+          '허리나 골반이 묵직한 느낌이 더 심해질 수 있어요.',
+        ],
+        toKnow: [
+          '이 시기부터는 산전 진료 간격이 대체로 더 짧아져요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'A visão continua a desenvolver-se; ao nascer, o bebé conseguirá distinguir rostos próximos, antes de aprender gradualmente a seguir objetos em movimento.',
+        length: 'Cerca de 39,9 cm',
+        comparison: 'Couve',
+        bodyChanges: [
+          'A sensação de peso na zona lombar ou na bacia pode aumentar.',
+        ],
+        toKnow: [
+          'As consultas de vigilância pré-natal tornam-se geralmente mais frequentes a partir desta fase.',
+        ],
+      },
+      bn: {
+        babyDescription: 'দৃষ্টিশক্তির বিকাশ চলতে থাকে; জন্মের সময় শিশু কাছের মুখ আবছাভাবে চিনতে পারবে, তারপর ধীরে ধীরে চলমান বস্তুর দিকে চোখ রাখতে শিখবে।',
+        length: 'প্রায় 39.9 সেমি',
+        comparison: 'বাঁধাকপি',
+        bodyChanges: [
+          'পিঠের নিচের অংশে বা শ্রোণিতে ভারী লাগার অনুভূতি বাড়তে পারে।',
+        ],
+        toKnow: [
+          'এই পর্যায় থেকে প্রসবপূর্ব চেকআপ সাধারণত আরও ঘন ঘন হয়ে থাকে।',
+        ],
+      },
     },
   },
   {
@@ -4317,6 +5302,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '赤ちゃんは、外からいつも聞こえてくる身近な声を少しずつ聞き分け始めています。',
+        ],
+      },
+      ko: {
+        babyDescription: '아기는 활발하게 움직이고, 가끔 손가락을 빨기도 하며, 큰 동작도 할 수 있어요. 지방이 쌓이면서 피부 주름이 줄어들어요.',
+        length: '약 41.1cm',
+        comparison: '코코넛',
+        bodyChanges: [
+          '브랙스턴 힉스라고 하는 연습 수축이 가끔 느껴지기 시작할 수 있어요.',
+        ],
+        toKnow: [
+          '아기는 밖에서 자주 들리는 익숙한 목소리를 알아보기 시작해요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O bebé mexe-se ativamente, por vezes chupa os dedos e consegue fazer movimentos amplos. A sua pele fica menos enrugada à medida que se acumula gordura.',
+        length: 'Cerca de 41,1 cm',
+        comparison: 'Coco',
+        bodyChanges: [
+          'As contrações de treino, conhecidas como contrações de Braxton Hicks, podem começar a sentir-se ocasionalmente.',
+        ],
+        toKnow: [
+          'O bebé começa a reconhecer certas vozes familiares ouvidas regularmente do exterior.',
+        ],
+      },
+      bn: {
+        babyDescription: 'শিশু সক্রিয়ভাবে নড়াচড়া করে, কখনো কখনো আঙুল চোষে এবং বড় বড় নড়াচড়া করতে পারে। চর্বি জমতে থাকায় তার ত্বকের ভাঁজ কমে আসে।',
+        length: 'প্রায় 41.1 সেমি',
+        comparison: 'নারকেল',
+        bodyChanges: [
+          'ব্র্যাক্সটন হিক্স নামে পরিচিত অনুশীলন সংকোচন মাঝেমধ্যে অনুভূত হতে শুরু করতে পারে।',
+        ],
+        toKnow: [
+          'বাইরে থেকে নিয়মিত শোনা কিছু পরিচিত কণ্ঠস্বর শিশু চিনতে শুরু করছে।',
         ],
       },
     },
@@ -4455,6 +5473,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '出産予定日が近づくにつれて、頭が下を向いた状態（頭位）の赤ちゃんが多くなります。',
         ],
       },
+      ko: {
+        babyDescription: '아기는 이미 모양이 잘 갖춰졌고, 출산을 준비하며 머리를 아래로 향한 자세로 조금씩 자리를 잡아요. 남은 몇 주 동안은 주로 몸무게가 늘어나요.',
+        length: '약 42.4cm',
+        comparison: '셀러리 한 단',
+        bodyChanges: [
+          '아기가 자라면서 이 시기에는 체중이 눈에 띄게 느는 경우가 흔해요.',
+        ],
+        toKnow: [
+          '출산 예정일이 가까워질수록 머리가 아래를 향한 자세(두위)가 더 흔해져요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O bebé já está bem formado e vai-se posicionando gradualmente de cabeça para baixo, em preparação para o parto. Durante as semanas que faltam, continua sobretudo a ganhar peso.',
+        length: 'Cerca de 42,4 cm',
+        comparison: 'Molho de aipo',
+        bodyChanges: [
+          'Um ganho de peso mais notório é comum neste período, associado ao crescimento do bebé.',
+        ],
+        toKnow: [
+          'A posição de cabeça para baixo (apresentação cefálica) torna-se mais comum à medida que o termo se aproxima.',
+        ],
+      },
+      bn: {
+        babyDescription: 'শিশুর গঠন ইতিমধ্যেই পূর্ণাঙ্গ এবং প্রসবের প্রস্তুতিতে সে ধীরে ধীরে মাথা নিচের দিকে করে অবস্থান নিচ্ছে। বাকি সপ্তাহগুলোতে সে মূলত ওজন বাড়াতে থাকে।',
+        length: 'প্রায় 42.4 সেমি',
+        comparison: 'এক আঁটি ডাঁটাশাক',
+        bodyChanges: [
+          'এই সময়ে শিশুর বৃদ্ধির কারণে ওজন তুলনামূলক বেশি বাড়া স্বাভাবিক।',
+        ],
+        toKnow: [
+          'প্রসবের সময় যত ঘনিয়ে আসে, মাথা নিচের দিকে থাকা অবস্থান (সেফালিক প্রেজেন্টেশন) তত বেশি দেখা যায়।',
+        ],
+      },
     },
   },
   {
@@ -4589,6 +5640,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '生まれたときの頭蓋骨の柔らかさは一時的なもので、生後1年のあいだに少しずつ閉じていきます。',
+        ],
+      },
+      ko: {
+        babyDescription: '뇌와 신경계가 이제 잘 발달했어요. 뼈는 계속 단단해지지만, 두개골은 출산할 때 더 쉽게 지나갈 수 있도록 유연한 상태로 남아 있어요.',
+        length: '약 43.7cm',
+        comparison: '파인애플',
+        bodyChanges: [
+          '이 시기에는 편안하게 잘 수 있는 자세를 찾기 어려운 경우가 흔해요.',
+        ],
+        toKnow: [
+          '태어날 때 두개골이 유연한 것은 일시적이며, 생후 1년 동안 서서히 닫혀요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O cérebro e o sistema nervoso estão agora bem desenvolvidos. Os ossos continuam a endurecer, com exceção dos do crânio, que se mantêm flexíveis para facilitar a passagem durante o parto.',
+        length: 'Cerca de 43,7 cm',
+        comparison: 'Ananás',
+        bodyChanges: [
+          'É comum haver dificuldade em encontrar uma posição confortável para dormir nesta fase.',
+        ],
+        toKnow: [
+          'A flexibilidade dos ossos do crânio ao nascer é temporária e vai-se fechando gradualmente durante o primeiro ano.',
+        ],
+      },
+      bn: {
+        babyDescription: 'মস্তিষ্ক ও স্নায়ুতন্ত্র এখন বেশ বিকশিত। হাড় শক্ত হতে থাকে, তবে মাথার খুলির হাড় নমনীয় থাকে, যাতে প্রসবের সময় সহজে বেরিয়ে আসা যায়।',
+        length: 'প্রায় 43.7 সেমি',
+        comparison: 'আনারস',
+        bodyChanges: [
+          'এই পর্যায়ে ঘুমানোর আরামদায়ক ভঙ্গি খুঁজে পেতে অসুবিধা হওয়া স্বাভাবিক।',
+        ],
+        toKnow: [
+          'জন্মের সময় খুলির হাড়ের নমনীয়তা সাময়িক এবং জীবনের প্রথম বছরে তা ধীরে ধীরে জোড়া লেগে যায়।',
         ],
       },
     },
@@ -4726,6 +5810,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '赤ちゃんのふだんの動きに気を配り続けることは、出産直前まで大切です。',
         ],
       },
+      ko: {
+        babyDescription: '공간이 좁아 몸을 웅크린 아기는 보통 다리를 가슴 쪽으로 접은 채, 꾸준히 움직임을 이어가요.',
+        length: '약 45cm',
+        comparison: '캔탈루프 멜론',
+        bodyChanges: [
+          '공간이 줄어들어도 아기의 움직임과 달라지는 배의 모양은 대체로 계속 느낄 수 있어요.',
+        ],
+        toKnow: [
+          '아기의 평소 움직임에 계속 관심을 기울이는 것은 출산 직전까지 중요해요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O bebé, enroscado por falta de espaço, mantém geralmente as pernas dobradas junto ao peito, enquanto continua a mexer-se com regularidade.',
+        length: 'Cerca de 45 cm',
+        comparison: 'Melão cantalupe',
+        bodyChanges: [
+          'Apesar do espaço reduzido, os movimentos do bebé e a forma cambiante da sua barriga continuam, normalmente, a ser bem visíveis.',
+        ],
+        toKnow: [
+          'Continuar atenta aos movimentos habituais do bebé mantém-se pertinente até ao parto.',
+        ],
+      },
+      bn: {
+        babyDescription: 'জায়গার অভাবে গুটিসুটি হয়ে থাকা শিশু সাধারণত পা বুকের দিকে ভাঁজ করে রাখে এবং নিয়মিত নড়াচড়া করতে থাকে।',
+        length: 'প্রায় 45 সেমি',
+        comparison: 'খরমুজ',
+        bodyChanges: [
+          'জায়গা কমে গেলেও শিশুর নড়াচড়া এবং আপনার পেটের বদলে যাওয়া আকার সাধারণত বোঝা যায়।',
+        ],
+        toKnow: [
+          'শিশুর স্বাভাবিক নড়াচড়ার দিকে নজর রাখা প্রসব পর্যন্ত গুরুত্বপূর্ণ থাকে।',
+        ],
+      },
     },
   },
   {
@@ -4857,6 +5974,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'スペースが限られていても、赤ちゃんはこれまでの週と同じくらいの規則性で動き続けるはずです。',
+        ],
+      },
+      ko: {
+        babyDescription: '아기는 계속 통통해지고 있어요. 이는 태어난 뒤 체온을 조절하는 데 도움이 돼요. 자궁 안에 남은 공간은 점점 더 좁아져요.',
+        length: '약 46.2cm',
+        comparison: '허니듀 멜론',
+        bodyChanges: [
+          '아기가 서서히 아래로 내려오면서 골반 압박감이 더 뚜렷해질 수 있어요.',
+        ],
+        toKnow: [
+          '공간이 좁아도 아기는 이전 몇 주와 비슷한 규칙성으로 계속 움직여야 해요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O bebé continua a ganhar volume, o que o ajudará a regular a temperatura depois de nascer. O espaço disponível no útero torna-se mais limitado.',
+        length: 'Cerca de 46,2 cm',
+        comparison: 'Melão-branco',
+        bodyChanges: [
+          'Pode surgir uma pressão pélvica mais pronunciada à medida que o bebé vai descendo.',
+        ],
+        toKnow: [
+          'Apesar do espaço limitado, o bebé deve continuar a mexer-se com uma regularidade semelhante à das semanas anteriores.',
+        ],
+      },
+      bn: {
+        babyDescription: 'শিশুর শরীর ভরাট হতে থাকে, যা জন্মের পর তার তাপমাত্রা নিয়ন্ত্রণে সাহায্য করবে। জরায়ুতে থাকা জায়গা আরও সীমিত হয়ে আসে।',
+        length: 'প্রায় 46.2 সেমি',
+        comparison: 'হানিডিউ তরমুজ',
+        bodyChanges: [
+          'শিশু ধীরে ধীরে নিচের দিকে নেমে এলে শ্রোণিতে চাপ আরও স্পষ্টভাবে অনুভূত হতে পারে।',
+        ],
+        toKnow: [
+          'জায়গা সীমিত হলেও শিশু আগের সপ্তাহগুলোর মতোই নিয়মিতভাবে নড়াচড়া করতে থাকার কথা।',
         ],
       },
     },
@@ -4995,6 +6145,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '妊娠37週から42週のあいだは、正期産とされます。',
         ],
       },
+      ko: {
+        babyDescription: '폐는 대체로 스스로 숨 쉴 수 있을 만큼 성숙했고, 아기는 젖을 빨고 소화할 수 있어요.',
+        length: '약 47.4cm',
+        comparison: '로메인 상추',
+        bodyChanges: [
+          '자궁이 갈비뼈 아래 공간을 많이 차지해서 가끔 숨이 더 차게 느껴질 수 있어요.',
+        ],
+        toKnow: [
+          '임신 37주부터 42주 사이를 만삭으로 봐요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'Os pulmões estão geralmente maduros o suficiente para permitir a respiração autónoma, e o bebé é capaz de sugar e digerir.',
+        length: 'Cerca de 47,4 cm',
+        comparison: 'Alface romana',
+        bodyChanges: [
+          'Pode, por vezes, sentir falta de ar com mais facilidade, uma vez que o útero ocupa muito espaço sob as costelas.',
+        ],
+        toKnow: [
+          'A gravidez é considerada de termo entre a semana 37 e a semana 42.',
+        ],
+      },
+      bn: {
+        babyDescription: 'ফুসফুস সাধারণত স্বাধীনভাবে শ্বাস নেওয়ার মতো যথেষ্ট পরিণত হয়ে যায় এবং শিশু চুষতে ও হজম করতে সক্ষম হয়।',
+        length: 'প্রায় 47.4 সেমি',
+        comparison: 'রোমেইন লেটুস',
+        bodyChanges: [
+          'জরায়ু পাঁজরের নিচে অনেকটা জায়গা নেওয়ায় কখনো কখনো আপনার শ্বাসকষ্টের মতো মনে হতে পারে।',
+        ],
+        toKnow: [
+          'গর্ভাবস্থা 37তম থেকে 42তম সপ্তাহের মধ্যে পূর্ণ মেয়াদের বলে গণ্য করা হয়।',
+        ],
+      },
     },
   },
   {
@@ -5126,6 +6309,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'この週からは正期産に入ったとされ、いつ出産が始まってもおかしくありません。',
+        ],
+      },
+      ko: {
+        babyDescription: '아기는 태어날 수 있을 만큼 충분히 성숙했다고 봐요. 이제 대부분의 아기는 머리가 아래를 향해 있어요.',
+        length: '약 48.6cm',
+        comparison: '대파',
+        bodyChanges: [
+          '아기가 골반 안으로 내려오면서 골반 압박감이 점점 커지는 경우가 흔해요.',
+        ],
+        toKnow: [
+          '이번 주부터는 만삭에 이른 것으로 보며, 출산은 언제든 일어날 수 있어요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O bebé é considerado suficientemente maduro para nascer. A grande maioria dos bebés está agora posicionada de cabeça para baixo.',
+        length: 'Cerca de 48,6 cm',
+        comparison: 'Alho-francês',
+        bodyChanges: [
+          'É comum sentir uma pressão pélvica crescente à medida que o bebé encaixa na bacia.',
+        ],
+        toKnow: [
+          'A partir desta semana, considera-se que o termo foi atingido e o parto pode acontecer a qualquer momento.',
+        ],
+      },
+      bn: {
+        babyDescription: 'শিশু জন্মের জন্য যথেষ্ট পরিণত বলে গণ্য করা হয়। বেশিরভাগ শিশু এখন মাথা নিচের দিকে করে অবস্থান করছে।',
+        length: 'প্রায় 48.6 সেমি',
+        comparison: 'লিক',
+        bodyChanges: [
+          'শিশু শ্রোণিতে নেমে এলে শ্রোণিতে ক্রমবর্ধমান চাপের অনুভূতি স্বাভাবিক।',
+        ],
+        toKnow: [
+          'এই সপ্তাহ থেকে পূর্ণ মেয়াদ পূর্ণ হয়েছে বলে ধরা হয় এবং প্রসব যেকোনো সময় হতে পারে।',
         ],
       },
     },
@@ -5260,6 +6476,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           '医学的な理由がない予定出産は、一般に39週より前にはすすめられません。',
+        ],
+      },
+      ko: {
+        babyDescription: '피부를 덮고 있던 가는 솜털은 대부분 사라졌고, 장에는 신생아의 첫 대변인 태변이 쌓이고 있어요.',
+        length: '약 49.8cm',
+        comparison: '루바브 줄기',
+        bodyChanges: [
+          '출산이 가까워질수록 진통의 신호를 미리 알아 두면 도움이 될 수 있어요.',
+        ],
+        toKnow: [
+          '의학적인 이유가 없는 예정 출산은 일반적으로 39주 이전에는 권장하지 않아요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'A penugem fina que cobria a pele desapareceu em grande parte, e os intestinos estão a acumular mecónio, as primeiras fezes do recém-nascido.',
+        length: 'Cerca de 49,8 cm',
+        comparison: 'Talo de ruibarbo',
+        bodyChanges: [
+          'Familiarizar-se com os sinais do trabalho de parto pode ser útil à medida que o parto se aproxima.',
+        ],
+        toKnow: [
+          'Um parto programado, quando considerado sem indicação médica, geralmente não é recomendado antes da semana 39.',
+        ],
+      },
+      bn: {
+        babyDescription: 'ত্বক ঢেকে রাখা সূক্ষ্ম লোম অনেকটাই মিলিয়ে গেছে এবং অন্ত্রে মেকোনিয়াম জমছে, যা নবজাতকের প্রথম মল।',
+        length: 'প্রায় 49.8 সেমি',
+        comparison: 'একটি মাঝারি লাউ',
+        bodyChanges: [
+          'প্রসব ঘনিয়ে এলে প্রসববেদনার লক্ষণগুলো সম্পর্কে পরিচিত হয়ে থাকা কাজে লাগতে পারে।',
+        ],
+        toKnow: [
+          'চিকিৎসাগত কারণ ছাড়া নির্ধারিত দিনে প্রসব করানো সাধারণত 39তম সপ্তাহের আগে সুপারিশ করা হয় না।',
         ],
       },
     },
@@ -5398,6 +6647,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '生まれた直後は新生児の血液循環がまだ調整されている途中で、手足が一時的にうっすら青みがかって見えることがあります。',
         ],
       },
+      ko: {
+        babyDescription: '전에는 더 얇았던 피부가 두꺼워져서 이제 아기를 더 잘 보호해 줘요. 태지라는 보호막은 출산할 때 아기가 더 쉽게 나오도록 도와주기도 해요.',
+        length: '약 50.7cm',
+        comparison: '수박',
+        bodyChanges: [
+          '출산 예정일이 다가오면 초조함과 어느 정도의 피로를 느끼는 경우가 흔해요.',
+        ],
+        toKnow: [
+          '신생아의 혈액 순환은 태어난 직후에도 계속 적응하는 중이라서, 일시적으로 손이나 발이 약간 푸르스름해 보일 수 있어요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'A pele, antes mais fina, engrossou e protege agora melhor o bebé. Um revestimento protetor, o vérnix, facilita também a sua passagem durante o parto.',
+        length: 'Cerca de 50,7 cm',
+        comparison: 'Melancia',
+        bodyChanges: [
+          'A impaciência e algum cansaço são comuns à medida que a data prevista do parto se aproxima.',
+        ],
+        toKnow: [
+          'A circulação sanguínea do recém-nascido continua a ajustar-se logo após o nascimento, o que pode dar temporariamente às mãos ou aos pés uma ligeira tonalidade azulada.',
+        ],
+      },
+      bn: {
+        babyDescription: 'আগে যে ত্বক পাতলা ছিল তা এখন পুরু হয়েছে এবং শিশুকে আরও ভালোভাবে সুরক্ষা দেয়। ভার্নিক্স নামের একটি সুরক্ষা স্তর জন্মের সময় তার বেরিয়ে আসাও সহজ করে।',
+        length: 'প্রায় 50.7 সেমি',
+        comparison: 'তরমুজ',
+        bodyChanges: [
+          'প্রসবের সম্ভাব্য তারিখ ঘনিয়ে এলে অধৈর্য লাগা এবং কিছুটা ক্লান্তি অনুভব করা স্বাভাবিক।',
+        ],
+        toKnow: [
+          'জন্মের ঠিক পরে নবজাতকের রক্তসঞ্চালন নিজেকে মানিয়ে নিতে থাকে, যার ফলে হাত বা পায়ে সাময়িকভাবে হালকা নীলচে আভা দেখা যেতে পারে।',
+        ],
+      },
     },
   },
   {
@@ -5534,6 +6816,39 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '出産予定日を少し過ぎることはよくあり、必ずしも問題があるという意味ではありません。通常は、より注意深い経過観察が提案されます。',
         ],
       },
+      ko: {
+        babyDescription: '아기는 모든 발달을 마치고 태어날 준비가 되었어요. 출산 예정일은 추정일이라서, 많은 출산이 예정일 전후 며칠 사이에 일어나요.',
+        length: '약 51.2cm',
+        comparison: '호박',
+        bodyChanges: [
+          '이 시기에는 진통의 신호(규칙적인 수축, 양수 터짐)를 기다리는 경우가 흔해요.',
+        ],
+        toKnow: [
+          '예정일을 조금 넘기는 것은 흔한 일이며 반드시 문제가 있다는 뜻은 아니에요. 보통 더 가까운 관찰을 권해요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O bebé está totalmente desenvolvido e pronto para nascer. A data prevista do parto é uma estimativa: muitos partos acontecem nos dias em redor dela, antes ou depois.',
+        length: 'Cerca de 51,2 cm',
+        comparison: 'Abóbora',
+        bodyChanges: [
+          'Aguardar os sinais do trabalho de parto (contrações regulares, rutura da bolsa de águas) é comum neste período.',
+        ],
+        toKnow: [
+          'Ultrapassar ligeiramente a data prevista do parto continua a ser comum e não significa necessariamente que haja um problema; geralmente é proposta uma vigilância mais próxima.',
+        ],
+      },
+      bn: {
+        babyDescription: 'শিশু সম্পূর্ণ বিকশিত এবং জন্মের জন্য প্রস্তুত। প্রসবের সম্ভাব্য তারিখ একটি অনুমান মাত্র: অনেক শিশুর জন্ম এই তারিখের আগে বা পরে, আশপাশের কয়েক দিনের মধ্যে হয়।',
+        length: 'প্রায় 51.2 সেমি',
+        comparison: 'কুমড়া',
+        bodyChanges: [
+          'এই সময়ে প্রসববেদনার লক্ষণের (নিয়মিত সংকোচন, পানি ভাঙা) অপেক্ষায় থাকা স্বাভাবিক।',
+        ],
+        toKnow: [
+          'প্রসবের সম্ভাব্য তারিখ কিছুটা পেরিয়ে যাওয়া সাধারণ ব্যাপার এবং এর মানে সবসময় কোনো সমস্যা আছে তা নয়; সাধারণত আরও নিবিড় পর্যবেক্ষণের ব্যবস্থা করা হয়।',
+        ],
+      },
     },
   },
 
@@ -5646,6 +6961,33 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '正期産を過ぎると、一般に医療チームによる経過観察が強化されます。',
         ],
       },
+      ko: {
+        babyDescription: '아기는 여전히 모든 발달을 마친 상태예요. 출산 예정일이 지나면 아기가 건강한지 확인하기 위해 보통 더 가까운 관찰을 권해요.',
+        bodyChanges: [
+          '기다림이 길어지면 피로와 초조함이 더 커질 수 있어요.',
+        ],
+        toKnow: [
+          '만삭을 넘기면 의료진이 대체로 더 자주 살펴봐요.',
+        ],
+      },
+      'pt-PT': {
+        babyDescription: 'O bebé continua totalmente desenvolvido. Depois da data prevista do parto, é geralmente proposta uma vigilância mais próxima para verificar o bem-estar do bebé.',
+        bodyChanges: [
+          'A espera prolongada pode vir acompanhada de maior cansaço e impaciência.',
+        ],
+        toKnow: [
+          'Ultrapassar o termo leva geralmente a uma vigilância reforçada por parte da equipa médica.',
+        ],
+      },
+      bn: {
+        babyDescription: 'শিশু সম্পূর্ণ বিকশিত অবস্থাতেই থাকে। প্রসবের সম্ভাব্য তারিখ পেরিয়ে গেলে শিশুর সুস্থতা যাচাই করতে সাধারণত আরও ঘনিষ্ঠ পর্যবেক্ষণের ব্যবস্থা করা হয়।',
+        bodyChanges: [
+          'দীর্ঘ অপেক্ষার সঙ্গে ক্লান্তি ও অধৈর্য ভাব বাড়তে পারে।',
+        ],
+        toKnow: [
+          'পূর্ণ মেয়াদ পেরিয়ে গেলে সাধারণত চিকিৎসা দল আরও বেশি পর্যবেক্ষণ করে থাকে।',
+        ],
+      },
     },
   },
 ];
@@ -5663,7 +7005,9 @@ export function getPregnancyWeekData(week: number, lang: EditorialLanguage = 'en
   if (!entry) {
     return undefined;
   }
-  const content = entry.content[resolveEditorialLanguage(lang)];
+  const language = resolveEditorialLanguage(lang);
+  // Brazilian Portuguese = the Portugal text with this week's overlay (ptBrEditorialOverlay.ts)
+  const content = language === 'pt-BR' ? brazilianWeekContent(week, entry.content['pt-PT']) : entry.content[language];
   return {
     week: entry.week,
     babyImage: entry.babyImage,

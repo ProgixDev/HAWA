@@ -67,7 +67,7 @@ function matchBrace(src: string, openIdx: number): number {
 }
 
 function extractContent(source: string): ArticleContent {
-  const match = source.match(/\bconst CONTENT\b[^=]*=\s*\{/) as RegExpMatchArray;
+  const match = source.match(/\bconst CONTENT\b[^=]*=\s*(?:withBrazilianPortuguese\('\w+',\s*)?\{/) as RegExpMatchArray;
   const open = source.indexOf('{', (match.index as number) + match[0].length - 1);
   const close = matchBrace(source, open);
   // eslint-disable-next-line no-new-func
@@ -125,7 +125,7 @@ describe('Library articles — Italian content exists and mirrors the English st
 
   it('CONTENT has exactly fr, en, es, it, tr, ru, de, zh, id — in that order — and the existing fr/en/es blocks are all still present', () => {
     for (const [file, content] of contents) {
-      expect([file, Object.keys(content).join()]).toEqual([file, 'fr,en,es,it,tr,ru,de,zh,id,hi,sq,ja']);
+      expect([file, Object.keys(content).join()]).toEqual([file, 'fr,en,es,it,tr,ru,de,zh,id,hi,sq,ja,ko,pt-PT,bn']);
     }
   });
 
