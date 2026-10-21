@@ -35,6 +35,11 @@ import {id} from '../../../i18n/locales/id';
 import {hi} from '../../../i18n/locales/hi';
 import {sq} from '../../../i18n/locales/sq';
 import {ja} from '../../../i18n/locales/ja';
+import {ko} from '../../../i18n/locales/ko';
+import {bn} from '../../../i18n/locales/bn';
+import {createBengaliFace} from '../../../services/medicalExportPdf';
+import {NOTO_SANS_BENGALI_REGULAR_SUBSET_BASE64} from '../../../services/pdfBengaliFont';
+import {ptPT, ptBRFull} from '../../../testUtils/portugueseDictionaries';
 
 // Daughter Mood screen: the title « Humeur de Maissa » was 24 sp and wrapped / was cut between the back and the save button.
 // For a DAUGHTER profile only, on this screen only, it is now 20 sp and fitted to the header: one line when it fits; else one line
@@ -46,12 +51,17 @@ const FONT_DIR = path.join(__dirname, '..', '..', '..', '..', 'android', 'app', 
 const fraunces = fontkit.create(fs.readFileSync(path.join(FONT_DIR, 'Fraunces-Regular.ttf')));
 ensureShapingRuntime();
 const notoDevanagari = fontkit.create(decodeFromBase64(NOTO_SANS_DEVANAGARI_REGULAR_SUBSET_BASE64));
+// Bengali: the system Noto Sans Bengali draws the title; shaped here like HarfBuzz (createBengaliFace)
+const notoBengali = createBengaliFace(NOTO_SANS_BENGALI_REGULAR_SUBSET_BASE64);
 
 /** Real width of a title in dp at a size, shaped in the title face (Fraunces; Noto for Devanagari; one em per hanzi). */
 const realWidth = (text: string, size: number): number => {
   const shaped = (value: string): number => {
     if (/[\u0900-\u097F]/.test(value)) {
       return notoDevanagari.layout(value).positions.reduce((sum, position) => sum + position.xAdvance, 0) / notoDevanagari.unitsPerEm;
+    }
+    if (/[ঀ-৿]/.test(value)) {
+      return notoBengali.layout(value).positions.reduce((sum, position) => sum + position.xAdvance, 0) / notoBengali.unitsPerEm;
     }
     return value ? fraunces.layout(value).advanceWidth / fraunces.unitsPerEm : 0;
   };
@@ -61,7 +71,7 @@ const realWidth = (text: string, size: number): number => {
   return (hanzi + shaped(rest)) * size;
 };
 
-const DICTIONARIES = {fr, en, es, it: itDictionary, tr, ru, de, zh, id, hi, sq, ja} as const;
+const DICTIONARIES = {fr, en, es, it: itDictionary, tr, ru, de, zh, id, hi, sq, ja, ko, 'pt-PT': ptPT, 'pt-BR': ptBRFull, bn} as const;
 const LANGUAGES = Object.keys(DICTIONARIES) as Array<keyof typeof DICTIONARIES>;
 const moodTitle = (language: keyof typeof DICTIONARIES, name: string) =>
   ((DICTIONARIES[language] as unknown as {daughterJournal: {titles: {mood: string}}}).daughterJournal.titles.mood as string).replace('{{name}}', name);
