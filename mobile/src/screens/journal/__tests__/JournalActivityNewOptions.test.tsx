@@ -24,6 +24,9 @@ import {id} from '../../../i18n/locales/id';
 import {hi} from '../../../i18n/locales/hi';
 import {sq} from '../../../i18n/locales/sq';
 import {ja} from '../../../i18n/locales/ja';
+import {ko} from '../../../i18n/locales/ko';
+import {bn} from '../../../i18n/locales/bn';
+import {ptPT, ptBRFull} from '../../../testUtils/portugueseDictionaries';
 import {setAppLanguage} from '../../../state/themePreferences';
 
 // Physical-activity screen: « Randonnée » (hiking) and « Cardio » were added to the type grid, before « Autre » (which stays
@@ -177,7 +180,7 @@ describe('existing records and activities are untouched', () => {
 });
 
 describe('history and translations: all ten languages', () => {
-  const DICTIONARIES = {fr, en, es, it: itDictionary, tr, ru, de, zh, id, hi, sq, ja} as const;
+  const DICTIONARIES = {fr, en, es, it: itDictionary, tr, ru, de, zh, id, hi, sq, ja, ko, 'pt-PT': ptPT, 'pt-BR': ptBRFull, bn} as const;
   const LANGUAGES = Object.keys(DICTIONARIES) as Array<keyof typeof DICTIONARIES>;
   const EXISTING: Array<[string, string]> = [
     ['Marche', 'walking'], ['Course', 'running'], ['Yoga', 'yoga'], ['Musculation', 'strengthTraining'], ['Natation', 'swimming'],
@@ -205,6 +208,8 @@ describe('history and translations: all ten languages', () => {
     expect(typeNames('hi').cardio).toBe('कार्डियो');
     expect(typeNames('zh').hiking).toBe('徒步');
     expect(typeNames('zh').cardio).toBe('有氧运动');
+    expect(typeNames('bn').hiking).toBe('হাইকিং (পাহাড়ি হাঁটা)');
+    expect(typeNames('bn').cardio).toBe('কার্ডিও');
     for (const language of LANGUAGES.filter(name => name !== 'fr')) {
       expect([language, typeNames(language).hiking === 'Randonnée']).toEqual([language, false]);
     }
