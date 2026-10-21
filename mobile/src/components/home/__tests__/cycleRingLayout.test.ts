@@ -8,8 +8,12 @@ import {de} from '../../../i18n/locales/de';
 import {hi} from '../../../i18n/locales/hi';
 import {sq} from '../../../i18n/locales/sq';
 import {ja} from '../../../i18n/locales/ja';
+import {ko} from '../../../i18n/locales/ko';
+import {bn} from '../../../i18n/locales/bn';
+import {ptPT, ptBRFull} from '../../../testUtils/portugueseDictionaries';
 import {NOTO_SANS_DEVANAGARI_BOLD_SUBSET_BASE64, NOTO_SANS_DEVANAGARI_REGULAR_SUBSET_BASE64} from '../../../services/pdfDevanagariFont';
-import {ensureShapingRuntime} from '../../../services/medicalExportPdf';
+import {createBengaliFace, ensureShapingRuntime} from '../../../services/medicalExportPdf';
+import {NOTO_SANS_BENGALI_BOLD_SUBSET_BASE64, NOTO_SANS_BENGALI_REGULAR_SUBSET_BASE64} from '../../../services/pdfBengaliFont';
 import {en} from '../../../i18n/locales/en';
 import {es} from '../../../i18n/locales/es';
 import {fr} from '../../../i18n/locales/fr';
@@ -40,15 +44,24 @@ const measureDevanagari = (font: ReturnType<typeof load>, text: string): number 
   const face = font === interSemiBold ? notoBold : notoRegular;
   return face.layout(text).positions.reduce((sum, position) => sum + position.xAdvance, 0) / face.unitsPerEm;
 };
+// Bengali is drawn by the system Noto Sans Bengali: the bundled copy is shaped here exactly like HarfBuzz would (createBengaliFace) and measured at the weight the text uses.
+const BENGALI = /[ঀ-৿]/;
+const bengaliRegular = createBengaliFace(NOTO_SANS_BENGALI_REGULAR_SUBSET_BASE64);
+const bengaliBold = createBengaliFace(NOTO_SANS_BENGALI_BOLD_SUBSET_BASE64);
+const measureBengali = (font: ReturnType<typeof load>, text: string): number => {
+  const face = font === interSemiBold ? bengaliBold : bengaliRegular;
+  return face.layout(text).positions.reduce((sum, position) => sum + position.xAdvance, 0) / face.unitsPerEm;
+};
 const measure = (font: ReturnType<typeof load>, text: string): number => {
   if (DEVANAGARI.test(text)) {return measureDevanagari(font, text);}
+  if (BENGALI.test(text)) {return measureBengali(font, text);}
   if (Array.from(text).some(isWide)) {
     return Array.from(text).reduce((sum, char) => sum + (isWide(char) ? 1 : font.layout(char).advanceWidth / font.unitsPerEm), 0);
   }
   return font.layout(text).advanceWidth / font.unitsPerEm; // the whole string: kerning included
 };
 
-const DICTIONARIES = {fr, en, es, it: itDictionary, tr, ru, de, zh, id: idDictionary, hi, sq, ja} as const;
+const DICTIONARIES = {fr, en, es, it: itDictionary, tr, ru, de, zh, id: idDictionary, hi, sq, ja, ko, 'pt-PT': ptPT, 'pt-BR': ptBRFull, bn} as const;
 const PHASES = ['menstruation', 'follicular', 'fertile', 'ovulation', 'luteal'] as const;
 type Dictionary = {cyclePhase: Record<string, string>; journalNote: {cycleDayLabel: string}};
 const copy = (language: keyof typeof DICTIONARIES) => {
@@ -145,7 +158,7 @@ describe('ring centre text — every language, every phase, every ring size', ()
       const estimate = ringTextWidthEm(text);
       // Devanagari words are shaped (conjuncts), so a table of letter advances is looser there: the planner adds its own wider
       // margin for it (DEVANAGARI_WIDTH_SAFETY); what the check above guarantees is the REAL width fitting the disc.
-      const [low, high] = DEVANAGARI.test(text) ? [0.88, 1.15] : [0.97, 1.06];
+      const [low, high] = DEVANAGARI.test(text) || BENGALI.test(text) ? [0.88, 1.15] : [0.97, 1.06];
       expect([text, estimate / measured >= low && estimate / measured <= high]).toEqual([text, true]);
     });
   });
@@ -158,13 +171,27 @@ describe('ring centre text — every language, every phase, every ring size', ()
     expect(japanesePlan.phase.lineHeight).toBeGreaterThanOrEqual(japanesePlan.phase.fontSize * 1.4);
   });
 
-  it('Hindi: taller lines (1.5 x) and a wider width margin than the other languages, which keep 1.2 x (Japanese has its own 1.4 x)', () => {
+  it('Korean: a Hangul syllable counts as one em (it is not split into jamo by the accent folding)', () => {
+    expect(ringTextWidthEm('주기')).toBe(2);
+    expect(ringTextWidthEm('주기'.normalize('NFD'))).toBeGreaterThan(2); // already-decomposed jamo are still priced separately (never produced by the app)
+    expect(ringTextWidthEm('é')).toBe(ringTextWidthEm('e')); // accents are still folded for Latin text
+  });
+
+  it('Korean: 1.4 x lines (Hangul present), the same width margin as Latin; no other language is affected', () => {
+    const korean = copy('ko');
+    const koreanPlan = planCycleRingText({size: 116, caption: korean.caption, phaseLabels: korean.phases});
+    expect(koreanPlan.textLineFactor).toBe(1.4);
+    expect(koreanPlan.caption.lineHeight).toBeGreaterThanOrEqual(koreanPlan.caption.fontSize * 1.4);
+    expect(koreanPlan.phase.lineHeight).toBeGreaterThanOrEqual(koreanPlan.phase.fontSize * 1.4);
+  });
+
+  it('Hindi: taller lines (1.5 x) and a wider width margin than the other languages, which keep 1.2 x (Japanese and Korean have their own 1.4 x)', () => {
     const hindi = copy('hi');
     const hindiPlan = planCycleRingText({size: 116, caption: hindi.caption, phaseLabels: hindi.phases});
     expect(hindiPlan.textLineFactor).toBe(1.5);
     expect(hindiPlan.caption.lineHeight).toBeGreaterThanOrEqual(hindiPlan.caption.fontSize * 1.5);
     expect(hindiPlan.phase.lineHeight).toBeGreaterThanOrEqual(hindiPlan.phase.fontSize * 1.5);
-    for (const language of (Object.keys(DICTIONARIES) as Array<keyof typeof DICTIONARIES>).filter(name => name !== 'hi' && name !== 'ja')) {
+    for (const language of (Object.keys(DICTIONARIES) as Array<keyof typeof DICTIONARIES>).filter(name => name !== 'hi' && name !== 'ja' && name !== 'ko' && name !== 'bn')) {
       const {caption, phases} = copy(language);
       const plan = planCycleRingText({size: 116, caption, phaseLabels: phases});
       expect([language, plan.textLineFactor]).toEqual([language, 1.2]);
@@ -182,5 +209,39 @@ describe('ring centre text — every language, every phase, every ring size', ()
       expect(plan.number.fontSize / plan.caption.fontSize).toBeGreaterThanOrEqual(2);
       expect(plan.phaseReservedLines).toBeLessThanOrEqual(2);
     }
+  });
+});
+
+describe('Bengali centre text', () => {
+  it('Bengali: taller lines (1.5 x) and a wider width margin than Latin; the text stays in the readable band and the number stays prominent', () => {
+    const {caption, phases} = copy('bn');
+    for (const size of SIZES) {
+      const plan = planCycleRingText({size, caption, phaseLabels: phases});
+      const unit = Math.round(size * RING_CENTER_RATIO) / 82; // the type scales with the ring
+      expect(plan.textLineFactor).toBe(1.5);
+      expect(plan.caption.lineHeight).toBeGreaterThanOrEqual(plan.caption.fontSize * 1.5);
+      expect(plan.phase.lineHeight).toBeGreaterThanOrEqual(plan.phase.fontSize * 1.5);
+      expect(plan.caption.fontSize).toBeGreaterThanOrEqual(7 * unit - 0.01);
+      expect(plan.number.fontSize).toBeGreaterThanOrEqual(20 * unit - 0.25);
+      expect(plan.number.fontSize / plan.caption.fontSize).toBeGreaterThanOrEqual(2);
+      expect(plan.phaseReservedLines).toBeLessThanOrEqual(2);
+    }
+  });
+
+  it('Bengali: the fitted advance model is within -12 % / +8 % of the shaped width on every real ring label (and never narrower than the margin covers)', () => {
+    const {caption, phases} = copy('bn');
+    for (const text of [caption, ...phases, 'মাসিক', 'পর্যায়', 'লিউটিয়াল', 'ফলিকুলার']) {
+      const shaped = measureBengali(interSemiBold, text);
+      const estimate = ringTextWidthEm(text);
+      expect([text, estimate / shaped > 0.88, estimate / shaped < 1.12]).toEqual([text, true, true]);
+    }
+  });
+
+  it('Bengali: a conjunct and a vowel sign take less room than a letter, and the hasanta, nukta and chandrabindu take none', () => {
+    expect(ringTextWidthEm('ক')).toBeGreaterThan(ringTextWidthEm('ক্ষ') - ringTextWidthEm('ক')); // the second part of a conjunct is narrow
+    expect(ringTextWidthEm('কা')).toBeGreaterThan(ringTextWidthEm('ক'));
+    expect(ringTextWidthEm('ক্')).toBe(ringTextWidthEm('ক')); // hasanta: zero width
+    expect(ringTextWidthEm('কঁ')).toBe(ringTextWidthEm('ক')); // chandrabindu: zero width
+    expect(ringTextWidthEm('ক')).toBeGreaterThan(0.6);
   });
 });
