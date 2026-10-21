@@ -32,6 +32,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 import {EDITORIAL_IMAGE_ALT, resolveEditorialImage, PREGNANCY_FOLLOW_UP_HERO} from '../../i18n/editorialImages';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'pregnancy-semaine-par-semaine';
 
@@ -59,7 +60,7 @@ const URGENT_SIGN_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('PregnancyWeekly', {
   fr: {
     badge: 'GROSSESSE • VUE D’ENSEMBLE',
     title: 'Ta grossesse,\nsemaine par semaine',
@@ -672,7 +673,160 @@ const CONTENT = {
     tip2Text: '妊娠期ごとに体の変化は異なります。あらかじめ知っておくと各段階を落ち着いて過ごしやすくなりますが、助産師や医師による定期的な健診の代わりにはなりません。',
     shareMessage: '妊娠の経過を週ごとに — AWA',
   },
-} as const;
+  ko: {
+    badge: '임신 • 개요',
+    title: '주차별로 보는\n나의 임신',
+    metaDuration: '읽는 데 8분',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '임신 초기부터 후기까지 주요 이정표를 살펴보고, 각 시기에 어떤 일이 있을지 미리 알아 두세요.',
+    introSecondary: '임신은 저마다 다른 속도로 진행돼요. 여기에 나온 기준은 일반적인 것이라 사람마다 다를 수 있어요.',
+    contentsTitle: '이 아티클에서 다루는 내용',
+    topics: [
+      '임신 초기: 기초를 다지는 시기',
+      '임신 중기: 한결 편안해지는 시기',
+      '임신 후기: 출산을 준비하는 시기',
+      '시기별 주요 이정표',
+      '시기별 흔한 증상',
+      '빨리 진료를 받아야 할 때',
+      '핵심 정리',
+    ],
+    body1: '임신 초기에는 아기의 주요 장기가 차근차근 만들어지면서 기초가 다져져요. 피로와 메스꺼움이 흔하게 나타나는 시기이기도 한데, 정도는 사람마다 많이 달라요.',
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '이런 증상은 때로 불편하지만, 몸이 임신에 적극적으로 적응하고 있다는 신호예요.',
+    body2: '임신 중기는 대체로 가장 편안한 시기이고, 아기의 첫 움직임이 느껴지기 시작해요.',
+    highlightTitle: '첫 태동',
+    highlightText: '보통 임신 18~22주차 사이에 느끼게 돼요. 첫 임신이 아니라면 조금 더 일찍 느낄 수도 있어요.',
+    body3: '임신 후기에는 몸이 출산을 준비하면서 체중 증가와 피로가 더 뚜렷해져요. 연습 수축(브랙스턴 힉스 수축)이 나타날 수도 있어요.',
+    neutralText: '이런 수축은 대개 불규칙하고 통증이 심하지 않아요. 진통과는 달라요.',
+    trimesters: [
+      '임신 초기: 장기 형성',
+      '임신 중기: 첫 태동',
+      '임신 후기: 출산 준비',
+      '모든 시기에 의료진의 정기 검진',
+    ],
+    commonSymptoms: [
+      '메스꺼움과 피로, 특히 임신 초기',
+      '인대가 늘어나면서 생기는 아랫배의 찌릿한 느낌',
+      '임신 후반기의 가벼운 숨 가쁨',
+      '임신 후기 막바지의 수면 문제',
+    ],
+    consultIntro: '임신 시기와 상관없이 다음과 같은 징후가 있으면 바로 의료진의 조언을 받아야 해요.',
+    urgentSigns: [
+      '출혈, 소량이라도',
+      '심한 복통',
+      '태동이 느껴지지 않을 때',
+      '심한 두통이나 시야 이상',
+      '평소와 다른 발열',
+    ],
+    tip2Title: '알아 두면 좋아요',
+    tip2Text: '시기마다 몸에 다른 변화가 찾아와요. 미리 알아 두면 각 시기를 더 편안하게 보낼 수 있어요. 다만 조산사나 의사의 정기 검진을 대신할 수는 없어요.',
+    shareMessage: '주차별로 보는 나의 임신 — AWA',
+  },
+  'pt-PT': {
+    badge: 'GRAVIDEZ • VISÃO GERAL',
+    title: 'A sua gravidez,\nsemana a semana',
+    metaDuration: '8 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Os principais marcos do primeiro ao terceiro trimestre, para saber o que esperar em cada fase.',
+    introSecondary: 'Cada gravidez segue o seu próprio ritmo: estas referências são gerais e podem variar de mulher para mulher.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'O primeiro trimestre: lançar as bases',
+      'O segundo trimestre: mais conforto',
+      'O terceiro trimestre: preparar-se',
+      'Marcos principais por trimestre',
+      'Sintomas frequentes em cada fase',
+      'Quando procurar cuidados rapidamente',
+      'Pontos-chave',
+    ],
+    body1: 'O primeiro trimestre lança as bases: todos os principais órgãos do bebé formam-se progressivamente. É também um período em que o cansaço e as náuseas são frequentes, em graus muito diferentes consoante a mulher.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'Estes sintomas, embora por vezes incómodos, são sinal de que o corpo se está a adaptar ativamente à gravidez.',
+    body2: 'O segundo trimestre é muitas vezes o mais confortável, com o aparecimento dos primeiros movimentos do bebé.',
+    highlightTitle: 'Os primeiros movimentos',
+    highlightText: 'Costumam sentir-se entre as semanas 18 e 22, um pouco mais cedo se não for a sua primeira gravidez.',
+    body3: 'O terceiro trimestre prepara o corpo para o parto, com um aumento de peso e um cansaço mais notórios. Podem também surgir contrações de treino (conhecidas como contrações de Braxton Hicks).',
+    neutralText: 'Estas contrações são geralmente irregulares e pouco dolorosas; distinguem-se das contrações do trabalho de parto.',
+    trimesters: [
+      '1.º trimestre: formação dos órgãos',
+      '2.º trimestre: primeiros movimentos',
+      '3.º trimestre: preparação para o parto',
+      'Acompanhamento médico em todas as fases',
+    ],
+    commonSymptoms: [
+      'Náuseas e cansaço, sobretudo no primeiro trimestre',
+      'Pontadas abdominais associadas ao alongamento dos ligamentos',
+      'Ligeira falta de ar mais para o fim da gravidez',
+      'Dificuldades em dormir no final do terceiro trimestre',
+    ],
+    consultIntro: 'Certos sinais exigem aconselhamento médico rápido, seja qual for o trimestre:',
+    urgentSigns: [
+      'Hemorragia, mesmo ligeira',
+      'Dor abdominal intensa',
+      'Ausência de movimentos sentidos',
+      'Dores de cabeça fortes ou problemas de visão',
+      'Febre fora do comum',
+    ],
+    tip2Title: 'Bom saber',
+    tip2Text: 'Cada trimestre traz as suas próprias mudanças: conhecê-las com antecedência ajuda a viver melhor cada fase, sem substituir o acompanhamento regular com a sua parteira ou o seu médico.',
+    shareMessage: 'A sua gravidez, semana a semana — AWA',
+  },
+  bn: {
+    badge: 'গর্ভাবস্থা • সামগ্রিক ধারণা',
+    title: 'আপনার গর্ভাবস্থা,\nসপ্তাহে সপ্তাহে',
+    metaDuration: 'পড়তে 8 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'প্রথম থেকে তৃতীয় ত্রৈমাসিক পর্যন্ত গুরুত্বপূর্ণ ধাপগুলো, যাতে প্রতিটি পর্যায়ে কী আশা করবেন তা জানতে পারেন।',
+    introSecondary: 'প্রতিটি গর্ভাবস্থা নিজের ছন্দে এগোয়: এই মাইলফলকগুলো সাধারণ ধারণা মাত্র এবং একজন নারী থেকে আরেকজনের ক্ষেত্রে ভিন্ন হতে পারে।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'প্রথম ত্রৈমাসিক: ভিত্তি তৈরি',
+      'দ্বিতীয় ত্রৈমাসিক: বেশি স্বাচ্ছন্দ্য',
+      'তৃতীয় ত্রৈমাসিক: প্রস্তুতির সময়',
+      'ত্রৈমাসিক অনুযায়ী প্রধান মাইলফলক',
+      'প্রতিটি পর্যায়ের সাধারণ উপসর্গ',
+      'কখন দ্রুত চিকিৎসা নেবেন',
+      'মূল কথা',
+    ],
+    body1: 'প্রথম ত্রৈমাসিকে ভিত্তি তৈরি হয়: শিশুর প্রধান অঙ্গগুলো ধীরে ধীরে গঠিত হয়। এই সময়ে ক্লান্তি ও বমি বমি ভাব সাধারণ, তবে নারীভেদে এর মাত্রা অনেক ভিন্ন হয়।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'এই উপসর্গগুলো কখনো কখনো অস্বস্তিকর হলেও এটি ইঙ্গিত দেয় যে শরীর সক্রিয়ভাবে গর্ভাবস্থার সঙ্গে খাপ খাইয়ে নিচ্ছে।',
+    body2: 'দ্বিতীয় ত্রৈমাসিক প্রায়ই সবচেয়ে স্বাচ্ছন্দ্যের সময়, যখন শিশুর প্রথম নড়াচড়া টের পাওয়া যায়।',
+    highlightTitle: 'প্রথম নড়াচড়া',
+    highlightText: 'সাধারণত 18 থেকে 22 সপ্তাহের মধ্যে এগুলো অনুভূত হয়; এটি প্রথম গর্ভাবস্থা না হলে কিছুটা আগেও টের পাওয়া যেতে পারে।',
+    body3: 'তৃতীয় ত্রৈমাসিকে শরীর প্রসবের জন্য প্রস্তুত হয়, ওজন বাড়া ও ক্লান্তি আরও স্পষ্ট হয়। অনুশীলনমূলক সংকোচন (ব্র্যাক্সটন হিক্স নামে পরিচিত) দেখা দিতে পারে।',
+    neutralText: 'এই সংকোচনগুলো সাধারণত অনিয়মিত এবং খুব বেদনাদায়ক নয়; প্রসববেদনার সংকোচন থেকে এগুলো আলাদা।',
+    trimesters: [
+      'প্রথম ত্রৈমাসিক: অঙ্গ গঠন',
+      'দ্বিতীয় ত্রৈমাসিক: প্রথম নড়াচড়া',
+      'তৃতীয় ত্রৈমাসিক: প্রসবের প্রস্তুতি',
+      'প্রতিটি পর্যায়ে চিকিৎসাগত ফলো-আপ',
+    ],
+    commonSymptoms: [
+      'বমি বমি ভাব ও ক্লান্তি, বিশেষ করে প্রথম ত্রৈমাসিকে',
+      'লিগামেন্ট প্রসারিত হওয়ার কারণে তলপেটে খোঁচা খোঁচা ব্যথা',
+      'গর্ভাবস্থার শেষ দিকে সামান্য শ্বাসকষ্ট',
+      'তৃতীয় ত্রৈমাসিকের শেষ দিকে ঘুমের সমস্যা',
+    ],
+    consultIntro: 'ত্রৈমাসিক যেটাই হোক, কিছু লক্ষণে দ্রুত চিকিৎসকের পরামর্শ নেওয়া দরকার:',
+    urgentSigns: [
+      'রক্তপাত, হালকা হলেও',
+      'পেটে তীব্র ব্যথা',
+      'কোনো নড়াচড়া অনুভূত না হওয়া',
+      'তীব্র মাথাব্যথা বা দৃষ্টির সমস্যা',
+      'অস্বাভাবিক জ্বর',
+    ],
+    tip2Title: 'জেনে রাখা ভালো',
+    tip2Text: 'প্রতিটি ত্রৈমাসিক নিজস্ব পরিবর্তন নিয়ে আসে: আগে থেকে সেগুলো জানলে প্রতিটি পর্যায় আরও ভালোভাবে কাটানো যায়, তবে এটি আপনার ধাত্রী বা ডাক্তারের নিয়মিত ফলো-আপের বিকল্প নয়।',
+    shareMessage: 'আপনার গর্ভাবস্থা, সপ্তাহে সপ্তাহে — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

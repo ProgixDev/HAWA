@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'returningtoprayer-le-ghusl-et-le-retour';
 
@@ -41,7 +42,7 @@ const HERO = require('../../assets/images/library/category-spiritual.png');
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('ReturningToPrayer', {
   fr: {
     badge: 'RETOUR À LA PRIÈRE',
     title: 'Le ghusl et le\nretour à la prière',
@@ -486,7 +487,118 @@ const CONTENT = {
     ],
     shareMessage: 'グスルと礼拝への復帰 — AWA',
   },
-} as const;
+  ko: {
+    badge: '예배로 돌아가기',
+    title: '구슬과\n예배로의 복귀',
+    metaDuration: '5분 읽기',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '월경이 끝난 뒤 예배를 다시 시작하는 일반적인 단계를 마음 편히 알아봐요.',
+    disclaimerTitle: '중요한 안내',
+    disclaimerText: '이 콘텐츠는 순수하게 교육 목적이에요. 종교와 관련된 문제는 자격을 갖춘 학자의 확인을 받아야 해요. AWA는 파트와나 개인에게 맞춘 종교적 판단을 내리지 않아요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '구슬, 의례적 정결로 돌아가기',
+      '법학파에 따라 달라질 수 있는 방법',
+      '놓친 예배를 보충하지 않고 예배 다시 시작하기',
+      '기억해 둘 실용적인 포인트',
+    ],
+    section1Body1: '구슬은 전신 의례 정화예요. 예배와 다른 예배 행위를 드리는 데 필요한 의례적 정결 상태(타하라)로 돌아가겠다는 의도를 가지고 온몸을 씻는 것을 말해요.',
+    section1Body2: '구슬을 하기 전에 월경이 정말 끝났는지 확인하는 것이 중요해요. 구슬은 출혈이 멈췄다는 확신이 선 뒤에 하는 것이지, 그 전에 하는 것이 아니에요. 일반적으로 월경이 끝났는지는 의심의 여지가 없을 만큼 충분한 시간 동안 출혈이 완전히 멈춘 것으로 확인해요. 이 부분은 의례적 정결을 다루는 아티클에서 자세히 설명해요.',
+    section1Body3: '이 정화를 통해 월경 중에 중단되었던 예배의 시간과 다시 이어질 수 있어요.',
+    tip1Title: '알아 두세요',
+    tip1Text: '서두를 필요는 없어요. 월경이 끝났다는 것을 확실히 확인했다면, 준비가 되었을 때 부담 없이 구슬을 하면 돼요.',
+    section2Body: '구슬은 공통된 일반 원칙에 바탕을 두어요. 스스로를 정화하겠다는 의도, 그리고 머리카락과 피부를 포함해 몸 전체를 빠짐없이 씻는 것이에요. 다만 세부적인 방법은 따르는 법학파에 따라 다를 수 있어요.',
+    alertTitle: '중요한 참고',
+    alertText: '여기서는 어떤 특정한 방법도 유일하게 옳은 방법으로 제시하지 않아요. 평소 따르는 법학파나 의견을 참고하거나 자격을 갖춘 학자에게 조언을 구하면 상황에 맞는 구체적인 방법을 알 수 있어요.',
+    section3Body1: '월경이 끝나고 구슬을 마치면 예배는 특별한 지연이나 추가 조건 없이 평소처럼 다시 시작돼요.',
+    section3Body2: '서로 다른 규칙이 적용되는 두 가지 경우를 구분하면 도움이 돼요. 월경 중에 드리지 못한 예배는 일반적으로 보충하지 않지만, 라마단에 놓친 금식 일수는 나중에 보충해야 해요(카다).',
+    section3Body3: '예를 들어 6일 동안 생리를 한 여성은 구슬을 한 뒤 평소처럼 예배를 다시 시작하며, 그 6일 동안의 예배를 보충할 필요가 없어요. 하지만 이에 해당하는 6일의 금식은 라마단이 끝난 뒤에 보충해요.',
+    practicalPoints: [
+      '월경이 끝난 것을 확실히 알아차려요',
+      '의례적 정결로 돌아가기 위해 구슬(전신 정화 목욕)을 해요',
+      '지체 없이 예배를 평소처럼 다시 시작해요',
+      '월경 중에 놓친 예배는 일반적으로 보충하지 않는다는 점을 알아 두어요',
+      '특별한 상황이나 계속되는 의문이 있을 때는 자격을 갖춘 학자에게 조언을 구해요',
+    ],
+    shareMessage: '구슬과 예배로의 복귀 — AWA',
+  },
+  'pt-PT': {
+    badge: 'REGRESSO À ORAÇÃO',
+    title: 'O ghusl e o\nregresso à oração',
+    metaDuration: '5 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Os passos gerais para retomar a oração após a menstruação, com tranquilidade.',
+    disclaimerTitle: 'Informação importante',
+    disclaimerText: 'Este conteúdo é puramente educativo. As questões religiosas devem ser validadas por sábios qualificados. A AWA não emite fatwas nem pareceres religiosos personalizados.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'O ghusl, regresso à pureza ritual',
+      'Um método que pode variar consoante a escola',
+      'Retomar a oração, sem compensar as orações em falta',
+      'Pontos práticos a reter',
+    ],
+    section1Body1: 'O ghusl é um banho ritual maior: consiste em lavar o corpo inteiro com a intenção de regressar ao estado de pureza ritual (tahara), necessário para realizar a oração e outros atos de culto.',
+    section1Body2: 'Antes de realizar o ghusl, é importante certificar-se de que a menstruação terminou verdadeiramente: o ghusl deve seguir-se à certeza de que o sangramento parou, e não precedê-la. De um modo geral, este fim é reconhecido pela cessação total do sangramento, observada durante um período suficiente para afastar qualquer dúvida — um ponto tratado em pormenor no artigo dedicado à pureza ritual.',
+    section1Body3: 'Esta purificação é o que permite retomar os momentos de culto suspensos durante a menstruação.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'Não é preciso sentir-se apressada: o ghusl pode ser realizado assim que estiver pronta, sem pressão, depois de o fim da menstruação ter sido confirmado com certeza.',
+    section2Body: 'O ghusl assenta em princípios gerais comuns: a intenção de se purificar e a lavagem completa do corpo, incluindo o cabelo e a pele. Os pormenores precisos do método podem, no entanto, variar consoante a escola jurídica seguida.',
+    alertTitle: 'Nota importante',
+    alertText: 'Nenhum método em particular é aqui apresentado como o único válido: recorrer à escola ou ao parecer que costuma seguir, ou pedir conselho a um sábio qualificado, ajudará a conhecer os pormenores precisos adequados à sua situação.',
+    section3Body1: 'Uma vez terminada a menstruação e realizado o ghusl, a oração é retomada normalmente, sem atraso particular nem condição adicional.',
+    section3Body2: 'É útil distinguir duas situações que seguem regras diferentes: as orações não realizadas durante a menstruação não são, em geral, compensadas, ao passo que os dias de jejum em falta durante o Ramadão devem ser compensados mais tarde (Qada).',
+    section3Body3: 'Por exemplo, uma mulher que teve o período durante 6 dias retoma a oração normalmente após o ghusl, sem ter de compensar as orações desses 6 dias. Os 6 dias de jejum correspondentes, porém, serão compensados depois do Ramadão.',
+    practicalPoints: [
+      'Reconhecer com certeza o fim da menstruação',
+      'Realizar o ghusl (banho ritual maior) para regressar à pureza ritual',
+      'Retomar a oração normalmente, sem demora',
+      'Saber que as orações em falta durante a menstruação não são, em geral, compensadas',
+      'Pedir conselho a um sábio qualificado perante qualquer situação particular ou dúvida persistente',
+    ],
+    shareMessage: 'O ghusl e o regresso à oração — AWA',
+  },
+  bn: {
+    badge: 'নামাজে ফিরে আসা',
+    title: 'গোসল ও\nনামাজে ফিরে আসা',
+    metaDuration: '5 মিনিটের পাঠ',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'মাসিকের পর মনের শান্তি নিয়ে নামাজ আবার শুরু করার সাধারণ ধাপগুলো।',
+    disclaimerTitle: 'গুরুত্বপূর্ণ তথ্য',
+    disclaimerText: 'এই বিষয়বস্তু সম্পূর্ণ শিক্ষামূলক। ধর্মীয় প্রশ্নের উত্তর যোগ্য আলেমদের কাছ থেকে যাচাই করে নেওয়া উচিত। AWA কোনো ফতোয়া বা ব্যক্তিগত ধর্মীয় রায় দেয় না।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'গোসল, পবিত্রতায় ফিরে আসা',
+      'মাযহাব অনুযায়ী ভিন্ন হতে পারে এমন পদ্ধতি',
+      'ছুটে যাওয়া নামাজ কাজা না করে নামাজ আবার শুরু করা',
+      'মনে রাখার মতো ব্যবহারিক বিষয়',
+    ],
+    section1Body1: 'গোসল হলো একটি বড় ধর্মীয় পবিত্রতা অর্জনের প্রক্রিয়া (ফরজ গোসল): এতে নামাজ ও অন্যান্য ইবাদত করার জন্য প্রয়োজনীয় পবিত্রতার (তাহারাত) অবস্থায় ফিরে আসার নিয়তে পুরো শরীর ধোয়া হয়।',
+    section1Body2: 'গোসল করার আগে নিশ্চিত হওয়া গুরুত্বপূর্ণ যে মাসিক সত্যিই শেষ হয়েছে: রক্তস্রাব বন্ধ হয়েছে এই নিশ্চয়তার পরে গোসল করা উচিত, আগে নয়। সাধারণভাবে, এই সমাপ্তি চেনা যায় রক্তস্রাব সম্পূর্ণ বন্ধ হওয়ার মাধ্যমে, যা যেকোনো সন্দেহ দূর করার মতো পর্যাপ্ত সময় ধরে পর্যবেক্ষণ করা হয় — এই বিষয়টি পবিত্রতা বিষয়ে আলাদা নিবন্ধে বিস্তারিত আলোচিত হয়েছে।',
+    section1Body3: 'এই পবিত্রতা অর্জনই আপনাকে মাসিকের সময় স্থগিত থাকা ইবাদতের মুহূর্তগুলোতে আবার ফিরে আসতে দেয়।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'তাড়াহুড়া করার দরকার নেই: মাসিক যে নিশ্চিতভাবে শেষ হয়েছে তা জানার পর আপনি প্রস্তুত হলেই, কোনো চাপ ছাড়াই গোসল করা যায়।',
+    section2Body: 'গোসলের কিছু সাধারণ নীতি সবার ক্ষেত্রে এক: নিজেকে পবিত্র করার নিয়ত এবং চুল ও ত্বকসহ শরীরের সম্পূর্ণ ধৌতকরণ। তবে পদ্ধতির সুনির্দিষ্ট খুঁটিনাটি অনুসৃত ফিকহের মাযহাব অনুযায়ী ভিন্ন হতে পারে।',
+    alertTitle: 'গুরুত্বপূর্ণ নোট',
+    alertText: 'এখানে কোনো একটি নির্দিষ্ট পদ্ধতিকে একমাত্র বৈধ পদ্ধতি হিসেবে উপস্থাপন করা হচ্ছে না: আপনি সাধারণত যে মাযহাব বা মত অনুসরণ করেন তা দেখে নেওয়া, অথবা যোগ্য আলেমের পরামর্শ নেওয়া আপনার পরিস্থিতির উপযোগী সুনির্দিষ্ট খুঁটিনাটি জানতে সাহায্য করবে।',
+    section3Body1: 'মাসিক শেষ হয়ে গেলে এবং গোসল সম্পন্ন হলে নামাজ স্বাভাবিকভাবে আবার শুরু হয়, কোনো বিশেষ বিলম্ব বা অতিরিক্ত শর্ত ছাড়াই।',
+    section3Body2: 'দুটি পরিস্থিতির মধ্যে পার্থক্য বোঝা সহায়ক, যেগুলো ভিন্ন নিয়ম অনুসরণ করে: মাসিকের সময় যে নামাজ পড়া হয়নি তা সাধারণত কাজা করা হয় না, অথচ রমজানে ছুটে যাওয়া রোজার দিনগুলো পরে কাজা করতে হয়।',
+    section3Body3: 'উদাহরণস্বরূপ, যে নারীর 6 দিন মাসিক ছিল, তিনি গোসলের পর নামাজ স্বাভাবিকভাবে আবার শুরু করেন, সেই 6 দিনের নামাজ কাজা না করেই। তবে সংশ্লিষ্ট 6 দিনের রোজা রমজানের পরে কাজা করা হবে।',
+    practicalPoints: [
+      'মাসিকের সমাপ্তি নিশ্চিতভাবে চিনে নেওয়া',
+      'পবিত্রতায় ফিরে আসতে গোসল (ফরজ গোসল) করা',
+      'বিলম্ব না করে নামাজ স্বাভাবিকভাবে আবার শুরু করা',
+      'জেনে রাখা যে মাসিকের সময় ছুটে যাওয়া নামাজ সাধারণত কাজা করা হয় না',
+      'কোনো বিশেষ পরিস্থিতি বা স্থায়ী সন্দেহে যোগ্য আলেমের পরামর্শ নেওয়া',
+    ],
+    shareMessage: 'গোসল ও নামাজে ফিরে আসা — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

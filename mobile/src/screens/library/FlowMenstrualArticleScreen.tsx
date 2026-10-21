@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'flow-hygiene-intime';
 
@@ -58,7 +59,7 @@ const RELATED_IMAGES = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
   fr: {
     badge: 'FLUX MENSTRUEL',
     title: 'Bien vivre son hygiène intime\npendant les règles',
@@ -722,7 +723,184 @@ const CONTENT = {
     shareTitle: 'デリケートゾーンのケア · AWA',
     shareMessage: '生理中のデリケートゾーンのケア · AWA',
   },
-} as const;
+  ko: {
+    badge: '생리 출혈',
+    title: '생리 중\n질 주변 위생 관리하기',
+    metaDuration: '6분 읽기',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '질 주변 위생을 관리하는 것은 내 몸과 몸의 자연스러운 균형을 존중하는 일이에요.',
+    contentsTitle: '이 아티클에서는',
+    topics: [
+      '왜 중요할까요',
+      '좋은 습관',
+      '피해야 할 것',
+      '의사에게 진료받아야 할 때',
+      '실용적인 팁',
+    ],
+    body: '생리 중에는 몸이 달라지고 더 민감해져요. 올바른 습관을 들이면 자극과 감염을 예방하고 일상에서 편안하게 지내는 데 도움이 돼요.',
+    goodPractices: [
+      '부드럽게 씻어요. 앞에서 뒤로 맑은 물로 헹구는 것만으로도 충분히 자연 균총을 지킬 수 있어요.',
+      '생리용품을 정기적으로 갈아요. 4~6시간마다 갈아 주면 습기와 불쾌한 냄새를 막을 수 있어요.',
+      '면 소재를 골라요. 면 속옷은 피부가 숨을 쉬게 해 주고 자극의 위험을 줄여 줘요.',
+    ],
+    thingsToAvoid: [
+      '자극이 강한 비누와 향이 있는 제품',
+      '자연 균총을 무너뜨리는 질 세정',
+      '젖은 생리대나 탐폰을 너무 오래 쓰는 것',
+    ],
+    consultReasons: [
+      '자극, 가려움, 따가움이 계속될 때',
+      '평소와 다른 냄새나 분비물이 있을 때',
+      '심한 통증이나 걱정되는 증상이 있을 때',
+    ],
+    tipTitle: 'AWA 팁',
+    tipText: '몸에는 이미 스스로 균형을 맞추는 자연스러운 기능이 있어요. 보통은 부드럽게 씻는 것으로 충분해요.',
+    takeawaysTitle: '핵심 정리',
+    takeaways: [
+      '맑은 물로 부드럽게 씻기',
+      '정기적으로 갈아 주기',
+      '향이 있는 제품 피하기',
+      '면 소재 고르기',
+    ],
+    relatedTitle: '♥  함께 보면 좋은 글',
+    related: [
+      {
+        title: '생리통 이해하기',
+        meta: '7분  ·  가이드',
+      },
+      {
+        title: '내 몸에 맞는 생리용품 고르기',
+        meta: '5분  ·  가이드',
+      },
+      {
+        title: '생리통을 자연스럽게 완화하는 방법',
+        meta: '6분  ·  가이드',
+      },
+    ],
+    shareTitle: '질 주변 위생 · AWA',
+    shareMessage: '생리 중 질 주변 위생 관리하기 · AWA',
+  },
+  'pt-PT': {
+    badge: 'FLUXO MENSTRUAL',
+    title: 'Cuidar da sua higiene íntima\ndurante o período',
+    metaDuration: '6 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Cuidar da higiene íntima é respeitar o seu corpo e o seu equilíbrio natural.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Porque é importante',
+      'Bons hábitos',
+      'O que evitar',
+      'Quando consultar um médico',
+      'Dicas práticas',
+    ],
+    body: 'Durante o período, o seu corpo muda e torna-se mais sensível. Adotar os hábitos certos ajuda a prevenir irritações e infeções e a manter-se confortável no dia a dia.',
+    goodPractices: [
+      'Lave com suavidade: basta um simples enxaguamento com água limpa, da frente para trás, para proteger a sua flora natural.',
+      'Mude a proteção com regularidade: a cada 4 a 6 horas, para evitar a humidade e os odores desagradáveis.',
+      'Escolha algodão: a roupa interior de algodão deixa a pele respirar e reduz o risco de irritação.',
+    ],
+    thingsToAvoid: [
+      'Sabonetes agressivos e produtos perfumados',
+      'Duches vaginais, que perturbam a sua flora natural',
+      'Manter um penso ou um tampão húmido durante demasiado tempo',
+    ],
+    consultReasons: [
+      'Irritação, comichão ou ardor persistentes',
+      'Odor ou corrimento incomuns, diferentes do que é normal para si',
+      'Dor significativa ou sintomas que a preocupem',
+    ],
+    tipTitle: 'Dica AWA',
+    tipText: 'O seu corpo já tem um mecanismo natural de equilíbrio. Uma lavagem suave é normalmente suficiente.',
+    takeawaysTitle: 'Pontos essenciais',
+    takeaways: [
+      'Lavagem suave com água limpa',
+      'Mudar com regularidade',
+      'Evitar produtos perfumados',
+      'Escolher algodão',
+    ],
+    relatedTitle: '♥  Também pode gostar',
+    related: [
+      {
+        title: 'Compreender a dor menstrual',
+        meta: '7 min  ·  Guia',
+      },
+      {
+        title: 'Escolher a proteção certa para o seu corpo',
+        meta: '5 min  ·  Guia',
+      },
+      {
+        title: 'Como aliviar as cólicas menstruais de forma natural',
+        meta: '6 min  ·  Guia',
+      },
+    ],
+    shareTitle: 'Higiene íntima · AWA',
+    shareMessage: 'Cuidar da sua higiene íntima durante o período · AWA',
+  },
+  bn: {
+    badge: 'মাসিকের রক্তক্ষরণ',
+    title: 'মাসিকের সময়\nব্যক্তিগত পরিচ্ছন্নতার যত্ন নিন',
+    metaDuration: 'পড়তে 6 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'ব্যক্তিগত পরিচ্ছন্নতার যত্ন নেওয়া মানে নিজের শরীর ও তার স্বাভাবিক ভারসাম্যকে সম্মান করা।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'কেন এটি গুরুত্বপূর্ণ',
+      'ভালো অভ্যাস',
+      'যা এড়িয়ে চলবেন',
+      'কখন ডাক্তার দেখাবেন',
+      'বাস্তব পরামর্শ',
+    ],
+    body: 'মাসিকের সময় আপনার শরীর বদলায় এবং আরও সংবেদনশীল হয়ে ওঠে। সঠিক অভ্যাস গড়ে তুললে জ্বালা ও সংক্রমণ প্রতিরোধ করা যায় এবং প্রতিদিন স্বাচ্ছন্দ্যে থাকা যায়।',
+    goodPractices: [
+      'আলতো করে ধুয়ে নিন: সামনে থেকে পেছনের দিকে পরিষ্কার পানি দিয়ে সাধারণ ধুয়ে নেওয়াই আপনার স্বাভাবিক জীবাণু-ভারসাম্য রক্ষার জন্য যথেষ্ট।',
+      'নিয়মিত সুরক্ষা সামগ্রী বদলান: ভেজা ভাব ও অস্বস্তিকর গন্ধ এড়াতে প্রতি 4 থেকে 6 ঘণ্টায় বদলান।',
+      'সুতির কাপড় বেছে নিন: সুতির অন্তর্বাসে ত্বক শ্বাস নিতে পারে এবং জ্বালার ঝুঁকি কমে।',
+    ],
+    thingsToAvoid: [
+      'কড়া সাবান ও সুগন্ধিযুক্ত পণ্য',
+      'যোনিপথ ধোয়ার ডুশ, যা আপনার স্বাভাবিক জীবাণু-ভারসাম্য নষ্ট করে',
+      'ভেজা প্যাড বা ট্যাম্পন অনেকক্ষণ ধরে পরে থাকা',
+    ],
+    consultReasons: [
+      'দীর্ঘস্থায়ী জ্বালা, চুলকানি বা জ্বালাপোড়া',
+      'অস্বাভাবিক গন্ধ বা স্রাব, যা আপনার জন্য স্বাভাবিকের চেয়ে আলাদা',
+      'উল্লেখযোগ্য ব্যথা বা এমন উপসর্গ, যা আপনাকে দুশ্চিন্তায় ফেলে',
+    ],
+    tipTitle: 'AWA-র পরামর্শ',
+    tipText: 'আপনার শরীরে আগে থেকেই একটি স্বাভাবিক ভারসাম্য রক্ষার ব্যবস্থা আছে। সাধারণত আলতো করে ধুয়ে নেওয়াই যথেষ্ট।',
+    takeawaysTitle: 'মূল কথা',
+    takeaways: [
+      'পরিষ্কার পানিতে আলতো করে ধোয়া',
+      'নিয়মিত বদলানো',
+      'সুগন্ধিযুক্ত পণ্য এড়িয়ে চলা',
+      'সুতির কাপড় বেছে নেওয়া',
+    ],
+    relatedTitle: '♥  আপনার আরও ভালো লাগতে পারে',
+    related: [
+      {
+        title: 'মাসিকের ব্যথা বোঝা',
+        meta: '7 মিনিট  ·  গাইড',
+      },
+      {
+        title: 'আপনার শরীরের জন্য সঠিক সুরক্ষা সামগ্রী বেছে নেওয়া',
+        meta: '5 মিনিট  ·  গাইড',
+      },
+      {
+        title: 'প্রাকৃতিকভাবে মাসিকের ব্যথা কীভাবে কমাবেন',
+        meta: '6 মিনিট  ·  গাইড',
+      },
+    ],
+    shareTitle: 'ব্যক্তিগত পরিচ্ছন্নতা · AWA',
+    shareMessage: 'মাসিকের সময় ব্যক্তিগত পরিচ্ছন্নতার যত্ন নিন · AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

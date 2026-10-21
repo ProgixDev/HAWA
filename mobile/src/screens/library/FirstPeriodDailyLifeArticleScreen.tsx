@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'firstperiod-gerer-quotidien';
 
@@ -60,7 +61,7 @@ const RELATED_META = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
   fr: {
     badge: 'PREMIÈRES RÈGLES',
     title: 'Comment gérer ses\npremières règles au quotidien ?',
@@ -553,7 +554,130 @@ const CONTENT = {
     ],
     shareMessage: '初めての生理を毎日の生活でどう過ごす？ — AWA',
   },
-} as const;
+  ko: {
+    badge: '첫 생리',
+    title: '첫 생리를\n일상에서 어떻게 관리할까요?',
+    metaDuration: '5분 읽기',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '작은 습관 몇 가지만 있으면 첫 생리도 학교를 비롯한 일상에 쉽게 녹아들 수 있어요.',
+    contentsTitle: '이 아티클에서는',
+    topics: [
+      '하루하루 준비하기',
+      '작은 비상 키트 꾸리기',
+      '생리가 갑자기 시작되면',
+    ],
+    body1: '학교, 운동, 잠. 생리 때문에 평소 하던 활동을 그만둘 필요는 없어요. 하루 종일 편안하게 지내도록 몇 가지 습관만 조금 조정하면 돼요.',
+    dailyTips: [
+      '학교나 활동: 가방에 생리대나 탐폰을 하나 넣어 두어요',
+      '운동: 운동은 그대로 할 수 있어요. 속도만 조절해요',
+      '수면: 밤에 쓰기 알맞은 생리대면 충분해요',
+    ],
+    body2: '생리대나 탐폰 한두 개, 여분의 속옷 한 벌, 물티슈 몇 장으로 이루어진 작은 키트는 학교 가방이나 운동 가방에 쉽게 들어가요. 어떤 일이 생겨도 마음이 놓여요.',
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '생리대나 탐폰을 항상 가지고 다니면 갑자기 당황하는 스트레스를 피할 수 있어요.',
+    body3: '특히 처음에는 이런 일이 자주 있어요. 보건 선생님, 선생님, 친구 중 누군가는 거의 항상 도움이 될 만한 것을 가지고 있어요. 생리대나 탐폰을 구하는 동안 옷을 허리에 둘러 묶는 것도 방법이 될 수 있어요.',
+    relatedTitle: '♥  함께 보면 좋은 글',
+    related: [
+      {
+        title: '첫 생리에는 어떤 생리대나 탐폰을 골라야 할까요?',
+        meta: '6분  ·  가이드',
+      },
+      {
+        title: '생리통 관리하기',
+        meta: '7분  ·  가이드',
+      },
+      {
+        title: '첫 생리가 불규칙해요. 정상인가요?',
+        meta: '5분  ·  가이드',
+      },
+    ],
+    shareMessage: '첫 생리를 일상에서 어떻게 관리할까요? — AWA',
+  },
+  'pt-PT': {
+    badge: 'PRIMEIRO PERÍODO',
+    title: 'Como gerir o seu\nprimeiro período no dia a dia?',
+    metaDuration: '5 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Com alguns pequenos hábitos, o primeiro período integra-se facilmente no seu quotidiano, na escola e fora dela.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Organizar-se no dia a dia',
+      'Preparar um pequeno kit de emergência',
+      'Se o período chegar de surpresa',
+    ],
+    body1: 'Escola, desporto, sono: o período não a impede de continuar as suas atividades habituais. Basta ajustar alguns hábitos para se manter confortável ao longo do dia.',
+    dailyTips: [
+      'Escola ou atividades: tenha um penso ou um tampão na mala',
+      'Desporto: pode continuar a praticá-lo, basta adaptar o ritmo',
+      'Sono: um penso próprio para a noite é suficiente',
+    ],
+    body2: 'Um pequeno kit com um ou dois pensos ou tampões, uma muda de roupa interior e alguns toalhetes cabe facilmente numa mochila escolar ou de desporto. Ajuda a sentir-se tranquila aconteça o que acontecer.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'Ter sempre um penso ou um tampão consigo evita o stress de ser apanhada de surpresa.',
+    body3: 'Isto acontece com frequência, sobretudo no início. Uma enfermeira da escola, uma professora ou uma amiga quase sempre têm algo que pode ajudar. Atar uma peça de roupa à volta da cintura também pode resolver enquanto procura um penso ou um tampão.',
+    relatedTitle: '♥  Também pode gostar',
+    related: [
+      {
+        title: 'Que penso ou tampão devo escolher para o meu primeiro período?',
+        meta: '6 min  ·  Guia',
+      },
+      {
+        title: 'Gerir a dor menstrual',
+        meta: '7 min  ·  Guia',
+      },
+      {
+        title: 'Os meus primeiros períodos são irregulares: é normal?',
+        meta: '5 min  ·  Guia',
+      },
+    ],
+    shareMessage: 'Como gerir o seu primeiro período no dia a dia? — AWA',
+  },
+  bn: {
+    badge: 'প্রথম মাসিক',
+    title: 'প্রথম মাসিক প্রতিদিনের\nজীবনে কীভাবে সামলাবেন?',
+    metaDuration: 'পড়তে 5 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'কয়েকটি ছোট অভ্যাসেই আপনার প্রথম মাসিক স্কুলে ও স্কুলের বাইরে প্রতিদিনের জীবনে সহজে মানিয়ে যায়।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'প্রতিদিন গুছিয়ে চলা',
+      'একটি ছোট জরুরি কিট তৈরি করা',
+      'মাসিক হঠাৎ শুরু হয়ে গেলে',
+    ],
+    body1: 'স্কুল, খেলাধুলা, ঘুম: মাসিক আপনাকে স্বাভাবিক কাজকর্ম চালিয়ে যেতে বাধা দেয় না। শুধু সারাদিন স্বাচ্ছন্দ্যে থাকার জন্য কয়েকটি অভ্যাস একটু বদলে নিতে হবে।',
+    dailyTips: [
+      'স্কুল বা অন্যান্য কাজ: ব্যাগে একটি প্যাড বা ট্যাম্পন রাখুন',
+      'খেলাধুলা: খেলাধুলা করতে পারেন, শুধু গতি একটু বদলে নিন',
+      'ঘুম: রাতের জন্য উপযুক্ত একটি প্যাডই যথেষ্ট',
+    ],
+    body2: 'এক বা দুটি প্যাড বা ট্যাম্পন, একজোড়া বাড়তি অন্তর্বাস এবং কিছু টিস্যু নিয়ে একটি ছোট কিট সহজেই স্কুল বা খেলার ব্যাগে ধরে যায়। যা-ই ঘটুক, এটি আপনাকে নিশ্চিন্তে থাকতে সাহায্য করে।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'সবসময় সঙ্গে একটি প্যাড বা ট্যাম্পন রাখলে হঠাৎ অপ্রস্তুত হয়ে পড়ার দুশ্চিন্তা এড়ানো যায়।',
+    body3: 'এমনটা প্রায়ই ঘটে, বিশেষ করে শুরুর দিকে। স্কুলের নার্স, কোনো শিক্ষক বা বান্ধবীর কাছে প্রায় সবসময়ই সাহায্য করার মতো কিছু থাকে। প্যাড বা ট্যাম্পন জোগাড় করার সময় কোমরে একটি কাপড় বেঁধে নিলেও কাজ চলে।',
+    relatedTitle: '♥  আপনার আরও ভালো লাগতে পারে',
+    related: [
+      {
+        title: 'প্রথম মাসিকের জন্য কোন প্যাড বা ট্যাম্পন বেছে নেব?',
+        meta: '6 মিনিট  ·  গাইড',
+      },
+      {
+        title: 'মাসিকের ব্যথা সামলানো',
+        meta: '7 মিনিট  ·  গাইড',
+      },
+      {
+        title: 'আমার প্রথম দিকের মাসিক অনিয়মিত: এটা কি স্বাভাবিক?',
+        meta: '5 মিনিট  ·  গাইড',
+      },
+    ],
+    shareMessage: 'প্রথম মাসিক প্রতিদিনের জীবনে কীভাবে সামলাবেন? — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

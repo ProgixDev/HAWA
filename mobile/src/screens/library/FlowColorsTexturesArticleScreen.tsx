@@ -27,6 +27,7 @@ import {getBottomPadding, getTopPadding, READING_CONTROLS_SPACE} from '../../the
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'flow-colors-textures';
 
@@ -80,7 +81,7 @@ const ADVICE_ICONS = [
 // byte-identical to the original — never retyped, only moved into the `fr`
 // key — so the app remains fully bilingual rather than having French
 // replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('FlowColorsTextures', {
   fr: {
     badge: 'CYCLE & BIEN-ÊTRE',
     title: 'Flux menstruel : comprendre\nles couleurs et textures',
@@ -1076,7 +1077,322 @@ const CONTENT = {
     ],
     shareMessage: '経血の色と質感を知ろう — AWA',
   },
-} as const;
+  ko: {
+    badge: '주기와 웰니스',
+    title: '생리 출혈:\n색과 질감 이해하기',
+    metaDuration: '읽는 데 4분',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '생리의 색과 질감은 호르몬 건강에 대해 많은 것을 알려 줘요. 읽는 법을 익혀서 내 주기를 더 잘 이해해 보세요.',
+    contentsTitle: '이 아티클에서 다루는 내용',
+    contents: [
+      '생리 출혈의 색',
+      '출혈의 질감',
+      '색마다 어떤 의미일 수 있을까요?',
+      '언제 걱정해야 할까요?',
+      '나를 더 잘 알기 위한 팁',
+    ],
+    colors: [
+      {
+        name: '선홍색',
+        text: '갓 나온 신선한 피예요. 생리 초반에 흔해요.',
+      },
+      {
+        name: '짙은 붉은색',
+        text: '오래된 피로, 생리 중반에는 정상이에요.',
+      },
+      {
+        name: '갈색',
+        text: '산화된 피로, 생리 끝날 무렵에 자주 보여요.',
+      },
+      {
+        name: '분홍색',
+        text: '출혈량이 적거나 호르몬 변화가 있다는 뜻일 수 있어요.',
+      },
+      {
+        name: '주황색',
+        text: '감염이나 불균형과 관련이 있을 수 있어요.',
+      },
+    ],
+    textures: [
+      {
+        name: '묽은 질감',
+        text: '덩어리 없이 흐르는 액체 같은 출혈이에요.',
+      },
+      {
+        name: '크림 같은 질감',
+        text: '되직하고 매끈한 질감이에요.',
+      },
+      {
+        name: '혈괴',
+        text: '작거나 큰 핏덩어리예요.',
+      },
+      {
+        name: '끈적임 / 점액',
+        text: '늘어나는 느낌이고 투명하거나 희뿌연 색이에요.',
+      },
+      {
+        name: '조직',
+        text: '조직이나 점막 조각이에요.',
+      },
+    ],
+    meanings: [
+      {
+        name: '선홍색에서 짙은 붉은색',
+        text: '정상적인 주기예요. 몸이 자궁내막을 배출하고 있어요.',
+      },
+      {
+        name: '갈색',
+        text: '오래된 피로, 걱정하지 않아도 돼요.',
+      },
+      {
+        name: '분홍색',
+        text: '생리 초반이나 끝 무렵, 또는 호르몬 불균형일 때 나타날 수 있어요.',
+      },
+      {
+        name: '주황색',
+        text: '강한 냄새, 가려움, 통증이 함께 있다면 주의 깊게 지켜보세요.',
+      },
+    ],
+    warningTitle: '주의해야 할 신호',
+    warningItems: [
+      '출혈량이 매우 많을 때(1~2시간마다 생리용품을 교체해야 하는 경우)',
+      '아주 큰 혈괴가 자주 나올 때',
+      '나쁜 냄새나 가려움이 계속될 때',
+      '평소보다 유난히 심한 통증',
+    ],
+    advice: [
+      {
+        title: '출혈 관찰하기',
+        text: '매달 달라진 점을 기록해 보세요.',
+      },
+      {
+        title: '알맞은 생리용품 고르기',
+        text: '출혈량과 편안함에 맞춰 선택하세요.',
+      },
+      {
+        title: '내 몸의 말에 귀 기울이기',
+        text: '몸은 소중한 신호를 보내 줘요.',
+      },
+      {
+        title: '의심스럽다면',
+        text: '의료 전문가와 상담하세요.',
+      },
+    ],
+    shareMessage: '생리 출혈: 색과 질감 이해하기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'CICLO E BEM-ESTAR',
+    title: 'Fluxo menstrual: compreender\ncores e texturas',
+    metaDuration: '4 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'A cor e a textura do seu período dizem muito sobre a sua saúde hormonal. Aprenda a interpretá-las para compreender melhor o seu ciclo.',
+    contentsTitle: 'Neste artigo',
+    contents: [
+      'As cores do fluxo menstrual',
+      'As texturas do fluxo',
+      'O que cada cor pode indicar',
+      'Quando se deve preocupar?',
+      'As nossas dicas para se conhecer melhor',
+    ],
+    colors: [
+      {
+        name: 'Vermelho vivo',
+        text: 'Fluxo recente, sangue novo. Frequente no início do período.',
+      },
+      {
+        name: 'Vermelho escuro',
+        text: 'Sangue mais antigo, normal a meio do período.',
+      },
+      {
+        name: 'Castanho',
+        text: 'Sangue oxidado, muitas vezes no fim do período.',
+      },
+      {
+        name: 'Rosa',
+        text: 'Pode indicar um fluxo ligeiro ou uma alteração hormonal.',
+      },
+      {
+        name: 'Laranja',
+        text: 'Pode estar associado a uma infeção ou a um desequilíbrio.',
+      },
+    ],
+    textures: [
+      {
+        name: 'Fluida',
+        text: 'Fluxo líquido, sem grumos.',
+      },
+      {
+        name: 'Cremosa',
+        text: 'Textura espessa e homogénea.',
+      },
+      {
+        name: 'Coágulos',
+        text: 'Pequenos ou grandes coágulos de sangue.',
+      },
+      {
+        name: 'Filante / Muco',
+        text: 'Elástico, transparente ou esbranquiçado.',
+      },
+      {
+        name: 'Tecido',
+        text: 'Fragmentos de tecido ou de mucosa.',
+      },
+    ],
+    meanings: [
+      {
+        name: 'Vermelho vivo a escuro',
+        text: 'Ciclo normal. O seu corpo está a eliminar o revestimento do útero.',
+      },
+      {
+        name: 'Castanho',
+        text: 'Sangue mais antigo, nada com que se preocupar.',
+      },
+      {
+        name: 'Rosa',
+        text: 'Pode ocorrer no início/fim do período ou num desequilíbrio hormonal.',
+      },
+      {
+        name: 'Laranja',
+        text: 'Fique atenta se vier acompanhado de odor forte, comichão ou dor.',
+      },
+    ],
+    warningTitle: 'Sinais a vigiar',
+    warningItems: [
+      'Hemorragia muito abundante (trocar de proteção a cada 1–2 horas)',
+      'Eliminar regularmente coágulos muito grandes',
+      'Mau cheiro ou comichão persistentes',
+      'Dor invulgarmente intensa',
+    ],
+    advice: [
+      {
+        title: 'Observe o seu fluxo',
+        text: 'Anote as alterações todos os meses.',
+      },
+      {
+        title: 'Escolha a proteção certa',
+        text: 'Em função do seu fluxo e do seu conforto.',
+      },
+      {
+        title: 'Ouça o seu corpo',
+        text: 'Ele dá-lhe sinais valiosos.',
+      },
+      {
+        title: 'Em caso de dúvida',
+        text: 'Fale com um profissional de saúde.',
+      },
+    ],
+    shareMessage: 'Fluxo menstrual: compreender cores e texturas — AWA',
+  },
+  bn: {
+    badge: 'চক্র ও সুস্থতা',
+    title: 'মাসিকের রক্তক্ষরণ: রং ও\nগঠন বোঝা',
+    metaDuration: 'পড়তে 4 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'আপনার মাসিকের রং ও গঠন আপনার হরমোনজনিত স্বাস্থ্য সম্পর্কে অনেক কিছু বলে। আপনার চক্র আরও ভালোভাবে বুঝতে এগুলো পড়তে শিখুন।',
+    contentsTitle: 'এই নিবন্ধে',
+    contents: [
+      'মাসিকের রক্তের রং',
+      'রক্তক্ষরণের গঠন',
+      'প্রতিটি রং কী নির্দেশ করতে পারে',
+      'কখন চিন্তিত হবেন?',
+      'নিজেকে আরও ভালোভাবে জানার জন্য আমাদের টিপস',
+    ],
+    colors: [
+      {
+        name: 'উজ্জ্বল লাল',
+        text: 'তাজা রক্তক্ষরণ, নতুন রক্ত। মাসিকের শুরুতে এটি সাধারণ।',
+      },
+      {
+        name: 'গাঢ় লাল',
+        text: 'পুরোনো রক্ত, চক্রের মাঝামাঝি সময়ে স্বাভাবিক।',
+      },
+      {
+        name: 'বাদামি',
+        text: 'জারিত রক্ত, প্রায়ই মাসিকের শেষে দেখা যায়।',
+      },
+      {
+        name: 'গোলাপি',
+        text: 'হালকা রক্তক্ষরণ বা হরমোনের পরিবর্তন নির্দেশ করতে পারে।',
+      },
+      {
+        name: 'কমলা',
+        text: 'সংক্রমণ বা ভারসাম্যহীনতার সঙ্গে সম্পর্কিত হতে পারে।',
+      },
+    ],
+    textures: [
+      {
+        name: 'তরল',
+        text: 'পাতলা রক্তক্ষরণ, কোনো চাকা ছাড়া।',
+      },
+      {
+        name: 'ক্রিমের মতো',
+        text: 'ঘন, মসৃণ গঠন।',
+      },
+      {
+        name: 'রক্তের চাকা',
+        text: 'ছোট বা বড় রক্তের চাকা।',
+      },
+      {
+        name: 'সুতার মতো / শ্লেষ্মা',
+        text: 'টানলে বাড়ে এমন, স্বচ্ছ বা সাদাটে।',
+      },
+      {
+        name: 'টিস্যু',
+        text: 'টিস্যু বা শ্লেষ্মা ঝিল্লির টুকরো।',
+      },
+    ],
+    meanings: [
+      {
+        name: 'উজ্জ্বল থেকে গাঢ় লাল',
+        text: 'স্বাভাবিক চক্র। আপনার শরীর জরায়ুর আস্তরণ ঝরিয়ে দিচ্ছে।',
+      },
+      {
+        name: 'বাদামি',
+        text: 'পুরোনো রক্ত, চিন্তার কিছু নেই।',
+      },
+      {
+        name: 'গোলাপি',
+        text: 'মাসিকের শুরুতে/শেষে অথবা হরমোনের ভারসাম্যহীনতায় দেখা দিতে পারে।',
+      },
+      {
+        name: 'কমলা',
+        text: 'তীব্র গন্ধ, চুলকানি বা ব্যথা থাকলে নজর রাখুন।',
+      },
+    ],
+    warningTitle: 'যেসব লক্ষণে নজর রাখবেন',
+    warningItems: [
+      'খুব বেশি রক্তক্ষরণ (প্রতি 1–2 ঘণ্টায় সুরক্ষা বদলাতে হওয়া)',
+      'নিয়মিতভাবে খুব বড় রক্তের চাকা বের হওয়া',
+      'ক্রমাগত দুর্গন্ধ বা চুলকানি',
+      'অস্বাভাবিক তীব্র ব্যথা',
+    ],
+    advice: [
+      {
+        title: 'আপনার রক্তক্ষরণ পর্যবেক্ষণ করুন',
+        text: 'প্রতি মাসে যেকোনো পরিবর্তন লিখে রাখুন।',
+      },
+      {
+        title: 'সঠিক সুরক্ষা বেছে নিন',
+        text: 'আপনার রক্তক্ষরণের পরিমাণ ও স্বাচ্ছন্দ্য অনুযায়ী।',
+      },
+      {
+        title: 'নিজের শরীরের কথা শুনুন',
+        text: 'এটি আপনাকে মূল্যবান সংকেত দেয়।',
+      },
+      {
+        title: 'সন্দেহ হলে',
+        text: 'একজন স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে কথা বলুন।',
+      },
+    ],
+    shareMessage: 'মাসিকের রক্তক্ষরণ: রং ও গঠন বোঝা — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<
   RootStackParamList,

@@ -32,6 +32,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'firstperiod-cycle-irregulier';
 
@@ -56,7 +57,7 @@ const RELATED_IDS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
   fr: {
     badge: 'PREMIÈRES RÈGLES',
     title: 'Mes premières règles sont\nirrégulières : est-ce normal ?',
@@ -486,7 +487,121 @@ const CONTENT = {
     ],
     shareMessage: '初めのころの生理が不規則なのは普通？ — AWA',
   },
-} as const;
+  ko: {
+    badge: '첫 생리',
+    title: '첫 생리가\n불규칙해요. 정상인가요?',
+    metaDuration: '5분 읽기',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '네, 아주 정상이에요. 주기가 자리를 잡는 데 시간이 걸리는 이유와 상담이 필요한 경우를 알아봐요.',
+    contentsTitle: '이 아티클에서는',
+    topics: [
+      '처음에는 주기가 왜 불규칙할까요',
+      '자리를 잡는 데 걸리는 시간',
+      '의사에게 진료받아야 할 때',
+    ],
+    body1: '주기를 조절하는 호르몬이 균형을 찾는 데는 시간이 걸려요. 그래서 처음 몇 년 동안은 주기가 짧거나 길거나 간격이 고르지 않은 경우가 흔해요.',
+    body2: '주기가 더 규칙적으로 자리 잡기까지 1~2년, 때로는 그보다 조금 더 걸릴 수 있어요. 이 적응 기간은 사람마다 크게 다르고, 그것이 문제인 것은 아니에요.',
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '처음에 주기가 불규칙한 것은 결코 늦어지는 것으로 보지 않아요. 몸이 필요한 만큼 시간을 들이고 있을 뿐이에요.',
+    body3: '대부분의 경우 걱정할 필요는 없어요. 다만 첫 생리가 시작된 뒤 몇 달 동안 생리가 없거나 계속 의문이 든다면 의사에게 진료받는 것이 좋아요.',
+    alertTitle: '이럴 때는 의사에게 진료받으세요',
+    alertText: '몇 달 동안 생리가 없을 때, 통증이 아주 심할 때, 출혈이 아주 많을 때.',
+    relatedTitle: '♥  함께 보면 좋은 글',
+    related: [
+      {
+        title: '규칙적인 주기와 불규칙한 주기: 무엇이 다를까요?',
+        meta: '5분  ·  가이드',
+      },
+      {
+        title: '첫 생리, 무엇을 기대해야 할까요',
+        meta: '5분  ·  가이드',
+      },
+      {
+        title: '첫 생리에 대한 자주 묻는 질문',
+        meta: '4분  ·  FAQ',
+      },
+    ],
+    shareMessage: '첫 생리가 불규칙해요. 정상인가요? — AWA',
+  },
+  'pt-PT': {
+    badge: 'PRIMEIRO PERÍODO',
+    title: 'O meu primeiro período é\nirregular: é normal?',
+    metaDuration: '5 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Sim, é perfeitamente normal. Eis porque o ciclo demora a estabilizar e quando vale a pena falar disso.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Porque é que o ciclo é irregular no início',
+      'Quanto tempo demora a estabilizar',
+      'Quando consultar um médico',
+    ],
+    body1: 'As hormonas que regulam o ciclo demoram tempo a encontrar o equilíbrio. É por isso comum que os ciclos sejam mais curtos, mais longos ou espaçados de forma desigual durante os primeiros anos.',
+    body2: 'O ciclo pode demorar um a dois anos, por vezes um pouco mais, a tornar-se mais regular. Este período de adaptação varia muito de pessoa para pessoa, sem que isso seja um problema.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'Um ciclo irregular no início nunca é considerado um atraso: o seu corpo está apenas a levar o tempo de que precisa.',
+    body3: 'Na grande maioria dos casos, não há motivo para preocupação. Ainda assim, é aconselhável consultar um médico se o período estiver ausente durante vários meses depois de ter surgido pela primeira vez, ou se tiver dúvidas persistentes.',
+    alertTitle: 'Consulte um médico se',
+    alertText: 'Não tiver período há vários meses, tiver dor muito intensa ou uma hemorragia muito abundante.',
+    relatedTitle: '♥  Também pode gostar',
+    related: [
+      {
+        title: 'Ciclo regular ou irregular: qual é a diferença?',
+        meta: '5 min  ·  Guia',
+      },
+      {
+        title: 'O seu primeiro período: o que esperar',
+        meta: '5 min  ·  Guia',
+      },
+      {
+        title: 'Perguntas frequentes sobre o primeiro período',
+        meta: '4 min  ·  Perguntas frequentes',
+      },
+    ],
+    shareMessage: 'O meu primeiro período é irregular: é normal? — AWA',
+  },
+  bn: {
+    badge: 'প্রথম মাসিক',
+    title: 'আমার প্রথম দিকের মাসিক\nঅনিয়মিত: এটা কি স্বাভাবিক?',
+    metaDuration: 'পড়তে 5 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'হ্যাঁ, এটি সম্পূর্ণ স্বাভাবিক। চক্র স্থির হতে কেন সময় লাগে এবং কখন এ নিয়ে কথা বলা উচিত, তা এখানে জানুন।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'শুরুতে চক্র কেন অনিয়মিত থাকে',
+      'স্থির হতে কত সময় লাগে',
+      'কখন ডাক্তার দেখাবেন',
+    ],
+    body1: 'যেসব হরমোন চক্র নিয়ন্ত্রণ করে, তাদের ভারসাম্য খুঁজে পেতে সময় লাগে। তাই প্রথম কয়েক বছরে চক্র ছোট, বড় বা অসমান ব্যবধানে হওয়া খুবই সাধারণ।',
+    body2: 'চক্র আরও নিয়মিত হতে এক থেকে দুই বছর, কখনো কখনো আরও একটু বেশি সময় লাগতে পারে। এই মানিয়ে নেওয়ার সময়কাল একজন থেকে আরেকজনে অনেক আলাদা হয়, এবং এটি কোনো সমস্যা নয়।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'শুরুতে অনিয়মিত চক্রকে কখনো “দেরি” বলে গণ্য করা হয় না: আপনার শরীর শুধু প্রয়োজনীয় সময়টুকু নিচ্ছে।',
+    body3: 'অধিকাংশ ক্ষেত্রেই দুশ্চিন্তার কিছু নেই। তবে প্রথম মাসিক শুরু হওয়ার পর যদি কয়েক মাস মাসিক বন্ধ থাকে, অথবা আপনার মনে ক্রমাগত সন্দেহ থাকে, তাহলে ডাক্তার দেখানো ভালো।',
+    alertTitle: 'ডাক্তার দেখান যদি',
+    alertText: 'কয়েক মাস মাসিক না হয়, খুব তীব্র ব্যথা হয়, অথবা খুব বেশি রক্তক্ষরণ হয়।',
+    relatedTitle: '♥  আপনার আরও ভালো লাগতে পারে',
+    related: [
+      {
+        title: 'নিয়মিত না অনিয়মিত চক্র: পার্থক্য কী?',
+        meta: '5 মিনিট  ·  গাইড',
+      },
+      {
+        title: 'আপনার প্রথম মাসিক: কী আশা করবেন',
+        meta: '5 মিনিট  ·  গাইড',
+      },
+      {
+        title: 'প্রথম মাসিক নিয়ে সচরাচর জিজ্ঞাসা',
+        meta: '4 মিনিট  ·  সচরাচর জিজ্ঞাসা',
+      },
+    ],
+    shareMessage: 'আমার প্রথম দিকের মাসিক অনিয়মিত: এটা কি স্বাভাবিক? — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

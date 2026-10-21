@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -65,7 +66,7 @@ const DAILY_SUPPORT_ICONS = [
 /* remains fully bilingual rather than having French replaced by English.   */
 /* -------------------------------------------------------------------------- */
 
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('MiscarriageGrief', {
   fr: {
     badge: 'APRÈS UNE FAUSSE COUCHE • SOUTIEN ÉMOTIONNEL',
     title: 'Traverser le deuil\némotionnellement',
@@ -1054,7 +1055,244 @@ const CONTENT = {
     disclaimerText: '情報提供を目的としたコンテンツです。この記事は専門的なアドバイスに代わるものではありません。つらい時期を過ごしているときは、ためらわずに医療従事者に相談してください。',
     shareMessage: '悲しみと向き合う心の過ごし方 — AWA',
   },
-} as const;
+  ko: {
+    badge: '유산 이후 • 정서적 지지',
+    title: '슬픔을 마음으로\n지나가기',
+    metaDuration: '7분 읽기',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '정보 제공 콘텐츠',
+    intro: '정답이 있는 길은 없어요. 누구나 자기만의 방식으로, 자기만의 속도로 지나가요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '실제로 존재하는 정당한 슬픔',
+      '사람마다 다른 감정',
+      '일상에서 도움이 될 수 있는 것',
+      '주변 사람들의 지지',
+      '전문가의 도움을 받아야 할 때',
+      '핵심 정리',
+    ],
+    section1Body: '슬픔, 분노, 공허한 느낌은 임신 시기와 상관없이 이런 상실에 대한 자연스러운 반응이에요. 지금 느끼는 감정은 있는 그대로 인정받을 만해요.',
+    section1InfoTitle: '기억해 두세요',
+    section1InfoText: '이 시간을 보내는 데 옳고 그른 방식은 없어요. 느끼는 모든 감정은 그 자체로 괜찮아요.',
+    section2Body: '다음 중 하나 또는 여러 가지를 느낄 수 있고, 때로는 한꺼번에 느끼기도 해요.',
+    feelings: [
+      {
+        title: '슬픔',
+        text: '오고 가기를 반복하는 아픔으로, 때로는 예고 없이 찾아와요.',
+      },
+      {
+        title: '분노',
+        text: '나 자신, 상황, 혹은 불공평하다는 느낌을 향할 수 있어요. 걱정할 일이 아니에요.',
+      },
+      {
+        title: '공허한 느낌',
+        text: '방금 일어난 일에 대한 허전함이나 혼란스러움이에요.',
+      },
+    ],
+    section3Body: '부담이나 비교 없이 스스로에게 시간을 주는 것은 회복에서 꼭 필요한 부분이에요.',
+    dailySupport: [
+      {
+        title: '스스로에게 시간 주기',
+        text: '“얼른 괜찮아져야 한다”는 압박이나 기한 없이요.',
+      },
+      {
+        title: '다른 사람과 비교하지 않기',
+        text: '슬픔은 저마다 달라요. 정해진 방식은 없어요.',
+      },
+      {
+        title: '말이나 글로 표현하기',
+        text: '느끼는 것을 글로 쓰거나 이야기하면 마음의 무게를 덜 수 있어요.',
+      },
+    ],
+    section4Body: '가까운 사람, 지지 모임, 혹은 전문가와 이야기를 나누면 이 무게를 덜 수 있어요. 주변 사람들이 도울 수 있는 방법은 다음과 같아요.',
+    supportTitle: '가까운 사람이 지지를 건네는 방법',
+    howToSupport: [
+      '딱 맞는 말을 찾지 못하더라도 판단하지 않고 귀 기울여 들어요',
+      '경험을 가볍게 여기는 말은 피해요(“별일 아니야”, “또 시도하면 되지”)',
+      '해결책을 내놓기보다 곁에 있어 줘요',
+      '이후 몇 주 동안에도 계속 안부를 물어요',
+    ],
+    section5Body: '다음과 같은 신호가 있다면 전문가의 도움이 필요할 수 있어요.',
+    warningTitle: '살펴봐야 할 신호',
+    attentionSigns: [
+      '슬픔이 오래 이어지고 나아지기보다 더 깊어져요',
+      '일상생활을 하기 어려워져요',
+      '심한 고립감이 들어요',
+      '떠나지 않는 생각이나 심한 괴로움이 나타나요',
+    ],
+    section5InfoTitle: '도움을 받을 수 있어요',
+    section5InfoText: '조산사, 의사, 심리 전문가, 지지 모임이 판단 없이 이야기를 들어 주고 곁에서 힘이 되어 줄 수 있어요.',
+    tipTitle: '알아 두세요',
+    tipText: '도움을 요청하는 것은 약함의 표시가 아니에요. 이 시기에 스스로를 돌보는 방법이에요.',
+    summaryPoints: [
+      '이 경험을 지나가는 데 옳고 그른 방식은 없어요.',
+      '슬픔, 분노, 공허한 느낌은 자연스러운 반응이에요.',
+      '부담이나 비교 없이 스스로에게 시간을 주는 것도 회복의 일부예요.',
+      '가까운 사람, 지지 모임, 혹은 전문가와 이야기를 나누면 이 무게를 덜 수 있어요.',
+    ],
+    disclaimerText: '정보 제공 콘텐츠예요. 이 아티클은 전문가의 조언을 대신하지 않아요. 힘든 시간을 보내고 있다면 망설이지 말고 의료 전문가와 이야기해 보세요.',
+    shareMessage: '슬픔을 마음으로 지나가기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'APÓS UM ABORTO ESPONTÂNEO • APOIO EMOCIONAL',
+    title: 'Atravessar o luto\nemocionalmente',
+    metaDuration: '7 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo informativo',
+    intro: 'Não existe uma forma certa de viver isto. Cada mulher atravessa este momento à sua maneira, ao seu ritmo.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Um luto real e legítimo',
+      'Emoções que variam de mulher para mulher',
+      'O que pode ajudar no dia a dia',
+      'O apoio das pessoas próximas',
+      'Quando procurar ajuda profissional',
+      'Pontos-chave',
+    ],
+    section1Body: 'A tristeza, a raiva ou uma sensação de vazio são reações normais a esta perda, seja qual for a fase da gravidez. O que sente merece ser reconhecido.',
+    section1InfoTitle: 'A reter',
+    section1InfoText: 'Não existe uma forma certa ou errada de viver isto. Todas as emoções que sente são válidas.',
+    section2Body: 'Pode sentir uma ou várias destas emoções, por vezes ao mesmo tempo:',
+    feelings: [
+      {
+        title: 'Tristeza',
+        text: 'Uma dor que pode ir e vir, por vezes de forma inesperada.',
+      },
+      {
+        title: 'Raiva',
+        text: 'Dirigida a si própria, à situação ou a um sentimento de injustiça — e não há motivo para se preocupar com isso.',
+      },
+      {
+        title: 'Uma sensação de vazio',
+        text: 'Uma sensação de vazio ou de confusão perante o que acabou de acontecer.',
+      },
+    ],
+    section3Body: 'Dar-se tempo, sem pressão nem comparações, é uma parte essencial da recuperação.',
+    dailySupport: [
+      {
+        title: 'Dar-se tempo',
+        text: 'Sem pressão nem prazo para “se sentir melhor”.',
+      },
+      {
+        title: 'Não se comparar com os outros',
+        text: 'Cada luto é único; não existe uma forma certa de o viver.',
+      },
+      {
+        title: 'Pôr em palavras',
+        text: 'Escrever ou falar sobre o que sente pode ajudar a aliviar o peso das emoções.',
+      },
+    ],
+    section4Body: 'Falar com alguém próximo, com um grupo de apoio ou com um profissional pode ajudar a aliviar este peso. Eis como as pessoas próximas podem ajudar:',
+    supportTitle: 'Como uma pessoa próxima pode oferecer apoio',
+    howToSupport: [
+      'Ouvir sem julgar, mesmo sem ter as palavras perfeitas',
+      'Evitar desvalorizar a experiência (“não foi nada de grave”, “pode tentar de novo”)',
+      'Oferecer a sua presença em vez de soluções',
+      'Continuar a acompanhar nas semanas seguintes',
+    ],
+    section5Body: 'Alguns sinais podem indicar que um apoio profissional poderia ser útil:',
+    warningTitle: 'Sinais a que deve estar atenta',
+    attentionSigns: [
+      'A tristeza dura muito tempo e intensifica-se em vez de diminuir',
+      'Torna-se difícil funcionar no dia a dia',
+      'Instala-se uma sensação marcada de isolamento',
+      'Surgem pensamentos intrusivos ou um sofrimento significativo',
+    ],
+    section5InfoTitle: 'Existe apoio disponível',
+    section5InfoText: 'Uma parteira, um médico, um psicólogo ou um grupo de apoio pode ouvi-la e apoiá-la, sem julgamentos.',
+    tipTitle: 'Bom saber',
+    tipText: 'Pedir ajuda não é sinal de fraqueza — é uma forma de cuidar de si durante este período.',
+    summaryPoints: [
+      'Não existe uma forma certa ou errada de viver esta experiência.',
+      'A tristeza, a raiva ou uma sensação de vazio são reações normais.',
+      'Dar-se tempo, sem pressão nem comparações, faz parte da recuperação.',
+      'Falar com alguém próximo, com um grupo de apoio ou com um profissional pode ajudar a aliviar este peso.',
+    ],
+    disclaimerText: 'Conteúdo informativo. Este artigo não substitui o aconselhamento profissional. Se estiver a atravessar um momento difícil, não hesite em falar com um profissional de saúde.',
+    shareMessage: 'Atravessar o luto, emocionalmente — AWA',
+  },
+  bn: {
+    badge: 'গর্ভপাতের পর • মানসিক সহায়তা',
+    title: 'শোকের মধ্য দিয়ে\nমানসিকভাবে এগিয়ে চলা',
+    metaDuration: 'পড়তে 7 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'তথ্যমূলক বিষয়বস্তু',
+    intro: 'এর মধ্য দিয়ে যাওয়ার কোনো একটি সঠিক পথ নেই। প্রত্যেকে নিজের মতো করে, নিজের গতিতে এগিয়ে যান।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'একটি সত্যিকারের ও যথার্থ শোক',
+      'মানুষভেদে ভিন্ন ভিন্ন অনুভূতি',
+      'প্রতিদিন যা সাহায্য করতে পারে',
+      'প্রিয়জনদের সহায়তা',
+      'কখন পেশাদার সাহায্য নেবেন',
+      'মূল কথা',
+    ],
+    section1Body: 'গর্ভাবস্থার যে পর্যায়েই হোক, এই ক্ষতির পর দুঃখ, রাগ বা শূন্যতার অনুভূতি স্বাভাবিক প্রতিক্রিয়া। আপনি যা অনুভব করছেন, তা স্বীকৃতি পাওয়ার যোগ্য।',
+    section1InfoTitle: 'মনে রাখবেন',
+    section1InfoText: 'এর মধ্য দিয়ে যাওয়ার কোনো সঠিক বা ভুল পথ নেই। আপনার প্রতিটি অনুভূতিই যথার্থ।',
+    section2Body: 'আপনি এগুলোর এক বা একাধিক অনুভব করতে পারেন, কখনো কখনো একসঙ্গে সবগুলোই:',
+    feelings: [
+      {
+        title: 'দুঃখ',
+        text: 'এক ধরনের বেদনা, যা আসে আর যায়, কখনো কখনো অপ্রত্যাশিতভাবে।',
+      },
+      {
+        title: 'রাগ',
+        text: 'নিজের প্রতি, পরিস্থিতির প্রতি, কিংবা অবিচারের অনুভূতি থেকে — এতে দুশ্চিন্তার কিছু নেই।',
+      },
+      {
+        title: 'শূন্যতার অনুভূতি',
+        text: 'যা ঘটে গেল তা নিয়ে এক ধরনের শূন্যতা বা বিভ্রান্তি।',
+      },
+    ],
+    section3Body: 'চাপ বা তুলনা ছাড়া নিজেকে সময় দেওয়া সুস্থ হয়ে ওঠার একটি অপরিহার্য অংশ।',
+    dailySupport: [
+      {
+        title: 'নিজেকে সময় দিন',
+        text: '“ভালো হয়ে ওঠার” জন্য কোনো চাপ বা সময়সীমা ছাড়াই।',
+      },
+      {
+        title: 'অন্যদের সঙ্গে নিজেকে তুলনা করবেন না',
+        text: 'প্রতিটি শোকই আলাদা; এর মধ্য দিয়ে যাওয়ার কোনো একটি সঠিক পথ নেই।',
+      },
+      {
+        title: 'কথায় প্রকাশ করুন',
+        text: 'আপনি যা অনুভব করেন তা লিখলে বা বললে আবেগের ভার কিছুটা হালকা হতে পারে।',
+      },
+    ],
+    section4Body: 'কাছের কারও সঙ্গে, কোনো সহায়তা গোষ্ঠীর সঙ্গে বা কোনো পেশাজীবীর সঙ্গে কথা বললে এই ভার কিছুটা হালকা হতে পারে। প্রিয়জনেরা যেভাবে পাশে থাকতে পারেন:',
+    supportTitle: 'প্রিয়জন কীভাবে সহায়তা করতে পারেন',
+    howToSupport: [
+      'বিচার না করে শুনুন, এমনকি সঠিক শব্দ খুঁজে না পেলেও',
+      'অভিজ্ঞতাটিকে ছোট করে দেখবেন না (“তেমন কিছু নয়,” “আবার চেষ্টা করতে পারবেন”)',
+      'সমাধান নয়, উপস্থিতি দিয়ে পাশে থাকুন',
+      'পরের সপ্তাহগুলোতেও নিয়মিত খোঁজ নিন',
+    ],
+    section5Body: 'কিছু লক্ষণ ইঙ্গিত দিতে পারে যে পেশাদার সহায়তা উপকারী হতে পারে:',
+    warningTitle: 'যেসব লক্ষণে নজর রাখবেন',
+    attentionSigns: [
+      'দুঃখ দীর্ঘ সময় ধরে থাকে এবং কমার বদলে বাড়তে থাকে',
+      'প্রতিদিনের কাজকর্ম করা কঠিন হয়ে পড়ে',
+      'উল্লেখযোগ্য একাকিত্ব বোধ দেখা দেয়',
+      'বারবার ফিরে আসা অবাঞ্ছিত চিন্তা বা তীব্র মানসিক কষ্ট দেখা দেয়',
+    ],
+    section5InfoTitle: 'সহায়তা পাওয়া যায়',
+    section5InfoText: 'ধাত্রী, ডাক্তার, মনোবিজ্ঞানী বা সহায়তা গোষ্ঠী বিচার না করেই আপনার কথা শুনতে ও আপনাকে সহায়তা করতে পারেন।',
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'সাহায্য চাওয়া দুর্বলতার লক্ষণ নয় — এটি এই সময়ে নিজের যত্ন নেওয়ার একটি উপায়।',
+    summaryPoints: [
+      'এই অভিজ্ঞতার মধ্য দিয়ে যাওয়ার কোনো সঠিক বা ভুল পথ নেই।',
+      'দুঃখ, রাগ বা শূন্যতার অনুভূতি স্বাভাবিক প্রতিক্রিয়া।',
+      'চাপ বা তুলনা ছাড়া নিজেকে সময় দেওয়া সুস্থ হয়ে ওঠার অংশ।',
+      'কাছের কারও সঙ্গে, কোনো সহায়তা গোষ্ঠীর সঙ্গে বা কোনো পেশাজীবীর সঙ্গে কথা বললে এই ভার কিছুটা হালকা হতে পারে।',
+    ],
+    disclaimerText: 'তথ্যমূলক বিষয়বস্তু। এই নিবন্ধ পেশাদার পরামর্শের বিকল্প নয়। আপনি কঠিন সময় পার করতে থাকলে স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে কথা বলতে দ্বিধা করবেন না।',
+    shareMessage: 'শোকের মধ্য দিয়ে মানসিকভাবে এগিয়ে চলা — AWA',
+  },
+} as const);
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */

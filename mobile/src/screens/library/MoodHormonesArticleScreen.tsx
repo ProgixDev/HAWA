@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -59,7 +60,7 @@ const HELPFUL_HABITS_ICONS = ['sleep', 'run', 'account-group-outline'] as const;
 /* remains fully bilingual rather than having French replaced by English.   */
 /* -------------------------------------------------------------------------- */
 
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('MoodHormones', {
   fr: {
     badge: 'CYCLE MENSTRUEL • HUMEUR',
     title: 'Humeur et fluctuations\nhormonales',
@@ -912,7 +913,250 @@ const CONTENT = {
     disclaimerText: '情報提供を目的としたコンテンツです。この記事は、個別の医学的・心理的なアドバイスに代わるものではありません。不安なときは、医療従事者に相談してください。',
     shareMessage: '気分とホルモンの揺らぎ — AWA',
   },
-} as const;
+  ko: {
+    badge: '생리 주기 • 기분',
+    title: '기분과 호르몬의\n변화',
+    metaDuration: '6분 읽기',
+    metaType: '아티클',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '기분이 주기에 따라 달라질 수 있는 이유예요. 항상 그런 것은 아니에요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '기분이 달라질 수 있는 이유',
+      '주기의 단계별 기분',
+      '나의 변화 관찰하기',
+      '도움이 되는 습관',
+      '변화가 걱정스러울 때',
+      '핵심 정리',
+    ],
+    section1Body: '에스트로겐과 프로게스테론의 변화는 세로토닌처럼 기분과 관련된 신경전달물질에 직접 영향을 줘요.',
+    info1Title: '기억해 두세요',
+    info1Text: '기분 변화가 모두 주기와 관련 있는 것은 아니에요. 생활 환경, 스트레스, 피로도 중요한 역할을 해요.',
+    phaseMood: [
+      {
+        title: '생리 중',
+        text: '많은 사람이 피로감과 감정적인 예민함을 느껴요.',
+      },
+      {
+        title: '배란 즈음',
+        text: '에너지가 더 좋고 컨디션이 좋다고 느끼는 시기인 경우가 많아요.',
+      },
+      {
+        title: '생리 전',
+        text: '이 시기에는 짜증이나 기분 변화가 더 흔해요.',
+      },
+    ],
+    section2Body: '그래서 생리 전의 짜증이나 폐경기의 기분 변화에는 실제로 생물학적인 이유가 있어요. 다만 모든 사람에게 똑같이 나타나는 것은 아니에요.',
+    observeHabits: [
+      {
+        title: '기록 남기기',
+        text: '기분과 주기 단계를 적어 두면 나만의 패턴을 알아차리는 데 도움이 돼요.',
+      },
+      {
+        title: '패턴 찾아보기',
+        text: '스스로를 판단하지 않고요. 목표는 모든 것을 통제하는 것이 아니라 나를 더 잘 아는 거예요.',
+      },
+    ],
+    section4Body: '수면, 신체 활동, 주변의 지지는 기분을 안정시키는 데 가장 든든한 도움이에요.',
+    helpfulHabits: [
+      {
+        title: '충분한 수면',
+        text: '잠이 부족하면 감정적인 예민함이 커지는 경우가 많아요.',
+      },
+      {
+        title: '규칙적인 신체 활동',
+        text: '적당한 활동만으로도 주기 내내 기분을 안정시키는 데 도움이 돼요.',
+      },
+      {
+        title: '주변의 지지',
+        text: '믿을 수 있는 사람과 이야기하면 느끼는 감정이 한결 가벼워질 수 있어요.',
+      },
+    ],
+    section5Body: '주기와 관련된 기분 변화는 보통 일시적이에요. 다만 다음과 같은 신호에는 특별히 주의를 기울일 필요가 있어요.',
+    warningTitle: '살펴봐야 할 신호',
+    concerningSigns: [
+      '강한 슬픔이 있거나, 슬픔이 주기가 지나도 이어져요',
+      '평소 즐기던 일에 대한 흥미가 눈에 띄게 줄어요',
+      '일상생활이나 인간관계에 큰 영향을 줘요',
+      '떠나지 않는 생각이 들거나 심한 괴로움을 느껴요',
+    ],
+    info2Title: '도움을 받을 수 있어요',
+    info2Text: '의사, 조산사, 심리 전문가는 느끼는 감정을 더 잘 이해하도록 돕고, 필요하면 추가 도움을 받을 수 있는 곳을 안내해 줄 수 있어요.',
+    tipTitle: '알아 두세요',
+    tipText: '호르몬과 기분의 관계를 알면 느끼는 감정을 더 잘 이해하는 데 도움이 될 수 있어요. 모든 것을 이 한 가지 설명으로만 풀지 않아도 괜찮아요.',
+    summaryPoints: [
+      '에스트로겐과 프로게스테론의 변화는 기분과 관련된 신경전달물질에 직접 영향을 줘요.',
+      '그래서 생리 전의 짜증에는 실제로 생물학적인 이유가 있어요.',
+      '기분 변화가 모두 주기와 관련 있는 것은 아니에요. 생활 환경도 중요해요.',
+      '수면, 신체 활동, 주변의 지지는 기분을 안정시키는 데 가장 든든한 도움이에요.',
+    ],
+    disclaimerText: '정보 제공 콘텐츠예요. 이 아티클은 개인에게 맞춘 의학적·심리적 조언을 대신하지 않아요. 걱정되는 점이 있다면 의료 전문가의 안내를 받아 보세요.',
+    shareMessage: '기분과 호르몬의 변화 — AWA',
+  },
+  'pt-PT': {
+    badge: 'CICLO MENSTRUAL • HUMOR',
+    title: 'Humor e flutuações\nhormonais',
+    metaDuration: '6 min de leitura',
+    metaType: 'Artigo',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Porque é que o seu humor pode variar ao longo do ciclo, embora nem sempre aconteça.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Porque é que o humor pode variar',
+      'O humor ao longo das fases do ciclo',
+      'Observar as suas próprias variações',
+      'Hábitos que podem ajudar',
+      'Quando as alterações se tornam preocupantes',
+      'Pontos-chave',
+    ],
+    section1Body: 'As flutuações de estrogénio e de progesterona influenciam diretamente os neurotransmissores ligados ao humor, como a serotonina.',
+    info1Title: 'A reter',
+    info1Text: 'Nem todas as oscilações de humor estão necessariamente ligadas ao ciclo: as circunstâncias da vida, o stress e o cansaço também desempenham um papel importante.',
+    phaseMood: [
+      {
+        title: 'Durante o período',
+        text: 'O cansaço e a sensibilidade emocional são frequentes em muitas mulheres.',
+      },
+      {
+        title: 'Por volta da ovulação',
+        text: 'É muitas vezes uma fase de mais energia e de maior sensação de bem-estar.',
+      },
+      {
+        title: 'Antes do período',
+        text: 'A irritabilidade ou as oscilações de humor são mais frequentes nesta altura.',
+      },
+    ],
+    section2Body: 'A irritabilidade pré-menstrual ou as oscilações de humor da menopausa têm, por isso, uma explicação biológica real, mesmo que não se manifestem da mesma forma em todas as mulheres.',
+    observeHabits: [
+      {
+        title: 'Manter um diário',
+        text: 'Registar o seu humor e a fase do ciclo ajuda a identificar os seus próprios padrões.',
+      },
+      {
+        title: 'Identificar padrões',
+        text: 'Sem se julgar: o objetivo é conhecer-se melhor, não controlar tudo.',
+      },
+    ],
+    section4Body: 'O sono, a atividade física e o apoio social continuam a ser os melhores aliados para estabilizar o humor.',
+    helpfulHabits: [
+      {
+        title: 'Dormir o suficiente',
+        text: 'A falta de sono aumenta frequentemente a sensibilidade emocional.',
+      },
+      {
+        title: 'Atividade física regular',
+        text: 'Mesmo uma atividade moderada ajuda a estabilizar o humor ao longo do ciclo.',
+      },
+      {
+        title: 'Apoio social',
+        text: 'Falar com alguém de confiança pode aliviar o que sente.',
+      },
+    ],
+    section5Body: 'Uma alteração de humor ligada ao ciclo é geralmente passageira. No entanto, alguns sinais merecem particular atenção:',
+    warningTitle: 'Sinais a que deve estar atenta',
+    concerningSigns: [
+      'Tristeza intensa, ou tristeza que persiste para além do ciclo',
+      'Uma perda marcada de interesse pelas coisas de que normalmente gosta',
+      'Um impacto significativo na sua vida quotidiana ou nas suas relações',
+      'Pensamentos intrusivos ou uma sensação marcada de sofrimento',
+    ],
+    info2Title: 'Existe apoio disponível',
+    info2Text: 'Um médico, uma parteira ou um psicólogo pode ajudá-la a compreender melhor o que sente e encaminhá-la para um apoio mais específico, se necessário.',
+    tipTitle: 'Bom saber',
+    tipText: 'Reconhecer a ligação entre as hormonas e o humor pode ajudá-la a compreender melhor o que sente, sem reduzir tudo a esta única explicação.',
+    summaryPoints: [
+      'As flutuações de estrogénio e de progesterona influenciam diretamente os neurotransmissores ligados ao humor.',
+      'A irritabilidade pré-menstrual tem, por isso, uma explicação biológica real.',
+      'Nem todas as oscilações de humor estão necessariamente ligadas ao ciclo: as circunstâncias da vida também contam.',
+      'O sono, a atividade física e o apoio social continuam a ser os melhores aliados para estabilizar o humor.',
+    ],
+    disclaimerText: 'Conteúdo informativo. Este artigo não substitui o aconselhamento médico ou psicológico personalizado. Em caso de dúvida, procure a orientação de um profissional de saúde.',
+    shareMessage: 'Humor e flutuações hormonais — AWA',
+  },
+  bn: {
+    badge: 'মাসিক চক্র • মেজাজ',
+    title: 'মেজাজ ও হরমোনের\nউঠানামা',
+    metaDuration: 'পড়তে 6 মিনিট',
+    metaType: 'নিবন্ধ',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'চক্রের বিভিন্ন সময়ে আপনার মেজাজ কেন বদলাতে পারে, যদিও সবসময় নয়।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'মেজাজ কেন বদলাতে পারে',
+      'চক্রের বিভিন্ন পর্যায়ে মেজাজ',
+      'নিজের পরিবর্তনগুলো লক্ষ করা',
+      'যেসব অভ্যাস সাহায্য করতে পারে',
+      'কখন পরিবর্তনগুলো উদ্বেগের কারণ হয়',
+      'মূল কথা',
+    ],
+    section1Body: 'ইস্ট্রোজেন ও প্রোজেস্টেরনের উঠানামা সেরোটোনিনের মতো মেজাজ-সংক্রান্ত নিউরোট্রান্সমিটারকে সরাসরি প্রভাবিত করে।',
+    info1Title: 'মনে রাখবেন',
+    info1Text: 'প্রতিটি মেজাজের পরিবর্তন যে চক্রের সঙ্গে সম্পর্কিত তা নয়: জীবনের পরিস্থিতি, মানসিক চাপ ও ক্লান্তিও গুরুত্বপূর্ণ ভূমিকা রাখে।',
+    phaseMood: [
+      {
+        title: 'মাসিকের সময়',
+        text: 'অনেকের ক্ষেত্রেই ক্লান্তি ও আবেগপ্রবণতা সাধারণ।',
+      },
+      {
+        title: 'ডিম্বস্ফোটনের আশপাশে',
+        text: 'এটি প্রায়ই বেশি শক্তি ও ভালো থাকার অনুভূতির একটি পর্যায়।',
+      },
+      {
+        title: 'মাসিকের আগে',
+        text: 'এই সময়ে খিটখিটে ভাব বা মেজাজের ওঠানামা বেশি দেখা যায়।',
+      },
+    ],
+    section2Body: 'তাই মাসিকের আগের খিটখিটে ভাব বা মেনোপজকালীন মেজাজের ওঠানামার একটি বাস্তব জৈবিক ব্যাখ্যা আছে, যদিও সবার ক্ষেত্রে তা একইভাবে প্রকাশ পায় না।',
+    observeHabits: [
+      {
+        title: 'ডায়েরি রাখা',
+        text: 'আপনার মেজাজ ও চক্রের পর্যায় লিখে রাখলে নিজের ধরনগুলো চিনতে সুবিধা হয়।',
+      },
+      {
+        title: 'ধরন চিহ্নিত করা',
+        text: 'নিজেকে বিচার না করে: লক্ষ্য নিজেকে আরও ভালোভাবে জানা, সবকিছু নিয়ন্ত্রণ করা নয়।',
+      },
+    ],
+    section4Body: 'ঘুম, শারীরিক কার্যকলাপ ও সামাজিক সহায়তা মেজাজ স্থিতিশীল রাখার সেরা সহায়ক।',
+    helpfulHabits: [
+      {
+        title: 'পর্যাপ্ত ঘুম',
+        text: 'ঘুমের অভাব প্রায়ই আবেগপ্রবণতা বাড়িয়ে দেয়।',
+      },
+      {
+        title: 'নিয়মিত শারীরিক কার্যকলাপ',
+        text: 'পরিমিত কার্যকলাপও পুরো চক্র জুড়ে মেজাজ স্থিতিশীল রাখতে সাহায্য করে।',
+      },
+      {
+        title: 'সামাজিক সহায়তা',
+        text: 'বিশ্বস্ত কারও সঙ্গে কথা বললে আপনার অনুভূতির ভার কমতে পারে।',
+      },
+    ],
+    section5Body: 'চক্রের সঙ্গে সম্পর্কিত মেজাজের পরিবর্তন সাধারণত সাময়িক। তবে কিছু লক্ষণে বিশেষ মনোযোগ দেওয়া উচিত:',
+    warningTitle: 'যেসব লক্ষণে নজর রাখবেন',
+    concerningSigns: [
+      'তীব্র দুঃখ, কিংবা চক্র শেষ হওয়ার পরও থেকে যাওয়া দুঃখ',
+      'যেসব বিষয় আপনি সাধারণত উপভোগ করেন সেগুলোতে স্পষ্ট আগ্রহ হারিয়ে ফেলা',
+      'আপনার দৈনন্দিন জীবন বা সম্পর্কের ওপর উল্লেখযোগ্য প্রভাব',
+      'অনাহূত চিন্তা বা তীব্র মানসিক কষ্টের অনুভূতি',
+    ],
+    info2Title: 'সহায়তা পাওয়া যায়',
+    info2Text: 'ডাক্তার, ধাত্রী বা মনোবিজ্ঞানী আপনি যা অনুভব করছেন তা আরও ভালোভাবে বুঝতে সাহায্য করতে পারেন এবং প্রয়োজনে পরবর্তী সহায়তার জন্য পাঠাতে পারেন।',
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'হরমোন ও মেজাজের মধ্যকার সম্পর্ক চিনতে পারলে আপনি যা অনুভব করছেন তা আরও ভালোভাবে বুঝতে পারবেন, সবকিছুকে কেবল এই একটি ব্যাখ্যায় সীমাবদ্ধ না করেই।',
+    summaryPoints: [
+      'ইস্ট্রোজেন ও প্রোজেস্টেরনের উঠানামা মেজাজ-সংক্রান্ত নিউরোট্রান্সমিটারকে সরাসরি প্রভাবিত করে।',
+      'তাই মাসিকের আগের খিটখিটে ভাবের একটি বাস্তব জৈবিক ব্যাখ্যা আছে।',
+      'প্রতিটি মেজাজের পরিবর্তন যে চক্রের সঙ্গে সম্পর্কিত তা নয়: জীবনের পরিস্থিতিও গুরুত্বপূর্ণ।',
+      'ঘুম, শারীরিক কার্যকলাপ ও সামাজিক সহায়তা মেজাজ স্থিতিশীল রাখার সেরা সহায়ক।',
+    ],
+    disclaimerText: 'তথ্যমূলক বিষয়বস্তু। এই নিবন্ধ ব্যক্তিগত চিকিৎসা বা মনস্তাত্ত্বিক পরামর্শের বিকল্প নয়। সন্দেহ থাকলে স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিন।',
+    shareMessage: 'মেজাজ ও হরমোনের উঠানামা — AWA',
+  },
+} as const);
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */

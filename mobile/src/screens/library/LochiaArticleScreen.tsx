@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -70,7 +71,7 @@ const COMFORT_META = [
 /* remains fully bilingual rather than having French replaced by English.   */
 /* -------------------------------------------------------------------------- */
 
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('Lochia', {
   fr: {
     badgeText: 'POST-PARTUM • LOCHIES',
     title: 'Comprendre les lochies après \nla naissance',
@@ -1369,7 +1370,316 @@ const CONTENT = {
     disclaimerText: '情報提供のための内容です。この記事は、医師のアドバイスや診察に代わるものではありません。不安がある場合や気になる症状がある場合は、医療従事者にご相談ください。',
     shareMessage: '出産後の悪露を理解する — AWA',
   },
-} as const;
+  ko: {
+    badgeText: '산후 • 오로',
+    title: '출산 후 오로\n이해하기',
+    metaDuration: '읽는 데 6분',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '정보 제공용 콘텐츠',
+    intro: '출산 후 오로는 자궁이 회복되는 자연스러운 과정과 관련된 질 분비물을 말해요. 색과 양은 이후 며칠, 몇 주에 걸쳐 서서히 달라져요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '오로란 무엇일까요?',
+      '시간이 지나면서 어떻게 달라질까요?',
+      '정상일 수 있는 것',
+      '편안하게 지내는 팁',
+      '언제 진료를 받아야 할까요?',
+      '핵심 정리',
+    ],
+    section1Heading: '1. 오로란 무엇일까요?',
+    section1Body1: '오로는 출산 후에 나오는 질 분비물이에요. 자궁이 회복되면서 혈액, 분비물, 조직이 서서히 배출되는 것이 주된 내용이에요.',
+    section1Body2: '일반적인 생리와는 달라요. 산후 기간에 나타나는 것이 자연스러우며, 보통 점차 줄어들어요.',
+    infoTitle: '핵심 정리',
+    infoText: '오로가 있다고 해서 생리가 이미 돌아왔다는 뜻은 아니에요. 생리의 재개는 나중에 일어나는 별개의 일이에요.',
+    section2Heading: '2. 오로는 시간이 지나면서 어떻게 달라질까요?',
+    section2Body: '겉모습은 보통 처음 몇 주 동안 달라져요. 색은 서서히 옅어지고 양은 줄어드는 경향이 있어요.',
+    evolutionTitle: '서서히 변해 가요',
+    evolutionSubtitle: '단계는 사람마다 다를 수 있어요',
+    evolution: [
+      {
+        label: '선홍색',
+        period: '처음 며칠',
+        text: '분비물은 대개 붉고, 처음에는 양이 더 많을 수 있어요.',
+      },
+      {
+        label: '분홍색 / 갈색빛',
+        period: '며칠 후',
+        text: '색이 서서히 옅어지면서 분홍색이나 갈색빛으로 바뀔 수 있어요.',
+      },
+      {
+        label: '흰색 섞인 노란색',
+        period: '이후 몇 주 동안',
+        text: '분비물은 대개 더 옅은 노란색이나 흰색이 되었다가 점차 줄어들어요.',
+      },
+    ],
+    section3Heading: '3. 정상일 수 있는 것',
+    section3Body: '오로가 달라지는 모습은 모두 똑같지 않아요. 출산 후 회복 과정에서 자연스럽게 나타날 수 있는 변화가 있어요.',
+    normalPoints: [
+      {
+        title: '달라지는 양',
+        text: '양은 처음 며칠 동안 달라질 수 있고, 이후 서서히 줄어들어요.',
+      },
+      {
+        title: '변하는 색',
+        text: '오로는 보통 시간이 지나면서 붉은색에서 더 옅은 색으로 바뀌어요.',
+      },
+      {
+        title: '다양한 기간',
+        text: '몇 주 동안 이어질 수 있고, 진행되는 모습은 사람마다 달라요.',
+      },
+    ],
+    section4Heading: '4. 편안하게 지내는 팁과 기록하기',
+    section4Body: '이 시기에는 간단히 기록해 두면 몸이 어떻게 달라지는지 살펴보는 데 도움이 돼요. 다른 사람의 경험과 비교하지 않아도 괜찮아요.',
+    comfortTips: [
+      {
+        title: '부드러운 위생 관리',
+        text: '자극적인 제품 없이 부드럽게, 규칙적으로 씻어요.',
+      },
+      {
+        title: '변화 지켜보기',
+        text: '회복 과정을 파악하는 데 도움이 된다면 분비물의 색, 양, 진행 상황을 기록해 둘 수 있어요.',
+      },
+      {
+        title: '충분히 쉬기',
+        text: '산후에는 시간이 필요해요. 몸의 소리에 귀 기울이고, 회복하고 싶은 마음을 존중해 주세요.',
+      },
+    ],
+    section5Heading: '5. 오로일까요, 생리가 돌아온 걸까요?',
+    section5Body: '오로는 출산 후 며칠 동안 나타나고 점차 줄어들어요. 반면 생리의 재개는 이 시기가 지난 뒤 생리 주기가 다시 시작되는 것을 말해요.',
+    compareLochiaTitle: '오로',
+    compareLochiaText: '출산 후 자궁이 회복되는 과정과 관련된 분비물이에요.',
+    compareReturnTitle: '생리의 재개',
+    compareReturnText: '생리 주기가 다시 시작되는 것으로, 시기는 사람마다 달라요.',
+    section6Heading: '6. 언제 진료를 받아야 할까요?',
+    section6Body: '진행 상황이 평소와 다르게 느껴지거나 전반적인 상태가 나빠지고 있다면 의료 전문가의 조언을 받는 것이 중요해요.',
+    warningTitle: '진료가 필요한 신호',
+    warningSigns: [
+      '강하거나 평소와 다른 냄새',
+      '열이 나거나 전반적인 상태가 나빠짐',
+      '출혈량이 갑자기 훨씬 많아짐',
+      '심하거나, 계속되거나, 평소와 다른 통증',
+      '걱정되는 새로운 증상',
+    ],
+    tipTitle: '알아 두면 좋아요',
+    tipText: '오로는 보통 서서히 달라져요. 처음에는 붉다가 점차 옅어지고 나서 줄어들 수 있어요. 다만 회복 과정은 사람마다 달라요.',
+    summaryHeading: '핵심 정리',
+    summaryPoints: [
+      '오로는 출산 후에 나타나는 정상적인 분비물이에요.',
+      '보통 몇 주에 걸쳐 색과 양이 달라져요.',
+      '기간과 진행 모습은 사람마다 다를 수 있어요.',
+      '평소와 다른 냄새, 열, 심한 통증, 갑작스럽게 많아진 출혈이 있다면 진료를 받아야 해요.',
+    ],
+    disclaimerText: '정보 제공용 콘텐츠예요. 이 아티클은 의학적 조언이나 진찰을 대신하지 않아요. 걱정되거나 신경 쓰이는 증상이 있다면 의료 전문가의 조언을 받으세요.',
+    shareMessage: '출산 후 오로 이해하기 — AWA',
+  },
+  'pt-PT': {
+    badgeText: 'PÓS-PARTO • LÓQUIOS',
+    title: 'Perceber os lóquios\ndepois do parto',
+    metaDuration: '6 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo informativo',
+    intro: 'Depois do parto, os lóquios são o corrimento vaginal ligado ao processo natural de recuperação do útero. A sua cor e a sua quantidade vão mudando gradualmente ao longo dos dias e das semanas seguintes.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'O que são os lóquios?',
+      'Como evoluem ao longo do tempo?',
+      'O que pode ser normal',
+      'Dicas de conforto',
+      'Quando procurar aconselhamento médico?',
+      'Pontos-chave',
+    ],
+    section1Heading: '1. O que são os lóquios?',
+    section1Body1: 'Os lóquios são um corrimento vaginal que surge depois do parto. Consistem sobretudo na eliminação gradual de sangue, secreções e tecido do útero à medida que este recupera.',
+    section1Body2: 'É diferente de um período normal. É esperado durante o pós-parto e, em geral, diminui progressivamente.',
+    infoTitle: 'Pontos-chave',
+    infoText: 'Os lóquios não significam que o seu período já regressou. O regresso do período é um acontecimento distinto, que surge mais tarde.',
+    section2Heading: '2. Como evoluem os lóquios ao longo do tempo?',
+    section2Body: 'O seu aspeto muda, em regra, ao longo das primeiras semanas. A cor torna-se gradualmente mais clara e a quantidade tende a diminuir.',
+    evolutionTitle: 'Uma evolução gradual',
+    evolutionSubtitle: 'As fases podem variar de mulher para mulher',
+    evolution: [
+      {
+        label: 'Vermelho vivo',
+        period: 'Os primeiros dias',
+        text: 'O corrimento é geralmente vermelho e pode ser mais abundante no início.',
+      },
+      {
+        label: 'Rosado / acastanhado',
+        period: 'Passados alguns dias',
+        text: 'A cor torna-se gradualmente mais clara e pode passar para rosado ou castanho.',
+      },
+      {
+        label: 'Amarelado-esbranquiçado',
+        period: 'Nas semanas seguintes',
+        text: 'O corrimento torna-se geralmente mais ligeiro, amarelado ou esbranquiçado, antes de desaparecer.',
+      },
+    ],
+    section3Heading: '3. O que pode ser normal',
+    section3Body: 'A evolução dos lóquios não é exatamente igual para todas as mulheres. Certas alterações podem acompanhar naturalmente a recuperação depois do parto.',
+    normalPoints: [
+      {
+        title: 'Uma quantidade variável',
+        text: 'A quantidade pode mudar nos primeiros dias e depois diminuir gradualmente.',
+      },
+      {
+        title: 'Uma cor que muda',
+        text: 'Os lóquios passam geralmente do vermelho para tons mais claros com o tempo.',
+      },
+      {
+        title: 'Uma duração variável',
+        text: 'Podem persistir durante várias semanas, e a sua evolução difere de mulher para mulher.',
+      },
+    ],
+    section4Heading: '4. Dicas de conforto e de acompanhamento',
+    section4Body: 'Durante este período, um acompanhamento simples pode ajudá-la a observar como o seu corpo está a mudar, sem comparar a sua experiência com a de outra pessoa.',
+    comfortTips: [
+      {
+        title: 'Higiene suave',
+        text: 'Privilegie uma lavagem suave e regular, sem produtos irritantes.',
+      },
+      {
+        title: 'Observar a evolução',
+        text: 'Pode anotar a cor, a quantidade e a evolução do corrimento, se isso a ajudar a acompanhar a sua recuperação.',
+      },
+      {
+        title: 'Permitir-se descansar',
+        text: 'O pós-parto leva tempo. Escute o seu corpo e respeite a sua necessidade de recuperar.',
+      },
+    ],
+    section5Heading: '5. Lóquios ou regresso do período?',
+    section5Body: 'Os lóquios surgem nos dias que se seguem ao parto e diminuem gradualmente. O regresso do período, por sua vez, corresponde à retoma do seu ciclo menstrual depois deste período.',
+    compareLochiaTitle: 'Lóquios',
+    compareLochiaText: 'Corrimento ligado à recuperação do útero depois do parto.',
+    compareReturnTitle: 'Regresso do período',
+    compareReturnText: 'Retoma do ciclo menstrual, num momento que varia de mulher para mulher.',
+    section6Heading: '6. Quando procurar aconselhamento médico?',
+    section6Body: 'Se a evolução lhe parecer fora do comum, ou se o seu estado geral estiver a piorar, é importante procurar o conselho de um profissional de saúde.',
+    warningTitle: 'Sinais que exigem aconselhamento médico',
+    warningSigns: [
+      'Um odor forte ou fora do comum',
+      'Febre ou agravamento do estado geral',
+      'Um fluxo que de repente se torna muito mais abundante',
+      'Dor intensa, persistente ou fora do comum',
+      'Um novo sintoma que a preocupe',
+    ],
+    tipTitle: 'Bom saber',
+    tipText: 'Os lóquios evoluem geralmente de forma gradual: podem ser vermelhos no início e depois tornar-se mais claros antes de desaparecer. No entanto, cada recuperação é individual.',
+    summaryHeading: 'Pontos-chave',
+    summaryPoints: [
+      'Os lóquios são um corrimento normal depois do parto.',
+      'Mudam geralmente de cor e de quantidade ao longo das semanas.',
+      'A sua duração e evolução podem variar de mulher para mulher.',
+      'Um odor fora do comum, febre, dor intensa ou uma hemorragia súbita e muito abundante exigem aconselhamento médico.',
+    ],
+    disclaimerText: 'Conteúdo informativo. Este artigo não substitui o aconselhamento médico nem uma consulta. Em caso de dúvida ou se notar um sintoma preocupante, procure o conselho de um profissional de saúde.',
+    shareMessage: 'Perceber os lóquios depois do parto — AWA',
+  },
+  bn: {
+    badgeText: 'প্রসবোত্তর • লোকিয়া',
+    title: 'প্রসবের পর লোকিয়া\nবোঝা',
+    metaDuration: 'পড়তে 6 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'তথ্যমূলক বিষয়বস্তু',
+    intro: 'সন্তান জন্মের পর লোকিয়া বলতে জরায়ুর স্বাভাবিক সুস্থ হয়ে ওঠার প্রক্রিয়ার সঙ্গে সম্পর্কিত যোনিপথের স্রাবকে বোঝায়। পরবর্তী দিন ও সপ্তাহগুলোতে এর রং ও পরিমাণ ধীরে ধীরে বদলে যায়।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'লোকিয়া কী?',
+      'সময়ের সঙ্গে এটি কীভাবে বদলায়?',
+      'কোনটি স্বাভাবিক হতে পারে',
+      'আরামের পরামর্শ',
+      'কখন চিকিৎসকের পরামর্শ নেবেন?',
+      'মূল কথা',
+    ],
+    section1Heading: '1. লোকিয়া কী?',
+    section1Body1: 'লোকিয়া হলো সন্তান জন্মের পর দেখা দেওয়া যোনিপথের স্রাব। জরায়ু সুস্থ হয়ে ওঠার সময় রক্ত, নিঃসরণ ও কলা ধীরে ধীরে বেরিয়ে যাওয়াই এর প্রধান উপাদান।',
+    section1Body2: 'এটি স্বাভাবিক মাসিক থেকে আলাদা। প্রসবোত্তর সময়ে এটি প্রত্যাশিত এবং সাধারণত ক্রমশ কমে আসে।',
+    infoTitle: 'মূল কথা',
+    infoText: 'লোকিয়ার অর্থ এই নয় যে আপনার মাসিক ইতিমধ্যে ফিরে এসেছে। মাসিক ফিরে আসা একটি আলাদা ঘটনা, যা পরে ঘটে।',
+    section2Heading: '2. লোকিয়া সময়ের সঙ্গে কীভাবে বদলায়?',
+    section2Body: 'প্রথম কয়েক সপ্তাহে এর চেহারা সাধারণত বদলে যায়। রং ধীরে ধীরে হালকা হয় এবং পরিমাণ কমে আসে।',
+    evolutionTitle: 'ধীরে ধীরে পরিবর্তন',
+    evolutionSubtitle: 'ধাপগুলো একেকজনের ক্ষেত্রে একেক রকম হতে পারে',
+    evolution: [
+      {
+        label: 'টকটকে লাল',
+        period: 'প্রথম কয়েক দিন',
+        text: 'স্রাব সাধারণত লাল হয় এবং শুরুতে বেশি হতে পারে।',
+      },
+      {
+        label: 'গোলাপি / বাদামি',
+        period: 'কয়েক দিন পর',
+        text: 'রং ধীরে ধীরে হালকা হয় এবং গোলাপি বা বাদামির দিকে যেতে পারে।',
+      },
+      {
+        label: 'সাদাটে-হলুদ',
+        period: 'পরবর্তী কয়েক সপ্তাহে',
+        text: 'স্রাব সাধারণত আরও হালকা, হলদেটে বা সাদাটে হয়ে আসে, তারপর ধীরে ধীরে বন্ধ হয়ে যায়।',
+      },
+    ],
+    section3Heading: '3. কোনটি স্বাভাবিক হতে পারে',
+    section3Body: 'লোকিয়া কীভাবে এগোয় তা সবার ক্ষেত্রে হুবহু এক নয়। প্রসবের পর সুস্থ হয়ে ওঠার সময় কিছু পরিবর্তন স্বাভাবিকভাবেই দেখা দিতে পারে।',
+    normalPoints: [
+      {
+        title: 'পরিমাণের তারতম্য',
+        text: 'প্রথম কয়েক দিনে পরিমাণ বদলাতে পারে, তারপর ধীরে ধীরে কমে যায়।',
+      },
+      {
+        title: 'রং বদলে যাওয়া',
+        text: 'লোকিয়া সাধারণত সময়ের সঙ্গে লাল থেকে হালকা রঙের দিকে যায়।',
+      },
+      {
+        title: 'স্থায়িত্বের তারতম্য',
+        text: 'এটি কয়েক সপ্তাহ পর্যন্ত থাকতে পারে, এবং এর অগ্রগতি একেকজনের ক্ষেত্রে আলাদা।',
+      },
+    ],
+    section4Heading: '4. আরাম ও পর্যবেক্ষণের পরামর্শ',
+    section4Body: 'এই সময়ে সহজ পর্যবেক্ষণ আপনার শরীর কীভাবে বদলাচ্ছে তা বুঝতে সাহায্য করতে পারে, অন্য কারও অভিজ্ঞতার সঙ্গে নিজেরটা তুলনা না করেই।',
+    comfortTips: [
+      {
+        title: 'কোমল পরিচ্ছন্নতা',
+        text: 'ত্বকে জ্বালা সৃষ্টি করে এমন পণ্য ছাড়া নিয়মিত ও কোমলভাবে ধোয়াকে প্রাধান্য দিন।',
+      },
+      {
+        title: 'পরিবর্তনের দিকে নজর রাখুন',
+        text: 'সুস্থ হয়ে ওঠা অনুসরণ করতে সাহায্য করলে আপনি স্রাবের রং, পরিমাণ ও অগ্রগতি লিখে রাখতে পারেন।',
+      },
+      {
+        title: 'নিজেকে বিশ্রাম নিতে দিন',
+        text: 'প্রসবোত্তর সময়ে সময় লাগে। শরীরের কথা শুনুন এবং সুস্থ হয়ে ওঠার প্রয়োজনকে সম্মান করুন।',
+      },
+    ],
+    section5Heading: '5. লোকিয়া নাকি মাসিক ফিরে আসা?',
+    section5Body: 'লোকিয়া প্রসবের পরের দিনগুলোতে দেখা দেয় এবং ধীরে ধীরে কমে যায়। অন্যদিকে, মাসিক ফিরে আসা মানে এই সময়ের পর আপনার মাসিক চক্র আবার শুরু হওয়া।',
+    compareLochiaTitle: 'লোকিয়া',
+    compareLochiaText: 'প্রসবের পর জরায়ু সুস্থ হয়ে ওঠার সঙ্গে সম্পর্কিত স্রাব।',
+    compareReturnTitle: 'মাসিক ফিরে আসা',
+    compareReturnText: 'মাসিক চক্র আবার শুরু হওয়া, যার সময় একেকজনের ক্ষেত্রে একেক রকম।',
+    section6Heading: '6. কখন চিকিৎসকের পরামর্শ নেবেন?',
+    section6Body: 'অগ্রগতি আপনার কাছে অস্বাভাবিক মনে হলে, বা আপনার সার্বিক অবস্থা খারাপ হতে থাকলে স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নেওয়া জরুরি।',
+    warningTitle: 'যেসব লক্ষণে চিকিৎসকের পরামর্শ প্রয়োজন',
+    warningSigns: [
+      'তীব্র বা অস্বাভাবিক গন্ধ',
+      'জ্বর বা সার্বিক অবস্থার অবনতি',
+      'রক্তক্ষরণ হঠাৎ অনেক বেড়ে যাওয়া',
+      'তীব্র, দীর্ঘস্থায়ী বা অস্বাভাবিক ব্যথা',
+      'নতুন কোনো উপসর্গ যা আপনাকে চিন্তায় ফেলে',
+    ],
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'লোকিয়া সাধারণত ধীরে ধীরে বদলায়: প্রথমে লাল থাকতে পারে, তারপর হালকা হয়ে ধীরে ধীরে বন্ধ হয়ে যায়। তবে প্রতিটি সুস্থ হয়ে ওঠা ব্যক্তিভেদে আলাদা।',
+    summaryHeading: 'মূল কথা',
+    summaryPoints: [
+      'লোকিয়া প্রসবের পর স্বাভাবিক স্রাব।',
+      'সপ্তাহের পর সপ্তাহ ধরে এর রং ও পরিমাণ সাধারণত বদলায়।',
+      'এর স্থায়িত্ব ও অগ্রগতি একেকজনের ক্ষেত্রে আলাদা হতে পারে।',
+      'অস্বাভাবিক গন্ধ, জ্বর, তীব্র ব্যথা বা হঠাৎ অনেক বেশি রক্তক্ষরণে চিকিৎসকের পরামর্শ প্রয়োজন।',
+    ],
+    disclaimerText: 'তথ্যমূলক বিষয়বস্তু। এই নিবন্ধ চিকিৎসা পরামর্শ বা শারীরিক পরীক্ষার বিকল্প নয়। সন্দেহ থাকলে বা উদ্বেগজনক কোনো উপসর্গ দেখলে স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিন।',
+    shareMessage: 'প্রসবের পর লোকিয়া বোঝা — AWA',
+  },
+} as const);
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */

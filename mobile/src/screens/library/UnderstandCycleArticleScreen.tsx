@@ -32,6 +32,7 @@ import {
   getTopPadding,
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ARTICLE_ID = 'cycle-comprendre-ton-cycle';
 
@@ -55,7 +56,7 @@ const REASON_ICONS = [
   'calendar-month-outline',
 ] as const;
 
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('UnderstandCycle', {
   fr: {
     shareTitle: 'Comprendre ton cycle menstruel',
     shareMessage: 'Comprendre ton cycle menstruel · AWA',
@@ -368,13 +369,130 @@ const CONTENT = {
     wellTitle: 'ウェルネスのヒント',
     wellText: '体の声に耳を傾け、感じたことに気を配り、日々の変化を記録しましょう。',
   },
-} as const;
+  ko: {
+    shareTitle: '내 생리 주기 이해하기',
+    shareMessage: '내 생리 주기 이해하기 · AWA',
+    pill: '주기 이해하기',
+    title: '내 생리 주기 이해하기',
+    duration: '읽는 데 6분',
+    type: '가이드',
+    level: '입문',
+    validated: '검토된 콘텐츠',
+    summary: '생리 주기의 주요 단계를 쉽게 설명해요.',
+    stats: [
+      {title: '평균 길이', text: '28일'},
+      {title: '정상 범위', text: '21~35일'},
+      {title: '4가지 주요 단계', text: '주기의 흐름'},
+      {title: '모든 주기는', text: '저마다 달라요'},
+    ],
+    phasesEyebrow: '주기의 단계',
+    phasesTitle: '4가지 주요 단계',
+    phasesIntro: '각 단계는 몸에서 중요한 역할을 하며, 에너지와 기분, 증상에 영향을 줄 수 있어요.',
+    phases: [
+      {title: '생리', days: '1~5일째', text: '몸이 자궁내막을 배출해요.'},
+      {title: '난포기', days: '6~13일째', text: '몸이 배란을 준비해요.'},
+      {title: '배란', days: '14일째 무렵', text: '난자가 배출돼요. 임신 가능성이 가장 높은 시기예요.'},
+      {title: '황체기', days: '15~28일째', text: '몸이 임신 가능성에 대비해요.'},
+    ],
+    knowTitle: '알아 두세요',
+    knowText: '주기는 달마다 달라질 수 있어요. 스트레스, 수면, 식사, 질병 등이 주기의 길이와 리듬에 영향을 줄 수 있어요.',
+    reasonsEyebrow: '기록하는 이유',
+    reasonsTitle: '내 주기를 더 잘 이해하기',
+    reasons: [
+      '내 몸을 더 잘 이해하기',
+      '에너지를 알맞게 조절하기',
+      '기분 변화를 미리 알아보기',
+      '건강 챙기기',
+      '주기를 쉽게 기록하기',
+    ],
+    wellTitle: '웰니스 팁',
+    wellText: '몸의 신호에 귀 기울이고, 느끼는 것에 주의를 기울이며, 하루하루의 변화를 기록해 보세요.',
+  },
+  'pt-PT': {
+    shareTitle: 'Compreender o seu ciclo menstrual',
+    shareMessage: 'Compreender o seu ciclo menstrual · AWA',
+    pill: 'Compreender o ciclo',
+    title: 'Compreender o seu ciclo menstrual',
+    duration: '6 min de leitura',
+    type: 'Guia',
+    level: 'Iniciante',
+    validated: 'Conteúdo validado',
+    summary: 'As grandes etapas do seu ciclo, explicadas de forma simples.',
+    stats: [
+      {title: 'Duração média', text: '28 dias'},
+      {title: 'Duração normal', text: '21 a 35 dias'},
+      {title: '4 grandes fases', text: 'no seu ciclo'},
+      {title: 'Cada ciclo', text: 'é único'},
+    ],
+    phasesEyebrow: 'FASES DO CICLO',
+    phasesTitle: 'As 4 grandes fases',
+    phasesIntro: 'Cada fase tem um papel importante no seu corpo e pode influenciar a sua energia, o seu humor e os seus sintomas.',
+    phases: [
+      {title: 'A menstruação', days: 'Dias 1 a 5', text: 'O seu corpo liberta o revestimento do útero.'},
+      {title: 'Fase folicular', days: 'Dias 6 a 13', text: 'O seu corpo prepara-se para a ovulação.'},
+      {title: 'Ovulação', days: 'Cerca do dia 14', text: 'O óvulo é libertado. É o período mais fértil.'},
+      {title: 'Fase lútea', days: 'Dias 15 a 28', text: 'O seu corpo prepara-se para uma eventual gravidez.'},
+    ],
+    knowTitle: 'Bom saber',
+    knowText: 'O seu ciclo pode variar de um mês para o outro. O stress, o sono, a alimentação ou uma doença podem influenciar a sua duração e o seu ritmo.',
+    reasonsEyebrow: 'PORQUÊ ACOMPANHÁ-LO',
+    reasonsTitle: 'Compreender melhor o seu ciclo',
+    reasons: [
+      'Compreender melhor o seu corpo',
+      'Adaptar a sua energia',
+      'Antecipar o seu humor',
+      'Cuidar da sua saúde',
+      'Acompanhar o seu ciclo com facilidade',
+    ],
+    wellTitle: 'Dica de bem-estar',
+    wellText: 'Ouça o seu corpo, esteja atenta ao que sente e anote o que muda ao longo dos dias.',
+  },
+  bn: {
+    shareTitle: 'আপনার মাসিক চক্র বুঝুন',
+    shareMessage: 'আপনার মাসিক চক্র বুঝুন · AWA',
+    pill: 'চক্র বুঝুন',
+    title: 'আপনার মাসিক চক্র বুঝুন',
+    duration: '6 মিনিটের পাঠ',
+    type: 'গাইড',
+    level: 'শুরুর স্তর',
+    validated: 'যাচাইকৃত কনটেন্ট',
+    summary: 'আপনার চক্রের প্রধান ধাপগুলো সহজ ভাষায় ব্যাখ্যা করা হয়েছে।',
+    stats: [
+      {title: 'গড় সময়', text: '28 দিন'},
+      {title: 'স্বাভাবিক সময়', text: '21 থেকে 35 দিন'},
+      {title: '4টি প্রধান পর্যায়', text: 'আপনার চক্রে'},
+      {title: 'প্রতিটি চক্র', text: 'আলাদা'},
+    ],
+    phasesEyebrow: 'চক্রের পর্যায়',
+    phasesTitle: '4টি প্রধান পর্যায়',
+    phasesIntro: 'প্রতিটি পর্যায় আপনার শরীরে গুরুত্বপূর্ণ ভূমিকা রাখে এবং আপনার শক্তি, মেজাজ ও উপসর্গকে প্রভাবিত করতে পারে।',
+    phases: [
+      {title: 'মাসিক', days: '1 থেকে 5 দিন', text: 'আপনার শরীর জরায়ুর আস্তরণ ঝরিয়ে দেয়।'},
+      {title: 'ফলিকুলার পর্যায়', days: '6 থেকে 13 দিন', text: 'আপনার শরীর ডিম্বস্ফোটনের জন্য প্রস্তুত হয়।'},
+      {title: 'ডিম্বস্ফোটন', days: 'প্রায় 14তম দিন', text: 'ডিম্বাণু নির্গত হয়। এটি সবচেয়ে উর্বর সময়।'},
+      {title: 'লিউটিয়াল পর্যায়', days: '15 থেকে 28 দিন', text: 'আপনার শরীর সম্ভাব্য গর্ভাবস্থার জন্য প্রস্তুত হয়।'},
+    ],
+    knowTitle: 'জেনে রাখুন',
+    knowText: 'আপনার চক্র এক মাস থেকে আরেক মাসে বদলাতে পারে। মানসিক চাপ, ঘুম, খাদ্যাভ্যাস বা অসুস্থতা চক্রের দৈর্ঘ্য ও ছন্দকে প্রভাবিত করতে পারে।',
+    reasonsEyebrow: 'কেন ট্র্যাক করবেন',
+    reasonsTitle: 'আপনার চক্র আরও ভালোভাবে বুঝুন',
+    reasons: [
+      'আপনার শরীরকে আরও ভালোভাবে বোঝা',
+      'আপনার শক্তি অনুযায়ী পরিকল্পনা করা',
+      'মেজাজের পরিবর্তন আগে থেকে আঁচ করা',
+      'নিজের স্বাস্থ্যের যত্ন নেওয়া',
+      'সহজে চক্র ট্র্যাক করা',
+    ],
+    wellTitle: 'সুস্থতার পরামর্শ',
+    wellText: 'আপনার শরীরের কথা শুনুন, যা অনুভব করছেন সেদিকে মনোযোগ দিন এবং দিনে দিনে কী বদলাচ্ছে তা লিখে রাখুন।',
+  },
+} as const);
 
 function UnderstandCycleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const content = CONTENT[i18n.language === 'ru' ? 'ru' : i18n.language === 'de' ? 'de' : i18n.language === 'zh' ? 'zh' : i18n.language === 'id' ? 'id' : i18n.language === 'hi' ? 'hi' : i18n.language === 'sq' ? 'sq' : i18n.language === 'ja' ? 'ja' : 'fr'];
+  const content = CONTENT[i18n.language === 'ru' ? 'ru' : i18n.language === 'de' ? 'de' : i18n.language === 'zh' ? 'zh' : i18n.language === 'id' ? 'id' : i18n.language === 'hi' ? 'hi' : i18n.language === 'sq' ? 'sq' : i18n.language === 'ja' ? 'ja' : i18n.language === 'ko' ? 'ko' : i18n.language === 'pt-PT' ? 'pt-PT' : i18n.language === 'pt-BR' ? 'pt-BR' : i18n.language === 'bn' ? 'bn' : 'fr'];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();

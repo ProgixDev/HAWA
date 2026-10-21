@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'babydevelopment-developpement-bebe';
 
@@ -50,7 +51,7 @@ const MILESTONE_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('BabyDevelopment', {
   fr: {
     badge: 'GROSSESSE • DÉVELOPPEMENT',
     title: 'Le développement\ndu bébé in utero',
@@ -507,7 +508,121 @@ const CONTENT = {
     tip2Text: '赤ちゃんの成長の各段階は、それぞれのペースで進みます。定期的な健診を受けると、順調に進んでいるかどうかを確認できます。',
     shareMessage: 'おなかの中での赤ちゃんの成長 — AWA',
   },
-} as const;
+  ko: {
+    badge: '임신 • 발달',
+    title: '자궁 속\n아기의 발달',
+    metaDuration: '6분 읽기',
+    metaType: '아티클',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '아기가 임신 초기, 중기, 후기를 거치며 어떻게 자라는지 알아봐요.',
+    contentsTitle: '이 아티클에서는',
+    topics: [
+      '임신 초기: 첫 시작',
+      '임신 중기: 감각이 깨어나요',
+      '임신 후기: 마지막 구간',
+      '주요 이정표 한눈에 보기',
+      '흔한 오해',
+      '기억해 둘 점',
+    ],
+    body1: '임신 6주부터 작은 심장이 이미 뛰기 시작해요. 임신 초기 동안 주요 장기가 차근차근 만들어져요.',
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '아기의 심장 박동은 초음파에서 가장 먼저 눈에 보이는 신호 중 하나로, 진료 과정에서 오래 기억에 남는 순간인 경우가 많아요.',
+    body2: '임신 20주 무렵부터는 보통 아기의 첫 움직임을 느낄 수 있어요. 이 시기에 감각도 발달하기 시작해요.',
+    body3: '임신 후기부터 아기는 체중이 빠르게 늘고, 출산을 위해 서서히 자리를 잡아요.',
+    neutralText: '발달 속도는 아기마다 달라요. 이 이정표는 어디까지나 일반적인 평균이에요.',
+    milestones: [
+      '6주부터: 심장이 뛰기 시작해요',
+      '20주 무렵: 첫 움직임을 느껴요',
+      '24~26주 무렵: 청각이 발달해요',
+      '28주 무렵: 눈이 서서히 떠져요',
+    ],
+    myths: [
+      '아기는 처음부터 “모든 것을 듣는다”: 청각은 임신 중기가 되어서야 제대로 발달해요',
+      '배 모양으로 아기의 성별을 알 수 있다: 이를 뒷받침하는 과학적 근거는 없어요',
+      '활동적인 아기가 반드시 더 건강하다: 활동량은 아기마다 크게 달라요',
+    ],
+    tip2Title: '알아 두면 좋아요',
+    tip2Text: '아기의 발달 단계는 저마다의 속도로 진행돼요. 정기적인 건강 검진은 모든 것이 정상적으로 진행되고 있는지 확인하는 데 도움이 돼요.',
+    shareMessage: '자궁 속 아기의 발달 — AWA',
+  },
+  'pt-PT': {
+    badge: 'GRAVIDEZ • DESENVOLVIMENTO',
+    title: 'O desenvolvimento do seu bebé\nno útero',
+    metaDuration: '6 min de leitura',
+    metaType: 'Artigo',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Como o seu bebé cresce, trimestre a trimestre.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'O 1.º trimestre: os primeiros tempos',
+      'O 2.º trimestre: os sentidos despertam',
+      'O 3.º trimestre: a reta final',
+      'Marcos importantes num relance',
+      'Mitos comuns',
+      'O que reter',
+    ],
+    body1: 'Logo a partir da semana 6, um pequeno coração já começa a bater. Ao longo deste primeiro trimestre, os principais órgãos formam-se progressivamente.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'Os batimentos cardíacos do bebé são um dos primeiros sinais visíveis na ecografia, muitas vezes um momento memorável no seu acompanhamento.',
+    body2: 'Por volta da semana 20, é normalmente possível sentir os primeiros movimentos do bebé. É também nesta altura que os sentidos começam a desenvolver-se.',
+    body3: 'A partir do 3.º trimestre, o bebé ganha peso rapidamente e coloca-se, aos poucos, na posição para o parto.',
+    neutralText: 'O ritmo de desenvolvimento varia de bebé para bebé: estes marcos continuam a ser médias gerais.',
+    milestones: [
+      'A partir das 6 semanas: o coração começa a bater',
+      'Por volta das 20 semanas: primeiros movimentos sentidos',
+      'Por volta das 24-26 semanas: a audição desenvolve-se',
+      'Por volta das 28 semanas: os olhos abrem-se gradualmente',
+    ],
+    myths: [
+      'O bebé “ouve tudo” desde o início: a audição só se desenvolve verdadeiramente a partir do 2.º trimestre',
+      'A forma da barriga indica o sexo do bebé: nenhuma evidência científica o comprova',
+      'Um bebé ativo é necessariamente mais saudável: o nível de atividade varia muito de um bebé para outro',
+    ],
+    tip2Title: 'Bom saber',
+    tip2Text: 'Cada etapa do desenvolvimento do bebé segue o seu próprio ritmo; as consultas médicas regulares ajudam a confirmar que tudo está a evoluir normalmente.',
+    shareMessage: 'O desenvolvimento do bebé no útero — AWA',
+  },
+  bn: {
+    badge: 'গর্ভাবস্থা • বিকাশ',
+    title: 'গর্ভে আপনার শিশুর\nবিকাশ',
+    metaDuration: 'পড়তে 6 মিনিট',
+    metaType: 'নিবন্ধ',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'প্রতিটি ত্রৈমাসিকে আপনার শিশু কীভাবে বেড়ে ওঠে।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'প্রথম ত্রৈমাসিক: শুরুর দিনগুলো',
+      'দ্বিতীয় ত্রৈমাসিক: ইন্দ্রিয়গুলো জেগে ওঠে',
+      'তৃতীয় ত্রৈমাসিক: শেষ ধাপ',
+      'এক নজরে প্রধান ধাপসমূহ',
+      'প্রচলিত ভুল ধারণা',
+      'যা মনে রাখবেন',
+    ],
+    body1: 'ষষ্ঠ সপ্তাহ থেকেই একটি ক্ষুদ্র হৃদয় স্পন্দিত হতে শুরু করে। এই প্রথম ত্রৈমাসিকজুড়ে প্রধান অঙ্গগুলো ধীরে ধীরে গড়ে ওঠে।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'আলট্রাসাউন্ডে দেখা যায় এমন প্রথম লক্ষণগুলোর একটি হলো শিশুর হৃদস্পন্দন, যা আপনার চিকিৎসাসেবার সময় প্রায়ই একটি স্মরণীয় মুহূর্ত হয়ে থাকে।',
+    body2: 'প্রায় 20তম সপ্তাহে সাধারণত শিশুর প্রথম নড়াচড়া টের পাওয়া যায়। এই সময়েই ইন্দ্রিয়গুলোরও বিকাশ শুরু হয়।',
+    body3: 'তৃতীয় ত্রৈমাসিক থেকে শিশুর ওজন দ্রুত বাড়ে এবং ধীরে ধীরে জন্মের জন্য সঠিক অবস্থানে চলে আসে।',
+    neutralText: 'বিকাশের গতি এক শিশু থেকে আরেক শিশুতে আলাদা হয়: এই ধাপগুলো কেবল সাধারণ গড় হিসাব।',
+    milestones: [
+      '6 সপ্তাহ থেকে: হৃদয় স্পন্দিত হতে শুরু করে',
+      'প্রায় 20 সপ্তাহে: প্রথম নড়াচড়া টের পাওয়া যায়',
+      'প্রায় 24-26 সপ্তাহে: শ্রবণশক্তির বিকাশ হয়',
+      'প্রায় 28 সপ্তাহে: চোখ ধীরে ধীরে খুলতে শুরু করে',
+    ],
+    myths: [
+      'শিশু শুরু থেকেই “সবকিছু শুনতে পায়”: দ্বিতীয় ত্রৈমাসিকের আগে শ্রবণশক্তি আসলে গড়ে ওঠে না',
+      'পেটের আকৃতি দেখে শিশুর লিঙ্গ বোঝা যায়: এর পক্ষে কোনো বৈজ্ঞানিক প্রমাণ নেই',
+      'সক্রিয় শিশু অবশ্যই বেশি সুস্থ: সক্রিয়তার মাত্রা এক শিশু থেকে আরেক শিশুতে অনেক আলাদা হয়',
+    ],
+    tip2Title: 'জেনে রাখা ভালো',
+    tip2Text: 'শিশুর বিকাশের প্রতিটি ধাপ নিজস্ব গতিতে চলে; নিয়মিত চিকিৎসা পরীক্ষা নিশ্চিত করতে সাহায্য করে যে সবকিছু স্বাভাবিকভাবে এগোচ্ছে।',
+    shareMessage: 'গর্ভে শিশুর বিকাশ — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

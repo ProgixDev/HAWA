@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'birthcontrolpills-comprendre-la-pilule';
 
@@ -41,7 +42,7 @@ const HERO = require('../../assets/images/library/featured-tracking-hero.png');
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('BirthControlPills', {
   fr: {
     badge: 'PILULE CONTRACEPTIVE',
     title: 'Comprendre la\npilule contraceptive',
@@ -594,7 +595,145 @@ const CONTENT = {
     finalTipText: '避妊を考えているとき、または今の方法が合わないと感じるときは、ためらわずに医師、助産師、またはほかの医療従事者に相談してください。',
     shareMessage: 'ピルについて理解する — AWA',
   },
-} as const;
+  ko: {
+    badge: '피임약',
+    title: '피임약,\n제대로 이해하기',
+    metaDuration: '읽는 데 7분',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '피임약이 어떻게 작용하는지, 매일 어떻게 복용하는지, 주요 장점과 한계는 무엇인지 알아봐요.',
+    contentsTitle: '이 아티클에서 다루는 내용',
+    topics: [
+      '피임약이 작용하는 방식',
+      '매일 올바르게 복용하기',
+      '장점과 한계',
+      '핵심 정리',
+    ],
+    body1: '피임약에는 종류에 따라 에스트로겐이나 프로게스틴, 또는 두 가지 호르몬이 들어 있고, 주로 배란을 막거나 억제하는 방식으로 작용해요. 자궁경부 점액도 변화시켜서 정자가 통과하기 어렵게 만들어요.',
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '피임약에는 복합 피임약과 프로게스틴 단독 피임약 등 여러 종류가 있어요. 성분과 복용 방법은 서로 다를 수 있어요.',
+    body2: '꾸준히 복용하는 것이 중요해요. 약의 종류에 따라 복용을 잊었을 때 대처 방법이 다를 수 있으니, 약에 들어 있는 설명서를 꼭 확인하세요.',
+    routineTips: [
+      '기억하기 쉬운 시간대를 정해 보세요(식사 시간, 잠자리에 들기 전 등).',
+      '필요하면 알림이나 앱을 활용하세요.',
+      '헷갈릴 때를 대비해 설명서를 가까이에 두세요.',
+    ],
+    sectionIntro: '다른 피임 방법과 마찬가지로 피임약에도 장점과 함께, 선택하기 전에 알아 두어야 할 한계가 있어요.',
+    advantagesTitle: '장점',
+    advantagesSubtitle: '기대할 수 있는 점',
+    advantages: [
+      '올바르게 복용하면 임신 위험을 크게 줄여 줘요.',
+      '생리가 더 규칙적이고 예측하기 쉬워질 수 있어요.',
+      '사람에 따라 통증과 출혈량이 줄어들 수 있어요.',
+      '맞지 않으면 조정하거나 바꿀 수 있어요.',
+    ],
+    limitationsTitle: '한계',
+    limitationsSubtitle: '알아 두어야 할 점',
+    limitations: [
+      '피임약 종류에 따라 규칙적으로 복용해야 해요.',
+      '복용을 잊으면 효과가 떨어질 수 있어요.',
+      '사람에 따라 부작용이 나타날 수 있어요.',
+      '성매개감염병(STI)은 예방해 주지 않아요.',
+    ],
+    takeawayTitle: '알아 둘 만한 피임 방법',
+    takeawayText: '피임약은 올바르게 복용하면 효과적인 호르몬 피임 방법이에요. 꾸준한 복용, 나타날 수 있는 부작용, 그리고 STI를 예방해 주지 않는다는 점은 꼭 알아 두어야 해요.',
+    finalTipText: '피임을 고민 중이거나 지금 쓰는 방법이 맞지 않는다면 망설이지 말고 의사, 조산사 또는 다른 의료 전문가와 상담하세요.',
+    shareMessage: '피임약, 제대로 이해하기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'PÍLULA CONTRACETIVA',
+    title: 'Compreender\na pílula contracetiva',
+    metaDuration: '7 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Como funciona a pílula, como tomá-la no dia a dia, e as suas principais vantagens e limitações.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Como funciona a pílula',
+      'Tomá-la corretamente todos os dias',
+      'Vantagens e limitações',
+      'Pontos-chave',
+    ],
+    body1: 'A pílula contém hormonas — estrogénio e/ou progestagénio, consoante o tipo — que atuam principalmente impedindo ou bloqueando a ovulação. Altera também o muco cervical, o que dificulta a passagem dos espermatozoides.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'Existem vários tipos de pílula, incluindo as pílulas combinadas e as pílulas só com progestagénio. A sua composição e a forma de as tomar podem variar.',
+    body2: 'Tomá-la com regularidade é importante. Consoante o tipo de pílula, o que fazer após um esquecimento pode ser diferente — por isso é essencial consultar o folheto informativo do seu medicamento.',
+    routineTips: [
+      'Escolha um momento do dia fácil de recordar (uma refeição, a hora de deitar...)',
+      'Use um lembrete ou uma aplicação, se necessário',
+      'Tenha o folheto informativo à mão em caso de dúvida',
+    ],
+    sectionIntro: 'Como qualquer método contracetivo, a pílula tem vantagens, mas também certas limitações que convém conhecer antes de a escolher.',
+    advantagesTitle: 'Vantagens',
+    advantagesSubtitle: 'O que pode oferecer',
+    advantages: [
+      'Reduz muito o risco de gravidez quando usada corretamente',
+      'Pode tornar os períodos mais regulares e previsíveis',
+      'Pode reduzir a dor e o fluxo em algumas pessoas',
+      'Pode ser ajustada ou mudada se não lhe convier',
+    ],
+    limitationsTitle: 'Limitações',
+    limitationsSubtitle: 'Pontos a ter em conta',
+    limitations: [
+      'Exige uma toma regular, consoante o tipo de pílula',
+      'Os esquecimentos podem reduzir a sua eficácia',
+      'Algumas pessoas podem sentir efeitos secundários',
+      'Não protege contra infeções sexualmente transmissíveis (IST)',
+    ],
+    takeawayTitle: 'Um método que vale a pena compreender',
+    takeawayText: 'A pílula é um método contracetivo hormonal eficaz quando usado corretamente. A regularidade da toma, os possíveis efeitos secundários e a ausência de proteção contra as IST são aspetos importantes a conhecer.',
+    finalTipText: 'Se está a pensar em contraceção ou se o seu método atual não lhe convém, não hesite em falar com um médico, uma parteira ou outro profissional de saúde.',
+    shareMessage: 'Compreender a pílula contracetiva — AWA',
+  },
+  bn: {
+    badge: 'জন্মনিয়ন্ত্রণ বড়ি',
+    title: 'জন্মনিয়ন্ত্রণ বড়ি\nবোঝা',
+    metaDuration: 'পড়তে 7 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'বড়ি কীভাবে কাজ করে, প্রতিদিন কীভাবে খেতে হয় এবং এর প্রধান সুবিধা ও সীমাবদ্ধতা।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'বড়ি কীভাবে কাজ করে',
+      'প্রতিদিন সঠিকভাবে খাওয়া',
+      'সুবিধা ও সীমাবদ্ধতা',
+      'মূল কথা',
+    ],
+    body1: 'বড়িতে হরমোন থাকে — ধরন অনুযায়ী ইস্ট্রোজেন ও/অথবা প্রজেস্টিন — যা মূলত ডিম্বস্ফোটন প্রতিরোধ বা বন্ধ করে কাজ করে। এটি জরায়ুমুখের শ্লেষ্মাও বদলে দেয়, ফলে শুক্রাণুর পক্ষে এর মধ্য দিয়ে যাওয়া কঠিন হয়।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'বড়ির একাধিক ধরন আছে, যেমন সম্মিলিত বড়ি ও শুধু প্রজেস্টিনযুক্ত বড়ি। এদের উপাদান এবং খাওয়ার নিয়ম ভিন্ন হতে পারে।',
+    body2: 'নিয়মিত খাওয়া গুরুত্বপূর্ণ। বড়ির ধরন অনুযায়ী কোনো ডোজ বাদ পড়লে কী করতে হবে তা আলাদা হতে পারে — তাই আপনার ওষুধের প্যাকেটের সঙ্গে থাকা তথ্যপত্র দেখে নেওয়া জরুরি।',
+    routineTips: [
+      'দিনের এমন একটি সময় বেছে নিন যা মনে রাখা সহজ (খাবারের সময়, ঘুমানোর আগে...)',
+      'প্রয়োজনে রিমাইন্ডার বা অ্যাপ ব্যবহার করুন',
+      'সন্দেহ হলে দেখার জন্য তথ্যপত্রটি হাতের কাছে রাখুন',
+    ],
+    sectionIntro: 'অন্য যেকোনো জন্মনিয়ন্ত্রণ পদ্ধতির মতো বড়িরও সুবিধা আছে, পাশাপাশি কিছু সীমাবদ্ধতাও আছে যা বেছে নেওয়ার আগে জানা দরকার।',
+    advantagesTitle: 'সুবিধা',
+    advantagesSubtitle: 'এটি কী দিতে পারে',
+    advantages: [
+      'সঠিকভাবে ব্যবহার করলে গর্ভধারণের ঝুঁকি অনেক কমায়',
+      'মাসিক আরও নিয়মিত ও আগাম অনুমানযোগ্য করতে পারে',
+      'কিছু মানুষের ক্ষেত্রে ব্যথা ও রক্তক্ষরণ কমাতে পারে',
+      'উপযুক্ত না হলে বদলানো বা সমন্বয় করা যায়',
+    ],
+    limitationsTitle: 'সীমাবদ্ধতা',
+    limitationsSubtitle: 'যেসব বিষয় জানা দরকার',
+    limitations: [
+      'বড়ির ধরন অনুযায়ী নিয়মিত খেতে হয়',
+      'ডোজ বাদ পড়লে কার্যকারিতা কমে যেতে পারে',
+      'কারও কারও পার্শ্বপ্রতিক্রিয়া হতে পারে',
+      'যৌনবাহিত সংক্রমণ (এসটিআই) থেকে সুরক্ষা দেয় না',
+    ],
+    takeawayTitle: 'বোঝার মতো একটি পদ্ধতি',
+    takeawayText: 'সঠিকভাবে ব্যবহার করলে বড়ি একটি কার্যকর হরমোনাল জন্মনিয়ন্ত্রণ পদ্ধতি। নিয়মিত খাওয়া, সম্ভাব্য পার্শ্বপ্রতিক্রিয়া এবং এসটিআই থেকে সুরক্ষা না দেওয়া — এগুলো জানা জরুরি।',
+    finalTipText: 'আপনি যদি জন্মনিয়ন্ত্রণের কথা ভাবেন, অথবা আপনার বর্তমান পদ্ধতি আপনার জন্য কাজ না করে, তবে ডাক্তার, ধাত্রী বা অন্য কোনো স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে কথা বলতে দ্বিধা করবেন না।',
+    shareMessage: 'জন্মনিয়ন্ত্রণ বড়ি বোঝা — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

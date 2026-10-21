@@ -32,6 +32,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'firstperiod-questions-frequentes';
 
@@ -64,7 +65,7 @@ const RELATED_ARTICLE_IDS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
   fr: {
     badge: 'PREMIÈRES RÈGLES',
     title: 'Questions fréquentes\nsur les premières règles',
@@ -658,7 +659,157 @@ const CONTENT = {
     ],
     shareMessage: '初めての生理についてよくある質問 — AWA',
   },
-} as const;
+  ko: {
+    badge: '첫 생리',
+    title: '첫 생리에 대한\n자주 묻는 질문',
+    metaDuration: '4분 읽기',
+    metaType: '자주 묻는 질문',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '첫 생리에 대해 가장 많이 하는 질문에 쉽게 답해 드려요.',
+    contentsTitle: '이 아티클에서는',
+    faq: [
+      {
+        question: '“피가 아주 적게 나와도 괜찮은가요?”',
+        answer: '네, 괜찮아요. 처음 몇 번의 주기에는 출혈량이 적은 경우가 많아요. 특히 초기에는 주기마다 출혈량이 달라질 수 있어요.',
+      },
+      {
+        question: '“피가 아주 많이 나와도 괜찮은가요?”',
+        answer: '출혈량이 더 많을 수도 있어요. 특히 처음 이틀 동안 그럴 수 있어요. 몇 시간 동안 계속 한 시간에 한 번 넘게 생리용품을 갈아야 한다면 의료 전문가와 상담해 보는 것이 좋아요.',
+      },
+      {
+        question: '“생리통이 있어도 괜찮은가요?”',
+        answer: '아랫배가 은은하게 아픈 생리통은 흔하고 보통 걱정하지 않아도 돼요. 따뜻한 물주머니나 약간의 휴식이 도움이 될 수 있어요. 통증이 아주 심하다면 주변 사람에게 이야기해 보세요.',
+      },
+      {
+        question: '“운동을 해도 되나요?”',
+        answer: '네, 생리 중에도 운동할 수 있어요. 그날 몸 상태에 맞게 강도만 조절하면 돼요.',
+      },
+      {
+        question: '“수영을 해도 되나요?”',
+        answer: '네, 알맞은 생리용품을 쓰면 수영도 할 수 있어요. 많은 사람이 그 상황이 더 편해질 때까지 기다리기도 해요.',
+      },
+    ],
+    tipTitle: '알아 두면 좋아요',
+    tipText: '부끄러운 질문이란 없어요. 몸은 모두 다르고, 믿을 수 있는 사람에게 언제든 이야기해도 괜찮아요.',
+    relatedTitle: '♥  함께 보면 좋은 글',
+    related: [
+      {
+        title: '첫 생리, 무엇을 기대해야 할까요',
+        meta: '5분  ·  가이드',
+      },
+      {
+        title: '첫 생리에는 어떤 생리용품을 골라야 할까요?',
+        meta: '6분  ·  가이드',
+      },
+      {
+        title: '생리통 관리하기',
+        meta: '7분  ·  가이드',
+      },
+    ],
+    shareMessage: '첫 생리에 대한 자주 묻는 질문 — AWA',
+  },
+  'pt-PT': {
+    badge: 'PRIMEIRO PERÍODO',
+    title: 'Perguntas frequentes\nsobre o primeiro período',
+    metaDuration: '4 min de leitura',
+    metaType: 'Perguntas frequentes',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Respostas simples às perguntas mais comuns sobre o primeiro período.',
+    contentsTitle: 'Neste artigo',
+    faq: [
+      {
+        question: '“É normal ter muito pouco sangue?”',
+        answer: 'Sim. Os primeiros ciclos têm muitas vezes um fluxo ligeiro. O fluxo pode variar de um ciclo para o outro, sobretudo no início.',
+      },
+      {
+        question: '“É normal ter muito sangue?”',
+        answer: 'Um fluxo mais abundante também pode acontecer, sobretudo nos dois primeiros dias. Se precisar de mudar a proteção mais do que uma vez por hora durante várias horas seguidas, é aconselhável falar disso com um profissional de saúde.',
+      },
+      {
+        question: '“É normal ter cólicas?”',
+        answer: 'As cólicas ligeiras na parte inferior da barriga são comuns e, normalmente, não têm motivo para preocupação. Uma botija de água quente ou um pouco de descanso podem ajudar. Vale a pena mencionar a alguém uma dor muito intensa.',
+      },
+      {
+        question: '“Posso fazer desporto?”',
+        answer: 'Sim, pode continuar a fazer desporto durante o período. Basta adaptar a intensidade ao que o seu corpo sente nesse dia.',
+      },
+      {
+        question: '“Posso ir nadar?”',
+        answer: 'Sim, pode continuar a nadar com a proteção adequada. Muitas pessoas preferem simplesmente esperar até se sentirem mais à vontade com a ideia.',
+      },
+    ],
+    tipTitle: 'Bom saber',
+    tipText: 'Não existem perguntas embaraçosas: cada corpo é diferente e pode sempre falar com alguém em quem confie.',
+    relatedTitle: '♥  Também pode gostar',
+    related: [
+      {
+        title: 'O seu primeiro período: o que esperar',
+        meta: '5 min  ·  Guia',
+      },
+      {
+        title: 'Que proteção devo escolher para o meu primeiro período?',
+        meta: '6 min  ·  Guia',
+      },
+      {
+        title: 'Gerir a dor menstrual',
+        meta: '7 min  ·  Guia',
+      },
+    ],
+    shareMessage: 'Perguntas frequentes sobre o primeiro período — AWA',
+  },
+  bn: {
+    badge: 'প্রথম মাসিক',
+    title: 'প্রথম মাসিক নিয়ে\nসচরাচর জিজ্ঞাসা',
+    metaDuration: 'পড়তে 4 মিনিট',
+    metaType: 'সচরাচর জিজ্ঞাসা',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'প্রথম মাসিক নিয়ে সবচেয়ে প্রচলিত প্রশ্নগুলোর সহজ উত্তর।',
+    contentsTitle: 'এই নিবন্ধে',
+    faq: [
+      {
+        question: '“খুব কম রক্তক্ষরণ হওয়া কি স্বাভাবিক?”',
+        answer: 'হ্যাঁ। একদম প্রথম দিকের চক্রগুলোতে প্রায়ই রক্তক্ষরণ কম হয়। বিশেষ করে শুরুর দিকে এক চক্র থেকে আরেক চক্রে রক্তক্ষরণের পরিমাণ বদলাতে পারে।',
+      },
+      {
+        question: '“অনেক বেশি রক্তক্ষরণ হওয়া কি স্বাভাবিক?”',
+        answer: 'বেশি রক্তক্ষরণও হতে পারে, বিশেষ করে প্রথম দুই দিনে। টানা কয়েক ঘণ্টা ধরে যদি ঘণ্টায় একবারের বেশি সুরক্ষা সামগ্রী বদলাতে হয়, তাহলে এ বিষয়ে একজন স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে কথা বলা ভালো।',
+      },
+      {
+        question: '“তলপেটে ব্যথা হওয়া কি স্বাভাবিক?”',
+        answer: 'তলপেটে হালকা ব্যথা সাধারণ এবং সাধারণত দুশ্চিন্তার কিছু নয়। গরম পানির ব্যাগ বা একটু বিশ্রাম সাহায্য করতে পারে। খুব তীব্র ব্যথা হলে কাউকে জানানো উচিত।',
+      },
+      {
+        question: '“আমি কি খেলাধুলা করতে পারি?”',
+        answer: 'হ্যাঁ, মাসিকের সময়ও খেলাধুলা করতে পারেন। শুধু সেদিন আপনার শরীর কেমন বোধ করছে, সেই অনুযায়ী তীব্রতা ঠিক করে নিন।',
+      },
+      {
+        question: '“আমি কি সাঁতার কাটতে পারি?”',
+        answer: 'হ্যাঁ, সঠিক সুরক্ষা সামগ্রী ব্যবহার করে সাঁতার কাটতে পারেন। অনেকেই বিষয়টি নিয়ে আরও স্বচ্ছন্দ বোধ না করা পর্যন্ত অপেক্ষা করতে পছন্দ করেন।',
+      },
+    ],
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: '“লজ্জাজনক প্রশ্ন” বলে কিছু নেই: প্রতিটি শরীর আলাদা, আর আপনি সবসময় বিশ্বস্ত কারও সঙ্গে কথা বলতে পারেন।',
+    relatedTitle: '♥  আপনার আরও ভালো লাগতে পারে',
+    related: [
+      {
+        title: 'আপনার প্রথম মাসিক: কী আশা করবেন',
+        meta: '5 মিনিট  ·  গাইড',
+      },
+      {
+        title: 'প্রথম মাসিকের জন্য কোন সুরক্ষা সামগ্রী বেছে নেব?',
+        meta: '6 মিনিট  ·  গাইড',
+      },
+      {
+        title: 'মাসিকের ব্যথা সামলানো',
+        meta: '7 মিনিট  ·  গাইড',
+      },
+    ],
+    shareMessage: 'প্রথম মাসিক নিয়ে সচরাচর জিজ্ঞাসা — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

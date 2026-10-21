@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'treatments-traitements-menopause';
 
@@ -41,7 +42,7 @@ const HERO = require('../../assets/images/library/spm-consult.png');
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('MenopauseTreatments', {
   fr: {
     badge: 'TRAITEMENTS',
     title: 'Les traitements\nde la ménopause',
@@ -522,7 +523,127 @@ const CONTENT = {
     tip2Text: 'ホルモンを使う場合も使わない場合も、すべての人に合う治療はありません。何が合うかは、医療従事者とともに確認する個人の状況によって決まります。',
     shareMessage: '更年期の治療 — AWA',
   },
-} as const;
+  ko: {
+    badge: '치료',
+    title: '폐경\n치료법',
+    metaDuration: '읽는 데 7분',
+    metaType: '가이드',
+    metaLevel: '중급',
+    metaValidated: '검토된 콘텐츠',
+    intro: '호르몬 대체 요법과 비호르몬 대안을 알아보고, 의사와의 상담을 준비해 보세요.',
+    contentsTitle: '이 아티클에서 다루는 내용',
+    topics: [
+      '폐경 호르몬 대체 요법',
+      '이점과 주의할 점',
+      '비호르몬 접근법',
+      '의료 전문가와 상담하기',
+      '기억할 점',
+    ],
+    body1: '폐경 호르몬 대체 요법(HRT)은 줄어든 에스트로겐을 보충해 주고, 안면 홍조(열감), 수면 장애, 질 건조처럼 가장 불편한 증상을 덜어 줄 수 있어요.',
+    body2: 'HRT는 골밀도를 지키는 데에도 도움이 될 수 있어요. 하지만 모든 상황에 맞는 것은 아니에요. 특정 질환(심혈관 질환, 일부 호르몬 의존성 암)의 병력이 있으면 사용이 제한될 수 있어요.',
+    alertTitle: '유의하세요',
+    alertText: 'HRT의 이점과 위험의 균형은 나이, 폐경 후 언제 시작하는지, 개인의 병력에 따라 달라져요. 결정하기 전에 개인별 의학적 평가가 필요해요.',
+    body3: 'HRT를 원하지 않거나 맞지 않을 때는 증상을 덜어 주는 다른 방법도 있어요.',
+    nonHormonal: [
+      '인지행동치료(스트레스와 수면 관리에 도움)',
+      '의료 전문가의 지도 아래 하는 허브 요법',
+      '생활 습관 조정(식단, 신체 활동, 수면)',
+      '질 건조를 위한 질 윤활제와 질 보습제',
+    ],
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '허브 요법도 전문가의 조언을 받는 것이 좋아요. “천연”이라고 해서 다른 치료제와의 상호작용이 없다는 뜻은 아니에요.',
+    body4: '진료 전에 몇 가지를 미리 정리해 두면 상담을 더 알차게 활용할 수 있어요.',
+    discussPoints: [
+      '일상에서 가장 불편한 증상',
+      '개인 및 가족의 병력',
+      '원하는 방향(호르몬 요법 여부, 고려하는 기간)',
+      '궁금한 점과 걱정되는 점, 망설이지 말고 물어보세요.',
+    ],
+    tip2Title: '알아 두면 좋아요',
+    tip2Text: '호르몬 요법이든 아니든 모두에게 맞는 치료는 없어요. 나에게 맞는 방법은 개인 상황에 따라 다르며, 의료 전문가와 함께 평가해야 해요.',
+    shareMessage: '폐경 치료법 — AWA',
+  },
+  'pt-PT': {
+    badge: 'TRATAMENTOS',
+    title: 'Tratamentos\nda menopausa',
+    metaDuration: '7 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Intermédio',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'A terapêutica hormonal de substituição e as alternativas não hormonais, para a ajudar a preparar a conversa com o seu médico.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Terapêutica hormonal de substituição da menopausa',
+      'Benefícios e precauções',
+      'Abordagens não hormonais',
+      'Falar com um profissional de saúde',
+      'O que reter',
+    ],
+    body1: 'A terapêutica hormonal de substituição (THS) da menopausa compensa a descida dos estrogénios e pode aliviar os sintomas mais incómodos, como os afrontamentos, as perturbações do sono ou a secura vaginal.',
+    body2: 'A THS pode também ajudar a proteger a densidade óssea. No entanto, não é adequada a todas as situações: um historial pessoal de certas doenças (doenças cardiovasculares, alguns cancros hormonodependentes) pode limitar a sua utilização.',
+    alertTitle: 'Atenção',
+    alertText: 'O equilíbrio entre benefícios e riscos da THS depende da sua idade, do momento em que é iniciada em relação à menopausa e do seu historial médico pessoal: é necessária uma avaliação médica individualizada antes de qualquer decisão.',
+    body3: 'Quando a THS não é desejada ou não é adequada, existem outras opções para ajudar a aliviar os sintomas:',
+    nonHormonal: [
+      'Terapia cognitivo-comportamental (para a gestão do stress e do sono)',
+      'Fitoterapia, com acompanhamento de um profissional de saúde',
+      'Ajustes no estilo de vida (alimentação, atividade física, sono)',
+      'Lubrificantes e hidratantes vaginais para a secura íntima',
+    ],
+    tip1Title: 'Bom saber',
+    tip1Text: 'Mesmo a fitoterapia merece aconselhamento profissional: “natural” não significa “sem possíveis interações” com outros tratamentos.',
+    body4: 'Preparar alguns pontos antes de uma consulta ajuda a tirar o máximo partido da conversa:',
+    discussPoints: [
+      'Os sintomas que mais a incomodam no dia a dia',
+      'O seu historial médico pessoal e familiar',
+      'As suas preferências (hormonal ou não, durante quanto tempo está a pensar)',
+      'As suas dúvidas e preocupações — não hesite em colocá-las',
+    ],
+    tip2Title: 'Bom saber',
+    tip2Text: 'Hormonal ou não, nenhum tratamento é universal: o que lhe convém depende da sua situação pessoal, avaliada com um profissional de saúde.',
+    shareMessage: 'Tratamentos da menopausa — AWA',
+  },
+  bn: {
+    badge: 'চিকিৎসা',
+    title: 'মেনোপজের\nচিকিৎসা',
+    metaDuration: 'পড়তে 7 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'মধ্যম',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'হরমোন প্রতিস্থাপন থেরাপি এবং হরমোনবিহীন বিকল্প, যাতে ডাক্তারের সঙ্গে আলোচনার জন্য আপনি প্রস্তুত হতে পারেন।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'মেনোপজের হরমোন প্রতিস্থাপন থেরাপি',
+      'উপকারিতা ও সতর্কতা',
+      'হরমোনবিহীন পদ্ধতি',
+      'স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে কথা বলা',
+      'যা মনে রাখবেন',
+    ],
+    body1: 'মেনোপজের হরমোন প্রতিস্থাপন থেরাপি (এইচআরটি) ইস্ট্রোজেনের ঘাটতি পূরণ করে এবং সবচেয়ে অস্বস্তিকর উপসর্গ, যেমন হট ফ্ল্যাশ (গরম লাগা), ঘুমের ব্যাঘাত বা যোনিপথের শুষ্কতা কমাতে পারে।',
+    body2: 'এইচআরটি হাড়ের ঘনত্ব রক্ষা করতেও সাহায্য করতে পারে। তবে এটি সব ক্ষেত্রে উপযুক্ত নয়: কিছু রোগের ব্যক্তিগত ইতিহাস (হৃদ্রোগ, হরমোন-নির্ভর কিছু ক্যানসার) এর ব্যবহার সীমিত করতে পারে।',
+    alertTitle: 'লক্ষ্য করুন',
+    alertText: 'এইচআরটির উপকার ও ঝুঁকির ভারসাম্য নির্ভর করে আপনার বয়স, মেনোপজের সাপেক্ষে কখন এটি শুরু হচ্ছে এবং আপনার ব্যক্তিগত চিকিৎসা ইতিহাসের ওপর: কোনো সিদ্ধান্তের আগে ব্যক্তিগতভাবে চিকিৎসাগত মূল্যায়ন প্রয়োজন।',
+    body3: 'এইচআরটি না চাইলে বা উপযুক্ত না হলে উপসর্গ কমাতে সাহায্য করার মতো অন্যান্য বিকল্প আছে:',
+    nonHormonal: [
+      'জ্ঞানীয় আচরণ থেরাপি (মানসিক চাপ ও ঘুম সামলাতে)',
+      'ভেষজ চিকিৎসা, স্বাস্থ্যসেবা পেশাজীবীর তত্ত্বাবধানে',
+      'জীবনযাত্রার সমন্বয় (খাবার, শারীরিক কার্যকলাপ, ঘুম)',
+      'ঘনিষ্ঠ অংশের শুষ্কতার জন্য যোনিপথের লুব্রিকেন্ট ও ময়েশ্চারাইজার',
+    ],
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'ভেষজ চিকিৎসার ক্ষেত্রেও পেশাদার পরামর্শ নেওয়া উচিত: “প্রাকৃতিক” মানে এই নয় যে অন্য ওষুধের সঙ্গে সম্ভাব্য মিথস্ক্রিয়া নেই।',
+    body4: 'অ্যাপয়েন্টমেন্টের আগে কিছু বিষয় গুছিয়ে নিলে আলোচনা থেকে সর্বোচ্চ উপকার পেতে সুবিধা হয়:',
+    discussPoints: [
+      'দৈনন্দিন জীবনে আপনাকে সবচেয়ে বেশি কষ্ট দেওয়া উপসর্গ',
+      'আপনার ব্যক্তিগত ও পারিবারিক চিকিৎসা ইতিহাস',
+      'আপনার পছন্দ (হরমোনাল বা না, কত সময়ের জন্য ভাবছেন)',
+      'আপনার প্রশ্ন ও দুশ্চিন্তা — সেগুলো জিজ্ঞাসা করতে দ্বিধা করবেন না',
+    ],
+    tip2Title: 'জেনে রাখা ভালো',
+    tip2Text: 'হরমোনাল হোক বা না হোক, কোনো চিকিৎসাই সবার জন্য সমান নয়: আপনার জন্য কোনটি সঠিক তা নির্ভর করে আপনার ব্যক্তিগত অবস্থার ওপর, যা স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে মূল্যায়ন করা হয়।',
+    shareMessage: 'মেনোপজের চিকিৎসা — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

@@ -32,6 +32,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'fertility-fenetre-fertile';
 
@@ -51,7 +52,7 @@ const TRACKING_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('FertilityWindow', {
   fr: {
     badge: 'FENÊTRE FERTILE',
     title: 'La fenêtre fertile,\ncomment ça marche',
@@ -424,7 +425,100 @@ const CONTENT = {
     tip2Text: '周期、粘液、体温など複数のサインを組み合わせると、ひとつのサインだけに頼るより、妊娠しやすい期間をより確かにとらえられます。',
     shareMessage: '妊娠しやすい期間：そのしくみ — AWA',
   },
-} as const;
+  ko: {
+    badge: '가임기',
+    title: '가임기:\n어떻게 작동할까요',
+    metaDuration: '6분 읽기',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '임신을 위해 배란 전후의 날들이 가장 중요한 이유를 알아봐요.',
+    contentsTitle: '이 아티클에서는',
+    topics: [
+      '가임기란?',
+      '이 시기가 가장 중요한 이유',
+      '가임기를 알아내는 방법',
+      '핵심 정리',
+    ],
+    section1Body: '가임기는 주기 중 임신이 가능한 기간을 말해요. 약 6일 동안 이어지며, 배란 전 5일과 배란일 당일이 포함돼요.',
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '주기는 모두 달라서 가임기가 매달 달력상 같은 날에 오지는 않아요.',
+    section2Body1: '정자는 생식기 안에서 최대 5일까지 살 수 있어서 임신이 가능한 기간이 넓어져요. 반면 난자는 배출된 뒤 약 24시간 동안만 수정될 수 있어요.',
+    section2Body2: '예를 들어 배란 3일 전의 성관계는 임신으로 이어질 수 있지만, 배란 다음 날의 성관계는 너무 늦은 경우가 많아요.',
+    section3Intro: '여러 신호를 함께 살펴보면 이 시기를 더 정확하게 알아내는 데 도움이 돼요.',
+    trackingSigns: [
+      '주기 길이 기록하기',
+      '자궁 경부 점액 관찰하기',
+      '기초체온 재기',
+      '배란 테스트(LH 검사) 사용하기',
+    ],
+    tip2Title: '알아 두면 좋아요',
+    tip2Text: '주기, 점액, 체온 같은 여러 신호를 함께 보면 하나만 볼 때보다 가임기를 더 믿을 만하게 파악할 수 있어요.',
+    shareMessage: '가임기: 어떻게 작동할까요 — AWA',
+  },
+  'pt-PT': {
+    badge: 'JANELA FÉRTIL',
+    title: 'A janela fértil:\ncomo funciona',
+    metaDuration: '6 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Porque é que os dias em torno da ovulação são os mais importantes para engravidar.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'O que é a janela fértil?',
+      'Porque é que estes dias são os mais importantes',
+      'Como identificar a sua janela fértil',
+      'Pontos essenciais',
+    ],
+    section1Body: 'A janela fértil designa o período do ciclo durante o qual a gravidez é possível. Estende-se por cerca de 6 dias: os 5 dias que antecedem a ovulação, mais o próprio dia da ovulação.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'Cada ciclo é diferente: a janela fértil não calha necessariamente no mesmo dia do calendário de um mês para o outro.',
+    section2Body1: 'Os espermatozoides podem sobreviver até 5 dias no trato reprodutivo, o que alarga o período em que a conceção é possível. O óvulo, por sua vez, só pode ser fecundado durante cerca de 24 horas depois de ser libertado.',
+    section2Body2: 'Por exemplo, uma relação sexual 3 dias antes da ovulação pode levar à conceção, enquanto uma relação no dia a seguir à ovulação chega muitas vezes tarde demais.',
+    section3Intro: 'Vários sinais, observados em conjunto, ajudam a identificar melhor este período:',
+    trackingSigns: [
+      'Acompanhar a duração do seu ciclo',
+      'Observar o seu muco cervical',
+      'Medir a sua temperatura corporal basal',
+      'Usar testes de ovulação (LH)',
+    ],
+    tip2Title: 'Bom saber',
+    tip2Text: 'Combinar vários sinais (ciclo, muco, temperatura) dá uma imagem mais fiável da sua janela fértil do que qualquer sinal isolado.',
+    shareMessage: 'A janela fértil: como funciona — AWA',
+  },
+  bn: {
+    badge: 'উর্বর সময়',
+    title: 'উর্বর সময়:\nএটি কীভাবে কাজ করে',
+    metaDuration: 'পড়তে 6 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'গর্ভধারণের জন্য ডিম্বস্ফোটনের আশপাশের দিনগুলো কেন সবচেয়ে গুরুত্বপূর্ণ।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'উর্বর সময় কী?',
+      'এই দিনগুলো কেন সবচেয়ে গুরুত্বপূর্ণ',
+      'আপনার উর্বর সময় কীভাবে চিনবেন',
+      'মূল কথা',
+    ],
+    section1Body: 'উর্বর সময় বলতে আপনার চক্রের সেই সময়কে বোঝায়, যখন গর্ভধারণ সম্ভব। এটি প্রায় 6 দিন স্থায়ী হয়: ডিম্বস্ফোটনের আগের 5 দিন এবং ডিম্বস্ফোটনের দিনটি।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'প্রতিটি চক্র আলাদা: উর্বর সময় এক মাস থেকে আরেক মাসে ক্যালেন্ডারের একই দিনে পড়বে, এমন নয়।',
+    section2Body1: 'শুক্রাণু প্রজননতন্ত্রে সর্বোচ্চ 5 দিন পর্যন্ত বেঁচে থাকতে পারে, ফলে গর্ভধারণ সম্ভব এমন সময় আরও বিস্তৃত হয়। অন্যদিকে ডিম্বাণু নির্গত হওয়ার পর মাত্র প্রায় 24 ঘণ্টা নিষিক্ত হওয়ার উপযুক্ত থাকে।',
+    section2Body2: 'উদাহরণস্বরূপ, ডিম্বস্ফোটনের 3 দিন আগে মিলন হলে গর্ভধারণ হতে পারে, কিন্তু ডিম্বস্ফোটনের পরদিন মিলন হলে প্রায়ই তা অনেক দেরি হয়ে যায়।',
+    section3Intro: 'একসঙ্গে পর্যবেক্ষণ করা বেশ কয়েকটি লক্ষণ এই সময়টিকে আরও ভালোভাবে চিহ্নিত করতে সাহায্য করে:',
+    trackingSigns: [
+      'আপনার চক্রের দৈর্ঘ্য ট্র্যাক করা',
+      'জরায়ুমুখের শ্লেষ্মা পর্যবেক্ষণ করা',
+      'বেসাল শরীরের তাপমাত্রা মাপা',
+      'ডিম্বস্ফোটন (এলএইচ) পরীক্ষা ব্যবহার করা',
+    ],
+    tip2Title: 'জেনে রাখা ভালো',
+    tip2Text: 'একাধিক লক্ষণ (চক্র, শ্লেষ্মা, তাপমাত্রা) একসঙ্গে মিলিয়ে দেখলে যেকোনো একটি লক্ষণের চেয়ে আপনার উর্বর সময় সম্পর্কে অনেক নির্ভরযোগ্য ধারণা পাওয়া যায়।',
+    shareMessage: 'উর্বর সময়: এটি কীভাবে কাজ করে — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

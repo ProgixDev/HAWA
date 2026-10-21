@@ -32,6 +32,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'firstperiod-choisir-protection';
 
@@ -65,7 +66,7 @@ const RELATED_IMAGES = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
   fr: {
     badge: 'PREMIÈRES RÈGLES',
     title: 'Quelle protection choisir\npour mes premières règles ?',
@@ -621,7 +622,157 @@ const CONTENT = {
     ],
     shareMessage: '初めての生理にはどんな生理用品を選べばいい？ — AWA',
   },
-} as const;
+  ko: {
+    badge: '첫 생리',
+    title: '첫 생리에는 어떤 생리용품을\n골라야 할까요?',
+    metaDuration: '6분 읽기',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '생리 중에 몸을 보호하는 방법은 여러 가지예요. 어느 것이 더 낫다고 할 수는 없고, 개인의 편안함이 선택의 기준이 돼요.',
+    contentsTitle: '이 아티클에서는',
+    topics: [
+      '생리용품의 종류',
+      '편안함에 따라 고르는 방법',
+      '생리용품을 교체하는 방법',
+    ],
+    body1: '첫 생리에는 속옷에 바로 붙이는 생리대가 보통 가장 쓰기 쉬워요. 생리 팬티와 탐폰은 마음이 내킬 때 나중에 써 볼 수 있는 다른 선택지예요.',
+    options: [
+      {
+        title: '생리대',
+        text: '쓰기 쉬워요. 속옷에 붙여서 사용하고 정기적으로 갈아 줘요.',
+      },
+      {
+        title: '생리 팬티',
+        text: '흡수력이 있고 세탁해서 다시 입을 수 있어서 평소에도 편하게 입기 좋은 속옷이에요.',
+      },
+      {
+        title: '탐폰',
+        text: '몸 안에 넣어서 사용해요. 사용할지, 언제 사용할지는 자신의 속도에 맞춰 직접 정하면 돼요.',
+      },
+    ],
+    body2: '정답이나 오답인 생리용품은 없어요. 몸, 생활 습관, 편안함의 기준에 따라 맞는 것이 모두 달라요. 예를 들어 탐폰은 몸 안에 넣는 방식이라 내 몸에 조금 더 익숙해져야 해요. 첫 생리부터 꼭 써야 하는 것은 아니에요.',
+    tipTitle: '알아 두면 좋아요',
+    tipText: '시간을 두고 여러 종류를 써 보면 나에게 가장 잘 맞는 것을 찾을 수 있어요. 부담 가질 필요 없어요.',
+    body3: '평균적으로 생리용품은 4~6시간마다 갈아야 해요. 출혈량이 많은 날에는 더 자주 갈아 주세요. 정기적으로 갈아 주면 편안하게 지내고 질 주변 위생을 잘 지키는 데 도움이 돼요.',
+    relatedTitle: '♥  함께 보면 좋은 글',
+    related: [
+      {
+        title: '생리 출혈량 이해하기',
+        meta: '7분  ·  가이드',
+      },
+      {
+        title: '첫 생리를 일상에서 어떻게 관리할까요?',
+        meta: '5분  ·  가이드',
+      },
+      {
+        title: '첫 생리, 무엇을 기대해야 할까요',
+        meta: '5분  ·  가이드',
+      },
+    ],
+    shareMessage: '첫 생리에는 어떤 생리용품을 골라야 할까요? — AWA',
+  },
+  'pt-PT': {
+    badge: 'PRIMEIRO PERÍODO',
+    title: 'Que proteção devo escolher\npara o meu primeiro período?',
+    metaDuration: '6 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Existem várias formas de se proteger durante o período. Nenhuma é melhor do que outra — o conforto pessoal é o que orienta a escolha.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Os diferentes tipos de proteção',
+      'Como escolher consoante o seu conforto',
+      'Como mudar a proteção',
+    ],
+    body1: 'Para o primeiro período, o penso higiénico é geralmente a proteção mais simples de usar, pois fica diretamente na roupa interior. A roupa interior menstrual e os tampões são outras opções que pode experimentar mais tarde, quando lhe apetecer.',
+    options: [
+      {
+        title: 'Pensos higiénicos',
+        text: 'Fáceis de usar, ficam na roupa interior e mudam-se com regularidade.',
+      },
+      {
+        title: 'Roupa interior menstrual',
+        text: 'Roupa interior lavável, com poder de absorção, confortável para o uso diário.',
+      },
+      {
+        title: 'Tampões',
+        text: 'Inserem-se dentro do corpo; usá-los ou não, e quando, é uma decisão sua, ao seu ritmo.',
+      },
+    ],
+    body2: 'Não há proteção certa ou errada: cada uma convém a corpos, hábitos e níveis de conforto diferentes. Os tampões, por exemplo, inserem-se dentro do corpo e exigem um pouco mais de familiaridade com ele — nada diz que tem de os usar logo no primeiro período.',
+    tipTitle: 'Bom saber',
+    tipText: 'Experimentar diferentes tipos de proteção ao longo do tempo ajuda a encontrar a que melhor lhe convém, sem pressão.',
+    body3: 'Em média, a proteção deve ser mudada a cada 4 a 6 horas, com maior frequência nos dias de fluxo mais abundante. Mudá-la com regularidade ajuda a manter-se confortável e a ter uma boa higiene íntima.',
+    relatedTitle: '♥  Também pode gostar',
+    related: [
+      {
+        title: 'Compreender o seu fluxo menstrual',
+        meta: '7 min  ·  Guia',
+      },
+      {
+        title: 'Como gerir o primeiro período no dia a dia?',
+        meta: '5 min  ·  Guia',
+      },
+      {
+        title: 'O seu primeiro período: o que esperar',
+        meta: '5 min  ·  Guia',
+      },
+    ],
+    shareMessage: 'Que proteção devo escolher para o meu primeiro período? — AWA',
+  },
+  bn: {
+    badge: 'প্রথম মাসিক',
+    title: 'প্রথম মাসিকের জন্য\nকোন সুরক্ষা সামগ্রী বেছে নেব?',
+    metaDuration: 'পড়তে 6 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'মাসিকের সময় নিজেকে সুরক্ষিত রাখার একাধিক উপায় আছে। কোনোটিই অন্যটির চেয়ে ভালো নয়: আপনার নিজের স্বাচ্ছন্দ্যই পছন্দ ঠিক করে দেয়।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'সুরক্ষা সামগ্রীর বিভিন্ন ধরন',
+      'স্বাচ্ছন্দ্য অনুযায়ী কীভাবে বেছে নেবেন',
+      'সুরক্ষা সামগ্রী কীভাবে বদলাবেন',
+    ],
+    body1: 'প্রথম মাসিকের জন্য সাধারণত প্যাড ব্যবহার করাই সবচেয়ে সহজ, কারণ এটি সরাসরি অন্তর্বাসে লাগানো যায়। পিরিয়ড আন্ডারওয়্যার ও ট্যাম্পন অন্য দুটি বিকল্প, যা পরে ইচ্ছা হলে চেষ্টা করে দেখতে পারেন।',
+    options: [
+      {
+        title: 'প্যাড',
+        text: 'ব্যবহার করা সহজ; অন্তর্বাসে লাগাতে হয় এবং নিয়মিত বদলাতে হয়।',
+      },
+      {
+        title: 'পিরিয়ড আন্ডারওয়্যার',
+        text: 'শোষণক্ষম, ধোয়া যায় এমন অন্তর্বাস, যা প্রতিদিনের ব্যবহারে আরামদায়ক।',
+      },
+      {
+        title: 'ট্যাম্পন',
+        text: 'শরীরের ভেতরে প্রবেশ করাতে হয়; ব্যবহার করবেন কি না এবং কবে করবেন, তা আপনার নিজের গতিতে আপনিই ঠিক করবেন।',
+      },
+    ],
+    body2: 'সুরক্ষা সামগ্রীর কোনো সঠিক বা ভুল পছন্দ নেই: প্রতিটি ধরন ভিন্ন শরীর, অভ্যাস ও স্বাচ্ছন্দ্যের সঙ্গে মানানসই। যেমন, ট্যাম্পন শরীরের ভেতরে প্রবেশ করাতে হয়, তাই নিজের শরীর সম্পর্কে আরেকটু পরিচিতি দরকার হয়: প্রথম মাসিক থেকেই এটি ব্যবহার করতে হবে, এমন কোনো কথা নেই।',
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'সময়ের সঙ্গে বিভিন্ন ধরনের সুরক্ষা সামগ্রী চেষ্টা করলে আপনার জন্য সবচেয়ে উপযুক্তটি খুঁজে পাওয়া যায়, কোনো চাপ ছাড়াই।',
+    body3: 'গড়ে প্রতি 4 থেকে 6 ঘণ্টায় সুরক্ষা সামগ্রী বদলানো উচিত; রক্তক্ষরণ বেশি হলে আরও ঘন ঘন বদলাতে হবে। নিয়মিত বদলালে আপনি স্বাচ্ছন্দ্যে থাকবেন এবং ব্যক্তিগত পরিচ্ছন্নতাও বজায় থাকবে।',
+    relatedTitle: '♥  আপনার আরও ভালো লাগতে পারে',
+    related: [
+      {
+        title: 'আপনার মাসিকের রক্তক্ষরণ বোঝা',
+        meta: '7 মিনিট  ·  গাইড',
+      },
+      {
+        title: 'প্রথম মাসিক প্রতিদিনের জীবনে কীভাবে সামলাবেন?',
+        meta: '5 মিনিট  ·  গাইড',
+      },
+      {
+        title: 'আপনার প্রথম মাসিক: কী আশা করবেন',
+        meta: '5 মিনিট  ·  গাইড',
+      },
+    ],
+    shareMessage: 'প্রথম মাসিকের জন্য কোন সুরক্ষা সামগ্রী বেছে নেব? — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

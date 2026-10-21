@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'pcos-diagnostic-examens';
 
@@ -56,7 +57,7 @@ const BLOOD_TEST_META = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('PcosDiagnosis', {
   fr: {
     badge: 'SOPK',
     title: 'Diagnostic du SOPK :\nexamens et bilan',
@@ -1116,7 +1117,298 @@ const CONTENT = {
     disclaimerText: 'この記事は情報提供のみを目的としており、医師の診察や、検査結果の一人ひとりに合わせた解釈に代わるものではありません。',
     shareMessage: 'PCOSの診断：検査と精密検査 — AWA',
   },
-} as const;
+  ko: {
+    badge: 'PCOS',
+    title: 'PCOS 진단:\n검사와 평가',
+    metaDuration: '읽는 시간 7분',
+    metaType: '가이드',
+    metaLevel: '중급',
+    metaValidated: '검토된 콘텐츠',
+    intro: 'PCOS를 어떻게 진단하는지, 어떤 검사를 권할 수 있는지, 그리고 진료를 차분하게 준비하는 방법을 알아봐요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '진단을 위한 평가 이해하기',
+      '평가의 주요 단계',
+      '호르몬 혈액 검사',
+      '골반 초음파',
+      '진단이 알려 주지 않는 것',
+      '진료 준비하기',
+      '핵심 정리',
+    ],
+    section1Body1: '다낭성 난소 증후군(PCOS) 진단은 한 가지 검사만으로 이루어지지 않아요. 의료 전문가는 생리 주기 이력, 증상, 진찰 결과, 검사실 검사, 그리고 상황에 따라 초음파까지 여러 정보를 종합해요.',
+    section1Body2: '목표는 PCOS와 일치하는 특징을 찾는 것이면서, 불규칙한 생리나 일부 호르몬 관련 증상을 설명할 수 있는 다른 원인을 배제하는 것이기도 해요.',
+    tip1Title: '알아 두세요',
+    tip1Text: '진단은 언제나 사람마다 달라요. PCOS가 있는 두 사람이라도 증상과 검사 결과는 매우 다를 수 있어요.',
+    section2Body: '평가는 여러 단계로 진행될 수 있어요. 모든 사람에게 똑같은 방식으로 다 시행하는 것은 아니에요.',
+    diagnosisSteps: [
+      {
+        title: '문진',
+        text: '전문가가 생리 주기, 증상, 병력, 복용 중인 치료 등 이력을 확인해요.',
+      },
+      {
+        title: '진찰',
+        text: '특히 안드로겐 과다의 징후를 살피고 전반적인 상태를 평가해요.',
+      },
+      {
+        title: '혈액 검사',
+        text: '상황을 분명히 하기 위해 호르몬 검사와 대사 검사를 요청할 수 있어요.',
+      },
+      {
+        title: '초음파',
+        text: '난소의 모양을 관찰해 평가를 보완할 수 있어요.',
+      },
+    ],
+    flowTitle: '과정 한눈에 보기',
+    flowItems: [
+      '이력과 증상',
+      '진찰',
+      '상황에 따른 검사',
+      '필요하면 초음파',
+    ],
+    section3Body1: '안드로겐 과다의 징후를 찾고, 생식 기능에 관여하는 일부 호르몬을 평가하고, 증상의 다른 가능한 원인을 살펴보기 위해 혈액 검사를 권할 수 있어요.',
+    section3Body2: '어떤 검사를 할지는 나이, 증상, 병력, 그리고 전문가가 확인하려는 내용에 따라 달라져요.',
+    bloodTests: [
+      {
+        title: '안드로겐',
+        text: '테스토스테론과 상황에 따른 다른 호르몬이에요.',
+      },
+      {
+        title: '갑상선 기능',
+        text: '특히 불규칙한 주기의 일부 원인을 배제하는 데 도움이 돼요.',
+      },
+      {
+        title: '대사 검사',
+        text: '혈당, 그리고 위험 요인에 따라 지질 검사를 함께 하기도 해요.',
+      },
+    ],
+    alertTitle: '중요해요',
+    alertText: '호르몬 검사 결과는 임상적 상황과 함께 해석해야 해요. 보통 수치 하나만으로는 PCOS 진단을 결론짓기에 충분하지 않아요.',
+    section4Body: '초음파로 난소의 모양을 관찰하고, 특히 작은 난포가 많은지 살펴볼 수 있어요. 또 일부 증상을 설명할 수 있는 다른 요인도 전문가가 살펴볼 수 있어요.',
+    tip2Title: '알아 두세요',
+    tip2Text: '초음파에서 난포가 많이 보인다고 해서 곧바로 PCOS가 있다는 뜻은 아니에요. 결과는 나머지 평가와 함께 해석해야 해요.',
+    section5Body: 'PCOS 진단을 받았다고 해서 앞으로 어떻게 진행될지 정확히 예측할 수 있는 것은 아니에요. 이 증후군은 사람마다 매우 다르게 나타날 수 있어요.',
+    mythItems: [
+      'PCOS가 곧 난임을 뜻하지는 않아요.',
+      'PCOS라고 해서 반드시 낭종이 있는 것은 아니에요.',
+      '진단만으로 치료가 정해지지는 않아요.',
+      '초음파가 정상이어도 PCOS가 아니라고 단정할 수는 없어요.',
+    ],
+    section6Body: '미리 준비한 몇 가지 정보는 전문가가 이력을 이해하고 가장 적절한 검사를 고르는 데 도움이 될 수 있어요.',
+    appointmentQuestions: [
+      '생리 주기가 불규칙한 지 얼마나 되었나요?',
+      '여드름, 평소와 다른 털의 증가, 또는 탈모를 느꼈나요?',
+      '가족 중에 PCOS나 당뇨병이 있나요?',
+      '가까운 시일이나 중기적으로 임신을 원하나요?',
+    ],
+    preparationTitle: '진료 전 작은 팁',
+    preparationText: '가능하면 마지막 생리 날짜, 대략적인 주기 길이, 느끼는 증상, 복용 중인 치료나 보충제를 적어 두세요.',
+    summaryTitle: '평가의 핵심',
+    summaryItems: [
+      '진단은 한 가지 검사가 아니라 여러 요소에 근거해요.',
+      '혈액 검사로 일부 호르몬 불균형을 찾고 다른 원인을 배제할 수 있어요.',
+      '상황에 따라 초음파로 평가를 보완할 수 있어요.',
+      '결과는 항상 의료 전문가가 해석해야 해요.',
+    ],
+    finalTipTitle: '핵심 정리',
+    finalTipText: 'PCOS 평가는 한 번의 검사도, 최종 판정도 아니에요. 내 호르몬 기능을 이해하고, 다른 가능한 원인을 살펴보고, 내 상황에 맞는 관리를 만들어 가는 데 도움이 돼요.',
+    disclaimerText: '이 아티클은 정보 제공만을 위한 것이며, 진료 상담이나 검사 결과에 대한 개인별 해석을 대신하지 않아요.',
+    shareMessage: 'PCOS 진단: 검사와 평가 — AWA',
+  },
+  'pt-PT': {
+    badge: 'SOP',
+    title: 'Diagnóstico da SOP:\nexames e avaliação',
+    metaDuration: '7 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Intermédio',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Como é diagnosticada a SOP, que exames podem ser propostos e como se preparar com calma para a sua consulta.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Compreender a avaliação diagnóstica',
+      'As principais etapas da avaliação',
+      'As análises hormonais ao sangue',
+      'A ecografia pélvica',
+      'O que o diagnóstico não lhe diz',
+      'Preparar a sua consulta',
+      'Pontos essenciais',
+    ],
+    section1Body1: 'O diagnóstico da síndrome do ovário poliquístico não se baseia num único exame. O profissional de saúde reúne várias informações: o seu historial de ciclos, os eventuais sintomas, o exame clínico, as análises laboratoriais e, consoante a situação, uma ecografia.',
+    section1Body2: 'O objetivo é, ao mesmo tempo, procurar sinais compatíveis com a SOP e excluir outras causas que possam explicar períodos irregulares ou certos sintomas hormonais.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'O diagnóstico é sempre personalizado. Duas mulheres com SOP podem ter sintomas e resultados de exames muito diferentes.',
+    section2Body: 'A avaliação pode seguir várias etapas. Nem todas são necessariamente realizadas da mesma forma para todas as mulheres.',
+    diagnosisSteps: [
+      {
+        title: 'Recolha de historial',
+        text: 'O profissional recolhe o seu historial: ciclos, sintomas, antecedentes médicos e tratamentos.',
+      },
+      {
+        title: 'Exame clínico',
+        text: 'Procura, em particular, sinais de excesso de androgénios e avalia o seu estado geral.',
+      },
+      {
+        title: 'Análises ao sangue',
+        text: 'Podem ser pedidos exames hormonais e metabólicos para esclarecer a situação.',
+      },
+      {
+        title: 'Ecografia',
+        text: 'Pode completar a avaliação, ao observar o aspeto dos ovários.',
+      },
+    ],
+    flowTitle: 'O processo num relance',
+    flowItems: [
+      'Historial e sintomas',
+      'Exame clínico',
+      'Exames consoante a situação',
+      'Ecografia, se necessário',
+    ],
+    section3Body1: 'Pode ser proposta uma análise ao sangue para procurar sinais de excesso de androgénios, avaliar certas hormonas envolvidas na função reprodutiva e procurar outras possíveis causas para os seus sintomas.',
+    section3Body2: 'Os exames escolhidos dependem da sua idade, dos seus sintomas, do seu historial médico e do que o profissional pretende verificar.',
+    bloodTests: [
+      {
+        title: 'Androgénios',
+        text: 'Testosterona e outras hormonas, consoante a situação.',
+      },
+      {
+        title: 'Função da tiroide',
+        text: 'Ajuda, em particular, a excluir certas causas de ciclos irregulares.',
+      },
+      {
+        title: 'Avaliação metabólica',
+        text: 'Glicemia e, por vezes, perfil lipídico, consoante os fatores de risco.',
+      },
+    ],
+    alertTitle: 'Importante',
+    alertText: 'Os resultados hormonais têm de ser interpretados em conjunto com o contexto clínico. Um único valor geralmente não basta, por si só, para concluir um diagnóstico de SOP.',
+    section4Body: 'Uma ecografia pode ser utilizada para observar o aspeto dos ovários e procurar, em particular, um número elevado de pequenos folículos. Permite também ao profissional procurar outros fatores que possam explicar certos sintomas.',
+    tip2Title: 'Bom saber',
+    tip2Text: 'Ver muitos folículos na ecografia não significa automaticamente que tem SOP. O resultado tem de ser interpretado em conjunto com o resto da avaliação.',
+    section5Body: 'Receber um diagnóstico de SOP não permite prever exatamente como as coisas vão evoluir no seu caso. A síndrome pode manifestar-se de forma muito diferente de pessoa para pessoa.',
+    mythItems: [
+      'A SOP não significa automaticamente infertilidade.',
+      'A SOP não significa necessariamente ter quistos.',
+      'O diagnóstico, por si só, não determina o tratamento.',
+      'Uma ecografia normal não exclui necessariamente a SOP.',
+    ],
+    section6Body: 'Algumas informações preparadas com antecedência podem ajudar o profissional a compreender o seu historial e a escolher os exames mais pertinentes.',
+    appointmentQuestions: [
+      'Há quanto tempo os seus ciclos são irregulares?',
+      'Notou acne, crescimento invulgar de pelos ou queda de cabelo?',
+      'Existe historial familiar de SOP ou de diabetes?',
+      'Deseja engravidar a curto ou médio prazo?',
+    ],
+    preparationTitle: 'Uma pequena dica antes da consulta',
+    preparationText: 'Se possível, anote as datas do seu último período, a duração aproximada dos seus ciclos, os sintomas que está a notar e quaisquer tratamentos ou suplementos que esteja a tomar.',
+    summaryTitle: 'O essencial da avaliação',
+    summaryItems: [
+      'O diagnóstico baseia-se em vários fatores, e não num único exame.',
+      'Uma análise ao sangue pode procurar certos desequilíbrios hormonais e excluir outras causas.',
+      'Uma ecografia pode completar a avaliação, consoante a situação.',
+      'Os resultados devem ser sempre interpretados por um profissional de saúde.',
+    ],
+    finalTipTitle: 'Pontos essenciais',
+    finalTipText: 'Uma avaliação da SOP não é um único exame nem um veredicto final. Ajuda a compreender o seu funcionamento hormonal, a procurar outras causas possíveis e a construir um acompanhamento adequado à sua situação.',
+    disclaimerText: 'Este artigo é apenas informativo e não substitui uma consulta médica nem a interpretação personalizada dos resultados dos seus exames.',
+    shareMessage: 'Diagnóstico da SOP: exames e avaliação — AWA',
+  },
+  bn: {
+    badge: 'পিসিওএস',
+    title: 'পিসিওএস নির্ণয়:\nপরীক্ষা ও মূল্যায়ন',
+    metaDuration: '7 মিনিটের পাঠ',
+    metaType: 'গাইড',
+    metaLevel: 'মধ্যম',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'পলিসিস্টিক ওভারি সিনড্রোম (পিসিওএস) কীভাবে নির্ণয় করা হয়, কোন কোন পরীক্ষার প্রস্তাব দেওয়া হতে পারে এবং শান্তভাবে অ্যাপয়েন্টমেন্টের জন্য কীভাবে প্রস্তুত হবেন।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'নির্ণয়ের মূল্যায়ন বোঝা',
+      'মূল্যায়নের প্রধান ধাপগুলো',
+      'হরমোনের রক্তপরীক্ষা',
+      'তলপেটের আলট্রাসাউন্ড',
+      'নির্ণয় যা বলে না',
+      'অ্যাপয়েন্টমেন্টের জন্য প্রস্তুতি',
+      'মূল বিষয়গুলো',
+    ],
+    section1Body1: 'পলিসিস্টিক ওভারি সিনড্রোম নির্ণয় কোনো একক পরীক্ষার ওপর নির্ভর করে না। স্বাস্থ্যসেবা পেশাজীবী একাধিক তথ্য একত্র করেন: আপনার চক্রের ইতিহাস, কোনো উপসর্গ, শারীরিক পরীক্ষা, ল্যাব পরীক্ষা এবং পরিস্থিতি অনুযায়ী আলট্রাসাউন্ড।',
+    section1Body2: 'উদ্দেশ্য হলো একদিকে পিসিওএসের সঙ্গে সামঞ্জস্যপূর্ণ বৈশিষ্ট্য খুঁজে দেখা, অন্যদিকে অনিয়মিত মাসিক বা কিছু হরমোনজনিত উপসর্গের অন্যান্য সম্ভাব্য কারণ বাদ দেওয়া।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'নির্ণয় সবসময়ই ব্যক্তিভেদে আলাদা হয়। পিসিওএস আছে এমন দুজন নারীর উপসর্গ ও পরীক্ষার ফল অনেক ভিন্ন হতে পারে।',
+    section2Body: 'মূল্যায়ন কয়েকটি ধাপে হতে পারে। এই ধাপগুলো সবার ক্ষেত্রে একইভাবে পরিচালিত হওয়া জরুরি নয়।',
+    diagnosisSteps: [
+      {
+        title: 'ইতিহাস নেওয়া',
+        text: 'পেশাজীবী আপনার ইতিহাস সংগ্রহ করেন: চক্র, উপসর্গ, চিকিৎসা-পটভূমি ও চলমান চিকিৎসা।',
+      },
+      {
+        title: 'শারীরিক পরীক্ষা',
+        text: 'তিনি বিশেষ করে অ্যান্ড্রোজেনের আধিক্যের লক্ষণ খোঁজেন এবং আপনার সামগ্রিক অবস্থা মূল্যায়ন করেন।',
+      },
+      {
+        title: 'রক্তপরীক্ষা',
+        text: 'পরিস্থিতি স্পষ্ট করতে হরমোন ও বিপাকজনিত পরীক্ষার অনুরোধ করা হতে পারে।',
+      },
+      {
+        title: 'আলট্রাসাউন্ড',
+        text: 'ডিম্বাশয়ের গঠন পর্যবেক্ষণ করে এটি মূল্যায়ন সম্পূর্ণ করতে সাহায্য করতে পারে।',
+      },
+    ],
+    flowTitle: 'এক নজরে প্রক্রিয়া',
+    flowItems: [
+      'ইতিহাস ও উপসর্গ',
+      'শারীরিক পরীক্ষা',
+      'পরিস্থিতি অনুযায়ী পরীক্ষা',
+      'প্রয়োজনে আলট্রাসাউন্ড',
+    ],
+    section3Body1: 'অ্যান্ড্রোজেনের আধিক্যের লক্ষণ খুঁজে দেখতে, প্রজনন কার্যক্রমে জড়িত কিছু হরমোন মূল্যায়ন করতে এবং আপনার উপসর্গের অন্যান্য সম্ভাব্য কারণ খুঁজে দেখতে রক্তপরীক্ষার প্রস্তাব দেওয়া হতে পারে।',
+    section3Body2: 'কোন পরীক্ষাগুলো বেছে নেওয়া হবে তা নির্ভর করে আপনার বয়স, উপসর্গ, চিকিৎসা-ইতিহাস এবং পেশাজীবী কী যাচাই করতে চাইছেন তার ওপর।',
+    bloodTests: [
+      {
+        title: 'অ্যান্ড্রোজেন',
+        text: 'টেস্টোস্টেরন এবং পরিস্থিতি অনুযায়ী অন্যান্য হরমোন।',
+      },
+      {
+        title: 'থাইরয়েডের কার্যক্রম',
+        text: 'বিশেষ করে অনিয়মিত চক্রের কিছু কারণ বাদ দিতে সাহায্য করে।',
+      },
+      {
+        title: 'বিপাকজনিত পরীক্ষা',
+        text: 'রক্তে গ্লুকোজ, ঝুঁকির কারণ অনুযায়ী কখনো কখনো লিপিড প্যানেল।',
+      },
+    ],
+    alertTitle: 'গুরুত্বপূর্ণ',
+    alertText: 'হরমোনের ফল ক্লিনিক্যাল প্রেক্ষাপটের সঙ্গে মিলিয়ে ব্যাখ্যা করতে হয়। সাধারণত একটিমাত্র মান নিজে থেকে পিসিওএস নির্ণয়ের সিদ্ধান্তে পৌঁছাতে যথেষ্ট নয়।',
+    section4Body: 'ডিম্বাশয়ের গঠন পর্যবেক্ষণ করতে এবং বিশেষ করে ছোট ছোট ফলিকলের সংখ্যা বেশি কি না তা দেখতে আলট্রাসাউন্ড ব্যবহার করা যেতে পারে। এর মাধ্যমে পেশাজীবী কিছু উপসর্গের ব্যাখ্যা হতে পারে এমন অন্যান্য বিষয়ও খুঁজে দেখতে পারেন।',
+    tip2Title: 'জেনে রাখা ভালো',
+    tip2Text: 'আলট্রাসাউন্ডে অনেক ফলিকল দেখা গেলে স্বয়ংক্রিয়ভাবে বোঝায় না যে আপনার পিসিওএস আছে। মূল্যায়নের বাকি অংশের সঙ্গে মিলিয়ে ফল ব্যাখ্যা করতে হয়।',
+    section5Body: 'পিসিওএস নির্ণয় হওয়ার অর্থ এই নয় যে আপনার ক্ষেত্রে পরিস্থিতি ঠিক কীভাবে এগোবে তা আগে থেকে বলা সম্ভব। এই সিনড্রোম একজন থেকে আরেকজনে খুবই ভিন্নভাবে প্রকাশ পেতে পারে।',
+    mythItems: [
+      'পিসিওএস থাকার মানে স্বয়ংক্রিয়ভাবে বন্ধ্যাত্ব নয়।',
+      'পিসিওএস থাকলেই যে সিস্ট থাকবে, এমন নয়।',
+      'শুধু নির্ণয় থেকেই চিকিৎসা নির্ধারিত হয় না।',
+      'স্বাভাবিক আলট্রাসাউন্ড মানেই পিসিওএস বাদ পড়ে যায় না।',
+    ],
+    section6Body: 'আগে থেকে প্রস্তুত করা কিছু তথ্য পেশাজীবীকে আপনার ইতিহাস বুঝতে এবং সবচেয়ে প্রাসঙ্গিক পরীক্ষাগুলো বেছে নিতে সাহায্য করতে পারে।',
+    appointmentQuestions: [
+      'আপনার চক্র কত দিন ধরে অনিয়মিত?',
+      'আপনি কি ব্রণ, অস্বাভাবিক লোম গজানো বা চুল পড়া লক্ষ করেছেন?',
+      'পরিবারে কি পিসিওএস বা ডায়াবেটিসের ইতিহাস আছে?',
+      'আপনি কি অদূর বা মাঝারি ভবিষ্যতে গর্ভবতী হতে চান?',
+    ],
+    preparationTitle: 'অ্যাপয়েন্টমেন্টের আগে একটি ছোট পরামর্শ',
+    preparationText: 'সম্ভব হলে আপনার শেষ মাসিকের তারিখ, চক্রের আনুমানিক দৈর্ঘ্য, আপনি যেসব উপসর্গ লক্ষ করছেন এবং যেসব চিকিৎসা বা সম্পূরক গ্রহণ করছেন তা লিখে রাখুন।',
+    summaryTitle: 'মূল্যায়নের মূল কথাগুলো',
+    summaryItems: [
+      'নির্ণয় একাধিক বিষয়ের ওপর নির্ভর করে, কোনো একক পরীক্ষার ওপর নয়।',
+      'রক্তপরীক্ষায় হরমোনের কিছু ভারসাম্যহীনতা খুঁজে দেখা এবং অন্যান্য কারণ বাদ দেওয়া যেতে পারে।',
+      'পরিস্থিতি অনুযায়ী আলট্রাসাউন্ড মূল্যায়ন সম্পূর্ণ করতে পারে।',
+      'ফল সবসময় একজন স্বাস্থ্যসেবা পেশাজীবীর ব্যাখ্যা করা উচিত।',
+    ],
+    finalTipTitle: 'মূল বিষয়গুলো',
+    finalTipText: 'পিসিওএসের মূল্যায়ন কোনো একক পরীক্ষা বা চূড়ান্ত রায় নয়। এটি আপনার হরমোনের কার্যক্রম বুঝতে, অন্যান্য সম্ভাব্য কারণ খুঁজে দেখতে এবং আপনার পরিস্থিতির উপযোগী যত্ন গড়ে তুলতে সাহায্য করে।',
+    disclaimerText: 'এই নিবন্ধ শুধুমাত্র তথ্যের জন্য এবং এটি চিকিৎসকের পরামর্শ বা আপনার পরীক্ষার ফলের ব্যক্তিগত ব্যাখ্যার বিকল্প নয়।',
+    shareMessage: 'পিসিওএস নির্ণয়: পরীক্ষা ও মূল্যায়ন — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

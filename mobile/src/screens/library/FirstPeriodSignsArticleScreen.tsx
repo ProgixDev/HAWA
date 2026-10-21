@@ -32,6 +32,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'firstperiod-premiers-signes';
 
@@ -67,7 +68,7 @@ const RELATED_IMAGES = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
   fr: {
     badge: 'PREMIÈRES RÈGLES',
     title: 'Les premiers signes\navant les règles',
@@ -656,7 +657,184 @@ const CONTENT = {
     ],
     shareMessage: '初めての生理の前ぶれとなるサイン — AWA',
   },
-} as const;
+  ko: {
+    badge: '첫 생리',
+    title: '첫 생리의\n초기 신호',
+    metaDuration: '5분 읽기',
+    metaType: '아티클',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '첫 생리가 시작되기 전에 몸이 미리 신호를 보내는 경우가 많아요. 이런 신호를 알아 두면 덜 놀랄 수 있어요.',
+    contentsTitle: '이 아티클에서는',
+    topics: [
+      '점진적인 변화',
+      '살펴볼 신호',
+      '신호의 의미',
+    ],
+    body1: '첫 생리 몇 달 전부터 몸은 서서히 변해요. 체형이 달라지고, 새로운 부위에 체모가 나기 시작하고, 땀 나는 방식도 바뀌어요. 모두 사춘기에 나타나는 자연스러운 변화로, 몸이 차근차근 준비하고 있다는 뜻이에요.',
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '이런 변화는 사람마다 같은 때에, 같은 속도로 일어나지 않아요. 그건 아주 자연스러운 일이에요.',
+    signs: [
+      {
+        title: '몸의 변화',
+        text: '몸은 서서히 변해요. 체형, 체모, 땀 나는 방식이 모두 달라질 수 있어요.',
+      },
+      {
+        title: '질 분비물',
+        text: '첫 생리 몇 달 전부터 연한 흰색 분비물이 나타나는 경우가 많아요.',
+      },
+      {
+        title: '뻐근함이나 콕콕 쑤시는 느낌',
+        text: '아랫배가 살짝 당기거나 콕콕 쑤시는 느낌이 들 수 있어요.',
+      },
+      {
+        title: '기분 변화',
+        text: '평소보다 더 예민해지거나 짜증이 나는 일이 흔해요.',
+      },
+      {
+        title: '가슴 통증',
+        text: '가슴이 약간 아프거나 부은 느낌이 들 수 있어요.',
+      },
+    ],
+    body2: '이런 신호가 보이면 보통 앞으로 몇 달 안에 첫 생리가 찾아와요. 다만 정확한 날짜를 예측하는 것은 불가능해요. 이 시기부터는 생리용품을 가까이에 두는 습관을 들이면 좋아요.',
+    alertTitle: '참고하세요',
+    alertText: '이런 신호는 일반적인 참고 사항일 뿐, 정확한 예측이 아니에요. 몸마다 각자의 속도가 있어요.',
+    relatedTitle: '♥  함께 보면 좋은 글',
+    related: [
+      {
+        title: '첫 생리, 무엇을 기대해야 할까요',
+        meta: '5분  ·  가이드',
+      },
+      {
+        title: '첫 생리가 다가오는지 어떻게 알 수 있나요?',
+        meta: '5분  ·  가이드',
+      },
+      {
+        title: '생리 주기의 여러 단계',
+        meta: '5분  ·  아티클',
+      },
+    ],
+    shareMessage: '첫 생리 전의 초기 신호 — AWA',
+  },
+  'pt-PT': {
+    badge: 'PRIMEIRO PERÍODO',
+    title: 'Primeiros sinais\ndo seu primeiro período',
+    metaDuration: '5 min de leitura',
+    metaType: 'Artigo',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'O seu corpo dá muitas vezes pistas antes de o primeiro período chegar. Reconhecê-las pode ajudar a sentir-se menos surpreendida.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Mudanças graduais',
+      'Sinais a observar',
+      'O que significam',
+    ],
+    body1: 'Nos meses que antecedem o primeiro período, o seu corpo muda com suavidade: a silhueta evolui, os pelos começam a surgir em novos locais e a transpiração também se altera. São efeitos normais da puberdade, que preparam o seu corpo com delicadeza.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'Estas mudanças não acontecem todas ao mesmo tempo, nem ao mesmo ritmo, para todas as raparigas — isso é perfeitamente normal.',
+    signs: [
+      {
+        title: 'Mudanças no corpo',
+        text: 'O seu corpo muda gradualmente: a silhueta, os pelos e a transpiração podem alterar-se.',
+      },
+      {
+        title: 'Corrimento vaginal',
+        text: 'Um corrimento ligeiro e esbranquiçado surge muitas vezes alguns meses antes do primeiro período.',
+      },
+      {
+        title: 'Dores ou picadas',
+        text: 'Pode sentir uma ligeira tensão ou picadas na parte inferior da barriga.',
+      },
+      {
+        title: 'Alterações de humor',
+        text: 'É comum sentir-se mais sensível ou irritável do que o habitual.',
+      },
+      {
+        title: 'Sensibilidade nos seios',
+        text: 'Pode notar uma ligeira sensibilidade ou inchaço.',
+      },
+    ],
+    body2: 'Estes sinais significam, normalmente, que o primeiro período chegará nos meses seguintes, embora seja impossível prever uma data exata. Ter proteção à mão passa a ser um bom hábito nesta fase.',
+    alertTitle: 'Atenção',
+    alertText: 'Estes sinais são orientações gerais, nunca uma previsão precisa. Cada corpo segue o seu próprio ritmo.',
+    relatedTitle: '♥  Também pode gostar',
+    related: [
+      {
+        title: 'O seu primeiro período: o que esperar',
+        meta: '5 min  ·  Guia',
+      },
+      {
+        title: 'Como saber se o meu primeiro período está a chegar?',
+        meta: '5 min  ·  Guia',
+      },
+      {
+        title: 'As diferentes fases do ciclo',
+        meta: '5 min  ·  Artigo',
+      },
+    ],
+    shareMessage: 'Primeiros sinais antes do primeiro período — AWA',
+  },
+  bn: {
+    badge: 'প্রথম মাসিক',
+    title: 'প্রথম মাসিকের\nআগাম লক্ষণ',
+    metaDuration: 'পড়তে 5 মিনিট',
+    metaType: 'নিবন্ধ',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'আপনার প্রথম মাসিক শুরু হওয়ার আগে শরীর প্রায়ই কিছু ইঙ্গিত দেয়। এগুলো চিনতে পারলে অবাক হওয়ার ভাবটা কমে আসতে পারে।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'ধীরে ধীরে পরিবর্তন',
+      'যেসব লক্ষণ লক্ষ রাখবেন',
+      'এর অর্থ কী',
+    ],
+    body1: 'প্রথম মাসিকের কয়েক মাস আগে থেকে আপনার শরীর ধীরে ধীরে বদলাতে থাকে: শরীরের গড়ন পরিবর্তিত হয়, নতুন নতুন জায়গায় লোম গজাতে শুরু করে, ঘামের ধরনও বদলায়। এগুলো বয়ঃসন্ধির স্বাভাবিক প্রভাব, যা আলতোভাবে আপনার শরীরকে প্রস্তুত করে তোলে।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'এই পরিবর্তনগুলো সবার ক্ষেত্রে একই সময়ে বা একই গতিতে ঘটে না: এটা সম্পূর্ণ স্বাভাবিক।',
+    signs: [
+      {
+        title: 'শরীরের পরিবর্তন',
+        text: 'আপনার শরীর ধীরে ধীরে বদলায়: শরীরের গড়ন, লোম ও ঘামের ধরন সবই পাল্টে যেতে পারে।',
+      },
+      {
+        title: 'যোনিপথের স্রাব',
+        text: 'প্রথম মাসিকের কয়েক মাস আগে প্রায়ই হালকা, সাদাটে স্রাব দেখা দেয়।',
+      },
+      {
+        title: 'ব্যথা বা খোঁচা লাগা',
+        text: 'তলপেটে হালকা টান বা খোঁচা অনুভব করতে পারেন।',
+      },
+      {
+        title: 'মেজাজের পরিবর্তন',
+        text: 'স্বাভাবিকের চেয়ে বেশি স্পর্শকাতর বা খিটখিটে লাগা খুবই সাধারণ।',
+      },
+      {
+        title: 'স্তনে স্পর্শকাতরতা',
+        text: 'স্তনে হালকা ব্যথা বা ফোলাভাব টের পেতে পারেন।',
+      },
+    ],
+    body2: 'এই লক্ষণগুলো সাধারণত বোঝায় যে পরবর্তী কয়েক মাসের মধ্যে আপনার প্রথম মাসিক শুরু হবে, তবে সঠিক তারিখ আগে থেকে বলা সম্ভব নয়। এই সময়ে সুরক্ষা সামগ্রী হাতের কাছে রাখা একটি ভালো অভ্যাস।',
+    alertTitle: 'লক্ষ্য করুন',
+    alertText: 'এই লক্ষণগুলো সাধারণ ধারণা মাত্র, কখনোই নির্ভুল পূর্বাভাস নয়। প্রতিটি শরীর নিজের গতিতে চলে।',
+    relatedTitle: '♥  আপনার আরও ভালো লাগতে পারে',
+    related: [
+      {
+        title: 'আপনার প্রথম মাসিক: কী আশা করবেন',
+        meta: '5 মিনিট  ·  গাইড',
+      },
+      {
+        title: 'প্রথম মাসিক আসছে কি না, কীভাবে বুঝবেন?',
+        meta: '5 মিনিট  ·  গাইড',
+      },
+      {
+        title: 'মাসিক চক্রের বিভিন্ন পর্যায়',
+        meta: '5 মিনিট  ·  নিবন্ধ',
+      },
+    ],
+    shareMessage: 'প্রথম মাসিকের আগাম লক্ষণ — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

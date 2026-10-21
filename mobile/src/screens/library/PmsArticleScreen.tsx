@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'symptoms-reconnaitre';
 
@@ -61,7 +62,7 @@ const TIP_IMAGES = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('Pms', {
   fr: {
     badge: 'CYCLE & BIEN-ÊTRE',
     title: 'Syndrome prémenstruel (SPM) :\nmieux le comprendre',
@@ -754,7 +755,205 @@ const CONTENT = {
     consultText: '症状が非常に強く、日常生活に支障が出る場合は、月経前不快気分障害（PMDD）の可能性があります。ためらわずに医療従事者に相談してください。',
     shareMessage: '月経前症候群（PMS）：よりよく理解するために — AWA',
   },
-} as const;
+  ko: {
+    badge: '주기와 웰빙',
+    title: '월경 전 증후군(PMS):\n더 잘 이해하기',
+    metaDuration: '읽는 데 4분',
+    metaValidated: '검토된 콘텐츠',
+    intro: 'PMS는 최대 10명 중 8명의 여성에게 나타나요. 피로, 짜증, 더부룩함… 원인을 이해하고 알맞은 습관을 들이면 이 시기를 훨씬 편안하게 보낼 수 있어요.',
+    contentsTitle: '이 아티클에서 다루는 내용',
+    contents: [
+      'PMS란 무엇인가요?',
+      '흔한 증상',
+      '가능한 원인',
+      '한결 편안해지는 방법',
+      '언제 의사를 만나야 할까요?',
+    ],
+    section1Body: '월경 전 증후군은 신체적, 정서적 증상이 함께 나타나는 것으로, 보통 생리 5~10일 전에 시작해서 생리 주기가 시작될 때 사라져요.',
+    visual1Title: '주기와 이어진 시기',
+    visual1Text: '증상은 생리 전에 나타나고, 생리가 시작되면 대개 가라앉아요.',
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '증상의 강도와 종류는 사람마다, 그리고 주기마다 많이 다를 수 있어요.',
+    symptoms: [
+      {
+        title: '감정',
+        text: '짜증, 불안, 우울감, 감정 기복',
+      },
+      {
+        title: '신체',
+        text: '더부룩함, 통증, 피로, 두통',
+      },
+      {
+        title: '행동',
+        text: '단 음식이 당김, 식욕 변화, 피로',
+      },
+      {
+        title: '수면',
+        text: '잠들기 어렵거나 개운하지 않은 잠',
+      },
+    ],
+    section3Body: '호르몬, 특히 프로게스테론과 에스트로겐의 변동이 뇌의 신경전달물질(세로토닌, 도파민)에 영향을 주기 때문에 PMS의 정서적, 신체적 증상이 나타날 수 있어요.',
+    tip2Title: '호르몬이 중요한 역할을 해요',
+    tip2Text: '호르몬 변동은 기분, 에너지, 수면, 그리고 몇몇 신체 감각에 영향을 줄 수 있어요.',
+    tips: [
+      {
+        title: '수분 섭취하기',
+        text: '물을 충분히 마시면 더부룩함을 줄이는 데 도움이 돼요.',
+      },
+      {
+        title: '균형 잡힌 식사하기',
+        text: '마그네슘, 오메가3, 비타민 B가 풍부한 음식을 챙겨 보세요.',
+      },
+      {
+        title: '활동적으로 지내기',
+        text: '신체 활동은 엔도르핀을 분비시키고 스트레스를 줄여 줘요.',
+      },
+      {
+        title: '스트레스 관리하기',
+        text: '호흡 운동, 명상, 일기 쓰기… 나에게 맞는 방법을 찾아보세요.',
+      },
+      {
+        title: '충분히 자기',
+        text: '질 좋은 수면은 호르몬 균형을 지켜 줘요.',
+      },
+    ],
+    consultTitle: '언제 의료진의 조언을 받아야 할까요?',
+    consultText: '증상이 매우 심하고 일상생활에 지장을 준다면 월경 전 불쾌 기분 장애(PMDD)일 수 있어요. 망설이지 말고 의료 전문가와 상담하세요.',
+    shareMessage: '월경 전 증후군(PMS): 더 잘 이해하기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'CICLO E BEM-ESTAR',
+    title: 'Síndrome pré-menstrual (SPM):\ncompreendê-la melhor',
+    metaDuration: '4 min de leitura',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'A SPM afeta até 8 em cada 10 mulheres. Cansaço, irritabilidade, inchaço… Compreender as suas causas e adotar os hábitos certos pode melhorar muito esta altura do mês.',
+    contentsTitle: 'Neste artigo',
+    contents: [
+      'O que é a SPM?',
+      'Sintomas frequentes',
+      'Causas possíveis',
+      'Dicas para se sentir melhor',
+      'Quando consultar um médico?',
+    ],
+    section1Body: 'A síndrome pré-menstrual reúne sintomas físicos e emocionais que costumam surgir 5 a 10 dias antes do período e desaparecem no início do ciclo menstrual.',
+    visual1Title: 'Uma fase ligada ao seu ciclo',
+    visual1Text: 'Os sintomas surgem antes do período e costumam atenuar-se quando este começa.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'A intensidade e o tipo de sintomas podem variar bastante de uma mulher para outra, e de um ciclo para o seguinte.',
+    symptoms: [
+      {
+        title: 'Emoções',
+        text: 'Irritabilidade, ansiedade, tristeza, oscilações de humor',
+      },
+      {
+        title: 'Físicos',
+        text: 'Inchaço, dor, cansaço, dores de cabeça',
+      },
+      {
+        title: 'Comportamento',
+        text: 'Desejo de doces, alterações do apetite, cansaço',
+      },
+      {
+        title: 'Sono',
+        text: 'Dificuldade em dormir ou sono menos reparador',
+      },
+    ],
+    section3Body: 'As flutuações hormonais, em particular da progesterona e dos estrogénios, afetam os neurotransmissores do cérebro (serotonina, dopamina), o que pode explicar os sintomas emocionais e físicos da SPM.',
+    tip2Title: 'As hormonas têm um papel importante',
+    tip2Text: 'As flutuações hormonais podem afetar o humor, a energia, o sono e certas sensações físicas.',
+    tips: [
+      {
+        title: 'Mantenha-se hidratada',
+        text: 'Beber água suficiente ajuda a reduzir o inchaço.',
+      },
+      {
+        title: 'Tenha uma alimentação equilibrada',
+        text: 'Privilegie alimentos ricos em magnésio, ómega-3 e vitaminas do complexo B.',
+      },
+      {
+        title: 'Mantenha-se ativa',
+        text: 'A atividade física liberta endorfinas e reduz o stress.',
+      },
+      {
+        title: 'Gira o seu stress',
+        text: 'Exercícios de respiração, meditação, escrita num diário… Descubra o que resulta consigo.',
+      },
+      {
+        title: 'Durma o suficiente',
+        text: 'Um sono de qualidade favorece o equilíbrio hormonal.',
+      },
+    ],
+    consultTitle: 'Quando procurar aconselhamento médico?',
+    consultText: 'Se os sintomas forem muito intensos e afetarem o seu dia a dia, pode tratar-se de perturbação disfórica pré-menstrual (PDPM). Não hesite em consultar um profissional de saúde.',
+    shareMessage: 'Síndrome pré-menstrual (SPM): compreendê-la melhor — AWA',
+  },
+  bn: {
+    badge: 'চক্র ও সুস্থতা',
+    title: 'মাসিকপূর্ব সিনড্রোম (পিএমএস):\nআরও ভালোভাবে বোঝা',
+    metaDuration: 'পড়তে 4 মিনিট',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'পিএমএস প্রতি 10 জনে 8 জন পর্যন্ত নারীকে প্রভাবিত করে। ক্লান্তি, খিটখিটে ভাব, পেট ফাঁপা… এর কারণ বুঝে সঠিক অভ্যাস গড়ে তুললে মাসের এই সময়টা অনেক সহজ হতে পারে।',
+    contentsTitle: 'এই নিবন্ধে',
+    contents: [
+      'পিএমএস কী?',
+      'সাধারণ উপসর্গ',
+      'সম্ভাব্য কারণ',
+      'ভালো থাকার টিপস',
+      'কখন ডাক্তার দেখাবেন?',
+    ],
+    section1Body: 'মাসিকপূর্ব সিনড্রোম হলো শারীরিক ও মানসিক উপসর্গের একটি সমষ্টি, যা সাধারণত মাসিকের 5 থেকে 10 দিন আগে দেখা দেয় এবং মাসিক চক্রের শুরুতে চলে যায়।',
+    visual1Title: 'আপনার চক্রের সঙ্গে যুক্ত একটি পর্যায়',
+    visual1Text: 'উপসর্গ মাসিকের আগে দেখা দেয় এবং মাসিক শুরু হলে সাধারণত কমে আসে।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'উপসর্গের তীব্রতা ও ধরন এক নারী থেকে আরেক নারীর মধ্যে, এমনকি এক চক্র থেকে আরেক চক্রেও অনেক ভিন্ন হতে পারে।',
+    symptoms: [
+      {
+        title: 'আবেগ',
+        text: 'খিটখিটে ভাব, উদ্বেগ, বিষণ্নতা, মেজাজের ওঠানামা',
+      },
+      {
+        title: 'শারীরিক',
+        text: 'পেট ফাঁপা, ব্যথা, ক্লান্তি, মাথাব্যথা',
+      },
+      {
+        title: 'আচরণ',
+        text: 'মিষ্টি খাওয়ার তীব্র ইচ্ছা, ক্ষুধার পরিবর্তন, ক্লান্তি',
+      },
+      {
+        title: 'ঘুম',
+        text: 'ঘুমাতে অসুবিধা বা কম আরামদায়ক ঘুম',
+      },
+    ],
+    section3Body: 'হরমোনের ওঠানামা, বিশেষ করে প্রজেস্টেরন ও ইস্ট্রোজেনের, মস্তিষ্কের নিউরোট্রান্সমিটারকে (সেরোটোনিন, ডোপামিন) প্রভাবিত করে, যা পিএমএসের মানসিক ও শারীরিক উপসর্গ ব্যাখ্যা করতে পারে।',
+    tip2Title: 'হরমোনের ভূমিকা গুরুত্বপূর্ণ',
+    tip2Text: 'হরমোনের ওঠানামা মেজাজ, শক্তি, ঘুম এবং কিছু শারীরিক অনুভূতিকে প্রভাবিত করতে পারে।',
+    tips: [
+      {
+        title: 'পর্যাপ্ত পানি পান করুন',
+        text: 'যথেষ্ট পানি পান করলে পেট ফাঁপা কমাতে সাহায্য হয়।',
+      },
+      {
+        title: 'সুষম খাবার খান',
+        text: 'ম্যাগনেসিয়াম, ওমেগা-3 ও বি ভিটামিনে সমৃদ্ধ খাবারকে অগ্রাধিকার দিন।',
+      },
+      {
+        title: 'সক্রিয় থাকুন',
+        text: 'শারীরিক কার্যকলাপ এন্ডোরফিন নিঃসরণ করে এবং চাপ কমায়।',
+      },
+      {
+        title: 'মানসিক চাপ সামলান',
+        text: 'শ্বাসের ব্যায়াম, ধ্যান, ডায়েরি লেখা… আপনার জন্য কোনটি কাজ করে তা খুঁজে নিন।',
+      },
+      {
+        title: 'পর্যাপ্ত ঘুমান',
+        text: 'ভালো মানের ঘুম হরমোনের ভারসাম্য বজায় রাখতে সহায়তা করে।',
+      },
+    ],
+    consultTitle: 'কখন চিকিৎসকের পরামর্শ নেবেন?',
+    consultText: 'উপসর্গ খুব তীব্র হলে এবং দৈনন্দিন জীবনে প্রভাব ফেললে এটি মাসিকপূর্ব ডিসফোরিক ডিসঅর্ডার (পিএমডিডি) হতে পারে। স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিতে দ্বিধা করবেন না।',
+    shareMessage: 'মাসিকপূর্ব সিনড্রোম (পিএমএস): আরও ভালোভাবে বোঝা — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<
   RootStackParamList,

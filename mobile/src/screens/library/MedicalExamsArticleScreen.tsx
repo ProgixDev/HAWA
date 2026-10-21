@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'medicalexams-suivi-medical';
 
@@ -49,7 +50,7 @@ const ULTRASOUND_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('MedicalExams', {
   fr: {
     badge: 'GROSSESSE • SUIVI MÉDICAL',
     title: 'Le calendrier des\nexamens de grossesse',
@@ -538,7 +539,124 @@ const CONTENT = {
     tipText: 'その場で忘れてしまわないよう、健診の前に質問を書き出しておきましょう。小さすぎて聞けない質問はありません。',
     shareMessage: '妊娠中の検査スケジュール — AWA',
   },
-} as const;
+  ko: {
+    badge: '임신 • 의료 관리',
+    title: '임신 중\n검사 일정',
+    metaDuration: '6분 읽기',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '임신 초기, 중기, 후기별 초음파와 필수 검사를 알아봐요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '경과 관찰 초음파',
+      '필수 혈액 검사',
+      '각 진료 준비하기',
+      '참고할 점',
+      '핵심 정리',
+    ],
+    body1: '임신 중에는 보통 초기, 중기, 후기에 한 번씩 총 세 번의 주요 초음파 검사를 받아요. 각각 목적이 달라요.',
+    ultrasounds: [
+      '임신 초기: 임신 주수 확인과 목덜미 투명대 검사',
+      '임신 중기: 정밀 초음파(형태 검사)',
+      '임신 후기: 성장 상태와 아기의 자세 확인',
+    ],
+    body2: '정기적인 혈액 검사로 임신 기간 내내 여러 주요 지표를 확인해요.',
+    bloodTests: [
+      '빈혈 가능성을 확인하기 위한 철분 수치',
+      '보통 임신 중기 무렵에 하는 임신성 당뇨 선별 검사',
+      '혈액형 및 불규칙 항체 선별 검사',
+      '면역 상태에 따른 혈청 검사(톡소플라스마증, 풍진)',
+    ],
+    prepTips: [
+      '궁금한 점이 생길 때마다 잊기 전에 적어 두어요',
+      '진료 때마다 임신 관리 수첩을 가져가요',
+      '사소해 보이더라도 새로운 증상이 있으면 꼭 이야기해요',
+    ],
+    neutralText: '검사의 정확한 횟수와 일정은 받는 진료, 위험 요인, 나라나 의료기관의 방식에 따라 달라질 수 있어요.',
+    tipTitle: '알아 두면 좋아요',
+    tipText: '진료 전에 궁금한 점을 적어 두면 그 자리에서 잊지 않을 수 있어요. 너무 사소해서 묻지 못할 질문은 없어요.',
+    shareMessage: '임신 중 검사 일정 — AWA',
+  },
+  'pt-PT': {
+    badge: 'GRAVIDEZ • ACOMPANHAMENTO MÉDICO',
+    title: 'O calendário de exames\nda gravidez',
+    metaDuration: '6 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Ecografias e análises essenciais, trimestre a trimestre.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Ecografias de acompanhamento',
+      'Análises ao sangue essenciais',
+      'Preparar cada consulta',
+      'A ter em conta',
+      'Pontos essenciais',
+    ],
+    body1: 'A gravidez inclui geralmente três ecografias principais, uma por trimestre, cada uma com uma finalidade diferente.',
+    ultrasounds: [
+      '1.º trimestre: datação e translucência da nuca',
+      '2.º trimestre: ecografia morfológica',
+      '3.º trimestre: crescimento e posição do bebé',
+    ],
+    body2: 'As análises ao sangue regulares monitorizam vários marcadores importantes ao longo da gravidez:',
+    bloodTests: [
+      'Níveis de ferro, para detetar uma possível anemia',
+      'Rastreio da diabetes gestacional, geralmente por volta do 2.º trimestre',
+      'Grupo sanguíneo e pesquisa de anticorpos irregulares',
+      'Análises serológicas (toxoplasmose, rubéola) consoante o seu estado imunitário',
+    ],
+    prepTips: [
+      'Anote as suas perguntas à medida que lhe surgirem, antes que se esqueça delas',
+      'Leve o boletim de saúde da grávida a todas as consultas',
+      'Mencione qualquer sintoma novo, mesmo que pareça menor',
+    ],
+    neutralText: 'O número exato e o calendário dos exames podem variar consoante o seu acompanhamento, o seu perfil de risco e as práticas do seu país ou do prestador de cuidados.',
+    tipTitle: 'Bom saber',
+    tipText: 'Não hesite em anotar as suas perguntas antes de cada consulta para não se esquecer de nada no momento: nenhuma pergunta é pequena demais.',
+    shareMessage: 'O calendário de exames da gravidez — AWA',
+  },
+  bn: {
+    badge: 'গর্ভাবস্থা • চিকিৎসা ফলোআপ',
+    title: 'গর্ভাবস্থার পরীক্ষার\nক্যালেন্ডার',
+    metaDuration: 'পড়তে 6 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'প্রতিটি ত্রৈমাসিকের আলট্রাসাউন্ড ও জরুরি পরীক্ষা।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'ফলোআপ আলট্রাসাউন্ড',
+      'জরুরি রক্তপরীক্ষা',
+      'প্রতিটি অ্যাপয়েন্টমেন্টের প্রস্তুতি',
+      'উল্লেখযোগ্য বিষয়',
+      'মূল কথা',
+    ],
+    body1: 'গর্ভাবস্থায় সাধারণত তিনটি প্রধান আলট্রাসাউন্ড করা হয়, প্রতি ত্রৈমাসিকে একটি, এবং প্রতিটির উদ্দেশ্য আলাদা।',
+    ultrasounds: [
+      'প্রথম ত্রৈমাসিক: গর্ভকাল নির্ণয় ও নুকাল ট্রান্সলুসেন্সি',
+      'দ্বিতীয় ত্রৈমাসিক: গঠন (মরফোলজি) আলট্রাসাউন্ড',
+      'তৃতীয় ত্রৈমাসিক: বৃদ্ধি ও শিশুর অবস্থান',
+    ],
+    body2: 'নিয়মিত রক্তপরীক্ষায় গর্ভাবস্থাজুড়ে বেশ কয়েকটি মূল সূচক পর্যবেক্ষণ করা হয়:',
+    bloodTests: [
+      'আয়রনের মাত্রা, সম্ভাব্য রক্তস্বল্পতা শনাক্ত করার জন্য',
+      'গর্ভকালীন ডায়াবেটিস স্ক্রিনিং, সাধারণত দ্বিতীয় ত্রৈমাসিকের আশপাশে',
+      'রক্তের গ্রুপ এবং অনিয়মিত অ্যান্টিবডি স্ক্রিনিং',
+      'সেরোলজি পরীক্ষা (টক্সোপ্লাজমোসিস, রুবেলা), আপনার রোগ-প্রতিরোধ অবস্থা অনুযায়ী',
+    ],
+    prepTips: [
+      'প্রশ্নগুলো মনে আসামাত্র লিখে রাখুন, যাতে ভুলে না যান',
+      'প্রতিটি অ্যাপয়েন্টমেন্টে আপনার গর্ভাবস্থার ফলোআপ বইটি সঙ্গে নিন',
+      'নতুন কোনো উপসর্গ দেখা দিলে, তা সামান্য মনে হলেও জানান',
+    ],
+    neutralText: 'পরীক্ষার সঠিক সংখ্যা ও সময়সূচি আপনার চিকিৎসাসেবা, ঝুঁকির মাত্রা এবং আপনার দেশ বা স্বাস্থ্যসেবা প্রদানকারীর রীতি অনুযায়ী ভিন্ন হতে পারে।',
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'প্রতিটি অ্যাপয়েন্টমেন্টের আগে প্রশ্নগুলো লিখে রাখতে দ্বিধা করবেন না, যাতে সেই মুহূর্তে কিছু ভুলে না যান: কোনো প্রশ্নই জিজ্ঞাসা করার জন্য ছোট নয়।',
+    shareMessage: 'গর্ভাবস্থার পরীক্ষার ক্যালেন্ডার — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

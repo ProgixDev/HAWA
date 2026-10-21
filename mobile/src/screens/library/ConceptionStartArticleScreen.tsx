@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'conceptiontips-essayer-de-concevoir';
 
@@ -41,7 +42,7 @@ const HERO = require('../../assets/images/library/featured-tracker.png');
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('ConceptionStart', {
   fr: {
     badge: 'ESSAYER DE CONCEVOIR',
     title: 'Essayer de concevoir :\npar où commencer',
@@ -390,7 +391,94 @@ const CONTENT = {
     tipText: 'ご自身の周期を知ること、自然なリズムを保つこと、そして焦らず待つこと。この3つが、穏やかに妊活を始めるための柱です。',
     shareMessage: '妊活：まず何から始める？ — AWA',
   },
-} as const;
+  ko: {
+    badge: '임신 준비',
+    title: '임신 준비,\n어디서부터 시작할까요',
+    metaDuration: '6분 읽기',
+    metaType: '가이드',
+    metaLevel: '초급',
+    metaValidated: '검토된 콘텐츠',
+    intro: '자신 있게 임신 준비를 시작하기 위한 핵심 포인트예요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '가임기 파악하기',
+      '관계의 리듬',
+      '얼마나 걸릴 수 있을까요',
+      '핵심 정리',
+    ],
+    body1: '가장 도움이 되는 첫걸음은 주기를 바탕으로 가임기를 파악하는 거예요. 주기 길이, 몸의 신호를 살펴보고, 원한다면 배란 테스트나 기초체온 같은 기록 도구도 활용할 수 있어요.',
+    body2: '2~3일에 한 번씩 규칙적으로 관계를 가지면 지나치게 엄격하게 계획하지 않아도 임신 가능성이 가장 높은 시기를 자연스럽게 포함할 수 있어요.',
+    rhythmPoints: [
+      '배란일 하루에만 맞추려고 하지 않아도 돼요',
+      '엄격한 계획보다 규칙적인 리듬이 더 오래 지키기 쉬워요',
+      '이 시기에는 부부의 마음 편안함도 중요해요',
+    ],
+    body3: '대부분의 부부는 피임을 중단한 뒤 12개월 안에 임신해요. 이 기간은 각자의 상황에 따른 여러 요인에 따라 달라져요.',
+    alertTitle: '참고',
+    alertText: '12개월이 지나면(35세 이후에는 6개월 후) 의료 전문가에게 검진을 받는 것이 좋아요. 반드시 문제가 있다는 뜻은 아니에요.',
+    tipTitle: '알아 두세요',
+    tipText: '내 주기를 알고, 자연스러운 리듬을 지키고, 느긋한 마음을 갖는 것. 이 세 가지가 차분한 시작의 세 기둥이에요.',
+    shareMessage: '임신 준비, 어디서부터 시작할까요 — AWA',
+  },
+  'pt-PT': {
+    badge: 'TENTAR ENGRAVIDAR',
+    title: 'Tentar engravidar:\npor onde começar',
+    metaDuration: 'Leitura de 6 min',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Os pontos essenciais para começar com confiança o seu percurso rumo à conceção.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Identificar a sua janela fértil',
+      'O ritmo das relações sexuais',
+      'Quanto tempo pode demorar',
+      'O essencial a reter',
+    ],
+    body1: 'O primeiro passo mais útil é identificar a sua janela fértil a partir do ciclo: duração do ciclo, sinais físicos e, se quiser, ferramentas de acompanhamento como os testes de ovulação ou a temperatura corporal basal.',
+    body2: 'Ter relações sexuais com regularidade, a cada 2 a 3 dias, cobre naturalmente o seu período mais fértil, sem exigir um planeamento demasiado rígido.',
+    rhythmPoints: [
+      'Não é preciso limitar-se apenas ao dia da ovulação',
+      'É mais fácil manter um ritmo regular do que um planeamento estrito',
+      'O bem-estar do casal também conta durante este período',
+    ],
+    body3: 'A maioria dos casais concebe nos 12 meses seguintes à interrupção da contraceção. Este prazo varia consoante muitos fatores próprios de cada situação.',
+    alertTitle: 'Atenção',
+    alertText: 'Passados 12 meses (ou 6 meses depois dos 35 anos), é aconselhável consultar um profissional de saúde para uma avaliação, embora isso não signifique necessariamente que haja um problema.',
+    tipTitle: 'Bom saber',
+    tipText: 'Conhecer o seu ciclo, manter um ritmo natural e ter paciência são os três pilares de um início sereno deste percurso.',
+    shareMessage: 'Tentar engravidar: por onde começar — AWA',
+  },
+  bn: {
+    badge: 'গর্ভধারণের চেষ্টা',
+    title: 'গর্ভধারণের চেষ্টা:\nকোথা থেকে শুরু করবেন',
+    metaDuration: '6 মিনিটের পাঠ',
+    metaType: 'গাইড',
+    metaLevel: 'নতুনদের জন্য',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'আত্মবিশ্বাসের সঙ্গে গর্ভধারণের যাত্রা শুরু করার জন্য প্রয়োজনীয় দিকনির্দেশ।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'আপনার উর্বর সময় চেনা',
+      'মিলনের ছন্দ',
+      'কত সময় লাগতে পারে',
+      'মূল কথা',
+    ],
+    body1: 'সবচেয়ে কার্যকর প্রথম ধাপ হলো আপনার চক্র থেকে উর্বর সময় চিহ্নিত করা: চক্রের দৈর্ঘ্য, শারীরিক লক্ষণ এবং আপনি চাইলে ডিম্বস্ফোটন পরীক্ষা বা বেসাল শরীরের তাপমাত্রার মতো ট্র্যাকিং উপায়।',
+    body2: 'নিয়মিতভাবে, প্রতি 2 থেকে 3 দিন অন্তর মিলিত হলে খুব বেশি কড়াকড়ি পরিকল্পনা ছাড়াই স্বাভাবিকভাবে আপনার সবচেয়ে উর্বর সময় ধরা পড়ে।',
+    rhythmPoints: [
+      'শুধু ডিম্বস্ফোটনের দিনটিতে নিজেকে সীমাবদ্ধ রাখার প্রয়োজন নেই',
+      'কঠোর পরিকল্পনার চেয়ে নিয়মিত একটি ছন্দ বজায় রাখা সহজ',
+      'এই সময়ে দম্পতির মানসিক স্বাচ্ছন্দ্যও গুরুত্বপূর্ণ',
+    ],
+    body3: 'বেশিরভাগ দম্পতি জন্মনিয়ন্ত্রণ বন্ধ করার 12 মাসের মধ্যে গর্ভধারণ করেন। প্রতিটি পরিস্থিতির নিজস্ব অনেক কারণের ওপর নির্ভর করে এই সময়সীমা বদলে যায়।',
+    alertTitle: 'লক্ষ্য করুন',
+    alertText: '12 মাসের বেশি সময় পেরিয়ে গেলে (অথবা 35 বছর বয়সের পরে 6 মাস পেরোলে) একজন স্বাস্থ্যসেবা পেশাজীবীকে দেখিয়ে পরীক্ষা করানো ভালো, যদিও এর মানে অবশ্যই কোনো সমস্যা আছে তা নয়।',
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'নিজের চক্র জানা, স্বাভাবিক ছন্দ বজায় রাখা এবং ধৈর্য ধরা: এই তিনটিই এই যাত্রার শান্ত সূচনার স্তম্ভ।',
+    shareMessage: 'গর্ভধারণের চেষ্টা: কোথা থেকে শুরু করবেন — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

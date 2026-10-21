@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -53,7 +54,7 @@ const MEASURING_ICONS = ['thermometer', 'clock-outline', 'pencil-outline'] as co
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('BasalTemperature', {
   fr: {
     badge: 'FERTILITÉ • TEMPÉRATURE BASALE',
     title: 'Suivre sa\ntempérature basale',
@@ -765,7 +766,196 @@ const CONTENT = {
     disclaimerText: '情報提供を目的としたコンテンツです。この記事は、個別の医学的なアドバイスに代わるものではありません。不安なときは、医療従事者に相談してください。',
     shareMessage: '基礎体温の記録 — AWA',
   },
-} as const;
+  ko: {
+    badge: '임신 가능성 • 기초체온',
+    title: '기초체온\n기록하기',
+    metaDuration: '6분 읽기',
+    metaType: '가이드',
+    metaLevel: '중급',
+    metaValidated: '검토된 콘텐츠',
+    intro: '배란이 일어났는지를 사후에 확인할 수 있는 간단한 방법이에요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '기초체온이란?',
+      '언제, 어떻게 측정할까요',
+      '배란 후 체온 상승 알아보기',
+      '측정값에 영향을 줄 수 있는 것',
+      '이 방법의 한계',
+      '전문가와 상담해야 할 때',
+      '핵심 정리',
+    ],
+    section1Body: '기초체온은 활동을 시작하기 전, 완전히 쉬고 있을 때의 체온이에요. 호르몬의 영향으로 주기 동안 아주 조금씩 달라져요.',
+    section2Body: '매일 아침, 일어나기 전에, 항상 같은 시간에 같은 체온계로 측정해요.',
+    measuringTips: [
+      {
+        title: '같은 체온계',
+        text: '항상 같은 체온계를 사용해요. 기초체온계(0.1도 단위까지 더 정밀하게 측정)가 가장 좋아요.',
+      },
+      {
+        title: '같은 시간',
+        text: '일어나기 전, 최소 3시간 이상 끊기지 않고 잔 뒤 정해진 시간에 측정해요.',
+      },
+      {
+        title: '바로 기록하기',
+        text: '일어나거나 말하기 전에 측정값을 바로 적어 두어요.',
+      },
+    ],
+    section3Body: '기초체온은 배란 직후 프로게스테론의 영향으로 약간(0.2~0.5°C) 오르고, 다음 생리까지 높은 상태가 이어져요.',
+    curveTitle: '그래프는 이런 모양이에요',
+    curveText: '주기 전반부에는 낮다가 배란 후에 한 단계 올라가 그대로 유지되는 모양이에요. 며칠간의 측정값이 쌓여야 패턴이 뚜렷해져요.',
+    disruptingFactors: [
+      '짧거나 뒤척인 수면',
+      '평소와 다른 시간에 일어남',
+      '발열이나 질병',
+      '전날 밤의 음주',
+      '최근의 시차',
+    ],
+    section5Body: '이 방법은 예측용이 아니라 확인용이에요. 배란이 이미 일어난 뒤에 나의 주기를 더 잘 이해하는 데 도움이 되며, 배란을 미리 알아내기 위한 것은 아니에요.',
+    section5Caption: '한두 주기만 관찰해서는 보통 충분하지 않아요. 반복해서 기록해야 패턴이 드러나요.',
+    warningTitle: '전문가에게 이야기해 볼 만한 경우',
+    consultSituations: [
+      '여러 주기를 완전히 측정해도 체온 상승이 나타나지 않아요',
+      '꼼꼼히 측정해도 체온이 매우 불규칙해요',
+      '이 기록만으로는 답하기 어려운 임신 가능성에 대한 궁금증이 있어요',
+    ],
+    tipTitle: '알아 두세요',
+    tipText: '기초체온에 자궁 경부 점액 관찰이나 배란 테스트를 함께 활용하면 주기를 더 완전하게 파악할 수 있어요.',
+    summaryPoints: [
+      '기초체온은 배란 직후 프로게스테론의 영향으로 약간(0.2~0.5°C) 올라요.',
+      '매일 아침, 일어나기 전에, 항상 같은 시간에 같은 체온계로 측정해요.',
+      '이 방법은 예측용이 아니라 확인용이며, 나의 주기를 더 잘 이해하는 데 도움이 돼요.',
+      '다른 신호(자궁 경부 점액, 배란 테스트)와 함께 활용하면 더 완전하게 파악할 수 있어요.',
+    ],
+    disclaimerText: '정보 제공 콘텐츠예요. 이 아티클은 개인에게 맞춘 의학적 조언을 대신하지 않아요. 걱정되는 점이 있다면 의료 전문가의 안내를 받아 보세요.',
+    shareMessage: '기초체온 기록하기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'FERTILIDADE • TEMPERATURA CORPORAL BASAL',
+    title: 'Acompanhar a sua\ntemperatura corporal basal',
+    metaDuration: '6 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Intermédio',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Um método simples para confirmar, depois de ter acontecido, que houve ovulação.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'O que é a temperatura corporal basal?',
+      'Quando e como medir',
+      'Identificar a subida após a ovulação',
+      'O que pode alterar uma medição',
+      'Os limites deste método',
+      'Quando falar com um profissional',
+      'Pontos-chave',
+    ],
+    section1Body: 'A temperatura corporal basal é a temperatura do seu corpo em repouso completo, antes de qualquer atividade. Varia muito ligeiramente ao longo do ciclo, sob a influência das hormonas.',
+    section2Body: 'Mede-se todas as manhãs, antes de se levantar, sempre à mesma hora e com o mesmo termómetro.',
+    measuringTips: [
+      {
+        title: 'O mesmo termómetro',
+        text: 'Use sempre o mesmo termómetro, idealmente um termómetro basal (mais preciso, ao décimo de grau).',
+      },
+      {
+        title: 'A mesma hora',
+        text: 'Meça a uma hora fixa, antes de se levantar, após pelo menos 3 horas de sono ininterrupto.',
+      },
+      {
+        title: 'Anote logo',
+        text: 'Anote o valor de imediato, antes mesmo de se levantar ou de falar.',
+      },
+    ],
+    section3Body: 'A temperatura corporal basal sobe ligeiramente (0,2 a 0,5 °C) logo após a ovulação, por efeito da progesterona, e mantém-se mais elevada até ao período seguinte.',
+    curveTitle: 'Como é o gráfico',
+    curveText: 'Mais baixa na primeira parte do ciclo, sobe de patamar após a ovulação e mantém-se aí — um padrão que só se torna claro após vários dias de medições.',
+    disruptingFactors: [
+      'Uma noite de sono curta ou agitada',
+      'Acordar a uma hora pouco habitual',
+      'Febre ou doença',
+      'Álcool na noite anterior',
+      'Alteração recente de fuso horário',
+    ],
+    section5Body: 'Este não é um método preditivo, mas confirmativo: ajuda a compreender melhor o seu próprio ciclo, depois de a ovulação já ter acontecido — não a antecipá-la.',
+    section5Caption: 'Observá-la apenas durante um ou dois ciclos geralmente não chega: o padrão revela-se com a repetição.',
+    warningTitle: 'Convém falar com um profissional',
+    consultSituations: [
+      'Não surge nenhuma subida de temperatura ao longo de vários ciclos completos',
+      'As temperaturas continuam muito irregulares apesar de uma medição cuidadosa',
+      'Tem dúvidas sobre a sua fertilidade que este acompanhamento, por si só, não consegue esclarecer',
+    ],
+    tipTitle: 'Bom saber',
+    tipText: 'Combinar a temperatura corporal basal com a observação do muco cervical ou com testes de ovulação dá uma imagem mais completa do seu ciclo.',
+    summaryPoints: [
+      'A temperatura corporal basal sobe ligeiramente (0,2 a 0,5 °C) logo após a ovulação, por efeito da progesterona.',
+      'Mede-se todas as manhãs, antes de se levantar, sempre à mesma hora e com o mesmo termómetro.',
+      'Este não é um método preditivo, mas confirmativo: ajuda a compreender melhor o seu próprio ciclo.',
+      'Combiná-la com outros sinais (muco cervical, testes de ovulação) dá uma imagem mais completa.',
+    ],
+    disclaimerText: 'Conteúdo informativo. Este artigo não substitui o aconselhamento médico personalizado. Em caso de dúvida, peça orientação a um profissional de saúde.',
+    shareMessage: 'Acompanhar a temperatura corporal basal — AWA',
+  },
+  bn: {
+    badge: 'প্রজনন ক্ষমতা • বেসাল শরীরের তাপমাত্রা',
+    title: 'আপনার বেসাল শরীরের\nতাপমাত্রা ট্র্যাক করা',
+    metaDuration: 'পড়তে 6 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'মধ্যম',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'ডিম্বস্ফোটন ঘটে গেছে কি না তা পরে নিশ্চিত করার একটি সহজ পদ্ধতি।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'বেসাল শরীরের তাপমাত্রা কী?',
+      'কখন ও কীভাবে মাপবেন',
+      'ডিম্বস্ফোটনের পর তাপমাত্রা বাড়া শনাক্ত করা',
+      'যা পাঠকে বিভ্রান্ত করতে পারে',
+      'এই পদ্ধতির সীমাবদ্ধতা',
+      'কখন পেশাজীবীর সঙ্গে কথা বলবেন',
+      'মূল কথা',
+    ],
+    section1Body: 'বেসাল শরীরের তাপমাত্রা হলো সম্পূর্ণ বিশ্রামে, কোনো কাজ শুরুর আগে আপনার শরীরের তাপমাত্রা। আপনার হরমোনের প্রভাবে চক্রের সময় এটি খুব সামান্য ওঠানামা করে।',
+    section2Body: 'এটি প্রতিদিন সকালে, বিছানা থেকে ওঠার আগে, সবসময় একই সময়ে এবং একই থার্মোমিটার দিয়ে মাপা হয়।',
+    measuringTips: [
+      {
+        title: 'একই থার্মোমিটার',
+        text: 'সবসময় একই থার্মোমিটার ব্যবহার করুন, সম্ভব হলে বেসাল থার্মোমিটার (আরও নির্ভুল, দশমিক এক ডিগ্রি পর্যন্ত)।',
+      },
+      {
+        title: 'একই সময়',
+        text: 'নির্দিষ্ট সময়ে মাপুন, বিছানা থেকে ওঠার আগে, কমপক্ষে 3 ঘণ্টা বিরতিহীন ঘুমের পর।',
+      },
+      {
+        title: 'সঙ্গে সঙ্গে লিখে রাখুন',
+        text: 'ওঠার বা কথা বলার আগেই পাঠটি তখনই লিখে রাখুন।',
+      },
+    ],
+    section3Body: 'প্রোজেস্টেরনের প্রভাবে ডিম্বস্ফোটনের ঠিক পরে বেসাল শরীরের তাপমাত্রা সামান্য বাড়ে (0.2 থেকে 0.5°C) এবং পরবর্তী মাসিক পর্যন্ত বেশি থাকে।',
+    curveTitle: 'চার্ট দেখতে কেমন হয়',
+    curveText: 'চক্রের প্রথম অংশে নিচু থাকে, ডিম্বস্ফোটনের পর ধাপে ধাপে উঠে সেখানেই থাকে — এই ধরনটি কয়েক দিনের পাঠের পরেই কেবল স্পষ্ট হয়।',
+    disruptingFactors: [
+      'স্বল্প বা অস্থির ঘুমের রাত',
+      'অস্বাভাবিক সময়ে ঘুম থেকে ওঠা',
+      'জ্বর বা অসুস্থতা',
+      'আগের রাতে অ্যালকোহল',
+      'সম্প্রতি জেট ল্যাগ',
+    ],
+    section5Body: 'এটি পূর্বাভাসের পদ্ধতি নয়, নিশ্চিতকরণের পদ্ধতি: ডিম্বস্ফোটন ঘটে যাওয়ার পর এটি আপনার নিজের চক্র আরও ভালোভাবে বুঝতে সাহায্য করে — আগেভাগে অনুমান করতে নয়।',
+    section5Caption: 'এক বা দুই চক্র একা পর্যবেক্ষণ করা সাধারণত যথেষ্ট নয়: পুনরাবৃত্তির মাধ্যমেই ধরনটি ফুটে ওঠে।',
+    warningTitle: 'পেশাজীবীকে জানানো ভালো',
+    consultSituations: [
+      'কয়েকটি সম্পূর্ণ চক্র ধরে তাপমাত্রা বাড়ার কোনো লক্ষণ দেখা যায় না',
+      'সতর্কভাবে মাপার পরও তাপমাত্রা খুব অনিয়মিত থাকে',
+      'আপনার প্রজনন ক্ষমতা নিয়ে এমন প্রশ্ন আছে যার উত্তর কেবল এই ট্র্যাকিং দিতে পারে না',
+    ],
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'বেসাল শরীরের তাপমাত্রার সঙ্গে জরায়ুমুখের শ্লেষ্মা পর্যবেক্ষণ বা ডিম্বস্ফোটন পরীক্ষা একত্রে ব্যবহার করলে আপনার চক্রের আরও পূর্ণাঙ্গ চিত্র পাওয়া যায়।',
+    summaryPoints: [
+      'প্রোজেস্টেরনের প্রভাবে ডিম্বস্ফোটনের ঠিক পরে বেসাল শরীরের তাপমাত্রা সামান্য বাড়ে (0.2 থেকে 0.5°C)।',
+      'এটি প্রতিদিন সকালে, বিছানা থেকে ওঠার আগে, সবসময় একই সময়ে এবং একই থার্মোমিটার দিয়ে মাপা হয়।',
+      'এটি পূর্বাভাসের পদ্ধতি নয়, নিশ্চিতকরণের পদ্ধতি: এটি আপনার নিজের চক্র আরও ভালোভাবে বুঝতে সাহায্য করে।',
+      'অন্যান্য লক্ষণের (জরায়ুমুখের শ্লেষ্মা, ডিম্বস্ফোটন পরীক্ষা) সঙ্গে একত্রে ব্যবহার করলে আরও পূর্ণাঙ্গ চিত্র পাওয়া যায়।',
+    ],
+    disclaimerText: 'তথ্যমূলক বিষয়বস্তু। এই নিবন্ধ ব্যক্তিগত চিকিৎসা পরামর্শের বিকল্প নয়। সন্দেহ থাকলে স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিন।',
+    shareMessage: 'বেসাল শরীরের তাপমাত্রা ট্র্যাক করা — AWA',
+  },
+} as const);
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */

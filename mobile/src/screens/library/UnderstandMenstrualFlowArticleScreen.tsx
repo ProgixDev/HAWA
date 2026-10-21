@@ -27,6 +27,7 @@ import {getBottomPadding, getTopPadding, READING_CONTROLS_SPACE} from '../../the
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'flow-comprendre-flux';
 
@@ -60,7 +61,7 @@ const NORMAL_SIGNS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('UnderstandMenstrualFlow', {
   fr: {
     badge: 'CYCLE MENSTRUEL',
     title: 'Comprendre les règles :\nce qui se passe vraiment',
@@ -840,7 +841,220 @@ const CONTENT = {
     reliefText: '休息、温めること、軽い運動が助けになります。痛みが非常に強いままだったり、いつもと違ったりする場合は、医師に相談してください。',
     shareMessage: '生理を理解する：体の中で何が起きているのか — AWA',
   },
-} as const;
+  ko: {
+    badge: '생리 주기',
+    title: '생리 이해하기,\n몸에서 실제로 일어나는 일',
+    metaDuration: '읽는 데 5분',
+    metaValidated: '검토된 콘텐츠',
+    intro: '생리는 호르몬 건강과 생식 건강에 꼭 필요한 자연스러운 과정의 일부예요. 몸에서 어떤 일이 일어나는지 이해하면 매 주기를 더 편안하게 보낼 수 있어요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '생리란 무엇일까요?',
+      '생리는 어떻게 진행될까요',
+      '정상인 경우와 아닌 경우',
+      '통증을 자연스럽게 덜기',
+    ],
+    body1: '생리는 수정이 일어나지 않았을 때 자궁 내막이 떨어져 나오는 것이에요. 평균적으로 한 달에 한 번 일어나요.',
+    knowTitle: '알아두면 좋아요',
+    knowText: '사람마다 모두 달라요. 기간, 강도, 느낌은 주기마다 다를 수 있어요.',
+    body2: '출혈량은 생리 기간 내내 똑같지 않아요. 보통 날마다 양, 색, 질감이 달라져요.',
+    flowSteps: [
+      {
+        title: '생리 시작',
+        text: '처음 며칠 동안은 출혈량이 더 많은 경우가 많아요.',
+      },
+      {
+        title: '생리 중반',
+        text: '출혈량이 보통 서서히 줄기 시작해요.',
+      },
+      {
+        title: '생리 끝 무렵',
+        text: '출혈량이 적어지고 색이 더 어두워질 수 있어요.',
+      },
+    ],
+    softInfoTitle: '기억해 두세요',
+    softInfoText: '주기마다 다를 수 있어요. 가장 중요한 것은 나의 평소 리듬을 아는 거예요.',
+    body3: '생리 중에는 흔히 나타나는 변화가 있어요. 특히 처음 겪거나 매우 심한 경우에는 더 주의 깊게 살펴봐야 하는 신호도 있어요.',
+    normalSigns: [
+      {
+        title: '기간',
+        text: '보통 며칠 동안 이어지는 생리예요.',
+      },
+      {
+        title: '달라지는 출혈량',
+        text: '처음에는 많고 점차 적어져요.',
+      },
+      {
+        title: '색',
+        text: '선홍색에서 짙은 붉은색, 생리가 끝날 무렵에는 갈색까지 다양해요.',
+      },
+      {
+        title: '느낌',
+        text: '가볍거나 중간 정도의 생리통이 느껴질 수 있어요.',
+      },
+    ],
+    warningTitle: '언제 진료를 받아야 할까요?',
+    warningSigns: [
+      '매우 심하거나 평소와 다른 통증',
+      '패드나 탐폰이 아주 빨리 젖을 만큼의 출혈',
+      '심한 피로, 쓰러질 것 같은 느낌, 어지러움',
+      '평소 패턴이 갑자기 바뀌고 계속되는 경우',
+    ],
+    body4: '간단한 습관이 불편함을 덜어 주고 생리 첫날들을 더 편안하게 보내는 데 도움이 될 수 있어요.',
+    tipsTitle: '실용적인 팁',
+    tips: [
+      '물을 충분히\n마셔서 피로를\n덜어요.',
+      '필요하면 아랫배에\n따뜻하게\n찜질해요.',
+      '걷기, 요가,\n스트레칭 같은\n가벼운 활동을 해요.',
+      '충분히 쉬고\n질 좋은 잠을\n자요.',
+    ],
+    reliefTitle: '몸의 소리에 귀 기울이기',
+    reliefText: '휴식, 온기, 가벼운 활동이 도움이 될 수 있어요. 통증이 계속 매우 심하거나 평소와 다르다면 진료를 받으세요.',
+    shareMessage: '생리 이해하기, 몸에서 실제로 일어나는 일 — AWA',
+  },
+  'pt-PT': {
+    badge: 'CICLO MENSTRUAL',
+    title: 'Compreender o seu período:\no que acontece realmente',
+    metaDuration: '5 min de leitura',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'O seu período faz parte de um processo natural essencial para a saúde hormonal e reprodutiva. Compreender o que se passa no seu corpo pode ajudá-la a sentir-se mais à vontade em cada ciclo.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'O que é o período?',
+      'Como decorre o período',
+      'O que é normal (e o que não é)',
+      'Aliviar a dor de forma natural',
+    ],
+    body1: 'O período é a eliminação do revestimento do útero quando não ocorreu fecundação. Acontece, em média, uma vez por mês.',
+    knowTitle: 'Bom saber',
+    knowText: 'Cada mulher é única: a duração, a intensidade e as sensações podem variar de um ciclo para o seguinte.',
+    body2: 'O fluxo não é igual durante todo o período. Costuma mudar de dia para dia, em intensidade, cor e textura.',
+    flowSteps: [
+      {
+        title: 'Início do período',
+        text: 'O fluxo é muitas vezes mais abundante nos primeiros dias.',
+      },
+      {
+        title: 'Meio do período',
+        text: 'O fluxo começa geralmente a diminuir gradualmente.',
+      },
+      {
+        title: 'Fim do período',
+        text: 'O fluxo torna-se mais leve e pode assumir uma cor mais escura.',
+      },
+    ],
+    softInfoTitle: 'A ter presente',
+    softInfoText: 'Isto pode variar de um ciclo para outro. O mais importante é conhecer o seu ritmo habitual.',
+    body3: 'Algumas variações são frequentes durante o período. Outros sinais merecem mais atenção, sobretudo quando são novos ou muito intensos.',
+    normalSigns: [
+      {
+        title: 'Duração',
+        text: 'Um período que costuma durar alguns dias.',
+      },
+      {
+        title: 'Fluxo variável',
+        text: 'Fluxo mais abundante no início e depois mais leve.',
+      },
+      {
+        title: 'Cor',
+        text: 'De vermelho vivo a vermelho escuro ou castanho no final do período.',
+      },
+      {
+        title: 'Sensações',
+        text: 'Podem sentir-se cólicas ligeiras a moderadas.',
+      },
+    ],
+    warningTitle: 'Quando procurar aconselhamento médico?',
+    warningSigns: [
+      'Dor muito intensa ou invulgar',
+      'Hemorragia que encharca um penso ou um tampão muito depressa',
+      'Cansaço acentuado, sensação de desmaio ou tonturas',
+      'Uma alteração súbita e persistente em relação ao seu padrão habitual',
+    ],
+    body4: 'Hábitos simples podem ajudar a aliviar o desconforto e a tornar os primeiros dias do período mais confortáveis.',
+    tipsTitle: 'Dicas práticas',
+    tips: [
+      'Beba água suficiente\npara ajudar a\nlimitar o cansaço.',
+      'Aplique calor na parte\ninferior do\nabdómen, se necessário.',
+      'Experimente uma atividade\nsuave: caminhada,\nioga, alongamentos.',
+      'Dê-se descanso\ne um sono\nde boa qualidade.',
+    ],
+    reliefTitle: 'Ouça o seu corpo',
+    reliefText: 'O descanso, o calor e a atividade suave podem ajudar. Se a dor se mantiver muito intensa ou invulgar, procure aconselhamento médico.',
+    shareMessage: 'Compreender o seu período: o que acontece realmente — AWA',
+  },
+  bn: {
+    badge: 'মাসিক চক্র',
+    title: 'আপনার মাসিক বুঝুন:\nআসলে কী ঘটছে',
+    metaDuration: '5 মিনিটের পাঠ',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'আপনার মাসিক একটি স্বাভাবিক প্রক্রিয়ার অংশ, যা হরমোন ও প্রজননস্বাস্থ্যের জন্য অপরিহার্য। আপনার শরীরে কী ঘটছে তা বুঝলে প্রতিটি চক্রে আপনি আরও স্বচ্ছন্দ বোধ করতে পারেন।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'মাসিক কী?',
+      'মাসিক কীভাবে এগোয়',
+      'কোনটি স্বাভাবিক (এবং কোনটি নয়)',
+      'প্রাকৃতিক উপায়ে ব্যথা কমানো',
+    ],
+    body1: 'গর্ভধারণ না হলে জরায়ুর আস্তরণ ঝরে যাওয়াই মাসিক। এটি গড়ে মাসে একবার ঘটে।',
+    knowTitle: 'জেনে রাখা ভালো',
+    knowText: 'প্রতিটি নারী অনন্য: স্থায়িত্ব, তীব্রতা ও অনুভূতি এক চক্র থেকে আরেক চক্রে আলাদা হতে পারে।',
+    body2: 'পুরো মাসিক জুড়ে রক্তক্ষরণ একই রকম থাকে না। সাধারণত তীব্রতা, রঙ ও ঘনত্বে প্রতিদিন পরিবর্তন হয়।',
+    flowSteps: [
+      {
+        title: 'মাসিকের শুরু',
+        text: 'প্রথম কয়েক দিনে রক্তক্ষরণ প্রায়ই বেশি হয়।',
+      },
+      {
+        title: 'মাসিকের মাঝামাঝি',
+        text: 'রক্তক্ষরণ সাধারণত ধীরে ধীরে কমতে শুরু করে।',
+      },
+      {
+        title: 'মাসিকের শেষ',
+        text: 'রক্তক্ষরণ হালকা হয়ে আসে এবং রঙ গাঢ় হতে পারে।',
+      },
+    ],
+    softInfoTitle: 'মনে রাখবেন',
+    softInfoText: 'এক চক্র থেকে আরেক চক্রে এটি বদলাতে পারে। সবচেয়ে গুরুত্বপূর্ণ হলো নিজের স্বাভাবিক ছন্দ জানা।',
+    body3: 'মাসিকের সময় কিছু ভিন্নতা সাধারণ। অন্য কিছু লক্ষণে বেশি মনোযোগ দেওয়া উচিত, বিশেষ করে যখন সেগুলো নতুন বা খুব তীব্র।',
+    normalSigns: [
+      {
+        title: 'স্থায়িত্ব',
+        text: 'মাসিক সাধারণত কয়েক দিন স্থায়ী হয়।',
+      },
+      {
+        title: 'পরিবর্তনশীল রক্তক্ষরণ',
+        text: 'শুরুতে বেশি, তারপর হালকা।',
+      },
+      {
+        title: 'রঙ',
+        text: 'উজ্জ্বল লাল থেকে গাঢ় লাল বা মাসিকের শেষের দিকে বাদামি।',
+      },
+      {
+        title: 'অনুভূতি',
+        text: 'হালকা থেকে মাঝারি তলপেটে ব্যথা অনুভব হতে পারে।',
+      },
+    ],
+    warningTitle: 'কখন চিকিৎসকের পরামর্শ নেবেন?',
+    warningSigns: [
+      'খুব তীব্র বা অস্বাভাবিক ব্যথা',
+      'প্যাড বা ট্যাম্পন খুব দ্রুত ভিজে যায় এমন রক্তক্ষরণ',
+      'উল্লেখযোগ্য ক্লান্তি, অজ্ঞান হয়ে যাওয়ার মতো অনুভূতি বা মাথা ঘোরা',
+      'আপনার স্বাভাবিক ধরন থেকে হঠাৎ ও স্থায়ী পরিবর্তন',
+    ],
+    body4: 'সহজ কিছু অভ্যাস অস্বস্তি কমাতে এবং মাসিকের প্রথম দিনগুলো আরও আরামদায়ক করতে সাহায্য করতে পারে।',
+    tipsTitle: 'ব্যবহারিক পরামর্শ',
+    tips: [
+      'পর্যাপ্ত পানি\nপান করুন, ক্লান্তি\nকমাতে সাহায্য করবে।',
+      'প্রয়োজনে তলপেটে\nগরম সেঁক\nদিন।',
+      'হালকা কিছু করুন:\nহাঁটা, যোগব্যায়াম,\nস্ট্রেচিং।',
+      'নিজেকে বিশ্রাম\nও ভালো মানের\nঘুম দিন।',
+    ],
+    reliefTitle: 'নিজের শরীরের কথা শুনুন',
+    reliefText: 'বিশ্রাম, গরম সেঁক এবং হালকা কার্যকলাপ সাহায্য করতে পারে। ব্যথা খুব তীব্র বা অস্বাভাবিক থাকলে চিকিৎসকের পরামর্শ নিন।',
+    shareMessage: 'আপনার মাসিক বুঝুন: আসলে কী ঘটছে — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<
   RootStackParamList,

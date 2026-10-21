@@ -30,6 +30,7 @@ import {
   type ResolvedAwaTheme,
 } from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'nutrition-conception-fertilite';
 
@@ -67,7 +68,7 @@ const LIMIT_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('NutritionCycle', {
   fr: {
     badge: 'CYCLE MENSTRUEL',
     titleLine1: 'Alimentation et cycle :',
@@ -1081,7 +1082,304 @@ const CONTENT = {
     ],
     shareMessage: '栄養と生理周期：体が喜ぶ食べ方 — AWA',
   },
-} as const;
+  ko: {
+    badge: '생리 주기',
+    titleLine1: '영양과 주기:',
+    titleLine2: '내 몸이 좋아하는 것',
+    metaDuration: '읽는 데 4분',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '식단은 주기 내내 에너지, 기분, 호르몬, 전반적인 웰빙에 영향을 줘요.',
+    contentsTitle: '이 아티클에서 다루는 내용',
+    topics: [
+      '단계별 영양 필요량',
+      '챙겨 먹으면 좋은 음식',
+      '줄이면 좋은 음식',
+      '균형 잡힌 식사 예시',
+    ],
+    section1Body: '몸이 필요로 하는 것은 주기 내내 똑같지 않아요. 먹는 것을 조금 조정하면 확실한 차이를 느낄 수 있어요.',
+    phases: [
+      {
+        title: '월경기',
+        days: '1~5일째',
+        body: '철분, 마그네슘, 비타민 B를 챙기세요.',
+      },
+      {
+        title: '난포기',
+        days: '6~14일째',
+        body: '기름기 적은 단백질과 신선한 채소에 집중하세요.',
+      },
+      {
+        title: '배란기',
+        days: '14일째 무렵',
+        body: '항산화 성분과 오메가3를 선택하세요.',
+      },
+      {
+        title: '황체기',
+        days: '15~28일째',
+        body: '신경계를 돌보고 염증을 줄이세요.',
+      },
+    ],
+    foods: [
+      {
+        title: '철분',
+        body: '렌틸콩, 시금치, 기름기 적은 고기, 병아리콩.',
+      },
+      {
+        title: '마그네슘',
+        body: '아몬드, 호박씨, 다크 초콜릿, 바나나.',
+      },
+      {
+        title: '오메가3',
+        body: '연어, 정어리, 호두, 아마씨.',
+      },
+      {
+        title: '단백질',
+        body: '달걀, 두부, 가금류, 그릭 요거트, 퀴노아.',
+      },
+      {
+        title: '식이섬유와 항산화 성분',
+        body: '베리류, 아보카도, 브로콜리, 당근.',
+      },
+    ],
+    limits: [
+      {
+        title: '과도한 염분',
+      },
+      {
+        title: '단 음식',
+      },
+      {
+        title: '초가공식품',
+      },
+      {
+        title: '과도한 카페인',
+      },
+      {
+        title: '알코올',
+      },
+    ],
+    limitText: '적당히 즐기면 균형을 유지하는 데 도움이 돼요.',
+    meals: [
+      {
+        tag: '아침',
+        body: '오트밀 죽, 베리류, 아몬드, 치아씨드',
+      },
+      {
+        tag: '점심',
+        body: '연어, 퀴노아, 찐 브로콜리, 올리브 오일',
+      },
+      {
+        tag: '간식',
+        body: '플레인 요거트, 블루베리, 아마씨',
+      },
+      {
+        tag: '저녁',
+        body: '렌틸콩 수프, 구운 채소, 통곡물 빵',
+      },
+    ],
+    shareMessage: '영양과 주기: 내 몸이 좋아하는 것 — AWA',
+  },
+  'pt-PT': {
+    badge: 'CICLO MENSTRUAL',
+    titleLine1: 'Alimentação e o seu ciclo:',
+    titleLine2: 'o que o seu corpo adora',
+    metaDuration: '4 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'A sua alimentação influencia a sua energia, o seu humor, as suas hormonas e o seu bem-estar geral ao longo do ciclo.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Necessidades nutricionais por fase',
+      'Alimentos a privilegiar',
+      'Alimentos a limitar',
+      'Exemplos de refeições equilibradas',
+    ],
+    section1Body: 'O seu corpo não tem as mesmas necessidades ao longo do ciclo. Ajustar o que come pode fazer uma diferença real.',
+    phases: [
+      {
+        title: 'Fase menstrual',
+        days: 'Dias 1 a 5',
+        body: 'Privilegie o ferro, o magnésio e as vitaminas do complexo B.',
+      },
+      {
+        title: 'Fase folicular',
+        days: 'Dias 6 a 14',
+        body: 'Aposte em proteínas magras e legumes frescos.',
+      },
+      {
+        title: 'Fase ovulatória',
+        days: 'Por volta do dia 14',
+        body: 'Escolha antioxidantes e ómega-3.',
+      },
+      {
+        title: 'Fase lútea',
+        days: 'Dias 15 a 28',
+        body: 'Apoie o sistema nervoso e limite a inflamação.',
+      },
+    ],
+    foods: [
+      {
+        title: 'Ferro',
+        body: 'Lentilhas, espinafres, carnes magras, grão-de-bico.',
+      },
+      {
+        title: 'Magnésio',
+        body: 'Amêndoas, sementes de abóbora, chocolate preto, banana.',
+      },
+      {
+        title: 'Ómega-3',
+        body: 'Salmão, sardinhas, nozes, linhaça.',
+      },
+      {
+        title: 'Proteínas',
+        body: 'Ovos, tofu, aves, iogurte grego, quinoa.',
+      },
+      {
+        title: 'Fibras e antioxidantes',
+        body: 'Frutos silvestres, abacate, brócolos, cenouras.',
+      },
+    ],
+    limits: [
+      {
+        title: 'Excesso de sal',
+      },
+      {
+        title: 'Alimentos açucarados',
+      },
+      {
+        title: 'Alimentos ultraprocessados',
+      },
+      {
+        title: 'Excesso de cafeína',
+      },
+      {
+        title: 'Álcool',
+      },
+    ],
+    limitText: 'Desfrute com moderação para ajudar a manter o seu equilíbrio.',
+    meals: [
+      {
+        tag: 'Pequeno-almoço',
+        body: 'Papas de aveia, frutos silvestres, amêndoas e chia',
+      },
+      {
+        tag: 'Almoço',
+        body: 'Salmão, quinoa, brócolos cozidos a vapor e azeite',
+      },
+      {
+        tag: 'Lanche',
+        body: 'Iogurte natural, mirtilos e linhaça',
+      },
+      {
+        tag: 'Jantar',
+        body: 'Sopa de lentilhas, legumes assados e pão integral',
+      },
+    ],
+    shareMessage: 'Alimentação e o seu ciclo: o que o seu corpo adora — AWA',
+  },
+  bn: {
+    badge: 'মাসিক চক্র',
+    titleLine1: 'খাবার ও আপনার চক্র:',
+    titleLine2: 'আপনার শরীর যা পছন্দ করে',
+    metaDuration: 'পড়তে 4 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'আপনার খাদ্যাভ্যাস চক্র জুড়ে আপনার শক্তি, মেজাজ, হরমোন এবং সামগ্রিক সুস্থতাকে প্রভাবিত করে।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'পর্যায় অনুযায়ী পুষ্টির চাহিদা',
+      'যেসব খাবার বেছে নেবেন',
+      'যেসব খাবার সীমিত করবেন',
+      'সুষম খাবারের উদাহরণ',
+    ],
+    section1Body: 'চক্রের সব সময়ে আপনার শরীরের একই চাহিদা থাকে না। খাবারে সামান্য সমন্বয় করলে সত্যিই পার্থক্য হতে পারে।',
+    phases: [
+      {
+        title: 'মাসিক পর্যায়',
+        days: '1 থেকে 5 তম দিন',
+        body: 'আয়রন, ম্যাগনেসিয়াম ও বি ভিটামিনকে অগ্রাধিকার দিন।',
+      },
+      {
+        title: 'ফলিকুলার পর্যায়',
+        days: '6 থেকে 14তম দিন',
+        body: 'চর্বিহীন প্রোটিন ও তাজা সবজিতে মনোযোগ দিন।',
+      },
+      {
+        title: 'ডিম্বস্ফোটন পর্যায়',
+        days: '14 তম দিনের আশপাশে',
+        body: 'অ্যান্টিঅক্সিডেন্ট ও ওমেগা-3 বেছে নিন।',
+      },
+      {
+        title: 'লিউটিয়াল পর্যায়',
+        days: '15 থেকে 28তম দিন',
+        body: 'আপনার স্নায়ুতন্ত্রকে সহায়তা করুন এবং প্রদাহ সীমিত রাখুন।',
+      },
+    ],
+    foods: [
+      {
+        title: 'আয়রন',
+        body: 'মসুর ডাল, পালংশাক, চর্বিহীন মাংস, ছোলা।',
+      },
+      {
+        title: 'ম্যাগনেসিয়াম',
+        body: 'বাদাম, কুমড়োর বীজ, ডার্ক চকোলেট, কলা।',
+      },
+      {
+        title: 'ওমেগা-3',
+        body: 'স্যালমন, সার্ডিন, আখরোট, তিসির বীজ।',
+      },
+      {
+        title: 'প্রোটিন',
+        body: 'ডিম, টফু, মুরগির মাংস, গ্রিক দই, কিনোয়া।',
+      },
+      {
+        title: 'ফাইবার ও অ্যান্টিঅক্সিডেন্ট',
+        body: 'বেরি, অ্যাভোকাডো, ব্রকলি, গাজর।',
+      },
+    ],
+    limits: [
+      {
+        title: 'অতিরিক্ত লবণ',
+      },
+      {
+        title: 'চিনিযুক্ত খাবার',
+      },
+      {
+        title: 'অতি প্রক্রিয়াজাত খাবার',
+      },
+      {
+        title: 'অতিরিক্ত ক্যাফেইন',
+      },
+      {
+        title: 'অ্যালকোহল',
+      },
+    ],
+    limitText: 'ভারসাম্য বজায় রাখতে পরিমিত পরিমাণে উপভোগ করুন।',
+    meals: [
+      {
+        tag: 'সকালের নাশতা',
+        body: 'ওটস পরিজ, বেরি, বাদাম ও চিয়া',
+      },
+      {
+        tag: 'দুপুরের খাবার',
+        body: 'স্যালমন, কিনোয়া, বাষ্পে সেদ্ধ ব্রকলি ও অলিভ অয়েল',
+      },
+      {
+        tag: 'হালকা নাশতা',
+        body: 'সাদা দই, ব্লুবেরি ও তিসির বীজ',
+      },
+      {
+        tag: 'রাতের খাবার',
+        body: 'মসুর ডালের স্যুপ, ভাজা সবজি ও গমের আটার রুটি',
+      },
+    ],
+    shareMessage: 'খাবার ও আপনার চক্র: আপনার শরীর যা পছন্দ করে — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<
   RootStackParamList,

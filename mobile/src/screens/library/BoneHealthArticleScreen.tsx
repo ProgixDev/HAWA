@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'bones-sante-osseuse';
 
@@ -50,7 +51,7 @@ const PREVENTION_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('BoneHealth', {
   fr: {
     badge: 'SANTÉ OSSEUSE',
     title: 'Prendre soin de\nsa santé osseuse',
@@ -531,7 +532,127 @@ const CONTENT = {
     tip2Text: 'カルシウム、ビタミンD、そして体重をかける運動は、長い目で見て骨の強さを保つために、毎日の習慣として今も最も役立つものです。',
     shareMessage: '骨の健康を守るために — AWA',
   },
-} as const;
+  ko: {
+    badge: '뼈 건강',
+    title: '내 뼈 건강\n돌보기',
+    metaDuration: '읽는 데 6분',
+    metaType: '가이드',
+    metaLevel: '중급',
+    metaValidated: '검토된 콘텐츠',
+    intro: '폐경이 골다공증 위험을 높이는 이유와, 매일 뼈를 지키는 방법을 알아봐요.',
+    contentsTitle: '이 아티클에서 다루는 내용',
+    topics: [
+      '폐경이 뼈를 약하게 하는 이유',
+      '골감소증과 골다공증',
+      '골밀도 검사로 하는 선별',
+      '예방의 기둥',
+      '위험을 높이는 요인',
+      '기억할 점',
+    ],
+    body1: '에스트로겐은 뼈의 대사 속도를 늦춰서 골밀도를 자연스럽게 지켜 줘요. 폐경 때 에스트로겐이 줄어들면 특히 생리가 멈춘 뒤 처음 몇 년 동안 뼈가 빠르게 소실돼요.',
+    body2: '골감소증은 골밀도가 정상보다 낮지만 골다공증 기준에는 이르지 않은 상태를 말해요. 골다공증은 뼈가 더 뚜렷하게 약해져서, 특히 넘어졌을 때 골절 위험이 높아지는 상태예요.',
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '두 용어 모두 이미 골절이 생겼다는 뜻이 아니라 골밀도가 줄었다는 뜻이에요. 걱정할 이유가 아니라 예방을 시작하라는 신호예요.',
+    body3: '통증이 없는 이 검사는 골밀도를 측정해요. 나이, 개인 및 가족의 병력, 또는 의사와 함께 확인한 다른 위험 요인에 따라 권유될 수 있어요.',
+    preventionHabits: [
+      '칼슘(유제품, 잎채소)',
+      '비타민 D(적당한 햇볕 쬐기, 식단)',
+      '체중 부하 운동(걷기, 근력 운동)',
+      '담배와 술 줄이기',
+    ],
+    riskFactors: [
+      '골다공증 가족력',
+      '이른 폐경(45세 이전)',
+      '현재 또는 과거의 흡연',
+      '매우 마른 체형이거나 신체 활동이 아주 적은 경우',
+    ],
+    alertTitle: '유의하세요',
+    alertText: '이런 요인이 한 가지 이상 있다고 해서 골다공증이 생긴다는 뜻은 아니에요. 주로 선별 검사를 받을지 의사와 이야기할 때 방향을 잡는 데 도움이 되는 요인이에요.',
+    tip2Title: '알아 두면 좋아요',
+    tip2Text: '칼슘, 비타민 D, 체중 부하 신체 활동은 오랫동안 뼈의 힘을 지키는 데 가장 유용한 일상 습관이에요.',
+    shareMessage: '내 뼈 건강 돌보기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'SAÚDE ÓSSEA',
+    title: 'Cuidar da\nsua saúde óssea',
+    metaDuration: '6 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Intermédio',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Porque é que a menopausa aumenta o risco de osteoporose, e como proteger os seus ossos todos os dias.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Porque é que a menopausa enfraquece os ossos',
+      'Osteopenia e osteoporose',
+      'Rastreio com densitometria óssea',
+      'Os pilares da prevenção',
+      'Fatores que aumentam o risco',
+      'O que reter',
+    ],
+    body1: 'Os estrogénios ajudam naturalmente a proteger a densidade óssea, ao abrandar a renovação do osso. A descida dos estrogénios na menopausa acelera a perda óssea, sobretudo nos primeiros anos após o fim dos períodos.',
+    body2: 'A osteopenia designa uma densidade óssea inferior ao normal, sem atingir o limiar da osteoporose. A osteoporose é uma fragilidade óssea mais acentuada, que aumenta o risco de fratura, em particular em caso de queda.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'Ambos os termos descrevem uma perda de densidade óssea, e não uma fratura que já tenha ocorrido — são um convite à prevenção, não um motivo de preocupação.',
+    body3: 'Este exame, indolor, mede a densidade mineral óssea. Pode ser proposto em função da sua idade, do seu historial pessoal e familiar, ou de outros fatores de risco identificados com o seu médico.',
+    preventionHabits: [
+      'Cálcio (produtos lácteos, vegetais de folha verde)',
+      'Vitamina D (exposição solar moderada, alimentação)',
+      'Exercício com carga (caminhada, musculação)',
+      'Limitar o tabaco e o álcool',
+    ],
+    riskFactors: [
+      'Historial familiar de osteoporose',
+      'Menopausa precoce (antes dos 45 anos)',
+      'Tabagismo atual ou passado',
+      'Constituição muito magra ou atividade física muito reduzida',
+    ],
+    alertTitle: 'Atenção',
+    alertText: 'Ter um ou mais destes fatores não significa que vá desenvolver osteoporose — servem sobretudo para orientar a conversa com o seu médico sobre um possível rastreio.',
+    tip2Title: 'Bom saber',
+    tip2Text: 'O cálcio, a vitamina D e a atividade física com carga continuam a ser os hábitos quotidianos mais úteis para preservar a força dos ossos a longo prazo.',
+    shareMessage: 'Cuidar da sua saúde óssea — AWA',
+  },
+  bn: {
+    badge: 'হাড়ের স্বাস্থ্য',
+    title: 'আপনার হাড়ের\nস্বাস্থ্যের যত্ন নিন',
+    metaDuration: 'পড়তে 6 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'মধ্যম',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'মেনোপজ কেন অস্টিওপোরোসিসের ঝুঁকি বাড়ায় এবং প্রতিদিন কীভাবে হাড় রক্ষা করবেন।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'মেনোপজ কেন হাড় দুর্বল করে',
+      'অস্টিওপেনিয়া ও অস্টিওপোরোসিস',
+      'বোন ডেনসিটোমেট্রির মাধ্যমে স্ক্রিনিং',
+      'প্রতিরোধের স্তম্ভগুলো',
+      'ঝুঁকি বাড়ায় এমন কারণ',
+      'যা মনে রাখবেন',
+    ],
+    body1: 'ইস্ট্রোজেন স্বাভাবিকভাবেই হাড়ের পুনর্গঠনের গতি কমিয়ে হাড়ের ঘনত্ব রক্ষা করতে সাহায্য করে। মেনোপজের সময় ইস্ট্রোজেন কমে যাওয়ায় হাড়ক্ষয় দ্রুত হয়, বিশেষ করে মাসিক বন্ধ হওয়ার পর প্রথম কয়েক বছরে।',
+    body2: 'অস্টিওপেনিয়া বলতে বোঝায় হাড়ের ঘনত্ব স্বাভাবিকের চেয়ে কম, কিন্তু অস্টিওপোরোসিসের সীমায় পৌঁছায়নি। অস্টিওপোরোসিস হলো হাড়ের আরও স্পষ্ট ভঙ্গুরতা, যা ভাঙনের ঝুঁকি বাড়ায়, বিশেষ করে পড়ে গেলে।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'দুটি শব্দই হাড়ের ঘনত্ব কমে যাওয়া বোঝায়, ইতিমধ্যে ঘটে যাওয়া হাড় ভাঙা নয় — এগুলো প্রতিরোধের তাগিদ, দুশ্চিন্তার কারণ নয়।',
+    body3: 'ব্যথাহীন এই পরীক্ষায় হাড়ের খনিজ ঘনত্ব মাপা হয়। আপনার বয়স, ব্যক্তিগত ও পারিবারিক ইতিহাস, অথবা ডাক্তারের সঙ্গে চিহ্নিত অন্যান্য ঝুঁকির কারণ অনুযায়ী এটি প্রস্তাব করা হতে পারে।',
+    preventionHabits: [
+      'ক্যালসিয়াম (দুগ্ধজাত খাবার, পাতাওয়ালা সবুজ শাক)',
+      'ভিটামিন ডি (পরিমিত রোদ, খাবার)',
+      'ওজন বহনকারী ব্যায়াম (হাঁটা, শক্তি প্রশিক্ষণ)',
+      'তামাক ও অ্যালকোহল সীমিত করুন',
+    ],
+    riskFactors: [
+      'পরিবারে অস্টিওপোরোসিসের ইতিহাস',
+      'আগেভাগে মেনোপজ (45 বছরের আগে)',
+      'বর্তমানে বা অতীতে ধূমপান',
+      'খুব পাতলা গড়ন বা খুব কম শারীরিক কার্যকলাপ',
+    ],
+    alertTitle: 'লক্ষ্য করুন',
+    alertText: 'এই কারণগুলোর এক বা একাধিক থাকলে আপনার অস্টিওপোরোসিস হবেই তা নয় — এগুলো মূলত সম্ভাব্য স্ক্রিনিং নিয়ে ডাক্তারের সঙ্গে আলোচনাকে দিকনির্দেশনা দিতে সাহায্য করে।',
+    tip2Title: 'জেনে রাখা ভালো',
+    tip2Text: 'ক্যালসিয়াম, ভিটামিন ডি এবং ওজন বহনকারী শারীরিক কার্যকলাপ দীর্ঘমেয়াদে হাড়ের শক্তি ধরে রাখার জন্য সবচেয়ে কার্যকর দৈনন্দিন অভ্যাস।',
+    shareMessage: 'আপনার হাড়ের স্বাস্থ্যের যত্ন নিন — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

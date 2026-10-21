@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'prayerduringmenstruation-la-priere-suspendue';
 
@@ -61,7 +62,7 @@ const WORSHIP_ICONS = [
 // écoles juridiques") and scholarly-referral exactly, states no ruling
 // more strongly than the French, and never attributes a position to a
 // specific madhhab that the French itself does not attribute.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('PrayerDuringMenstruation', {
   fr: {
     badge: 'PRIÈRE PENDANT LES RÈGLES',
     title: 'La prière pendant\nles règles',
@@ -554,7 +555,130 @@ const CONTENT = {
     tip2Text: '生理中に礼拝が免除されるのは認められた免除であり、罪悪感を持たずに受け止められるものです。この時期にも、さまざまな信仰の形が続けられます。特定の疑問については、資格のある学者の助言が基準となります。',
     shareMessage: '生理中の礼拝 — AWA',
   },
-} as const;
+  ko: {
+    badge: '월경 중의 예배',
+    title: '월경 중의\n예배',
+    metaDuration: '6분 읽기',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '이 시기에 의례 예배가 중단되는 이유와, 이 시간을 평온하게 보내는 방법이에요.',
+    disclaimerTitle: '중요한 안내',
+    disclaimerText: '이 콘텐츠는 순수하게 교육 목적이에요. 종교와 관련된 문제는 자격을 갖춘 학자의 확인을 받아야 해요. AWA는 파트와나 개인에게 맞춘 종교적 판단을 내리지 않아요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '월경 중 중단되는 예배',
+      '금식과 달리 놓친 예배는 보충하지 않아요',
+      '다른 형태의 예배는 계속할 수 있어요',
+      '핵심 정리',
+    ],
+    section1Body1: '월경 중에는 예배(살라트)의 의무가 중단돼요. 이 기간에는 예배를 드리지 않아도 돼요. 이 중단은 종교 생활 자체의 한 부분이며, 오래전부터 전통에서 인정되어 왔어요.',
+    section1Body2: '이 중단은 신앙에서 멀어진다거나 종교 생활이 끊긴다는 뜻이 결코 아니에요. 인정된 면제이므로 죄책감 없이 보내면 되고, 여성의 영적 생활이 가진 자연스러운 틀의 일부예요.',
+    tip1Title: '알아 두세요',
+    tip1Text: '이 시간은 평온하게 받아들일 수 있어요. 신앙의 가치도, 종교 생활의 꾸준함도 의심받지 않아요.',
+    section1Body3: '예배 도중에 월경이 시작되면 예배는 중단되고, 끝까지 마치거나 나중에 보충할 필요가 없어요. 반대로 월경이 끝나면 의례적 정결 상태로 돌아가는 표시인 구슬(전신 정화 목욕)을 한 뒤 예배를 평소처럼 다시 시작해요.',
+    section2Body1: '라마단 금식은 월경 중에 놓친 날을 나중에 보충하지만(카다), 같은 이유로 놓친 예배는 일반적으로 나중에 보충하지 않아요. 이 차이는 두 예배 행위의 성격에서 비롯돼요. 예배는 하루에 여러 번 반복되는 일상의 행위이고, 금식은 한 해에 한 번 특정한 달에 집중되어 있어요.',
+    section2Body2: '이슬람 법학(피크흐)을 처음 접하면 이런 구분이 낯설게 느껴질 수 있어요. 그렇다고 예배의 가치가 덜하다는 뜻은 아니에요. 정해진 대로 면제를 따르는 것 자체가 종교 생활의 온전한 일부예요.',
+    section3Body: '월경 중에 예배를 드리지 않는다고 해서 영성과 단절되는 것은 아니에요. 이 시기에도 할 수 있는 예배와 신앙 활동이 많이 열려 있어요.',
+    worshipActs: [
+      '지크르(알라를 기억함)',
+      '두아(간구)',
+      '자선',
+      '다른 사람 돕기',
+      '종교 공부',
+      '종교 콘텐츠 듣기',
+      '성찰과 감사',
+      '선행',
+    ],
+    noteTitle: '참고하세요',
+    noteText: '꾸란을 낭송하거나 직접 만지는 것 같은 일부 실천은 법학파(마드합)에 따라 의견이 다를 수 있어요. 평소 따르는 의견을 참고하거나 자격을 갖춘 학자에게 조언을 구하면 이런 경우를 분명히 하는 데 도움이 돼요.',
+    tip2Title: '알아 두세요',
+    tip2Text: '월경 중에 중단되는 예배는 인정된 면제이며 죄책감 없이 보내면 돼요. 이 시기에도 영성을 이어갈 수 있는 방법이 많이 열려 있고, 구체적인 질문이 있을 때는 자격을 갖춘 학자의 조언이 기준이 돼요.',
+    shareMessage: '월경 중의 예배 — AWA',
+  },
+  'pt-PT': {
+    badge: 'ORAÇÃO DURANTE A MENSTRUAÇÃO',
+    title: 'A oração durante\na menstruação',
+    metaDuration: '6 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Porque é que a oração ritual fica suspensa nesta altura e como viver este período com serenidade.',
+    disclaimerTitle: 'Informação importante',
+    disclaimerText: 'Este conteúdo é puramente educativo. As questões religiosas devem ser validadas por sábios qualificados. A AWA não emite fatwas nem pareceres religiosos personalizados.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'A oração suspensa durante a menstruação',
+      'Sem compensar as orações em falta, ao contrário do jejum',
+      'Outras formas de culto continuam possíveis',
+      'Pontos-chave',
+    ],
+    section1Body1: 'Durante a menstruação, a obrigação da oração (salá) fica suspensa: a mulher não é obrigada a orar durante este período. Esta suspensão faz parte da própria prática religiosa, reconhecida há muito pela tradição.',
+    section1Body2: 'Esta suspensão não significa de modo algum um afastamento da fé ou uma falha na prática religiosa. É uma dispensa reconhecida, a viver sem culpa: faz parte do enquadramento natural da vida espiritual da mulher.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'Este tempo pode ser vivido com serenidade: não põe em causa nem o valor da fé nem a regularidade da prática religiosa.',
+    section1Body3: 'Se a menstruação começar durante a oração, esta é interrompida: não é necessário terminá-la nem compensá-la. Inversamente, quando a menstruação termina, a oração é retomada normalmente após o ghusl (banho ritual), que marca o regresso ao estado de pureza ritual.',
+    section2Body1: 'Ao contrário do jejum do Ramadão, cujos dias em falta durante a menstruação são compensados mais tarde (Qada), as orações em falta pela mesma razão não são, em geral, compensadas depois. Esta diferença explica-se pela própria natureza destes dois atos de culto: a oração é um ato diário repetido várias vezes ao dia, enquanto o jejum é anual e concentrado num mês específico.',
+    section2Body2: 'Esta distinção pode surpreender quando se descobre o fiqh pela primeira vez. Não significa que a oração valha menos: seguir a dispensa tal como está prescrita faz, por si só, plenamente parte da prática religiosa.',
+    section3Body: 'Não orar durante a menstruação não significa ficar separada da sua espiritualidade. Muitas formas de culto e de compromisso religioso continuam acessíveis durante este tempo.',
+    worshipActs: [
+      'Dhikr (recordação de Deus)',
+      'Dua (súplica)',
+      'Caridade',
+      'Ajudar os outros',
+      'Aprendizagem religiosa',
+      'Ouvir conteúdos religiosos',
+      'Reflexão e gratidão',
+      'Gestos de bondade',
+    ],
+    noteTitle: 'De notar',
+    noteText: 'Algumas práticas, como recitar ou tocar diretamente no Alcorão, podem ser objeto de opiniões divergentes consoante a escola jurídica. Recorrer ao parecer que costuma seguir, ou pedir conselho a um sábio qualificado, ajuda a esclarecer estes casos.',
+    tip2Title: 'Bom saber',
+    tip2Text: 'A oração suspensa durante a menstruação é uma dispensa reconhecida, a viver sem culpa. Muitas formas de espiritualidade continuam acessíveis durante este tempo, e o conselho de um sábio qualificado continua a ser a referência para qualquer questão específica.',
+    shareMessage: 'A oração durante a menstruação — AWA',
+  },
+  bn: {
+    badge: 'মাসিকের সময় নামাজ',
+    title: 'মাসিকের সময়\nনামাজ',
+    metaDuration: '6 মিনিটের পাঠ',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'এই সময়ে ধর্মীয় নামাজ কেন স্থগিত থাকে এবং এই সময়কে কীভাবে প্রশান্তির সঙ্গে অতিবাহিত করবেন।',
+    disclaimerTitle: 'গুরুত্বপূর্ণ তথ্য',
+    disclaimerText: 'এই বিষয়বস্তু সম্পূর্ণ শিক্ষামূলক। ধর্মীয় প্রশ্নের উত্তর যোগ্য আলেমদের কাছ থেকে যাচাই করে নেওয়া উচিত। AWA কোনো ফতোয়া বা ব্যক্তিগত ধর্মীয় রায় দেয় না।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'মাসিকের সময় স্থগিত নামাজ',
+      'রোজার বিপরীতে ছুটে যাওয়া নামাজ কাজা করতে হয় না',
+      'অন্যান্য ইবাদত করা সম্ভব থাকে',
+      'মূল কথা',
+    ],
+    section1Body1: 'মাসিকের সময় নামাজের (সালাত) বাধ্যবাধকতা স্থগিত থাকে: এই সময়ে একজন নারীর নামাজ পড়া আবশ্যক নয়। এই স্থগিতাদেশ ধর্মচর্চার নিজস্ব কাঠামোরই অবিচ্ছেদ্য অংশ, যা ঐতিহ্যে দীর্ঘদিন ধরে স্বীকৃত।',
+    section1Body2: 'এই স্থগিতাদেশের অর্থ কোনোভাবেই ঈমান থেকে দূরে সরে যাওয়া বা ধর্মচর্চায় ত্রুটি নয়। এটি একটি স্বীকৃত অব্যাহতি, যা অপরাধবোধ ছাড়াই অনুভব করা উচিত: এটি একজন নারীর আধ্যাত্মিক জীবনের স্বাভাবিক কাঠামোর অংশ।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'এই সময়কে প্রশান্তির সঙ্গে গ্রহণ করা যায়: এটি কারও ঈমানের মূল্য বা ধর্মচর্চার নিয়মিততা কোনোটাকেই প্রশ্নবিদ্ধ করে না।',
+    section1Body3: 'নামাজ চলাকালীন মাসিক শুরু হলে নামাজ থেমে যায়: তা শেষ করতে বা কাজা করতে হয় না। আবার, মাসিক শেষ হলে গোসলের (ফরজ গোসল) পর নামাজ স্বাভাবিকভাবে আবার শুরু হয়, যা পবিত্রতার (তাহারাত) অবস্থায় ফিরে আসাকে চিহ্নিত করে।',
+    section2Body1: 'রমজানের রোজার মতো নয়, যার মাসিকের কারণে ছুটে যাওয়া দিনগুলো পরে কাজা করা হয়, একই কারণে ছুটে যাওয়া নামাজ সাধারণত পরে কাজা করা হয় না। এই পার্থক্যের ব্যাখ্যা এই দুটি ইবাদতের প্রকৃতিতেই নিহিত: নামাজ দৈনিক ইবাদত যা দিনে কয়েকবার পুনরাবৃত্ত হয়, আর রোজা বার্ষিক এবং একটি নির্দিষ্ট মাসে কেন্দ্রীভূত।',
+    section2Body2: 'ফিকহের সঙ্গে প্রথম পরিচয়ের সময় এই পার্থক্য বিস্ময়কর মনে হতে পারে। এর অর্থ এই নয় যে নামাজের গুরুত্ব কম: অব্যাহতিটি যেভাবে নির্ধারিত হয়েছে সেভাবে মেনে চলাও নিজেই ধর্মচর্চার পূর্ণ অংশ।',
+    section3Body: 'মাসিকের সময় নামাজ না পড়ার অর্থ নিজের আধ্যাত্মিকতা থেকে বিচ্ছিন্ন হয়ে পড়া নয়। এই সময়েও ইবাদত ও ধর্মীয় সম্পৃক্ততার অনেক রূপ হাতের নাগালে থাকে।',
+    worshipActs: [
+      'যিকির (আল্লাহর স্মরণ)',
+      'দোয়া (প্রার্থনা)',
+      'দান',
+      'অন্যকে সাহায্য করা',
+      'ধর্মীয় জ্ঞান অর্জন',
+      'ধর্মীয় বিষয়বস্তু শোনা',
+      'চিন্তাভাবনা ও কৃতজ্ঞতা',
+      'সদাচরণ',
+    ],
+    noteTitle: 'অনুগ্রহ করে লক্ষ করুন',
+    noteText: 'কিছু আমল, যেমন কুরআন তিলাওয়াত করা বা সরাসরি স্পর্শ করা, ফিকহের মাযহাব অনুযায়ী ভিন্ন মতের বিষয় হতে পারে। আপনি সাধারণত যে মত অনুসরণ করেন তা দেখে নেওয়া, অথবা যোগ্য আলেমের পরামর্শ নেওয়া এসব ক্ষেত্র স্পষ্ট করতে সাহায্য করে।',
+    tip2Title: 'জেনে রাখা ভালো',
+    tip2Text: 'মাসিকের সময় নামাজ স্থগিত থাকা একটি স্বীকৃত অব্যাহতি, যা অপরাধবোধ ছাড়াই অনুভব করা উচিত। এই সময়েও আধ্যাত্মিকতার অনেক রূপ হাতের নাগালে থাকে, এবং যেকোনো নির্দিষ্ট প্রশ্নে যোগ্য আলেমের পরামর্শই নির্ভরযোগ্য সূত্র।',
+    shareMessage: 'মাসিকের সময় নামাজ — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

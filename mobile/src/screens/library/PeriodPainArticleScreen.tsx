@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'pain-gerer-douleurs';
 
@@ -58,7 +59,7 @@ const DAILY_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('PeriodPain', {
   fr: {
     badge: 'DOULEURS',
     title: 'Gérer les douleurs\nmenstruelles',
@@ -596,7 +597,160 @@ const CONTENT = {
     ],
     shareMessage: '生理痛との付き合い方 — AWA',
   },
-} as const;
+  ko: {
+    badge: '통증',
+    title: '생리통\n관리하기',
+    metaDuration: '7분 읽기',
+    metaType: '가이드',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '따뜻한 찜질, 가벼운 움직임, 식단. 실제로 통증을 덜어 주는 습관이에요.',
+    contentsTitle: '이 아티클에서는',
+    topics: [
+      '생리통 이해하기',
+      '효과적인 자연 요법',
+      '언제 의사에게 진료받아야 할까요?',
+      '일상에서 쓰는 실용적인 팁',
+    ],
+    section1Text: '생리통은 자궁 내막이 떨어져 나가도록 돕는 자궁 수축 때문에 생겨요. 원인은 프로스타글란딘이에요. 몸마다 반응이 달라요.',
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '통증은 주기마다 다를 수 있고 항상 같지는 않아요.',
+    solutions: [
+      {
+        title: '온기',
+        text: '아랫배에 따뜻한 물주머니를 올려 두면 근육이 풀릴 수 있어요.',
+      },
+      {
+        title: '가벼운 움직임',
+        text: '요가, 스트레칭, 가벼운 걷기는 긴장을 풀어 줘요.',
+      },
+      {
+        title: '식단',
+        text: '마그네슘, 오메가3, 항염 식품이 도움이 돼요.',
+      },
+      {
+        title: '수분 섭취',
+        text: '물을 충분히 마시면 더부룩함을 줄이는 데 도움이 돼요.',
+      },
+      {
+        title: '마사지',
+        text: '아랫배를 둥글게 마사지하면 긴장을 푸는 데 도움이 돼요.',
+      },
+    ],
+    section3Text: '이런 방법을 써도 매달 통증 때문에 평소처럼 생활하기 어렵다면 의료 전문가와 상담하는 것이 중요해요.',
+    alertTitle: '이럴 때는 의사에게 진료받으세요',
+    alertText: '통증이 아주 심할 때, 출혈이 많을 때, 극심한 피로가 있을 때, 평소와 다른 증상이 있을 때.',
+    dailyTips: [
+      '아침에 일어나면 몸을 부드럽게 풀어 줘요',
+      '균형 잡힌 식단을 챙겨요',
+      '숨을 고르고 쉬는 시간을 가져요',
+      '주기를 기록하면 통증을 더 잘 이해할 수 있어요',
+    ],
+    shareMessage: '생리통 관리하기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'DOR',
+    title: 'Gerir a dor\nmenstrual',
+    metaDuration: '7 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Calor, movimento suave, alimentação: hábitos que trazem verdadeiro alívio.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Compreender a dor menstrual',
+      'Soluções naturais eficazes',
+      'Quando consultar um médico?',
+      'Dicas práticas para o dia a dia',
+    ],
+    section1Text: 'As cólicas resultam de contrações do útero que ajudam a eliminar o revestimento uterino. São causadas pelas prostaglandinas. Cada corpo reage de forma diferente.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'A dor pode variar de um ciclo para o outro e nem sempre é igual.',
+    solutions: [
+      {
+        title: 'Calor',
+        text: 'Uma botija de água quente na parte inferior do abdómen pode relaxar os músculos.',
+      },
+      {
+        title: 'Movimento suave',
+        text: 'Ioga, alongamentos e caminhadas leves aliviam a tensão.',
+      },
+      {
+        title: 'Alimentação',
+        text: 'Magnésio, ómega-3 e alimentos anti-inflamatórios.',
+      },
+      {
+        title: 'Hidratação',
+        text: 'Beber água suficiente ajuda a limitar o inchaço.',
+      },
+      {
+        title: 'Massagem',
+        text: 'Uma massagem circular na parte inferior do abdómen ajuda a relaxar.',
+      },
+    ],
+    section3Text: 'Se a dor a impede todos os meses de viver normalmente apesar destas soluções, é importante falar com um profissional de saúde.',
+    alertTitle: 'Consulte um médico se',
+    alertText: 'Tiver dor muito intensa, hemorragia abundante, cansaço extremo ou sintomas anormais.',
+    dailyTips: [
+      'Aqueça o corpo suavemente ao acordar',
+      'Privilegie uma alimentação equilibrada',
+      'Dedique tempo a respirar e a relaxar',
+      'Acompanhe o seu ciclo para compreender melhor a sua dor',
+    ],
+    shareMessage: 'Gerir a dor menstrual — AWA',
+  },
+  bn: {
+    badge: 'ব্যথা',
+    title: 'মাসিকের ব্যথা\nসামলানো',
+    metaDuration: 'পড়তে 7 মিনিট',
+    metaType: 'গাইড',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'তাপ, হালকা নড়াচড়া, খাদ্যাভ্যাস: যেসব অভ্যাস সত্যিই আরাম দেয়।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'মাসিকের ব্যথা বোঝা',
+      'কার্যকর প্রাকৃতিক সমাধান',
+      'কখন ডাক্তার দেখাবেন?',
+      'প্রতিদিনের বাস্তব পরামর্শ',
+    ],
+    section1Text: 'তলপেটের ব্যথা হয় জরায়ুর সংকোচনের কারণে, যা জরায়ুর আস্তরণ ঝরিয়ে ফেলতে সাহায্য করে। এর কারণ প্রোস্টাগ্ল্যান্ডিন। প্রতিটি শরীর আলাদাভাবে সাড়া দেয়।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'ব্যথা এক চক্র থেকে আরেক চক্রে বদলাতে পারে এবং সবসময় একই রকম হয় না।',
+    solutions: [
+      {
+        title: 'তাপ',
+        text: 'তলপেটে গরম পানির ব্যাগ রাখলে পেশি শিথিল হতে পারে।',
+      },
+      {
+        title: 'হালকা নড়াচড়া',
+        text: 'যোগব্যায়াম, স্ট্রেচিং এবং হালকা হাঁটা টান কমায়।',
+      },
+      {
+        title: 'খাদ্যাভ্যাস',
+        text: 'ম্যাগনেশিয়াম, ওমেগা-3 এবং প্রদাহ-বিরোধী খাবার।',
+      },
+      {
+        title: 'পানি পান',
+        text: 'পর্যাপ্ত পানি পান করলে পেট ফাঁপা কমাতে সাহায্য হয়।',
+      },
+      {
+        title: 'ম্যাসাজ',
+        text: 'তলপেটে বৃত্তাকারে ম্যাসাজ করলে শিথিল হতে সাহায্য হয়।',
+      },
+    ],
+    section3Text: 'এই সমাধানগুলো সত্ত্বেও যদি প্রতি মাসে ব্যথার কারণে স্বাভাবিকভাবে চলাফেরা করতে না পারেন, তাহলে একজন স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে কথা বলা গুরুত্বপূর্ণ।',
+    alertTitle: 'ডাক্তার দেখান যদি',
+    alertText: 'খুব তীব্র ব্যথা, অতিরিক্ত রক্তক্ষরণ, চরম ক্লান্তি অথবা অস্বাভাবিক উপসর্গ দেখা দেয়।',
+    dailyTips: [
+      'ঘুম থেকে উঠে শরীরকে আলতো করে গরম করে নিন',
+      'সুষম খাদ্যাভ্যাসকে অগ্রাধিকার দিন',
+      'শ্বাস নিতে ও শিথিল হতে সময় দিন',
+      'নিজের ব্যথা আরও ভালোভাবে বুঝতে আপনার চক্র ট্র্যাক করুন',
+    ],
+    shareMessage: 'মাসিকের ব্যথা সামলানো — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<
   RootStackParamList,

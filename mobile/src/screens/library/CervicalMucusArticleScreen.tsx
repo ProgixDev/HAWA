@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -58,7 +59,7 @@ const CYCLE_EVOLUTION_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('CervicalMucus', {
   fr: {
     badge: 'FERTILITÉ • GLAIRE CERVICALE',
     title: 'Observer sa\nglaire cervicale',
@@ -852,7 +853,199 @@ const CONTENT = {
     disclaimerText: '情報提供を目的とした内容です。この記事は、個別の医療上の助言に代わるものではありません。不安がある場合は、医療従事者に相談してください。',
     shareMessage: '子宮頸管粘液を観察する — AWA',
   },
-} as const;
+  ko: {
+    badge: '임신 가능성 • 자궁 경부 점액',
+    title: '자궁 경부 점액\n관찰하기',
+    metaDuration: '읽는 데 5분',
+    metaType: '가이드',
+    metaLevel: '중급',
+    metaValidated: '검토된 콘텐츠',
+    intro: '가임기를 알아보는 자연스럽고 비용이 들지 않는 신호예요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      '자궁 경부 점액이란?',
+      '주기에 따라 어떻게 달라질까요',
+      '가임기 점액 알아보기',
+      '매일 관찰하는 방법',
+      '관찰에 영향을 줄 수 있는 요인',
+      '이 방법의 한계',
+      '핵심 정리',
+    ],
+    section1Body: '자궁 경부에서 만들어지는 자연스러운 분비물이에요. 자궁 경부 점액은 에스트로겐과 프로게스테론의 영향으로 주기 내내 질감이 달라져요.',
+    cycleEvolution: [
+      {
+        title: '생리 후',
+        text: '점액이 적고 건조한 느낌이 드는 경우가 많아요.',
+      },
+      {
+        title: '배란 전',
+        text: '양이 더 많아지고 탁하며 끈적해요.',
+      },
+      {
+        title: '배란이 가까워질 때',
+        text: '맑고 늘어나며 탄력이 있어서 날달걀 흰자와 비슷해요.',
+      },
+      {
+        title: '배란 후',
+        text: '더 걸쭉하고 불투명해지거나 양이 훨씬 줄어요.',
+      },
+    ],
+    section3Intro: '배란이 가까워지면 다음과 같아져요.',
+    fertileSigns: [
+      '맑거나 투명해요',
+      '늘어나요. 두 손가락 사이에서 죽 늘어나요',
+      '탄력이 있어서 날달걀 흰자와 비슷해요',
+      '다른 날보다 양이 더 많아요',
+    ],
+    infoTitle: '매일 하는 간단한 습관',
+    infoText: '화장지나 깨끗한 손가락으로 모양과 질감을 하루 중 비슷한 시간에 관찰하고, 느낀 점을 기록해요.',
+    modifyingFactors: [
+      '최근의 성관계',
+      '질 세정제 같은 위생 제품',
+      '호르몬 피임법 또는 일부 치료',
+      '감염 또는 국소적인 불균형',
+    ],
+    section6Body: '사람마다 양상이 달라서, 나의 양상을 알아보려면 여러 주기에 걸친 연습이 필요해요. 이 변화를 다른 신호와 함께 매일 관찰하면 가임기를 더 정확히 짚어 보는 데 도움이 돼요. 하지만 걱정되는 점이 있다면 의학적 조언을 대신할 수는 없어요.',
+    tipTitle: '알아두면 좋아요',
+    tipText: '자궁 경부 점액을 기초체온이나 배란 테스트와 함께 활용하면 주기를 더 폭넓게 파악할 수 있어요.',
+    summaryPoints: [
+      '자궁 경부 점액은 에스트로겐과 프로게스테론의 영향으로 주기 내내 질감이 달라져요.',
+      '배란이 가까워지면 맑고 늘어나며 탄력이 있어서 날달걀 흰자와 비슷해져요.',
+      '이 변화를 다른 신호와 함께 매일 관찰하면 가임기를 더 정확히 짚어 보는 데 도움이 돼요.',
+      '나의 양상을 알아보려면 연습과 여러 주기에 걸친 관찰이 필요해요.',
+    ],
+    disclaimerText: '정보 제공용 콘텐츠예요. 이 아티클은 개인별 맞춤 의학적 조언을 대신하지 않아요. 궁금한 점이 있다면 의료 전문가에게 안내를 받으세요.',
+    shareMessage: '자궁 경부 점액 관찰하기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'FERTILIDADE • MUCO CERVICAL',
+    title: 'Observar o seu\nmuco cervical',
+    metaDuration: '5 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Intermédio',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Um sinal natural e gratuito para identificar a sua janela fértil.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'O que é o muco cervical?',
+      'Como muda ao longo do ciclo',
+      'Reconhecer o muco fértil',
+      'Como o observar diariamente',
+      'O que pode afetar as suas observações',
+      'Os limites deste método',
+      'Pontos a reter',
+    ],
+    section1Body: 'É uma secreção natural produzida pelo colo do útero. O muco cervical muda de textura ao longo do ciclo sob o efeito dos estrogénios e da progesterona.',
+    cycleEvolution: [
+      {
+        title: 'Depois do período',
+        text: 'Pouco muco, muitas vezes com sensação de secura.',
+      },
+      {
+        title: 'Antes da ovulação',
+        text: 'Mais abundante, turvo e pegajoso.',
+      },
+      {
+        title: 'À medida que a ovulação se aproxima',
+        text: 'Transparente, filante e elástico, semelhante à clara de ovo crua.',
+      },
+      {
+        title: 'Depois da ovulação',
+        text: 'Mais espesso, opaco ou muito menos presente.',
+      },
+    ],
+    section3Intro: 'À medida que a ovulação se aproxima, torna-se:',
+    fertileSigns: [
+      'Claro ou transparente',
+      'Filante — estica-se entre dois dedos',
+      'Elástico, semelhante à clara de ovo crua',
+      'Mais abundante do que nos outros dias',
+    ],
+    infoTitle: 'Um hábito simples, todos os dias',
+    infoText: 'Observe o aspeto e a textura com papel higiénico ou com os dedos limpos, aproximadamente à mesma hora do dia, e anote o que notar.',
+    modifyingFactors: [
+      'Relações sexuais recentes',
+      'Produtos de higiene íntima',
+      'Contraceção hormonal ou certos tratamentos',
+      'Uma infeção ou um desequilíbrio local',
+    ],
+    section6Body: 'Cada pessoa tem um perfil diferente e reconhecer o seu exige prática ao longo de vários ciclos. Observar esta mudança todos os dias, juntamente com outros sinais, ajuda a identificar melhor a sua janela fértil — mas nunca substitui o aconselhamento médico se estiver preocupada.',
+    tipTitle: 'Bom saber',
+    tipText: 'Combinar o muco cervical com a temperatura corporal basal ou com os testes de ovulação dá uma imagem mais completa do seu ciclo.',
+    summaryPoints: [
+      'O muco cervical muda de textura ao longo do ciclo sob o efeito dos estrogénios e da progesterona.',
+      'À medida que a ovulação se aproxima, torna-se transparente, filante e elástico, semelhante à clara de ovo crua.',
+      'Observar esta mudança todos os dias, juntamente com outros sinais, ajuda a identificar melhor a sua janela fértil.',
+      'Reconhecer o seu próprio padrão exige prática e vários ciclos de observação.',
+    ],
+    disclaimerText: 'Conteúdo informativo. Este artigo não substitui um aconselhamento médico personalizado. Em caso de dúvida, peça orientação a um profissional de saúde.',
+    shareMessage: 'Observar o seu muco cervical — AWA',
+  },
+  bn: {
+    badge: 'প্রজনন ক্ষমতা • জরায়ুমুখের শ্লেষ্মা',
+    title: 'আপনার জরায়ুমুখের\nশ্লেষ্মা পর্যবেক্ষণ',
+    metaDuration: '5 মিনিটের পাঠ',
+    metaType: 'গাইড',
+    metaLevel: 'মাঝারি',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'আপনার উর্বর সময় চিনে নেওয়ার একটি প্রাকৃতিক ও বিনামূল্যের সংকেত।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'জরায়ুমুখের শ্লেষ্মা কী?',
+      'চক্র জুড়ে এটি কীভাবে বদলায়',
+      'উর্বর শ্লেষ্মা চেনা',
+      'প্রতিদিন কীভাবে পর্যবেক্ষণ করবেন',
+      'যা আপনার পর্যবেক্ষণকে প্রভাবিত করতে পারে',
+      'এই পদ্ধতির সীমাবদ্ধতা',
+      'মূল কথা',
+    ],
+    section1Body: 'এটি জরায়ুমুখ থেকে তৈরি একটি প্রাকৃতিক নিঃসরণ। ইস্ট্রোজেন ও প্রোজেস্টেরনের প্রভাবে চক্র জুড়ে জরায়ুমুখের শ্লেষ্মার ঘনত্ব বদলায়।',
+    cycleEvolution: [
+      {
+        title: 'মাসিকের পর',
+        text: 'শ্লেষ্মা কম, প্রায়ই শুষ্কতার অনুভূতি।',
+      },
+      {
+        title: 'ডিম্বস্ফোটনের আগে',
+        text: 'বেশি পরিমাণে, ঘোলাটে ও আঠালো।',
+      },
+      {
+        title: 'ডিম্বস্ফোটন ঘনিয়ে এলে',
+        text: 'স্বচ্ছ, টানলে লম্বা হয় ও স্থিতিস্থাপক, কাঁচা ডিমের সাদা অংশের মতো।',
+      },
+      {
+        title: 'ডিম্বস্ফোটনের পর',
+        text: 'আরও ঘন, অস্বচ্ছ, বা অনেক কম পরিমাণে।',
+      },
+    ],
+    section3Intro: 'ডিম্বস্ফোটন ঘনিয়ে এলে এটি হয়ে ওঠে:',
+    fertileSigns: [
+      'স্বচ্ছ বা পরিষ্কার',
+      'টানলে লম্বা হয় — দুই আঙুলের মাঝে প্রসারিত হয়',
+      'স্থিতিস্থাপক, কাঁচা ডিমের সাদা অংশের মতো',
+      'অন্য দিনগুলোর চেয়ে বেশি পরিমাণে',
+    ],
+    infoTitle: 'একটি সহজ অভ্যাস, প্রতিদিন',
+    infoText: 'টয়লেট পেপার বা পরিষ্কার আঙুল দিয়ে প্রতিদিন মোটামুটি একই সময়ে চেহারা ও ঘনত্ব পর্যবেক্ষণ করুন এবং যা লক্ষ্য করেন তা লিখে রাখুন।',
+    modifyingFactors: [
+      'সাম্প্রতিক সহবাস',
+      'ব্যক্তিগত স্বাস্থ্যবিধির পণ্য',
+      'হরমোনাল জন্মনিয়ন্ত্রণ বা কিছু চিকিৎসা',
+      'সংক্রমণ বা স্থানীয় ভারসাম্যহীনতা',
+    ],
+    section6Body: 'প্রত্যেকের ধরন আলাদা, এবং নিজের ধরন চিনতে বেশ কয়েকটি চক্র ধরে অনুশীলন লাগে। অন্যান্য লক্ষণের পাশাপাশি প্রতিদিন এই পরিবর্তন পর্যবেক্ষণ করলে আপনার উর্বর সময় আরও ভালোভাবে নির্ণয় করতে সাহায্য হয় — কিন্তু উদ্বেগ থাকলে এটি কখনোই চিকিৎসকের পরামর্শের বিকল্প নয়।',
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'জরায়ুমুখের শ্লেষ্মার সঙ্গে আপনার বেসাল শরীরের তাপমাত্রা বা ডিম্বস্ফোটন পরীক্ষা মিলিয়ে দেখলে আপনার চক্রের একটি পূর্ণতর চিত্র পাওয়া যায়।',
+    summaryPoints: [
+      'ইস্ট্রোজেন ও প্রোজেস্টেরনের প্রভাবে চক্র জুড়ে জরায়ুমুখের শ্লেষ্মার ঘনত্ব বদলায়।',
+      'ডিম্বস্ফোটন ঘনিয়ে এলে এটি স্বচ্ছ, টানলে লম্বা হয় ও স্থিতিস্থাপক হয়ে ওঠে, কাঁচা ডিমের সাদা অংশের মতো।',
+      'অন্যান্য লক্ষণের পাশাপাশি প্রতিদিন এই পরিবর্তন পর্যবেক্ষণ করলে আপনার উর্বর সময় আরও ভালোভাবে নির্ণয় করতে সাহায্য হয়।',
+      'নিজের ধরন চিনতে অনুশীলন এবং বেশ কয়েকটি চক্র পর্যবেক্ষণ লাগে।',
+    ],
+    disclaimerText: 'তথ্যমূলক বিষয়বস্তু। এই নিবন্ধ ব্যক্তিগত চিকিৎসা পরামর্শের বিকল্প নয়। সন্দেহ থাকলে কোনো স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিন।',
+    shareMessage: 'আপনার জরায়ুমুখের শ্লেষ্মা পর্যবেক্ষণ — AWA',
+  },
+} as const);
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */

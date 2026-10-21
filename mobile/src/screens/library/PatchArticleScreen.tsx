@@ -32,6 +32,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
 import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../../i18n/editorialImages';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 const ID = 'patch-le-patch-contraceptif';
 
@@ -51,7 +52,7 @@ const PATCH_FACT_ICONS = [
 // changes per language. The French text below is byte-identical to the
 // original — never retyped, only moved into the `fr` key — so the app
 // remains fully bilingual rather than having French replaced by English.
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('Patch', {
   fr: {
     badge: 'PATCH CONTRACEPTIF',
     title: 'Le patch\ncontraceptif',
@@ -809,7 +810,205 @@ const CONTENT = {
     ],
     shareMessage: '避妊パッチ — AWA',
   },
-} as const;
+  ko: {
+    badge: '피임 패치',
+    title: '피임\n패치',
+    metaDuration: '5분 읽기',
+    metaType: '아티클',
+    metaLevel: '입문',
+    metaValidated: '검토된 콘텐츠',
+    intro: '매일 먹는 피임약 대신 일주일에 한 번 쓰는 방법이에요.',
+    contentsTitle: '이 아티클에서는',
+    topics: [
+      '패치가 작동하는 방식',
+      '붙이는 일정',
+      '알아 두어야 할 점',
+      '핵심 정리',
+    ],
+    section1Body: '패치는 피부를 통해 호르몬을 계속 방출해요. 복합 피임약과 비슷한 방식으로 작동해서 배란을 막고 자궁 경부 점액을 끈끈하게 만들어요.',
+    tip1Title: '알아 두면 좋아요',
+    tip1Text: '매일 복용할 필요가 없다는 점이 가장 큰 장점이에요.',
+    section2Body: '패치는 보통 3주 동안 일주일에 한 번씩 교체하고, 그다음 1주는 패치를 붙이지 않아요.',
+    applicationTips: [
+      '붙일 때마다 부위를 바꿔요',
+      '아직 단단히 붙어 있는지 확인해요',
+      '깨끗하고 마른 피부에 붙여요',
+    ],
+    sectionIntro: '사용 전과 사용 중에 알아 두어야 할 핵심 사항이에요.',
+    facts: [
+      {
+        title: '매주',
+        text: '패치는 일주일에 한 번 교체해요.',
+      },
+      {
+        title: '마른 피부',
+        text: '깨끗하고 마른 피부에 붙여야 해요.',
+      },
+      {
+        title: '보호 효과',
+        text: '올바르게 사용하면 계속해서 효과가 있어요.',
+      },
+      {
+        title: '주의할 점',
+        text: '붙인 부위에 자극이 생기는 경우가 간혹 있어요.',
+      },
+    ],
+    comparisonTitle: '장점과 한계',
+    advantageTitle: '장점',
+    advantages: [
+      '• 일주일에 한 번만 붙이면 돼요',
+      '• 매일 복용할 필요가 없어요',
+      '• 호르몬이 계속 방출돼요',
+    ],
+    limitTitle: '한계',
+    limits: [
+      '성매개 감염병은 막아 주지 않아요',
+      '피부 자극이 생길 수 있어요',
+      '교체 일정을 지켜야 해요',
+    ],
+    alertTitle: '참고하세요',
+    alertText: '붙인 부위에 약간의 자극이 생길 수 있어요. 붙이는 부위를 번갈아 바꾸면 자극을 줄이는 데 도움이 될 수 있어요.',
+    rememberTitle: '꼭 기억할 3가지',
+    remember: [
+      '패치는 매주 교체해요.',
+      '잘 붙어 있는지 정기적으로 확인해요.',
+      '필요하면 의료 전문가에게 조언을 구해요.',
+    ],
+    shareMessage: '피임 패치 — AWA',
+  },
+  'pt-PT': {
+    badge: 'ADESIVO CONTRACETIVO',
+    title: 'O adesivo\ncontracetivo',
+    metaDuration: '5 min de leitura',
+    metaType: 'Artigo',
+    metaLevel: 'Iniciante',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Uma alternativa semanal à pílula diária.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'Como funciona o adesivo',
+      'Calendário de aplicação',
+      'O que precisa de saber',
+      'Pontos essenciais',
+    ],
+    section1Body: 'O adesivo liberta hormonas de forma contínua através da pele, funcionando de modo comparável à pílula combinada: impede a ovulação e espessa o muco cervical.',
+    tip1Title: 'Bom saber',
+    tip1Text: 'A sua principal vantagem é não exigir uma toma diária.',
+    section2Body: 'O adesivo é geralmente mudado uma vez por semana durante três semanas, seguidas de uma semana sem adesivo.',
+    applicationTips: [
+      'Mude o local de aplicação de cada vez',
+      'Verifique se continua bem colado',
+      'Aplique-o numa pele limpa e seca',
+    ],
+    sectionIntro: 'Os pontos-chave a conhecer antes e durante a utilização.',
+    facts: [
+      {
+        title: 'Todas as semanas',
+        text: 'O adesivo é substituído uma vez por semana.',
+      },
+      {
+        title: 'Pele seca',
+        text: 'Deve ser aplicado numa pele limpa e seca.',
+      },
+      {
+        title: 'Proteção',
+        text: 'Funciona de forma contínua quando usado corretamente.',
+      },
+      {
+        title: 'Atenção a',
+        text: 'Pode por vezes ocorrer irritação local.',
+      },
+    ],
+    comparisonTitle: 'Vantagens e limitações',
+    advantageTitle: 'Vantagens',
+    advantages: [
+      '• Uma aplicação por semana',
+      '• Sem toma diária',
+      '• Libertação contínua de hormonas',
+    ],
+    limitTitle: 'Limitações',
+    limits: [
+      'Não protege contra infeções sexualmente transmissíveis',
+      'Pode causar irritação na pele',
+      'Exige o cumprimento do calendário de substituição',
+    ],
+    alertTitle: 'Atenção',
+    alertText: 'Pode surgir uma ligeira irritação no local de aplicação. Alternar os locais de aplicação pode ajudar a limitá-la.',
+    rememberTitle: 'Os 3 pontos essenciais',
+    remember: [
+      'Mude o adesivo todas as semanas.',
+      'Verifique regularmente se está bem colado.',
+      'Peça aconselhamento a um profissional de saúde, se necessário.',
+    ],
+    shareMessage: 'O adesivo contracetivo — AWA',
+  },
+  bn: {
+    badge: 'জন্মনিয়ন্ত্রণ প্যাচ',
+    title: 'জন্মনিয়ন্ত্রণ\nপ্যাচ',
+    metaDuration: 'পড়তে 5 মিনিট',
+    metaType: 'নিবন্ধ',
+    metaLevel: 'প্রাথমিক',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'প্রতিদিনের বড়ির একটি সাপ্তাহিক বিকল্প।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'প্যাচ কীভাবে কাজ করে',
+      'ব্যবহারের সময়সূচি',
+      'যা জানা দরকার',
+      'মূল কথা',
+    ],
+    section1Body: 'প্যাচ ত্বকের মাধ্যমে ক্রমাগত হরমোন নিঃসরণ করে এবং সম্মিলিত বড়ির মতোই কাজ করে: এটি ডিম্বস্ফোটন প্রতিরোধ করে এবং জরায়ুমুখের শ্লেষ্মা ঘন করে তোলে।',
+    tip1Title: 'জেনে রাখা ভালো',
+    tip1Text: 'এর প্রধান সুবিধা হলো প্রতিদিন কোনো মাত্রা নিতে হয় না।',
+    section2Body: 'সাধারণত তিন সপ্তাহ ধরে সপ্তাহে একবার প্যাচ বদলানো হয়, এরপর এক সপ্তাহ কোনো প্যাচ ব্যবহার করা হয় না।',
+    applicationTips: [
+      'প্রতিবার প্যাচ লাগানোর জায়গা বদলান',
+      'দেখে নিন প্যাচ এখনও ভালোভাবে লেগে আছে কি না',
+      'পরিষ্কার, শুকনো ত্বকে লাগান',
+    ],
+    sectionIntro: 'ব্যবহারের আগে ও ব্যবহারের সময় যেসব মূল বিষয় জানা দরকার।',
+    facts: [
+      {
+        title: 'প্রতি সপ্তাহে',
+        text: 'সপ্তাহে একবার প্যাচ বদলাতে হয়।',
+      },
+      {
+        title: 'শুকনো ত্বক',
+        text: 'পরিষ্কার, শুকনো ত্বকে লাগাতে হবে।',
+      },
+      {
+        title: 'সুরক্ষা',
+        text: 'সঠিকভাবে ব্যবহার করলে এটি ক্রমাগত কাজ করে।',
+      },
+      {
+        title: 'লক্ষ রাখুন',
+        text: 'কখনো কখনো ত্বকের জায়গায় জ্বালা হতে পারে।',
+      },
+    ],
+    comparisonTitle: 'সুবিধা ও সীমাবদ্ধতা',
+    advantageTitle: 'সুবিধা',
+    advantages: [
+      '• সপ্তাহে একবার লাগানো',
+      '• প্রতিদিন মাত্রা নিতে হয় না',
+      '• ক্রমাগত হরমোন নিঃসরণ',
+    ],
+    limitTitle: 'সীমাবদ্ধতা',
+    limits: [
+      'যৌনবাহিত সংক্রমণ থেকে সুরক্ষা দেয় না',
+      'ত্বকে জ্বালা হতে পারে',
+      'বদলানোর সময়সূচি মেনে চলতে হয়',
+    ],
+    alertTitle: 'লক্ষ্য করুন',
+    alertText: 'প্যাচ লাগানোর জায়গায় সামান্য জ্বালা দেখা দিতে পারে। লাগানোর জায়গা পালা করে বদলালে এটি কমাতে সাহায্য হতে পারে।',
+    rememberTitle: '3টি জরুরি কথা',
+    remember: [
+      'প্রতি সপ্তাহে প্যাচ বদলান।',
+      'নিয়মিত দেখে নিন প্যাচ ভালোভাবে লেগে আছে কি না।',
+      'প্রয়োজনে স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিন।',
+    ],
+    shareMessage: 'জন্মনিয়ন্ত্রণ প্যাচ — AWA',
+  },
+} as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 

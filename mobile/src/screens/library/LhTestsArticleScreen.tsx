@@ -31,6 +31,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {resolveEditorialLanguage} from '../../i18n/editorialLanguage';
+import {withBrazilianPortuguese} from '../../i18n/ptBrEditorial';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
@@ -55,7 +56,7 @@ const TESTING_TIP_ICONS = ['calendar-range', 'clock-outline', 'cup-water'] as co
 /* remains fully bilingual rather than having French replaced by English.   */
 /* -------------------------------------------------------------------------- */
 
-const CONTENT = {
+const CONTENT = withBrazilianPortuguese('LhTests', {
   fr: {
     badge: 'FERTILITÉ • TESTS D’OVULATION',
     title: 'Comprendre les tests\nd’ovulation (LH)',
@@ -751,7 +752,172 @@ const CONTENT = {
     disclaimerText: '情報提供を目的とした内容です。この記事は、個別の医療上の助言に代わるものではありません。不安がある場合は、医療従事者に相談してください。',
     shareMessage: '排卵検査薬（LH）を理解する — AWA',
   },
-} as const;
+  ko: {
+    badge: '임신 가능성 • 배란 테스트',
+    title: '배란 테스트(LH)\n이해하기',
+    metaDuration: '읽는 데 6분',
+    metaType: '가이드',
+    metaLevel: '중급',
+    metaValidated: '검토된 콘텐츠',
+    intro: '테스트 스틱이 작동하는 방식과 사용하기 좋은 때를 알아봐요.',
+    contentsTitle: '이 아티클의 내용',
+    topics: [
+      'LH란 무엇일까요?',
+      '이 테스트가 작동하는 방식',
+      '테스트를 시작하는 시기',
+      '결과 해석하기',
+      '위양성과 한계',
+      '다른 신호와 함께 활용하기',
+      '핵심 정리',
+    ],
+    section1Body: 'LH(황체형성호르몬)는 뇌에서 만들어지며 난소의 기능을 조절해요. 배란 테스트는 이 호르몬이 급증하는 것을 감지하는데, 급증하고 24~36시간 뒤에 난자가 배출돼요.',
+    section2Body: '소변 테스트 스틱으로 LH 수치를 측정해요. 테스트 선이 대조 선과 같거나 더 진하면 LH 급증을 뜻해요.',
+    section3Body: '주기를 바탕으로 예상한 배란일보다 며칠 앞서 테스트를 시작하는 것이 좋아요.',
+    testingTips: [
+      {
+        title: '내 주기를 기준으로 하기',
+        text: '평균 주기 길이로 예상한 배란일보다 며칠 앞서 시작해요.',
+      },
+      {
+        title: '매일 같은 시간에 테스트하기',
+        text: '아침 첫 소변은 피하고 한낮 무렵이 가장 좋아요.',
+      },
+      {
+        title: '소변이 묽어지지 않게 하기',
+        text: '테스트 몇 시간 전에는 수분을 한꺼번에 많이 마시지 않도록 해요.',
+      },
+    ],
+    section4Body: '양성 결과는 그 후 1~2일 동안이 성관계에 가장 임신 가능성이 높은 시기라는 신호예요. 음성 결과는 아직 LH 급증이 일어나지 않았다는 뜻일 뿐이에요.',
+    limitations: [
+      '다낭성 난소 증후군(PCOS)이 있으면 LH 수치가 원래 더 높을 수 있어서 결과를 읽기 어려울 수 있어요',
+      '일부 난임 치료가 결과에 영향을 줄 수 있어요',
+      '소변이 매우 묽으면 위음성이 나올 수 있어요',
+      '품질이 낮은 테스트는 신뢰도가 떨어질 수 있어요',
+    ],
+    infoTitle: '기억해 두세요',
+    infoText: 'LH 급증은 배란을 유발하는 호르몬 신호를 나타내지만, 그것만으로 난자가 실제로 배출되었다는 것을 보장하지는 않아요.',
+    tipTitle: '알아두면 좋아요',
+    tipText: '배란 테스트를 기초체온이나 자궁 경부 점액 관찰과 함께 활용하면 주기를 더 폭넓게 파악할 수 있어요.',
+    summaryPoints: [
+      '배란 테스트는 LH 급증을 감지하며, 급증하고 24~36시간 뒤에 난자가 배출돼요.',
+      '주기를 바탕으로 예상한 배란일보다 며칠 앞서 테스트를 시작하는 것이 좋아요.',
+      '양성 결과는 그 후 1~2일 동안이 성관계에 가장 임신 가능성이 높은 시기라는 신호예요.',
+      'LH 급증만으로는 실제로 배란이 일어났다는 것을 보장하지 않아요.',
+    ],
+    disclaimerText: '정보 제공용 콘텐츠예요. 이 아티클은 개인별 맞춤 의학적 조언을 대신하지 않아요. 궁금한 점이 있다면 의료 전문가에게 안내를 받으세요.',
+    shareMessage: '배란 테스트(LH) 이해하기 — AWA',
+  },
+  'pt-PT': {
+    badge: 'FERTILIDADE • TESTES DE OVULAÇÃO',
+    title: 'Compreender os testes\nde ovulação (LH)',
+    metaDuration: '6 min de leitura',
+    metaType: 'Guia',
+    metaLevel: 'Intermédio',
+    metaValidated: 'Conteúdo revisto',
+    intro: 'Como funcionam estas tiras e quando as usar.',
+    contentsTitle: 'Neste artigo',
+    topics: [
+      'O que é a LH?',
+      'Como funcionam estes testes',
+      'Quando começar a testar',
+      'Interpretar um resultado',
+      'Falsos positivos e limitações',
+      'Combiná-los com outros sinais',
+      'Pontos a reter',
+    ],
+    section1Body: 'A LH (hormona luteinizante) é produzida pelo cérebro e controla o funcionamento dos ovários. Os testes de ovulação detetam o pico desta hormona, que desencadeia a libertação do óvulo 24 a 36 horas depois.',
+    section2Body: 'Uma tira de teste de urina mede os níveis de LH: uma linha de teste tão escura ou mais escura do que a linha de controlo indica um pico.',
+    section3Body: 'Recomenda-se começar a testar alguns dias antes da data de ovulação estimada a partir do seu ciclo.',
+    testingTips: [
+      {
+        title: 'Baseie-se no seu ciclo',
+        text: 'Comece alguns dias antes da data de ovulação estimada a partir da duração média dos seus ciclos.',
+      },
+      {
+        title: 'Teste à mesma hora todos os dias',
+        text: 'De preferência por volta do meio-dia, evitando a primeira urina da manhã.',
+      },
+      {
+        title: 'Evite diluir a urina',
+        text: 'Limite grandes quantidades de líquidos nas horas que antecedem o teste.',
+      },
+    ],
+    section4Body: 'Um resultado positivo assinala o período de maior fertilidade para as relações sexuais nos 1 a 2 dias seguintes. Um resultado negativo significa apenas que o pico ainda não ocorreu.',
+    limitations: [
+      'A SOP pode causar níveis de LH naturalmente mais elevados, o que pode dificultar a interpretação do resultado',
+      'Certos tratamentos de fertilidade podem afetar o resultado',
+      'Uma urina muito diluída pode dar um falso negativo',
+      'Um teste de menor qualidade pode ser menos fiável',
+    ],
+    infoTitle: 'A ter presente',
+    infoText: 'Um pico de LH indica um sinal hormonal desencadeador, mas, por si só, não garante que o óvulo tenha sido de facto libertado.',
+    tipTitle: 'Bom saber',
+    tipText: 'Combinar os testes de ovulação com a temperatura corporal basal ou com a observação do muco cervical dá uma imagem mais completa do seu ciclo.',
+    summaryPoints: [
+      'Os testes de ovulação detetam o pico de LH, que desencadeia a libertação do óvulo 24 a 36 horas depois.',
+      'Recomenda-se começar a testar alguns dias antes da data de ovulação estimada a partir do seu ciclo.',
+      'Um resultado positivo assinala o período de maior fertilidade para as relações sexuais nos 1 a 2 dias seguintes.',
+      'Um pico de LH, por si só, não garante que a ovulação tenha realmente ocorrido.',
+    ],
+    disclaimerText: 'Conteúdo informativo. Este artigo não substitui um aconselhamento médico personalizado. Em caso de dúvida, procure a orientação de um profissional de saúde.',
+    shareMessage: 'Compreender os testes de ovulação (LH) — AWA',
+  },
+  bn: {
+    badge: 'প্রজনন ক্ষমতা • ডিম্বস্ফোটন পরীক্ষা',
+    title: 'ডিম্বস্ফোটন পরীক্ষা (এলএইচ)\nবুঝুন',
+    metaDuration: '6 মিনিটের পাঠ',
+    metaType: 'গাইড',
+    metaLevel: 'মাঝারি',
+    metaValidated: 'পর্যালোচিত বিষয়বস্তু',
+    intro: 'এই স্ট্রিপগুলো কীভাবে কাজ করে এবং কখন ব্যবহার করবেন।',
+    contentsTitle: 'এই নিবন্ধে',
+    topics: [
+      'এলএইচ কী?',
+      'এই পরীক্ষাগুলো কীভাবে কাজ করে',
+      'কখন পরীক্ষা শুরু করবেন',
+      'ফলাফল ব্যাখ্যা করা',
+      'ভুল পজিটিভ ও সীমাবদ্ধতা',
+      'অন্যান্য লক্ষণের সঙ্গে মিলিয়ে দেখা',
+      'মূল কথা',
+    ],
+    section1Body: 'এলএইচ (লিউটিনাইজিং হরমোন) মস্তিষ্কে তৈরি হয় এবং ডিম্বাশয়ের কার্যক্রম নিয়ন্ত্রণ করে। ডিম্বস্ফোটন পরীক্ষা এই হরমোনের হঠাৎ বৃদ্ধি শনাক্ত করে, যা 24 থেকে 36 ঘণ্টা পর ডিম্বাণু নির্গমন ঘটায়।',
+    section2Body: 'প্রস্রাবের টেস্ট স্ট্রিপ এলএইচের মাত্রা মাপে: কন্ট্রোল লাইনের মতো বা তার চেয়ে গাঢ় টেস্ট লাইন হঠাৎ বৃদ্ধির ইঙ্গিত দেয়।',
+    section3Body: 'আপনার চক্র থেকে আন্দাজ করা ডিম্বস্ফোটনের তারিখের কয়েক দিন আগে থেকে পরীক্ষা শুরু করা ভালো।',
+    testingTips: [
+      {
+        title: 'আপনার চক্রের ওপর ভিত্তি করুন',
+        text: 'আপনার চক্রের গড় দৈর্ঘ্য থেকে আন্দাজ করা ডিম্বস্ফোটনের তারিখের কয়েক দিন আগে শুরু করুন।',
+      },
+      {
+        title: 'প্রতিদিন একই সময়ে পরীক্ষা করুন',
+        text: 'আদর্শভাবে দুপুরের দিকে, সকালের প্রথম প্রস্রাব এড়িয়ে।',
+      },
+      {
+        title: 'প্রস্রাব পাতলা হতে দেবেন না',
+        text: 'পরীক্ষার আগের কয়েক ঘণ্টায় বেশি পরিমাণে তরল পান সীমিত রাখুন।',
+      },
+    ],
+    section4Body: 'পজিটিভ ফলাফল পরবর্তী 1 থেকে 2 দিনে সহবাসের জন্য সবচেয়ে উর্বর সময়ের ইঙ্গিত দেয়। নেগেটিভ ফলাফলের অর্থ কেবল এই যে হঠাৎ বৃদ্ধি এখনও ঘটেনি।',
+    limitations: [
+      'পিসিওএসে স্বাভাবিকভাবেই এলএইচের মাত্রা বেশি থাকতে পারে, যা পাঠকে অস্পষ্ট করতে পারে',
+      'কিছু প্রজনন চিকিৎসা ফলাফলকে প্রভাবিত করতে পারে',
+      'খুব পাতলা প্রস্রাবে ভুল নেগেটিভ ফলাফল আসতে পারে',
+      'নিম্নমানের পরীক্ষা কম নির্ভরযোগ্য হতে পারে',
+    ],
+    infoTitle: 'মনে রাখবেন',
+    infoText: 'এলএইচের হঠাৎ বৃদ্ধি একটি হরমোনজনিত সংকেত নির্দেশ করে, কিন্তু এটি একা নিশ্চিত করে না যে ডিম্বাণু সত্যিই নির্গত হয়েছে।',
+    tipTitle: 'জেনে রাখা ভালো',
+    tipText: 'ডিম্বস্ফোটন পরীক্ষার সঙ্গে আপনার বেসাল শরীরের তাপমাত্রা বা জরায়ুমুখের শ্লেষ্মা পর্যবেক্ষণ মিলিয়ে দেখলে আপনার চক্রের একটি পূর্ণতর চিত্র পাওয়া যায়।',
+    summaryPoints: [
+      'ডিম্বস্ফোটন পরীক্ষা এলএইচের হঠাৎ বৃদ্ধি শনাক্ত করে, যা 24 থেকে 36 ঘণ্টা পর ডিম্বাণু নির্গমন ঘটায়।',
+      'আপনার চক্র থেকে আন্দাজ করা ডিম্বস্ফোটনের তারিখের কয়েক দিন আগে থেকে পরীক্ষা শুরু করা ভালো।',
+      'পজিটিভ ফলাফল পরবর্তী 1 থেকে 2 দিনে সহবাসের জন্য সবচেয়ে উর্বর সময়ের ইঙ্গিত দেয়।',
+      'এলএইচের হঠাৎ বৃদ্ধি একা নিশ্চিত করে না যে ডিম্বস্ফোটন সত্যিই ঘটেছে।',
+    ],
+    disclaimerText: 'তথ্যমূলক বিষয়বস্তু। এই নিবন্ধ ব্যক্তিগত চিকিৎসা পরামর্শের বিকল্প নয়। সন্দেহ থাকলে কোনো স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিন।',
+    shareMessage: 'ডিম্বস্ফোটন পরীক্ষা (এলএইচ) বুঝুন — AWA',
+  },
+} as const);
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */
