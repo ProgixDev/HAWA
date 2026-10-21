@@ -31,6 +31,9 @@ import {id} from '../../i18n/locales/id';
 import {hi} from '../../i18n/locales/hi';
 import {sq} from '../../i18n/locales/sq';
 import {ja} from '../../i18n/locales/ja';
+import {ko} from '../../i18n/locales/ko';
+import {bn} from '../../i18n/locales/bn';
+import {ptPT, ptBRFull} from '../../testUtils/portugueseDictionaries';
 
 // The palette names in Appearance (the cards and their accessibility labels) used to be read straight from the theme registry,
 // which is English ("Lavender Night", "Rose Quartz"…), while the descriptions already came from the dictionaries. They now come from
@@ -38,8 +41,8 @@ import {ja} from '../../i18n/locales/ja';
 // other names are translated. Palette ids, colours, images, Premium and persistence are untouched.
 
 const TEST_METRICS: Metrics = {frame: {x: 0, y: 0, width: 360, height: 740}, insets: {top: 0, left: 0, right: 0, bottom: 0}};
-const LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja'] as const;
-const DICTIONARIES = {fr, en, es, it: itDictionary, tr, ru, de, zh, id, hi, sq, ja} as const;
+const LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'bn'] as const;
+const DICTIONARIES = {fr, en, es, it: itDictionary, tr, ru, de, zh, id, hi, sq, ja, ko, 'pt-PT': ptPT, 'pt-BR': ptBRFull, bn} as const;
 const THEME_KEY = '@awa/appearance/theme-v1';
 const activeRenderers: ReactTestRenderer.ReactTestRenderer[] = [];
 

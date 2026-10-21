@@ -93,7 +93,7 @@ afterEach(async () => {
 
 describe('TEST 5/6 — i18n config defaults to English, no transient French default', () => {
   it('TEST 5 — fallbackLng is "en" (survives normal app bootstrap, matches the app default)', () => {
-    const fallback = i18n.options.fallbackLng;
+    const fallback = (i18n.options.fallbackLng as unknown as {default?: string[]}).default ?? i18n.options.fallbackLng;
     const fallbackList = Array.isArray(fallback) ? fallback : [fallback];
     expect(fallbackList).toContain('en');
     expect(fallbackList).not.toContain('fr');

@@ -278,7 +278,9 @@ describe('TEST 11 — Cycle Statistics default view regression (the second leak 
   it('the free-tier "most frequent symptoms" section translates, no "Crampes" leak remains', async () => {
     await setAppLanguage('en');
     await i18n.changeLanguage('en');
-    await saveJournalSection('2026-09-20', 'symptoms', {names: ['Crampes'], severity: 'mild'});
+    // a few days ago (a fixed calendar date drifts out of the statistics window as the real clock moves on)
+    const recent = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toLocaleDateString('en-CA');
+    await saveJournalSection(recent, 'symptoms', {names: ['Crampes'], severity: 'mild'});
     const renderer = await renderScreen(StatisticsScreen);
     const texts = textsOf(renderer);
     expect(texts).toContain('Cramps');

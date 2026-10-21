@@ -94,11 +94,11 @@ export function getTrueBlackEnabled(): boolean {
 // app/device, unaffected by owner/managed-daughter profile switching. Only
 // selects a language for now; the actual string translation is a separate,
 // later i18n migration (this store/UI does not translate anything yet).
-export type AwaAppLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja';
+export type AwaAppLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn';
 
 const LANGUAGE_STORAGE_KEY = '@awa/appearance/language-v1';
 // FIRST LAUNCH: with no stored language AWA detects the phone's preferred language ONCE (see hydrateAppearancePreferences),
-// uses it when it is one of the twelve supported languages, English otherwise, and stores the result as the user's language.
+// uses it when it is one of the thirteen supported languages, English otherwise, and stores the result as the user's language.
 // From then on the stored value is the only source of truth: the phone's language is never read again, so changing it later
 // never overrides the language AWA already has. English is the fallback of that one detection, not a second mode.
 // The paragraph below is the earlier (PHASE 7M) rule and still describes what a stored value does.
@@ -114,7 +114,7 @@ const LANGUAGE_STORAGE_KEY = '@awa/appearance/language-v1';
 const DEFAULT_APP_LANGUAGE: AwaAppLanguage = 'en';
 
 const isValidAppLanguage = (value: unknown): value is AwaAppLanguage =>
-  value === 'fr' || value === 'en' || value === 'es' || value === 'it' || value === 'tr' || value === 'ru' || value === 'de' || value === 'zh' || value === 'id' || value === 'hi' || value === 'sq' || value === 'ja';
+  value === 'fr' || value === 'en' || value === 'es' || value === 'it' || value === 'tr' || value === 'ru' || value === 'de' || value === 'zh' || value === 'id' || value === 'hi' || value === 'sq' || value === 'ja' || value === 'ko' || value === 'pt-PT' || value === 'pt-BR' || value === 'bn';
 
 /** Simplified Chinese compatibility aliases (any case, '-' or '_'): zh-CN, zh-Hans, zh-Hans-CN. Only Chinese has
  * aliases; every other language still needs its exact code. */
@@ -137,6 +137,23 @@ const SQ_ALIASES = new Set(['sq-al', 'sq-xk', 'sq-mk', 'sq-me', 'sq-latn', 'sq-l
  * STORED value written in a regional or script spelling resolve too. */
 const JA_ALIASES = new Set(['ja-jp', 'ja-jpan', 'ja-jpan-jp']);
 
+/** Korean ('ko', 한국어, Hangul, Intl locale ko-KR): South Korea (ko-KR), the North Korean tag (ko-KP) and the script variants. Every 'ko-*' tag also
+ * reaches the same language through the bare-language retry of languageFromLocaleTag; these make a STORED value written in a regional or
+ * script spelling resolve too. */
+const KO_ALIASES = new Set(['ko-kr', 'ko-kp', 'ko-kore', 'ko-kore-kr', 'ko-hang', 'ko-hang-kr']);
+
+/** Portuguese has TWO app languages that share one translation base: 'pt-PT' (Português, Portugal — the complete dictionary) and 'pt-BR'
+ * (Português, Brasil — only the words and spellings that differ, laid over the Portugal text). Brazil is 'pt-BR'; Portugal, the bare
+ * 'pt' and every other Portuguese-speaking country (Angola, Mozambique, Cabo Verde, Guinea-Bissau, São Tomé, Timor-Leste, Macau …,
+ * which follow the European norm) are 'pt-PT'. A BARE 'pt' is ambiguous: it resolves to Portugal, the base text, never silently to Brazil. */
+const PT_PT_ALIASES = new Set(['pt', 'pt-pt', 'pt-ao', 'pt-mz', 'pt-cv', 'pt-gw', 'pt-st', 'pt-tl', 'pt-mo', 'pt-gq', 'pt-ch', 'pt-lu', 'pt-fr', 'pt-latn', 'pt-latn-pt']);
+const PT_BR_ALIASES = new Set(['pt-br', 'pt-latn-br']);
+
+/** Bengali ('bn', বাংলা, Bengali script, Intl locale bn-BD): Bangladesh (bn-BD), India (bn-IN) and the script variants. ONE app language serves both countries:
+ * every 'bn-*' tag also reaches it through the bare-language retry of languageFromLocaleTag; these make a STORED value written in a regional or script
+ * spelling resolve too. */
+const BN_ALIASES = new Set(['bn-bd', 'bn-in', 'bn-beng', 'bn-beng-bd', 'bn-beng-in']);
+
 /** The canonical stored language for a persisted/typed value, or null when it is not a supported language. */
 export function normalizeAppLanguage(value: unknown): AwaAppLanguage | null {
   if (isValidAppLanguage(value)) {
@@ -157,6 +174,18 @@ export function normalizeAppLanguage(value: unknown): AwaAppLanguage | null {
   if (typeof value === 'string' && JA_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
     return 'ja';
   }
+  if (typeof value === 'string' && KO_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'ko';
+  }
+  if (typeof value === 'string' && PT_PT_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'pt-PT';
+  }
+  if (typeof value === 'string' && PT_BR_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'pt-BR';
+  }
+  if (typeof value === 'string' && BN_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'bn';
+  }
   return null;
 }
 
@@ -173,8 +202,13 @@ export function languageFromLocaleTag(tag: unknown): AwaAppLanguage | null {
   if (!cleaned) {
     return null;
   }
-  if (/^hi-latn(-|$)/.test(cleaned)) {
-    return null; // Hindi in Roman letters: not AWA's Devanagari Hindi
+  if (/^(hi|bn)-latn(-|$)/.test(cleaned)) {
+    return null; // Hindi / Bengali in Roman letters: not AWA's Devanagari Hindi or Bengali-script Bengali
+  }
+  if (cleaned === 'pt' || cleaned.startsWith('pt-')) {
+    // Portuguese: the region decides (pt-BR, pt-Latn-BR, pt-BR-u-… → Brazil); anything else, bare 'pt' included, is Portugal.
+    const region = cleaned.split(/-[ux]-/)[0].split('-').slice(1).find(part => /^[a-z]{2}$/.test(part));
+    return region === 'br' ? 'pt-BR' : 'pt-PT';
   }
   return normalizeAppLanguage(cleaned) ?? normalizeAppLanguage(cleaned.split('-')[0]);
 }
