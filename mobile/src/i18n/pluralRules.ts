@@ -36,21 +36,36 @@ export function hindiCardinal(value: number): PluralCategory {
   return Math.trunc(n) === 0 || n === 1 ? 'one' : 'other';
 }
 
+/** CLDR cardinal rule for Portuguese. Brazil ('pt', 'pt-BR'): one = integer part 0 or 1 (0, 0.5, 1, 1.5 → one). Portugal ('pt-PT'): one = exactly 1
+ * (the integer 1 with no decimals), so "0 dias" but "1 dia". Values of a million and more also have a "many" category in CLDR; AWA never counts that high. */
+export function portugueseCardinal(value: number, portugal: boolean): PluralCategory {
+  if (!Number.isFinite(value)) {return 'other';}
+  const n = Math.abs(value);
+  if (portugal) {return n === 1 ? 'one' : 'other';}
+  return Math.trunc(n) === 0 || Math.trunc(n) === 1 ? 'one' : 'other';
+}
+
 class AwaPluralRules {
   private readonly language: string;
+  /** Portuguese only: true for 'pt-PT' (Portugal), false for 'pt' / 'pt-BR'. */
+  private readonly portugal: boolean;
 
   constructor(locales?: string | string[], _options?: {type?: 'cardinal' | 'ordinal'}) {
     const requested = Array.isArray(locales) ? locales[0] : locales;
     this.language = baseLanguage(requested ?? 'en');
+    this.portugal = /^pt[-_](pt|ao|mz|cv|gw|st|tl|mo|gq|ch|lu)(?![a-z])/i.test(requested ?? '');
   }
 
   select(value: number): PluralCategory {
     if (this.language === 'ru') {return russianCardinal(value);}
     // Chinese has no grammatical number: CLDR has the single category "other".
-    if (this.language === 'zh' || this.language === 'id' || this.language === 'ja') {return 'other';}
-    // Indonesian and Japanese likewise have no grammatical number (CLDR: only "other").
+    if (this.language === 'zh' || this.language === 'id' || this.language === 'ja' || this.language === 'ko') {return 'other';}
+    // Indonesian, Japanese and Korean likewise have no grammatical number (CLDR: only "other").
     // Hindi (CLDR): one = integer part 0, or exactly 1 (0, 0.5, 1 → one; 1.5, 2 → other).
-    if (this.language === 'hi') {return hindiCardinal(value);}
+    // Bengali (CLDR) follows the same rule as Hindi: one = integer part 0, or exactly 1 (0, 0.5, 1 → one; 1.5, 2 → other).
+    if (this.language === 'hi' || this.language === 'bn') {return hindiCardinal(value);}
+    // Portuguese: 'pt-PT' differs from 'pt' / 'pt-BR' at 0 (see portugueseCardinal).
+    if (this.language === 'pt') {return portugueseCardinal(value, this.portugal);}
     return value === 1 ? 'one' : 'other';
   }
 
@@ -58,7 +73,7 @@ class AwaPluralRules {
     return {
       locale: this.language,
       pluralCategories:
-        this.language === 'ru' ? ['one', 'few', 'many', 'other'] : this.language === 'zh' || this.language === 'id' || this.language === 'ja' ? ['other'] : ['one', 'other'],
+        this.language === 'ru' ? ['one', 'few', 'many', 'other'] : this.language === 'zh' || this.language === 'id' || this.language === 'ja' || this.language === 'ko' ? ['other'] : ['one', 'other'],
     };
   }
 

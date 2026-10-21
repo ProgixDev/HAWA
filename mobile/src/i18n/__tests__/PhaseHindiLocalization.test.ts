@@ -132,7 +132,7 @@ describe('dictionary integrity', () => {
       'whatsapp', 'gmail', 'sms', 'maptiler', 'src', 'config', 'maps', 'ts', 'deux', 'together', 'original', 'wifi', 'qr', 'url', 'gps', 'app', 'a', 'à', 'hba', 'hb', 'ng', 'ml', 'kg', 'cm', 'mg']);
     const bad: string[] = [];
     for (const [keyPath, value] of hiLeaves) {
-      if (/^appearance\.language\.[a-z]+Name$/.test(keyPath)) {continue;} // language endonyms (Français, Deutsch, …)
+      if (/^appearance\.language\.[A-Za-z]+Name$/.test(keyPath)) {continue;} // language endonyms (Français, Deutsch, …)
       const stripped = value.replace(/\{\{[^}]*\}\}/g, ' ').replace(/https?:\/\/\S+/g, ' ').replace(/\S+@\S+/g, ' ');
       const words = (stripped.match(/[A-Za-zÀ-ÿ]{2,}/g) ?? []).filter(word => !allowedWords.has(word.toLowerCase()) && !/^[A-Z0-9]{2,6}$/.test(word));
       if (words.length > 0) {bad.push(`${keyPath}: ${words.join(', ')}`);}
@@ -206,10 +206,11 @@ describe('registration and normalisation', () => {
     expect(normalizeAppLanguage(value)).toBe('hi');
   });
 
-  it('does not confuse other languages: Hindi in Roman letters, Marathi, Nepali, Urdu and Bengali are not Hindi', () => {
-    for (const tag of ['hi-Latn', 'hi-Latn-IN', 'mr-IN', 'ne-NP', 'ur-IN', 'bn-IN', 'pa-IN', 'ta-IN']) {
+  it('does not confuse other languages: Hindi in Roman letters, Marathi, Nepali, Urdu and Bengali are not Hindi (Bengali is its own language, bn)', () => {
+    for (const tag of ['hi-Latn', 'hi-Latn-IN', 'mr-IN', 'ne-NP', 'ur-IN', 'pa-IN', 'ta-IN']) {
       expect([tag, languageFromLocaleTag(tag)]).toEqual([tag, null]);
     }
+    expect(languageFromLocaleTag('bn-IN')).toBe('bn');
     expect(languageFromLocaleTag('id-ID')).toBe('id');
     expect(languageFromLocaleTag('it-IT')).toBe('it');
   });

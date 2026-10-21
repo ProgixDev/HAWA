@@ -161,7 +161,7 @@ describe('registration and normalisation', () => {
     expect(resolveEditorialLanguage('id-ID')).toBe('id');
     expect(resolveEditorialLanguage('in')).toBe('id');
     expect(resolveEditorialLanguage('ms')).toBe('en');
-    expect(resolveEditorialLanguage('pt-BR')).toBe('en');
+    expect(resolveEditorialLanguage('th-TH')).toBe('en');
   });
 
   it('Indonesian has the single plural category "other" in the on-device PluralRules fallback', () => {

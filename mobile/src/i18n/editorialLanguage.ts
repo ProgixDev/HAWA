@@ -3,7 +3,7 @@
 // Explicit opt-ins for the languages that have real editorial text; anything
 // else — an unrecognized or not-yet-loaded value included — resolves to
 // English, never to French or Spanish.
-export type EditorialLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja';
+export type EditorialLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn';
 
 export function resolveEditorialLanguage(language: string | null | undefined): EditorialLanguage {
   // Simplified Chinese aliases (zh-CN, zh-Hans …) resolve to the canonical 'zh' block.
@@ -25,6 +25,22 @@ export function resolveEditorialLanguage(language: string | null | undefined): E
   // Japanese (ja, ja-JP, ja-Jpan …) resolves to the canonical 'ja' block.
   if (typeof language === 'string' && /^ja([-_](jp|jpan|jpan-jp))?$/i.test(language.trim())) {
     return 'ja';
+  }
+  // Korean (ko, ko-KR, ko-Hang …) resolves to the canonical 'ko' block.
+  if (typeof language === 'string' && /^ko([-_](kr|kp|kore|kore-kr|hang|hang-kr))?$/i.test(language.trim())) {
+    return 'ko';
+  }
+  // Bengali (bn, bn-BD, bn-IN, bn-Beng …) resolves to the canonical 'bn' block.
+  if (typeof language === 'string' && /^bn([-_](bd|in|beng|beng-bd|beng-in))?$/i.test(language.trim())) {
+    return 'bn';
+  }
+  // Portuguese: Brazil ('pt-BR', 'pt_BR', 'pt-Latn-BR') has its own variant over the Portugal text; Portugal, the bare 'pt' and the other
+  // Portuguese-speaking countries resolve to 'pt-PT'.
+  if (typeof language === 'string' && /^pt([-_]latn)?[-_]br(?:[-_].*)?$/i.test(language.trim())) {
+    return 'pt-BR';
+  }
+  if (typeof language === 'string' && /^pt([-_][a-z]{2,4})*$/i.test(language.trim())) {
+    return 'pt-PT';
   }
   return language === 'fr' || language === 'es' || language === 'it' || language === 'tr' || language === 'ru' || language === 'de' || language === 'zh' || language === 'id' ? language : 'en';
 }

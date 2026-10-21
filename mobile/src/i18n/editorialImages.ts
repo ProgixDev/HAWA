@@ -30,6 +30,12 @@ import {resolveEditorialLanguage, type EditorialLanguage} from './editorialLangu
 // the lettering in the picture is English (EDITORIAL_IMAGES_MISSING_ALBANIAN lists them).
 // JAPANESE ('ja'): same rule — no Japanese artwork exists; the resolver returns the ENGLISH variant and the spoken description says that
 // the lettering in the picture is English (EDITORIAL_IMAGES_MISSING_JAPANESE lists them).
+// KOREAN ('ko'): same rule — no Korean artwork exists; the resolver returns the ENGLISH variant and the spoken description says that
+// the lettering in the picture is English (EDITORIAL_IMAGES_MISSING_KOREAN lists them).
+// PORTUGUESE ('pt-PT' Portugal, 'pt-BR' Brasil): same rule — no Portuguese artwork exists; the resolver returns the ENGLISH variant and the spoken description
+// says that the lettering in the picture is English (EDITORIAL_IMAGES_MISSING_PORTUGUESE lists them).
+// BENGALI ('bn'): same rule — no Bengali artwork exists; the resolver returns the ENGLISH variant and the spoken description says that the lettering in the
+// picture is English (EDITORIAL_IMAGES_MISSING_BENGALI lists them).
 export type LocalizedImageSet = Readonly<Record<'fr' | 'en' | 'es' | 'it', ImageSourcePropType>> & {
   readonly tr?: ImageSourcePropType;
   readonly ru?: ImageSourcePropType;
@@ -39,6 +45,10 @@ export type LocalizedImageSet = Readonly<Record<'fr' | 'en' | 'es' | 'it', Image
   readonly hi?: ImageSourcePropType;
   readonly sq?: ImageSourcePropType;
   readonly ja?: ImageSourcePropType;
+  readonly ko?: ImageSourcePropType;
+  readonly 'pt-PT'?: ImageSourcePropType;
+  readonly 'pt-BR'?: ImageSourcePropType;
+  readonly bn?: ImageSourcePropType;
 };
 
 export const CYCLE_PHASES_HERO: LocalizedImageSet = {
@@ -156,6 +166,36 @@ export const EDITORIAL_IMAGES_MISSING_JAPANESE: readonly string[] = [
   .filter(([, set]) => (set as LocalizedImageSet).ja === undefined)
   .map(([name]) => name as string);
 
+/** The text-in-image illustrations that still have NO Korean variant (their lettering is English in Korean). */
+export const EDITORIAL_IMAGES_MISSING_KOREAN: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).ko === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Portuguese variant (their lettering is English in Portuguese, Portugal and Brazil alike). */
+export const EDITORIAL_IMAGES_MISSING_PORTUGUESE: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet)['pt-PT'] === undefined && (set as LocalizedImageSet)['pt-BR'] === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Bengali variant (their lettering is English in Bengali). */
+export const EDITORIAL_IMAGES_MISSING_BENGALI: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).bn === undefined)
+  .map(([name]) => name as string);
+
 /** The text-in-image illustrations that still have NO Hindi variant (their lettering is English in Hindi). */
 export const EDITORIAL_IMAGES_MISSING_HINDI: readonly string[] = [
   ['cycle-phases-hero', CYCLE_PHASES_HERO],
@@ -192,6 +232,10 @@ export const EDITORIAL_IMAGE_ALT: Record<MeaningfulEditorialImage, Record<Editor
     id: 'Ilustrasi: seorang dokter dan ibu hamil saat pemeriksaan kehamilan dengan USG. Tulisan pada gambar berbahasa Inggris: “Medical care during pregnancy, for mom’s health and baby’s well-being.”',
     sq: 'Ilustrim: një mjeke dhe një grua shtatzënë gjatë një kontrolli me ekografi. Teksti në figurë është në anglisht: “Medical care during pregnancy, for mom’s health and baby’s well-being.”',
     ja: 'イラスト：超音波検査を行う妊婦健診中の医師と妊婦。画像内の文字は英語です：「Medical care during pregnancy, for mom’s health and baby’s well-being.」',
+    ko: '일러스트: 초음파 검사와 함께 임신 중 검진을 받는 의사와 임산부. 이미지 속 글자는 영어예요: “Medical care during pregnancy, for mom’s health and baby’s well-being.”',
+    'pt-PT': 'Ilustração: uma médica e uma grávida durante uma consulta com ecografia. O texto na imagem está em inglês: “Medical care during pregnancy, for mom’s health and baby’s well-being.”',
+    'pt-BR': 'Ilustração: uma médica e uma gestante durante um exame de ultrassonografia. O texto na imagem está em inglês: “Medical care during pregnancy, for mom’s health and baby’s well-being.”',
+    bn: 'চিত্র: আলট্রাসাউন্ডসহ গর্ভকালীন চেকআপের সময় একজন চিকিৎসক ও একজন গর্ভবতী নারী। ছবির লেখাটি ইংরেজিতে: “Medical care during pregnancy, for mom’s health and baby’s well-being.”',
     hi: 'चित्र: अल्ट्रासाउंड के साथ जाँच के दौरान एक डॉक्टर और एक गर्भवती महिला। चित्र में लिखा टेक्स्ट अंग्रेज़ी में है: “Medical care during pregnancy, for mom’s health and baby’s well-being.”',
     it: 'Illustrazione: una dottoressa e una donna incinta durante un controllo con ecografia. Testo: Controlli medici in gravidanza, per la salute della mamma e il benessere del bambino.',
   },
@@ -206,6 +250,10 @@ export const EDITORIAL_IMAGE_ALT: Record<MeaningfulEditorialImage, Record<Editor
     id: 'Ilustrasi: seorang ibu hamil melakukan peregangan lunge di atas matras yoga. Tulisan pada gambar berbahasa Inggris: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
     sq: 'Ilustrim: një grua shtatzënë duke bërë shtrirje në pozicion sulmi (lunge) mbi një tapet joge. Teksti në figurë është në anglisht: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
     ja: 'イラスト：ヨガマットの上でランジのストレッチをする妊婦。画像内の文字は英語です：「Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.」',
+    ko: '일러스트: 요가 매트 위에서 런지 스트레칭을 하는 임산부. 이미지 속 글자는 영어예요: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    'pt-PT': 'Ilustração: uma grávida a fazer um alongamento em afundo sobre um tapete de ioga. O texto na imagem está em inglês: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    'pt-BR': 'Ilustração: uma gestante fazendo um alongamento em avanço sobre um tapete de ioga. O texto na imagem está em inglês: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    bn: 'চিত্র: যোগব্যায়ামের ম্যাটে লাঞ্জ স্ট্রেচ করছেন একজন গর্ভবতী নারী। ছবির লেখাটি ইংরেজিতে: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
     hi: 'चित्र: योगा मैट पर लंज स्ट्रेच करती एक गर्भवती महिला। चित्र में लिखा टेक्स्ट अंग्रेज़ी में है: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
     it: 'Illustrazione: una donna incinta in affondo su un tappetino da yoga. Testo: Muoviti per una gravidanza in salute. Quadro: una mamma in salute per un bambino sereno.',
   },
@@ -220,6 +268,10 @@ export const EDITORIAL_IMAGE_ALT: Record<MeaningfulEditorialImage, Record<Editor
     id: 'Ilustrasi: seorang perempuan melakukan peregangan lunge di atas matras yoga. Tulisan pada gambar berbahasa Inggris: “Move to feel good. Poster: body, balance, energy.”',
     sq: 'Ilustrim: një grua duke bërë shtrirje në pozicion sulmi (lunge) mbi një tapet joge. Teksti në figurë është në anglisht: “Move to feel good. Poster: body, balance, energy.”',
     ja: 'イラスト：ヨガマットの上でランジのストレッチをする女性。画像内の文字は英語です：「Move to feel good. Poster: body, balance, energy.」',
+    ko: '일러스트: 요가 매트 위에서 런지 스트레칭을 하는 여성. 이미지 속 글자는 영어예요: “Move to feel good. Poster: body, balance, energy.”',
+    'pt-PT': 'Ilustração: uma mulher a fazer um alongamento em afundo sobre um tapete de ioga. O texto na imagem está em inglês: “Move to feel good. Poster: body, balance, energy.”',
+    'pt-BR': 'Ilustração: uma mulher fazendo um alongamento em avanço sobre um tapete de ioga. O texto na imagem está em inglês: “Move to feel good. Poster: body, balance, energy.”',
+    bn: 'চিত্র: যোগব্যায়ামের ম্যাটে লাঞ্জ স্ট্রেচ করছেন একজন নারী। ছবির লেখাটি ইংরেজিতে: “Move to feel good. Poster: body, balance, energy.”',
     hi: 'चित्र: योगा मैट पर लंज स्ट्रेच करती एक महिला। चित्र में लिखा टेक्स्ट अंग्रेज़ी में है: “Move to feel good. Poster: body, balance, energy.”',
     it: 'Illustrazione: una donna in affondo su un tappetino da yoga. Testo: Muoviti per sentirti bene. Quadro: corpo, equilibrio, energia.',
   },
