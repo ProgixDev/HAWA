@@ -2,6 +2,7 @@ import fixture from './fixtures/streetsV2Labels.json';
 import {
   MAP_LANGUAGES,
   localizeMapStyle,
+  mapLabelsUseLatinFallback,
   localizedNameExpression,
   localizedNameKeys,
   mapLanguageFor,
@@ -47,21 +48,23 @@ const CAMDEN = {name: 'Camden Town', 'name:latin': 'Camden Town'};
 describe('mapLanguageFor', () => {
   it.each([
     ['fr', 'fr'], ['fr-FR', 'fr'], ['en', 'en'], ['en-GB', 'en'], ['es-ES', 'es'], ['it', 'it'], ['tr-TR', 'tr'], ['ru-RU', 'ru'], ['de-DE', 'de'],
-    ['zh', 'zh'], ['zh-Hans-CN', 'zh'], ['zh_CN', 'zh'], ['id-ID', 'id'], ['hi-IN', 'hi'], ['sq-AL', 'sq'], ['sq-XK', 'sq'], ['ja-JP', 'ja'], ['ja_JP', 'ja'],
+    ['zh', 'zh'], ['zh-Hans-CN', 'zh'], ['zh_CN', 'zh'], ['id-ID', 'id'], ['hi-IN', 'hi'], ['sq-AL', 'sq'], ['sq-XK', 'sq'], ['ja-JP', 'ja'], ['ja_JP', 'ja'], ['ko', 'ko'], ['ko-KR', 'ko'], ['ko_KR', 'ko'], ['ko-Kore-KR', 'ko'], ['pt', 'pt'], ['pt-PT', 'pt'], ['pt-BR', 'pt'], ['pt_BR', 'pt'], ['pt-Latn-BR', 'pt'],
+    ['bn', 'bn'], ['bn-BD', 'bn'], ['bn-IN', 'bn'], ['bn_BD', 'bn'], ['bn_IN', 'bn'], ['bn-Beng-BD', 'bn'],
     ['ar', 'ar'], ['ar-DZ', 'ar'], ['  FR  ', 'fr'],
   ])('%s -> %s', (tag, expected) => {
     expect(mapLanguageFor(tag)).toBe(expected);
   });
 
-  it.each([undefined, null, '', '   ', 'xx', 'xx-not-a-real-language', 'zz-ZZ', 'ko', 'pt-BR'])('%j -> undefined (the provider would answer HTTP 400 or has no such names)', tag => {
+  it.each([undefined, null, '', '   ', 'xx', 'xx-not-a-real-language', 'zz-ZZ', 'th', 'vi-VN'])('%j -> undefined (the provider would answer HTTP 400 or has no such names)', tag => {
     expect(mapLanguageFor(tag as never)).toBeUndefined();
   });
 
   it('knows every language AWA registers (a new AwaAppLanguage must be added to MAP_LANGUAGES or this fails to compile)', () => {
-    const registered: Record<AwaAppLanguage, true> = {fr: true, en: true, es: true, it: true, tr: true, ru: true, de: true, zh: true, id: true, hi: true, sq: true, ja: true};
+    const registered: Record<AwaAppLanguage, true> = {fr: true, en: true, es: true, it: true, tr: true, ru: true, de: true, zh: true, id: true, hi: true, sq: true, ja: true, ko: true, 'pt-PT': true, 'pt-BR': true, bn: true};
     for (const language of Object.keys(registered)) {
-      expect([language, mapLanguageFor(language)]).toEqual([language, language]);
-      expect(MAP_LANGUAGES).toContain(language);
+      const expected = language === 'pt-PT' || language === 'pt-BR' ? 'pt' : language; // the provider has one Portuguese
+      expect([language, mapLanguageFor(language)]).toEqual([language, expected]);
+      expect(MAP_LANGUAGES).toContain(expected);
     }
     expect(MAP_LANGUAGES).toContain('ar'); // supported by the provider, no AWA interface yet
   });
@@ -120,7 +123,7 @@ describe('localizeMapStyle on the real streets-v2 label layers', () => {
     expect(localizeMapStyle(style, null)).toBe(style);
   });
 
-  it.each(['fr', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ar', 'fr-FR', 'sq-AL', 'ja-JP'])('%s: no label layer reads name:en any more, and each reads the language\'s own tile property', language => {
+  it.each(['fr', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt', 'ar', 'fr-FR', 'sq-AL', 'ja-JP', 'ko-KR', 'pt-BR', 'pt-PT'])('%s: no label layer reads name:en any more, and each reads the language\'s own tile property', language => {
     const localized = localizeMapStyle(style, language);
     const base = mapLanguageFor(language) as string;
     const fields = JSON.stringify(localized.layers.map(layer => layer.layout['text-field']));
@@ -200,5 +203,38 @@ describe('localizeMapStyle on the real streets-v2 label layers', () => {
     expect(localizeMapStyle(empty, 'fr')).toBe(empty);
     const odd = {layers: [{id: 'a', layout: {'text-field': ['format', 'Hello ', {}, ['get', 'ref'], {}]}}, {id: 'b'}, {id: 'c', layout: {'text-field': '{ref} {name}'}}]};
     expect(localizeMapStyle(odd, 'fr')).toBe(odd); // nothing recognisable as a name label: untouched
+  });
+});
+
+describe('Bengali map labels: MapLibre Native cannot shape Bengali, so the labels fall back to Latin names (the interface stays Bengali)', () => {
+  it('bn is a real provider language (the geocoder answers it), reduced from every regional tag; only bn needs the fallback', () => {
+    expect(MAP_LANGUAGES).toContain('bn');
+    expect(mapLabelsUseLatinFallback('bn')).toBe(true);
+    for (const language of MAP_LANGUAGES.filter(name => name !== 'bn')) {
+      expect([language, mapLabelsUseLatinFallback(language)]).toEqual([language, false]);
+    }
+  });
+
+  it('never asks the tiles for name:bn: Latin transliteration, then the English name, then the local name', () => {
+    expect(localizedNameKeys('bn')).toEqual([]);
+    const expression = localizedNameExpression('bn');
+    const fields = JSON.stringify(expression);
+    expect(fields).not.toContain('name:bn');
+    expect(fields).toContain('name:latin');
+    expect(fields).toContain('name:en');
+    expect(evaluate(expression, {name: 'ঢাকা', 'name:latin': 'Dhaka', 'name:en': 'Dhaka', 'name:bn': 'ঢাকা'})).toBe('Dhaka');
+    expect(evaluate(expression, {name: 'ঢাকা', 'name:en': 'Dhaka'})).toBe('Dhaka');
+    expect(evaluate(expression, {name: 'Camden Town'})).toBe('Camden Town');
+  });
+
+  it('the Bengali style rewrites every name label, leaves the non-name labels alone and does not touch other languages', () => {
+    const localized = localizeMapStyle(style, 'bn-BD');
+    const fields = JSON.stringify(localized.layers.map(layer => layer.layout['text-field']));
+    expect(fields).not.toContain('name:bn');
+    expect(fields).not.toMatch(/\{name:en\}/);
+    expect(textFieldOf(localized, 'City labels')).toEqual(localizedNameExpression('bn'));
+    expect(textFieldOf(localized, 'Housenumber')).toBe('{housenumber}');
+    expect(textFieldOf(style, 'City labels')).toBe(textFieldOf(localizeMapStyle(style, 'en'), 'City labels'));
+    expect(JSON.stringify(localizeMapStyle(style, 'fr').layers.map(layer => layer.layout['text-field']))).toContain('name:fr');
   });
 });

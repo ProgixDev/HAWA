@@ -4,18 +4,27 @@
 // `text-field` is "{name:en}" (cities, countries, oceans, continents), ["coalesce", ["get","name:en"], ["get","name"]] (roads, rivers,
 // lakes, states, towns, ferries) or a stops function with "{name:en}" (airports); POI and "Place labels" use "{name}" (the local
 // name). The style endpoint ignores a `language` parameter. The vector tiles themselves carry one `name:<lang>` property per
-// language (verified for fr en es it tr ru de zh zh-Hans id hi sq ja ar, plus `name:latin`), so a label can be localized by
+// language (verified for fr en es it tr ru de zh zh-Hans id hi sq ja ko pt bn ar, plus `name:latin`), so a label can be localized by
 // rewriting the style's `text-field` expressions — which is what localizeMapStyle() does. A label with no translation falls back to
 // the Latin transliteration (Latin-script languages only) and finally to the local name `name`; proper names are never translated here.
 
-/** The languages the map labels and the geocoder are asked for: AWA's twelve languages (themePreferences.AwaAppLanguage) plus
+/** The languages the map labels and the geocoder are asked for: AWA's fourteen languages (themePreferences.AwaAppLanguage; both Portuguese variants are the provider's single `pt`) plus
  * Arabic (supported by the provider; AWA has no Arabic interface yet). Anything else is NOT sent to the provider: the MapTiler
  * geocoder answers an unknown `language` with HTTP 400. */
-export const MAP_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ar'] as const;
+export const MAP_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt', 'bn', 'ar'] as const;
 export type MapLanguage = (typeof MAP_LANGUAGES)[number];
 
 // Languages written in a non-Latin script: when a label has no translation they keep the LOCAL name rather than a Latin transliteration.
-const NON_LATIN_SCRIPT: ReadonlySet<MapLanguage> = new Set<MapLanguage>(['ru', 'zh', 'ja', 'hi', 'ar']);
+const NON_LATIN_SCRIPT: ReadonlySet<MapLanguage> = new Set<MapLanguage>(['ru', 'zh', 'ja', 'ko', 'hi', 'ar']);
+
+// Languages whose script MapLibre Native cannot shape. Its Android library has no text-shaping engine (no HarfBuzz; glyphs are per-code-point SDF ranges),
+// so Bengali conjuncts (ক্ষ, ন্দ …), pre-base vowel signs (ি ে ৈ) and split vowels (ো ৌ) would be drawn as loose, mis-ordered letters. For them the map NEVER
+// reads `name:<lang>`: the label is the Latin-script name (`name:latin`, then `name:en`, then the local name). The geocoder language is still sent (search
+// results and addresses are ordinary React Native text, which Android shapes correctly), and the interface stays in Bengali.
+const UNSHAPED_SCRIPT: ReadonlySet<MapLanguage> = new Set<MapLanguage>(['bn']);
+
+/** True when the map labels of this language fall back to the Latin-script name because the renderer cannot shape its script. */
+export const mapLabelsUseLatinFallback = (language: MapLanguage): boolean => UNSHAPED_SCRIPT.has(language);
 
 /** The provider language for a BCP-47-ish tag ('fr', 'fr-FR', 'sq-AL', 'ja_JP', 'zh-Hans-CN', 'ar'), or undefined when the provider has no
  * such language (the caller then omits the parameter and gets the provider's default names). */
@@ -26,6 +35,7 @@ export function mapLanguageFor(tag: string | null | undefined): MapLanguage | un
 
 /** The tile properties to read for a language, best first. Simplified Chinese is stored as `name:zh-Hans` (and `name:zh`). */
 export function localizedNameKeys(language: MapLanguage): string[] {
+  if (UNSHAPED_SCRIPT.has(language)) {return [];}
   return language === 'zh' ? ['name:zh-Hans', 'name:zh'] : [`name:${language}`];
 }
 
@@ -37,7 +47,8 @@ export function localizedNameExpression(language: MapLanguage): Expression {
   return [
     'coalesce',
     ...localizedNameKeys(language).map(key => ['get', key]),
-    ...(NON_LATIN_SCRIPT.has(language) ? [] : [['get', 'name:latin']]),
+    ...(NON_LATIN_SCRIPT.has(language) && !UNSHAPED_SCRIPT.has(language) ? [] : [['get', 'name:latin']]),
+    ...(UNSHAPED_SCRIPT.has(language) ? [['get', 'name:en']] : []),
     ['get', 'name'],
   ];
 }
