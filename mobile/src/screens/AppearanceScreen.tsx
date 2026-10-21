@@ -825,6 +825,10 @@ const LANGUAGE_SELF_LABELS: Record<AwaAppLanguage, {label: string; subtitle: str
   hi: {label: 'हिन्दी', subtitle: 'AWA को हिन्दी में इस्तेमाल करें'},
   sq: {label: 'Shqip', subtitle: 'Përdor AWA në shqip'},
   ja: {label: '日本語', subtitle: 'AWAを日本語で使う'},
+  ko: {label: '한국어', subtitle: 'AWA를 한국어로 사용'},
+  'pt-PT': {label: 'Português (Portugal)', subtitle: 'Usar o AWA em português de Portugal'},
+  'pt-BR': {label: 'Português (Brasil)', subtitle: 'Usar o AWA em português do Brasil'},
+  bn: {label: 'বাংলা', subtitle: 'AWA বাংলায় ব্যবহার করুন'},
 };
 
 // i18n key of each language's own name (shown for the language currently in force).
@@ -841,6 +845,10 @@ const LANGUAGE_NAME_KEYS: Record<AwaAppLanguage, string> = {
   hi: 'hindiName',
   sq: 'albanianName',
   ja: 'japaneseName',
+  ko: 'koreanName',
+  'pt-PT': 'portugueseName',
+  'pt-BR': 'portugueseBrazilName',
+  bn: 'bengaliName',
 };
 
 const LANGUAGE_OPTIONS: LanguageOption[] = [
@@ -856,6 +864,10 @@ const LANGUAGE_OPTIONS: LanguageOption[] = [
   {id: 'hi', flag: '🇮🇳', ...LANGUAGE_SELF_LABELS.hi},
   {id: 'sq', flag: '🇦🇱', ...LANGUAGE_SELF_LABELS.sq},
   {id: 'ja', flag: '🇯🇵', ...LANGUAGE_SELF_LABELS.ja},
+  {id: 'ko', flag: '🇰🇷', ...LANGUAGE_SELF_LABELS.ko},
+  {id: 'pt-PT', flag: '🇵🇹', ...LANGUAGE_SELF_LABELS['pt-PT']},
+  {id: 'pt-BR', flag: '🇧🇷', ...LANGUAGE_SELF_LABELS['pt-BR']},
+  {id: 'bn', flag: '🇧🇩', ...LANGUAGE_SELF_LABELS.bn},
 ];
 
 function LanguageBottomSheet({

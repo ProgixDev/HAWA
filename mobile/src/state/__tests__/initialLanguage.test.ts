@@ -26,7 +26,7 @@ const KEY = '@awa/appearance/language-v1';
 const MODE_KEY = '@awa/appearance/mode-v1';
 const TRUE_BLACK_KEY = '@awa/appearance/true-black-v1';
 const THEME_KEY = '@awa/appearance/theme-v1';
-const ALL_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja'] as const;
+const ALL_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'bn'] as const;
 
 /** A new app process: fresh module state, same stored data. */
 function startApp(): Prefs {
@@ -58,13 +58,17 @@ describe('one device locale tag -> a supported language', () => {
     ['id', 'id'], ['id-ID', 'id'], ['id_ID', 'id'], ['in', 'id'], ['in-ID', 'id'],
     ['sq', 'sq'], ['sq-AL', 'sq'], ['sq_AL', 'sq'], ['SQ-al', 'sq'], ['sq-XK', 'sq'], ['sq-MK', 'sq'], ['sq-Latn-AL', 'sq'], ['sq-AL.UTF-8', 'sq'],
     ['ja', 'ja'], ['ja-JP', 'ja'], ['ja_JP', 'ja'], ['JA-jp', 'ja'], ['ja-JP-u-ca-japanese', 'ja'], ['ja-Jpan-JP', 'ja'], ['ja-JP.UTF-8', 'ja'],
+    ['ko', 'ko'], ['ko-KR', 'ko'], ['ko_KR', 'ko'], ['KO-kr', 'ko'], ['ko-KR.UTF-8', 'ko'], ['ko-Kore-KR', 'ko'], ['ko-KP', 'ko'], ['ko-KR-u-ca-dangi', 'ko'],
+    ['pt', 'pt-PT'], ['pt-PT', 'pt-PT'], ['pt_PT', 'pt-PT'], ['PT-pt', 'pt-PT'], ['pt-AO', 'pt-PT'], ['pt-MZ', 'pt-PT'], ['pt-CV', 'pt-PT'], ['pt-Latn-PT', 'pt-PT'], ['pt-PT.UTF-8', 'pt-PT'],
+    ['pt-BR', 'pt-BR'], ['pt_BR', 'pt-BR'], ['PT-br', 'pt-BR'], ['pt-Latn-BR', 'pt-BR'], ['pt-BR.UTF-8', 'pt-BR'], ['pt-BR-u-nu-latn', 'pt-BR'],
     ['hi', 'hi'], ['hi-IN', 'hi'], ['hi_IN', 'hi'], ['HI-in', 'hi'], ['hi-Deva', 'hi'], ['hi-Deva-IN', 'hi'], ['hi-IN.UTF-8', 'hi'], ['  hi-IN  ', 'hi'],
+    ['bn', 'bn'], ['bn-BD', 'bn'], ['bn-IN', 'bn'], ['bn_BD', 'bn'], ['bn_IN', 'bn'], ['BN-bd', 'bn'], ['bn-Beng', 'bn'], ['bn-Beng-BD', 'bn'], ['bn-Beng-IN', 'bn'], ['bn-BD.UTF-8', 'bn'], ['bn-IN-u-nu-beng', 'bn'], ['  bn-BD  ', 'bn'],
     ['fr-FR.UTF-8', 'fr'], ['de_DE@euro', 'de'], ['  fr-DZ  ', 'fr'],
   ])('%s -> %s', (tag, expected) => {
     expect(languageFromLocaleTag(tag)).toBe(expected);
   });
 
-  it.each(['ar', 'ar-DZ', 'pt', 'pt-BR', 'ko-KR', 'nl', 'ms-MY', 'xx', '', '   ', 'und', 'hi-Latn', 'hi-Latn-IN', 'hi_Latn'])('%j is not supported', tag => {
+  it.each(['ar', 'ar-DZ', 'th-TH', 'nl', 'ms-MY', 'xx', '', '   ', 'und', 'hi-Latn', 'hi-Latn-IN', 'hi_Latn', 'bn-Latn', 'bn_Latn_BD', 'as', 'as-IN'])('%j is not supported', tag => {
     expect(languageFromLocaleTag(tag)).toBeNull();
   });
 
@@ -79,11 +83,19 @@ describe('the first supported language among several preferred languages (Englis
   it.each([
     [['fr-FR'], 'fr'],
     [['ar-DZ', 'fr-DZ'], 'fr'], // Arabic first, French second -> French
-    [['pt-BR', 'ar', 'de-AT', 'fr'], 'de'], // the first SUPPORTED one, in the phone's order
-    [['ko', 'th', 'es-MX'], 'es'],
-    [['ko', 'ja-JP', 'es-MX'], 'ja'], // Korean is not supported, Japanese is: the first SUPPORTED one wins
+    [['ar', 'th', 'de-AT', 'fr'], 'de'], // the first SUPPORTED one, in the phone's order
+    [['pt-BR', 'ar', 'de-AT', 'fr'], 'pt-BR'], // Portuguese is supported, and Brazil is not mapped to Portugal
+    [['pt-PT', 'pt-BR'], 'pt-PT'],
+    [['ar', 'pt'], 'pt-PT'], // a bare 'pt' is Portugal (the base text), never silently Brazil
+    [['bn-BD', 'th', 'es-MX'], 'bn'],
+    [['th', 'es-MX', 'bn-IN'], 'es'],
+    [['as-IN', 'bn_IN', 'hi-IN'], 'bn'], // Assamese is not Bengali: skipped, the next supported one wins
+    [['ko', 'th', 'es-MX'], 'ko'],
+    [['th', 'es-MX', 'ko-KR'], 'es'],
+    [['ko', 'ja-JP', 'es-MX'], 'ko'], // Korean is supported: the first SUPPORTED one wins
+    [['th', 'ja-JP', 'ko-KR'], 'ja'],
     [['ar-DZ'], 'en'],
-    [['pt-PT', 'ar', 'nl'], 'en'],
+    [['vi-VN', 'ar', 'nl'], 'en'],
     [[], 'en'],
     [[null, 42, '', 'zh-Hans'], 'zh'],
     [['xx', 'yy'], 'en'],
@@ -107,8 +119,8 @@ describe('first launch (nothing stored): the phone language is resolved once and
 
   it.each([
     [['ar-DZ'], 'Arabic'],
-    [['pt-BR'], 'Portuguese'],
-    [['ko-KR', 'th-TH'], 'Korean then Thai'],
+    [['vi-VN'], 'Vietnamese'],
+    [['vi-VN', 'th-TH'], 'Vietnamese then Thai'],
     [[], 'an empty list'],
   ])('an unsupported device language (%j: %s) -> English, stored', async tags => {
     mockDevice.tags = tags;
@@ -130,7 +142,7 @@ describe('first launch (nothing stored): the phone language is resolved once and
     },
   );
 
-  it.each([[['ja-JP'], 'ja'], [['ja'], 'ja'], [['ja-JP', 'en-US'], 'ja'], [['en-JP', 'ja-JP'], 'en'], [['ko-KR', 'ja-JP'], 'ja'], [['ja-JP-u-ca-japanese'], 'ja'], [['ja_JP'], 'ja'], [['ja-Jpan-JP'], 'ja']])(
+  it.each([[['ja-JP'], 'ja'], [['ja'], 'ja'], [['ja-JP', 'en-US'], 'ja'], [['en-JP', 'ja-JP'], 'en'], [['ko-KR', 'ja-JP'], 'ko'], [['ja-JP-u-ca-japanese'], 'ja'], [['ja_JP'], 'ja'], [['ja-Jpan-JP'], 'ja']])(
     'a Japanese phone (%j) starts AWA in %s on its first launch, stores it and reads the phone once',
     async (tags, expected) => {
       mockDevice.tags = tags;
@@ -163,6 +175,53 @@ describe('first launch (nothing stored): the phone language is resolved once and
     await app.hydrateAppearancePreferences();
     expect(app.getAppLanguage()).toBe('de');
     expect(mockDevice.reads).toBe(0);
+  });
+
+  it.each([[['bn-BD'], 'bn'], [['bn'], 'bn'], [['bn-IN'], 'bn'], [['bn_BD'], 'bn'], [['bn_IN'], 'bn'], [['bn-BD', 'en-US'], 'bn'], [['en-BD', 'bn-BD'], 'en'], [['as-IN', 'bn-IN'], 'bn'], [['bn-Latn'], 'en'], [['bn-Beng-BD'], 'bn']])(
+    'a Bengali phone (%j) starts AWA in %s on its first launch, stores it and reads the phone once',
+    async (tags, expected) => {
+      mockDevice.tags = tags;
+      const app = startApp();
+      await app.hydrateAppearancePreferences();
+      expect(app.getAppLanguage()).toBe(expected);
+      expect(await AsyncStorage.getItem(KEY)).toBe(expected);
+      expect(mockDevice.reads).toBe(1);
+    },
+  );
+
+  it('a Bengali first-launch language survives restarts and a later phone-language change (a manual choice is kept)', async () => {
+    mockDevice.tags = ['bn-BD'];
+    let app = startApp();
+    await app.hydrateAppearancePreferences();
+    expect(app.getAppLanguage()).toBe('bn');
+    mockDevice.tags = ['fr-FR'];
+    for (let launch = 0; launch < 3; launch += 1) {
+      app = startApp();
+      await app.hydrateAppearancePreferences();
+      expect(app.getAppLanguage()).toBe('bn');
+      expect(mockDevice.reads).toBe(0); // the stored language is final: the phone is not asked
+    }
+    await app.setAppLanguage('fr');
+    app = startApp();
+    await app.hydrateAppearancePreferences();
+    expect(app.getAppLanguage()).toBe('fr');
+  });
+
+  it('a stored explicit language is never replaced by a Bengali phone, and a stored bn is read back as bn', async () => {
+    await AsyncStorage.setItem(KEY, 'de');
+    mockDevice.tags = ['bn-BD'];
+    let app = startApp();
+    await app.hydrateAppearancePreferences();
+    expect(app.getAppLanguage()).toBe('de');
+    expect(mockDevice.reads).toBe(0);
+    await AsyncStorage.setItem(KEY, 'bn');
+    mockDevice.tags = ['fr-FR'];
+    app = startApp();
+    await app.hydrateAppearancePreferences();
+    expect(app.getAppLanguage()).toBe('bn');
+    for (const stored of ['bn-BD', 'bn_IN', 'bn-IN']) {
+      expect([stored, app.normalizeAppLanguage(stored)]).toEqual([stored, 'bn']);
+    }
   });
 
   it('a Hindi first-launch language survives restarts and a later phone-language change', async () => {
@@ -321,7 +380,7 @@ describe('a manual choice', () => {
   });
 
   it.each(ALL_LANGUAGES)('choosing %s replaces the language resolved at the first launch', async language => {
-    mockDevice.tags = ['pt-BR']; // first launch: English
+    mockDevice.tags = ['vi-VN']; // first launch: English
     let prefs = startApp();
     await prefs.hydrateAppearancePreferences();
     expect(await AsyncStorage.getItem(KEY)).toBe('en');
