@@ -60,11 +60,17 @@ export function displayTitleCase(value: string, language: string = getAppLanguag
  * Hindi has no letter case, but a nasal vowel is typed either with the chandrabindu (ँ, U+0901) or with the anusvara
  * (ं, U+0902) — "हटाएँ" / "हटाएं" — and Unicode can spell a nukta letter two ways (क़ as one code point or as क + ़): both are
  * folded, so the two ways of writing the same word are accepted, whatever the keyboard produces.
+ *
+ * Bengali has no letter case either; a conjunct or a vowel sign can be typed with an invisible joiner (ZWJ / ZWNJ, U+200D / U+200C) or as a
+ * precomposed / decomposed pair: the word is compared after NFC with the joiners removed, so every keyboard's spelling of the same word is accepted.
  */
 export function foldForConfirmation(value: string, language: string = getAppLanguage()): string {
   const upper = upperCaseFor(value.trim(), language);
   if (language === 'hi') {
     return upper.normalize('NFC').replace(/\u0901/g, '\u0902');
+  }
+  if (language === 'bn') {
+    return upper.normalize('NFC').replace(/[\u200c\u200d]/g, '');
   }
   return isTurkish(language) ? upper.replace(/İ/g, 'I') : upper;
 }
