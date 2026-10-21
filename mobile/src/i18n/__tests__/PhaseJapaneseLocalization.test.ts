@@ -69,7 +69,7 @@ const enLeaves = leaves(en as AnyRecord);
 const jaLeaves = leaves(ja as AnyRecord);
 const jaMap = new Map(jaLeaves);
 const ALL_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja'] as const;
-const ENDONYM = /^appearance\.language\.[a-z]+Name$/;
+const ENDONYM = /^appearance\.language\.[A-Za-z]+Name$/;
 // Values that are kept in Latin letters on purpose (an e-mail example, the product name)
 const LATIN_ON_PURPOSE = new Set(['help.helpSupport.modal.placeholderEmail', 'profile.awaADeuxTitle', 'profile.awaADeuxSectionTitle', 'awaADeux.partnerSide.invitation.title']);
 
@@ -239,10 +239,11 @@ describe('registration and normalisation', () => {
     expect(normalizeAppLanguage(value)).toBe('ja');
   });
 
-  it('does not confuse other languages: Korean, Thai, Vietnamese, Chinese variants and the other eleven stay what they are', () => {
-    for (const tag of ['ko-KR', 'th-TH', 'vi-VN', 'ms-MY', 'tl-PH']) {
+  it('does not confuse other languages: Thai, Vietnamese, Korean, Chinese variants and the other eleven stay what they are', () => {
+    for (const tag of ['th-TH', 'vi-VN', 'ms-MY', 'tl-PH']) {
       expect([tag, languageFromLocaleTag(tag)]).toEqual([tag, null]);
     }
+    expect(languageFromLocaleTag('ko-KR')).toBe('ko'); // Korean is supported since the 13th language
     expect(languageFromLocaleTag('zh-CN')).toBe('zh');
     expect(languageFromLocaleTag('it-IT')).toBe('it');
     expect(languageFromLocaleTag('sq-AL')).toBe('sq');
@@ -251,8 +252,8 @@ describe('registration and normalisation', () => {
 
   it('picks Japanese from a phone list, English for an unsupported one', () => {
     expect(pickSupportedLanguage(['ja-JP', 'en-GB'])).toBe('ja');
-    expect(pickSupportedLanguage(['ko-KR', 'ja-JP'])).toBe('ja');
-    expect(pickSupportedLanguage(['ko-KR', 'th-TH'])).toBe('en');
+    expect(pickSupportedLanguage(['th-TH', 'ja-JP'])).toBe('ja');
+    expect(pickSupportedLanguage(['vi-VN', 'th-TH'])).toBe('en');
     expect(pickSupportedLanguage(['en-GB', 'ja-JP'])).toBe('en'); // the phone's first supported language wins
   });
 
@@ -260,9 +261,10 @@ describe('registration and normalisation', () => {
     for (const value of ['ja', 'ja-JP', 'ja_JP', 'JA', 'ja-Jpan', 'ja-Jpan-JP']) {
       expect([value, resolveEditorialLanguage(value)]).toEqual([value, 'ja']);
     }
-    expect(resolveEditorialLanguage('ko')).toBe('en');
+    expect(resolveEditorialLanguage('th')).toBe('en');
     expect(resolveEditorialLanguage(undefined)).toBe('en');
     expect(ALL_LANGUAGES.filter(language => language !== 'ja').map(language => resolveEditorialLanguage(language))).toEqual(['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq']);
+    expect(resolveEditorialLanguage('ko')).toBe('ko'); // Korean has its own block since the 13th language
   });
 });
 

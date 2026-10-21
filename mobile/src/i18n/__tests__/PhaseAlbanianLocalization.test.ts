@@ -117,7 +117,7 @@ describe('dictionary integrity', () => {
 
   it('is real Albanian: no raw key, no Cyrillic / Chinese / Devanagari text, no zero-width characters, almost nothing left in English', () => {
     // (the endonyms of the other languages are written in their own scripts)
-    expect(sqLeaves.filter(([keyPath, value]) => /[一-鿿Ѐ-ӿऀ-ॿ]/.test(value) && !/^appearance\.language\.[a-z]+Name$/.test(keyPath))).toEqual([]);
+    expect(sqLeaves.filter(([keyPath, value]) => /[一-鿿Ѐ-ӿऀ-ॿ]/.test(value) && !/^appearance\.language\.[A-Za-z]+Name$/.test(keyPath))).toEqual([]);
     expect(sqLeaves.filter(([, value]) => /^[a-z][A-Za-z]+(\.[A-Za-z_]+){2,}$/.test(value))).toEqual([]); // a leaked i18n key
     expect(sqLeaves.filter(([, value]) => INVISIBLE.test(value))).toEqual([]);
     const sentences = enLeaves.filter(([, value]) => value.length > 30 && /[a-z]{3}/.test(value));
@@ -141,7 +141,7 @@ describe('dictionary integrity', () => {
   it('uses only Albanian\'s own accents: no French (é à è ê â î ô ù û), no Turkish (ğ ş ı İ) and no Spanish (ñ á í ó ú) letters except in endonyms and product names the English source also has', () => {
     const stray: string[] = [];
     for (const [keyPath, value] of sqLeaves) {
-      if (/^appearance\.language\.[a-z]+Name$/.test(keyPath)) {continue;}
+      if (/^appearance\.language\.[A-Za-z]+Name$/.test(keyPath)) {continue;}
       const english = enLeaves.find(([enPath]) => enPath === keyPath)![1];
       for (const char of value.match(/[éàèêâîôùûœñáíóúğşıİüöÜÖ]/g) ?? []) {
         if (!english.includes(char)) {stray.push(`${keyPath}: ${char}`);}

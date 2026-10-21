@@ -56,8 +56,8 @@ describe('initializeAppLanguage — the language is right before the first scree
     expect(i18n.t('onboarding.welcome.start')).not.toBe('onboarding.welcome.start'); // a real translation, no raw key
   });
 
-  it('an unsupported phone language (Arabic, Portuguese) starts in English, never in French', async () => {
-    for (const tags of [['ar-DZ'], ['pt-BR'], ['ar', 'pt']]) {
+  it('an unsupported phone language (Arabic, Vietnamese) starts in English, never in French', async () => {
+    for (const tags of [['ar-DZ'], ['vi-VN'], ['ar', 'th']]) {
       mockDevice.tags = tags;
       const {i18n, boot} = startApp();
       await boot.initializeAppLanguage();

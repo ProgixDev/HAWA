@@ -82,10 +82,13 @@ describe('TEST — Spanish dictionary leaf-key parity with fr/en (cases 16-18)',
     // Midnight) to every dictionary (6239). The physical-activity screen then added journalOptions.cycleActivityType.hiking / cardio
     // (« Randonnée », « Cardio ») to every dictionary (6241). The Albanian integration then added appearance.language.albanianName
     // (the endonym Shqip) to every dictionary (6242). The Japanese integration then added appearance.language.japaneseName (the
-    // endonym 日本語) to every dictionary (6243).
-    expect(esPaths.length).toBe(6243);
-    expect(frPaths.length).toBe(6243);
-    expect(enPaths.length).toBe(6243);
+    // endonym 日本語) to every dictionary (6243). The Korean integration then added appearance.language.koreanName (the endonym 한국어)
+    // to every dictionary (6244). The Portuguese integration then added appearance.language.portugueseName and portugueseBrazilName (the
+    // endonyms Português (Portugal) / Português (Brasil)) to every dictionary (6246). The Bengali integration then added
+    // appearance.language.bengaliName (the endonym বাংলা) to every dictionary (6247).
+    expect(esPaths.length).toBe(6247);
+    expect(frPaths.length).toBe(6247);
+    expect(enPaths.length).toBe(6247);
 
     const missingFromEsVsFr = frPaths.filter(p => !esPathSet.has(p));
     const extraInEsVsFr = esPaths.filter(p => !frPathSet.has(p));
