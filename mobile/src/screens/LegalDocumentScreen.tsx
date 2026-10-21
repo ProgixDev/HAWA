@@ -31,7 +31,7 @@ type LegalSection = {title: string; body: string};
 // validation — it carries no clause beyond the English). Russian likewise carries the same
 // provisional placeholder text and no clause beyond the English. German (de) carries the same
 // provisional placeholder text as well, with no clause beyond the English. Simplified Chinese (zh), Indonesian (id) and Hindi (hi) likewise.
-type LegalLanguage = 'fr' | 'en' | 'es' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja';
+type LegalLanguage = 'fr' | 'en' | 'es' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn';
 
 export const TERMS: Record<LegalLanguage, LegalSection[]> = {
   fr: [
@@ -111,6 +111,30 @@ export const TERMS: Record<LegalLanguage, LegalSection[]> = {
     {title: 'アプリの利用', body: 'AWAは、個人の記録とウェルネスのためのツールを提供します。利用者の権利と責任に関する最終的な内容は、法的な確認が完了したのちに追加されます。'},
     {title: 'サービスの提供', body: 'サービスの提供、保守、改善に関する最終的な条件は、今後確認される予定です。'},
     {title: 'お問い合わせ', body: '公式の連絡先は、AWAチームによる確認後に追加されます。'},
+  ],
+  ko: [
+    {title: '목적', body: '이 문서는 AWA 이용약관의 임시 구성을 보여 줍니다.'},
+    {title: '앱 이용', body: 'AWA는 개인 기록과 웰니스를 위한 도구를 제공합니다. 이용자의 권리와 책임에 관한 최종 내용은 법률 검토가 끝난 후 추가됩니다.'},
+    {title: '서비스 제공', body: '서비스 제공, 유지 관리 및 개선에 관한 최종 조건은 앞으로 확정될 예정입니다.'},
+    {title: '문의', body: '공식 연락처는 AWA 팀의 확인을 거쳐 추가됩니다.'},
+  ],
+  'pt-PT': [
+    {title: 'Finalidade', body: 'Este documento apresenta a estrutura provisória dos Termos de Utilização do AWA.'},
+    {title: 'Utilização da aplicação', body: 'O AWA disponibiliza ferramentas de registo pessoal e de bem-estar. O conteúdo final sobre os direitos e as responsabilidades dos utilizadores será acrescentado após a validação jurídica.'},
+    {title: 'Prestação do serviço', body: 'As condições finais de prestação, manutenção e melhoria do serviço serão definidas mais tarde.'},
+    {title: 'Contacto', body: 'O contacto oficial será acrescentado após a validação pela equipa do AWA.'},
+  ],
+  'pt-BR': [
+    {title: 'Finalidade', body: 'Este documento apresenta a estrutura provisória dos Termos de Uso do AWA.'},
+    {title: 'Uso do aplicativo', body: 'O AWA oferece ferramentas de registro pessoal e de bem-estar. O conteúdo final sobre os direitos e as responsabilidades dos usuários será acrescentado após a validação jurídica.'},
+    {title: 'Prestação do serviço', body: 'As condições finais de prestação, manutenção e melhoria do serviço serão definidas mais tarde.'},
+    {title: 'Contato', body: 'O contato oficial será acrescentado após a validação pela equipe do AWA.'},
+  ],
+  bn: [
+    {title: 'উদ্দেশ্য', body: 'এই নথিতে AWA-এর ব্যবহারের শর্তাবলির অস্থায়ী কাঠামো দেখানো হয়েছে।'},
+    {title: 'অ্যাপের ব্যবহার', body: 'AWA ব্যক্তিগত রেকর্ড রাখা ও সুস্থতার জন্য কিছু সরঞ্জাম সরবরাহ করে। ব্যবহারকারীদের অধিকার ও দায়িত্ব সম্পর্কে চূড়ান্ত বিষয়বস্তু আইনি যাচাইয়ের পর যোগ করা হবে।'},
+    {title: 'সেবা প্রদান', body: 'সেবা প্রদান, রক্ষণাবেক্ষণ ও উন্নয়নের চূড়ান্ত শর্তগুলো পরে নির্ধারণ করা হবে।'},
+    {title: 'যোগাযোগ', body: 'আনুষ্ঠানিক যোগাযোগের তথ্য AWA দলের যাচাইয়ের পর যোগ করা হবে।'},
   ],
 };
 
@@ -193,10 +217,34 @@ export const PRIVACY: Record<LegalLanguage, LegalSection[]> = {
     {title: '利用者の権利', body: 'データへのアクセス、訂正、削除の手続きは、確認済みの版で詳しく説明されます。'},
     {title: 'プライバシーに関するお問い合わせ', body: 'プライバシー責任者の公式な連絡先は、公開前に追加されます。'},
   ],
+  ko: [
+    {title: '처리하는 데이터', body: '이 항목에서는 법률 검토가 끝난 후 AWA가 처리하는 데이터와 그 목적을 정확히 설명합니다.'},
+    {title: '보관 및 보안', body: '최종 문서에는 보관 방식, 보호 조치, 보관 기간이 정해집니다.'},
+    {title: '이용자의 권리', body: '데이터에 접근하고 수정하거나 삭제하는 절차는 확정된 버전에서 자세히 안내합니다.'},
+    {title: '개인정보 문의', body: '개인정보 보호 책임자의 공식 연락처는 공개 전에 추가됩니다.'},
+  ],
+  'pt-PT': [
+    {title: 'Dados tratados', body: 'Esta secção descreverá com precisão os dados que o AWA trata e as respetivas finalidades, após a validação jurídica.'},
+    {title: 'Conservação e segurança', body: 'O documento final definirá o modo de conservação, as medidas de proteção e os prazos de conservação.'},
+    {title: 'Direitos do utilizador', body: 'Os procedimentos para aceder, retificar ou eliminar os dados serão detalhados na versão validada.'},
+    {title: 'Contacto sobre privacidade', body: 'O contacto oficial do responsável pela privacidade será acrescentado antes da publicação.'},
+  ],
+  'pt-BR': [
+    {title: 'Dados tratados', body: 'Esta seção descreverá com precisão os dados que o AWA trata e as respectivas finalidades, após a validação jurídica.'},
+    {title: 'Armazenamento e segurança', body: 'O documento final definirá a forma de armazenamento, as medidas de proteção e os prazos de retenção.'},
+    {title: 'Direitos do usuário', body: 'Os procedimentos para acessar, corrigir ou excluir os dados serão detalhados na versão validada.'},
+    {title: 'Contato sobre privacidade', body: 'O contato oficial do responsável pela privacidade será acrescentado antes da publicação.'},
+  ],
+  bn: [
+    {title: 'প্রক্রিয়াকৃত তথ্য', body: 'আইনি যাচাইয়ের পর এই অংশে AWA কোন তথ্য প্রক্রিয়া করে এবং কী উদ্দেশ্যে করে, তা সুনির্দিষ্টভাবে বর্ণনা করা হবে।'},
+    {title: 'সংরক্ষণ ও নিরাপত্তা', body: 'চূড়ান্ত নথিতে তথ্য সংরক্ষণের পদ্ধতি, সুরক্ষা ব্যবস্থা এবং সংরক্ষণের মেয়াদ নির্ধারণ করা হবে।'},
+    {title: 'ব্যবহারকারীর অধিকার', body: 'তথ্য দেখা, সংশোধন বা মুছে ফেলার পদ্ধতি যাচাইকৃত সংস্করণে বিস্তারিত জানানো হবে।'},
+    {title: 'গোপনীয়তা বিষয়ক যোগাযোগ', body: 'গোপনীয়তা দায়িত্বপ্রাপ্ত ব্যক্তির আনুষ্ঠানিক যোগাযোগের তথ্য প্রকাশের আগে যোগ করা হবে।'},
+  ],
 };
 
 /** Resolves the app's current language to one of the 6 legal-content keys —
- * the single place this screen decides fr/en/es/tr/ru/de/zh/id/hi/sq/ja, so body and chrome can never
+ * the single place this screen decides fr/en/es/tr/ru/de/zh/id/hi/sq/ja/ko/pt-PT/pt-BR/bn, so body and chrome can never
  * drift apart. Italian ('it') has no legal placeholder text yet, so it — like
  * any unknown/invalid language (e.g. not yet loaded) — falls back to English,
  * never to French or Spanish. */
@@ -211,6 +259,10 @@ function resolveLegalLanguage(language: string): LegalLanguage {
   if (language === 'hi') {return 'hi';}
   if (language === 'sq') {return 'sq';}
   if (language === 'ja') {return 'ja';}
+  if (language === 'ko') {return 'ko';}
+  if (language === 'pt-PT') {return 'pt-PT';}
+  if (language === 'pt-BR') {return 'pt-BR';}
+  if (language === 'bn') {return 'bn';}
   return 'en';
 }
 
