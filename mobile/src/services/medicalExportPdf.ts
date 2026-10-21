@@ -23,7 +23,10 @@ import {CAIRO_BOLD_SUBSET_BASE64} from './pdfCairoBoldFont';
 import {DEJAVU_CYRILLIC_BOLD_SUBSET_BASE64, DEJAVU_CYRILLIC_REGULAR_SUBSET_BASE64} from './pdfCyrillicFont';
 import {NOTO_SANS_SC_BOLD_SUBSET_BASE64, NOTO_SANS_SC_REGULAR_SUBSET_BASE64} from './pdfChineseFont';
 import {NOTO_SANS_JP_BOLD_SUBSET_BASE64, NOTO_SANS_JP_REGULAR_SUBSET_BASE64} from './pdfJapaneseFont';
+import {NOTO_SANS_KR_BOLD_SUBSET_BASE64, NOTO_SANS_KR_REGULAR_SUBSET_BASE64} from './pdfKoreanFont';
 import {NOTO_SANS_DEVANAGARI_BOLD_SUBSET_BASE64, NOTO_SANS_DEVANAGARI_REGULAR_SUBSET_BASE64} from './pdfDevanagariFont';
+import {NOTO_SANS_BENGALI_BOLD_SUBSET_BASE64, NOTO_SANS_BENGALI_REGULAR_SUBSET_BASE64} from './pdfBengaliFont';
+import {applyFontkitOpenTypeFixes, FixableFont} from './fontkitOpenTypeFixes';
 import i18n from '../i18n';
 
 // Local, on-device PDF generation for the Medical Export "Rapport de suivi" —
@@ -90,7 +93,7 @@ export const containsCyrillic = (text: string): boolean => CYRILLIC_RE.test(text
 
 /** CJK ideographs (+ extension A, compatibility), CJK symbols & punctuation, hiragana/katakana and the fullwidth forms:
  * what a Simplified Chinese report is made of. Noto Sans SC (pdfChineseFont.ts) draws them. */
-const CHINESE_RE = /[\u3040-\u30FF\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF\uFF00-\uFFEF]/;
+const CHINESE_RE = /[\u3040-\u30FF\u3130-\u318F\u3400-\u4DBF\u4E00-\u9FFF\uAC00-\uD7AF\uF900-\uFAFF\uFF00-\uFFEF]/;
 
 export const containsChinese = (text: string): boolean => CHINESE_RE.test(text);
 
@@ -98,6 +101,15 @@ export const containsChinese = (text: string): boolean => CHINESE_RE.test(text);
 const DEVANAGARI_RE = /[\u0900-\u097F]/;
 export const containsDevanagari = (text: string): boolean => DEVANAGARI_RE.test(text);
 const isDevanagariChar = (codePoint: number): boolean => (codePoint >= 0x0900 && codePoint <= 0x097f) || codePoint === 0x200c || codePoint === 0x200d;
+
+/** The Bengali block (Bengali): drawn with Noto Sans Bengali, shaped by fontkit's Indic shaper exactly like Devanagari (see drawShapedRun). */
+const BENGALI_RE = /[\u0980-\u09FF]/;
+export const containsBengali = (text: string): boolean => BENGALI_RE.test(text);
+/** The danda and double danda (U+0964-0965) live in the Devanagari block but are the Bengali full stop too: the Bengali face has them. */
+const isBengaliChar = (codePoint: number): boolean =>
+  (codePoint >= 0x0980 && codePoint <= 0x09ff) || codePoint === 0x0964 || codePoint === 0x0965 || codePoint === 0x200c || codePoint === 0x200d;
+/** Devanagari letters, signs and digits: the block WITHOUT the shared danda, so a Bengali report does not embed the Devanagari face for its full stops. */
+const DEVANAGARI_LETTERS_RE = /[ऀ-ॣ०-ॿ]/;
 export const containsTurkishSpecificLetter = (text: string): boolean => TURKISH_SPECIFIC_RE.test(text);
 
 type FontkitFont = {
@@ -124,16 +136,19 @@ export function ensureShapingRuntime(): void {
   }
 }
 
-/** The embedded Devanagari faces, by PDFFont, so drawing and measuring can recognise them. */
+/** The embedded Indic (Devanagari / Bengali) faces, by PDFFont, so drawing and measuring can recognise them. */
 const shapedFaces = new WeakMap<PDFFont, ShapingFont>();
 
+/** One embedded Indic-script face pair (Regular + Bold): Devanagari for Hindi, Bengali for Bengali. */
 type DevanagariFaces = {
   regular: PDFFont;
   bold: PDFFont;
-  /** Code points of the Devanagari face (the faces share one character set). */
+  /** Code points of the face (the faces share one character set). */
   support: PdfCharSupport;
   /** Code points Helvetica can encode. */
   latinSupport: PdfCharSupport;
+  /** True for the letters, signs and joiners of the script itself (those always go to this face). */
+  isScript: (codePoint: number) => boolean;
 };
 
 type Fonts = {
@@ -147,6 +162,8 @@ type Fonts = {
   probe: FontkitFont | null;
   /** Set only for a report that contains Devanagari (Hindi). */
   devanagari?: DevanagariFaces | null;
+  /** Set only for a report that contains Bengali text. */
+  bengali?: DevanagariFaces | null;
 };
 
 type Cursor = {doc: PDFDocument; page: PDFPage; y: number; fonts: Fonts; support: PdfCharSupport};
@@ -242,6 +259,36 @@ export function arrangeForArabicFace(
   return visual;
 }
 
+/** fontkit's Indic shaper gives the left vowel sign (e, ai, o, au) its word-INITIAL form whenever the character before its syllable is not a
+ * format character or a nonspacing mark, so the second syllable of ভালো or জেনে is drawn as if it opened a word. HarfBuzz (and so every
+ * Android text view) applies the initial form only when the previous character is not a letter or a mark. A format character in front of
+ * every syllable start that follows another Bengali character tells fontkit exactly that, and breaks nothing inside a conjunct (a virama
+ * keeps the letter it joins, so none is put after one). A ZWNJ does it, except after anusvara / visarga / candrabindu (U+0981-0983): there
+ * fontkit moves the ZWNJ in front of the sign, so a ZWJ (which stays in logical order) is used. Either shapes to an empty zero-advance
+ * glyph. Verified word by word against HarfBuzz (docs/i18n/bengali-pdf-font.md). */
+export function guardBengaliSyllables(text: string): string {
+  const chars = Array.from(text);
+  let out = '';
+  chars.forEach((char, index) => {
+    const cp = char.codePointAt(0) as number;
+    const previous = chars[index - 1];
+    const startsSyllable = (cp >= 0x0985 && cp <= 0x09b9) || cp === 0x09ce || cp === 0x09dc || cp === 0x09dd || cp === 0x09df;
+    if (startsSyllable && previous && /[ঁ-৿]/.test(previous) && previous !== '্' && previous !== '‌' && previous !== '‍') {
+      out += /[ঁ-ঃ]/.test(previous) ? '‍' : '‌';
+    }
+    out += char;
+  });
+  return out;
+}
+
+/** A Bengali fontkit face that shapes like HarfBuzz: fontkit's OpenType gaps fixed for this face only (fontkitOpenTypeFixes.ts) and every layout
+ * going through guardBengaliSyllables, so measuring and drawing agree. */
+export function createBengaliFace(base64: string): ShapingFont {
+  const face = fontkit.create(decodeFromBase64(base64)) as unknown as FixableFont & ShapingFont;
+  applyFontkitOpenTypeFixes(face);
+  return {unitsPerEm: face.unitsPerEm, layout: (text: string) => face.layout(guardBengaliSyllables(text)) as ShapedGlyphRun};
+}
+
 type DrawRun = {text: string; font: PDFFont};
 
 const wordAdvances = new WeakMap<ShapingFont, Map<string, number>>();
@@ -274,50 +321,51 @@ export function shapedWidth(face: ShapingFont, text: string, size: number): numb
   return (units * size) / face.unitsPerEm;
 }
 
-/** Hindi line: left-to-right runs, each on the face that can draw it. Devanagari letters, signs and the joiners are
- * drawn with Noto Sans Devanagari; Latin letters, the bullet and degree signs (not in that face) with Helvetica; a stretch
- * of characters BOTH faces have (spaces, digits, punctuation) follows the Devanagari text it comes after, so a Hindi
- * sentence stays one shaped run. Never splits inside a syllable: only Devanagari characters are on the Devanagari face. */
-function devanagariRuns(line: string, faces: DevanagariFaces, latinFont: PDFFont, bold: boolean): DrawRun[] {
-  const devFont = bold ? faces.bold : faces.regular;
-  type Kind = 'dev' | 'lat' | 'both';
+/** Indic line (Hindi / Bengali): left-to-right runs, each on the face that can draw it. The letters, signs and joiners of a script are drawn with
+ * that script's Noto Sans face; Latin letters, the bullet and degree signs (not in the Devanagari face) with Helvetica; a stretch of characters BOTH a
+ * face and Helvetica have (spaces, digits, punctuation) follows the Indic text it comes after, so a sentence stays one shaped run. Never splits inside a
+ * syllable: only characters of the script go to its face. A character only an Indic face has (₹, danda, double danda) always goes to it. */
+function indicRuns(line: string, allFaces: DevanagariFaces[], latinFont: PDFFont, bold: boolean): DrawRun[] {
+  type Kind = number | 'lat' | 'both';
   const kinds: Kind[] = Array.from(line).map(char => {
     const cp = char.codePointAt(0) as number;
-    if (isDevanagariChar(cp)) {return 'dev';}
-    const inDev = faces.support.has(cp);
-    const inLatin = faces.latinSupport.has(cp);
-    if (inDev && inLatin) {return 'both';}
-    return inDev ? 'dev' : 'lat';
+    const own = allFaces.findIndex(faces => faces.isScript(cp));
+    if (own >= 0) {return own;}
+    const holder = allFaces.findIndex(faces => faces.support.has(cp));
+    if (holder < 0) {return 'lat';}
+    return allFaces[holder].latinSupport.has(cp) ? 'both' : holder;
   });
-  let previous: 'dev' | 'lat' = 'lat';
-  const resolved = kinds.map((kind): 'dev' | 'lat' => {
-    const value: 'dev' | 'lat' = kind === 'both' ? previous : kind;
+  let previous: number | 'lat' = 'lat';
+  const resolved = kinds.map((kind): number | 'lat' => {
+    const value: number | 'lat' = kind === 'both' ? previous : kind;
     previous = value;
     return value;
   });
   const runs: DrawRun[] = [];
   Array.from(line).forEach((char, index) => {
-    const font = resolved[index] === 'dev' ? devFont : latinFont;
+    const which = resolved[index];
+    const font = which === 'lat' ? latinFont : bold ? allFaces[which].bold : allFaces[which].regular;
     const last = runs[runs.length - 1];
     if (last && last.font === font) {last.text += char;} else {runs.push({text: char, font});}
   });
   return runs;
 }
 
-const needsDevanagariFace = (line: string, faces: DevanagariFaces): boolean =>
+const needsIndicFace = (line: string, faces: DevanagariFaces): boolean =>
   Array.from(line).some(char => {
     const cp = char.codePointAt(0) as number;
-    return isDevanagariChar(cp) || (faces.support.has(cp) && !faces.latinSupport.has(cp));
+    return faces.isScript(cp) || (faces.support.has(cp) && !faces.latinSupport.has(cp));
   });
 
 /** The runs of one (already wrapped) line, in VISUAL left-to-right order, each
  * with the exact string to hand to pdf-lib and the face to draw it with. */
 export function layoutLineRuns(line: string, paraLevel: 0 | 1, fonts: Fonts, bold: boolean): DrawRun[] {
   const latinFont = bold ? fonts.latinBold : fonts.latin;
-  // A line takes this path when it holds Devanagari OR any character only the Devanagari face has (a wrapped line that is just
+  // A line takes this path when it holds Devanagari / Bengali OR any character only an Indic face has (a wrapped line that is just
   // '₹500' must not reach Helvetica, which cannot encode the rupee sign).
-  if (fonts.devanagari && !containsArabicScript(line) && needsDevanagariFace(line, fonts.devanagari)) {
-    return devanagariRuns(line, fonts.devanagari, latinFont, bold);
+  const indicFaces = [fonts.bengali, fonts.devanagari].filter((faces): faces is DevanagariFaces => Boolean(faces));
+  if (indicFaces.length && !containsArabicScript(line) && indicFaces.some(faces => needsIndicFace(line, faces))) {
+    return indicRuns(line, indicFaces, latinFont, bold);
   }
   if (!fonts.arabic || !fonts.probe || !containsArabicScript(line)) {
     // No Arabic on this line: plain left-to-right text, exactly as before.
@@ -422,6 +470,21 @@ const NO_LINE_START = new Set(Array.from('，。、；：？！）”’】》�
 /** ...and these may not END a line (opening brackets and quotes). */
 const NO_LINE_END = new Set(Array.from('（“‘【《〈『「([{［｛〔'));
 
+/** The units a too-long token may be broken between: single characters, except in Indic scripts where a base letter keeps its combining marks and a
+ * virama (conjunct) keeps the letter it joins, so a break never separates a vowel sign from its consonant. */
+const INDIC_TOKEN_RE = /[\u0900-\u097F\u0980-\u09FF]/;
+function breakUnits(word: string): string[] {
+  const chars = Array.from(word);
+  if (!INDIC_TOKEN_RE.test(word)) {return chars;}
+  const units: string[] = [];
+  chars.forEach((char, index) => {
+    const previous = chars[index - 1];
+    const joins = units.length > 0 && (/[\p{M}\u200c\u200d]/u.test(char) || previous === '\u094d' || previous === '\u09cd' || previous === '\u200d');
+    if (joins) {units[units.length - 1] += char;} else {units.push(char);}
+  });
+  return units;
+}
+
 function wrapText(
   fonts: Fonts,
   text: string,
@@ -442,7 +505,7 @@ function wrapText(
       if (current) {lines.push(current);}
       let chunk = '';
       const cjk = containsChinese(word);
-      Array.from(word).forEach(char => {
+      breakUnits(word).forEach(char => {
         if (chunk && measure(`${chunk}${char}`) > maxWidth) {
           // Kinsoku: never leave a closing mark at the start of the next line (carry the previous character with it)
           // and never leave an opening bracket at the end of this one.
@@ -553,8 +616,9 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   // standard marker (documented limitation, the CSV export is lossless).
   const needsChinese = strings.some(containsChinese);
   const needsCyrillic = !needsChinese && strings.some(containsCyrillic);
-  // A Hindi report keeps Helvetica for Latin text and adds Noto Sans Devanagari for the Devanagari runs (the face has no Latin).
-  const needsDevanagari = strings.some(containsDevanagari);
+  // A Hindi report keeps Helvetica for Latin text and adds Noto Sans Devanagari for the Devanagari runs (the face has no Latin); a Bengali report does the
+  // same with Noto Sans Bengali for the Bengali runs.
+  const needsDevanagari = strings.some(text => DEVANAGARI_LETTERS_RE.test(text) || (containsDevanagari(text) && !containsBengali(text)));
   // In a Cyrillic or Chinese report the embedded face draws the Turkish letters too, so Cairo is only needed there for
   // Arabic text.
   const needsTurkish = !needsCyrillic && !needsChinese && strings.some(containsTurkishSpecificLetter);
@@ -575,12 +639,14 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   // CJK text is drawn with Noto Sans JP when the app language is Japanese (Japanese glyph forms, kana, JIS level-1 kanji) and with
   // Noto Sans SC otherwise (Simplified Chinese), exactly as before. `notoSc` / `notoScBold` hold whichever CJK face the report uses.
   const japaneseReport = needsChinese && String(i18n.language ?? '').toLowerCase().startsWith('ja');
+  // A Korean app language embeds Noto Sans KR (Hangul syllables, KS X 1001 + every dictionary character) instead.
+  const koreanReport = needsChinese && String(i18n.language ?? '').toLowerCase().startsWith('ko');
   let notoSc: PDFFont | null = null;
   let notoScBold: PDFFont | null = null;
   if (needsChinese) {
     doc.registerFontkit(fontkit);
-    notoSc = await doc.embedFont(japaneseReport ? NOTO_SANS_JP_REGULAR_SUBSET_BASE64 : NOTO_SANS_SC_REGULAR_SUBSET_BASE64, {subset: true});
-    notoScBold = await doc.embedFont(japaneseReport ? NOTO_SANS_JP_BOLD_SUBSET_BASE64 : NOTO_SANS_SC_BOLD_SUBSET_BASE64, {subset: true});
+    notoSc = await doc.embedFont(japaneseReport ? NOTO_SANS_JP_REGULAR_SUBSET_BASE64 : koreanReport ? NOTO_SANS_KR_REGULAR_SUBSET_BASE64 : NOTO_SANS_SC_REGULAR_SUBSET_BASE64, {subset: true});
+    notoScBold = await doc.embedFont(japaneseReport ? NOTO_SANS_JP_BOLD_SUBSET_BASE64 : koreanReport ? NOTO_SANS_KR_BOLD_SUBSET_BASE64 : NOTO_SANS_SC_BOLD_SUBSET_BASE64, {subset: true});
   }
   let devanagari: DevanagariFaces | null = null;
   if (needsDevanagari) {
@@ -591,7 +657,18 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
     const boldFace = await doc.embedFont(NOTO_SANS_DEVANAGARI_BOLD_SUBSET_BASE64, {subset: false});
     shapedFaces.set(regular, fontkit.create(decodeFromBase64(NOTO_SANS_DEVANAGARI_REGULAR_SUBSET_BASE64)) as unknown as ShapingFont);
     shapedFaces.set(boldFace, fontkit.create(decodeFromBase64(NOTO_SANS_DEVANAGARI_BOLD_SUBSET_BASE64)) as unknown as ShapingFont);
-    devanagari = {regular, bold: boldFace, support: pdfCharSupport(regular), latinSupport: new Set<number>()};
+    devanagari = {regular, bold: boldFace, support: pdfCharSupport(regular), latinSupport: new Set<number>(), isScript: isDevanagariChar};
+  }
+  const needsBengali = strings.some(containsBengali);
+  let bengali: DevanagariFaces | null = null;
+  if (needsBengali) {
+    ensureShapingRuntime();
+    doc.registerFontkit(fontkit);
+    const regular = await doc.embedFont(NOTO_SANS_BENGALI_REGULAR_SUBSET_BASE64, {subset: false});
+    const boldFace = await doc.embedFont(NOTO_SANS_BENGALI_BOLD_SUBSET_BASE64, {subset: false});
+    shapedFaces.set(regular, createBengaliFace(NOTO_SANS_BENGALI_REGULAR_SUBSET_BASE64));
+    shapedFaces.set(boldFace, createBengaliFace(NOTO_SANS_BENGALI_BOLD_SUBSET_BASE64));
+    bengali = {regular, bold: boldFace, support: pdfCharSupport(regular), latinSupport: new Set<number>(), isScript: isBengaliChar};
   }
   // A Turkish report is drawn entirely with Cairo (Regular for body text, an embedded Cairo Bold subset with the same
   // code points for titles / headings / dates / category labels), so that no word is split between two typefaces and
@@ -602,9 +679,10 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   const arabic: PDFFont | null = needsArabic ? cairo : null;
   const arabicSupport: PdfCharSupport = arabic ? pdfCharSupport(arabic) : new Set<number>();
   if (devanagari) {devanagari.latinSupport = pdfCharSupport(latin);}
-  const fonts: Fonts = {latin, latinBold, arabic, arabicSupport, probe: needsArabic ? probe : null, devanagari};
+  if (bengali) {bengali.latinSupport = pdfCharSupport(latin);}
+  const fonts: Fonts = {latin, latinBold, arabic, arabicSupport, probe: needsArabic ? probe : null, devanagari, bengali};
   // Bold shares the regular face's character set, so one check covers both.
-  const support: PdfCharSupport = new Set<number>([...pdfCharSupport(latin), ...arabicSupport, ...(devanagari ? devanagari.support : [])]);
+  const support: PdfCharSupport = new Set<number>([...pdfCharSupport(latin), ...arabicSupport, ...(devanagari ? devanagari.support : []), ...(bengali ? bengali.support : [])]);
   const cursor: Cursor = {doc, page: newPage(doc), y: PAGE_HEIGHT - MARGIN, fonts, support};
 
   drawParagraph(cursor, 'AWA', {size: 22, bold: true, color: TITLE_COLOR, gapAfter: 2});

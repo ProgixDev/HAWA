@@ -96,7 +96,7 @@ describe('Albanian PDF export', () => {
     const letters = new Set(texts.join('').match(/\p{L}/gu));
     // every letter used is Basic Latin or one of the WinAnsi letters (ë Ë ç Ç …); the other languages' endonyms are the only exceptions
     const outside = [...letters].filter(letter => !/[A-Za-zÀ-ÿ]/.test(letter) && !/[ğĞşŞıİ]/.test(letter));
-    expect(outside.filter(letter => !/[一-鿿Ѐ-ӿऀ-ॿ]/.test(letter))).toEqual([]);
+    expect(outside.filter(letter => !/[一-鿿Ѐ-ӿऀ-ॿঀ-৿가-힣]/.test(letter))).toEqual([]);
     expect(letters.has('ë') && letters.has('ç') && letters.has('Ë') && letters.has('Ç')).toBe(true);
   });
 
