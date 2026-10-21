@@ -160,11 +160,64 @@ export function containsJapanese(node: unknown, depth = 0): boolean {
   return props ? containsJapanese(props.children, depth + 1) : false;
 }
 
+// BENGALI. Noto Sans Bengali (the system face that draws Bengali on Android) measures 917 above / 408 below the baseline per 1000 and its conjunct, vowel-sign and
+// reph glyphs reach 995 above and 408 below: 1.40 x the font size in total, more than the 1.12 - 1.33 x lines of the Material roles. Same rule as Devanagari
+// (the line floor is the same 1.45 x, and Bengali is never letter-spaced): only while the app language is Bengali and only for a Text / TextInput that holds
+// Bengali letters (see bengaliAdjustment). Other languages, and Bengali texts without Bengali letters (digits, "AWA"), keep their style exactly.
+export const BENGALI_LINE_HEIGHT_RATIO = DEVANAGARI_LINE_HEIGHT_RATIO;
+const BENGALI_RE = /[\u0980-\u09FF]/;
+
+/** True when a string, or any string inside the (nested) children, holds a Bengali-script character. */
+export function containsBengali(node: unknown, depth = 0): boolean {
+  if (typeof node === 'string') {
+    return BENGALI_RE.test(node);
+  }
+  if (depth > 4 || node === null || typeof node !== 'object') {
+    return false;
+  }
+  if (Array.isArray(node)) {
+    return node.some(item => containsBengali(item, depth + 1));
+  }
+  const props = (node as {props?: {children?: unknown}}).props;
+  return props ? containsBengali(props.children, depth + 1) : false;
+}
+
+/** Everything the layer changes for a Bengali text, or null when the style needs nothing (same rule as Devanagari). */
+export function bengaliAdjustment(style: TextStyle | undefined): Pick<TextStyle, 'lineHeight' | 'letterSpacing'> | null {
+  return devanagariAdjustment(style);
+}
+
+// KOREAN (Hangul). Same treatment as Japanese: Hangul syllables are as dense as kana and kanji, so only while the app language is Korean,
+// and only for a Text / TextInput that really holds Hangul, a numeric lineHeight below 1.35 x the font size is raised to it and a
+// non-zero letterSpacing is reset to 0 (Korean is never tracked). Other languages keep their style exactly.
+export const KOREAN_LINE_HEIGHT_RATIO = 1.35;
+const KOREAN_RE = /[가-힯]/;
+
+/** True when a string, or any string inside the (nested) children, holds a Hangul syllable. */
+export function containsKorean(node: unknown, depth = 0): boolean {
+  if (typeof node === 'string') {
+    return KOREAN_RE.test(node);
+  }
+  if (depth > 4 || node === null || typeof node !== 'object') {
+    return false;
+  }
+  if (Array.isArray(node)) {
+    return node.some(item => containsKorean(item, depth + 1));
+  }
+  const props = (node as {props?: {children?: unknown}}).props;
+  return props ? containsKorean(props.children, depth + 1) : false;
+}
+
+/** Everything the layer changes for a Korean text, or null when the style needs nothing (same rule as Japanese). */
+export function koreanAdjustment(style: TextStyle | undefined): Pick<TextStyle, 'lineHeight' | 'letterSpacing'> | null {
+  return japaneseAdjustment(style, KOREAN_LINE_HEIGHT_RATIO);
+}
+
 /** Everything the layer changes for a Japanese text, or null when the style needs nothing. */
-export function japaneseAdjustment(style: TextStyle | undefined): Pick<TextStyle, 'lineHeight' | 'letterSpacing'> | null {
+export function japaneseAdjustment(style: TextStyle | undefined, ratio: number = JAPANESE_LINE_HEIGHT_RATIO): Pick<TextStyle, 'lineHeight' | 'letterSpacing'> | null {
   let lineHeight: number | null = null;
   if (typeof style?.lineHeight === 'number' && typeof style.fontSize === 'number') {
-    const wanted = Math.ceil(style.fontSize * JAPANESE_LINE_HEIGHT_RATIO * 2) / 2;
+    const wanted = Math.ceil(style.fontSize * ratio * 2) / 2;
     lineHeight = style.lineHeight < wanted ? wanted : null;
   }
   const resetTracking = typeof style?.letterSpacing === 'number' && style.letterSpacing !== 0;
@@ -221,6 +274,18 @@ export function patchAwaRender(component: Renderable, nestable: boolean): () => 
     }
     if (getAppLanguage() === 'ja' && (containsJapanese(props.children) || containsJapanese(props.value) || containsJapanese(props.defaultValue) || containsJapanese(props.placeholder))) {
       const adjustment = japaneseAdjustment(StyleSheet.flatten(next.style as TextStyle));
+      if (adjustment !== null) {
+        next = {...next, style: [next.style, adjustment]};
+      }
+    }
+    if (getAppLanguage() === 'bn' && (containsBengali(props.children) || containsBengali(props.value) || containsBengali(props.defaultValue) || containsBengali(props.placeholder))) {
+      const adjustment = bengaliAdjustment(StyleSheet.flatten(next.style as TextStyle));
+      if (adjustment !== null) {
+        next = {...next, style: [next.style, adjustment]};
+      }
+    }
+    if (getAppLanguage() === 'ko' && (containsKorean(props.children) || containsKorean(props.value) || containsKorean(props.defaultValue) || containsKorean(props.placeholder))) {
+      const adjustment = koreanAdjustment(StyleSheet.flatten(next.style as TextStyle));
       if (adjustment !== null) {
         next = {...next, style: [next.style, adjustment]};
       }
