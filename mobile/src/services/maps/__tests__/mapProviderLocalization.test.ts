@@ -52,7 +52,7 @@ afterEach(async () => {
 });
 
 describe('the language sent to the geocoder', () => {
-  it.each([['fr', 'fr'], ['en', 'en'], ['es', 'es'], ['it', 'it'], ['tr', 'tr'], ['ru', 'ru'], ['de', 'de'], ['zh', 'zh'], ['id', 'id'], ['hi', 'hi'], ['sq', 'sq'], ['ja', 'ja']] as const)(
+  it.each([['fr', 'fr'], ['en', 'en'], ['es', 'es'], ['it', 'it'], ['tr', 'tr'], ['ru', 'ru'], ['de', 'de'], ['zh', 'zh'], ['id', 'id'], ['hi', 'hi'], ['sq', 'sq'], ['ja', 'ja'], ['ko', 'ko'], ['pt-PT', 'pt'], ['pt-BR', 'pt'], ['bn', 'bn']] as const)(
     'app language %s -> language=%s (search and reverse geocoding)',
     async (appLanguage, expected) => {
       await setAppLanguage(appLanguage);
@@ -73,6 +73,14 @@ describe('the language sent to the geocoder', () => {
     await mapProvider.searchPlaces('Paris', {language: 'ar'});
     await mapProvider.reverseGeocode(1, 2, {language: 'fr-FR'});
     expect([0, 1, 2, 3].map(call => urlOf(fetchMock, call).searchParams.get('language'))).toEqual(['sq', 'ja', 'ar', 'fr']);
+    // MapTiler knows one Portuguese: `pt-PT` / `pt-BR` would be answered with HTTP 400, so both regional tags are reduced to `pt`
+    await mapProvider.searchPlaces('Lisboa', {language: 'pt-PT'});
+    await mapProvider.searchPlaces('São Paulo', {language: 'pt_BR'});
+    expect([4, 5].map(call => urlOf(fetchMock, call).searchParams.get('language'))).toEqual(['pt', 'pt']);
+    // Bengali: `bn` is a real MapTiler language (verified live 2026-10-21), `bn-BD` / `bn-IN` are answered with HTTP 400, so every regional tag is reduced to `bn`
+    await mapProvider.searchPlaces('Dhaka', {language: 'bn-BD'});
+    await mapProvider.searchPlaces('Kolkata', {language: 'bn_IN'});
+    expect([6, 7].map(call => urlOf(fetchMock, call).searchParams.get('language'))).toEqual(['bn', 'bn']);
   });
 
   it('a language the provider does not know is NOT sent (the live API answers HTTP 400), so the request still works with default names', async () => {

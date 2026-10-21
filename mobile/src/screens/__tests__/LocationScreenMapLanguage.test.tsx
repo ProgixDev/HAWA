@@ -130,7 +130,11 @@ const LONDON_NAMES: Record<string, {city: string; country: string}> = {
   fr: {city: 'Grand Londres', country: 'Royaume-Uni'},
   sq: {city: 'Londra', country: 'Mbretëria e Bashkuar'},
   ja: {city: 'グレーター・ロンドン', country: 'イギリス'},
+  ko: {city: '그레이터런던', country: '영국'},
+  pt: {city: 'Grande Londres', country: 'Reino Unido'}, // asked as `pt` for both pt-PT and pt-BR
   de: {city: 'Greater London', country: 'Vereinigtes Königreich'},
+  // verified live 2026-10-21 (`language=bn`): the country is Bengali, the Greater London municipality has no Bengali name and keeps its local one
+  bn: {city: 'Greater London', country: 'যুক্তরাজ্য'},
 };
 const answerLikeTheProvider = () =>
   mockLocalize.mockImplementation(async (place: MapPlace, options: MapRequestOptions) => {
@@ -170,11 +174,11 @@ describe('the neutral London default follows the app language', () => {
     expect(mockEaseToCalls).toEqual([]);
   });
 
-  it.each(['sq', 'ja'] as const)('%s: the same default, named by the provider in that language', async language => {
+  it.each(['sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'bn'] as const)('%s: the same default, named by the provider in that language', async language => {
     answerLikeTheProvider();
     await useLanguage(language);
     const {renderer} = await renderLocationScreen();
-    const names = LONDON_NAMES[language];
+    const names = LONDON_NAMES[language === 'pt-PT' || language === 'pt-BR' ? 'pt' : language];
     expect(searchValue(renderer)).toBe(`${names.city}, ${names.country}`);
     expect(textsOf(renderer)).not.toContain('London, United Kingdom');
     expect(cameraCenter(renderer)).toEqual([-0.1278, 51.5074]);
