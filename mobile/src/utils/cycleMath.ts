@@ -31,6 +31,9 @@ export const WEEK_DAYS_ID = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
 export const WEEK_DAYS_HI = ['सोम', 'मंगल', 'बुध', 'गुरु', 'शुक्र', 'शनि', 'रवि'];
 export const WEEK_DAYS_SQ = ['Hën', 'Mar', 'Mër', 'Enj', 'Pre', 'Sht', 'Die'];
 export const WEEK_DAYS_JA = ['月', '火', '水', '木', '金', '土', '日'];
+export const WEEK_DAYS_KO = ['월', '화', '수', '목', '금', '토', '일'];
+export const WEEK_DAYS_PT = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+export const WEEK_DAYS_BN = ['সোম', 'মঙ্গল', 'বুধ', 'বৃহ', 'শুক্র', 'শনি', 'রবি'];
 export const localizedWeekDays = (): string[] => {
   const language = getAppLanguage();
   if (language === 'en') {return WEEK_DAYS_EN;}
@@ -44,6 +47,9 @@ export const localizedWeekDays = (): string[] => {
   if (language === 'hi') {return WEEK_DAYS_HI;}
   if (language === 'sq') {return WEEK_DAYS_SQ;}
   if (language === 'ja') {return WEEK_DAYS_JA;}
+  if (language === 'ko') {return WEEK_DAYS_KO;}
+  if (language === 'pt-PT' || language === 'pt-BR') {return WEEK_DAYS_PT;}
+  if (language === 'bn') {return WEEK_DAYS_BN;}
   return WEEK_DAYS;
 };
 
@@ -97,6 +103,12 @@ export const dateFormatLocale = (): string => {
   if (language === 'hi') {return 'hi-IN';}
   if (language === 'sq') {return 'sq-AL';}
   if (language === 'ja') {return 'ja-JP';}
+  if (language === 'ko') {return 'ko-KR';}
+  if (language === 'pt-PT') {return 'pt-PT';}
+  if (language === 'pt-BR') {return 'pt-BR';}
+  // Bengali: bn-BD (Bangladesh; bn-IN has the same CLDR data) with LATIN digits — ICU's default would print Bengali digits (২১ অক্টোবর), but every
+  // number AWA shows (cycle day, counters, the dictionary) is a Western digit, so dates follow it.
+  if (language === 'bn') {return 'bn-BD-u-nu-latn';}
   return 'fr-FR';
 };
 
@@ -124,36 +136,74 @@ export const formatDateRange = (start: Date, end: Date): string => {
 // Dhoul Hijja marker computed from the same underlying date.
 const withHijriAdjustment = (date: Date): Date => addDays(date, getHijriAdjustmentDays());
 
-// JAPANESE. CLDR has no Japanese names for the Hijri months: the ICU output is "AH1447年9月12日", which reads like a Gregorian
-// September. For Japanese the Hijri date is composed from the numeric ICU fields (the same technique as hijriCalendar.ts's
-// hijriPartsFor, with the same single adjustment) with the era 「ヒジュラ暦」 and the month names Japanese Muslims use.
-const HIJRI_MONTHS_JA = [
-  'ムハッラム',
-  'サファル',
-  'ラビーウ・アル＝アウワル',
-  'ラビーウ・アル＝アーヒル',
-  'ジュマーダー・アル＝ウーラー',
-  'ジュマーダー・アル＝アーヒラ',
-  'ラジャブ',
-  'シャアバーン',
-  'ラマダーン',
-  'シャウワール',
-  'ズー・アル＝カアダ',
-  'ズー・アル＝ヒッジャ',
-];
-let hijriFormatterJapanese: Intl.DateTimeFormat | undefined;
-const hijriPartsForJapanese = (date: Date): {year: number; month: number; day: number} => {
-  hijriFormatterJapanese = hijriFormatterJapanese ?? new Intl.DateTimeFormat('en-u-ca-islamic', {year: 'numeric', month: 'numeric', day: 'numeric'});
-  const parts = hijriFormatterJapanese.formatToParts(withHijriAdjustment(date));
+// COMPOSED HIJRI DATES (Japanese, Korean, Bengali; Bengali: ICU prints "12 রমজান, 1447 যুগ" with the generic era word যুগ). The ICU data has no usable Hijri month names for these two languages: Japanese prints
+// "AH1447年9月12日", and Korean prints a number for the month with the calendar variant used here ("AH 1447년 9월 12일"). Both read like a
+// Gregorian September. For them the Hijri date is composed from the numeric ICU fields (the same technique as hijriCalendar.ts's
+// hijriPartsFor, with the same single adjustment) with the era used by the local Muslim community and the month names of the
+// Unicode locale data (Korean) or of that community (Japanese). Every other language keeps its ICU output.
+type ComposedHijri = {
+  months: readonly string[];
+  date: (year: number, month: string, day: number) => string;
+  monthYear: (year: number, month: string) => string;
+};
+const COMPOSED_HIJRI: Record<string, ComposedHijri | undefined> = {
+  ja: {
+    months: [
+      'ムハッラム',
+      'サファル',
+      'ラビーウ・アル＝アウワル',
+      'ラビーウ・アル＝アーヒル',
+      'ジュマーダー・アル＝ウーラー',
+      'ジュマーダー・アル＝アーヒラ',
+      'ラジャブ',
+      'シャアバーン',
+      'ラマダーン',
+      'シャウワール',
+      'ズー・アル＝カアダ',
+      'ズー・アル＝ヒッジャ',
+    ],
+    date: (year, month, day) => `ヒジュラ暦${year}年${month}${day}日`,
+    monthYear: (year, month) => `ヒジュラ暦${year}年${month}`,
+  },
+  bn: {
+    months: ['মুহাররম', 'সফর', 'রবিউল আউয়াল', 'রবিউস সানি', 'জমাদিউল আউয়াল', 'জমাদিউস সানি', 'রজব', 'শাবান', 'রমজান', 'শাওয়াল', 'জিলকদ', 'জিলহজ'],
+    date: (year, month, day) => `${day} ${month} ${year} হিজরি`,
+    monthYear: (year, month) => `${month} ${year} হিজরি`,
+  },
+  ko: {
+    months: [
+      '무하람',
+      '사파르',
+      '라비 알 아왈',
+      '라비 알 쎄니',
+      '주마다 알 아왈',
+      '주마다 알 쎄니',
+      '라잡',
+      '쉐아반',
+      '라마단',
+      '쉐왈',
+      '듀 알 까다',
+      '듀 알 히자',
+    ],
+    date: (year, month, day) => `히즈라력 ${year}년 ${month} ${day}일`,
+    monthYear: (year, month) => `히즈라력 ${year}년 ${month}`,
+  },
+};
+let hijriFormatterComposed: Intl.DateTimeFormat | undefined;
+const hijriPartsComposed = (date: Date): {year: number; month: number; day: number} => {
+  hijriFormatterComposed = hijriFormatterComposed ?? new Intl.DateTimeFormat('en-u-ca-islamic', {year: 'numeric', month: 'numeric', day: 'numeric'});
+  const parts = hijriFormatterComposed.formatToParts(withHijriAdjustment(date));
   const value = (type: string) => Number(parts.find(part => part.type === type)?.value ?? NaN);
   return {year: value('year'), month: value('month'), day: value('day')};
 };
 
 export const formatHijriDate = (date: Date): string | undefined => {
-  if (getAppLanguage() === 'ja') {
+  const composed = COMPOSED_HIJRI[getAppLanguage()];
+  if (composed) {
     try {
-      const {year, month, day} = hijriPartsForJapanese(date);
-      return Number.isFinite(year) && HIJRI_MONTHS_JA[month - 1] ? `ヒジュラ暦${year}年${HIJRI_MONTHS_JA[month - 1]}${day}日` : undefined;
+      const {year, month, day} = hijriPartsComposed(date);
+      const name = composed.months[month - 1];
+      return Number.isFinite(year) && name ? composed.date(year, name, day) : undefined;
     } catch {
       return undefined;
     }
@@ -172,9 +222,9 @@ export const formatHijriDate = (date: Date): string | undefined => {
 };
 
 export const formatHijriDay = (date: Date): string | undefined => {
-  if (getAppLanguage() === 'ja') {
+  if (COMPOSED_HIJRI[getAppLanguage()]) {
     try {
-      const {day} = hijriPartsForJapanese(date);
+      const {day} = hijriPartsComposed(date);
       return Number.isFinite(day) ? String(day) : undefined;
     } catch {
       return undefined;
@@ -188,10 +238,12 @@ export const formatHijriDay = (date: Date): string | undefined => {
 };
 
 export const formatHijriMonthYear = (date: Date): string | undefined => {
-  if (getAppLanguage() === 'ja') {
+  const composed = COMPOSED_HIJRI[getAppLanguage()];
+  if (composed) {
     try {
-      const {year, month} = hijriPartsForJapanese(date);
-      return Number.isFinite(year) && HIJRI_MONTHS_JA[month - 1] ? `ヒジュラ暦${year}年${HIJRI_MONTHS_JA[month - 1]}` : undefined;
+      const {year, month} = hijriPartsComposed(date);
+      const name = composed.months[month - 1];
+      return Number.isFinite(year) && name ? composed.monthYear(year, name) : undefined;
     } catch {
       return undefined;
     }

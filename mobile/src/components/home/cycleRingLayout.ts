@@ -57,6 +57,19 @@ const DEVANAGARI_SIGN_EM = 0.219;
 const DEVANAGARI_RE = /[\u0900-\u097F]/;
 const VIRAMA = 0x094d;
 
+// Bengali is drawn by the system font (Noto Sans Bengali) and shaped the same way: the hasanta (virama) joins two consonants into a conjunct whose second
+// part takes little room, vowel signs are narrow, and the hasanta, nukta and chandrabindu take none. Three advances fitted by least squares to the
+// advance widths of every distinct word of the Bengali dictionary (2,274 words) shaped in Noto Sans Bengali Bold with HarfBuzz-identical shaping. On the
+// real ring labels the estimate is within -9 % / +6.5 % of the shaped width; BENGALI_WIDTH_SAFETY covers that.
+const isBengaliZeroWidth = (code: number): boolean => code === 0x0981 || code === 0x09bc || code === 0x09cd;
+const isBengaliSign = (code: number): boolean =>
+  code === 0x0982 || code === 0x0983 || (code >= 0x09be && code <= 0x09cc) || code === 0x09d7 || code === 0x09e2 || code === 0x09e3;
+const BENGALI_LETTER_EM = 0.681;
+const BENGALI_AFTER_HASANTA_EM = 0.127;
+const BENGALI_SIGN_EM = 0.312;
+const BENGALI_RE = /[ঀ-৿]/;
+const HASANTA = 0x09cd;
+
 const advanceOf = (char: string, previous = ''): number => {
   const known = ADVANCE[char];
   if (known !== undefined) {return known;}
@@ -66,6 +79,11 @@ const advanceOf = (char: string, previous = ''): number => {
     if (isDevanagariSign(code)) {return DEVANAGARI_SIGN_EM;}
     return previous.codePointAt(0) === VIRAMA ? DEVANAGARI_AFTER_VIRAMA_EM : DEVANAGARI_LETTER_EM;
   }
+  if (code >= 0x0980 && code <= 0x09ff) {
+    if (isBengaliZeroWidth(code)) {return 0;}
+    if (isBengaliSign(code)) {return BENGALI_SIGN_EM;}
+    return previous.codePointAt(0) === HASANTA ? BENGALI_AFTER_HASANTA_EM : BENGALI_LETTER_EM;
+  }
   if (code >= 0x0300 && code <= 0x036f) {return 0;} // combining accent: no advance of its own
   if (code >= 0x2e80) {return FULL_WIDTH_EM;}
   return FALLBACK_EM;
@@ -73,7 +91,12 @@ const advanceOf = (char: string, previous = ''): number => {
 
 /** Width of `text` in em: accents are folded onto their base letter (the advance is the same). */
 export function ringTextWidthEm(text: string): number {
-  return Array.from(text.normalize('NFD')).reduce((sum, char, index, chars) => sum + advanceOf(char, index > 0 ? chars[index - 1] : ''), 0);
+  // A Hangul syllable is one em wide as it is: NFD would split it into two or three jamo, each priced at the fallback width.
+  const decomposed = Array.from(text).flatMap(char => {
+    const code = char.codePointAt(0) ?? 0;
+    return code >= 0xac00 && code <= 0xd7a3 ? [char] : Array.from(char.normalize('NFD'));
+  });
+  return decomposed.reduce((sum, char, index, chars) => sum + advanceOf(char, index > 0 ? chars[index - 1] : ''), 0);
 }
 
 // --- geometry -----------------------------------------------------------------------------------------------------------
@@ -87,6 +110,8 @@ const EDGE_MARGIN = 3;
 const WIDTH_SAFETY = 1.04;
 /** Devanagari widths are less predictable from letters alone (conjuncts, system-font differences): a wider margin. */
 const DEVANAGARI_WIDTH_SAFETY = 1.12;
+/** Bengali: the same margin as Devanagari (conjunct and system-font differences). */
+const BENGALI_WIDTH_SAFETY = 1.12;
 const GAP = 1;
 const NUMBER_SIZES = [24, 23, 22, 21, 20];
 const TEXT_MAX = 10;
@@ -98,9 +123,13 @@ const NUMBER_DIGITS = 3; // a late irregular cycle can pass day 99
 /** Devanagari needs more room above and below the line than Latin / Cyrillic: 1.5 x the size instead of 1.2 x. */
 const TEXT_LINE_FACTOR = 1.2;
 const TEXT_LINE_FACTOR_DEVANAGARI = 1.5;
+/** Bengali has the same vertical extent as Devanagari (reph, conjuncts, vowel signs reach 1.40 x the size): the same 1.5 x line. */
+const TEXT_LINE_FACTOR_BENGALI = 1.5;
 /** Japanese (kana present) is set on a taller line than Latin: 1.4 x the size, matching the typography layer's Japanese floor. */
 const TEXT_LINE_FACTOR_JAPANESE = 1.4;
 const JAPANESE_KANA_RE = /[\u3040-\u30FF]/;
+/** Korean (Hangul present) gets the same taller line as Japanese. */
+const KOREAN_HANGUL_RE = /[\uAC00-\uD7AF]/;
 const lineHeightOfText = (fontSize: number, factor: number = TEXT_LINE_FACTOR): number => Math.ceil(fontSize * factor * 2) / 2;
 const lineHeightOfNumber = (fontSize: number): number => Math.ceil(fontSize * 1.1 * 2) / 2;
 
@@ -188,9 +217,10 @@ export function planCycleRingText(input: {size: number; caption: string; phaseLa
   const captionEm = ringTextWidthEm(input.caption);
   const labels = Array.from(new Set(input.phaseLabels.filter(Boolean)));
   const devanagari = [input.caption, ...labels].some(text => DEVANAGARI_RE.test(text));
-  const japanese = !devanagari && [input.caption, ...labels].some(text => JAPANESE_KANA_RE.test(text));
-  const lineFactor = devanagari ? TEXT_LINE_FACTOR_DEVANAGARI : japanese ? TEXT_LINE_FACTOR_JAPANESE : TEXT_LINE_FACTOR;
-  const widthSafety = devanagari ? DEVANAGARI_WIDTH_SAFETY : WIDTH_SAFETY;
+  const bengali = !devanagari && [input.caption, ...labels].some(text => BENGALI_RE.test(text));
+  const japanese = !devanagari && !bengali && [input.caption, ...labels].some(text => JAPANESE_KANA_RE.test(text) || KOREAN_HANGUL_RE.test(text));
+  const lineFactor = devanagari ? TEXT_LINE_FACTOR_DEVANAGARI : bengali ? TEXT_LINE_FACTOR_BENGALI : japanese ? TEXT_LINE_FACTOR_JAPANESE : TEXT_LINE_FACTOR;
+  const widthSafety = devanagari ? DEVANAGARI_WIDTH_SAFETY : bengali ? BENGALI_WIDTH_SAFETY : WIDTH_SAFETY;
 
   const attempt = (numberSize: number, textSize: number, reserved: 1 | 2): Candidate | null => {
     const captionWidth = captionEm * textSize * widthSafety;
