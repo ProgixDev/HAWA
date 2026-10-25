@@ -11,7 +11,7 @@
 /** The languages the map labels and the geocoder are asked for: AWA's fourteen languages (themePreferences.AwaAppLanguage; both Portuguese variants are the provider's single `pt`) plus
  * Arabic (supported by the provider; AWA has no Arabic interface yet). Anything else is NOT sent to the provider: the MapTiler
  * geocoder answers an unknown `language` with HTTP 400. */
-export const MAP_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt', 'bn', 'ar'] as const;
+export const MAP_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt', 'bn', 'ar', 'da', 'sv'] as const;
 export type MapLanguage = (typeof MAP_LANGUAGES)[number];
 
 // Languages written in a non-Latin script: when a label has no translation they keep the LOCAL name rather than a Latin transliteration.
