@@ -119,7 +119,7 @@ describe('Italian language selector — the Italian card among the five options'
     const allRadioLabels = new Set(
       renderer.root.findAll(node => node.props.accessibilityRole === 'radio').map(node => node.props.accessibilityLabel),
     );
-    expect(allRadioLabels).toEqual(new Set([...SELF_DESCRIPTIONS.map(([label]) => label), 'Türkçe', 'Русский', 'Deutsch', '简体中文', 'Bahasa Indonesia', 'हिन्दी', 'বাংলা', 'Shqip', '日本語', '한국어', 'Português (Portugal)', 'Português (Brasil)']));
+    expect(allRadioLabels).toEqual(new Set([...SELF_DESCRIPTIONS.map(([label]) => label), 'Türkçe', 'Русский', 'Deutsch', '简体中文', 'Bahasa Indonesia', 'हिन्दी', 'বাংলা', 'Shqip', '日本語', '한국어', 'Português (Portugal)', 'Português (Brasil)', 'Dansk']));
   });
 
   it('the Italian card has the 🇮🇹 flag and the native-language subtitle "Usare AWA in italiano"', async () => {
