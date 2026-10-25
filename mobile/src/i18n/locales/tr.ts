@@ -1,4 +1,4 @@
-// Turkish copy (tr-TR). Natural, informal-singular ("sen") Turkish for a women's health application — NOT a literal
+﻿// Turkish copy (tr-TR). Natural, informal-singular ("sen") Turkish for a women's health application — NOT a literal
 // word-for-word rendering of en.ts. Same key set, same interpolation placeholders and the same plural keys
 // (_one/_other: Turkish uses the singular noun after a number in both) as the other dictionaries.
 //
@@ -162,6 +162,8 @@ export const tr = {
       portugueseName: 'Português (Portugal)',
       portugueseBrazilName: 'Português (Brasil)',
       bengaliName: 'বাংলা',
+      danishName: 'Dansk',
+      swedishName: 'Svenska',
       systemName: 'Sistem dili',
       systemDescription: 'Cihaz dilini kullan',
     },

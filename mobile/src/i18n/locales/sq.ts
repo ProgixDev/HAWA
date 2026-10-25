@@ -1,4 +1,4 @@
-// Shqip (sq). Generated from the English dictionary structure (en.ts) — same keys, same order. Albanian has two plural categories
+﻿// Shqip (sq). Generated from the English dictionary structure (en.ts) — same keys, same order. Albanian has two plural categories
 // (CLDR: `_one` for exactly 1, `_other`), both translated separately. Voice: informal "ti". Terms that need a native medical / religious
 // reviewer are listed in mobile/docs/i18n/albanian-review-checklist.md.
 export const sq = {
@@ -157,6 +157,8 @@ export const sq = {
       portugueseName: 'Português (Portugal)',
       portugueseBrazilName: 'Português (Brasil)',
       bengaliName: 'বাংলা',
+      danishName: 'Dansk',
+      swedishName: 'Svenska',
       systemName: 'Sipas sistemit',
       systemDescription: 'Përdor gjuhën e pajisjes',
     },

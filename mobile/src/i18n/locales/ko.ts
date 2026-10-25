@@ -1,4 +1,4 @@
-// 한국어 (ko). Generated from the English dictionary structure (en.ts) — same keys, same order. Korean has one plural category
+﻿// 한국어 (ko). Generated from the English dictionary structure (en.ts) — same keys, same order. Korean has one plural category
 // (CLDR: only `other`): each `_one` key carries the same wording as its `_other` sibling. Voice: polite 해요체. Terms that need a native
 // medical / religious reviewer are listed in mobile/docs/i18n/korean-review-checklist.md.
 export const ko = {
@@ -157,6 +157,8 @@ export const ko = {
       portugueseName: 'Português (Portugal)',
       portugueseBrazilName: 'Português (Brasil)',
       bengaliName: 'বাংলা',
+      danishName: 'Dansk',
+      swedishName: 'Svenska',
       systemName: '기기 기본값',
       systemDescription: '기기 언어 사용',
     },

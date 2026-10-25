@@ -68,7 +68,7 @@ const nfc = (value: string) => value.normalize('NFC');
 const enLeaves = leaves(en as AnyRecord);
 const bnLeaves = leaves(bn as AnyRecord);
 const bnMap = new Map(bnLeaves);
-const ALL_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'bn'] as const;
+const ALL_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'bn', 'da'] as const;
 
 beforeEach(async () => {
   await AsyncStorage.clear();
@@ -80,7 +80,7 @@ describe('dictionary integrity', () => {
   it('bn.ts has exactly the same leaf paths as every other dictionary — sixteen-code parity, no missing, no extra', () => {
     const paths = (dictionary: AnyRecord) => leaves(dictionary).map(([keyPath]) => keyPath).sort();
     const reference = paths(en as AnyRecord);
-    expect(reference.length).toBe(6247);
+    expect(reference.length).toBe(6248);
     expect(paths(bn as AnyRecord)).toEqual(reference);
     for (const dictionary of [fr, es, itDictionary, tr, de, zh, id, hi, sq, ja, ko, ptPT]) {
       expect(paths(dictionary as AnyRecord)).toEqual(reference);
@@ -259,9 +259,9 @@ describe('registration and normalisation', () => {
     expect(resolveEditorialLanguage('bn-Latn')).toBe('en');
     expect(resolveEditorialLanguage('as')).toBe('en');
     expect(resolveEditorialLanguage(undefined)).toBe('en');
-    // the other fifteen codes are untouched
+    // the other sixteen codes are untouched
     expect(ALL_LANGUAGES.filter(language => language !== 'bn').map(language => resolveEditorialLanguage(language))).toEqual(
-      ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR'],
+      ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'da'],
     );
   });
 });

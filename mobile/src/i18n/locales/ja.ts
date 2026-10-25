@@ -1,4 +1,4 @@
-// 日本語 (ja). Generated from the English dictionary structure (en.ts) — same keys, same order. Japanese has one plural category
+﻿// 日本語 (ja). Generated from the English dictionary structure (en.ts) — same keys, same order. Japanese has one plural category
 // (CLDR: only `other`): each `_one` key carries the same wording as its `_other` sibling. Voice: polite です・ます体. Terms that need a native
 // medical / religious reviewer are listed in mobile/docs/i18n/japanese-review-checklist.md.
 export const ja = {
@@ -157,6 +157,8 @@ export const ja = {
       portugueseName: 'Português (Portugal)',
       portugueseBrazilName: 'Português (Brasil)',
       bengaliName: 'বাংলা',
+      danishName: 'Dansk',
+      swedishName: 'Svenska',
       systemName: 'システムの設定に従う',
       systemDescription: '端末の言語を使用',
     },
