@@ -1258,6 +1258,264 @@ const CONTENT = withBrazilianPortuguese('CyclePhases', {
     endText: 'আপনি যত বেশি আপনার চক্র পর্যবেক্ষণ করবেন, তত ভালোভাবে বুঝতে পারবেন আপনার জন্য কোনটি স্বাভাবিক।',
     shareMessage: 'চক্রের বিভিন্ন পর্যায় সহজ ভাষায় — AWA',
   },
+  da: {
+    badge: 'Menstruationscyklus',
+    title: 'Cyklussens faser\nforklaret enkelt',
+    metaDuration: '6 min læsning',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Din menstruationscyklus består af flere faser, som hver spiller en vigtig rolle for din hormonbalance og dit velbefindende.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Cyklussens 4 faser',
+      'Hvad der sker i din krop',
+      'Hvorfor det er nyttigt at forstå din cyklus',
+      'Ofte stillede spørgsmål',
+    ],
+    body1: 'Din cyklus er normalt opdelt i fire hoveddele. Varigheden varierer fra kvinde til kvinde: enhver krop har sin egen rytme.',
+    diagram: {
+      menstrual: {
+        name: 'Menstruationsfasen',
+        days: 'Dag 1 til 5',
+      },
+      follicular: {
+        name: 'Follikelfasen',
+        days: 'Dag 1 til 13',
+      },
+      luteal: {
+        name: 'Lutealfasen',
+        days: 'Dag 15 til 28',
+      },
+      ovulatory: {
+        name: 'Ægløsningsfasen',
+        days: 'Ca. dag 14',
+      },
+    },
+    tip1Title: 'Godt at vide',
+    tip1Text: 'Alle er unikke: observer din egen krop og lær din personlige rytme at kende.',
+    body2: 'Hormonforandringer i løbet af cyklussen kan påvirke din energi, dit humør, din søvn og visse fysiske fornemmelser.',
+    bodyChanges: [
+      {
+        title: 'Under menstruationen',
+        text: 'Din energi kan være lavere, og din krop har måske brug for mere hvile.',
+      },
+      {
+        title: 'Follikelfasen',
+        text: 'Energien stiger gradvist, og du kan føle dig mere livlig.',
+      },
+      {
+        title: 'Omkring ægløsningen',
+        text: 'Nogle kvinder mærker mere energi, initiativ og selvtillid.',
+      },
+      {
+        title: 'Lutealfasen',
+        text: 'Træthed, oppustethed eller humørsvingninger kan opstå.',
+      },
+    ],
+    softTipTitle: 'Lyt til din krop',
+    softTipText: 'Der er ingen enkelt måde at opleve hver fase på. Dine egne fornemmelser er den bedste vejledning.',
+    body3: 'At kende sin cyklus godt gør det lettere at forudse visse perioder og forstå de forandringer, du bemærker i hverdagen.',
+    whyItems: [
+      'Forstå din krops signaler bedre',
+      'Forudse din menstruation og dens faser',
+      'Forstå visse humørsvingninger',
+      'Tilpas dine aktiviteter til dit energiniveau',
+      'Forbedre din daglige registrering',
+    ],
+    body4: 'Her er svar på nogle af de oftest stillede spørgsmål om cyklussens faser.',
+    faq: [
+      {
+        question: 'Er det normalt, at min cyklus ikke er præcis 28 dage?',
+        answer: 'Ja. Cykluslængden varierer fra kvinde til kvinde og kan endda ændre sig lidt fra måned til måned.',
+      },
+      {
+        question: 'Sker ægløsning altid på dag 14?',
+        answer: 'Nej. Dag 14 er et udbredt skøn for en 28-dages cyklus, men ægløsning kan ske tidligere eller senere.',
+      },
+      {
+        question: 'Hvorfor ændrer mine symptomer sig afhængigt af fasen?',
+        answer: 'Hormonforandringer i løbet af cyklussen kan påvirke energi, humør, søvn og visse fysiske fornemmelser.',
+      },
+      {
+        question: 'Er det nyttigt at registrere mine symptomer?',
+        answer: 'Ja. Regelmæssig registrering hjælper dig med at genkende dine egne mønstre og forstå din rytme bedre.',
+      },
+    ],
+    endTitle: 'Din cyklus, din rytme',
+    endText: 'Jo mere du observerer din cyklus, jo bedre vil du forstå, hvad der er normalt for dig.',
+    shareMessage: 'Cyklussens faser forklaret enkelt — AWA',
+  },
+  da: {
+    badge: 'Menstruationscyklus',
+    title: 'Cyklussens faser\nforklaret enkelt',
+    metaDuration: '6 min läsning',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Din menstruationscyklus består av flere faser, som hver spiller en vigtig rolle for din hormonbalance och ditt velbefindende.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Cyklussens 4 faser',
+      'Hvad der sker i din krop',
+      'Hvorfor det ar nyttigt at forstå din cyklus',
+      'Ofte stillede spörgsmål',
+    ],
+    body1: 'Din cyklus ar normalt opdelt i fire hoveddele. Varigheden varierer fran kvinna till kvinde: enhver krop har sin egen rytme.',
+    diagram: {
+      menstrual: {
+        name: 'Menstruationsfasen',
+        days: 'Dag 1 till 5',
+      },
+      follicular: {
+        name: 'Follikelfasen',
+        days: 'Dag 1 till 13',
+      },
+      luteal: {
+        name: 'Lutealfasen',
+        days: 'Dag 15 till 28',
+      },
+      ovulatory: {
+        name: 'Äglösningsfasen',
+        days: 'Ca. dag 14',
+      },
+    },
+    tip1Title: 'Godt at vide',
+    tip1Text: 'Alla ar unikke: observer din egen krop och lär din personlige rytme at kende.',
+    body2: 'Hormonforandringer i löbet av cyklussen kan påvirke din energi, ditt humör, din sövn och visse fysiske fornemmelser.',
+    bodyChanges: [
+      {
+        title: 'Under menstruationen',
+        text: 'Din energi kan väre lavere, och din krop har måske brug for mere hvile.',
+      },
+      {
+        title: 'Follikelfasen',
+        text: 'Energien stiger gradvist, och du kan föle dig mere livlig.',
+      },
+      {
+        title: 'Omkring äglösningen',
+        text: 'Nogle kvinnor märker mere energi, initiativ och selvtillid.',
+      },
+      {
+        title: 'Lutealfasen',
+        text: 'Träthed, oppustethed eller humörsvingninger kan opstå.',
+      },
+    ],
+    softTipTitle: 'Lyt till din krop',
+    softTipText: 'Der ar ingen enkelt måde at opleve hver fase på. Dine egne fornemmelser ar den bedste vejledning.',
+    body3: 'At kende sin cyklus godt gör det lettere at forudse visse perioder och forstå de forandringer, du bemärker i hverdagen.',
+    whyItems: [
+      'Forstå din krops signaler bedre',
+      'Forudse din menstruation och dens faser',
+      'Forstå visse humörsvingninger',
+      'Tilpas dina aktiviteter till ditt energiniveau',
+      'Forbedre din daglige registrering',
+    ],
+    body4: 'Her ar svar på nogle av de oftest stillede spörgsmål om cyklussens faser.',
+    faq: [
+      {
+        question: 'Er det normalt, at min cyklus inte ar präcis 28 dage?',
+        answer: 'Ja. Cykluslängden varierer fran kvinna till kvinna och kan endda ändre sig lite fran måned till måned.',
+      },
+      {
+        question: 'Sker äglösning alltid på dag 14?',
+        answer: 'Nej. Dag 14 ar et udbredt skön for en 28-dages cyklus, men äglösning kan ske tidligere eller senere.',
+      },
+      {
+        question: 'Hvorfor ändrer mine symtom sig afhängigt av fasen?',
+        answer: 'Hormonforandringer i löbet av cyklussen kan påvirke energi, humör, sövn och visse fysiske fornemmelser.',
+      },
+      {
+        question: 'Er det nyttigt at registrere mine symtom?',
+        answer: 'Ja. Regelmässig registrering hjälper dig med at genkende dina egne mönstre och forstå din rytme bedre.',
+      },
+    ],
+    endTitle: 'Din cyklus, din rytme',
+    endText: 'Jo mere du observerer din cyklus, jo bedre vil du forstå, hvad der ar normalt for dig.',
+    shareMessage: 'Cyklussens faser forklaret enkelt — AWA',
+  },
+  sv: {
+    badge: 'Menstruationscyklus',
+    title: 'Cyklussens faser\nforklaret enkelt',
+    metaDuration: '6 min läsning',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Din menstruationscyklus består av flere faser, som hver spiller en vigtig rolle for din hormonbalance och ditt velbefindende.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Cyklussens 4 faser',
+      'Hvad der sker i din krop',
+      'Hvorfor det ar nyttigt at forstå din cyklus',
+      'Ofte stillede spörgsmål',
+    ],
+    body1: 'Din cyklus ar normalt opdelt i fire hoveddele. Varigheden varierer fran kvinna till kvinde: enhver krop har sin egen rytme.',
+    diagram: {
+      menstrual: {
+        name: 'Menstruationsfasen',
+        days: 'Dag 1 till 5',
+      },
+      follicular: {
+        name: 'Follikelfasen',
+        days: 'Dag 1 till 13',
+      },
+      luteal: {
+        name: 'Lutealfasen',
+        days: 'Dag 15 till 28',
+      },
+      ovulatory: {
+        name: 'Äglösningsfasen',
+        days: 'Ca. dag 14',
+      },
+    },
+    tip1Title: 'Godt at vide',
+    tip1Text: 'Alla ar unikke: observer din egen krop och lär din personlige rytme at kende.',
+    body2: 'Hormonforandringer i löbet av cyklussen kan påvirke din energi, ditt humör, din sövn och visse fysiske fornemmelser.',
+    bodyChanges: [
+      {
+        title: 'Under menstruationen',
+        text: 'Din energi kan väre lavere, och din krop har måske brug for mere hvile.',
+      },
+      {
+        title: 'Follikelfasen',
+        text: 'Energien stiger gradvist, och du kan föle dig mere livlig.',
+      },
+      {
+        title: 'Omkring äglösningen',
+        text: 'Nogle kvinnor märker mere energi, initiativ och selvtillid.',
+      },
+      {
+        title: 'Lutealfasen',
+        text: 'Träthed, oppustethed eller humörsvingninger kan opstå.',
+      },
+    ],
+    softTipTitle: 'Lyt till din krop',
+    softTipText: 'Der ar ingen enkelt måde at opleve hver fase på. Dine egne fornemmelser ar den bedste vejledning.',
+    body3: 'At kende sin cyklus godt gör det lettere at forudse visse perioder och forstå de forandringer, du bemärker i hverdagen.',
+    whyItems: [
+      'Forstå din krops signaler bedre',
+      'Forudse din menstruation och dens faser',
+      'Forstå visse humörsvingninger',
+      'Tilpas dina aktiviteter till ditt energiniveau',
+      'Forbedre din daglige registrering',
+    ],
+    body4: 'Her ar svar på nogle av de oftest stillede spörgsmål om cyklussens faser.',
+    faq: [
+      {
+        question: 'Er det normalt, at min cyklus inte ar präcis 28 dage?',
+        answer: 'Ja. Cykluslängden varierer fran kvinna till kvinna och kan endda ändre sig lite fran måned till måned.',
+      },
+      {
+        question: 'Sker äglösning alltid på dag 14?',
+        answer: 'Nej. Dag 14 ar et udbredt skön for en 28-dages cyklus, men äglösning kan ske tidligere eller senere.',
+      },
+      {
+        question: 'Hvorfor ändrer mine symtom sig afhängigt av fasen?',
+        answer: 'Hormonforandringer i löbet av cyklussen kan påvirke energi, humör, sövn och visse fysiske fornemmelser.',
+      },
+      {
+        question: 'Er det nyttigt at registrere mine symtom?',
+        answer: 'Ja. Regelmässig registrering hjälper dig med at genkende dina egne mönstre och forstå din rytme bedre.',
+      },
+    ],
+    endTitle: 'Din cyklus, din rytme',
+    endText: 'Jo mere du observerer din cyklus, jo bedre vil du forstå, hvad der ar normalt for dig.',
+    shareMessage: 'Cyklussens faser forklaret enkelt — AWA',
+  },
 } as const);
 
 function CyclePhasesArticleScreen({

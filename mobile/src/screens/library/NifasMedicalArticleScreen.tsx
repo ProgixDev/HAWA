@@ -1824,6 +1824,351 @@ const CONTENT = withBrazilianPortuguese('NifasMedical', {
     disclaimerText: 'তথ্যমূলক বিষয়বস্তু। এখানে উপস্থাপিত চিকিৎসাগত তথ্য সাধারণ এবং স্বাস্থ্যসেবা পেশাজীবীর পরামর্শের বিকল্প নয়। নির্দিষ্ট ধর্মীয় প্রশ্নের জন্য একজন যোগ্য ধর্মীয় উৎসের শরণাপন্ন হওয়ার পরামর্শ দেওয়া হয়।',
     shareMessage: 'নিফাস: চিকিৎসাগত দিক — AWA',
   },
+  da: {
+    badge: 'BARSELSTID • NIFAS',
+    title: 'Nifas:\nmedicinske aspekter',
+    metaDuration: '5 min læsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Informativt indhold',
+    intro:
+      'Efter fødslen gennemgår kroppen en gradvis restitutionsperiode. At forstå blødningen efter fødslen, hvordan den udvikler sig, og hvilke tegn der kræver opmærksomhed, kan hjælpe dig til at føle dig bedre informeret i denne tid.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Forståelse af begrebet Nifas',
+      'Det medicinske forløb efter fødslen',
+      'Hvordan barselsudflåd udvikler sig',
+      'Omsorg for dig selv',
+      'Hvornår skal du søge råd',
+      'Vigtige pointer',
+    ],
+    h2Section1: '1. Forståelse af begrebet "Nifas"',
+    body1a:
+      'Begrebet "Nifas" hører til det religiøse ordforråd og refererer til den periode, der er knyttet til blødningen efter fødslen inden for islamisk jurisprudens (fiqh).',
+    body1b:
+      'Medicinsk set kaldes blødningen efter fødslen "lochia" (barselsudflåd). Disse to begreber kan betragtes separat: det ene hører til en religiøs ramme, det andet beskriver et fysiologisk fænomen.',
+    distinction: {
+      nifasTitle: 'Nifas',
+      nifasText: 'Et begreb, der hører til den religiøse ramme efter fødslen.',
+      lochiaTitle: 'Barselsudflåd (lochia)',
+      lochiaText: 'Medicinsk term for blødning efter fødslen.',
+    },
+    h2Section2: '2. Det medicinske forløb efter fødslen',
+    body2:
+      'Barselsrestitutionen sker gradvist. Blødningen efter fødslen ændrer sig generelt over tid, mens livmoderen fortsætter med at vende tilbage til sin normale tilstand.',
+    schemaTitle: 'Forløb efter fødslen',
+    schemaSubtitle: 'Forenklet medicinsk oversigt',
+    stages: [
+      {
+        title: 'Efter fødslen',
+        subtitle: 'Start af barselstiden',
+        text: 'Kroppen begynder gradvist sin restitution efter fødslen.',
+      },
+      {
+        title: 'Barselsudflåd',
+        subtitle: 'Blødning efter fødslen',
+        text: 'Blødningen ændrer sig gradvist i mængde og farve.',
+      },
+      {
+        title: 'Gradvis aftagen',
+        subtitle: 'Over flere uger',
+        text: 'Blødningen aftager generelt over tid.',
+      },
+      {
+        title: 'Gradvis tilbagevenden',
+        subtitle: 'Mod den normale cyklus',
+        text: 'Menstruationscyklussen kan derefter gradvist genoptages.',
+      },
+    ],
+    h2Section3: '3. Hvordan barselsudflåd udvikler sig',
+    body3:
+      'Barselsudflåd ændrer generelt farve gradvist og aftager i mængde. Dette forløb kan dog variere fra person til person.',
+    lochiaEvolution: [
+      {
+        title: 'Rødt barselsudflåd',
+        period: 'De første dage',
+        text: 'Blødningen er normalt rød og kan være kraftigere i starten.',
+      },
+      {
+        title: 'Lyserødt / brunligt barselsudflåd',
+        period: 'Efter et par dage',
+        text: 'Farven kan blive lysere eller brunlig, efterhånden som flowet aftager.',
+      },
+      {
+        title: 'Hvidligt barselsudflåd',
+        period: 'De følgende uger',
+        text: 'Blødningen bliver gradvist lysere og mindre.',
+      },
+    ],
+    infoTitle: 'Vigtige pointer',
+    infoText:
+      'Barselsudflåds farve og mængde kan ændre sig gradvist. Det nøjagtige forløb er ikke det samme for alle.',
+    h2Section4: '4. Omsorg for dig selv',
+    body4:
+      'I denne periode kan nogle enkle vaner bidrage til komfort og støtte kroppens restitution.',
+    careTips: [
+      {title: 'Skånsom hygiejne', text: 'Oprethold en enkel og behagelig daglig hygiejnerutine.'},
+      {title: 'Hvile', text: 'Giv din krop tid til at restituere.'},
+      {title: 'Hydrering', text: 'Husk at drikke regelmæssigt efter behov.'},
+      {title: 'Ernæring', text: 'En varieret kost støtter restitutionen.'},
+    ],
+    h2Section5: '5. Hvornår skal du søge råd',
+    body5:
+      'Visse situationer kræver hurtig rådgivning fra en sundhedsprofessionel, særligt når en ændring virker betydelig, pludselig eller usædvanlig.',
+    warningTitle: 'Tegn du ikke bør ignorere',
+    warningSubtitle: 'Søg professionel rådgivning om nødvendigt',
+    warningSigns: [
+      'En stærk eller usædvanlig lugt fra blødningen',
+      'Feber eller forværring af almentilstanden',
+      'Blødning der pludselig bliver meget kraftig',
+      'Stærke, vedvarende eller usædvanlige smerter',
+      'Et nyt symptom, der bekymrer dig',
+    ],
+    tipTitle: 'Godt at vide',
+    tipText:
+      'Enhver barselsrestitution er forskellig. Oplysningerne i denne artikel er ment som generel vejledning og erstatter ikke en medicinsk konsultation.',
+    summaryHeading: 'Vigtige pointer',
+    summary: [
+      'Nifas er et begreb, der bruges i religiøs sammenhæng efter fødslen.',
+      'Medicinsk set kaldes blødningen efter fødslen barselsudflåd (lochia).',
+      'Barselsudflåd ændrer sig gradvist i farve og mængde.',
+      'Hvile, skånsom hygiejne og god hydrering støtter restitutionen.',
+      'En usædvanlig eller bekymrende ændring fortjener professionel rådgivning.',
+    ],
+    disclaimerText:
+      'Informativt indhold. De medicinske oplysninger her er generelle og erstatter ikke råd fra en sundhedsprofessionel. For specifikke religiøse spørgsmål anbefales det at konsultere en kvalificeret religiøs kilde.',
+    shareMessage: 'Nifas: medicinske aspekter — AWA',
+  },
+  da: {
+    badge: 'BARSELSTID • NIFAS',
+    title: 'Nifas:\nmedicinske aspekter',
+    metaDuration: '5 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Informativt indhold',
+    intro:
+      'Efter födslen gennemgår kroppen en gradvis restitutionsperiode. At forstå blödningen efter födslen, hvordan den udvikler sig, och hvilke tegn der kräver opmärksomhed, kan hjälpe dig till at föle dig bedre informeret i denne tid.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Forståelse av begrebet Nifas',
+      'Det medicinske forlöb efter födslen',
+      'Hvordan barselsudflåd udvikler sig',
+      'Omsorg for dig selv',
+      'Hvornår skal du söge råd',
+      'Vigtige pointer',
+    ],
+    h2Section1: '1. Forståelse av begrebet "Nifas"',
+    body1a:
+      'Begrebet "Nifas" hörer till det religiöse ordforråd och refererer till den periode, der ar knyttet till blödningen efter födslen inden for islamisk jurisprudens (fiqh).',
+    body1b:
+      'Medicinsk set kaldes blödningen efter födslen "lochia" (barselsudflåd). Disse to begreber kan betragtes separat: det ene hörer till en religiös ramme, det andet beskriver et fysiologisk fänomen.',
+    distinction: {
+      nifasTitle: 'Nifas',
+      nifasText: 'Et begreb, der hörer till den religiöse ramme efter födslen.',
+      lochiaTitle: 'Barselsudflåd (lochia)',
+      lochiaText: 'Medicinsk term for blödning efter födslen.',
+    },
+    h2Section2: '2. Det medicinske forlöb efter födslen',
+    body2:
+      'Barselsrestitutionen sker gradvist. Blödningen efter födslen ändrer sig generelt over tid, mens livmoderen fortsätter med at vende tilbage till sin normale tilstand.',
+    schemaTitle: 'Forlöb efter födslen',
+    schemaSubtitle: 'Forenklet medicinsk oversigt',
+    stages: [
+      {
+        title: 'Efter födslen',
+        subtitle: 'Start av barselstiden',
+        text: 'Kroppen begynder gradvist sin restitution efter födslen.',
+      },
+      {
+        title: 'Barselsudflåd',
+        subtitle: 'Blödning efter födslen',
+        text: 'Blödningen ändrer sig gradvist i mängde och farve.',
+      },
+      {
+        title: 'Gradvis aftagen',
+        subtitle: 'Over flere veckor',
+        text: 'Blödningen aftager generelt over tid.',
+      },
+      {
+        title: 'Gradvis tilbagevenden',
+        subtitle: 'Mod den normale cyklus',
+        text: 'Menstruationscyklussen kan derefter gradvist genoptages.',
+      },
+    ],
+    h2Section3: '3. Hvordan barselsudflåd udvikler sig',
+    body3:
+      'Barselsudflåd ändrer generelt farve gradvist och aftager i mängde. Dette forlöb kan dog variere fran person till person.',
+    lochiaEvolution: [
+      {
+        title: 'Rödt barselsudflåd',
+        period: 'De förste dage',
+        text: 'Blödningen ar normalt röd och kan väre kraftigere i starten.',
+      },
+      {
+        title: 'Lyserödt / brunligt barselsudflåd',
+        period: 'Efter et par dage',
+        text: 'Farven kan blive lysere eller brunlig, efterhånden som flowet aftager.',
+      },
+      {
+        title: 'Hvidligt barselsudflåd',
+        period: 'De fölgende veckor',
+        text: 'Blödningen bliver gradvist lysere och mindre.',
+      },
+    ],
+    infoTitle: 'Vigtige pointer',
+    infoText:
+      'Barselsudflåds farve och mängde kan ändre sig gradvist. Det nöjagtige forlöb ar inte det samme for alle.',
+    h2Section4: '4. Omsorg for dig selv',
+    body4:
+      'I denne periode kan nogle enkle vaner bidrage till komfort och stötte kroppens restitution.',
+    careTips: [
+      {title: 'Skånsom hygiejne', text: 'Oprethold en enkel och behagelig daglig hygiejnerutine.'},
+      {title: 'Hvile', text: 'Giv din krop tid till at restituere.'},
+      {title: 'Hydrering', text: 'Husk at drikke regelmässigt efter behov.'},
+      {title: 'Ernäring', text: 'En varieret kost stötter restitutionen.'},
+    ],
+    h2Section5: '5. Hvornår skal du söge råd',
+    body5:
+      'Visse situationer kräver hurtig rådgivning fran en halsasprofessionel, särligt når en ändring virker betydelig, pludselig eller usädvanlig.',
+    warningTitle: 'Tegn du inte bör ignorere',
+    warningSubtitle: 'Sög professionel rådgivning om nödvendigt',
+    warningSigns: [
+      'En stärk eller usädvanlig lugt fran blödningen',
+      'Feber eller forvärring av almentilstanden',
+      'Blödning der pludselig bliver mycket kraftig',
+      'Stärke, vedvarende eller usädvanlige smerter',
+      'Et nyt symptom, der bekymrer dig',
+    ],
+    tipTitle: 'Godt at vide',
+    tipText:
+      'Enhver barselsrestitution ar forskellig. Oplysningerne i denne artikel ar ment som generel vejledning och erstatter inte en medicinsk konsultation.',
+    summaryHeading: 'Vigtige pointer',
+    summary: [
+      'Nifas ar et begreb, der bruges i religiös sammenhäng efter födslen.',
+      'Medicinsk set kaldes blödningen efter födslen barselsudflåd (lochia).',
+      'Barselsudflåd ändrer sig gradvist i farve och mängde.',
+      'Hvile, skånsom hygiejne och god hydrering stötter restitutionen.',
+      'En usädvanlig eller bekymrende ändring fortjener professionel rådgivning.',
+    ],
+    disclaimerText:
+      'Informativt indhold. De medicinske oplysninger her ar generelle och erstatter inte råd fran en halsasprofessionel. For specifikke religiöse spörgsmål anbefales det at konsultere en kvalificeret religiös kilde.',
+    shareMessage: 'Nifas: medicinske aspekter — AWA',
+  },
+  sv: {
+    badge: 'BARSELSTID • NIFAS',
+    title: 'Nifas:\nmedicinske aspekter',
+    metaDuration: '5 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Informativt indhold',
+    intro:
+      'Efter födslen gennemgår kroppen en gradvis restitutionsperiode. At forstå blödningen efter födslen, hvordan den udvikler sig, och hvilke tegn der kräver opmärksomhed, kan hjälpe dig till at föle dig bedre informeret i denne tid.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Forståelse av begrebet Nifas',
+      'Det medicinske forlöb efter födslen',
+      'Hvordan barselsudflåd udvikler sig',
+      'Omsorg for dig selv',
+      'Hvornår skal du söge råd',
+      'Vigtige pointer',
+    ],
+    h2Section1: '1. Forståelse av begrebet "Nifas"',
+    body1a:
+      'Begrebet "Nifas" hörer till det religiöse ordforråd och refererer till den periode, der ar knyttet till blödningen efter födslen inden for islamisk jurisprudens (fiqh).',
+    body1b:
+      'Medicinsk set kaldes blödningen efter födslen "lochia" (barselsudflåd). Disse to begreber kan betragtes separat: det ene hörer till en religiös ramme, det andet beskriver et fysiologisk fänomen.',
+    distinction: {
+      nifasTitle: 'Nifas',
+      nifasText: 'Et begreb, der hörer till den religiöse ramme efter födslen.',
+      lochiaTitle: 'Barselsudflåd (lochia)',
+      lochiaText: 'Medicinsk term for blödning efter födslen.',
+    },
+    h2Section2: '2. Det medicinske forlöb efter födslen',
+    body2:
+      'Barselsrestitutionen sker gradvist. Blödningen efter födslen ändrer sig generelt over tid, mens livmoderen fortsätter med at vende tilbage till sin normale tilstand.',
+    schemaTitle: 'Forlöb efter födslen',
+    schemaSubtitle: 'Forenklet medicinsk oversigt',
+    stages: [
+      {
+        title: 'Efter födslen',
+        subtitle: 'Start av barselstiden',
+        text: 'Kroppen begynder gradvist sin restitution efter födslen.',
+      },
+      {
+        title: 'Barselsudflåd',
+        subtitle: 'Blödning efter födslen',
+        text: 'Blödningen ändrer sig gradvist i mängde och farve.',
+      },
+      {
+        title: 'Gradvis aftagen',
+        subtitle: 'Over flere veckor',
+        text: 'Blödningen aftager generelt over tid.',
+      },
+      {
+        title: 'Gradvis tilbagevenden',
+        subtitle: 'Mod den normale cyklus',
+        text: 'Menstruationscyklussen kan derefter gradvist genoptages.',
+      },
+    ],
+    h2Section3: '3. Hvordan barselsudflåd udvikler sig',
+    body3:
+      'Barselsudflåd ändrer generelt farve gradvist och aftager i mängde. Dette forlöb kan dog variere fran person till person.',
+    lochiaEvolution: [
+      {
+        title: 'Rödt barselsudflåd',
+        period: 'De förste dage',
+        text: 'Blödningen ar normalt röd och kan väre kraftigere i starten.',
+      },
+      {
+        title: 'Lyserödt / brunligt barselsudflåd',
+        period: 'Efter et par dage',
+        text: 'Farven kan blive lysere eller brunlig, efterhånden som flowet aftager.',
+      },
+      {
+        title: 'Hvidligt barselsudflåd',
+        period: 'De fölgende veckor',
+        text: 'Blödningen bliver gradvist lysere och mindre.',
+      },
+    ],
+    infoTitle: 'Vigtige pointer',
+    infoText:
+      'Barselsudflåds farve och mängde kan ändre sig gradvist. Det nöjagtige forlöb ar inte det samme for alle.',
+    h2Section4: '4. Omsorg for dig selv',
+    body4:
+      'I denne periode kan nogle enkle vaner bidrage till komfort och stötte kroppens restitution.',
+    careTips: [
+      {title: 'Skånsom hygiejne', text: 'Oprethold en enkel och behagelig daglig hygiejnerutine.'},
+      {title: 'Hvile', text: 'Giv din krop tid till at restituere.'},
+      {title: 'Hydrering', text: 'Husk at drikke regelmässigt efter behov.'},
+      {title: 'Ernäring', text: 'En varieret kost stötter restitutionen.'},
+    ],
+    h2Section5: '5. Hvornår skal du söge råd',
+    body5:
+      'Visse situationer kräver hurtig rådgivning fran en halsasprofessionel, särligt når en ändring virker betydelig, pludselig eller usädvanlig.',
+    warningTitle: 'Tegn du inte bör ignorere',
+    warningSubtitle: 'Sög professionel rådgivning om nödvendigt',
+    warningSigns: [
+      'En stärk eller usädvanlig lugt fran blödningen',
+      'Feber eller forvärring av almentilstanden',
+      'Blödning der pludselig bliver mycket kraftig',
+      'Stärke, vedvarende eller usädvanlige smerter',
+      'Et nyt symptom, der bekymrer dig',
+    ],
+    tipTitle: 'Godt at vide',
+    tipText:
+      'Enhver barselsrestitution ar forskellig. Oplysningerne i denne artikel ar ment som generel vejledning och erstatter inte en medicinsk konsultation.',
+    summaryHeading: 'Vigtige pointer',
+    summary: [
+      'Nifas ar et begreb, der bruges i religiös sammenhäng efter födslen.',
+      'Medicinsk set kaldes blödningen efter födslen barselsudflåd (lochia).',
+      'Barselsudflåd ändrer sig gradvist i farve och mängde.',
+      'Hvile, skånsom hygiejne och god hydrering stötter restitutionen.',
+      'En usädvanlig eller bekymrende ändring fortjener professionel rådgivning.',
+    ],
+    disclaimerText:
+      'Informativt indhold. De medicinske oplysninger her ar generelle och erstatter inte råd fran en halsasprofessionel. For specifikke religiöse spörgsmål anbefales det at konsultere en kvalificeret religiös kilde.',
+    shareMessage: 'Nifas: medicinske aspekter — AWA',
+  },
 } as const);
 
 /* -------------------------------------------------------------------------- */

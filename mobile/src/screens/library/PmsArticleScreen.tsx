@@ -953,6 +953,204 @@ const CONTENT = withBrazilianPortuguese('Pms', {
     consultText: 'উপসর্গ খুব তীব্র হলে এবং দৈনন্দিন জীবনে প্রভাব ফেললে এটি মাসিকপূর্ব ডিসফোরিক ডিসঅর্ডার (পিএমডিডি) হতে পারে। স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিতে দ্বিধা করবেন না।',
     shareMessage: 'মাসিকপূর্ব সিনড্রোম (পিএমএস): আরও ভালোভাবে বোঝা — AWA',
   },
+  da: {
+    badge: 'CYKLUS OG VELVÆRE',
+    title: 'Præmenstruelt syndrom (PMS):\nforstå det bedre',
+    metaDuration: '4 min læsning',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'PMS påvirker op til 8 ud af 10 kvinder. Træthed, irritabilitet, oppustethed… At forstå årsagerne og opbygge gode vaner kan gøre denne periode meget lettere.',
+    contentsTitle: 'I denne artikel',
+    contents: [
+      'Hvad er PMS?',
+      'Almindelige symptomer',
+      'Mulige årsager',
+      'Tips til at have det bedre',
+      'Hvornår bør du søge læge?',
+    ],
+    section1Body: 'Præmenstruelt syndrom er en samling af fysiske og følelsesmæssige symptomer, der normalt opstår 5 til 10 dage inden menstruationen og forsvinder ved cyklussens begyndelse.',
+    visual1Title: 'En fase forbundet med din cyklus',
+    visual1Text: 'Symptomerne opstår inden menstruationen og aftager normalt, når den begynder.',
+    tip1Title: 'Godt at vide',
+    tip1Text: 'Symptomernes intensitet og art kan variere meget fra kvinde til kvinde og fra cyklus til cyklus.',
+    symptoms: [
+      {
+        title: 'Følelsesmæssige',
+        text: 'Irritabilitet, angst, nedtrykthed, humørsvingninger',
+      },
+      {
+        title: 'Fysiske',
+        text: 'Oppustethed, smerter, træthed, hovedpine',
+      },
+      {
+        title: 'Adfærdsmæssige',
+        text: 'Trang til søde sager, appetitændringer, træthed',
+      },
+      {
+        title: 'Søvn',
+        text: 'Søvnbesvær eller mindre afslappende søvn',
+      },
+    ],
+    section3Body: 'Hormonelle udsving, især af progesteron og østrogen, påvirker hjernens neurotransmittere (serotonin, dopamin), hvilket kan forklare PMS\' følelsesmæssige og fysiske symptomer.',
+    tip2Title: 'Hormonernes rolle er central',
+    tip2Text: 'Hormonelle udsving kan påvirke humør, energi, søvn og visse fysiske fornemmelser.',
+    tips: [
+      {
+        title: 'Hold dig hydreret',
+        text: 'At drikke tilstrækkeligt vand hjælper med at reducere oppustethed.',
+      },
+      {
+        title: 'Spis afbalanceret',
+        text: 'Prioriter fødevarer rige på magnesium, omega-3 og B-vitaminer.',
+      },
+      {
+        title: 'Vær aktiv',
+        text: 'Fysisk aktivitet frigiver endorfiner og reducerer stress.',
+      },
+      {
+        title: 'Håndter stress',
+        text: 'Åndedrætsøvelser, meditation, dagbogsskrivning… Find det der virker for dig.',
+      },
+      {
+        title: 'Sov nok',
+        text: 'God søvnkvalitet hjælper med at holde hormonbalancen stabil.',
+      },
+    ],
+    consultTitle: 'Hvornår bør du søge medicinsk rådgivning?',
+    consultText: 'Hvis symptomerne er meget intense og påvirker dit daglige liv, kan det være præmenstruel dysforisk lidelse (PMDD). Tøv ikke med at kontakte en sundhedsfaglig person.',
+    shareMessage: 'Præmenstruelt syndrom (PMS): forstå det bedre — AWA',
+  },
+  da: {
+    badge: 'CYKLUS OG VELVÄRE',
+    title: 'Prämenstruelt syndrom (PMS):\nforstå det bedre',
+    metaDuration: '4 min läsning',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'PMS påvirker op till 8 ud av 10 kvinder. Träthed, irritabilitet, oppustethed… At forstå årsagerne och opbygge gode vaner kan göre denne periode mycket lettere.',
+    contentsTitle: 'I denne artikel',
+    contents: [
+      'Hvad ar PMS?',
+      'Almindelige symtom',
+      'Mulige årsager',
+      'Tips till at have det bedre',
+      'Hvornår bör du söge läge?',
+    ],
+    section1Body: 'Prämenstruelt syndrom ar en samling av fysiske och fölelsesmässige symtom, der normalt opstår 5 till 10 dagar inden menstruationen och forsvinder ved cyklussens begyndelse.',
+    visual1Title: 'En fase forbundet med din cyklus',
+    visual1Text: 'Symtomne opstår inden menstruationen och aftager normalt, når den begynder.',
+    tip1Title: 'Godt at vide',
+    tip1Text: 'Symtomnes intensitet och art kan variere mycket fran kvinna till kvinna och fran cyklus till cyklus.',
+    symptoms: [
+      {
+        title: 'Fölelsesmässige',
+        text: 'Irritabilitet, angst, nedtrykthed, humörsvingninger',
+      },
+      {
+        title: 'Fysiske',
+        text: 'Oppustethed, smerter, träthed, hovedpine',
+      },
+      {
+        title: 'Adfärdsmässige',
+        text: 'Trang till söde sager, appetitändringer, träthed',
+      },
+      {
+        title: 'Sövn',
+        text: 'Sövnbesvär eller mindre afslappende sövn',
+      },
+    ],
+    section3Body: 'Hormonelle udsving, isär av progesteron och östrogen, påvirker hjernens neurotransmittere (serotonin, dopamin), hvilket kan forklare PMS\' fölelsesmässige och fysiske symtom.',
+    tip2Title: 'Hormonernes rolle ar central',
+    tip2Text: 'Hormonelle udsving kan påvirke humör, energi, sövn och visse fysiske fornemmelser.',
+    tips: [
+      {
+        title: 'Hold dig hydreret',
+        text: 'At drikke tilsträkkeligt vand hjälper med at reducere oppustethed.',
+      },
+      {
+        title: 'Spis afbalanceret',
+        text: 'Prioriter födevarer rige på magnesium, omega-3 och B-vitaminer.',
+      },
+      {
+        title: 'Vär aktiv',
+        text: 'Fysisk aktivitet frigiver endorfiner och reducerer stress.',
+      },
+      {
+        title: 'Håndter stress',
+        text: 'Åndedrätsövelser, meditation, dagbogsskrivning… Find det der virker for dig.',
+      },
+      {
+        title: 'Sov nok',
+        text: 'God sövnkvalitet hjälper med at holde hormonbalancen stabil.',
+      },
+    ],
+    consultTitle: 'Hvornår bör du söge medicinsk rådgivning?',
+    consultText: 'Hvis symtomne ar mycket intense och påvirker ditt daglige liv, kan det väre prämenstruel dysforisk lidelse (PMDD). Töv inte med at kontakte en halsasfaglig person.',
+    shareMessage: 'Prämenstruelt syndrom (PMS): forstå det bedre — AWA',
+  },
+  sv: {
+    badge: 'CYKLUS OG VELVÄRE',
+    title: 'Prämenstruelt syndrom (PMS):\nforstå det bedre',
+    metaDuration: '4 min läsning',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'PMS påvirker op till 8 ud av 10 kvinder. Träthed, irritabilitet, oppustethed… At forstå årsagerne och opbygge gode vaner kan göre denne periode mycket lettere.',
+    contentsTitle: 'I denne artikel',
+    contents: [
+      'Hvad ar PMS?',
+      'Almindelige symtom',
+      'Mulige årsager',
+      'Tips till at have det bedre',
+      'Hvornår bör du söge läge?',
+    ],
+    section1Body: 'Prämenstruelt syndrom ar en samling av fysiske och fölelsesmässige symtom, der normalt opstår 5 till 10 dagar inden menstruationen och forsvinder ved cyklussens begyndelse.',
+    visual1Title: 'En fase forbundet med din cyklus',
+    visual1Text: 'Symtomne opstår inden menstruationen och aftager normalt, når den begynder.',
+    tip1Title: 'Godt at vide',
+    tip1Text: 'Symtomnes intensitet och art kan variere mycket fran kvinna till kvinna och fran cyklus till cyklus.',
+    symptoms: [
+      {
+        title: 'Fölelsesmässige',
+        text: 'Irritabilitet, angst, nedtrykthed, humörsvingninger',
+      },
+      {
+        title: 'Fysiske',
+        text: 'Oppustethed, smerter, träthed, hovedpine',
+      },
+      {
+        title: 'Adfärdsmässige',
+        text: 'Trang till söde sager, appetitändringer, träthed',
+      },
+      {
+        title: 'Sövn',
+        text: 'Sövnbesvär eller mindre afslappende sövn',
+      },
+    ],
+    section3Body: 'Hormonelle udsving, isär av progesteron och östrogen, påvirker hjernens neurotransmittere (serotonin, dopamin), hvilket kan forklare PMS\' fölelsesmässige och fysiske symtom.',
+    tip2Title: 'Hormonernes rolle ar central',
+    tip2Text: 'Hormonelle udsving kan påvirke humör, energi, sövn och visse fysiske fornemmelser.',
+    tips: [
+      {
+        title: 'Hold dig hydreret',
+        text: 'At drikke tilsträkkeligt vand hjälper med at reducere oppustethed.',
+      },
+      {
+        title: 'Spis afbalanceret',
+        text: 'Prioriter födevarer rige på magnesium, omega-3 och B-vitaminer.',
+      },
+      {
+        title: 'Vär aktiv',
+        text: 'Fysisk aktivitet frigiver endorfiner och reducerer stress.',
+      },
+      {
+        title: 'Håndter stress',
+        text: 'Åndedrätsövelser, meditation, dagbogsskrivning… Find det der virker for dig.',
+      },
+      {
+        title: 'Sov nok',
+        text: 'God sövnkvalitet hjälper med at holde hormonbalancen stabil.',
+      },
+    ],
+    consultTitle: 'Hvornår bör du söge medicinsk rådgivning?',
+    consultText: 'Hvis symtomne ar mycket intense och påvirker ditt daglige liv, kan det väre prämenstruel dysforisk lidelse (PMDD). Töv inte med at kontakte en halsasfaglig person.',
+    shareMessage: 'Prämenstruelt syndrom (PMS): forstå det bedre — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<

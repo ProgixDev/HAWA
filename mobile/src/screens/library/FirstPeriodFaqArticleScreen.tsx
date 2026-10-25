@@ -809,6 +809,156 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     shareMessage: 'প্রথম মাসিক নিয়ে সচরাচর জিজ্ঞাসা — AWA',
   },
+  da: {
+    badge: 'FØRSTE MENSTRUATION',
+    title: 'Hyppige spørgsmål om\nden første menstruation',
+    metaDuration: '4 min læsning',
+    metaType: 'FAQ',
+    metaLevel: 'Grundlæggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Simple svar på de mest almindelige spørgsmål om den første menstruation.',
+    contentsTitle: 'I denne artikel',
+    faq: [
+      {
+        question: '"Er det normalt at bløde meget lidt?"',
+        answer: 'Ja. De allertidligste cyklusser er ofte lette. Blødningsmængden kan variere fra cyklus til cyklus, især i starten.',
+      },
+      {
+        question: '"Er det normalt at bløde meget?"',
+        answer: 'Kraftig blødning kan også forekomme, især i de første to dage. Hvis du skal skifte beskyttelse mere end én gang i timen i flere timer i træk, er det en god idé at tale med en sundhedsprofessionel.',
+      },
+      {
+        question: '"Er det normalt at have mavesmerter?"',
+        answer: 'Let mavesmerter er normalt og giver generelt ikke anledning til bekymring. En varmepude eller lidt hvile kan hjælpe. Kontakt nogen, hvis smerten er meget kraftig.',
+      },
+      {
+        question: '"Kan jeg dyrke sport?"',
+        answer: 'Ja, du kan dyrke sport under menstruationen. Juster bare intensiteten efter, hvordan du har det den dag.',
+      },
+      {
+        question: '"Kan jeg svømme?"',
+        answer: 'Ja, du kan svømme med den rette beskyttelse. Mange foretrækker at vente, til de er mere fortrolige med det.',
+      },
+    ],
+    tipTitle: 'Godt at vide',
+    tipText: 'Der findes ingen "pinlige spørgsmål": enhver krop er forskellig, og du kan altid tale med nogen du stoler på.',
+    relatedTitle: '♥  Du vil måske også synes om',
+    related: [
+      {
+        title: 'Din første menstruation: hvad du kan forvente',
+        meta: '5 min  ·  Guide',
+      },
+      {
+        title: 'Hvilken beskyttelse skal jeg vælge til min første menstruation?',
+        meta: '6 min  ·  Guide',
+      },
+      {
+        title: 'At håndtere menstruationssmerter',
+        meta: '7 min  ·  Guide',
+      },
+    ],
+    shareMessage: 'Hyppige spørgsmål om den første menstruation — AWA',
+  },
+  da: {
+    badge: 'FÖRSTE MENSTRUATION',
+    title: 'Hyppige spörgsmål om\nden förste menstruation',
+    metaDuration: '4 min läsning',
+    metaType: 'FAQ',
+    metaLevel: 'Grundläggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Simple svar på de mest almindelige spörgsmål om den förste menstruation.',
+    contentsTitle: 'I denne artikel',
+    faq: [
+      {
+        question: '"Er det normalt at blöde mycket lidt?"',
+        answer: 'Ja. De allertidligste cyklusser ar ofta lette. Blödningsmängden kan variere fran cyklus till cyklus, isär i starten.',
+      },
+      {
+        question: '"Er det normalt at blöde meget?"',
+        answer: 'Kraftig blödning kan også forekomme, isär i de förste to dagar. Hvis du skal skifte beskyttelse mere end én gang i timen i flere timer i träk, ar det en god idé at tale med en halsasprofessionel.',
+      },
+      {
+        question: '"Er det normalt at have mavesmerter?"',
+        answer: 'Let mavesmartor ar normalt och giver generelt inte anledning till bekymring. En varmepude eller lite hvile kan hjälpe. Kontakt nogen, hvis smerten ar mycket kraftig.',
+      },
+      {
+        question: '"Kan jag dyrke sport?"',
+        answer: 'Ja, du kan dyrke sport under menstruationen. Juster bare intensiteten efter, hvordan du har det den dag.',
+      },
+      {
+        question: '"Kan jag svömme?"',
+        answer: 'Ja, du kan svömme med den rette beskyttelse. Mange foreträkker at vente, till de ar mere fortrolige med det.',
+      },
+    ],
+    tipTitle: 'Godt at vide',
+    tipText: 'Der findes ingen "pinlige spörgsmål": enhver krop ar forskellig, och du kan alltid tale med nogen du stoler på.',
+    relatedTitle: '♥  Du vil måske også synes om',
+    related: [
+      {
+        title: 'Din förste menstruation: hvad du kan forvente',
+        meta: '5 min  ·  Guide',
+      },
+      {
+        title: 'Hvilken beskyttelse skal jag välge till min förste menstruation?',
+        meta: '6 min  ·  Guide',
+      },
+      {
+        title: 'At håndtere menstruationssmerter',
+        meta: '7 min  ·  Guide',
+      },
+    ],
+    shareMessage: 'Hyppige spörgsmål om den förste menstruation — AWA',
+  },
+  sv: {
+    badge: 'FÖRSTE MENSTRUATION',
+    title: 'Hyppige spörgsmål om\nden förste menstruation',
+    metaDuration: '4 min läsning',
+    metaType: 'FAQ',
+    metaLevel: 'Grundläggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Simple svar på de mest almindelige spörgsmål om den förste menstruation.',
+    contentsTitle: 'I denne artikel',
+    faq: [
+      {
+        question: '"Er det normalt at blöde mycket lidt?"',
+        answer: 'Ja. De allertidligste cyklusser ar ofta lette. Blödningsmängden kan variere fran cyklus till cyklus, isär i starten.',
+      },
+      {
+        question: '"Er det normalt at blöde meget?"',
+        answer: 'Kraftig blödning kan også forekomme, isär i de förste to dagar. Hvis du skal skifte beskyttelse mere end én gang i timen i flere timer i träk, ar det en god idé at tale med en halsasprofessionel.',
+      },
+      {
+        question: '"Er det normalt at have mavesmerter?"',
+        answer: 'Let mavesmartor ar normalt och giver generelt inte anledning till bekymring. En varmepude eller lite hvile kan hjälpe. Kontakt nogen, hvis smerten ar mycket kraftig.',
+      },
+      {
+        question: '"Kan jag dyrke sport?"',
+        answer: 'Ja, du kan dyrke sport under menstruationen. Juster bare intensiteten efter, hvordan du har det den dag.',
+      },
+      {
+        question: '"Kan jag svömme?"',
+        answer: 'Ja, du kan svömme med den rette beskyttelse. Mange foreträkker at vente, till de ar mere fortrolige med det.',
+      },
+    ],
+    tipTitle: 'Godt at vide',
+    tipText: 'Der findes ingen "pinlige spörgsmål": enhver krop ar forskellig, och du kan alltid tale med nogen du stoler på.',
+    relatedTitle: '♥  Du vil måske også synes om',
+    related: [
+      {
+        title: 'Din förste menstruation: hvad du kan forvente',
+        meta: '5 min  ·  Guide',
+      },
+      {
+        title: 'Hvilken beskyttelse skal jag välge till min förste menstruation?',
+        meta: '6 min  ·  Guide',
+      },
+      {
+        title: 'At håndtere menstruationssmerter',
+        meta: '7 min  ·  Guide',
+      },
+    ],
+    shareMessage: 'Hyppige spörgsmål om den förste menstruation — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

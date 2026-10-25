@@ -772,6 +772,156 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     ],
     shareMessage: 'প্রথম মাসিকের জন্য কোন সুরক্ষা সামগ্রী বেছে নেব? — AWA',
   },
+  da: {
+    badge: 'FØRSTE MENSTRUATION',
+    title: 'Hvilken beskyttelse skal jeg\nvælge til min første menstruation?',
+    metaDuration: '6 min læsning',
+    metaType: 'Guide',
+    metaLevel: 'Grundlæggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Der er flere måder at beskytte sig på under menstruationen. Ingen er bedre end andre: din egen komfort er det, der afgør valget.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Forskellige typer beskyttelse',
+      'Sådan vælger du efter komfort',
+      'Sådan skifter du beskyttelse',
+    ],
+    body1: 'Et bind er generelt det nemmeste til den første menstruation, fordi det sidder direkte i undertøjet. Menstruationsundertøj og tamponer er to andre muligheder, som du kan prøve senere, hvis du ønsker det.',
+    options: [
+      {
+        title: 'Bind',
+        text: 'Nemt at bruge; sidder i undertøjet og skal skiftes regelmæssigt.',
+      },
+      {
+        title: 'Menstruationsundertøj',
+        text: 'Absorberende, vaskbart undertøj, der er behageligt til daglig brug.',
+      },
+      {
+        title: 'Tampon',
+        text: 'Indsættes indeni kroppen; det er dit eget valg, om og hvornår du vil prøve det.',
+      },
+    ],
+    body2: 'Der er intet rigtigt eller forkert valg af beskyttelse: hver type passer til forskellige kroppe, vaner og komfortniveauer. En tampon indsættes for eksempel indeni kroppen, så den kræver lidt mere fortrolighed med din krop: der er ingen grund til at bruge den fra din allerførste menstruation.',
+    tipTitle: 'Godt at vide',
+    tipText: 'At prøve forskellige typer beskyttelse over tid hjælper dig med at finde den, der passer bedst til dig, uden pres.',
+    body3: 'Generelt bør du skifte beskyttelse hvert 4. til 6. time; hyppigere ved kraftig blødning. Regelmæssig skift holder dig komfortabel og opretholder personlig hygiejne.',
+    relatedTitle: '♥  Du vil måske også synes om',
+    related: [
+      {
+        title: 'At forstå din menstruationsblødning',
+        meta: '7 min  ·  Guide',
+      },
+      {
+        title: 'Hvad gør du med din første menstruation i hverdagen?',
+        meta: '5 min  ·  Guide',
+      },
+      {
+        title: 'Din første menstruation: hvad du kan forvente',
+        meta: '5 min  ·  Guide',
+      },
+    ],
+    shareMessage: 'Hvilken beskyttelse skal jeg vælge til min første menstruation? — AWA',
+  },
+  da: {
+    badge: 'FÖRSTE MENSTRUATION',
+    title: 'Hvilken beskyttelse skal jeg\nvälge till min förste menstruation?',
+    metaDuration: '6 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Grundläggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Der ar flere måder at beskytte sig på under menstruationen. Ingen ar bedre end andre: din egen komfort ar det, der afgör valget.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Forskellige typer beskyttelse',
+      'Sådan välger du efter komfort',
+      'Sådan skifter du beskyttelse',
+    ],
+    body1: 'Et bind ar generelt det nemmeste till den förste menstruation, fordi det sidder direkte i undertöjet. Menstruationsundertöj och tamponer ar to andre muligheder, som du kan pröve senere, hvis du önsker det.',
+    options: [
+      {
+        title: 'Bind',
+        text: 'Nemt at bruge; sidder i undertöjet och skal skiftes regelmässigt.',
+      },
+      {
+        title: 'Menstruationsundertöj',
+        text: 'Absorberende, vaskbart undertöj, der ar behageligt till daglig brug.',
+      },
+      {
+        title: 'Tampon',
+        text: 'Indsättes indeni kroppen; det ar ditt eget valg, om och hvornår du vil pröve det.',
+      },
+    ],
+    body2: 'Der ar intet rigtigt eller forkert valg av beskyttelse: hver type passer till forskellige kroppe, vaner och komfortniveauer. En tampon indsättes for eksempel indeni kroppen, så den kräver lite mere fortrolighed med din krop: der ar ingen grund till at bruge den fran din allerförste menstruation.',
+    tipTitle: 'Godt at vide',
+    tipText: 'At pröve forskellige typer beskyttelse over tid hjälper dig med at finde den, der passer bedst till dig, uden pres.',
+    body3: 'Generelt bör du skifte beskyttelse hvert 4. till 6. time; hyppigere ved kraftig blödning. Regelmässig skift holder dig komfortabel och opretholder personlig hygiejne.',
+    relatedTitle: '♥  Du vil måske også synes om',
+    related: [
+      {
+        title: 'At forstå din menstruationsblödning',
+        meta: '7 min  ·  Guide',
+      },
+      {
+        title: 'Hvad gör du med din förste menstruation i hverdagen?',
+        meta: '5 min  ·  Guide',
+      },
+      {
+        title: 'Din förste menstruation: hvad du kan forvente',
+        meta: '5 min  ·  Guide',
+      },
+    ],
+    shareMessage: 'Hvilken beskyttelse skal jag välge till min förste menstruation? — AWA',
+  },
+  sv: {
+    badge: 'FÖRSTE MENSTRUATION',
+    title: 'Hvilken beskyttelse skal jeg\nvälge till min förste menstruation?',
+    metaDuration: '6 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Grundläggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Der ar flere måder at beskytte sig på under menstruationen. Ingen ar bedre end andre: din egen komfort ar det, der afgör valget.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Forskellige typer beskyttelse',
+      'Sådan välger du efter komfort',
+      'Sådan skifter du beskyttelse',
+    ],
+    body1: 'Et bind ar generelt det nemmeste till den förste menstruation, fordi det sidder direkte i undertöjet. Menstruationsundertöj och tamponer ar to andre muligheder, som du kan pröve senere, hvis du önsker det.',
+    options: [
+      {
+        title: 'Bind',
+        text: 'Nemt at bruge; sidder i undertöjet och skal skiftes regelmässigt.',
+      },
+      {
+        title: 'Menstruationsundertöj',
+        text: 'Absorberende, vaskbart undertöj, der ar behageligt till daglig brug.',
+      },
+      {
+        title: 'Tampon',
+        text: 'Indsättes indeni kroppen; det ar ditt eget valg, om och hvornår du vil pröve det.',
+      },
+    ],
+    body2: 'Der ar intet rigtigt eller forkert valg av beskyttelse: hver type passer till forskellige kroppe, vaner och komfortniveauer. En tampon indsättes for eksempel indeni kroppen, så den kräver lite mere fortrolighed med din krop: der ar ingen grund till at bruge den fran din allerförste menstruation.',
+    tipTitle: 'Godt at vide',
+    tipText: 'At pröve forskellige typer beskyttelse over tid hjälper dig med at finde den, der passer bedst till dig, uden pres.',
+    body3: 'Generelt bör du skifte beskyttelse hvert 4. till 6. time; hyppigere ved kraftig blödning. Regelmässig skift holder dig komfortabel och opretholder personlig hygiejne.',
+    relatedTitle: '♥  Du vil måske også synes om',
+    related: [
+      {
+        title: 'At forstå din menstruationsblödning',
+        meta: '7 min  ·  Guide',
+      },
+      {
+        title: 'Hvad gör du med din förste menstruation i hverdagen?',
+        meta: '5 min  ·  Guide',
+      },
+      {
+        title: 'Din förste menstruation: hvad du kan forvente',
+        meta: '5 min  ·  Guide',
+      },
+    ],
+    shareMessage: 'Hvilken beskyttelse skal jag välge till min förste menstruation? — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

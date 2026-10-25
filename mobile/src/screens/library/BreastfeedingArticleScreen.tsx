@@ -1484,6 +1484,330 @@ const CONTENT = withBrazilianPortuguese('Breastfeeding', {
     ],
     disclaimerText: 'তথ্যমূলক বিষয়বস্তু। এই নিবন্ধ স্বাস্থ্যসেবা পেশাজীবীর ব্যক্তিগত নির্দেশনার বিকল্প নয়।',
   },
+  da: {
+    shareMessage: 'At begynde at amme med selvtillid — AWA',
+    badge: 'Efterfødsel • Amning',
+    title: 'At begynde at amme\nmed selvtillid',
+    metaDuration: '6 minutters læsning',
+    metaType: 'Guide',
+    metaLevel: 'Grundlæggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'De første dage med amning er en læringsperiode for både dig og dit barn. Tilknytning, rytme, stilling og observation hjælper dig gradvist med at finde frem til, hvad der er komfortabelt.',
+    contentsTitle: 'I denne artikel',
+    contentsSubtitle: 'Det du har brug for at komme i gang',
+    tocItems: [
+      'De første skridt',
+      'Tegn du bør holde øje med',
+      'Korrekt tilknytning',
+      'Hvornår du bør søge hjælp',
+      'Vigtigt at huske',
+    ],
+    h2Step1: '1. De første skridt',
+    body1: 'Amning bygges gradvist op. De første timer og derefter de første dage giver tid til, at du og dit barn kan lære det sammen.',
+    timelineTitle: 'At komme i gang trin for trin',
+    timelineSubtitle: 'En enkel guide uden pres',
+    startingSteps: [
+      {
+        title: 'Lige efter fødslen',
+        text: 'Hud-mod-hud-kontakt og tidlig tilknytning til brystet kan bidrage til en god start på amningen.',
+      },
+      {
+        title: 'De første timer',
+        text: 'Barnet kan ønsker at die hyppigt. Det er normalt, at rytmen varierer.',
+      },
+      {
+        title: 'De første dage',
+        text: 'Amningen udvikler sig gradvist til en fælles rytme for dig og dit barn.',
+      },
+      {
+        title: 'Rytmen etableres',
+        text: 'Mælkeproduktionen tilpasser sig gradvist dit barns behov.',
+      },
+    ],
+    h2Step2: '2. Tegn du bør holde øje med',
+    body2: 'I stedet for udelukkende at kigge på uret kan det være nyttigt at bemærke dit barns vågentegn, amning og bleetilstand.',
+    signals: [
+      {
+        title: 'Hyppig rytme',
+        text: 'Et nyfødt barn kan ønske at die hyppigt, nogle gange 8 til 12 gange i løbet af 24 timer.',
+      },
+      {
+        title: 'Vågentegn',
+        text: 'Når barnet begynder at blive sultent, kan det røre sig, åbne munden eller vende sig mod brystet.',
+      },
+      {
+        title: 'Bleer',
+        text: 'Antallet af våde og snavsede bleer er et af de daglige tegn, der er værd at bemærke.',
+      },
+    ],
+    h2Step3: '3. Korrekt tilknytning',
+    body3: 'En komfortabel stilling og effektiv tilknytning kan gøre amningen lettere. Hvis smerten er intens eller vedvarende, kan en sundhedsprofessionel undersøge stilling og tilknytning.',
+    latchTitle: '4 tegn på komfort',
+    latchSubtitle: 'En enkel tjekliste under amningen',
+    latchCenterTitle: 'Barn + bryst',
+    latchCenterSubtitle: 'Komfortabel stilling',
+    latchPoints: [
+      {
+        title: 'Barnet er godt placeret',
+        text: 'Barnet holdes tæt op ad kroppen med hovedet i en komfortabel, rank position.',
+      },
+      {
+        title: 'Munden er åben tilstrækkeligt',
+        text: 'Vent til munden er åben tilstrækkeligt bredt, inden du tilbyder brystet.',
+      },
+      {
+        title: 'Komfortabel tilknytning',
+        text: 'En effektiv tilknytning bør ikke medføre væsentlig eller vedvarende smerte.',
+      },
+      {
+        title: 'Regelmæssig sutning',
+        text: 'Under amningen kan man se suge- og synkebevægelser.',
+      },
+    ],
+    h2Step4: '4. Hvornår bør du søge hjælp?',
+    body4: 'Du behøver ikke vente, til problemerne bliver alvorlige. En uddannet professionel kan hjælpe dig med at undersøge stilling, tilknytning eller dit barns behov.',
+    supportOptions: [
+      {
+        title: 'Jordemoder',
+        text: 'Kan støtte dig med tilknytningen i de første dage.',
+      },
+      {
+        title: 'Sundhedsprofessionel',
+        text: 'Kan undersøge barnets og din sundhed.',
+      },
+      {
+        title: 'Ammekonsulent',
+        text: 'Kan hjælpe, hvis tilknytningen er vanskelig.',
+      },
+    ],
+    infoTitle: 'Hvert ammeforløb er unikt',
+    infoText: 'De første dage kan se meget forskellige ud. Ammerytmen og mælkemængden kan gradvist ændre sig over tid. Søg råd hos en sundhedsprofessionel, hvis noget bekymrer dig.',
+    h2Summary: 'Vigtigt at huske',
+    summaryItems: [
+      'De første amninger er en læringsperiode for både barn og mor.',
+      'Et nyfødt barn kan ønske at die hyppigt.',
+      'Komfortabel stilling og korrekt tilknytning er vigtigt.',
+      'At følge barnets signaler er mere effektivt end en streng tidsplan.',
+      'En jordemoder eller ammekonsulent kan hjælpe dig med de første udfordringer.',
+    ],
+    disclaimerText: 'Informativt indhold. Denne artikel erstatter ikke individuel vejledning fra en sundhedsprofessionel.',
+  },
+  da: {
+    shareMessage: 'At begynde at amme med selvtillid — AWA',
+    badge: 'Efterfödsel • Amning',
+    title: 'At begynde at amme\nmed selvtillid',
+    metaDuration: '6 minutters läsning',
+    metaType: 'Guide',
+    metaLevel: 'Grundläggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'De förste dagar med amning ar en läringsperiode for både dig och ditt barn. Tilknytning, rytme, stilling och observation hjälper dig gradvist med at finde frem till, hvad der ar komfortabelt.',
+    contentsTitle: 'I denne artikel',
+    contentsSubtitle: 'Det du har brug for att komme i gang',
+    tocItems: [
+      'De förste skridt',
+      'Tegn du bör holde öje med',
+      'Korrekt tilknytning',
+      'Hvornår du bör söge hjälp',
+      'Vigtigt at huske',
+    ],
+    h2Step1: '1. De förste skridt',
+    body1: 'Amning bygges gradvist op. De förste timer och derefter de förste dagar giver tid till, at du och ditt barn kan läre det sammen.',
+    timelineTitle: 'At komme i gang trin for trin',
+    timelineSubtitle: 'En enkel guide uden pres',
+    startingSteps: [
+      {
+        title: 'Lige efter födslen',
+        text: 'Hud-mod-hud-kontakt och tidlig tilknytning till brystet kan bidrage till en god start på amningen.',
+      },
+      {
+        title: 'De förste timer',
+        text: 'Barnet kan önsker at die hyppigt. Det ar normalt, at rytmen varierer.',
+      },
+      {
+        title: 'De förste dage',
+        text: 'Amningen udvikler sig gradvist till en fälles rytme for dig och ditt barn.',
+      },
+      {
+        title: 'Rytmen etableres',
+        text: 'Mälkeproduktionen tilpasser sig gradvist ditt barns behov.',
+      },
+    ],
+    h2Step2: '2. Tegn du bör holde öje med',
+    body2: 'I stedet for udelukkende at kigge på uret kan det väre nyttigt at bemärke ditt barns vågentegn, amning och bleetilstand.',
+    signals: [
+      {
+        title: 'Hyppig rytme',
+        text: 'Et nyfödt barn kan önske at die hyppigt, nogle gange 8 till 12 gange i löbet av 24 timer.',
+      },
+      {
+        title: 'Vågentegn',
+        text: 'Når barnet begynder at blive sultent, kan det röre sig, åbne munden eller vende sig mod brystet.',
+      },
+      {
+        title: 'Bleer',
+        text: 'Antallet av våde och snavsede bleer ar et av de daglige tegn, der ar värd at bemärke.',
+      },
+    ],
+    h2Step3: '3. Korrekt tilknytning',
+    body3: 'En komfortabel stilling och effektiv tilknytning kan göre amningen lettere. Hvis smerten ar intens eller vedvarende, kan en halsasprofessionel undersöge stilling och tilknytning.',
+    latchTitle: '4 tegn på komfort',
+    latchSubtitle: 'En enkel tjekliste under amningen',
+    latchCenterTitle: 'Barn + bryst',
+    latchCenterSubtitle: 'Komfortabel stilling',
+    latchPoints: [
+      {
+        title: 'Barnet ar godt placeret',
+        text: 'Barnet holdes tät op ad kroppen med hovedet i en komfortabel, rank position.',
+      },
+      {
+        title: 'Munden ar åben tilsträkkeligt',
+        text: 'Vent till munden ar åben tilsträkkeligt bredt, inden du tilbyder brystet.',
+      },
+      {
+        title: 'Komfortabel tilknytning',
+        text: 'En effektiv tilknytning bör inte medföre väsentlig eller vedvarende smerte.',
+      },
+      {
+        title: 'Regelmässig sutning',
+        text: 'Under amningen kan man se suge- och synkebevägelser.',
+      },
+    ],
+    h2Step4: '4. Hvornår bör du söge hjälp?',
+    body4: 'Du behöver inte vente, till problemerne bliver alvorlige. En uddannet professionel kan hjälpe dig med at undersöge stilling, tilknytning eller ditt barns behov.',
+    supportOptions: [
+      {
+        title: 'Jordemoder',
+        text: 'Kan stötte dig med tilknytningen i de förste dagar.',
+      },
+      {
+        title: 'Halsasprofessionel',
+        text: 'Kan undersöge barnets och din halsa.',
+      },
+      {
+        title: 'Ammekonsulent',
+        text: 'Kan hjälpe, hvis tilknytningen ar vanskelig.',
+      },
+    ],
+    infoTitle: 'Hvert ammeforlöb ar unikt',
+    infoText: 'De förste dagar kan se mycket forskellige ud. Ammerytmen och mälkemängden kan gradvist ändre sig over tid. Sög råd hos en halsasprofessionel, hvis noget bekymrer dig.',
+    h2Summary: 'Vigtigt at huske',
+    summaryItems: [
+      'De förste amninger ar en läringsperiode for både barn och mor.',
+      'Et nyfödt barn kan önske at die hyppigt.',
+      'Komfortabel stilling och korrekt tilknytning ar vigtigt.',
+      'At fölge barnets signaler ar mere effektivt end en streng tidsplan.',
+      'En jordemoder eller ammekonsulent kan hjälpe dig med de förste udfordringer.',
+    ],
+    disclaimerText: 'Informativt indhold. Denne artikel erstatter inte individuel vejledning fran en halsasprofessionel.',
+  },
+  sv: {
+    shareMessage: 'At begynde at amme med selvtillid — AWA',
+    badge: 'Efterfödsel • Amning',
+    title: 'At begynde at amme\nmed selvtillid',
+    metaDuration: '6 minutters läsning',
+    metaType: 'Guide',
+    metaLevel: 'Grundläggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'De förste dagar med amning ar en läringsperiode for både dig och ditt barn. Tilknytning, rytme, stilling och observation hjälper dig gradvist med at finde frem till, hvad der ar komfortabelt.',
+    contentsTitle: 'I denne artikel',
+    contentsSubtitle: 'Det du har brug for att komme i gang',
+    tocItems: [
+      'De förste skridt',
+      'Tegn du bör holde öje med',
+      'Korrekt tilknytning',
+      'Hvornår du bör söge hjälp',
+      'Vigtigt at huske',
+    ],
+    h2Step1: '1. De förste skridt',
+    body1: 'Amning bygges gradvist op. De förste timer och derefter de förste dagar giver tid till, at du och ditt barn kan läre det sammen.',
+    timelineTitle: 'At komme i gang trin for trin',
+    timelineSubtitle: 'En enkel guide uden pres',
+    startingSteps: [
+      {
+        title: 'Lige efter födslen',
+        text: 'Hud-mod-hud-kontakt och tidlig tilknytning till brystet kan bidrage till en god start på amningen.',
+      },
+      {
+        title: 'De förste timer',
+        text: 'Barnet kan önsker at die hyppigt. Det ar normalt, at rytmen varierer.',
+      },
+      {
+        title: 'De förste dage',
+        text: 'Amningen udvikler sig gradvist till en fälles rytme for dig och ditt barn.',
+      },
+      {
+        title: 'Rytmen etableres',
+        text: 'Mälkeproduktionen tilpasser sig gradvist ditt barns behov.',
+      },
+    ],
+    h2Step2: '2. Tegn du bör holde öje med',
+    body2: 'I stedet for udelukkende at kigge på uret kan det väre nyttigt at bemärke ditt barns vågentegn, amning och bleetilstand.',
+    signals: [
+      {
+        title: 'Hyppig rytme',
+        text: 'Et nyfödt barn kan önske at die hyppigt, nogle gange 8 till 12 gange i löbet av 24 timer.',
+      },
+      {
+        title: 'Vågentegn',
+        text: 'Når barnet begynder at blive sultent, kan det röre sig, åbne munden eller vende sig mod brystet.',
+      },
+      {
+        title: 'Bleer',
+        text: 'Antallet av våde och snavsede bleer ar et av de daglige tegn, der ar värd at bemärke.',
+      },
+    ],
+    h2Step3: '3. Korrekt tilknytning',
+    body3: 'En komfortabel stilling och effektiv tilknytning kan göre amningen lettere. Hvis smerten ar intens eller vedvarende, kan en halsasprofessionel undersöge stilling och tilknytning.',
+    latchTitle: '4 tegn på komfort',
+    latchSubtitle: 'En enkel tjekliste under amningen',
+    latchCenterTitle: 'Barn + bryst',
+    latchCenterSubtitle: 'Komfortabel stilling',
+    latchPoints: [
+      {
+        title: 'Barnet ar godt placeret',
+        text: 'Barnet holdes tät op ad kroppen med hovedet i en komfortabel, rank position.',
+      },
+      {
+        title: 'Munden ar åben tilsträkkeligt',
+        text: 'Vent till munden ar åben tilsträkkeligt bredt, inden du tilbyder brystet.',
+      },
+      {
+        title: 'Komfortabel tilknytning',
+        text: 'En effektiv tilknytning bör inte medföre väsentlig eller vedvarende smerte.',
+      },
+      {
+        title: 'Regelmässig sutning',
+        text: 'Under amningen kan man se suge- och synkebevägelser.',
+      },
+    ],
+    h2Step4: '4. Hvornår bör du söge hjälp?',
+    body4: 'Du behöver inte vente, till problemerne bliver alvorlige. En uddannet professionel kan hjälpe dig med at undersöge stilling, tilknytning eller ditt barns behov.',
+    supportOptions: [
+      {
+        title: 'Jordemoder',
+        text: 'Kan stötte dig med tilknytningen i de förste dagar.',
+      },
+      {
+        title: 'Halsasprofessionel',
+        text: 'Kan undersöge barnets och din halsa.',
+      },
+      {
+        title: 'Ammekonsulent',
+        text: 'Kan hjälpe, hvis tilknytningen ar vanskelig.',
+      },
+    ],
+    infoTitle: 'Hvert ammeforlöb ar unikt',
+    infoText: 'De förste dagar kan se mycket forskellige ud. Ammerytmen och mälkemängden kan gradvist ändre sig over tid. Sög råd hos en halsasprofessionel, hvis noget bekymrer dig.',
+    h2Summary: 'Vigtigt at huske',
+    summaryItems: [
+      'De förste amninger ar en läringsperiode for både barn och mor.',
+      'Et nyfödt barn kan önske at die hyppigt.',
+      'Komfortabel stilling och korrekt tilknytning ar vigtigt.',
+      'At fölge barnets signaler ar mere effektivt end en streng tidsplan.',
+      'En jordemoder eller ammekonsulent kan hjälpe dig med de förste udfordringer.',
+    ],
+    disclaimerText: 'Informativt indhold. Denne artikel erstatter inte individuel vejledning fran en halsasprofessionel.',
+  },
 } as const);
 
 /* -------------------------------------------------------------------------- */

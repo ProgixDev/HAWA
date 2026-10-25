@@ -592,6 +592,129 @@ const CONTENT = withBrazilianPortuguese('Ovulation', {
     tip2Text: 'কোনো একটি লক্ষণ একা পুরোপুরি নির্ভরযোগ্য নয়: একাধিক লক্ষণ একসঙ্গে দেখলে আপনার সবচেয়ে উর্বর সময় সম্পর্কে ভালো ধারণা পাওয়া যায়।',
     shareMessage: 'ডিম্বস্ফোটন বোঝা — AWA',
   },
+  da: {
+    badge: 'ÆGLØSNING',
+    title: 'Forstå\nægløsning',
+    metaDuration: '6 min læsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Det afgørende øjeblik i din cyklus – og hvordan du genkender det.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Hvad er ægløsning?',
+      'De tegn, der kan følge med',
+      'Lær din egen rytme at kende',
+      'Vigtige pointer',
+    ],
+    body1:
+      'Ægløsning er frigivelsen af et æg fra et af æggestokkene. Det sker normalt cirka 14 dage før din næste menstruation – uanset din cyklus\' samlede længde.',
+    tip1Title: 'Godt at vide',
+    tip1Text:
+      'Det er datoen for din næste menstruation, der varierer fra kvinde til kvinde – langt mere end tiden mellem ægløsning og dens ankomst.',
+    body2:
+      'Visse fysiske tegn kan ledsage ægløsningens tilnærmelse, i varierende grad afhængigt af kvinden.',
+    visualTitle: 'Mere flydende livmoderhalssekret',
+    visualText:
+      'Når ægløsningen nærmer sig, bliver livmoderhalssekret mere klart, mere strækbart og elastisk.',
+    otherSigns: [
+      'Let smerte på den ene side af underlivet ("mittelschmerz")',
+      'Ømhed i brysterne',
+      'En lille stigning i basaltemperaturen efter ægløsning',
+      'Et energiboost hos nogle kvinder',
+    ],
+    body3:
+      'At observere disse tegn over flere cyklusser hjælper dig med at lære din egen rytme at kende – den kan afvige fra generelle gennemsnit.',
+    alertTitle: 'Bemærk',
+    alertText:
+      'En cyklus uden ægløsning kan lejlighedsvis forekomme, uden at det nødvendigvis er grund til bekymring. Hvis din menstruation udebliver i lang tid, eller du er usikker, anbefales det at søge læge.',
+    tip2Title: 'Godt at vide',
+    tip2Text:
+      'Intet enkelt tegn er fuldstændig pålideligt alene: ved at kombinere dem får du et bedre billede af dit mest frugtbare tidspunkt.',
+    shareMessage: 'Forstå ægløsning — AWA',
+  },
+  da: {
+    badge: 'ÄGLÖSNING',
+    title: 'Forstå\näglösning',
+    metaDuration: '6 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Det afgörende öjeblik i din cyklus – och hvordan du genkender det.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Hvad ar äglösning?',
+      'De tegn, der kan fölge med',
+      'Lär din egen rytme at kende',
+      'Vigtige pointer',
+    ],
+    body1:
+      'Äglösning ar frigivelsen av et äg fran et av äggestokkene. Det sker normalt cirka 14 dagar för din näste menstruation – uanset din cyklus\' samlede längde.',
+    tip1Title: 'Godt at vide',
+    tip1Text:
+      'Det ar datoen for din näste menstruation, der varierer fran kvinna till kvinna – langt mere end tiden mellem äglösning och dens ankomst.',
+    body2:
+      'Visse fysiske tegn kan ledsage äglösningens tilnärmelse, i varierende grad afhängigt av kvinden.',
+    visualTitle: 'Mere flydende livmoderhalssekret',
+    visualText:
+      'Når äglösningen närmer sig, bliver livmoderhalssekret mere klart, mere sträkbart och elastisk.',
+    otherSigns: [
+      'Let smarta på den ene side av underlivet ("mittelschmerz")',
+      'Ömhed i brysterne',
+      'En lille stigning i basaltemperaturen efter äglösning',
+      'Et energiboost hos nogle kvinder',
+    ],
+    body3:
+      'At observere disse tegn over flere cyklusser hjälper dig med at läre din egen rytme at kende – den kan afvige fran generelle gennemsnit.',
+    alertTitle: 'Bemärk',
+    alertText:
+      'En cyklus uden äglösning kan lejlighedsvis forekomme, uden at det nödvendigvis ar grund till bekymring. Hvis din menstruation udebliver i lang tid, eller du ar usikker, anbefales det at söge läge.',
+    tip2Title: 'Godt at vide',
+    tip2Text:
+      'Intet enkelt tegn ar fuldständig pålideligt alene: ved at kombinere dem får du et bedre billede av ditt mest frugtbare tidspunkt.',
+    shareMessage: 'Forstå äglösning — AWA',
+  },
+  sv: {
+    badge: 'ÄGLÖSNING',
+    title: 'Forstå\näglösning',
+    metaDuration: '6 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Det afgörende öjeblik i din cyklus – och hvordan du genkender det.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Hvad ar äglösning?',
+      'De tegn, der kan fölge med',
+      'Lär din egen rytme at kende',
+      'Vigtige pointer',
+    ],
+    body1:
+      'Äglösning ar frigivelsen av et äg fran et av äggestokkene. Det sker normalt cirka 14 dagar för din näste menstruation – uanset din cyklus\' samlede längde.',
+    tip1Title: 'Godt at vide',
+    tip1Text:
+      'Det ar datoen for din näste menstruation, der varierer fran kvinna till kvinna – langt mere end tiden mellem äglösning och dens ankomst.',
+    body2:
+      'Visse fysiske tegn kan ledsage äglösningens tilnärmelse, i varierende grad afhängigt av kvinden.',
+    visualTitle: 'Mere flydende livmoderhalssekret',
+    visualText:
+      'Når äglösningen närmer sig, bliver livmoderhalssekret mere klart, mere sträkbart och elastisk.',
+    otherSigns: [
+      'Let smarta på den ene side av underlivet ("mittelschmerz")',
+      'Ömhed i brysterne',
+      'En lille stigning i basaltemperaturen efter äglösning',
+      'Et energiboost hos nogle kvinder',
+    ],
+    body3:
+      'At observere disse tegn over flere cyklusser hjälper dig med at läre din egen rytme at kende – den kan afvige fran generelle gennemsnit.',
+    alertTitle: 'Bemärk',
+    alertText:
+      'En cyklus uden äglösning kan lejlighedsvis forekomme, uden at det nödvendigvis ar grund till bekymring. Hvis din menstruation udebliver i lang tid, eller du ar usikker, anbefales det at söge läge.',
+    tip2Title: 'Godt at vide',
+    tip2Text:
+      'Intet enkelt tegn ar fuldständig pålideligt alene: ved at kombinere dem får du et bedre billede av ditt mest frugtbare tidspunkt.',
+    shareMessage: 'Forstå äglösning — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

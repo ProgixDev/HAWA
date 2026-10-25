@@ -1379,6 +1379,303 @@ const CONTENT = withBrazilianPortuguese('NutritionCycle', {
     ],
     shareMessage: 'খাবার ও আপনার চক্র: আপনার শরীর যা পছন্দ করে — AWA',
   },
+  da: {
+    badge: 'MENSTRUATIONSCYKLUS',
+    titleLine1: 'Mad og din cyklus:',
+    titleLine2: 'hvad din krop holder af',
+    metaDuration: '4 min læsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Din kost påvirker din energi, dit humør, dine hormoner og dit generelle velbefindende i løbet af cyklussen.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Ernæringsbehov i de forskellige faser',
+      'Fødevarer at vælge',
+      'Fødevarer at begrænse',
+      'Eksempler på afbalancerede måltider',
+    ],
+    section1Body: 'Din krop har ikke de samme behov på alle tidspunkter i cyklussen. Mindre justeringer i kosten kan virkelig gøre en forskel.',
+    phases: [
+      {
+        title: 'Menstruationsfasen',
+        days: 'Dag 1 til 5',
+        body: 'Prioriter jern, magnesium og B-vitaminer.',
+      },
+      {
+        title: 'Follikelfasen',
+        days: 'Dag 6 til 14',
+        body: 'Fokuser på magert protein og friske grøntsager.',
+      },
+      {
+        title: 'Ægløsningsfasen',
+        days: 'Omkring dag 14',
+        body: 'Vælg antioxidanter og omega-3.',
+      },
+      {
+        title: 'Lutealfasen',
+        days: 'Dag 15 til 28',
+        body: 'Støt dit nervesystem og begræns betændelse.',
+      },
+    ],
+    foods: [
+      {
+        title: 'Jern',
+        body: 'Linser, spinat, magert kød, kikærter.',
+      },
+      {
+        title: 'Magnesium',
+        body: 'Nødder, græskarkerner, mørk chokolade, bananer.',
+      },
+      {
+        title: 'Omega-3',
+        body: 'Laks, sardiner, valnødder, hørfrø.',
+      },
+      {
+        title: 'Protein',
+        body: 'Æg, tofu, kylling, græsk yoghurt, quinoa.',
+      },
+      {
+        title: 'Fibre og antioxidanter',
+        body: 'Bær, avocado, broccoli, gulerødder.',
+      },
+    ],
+    limits: [
+      {
+        title: 'For meget salt',
+      },
+      {
+        title: 'Sukkerholdige fødevarer',
+      },
+      {
+        title: 'Ultraforarbejdede produkter',
+      },
+      {
+        title: 'For meget koffein',
+      },
+      {
+        title: 'Alkohol',
+      },
+    ],
+    limitText: 'Nyd dem med måde for at bevare balancen.',
+    meals: [
+      {
+        tag: 'Morgenmad',
+        body: 'Havregrød, bær, nødder og chiafrø',
+      },
+      {
+        tag: 'Frokost',
+        body: 'Laks, quinoa, dampet broccoli og olivenolie',
+      },
+      {
+        tag: 'Mellemmåltid',
+        body: 'Naturyoghurt, blåbær og hørfrø',
+      },
+      {
+        tag: 'Aftensmad',
+        body: 'Linsesuppe, bagte grøntsager og fuldkornsbrød',
+      },
+    ],
+    shareMessage: 'Mad og din cyklus: hvad din krop holder af — AWA',
+  },
+  da: {
+    badge: 'MENSTRUATIONSCYKLUS',
+    titleLine1: 'Mad och din cyklus:',
+    titleLine2: 'hvad din krop holder af',
+    metaDuration: '4 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Din kost påvirker din energi, ditt humör, dina hormoner och ditt generelle velbefindende i löbet av cyklussen.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Ernäringsbehov i de forskellige faser',
+      'Födevarer at välge',
+      'Födevarer at begränse',
+      'Eksempler på afbalancerede måltider',
+    ],
+    section1Body: 'Din krop har inte de samme behov på alla tidspunkter i cyklussen. Mindre justeringer i kosten kan virkelig göre en forskel.',
+    phases: [
+      {
+        title: 'Menstruationsfasen',
+        days: 'Dag 1 till 5',
+        body: 'Prioriter jern, magnesium och B-vitaminer.',
+      },
+      {
+        title: 'Follikelfasen',
+        days: 'Dag 6 till 14',
+        body: 'Fokuser på magert protein och friske gröntsager.',
+      },
+      {
+        title: 'Äglösningsfasen',
+        days: 'Omkring dag 14',
+        body: 'Välg antioxidanter och omega-3.',
+      },
+      {
+        title: 'Lutealfasen',
+        days: 'Dag 15 till 28',
+        body: 'Stöt ditt nervesystem och begräns betändelse.',
+      },
+    ],
+    foods: [
+      {
+        title: 'Jern',
+        body: 'Linser, spinat, magert köd, kikärter.',
+      },
+      {
+        title: 'Magnesium',
+        body: 'Nödder, gräskarkerner, mörk chokolade, bananer.',
+      },
+      {
+        title: 'Omega-3',
+        body: 'Laks, sardiner, valnödder, hörfrö.',
+      },
+      {
+        title: 'Protein',
+        body: 'Äg, tofu, kylling, gräsk yoghurt, quinoa.',
+      },
+      {
+        title: 'Fibre och antioxidanter',
+        body: 'Bär, avocado, broccoli, gulerödder.',
+      },
+    ],
+    limits: [
+      {
+        title: 'For mycket salt',
+      },
+      {
+        title: 'Sukkerholdige födevarer',
+      },
+      {
+        title: 'Ultraforarbejdede produkter',
+      },
+      {
+        title: 'For mycket koffein',
+      },
+      {
+        title: 'Alkohol',
+      },
+    ],
+    limitText: 'Nyd dem med måde for att bevare balancen.',
+    meals: [
+      {
+        tag: 'Morgenmad',
+        body: 'Havregröd, bär, nödder och chiafrö',
+      },
+      {
+        tag: 'Frokost',
+        body: 'Laks, quinoa, dampet broccoli och olivenolie',
+      },
+      {
+        tag: 'Mellemmåltid',
+        body: 'Naturyoghurt, blåbär och hörfrö',
+      },
+      {
+        tag: 'Aftensmad',
+        body: 'Linsesuppe, bagte gröntsager och fuldkornsbröd',
+      },
+    ],
+    shareMessage: 'Mad och din cyklus: hvad din krop holder av — AWA',
+  },
+  sv: {
+    badge: 'MENSTRUATIONSCYKLUS',
+    titleLine1: 'Mad och din cyklus:',
+    titleLine2: 'hvad din krop holder af',
+    metaDuration: '4 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Din kost påvirker din energi, ditt humör, dina hormoner och ditt generelle velbefindende i löbet av cyklussen.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Ernäringsbehov i de forskellige faser',
+      'Födevarer at välge',
+      'Födevarer at begränse',
+      'Eksempler på afbalancerede måltider',
+    ],
+    section1Body: 'Din krop har inte de samme behov på alla tidspunkter i cyklussen. Mindre justeringer i kosten kan virkelig göre en forskel.',
+    phases: [
+      {
+        title: 'Menstruationsfasen',
+        days: 'Dag 1 till 5',
+        body: 'Prioriter jern, magnesium och B-vitaminer.',
+      },
+      {
+        title: 'Follikelfasen',
+        days: 'Dag 6 till 14',
+        body: 'Fokuser på magert protein och friske gröntsager.',
+      },
+      {
+        title: 'Äglösningsfasen',
+        days: 'Omkring dag 14',
+        body: 'Välg antioxidanter och omega-3.',
+      },
+      {
+        title: 'Lutealfasen',
+        days: 'Dag 15 till 28',
+        body: 'Stöt ditt nervesystem och begräns betändelse.',
+      },
+    ],
+    foods: [
+      {
+        title: 'Jern',
+        body: 'Linser, spinat, magert köd, kikärter.',
+      },
+      {
+        title: 'Magnesium',
+        body: 'Nödder, gräskarkerner, mörk chokolade, bananer.',
+      },
+      {
+        title: 'Omega-3',
+        body: 'Laks, sardiner, valnödder, hörfrö.',
+      },
+      {
+        title: 'Protein',
+        body: 'Äg, tofu, kylling, gräsk yoghurt, quinoa.',
+      },
+      {
+        title: 'Fibre och antioxidanter',
+        body: 'Bär, avocado, broccoli, gulerödder.',
+      },
+    ],
+    limits: [
+      {
+        title: 'For mycket salt',
+      },
+      {
+        title: 'Sukkerholdige födevarer',
+      },
+      {
+        title: 'Ultraforarbejdede produkter',
+      },
+      {
+        title: 'For mycket koffein',
+      },
+      {
+        title: 'Alkohol',
+      },
+    ],
+    limitText: 'Nyd dem med måde for att bevare balancen.',
+    meals: [
+      {
+        tag: 'Morgenmad',
+        body: 'Havregröd, bär, nödder och chiafrö',
+      },
+      {
+        tag: 'Frokost',
+        body: 'Laks, quinoa, dampet broccoli och olivenolie',
+      },
+      {
+        tag: 'Mellemmåltid',
+        body: 'Naturyoghurt, blåbär och hörfrö',
+      },
+      {
+        tag: 'Aftensmad',
+        body: 'Linsesuppe, bagte gröntsager och fuldkornsbröd',
+      },
+    ],
+    shareMessage: 'Mad och din cyklus: hvad din krop holder av — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<

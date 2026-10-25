@@ -656,6 +656,135 @@ const CONTENT = withBrazilianPortuguese('ChildbirthPrep', {
     tipText: 'প্রস্তুতি নেওয়ার মানে সবকিছু নিয়ন্ত্রণ করা নয়: এর মূল উদ্দেশ্য হলো বড় দিনটির মুখোমুখি হওয়ার জন্য নিজেকে সক্ষম করা, আরও আত্মবিশ্বাস ও কম অনিশ্চয়তা নিয়ে।',
     shareMessage: 'নিশ্চিন্তে প্রসবের প্রস্তুতি — AWA',
   },
+  da: {
+    badge: 'GRAVIDITET • FØDSEL',
+    title: 'Rolig forberedelse\ntil fødslen',
+    metaDuration: '7 min. læsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemset indhold',
+    intro: 'Tre søjler til at nærme sig den store dag med mere selvtillid.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Forberedelse i 3 trin',
+      'Din hospitalsmappe',
+      'Skriv din fødselsplan',
+      'Værd at bemærke',
+      'Hvad du skal huske',
+    ],
+    prepSteps: [
+      'Fødselsforberedelseskurser',
+      'Åndedræts- og afslapningsteknikker',
+      'Hospitalsmappe klar inden måned 8',
+    ],
+    body1:
+      'Fødselsforberedelseskurser hjælper dig med at forstå faserne i fødselsprocessen og de åndedrætsteknikker, der vil støtte dig den store dag.',
+    body2:
+      'At pakke din hospitalsmappe inden måned 8 sparer dig for stress i sidste øjeblik. Den indeholder typisk:',
+    bagItems: [
+      'ID-dokumenter og dit graviditetshæfte',
+      'Behagelig tøj til dig og babyen',
+      'Toiletartikler og barselsbind',
+      'Et sæt tøj til babyen til hjemturen',
+    ],
+    birthPlanPoints: [
+      'Dine præferencer for smertelindring',
+      'Hvem du gerne vil have til stede under fødslen',
+      'Dine forventninger til hud-mod-hud-kontakt',
+    ],
+    neutralText:
+      'En enkel fødselsplan hjælper dig med at dele dine ønsker med det medicinske team, mens du holder dig åben: det faktiske forløb kan ændre sig afhængigt af situationen.',
+    tipTitle: 'Godt at vide',
+    tipText:
+      'Forberedelse betyder ikke at kontrollere alt: det handler primært om at give dig selv mulighed for at nærme sig den store dag med mere selvtillid og mindre usikkerhed.',
+    shareMessage: 'Rolig forberedelse til fødslen — AWA',
+  },
+  da: {
+    badge: 'GRAVIDITET • FÖDSEL',
+    title: 'Rolig forberedelse\ntil födslen',
+    metaDuration: '7 min. läsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemset indhold',
+    intro: 'Tre söjler till at närme sig den store dag med mere selvtillid.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Forberedelse i 3 trin',
+      'Din hospitalsmappe',
+      'Skriv din födselsplan',
+      'Värd at bemärke',
+      'Hvad du skal huske',
+    ],
+    prepSteps: [
+      'Födselsforberedelseskurser',
+      'Åndedräts- och afslapningsteknikker',
+      'Hospitalsmappe klar inden måned 8',
+    ],
+    body1:
+      'Födselsforberedelseskurser hjälper dig med at forstå faserne i födselsprocessen och de åndedrätsteknikker, der vil stötte dig den store dag.',
+    body2:
+      'At pakke din hospitalsmappe inden måned 8 sparer dig for stress i sidste öjeblik. Den indeholder typisk:',
+    bagItems: [
+      'ID-dokumenter och ditt graviditetshäfte',
+      'Behagelig töj till dig och babyen',
+      'Toiletartikler och barselsbind',
+      'Et sät töj till babyen till hjemturen',
+    ],
+    birthPlanPoints: [
+      'Dine präferencer for smertelindring',
+      'Hvem du gerne vil have till stede under födslen',
+      'Dine forventninger till hud-mod-hud-kontakt',
+    ],
+    neutralText:
+      'En enkel födselsplan hjälper dig med at dele dina önsker med det medicinske team, mens du holder dig åben: det faktiske forlöb kan ändre sig afhängigt av situationen.',
+    tipTitle: 'Godt at vide',
+    tipText:
+      'Forberedelse betyder inte at kontrollere alt: det handler primärt om at give dig selv mulighed for att närme sig den store dag med mere selvtillid och mindre usikkerhed.',
+    shareMessage: 'Rolig forberedelse till födslen — AWA',
+  },
+  sv: {
+    badge: 'GRAVIDITET • FÖDSEL',
+    title: 'Rolig forberedelse\ntil födslen',
+    metaDuration: '7 min. läsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemset indhold',
+    intro: 'Tre söjler till at närme sig den store dag med mere selvtillid.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Forberedelse i 3 trin',
+      'Din hospitalsmappe',
+      'Skriv din födselsplan',
+      'Värd at bemärke',
+      'Hvad du skal huske',
+    ],
+    prepSteps: [
+      'Födselsforberedelseskurser',
+      'Åndedräts- och afslapningsteknikker',
+      'Hospitalsmappe klar inden måned 8',
+    ],
+    body1:
+      'Födselsforberedelseskurser hjälper dig med at forstå faserne i födselsprocessen och de åndedrätsteknikker, der vil stötte dig den store dag.',
+    body2:
+      'At pakke din hospitalsmappe inden måned 8 sparer dig for stress i sidste öjeblik. Den indeholder typisk:',
+    bagItems: [
+      'ID-dokumenter och ditt graviditetshäfte',
+      'Behagelig töj till dig och babyen',
+      'Toiletartikler och barselsbind',
+      'Et sät töj till babyen till hjemturen',
+    ],
+    birthPlanPoints: [
+      'Dine präferencer for smertelindring',
+      'Hvem du gerne vil have till stede under födslen',
+      'Dine forventninger till hud-mod-hud-kontakt',
+    ],
+    neutralText:
+      'En enkel födselsplan hjälper dig med at dele dina önsker med det medicinske team, mens du holder dig åben: det faktiske forlöb kan ändre sig afhängigt av situationen.',
+    tipTitle: 'Godt at vide',
+    tipText:
+      'Forberedelse betyder inte at kontrollere alt: det handler primärt om at give dig selv mulighed for att närme sig den store dag med mere selvtillid och mindre usikkerhed.',
+    shareMessage: 'Rolig forberedelse till födslen — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

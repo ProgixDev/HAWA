@@ -742,6 +742,159 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     ],
     shareMessage: 'আমার প্রথম মাসিক আসছে কি না কীভাবে বুঝব? — AWA',
   },
+  da: {
+    badge: 'FØRSTE MENSTRUATION',
+    title: 'Hvordan ved jeg, om min\nførste menstruation er på vej?',
+    metaDuration: '5 min læsning',
+    metaType: 'Guide',
+    metaLevel: 'Grundlæggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Visse specifikke tegn kan hjælpe dig med at forstå, om din første menstruation virkelig er på vej.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Tegn du bør holde øje med',
+      'Den første blødning: hvordan ser den ud?',
+      'Vaginal udflåd eller menstruationsblod?',
+      'Hvornår du skal tale med en voksen?',
+    ],
+    observe: [
+      {
+        title: 'Hvidlig udflåd',
+        text: 'Let, klar udflåd opstår ofte et par måneder i forvejen.',
+      },
+      {
+        title: 'Brystudvikling',
+        text: 'Et almindeligt tegn, der normalt ses lang tid inden menstruationen.',
+      },
+      {
+        title: 'Let stikken i maven',
+        text: 'Sådanne små fornemmelser kan indikere, at menstruationen snart kommer.',
+      },
+    ],
+    body2: 'Inden din allerførste menstruation er det almindeligt at bemærke let hvidlig eller let gullig udflåd i undertøjet. Det er en normal hændelse, der er forbundet med den hormonelle aktivitet, der begynder i din krop.',
+    body3: 'Vaginal udflåd er klar eller hvidlig og har ingen stærk lugt. Menstruationsblod er derimod rødligt til brunt og markerer den egentlige start på din menstruation. Det er aldrig noget at bekymre sig om, hvis du er usikker.',
+    tipTitle: 'Godt at vide',
+    tipText: 'Der er ingen måde at forudsige den præcise dato på forhånd. Den bedste vane er at have beskyttelse med sig fra de allerførste tegn.',
+    body4: 'Når du mærker disse tegn, eller når du har spørgsmål eller bekymringer, kan du tale med din mor, søster, en nær person eller en betroet sundhedsprofessionel. Det er aldrig det forkerte tidspunkt at søge hjælp.',
+    relatedTitle: '♥  Du vil måske også synes om',
+    related: [
+      {
+        title: 'Tidlige tegn inden menstruationen',
+        meta: '5 min  ·  Artikel',
+      },
+      {
+        title: 'Hvilken beskyttelse skal jeg vælge til min første menstruation?',
+        meta: '6 min  ·  Guide',
+      },
+      {
+        title: 'Din første menstruation: hvad du kan forvente',
+        meta: '5 min  ·  Guide',
+      },
+    ],
+    shareMessage: 'Hvordan ved jeg, om min første menstruation er på vej? — AWA',
+  },
+  da: {
+    badge: 'FÖRSTE MENSTRUATION',
+    title: 'Hvordan ved jeg, om min\nförste menstruation ar på vej?',
+    metaDuration: '5 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Grundläggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Visse specifikke tegn kan hjälpe dig med at forstå, om din förste menstruation virkelig ar på vej.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Tegn du bör holde öje med',
+      'Den förste blödning: hvordan ser den ud?',
+      'Vaginal udflåd eller menstruationsblod?',
+      'Hvornår du skal tale med en voksen?',
+    ],
+    observe: [
+      {
+        title: 'Hvidlig udflåd',
+        text: 'Let, klar udflåd opstår ofta et par måneder i forvejen.',
+      },
+      {
+        title: 'Brystudvikling',
+        text: 'Et almindeligt tegn, der normalt ses lang tid inden menstruationen.',
+      },
+      {
+        title: 'Let stikken i maven',
+        text: 'Sådanne små fornemmelser kan indikere, at menstruationen snart kommer.',
+      },
+    ],
+    body2: 'Inden din allerförste menstruation ar det almindeligt at bemärke let hvidlig eller let gullig udflåd i undertöjet. Det ar en normal händelse, der ar forbundet med den hormonelle aktivitet, der begynder i din krop.',
+    body3: 'Vaginal udflåd ar klar eller hvidlig och har ingen stärk lugt. Menstruationsblod ar derimod rödligt till brunt och markerer den egentlige start på din menstruation. Det ar aldrig noget at bekymre sig om, hvis du ar usikker.',
+    tipTitle: 'Godt at vide',
+    tipText: 'Der ar ingen måde at forudsige den präcise dato på forhånd. Den bedste vane ar at have beskyttelse med sig fran de allerförste tegn.',
+    body4: 'Når du märker disse tegn, eller når du har spörgsmål eller bekymringer, kan du tale med din mor, söster, en när person eller en betroet halsasprofessionel. Det ar aldrig det forkerte tidspunkt at söge hjälp.',
+    relatedTitle: '♥  Du vil måske også synes om',
+    related: [
+      {
+        title: 'Tidlige tegn inden menstruationen',
+        meta: '5 min  ·  Artikel',
+      },
+      {
+        title: 'Hvilken beskyttelse skal jag välge till min förste menstruation?',
+        meta: '6 min  ·  Guide',
+      },
+      {
+        title: 'Din förste menstruation: hvad du kan forvente',
+        meta: '5 min  ·  Guide',
+      },
+    ],
+    shareMessage: 'Hvordan ved jeg, om min förste menstruation ar på vej? — AWA',
+  },
+  sv: {
+    badge: 'FÖRSTE MENSTRUATION',
+    title: 'Hvordan ved jeg, om min\nförste menstruation ar på vej?',
+    metaDuration: '5 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Grundläggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Visse specifikke tegn kan hjälpe dig med at forstå, om din förste menstruation virkelig ar på vej.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Tegn du bör holde öje med',
+      'Den förste blödning: hvordan ser den ud?',
+      'Vaginal udflåd eller menstruationsblod?',
+      'Hvornår du skal tale med en voksen?',
+    ],
+    observe: [
+      {
+        title: 'Hvidlig udflåd',
+        text: 'Let, klar udflåd opstår ofta et par måneder i forvejen.',
+      },
+      {
+        title: 'Brystudvikling',
+        text: 'Et almindeligt tegn, der normalt ses lang tid inden menstruationen.',
+      },
+      {
+        title: 'Let stikken i maven',
+        text: 'Sådanne små fornemmelser kan indikere, at menstruationen snart kommer.',
+      },
+    ],
+    body2: 'Inden din allerförste menstruation ar det almindeligt at bemärke let hvidlig eller let gullig udflåd i undertöjet. Det ar en normal händelse, der ar forbundet med den hormonelle aktivitet, der begynder i din krop.',
+    body3: 'Vaginal udflåd ar klar eller hvidlig och har ingen stärk lugt. Menstruationsblod ar derimod rödligt till brunt och markerer den egentlige start på din menstruation. Det ar aldrig noget at bekymre sig om, hvis du ar usikker.',
+    tipTitle: 'Godt at vide',
+    tipText: 'Der ar ingen måde at forudsige den präcise dato på forhånd. Den bedste vane ar at have beskyttelse med sig fran de allerförste tegn.',
+    body4: 'Når du märker disse tegn, eller når du har spörgsmål eller bekymringer, kan du tale med din mor, söster, en när person eller en betroet halsasprofessionel. Det ar aldrig det forkerte tidspunkt at söge hjälp.',
+    relatedTitle: '♥  Du vil måske også synes om',
+    related: [
+      {
+        title: 'Tidlige tegn inden menstruationen',
+        meta: '5 min  ·  Artikel',
+      },
+      {
+        title: 'Hvilken beskyttelse skal jag välge till min förste menstruation?',
+        meta: '6 min  ·  Guide',
+      },
+      {
+        title: 'Din förste menstruation: hvad du kan forvente',
+        meta: '5 min  ·  Guide',
+      },
+    ],
+    shareMessage: 'Hvordan ved jeg, om min förste menstruation ar på vej? — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

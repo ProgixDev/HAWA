@@ -2940,6 +2940,621 @@ const CONTENT = withBrazilianPortuguese('PerineumStrengthening', {
     finalTipText: 'প্রসবের পর আপনার শরীর অনেক পরিবর্তনের মধ্য দিয়ে গেছে। শরীরের বাকি অংশের মতোই পেরিনিয়ামও একই মনোযোগ পাওয়ার যোগ্য: ধীরে ধীরে, নিয়মিতভাবে এবং কোনো চাপ ছাড়াই।',
     disclaimerText: 'এই নিবন্ধ কেবল তথ্যের উদ্দেশ্যে এবং ব্যক্তিগত চিকিৎসা পরামর্শের বিকল্প নয়। ব্যথা, স্থায়ী উপসর্গ বা সেরে ওঠা নিয়ে কোনো উদ্বেগ থাকলে স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিন।',
   },
+  da: {
+    badge: 'BARSEL • GENOPTRÆNING',
+    title: 'Styrk din bækkenbund\nefter fødslen',
+    metaDuration: '8 min. læsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemset indhold',
+    intro:
+      'Efter graviditet og fødsel har bækkenbunden brug for tid til at komme sig. Enkle, regelmæssige og gradvise øvelser kan hjælpe dig med at genvinde styrke, kontrol og selvtillid, uden at forsøge at skynde sig.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Forstå perinæets rolle',
+      'Hvorfor fødslen belaster det',
+      'Hvornår du skal starte bækkenbundsgenoptræning',
+      'At lære at kontrahere korrekt',
+      'Opbyg en gradvis rutine',
+      'Fejl du skal undgå',
+      'Hvornår du skal bede om hjælp',
+      'Gradvis genoptagelse af sport',
+      'Forberedelse til en aftale',
+      'Vigtigste pointer',
+    ],
+    shareMessage: 'Styrk din bækkenbund efter fødslen — AWA',
+
+    s1Heading: 'Forstå perinæets rolle',
+    s1Body1:
+      'Perinæet, også kaldet bækkenbunden, er en gruppe muskler placeret ved bækkenbunden. Det spiller en rolle i blære- og tarmkontrol og hjælper med at støtte bækkenorganerne.',
+    s1Body2:
+      'Under graviditeten skal disse muskler bære ekstra vægt i flere måneder. De udsættes også for betydelig belastning under fødslen.',
+    s1HighlightTitle: 'En diskret men vigtig muskel',
+    s1HighlightText:
+      'Bækkenbunden er involveret i flere hverdagsfunktioner: at holde urin og afføring tilbage, kontrollere luft, støtte bækkenorganerne og spille en rolle i visse seksuelle funktioner.',
+
+    benefitsHeading: 'Fordelene ved en stærkere bækkenbund',
+    benefitsIntro:
+      'Gradvis, korrekt udført styrketræning kan hjælpe med at forbedre bækkenbundens kontrol og støtte.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Bedre blærekontrol',
+        text: 'Bækkenbunden spiller en rolle i blærekontrollen. Gradvis styrkelse kan hjælpe med at reducere visse urinlæk.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Støtte tarmfunktionen',
+        text: 'Disse muskler hjælper også med at kontrollere luft og afføring og bidrager til at støtte bækkenorganerne.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Støtte bækkenorganerne',
+        text: 'Bækkenbunden danner en reel muskulær base, der hjælper med at støtte blæren, livmoderen og tarmen.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Gradvis genvinding af fornemmelse',
+        text: 'Egnet genoptræning kan også hjælpe dig med at genvinde bedre bevidsthed og kontrol af dette område.',
+      },
+    ],
+
+    s2Heading: 'Hvorfor graviditet og fødsel belaster det',
+    s2Body1:
+      'Graviditet lægger gradvist mere pres på bækkenbunden. En vaginal fødsel kan derefter strække musklerne og vævene i dette område betydeligt.',
+    s2Body2:
+      'Et kejsersnit sparer heller ikke bækkenbunden fuldstændigt: graviditeten i sig selv er fortsat en vigtig periode for disse muskler.',
+    s2Body3:
+      'Efter fødslen er det derfor normalt, at genopretningen tager tid. Nogle kvinder mærker næsten ingen symptomer, mens andre kan bemærke lækager, en følelse af tyngde eller reduceret muskelkontrol.',
+    s2TipTitle: 'Hver genopretning er forskellig',
+    s2TipText:
+      'Fødslens type, en rifting eller episiotomi, smerter og din generelle tilstand efter fødslen kan alle påvirke genopretningen.',
+
+    s3Heading: 'Hvornår skal du starte bækkenbundsgenoptræning?',
+    s3Body1:
+      'Efter en ukompliceret fødsel kan skånsomme bækkenbundskontraktioner som regel genoptages gradvist. Det er dog vigtigt at tilpasse øvelserne til din situation og søge rådgivning, hvis du oplevede en komplikation, betydelige smerter eller et specifikt indgreb.',
+    s3Body2:
+      'Hvis du har et urinkateter, anbefaler visse vejledninger at vente, til det er fjernet og normal vandladning er genoptaget, før du begynder perinæumøvelser.',
+    s3AlertTitle: 'Tving ikke igennem smerte',
+    s3AlertText:
+      'Betydelige smerter, forværrede symptomer, et sår der heler dårligt eller en særlig bekymring kræver råd fra en jordemoder, læge eller genoptrænende professionel.',
+
+    s4Heading: 'At lære at kontrahere korrekt',
+    s4Body1:
+      'For at identificere bevægelsen kan du forestille dig at forsøge at holde luft tilbage og dæmpe vandladningstrangen på samme tid. Bevægelsen du leder efter er en fornemmelse af kontraktion og løft indad.',
+    s4Body2:
+      'Målet er ikke at spænde hele kroppen hårdt. Dine baller, lår og mavemuskulatur skal forblive så afslappede som muligt, mens vejrtrækningen fortsætter normalt.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Vejrtrækning'},
+      {icon: 'human-handsup', label: 'Skånsom kontraktion'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Lang kontraktion'},
+      {icon: 'gesture-tap-button', label: 'Hurtige kontraktioner'},
+    ],
+    s4HighlightTitle: 'Afslapning er lige så vigtigt',
+    s4HighlightText:
+      'Efter hver kontraktion skal musklerne slappe fuldstændigt af. God genoptræning betyder ikke at holde perinæet kontraheret hele dagen.',
+
+    s5Heading: 'Opbyg en gradvis rutine',
+    s5Body1:
+      'I starten er det vigtigste at lære at identificere musklerne og udføre bevægelsen korrekt. Konsistens er vigtigere end intensitet.',
+    s5h3a: 'Lange kontraktioner',
+    s5Body2:
+      'Kontraher bækkenbunden forsigtigt, hold derefter kontraktionen i et par sekunder uden at holde vejret. Slip derefter helt, inden du starter igen.',
+    s5h3b: 'Korte kontraktioner',
+    s5Body3:
+      'Når bevægelsen er mestret, kan små hurtige kontraktioner tilføjes. De hjælper med at træne evnen til hurtigt at kontrahere musklerne, når det abdominale tryk stiger, for eksempel lige inden hoste eller nys.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Par øvelserne med en daglig vane'},
+      {icon: 'human-sitting', label: 'Start i en behagelig position'},
+      {icon: 'weather-windy', label: 'Ånd normalt under kontraktioner'},
+      {icon: 'sleep', label: 'Respekter afslappelsesfaserne'},
+      {icon: 'chart-line', label: 'Øg gradvist sværhedsgraden'},
+      {icon: 'doctor', label: 'Bed om råd, hvis du er usikker'},
+    ],
+    s5TipTitle: 'Konsistens frem for alt',
+    s5TipText:
+      'At parre øvelserne med en vane, der allerede er en del af din dag, kan gøre det lettere at holde fast: efter amning, efter tandbørstning eller på et andet tidspunkt, der passer dig.',
+
+    s6Heading: 'Almindelige fejl du skal undgå',
+    s6Body1:
+      'Perinæumøvelser ser måske enkle ud, men det er let at kompensere med andre muskler eller anstrenge sig for meget.',
+    commonMistakes: [
+      'At spænde ballerne eller lårene i stedet for bækkenbunden',
+      'At holde vejret under kontraktionen',
+      'At holde musklerne konstant kontraherede uden at lade dem slappe af',
+      'At lave øvelserne i kun få dage og derefter stoppe',
+      'Bevidst at stoppe urinstrålen for at tjekke kontraktionen',
+    ],
+    s6TipTitle: 'Hvad du ikke skal gøre',
+    s6TipText:
+      'Det anbefales ikke at øve sig ved bevidst at stoppe urinstrålen. Denne metode træner ikke perinæet korrekt og kan forstyrre normal blærefunktion.',
+
+    s7Heading: 'Hvilke symptomer bør tilskynde til konsultation?',
+    s7Body1:
+      'Mindre lækager eller en usædvanlig fornemmelse kan nogle gange opstå efter fødslen. De bør dog ikke ignoreres, hvis de varer ved, forværres eller forstyrrer din hverdag.',
+    warningSigns: [
+      'Urinlæk når du hoster, nyser, griner eller anstrenger dig',
+      'En følelse af tyngde eller tryk i den nedre del af bækkenet',
+      'En fornemmelse af, at en klump eller noget falder ned i vagina',
+      'Besvær med at holde luft eller afføring tilbage',
+      'Vedvarende smerter i perinæet',
+      'Smerter under eller efter samleje',
+      'Besvær med at identificere eller korrekt kontrahere perinæummusklerne',
+    ],
+    consultLabel: 'Hvornår skal du søge råd?',
+    s7Body2:
+      'En jordemoder, læge eller fysioterapeut med speciale i bækkenbundsgenoptræning kan kontrollere muskelfunktionen og foreslå et egnet program.',
+
+    s8Heading: 'Og efter en rifting, en episiotomi eller et kejsersnit?',
+    s8Body1:
+      'En rifting eller episiotomi kræver særlig opmærksomhed under helingsprocessen. Genoptagelse af aktiviteter skal tage hensyn til smerter, arrets tilstand og den vejledning, der er givet efter fødslen.',
+    s8Body2:
+      'Efter et kejsersnit involverer genopretningen også bugvæggen og arret. Selv hvis fødslen ikke var vaginal, har graviditeten stadig belastet bækkenbunden.',
+    s8HighlightTitle: 'Personlig pleje kan hjælpe',
+    s8HighlightText:
+      'I tilfælde af en betydelig rifting, smerter, urinære eller tarmrelaterede symptomer eller vedvarende vanskeligheder kan en vurdering hos en sundhedsprofessionel være særlig nyttig.',
+
+    s9Heading: 'Gradvis genoptagelse af sport',
+    s9Body1:
+      'Genoptagelse af bevægelse efter fødslen skal ske gradvist. Gåture og skånsomme bevægelser kan som regel genoptages baseret på, hvordan du har det, mens aktiviteter med høj belastning kræver mere forsigtighed.',
+    s9Body2:
+      'Inden du genoptager løb, hop eller meget intensiv træning, er det bedst at vurdere bækkenbundens genopretning og tage eventuelle symptomer i betragtning.',
+    s9AlertTitle: 'Skynd dig ikke igennem faserne',
+    s9AlertText:
+      'Lækager, en følelse af tyngde eller smerter under eller efter træning er tegn på, at du bør sænke farten og søge råd, inden du øger intensiteten.',
+
+    s10Heading: 'Hvornår skal du se en specialist?',
+    s10Body1:
+      'Bækkenbundsgenoptræning med en jordemoder eller fysioterapeut kan være nyttig, hvis du er usikker på, om du kontrahere korrekt, hvis dine symptomer varer ved, eller hvis du ønsker at genoptage visse fysiske aktiviteter med selvtillid.',
+    questionCardTitle: 'Nyttige spørgsmål at stille',
+    appointmentQuestions: [
+      'Er mine symptomer forenelige med svaghed i bækkenbunden?',
+      'Udfører jeg kontraktionerne korrekt?',
+      'Hvor mange gentagelser skal jeg lave hver dag?',
+      'Kan jeg genoptage løb, sport eller øvelser med høj belastning?',
+      'Har jeg brug for genoptræning med en jordemoder eller fysioterapeut?',
+      'Kræver mit ar, min rifting eller mit kejsersnit særlige forholdsregler?',
+    ],
+    s10TipTitle: 'Godt at vide',
+    s10TipText:
+      'At besøge en professionel betyder ikke nødvendigvis, at noget er galt. En session kan blot hjælpe med at tjekke din teknik, vurdere din genopretning og lære at fremskridt korrekt.',
+
+    s11Heading: 'En genopretning, der tager tid',
+    s11Body1:
+      'Efter fødslen er det normalt ikke straks at genvinde de samme fornemmelser eller muskelstyrke, du havde før graviditeten.',
+    s11Body2:
+      'Målet er ikke at lave så mange kontraktioner som muligt. Det handler mere om gradvist at genvinde god koordination mellem kontraktion og afslapning og derefter at kunne bruge disse muskler naturligt i hverdagsaktiviteter.',
+    s11HighlightTitle: 'Lille fremskridt er ægte fremskridt',
+    s11HighlightText:
+      'Bedre bevidsthed om bevægelsen, et par ekstra sekunders kontraktion eller en reduktion i lækager er allerede opmuntrende tegn.',
+
+    s12Heading: 'Vigtigste pointer',
+    summaryTitle: 'Det vigtigste',
+    summaryItems: [
+      'Graviditet og fødsel belaster bækkenbunden betydeligt.',
+      'Gradvis genopretning er normal efter fødslen.',
+      'Øvelser bør prioritere bevægelseskvalitet frem for styrke.',
+      'Vejrtrækning og afslapning er lige så vigtige som kontraktion.',
+      'Urinlæk, tyngde eller vedvarende smerter fortjener en professionel vurdering.',
+      'Genoptræning med en jordemoder eller fysioterapeut kan hjælpe dig med at genvinde bedre kontrol.',
+      'Genoptagelse af sport skal ske gradvist, særligt for aktiviteter med høj belastning.',
+    ],
+    finalTipTitle: 'Tag dig tid til at komme dig',
+    finalTipText:
+      'Efter fødslen har din krop gennemgået mange forandringer. Perinæet fortjener den samme opmærksomhed som resten af din krop: gradvist, regelmæssigt og uden pres.',
+    disclaimerText:
+      'Denne artikel er kun til information og erstatter ikke personlig medicinsk rådgivning. Hvis du oplever smerter, vedvarende symptomer eller har bekymringer om din genopretning, så søg råd hos en sundhedsprofessionel.',
+  },
+  da: {
+    badge: 'BARSEL • GENOPTRÄNING',
+    title: 'Styrk din bäkkenbund\nefter födslen',
+    metaDuration: '8 min. läsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemset indhold',
+    intro:
+      'Efter graviditet och födsel har bäkkenbunden brug for tid till at komme sig. Enkle, regelmässige och gradvise övelser kan hjälpe dig med at genvinde styrke, kontrol och selvtillid, uden at forsöge at skynde sig.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Forstå perinäets rolle',
+      'Hvorfor födslen belaster det',
+      'Hvornår du skal starte bäkkenbundsgenopträning',
+      'At läre at kontrahere korrekt',
+      'Opbyg en gradvis rutine',
+      'Fejl du skal undgå',
+      'Hvornår du skal bede om hjälp',
+      'Gradvis genoptagelse av sport',
+      'Forberedelse till en aftale',
+      'Vigtigste pointer',
+    ],
+    shareMessage: 'Styrk din bäkkenbund efter födslen — AWA',
+
+    s1Heading: 'Forstå perinäets rolle',
+    s1Body1:
+      'Perinäet, også kaldet bäkkenbunden, ar en gruppe muskler placeret ved bäkkenbunden. Det spiller en rolle i bläre- och tarmkontrol och hjälper med at stötte bäkkenorganerne.',
+    s1Body2:
+      'Under graviditeten skal disse muskler bäre ekstra vägt i flere måneder. De udsättes også for betydelig belastning under födslen.',
+    s1HighlightTitle: 'En diskret men vigtig muskel',
+    s1HighlightText:
+      'Bäkkenbunden ar involveret i flere hverdagsfunktioner: at holde urin och afföring tilbage, kontrollere luft, stötte bäkkenorganerne och spille en rolle i visse seksuelle funktioner.',
+
+    benefitsHeading: 'Fordelene ved en stärkere bäkkenbund',
+    benefitsIntro:
+      'Gradvis, korrekt udfört styrketräning kan hjälpe med at forbedre bäkkenbundens kontrol och stötte.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Bedre blärekontrol',
+        text: 'Bäkkenbunden spiller en rolle i blärekontrollen. Gradvis styrkelse kan hjälpe med at reducere visse urinläk.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Stötte tarmfunktionen',
+        text: 'Disse muskler hjälper også med at kontrollere luft och afföring och bidrager till at stötte bäkkenorganerne.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Stötte bäkkenorganerne',
+        text: 'Bäkkenbunden danner en reel muskulär base, der hjälper med at stötte blären, livmoderen och tarmen.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Gradvis genvinding av fornemmelse',
+        text: 'Egnet genopträning kan også hjälpe dig med at genvinde bedre bevidsthed och kontrol av dette område.',
+      },
+    ],
+
+    s2Heading: 'Hvorfor graviditet och födsel belaster det',
+    s2Body1:
+      'Graviditet lägger gradvist mere pres på bäkkenbunden. En vaginal födsel kan derefter sträkke musklerne och vävene i dette område betydeligt.',
+    s2Body2:
+      'Et kejsersnit sparer heller inte bäkkenbunden fuldständigt: graviditeten i sig selv ar fortsat en vigtig periode for disse muskler.',
+    s2Body3:
+      'Efter födslen ar det derfor normalt, at genopretningen tager tid. Nogle kvinnor märker nästen ingen symtom, mens andre kan bemärke läkager, en fölelse av tyngde eller reduceret muskelkontrol.',
+    s2TipTitle: 'Hver genopretning ar forskellig',
+    s2TipText:
+      'Födslens type, en rifting eller episiotomi, smartor och din generelle tilstand efter födslen kan alla påvirke genopretningen.',
+
+    s3Heading: 'Hvornår skal du starte bäkkenbundsgenopträning?',
+    s3Body1:
+      'Efter en ukompliceret födsel kan skånsomme bäkkenbundskontraktioner som regel genoptages gradvist. Det ar dog vigtigt at tilpasse övelserne till din situation och söge rådgivning, hvis du oplevede en komplikation, betydelige smartor eller et specifikt indgreb.',
+    s3Body2:
+      'Hvis du har et urinkateter, anbefaler visse vejledninger at vente, till det ar fjernet och normal vandladning ar genoptaget, för du begynder perinäumövelser.',
+    s3AlertTitle: 'Tving inte igennem smerte',
+    s3AlertText:
+      'Betydelige smerter, forvärrede symtom, et sår der heler dårligt eller en särlig bekymring kräver råd fran en jordemoder, läge eller genoptränende professionel.',
+
+    s4Heading: 'At läre at kontrahere korrekt',
+    s4Body1:
+      'For at identificere bevägelsen kan du forestille dig at forsöge at holde luft tilbage och dämpe vandladningstrangen på samme tid. Bevägelsen du leder efter ar en fornemmelse av kontraktion och löft indad.',
+    s4Body2:
+      'Målet ar inte at spände hele kroppen hårdt. Dine baller, lår och mavemuskulatur skal forblive så afslappede som muligt, mens vejrträkningen fortsätter normalt.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Vejrträkning'},
+      {icon: 'human-handsup', label: 'Skånsom kontraktion'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Lang kontraktion'},
+      {icon: 'gesture-tap-button', label: 'Hurtige kontraktioner'},
+    ],
+    s4HighlightTitle: 'Afslapning ar lige så vigtigt',
+    s4HighlightText:
+      'Efter hver kontraktion skal musklerne slappe fuldständigt av. God genopträning betyder inte at holde perinäet kontraheret hele dagen.',
+
+    s5Heading: 'Opbyg en gradvis rutine',
+    s5Body1:
+      'I starten ar det vigtigste at läre at identificere musklerne och udföre bevägelsen korrekt. Konsistens ar vigtigere end intensitet.',
+    s5h3a: 'Lange kontraktioner',
+    s5Body2:
+      'Kontraher bäkkenbunden forsigtigt, hold derefter kontraktionen i et par sekunder uden at holde vejret. Slip derefter helt, inden du starter igen.',
+    s5h3b: 'Korte kontraktioner',
+    s5Body3:
+      'Når bevägelsen ar mestret, kan små hurtige kontraktioner tilföjes. De hjälper med at träne evnen till hurtigt at kontrahere musklerne, når det abdominale tryk stiger, for eksempel lige inden hoste eller nys.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Par övelserne med en daglig vane'},
+      {icon: 'human-sitting', label: 'Start i en behagelig position'},
+      {icon: 'weather-windy', label: 'Ånd normalt under kontraktioner'},
+      {icon: 'sleep', label: 'Respekter afslappelsesfaserne'},
+      {icon: 'chart-line', label: 'Ög gradvist svärhedsgraden'},
+      {icon: 'doctor', label: 'Bed om råd, hvis du ar usikker'},
+    ],
+    s5TipTitle: 'Konsistens frem for alt',
+    s5TipText:
+      'At parre övelserne med en vane, der redan ar en del av din dag, kan göre det lettere at holde fast: efter amning, efter tandbörstning eller på et andet tidspunkt, der passer dig.',
+
+    s6Heading: 'Almindelige fejl du skal undgå',
+    s6Body1:
+      'Perinäumövelser ser måske enkle ud, men det ar let at kompensere med andre muskler eller anstrenge sig for meget.',
+    commonMistakes: [
+      'At spände ballerne eller lårene i stedet for bäkkenbunden',
+      'At holde vejret under kontraktionen',
+      'At holde musklerne konstant kontraherede uden at lade dem slappe af',
+      'At lave övelserne i kun få dagar och derefter stoppe',
+      'Bevidst at stoppe urinstrålen for att tjekke kontraktionen',
+    ],
+    s6TipTitle: 'Hvad du inte skal göre',
+    s6TipText:
+      'Det anbefales inte at öve sig ved bevidst at stoppe urinstrålen. Denne metode träner inte perinäet korrekt och kan forstyrre normal blärefunktion.',
+
+    s7Heading: 'Hvilke symtom bör tilskynde till konsultation?',
+    s7Body1:
+      'Mindre läkager eller en usädvanlig fornemmelse kan nogle gange opstå efter födslen. De bör dog inte ignoreres, hvis de varer ved, forvärres eller forstyrrer din hverdag.',
+    warningSigns: [
+      'Urinläk når du hoster, nyser, griner eller anstrenger dig',
+      'En fölelse av tyngde eller tryk i den nedre del av bäkkenet',
+      'En fornemmelse av, at en klump eller noget falder ned i vagina',
+      'Besvär med at holde luft eller afföring tilbage',
+      'Vedvarende smartor i perinäet',
+      'Smerter under eller efter samleje',
+      'Besvär med at identificere eller korrekt kontrahere perinäummusklerne',
+    ],
+    consultLabel: 'Hvornår skal du söge råd?',
+    s7Body2:
+      'En jordemoder, läge eller fysioterapeut med speciale i bäkkenbundsgenopträning kan kontrollere muskelfunktionen och foreslå et egnet program.',
+
+    s8Heading: 'Og efter en rifting, en episiotomi eller et kejsersnit?',
+    s8Body1:
+      'En rifting eller episiotomi kräver särlig opmärksomhed under helingsprocessen. Genoptagelse av aktiviteter skal tage hensyn till smerter, arrets tilstand och den vejledning, der ar givet efter födslen.',
+    s8Body2:
+      'Efter et kejsersnit involverer genopretningen også bugväggen och arret. Selv hvis födslen inte var vaginal, har graviditeten fortfarande belastet bäkkenbunden.',
+    s8HighlightTitle: 'Personlig pleje kan hjälpe',
+    s8HighlightText:
+      'I tilfälde av en betydelig rifting, smerter, urinäre eller tarmrelaterede symtom eller vedvarende vanskeligheder kan en vurdering hos en halsasprofessionel väre särlig nyttig.',
+
+    s9Heading: 'Gradvis genoptagelse av sport',
+    s9Body1:
+      'Genoptagelse av bevägelse efter födslen skal ske gradvist. Gåture och skånsomme bevägelser kan som regel genoptages baseret på, hvordan du har det, mens aktiviteter med höj belastning kräver mere forsigtighed.',
+    s9Body2:
+      'Inden du genoptager löb, hop eller mycket intensiv träning, ar det bedst at vurdere bäkkenbundens genopretning och tage eventuelle symtom i betragtning.',
+    s9AlertTitle: 'Skynd dig inte igennem faserne',
+    s9AlertText:
+      'Läkager, en fölelse av tyngde eller smartor under eller efter träning ar tegn på, at du bör sänke farten och söge råd, inden du öger intensiteten.',
+
+    s10Heading: 'Hvornår skal du se en specialist?',
+    s10Body1:
+      'Bäkkenbundsgenopträning med en jordemoder eller fysioterapeut kan väre nyttig, hvis du ar usikker på, om du kontrahere korrekt, hvis dina symtom varer ved, eller hvis du önsker at genoptage visse fysiske aktiviteter med selvtillid.',
+    questionCardTitle: 'Nyttige spörgsmål at stille',
+    appointmentQuestions: [
+      'Er mine symtom forenelige med svaghed i bäkkenbunden?',
+      'Udförer jag kontraktionerne korrekt?',
+      'Hvor mange gentagelser skal jag lave hver dag?',
+      'Kan jag genoptage löb, sport eller övelser med höj belastning?',
+      'Har jag brug for genopträning med en jordemoder eller fysioterapeut?',
+      'Kräver mit ar, min rifting eller mit kejsersnit särlige forholdsregler?',
+    ],
+    s10TipTitle: 'Godt at vide',
+    s10TipText:
+      'At besöge en professionel betyder inte nödvendigvis, at noget ar galt. En session kan blot hjälpe med at tjekke din teknik, vurdere din genopretning och läre at fremskridt korrekt.',
+
+    s11Heading: 'En genopretning, der tager tid',
+    s11Body1:
+      'Efter födslen ar det normalt inte straks at genvinde de samme fornemmelser eller muskelstyrke, du havde för graviditeten.',
+    s11Body2:
+      'Målet ar inte at lave så mange kontraktioner som muligt. Det handler mere om gradvist at genvinde god koordination mellem kontraktion och afslapning och derefter at kunne bruge disse muskler naturligt i hverdagsaktiviteter.',
+    s11HighlightTitle: 'Lille fremskridt ar ägte fremskridt',
+    s11HighlightText:
+      'Bedre bevidsthed om bevägelsen, et par ekstra sekunders kontraktion eller en reduktion i läkager ar redan opmuntrende tegn.',
+
+    s12Heading: 'Vigtigste pointer',
+    summaryTitle: 'Det vigtigste',
+    summaryItems: [
+      'Graviditet och födsel belaster bäkkenbunden betydeligt.',
+      'Gradvis genopretning ar normal efter födslen.',
+      'Övelser bör prioritere bevägelseskvalitet frem for styrke.',
+      'Vejrträkning och afslapning ar lige så vigtige som kontraktion.',
+      'Urinläk, tyngde eller vedvarende smartor fortjener en professionel vurdering.',
+      'Genopträning med en jordemoder eller fysioterapeut kan hjälpe dig med at genvinde bedre kontrol.',
+      'Genoptagelse av sport skal ske gradvist, särligt for aktiviteter med höj belastning.',
+    ],
+    finalTipTitle: 'Tag dig tid till at komme dig',
+    finalTipText:
+      'Efter födslen har din krop gennemgået mange forandringer. Perinäet fortjener den samme opmärksomhed som resten av din krop: gradvist, regelmässigt och uden pres.',
+    disclaimerText:
+      'Denne artikel ar kun till information och erstatter inte personlig medicinsk rådgivning. Hvis du oplever smerter, vedvarende symtom eller har bekymringer om din genopretning, så sög råd hos en halsasprofessionel.',
+  },
+  sv: {
+    badge: 'BARSEL • GENOPTRÄNING',
+    title: 'Styrk din bäkkenbund\nefter födslen',
+    metaDuration: '8 min. läsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemset indhold',
+    intro:
+      'Efter graviditet och födsel har bäkkenbunden brug for tid till at komme sig. Enkle, regelmässige och gradvise övelser kan hjälpe dig med at genvinde styrke, kontrol och selvtillid, uden at forsöge at skynde sig.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Forstå perinäets rolle',
+      'Hvorfor födslen belaster det',
+      'Hvornår du skal starte bäkkenbundsgenopträning',
+      'At läre at kontrahere korrekt',
+      'Opbyg en gradvis rutine',
+      'Fejl du skal undgå',
+      'Hvornår du skal bede om hjälp',
+      'Gradvis genoptagelse av sport',
+      'Forberedelse till en aftale',
+      'Vigtigste pointer',
+    ],
+    shareMessage: 'Styrk din bäkkenbund efter födslen — AWA',
+
+    s1Heading: 'Forstå perinäets rolle',
+    s1Body1:
+      'Perinäet, også kaldet bäkkenbunden, ar en gruppe muskler placeret ved bäkkenbunden. Det spiller en rolle i bläre- och tarmkontrol och hjälper med at stötte bäkkenorganerne.',
+    s1Body2:
+      'Under graviditeten skal disse muskler bäre ekstra vägt i flere måneder. De udsättes også for betydelig belastning under födslen.',
+    s1HighlightTitle: 'En diskret men vigtig muskel',
+    s1HighlightText:
+      'Bäkkenbunden ar involveret i flere hverdagsfunktioner: at holde urin och afföring tilbage, kontrollere luft, stötte bäkkenorganerne och spille en rolle i visse seksuelle funktioner.',
+
+    benefitsHeading: 'Fordelene ved en stärkere bäkkenbund',
+    benefitsIntro:
+      'Gradvis, korrekt udfört styrketräning kan hjälpe med at forbedre bäkkenbundens kontrol och stötte.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Bedre blärekontrol',
+        text: 'Bäkkenbunden spiller en rolle i blärekontrollen. Gradvis styrkelse kan hjälpe med at reducere visse urinläk.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Stötte tarmfunktionen',
+        text: 'Disse muskler hjälper også med at kontrollere luft och afföring och bidrager till at stötte bäkkenorganerne.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Stötte bäkkenorganerne',
+        text: 'Bäkkenbunden danner en reel muskulär base, der hjälper med at stötte blären, livmoderen och tarmen.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Gradvis genvinding av fornemmelse',
+        text: 'Egnet genopträning kan også hjälpe dig med at genvinde bedre bevidsthed och kontrol av dette område.',
+      },
+    ],
+
+    s2Heading: 'Hvorfor graviditet och födsel belaster det',
+    s2Body1:
+      'Graviditet lägger gradvist mere pres på bäkkenbunden. En vaginal födsel kan derefter sträkke musklerne och vävene i dette område betydeligt.',
+    s2Body2:
+      'Et kejsersnit sparer heller inte bäkkenbunden fuldständigt: graviditeten i sig selv ar fortsat en vigtig periode for disse muskler.',
+    s2Body3:
+      'Efter födslen ar det derfor normalt, at genopretningen tager tid. Nogle kvinnor märker nästen ingen symtom, mens andre kan bemärke läkager, en fölelse av tyngde eller reduceret muskelkontrol.',
+    s2TipTitle: 'Hver genopretning ar forskellig',
+    s2TipText:
+      'Födslens type, en rifting eller episiotomi, smartor och din generelle tilstand efter födslen kan alla påvirke genopretningen.',
+
+    s3Heading: 'Hvornår skal du starte bäkkenbundsgenopträning?',
+    s3Body1:
+      'Efter en ukompliceret födsel kan skånsomme bäkkenbundskontraktioner som regel genoptages gradvist. Det ar dog vigtigt at tilpasse övelserne till din situation och söge rådgivning, hvis du oplevede en komplikation, betydelige smartor eller et specifikt indgreb.',
+    s3Body2:
+      'Hvis du har et urinkateter, anbefaler visse vejledninger at vente, till det ar fjernet och normal vandladning ar genoptaget, för du begynder perinäumövelser.',
+    s3AlertTitle: 'Tving inte igennem smerte',
+    s3AlertText:
+      'Betydelige smerter, forvärrede symtom, et sår der heler dårligt eller en särlig bekymring kräver råd fran en jordemoder, läge eller genoptränende professionel.',
+
+    s4Heading: 'At läre at kontrahere korrekt',
+    s4Body1:
+      'For at identificere bevägelsen kan du forestille dig at forsöge at holde luft tilbage och dämpe vandladningstrangen på samme tid. Bevägelsen du leder efter ar en fornemmelse av kontraktion och löft indad.',
+    s4Body2:
+      'Målet ar inte at spände hele kroppen hårdt. Dine baller, lår och mavemuskulatur skal forblive så afslappede som muligt, mens vejrträkningen fortsätter normalt.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Vejrträkning'},
+      {icon: 'human-handsup', label: 'Skånsom kontraktion'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Lang kontraktion'},
+      {icon: 'gesture-tap-button', label: 'Hurtige kontraktioner'},
+    ],
+    s4HighlightTitle: 'Afslapning ar lige så vigtigt',
+    s4HighlightText:
+      'Efter hver kontraktion skal musklerne slappe fuldständigt av. God genopträning betyder inte at holde perinäet kontraheret hele dagen.',
+
+    s5Heading: 'Opbyg en gradvis rutine',
+    s5Body1:
+      'I starten ar det vigtigste at läre at identificere musklerne och udföre bevägelsen korrekt. Konsistens ar vigtigere end intensitet.',
+    s5h3a: 'Lange kontraktioner',
+    s5Body2:
+      'Kontraher bäkkenbunden forsigtigt, hold derefter kontraktionen i et par sekunder uden at holde vejret. Slip derefter helt, inden du starter igen.',
+    s5h3b: 'Korte kontraktioner',
+    s5Body3:
+      'Når bevägelsen ar mestret, kan små hurtige kontraktioner tilföjes. De hjälper med at träne evnen till hurtigt at kontrahere musklerne, når det abdominale tryk stiger, for eksempel lige inden hoste eller nys.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Par övelserne med en daglig vane'},
+      {icon: 'human-sitting', label: 'Start i en behagelig position'},
+      {icon: 'weather-windy', label: 'Ånd normalt under kontraktioner'},
+      {icon: 'sleep', label: 'Respekter afslappelsesfaserne'},
+      {icon: 'chart-line', label: 'Ög gradvist svärhedsgraden'},
+      {icon: 'doctor', label: 'Bed om råd, hvis du ar usikker'},
+    ],
+    s5TipTitle: 'Konsistens frem for alt',
+    s5TipText:
+      'At parre övelserne med en vane, der redan ar en del av din dag, kan göre det lettere at holde fast: efter amning, efter tandbörstning eller på et andet tidspunkt, der passer dig.',
+
+    s6Heading: 'Almindelige fejl du skal undgå',
+    s6Body1:
+      'Perinäumövelser ser måske enkle ud, men det ar let at kompensere med andre muskler eller anstrenge sig for meget.',
+    commonMistakes: [
+      'At spände ballerne eller lårene i stedet for bäkkenbunden',
+      'At holde vejret under kontraktionen',
+      'At holde musklerne konstant kontraherede uden at lade dem slappe af',
+      'At lave övelserne i kun få dagar och derefter stoppe',
+      'Bevidst at stoppe urinstrålen for att tjekke kontraktionen',
+    ],
+    s6TipTitle: 'Hvad du inte skal göre',
+    s6TipText:
+      'Det anbefales inte at öve sig ved bevidst at stoppe urinstrålen. Denne metode träner inte perinäet korrekt och kan forstyrre normal blärefunktion.',
+
+    s7Heading: 'Hvilke symtom bör tilskynde till konsultation?',
+    s7Body1:
+      'Mindre läkager eller en usädvanlig fornemmelse kan nogle gange opstå efter födslen. De bör dog inte ignoreres, hvis de varer ved, forvärres eller forstyrrer din hverdag.',
+    warningSigns: [
+      'Urinläk når du hoster, nyser, griner eller anstrenger dig',
+      'En fölelse av tyngde eller tryk i den nedre del av bäkkenet',
+      'En fornemmelse av, at en klump eller noget falder ned i vagina',
+      'Besvär med at holde luft eller afföring tilbage',
+      'Vedvarende smartor i perinäet',
+      'Smerter under eller efter samleje',
+      'Besvär med at identificere eller korrekt kontrahere perinäummusklerne',
+    ],
+    consultLabel: 'Hvornår skal du söge råd?',
+    s7Body2:
+      'En jordemoder, läge eller fysioterapeut med speciale i bäkkenbundsgenopträning kan kontrollere muskelfunktionen och foreslå et egnet program.',
+
+    s8Heading: 'Og efter en rifting, en episiotomi eller et kejsersnit?',
+    s8Body1:
+      'En rifting eller episiotomi kräver särlig opmärksomhed under helingsprocessen. Genoptagelse av aktiviteter skal tage hensyn till smerter, arrets tilstand och den vejledning, der ar givet efter födslen.',
+    s8Body2:
+      'Efter et kejsersnit involverer genopretningen også bugväggen och arret. Selv hvis födslen inte var vaginal, har graviditeten fortfarande belastet bäkkenbunden.',
+    s8HighlightTitle: 'Personlig pleje kan hjälpe',
+    s8HighlightText:
+      'I tilfälde av en betydelig rifting, smerter, urinäre eller tarmrelaterede symtom eller vedvarende vanskeligheder kan en vurdering hos en halsasprofessionel väre särlig nyttig.',
+
+    s9Heading: 'Gradvis genoptagelse av sport',
+    s9Body1:
+      'Genoptagelse av bevägelse efter födslen skal ske gradvist. Gåture och skånsomme bevägelser kan som regel genoptages baseret på, hvordan du har det, mens aktiviteter med höj belastning kräver mere forsigtighed.',
+    s9Body2:
+      'Inden du genoptager löb, hop eller mycket intensiv träning, ar det bedst at vurdere bäkkenbundens genopretning och tage eventuelle symtom i betragtning.',
+    s9AlertTitle: 'Skynd dig inte igennem faserne',
+    s9AlertText:
+      'Läkager, en fölelse av tyngde eller smartor under eller efter träning ar tegn på, at du bör sänke farten och söge råd, inden du öger intensiteten.',
+
+    s10Heading: 'Hvornår skal du se en specialist?',
+    s10Body1:
+      'Bäkkenbundsgenopträning med en jordemoder eller fysioterapeut kan väre nyttig, hvis du ar usikker på, om du kontrahere korrekt, hvis dina symtom varer ved, eller hvis du önsker at genoptage visse fysiske aktiviteter med selvtillid.',
+    questionCardTitle: 'Nyttige spörgsmål at stille',
+    appointmentQuestions: [
+      'Er mine symtom forenelige med svaghed i bäkkenbunden?',
+      'Udförer jag kontraktionerne korrekt?',
+      'Hvor mange gentagelser skal jag lave hver dag?',
+      'Kan jag genoptage löb, sport eller övelser med höj belastning?',
+      'Har jag brug for genopträning med en jordemoder eller fysioterapeut?',
+      'Kräver mit ar, min rifting eller mit kejsersnit särlige forholdsregler?',
+    ],
+    s10TipTitle: 'Godt at vide',
+    s10TipText:
+      'At besöge en professionel betyder inte nödvendigvis, at noget ar galt. En session kan blot hjälpe med at tjekke din teknik, vurdere din genopretning och läre at fremskridt korrekt.',
+
+    s11Heading: 'En genopretning, der tager tid',
+    s11Body1:
+      'Efter födslen ar det normalt inte straks at genvinde de samme fornemmelser eller muskelstyrke, du havde för graviditeten.',
+    s11Body2:
+      'Målet ar inte at lave så mange kontraktioner som muligt. Det handler mere om gradvist at genvinde god koordination mellem kontraktion och afslapning och derefter at kunne bruge disse muskler naturligt i hverdagsaktiviteter.',
+    s11HighlightTitle: 'Lille fremskridt ar ägte fremskridt',
+    s11HighlightText:
+      'Bedre bevidsthed om bevägelsen, et par ekstra sekunders kontraktion eller en reduktion i läkager ar redan opmuntrende tegn.',
+
+    s12Heading: 'Vigtigste pointer',
+    summaryTitle: 'Det vigtigste',
+    summaryItems: [
+      'Graviditet och födsel belaster bäkkenbunden betydeligt.',
+      'Gradvis genopretning ar normal efter födslen.',
+      'Övelser bör prioritere bevägelseskvalitet frem for styrke.',
+      'Vejrträkning och afslapning ar lige så vigtige som kontraktion.',
+      'Urinläk, tyngde eller vedvarende smartor fortjener en professionel vurdering.',
+      'Genopträning med en jordemoder eller fysioterapeut kan hjälpe dig med at genvinde bedre kontrol.',
+      'Genoptagelse av sport skal ske gradvist, särligt for aktiviteter med höj belastning.',
+    ],
+    finalTipTitle: 'Tag dig tid till at komme dig',
+    finalTipText:
+      'Efter födslen har din krop gennemgået mange forandringer. Perinäet fortjener den samme opmärksomhed som resten av din krop: gradvist, regelmässigt och uden pres.',
+    disclaimerText:
+      'Denne artikel ar kun till information och erstatter inte personlig medicinsk rådgivning. Hvis du oplever smerter, vedvarende symtom eller har bekymringer om din genopretning, så sög råd hos en halsasprofessionel.',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<

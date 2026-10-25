@@ -1045,6 +1045,213 @@ const CONTENT = withBrazilianPortuguese('CervicalMucus', {
     disclaimerText: 'তথ্যমূলক বিষয়বস্তু। এই নিবন্ধ ব্যক্তিগত চিকিৎসা পরামর্শের বিকল্প নয়। সন্দেহ থাকলে কোনো স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিন।',
     shareMessage: 'আপনার জরায়ুমুখের শ্লেষ্মা পর্যবেক্ষণ — AWA',
   },
+  da: {
+    badge: 'FERTILITET • LIVMODERHALSSEKRET',
+    title: 'Observer dit\nlivmoderhalssekret',
+    metaDuration: '5 min læsning',
+    metaType: 'Guide',
+    metaLevel: 'Øvet begynder',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Et naturligt og gratis signal til at spotte dit fertile vindue.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Hvad er livmoderhalssekret?',
+      'Hvordan det ændrer sig gennem cyklusen',
+      'Genkend fertilt sekret',
+      'Sådan observerer du det dagligt',
+      'Hvad kan påvirke dine observationer',
+      'Metodens begrænsninger',
+      'Vigtige pointer',
+    ],
+    section1Body:
+      'Det er en naturlig sekretion fra livmoderhalsen. Livmoderhalssekret ændrer konsistens gennem cyklusen under indflydelse af østrogen og progesteron.',
+    cycleEvolution: [
+      {
+        title: 'Efter din menstruation',
+        text: 'Lidt sekret, ofte en fornemmelse af tørhed.',
+      },
+      {
+        title: 'Før ægløsning',
+        text: 'Mere rigeligt, uklart og klæbrigt.',
+      },
+      {
+        title: 'Når ægløsningen nærmer sig',
+        text: 'Klart, strækbart og elastisk – som rå æggehvide.',
+      },
+      {
+        title: 'Efter ægløsning',
+        text: 'Tykkere, uigennemsigtigt eller meget lidt til stede.',
+      },
+    ],
+    section3Intro: 'Når ægløsningen nærmer sig, bliver det:',
+    fertileSigns: [
+      'Klart eller gennemsigtigt',
+      'Strækbart – det strækker sig mellem to fingre',
+      'Elastisk som rå æggehvide',
+      'Mere rigeligt end på andre dage',
+    ],
+    infoTitle: 'En simpel vane, hver dag',
+    infoText:
+      'Observer udseendet og konsistensen med toiletpapir eller rene fingre, omtrent på samme tidspunkt af dagen, og noter hvad du bemærker.',
+    modifyingFactors: [
+      'Nylig samleje',
+      'Intime hygiejneprodukter',
+      'Hormonel prævention eller visse behandlinger',
+      'En infektion eller lokal ubalance',
+    ],
+    section6Body:
+      'Alle har et forskelligt mønster, og det tager øvelse over flere cyklusser at genkende sit eget. At observere denne ændring hver dag, kombineret med andre tegn, hjælper dig med bedre at fastslå dit fertile vindue – men det erstatter aldrig lægeråd, hvis du er bekymret.',
+    tipTitle: 'Godt at vide',
+    tipText:
+      'At kombinere livmoderhalssekret med din basaltemperatur eller ægløsningstests giver et mere fuldstændigt billede af din cyklus.',
+    summaryPoints: [
+      'Livmoderhalssekret ændrer konsistens gennem cyklusen under indflydelse af østrogen og progesteron.',
+      'Når ægløsningen nærmer sig, bliver det klart, strækbart og elastisk – som rå æggehvide.',
+      'At observere denne ændring dagligt, kombineret med andre tegn, hjælper dig bedre med at fastslå dit fertile vindue.',
+      'Det tager øvelse og flere cyklusser at genkende dit eget mønster.',
+    ],
+    disclaimerText:
+      'Informationsindhold. Denne artikel erstatter ikke personlig medicinsk rådgivning. Søg vejledning fra en sundhedsprofessionel, hvis du er i tvivl.',
+    shareMessage: 'Observer dit livmoderhalssekret — AWA',
+  },
+  da: {
+    badge: 'FERTILITET • LIVMODERHALSSEKRET',
+    title: 'Observer dit\nlivmoderhalssekret',
+    metaDuration: '5 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Övet begynder',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Et naturligt och gratis signal till at spotte ditt fertile vindue.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Hvad ar livmoderhalssekret?',
+      'Hvordan det ändrer sig gennem cyklusen',
+      'Genkend fertilt sekret',
+      'Sådan observerer du det dagligt',
+      'Hvad kan påvirke dina observationer',
+      'Metodens begränsninger',
+      'Vigtige pointer',
+    ],
+    section1Body:
+      'Det ar en naturlig sekretion fran livmoderhalsen. Livmoderhalssekret ändrer konsistens gennem cyklusen under indflydelse av östrogen och progesteron.',
+    cycleEvolution: [
+      {
+        title: 'Efter din menstruation',
+        text: 'Lidt sekret, ofta en fornemmelse av törhed.',
+      },
+      {
+        title: 'För äglösning',
+        text: 'Mere rigeligt, uklart och kläbrigt.',
+      },
+      {
+        title: 'Når äglösningen närmer sig',
+        text: 'Klart, sträkbart och elastisk – som rå äggehvide.',
+      },
+      {
+        title: 'Efter äglösning',
+        text: 'Tykkere, uigennemsigtigt eller mycket lite till stede.',
+      },
+    ],
+    section3Intro: 'Når äglösningen närmer sig, bliver det:',
+    fertileSigns: [
+      'Klart eller gennemsigtigt',
+      'Sträkbart – det sträkker sig mellem to fingre',
+      'Elastisk som rå äggehvide',
+      'Mere rigeligt end på andre dage',
+    ],
+    infoTitle: 'En simpel vane, hver dag',
+    infoText:
+      'Observer udseendet och konsistensen med toiletpapir eller rene fingre, omtrent på samme tidspunkt av dagen, och noter hvad du bemärker.',
+    modifyingFactors: [
+      'Nylig samleje',
+      'Intime hygiejneprodukter',
+      'Hormonel prävention eller visse behandlinger',
+      'En infektion eller lokal ubalance',
+    ],
+    section6Body:
+      'Alla har et forskelligt mönster, och det tager övelse over flere cyklusser at genkende sit eget. At observere denne ändring hver dag, kombineret med andre tegn, hjälper dig med bedre at fastslå ditt fertile vindue – men det erstatter aldrig lägeråd, hvis du ar bekymret.',
+    tipTitle: 'Godt at vide',
+    tipText:
+      'At kombinere livmoderhalssekret med din basaltemperatur eller äglösningstests giver et mere fuldständigt billede av din cyklus.',
+    summaryPoints: [
+      'Livmoderhalssekret ändrer konsistens gennem cyklusen under indflydelse av östrogen och progesteron.',
+      'Når äglösningen närmer sig, bliver det klart, sträkbart och elastisk – som rå äggehvide.',
+      'At observere denne ändring dagligt, kombineret med andre tegn, hjälper dig bedre med at fastslå ditt fertile vindue.',
+      'Det tager övelse och flere cyklusser at genkende ditt eget mönster.',
+    ],
+    disclaimerText:
+      'Informationsindhold. Denne artikel erstatter inte personlig medicinsk rådgivning. Sög vejledning fran en halsasprofessionel, hvis du ar i tvivl.',
+    shareMessage: 'Observer ditt livmoderhalssekret — AWA',
+  },
+  sv: {
+    badge: 'FERTILITET • LIVMODERHALSSEKRET',
+    title: 'Observer dit\nlivmoderhalssekret',
+    metaDuration: '5 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Övet begynder',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Et naturligt och gratis signal till at spotte ditt fertile vindue.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Hvad ar livmoderhalssekret?',
+      'Hvordan det ändrer sig gennem cyklusen',
+      'Genkend fertilt sekret',
+      'Sådan observerer du det dagligt',
+      'Hvad kan påvirke dina observationer',
+      'Metodens begränsninger',
+      'Vigtige pointer',
+    ],
+    section1Body:
+      'Det ar en naturlig sekretion fran livmoderhalsen. Livmoderhalssekret ändrer konsistens gennem cyklusen under indflydelse av östrogen och progesteron.',
+    cycleEvolution: [
+      {
+        title: 'Efter din menstruation',
+        text: 'Lidt sekret, ofta en fornemmelse av törhed.',
+      },
+      {
+        title: 'För äglösning',
+        text: 'Mere rigeligt, uklart och kläbrigt.',
+      },
+      {
+        title: 'Når äglösningen närmer sig',
+        text: 'Klart, sträkbart och elastisk – som rå äggehvide.',
+      },
+      {
+        title: 'Efter äglösning',
+        text: 'Tykkere, uigennemsigtigt eller mycket lite till stede.',
+      },
+    ],
+    section3Intro: 'Når äglösningen närmer sig, bliver det:',
+    fertileSigns: [
+      'Klart eller gennemsigtigt',
+      'Sträkbart – det sträkker sig mellem to fingre',
+      'Elastisk som rå äggehvide',
+      'Mere rigeligt end på andre dage',
+    ],
+    infoTitle: 'En simpel vane, hver dag',
+    infoText:
+      'Observer udseendet och konsistensen med toiletpapir eller rene fingre, omtrent på samme tidspunkt av dagen, och noter hvad du bemärker.',
+    modifyingFactors: [
+      'Nylig samleje',
+      'Intime hygiejneprodukter',
+      'Hormonel prävention eller visse behandlinger',
+      'En infektion eller lokal ubalance',
+    ],
+    section6Body:
+      'Alla har et forskelligt mönster, och det tager övelse over flere cyklusser at genkende sit eget. At observere denne ändring hver dag, kombineret med andre tegn, hjälper dig med bedre at fastslå ditt fertile vindue – men det erstatter aldrig lägeråd, hvis du ar bekymret.',
+    tipTitle: 'Godt at vide',
+    tipText:
+      'At kombinere livmoderhalssekret med din basaltemperatur eller äglösningstests giver et mere fuldständigt billede av din cyklus.',
+    summaryPoints: [
+      'Livmoderhalssekret ändrer konsistens gennem cyklusen under indflydelse av östrogen och progesteron.',
+      'Når äglösningen närmer sig, bliver det klart, sträkbart och elastisk – som rå äggehvide.',
+      'At observere denne ändring dagligt, kombineret med andre tegn, hjälper dig bedre med at fastslå ditt fertile vindue.',
+      'Det tager övelse och flere cyklusser at genkende ditt eget mönster.',
+    ],
+    disclaimerText:
+      'Informationsindhold. Denne artikel erstatter inte personlig medicinsk rådgivning. Sög vejledning fran en halsasprofessionel, hvis du ar i tvivl.',
+    shareMessage: 'Observer ditt livmoderhalssekret — AWA',
+  },
 } as const);
 
 /* -------------------------------------------------------------------------- */
