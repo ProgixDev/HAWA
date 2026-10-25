@@ -1745,6 +1745,363 @@ const CONTENT = withBrazilianPortuguese('BabyBlues', {
     shareTitle: 'বেবি ব্লুজ ও প্রসবোত্তর মানসিক স্বাস্থ্য',
     shareMessage: 'বেবি ব্লুজ ও প্রসবোত্তর মানসিক স্বাস্থ্য — AWA\n\nসন্তান জন্মের পর যে মানসিক পরিবর্তনগুলো সাধারণ, সেগুলো বোঝার একটি গাইড।',
   },
+  da: {
+    badgeText: 'BARSEL • FØLELSESMÆSSIG SUNDHED',
+    title: 'Baby blues og følelsesmæssig\nsundhed efter fødslen',
+    subtitle:
+      'Forstå, hvad der kan ændre sig følelsesmæssigt efter en fødsel, og hvornår du bør søge støtte.',
+    metaItems: ['10 min. læsning', 'Artikel', 'Begynder', 'Gennemset indhold'],
+    introTitle: 'Godt at vide',
+    introText:
+      'Efter en fødsel er det almindeligt at gå igennem en periode med øget følelsesmæssig sårbarhed. Baby blues er som regel midlertidigt, men vedvarende eller tiltagende ubehag fortjener professionel opmærksomhed.',
+    contentsEyebrow: 'GUIDE',
+    contentsTitle: 'I denne artikel',
+    contents: [
+      'Forstå baby blues',
+      'De mest almindelige tegn',
+      'Hvad hjælper i hverdagen',
+      'Baby blues eller fødselsdepression?',
+      'Hvornår skal du bede om hjælp',
+      'Vigtigste pointer',
+    ],
+    section1Kicker: 'FORSTÅELSE',
+    section1Title: 'Hvad er baby blues?',
+    section1Body1:
+      'Baby blues er en periode med følelsesmæssige forandringer, der kan opstå i de første dage efter fødslen. Hormonelle ændringer, træthed, søvnmangel og det at tilpasse sig denne nye fase kan alle bidrage til denne sårbarhed.',
+    section1Body2:
+      'Det er ikke et tegn på svaghed, og det betyder ikke, at du er en dårlig mor. Alle oplever de første dage efter fødslen på deres egen måde.',
+    statTitle: 'En almindelig oplevelse',
+    statText:
+      'Baby blues er hyppigt efter en fødsel og har tendens til at bedre sig af sig selv i løbet af få dage.',
+    section2Kicker: 'TEGNENE',
+    section2Title: 'Hvad du måske føler',
+    section2Body:
+      'Oplevelserne varierer. Nogle føler primært træthed og sårbarhed, mens andre kan have mere tydelige humørsvingninger.',
+    commonSigns: [
+      {
+        title: 'Følsomhed',
+        description: 'At græde lettere eller føle sig særligt sårbar.',
+      },
+      {
+        title: 'Overfølsomhed',
+        description: 'Følelser kan virke stærkere og skifte hurtigt.',
+      },
+      {
+        title: 'Humørsvingninger',
+        description:
+          'En fornemmelse af skrøbelighed kan veksle med øjeblikke af velvære.',
+      },
+      {
+        title: 'Træthed',
+        description: 'Træthed fra de første dage kan forstærke følelserne.',
+      },
+    ],
+    section3Kicker: 'I HVERDAGEN',
+    section3Title: 'Hvad kan hjælpe',
+    section3Body:
+      'I denne periode er behovet for hvile stort. Små, enkle ting kan gøre dagene mere behagelige.',
+    dailySupport: [
+      {
+        title: 'At hvile',
+        description: 'Udnyt ledige øjeblikke til at komme dig.',
+      },
+      {
+        title: 'At tage imod hjælp',
+        description: 'Tøv ikke med at bede om støtte fra dem omkring dig.',
+      },
+      {
+        title: 'At drikke regelmæssigt',
+        description: 'Hold dig tilstrækkeligt hydreret i løbet af dagen.',
+      },
+      {
+        title: 'At spise nok',
+        description: 'Prioritér regelmæssige, enkle måltider.',
+      },
+    ],
+    quoteText:
+      '"At bede om hjælp efter fødslen er en måde at tage vare på dig selv og din baby."',
+    section4Kicker: 'AT SKELNE',
+    section4Title: 'Baby blues eller fødselsdepression?',
+    section4Body:
+      'Baby blues er som regel kortvarig og bedres gradvist. Fødselsdepression er anderledes: den kan vare længere, være mere intens og have en betydelig indvirkning på hverdagen.',
+    compareTitle: 'To situationer at skelne imellem',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Ofte kortvarig, med gradvis bedring i de følgende dage.',
+    comparePostpartumTitle: 'Fødselsdepression',
+    comparePostpartumText:
+      'Kan vare længere, intensiveres og kræve professionel støtte.',
+    section5Kicker: 'VÆR OPMÆRKSOM',
+    section5Title: 'Hvornår skal du bede om hjælp?',
+    section5Body:
+      'Det er vigtigt at tale med en sundhedsprofessionel, hvis det følelsesmæssige ubehag ikke bedres, bliver mere intenst eller begynder at gøre hverdagen sværere.',
+    attentionTitle: 'Advarselstegn at holde øje med',
+    attentionSubtitle: 'Tal med en professionel, hvis…',
+    attentionSigns: [
+      'Symptomerne varer mere end to uger.',
+      'Tristhed eller angst bliver mere intens.',
+      'Det bliver svært at tage vare på dig selv eller din baby.',
+      'En stærk følelse af nød opstår.',
+    ],
+    professionalTitle: 'Støtte er tilgængelig',
+    professionalText:
+      'En jordemoder, læge, psykolog eller anden sundhedsprofessionel kan lytte, vurdere situationen og tilbyde passende støtte.',
+    tipTitle: 'Godt at vide',
+    tipText:
+      'Dine følelser efter fødslen er ikke et mål for, hvor god en mor du er. Du har ret til at have brug for hvile, at blive lyttet til og at få støtte.',
+    section6Kicker: 'VIGTIGE PUNKTER',
+    section6Title: 'Vigtigste pointer',
+    takeaways: [
+      'Baby blues er hyppigt efter en fødsel.',
+      'Træthed og hormonelle ændringer kan påvirke humøret.',
+      'Støtte fra dem omkring dig kan gøre denne periode lettere.',
+      'Vedvarende eller betydeligt ubehag fortjener en professionel vurdering.',
+    ],
+    disclaimerText:
+      'Denne artikel er til information og erstatter ikke personlig medicinsk rådgivning. Hvis du er i tvivl eller oplever betydeligt ubehag, så tal med en sundhedsprofessionel.',
+    endText: 'At tage vare på dig selv er også en del af barselsperioden.',
+    shareTitle: 'Baby blues og følelsesmæssig sundhed efter fødslen',
+    shareMessage:
+      'Baby blues og følelsesmæssig sundhed efter fødslen — AWA\n\nEn guide til at forstå de følelsesmæssige forandringer, der er almindelige efter en fødsel.',
+  },
+  da: {
+    badgeText: 'BARSEL • FÖLELSESMÄSSIG SUNDHED',
+    title: 'Baby blues och fölelsesmässig\nhalsa efter födslen',
+    subtitle:
+      'Forstå, hvad der kan ändre sig fölelsesmässigt efter en födsel, och hvornår du bör söge stötte.',
+    metaItems: ['10 min. läsning', 'Artikel', 'Begynder', 'Gennemset indhold'],
+    introTitle: 'Godt at vide',
+    introText:
+      'Efter en födsel ar det almindeligt at gå igennem en periode med öget fölelsesmässig sårbarhed. Baby blues ar som regel midlertidigt, men vedvarende eller tiltagende ubehag fortjener professionel opmärksomhed.',
+    contentsEyebrow: 'GUIDE',
+    contentsTitle: 'I denne artikel',
+    contents: [
+      'Forstå baby blues',
+      'De mest almindelige tegn',
+      'Hvad hjälper i hverdagen',
+      'Baby blues eller födselsdepression?',
+      'Hvornår skal du bede om hjälp',
+      'Vigtigste pointer',
+    ],
+    section1Kicker: 'FORSTÅELSE',
+    section1Title: 'Hvad ar baby blues?',
+    section1Body1:
+      'Baby blues ar en periode med fölelsesmässige forandringer, der kan opstå i de förste dagar efter födslen. Hormonelle ändringer, träthed, sövnmangel och det at tilpasse sig denne nye fase kan alla bidrage till denne sårbarhed.',
+    section1Body2:
+      'Det ar inte et tegn på svaghed, och det betyder inte, at du ar en dårlig mor. Alla oplever de förste dagar efter födslen på deres egen måde.',
+    statTitle: 'En almindelig oplevelse',
+    statText:
+      'Baby blues ar hyppigt efter en födsel och har tendens till at bedre sig av sig selv i löbet av få dagar.',
+    section2Kicker: 'TEGNENE',
+    section2Title: 'Hvad du måske föler',
+    section2Body:
+      'Oplevelserne varierer. Nogle föler primärt träthed och sårbarhed, mens andre kan have mere tydelige humörsvingninger.',
+    commonSigns: [
+      {
+        title: 'Fölsomhed',
+        description: 'At gräde lettere eller föle sig särligt sårbar.',
+      },
+      {
+        title: 'Overfölsomhed',
+        description: 'Fölelser kan virke stärkere och skifte hurtigt.',
+      },
+      {
+        title: 'Humörsvingninger',
+        description:
+          'En fornemmelse av skröbelighed kan veksle med öjeblikke av velväre.',
+      },
+      {
+        title: 'Träthed',
+        description: 'Träthed fran de förste dagar kan forstärke fölelserne.',
+      },
+    ],
+    section3Kicker: 'I HVERDAGEN',
+    section3Title: 'Hvad kan hjälpe',
+    section3Body:
+      'I denne periode ar behovet for hvile stort. Små, enkle ting kan göre dagene mere behagelige.',
+    dailySupport: [
+      {
+        title: 'At hvile',
+        description: 'Udnyt ledige öjeblikke till at komme dig.',
+      },
+      {
+        title: 'At tage imod hjälp',
+        description: 'Töv inte med at bede om stötte fran dem omkring dig.',
+      },
+      {
+        title: 'At drikke regelmässigt',
+        description: 'Hold dig tilsträkkeligt hydreret i löbet av dagen.',
+      },
+      {
+        title: 'At spise nok',
+        description: 'Prioritér regelmässige, enkle måltider.',
+      },
+    ],
+    quoteText:
+      '"At bede om hjälp efter födslen ar en måde at tage vare på dig selv och din baby."',
+    section4Kicker: 'AT SKELNE',
+    section4Title: 'Baby blues eller födselsdepression?',
+    section4Body:
+      'Baby blues ar som regel kortvarig och bedres gradvist. Födselsdepression ar anderledes: den kan vare längere, väre mere intens och have en betydelig indvirkning på hverdagen.',
+    compareTitle: 'To situationer at skelne imellem',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Ofte kortvarig, med gradvis bedring i de fölgende dagar.',
+    comparePostpartumTitle: 'Födselsdepression',
+    comparePostpartumText:
+      'Kan vare längere, intensiveres och kräve professionel stötte.',
+    section5Kicker: 'VÄR OPMÄRKSOM',
+    section5Title: 'Hvornår skal du bede om hjälp?',
+    section5Body:
+      'Det ar vigtigt at tale med en halsasprofessionel, hvis det fölelsesmässige ubehag inte bedres, bliver mere intenst eller begynder at göre hverdagen svärere.',
+    attentionTitle: 'Advarselstegn at holde öje med',
+    attentionSubtitle: 'Tal med en professionel, hvis…',
+    attentionSigns: [
+      'Symtomne varer mere end to veckor.',
+      'Tristhed eller angst bliver mere intens.',
+      'Det bliver svärt at tage vare på dig selv eller din baby.',
+      'En stärk fölelse av nöd opstår.',
+    ],
+    professionalTitle: 'Stötte ar tilgängelig',
+    professionalText:
+      'En jordemoder, läge, psykolog eller anden halsasprofessionel kan lytte, vurdere situationen och tilbyde passende stötte.',
+    tipTitle: 'Godt at vide',
+    tipText:
+      'Dine fölelser efter födslen ar inte et mål for, hvor god en mor du ar. Du har ret till at have brug for hvile, at blive lyttet till och at få stötte.',
+    section6Kicker: 'VIGTIGE PUNKTER',
+    section6Title: 'Vigtigste pointer',
+    takeaways: [
+      'Baby blues ar hyppigt efter en födsel.',
+      'Träthed och hormonelle ändringer kan påvirke humöret.',
+      'Stötte fran dem omkring dig kan göre denne periode lettere.',
+      'Vedvarende eller betydeligt ubehag fortjener en professionel vurdering.',
+    ],
+    disclaimerText:
+      'Denne artikel ar till information och erstatter inte personlig medicinsk rådgivning. Hvis du ar i tvivl eller oplever betydeligt ubehag, så tal med en halsasprofessionel.',
+    endText: 'At tage vare på dig selv ar også en del av barselsperioden.',
+    shareTitle: 'Baby blues och fölelsesmässig halsa efter födslen',
+    shareMessage:
+      'Baby blues och fölelsesmässig halsa efter födslen — AWA\n\nEn guide till at forstå de fölelsesmässige forandringer, der ar almindelige efter en födsel.',
+  },
+  sv: {
+    badgeText: 'BARSEL • FÖLELSESMÄSSIG SUNDHED',
+    title: 'Baby blues och fölelsesmässig\nhalsa efter födslen',
+    subtitle:
+      'Forstå, hvad der kan ändre sig fölelsesmässigt efter en födsel, och hvornår du bör söge stötte.',
+    metaItems: ['10 min. läsning', 'Artikel', 'Begynder', 'Gennemset indhold'],
+    introTitle: 'Godt at vide',
+    introText:
+      'Efter en födsel ar det almindeligt at gå igennem en periode med öget fölelsesmässig sårbarhed. Baby blues ar som regel midlertidigt, men vedvarende eller tiltagende ubehag fortjener professionel opmärksomhed.',
+    contentsEyebrow: 'GUIDE',
+    contentsTitle: 'I denne artikel',
+    contents: [
+      'Forstå baby blues',
+      'De mest almindelige tegn',
+      'Hvad hjälper i hverdagen',
+      'Baby blues eller födselsdepression?',
+      'Hvornår skal du bede om hjälp',
+      'Vigtigste pointer',
+    ],
+    section1Kicker: 'FORSTÅELSE',
+    section1Title: 'Hvad ar baby blues?',
+    section1Body1:
+      'Baby blues ar en periode med fölelsesmässige forandringer, der kan opstå i de förste dagar efter födslen. Hormonelle ändringer, träthed, sövnmangel och det at tilpasse sig denne nye fase kan alla bidrage till denne sårbarhed.',
+    section1Body2:
+      'Det ar inte et tegn på svaghed, och det betyder inte, at du ar en dårlig mor. Alla oplever de förste dagar efter födslen på deres egen måde.',
+    statTitle: 'En almindelig oplevelse',
+    statText:
+      'Baby blues ar hyppigt efter en födsel och har tendens till at bedre sig av sig selv i löbet av få dagar.',
+    section2Kicker: 'TEGNENE',
+    section2Title: 'Hvad du måske föler',
+    section2Body:
+      'Oplevelserne varierer. Nogle föler primärt träthed och sårbarhed, mens andre kan have mere tydelige humörsvingninger.',
+    commonSigns: [
+      {
+        title: 'Fölsomhed',
+        description: 'At gräde lettere eller föle sig särligt sårbar.',
+      },
+      {
+        title: 'Overfölsomhed',
+        description: 'Fölelser kan virke stärkere och skifte hurtigt.',
+      },
+      {
+        title: 'Humörsvingninger',
+        description:
+          'En fornemmelse av skröbelighed kan veksle med öjeblikke av velväre.',
+      },
+      {
+        title: 'Träthed',
+        description: 'Träthed fran de förste dagar kan forstärke fölelserne.',
+      },
+    ],
+    section3Kicker: 'I HVERDAGEN',
+    section3Title: 'Hvad kan hjälpe',
+    section3Body:
+      'I denne periode ar behovet for hvile stort. Små, enkle ting kan göre dagene mere behagelige.',
+    dailySupport: [
+      {
+        title: 'At hvile',
+        description: 'Udnyt ledige öjeblikke till at komme dig.',
+      },
+      {
+        title: 'At tage imod hjälp',
+        description: 'Töv inte med at bede om stötte fran dem omkring dig.',
+      },
+      {
+        title: 'At drikke regelmässigt',
+        description: 'Hold dig tilsträkkeligt hydreret i löbet av dagen.',
+      },
+      {
+        title: 'At spise nok',
+        description: 'Prioritér regelmässige, enkle måltider.',
+      },
+    ],
+    quoteText:
+      '"At bede om hjälp efter födslen ar en måde at tage vare på dig selv och din baby."',
+    section4Kicker: 'AT SKELNE',
+    section4Title: 'Baby blues eller födselsdepression?',
+    section4Body:
+      'Baby blues ar som regel kortvarig och bedres gradvist. Födselsdepression ar anderledes: den kan vare längere, väre mere intens och have en betydelig indvirkning på hverdagen.',
+    compareTitle: 'To situationer at skelne imellem',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Ofte kortvarig, med gradvis bedring i de fölgende dagar.',
+    comparePostpartumTitle: 'Födselsdepression',
+    comparePostpartumText:
+      'Kan vare längere, intensiveres och kräve professionel stötte.',
+    section5Kicker: 'VÄR OPMÄRKSOM',
+    section5Title: 'Hvornår skal du bede om hjälp?',
+    section5Body:
+      'Det ar vigtigt at tale med en halsasprofessionel, hvis det fölelsesmässige ubehag inte bedres, bliver mere intenst eller begynder at göre hverdagen svärere.',
+    attentionTitle: 'Advarselstegn at holde öje med',
+    attentionSubtitle: 'Tal med en professionel, hvis…',
+    attentionSigns: [
+      'Symtomne varer mere end to veckor.',
+      'Tristhed eller angst bliver mere intens.',
+      'Det bliver svärt at tage vare på dig selv eller din baby.',
+      'En stärk fölelse av nöd opstår.',
+    ],
+    professionalTitle: 'Stötte ar tilgängelig',
+    professionalText:
+      'En jordemoder, läge, psykolog eller anden halsasprofessionel kan lytte, vurdere situationen och tilbyde passende stötte.',
+    tipTitle: 'Godt at vide',
+    tipText:
+      'Dine fölelser efter födslen ar inte et mål for, hvor god en mor du ar. Du har ret till at have brug for hvile, at blive lyttet till och at få stötte.',
+    section6Kicker: 'VIGTIGE PUNKTER',
+    section6Title: 'Vigtigste pointer',
+    takeaways: [
+      'Baby blues ar hyppigt efter en födsel.',
+      'Träthed och hormonelle ändringer kan påvirke humöret.',
+      'Stötte fran dem omkring dig kan göre denne periode lettere.',
+      'Vedvarende eller betydeligt ubehag fortjener en professionel vurdering.',
+    ],
+    disclaimerText:
+      'Denne artikel ar till information och erstatter inte personlig medicinsk rådgivning. Hvis du ar i tvivl eller oplever betydeligt ubehag, så tal med en halsasprofessionel.',
+    endText: 'At tage vare på dig selv ar også en del av barselsperioden.',
+    shareTitle: 'Baby blues och fölelsesmässig halsa efter födslen',
+    shareMessage:
+      'Baby blues och fölelsesmässig halsa efter födslen — AWA\n\nEn guide till at forstå de fölelsesmässige forandringer, der ar almindelige efter en födsel.',
+  },
 } as const);
 
 /* -------------------------------------------------------------------------- */

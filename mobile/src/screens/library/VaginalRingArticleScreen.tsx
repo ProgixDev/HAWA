@@ -1267,6 +1267,276 @@ const CONTENT = withBrazilianPortuguese('VaginalRing', {
     tip2Text: 'যোনিপথের রিং অবিরাম হরমোন নির্গমনের সঙ্গে এমন একটি ব্যবহারের ছন্দ মিলিয়েছে, যাতে প্রতিদিন ডোজ নিতে হয় না। তবে জন্মনিয়ন্ত্রণ পদ্ধতি প্রত্যেকের প্রয়োজন অনুযায়ী বেছে নেওয়া উচিত এবং কোনো স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে আলোচনা করা উচিত।',
     shareMessage: 'জন্মনিয়ন্ত্রণের যোনিপথের রিং — AWA',
   },
+  da: {
+    badge: 'VAGINALRING',
+    title: 'Præventions-\nvaginalringen',
+    metaDuration: '5 min læsning',
+    metaType: 'Artikel',
+    metaLevel: 'Grundlæggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'En fleksibel ring, der bæres i tre uger ad gangen.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Hvordan ringen virker',
+      'Isætning og fjernelse',
+      'Hvad du bør vide',
+      'Vigtige pointer',
+    ],
+    body1: 'Ringen er lavet af et fleksibelt materiale, der frigiver en konstant lav dosis hormoner direkte i skeden, og den virker som prævention ligesom en kombinationspille.',
+    flowTitle: 'Hvordan det virker',
+    flowSteps: [
+      {
+        title: 'Ringen',
+        text: 'Placeres i skeden',
+      },
+      {
+        title: 'Hormoner',
+        text: 'Kontinuerlig frigivelse',
+      },
+      {
+        title: 'Beskyttelse',
+        text: 'Kontraceptiv effekt',
+      },
+    ],
+    body2: 'Du kan sætte den i selv; den sidder på plads i tre uger, derefter fjernes den for en uges pause, og i denne pause får du din menstruation.',
+    calendarTitle: 'En enkel rytme at følge',
+    weekLabelActive: 'Ring',
+    weekLabelPause: 'Pause',
+    legendActive: 'Uger med ring',
+    legendPause: 'Pauseuge',
+    tip1Title: 'Godt at vide',
+    tip1Text: 'Dens placering i skeden behøver ikke at være helt præcis for at virke, hvilket gør den nem at bruge.',
+    body3: 'Det er godt at kende et par praktiske aspekter ved ringen, inden du vælger den.',
+    careTips: [
+      {
+        title: 'Nem at bruge',
+        text: 'Du kan selv sætte den i og fjerne den.',
+      },
+      {
+        title: 'Regelmæssig rytme',
+        text: 'Den sidder normalt på plads i tre uger.',
+      },
+      {
+        title: 'Kontinuerlig effekt',
+        text: 'Hormoner frigives kontinuerligt i hele brugsperioden.',
+      },
+      {
+        title: 'Beskytter ikke mod STI',
+        text: 'Ekstra beskyttelse kan være nødvendig afhængigt af situationen.',
+      },
+    ],
+    checkListTitle: 'Gode vaner at følge',
+    practicalSteps: [
+      'Vask hænder inden isætning eller fjernelse',
+      'Vælg et tidspunkt, der er nemt at huske for at holde styr på planen',
+      'Tjek ind imellem at den stadig er på plads',
+      'Konsulter indlægssedlen, hvis den falder ud eller forskydes',
+    ],
+    alertTitle: 'Husk',
+    alertText: 'Hvis ringen falder ud eller har siddet forkert i lang tid, kan specifik vejledning være nødvendig. Konsulter altid indlægssedlen eller spørg en sundhedsprofessionel ved tvivl.',
+    summaryTitle: 'Vigtige pointer i 4 punkter',
+    summaryItems: [
+      {
+        title: 'Nem at indsætte',
+        text: 'Ringen kan sættes i og tages ud af dig selv.',
+      },
+      {
+        title: 'Ugentlig rytme',
+        text: 'Den følger normalt en tre-ugers cyklus efterfulgt af en uges pause.',
+      },
+      {
+        title: 'Lejlighedsvis kontrol',
+        text: 'At tjekke regelmæssigt at den er på plads hjælper dig med at bruge produktet trygt.',
+      },
+      {
+        title: 'Ingen STI-beskyttelse',
+        text: 'Passende beskyttelse kan være nødvendig afhængigt af situationen.',
+      },
+    ],
+    tip2Title: 'Vigtigste pointer',
+    tip2Text: 'Vaginalringen kombinerer kontinuerlig hormonudledning med en brugsrytme, der ikke kræver en daglig dosis. Dog bør præventionsmetoden vælges ud fra den enkeltes behov og drøftes med en sundhedsprofessionel.',
+    shareMessage: 'Præventionsvaginalringen — AWA',
+  },
+  da: {
+    badge: 'VAGINALRING',
+    title: 'Präventions-\nvaginalringen',
+    metaDuration: '5 min läsning',
+    metaType: 'Artikel',
+    metaLevel: 'Grundläggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'En fleksibel ring, der bäres i tre veckor ad gangen.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Hvordan ringen virker',
+      'Isätning och fjernelse',
+      'Hvad du bör vide',
+      'Vigtige pointer',
+    ],
+    body1: 'Ringen ar lavet av et fleksibelt materiale, der frigiver en konstant lav dosis hormoner direkte i skeden, och den virker som prävention ligesom en kombinationspille.',
+    flowTitle: 'Hvordan det virker',
+    flowSteps: [
+      {
+        title: 'Ringen',
+        text: 'Placeres i skeden',
+      },
+      {
+        title: 'Hormoner',
+        text: 'Kontinuerlig frigivelse',
+      },
+      {
+        title: 'Beskyttelse',
+        text: 'Kontraceptiv effekt',
+      },
+    ],
+    body2: 'Du kan sätte den i selv; den sidder på plads i tre veckor, derefter fjernes den for en uges pause, och i denne pause får du din menstruation.',
+    calendarTitle: 'En enkel rytme at fölge',
+    weekLabelActive: 'Ring',
+    weekLabelPause: 'Pause',
+    legendActive: 'Uger med ring',
+    legendPause: 'Pauseuge',
+    tip1Title: 'Godt at vide',
+    tip1Text: 'Dens placering i skeden behöver inte at väre helt präcis for att virke, hvilket gör den nem at bruge.',
+    body3: 'Det ar godt at kende et par praktiske aspekter ved ringen, inden du välger den.',
+    careTips: [
+      {
+        title: 'Nem at bruge',
+        text: 'Du kan selv sätte den i och fjerne den.',
+      },
+      {
+        title: 'Regelmässig rytme',
+        text: 'Den sidder normalt på plads i tre veckor.',
+      },
+      {
+        title: 'Kontinuerlig effekt',
+        text: 'Hormoner frigives kontinuerligt i hele brugsperioden.',
+      },
+      {
+        title: 'Beskytter inte mod STI',
+        text: 'Ekstra beskyttelse kan väre nödvendig afhängigt av situationen.',
+      },
+    ],
+    checkListTitle: 'Gode vaner at fölge',
+    practicalSteps: [
+      'Vask händer inden isätning eller fjernelse',
+      'Välg et tidspunkt, der ar nemt at huske for att holde styr på planen',
+      'Tjek ind imellem at den fortfarande ar på plads',
+      'Konsulter indlägssedlen, hvis den falder ud eller forskydes',
+    ],
+    alertTitle: 'Husk',
+    alertText: 'Hvis ringen falder ud eller har siddet forkert i lang tid, kan specifik vejledning väre nödvendig. Konsulter alltid indlägssedlen eller spörg en halsasprofessionel ved tvivl.',
+    summaryTitle: 'Vigtige pointer i 4 punkter',
+    summaryItems: [
+      {
+        title: 'Nem at indsätte',
+        text: 'Ringen kan sättes i och tages ud av dig selv.',
+      },
+      {
+        title: 'Ugentlig rytme',
+        text: 'Den fölger normalt en tre-ugers cyklus efterfulgt av en uges pause.',
+      },
+      {
+        title: 'Lejlighedsvis kontrol',
+        text: 'At tjekke regelmässigt at den ar på plads hjälper dig med at bruge produktet trygt.',
+      },
+      {
+        title: 'Ingen STI-beskyttelse',
+        text: 'Passende beskyttelse kan väre nödvendig afhängigt av situationen.',
+      },
+    ],
+    tip2Title: 'Vigtigste pointer',
+    tip2Text: 'Vaginalringen kombinerer kontinuerlig hormonudledning med en brugsrytme, der inte kräver en daglig dosis. Dog bör präventionsmetoden välges ud fran den enkeltes behov och dröftes med en halsasprofessionel.',
+    shareMessage: 'Präventionsvaginalringen — AWA',
+  },
+  sv: {
+    badge: 'VAGINALRING',
+    title: 'Präventions-\nvaginalringen',
+    metaDuration: '5 min läsning',
+    metaType: 'Artikel',
+    metaLevel: 'Grundläggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'En fleksibel ring, der bäres i tre veckor ad gangen.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Hvordan ringen virker',
+      'Isätning och fjernelse',
+      'Hvad du bör vide',
+      'Vigtige pointer',
+    ],
+    body1: 'Ringen ar lavet av et fleksibelt materiale, der frigiver en konstant lav dosis hormoner direkte i skeden, och den virker som prävention ligesom en kombinationspille.',
+    flowTitle: 'Hvordan det virker',
+    flowSteps: [
+      {
+        title: 'Ringen',
+        text: 'Placeres i skeden',
+      },
+      {
+        title: 'Hormoner',
+        text: 'Kontinuerlig frigivelse',
+      },
+      {
+        title: 'Beskyttelse',
+        text: 'Kontraceptiv effekt',
+      },
+    ],
+    body2: 'Du kan sätte den i selv; den sidder på plads i tre veckor, derefter fjernes den for en uges pause, och i denne pause får du din menstruation.',
+    calendarTitle: 'En enkel rytme at fölge',
+    weekLabelActive: 'Ring',
+    weekLabelPause: 'Pause',
+    legendActive: 'Uger med ring',
+    legendPause: 'Pauseuge',
+    tip1Title: 'Godt at vide',
+    tip1Text: 'Dens placering i skeden behöver inte at väre helt präcis for att virke, hvilket gör den nem at bruge.',
+    body3: 'Det ar godt at kende et par praktiske aspekter ved ringen, inden du välger den.',
+    careTips: [
+      {
+        title: 'Nem at bruge',
+        text: 'Du kan selv sätte den i och fjerne den.',
+      },
+      {
+        title: 'Regelmässig rytme',
+        text: 'Den sidder normalt på plads i tre veckor.',
+      },
+      {
+        title: 'Kontinuerlig effekt',
+        text: 'Hormoner frigives kontinuerligt i hele brugsperioden.',
+      },
+      {
+        title: 'Beskytter inte mod STI',
+        text: 'Ekstra beskyttelse kan väre nödvendig afhängigt av situationen.',
+      },
+    ],
+    checkListTitle: 'Gode vaner at fölge',
+    practicalSteps: [
+      'Vask händer inden isätning eller fjernelse',
+      'Välg et tidspunkt, der ar nemt at huske for att holde styr på planen',
+      'Tjek ind imellem at den fortfarande ar på plads',
+      'Konsulter indlägssedlen, hvis den falder ud eller forskydes',
+    ],
+    alertTitle: 'Husk',
+    alertText: 'Hvis ringen falder ud eller har siddet forkert i lang tid, kan specifik vejledning väre nödvendig. Konsulter alltid indlägssedlen eller spörg en halsasprofessionel ved tvivl.',
+    summaryTitle: 'Vigtige pointer i 4 punkter',
+    summaryItems: [
+      {
+        title: 'Nem at indsätte',
+        text: 'Ringen kan sättes i och tages ud av dig selv.',
+      },
+      {
+        title: 'Ugentlig rytme',
+        text: 'Den fölger normalt en tre-ugers cyklus efterfulgt av en uges pause.',
+      },
+      {
+        title: 'Lejlighedsvis kontrol',
+        text: 'At tjekke regelmässigt at den ar på plads hjälper dig med at bruge produktet trygt.',
+      },
+      {
+        title: 'Ingen STI-beskyttelse',
+        text: 'Passende beskyttelse kan väre nödvendig afhängigt av situationen.',
+      },
+    ],
+    tip2Title: 'Vigtigste pointer',
+    tip2Text: 'Vaginalringen kombinerer kontinuerlig hormonudledning med en brugsrytme, der inte kräver en daglig dosis. Dog bör präventionsmetoden välges ud fran den enkeltes behov och dröftes med en halsasprofessionel.',
+    shareMessage: 'Präventionsvaginalringen — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

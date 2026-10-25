@@ -654,6 +654,141 @@ const CONTENT = withBrazilianPortuguese('FirstPeriod', {
     shareTitle: 'প্রথম মাসিক · AWA',
     shareMessage: 'আপনার প্রথম মাসিক: কী আশা করবেন · AWA',
   },
+  da: {
+    badge: 'FØRSTE MENSTRUATION',
+    title: 'Din første menstruation:\nhvad du kan forvente',
+    metaDuration: '5 min læsning',
+    metaType: 'Guide',
+    metaLevel: 'Grundlæggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Hvad der er normalt, hvad der er beroligende, og hvad du bør vide.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Hvornår kommer din første menstruation?',
+      'Hvad er normalt',
+      'Hvordan det fungerer',
+      'At tage vare på sig selv',
+      'At tale og få støtte',
+    ],
+    details: [
+      {
+        title: 'Hvornår kommer din første menstruation?',
+        text: 'Det sker oftest mellem 10 og 15 år, cirka to år efter de første tegn på puberteten.',
+      },
+      {
+        title: 'Hvad der er helt normalt',
+        text: 'I starten kan cyklussen være uregelmæssig, kortere eller længere. Din krop tager bare tid til at finde sin rytme.',
+      },
+      {
+        title: 'At forstå hvordan det fungerer',
+        text: 'Menstruationen varer typisk 3 til 7 dage. Blødningsmængden og farven kan variere fra dag til dag.',
+      },
+      {
+        title: 'At tage vare på sig selv',
+        text: 'Skift beskyttelse regelmæssigt, vask dig forsigtigt, og vælg komfortable tøj, så du føler dig godt tilpas.',
+      },
+      {
+        title: 'At tale og få støtte',
+        text: 'Du kan tale med din mor, søster, en nær person, en lærer eller en betroet sundhedsprofessionel.',
+      },
+    ],
+    tip1Title: 'Godt at vide',
+    tip1Text: 'En uregelmæssig cyklus i starten er helt normalt. Din krop er stadig ved at lære at finde sin rytme.',
+    tip2Title: 'Du er ikke alene',
+    tip2Text: 'Enhver krop er unik. Giv dig selv tid, vær tålmodig, og tøv ikke med at bede om hjælp fra en du stoler på.',
+    shareTitle: 'Første menstruation · AWA',
+    shareMessage: 'Din første menstruation: hvad du kan forvente · AWA',
+  },
+  da: {
+    badge: 'FÖRSTE MENSTRUATION',
+    title: 'Din förste menstruation:\nhvad du kan forvente',
+    metaDuration: '5 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Grundläggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Hvad der ar normalt, hvad der ar beroligende, och hvad du bör vide.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Hvornår kommer din förste menstruation?',
+      'Hvad ar normalt',
+      'Hvordan det fungerer',
+      'At tage vare på sig selv',
+      'At tale och få stötte',
+    ],
+    details: [
+      {
+        title: 'Hvornår kommer din förste menstruation?',
+        text: 'Det sker oftest mellem 10 och 15 år, cirka to år efter de förste tegn på puberteten.',
+      },
+      {
+        title: 'Hvad der ar helt normalt',
+        text: 'I starten kan cyklussen väre uregelmässig, kortere eller längere. Din krop tager bare tid till at finde sin rytme.',
+      },
+      {
+        title: 'At forstå hvordan det fungerer',
+        text: 'Menstruationen varer typisk 3 till 7 dagar. Blödningsmängden och farven kan variere fran dag till dag.',
+      },
+      {
+        title: 'At tage vare på sig selv',
+        text: 'Skift beskyttelse regelmässigt, vask dig forsigtigt, och välg komfortable töj, så du föler dig godt tilpas.',
+      },
+      {
+        title: 'At tale och få stötte',
+        text: 'Du kan tale med din mor, söster, en när person, en lärer eller en betroet halsasprofessionel.',
+      },
+    ],
+    tip1Title: 'Godt at vide',
+    tip1Text: 'En uregelmässig cyklus i starten ar helt normalt. Din krop ar fortfarande ved at läre at finde sin rytme.',
+    tip2Title: 'Du ar inte alene',
+    tip2Text: 'Enhver krop ar unik. Giv dig selv tid, vär tålmodig, och töv inte med at bede om hjälp fran en du stoler på.',
+    shareTitle: 'Förste menstruation · AWA',
+    shareMessage: 'Din förste menstruation: hvad du kan forvente · AWA',
+  },
+  sv: {
+    badge: 'FÖRSTE MENSTRUATION',
+    title: 'Din förste menstruation:\nhvad du kan forvente',
+    metaDuration: '5 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Grundläggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Hvad der ar normalt, hvad der ar beroligende, och hvad du bör vide.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Hvornår kommer din förste menstruation?',
+      'Hvad ar normalt',
+      'Hvordan det fungerer',
+      'At tage vare på sig selv',
+      'At tale och få stötte',
+    ],
+    details: [
+      {
+        title: 'Hvornår kommer din förste menstruation?',
+        text: 'Det sker oftest mellem 10 och 15 år, cirka to år efter de förste tegn på puberteten.',
+      },
+      {
+        title: 'Hvad der ar helt normalt',
+        text: 'I starten kan cyklussen väre uregelmässig, kortere eller längere. Din krop tager bare tid till at finde sin rytme.',
+      },
+      {
+        title: 'At forstå hvordan det fungerer',
+        text: 'Menstruationen varer typisk 3 till 7 dagar. Blödningsmängden och farven kan variere fran dag till dag.',
+      },
+      {
+        title: 'At tage vare på sig selv',
+        text: 'Skift beskyttelse regelmässigt, vask dig forsigtigt, och välg komfortable töj, så du föler dig godt tilpas.',
+      },
+      {
+        title: 'At tale och få stötte',
+        text: 'Du kan tale med din mor, söster, en när person, en lärer eller en betroet halsasprofessionel.',
+      },
+    ],
+    tip1Title: 'Godt at vide',
+    tip1Text: 'En uregelmässig cyklus i starten ar helt normalt. Din krop ar fortfarande ved at läre at finde sin rytme.',
+    tip2Title: 'Du ar inte alene',
+    tip2Text: 'Enhver krop ar unik. Giv dig selv tid, vär tålmodig, och töv inte med at bede om hjälp fran en du stoler på.',
+    shareTitle: 'Förste menstruation · AWA',
+    shareMessage: 'Din förste menstruation: hvad du kan forvente · AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

@@ -869,6 +869,198 @@ const CONTENT = withBrazilianPortuguese('ReligiousFaqAfterLoss', {
     finalText: 'নিজের যত্ন নেওয়া, সহায়তা চাওয়া এবং আশা ধরে রাখা ধীরে ধীরে শান্তির পথে এগিয়ে যেতে সাহায্য করতে পারে।',
     shareMessage: 'ক্ষতির পর আধ্যাত্মিক দিকনির্দেশনা — AWA',
   },
+  da: {
+    badge: 'ÅNDELIG VEJLEDNING',
+    title: 'Åndelig vejledning\nefter et tab',
+    metaDuration: '5 min læsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaEducational: 'Uddannelsesindhold',
+    intro:
+      'Nogle åndelige holdepunkter, der kan hjælpe dig med at bære et tab med blødhed, tålmodighed og medfølelse.',
+    disclaimerTitle: 'Vigtig information',
+    disclaimerText:
+      'Dette indhold er uddannelsesmæssigt. Specifikke religiøse spørgsmål bør verificeres med en kvalificeret lærde. AWA udsteder ikke personlige fatwas.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'En anerkendt prøvelse',
+      'En status der afhænger af situationen',
+      'Tålmodighed og håb',
+      'Nogle holdepunkter til at komme videre',
+    ],
+    section1H2: '1. En anerkendt prøvelse',
+    section1Body1:
+      'Et graviditetstab kan være en dybt smertefuld prøvelse. Sorg, stilhed, forvirring eller behovet for at trække sig tilbage er naturlige menneskelige reaktioner.',
+    section1Body2:
+      'At mærke disse følelser betyder ikke, at man mangler tro. Hver kvinde kan gennemleve sin sorg i sit eget tempo.',
+    visual1Title: 'At rumme dine følelser',
+    visual1Body: 'Sorg • behov for hvile • stilhed • støtte',
+    section2H2: '2. En status der kan variere afhængigt af situationen',
+    section2Body1:
+      'Efter et tab kan religiøse regler afhænge af situationen og blødningens karakter.',
+    section2Body2:
+      'Det kan især være nødvendigt at skelne mellem forskellige typer blødning, inden man fastlægger, hvilke religiøse praksisser der skal følges.',
+    schemaTitle: 'Det generelle princip',
+    schemaLabel1: 'Situation',
+    schemaLabel2: 'Blødningens karakter',
+    schemaLabel3: 'Tilpasset vejledning',
+    doubtTipTitle: 'Ved tvivl',
+    doubtTipText:
+      'En personlig situation kan kræve et andet svar. Det er bedst at søge råd hos en kvalificeret person.',
+    section3H2: '3. Tålmodighed og håb',
+    section3Body1:
+      'Tålmodighed (sabr) betyder ikke, at man ikke må græde eller ikke føle smerte. Det kan blot ledsage rejsen med tro og håb.',
+    section3Body2:
+      'Små handlinger kan gradvist hjælpe med at genoprette en følelse af ro: en bøn (du\'a), et øjeblik med dhikr, åndelig lytning eller nærvær fra en man holder af.',
+    spiritual1: 'Du\'a',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Støtte',
+    retainTipTitle: 'Husk',
+    retainTipText:
+      'Heling tager tid. Der er ingen universel hastighed for at komme igennem et tab.',
+    section4H2: '4. Nogle holdepunkter til at komme videre',
+    section4Body:
+      'Der er ikke brug for at gøre alt på én gang. Vælg det, der passer til, hvordan du har det, og hvad du har brug for lige nu.',
+    gentleSteps: [
+      'Tag dig tid til at gennemleve din sorg',
+      'Omgiv dig med omsorgsfulde mennesker',
+      'Hold fast i små åndelige praksisser, hvis de giver trøst',
+      'Søg råd ved specifikke religiøse spørgsmål',
+      'Søg støtte, hvis sorgen bliver for tung at bære',
+    ],
+    finalTitle: 'En vej i dit eget tempo',
+    finalText:
+      'At tage vare på dig selv, søge støtte og holde fast i håbet kan gradvist hjælpe dig på vejen mod ro og fred.',
+    shareMessage: 'Åndelig vejledning efter et tab — AWA',
+  },
+  da: {
+    badge: 'ÅNDELIG VEJLEDNING',
+    title: 'Åndelig vejledning\nefter et tab',
+    metaDuration: '5 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaEducational: 'Uddannelsesindhold',
+    intro:
+      'Nogle åndelige holdepunkter, der kan hjälpe dig med at bäre et tab med blödhed, tålmodighed och medfölelse.',
+    disclaimerTitle: 'Vigtig information',
+    disclaimerText:
+      'Dette indhold ar uddannelsesmässigt. Specifikke religiöse spörgsmål bör verificeres med en kvalificeret lärde. AWA udsteder inte personlige fatwas.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'En anerkendt prövelse',
+      'En status der afhänger av situationen',
+      'Tålmodighed och håb',
+      'Nogle holdepunkter till at komme videre',
+    ],
+    section1H2: '1. En anerkendt prövelse',
+    section1Body1:
+      'Et graviditetstab kan väre en dybt smertefuld prövelse. Sorg, stilhed, forvirring eller behovet for att träkke sig tilbage ar naturlige menneskelige reaktioner.',
+    section1Body2:
+      'At märke disse fölelser betyder inte, at man mangler tro. Hver kvinna kan gennemleve sin sorg i sit eget tempo.',
+    visual1Title: 'At rumme dina fölelser',
+    visual1Body: 'Sorg • behov for hvile • stilhed • stötte',
+    section2H2: '2. En status der kan variere afhängigt av situationen',
+    section2Body1:
+      'Efter et tab kan religiöse regler afhänge av situationen och blödningens karakter.',
+    section2Body2:
+      'Det kan isär väre nödvendigt at skelne mellem forskellige typer blödning, inden man fastlägger, hvilke religiöse praksisser der skal fölges.',
+    schemaTitle: 'Det generelle princip',
+    schemaLabel1: 'Situation',
+    schemaLabel2: 'Blödningens karakter',
+    schemaLabel3: 'Tilpasset vejledning',
+    doubtTipTitle: 'Ved tvivl',
+    doubtTipText:
+      'En personlig situation kan kräve et andet svar. Det ar bedst at söge råd hos en kvalificeret person.',
+    section3H2: '3. Tålmodighed och håb',
+    section3Body1:
+      'Tålmodighed (sabr) betyder inte, at man inte må gräde eller inte föle smerte. Det kan blot ledsage rejsen med tro och håb.',
+    section3Body2:
+      'Små handlinger kan gradvist hjälpe med at genoprette en fölelse av ro: en bön (du\'a), et öjeblik med dhikr, åndelig lytning eller närvär fran en man holder av.',
+    spiritual1: 'Du\'a',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Stötte',
+    retainTipTitle: 'Husk',
+    retainTipText:
+      'Heling tager tid. Der ar ingen universel hastighed for att komme igennem et tab.',
+    section4H2: '4. Nogle holdepunkter till at komme videre',
+    section4Body:
+      'Der ar inte brug for att göre alt på én gang. Välg det, der passer till, hvordan du har det, och hvad du har brug for lige nu.',
+    gentleSteps: [
+      'Tag dig tid till at gennemleve din sorg',
+      'Omgiv dig med omsorgsfulde mennesker',
+      'Hold fast i små åndelige praksisser, hvis de giver tröst',
+      'Sög råd ved specifikke religiöse spörgsmål',
+      'Sög stötte, hvis sorgen bliver for tung at bäre',
+    ],
+    finalTitle: 'En vej i ditt eget tempo',
+    finalText:
+      'At tage vare på dig selv, söge stötte och holde fast i håbet kan gradvist hjälpe dig på vejen mod ro och fred.',
+    shareMessage: 'Åndelig vejledning efter et tab — AWA',
+  },
+  sv: {
+    badge: 'ÅNDELIG VEJLEDNING',
+    title: 'Åndelig vejledning\nefter et tab',
+    metaDuration: '5 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaEducational: 'Uddannelsesindhold',
+    intro:
+      'Nogle åndelige holdepunkter, der kan hjälpe dig med at bäre et tab med blödhed, tålmodighed och medfölelse.',
+    disclaimerTitle: 'Vigtig information',
+    disclaimerText:
+      'Dette indhold ar uddannelsesmässigt. Specifikke religiöse spörgsmål bör verificeres med en kvalificeret lärde. AWA udsteder inte personlige fatwas.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'En anerkendt prövelse',
+      'En status der afhänger av situationen',
+      'Tålmodighed och håb',
+      'Nogle holdepunkter till at komme videre',
+    ],
+    section1H2: '1. En anerkendt prövelse',
+    section1Body1:
+      'Et graviditetstab kan väre en dybt smertefuld prövelse. Sorg, stilhed, forvirring eller behovet for att träkke sig tilbage ar naturlige menneskelige reaktioner.',
+    section1Body2:
+      'At märke disse fölelser betyder inte, at man mangler tro. Hver kvinna kan gennemleve sin sorg i sit eget tempo.',
+    visual1Title: 'At rumme dina fölelser',
+    visual1Body: 'Sorg • behov for hvile • stilhed • stötte',
+    section2H2: '2. En status der kan variere afhängigt av situationen',
+    section2Body1:
+      'Efter et tab kan religiöse regler afhänge av situationen och blödningens karakter.',
+    section2Body2:
+      'Det kan isär väre nödvendigt at skelne mellem forskellige typer blödning, inden man fastlägger, hvilke religiöse praksisser der skal fölges.',
+    schemaTitle: 'Det generelle princip',
+    schemaLabel1: 'Situation',
+    schemaLabel2: 'Blödningens karakter',
+    schemaLabel3: 'Tilpasset vejledning',
+    doubtTipTitle: 'Ved tvivl',
+    doubtTipText:
+      'En personlig situation kan kräve et andet svar. Det ar bedst at söge råd hos en kvalificeret person.',
+    section3H2: '3. Tålmodighed och håb',
+    section3Body1:
+      'Tålmodighed (sabr) betyder inte, at man inte må gräde eller inte föle smerte. Det kan blot ledsage rejsen med tro och håb.',
+    section3Body2:
+      'Små handlinger kan gradvist hjälpe med at genoprette en fölelse av ro: en bön (du\'a), et öjeblik med dhikr, åndelig lytning eller närvär fran en man holder av.',
+    spiritual1: 'Du\'a',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Stötte',
+    retainTipTitle: 'Husk',
+    retainTipText:
+      'Heling tager tid. Der ar ingen universel hastighed for att komme igennem et tab.',
+    section4H2: '4. Nogle holdepunkter till at komme videre',
+    section4Body:
+      'Der ar inte brug for att göre alt på én gang. Välg det, der passer till, hvordan du har det, och hvad du har brug for lige nu.',
+    gentleSteps: [
+      'Tag dig tid till at gennemleve din sorg',
+      'Omgiv dig med omsorgsfulde mennesker',
+      'Hold fast i små åndelige praksisser, hvis de giver tröst',
+      'Sög råd ved specifikke religiöse spörgsmål',
+      'Sög stötte, hvis sorgen bliver for tung at bäre',
+    ],
+    finalTitle: 'En vej i ditt eget tempo',
+    finalText:
+      'At tage vare på dig selv, söge stötte och holde fast i håbet kan gradvist hjälpe dig på vejen mod ro och fred.',
+    shareMessage: 'Åndelig vejledning efter et tab — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

@@ -1392,6 +1392,321 @@ const CONTENT = withBrazilianPortuguese('FlowColorsTextures', {
     ],
     shareMessage: 'মাসিকের রক্তক্ষরণ: রং ও গঠন বোঝা — AWA',
   },
+  da: {
+    badge: 'CYKLUS OG VELVÆRE',
+    title: 'Menstruationsblødning:\nforstå farver og konsistens',
+    metaDuration: '4 min læsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Farven og konsistensen af din menstruation fortæller meget om dit hormonelle helbred. Lær at læse dem for bedre at forstå din cyklus.',
+    contentsTitle: 'I denne artikel',
+    contents: [
+      'Menstruationsblødningens farver',
+      'Blødningens konsistens',
+      'Hvad hver farve kan betyde',
+      'Hvornår skal du bekymre dig?',
+      'Vores tips til bedre at kende dig selv',
+    ],
+    colors: [
+      {
+        name: 'Klar rød',
+        text: 'Frisk blødning, nyt blod. Normalt i starten af menstruationen.',
+      },
+      {
+        name: 'Mørk rød',
+        text: 'Ældre blod, normalt midt i cyklussen.',
+      },
+      {
+        name: 'Brun',
+        text: 'Oxideret blod, ses ofte mod slutningen af menstruationen.',
+      },
+      {
+        name: 'Lyserød',
+        text: 'Kan indikere let blødning eller hormonelle forandringer.',
+      },
+      {
+        name: 'Orange',
+        text: 'Kan være forbundet med infektion eller ubalance.',
+      },
+    ],
+    textures: [
+      {
+        name: 'Flydende',
+        text: 'Tynd blødning uden klumper.',
+      },
+      {
+        name: 'Cremet',
+        text: 'Tyk, glat konsistens.',
+      },
+      {
+        name: 'Blodklumper',
+        text: 'Små eller store blodklumper.',
+      },
+      {
+        name: 'Trådformet / slim',
+        text: 'Strækker sig, gennemsigtig eller hvidlig.',
+      },
+      {
+        name: 'Vævsstykker',
+        text: 'Stykker af væv eller slimhinde.',
+      },
+    ],
+    meanings: [
+      {
+        name: 'Klar til mørk rød',
+        text: 'Normal cyklus. Din krop støder livmoderslimlinden af.',
+      },
+      {
+        name: 'Brun',
+        text: 'Gammelt blod, intet at bekymre sig om.',
+      },
+      {
+        name: 'Lyserød',
+        text: 'Kan forekomme i starten/slutningen af menstruationen eller ved hormonel ubalance.',
+      },
+      {
+        name: 'Orange',
+        text: 'Vær opmærksom, hvis der er kraftig lugt, kløe eller smerter.',
+      },
+    ],
+    warningTitle: 'Tegn du bør holde øje med',
+    warningItems: [
+      'Meget kraftig blødning (skal skifte bind/tampon hver 1–2 time)',
+      'Regelmæssigt meget store blodklumper',
+      'Vedvarende ubehagelig lugt eller kløe',
+      'Usædvanligt stærke smerter',
+    ],
+    advice: [
+      {
+        title: 'Observer din blødning',
+        text: 'Notér enhver forandring fra måned til måned.',
+      },
+      {
+        title: 'Vælg den rette beskyttelse',
+        text: 'Tilpasset mængden af din blødning og din komfort.',
+      },
+      {
+        title: 'Lyt til din krop',
+        text: 'Den sender dig værdifulde signaler.',
+      },
+      {
+        title: 'Hvis du er i tvivl',
+        text: 'Tal med en sundhedsfaglig person.',
+      },
+    ],
+    shareMessage: 'Menstruationsblødning: forstå farver og konsistens — AWA',
+  },
+  da: {
+    badge: 'CYKLUS OG VELVÄRE',
+    title: 'Menstruationsblödning:\nforstå farver och konsistens',
+    metaDuration: '4 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Farven och konsistensen av din menstruation fortäller mycket om ditt hormonelle helbred. Lär at läse dem for bedre at forstå din cyklus.',
+    contentsTitle: 'I denne artikel',
+    contents: [
+      'Menstruationsblödningens farver',
+      'Blödningens konsistens',
+      'Hvad hver farve kan betyde',
+      'Hvornår skal du bekymre dig?',
+      'Vores tips till bedre at kende dig selv',
+    ],
+    colors: [
+      {
+        name: 'Klar röd',
+        text: 'Frisk blödning, nyt blod. Normalt i starten av menstruationen.',
+      },
+      {
+        name: 'Mörk röd',
+        text: 'Äldre blod, normalt midt i cyklussen.',
+      },
+      {
+        name: 'Brun',
+        text: 'Oxideret blod, ses ofta mod slutningen av menstruationen.',
+      },
+      {
+        name: 'Lyseröd',
+        text: 'Kan indikere let blödning eller hormonelle forandringer.',
+      },
+      {
+        name: 'Orange',
+        text: 'Kan väre forbundet med infektion eller ubalance.',
+      },
+    ],
+    textures: [
+      {
+        name: 'Flydende',
+        text: 'Tynd blödning uden klumper.',
+      },
+      {
+        name: 'Cremet',
+        text: 'Tyk, glat konsistens.',
+      },
+      {
+        name: 'Blodklumper',
+        text: 'Små eller store blodklumper.',
+      },
+      {
+        name: 'Trådformet / slim',
+        text: 'Sträkker sig, gennemsigtig eller hvidlig.',
+      },
+      {
+        name: 'Vävsstykker',
+        text: 'Stykker av väv eller slimhinde.',
+      },
+    ],
+    meanings: [
+      {
+        name: 'Klar till mörk röd',
+        text: 'Normal cyklus. Din krop stöder livmoderslimlinden av.',
+      },
+      {
+        name: 'Brun',
+        text: 'Gammelt blod, intet at bekymre sig om.',
+      },
+      {
+        name: 'Lyseröd',
+        text: 'Kan forekomme i starten/slutningen av menstruationen eller ved hormonel ubalance.',
+      },
+      {
+        name: 'Orange',
+        text: 'Vär opmärksom, hvis der ar kraftig lugt, klöe eller smerter.',
+      },
+    ],
+    warningTitle: 'Tegn du bör holde öje med',
+    warningItems: [
+      'Meget kraftig blödning (skal skifte bind/tampon hver 1–2 time)',
+      'Regelmässigt mycket store blodklumper',
+      'Vedvarende ubehagelig lugt eller klöe',
+      'Usädvanligt stärke smerter',
+    ],
+    advice: [
+      {
+        title: 'Observer din blödning',
+        text: 'Notér enhver forandring fran måned till måned.',
+      },
+      {
+        title: 'Välg den rette beskyttelse',
+        text: 'Tilpasset mängden av din blödning och din komfort.',
+      },
+      {
+        title: 'Lyt till din krop',
+        text: 'Den sender dig värdifulde signaler.',
+      },
+      {
+        title: 'Hvis du ar i tvivl',
+        text: 'Tal med en halsasfaglig person.',
+      },
+    ],
+    shareMessage: 'Menstruationsblödning: forstå farver och konsistens — AWA',
+  },
+  sv: {
+    badge: 'CYKLUS OG VELVÄRE',
+    title: 'Menstruationsblödning:\nforstå farver och konsistens',
+    metaDuration: '4 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Farven och konsistensen av din menstruation fortäller mycket om ditt hormonelle helbred. Lär at läse dem for bedre at forstå din cyklus.',
+    contentsTitle: 'I denne artikel',
+    contents: [
+      'Menstruationsblödningens farver',
+      'Blödningens konsistens',
+      'Hvad hver farve kan betyde',
+      'Hvornår skal du bekymre dig?',
+      'Vores tips till bedre at kende dig selv',
+    ],
+    colors: [
+      {
+        name: 'Klar röd',
+        text: 'Frisk blödning, nyt blod. Normalt i starten av menstruationen.',
+      },
+      {
+        name: 'Mörk röd',
+        text: 'Äldre blod, normalt midt i cyklussen.',
+      },
+      {
+        name: 'Brun',
+        text: 'Oxideret blod, ses ofta mod slutningen av menstruationen.',
+      },
+      {
+        name: 'Lyseröd',
+        text: 'Kan indikere let blödning eller hormonelle forandringer.',
+      },
+      {
+        name: 'Orange',
+        text: 'Kan väre forbundet med infektion eller ubalance.',
+      },
+    ],
+    textures: [
+      {
+        name: 'Flydende',
+        text: 'Tynd blödning uden klumper.',
+      },
+      {
+        name: 'Cremet',
+        text: 'Tyk, glat konsistens.',
+      },
+      {
+        name: 'Blodklumper',
+        text: 'Små eller store blodklumper.',
+      },
+      {
+        name: 'Trådformet / slim',
+        text: 'Sträkker sig, gennemsigtig eller hvidlig.',
+      },
+      {
+        name: 'Vävsstykker',
+        text: 'Stykker av väv eller slimhinde.',
+      },
+    ],
+    meanings: [
+      {
+        name: 'Klar till mörk röd',
+        text: 'Normal cyklus. Din krop stöder livmoderslimlinden av.',
+      },
+      {
+        name: 'Brun',
+        text: 'Gammelt blod, intet at bekymre sig om.',
+      },
+      {
+        name: 'Lyseröd',
+        text: 'Kan forekomme i starten/slutningen av menstruationen eller ved hormonel ubalance.',
+      },
+      {
+        name: 'Orange',
+        text: 'Vär opmärksom, hvis der ar kraftig lugt, klöe eller smerter.',
+      },
+    ],
+    warningTitle: 'Tegn du bör holde öje med',
+    warningItems: [
+      'Meget kraftig blödning (skal skifte bind/tampon hver 1–2 time)',
+      'Regelmässigt mycket store blodklumper',
+      'Vedvarende ubehagelig lugt eller klöe',
+      'Usädvanligt stärke smerter',
+    ],
+    advice: [
+      {
+        title: 'Observer din blödning',
+        text: 'Notér enhver forandring fran måned till måned.',
+      },
+      {
+        title: 'Välg den rette beskyttelse',
+        text: 'Tilpasset mängden av din blödning och din komfort.',
+      },
+      {
+        title: 'Lyt till din krop',
+        text: 'Den sender dig värdifulde signaler.',
+      },
+      {
+        title: 'Hvis du ar i tvivl',
+        text: 'Tal med en halsasfaglig person.',
+      },
+    ],
+    shareMessage: 'Menstruationsblödning: forstå farver och konsistens — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<

@@ -1037,6 +1037,231 @@ const CONTENT = withBrazilianPortuguese('MenopauseTransition', {
     tip3Text: 'মেনোপজ-পূর্ব পর্যায় ও মেনোপজ প্রাকৃতিক ধাপ, কোনো অসুখ নয়। এই উত্তরণ আরও স্বাচ্ছন্দ্যে পার করতে সাহায্য করার মতো অনেক সমাধান আছে: সেগুলো আপনার অবস্থার সঙ্গে মানিয়ে নিতে স্বাস্থ্যসেবা পেশাজীবীই সবচেয়ে ভালো সহায়ক।',
     shareMessage: 'মেনোপজে উত্তরণ বোঝা — AWA',
   },
+  da: {
+    badge: 'PERIMENOPAUSE & MENOPAUSE',
+    title: 'Forstå overgangsalderen',
+    metaDuration: '10 min læsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemset indhold',
+    intro:
+      'Hvad der gradvist ændrer sig i de år, der går, inden menstruationen ophører, og hvordan du kan møde denne fase med mere klarhed.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Perimenopause og menopause: definitioner',
+      'Stadig mere uregelmæssige cyklusser',
+      'Søvn og humør',
+      'Intimliv og vaginal tørhed',
+      'Vægt og stofskifte',
+      'Myter om menopause',
+      'Normale symptomer og tegn at holde øje med',
+      'Praktiske hverdagstips',
+      'Hvad du kan tage med dig',
+    ],
+    h1: '1. Perimenopause og menopause: definitioner',
+    body1a:
+      'Perimenopause betegner den hormonelle overgangsperiode, der går forud for menopausen: den kan begynde flere år tidligere, typisk fra 40-årsalderen, hvor østrogenniveauet svinger uregelmæssigt.',
+    body1b:
+      'Menopause er derimod et bestemt tidspunkt: det bekræftes efter 12 sammenhængende måneder uden menstruation og uden anden årsag. Det sker gennemsnitligt omkring 51-årsalderen, men dette tidspunkt varierer naturligt fra kvinde til kvinde.',
+    tip1Title: 'Godt at vide',
+    tip1Text:
+      'Alle kvinder oplever denne overgang forskelligt – både i varighed og i intensiteten af symptomerne. At tale åbent om det hjælper dig med at forberede dig bedre.',
+    h2: '2. Stadig mere uregelmæssige cyklusser',
+    body2:
+      'Et af de første tegn på perimenopause er ofte en ændring i cyklussens rytme: den kan blive kortere, længere, mere spredt eller have et forskelligt blødningsmønster fra måned til måned.',
+    alert1Title: 'Bemærk',
+    alert1Text:
+      'Meget kraftige blødninger, blødninger tæt på hinanden eller blødning efter et år uden menstruation kræver lægelig vurdering, da disse ikke betragtes som normale tegn på overgangen.',
+    h3: '3. Søvn og humør',
+    body3a:
+      'Fald og udsving i østrogen og progesteron kan forstyrre søvnen (indsovningsbesvær, natlige opvågninger) og ledsages af irritabilitet, angst eller usædvanlige humørsvingninger.',
+    body3b:
+      'Disse ændringer har en reel biologisk forklaring: de afspejler hverken manglende viljestyrke eller et isoleret psykologisk problem.',
+    h4: '4. Intimliv og vaginal tørhed',
+    body4:
+      'Faldet i østrogen kan føre til vaginal tørhed, som sommetider giver ubehag eller smerter ved samleje. Lysten kan også ændre sig – op eller ned – afhængigt af den enkelte kvinde.',
+    tip2Title: 'Godt at vide',
+    tip2Text:
+      'Der findes enkle løsninger (glidecreme, vaginale fugtighedsprodukter, lokalbehandling): at tale med en sundhedsprofessionel hjælper dig med at finde den rette løsning – uden tabu.',
+    h5: '5. Vægt og stofskifte',
+    body5:
+      'Stofskiftet kan bremses en smule i denne periode, og fedtfordelingen har tendens til at flytte sig mod maven. Disse ændringer er almindelige og afhænger ikke udelukkende af viljestyrke.',
+    h6: '6. Myter om menopause',
+    myths: [
+      'Menopausen "sker pludseligt" – i virkeligheden går der flere år med overgang (perimenopause) forud',
+      'Alle har kraftige symptomer – intensiteten varierer enormt fra kvinde til kvinde',
+      'Der er intet at gøre – der findes mange løsninger, hormonelle eller ej, til at lindre generende symptomer',
+      'Intimlivet er forbi – det ændrer sig, men er fuldt muligt og tilfredsstillende med de rette tilpasninger',
+    ],
+    h7: '7. Normale symptomer og tegn at holde øje med',
+    body7:
+      'Langt de fleste ændringer beskrevet her er normale udtryk for overgangen. Visse tegn kræver dog hurtig lægelig opmærksomhed.',
+    alert2Title: 'Gå til læge hvis',
+    alert2Text:
+      'Blødning efter bekræftet menopause, usædvanlige bækkensmerter, symptomer der markant forstyrrer dagliglivet, eller vedvarende tvivl.',
+    h8: '8. Praktiske hverdagstips',
+    dailyHabits: [
+      'En kost rig på calcium og kostfibre',
+      'Regelmæssig fysisk aktivitet',
+      'En stabil søvnrutine',
+      'Daglige øjeblikke med afslapning',
+    ],
+    h9: '9. Hvad du kan tage med dig',
+    tip3Title: 'Godt at vide',
+    tip3Text:
+      'Perimenopause og menopause er naturlige faser, ikke sygdomme. Der findes mange løsninger til at gøre denne overgang mere behagelig: en sundhedsprofessionel er den bedste samtalepartner til at tilpasse dem til din situation.',
+    shareMessage: 'Forstå overgangsalderen — AWA',
+  },
+  da: {
+    badge: 'PERIMENOPAUSE & MENOPAUSE',
+    title: 'Forstå overgangsalderen',
+    metaDuration: '10 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemset indhold',
+    intro:
+      'Hvad der gradvist ändrer sig i de år, der går, inden menstruationen ophörer, och hvordan du kan möde denne fase med mere klarhed.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Perimenopause och menopause: definitioner',
+      'Stadig mere uregelmässige cyklusser',
+      'Sövn och humör',
+      'Intimliv och vaginal törhed',
+      'Vägt och stofskifte',
+      'Myter om menopause',
+      'Normale symtom och tegn at holde öje med',
+      'Praktiske hverdagstips',
+      'Hvad du kan tage med dig',
+    ],
+    h1: '1. Perimenopause och menopause: definitioner',
+    body1a:
+      'Perimenopause betegner den hormonelle overgangsperiode, der går forud for menopausen: den kan begynde flere år tidligere, typisk fran 40-årsalderen, hvor östrogenniveauet svinger uregelmässigt.',
+    body1b:
+      'Menopause ar derimod et bestemt tidspunkt: det bekräftes efter 12 sammenhängende måneder uden menstruation och uden anden årsag. Det sker gennemsnitligt omkring 51-årsalderen, men dette tidspunkt varierer naturligt fran kvinna till kvinde.',
+    tip1Title: 'Godt at vide',
+    tip1Text:
+      'Alla kvinnor oplever denne overgang forskelligt – både i varighed och i intensiteten av symtomne. At tale åbent om det hjälper dig med at forberede dig bedre.',
+    h2: '2. Stadig mere uregelmässige cyklusser',
+    body2:
+      'Et av de förste tegn på perimenopause ar ofta en ändring i cyklussens rytme: den kan blive kortere, längere, mere spredt eller have et forskelligt blödningsmönster fran måned till måned.',
+    alert1Title: 'Bemärk',
+    alert1Text:
+      'Meget kraftige blödninger, blödninger tät på hinanden eller blödning efter et år uden menstruation kräver lägelig vurdering, da disse inte betragtes som normale tegn på overgangen.',
+    h3: '3. Sövn och humör',
+    body3a:
+      'Fald och udsving i östrogen och progesteron kan forstyrre sövnen (indsovningsbesvär, natlige opvågninger) och ledsages av irritabilitet, angst eller usädvanlige humörsvingninger.',
+    body3b:
+      'Disse ändringer har en reel biologisk forklaring: de afspejler hverken manglende viljestyrke eller et isoleret psykologisk problem.',
+    h4: '4. Intimliv och vaginal törhed',
+    body4:
+      'Faldet i östrogen kan före till vaginal törhed, som sommetider giver ubehag eller smartor ved samleje. Lysten kan også ändre sig – op eller ned – afhängigt av den enkelte kvinde.',
+    tip2Title: 'Godt at vide',
+    tip2Text:
+      'Der findes enkle lösninger (glidecreme, vaginale fugtighedsprodukter, lokalbehandling): at tale med en halsasprofessionel hjälper dig med at finde den rette lösning – uden tabu.',
+    h5: '5. Vägt och stofskifte',
+    body5:
+      'Stofskiftet kan bremses en smule i denne periode, och fedtfordelingen har tendens till at flytte sig mod maven. Disse ändringer ar almindelige och afhänger inte udelukkende av viljestyrke.',
+    h6: '6. Myter om menopause',
+    myths: [
+      'Menopausen "sker pludseligt" – i virkeligheden går der flere år med overgang (perimenopause) forud',
+      'Alla har kraftige symtom – intensiteten varierer enormt fran kvinna till kvinde',
+      'Der ar intet at göre – der findes mange lösninger, hormonelle eller ej, till at lindre generende symtom',
+      'Intimlivet ar forbi – det ändrer sig, men ar fuldt muligt och tilfredsstillende med de rette tilpasninger',
+    ],
+    h7: '7. Normale symtom och tegn at holde öje med',
+    body7:
+      'Langt de fleste ändringer beskrevet her ar normale udtryk for overgangen. Visse tegn kräver dog hurtig lägelig opmärksomhed.',
+    alert2Title: 'Gå till läge hvis',
+    alert2Text:
+      'Blödning efter bekräftet menopause, usädvanlige bäkkensmerter, symtom der markant forstyrrer dagliglivet, eller vedvarende tvivl.',
+    h8: '8. Praktiske hverdagstips',
+    dailyHabits: [
+      'En kost rig på calcium och kostfibre',
+      'Regelmässig fysisk aktivitet',
+      'En stabil sövnrutine',
+      'Daglige öjeblikke med afslapning',
+    ],
+    h9: '9. Hvad du kan tage med dig',
+    tip3Title: 'Godt at vide',
+    tip3Text:
+      'Perimenopause och menopause ar naturlige faser, inte sygdomme. Der findes mange lösninger till at göre denne overgang mere behagelig: en halsasprofessionel ar den bedste samtalepartner till at tilpasse dem till din situation.',
+    shareMessage: 'Forstå overgangsalderen — AWA',
+  },
+  sv: {
+    badge: 'PERIMENOPAUSE & MENOPAUSE',
+    title: 'Forstå overgangsalderen',
+    metaDuration: '10 min läsning',
+    metaType: 'Guide',
+    metaLevel: 'Begynder',
+    metaValidated: 'Gennemset indhold',
+    intro:
+      'Hvad der gradvist ändrer sig i de år, der går, inden menstruationen ophörer, och hvordan du kan möde denne fase med mere klarhed.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Perimenopause och menopause: definitioner',
+      'Stadig mere uregelmässige cyklusser',
+      'Sövn och humör',
+      'Intimliv och vaginal törhed',
+      'Vägt och stofskifte',
+      'Myter om menopause',
+      'Normale symtom och tegn at holde öje med',
+      'Praktiske hverdagstips',
+      'Hvad du kan tage med dig',
+    ],
+    h1: '1. Perimenopause och menopause: definitioner',
+    body1a:
+      'Perimenopause betegner den hormonelle overgangsperiode, der går forud for menopausen: den kan begynde flere år tidligere, typisk fran 40-årsalderen, hvor östrogenniveauet svinger uregelmässigt.',
+    body1b:
+      'Menopause ar derimod et bestemt tidspunkt: det bekräftes efter 12 sammenhängende måneder uden menstruation och uden anden årsag. Det sker gennemsnitligt omkring 51-årsalderen, men dette tidspunkt varierer naturligt fran kvinna till kvinde.',
+    tip1Title: 'Godt at vide',
+    tip1Text:
+      'Alla kvinnor oplever denne overgang forskelligt – både i varighed och i intensiteten av symtomne. At tale åbent om det hjälper dig med at forberede dig bedre.',
+    h2: '2. Stadig mere uregelmässige cyklusser',
+    body2:
+      'Et av de förste tegn på perimenopause ar ofta en ändring i cyklussens rytme: den kan blive kortere, längere, mere spredt eller have et forskelligt blödningsmönster fran måned till måned.',
+    alert1Title: 'Bemärk',
+    alert1Text:
+      'Meget kraftige blödninger, blödninger tät på hinanden eller blödning efter et år uden menstruation kräver lägelig vurdering, da disse inte betragtes som normale tegn på overgangen.',
+    h3: '3. Sövn och humör',
+    body3a:
+      'Fald och udsving i östrogen och progesteron kan forstyrre sövnen (indsovningsbesvär, natlige opvågninger) och ledsages av irritabilitet, angst eller usädvanlige humörsvingninger.',
+    body3b:
+      'Disse ändringer har en reel biologisk forklaring: de afspejler hverken manglende viljestyrke eller et isoleret psykologisk problem.',
+    h4: '4. Intimliv och vaginal törhed',
+    body4:
+      'Faldet i östrogen kan före till vaginal törhed, som sommetider giver ubehag eller smartor ved samleje. Lysten kan også ändre sig – op eller ned – afhängigt av den enkelte kvinde.',
+    tip2Title: 'Godt at vide',
+    tip2Text:
+      'Der findes enkle lösninger (glidecreme, vaginale fugtighedsprodukter, lokalbehandling): at tale med en halsasprofessionel hjälper dig med at finde den rette lösning – uden tabu.',
+    h5: '5. Vägt och stofskifte',
+    body5:
+      'Stofskiftet kan bremses en smule i denne periode, och fedtfordelingen har tendens till at flytte sig mod maven. Disse ändringer ar almindelige och afhänger inte udelukkende av viljestyrke.',
+    h6: '6. Myter om menopause',
+    myths: [
+      'Menopausen "sker pludseligt" – i virkeligheden går der flere år med overgang (perimenopause) forud',
+      'Alla har kraftige symtom – intensiteten varierer enormt fran kvinna till kvinde',
+      'Der ar intet at göre – der findes mange lösninger, hormonelle eller ej, till at lindre generende symtom',
+      'Intimlivet ar forbi – det ändrer sig, men ar fuldt muligt och tilfredsstillende med de rette tilpasninger',
+    ],
+    h7: '7. Normale symtom och tegn at holde öje med',
+    body7:
+      'Langt de fleste ändringer beskrevet her ar normale udtryk for overgangen. Visse tegn kräver dog hurtig lägelig opmärksomhed.',
+    alert2Title: 'Gå till läge hvis',
+    alert2Text:
+      'Blödning efter bekräftet menopause, usädvanlige bäkkensmerter, symtom der markant forstyrrer dagliglivet, eller vedvarende tvivl.',
+    h8: '8. Praktiske hverdagstips',
+    dailyHabits: [
+      'En kost rig på calcium och kostfibre',
+      'Regelmässig fysisk aktivitet',
+      'En stabil sövnrutine',
+      'Daglige öjeblikke med afslapning',
+    ],
+    h9: '9. Hvad du kan tage med dig',
+    tip3Title: 'Godt at vide',
+    tip3Text:
+      'Perimenopause och menopause ar naturlige faser, inte sygdomme. Der findes mange lösninger till at göre denne overgang mere behagelig: en halsasprofessionel ar den bedste samtalepartner till at tilpasse dem till din situation.',
+    shareMessage: 'Forstå overgangsalderen — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

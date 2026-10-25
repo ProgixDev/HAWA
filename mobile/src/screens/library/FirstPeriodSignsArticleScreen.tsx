@@ -834,6 +834,183 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     ],
     shareMessage: 'প্রথম মাসিকের আগাম লক্ষণ — AWA',
   },
+  da: {
+    badge: 'FØRSTE MENSTRUATION',
+    title: 'Tidlige tegn på\nden første menstruation',
+    metaDuration: '5 min læsning',
+    metaType: 'Artikel',
+    metaLevel: 'Grundlæggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Inden din første menstruation begynder, giver kroppen ofte nogle signaler. At genkende dem kan mindske overraskelsen.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Gradvise forandringer',
+      'Tegn du bør holde øje med',
+      'Hvad det betyder',
+    ],
+    body1: 'I de måneder, der går forud for den første menstruation, begynder din krop gradvist at ændre sig: kroppen former sig, nye steder begynder at få hår, og svedningsmønsteret ændres. Dette er normale pubertetstegn, der forsigtigt forbereder din krop.',
+    tip1Title: 'Godt at vide',
+    tip1Text: 'Disse forandringer sker ikke på samme tidspunkt eller i samme tempo for alle: det er helt normalt.',
+    signs: [
+      {
+        title: 'Kropsforandringer',
+        text: 'Din krop forandrer sig gradvist: kropsform, hårvækst og svedningsmønster kan alle ændre sig.',
+      },
+      {
+        title: 'Vaginal udflåd',
+        text: 'Let, hvidlig udflåd opstår ofte et par måneder inden den første menstruation.',
+      },
+      {
+        title: 'Smerter eller stikken',
+        text: 'Du kan mærke let trækken eller stikken i den nedre del af maven.',
+      },
+      {
+        title: 'Humørsvingninger',
+        text: 'At føle sig mere følsom eller irritabel end normalt er meget almindeligt.',
+      },
+      {
+        title: 'Ømhed i brysterne',
+        text: 'Du kan opleve let ømhed eller hævelse i brysterne.',
+      },
+    ],
+    body2: 'Disse tegn indikerer generelt, at din første menstruation sandsynligvis vil komme inden for de næste par måneder, men det er ikke muligt at forudsige den nøjagtige dato på forhånd. Det er en god vane at have beskyttelse ved hånden i denne periode.',
+    alertTitle: 'Bemærk',
+    alertText: 'Disse tegn er generelle vejledende informationer, aldrig præcise forudsigelser. Enhver krop bevæger sig i sit eget tempo.',
+    relatedTitle: '♥  Du vil måske også synes om',
+    related: [
+      {
+        title: 'Din første menstruation: hvad du kan forvente',
+        meta: '5 min  ·  Guide',
+      },
+      {
+        title: 'Hvordan ved jeg, om min første menstruation er på vej?',
+        meta: '5 min  ·  Guide',
+      },
+      {
+        title: 'Menstruationscyklussens faser',
+        meta: '5 min  ·  Artikel',
+      },
+    ],
+    shareMessage: 'Tidlige tegn på den første menstruation — AWA',
+  },
+  da: {
+    badge: 'FÖRSTE MENSTRUATION',
+    title: 'Tidlige tegn på\nden förste menstruation',
+    metaDuration: '5 min läsning',
+    metaType: 'Artikel',
+    metaLevel: 'Grundläggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Inden din förste menstruation begynder, giver kroppen ofta nogle signaler. At genkende dem kan mindske overraskelsen.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Gradvise forandringer',
+      'Tegn du bör holde öje med',
+      'Hvad det betyder',
+    ],
+    body1: 'I de måneder, der går forud for den förste menstruation, begynder din krop gradvist at ändre sig: kroppen former sig, nye steder begynder at få hår, och svedningsmönsteret ändres. Dette ar normale pubertetstegn, der forsigtigt forbereder din krop.',
+    tip1Title: 'Godt at vide',
+    tip1Text: 'Disse forandringer sker inte på samme tidspunkt eller i samme tempo for alle: det ar helt normalt.',
+    signs: [
+      {
+        title: 'Kropsforandringer',
+        text: 'Din krop forandrer sig gradvist: kropsform, hårväkst och svedningsmönster kan alla ändre sig.',
+      },
+      {
+        title: 'Vaginal udflåd',
+        text: 'Let, hvidlig udflåd opstår ofta et par måneder inden den förste menstruation.',
+      },
+      {
+        title: 'Smerter eller stikken',
+        text: 'Du kan märke let träkken eller stikken i den nedre del av maven.',
+      },
+      {
+        title: 'Humörsvingninger',
+        text: 'At föle sig mere fölsom eller irritabel end normalt ar mycket almindeligt.',
+      },
+      {
+        title: 'Ömhed i brysterne',
+        text: 'Du kan opleve let ömhed eller hävelse i brysterne.',
+      },
+    ],
+    body2: 'Disse tegn indikerer generelt, at din förste menstruation sandsynligvis vil komme inden for de näste par måneder, men det ar inte muligt at forudsige den nöjagtige dato på forhånd. Det ar en god vane at have beskyttelse ved hånden i denne periode.',
+    alertTitle: 'Bemärk',
+    alertText: 'Disse tegn ar generelle vejledende informationer, aldrig präcise forudsigelser. Enhver krop beväger sig i sit eget tempo.',
+    relatedTitle: '♥  Du vil måske også synes om',
+    related: [
+      {
+        title: 'Din förste menstruation: hvad du kan forvente',
+        meta: '5 min  ·  Guide',
+      },
+      {
+        title: 'Hvordan ved jeg, om min förste menstruation ar på vej?',
+        meta: '5 min  ·  Guide',
+      },
+      {
+        title: 'Menstruationscyklussens faser',
+        meta: '5 min  ·  Artikel',
+      },
+    ],
+    shareMessage: 'Tidlige tegn på den förste menstruation — AWA',
+  },
+  sv: {
+    badge: 'FÖRSTE MENSTRUATION',
+    title: 'Tidlige tegn på\nden förste menstruation',
+    metaDuration: '5 min läsning',
+    metaType: 'Artikel',
+    metaLevel: 'Grundläggende',
+    metaValidated: 'Gennemgået indhold',
+    intro: 'Inden din förste menstruation begynder, giver kroppen ofta nogle signaler. At genkende dem kan mindske overraskelsen.',
+    contentsTitle: 'I denne artikel',
+    topics: [
+      'Gradvise forandringer',
+      'Tegn du bör holde öje med',
+      'Hvad det betyder',
+    ],
+    body1: 'I de måneder, der går forud for den förste menstruation, begynder din krop gradvist at ändre sig: kroppen former sig, nye steder begynder at få hår, och svedningsmönsteret ändres. Dette ar normale pubertetstegn, der forsigtigt forbereder din krop.',
+    tip1Title: 'Godt at vide',
+    tip1Text: 'Disse forandringer sker inte på samme tidspunkt eller i samme tempo for alle: det ar helt normalt.',
+    signs: [
+      {
+        title: 'Kropsforandringer',
+        text: 'Din krop forandrer sig gradvist: kropsform, hårväkst och svedningsmönster kan alla ändre sig.',
+      },
+      {
+        title: 'Vaginal udflåd',
+        text: 'Let, hvidlig udflåd opstår ofta et par måneder inden den förste menstruation.',
+      },
+      {
+        title: 'Smerter eller stikken',
+        text: 'Du kan märke let träkken eller stikken i den nedre del av maven.',
+      },
+      {
+        title: 'Humörsvingninger',
+        text: 'At föle sig mere fölsom eller irritabel end normalt ar mycket almindeligt.',
+      },
+      {
+        title: 'Ömhed i brysterne',
+        text: 'Du kan opleve let ömhed eller hävelse i brysterne.',
+      },
+    ],
+    body2: 'Disse tegn indikerer generelt, at din förste menstruation sandsynligvis vil komme inden for de näste par måneder, men det ar inte muligt at forudsige den nöjagtige dato på forhånd. Det ar en god vane at have beskyttelse ved hånden i denne periode.',
+    alertTitle: 'Bemärk',
+    alertText: 'Disse tegn ar generelle vejledende informationer, aldrig präcise forudsigelser. Enhver krop beväger sig i sit eget tempo.',
+    relatedTitle: '♥  Du vil måske også synes om',
+    related: [
+      {
+        title: 'Din förste menstruation: hvad du kan forvente',
+        meta: '5 min  ·  Guide',
+      },
+      {
+        title: 'Hvordan ved jeg, om min förste menstruation ar på vej?',
+        meta: '5 min  ·  Guide',
+      },
+      {
+        title: 'Menstruationscyklussens faser',
+        meta: '5 min  ·  Artikel',
+      },
+    ],
+    shareMessage: 'Tidlige tegn på den förste menstruation — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
