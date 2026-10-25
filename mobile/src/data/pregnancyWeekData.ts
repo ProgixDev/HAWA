@@ -119,6 +119,8 @@ type PregnancyWeekEntry = {
     ko: PregnancyWeekEditorialContent;
     'pt-PT': PregnancyWeekEditorialContent;
     bn: PregnancyWeekEditorialContent;
+    da: PregnancyWeekEditorialContent;
+    sv?: PregnancyWeekEditorialContent;
   };
 };
 
@@ -285,6 +287,27 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'এই পর্যায়ে কোনো পরিবর্তন টের না পাওয়া সাধারণ ব্যাপার।',
         ],
       },
+      da: {
+        babyDescription: 'Graviditeten dateres fra den første dag i din sidste menstruation, per medicinsk konvention. På dette stadie er befrugtningen generelt endnu ikke sket.',
+        bodyChanges: [
+          'Denne periode foregår normalt inden undfangelsen; der er som regel endnu ingen graviditetsrelaterede fysiske forandringer.',
+        ],
+        toKnow: [
+          'At tælle graviditeten fra den sidste menstruation giver en standardiseret måde at beregne en termindato på, selvom undfangelsen faktisk sker lidt senere.',
+          'Det er normalt ikke at mærke nogen forandring på dette stadie.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Graviditeten dateres fran den förste dag i din sidste menstruation, per medicinsk konvention. På dette stadie ar befrugtningen generelt endnu inte sket.',
+        bodyChanges: [
+          'Denne periode foregår normalt inden undfangelsen; der ar som regel endnu ingen graviditetsrelaterede fysiske forandringer.',
+        ],
+        toKnow: [
+          'At tälle graviditeten fran den sidste menstruation giver en standardiseret måde at beregne en termindato på, selvom undfangelsen faktisk sker lidt senere.',
+          'Det ar normalt inte at märke nogen forandring på dette stadie.',
+        ],
+      },
+
     },
   },
   {
@@ -441,6 +464,27 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'ডিম্বস্ফোটনের সঠিক সময় এক ব্যক্তি থেকে অন্য ব্যক্তিতে ভিন্ন হয়, তাই এই সময়কালটি একটি অনুমানই থেকে যায়।',
         ],
       },
+      da: {
+        babyDescription: 'Ægløsning og mulig befrugtning sker normalt på dette tidspunkt, afhængigt af den enkeltes cykluslængde.',
+        bodyChanges: [
+          'Tidspunktet for ægløsning kan variere afhængigt af cykluslængden, hvilket påvirker den faktiske mulige dato for undfangelse.',
+          'Der er generelt endnu ingen graviditetsspecifikke fysiske forandringer på dette stadie.',
+        ],
+        toKnow: [
+          'Det nøjagtige tidspunkt for ægløsning varierer fra person til person, og derfor er denne periode stadig et skøn.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Äglösning och mulig befrugtning sker normalt på dette tidspunkt, afhängigt av den enkeltes cykluslängde.',
+        bodyChanges: [
+          'Tidspunktet for äglösning kan variere afhängigt av cykluslängden, hvilket påvirker den faktiske mulige dato for undfangelse.',
+          'Der ar generelt endnu ingen graviditetsspecifikke fysiske forandringer på dette stadie.',
+        ],
+        toKnow: [
+          'Det nöjagtige tidspunkt for äglösning varierer fran person till person, och derfor ar denne periode fortfarande et skön.',
+        ],
+      },
+
     },
   },
   {
@@ -582,6 +626,25 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'বেশিরভাগ প্রস্রাব-ভিত্তিক গর্ভাবস্থা পরীক্ষা পরবর্তী সপ্তাহ থেকে, অর্থাৎ ভ্রূণ জরায়ুতে বসতে শুরু করার পর, নির্ভরযোগ্য হয়।',
         ],
       },
+      da: {
+        babyDescription: 'Hvis befrugtning er sket, begynder ægget at dele sig og bevæge sig mod livmoderen, men intet kan endnu detekteres af en graviditetstest.',
+        bodyChanges: [
+          'Denne uge falder stadig inden for den medicinske dateringsperiode omkring undfangelsen; der kan generelt ikke mærkes nogen fysiske tegn på dette stadie.',
+        ],
+        toKnow: [
+          'De fleste urinbaserede graviditetstests bliver pålidelige fra og med den følgende uge, når implantationen er begyndt.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Hvis befrugtning ar sket, begynder ägget at dele sig och beväge sig mod livmoderen, men intet kan endnu detekteres av en graviditetstest.',
+        bodyChanges: [
+          'Denne vecka falder fortfarande inden for den medicinske dateringsperiode omkring undfangelsen; der kan generelt inte märkes nogen fysiske tegn på dette stadie.',
+        ],
+        toKnow: [
+          'De fleste urinbaserede graviditetstests bliver pålidelige fran och med den fölgende uge, når implantationen ar begyndt.',
+        ],
+      },
+
     },
   },
 
@@ -774,6 +837,31 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'সাধারণত এই সময় থেকেই গর্ভাবস্থা পরীক্ষার ফল পজিটিভ আসতে শুরু করতে পারে।',
         ],
       },
+      da: {
+        babyDescription: 'Fosteret er netop implanteret i livmodervæggen. Fostervandsposen og blommesækken, som vil ernære det i de allerførste dage, dannes.',
+        length: 'Ca. 2 mm',
+        comparison: 'Valmuefrø',
+        bodyChanges: [
+          'Nogle mærker endnu intet tegn på dette meget tidlige stadie.',
+          'En urinbaseret graviditetstest kan generelt påvise graviditet fra denne uge.',
+        ],
+        toKnow: [
+          'Det er det sædvanlige tidspunkt, hvor en graviditetstest kan begynde at vise et positivt resultat.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Fosteret ar netop implanteret i livmoderväggen. Fostervandsposen och blommesäkken, som vil ernäre det i de allerförste dage, dannes.',
+        length: 'Ca. 2 mm',
+        comparison: 'Valmuefrö',
+        bodyChanges: [
+          'Nogle märker endnu intet tegn på dette mycket tidlige stadie.',
+          'En urinbaseret graviditetstest kan generelt påvise graviditet fran denne uge.',
+        ],
+        toKnow: [
+          'Det ar det sädvanlige tidspunkt, hvor en graviditetstest kan begynde at vise et positivt resultat.',
+        ],
+      },
+
     },
   },
   {
@@ -943,6 +1031,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'গর্ভাবস্থার যত্ন শুরু করার জন্য স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে অ্যাপয়েন্টমেন্ট নেওয়ার জন্য এটি উপযুক্ত সময়।',
         ],
       },
+      da: {
+        babyDescription: 'Nervesystemet begynder at dannes, og hjertet, stadig lille, er ved at slå for første gang.',
+        length: 'Ca. 2 mm',
+        comparison: 'Sesamfrø',
+        bodyChanges: [
+          'Usædvanlig træthed, let kvalme eller ømme bryster kan begynde at optræde.',
+        ],
+        toKnow: [
+          'Det er det anbefalede tidspunkt at bestille en tid hos en sundhedsprofessionel for at starte graviditetsforløbet.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Nervesystemet begynder at dannes, och hjertet, fortfarande lille, ar ved at slå for förste gang.',
+        length: 'Ca. 2 mm',
+        comparison: 'Sesamfrö',
+        bodyChanges: [
+          'Usädvanlig träthed, let kvalme eller ömme bryster kan begynde at opträde.',
+        ],
+        toKnow: [
+          'Det ar det anbefalede tidspunkt at bestille en tid hos en sundhedsprofessionel for at starte graviditetsforlöbet.',
+        ],
+      },
+
     },
   },
   {
@@ -1112,6 +1223,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'প্রাথমিক আলট্রাসাউন্ডে কখনও কখনও এই সপ্তাহ থেকেই হৃৎস্পন্দন দেখা যেতে পারে।',
         ],
       },
+      da: {
+        babyDescription: 'Arm- og benknopper dukker op, og der ses små fordybninger, hvor ørerne vil dannes. Hjerteaktivitet kan sommetimes allerede detekteres ved en ultralyd.',
+        length: 'Ca. 6 mm',
+        comparison: 'Ært',
+        bodyChanges: [
+          'Kvalme og træthed kan tiltage for nogle i denne periode.',
+        ],
+        toKnow: [
+          'Hjerteaktivitet kan sommetimes ses allerede i denne uge ved en tidlig ultralyd.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Arm- och benknopper dukker op, och der ses små fordybninger, hvor örerne vil dannes. Hjerteaktivitet kan sommetimes redan detekteres ved en ultralyd.',
+        length: 'Ca. 6 mm',
+        comparison: 'Ärt',
+        bodyChanges: [
+          'Kvalme och träthed kan tiltage for nogle i denne periode.',
+        ],
+        toKnow: [
+          'Hjerteaktivitet kan sommetimes ses redan i denne vecka ved en tidlig ultralyd.',
+        ],
+      },
+
     },
   },
   {
@@ -1281,6 +1415,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'যে নিউরাল টিউব থেকে মস্তিষ্ক ও মেরুদণ্ড তৈরি হয়, এই সপ্তাহগুলোতে তা বন্ধ হওয়ার প্রক্রিয়া চলতে থাকে।',
         ],
       },
+      da: {
+        babyDescription: 'Hjernen udvikles hurtigere end resten af kroppen, hvilket giver en fremtrædende pande. Små håndknopper begynder at dukke op i enden af armene.',
+        length: 'Ca. 10 mm',
+        comparison: 'Vindrue',
+        bodyChanges: [
+          'Særlige madtrang, eller omvendt aversioner mod bestemte fødevarer, er mulige.',
+        ],
+        toKnow: [
+          'Neuralrøret, som giver anledning til hjerne og rygmarv, fortsætter med at lukke sig i disse uger.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Hjernen udvikles hurtigere end resten av kroppen, hvilket giver en fremträdende pande. Små håndknopper begynder at dukke op i enden av armene.',
+        length: 'Ca. 10 mm',
+        comparison: 'Vindrue',
+        bodyChanges: [
+          'Särlige madtrang, eller omvendt aversioner mod bestemte födevarer, ar mulige.',
+        ],
+        toKnow: [
+          'Neuralröret, som giver anledning till hjerne och rygmarv, fortsätter med at lukke sig i disse veckor.',
+        ],
+      },
+
     },
   },
 
@@ -1452,6 +1609,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'গর্ভকাল নির্ণয়ের প্রথম আলট্রাসাউন্ড সাধারণত 8ম থেকে 14তম সপ্তাহের মধ্যে করার সময় নির্ধারণ করা হয়।',
         ],
       },
+      da: {
+        babyDescription: 'Fosteret kaldes nu et foster. Armene strækker sig, hovedet begynder at rette sig lidt op, og moderkagen fortsætter med at dannes.',
+        length: 'Ca. 16 mm',
+        comparison: 'Hindbær',
+        bodyChanges: [
+          'Lugtfølsomhed og morgenkvalme er almindelige på dette stadie, men ikke universelle.',
+        ],
+        toKnow: [
+          'Den første dateringsultralyd planlægges generelt mellem uge 8 og uge 14.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Fosteret kaldes nu et foster. Armene sträkker sig, hovedet begynder at rette sig lidt op, och moderkagen fortsätter med at dannes.',
+        length: 'Ca. 16 mm',
+        comparison: 'Hindbär',
+        bodyChanges: [
+          'Lugtfölsomhed och morgenkvalme ar almindelige på dette stadie, men inte universelle.',
+        ],
+        toKnow: [
+          'Den förste dateringsultralyd planlägges generelt mellem vecka 8 och vecka 14.',
+        ],
+      },
+
     },
   },
   {
@@ -1621,6 +1801,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'যৌনাঙ্গ আলাদা হতে সবে শুরু করেছে, কিন্তু শিশুর লিঙ্গ সাধারণত অনেক পরে, অ্যানাটমি আলট্রাসাউন্ডের আগে শনাক্ত করা যায় না।',
         ],
       },
+      da: {
+        babyDescription: 'Ansigtstrækkene bliver mere tydelige, øjenlågene beskytter øjnene, og hænder og fødder tager form med de kommende fingre og tæer.',
+        length: 'Ca. 22 mm',
+        comparison: 'Jordbær',
+        bodyChanges: [
+          'Udtalt træthed og kvalme kan stadig forekomme; de aftager ofte mod slutningen af første trimester.',
+        ],
+        toKnow: [
+          'Kønsorganerne er netop ved at differentiere sig, men kønnet kan generelt ikke bestemmes før meget senere ved anatomiultralyd.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Ansigtsträkkene bliver mere tydelige, öjenlågene beskytter öjnene, och händer och födder tager form med de kommende fingre och täer.',
+        length: 'Ca. 22 mm',
+        comparison: 'Jordbär',
+        bodyChanges: [
+          'Udtalt träthed och kvalme kan fortfarande forekomme; de aftager ofte mod slutningen av förste trimester.',
+        ],
+        toKnow: [
+          'Könsorganerne ar netop ved at differentiere sig, men könnet kan generelt inte bestemmes för mycket senere ved anatomiultralyd.',
+        ],
+      },
+
     },
   },
   {
@@ -1790,6 +1993,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'প্রথম ত্রৈমাসিকের সম্মিলিত স্ক্রিনিং, দেওয়া হলে, সাধারণত 11তম থেকে 14তম সপ্তাহের মধ্যে করা হয়।',
         ],
       },
+      da: {
+        babyDescription: 'Ansigtet bliver mere genkendeligt, øjenlågene reagerer på lys, og hjertet slår hurtigt – ca. tre gange hurtigere end en voksens.',
+        length: 'Ca. 30 mm',
+        comparison: 'Lille abrikos',
+        bodyChanges: [
+          'Dit taljemål kan begynde at ændre sig lidt, selvom maven generelt ikke er synlig endnu.',
+        ],
+        toKnow: [
+          'Kombineret første-trimester-screening, når det tilbydes, foretages generelt mellem uge 11 og uge 14.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Ansigtet bliver mere genkendeligt, öjenlågene reagerer på lys, och hjertet slår hurtigt – ca. tre gange hurtigere end en voksens.',
+        length: 'Ca. 30 mm',
+        comparison: 'Lille abrikos',
+        bodyChanges: [
+          'Dit taljemål kan begynde at ändre sig lidt, selvom maven generelt inte ar synlig endnu.',
+        ],
+        toKnow: [
+          'Kombineret förste-trimester-screening, når det tilbydes, foretages generelt mellem vecka 11 och vecka 14.',
+        ],
+      },
+
     },
   },
   {
@@ -1959,6 +2185,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'শিশুর নড়াচড়া শুরু হয়েছে, কিন্তু এই পর্যায়ে সাধারণত তা এখনও অনুভব করা যায় না।',
         ],
       },
+      da: {
+        babyDescription: 'Fingre og tæer adskilles, små negle dukker op, og moderkagen overtager gradvist blommesækkens funktion som ernæringskilde for fosteret.',
+        length: 'Ca. 41 mm',
+        comparison: 'Figen',
+        bodyChanges: [
+          'Du kan opleve humørsvingninger, der i særdeleshed er forbundet med hormonelle forandringer.',
+        ],
+        toKnow: [
+          'Fosterets bevægelser er begyndt, men de kan generelt ikke mærkes på dette stadie endnu.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Fingre och täer adskilles, små negle dukker op, och moderkagen overtager gradvist blommesäkkens funktion som ernäringskilde for fosteret.',
+        length: 'Ca. 41 mm',
+        comparison: 'Figen',
+        bodyChanges: [
+          'Du kan opleve humörsvingninger, der i särdeleshed ar forbundet med hormonelle forandringer.',
+        ],
+        toKnow: [
+          'Fosterets bevägelser ar begyndt, men de kan generelt inte märkes på dette stadie endnu.',
+        ],
+      },
+
     },
   },
   {
@@ -2128,6 +2377,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'প্রথম ত্রৈমাসিকের শেষ দিকে, আগের সপ্তাহগুলোর তুলনায় গর্ভপাতের ঝুঁকি প্রায়ই কম থাকে।',
         ],
       },
+      da: {
+        babyDescription: 'De indre organer og muskler er vokset godt, og skelettet begynder at ossificere. Kønsorganerne er dannet, men kan endnu ikke ses ved ultralyd.',
+        length: 'Ca. 5,4 cm',
+        comparison: 'Blomme',
+        bodyChanges: [
+          'Kvalme har en tendens til gradvist at aftage på dette tidspunkt, selvom det varierer meget fra person til person.',
+        ],
+        toKnow: [
+          'Slutningen af første trimester er ofte forbundet med en lavere risiko for abort sammenlignet med de foregående uger.',
+        ],
+      },
+      sv: {
+        babyDescription: 'De indre organer och muskler ar vokset godt, och skelettet begynder at ossificere. Könsorganerne ar dannet, men kan endnu inte ses ved ultralyd.',
+        length: 'Ca. 5,4 cm',
+        comparison: 'Blomme',
+        bodyChanges: [
+          'Kvalme har en tendens till gradvist at aftage på dette tidspunkt, selvom det varierer mycket fran person till person.',
+        ],
+        toKnow: [
+          'Slutningen av förste trimester ar ofte forbundet med en lavere risiko for abort sammenlignet med de foregående veckor.',
+        ],
+      },
+
     },
   },
   {
@@ -2297,6 +2569,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'প্রথম ত্রৈমাসিক সাধারণত এই সপ্তাহের কাছাকাছি শেষ হয়; এরপর আরও বিরতি দিয়ে অ্যাপয়েন্টমেন্টের মাধ্যমে যত্ন চলতে থাকে।',
         ],
       },
+      da: {
+        babyDescription: 'Bevægelserne, der stadig er lidt uforsigtige, bliver lidt mere koordinerede. Nogle babyer viser allerede en tommelfinger-sutte-refleks.',
+        length: 'Ca. 7,4 cm',
+        comparison: 'Fersken',
+        bodyChanges: [
+          'Mange genvinder gradvist lidt mere energi, efterhånden som andet trimester nærmer sig.',
+        ],
+        toKnow: [
+          'Første trimester slutter generelt omkring denne uge; plejen fortsætter med mere spredte aftaler.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Bevägelserne, der fortfarande ar lidt uforsigtige, bliver lidt mere koordinerede. Nogle babyer viser redan en tommelfinger-sutte-refleks.',
+        length: 'Ca. 7,4 cm',
+        comparison: 'Fersken',
+        bodyChanges: [
+          'Mange genvinder gradvist lidt mere energi, efterhånden som andet trimester närmer sig.',
+        ],
+        toKnow: [
+          'Förste trimester slutter generelt omkring denne uge; plejen fortsätter med mere spredte aftaler.',
+        ],
+      },
+
     },
   },
 
@@ -2468,6 +2763,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'পেটের ওপর আলট্রাসাউন্ড যন্ত্র রেখে স্বাস্থ্যসেবা পেশাজীবী কখনও কখনও হৃৎস্পন্দন শুনতে শুরু করতে পারেন।',
         ],
       },
+      da: {
+        babyDescription: 'Hovedet bliver mere rundt og mere proportionelt med resten af kroppen. Fosteret synker lidt fostervand, som passerer gennem mave og nyrer.',
+        length: 'Ca. 8,5 cm',
+        comparison: 'Kiwi',
+        bodyChanges: [
+          'Maven begynder at blive mere synligt rund for nogle.',
+        ],
+        toKnow: [
+          'En sundhedsprofessionel kan sommetimes begynde at høre hjertelyden med en ultralydsenhed placeret på maven.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Hovedet bliver mere rundt och mere proportionelt med resten av kroppen. Fosteret synker lidt fostervand, som passerer gennem mave och nyrer.',
+        length: 'Ca. 8,5 cm',
+        comparison: 'Kiwi',
+        bodyChanges: [
+          'Maven begynder at blive mere synligt rund for nogle.',
+        ],
+        toKnow: [
+          'En sundhedsprofessionel kan sommetimes begynde at höre hjertelyden med en ultralydsenhed placeret på maven.',
+        ],
+      },
+
     },
   },
   {
@@ -2637,6 +2955,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'এই সময়ের কাছাকাছি শোনার ক্ষমতা গড়ে উঠতে শুরু করে: আপনার কণ্ঠস্বর ও শরীরের ভেতরের শব্দ ধীরে ধীরে শিশুর কাছে বোধগম্য হতে থাকে।',
         ],
       },
+      da: {
+        babyDescription: 'En fin fnuld kaldet lanugo dækker gradvist huden, og øjenbryn og øjenvipper begynder at dukke op. Øjnene bliver følsomme over for lys.',
+        length: 'Ca. 10,1 cm',
+        comparison: 'Æble',
+        bodyChanges: [
+          'Din appetit kan ændre sig, sommetimes med nye madtrang eller aversioner.',
+        ],
+        toKnow: [
+          'Hørelsen begynder at udvikle sig på dette tidspunkt: din stemme og kroppens indre lyde bliver gradvist hørbare.',
+        ],
+      },
+      sv: {
+        babyDescription: 'En fin fnuld kaldet lanugo däkker gradvist huden, och öjenbryn och öjenvipper begynder at dukke op. Öjnene bliver fölsomme over for lys.',
+        length: 'Ca. 10,1 cm',
+        comparison: 'Äble',
+        bodyChanges: [
+          'Din appetit kan ändre sig, sommetimes med nye madtrang eller aversioner.',
+        ],
+        toKnow: [
+          'Hörelsen begynder at udvikle sig på dette tidspunkt: din stemme och kroppens indre lyde bliver gradvist hörbare.',
+        ],
+      },
+
     },
   },
   {
@@ -2803,6 +3144,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'প্রথম নড়াচড়া টের পাওয়া এক গর্ভাবস্থা থেকে আরেক গর্ভাবস্থায় অনেক আলাদা হয়, বিশেষ করে এটি প্রথম গর্ভাবস্থা কি না তার ওপর নির্ভর করে।',
         ],
       },
+      da: {
+        babyDescription: 'Nervesystemet muliggør bevægelser af arme og ben. Hænderne kan lukkes til små næver.',
+        length: 'Ca. 11,6 cm',
+        comparison: 'Avocado',
+        bodyChanges: [
+          'Nogle begynder at mærke meget lette bevægelser fra omkring dette tidspunkt, ofte beskrevet som en vingeslagen.',
+        ],
+        toKnow: [
+          'Tidspunktet for de første bevægelser varierer meget fra graviditet til graviditet, særligt afhængigt af om det er en første graviditet.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Nervesystemet muliggör bevägelser av arme och ben. Händerne kan lukkes till små näver.',
+        length: 'Ca. 11,6 cm',
+        comparison: 'Avocado',
+        bodyChanges: [
+          'Nogle begynder at märke mycket lette bevägelser fran omkring dette tidspunkt, ofte beskrevet som en vingeslagen.',
+        ],
+        toKnow: [
+          'Tidspunktet for de förste bevägelser varierer mycket fran graviditet till graviditet, särligt afhängigt av om det ar en förste graviditet.',
+        ],
+      },
+
     },
   },
   {
@@ -2972,6 +3336,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'বাইরের শব্দ অ্যামনিওটিক তরলের মধ্য দিয়ে অস্পষ্টভাবে শিশুর কাছে পৌঁছাতে শুরু করে।',
         ],
       },
+      da: {
+        babyDescription: 'Øjnene, stadig lukkede, kan bevæge sig, og babyen reagerer nu på høje lyde. Fingeraftryk begynder at dannes.',
+        length: 'Ca. 12 cm',
+        comparison: 'Granatæble',
+        bodyChanges: [
+          'Let rygsmerter kan opstå, efterhånden som dit tyngdepunkt forskydes.',
+        ],
+        toKnow: [
+          'Udefra kommende lyde begynder at blive opfattet, i dæmpet form, gennem fostervandet.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Öjnene, fortfarande lukkede, kan beväge sig, och babyen reagerer nu på höje lyde. Fingeraftryk begynder at dannes.',
+        length: 'Ca. 12 cm',
+        comparison: 'Granatäble',
+        bodyChanges: [
+          'Let rygsmerter kan opstå, efterhånden som dit tyngdepunkt forskydes.',
+        ],
+        toKnow: [
+          'Udefra kommende lyde begynder at blive opfattet, i dämpet form, gennem fostervandet.',
+        ],
+      },
+
     },
   },
   {
@@ -3141,6 +3528,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'শিশুর সার্বিক বিকাশ পরীক্ষা করার জন্য অ্যানাটমি আলট্রাসাউন্ড সাধারণত 18 থেকে 21 সপ্তাহের মধ্যে করার পরামর্শ দেওয়া হয়।',
         ],
       },
+      da: {
+        babyDescription: 'Hørelse, berøring, synkning og sugerefleks fortsætter med at udvikle sig. Babyen bliver mere og mere aktiv med flere arm- og benbevægelser.',
+        length: 'Ca. 14,2 cm',
+        comparison: 'Peberfrugt',
+        bodyChanges: [
+          'Maven er ofte tydeligt synlig på dette stadie, og dit tyngdepunkt forskydes fortsat.',
+        ],
+        toKnow: [
+          'Anatomiultralyd, som undersøger babyens samlede udvikling, tilbydes generelt mellem uge 18 og uge 21.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Hörelse, beröring, synkning och sugerefleks fortsätter med at udvikle sig. Babyen bliver mere och mere aktiv med flere arm- och benbevägelser.',
+        length: 'Ca. 14,2 cm',
+        comparison: 'Peberfrugt',
+        bodyChanges: [
+          'Maven ar ofte tydeligt synlig på dette stadie, och dit tyngdepunkt forskydes fortsat.',
+        ],
+        toKnow: [
+          'Anatomiultralyd, som undersöger babyens samlede udvikling, tilbydes generelt mellem vecka 18 och vecka 21.',
+        ],
+      },
+
     },
   },
   {
@@ -3310,6 +3720,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'শিশুর নড়াচড়া আরও স্পষ্টভাবে টের পাওয়া শুরু হওয়ার জন্য এটি একটি সাধারণ সময়।',
         ],
       },
+      da: {
+        babyDescription: 'De fremtidige permanente tænder begynder at dannes bag de mælketænder, der forberedes, og babyen fortsætter gradvist med at tage på i vægt.',
+        length: 'Ca. 15,3 cm',
+        comparison: 'Stor tomat',
+        bodyChanges: [
+          'En trækken på siderne af maven (rundligamentsmerte) kan opstå, efterhånden som livmoderen vokser.',
+        ],
+        toKnow: [
+          'Dette er et almindeligt tidspunkt at begynde at mærke babyens bevægelser mere tydeligt.',
+        ],
+      },
+      sv: {
+        babyDescription: 'De fremtidige permanente tänder begynder at dannes bag de mälketänder, der forberedes, och babyen fortsätter gradvist med at tage på i vägt.',
+        length: 'Ca. 15,3 cm',
+        comparison: 'Stor tomat',
+        bodyChanges: [
+          'En träkken på siderne av maven (rundligamentsmerte) kan opstå, efterhånden som livmoderen vokser.',
+        ],
+        toKnow: [
+          'Dette ar et almindeligt tidspunkt at begynde at märke babyens bevägelser mere tydeligt.',
+        ],
+      },
+
     },
   },
 
@@ -3481,6 +3914,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'গর্ভাবস্থার মধ্যবর্তী সময়কে প্রায়ই আপনার যত্ন নেওয়া স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে একটি পূর্ণাঙ্গ চেক-আপের মাধ্যমে চিহ্নিত করা হয়।',
         ],
       },
+      da: {
+        babyDescription: 'Fra denne uge måles længden fra hoved til hæl i stedet for hoved til sæde, da benene nu kan strækkes ud og måles – det forklarer et synligt spring i referencemålet sammenlignet med tidligere uger.',
+        length: 'Ca. 25,6 cm',
+        comparison: 'Banan',
+        bodyChanges: [
+          'Din smukt rundede mave kan begynde at påvirke din balance og holdning.',
+        ],
+        toKnow: [
+          'Midten af graviditeten er ofte markeret af en grundig konsultation hos den sundhedsprofessionel, der følger dit forløb.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Fra denne vecka måles längden fran hoved till häl i stedet for hoved till säde, da benene nu kan sträkkes ud och måles – det forklarer et synligt spring i referencemålet sammenlignet med tidligere veckor.',
+        length: 'Ca. 25,6 cm',
+        comparison: 'Banan',
+        bodyChanges: [
+          'Din smukt rundede mave kan begynde at påvirke din balance och holdning.',
+        ],
+        toKnow: [
+          'Midten av graviditeten ar ofte markeret av en grundig konsultation hos den sundhedsprofessionel, der fölger dit forlöb.',
+        ],
+      },
+
     },
   },
   {
@@ -3647,6 +4103,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'আপনার শিশুর স্বাভাবিক নড়াচড়ার ধরনের সঙ্গে পরিচিত হলে অস্বাভাবিক কোনো পরিবর্তন লক্ষ করা সহজ হয়।',
         ],
       },
+      da: {
+        babyDescription: 'Bevægelserne bliver klarere og mere koordinerede, og det er almindeligt at begynde at mærke dem tydeligt i denne periode.',
+        length: 'Ca. 26,7 cm',
+        comparison: 'Gulerod',
+        bodyChanges: [
+          'Let åndenød ved anstrengelse kan opstå, efterhånden som livmoderen fylder mere.',
+        ],
+        toKnow: [
+          'At lære din babys sædvanlige bevægelsesmønster at kende gør det lettere at bemærke en usædvanlig ændring.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Bevägelserne bliver klarere och mere koordinerede, och det ar almindeligt at begynde at märke dem tydeligt i denne periode.',
+        length: 'Ca. 26,7 cm',
+        comparison: 'Gulerod',
+        bodyChanges: [
+          'Let åndenöd ved anstrengelse kan opstå, efterhånden som livmoderen fylder mere.',
+        ],
+        toKnow: [
+          'At läre din babys sädvanlige bevägelsesmönster at kende gör det lettere at bemärke en usädvanlig ändring.',
+        ],
+      },
+
     },
   },
   {
@@ -3816,6 +4295,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'আপনি যা খান তা অ্যামনিওটিক তরলকে প্রভাবিত করতে পারে, যা শিশু নিয়মিত গিলে থাকে।',
         ],
       },
+      da: {
+        babyDescription: 'Lungerne fortsætter med at udvikle sig, og babyen øver sig i små vejrtrækningsbevægelser. Smagsløg dannes også.',
+        length: 'Ca. 27,8 cm',
+        comparison: 'Sød kartoffel',
+        bodyChanges: [
+          'Benkramper, særligt om natten, kan forekomme for nogle.',
+        ],
+        toKnow: [
+          'Det du spiser kan påvirke fostervandet, som babyen jævnligt synker.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Lungerne fortsätter med at udvikle sig, och babyen över sig i små vejrträkningsbevägelser. Smagslög dannes også.',
+        length: 'Ca. 27,8 cm',
+        comparison: 'Söd kartoffel',
+        bodyChanges: [
+          'Benkramper, särligt om natten, kan forekomme for nogle.',
+        ],
+        toKnow: [
+          'Det du spiser kan påvirke fostervandet, som babyen jävnligt synker.',
+        ],
+      },
+
     },
   },
   {
@@ -3985,6 +4487,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'শিশুর সক্রিয় ও শান্ত সময়গুলো লক্ষ করলে তার নিজস্ব ছন্দ বুঝতে সুবিধা হয়।',
         ],
       },
+      da: {
+        babyDescription: 'Lemmerne er nu velproportionerede. Babyen øver sig i vejrtrækning og begynder at skifte mellem søvn- og vågenfaser.',
+        length: 'Ca. 28,9 cm',
+        comparison: 'Stor mango',
+        bodyChanges: [
+          'Mere udtalt rygsmerter kan opstå med gradvis vægtøgning.',
+        ],
+        toKnow: [
+          'At observere babyens aktive og rolige perioder hjælper dig med at lære dens rytme at kende.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Lemmerne ar nu velproportionerede. Babyen över sig i vejrträkning och begynder at skifte mellem sövn- och vågenfaser.',
+        length: 'Ca. 28,9 cm',
+        comparison: 'Stor mango',
+        bodyChanges: [
+          'Mere udtalt rygsmerter kan opstå med gradvis vägtögning.',
+        ],
+        toKnow: [
+          'At observere babyens aktive och rolige perioder hjälper dig med at läre dens rytme at kende.',
+        ],
+      },
+
     },
   },
   {
@@ -4154,6 +4679,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'গর্ভকালীন ডায়াবেটিসের স্ক্রিনিং সাধারণত এই সময়ের কাছাকাছি করার পরামর্শ দেওয়া হয়।',
         ],
       },
+      da: {
+        babyDescription: 'Babyen når grænsen for overlevelsesdygtighed: i tilfælde af en meget for tidlig fødsel på dette stadie kan specialiseret neonatal medicinsk pleje muliggøre overlevelse med relevant støtte.',
+        length: 'Ca. 30 cm',
+        comparison: 'Majskolbe',
+        bodyChanges: [
+          'Øget pres på blæren og hyppige vandladningstrang kan opstå.',
+        ],
+        toKnow: [
+          'Screening for svangerskabsdiabetes tilbydes generelt på dette tidspunkt.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Babyen når gränsen for overlevelsesdygtighed: i tilfälde av en mycket for tidlig födsel på dette stadie kan specialiseret neonatal medicinsk pleje muliggöre overlevelse med relevant stötte.',
+        length: 'Ca. 30 cm',
+        comparison: 'Majskolbe',
+        bodyChanges: [
+          'Öget pres på blären och hyppige vandladningstrang kan opstå.',
+        ],
+        toKnow: [
+          'Screening for svangerskabsdiabetes tilbydes generelt på dette tidspunkt.',
+        ],
+      },
+
     },
   },
   {
@@ -4323,6 +4871,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'মাঝে মাঝে শিশুর হিক্কা টের পাওয়া সাধারণত স্বাভাবিক বলে বিবেচিত হয়।',
         ],
       },
+      da: {
+        babyDescription: 'Babyen reagerer nu på høje lyde med et sæt eller et spark, og lejligvise hikke kan mærkes. Den urinerer jævnligt ud i fostervandet.',
+        length: 'Ca. 34,6 cm',
+        comparison: 'Zucchini',
+        bodyChanges: [
+          'Halsbrand eller sure opstød kan blive hyppigere.',
+        ],
+        toKnow: [
+          'Fosterhikke, der mærkes en gang imellem, anses generelt for normalt.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Babyen reagerer nu på höje lyde med et sät eller et spark, och lejligvise hikke kan märkes. Den urinerer jävnligt ud i fostervandet.',
+        length: 'Ca. 34,6 cm',
+        comparison: 'Zucchini',
+        bodyChanges: [
+          'Halsbrand eller sure opstöd kan blive hyppigere.',
+        ],
+        toKnow: [
+          'Fosterhikke, der märkes en gang imellem, anses generelt for normalt.',
+        ],
+      },
+
     },
   },
   {
@@ -4490,6 +5061,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'তৃতীয় ত্রৈমাসিক ঘনিয়ে আসছে, আর এই সময়ে চিকিৎসা ফলো-আপ সাধারণত আরও ঘন ঘন হয়।',
         ],
       },
+      da: {
+        babyDescription: 'Øjnene åbner sig for første gang. Deres endelige farve vil generelt ikke kendes før flere måneder efter fødslen.',
+        length: 'Ca. 35,6 cm',
+        comparison: 'Agurk',
+        bodyChanges: [
+          'Let hævelse af ankler eller fødder kan opstå, særligt ved dagens slutning.',
+        ],
+        toKnow: [
+          'Tredje trimester nærmer sig, og den medicinske opfølgning bliver generelt hyppigere.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Öjnene åbner sig for förste gang. Deres endelige farve vil generelt inte kendes för flere måneder efter födslen.',
+        length: 'Ca. 35,6 cm',
+        comparison: 'Agurk',
+        bodyChanges: [
+          'Let hävelse av ankler eller födder kan opstå, särligt ved dagens slutning.',
+        ],
+        toKnow: [
+          'Tredje trimester närmer sig, och den medicinske opfölgning bliver generelt hyppigere.',
+        ],
+      },
+
     },
   },
   {
@@ -4659,6 +5253,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'তৃতীয় ত্রৈমাসিকের শুরু প্রায়ই আপনার প্রসবের পরিকল্পনা নিয়ে ভাবতে শুরু করার একটি ভালো সময়।',
         ],
       },
+      da: {
+        babyDescription: 'Lungerne bliver i stand til at starte vejrtrækning, og babyen fortsætter med at fylde ud efterhånden som fedt aflejres under huden.',
+        length: 'Ca. 36,6 cm',
+        comparison: 'Blomkål',
+        bodyChanges: [
+          'Træthed kan vende tilbage, efterhånden som din krop bærer en voksende mængde vægt.',
+        ],
+        toKnow: [
+          'Starten af tredje trimester er ofte et godt tidspunkt at begynde at tænke på din fødselsplan.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Lungerne bliver i stand till at starte vejrträkning, och babyen fortsätter med at fylde ud efterhånden som fedt aflejres under huden.',
+        length: 'Ca. 36,6 cm',
+        comparison: 'Blomkål',
+        bodyChanges: [
+          'Träthed kan vende tilbage, efterhånden som din krop bärer en voksende mängde vägt.',
+        ],
+        toKnow: [
+          'Starten av tredje trimester ar ofte et godt tidspunkt at begynde at tänke på din födselsplan.',
+        ],
+      },
+
     },
   },
 
@@ -4830,6 +5447,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'তৃতীয় ত্রৈমাসিক সাধারণত এই সপ্তাহের কাছাকাছি শুরু হয়, আর এ সময় অ্যাপয়েন্টমেন্ট আরও ঘন ঘন হয়ে ওঠে।',
         ],
       },
+      da: {
+        babyDescription: 'Hjertefrekvensen, der var hurtigere tidligt i graviditeten, har stabiliseret sig på ca. 130 til 140 slag i minuttet og kan nu høres med et stetoskop.',
+        length: 'Ca. 37,6 cm',
+        comparison: 'Aubergine',
+        bodyChanges: [
+          'Åndenød eller halsbrand kan blive hyppigere, efterhånden som livmoderen fylder mere.',
+        ],
+        toKnow: [
+          'Tredje trimester begynder generelt omkring denne uge, og aftalerne bliver hyppigere.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Hjertefrekvensen, der var hurtigere tidligt i graviditeten, har stabiliseret sig på ca. 130 till 140 slag i minuttet och kan nu höres med et stetoskop.',
+        length: 'Ca. 37,6 cm',
+        comparison: 'Aubergine',
+        bodyChanges: [
+          'Åndenöd eller halsbrand kan blive hyppigere, efterhånden som livmoderen fylder mere.',
+        ],
+        toKnow: [
+          'Tredje trimester begynder generelt omkring denne uge, och aftalerne bliver hyppigere.',
+        ],
+      },
+
     },
   },
   {
@@ -4999,6 +5639,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'গর্ভাবস্থার শেষ দিকে রক্তসঞ্চালনে সহায়তার জন্য বাঁ পাশ ফিরে বিশ্রাম নেওয়ার পরামর্শ প্রায়ই দেওয়া হয়।',
         ],
       },
+      da: {
+        babyDescription: 'Babyen er allerede velformet; de kommende uger vil primært være dedikeret til organmodning og vægtøgning. Det tynde beskyttende overtræk på huden begynder at blive genoptaget.',
+        length: 'Ca. 38,6 cm',
+        comparison: 'Butternutsquash',
+        bodyChanges: [
+          'Søvn kan blive sværere at finde på grund af din voksende mave.',
+        ],
+        toKnow: [
+          'At hvile på venstre side anbefales ofte sent i graviditeten for at støtte kredsløbet.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Babyen ar redan velformet; de kommende veckor vil primärt väre dedikeret till organmodning och vägtögning. Det tynde beskyttende overträk på huden begynder at blive genoptaget.',
+        length: 'Ca. 38,6 cm',
+        comparison: 'Butternutsquash',
+        bodyChanges: [
+          'Sövn kan blive svärere at finde på grund av din voksende mave.',
+        ],
+        toKnow: [
+          'At hvile på venstre side anbefales ofte sent i graviditeten for at stötte kredslöbet.',
+        ],
+      },
+
     },
   },
   {
@@ -5168,6 +5831,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'এই পর্যায় থেকে প্রসবপূর্ব চেকআপ সাধারণত আরও ঘন ঘন হয়ে থাকে।',
         ],
       },
+      da: {
+        babyDescription: 'Synet fortsætter med at udvikle sig; ved fødslen vil babyen kunne skelne ansigter i nærheden, inden den gradvist lærer at følge bevægende objekter.',
+        length: 'Ca. 39,9 cm',
+        comparison: 'Kålhoved',
+        bodyChanges: [
+          'En følelse af tyngde i lænden eller bækkenet kan tiltage.',
+        ],
+        toKnow: [
+          'Svangerskabskonsultationer bliver generelt hyppigere fra dette stadie og frem.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Synet fortsätter med at udvikle sig; ved födslen vil babyen kunne skelne ansigter i närheden, inden den gradvist lärer at fölge bevägende objekter.',
+        length: 'Ca. 39,9 cm',
+        comparison: 'Kålhoved',
+        bodyChanges: [
+          'En fölelse av tyngde i länden eller bäkkenet kan tiltage.',
+        ],
+        toKnow: [
+          'Svangerskabskonsultationer bliver generelt hyppigere fran dette stadie och frem.',
+        ],
+      },
+
     },
   },
   {
@@ -5337,6 +6023,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'বাইরে থেকে নিয়মিত শোনা কিছু পরিচিত কণ্ঠস্বর শিশু চিনতে শুরু করছে।',
         ],
       },
+      da: {
+        babyDescription: 'Babyen bevæger sig aktivt, suger sommetimes sine fingre og kan lave brede bevægelser. Huden bliver mindre rynket efterhånden som fedt samler sig.',
+        length: 'Ca. 41,1 cm',
+        comparison: 'Kokosnød',
+        bodyChanges: [
+          'Øveveer, kendte som Braxton Hicks, kan begynde at mærkes lejlighedsvis.',
+        ],
+        toKnow: [
+          'Babyen begynder at genkende visse kendte stemmer, der jævnligt høres udefra.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Babyen beväger sig aktivt, suger sommetimes sine fingre och kan lave brede bevägelser. Huden bliver mindre rynket efterhånden som fedt samler sig.',
+        length: 'Ca. 41,1 cm',
+        comparison: 'Kokosnöd',
+        bodyChanges: [
+          'Öveveer, kendte som Braxton Hicks, kan begynde at märkes lejlighedsvis.',
+        ],
+        toKnow: [
+          'Babyen begynder at genkende visse kendte stemmer, der jävnligt höres udefra.',
+        ],
+      },
+
     },
   },
   {
@@ -5506,6 +6215,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'প্রসবের সময় যত ঘনিয়ে আসে, মাথা নিচের দিকে থাকা অবস্থান (সেফালিক প্রেজেন্টেশন) তত বেশি দেখা যায়।',
         ],
       },
+      da: {
+        babyDescription: 'Babyen er allerede velformet og placerer sig gradvist med hovedet nedad som forberedelse til fødslen. Den fortsætter primært med at tage på i de resterende uger.',
+        length: 'Ca. 42,4 cm',
+        comparison: 'Et bundt selleri',
+        bodyChanges: [
+          'Mere mærkbar vægtøgning er almindelig i denne periode, forbundet med babyens vækst.',
+        ],
+        toKnow: [
+          'Hoved-ned-position (kraniepræsentation) bliver mere almindelig, efterhånden som terminen nærmer sig.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Babyen ar redan velformet och placerer sig gradvist med hovedet nedad som forberedelse till födslen. Den fortsätter primärt med at tage på i de resterende veckor.',
+        length: 'Ca. 42,4 cm',
+        comparison: 'Et bundt selleri',
+        bodyChanges: [
+          'Mere märkbar vägtögning ar almindelig i denne periode, forbundet med babyens väkst.',
+        ],
+        toKnow: [
+          'Hoved-ned-position (kraniepräsentation) bliver mere almindelig, efterhånden som terminen närmer sig.',
+        ],
+      },
+
     },
   },
   {
@@ -5675,6 +6407,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'জন্মের সময় খুলির হাড়ের নমনীয়তা সাময়িক এবং জীবনের প্রথম বছরে তা ধীরে ধীরে জোড়া লেগে যায়।',
         ],
       },
+      da: {
+        babyDescription: 'Hjernen og nervesystemet er nu veludviklet. Knoglerne fortsætter med at hærde, undtagen kranieknoglerne, som forbliver fleksible for at gøre det lettere at passere igennem under fødslen.',
+        length: 'Ca. 43,7 cm',
+        comparison: 'Ananas',
+        bodyChanges: [
+          'Vanskeligheder med at finde en komfortabel sovestilling er almindeligt på dette stadie.',
+        ],
+        toKnow: [
+          'Fleksibiliteten af kranieknoglerne ved fødslen er midlertidig og lukker gradvist i løbet af det første år.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Hjernen och nervesystemet ar nu veludviklet. Knoglerne fortsätter med at härde, undtagen kranieknoglerne, som forbliver fleksible for at göre det lettere at passere igennem under födslen.',
+        length: 'Ca. 43,7 cm',
+        comparison: 'Ananas',
+        bodyChanges: [
+          'Vanskeligheder med at finde en komfortabel sovestilling ar almindeligt på dette stadie.',
+        ],
+        toKnow: [
+          'Fleksibiliteten av kranieknoglerne ved födslen ar midlertidig och lukker gradvist i löbet av det förste år.',
+        ],
+      },
+
     },
   },
 
@@ -5843,6 +6598,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'শিশুর স্বাভাবিক নড়াচড়ার দিকে নজর রাখা প্রসব পর্যন্ত গুরুত্বপূর্ণ থাকে।',
         ],
       },
+      da: {
+        babyDescription: 'Babyen, sammenrullet på grund af pladsmangel, holder generelt benene bøjet mod brystet, mens den fortsætter med at bevæge sig jævnligt.',
+        length: 'Ca. 45 cm',
+        comparison: 'Cantaloupe-melon',
+        bodyChanges: [
+          'Trods den reducerede plads er babyens bevægelser og mavens skiftende form normalt stadig mærkbare.',
+        ],
+        toKnow: [
+          'At fortsætte med at være opmærksom på babyens sædvanlige bevægelser er fortsat relevant helt op til fødslen.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Babyen, sammenrullet på grund av pladsmangel, holder generelt benene böjet mod brystet, mens den fortsätter med at beväge sig jävnligt.',
+        length: 'Ca. 45 cm',
+        comparison: 'Cantaloupe-melon',
+        bodyChanges: [
+          'Trods den reducerede plads ar babyens bevägelser och mavens skiftende form normalt fortfarande märkbare.',
+        ],
+        toKnow: [
+          'At fortsätte med at väre opmärksom på babyens sädvanlige bevägelser ar fortsat relevant helt op till födslen.',
+        ],
+      },
+
     },
   },
   {
@@ -6009,6 +6787,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'জায়গা সীমিত হলেও শিশু আগের সপ্তাহগুলোর মতোই নিয়মিতভাবে নড়াচড়া করতে থাকার কথা।',
         ],
       },
+      da: {
+        babyDescription: 'Babyen fortsætter med at fylde ud, hvilket vil hjælpe den med at regulere sin temperatur, når den er født. Den tilgængelige plads i livmoderen bliver mere begrænset.',
+        length: 'Ca. 46,2 cm',
+        comparison: 'Honningmelon',
+        bodyChanges: [
+          'Mere udtalt bækkentryk kan opstå, efterhånden som babyen gradvist sænker sig.',
+        ],
+        toKnow: [
+          'Trods den begrænsede plads bør babyen fortsætte med at bevæge sig med en regelmæssighed svarende til tidligere uger.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Babyen fortsätter med at fylde ud, hvilket vil hjälpe den med at regulere sin temperatur, når den ar födt. Den tilgängelige plads i livmoderen bliver mere begränset.',
+        length: 'Ca. 46,2 cm',
+        comparison: 'Honningmelon',
+        bodyChanges: [
+          'Mere udtalt bäkkentryk kan opstå, efterhånden som babyen gradvist sänker sig.',
+        ],
+        toKnow: [
+          'Trods den begränsede plads bör babyen fortsätte med at beväge sig med en regelmässighed svarende till tidligere veckor.',
+        ],
+      },
+
     },
   },
   {
@@ -6178,6 +6979,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'গর্ভাবস্থা 37তম থেকে 42তম সপ্তাহের মধ্যে পূর্ণ মেয়াদের বলে গণ্য করা হয়।',
         ],
       },
+      da: {
+        babyDescription: 'Lungerne er generelt modnet nok til at muliggøre selvstændig vejrtrækning, og babyen er i stand til at sutte og fordøje.',
+        length: 'Ca. 47,4 cm',
+        comparison: 'Romainesalat',
+        bodyChanges: [
+          'Du kan sommetimes føle dig kortåndet, da livmoderen fylder meget under ribbenene.',
+        ],
+        toKnow: [
+          'Graviditeten anses for fuldgående mellem uge 37 og uge 42.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Lungerne ar generelt modnet nok till at muliggöre selvständig vejrträkning, och babyen ar i stand till at sutte och fordöje.',
+        length: 'Ca. 47,4 cm',
+        comparison: 'Romainesalat',
+        bodyChanges: [
+          'Du kan sommetimes föle dig kortåndet, da livmoderen fylder mycket under ribbenene.',
+        ],
+        toKnow: [
+          'Graviditeten anses for fuldgående mellem vecka 37 och vecka 42.',
+        ],
+      },
+
     },
   },
   {
@@ -6344,6 +7168,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'এই সপ্তাহ থেকে পূর্ণ মেয়াদ পূর্ণ হয়েছে বলে ধরা হয় এবং প্রসব যেকোনো সময় হতে পারে।',
         ],
       },
+      da: {
+        babyDescription: 'Babyen anses for moden nok til at blive født. Det store flertal af babyer er nu placeret med hovedet nedad.',
+        length: 'Ca. 48,6 cm',
+        comparison: 'Porre',
+        bodyChanges: [
+          'En følelse af voksende bækkentryk er almindelig, efterhånden som babyen sætter sig fast i bækkenet.',
+        ],
+        toKnow: [
+          'Fra denne uge anses terminen for nået, og fødslen kan ske til enhver tid.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Babyen anses for moden nok till at blive födt. Det store flertal av babyer ar nu placeret med hovedet nedad.',
+        length: 'Ca. 48,6 cm',
+        comparison: 'Porre',
+        bodyChanges: [
+          'En fölelse av voksende bäkkentryk ar almindelig, efterhånden som babyen sätter sig fast i bäkkenet.',
+        ],
+        toKnow: [
+          'Fra denne vecka anses terminen for nået, och födslen kan ske till enhver tid.',
+        ],
+      },
+
     },
   },
   {
@@ -6511,6 +7358,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'চিকিৎসাগত কারণ ছাড়া নির্ধারিত দিনে প্রসব করানো সাধারণত 39তম সপ্তাহের আগে সুপারিশ করা হয় না।',
         ],
       },
+      da: {
+        babyDescription: 'Den fine fnuld, der dækkede huden, er stort set forsvundet, og tarmene samler mekonium, den nyfødtes første afføring.',
+        length: 'Ca. 49,8 cm',
+        comparison: 'Rabarberstilk',
+        bodyChanges: [
+          'At lære fødselstegnene at kende kan være nyttigt, efterhånden som fødslen nærmer sig.',
+        ],
+        toKnow: [
+          'En planlagt fødsel, når den overvejes uden medicinsk indikation, anbefales generelt ikke før uge 39.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Den fine fnuld, der däkkede huden, ar stort set forsvundet, och tarmene samler mekonium, den nyfödtes förste afföring.',
+        length: 'Ca. 49,8 cm',
+        comparison: 'Rabarberstilk',
+        bodyChanges: [
+          'At läre födselstegnene at kende kan väre nyttigt, efterhånden som födslen närmer sig.',
+        ],
+        toKnow: [
+          'En planlagt födsel, når den overvejes uden medicinsk indikation, anbefales generelt inte för vecka 39.',
+        ],
+      },
+
     },
   },
   {
@@ -6680,6 +7550,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'জন্মের ঠিক পরে নবজাতকের রক্তসঞ্চালন নিজেকে মানিয়ে নিতে থাকে, যার ফলে হাত বা পায়ে সাময়িকভাবে হালকা নীলচে আভা দেখা যেতে পারে।',
         ],
       },
+      da: {
+        babyDescription: 'Huden, der tidligere var tyndere, er blevet tykkere og beskytter nu babyen bedre. Et beskyttende overtræk, vernix, letter også dens passage under fødslen.',
+        length: 'Ca. 50,7 cm',
+        comparison: 'Vandmelon',
+        bodyChanges: [
+          'Utålmodighed og en vis træthed er almindelig, efterhånden som termindatoen nærmer sig.',
+        ],
+        toKnow: [
+          'Den nyfødtes blodcirkulation fortsætter med at tilpasse sig lige efter fødslen, hvilket midlertidigt kan give hænder eller fødder en let blålig farve.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Huden, der tidligere var tyndere, ar blevet tykkere och beskytter nu babyen bedre. Et beskyttende overträk, vernix, letter også dens passage under födslen.',
+        length: 'Ca. 50,7 cm',
+        comparison: 'Vandmelon',
+        bodyChanges: [
+          'Utålmodighed och en vis träthed ar almindelig, efterhånden som termindatoen närmer sig.',
+        ],
+        toKnow: [
+          'Den nyfödtes blodcirkulation fortsätter med at tilpasse sig lige efter födslen, hvilket midlertidigt kan give händer eller födder en let blålig farve.',
+        ],
+      },
+
     },
   },
   {
@@ -6849,6 +7742,29 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'প্রসবের সম্ভাব্য তারিখ কিছুটা পেরিয়ে যাওয়া সাধারণ ব্যাপার এবং এর মানে সবসময় কোনো সমস্যা আছে তা নয়; সাধারণত আরও নিবিড় পর্যবেক্ষণের ব্যবস্থা করা হয়।',
         ],
       },
+      da: {
+        babyDescription: 'Babyen er fuldt udviklet og klar til at blive født. Termindatoen er et skøn: mange fødsler sker i dagene omkring den, før eller efter.',
+        length: 'Ca. 51,2 cm',
+        comparison: 'Græskar',
+        bodyChanges: [
+          'At vente på fødselstegn (regelmæssige veer, hindesprængning) er almindeligt i denne periode.',
+        ],
+        toKnow: [
+          'At gå lidt over terminen er fortsat almindeligt og betyder ikke nødvendigvis, at der er et problem; tættere overvågning tilbydes generelt.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Babyen ar fuldt udviklet och klar till at blive födt. Termindatoen ar et skön: mange födsler sker i dagene omkring den, för eller efter.',
+        length: 'Ca. 51,2 cm',
+        comparison: 'Gräskar',
+        bodyChanges: [
+          'At vente på födselstegn (regelmässige veer, hindesprängning) ar almindeligt i denne periode.',
+        ],
+        toKnow: [
+          'At gå lidt over terminen ar fortsat almindeligt och betyder inte nödvendigvis, at der ar et problem; tättere overvågning tilbydes generelt.',
+        ],
+      },
+
     },
   },
 
@@ -6986,6 +7902,24 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'পূর্ণ মেয়াদ পেরিয়ে গেলে সাধারণত চিকিৎসা দল আরও বেশি পর্যবেক্ষণ করে থাকে।',
+        ],
+      },
+      da: {
+        babyDescription: 'Babyen er stadig fuldt udviklet. Efter den forventede fødselsdato tilbydes der generelt tættere opfølgning for at overvåge babyens velvære.',
+        bodyChanges: [
+          'Den forlængede ventetid kan ledsages af øget træthed og utålmodighed.',
+        ],
+        toKnow: [
+          'At gå over termin fører generelt til øget overvågning fra det medicinske team.',
+        ],
+      },
+      sv: {
+        babyDescription: 'Babyen ar fortfarande fuldt udviklet. Efter den forventede födselsdato tilbydes der generelt tättere opfölgning for at overvåge babyens velväre.',
+        bodyChanges: [
+          'Den forlängede ventetid kan ledsages av öget träthed och utålmodighed.',
+        ],
+        toKnow: [
+          'At gå over termin förer generelt till öget overvågning fran det medicinske team.',
         ],
       },
     },
