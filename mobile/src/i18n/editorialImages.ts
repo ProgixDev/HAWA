@@ -36,6 +36,10 @@ import {resolveEditorialLanguage, type EditorialLanguage} from './editorialLangu
 // says that the lettering in the picture is English (EDITORIAL_IMAGES_MISSING_PORTUGUESE lists them).
 // BENGALI ('bn'): same rule — no Bengali artwork exists; the resolver returns the ENGLISH variant and the spoken description says that the lettering in the
 // picture is English (EDITORIAL_IMAGES_MISSING_BENGALI lists them).
+// DANISH ('da'): same rule — no Danish artwork exists; the resolver returns the ENGLISH variant and the spoken description says that the lettering in the
+// picture is English (EDITORIAL_IMAGES_MISSING_DANISH lists them).
+// SWEDISH ('sv'): same rule — no Swedish artwork exists; the resolver returns the ENGLISH variant and the spoken description says that the lettering in the
+// picture is English (EDITORIAL_IMAGES_MISSING_SWEDISH lists them).
 export type LocalizedImageSet = Readonly<Record<'fr' | 'en' | 'es' | 'it', ImageSourcePropType>> & {
   readonly tr?: ImageSourcePropType;
   readonly ru?: ImageSourcePropType;
@@ -49,6 +53,8 @@ export type LocalizedImageSet = Readonly<Record<'fr' | 'en' | 'es' | 'it', Image
   readonly 'pt-PT'?: ImageSourcePropType;
   readonly 'pt-BR'?: ImageSourcePropType;
   readonly bn?: ImageSourcePropType;
+  readonly da?: ImageSourcePropType;
+  readonly sv?: ImageSourcePropType;
 };
 
 export const CYCLE_PHASES_HERO: LocalizedImageSet = {
@@ -196,6 +202,26 @@ export const EDITORIAL_IMAGES_MISSING_BENGALI: readonly string[] = [
   .filter(([, set]) => (set as LocalizedImageSet).bn === undefined)
   .map(([name]) => name as string);
 
+/** The text-in-image illustrations that still have NO Danish variant (their lettering is English in Danish). */
+export const EDITORIAL_IMAGES_MISSING_DANISH: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).da === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Swedish variant (their lettering is English in Swedish). */
+export const EDITORIAL_IMAGES_MISSING_SWEDISH: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).sv === undefined)
+  .map(([name]) => name as string);
+
 /** The text-in-image illustrations that still have NO Hindi variant (their lettering is English in Hindi). */
 export const EDITORIAL_IMAGES_MISSING_HINDI: readonly string[] = [
   ['cycle-phases-hero', CYCLE_PHASES_HERO],
@@ -223,21 +249,23 @@ export type MeaningfulEditorialImage = 'pregnancyFollowUp' | 'pregnancyExercise'
 export const EDITORIAL_IMAGE_ALT: Record<MeaningfulEditorialImage, Record<EditorialLanguage, string>> = {
   pregnancyFollowUp: {
     fr: 'Illustration : une médecin et une femme enceinte pendant un suivi avec échographie. Texte : Suivi médical pendant la grossesse, pour la santé de maman et le bien-être de bébé.',
-    en: 'Illustration: a doctor and a pregnant woman during a check-up with an ultrasound. Text: Medical care during pregnancy, for mom’s health and baby’s well-being.',
+    en: 'Illustration: a doctor and a pregnant woman during a check-up with an ultrasound. Text: Medical care during pregnancy, for mom\'s health and baby\'s well-being.',
     es: 'Ilustración: una médica y una mujer embarazada durante un control con ecografía. Texto: Control médico durante el embarazo, por la salud de mamá y el bienestar del bebé.',
-    tr: 'İlüstrasyon: Ultrason eşliğinde kontrol sırasında bir doktor ve hamile bir kadın. Görseldeki yazı İngilizcedir: “Medical care during pregnancy, for mom’s health and baby’s well-being.”',
-    ru: 'Иллюстрация: врач и беременная женщина на плановом осмотре с УЗИ. Надпись на картинке на английском языке: «Medical care during pregnancy, for mom’s health and baby’s well-being.»',
-    de: 'Illustration: eine Ärztin und eine Schwangere bei einer Vorsorgeuntersuchung mit Ultraschall. Die Beschriftung im Bild ist auf Englisch: „Medical care during pregnancy, for mom’s health and baby’s well-being.“',
-    zh: '插图：一位医生与一位孕妇在做超声检查的产检中。图中文字为英文：“Medical care during pregnancy, for mom’s health and baby’s well-being.”',
-    id: 'Ilustrasi: seorang dokter dan ibu hamil saat pemeriksaan kehamilan dengan USG. Tulisan pada gambar berbahasa Inggris: “Medical care during pregnancy, for mom’s health and baby’s well-being.”',
-    sq: 'Ilustrim: një mjeke dhe një grua shtatzënë gjatë një kontrolli me ekografi. Teksti në figurë është në anglisht: “Medical care during pregnancy, for mom’s health and baby’s well-being.”',
-    ja: 'イラスト：超音波検査を行う妊婦健診中の医師と妊婦。画像内の文字は英語です：「Medical care during pregnancy, for mom’s health and baby’s well-being.」',
-    ko: '일러스트: 초음파 검사와 함께 임신 중 검진을 받는 의사와 임산부. 이미지 속 글자는 영어예요: “Medical care during pregnancy, for mom’s health and baby’s well-being.”',
-    'pt-PT': 'Ilustração: uma médica e uma grávida durante uma consulta com ecografia. O texto na imagem está em inglês: “Medical care during pregnancy, for mom’s health and baby’s well-being.”',
-    'pt-BR': 'Ilustração: uma médica e uma gestante durante um exame de ultrassonografia. O texto na imagem está em inglês: “Medical care during pregnancy, for mom’s health and baby’s well-being.”',
-    bn: 'চিত্র: আলট্রাসাউন্ডসহ গর্ভকালীন চেকআপের সময় একজন চিকিৎসক ও একজন গর্ভবতী নারী। ছবির লেখাটি ইংরেজিতে: “Medical care during pregnancy, for mom’s health and baby’s well-being.”',
-    hi: 'चित्र: अल्ट्रासाउंड के साथ जाँच के दौरान एक डॉक्टर और एक गर्भवती महिला। चित्र में लिखा टेक्स्ट अंग्रेज़ी में है: “Medical care during pregnancy, for mom’s health and baby’s well-being.”',
+    tr: 'İlüstrasyon: Ultrason eşliğinde kontrol sırasında bir doktor ve hamile bir kadın. Görseldeki yazı İngilizcedir: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    ru: 'Иллюстрация: врач и беременная женщина на плановом осмотре с УЗИ. Надпись на картинке на английском языке: «Medical care during pregnancy, for mom\'s health and baby\'s well-being.»',
+    de: 'Illustration: eine Ärztin und eine Schwangere bei einer Vorsorgeuntersuchung mit Ultraschall. Die Beschriftung im Bild ist auf Englisch: „Medical care during pregnancy, for mom\'s health and baby\'s well-being.“',
+    zh: '插图：一位医生与一位孕妇在做超声检查的产检中。图中文字为英文：“Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    id: 'Ilustrasi: seorang dokter dan ibu hamil saat pemeriksaan kehamilan dengan USG. Tulisan pada gambar berbahasa Inggris: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    sq: 'Ilustrim: një mjeke dhe një grua shtatzënë gjatë një kontrolli me ekografi. Teksti në figurë është në anglisht: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    ja: 'イラスト：超音波検査を行う妊婦健診中の医師と妊婦。画像内の文字は英語です：「Medical care during pregnancy, for mom\'s health and baby\'s well-being.」',
+    ko: '일러스트: 초음파 검사와 함께 임신 중 검진을 받는 의사와 임산부. 이미지 속 글자는 영어예요: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    'pt-PT': 'Ilustração: uma médica e uma grávida durante uma consulta com ecografia. O texto na imagem está em inglês: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    'pt-BR': 'Ilustração: uma médica e uma gestante durante um exame de ultrassonografia. O texto na imagem está em inglês: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    bn: 'চিত্র: আলট্রাসাউন্ডসহ গর্ভকালীন চেকআপের সময় একজন চিকিৎসক ও একজন গর্ভবতী নারী। ছবির লেখাটি ইংরেজিতে: "Medical care during pregnancy, for mom\'s health and baby\'s well-being."',
+    hi: 'चित्र: अल्ट्रासाउंड के साथ जाँच के दौरान एक डॉक्टर और एक गर्भवती महिला। चित्र में लिखा टेक्स्ट अंग्रेज़ी में है: "Medical care during pregnancy, for mom\'s health and baby\'s well-being."',
     it: 'Illustrazione: una dottoressa e una donna incinta durante un controllo con ecografia. Testo: Controlli medici in gravidanza, per la salute della mamma e il benessere del bambino.',
+    da: 'Illustration: en læge og en gravid kvinde under en kontrol med ultralyd. Teksten i billedet er på engelsk: "Medical care during pregnancy, for mom\'s health and baby\'s well-being."',
+    sv: 'Illustration: en läkare och en gravid kvinna vid en kontroll med ultraljud. Texten i bilden är på engelska: "Medical care during pregnancy, for mom\'s health and baby\'s well-being."',
   },
   pregnancyExercise: {
     fr: 'Illustration : une femme enceinte en fente avant sur un tapis de yoga. Texte : Bouger pour une grossesse en santé. Affiche : une maman en bonne santé pour un bébé épanoui.',
@@ -256,6 +284,8 @@ export const EDITORIAL_IMAGE_ALT: Record<MeaningfulEditorialImage, Record<Editor
     bn: 'চিত্র: যোগব্যায়ামের ম্যাটে লাঞ্জ স্ট্রেচ করছেন একজন গর্ভবতী নারী। ছবির লেখাটি ইংরেজিতে: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
     hi: 'चित्र: योगा मैट पर लंज स्ट्रेच करती एक गर्भवती महिला। चित्र में लिखा टेक्स्ट अंग्रेज़ी में है: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
     it: 'Illustrazione: una donna incinta in affondo su un tappetino da yoga. Testo: Muoviti per una gravidanza in salute. Quadro: una mamma in salute per un bambino sereno.',
+    da: 'Illustration: en gravid kvinde i et fremfald-stræk på en yogamåtte. Teksten i billedet er på engelsk: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    sv: 'Illustration: en gravid kvinna i ett utfallssteg på en yogamatta. Texten i bilden är på engelska: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
   },
   exercise: {
     fr: 'Illustration : une femme en fente avant sur un tapis de yoga. Texte : Bouger pour se sentir bien. Affiche : corps, équilibre, énergie.',
@@ -274,5 +304,7 @@ export const EDITORIAL_IMAGE_ALT: Record<MeaningfulEditorialImage, Record<Editor
     bn: 'চিত্র: যোগব্যায়ামের ম্যাটে লাঞ্জ স্ট্রেচ করছেন একজন নারী। ছবির লেখাটি ইংরেজিতে: “Move to feel good. Poster: body, balance, energy.”',
     hi: 'चित्र: योगा मैट पर लंज स्ट्रेच करती एक महिला। चित्र में लिखा टेक्स्ट अंग्रेज़ी में है: “Move to feel good. Poster: body, balance, energy.”',
     it: 'Illustrazione: una donna in affondo su un tappetino da yoga. Testo: Muoviti per sentirti bene. Quadro: corpo, equilibrio, energia.',
+    da: 'Illustration: en kvinde i et fremfald-stræk på en yogamåtte. Teksten i billedet er på engelsk: “Move to feel good. Poster: body, balance, energy.”',
+    sv: 'Illustration: en kvinna i ett utfallssteg på en yogamatta. Texten i bilden är på engelska: “Move to feel good. Poster: body, balance, energy.”',
   },
 };

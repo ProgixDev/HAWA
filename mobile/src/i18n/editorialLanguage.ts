@@ -3,7 +3,7 @@
 // Explicit opt-ins for the languages that have real editorial text; anything
 // else — an unrecognized or not-yet-loaded value included — resolves to
 // English, never to French or Spanish.
-export type EditorialLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn';
+export type EditorialLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn' | 'da' | 'sv';
 
 export function resolveEditorialLanguage(language: string | null | undefined): EditorialLanguage {
   // Simplified Chinese aliases (zh-CN, zh-Hans …) resolve to the canonical 'zh' block.
@@ -34,6 +34,14 @@ export function resolveEditorialLanguage(language: string | null | undefined): E
   if (typeof language === 'string' && /^bn([-_](bd|in|beng|beng-bd|beng-in))?$/i.test(language.trim())) {
     return 'bn';
   }
+  // Danish (da, da-DK, da-FO, da-GL) resolves to the canonical 'da' block.
+  if (typeof language === 'string' && /^da([-_](dk|fo|gl))?$/i.test(language.trim())) {
+    return 'da';
+  }
+  // Swedish (sv, sv-SE, sv-FI, sv-AX) resolves to the canonical 'sv' block.
+  if (typeof language === 'string' && /^sv([-_](se|fi|ax))?$/i.test(language.trim())) {
+    return 'sv';
+  }
   // Portuguese: Brazil ('pt-BR', 'pt_BR', 'pt-Latn-BR') has its own variant over the Portugal text; Portugal, the bare 'pt' and the other
   // Portuguese-speaking countries resolve to 'pt-PT'.
   if (typeof language === 'string' && /^pt([-_]latn)?[-_]br(?:[-_].*)?$/i.test(language.trim())) {
@@ -42,5 +50,6 @@ export function resolveEditorialLanguage(language: string | null | undefined): E
   if (typeof language === 'string' && /^pt([-_][a-z]{2,4})*$/i.test(language.trim())) {
     return 'pt-PT';
   }
-  return language === 'fr' || language === 'es' || language === 'it' || language === 'tr' || language === 'ru' || language === 'de' || language === 'zh' || language === 'id' ? language : 'en';
+  if (language === 'fr' || language === 'es' || language === 'it' || language === 'tr' || language === 'ru' || language === 'de' || language === 'zh' || language === 'id' || language === 'da' || language === 'sv') {return language;}
+  return 'en';
 }

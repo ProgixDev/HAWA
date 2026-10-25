@@ -18,6 +18,8 @@ import {ko} from './locales/ko';
 import {ptPT} from './locales/ptPT';
 import {ptBR} from './locales/ptBR';
 import {bn} from './locales/bn';
+import {da} from './locales/da';
+import {sv} from './locales/sv';
 import './pluralRules';
 
 // Centralized localization (i18next + react-i18next) — imported once, as a
@@ -75,6 +77,8 @@ i18n.use(initReactI18next).init({
     // Brazilian Portuguese is an OVERLAY: only the strings that differ from Portugal (see the fallback chain below).
     'pt-BR': {translation: ptBR},
     bn: {translation: bn},
+    da: {translation: da},
+    sv: {translation: sv},
   },
   lng: getAppLanguage(),
   // pt-BR reads key by key: Brazilian overlay → Portugal dictionary → English. Every other language falls back to English only.
