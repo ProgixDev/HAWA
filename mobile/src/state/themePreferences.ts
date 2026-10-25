@@ -94,7 +94,7 @@ export function getTrueBlackEnabled(): boolean {
 // app/device, unaffected by owner/managed-daughter profile switching. Only
 // selects a language for now; the actual string translation is a separate,
 // later i18n migration (this store/UI does not translate anything yet).
-export type AwaAppLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn';
+export type AwaAppLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn' | 'da' | 'sv';
 
 const LANGUAGE_STORAGE_KEY = '@awa/appearance/language-v1';
 // FIRST LAUNCH: with no stored language AWA detects the phone's preferred language ONCE (see hydrateAppearancePreferences),
@@ -114,7 +114,7 @@ const LANGUAGE_STORAGE_KEY = '@awa/appearance/language-v1';
 const DEFAULT_APP_LANGUAGE: AwaAppLanguage = 'en';
 
 const isValidAppLanguage = (value: unknown): value is AwaAppLanguage =>
-  value === 'fr' || value === 'en' || value === 'es' || value === 'it' || value === 'tr' || value === 'ru' || value === 'de' || value === 'zh' || value === 'id' || value === 'hi' || value === 'sq' || value === 'ja' || value === 'ko' || value === 'pt-PT' || value === 'pt-BR' || value === 'bn';
+  value === 'fr' || value === 'en' || value === 'es' || value === 'it' || value === 'tr' || value === 'ru' || value === 'de' || value === 'zh' || value === 'id' || value === 'hi' || value === 'sq' || value === 'ja' || value === 'ko' || value === 'pt-PT' || value === 'pt-BR' || value === 'bn' || value === 'da' || value === 'sv';
 
 /** Simplified Chinese compatibility aliases (any case, '-' or '_'): zh-CN, zh-Hans, zh-Hans-CN. Only Chinese has
  * aliases; every other language still needs its exact code. */
@@ -154,6 +154,13 @@ const PT_BR_ALIASES = new Set(['pt-br', 'pt-latn-br']);
  * spelling resolve too. */
 const BN_ALIASES = new Set(['bn-bd', 'bn-in', 'bn-beng', 'bn-beng-bd', 'bn-beng-in']);
 
+/** Danish ('da', Dansk, Latin script, Intl locale da-DK): Denmark (da-DK) and the Faroe Islands / Greenland variants that also use Danish. Every 'da-*' tag also
+ * reaches the same language through the bare-language retry of languageFromLocaleTag; these make a STORED value written in a regional spelling resolve too. */
+const DA_ALIASES = new Set(['da-dk', 'da-fo', 'da-gl']);
+
+/** Swedish ('sv', Svenska, Latin script, Intl locale sv-SE). */
+const SV_ALIASES = new Set(['sv-se', 'sv-fi', 'sv-ax']);
+
 /** The canonical stored language for a persisted/typed value, or null when it is not a supported language. */
 export function normalizeAppLanguage(value: unknown): AwaAppLanguage | null {
   if (isValidAppLanguage(value)) {
@@ -185,6 +192,12 @@ export function normalizeAppLanguage(value: unknown): AwaAppLanguage | null {
   }
   if (typeof value === 'string' && BN_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
     return 'bn';
+  }
+  if (typeof value === 'string' && DA_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'da';
+  }
+  if (typeof value === 'string' && SV_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'sv';
   }
   return null;
 }

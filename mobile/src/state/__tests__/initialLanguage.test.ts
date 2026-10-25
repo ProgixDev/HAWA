@@ -26,7 +26,7 @@ const KEY = '@awa/appearance/language-v1';
 const MODE_KEY = '@awa/appearance/mode-v1';
 const TRUE_BLACK_KEY = '@awa/appearance/true-black-v1';
 const THEME_KEY = '@awa/appearance/theme-v1';
-const ALL_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'bn'] as const;
+const ALL_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'bn', 'da'] as const;
 
 /** A new app process: fresh module state, same stored data. */
 function startApp(): Prefs {
