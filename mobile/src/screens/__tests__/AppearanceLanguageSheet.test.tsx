@@ -16,9 +16,9 @@ import i18n from '../../i18n';
 
 const KEY = '@awa/appearance/language-v1';
 const TEST_METRICS: Metrics = {frame: {x: 0, y: 0, width: 360, height: 740}, insets: {top: 0, left: 0, right: 0, bottom: 0}};
-const UI_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'bn'] as const;
+const UI_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'bn', 'da'] as const;
 // each card names itself in its own language, whatever language AWA is displayed in
-const SELF_LABELS = ['Français', 'English', 'Español', 'Italiano', 'Türkçe', 'Русский', 'Deutsch', '简体中文', 'Bahasa Indonesia', 'हिन्दी', 'Shqip', '日本語', '한국어', 'Português (Portugal)', 'Português (Brasil)', 'বাংলা'];
+const SELF_LABELS = ['Français', 'English', 'Español', 'Italiano', 'Türkçe', 'Русский', 'Deutsch', '简体中文', 'Bahasa Indonesia', 'हिन्दी', 'Shqip', '日本語', '한국어', 'Português (Portugal)', 'Português (Brasil)', 'বাংলা', 'Dansk'];
 const activeRenderers: ReactTestRenderer.ReactTestRenderer[] = [];
 
 async function renderScreen() {

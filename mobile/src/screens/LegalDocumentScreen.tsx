@@ -31,7 +31,7 @@ type LegalSection = {title: string; body: string};
 // validation — it carries no clause beyond the English). Russian likewise carries the same
 // provisional placeholder text and no clause beyond the English. German (de) carries the same
 // provisional placeholder text as well, with no clause beyond the English. Simplified Chinese (zh), Indonesian (id) and Hindi (hi) likewise.
-type LegalLanguage = 'fr' | 'en' | 'es' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn';
+type LegalLanguage = 'fr' | 'en' | 'es' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn' | 'da' | 'sv';
 
 export const TERMS: Record<LegalLanguage, LegalSection[]> = {
   fr: [
@@ -135,6 +135,18 @@ export const TERMS: Record<LegalLanguage, LegalSection[]> = {
     {title: 'অ্যাপের ব্যবহার', body: 'AWA ব্যক্তিগত রেকর্ড রাখা ও সুস্থতার জন্য কিছু সরঞ্জাম সরবরাহ করে। ব্যবহারকারীদের অধিকার ও দায়িত্ব সম্পর্কে চূড়ান্ত বিষয়বস্তু আইনি যাচাইয়ের পর যোগ করা হবে।'},
     {title: 'সেবা প্রদান', body: 'সেবা প্রদান, রক্ষণাবেক্ষণ ও উন্নয়নের চূড়ান্ত শর্তগুলো পরে নির্ধারণ করা হবে।'},
     {title: 'যোগাযোগ', body: 'আনুষ্ঠানিক যোগাযোগের তথ্য AWA দলের যাচাইয়ের পর যোগ করা হবে।'},
+  ],
+  da: [
+    {title: 'Formål', body: 'Dette dokument præsenterer den foreløbige struktur for AWA\'s brugsbetingelser.'},
+    {title: 'Brug af appen', body: 'AWA tilbyder personlige sporings- og velfærdsværktøjer. Det endelige indhold, der beskriver brugernes rettigheder og ansvar, tilføjes, når den juridiske validering er afsluttet.'},
+    {title: 'Tjenestetilgængelighed', body: 'De endelige betingelser for tjenestens tilgængelighed, vedligeholdelse og udvikling er endnu ikke fastlagt.'},
+    {title: 'Kontakt', body: 'Officielle kontaktoplysninger tilføjes, når de er godkendt af AWA-teamet.'},
+  ],
+  sv: [
+    {title: 'Syfte', body: 'Det här dokumentet presenterar den preliminära strukturen för AWA:s användarvillkor.'},
+    {title: 'Användning av appen', body: 'AWA erbjuder personliga spårnings- och välmåendeverktyg. Det slutliga innehållet som beskriver användarnas rättigheter och skyldigheter läggs till efter juridisk granskning.'},
+    {title: 'Tjänsttillgänglighet', body: 'De slutliga villkoren för tjänstens tillgänglighet, underhåll och utveckling återstår att fastställa.'},
+    {title: 'Kontakt', body: 'Officiella kontaktuppgifter läggs till när de har godkänts av AWA-teamet.'},
   ],
 };
 
@@ -241,6 +253,18 @@ export const PRIVACY: Record<LegalLanguage, LegalSection[]> = {
     {title: 'ব্যবহারকারীর অধিকার', body: 'তথ্য দেখা, সংশোধন বা মুছে ফেলার পদ্ধতি যাচাইকৃত সংস্করণে বিস্তারিত জানানো হবে।'},
     {title: 'গোপনীয়তা বিষয়ক যোগাযোগ', body: 'গোপনীয়তা দায়িত্বপ্রাপ্ত ব্যক্তির আনুষ্ঠানিক যোগাযোগের তথ্য প্রকাশের আগে যোগ করা হবে।'},
   ],
+  da: [
+    {title: 'Berørte data', body: 'Dette afsnit vil præcist beskrive de data, AWA behandler, og formålet hermed, når den juridiske validering er afsluttet.'},
+    {title: 'Opbevaring og sikkerhed', body: 'Den endelige dokumentation vil specificere opbevaringsforanstaltninger, beskyttelse og opbevaringsperioder.'},
+    {title: 'Dine rettigheder', body: 'Procedurerne for at få adgang til, rette eller slette dine data vil blive beskrevet i den validerede version.'},
+    {title: 'Kontakt vedr. privatlivspolitik', body: 'Den officielle kontaktadresse for databeskyttelsesansvarlig tilføjes inden offentliggørelse.'},
+  ],
+  sv: [
+    {title: 'Berörda uppgifter', body: 'Det här avsnittet kommer att exakt beskriva de uppgifter som AWA behandlar och syftet med dem, när den juridiska granskningen är klar.'},
+    {title: 'Lagring och säkerhet', body: 'Den slutliga dokumentationen kommer att specificera lagringsåtgärder, skyddsåtgärder och lagringstider.'},
+    {title: 'Dina rättigheter', body: 'Rutinerna för att få tillgång till, rätta eller radera dina uppgifter beskrivs i den validerade versionen.'},
+    {title: 'Kontakt integritet', body: 'Den officiella kontaktadressen till dataskyddsombudet läggs till före publicering.'},
+  ],
 };
 
 /** Resolves the app's current language to one of the 6 legal-content keys —
@@ -263,6 +287,8 @@ function resolveLegalLanguage(language: string): LegalLanguage {
   if (language === 'pt-PT') {return 'pt-PT';}
   if (language === 'pt-BR') {return 'pt-BR';}
   if (language === 'bn') {return 'bn';}
+  if (language === 'da') {return 'da';}
+  if (language === 'sv') {return 'sv';}
   return 'en';
 }
 
