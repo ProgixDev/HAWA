@@ -37,6 +37,7 @@ import {sq} from '../../../i18n/locales/sq';
 import {ja} from '../../../i18n/locales/ja';
 import {ko} from '../../../i18n/locales/ko';
 import {bn} from '../../../i18n/locales/bn';
+import {da} from '../../../i18n/locales/da';
 import {createBengaliFace} from '../../../services/medicalExportPdf';
 import {NOTO_SANS_BENGALI_REGULAR_SUBSET_BASE64} from '../../../services/pdfBengaliFont';
 import {ptPT, ptBRFull} from '../../../testUtils/portugueseDictionaries';
@@ -71,7 +72,7 @@ const realWidth = (text: string, size: number): number => {
   return (hanzi + shaped(rest)) * size;
 };
 
-const DICTIONARIES = {fr, en, es, it: itDictionary, tr, ru, de, zh, id, hi, sq, ja, ko, 'pt-PT': ptPT, 'pt-BR': ptBRFull, bn} as const;
+const DICTIONARIES = {fr, en, es, it: itDictionary, tr, ru, de, zh, id, hi, sq, ja, ko, 'pt-PT': ptPT, 'pt-BR': ptBRFull, bn, da} as const;
 const LANGUAGES = Object.keys(DICTIONARIES) as Array<keyof typeof DICTIONARIES>;
 const moodTitle = (language: keyof typeof DICTIONARIES, name: string) =>
   ((DICTIONARIES[language] as unknown as {daughterJournal: {titles: {mood: string}}}).daughterJournal.titles.mood as string).replace('{{name}}', name);

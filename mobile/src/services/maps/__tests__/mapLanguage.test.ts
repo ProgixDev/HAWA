@@ -50,7 +50,7 @@ describe('mapLanguageFor', () => {
     ['fr', 'fr'], ['fr-FR', 'fr'], ['en', 'en'], ['en-GB', 'en'], ['es-ES', 'es'], ['it', 'it'], ['tr-TR', 'tr'], ['ru-RU', 'ru'], ['de-DE', 'de'],
     ['zh', 'zh'], ['zh-Hans-CN', 'zh'], ['zh_CN', 'zh'], ['id-ID', 'id'], ['hi-IN', 'hi'], ['sq-AL', 'sq'], ['sq-XK', 'sq'], ['ja-JP', 'ja'], ['ja_JP', 'ja'], ['ko', 'ko'], ['ko-KR', 'ko'], ['ko_KR', 'ko'], ['ko-Kore-KR', 'ko'], ['pt', 'pt'], ['pt-PT', 'pt'], ['pt-BR', 'pt'], ['pt_BR', 'pt'], ['pt-Latn-BR', 'pt'],
     ['bn', 'bn'], ['bn-BD', 'bn'], ['bn-IN', 'bn'], ['bn_BD', 'bn'], ['bn_IN', 'bn'], ['bn-Beng-BD', 'bn'],
-    ['ar', 'ar'], ['ar-DZ', 'ar'], ['  FR  ', 'fr'],
+    ['ar', 'ar'], ['ar-DZ', 'ar'], ['da', 'da'], ['da-DK', 'da'], ['da_DK', 'da'], ['  FR  ', 'fr'],
   ])('%s -> %s', (tag, expected) => {
     expect(mapLanguageFor(tag)).toBe(expected);
   });
@@ -60,7 +60,7 @@ describe('mapLanguageFor', () => {
   });
 
   it('knows every language AWA registers (a new AwaAppLanguage must be added to MAP_LANGUAGES or this fails to compile)', () => {
-    const registered: Record<AwaAppLanguage, true> = {fr: true, en: true, es: true, it: true, tr: true, ru: true, de: true, zh: true, id: true, hi: true, sq: true, ja: true, ko: true, 'pt-PT': true, 'pt-BR': true, bn: true};
+    const registered: Record<AwaAppLanguage, true> = {fr: true, en: true, es: true, it: true, tr: true, ru: true, de: true, zh: true, id: true, hi: true, sq: true, ja: true, ko: true, 'pt-PT': true, 'pt-BR': true, bn: true, da: true};
     for (const language of Object.keys(registered)) {
       const expected = language === 'pt-PT' || language === 'pt-BR' ? 'pt' : language; // the provider has one Portuguese
       expect([language, mapLanguageFor(language)]).toEqual([language, expected]);

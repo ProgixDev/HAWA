@@ -34,8 +34,10 @@ export const WEEK_DAYS_JA = ['月', '火', '水', '木', '金', '土', '日'];
 export const WEEK_DAYS_KO = ['월', '화', '수', '목', '금', '토', '일'];
 export const WEEK_DAYS_PT = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
 export const WEEK_DAYS_BN = ['সোম', 'মঙ্গল', 'বুধ', 'বৃহ', 'শুক্র', 'শনি', 'রবি'];
-export const localizedWeekDays = (): string[] => {
-  const language = getAppLanguage();
+export const WEEK_DAYS_DA = ['Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lør', 'Søn'];
+export const WEEK_DAYS_SV = ['Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör', 'Sön'];
+export const localizedWeekDays = (overrideLanguage?: string): string[] => {
+  const language = overrideLanguage ?? getAppLanguage();
   if (language === 'en') {return WEEK_DAYS_EN;}
   if (language === 'es') {return WEEK_DAYS_ES;}
   if (language === 'it') {return WEEK_DAYS_IT;}
@@ -50,6 +52,8 @@ export const localizedWeekDays = (): string[] => {
   if (language === 'ko') {return WEEK_DAYS_KO;}
   if (language === 'pt-PT' || language === 'pt-BR') {return WEEK_DAYS_PT;}
   if (language === 'bn') {return WEEK_DAYS_BN;}
+  if (language === 'da') {return WEEK_DAYS_DA;}
+  if (language === 'sv') {return WEEK_DAYS_SV;}
   return WEEK_DAYS;
 };
 
@@ -90,8 +94,8 @@ export const capitalize = (value: string): string => capitalizeFor(value);
 // duplicate this exact fr/en-only ternary locally (and therefore had
 // Spanish silently fall through to 'fr-FR') can import this single,
 // now-3-way-correct helper instead of re-deriving their own.
-export const dateFormatLocale = (): string => {
-  const language = getAppLanguage();
+export const dateFormatLocale = (overrideLanguage?: string): string => {
+  const language = overrideLanguage ?? getAppLanguage();
   if (language === 'en') {return 'en-US';}
   if (language === 'es') {return 'es-ES';}
   if (language === 'it') {return 'it-IT';}
@@ -109,6 +113,8 @@ export const dateFormatLocale = (): string => {
   // Bengali: bn-BD (Bangladesh; bn-IN has the same CLDR data) with LATIN digits — ICU's default would print Bengali digits (২১ অক্টোবর), but every
   // number AWA shows (cycle day, counters, the dictionary) is a Western digit, so dates follow it.
   if (language === 'bn') {return 'bn-BD-u-nu-latn';}
+  if (language === 'da') {return 'da-DK';}
+  if (language === 'sv') {return 'sv-SE';}
   return 'fr-FR';
 };
 
