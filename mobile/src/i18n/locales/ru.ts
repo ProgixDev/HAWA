@@ -1,4 +1,4 @@
-// Russian copy (ru-RU). Natural, formal-polite («вы») Russian for a women's health application — NOT a literal
+﻿// Russian copy (ru-RU). Natural, formal-polite («вы») Russian for a women's health application — NOT a literal
 // word-for-word rendering of en.ts. Same key set and the same interpolation placeholders as the other dictionaries.
 //
 // Plural keys: Russian has four cardinal forms. Every English `_one`/`_other` pair is expanded to
@@ -167,6 +167,8 @@ export const ru = {
       portugueseName: 'Português (Portugal)',
       portugueseBrazilName: 'Português (Brasil)',
       bengaliName: 'বাংলা',
+      danishName: 'Dansk',
+      swedishName: 'Svenska',
       systemName: 'Язык системы',
       systemDescription: 'Использовать язык устройства',
     },

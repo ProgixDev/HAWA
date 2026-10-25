@@ -78,7 +78,7 @@ const ptLeaves = leaves(ptPT as AnyRecord);
 const ptMap = new Map(ptLeaves);
 const brLeaves = leaves(ptBR as AnyRecord);
 const brFullLeaves = leaves(ptBRFull as AnyRecord);
-const ALL_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR'] as const;
+const ALL_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'bn', 'da'] as const;
 const ENDONYM = /^appearance\.language\.[a-zA-Z]+Name$/;
 // Values kept as written on purpose (e-mail examples, the product name, the Arabic greeting with its ʿayn mark, confirmation words, Premium pill)
 const AS_WRITTEN = new Set([
@@ -97,7 +97,7 @@ describe('Portugal dictionary integrity (pt-PT)', () => {
   it('ptPT.ts has exactly the same leaf paths as every other dictionary — fifteen-language parity, no missing, no extra', () => {
     const paths = (dictionary: AnyRecord) => leaves(dictionary).map(([keyPath]) => keyPath).sort();
     const reference = paths(en as AnyRecord);
-    expect(reference.length).toBe(6247);
+    expect(reference.length).toBe(6248);
     expect(paths(ptPT as AnyRecord)).toEqual(reference);
     for (const dictionary of [fr, es, itDictionary, tr, de, zh, id, hi, sq, ja, ko, bn]) {
       expect(paths(dictionary as AnyRecord)).toEqual(reference);
@@ -343,7 +343,7 @@ describe('registration and normalisation', () => {
     expect(resolveEditorialLanguage('th')).toBe('en');
     expect(resolveEditorialLanguage('ptx')).toBe('en');
     expect(resolveEditorialLanguage(undefined)).toBe('en');
-    expect(ALL_LANGUAGES.map(language => resolveEditorialLanguage(language))).toEqual(['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR']);
+    expect(ALL_LANGUAGES.map(language => resolveEditorialLanguage(language))).toEqual(['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'bn', 'da']);
   });
 });
 

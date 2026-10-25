@@ -1,4 +1,4 @@
-// German copy (de-DE). Natural, informal-singular («du») German for a women's health application — NOT a literal
+﻿// German copy (de-DE). Natural, informal-singular («du») German for a women's health application — NOT a literal
 // word-for-word rendering of en.ts. Same key set, same interpolation placeholders and the same plural keys
 // (_one/_other: German has exactly the English two forms, "1 Tag" / "2 Tage") as the other dictionaries.
 //
@@ -164,6 +164,8 @@ export const de = {
       portugueseName: 'Português (Portugal)',
       portugueseBrazilName: 'Português (Brasil)',
       bengaliName: 'বাংলা',
+      danishName: 'Dansk',
+      swedishName: 'Svenska',
       systemName: 'Systemsprache',
       systemDescription: 'Sprache des Geräts verwenden',
     },

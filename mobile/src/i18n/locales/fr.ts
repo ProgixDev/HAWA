@@ -1,4 +1,4 @@
-// Canonical French copy — moved here verbatim from the existing screens (see
+﻿// Canonical French copy — moved here verbatim from the existing screens (see
 // each screen's own header comment for where it used to live). This is
 // Phase 1 of the English localization: navigation + Appearance + the
 // managed-daughter onboarding flow + the Cycle dashboard's static chrome.
@@ -198,6 +198,8 @@ export const fr = {
       portugueseName: 'Português (Portugal)',
       portugueseBrazilName: 'Português (Brasil)',
       bengaliName: 'বাংলা',
+      danishName: 'Dansk',
+      swedishName: 'Svenska',
       systemName: 'Langue du système',
       systemDescription: 'Utiliser la langue de l’appareil',
     },

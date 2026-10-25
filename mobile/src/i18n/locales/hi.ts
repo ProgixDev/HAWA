@@ -1,4 +1,4 @@
-// हिन्दी (hi). Generated from the English dictionary structure (en.ts) — same keys, same order. Hindi has two plural categories
+﻿// हिन्दी (hi). Generated from the English dictionary structure (en.ts) — same keys, same order. Hindi has two plural categories
 // (CLDR: `_one` for 0 and 1, `_other`), both translated separately. Voice: polite "आप". Western digits 0-9 throughout.
 // Terms that need a native medical / religious reviewer are listed in mobile/docs/i18n/hindi-review-checklist.md.
 export const hi = {
@@ -157,6 +157,8 @@ export const hi = {
       portugueseName: 'Português (Portugal)',
       portugueseBrazilName: 'Português (Brasil)',
       bengaliName: 'বাংলা',
+      danishName: 'Dansk',
+      swedishName: 'Svenska',
       systemName: 'सिस्टम डिफ़ॉल्ट',
       systemDescription: 'फ़ोन की भाषा इस्तेमाल करें',
     },

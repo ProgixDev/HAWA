@@ -1,4 +1,4 @@
-// English copy — deliberately NOT a literal word-for-word translation of
+﻿// English copy — deliberately NOT a literal word-for-word translation of
 // fr.ts. Every string here was chosen for how it reads on its own screen, in
 // a natural, warm, professional tone appropriate for a women's health app,
 // while keeping the same meaning and the same supportive intent as the
@@ -185,6 +185,8 @@ export const en = {
       portugueseName: 'Português (Portugal)',
       portugueseBrazilName: 'Português (Brasil)',
       bengaliName: 'বাংলা',
+      danishName: 'Dansk',
+      swedishName: 'Svenska',
       systemName: 'System default',
       systemDescription: 'Use device language',
     },

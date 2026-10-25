@@ -1,4 +1,4 @@
-// Italian copy. Structural parity with en.ts (same keys, same {{placeholders}}), written in
+﻿// Italian copy. Structural parity with en.ts (same keys, same {{placeholders}}), written in
 // natural Italian rather than word-for-word. "AWA Together" is rendered "AWA Insieme" everywhere;
 // "AWA" itself is a brand name and is never translated. Apostrophes are the typographic ’ used by
 // en.ts/fr.ts, so no string needs escaping. The Arabic greeting "As-salamu ‘alaykum" and the
@@ -162,6 +162,8 @@ export const it = {
       portugueseName: 'Português (Portugal)',
       portugueseBrazilName: 'Português (Brasil)',
       bengaliName: 'বাংলা',
+      danishName: 'Dansk',
+      swedishName: 'Svenska',
       systemName: 'Lingua di sistema',
       systemDescription: 'Usa la lingua del dispositivo',
     },

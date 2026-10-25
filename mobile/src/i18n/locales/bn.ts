@@ -1,4 +1,4 @@
-// বাংলা (bn). Generated from the English dictionary structure (en.ts): same keys, same order. Standard Bengali (Bangladesh standard), polite আপনি, Bengali script,
+﻿// বাংলা (bn). Generated from the English dictionary structure (en.ts): same keys, same order. Standard Bengali (Bangladesh standard), polite আপনি, Bengali script,
 // Western digits, the dari (।). After a number Bengali does not inflect, so each `_one` key carries the wording of its `_other` sibling (CLDR bn: one = 0 or 1).
 // Terms that need a native medical / religious reviewer are listed in mobile/docs/i18n/bengali-review-checklist.md.
 export const bn = {
@@ -157,6 +157,8 @@ export const bn = {
       portugueseName: 'Português (Portugal)',
       portugueseBrazilName: 'Português (Brasil)',
       bengaliName: 'বাংলা',
+      danishName: 'Dansk',
+      swedishName: 'Svenska',
       systemName: 'সিস্টেমের ডিফল্ট',
       systemDescription: 'ডিভাইসের ভাষা ব্যবহার করুন',
     },

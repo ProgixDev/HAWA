@@ -1,4 +1,4 @@
-// Canonical Spanish copy — professional localization of fr.ts (the French
+﻿// Canonical Spanish copy — professional localization of fr.ts (the French
 // source of truth), covering every namespace in the application: onboarding,
 // cycle/fertility/conception tracking, pregnancy, postpartum, pregnancy loss,
 // menopause, contraception, irregular cycles/PCOS, the daily journal, the
@@ -175,6 +175,8 @@ export const es = {
       portugueseName: 'Português (Portugal)',
       portugueseBrazilName: 'Português (Brasil)',
       bengaliName: 'বাংলা',
+      danishName: 'Dansk',
+      swedishName: 'Svenska',
       systemName: 'Idioma del sistema',
       systemDescription: 'Usar el idioma del dispositivo',
     },

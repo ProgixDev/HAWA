@@ -1,4 +1,4 @@
-// Português (Portugal) — pt-PT. Generated from the English dictionary structure (en.ts): same keys, same order. European Portuguese (AO90), polite third-person
+﻿// Português (Portugal) — pt-PT. Generated from the English dictionary structure (en.ts): same keys, same order. European Portuguese (AO90), polite third-person
 // form ("o seu ciclo"), both plural categories (_one / _other). Brazilian Portuguese (pt-BR) is the small overlay in ptBR.ts: i18next falls back from pt-BR to
 // this dictionary. Terms that need a medical / religious reviewer are listed in mobile/docs/i18n/portuguese-review-checklist.md.
 export const ptPT = {
@@ -157,6 +157,8 @@ export const ptPT = {
       portugueseName: 'Português (Portugal)',
       portugueseBrazilName: 'Português (Brasil)',
       bengaliName: 'বাংলা',
+      danishName: 'Dansk',
+      swedishName: 'Svenska',
       systemName: 'Predefinição do dispositivo',
       systemDescription: 'Utilizar o idioma do dispositivo',
     },

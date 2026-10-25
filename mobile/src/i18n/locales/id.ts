@@ -1,4 +1,4 @@
-// Bahasa Indonesia (id). Generated from the English dictionary structure (en.ts) — same keys, same order; `_one` / `_other`
+﻿// Bahasa Indonesia (id). Generated from the English dictionary structure (en.ts) — same keys, same order; `_one` / `_other`
 // plural pairs carry the same wording (Indonesian has the single plural category "other"). Voice: informal-respectful "kamu".
 // Terms that need a native medical / religious reviewer are listed in mobile/docs/i18n/indonesian-review-checklist.md.
 export const id = {
@@ -157,6 +157,8 @@ export const id = {
       portugueseName: 'Português (Portugal)',
       portugueseBrazilName: 'Português (Brasil)',
       bengaliName: 'বাংলা',
+      danishName: 'Dansk',
+      swedishName: 'Svenska',
       systemName: 'Bawaan sistem',
       systemDescription: 'Gunakan bahasa perangkat',
     },

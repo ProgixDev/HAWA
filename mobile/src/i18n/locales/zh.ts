@@ -1,4 +1,4 @@
-// Simplified Chinese copy (zh-CN, 简体中文). Natural, warm Mainland-Chinese wording for a women's health application,
+﻿// Simplified Chinese copy (zh-CN, 简体中文). Natural, warm Mainland-Chinese wording for a women's health application,
 // NOT a literal word-for-word rendering of en.ts. Same key set and the same interpolation placeholders as the other
 // dictionaries. Chinese has no grammatical plural (CLDR category "other" only): every _one/_other pair therefore
 // carries the same wording, kept only so the key set stays identical to en.ts.
@@ -167,6 +167,8 @@ export const zh = {
       portugueseName: 'Português (Portugal)',
       portugueseBrazilName: 'Português (Brasil)',
       bengaliName: 'বাংলা',
+      danishName: 'Dansk',
+      swedishName: 'Svenska',
       systemName: '跟随系统',
       systemDescription: '使用设备语言',
     },
