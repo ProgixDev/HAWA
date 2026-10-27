@@ -88,8 +88,10 @@ describe('Albanian PDF export', () => {
 
   it('draws every character of the 41 pregnancy weeks and of the whole Albanian dictionary that WinAnsi can hold', async () => {
     const texts: string[] = [];
-    const walk = (node: unknown): void => {
-      if (typeof node === 'string') {texts.push(node);} else if (node && typeof node === 'object') {Object.values(node).forEach(walk);}
+    // `appearance.language` holds the names of the other languages written in their own scripts (Thai, Georgian, ...): they are shown on screen, never in the PDF
+    const walk = (node: unknown, path = ''): void => {
+      if (path === 'appearance.language') {return;}
+      if (typeof node === 'string') {texts.push(node);} else if (node && typeof node === 'object') {Object.entries(node).forEach(([key, value]) => walk(value, path ? `${path}.${key}` : key));}
     };
     for (let week = 1; week <= 41; week += 1) {walk(getPregnancyWeekData(week, 'sq'));}
     walk(sq);
