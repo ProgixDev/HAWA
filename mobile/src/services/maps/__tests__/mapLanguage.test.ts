@@ -50,17 +50,17 @@ describe('mapLanguageFor', () => {
     ['fr', 'fr'], ['fr-FR', 'fr'], ['en', 'en'], ['en-GB', 'en'], ['es-ES', 'es'], ['it', 'it'], ['tr-TR', 'tr'], ['ru-RU', 'ru'], ['de-DE', 'de'],
     ['zh', 'zh'], ['zh-Hans-CN', 'zh'], ['zh_CN', 'zh'], ['id-ID', 'id'], ['hi-IN', 'hi'], ['sq-AL', 'sq'], ['sq-XK', 'sq'], ['ja-JP', 'ja'], ['ja_JP', 'ja'], ['ko', 'ko'], ['ko-KR', 'ko'], ['ko_KR', 'ko'], ['ko-Kore-KR', 'ko'], ['pt', 'pt'], ['pt-PT', 'pt'], ['pt-BR', 'pt'], ['pt_BR', 'pt'], ['pt-Latn-BR', 'pt'],
     ['bn', 'bn'], ['bn-BD', 'bn'], ['bn-IN', 'bn'], ['bn_BD', 'bn'], ['bn_IN', 'bn'], ['bn-Beng-BD', 'bn'],
-    ['ar', 'ar'], ['ar-DZ', 'ar'], ['da', 'da'], ['da-DK', 'da'], ['da_DK', 'da'], ['  FR  ', 'fr'],
+    ['vi', 'vi'], ['vi-VN', 'vi'], ['vi_VN', 'vi'], ['uz', 'uz'], ['uz-UZ', 'uz'], ['uz_UZ', 'uz'], ['uz-Latn-UZ', 'uz'], ['az', 'az'], ['az-AZ', 'az'], ['az_AZ', 'az'], ['az-Latn-AZ', 'az'], ['ka', 'ka'], ['ka-GE', 'ka'], ['ka_GE', 'ka'], ['ka-Geor-GE', 'ka'], ['hy', 'hy'], ['hy-AM', 'hy'], ['hy_AM', 'hy'], ['hy-Armn-AM', 'hy'], ['tg', 'tg'], ['tg-TJ', 'tg'], ['tg_TJ', 'tg'], ['tg-Cyrl-TJ', 'tg'], ['ky', 'ky'], ['ky-KG', 'ky'], ['ky_KG', 'ky'], ['ky-Cyrl-KG', 'ky'], ['tk', 'tk'], ['tk-TM', 'tk'], ['tk_TM', 'tk'], ['tk-Latn-TM', 'tk'], ['ar', 'ar'], ['ar-DZ', 'ar'], ['da', 'da'], ['da-DK', 'da'], ['da_DK', 'da'], ['  FR  ', 'fr'],
   ])('%s -> %s', (tag, expected) => {
     expect(mapLanguageFor(tag)).toBe(expected);
   });
 
-  it.each([undefined, null, '', '   ', 'xx', 'xx-not-a-real-language', 'zz-ZZ', 'th', 'vi-VN'])('%j -> undefined (the provider would answer HTTP 400 or has no such names)', tag => {
+  it.each([undefined, null, '', '   ', 'xx', 'xx-not-a-real-language', 'zz-ZZ', 'th'])('%j -> undefined (the provider would answer HTTP 400 or has no such names)', tag => {
     expect(mapLanguageFor(tag as never)).toBeUndefined();
   });
 
   it('knows every language AWA registers (a new AwaAppLanguage must be added to MAP_LANGUAGES or this fails to compile)', () => {
-    const registered: Record<AwaAppLanguage, true> = {fr: true, en: true, es: true, it: true, tr: true, ru: true, de: true, zh: true, id: true, hi: true, sq: true, ja: true, ko: true, 'pt-PT': true, 'pt-BR': true, bn: true, da: true};
+    const registered: Record<AwaAppLanguage, true> = {fr: true, en: true, es: true, it: true, tr: true, ru: true, de: true, zh: true, id: true, hi: true, sq: true, ja: true, ko: true, 'pt-PT': true, 'pt-BR': true, bn: true, da: true, sv: true, nb: true, pl: true, uk: true, cs: true, sk: true, hu: true, ro: true, bg: true, sr: true, hr: true, bs: true, sl: true, ne: true, si: true, th: true, vi: true, uz: true, az: true, ka: true, hy: true, tg: true, ky: true, tk: true};
     for (const language of Object.keys(registered)) {
       const expected = language === 'pt-PT' || language === 'pt-BR' ? 'pt' : language; // the provider has one Portuguese
       expect([language, mapLanguageFor(language)]).toEqual([language, expected]);

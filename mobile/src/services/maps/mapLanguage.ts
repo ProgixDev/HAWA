@@ -11,11 +11,11 @@
 /** The languages the map labels and the geocoder are asked for: AWA's fourteen languages (themePreferences.AwaAppLanguage; both Portuguese variants are the provider's single `pt`) plus
  * Arabic (supported by the provider; AWA has no Arabic interface yet). Anything else is NOT sent to the provider: the MapTiler
  * geocoder answers an unknown `language` with HTTP 400. */
-export const MAP_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt', 'bn', 'ar', 'da', 'sv'] as const;
+export const MAP_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt', 'bn', 'ar', 'da', 'sv', 'no', 'pl', 'uk', 'cs', 'sk', 'hu', 'ro', 'bg', 'sr', 'hr', 'bs', 'sl', 'vi', 'uz', 'az', 'ka', 'hy', 'tg', 'ky', 'tk'] as const;
 export type MapLanguage = (typeof MAP_LANGUAGES)[number];
 
 // Languages written in a non-Latin script: when a label has no translation they keep the LOCAL name rather than a Latin transliteration.
-const NON_LATIN_SCRIPT: ReadonlySet<MapLanguage> = new Set<MapLanguage>(['ru', 'zh', 'ja', 'ko', 'hi', 'ar']);
+const NON_LATIN_SCRIPT: ReadonlySet<MapLanguage> = new Set<MapLanguage>(['ru', 'zh', 'ja', 'ko', 'hi', 'ar', 'bg', 'sr', 'ka', 'hy', 'tg', 'ky']);
 
 // Languages whose script MapLibre Native cannot shape. Its Android library has no text-shaping engine (no HarfBuzz; glyphs are per-code-point SDF ranges),
 // so Bengali conjuncts (ক্ষ, ন্দ …), pre-base vowel signs (ি ে ৈ) and split vowels (ো ৌ) would be drawn as loose, mis-ordered letters. For them the map NEVER
@@ -29,13 +29,16 @@ export const mapLabelsUseLatinFallback = (language: MapLanguage): boolean => UNS
 /** The provider language for a BCP-47-ish tag ('fr', 'fr-FR', 'sq-AL', 'ja_JP', 'zh-Hans-CN', 'ar'), or undefined when the provider has no
  * such language (the caller then omits the parameter and gets the provider's default names). */
 export function mapLanguageFor(tag: string | null | undefined): MapLanguage | undefined {
-  const base = String(tag ?? '').trim().toLowerCase().split(/[-_.]/)[0];
+  const rawBase = String(tag ?? '').trim().toLowerCase().split(/[-_.]/)[0];
+  // MapTiler's Norwegian is the macrolanguage `no` (OSM name:no); AWA's Bokmål code 'nb' maps to it. Nynorsk ('nn') is a separate provider language AWA does not offer.
+  const base = rawBase === 'nb' ? 'no' : rawBase;
   return (MAP_LANGUAGES as readonly string[]).includes(base) ? (base as MapLanguage) : undefined;
 }
 
 /** The tile properties to read for a language, best first. Simplified Chinese is stored as `name:zh-Hans` (and `name:zh`). */
 export function localizedNameKeys(language: MapLanguage): string[] {
   if (UNSHAPED_SCRIPT.has(language)) {return [];}
+  if (language === 'no') {return ['name:no', 'name:nb'];}
   return language === 'zh' ? ['name:zh-Hans', 'name:zh'] : [`name:${language}`];
 }
 
