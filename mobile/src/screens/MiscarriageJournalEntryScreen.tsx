@@ -17,7 +17,7 @@ import {
   type RouteProp,
 } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import DateTimePicker, {
   type DateTimePickerChangeEvent,
 } from '@react-native-community/datetimepicker';
