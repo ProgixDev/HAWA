@@ -14,9 +14,7 @@ import {
   View,
 } from 'react-native';
 
-import {
-  MaterialDesignIcons,
-} from '@react-native-vector-icons/material-design-icons';
+import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useTranslation} from 'react-i18next';
 
 import {
