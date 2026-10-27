@@ -23,7 +23,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 
-import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import { usePremium } from '../hooks/usePremium';
 import { useFocusEffect } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';

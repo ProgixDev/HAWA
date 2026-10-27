@@ -31,7 +31,7 @@ type LegalSection = {title: string; body: string};
 // validation — it carries no clause beyond the English). Russian likewise carries the same
 // provisional placeholder text and no clause beyond the English. German (de) carries the same
 // provisional placeholder text as well, with no clause beyond the English. Simplified Chinese (zh), Indonesian (id) and Hindi (hi) likewise.
-type LegalLanguage = 'fr' | 'en' | 'es' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn' | 'da' | 'sv';
+type LegalLanguage = 'fr' | 'en' | 'es' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn' | 'da' | 'sv' | 'nb' | 'pl' | 'uk' | 'cs' | 'sk' | 'hu' | 'ro' | 'bg' | 'sr' | 'hr' | 'bs' | 'sl' | 'ne' | 'si' | 'th' | 'vi' | 'uz' | 'az' | 'ka' | 'hy' | 'tg' | 'ky' | 'tk';
 
 export const TERMS: Record<LegalLanguage, LegalSection[]> = {
   fr: [
@@ -147,6 +147,144 @@ export const TERMS: Record<LegalLanguage, LegalSection[]> = {
     {title: 'Användning av appen', body: 'AWA erbjuder personliga spårnings- och välmåendeverktyg. Det slutliga innehållet som beskriver användarnas rättigheter och skyldigheter läggs till efter juridisk granskning.'},
     {title: 'Tjänsttillgänglighet', body: 'De slutliga villkoren för tjänstens tillgänglighet, underhåll och utveckling återstår att fastställa.'},
     {title: 'Kontakt', body: 'Officiella kontaktuppgifter läggs till när de har godkänts av AWA-teamet.'},
+  ],
+  nb: [
+    {title: 'Formål', body: 'Dette dokumentet presenterer den foreløpige strukturen for brukervilkårene til AWA.'},
+    {title: 'Bruk av appen', body: 'AWA tilbyr personlige verktøy for sporing og velvære. Det endelige innholdet som beskriver brukernes rettigheter og ansvar, legges til etter juridisk gjennomgang.'},
+    {title: 'Tilgjengelighet av tjenesten', body: 'De endelige vilkårene for tjenestens tilgjengelighet, vedlikehold og utvikling er ennå ikke fastsatt.'},
+    {title: 'Kontakt', body: 'Offisielle kontaktopplysninger legges til når de er godkjent av AWA-teamet.'},
+  ],
+  pl: [
+    {title: 'Cel', body: 'Ten dokument przedstawia wstępną strukturę regulaminu AWA.'},
+    {title: 'Korzystanie z aplikacji', body: 'AWA oferuje osobiste narzędzia do śledzenia i dbania o dobre samopoczucie. Ostateczna treść opisująca prawa i obowiązki użytkowniczek zostanie dodana po przeglądzie prawnym.'},
+    {title: 'Dostępność usługi', body: 'Ostateczne warunki dostępności, utrzymania i rozwoju usługi nie zostały jeszcze ustalone.'},
+    {title: 'Kontakt', body: 'Oficjalne dane kontaktowe zostaną dodane po zatwierdzeniu przez zespół AWA.'},
+  ],
+  uk: [
+    {title: 'Мета', body: 'Цей документ представляє попередню структуру умов використання AWA.'},
+    {title: 'Користування застосунком', body: 'AWA пропонує персональні інструменти відстеження та турботи про самопочуття. Остаточний текст, що описує права й обов’язки користувачок, буде додано після юридичної перевірки.'},
+    {title: 'Доступність сервісу', body: 'Остаточні умови доступності, супроводу та розвитку сервісу ще не визначені.'},
+    {title: 'Контакт', body: 'Офіційні контактні дані буде додано після затвердження командою AWA.'},
+  ],
+  cs: [
+    {title: 'Účel', body: 'Tento dokument představuje předběžnou strukturu podmínek použití aplikace AWA.'},
+    {title: 'Používání aplikace', body: 'AWA nabízí osobní nástroje pro sledování a péči o pohodu. Konečný text popisující práva a povinnosti uživatelek bude doplněn po právní kontrole.'},
+    {title: 'Dostupnost služby', body: 'Konečné podmínky dostupnosti, údržby a rozvoje služby zatím nejsou stanoveny.'},
+    {title: 'Kontakt', body: 'Oficiální kontaktní údaje budou doplněny po schválení týmem AWA.'},
+  ],
+  sk: [
+    {title: 'Účel', body: 'Tento dokument predstavuje predbežnú štruktúru podmienok používania aplikácie AWA.'},
+    {title: 'Používanie aplikácie', body: 'AWA ponúka osobné nástroje na sledovanie a starostlivosť o pohodu. Konečný text opisujúci práva a povinnosti používateliek bude doplnený po právnej kontrole.'},
+    {title: 'Dostupnosť služby', body: 'Konečné podmienky dostupnosti, údržby a vývoja služby zatiaľ nie sú stanovené.'},
+    {title: 'Kontakt', body: 'Oficiálne kontaktné údaje budú doplnené po schválení tímom AWA.'},
+  ],
+  hu: [
+    {title: 'Cél', body: 'Ez a dokumentum az AWA alkalmazás felhasználási feltételeinek előzetes szerkezetét mutatja be.'},
+    {title: 'Az alkalmazás használata', body: 'Az AWA személyes követési és jóléti eszközöket kínál. A felhasználók jogait és kötelezettségeit leíró végleges szöveg jogi felülvizsgálat után kerül kiegészítésre.'},
+    {title: 'A szolgáltatás elérhetősége', body: 'A szolgáltatás elérhetőségére, karbantartására és fejlesztésére vonatkozó végleges feltételek még nincsenek meghatározva.'},
+    {title: 'Kapcsolat', body: 'A hivatalos elérhetőségek az AWA csapat jóváhagyása után kerülnek kiegészítésre.'},
+  ],
+  ro: [
+    {title: 'Scop', body: 'Acest document prezintă structura provizorie a condițiilor de utilizare ale aplicației AWA.'},
+    {title: 'Utilizarea aplicației', body: 'AWA oferă instrumente personale de monitorizare și de bunăstare. Textul final care descrie drepturile și obligațiile utilizatoarelor va fi completat după o revizuire juridică.'},
+    {title: 'Disponibilitatea serviciului', body: 'Condițiile finale privind disponibilitatea, întreținerea și dezvoltarea serviciului nu sunt încă stabilite.'},
+    {title: 'Contact', body: 'Datele oficiale de contact vor fi completate după validarea echipei AWA.'},
+  ],
+  bg: [
+    {title: 'Цел', body: 'Този документ представя временната структура на условията за ползване на приложението AWA.'},
+    {title: 'Използване на приложението', body: 'AWA предлага лични инструменти за проследяване и благополучие. Окончателният текст, описващ правата и задълженията на потребителките, ще бъде допълнен след правен преглед.'},
+    {title: 'Наличност на услугата', body: 'Окончателните условия относно наличността, поддръжката и развитието на услугата все още не са определени.'},
+    {title: 'Контакт', body: 'Официалните данни за контакт ще бъдат допълнени след одобрение от екипа на AWA.'},
+  ],
+  sr: [
+    {title: 'Сврха', body: 'Овај документ представља привремену структуру услова коришћења апликације AWA.'},
+    {title: 'Коришћење апликације', body: 'AWA нуди личне алате за праћење и благостање. Коначан текст који описује права и обавезе корисница биће допуњен после правне провере.'},
+    {title: 'Доступност услуге', body: 'Коначни услови у вези са доступношћу, одржавањем и развојем услуге још нису утврђени.'},
+    {title: 'Контакт', body: 'Званични подаци за контакт биће допуњени после одобрења AWA тима.'},
+  ],
+  hr: [
+    {title: 'Svrha', body: 'Ovaj dokument predstavlja privremenu strukturu uvjeta korištenja aplikacije AWA.'},
+    {title: 'Korištenje aplikacije', body: 'AWA nudi osobne alate za praćenje i dobrobit. Konačni tekst koji opisuje prava i obveze korisnica bit će dopunjen nakon pravne provjere.'},
+    {title: 'Dostupnost usluge', body: 'Konačni uvjeti u vezi s dostupnošću, održavanjem i razvojem usluge još nisu utvrđeni.'},
+    {title: 'Kontakt', body: 'Službeni podaci za kontakt bit će dopunjeni nakon odobrenja AWA tima.'},
+  ],
+  bs: [
+    {title: 'Svrha', body: 'Ovaj dokument predstavlja privremenu strukturu uslova korištenja aplikacije AWA.'},
+    {title: 'Korištenje aplikacije', body: 'AWA nudi osobne alate za praćenje i dobrobit. Konačni tekst koji opisuje prava i obveze korisnica bit će dopunjen nakon pravne provjere.'},
+    {title: 'Dostupnost usluge', body: 'Konačni uslovi u vezi s dostupnošću, održavanjem i razvojem usluge još nisu utvrđeni.'},
+    {title: 'Kontakt', body: 'Službeni podaci za kontakt bit će dopunjeni nakon odobrenja AWA tima.'},
+  ],
+  sl: [
+    {title: 'Namen', body: 'Ta dokument predstavlja začasno strukturo pogojev uporabe aplikacije AWA.'},
+    {title: 'Uporaba aplikacije', body: 'AWA ponuja osebna orodja za spremljanje in dobro počutje. Končno besedilo, ki opisuje pravice in obveznosti uporabnic, bo dopolnjeno po pravnem pregledu.'},
+    {title: 'Razpoložljivost storitve', body: 'Končni pogoji glede razpoložljivosti, vzdrževanja in razvoja storitve še niso določeni.'},
+    {title: 'Stik', body: 'Uradni podatki za stik bodo dopolnjeni po potrditvi ekipe AWA.'},
+  ],
+  ne: [
+    {title: 'उद्देश्य', body: 'यो कागजातले AWA एपका प्रयोगका सर्तहरूको अस्थायी संरचना प्रस्तुत गर्छ।'},
+    {title: 'एपको प्रयोग', body: 'AWA ले अनुगमन र भलाइका लागि व्यक्तिगत उपकरणहरू प्रदान गर्छ। प्रयोगकर्ताहरूका अधिकार र दायित्व वर्णन गर्ने अन्तिम पाठ कानुनी समीक्षापछि थपिनेछ।'},
+    {title: 'सेवाको उपलब्धता', body: 'सेवाको उपलब्धता, मर्मतसम्भार र विकाससम्बन्धी अन्तिम सर्तहरू अझै तय गरिएका छैनन्।'},
+    {title: 'सम्पर्क', body: 'आधिकारिक सम्पर्क विवरण AWA टोलीको स्वीकृतिपछि थपिनेछ।'},
+  ],
+  si: [
+    {title: 'අරමුණ', body: 'මෙම ලේඛනය AWA යෙදුමේ භාවිත කොන්දේසි සඳහා තාවකාලික ව්‍යුහයක් ඉදිරිපත් කරයි.'},
+    {title: 'යෙදුම භාවිතය', body: 'AWA පසුවිපරම සහ යහපැවැත්ම සඳහා පුද්ගලික මෙවලම් සපයයි. පරිශීලකයන්ගේ අයිතිවාසිකම් සහ වගකීම් විස්තර කරන අවසාන පෙළ නීතිමය සමාලෝචනයෙන් පසු එක් කරනු ලැබේ.'},
+    {title: 'සේවාවේ ලබාගත හැකි බව', body: 'සේවාවේ ලබාගත හැකි බව, නඩත්තුව සහ සංවර්ධනය පිළිබඳ අවසාන කොන්දේසි තවමත් තීරණය කර නැත.'},
+    {title: 'සම්බන්ධ වීම', body: 'නිල සම්බන්ධතා විස්තර AWA කණ්ඩායමේ අනුමැතියෙන් පසු එක් කරනු ලැබේ.'},
+  ],
+  th: [
+    {title: 'วัตถุประสงค์', body: 'เอกสารนี้นำเสนอโครงร่างชั่วคราวของข้อกำหนดการใช้งานแอป AWA'},
+    {title: 'การใช้แอป', body: 'AWA มีเครื่องมือส่วนบุคคลสำหรับการติดตามและความเป็นอยู่ที่ดี ข้อความฉบับสุดท้ายที่อธิบายสิทธิและหน้าที่ของผู้ใช้จะเพิ่มเข้ามาหลังการตรวจสอบทางกฎหมาย'},
+    {title: 'ความพร้อมให้บริการ', body: 'ข้อกำหนดสุดท้ายเกี่ยวกับความพร้อมให้บริการ การบำรุงรักษา และการพัฒนา ยังไม่ได้กำหนด'},
+    {title: 'การติดต่อ', body: 'รายละเอียดการติดต่ออย่างเป็นทางการจะเพิ่มเข้ามาหลังได้รับการอนุมัติจากทีม AWA'},
+  ],
+  vi: [
+    {title: 'Mục đích', body: 'Tài liệu này trình bày bản phác thảo tạm thời về điều khoản sử dụng ứng dụng AWA.'},
+    {title: 'Sử dụng ứng dụng', body: 'AWA cung cấp các công cụ cá nhân để theo dõi và chăm sóc sức khỏe. Văn bản cuối cùng mô tả quyền và nghĩa vụ của người dùng sẽ được bổ sung sau khi được rà soát về mặt pháp lý.'},
+    {title: 'Khả dụng của dịch vụ', body: 'Các điều khoản cuối cùng về tính khả dụng, bảo trì và phát triển của dịch vụ chưa được xác định.'},
+    {title: 'Liên hệ', body: 'Thông tin liên hệ chính thức sẽ được bổ sung sau khi đội ngũ AWA phê duyệt.'},
+  ],
+  uz: [
+    {title: 'Maqsad', body: 'Ushbu hujjat AWA ilovasidan foydalanish shartlarining vaqtinchalik qoralamasini taqdim etadi.'},
+    {title: 'Ilovadan foydalanish', body: 'AWA shaxsiy kuzatuv va farovonlik vositalarini taklif qiladi. Foydalanuvchilarning huquq va majburiyatlarini tavsiflovchi yakuniy matn huquqiy koʻrib chiqishdan keyin qoʻshiladi.'},
+    {title: 'Xizmatning mavjudligi', body: 'Xizmatning mavjudligi, texnik xizmat koʻrsatish va rivojlanishi boʻyicha yakuniy shartlar hali belgilanmagan.'},
+    {title: 'Aloqa', body: 'Rasmiy aloqa maʼlumotlari AWA jamoasi tasdiqlagandan keyin qoʻshiladi.'},
+  ],
+  az: [
+    {title: 'Məqsəd', body: 'Bu sənəd AWA tətbiqindən istifadə şərtlərinin müvəqqəti layihəsini təqdim edir.'},
+    {title: 'Tətbiqdən istifadə', body: 'AWA şəxsi izləmə və rifah vasitələri təklif edir. İstifadəçilərin hüquq və öhdəliklərini təsvir edən yekun mətn hüquqi baxışdan sonra əlavə olunacaq.'},
+    {title: 'Xidmətin əlçatanlığı', body: 'Xidmətin əlçatanlığı, texniki xidməti və inkişafı ilə bağlı yekun şərtlər hələ müəyyən edilməyib.'},
+    {title: 'Əlaqə', body: 'Rəsmi əlaqə məlumatları AWA komandası tərəfindən təsdiqləndikdən sonra əlavə olunacaq.'},
+  ],
+  ka: [
+    {title: 'მიზანი', body: 'ეს დოკუმენტი წარმოადგენს AWA აპლიკაციის გამოყენების პირობების დროებით პროექტს.'},
+    {title: 'აპლიკაციის გამოყენება', body: 'AWA გთავაზობთ პირადი კონტროლისა და კეთილდღეობის ინსტრუმენტებს. საბოლოო ტექსტი, რომელიც მომხმარებლების უფლებებსა და ვალდებულებებს აღწერს, იურიდიული განხილვის შემდეგ დაემატება.'},
+    {title: 'სერვისის ხელმისაწვდომობა', body: 'სერვისის ხელმისაწვდომობის, ტექნიკური მომსახურებისა და განვითარების საბოლოო პირობები ჯერ განსაზღვრული არ არის.'},
+    {title: 'კონტაქტი', body: 'ოფიციალური საკონტაქტო ინფორმაცია დაემატება AWA-ს გუნდის მიერ დამტკიცების შემდეგ.'},
+  ],
+  hy: [
+    {title: 'Նպատակ', body: 'Այս փաստաթուղթը AWA հավելվածի օգտագործման պայմանների ժամանակավոր նախագիծն է:'},
+    {title: 'Հավելվածի օգտագործում', body: 'AWA-ն առաջարկում է անձնական հետևման և բարեկեցության գործիքներ: Օգտատերերի իրավունքներն ու պարտավորությունները նկարագրող վերջնական տեքստը կավելացվի իրավական վերանայումից հետո:'},
+    {title: 'Ծառայության հասանելիություն', body: 'Ծառայության հասանելիության, տեխնիկական սպասարկման և զարգացման վերջնական պայմանները դեռ սահմանված չեն:'},
+    {title: 'Կոնտակտ', body: 'Պաշտոնական կոնտակտային տեղեկությունը կավելացվի AWA թիմի կողմից հաստատվելուց հետո:'},
+  ],
+  tg: [
+    {title: 'Мақсад', body: 'Ин ҳуҷҷат лоиҳаи муваққатии шартҳои истифодаи барномаи AWA аст.'},
+    {title: 'Истифодаи барнома', body: 'AWA абзорҳои пайгирии шахсӣ ва некӯаҳволӣ пешниҳод мекунад. Матни ниҳоие, ки ҳуқуқ ва ӯҳдадориҳои корбаронро тавсиф мекунад, пас аз баррасии ҳуқуқӣ илова карда мешавад.'},
+    {title: 'Дастрасии хидмат', body: 'Шартҳои ниҳоии дастрасии хидмат, хизматрасонии техникӣ ва рушд ҳанӯз муайян нашудаанд.'},
+    {title: 'Тамос', body: 'Маълумоти расмии тамос пас аз тасдиқ аз ҷониби гурӯҳи AWA илова карда мешавад.'},
+  ],
+  ky: [
+    {title: 'Максат', body: 'Бул документ AWA колдонмосунун колдонуу шарттарынын убактылуу долбоору.'},
+    {title: 'Колдонмону колдонуу', body: 'AWA жеке көзөмөлдөө жана жыргалчылык куралдарын сунуштайт. Колдонуучулардын укуктарын жана милдеттерин сүрөттөгөн акыркы текст юридикалык кароодон кийин кошулат.'},
+    {title: 'Кызматтын жеткиликтүүлүгү', body: 'Кызматтын жеткиликтүүлүгүнүн, техникалык тейлөөнүн жана өнүгүүнүн акыркы шарттары азырынча аныкталган эмес.'},
+    {title: 'Байланыш', body: 'Расмий байланыш маалыматы AWA командасы тарабынан ырасталгандан кийин кошулат.'},
+  ],
+  tk: [
+    {title: 'Maksat', body: 'Bu resminama AWA programmasyny ulanmagyň şertleriniň wagtlaýyn taslamasyny hödürleýär.'},
+    {title: 'Programmany ulanmak', body: 'AWA şahsy yzarlama we abadançylyk gurallaryny hödürleýär. Ulanyjylaryň hukuklaryny we borçlaryny suratlandyrýan soňky tekst hukuk gözden geçirilişinden soň goşular.'},
+    {title: 'Hyzmatyň elýeterliligi', body: 'Hyzmatyň elýeterliligi, tehniki hyzmaty we ösüşi bilen baglanyşykly soňky şertler heniz kesgitlenmedi.'},
+    {title: 'Habarlaşmak', body: 'Resmi habarlaşmak maglumatlary AWA topary tarapyndan tassyklanandan soň goşular.'},
   ],
 };
 
@@ -265,6 +403,144 @@ export const PRIVACY: Record<LegalLanguage, LegalSection[]> = {
     {title: 'Dina rättigheter', body: 'Rutinerna för att få tillgång till, rätta eller radera dina uppgifter beskrivs i den validerade versionen.'},
     {title: 'Kontakt integritet', body: 'Den officiella kontaktadressen till dataskyddsombudet läggs till före publicering.'},
   ],
+  nb: [
+    {title: 'Berørte data', body: 'Denne delen vil nøyaktig beskrive dataene AWA behandler og formålet med dem, når den juridiske gjennomgangen er ferdig.'},
+    {title: 'Lagring og sikkerhet', body: 'Den endelige dokumentasjonen vil spesifisere lagringstiltak, beskyttelsestiltak og oppbevaringstider.'},
+    {title: 'Dine rettigheter', body: 'Fremgangsmåtene for å få tilgang til, rette eller slette dataene dine beskrives i den validerte versjonen.'},
+    {title: 'Kontakt om personvern', body: 'Den offisielle kontaktadressen til personvernombudet legges til før publisering.'},
+  ],
+  pl: [
+    {title: 'Przetwarzane dane', body: 'Ta sekcja dokładnie opisze dane przetwarzane przez AWA oraz cele ich przetwarzania po zakończeniu przeglądu prawnego.'},
+    {title: 'Przechowywanie i bezpieczeństwo', body: 'Ostateczna dokumentacja określi środki przechowywania, zabezpieczenia i okresy przechowywania danych.'},
+    {title: 'Twoje prawa', body: 'Sposoby uzyskania dostępu do danych, ich sprostowania lub usunięcia zostaną opisane w zatwierdzonej wersji.'},
+    {title: 'Kontakt w sprawie prywatności', body: 'Oficjalny adres kontaktowy inspektora ochrony danych zostanie dodany przed publikacją.'},
+  ],
+  uk: [
+    {title: 'Оброблювані дані', body: 'Цей розділ точно описуватиме дані, які обробляє AWA, та цілі їхньої обробки після завершення юридичної перевірки.'},
+    {title: 'Зберігання та безпека', body: 'Остаточна документація визначить заходи зберігання, засоби захисту та строки зберігання даних.'},
+    {title: 'Ваші права', body: 'Способи доступу до ваших даних, їх виправлення або видалення будуть описані в затвердженій версії.'},
+    {title: 'Контакт із питань конфіденційності', body: 'Офіційну контактну адресу відповідальної особи із захисту даних буде додано перед публікацією.'},
+  ],
+  cs: [
+    {title: 'Zpracovávaná data', body: 'Tato sekce přesně popíše data, která AWA zpracovává, a účely jejich zpracování po dokončení právní kontroly.'},
+    {title: 'Uložení a zabezpečení', body: 'Konečná dokumentace určí opatření k ukládání, ochranná opatření a lhůty uchování dat.'},
+    {title: 'Vaše práva', body: 'Způsoby, jak získat přístup ke svým datům, opravit je nebo je smazat, budou popsány ve schválené verzi.'},
+    {title: 'Kontakt ve věci soukromí', body: 'Oficiální kontaktní adresa pověřence pro ochranu osobních údajů bude doplněna před zveřejněním.'},
+  ],
+  sk: [
+    {title: 'Spracúvané údaje', body: 'Táto sekcia presne opíše údaje, ktoré AWA spracúva, a účely ich spracúvania po dokončení právnej kontroly.'},
+    {title: 'Uloženie a zabezpečenie', body: 'Konečná dokumentácia určí opatrenia na ukladanie, ochranné opatrenia a lehoty uchovávania údajov.'},
+    {title: 'Vaše práva', body: 'Spôsoby, ako získať prístup k svojim údajom, opraviť ich alebo ich vymazať, budú opísané v schválenej verzii.'},
+    {title: 'Kontakt vo veci súkromia', body: 'Oficiálna kontaktná adresa zodpovednej osoby za ochranu osobných údajov bude doplnená pred zverejnením.'},
+  ],
+  hu: [
+    {title: 'Kezelt adatok', body: 'Ez a rész a jogi felülvizsgálat befejezése után pontosan leírja az AWA által kezelt adatokat és kezelésük céljait.'},
+    {title: 'Tárolás és biztonság', body: 'A végleges dokumentáció meghatározza a tárolási intézkedéseket, a védelmi intézkedéseket és az adatok megőrzési idejét.'},
+    {title: 'Az Ön jogai', body: 'Az adatokhoz való hozzáférés, azok helyesbítése vagy törlése módját a jóváhagyott változat írja le.'},
+    {title: 'Kapcsolat adatvédelmi ügyekben', body: 'Az adatvédelmi felelős hivatalos elérhetősége a közzététel előtt kerül kiegészítésre.'},
+  ],
+  ro: [
+    {title: 'Datele prelucrate', body: 'Această secțiune va descrie cu precizie datele prelucrate de AWA și scopurile prelucrării lor, după finalizarea revizuirii juridice.'},
+    {title: 'Stocare și securitate', body: 'Documentația finală va defini măsurile de stocare, măsurile de protecție și durata de păstrare a datelor.'},
+    {title: 'Drepturile tale', body: 'Modalitățile de acces la date, de rectificare sau de ștergere a acestora vor fi descrise în versiunea aprobată.'},
+    {title: 'Contact pentru confidențialitate', body: 'Datele oficiale de contact ale responsabilului cu protecția datelor vor fi completate înainte de publicare.'},
+  ],
+  bg: [
+    {title: 'Обработвани данни', body: 'Този раздел ще опише точно данните, които AWA обработва, и целите на обработката им, след приключване на правния преглед.'},
+    {title: 'Съхранение и сигурност', body: 'Окончателната документация ще определи мерките за съхранение, мерките за защита и срока на съхранение на данните.'},
+    {title: 'Твоите права', body: 'Начините за достъп до данните, за коригирането или изтриването им ще бъдат описани в одобрената версия.'},
+    {title: 'Контакт за поверителност', body: 'Официалните данни за контакт на отговорника по защита на данните ще бъдат допълнени преди публикуването.'},
+  ],
+  sr: [
+    {title: 'Обрађени подаци', body: 'Овај одељак ће прецизно описати податке које AWA обрађује и сврхе њихове обраде, после завршетка правне провере.'},
+    {title: 'Чување и безбедност', body: 'Коначна документација ће одредити мере чувања, мере заштите и рок чувања података.'},
+    {title: 'Твоја права', body: 'Начини приступа подацима, њиховог исправљања или брисања биће описани у одобреној верзији.'},
+    {title: 'Контакт за приватност', body: 'Званични подаци за контакт лица задуженог за заштиту података биће допуњени пре објављивања.'},
+  ],
+  hr: [
+    {title: 'Obrađeni podaci', body: 'Ovaj će odjeljak precizno opisati podatke koje AWA obrađuje i svrhe njihove obrade, nakon završetka pravne provjere.'},
+    {title: 'Pohrana i sigurnost', body: 'Konačna dokumentacija odredit će mjere pohrane, mjere zaštite i rok čuvanja podataka.'},
+    {title: 'Tvoja prava', body: 'Načini pristupa podacima, njihova ispravka ili brisanja bit će opisani u odobrenoj verziji.'},
+    {title: 'Kontakt za privatnost', body: 'Službeni podaci za kontakt osobe zadužene za zaštitu podataka bit će dopunjeni prije objave.'},
+  ],
+  bs: [
+    {title: 'Obrađeni podaci', body: 'Ovaj će odjeljak precizno opisati podatke koje AWA obrađuje i svrhe njihove obrade, nakon završetka pravne provjere.'},
+    {title: 'Pohrana i sigurnost', body: 'Konačna dokumentacija odredit će mjere pohrane, mjere zaštite i rok čuvanja podataka.'},
+    {title: 'Tvoja prava', body: 'Načini pristupa podacima, njihova ispravka ili brisanja bit će opisani u odobrenoj verziji.'},
+    {title: 'Kontakt za privatnost', body: 'Službeni podaci za kontakt osobe zadužene za zaštitu podataka bit će dopunjeni prije objave.'},
+  ],
+  sl: [
+    {title: 'Obdelani podatki', body: 'Ta razdelek bo natančno opisal podatke, ki jih AWA obdeluje, in namene njihove obdelave, po zaključku pravnega pregleda.'},
+    {title: 'Shranjevanje in varnost', body: 'Končna dokumentacija bo določila ukrepe shranjevanja, ukrepe zaščite in rok hrambe podatkov.'},
+    {title: 'Tvoje pravice', body: 'Načini dostopa do podatkov, njihovega popravka ali izbrisa bodo opisani v potrjeni različici.'},
+    {title: 'Stik za zasebnost', body: 'Uradni podatki za stik pooblaščene osebe za varstvo podatkov bodo dopolnjeni pred objavo.'},
+  ],
+  ne: [
+    {title: 'प्रशोधन गरिने डेटा', body: 'कानुनी समीक्षा सकिएपछि यो खण्डले AWA ले प्रशोधन गर्ने डेटा र तिनको प्रशोधनका उद्देश्यहरू स्पष्ट रूपमा वर्णन गर्नेछ।'},
+    {title: 'भण्डारण र सुरक्षा', body: 'अन्तिम कागजातले भण्डारणका उपाय, सुरक्षाका उपाय र डेटा राख्ने अवधि निर्धारण गर्नेछ।'},
+    {title: 'तपाईंका अधिकार', body: 'डेटामा पहुँच, तिनको सच्याइ वा मेटाइका तरिकाहरू स्वीकृत संस्करणमा वर्णन गरिनेछन्।'},
+    {title: 'गोपनीयतासम्बन्धी सम्पर्क', body: 'डेटा सुरक्षाको जिम्मेवार व्यक्तिको आधिकारिक सम्पर्क विवरण प्रकाशनअघि थपिनेछ।'},
+  ],
+  si: [
+    {title: 'සැකසෙන දත්ත', body: 'නීතිමය සමාලෝචනය අවසන් වූ පසු, මෙම කොටස AWA සකසන දත්ත සහ ඒවා සැකසීමේ අරමුණු පැහැදිලිව විස්තර කරනු ඇත.'},
+    {title: 'ගබඩා කිරීම සහ ආරක්ෂාව', body: 'අවසාන ලේඛනය ගබඩා කිරීමේ ක්‍රම, ආරක්ෂණ ක්‍රම සහ දත්ත රඳවා ගන්නා කාලය නිර්වචනය කරනු ඇත.'},
+    {title: 'ඔබේ අයිතිවාසිකම්', body: 'දත්ත වෙත ප්‍රවේශ වීම, ඒවා නිවැරදි කිරීම හෝ මකා දැමීම සඳහා ක්‍රම අනුමත කළ අනුවාදයේ විස්තර කරනු ඇත.'},
+    {title: 'රහස්‍යතාව පිළිබඳ සම්බන්ධතාව', body: 'දත්ත ආරක්ෂාවේ වගකිව යුත්තාගේ නිල සම්බන්ධතා විස්තර ප්‍රකාශයට පත් කිරීමට පෙර එක් කරනු ලැබේ.'},
+  ],
+  th: [
+    {title: 'ข้อมูลที่ประมวลผล', body: 'เมื่อการตรวจสอบทางกฎหมายเสร็จสิ้น ส่วนนี้จะอธิบายอย่างชัดเจนถึงข้อมูลที่ AWA ประมวลผลและวัตถุประสงค์ของการประมวลผล'},
+    {title: 'การจัดเก็บและความปลอดภัย', body: 'เอกสารฉบับสุดท้ายจะกำหนดมาตรการจัดเก็บ มาตรการรักษาความปลอดภัย และระยะเวลาเก็บรักษาข้อมูล'},
+    {title: 'สิทธิของคุณ', body: 'วิธีการเข้าถึงข้อมูล การแก้ไข หรือการลบข้อมูล จะอธิบายไว้ในฉบับที่ได้รับการอนุมัติ'},
+    {title: 'การติดต่อด้านความเป็นส่วนตัว', body: 'รายละเอียดการติดต่ออย่างเป็นทางการของผู้รับผิดชอบด้านการคุ้มครองข้อมูลจะเพิ่มเข้ามาก่อนเผยแพร่'},
+  ],
+  vi: [
+    {title: 'Dữ liệu được xử lý', body: 'Sau khi hoàn tất rà soát pháp lý, phần này sẽ mô tả rõ ràng dữ liệu mà AWA xử lý và mục đích của việc xử lý đó.'},
+    {title: 'Lưu trữ và bảo mật', body: 'Tài liệu cuối cùng sẽ xác định các biện pháp lưu trữ, các biện pháp bảo mật và thời gian lưu giữ dữ liệu.'},
+    {title: 'Quyền của bạn', body: 'Cách truy cập, chỉnh sửa hoặc xóa dữ liệu của bạn sẽ được mô tả trong phiên bản đã được phê duyệt.'},
+    {title: 'Liên hệ về quyền riêng tư', body: 'Thông tin liên hệ chính thức của người phụ trách bảo vệ dữ liệu sẽ được bổ sung trước khi công bố.'},
+  ],
+  uz: [
+    {title: 'Qayta ishlanadigan maʼlumotlar', body: 'Huquqiy koʻrib chiqish yakunlangandan keyin bu boʻlim AWA qaysi maʼlumotlarni qayta ishlashini va qayta ishlash maqsadini aniq tasvirlaydi.'},
+    {title: 'Saqlash va xavfsizlik', body: 'Yakuniy hujjat saqlash usullarini, xavfsizlik choralarini va maʼlumotlarni saqlash muddatini belgilaydi.'},
+    {title: 'Sizning huquqlaringiz', body: 'Maʼlumotlaringizga kirish, ularni tuzatish yoki oʻchirish tartibi tasdiqlangan versiyada tavsiflanadi.'},
+    {title: 'Maxfiylik boʻyicha aloqa', body: 'Maʼlumotlarni himoya qilish uchun masʼul shaxsning rasmiy aloqa maʼlumotlari eʼlon qilishdan oldin qoʻshiladi.'},
+  ],
+  az: [
+    {title: 'Emal olunan məlumatlar', body: 'Hüquqi baxış tamamlandıqdan sonra bu bölmə AWA-nın hansı məlumatları emal etdiyini və emalın məqsədini aydın təsvir edəcək.'},
+    {title: 'Saxlama və təhlükəsizlik', body: 'Yekun sənəd saxlama üsullarını, təhlükəsizlik tədbirlərini və məlumatların saxlanma müddətini müəyyən edəcək.'},
+    {title: 'Sizin hüquqlarınız', body: 'Məlumatlarınıza daxil olma, onları düzəltmə və ya silmə qaydası təsdiqlənmiş versiyada təsvir olunacaq.'},
+    {title: 'Məxfilik üzrə əlaqə', body: 'Məlumatların qorunması üzrə məsul şəxsin rəsmi əlaqə məlumatları dərc edilməzdən əvvəl əlavə olunacaq.'},
+  ],
+  ka: [
+    {title: 'დამუშავებული მონაცემები', body: 'იურიდიული განხილვის დასრულების შემდეგ ეს განყოფილება მკაფიოდ აღწერს, რომელ მონაცემებს ამუშავებს AWA და რა მიზნით.'},
+    {title: 'შენახვა და უსაფრთხოება', body: 'საბოლოო დოკუმენტი განსაზღვრავს შენახვის მეთოდებს, უსაფრთხოების ზომებს და მონაცემების შენახვის ვადებს.'},
+    {title: 'თქვენი უფლებები', body: 'თქვენს მონაცემებზე წვდომის, მათი გასწორების ან წაშლის წესი აღწერილი იქნება დამტკიცებულ ვერსიაში.'},
+    {title: 'კონფიდენციალურობასთან დაკავშირებული კონტაქტი', body: 'მონაცემთა დაცვაზე პასუხისმგებელი პირის ოფიციალური საკონტაქტო ინფორმაცია დაემატება გამოქვეყნებამდე.'},
+  ],
+  hy: [
+    {title: 'Մշակվող տվյալներ', body: 'Իրավական վերանայման ավարտից հետո այս բաժինը հստակ կնկարագրի, թե AWA-ն ինչ տվյալներ է մշակում և ինչ նպատակով:'},
+    {title: 'Պահպանում և անվտանգություն', body: 'Վերջնական փաստաթուղթը կսահմանի պահպանման եղանակները, անվտանգության միջոցները և տվյալների պահպանման ժամկետները:'},
+    {title: 'Ձեր իրավունքները', body: 'Ձեր տվյալներին հասանելիության, դրանք ուղղելու կամ ջնջելու կարգը կնկարագրվի հաստատված տարբերակում:'},
+    {title: 'Գաղտնիության հարցերով կոնտակտ', body: 'Տվյալների պաշտպանության համար պատասխանատու անձի պաշտոնական կոնտակտային տեղեկությունը կավելացվի հրապարակումից առաջ:'},
+  ],
+  tg: [
+    {title: 'Маълумоти коркардашаванда', body: 'Пас аз анҷоми баррасии ҳуқуқӣ ин бахш ба таври возеҳ тавсиф мекунад, ки AWA кадом маълумотро ва бо кадом мақсад коркард мекунад.'},
+    {title: 'Нигоҳдорӣ ва амният', body: 'Ҳуҷҷати ниҳоӣ усулҳои нигоҳдорӣ, чораҳои амният ва мӯҳлатҳои нигоҳ доштани маълумотро муайян мекунад.'},
+    {title: 'Ҳуқуқҳои шумо', body: 'Тартиби дастрасӣ ба маълумоти шумо, ислоҳ ё нест кардани он дар нусхаи тасдиқшуда тавсиф карда мешавад.'},
+    {title: 'Тамос оид ба масъалаҳои махфият', body: 'Маълумоти расмии тамоси шахси масъули ҳифзи маълумот пеш аз нашр илова карда мешавад.'},
+  ],
+  ky: [
+    {title: 'Иштетилүүчү маалымат', body: 'Юридикалык кароо аяктагандан кийин бул бөлүм AWA кандай маалыматты жана кандай максатта иштетерин даана сүрөттөйт.'},
+    {title: 'Сактоо жана коопсуздук', body: 'Акыркы документ сактоо ыкмаларын, коопсуздук чараларын жана маалыматты сактоо мөөнөттөрүн аныктайт.'},
+    {title: 'Сиздин укуктарыңыз', body: 'Маалыматыңызга кирүү, аны оңдоо же жок кылуу тартиби ырасталган версияда сүрөттөлөт.'},
+    {title: 'Купуялык боюнча байланыш', body: 'Маалыматты коргоо боюнча жооптуу адамдын расмий байланыш маалыматы жарыялоодон мурун кошулат.'},
+  ],
+  tk: [
+    {title: 'Işlenýän maglumatlar', body: 'Hukuk gözden geçirilişi tamamlanandan soň bu bölüm AWA-nyň haýsy maglumatlary we haýsy maksat bilen işleýändigini aýdyň suratlandyrar.'},
+    {title: 'Saklamak we howpsuzlyk', body: 'Soňky resminama saklamak usullaryny, howpsuzlyk çärelerini we maglumatlary saklamak möhletlerini kesgitlär.'},
+    {title: 'Siziň hukuklaryňyz', body: 'Maglumatlaryňyza girmegiň, olary düzetmegiň ýa-da pozmagyň tertibi tassyklanan wersiýada suratlandyrylar.'},
+    {title: 'Gizlinlik boýunça habarlaşmak', body: 'Maglumatlary goramak üçin jogapkär adamyň resmi habarlaşmak maglumatlary neşir edilmezden öň goşular.'},
+  ],
 };
 
 /** Resolves the app's current language to one of the 6 legal-content keys —
@@ -289,6 +565,29 @@ function resolveLegalLanguage(language: string): LegalLanguage {
   if (language === 'bn') {return 'bn';}
   if (language === 'da') {return 'da';}
   if (language === 'sv') {return 'sv';}
+  if (language === 'nb') {return 'nb';}
+  if (language === 'pl') {return 'pl';}
+  if (language === 'uk') {return 'uk';}
+  if (language === 'cs') {return 'cs';}
+  if (language === 'sk') {return 'sk';}
+  if (language === 'hu') {return 'hu';}
+  if (language === 'ro') {return 'ro';}
+  if (language === 'bg') {return 'bg';}
+  if (language === 'sr') {return 'sr';}
+  if (language === 'hr') {return 'hr';}
+  if (language === 'bs') {return 'bs';}
+  if (language === 'sl') {return 'sl';}
+  if (language === 'ne') {return 'ne';}
+  if (language === 'si') {return 'si';}
+  if (language === 'th') {return 'th';}
+  if (language === 'vi') {return 'vi';}
+  if (language === 'uz') {return 'uz';}
+  if (language === 'az') {return 'az';}
+  if (language === 'ka') {return 'ka';}
+  if (language === 'hy') {return 'hy';}
+  if (language === 'tg') {return 'tg';}
+  if (language === 'ky') {return 'ky';}
+  if (language === 'tk') {return 'tk';}
   return 'en';
 }
 

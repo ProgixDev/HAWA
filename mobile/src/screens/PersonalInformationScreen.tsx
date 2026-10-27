@@ -210,7 +210,53 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
                                     ? t('appearance.language.danishName')
                                     : getAppLanguage() === 'sv'
                                       ? t('appearance.language.swedishName')
-                                      : t('appearance.language.frenchName');
+                                      : getAppLanguage() === 'nb'
+                                        ? t('appearance.language.norwegianName')
+                                        : getAppLanguage() === 'uk'
+                                          ? t('appearance.language.ukrainianName')
+                                          : getAppLanguage() === 'pl'
+                                          ? t('appearance.language.polishName')
+                                          : getAppLanguage() === 'cs'
+                                            ? t('appearance.language.czechName')
+                                          : getAppLanguage() === 'sk'
+                                            ? t('appearance.language.slovakName')
+                                          : getAppLanguage() === 'hu'
+                                            ? t('appearance.language.hungarianName')
+                                          : getAppLanguage() === 'ro'
+                                            ? t('appearance.language.romanianName')
+                                          : getAppLanguage() === 'bg'
+                                            ? t('appearance.language.bulgarianName')
+                                          : getAppLanguage() === 'sr'
+                                            ? t('appearance.language.serbianName')
+                                          : getAppLanguage() === 'hr'
+                                            ? t('appearance.language.croatianName')
+                                          : getAppLanguage() === 'bs'
+                                            ? t('appearance.language.bosnianName')
+                                          : getAppLanguage() === 'sl'
+                                            ? t('appearance.language.slovenianName')
+                                          : getAppLanguage() === 'ne'
+                                            ? t('appearance.language.nepaliName')
+                                          : getAppLanguage() === 'si'
+                                            ? t('appearance.language.sinhalaName')
+                                          : getAppLanguage() === 'th'
+                                            ? t('appearance.language.thaiName')
+                                          : getAppLanguage() === 'vi'
+                                            ? t('appearance.language.vietnameseName')
+                                          : getAppLanguage() === 'uz'
+                                            ? t('appearance.language.uzbekName')
+                                          : getAppLanguage() === 'az'
+                                            ? t('appearance.language.azerbaijaniName')
+                                          : getAppLanguage() === 'ka'
+                                            ? t('appearance.language.georgianName')
+                                          : getAppLanguage() === 'hy'
+                                            ? t('appearance.language.armenianName')
+                                          : getAppLanguage() === 'tg'
+                                            ? t('appearance.language.tajikName')
+                                          : getAppLanguage() === 'ky'
+                                            ? t('appearance.language.kyrgyzName')
+                                          : getAppLanguage() === 'tk'
+                                            ? t('appearance.language.turkmenName')
+                                          : t('appearance.language.frenchName');
 
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.safe}>
