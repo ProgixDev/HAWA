@@ -187,6 +187,85 @@ export function bengaliAdjustment(style: TextStyle | undefined): Pick<TextStyle,
   return devanagariAdjustment(style);
 }
 
+// SINHALA. Sinhala letters carry tall above and below signs, so it takes the same taller line as Devanagari and Bengali and is never tracked: only while
+// the app language is Sinhala, and only for a Text / TextInput that really holds Sinhala letters (see sinhalaAdjustment). Other languages keep their style exactly.
+export const SINHALA_LINE_HEIGHT_RATIO = DEVANAGARI_LINE_HEIGHT_RATIO;
+const SINHALA_RE = /[඀-෿]/;
+
+/** True when a string, or any string inside the (nested) children, holds a Sinhala-script character. */
+export function containsSinhala(node: unknown, depth = 0): boolean {
+  if (typeof node === 'string') {
+    return SINHALA_RE.test(node);
+  }
+  if (depth > 4 || node === null || typeof node !== 'object') {
+    return false;
+  }
+  if (Array.isArray(node)) {
+    return node.some(item => containsSinhala(item, depth + 1));
+  }
+  const children = (node as {props?: {children?: unknown}}).props?.children;
+  return children !== undefined && containsSinhala(children, depth + 1);
+}
+
+export function sinhalaAdjustment(style: TextStyle | undefined): Pick<TextStyle, 'lineHeight' | 'letterSpacing'> | null {
+  return devanagariAdjustment(style);
+}
+
+// THAI. Thai stacks vowel and tone marks above and below the line, so it takes the same taller line as Devanagari and Bengali and is never tracked: only
+// while the app language is Thai, and only for a Text / TextInput that really holds Thai letters (see thaiAdjustment). Other languages keep their style exactly.
+export const THAI_LINE_HEIGHT_RATIO = DEVANAGARI_LINE_HEIGHT_RATIO;
+const THAI_RE = /[฀-๿]/;
+
+/** True when a string, or any string inside the (nested) children, holds a Thai-script character. */
+export function containsThai(node: unknown, depth = 0): boolean {
+  if (typeof node === 'string') {
+    return THAI_RE.test(node);
+  }
+  if (depth > 4 || node === null || typeof node !== 'object') {
+    return false;
+  }
+  if (Array.isArray(node)) {
+    return node.some(item => containsThai(item, depth + 1));
+  }
+  const children = (node as {props?: {children?: unknown}}).props?.children;
+  return children !== undefined && containsThai(children, depth + 1);
+}
+
+export function thaiAdjustment(style: TextStyle | undefined): Pick<TextStyle, 'lineHeight' | 'letterSpacing'> | null {
+  return devanagariAdjustment(style);
+}
+
+// VIETNAMESE. Latin script, but stacked tone marks on capitals (Ế Ể Ẫ Ậ …) reach well above the cap height, higher than the tight Material headline / display lines
+// (1.12 - 1.33 x the font size) leave room for, and the first line of a Text is clipped by its own box. Only while the app language is Vietnamese, and only for a Text /
+// TextInput that really holds a Vietnamese tone letter, a numeric lineHeight below 1.3 x the font size is raised to it (see vietnameseAdjustment); tracking is left alone
+// (Latin letters are tracked normally). Other languages, and Vietnamese texts without tone letters (digits, "AWA"), keep their style exactly.
+export const VIETNAMESE_LINE_HEIGHT_RATIO = 1.3;
+const VIETNAMESE_RE = /[ăĂơƠưƯđĐ\u1EA0-\u1EF9]/;
+
+/** True when a string, or any string inside the (nested) children, holds a Vietnamese letter that WinAnsi lacks (ă ơ ư đ or a tone letter of U+1EA0-1EF9). */
+export function containsVietnamese(node: unknown, depth = 0): boolean {
+  if (typeof node === 'string') {
+    return VIETNAMESE_RE.test(node);
+  }
+  if (depth > 4 || node === null || typeof node !== 'object') {
+    return false;
+  }
+  if (Array.isArray(node)) {
+    return node.some(item => containsVietnamese(item, depth + 1));
+  }
+  const children = (node as {props?: {children?: unknown}}).props?.children;
+  return children !== undefined && containsVietnamese(children, depth + 1);
+}
+
+/** The raised lineHeight for a Vietnamese text, or null when the style needs nothing (no explicit numeric line height, or already tall enough). */
+export function vietnameseAdjustment(style: TextStyle | undefined): Pick<TextStyle, 'lineHeight'> | null {
+  if (typeof style?.lineHeight !== 'number' || typeof style.fontSize !== 'number') {
+    return null;
+  }
+  const wanted = Math.ceil(style.fontSize * VIETNAMESE_LINE_HEIGHT_RATIO * 2) / 2;
+  return style.lineHeight < wanted ? {lineHeight: wanted} : null;
+}
+
 // KOREAN (Hangul). Same treatment as Japanese: Hangul syllables are as dense as kana and kanji, so only while the app language is Korean,
 // and only for a Text / TextInput that really holds Hangul, a numeric lineHeight below 1.35 x the font size is raised to it and a
 // non-zero letterSpacing is reset to 0 (Korean is never tracked). Other languages keep their style exactly.
@@ -266,7 +345,7 @@ export function patchAwaRender(component: Renderable, nestable: boolean): () => 
     const inherited = nestable ? React.useContext(AwaTextNestingContext) : false;
     const font = resolveStyleProp(props.style, inherited);
     let next = font ? {...props, style: [props.style, font]} : props;
-    if (getAppLanguage() === 'hi' && (containsDevanagari(props.children) || containsDevanagari(props.value) || containsDevanagari(props.defaultValue) || containsDevanagari(props.placeholder))) {
+    if ((getAppLanguage() === 'hi' || getAppLanguage() === 'ne') && (containsDevanagari(props.children) || containsDevanagari(props.value) || containsDevanagari(props.defaultValue) || containsDevanagari(props.placeholder))) {
       const adjustment = devanagariAdjustment(StyleSheet.flatten(next.style as TextStyle));
       if (adjustment !== null) {
         next = {...next, style: [next.style, adjustment]};
@@ -274,6 +353,24 @@ export function patchAwaRender(component: Renderable, nestable: boolean): () => 
     }
     if (getAppLanguage() === 'ja' && (containsJapanese(props.children) || containsJapanese(props.value) || containsJapanese(props.defaultValue) || containsJapanese(props.placeholder))) {
       const adjustment = japaneseAdjustment(StyleSheet.flatten(next.style as TextStyle));
+      if (adjustment !== null) {
+        next = {...next, style: [next.style, adjustment]};
+      }
+    }
+    if (getAppLanguage() === 'th' && (containsThai(props.children) || containsThai(props.value) || containsThai(props.defaultValue) || containsThai(props.placeholder))) {
+      const adjustment = thaiAdjustment(StyleSheet.flatten(next.style as TextStyle));
+      if (adjustment !== null) {
+        next = {...next, style: [next.style, adjustment]};
+      }
+    }
+    if (getAppLanguage() === 'vi' && (containsVietnamese(props.children) || containsVietnamese(props.value) || containsVietnamese(props.defaultValue) || containsVietnamese(props.placeholder))) {
+      const adjustment = vietnameseAdjustment(StyleSheet.flatten(next.style as TextStyle));
+      if (adjustment !== null) {
+        next = {...next, style: [next.style, adjustment]};
+      }
+    }
+    if (getAppLanguage() === 'si' && (containsSinhala(props.children) || containsSinhala(props.value) || containsSinhala(props.defaultValue) || containsSinhala(props.placeholder))) {
+      const adjustment = sinhalaAdjustment(StyleSheet.flatten(next.style as TextStyle));
       if (adjustment !== null) {
         next = {...next, style: [next.style, adjustment]};
       }
