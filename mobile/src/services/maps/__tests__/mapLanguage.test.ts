@@ -61,8 +61,13 @@ describe('mapLanguageFor', () => {
 
   it('knows every language AWA registers (a new AwaAppLanguage must be added to MAP_LANGUAGES or this fails to compile)', () => {
     const registered: Record<AwaAppLanguage, true> = {fr: true, en: true, es: true, it: true, tr: true, ru: true, de: true, zh: true, id: true, hi: true, sq: true, ja: true, ko: true, 'pt-PT': true, 'pt-BR': true, bn: true, da: true, sv: true, nb: true, pl: true, uk: true, cs: true, sk: true, hu: true, ro: true, bg: true, sr: true, hr: true, bs: true, sl: true, ne: true, si: true, th: true, vi: true, uz: true, az: true, ka: true, hy: true, tg: true, ky: true, tk: true};
+    const NO_MAP_LANGUAGE = ['ne', 'si', 'th']; // AWA languages the map provider does not offer
     for (const language of Object.keys(registered)) {
-      const expected = language === 'pt-PT' || language === 'pt-BR' ? 'pt' : language; // the provider has one Portuguese
+      const expected = language === 'pt-PT' || language === 'pt-BR' ? 'pt' : language === 'nb' ? 'no' : language; // the provider has one Portuguese and calls Bokmål `no`
+      if (NO_MAP_LANGUAGE.includes(language)) {
+        expect([language, mapLanguageFor(language)]).toEqual([language, undefined]); // the provider has no such names: the parameter is omitted
+        continue;
+      }
       expect([language, mapLanguageFor(language)]).toEqual([language, expected]);
       expect(MAP_LANGUAGES).toContain(expected);
     }
