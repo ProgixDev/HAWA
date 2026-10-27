@@ -80,7 +80,7 @@ describe('dictionary integrity', () => {
   it('bn.ts has exactly the same leaf paths as every other dictionary — sixteen-code parity, no missing, no extra', () => {
     const paths = (dictionary: AnyRecord) => leaves(dictionary).map(([keyPath]) => keyPath).sort();
     const reference = paths(en as AnyRecord);
-    expect(reference.length).toBe(6248);
+    expect(reference.length).toBe(6272);
     expect(paths(bn as AnyRecord)).toEqual(reference);
     for (const dictionary of [fr, es, itDictionary, tr, de, zh, id, hi, sq, ja, ko, ptPT]) {
       expect(paths(dictionary as AnyRecord)).toEqual(reference);
@@ -238,9 +238,10 @@ describe('registration and normalisation', () => {
   });
 
   it('does not confuse other languages: Bengali in Roman letters, Assamese, Hindi, Urdu and Nepali are not Bengali', () => {
-    for (const tag of ['bn-Latn', 'bn-Latn-BD', 'bn_Latn', 'as', 'as-IN', 'ne-NP', 'ur-IN', 'ur-PK']) {
+    for (const tag of ['bn-Latn', 'bn-Latn-BD', 'bn_Latn', 'as', 'as-IN', 'ur-IN', 'ur-PK']) {
       expect([tag, languageFromLocaleTag(tag)]).toEqual([tag, null]);
     }
+    expect(languageFromLocaleTag('ne-NP')).toBe('ne'); // Nepali is a supported language of its own
     expect(languageFromLocaleTag('hi-IN')).toBe('hi');
     expect(languageFromLocaleTag('id-ID')).toBe('id');
   });

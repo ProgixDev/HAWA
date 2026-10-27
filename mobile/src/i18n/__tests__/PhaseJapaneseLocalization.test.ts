@@ -240,7 +240,7 @@ describe('registration and normalisation', () => {
   });
 
   it('does not confuse other languages: Thai, Vietnamese, Korean, Chinese variants and the other eleven stay what they are', () => {
-    for (const tag of ['th-TH', 'vi-VN', 'ms-MY', 'tl-PH']) {
+    for (const tag of ['ms-MY', 'tl-PH']) {
       expect([tag, languageFromLocaleTag(tag)]).toEqual([tag, null]);
     }
     expect(languageFromLocaleTag('ko-KR')).toBe('ko'); // Korean is supported since the 13th language
@@ -252,8 +252,8 @@ describe('registration and normalisation', () => {
 
   it('picks Japanese from a phone list, English for an unsupported one', () => {
     expect(pickSupportedLanguage(['ja-JP', 'en-GB'])).toBe('ja');
-    expect(pickSupportedLanguage(['th-TH', 'ja-JP'])).toBe('ja');
-    expect(pickSupportedLanguage(['vi-VN', 'th-TH'])).toBe('en');
+    expect(pickSupportedLanguage(['ms-MY', 'ja-JP'])).toBe('ja');
+    expect(pickSupportedLanguage(['ms-MY', 'tl-PH'])).toBe('en');
     expect(pickSupportedLanguage(['en-GB', 'ja-JP'])).toBe('en'); // the phone's first supported language wins
   });
 
@@ -261,7 +261,7 @@ describe('registration and normalisation', () => {
     for (const value of ['ja', 'ja-JP', 'ja_JP', 'JA', 'ja-Jpan', 'ja-Jpan-JP']) {
       expect([value, resolveEditorialLanguage(value)]).toEqual([value, 'ja']);
     }
-    expect(resolveEditorialLanguage('th')).toBe('en');
+    expect(resolveEditorialLanguage('ms')).toBe('en');
     expect(resolveEditorialLanguage(undefined)).toBe('en');
     expect(ALL_LANGUAGES.filter(language => language !== 'ja').map(language => resolveEditorialLanguage(language))).toEqual(['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq']);
     expect(resolveEditorialLanguage('ko')).toBe('ko'); // Korean has its own block since the 13th language

@@ -219,17 +219,19 @@ describe('registration and normalisation', () => {
   });
 
   it('does not confuse other languages: Serbian, Bosnian, Macedonian, Greek, Italian (Arbëresh region) and Turkish stay what they are', () => {
-    for (const tag of ['sr-RS', 'bs-BA', 'mk-MK', 'el-GR', 'hr-HR', 'ro-RO', 'bg-BG']) {
+    for (const tag of ['mk-MK', 'el-GR', 'nl-NL', 'ms-MY', 'he-IL', 'ku-TR']) {
       expect([tag, languageFromLocaleTag(tag)]).toEqual([tag, null]);
     }
+    // Serbian, Bosnian, Croatian, Romanian and Bulgarian are supported languages of their own, never Albanian
+    expect(['sr-RS', 'bs-BA', 'hr-HR', 'ro-RO', 'bg-BG'].map(tag => languageFromLocaleTag(tag))).toEqual(['sr', 'bs', 'hr', 'ro', 'bg']);
     expect(languageFromLocaleTag('it-IT')).toBe('it');
     expect(languageFromLocaleTag('tr-TR')).toBe('tr');
   });
 
   it('picks Albanian from a phone list, English for an unsupported one', () => {
     expect(pickSupportedLanguage(['sq-AL', 'en-GB'])).toBe('sq');
-    expect(pickSupportedLanguage(['sr-RS', 'sq-XK'])).toBe('sq');
-    expect(pickSupportedLanguage(['sr-RS', 'mk-MK'])).toBe('en');
+    expect(pickSupportedLanguage(['mk-MK', 'sq-XK'])).toBe('sq');
+    expect(pickSupportedLanguage(['el-GR', 'mk-MK'])).toBe('en');
     expect(pickSupportedLanguage(['en-GB', 'sq-AL'])).toBe('en'); // the phone's first supported language wins
   });
 
@@ -237,7 +239,7 @@ describe('registration and normalisation', () => {
     for (const value of ['sq', 'sq-AL', 'sq_AL', 'sq-XK', 'SQ', 'sq-Latn']) {
       expect([value, resolveEditorialLanguage(value)]).toEqual([value, 'sq']);
     }
-    expect(resolveEditorialLanguage('sr')).toBe('en');
+    expect(resolveEditorialLanguage('mk')).toBe('en');
     expect(resolveEditorialLanguage(undefined)).toBe('en');
     expect(ALL_LANGUAGES.filter(language => language !== 'sq').map(language => resolveEditorialLanguage(language))).toEqual(['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi']);
   });
