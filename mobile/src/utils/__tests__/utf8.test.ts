@@ -11,7 +11,7 @@ describe('decodeUtf8', () => {
     ['French accents', 'Règles, température, énergie — « fatiguée » œ ’ €'],
     ['Arabic', 'متابعة الدورة الشهرية — اليوم ١٢'],
     ['emoji / surrogate pairs', 'Humeur 😊 famille 👩‍👧 !'],
-    ['CJK / Hebrew', '日本語 עברית'],
+    ['CJK', '日本語'],
     ['empty', ''],
   ])('%s round-trips and matches TextDecoder', (_name, text) => {
     const bytes = encode(text);

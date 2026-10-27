@@ -68,7 +68,7 @@ describe('one device locale tag -> a supported language', () => {
     expect(languageFromLocaleTag(tag)).toBe(expected);
   });
 
-  it.each(['ar', 'ar-DZ', 'th-TH', 'nl', 'ms-MY', 'xx', '', '   ', 'und', 'hi-Latn', 'hi-Latn-IN', 'hi_Latn', 'bn-Latn', 'bn_Latn_BD', 'as', 'as-IN'])('%j is not supported', tag => {
+  it.each(['ar', 'ar-DZ', 'nl', 'ms-MY', 'xx', '', '   ', 'und', 'hi-Latn', 'hi-Latn-IN', 'hi_Latn', 'bn-Latn', 'bn_Latn_BD', 'as', 'as-IN'])('%j is not supported', tag => {
     expect(languageFromLocaleTag(tag)).toBeNull();
   });
 
@@ -83,19 +83,21 @@ describe('the first supported language among several preferred languages (Englis
   it.each([
     [['fr-FR'], 'fr'],
     [['ar-DZ', 'fr-DZ'], 'fr'], // Arabic first, French second -> French
-    [['ar', 'th', 'de-AT', 'fr'], 'de'], // the first SUPPORTED one, in the phone's order
+    [['ar', 'ms', 'de-AT', 'fr'], 'de'], // the first SUPPORTED one, in the phone's order
     [['pt-BR', 'ar', 'de-AT', 'fr'], 'pt-BR'], // Portuguese is supported, and Brazil is not mapped to Portugal
     [['pt-PT', 'pt-BR'], 'pt-PT'],
     [['ar', 'pt'], 'pt-PT'], // a bare 'pt' is Portugal (the base text), never silently Brazil
-    [['bn-BD', 'th', 'es-MX'], 'bn'],
-    [['th', 'es-MX', 'bn-IN'], 'es'],
+    [['bn-BD', 'ms', 'es-MX'], 'bn'],
+    [['ms', 'es-MX', 'bn-IN'], 'es'],
     [['as-IN', 'bn_IN', 'hi-IN'], 'bn'], // Assamese is not Bengali: skipped, the next supported one wins
-    [['ko', 'th', 'es-MX'], 'ko'],
-    [['th', 'es-MX', 'ko-KR'], 'es'],
+    [['ko', 'ms', 'es-MX'], 'ko'],
+    [['ms', 'es-MX', 'ko-KR'], 'es'],
     [['ko', 'ja-JP', 'es-MX'], 'ko'], // Korean is supported: the first SUPPORTED one wins
-    [['th', 'ja-JP', 'ko-KR'], 'ja'],
+    [['ms', 'ja-JP', 'ko-KR'], 'ja'],
     [['ar-DZ'], 'en'],
-    [['vi-VN', 'ar', 'nl'], 'en'],
+    [['el', 'ar', 'nl'], 'en'],
+    [['th-TH', 'fr'], 'th'], // Thai and Vietnamese are supported languages
+    [['vi-VN'], 'vi'],
     [[], 'en'],
     [[null, 42, '', 'zh-Hans'], 'zh'],
     [['xx', 'yy'], 'en'],
@@ -119,8 +121,8 @@ describe('first launch (nothing stored): the phone language is resolved once and
 
   it.each([
     [['ar-DZ'], 'Arabic'],
-    [['vi-VN'], 'Vietnamese'],
-    [['vi-VN', 'th-TH'], 'Vietnamese then Thai'],
+    [['el-GR'], 'Greek'],
+    [['el-GR', 'ms-MY'], 'Greek then Malay'],
     [[], 'an empty list'],
   ])('an unsupported device language (%j: %s) -> English, stored', async tags => {
     mockDevice.tags = tags;
@@ -380,7 +382,7 @@ describe('a manual choice', () => {
   });
 
   it.each(ALL_LANGUAGES)('choosing %s replaces the language resolved at the first launch', async language => {
-    mockDevice.tags = ['vi-VN']; // first launch: English
+    mockDevice.tags = ['el-GR']; // first launch: English
     let prefs = startApp();
     await prefs.hydrateAppearancePreferences();
     expect(await AsyncStorage.getItem(KEY)).toBe('en');

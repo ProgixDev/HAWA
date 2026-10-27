@@ -10,15 +10,15 @@ import {resetPremiumStateForTests} from '../../state/premiumStore';
 import {getAppLanguage, resetAppLanguageForTests, setAppLanguage, setSelectedThemeId} from '../../state/themePreferences';
 import i18n from '../../i18n';
 
-// The language sheet of Appearance offers exactly AWA's fifteen languages and nothing else: there is no "System" / "System
+// The language sheet of Appearance offers exactly AWA's 41 language codes and nothing else: there is no "System" / "System
 // default" option (the phone's language is read once, at the first launch, and stored — see themePreferences.ts). Choosing a
 // language and pressing "Apply" saves it; dismissing the sheet changes nothing.
 
 const KEY = '@awa/appearance/language-v1';
 const TEST_METRICS: Metrics = {frame: {x: 0, y: 0, width: 360, height: 740}, insets: {top: 0, left: 0, right: 0, bottom: 0}};
-const UI_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'bn', 'da'] as const;
+const UI_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'bn', 'da', 'sv', 'nb', 'pl', 'uk', 'cs', 'sk', 'hu', 'ro', 'bg', 'sr', 'hr', 'bs', 'sl', 'ne', 'si', 'th', 'vi', 'uz', 'az', 'ka', 'hy', 'tg', 'ky', 'tk'] as const;
 // each card names itself in its own language, whatever language AWA is displayed in
-const SELF_LABELS = ['Français', 'English', 'Español', 'Italiano', 'Türkçe', 'Русский', 'Deutsch', '简体中文', 'Bahasa Indonesia', 'हिन्दी', 'Shqip', '日本語', '한국어', 'Português (Portugal)', 'Português (Brasil)', 'বাংলা', 'Dansk'];
+const SELF_LABELS = ['Français', 'English', 'Español', 'Italiano', 'Türkçe', 'Русский', 'Deutsch', '简体中文', 'Bahasa Indonesia', 'हिन्दी', 'Shqip', '日本語', '한국어', 'Português (Portugal)', 'Português (Brasil)', 'বাংলা', 'Dansk', 'Svenska', 'Norsk bokmål', 'Polski', 'Українська', 'Čeština', 'Slovenčina', 'Magyar', 'Română', 'Български', 'Српски', 'Hrvatski', 'Bosanski', 'Slovenščina', 'नेपाली', 'සිංහල', 'ไทย', 'Tiếng Việt', 'Oʻzbekcha', 'Azərbaycanca', 'ქართული', 'Հայերեն', 'Тоҷикӣ', 'Кыргызча', 'Türkmençe'];
 const activeRenderers: ReactTestRenderer.ReactTestRenderer[] = [];
 
 async function renderScreen() {
@@ -90,11 +90,13 @@ afterEach(async () => {
   await i18n.changeLanguage('en');
 });
 
-describe('the language sheet offers the fifteen languages only', () => {
-  it('lists exactly the sixteen language cards, each in its own language, with no "System" card', async () => {
+describe('the language sheet offers the 41 supported languages only', () => {
+  it('lists exactly the 41 language cards, each in its own language, with no "System" card', async () => {
     const renderer = await renderScreen();
     await openSheet(renderer);
     expect(radioLabels(renderer)).toEqual(SELF_LABELS);
+    expect(radioLabels(renderer)).not.toEqual(expect.arrayContaining(['Kurmancî'])); // removed languages stay removed
+    expect(radioLabels(renderer)).not.toEqual(expect.arrayContaining(['עברית']));
   });
 
   it.each(UI_LANGUAGES)('%s: no "System" / "System default" / "Langue du système" option or description anywhere in the sheet', async language => {
@@ -103,7 +105,7 @@ describe('the language sheet offers the fifteen languages only', () => {
     const renderer = await renderScreen();
     await openSheet(renderer);
 
-    expect(radioLabels(renderer)).toEqual(SELF_LABELS); // sixteen cards, whichever language AWA is displayed in
+    expect(radioLabels(renderer)).toEqual(SELF_LABELS); // 41 cards, whichever language AWA is displayed in
     // the (still-translated) wording of the removed option never appears, in any language
     const removedWording = UI_LANGUAGES.flatMap(other => [
       i18n.getFixedT(other)('appearance.language.systemName'),

@@ -66,7 +66,7 @@ export function displayTitleCase(value: string, language: string = getAppLanguag
  */
 export function foldForConfirmation(value: string, language: string = getAppLanguage()): string {
   const upper = upperCaseFor(value.trim(), language);
-  if (language === 'hi') {
+  if (language === 'hi' || language === 'ne') {
     return upper.normalize('NFC').replace(/\u0901/g, '\u0902');
   }
   if (language === 'bn') {

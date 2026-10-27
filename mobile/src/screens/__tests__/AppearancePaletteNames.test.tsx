@@ -47,7 +47,7 @@ const THEME_KEY = '@awa/appearance/theme-v1';
 const activeRenderers: ReactTestRenderer.ReactTestRenderer[] = [];
 
 const nameOf = (language: AwaAppLanguage, paletteId: string): string =>
-  (DICTIONARIES[language] as unknown as {appearanceThemeNames: Record<string, string>}).appearanceThemeNames[paletteId];
+  ((DICTIONARIES as Record<string, unknown>)[language] as {appearanceThemeNames: Record<string, string>}).appearanceThemeNames[paletteId];
 const IDS = AWA_THEMES.map(theme => theme.id);
 const SELECTABLE_IDS = getEnabledAwaThemes().map(theme => theme.id);
 
@@ -118,7 +118,7 @@ describe('every palette has a valid name in every language', () => {
   it('the dictionaries name exactly the palettes of the registry (including the technical "midnight")', () => {
     expect(IDS.length).toBeGreaterThanOrEqual(7);
     for (const language of LANGUAGES) {
-      const names = (DICTIONARIES[language] as unknown as {appearanceThemeNames: Record<string, string>}).appearanceThemeNames;
+      const names = ((DICTIONARIES as Record<string, unknown>)[language] as {appearanceThemeNames: Record<string, string>}).appearanceThemeNames;
       expect([language, Object.keys(names).sort()]).toEqual([language, [...IDS].sort()]);
     }
   });
