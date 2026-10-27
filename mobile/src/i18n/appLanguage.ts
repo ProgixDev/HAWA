@@ -1,4 +1,5 @@
 import i18n from './index';
+import {restoreDefaultLayoutDirection} from './layoutDirection';
 import {getAppLanguage, hydrateAppearancePreferences} from '../state/themePreferences';
 
 // Start-up language handling, kept out of App.tsx so it can be tested on its own.
@@ -27,4 +28,6 @@ export async function initializeAppLanguage(): Promise<void> {
   } catch {
     // keep the language i18next already has
   }
+  // Clears the layout direction a previous build stored natively (see layoutDirection.ts).
+  restoreDefaultLayoutDirection();
 }
