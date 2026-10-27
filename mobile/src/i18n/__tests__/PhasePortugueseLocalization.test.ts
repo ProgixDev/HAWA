@@ -97,7 +97,7 @@ describe('Portugal dictionary integrity (pt-PT)', () => {
   it('ptPT.ts has exactly the same leaf paths as every other dictionary — fifteen-language parity, no missing, no extra', () => {
     const paths = (dictionary: AnyRecord) => leaves(dictionary).map(([keyPath]) => keyPath).sort();
     const reference = paths(en as AnyRecord);
-    expect(reference.length).toBe(6248);
+    expect(reference.length).toBe(6272);
     expect(paths(ptPT as AnyRecord)).toEqual(reference);
     for (const dictionary of [fr, es, itDictionary, tr, de, zh, id, hi, sq, ja, ko, bn]) {
       expect(paths(dictionary as AnyRecord)).toEqual(reference);
@@ -159,9 +159,9 @@ describe('Portugal dictionary integrity (pt-PT)', () => {
   });
 
   it('every accented letter is a precomposed Latin-1 letter (á à â ã é ê í ó ô õ ú ç …): drawable by the standard PDF font and by Inter', () => {
-    const letters = new Set(ptLeaves.concat(brLeaves).map(([, value]) => value).join('').match(/\p{L}/gu));
+    const letters = new Set(ptLeaves.concat(brLeaves).filter(([keyPath]) => !keyPath.startsWith('appearance.language.')).map(([, value]) => value).join('').match(/\p{L}/gu));
     const outside = [...letters].filter(letter => !/[A-Za-zÀ-ÿªº]/.test(letter)); // (ª º: the ordinal indicators of "1.º trimestre" — Latin-1, drawn by Helvetica)
-    // (the endonyms of the other languages are written in their own scripts)
+    // (the endonyms in appearance.language are written in their own scripts and are not part of this check)
     expect(outside.filter(letter => !/[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}\p{Script=Cyrillic}\p{Script=Devanagari}\p{Script=Bengali}\p{Script=Arabic}ğĞşŞıİ]/u.test(letter))).toEqual([]);
     const all = ptLeaves.map(([, value]) => value).join('');
     for (const char of ['á', 'à', 'â', 'ã', 'é', 'ê', 'í', 'ó', 'ô', 'õ', 'ú', 'ç']) {
@@ -328,8 +328,8 @@ describe('registration and normalisation', () => {
   it("picks the phone's first supported language: Portuguese variants included, English for an unsupported list", () => {
     expect(pickSupportedLanguage(['pt-BR', 'en-GB'])).toBe('pt-BR');
     expect(pickSupportedLanguage(['pt-PT', 'pt-BR'])).toBe('pt-PT');
-    expect(pickSupportedLanguage(['th-TH', 'pt-BR', 'fr-FR'])).toBe('pt-BR');
-    expect(pickSupportedLanguage(['vi-VN', 'th-TH'])).toBe('en');
+    expect(pickSupportedLanguage(['ms-MY', 'pt-BR', 'fr-FR'])).toBe('pt-BR');
+    expect(pickSupportedLanguage(['ms-MY', 'tl-PH'])).toBe('en');
     expect(pickSupportedLanguage(['en-GB', 'pt-BR'])).toBe('en'); // the phone's first supported language wins
   });
 
@@ -340,7 +340,7 @@ describe('registration and normalisation', () => {
     for (const value of ['pt-BR', 'pt_BR', 'PT-br', 'pt-Latn-BR', 'pt-BR-u-nu-latn']) {
       expect([value, resolveEditorialLanguage(value)]).toEqual([value, 'pt-BR']);
     }
-    expect(resolveEditorialLanguage('th')).toBe('en');
+    expect(resolveEditorialLanguage('ms')).toBe('en');
     expect(resolveEditorialLanguage('ptx')).toBe('en');
     expect(resolveEditorialLanguage(undefined)).toBe('en');
     expect(ALL_LANGUAGES.map(language => resolveEditorialLanguage(language))).toEqual(['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'bn', 'da']);

@@ -116,7 +116,7 @@ describe('dictionary integrity', () => {
 
   it('is real Indonesian: no raw key, no Chinese/Cyrillic/French leftover, and almost nothing is left in English', () => {
     // (the endonyms of the Russian and Chinese languages are written in their own scripts)
-    expect(idLeaves.filter(([keyPath, value]) => /[一-鿿Ѐ-ӿ]/.test(value) && !/^appearance\.language\.(russian|chinese|japanese)Name$/.test(keyPath))).toEqual([]);
+    expect(idLeaves.filter(([keyPath, value]) => /[一-鿿Ѐ-ӿ]/.test(value) && !/^appearance\.language\.[a-z]+Name$/.test(keyPath))).toEqual([]);
     expect(idLeaves.filter(([, value]) => /^[a-z][A-Za-z]+(\.[A-Za-z_]+){2,}$/.test(value))).toEqual([]); // a leaked i18n key
     const sentences = enLeaves.filter(([, value]) => value.length > 30 && /[a-z]{3}/.test(value));
     const unchanged = sentences.filter(([keyPath, value]) => idMap.get(keyPath) === value);
@@ -161,7 +161,7 @@ describe('registration and normalisation', () => {
     expect(resolveEditorialLanguage('id-ID')).toBe('id');
     expect(resolveEditorialLanguage('in')).toBe('id');
     expect(resolveEditorialLanguage('ms')).toBe('en');
-    expect(resolveEditorialLanguage('th-TH')).toBe('en');
+    expect(resolveEditorialLanguage('ms-MY')).toBe('en');
   });
 
   it('Indonesian has the single plural category "other" in the on-device PluralRules fallback', () => {

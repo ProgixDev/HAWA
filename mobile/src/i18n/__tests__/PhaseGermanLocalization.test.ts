@@ -559,8 +559,8 @@ describe('editorial content: library articles, pregnancy weeks, legal text', () 
   });
 
   it('legal placeholder text exists in German with the same sections as English', () => {
-    expect(Object.keys(TERMS).sort()).toEqual(['bn', 'de', 'en', 'es', 'fr', 'hi', 'id', 'ja', 'ko', 'pt-BR', 'pt-PT', 'ru', 'sq', 'tr', 'zh']);
-    expect(Object.keys(PRIVACY).sort()).toEqual(['bn', 'de', 'en', 'es', 'fr', 'hi', 'id', 'ja', 'ko', 'pt-BR', 'pt-PT', 'ru', 'sq', 'tr', 'zh']);
+    expect(Object.keys(TERMS).sort()).toEqual(['az', 'bg', 'bn', 'bs', 'cs', 'da', 'de', 'en', 'es', 'fr', 'hi', 'hr', 'hu', 'hy', 'id', 'ja', 'ka', 'ko', 'ky', 'nb', 'ne', 'pl', 'pt-BR', 'pt-PT', 'ro', 'ru', 'si', 'sk', 'sl', 'sq', 'sr', 'sv', 'tg', 'th', 'tk', 'tr', 'uk', 'uz', 'vi', 'zh']);
+    expect(Object.keys(PRIVACY).sort()).toEqual(['az', 'bg', 'bn', 'bs', 'cs', 'da', 'de', 'en', 'es', 'fr', 'hi', 'hr', 'hu', 'hy', 'id', 'ja', 'ka', 'ko', 'ky', 'nb', 'ne', 'pl', 'pt-BR', 'pt-PT', 'ro', 'ru', 'si', 'sk', 'sl', 'sq', 'sr', 'sv', 'tg', 'th', 'tk', 'tr', 'uk', 'uz', 'vi', 'zh']);
     expect(TERMS.de).toHaveLength(TERMS.en.length);
     expect(PRIVACY.de).toHaveLength(PRIVACY.en.length);
     TERMS.de.concat(PRIVACY.de).forEach(section => {

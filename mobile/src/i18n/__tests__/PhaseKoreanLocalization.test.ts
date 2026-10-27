@@ -82,7 +82,7 @@ describe('dictionary integrity', () => {
   it('ko.ts has exactly the same leaf paths as every other dictionary — fifteen-language parity, no missing, no extra', () => {
     const paths = (dictionary: AnyRecord) => leaves(dictionary).map(([keyPath]) => keyPath).sort();
     const reference = paths(en as AnyRecord);
-    expect(reference.length).toBe(6247);
+    expect(reference.length).toBe(6272);
     expect(paths(ko as AnyRecord)).toEqual(reference);
     for (const dictionary of [fr, es, itDictionary, tr, de, zh, id, hi, sq, ja, bn]) {
       expect(paths(dictionary as AnyRecord)).toEqual(reference);
@@ -236,7 +236,7 @@ describe('registration and normalisation', () => {
   });
 
   it('does not confuse other languages: Thai, Vietnamese, Japanese, Chinese variants and the other eleven stay what they are', () => {
-    for (const tag of ['th-TH', 'vi-VN', 'ms-MY', 'tl-PH']) {
+    for (const tag of ['ms-MY', 'tl-PH']) {
       expect([tag, languageFromLocaleTag(tag)]).toEqual([tag, null]);
     }
     expect(languageFromLocaleTag('ja-JP')).toBe('ja');
@@ -248,8 +248,8 @@ describe('registration and normalisation', () => {
 
   it('picks Korean from a phone list, English for an unsupported one', () => {
     expect(pickSupportedLanguage(['ko-KR', 'en-GB'])).toBe('ko');
-    expect(pickSupportedLanguage(['th-TH', 'ko-KR'])).toBe('ko');
-    expect(pickSupportedLanguage(['th-TH', 'vi-VN'])).toBe('en');
+    expect(pickSupportedLanguage(['ms-MY', 'ko-KR'])).toBe('ko');
+    expect(pickSupportedLanguage(['ms-MY', 'tl-PH'])).toBe('en');
     expect(pickSupportedLanguage(['en-GB', 'ko-KR'])).toBe('en'); // the phone's first supported language wins
   });
 
@@ -257,7 +257,7 @@ describe('registration and normalisation', () => {
     for (const value of ['ko', 'ko-KR', 'ko_KR', 'KO', 'ko-Kore', 'ko-Kore-KR']) {
       expect([value, resolveEditorialLanguage(value)]).toEqual([value, 'ko']);
     }
-    expect(resolveEditorialLanguage('th')).toBe('en');
+    expect(resolveEditorialLanguage('ms')).toBe('en');
     expect(resolveEditorialLanguage(undefined)).toBe('en');
     expect(ALL_LANGUAGES.filter(language => language !== 'ko').map(language => resolveEditorialLanguage(language))).toEqual(['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja']);
   });
