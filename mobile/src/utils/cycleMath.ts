@@ -36,6 +36,29 @@ export const WEEK_DAYS_PT = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
 export const WEEK_DAYS_BN = ['সোম', 'মঙ্গল', 'বুধ', 'বৃহ', 'শুক্র', 'শনি', 'রবি'];
 export const WEEK_DAYS_DA = ['Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lør', 'Søn'];
 export const WEEK_DAYS_SV = ['Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör', 'Sön'];
+export const WEEK_DAYS_NB = ['man', 'tir', 'ons', 'tor', 'fre', 'lør', 'søn'];
+export const WEEK_DAYS_PL = ['pon', 'wt', 'śr', 'czw', 'pt', 'sob', 'niedz'];
+export const WEEK_DAYS_UK = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'нд'];
+export const WEEK_DAYS_CS = ['po', 'út', 'st', 'čt', 'pá', 'so', 'ne'];
+export const WEEK_DAYS_SK = ['po', 'ut', 'st', 'št', 'pi', 'so', 'ne'];
+export const WEEK_DAYS_HU = ['h', 'k', 'sze', 'cs', 'p', 'szo', 'v'];
+export const WEEK_DAYS_RO = ['lu', 'ma', 'mi', 'jo', 'vi', 'sâ', 'du'];
+export const WEEK_DAYS_BG = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'нд'];
+export const WEEK_DAYS_SR = ['пон', 'уто', 'сре', 'чет', 'пет', 'суб', 'нед'];
+export const WEEK_DAYS_HR = ['pon', 'uto', 'sri', 'čet', 'pet', 'sub', 'ned'];
+export const WEEK_DAYS_BS = ['pon', 'uto', 'sri', 'čet', 'pet', 'sub', 'ned'];
+export const WEEK_DAYS_SL = ['pon', 'tor', 'sre', 'čet', 'pet', 'sob', 'ned'];
+export const WEEK_DAYS_NE = ['सोम', 'मङ्गल', 'बुध', 'बिहि', 'शुक्र', 'शनि', 'आइत'];
+export const WEEK_DAYS_SI = ['සඳු', 'අඟහ', 'බදා', 'බ්‍රහ', 'සිකු', 'සෙන', 'ඉරි'];
+export const WEEK_DAYS_TH = ['จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.', 'อา.'];
+export const WEEK_DAYS_VI = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+export const WEEK_DAYS_UZ = ['Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh', 'Ya'];
+export const WEEK_DAYS_AZ = ['Be', 'Ça', 'Çə', 'Ca', 'Cü', 'Şə', 'Ba'];
+export const WEEK_DAYS_KA = ['ორ', 'სა', 'ოთ', 'ხუ', 'პა', 'შა', 'კვ'];
+export const WEEK_DAYS_HY = ['Երկ', 'Երք', 'Չրք', 'Հնգ', 'Ուր', 'Շբթ', 'Կիր'];
+export const WEEK_DAYS_TG = ['Душ', 'Сеш', 'Чор', 'Пан', 'Ҷум', 'Шан', 'Яқш'];
+export const WEEK_DAYS_KY = ['Дүй', 'Шей', 'Шар', 'Бей', 'Жум', 'Ишм', 'Жек'];
+export const WEEK_DAYS_TK = ['Duş', 'Siş', 'Çar', 'Pen', 'Ann', 'Şen', 'Ýek'];
 export const localizedWeekDays = (overrideLanguage?: string): string[] => {
   const language = overrideLanguage ?? getAppLanguage();
   if (language === 'en') {return WEEK_DAYS_EN;}
@@ -54,6 +77,29 @@ export const localizedWeekDays = (overrideLanguage?: string): string[] => {
   if (language === 'bn') {return WEEK_DAYS_BN;}
   if (language === 'da') {return WEEK_DAYS_DA;}
   if (language === 'sv') {return WEEK_DAYS_SV;}
+  if (language === 'nb') {return WEEK_DAYS_NB;}
+  if (language === 'pl') {return WEEK_DAYS_PL;}
+  if (language === 'uk') {return WEEK_DAYS_UK;}
+  if (language === 'cs') {return WEEK_DAYS_CS;}
+  if (language === 'sk') {return WEEK_DAYS_SK;}
+  if (language === 'hu') {return WEEK_DAYS_HU;}
+  if (language === 'ro') {return WEEK_DAYS_RO;}
+  if (language === 'bg') {return WEEK_DAYS_BG;}
+  if (language === 'sr') {return WEEK_DAYS_SR;}
+  if (language === 'hr') {return WEEK_DAYS_HR;}
+  if (language === 'bs') {return WEEK_DAYS_BS;}
+  if (language === 'sl') {return WEEK_DAYS_SL;}
+  if (language === 'ne') {return WEEK_DAYS_NE;}
+  if (language === 'si') {return WEEK_DAYS_SI;}
+  if (language === 'th') {return WEEK_DAYS_TH;}
+  if (language === 'vi') {return WEEK_DAYS_VI;}
+  if (language === 'uz') {return WEEK_DAYS_UZ;}
+  if (language === 'az') {return WEEK_DAYS_AZ;}
+  if (language === 'ka') {return WEEK_DAYS_KA;}
+  if (language === 'hy') {return WEEK_DAYS_HY;}
+  if (language === 'tg') {return WEEK_DAYS_TG;}
+  if (language === 'ky') {return WEEK_DAYS_KY;}
+  if (language === 'tk') {return WEEK_DAYS_TK;}
   return WEEK_DAYS;
 };
 
@@ -115,6 +161,29 @@ export const dateFormatLocale = (overrideLanguage?: string): string => {
   if (language === 'bn') {return 'bn-BD-u-nu-latn';}
   if (language === 'da') {return 'da-DK';}
   if (language === 'sv') {return 'sv-SE';}
+  if (language === 'nb') {return 'nb-NO';}
+  if (language === 'pl') {return 'pl-PL';}
+  if (language === 'uk') {return 'uk-UA';}
+  if (language === 'cs') {return 'cs-CZ';}
+  if (language === 'sk') {return 'sk-SK';}
+  if (language === 'hu') {return 'hu-HU';}
+  if (language === 'ro') {return 'ro-RO';}
+  if (language === 'bg') {return 'bg-BG';}
+  if (language === 'sr') {return 'sr-RS';}
+  if (language === 'hr') {return 'hr-HR';}
+  if (language === 'bs') {return 'bs-BA';}
+  if (language === 'sl') {return 'sl-SI';}
+  if (language === 'ne') {return 'ne-NP-u-nu-latn';}
+  if (language === 'si') {return 'si-LK';}
+  if (language === 'th') {return 'th-TH-u-ca-gregory';}
+  if (language === 'vi') {return 'vi-VN';}
+  if (language === 'uz') {return 'uz-UZ';}
+  if (language === 'az') {return 'az-AZ';}
+  if (language === 'ka') {return 'ka-GE';}
+  if (language === 'hy') {return 'hy-AM';}
+  if (language === 'tg') {return 'tg-TJ';}
+  if (language === 'ky') {return 'ky-KG';}
+  if (language === 'tk') {return 'tk-TM';}
   return 'fr-FR';
 };
 
@@ -175,6 +244,71 @@ const COMPOSED_HIJRI: Record<string, ComposedHijri | undefined> = {
     months: ['মুহাররম', 'সফর', 'রবিউল আউয়াল', 'রবিউস সানি', 'জমাদিউল আউয়াল', 'জমাদিউস সানি', 'রজব', 'শাবান', 'রমজান', 'শাওয়াল', 'জিলকদ', 'জিলহজ'],
     date: (year, month, day) => `${day} ${month} ${year} হিজরি`,
     monthYear: (year, month) => `${month} ${year} হিজরি`,
+  },
+  // Nepali: dateFormatLocale returns 'ne-NP-u-nu-latn' (Western digits like every number AWA shows), which cannot take a second -u- extension for -u-ca-islamic, so the Hijri date is composed from the numeric Islamic calendar parts.
+  ne: {
+    months: ['मुहर्रम', 'सफर', 'रबिउल अव्वल', 'रबिउस सानी', 'जमादिउल अव्वल', 'जमादिउस सानी', 'रजब', 'शाबान', 'रमजान', 'शव्वाल', 'जिल्कद', 'जिल्हज'],
+    date: (year, month, day) => `${day} ${month} ${year} हिजरी`,
+    monthYear: (year, month) => `${month} ${year} हिजरी`,
+  },
+  // Sinhala: ICU has no Islamic month names for Sinhala, so the Hijri date is composed from the numeric Islamic calendar parts (Western digits).
+  si: {
+    months: ['මුහර්රම්', 'සෆර්', 'රබීඋල් අව්වල්', 'රබීඋල් ආඛිර්', 'ජමාදුල් අව්වල්', 'ජමාදුල් ආඛිර්', 'රජබ්', 'ෂාබාන්', 'රමළාන්', 'ෂව්වාල්', 'ධුල් කඅදා', 'ධුල් හිජ්ජා'],
+    date: (year, month, day) => `${day} ${month} ${year} හිජ්රි`,
+    monthYear: (year, month) => `${month} ${year} හිජ්රි`,
+  },
+  // Thai: ICU has no Islamic month names for Thai, so the Hijri date is composed from the numeric Islamic calendar parts (Western digits; the year is marked ฮ.ศ.).
+  th: {
+    months: ['มุฮัรรอม', 'ซอฟัร', 'รอบีอุลเอาวัล', 'รอบีอุลอาคิร', 'ญุมาดัลอูลา', 'ญุมาดัลอาคิเราะฮ์', 'รอญับ', 'ชะอ์บาน', 'รอมะฎอน', 'เชาว์วาล', 'ซุลเกาะดะฮ์', 'ซุลหิจญะฮ์'],
+    date: (year, month, day) => `${day} ${month} ${year} ฮ.ศ.`,
+    monthYear: (year, month) => `${month} ${year} ฮ.ศ.`,
+  },
+  // Vietnamese: ICU names the Islamic months only by number ("tháng 9") for Vietnamese, so the Hijri date is composed from the numeric Islamic calendar parts with the transliterated month names used by the Vietnamese Muslim community (Western digits; the year is marked H).
+  vi: {
+    months: ['Muharram', 'Safar', 'Rabi’ al-awwal', 'Rabi’ al-thani', 'Jumada al-awwal', 'Jumada al-thani', 'Rajab', 'Sha’ban', 'Ramadan', 'Shawwal', 'Dhu al-Qi’dah', 'Dhu al-Hijjah'],
+    date: (year, month, day) => `${day} ${month} ${year} H`,
+    monthYear: (year, month) => `${month} ${year} H`,
+  },
+  uz: {
+    months: ['Muharram', 'Safar', 'Rabiul-avval', 'Rabiul-oxir', 'Jumodiul-avval', 'Jumodiul-oxir', 'Rajab', 'Shaʼbon', 'Ramazon', 'Shavvol', 'Zulqaʼda', 'Zulhijja'],
+    date: (year, month, day) => `${day} ${month} ${year} H`,
+    monthYear: (year, month) => `${month} ${year} H`,
+  },
+  // Azerbaijani (Latin script): composed from the numeric Islamic calendar parts with the month names used in Azerbaijani (Western digits; the year is marked H), so the result never depends on the ICU build's Islamic month names for `az`.
+  az: {
+    months: ['Məhərrəm', 'Səfər', 'Rəbiüləvvəl', 'Rəbiülaxır', 'Cümadiyələvvəl', 'Cümadiyəlaxır', 'Rəcəb', 'Şaban', 'Ramazan', 'Şəvval', 'Zülqədə', 'Zülhiccə'],
+    date: (year, month, day) => `${day} ${month} ${year} H`,
+    monthYear: (year, month) => `${month} ${year} H`,
+  },
+  // Georgian: composed from the numeric Islamic calendar parts with transliterated month names consistent with the interface wording (Western digits; the year is marked ჰ.წ. = Hijri year). NATIVE REVIEW REQUIRED for the transliterations and the era abbreviation.
+  ka: {
+    months: ['მუჰარამი', 'საფარი', 'რაბიულ-ავალი', 'რაბიულ-ახირი', 'ჯუმადა ალ-ულა', 'ჯუმადა ალ-ახირა', 'რაჯაბი', 'შაბანი', 'რამადანი', 'შავვალი', 'ზულ-ყიდა', 'ზულ-ჰიჯა'],
+    date: (year, month, day) => `${day} ${month} ${year} ჰ.წ.`,
+    monthYear: (year, month) => `${month} ${year} ჰ.წ.`,
+  },
+  // Armenian: composed from the numeric Islamic calendar parts with transliterated month names consistent with the interface wording (Eastern Armenian, Western digits; the year is marked with the word Հիջրա = Hijri). NATIVE REVIEW REQUIRED for the transliterations and the era marker.
+  hy: {
+    months: ['Մուհարրամ', 'Սաֆար', 'Ռաբի ալ-ավվալ', 'Ռաբի ալ-ահիր', 'Ջումադա ալ-ուլա', 'Ջումադա ալ-ահիրա', 'Ռաջաբ', 'Շաաբան', 'Ռամադան', 'Շավվալ', 'Զուլ-կադա', 'Զուլ-հիջա'],
+    date: (year, month, day) => `${day} ${month} ${year} (Հիջրա)`,
+    monthYear: (year, month) => `${month} ${year} (Հիջրա)`,
+  },
+  // Tajik (Cyrillic): composed from the numeric Islamic calendar parts with the month names used in Tajik Islamic usage (Western digits; the year is marked ҳ. = ҳиҷрӣ). NATIVE / SCHOLAR REVIEW REQUIRED for the transliterations and the era abbreviation.
+  tg: {
+    months: ['Муҳаррам', 'Сафар', 'Рабеъ-ул-аввал', 'Рабеъ-ус-сонӣ', 'Ҷумоди-ул-аввал', 'Ҷумоди-ус-сонӣ', 'Раҷаб', 'Шаъбон', 'Рамазон', 'Шаввол', 'Зулқаъда', 'Зулҳиҷҷа'],
+    date: (year, month, day) => `${day} ${month} ${year} ҳ.`,
+    monthYear: (year, month) => `${month} ${year} ҳ.`,
+  },
+  // Kyrgyz (Cyrillic): composed from the numeric Islamic calendar parts with the month names used in Kyrgyz Islamic usage (Western digits; the year is marked х.ж. = хижра жылы, as in the qadaa labels). NATIVE / SCHOLAR REVIEW REQUIRED for the transliterations and the era abbreviation.
+  ky: {
+    months: ['Мухаррам', 'Сафар', 'Раби-ул-аууал', 'Раби-ус-сани', 'Жумада-ул-уула', 'Жумада-ус-сани', 'Ражаб', 'Шаабан', 'Рамазан', 'Шаууал', 'Зулкаада', 'Зулхижжа'],
+    date: (year, month, day) => `${day} ${month} ${year} х.ж.`,
+    monthYear: (year, month) => `${month} ${year} х.ж.`,
+  },
+  // Turkmen: ICU names the Islamic months with ordinary Turkmen words ("Dört tirkeşik 3"), which read like nothing a Turkmen Muslim uses, so the Hijri date is composed from the numeric Islamic calendar parts (Western digits) with the month names used by the community and the era marker "hijri".
+  tk: {
+    months: ['Muharrem', 'Safar', 'Rebiulewwel', 'Rebiulahyr', 'Jemaziýelewwel', 'Jemaziýelahyr', 'Rejep', 'Şagban', 'Remezan', 'Şewwal', 'Zylgäde', 'Zylhijje'],
+    date: (year, month, day) => `${day} ${month} ${year} hijri`,
+    monthYear: (year, month) => `${month} ${year} hijri`,
   },
   ko: {
     months: [

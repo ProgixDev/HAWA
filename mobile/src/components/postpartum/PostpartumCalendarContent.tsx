@@ -14,7 +14,7 @@ import {
   useNavigation,
   type NavigationProp,
 } from '@react-navigation/native';
-import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import {useTranslation} from 'react-i18next';
