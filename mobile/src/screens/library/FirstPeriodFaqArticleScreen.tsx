@@ -859,56 +859,6 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     shareMessage: 'Hyppige spørgsmål om den første menstruation — AWA',
   },
-  da: {
-    badge: 'FÖRSTE MENSTRUATION',
-    title: 'Hyppige spörgsmål om\nden förste menstruation',
-    metaDuration: '4 min läsning',
-    metaType: 'FAQ',
-    metaLevel: 'Grundläggende',
-    metaValidated: 'Gennemgået indhold',
-    intro: 'Simple svar på de mest almindelige spörgsmål om den förste menstruation.',
-    contentsTitle: 'I denne artikel',
-    faq: [
-      {
-        question: '"Er det normalt at blöde mycket lidt?"',
-        answer: 'Ja. De allertidligste cyklusser ar ofta lette. Blödningsmängden kan variere fran cyklus till cyklus, isär i starten.',
-      },
-      {
-        question: '"Er det normalt at blöde meget?"',
-        answer: 'Kraftig blödning kan også forekomme, isär i de förste to dagar. Hvis du skal skifte beskyttelse mere end én gang i timen i flere timer i träk, ar det en god idé at tale med en halsasprofessionel.',
-      },
-      {
-        question: '"Er det normalt at have mavesmerter?"',
-        answer: 'Let mavesmartor ar normalt och giver generelt inte anledning till bekymring. En varmepude eller lite hvile kan hjälpe. Kontakt nogen, hvis smerten ar mycket kraftig.',
-      },
-      {
-        question: '"Kan jag dyrke sport?"',
-        answer: 'Ja, du kan dyrke sport under menstruationen. Juster bare intensiteten efter, hvordan du har det den dag.',
-      },
-      {
-        question: '"Kan jag svömme?"',
-        answer: 'Ja, du kan svömme med den rette beskyttelse. Mange foreträkker at vente, till de ar mere fortrolige med det.',
-      },
-    ],
-    tipTitle: 'Godt at vide',
-    tipText: 'Der findes ingen "pinlige spörgsmål": enhver krop ar forskellig, och du kan alltid tale med nogen du stoler på.',
-    relatedTitle: '♥  Du vil måske også synes om',
-    related: [
-      {
-        title: 'Din förste menstruation: hvad du kan forvente',
-        meta: '5 min  ·  Guide',
-      },
-      {
-        title: 'Hvilken beskyttelse skal jag välge till min förste menstruation?',
-        meta: '6 min  ·  Guide',
-      },
-      {
-        title: 'At håndtere menstruationssmerter',
-        meta: '7 min  ·  Guide',
-      },
-    ],
-    shareMessage: 'Hyppige spörgsmål om den förste menstruation — AWA',
-  },
   sv: {
     badge: 'FÖRSTE MENSTRUATION',
     title: 'Hyppige spörgsmål om\nden förste menstruation',
@@ -958,6 +908,1064 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
       },
     ],
     shareMessage: 'Hyppige spörgsmål om den förste menstruation — AWA',
+  },
+  nb: {
+    badge: 'FØRSTE MENS',
+    title: 'Ofte stilte spørsmål\nom den første mensen',
+    metaDuration: '4 min lesing',
+    metaType: 'Vanlige spørsmål',
+    metaLevel: 'Nybegynner',
+    metaValidated: 'Gjennomgått innhold',
+    intro: 'Enkle svar på de vanligste spørsmålene om den første mensen.',
+    contentsTitle: 'I denne artikkelen',
+    faq: [
+      {
+        question: '«Er det normalt å blø veldig lite?»',
+        answer:
+          'Ja. De aller første syklusene har ofte lett blødning. Blødningen kan variere fra en syklus til den neste, særlig i begynnelsen.',
+      },
+      {
+        question: '«Er det normalt å blø mye?»',
+        answer:
+          'Kraftigere blødning kan også forekomme, særlig de to første dagene. Hvis du må bytte beskyttelse oftere enn én gang i timen i flere timer på rad, er det lurt å snakke med helsepersonell om det.',
+      },
+      {
+        question: '«Er det normalt å ha kramper?»',
+        answer:
+          'Milde kramper i nedre del av magen er vanlige og som regel ikke noe å bekymre seg for. En varmeflaske eller litt hvile kan hjelpe. Svært sterke smerter er verdt å nevne for noen.',
+      },
+      {
+        question: '«Kan jeg drive med idrett?»',
+        answer:
+          'Ja, du kan fortsatt drive med idrett under mensen. Juster bare intensiteten etter hvordan kroppen din føler seg den dagen.',
+      },
+      {
+        question: '«Kan jeg bade?»',
+        answer:
+          'Ja, du kan fortsatt bade med riktig beskyttelse. Mange velger rett og slett å vente til de føler seg mer komfortable med tanken.',
+      },
+    ],
+    tipTitle: 'Godt å vite',
+    tipText: 'Det finnes ikke noe pinlig spørsmål: hver kropp er forskjellig, og du kan alltid snakke med noen du stoler på.',
+    relatedTitle: '♥  Dette liker du kanskje også',
+    related: [
+      {title: 'Din første mens: hva du kan forvente', meta: '5 min  ·  Veiledning'},
+      {title: 'Hvilken beskyttelse bør jeg velge til den første mensen?', meta: '6 min  ·  Veiledning'},
+      {title: 'Håndtere menstruasjonssmerter', meta: '7 min  ·  Veiledning'},
+    ],
+    shareMessage: 'Ofte stilte spørsmål om den første mensen – AWA',
+  },
+  pl: {
+    badge: 'PIERWSZA MIESIĄCZKA',
+    title: 'Najczęściej zadawane pytania\no pierwszą miesiączkę',
+    metaDuration: '4 min czytania',
+    metaType: 'FAQ',
+    metaLevel: 'Początkujący',
+    metaValidated: 'Treść zweryfikowana',
+    intro: 'Proste odpowiedzi na najczęstsze pytania o pierwszą miesiączkę.',
+    contentsTitle: 'W tym artykule',
+    faq: [
+      {
+        question: '„Czy to normalne, że krwawienie jest bardzo skąpe?”',
+        answer:
+          'Tak. Pierwsze cykle często mają skąpe krwawienie. Obfitość może się zmieniać z cyklu na cykl, zwłaszcza na początku.',
+      },
+      {
+        question: '„Czy to normalne, że krwawienie jest obfite?”',
+        answer:
+          'Zdarza się też obfitsze krwawienie, zwłaszcza w pierwszych dwóch dniach. Jeśli przez kilka godzin z rzędu musisz zmieniać środek ochrony częściej niż raz na godzinę, warto porozmawiać o tym ze specjalistą.',
+      },
+      {
+        question: '„Czy to normalne, że mam skurcze?”',
+        answer:
+          'Łagodne skurcze w dolnej części brzucha są częste i zwykle nie ma powodu do niepokoju. Pomóc może termofor lub odrobina odpoczynku. O bardzo silnym bólu warto komuś powiedzieć.',
+      },
+      {
+        question: '„Czy mogę uprawiać sport?”',
+        answer:
+          'Tak, podczas miesiączki nadal możesz uprawiać sport. Po prostu dostosuj intensywność do tego, jak czuje się Twoje ciało danego dnia.',
+      },
+      {
+        question: '„Czy mogę pływać?”',
+        answer:
+          'Tak, przy odpowiednim środku ochrony nadal możesz pływać. Wiele osób po prostu woli poczekać, aż poczują się swobodniej z tą myślą.',
+      },
+    ],
+    tipTitle: 'Warto wiedzieć',
+    tipText: 'Nie ma czegoś takiego jak wstydliwe pytanie: każde ciało jest inne i zawsze możesz porozmawiać z kimś, komu ufasz.',
+    relatedTitle: '♥  Może Cię też zainteresować',
+    related: [
+      {title: 'Twoja pierwsza miesiączka: czego się spodziewać', meta: '5 min  ·  Poradnik'},
+      {title: 'Jaki środek ochrony wybrać na pierwszą miesiączkę?', meta: '6 min  ·  Poradnik'},
+      {title: 'Jak radzić sobie z bólem miesiączkowym', meta: '7 min  ·  Poradnik'},
+    ],
+    shareMessage: 'Najczęściej zadawane pytania o pierwszą miesiączkę — AWA',
+  },
+  uk: {
+    badge: 'ПЕРША МЕНСТРУАЦІЯ',
+    title: 'Поширені запитання\nпро першу менструацію',
+    metaDuration: '4 хв читання',
+    metaType: 'Запитання',
+    metaLevel: 'Початковий',
+    metaValidated: 'Перевірений вміст',
+    intro: 'Прості відповіді на найчастіші запитання про першу менструацію.',
+    contentsTitle: 'У цій статті',
+    faq: [
+      {
+        question: '«Чи нормально, що виділень дуже мало?»',
+        answer:
+          'Так. Перші цикли часто супроводжуються слабкими виділеннями. Інтенсивність може змінюватися від циклу до циклу, особливо на початку.',
+      },
+      {
+        question: '«Чи нормально, що виділень багато?»',
+        answer:
+          'Рясніші виділення також можливі, особливо в перші два дні. Якщо кілька годин поспіль вам доводиться змінювати засіб гігієни частіше ніж раз на годину, варто поговорити про це з лікарем.',
+      },
+      {
+        question: '«Чи нормально, що в мене спазми?»',
+        answer:
+          'Легкі спазми внизу живота — звичайне явище, і зазвичай це не привід для занепокоєння. Допомогти можуть грілка або трохи відпочинку. Про дуже сильний біль варто комусь розповісти.',
+      },
+      {
+        question: '«Чи можна займатися спортом?»',
+        answer:
+          'Так, під час менструації ви все ще можете займатися спортом. Просто підберіть інтенсивність відповідно до самопочуття вашого тіла цього дня.',
+      },
+      {
+        question: '«Чи можна плавати?»',
+        answer:
+          'Так, з відповідним засобом гігієни ви все ще можете плавати. Багато хто просто воліє зачекати, поки почуватиметься впевненіше з цією думкою.',
+      },
+    ],
+    tipTitle: 'Варто знати',
+    tipText: 'Не існує незручних запитань: кожне тіло різне, і ви завжди можете поговорити з тим, кому довіряєте.',
+    relatedTitle: '♥  Вас також може зацікавити',
+    related: [
+      {title: 'Ваша перша менструація: чого очікувати', meta: '5 хв  ·  Посібник'},
+      {title: 'Який засіб гігієни обрати для першої менструації?', meta: '6 хв  ·  Посібник'},
+      {title: 'Як упоратися з менструальним болем', meta: '7 хв  ·  Посібник'},
+    ],
+    shareMessage: 'Поширені запитання про першу менструацію — AWA',
+  },
+  cs: {
+    badge: 'PRVNÍ MENSTRUACE',
+    title: 'Často kladené otázky\no první menstruaci',
+    metaDuration: '4 min čtení',
+    metaType: 'Časté dotazy',
+    metaLevel: 'Začátečník',
+    metaValidated: 'Ověřený obsah',
+    intro: 'Jednoduché odpovědi na nejčastější otázky o první menstruaci.',
+    contentsTitle: 'V tomto článku',
+    faq: [
+      {
+        question: '„Je normální mít velmi málo krve?“',
+        answer:
+          'Ano. Úplně první cykly mívají slabé krvácení. Množství se může od cyklu k cyklu lišit, zejména na začátku.',
+      },
+      {
+        question: '„Je normální mít hodně krve?“',
+        answer:
+          'Silnější krvácení se také může objevit, zejména během prvních dvou dnů. Pokud potřebujete měnit ochranu častěji než jednou za hodinu několik hodin po sobě, je dobré o tom promluvit se zdravotnickým pracovníkem.',
+      },
+      {
+        question: '„Je normální mít křeče?“',
+        answer:
+          'Mírné křeče v podbřišku jsou běžné a obvykle nejsou důvodem k obavám. Pomoci může termofor nebo trocha odpočinku. Velmi intenzivní bolest stojí za to někomu říct.',
+      },
+      {
+        question: '„Mohu sportovat?“',
+        answer:
+          'Ano, během menstruace můžete dál sportovat. Jen přizpůsobte intenzitu tomu, jak se vaše tělo ten den cítí.',
+      },
+      {
+        question: '„Mohu chodit plavat?“',
+        answer:
+          'Ano, s vhodnou ochranou můžete dál plavat. Mnoho dívek si prostě raději počká, až se s touto myšlenkou bude cítit pohodlněji.',
+      },
+    ],
+    tipTitle: 'Stojí za to vědět',
+    tipText: 'Neexistuje trapná otázka: každé tělo je jiné a vždy si můžete promluvit s někým, komu důvěřujete.',
+    relatedTitle: '♥  Mohlo by se vám líbit',
+    related: [
+      {title: 'Vaše první menstruace: co očekávat', meta: '5 min  ·  Průvodce'},
+      {title: 'Jakou ochranu zvolit při první menstruaci?', meta: '6 min  ·  Průvodce'},
+      {title: 'Zvládání menstruační bolesti', meta: '7 min  ·  Průvodce'},
+    ],
+    shareMessage: 'Často kladené otázky o první menstruaci — AWA',
+  },
+  sk: {
+    badge: 'PRVÁ MENŠTRUÁCIA',
+    title: 'Často kladené otázky\no prvej menštruácii',
+    metaDuration: '4 min čítania',
+    metaType: 'Často kladené otázky',
+    metaLevel: 'Začiatočník',
+    metaValidated: 'Overený obsah',
+    intro: 'Jednoduché odpovede na najčastejšie otázky o prvej menštruácii.',
+    contentsTitle: 'V tomto článku',
+    faq: [
+      {
+        question: '„Je normálne, že mám veľmi málo krvi?“',
+        answer:
+          'Áno. Úplne prvé cykly majú často slabé krvácanie. Množstvo krvácania sa môže z cyklu na cyklus líšiť, najmä na začiatku.',
+      },
+      {
+        question: '„Je normálne, že mám veľa krvi?“',
+        answer:
+          'Silnejšie krvácanie sa môže vyskytnúť tiež, najmä počas prvých dvoch dní. Ak potrebujete meniť hygienickú pomôcku častejšie ako raz za hodinu niekoľko hodín po sebe, je dobré porozprávať sa o tom so zdravotníckym pracovníkom.',
+      },
+      {
+        question: '„Je normálne, že mám kŕče?“',
+        answer:
+          'Mierne kŕče v podbrušku sú bežné a zvyčajne nie sú dôvodom na obavy. Môže pomôcť termofor alebo trocha odpočinku. O veľmi silnej bolesti stojí za to niekomu povedať.',
+      },
+      {
+        question: '„Môžem športovať?“',
+        answer:
+          'Áno, počas menštruácie môžete naďalej športovať. Len prispôsobte intenzitu tomu, ako sa vaše telo ten deň cíti.',
+      },
+      {
+        question: '„Môžem chodiť plávať?“',
+        answer:
+          'Áno, s vhodnou hygienickou pomôckou môžete plávať aj naďalej. Mnohé dievčatá si jednoducho zvolia počkať, kým sa s touto myšlienkou budú cítiť pohodlnejšie.',
+      },
+    ],
+    tipTitle: 'Stojí za to vedieť',
+    tipText: 'Neexistuje trápna otázka: každé telo je iné a vždy sa môžete porozprávať s niekým, komu dôverujete.',
+    relatedTitle: '♥  Mohlo by sa vám páčiť',
+    related: [
+      {title: 'Vaša prvá menštruácia: čo očakávať', meta: '5 min  ·  Sprievodca'},
+      {title: 'Ktorú hygienickú pomôcku si vybrať na prvú menštruáciu?', meta: '6 min  ·  Sprievodca'},
+      {title: 'Zvládanie menštruačných bolestí', meta: '7 min  ·  Sprievodca'},
+    ],
+    shareMessage: 'Často kladené otázky o prvej menštruácii — AWA',
+  },
+  hu: {
+    badge: 'AZ ELSŐ MENSTRUÁCIÓ',
+    title: 'Gyakran ismételt kérdések\naz első menstruációról',
+    metaDuration: '4 perc olvasás',
+    metaType: 'GYIK',
+    metaLevel: 'Kezdő',
+    metaValidated: 'Ellenőrzött tartalom',
+    intro: 'Egyszerű válaszok az első menstruációval kapcsolatos leggyakoribb kérdésekre.',
+    contentsTitle: 'Ebben a cikkben',
+    faq: [
+      {
+        question: '„Normális, hogy nagyon kevés a vérzésem?”',
+        answer:
+          'Igen. A legelső ciklusok vérzése gyakran gyenge. A vérzés ciklusról ciklusra eltérhet, különösen az elején.',
+      },
+      {
+        question: '„Normális, hogy sok a vérzésem?”',
+        answer:
+          'Erősebb vérzés is előfordulhat, különösen az első két napon. Ha több órán át óránként többször kell cserélned a higiéniai terméket, érdemes ezt megbeszélned egy egészségügyi szakemberrel.',
+      },
+      {
+        question: '„Normális, hogy görcseim vannak?”',
+        answer:
+          'Az alhasi enyhe görcsök gyakoriak, és általában nem adnak okot aggodalomra. Segíthet egy meleg vizes palack vagy egy kis pihenés. A nagyon erős fájdalmat érdemes valakinek jelezni.',
+      },
+      {
+        question: '„Sportolhatok?”',
+        answer:
+          'Igen, a menstruáció alatt is sportolhatsz. Csak igazítsd az intenzitást ahhoz, ahogyan a tested aznap érzi magát.',
+      },
+      {
+        question: '„Úszhatok?”',
+        answer:
+          'Igen, megfelelő védelemmel továbbra is úszhatsz. Sokan egyszerűen úgy döntenek, hogy megvárják, amíg kényelmesebben érzik magukat ezzel a gondolattal.',
+      },
+    ],
+    tipTitle: 'Érdemes tudni',
+    tipText: 'Nincs olyan, hogy kínos kérdés: minden test más, és bármikor beszélhetsz valakivel, akiben megbízol.',
+    relatedTitle: '♥  Ez is tetszhet',
+    related: [
+      {title: 'Az első menstruációd: mire számíts', meta: '5 perc  ·  Útmutató'},
+      {title: 'Melyik higiéniai terméket válasszam az első menstruációmra?', meta: '6 perc  ·  Útmutató'},
+      {title: 'A menstruációs fájdalom kezelése', meta: '7 perc  ·  Útmutató'},
+    ],
+    shareMessage: 'Gyakran ismételt kérdések az első menstruációról — AWA',
+  },
+  ro: {
+    badge: 'PRIMA MENSTRUAȚIE',
+    title: 'Întrebări frecvente\ndespre prima menstruație',
+    metaDuration: '4 min de citit',
+    metaType: 'Întrebări frecvente',
+    metaLevel: 'Începător',
+    metaValidated: 'Conținut revizuit',
+    intro: 'Răspunsuri simple la cele mai frecvente întrebări despre prima ta menstruație.',
+    contentsTitle: 'În acest articol',
+    faq: [
+      {
+        question: '„Este normal să am foarte puțin sânge?”',
+        answer:
+          'Da. Primele cicluri au adesea un flux ușor. Fluxul poate varia de la un ciclu la altul, mai ales la început.',
+      },
+      {
+        question: '„Este normal să am mult sânge?”',
+        answer:
+          'Un flux mai abundent se poate întâmpla și el, mai ales în primele două zile. Dacă trebuie să-ți schimbi protecția mai des de o dată pe oră, timp de mai multe ore la rând, este bine să vorbești despre asta cu un profesionist din domeniul sănătății.',
+      },
+      {
+        question: '„Este normal să am crampe?”',
+        answer:
+          'Crampele ușoare în partea de jos a burții sunt frecvente și de obicei nu sunt motiv de îngrijorare. O sticlă cu apă caldă sau puțină odihnă pot ajuta. Merită să spui cuiva despre o durere foarte intensă.',
+      },
+      {
+        question: '„Pot face sport?”',
+        answer:
+          'Da, poți face în continuare sport în timpul menstruației. Doar ajustează intensitatea la cum se simte corpul tău în ziua respectivă.',
+      },
+      {
+        question: '„Pot merge la înot?”',
+        answer:
+          'Da, poți merge în continuare la înot cu protecția potrivită. Multe persoane aleg pur și simplu să aștepte până se simt mai confortabil cu ideea.',
+      },
+    ],
+    tipTitle: 'Bine de știut',
+    tipText: 'Nu există întrebări jenante: fiecare corp este diferit și poți oricând să vorbești cu o persoană în care ai încredere.',
+    relatedTitle: '♥  Ți-ar putea plăcea și',
+    related: [
+      {title: 'Prima ta menstruație: la ce să te aștepți', meta: '5 min  ·  Ghid'},
+      {title: 'Ce protecție să aleg pentru prima menstruație?', meta: '6 min  ·  Ghid'},
+      {title: 'Gestionarea durerilor menstruale', meta: '7 min  ·  Ghid'},
+    ],
+    shareMessage: 'Întrebări frecvente despre prima menstruație — AWA',
+  },
+  bg: {
+    badge: 'ПЪРВА МЕНСТРУАЦИЯ',
+    title: 'Често задавани въпроси\nза първата менструация',
+    metaDuration: '4 мин четене',
+    metaType: 'Чести въпроси',
+    metaLevel: 'Начинаещ',
+    metaValidated: 'Проверено съдържание',
+    intro: 'Прости отговори на най-честите въпроси за първата ти менструация.',
+    contentsTitle: 'В тази статия',
+    faq: [
+      {
+        question: '„Нормално ли е да има много малко кръв?“',
+        answer:
+          'Да. Най-първите цикли често имат слаб поток. Потокът може да варира от един цикъл до следващия, особено в началото.',
+      },
+      {
+        question: '„Нормално ли е да има много кръв?“',
+        answer:
+          'По-обилен поток също може да се случи, особено през първите два дни. Ако трябва да сменяш защитата си повече от веднъж на час в продължение на няколко часа подред, добре е да поговориш за това със здравен специалист.',
+      },
+      {
+        question: '„Нормално ли е да има крампи?“',
+        answer:
+          'Леките крампи в долната част на корема са чести и обикновено не са повод за тревога. Грейка с гореща вода или малко почивка могат да помогнат. Много силна болка заслужава да бъде споделена с някого.',
+      },
+      {
+        question: '„Мога ли да спортувам?“',
+        answer:
+          'Да, можеш да продължиш да спортуваш по време на менструацията. Просто приспособи интензитета към това как се чувства тялото ти в този ден.',
+      },
+      {
+        question: '„Мога ли да плувам?“',
+        answer:
+          'Да, можеш да продължиш да плуваш с подходяща защита. Много хора просто избират да изчакат, докато се почувстват по-комфортно с тази идея.',
+      },
+    ],
+    tipTitle: 'Добре е да знаеш',
+    tipText: 'Няма неловки въпроси: всяко тяло е различно и винаги можеш да поговориш с човек, на когото се доверяваш.',
+    relatedTitle: '♥  Може да ти хареса и',
+    related: [
+      {title: 'Първата ти менструация: какво да очакваш', meta: '5 мин  ·  Ръководство'},
+      {title: 'Каква защита да избера за първата си менструация?', meta: '6 мин  ·  Ръководство'},
+      {title: 'Справяне с менструалната болка', meta: '7 мин  ·  Ръководство'},
+    ],
+    shareMessage: 'Често задавани въпроси за първата менструация — AWA',
+  },
+  sr: {
+    badge: 'ПРВА МЕНСТРУАЦИЈА',
+    title: 'Често постављана питања\nо првој менструацији',
+    metaDuration: '4 мин читања',
+    metaType: 'Честа питања',
+    metaLevel: 'Почетник',
+    metaValidated: 'Проверен садржај',
+    intro: 'Једноставни одговори на најчешћа питања о твојој првој менструацији.',
+    contentsTitle: 'У овом чланку',
+    faq: [
+      {
+        question: '„Да ли је нормално да има веома мало крви?“',
+        answer:
+          'Да. Прави први циклуси често имају слаб проток. Проток може варирати од једног циклуса до другог, нарочито на почетку.',
+      },
+      {
+        question: '„Да ли је нормално да има много крви?“',
+        answer:
+          'Може се десити и јачи проток, нарочито током прва два дана. Ако треба да мењаш заштиту чешће од једном на сат неколико сати заредом, добро је да разговараш о томе са здравственим радником.',
+      },
+      {
+        question: '„Да ли је нормално имати грчеве?“',
+        answer:
+          'Благи грчеви у доњем делу стомака су чести и обично нису разлог за бригу. Боца са топлом водом или мало одмора могу помоћи. Веома јак бол вреди поменути некоме.',
+      },
+      {
+        question: '„Могу ли да се бавим спортом?“',
+        answer:
+          'Да, током менструације и даље можеш да се бавиш спортом. Само прилагоди интензитет томе како се твоје тело осећа тог дана.',
+      },
+      {
+        question: '„Могу ли да пливам?“',
+        answer:
+          'Да, и даље можеш да пливаш уз одговарајућу заштиту. Многе једноставно изаберу да сачекају док се не осећају удобније са том идејом.',
+      },
+    ],
+    tipTitle: 'Добро је знати',
+    tipText: 'Не постоји непријатно питање: свако тело је другачије, а увек можеш разговарати са неким коме верујеш.',
+    relatedTitle: '♥  Можда ће ти се свидети и',
+    related: [
+      {title: 'Твоја прва менструација: шта да очекујеш', meta: '5 мин  ·  Водич'},
+      {title: 'Коју заштиту да изаберем за прву менструацију?', meta: '6 мин  ·  Водич'},
+      {title: 'Како се носити са менструалним боловима', meta: '7 мин  ·  Водич'},
+    ],
+    shareMessage: 'Често постављана питања о првој менструацији — AWA',
+  },
+  hr: {
+    badge: 'PRVA MENSTRUACIJA',
+    title: 'Često postavljana pitanja\no prvoj menstruaciji',
+    metaDuration: '4 min čitanja',
+    metaType: 'Česta pitanja',
+    metaLevel: 'Početnica',
+    metaValidated: 'Provjeren sadržaj',
+    intro: 'Jednostavni odgovori na najčešća pitanja o prvoj menstruaciji.',
+    contentsTitle: 'U ovom članku',
+    faq: [
+      {
+        question: '„Je li normalno imati vrlo malo krvi?“',
+        answer:
+          'Da. Prvi ciklusi često imaju slab protok. Protok se može razlikovati od ciklusa do ciklusa, osobito na početku.',
+      },
+      {
+        question: '„Je li normalno imati puno krvi?“',
+        answer:
+          'Obilniji protok također se može dogoditi, osobito prva dva dana. Ako zaštitu moraš mijenjati češće od jednom na sat tijekom nekoliko sati zaredom, dobro je o tome razgovarati sa zdravstvenim djelatnikom.',
+      },
+      {
+        question: '„Je li normalno imati grčeve?“',
+        answer:
+          'Blagi grčevi u donjem dijelu trbuha česti su i obično nisu razlog za zabrinutost. Termofor ili malo odmora mogu pomoći. Vrlo jaku bol vrijedi spomenuti nekome.',
+      },
+      {
+        question: '„Mogu li se baviti sportom?“',
+        answer:
+          'Da, tijekom menstruacije i dalje se možeš baviti sportom. Samo prilagodi intenzitet tome kako se tvoje tijelo taj dan osjeća.',
+      },
+      {
+        question: '„Mogu li ići na plivanje?“',
+        answer:
+          'Da, uz odgovarajuću zaštitu i dalje možeš ići na plivanje. Mnoge se osobe jednostavno odluče pričekati dok se ne osjećaju ugodnije s tom idejom.',
+      },
+    ],
+    tipTitle: 'Dobro je znati',
+    tipText: 'Ne postoji neugodno pitanje: svako je tijelo drugačije i uvijek možeš razgovarati s osobom kojoj vjeruješ.',
+    relatedTitle: '♥  Moglo bi ti se svidjeti',
+    related: [
+      {title: 'Tvoja prva menstruacija: što očekivati', meta: '5 min  ·  Vodič'},
+      {title: 'Koju zaštitu odabrati za prvu menstruaciju?', meta: '6 min  ·  Vodič'},
+      {title: 'Nošenje s menstrualnom boli', meta: '7 min  ·  Vodič'},
+    ],
+    shareMessage: 'Često postavljana pitanja o prvoj menstruaciji — AWA',
+  },
+  bs: {
+    badge: 'PRVA MENSTRUACIJA',
+    title: 'Često postavljana pitanja\no prvoj menstruaciji',
+    metaDuration: '4 min čitanja',
+    metaType: 'Česta pitanja',
+    metaLevel: 'Početnica',
+    metaValidated: 'Provjeren sadržaj',
+    intro: 'Jednostavni odgovori na najčešća pitanja o prvoj menstruaciji.',
+    contentsTitle: 'U ovom članku',
+    faq: [
+      {
+        question: '„Je li normalno imati vrlo malo krvi?“',
+        answer:
+          'Da. Prvi ciklusi često imaju slab protok. Protok se može razlikovati od ciklusa do ciklusa, osobito na početku.',
+      },
+      {
+        question: '„Je li normalno imati puno krvi?“',
+        answer:
+          'Obilniji protok također se može dogoditi, osobito prva dva dana. Ako zaštitu moraš mijenjati češće od jednom na sat tokom nekoliko sati zaredom, dobro je o tome razgovarati sa zdravstvenim radnikom.',
+      },
+      {
+        question: '„Je li normalno imati grčeve?“',
+        answer:
+          'Blagi grčevi u donjem dijelu trbuha česti su i obično nisu razlog za zabrinutost. Termofor ili malo odmora mogu pomoći. Vrlo jaku bol vrijedi spomenuti nekome.',
+      },
+      {
+        question: '„Mogu li se baviti sportom?“',
+        answer:
+          'Da, tokom menstruacije i dalje se možeš baviti sportom. Samo prilagodi intenzitet tome kako se tvoje tijelo taj dan osjeća.',
+      },
+      {
+        question: '„Mogu li ići na plivanje?“',
+        answer:
+          'Da, uz odgovarajuću zaštitu i dalje možeš ići na plivanje. Mnoge se osobe jednostavno odluče pričekati dok se ne osjećaju ugodnije s tom idejom.',
+      },
+    ],
+    tipTitle: 'Dobro je znati',
+    tipText: 'Ne postoji neugodno pitanje: svako je tijelo drugačije i uvijek možeš razgovarati s osobom kojoj vjeruješ.',
+    relatedTitle: '♥  Moglo bi ti se svidjeti',
+    related: [
+      {title: 'Tvoja prva menstruacija: što očekivati', meta: '5 min  ·  Vodič'},
+      {title: 'Koju zaštitu odabrati za prvu menstruaciju?', meta: '6 min  ·  Vodič'},
+      {title: 'Nošenje s menstrualnom boli', meta: '7 min  ·  Vodič'},
+    ],
+    shareMessage: 'Često postavljana pitanja o prvoj menstruaciji — AWA',
+  },
+  sl: {
+    badge: 'PRVA MENSTRUACIJA',
+    title: 'Pogosto zastavljena vprašanja\no prvi menstruaciji',
+    metaDuration: '4 min branja',
+    metaType: 'Pogosta vprašanja',
+    metaLevel: 'Začetnica',
+    metaValidated: 'Preverjena vsebina',
+    intro: 'Preprosti odgovori na najpogostejša vprašanja o prvi menstruaciji.',
+    contentsTitle: 'V tem članku',
+    faq: [
+      {
+        question: '„Ali je normalno imeti zelo malo krvi?“',
+        answer:
+          'Da. Prvi cikli imajo pogosto šibek tok. Tok se lahko razlikuje od cikla do cikla, zlasti na začetku.',
+      },
+      {
+        question: '„Ali je normalno imeti veliko krvi?“',
+        answer:
+          'Obilnejši tok se lahko tudi pojavi, zlasti prva dva dni. Če moraš zaščito menjati pogosteje kot enkrat na uro več ur zapored, se je dobro o tem pogovoriti z zdravstvenim delavcem.',
+      },
+      {
+        question: '„Ali je normalno imeti krče?“',
+        answer:
+          'Blagi krči v spodnjem delu trebuha so pogosti in običajno niso razlog za zaskrbljenost. Termofor ali malo počitka lahko pomaga. Zelo hudo bolečino je vredno nekomu omeniti.',
+      },
+      {
+        question: '„Ali se lahko ukvarjam s športom?“',
+        answer:
+          'Da, med menstruacijo se še vedno lahko ukvarjaš s športom. Samo prilagodi intenzivnost temu, kako se tvoje telo ta dan počuti.',
+      },
+      {
+        question: '„Ali lahko grem plavat?“',
+        answer:
+          'Da, z ustrezno zaščito lahko še vedno greš plavat. Mnoge osebe se preprosto odločijo počakati, dokler se ne počutijo bolj udobno s to idejo.',
+      },
+    ],
+    tipTitle: 'Vredno vedeti',
+    tipText: 'Ne obstaja nerodno vprašanje: vsako telo je drugačno in vedno se lahko pogovoriš z osebo, ki ji zaupaš.',
+    relatedTitle: '♥  Morda ti bo všeč tudi',
+    related: [
+      {title: 'Tvoja prva menstruacija: kaj pričakovati', meta: '5 min  ·  Vodnik'},
+      {title: 'Katero zaščito izbrati za prvo menstruacijo?', meta: '6 min  ·  Vodnik'},
+      {title: 'Obvladovanje menstrualne bolečine', meta: '7 min  ·  Vodnik'},
+    ],
+    shareMessage: 'Pogosto zastavljena vprašanja o prvi menstruaciji — AWA',
+  },
+  ne: {
+    badge: 'पहिलो महिनावारी',
+    title: 'आफ्नो पहिलो महिनावारीबारे\nबारम्बार सोधिने प्रश्नहरू',
+    metaDuration: '4 मिनेट पढाइ',
+    metaType: 'बारम्बार सोधिने प्रश्न',
+    metaLevel: 'सुरुवाती',
+    metaValidated: 'समीक्षा गरिएको सामग्री',
+    intro: 'आफ्नो पहिलो महिनावारीबारे सबैभन्दा सामान्य प्रश्नहरूका सरल उत्तरहरू।',
+    contentsTitle: 'यो लेखमा',
+    faq: [
+      {
+        question: '“धेरै थोरै रगत जानु सामान्य हो?”',
+        answer:
+          'हो। एकदम सुरुका चक्रहरूमा प्रायः हल्का बहाव हुन्छ। विशेष गरी सुरुमा बहाव एक चक्रदेखि अर्कोमा फरक हुन सक्छ।',
+      },
+      {
+        question: '“धेरै रगत जानु सामान्य हो?”',
+        answer:
+          'बढी बहाव पनि हुन सक्छ, विशेष गरी पहिलो दुई दिनमा। लगातार धेरै घण्टासम्म एक घण्टामा एकपटकभन्दा बढी सुरक्षा बदल्नुपर्‍यो भने, स्वास्थ्यकर्मीसँग कुरा गर्नु राम्रो हुन्छ।',
+      },
+      {
+        question: '“ऐंठन हुनु सामान्य हो?”',
+        answer:
+          'तल्लो पेटमा हल्का ऐंठन सामान्य हो र प्रायः चिन्ता गर्नुपर्ने कुरा होइन। तातो पानीको बोतल वा अलिकति आरामले मद्दत गर्न सक्छ। निकै तीव्र दुखाइ कसैलाई बताउन लायक हुन्छ।',
+      },
+      {
+        question: '“के म खेलकुद खेल्न सक्छु?”',
+        answer:
+          'सक्नुहुन्छ, महिनावारीमा पनि खेलकुद खेल्न सकिन्छ। केवल त्यो दिन आफ्नो शरीरलाई कस्तो लाग्छ त्यसअनुसार तीव्रता मिलाउनुहोस्।',
+      },
+      {
+        question: '“के म पौडी खेल्न सक्छु?”',
+        answer:
+          'सक्नुहुन्छ, सही सुरक्षासहित पौडी खेल्न सकिन्छ। धेरैले यो विचारसँग बढी सहज नभएसम्म पर्खन छान्छन्।',
+      },
+    ],
+    tipTitle: 'जान्न लायक',
+    tipText: 'लाज लाग्ने प्रश्न भन्ने कुनै कुरा हुँदैन: हरेक शरीर फरक हुन्छ, र तपाईं जहिले पनि विश्वास गर्ने कसैसँग कुरा गर्न सक्नुहुन्छ।',
+    relatedTitle: '♥  तपाईंलाई यी पनि मन पर्न सक्छन्',
+    related: [
+      {title: 'तपाईंको पहिलो महिनावारी: के अपेक्षा गर्ने', meta: '5 मिनेट  ·  मार्गदर्शन'},
+      {title: 'पहिलो महिनावारीका लागि कुन सुरक्षा छान्ने?', meta: '6 मिनेट  ·  मार्गदर्शन'},
+      {title: 'महिनावारीको दुखाइ सम्हाल्ने', meta: '7 मिनेट  ·  मार्गदर्शन'},
+    ],
+    shareMessage: 'आफ्नो पहिलो महिनावारीबारे बारम्बार सोधिने प्रश्नहरू — AWA',
+  },
+  si: {
+    badge: 'පළමු ඔසප්',
+    title: 'ඔබේ පළමු ඔසප් ගැන\nනිතර අසන ප්‍රශ්න',
+    metaDuration: 'කියවීමට මිනිත්තු 4',
+    metaType: 'නිති අසන ප්‍රශ්න',
+    metaLevel: 'ආරම්භක',
+    metaValidated: 'සමාලෝචනය කළ අන්තර්ගතය',
+    intro: 'ඔබේ පළමු ඔසප් පිළිබඳ වඩාත්ම පොදු ප්‍රශ්නවලට සරල පිළිතුරු.',
+    contentsTitle: 'මෙම ලිපියේ',
+    faq: [
+      {
+        question: '“ඉතා සුළු ලේ ප්‍රමාණයක් තිබීම සාමාන්‍යද?”',
+        answer:
+          'ඔව්. ඉතා මුල් චක්‍රවල බොහෝ විට සැහැල්ලු ගලනයක් ඇත. ගලනය, විශේෂයෙන් ආරම්භයේදී, චක්‍රයෙන් චක්‍රයට වෙනස් විය හැක.',
+      },
+      {
+        question: '“බොහෝ ලේ ප්‍රමාණයක් තිබීම සාමාන්‍යද?”',
+        answer:
+          'වැඩි ගලනයක්ද ඇතිවිය හැක, විශේෂයෙන් පළමු දින දෙක තුළ. ඔබට පැය කිහිපයක් පුරා පැයකට වරකට වඩා ඔබේ ආරක්ෂාව වෙනස් කිරීමට සිදුවන්නේ නම්, ඒ ගැන සෞඛ්‍ය වෘත්තිකයෙකු සමඟ කතා කිරීම හොඳ අදහසකි.',
+      },
+      {
+        question: '“මාංශ පේශි සංකෝචන තිබීම සාමාන්‍යද?”',
+        answer:
+          'පහළ බඩේ සැහැල්ලු සංකෝචන පොදු වන අතර සාමාන්‍යයෙන් කනස්සල්ලට කරුණක් නොවේ. උණු වතුර බෝතලයක් හෝ ටිකක් විවේකය උපකාරී විය හැක. ඉතා දැඩි වේදනාවක් යමෙකුට සඳහන් කිරීම වටී.',
+      },
+      {
+        question: '“මට ක්‍රීඩා කළ හැකිද?”',
+        answer:
+          'ඔව්, ඔබට ඔබේ ඔසප් කාලයේදී තවමත් ක්‍රීඩා කළ හැක. එදින ඔබේ ශරීරයට දැනෙන ආකාරයට තීව්‍රතාව පමණක් සකස් කරන්න.',
+      },
+      {
+        question: '“මට පිහිනීමට යා හැකිද?”',
+        answer:
+          'ඔව්, නිසි ආරක්ෂාව සමඟ ඔබට තවමත් පිහිනීමට යා හැක. බොහෝ දෙනා අදහස ගැන වඩා සුවපහසුවක් දැනෙන තුරු රැඳී සිටීමට සරලව තෝරා ගනිති.',
+      },
+    ],
+    tipTitle: 'දැනගත යුතු දේ',
+    tipText: 'ලැජ්ජා සහගත ප්‍රශ්නයක් යැයි කිසිවක් නැත: සෑම ශරීරයක්ම වෙනස්, සහ ඔබට සැමවිටම ඔබ විශ්වාස කරන කෙනෙකු සමඟ කතා කළ හැක.',
+    relatedTitle: '♥  ඔබට මෙයද වුවමනා විය හැක',
+    related: [
+      {title: 'ඔබේ පළමු ඔසප්: අපේක්ෂා කළ යුත්තේ කුමක්ද', meta: 'මිනි. 5  ·  මාර්ගෝපදේශය'},
+      {title: 'මගේ පළමු ඔසප් සඳහා කුමන ආරක්ෂාව තෝරා ගත යුතුද?', meta: 'මිනි. 6  ·  මාර්ගෝපදේශය'},
+      {title: 'ඔසප් වේදනාව කළමනාකරණය කිරීම', meta: 'මිනි. 7  ·  මාර්ගෝපදේශය'},
+    ],
+    shareMessage: 'ඔබේ පළමු ඔසප් ගැන නිතර අසන ප්‍රශ්න — AWA',
+  },
+  th: {
+    badge: 'ประจำเดือนครั้งแรก',
+    title: 'คำถามที่พบบ่อย\nเกี่ยวกับประจำเดือนครั้งแรก',
+    metaDuration: 'อ่าน 4 นาที',
+    metaType: 'คำถามที่พบบ่อย',
+    metaLevel: 'เริ่มต้น',
+    metaValidated: 'เนื้อหาที่ผ่านการตรวจสอบ',
+    intro: 'คำตอบง่าย ๆ สำหรับคำถามที่พบบ่อยที่สุดเกี่ยวกับประจำเดือนครั้งแรกของคุณ',
+    contentsTitle: 'ในบทความนี้',
+    faq: [
+      {
+        question: '“เป็นเรื่องปกติไหมที่เลือดออกน้อยมาก?”',
+        answer:
+          'ใช่ รอบเดือนแรก ๆ มักมีปริมาณน้อย ปริมาณอาจเปลี่ยนไปจากรอบหนึ่งไปอีกรอบหนึ่ง โดยเฉพาะในช่วงต้น',
+      },
+      {
+        question: '“เป็นเรื่องปกติไหมที่เลือดออกมาก?”',
+        answer:
+          'ปริมาณที่มากขึ้นก็เกิดขึ้นได้ โดยเฉพาะในสองวันแรก หากคุณต้องเปลี่ยนอุปกรณ์มากกว่าหนึ่งครั้งต่อชั่วโมงติดต่อกันหลายชั่วโมง ควรปรึกษาบุคลากรทางการแพทย์',
+      },
+      {
+        question: '“เป็นเรื่องปกติไหมที่ปวดเกร็ง?”',
+        answer:
+          'อาการปวดเกร็งเบา ๆ ที่ท้องน้อยพบบ่อยและมักไม่น่ากังวล กระเป๋าน้ำร้อนหรือการพักผ่อนช่วยได้ หากปวดรุนแรงมากควรบอกใครสักคน',
+      },
+      {
+        question: '“ฉันเล่นกีฬาได้ไหม?”',
+        answer:
+          'ได้ คุณยังเล่นกีฬาระหว่างมีประจำเดือนได้ เพียงปรับความหนักตามความรู้สึกของร่างกายในวันนั้น',
+      },
+      {
+        question: '“ฉันว่ายน้ำได้ไหม?”',
+        answer:
+          'ได้ คุณยังว่ายน้ำได้ด้วยอุปกรณ์ที่เหมาะสม หลายคนเลือกรอจนรู้สึกสบายใจกับแนวคิดนี้มากขึ้น',
+      },
+    ],
+    tipTitle: 'ควรรู้',
+    tipText: 'ไม่มีคำถามที่น่าอายเลย: ร่างกายแต่ละคนต่างกัน และคุณพูดคุยกับคนที่คุณไว้ใจได้เสมอ',
+    relatedTitle: '♥  คุณอาจสนใจ',
+    related: [
+      {title: 'ประจำเดือนครั้งแรกของคุณ: สิ่งที่คาดหวังได้', meta: '5 นาที  ·  คู่มือ'},
+      {title: 'ฉันควรเลือกอุปกรณ์แบบไหนสำหรับประจำเดือนครั้งแรก?', meta: '6 นาที  ·  คู่มือ'},
+      {title: 'การจัดการอาการปวดประจำเดือน', meta: '7 นาที  ·  คู่มือ'},
+    ],
+    shareMessage: 'คำถามที่พบบ่อยเกี่ยวกับประจำเดือนครั้งแรก — AWA',
+  },
+  vi: {
+    badge: 'KỲ KINH ĐẦU TIÊN',
+    title: 'Câu hỏi thường gặp\nvề kỳ kinh đầu tiên',
+    metaDuration: '4 phút đọc',
+    metaType: 'Câu hỏi thường gặp',
+    metaLevel: 'Cơ bản',
+    metaValidated: 'Nội dung đã được thẩm định',
+    intro: 'Những câu trả lời đơn giản cho các câu hỏi phổ biến nhất về kỳ kinh đầu tiên của bạn.',
+    contentsTitle: 'Trong bài viết này',
+    faq: [
+      {
+        question: '“Ra rất ít máu có bình thường không?”',
+        answer:
+          'Có. Những chu kỳ đầu tiên thường có lượng kinh ít. Lượng máu có thể thay đổi từ chu kỳ này sang chu kỳ khác, đặc biệt lúc ban đầu.',
+      },
+      {
+        question: '“Ra nhiều máu có bình thường không?”',
+        answer:
+          'Lượng kinh nhiều hơn cũng có thể xảy ra, đặc biệt trong hai ngày đầu. Nếu bạn cần thay sản phẩm vệ sinh nhiều hơn một lần mỗi giờ trong nhiều giờ liên tiếp, nên nói chuyện với nhân viên y tế về điều đó.',
+      },
+      {
+        question: '“Bị đau bụng kinh có bình thường không?”',
+        answer:
+          'Những cơn đau nhẹ ở bụng dưới là phổ biến và thường không có gì đáng lo. Một túi nước ấm hoặc nghỉ ngơi một chút có thể giúp ích. Nếu đau rất dữ dội, hãy nói với ai đó.',
+      },
+      {
+        question: '“Tôi có thể chơi thể thao không?”',
+        answer:
+          'Có, bạn vẫn có thể chơi thể thao trong kỳ kinh. Chỉ cần điều chỉnh cường độ theo cảm giác của cơ thể bạn vào ngày hôm đó.',
+      },
+      {
+        question: '“Tôi có thể đi bơi không?”',
+        answer:
+          'Có, bạn vẫn có thể đi bơi với sản phẩm vệ sinh phù hợp. Nhiều người chỉ đơn giản chọn chờ đến khi cảm thấy thoải mái hơn với ý tưởng đó.',
+      },
+    ],
+    tipTitle: 'Nên biết',
+    tipText: 'Không có câu hỏi nào là đáng ngại: mỗi cơ thể đều khác nhau và bạn luôn có thể nói chuyện với người bạn tin tưởng.',
+    relatedTitle: '♥  Có thể bạn cũng thích',
+    related: [
+      {title: 'Kỳ kinh đầu tiên của bạn: điều cần biết', meta: '5 phút  ·  Hướng dẫn'},
+      {title: 'Nên chọn sản phẩm vệ sinh nào cho kỳ kinh đầu tiên?', meta: '6 phút  ·  Hướng dẫn'},
+      {title: 'Xử lý cơn đau trong kỳ kinh', meta: '7 phút  ·  Hướng dẫn'},
+    ],
+    shareMessage: 'Câu hỏi thường gặp về kỳ kinh đầu tiên — AWA',
+  },
+  uz: {
+    badge: 'BIRINCHI HAYZ',
+    title: 'Birinchi hayz haqida\nkoʻp beriladigan savollar',
+    metaDuration: '4 daq oʻqish',
+    metaType: 'Savol-javob',
+    metaLevel: 'Boshlangʻich',
+    metaValidated: 'Tasdiqlangan kontent',
+    intro: 'Birinchi hayz haqidagi eng keng tarqalgan savollarga oddiy javoblar.',
+    contentsTitle: 'Ushbu maqolada',
+    faq: [
+      {
+        question: '“Qon juda kam boʻlishi normalmi?”',
+        answer:
+          'Ha. Eng birinchi sikllarda oqim koʻpincha yengil boʻladi. Oqim, ayniqsa boshida, sikldan sikliga oʻzgarishi mumkin.',
+      },
+      {
+        question: '“Qon koʻp boʻlishi normalmi?”',
+        answer:
+          'Koʻproq oqim ham boʻlishi mumkin, ayniqsa dastlabki ikki kunda. Agar bir necha soat ketma-ket himoya vositasini soatiga bir martadan koʻp almashtirishingiz kerak boʻlsa, bu haqda shifokor bilan gaplashgan yaxshi.',
+      },
+      {
+        question: '“Qisqarishlar (ogʻriq) boʻlishi normalmi?”',
+        answer:
+          'Qorin pastki qismidagi yengil qisqarishlar keng tarqalgan va odatda xavotirga sabab emas. Issiq suvli grelka yoki biroz dam yordam berishi mumkin. Juda kuchli ogʻriq haqida kimgadir aytib qoʻyishga arziydi.',
+      },
+      {
+        question: '“Sport bilan shugʻullansam boʻladimi?”',
+        answer:
+          'Ha, hayz paytida ham sport bilan shugʻullanishingiz mumkin. Faqat shiddatni shu kuni tanangiz qanday his qilishiga moslang.',
+      },
+      {
+        question: '“Suzsam boʻladimi?”',
+        answer:
+          'Ha, mos himoya vositasi bilan suzishingiz mumkin. Koʻpchilik shunchaki bu fikrga koʻnikkunicha kutishni afzal koʻradi.',
+      },
+    ],
+    tipTitle: 'Bilish foydali',
+    tipText: 'Xijolatli savol degan narsa yoʻq: har bir tana boshqacha va ishongan kishingiz bilan har doim gaplashishingiz mumkin.',
+    relatedTitle: '♥  Sizga yoqishi mumkin',
+    related: [
+      {title: 'Birinchi hayzingiz: nimalarni kutish kerak', meta: '5 daq  ·  Qoʻllanma'},
+      {title: 'Birinchi hayzim uchun qaysi vositani tanlashim kerak?', meta: '6 daq  ·  Qoʻllanma'},
+      {title: 'Hayz ogʻriqlarini boshqarish', meta: '7 daq  ·  Qoʻllanma'},
+    ],
+    shareMessage: 'Birinchi hayz haqida koʻp beriladigan savollar — AWA',
+  },
+  az: {
+    badge: 'İLK AYBAŞI',
+    title: 'İlk aybaşı barədə tez-tez\nverilən suallar',
+    metaDuration: '4 dəq oxu',
+    metaType: 'FAQ',
+    metaLevel: 'Başlanğıc',
+    metaValidated: 'Yoxlanılmış məzmun',
+    intro: 'İlk aybaşı ilə bağlı ən çox verilən suallara sadə cavablar.',
+    contentsTitle: 'Bu məqalədə',
+    faq: [
+      {
+        question: '“Qanın çox az olması normaldır?”',
+        answer:
+          'Bəli. Ən ilk dövrlərdə axın çox vaxt zəif olur. Axın, xüsusilə əvvəlində, bir dövrdən digərinə dəyişə bilər.',
+      },
+      {
+        question: '“Qanın çox olması normaldır?”',
+        answer:
+          'Daha bol axın da ola bilər, xüsusilə ilk iki gündə. Bir neçə saat ardıcıl olaraq qoruyucu vasitəni saatda bir dəfədən çox dəyişmək lazım gəlirsə, bu barədə tibb işçisi ilə danışmaq yaxşı olar.',
+      },
+      {
+        question: '“Qarında sancı olması normaldır?”',
+        answer:
+          'Qarının aşağı hissəsində yüngül sancılar geniş yayılıb və adətən narahatlıq doğurmur. İsti su qabı və ya bir az istirahət kömək edə bilər. Çox şiddətli ağrını kiməsə demək lazımdır.',
+      },
+      {
+        question: '“İdmanla məşğul ola bilərəm?”',
+        answer:
+          'Bəli, aybaşı zamanı da idmanla məşğul ola bilərsiniz. Sadəcə intensivliyi həmin gün bədəninizin hiss etdiyinə uyğun tənzimləyin.',
+      },
+      {
+        question: '“Üzə bilərəm?”',
+        answer:
+          'Bəli, uyğun qoruyucu vasitə ilə üzə bilərsiniz. Bir çox insan sadəcə bu fikirlə özünü rahat hiss edənə qədər gözləməyi seçir.',
+      },
+    ],
+    tipTitle: 'Bilmək faydalıdır',
+    tipText: 'Utandırıcı sual yoxdur: hər bədən fərqlidir və etibar etdiyiniz biri ilə həmişə danışa bilərsiniz.',
+    relatedTitle: '♥  Bunlar da xoşunuza gələ bilər',
+    related: [
+      {title: 'İlk aybaşınız: nələri gözləmək olar', meta: '5 dəq  ·  Bələdçi'},
+      {title: 'İlk aybaşım üçün hansı qoruyucu vasitəni seçməliyəm?', meta: '6 dəq  ·  Bələdçi'},
+      {title: 'Aybaşı ağrılarını idarə etmək', meta: '7 dəq  ·  Bələdçi'},
+    ],
+    shareMessage: 'İlk aybaşı barədə tez-tez verilən suallar — AWA',
+  },
+  ka: {
+    badge: 'პირველი მენსტრუაცია',
+    title: 'ხშირად დასმული კითხვები\nთქვენი პირველი მენსტრუაციის შესახებ',
+    metaDuration: '4 წთ საკითხავი',
+    metaType: 'ხშირი კითხვები',
+    metaLevel: 'დამწყები',
+    metaValidated: 'გადამოწმებული შინაარსი',
+    intro: 'მარტივი პასუხები ყველაზე გავრცელებულ კითხვებზე თქვენი პირველი მენსტრუაციის შესახებ.',
+    contentsTitle: 'ამ სტატიაში',
+    faq: [
+      {
+        question: '„ნორმალურია, რომ ძალიან ცოტა სისხლი მაქვს?“',
+        answer:
+          'დიახ. ძალიან პირველ ციკლებს ხშირად მსუბუქი ნაკადი აქვს. ნაკადი ერთი ციკლიდან მეორეზე შეიძლება განსხვავდებოდეს, განსაკუთრებით დასაწყისში.',
+      },
+      {
+        question: '„ნორმალურია, რომ ბევრი სისხლი მაქვს?“',
+        answer:
+          'უფრო უხვი ნაკადიც შეიძლება იყოს, განსაკუთრებით პირველ ორ დღეს. თუ დამცავი საშუალების გამოცვლა გჭირდებათ საათში ერთზე მეტჯერ რამდენიმე საათის განმავლობაში ზედიზედ, კარგი იქნება ამის შესახებ ჯანდაცვის სპეციალისტს ესაუბროთ.',
+      },
+      {
+        question: '„ნორმალურია, რომ სპაზმები მაქვს?“',
+        answer:
+          'ქვედა მუცელში მსუბუქი სპაზმები ხშირია და ჩვეულებრივ შესაშფოთებელი არ არის. ცხელი წყლის ბოთლმა ან ცოტა დასვენებამ შეიძლება უშველოს. ძალიან ძლიერი ტკივილი ვინმესთვის ნახსენებად ღირს.',
+      },
+      {
+        question: '„შემიძლია სპორტით დაკავება?“',
+        answer:
+          'დიახ, მენსტრუაციის დროსაც შეგიძლიათ სპორტით დაკავება. უბრალოდ ინტენსივობა მოარგეთ იმას, თუ როგორ გრძნობს თავს თქვენი სხეული იმ დღეს.',
+      },
+      {
+        question: '„შემიძლია ცურვა?“',
+        answer:
+          'დიახ, სწორი დამცავი საშუალებით კვლავ შეგიძლიათ ცურვა. ბევრი უბრალოდ ირჩევს დაელოდოს, სანამ ამ იდეასთან უფრო კომფორტულად იგრძნობს თავს.',
+      },
+    ],
+    tipTitle: 'კარგია ვიცოდეთ',
+    tipText: '„უხერხული“ კითხვა არ არსებობს: ყველა სხეული განსხვავებულია და ყოველთვის შეგიძლიათ ესაუბროთ ადამიანს, რომელსაც ენდობით.',
+    relatedTitle: '♥  შეიძლება მოგეწონოთ',
+    related: [
+      {title: 'თქვენი პირველი მენსტრუაცია: რას უნდა ელოდეთ', meta: '5 წთ  ·  გზამკვლევი'},
+      {title: 'რომელი დამცავი საშუალება ავირჩიო პირველი მენსტრუაციისთვის?', meta: '6 წთ  ·  გზამკვლევი'},
+      {title: 'მენსტრუაციული ტკივილის მართვა', meta: '7 წთ  ·  გზამკვლევი'},
+    ],
+    shareMessage: 'ხშირად დასმული კითხვები თქვენი პირველი მენსტრუაციის შესახებ — AWA',
+  },
+  hy: {
+    badge: 'ԱՌԱՋԻՆ ԴԱՇՏԱՆ',
+    title: 'Հաճախակի տրվող հարցեր\nձեր առաջին դաշտանի մասին',
+    metaDuration: '4 ր կարդալու համար',
+    metaType: 'ՀՏՀ',
+    metaLevel: 'Սկսնակ',
+    metaValidated: 'Վերանայված բովանդակություն',
+    intro: 'Պարզ պատասխաններ ձեր առաջին դաշտանի մասին ամենատարածված հարցերին:',
+    contentsTitle: 'Այս հոդվածում',
+    faq: [
+      {
+        question: '«Նորմա՞լ է, որ արյունը շատ քիչ է»:',
+        answer:
+          'Այո: Առաջին ցիկլերը հաճախ ունենում են թեթև արտահոսք: Արտահոսքը կարող է տարբերվել մի ցիկլից մյուսը, հատկապես սկզբում:',
+      },
+      {
+        question: '«Նորմա՞լ է, որ արյունը շատ է»:',
+        answer:
+          'Ավելի առատ արտահոսք նույնպես կարող է պատահել, հատկապես առաջին երկու օրերին: Եթե մի քանի ժամ անընդմեջ պաշտպանության միջոցը պետք է փոխեք ժամում մեկից ավելի անգամ, լավ է այդ մասին խոսել առողջապահության մասնագետի հետ:',
+      },
+      {
+        question: '«Նորմա՞լ է ջղաձգումներ ունենալը»:',
+        answer:
+          'Որովայնի ստորին հատվածում թեթև ջղաձգումները տարածված են և սովորաբար անհանգստանալու պատճառ չեն: Տաք ջրով տաքացուցիչը կամ մի փոքր հանգիստը կարող են օգնել: Շատ ուժեղ ցավի մասին արժե որևէ մեկին ասել:',
+      },
+      {
+        question: '«Կարո՞ղ եմ սպորտով զբաղվել»:',
+        answer:
+          'Այո, դաշտանի ընթացքում կարող եք շարունակել սպորտով զբաղվել: Պարզապես հարմարեցրեք ինտենսիվությունը ձեր մարմնի այդ օրվա զգացողությանը:',
+      },
+      {
+        question: '«Կարո՞ղ եմ լողալ»:',
+        answer:
+          'Այո, ճիշտ պաշտպանությամբ կարող եք շարունակել լողալ: Շատերը պարզապես նախընտրում են սպասել, մինչև ավելի հարմար զգան այդ գաղափարի հետ:',
+      },
+    ],
+    tipTitle: 'Լավ է իմանալ',
+    tipText: 'Ամաչելի հարց գոյություն չունի. յուրաքանչյուր մարմին տարբեր է, և դուք միշտ կարող եք խոսել ձեր վստահած մարդու հետ:',
+    relatedTitle: '♥  Ձեզ կարող է նաև հետաքրքրել',
+    related: [
+      {title: 'Ձեր առաջին դաշտանը. ինչ սպասել', meta: '5 ր  ·  Ուղեցույց'},
+      {title: 'Ի՞նչ պաշտպանություն ընտրել առաջին դաշտանիս համար', meta: '6 ր  ·  Ուղեցույց'},
+      {title: 'Դաշտանային ցավի կառավարում', meta: '7 ր  ·  Ուղեցույց'},
+    ],
+    shareMessage: 'Հաճախակի տրվող հարցեր ձեր առաջին դաշտանի մասին — AWA',
+  },
+  tg: {
+    badge: 'ҲАЙЗИ АВВАЛ',
+    title: 'Саволҳои зуд-зуд додашаванда\nдар бораи ҳайзи аввали шумо',
+    metaDuration: '4 дақ барои хондан',
+    metaType: 'Саволу ҷавоб',
+    metaLevel: 'Ибтидоӣ',
+    metaValidated: 'Мазмуни баррасишуда',
+    intro: 'Посухҳои оддӣ ба маъмултарин саволҳо дар бораи ҳайзи аввали шумо.',
+    contentsTitle: 'Дар ин мақола',
+    faq: [
+      {
+        question: '«Оё муқаррарӣ аст, ки хун хеле кам бошад?»',
+        answer:
+          'Бале. Давраҳои хеле аввал аксар вақт ҷараёни сабук доранд. Ҷараён аз як давра то давраи дигар, хусусан дар оғоз, фарқ карда метавонад.',
+      },
+      {
+        question: '«Оё муқаррарӣ аст, ки хун зиёд бошад?»',
+        answer:
+          'Ҷараёни зиёдтар низ метавонад рух диҳад, хусусан дар ду рӯзи аввал. Агар зиёда аз як маротиба дар як соат дар давоми чанд соати пайиҳам воситаи муҳофизатро иваз кардан лозим шавад, хуб аст дар ин бора бо мутахассиси соҳаи тиб гап занед.',
+      },
+      {
+        question: '«Оё муқаррарӣ аст, ки кашишхӯрӣ бошад?»',
+        answer:
+          'Кашишхӯрии сабук дар поёни шикам маъмул аст ва одатан сабаби нигаронӣ нест. Грелка ё андаке истироҳат метавонад кумак кунад. Дарди хеле шадидро сазовор аст ба касе гӯед.',
+      },
+      {
+        question: '«Оё ман метавонам ба варзиш машғул шавам?»',
+        answer:
+          'Бале, шумо метавонед дар вақти ҳайз ҳам ба варзиш машғул шавед. Танҳо шиддатро ба ҳолати бадани худ дар ҳамон рӯз мутобиқ кунед.',
+      },
+      {
+        question: '«Оё ман метавонам шино кунам?»',
+        answer:
+          'Бале, шумо метавонед бо воситаи муҳофизати мувофиқ шино кунед. Бисёриҳо танҳо интихоб мекунанд, ки интизор шаванд, то ин фикр барояшон роҳаттар шавад.',
+      },
+    ],
+    tipTitle: 'Донистан хуб аст',
+    tipText: 'Саволи шармовар вуҷуд надорад: ҳар бадан гуногун аст ва шумо ҳамеша метавонед бо касе, ки ба ӯ боварӣ доред, гап занед.',
+    relatedTitle: '♥  Шояд ба шумо ҳам маъқул шавад',
+    related: [
+      {title: 'Ҳайзи аввали шумо: чӣ интизор шудан лозим аст', meta: '5 дақ  ·  Роҳнамо'},
+      {title: 'Барои ҳайзи аввалам кадом воситаи муҳофизатро интихоб кунам?', meta: '6 дақ  ·  Роҳнамо'},
+      {title: 'Идораи дарди ҳайз', meta: '7 дақ  ·  Роҳнамо'},
+    ],
+    shareMessage: 'Саволҳои зуд-зуд додашаванда дар бораи ҳайзи аввали шумо — AWA',
+  },
+  ky: {
+    badge: 'БИРИНЧИ ЕТЕК КИРИМ',
+    title: 'Биринчи етек кирим боюнча\nкөп берилүүчү суроолор',
+    metaDuration: '4 мүн окуу',
+    metaType: 'КБС',
+    metaLevel: 'Баштоочу',
+    metaValidated: 'Текшерилген мазмун',
+    intro: 'Биринчи етек кирим боюнча эң көп берилүүчү суроолорго жөнөкөй жооптор.',
+    contentsTitle: 'Бул макалада',
+    faq: [
+      {
+        question: '«Кан өтө аз болушу кадимкиби?»',
+        answer:
+          'Ооба. Эң алгачкы циклдерде агым көбүнчө аз болот. Агым, айрыкча башында, циклден циклге өзгөрүшү мүмкүн.',
+      },
+      {
+        question: '«Кан көп болушу кадимкиби?»',
+        answer:
+          'Көбүрөөк агым да болушу мүмкүн, айрыкча алгачкы эки күндө. Эгер коргонуу каражатыңызды бир нече саат катары менен саатына бир жолудан көп алмаштыруу керек болсо, бул жөнүндө ден соолук сактоо адиси менен сүйлөшкөн жакшы.',
+      },
+      {
+        question: '«Спазмдар болушу кадимкиби?»',
+        answer:
+          'Курсактын ылдый жагындагы жеңил спазмдар кеңири таралган жана көбүнчө тынчсыздандырбайт. Ысык суу грелкасы же бир аз эс алуу жардам бере алат. Өтө күчтүү оору жөнүндө бирөөгө айтканга татыйт.',
+      },
+      {
+        question: '«Спорт менен машыксам болобу?»',
+        answer:
+          'Ооба, етек кирим учурунда да спорт менен машыга бересиз. Интенсивдүүлүгүн ошол күнү денеңиздин абалына жараша тууралаңыз.',
+      },
+      {
+        question: '«Сууда сүзсөм болобу?»',
+        answer:
+          'Ооба, туура коргонуу менен сууда сүзө бересиз. Көпчүлүк адамдар бул идеяга көбүрөөк көнгөнчө күтүүнү тандайт.',
+      },
+    ],
+    tipTitle: 'Билүү пайдалуу',
+    tipText: 'Уялтуучу суроо деген жок: ар бир дене ар башка жана ишенген адамыңыз менен ар дайым сүйлөшө аласыз.',
+    relatedTitle: '♥  Сизге дагы жагышы мүмкүн',
+    related: [
+      {title: 'Биринчи етек кирим: эмне күтүү керек', meta: '5 мүн  ·  Колдонмо'},
+      {title: 'Биринчи етек кирим үчүн кайсы коргонууну тандоо керек?', meta: '6 мүн  ·  Колдонмо'},
+      {title: 'Етек кирим оорусун башкаруу', meta: '7 мүн  ·  Колдонмо'},
+    ],
+    shareMessage: 'Биринчи етек кирим боюнча көп берилүүчү суроолор — AWA',
+  },
+  tk: {
+    badge: 'ILKINJI AÝBAŞY',
+    title: 'Ilkinji aýbaşyňyz barada\nköp berilýän soraglar',
+    metaDuration: '4 min okamak',
+    metaType: 'KBS',
+    metaLevel: 'Başlaýjy',
+    metaValidated: 'Barlanan mazmun',
+    intro: 'Ilkinji aýbaşyňyz barada iň köp berilýän soraglara ýönekeý jogaplar.',
+    contentsTitle: 'Bu makalada',
+    faq: [
+      {
+        question: '«Gan gaty az bolmagy adatymy?»',
+        answer:
+          'Hawa. Iň ilkinji siklerde köplenç gan akma ýeňil bolýar. Gan akma sikldan sika, aýratyn-da başda, üýtgäp biler.',
+      },
+      {
+        question: '«Gan köp bolmagy adatymy?»',
+        answer:
+          'Has köp gan akma hem bolup biler, aýratyn-da ilkinji iki günde. Birnäçe sagat yzly-yzyna goranyş serişdesini sagatda birden köp çalyşmaly bolsaňyz, bu barada saglyk hünärmeni bilen gürleşmek maslahat berilýär.',
+      },
+      {
+        question: '«Çekişme bolmagy adatymy?»',
+        answer:
+          'Garnyň aşagyndaky ýeňil çekişmeler umumy zat we adatça alada üçin sebäp däl. Ysyk suw gaby ýa-da az-kem dynç almak kömek edip biler. Gaty güýçli agyry barada kimdir birine aýtmaga mynasyp.',
+      },
+      {
+        question: '«Sport bilen meşgullanyp bilemmi?»',
+        answer:
+          'Hawa, aýbaşy wagtynda sport bilen meşgullanmagy dowam etdirip bilersiňiz. Diňe intensiwligi şol günki bedeniňiziň duýgusyna görä sazlaň.',
+      },
+      {
+        question: '«Ýüzüp bilemmi?»',
+        answer:
+          'Hawa, dogry goranyş serişdesi bilen ýüzmäge bolýar. Köp adam diňe bu pikire has rahat bolýança garaşmagy saýlaýar.',
+      },
+    ],
+    tipTitle: 'Bilmek peýdaly',
+    tipText: 'Utandyryjy sorag ýok: her bedeniň özboluşlylygy bar we hemişe ynanýan adamyňyz bilen gürleşip bilersiňiz.',
+    relatedTitle: '♥  Size ýarap biler',
+    related: [
+      {title: 'Ilkinji aýbaşyňyz: nämä garaşmaly', meta: '5 min  ·  Gollanma'},
+      {title: 'Ilkinji aýbaşym üçin haýsy goranyş serişdesini saýlamaly?', meta: '6 min  ·  Gollanma'},
+      {title: 'Aýbaşy agyrysyny dolandyrmak', meta: '7 min  ·  Gollanma'},
+    ],
+    shareMessage: 'Ilkinji aýbaşyňyz barada köp berilýän soraglar — AWA',
   },
 } as const);
 

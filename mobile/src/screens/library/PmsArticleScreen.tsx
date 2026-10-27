@@ -1019,72 +1019,6 @@ const CONTENT = withBrazilianPortuguese('Pms', {
     consultText: 'Hvis symptomerne er meget intense og påvirker dit daglige liv, kan det være præmenstruel dysforisk lidelse (PMDD). Tøv ikke med at kontakte en sundhedsfaglig person.',
     shareMessage: 'Præmenstruelt syndrom (PMS): forstå det bedre — AWA',
   },
-  da: {
-    badge: 'CYKLUS OG VELVÄRE',
-    title: 'Prämenstruelt syndrom (PMS):\nforstå det bedre',
-    metaDuration: '4 min läsning',
-    metaValidated: 'Gennemgået indhold',
-    intro: 'PMS påvirker op till 8 ud av 10 kvinder. Träthed, irritabilitet, oppustethed… At forstå årsagerne och opbygge gode vaner kan göre denne periode mycket lettere.',
-    contentsTitle: 'I denne artikel',
-    contents: [
-      'Hvad ar PMS?',
-      'Almindelige symtom',
-      'Mulige årsager',
-      'Tips till at have det bedre',
-      'Hvornår bör du söge läge?',
-    ],
-    section1Body: 'Prämenstruelt syndrom ar en samling av fysiske och fölelsesmässige symtom, der normalt opstår 5 till 10 dagar inden menstruationen och forsvinder ved cyklussens begyndelse.',
-    visual1Title: 'En fase forbundet med din cyklus',
-    visual1Text: 'Symtomne opstår inden menstruationen och aftager normalt, når den begynder.',
-    tip1Title: 'Godt at vide',
-    tip1Text: 'Symtomnes intensitet och art kan variere mycket fran kvinna till kvinna och fran cyklus till cyklus.',
-    symptoms: [
-      {
-        title: 'Fölelsesmässige',
-        text: 'Irritabilitet, angst, nedtrykthed, humörsvingninger',
-      },
-      {
-        title: 'Fysiske',
-        text: 'Oppustethed, smerter, träthed, hovedpine',
-      },
-      {
-        title: 'Adfärdsmässige',
-        text: 'Trang till söde sager, appetitändringer, träthed',
-      },
-      {
-        title: 'Sövn',
-        text: 'Sövnbesvär eller mindre afslappende sövn',
-      },
-    ],
-    section3Body: 'Hormonelle udsving, isär av progesteron och östrogen, påvirker hjernens neurotransmittere (serotonin, dopamin), hvilket kan forklare PMS\' fölelsesmässige och fysiske symtom.',
-    tip2Title: 'Hormonernes rolle ar central',
-    tip2Text: 'Hormonelle udsving kan påvirke humör, energi, sövn och visse fysiske fornemmelser.',
-    tips: [
-      {
-        title: 'Hold dig hydreret',
-        text: 'At drikke tilsträkkeligt vand hjälper med at reducere oppustethed.',
-      },
-      {
-        title: 'Spis afbalanceret',
-        text: 'Prioriter födevarer rige på magnesium, omega-3 och B-vitaminer.',
-      },
-      {
-        title: 'Vär aktiv',
-        text: 'Fysisk aktivitet frigiver endorfiner och reducerer stress.',
-      },
-      {
-        title: 'Håndter stress',
-        text: 'Åndedrätsövelser, meditation, dagbogsskrivning… Find det der virker for dig.',
-      },
-      {
-        title: 'Sov nok',
-        text: 'God sövnkvalitet hjälper med at holde hormonbalancen stabil.',
-      },
-    ],
-    consultTitle: 'Hvornår bör du söge medicinsk rådgivning?',
-    consultText: 'Hvis symtomne ar mycket intense och påvirker ditt daglige liv, kan det väre prämenstruel dysforisk lidelse (PMDD). Töv inte med at kontakte en halsasfaglig person.',
-    shareMessage: 'Prämenstruelt syndrom (PMS): forstå det bedre — AWA',
-  },
   sv: {
     badge: 'CYKLUS OG VELVÄRE',
     title: 'Prämenstruelt syndrom (PMS):\nforstå det bedre',
@@ -1150,6 +1084,1064 @@ const CONTENT = withBrazilianPortuguese('Pms', {
     consultTitle: 'Hvornår bör du söge medicinsk rådgivning?',
     consultText: 'Hvis symtomne ar mycket intense och påvirker ditt daglige liv, kan det väre prämenstruel dysforisk lidelse (PMDD). Töv inte med at kontakte en halsasfaglig person.',
     shareMessage: 'Prämenstruelt syndrom (PMS): forstå det bedre — AWA',
+  },
+  nb: {
+    badge: 'SYKLUS OG VELVÆRE',
+    title: 'Premenstruelt syndrom (PMS):\nforstå det bedre',
+    metaDuration: '4 min lesing',
+    metaValidated: 'Gjennomgått innhold',
+    intro:
+      'PMS rammer opptil 8 av 10 kvinner. Tretthet, irritabilitet, oppblåsthet … Å forstå årsakene og ta i bruk de riktige vanene kan forbedre denne tiden av måneden betydelig.',
+    contentsTitle: 'I denne artikkelen',
+    contents: [
+      'Hva er PMS?',
+      'Vanlige symptomer',
+      'Mulige årsaker',
+      'Tips for å få det bedre',
+      'Når bør du gå til lege?',
+    ],
+    section1Body:
+      'Premenstruelt syndrom samler fysiske og følelsesmessige symptomer som vanligvis dukker opp 5 til 10 dager før mensen og forsvinner ved starten av menstruasjonssyklusen.',
+    visual1Title: 'En fase knyttet til syklusen din',
+    visual1Text:
+      'Symptomene kommer før mensen og avtar vanligvis når den har startet.',
+    tip1Title: 'Godt å vite',
+    tip1Text:
+      'Styrken og typen symptomer kan variere mye fra en kvinne til en annen, og fra en syklus til den neste.',
+    symptoms: [
+      {title: 'Følelser', text: 'Irritabilitet, angst, tristhet, humørsvingninger'},
+      {title: 'Fysisk', text: 'Oppblåsthet, smerte, tretthet, hodepine'},
+      {title: 'Atferd', text: 'Sukkersug, endringer i appetitt, tretthet'},
+      {title: 'Søvn', text: 'Søvnproblemer eller mindre hvilsom søvn'},
+    ],
+    section3Body:
+      'Hormonelle svingninger, særlig i progesteron og østrogen, påvirker signalstoffene i hjernen (serotonin, dopamin), noe som kan forklare de følelsesmessige og fysiske symptomene ved PMS.',
+    tip2Title: 'Hormoner spiller en nøkkelrolle',
+    tip2Text:
+      'Hormonelle svingninger kan påvirke humør, energi, søvn og visse kroppslige fornemmelser.',
+    tips: [
+      {title: 'Drikk nok', text: 'Å drikke nok vann bidrar til å redusere oppblåsthet.'},
+      {title: 'Spis et balansert kosthold', text: 'Prioriter mat rik på magnesium, omega-3 og B-vitaminer.'},
+      {title: 'Hold deg aktiv', text: 'Fysisk aktivitet frigjør endorfiner og reduserer stress.'},
+      {title: 'Håndter stresset ditt', text: 'Pusteøvelser, meditasjon, dagbok … Finn det som fungerer for deg.'},
+      {title: 'Få nok søvn', text: 'God søvn støtter den hormonelle balansen.'},
+    ],
+    consultTitle: 'Når bør du søke medisinsk råd?',
+    consultText:
+      'Hvis symptomene er svært sterke og påvirker hverdagen din, kan det være premenstruell dysforisk lidelse (PMDD). Ikke nøl med å oppsøke helsepersonell.',
+    shareMessage: 'Premenstruelt syndrom (PMS): forstå det bedre – AWA',
+  },
+  pl: {
+    badge: 'CYKL I SAMOPOCZUCIE',
+    title: 'Zespół napięcia przedmiesiączkowego (PMS):\nlepiej go zrozumieć',
+    metaDuration: '4 min czytania',
+    metaValidated: 'Treść zweryfikowana',
+    intro:
+      'PMS dotyczy nawet 8 na 10 kobiet. Zmęczenie, drażliwość, wzdęcia… Zrozumienie jego przyczyn i dobre nawyki mogą znacznie poprawić ten czas w miesiącu.',
+    contentsTitle: 'W tym artykule',
+    contents: [
+      'Czym jest PMS?',
+      'Częste objawy',
+      'Możliwe przyczyny',
+      'Wskazówki na lepsze samopoczucie',
+      'Kiedy zgłosić się do lekarza?',
+    ],
+    section1Body:
+      'Zespół napięcia przedmiesiączkowego obejmuje objawy fizyczne i emocjonalne, które zwykle pojawiają się 5 do 10 dni przed miesiączką i ustępują na początku cyklu menstruacyjnego.',
+    visual1Title: 'Faza związana z Twoim cyklem',
+    visual1Text:
+      'Objawy pojawiają się przed miesiączką i zwykle słabną, gdy się rozpocznie.',
+    tip1Title: 'Warto wiedzieć',
+    tip1Text:
+      'Nasilenie i rodzaj objawów mogą się bardzo różnić u poszczególnych kobiet oraz w kolejnych cyklach.',
+    symptoms: [
+      {title: 'Emocje', text: 'Drażliwość, lęk, smutek, wahania nastroju'},
+      {title: 'Ciało', text: 'Wzdęcia, ból, zmęczenie, bóle głowy'},
+      {title: 'Zachowanie', text: 'Ochota na słodycze, zmiany apetytu, zmęczenie'},
+      {title: 'Sen', text: 'Trudności z zasypianiem lub mniej regenerujący sen'},
+    ],
+    section3Body:
+      'Wahania hormonalne, zwłaszcza progesteronu i estrogenów, wpływają na neuroprzekaźniki w mózgu (serotonina, dopamina), co może tłumaczyć emocjonalne i fizyczne objawy PMS.',
+    tip2Title: 'Hormony odgrywają kluczową rolę',
+    tip2Text:
+      'Wahania hormonalne mogą wpływać na nastrój, energię, sen i niektóre odczucia fizyczne.',
+    tips: [
+      {title: 'Dbaj o nawodnienie', text: 'Picie odpowiedniej ilości wody pomaga zmniejszyć wzdęcia.'},
+      {title: 'Jedz zbilansowanie', text: 'Wybieraj produkty bogate w magnez, kwasy omega-3 i witaminy z grupy B.'},
+      {title: 'Pozostań aktywna', text: 'Aktywność fizyczna uwalnia endorfiny i zmniejsza stres.'},
+      {title: 'Radź sobie ze stresem', text: 'Ćwiczenia oddechowe, medytacja, dziennik… Znajdź to, co działa na Ciebie.'},
+      {title: 'Śpij wystarczająco', text: 'Dobry sen wspiera równowagę hormonalną.'},
+    ],
+    consultTitle: 'Kiedy zasięgnąć porady lekarskiej?',
+    consultText:
+      'Jeśli objawy są bardzo nasilone i wpływają na codzienne życie, może to być przedmiesiączkowe zaburzenie dysforyczne (PMDD). Nie wahaj się skonsultować ze specjalistą.',
+    shareMessage: 'Zespół napięcia przedmiesiączkowego (PMS): lepiej go zrozumieć — AWA',
+  },
+  uk: {
+    badge: 'ЦИКЛ І САМОПОЧУТТЯ',
+    title: 'Передменструальний синдром (ПМС):\nкраще його зрозуміти',
+    metaDuration: '4 хв читання',
+    metaValidated: 'Перевірений вміст',
+    intro:
+      'ПМС торкається до 8 із 10 жінок. Втома, дратівливість, здуття… Розуміння його причин і правильні звички можуть значно покращити цей час місяця.',
+    contentsTitle: 'У цій статті',
+    contents: [
+      'Що таке ПМС?',
+      'Поширені симптоми',
+      'Можливі причини',
+      'Поради для кращого самопочуття',
+      'Коли звертатися до лікаря?',
+    ],
+    section1Body:
+      'Передменструальний синдром поєднує фізичні та емоційні симптоми, що зазвичай з’являються за 5–10 днів до менструації й минають на початку менструального циклу.',
+    visual1Title: 'Фаза, пов’язана з вашим циклом',
+    visual1Text:
+      'Симптоми з’являються перед менструацією і зазвичай слабшають, щойно вона починається.',
+    tip1Title: 'Варто знати',
+    tip1Text:
+      'Інтенсивність і вид симптомів можуть сильно різнитися в різних жінок та в різних циклах.',
+    symptoms: [
+      {title: 'Емоції', text: 'Дратівливість, тривога, смуток, перепади настрою'},
+      {title: 'Тіло', text: 'Здуття, біль, втома, головні болі'},
+      {title: 'Поведінка', text: 'Тяга до солодкого, зміни апетиту, втома'},
+      {title: 'Сон', text: 'Труднощі зі сном або менш відновлювальний сон'},
+    ],
+    section3Body:
+      'Гормональні коливання, зокрема прогестерону та естрогену, впливають на нейромедіатори мозку (серотонін, дофамін), що може пояснювати емоційні та фізичні симптоми ПМС.',
+    tip2Title: 'Гормони відіграють ключову роль',
+    tip2Text:
+      'Гормональні коливання можуть впливати на настрій, енергію, сон і деякі фізичні відчуття.',
+    tips: [
+      {title: 'Пийте достатньо води', text: 'Достатнє споживання води допомагає зменшити здуття.'},
+      {title: 'Харчуйтеся збалансовано', text: 'Надавайте перевагу продуктам, багатим на магній, омега-3 та вітаміни групи B.'},
+      {title: 'Залишайтеся активними', text: 'Фізична активність вивільняє ендорфіни й зменшує стрес.'},
+      {title: 'Долайте стрес', text: 'Дихальні вправи, медитація, ведення щоденника… Знайдіть те, що підходить вам.'},
+      {title: 'Спіть достатньо', text: 'Якісний сон підтримує гормональний баланс.'},
+    ],
+    consultTitle: 'Коли звертатися за медичною порадою?',
+    consultText:
+      'Якщо симптоми дуже інтенсивні й впливають на щоденне життя, це може бути передменструальний дисфоричний розлад (ПМДР). Не вагайтеся звернутися до медичного фахівця.',
+    shareMessage: 'Передменструальний синдром (ПМС): краще його зрозуміти — AWA',
+  },
+  cs: {
+    badge: 'CYKLUS A POHODA',
+    title: 'Premenstruační syndrom (PMS):\nlepší porozumění',
+    metaDuration: '4 min čtení',
+    metaValidated: 'Ověřený obsah',
+    intro:
+      'PMS postihuje až 8 z 10 žen. Únava, podrážděnost, nadýmání… Pochopení jeho příčin a správné návyky mohou toto období měsíce výrazně zlepšit.',
+    contentsTitle: 'V tomto článku',
+    contents: [
+      'Co je PMS?',
+      'Časté příznaky',
+      'Možné příčiny',
+      'Tipy, jak se cítit lépe',
+      'Kdy navštívit lékaře?',
+    ],
+    section1Body:
+      'Premenstruační syndrom sdružuje tělesné a emoční příznaky, které se obvykle objevují 5 až 10 dní před menstruací a mizí na začátku menstruačního cyklu.',
+    visual1Title: 'Fáze spojená s vaším cyklem',
+    visual1Text:
+      'Příznaky se objevují před menstruací a po jejím začátku obvykle ustupují.',
+    tip1Title: 'Stojí za to vědět',
+    tip1Text:
+      'Intenzita a druh příznaků se mohou od ženy k ženě i od cyklu k cyklu velmi lišit.',
+    symptoms: [
+      {title: 'Emoce', text: 'Podrážděnost, úzkost, smutek, výkyvy nálady'},
+      {title: 'Tělesné', text: 'Nadýmání, bolest, únava, bolesti hlavy'},
+      {title: 'Chování', text: 'Chuť na sladké, změny chuti k jídlu, únava'},
+      {title: 'Spánek', text: 'Potíže se spánkem nebo méně odpočinkový spánek'},
+    ],
+    section3Body:
+      'Hormonální výkyvy, zejména progesteronu a estrogenu, ovlivňují neurotransmitery v mozku (serotonin, dopamin), což může vysvětlovat emoční a tělesné příznaky PMS.',
+    tip2Title: 'Hormony hrají klíčovou roli',
+    tip2Text:
+      'Hormonální výkyvy mohou ovlivňovat náladu, energii, spánek a některé tělesné pocity.',
+    tips: [
+      {title: 'Pijte dostatek tekutin', text: 'Dostatek vody pomáhá omezit nadýmání.'},
+      {title: 'Jezte vyváženě', text: 'Upřednostněte potraviny bohaté na hořčík, omega-3 a vitaminy skupiny B.'},
+      {title: 'Zůstaňte aktivní', text: 'Fyzická aktivita uvolňuje endorfiny a snižuje stres.'},
+      {title: 'Zvládejte stres', text: 'Dechová cvičení, meditace, psaní deníku… Najděte, co vám vyhovuje.'},
+      {title: 'Dopřejte si dostatek spánku', text: 'Kvalitní spánek podporuje hormonální rovnováhu.'},
+    ],
+    consultTitle: 'Kdy vyhledat lékařskou radu?',
+    consultText:
+      'Pokud jsou příznaky velmi intenzivní a ovlivňují váš každodenní život, může jít o premenstruační dysforickou poruchu (PMDD). Neváhejte se obrátit na zdravotnického pracovníka.',
+    shareMessage: 'Premenstruační syndrom (PMS): lepší porozumění — AWA',
+  },
+  sk: {
+    badge: 'CYKLUS A POHODA',
+    title: 'Premenštruačný syndróm (PMS):\nlepšie ho pochopiť',
+    metaDuration: '4 min čítania',
+    metaValidated: 'Overený obsah',
+    intro:
+      'PMS postihuje až 8 z 10 žien. Únava, podráždenosť, nadúvanie… Pochopenie jeho príčin a správne návyky môžu toto obdobie mesiaca výrazne zlepšiť.',
+    contentsTitle: 'V tomto článku',
+    contents: [
+      'Čo je PMS?',
+      'Časté príznaky',
+      'Možné príčiny',
+      'Tipy, ako sa cítiť lepšie',
+      'Kedy navštíviť lekára?',
+    ],
+    section1Body:
+      'Premenštruačný syndróm združuje telesné a emočné príznaky, ktoré sa zvyčajne objavia 5 až 10 dní pred menštruáciou a ustúpia na začiatku menštruačného cyklu.',
+    visual1Title: 'Fáza spojená s vaším cyklom',
+    visual1Text:
+      'Príznaky sa objavujú pred menštruáciou a zvyčajne ustupujú, keď sa začne.',
+    tip1Title: 'Stojí za to vedieť',
+    tip1Text:
+      'Intenzita a druh príznakov sa môžu od ženy k žene a z cyklu na cyklus veľmi líšiť.',
+    symptoms: [
+      {title: 'Emócie', text: 'Podráždenosť, úzkosť, smútok, zmeny nálady'},
+      {title: 'Telo', text: 'Nadúvanie, bolesť, únava, bolesti hlavy'},
+      {title: 'Správanie', text: 'Chuť na sladké, zmeny chuti do jedla, únava'},
+      {title: 'Spánok', text: 'Ťažkosti so spánkom alebo menej oddychový spánok'},
+    ],
+    section3Body:
+      'Hormonálne kolísanie, najmä progesterónu a estrogénu, ovplyvňuje neurotransmitery v mozgu (serotonín, dopamín), čo môže vysvetľovať emočné a telesné príznaky PMS.',
+    tip2Title: 'Hormóny hrajú kľúčovú úlohu',
+    tip2Text:
+      'Hormonálne kolísanie môže ovplyvniť náladu, energiu, spánok a niektoré telesné pocity.',
+    tips: [
+      {title: 'Pite dostatok tekutín', text: 'Dostatočné pitie vody pomáha znižovať nadúvanie.'},
+      {title: 'Jedzte vyváženo', text: 'Uprednostnite potraviny bohaté na horčík, omega-3 a vitamíny skupiny B.'},
+      {title: 'Zostaňte aktívna', text: 'Fyzická aktivita uvoľňuje endorfíny a znižuje stres.'},
+      {title: 'Zvládajte stres', text: 'Dychové cvičenia, meditácia, písanie denníka… Nájdite, čo vám vyhovuje.'},
+      {title: 'Dostatočne spite', text: 'Kvalitný spánok podporuje hormonálnu rovnováhu.'},
+    ],
+    consultTitle: 'Kedy vyhľadať lekársku radu?',
+    consultText:
+      'Ak sú príznaky veľmi intenzívne a ovplyvňujú váš každodenný život, môže ísť o premenštruačnú dysforickú poruchu (PMDD). Neváhajte sa poradiť so zdravotníckym pracovníkom.',
+    shareMessage: 'Premenštruačný syndróm (PMS): lepšie ho pochopiť — AWA',
+  },
+  hu: {
+    badge: 'CIKLUS ÉS JÓLÉT',
+    title: 'Premenstruációs szindróma (PMS):\njobb megértése',
+    metaDuration: '4 perc olvasás',
+    metaValidated: 'Ellenőrzött tartalom',
+    intro:
+      'A PMS a nők akár 8-ból 10-ét érinti. Fáradtság, ingerlékenység, puffadás… Az okainak megértése és a helyes szokások nagyban javíthatják a hónapnak ezt az időszakát.',
+    contentsTitle: 'Ebben a cikkben',
+    contents: [
+      'Mi a PMS?',
+      'Gyakori tünetek',
+      'Lehetséges okok',
+      'Tippek a jobb közérzethez',
+      'Mikor menj orvoshoz?',
+    ],
+    section1Body:
+      'A premenstruációs szindróma olyan testi és érzelmi tüneteket foglal össze, amelyek általában a menstruáció előtt 5–10 nappal jelentkeznek, és a menstruációs ciklus kezdetén elmúlnak.',
+    visual1Title: 'A ciklusodhoz kötött szakasz',
+    visual1Text:
+      'A tünetek a menstruáció előtt jelentkeznek, és általában enyhülnek, amint elkezdődik.',
+    tip1Title: 'Érdemes tudni',
+    tip1Text:
+      'A tünetek erőssége és típusa nőnként és ciklusonként is nagyon eltérő lehet.',
+    symptoms: [
+      {title: 'Érzelmek', text: 'Ingerlékenység, szorongás, szomorúság, hangulatingadozás'},
+      {title: 'Test', text: 'Puffadás, fájdalom, fáradtság, fejfájás'},
+      {title: 'Viselkedés', text: 'Édesség utáni sóvárgás, étvágyváltozások, fáradtság'},
+      {title: 'Alvás', text: 'Alvási nehézségek vagy kevésbé pihentető alvás'},
+    ],
+    section3Body:
+      'A hormonális ingadozások, különösen a progeszteroné és az ösztrogéné, befolyásolják az agyi neurotranszmittereket (szerotonin, dopamin), ami megmagyarázhatja a PMS érzelmi és testi tüneteit.',
+    tip2Title: 'A hormonok kulcsszerepet játszanak',
+    tip2Text:
+      'A hormonális ingadozások befolyásolhatják a hangulatot, az energiát, az alvást és bizonyos testi érzeteket.',
+    tips: [
+      {title: 'Igyál eleget', text: 'A megfelelő vízfogyasztás segít csökkenteni a puffadást.'},
+      {title: 'Egyél kiegyensúlyozottan', text: 'Részesítsd előnyben a magnéziumban, omega-3-ban és B-vitaminokban gazdag ételeket.'},
+      {title: 'Maradj aktív', text: 'A fizikai aktivitás endorfinokat szabadít fel, és csökkenti a stresszt.'},
+      {title: 'Kezeld a stresszed', text: 'Légzőgyakorlatok, meditáció, naplóírás… Találd meg, mi működik nálad.'},
+      {title: 'Aludj eleget', text: 'A minőségi alvás támogatja a hormonális egyensúlyt.'},
+    ],
+    consultTitle: 'Mikor kérj orvosi tanácsot?',
+    consultText:
+      'Ha a tünetek nagyon intenzívek és befolyásolják a mindennapi életedet, premenstruációs diszfóriás zavar (PMDD) is lehet. Ne habozz egészségügyi szakemberhez fordulni.',
+    shareMessage: 'Premenstruációs szindróma (PMS): jobb megértése — AWA',
+  },
+  ro: {
+    badge: 'CICLU ȘI BUNĂSTARE',
+    title: 'Sindromul premenstrual (SPM):\nsă-l înțelegem mai bine',
+    metaDuration: '4 min de citit',
+    metaValidated: 'Conținut revizuit',
+    intro:
+      'SPM afectează până la 8 femei din 10. Oboseală, irascibilitate, balonare… Înțelegerea cauzelor lui și adoptarea obiceiurilor potrivite pot îmbunătăți mult această perioadă a lunii.',
+    contentsTitle: 'În acest articol',
+    contents: [
+      'Ce este SPM?',
+      'Simptome frecvente',
+      'Cauze posibile',
+      'Sfaturi pentru a te simți mai bine',
+      'Când să mergi la medic?',
+    ],
+    section1Body:
+      'Sindromul premenstrual reunește simptome fizice și emoționale care apar de obicei cu 5 până la 10 zile înainte de menstruație și dispar la începutul ciclului menstrual.',
+    visual1Title: 'O fază legată de ciclul tău',
+    visual1Text:
+      'Simptomele apar înainte de menstruație și se ameliorează de obicei odată ce aceasta începe.',
+    tip1Title: 'Bine de știut',
+    tip1Text:
+      'Intensitatea și tipul simptomelor pot varia mult de la o femeie la alta și de la un ciclu la altul.',
+    symptoms: [
+      {title: 'Emoții', text: 'Irascibilitate, anxietate, tristețe, schimbări de dispoziție'},
+      {title: 'Fizic', text: 'Balonare, durere, oboseală, dureri de cap'},
+      {title: 'Comportament', text: 'Poftă de dulce, schimbări ale apetitului, oboseală'},
+      {title: 'Somn', text: 'Probleme de somn sau somn mai puțin odihnitor'},
+    ],
+    section3Body:
+      'Fluctuațiile hormonale, în special ale progesteronului și estrogenului, afectează neurotransmițătorii din creier (serotonina, dopamina), ceea ce poate explica simptomele emoționale și fizice ale SPM.',
+    tip2Title: 'Hormonii joacă un rol-cheie',
+    tip2Text:
+      'Fluctuațiile hormonale pot afecta starea de spirit, energia, somnul și anumite senzații fizice.',
+    tips: [
+      {title: 'Rămâi hidratată', text: 'Un consum suficient de apă ajută la reducerea balonării.'},
+      {title: 'Mănâncă echilibrat', text: 'Favorizează alimentele bogate în magneziu, omega-3 și vitamine B.'},
+      {title: 'Rămâi activă', text: 'Activitatea fizică eliberează endorfine și reduce stresul.'},
+      {title: 'Gestionează-ți stresul', text: 'Exerciții de respirație, meditație, jurnal… Găsește ce funcționează pentru tine.'},
+      {title: 'Dormi suficient', text: 'Un somn de calitate susține echilibrul hormonal.'},
+    ],
+    consultTitle: 'Când ar trebui să ceri un sfat medical?',
+    consultText:
+      'Dacă simptomele sunt foarte intense și îți afectează viața de zi cu zi, ar putea fi vorba de tulburarea disforică premenstruală (TDPM). Nu ezita să consulți un profesionist din domeniul sănătății.',
+    shareMessage: 'Sindromul premenstrual (SPM): să-l înțelegem mai bine — AWA',
+  },
+  bg: {
+    badge: 'ЦИКЪЛ И БЛАГОПОЛУЧИЕ',
+    title: 'Предменструален синдром (ПМС):\nразбери го по-добре',
+    metaDuration: '4 мин четене',
+    metaValidated: 'Проверено съдържание',
+    intro:
+      'ПМС засяга до 8 от 10 жени. Умора, раздразнителност, подуване… Разбирането на причините му и подходящите навици могат значително да подобрят този период от месеца.',
+    contentsTitle: 'В тази статия',
+    contents: [
+      'Какво е ПМС?',
+      'Чести симптоми',
+      'Възможни причини',
+      'Съвети, за да се чувстваш по-добре',
+      'Кога да посетиш лекар?',
+    ],
+    section1Body:
+      'Предменструалният синдром обединява физически и емоционални симптоми, които обикновено се появяват 5 до 10 дни преди менструацията и отшумяват в началото на менструалния цикъл.',
+    visual1Title: 'Фаза, свързана с цикъла ти',
+    visual1Text:
+      'Симптомите се появяват преди менструацията и обикновено отслабват, щом тя започне.',
+    tip1Title: 'Добре е да знаеш',
+    tip1Text:
+      'Интензивността и видът на симптомите могат да варират силно от жена на жена и от цикъл на цикъл.',
+    symptoms: [
+      {title: 'Емоции', text: 'Раздразнителност, тревожност, тъга, промени в настроението'},
+      {title: 'Физически', text: 'Подуване, болка, умора, главоболие'},
+      {title: 'Поведение', text: 'Желание за сладко, промени в апетита, умора'},
+      {title: 'Сън', text: 'Затруднение със съня или по-малко пълноценен сън'},
+    ],
+    section3Body:
+      'Хормоналните колебания, особено на прогестерона и естрогена, влияят на невротрансмитерите в мозъка (серотонин, допамин), което може да обясни емоционалните и физическите симптоми на ПМС.',
+    tip2Title: 'Хормоните играят ключова роля',
+    tip2Text:
+      'Хормоналните колебания могат да влияят на настроението, енергията, съня и някои физически усещания.',
+    tips: [
+      {title: 'Пий достатъчно', text: 'Достатъчното пиене на вода помага да се намали подуването.'},
+      {title: 'Яж балансирано', text: 'Предпочитай храни, богати на магнезий, омега-3 и витамини от група B.'},
+      {title: 'Бъди активна', text: 'Физическата активност освобождава ендорфини и намалява стреса.'},
+      {title: 'Управлявай стреса си', text: 'Дихателни упражнения, медитация, водене на дневник… Намери онова, което работи за теб.'},
+      {title: 'Спи достатъчно', text: 'Качественият сън подпомага хормоналния баланс.'},
+    ],
+    consultTitle: 'Кога да потърсиш медицински съвет?',
+    consultText:
+      'Ако симптомите са много силни и засягат ежедневието ти, може да става дума за предменструално дисфорично разстройство (ПМДР). Не се колебай да се консултираш със здравен специалист.',
+    shareMessage: 'Предменструален синдром (ПМС): разбери го по-добре — AWA',
+  },
+  sr: {
+    badge: 'ЦИКЛУС И БЛАГОСТАЊЕ',
+    title: 'Предменструални синдром (ПМС):\nразуми га боље',
+    metaDuration: '4 мин читања',
+    metaValidated: 'Проверен садржај',
+    intro:
+      'ПМС погађа до 8 од 10 жена. Умор, раздражљивост, надутост… Разумевање његових узрока и усвајање правих навика може знатно побољшати овај период месеца.',
+    contentsTitle: 'У овом чланку',
+    contents: [
+      'Шта је ПМС?',
+      'Чести симптоми',
+      'Могући узроци',
+      'Савети да се осећаш боље',
+      'Када посетити лекара?',
+    ],
+    section1Body:
+      'Предменструални синдром обједињује физичке и емоционалне симптоме који се обично појављују 5 до 10 дана пре менструације и нестају на почетку менструалног циклуса.',
+    visual1Title: 'Фаза везана за твој циклус',
+    visual1Text:
+      'Симптоми се појављују пре менструације и обично јењавају чим она почне.',
+    tip1Title: 'Добро је знати',
+    tip1Text:
+      'Интензитет и врста симптома могу увелико варирати од жене до жене и од циклуса до циклуса.',
+    symptoms: [
+      {title: 'Емоције', text: 'Раздражљивост, анксиозност, туга, промене расположења'},
+      {title: 'Физички', text: 'Надутост, бол, умор, главобоља'},
+      {title: 'Понашање', text: 'Жеља за сладким, промене апетита, умор'},
+      {title: 'Сан', text: 'Тешкоће са спавањем или мање одморан сан'},
+    ],
+    section3Body:
+      'Хормонске флуктуације, нарочито прогестерона и естрогена, утичу на невротрансмитере у мозгу (серотонин, допамин), што може објаснити емоционалне и физичке симптоме ПМС-а.',
+    tip2Title: 'Хормони играју кључну улогу',
+    tip2Text:
+      'Хормонске флуктуације могу утицати на расположење, енергију, сан и одређена физичка осећања.',
+    tips: [
+      {title: 'Пиј довољно', text: 'Довољно пијење воде помаже да се смањи надутост.'},
+      {title: 'Једи уравнотежено', text: 'Преферирај храну богату магнезијумом, омега-3 и витаминима групе B.'},
+      {title: 'Буди активна', text: 'Физичка активност ослобађа ендорфине и смањује стрес.'},
+      {title: 'Управљај стресом', text: 'Дихање, медитација, вођење дневника… Пронађи шта теби одговара.'},
+      {title: 'Спавај довољно', text: 'Квалитетан сан подржава хормонску равнотежу.'},
+    ],
+    consultTitle: 'Када потражити медицински савет?',
+    consultText:
+      'Ако су симптоми веома јаки и утичу на твој свакодневни живот, може бити реч о предменструалном дисфоричном поремећају (ПМДП). Не оклевај да се консултујеш са здравственим радником.',
+    shareMessage: 'Предменструални синдром (ПМС): разуми га боље — AWA',
+  },
+  hr: {
+    badge: 'CIKLUS I DOBROBIT',
+    title: 'Predmenstrualni sindrom (PMS):\nbolje ga razumjeti',
+    metaDuration: '4 min čitanja',
+    metaValidated: 'Provjeren sadržaj',
+    intro:
+      'PMS pogađa do 8 od 10 žena. Umor, razdražljivost, nadutost… Razumijevanje uzroka i usvajanje pravih navika može uvelike poboljšati ovo razdoblje mjeseca.',
+    contentsTitle: 'U ovom članku',
+    contents: [
+      'Što je PMS?',
+      'Česti simptomi',
+      'Mogući uzroci',
+      'Savjeti za bolje osjećanje',
+      'Kada posjetiti liječnika?',
+    ],
+    section1Body:
+      'Predmenstrualni sindrom okuplja tjelesne i emocionalne simptome koji se obično pojavljuju 5 do 10 dana prije menstruacije i nestaju na početku menstrualnog ciklusa.',
+    visual1Title: 'Faza povezana s tvojim ciklusom',
+    visual1Text:
+      'Simptomi se javljaju prije menstruacije i obično popuštaju kad ona počne.',
+    tip1Title: 'Dobro je znati',
+    tip1Text:
+      'Intenzitet i vrsta simptoma mogu se jako razlikovati od žene do žene i od ciklusa do ciklusa.',
+    symptoms: [
+      {title: 'Emocije', text: 'Razdražljivost, tjeskoba, tuga, promjene raspoloženja'},
+      {title: 'Tjelesni', text: 'Nadutost, bol, umor, glavobolje'},
+      {title: 'Ponašanje', text: 'Žudnja za šećerom, promjene apetita, umor'},
+      {title: 'San', text: 'Poteškoće sa spavanjem ili manje odmoran san'},
+    ],
+    section3Body:
+      'Hormonske fluktuacije, osobito progesterona i estrogena, utječu na neurotransmitere u mozgu (serotonin, dopamin), što može objasniti emocionalne i tjelesne simptome PMS-a.',
+    tip2Title: 'Hormoni imaju ključnu ulogu',
+    tip2Text:
+      'Hormonske fluktuacije mogu utjecati na raspoloženje, energiju, san i određene tjelesne osjećaje.',
+    tips: [
+      {title: 'Ostani hidrirana', text: 'Dovoljno pijenje vode pomaže smanjiti nadutost.'},
+      {title: 'Jedi uravnoteženo', text: 'Daj prednost namirnicama bogatima magnezijem, omega-3 masnim kiselinama i vitaminima B.'},
+      {title: 'Ostani aktivna', text: 'Tjelesna aktivnost oslobađa endorfine i smanjuje stres.'},
+      {title: 'Upravljaj stresom', text: 'Vježbe disanja, meditacija, pisanje dnevnika… Pronađi što ti odgovara.'},
+      {title: 'Spavaj dovoljno', text: 'Kvalitetan san podupire hormonsku ravnotežu.'},
+    ],
+    consultTitle: 'Kada zatražiti liječnički savjet?',
+    consultText:
+      'Ako su simptomi vrlo intenzivni i utječu na tvoj svakodnevni život, može biti riječ o predmenstrualnom disforičnom poremećaju (PMDD). Ne oklijevaj posavjetovati se sa zdravstvenim djelatnikom.',
+    shareMessage: 'Predmenstrualni sindrom (PMS): bolje ga razumjeti — AWA',
+  },
+  bs: {
+    badge: 'CIKLUS I DOBROBIT',
+    title: 'Predmenstrualni sindrom (PMS):\nbolje ga razumjeti',
+    metaDuration: '4 min čitanja',
+    metaValidated: 'Provjeren sadržaj',
+    intro:
+      'PMS pogađa do 8 od 10 žena. Umor, razdražljivost, nadutost… Razumijevanje uzroka i usvajanje pravih navika može uvelike poboljšati ovo razdoblje mjeseca.',
+    contentsTitle: 'U ovom članku',
+    contents: [
+      'Što je PMS?',
+      'Česti simptomi',
+      'Mogući uzroci',
+      'Savjeti za bolje osjećanje',
+      'Kada posjetiti ljekara?',
+    ],
+    section1Body:
+      'Predmenstrualni sindrom okuplja tjelesne i emocionalne simptome koji se obično pojavljuju 5 do 10 dana prije menstruacije i nestaju na početku menstrualnog ciklusa.',
+    visual1Title: 'Faza povezana s tvojim ciklusom',
+    visual1Text:
+      'Simptomi se javljaju prije menstruacije i obično popuštaju kad ona počne.',
+    tip1Title: 'Dobro je znati',
+    tip1Text:
+      'Intenzitet i vrsta simptoma mogu se jako razlikovati od žene do žene i od ciklusa do ciklusa.',
+    symptoms: [
+      {title: 'Emocije', text: 'Razdražljivost, tjeskoba, tuga, promjene raspoloženja'},
+      {title: 'Tjelesni', text: 'Nadutost, bol, umor, glavobolje'},
+      {title: 'Ponašanje', text: 'Žudnja za šećerom, promjene apetita, umor'},
+      {title: 'San', text: 'Poteškoće sa spavanjem ili manje odmoran san'},
+    ],
+    section3Body:
+      'Hormonske fluktuacije, osobito progesterona i estrogena, utječu na neurotransmitere u mozgu (serotonin, dopamin), što može objasniti emocionalne i tjelesne simptome PMS-a.',
+    tip2Title: 'Hormoni imaju ključnu ulogu',
+    tip2Text:
+      'Hormonske fluktuacije mogu utjecati na raspoloženje, energiju, san i određene tjelesne osjećaje.',
+    tips: [
+      {title: 'Ostani hidrirana', text: 'Dovoljno pijenje vode pomaže smanjiti nadutost.'},
+      {title: 'Jedi uravnoteženo', text: 'Daj prednost namirnicama bogatima magnezijem, omega-3 masnim kiselinama i vitaminima B.'},
+      {title: 'Ostani aktivna', text: 'Tjelesna aktivnost oslobađa endorfine i smanjuje stres.'},
+      {title: 'Upravljaj stresom', text: 'Vježbe disanja, meditacija, pisanje dnevnika… Pronađi što ti odgovara.'},
+      {title: 'Spavaj dovoljno', text: 'Kvalitetan san podupire hormonsku ravnotežu.'},
+    ],
+    consultTitle: 'Kada zatražiti ljekarski savjet?',
+    consultText:
+      'Ako su simptomi vrlo intenzivni i utječu na tvoj svakodnevni život, može biti riječ o predmenstrualnom disforičnom poremećaju (PMDD). Ne oklijevaj posavjetovati se sa zdravstvenim radnikom.',
+    shareMessage: 'Predmenstrualni sindrom (PMS): bolje ga razumjeti — AWA',
+  },
+  sl: {
+    badge: 'CIKEL IN DOBRO POČUTJE',
+    title: 'Predmenstrualni sindrom (PMS):\nbolje ga razumeti',
+    metaDuration: '4 min branja',
+    metaValidated: 'Preverjena vsebina',
+    intro:
+      'PMS prizadene do 8 od 10 žensk. Utrujenost, razdražljivost, napihnjenost… Razumevanje vzrokov in privzgojitev pravih navad lahko močno izboljša to obdobje meseca.',
+    contentsTitle: 'V tem članku',
+    contents: [
+      'Kaj je PMS?',
+      'Pogosti simptomi',
+      'Možni vzroki',
+      'Nasveti za boljše počutje',
+      'Kdaj obiskati zdravnika?',
+    ],
+    section1Body:
+      'Predmenstrualni sindrom združuje telesne in čustvene simptome, ki se običajno pojavijo 5 do 10 dni pred menstruacijo in izginejo na začetku menstrualnega cikla.',
+    visual1Title: 'Faza, povezana s tvojim ciklom',
+    visual1Text:
+      'Simptomi se pojavijo pred menstruacijo in običajno popustijo, ko se ta začne.',
+    tip1Title: 'Vredno vedeti',
+    tip1Text:
+      'Intenzivnost in vrsta simptomov se lahko močno razlikujeta od ženske do ženske in od cikla do cikla.',
+    symptoms: [
+      {title: 'Čustva', text: 'Razdražljivost, tesnoba, žalost, spremembe razpoloženja'},
+      {title: 'Telesni', text: 'Napihnjenost, bolečina, utrujenost, glavoboli'},
+      {title: 'Vedenje', text: 'Hrepenenje po sladkem, spremembe apetita, utrujenost'},
+      {title: 'Spanje', text: 'Težave s spanjem ali manj počitka vreden spanec'},
+    ],
+    section3Body:
+      'Hormonska nihanja, zlasti progesterona in estrogena, vplivajo na nevrotransmiterje v možganih (serotonin, dopamin), kar lahko pojasni čustvene in telesne simptome PMS.',
+    tip2Title: 'Hormoni imajo ključno vlogo',
+    tip2Text:
+      'Hormonska nihanja lahko vplivajo na razpoloženje, energijo, spanje in določene telesne občutke.',
+    tips: [
+      {title: 'Ostani hidrirana', text: 'Dovolj pitja vode pomaga zmanjšati napihnjenost.'},
+      {title: 'Jej uravnoteženo', text: 'Daj prednost živilom, bogatim z magnezijem, omega-3 maščobnimi kislinami in vitamini B.'},
+      {title: 'Ostani aktivna', text: 'Telesna dejavnost sprošča endorfine in zmanjšuje stres.'},
+      {title: 'Obvladuj stres', text: 'Vaje dihanja, meditacija, pisanje dnevnika… Poišči, kaj ti ustreza.'},
+      {title: 'Spi dovolj', text: 'Kakovosten spanec podpira hormonsko ravnovesje.'},
+    ],
+    consultTitle: 'Kdaj poiskati zdravniški nasvet?',
+    consultText:
+      'Če so simptomi zelo intenzivni in vplivajo na tvoje vsakdanje življenje, gre lahko za predmenstrualno disforično motnjo (PMDD). Ne oklevaj posvetovati se z zdravstvenim delavcem.',
+    shareMessage: 'Predmenstrualni sindrom (PMS): bolje ga razumeti — AWA',
+  },
+  ne: {
+    badge: 'चक्र र भलाइ',
+    title: 'महिनावारीपूर्वको सिन्ड्रोम (PMS):\nराम्ररी बुझ्नुहोस्',
+    metaDuration: '4 मिनेट पढाइ',
+    metaValidated: 'समीक्षा गरिएको सामग्री',
+    intro:
+      'PMS ले 10 मध्ये 8 जना महिलालाई असर गर्न सक्छ। थकान, चिडचिडाहट, पेट फुल्ने… यसका कारणहरू बुझ्नु र सही बानी अपनाउनुले महिनाको यो समयलाई निकै सुधार्न सक्छ।',
+    contentsTitle: 'यो लेखमा',
+    contents: [
+      'PMS के हो?',
+      'सामान्य लक्षणहरू',
+      'सम्भावित कारणहरू',
+      'राम्रो महसुस गर्ने सुझावहरू',
+      'चिकित्सकलाई कहिले देखाउने?',
+    ],
+    section1Body:
+      'महिनावारीपूर्वको सिन्ड्रोमले शारीरिक र भावनात्मक लक्षणहरू जम्मा गर्छ जुन सामान्यतया तपाईंको महिनावारी आउनुभन्दा 5 देखि 10 दिनअघि देखिन्छन् र मासिक चक्रको सुरुमा हराउँछन्।',
+    visual1Title: 'तपाईंको चक्रसँग जोडिएको एउटा चरण',
+    visual1Text:
+      'लक्षणहरू महिनावारीअघि देखिन्छन् र सामान्यतया यो सुरु भएपछि हल्का हुन्छन्।',
+    tip1Title: 'जान्न लायक',
+    tip1Text:
+      'लक्षणहरूको तीव्रता र प्रकार एक महिलादेखि अर्कोमा, र एक चक्रदेखि अर्कोमा निकै फरक हुन सक्छ।',
+    symptoms: [
+      {title: 'भावनाहरू', text: 'चिडचिडाहट, चिन्ता, उदासी, मनोदशाको उतारचढाव'},
+      {title: 'शारीरिक', text: 'पेट फुल्ने, दुखाइ, थकान, टाउको दुखाइ'},
+      {title: 'व्यवहार', text: 'गुलियो खाने चाहना, भोकमा परिवर्तन, थकान'},
+      {title: 'निद्रा', text: 'निदाउन गाह्रो वा कम आरामदायी निद्रा'},
+    ],
+    section3Body:
+      'हर्मोनल उतारचढाव, विशेष गरी प्रोजेस्टेरोन र एस्ट्रोजेनमा, ले मस्तिष्कका न्यूरोट्रान्समिटर (सेरोटोनिन, डोपामिन) लाई असर गर्छ, जसले PMS का भावनात्मक र शारीरिक लक्षणहरू व्याख्या गर्न सक्छ।',
+    tip2Title: 'हर्मोनहरूले मुख्य भूमिका खेल्छन्',
+    tip2Text:
+      'हर्मोनल उतारचढावले मनोदशा, ऊर्जा, निद्रा र केही शारीरिक अनुभूतिहरूलाई असर गर्न सक्छ।',
+    tips: [
+      {title: 'पर्याप्त पानी पिउनुहोस्', text: 'पर्याप्त पानी पिउनाले पेट फुल्ने कम गर्न मद्दत गर्छ।'},
+      {title: 'सन्तुलित खानपान गर्नुहोस्', text: 'म्याग्नेसियम, ओमेगा-3 र बी भिटामिन भरपूर खानेकुरालाई प्राथमिकता दिनुहोस्।'},
+      {title: 'सक्रिय रहनुहोस्', text: 'शारीरिक गतिविधिले एन्डोर्फिन निकाल्छ र तनाव घटाउँछ।'},
+      {title: 'आफ्नो तनाव व्यवस्थापन गर्नुहोस्', text: 'सास फेर्ने व्यायाम, ध्यान, डायरी लेखन… तपाईंलाई के काम लाग्छ पत्ता लगाउनुहोस्।'},
+      {title: 'पर्याप्त निद्रा लिनुहोस्', text: 'गुणस्तरीय निद्राले हर्मोनल सन्तुलनलाई साथ दिन्छ।'},
+    ],
+    consultTitle: 'चिकित्सकीय सल्लाह कहिले लिनुपर्छ?',
+    consultText:
+      'लक्षणहरू निकै तीव्र छन् र तपाईंको दैनिक जीवनलाई असर गर्छन् भने, यो महिनावारीपूर्वको डिस्फोरिक डिसअर्डर (PMDD) हुन सक्छ। स्वास्थ्यकर्मीसँग परामर्श गर्न नहिच्किचाउनुहोस्।',
+    shareMessage: 'महिनावारीपूर्वको सिन्ड्रोम (PMS): राम्ररी बुझ्नुहोस् — AWA',
+  },
+  si: {
+    badge: 'චක්‍රය සහ යහපැවැත්ම',
+    title: 'ඔසප්වලට පෙර සහලක්ෂණය (PMS):\nවඩා හොඳින් තේරුම් ගැනීම',
+    metaDuration: 'කියවීමට මිනිත්තු 4',
+    metaValidated: 'සමාලෝචනය කළ අන්තර්ගතය',
+    intro:
+      'PMS කාන්තාවන් 10න් 8ක් දක්වා බලපායි. වෙහෙස, කෝපශීලී බව, බඩ ඉදිමීම… එහි හේතු තේරුම් ගැනීම සහ නිවැරදි පුරුදු අනුගමනය කිරීම මාසයේ මෙම කාලය බොහෝ සේ වැඩිදියුණු කළ හැක.',
+    contentsTitle: 'මෙම ලිපියේ',
+    contents: [
+      'PMS යනු කුමක්ද?',
+      'පොදු රෝග ලක්ෂණ',
+      'ඇතිවිය හැකි හේතු',
+      'වඩා හොඳින් දැනීමට ඉඟි',
+      'වෛද්‍යවරයෙකු හමුවිය යුත්තේ කවදාද?',
+    ],
+    section1Body:
+      'ඔසප්වලට පෙර සහලක්ෂණය සාමාන්‍යයෙන් ඔබේ ඔසප්වලට දින 5 සිට 10 දක්වා කලින් දිස්වන සහ ඔසප් චක්‍රය ආරම්භයේදී පහව යන ශාරීරික සහ චිත්තවේගී රෝග ලක්ෂණ එකට ගෙන එයි.',
+    visual1Title: 'ඔබේ චක්‍රයට බැඳුණු අවධියක්',
+    visual1Text:
+      'රෝග ලක්ෂණ ඔබේ ඔසප්වලට පෙර දිස්වන අතර එය ආරම්භ වූ පසු සාමාන්‍යයෙන් සමනය වේ.',
+    tip1Title: 'දැනගත යුතු දේ',
+    tip1Text:
+      'රෝග ලක්ෂණවල තීව්‍රතාව සහ වර්ගය කාන්තාවකගෙන් තවත් කාන්තාවකට සහ චක්‍රයෙන් චක්‍රයට බොහෝ සේ වෙනස් විය හැක.',
+    symptoms: [
+      {title: 'චිත්තවේග', text: 'කෝපශීලී බව, කනස්සල්ල, දුක, මනෝභාව උච්චාවචනය'},
+      {title: 'ශාරීරික', text: 'බඩ ඉදිමීම, වේදනාව, වෙහෙස, හිසරදය'},
+      {title: 'හැසිරීම', text: 'සීනි ආශාව, ආහාර රුචියේ වෙනස්කම්, වෙහෙස'},
+      {title: 'නින්ද', text: 'නිදාගැනීමේ අපහසුව හෝ අඩු සැහැල්ලු නින්ද'},
+    ],
+    section3Body:
+      'හෝමෝන උච්චාවචනය, විශේෂයෙන් ප්‍රොජෙස්ටරෝන් සහ එස්ට්‍රජන්, මොළයේ ස්නායු සම්ප්‍රේෂකවලට (සෙරොටොනින්, ඩොපමින්) බලපායි, එය PMS හි චිත්තවේගී සහ ශාරීරික රෝග ලක්ෂණ පැහැදිලි කළ හැක.',
+    tip2Title: 'හෝමෝන ප්‍රධාන කාර්යභාරයක් ඉටු කරයි',
+    tip2Text:
+      'හෝමෝන උච්චාවචනය මනෝභාවයට, ශක්තියට, නින්දට සහ සමහර ශාරීරික සංවේදනයන්ට බලපෑ හැක.',
+    tips: [
+      {title: 'ජලය පානය කර සිටින්න', text: 'ප්‍රමාණවත් ජලය පානය කිරීම බඩ ඉදිමීම අඩු කිරීමට උපකාරී වේ.'},
+      {title: 'සමතුලිත ආහාර වේලක් අනුභව කරන්න', text: 'මැග්නීසියම්, ඔමේගා-3 සහ B විටමින් බහුල ආහාරවලට ප්‍රමුඛත්වය දෙන්න.'},
+      {title: 'ක්‍රියාශීලීව සිටින්න', text: 'ශාරීරික ක්‍රියාකාරකම එන්ඩෝෆින් මුදා හරින අතර ආතතිය අඩු කරයි.'},
+      {title: 'ඔබේ ආතතිය කළමනාකරණය කරන්න', text: 'හුස්ම ගැනීමේ ව්‍යායාම, භාවනාව, දිනපොත් ලිවීම… ඔබට ගැළපෙන දේ සොයාගන්න.'},
+      {title: 'ප්‍රමාණවත් නින්ද ගන්න', text: 'ගුණාත්මක නින්ද හෝමෝන සමතුලිතතාවට සහාය වේ.'},
+    ],
+    consultTitle: 'ඔබ වෛද්‍ය උපදෙස් ලබාගත යුත්තේ කවදාද?',
+    consultText:
+      'රෝග ලක්ෂණ ඉතා දැඩි වී ඔබේ එදිනෙදා ජීවිතයට බලපාන්නේ නම්, එය ඔසප්වලට පෙර ඩිස්ෆොරික් ආබාධය (PMDD) විය හැක. සෞඛ්‍ය වෘත්තිකයෙකු හමුවීමට මැළි නොවන්න.',
+    shareMessage: 'ඔසප්වලට පෙර සහලක්ෂණය (PMS): වඩා හොඳින් තේරුම් ගැනීම — AWA',
+  },
+  th: {
+    badge: 'รอบเดือนและความเป็นอยู่ที่ดี',
+    title: 'กลุ่มอาการก่อนมีประจำเดือน (PMS):\nทำความเข้าใจให้ดียิ่งขึ้น',
+    metaDuration: 'อ่าน 4 นาที',
+    metaValidated: 'เนื้อหาที่ผ่านการตรวจสอบ',
+    intro:
+      'PMS เกิดกับผู้หญิงถึง 8 ใน 10 คน ความเหนื่อยล้า ความหงุดหงิด ท้องอืด… การเข้าใจสาเหตุและมีนิสัยที่เหมาะสมช่วยให้ช่วงเวลานี้ของเดือนดีขึ้นมาก',
+    contentsTitle: 'ในบทความนี้',
+    contents: [
+      'PMS คืออะไร?',
+      'อาการที่พบบ่อย',
+      'สาเหตุที่เป็นไปได้',
+      'เคล็ดลับเพื่อให้รู้สึกดีขึ้น',
+      'เมื่อไรควรพบแพทย์?',
+    ],
+    section1Body:
+      'กลุ่มอาการก่อนมีประจำเดือนรวมอาการทางกายและทางอารมณ์ที่มักปรากฏ 5 ถึง 10 วันก่อนมีประจำเดือน และหายไปเมื่อเริ่มรอบเดือน',
+    visual1Title: 'ระยะที่เชื่อมโยงกับรอบเดือนของคุณ',
+    visual1Text:
+      'อาการปรากฏก่อนมีประจำเดือนและมักบรรเทาเมื่อเริ่มมา',
+    tip1Title: 'ควรรู้',
+    tip1Text:
+      'ความรุนแรงและประเภทของอาการแตกต่างกันมากในผู้หญิงแต่ละคน และในแต่ละรอบเดือน',
+    symptoms: [
+      {title: 'อารมณ์', text: 'หงุดหงิด วิตกกังวล เศร้า อารมณ์แปรปรวน'},
+      {title: 'ร่างกาย', text: 'ท้องอืด ปวด เหนื่อยล้า ปวดหัว'},
+      {title: 'พฤติกรรม', text: 'อยากกินของหวาน ความอยากอาหารเปลี่ยน เหนื่อยล้า'},
+      {title: 'การนอน', text: 'นอนหลับยากหรือหลับไม่สนิท'},
+    ],
+    section3Body:
+      'ความผันผวนของฮอร์โมน โดยเฉพาะโปรเจสเตอโรนและเอสโตรเจน ส่งผลต่อสารสื่อประสาทในสมอง (เซโรโทนิน โดพามีน) ซึ่งอาจอธิบายอาการทางอารมณ์และทางกายของ PMS',
+    tip2Title: 'ฮอร์โมนมีบทบาทสำคัญ',
+    tip2Text:
+      'ความผันผวนของฮอร์โมนอาจส่งผลต่ออารมณ์ พลังงาน การนอนหลับ และความรู้สึกทางกายบางอย่าง',
+    tips: [
+      {title: 'ดื่มน้ำให้เพียงพอ', text: 'การดื่มน้ำให้เพียงพอช่วยลดอาการท้องอืด'},
+      {title: 'กินอาหารที่สมดุล', text: 'เลือกอาหารที่อุดมด้วยแมกนีเซียม โอเมก้า-3 และวิตามินบี'},
+      {title: 'ขยับร่างกาย', text: 'กิจกรรมทางกายหลั่งเอนดอร์ฟินและลดความเครียด'},
+      {title: 'จัดการความเครียด', text: 'การฝึกหายใจ การทำสมาธิ การเขียนบันทึก… หาสิ่งที่เหมาะกับคุณ'},
+      {title: 'นอนให้พอ', text: 'การนอนหลับที่มีคุณภาพสนับสนุนสมดุลของฮอร์โมน'},
+    ],
+    consultTitle: 'เมื่อไรควรขอคำแนะนำทางการแพทย์?',
+    consultText:
+      'หากอาการรุนแรงมากและส่งผลต่อชีวิตประจำวัน อาจเป็นโรคอารมณ์แปรปรวนก่อนมีประจำเดือน (PMDD) อย่าลังเลที่จะปรึกษาบุคลากรทางการแพทย์',
+    shareMessage: 'กลุ่มอาการก่อนมีประจำเดือน (PMS): ทำความเข้าใจให้ดียิ่งขึ้น — AWA',
+  },
+  vi: {
+    badge: 'CHU KỲ & SỨC KHỎE',
+    title: 'Hội chứng tiền kinh nguyệt (PMS):\nhiểu rõ hơn',
+    metaDuration: '4 phút đọc',
+    metaValidated: 'Nội dung đã được thẩm định',
+    intro:
+      'PMS ảnh hưởng đến tới 8 trên 10 phụ nữ. Mệt mỏi, cáu gắt, đầy hơi… Hiểu nguyên nhân và áp dụng những thói quen đúng có thể cải thiện rất nhiều thời gian này trong tháng.',
+    contentsTitle: 'Trong bài viết này',
+    contents: [
+      'PMS là gì?',
+      'Các triệu chứng thường gặp',
+      'Những nguyên nhân có thể có',
+      'Mẹo để cảm thấy tốt hơn',
+      'Khi nào nên đi khám bác sĩ?',
+    ],
+    section1Body:
+      'Hội chứng tiền kinh nguyệt tập hợp các triệu chứng thể chất và cảm xúc thường xuất hiện 5 đến 10 ngày trước kỳ kinh và hết khi chu kỳ kinh nguyệt bắt đầu.',
+    visual1Title: 'Một giai đoạn gắn liền với chu kỳ của bạn',
+    visual1Text:
+      'Các triệu chứng xuất hiện trước kỳ kinh và thường dịu đi khi kỳ kinh bắt đầu.',
+    tip1Title: 'Nên biết',
+    tip1Text:
+      'Cường độ và loại triệu chứng có thể khác nhau rất nhiều giữa từng phụ nữ, và từ chu kỳ này sang chu kỳ khác.',
+    symptoms: [
+      {title: 'Cảm xúc', text: 'Cáu gắt, lo âu, buồn bã, thay đổi tâm trạng'},
+      {title: 'Thể chất', text: 'Đầy hơi, đau, mệt mỏi, đau đầu'},
+      {title: 'Hành vi', text: 'Thèm đồ ngọt, thay đổi cảm giác thèm ăn, mệt mỏi'},
+      {title: 'Giấc ngủ', text: 'Khó ngủ hoặc giấc ngủ kém yên hơn'},
+    ],
+    section3Body:
+      'Những dao động nội tiết, đặc biệt của progesterone và estrogen, ảnh hưởng đến các chất dẫn truyền thần kinh trong não (serotonin, dopamine), điều này có thể giải thích các triệu chứng cảm xúc và thể chất của PMS.',
+    tip2Title: 'Hormone đóng vai trò then chốt',
+    tip2Text:
+      'Dao động nội tiết có thể ảnh hưởng đến tâm trạng, năng lượng, giấc ngủ và một số cảm giác thể chất.',
+    tips: [
+      {title: 'Uống đủ nước', text: 'Uống đủ nước giúp giảm đầy hơi.'},
+      {title: 'Ăn uống cân bằng', text: 'Ưu tiên thực phẩm giàu magiê, omega-3 và vitamin nhóm B.'},
+      {title: 'Duy trì vận động', text: 'Hoạt động thể chất giải phóng endorphin và giảm căng thẳng.'},
+      {title: 'Kiểm soát căng thẳng', text: 'Bài tập hít thở, thiền, viết nhật ký… Hãy tìm điều phù hợp với bạn.'},
+      {title: 'Ngủ đủ giấc', text: 'Giấc ngủ chất lượng hỗ trợ cân bằng nội tiết.'},
+    ],
+    consultTitle: 'Khi nào nên tìm lời khuyên y khoa?',
+    consultText:
+      'Nếu các triệu chứng rất dữ dội và ảnh hưởng đến cuộc sống hằng ngày, đó có thể là rối loạn tiền kinh nguyệt (PMDD). Đừng ngần ngại hỏi ý kiến nhân viên y tế.',
+    shareMessage: 'Hội chứng tiền kinh nguyệt (PMS): hiểu rõ hơn — AWA',
+  },
+  uz: {
+    badge: 'SIKL VA FAROVONLIK',
+    title: 'Hayz oldi sindromi (HOS):\nyaxshiroq tushunish',
+    metaDuration: '4 daq oʻqish',
+    metaValidated: 'Tasdiqlangan kontent',
+    intro:
+      'HOS ayollarning 10 tadan 8 tasigacha taʼsir qiladi. Charchoq, jizzakilik, shishish… Uning sabablarini tushunish va toʻgʻri odatlarni qabul qilish oyning bu davrini sezilarli yaxshilashi mumkin.',
+    contentsTitle: 'Ushbu maqolada',
+    contents: [
+      'HOS nima?',
+      'Keng tarqalgan alomatlar',
+      'Mumkin boʻlgan sabablar',
+      'Oʻzingizni yaxshi his qilish uchun maslahatlar',
+      'Qachon shifokorga borish kerak?',
+    ],
+    section1Body:
+      'Hayz oldi sindromi odatda hayzdan 5 kundan 10 kungacha oldin paydo boʻladigan va hayz siklining boshida yoʻqoladigan jismoniy va hissiy alomatlarni birlashtiradi.',
+    visual1Title: 'Siklingiz bilan bogʻliq bosqich',
+    visual1Text:
+      'Alomatlar hayzdan oldin paydo boʻladi va u boshlanganda odatda yengillashadi.',
+    tip1Title: 'Bilish foydali',
+    tip1Text:
+      'Alomatlarning kuchi va turi ayoldan ayolga va sikldan sikliga katta farq qilishi mumkin.',
+    symptoms: [
+      {title: 'Hissiyotlar', text: 'Jizzakilik, xavotir, qaygʻu, kayfiyatning keskin oʻzgarishi'},
+      {title: 'Jismoniy', text: 'Shishish, ogʻriq, charchoq, bosh ogʻrigʻi'},
+      {title: 'Xulq-atvor', text: 'Shirinlikka ishtiyoq, ishtaha oʻzgarishi, charchoq'},
+      {title: 'Uyqu', text: 'Uxlashda qiyinchilik yoki kamroq dam beruvchi uyqu'},
+    ],
+    section3Body:
+      'Gormonal tebranishlar, ayniqsa progesteron va estrogenniki, miyaning neyromediatorlariga (serotonin, dofamin) taʼsir qiladi va bu HOS ning hissiy va jismoniy alomatlarini tushuntirishi mumkin.',
+    tip2Title: 'Gormonlar muhim rol oʻynaydi',
+    tip2Text:
+      'Gormonal tebranishlar kayfiyatga, energiyaga, uyquga va baʼzi jismoniy sezgilarga taʼsir qilishi mumkin.',
+    tips: [
+      {title: 'Suv balansini saqlang', text: 'Yetarli suv ichish shishishni kamaytirishga yordam beradi.'},
+      {title: 'Muvozanatli ovqatlaning', text: 'Magniy, omega-3 va B vitaminlariga boy oziq-ovqatlarni afzal koʻring.'},
+      {title: 'Faol boʻling', text: 'Jismoniy faollik endorfinlarni chiqaradi va stressni kamaytiradi.'},
+      {title: 'Stressni boshqaring', text: 'Nafas olish mashqlari, meditatsiya, kundalik yuritish… Oʻzingizga mosini toping.'},
+      {title: 'Yetarli uxlang', text: 'Sifatli uyqu gormonal muvozanatni qoʻllab-quvvatlaydi.'},
+    ],
+    consultTitle: 'Qachon tibbiy maslahat olish kerak?',
+    consultText:
+      'Agar alomatlar juda kuchli boʻlsa va kundalik hayotingizga taʼsir qilsa, bu hayz oldi disforik buzilishi (HODB) boʻlishi mumkin. Sogʻliqni saqlash mutaxassisiga murojaat qilishdan tortinmang.',
+    shareMessage: 'Hayz oldi sindromi (HOS): yaxshiroq tushunish — AWA',
+  },
+  az: {
+    badge: 'DÖVR VƏ RIFAH',
+    title: 'Premenstrual sindrom (PMS):\nonu daha yaxşı anlamaq',
+    metaDuration: '4 dəq oxu',
+    metaValidated: 'Yoxlanılmış məzmun',
+    intro:
+      'PMS hər 10 qadından 8-nə qədərinə təsir edir. Yorğunluq, əsəbilik, şişkinlik… Onun səbəblərini anlamaq və düzgün vərdişlər qəbul etmək ayın bu dövrünü xeyli yaxşılaşdıra bilər.',
+    contentsTitle: 'Bu məqalədə',
+    contents: [
+      'PMS nədir?',
+      'Geniş yayılmış simptomlar',
+      'Mümkün səbəblər',
+      'Özünüzü yaxşı hiss etmək üçün məsləhətlər',
+      'Nə vaxt həkimə müraciət etmək lazımdır?',
+    ],
+    section1Body:
+      'Premenstrual sindrom adətən aybaşından 5–10 gün əvvəl görünən və menstrual dövrün başlanğıcında keçib gedən fiziki və emosional simptomları birləşdirir.',
+    visual1Title: 'Dövrünüzlə bağlı faza',
+    visual1Text:
+      'Simptomlar aybaşından əvvəl görünür və adətən o başlayanda yüngülləşir.',
+    tip1Title: 'Bilmək faydalıdır',
+    tip1Text:
+      'Simptomların intensivliyi və növü bir qadından digərinə və bir dövrdən digərinə çox dəyişə bilər.',
+    symptoms: [
+      {title: 'Emosiyalar', text: 'Əsəbilik, narahatlıq, kədər, əhval dəyişkənliyi'},
+      {title: 'Fiziki', text: 'Şişkinlik, ağrı, yorğunluq, baş ağrıları'},
+      {title: 'Davranış', text: 'Şirniyyata meyl, iştahanın dəyişməsi, yorğunluq'},
+      {title: 'Yuxu', text: 'Yuxu problemləri və ya daha az dincəldici yuxu'},
+    ],
+    section3Body:
+      'Hormonal dalğalanmalar, xüsusilə progesteron və östrogenin dalğalanmaları, beyin neyromediatorlarına (serotonin, dopamin) təsir edir ki, bu da PMS-in emosional və fiziki simptomlarını izah edə bilər.',
+    tip2Title: 'Hormonların əsas rolu var',
+    tip2Text:
+      'Hormonal dalğalanmalar əhvala, enerjiyə, yuxuya və bəzi fiziki hisslərə təsir edə bilər.',
+    tips: [
+      {title: 'Hidratasiyanı qoruyun', text: 'Kifayət qədər su içmək şişkinliyi azaltmağa kömək edir.'},
+      {title: 'Balanslı qidalanın', text: 'Maqnezium, omeqa-3 və B vitaminləri ilə zəngin qidalara üstünlük verin.'},
+      {title: 'Aktiv qalın', text: 'Fiziki fəaliyyət endorfinlər ifraz edir və stressi azaldır.'},
+      {title: 'Stressi idarə edin', text: 'Nəfəs məşqləri, meditasiya, gündəlik yazmaq… Sizə uyğun olanı tapın.'},
+      {title: 'Kifayət qədər yatın', text: 'Keyfiyyətli yuxu hormonal tarazlığı dəstəkləyir.'},
+    ],
+    consultTitle: 'Nə vaxt tibbi məsləhət almaq lazımdır?',
+    consultText:
+      'Simptomlar çox şiddətlidirsə və gündəlik həyatınıza təsir edirsə, bu, premenstrual disforik pozuntu (PMDB) ola bilər. Tibb işçisinə müraciət etməkdən çəkinməyin.',
+    shareMessage: 'Premenstrual sindrom (PMS): onu daha yaxşı anlamaq — AWA',
+  },
+  ka: {
+    badge: 'ციკლი და კეთილდღეობა',
+    title: 'მენსტრუაციამდელი სინდრომი (PMS):\nუკეთ გაგება',
+    metaDuration: '4 წთ საკითხავი',
+    metaValidated: 'გადამოწმებული შინაარსი',
+    intro:
+      'PMS ქალების 10-დან 8-მდე ეხება. დაღლილობა, გაღიზიანებადობა, შებერვა… მისი მიზეზების გაგებას და სწორი ჩვევების შემუშავებას შეუძლია თვის ეს დრო მნიშვნელოვნად გააუმჯობესოს.',
+    contentsTitle: 'ამ სტატიაში',
+    contents: [
+      'რა არის PMS?',
+      'გავრცელებული სიმპტომები',
+      'შესაძლო მიზეზები',
+      'რჩევები უკეთ ყოფნისთვის',
+      'როდის მივმართოთ ექიმს?',
+    ],
+    section1Body:
+      'მენსტრუაციამდელი სინდრომი აერთიანებს ფიზიკურ და ემოციურ სიმპტომებს, რომლებიც, როგორც წესი, მენსტრუაციამდე 5-დან 10 დღით ადრე ჩნდება და მენსტრუაციული ციკლის დასაწყისში გადის.',
+    visual1Title: 'თქვენს ციკლთან დაკავშირებული ფაზა',
+    visual1Text:
+      'სიმპტომები მენსტრუაციამდე ჩნდება და, როგორც წესი, მისი დაწყების შემდეგ ნელდება.',
+    tip1Title: 'კარგია ვიცოდეთ',
+    tip1Text:
+      'სიმპტომების ინტენსივობა და ტიპი ქალიდან ქალამდე და ციკლიდან ციკლამდე ძლიერ შეიძლება განსხვავდებოდეს.',
+    symptoms: [
+      {title: 'ემოციები', text: 'გაღიზიანებადობა, შფოთვა, სევდა, ხასიათის ცვალებადობა'},
+      {title: 'ფიზიკური', text: 'შებერვა, ტკივილი, დაღლილობა, თავის ტკივილი'},
+      {title: 'ქცევა', text: 'შაქრის სურვილი, მადის ცვლილებები, დაღლილობა'},
+      {title: 'ძილი', text: 'ძილის სირთულე ან ნაკლებად დამამშვიდებელი ძილი'},
+    ],
+    section3Body:
+      'ჰორმონული ცვალებადობა, განსაკუთრებით პროგესტერონისა და ესტროგენის, ტვინის ნეიროტრანსმიტერებზე (სეროტონინი, დოფამინი) მოქმედებს, რამაც შეიძლება PMS-ის ემოციური და ფიზიკური სიმპტომები ახსნას.',
+    tip2Title: 'ჰორმონებს მთავარი როლი აქვთ',
+    tip2Text:
+      'ჰორმონულმა ცვალებადობამ შეიძლება ხასიათზე, ენერგიაზე, ძილსა და ზოგიერთ ფიზიკურ შეგრძნებაზე იმოქმედოს.',
+    tips: [
+      {title: 'შეინარჩუნეთ ჰიდრატაცია', text: 'საკმარისი წყლის დალევა შებერვის შემცირებაში გეხმარებათ.'},
+      {title: 'ჭამეთ დაბალანსებულად', text: 'მიანიჭეთ უპირატესობა მაგნიუმით, ომეგა-3-ით და B ჯგუფის ვიტამინებით მდიდარ საკვებს.'},
+      {title: 'დარჩით აქტიურები', text: 'ფიზიკური აქტივობა ენდორფინებს გამოყოფს და სტრესს ამცირებს.'},
+      {title: 'მართეთ თქვენი სტრესი', text: 'სუნთქვის ვარჯიშები, მედიტაცია, დღიური… იპოვეთ, რა გერგებათ.'},
+      {title: 'ჩაიძინეთ საკმარისად', text: 'ხარისხიანი ძილი ჰორმონულ ბალანსს უჭერს მხარს.'},
+    ],
+    consultTitle: 'როდის უნდა მოიძიოთ სამედიცინო რჩევა?',
+    consultText:
+      'თუ სიმპტომები ძალიან ინტენსიურია და ყოველდღიურ ცხოვრებაზე მოქმედებს, ეს შეიძლება მენსტრუაციამდელი დისფორიული აშლილობა (PMDD) იყოს. ნუ დააყოვნებთ ჯანდაცვის სპეციალისტთან მიმართვას.',
+    shareMessage: 'მენსტრუაციამდელი სინდრომი (PMS): უკეთ გაგება — AWA',
+  },
+  hy: {
+    badge: 'ՑԻԿԼ ԵՎ ԲԱՐԵԿԵՑՈՒԹՅՈՒՆ',
+    title: 'Նախադաշտանային համախտանիշ (ՆԴՀ).\nավելի լավ հասկանալ',
+    metaDuration: '4 ր կարդալու համար',
+    metaValidated: 'Վերանայված բովանդակություն',
+    intro:
+      'ՆԴՀ-ն ազդում է 10 կնոջից մինչև 8-ի վրա: Հոգնածություն, դյուրագրգռություն, ուռածություն… Դրա պատճառները հասկանալը և ճիշտ սովորություններ որդեգրելը կարող է զգալիորեն բարելավել ամսվա այս շրջանը:',
+    contentsTitle: 'Այս հոդվածում',
+    contents: [
+      'Ի՞նչ է ՆԴՀ-ն',
+      'Տարածված ախտանիշներ',
+      'Հնարավոր պատճառներ',
+      'Խորհուրդներ՝ ավելի լավ զգալու համար',
+      'Ե՞րբ դիմել բժշկի',
+    ],
+    section1Body:
+      'Նախադաշտանային համախտանիշը միավորում է ֆիզիկական և հուզական ախտանիշներ, որոնք սովորաբար հայտնվում են դաշտանից 5–10 օր առաջ և անցնում են դաշտանային ցիկլի սկզբում:',
+    visual1Title: 'Ձեր ցիկլին կապված փուլ',
+    visual1Text:
+      'Ախտանիշները հայտնվում են դաշտանից առաջ և սովորաբար թեթևանում են, երբ այն սկսվում է:',
+    tip1Title: 'Լավ է իմանալ',
+    tip1Text:
+      'Ախտանիշների ինտենսիվությունը և տեսակը կարող են խիստ տարբերվել մի կնոջից մյուսը և մի ցիկլից մյուսը:',
+    symptoms: [
+      {title: 'Հույզեր', text: 'Դյուրագրգռություն, անհանգստություն, տխրություն, տրամադրության տատանումներ'},
+      {title: 'Ֆիզիկական', text: 'Ուռածություն, ցավ, հոգնածություն, գլխացավեր'},
+      {title: 'Վարք', text: 'Շաքարի ցանկություն, ախորժակի փոփոխություններ, հոգնածություն'},
+      {title: 'Քուն', text: 'Քնելու դժվարություն կամ ավելի քիչ հանգստացնող քուն'},
+    ],
+    section3Body:
+      'Հորմոնալ տատանումները, մասնավորապես պրոգեստերոնի և էստրոգենի, ազդում են ուղեղի նեյրոհաղորդիչների վրա (սերոտոնին, դոֆամին), ինչը կարող է բացատրել ՆԴՀ-ի հուզական և ֆիզիկական ախտանիշները:',
+    tip2Title: 'Հորմոնները առանցքային դեր են խաղում',
+    tip2Text:
+      'Հորմոնալ տատանումները կարող են ազդել տրամադրության, էներգիայի, քնի և որոշ ֆիզիկական զգացողությունների վրա:',
+    tips: [
+      {title: 'Մնացեք հիդրատացված', text: 'Բավարար ջուր խմելը օգնում է նվազեցնել ուռածությունը:'},
+      {title: 'Սնվեք հավասարակշռված', text: 'Նախապատվություն տվեք մագնեզիումով, օմեգա-3-ով և B խմբի վիտամիններով հարուստ սննդին:'},
+      {title: 'Մնացեք ակտիվ', text: 'Ֆիզիկական ակտիվությունը ազատում է էնդորֆիններ և նվազեցնում սթրեսը:'},
+      {title: 'Կառավարեք ձեր սթրեսը', text: 'Շնչառական վարժություններ, մեդիտացիա, օրագիր վարել… Գտեք, թե ինչն է ձեզ համար աշխատում:'},
+      {title: 'Բավարար քնեք', text: 'Որակյալ քունը աջակցում է հորմոնալ հավասարակշռությանը:'},
+    ],
+    consultTitle: 'Ե՞րբ պետք է բժշկական խորհուրդ փնտրել',
+    consultText:
+      'Եթե ախտանիշները շատ ինտենսիվ են և ազդում են ձեր առօրյայի վրա, դա կարող է լինել նախադաշտանային դիսֆորիկ խանգարում (ՆԴԴԽ): Մի տատանվեք դիմել առողջապահության մասնագետի:',
+    shareMessage: 'Նախադաշտանային համախտանիշ (ՆԴՀ). ավելի լավ հասկանալ — AWA',
+  },
+  tg: {
+    badge: 'ДАВРА ВА НЕКӮАҲВОЛӢ',
+    title: 'Синдроми пеш аз ҳайз (СПҲ):\nбеҳтар фаҳмидани он',
+    metaDuration: '4 дақ барои хондан',
+    metaValidated: 'Мазмуни баррасишуда',
+    intro:
+      'СПҲ то 8 нафар аз 10 занро фаро мегирад. Хастагӣ, асабоният, дамидани шикам… Фаҳмидани сабабҳои он ва қабули одатҳои дуруст метавонад ин вақти моҳро хеле беҳтар кунад.',
+    contentsTitle: 'Дар ин мақола',
+    contents: [
+      'СПҲ чист?',
+      'Нишонаҳои маъмул',
+      'Сабабҳои имконпазир',
+      'Маслиҳатҳо барои беҳтар эҳсос кардан',
+      'Кай ба табиб муроҷиат кардан лозим аст?',
+    ],
+    section1Body:
+      'Синдроми пеш аз ҳайз нишонаҳои ҷисмонӣ ва ҳиссиро ҷамъ мекунад, ки одатан 5 то 10 рӯз пеш аз ҳайзи шумо пайдо мешаванд ва дар оғози давраи ҳайз нест мешаванд.',
+    visual1Title: 'Марҳилае, ки ба давраи шумо вобаста аст',
+    visual1Text:
+      'Нишонаҳо пеш аз ҳайз пайдо мешаванд ва одатан пас аз оғози он сабук мешаванд.',
+    tip1Title: 'Донистан хуб аст',
+    tip1Text:
+      'Шиддат ва навъи нишонаҳо метавонад аз зан ба зан ва аз давра то давра хеле гуногун бошад.',
+    symptoms: [
+      {title: 'Эҳсосот', text: 'Асабоният, изтироб, ғамгинӣ, тағйироти кайфият'},
+      {title: 'Ҷисмонӣ', text: 'Дамидани шикам, дард, хастагӣ, дарди сар'},
+      {title: 'Рафтор', text: 'Хоҳиши ширинӣ, тағйироти иштиҳо, хастагӣ'},
+      {title: 'Хоб', text: 'Душвории хоб ё хоби камистироҳат'},
+    ],
+    section3Body:
+      'Тағйироти гормонӣ, хусусан дар прогестерон ва эстроген, ба нейротрансмиттерҳои майна (серотонин, допамин) таъсир мерасонанд, ки метавонад нишонаҳои ҳиссӣ ва ҷисмонии СПҲ-ро шарҳ диҳад.',
+    tip2Title: 'Гормонҳо нақши калидӣ доранд',
+    tip2Text:
+      'Тағйироти гормонӣ метавонад ба кайфият, қувват, хоб ва баъзе эҳсосоти ҷисмонӣ таъсир расонад.',
+    tips: [
+      {title: 'Обнӯшии кофӣ', text: 'Нӯшидани оби кофӣ ба кам кардани дамидани шикам кумак мекунад.'},
+      {title: 'Ғизои мутавозин', text: 'Хӯрокҳои бойи магний, омега-3 ва витаминҳои гурӯҳи B-ро афзал донед.'},
+      {title: 'Фаъол бошед', text: 'Фаъолияти ҷисмонӣ эндорфинҳоро озод мекунад ва стрессро кам мекунад.'},
+      {title: 'Стресси худро идора кунед', text: 'Машқҳои нафаскашӣ, мулоҳиза, дафтари рӯзнома… Он чиро, ки барои шумо кор мекунад, ёбед.'},
+      {title: 'Ба қадри кофӣ хоб кунед', text: 'Хоби босифат тавозуни гормониро дастгирӣ мекунад.'},
+    ],
+    consultTitle: 'Кай бояд маслиҳати тиббӣ пурсид?',
+    consultText:
+      'Агар нишонаҳо хеле шадид бошанд ва ба ҳаёти ҳаррӯзаи шумо таъсир расонанд, ин метавонад ихтилоли дисфорикии пеш аз ҳайз (ИДПҲ) бошад. Ба мутахассиси соҳаи тиб муроҷиат кардан шарм надоред.',
+    shareMessage: 'Синдроми пеш аз ҳайз (СПҲ): беҳтар фаҳмидани он — AWA',
+  },
+  ky: {
+    badge: 'ЦИКЛ ЖАНА ЖЫРГАЛЧЫЛЫК',
+    title: 'Етек киримге чейинки синдром (ЕЧС):\nжакшыраак түшүнүү',
+    metaDuration: '4 мүн окуу',
+    metaValidated: 'Текшерилген мазмун',
+    intro:
+      'ЕЧС аялдардын 10дон 8ине чейин таасир этет. Чарчоо, ачуулануу, ич көбүшү… Анын себептерин түшүнүү жана туура адаттарды өздөштүрүү айдын бул убагын бир кыйла жакшыртышы мүмкүн.',
+    contentsTitle: 'Бул макалада',
+    contents: [
+      'ЕЧС деген эмне?',
+      'Кеңири таралган белгилер',
+      'Мүмкүн болгон себептер',
+      'Өзүңүздү жакшы сезүү боюнча кеңештер',
+      'Дарыгерге качан барыш керек?',
+    ],
+    section1Body:
+      'Етек киримге чейинки синдром адатта етек киримден 5–10 күн мурун пайда боло турган жана етек кирим циклинин башталышында жоголгон физикалык жана эмоционалдык белгилерди бириктирет.',
+    visual1Title: 'Циклиңизге байланышкан фаза',
+    visual1Text:
+      'Белгилер етек киримден мурун пайда болот жана ал башталгандан кийин адатта басаңдайт.',
+    tip1Title: 'Билүү пайдалуу',
+    tip1Text:
+      'Белгилердин курчтугу жана түрү аялдан аялга жана циклден циклге бир кыйла айырмаланышы мүмкүн.',
+    symptoms: [
+      {title: 'Эмоциялар', text: 'Ачуулануу, тынчсыздануу, кайгы, маанайдын термелиши'},
+      {title: 'Физикалык', text: 'Ич көбүшү, оору, чарчоо, баш оору'},
+      {title: 'Жүрүм-турум', text: 'Таттууга болгон каалоо, табиттин өзгөрүшү, чарчоо'},
+      {title: 'Уйку', text: 'Уйкунун бузулушу же азыраак эс алдырган уйку'},
+    ],
+    section3Body:
+      'Гормондук термелүүлөр, айрыкча прогестерон менен эстрогенде, мээнин нейротрансмиттерлерине (серотонин, дофамин) таасир этет, бул ЕЧСтин эмоционалдык жана физикалык белгилерин түшүндүрүшү мүмкүн.',
+    tip2Title: 'Гормондор негизги роль ойнойт',
+    tip2Text:
+      'Гормондук термелүүлөр маанайга, энергияга, уйкуга жана айрым физикалык сезимдерге таасир этиши мүмкүн.',
+    tips: [
+      {title: 'Суюктук ичиңиз', text: 'Жетиштүү суу ичүү ич көбүшүн азайтууга жардам берет.'},
+      {title: 'Тең салмактуу тамактаныңыз', text: 'Магнийге, омега-3кө жана В витаминдерине бай азыктарга артыкчылык бериңиз.'},
+      {title: 'Активдүү болуңуз', text: 'Физикалык активдүүлүк эндорфиндерди бөлүп чыгарат жана стрессти азайтат.'},
+      {title: 'Стрессиңизди башкарыңыз', text: 'Дем алуу көнүгүүлөрү, медитация, журнал жүргүзүү… Өзүңүзгө ылайыктуусун табыңыз.'},
+      {title: 'Жетиштүү уктаңыз', text: 'Сапаттуу уйку гормондук тең салмактуулукту колдойт.'},
+    ],
+    consultTitle: 'Медициналык кеңешти качан сурап кайрылуу керек?',
+    consultText:
+      'Эгер белгилер абдан күчтүү болуп, күнүмдүк жашооңузга таасир этсе, бул етек киримге чейинки дисфориялык бузулуу (ЕЧДБ) болушу мүмкүн. Ден соолук сактоо адисине кайрылуудан тартынбаңыз.',
+    shareMessage: 'Етек киримге чейинки синдром (ЕЧС): жакшыраак түшүнүү — AWA',
+  },
+  tk: {
+    badge: 'SIKL WE ABADANÇYLYK',
+    title: 'Aýbaşydan öňki sindrom (AÖS):\nony has gowy düşünmek',
+    metaDuration: '4 min okamak',
+    metaValidated: 'Barlanan mazmun',
+    intro:
+      'AÖS 10 aýalyň 8-ne çenlisine täsir edýär. Ýadawlyk, gaharjaňlyk, garnyň çişmegi… Onuň sebäplerini düşünmek we dogry endikleri kabul etmek aýyň bu döwrüni ep-esli gowulandyryp biler.',
+    contentsTitle: 'Bu makalada',
+    contents: [
+      'AÖS näme?',
+      'Umumy alamatlar',
+      'Mümkin sebäpler',
+      'Özüňizi gowy duýmak üçin maslahatlar',
+      'Lukmana haçan ýüz tutmaly?',
+    ],
+    section1Body:
+      'Aýbaşydan öňki sindrom adatça aýbaşyňyzdan 5–10 gün öň peýda bolýan we aýbaşy sikliniň başynda ýitýän fiziki we duýgusal alamatlary jemleýär.',
+    visual1Title: 'Sikliňiz bilen baglanyşykly tapgyr',
+    visual1Text:
+      'Alamatlar aýbaşydan öň peýda bolýar we ol başlandan soň adatça ýeňilleşýär.',
+    tip1Title: 'Bilmek peýdaly',
+    tip1Text:
+      'Alamatlaryň güýçlüligi we görnüşi aýaldan aýala we sikldan sika köp tapawutlanyp biler.',
+    symptoms: [
+      {title: 'Duýgular', text: 'Gaharjaňlyk, biynjalyklyk, gam, keýp üýtgeşmeleri'},
+      {title: 'Fiziki', text: 'Garnyň çişmegi, agyry, ýadawlyk, kelle agyrylary'},
+      {title: 'Özüňi alyp barş', text: 'Şeker islegi, iýmit islegindäki üýtgeşmeler, ýadawlyk'},
+      {title: 'Uky', text: 'Uklamakda kynçylyk ýa-da az dynç berýän uky'},
+    ],
+    section3Body:
+      'Gormonal yrgyldylar, aýratyn-da progesteron we estrogende, beýnidäki neýromediatorlara (serotonin, dofamin) täsir edýär, bu AÖS-iň duýgusal we fiziki alamatlaryny düşündirip biler.',
+    tip2Title: 'Gormonlar esasy rol oýnaýar',
+    tip2Text:
+      'Gormonal yrgyldylar keýbe, energiýa, uka we käbir fiziki duýgulara täsir edip biler.',
+    tips: [
+      {title: 'Suwly galyň', text: 'Ýeterlik suw içmek çişmegi azaltmaga kömek edýär.'},
+      {title: 'Deňagramly iýmitleniň', text: 'Magniýe, omega-3-e we B witaminlerine baý iýmitlere artykmaçlyk beriň.'},
+      {title: 'Işjeň galyň', text: 'Fiziki işjeňlik endorfinleri boşadýar we stresi azaldýar.'},
+      {title: 'Stresiňizi dolandyryň', text: 'Dem alyş maşklary, meditasiýa, gündelik ýazmak… Size näme laýykdygyny tapyň.'},
+      {title: 'Ýeterlik uklaň', text: 'Hilli uky gormonal deňagramlylyga goldaw berýär.'},
+    ],
+    consultTitle: 'Lukmançylyk maslahatyny haçan soramaly?',
+    consultText:
+      'Alamatlar gaty güýçli bolup, gündelik durmuşyňyza täsir edýän bolsa, bu aýbaşydan öňki disforik bozulma (AÖDB) bolup biler. Saglyk hünärmeni bilen maslahatlaşmakdan çekinmäň.',
+    shareMessage: 'Aýbaşydan öňki sindrom (AÖS): ony has gowy düşünmek — AWA',
   },
 } as const);
 

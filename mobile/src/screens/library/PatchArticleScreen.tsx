@@ -1074,72 +1074,6 @@ const CONTENT = withBrazilianPortuguese('Patch', {
     ],
     shareMessage: 'Præventionsplasteret — AWA',
   },
-  da: {
-    badge: 'PRÄVENTIONSPLASTER',
-    title: 'Präventions-\nplasteret',
-    metaDuration: '5 min läsning',
-    metaType: 'Artikel',
-    metaLevel: 'Grundläggende',
-    metaValidated: 'Gennemgået indhold',
-    intro: 'Et veckantligt alternativ till den daglige pille.',
-    contentsTitle: 'I denne artikel',
-    topics: [
-      'Hvordan plasteret virker',
-      'Brugsplan',
-      'Hvad du bör vide',
-      'Vigtige pointer',
-    ],
-    section1Body: 'Plasteret frigiver konstant hormoner gennem huden och virker ligesom en kombinationspille: det forhindrer äglösning och fortykker livmoderhalsslim.',
-    tip1Title: 'Godt at vide',
-    tip1Text: 'Dets vigtigste fordel ar, at der inte skal tages en daglig dosis.',
-    section2Body: 'Typisk skiftes plasteret én gang om veckan i tre veckor, efterfulgt av en vecka uden plaster.',
-    applicationTips: [
-      'Skift påföringssted ved hvert nyt plaster',
-      'Kontroller at plasteret fortfarande sidder godt fast',
-      'Påför på ren, tör hud',
-    ],
-    sectionIntro: 'Vigtige ting at vide inden och under brugen.',
-    facts: [
-      {
-        title: 'Hver uge',
-        text: 'Plasteret skiftes én gang om veckan.',
-      },
-      {
-        title: 'Tör hud',
-        text: 'Skal påföres på ren, tör hud.',
-      },
-      {
-        title: 'Beskyttelse',
-        text: 'Det virker kontinuerligt ved korrekt brug.',
-      },
-      {
-        title: 'Hold öje',
-        text: 'Hudirritation på påföringsstedet kan sommetider forekomme.',
-      },
-    ],
-    comparisonTitle: 'Fordele och begränsninger',
-    advantageTitle: 'Fordele',
-    advantages: [
-      '• Påsättes én gang om veckan',
-      '• Ingen daglig dosis',
-      '• Kontinuerlig hormonudledning',
-    ],
-    limitTitle: 'Begränsninger',
-    limits: [
-      'Beskytter inte mod seksuelt overförte infektioner',
-      'Kan give hudirritation',
-      'Skifteplanen skal overholdes',
-    ],
-    alertTitle: 'Bemärk',
-    alertText: 'Let irritation kan forekomme på påföringsstedet. At skifte påföringssteder kan hjälpe med at reducere dette.',
-    rememberTitle: '3 vigtige ting at huske',
-    remember: [
-      'Skift plasteret hver vecka.',
-      'Tjek regelmässigt at plasteret sidder godt fast.',
-      'Kontakt en halsasprofessionel om nödvendigt.',
-    ],
-    shareMessage: 'Präventionsplasteret — AWA',
-  },
   sv: {
     badge: 'PRÄVENTIONSPLASTER',
     title: 'Präventions-\nplasteret',
@@ -1205,6 +1139,1363 @@ const CONTENT = withBrazilianPortuguese('Patch', {
       'Kontakt en halsasprofessionel om nödvendigt.',
     ],
     shareMessage: 'Präventionsplasteret — AWA',
+  },
+  nb: {
+    badge: 'PREVENSJONSPLASTER',
+    title: 'Prevensjons-\nplasteret',
+    metaDuration: '5 min lesing',
+    metaType: 'Artikkel',
+    metaLevel: 'Nybegynner',
+    metaValidated: 'Gjennomgått innhold',
+    intro: 'Et ukentlig alternativ til den daglige p-pillen.',
+    contentsTitle: 'I denne artikkelen',
+    topics: [
+      'Hvordan plasteret virker',
+      'Plan for påsetting',
+      'Det du trenger å vite',
+      'Det viktigste å huske',
+    ],
+    section1Body:
+      'Plasteret frigjør hormoner kontinuerlig gjennom huden og virker på en måte som kan sammenlignes med kombinasjonspillen: det hindrer eggløsning og gjør livmorhalsslimet tykkere.',
+    tip1Title: 'Godt å vite',
+    tip1Text:
+      'Hovedfordelen er at det ikke krever en daglig dose.',
+    section2Body:
+      'Plasteret byttes vanligvis én gang i uken i tre uker, etterfulgt av en uke uten plaster.',
+    applicationTips: [
+      'Bytt påsettingssted hver gang',
+      'Kontroller at det fortsatt sitter godt fast',
+      'Sett det på ren, tørr hud',
+    ],
+    sectionIntro:
+      'De viktigste punktene å kjenne til før og under bruk.',
+    facts: [
+      {title: 'Hver uke', text: 'Plasteret byttes én gang i uken.'},
+      {title: 'Tørr hud', text: 'Det må settes på ren, tørr hud.'},
+      {title: 'Beskyttelse', text: 'Det virker kontinuerlig når det brukes riktig.'},
+      {title: 'Vær oppmerksom på', text: 'Lokal irritasjon kan noen ganger oppstå.'},
+    ],
+    comparisonTitle: 'Fordeler og begrensninger',
+    advantageTitle: 'Fordeler',
+    advantages: [
+      '• Én påsetting i uken',
+      '• Ingen daglig dose',
+      '• Kontinuerlig frigjøring av hormoner',
+    ],
+    limitTitle: 'Begrensninger',
+    limits: [
+      'Beskytter ikke mot SOI',
+      'Kan gi hudirritasjon',
+      'Krever at man holder seg til byttetidspunktene',
+    ],
+    alertTitle: 'Merk',
+    alertText:
+      'Lett irritasjon kan oppstå på påsettingsstedet. Å bytte påsettingssted kan bidra til å begrense dette.',
+    rememberTitle: 'De 3 viktigste',
+    remember: [
+      'Bytt plaster hver uke.',
+      'Kontroller jevnlig at det sitter godt fast.',
+      'Spør helsepersonell om råd ved behov.',
+    ],
+    shareMessage: 'Prevensjonsplasteret – AWA',
+  },
+  pl: {
+    badge: 'PLASTER ANTYKONCEPCYJNY',
+    title: 'Plaster\nantykoncepcyjny',
+    metaDuration: '5 min czytania',
+    metaType: 'Artykuł',
+    metaLevel: 'Początkujący',
+    metaValidated: 'Treść zweryfikowana',
+    intro: 'Cotygodniowa alternatywa dla codziennej tabletki.',
+    contentsTitle: 'W tym artykule',
+    topics: [
+      'Jak działa plaster',
+      'Harmonogram stosowania',
+      'Co warto wiedzieć',
+      'Najważniejsze wnioski',
+    ],
+    section1Body:
+      'Plaster stale uwalnia hormony przez skórę, działając w sposób porównywalny do tabletki złożonej: zapobiega owulacji i zagęszcza śluz szyjkowy.',
+    tip1Title: 'Warto wiedzieć',
+    tip1Text:
+      'Jego główną zaletą jest to, że nie wymaga codziennej dawki.',
+    section2Body:
+      'Plaster zmienia się zazwyczaj raz w tygodniu przez trzy tygodnie, po czym następuje tydzień bez plastra.',
+    applicationTips: [
+      'Za każdym razem zmieniaj miejsce przyklejenia',
+      'Sprawdzaj, czy nadal mocno się trzyma',
+      'Przyklejaj go na czystą, suchą skórę',
+    ],
+    sectionIntro:
+      'Najważniejsze informacje przed użyciem i w trakcie stosowania.',
+    facts: [
+      {title: 'Co tydzień', text: 'Plaster wymienia się raz w tygodniu.'},
+      {title: 'Sucha skóra', text: 'Należy go przyklejać na czystą, suchą skórę.'},
+      {title: 'Ochrona', text: 'Przy prawidłowym stosowaniu działa nieprzerwanie.'},
+      {title: 'Zwróć uwagę', text: 'Czasem może wystąpić miejscowe podrażnienie.'},
+    ],
+    comparisonTitle: 'Zalety i ograniczenia',
+    advantageTitle: 'Zalety',
+    advantages: [
+      '• Jedno przyklejenie tygodniowo',
+      '• Brak codziennej dawki',
+      '• Ciągłe uwalnianie hormonów',
+    ],
+    limitTitle: 'Ograniczenia',
+    limits: [
+      'Nie chroni przed chorobami przenoszonymi drogą płciową',
+      'Może powodować podrażnienie skóry',
+      'Wymaga przestrzegania harmonogramu wymiany',
+    ],
+    alertTitle: 'Zwróć uwagę',
+    alertText:
+      'W miejscu przyklejenia może pojawić się lekkie podrażnienie. Zmienianie miejsc przyklejenia może pomóc je ograniczyć.',
+    rememberTitle: '3 najważniejsze zasady',
+    remember: [
+      'Zmieniaj plaster co tydzień.',
+      'Regularnie sprawdzaj, czy dobrze się trzyma.',
+      'W razie potrzeby poproś o radę specjalistę.',
+    ],
+    shareMessage: 'Plaster antykoncepcyjny — AWA',
+  },
+  uk: {
+    badge: 'КОНТРАЦЕПТИВНИЙ ПЛАСТИР',
+    title: 'Контрацептивний\nпластир',
+    metaDuration: '5 хв читання',
+    metaType: 'Стаття',
+    metaLevel: 'Початковий',
+    metaValidated: 'Перевірений вміст',
+    intro: 'Щотижнева альтернатива щоденній таблетці.',
+    contentsTitle: 'У цій статті',
+    topics: [
+      'Як працює пластир',
+      'Графік застосування',
+      'Що варто знати',
+      'Головні висновки',
+    ],
+    section1Body:
+      'Пластир постійно вивільняє гормони через шкіру, діючи подібно до комбінованої таблетки: він запобігає овуляції та згущує цервікальний слиз.',
+    tip1Title: 'Варто знати',
+    tip1Text:
+      'Його головна перевага в тому, що не потребує щоденної дози.',
+    section2Body:
+      'Пластир зазвичай змінюють раз на тиждень протягом трьох тижнів, після чого настає тиждень без пластиру.',
+    applicationTips: [
+      'Щоразу змінюйте місце накладання',
+      'Перевіряйте, чи він усе ще міцно тримається',
+      'Накладайте його на чисту суху шкіру',
+    ],
+    sectionIntro:
+      'Ключові моменти, які варто знати до та під час застосування.',
+    facts: [
+      {title: 'Щотижня', text: 'Пластир змінюють раз на тиждень.'},
+      {title: 'Суха шкіра', text: 'Його слід накладати на чисту суху шкіру.'},
+      {title: 'Захист', text: 'За правильного застосування він діє безперервно.'},
+      {title: 'Зверніть увагу', text: 'Іноді може виникнути місцеве подразнення.'},
+    ],
+    comparisonTitle: 'Переваги та обмеження',
+    advantageTitle: 'Переваги',
+    advantages: [
+      '• Одне накладання на тиждень',
+      '• Без щоденної дози',
+      '• Безперервне вивільнення гормонів',
+    ],
+    limitTitle: 'Обмеження',
+    limits: [
+      'Не захищає від інфекцій, що передаються статевим шляхом',
+      'Може викликати подразнення шкіри',
+      'Потребує дотримання графіка заміни',
+    ],
+    alertTitle: 'Зверніть увагу',
+    alertText:
+      'У місці накладання може з’явитися легке подразнення. Чергування місць накладання може допомогти його обмежити.',
+    rememberTitle: '3 головні речі',
+    remember: [
+      'Змінюйте пластир щотижня.',
+      'Регулярно перевіряйте, чи він добре тримається.',
+      'За потреби попросіть поради в медичного працівника.',
+    ],
+    shareMessage: 'Контрацептивний пластир — AWA',
+  },
+  cs: {
+    badge: 'ANTIKONCEPČNÍ NÁPLAST',
+    title: 'Antikoncepční\nnáplast',
+    metaDuration: '5 min čtení',
+    metaType: 'Článek',
+    metaLevel: 'Začátečník',
+    metaValidated: 'Ověřený obsah',
+    intro: 'Týdenní alternativa k denní pilulce.',
+    contentsTitle: 'V tomto článku',
+    topics: [
+      'Jak náplast funguje',
+      'Rozvrh aplikace',
+      'Co potřebujete vědět',
+      'Hlavní poznatky',
+    ],
+    section1Body:
+      'Náplast průběžně uvolňuje hormony přes kůži a působí způsobem srovnatelným s kombinovanou pilulkou: zabraňuje ovulaci a zahušťuje cervikální hlen.',
+    tip1Title: 'Stojí za to vědět',
+    tip1Text:
+      'Jejím hlavním přínosem je, že nevyžaduje denní dávku.',
+    section2Body:
+      'Náplast se obvykle mění jednou týdně po dobu tří týdnů, po nichž následuje týden bez náplasti.',
+    applicationTips: [
+      'Pokaždé měňte místo aplikace',
+      'Kontrolujte, zda stále pevně drží',
+      'Aplikujte ji na čistou, suchou kůži',
+    ],
+    sectionIntro:
+      'Klíčové body, které je třeba znát před použitím i během něj.',
+    facts: [
+      {title: 'Každý týden', text: 'Náplast se mění jednou týdně.'},
+      {title: 'Suchá kůže', text: 'Musí se aplikovat na čistou, suchou kůži.'},
+      {title: 'Ochrana', text: 'Při správném používání působí nepřetržitě.'},
+      {title: 'Na co dát pozor', text: 'Občas se může objevit místní podráždění.'},
+    ],
+    comparisonTitle: 'Výhody a limity',
+    advantageTitle: 'Výhody',
+    advantages: [
+      '• Jedna aplikace týdně',
+      '• Žádná denní dávka',
+      '• Nepřetržité uvolňování hormonů',
+    ],
+    limitTitle: 'Limity',
+    limits: [
+      'Nechrání před sexuálně přenosnými infekcemi',
+      'Může způsobit podráždění kůže',
+      'Vyžaduje dodržování rozvrhu výměn',
+    ],
+    alertTitle: 'Upozornění',
+    alertText:
+      'V místě aplikace se může objevit mírné podráždění. Střídání míst aplikace to může pomoci omezit.',
+    rememberTitle: '3 základní věci',
+    remember: [
+      'Měňte náplast každý týden.',
+      'Pravidelně kontrolujte, zda dobře drží.',
+      'V případě potřeby požádejte o radu zdravotnického pracovníka.',
+    ],
+    shareMessage: 'Antikoncepční náplast — AWA',
+  },
+  sk: {
+    badge: 'ANTIKONCEPČNÁ NÁPLASŤ',
+    title: 'Antikoncepčná\nnáplasť',
+    metaDuration: '5 min čítania',
+    metaType: 'Článok',
+    metaLevel: 'Začiatočník',
+    metaValidated: 'Overený obsah',
+    intro: 'Týždenná alternatíva ku každodennej tablete.',
+    contentsTitle: 'V tomto článku',
+    topics: [
+      'Ako náplasť funguje',
+      'Rozvrh aplikácie',
+      'Čo treba vedieť',
+      'Hlavné body',
+    ],
+    section1Body:
+      'Náplasť nepretržite uvoľňuje hormóny cez kožu a pôsobí podobne ako kombinovaná tableta: bráni ovulácii a zahusťuje cervikálny hlien.',
+    tip1Title: 'Stojí za to vedieť',
+    tip1Text:
+      'Jej hlavnou výhodou je, že nevyžaduje dennú dávku.',
+    section2Body:
+      'Náplasť sa zvyčajne vymieňa raz týždenne počas troch týždňov, po ktorých nasleduje týždeň bez náplasti.',
+    applicationTips: [
+      'Pri každej výmene zmeňte miesto aplikácie',
+      'Skontrolujte, či stále pevne drží',
+      'Aplikujte ju na čistú a suchú pokožku',
+    ],
+    sectionIntro:
+      'Kľúčové body, ktoré treba poznať pred používaním aj počas neho.',
+    facts: [
+      {title: 'Každý týždeň', text: 'Náplasť sa vymieňa raz týždenne.'},
+      {title: 'Suchá pokožka', text: 'Musí sa aplikovať na čistú a suchú pokožku.'},
+      {title: 'Ochrana', text: 'Pri správnom používaní pôsobí nepretržite.'},
+      {title: 'Pozor na', text: 'Občas sa môže objaviť miestne podráždenie.'},
+    ],
+    comparisonTitle: 'Výhody a obmedzenia',
+    advantageTitle: 'Výhody',
+    advantages: [
+      '• Jedna aplikácia týždenne',
+      '• Žiadna denná dávka',
+      '• Nepretržité uvoľňovanie hormónov',
+    ],
+    limitTitle: 'Obmedzenia',
+    limits: [
+      'Nechráni pred STI',
+      'Môže spôsobiť podráždenie kože',
+      'Vyžaduje dodržiavanie rozvrhu výmeny',
+    ],
+    alertTitle: 'Upozornenie',
+    alertText:
+      'Na mieste aplikácie sa môže objaviť mierne podráždenie. Striedanie miest aplikácie môže pomôcť ho obmedziť.',
+    rememberTitle: '3 základné veci',
+    remember: [
+      'Náplasť meňte každý týždeň.',
+      'Pravidelne kontrolujte, či dobre drží.',
+      'V prípade potreby požiadajte o radu zdravotníckeho pracovníka.',
+    ],
+    shareMessage: 'Antikoncepčná náplasť — AWA',
+  },
+  hu: {
+    badge: 'FOGAMZÁSGÁTLÓ TAPASZ',
+    title: 'A fogamzásgátló\ntapasz',
+    metaDuration: '5 perc olvasás',
+    metaType: 'Cikk',
+    metaLevel: 'Kezdő',
+    metaValidated: 'Ellenőrzött tartalom',
+    intro: 'Heti alternatíva a napi tablettához.',
+    contentsTitle: 'Ebben a cikkben',
+    topics: [
+      'Hogyan működik a tapasz',
+      'A felhelyezés ütemezése',
+      'Amit tudnod kell',
+      'Legfontosabb tudnivalók',
+    ],
+    section1Body:
+      'A tapasz folyamatosan hormonokat bocsát ki a bőrön keresztül, a kombinált tablettához hasonló módon működve: megakadályozza a peteérést, és sűrűbbé teszi a méhnyaknyálkát.',
+    tip1Title: 'Érdemes tudni',
+    tip1Text:
+      'Fő előnye, hogy nem igényel napi adagot.',
+    section2Body:
+      'A tapaszt általában hetente egyszer cserélik három héten át, amelyet egy tapasz nélküli hét követ.',
+    applicationTips: [
+      'Minden alkalommal változtasd a felhelyezés helyét',
+      'Ellenőrizd, hogy még szilárdan tapad-e',
+      'Tiszta, száraz bőrre helyezd fel',
+    ],
+    sectionIntro:
+      'A kulcspontok, amelyeket a használat előtt és alatt érdemes tudni.',
+    facts: [
+      {title: 'Minden héten', text: 'A tapaszt hetente egyszer cserélik.'},
+      {title: 'Száraz bőr', text: 'Tiszta, száraz bőrre kell felhelyezni.'},
+      {title: 'Védelem', text: 'Helyes használat esetén folyamatosan hat.'},
+      {title: 'Figyelj arra', text: 'Alkalmanként helyi irritáció léphet fel.'},
+    ],
+    comparisonTitle: 'Előnyök és korlátok',
+    advantageTitle: 'Előnyök',
+    advantages: [
+      '• Hetente egy felhelyezés',
+      '• Nincs napi adag',
+      '• Folyamatos hormonleadás',
+    ],
+    limitTitle: 'Korlátok',
+    limits: [
+      'Nem véd az STI-k ellen',
+      'Bőrirritációt okozhat',
+      'A cserék ütemezésének betartását igényli',
+    ],
+    alertTitle: 'Figyelem',
+    alertText:
+      'A felhelyezés helyén enyhe irritáció jelentkezhet. A felhelyezési helyek váltogatása segíthet ezt korlátozni.',
+    rememberTitle: 'A 3 legfontosabb',
+    remember: [
+      'Cseréld a tapaszt minden héten.',
+      'Rendszeresen ellenőrizd, hogy jól tapad-e.',
+      'Szükség esetén kérj tanácsot egészségügyi szakembertől.',
+    ],
+    shareMessage: 'A fogamzásgátló tapasz — AWA',
+  },
+  ro: {
+    badge: 'PLASTURE CONTRACEPTIV',
+    title: 'Plasturele\ncontraceptiv',
+    metaDuration: '5 min de citit',
+    metaType: 'Articol',
+    metaLevel: 'Începător',
+    metaValidated: 'Conținut revizuit',
+    intro: 'O alternativă săptămânală la pilula zilnică.',
+    contentsTitle: 'În acest articol',
+    topics: [
+      'Cum funcționează plasturele',
+      'Programul de aplicare',
+      'Ce trebuie să știi',
+      'Ce să reții',
+    ],
+    section1Body:
+      'Plasturele eliberează continuu hormoni prin piele, funcționând într-un mod comparabil cu pilula combinată: împiedică ovulația și îngroașă mucusul cervical.',
+    tip1Title: 'Bine de știut',
+    tip1Text:
+      'Principalul său avantaj este că nu necesită o doză zilnică.',
+    section2Body:
+      'Plasturele se schimbă în general o dată pe săptămână, timp de trei săptămâni, urmate de o săptămână fără plasture.',
+    applicationTips: [
+      'Schimbă locul de aplicare de fiecare dată',
+      'Verifică dacă este încă bine lipit',
+      'Aplică-l pe piele curată și uscată',
+    ],
+    sectionIntro:
+      'Punctele-cheie de știut înainte și în timpul folosirii.',
+    facts: [
+      {title: 'În fiecare săptămână', text: 'Plasturele se înlocuiește o dată pe săptămână.'},
+      {title: 'Piele uscată', text: 'Trebuie aplicat pe piele curată și uscată.'},
+      {title: 'Protecție', text: 'Funcționează continuu atunci când este folosit corect.'},
+      {title: 'De urmărit', text: 'Uneori poate apărea o iritație locală.'},
+    ],
+    comparisonTitle: 'Avantaje și limite',
+    advantageTitle: 'Avantaje',
+    advantages: [
+      '• O aplicare pe săptămână',
+      '• Fără doză zilnică',
+      '• Eliberare continuă de hormoni',
+    ],
+    limitTitle: 'Limite',
+    limits: [
+      'Nu protejează împotriva ITS',
+      'Poate provoca iritații ale pielii',
+      'Necesită respectarea calendarului de înlocuire',
+    ],
+    alertTitle: 'Atenție',
+    alertText:
+      'O ușoară iritație poate apărea la locul de aplicare. Alternarea locurilor de aplicare poate ajuta la limitarea ei.',
+    rememberTitle: 'Cele 3 lucruri esențiale',
+    remember: [
+      'Schimbă plasturele în fiecare săptămână.',
+      'Verifică regulat dacă se lipește bine.',
+      'Cere sfatul unui profesionist din domeniul sănătății, la nevoie.',
+    ],
+    shareMessage: 'Plasturele contraceptiv — AWA',
+  },
+  bg: {
+    badge: 'КОНТРАЦЕПТИВЕН ПЛАСТИР',
+    title: 'Контрацептивният\nпластир',
+    metaDuration: '5 мин четене',
+    metaType: 'Статия',
+    metaLevel: 'Начинаещ',
+    metaValidated: 'Проверено съдържание',
+    intro: 'Седмична алтернатива на ежедневното хапче.',
+    contentsTitle: 'В тази статия',
+    topics: [
+      'Как действа пластирът',
+      'График на поставяне',
+      'Какво трябва да знаеш',
+      'Какво да запомниш',
+    ],
+    section1Body:
+      'Пластирът непрекъснато освобождава хормони през кожата и действа по начин, сравним с комбинираното хапче: предотвратява овулацията и сгъстява цервикалната слуз.',
+    tip1Title: 'Добре е да знаеш',
+    tip1Text:
+      'Основното му предимство е, че не изисква ежедневен прием.',
+    section2Body:
+      'Пластирът обикновено се сменя веднъж седмично в продължение на три седмици, последвани от една седмица без пластир.',
+    applicationTips: [
+      'Сменяй мястото на поставяне всеки път',
+      'Проверявай дали все още е здраво залепен',
+      'Поставяй го върху чиста и суха кожа',
+    ],
+    sectionIntro:
+      'Основните неща, които да знаеш преди и по време на употреба.',
+    facts: [
+      {title: 'Всяка седмица', text: 'Пластирът се сменя веднъж седмично.'},
+      {title: 'Суха кожа', text: 'Трябва да се поставя върху чиста и суха кожа.'},
+      {title: 'Защита', text: 'Действа непрекъснато, когато се използва правилно.'},
+      {title: 'Внимание', text: 'Понякога може да се появи местно дразнене.'},
+    ],
+    comparisonTitle: 'Предимства и ограничения',
+    advantageTitle: 'Предимства',
+    advantages: [
+      '• Едно поставяне седмично',
+      '• Без ежедневен прием',
+      '• Непрекъснато освобождаване на хормони',
+    ],
+    limitTitle: 'Ограничения',
+    limits: [
+      'Не предпазва от ППИ',
+      'Може да предизвика дразнене на кожата',
+      'Изисква спазване на графика за смяна',
+    ],
+    alertTitle: 'Обърни внимание',
+    alertText:
+      'На мястото на поставяне може да се появи леко дразнене. Редуването на местата на поставяне може да помогне да се ограничи.',
+    rememberTitle: 'Трите основни неща',
+    remember: [
+      'Сменяй пластира всяка седмица.',
+      'Проверявай редовно дали залепва добре.',
+      'При нужда поискай съвет от здравен специалист.',
+    ],
+    shareMessage: 'Контрацептивният пластир — AWA',
+  },
+  sr: {
+    badge: 'КОНТРАЦЕПТИВНИ ФЛАСТЕР',
+    title: 'Контрацептивни\nфластер',
+    metaDuration: '5 мин читања',
+    metaType: 'Чланак',
+    metaLevel: 'Почетник',
+    metaValidated: 'Проверен садржај',
+    intro: 'Седмична алтернатива дневној пилули.',
+    contentsTitle: 'У овом чланку',
+    topics: [
+      'Како фластер делује',
+      'Распоред стављања',
+      'Шта треба да знаш',
+      'Шта да запамтиш',
+    ],
+    section1Body:
+      'Фластер непрекидно ослобађа хормоне кроз кожу и делује на начин упоредив са комбинованом пилулом: спречава овулацију и згушњава цервикалну слуз.',
+    tip1Title: 'Добро је знати',
+    tip1Text:
+      'Његова главна предност је да не захтева дневну дозу.',
+    section2Body:
+      'Фластер се обично мења једном недељно током три недеље, а затим следи једна недеља без фластера.',
+    applicationTips: [
+      'Сваки пут промени место стављања',
+      'Провери да ли је и даље чврсто залепљен',
+      'Стави га на чисту, суву кожу',
+    ],
+    sectionIntro:
+      'Кључне ствари које треба знати пре и током употребе.',
+    facts: [
+      {title: 'Сваке недеље', text: 'Фластер се мења једном недељно.'},
+      {title: 'Сува кожа', text: 'Мора се ставити на чисту, суву кожу.'},
+      {title: 'Заштита', text: 'Делује непрекидно када се правилно користи.'},
+      {title: 'Пази', text: 'Понекад може доћи до локалне иритације.'},
+    ],
+    comparisonTitle: 'Предности и ограничења',
+    advantageTitle: 'Предности',
+    advantages: [
+      '• Једно стављање недељно',
+      '• Без дневне дозе',
+      '• Непрекидно ослобађање хормона',
+    ],
+    limitTitle: 'Ограничења',
+    limits: [
+      'Не штити од ППИ',
+      'Може изазвати иритацију коже',
+      'Захтева придржавање распореда замене',
+    ],
+    alertTitle: 'Обрати пажњу',
+    alertText:
+      'На месту стављања може се појавити лагана иритација. Смењивање места стављања може помоћи да се ово ограничи.',
+    rememberTitle: 'Три основна правила',
+    remember: [
+      'Мењај фластер сваке недеље.',
+      'Редовно проверавај да ли добро належе.',
+      'По потреби затражи савет од здравственог радника.',
+    ],
+    shareMessage: 'Контрацептивни фластер — AWA',
+  },
+  hr: {
+    badge: 'KONTRACEPCIJSKI FLASTER',
+    title: 'Kontracepcijski\nflaster',
+    metaDuration: '5 min čitanja',
+    metaType: 'Članak',
+    metaLevel: 'Početnica',
+    metaValidated: 'Provjeren sadržaj',
+    intro: 'Tjedna alternativa svakodnevnoj tableti.',
+    contentsTitle: 'U ovom članku',
+    topics: [
+      'Kako flaster djeluje',
+      'Raspored primjene',
+      'Što trebaš znati',
+      'Ključne poruke',
+    ],
+    section1Body:
+      'Flaster kontinuirano otpušta hormone kroz kožu, a djeluje na način usporediv s kombiniranom tabletom: sprječava ovulaciju i zgušnjava cervikalnu sluz.',
+    tip1Title: 'Dobro je znati',
+    tip1Text:
+      'Njegova je glavna prednost što ne zahtijeva svakodnevnu dozu.',
+    section2Body:
+      'Flaster se općenito mijenja jednom tjedno tijekom tri tjedna, nakon čega slijedi tjedan bez flastera.',
+    applicationTips: [
+      'Svaki put promijeni mjesto primjene',
+      'Provjeri je li još čvrsto zalijepljen',
+      'Zalijepi ga na čistu, suhu kožu',
+    ],
+    sectionIntro:
+      'Ključne točke koje treba znati prije i tijekom uporabe.',
+    facts: [
+      {title: 'Svaki tjedan', text: 'Flaster se mijenja jednom tjedno.'},
+      {title: 'Suha koža', text: 'Mora se zalijepiti na čistu, suhu kožu.'},
+      {title: 'Zaštita', text: 'Djeluje kontinuirano kada se pravilno koristi.'},
+      {title: 'Na što paziti', text: 'Ponekad se može javiti lokalna iritacija.'},
+    ],
+    comparisonTitle: 'Prednosti i ograničenja',
+    advantageTitle: 'Prednosti',
+    advantages: [
+      '• Jedna primjena tjedno',
+      '• Nema svakodnevne doze',
+      '• Kontinuirano otpuštanje hormona',
+    ],
+    limitTitle: 'Ograničenja',
+    limits: [
+      'Ne štiti od SPI',
+      'Može uzrokovati iritaciju kože',
+      'Zahtijeva pridržavanje rasporeda zamjene',
+    ],
+    alertTitle: 'Napomena',
+    alertText:
+      'Na mjestu primjene može se pojaviti blaga iritacija. Izmjenjivanje mjesta primjene može je pomoći ograničiti.',
+    rememberTitle: '3 najvažnije stvari',
+    remember: [
+      'Mijenjaj flaster svaki tjedan.',
+      'Redovito provjeravaj prianja li dobro.',
+      'Po potrebi zatraži savjet zdravstvenog djelatnika.',
+    ],
+    shareMessage: 'Kontracepcijski flaster — AWA',
+  },
+  bs: {
+    badge: 'KONTRACEPCIJSKI FLASTER',
+    title: 'Kontracepcijski\nflaster',
+    metaDuration: '5 min čitanja',
+    metaType: 'Članak',
+    metaLevel: 'Početnica',
+    metaValidated: 'Provjeren sadržaj',
+    intro: 'Sedmična alternativa svakodnevnoj tableti.',
+    contentsTitle: 'U ovom članku',
+    topics: [
+      'Kako flaster djeluje',
+      'Raspored primjene',
+      'Što trebaš znati',
+      'Ključne poruke',
+    ],
+    section1Body:
+      'Flaster kontinuirano otpušta hormone kroz kožu, a djeluje na način usporediv s kombiniranom tabletom: sprječava ovulaciju i zgušnjava cervikalnu sluz.',
+    tip1Title: 'Dobro je znati',
+    tip1Text:
+      'Njegova je glavna prednost što ne zahtijeva svakodnevnu dozu.',
+    section2Body:
+      'Flaster se općenito mijenja jednom sedmično tokom tri sedmice, nakon čega slijedi sedmica bez flastera.',
+    applicationTips: [
+      'Svaki put promijeni mjesto primjene',
+      'Provjeri je li još čvrsto zalijepljen',
+      'Zalijepi ga na čistu, suhu kožu',
+    ],
+    sectionIntro:
+      'Ključne tačke koje treba znati prije i tokom uporabe.',
+    facts: [
+      {title: 'Svaka sedmica', text: 'Flaster se mijenja jednom sedmično.'},
+      {title: 'Suha koža', text: 'Mora se zalijepiti na čistu, suhu kožu.'},
+      {title: 'Zaštita', text: 'Djeluje kontinuirano kada se pravilno koristi.'},
+      {title: 'Na što paziti', text: 'Ponekad se može javiti lokalna iritacija.'},
+    ],
+    comparisonTitle: 'Prednosti i ograničenja',
+    advantageTitle: 'Prednosti',
+    advantages: [
+      '• Jedna primjena sedmično',
+      '• Nema svakodnevne doze',
+      '• Kontinuirano otpuštanje hormona',
+    ],
+    limitTitle: 'Ograničenja',
+    limits: [
+      'Ne štiti od SPI',
+      'Može uzrokovati iritaciju kože',
+      'Zahtijeva pridržavanje rasporeda zamjene',
+    ],
+    alertTitle: 'Napomena',
+    alertText:
+      'Na mjestu primjene može se pojaviti blaga iritacija. Izmjenjivanje mjesta primjene može je pomoći ograničiti.',
+    rememberTitle: '3 najvažnije stvari',
+    remember: [
+      'Mijenjaj flaster svaka sedmica.',
+      'Redovito provjeravaj prianja li dobro.',
+      'Po potrebi zatraži savjet zdravstvenog radnika.',
+    ],
+    shareMessage: 'Kontracepcijski flaster — AWA',
+  },
+  sl: {
+    badge: 'KONTRACEPCIJSKI OBLIŽ',
+    title: 'Kontracepcijski\nobliž',
+    metaDuration: '5 min branja',
+    metaType: 'Članek',
+    metaLevel: 'Začetnica',
+    metaValidated: 'Preverjena vsebina',
+    intro: 'Tedenska alternativa vsakodnevni tableti.',
+    contentsTitle: 'V tem članku',
+    topics: [
+      'Kako obliž deluje',
+      'Razpored lepljenja',
+      'Kaj moraš vedeti',
+      'Ključna sporočila',
+    ],
+    section1Body:
+      'Obliž neprekinjeno sprošča hormone skozi kožo in deluje na način, primerljiv s kombinirano tableto: preprečuje ovulacijo in zgošča materničnovratno sluz.',
+    tip1Title: 'Vredno vedeti',
+    tip1Text:
+      'Njegova glavna prednost je, da ne zahteva vsakodnevnega odmerka.',
+    section2Body:
+      'Obliž se na splošno menja enkrat tedensko tri tedne, nato sledi teden brez obliža.',
+    applicationTips: [
+      'Vsakič zamenjaj mesto lepljenja',
+      'Preveri, ali je še trdno prilepljen',
+      'Nalepi ga na čisto, suho kožo',
+    ],
+    sectionIntro:
+      'Ključne točke, ki jih je treba vedeti pred uporabo in med njo.',
+    facts: [
+      {title: 'Vsak teden', text: 'Obliž se zamenja enkrat tedensko.'},
+      {title: 'Suha koža', text: 'Nalepiti ga je treba na čisto, suho kožo.'},
+      {title: 'Zaščita', text: 'Deluje neprekinjeno, ko se pravilno uporablja.'},
+      {title: 'Na kaj paziti', text: 'Včasih se lahko pojavi lokalno draženje.'},
+    ],
+    comparisonTitle: 'Prednosti in omejitve',
+    advantageTitle: 'Prednosti',
+    advantages: [
+      '• Ena uporaba na teden',
+      '• Brez vsakodnevnega odmerka',
+      '• Neprekinjeno sproščanje hormonov',
+    ],
+    limitTitle: 'Omejitve',
+    limits: [
+      'Ne ščiti pred SPO',
+      'Lahko povzroči draženje kože',
+      'Zahteva upoštevanje urnika menjave',
+    ],
+    alertTitle: 'Opomba',
+    alertText:
+      'Na mestu lepljenja se lahko pojavi rahlo draženje. Izmenjavanje mest lepljenja ga lahko pomaga omejiti.',
+    rememberTitle: '3 najpomembnejše stvari',
+    remember: [
+      'Menjaj obliž vsak teden.',
+      'Redno preverjaj, ali dobro prijema.',
+      'Po potrebi poišči nasvet zdravstvenega delavca.',
+    ],
+    shareMessage: 'Kontracepcijski obliž — AWA',
+  },
+  ne: {
+    badge: 'गर्भनिरोधक प्याच',
+    title: 'गर्भनिरोधक\nप्याच',
+    metaDuration: '5 मिनेट पढाइ',
+    metaType: 'लेख',
+    metaLevel: 'सुरुवाती',
+    metaValidated: 'समीक्षा गरिएको सामग्री',
+    intro: 'दैनिक चक्कीको साप्ताहिक विकल्प।',
+    contentsTitle: 'यो लेखमा',
+    topics: [
+      'प्याचले कसरी काम गर्छ',
+      'टाँस्ने तालिका',
+      'तपाईंले जान्नुपर्ने कुराहरू',
+      'मुख्य कुराहरू',
+    ],
+    section1Body:
+      'प्याचले छालामार्फत निरन्तर हर्मोन निकाल्छ, संयुक्त चक्कीसँग तुलना गर्न मिल्ने तरिकाले काम गर्दै: यसले अण्डोत्सर्ग रोक्छ र गर्भाशयको मुखको तरल पदार्थ बाक्लो बनाउँछ।',
+    tip1Title: 'जान्न लायक',
+    tip1Text:
+      'यसको मुख्य फाइदा यो हो कि यसलाई दैनिक मात्रा चाहिँदैन।',
+    section2Body:
+      'प्याच सामान्यतया तीन हप्तासम्म हप्तामा एक पटक बदलिन्छ, त्यसपछि एक हप्ता प्याचबिना।',
+    applicationTips: [
+      'हरेक पटक टाँस्ने ठाउँ बदल्नुहोस्',
+      'यो अझै बलियोसँग टाँसिएको छ कि जाँच्नुहोस्',
+      'सफा, सुख्खा छालामा टाँस्नुहोस्',
+    ],
+    sectionIntro:
+      'प्रयोग गर्नुअघि र प्रयोगको क्रममा जान्नुपर्ने मुख्य बुँदाहरू।',
+    facts: [
+      {title: 'हरेक हप्ता', text: 'प्याच हप्तामा एक पटक बदलिन्छ।'},
+      {title: 'सुख्खा छाला', text: 'यसलाई सफा, सुख्खा छालामा टाँस्नुपर्छ।'},
+      {title: 'सुरक्षा', text: 'सही प्रयोग गर्दा यसले निरन्तर काम गर्छ।'},
+      {title: 'ध्यान दिनुहोस्', text: 'स्थानीय जलन कहिलेकाहीँ हुन सक्छ।'},
+    ],
+    comparisonTitle: 'फाइदा र सीमाहरू',
+    advantageTitle: 'फाइदाहरू',
+    advantages: [
+      '• हप्तामा एक पटक टाँस्ने',
+      '• दैनिक मात्रा छैन',
+      '• निरन्तर हर्मोन निस्कने',
+    ],
+    limitTitle: 'सीमाहरू',
+    limits: [
+      'STI बाट सुरक्षा दिँदैन',
+      'छालामा जलन गराउन सक्छ',
+      'बदल्ने तालिका पालना गर्नुपर्छ',
+    ],
+    alertTitle: 'कृपया ध्यान दिनुहोस्',
+    alertText:
+      'टाँसिएको ठाउँमा हल्का जलन देखिन सक्छ। टाँस्ने ठाउँहरू पालैपालो बदल्दा यसलाई सीमित गर्न मद्दत मिल्छ।',
+    rememberTitle: '3 आवश्यक कुराहरू',
+    remember: [
+      'हरेक हप्ता प्याच बदल्नुहोस्।',
+      'यो राम्ररी टाँसिएको छ कि नियमित रूपमा जाँच्नुहोस्।',
+      'आवश्यक परे स्वास्थ्यकर्मीसँग सल्लाह लिनुहोस्।',
+    ],
+    shareMessage: 'गर्भनिरोधक प्याच — AWA',
+  },
+  si: {
+    badge: 'ගර්භනිරෝධක පැච්',
+    title: 'ගර්භනිරෝධක\nපැච්',
+    metaDuration: 'කියවීමට මිනිත්තු 5',
+    metaType: 'ලිපිය',
+    metaLevel: 'ආරම්භක',
+    metaValidated: 'සමාලෝචනය කළ අන්තර්ගතය',
+    intro: 'දෛනික පෙත්තට සතිපතා විකල්පයක්.',
+    contentsTitle: 'මෙම ලිපියේ',
+    topics: [
+      'පැච් එක ක්‍රියා කරන ආකාරය',
+      'යෙදීමේ කාලසටහන',
+      'ඔබ දැනගත යුතු දේ',
+      'ප්‍රධාන කරුණු',
+    ],
+    section1Body:
+      'පැච් එක සම හරහා අඛණ්ඩව හෝමෝන මුදා හරියි, ඒකාබද්ධ පෙත්තට සමාන ආකාරයකින් ක්‍රියා කරයි: එය ඩිම්බ මෝචනය වළක්වා ගර්භාෂ ග්‍රීවා ශ්ලේෂ්මල ඝන කරයි.',
+    tip1Title: 'දැනගත යුතු දේ',
+    tip1Text:
+      'එහි ප්‍රධාන වාසිය නම් එයට දෛනික මාත්‍රාවක් අවශ්‍ය නොවීමයි.',
+    section2Body:
+      'පැච් එක සාමාන්‍යයෙන් සති තුනක් සඳහා සතියකට වරක් වෙනස් කරන අතර, පසුව පැච් එකක් නොමැතිව සතියක් පවතී.',
+    applicationTips: [
+      'සෑම වතාවකම යෙදීමේ ස්ථානය වෙනස් කරන්න',
+      'එය තවමත් තදින් ඇලී ඇත්දැයි පරීක්ෂා කරන්න',
+      'එය පිරිසිදු, වියළි සමට යොදන්න',
+    ],
+    sectionIntro:
+      'භාවිතයට පෙර සහ භාවිතය අතරතුර දැනගත යුතු ප්‍රධාන කරුණු.',
+    facts: [
+      {title: 'සෑම සතියකම', text: 'පැච් එක සතියකට වරක් ප්‍රතිස්ථාපනය කෙරේ.'},
+      {title: 'වියළි සම', text: 'එය පිරිසිදු, වියළි සමට යෙදිය යුතුයි.'},
+      {title: 'ආරක්ෂාව', text: 'නිවැරදිව භාවිතා කළ විට එය අඛණ්ඩව ක්‍රියා කරයි.'},
+      {title: 'අවධානයෙන් සිටින්න', text: 'ස්ථානීය කෝපනය සමහර විට සිදුවිය හැක.'},
+    ],
+    comparisonTitle: 'වාසි සහ සීමාවන්',
+    advantageTitle: 'වාසි',
+    advantages: [
+      '• සතියකට එක් යෙදීමක්',
+      '• දෛනික මාත්‍රාවක් නැත',
+      '• අඛණ්ඩ හෝමෝන මුදා හැරීම',
+    ],
+    limitTitle: 'සීමාවන්',
+    limits: [
+      'STI වලින් ආරක්ෂා නොකරයි',
+      'සමේ කෝපනයක් ඇති කළ හැක',
+      'ප්‍රතිස්ථාපන කාලසටහන අනුගමනය කිරීම අවශ්‍ය වේ',
+    ],
+    alertTitle: 'කරුණාකර සටහන් කරන්න',
+    alertText:
+      'යෙදීමේ ස්ථානයේ සුළු කෝපනයක් දිස්විය හැක. යෙදීමේ ස්ථාන මාරුවෙන් මාරුවට භාවිතා කිරීම මෙය සීමා කිරීමට උපකාරී විය හැක.',
+    rememberTitle: 'අත්‍යවශ්‍ය කරුණු 3',
+    remember: [
+      'සෑම සතියකම පැච් එක වෙනස් කරන්න.',
+      'එය හොඳින් ඇලෙමින් තිබේදැයි නිතිපතා පරීක්ෂා කරන්න.',
+      'අවශ්‍ය නම් සෞඛ්‍ය වෘත්තිකයෙකුගෙන් උපදෙස් ඉල්ලන්න.',
+    ],
+    shareMessage: 'ගර්භනිරෝධක පැච් — AWA',
+  },
+  th: {
+    badge: 'แผ่นแปะคุมกำเนิด',
+    title: 'แผ่นแปะ\nคุมกำเนิด',
+    metaDuration: 'อ่าน 5 นาที',
+    metaType: 'บทความ',
+    metaLevel: 'เริ่มต้น',
+    metaValidated: 'เนื้อหาที่ผ่านการตรวจสอบ',
+    intro: 'ทางเลือกรายสัปดาห์แทนยาเม็ดรายวัน',
+    contentsTitle: 'ในบทความนี้',
+    topics: [
+      'แผ่นแปะทำงานอย่างไร',
+      'ตารางการแปะ',
+      'สิ่งที่คุณต้องรู้',
+      'ประเด็นสำคัญ',
+    ],
+    section1Body:
+      'แผ่นแปะปล่อยฮอร์โมนผ่านผิวหนังอย่างต่อเนื่อง ทำงานในลักษณะเทียบเคียงกับยาเม็ดแบบฮอร์โมนรวม: ป้องกันการตกไข่และทำให้เมือกปากมดลูกข้นขึ้น',
+    tip1Title: 'ควรรู้',
+    tip1Text:
+      'ข้อดีหลักคือไม่ต้องทานยาทุกวัน',
+    section2Body:
+      'โดยทั่วไปเปลี่ยนแผ่นแปะสัปดาห์ละครั้งเป็นเวลาสามสัปดาห์ ตามด้วยหนึ่งสัปดาห์ที่ไม่ใช้แผ่นแปะ',
+    applicationTips: [
+      'เปลี่ยนตำแหน่งที่แปะทุกครั้ง',
+      'ตรวจสอบว่ายังติดแน่นอยู่',
+      'แปะบนผิวที่สะอาดและแห้ง',
+    ],
+    sectionIntro:
+      'ประเด็นสำคัญที่ควรรู้ก่อนและระหว่างการใช้',
+    facts: [
+      {title: 'ทุกสัปดาห์', text: 'เปลี่ยนแผ่นแปะสัปดาห์ละครั้ง'},
+      {title: 'ผิวแห้ง', text: 'ต้องแปะบนผิวที่สะอาดและแห้ง'},
+      {title: 'การป้องกัน', text: 'ทำงานต่อเนื่องเมื่อใช้อย่างถูกต้อง'},
+      {title: 'สิ่งที่ควรระวัง', text: 'อาจเกิดการระคายเคืองเฉพาะที่ได้บางครั้ง'},
+    ],
+    comparisonTitle: 'ข้อดีและข้อจำกัด',
+    advantageTitle: 'ข้อดี',
+    advantages: [
+      '• แปะสัปดาห์ละครั้ง',
+      '• ไม่ต้องทานยาทุกวัน',
+      '• ปล่อยฮอร์โมนอย่างต่อเนื่อง',
+    ],
+    limitTitle: 'ข้อจำกัด',
+    limits: [
+      'ไม่ป้องกันโรคติดต่อทางเพศสัมพันธ์',
+      'อาจทำให้ผิวหนังระคายเคือง',
+      'ต้องปฏิบัติตามตารางการเปลี่ยน',
+    ],
+    alertTitle: 'โปรดทราบ',
+    alertText:
+      'อาจมีอาการระคายเคืองเล็กน้อยที่ตำแหน่งที่แปะ การสลับตำแหน่งที่แปะช่วยจำกัดได้',
+    rememberTitle: '3 สิ่งสำคัญ',
+    remember: [
+      'เปลี่ยนแผ่นแปะทุกสัปดาห์',
+      'ตรวจสอบเป็นประจำว่ายังติดแน่นอยู่',
+      'ขอคำแนะนำจากบุคลากรทางการแพทย์หากจำเป็น',
+    ],
+    shareMessage: 'แผ่นแปะคุมกำเนิด — AWA',
+  },
+  vi: {
+    badge: 'MIẾNG DÁN TRÁNH THAI',
+    title: 'Miếng dán\ntránh thai',
+    metaDuration: '5 phút đọc',
+    metaType: 'Bài viết',
+    metaLevel: 'Cơ bản',
+    metaValidated: 'Nội dung đã được thẩm định',
+    intro: 'Một lựa chọn thay thế hằng tuần cho thuốc uống mỗi ngày.',
+    contentsTitle: 'Trong bài viết này',
+    topics: [
+      'Miếng dán hoạt động như thế nào',
+      'Lịch dán',
+      'Những điều bạn cần biết',
+      'Những điểm chính cần nhớ',
+    ],
+    section1Body:
+      'Miếng dán giải phóng hormone liên tục qua da, hoạt động theo cách tương tự thuốc tránh thai kết hợp: nó ngăn rụng trứng và làm đặc dịch nhầy cổ tử cung.',
+    tip1Title: 'Nên biết',
+    tip1Text:
+      'Ưu điểm chính của nó là không cần uống thuốc mỗi ngày.',
+    section2Body:
+      'Miếng dán thường được thay mỗi tuần một lần trong ba tuần, sau đó là một tuần không dán.',
+    applicationTips: [
+      'Thay đổi vị trí dán mỗi lần',
+      'Kiểm tra xem nó còn dính chắc không',
+      'Dán lên vùng da sạch, khô',
+    ],
+    sectionIntro:
+      'Những điểm chính cần biết trước và trong khi sử dụng.',
+    facts: [
+      {title: 'Mỗi tuần', text: 'Miếng dán được thay mỗi tuần một lần.'},
+      {title: 'Da khô', text: 'Phải dán lên vùng da sạch, khô.'},
+      {title: 'Bảo vệ', text: 'Nó hoạt động liên tục khi được sử dụng đúng cách.'},
+      {title: 'Cần chú ý', text: 'Đôi khi có thể xảy ra kích ứng tại chỗ.'},
+    ],
+    comparisonTitle: 'Ưu điểm & hạn chế',
+    advantageTitle: 'Ưu điểm',
+    advantages: [
+      '• Mỗi tuần chỉ dán một lần',
+      '• Không cần uống thuốc mỗi ngày',
+      '• Giải phóng hormone liên tục',
+    ],
+    limitTitle: 'Hạn chế',
+    limits: [
+      'Không bảo vệ khỏi các bệnh lây truyền qua đường tình dục (STI)',
+      'Có thể gây kích ứng da',
+      'Cần tuân thủ lịch thay miếng dán',
+    ],
+    alertTitle: 'Xin lưu ý',
+    alertText:
+      'Có thể xuất hiện kích ứng nhẹ tại vị trí dán. Luân phiên các vị trí dán có thể giúp hạn chế điều này.',
+    rememberTitle: '3 điều thiết yếu',
+    remember: [
+      'Thay miếng dán mỗi tuần.',
+      'Thường xuyên kiểm tra xem nó còn dính chắc không.',
+      'Hỏi lời khuyên của nhân viên y tế nếu cần.',
+    ],
+    shareMessage: 'Miếng dán tránh thai — AWA',
+  },
+  uz: {
+    badge: 'KONTRATSEPTIV PLASTIR',
+    title: 'Kontratseptiv\nplastir',
+    metaDuration: '5 daq oʻqish',
+    metaType: 'Maqola',
+    metaLevel: 'Boshlangʻich',
+    metaValidated: 'Tasdiqlangan kontent',
+    intro: 'Kundalik tabletkaga haftalik muqobil.',
+    contentsTitle: 'Ushbu maqolada',
+    topics: [
+      'Plastir qanday ishlaydi',
+      'Yopishtirish jadvali',
+      'Nimalarni bilish kerak',
+      'Asosiy xulosalar',
+    ],
+    section1Body:
+      'Plastir teri orqali uzluksiz gormonlar chiqaradi va kombinatsiyalangan tabletkaga oʻxshash ishlaydi: ovulyatsiyani oldini oladi va bachadon boʻyni shilligini quyuqlashtiradi.',
+    tip1Title: 'Bilish foydali',
+    tip1Text:
+      'Uning asosiy afzalligi — kundalik doza talab qilmasligi.',
+    section2Body:
+      'Plastir odatda uch hafta davomida haftada bir marta almashtiriladi, undan keyin bir hafta plastirsiz tanaffus qilinadi.',
+    applicationTips: [
+      'Har safar yopishtirish joyini oʻzgartiring',
+      'Hali mahkam yopishganini tekshiring',
+      'Uni toza, quruq terining ustiga yopishtiring',
+    ],
+    sectionIntro:
+      'Foydalanishdan oldin va davomida bilish kerak boʻlgan asosiy nuqtalar.',
+    facts: [
+      {title: 'Har hafta', text: 'Plastir haftada bir marta almashtiriladi.'},
+      {title: 'Quruq teri', text: 'U toza, quruq teriga yopishtirilishi kerak.'},
+      {title: 'Himoya', text: 'Toʻgʻri ishlatilganda u uzluksiz ishlaydi.'},
+      {title: 'Eʼtibor bering', text: 'Mahalliy tirnash baʼzan boʻlishi mumkin.'},
+    ],
+    comparisonTitle: 'Afzalliklar va cheklovlar',
+    advantageTitle: 'Afzalliklar',
+    advantages: [
+      '• Haftada bir marta yopishtirish',
+      '• Kundalik doza yoʻq',
+      '• Gormonlarning uzluksiz chiqishi',
+    ],
+    limitTitle: 'Cheklovlar',
+    limits: [
+      'JYYI dan himoya qilmaydi',
+      'Teri tirnashiga sabab boʻlishi mumkin',
+      'Almashtirish jadvaliga rioya qilishni talab qiladi',
+    ],
+    alertTitle: 'Eʼtibor bering',
+    alertText:
+      'Yopishtirish joyida yengil tirnash paydo boʻlishi mumkin. Yopishtirish joylarini navbatlashtirish uni cheklashga yordam beradi.',
+    rememberTitle: '3 muhim jihat',
+    remember: [
+      'Plastirni har hafta almashtiring.',
+      'Yaxshi yopishganini muntazam tekshiring.',
+      'Kerak boʻlsa, sogʻliqni saqlash mutaxassisidan maslahat soʻrang.',
+    ],
+    shareMessage: 'Kontratseptiv plastir — AWA',
+  },
+  az: {
+    badge: 'KONTRASEPTİV YAMAQ',
+    title: 'Kontraseptiv\nyamaq',
+    metaDuration: '5 dəq oxu',
+    metaType: 'Məqalə',
+    metaLevel: 'Başlanğıc',
+    metaValidated: 'Yoxlanılmış məzmun',
+    intro: 'Gündəlik hapa həftəlik alternativ.',
+    contentsTitle: 'Bu məqalədə',
+    topics: [
+      'Yamaq necə işləyir',
+      'Tətbiq cədvəli',
+      'Bilməli olduqlarınız',
+      'Əsas nəticələr',
+    ],
+    section1Body:
+      'Yamaq hormonları dəri vasitəsilə fasiləsiz buraxır və kombinə edilmiş hapa bənzər şəkildə işləyir: ovulyasiyanın qarşısını alır və uşaqlıq boynu mukusunu qatılaşdırır.',
+    tip1Title: 'Bilmək faydalıdır',
+    tip1Text:
+      'Onun əsas üstünlüyü gündəlik doza tələb etməməsidir.',
+    section2Body:
+      'Yamaq adətən üç həftə ərzində həftədə bir dəfə dəyişdirilir, ardınca yamaqsız bir həftə gəlir.',
+    applicationTips: [
+      'Hər dəfə tətbiq yerini dəyişin',
+      'Hələ də möhkəm yapışdığını yoxlayın',
+      'Təmiz, quru dəriyə yapışdırın',
+    ],
+    sectionIntro:
+      'İstifadədən əvvəl və istifadə zamanı bilinməli əsas məqamlar.',
+    facts: [
+      {title: 'Hər həftə', text: 'Yamaq həftədə bir dəfə dəyişdirilir.'},
+      {title: 'Quru dəri', text: 'O, təmiz, quru dəriyə yapışdırılmalıdır.'},
+      {title: 'Qoruma', text: 'Düzgün istifadə edildikdə fasiləsiz işləyir.'},
+      {title: 'Diqqət edin', text: 'Bəzən yerli qıcıqlanma ola bilər.'},
+    ],
+    comparisonTitle: 'Üstünlüklər və məhdudiyyətlər',
+    advantageTitle: 'Üstünlüklər',
+    advantages: [
+      '• Həftədə bir tətbiq',
+      '• Gündəlik doza yoxdur',
+      '• Hormonların fasiləsiz buraxılması',
+    ],
+    limitTitle: 'Məhdudiyyətlər',
+    limits: [
+      'CYÖİ-dən qorumur',
+      'Dəridə qıcıqlanma yarada bilər',
+      'Dəyişmə cədvəlinə riayət tələb edir',
+    ],
+    alertTitle: 'Nəzərə alın',
+    alertText:
+      'Tətbiq yerində yüngül qıcıqlanma ola bilər. Tətbiq yerlərini növbələşdirmək bunu məhdudlaşdırmağa kömək edə bilər.',
+    rememberTitle: '3 əsas məqam',
+    remember: [
+      'Yamağı hər həftə dəyişin.',
+      'Yaxşı yapışıb-yapışmadığını müntəzəm yoxlayın.',
+      'Lazım gələrsə, tibb işçisindən məsləhət alın.',
+    ],
+    shareMessage: 'Kontraseptiv yamaq — AWA',
+  },
+  ka: {
+    badge: 'კონტრაცეპტიული პლასტირი',
+    title: 'კონტრაცეპტიული\nპლასტირი',
+    metaDuration: '5 წთ საკითხავი',
+    metaType: 'სტატია',
+    metaLevel: 'დამწყები',
+    metaValidated: 'გადამოწმებული შინაარსი',
+    intro: 'ყოველკვირეული ალტერნატივა ყოველდღიური აბისა.',
+    contentsTitle: 'ამ სტატიაში',
+    topics: [
+      'როგორ მუშაობს პლასტირი',
+      'დადების განრიგი',
+      'რა უნდა იცოდეთ',
+      'მთავარი დასკვნები',
+    ],
+    section1Body:
+      'პლასტირი კანის გავლით უწყვეტად გამოყოფს ჰორმონებს და კომბინირებულ აბთან შესადარებლად მუშაობს: ის ოვულაციას აღკვეთს და საშვილოსნოს ყელის ლორწოს ასქელებს.',
+    tip1Title: 'კარგია ვიცოდეთ',
+    tip1Text:
+      'მისი მთავარი უპირატესობა ისაა, რომ ყოველდღიურ დოზას არ მოითხოვს.',
+    section2Body:
+      'პლასტირი ზოგადად კვირაში ერთხელ იცვლება სამი კვირის განმავლობაში, რასაც ერთი კვირა პლასტირის გარეშე მოსდევს.',
+    applicationTips: [
+      'ყოველ ჯერზე შეცვალეთ დადების ადგილი',
+      'შეამოწმეთ, რომ ის კვლავ მყარად არის მიკრული',
+      'დაიდეთ სუფთა, მშრალ კანზე',
+    ],
+    sectionIntro:
+      'ძირითადი საკითხები, რომლებიც გამოყენებამდე და გამოყენების დროს უნდა იცოდეთ.',
+    facts: [
+      {title: 'ყოველ კვირას', text: 'პლასტირი კვირაში ერთხელ იცვლება.'},
+      {title: 'მშრალი კანი', text: 'ის სუფთა, მშრალ კანზე უნდა დაიდოს.'},
+      {title: 'დაცვა', text: 'სწორი გამოყენებისას ის უწყვეტად მუშაობს.'},
+      {title: 'ყურადღება მიაქციეთ', text: 'ადგილობრივი გაღიზიანება ზოგჯერ შეიძლება მოხდეს.'},
+    ],
+    comparisonTitle: 'უპირატესობები და შეზღუდვები',
+    advantageTitle: 'უპირატესობები',
+    advantages: [
+      '• ერთი დადება კვირაში',
+      '• ყოველდღიური დოზის გარეშე',
+      '• ჰორმონების უწყვეტი გამოყოფა',
+    ],
+    limitTitle: 'შეზღუდვები',
+    limits: [
+      'არ იცავს სგგი-სგან',
+      'შეიძლება კანის გაღიზიანება გამოიწვიოს',
+      'შეცვლის განრიგის დაცვას მოითხოვს',
+    ],
+    alertTitle: 'გაითვალისწინეთ',
+    alertText:
+      'დადების ადგილზე შეიძლება მცირედი გაღიზიანება გამოჩნდეს. დადების ადგილების მონაცვლეობამ შეიძლება ამის შეზღუდვაში დაგეხმაროთ.',
+    rememberTitle: '3 არსებითი საკითხი',
+    remember: [
+      'შეცვალეთ პლასტირი ყოველ კვირას.',
+      'რეგულარულად შეამოწმეთ, კარგად არის თუ არა მიკრული.',
+      'საჭიროების შემთხვევაში ჰკითხეთ რჩევა ჯანდაცვის სპეციალისტს.',
+    ],
+    shareMessage: 'კონტრაცეპტიული პლასტირი — AWA',
+  },
+  hy: {
+    badge: 'ՀԱԿԱԲԵՂՄՆԱՎՈՐԻՉ ՊԼԱՍՏՐ',
+    title: 'Հակաբեղմնավորիչ\nպլաստրը',
+    metaDuration: '5 ր կարդալու համար',
+    metaType: 'Հոդված',
+    metaLevel: 'Սկսնակ',
+    metaValidated: 'Վերանայված բովանդակություն',
+    intro: 'Շաբաթական այլընտրանք օրական հաբին:',
+    contentsTitle: 'Այս հոդվածում',
+    topics: [
+      'Ինչպես է աշխատում պլաստրը',
+      'Կիրառման ժամանակացույց',
+      'Ինչ պետք է իմանալ',
+      'Հիմնական եզրակացություններ',
+    ],
+    section1Body:
+      'Պլաստրը անընդհատ ազատում է հորմոններ մաշկի միջոցով՝ աշխատելով համակցված հաբին համեմատելի եղանակով. այն կանխում է ձվազատումը և թանձրացնում արգանդի վզիկի լորձը:',
+    tip1Title: 'Լավ է իմանալ',
+    tip1Text:
+      'Դրա հիմնական առավելությունն այն է, որ օրական դեղաչափ չի պահանջում:',
+    section2Body:
+      'Պլաստրը սովորաբար փոխվում է շաբաթը մեկ անգամ երեք շաբաթ շարունակ, որին հաջորդում է մեկ շաբաթ առանց պլաստրի:',
+    applicationTips: [
+      'Ամեն անգամ փոխեք կիրառման վայրը',
+      'Ստուգեք, որ այն դեռ ամուր կպած է',
+      'Կիրառեք մաքուր, չոր մաշկի վրա',
+    ],
+    sectionIntro:
+      'Հիմնական կետերը, որ պետք է իմանալ օգտագործելուց առաջ և օգտագործման ընթացքում:',
+    facts: [
+      {title: 'Ամեն շաբաթ', text: 'Պլաստրը փոխարինվում է շաբաթը մեկ անգամ:'},
+      {title: 'Չոր մաշկ', text: 'Այն պետք է կիրառվի մաքուր, չոր մաշկի վրա:'},
+      {title: 'Պաշտպանություն', text: 'Ճիշտ օգտագործման դեպքում այն աշխատում է անընդհատ:'},
+      {title: 'Ուշադրություն դարձրեք', text: 'Երբեմն կարող է առաջանալ տեղային գրգռում:'},
+    ],
+    comparisonTitle: 'Առավելություններ և սահմանափակումներ',
+    advantageTitle: 'Առավելություններ',
+    advantages: [
+      '• Շաբաթական մեկ կիրառում',
+      '• Օրական դեղաչափ չկա',
+      '• Հորմոնների անընդհատ ազատում',
+    ],
+    limitTitle: 'Սահմանափակումներ',
+    limits: [
+      'Չի պաշտպանում ՍՃՓՎ-ներից',
+      'Կարող է առաջացնել մաշկի գրգռում',
+      'Պահանջում է հետևել փոխարինման ժամանակացույցին',
+    ],
+    alertTitle: 'Խնդրում ենք ուշադրություն դարձնել',
+    alertText:
+      'Կիրառման վայրում կարող է հայտնվել թեթև գրգռում: Կիրառման վայրերը հերթափոխելը կարող է օգնել սահմանափակել դա:',
+    rememberTitle: '3 էականը',
+    remember: [
+      'Փոխեք պլաստրը ամեն շաբաթ:',
+      'Կանոնավոր ստուգեք, որ այն լավ է կպած:',
+      'Անհրաժեշտության դեպքում խորհուրդ հարցրեք առողջապահության մասնագետից:',
+    ],
+    shareMessage: 'Հակաբեղմնավորիչ պլաստրը — AWA',
+  },
+  tg: {
+    badge: 'ПЛАСТИРИ ПЕШГИРӢ',
+    title: 'Пластири\nпешгирӣ аз ҳомиладорӣ',
+    metaDuration: '5 дақ барои хондан',
+    metaType: 'Мақола',
+    metaLevel: 'Ибтидоӣ',
+    metaValidated: 'Мазмуни баррасишуда',
+    intro: 'Алтернативаи ҳафтагӣ ба ҳаби рӯзона.',
+    contentsTitle: 'Дар ин мақола',
+    topics: [
+      'Пластир чӣ тавр кор мекунад',
+      'Ҷадвали истифода',
+      'Он чи бояд донист',
+      'Хулосаҳои асосӣ',
+    ],
+    section1Body:
+      'Пластир гормонҳоро пайваста тавассути пӯст озод мекунад ва монанди ҳаби омехта кор мекунад: он аз овуляция пешгирӣ мекунад ва шилимшиқи гардани бачадонро ғализ мекунад.',
+    tip1Title: 'Донистан хуб аст',
+    tip1Text:
+      'Афзалияти асосии он ин аст, ки қабули рӯзонаро талаб намекунад.',
+    section2Body:
+      'Пластир одатан як бор дар як ҳафта, се ҳафта иваз карда мешавад, баъд як ҳафта бе пластир.',
+    applicationTips: [
+      'Ҷои истифодаро ҳар дафъа иваз кунед',
+      'Санҷед, ки он ҳанӯз мустаҳкам часпидааст',
+      'Онро ба пӯсти тоза ва хушк часпонед',
+    ],
+    sectionIntro:
+      'Нуктаҳои асосие, ки пеш аз истифода ва ҳангоми он бояд донист.',
+    facts: [
+      {title: 'Ҳар ҳафта', text: 'Пластир як бор дар як ҳафта иваз карда мешавад.'},
+      {title: 'Пӯсти хушк', text: 'Он бояд ба пӯсти тоза ва хушк часпонда шавад.'},
+      {title: 'Муҳофизат', text: 'Ҳангоми дуруст истифода шудан он пайваста кор мекунад.'},
+      {title: 'Диққат кунед', text: 'Асабонияти маҳаллӣ баъзан метавонад рух диҳад.'},
+    ],
+    comparisonTitle: 'Афзалиятҳо ва маҳдудиятҳо',
+    advantageTitle: 'Афзалиятҳо',
+    advantages: [
+      '• Як истифода дар як ҳафта',
+      '• Қабули рӯзона нест',
+      '• Озодшавии пайвастаи гормонҳо',
+    ],
+    limitTitle: 'Маҳдудиятҳо',
+    limits: [
+      'Аз СРҶ муҳофизат намекунад',
+      'Метавонад асабонияти пӯстро ба вуҷуд орад',
+      'Риояи ҷадвали ивазро талаб мекунад',
+    ],
+    alertTitle: 'Таваҷҷӯҳ кунед',
+    alertText:
+      'Асабонияти андак метавонад дар ҷои истифода пайдо шавад. Иваз кардани ҷойҳои истифода метавонад ба маҳдуд кардани он кумак кунад.',
+    rememberTitle: '3 чизи асосӣ',
+    remember: [
+      'Пластирро ҳар ҳафта иваз кунед.',
+      'Мунтазам санҷед, ки хуб мечаспад.',
+      'Дар сурати зарурат аз мутахассиси соҳаи тиб маслиҳат пурсед.',
+    ],
+    shareMessage: 'Пластири пешгирӣ аз ҳомиладорӣ — AWA',
+  },
+  ky: {
+    badge: 'КОНТРАЦЕПТИВДИК ПЛАСТЫРЬ',
+    title: 'Контрацептивдик\nпластырь',
+    metaDuration: '5 мүн окуу',
+    metaType: 'Макала',
+    metaLevel: 'Баштоочу',
+    metaValidated: 'Текшерилген мазмун',
+    intro: 'Күнүмдүк таблеткага жумалык альтернатива.',
+    contentsTitle: 'Бул макалада',
+    topics: [
+      'Пластырь кантип иштейт',
+      'Колдонуу графиги',
+      'Эмнени билүү керек',
+      'Негизги жыйынтыктар',
+    ],
+    section1Body:
+      'Пластырь гормондорду тери аркылуу үзгүлтүксүз бөлүп чыгарат, айкалышкан таблеткага салыштырмалуу иштейт: ал овуляцияны болтурбайт жана жатын моюнчасынын былжырын коюулантат.',
+    tip1Title: 'Билүү пайдалуу',
+    tip1Text:
+      'Анын негизги артыкчылыгы — күнүмдүк дозаны талап кылбайт.',
+    section2Body:
+      'Пластырь адатта үч жума бою жумасына бир жолу алмаштырылат, андан кийин пластырьсыз бир жума болот.',
+    applicationTips: [
+      'Ар жолу жабыштыруу жерин өзгөртүңүз',
+      'Дагы эле бекем жабышканын текшериңиз',
+      'Таза, кургак теришке жабыштырыңыз',
+    ],
+    sectionIntro:
+      'Колдонуудан мурун жана учурунда билүүгө тийиш болгон негизги учурлар.',
+    facts: [
+      {title: 'Жума сайын', text: 'Пластырь жумасына бир жолу алмаштырылат.'},
+      {title: 'Кургак тери', text: 'Аны таза, кургак теришке жабыштыруу керек.'},
+      {title: 'Коргоо', text: 'Туура колдонулганда ал үзгүлтүксүз иштейт.'},
+      {title: 'Көңүл буруңуз', text: 'Жергиликтүү дүүлүгүү кээде болушу мүмкүн.'},
+    ],
+    comparisonTitle: 'Артыкчылыктары жана чектөөлөрү',
+    advantageTitle: 'Артыкчылыктары',
+    advantages: [
+      '• Жумасына бир жолу колдонуу',
+      '• Күнүмдүк доза жок',
+      '• Гормондун үзгүлтүксүз бөлүнүп чыгышы',
+    ],
+    limitTitle: 'Чектөөлөрү',
+    limits: [
+      'ЖЖБИден коргобойт',
+      'Териде дүүлүгүү жаратышы мүмкүн',
+      'Алмаштыруу графигин сактоону талап кылат',
+    ],
+    alertTitle: 'Көңүл буруңуз',
+    alertText:
+      'Жабыштыруу жеринде бир аз дүүлүгүү пайда болушу мүмкүн. Жабыштыруу жерин алмаштыруу муну чектөөгө жардам бериши мүмкүн.',
+    rememberTitle: '3 негизги нерсе',
+    remember: [
+      'Пластырьды жума сайын алмаштырыңыз.',
+      'Жакшы жабышканын үзгүлтүксүз текшериңиз.',
+      'Керек болсо, ден соолук сактоо адисинен кеңеш сураңыз.',
+    ],
+    shareMessage: 'Контрацептивдик пластырь — AWA',
+  },
+  tk: {
+    badge: 'GÖWRELILIKDEN GORAÝJY PLASTYR',
+    title: 'Göwrelilikden goraýjy\nplastyr',
+    metaDuration: '5 min okamak',
+    metaType: 'Makala',
+    metaLevel: 'Başlaýjy',
+    metaValidated: 'Barlanan mazmun',
+    intro: 'Gündelik tabletka hepdelik alternatiwa.',
+    contentsTitle: 'Bu makalada',
+    topics: [
+      'Plastyr nähili işleýär',
+      'Ýapyşdyrmak tertibi',
+      'Bilmeli zatlaryňyz',
+      'Esasy netijeler',
+    ],
+    section1Body:
+      'Plastyr gormonlary deri arkaly üznüksiz boşadýar, utgaşdyrylan tabletka bilen deňeşdirilýän usulda işleýär: ol ovulýasiýanyň öňüni alýar we ýatgy boýnunyň ýaňsyny galyňlaşdyrýar.',
+    tip1Title: 'Bilmek peýdaly',
+    tip1Text:
+      'Onuň esasy artykmaçlygy gündelik doza talap etmeýändigi.',
+    section2Body:
+      'Plastyr adatça üç hepde dowamynda hepdede bir gezek çalşylýar, soňra plastyrsyz bir hepde bolýar.',
+    applicationTips: [
+      'Her gezek ýapyşdyrmak ýerini çalşyň',
+      'Henizem berk ýapyşýandygyny barlaň',
+      'Ony arassa, gury derä ýapyşdyryň',
+    ],
+    sectionIntro:
+      'Ulanmazdan öň we ulanýan wagtyňyz bilmeli esasy nokatlar.',
+    facts: [
+      {title: 'Her hepde', text: 'Plastyr hepdede bir gezek çalşylýar.'},
+      {title: 'Gury deri', text: 'Ol arassa, gury derä ýapyşdyrylmaly.'},
+      {title: 'Goranyş', text: 'Dogry ulanylanda ol üznüksiz işleýär.'},
+      {title: 'Üns bermeli', text: 'Ýerli gyjyndyrma käwagt bolup biler.'},
+    ],
+    comparisonTitle: 'Artykmaçlyklar we çäkler',
+    advantageTitle: 'Artykmaçlyklar',
+    advantages: [
+      '• Hepdede bir ýapyşdyrmak',
+      '• Gündelik doza ýok',
+      '• Gormonyň üznüksiz boşadylyşy',
+    ],
+    limitTitle: 'Çäkler',
+    limits: [
+      'JÝGÝ-den goramaýar',
+      'Deri gyjyndyrmasyna sebäp bolup biler',
+      'Çalyşyş tertibine eýermegi talap edýär',
+    ],
+    alertTitle: 'Üns beriň',
+    alertText:
+      'Ýapyşdyrylan ýerde ýeňil gyjyndyrma peýda bolup biler. Ýapyşdyrmak ýerlerini çalşyrmak muny çäklemäge kömek edip biler.',
+    rememberTitle: '3 esasy zat',
+    remember: [
+      'Plastyry her hepde çalşyň.',
+      'Gowy ýapyşýandygyny yzygiderli barlaň.',
+      'Zerur bolsa, saglyk hünärmeninden maslahat soraň.',
+    ],
+    shareMessage: 'Göwrelilikden goraýjy plastyr — AWA',
   },
 } as const);
 

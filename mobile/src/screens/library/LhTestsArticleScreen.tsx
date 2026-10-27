@@ -972,61 +972,6 @@ const CONTENT = withBrazilianPortuguese('LhTests', {
     disclaimerText: 'Informativt indhold. Denne artikel er ikke en erstatning for personlig medicinsk rådgivning. Kontakt en sundhedsfaglig person, hvis du er i tvivl.',
     shareMessage: 'Forstå ægløsningstests (LH) — AWA',
   },
-  da: {
-    badge: 'FERTILITET • ÄGLÖSNINGSTESTS',
-    title: 'Forstå\näglösningstests (LH)',
-    metaDuration: '6 min läsning',
-    metaType: 'Guide',
-    metaLevel: 'Mellem',
-    metaValidated: 'Gennemgået indhold',
-    intro: 'Hvordan disse teststrimler virker, och hvornår du skal bruge dem.',
-    contentsTitle: 'I denne artikel',
-    topics: [
-      'Hvad ar LH?',
-      'Hvordan fungerer disse tests',
-      'Hvornår begynder du at teste',
-      'Fortolkning av resultaterne',
-      'Falske positiver och begränsninger',
-      'Kombination med andre tegn',
-      'Vigtige pointer',
-    ],
-    section1Body: 'LH (luteiniserende hormon) produceres i hjernen och styrer äggestokkenes funktion. Äglösningstests registrerer den pludselige stigning i dette hormon, som 24 till 36 timer senere udlöser frigivelsen av et äg.',
-    section2Body: 'Urin-teststrimler måler LH-niveauet: en testlinje der ar lige så mörk som eller mörkere end kontrollinjen indikerer en pludselig stigning.',
-    section3Body: 'Det anbefales at begynde at teste et par dagar inden den estimerede äglösningsdato baseret på din cyklus.',
-    testingTips: [
-      {
-        title: 'Tag udgangspunkt i din cyklus',
-        text: 'Begynd et par dagar för den estimerede äglösningsdato baseret på din gennemsnitlige cykluslängde.',
-      },
-      {
-        title: 'Test på samme tid hver dag',
-        text: 'Ideelt set midt på dagen och undgå den allerförste morgenurin.',
-      },
-      {
-        title: 'Undgå fortyndet urin',
-        text: 'Begräns indtagelse av store mängder väske i timerne op till testen.',
-      },
-    ],
-    section4Body: 'Et positivt resultat indikerer den mest frugtbare periode i de näste 1 till 2 dagar for samleje. Et negativt resultat betyder blot, at den pludselige stigning annu inte har fundet sted.',
-    limitations: [
-      'Ved PCOS kan LH-niveauerne naturligt väre forhöjede, hvilket kan göre afläsningerne uklare',
-      'Visse fertilitetsbehandlinger kan påvirke resultaterne',
-      'Meget fortyndet urin kan give falske negative resultater',
-      'Tests av lav kvalitet ar måske mindre pålidelige',
-    ],
-    infoTitle: 'Husk',
-    infoText: 'En pludselig LH-stigning indikerer et hormonelt signal, men bekräfter inte alene, at et äg faktisk ar blevet frigivet.',
-    tipTitle: 'Godt at vide',
-    tipText: 'At kombinere äglösningstests med observation av din basaltemperatur eller livmoderhalssekret giver et mere fuldständigt billede av din cyklus.',
-    summaryPoints: [
-      'Äglösningstests registrerer den pludselige LH-stigning, som 24 till 36 timer senere udlöser frigivelsen av et äg.',
-      'Det anbefales at begynde at teste et par dagar inden den estimerede äglösningsdato.',
-      'Et positivt resultat indikerer den mest frugtbare periode i de näste 1 till 2 dagar.',
-      'En pludselig LH-stigning bekräfter inte alene, at äglösning faktisk har fundet sted.',
-    ],
-    disclaimerText: 'Informativt indhold. Denne artikel ar inte en erstatning for personlig medicinsk rådgivning. Kontakt en halsasfaglig person, hvis du ar i tvivl.',
-    shareMessage: 'Forstå äglösningstests (LH) — AWA',
-  },
   sv: {
     badge: 'FERTILITET • ÄGLÖSNINGSTESTS',
     title: 'Forstå\näglösningstests (LH)',
@@ -1081,6 +1026,1432 @@ const CONTENT = withBrazilianPortuguese('LhTests', {
     ],
     disclaimerText: 'Informativt indhold. Denne artikel ar inte en erstatning for personlig medicinsk rådgivning. Kontakt en halsasfaglig person, hvis du ar i tvivl.',
     shareMessage: 'Forstå äglösningstests (LH) — AWA',
+  },
+  nb: {
+    badge: 'FRUKTBARHET • EGGLØSNINGSTESTER',
+    title: 'Forstå eggløsnings-\ntester (LH)',
+    metaDuration: '6 min lesing',
+    metaType: 'Veiledning',
+    metaLevel: 'Middels',
+    metaValidated: 'Gjennomgått innhold',
+    intro: 'Hvordan disse strimlene fungerer, og når du bør bruke dem.',
+    contentsTitle: 'I denne artikkelen',
+    topics: [
+      'Hva er LH?',
+      'Hvordan disse testene fungerer',
+      'Når du bør begynne å teste',
+      'Tolke et resultat',
+      'Falske positive og begrensninger',
+      'Kombinere dem med andre tegn',
+      'Det viktigste å huske',
+    ],
+    section1Body:
+      'LH (luteiniserende hormon) produseres av hjernen og styrer hvordan eggstokkene fungerer. Eggløsningstester påviser stigningen i dette hormonet, som utløser frigjøringen av egget 24 til 36 timer senere.',
+    section2Body:
+      'En teststrimmel for urin måler LH-nivået: en testlinje som er like mørk som eller mørkere enn kontrollinjen, tyder på en stigning.',
+    section3Body:
+      'Det anbefales å begynne å teste noen dager før eggløsningsdatoen som er beregnet ut fra syklusen din.',
+    testingTips: [
+      {
+        title: 'Ta utgangspunkt i syklusen din',
+        text: 'Begynn noen dager før eggløsningsdatoen som er beregnet ut fra gjennomsnittslengden på syklusene dine.',
+      },
+      {
+        title: 'Test til samme tid hver dag',
+        text: 'Helst rundt middagstid, og unngå den første urinen om morgenen.',
+      },
+      {
+        title: 'Unngå å fortynne urinen',
+        text: 'Begrens store mengder væske i timene før testen.',
+      },
+    ],
+    section4Body:
+      'Et positivt resultat viser den mest fruktbare tiden for samleie de neste 1 til 2 dagene. Et negativt resultat betyr bare at stigningen ikke har kommet ennå.',
+    limitations: [
+      'PCOS kan gi naturlig høyere LH-nivåer, noe som kan gjøre avlesningen uklar',
+      'Visse fruktbarhetsbehandlinger kan påvirke resultatet',
+      'Svært fortynnet urin kan gi et falskt negativt resultat',
+      'En test av lavere kvalitet kan være mindre pålitelig',
+    ],
+    infoTitle: 'Husk',
+    infoText:
+      'En LH-stigning viser et utløsende hormonelt signal, men alene garanterer den ikke at egget faktisk ble frigjort.',
+    tipTitle: 'Godt å vite',
+    tipText:
+      'Å kombinere eggløsningstester med basaltemperaturen eller observasjon av livmorhalsslim gir et mer fullstendig bilde av syklusen din.',
+    summaryPoints: [
+      'Eggløsningstester påviser LH-stigningen, som utløser frigjøringen av egget 24 til 36 timer senere.',
+      'Det anbefales å begynne å teste noen dager før eggløsningsdatoen som er beregnet ut fra syklusen din.',
+      'Et positivt resultat viser den mest fruktbare tiden for samleie de neste 1 til 2 dagene.',
+      'En LH-stigning alene garanterer ikke at eggløsningen faktisk skjedde.',
+    ],
+    disclaimerText:
+      'Informasjonsinnhold. Denne artikkelen erstatter ikke personlig medisinsk rådgivning. Ved tvil bør du søke veiledning hos helsepersonell.',
+    shareMessage: 'Forstå eggløsningstester (LH) – AWA',
+  },
+  pl: {
+    badge: 'PŁODNOŚĆ • TESTY OWULACYJNE',
+    title: 'Zrozumieć testy\nowulacyjne (LH)',
+    metaDuration: '6 min czytania',
+    metaType: 'Poradnik',
+    metaLevel: 'Średnio zaawansowany',
+    metaValidated: 'Treść zweryfikowana',
+    intro: 'Jak działają te paski i kiedy ich używać.',
+    contentsTitle: 'W tym artykule',
+    topics: [
+      'Czym jest LH?',
+      'Jak działają te testy',
+      'Kiedy zacząć testowanie',
+      'Interpretacja wyniku',
+      'Wyniki fałszywie dodatnie i ograniczenia',
+      'Łączenie z innymi objawami',
+      'Najważniejsze wnioski',
+    ],
+    section1Body:
+      'LH (hormon luteinizujący) jest produkowany przez mózg i steruje pracą jajników. Testy owulacyjne wykrywają wyrzut tego hormonu, który wywołuje uwolnienie komórki jajowej 24 do 36 godzin później.',
+    section2Body:
+      'Test paskowy z moczu mierzy poziom LH: linia testowa tak ciemna jak linia kontrolna lub ciemniejsza wskazuje na wyrzut.',
+    section3Body:
+      'Zaleca się rozpoczęcie testowania kilka dni przed datą owulacji szacowaną na podstawie cyklu.',
+    testingTips: [
+      {
+        title: 'Oprzyj się na swoim cyklu',
+        text: 'Zacznij kilka dni przed datą owulacji szacowaną na podstawie średniej długości Twoich cykli.',
+      },
+      {
+        title: 'Testuj codziennie o tej samej porze',
+        text: 'Najlepiej około południa, unikając pierwszego porannego moczu.',
+      },
+      {
+        title: 'Unikaj rozcieńczania moczu',
+        text: 'Ogranicz duże ilości płynów w godzinach poprzedzających test.',
+      },
+    ],
+    section4Body:
+      'Wynik dodatni wskazuje najbardziej płodny czas na współżycie w ciągu kolejnych 1 do 2 dni. Wynik ujemny oznacza po prostu, że wyrzut jeszcze nie nastąpił.',
+    limitations: [
+      'PCOS może powodować naturalnie podwyższony poziom LH, co może zaburzać odczyt',
+      'Niektóre terapie wspomagające płodność mogą wpływać na wynik',
+      'Bardzo rozcieńczony mocz może dać wynik fałszywie ujemny',
+      'Test gorszej jakości może być mniej wiarygodny',
+    ],
+    infoTitle: 'Pamiętaj',
+    infoText:
+      'Wyrzut LH wskazuje na wyzwalający sygnał hormonalny, ale sam w sobie nie gwarantuje, że komórka jajowa została faktycznie uwolniona.',
+    tipTitle: 'Warto wiedzieć',
+    tipText:
+      'Łączenie testów owulacyjnych z podstawową temperaturą ciała lub obserwacją śluzu szyjkowego daje pełniejszy obraz Twojego cyklu.',
+    summaryPoints: [
+      'Testy owulacyjne wykrywają wyrzut LH, który wywołuje uwolnienie komórki jajowej 24 do 36 godzin później.',
+      'Zaleca się rozpoczęcie testowania kilka dni przed datą owulacji szacowaną na podstawie cyklu.',
+      'Wynik dodatni wskazuje najbardziej płodny czas na współżycie w ciągu kolejnych 1 do 2 dni.',
+      'Sam wyrzut LH nie gwarantuje, że owulacja faktycznie nastąpiła.',
+    ],
+    disclaimerText:
+      'Treść informacyjna. Ten artykuł nie zastępuje spersonalizowanej porady medycznej. W razie wątpliwości zasięgnij porady specjalisty.',
+    shareMessage: 'Zrozumieć testy owulacyjne (LH) — AWA',
+  },
+  uk: {
+    badge: 'ФЕРТИЛЬНІСТЬ • ОВУЛЯЦІЙНІ ТЕСТИ',
+    title: 'Розуміння овуляційних\nтестів (ЛГ)',
+    metaDuration: '6 хв читання',
+    metaType: 'Посібник',
+    metaLevel: 'Середній',
+    metaValidated: 'Перевірений вміст',
+    intro: 'Як працюють ці смужки та коли ними користуватися.',
+    contentsTitle: 'У цій статті',
+    topics: [
+      'Що таке ЛГ?',
+      'Як працюють ці тести',
+      'Коли починати тестування',
+      'Інтерпретація результату',
+      'Хибнопозитивні результати та обмеження',
+      'Поєднання з іншими ознаками',
+      'Головні висновки',
+    ],
+    section1Body:
+      'ЛГ (лютеїнізувальний гормон) виробляється мозком і керує роботою яєчників. Овуляційні тести виявляють сплеск цього гормону, який запускає вихід яйцеклітини через 24–36 годин.',
+    section2Body:
+      'Тест-смужка вимірює рівень ЛГ у сечі: тестова лінія такої ж інтенсивності, як контрольна, або темніша вказує на сплеск.',
+    section3Body:
+      'Рекомендовано починати тестування за кілька днів до дати овуляції, оціненої за вашим циклом.',
+    testingTips: [
+      {
+        title: 'Спирайтеся на свій цикл',
+        text: 'Починайте за кілька днів до дати овуляції, оціненої за середньою тривалістю ваших циклів.',
+      },
+      {
+        title: 'Тестуйте щодня в один і той самий час',
+        text: 'Ідеально близько полудня, уникаючи першої ранкової сечі.',
+      },
+      {
+        title: 'Не розбавляйте сечу',
+        text: 'Обмежте велику кількість рідини за кілька годин до тесту.',
+      },
+    ],
+    section4Body:
+      'Позитивний результат вказує на найфертильніший час для статевого акту протягом наступних 1–2 днів. Негативний результат просто означає, що сплеск ще не відбувся.',
+    limitations: [
+      'СПКЯ може спричиняти природно підвищений рівень ЛГ, що може спотворювати результат',
+      'Деякі методи лікування безпліддя можуть впливати на результат',
+      'Дуже розбавлена сеча може дати хибнонегативний результат',
+      'Тест гіршої якості може бути менш надійним',
+    ],
+    infoTitle: 'Пам’ятайте',
+    infoText:
+      'Сплеск ЛГ вказує на запускний гормональний сигнал, але сам по собі не гарантує, що яйцеклітина справді вийшла.',
+    tipTitle: 'Варто знати',
+    tipText:
+      'Поєднання овуляційних тестів із базальною температурою тіла чи спостереженням за цервікальним слизом дає повнішу картину вашого циклу.',
+    summaryPoints: [
+      'Овуляційні тести виявляють сплеск ЛГ, який запускає вихід яйцеклітини через 24–36 годин.',
+      'Рекомендовано починати тестування за кілька днів до дати овуляції, оціненої за вашим циклом.',
+      'Позитивний результат вказує на найфертильніший час для статевого акту протягом наступних 1–2 днів.',
+      'Сплеск ЛГ сам по собі не гарантує, що овуляція справді відбулася.',
+    ],
+    disclaimerText:
+      'Інформаційний вміст. Ця стаття не замінює персоналізованої медичної поради. У разі сумнівів зверніться до медичного фахівця.',
+    shareMessage: 'Розуміння овуляційних тестів (ЛГ) — AWA',
+  },
+  cs: {
+    badge: 'PLODNOST • OVULAČNÍ TESTY',
+    title: 'Pochopení ovulačních\ntestů (LH)',
+    metaDuration: '6 min čtení',
+    metaType: 'Průvodce',
+    metaLevel: 'Pokročilý',
+    metaValidated: 'Ověřený obsah',
+    intro: 'Jak tyto proužky fungují a kdy je použít.',
+    contentsTitle: 'V tomto článku',
+    topics: [
+      'Co je LH?',
+      'Jak tyto testy fungují',
+      'Kdy začít testovat',
+      'Jak vyložit výsledek',
+      'Falešně pozitivní výsledky a limity',
+      'Spojení s dalšími příznaky',
+      'Hlavní poznatky',
+    ],
+    section1Body:
+      'LH (luteinizační hormon) je produkován mozkem a řídí fungování vaječníků. Ovulační testy zachycují vzestup tohoto hormonu, který o 24 až 36 hodin později spouští uvolnění vajíčka.',
+    section2Body:
+      'Proužek na testování moči měří hladinu LH: testovací linie stejně tmavá nebo tmavší než kontrolní linie značí vzestup.',
+    section3Body:
+      'Doporučuje se začít testovat několik dní před datem ovulace odhadnutým podle vašeho cyklu.',
+    testingTips: [
+      {
+        title: 'Vycházejte ze svého cyklu',
+        text: 'Začněte několik dní před datem ovulace odhadnutým podle průměrné délky vašich cyklů.',
+      },
+      {
+        title: 'Testujte každý den ve stejnou dobu',
+        text: 'Ideálně kolem poledne, bez použití první ranní moči.',
+      },
+      {
+        title: 'Nezřeďte moč',
+        text: 'V hodinách před testem omezte větší množství tekutin.',
+      },
+    ],
+    section4Body:
+      'Pozitivní výsledek značí nejplodnější dobu pro pohlavní styk v následujících 1 až 2 dnech. Negativní výsledek jednoduše znamená, že k vzestupu zatím nedošlo.',
+    limitations: [
+      'PCOS může způsobovat přirozeně vyšší hladinu LH, což může zkreslit odečet',
+      'Některé léčby plodnosti mohou výsledek ovlivnit',
+      'Velmi zředěná moč může dát falešně negativní výsledek',
+      'Test nižší kvality může být méně spolehlivý',
+    ],
+    infoTitle: 'Mějte na paměti',
+    infoText:
+      'Vzestup LH značí spouštěcí hormonální signál, ale sám o sobě nezaručuje, že se vajíčko skutečně uvolnilo.',
+    tipTitle: 'Stojí za to vědět',
+    tipText:
+      'Spojení ovulačních testů s bazální tělesnou teplotou nebo pozorováním cervikálního hlenu poskytuje úplnější obraz o vašem cyklu.',
+    summaryPoints: [
+      'Ovulační testy zachycují vzestup LH, který o 24 až 36 hodin později spouští uvolnění vajíčka.',
+      'Doporučuje se začít testovat několik dní před datem ovulace odhadnutým podle vašeho cyklu.',
+      'Pozitivní výsledek značí nejplodnější dobu pro pohlavní styk v následujících 1 až 2 dnech.',
+      'Samotný vzestup LH nezaručuje, že k ovulaci skutečně došlo.',
+    ],
+    disclaimerText:
+      'Informativní obsah. Tento článek nenahrazuje individuální lékařskou radu. V případě pochybností požádejte o radu zdravotnického pracovníka.',
+    shareMessage: 'Pochopení ovulačních testů (LH) — AWA',
+  },
+  sk: {
+    badge: 'PLODNOSŤ • OVULAČNÉ TESTY',
+    title: 'Pochopenie ovulačných\ntestov (LH)',
+    metaDuration: '6 min čítania',
+    metaType: 'Sprievodca',
+    metaLevel: 'Stredne pokročilý',
+    metaValidated: 'Overený obsah',
+    intro: 'Ako tieto prúžky fungujú a kedy ich použiť.',
+    contentsTitle: 'V tomto článku',
+    topics: [
+      'Čo je LH?',
+      'Ako tieto testy fungujú',
+      'Kedy začať testovať',
+      'Interpretácia výsledku',
+      'Falošne pozitívne výsledky a limity',
+      'Kombinácia s ďalšími znakmi',
+      'Hlavné body',
+    ],
+    section1Body:
+      'LH (luteinizačný hormón) vytvára mozog a riadi fungovanie vaječníkov. Ovulačné testy zachytávajú vzostup tohto hormónu, ktorý spúšťa uvoľnenie vajíčka o 24 až 36 hodín neskôr.',
+    section2Body:
+      'Testovací prúžok z moču meria hladinu LH: testovacia čiara rovnako tmavá alebo tmavšia ako kontrolná čiara naznačuje vzostup.',
+    section3Body:
+      'Odporúča sa začať testovať niekoľko dní pred dátumom ovulácie odhadnutým z vášho cyklu.',
+    testingTips: [
+      {
+        title: 'Vychádzajte z vášho cyklu',
+        text: 'Začnite niekoľko dní pred dátumom ovulácie odhadnutým z priemernej dĺžky vašich cyklov.',
+      },
+      {
+        title: 'Testujte každý deň v rovnakom čase',
+        text: 'Ideálne okolo poludnia, vyhnite sa prvému ranému moču.',
+      },
+      {
+        title: 'Vyhnite sa nariedeniu moču',
+        text: 'Obmedzte veľké množstvá tekutín v hodinách pred testom.',
+      },
+    ],
+    section4Body:
+      'Pozitívny výsledok signalizuje najplodnejší čas na pohlavný styk v nasledujúcich 1 až 2 dňoch. Negatívny výsledok jednoducho znamená, že vzostup ešte nenastal.',
+    limitations: [
+      'PCOS môže spôsobovať prirodzene vyššie hladiny LH, čo môže zahmliť odčítanie',
+      'Niektoré liečby plodnosti môžu výsledok ovplyvniť',
+      'Veľmi nariedený moč môže dať falošne negatívny výsledok',
+      'Menej kvalitný test môže byť menej spoľahlivý',
+    ],
+    infoTitle: 'Pamätajte',
+    infoText:
+      'Vzostup LH naznačuje spúšťací hormonálny signál, ale sám osebe nezaručuje, že sa vajíčko skutočne uvoľnilo.',
+    tipTitle: 'Stojí za to vedieť',
+    tipText:
+      'Kombinácia ovulačných testov s bazálnou telesnou teplotou alebo pozorovaním cervikálneho hlienu poskytuje úplnejší obraz o vašom cykle.',
+    summaryPoints: [
+      'Ovulačné testy zachytávajú vzostup LH, ktorý spúšťa uvoľnenie vajíčka o 24 až 36 hodín neskôr.',
+      'Odporúča sa začať testovať niekoľko dní pred dátumom ovulácie odhadnutým z vášho cyklu.',
+      'Pozitívny výsledok signalizuje najplodnejší čas na pohlavný styk v nasledujúcich 1 až 2 dňoch.',
+      'Samotný vzostup LH nezaručuje, že ovulácia skutočne nastala.',
+    ],
+    disclaimerText:
+      'Informatívny obsah. Tento článok nenahrádza individuálnu lekársku radu. V prípade pochybností sa poraďte so zdravotníckym pracovníkom.',
+    shareMessage: 'Pochopenie ovulačných testov (LH) — AWA',
+  },
+  hu: {
+    badge: 'TERMÉKENYSÉG • PETEÉRÉSI TESZTEK',
+    title: 'A peteérési\ntesztek (LH) megértése',
+    metaDuration: '6 perc olvasás',
+    metaType: 'Útmutató',
+    metaLevel: 'Középhaladó',
+    metaValidated: 'Ellenőrzött tartalom',
+    intro: 'Hogyan működnek ezek a csíkok, és mikor érdemes használni őket.',
+    contentsTitle: 'Ebben a cikkben',
+    topics: [
+      'Mi az LH?',
+      'Hogyan működnek ezek a tesztek',
+      'Mikor kezdd a tesztelést',
+      'Az eredmény értelmezése',
+      'Álpozitív eredmények és korlátok',
+      'Kombinálás más jelekkel',
+      'Legfontosabb tudnivalók',
+    ],
+    section1Body:
+      'Az LH (luteinizáló hormon) az agyban termelődik, és szabályozza a petefészkek működését. A peteérési tesztek ennek a hormonnak a hirtelen megemelkedését érzékelik, amely 24–36 órával később kiváltja a petesejt kiszabadulását.',
+    section2Body:
+      'A vizeletes tesztcsík az LH-szintet méri: a kontrollcsíkkal azonos vagy annál sötétebb tesztcsík emelkedést jelez.',
+    section3Body:
+      'Ajánlott a tesztelést néhány nappal a ciklusodból becsült peteérési dátum előtt kezdeni.',
+    testingTips: [
+      {
+        title: 'A ciklusodra támaszkodj',
+        text: 'Kezdd a ciklusaid átlagos hosszából becsült peteérési dátum előtt néhány nappal.',
+      },
+      {
+        title: 'Minden nap ugyanabban az időpontban tesztelj',
+        text: 'Ideális esetben dél körül, a reggeli első vizeletet kerülve.',
+      },
+      {
+        title: 'Kerüld a vizeleted hígítását',
+        text: 'A teszt előtti órákban korlátozd a nagy mennyiségű folyadék fogyasztását.',
+      },
+    ],
+    section4Body:
+      'A pozitív eredmény a nemi élet szempontjából a legtermékenyebb időt jelzi a következő 1–2 napra. A negatív eredmény egyszerűen azt jelenti, hogy az emelkedés még nem történt meg.',
+    limitations: [
+      'A PCOS természetesen magasabb LH-szintet okozhat, ami elhomályosíthatja a leolvasást',
+      'Egyes termékenységi kezelések befolyásolhatják az eredményt',
+      'A nagyon híg vizelet álnegatív eredményt adhat',
+      'Egy gyengébb minőségű teszt kevésbé lehet megbízható',
+    ],
+    infoTitle: 'Tartsd észben',
+    infoText:
+      'Az LH-emelkedés egy kiváltó hormonális jelet jelez, de önmagában nem garantálja, hogy a petesejt valóban kiszabadult.',
+    tipTitle: 'Érdemes tudni',
+    tipText:
+      'A peteérési tesztek kombinálása az alapvető testhőmérséklettel vagy a méhnyaknyálka megfigyelésével teljesebb képet ad a ciklusodról.',
+    summaryPoints: [
+      'A peteérési tesztek az LH-emelkedést érzékelik, amely 24–36 órával később kiváltja a petesejt kiszabadulását.',
+      'Ajánlott a tesztelést néhány nappal a ciklusodból becsült peteérési dátum előtt kezdeni.',
+      'A pozitív eredmény a nemi élet szempontjából a legtermékenyebb időt jelzi a következő 1–2 napra.',
+      'Az LH-emelkedés önmagában nem garantálja, hogy a peteérés valóban megtörtént.',
+    ],
+    disclaimerText:
+      'Tájékoztató jellegű tartalom. Ez a cikk nem helyettesíti a személyre szabott orvosi tanácsot. Kétség esetén kérj útmutatást egészségügyi szakembertől.',
+    shareMessage: 'A peteérési tesztek (LH) megértése — AWA',
+  },
+  ro: {
+    badge: 'FERTILITATE • TESTE DE OVULAȚIE',
+    title: 'Înțelegerea testelor\nde ovulație (LH)',
+    metaDuration: '6 min de citit',
+    metaType: 'Ghid',
+    metaLevel: 'Intermediar',
+    metaValidated: 'Conținut revizuit',
+    intro: 'Cum funcționează aceste benzi de testare și când să le folosești.',
+    contentsTitle: 'În acest articol',
+    topics: [
+      'Ce este LH?',
+      'Cum funcționează aceste teste',
+      'Când să începi testarea',
+      'Interpretarea unui rezultat',
+      'Fals pozitive și limite',
+      'Combinarea cu alte semne',
+      'Ce să reții',
+    ],
+    section1Body:
+      'LH (hormonul luteinizant) este produs de creier și controlează funcționarea ovarelor. Testele de ovulație detectează creșterea bruscă a acestui hormon, care declanșează eliberarea ovulului la 24-36 de ore distanță.',
+    section2Body:
+      'O bandă de testare urinară măsoară nivelul de LH: o linie de test la fel de închisă sau mai închisă decât linia de control indică un vârf.',
+    section3Body:
+      'Se recomandă să începi testarea cu câteva zile înainte de data ovulației estimată pe baza ciclului tău.',
+    testingTips: [
+      {
+        title: 'Bazează-te pe ciclul tău',
+        text: 'Începe cu câteva zile înainte de data ovulației estimată pe baza duratei medii a ciclurilor tale.',
+      },
+      {
+        title: 'Testează la aceeași oră în fiecare zi',
+        text: 'Ideal în jurul prânzului, evitând prima urină de dimineață.',
+      },
+      {
+        title: 'Evită diluarea urinei',
+        text: 'Limitează cantitățile mari de lichide în orele dinaintea testului.',
+      },
+    ],
+    section4Body:
+      'Un rezultat pozitiv semnalează momentul cel mai fertil pentru raporturi intime în următoarele 1-2 zile. Un rezultat negativ înseamnă pur și simplu că vârful nu a avut încă loc.',
+    limitations: [
+      'SOP poate provoca niveluri de LH natural mai ridicate, ceea ce poate încețoșa citirea',
+      'Anumite tratamente de fertilitate pot afecta rezultatul',
+      'O urină foarte diluată poate da un fals negativ',
+      'Un test de calitate mai slabă poate fi mai puțin fiabil',
+    ],
+    infoTitle: 'De ținut minte',
+    infoText:
+      'Un vârf de LH indică un semnal hormonal declanșator, dar singur nu garantează că ovulul a fost efectiv eliberat.',
+    tipTitle: 'Bine de știut',
+    tipText:
+      'Combinarea testelor de ovulație cu temperatura bazală sau cu observarea mucusului cervical oferă o imagine mai completă a ciclului tău.',
+    summaryPoints: [
+      'Testele de ovulație detectează vârful de LH, care declanșează eliberarea ovulului la 24-36 de ore distanță.',
+      'Se recomandă să începi testarea cu câteva zile înainte de data ovulației estimată pe baza ciclului tău.',
+      'Un rezultat pozitiv semnalează momentul cel mai fertil pentru raporturi intime în următoarele 1-2 zile.',
+      'Un vârf de LH singur nu garantează că ovulația a avut efectiv loc.',
+    ],
+    disclaimerText:
+      'Conținut cu caracter informativ. Acest articol nu înlocuiește sfatul medical personalizat. Dacă ai îndoieli, cere îndrumare unui profesionist din domeniul sănătății.',
+    shareMessage: 'Înțelegerea testelor de ovulație (LH) — AWA',
+  },
+  bg: {
+    badge: 'ПЛОДОВИТОСТ • ТЕСТОВЕ ЗА ОВУЛАЦИЯ',
+    title: 'Разбиране на тестовете\nза овулация (LH)',
+    metaDuration: '6 мин четене',
+    metaType: 'Ръководство',
+    metaLevel: 'Средно ниво',
+    metaValidated: 'Проверено съдържание',
+    intro: 'Как работят тези тест ленти и кога да ги използваш.',
+    contentsTitle: 'В тази статия',
+    topics: [
+      'Какво е LH?',
+      'Как работят тези тестове',
+      'Кога да започнеш тестването',
+      'Тълкуване на резултата',
+      'Фалшиво положителни резултати и ограничения',
+      'Комбиниране с други признаци',
+      'Какво да запомниш',
+    ],
+    section1Body:
+      'LH (лутеинизиращият хормон) се произвежда от мозъка и контролира функционирането на яйчниците. Тестовете за овулация откриват пика на този хормон, който задейства освобождаването на яйцеклетката 24 до 36 часа по-късно.',
+    section2Body:
+      'Тест лента за урина измерва нивото на LH: тестова линия, толкова тъмна или по-тъмна от контролната линия, показва пик.',
+    section3Body:
+      'Препоръчва се да започнеш тестването няколко дни преди датата на овулация, изчислена от цикъла ти.',
+    testingTips: [
+      {
+        title: 'Базирай се на цикъла си',
+        text: 'Започни няколко дни преди датата на овулация, изчислена от средната продължителност на циклите ти.',
+      },
+      {
+        title: 'Тествай по едно и също време всеки ден',
+        text: 'В идеалния случай около обяд, като избягваш първата сутрешна урина.',
+      },
+      {
+        title: 'Избягвай разреждането на урината',
+        text: 'Ограничи големите количества течности в часовете преди теста.',
+      },
+    ],
+    section4Body:
+      'Положителен резултат сигнализира най-плодовития момент за полови контакти през следващите 1 до 2 дни. Отрицателен резултат просто означава, че пикът още не е настъпил.',
+    limitations: [
+      'СПКЯ може да причини естествено по-високи нива на LH, което може да замъгли отчитането',
+      'Някои лечения за плодовитост могат да повлияят на резултата',
+      'Много разредена урина може да даде фалшиво отрицателен резултат',
+      'Тест с по-ниско качество може да е по-малко надежден',
+    ],
+    infoTitle: 'Помни',
+    infoText:
+      'Пикът на LH показва задействащ хормонален сигнал, но сам по себе си не гарантира, че яйцеклетката наистина е била освободена.',
+    tipTitle: 'Добре е да знаеш',
+    tipText:
+      'Комбинирането на тестовете за овулация с базалната температура или наблюдението на цервикалната слуз дава по-пълна картина на цикъла ти.',
+    summaryPoints: [
+      'Тестовете за овулация откриват пика на LH, който задейства освобождаването на яйцеклетката 24 до 36 часа по-късно.',
+      'Препоръчва се да започнеш тестването няколко дни преди датата на овулация, изчислена от цикъла ти.',
+      'Положителен резултат сигнализира най-плодовития момент за полови контакти през следващите 1 до 2 дни.',
+      'Пикът на LH сам по себе си не гарантира, че овулацията наистина е настъпила.',
+    ],
+    disclaimerText:
+      'Информационно съдържание. Тази статия не замества персонализирания медицински съвет. При съмнение поискай насоки от здравен специалист.',
+    shareMessage: 'Разбиране на тестовете за овулация (LH) — AWA',
+  },
+  sr: {
+    badge: 'ПЛОДНОСТ • ТЕСТОВИ ОВУЛАЦИЈЕ',
+    title: 'Разумевање тестова\nовулације (LH)',
+    metaDuration: '6 мин читања',
+    metaType: 'Водич',
+    metaLevel: 'Средњи ниво',
+    metaValidated: 'Проверен садржај',
+    intro: 'Како ове траке функционишу и када их користити.',
+    contentsTitle: 'У овом чланку',
+    topics: [
+      'Шта је LH?',
+      'Како ови тестови функционишу',
+      'Када почети са тестирањем',
+      'Тумачење резултата',
+      'Лажно позитивни резултати и ограничења',
+      'Комбиновање са другим знацима',
+      'Шта да запамтиш',
+    ],
+    section1Body:
+      'LH (лутеинизирајући хормон) производи мозак и контролише функционисање јајника. Тестови овулације откривају пик овог хормона, који покреће ослобађање јајне ћелије 24 до 36 сати касније.',
+    section2Body:
+      'Трака за тест урина мери ниво LH: линија теста једнако тамна или тамнија од контролне линије указује на пик.',
+    section3Body:
+      'Препоручује се да почнеш са тестирањем неколико дана пре датума овулације процењеног на основу твог циклуса.',
+    testingTips: [
+      {
+        title: 'Ослони се на свој циклус',
+        text: 'Почни неколико дана пре датума овулације процењеног на основу просечног трајања твојих циклуса.',
+      },
+      {
+        title: 'Тестирај се у исто време сваког дана',
+        text: 'У идеалном случају око подне, избегавајући прву јутарњу мокраћу.',
+      },
+      {
+        title: 'Избегавај разређивање урина',
+        text: 'Ограничи велике количине течности у сатима пре теста.',
+      },
+    ],
+    section4Body:
+      'Позитиван резултат сигнализира најплоднији тренутак за односе током наредних 1 до 2 дана. Негативан резултат једноставно значи да се пик још није десио.',
+    limitations: [
+      'ПЦОС може изазвати природно више нивое LH, што може замаглити очитавање',
+      'Одређене терапије плодности могу утицати на резултат',
+      'Веома разређен урин може дати лажно негативан резултат',
+      'Тест лошијег квалитета може бити мање поуздан',
+    ],
+    infoTitle: 'Имај на уму',
+    infoText:
+      'Пик LH указује на покретачки хормонски сигнал, али сам по себи не гарантује да је јајна ћелија заиста ослобођена.',
+    tipTitle: 'Добро је знати',
+    tipText:
+      'Комбиновање тестова овулације са базалном телесном температуром или посматрањем цервикалне слузи даје потпунију слику твог циклуса.',
+    summaryPoints: [
+      'Тестови овулације откривају пик LH, који покреће ослобађање јајне ћелије 24 до 36 сати касније.',
+      'Препоручује се да почнеш са тестирањем неколико дана пре датума овулације процењеног на основу твог циклуса.',
+      'Позитиван резултат сигнализира најплоднији тренутак за односе током наредних 1 до 2 дана.',
+      'Пик LH сам по себи не гарантује да је овулација заиста настала.',
+    ],
+    disclaimerText:
+      'Информативни садржај. Овај чланак не замењује персонализовани медицински савет. При сумњи потражи смернице од здравственог радника.',
+    shareMessage: 'Разумевање тестова овулације (LH) — AWA',
+  },
+  hr: {
+    badge: 'PLODNOST • TESTOVI OVULACIJE',
+    title: 'Razumijevanje testova\novulacije (LH)',
+    metaDuration: '6 min čitanja',
+    metaType: 'Vodič',
+    metaLevel: 'Srednja razina',
+    metaValidated: 'Provjeren sadržaj',
+    intro: 'Kako ove trakice funkcioniraju i kada ih koristiti.',
+    contentsTitle: 'U ovom članku',
+    topics: [
+      'Što je LH?',
+      'Kako ovi testovi funkcioniraju',
+      'Kada početi s testiranjem',
+      'Tumačenje rezultata',
+      'Lažno pozitivni rezultati i ograničenja',
+      'Kombiniranje s drugim znakovima',
+      'Ključne poruke',
+    ],
+    section1Body:
+      'LH (luteinizirajući hormon) stvara mozak i on kontrolira rad jajnika. Testovi ovulacije otkrivaju porast ovog hormona, koji 24 do 36 sati kasnije pokreće oslobađanje jajne stanice.',
+    section2Body:
+      'Trakica za test mokraće mjeri razinu LH: testna linija jednako tamna kao kontrolna linija ili tamnija od nje označava porast.',
+    section3Body:
+      'Preporučuje se početi s testiranjem nekoliko dana prije datuma ovulacije procijenjenog na temelju tvog ciklusa.',
+    testingTips: [
+      {
+        title: 'Osloni se na svoj ciklus',
+        text: 'Počni nekoliko dana prije datuma ovulacije procijenjenog prema prosječnoj duljini tvojih ciklusa.',
+      },
+      {
+        title: 'Testiraj svaki dan u isto vrijeme',
+        text: 'Idealno oko podneva, izbjegavajući prvu jutarnju mokraću.',
+      },
+      {
+        title: 'Izbjegavaj razrjeđivanje mokraće',
+        text: 'Ograniči veće količine tekućine u satima prije testa.',
+      },
+    ],
+    section4Body:
+      'Pozitivan rezultat signalizira najplodnije vrijeme za spolni odnos tijekom sljedećih 1 do 2 dana. Negativan rezultat jednostavno znači da porast još nije nastupio.',
+    limitations: [
+      'PCOS može uzrokovati prirodno više razine LH, što može zamutiti očitanje',
+      'Određene terapije plodnosti mogu utjecati na rezultat',
+      'Jako razrijeđena mokraća može dati lažno negativan rezultat',
+      'Test niže kvalitete može biti manje pouzdan',
+    ],
+    infoTitle: 'Imaj na umu',
+    infoText:
+      'Porast LH označava hormonski signal koji pokreće ovulaciju, ali sam po sebi ne jamči da je jajna stanica doista oslobođena.',
+    tipTitle: 'Dobro je znati',
+    tipText:
+      'Kombiniranjem testova ovulacije s bazalnom temperaturom ili promatranjem cervikalne sluzi dobiva se potpunija slika tvog ciklusa.',
+    summaryPoints: [
+      'Testovi ovulacije otkrivaju porast LH, koji 24 do 36 sati kasnije pokreće oslobađanje jajne stanice.',
+      'Preporučuje se početi s testiranjem nekoliko dana prije datuma ovulacije procijenjenog na temelju tvog ciklusa.',
+      'Pozitivan rezultat signalizira najplodnije vrijeme za spolni odnos tijekom sljedećih 1 do 2 dana.',
+      'Sam porast LH ne jamči da se ovulacija doista dogodila.',
+    ],
+    disclaimerText:
+      'Informativni sadržaj. Ovaj članak ne zamjenjuje individualni medicinski savjet. U slučaju nedoumice zatraži savjet zdravstvenog djelatnika.',
+    shareMessage: 'Razumijevanje testova ovulacije (LH) — AWA',
+  },
+  bs: {
+    badge: 'PLODNOST • TESTOVI OVULACIJE',
+    title: 'Razumijevanje testova\novulacije (LH)',
+    metaDuration: '6 min čitanja',
+    metaType: 'Vodič',
+    metaLevel: 'Srednja razina',
+    metaValidated: 'Provjeren sadržaj',
+    intro: 'Kako ove trakice funkcioniraju i kada ih koristiti.',
+    contentsTitle: 'U ovom članku',
+    topics: [
+      'Što je LH?',
+      'Kako ovi testovi funkcioniraju',
+      'Kada početi s testiranjem',
+      'Tumačenje rezultata',
+      'Lažno pozitivni rezultati i ograničenja',
+      'Kombiniranje s drugim znakovima',
+      'Ključne poruke',
+    ],
+    section1Body:
+      'LH (luteinizirajući hormon) stvara mozak i on kontrolira rad jajnika. Testovi ovulacije otkrivaju porast ovog hormona, koji 24 do 36 sati kasnije pokreće oslobađanje jajne stanice.',
+    section2Body:
+      'Trakica za test mokraće mjeri razinu LH: testna linija jednako tamna kao kontrolna linija ili tamnija od nje označava porast.',
+    section3Body:
+      'Preporučuje se početi s testiranjem nekoliko dana prije datuma ovulacije procijenjenog na temelju tvog ciklusa.',
+    testingTips: [
+      {
+        title: 'Osloni se na svoj ciklus',
+        text: 'Počni nekoliko dana prije datuma ovulacije procijenjenog prema prosječnoj duljini tvojih ciklusa.',
+      },
+      {
+        title: 'Testiraj svaki dan u isto vrijeme',
+        text: 'Idealno oko podneva, izbjegavajući prvu jutarnju mokraću.',
+      },
+      {
+        title: 'Izbjegavaj razrjeđivanje mokraće',
+        text: 'Ograniči veće količine tekućine u satima prije testa.',
+      },
+    ],
+    section4Body:
+      'Pozitivan rezultat signalizira najplodnije vrijeme za spolni odnos tokom sljedećih 1 do 2 dana. Negativan rezultat jednostavno znači da porast još nije nastupio.',
+    limitations: [
+      'PCOS može uzrokovati prirodno više razine LH, što može zamutiti očitanje',
+      'Određene terapije plodnosti mogu utjecati na rezultat',
+      'Jako razrijeđena mokraća može dati lažno negativan rezultat',
+      'Test niže kvalitete može biti manje pouzdan',
+    ],
+    infoTitle: 'Imaj na umu',
+    infoText:
+      'Porast LH označava hormonski signal koji pokreće ovulaciju, ali sam po sebi ne jamči da je jajna stanica doista oslobođena.',
+    tipTitle: 'Dobro je znati',
+    tipText:
+      'Kombiniranjem testova ovulacije s bazalnom temperaturom ili promatranjem cervikalne sluzi dobiva se potpunija slika tvog ciklusa.',
+    summaryPoints: [
+      'Testovi ovulacije otkrivaju porast LH, koji 24 do 36 sati kasnije pokreće oslobađanje jajne stanice.',
+      'Preporučuje se početi s testiranjem nekoliko dana prije datuma ovulacije procijenjenog na temelju tvog ciklusa.',
+      'Pozitivan rezultat signalizira najplodnije vrijeme za spolni odnos tokom sljedećih 1 do 2 dana.',
+      'Sam porast LH ne jamči da se ovulacija doista dogodila.',
+    ],
+    disclaimerText:
+      'Informativni sadržaj. Ovaj članak ne zamjenjuje individualni medicinski savjet. U slučaju nedoumice zatraži savjet zdravstvenog radnika.',
+    shareMessage: 'Razumijevanje testova ovulacije (LH) — AWA',
+  },
+  sl: {
+    badge: 'PLODNOST • TESTI OVULACIJE',
+    title: 'Razumevanje testov\novulacije (LH)',
+    metaDuration: '6 min branja',
+    metaType: 'Vodnik',
+    metaLevel: 'Srednja raven',
+    metaValidated: 'Preverjena vsebina',
+    intro: 'Kako ti testni lističi delujejo in kdaj jih uporabiti.',
+    contentsTitle: 'V tem članku',
+    topics: [
+      'Kaj je LH?',
+      'Kako ti testi delujejo',
+      'Kdaj začeti s testiranjem',
+      'Razlaga rezultata',
+      'Lažno pozitivni rezultati in omejitve',
+      'Kombiniranje z drugimi znaki',
+      'Ključna sporočila',
+    ],
+    section1Body:
+      'LH (luteinizirajoči hormon) proizvajajo možgani in nadzira delovanje jajčnikov. Testi ovulacije zaznajo porast tega hormona, ki 24 do 36 ur pozneje sproži sprostitev jajčne celice.',
+    section2Body:
+      'Testni lističi za seč merijo raven LH: testna črta, enako temna kot kontrolna črta ali temnejša od nje, označuje porast.',
+    section3Body:
+      'Priporočljivo je začeti s testiranjem nekaj dni pred datumom ovulacije, ocenjenim na podlagi tvojega cikla.',
+    testingTips: [
+      {
+        title: 'Zanesi se na svoj cikel',
+        text: 'Začni nekaj dni pred datumom ovulacije, ocenjenim glede na povprečno dolžino tvojih ciklov.',
+      },
+      {
+        title: 'Testiraj vsak dan ob isti uri',
+        text: 'Idealno okoli poldneva, izogibaj se prvemu jutranjemu seču.',
+      },
+      {
+        title: 'Izogibaj se razredčevanju seča',
+        text: 'Omeji večje količine tekočine v urah pred testom.',
+      },
+    ],
+    section4Body:
+      'Pozitiven rezultat nakazuje najplodnejši čas za spolni odnos v naslednjih 1 do 2 dneh. Negativen rezultat preprosto pomeni, da porast še ni nastopil.',
+    limitations: [
+      'PCOS lahko povzroči naravno višje ravni LH, kar lahko zamegli odčitek',
+      'Določena zdravljenja plodnosti lahko vplivajo na rezultat',
+      'Zelo razredčen seč lahko da lažno negativen rezultat',
+      'Test nižje kakovosti je lahko manj zanesljiv',
+    ],
+    infoTitle: 'Imej v mislih',
+    infoText:
+      'Porast LH označuje hormonski signal, ki sproži ovulacijo, a sam po sebi ne zagotavlja, da je bila jajčna celica res sproščena.',
+    tipTitle: 'Vredno vedeti',
+    tipText:
+      'S kombinacijo testov ovulacije z bazalno temperaturo ali opazovanjem materničnovratne sluzi dobiš popolnejšo sliko svojega cikla.',
+    summaryPoints: [
+      'Testi ovulacije zaznajo porast LH, ki 24 do 36 ur pozneje sproži sprostitev jajčne celice.',
+      'Priporočljivo je začeti s testiranjem nekaj dni pred datumom ovulacije, ocenjenim na podlagi tvojega cikla.',
+      'Pozitiven rezultat nakazuje najplodnejši čas za spolni odnos v naslednjih 1 do 2 dneh.',
+      'Sam porast LH ne zagotavlja, da je ovulacija res nastopila.',
+    ],
+    disclaimerText:
+      'Informativna vsebina. Ta članek ne nadomešča osebnega zdravniškega nasveta. V primeru dvoma poišči nasvet zdravstvenega delavca.',
+    shareMessage: 'Razumevanje testov ovulacije (LH) — AWA',
+  },
+  ne: {
+    badge: 'उर्वरता • अण्डोत्सर्ग परीक्षण',
+    title: 'अण्डोत्सर्ग परीक्षण (LH)\nबुझ्नुहोस्',
+    metaDuration: '6 मिनेट पढाइ',
+    metaType: 'मार्गदर्शन',
+    metaLevel: 'मध्यम',
+    metaValidated: 'समीक्षा गरिएको सामग्री',
+    intro: 'यी पट्टीहरू कसरी काम गर्छन्, र कहिले प्रयोग गर्ने।',
+    contentsTitle: 'यो लेखमा',
+    topics: [
+      'LH के हो?',
+      'यी परीक्षणहरू कसरी काम गर्छन्',
+      'परीक्षण कहिलेदेखि सुरु गर्ने',
+      'नतिजाको व्याख्या',
+      'गलत सकारात्मक र सीमाहरू',
+      'अन्य संकेतहरूसँग जोड्ने',
+      'मुख्य कुराहरू',
+    ],
+    section1Body:
+      'LH (ल्युटिनाइजिङ हर्मोन) मस्तिष्कले उत्पादन गर्छ र अण्डाशयहरूको कामलाई नियन्त्रण गर्छ। अण्डोत्सर्ग परीक्षणले यो हर्मोनको उछाल पत्ता लगाउँछ, जसले 24 देखि 36 घण्टापछि अण्डा निस्कन ट्रिगर गर्छ।',
+    section2Body:
+      'पिसाबको परीक्षण पट्टीले LH को स्तर नाप्छ: कन्ट्रोल रेखाजत्तिकै वा त्योभन्दा गाढा परीक्षण रेखाले उछाल जनाउँछ।',
+    section3Body:
+      'आफ्नो चक्रबाट अनुमानित अण्डोत्सर्गको मितिभन्दा केही दिनअघिदेखि परीक्षण सुरु गर्न सिफारिस गरिन्छ।',
+    testingTips: [
+      {
+        title: 'आफ्नो चक्रमा आधारित बनाउनुहोस्',
+        text: 'आफ्ना चक्रहरूको औसत अवधिबाट अनुमानित अण्डोत्सर्गको मितिभन्दा केही दिनअघि सुरु गर्नुहोस्।',
+      },
+      {
+        title: 'हरेक दिन एउटै समयमा परीक्षण गर्नुहोस्',
+        text: 'आदर्श रूपमा मध्यान्हतिर, बिहानको पहिलो पिसाब नलिई।',
+      },
+      {
+        title: 'पिसाबलाई पातलो हुनबाट जोगाउनुहोस्',
+        text: 'परीक्षणअघिका घण्टाहरूमा धेरै मात्रामा तरल पदार्थ सीमित गर्नुहोस्।',
+      },
+    ],
+    section4Body:
+      'सकारात्मक नतिजाले आगामी 1 देखि 2 दिनमा सम्भोगका लागि सबैभन्दा उर्वर समय जनाउँछ। नकारात्मक नतिजाको अर्थ उछाल अझै नभएको मात्र हो।',
+    limitations: [
+      'PCOS ले स्वाभाविक रूपमा उच्च LH स्तर निम्त्याउन सक्छ, जसले पठनलाई धमिलो बनाउन सक्छ',
+      'केही उर्वरता उपचारहरूले नतिजालाई असर गर्न सक्छन्',
+      'निकै पातलो पिसाबले गलत नकारात्मक दिन सक्छ',
+      'कम गुणस्तरको परीक्षण कम भरपर्दो हुन सक्छ',
+    ],
+    infoTitle: 'मनमा राख्नुहोस्',
+    infoText:
+      'LH को उछालले ट्रिगर गर्ने हर्मोनल संकेत जनाउँछ, तर आफैँमा यसले अण्डा वास्तवमै निस्किएको ग्यारेन्टी दिँदैन।',
+    tipTitle: 'जान्न लायक',
+    tipText:
+      'अण्डोत्सर्ग परीक्षणलाई आधारभूत शारीरिक तापक्रम वा गर्भाशयको मुखको तरल पदार्थको अवलोकनसँग जोड्दा तपाईंको चक्रको अझ पूर्ण चित्र पाइन्छ।',
+    summaryPoints: [
+      'अण्डोत्सर्ग परीक्षणले LH को उछाल पत्ता लगाउँछ, जसले 24 देखि 36 घण्टापछि अण्डा निस्कन ट्रिगर गर्छ।',
+      'आफ्नो चक्रबाट अनुमानित अण्डोत्सर्गको मितिभन्दा केही दिनअघिदेखि परीक्षण सुरु गर्न सिफारिस गरिन्छ।',
+      'सकारात्मक नतिजाले आगामी 1 देखि 2 दिनमा सम्भोगका लागि सबैभन्दा उर्वर समय जनाउँछ।',
+      'आफैँमा LH को उछालले अण्डोत्सर्ग वास्तवमै भयो भन्ने ग्यारेन्टी दिँदैन।',
+    ],
+    disclaimerText:
+      'जानकारीमूलक सामग्री। यो लेखले व्यक्तिगत चिकित्सकीय सल्लाहको स्थान लिँदैन। शङ्का भए स्वास्थ्यकर्मीसँग मार्गदर्शन लिनुहोस्।',
+    shareMessage: 'अण्डोत्सर्ग परीक्षण (LH) बुझ्नुहोस् — AWA',
+  },
+  si: {
+    badge: 'සාරවත් බව • ඩිම්බ මෝචන පරීක්ෂණ',
+    title: 'ඩිම්බ මෝචන (LH)\nපරීක්ෂණ තේරුම් ගැනීම',
+    metaDuration: 'කියවීමට මිනිත්තු 6',
+    metaType: 'මාර්ගෝපදේශය',
+    metaLevel: 'මධ්‍යම',
+    metaValidated: 'සමාලෝචනය කළ අන්තර්ගතය',
+    intro: 'මෙම පටි ක්‍රියා කරන ආකාරය සහ ඒවා භාවිතා කළ යුත්තේ කවදාද.',
+    contentsTitle: 'මෙම ලිපියේ',
+    topics: [
+      'LH යනු කුමක්ද?',
+      'මෙම පරීක්ෂණ ක්‍රියා කරන ආකාරය',
+      'පරීක්ෂා කිරීම ආරම්භ කළ යුත්තේ කවදාද',
+      'ප්‍රතිඵලයක් අර්ථකථනය කිරීම',
+      'වැරදි ධනාත්මක ප්‍රතිඵල සහ සීමාවන්',
+      'වෙනත් සලකුණු සමඟ ඒකාබද්ධ කිරීම',
+      'ප්‍රධාන කරුණු',
+    ],
+    section1Body:
+      'LH (ලූටිනයිසින් හෝමෝනය) මොළය විසින් නිපදවන අතර ඩිම්බකෝෂ ක්‍රියා කරන ආකාරය පාලනය කරයි. ඩිම්බ මෝචන පරීක්ෂණ මෙම හෝමෝනයේ ඉහළ යාම හඳුනාගනී, එය පැය 24 සිට 36 කට පසු ඩිම්බය නිකුත් වීමට හේතු වේ.',
+    section2Body:
+      'මුත්‍රා පරීක්ෂණ පටියක් LH මට්ටම් මනිනු ලබයි: පාලන රේඛාව තරම්ම තද හෝ ඊට වඩා තද පරීක්ෂණ රේඛාවක් ඉහළ යාමක් දක්වයි.',
+    section3Body:
+      'ඔබේ චක්‍රයෙන් ඇස්තමේන්තු කළ ඩිම්බ මෝචන දිනයට දින කිහිපයකට පෙර පරීක්ෂා කිරීම ආරම්භ කිරීම නිර්දේශිතයි.',
+    testingTips: [
+      {
+        title: 'ඔබේ චක්‍රය මත පදනම් වන්න',
+        text: 'ඔබේ චක්‍රවල සාමාන්‍ය දිගෙන් ඇස්තමේන්තු කළ ඩිම්බ මෝචන දිනයට දින කිහිපයකට පෙර ආරම්භ කරන්න.',
+      },
+      {
+        title: 'සෑම දිනකම එකම වේලාවේ පරීක්ෂා කරන්න',
+        text: 'ඉතා සුදුසු වන්නේ මධ්‍යාහ්නය වටා, උදෑසන පළමු මුත්‍රා වළක්වා.',
+      },
+      {
+        title: 'ඔබේ මුත්‍රා තනුක කිරීම වළක්වන්න',
+        text: 'පරීක්ෂණයට පෙර පැය කිහිපය තුළ විශාල ද්‍රව ප්‍රමාණ සීමා කරන්න.',
+      },
+    ],
+    section4Body:
+      'ධනාත්මක ප්‍රතිඵලයක් ඉදිරි දින 1 සිට 2 දක්වා සංසර්ගය සඳහා වඩාත්ම සාරවත් කාලය දක්වයි. ඍණාත්මක ප්‍රතිඵලයක් අදහස් කරන්නේ ඉහළ යාම තවම සිදු නොවූ බව පමණි.',
+    limitations: [
+      'PCOS ස්වභාවිකවම ඉහළ LH මට්ටම් ඇති කළ හැකි අතර, එය කියවීම අපැහැදිලි කළ හැක',
+      'සමහර සාරවත් බව ප්‍රතිකාර ප්‍රතිඵලයට බලපෑ හැක',
+      'ඉතා තනුක මුත්‍රා වැරදි ඍණාත්මක ප්‍රතිඵලයක් දිය හැක',
+      'අඩු ගුණාත්මක පරීක්ෂණයක් අඩු විශ්වාසදායක විය හැක',
+    ],
+    infoTitle: 'මතක තබාගන්න',
+    infoText:
+      'LH ඉහළ යාමක් අවුලුවන හෝමෝන සංඥාවක් දක්වයි, නමුත් තනිවම එය ඩිම්බය සැබවින්ම නිකුත් වූ බව සහතික නොකරයි.',
+    tipTitle: 'දැනගත යුතු දේ',
+    tipText:
+      'ඩිම්බ මෝචන පරීක්ෂණ ඔබේ මූලික ශරීර උෂ්ණත්වය හෝ ගර්භාෂ ග්‍රීවා ශ්ලේෂ්මල නිරීක්ෂණය සමඟ ඒකාබද්ධ කිරීම ඔබේ චක්‍රයේ වඩා සම්පූර්ණ චිත්‍රයක් ලබා දෙයි.',
+    summaryPoints: [
+      'ඩිම්බ මෝචන පරීක්ෂණ LH ඉහළ යාම හඳුනාගනී, එය පැය 24 සිට 36 කට පසු ඩිම්බය නිකුත් වීමට හේතු වේ.',
+      'ඔබේ චක්‍රයෙන් ඇස්තමේන්තු කළ ඩිම්බ මෝචන දිනයට දින කිහිපයකට පෙර පරීක්ෂා කිරීම ආරම්භ කිරීම නිර්දේශිතයි.',
+      'ධනාත්මක ප්‍රතිඵලයක් ඉදිරි දින 1 සිට 2 දක්වා සංසර්ගය සඳහා වඩාත්ම සාරවත් කාලය දක්වයි.',
+      'තනිවම LH ඉහළ යාමක් ඩිම්බ මෝචනය සැබවින්ම සිදු වූ බව සහතික නොකරයි.',
+    ],
+    disclaimerText:
+      'තොරතුරු අන්තර්ගතයකි. මෙම ලිපිය පුද්ගලීකරණය කළ වෛද්‍ය උපදෙස් වෙනුවට නොපවතී. සැකයක් ඇත්නම්, සෞඛ්‍ය වෘත්තිකයෙකුගෙන් මඟපෙන්වීමක් ලබා ගන්න.',
+    shareMessage: 'ඩිම්බ මෝචන (LH) පරීක්ෂණ තේරුම් ගැනීම — AWA',
+  },
+  th: {
+    badge: 'ภาวะเจริญพันธุ์ • การตรวจการตกไข่',
+    title: 'ทำความเข้าใจ\nการตรวจการตกไข่ (LH)',
+    metaDuration: 'อ่าน 6 นาที',
+    metaType: 'คู่มือ',
+    metaLevel: 'ปานกลาง',
+    metaValidated: 'เนื้อหาที่ผ่านการตรวจสอบ',
+    intro: 'แถบทดสอบเหล่านี้ทำงานอย่างไร และควรใช้เมื่อไร',
+    contentsTitle: 'ในบทความนี้',
+    topics: [
+      'LH คืออะไร?',
+      'การตรวจเหล่านี้ทำงานอย่างไร',
+      'ควรเริ่มตรวจเมื่อไร',
+      'การแปลผล',
+      'ผลบวกลวงและข้อจำกัด',
+      'การใช้ร่วมกับสัญญาณอื่น',
+      'ประเด็นสำคัญ',
+    ],
+    section1Body:
+      'LH (ฮอร์โมนลูทีนไนซิง) ผลิตจากสมองและควบคุมการทำงานของรังไข่ การตรวจการตกไข่ตรวจจับการเพิ่มขึ้นอย่างรวดเร็วของฮอร์โมนนี้ ซึ่งกระตุ้นให้ปล่อยไข่ 24 ถึง 36 ชั่วโมงต่อมา',
+    section2Body:
+      'แถบทดสอบปัสสาวะวัดระดับ LH: เส้นทดสอบที่เข้มเท่ากับหรือเข้มกว่าเส้นควบคุมบ่งบอกถึงการเพิ่มขึ้นอย่างรวดเร็ว',
+    section3Body:
+      'แนะนำให้เริ่มตรวจก่อนวันตกไข่ที่ประมาณจากรอบเดือนของคุณไม่กี่วัน',
+    testingTips: [
+      {
+        title: 'อิงจากรอบเดือนของคุณ',
+        text: 'เริ่มก่อนวันตกไข่ที่ประมาณจากความยาวเฉลี่ยของรอบเดือนของคุณไม่กี่วัน',
+      },
+      {
+        title: 'ตรวจเวลาเดิมทุกวัน',
+        text: 'ควรเป็นช่วงเที่ยง หลีกเลี่ยงปัสสาวะครั้งแรกของเช้า',
+      },
+      {
+        title: 'หลีกเลี่ยงการทำให้ปัสสาวะเจือจาง',
+        text: 'จำกัดการดื่มน้ำปริมาณมากในชั่วโมงก่อนการตรวจ',
+      },
+    ],
+    section4Body:
+      'ผลบวกบ่งบอกถึงช่วงเวลาที่เจริญพันธุ์ที่สุดสำหรับการมีเพศสัมพันธ์ใน 1 ถึง 2 วันถัดไป ผลลบหมายความเพียงว่าการเพิ่มขึ้นอย่างรวดเร็วยังไม่เกิดขึ้น',
+    limitations: [
+      'PCOS อาจทำให้ระดับ LH สูงตามธรรมชาติ ซึ่งทำให้การอ่านผลไม่ชัด',
+      'การรักษาภาวะเจริญพันธุ์บางอย่างอาจส่งผลต่อผลตรวจ',
+      'ปัสสาวะที่เจือจางมากอาจให้ผลลบลวง',
+      'ชุดตรวจคุณภาพต่ำกว่าอาจเชื่อถือได้น้อยกว่า',
+    ],
+    infoTitle: 'โปรดจำไว้',
+    infoText:
+      'การเพิ่มขึ้นอย่างรวดเร็วของ LH บ่งบอกถึงสัญญาณฮอร์โมนที่กระตุ้น แต่ตัวมันเองไม่ได้รับประกันว่าไข่ถูกปล่อยออกมาจริง',
+    tipTitle: 'ควรรู้',
+    tipText:
+      'การใช้การตรวจการตกไข่ร่วมกับอุณหภูมิร่างกายขณะพักหรือการสังเกตเมือกปากมดลูก ให้ภาพรวมของรอบเดือนที่สมบูรณ์ยิ่งขึ้น',
+    summaryPoints: [
+      'การตรวจการตกไข่ตรวจจับการเพิ่มขึ้นอย่างรวดเร็วของ LH ซึ่งกระตุ้นให้ปล่อยไข่ 24 ถึง 36 ชั่วโมงต่อมา',
+      'แนะนำให้เริ่มตรวจก่อนวันตกไข่ที่ประมาณจากรอบเดือนของคุณไม่กี่วัน',
+      'ผลบวกบ่งบอกถึงช่วงเวลาที่เจริญพันธุ์ที่สุดสำหรับการมีเพศสัมพันธ์ใน 1 ถึง 2 วันถัดไป',
+      'การเพิ่มขึ้นอย่างรวดเร็วของ LH เพียงอย่างเดียวไม่ได้รับประกันว่าการตกไข่เกิดขึ้นจริง',
+    ],
+    disclaimerText:
+      'เนื้อหาเพื่อให้ข้อมูล บทความนี้ไม่ได้ทดแทนคำแนะนำทางการแพทย์เฉพาะบุคคล หากมีข้อสงสัย โปรดขอคำแนะนำจากบุคลากรทางการแพทย์',
+    shareMessage: 'ทำความเข้าใจการตรวจการตกไข่ (LH) — AWA',
+  },
+  vi: {
+    badge: 'KHẢ NĂNG THỤ THAI • QUE THỬ RỤNG TRỨNG',
+    title: 'Hiểu về que thử\nrụng trứng (LH)',
+    metaDuration: '6 phút đọc',
+    metaType: 'Hướng dẫn',
+    metaLevel: 'Trung cấp',
+    metaValidated: 'Nội dung đã được thẩm định',
+    intro: 'Các que thử này hoạt động như thế nào và khi nào nên dùng.',
+    contentsTitle: 'Trong bài viết này',
+    topics: [
+      'LH là gì?',
+      'Các que thử này hoạt động như thế nào',
+      'Khi nào nên bắt đầu thử',
+      'Đọc kết quả',
+      'Dương tính giả và những hạn chế',
+      'Kết hợp với các dấu hiệu khác',
+      'Những điểm chính cần nhớ',
+    ],
+    section1Body:
+      'LH (hormone tạo hoàng thể) do não sản xuất và điều khiển hoạt động của buồng trứng. Que thử rụng trứng phát hiện đợt tăng vọt của hormone này, đợt tăng vọt kích hoạt việc phóng thích trứng sau 24 đến 36 giờ.',
+    section2Body:
+      'Que thử nước tiểu đo nồng độ LH: vạch thử đậm bằng hoặc đậm hơn vạch chứng cho thấy có đợt tăng vọt.',
+    section3Body:
+      'Nên bắt đầu thử vài ngày trước ngày rụng trứng ước tính dựa trên chu kỳ của bạn.',
+    testingTips: [
+      {
+        title: 'Dựa trên chu kỳ của bạn',
+        text: 'Bắt đầu vài ngày trước ngày rụng trứng ước tính dựa trên độ dài trung bình của các chu kỳ của bạn.',
+      },
+      {
+        title: 'Thử vào cùng một giờ mỗi ngày',
+        text: 'Tốt nhất vào khoảng giữa trưa, tránh nước tiểu đầu tiên buổi sáng.',
+      },
+      {
+        title: 'Tránh làm loãng nước tiểu',
+        text: 'Hạn chế uống nhiều nước trong những giờ trước khi thử.',
+      },
+    ],
+    section4Body:
+      'Kết quả dương tính cho thấy thời điểm dễ thụ thai nhất để quan hệ trong 1 đến 2 ngày tiếp theo. Kết quả âm tính chỉ đơn giản có nghĩa là đợt tăng vọt chưa xảy ra.',
+    limitations: [
+      'PCOS có thể khiến nồng độ LH cao hơn một cách tự nhiên, làm nhiễu việc đọc kết quả',
+      'Một số phương pháp điều trị vô sinh có thể ảnh hưởng đến kết quả',
+      'Nước tiểu quá loãng có thể cho kết quả âm tính giả',
+      'Que thử chất lượng thấp hơn có thể kém tin cậy hơn',
+    ],
+    infoTitle: 'Hãy ghi nhớ',
+    infoText:
+      'Đợt tăng vọt LH cho thấy một tín hiệu nội tiết kích hoạt, nhưng tự nó không đảm bảo rằng trứng thực sự đã được phóng thích.',
+    tipTitle: 'Nên biết',
+    tipText:
+      'Kết hợp que thử rụng trứng với thân nhiệt cơ bản hoặc việc quan sát dịch nhầy cổ tử cung sẽ cho bức tranh đầy đủ hơn về chu kỳ của bạn.',
+    summaryPoints: [
+      'Que thử rụng trứng phát hiện đợt tăng vọt LH, đợt tăng vọt kích hoạt việc phóng thích trứng sau 24 đến 36 giờ.',
+      'Nên bắt đầu thử vài ngày trước ngày rụng trứng ước tính dựa trên chu kỳ của bạn.',
+      'Kết quả dương tính cho thấy thời điểm dễ thụ thai nhất để quan hệ trong 1 đến 2 ngày tiếp theo.',
+      'Một đợt tăng vọt LH tự nó không đảm bảo rằng rụng trứng thực sự đã xảy ra.',
+    ],
+    disclaimerText:
+      'Nội dung mang tính thông tin. Bài viết này không thay thế lời khuyên y khoa cá nhân hóa. Nếu có nghi ngờ, hãy tìm hướng dẫn từ nhân viên y tế.',
+    shareMessage: 'Hiểu về que thử rụng trứng (LH) — AWA',
+  },
+  uz: {
+    badge: 'UNUMDORLIK • OVULYATSIYA TESTLARI',
+    title: 'Ovulyatsiya (LH)\ntestlarini tushunish',
+    metaDuration: '6 daq oʻqish',
+    metaType: 'Qoʻllanma',
+    metaLevel: 'Oʻrta',
+    metaValidated: 'Tasdiqlangan kontent',
+    intro: 'Bu test chiziqlari qanday ishlaydi va ulardan qachon foydalanish kerak.',
+    contentsTitle: 'Ushbu maqolada',
+    topics: [
+      'LH nima?',
+      'Bu testlar qanday ishlaydi',
+      'Test qilishni qachon boshlash kerak',
+      'Natijani talqin qilish',
+      'Yolgʻon ijobiy natijalar va cheklovlar',
+      'Boshqa belgilar bilan birlashtirish',
+      'Asosiy xulosalar',
+    ],
+    section1Body:
+      'LH (lyuteinlashtiruvchi gormon) miyada ishlab chiqariladi va tuxumdonlar ishini boshqaradi. Ovulyatsiya testlari bu gormonning keskin oshishini aniqlaydi, u 24 soatdan 36 soatgacha vaqtdan keyin tuxum hujayra chiqishiga sabab boʻladi.',
+    section2Body:
+      'Siydik test chizigʻi LH darajasini oʻlchaydi: nazorat chizigʻi kabi toʻq yoki undan toʻqroq test chizigʻi keskin oshishni bildiradi.',
+    section3Body:
+      'Test qilishni siklingizdan taxmin qilingan ovulyatsiya sanasidan bir necha kun oldin boshlash tavsiya etiladi.',
+    testingTips: [
+      {
+        title: 'Siklingizga tayaning',
+        text: 'Sikllaringizning oʻrtacha uzunligidan taxmin qilingan ovulyatsiya sanasidan bir necha kun oldin boshlang.',
+      },
+      {
+        title: 'Har kuni bir vaqtda test qiling',
+        text: 'Ideal holda kunning oʻrtasida, ertalabki birinchi siydikdan qoching.',
+      },
+      {
+        title: 'Siydikni suyultirmang',
+        text: 'Testdan oldingi soatlarda koʻp suyuqlik ichishni cheklang.',
+      },
+    ],
+    section4Body:
+      'Ijobiy natija keyingi 1 kundan 2 kungacha jinsiy aloqa uchun eng unumdor vaqtni bildiradi. Salbiy natija esa shunchaki keskin oshish hali sodir boʻlmaganini anglatadi.',
+    limitations: [
+      'PCOS tabiiy ravishda yuqoriroq LH darajasiga olib kelishi va oʻlchovni xiralashtirishi mumkin',
+      'Baʼzi unumdorlik davolanishlari natijaga taʼsir qilishi mumkin',
+      'Juda suyultirilgan siydik yolgʻon salbiy natija berishi mumkin',
+      'Sifati pastroq test kamroq ishonchli boʻlishi mumkin',
+    ],
+    infoTitle: 'Esda tuting',
+    infoText:
+      'LH ning keskin oshishi qoʻzgʻatuvchi gormonal signalni bildiradi, lekin yakka oʻzi tuxum hujayra haqiqatan chiqqanini kafolatlamaydi.',
+    tipTitle: 'Bilish foydali',
+    tipText:
+      'Ovulyatsiya testlarini bazal tana harorati yoki bachadon boʻyni shilligini kuzatish bilan birlashtirish siklingiz haqida toʻliqroq tasavvur beradi.',
+    summaryPoints: [
+      'Ovulyatsiya testlari LH ning keskin oshishini aniqlaydi, u 24 soatdan 36 soatgacha vaqtdan keyin tuxum hujayra chiqishiga sabab boʻladi.',
+      'Test qilishni siklingizdan taxmin qilingan ovulyatsiya sanasidan bir necha kun oldin boshlash tavsiya etiladi.',
+      'Ijobiy natija keyingi 1 kundan 2 kungacha jinsiy aloqa uchun eng unumdor vaqtni bildiradi.',
+      'LH ning yakka oʻzi keskin oshishi ovulyatsiya haqiqatan sodir boʻlganini kafolatlamaydi.',
+    ],
+    disclaimerText:
+      'Maʼlumot uchun kontent. Bu maqola shaxsiy tibbiy maslahatni almashtirmaydi. Shubha boʻlsa, sogʻliqni saqlash mutaxassisidan yoʻl-yoʻriq soʻrang.',
+    shareMessage: 'Ovulyatsiya (LH) testlarini tushunish — AWA',
+  },
+  az: {
+    badge: 'MÜNBİTLİK • OVULYASİYA TESTLƏRİ',
+    title: 'Ovulyasiya testlərini (LH)\nanlamaq',
+    metaDuration: '6 dəq oxu',
+    metaType: 'Bələdçi',
+    metaLevel: 'Orta',
+    metaValidated: 'Yoxlanılmış məzmun',
+    intro: 'Bu zolaqlar necə işləyir və onlardan nə vaxt istifadə etmək lazımdır.',
+    contentsTitle: 'Bu məqalədə',
+    topics: [
+      'LH nədir?',
+      'Bu testlər necə işləyir',
+      'Test etməyə nə vaxt başlamaq lazımdır',
+      'Nəticəni şərh etmək',
+      'Yalançı müsbət nəticələr və məhdudiyyətlər',
+      'Digər əlamətlərlə birləşdirmək',
+      'Əsas nəticələr',
+    ],
+    section1Body:
+      'LH (lüteinləşdirici hormon) beyin tərəfindən istehsal olunur və yumurtalıqların fəaliyyətini idarə edir. Ovulyasiya testləri bu hormonun kəskin artımını aşkar edir və bu artım 24–36 saat sonra yumurtahüceyrənin ayrılmasına səbəb olur.',
+    section2Body:
+      'Sidik test zolağı LH səviyyəsini ölçür: nəzarət xəttindən eyni dərəcədə tünd və ya daha tünd test xətti artımı göstərir.',
+    section3Body:
+      'Test etməyə dövrünüzə əsasən təxmin edilən ovulyasiya tarixindən bir neçə gün əvvəl başlamaq tövsiyə olunur.',
+    testingTips: [
+      {
+        title: 'Dövrünüzə əsaslanın',
+        text: 'Dövrlərinizin orta uzunluğuna əsasən təxmin edilən ovulyasiya tarixindən bir neçə gün əvvəl başlayın.',
+      },
+      {
+        title: 'Hər gün eyni vaxtda test edin',
+        text: 'İdeal halda günorta ətrafında, səhərin ilk sidiyindən qaçaraq.',
+      },
+      {
+        title: 'Sidiyi durulaşdırmaqdan çəkinin',
+        text: 'Testdən əvvəlki saatlarda çox miqdarda maye qəbulunu məhdudlaşdırın.',
+      },
+    ],
+    section4Body:
+      'Müsbət nəticə sonrakı 1–2 gün ərzində cinsi əlaqə üçün ən münbit vaxtı bildirir. Mənfi nəticə sadəcə artımın hələ baş vermədiyini göstərir.',
+    limitations: [
+      'PKOS təbii olaraq daha yüksək LH səviyyələrinə səbəb ola bilər ki, bu da nəticənin oxunmasını bulandıra bilər',
+      'Bəzi münbitlik müalicələri nəticəyə təsir edə bilər',
+      'Çox durulaşmış sidik yalançı mənfi nəticə verə bilər',
+      'Daha aşağı keyfiyyətli test daha az etibarlı ola bilər',
+    ],
+    infoTitle: 'Yadda saxlayın',
+    infoText:
+      'LH artımı tətikləyici hormonal siqnalı göstərir, lakin tək başına yumurtahüceyrənin həqiqətən ayrıldığına zəmanət vermir.',
+    tipTitle: 'Bilmək faydalıdır',
+    tipText:
+      'Ovulyasiya testlərini bazal bədən temperaturunuz və ya uşaqlıq boynu mukusunun müşahidəsi ilə birləşdirmək dövrünüz haqqında daha tam təsəvvür verir.',
+    summaryPoints: [
+      'Ovulyasiya testləri LH artımını aşkar edir və bu artım 24–36 saat sonra yumurtahüceyrənin ayrılmasına səbəb olur.',
+      'Test etməyə dövrünüzə əsasən təxmin edilən ovulyasiya tarixindən bir neçə gün əvvəl başlamaq tövsiyə olunur.',
+      'Müsbət nəticə sonrakı 1–2 gün ərzində cinsi əlaqə üçün ən münbit vaxtı bildirir.',
+      'Tək LH artımı ovulyasiyanın həqiqətən baş verdiyinə zəmanət vermir.',
+    ],
+    disclaimerText:
+      'Məlumat xarakterli məzmun. Bu məqalə fərdi tibbi məsləhəti əvəz etmir. Şübhə olarsa, tibb işçisindən məsləhət alın.',
+    shareMessage: 'Ovulyasiya testlərini (LH) anlamaq — AWA',
+  },
+  ka: {
+    badge: 'ფერტილობა • ოვულაციის ტესტები',
+    title: 'ოვულაციის (LH)\nტესტების გაგება',
+    metaDuration: '6 წთ საკითხავი',
+    metaType: 'გზამკვლევი',
+    metaLevel: 'საშუალო',
+    metaValidated: 'გადამოწმებული შინაარსი',
+    intro: 'როგორ მუშაობს ეს ზოლები და როდის გამოვიყენოთ.',
+    contentsTitle: 'ამ სტატიაში',
+    topics: [
+      'რა არის LH?',
+      'როგორ მუშაობს ეს ტესტები',
+      'როდის დავიწყოთ ტესტირება',
+      'შედეგის ინტერპრეტაცია',
+      'ცრუ დადებითი შედეგები და შეზღუდვები',
+      'სხვა ნიშნებთან შერწყმა',
+      'მთავარი დასკვნები',
+    ],
+    section1Body:
+      'LH (ლუტეინიზებელი ჰორმონი) გამოიმუშავება ტვინის მიერ და აკონტროლებს საკვერცხეების მუშაობას. ოვულაციის ტესტები ამ ჰორმონის მატებას აღმოაჩენს, რომელიც კვერცხუჯრედის გამოთავისუფლებას 24-დან 36 საათში იწვევს.',
+    section2Body:
+      'შარდის სატესტო ზოლი LH-ის დონეს ზომავს: საკონტროლო ხაზის ტოლი ან მასზე მუქი სატესტო ხაზი მატებაზე მიუთითებს.',
+    section3Body:
+      'რეკომენდებულია ტესტირების დაწყება თქვენი ციკლის მიხედვით შეფასებული ოვულაციის თარიღამდე რამდენიმე დღით ადრე.',
+    testingTips: [
+      {
+        title: 'დაეყრდენით თქვენს ციკლს',
+        text: 'დაიწყეთ თქვენი ციკლების საშუალო ხანგრძლივობის მიხედვით შეფასებული ოვულაციის თარიღამდე რამდენიმე დღით ადრე.',
+      },
+      {
+        title: 'ტესტირება ყოველდღე ერთსა და იმავე დროს',
+        text: 'იდეალურად შუადღისას, დილის პირველი შარდის თავიდან აცილებით.',
+      },
+      {
+        title: 'შარდის გაზავება აარიდეთ',
+        text: 'ტესტამდე რამდენიმე საათის განმავლობაში დიდი რაოდენობით სითხეები შეზღუდეთ.',
+      },
+    ],
+    section4Body:
+      'დადებითი შედეგი ყველაზე ფერტილურ დროზე მიუთითებს სქესობრივი კავშირისთვის მომდევნო 1-დან 2 დღემდე. უარყოფითი შედეგი უბრალოდ ნიშნავს, რომ მატება ჯერ არ მოხდარა.',
+    limitations: [
+      'PCOS-მა შეიძლება ბუნებრივად უფრო მაღალი LH-ის დონე გამოიწვიოს, რამაც ჩვენება დაბინდოს',
+      'ფერტილობის ზოგიერთმა მკურნალობამ შეიძლება შედეგზე იმოქმედოს',
+      'ძალიან გაზავებულმა შარდმა შეიძლება ცრუ უარყოფითი შედეგი მისცეს',
+      'დაბალი ხარისხის ტესტი შეიძლება ნაკლებად სანდო იყოს',
+    ],
+    infoTitle: 'გაითვალისწინეთ',
+    infoText:
+      'LH-ის მატება გამომწვევ ჰორმონულ სიგნალზე მიუთითებს, მაგრამ თავისთავად იმის გარანტიას არ იძლევა, რომ კვერცხუჯრედი ნამდვილად გამოთავისუფლდა.',
+    tipTitle: 'კარგია ვიცოდეთ',
+    tipText:
+      'ოვულაციის ტესტების შერწყმა ბაზალურ ტემპერატურასთან ან საშვილოსნოს ყელის ლორწოს დაკვირვებასთან თქვენი ციკლის უფრო სრულ სურათს გვაძლევს.',
+    summaryPoints: [
+      'ოვულაციის ტესტები LH-ის მატებას აღმოაჩენს, რომელიც კვერცხუჯრედის გამოთავისუფლებას 24-დან 36 საათში იწვევს.',
+      'რეკომენდებულია ტესტირების დაწყება თქვენი ციკლის მიხედვით შეფასებული ოვულაციის თარიღამდე რამდენიმე დღით ადრე.',
+      'დადებითი შედეგი ყველაზე ფერტილურ დროზე მიუთითებს სქესობრივი კავშირისთვის მომდევნო 1-დან 2 დღემდე.',
+      'LH-ის მატება თავისთავად იმის გარანტიას არ იძლევა, რომ ოვულაცია ნამდვილად მოხდა.',
+    ],
+    disclaimerText:
+      'საინფორმაციო შინაარსი. ეს სტატია პერსონალიზებულ სამედიცინო რჩევას არ ანაცვლებს. ეჭვის შემთხვევაში მიმართეთ ჯანდაცვის სპეციალისტს.',
+    shareMessage: 'ოვულაციის (LH) ტესტების გაგება — AWA',
+  },
+  hy: {
+    badge: 'ՊՏՂԱԲԵՐՈՒԹՅՈՒՆ • ՁՎԱԶԱՏՄԱՆ ԹԵՍՏԵՐ',
+    title: 'Հասկանալ ձվազատման\nթեստերը (LH)',
+    metaDuration: '6 ր կարդալու համար',
+    metaType: 'Ուղեցույց',
+    metaLevel: 'Միջին',
+    metaValidated: 'Վերանայված բովանդակություն',
+    intro: 'Ինչպես են աշխատում այս շերտիկները և երբ օգտագործել դրանք:',
+    contentsTitle: 'Այս հոդվածում',
+    topics: [
+      'Ի՞նչ է LH-ն',
+      'Ինչպես են աշխատում այս թեստերը',
+      'Երբ սկսել թեստավորումը',
+      'Արդյունքի մեկնաբանում',
+      'Կեղծ դրական արդյունքներ և սահմանափակումներ',
+      'Համադրել այլ նշանների հետ',
+      'Հիմնական եզրակացություններ',
+    ],
+    section1Body:
+      'LH-ն (լյուտեինացնող հորմոն) արտադրվում է ուղեղի կողմից և վերահսկում է ձվարանների աշխատանքը: Ձվազատման թեստերը հայտնաբերում են այս հորմոնի թռիչքը, որն առաջացնում է ձվաբջջի ազատումը 24–36 ժամ հետո:',
+    section2Body:
+      'Մեզի թեստային շերտիկը չափում է LH-ի մակարդակը. թեստային գիծը, որը նույնքան մուգ է կամ ավելի մուգ, քան հսկիչ գիծը, ցույց է տալիս թռիչք:',
+    section3Body:
+      'Խորհուրդ է տրվում սկսել թեստավորումը ձեր ցիկլից գնահատված ձվազատման ամսաթվից մի քանի օր առաջ:',
+    testingTips: [
+      {
+        title: 'Հիմնվեք ձեր ցիկլի վրա',
+        text: 'Սկսեք ձեր ցիկլերի միջին տևողությունից գնահատված ձվազատման ամսաթվից մի քանի օր առաջ:',
+      },
+      {
+        title: 'Թեստավորեք ամեն օր նույն ժամին',
+        text: 'Իդեալականը կեսօրվա շուրջ է՝ խուսափելով առավոտյան առաջին մեզից:',
+      },
+      {
+        title: 'Խուսափեք մեզը նոսրացնելուց',
+        text: 'Թեստից առաջ մի քանի ժամվա ընթացքում սահմանափակեք հեղուկների մեծ քանակը:',
+      },
+    ],
+    section4Body:
+      'Դրական արդյունքը ազդանշան է հաջորդ 1–2 օրվա ընթացքում սեռական հարաբերության համար ամենապտղաբեր ժամանակի մասին: Բացասական արդյունքը պարզապես նշանակում է, որ թռիչքը դեռ տեղի չի ունեցել:',
+    limitations: [
+      'PCOS-ը կարող է բնականորեն առաջացնել LH-ի ավելի բարձր մակարդակ, ինչը կարող է մշուշել ցուցմունքը',
+      'Պտղաբերության որոշ բուժումներ կարող են ազդել արդյունքի վրա',
+      'Շատ նոսրացված մեզը կարող է տալ կեղծ բացասական արդյունք',
+      'Ավելի ցածր որակի թեստը կարող է ավելի քիչ հուսալի լինել',
+    ],
+    infoTitle: 'Հիշեք',
+    infoText:
+      'LH-ի թռիչքը ցույց է տալիս հորմոնալ գործարկող ազդանշան, սակայն միայնակ չի երաշխավորում, որ ձվաբջիջն իրականում ազատվել է:',
+    tipTitle: 'Լավ է իմանալ',
+    tipText:
+      'Ձվազատման թեստերը բազալ ջերմաստիճանի կամ արգանդի վզիկի լորձի դիտարկման հետ համադրելը տալիս է ձեր ցիկլի ավելի ամբողջական պատկերը:',
+    summaryPoints: [
+      'Ձվազատման թեստերը հայտնաբերում են LH-ի թռիչքը, որն առաջացնում է ձվաբջջի ազատումը 24–36 ժամ հետո:',
+      'Խորհուրդ է տրվում սկսել թեստավորումը ձեր ցիկլից գնահատված ձվազատման ամսաթվից մի քանի օր առաջ:',
+      'Դրական արդյունքը ազդանշան է հաջորդ 1–2 օրվա ընթացքում սեռական հարաբերության համար ամենապտղաբեր ժամանակի մասին:',
+      'LH-ի թռիչքը միայնակ չի երաշխավորում, որ ձվազատումն իրականում տեղի է ունեցել:',
+    ],
+    disclaimerText:
+      'Տեղեկատվական բովանդակություն: Այս հոդվածը չի փոխարինում անհատականացված բժշկական խորհրդատվությանը: Կասկածի դեպքում խորհուրդ հարցրեք առողջապահության մասնագետից:',
+    shareMessage: 'Հասկանալ ձվազատման թեստերը (LH) — AWA',
+  },
+  tg: {
+    badge: 'ҲОСИЛХЕЗӢ • САНҶИШҲОИ ОВУЛЯЦИЯ',
+    title: 'Фаҳмидани санҷишҳои\nовуляция (LH)',
+    metaDuration: '6 дақ барои хондан',
+    metaType: 'Роҳнамо',
+    metaLevel: 'Миёна',
+    metaValidated: 'Мазмуни баррасишуда',
+    intro: 'Ин навораҳо чӣ тавр кор мекунанд ва кай онҳоро истифода бурдан лозим аст.',
+    contentsTitle: 'Дар ин мақола',
+    topics: [
+      'LH чист?',
+      'Ин санҷишҳо чӣ тавр кор мекунанд',
+      'Санҷишро кай оғоз кардан лозим аст',
+      'Тафсири натиҷа',
+      'Натиҷаҳои нодурусти мусбат ва маҳдудиятҳо',
+      'Якҷоя кардан бо нишонаҳои дигар',
+      'Хулосаҳои асосӣ',
+    ],
+    section1Body:
+      'LH (гормони лютеинкунанда) аз ҷониби майна тавлид мешавад ва кори тухмдонҳоро идора мекунад. Санҷишҳои овуляция афзоиши ногаҳонии ин гормонро ошкор мекунанд, ки 24 то 36 соат баъд озод шудани тухмселро ба вуҷуд меорад.',
+    section2Body:
+      'Навори санҷиши пешоб сатҳи LH-ро андоза мекунад: хатти санҷиш, ки ба қадри хатти назоратӣ ё торитар аст, афзоишро нишон медиҳад.',
+    section3Body:
+      'Тавсия дода мешавад, ки санҷишро чанд рӯз пеш аз санаи овуляция, ки аз давраи шумо тахмин шудааст, оғоз кунед.',
+    testingTips: [
+      {
+        title: 'Ба давраи худ такя кунед',
+        text: 'Чанд рӯз пеш аз санаи овуляцияи аз дарозии миёнаи давраҳои шумо тахминшуда оғоз кунед.',
+      },
+      {
+        title: 'Ҳар рӯз дар як вақт санҷед',
+        text: 'Беҳтараш наздики нисфирӯзӣ, аз пешоби аввали субҳ худдорӣ карда.',
+      },
+      {
+        title: 'Аз ғафс нашудани пешоб худдорӣ кунед',
+        text: 'Дар соатҳои пеш аз санҷиш нӯшидани моеъи зиёдро маҳдуд кунед.',
+      },
+    ],
+    section4Body:
+      'Натиҷаи мусбат вақти ҳосилхезтаринро барои наздикӣ дар 1 то 2 рӯзи минбаъда нишон медиҳад. Натиҷаи манфӣ танҳо маънои онро дорад, ки афзоиш ҳанӯз рух надодааст.',
+    limitations: [
+      'PCOS метавонад сатҳи табиатан баландтари LH-ро ба вуҷуд орад, ки хонишро норавшан мекунад',
+      'Баъзе табобатҳои ҳосилхезӣ метавонанд ба натиҷа таъсир расонанд',
+      'Пешоби хеле обакӣ метавонад натиҷаи нодурусти манфӣ диҳад',
+      'Санҷиши сифати пасттар метавонад камтар боэътимод бошад',
+    ],
+    infoTitle: 'Дар хотир доред',
+    infoText:
+      'Афзоиши LH сигнали гормонии оғозкунандаро нишон медиҳад, вале худ ба худ кафолат намедиҳад, ки тухмсел воқеан озод шудааст.',
+    tipTitle: 'Донистан хуб аст',
+    tipText:
+      'Якҷоя кардани санҷишҳои овуляция бо ҳарорати базалии бадан ё мушоҳидаи шилимшиқи гардани бачадон тасвири пурратари давраи шуморо медиҳад.',
+    summaryPoints: [
+      'Санҷишҳои овуляция афзоиши LH-ро ошкор мекунанд, ки 24 то 36 соат баъд озод шудани тухмселро ба вуҷуд меорад.',
+      'Тавсия дода мешавад, ки санҷишро чанд рӯз пеш аз санаи овуляцияи аз давраи шумо тахминшуда оғоз кунед.',
+      'Натиҷаи мусбат вақти ҳосилхезтаринро барои наздикӣ дар 1 то 2 рӯзи минбаъда нишон медиҳад.',
+      'Афзоиши LH худ ба худ кафолат намедиҳад, ки овуляция воқеан рух додааст.',
+    ],
+    disclaimerText:
+      'Мазмуни иттилоотӣ. Ин мақола маслиҳати шахсии тиббиро иваз намекунад. Дар сурати шубҳа аз мутахассиси соҳаи тиб роҳнамоӣ пурсед.',
+    shareMessage: 'Фаҳмидани санҷишҳои овуляция (LH) — AWA',
+  },
+  ky: {
+    badge: 'БОЙГО БҮТҮҮ • ОВУЛЯЦИЯ ТЕСТТЕРИ',
+    title: 'Овуляция тесттерин (ЛГ)\nтүшүнүү',
+    metaDuration: '6 мүн окуу',
+    metaType: 'Колдонмо',
+    metaLevel: 'Орто',
+    metaValidated: 'Текшерилген мазмун',
+    intro: 'Бул тилкелер кантип иштейт жана аларды качан колдонуу керек.',
+    contentsTitle: 'Бул макалада',
+    topics: [
+      'ЛГ деген эмне?',
+      'Бул тесттер кантип иштейт',
+      'Тестти качан баштоо керек',
+      'Жыйынтыкты чечмелөө',
+      'Жалган оң жыйынтыктар жана чектөөлөр',
+      'Аларды башка белгилер менен айкалыштыруу',
+      'Негизги жыйынтыктар',
+    ],
+    section1Body:
+      'ЛГ (лютеинизациялоочу гормон) мээде өндүрүлөт жана жумурткалыктардын иштешин башкарат. Овуляция тесттери бул гормондун кескин көтөрүлүшүн аныктайт, ал 24–36 сааттан кийин жумурткалуу клетканын чыгышын козгойт.',
+    section2Body:
+      'Заара тест тилкеси ЛГ деңгээлин өлчөйт: тест сызыгы көзөмөл сызыгындай же андан да кара болсо, кескин көтөрүлүштү көрсөтөт.',
+    section3Body:
+      'Тестти циклиңизден болжолдонгон овуляция күнүнөн бир нече күн мурун баштоо сунушталат.',
+    testingTips: [
+      {
+        title: 'Циклиңизге таянып баштаңыз',
+        text: 'Циклдериңиздин орточо узактыгынан болжолдонгон овуляция күнүнөн бир нече күн мурун баштаңыз.',
+      },
+      {
+        title: 'Күн сайын бир эле убакта тестиңиз',
+        text: 'Идеалында түш ченде, эртең мененки биринчи зааранан сактанып.',
+      },
+      {
+        title: 'Зааранын суюлушуна жол бербеңиз',
+        text: 'Тесттен мурунку сааттарда көп өлчөмдө суюктук ичүүнү чектеңиз.',
+      },
+    ],
+    section4Body:
+      'Оң жыйынтык кийинки 1–2 күндө жыныстык катнаш үчүн эң ыңгайлуу убакытты көрсөтөт. Терс жыйынтык кескин көтөрүлүш азырынча болгон эмес дегенди гана билдирет.',
+    limitations: [
+      'PCOS табигый түрдө жогору ЛГ деңгээлин жаратышы мүмкүн, бул окулган көрсөткүчтү бүдөмүктөтөт',
+      'Айрым бойго бүтүү жөндөмдүүлүгүн дарылоолор жыйынтыкка таасир этиши мүмкүн',
+      'Өтө суюлган заара жалган терс жыйынтык бериши мүмкүн',
+      'Сапаты төмөнүрөөк тест ишенимдүүлүгү азыраак болушу мүмкүн',
+    ],
+    infoTitle: 'Эстен чыгарбаңыз',
+    infoText:
+      'ЛГ кескин көтөрүлүшү козгогуч гормондук сигналды көрсөтөт, бирок өзү жумурткалуу клетка чындап чыкканына кепилдик бербейт.',
+    tipTitle: 'Билүү пайдалуу',
+    tipText:
+      'Овуляция тесттерин базалдык дене температураңыз же жатын моюнчасынын былжырын байкоо менен айкалыштыруу циклиңиздин толугураак сүрөтүн берет.',
+    summaryPoints: [
+      'Овуляция тесттери ЛГ кескин көтөрүлүшүн аныктайт, ал 24–36 сааттан кийин жумурткалуу клетканын чыгышын козгойт.',
+      'Тестти циклиңизден болжолдонгон овуляция күнүнөн бир нече күн мурун баштоо сунушталат.',
+      'Оң жыйынтык кийинки 1–2 күндө жыныстык катнаш үчүн эң ыңгайлуу убакытты көрсөтөт.',
+      'ЛГ кескин көтөрүлүшү өзү овуляция чындап болгонуна кепилдик бербейт.',
+    ],
+    disclaimerText:
+      'Маалымат берүүчү мазмун. Бул макала жекелештирилген медициналык кеңешти алмаштырбайт. Күмөн болсо, ден соолук сактоо адисинен кеңеш сураңыз.',
+    shareMessage: 'Овуляция тесттерин (ЛГ) түшүнүү — AWA',
+  },
+  tk: {
+    badge: 'GÖWRELI BOLMAK UKYBY • OVULÝASIÝA SYNAGLARY',
+    title: 'Ovulýasiýa synaglaryny (LH)\ndüşünmek',
+    metaDuration: '6 min okamak',
+    metaType: 'Gollanma',
+    metaLevel: 'Orta',
+    metaValidated: 'Barlanan mazmun',
+    intro: 'Bu zolaklar nähili işleýär we olary haçan ulanmaly.',
+    contentsTitle: 'Bu makalada',
+    topics: [
+      'LH näme?',
+      'Bu synaglar nähili işleýär',
+      'Synagy haçan başlamaly',
+      'Netijäni düşündirmek',
+      'Ýalňyş oňyn netijeler we çäkler',
+      'Beýleki alamatlar bilen utgaşdyrmak',
+      'Esasy netijeler',
+    ],
+    section1Body:
+      'LH (lýuteinleşdirýji gormon) beýni tarapyndan öndürilýär we ýumurtgalygyň işleýşini dolandyrýar. Ovulýasiýa synaglary bu gormonyň göterilmesini anyklaýar, ol 24–36 sagatdan ýumurtganyň çykmagyny başlaýar.',
+    section2Body:
+      'Peşew synag zolagy LH derejesini ölçeýär: dolandyryş çyzygy ýaly goýy ýa-da ondan goýy synag çyzygy göterilmäni görkezýär.',
+    section3Body:
+      'Sikliňiz boýunça çaklanylýan ovulýasiýa senesinden birnäçe gün öň synagy başlamak maslahat berilýär.',
+    testingTips: [
+      {
+        title: 'Sikliňize daýanyň',
+        text: 'Siklleriňiziň ortaça uzynlygyndan çaklanylýan ovulýasiýa senesinden birnäçe gün öň başlaň.',
+      },
+      {
+        title: 'Her gün şol bir wagtda synag ediň',
+        text: 'Ideal ýagdaýda günortan töweregi, irden ilkinji peşewden gaça durup.',
+      },
+      {
+        title: 'Peşewiňizi suwlandyrmakdan gaça durmaň',
+        text: 'Synagdan öňki sagatlarda köp mukdarda suwuklyk içmegi çäkläň.',
+      },
+    ],
+    section4Body:
+      'Oňyn netije indiki 1–2 günde jynsy gatnaşyk üçin iň amatly wagty görkezýär. Otrisatel netije diňe göterilmäniň heniz bolmandygyny aňladýar.',
+    limitations: [
+      'PCOS tebigy ýagdaýda has ýokary LH derejesine sebäp bolup biler, bu okalyşy bulaşdyryp biler',
+      'Käbir göwreli bolmak bejergileri netijä täsir edip biler',
+      'Gaty suwlandyrylan peşew ýalňyş otrisatel netije berip biler',
+      'Hili pes synag has az ygtybarly bolup biler',
+    ],
+    infoTitle: 'Ýatda saklaň',
+    infoText:
+      'LH göterilmesi gozgaýjy gormonal signaly görkezýär, ýöne ýeke özi ýumurtganyň hakykatdan çykandygyny kepillendirmeýär.',
+    tipTitle: 'Bilmek peýdaly',
+    tipText:
+      'Ovulýasiýa synaglaryny bazal beden temperaturasy ýa-da ýatgy boýnunyň ýaňsyny synlamak bilen utgaşdyrmak sikliňiziň has doly suratyny berýär.',
+    summaryPoints: [
+      'Ovulýasiýa synaglary 24–36 sagatdan ýumurtganyň çykmagyny başladýan LH göterilmesini anyklaýar.',
+      'Sikliňiz boýunça çaklanylýan ovulýasiýa senesinden birnäçe gün öň synagy başlamak maslahat berilýär.',
+      'Oňyn netije indiki 1–2 günde jynsy gatnaşyk üçin iň amatly wagty görkezýär.',
+      'LH göterilmesi ýeke özi ovulýasiýanyň hakykatdan bolandygyny kepillendirmeýär.',
+    ],
+    disclaimerText:
+      'Maglumat berýän mazmun. Bu makala şahsylaşdyrylan lukmançylyk maslahatyny çalyşmaýar. Şübhe bolsa, saglyk hünärmeninden ugrukdyrma soraň.',
+    shareMessage: 'Ovulýasiýa synaglaryny (LH) düşünmek — AWA',
   },
 } as const);
 

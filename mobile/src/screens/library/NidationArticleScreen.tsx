@@ -567,37 +567,6 @@ const CONTENT = withBrazilianPortuguese('Nidation', {
     tip2Text: 'Implantationen sker diskret, med eller uden synlige tegn. Lidt tålmodighed inden testning sparer dig for et upålideligt resultat.',
     shareMessage: 'Forstå implantation — AWA',
   },
-  da: {
-    badge: 'IMPLANTATION',
-    title: 'Forstå\nimplantation',
-    metaDuration: '5 min läsning',
-    metaType: 'Artikel',
-    metaLevel: 'Mellemniveau',
-    metaValidated: 'Gennemgået indhold',
-    intro: 'Hvad der sker mellem befrugtning och en positiv graviditetstest.',
-    contentsTitle: 'I denne artikel',
-    topics: [
-      'Fra befrugtning till implantation',
-      'Mulige tegn, uden sikkerhed',
-      'Hvornår en test bliver pålidelig',
-      'Vigtige pointer',
-    ],
-    body1: 'Efter befrugtningen tager det typisk 6 till 10 dagar for ägget at nå frem till livmoderen och sätte sig fast der: det ar implantationen. Dette trin markerer det egentlige startpunkt for graviditeten.',
-    body2: 'Let blödning eller kramper kan sommetider ledsage implantationen, men det ar inte alltid tilfäldet och ar inte et pålideligt tegn i sig selv.',
-    possibleSigns: [
-      'Meget let blödning, som sommetider kaldes "pletblödning"',
-      'Lette kramper i den nedre del av maven',
-      'Ingen särlige tegn overhovedet, for mange kvinder',
-    ],
-    tip1Title: 'Godt at vide',
-    tip1Text: 'Fraväret av tegn betyder ingenting: mange graviditeter starter uden märkbare symtom på dette tidspunkt.',
-    body3: 'Det ar först efter implantationen, at hCG-hormonet begynder at blive produceret och kan påvises med en graviditetstest. At teste for tidligt kan give et falskt negativt resultat.',
-    alertTitle: 'Bemärk',
-    alertText: 'Hvis du venter till den forventede dag for din menstruation, inden du tester, får du et mere pålideligt resultat end ved at teste for tidligt.',
-    tip2Title: 'Godt at vide',
-    tip2Text: 'Implantationen sker diskret, med eller uden synlige tegn. Lidt tålmodighed inden testning sparer dig for et upålideligt resultat.',
-    shareMessage: 'Forstå implantation — AWA',
-  },
   sv: {
     badge: 'IMPLANTATION',
     title: 'Forstå\nimplantation',
@@ -628,6 +597,880 @@ const CONTENT = withBrazilianPortuguese('Nidation', {
     tip2Title: 'Godt at vide',
     tip2Text: 'Implantationen sker diskret, med eller uden synlige tegn. Lidt tålmodighed inden testning sparer dig for et upålideligt resultat.',
     shareMessage: 'Forstå implantation — AWA',
+  },
+  nb: {
+    badge: 'IMPLANTASJON',
+    title: 'Forstå\nimplantasjonen',
+    metaDuration: '5 min lesing',
+    metaType: 'Artikkel',
+    metaLevel: 'Middels',
+    metaValidated: 'Gjennomgått innhold',
+    intro:
+      'Hva som skjer mellom befruktning og en positiv graviditetstest.',
+    contentsTitle: 'I denne artikkelen',
+    topics: [
+      'Fra befruktning til implantasjon',
+      'Mulige tegn, uten sikkerhet',
+      'Når en test blir pålitelig',
+      'Det viktigste å huske',
+    ],
+    body1:
+      'Etter befruktningen bruker egget vanligvis 6 til 10 dager på å nå livmoren og feste seg der: dette er implantasjonen. Dette trinnet markerer det virkelige utgangspunktet for graviditeten.',
+    body2:
+      'Lett blødning eller kramper kan noen ganger følge implantasjonen, selv om dette ikke er systematisk og heller ikke et pålitelig tegn alene.',
+    possibleSigns: [
+      'Svært lett blødning, noen ganger kalt «sporblødning»',
+      'Milde kramper i nedre del av magen',
+      'Ingen spesielle tegn i det hele tatt, for mange kvinner',
+    ],
+    tip1Title: 'Godt å vite',
+    tip1Text:
+      'Fravær av tegn betyr ingenting: mange svangerskap begynner uten noe merkbart symptom på dette stadiet.',
+    body3:
+      'Det er først etter implantasjonen at hormonet hCG begynner å produseres og kan påvises av en graviditetstest. Å teste for tidlig kan gi et falskt negativt resultat.',
+    alertTitle: 'Merk',
+    alertText:
+      'Å vente til den antatte mensdagen før du tester, gir et mer pålitelig resultat enn å teste for tidlig.',
+    tip2Title: 'Godt å vite',
+    tip2Text:
+      'Implantasjonen skjer diskret, med eller uten synlig tegn. Litt tålmodighet før du tester sparer deg for et upålitelig resultat.',
+    shareMessage: 'Forstå implantasjonen – AWA',
+  },
+  pl: {
+    badge: 'IMPLANTACJA',
+    title: 'Zrozumieć\nimplantację',
+    metaDuration: '5 min czytania',
+    metaType: 'Artykuł',
+    metaLevel: 'Średnio zaawansowany',
+    metaValidated: 'Treść zweryfikowana',
+    intro:
+      'Co dzieje się między zapłodnieniem a pozytywnym testem ciążowym.',
+    contentsTitle: 'W tym artykule',
+    topics: [
+      'Od zapłodnienia do implantacji',
+      'Możliwe objawy, bez pewności',
+      'Kiedy test staje się wiarygodny',
+      'Najważniejsze wnioski',
+    ],
+    body1:
+      'Po zapłodnieniu komórka jajowa potrzebuje zwykle od 6 do 10 dni, by dotrzeć do macicy i zagnieździć się w niej: to właśnie implantacja. Ten etap jest prawdziwym początkiem ciąży.',
+    body2:
+      'Implantacji może czasem towarzyszyć lekkie krwawienie lub skurcze, choć nie zdarza się to zawsze i nie jest to samo w sobie wiarygodny objaw.',
+    possibleSigns: [
+      'Bardzo lekkie krwawienie, czasem nazywane „plamieniem”',
+      'Lekkie skurcze w podbrzuszu',
+      'Brak jakiegokolwiek szczególnego objawu, u wielu kobiet',
+    ],
+    tip1Title: 'Warto wiedzieć',
+    tip1Text:
+      'Brak objawów nic nie znaczy: wiele ciąż zaczyna się bez żadnych zauważalnych objawów na tym etapie.',
+    body3:
+      'Dopiero po implantacji zaczyna być produkowany hormon hCG, który można wykryć testem ciążowym. Zbyt wczesny test może dać fałszywie ujemny wynik.',
+    alertTitle: 'Uwaga',
+    alertText:
+      'Odczekanie do przewidywanego dnia miesiączki przed wykonaniem testu daje bardziej wiarygodny wynik niż zbyt wczesny test.',
+    tip2Title: 'Warto wiedzieć',
+    tip2Text:
+      'Implantacja przebiega dyskretnie, z widocznym objawem lub bez. Odrobina cierpliwości przed testem oszczędza Ci niewiarygodnego wyniku.',
+    shareMessage: 'Zrozumieć implantację — AWA',
+  },
+  uk: {
+    badge: 'ІМПЛАНТАЦІЯ',
+    title: 'Розуміння\nімплантації',
+    metaDuration: '5 хв читання',
+    metaType: 'Стаття',
+    metaLevel: 'Середній',
+    metaValidated: 'Перевірений вміст',
+    intro:
+      'Що відбувається між заплідненням і позитивним тестом на вагітність.',
+    contentsTitle: 'У цій статті',
+    topics: [
+      'Від запліднення до імплантації',
+      'Можливі ознаки, без певності',
+      'Коли тест стає надійним',
+      'Головні висновки',
+    ],
+    body1:
+      'Після запліднення яйцеклітина зазвичай долає шлях до матки й імплантується в ній за 6–10 днів: це імплантація. Цей етап є справжнім початком вагітності.',
+    body2:
+      'Імплантацію іноді можуть супроводжувати легка кровотеча або спазми, проте це трапляється не завжди й саме по собі не є надійною ознакою.',
+    possibleSigns: [
+      'Дуже легка кровотеча, яку іноді називають «мажучими виділеннями»',
+      'Легкі спазми внизу живота',
+      'Відсутність будь-яких особливих ознак — у багатьох жінок',
+    ],
+    tip1Title: 'Варто знати',
+    tip1Text:
+      'Відсутність ознак нічого не означає: багато вагітностей починаються без жодних помітних симптомів на цьому етапі.',
+    body3:
+      'Лише після імплантації починає вироблятися гормон ХГЛ, який можна виявити тестом на вагітність. Надто ранній тест може дати хибнонегативний результат.',
+    alertTitle: 'Зверніть увагу',
+    alertText:
+      'Очікування передбачуваного дня менструації перед тестуванням дає надійніший результат, ніж надто ранній тест.',
+    tip2Title: 'Варто знати',
+    tip2Text:
+      'Імплантація відбувається непомітно, з видимою ознакою або без неї. Трохи терпіння перед тестуванням убереже від ненадійного результату.',
+    shareMessage: 'Розуміння імплантації — AWA',
+  },
+  cs: {
+    badge: 'UHNÍZDĚNÍ',
+    title: 'Pochopení\nuhnízdění',
+    metaDuration: '5 min čtení',
+    metaType: 'Článek',
+    metaLevel: 'Pokročilý',
+    metaValidated: 'Ověřený obsah',
+    intro:
+      'Co se děje mezi oplodněním a pozitivním těhotenským testem.',
+    contentsTitle: 'V tomto článku',
+    topics: [
+      'Od oplodnění k uhnízdění',
+      'Možné příznaky, bez jistoty',
+      'Kdy je test spolehlivý',
+      'Hlavní poznatky',
+    ],
+    body1:
+      'Po oplodnění trvá vajíčku obvykle 6 až 10 dní, než se dostane do dělohy a uhnízdí se v ní: to je uhnízdění. Tento krok označuje skutečný začátek těhotenství.',
+    body2:
+      'Slabé krvácení nebo křeče mohou uhnízdění někdy provázet, i když to není pravidlem ani spolehlivým příznakem samo o sobě.',
+    possibleSigns: [
+      'Velmi slabé krvácení, někdy nazývané „špinění“',
+      'Mírné křeče v podbřišku',
+      'U mnoha žen žádný zvláštní příznak',
+    ],
+    tip1Title: 'Stojí za to vědět',
+    tip1Text:
+      'Nepřítomnost příznaku nic neznamená: mnoho těhotenství začíná bez jakéhokoli znatelného příznaku v této fázi.',
+    body3:
+      'Teprve po uhnízdění se začíná tvořit hormon hCG, který lze těhotenským testem zachytit. Příliš časný test může dát falešně negativní výsledek.',
+    alertTitle: 'Poznámka',
+    alertText:
+      'Počkat s testem do předpokládaného dne menstruace dává spolehlivější výsledek než testovat příliš brzy.',
+    tip2Title: 'Stojí za to vědět',
+    tip2Text:
+      'Uhnízdění probíhá nenápadně, s viditelným příznakem či bez něj. Trocha trpělivosti před testem vás ušetří nespolehlivého výsledku.',
+    shareMessage: 'Pochopení uhnízdění — AWA',
+  },
+  sk: {
+    badge: 'IMPLANTÁCIA',
+    title: 'Pochopenie\nimplantácie',
+    metaDuration: '5 min čítania',
+    metaType: 'Článok',
+    metaLevel: 'Stredne pokročilý',
+    metaValidated: 'Overený obsah',
+    intro:
+      'Čo sa deje medzi oplodnením a pozitívnym tehotenským testom.',
+    contentsTitle: 'V tomto článku',
+    topics: [
+      'Od oplodnenia k implantácii',
+      'Možné znaky, bez istoty',
+      'Kedy je test spoľahlivý',
+      'Hlavné body',
+    ],
+    body1:
+      'Po oplodnení vajíčku zvyčajne trvá 6 až 10 dní, kým sa dostane do maternice a uhniezdi sa v nej: to je implantácia. Tento krok označuje skutočný začiatok tehotenstva.',
+    body2:
+      'Implantáciu môže niekedy sprevádzať slabé krvácanie alebo kŕče, hoci to nie je systematické ani spoľahlivý znak samo o sebe.',
+    possibleSigns: [
+      'Veľmi slabé krvácanie, niekedy nazývané „špinenie“',
+      'Mierne kŕče v podbrušku',
+      'U mnohých žien vôbec žiadny osobitný znak',
+    ],
+    tip1Title: 'Stojí za to vedieť',
+    tip1Text:
+      'Absencia znaku nič neznamená: mnohé tehotenstvá sa v tejto fáze začínajú bez akéhokoľvek viditeľného príznaku.',
+    body3:
+      'Až po implantácii sa začne tvoriť hormón hCG a stane sa zistiteľným tehotenským testom. Príliš skoré testovanie môže dať falošne negatívny výsledok.',
+    alertTitle: 'Poznámka',
+    alertText:
+      'Počkať do predpokladaného dňa menštruácie pred testovaním dáva spoľahlivejší výsledok než testovať príliš skoro.',
+    tip2Title: 'Stojí za to vedieť',
+    tip2Text:
+      'Implantácia prebieha nenápadne, s viditeľným znakom alebo bez neho. Trochu trpezlivosti pred testovaním vás ušetrí nespoľahlivého výsledku.',
+    shareMessage: 'Pochopenie implantácie — AWA',
+  },
+  hu: {
+    badge: 'BEÁGYAZÓDÁS',
+    title: 'A beágyazódás\nmegértése',
+    metaDuration: '5 perc olvasás',
+    metaType: 'Cikk',
+    metaLevel: 'Középhaladó',
+    metaValidated: 'Ellenőrzött tartalom',
+    intro:
+      'Mi történik a megtermékenyítés és a pozitív terhességi teszt között.',
+    contentsTitle: 'Ebben a cikkben',
+    topics: [
+      'A megtermékenyítéstől a beágyazódásig',
+      'Lehetséges jelek, bizonyosság nélkül',
+      'Mikor megbízható a teszt',
+      'Legfontosabb tudnivalók',
+    ],
+    body1:
+      'A megtermékenyítés után a petesejtnek általában 6–10 napra van szüksége, hogy elérje a méhet és beágyazódjon: ez a beágyazódás. Ez a lépés jelzi a terhesség valódi kezdőpontját.',
+    body2:
+      'A beágyazódást néha enyhe vérzés vagy görcsök kísérhetik, bár ez nem rendszeres, és önmagában nem megbízható jel.',
+    possibleSigns: [
+      'Nagyon enyhe vérzés, amelyet néha „pecsételésnek” neveznek',
+      'Enyhe görcsök az alhasban',
+      'Sok nőnél egyáltalán nincs különös jel',
+    ],
+    tip1Title: 'Érdemes tudni',
+    tip1Text:
+      'A jel hiánya nem jelent semmit: sok terhesség ebben a szakaszban semmilyen észrevehető tünet nélkül kezdődik.',
+    body3:
+      'Csak a beágyazódás után kezd termelődni a hCG hormon, és válik kimutathatóvá terhességi teszttel. A túl korai tesztelés álnegatív eredményt adhat.',
+    alertTitle: 'Megjegyzés',
+    alertText:
+      'Ha megvárod a menstruációd feltételezett napját a tesztelés előtt, az megbízhatóbb eredményt ad, mint a túl korai tesztelés.',
+    tip2Title: 'Érdemes tudni',
+    tip2Text:
+      'A beágyazódás diszkréten zajlik, látható jellel vagy anélkül. Egy kis türelem a tesztelés előtt megkíméli a megbízhatatlan eredménytől.',
+    shareMessage: 'A beágyazódás megértése — AWA',
+  },
+  ro: {
+    badge: 'NIDAȚIE',
+    title: 'Înțelegerea\nnidației',
+    metaDuration: '5 min de citit',
+    metaType: 'Articol',
+    metaLevel: 'Intermediar',
+    metaValidated: 'Conținut revizuit',
+    intro:
+      'Ce se întâmplă între fecundare și un test de sarcină pozitiv.',
+    contentsTitle: 'În acest articol',
+    topics: [
+      'De la fecundare la nidație',
+      'Semne posibile, fără certitudine',
+      'Când un test devine fiabil',
+      'Ce să reții',
+    ],
+    body1:
+      'După fecundare, ovulului îi ia de obicei între 6 și 10 zile pentru a ajunge în uter și a se implanta acolo: aceasta este nidația. Această etapă marchează adevăratul punct de pornire al sarcinii.',
+    body2:
+      'O sângerare ușoară sau crampe pot însoți uneori nidația, deși acest lucru nu este sistematic și nici un semn fiabil de sine stătător.',
+    possibleSigns: [
+      'Sângerare foarte ușoară, numită uneori „spotting”',
+      'Crampe ușoare în abdomenul inferior',
+      'Niciun semn deosebit, la multe femei',
+    ],
+    tip1Title: 'Bine de știut',
+    tip1Text:
+      'Absența unui semn nu înseamnă nimic: multe sarcini încep fără niciun simptom vizibil în această etapă.',
+    body3:
+      'Abia după nidație începe să fie produs hormonul hCG, care devine detectabil printr-un test de sarcină. A testa prea devreme poate da un rezultat fals negativ.',
+    alertTitle: 'Notă',
+    alertText:
+      'Așteptarea zilei presupuse a menstruației înainte de a testa oferă un rezultat mai fiabil decât testarea prea devreme.',
+    tip2Title: 'Bine de știut',
+    tip2Text:
+      'Nidația are loc discret, cu sau fără semn vizibil. Puțină răbdare înainte de a testa te scutește de un rezultat nefiabil.',
+    shareMessage: 'Înțelegerea nidației — AWA',
+  },
+  bg: {
+    badge: 'ИМПЛАНТАЦИЯ',
+    title: 'Разбиране на\nимплантацията',
+    metaDuration: '5 мин четене',
+    metaType: 'Статия',
+    metaLevel: 'Средно ниво',
+    metaValidated: 'Проверено съдържание',
+    intro:
+      'Какво се случва между оплождането и положителния тест за бременност.',
+    contentsTitle: 'В тази статия',
+    topics: [
+      'От оплождането до имплантацията',
+      'Възможни признаци, без сигурност',
+      'Кога тестът става надежден',
+      'Какво да запомниш',
+    ],
+    body1:
+      'След оплождането на яйцеклетката ѝ трябват обикновено 6 до 10 дни, за да стигне до матката и да се имплантира там: това е имплантацията. Този етап бележи истинското начало на бременността.',
+    body2:
+      'Леко кървене или крампи понякога могат да съпътстват имплантацията, макар това да не е системно, нито да е надежден признак сам по себе си.',
+    possibleSigns: [
+      'Много леко кървене, понякога наричано „спотинг“',
+      'Леки крампи в долната част на корема',
+      'Никакъв особен признак изобщо, при много жени',
+    ],
+    tip1Title: 'Добре е да знаеш',
+    tip1Text:
+      'Липсата на признак не означава нищо: много бременности започват без забележим симптом на този етап.',
+    body3:
+      'Едва след имплантацията хормонът hCG започва да се произвежда и става откриваем от теста за бременност. Прекалено ранният тест може да даде фалшиво отрицателен резултат.',
+    alertTitle: 'Забележка',
+    alertText:
+      'Изчакването до предполагаемия ден на менструацията, преди да тестваш, дава по-надежден резултат, отколкото прекалено ранното тестване.',
+    tip2Title: 'Добре е да знаеш',
+    tip2Text:
+      'Имплантацията протича дискретно, със или без видим признак. Малко търпение преди теста те спасява от ненадежден резултат.',
+    shareMessage: 'Разбиране на имплантацията — AWA',
+  },
+  sr: {
+    badge: 'ИМПЛАНТАЦИЈА',
+    title: 'Разумевање\nимплантације',
+    metaDuration: '5 мин читања',
+    metaType: 'Чланак',
+    metaLevel: 'Средњи ниво',
+    metaValidated: 'Проверен садржај',
+    intro:
+      'Шта се дешава између оплођења и позитивног теста за трудноћу.',
+    contentsTitle: 'У овом чланку',
+    topics: [
+      'Од оплођења до имплантације',
+      'Могући знаци, без сигурности',
+      'Када тест постаје поуздан',
+      'Шта да запамтиш',
+    ],
+    body1:
+      'После оплођења јајној ћелији је обично потребно 6 до 10 дана да стигне до материце и имплантира се у њу: то је имплантација. Овај корак означава прави почетак трудноће.',
+    body2:
+      'Лагано крварење или грчеви понекад могу пратити имплантацију, мада то није системски нити је сам по себи поуздан знак.',
+    possibleSigns: [
+      'Веома лагано крварење, понекад названо „спотинг“',
+      'Благи грчеви у доњем делу стомака',
+      'Никакав посебан знак уопште, код многих жена',
+    ],
+    tip1Title: 'Добро је знати',
+    tip1Text:
+      'Одсуство знака не значи ништа: многе трудноће почињу без видљивог симптома у овој фази.',
+    body3:
+      'Тек после имплантације хормон hCG почиње да се ствара и постаје откривен тестом за трудноћу. Превише рано тестирање може дати лажно негативан резултат.',
+    alertTitle: 'Напомена',
+    alertText:
+      'Чекање до претпостављеног дана менструације пре тестирања даје поузданији резултат него превише рано тестирање.',
+    tip2Title: 'Добро је знати',
+    tip2Text:
+      'Имплантација се одвија дискретно, са видљивим знаком или без њега. Мало стрпљења пре тестирања штеди те од непоузданог резултата.',
+    shareMessage: 'Разумевање имплантације — AWA',
+  },
+  hr: {
+    badge: 'IMPLANTACIJA',
+    title: 'Razumijevanje\nimplantacije',
+    metaDuration: '5 min čitanja',
+    metaType: 'Članak',
+    metaLevel: 'Srednja razina',
+    metaValidated: 'Provjeren sadržaj',
+    intro:
+      'Što se događa između oplodnje i pozitivnog testa na trudnoću.',
+    contentsTitle: 'U ovom članku',
+    topics: [
+      'Od oplodnje do implantacije',
+      'Mogući znakovi, bez sigurnosti',
+      'Kada test postaje pouzdan',
+      'Ključne poruke',
+    ],
+    body1:
+      'Nakon oplodnje jajnoj stanici obično treba 6 do 10 dana da stigne do maternice i ondje se ugnijezdi: to je implantacija. Taj korak označava pravu početnu točku trudnoće.',
+    body2:
+      'Lagano krvarenje ili grčevi ponekad mogu pratiti implantaciju, iako to nije sustavno niti je sam po sebi pouzdan znak.',
+    possibleSigns: [
+      'Vrlo slabo krvarenje, ponekad nazvano „točkasto krvarenje“',
+      'Blagi grčevi u donjem dijelu trbuha',
+      'Nikakav poseban znak, kod mnogih žena',
+    ],
+    tip1Title: 'Dobro je znati',
+    tip1Text:
+      'Izostanak znaka ne znači ništa: mnoge trudnoće počinju bez ikakvog primjetnog simptoma u ovoj fazi.',
+    body3:
+      'Tek nakon implantacije počinje se stvarati hormon hCG koji postaje vidljiv testom na trudnoću. Prerano testiranje može dati lažno negativan rezultat.',
+    alertTitle: 'Napomena',
+    alertText:
+      'Čekanje do pretpostavljenog dana menstruacije prije testiranja daje pouzdaniji rezultat nego prerano testiranje.',
+    tip2Title: 'Dobro je znati',
+    tip2Text:
+      'Implantacija se događa diskretno, s vidljivim znakom ili bez njega. Malo strpljenja prije testiranja štedi te nepouzdanog rezultata.',
+    shareMessage: 'Razumijevanje implantacije — AWA',
+  },
+  bs: {
+    badge: 'IMPLANTACIJA',
+    title: 'Razumijevanje\nimplantacije',
+    metaDuration: '5 min čitanja',
+    metaType: 'Članak',
+    metaLevel: 'Srednja razina',
+    metaValidated: 'Provjeren sadržaj',
+    intro:
+      'Što se događa između oplodnje i pozitivnog testa na trudnoću.',
+    contentsTitle: 'U ovom članku',
+    topics: [
+      'Od oplodnje do implantacije',
+      'Mogući znakovi, bez sigurnosti',
+      'Kada test postaje pouzdan',
+      'Ključne poruke',
+    ],
+    body1:
+      'Nakon oplodnje jajnoj stanici obično treba 6 do 10 dana da stigne do maternice i ondje se ugnijezdi: to je implantacija. Taj korak označava pravu početnu tačku trudnoće.',
+    body2:
+      'Lagano krvarenje ili grčevi ponekad mogu pratiti implantaciju, iako to nije sistemno niti je sam po sebi pouzdan znak.',
+    possibleSigns: [
+      'Vrlo slabo krvarenje, ponekad nazvano „tačkasto krvarenje“',
+      'Blagi grčevi u donjem dijelu trbuha',
+      'Nikakav poseban znak, kod mnogih žena',
+    ],
+    tip1Title: 'Dobro je znati',
+    tip1Text:
+      'Izostanak znaka ne znači ništa: mnoge trudnoće počinju bez ikakvog primjetnog simptoma u ovoj fazi.',
+    body3:
+      'Tek nakon implantacije počinje se stvarati hormon hCG koji postaje vidljiv testom na trudnoću. Prerano testiranje može dati lažno negativan rezultat.',
+    alertTitle: 'Napomena',
+    alertText:
+      'Čekanje do pretpostavljenog dana menstruacije prije testiranja daje pouzdaniji rezultat nego prerano testiranje.',
+    tip2Title: 'Dobro je znati',
+    tip2Text:
+      'Implantacija se događa diskretno, s vidljivim znakom ili bez njega. Malo strpljenja prije testiranja štedi te nepouzdanog rezultata.',
+    shareMessage: 'Razumijevanje implantacije — AWA',
+  },
+  sl: {
+    badge: 'IMPLANTACIJA',
+    title: 'Razumevanje\nimplantacije',
+    metaDuration: '5 min branja',
+    metaType: 'Članek',
+    metaLevel: 'Srednja raven',
+    metaValidated: 'Preverjena vsebina',
+    intro:
+      'Kaj se dogaja med oploditvijo in pozitivnim testom nosečnosti.',
+    contentsTitle: 'V tem članku',
+    topics: [
+      'Od oploditve do implantacije',
+      'Možni znaki, brez gotovosti',
+      'Kdaj test postane zanesljiv',
+      'Ključna sporočila',
+    ],
+    body1:
+      'Po oploditvi jajčni celici običajno traja 6 do 10 dni, da doseže maternico in se tam ugnezdi: to je implantacija. Ta korak označuje pravo izhodiščno točko nosečnosti.',
+    body2:
+      'Rahla krvavitev ali krči lahko včasih spremljajo implantacijo, čeprav to ni sistematično niti sam po sebi zanesljiv znak.',
+    possibleSigns: [
+      'Zelo šibka krvavitev, včasih imenovana „pikasta krvavitev“',
+      'Blagi krči v spodnjem delu trebuha',
+      'Noben poseben znak, pri mnogih ženskah',
+    ],
+    tip1Title: 'Vredno vedeti',
+    tip1Text:
+      'Odsotnost znaka ne pomeni nič: mnoge nosečnosti se začnejo brez kakršnega koli opaznega simptoma v tej fazi.',
+    body3:
+      'Šele po implantaciji se začne proizvajati hormon hCG, ki ga lahko zazna test nosečnosti. Prezgodnje testiranje lahko da lažno negativen rezultat.',
+    alertTitle: 'Opomba',
+    alertText:
+      'Čakanje do domnevnega dne menstruacije pred testiranjem da zanesljivejši rezultat kot prezgodnje testiranje.',
+    tip2Title: 'Vredno vedeti',
+    tip2Text:
+      'Implantacija poteka diskretno, z vidnim znakom ali brez njega. Malo potrpežljivosti pred testiranjem te obvaruje nezanesljivega rezultata.',
+    shareMessage: 'Razumevanje implantacije — AWA',
+  },
+  ne: {
+    badge: 'गर्भस्थापना (इम्प्लान्टेसन)',
+    title: 'गर्भस्थापना\nबुझ्नुहोस्',
+    metaDuration: '5 मिनेट पढाइ',
+    metaType: 'लेख',
+    metaLevel: 'मध्यम',
+    metaValidated: 'समीक्षा गरिएको सामग्री',
+    intro:
+      'निषेचन र सकारात्मक गर्भावस्था परीक्षणबीच के हुन्छ।',
+    contentsTitle: 'यो लेखमा',
+    topics: [
+      'निषेचनदेखि गर्भस्थापनासम्म',
+      'सम्भावित संकेतहरू, निश्चितताबिना',
+      'परीक्षण कहिले भरपर्दो हुन्छ',
+      'मुख्य कुराहरू',
+    ],
+    body1:
+      'निषेचनपछि, अण्डाले गर्भाशयसम्म पुग्न र त्यहाँ बस्न सामान्यतया 6 देखि 10 दिन लिन्छ: यही गर्भस्थापना हो। यो चरणले गर्भावस्थाको वास्तविक सुरुवात बिन्दु चिह्नित गर्छ।',
+    body2:
+      'हल्का रक्तस्राव वा ऐंठन कहिलेकाहीँ गर्भस्थापनासँगै आउन सक्छ, यद्यपि यो व्यवस्थित होइन, न त आफैँमा भरपर्दो संकेत।',
+    possibleSigns: [
+      'निकै हल्का रक्तस्राव, कहिलेकाहीँ "स्पटिङ" भनिन्छ',
+      'तल्लो पेटमा हल्का ऐंठन',
+      'धेरै महिलाहरूका लागि कुनै विशेष संकेत नै नहुनु',
+    ],
+    tip1Title: 'जान्न लायक',
+    tip1Text:
+      'संकेत नहुनुले केही पनि जनाउँदैन: धेरै गर्भावस्थाहरू यस चरणमा कुनै देखिने लक्षणबिना सुरु हुन्छन्।',
+    body3:
+      'गर्भस्थापनापछि मात्र hCG हर्मोन उत्पादन हुन थाल्छ र गर्भावस्था परीक्षणद्वारा पत्ता लगाउन सकिन्छ। निकै चाँडो परीक्षण गर्दा गलत नकारात्मक नतिजा आउन सक्छ।',
+    alertTitle: 'टिप्पणी',
+    alertText:
+      'परीक्षण गर्नुअघि महिनावारी आउने अनुमानित दिनसम्म पर्खँदा निकै चाँडो परीक्षण गर्नुभन्दा बढी भरपर्दो नतिजा आउँछ।',
+    tip2Title: 'जान्न लायक',
+    tip2Text:
+      'गर्भस्थापना देखिने संकेतसहित वा बिना, गोप्य रूपमा हुन्छ। परीक्षणअघि अलिकति धैर्यले तपाईंलाई अभरपर्दो नतिजाबाट जोगाउँछ।',
+    shareMessage: 'गर्भस्थापना बुझ्नुहोस् — AWA',
+  },
+  si: {
+    badge: 'ගර්භාෂයේ තැන්පත් වීම',
+    title: 'ගර්භාෂයේ තැන්පත් වීම\nතේරුම් ගැනීම',
+    metaDuration: 'කියවීමට මිනිත්තු 5',
+    metaType: 'ලිපිය',
+    metaLevel: 'මධ්‍යම',
+    metaValidated: 'සමාලෝචනය කළ අන්තර්ගතය',
+    intro:
+      'සංසේචනය සහ ධනාත්මක ගර්භණී පරීක්ෂණයක් අතර සිදුවන්නේ කුමක්ද.',
+    contentsTitle: 'මෙම ලිපියේ',
+    topics: [
+      'සංසේචනයේ සිට තැන්පත් වීම දක්වා',
+      'ඇතිවිය හැකි සලකුණු, සහතිකයකින් තොරව',
+      'පරීක්ෂණයක් විශ්වාසදායක වන්නේ කවදාද',
+      'ප්‍රධාන කරුණු',
+    ],
+    body1:
+      'සංසේචනයෙන් පසු, ඩිම්බයට ගර්භාෂයට ළඟා වී එහි තැන්පත් වීමට සාමාන්‍යයෙන් දින 6 සිට 10 දක්වා ගතවේ: මෙය ගර්භාෂයේ තැන්පත් වීමයි. මෙම පියවර ගර්භණී කාලයේ සැබෑ ආරම්භක ලක්ෂ්‍යය සලකුණු කරයි.',
+    body2:
+      'සැහැල්ලු ලේ ගැලීම හෝ මාංශ පේශි සංකෝචන සමහර විට තැන්පත් වීම සමඟ පැමිණිය හැක, නමුත් මෙය ක්‍රමානුකූල නොවන අතර, තනිවම විශ්වාසදායක සලකුණක්ද නොවේ.',
+    possibleSigns: [
+      'ඉතා සැහැල්ලු ලේ ගැලීම, සමහර විට "බිංදු ප්‍රමාණයක්" ලෙස හැඳින්වේ',
+      'පහළ උදරයේ සැහැල්ලු මාංශ පේශි සංකෝචන',
+      'බොහෝ කාන්තාවන්ට කිසිදු විශේෂ සලකුණක් නැත',
+    ],
+    tip1Title: 'දැනගත යුතු දේ',
+    tip1Text:
+      'සලකුණක් නොමැති වීමෙන් කිසිවක් අදහස් නොවේ: බොහෝ ගර්භණී කාල මෙම අවස්ථාවේ කිසිදු කැපී පෙනෙන රෝග ලක්ෂණයක් නොමැතිව ආරම්භ වේ.',
+    body3:
+      'hCG හෝමෝනය නිපදවීමට පටන් ගෙන ගර්භණී පරීක්ෂණයකින් හඳුනාගත හැකි වන්නේ තැන්පත් වීමෙන් පසු පමණි. ඉතා කලින් පරීක්ෂා කිරීම වැරදි ලෙස ඍණාත්මක ප්‍රතිඵලයක් දිය හැක.',
+    alertTitle: 'සටහන',
+    alertText:
+      'පරීක්ෂා කිරීමට පෙර ඔබේ ඔසප්වල උපකල්පිත දිනය දක්වා බලා සිටීම, ඉතා කලින් පරීක්ෂා කිරීමට වඩා වඩා විශ්වාසදායක ප්‍රතිඵලයක් ලබා දෙයි.',
+    tip2Title: 'දැනගත යුතු දේ',
+    tip2Text:
+      'ගර්භාෂයේ තැන්පත් වීම දෘශ්‍යමාන සලකුණක් සහිතව හෝ රහිතව රහසිගතව සිදුවේ. පරීක්ෂා කිරීමට පෙර සුළු ඉවසීමක් අවිශ්වාසදායක ප්‍රතිඵලයකින් ඔබව බේරා ගනී.',
+    shareMessage: 'ගර්භාෂයේ තැන්පත් වීම තේරුම් ගැනීම — AWA',
+  },
+  th: {
+    badge: 'การฝังตัวของตัวอ่อน',
+    title: 'ทำความเข้าใจ\nการฝังตัวของตัวอ่อน',
+    metaDuration: 'อ่าน 5 นาที',
+    metaType: 'บทความ',
+    metaLevel: 'ปานกลาง',
+    metaValidated: 'เนื้อหาที่ผ่านการตรวจสอบ',
+    intro:
+      'สิ่งที่เกิดขึ้นระหว่างการปฏิสนธิกับผลตรวจการตั้งครรภ์ที่เป็นบวก',
+    contentsTitle: 'ในบทความนี้',
+    topics: [
+      'จากการปฏิสนธิสู่การฝังตัว',
+      'สัญญาณที่เป็นไปได้ โดยไม่แน่นอน',
+      'เมื่อไรที่การตรวจเชื่อถือได้',
+      'ประเด็นสำคัญ',
+    ],
+    body1:
+      'หลังการปฏิสนธิ ไข่มักใช้เวลา 6 ถึง 10 วันเพื่อไปถึงมดลูกและฝังตัวที่นั่น: นี่คือการฝังตัว ขั้นตอนนี้เป็นจุดเริ่มต้นที่แท้จริงของการตั้งครรภ์',
+    body2:
+      'เลือดออกเล็กน้อยหรืออาการเกร็งอาจเกิดร่วมกับการฝังตัวได้บางครั้ง แม้ไม่ได้เกิดทุกครั้ง และไม่ใช่สัญญาณที่เชื่อถือได้ด้วยตัวเอง',
+    possibleSigns: [
+      'เลือดออกเล็กน้อยมาก บางครั้งเรียกว่า "สปอตติ้ง"',
+      'อาการเกร็งเบา ๆ ที่ท้องน้อย',
+      'ไม่มีสัญญาณพิเศษเลย ในผู้หญิงหลายคน',
+    ],
+    tip1Title: 'ควรรู้',
+    tip1Text:
+      'การไม่มีสัญญาณไม่ได้หมายความอะไร: การตั้งครรภ์หลายครั้งเริ่มต้นโดยไม่มีอาการที่สังเกตได้ในระยะนี้',
+    body3:
+      'หลังการฝังตัวเท่านั้นที่ฮอร์โมน hCG จะเริ่มถูกผลิตและตรวจพบได้ด้วยชุดตรวจการตั้งครรภ์ การตรวจเร็วเกินไปอาจให้ผลลบลวง',
+    alertTitle: 'หมายเหตุ',
+    alertText:
+      'การรอจนถึงวันที่คาดว่าประจำเดือนจะมาก่อนตรวจ ให้ผลที่เชื่อถือได้มากกว่าการตรวจเร็วเกินไป',
+    tip2Title: 'ควรรู้',
+    tip2Text:
+      'การฝังตัวเกิดขึ้นอย่างเงียบ ๆ ไม่ว่าจะมีสัญญาณที่เห็นหรือไม่ ความอดทนเล็กน้อยก่อนตรวจช่วยให้คุณไม่ได้ผลที่ไม่น่าเชื่อถือ',
+    shareMessage: 'ทำความเข้าใจการฝังตัวของตัวอ่อน — AWA',
+  },
+  vi: {
+    badge: 'SỰ LÀM TỔ',
+    title: 'Hiểu về\nsự làm tổ',
+    metaDuration: '5 phút đọc',
+    metaType: 'Bài viết',
+    metaLevel: 'Trung cấp',
+    metaValidated: 'Nội dung đã được thẩm định',
+    intro:
+      'Điều gì xảy ra giữa lúc thụ tinh và khi que thử thai dương tính.',
+    contentsTitle: 'Trong bài viết này',
+    topics: [
+      'Từ thụ tinh đến làm tổ',
+      'Những dấu hiệu có thể có, nhưng không chắc chắn',
+      'Khi nào que thử trở nên đáng tin cậy',
+      'Những điểm chính cần nhớ',
+    ],
+    body1:
+      'Sau khi thụ tinh, trứng thường mất 6 đến 10 ngày để đến tử cung và làm tổ ở đó: đây là sự làm tổ. Bước này đánh dấu điểm khởi đầu thực sự của thai kỳ.',
+    body2:
+      'Ra máu nhẹ hoặc đau quặn đôi khi có thể đi kèm sự làm tổ, dù điều này không phải lúc nào cũng xảy ra, cũng không phải là dấu hiệu đáng tin cậy khi đứng một mình.',
+    possibleSigns: [
+      'Ra máu rất nhẹ, đôi khi gọi là "ra máu lấm tấm"',
+      'Đau quặn nhẹ ở bụng dưới',
+      'Hoàn toàn không có dấu hiệu đặc biệt nào, ở nhiều phụ nữ',
+    ],
+    tip1Title: 'Nên biết',
+    tip1Text:
+      'Việc không có dấu hiệu nào không có ý nghĩa gì: nhiều thai kỳ bắt đầu mà không có triệu chứng đáng chú ý nào ở giai đoạn này.',
+    body3:
+      'Chỉ sau khi làm tổ, hormone hCG mới bắt đầu được sản xuất và có thể phát hiện bằng que thử thai. Thử quá sớm có thể cho kết quả âm tính giả.',
+    alertTitle: 'Lưu ý',
+    alertText:
+      'Chờ đến ngày dự kiến có kinh rồi mới thử sẽ cho kết quả đáng tin cậy hơn so với thử quá sớm.',
+    tip2Title: 'Nên biết',
+    tip2Text:
+      'Sự làm tổ diễn ra âm thầm, dù có hay không có dấu hiệu nhìn thấy được. Kiên nhẫn một chút trước khi thử giúp bạn tránh một kết quả không đáng tin cậy.',
+    shareMessage: 'Hiểu về sự làm tổ — AWA',
+  },
+  uz: {
+    badge: 'IMPLANTATSIYA',
+    title: 'Implantatsiyani\ntushunish',
+    metaDuration: '5 daq oʻqish',
+    metaType: 'Maqola',
+    metaLevel: 'Oʻrta',
+    metaValidated: 'Tasdiqlangan kontent',
+    intro:
+      'Urugʻlanish va ijobiy homiladorlik testi oraligʻida nima sodir boʻladi.',
+    contentsTitle: 'Ushbu maqolada',
+    topics: [
+      'Urugʻlanishdan implantatsiyagacha',
+      'Mumkin boʻlgan belgilar, aniqlik yoʻq',
+      'Test qachon ishonchli boʻladi',
+      'Asosiy xulosalar',
+    ],
+    body1:
+      'Urugʻlanishdan keyin tuxum hujayra odatda bachadonga yetib borib, u yerga oʻrnashishi uchun 6 kundan 10 kungacha vaqt oladi: bu implantatsiya. Bu bosqich homiladorlikning haqiqiy boshlanish nuqtasi hisoblanadi.',
+    body2:
+      'Yengil qon ketishi yoki qisqarishlar baʼzan implantatsiyaga hamroh boʻlishi mumkin, ammo bu har doim ham emas va yakka oʻzi ishonchli belgi emas.',
+    possibleSigns: [
+      'Juda yengil qon ketishi, baʼzan “spotting” deb ataladi',
+      'Qorin pastki qismida yengil qisqarishlar',
+      'Koʻp ayollarda hech qanday alohida belgi boʻlmasligi',
+    ],
+    tip1Title: 'Bilish foydali',
+    tip1Text:
+      'Belgining yoʻqligi hech narsani anglatmaydi: koʻp homiladorliklar bu bosqichda sezilarli alomatlarsiz boshlanadi.',
+    body3:
+      'Faqat implantatsiyadan keyin hCG gormoni ishlab chiqarila boshlaydi va homiladorlik testi bilan aniqlanadigan boʻladi. Juda erta test qilish yolgʻon salbiy natija berishi mumkin.',
+    alertTitle: 'Eslatma',
+    alertText:
+      'Test qilishdan oldin taxmin qilingan hayz kunigacha kutish juda erta test qilishdan koʻra ishonchliroq natija beradi.',
+    tip2Title: 'Bilish foydali',
+    tip2Text:
+      'Implantatsiya koʻrinadigan belgi bilan yoki belgisiz, sezdirmasdan sodir boʻladi. Test qilishdan oldin biroz sabr ishonchsiz natijadan saqlaydi.',
+    shareMessage: 'Implantatsiyani tushunish — AWA',
+  },
+  az: {
+    badge: 'İMPLANTASİYA',
+    title: 'İmplantasiyanı\nanlamaq',
+    metaDuration: '5 dəq oxu',
+    metaType: 'Məqalə',
+    metaLevel: 'Orta',
+    metaValidated: 'Yoxlanılmış məzmun',
+    intro:
+      'Mayalanma ilə müsbət hamiləlik testi arasında nələr baş verir.',
+    contentsTitle: 'Bu məqalədə',
+    topics: [
+      'Mayalanmadan implantasiyaya qədər',
+      'Mümkün əlamətlər, qəti olmadan',
+      'Test nə vaxt etibarlı olur',
+      'Əsas nəticələr',
+    ],
+    body1:
+      'Mayalanmadan sonra mayalanmış yumurtahüceyrənin uşaqlığa çatıb orada yerləşməsi adətən 6–10 gün çəkir: bu, implantasiyadır. Bu mərhələ hamiləliyin həqiqi başlanğıc nöqtəsidir.',
+    body2:
+      'Yüngül qanaxma və ya sancı bəzən implantasiyanı müşayiət edə bilər, lakin bu, sistematik deyil və tək başına etibarlı əlamət də deyil.',
+    possibleSigns: [
+      'Bəzən "spotting" adlandırılan çox yüngül qanaxma',
+      'Qarının aşağı hissəsində yüngül sancı',
+      'Bir çox qadında heç bir xüsusi əlamətin olmaması',
+    ],
+    tip1Title: 'Bilmək faydalıdır',
+    tip1Text:
+      'Əlamətin olmaması heç nə demək deyil: bir çox hamiləlik bu mərhələdə hiss olunan heç bir simptom olmadan başlayır.',
+    body3:
+      'hCG hormonu yalnız implantasiyadan sonra istehsal olunmağa başlayır və hamiləlik testi ilə aşkar edilə bilir. Çox tez test etmək yalançı mənfi nəticə verə bilər.',
+    alertTitle: 'Qeyd',
+    alertText:
+      'Test etməzdən əvvəl aybaşınızın gözlənilən gününü gözləmək çox tez test etməkdən daha etibarlı nəticə verir.',
+    tip2Title: 'Bilmək faydalıdır',
+    tip2Text:
+      'İmplantasiya gözə çarpan əlamətlə və ya əlamətsiz, səssiz baş verir. Test etməzdən əvvəl bir az səbir sizi etibarsız nəticədən qoruyur.',
+    shareMessage: 'İmplantasiyanı anlamaq — AWA',
+  },
+  ka: {
+    badge: 'იმპლანტაცია',
+    title: 'იმპლანტაციის\nგაგება',
+    metaDuration: '5 წთ საკითხავი',
+    metaType: 'სტატია',
+    metaLevel: 'საშუალო',
+    metaValidated: 'გადამოწმებული შინაარსი',
+    intro:
+      'რა ხდება განაყოფიერებასა და ორსულობის დადებით ტესტს შორის.',
+    contentsTitle: 'ამ სტატიაში',
+    topics: [
+      'განაყოფიერებიდან იმპლანტაციამდე',
+      'შესაძლო ნიშნები, სიზუსტის გარეშე',
+      'როდის ხდება ტესტი სანდო',
+      'მთავარი დასკვნები',
+    ],
+    body1:
+      'განაყოფიერების შემდეგ კვერცხუჯრედს, როგორც წესი, საშვილოსნომდე მისასვლელად და იქ დასამაგრებლად 6-დან 10 დღემდე სჭირდება: ეს არის იმპლანტაცია. ეს ეტაპი ორსულობის ნამდვილ საწყის წერტილს აღნიშნავს.',
+    body2:
+      'მსუბუქი სისხლდენა ან სპაზმი ზოგჯერ შეიძლება იმპლანტაციას ახლდეს, თუმცა ეს სისტემატური არ არის და არც თავისთავად სანდო ნიშანია.',
+    possibleSigns: [
+      'ძალიან მსუბუქი სისხლდენა, ზოგჯერ „სპოტინგს“ უწოდებენ',
+      'მსუბუქი სპაზმი ქვედა მუცელში',
+      'ბევრი ქალისთვის რაიმე განსაკუთრებული ნიშნის სრული არარსებობა',
+    ],
+    tip1Title: 'კარგია ვიცოდეთ',
+    tip1Text:
+      'ნიშნის არარსებობა არაფერს ნიშნავს: ბევრი ორსულობა ამ ეტაპზე შესამჩნევი სიმპტომის გარეშე იწყება.',
+    body3:
+      'მხოლოდ იმპლანტაციის შემდეგ იწყება hCG ჰორმონის გამომუშავება და ხდება ორსულობის ტესტით აღმოჩენადი. ძალიან ადრე ტესტირებამ შეიძლება ცრუ უარყოფითი შედეგი მოგცეთ.',
+    alertTitle: 'შენიშვნა',
+    alertText:
+      'ტესტირებამდე მენსტრუაციის სავარაუდო დღემდე ლოდინი უფრო სანდო შედეგს იძლევა, ვიდრე ძალიან ადრე ტესტირება.',
+    tip2Title: 'კარგია ვიცოდეთ',
+    tip2Text:
+      'იმპლანტაცია დისკრეტულად ხდება, თვალსაჩინო ნიშნით ან მის გარეშე. ტესტირებამდე ცოტა მოთმინება გარიდებთ არასანდო შედეგს.',
+    shareMessage: 'იმპლანტაციის გაგება — AWA',
+  },
+  hy: {
+    badge: 'ԻՄՊԼԱՆՏԱՑԻԱ',
+    title: 'Հասկանալ\nիմպլանտացիան',
+    metaDuration: '5 ր կարդալու համար',
+    metaType: 'Հոդված',
+    metaLevel: 'Միջին',
+    metaValidated: 'Վերանայված բովանդակություն',
+    intro:
+      'Ինչ է տեղի ունենում բեղմնավորման և դրական հղիության թեստի միջև:',
+    contentsTitle: 'Այս հոդվածում',
+    topics: [
+      'Բեղմնավորումից մինչև իմպլանտացիա',
+      'Հնարավոր նշաններ՝ առանց վստահության',
+      'Երբ է թեստը դառնում հուսալի',
+      'Հիմնական եզրակացություններ',
+    ],
+    body1:
+      'Բեղմնավորումից հետո ձվաբջիջը սովորաբար 6–10 օր է պահանջում՝ արգանդ հասնելու և այնտեղ ամրանալու համար. սա իմպլանտացիան է: Այս քայլը նշում է հղիության իրական մեկնարկային կետը:',
+    body2:
+      'Թեթև արյունահոսությունը կամ ջղաձգումները երբեմն կարող են ուղեկցել իմպլանտացիային, թեև դա համակարգային չէ և միայնակ հուսալի նշան չէ:',
+    possibleSigns: [
+      'Շատ թեթև արյունահոսություն, երբեմն կոչվող «արյունաշաղախ արտազատուկ»',
+      'Թեթև ջղաձգումներ որովայնի ստորին հատվածում',
+      'Շատ կանանց մոտ՝ ընդհանրապես որևէ հատուկ նշան չկա',
+    ],
+    tip1Title: 'Լավ է իմանալ',
+    tip1Text:
+      'Նշանի բացակայությունը ոչինչ չի նշանակում. շատ հղիություններ սկսվում են առանց այս փուլում որևէ նկատելի ախտանիշի:',
+    body3:
+      'Միայն իմպլանտացիայից հետո է սկսվում hCG հորմոնի արտադրությունը, և այն դառնում է հայտնաբերելի հղիության թեստով: Շատ վաղ թեստավորումը կարող է տալ կեղծ բացասական արդյունք:',
+    alertTitle: 'Նշում',
+    alertText:
+      'Թեստավորումից առաջ ձեր դաշտանի ենթադրյալ օրվան սպասելը տալիս է ավելի հուսալի արդյունք, քան շատ շուտ թեստավորելը:',
+    tip2Title: 'Լավ է իմանալ',
+    tip2Text:
+      'Իմպլանտացիան տեղի է ունենում զգուշորեն՝ տեսանելի նշանով կամ առանց դրա: Թեստավորումից առաջ մի փոքր համբերությունը խնայում է ձեզ անհուսալի արդյունքից:',
+    shareMessage: 'Հասկանալ իմպլանտացիան — AWA',
+  },
+  tg: {
+    badge: 'ИМПЛАНТАТСИЯ',
+    title: 'Фаҳмидани\nимплантатсия',
+    metaDuration: '5 дақ барои хондан',
+    metaType: 'Мақола',
+    metaLevel: 'Миёна',
+    metaValidated: 'Мазмуни баррасишуда',
+    intro:
+      'Байни бордоршавӣ ва санҷиши мусбати ҳомиладорӣ чӣ рух медиҳад.',
+    contentsTitle: 'Дар ин мақола',
+    topics: [
+      'Аз бордоршавӣ то имплантатсия',
+      'Нишонаҳои имконпазир, бе қатъият',
+      'Санҷиш кай боэътимод мешавад',
+      'Хулосаҳои асосӣ',
+    ],
+    body1:
+      'Пас аз бордоршавӣ тухмсел одатан 6 то 10 рӯз вақт мегирад, то ба бачадон расад ва дар он ҷойгир шавад: ин имплантатсия аст. Ин марҳила нуқтаи ҳақиқии оғози ҳомиладориро нишон медиҳад.',
+    body2:
+      'Хунравии сабук ё кашишхӯрӣ баъзан метавонад имплантатсияро ҳамроҳӣ кунад, гарчанде ки ин мунтазам нест ва худ ба худ нишонаи боэътимод низ нест.',
+    possibleSigns: [
+      'Хунравии хеле сабук, ки баъзан «спотинг» номида мешавад',
+      'Кашишхӯрии сабук дар поёни шикам',
+      'Ягон нишонаи махсус нест, барои бисёр занон',
+    ],
+    tip1Title: 'Донистан хуб аст',
+    tip1Text:
+      'Набудани нишона ҳеҷ чизро надорад: бисёр ҳомиладорӣ бе ягон нишонаи намоён дар ин марҳила оғоз мешавад.',
+    body3:
+      'Танҳо пас аз имплантатсия гормони hCG тавлид шудан мегирад ва аз ҷониби санҷиши ҳомиладорӣ ошкор шуданӣ мешавад. Хеле барвақт санҷидан метавонад натиҷаи нодурусти манфӣ диҳад.',
+    alertTitle: 'Қайд',
+    alertText:
+      'Интизор шудан то рӯзи эҳтимолии ҳайз пеш аз санҷиш натиҷаи боэътимодтар аз хеле барвақт санҷиданро медиҳад.',
+    tip2Title: 'Донистан хуб аст',
+    tip2Text:
+      'Имплантатсия оромона рух медиҳад, бо нишонаи намоён ё бе он. Андаке сабр пеш аз санҷиш шуморо аз натиҷаи беэътимод наҷот медиҳад.',
+    shareMessage: 'Фаҳмидани имплантатсия — AWA',
+  },
+  ky: {
+    badge: 'ИМПЛАНТАЦИЯ',
+    title: 'Имплантацияны\nтүшүнүү',
+    metaDuration: '5 мүн окуу',
+    metaType: 'Макала',
+    metaLevel: 'Орто',
+    metaValidated: 'Текшерилген мазмун',
+    intro:
+      'Уруктануу менен курсактуулуктун оң тестинин ортосунда эмне болот.',
+    contentsTitle: 'Бул макалада',
+    topics: [
+      'Уруктанудан имплантацияга чейин',
+      'Мүмкүн болгон белгилер, ишенимсиз',
+      'Тест качан ишенимдүү болот',
+      'Негизги жыйынтыктар',
+    ],
+    body1:
+      'Уруктангандан кийин жумурткалуу клетка жатынга жетип, ага орнотулуу үчүн адатта 6–10 күн талап кылынат: бул имплантация. Бул кадам курсактуулуктун чыныгы башталышын белгилейт.',
+    body2:
+      'Жеңил кан кетүү же спазмдар кээде имплантацияга кошо жүрүшү мүмкүн, бирок бул системалуу эмес жана өзү ишенимдүү белги да эмес.',
+    possibleSigns: [
+      'Өтө жеңил кан кетүү, кээде «спотинг» деп аталат',
+      'Курсактын ылдый жагында жеңил спазмдар',
+      'Көптөгөн аялдарда эч кандай өзгөчө белги жок',
+    ],
+    tip1Title: 'Билүү пайдалуу',
+    tip1Text:
+      'Белгинин жоктугу эч нерсени билдирбейт: көптөгөн курсактуулуктар бул этапта эч кандай байкалаарлык белгисиз башталат.',
+    body3:
+      'Имплантациядан кийин гана hCG гормону өндүрүлө баштайт жана курсактуулук тести аркылуу аныкталат. Өтө эрте тестиңиз жалган терс жыйынтык бериши мүмкүн.',
+    alertTitle: 'Эскертүү',
+    alertText:
+      'Тестти жасоодон мурун етек киримиңиз болушу керек деп болжолдонгон күнгө чейин күтүү өтө эрте жасалган тестке караганда ишенимдүүрөөк жыйынтык берет.',
+    tip2Title: 'Билүү пайдалуу',
+    tip2Text:
+      'Имплантация көрүнүүчү белгиси менен же жок эле купуя өтөт. Тестиңизден мурун бир аз сабыр ишенимсиз жыйынтыктан сактайт.',
+    shareMessage: 'Имплантацияны түшүнүү — AWA',
+  },
+  tk: {
+    badge: 'IMPLANTASIÝA',
+    title: 'Implantasiýany\ndüşünmek',
+    metaDuration: '5 min okamak',
+    metaType: 'Makala',
+    metaLevel: 'Orta',
+    metaValidated: 'Barlanan mazmun',
+    intro:
+      'Tohumlanma bilen oňyn göwrelilik synagynyň arasynda nämeler bolýar.',
+    contentsTitle: 'Bu makalada',
+    topics: [
+      'Tohumlanmadan implantasiýa çenli',
+      'Mümkin alamatlar, kepilsiz',
+      'Synag haçan ygtybarly bolýar',
+      'Esasy netijeler',
+    ],
+    body1:
+      'Tohumlanmadan soň ýumurtga adatça ýatga ýetmek we şol ýerde ornaşmak üçin 6–10 gün alýar: bu implantasiýa. Bu ädim göwreliligiň hakyky başlangyç nokadyny belleýär.',
+    body2:
+      'Ýeňil gan akma ýa-da çekişme käwagt implantasiýa hemrah bolup biler, ýöne bu yzygiderli däl, ýeke özi ygtybarly alamat hem däl.',
+    possibleSigns: [
+      'Gaty ýeňil gan akma, käwagt «spotting» diýlip atlandyrylýar',
+      'Garnyň aşagynda ýeňil çekişme',
+      'Köp aýal üçin hiç hili aýratyn alamat ýok',
+    ],
+    tip1Title: 'Bilmek peýdaly',
+    tip1Text:
+      'Alamatyň ýoklugy hiç zat aňlatmaýar: köp göwrelilik bu tapgyrda duýulýan hiç hili alamatsyz başlanýar.',
+    body3:
+      'Diňe implantasiýadan soň hCG gormony öndürilip başlaýar we göwrelilik synagy bilen anyklanyp bilner. Aşa ir synag etmek ýalňyş otrisatel netije berip biler.',
+    alertTitle: 'Bellik',
+    alertText:
+      'Synag etmezden öň aýbaşyňyzyň çaklanylýan gününe çenli garaşmak aşa ir synag etmekden has ygtybarly netije berýär.',
+    tip2Title: 'Bilmek peýdaly',
+    tip2Text:
+      'Implantasiýa görünýän alamat bilen ýa-da alamatsyz, ýaşyryn bolýar. Synagdan öň az-kem sabyr ygtybarsyz netijeden halas edýär.',
+    shareMessage: 'Implantasiýany düşünmek — AWA',
   },
 } as const);
 

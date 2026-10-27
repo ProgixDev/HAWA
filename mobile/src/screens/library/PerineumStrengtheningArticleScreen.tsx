@@ -3145,211 +3145,6 @@ const CONTENT = withBrazilianPortuguese('PerineumStrengthening', {
     disclaimerText:
       'Denne artikel er kun til information og erstatter ikke personlig medicinsk rådgivning. Hvis du oplever smerter, vedvarende symptomer eller har bekymringer om din genopretning, så søg råd hos en sundhedsprofessionel.',
   },
-  da: {
-    badge: 'BARSEL • GENOPTRÄNING',
-    title: 'Styrk din bäkkenbund\nefter födslen',
-    metaDuration: '8 min. läsning',
-    metaType: 'Guide',
-    metaLevel: 'Begynder',
-    metaValidated: 'Gennemset indhold',
-    intro:
-      'Efter graviditet och födsel har bäkkenbunden brug for tid till at komme sig. Enkle, regelmässige och gradvise övelser kan hjälpe dig med at genvinde styrke, kontrol och selvtillid, uden at forsöge at skynde sig.',
-    contentsTitle: 'I denne artikel',
-    topics: [
-      'Forstå perinäets rolle',
-      'Hvorfor födslen belaster det',
-      'Hvornår du skal starte bäkkenbundsgenopträning',
-      'At läre at kontrahere korrekt',
-      'Opbyg en gradvis rutine',
-      'Fejl du skal undgå',
-      'Hvornår du skal bede om hjälp',
-      'Gradvis genoptagelse av sport',
-      'Forberedelse till en aftale',
-      'Vigtigste pointer',
-    ],
-    shareMessage: 'Styrk din bäkkenbund efter födslen — AWA',
-
-    s1Heading: 'Forstå perinäets rolle',
-    s1Body1:
-      'Perinäet, også kaldet bäkkenbunden, ar en gruppe muskler placeret ved bäkkenbunden. Det spiller en rolle i bläre- och tarmkontrol och hjälper med at stötte bäkkenorganerne.',
-    s1Body2:
-      'Under graviditeten skal disse muskler bäre ekstra vägt i flere måneder. De udsättes også for betydelig belastning under födslen.',
-    s1HighlightTitle: 'En diskret men vigtig muskel',
-    s1HighlightText:
-      'Bäkkenbunden ar involveret i flere hverdagsfunktioner: at holde urin och afföring tilbage, kontrollere luft, stötte bäkkenorganerne och spille en rolle i visse seksuelle funktioner.',
-
-    benefitsHeading: 'Fordelene ved en stärkere bäkkenbund',
-    benefitsIntro:
-      'Gradvis, korrekt udfört styrketräning kan hjälpe med at forbedre bäkkenbundens kontrol och stötte.',
-    benefits: [
-      {
-        icon: 'water-outline',
-        title: 'Bedre blärekontrol',
-        text: 'Bäkkenbunden spiller en rolle i blärekontrollen. Gradvis styrkelse kan hjälpe med at reducere visse urinläk.',
-      },
-      {
-        icon: 'toilet',
-        title: 'Stötte tarmfunktionen',
-        text: 'Disse muskler hjälper også med at kontrollere luft och afföring och bidrager till at stötte bäkkenorganerne.',
-      },
-      {
-        icon: 'human-female',
-        title: 'Stötte bäkkenorganerne',
-        text: 'Bäkkenbunden danner en reel muskulär base, der hjälper med at stötte blären, livmoderen och tarmen.',
-      },
-      {
-        icon: 'heart-pulse',
-        title: 'Gradvis genvinding av fornemmelse',
-        text: 'Egnet genopträning kan også hjälpe dig med at genvinde bedre bevidsthed och kontrol av dette område.',
-      },
-    ],
-
-    s2Heading: 'Hvorfor graviditet och födsel belaster det',
-    s2Body1:
-      'Graviditet lägger gradvist mere pres på bäkkenbunden. En vaginal födsel kan derefter sträkke musklerne och vävene i dette område betydeligt.',
-    s2Body2:
-      'Et kejsersnit sparer heller inte bäkkenbunden fuldständigt: graviditeten i sig selv ar fortsat en vigtig periode for disse muskler.',
-    s2Body3:
-      'Efter födslen ar det derfor normalt, at genopretningen tager tid. Nogle kvinnor märker nästen ingen symtom, mens andre kan bemärke läkager, en fölelse av tyngde eller reduceret muskelkontrol.',
-    s2TipTitle: 'Hver genopretning ar forskellig',
-    s2TipText:
-      'Födslens type, en rifting eller episiotomi, smartor och din generelle tilstand efter födslen kan alla påvirke genopretningen.',
-
-    s3Heading: 'Hvornår skal du starte bäkkenbundsgenopträning?',
-    s3Body1:
-      'Efter en ukompliceret födsel kan skånsomme bäkkenbundskontraktioner som regel genoptages gradvist. Det ar dog vigtigt at tilpasse övelserne till din situation och söge rådgivning, hvis du oplevede en komplikation, betydelige smartor eller et specifikt indgreb.',
-    s3Body2:
-      'Hvis du har et urinkateter, anbefaler visse vejledninger at vente, till det ar fjernet och normal vandladning ar genoptaget, för du begynder perinäumövelser.',
-    s3AlertTitle: 'Tving inte igennem smerte',
-    s3AlertText:
-      'Betydelige smerter, forvärrede symtom, et sår der heler dårligt eller en särlig bekymring kräver råd fran en jordemoder, läge eller genoptränende professionel.',
-
-    s4Heading: 'At läre at kontrahere korrekt',
-    s4Body1:
-      'For at identificere bevägelsen kan du forestille dig at forsöge at holde luft tilbage och dämpe vandladningstrangen på samme tid. Bevägelsen du leder efter ar en fornemmelse av kontraktion och löft indad.',
-    s4Body2:
-      'Målet ar inte at spände hele kroppen hårdt. Dine baller, lår och mavemuskulatur skal forblive så afslappede som muligt, mens vejrträkningen fortsätter normalt.',
-    exercises: [
-      {icon: 'weather-windy', label: 'Vejrträkning'},
-      {icon: 'human-handsup', label: 'Skånsom kontraktion'},
-      {icon: 'arrow-up-bold-circle-outline', label: 'Lang kontraktion'},
-      {icon: 'gesture-tap-button', label: 'Hurtige kontraktioner'},
-    ],
-    s4HighlightTitle: 'Afslapning ar lige så vigtigt',
-    s4HighlightText:
-      'Efter hver kontraktion skal musklerne slappe fuldständigt av. God genopträning betyder inte at holde perinäet kontraheret hele dagen.',
-
-    s5Heading: 'Opbyg en gradvis rutine',
-    s5Body1:
-      'I starten ar det vigtigste at läre at identificere musklerne och udföre bevägelsen korrekt. Konsistens ar vigtigere end intensitet.',
-    s5h3a: 'Lange kontraktioner',
-    s5Body2:
-      'Kontraher bäkkenbunden forsigtigt, hold derefter kontraktionen i et par sekunder uden at holde vejret. Slip derefter helt, inden du starter igen.',
-    s5h3b: 'Korte kontraktioner',
-    s5Body3:
-      'Når bevägelsen ar mestret, kan små hurtige kontraktioner tilföjes. De hjälper med at träne evnen till hurtigt at kontrahere musklerne, når det abdominale tryk stiger, for eksempel lige inden hoste eller nys.',
-    dailyTips: [
-      {icon: 'clock-outline', label: 'Par övelserne med en daglig vane'},
-      {icon: 'human-sitting', label: 'Start i en behagelig position'},
-      {icon: 'weather-windy', label: 'Ånd normalt under kontraktioner'},
-      {icon: 'sleep', label: 'Respekter afslappelsesfaserne'},
-      {icon: 'chart-line', label: 'Ög gradvist svärhedsgraden'},
-      {icon: 'doctor', label: 'Bed om råd, hvis du ar usikker'},
-    ],
-    s5TipTitle: 'Konsistens frem for alt',
-    s5TipText:
-      'At parre övelserne med en vane, der redan ar en del av din dag, kan göre det lettere at holde fast: efter amning, efter tandbörstning eller på et andet tidspunkt, der passer dig.',
-
-    s6Heading: 'Almindelige fejl du skal undgå',
-    s6Body1:
-      'Perinäumövelser ser måske enkle ud, men det ar let at kompensere med andre muskler eller anstrenge sig for meget.',
-    commonMistakes: [
-      'At spände ballerne eller lårene i stedet for bäkkenbunden',
-      'At holde vejret under kontraktionen',
-      'At holde musklerne konstant kontraherede uden at lade dem slappe af',
-      'At lave övelserne i kun få dagar och derefter stoppe',
-      'Bevidst at stoppe urinstrålen for att tjekke kontraktionen',
-    ],
-    s6TipTitle: 'Hvad du inte skal göre',
-    s6TipText:
-      'Det anbefales inte at öve sig ved bevidst at stoppe urinstrålen. Denne metode träner inte perinäet korrekt och kan forstyrre normal blärefunktion.',
-
-    s7Heading: 'Hvilke symtom bör tilskynde till konsultation?',
-    s7Body1:
-      'Mindre läkager eller en usädvanlig fornemmelse kan nogle gange opstå efter födslen. De bör dog inte ignoreres, hvis de varer ved, forvärres eller forstyrrer din hverdag.',
-    warningSigns: [
-      'Urinläk når du hoster, nyser, griner eller anstrenger dig',
-      'En fölelse av tyngde eller tryk i den nedre del av bäkkenet',
-      'En fornemmelse av, at en klump eller noget falder ned i vagina',
-      'Besvär med at holde luft eller afföring tilbage',
-      'Vedvarende smartor i perinäet',
-      'Smerter under eller efter samleje',
-      'Besvär med at identificere eller korrekt kontrahere perinäummusklerne',
-    ],
-    consultLabel: 'Hvornår skal du söge råd?',
-    s7Body2:
-      'En jordemoder, läge eller fysioterapeut med speciale i bäkkenbundsgenopträning kan kontrollere muskelfunktionen och foreslå et egnet program.',
-
-    s8Heading: 'Og efter en rifting, en episiotomi eller et kejsersnit?',
-    s8Body1:
-      'En rifting eller episiotomi kräver särlig opmärksomhed under helingsprocessen. Genoptagelse av aktiviteter skal tage hensyn till smerter, arrets tilstand och den vejledning, der ar givet efter födslen.',
-    s8Body2:
-      'Efter et kejsersnit involverer genopretningen også bugväggen och arret. Selv hvis födslen inte var vaginal, har graviditeten fortfarande belastet bäkkenbunden.',
-    s8HighlightTitle: 'Personlig pleje kan hjälpe',
-    s8HighlightText:
-      'I tilfälde av en betydelig rifting, smerter, urinäre eller tarmrelaterede symtom eller vedvarende vanskeligheder kan en vurdering hos en halsasprofessionel väre särlig nyttig.',
-
-    s9Heading: 'Gradvis genoptagelse av sport',
-    s9Body1:
-      'Genoptagelse av bevägelse efter födslen skal ske gradvist. Gåture och skånsomme bevägelser kan som regel genoptages baseret på, hvordan du har det, mens aktiviteter med höj belastning kräver mere forsigtighed.',
-    s9Body2:
-      'Inden du genoptager löb, hop eller mycket intensiv träning, ar det bedst at vurdere bäkkenbundens genopretning och tage eventuelle symtom i betragtning.',
-    s9AlertTitle: 'Skynd dig inte igennem faserne',
-    s9AlertText:
-      'Läkager, en fölelse av tyngde eller smartor under eller efter träning ar tegn på, at du bör sänke farten och söge råd, inden du öger intensiteten.',
-
-    s10Heading: 'Hvornår skal du se en specialist?',
-    s10Body1:
-      'Bäkkenbundsgenopträning med en jordemoder eller fysioterapeut kan väre nyttig, hvis du ar usikker på, om du kontrahere korrekt, hvis dina symtom varer ved, eller hvis du önsker at genoptage visse fysiske aktiviteter med selvtillid.',
-    questionCardTitle: 'Nyttige spörgsmål at stille',
-    appointmentQuestions: [
-      'Er mine symtom forenelige med svaghed i bäkkenbunden?',
-      'Udförer jag kontraktionerne korrekt?',
-      'Hvor mange gentagelser skal jag lave hver dag?',
-      'Kan jag genoptage löb, sport eller övelser med höj belastning?',
-      'Har jag brug for genopträning med en jordemoder eller fysioterapeut?',
-      'Kräver mit ar, min rifting eller mit kejsersnit särlige forholdsregler?',
-    ],
-    s10TipTitle: 'Godt at vide',
-    s10TipText:
-      'At besöge en professionel betyder inte nödvendigvis, at noget ar galt. En session kan blot hjälpe med at tjekke din teknik, vurdere din genopretning och läre at fremskridt korrekt.',
-
-    s11Heading: 'En genopretning, der tager tid',
-    s11Body1:
-      'Efter födslen ar det normalt inte straks at genvinde de samme fornemmelser eller muskelstyrke, du havde för graviditeten.',
-    s11Body2:
-      'Målet ar inte at lave så mange kontraktioner som muligt. Det handler mere om gradvist at genvinde god koordination mellem kontraktion och afslapning och derefter at kunne bruge disse muskler naturligt i hverdagsaktiviteter.',
-    s11HighlightTitle: 'Lille fremskridt ar ägte fremskridt',
-    s11HighlightText:
-      'Bedre bevidsthed om bevägelsen, et par ekstra sekunders kontraktion eller en reduktion i läkager ar redan opmuntrende tegn.',
-
-    s12Heading: 'Vigtigste pointer',
-    summaryTitle: 'Det vigtigste',
-    summaryItems: [
-      'Graviditet och födsel belaster bäkkenbunden betydeligt.',
-      'Gradvis genopretning ar normal efter födslen.',
-      'Övelser bör prioritere bevägelseskvalitet frem for styrke.',
-      'Vejrträkning och afslapning ar lige så vigtige som kontraktion.',
-      'Urinläk, tyngde eller vedvarende smartor fortjener en professionel vurdering.',
-      'Genopträning med en jordemoder eller fysioterapeut kan hjälpe dig med at genvinde bedre kontrol.',
-      'Genoptagelse av sport skal ske gradvist, särligt for aktiviteter med höj belastning.',
-    ],
-    finalTipTitle: 'Tag dig tid till at komme dig',
-    finalTipText:
-      'Efter födslen har din krop gennemgået mange forandringer. Perinäet fortjener den samme opmärksomhed som resten av din krop: gradvist, regelmässigt och uden pres.',
-    disclaimerText:
-      'Denne artikel ar kun till information och erstatter inte personlig medicinsk rådgivning. Hvis du oplever smerter, vedvarende symtom eller har bekymringer om din genopretning, så sög råd hos en halsasprofessionel.',
-  },
   sv: {
     badge: 'BARSEL • GENOPTRÄNING',
     title: 'Styrk din bäkkenbund\nefter födslen',
@@ -3554,6 +3349,4767 @@ const CONTENT = withBrazilianPortuguese('PerineumStrengthening', {
       'Efter födslen har din krop gennemgået mange forandringer. Perinäet fortjener den samme opmärksomhed som resten av din krop: gradvist, regelmässigt och uden pres.',
     disclaimerText:
       'Denne artikel ar kun till information och erstatter inte personlig medicinsk rådgivning. Hvis du oplever smerter, vedvarende symtom eller har bekymringer om din genopretning, så sög råd hos en halsasprofessionel.',
+  },
+  nb: {
+    badge: 'BARSELTID • TILFRISKNING',
+    title: 'Styrke bekkenbunnen\netter fødselen',
+    metaDuration: '8 min lesing',
+    metaType: 'Veiledning',
+    metaLevel: 'Nybegynner',
+    metaValidated: 'Gjennomgått innhold',
+    intro:
+      'Etter svangerskap og fødsel trenger bekkenbunnen tid til å komme seg. Enkle, regelmessige og gradvise øvelser kan hjelpe deg å få tilbake styrke, kontroll og trygghet, uten å prøve å skynde på ting.',
+    contentsTitle: 'I denne artikkelen',
+    topics: [
+      'Forstå bekkenbunnens rolle',
+      'Hvorfor fødselen belaster den',
+      'Når du bør begynne med bekkenbunnstrening',
+      'Lære å trekke sammen riktig',
+      'Bygge en gradvis rutine',
+      'Feil du bør unngå',
+      'Når du bør be om hjelp',
+      'Gradvis komme tilbake til idrett',
+      'Forberede en time',
+      'Det viktigste å huske',
+    ],
+    shareMessage: 'Styrke bekkenbunnen etter fødselen – AWA',
+
+    s1Heading: 'Forstå bekkenbunnens rolle',
+    s1Body1:
+      'Bekkenbunnen, også kalt perineum, er en gruppe muskler nederst i bekkenet. Den spiller en rolle for kontrollen over blære og tarm og bidrar til å støtte bekkenorganene.',
+    s1Body2:
+      'Under svangerskapet må disse musklene bære ekstra vekt i flere måneder. De blir også utsatt for betydelig belastning under fødselen.',
+    s1HighlightTitle: 'En diskret, men viktig muskel',
+    s1HighlightText:
+      'Bekkenbunnen er involvert i flere hverdagsfunksjoner: å holde på urin og avføring, kontrollere luft, støtte bekkenorganene og spille en rolle i visse seksuelle funksjoner.',
+
+    benefitsHeading: 'Fordelene med en sterkere bekkenbunn',
+    benefitsIntro:
+      'Gradvis og riktig utført styrking kan bidra til å bedre kontrollen over og støtten fra bekkenbunnen.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Bedre blærekontroll',
+        text: 'Bekkenbunnen spiller en rolle for blærekontrollen. Å styrke den gradvis kan bidra til å redusere visse urinlekkasjer.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Støtte tarmfunksjonen',
+        text: 'Disse musklene bidrar også til å kontrollere luft og avføring og til å støtte bekkenorganene.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Støtte bekkenorganene',
+        text: 'Bekkenbunnen danner en reell muskulær base som bidrar til å støtte blæren, livmoren og tarmen.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Gradvis få tilbake følelsen',
+        text: 'Egnet rehabilitering kan også hjelpe deg å få bedre bevissthet om og kontroll over dette området.',
+      },
+    ],
+
+    s2Heading: 'Hvorfor svangerskap og fødsel belaster den',
+    s2Body1:
+      'Svangerskapet legger gradvis mer press på bekkenbunnen. En vaginal fødsel kan deretter strekke musklene og vevet i dette området betydelig.',
+    s2Body2:
+      'Et keisersnitt skåner heller ikke bekkenbunnen fullstendig: selve svangerskapet er fortsatt en krevende periode for disse musklene.',
+    s2Body3:
+      'Etter fødselen er det derfor normalt at tilfriskningen tar tid. Noen kvinner kjenner nesten ingen symptomer, mens andre kan merke lekkasjer, en følelse av tyngde eller redusert muskelkontroll.',
+    s2TipTitle: 'Hver tilfriskning er forskjellig',
+    s2TipText:
+      'Typen fødsel, en bristning eller klipp (episiotomi), tilstedeværelsen av smerte og allmenntilstanden din etter fødselen kan alle påvirke tilfriskningen.',
+
+    s3Heading: 'Når bør du begynne med bekkenbunnstrening?',
+    s3Body1:
+      'Etter en ukomplisert fødsel kan milde sammentrekninger av bekkenbunnen vanligvis gjenopptas gradvis. Det er fortsatt viktig å tilpasse øvelsene til din situasjon og å søke råd hvis du hadde en komplikasjon, betydelig smerte eller et spesielt inngrep.',
+    s3Body2:
+      'Hvis du har et urinkateter, anbefaler noen å vente til det er fjernet og normal vannlating er kommet i gang før du begynner med bekkenbunnsøvelser.',
+    s3AlertTitle: 'Ikke press deg gjennom smerte',
+    s3AlertText:
+      'Betydelig smerte, forverrede symptomer, et sår som gror dårlig eller enhver spesiell bekymring krever råd fra en jordmor, lege eller rehabiliteringsfagperson.',
+
+    s4Heading: 'Lære å trekke sammen riktig',
+    s4Body1:
+      'For å kjenne igjen bevegelsen kan du forestille deg at du prøver å holde igjen luft og vannlatingsbehovet samtidig. Bevegelsen du leter etter, er en følelse av sammentrekning og løft innover.',
+    s4Body2:
+      'Målet er ikke å spenne hele kroppen hardt. Setemusklene, lårene og magemusklene bør forbli så avslappet som mulig, mens pusten fortsetter normalt.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Pusting'},
+      {icon: 'human-handsup', label: 'Mild sammentrekning'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Lang sammentrekning'},
+      {icon: 'gesture-tap-button', label: 'Raske sammentrekninger'},
+    ],
+    s4HighlightTitle: 'Avspenning betyr like mye',
+    s4HighlightText:
+      'Etter hver sammentrekning lar du musklene slappe helt av. God rehabilitering betyr ikke å holde bekkenbunnen sammentrukket hele dagen.',
+
+    s5Heading: 'Bygge en gradvis rutine',
+    s5Body1:
+      'I begynnelsen er det viktigste å lære seg å kjenne igjen musklene og utføre bevegelsen riktig. Jevnhet betyr mer enn intensitet.',
+    s5h3a: 'Lange sammentrekninger',
+    s5Body2:
+      'Trekk bekkenbunnen forsiktig sammen, og hold deretter sammentrekningen i noen sekunder uten å holde pusten. Slipp deretter helt opp før du begynner på nytt.',
+    s5h3b: 'Korte sammentrekninger',
+    s5Body3:
+      'Når bevegelsen er mestret, kan små raske sammentrekninger legges til. De trener evnen til å trekke musklene sammen raskt når trykket i magen øker, for eksempel rett før du hoster eller nyser.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Knytt øvelsene til en daglig vane'},
+      {icon: 'human-sitting', label: 'Begynn i en behagelig stilling'},
+      {icon: 'weather-windy', label: 'Pust normalt under sammentrekningene'},
+      {icon: 'sleep', label: 'Respekter avspenningsfasene'},
+      {icon: 'chart-line', label: 'Øk vanskelighetsgraden gradvis'},
+      {icon: 'doctor', label: 'Spør om råd hvis du er usikker'},
+    ],
+    s5TipTitle: 'Jevnhet fremfor alt',
+    s5TipText:
+      'Å knytte øvelsene til en vane som allerede er en del av dagen din, kan gjøre det lettere å holde en jevn rytme: etter et måltid for babyen, etter tannpussen eller på et annet tidspunkt som passer deg.',
+
+    s6Heading: 'Vanlige feil du bør unngå',
+    s6Body1:
+      'Bekkenbunnsøvelser kan se enkle ut, men det er lett å kompensere med andre muskler eller presse for hardt.',
+    commonMistakes: [
+      'Å spenne setemusklene eller lårene i stedet for bekkenbunnen',
+      'Å holde pusten under sammentrekningen',
+      'Å holde musklene sammentrukket hele tiden uten å la dem slappe av',
+      'Å gjøre øvelsene bare noen få dager og deretter slutte',
+      'Å bevisst stoppe urinstrålen for å kontrollere sammentrekningen',
+    ],
+    s6TipTitle: 'Hva du ikke bør gjøre',
+    s6TipText:
+      'Det anbefales ikke å øve ved å bevisst stoppe urinstrålen. Denne metoden trener ikke bekkenbunnen riktig og kan forstyrre den normale blærefunksjonen.',
+
+    s7Heading: 'Hvilke symptomer bør føre til en konsultasjon?',
+    s7Body1:
+      'Små lekkasjer eller en uvanlig fornemmelse kan noen ganger dukke opp etter fødselen. De bør imidlertid ikke overses hvis de vedvarer, blir verre eller forstyrrer hverdagen.',
+    warningSigns: [
+      'Urinlekkasjer når du hoster, nyser, ler eller anstrenger deg',
+      'En følelse av tyngde eller trykk i nedre del av bekkenet',
+      'En følelse av at en kul eller noe synker ned i skjeden',
+      'Vansker med å holde igjen luft eller avføring',
+      'Vedvarende smerte i mellomkjøttet',
+      'Smerter under eller etter samleie',
+      'Vansker med å kjenne igjen eller trekke sammen bekkenbunnsmusklene riktig',
+    ],
+    consultLabel: 'Når bør du søke råd?',
+    s7Body2:
+      'En jordmor, lege eller fysioterapeut som er spesialisert på bekkenbunnsrehabilitering, kan kontrollere muskelfunksjonen og foreslå et egnet program.',
+
+    s8Heading: 'Og etter en bristning, klipp eller keisersnitt?',
+    s8Body1:
+      'En bristning eller et klipp krever særlig omsorg under tilhelingen. Gjenopptakelse av aktiviteter bør ta hensyn til smerte, arrets tilstand og veiledningen som ble gitt etter fødselen.',
+    s8Body2:
+      'Etter et keisersnitt omfatter tilfriskningen også bukveggen og arret. Selv om fødselen ikke var vaginal, belastet svangerskapet i seg selv fortsatt bekkenbunnen.',
+    s8HighlightTitle: 'Individuelt tilpasset oppfølging kan hjelpe',
+    s8HighlightText:
+      'Ved en betydelig bristning, smerte, urin- eller tarmsymptomer eller vedvarende vansker kan en vurdering hos helsepersonell være særlig nyttig.',
+
+    s9Heading: 'Gradvis komme tilbake til idrett',
+    s9Body1:
+      'Å komme tilbake til bevegelse etter fødselen bør skje gradvis. Gåing og milde bevegelser kan vanligvis gjenopptas ut fra hvordan du føler deg, mens aktiviteter med høy belastning krever mer forsiktighet.',
+    s9Body2:
+      'Før du begynner igjen å løpe, hoppe eller trene svært intensivt, er det best å vurdere tilfriskningen av bekkenbunnen og ta hensyn til eventuelle symptomer.',
+    s9AlertTitle: 'Ikke skynd på trinnene',
+    s9AlertText:
+      'Lekkasjer, en følelse av tyngde eller smerte under eller etter trening er tegn på at du bør senke tempoet og søke råd før du øker intensiteten.',
+
+    s10Heading: 'Når bør du gå til en spesialist?',
+    s10Body1:
+      'Bekkenbunnsrehabilitering hos en jordmor eller fysioterapeut kan være nyttig hvis du er usikker på om du trekker sammen riktig, hvis symptomene vedvarer, eller hvis du vil komme tilbake til visse fysiske aktiviteter med trygghet.',
+    questionCardTitle: 'Nyttige spørsmål å stille',
+    appointmentQuestions: [
+      'Er symptomene mine forenlige med svak bekkenbunn?',
+      'Utfører jeg sammentrekningene riktig?',
+      'Hvor mange repetisjoner bør jeg gjøre hver dag?',
+      'Kan jeg begynne å løpe, drive med idrett eller trene med høy belastning igjen?',
+      'Trenger jeg rehabilitering hos en jordmor eller fysioterapeut?',
+      'Krever arret mitt, bristningen eller keisersnittet noen spesielle forholdsregler?',
+    ],
+    s10TipTitle: 'Godt å vite',
+    s10TipText:
+      'Å oppsøke en fagperson betyr ikke nødvendigvis at noe er galt. En økt kan rett og slett hjelpe deg å kontrollere teknikken din, vurdere tilfriskningen og lære å gå riktig frem.',
+
+    s11Heading: 'En tilfriskning som tar tid',
+    s11Body1:
+      'Etter fødselen er det normalt å ikke umiddelbart få tilbake de samme fornemmelsene eller den samme muskelstyrken som før svangerskapet.',
+    s11Body2:
+      'Målet er ikke å gjøre så mange sammentrekninger som mulig. Det handler mer om gradvis å få tilbake god koordinering mellom sammentrekning og avspenning, og deretter kunne bruke disse musklene naturlig i hverdagsaktiviteter.',
+    s11HighlightTitle: 'Små fremskritt er reelle fremskritt',
+    s11HighlightText:
+      'Bedre bevissthet om bevegelsen, noen ekstra sekunder med sammentrekning eller færre lekkasjer er allerede oppmuntrende tegn.',
+
+    s12Heading: 'Det viktigste å huske',
+    summaryTitle: 'Det viktigste',
+    summaryItems: [
+      'Svangerskap og fødsel belaster bekkenbunnen betydelig.',
+      'Gradvis tilfriskning er normalt etter fødselen.',
+      'Øvelsene bør prioritere bevegelsens kvalitet fremfor styrke.',
+      'Pusting og avspenning betyr like mye som sammentrekning.',
+      'Urinlekkasjer, tyngdefølelse eller vedvarende smerte fortjener en faglig vurdering.',
+      'Rehabilitering hos en jordmor eller fysioterapeut kan hjelpe deg å få bedre kontroll.',
+      'Å komme tilbake til idrett bør skje gradvis, særlig for aktiviteter med høy belastning.',
+    ],
+
+    finalTipTitle: 'Ta deg tid til å komme deg',
+    finalTipText:
+      'Etter fødselen har kroppen din gjennomgått mange endringer. Bekkenbunnen fortjener samme oppmerksomhet som resten av kroppen din: gradvis, regelmessig og uten press.',
+
+    disclaimerText:
+      'Denne artikkelen er kun til informasjon og erstatter ikke personlig medisinsk rådgivning. Hvis du opplever smerte, vedvarende symptomer eller har noen bekymringer om tilfriskningen din, bør du søke råd hos helsepersonell.',
+  },
+  pl: {
+    badge: 'POŁÓG • REGENERACJA',
+    title: 'Wzmacnianie mięśni dna miednicy\npo porodzie',
+    metaDuration: '8 min czytania',
+    metaType: 'Poradnik',
+    metaLevel: 'Początkujący',
+    metaValidated: 'Treść zweryfikowana',
+    intro:
+      'Po ciąży i porodzie mięśnie dna miednicy potrzebują czasu na regenerację. Proste, regularne i stopniowe ćwiczenia mogą pomóc odzyskać siłę, kontrolę i pewność siebie, bez próby przyspieszania procesu.',
+    contentsTitle: 'W tym artykule',
+    topics: [
+      'Zrozumieć rolę krocza',
+      'Dlaczego poród je obciąża',
+      'Kiedy zacząć rehabilitację dna miednicy',
+      'Nauka prawidłowego napinania',
+      'Budowanie stopniowej rutyny',
+      'Błędy, których warto unikać',
+      'Kiedy poprosić o pomoc',
+      'Stopniowy powrót do sportu',
+      'Przygotowanie do wizyty',
+      'Najważniejsze wnioski',
+    ],
+    shareMessage: 'Wzmacnianie mięśni dna miednicy po porodzie — AWA',
+
+    s1Heading: 'Zrozumieć rolę krocza',
+    s1Body1:
+      'Krocze, nazywane także dnem miednicy, to grupa mięśni położona u podstawy miednicy. Odgrywa rolę w kontroli pęcherza i jelit oraz pomaga podtrzymywać narządy miednicy.',
+    s1Body2:
+      'W czasie ciąży te mięśnie przez kilka miesięcy muszą dźwigać dodatkowy ciężar. Są też bardzo obciążone podczas porodu.',
+    s1HighlightTitle: 'Dyskretny, ale niezbędny mięsień',
+    s1HighlightText:
+      'Dno miednicy uczestniczy w kilku codziennych funkcjach: zatrzymywaniu moczu i stolca, kontroli gazów, podtrzymywaniu narządów miednicy i pełnieniu roli w niektórych funkcjach seksualnych.',
+
+    benefitsHeading: 'Korzyści z silniejszego dna miednicy',
+    benefitsIntro:
+      'Stopniowe, prawidłowo wykonywane wzmacnianie może pomóc poprawić kontrolę i podparcie dna miednicy.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Lepsza kontrola pęcherza',
+        text: 'Dno miednicy odgrywa rolę w kontroli pęcherza. Jego stopniowe wzmacnianie może pomóc zmniejszyć niektóre wycieki moczu.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Wsparcie funkcji jelit',
+        text: 'Te mięśnie pomagają też kontrolować gazy i stolec oraz przyczyniają się do podtrzymywania narządów miednicy.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Podtrzymywanie narządów miednicy',
+        text: 'Dno miednicy tworzy prawdziwą mięśniową podstawę, która pomaga podtrzymywać pęcherz, macicę i jelito.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Stopniowe odzyskiwanie czucia',
+        text: 'Odpowiednia rehabilitacja może też pomóc odzyskać lepszą świadomość i kontrolę tej okolicy.',
+      },
+    ],
+
+    s2Heading: 'Dlaczego ciąża i poród je obciążają',
+    s2Body1:
+      'Ciąża stopniowo zwiększa nacisk na dno miednicy. Poród drogami natury może następnie znacznie rozciągnąć mięśnie i tkanki tej okolicy.',
+    s2Body2:
+      'Cesarskie cięcie również nie oszczędza w pełni dna miednicy: sama ciąża pozostaje dla tych mięśni znaczącym okresem.',
+    s2Body3:
+      'Po porodzie jest więc normalne, że regeneracja wymaga czasu. Niektóre kobiety prawie nie odczuwają objawów, inne mogą zauważyć wycieki, uczucie ciężkości lub zmniejszoną kontrolę mięśni.',
+    s2TipTitle: 'Każda regeneracja jest inna',
+    s2TipText:
+      'Na regenerację mogą wpływać rodzaj porodu, pęknięcie lub nacięcie krocza, obecność bólu i Twój ogólny stan po porodzie.',
+
+    s3Heading: 'Kiedy zacząć rehabilitację dna miednicy?',
+    s3Body1:
+      'Po niepowikłanym porodzie delikatne napinanie mięśni dna miednicy można zwykle wznawiać stopniowo. Wciąż ważne jest dostosowanie ćwiczeń do Twojej sytuacji i zasięgnięcie porady, jeśli wystąpiło powikłanie, znaczny ból lub szczególny zabieg.',
+    s3Body2:
+      'Jeśli masz cewnik moczowy, niektóre zalecenia sugerują poczekanie z ćwiczeniami krocza do jego usunięcia i powrotu do normalnego oddawania moczu.',
+    s3AlertTitle: 'Nie przezwyciężaj bólu',
+    s3AlertText:
+      'Znaczny ból, pogarszające się objawy, źle goją się rana lub jakikolwiek szczególny niepokój wymagają porady położnej, lekarza lub specjalisty od rehabilitacji.',
+
+    s4Heading: 'Nauka prawidłowego napinania',
+    s4Body1:
+      'Aby rozpoznać ten ruch, wyobraź sobie, że próbujesz jednocześnie zatrzymać gazy i parcie na mocz. Ruch, którego szukasz, to uczucie napięcia i unoszenia do wewnątrz.',
+    s4Body2:
+      'Celem nie jest mocne napięcie całego ciała. Pośladki, uda i mięśnie brzucha powinny pozostać możliwie rozluźnione, a oddychanie powinno przebiegać normalnie.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Oddychanie'},
+      {icon: 'human-handsup', label: 'Delikatne napięcie'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Długie napięcie'},
+      {icon: 'gesture-tap-button', label: 'Szybkie napięcia'},
+    ],
+    s4HighlightTitle: 'Rozluźnianie jest równie ważne',
+    s4HighlightText:
+      'Po każdym napięciu pozwól mięśniom całkowicie się rozluźnić. Dobra rehabilitacja nie polega na utrzymywaniu krocza napiętego przez cały dzień.',
+
+    s5Heading: 'Budowanie stopniowej rutyny',
+    s5Body1:
+      'Na początku najważniejsze jest nauczenie się rozpoznawania mięśni i prawidłowego wykonywania ruchu. Regularność liczy się bardziej niż intensywność.',
+    s5h3a: 'Długie napięcia',
+    s5Body2:
+      'Delikatnie napnij dno miednicy, a następnie utrzymaj napięcie przez kilka sekund, nie wstrzymując oddechu. Potem całkowicie rozluźnij, zanim zaczniesz od nowa.',
+    s5h3b: 'Krótkie napięcia',
+    s5Body3:
+      'Gdy opanujesz ruch, można dodać drobne, szybkie napięcia. Pomagają trenować zdolność szybkiego napinania mięśni, gdy rośnie ciśnienie w jamie brzusznej, na przykład tuż przed kaszlem lub kichnięciem.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Połącz ćwiczenia z codziennym nawykiem'},
+      {icon: 'human-sitting', label: 'Zacznij w wygodnej pozycji'},
+      {icon: 'weather-windy', label: 'Oddychaj normalnie podczas napinania'},
+      {icon: 'sleep', label: 'Przestrzegaj faz rozluźnienia'},
+      {icon: 'chart-line', label: 'Stopniowo zwiększaj trudność'},
+      {icon: 'doctor', label: 'Poproś o poradę, jeśli masz wątpliwości'},
+    ],
+    s5TipTitle: 'Przede wszystkim regularność',
+    s5TipText:
+      'Połączenie ćwiczeń z nawykiem, który już jest częścią Twojego dnia, może ułatwić regularność: po karmieniu, po myciu zębów lub o innej porze, która Ci odpowiada.',
+
+    s6Heading: 'Częste błędy, których warto unikać',
+    s6Body1:
+      'Ćwiczenia krocza mogą wyglądać na proste, ale łatwo zacząć kompensować innymi mięśniami lub przesadzić z siłą.',
+    commonMistakes: [
+      'Napinanie pośladków lub ud zamiast dna miednicy',
+      'Wstrzymywanie oddechu podczas napinania',
+      'Utrzymywanie mięśni stale napiętych bez pozwolenia im na rozluźnienie',
+      'Wykonywanie ćwiczeń tylko przez kilka dni, a potem rezygnacja',
+      'Celowe zatrzymywanie strumienia moczu, by sprawdzić napięcie',
+    ],
+    s6TipTitle: 'Czego nie robić',
+    s6TipText:
+      'Nie zaleca się wykonywania ćwiczeń przez celowe zatrzymywanie strumienia moczu. Ta metoda nie trenuje krocza prawidłowo i może zaburzać normalną funkcję pęcherza.',
+
+    s7Heading: 'Jakie objawy powinny skłonić do wizyty?',
+    s7Body1:
+      'Niewielkie wycieki lub nietypowe odczucia mogą czasem pojawić się po porodzie. Nie należy ich jednak ignorować, jeśli się utrzymują, nasilają lub zakłócają codzienne życie.',
+    warningSigns: [
+      'Wycieki moczu podczas kaszlu, kichania, śmiechu lub parcia',
+      'Uczucie ciężkości lub ucisku w dolnej części miednicy',
+      'Uczucie, że do pochwy opada guzek lub coś innego',
+      'Trudności w utrzymaniu gazów lub stolca',
+      'Uporczywy ból krocza',
+      'Ból podczas stosunku lub po nim',
+      'Trudności w rozpoznaniu lub prawidłowym napinaniu mięśni krocza',
+    ],
+    consultLabel: 'Kiedy zasięgnąć porady?',
+    s7Body2:
+      'Położna, lekarz lub fizjoterapeuta specjalizujący się w rehabilitacji dna miednicy może sprawdzić pracę mięśni i zaproponować odpowiedni program.',
+
+    s8Heading: 'A po pęknięciu, nacięciu krocza lub cesarskim cięciu?',
+    s8Body1:
+      'Pęknięcie lub nacięcie krocza wymaga szczególnej troski podczas gojenia. Powrót do aktywności powinien uwzględniać ból, stan blizny i wskazówki otrzymane po porodzie.',
+    s8Body2:
+      'Po cesarskim cięciu regeneracja obejmuje także ścianę brzucha i bliznę. Nawet jeśli poród nie odbył się drogami natury, sama ciąża również obciążyła dno miednicy.',
+    s8HighlightTitle: 'Spersonalizowana opieka może pomóc',
+    s8HighlightText:
+      'W przypadku znacznego pęknięcia, bólu, objawów ze strony układu moczowego lub jelit albo uporczywych trudności ocena u specjalisty może być szczególnie pomocna.',
+
+    s9Heading: 'Stopniowy powrót do sportu',
+    s9Body1:
+      'Powrót do ruchu po porodzie powinien być stopniowy. Spacery i delikatne ruchy można zasadniczo wznowić zgodnie z samopoczuciem, natomiast aktywności o dużym obciążeniu wymagają większej ostrożności.',
+    s9Body2:
+      'Przed wznowieniem biegania, skoków lub bardzo intensywnego treningu najlepiej ocenić regenerację dna miednicy i uwzględnić wszelkie objawy.',
+    s9AlertTitle: 'Nie przyspieszaj etapów',
+    s9AlertText:
+      'Wycieki, uczucie ciężkości lub ból podczas ćwiczeń albo po nich to sygnały, że należy zwolnić i zasięgnąć porady, zanim zwiększysz intensywność.',
+
+    s10Heading: 'Kiedy zgłosić się do specjalisty?',
+    s10Body1:
+      'Rehabilitacja dna miednicy z położną lub fizjoterapeutą może być pomocna, jeśli nie masz pewności, czy napinasz prawidłowo, jeśli objawy się utrzymują lub jeśli chcesz z pewnością wrócić do niektórych aktywności fizycznych.',
+    questionCardTitle: 'Pomocne pytania',
+    appointmentQuestions: [
+      'Czy moje objawy są zgodne z osłabieniem dna miednicy?',
+      'Czy prawidłowo wykonuję napięcia?',
+      'Ile powtórzeń powinnam wykonywać każdego dnia?',
+      'Czy mogę wrócić do biegania, sportu lub ćwiczeń o dużym obciążeniu?',
+      'Czy potrzebuję rehabilitacji z położną lub fizjoterapeutą?',
+      'Czy moja blizna, pęknięcie lub cesarskie cięcie wymaga szczególnych środków ostrożności?',
+    ],
+    s10TipTitle: 'Warto wiedzieć',
+    s10TipText:
+      'Wizyta u specjalisty niekoniecznie oznacza, że coś jest nie tak. Sesja może po prostu pomóc sprawdzić technikę, ocenić regenerację i nauczyć się prawidłowo postępować.',
+
+    s11Heading: 'Regeneracja, która wymaga czasu',
+    s11Body1:
+      'Po porodzie jest normalne, że nie od razu odzyskuje się te same odczucia ani siłę mięśni co przed ciążą.',
+    s11Body2:
+      'Celem nie jest wykonanie jak największej liczby napięć. Chodzi raczej o stopniowe odzyskanie dobrej koordynacji między napinaniem a rozluźnianiem, a następnie naturalne wykorzystywanie tych mięśni w codziennych czynnościach.',
+    s11HighlightTitle: 'Małe postępy to prawdziwe postępy',
+    s11HighlightText:
+      'Lepsza świadomość ruchu, kilka dodatkowych sekund napięcia lub zmniejszenie wycieków to już zachęcające oznaki.',
+
+    s12Heading: 'Najważniejsze wnioski',
+    summaryTitle: 'Najważniejsze',
+    summaryItems: [
+      'Ciąża i poród znacznie obciążają dno miednicy.',
+      'Stopniowa regeneracja jest normalna po porodzie.',
+      'W ćwiczeniach należy przedkładać jakość ruchu nad siłę.',
+      'Oddychanie i rozluźnianie są równie ważne jak napinanie.',
+      'Wycieki moczu, uczucie ciężkości lub uporczywy ból zasługują na opinię specjalisty.',
+      'Rehabilitacja z położną lub fizjoterapeutą może pomóc odzyskać lepszą kontrolę.',
+      'Powrót do sportu powinien być stopniowy, zwłaszcza w przypadku aktywności o dużym obciążeniu.',
+    ],
+
+    finalTipTitle: 'Daj sobie czas na regenerację',
+    finalTipText:
+      'Po porodzie Twoje ciało przeszło wiele zmian. Krocze zasługuje na tyle samo uwagi co reszta ciała: stopniowo, regularnie i bez presji.',
+
+    disclaimerText:
+      'Ten artykuł ma charakter wyłącznie informacyjny i nie zastępuje spersonalizowanej porady medycznej. Jeśli odczuwasz ból, uporczywe objawy lub masz jakiekolwiek obawy dotyczące regeneracji, zasięgnij porady specjalisty.',
+  },
+  uk: {
+    badge: 'ПІСЛЯ ПОЛОГІВ • ВІДНОВЛЕННЯ',
+    title: 'Зміцнення м’язів тазового дна\nпісля пологів',
+    metaDuration: '8 хв читання',
+    metaType: 'Посібник',
+    metaLevel: 'Початковий',
+    metaValidated: 'Перевірений вміст',
+    intro:
+      'Після вагітності та пологів м’язам тазового дна потрібен час для відновлення. Прості, регулярні й поступові вправи можуть допомогти повернути силу, контроль і впевненість, не намагаючись прискорити процес.',
+    contentsTitle: 'У цій статті',
+    topics: [
+      'Розуміння ролі промежини',
+      'Чому пологи її навантажують',
+      'Коли розпочинати реабілітацію тазового дна',
+      'Навчання правильного скорочення',
+      'Побудова поступової рутини',
+      'Помилки, яких варто уникати',
+      'Коли просити допомоги',
+      'Поступове відновлення спорту',
+      'Підготовка до візиту',
+      'Головні висновки',
+    ],
+    shareMessage: 'Зміцнення м’язів тазового дна після пологів — AWA',
+
+    s1Heading: 'Розуміння ролі промежини',
+    s1Body1:
+      'Промежина, яку також називають тазовим дном, — це група м’язів, розташованих біля основи таза. Вона відіграє роль у контролі сечового міхура та кишечника й допомагає підтримувати органи таза.',
+    s1Body2:
+      'Під час вагітності ці м’язи мають кілька місяців нести додаткову вагу. Вони також зазнають значного навантаження під час пологів.',
+    s1HighlightTitle: 'Непомітний, але необхідний м’яз',
+    s1HighlightText:
+      'Тазове дно бере участь у кількох щоденних функціях: утриманні сечі та калу, контролі газів, підтримці органів таза та відіграє роль у деяких статевих функціях.',
+
+    benefitsHeading: 'Переваги міцнішого тазового дна',
+    benefitsIntro:
+      'Поступове, правильно виконуване зміцнення може допомогти покращити контроль і підтримку тазового дна.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Кращий контроль сечового міхура',
+        text: 'Тазове дно відіграє роль у контролі сечового міхура. Його поступове зміцнення може допомогти зменшити деякі підтікання сечі.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Підтримка функції кишечника',
+        text: 'Ці м’язи також допомагають контролювати гази й кал та сприяють підтримці органів таза.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Підтримка органів таза',
+        text: 'Тазове дно утворює справжню м’язову основу, що допомагає підтримувати сечовий міхур, матку й кишечник.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Поступове повернення чутливості',
+        text: 'Відповідна реабілітація також може допомогти відновити краще усвідомлення та контроль цієї ділянки.',
+      },
+    ],
+
+    s2Heading: 'Чому вагітність і пологи її навантажують',
+    s2Body1:
+      'Вагітність поступово збільшує тиск на тазове дно. Природні пологи можуть потім значно розтягнути м’язи й тканини цієї ділянки.',
+    s2Body2:
+      'Кесарів розтин також не повністю щадить тазове дно: сама вагітність залишається для цих м’язів значним періодом.',
+    s2Body3:
+      'Тому після пологів нормально, що відновлення потребує часу. Деякі жінки майже не відчувають симптомів, інші можуть помічати підтікання, відчуття важкості чи знижений контроль м’язів.',
+    s2TipTitle: 'Кожне відновлення різне',
+    s2TipText:
+      'На відновлення можуть впливати тип пологів, розрив або розріз промежини, наявність болю та ваш загальний стан після пологів.',
+
+    s3Heading: 'Коли розпочинати реабілітацію тазового дна?',
+    s3Body1:
+      'Після неускладнених пологів м’які скорочення м’язів тазового дна зазвичай можна поступово відновлювати. Важливо й далі підлаштовувати вправи під вашу ситуацію та шукати поради, якщо було ускладнення, значний біль чи особлива процедура.',
+    s3Body2:
+      'Якщо у вас сечовий катетер, деякі рекомендації радять зачекати з вправами для промежини до його вилучення та відновлення нормального сечовипускання.',
+    s3AlertTitle: 'Не долайте біль силою',
+    s3AlertText:
+      'Значний біль, погіршення симптомів, рана, що погано гоїться, чи будь-яке особливе занепокоєння потребують поради акушерки, лікаря або фахівця з реабілітації.',
+
+    s4Heading: 'Навчання правильного скорочення',
+    s4Body1:
+      'Щоб відчути цей рух, уявіть, що ви намагаєтеся одночасно утримати гази й позив до сечовипускання. Рух, який ви шукаєте, — це відчуття скорочення й підтягування всередину.',
+    s4Body2:
+      'Мета — не сильно напружити все тіло. Сідниці, стегна й м’язи живота мають залишатися максимально розслабленими, а дихання — тривати нормально.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Дихання'},
+      {icon: 'human-handsup', label: 'М’яке скорочення'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Тривале скорочення'},
+      {icon: 'gesture-tap-button', label: 'Швидкі скорочення'},
+    ],
+    s4HighlightTitle: 'Розслаблення так само важливе',
+    s4HighlightText:
+      'Після кожного скорочення дайте м’язам повністю розслабитися. Добра реабілітація не означає тримати промежину напруженою цілий день.',
+
+    s5Heading: 'Побудова поступової рутини',
+    s5Body1:
+      'Спочатку найважливіше — навчитися розпізнавати м’язи й правильно виконувати рух. Регулярність важливіша за інтенсивність.',
+    s5h3a: 'Тривалі скорочення',
+    s5Body2:
+      'М’яко скоротіть тазове дно, потім утримуйте скорочення кілька секунд, не затримуючи дихання. Потім повністю розслабте, перш ніж починати знову.',
+    s5h3b: 'Короткі скорочення',
+    s5Body3:
+      'Коли рух освоєно, можна додати невеликі швидкі скорочення. Вони тренують здатність швидко скорочувати м’язи, коли зростає внутрішньочеревний тиск, наприклад, безпосередньо перед кашлем чи чханням.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Поєднуйте вправи зі щоденною звичкою'},
+      {icon: 'human-sitting', label: 'Починайте у зручному положенні'},
+      {icon: 'weather-windy', label: 'Дихайте нормально під час скорочень'},
+      {icon: 'sleep', label: 'Дотримуйтеся фаз розслаблення'},
+      {icon: 'chart-line', label: 'Поступово підвищуйте складність'},
+      {icon: 'doctor', label: 'Попросіть поради, якщо не впевнені'},
+    ],
+    s5TipTitle: 'Насамперед регулярність',
+    s5TipText:
+      'Поєднання вправ зі звичкою, що вже є частиною вашого дня, може полегшити регулярність: після годування, після чищення зубів чи в інший зручний для вас час.',
+
+    s6Heading: 'Поширені помилки, яких варто уникати',
+    s6Body1:
+      'Вправи для промежини можуть здаватися простими, але легко почати компенсувати іншими м’язами або надто сильно напружуватися.',
+    commonMistakes: [
+      'Напруження сідниць чи стегон замість тазового дна',
+      'Затримка дихання під час скорочення',
+      'Постійне тримання м’язів скороченими без розслаблення',
+      'Виконання вправ лише кілька днів, а потім припинення',
+      'Навмисне переривання струменя сечі для перевірки скорочення',
+    ],
+    s6TipTitle: 'Чого не робити',
+    s6TipText:
+      'Не рекомендується виконувати вправи шляхом навмисного переривання струменя сечі. Цей метод неправильно тренує промежину й може порушувати нормальну функцію сечового міхура.',
+
+    s7Heading: 'Які симптоми мають спонукати до візиту?',
+    s7Body1:
+      'Незначні підтікання або незвичні відчуття можуть іноді з’являтися після пологів. Проте їх не слід ігнорувати, якщо вони зберігаються, посилюються або заважають повсякденному життю.',
+    warningSigns: [
+      'Підтікання сечі під час кашлю, чхання, сміху чи напруження',
+      'Відчуття важкості або тиску в нижній частині таза',
+      'Відчуття, що в піхву опускається грудка чи щось інше',
+      'Труднощі з утриманням газів чи калу',
+      'Стійкий біль у промежині',
+      'Біль під час або після статевого акту',
+      'Труднощі з розпізнаванням або правильним скороченням м’язів промежини',
+    ],
+    consultLabel: 'Коли звертатися за порадою?',
+    s7Body2:
+      'Акушерка, лікар або фізіотерапевт, що спеціалізується на реабілітації тазового дна, може перевірити роботу м’язів і запропонувати відповідну програму.',
+
+    s8Heading: 'А після розриву, розрізу промежини чи кесаревого розтину?',
+    s8Body1:
+      'Розрив або розріз промежини потребує особливої турботи під час загоєння. Відновлення активності має враховувати біль, стан рубця й вказівки, отримані після пологів.',
+    s8Body2:
+      'Після кесаревого розтину відновлення також стосується черевної стінки й рубця. Навіть якщо пологи не були природними, сама вагітність також навантажила тазове дно.',
+    s8HighlightTitle: 'Персоналізований догляд може допомогти',
+    s8HighlightText:
+      'У разі значного розриву, болю, симптомів з боку сечової системи чи кишечника або стійких труднощів оцінка в медичного фахівця може бути особливо корисною.',
+
+    s9Heading: 'Поступове відновлення спорту',
+    s9Body1:
+      'Повернення до руху після пологів має бути поступовим. Ходьбу та м’які рухи зазвичай можна відновлювати відповідно до самопочуття, тоді як активності з високим навантаженням потребують більшої обережності.',
+    s9Body2:
+      'Перш ніж відновлювати біг, стрибки чи дуже інтенсивні тренування, найкраще оцінити відновлення тазового дна й врахувати будь-які симптоми.',
+    s9AlertTitle: 'Не поспішайте з етапами',
+    s9AlertText:
+      'Підтікання, відчуття важкості чи біль під час вправ або після них — ознаки, що слід сповільнитися й попросити поради, перш ніж збільшувати інтенсивність.',
+
+    s10Heading: 'Коли звертатися до спеціаліста?',
+    s10Body1:
+      'Реабілітація тазового дна з акушеркою чи фізіотерапевтом може бути корисною, якщо ви не впевнені, чи правильно скорочуєте, якщо симптоми зберігаються або якщо хочете впевнено повернутися до певних фізичних активностей.',
+    questionCardTitle: 'Корисні запитання',
+    appointmentQuestions: [
+      'Чи відповідають мої симптоми слабкості тазового дна?',
+      'Чи правильно я виконую скорочення?',
+      'Скільки повторень я маю виконувати щодня?',
+      'Чи можу я повернутися до бігу, спорту чи вправ із високим навантаженням?',
+      'Чи потрібна мені реабілітація з акушеркою чи фізіотерапевтом?',
+      'Чи потребує мій рубець, розрив або кесарів розтин особливих застережень?',
+    ],
+    s10TipTitle: 'Варто знати',
+    s10TipText:
+      'Візит до спеціаліста не обов’язково означає, що щось не так. Сеанс може просто допомогти перевірити техніку, оцінити відновлення й навчитися правильно прогресувати.',
+
+    s11Heading: 'Відновлення, що потребує часу',
+    s11Body1:
+      'Після пологів нормально, що ви не одразу відновлюєте ті самі відчуття чи силу м’язів, що були до вагітності.',
+    s11Body2:
+      'Мета — не виконати якомога більше скорочень. Йдеться радше про поступове відновлення доброї координації між скороченням і розслабленням, а потім про природне використання цих м’язів у повсякденних справах.',
+    s11HighlightTitle: 'Маленькі успіхи — справжні успіхи',
+    s11HighlightText:
+      'Краще усвідомлення руху, кілька додаткових секунд скорочення чи зменшення підтікань — це вже обнадійливі ознаки.',
+
+    s12Heading: 'Головні висновки',
+    summaryTitle: 'Головне',
+    summaryItems: [
+      'Вагітність і пологи значно навантажують тазове дно.',
+      'Поступове відновлення нормальне після пологів.',
+      'У вправах слід надавати перевагу якості руху над силою.',
+      'Дихання й розслаблення так само важливі, як і скорочення.',
+      'Підтікання сечі, відчуття важкості чи стійкий біль заслуговують на думку фахівця.',
+      'Реабілітація з акушеркою чи фізіотерапевтом може допомогти повернути кращий контроль.',
+      'Повернення до спорту має бути поступовим, особливо для активностей із високим навантаженням.',
+    ],
+
+    finalTipTitle: 'Дайте собі час на відновлення',
+    finalTipText:
+      'Після пологів ваше тіло пережило багато змін. Промежина заслуговує на стільки ж уваги, скільки й решта тіла: поступово, регулярно й без тиску.',
+
+    disclaimerText:
+      'Ця стаття має виключно інформаційний характер і не замінює персоналізованої медичної поради. Якщо ви відчуваєте біль, стійкі симптоми або маєте будь-які побоювання щодо відновлення, зверніться за порадою до медичного фахівця.',
+  },
+  cs: {
+    badge: 'PO PORODU • ZOTAVENÍ',
+    title: 'Posílení pánevního dna\npo porodu',
+    metaDuration: '8 min čtení',
+    metaType: 'Průvodce',
+    metaLevel: 'Začátečník',
+    metaValidated: 'Ověřený obsah',
+    intro:
+      'Po těhotenství a porodu potřebuje pánevní dno čas na zotavení. Jednoduchá, pravidelná a postupná cvičení vám mohou pomoci znovu získat sílu, kontrolu a sebedůvěru, aniž byste se snažila věci uspěchat.',
+    contentsTitle: 'V tomto článku',
+    topics: [
+      'Pochopení role hráze',
+      'Proč ji porod zatěžuje',
+      'Kdy zahájit rehabilitaci pánevního dna',
+      'Naučit se správně stahovat',
+      'Vybudování postupné rutiny',
+      'Chyby, kterým se vyhnout',
+      'Kdy požádat o pomoc',
+      'Postupné obnovení sportu',
+      'Příprava na návštěvu',
+      'Hlavní poznatky',
+    ],
+    shareMessage: 'Posílení pánevního dna po porodu — AWA',
+
+    s1Heading: 'Pochopení role hráze',
+    s1Body1:
+      'Hráz, nazývaná také pánevní dno, je skupina svalů umístěná na spodině pánve. Podílí se na kontrole močového měchýře a střev a pomáhá podpírat pánevní orgány.',
+    s1Body2:
+      'Během těhotenství musejí tyto svaly několik měsíců nést zvýšenou zátěž. Značně namáhány jsou také při porodu.',
+    s1HighlightTitle: 'Nenápadný, ale zásadní sval',
+    s1HighlightText:
+      'Pánevní dno se podílí na několika každodenních funkcích: zadržování moči a stolice, kontrole plynů, podpoře pánevních orgánů a roli v některých sexuálních funkcích.',
+
+    benefitsHeading: 'Přínosy silnějšího pánevního dna',
+    benefitsIntro:
+      'Postupné, správně prováděné posilování může pomoci zlepšit kontrolu a oporu pánevního dna.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Lepší kontrola močového měchýře',
+        text: 'Pánevní dno hraje roli při kontrole močového měchýře. Jeho postupné posilování může pomoci snížit některé úniky moči.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Podpora funkce střev',
+        text: 'Tyto svaly také pomáhají kontrolovat plyny a stolici a přispívají k podpoře pánevních orgánů.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Podpora pánevních orgánů',
+        text: 'Pánevní dno tvoří skutečný svalový základ, který pomáhá podpírat močový měchýř, dělohu a střevo.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Postupné znovuzískání citu',
+        text: 'Vhodná rehabilitace vám také může pomoci znovu získat lepší povědomí a kontrolu nad touto oblastí.',
+      },
+    ],
+
+    s2Heading: 'Proč těhotenství a porod pánevní dno zatěžují',
+    s2Body1:
+      'Těhotenství postupně vyvíjí na pánevní dno větší tlak. Vaginální porod pak může svaly a tkáně v této oblasti výrazně natáhnout.',
+    s2Body2:
+      'Ani císařský řez pánevní dno úplně neušetří: samotné těhotenství zůstává pro tyto svaly významným obdobím.',
+    s2Body3:
+      'Po porodu je proto normální, že zotavení trvá. Některé ženy téměř nepociťují žádné příznaky, jiné mohou zaznamenat úniky, pocit tíhy nebo sníženou kontrolu svalů.',
+    s2TipTitle: 'Každé zotavení je jiné',
+    s2TipText:
+      'Zotavení může ovlivnit typ porodu, natržení nebo nástřih hráze, přítomnost bolesti a váš celkový stav po porodu.',
+
+    s3Heading: 'Kdy zahájit rehabilitaci pánevního dna?',
+    s3Body1:
+      'Po nekomplikovaném porodu lze obvykle postupně obnovit jemné stahy pánevního dna. Zůstává důležité přizpůsobit cvičení své situaci a vyhledat radu, pokud jste měla komplikaci, výraznou bolest nebo konkrétní zákrok.',
+    s3Body2:
+      'Pokud máte močový katétr, některá doporučení radí počkat s cvičením hráze, dokud nebude odstraněn a nezačne normální močení.',
+    s3AlertTitle: 'Nepřekonávejte bolest',
+    s3AlertText:
+      'Výrazná bolest, zhoršující se příznaky, špatně se hojící rána nebo jakákoli konkrétní obava vyžadují radu porodní asistentky, lékaře nebo odborníka na rehabilitaci.',
+
+    s4Heading: 'Naučit se správně stahovat',
+    s4Body1:
+      'K rozpoznání pohybu si představte, že se snažíte zadržet plyny a zároveň nutkání na močení. Hledaný pohyb je pocit stahu a zvedání dovnitř.',
+    s4Body2:
+      'Cílem není napínat celé tělo. Hýždě, stehna a břišní svaly by měly zůstat co nejuvolněnější, zatímco dýchání pokračuje normálně.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Dýchání'},
+      {icon: 'human-handsup', label: 'Jemný stah'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Dlouhý stah'},
+      {icon: 'gesture-tap-button', label: 'Rychlé stahy'},
+    ],
+    s4HighlightTitle: 'Uvolnění je stejně důležité',
+    s4HighlightText:
+      'Po každém stahu nechte svaly úplně uvolnit. Dobrá rehabilitace neznamená držet hráz stažený celý den.',
+
+    s5Heading: 'Vybudování postupné rutiny',
+    s5Body1:
+      'Zpočátku je nejdůležitější naučit se svaly rozpoznat a provádět pohyb správně. Důležitější je pravidelnost než intenzita.',
+    s5h3a: 'Dlouhé stahy',
+    s5Body2:
+      'Jemně stáhněte pánevní dno, poté stah několik vteřin držte, aniž byste zadržovala dech. Poté úplně uvolněte, než začnete znovu.',
+    s5h3b: 'Krátké stahy',
+    s5Body3:
+      'Jakmile pohyb ovládnete, lze přidat malé rychlé stahy. Pomáhají trénovat schopnost rychle stáhnout svaly, když stoupne tlak v břiše, například těsně před kašlem nebo kýcháním.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Spojte cvičení s denním návykem'},
+      {icon: 'human-sitting', label: 'Začněte v pohodlné poloze'},
+      {icon: 'weather-windy', label: 'Během stahů dýchejte normálně'},
+      {icon: 'sleep', label: 'Dodržujte fáze uvolnění'},
+      {icon: 'chart-line', label: 'Postupně zvyšujte náročnost'},
+      {icon: 'doctor', label: 'Pokud si nejste jistá, požádejte o radu'},
+    ],
+    s5TipTitle: 'Především pravidelnost',
+    s5TipText:
+      'Spojení cvičení s návykem, který už je součástí vašeho dne, může usnadnit pravidelnost: po kojení, po čištění zubů nebo v jinou vhodnou chvíli.',
+
+    s6Heading: 'Časté chyby, kterým se vyhnout',
+    s6Body1:
+      'Cvičení hráze může vypadat jednoduše, ale snadno se stane, že kompenzujete jinými svaly nebo tlačíte příliš silně.',
+    commonMistakes: [
+      'Napínání hýždí nebo stehen místo pánevního dna',
+      'Zadržování dechu během stahu',
+      'Neustálé držení svalů ve stažení bez uvolnění',
+      'Cvičení jen několik dní a pak přestat',
+      'Záměrné zastavování proudu moči ke kontrole stahu',
+    ],
+    s6TipTitle: 'Co nedělat',
+    s6TipText:
+      'Nedoporučuje se cvičit záměrným zastavováním proudu moči. Tato metoda hráz správně netrénuje a může narušit normální funkci močového měchýře.',
+
+    s7Heading: 'Které příznaky by měly vést ke konzultaci?',
+    s7Body1:
+      'Po porodu se mohou občas objevit drobné úniky nebo neobvyklý pocit. Neměly by se však ignorovat, pokud přetrvávají, zhoršují se nebo narušují váš každodenní život.',
+    warningSigns: [
+      'Úniky moči při kašli, kýchání, smíchu nebo namáhání',
+      'Pocit tíhy nebo tlaku v dolní části pánve',
+      'Pocit, že se do pochvy něco propadá nebo vystupuje',
+      'Potíže se zadržením plynů nebo stolice',
+      'Přetrvávající bolest hráze',
+      'Bolest při pohlavním styku nebo po něm',
+      'Potíže s rozpoznáním nebo správným stahem svalů hráze',
+    ],
+    consultLabel: 'Kdy vyhledat radu?',
+    s7Body2:
+      'Porodní asistentka, lékař nebo fyzioterapeut specializovaný na rehabilitaci pánevního dna může zkontrolovat funkci svalů a navrhnout vhodný program.',
+
+    s8Heading: 'A po natržení, nástřihu hráze nebo císařském řezu?',
+    s8Body1:
+      'Natržení nebo nástřih hráze vyžaduje během hojení zvláštní péči. Při obnovování aktivit je třeba zohlednit bolest, stav jizvy a pokyny dané po porodu.',
+    s8Body2:
+      'Po císařském řezu se zotavení týká také břišní stěny a jizvy. I když porod nebyl vaginální, samotné těhotenství pánevní dno zatížilo.',
+    s8HighlightTitle: 'Může pomoci personalizovaná péče',
+    s8HighlightText:
+      'V případě výrazného natržení, bolesti, močových nebo střevních příznaků či přetrvávajících potíží může být obzvlášť užitečné vyšetření u zdravotnického pracovníka.',
+
+    s9Heading: 'Postupné obnovení sportu',
+    s9Body1:
+      'Obnovení pohybu po porodu by mělo být postupné. Chůzi a jemné pohyby lze obecně obnovit podle toho, jak se cítíte, zatímco aktivity s vysokým nárazem vyžadují větší opatrnost.',
+    s9Body2:
+      'Než obnovíte běh, skákání nebo velmi intenzivní trénink, je nejlepší posoudit zotavení pánevního dna a zohlednit případné příznaky.',
+    s9AlertTitle: 'Nespěchejte s jednotlivými fázemi',
+    s9AlertText:
+      'Úniky, pocit tíhy nebo bolest při cvičení či po něm jsou znamení, že byste měla zpomalit a před zvýšením intenzity vyhledat radu.',
+
+    s10Heading: 'Kdy navštívit odborníka?',
+    s10Body1:
+      'Rehabilitace pánevního dna u porodní asistentky nebo fyzioterapeuta může být užitečná, pokud si nejste jistá, že stahujete správně, pokud příznaky přetrvávají nebo pokud chcete s jistotou obnovit některé fyzické aktivity.',
+    questionCardTitle: 'Užitečné otázky',
+    appointmentQuestions: [
+      'Odpovídají moje příznaky slabosti pánevního dna?',
+      'Provádím stahy správně?',
+      'Kolik opakování mám denně dělat?',
+      'Mohu se vrátit k běhu, sportu nebo cvičení s vysokým nárazem?',
+      'Potřebuji rehabilitaci u porodní asistentky nebo fyzioterapeuta?',
+      'Vyžaduje moje jizva, natržení nebo císařský řez nějaká zvláštní opatření?',
+    ],
+    s10TipTitle: 'Stojí za to vědět',
+    s10TipText:
+      'Návštěva odborníka nemusí nutně znamenat, že je něco špatně. Návštěva může jednoduše pomoci zkontrolovat techniku, posoudit zotavení a naučit se správně postupovat.',
+
+    s11Heading: 'Zotavení, které vyžaduje čas',
+    s11Body1:
+      'Po porodu je normální, že hned nezískáte zpět stejné pocity nebo svalovou sílu, jakou jste měla před těhotenstvím.',
+    s11Body2:
+      'Cílem není udělat co nejvíc stahů. Jde spíše o postupné obnovení dobré koordinace mezi stahem a uvolněním a poté o schopnost přirozeně tyto svaly využívat při každodenních činnostech.',
+    s11HighlightTitle: 'Malý pokrok je skutečný pokrok',
+    s11HighlightText:
+      'Lepší povědomí o pohybu, několik vteřin delší stah nebo úbytek úniků jsou již povzbudivé znaky.',
+
+    s12Heading: 'Hlavní poznatky',
+    summaryTitle: 'To nejdůležitější',
+    summaryItems: [
+      'Těhotenství a porod výrazně zatěžují pánevní dno.',
+      'Postupné zotavení je po porodu normální.',
+      'Cvičení by mělo upřednostňovat kvalitu pohybu před silou.',
+      'Dýchání a uvolnění jsou stejně důležité jako stah.',
+      'Úniky moči, pocit tíhy nebo přetrvávající bolest si zaslouží odborný názor.',
+      'Rehabilitace u porodní asistentky nebo fyzioterapeuta vám může pomoci znovu získat lepší kontrolu.',
+      'Návrat ke sportu by měl být postupný, zejména u aktivit s vysokým nárazem.',
+    ],
+
+    finalTipTitle: 'Dopřejte si čas na zotavení',
+    finalTipText:
+      'Po porodu prošlo vaše tělo mnoha změnami. Hráz si zaslouží stejnou pozornost jako zbytek vašeho těla: postupně, pravidelně a bez tlaku.',
+
+    disclaimerText:
+      'Tento článek je pouze informativní a nenahrazuje individuální lékařskou radu. Pokud pociťujete bolest, přetrvávající příznaky nebo máte jakékoli obavy o své zotavení, vyhledejte radu zdravotnického pracovníka.',
+  },
+  sk: {
+    badge: 'PO PÔRODE • ZOTAVENIE',
+    title: 'Posilnenie panvového dna\npo pôrode',
+    metaDuration: '8 min čítania',
+    metaType: 'Sprievodca',
+    metaLevel: 'Začiatočník',
+    metaValidated: 'Overený obsah',
+    intro:
+      'Po tehotenstve a pôrode potrebuje panvové dno čas na zotavenie. Jednoduché, pravidelné a postupné cvičenia vám môžu pomôcť získať späť silu, kontrolu a istotu, bez snahy veci urýchliť.',
+    contentsTitle: 'V tomto článku',
+    topics: [
+      'Pochopenie úlohy hrádze',
+      'Prečo je pri pôrode zaťažená',
+      'Kedy začať rehabilitáciu panvového dna',
+      'Učenie sa správneho sťahu',
+      'Budovanie postupnej rutiny',
+      'Chyby, ktorým sa treba vyhnúť',
+      'Kedy požiadať o pomoc',
+      'Postupné obnovenie športu',
+      'Príprava na návštevu',
+      'Hlavné body',
+    ],
+    shareMessage: 'Posilnenie panvového dna po pôrode — AWA',
+
+    s1Heading: 'Pochopenie úlohy hrádze',
+    s1Body1:
+      'Hrádza, nazývaná aj panvové dno, je skupina svalov nachádzajúcich sa na báze panvy. Zohráva úlohu pri kontrole močového mechúra a čriev a pomáha podopierať panvové orgány.',
+    s1Body2:
+      'Počas tehotenstva musia tieto svaly niekoľko mesiacov niesť dodatočnú záťaž. Pri pôrode sú tiež vystavené značnému zaťaženiu.',
+    s1HighlightTitle: 'Nenápadný, ale nevyhnutný sval',
+    s1HighlightText:
+      'Panvové dno sa podieľa na niekoľkých každodenných funkciách: zadržiavanie moču a stolice, kontrola plynov, podpora panvových orgánov a úloha pri niektorých sexuálnych funkciách.',
+
+    benefitsHeading: 'Prínosy silnejšieho panvového dna',
+    benefitsIntro:
+      'Postupné a správne vykonávané posilňovanie môže pomôcť zlepšiť kontrolu a oporu panvového dna.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Lepšia kontrola močového mechúra',
+        text: 'Panvové dno zohráva úlohu pri kontrole močového mechúra. Jeho postupné posilňovanie môže pomôcť znížiť niektoré úniky moču.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Podpora funkcie čriev',
+        text: 'Tieto svaly tiež pomáhajú kontrolovať plyny a stolicu a prispievajú k podpore panvových orgánov.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Podpora panvových orgánov',
+        text: 'Panvové dno tvorí skutočný svalový základ, ktorý pomáha podopierať močový mechúr, maternicu a črevo.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Postupné opätovné získavanie citu',
+        text: 'Vhodná rehabilitácia vám môže pomôcť získať lepšie uvedomenie a kontrolu tejto oblasti.',
+      },
+    ],
+
+    s2Heading: 'Prečo je pri tehotenstve a pôrode zaťažené',
+    s2Body1:
+      'Tehotenstvo postupne zvyšuje tlak na panvové dno. Vaginálny pôrod potom môže svaly a tkanivá tejto oblasti výrazne natiahnuť.',
+    s2Body2:
+      'Ani cisársky rez panvové dno úplne nešetrí: samotné tehotenstvo zostáva pre tieto svaly významným obdobím.',
+    s2Body3:
+      'Po pôrode je teda normálne, že zotavenie trvá. Niektoré ženy pociťujú takmer žiadne príznaky, iné si môžu všimnúť úniky, pocit ťažoby alebo zníženú kontrolu svalov.',
+    s2TipTitle: 'Každé zotavenie je iné',
+    s2TipText:
+      'Typ pôrodu, natrhnutie alebo nástrih hrádze, prítomnosť bolesti a váš celkový stav po pôrode môžu všetky ovplyvniť zotavenie.',
+
+    s3Heading: 'Kedy začať rehabilitáciu panvového dna?',
+    s3Body1:
+      'Po nekomplikovanom pôrode sa jemné sťahy panvového dna zvyčajne môžu postupne obnoviť. Zostáva dôležité prispôsobiť cvičenia vašej situácii a vyhľadať radu, ak ste mali komplikáciu, výraznú bolesť alebo osobitný zákrok.',
+    s3Body2:
+      'Ak máte močový katéter, niektoré odporúčania navrhujú počkať, kým bude odstránený a obnoví sa normálne močenie, než začnete s cvičeniami hrádze.',
+    s3AlertTitle: 'Bolesť nepreťahujte',
+    s3AlertText:
+      'Výrazná bolesť, zhoršujúce sa príznaky, zle sa hojaca rana alebo akákoľvek osobitná obava vyžadujú radu pôrodnej asistentky, lekára alebo rehabilitačného odborníka.',
+
+    s4Heading: 'Učenie sa správneho sťahu',
+    s4Body1:
+      'Na identifikáciu pohybu si predstavte, že sa snažíte zadržať plyny a nutkanie na močenie súčasne. Pohyb, ktorý hľadáte, je pocit sťahu a zdvihu smerom dovnútra.',
+    s4Body2:
+      'Cieľom nie je pevne napnúť celé telo. Sedacie svaly, stehná a brušné svaly by mali zostať čo najuvoľnenejšie, zatiaľ čo dýchanie pokračuje normálne.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Dýchanie'},
+      {icon: 'human-handsup', label: 'Jemný sťah'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Dlhý sťah'},
+      {icon: 'gesture-tap-button', label: 'Rýchle sťahy'},
+    ],
+    s4HighlightTitle: 'Uvoľnenie je rovnako dôležité',
+    s4HighlightText:
+      'Po každom sťahu nechajte svaly úplne uvoľniť. Dobrá rehabilitácia neznamená držať hrádzu stiahnutú celý deň.',
+
+    s5Heading: 'Budovanie postupnej rutiny',
+    s5Body1:
+      'Spočiatku je najdôležitejšie naučiť sa svaly identifikovať a vykonať pohyb správne. Pravidelnosť je dôležitejšia než intenzita.',
+    s5h3a: 'Dlhé sťahy',
+    s5Body2:
+      'Jemne stiahnite panvové dno a potom sťah niekoľko sekúnd držte bez zadržiavania dychu. Potom úplne uvoľnite, kým začnete znova.',
+    s5h3b: 'Krátke sťahy',
+    s5Body3:
+      'Keď pohyb zvládnete, môžete pridať malé rýchle sťahy. Pomáhajú trénovať schopnosť rýchlo stiahnuť svaly, keď sa zvýši brušný tlak, napríklad tesne pred kašľom alebo kýchnutím.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Spojte cvičenia s každodenným návykom'},
+      {icon: 'human-sitting', label: 'Začnite v pohodlnej polohe'},
+      {icon: 'weather-windy', label: 'Pri sťahoch dýchajte normálne'},
+      {icon: 'sleep', label: 'Dodržiavajte fázy uvoľnenia'},
+      {icon: 'chart-line', label: 'Postupne zvyšujte náročnosť'},
+      {icon: 'doctor', label: 'Ak si nie ste istá, požiadajte o radu'},
+    ],
+    s5TipTitle: 'Predovšetkým pravidelnosť',
+    s5TipText:
+      'Spojenie cvičení s návykom, ktorý už je súčasťou vášho dňa, môže uľahčiť pravidelnosť: po kŕmení, po čistení zubov alebo v inom vhodnom čase.',
+
+    s6Heading: 'Časté chyby, ktorým sa treba vyhnúť',
+    s6Body1:
+      'Cvičenia hrádze môžu vyzerať jednoducho, ale je ľahké kompenzovať inými svalmi alebo príliš tlačiť.',
+    commonMistakes: [
+      'Napínanie sedacích svalov alebo stehien namiesto panvového dna',
+      'Zadržiavanie dychu počas sťahu',
+      'Neustále udržiavanie svalov stiahnutých bez toho, aby sa uvoľnili',
+      'Cvičenie len niekoľko dní a potom prestať',
+      'Zámerné zastavovanie prúdu moču na kontrolu sťahu',
+    ],
+    s6TipTitle: 'Čo nerobiť',
+    s6TipText:
+      'Neodporúča sa cvičiť zámerným zastavovaním prúdu moču. Táto metóda hrádzu netrénuje správne a môže narušiť normálnu funkciu močového mechúra.',
+
+    s7Heading: 'Aké príznaky by mali viesť ku konzultácii?',
+    s7Body1:
+      'Po pôrode sa môžu niekedy objaviť drobné úniky alebo nezvyčajný pocit. Nemali by sa však ignorovať, ak pretrvávajú, zhoršujú sa alebo zasahujú do vášho každodenného života.',
+    warningSigns: [
+      'Úniky moču pri kašli, kýchaní, smiechu alebo námahe',
+      'Pocit ťažoby alebo tlaku v dolnej časti panvy',
+      'Pocit, že niečo klesá do pošvy',
+      'Ťažkosti so zadržaním plynov alebo stolice',
+      'Pretrvávajúca bolesť v hrádzi',
+      'Bolesť pri pohlavnom styku alebo po ňom',
+      'Ťažkosti s identifikáciou alebo správnym sťahom svalov hrádze',
+    ],
+    consultLabel: 'Kedy požiadať o radu?',
+    s7Body2:
+      'Pôrodná asistentka, lekár alebo fyzioterapeut so špecializáciou na rehabilitáciu panvového dna môže skontrolovať funkciu svalov a navrhnúť vhodný program.',
+
+    s8Heading: 'A po natrhnutí, nástrihu hrádze alebo cisárskom reze?',
+    s8Body1:
+      'Natrhnutie alebo nástrih hrádze si vyžaduje osobitnú starostlivosť počas hojenia. Pri obnovení aktivít treba zohľadniť bolesť, stav jazvy a pokyny dané po pôrode.',
+    s8Body2:
+      'Po cisárskom reze zotavenie zahŕňa aj brušnú stenu a jazvu. Aj keď pôrod nebol vaginálny, samotné tehotenstvo panvové dno zaťažilo.',
+    s8HighlightTitle: 'Individuálna starostlivosť môže pomôcť',
+    s8HighlightText:
+      'V prípade výrazného natrhnutia, bolesti, močových alebo črevných príznakov alebo pretrvávajúcich ťažkostí môže byť obzvlášť užitočné vyšetrenie u zdravotníckeho pracovníka.',
+
+    s9Heading: 'Postupné obnovenie športu',
+    s9Body1:
+      'Obnovenie pohybu po pôrode by malo byť postupné. S chôdzou a jemnými pohybmi sa vo všeobecnosti môže začať podľa pocitu, zatiaľ čo aktivity s veľkým nárazom si vyžadujú väčšiu opatrnosť.',
+    s9Body2:
+      'Pred obnovením behu, skákania alebo veľmi intenzívneho tréningu je najlepšie posúdiť zotavenie panvového dna a zohľadniť prípadné príznaky.',
+    s9AlertTitle: 'Nepreskakujte etapy',
+    s9AlertText:
+      'Úniky, pocit ťažoby alebo bolesť počas cvičenia alebo po ňom sú znakmi, že by ste mali spomaliť a vyhľadať radu pred zvýšením intenzity.',
+
+    s10Heading: 'Kedy navštíviť odborníka?',
+    s10Body1:
+      'Rehabilitácia panvového dna s pôrodnou asistentkou alebo fyzioterapeutom môže pomôcť, ak si nie ste istá, či sťahujete správne, ak príznaky pretrvávajú alebo ak chcete s istotou obnoviť určité fyzické aktivity.',
+    questionCardTitle: 'Užitočné otázky',
+    appointmentQuestions: [
+      'Zodpovedajú moje príznaky oslabeniu panvového dna?',
+      'Vykonávam sťahy správne?',
+      'Koľko opakovaní denne mám robiť?',
+      'Môžem sa vrátiť k behu, športu alebo cvičeniu s veľkým nárazom?',
+      'Potrebujem rehabilitáciu s pôrodnou asistentkou alebo fyzioterapeutom?',
+      'Vyžaduje moja jazva, natrhnutie alebo cisársky rez nejaké osobitné opatrenia?',
+    ],
+    s10TipTitle: 'Stojí za to vedieť',
+    s10TipText:
+      'Návšteva odborníka nemusí nutne znamenať, že je niečo v neporiadku. Návšteva môže jednoducho pomôcť skontrolovať techniku, posúdiť zotavenie a naučiť sa správne postupovať.',
+
+    s11Heading: 'Zotavenie, ktoré si vyžaduje čas',
+    s11Body1:
+      'Po pôrode je normálne, že hneď nezískate späť rovnaké pocity alebo silu svalov, aké ste mali pred tehotenstvom.',
+    s11Body2:
+      'Cieľom nie je urobiť čo najviac sťahov. Ide skôr o postupné získavanie dobrej koordinácie medzi sťahom a uvoľnením a následne o prirodzené využívanie týchto svalov v každodenných činnostiach.',
+    s11HighlightTitle: 'Malý pokrok je skutočný pokrok',
+    s11HighlightText:
+      'Lepšie uvedomenie pohybu, o pár sekúnd dlhší sťah alebo zníženie únikov sú už povzbudivé znaky.',
+
+    s12Heading: 'Hlavné body',
+    summaryTitle: 'To najdôležitejšie',
+    summaryItems: [
+      'Tehotenstvo a pôrod výrazne zaťažujú panvové dno.',
+      'Postupné zotavenie je po pôrode normálne.',
+      'Pri cvičeniach by mala mať prednosť kvalita pohybu pred silou.',
+      'Dýchanie a uvoľnenie sú rovnako dôležité ako sťah.',
+      'Úniky moču, ťažoba alebo pretrvávajúca bolesť si zaslúžia názor odborníka.',
+      'Rehabilitácia s pôrodnou asistentkou alebo fyzioterapeutom vám môže pomôcť získať lepšiu kontrolu.',
+      'Návrat k športu by mal byť postupný, najmä pri aktivitách s veľkým nárazom.',
+    ],
+
+    finalTipTitle: 'Doprajte si čas na zotavenie',
+    finalTipText:
+      'Po pôrode vaše telo prešlo mnohými zmenami. Hrádza si zaslúži rovnakú pozornosť ako zvyšok tela: postupne, pravidelne a bez tlaku.',
+
+    disclaimerText:
+      'Tento článok má iba informatívny charakter a nenahrádza individuálnu lekársku radu. Ak pociťujete bolesť, pretrvávajúce príznaky alebo máte akékoľvek obavy o svoje zotavenie, poraďte sa so zdravotníckym pracovníkom.',
+  },
+  hu: {
+    badge: 'SZÜLÉS UTÁN • FELÉPÜLÉS',
+    title: 'A medencefenék erősítése\nszülés után',
+    metaDuration: '8 perc olvasás',
+    metaType: 'Útmutató',
+    metaLevel: 'Kezdő',
+    metaValidated: 'Ellenőrzött tartalom',
+    intro:
+      'A terhesség és a szülés után a medencefenéknek időre van szüksége a felépüléshez. Az egyszerű, rendszeres és fokozatos gyakorlatok segíthetnek visszanyerni az erőt, az uralmat és az önbizalmat, anélkül, hogy siettetnéd a dolgokat.',
+    contentsTitle: 'Ebben a cikkben',
+    topics: [
+      'A gát szerepének megértése',
+      'Miért terhelődik meg a szülés során',
+      'Mikor kezdd a medencefenék rehabilitációját',
+      'A helyes összehúzás megtanulása',
+      'Fokozatos rutin kialakítása',
+      'Elkerülendő hibák',
+      'Mikor kérj segítséget',
+      'A sport fokozatos újrakezdése',
+      'Felkészülés egy időpontra',
+      'Legfontosabb tudnivalók',
+    ],
+    shareMessage: 'A medencefenék erősítése szülés után — AWA',
+
+    s1Heading: 'A gát szerepének megértése',
+    s1Body1:
+      'A gát, más néven medencefenék, a medence alján elhelyezkedő izmok csoportja. Szerepet játszik a hólyag és a belek működésének kontrollálásában, és segít megtartani a medencei szerveket.',
+    s1Body2:
+      'A terhesség alatt ezeknek az izmoknak hónapokon át többletsúlyt kell hordozniuk. A szülés során szintén jelentős terhelésnek vannak kitéve.',
+    s1HighlightTitle: 'Diszkrét, de nélkülözhetetlen izom',
+    s1HighlightText:
+      'A medencefenék számos mindennapi funkcióban vesz részt: a vizelet és a széklet visszatartásában, a gázok kontrollálásában, a medencei szervek megtartásában, és bizonyos szexuális funkciókban is szerepet játszik.',
+
+    benefitsHeading: 'Az erősebb medencefenék előnyei',
+    benefitsIntro:
+      'A fokozatos, helyesen végzett erősítés segíthet javítani a medencefenék kontrollját és támaszát.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Jobb hólyagkontroll',
+        text: 'A medencefenék szerepet játszik a hólyag kontrollálásában. Fokozatos erősítése segíthet csökkenteni bizonyos vizeletszivárgásokat.',
+      },
+      {
+        icon: 'toilet',
+        title: 'A bélműködés támogatása',
+        text: 'Ezek az izmok a gázok és a széklet kontrollálásában is segítenek, és hozzájárulnak a medencei szervek megtartásához.',
+      },
+      {
+        icon: 'human-female',
+        title: 'A medencei szervek támogatása',
+        text: 'A medencefenék valódi izmos alapot alkot, amely segít megtartani a hólyagot, a méhet és a beleket.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Az érzékelés fokozatos visszanyerése',
+        text: 'A megfelelő rehabilitáció abban is segíthet, hogy jobban érezd és uralhasd ezt a területet.',
+      },
+    ],
+
+    s2Heading: 'Miért terhelik meg a terhesség és a szülés',
+    s2Body1:
+      'A terhesség fokozatosan növeli a medencefenékre nehezedő nyomást. A hüvelyi szülés ezután jelentősen megnyújthatja ennek a területnek az izmait és szöveteit.',
+    s2Body2:
+      'A császármetszés sem kíméli teljesen a medencefeneket: maga a terhesség jelentős időszak marad ezeknek az izmoknak.',
+    s2Body3:
+      'A szülés után ezért normális, hogy a felépülés időt vesz igénybe. Egyes nők szinte semmilyen tünetet nem éreznek, mások szivárgást, nehézségérzetet vagy csökkent izomkontrollt vehetnek észre.',
+    s2TipTitle: 'Minden felépülés más',
+    s2TipText:
+      'A szülés típusa, egy repedés vagy gátmetszés, a fájdalom jelenléte és a szülés utáni általános állapotod mind befolyásolhatják a felépülést.',
+
+    s3Heading: 'Mikor kezdd a medencefenék rehabilitációját?',
+    s3Body1:
+      'Komplikációmentes szülés után a kíméletes medencefenék-összehúzások általában fokozatosan újrakezdhetők. Fontos marad a gyakorlatokat a helyzetedhez igazítani, és tanácsot kérni, ha komplikációd, jelentős fájdalmad vagy különleges beavatkozásod volt.',
+    s3Body2:
+      'Ha húgyhólyag-katétered van, egyes ajánlások szerint érdemes megvárni, amíg eltávolítják, és a normál vizelés helyreáll, mielőtt elkezdenéd a gátgyakorlatokat.',
+    s3AlertTitle: 'Ne erőltesd a fájdalmat',
+    s3AlertText:
+      'A jelentős fájdalom, a romló tünetek, a rosszul gyógyuló seb vagy bármilyen különleges aggodalom szülésznő, orvos vagy rehabilitációs szakember tanácsát igényli.',
+
+    s4Heading: 'A helyes összehúzás megtanulása',
+    s4Body1:
+      'A mozdulat azonosításához képzeld el, hogy egyszerre próbálod visszatartani a gázt és a vizelési ingert. A keresett mozdulat egy összehúzódás és befelé irányuló emelkedés érzete.',
+    s4Body2:
+      'A cél nem az, hogy az egész testedet szorosan megfeszítsd. A fenekednek, a combjaidnak és a hasizmaidnak a lehető legellazultabbnak kell maradnia, miközben a légzés normálisan folytatódik.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Légzés'},
+      {icon: 'human-handsup', label: 'Kíméletes összehúzás'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Hosszú összehúzás'},
+      {icon: 'gesture-tap-button', label: 'Gyors összehúzások'},
+    ],
+    s4HighlightTitle: 'Az ellazulás ugyanolyan fontos',
+    s4HighlightText:
+      'Minden összehúzás után hagyd az izmokat teljesen ellazulni. A jó rehabilitáció nem azt jelenti, hogy a gátat egész nap összehúzva tartod.',
+
+    s5Heading: 'Fokozatos rutin kialakítása',
+    s5Body1:
+      'Kezdetben a legfontosabb az izmok azonosításának és a mozdulat helyes elvégzésének megtanulása. A rendszeresség fontosabb az intenzitásnál.',
+    s5h3a: 'Hosszú összehúzások',
+    s5Body2:
+      'Kíméletesen húzd össze a medencefeneket, majd tartsd az összehúzást néhány másodpercig a lélegzet visszatartása nélkül. Utána teljesen engedd el, mielőtt újrakezdenéd.',
+    s5h3b: 'Rövid összehúzások',
+    s5Body3:
+      'Ha a mozdulatot elsajátítottad, kis gyors összehúzásokat is hozzáadhatsz. Ezek a hasi nyomás növekedésekor — például közvetlenül köhögés vagy tüsszentés előtt — az izmok gyors összehúzásának képességét edzik.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Kösd a gyakorlatokat egy napi szokáshoz'},
+      {icon: 'human-sitting', label: 'Kezdd kényelmes testhelyzetben'},
+      {icon: 'weather-windy', label: 'Az összehúzások alatt lélegezz normálisan'},
+      {icon: 'sleep', label: 'Tartsd tiszteletben az ellazulási szakaszokat'},
+      {icon: 'chart-line', label: 'Fokozatosan növeld a nehézséget'},
+      {icon: 'doctor', label: 'Ha bizonytalan vagy, kérj tanácsot'},
+    ],
+    s5TipTitle: 'Mindenekelőtt a rendszeresség',
+    s5TipText:
+      'Ha a gyakorlatokat egy már a napod részét képező szokáshoz kötöd, könnyebb a rendszeresség: szoptatás után, fogmosás után vagy más, számodra megfelelő időpontban.',
+
+    s6Heading: 'Gyakori hibák, amelyeket kerülj',
+    s6Body1:
+      'A gátgyakorlatok egyszerűnek tűnhetnek, de könnyű más izmokkal kompenzálni vagy túl erősen nyomni.',
+    commonMistakes: [
+      'A fenék vagy a combok megfeszítése a medencefenék helyett',
+      'A lélegzet visszatartása az összehúzás alatt',
+      'Az izmok állandó összehúzva tartása ellazulás nélkül',
+      'A gyakorlatok csak néhány napig végzése, majd abbahagyása',
+      'A vizeletáram szándékos megállítása az összehúzás ellenőrzésére',
+    ],
+    s6TipTitle: 'Amit ne csinálj',
+    s6TipText:
+      'Nem ajánlott a gyakorlatokat a vizeletáram szándékos megállításával végezni. Ez a módszer nem edzi helyesen a gátat, és megzavarhatja a hólyag normális működését.',
+
+    s7Heading: 'Mely tünetek kell hogy konzultációra késztessenek?',
+    s7Body1:
+      'Szülés után néha enyhe szivárgás vagy szokatlan érzés jelentkezhet. Nem szabad azonban figyelmen kívül hagyni, ha fennmarad, romlik, vagy zavarja a mindennapi életedet.',
+    warningSigns: [
+      'Vizeletszivárgás köhögéskor, tüsszentéskor, nevetéskor vagy erőlködéskor',
+      'Nehézség- vagy nyomásérzés az alsó medencében',
+      'Az az érzés, hogy valami csomó vagy dolog süllyed a hüvelybe',
+      'Nehézség a gázok vagy a széklet visszatartásában',
+      'Tartós fájdalom a gátban',
+      'Fájdalom nemi élet alatt vagy után',
+      'Nehézség a gátizmok azonosításában vagy helyes összehúzásában',
+    ],
+    consultLabel: 'Mikor kérj tanácsot?',
+    s7Body2:
+      'Egy szülésznő, orvos vagy a medencefenék-rehabilitációra specializálódott gyógytornász ellenőrizheti az izomműködést, és megfelelő programot javasolhat.',
+
+    s8Heading: 'És repedés, gátmetszés vagy császármetszés után?',
+    s8Body1:
+      'A repedés vagy gátmetszés különös gondosságot igényel a gyógyulás alatt. A tevékenységek újrakezdésekor figyelembe kell venni a fájdalmat, a heg állapotát és a szülés után kapott útmutatást.',
+    s8Body2:
+      'Császármetszés után a felépülés a hasfalat és a hegét is érinti. Még ha a szülés nem hüvelyi volt is, maga a terhesség így is terhelte a medencefeneket.',
+    s8HighlightTitle: 'Az egyéni ellátás segíthet',
+    s8HighlightText:
+      'Jelentős repedés, fájdalom, húgyúti vagy bélrendszeri tünetek vagy tartós nehézségek esetén különösen hasznos lehet az egészségügyi szakemberrel végzett vizsgálat.',
+
+    s9Heading: 'A sport fokozatos újrakezdése',
+    s9Body1:
+      'A szülés utáni mozgás újrakezdésének fokozatosnak kell lennie. A gyaloglás és a kíméletes mozgások általában a közérzeted szerint újrakezdhetők, míg a nagy ütéssel járó tevékenységek nagyobb óvatosságot igényelnek.',
+    s9Body2:
+      'A futás, ugrás vagy nagyon intenzív edzés újrakezdése előtt a legjobb felmérni a medencefenék felépülését, és figyelembe venni az esetleges tüneteket.',
+    s9AlertTitle: 'Ne siettesd a szakaszokat',
+    s9AlertText:
+      'A szivárgás, a nehézségérzet vagy a fájdalom edzés közben vagy után jelzi, hogy lassítanod kell, és tanácsot kérned az intenzitás növelése előtt.',
+
+    s10Heading: 'Mikor menj szakemberhez?',
+    s10Body1:
+      'A szülésznővel vagy gyógytornásszal végzett medencefenék-rehabilitáció segíthet, ha bizonytalan vagy abban, hogy helyesen húzod-e össze, ha a tüneteid fennmaradnak, vagy ha magabiztosan szeretnél újrakezdeni bizonyos fizikai tevékenységeket.',
+    questionCardTitle: 'Hasznos kérdések',
+    appointmentQuestions: [
+      'A tüneteim megfelelnek a medencefenék gyengeségének?',
+      'Helyesen végzem az összehúzásokat?',
+      'Hány ismétlést kell naponta végeznem?',
+      'Visszatérhetek a futáshoz, a sporthoz vagy a nagy ütéssel járó edzéshez?',
+      'Szükségem van rehabilitációra szülésznővel vagy gyógytornásszal?',
+      'A hegem, repedésem vagy császármetszésem igényel valamilyen különleges óvintézkedést?',
+    ],
+    s10TipTitle: 'Érdemes tudni',
+    s10TipText:
+      'A szakemberhez fordulás nem feltétlenül jelenti, hogy baj van. Egy alkalom egyszerűen segíthet ellenőrizni a technikádat, felmérni a felépülésedet, és megtanulni, hogyan haladj helyesen.',
+
+    s11Heading: 'Időt igénylő felépülés',
+    s11Body1:
+      'A szülés után normális, hogy nem nyered vissza azonnal ugyanazokat az érzeteket vagy izomerőt, mint a terhesség előtt.',
+    s11Body2:
+      'A cél nem az, hogy minél több összehúzást végezz. Inkább az összehúzás és az ellazulás közötti jó koordináció fokozatos visszanyerése, majd az izmok természetes használata a mindennapi tevékenységekben.',
+    s11HighlightTitle: 'A kis haladás is valódi haladás',
+    s11HighlightText:
+      'A mozdulat jobb érzékelése, néhány másodperccel hosszabb összehúzás vagy a szivárgás csökkenése már bátorító jelek.',
+
+    s12Heading: 'Legfontosabb tudnivalók',
+    summaryTitle: 'A lényeg',
+    summaryItems: [
+      'A terhesség és a szülés jelentős terhelést jelent a medencefenéknek.',
+      'A szülés utáni fokozatos felépülés normális.',
+      'A gyakorlatoknál a mozdulat minősége elsőbbséget élvez az erővel szemben.',
+      'A légzés és az ellazulás ugyanolyan fontos, mint az összehúzás.',
+      'A vizeletszivárgás, a nehézségérzet vagy a tartós fájdalom szakmai véleményt érdemel.',
+      'A szülésznővel vagy gyógytornásszal végzett rehabilitáció segíthet jobb kontrollt visszanyerni.',
+      'A sporthoz való visszatérésnek fokozatosnak kell lennie, különösen a nagy ütéssel járó tevékenységeknél.',
+    ],
+
+    finalTipTitle: 'Szánj időt a felépülésre',
+    finalTipText:
+      'A szülés után a tested sok változáson ment keresztül. A gát ugyanolyan figyelmet érdemel, mint a tested többi része: fokozatosan, rendszeresen és nyomás nélkül.',
+
+    disclaimerText:
+      'Ez a cikk kizárólag tájékoztató jellegű, és nem helyettesíti a személyre szabott orvosi tanácsot. Ha fájdalmat, tartós tüneteket tapasztalsz, vagy bármilyen aggodalmad van a felépülésed miatt, kérj tanácsot egészségügyi szakembertől.',
+  },
+  ro: {
+    badge: 'POSTNATAL • RECUPERARE',
+    title: 'Întărirea planșeului pelvian\ndupă naștere',
+    metaDuration: '8 min de citit',
+    metaType: 'Ghid',
+    metaLevel: 'Începător',
+    metaValidated: 'Conținut revizuit',
+    intro:
+      'După sarcină și naștere, planșeul pelvian are nevoie de timp pentru a-și reveni. Exerciții simple, regulate și graduale te pot ajuta să-ți recapeți forța, controlul și încrederea, fără să încerci să grăbești lucrurile.',
+    contentsTitle: 'În acest articol',
+    topics: [
+      'Înțelegerea rolului perineului',
+      'De ce sarcina și nașterea îl solicită',
+      'Când să începi recuperarea planșeului pelvian',
+      'Învățarea contracției corecte',
+      'Construirea unei rutine graduale',
+      'Greșeli de evitat',
+      'Când să ceri ajutor',
+      'Reluarea treptată a sportului',
+      'Pregătirea unei consultații',
+      'Ce să reții',
+    ],
+    shareMessage: 'Întărirea planșeului pelvian după naștere — AWA',
+
+    s1Heading: 'Înțelegerea rolului perineului',
+    s1Body1:
+      'Perineul, numit și planșeu pelvian, este un grup de mușchi situat la baza bazinului. El joacă un rol în controlul vezicii urinare și al intestinului și ajută la susținerea organelor pelviene.',
+    s1Body2:
+      'În timpul sarcinii, acești mușchi trebuie să poarte o greutate suplimentară timp de mai multe luni. Ei sunt, de asemenea, puternic solicitați în timpul nașterii.',
+    s1HighlightTitle: 'Un mușchi discret, dar esențial',
+    s1HighlightText:
+      'Planșeul pelvian este implicat în mai multe funcții de zi cu zi: reținerea urinei și a scaunului, controlul gazelor, susținerea organelor pelviene și un rol în anumite funcții sexuale.',
+
+    benefitsHeading: 'Beneficiile unui planșeu pelvian mai puternic',
+    benefitsIntro:
+      'O întărire graduală, efectuată corect, poate ajuta la îmbunătățirea controlului și a susținerii planșeului pelvian.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Un control mai bun al vezicii urinare',
+        text: 'Planșeul pelvian joacă un rol în controlul vezicii urinare. Întărirea lui treptată poate ajuta la reducerea anumitor pierderi de urină.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Susținerea funcției intestinale',
+        text: 'Acești mușchi ajută și la controlul gazelor și al scaunului și contribuie la susținerea organelor pelviene.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Susținerea organelor pelviene',
+        text: 'Planșeul pelvian formează o adevărată bază musculară care ajută la susținerea vezicii urinare, a uterului și a intestinului.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Recăpătarea treptată a senzațiilor',
+        text: 'O recuperare potrivită te poate ajuta și să-ți recapeți o mai bună conștientizare și un mai bun control al acestei zone.',
+      },
+    ],
+
+    s2Heading: 'De ce sarcina și nașterea îl solicită',
+    s2Body1:
+      'Sarcina pune treptat tot mai multă presiune pe planșeul pelvian. Nașterea vaginală poate apoi întinde semnificativ mușchii și țesuturile din această zonă.',
+    s2Body2:
+      'Nici o cezariană nu scutește complet planșeul pelvian: sarcina în sine rămâne o perioadă importantă pentru acești mușchi.',
+    s2Body3:
+      'După naștere, este deci normal ca recuperarea să dureze. Unele femei nu simt aproape niciun simptom, în timp ce altele pot observa pierderi, o senzație de greutate sau un control muscular redus.',
+    s2TipTitle: 'Fiecare recuperare este diferită',
+    s2TipText:
+      'Tipul nașterii, o ruptură sau o epiziotomie, prezența durerii și starea ta generală după naștere pot influența toate recuperarea.',
+
+    s3Heading: 'Când să începi recuperarea planșeului pelvian?',
+    s3Body1:
+      'După o naștere fără complicații, contracțiile blânde ale planșeului pelvian pot fi de obicei reluate treptat. Rămâne important să adaptezi exercițiile la situația ta și să ceri un sfat dacă ai avut o complicație, durere importantă sau o procedură specifică.',
+    s3Body2:
+      'Dacă ai un cateter urinar, unele recomandări sugerează să aștepți până este scos și până când urinarea normală a fost reluată înainte de a începe exercițiile pentru perineu.',
+    s3AlertTitle: 'Nu forța prin durere',
+    s3AlertText:
+      'O durere importantă, simptome care se agravează, o rană care se vindecă prost sau orice îngrijorare deosebită cer sfatul unei moașe, al unui medic sau al unui profesionist în recuperare.',
+
+    s4Heading: 'Învățarea contracției corecte',
+    s4Body1:
+      'Pentru a identifica mișcarea, imaginează-ți că încerci să reții gazele și nevoia de a urina în același timp. Mișcarea pe care o cauți este o senzație de contracție și de ridicare spre interior.',
+    s4Body2:
+      'Scopul nu este să-ți încordezi strâns tot corpul. Fesele, coapsele și abdominalii ar trebui să rămână cât mai relaxați, în timp ce respirația continuă normal.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Respirația'},
+      {icon: 'human-handsup', label: 'Contracție blândă'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Contracție lungă'},
+      {icon: 'gesture-tap-button', label: 'Contracții rapide'},
+    ],
+    s4HighlightTitle: 'Relaxarea contează la fel de mult',
+    s4HighlightText:
+      'După fiecare contracție, lasă mușchii să se relaxeze complet. O recuperare bună nu înseamnă să ții perineul contractat toată ziua.',
+
+    s5Heading: 'Construirea unei rutine graduale',
+    s5Body1:
+      'La început, cel mai important lucru este să înveți să identifici mușchii și să efectuezi corect mișcarea. Constanța contează mai mult decât intensitatea.',
+    s5h3a: 'Contracții lungi',
+    s5Body2:
+      'Contractă blând planșeul pelvian, apoi menține contracția câteva secunde fără să-ți ții respirația. Apoi relaxează-te complet înainte de a o lua de la capăt.',
+    s5h3b: 'Contracții scurte',
+    s5Body3:
+      'Odată ce mișcarea este stăpânită, se pot adăuga mici contracții rapide. Ele ajută la antrenarea capacității de a contracta rapid mușchii atunci când presiunea abdominală crește, de exemplu chiar înainte de a tuși sau de a strănuta.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Asociază exercițiile cu un obicei zilnic'},
+      {icon: 'human-sitting', label: 'Începe într-o poziție confortabilă'},
+      {icon: 'weather-windy', label: 'Respiră normal în timpul contracțiilor'},
+      {icon: 'sleep', label: 'Respectă fazele de relaxare'},
+      {icon: 'chart-line', label: 'Crește treptat dificultatea'},
+      {icon: 'doctor', label: 'Cere un sfat dacă ai îndoieli'},
+    ],
+    s5TipTitle: 'Constanța înainte de toate',
+    s5TipText:
+      'Asocierea exercițiilor cu un obicei deja prezent în ziua ta poate face mai ușoară menținerea constanței: după o masă de alăptare, după spălatul pe dinți sau la un alt moment care ți se potrivește.',
+
+    s6Heading: 'Greșeli frecvente de evitat',
+    s6Body1:
+      'Exercițiile pentru perineu pot părea simple, dar este ușor să compensezi cu alți mușchi sau să forțezi prea tare.',
+    commonMistakes: [
+      'Încordarea fesierilor sau a coapselor în loc de planșeul pelvian',
+      'Ținerea respirației în timpul contracției',
+      'Menținerea mușchilor contractați constant, fără a-i lăsa să se relaxeze',
+      'Efectuarea exercițiilor doar câteva zile, apoi oprirea',
+      'Oprirea deliberată a jetului de urină pentru a verifica contracția',
+    ],
+    s6TipTitle: 'Ce să nu faci',
+    s6TipText:
+      'Nu se recomandă exersarea exercițiilor prin oprirea deliberată a jetului de urină. Această metodă nu antrenează corect perineul și poate perturba funcționarea normală a vezicii urinare.',
+
+    s7Heading: 'Ce simptome ar trebui să te determine să ceri o consultație?',
+    s7Body1:
+      'Mici pierderi sau o senzație neobișnuită pot apărea uneori după naștere. Totuși, nu trebuie ignorate dacă persistă, se agravează sau îți perturbă viața de zi cu zi.',
+    warningSigns: [
+      'Pierderi de urină atunci când tușești, strănuți, râzi sau faci un efort',
+      'O senzație de greutate sau de presiune în partea inferioară a bazinului',
+      'O senzație că o formațiune sau ceva coboară în vagin',
+      'Dificultăți de a reține gazele sau scaunul',
+      'Durere persistentă la nivelul perineului',
+      'Durere în timpul sau după raporturile sexuale',
+      'Dificultăți de a identifica sau de a contracta corect mușchii perineali',
+    ],
+    consultLabel: 'Când ar trebui să ceri un sfat?',
+    s7Body2:
+      'O moașă, un medic sau un kinetoterapeut specializat în recuperarea planșeului pelvian poate verifica funcția musculară și poate propune un program potrivit.',
+
+    s8Heading: 'Și după o ruptură, o epiziotomie sau o cezariană?',
+    s8Body1:
+      'O ruptură sau o epiziotomie necesită o îngrijire deosebită în timpul vindecării. Reluarea activităților trebuie să țină cont de durere, de starea cicatricei și de îndrumările primite după naștere.',
+    s8Body2:
+      'După o cezariană, recuperarea implică și peretele abdominal și cicatricea. Chiar dacă nașterea nu a fost vaginală, sarcina în sine a solicitat totuși planșeul pelvian.',
+    s8HighlightTitle: 'O îngrijire personalizată poate ajuta',
+    s8HighlightText:
+      'În cazul unei rupturi importante, al durerii, al simptomelor urinare sau intestinale ori al unor dificultăți persistente, o evaluare cu un profesionist din domeniul sănătății poate fi deosebit de utilă.',
+
+    s9Heading: 'Reluarea treptată a sportului',
+    s9Body1:
+      'Reluarea mișcării după naștere trebuie să fie graduală. Mersul pe jos și mișcările blânde pot fi reluate în general în funcție de cum te simți, în timp ce activitățile cu impact puternic cer mai multă prudență.',
+    s9Body2:
+      'Înainte de a relua alergarea, săriturile sau antrenamentele foarte intense, este mai bine să evaluezi recuperarea planșeului pelvian și să iei în calcul orice simptome.',
+    s9AlertTitle: 'Nu grăbi etapele',
+    s9AlertText:
+      'Pierderile, o senzație de greutate sau durerea în timpul ori după efort sunt semne că ar trebui să încetinești și să ceri un sfat înainte de a crește intensitatea.',
+
+    s10Heading: 'Când să mergi la un specialist?',
+    s10Body1:
+      'Recuperarea planșeului pelvian împreună cu o moașă sau un kinetoterapeut poate fi utilă dacă nu ești sigură că contracți corect, dacă simptomele persistă sau dacă vrei să reiei cu încredere anumite activități fizice.',
+    questionCardTitle: 'Întrebări utile de pus',
+    appointmentQuestions: [
+      'Sunt simptomele mele compatibile cu o slăbiciune a planșeului pelvian?',
+      'Efectuez corect contracțiile?',
+      'Câte repetări ar trebui să fac în fiecare zi?',
+      'Pot reveni la alergare, la sport sau la exerciții cu impact puternic?',
+      'Am nevoie de recuperare cu o moașă sau cu un kinetoterapeut?',
+      'Cicatricea, ruptura sau cezariana mea cer precauții deosebite?',
+    ],
+    s10TipTitle: 'Bine de știut',
+    s10TipText:
+      'A merge la un profesionist nu înseamnă neapărat că ceva nu este în regulă. O ședință te poate ajuta pur și simplu să-ți verifici tehnica, să-ți evaluezi recuperarea și să înveți să progresezi corect.',
+
+    s11Heading: 'O recuperare care necesită timp',
+    s11Body1:
+      'După ce ai născut, este normal să nu recapeți imediat aceleași senzații sau aceeași forță musculară pe care le aveai înainte de sarcină.',
+    s11Body2:
+      'Scopul nu este să faci cât mai multe contracții posibil. Este mai degrabă să recapeți treptat o bună coordonare între contracție și relaxare și apoi să poți folosi în mod natural acești mușchi în activitățile de zi cu zi.',
+    s11HighlightTitle: 'Micile progrese sunt progrese reale',
+    s11HighlightText:
+      'O mai bună conștientizare a mișcării, câteva secunde în plus de contracție sau o reducere a pierderilor sunt deja semne încurajatoare.',
+
+    s12Heading: 'Ce să reții',
+    summaryTitle: 'Esențialul',
+    summaryItems: [
+      'Sarcina și nașterea solicită puternic planșeul pelvian.',
+      'O recuperare treptată este normală după naștere.',
+      'Exercițiile trebuie să dea prioritate calității mișcării în fața forței.',
+      'Respirația și relaxarea contează la fel de mult ca contracția.',
+      'Pierderile de urină, senzația de greutate sau durerea persistentă merită o părere profesionistă.',
+      'Recuperarea împreună cu o moașă sau cu un kinetoterapeut te poate ajuta să recapeți un control mai bun.',
+      'Revenirea la sport trebuie să fie graduală, mai ales pentru activitățile cu impact puternic.',
+    ],
+
+    finalTipTitle: 'Ia-ți timp să te refaci',
+    finalTipText:
+      'După naștere, corpul tău a trecut prin multe schimbări. Perineul merită aceeași atenție ca restul corpului tău: treptat, regulat și fără presiune.',
+
+    disclaimerText:
+      'Acest articol are doar caracter informativ și nu înlocuiește sfatul medical personalizat. Dacă ai dureri, simptome persistente sau orice îngrijorare cu privire la recuperarea ta, cere sfatul unui profesionist din domeniul sănătății.',
+  },
+  bg: {
+    badge: 'СЛЕД РАЖДАНЕ • ВЪЗСТАНОВЯВАНЕ',
+    title: 'Укрепване на тазовото дъно\nслед раждане',
+    metaDuration: '8 мин четене',
+    metaType: 'Ръководство',
+    metaLevel: 'Начинаещ',
+    metaValidated: 'Проверено съдържание',
+    intro:
+      'След бременност и раждане тазовото дъно се нуждае от време, за да се възстанови. Прости, редовни и постепенни упражнения могат да ти помогнат да възвърнеш сила, контрол и увереност, без да се опитваш да ускоряваш нещата.',
+    contentsTitle: 'В тази статия',
+    topics: [
+      'Разбиране на ролята на перинеума',
+      'Защо раждането го натоварва',
+      'Кога да започнеш рехабилитация на тазовото дъно',
+      'Как да свиваш правилно',
+      'Изграждане на постепенна рутина',
+      'Грешки, които да избягваш',
+      'Кога да поискаш помощ',
+      'Постепенно връщане към спорта',
+      'Подготовка за преглед',
+      'Какво да запомниш',
+    ],
+    shareMessage: 'Укрепване на тазовото дъно след раждане — AWA',
+
+    s1Heading: 'Разбиране на ролята на перинеума',
+    s1Body1:
+      'Перинеумът, наричан още тазово дъно, е група мускули в основата на таза. Той играе роля в контрола на пикочния мехур и червата и помага да се поддържат тазовите органи.',
+    s1Body2:
+      'По време на бременност тези мускули трябва да понасят допълнително тегло в продължение на няколко месеца. Те са подложени на значително натоварване и по време на раждането.',
+    s1HighlightTitle: 'Дискретен, но съществен мускул',
+    s1HighlightText:
+      'Тазовото дъно участва в няколко ежедневни функции: задържане на урина и изпражнения, контрол на газовете, поддържане на тазовите органи и роля в някои сексуални функции.',
+
+    benefitsHeading: 'Ползите от по-силно тазово дъно',
+    benefitsIntro:
+      'Постепенното, правилно извършвано укрепване може да помогне да се подобрят контролът и опората на тазовото дъно.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'По-добър контрол на пикочния мехур',
+        text: 'Тазовото дъно играе роля в контрола на пикочния мехур. Постепенното му укрепване може да помогне да се намалят някои изтичания на урина.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Подкрепа на чревната функция',
+        text: 'Тези мускули помагат и за контрола на газовете и изпражненията и допринасят за поддържането на тазовите органи.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Поддържане на тазовите органи',
+        text: 'Тазовото дъно образува истинска мускулна основа, която помага да се поддържат пикочният мехур, матката и червата.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Постепенно възвръщане на усещането',
+        text: 'Подходящата рехабилитация може да ти помогне да възвърнеш по-добро осъзнаване и контрол на тази област.',
+      },
+    ],
+
+    s2Heading: 'Защо бременността и раждането го натоварват',
+    s2Body1:
+      'Бременността постепенно оказва все по-голям натиск върху тазовото дъно. Вагиналното раждане след това може значително да разтегне мускулите и тъканите в тази област.',
+    s2Body2:
+      'Цезаровото сечение също не щади напълно тазовото дъно: самата бременност остава значителен период за тези мускули.',
+    s2Body3:
+      'След раждане е нормално възстановяването да отнема време. Някои жени почти не усещат симптоми, докато други могат да забележат изтичане, чувство на тежест или намален мускулен контрол.',
+    s2TipTitle: 'Всяко възстановяване е различно',
+    s2TipText:
+      'Видът на раждането, разкъсване или епизиотомия, наличието на болка и общото ти състояние след раждането могат да повлияят на възстановяването.',
+
+    s3Heading: 'Кога да започнеш рехабилитация на тазовото дъно?',
+    s3Body1:
+      'След раждане без усложнения нежните контракции на тазовото дъно обикновено могат да се възобновят постепенно. Остава важно да нагодиш упражненията към ситуацията си и да потърсиш съвет, ако си имала усложнение, значителна болка или специфична процедура.',
+    s3Body2:
+      'Ако имаш пикочен катетър, някои препоръки съветват да изчакаш отстраняването му и възобновяването на нормалното уриниране, преди да започнеш упражнения за перинеума.',
+    s3AlertTitle: 'Не насилвай през болка',
+    s3AlertText:
+      'Значителна болка, влошаващи се симптоми, рана, която зараства зле, или всяко особено притеснение изискват съвет от акушерка, лекар или специалист по рехабилитация.',
+
+    s4Heading: 'Как да свиваш правилно',
+    s4Body1:
+      'За да усетиш движението, представи си, че се опитваш да задържиш газове и позива за уриниране едновременно. Движението, което търсиш, е усещане за свиване и повдигане навътре.',
+    s4Body2:
+      'Целта не е да напрягаш силно цялото тяло. Седалището, бедрата и коремните мускули трябва да останат възможно най-отпуснати, докато дишането продължава нормално.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Дишане'},
+      {icon: 'human-handsup', label: 'Нежно свиване'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Продължително свиване'},
+      {icon: 'gesture-tap-button', label: 'Бързи свивания'},
+    ],
+    s4HighlightTitle: 'Отпускането е също толкова важно',
+    s4HighlightText:
+      'След всяко свиване остави мускулите да се отпуснат напълно. Добрата рехабилитация не означава да държиш перинеума свит през целия ден.',
+
+    s5Heading: 'Изграждане на постепенна рутина',
+    s5Body1:
+      'В началото най-важното е да се научиш да разпознаваш мускулите и да изпълняваш движението правилно. Редовността е по-важна от интензивността.',
+    s5h3a: 'Продължителни свивания',
+    s5Body2:
+      'Свий нежно тазовото дъно, след това задръж свиването няколко секунди, без да задържаш дъха си. После го отпусни напълно, преди да започнеш отново.',
+    s5h3b: 'Кратки свивания',
+    s5Body3:
+      'След като овладееш движението, могат да се добавят малки бързи свивания. Те помагат да тренираш способността си да свиваш мускулите бързо, когато коремното налягане се повишава, например точно преди кашлица или кихане.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Свържи упражненията с ежедневен навик'},
+      {icon: 'human-sitting', label: 'Започни в удобна позиция'},
+      {icon: 'weather-windy', label: 'Дишай нормално по време на свиванията'},
+      {icon: 'sleep', label: 'Спазвай фазите на отпускане'},
+      {icon: 'chart-line', label: 'Постепенно увеличавай трудността'},
+      {icon: 'doctor', label: 'Поискай съвет, ако не си сигурна'},
+    ],
+    s5TipTitle: 'Преди всичко редовност',
+    s5TipText:
+      'Свързването на упражненията с навик, който вече е част от деня ти, може да улесни редовността: след кърмене, след миене на зъбите или в друг момент, който ти пасва.',
+
+    s6Heading: 'Чести грешки, които да избягваш',
+    s6Body1:
+      'Упражненията за перинеума изглеждат прости, но е лесно да компенсираш с други мускули или да насилваш прекалено.',
+    commonMistakes: [
+      'Напрягане на седалището или бедрата вместо тазовото дъно',
+      'Задържане на дъха по време на свиването',
+      'Постоянно държане на мускулите свити, без да ги отпускаш',
+      'Правене на упражненията само няколко дни и след това спиране',
+      'Умишлено спиране на струята урина, за да провериш свиването',
+    ],
+    s6TipTitle: 'Какво да не правиш',
+    s6TipText:
+      'Не се препоръчва да упражняваш, като умишлено спираш струята урина. Този метод не тренира перинеума правилно и може да наруши нормалната функция на пикочния мехур.',
+
+    s7Heading: 'Кои симптоми трябва да доведат до консултация?',
+    s7Body1:
+      'След раждане понякога могат да се появят леки изтичания или необичайно усещане. Не бива обаче да се пренебрегват, ако продължават, влошават се или пречат на ежедневието ти.',
+    warningSigns: [
+      'Изтичане на урина при кашлица, кихане, смях или напъване',
+      'Чувство на тежест или натиск в долната част на таза',
+      'Усещане, че нещо се спуска във влагалището',
+      'Затруднение при задържане на газове или изпражнения',
+      'Упорита болка в перинеума',
+      'Болка по време или след полов контакт',
+      'Затруднение да разпознаеш или да свиеш правилно мускулите на перинеума',
+    ],
+    consultLabel: 'Кога да поискаш съвет?',
+    s7Body2:
+      'Акушерка, лекар или физиотерапевт, специализиран в рехабилитация на тазовото дъно, може да провери функцията на мускулите и да предложи подходяща програма.',
+
+    s8Heading: 'А след разкъсване, епизиотомия или цезарово сечение?',
+    s8Body1:
+      'Разкъсването или епизиотомията изискват особена грижа по време на заздравяването. Възобновяването на дейностите трябва да взема предвид болката, състоянието на белега и указанията, дадени след раждането.',
+    s8Body2:
+      'След цезарово сечение възстановяването включва и коремната стена и белега. Дори раждането да не е било вагинално, самата бременност все пак е натоварила тазовото дъно.',
+    s8HighlightTitle: 'Персонализираната грижа може да помогне',
+    s8HighlightText:
+      'При значително разкъсване, болка, уринарни или чревни симптоми или упорити затруднения оценката със здравен специалист може да е особено полезна.',
+
+    s9Heading: 'Постепенно връщане към спорта',
+    s9Body1:
+      'Възобновяването на движението след раждане трябва да е постепенно. Ходенето и нежните движения обикновено могат да се възобновят според усещането ти, докато дейностите с висок удар изискват повече предпазливост.',
+    s9Body2:
+      'Преди да възобновиш бягането, скоковете или много интензивните тренировки, най-добре е да оцениш възстановяването на тазовото дъно и да вземеш предвид евентуалните симптоми.',
+    s9AlertTitle: 'Не бързай със стъпките',
+    s9AlertText:
+      'Изтичане, чувство на тежест или болка по време или след упражнение са знаци, че трябва да забавиш и да поискаш съвет, преди да увеличиш интензивността.',
+
+    s10Heading: 'Кога да посетиш специалист?',
+    s10Body1:
+      'Рехабилитацията на тазовото дъно при акушерка или физиотерапевт може да е полезна, ако не си сигурна дали свиваш правилно, ако симптомите ти продължават или ако искаш да възобновиш някои физически дейности с увереност.',
+    questionCardTitle: 'Полезни въпроси за задаване',
+    appointmentQuestions: [
+      'Съответстват ли симптомите ми на слабост на тазовото дъно?',
+      'Изпълнявам ли свиванията правилно?',
+      'Колко повторения да правя на ден?',
+      'Мога ли да се върна към бягане, спорт или упражнения с висок удар?',
+      'Нуждая ли се от рехабилитация при акушерка или физиотерапевт?',
+      'Изисква ли белегът, разкъсването или цезаровото ми сечение особени предпазни мерки?',
+    ],
+    s10TipTitle: 'Добре е да знаеш',
+    s10TipText:
+      'Посещението при специалист не означава непременно, че нещо не е наред. Една сесия може просто да помогне да провериш техниката си, да оцениш възстановяването си и да се научиш да напредваш правилно.',
+
+    s11Heading: 'Възстановяване, което отнема време',
+    s11Body1:
+      'След раждане е нормално да не възвърнеш веднага същите усещания или мускулна сила като преди бременността.',
+    s11Body2:
+      'Целта не е да правиш възможно най-много свивания. По-скоро е постепенно да възвърнеш добра координация между свиване и отпускане и после да можеш да използваш тези мускули естествено в ежедневните дейности.',
+    s11HighlightTitle: 'Малкият напредък е истински напредък',
+    s11HighlightText:
+      'По-доброто осъзнаване на движението, няколко допълнителни секунди свиване или намаляване на изтичането вече са окуражаващи знаци.',
+
+    s12Heading: 'Какво да запомниш',
+    summaryTitle: 'Същественото',
+    summaryItems: [
+      'Бременността и раждането оказват значително натоварване върху тазовото дъно.',
+      'Постепенното възстановяване е нормално след раждане.',
+      'Упражненията трябва да поставят качеството на движението пред силата.',
+      'Дишането и отпускането са също толкова важни, колкото свиването.',
+      'Изтичане на урина, чувство на тежест или упорита болка заслужават професионално мнение.',
+      'Рехабилитацията при акушерка или физиотерапевт може да ти помогне да възвърнеш по-добър контрол.',
+      'Връщането към спорта трябва да е постепенно, особено за дейности с висок удар.',
+    ],
+
+    finalTipTitle: 'Дай си време да се възстановиш',
+    finalTipText:
+      'След раждане тялото ти е преминало през много промени. Перинеумът заслужава същото внимание като останалата част от тялото ти: постепенно, редовно и без натиск.',
+
+    disclaimerText:
+      'Тази статия е само с информационна цел и не замества персонализирания медицински съвет. Ако изпитваш болка, упорити симптоми или имаш някакви притеснения относно възстановяването си, потърси съвет от здравен специалист.',
+  },
+  sr: {
+    badge: 'ПОСЛЕ ПОРОЂАЈА • ОПОРАВАК',
+    title: 'Јачање карличног дна\nпосле порођаја',
+    metaDuration: '8 мин читања',
+    metaType: 'Водич',
+    metaLevel: 'Почетник',
+    metaValidated: 'Проверен садржај',
+    intro:
+      'После трудноће и порођаја карличном дну је потребно време да се опорави. Једноставне, редовне и постепене вежбе могу ти помоћи да вратиш снагу, контролу и самопоуздање, без покушаја да ужурбаш ствари.',
+    contentsTitle: 'У овом чланку',
+    topics: [
+      'Разумевање улоге перинеума',
+      'Зашто га порођај оптерећује',
+      'Када почети рехабилитацију карличног дна',
+      'Како правилно стезати',
+      'Изградња постепене рутине',
+      'Грешке које треба избегавати',
+      'Када затражити помоћ',
+      'Постепено враћање спорту',
+      'Припрема за преглед',
+      'Шта да запамтиш',
+    ],
+    shareMessage: 'Јачање карличног дна после порођаја — AWA',
+
+    s1Heading: 'Разумевање улоге перинеума',
+    s1Body1:
+      'Перинеум, назван и карлично дно, је група мишића у основи карлице. Игра улогу у контроли мокраћне бешике и црева и помаже у подупирању карличних органа.',
+    s1Body2:
+      'Током трудноће ови мишићи морају да носе додатну тежину неколико месеци. Они су изложени и значајном напору током порођаја.',
+    s1HighlightTitle: 'Дискретан, али суштински мишић',
+    s1HighlightText:
+      'Карлично дно учествује у неколико свакодневних функција: задржавање урина и столице, контрола гасова, подупирање карличних органа и улога у одређеним сексуалним функцијама.',
+
+    benefitsHeading: 'Предности јачег карличног дна',
+    benefitsIntro:
+      'Постепено, правилно изведено јачање може помоћи да се побољшају контрола и подршка карличног дна.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Боља контрола мокраћне бешике',
+        text: 'Карлично дно игра улогу у контроли мокраћне бешике. Његово постепено јачање може помоћи да се смање одређена цурења урина.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Подршка функцији црева',
+        text: 'Ови мишићи помажу и у контроли гасова и столице и доприносе подупирању карличних органа.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Подупирање карличних органа',
+        text: 'Карлично дно чини праву мишићну основу која помаже да се подупру бешика, материца и црево.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Постепено враћање осећаја',
+        text: 'Одговарајућа рехабилитација може ти помоћи да вратиш боље осећање и контролу над овом облашћу.',
+      },
+    ],
+
+    s2Heading: 'Зашто га трудноћа и порођај оптерећују',
+    s2Body1:
+      'Трудноћа постепено врши све већи притисак на карлично дно. Вагинални порођај затим може знатно истегнути мишиће и ткива у овој области.',
+    s2Body2:
+      'Ни царски рез не поштеди потпуно карлично дно: сама трудноћа остаје значајан период за ове мишиће.',
+    s2Body3:
+      'После порођаја је зато нормално да опоравак траје. Неке жене једва осећају симптоме, док друге могу приметити цурење, осећај тежине или смањену контролу мишића.',
+    s2TipTitle: 'Сваки опоравак је различит',
+    s2TipText:
+      'Врста порођаја, разрез или епизиотомија, присуство бола и твоје опште стање после порођаја могу утицати на опоравак.',
+
+    s3Heading: 'Када почети рехабилитацију карличног дна?',
+    s3Body1:
+      'После порођаја без компликација нежне контракције карличног дна обично се могу постепено наставити. Остаје важно да вежбе прилагодиш својој ситуацији и да потражиш савет ако си имала компликацију, значајан бол или посебан захват.',
+    s3Body2:
+      'Ако имаш мокраћни катетер, неке препоруке саветују да сачекаш његово уклањање и успостављање нормалног уринирања пре почетка вежби за перинеум.',
+    s3AlertTitle: 'Не форсирај кроз бол',
+    s3AlertText:
+      'Значајан бол, симптоми који се погоршавају, рана која лоше зарасте или било која посебна брига захтевају савет бабице, лекара или стручњака за рехабилитацију.',
+
+    s4Heading: 'Како правилно стезати',
+    s4Body1:
+      'Да би осетила покрет, замисли да покушаваш да задржиш гасове и позив за уринирање истовремено. Покрет који тражиш је осећај стезања и подизања ка унутра.',
+    s4Body2:
+      'Циљ није да јако напрежеш цело тело. Седалиште, бедра и мишићи стомака треба да остану што опуштенији, док дисање наставља нормално.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Дисање'},
+      {icon: 'human-handsup', label: 'Нежно стезање'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Дуго стезање'},
+      {icon: 'gesture-tap-button', label: 'Брза стезања'},
+    ],
+    s4HighlightTitle: 'Опуштање је једнако важно',
+    s4HighlightText:
+      'После сваког стезања пусти мишиће да се потпуно опусте. Добра рехабилитација не значи држати перинеум стегнутим цео дан.',
+
+    s5Heading: 'Изградња постепене рутине',
+    s5Body1:
+      'На почетку је најважније научити да препознаш мишиће и правилно изведеш покрет. Редовност је важнија од интензитета.',
+    s5h3a: 'Дуга стезања',
+    s5Body2:
+      'Нежно стегни карлично дно, затим задржи стезање неколико секунди без задржавања даха. Потом га потпуно опусти пре него што поново почнеш.',
+    s5h3b: 'Кратка стезања',
+    s5Body3:
+      'Када овладаш покретом, могу се додати мала брза стезања. Она помажу да увежбаш способност брзог стезања мишића када се абдоминални притисак повећа, на пример непосредно пре кашљања или кијања.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Повежи вежбе са свакодневном навиком'},
+      {icon: 'human-sitting', label: 'Почни у удобном положају'},
+      {icon: 'weather-windy', label: 'Диши нормално током стезања'},
+      {icon: 'sleep', label: 'Поштуј фазе опуштања'},
+      {icon: 'chart-line', label: 'Постепено повећавај тежину'},
+      {icon: 'doctor', label: 'Затражи савет ако ниси сигурна'},
+    ],
+    s5TipTitle: 'Пре свега редовност',
+    s5TipText:
+      'Повезивање вежби са навиком која је већ део твог дана може олакшати доследност: после дојења, после прања зуба или у неко друго време које ти одговара.',
+
+    s6Heading: 'Честе грешке које треба избегавати',
+    s6Body1:
+      'Вежбе за перинеум изгледају једноставно, али је лако компензовати другим мишићима или превише притискати.',
+    commonMistakes: [
+      'Напрезање седалишта или бедара уместо карличног дна',
+      'Задржавање даха током стезања',
+      'Стално држање мишића стегнутим без опуштања',
+      'Вежбање само неколико дана, а затим престанак',
+      'Намерно заустављање млаза урина да провериш стезање',
+    ],
+    s6TipTitle: 'Шта не радити',
+    s6TipText:
+      'Не препоручује се упражњавање вежби намерним заустављањем млаза урина. Овај метод не тренира перинеум правилно и може пореметити нормалну функцију мокраћне бешике.',
+
+    s7Heading: 'Који симптоми треба да доведу до консултације?',
+    s7Body1:
+      'Мања цурења или необично осећање понекад се могу појавити после порођаја. Не треба их, међутим, игнорисати ако трају, погоршавају се или ометају твој свакодневни живот.',
+    warningSigns: [
+      'Цурење урина при кашљању, кијању, смеху или напрезању',
+      'Осећај тежине или притиска у доњем делу карлице',
+      'Осећај да нека кврга или нешто пада у вагину',
+      'Тешкоћа при задржавању гасова или столице',
+      'Упоран бол у перинеуму',
+      'Бол током или после полног односа',
+      'Тешкоћа да препознаш или правилно стегнеш мишиће перинеума',
+    ],
+    consultLabel: 'Када затражити савет?',
+    s7Body2:
+      'Бабица, лекар или физиотерапевт специјализован за рехабилитацију карличног дна може проверити функцију мишића и предложити одговарајући програм.',
+
+    s8Heading: 'А после раскида, епизиотомије или царског реза?',
+    s8Body1:
+      'Раскид или епизиотомија захтевају посебну негу током зарастања. Настављање активности треба да узме у обзир бол, стање ожиљка и смернице дате после порођаја.',
+    s8Body2:
+      'После царског реза опоравак обухвата и трбушни зид и ожиљак. Чак и ако порођај није био вагиналан, сама трудноћа је ипак оптеретила карлично дно.',
+    s8HighlightTitle: 'Персонализована нега може помоћи',
+    s8HighlightText:
+      'У случају значајног раскида, бола, уринарних или цревних симптома или упорних тешкоћа, процена код здравственог радника може бити посебно корисна.',
+
+    s9Heading: 'Постепено враћање спорту',
+    s9Body1:
+      'Настављање кретања после порођаја треба да буде постепено. Ходање и нежни покрети обично се могу наставити према томе како се осећаш, док активности са великим ударом захтевају више опреза.',
+    s9Body2:
+      'Пре настављања трчања, скакања или веома интензивних тренинга, најбоље је проценити опоравак карличног дна и узети у обзир евентуалне симптоме.',
+    s9AlertTitle: 'Не жури са корацима',
+    s9AlertText:
+      'Цурење, осећај тежине или бол током или после вежбања знаци су да треба да успориш и потражиш савет пре повећања интензитета.',
+
+    s10Heading: 'Када посетити специјалисту?',
+    s10Body1:
+      'Рехабилитација карличног дна код бабице или физиотерапевта може бити корисна ако ниси сигурна да ли стежеш правилно, ако симптоми трају или ако желиш да са самопоуздањем наставиш одређене физичке активности.',
+    questionCardTitle: 'Корисна питања за постављање',
+    appointmentQuestions: [
+      'Да ли моји симптоми одговарају слабости карличног дна?',
+      'Да ли исправно изводим стезања?',
+      'Колико понављања да радим дневно?',
+      'Могу ли да се вратим трчању, спорту или вежбама са великим ударом?',
+      'Да ли ми је потребна рехабилитација код бабице или физиотерапевта?',
+      'Захтева ли мој ожиљак, раскид или царски рез посебне мере предострожности?',
+    ],
+    s10TipTitle: 'Добро је знати',
+    s10TipText:
+      'Посета стручњаку не значи нужно да нешто није у реду. Једна сесија може једноставно помоћи да провериш своју технику, процениш опоравак и научиш да правилно напредујеш.',
+
+    s11Heading: 'Опоравак који захтева време',
+    s11Body1:
+      'После порођаја је нормално да се не врате одмах исти осећаји или мишићна снага као пре трудноће.',
+    s11Body2:
+      'Циљ није да направиш што више стезања. Пре се ради о томе да постепено вратиш добру координацију између стезања и опуштања, а затим да можеш природно користити ове мишиће у свакодневним активностима.',
+    s11HighlightTitle: 'Мали напредак је прави напредак',
+    s11HighlightText:
+      'Боље осећање покрета, неколико додатних секунди стезања или смањење цурења већ су охрабрујући знаци.',
+
+    s12Heading: 'Шта да запамтиш',
+    summaryTitle: 'Основно',
+    summaryItems: [
+      'Трудноћа и порођај значајно оптерећују карлично дно.',
+      'Постепен опоравак је нормалан после порођаја.',
+      'Вежбе треба да дају предност квалитету покрета над снагом.',
+      'Дисање и опуштање су једнако важни као стезање.',
+      'Цурење урина, тежина или упоран бол заслужују стручно мишљење.',
+      'Рехабилитација код бабице или физиотерапевта може ти помоћи да вратиш бољу контролу.',
+      'Повратак спорту треба да буде постепен, нарочито за активности са великим ударом.',
+    ],
+
+    finalTipTitle: 'Дај себи времена да се опоравиш',
+    finalTipText:
+      'После порођаја твоје тело је прошло кроз много промена. Перинеум заслужује исту пажњу као остатак твог тела: постепено, редовно и без притиска.',
+
+    disclaimerText:
+      'Овај чланак је само у информативне сврхе и не замењује персонализовани медицински савет. Ако осећаш бол, упорне симптоме или имаш било какву бригу о свом опоравку, потражи савет од здравственог радника.',
+  },
+  hr: {
+    badge: 'NAKON PORODA • OPORAVAK',
+    title: 'Jačanje mišića dna zdjelice\nnakon poroda',
+    metaDuration: '8 min čitanja',
+    metaType: 'Vodič',
+    metaLevel: 'Početnica',
+    metaValidated: 'Provjeren sadržaj',
+    intro:
+      'Nakon trudnoće i poroda dnu zdjelice treba vremena za oporavak. Jednostavne, redovite i postupne vježbe mogu ti pomoći povratiti snagu, kontrolu i povjerenje, bez žurbe.',
+    contentsTitle: 'U ovom članku',
+    topics: [
+      'Razumijevanje uloge perineuma',
+      'Zašto je porod opterećuje',
+      'Kada započeti rehabilitaciju dna zdjelice',
+      'Učenje pravilnog stezanja',
+      'Izgradnja postupne rutine',
+      'Pogreške koje treba izbjegavati',
+      'Kada zatražiti pomoć',
+      'Postupan povratak sportu',
+      'Priprema za pregled',
+      'Ključne poruke',
+    ],
+    shareMessage: 'Jačanje mišića dna zdjelice nakon poroda — AWA',
+
+    s1Heading: 'Razumijevanje uloge perineuma',
+    s1Body1:
+      'Perineum, nazvan i dno zdjelice, skupina je mišića smještenih na dnu zdjelice. Ima ulogu u kontroli mokraćnog mjehura i crijeva te pomaže u podupiranju zdjeličnih organa.',
+    s1Body2:
+      'Tijekom trudnoće ti mišići nekoliko mjeseci moraju nositi dodatnu težinu. Tijekom poroda također su pod velikim opterećenjem.',
+    s1HighlightTitle: 'Diskretan, ali bitan mišić',
+    s1HighlightText:
+      'Dno zdjelice sudjeluje u nekoliko svakodnevnih funkcija: zadržavanju mokraće i stolice, kontroli vjetrova, podupiranju zdjeličnih organa i ulozi u određenim spolnim funkcijama.',
+
+    benefitsHeading: 'Prednosti jačeg dna zdjelice',
+    benefitsIntro:
+      'Postupno i pravilno provedeno jačanje može pomoći poboljšati kontrolu i potporu dna zdjelice.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Bolja kontrola mjehura',
+        text: 'Dno zdjelice ima ulogu u kontroli mokraćnog mjehura. Postupno jačanje može pomoći smanjiti određena curenja mokraće.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Podrška funkciji crijeva',
+        text: 'Ti mišići također pomažu u kontroli vjetrova i stolice te pridonose podupiranju zdjeličnih organa.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Podupiranje zdjeličnih organa',
+        text: 'Dno zdjelice čini pravu mišićnu podlogu koja pomaže podupirati mjehur, maternicu i crijevo.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Postupan povratak osjeta',
+        text: 'Prikladna rehabilitacija može ti pomoći i bolje osjetiti i kontrolirati to područje.',
+      },
+    ],
+
+    s2Heading: 'Zašto ga trudnoća i porod opterećuju',
+    s2Body1:
+      'Trudnoća postupno povećava pritisak na dno zdjelice. Vaginalni porod zatim može znatno rastegnuti mišiće i tkiva tog područja.',
+    s2Body2:
+      'Ni carski rez ne štedi dno zdjelice u potpunosti: i sama trudnoća ostaje značajno razdoblje za te mišiće.',
+    s2Body3:
+      'Nakon poroda stoga je normalno da oporavak traje. Neke žene gotovo ne osjećaju simptome, dok druge mogu primijetiti curenje, osjećaj težine ili smanjenu kontrolu mišića.',
+    s2TipTitle: 'Svaki je oporavak drugačiji',
+    s2TipText:
+      'Vrsta poroda, puknuće ili epiziotomija, prisutnost boli i tvoje opće stanje nakon poroda mogu utjecati na oporavak.',
+
+    s3Heading: 'Kada započeti rehabilitaciju dna zdjelice?',
+    s3Body1:
+      'Nakon nekompliciranog poroda blaga stezanja dna zdjelice obično se mogu postupno nastaviti. Ostaje važno prilagoditi vježbe svojoj situaciji i zatražiti savjet ako si imala komplikaciju, jaku bol ili poseban zahvat.',
+    s3Body2:
+      'Ako imaš urinarni kateter, neke preporuke savjetuju pričekati da se ukloni i da se normalno mokrenje uspostavi prije početka vježbi perineuma.',
+    s3AlertTitle: 'Ne forsiraj bol',
+    s3AlertText:
+      'Jaka bol, pogoršanje simptoma, rana koja slabo zacjeljuje ili bilo kakva posebna zabrinutost zahtijevaju savjet babice, liječnika ili stručnjaka za rehabilitaciju.',
+
+    s4Heading: 'Učenje pravilnog stezanja',
+    s4Body1:
+      'Za prepoznavanje pokreta zamisli da istodobno pokušavaš zadržati vjetrove i nagon za mokrenjem. Pokret koji tražiš je osjećaj stezanja i podizanja prema unutra.',
+    s4Body2:
+      'Cilj nije čvrsto napeti cijelo tijelo. Stražnjica, bedra i trbušni mišići trebaju ostati što opušteniji, dok se disanje nastavlja normalno.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Disanje'},
+      {icon: 'human-handsup', label: 'Blago stezanje'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Dugo stezanje'},
+      {icon: 'gesture-tap-button', label: 'Brza stezanja'},
+    ],
+    s4HighlightTitle: 'Opuštanje je jednako važno',
+    s4HighlightText:
+      'Nakon svakog stezanja pusti da se mišići potpuno opuste. Dobra rehabilitacija ne znači držati perineum stegnutim cijeli dan.',
+
+    s5Heading: 'Izgradnja postupne rutine',
+    s5Body1:
+      'Na početku je najvažnije naučiti prepoznati mišiće i pravilno izvesti pokret. Dosljednost je važnija od intenziteta.',
+    s5h3a: 'Duga stezanja',
+    s5Body2:
+      'Nježno stegni dno zdjelice, zatim zadrži stezanje nekoliko sekundi bez zadržavanja daha. Potom potpuno otpusti prije ponovnog početka.',
+    s5h3b: 'Kratka stezanja',
+    s5Body3:
+      'Kad svladaš pokret, mogu se dodati mala brza stezanja. Pomažu vježbati sposobnost brzog stezanja mišića kad se poveća trbušni tlak, na primjer neposredno prije kašljanja ili kihanja.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Poveži vježbe sa svakodnevnom navikom'},
+      {icon: 'human-sitting', label: 'Počni u udobnom položaju'},
+      {icon: 'weather-windy', label: 'Normalno diši tijekom stezanja'},
+      {icon: 'sleep', label: 'Poštuj faze opuštanja'},
+      {icon: 'chart-line', label: 'Postupno povećavaj težinu'},
+      {icon: 'doctor', label: 'Zatraži savjet ako nisi sigurna'},
+    ],
+    s5TipTitle: 'Prije svega dosljednost',
+    s5TipText:
+      'Povezivanje vježbi s navikom koja je već dio tvog dana može olakšati dosljednost: nakon podoja, nakon pranja zubi ili u neko drugo prikladno vrijeme.',
+
+    s6Heading: 'Česte pogreške koje treba izbjegavati',
+    s6Body1:
+      'Vježbe perineuma mogu izgledati jednostavno, ali lako je nadoknaditi drugim mišićima ili previše forsirati.',
+    commonMistakes: [
+      'Napinjanje stražnjice ili bedara umjesto dna zdjelice',
+      'Zadržavanje daha tijekom stezanja',
+      'Stalno držanje mišića stegnutima bez opuštanja',
+      'Vježbanje samo nekoliko dana, a zatim prestanak',
+      'Namjerno prekidanje mlaza mokraće radi provjere stezanja',
+    ],
+    s6TipTitle: 'Što ne činiti',
+    s6TipText:
+      'Ne preporučuje se vježbati namjernim prekidanjem mlaza mokraće. Ta metoda ne vježba perineum ispravno i može poremetiti normalnu funkciju mjehura.',
+
+    s7Heading: 'Koji simptomi trebaju potaknuti savjetovanje?',
+    s7Body1:
+      'Manja curenja ili neobičan osjećaj ponekad se mogu pojaviti nakon poroda. Međutim, ne treba ih zanemariti ako potraju, pogoršaju se ili ometaju tvoj svakodnevni život.',
+    warningSigns: [
+      'Curenje mokraće pri kašljanju, kihanju, smijanju ili naprezanju',
+      'Osjećaj težine ili pritiska u donjem dijelu zdjelice',
+      'Osjećaj da se kvrga ili nešto spušta u rodnicu',
+      'Teškoće u zadržavanju vjetrova ili stolice',
+      'Dugotrajna bol u perineumu',
+      'Bol tijekom ili nakon spolnog odnosa',
+      'Teškoće u prepoznavanju ili pravilnom stezanju mišića perineuma',
+    ],
+    consultLabel: 'Kada zatražiti savjet?',
+    s7Body2:
+      'Babica, liječnik ili fizioterapeut specijaliziran za rehabilitaciju dna zdjelice može provjeriti funkciju mišića i predložiti prikladan program.',
+
+    s8Heading: 'A nakon puknuća, epiziotomije ili carskog reza?',
+    s8Body1:
+      'Puknuće ili epiziotomija zahtijevaju posebnu njegu tijekom zacjeljivanja. Nastavak aktivnosti treba uzeti u obzir bol, stanje ožiljka i upute dobivene nakon poroda.',
+    s8Body2:
+      'Nakon carskog reza oporavak uključuje i trbušnu stijenku i ožiljak. Čak i ako porod nije bio vaginalni, sama je trudnoća ipak opteretila dno zdjelice.',
+    s8HighlightTitle: 'Personalizirana skrb može pomoći',
+    s8HighlightText:
+      'U slučaju većeg puknuća, boli, mokraćnih ili crijevnih simptoma ili trajnih poteškoća, procjena sa zdravstvenim djelatnikom može biti osobito korisna.',
+
+    s9Heading: 'Postupan povratak sportu',
+    s9Body1:
+      'Nastavak kretanja nakon poroda treba biti postupan. Hodanje i blaga kretanja općenito se mogu nastaviti prema tvom osjećaju, dok aktivnosti s jakim udarcima traže više opreza.',
+    s9Body2:
+      'Prije nastavka trčanja, skakanja ili vrlo intenzivnog treninga najbolje je procijeniti oporavak dna zdjelice i uzeti u obzir sve simptome.',
+    s9AlertTitle: 'Ne žuri s fazama',
+    s9AlertText:
+      'Curenje, osjećaj težine ili bol tijekom ili nakon vježbanja znakovi su da trebaš usporiti i zatražiti savjet prije povećanja intenziteta.',
+
+    s10Heading: 'Kada posjetiti specijalista?',
+    s10Body1:
+      'Rehabilitacija dna zdjelice s babicom ili fizioterapeutom može biti korisna ako nisi sigurna stežeš li pravilno, ako simptomi potraju ili ako želiš s povjerenjem nastaviti određene tjelesne aktivnosti.',
+    questionCardTitle: 'Korisna pitanja za postaviti',
+    appointmentQuestions: [
+      'Jesu li moji simptomi u skladu sa slabošću dna zdjelice?',
+      'Izvodim li stezanja ispravno?',
+      'Koliko ponavljanja trebam raditi svaki dan?',
+      'Mogu li se vratiti trčanju, sportu ili vježbama s jakim udarcima?',
+      'Trebam li rehabilitaciju s babicom ili fizioterapeutom?',
+      'Zahtijeva li moj ožiljak, puknuće ili carski rez posebne mjere opreza?',
+    ],
+    s10TipTitle: 'Dobro je znati',
+    s10TipText:
+      'Posjet stručnoj osobi ne znači nužno da je nešto pogrešno. Jedan termin jednostavno može pomoći provjeriti tvoju tehniku, procijeniti oporavak i naučiti pravilno napredovati.',
+
+    s11Heading: 'Oporavak koji traje',
+    s11Body1:
+      'Nakon poroda normalno je da odmah ne povratiš iste osjete ili snagu mišića koje si imala prije trudnoće.',
+    s11Body2:
+      'Cilj nije izvesti što više stezanja. Prije se radi o postupnom ponovnom stjecanju dobre koordinacije između stezanja i opuštanja, a zatim o prirodnom korištenju tih mišića u svakodnevnim aktivnostima.',
+    s11HighlightTitle: 'Mali napredak je pravi napredak',
+    s11HighlightText:
+      'Bolja svijest o pokretu, nekoliko sekundi duže stezanje ili smanjenje curenja već su ohrabrujući znakovi.',
+
+    s12Heading: 'Ključne poruke',
+    summaryTitle: 'Najvažnije',
+    summaryItems: [
+      'Trudnoća i porod znatno opterećuju dno zdjelice.',
+      'Postupan oporavak nakon poroda je normalan.',
+      'U vježbama kvaliteta pokreta ima prednost pred snagom.',
+      'Disanje i opuštanje jednako su važni kao stezanje.',
+      'Mokraćna curenja, težina ili dugotrajna bol zaslužuju stručno mišljenje.',
+      'Rehabilitacija s babicom ili fizioterapeutom može ti pomoći povratiti bolju kontrolu.',
+      'Povratak sportu treba biti postupan, osobito kod aktivnosti s jakim udarcima.',
+    ],
+
+    finalTipTitle: 'Daj si vremena za oporavak',
+    finalTipText:
+      'Nakon poroda tvoje je tijelo prošlo mnoge promjene. Perineum zaslužuje jednaku pozornost kao ostatak tvog tijela: postupno, redovito i bez pritiska.',
+
+    disclaimerText:
+      'Ovaj je članak samo informativne naravi i ne zamjenjuje individualni medicinski savjet. Ako osjećaš bol, imaš dugotrajne simptome ili brigu o oporavku, zatraži savjet zdravstvenog djelatnika.',
+  },
+  bs: {
+    badge: 'NAKON PORODA • OPORAVAK',
+    title: 'Jačanje mišića dna zdjelice\nnakon porođaja',
+    metaDuration: '8 min čitanja',
+    metaType: 'Vodič',
+    metaLevel: 'Početnica',
+    metaValidated: 'Provjeren sadržaj',
+    intro:
+      'Nakon trudnoće i porođaja dnu zdjelice treba vremena za oporavak. Jednostavne, redovite i postupne vježbe mogu ti pomoći povratiti snagu, kontrolu i povjerenje, bez žurbe.',
+    contentsTitle: 'U ovom članku',
+    topics: [
+      'Razumijevanje uloge perineuma',
+      'Zašta je porođaj opterećuje',
+      'Kada započeti rehabilitaciju dna zdjelice',
+      'Učenje pravilnog stezanja',
+      'Izgradnja postupne rutine',
+      'Pogreške koje treba izbjegavati',
+      'Kada zatražiti pomoć',
+      'Postupan povratak sportu',
+      'Priprema za pregled',
+      'Ključne poruke',
+    ],
+    shareMessage: 'Jačanje mišića dna zdjelice nakon porođaja — AWA',
+
+    s1Heading: 'Razumijevanje uloge perineuma',
+    s1Body1:
+      'Perineum, nazvan i dno zdjelice, skupina je mišića smještenih na dnu zdjelice. Ima ulogu u kontroli mokraćnog mjehura i crijeva te pomaže u podupiranju zdjeličnih organa.',
+    s1Body2:
+      'Tokom trudnoće ti mišići nekoliko mjeseci moraju nositi dodatnu težinu. Tokom porođaja također su pod velikim opterećenjem.',
+    s1HighlightTitle: 'Diskretan, ali bitan mišić',
+    s1HighlightText:
+      'Dno zdjelice sudjeluje u nekoliko svakodnevnih funkcija: zadržavanju mokraće i stolice, kontroli vjetrova, podupiranju zdjeličnih organa i ulozi u određenim spolnim funkcijama.',
+
+    benefitsHeading: 'Prednosti jačeg dna zdjelice',
+    benefitsIntro:
+      'Postupno i pravilno provedeno jačanje može pomoći poboljšati kontrolu i potporu dna zdjelice.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Bolja kontrola mjehura',
+        text: 'Dno zdjelice ima ulogu u kontroli mokraćnog mjehura. Postupno jačanje može pomoći smanjiti određena curenja mokraće.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Podrška funkciji crijeva',
+        text: 'Ti mišići također pomažu u kontroli vjetrova i stolice te pridonose podupiranju zdjeličnih organa.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Podupiranje zdjeličnih organa',
+        text: 'Dno zdjelice čini pravu mišićnu podlogu koja pomaže podupirati mjehur, maternicu i crijevo.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Postupan povratak osjeta',
+        text: 'Prikladna rehabilitacija može ti pomoći i bolje osjetiti i kontrolirati to područje.',
+      },
+    ],
+
+    s2Heading: 'Zašta ga trudnoća i porođaj opterećuju',
+    s2Body1:
+      'Trudnoća postupno povećava pritisak na dno zdjelice. Vaginalni porođaj zatim može znatno rastegnuti mišiće i tkiva tog područja.',
+    s2Body2:
+      'Ni carski rez ne štedi dno zdjelice u potpunosti: i sama trudnoća ostaje značajno razdoblje za te mišiće.',
+    s2Body3:
+      'Nakon porođaja stoga je normalno da oporavak traje. Neke žene gotovo ne osjećaju simptome, dok druge mogu primijetiti curenje, osjećaj težine ili smanjenu kontrolu mišića.',
+    s2TipTitle: 'Svaki je oporavak drugačiji',
+    s2TipText:
+      'Vrsta porođaja, puknuće ili epiziotomija, prisutnost boli i tvoje opće stanje nakon porođaja mogu utjecati na oporavak.',
+
+    s3Heading: 'Kada započeti rehabilitaciju dna zdjelice?',
+    s3Body1:
+      'Nakon nekompliciranog porođaja blaga stezanja dna zdjelice obično se mogu postupno nastaviti. Ostaje važno prilagoditi vježbe svojoj situaciji i zatražiti savjet ako si imala komplikaciju, jaku bol ili poseban zahvat.',
+    s3Body2:
+      'Ako imaš urinarni kateter, neke preporuke savjetuju pričekati da se ukloni i da se normalno mokrenje uspostavi prije početka vježbi perineuma.',
+    s3AlertTitle: 'Ne forsiraj bol',
+    s3AlertText:
+      'Jaka bol, pogoršanje simptoma, rana koja slabo zacjeljuje ili bilo kakva posebna zabrinutost zahtijevaju savjet babice, ljekara ili stručnjaka za rehabilitaciju.',
+
+    s4Heading: 'Učenje pravilnog stezanja',
+    s4Body1:
+      'Za prepoznavanje pokreta zamisli da istodobno pokušavaš zadržati vjetrove i nagon za mokrenjem. Pokret koji tražiš je osjećaj stezanja i podizanja prema unutra.',
+    s4Body2:
+      'Cilj nije čvrsto napeti cijelo tijelo. Stražnjica, bedra i trbušni mišići trebaju ostati što opušteniji, dok se disanje nastavlja normalno.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Disanje'},
+      {icon: 'human-handsup', label: 'Blago stezanje'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Dugo stezanje'},
+      {icon: 'gesture-tap-button', label: 'Brza stezanja'},
+    ],
+    s4HighlightTitle: 'Opuštanje je jednako važno',
+    s4HighlightText:
+      'Nakon svakog stezanja pusti da se mišići potpuno opuste. Dobra rehabilitacija ne znači držati perineum stegnutim cijeli dan.',
+
+    s5Heading: 'Izgradnja postupne rutine',
+    s5Body1:
+      'Na početku je najvažnije naučiti prepoznati mišiće i pravilno izvesti pokret. Dosljednost je važnija od intenziteta.',
+    s5h3a: 'Duga stezanja',
+    s5Body2:
+      'Nježno stegni dno zdjelice, zatim zadrži stezanje nekoliko sekundi bez zadržavanja daha. Potom potpuno otpusti prije ponovnog početka.',
+    s5h3b: 'Kratka stezanja',
+    s5Body3:
+      'Kad svladaš pokret, mogu se dodati mala brza stezanja. Pomažu vježbati sposobnost brzog stezanja mišića kad se poveća trbušni tlak, na primjer neposredno prije kašljanja ili kihanja.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Poveži vježbe sa svakodnevnom navikom'},
+      {icon: 'human-sitting', label: 'Počni u udobnom položaju'},
+      {icon: 'weather-windy', label: 'Normalno diši tokom stezanja'},
+      {icon: 'sleep', label: 'Poštuj faze opuštanja'},
+      {icon: 'chart-line', label: 'Postupno povećavaj težinu'},
+      {icon: 'doctor', label: 'Zatraži savjet ako nisi sigurna'},
+    ],
+    s5TipTitle: 'Prije svega dosljednost',
+    s5TipText:
+      'Povezivanje vježbi s navikom koja je već dio tvog dana može olakšati dosljednost: nakon podoja, nakon pranja zubi ili u neko drugo prikladno vrijeme.',
+
+    s6Heading: 'Česte pogreške koje treba izbjegavati',
+    s6Body1:
+      'Vježbe perineuma mogu izgledati jednostavno, ali lako je nadoknaditi drugim mišićima ili previše forsirati.',
+    commonMistakes: [
+      'Napinjanje stražnjice ili bedara umjesto dna zdjelice',
+      'Zadržavanje daha tokom stezanja',
+      'Stalno držanje mišića stegnutima bez opuštanja',
+      'Vježbanje samo nekoliko dana, a zatim prestanak',
+      'Namjerno prekidanje mlaza mokraće radi provjere stezanja',
+    ],
+    s6TipTitle: 'Što ne činiti',
+    s6TipText:
+      'Ne preporučuje se vježbati namjernim prekidanjem mlaza mokraće. Ta metoda ne vježba perineum ispravno i može poremetiti normalnu funkciju mjehura.',
+
+    s7Heading: 'Koji simptomi trebaju potaknuti savjetovanje?',
+    s7Body1:
+      'Manja curenja ili neobičan osjećaj ponekad se mogu pojaviti nakon porođaja. Međutim, ne treba ih zanemariti ako potraju, pogoršaju se ili ometaju tvoj svakodnevni život.',
+    warningSigns: [
+      'Curenje mokraće pri kašljanju, kihanju, smijanju ili naprezanju',
+      'Osjećaj težine ili pritiska u donjem dijelu zdjelice',
+      'Osjećaj da se kvrga ili nešta spušta u rodnicu',
+      'Teškoće u zadržavanju vjetrova ili stolice',
+      'Dugotrajna bol u perineumu',
+      'Bol tokom ili nakon spolnog odnosa',
+      'Teškoće u prepoznavanju ili pravilnom stezanju mišića perineuma',
+    ],
+    consultLabel: 'Kada zatražiti savjet?',
+    s7Body2:
+      'Babica, ljekar ili fizioterapeut specijaliziran za rehabilitaciju dna zdjelice može provjeriti funkciju mišića i predložiti prikladan program.',
+
+    s8Heading: 'A nakon puknuća, epiziotomije ili carskog reza?',
+    s8Body1:
+      'Puknuće ili epiziotomija zahtijevaju posebnu njegu tokom zacjeljivanja. Nastavak aktivnosti treba uzeti u obzir bol, stanje ožiljka i upute dobivene nakon porođaja.',
+    s8Body2:
+      'Nakon carskog reza oporavak uključuje i trbušnu stijenku i ožiljak. Čak i ako porođaj nije bio vaginalni, sama je trudnoća ipak opteretila dno zdjelice.',
+    s8HighlightTitle: 'Personalizirana skrb može pomoći',
+    s8HighlightText:
+      'U slučaju većeg puknuća, boli, mokraćnih ili crijevnih simptoma ili trajnih poteškoća, procjena sa zdravstvenim radnikom može biti osobito korisna.',
+
+    s9Heading: 'Postupan povratak sportu',
+    s9Body1:
+      'Nastavak kretanja nakon porođaja treba biti postupan. Hodanje i blaga kretanja općenito se mogu nastaviti prema tvom osjećaju, dok aktivnosti s jakim udarcima traže više opreza.',
+    s9Body2:
+      'Prije nastavka trčanja, skakanja ili vrlo intenzivnog treninga najbolje je procijeniti oporavak dna zdjelice i uzeti u obzir sve simptome.',
+    s9AlertTitle: 'Ne žuri s fazama',
+    s9AlertText:
+      'Curenje, osjećaj težine ili bol tokom ili nakon vježbanja znakovi su da trebaš usporiti i zatražiti savjet prije povećanja intenziteta.',
+
+    s10Heading: 'Kada posjetiti specijalista?',
+    s10Body1:
+      'Rehabilitacija dna zdjelice s babicom ili fizioterapeutom može biti korisna ako nisi sigurna stežeš li pravilno, ako simptomi potraju ili ako želiš s povjerenjem nastaviti određene tjelesne aktivnosti.',
+    questionCardTitle: 'Korisna pitanja za postaviti',
+    appointmentQuestions: [
+      'Jesu li moji simptomi u skladu sa slabošću dna zdjelice?',
+      'Izvodim li stezanja ispravno?',
+      'Koliko ponavljanja trebam raditi svaki dan?',
+      'Mogu li se vratiti trčanju, sportu ili vježbama s jakim udarcima?',
+      'Trebam li rehabilitaciju s babicom ili fizioterapeutom?',
+      'Zahtijeva li moj ožiljak, puknuće ili carski rez posebne mjere opreza?',
+    ],
+    s10TipTitle: 'Dobro je znati',
+    s10TipText:
+      'Posjet stručnoj osobi ne znači nužno da je nešta pogrešno. Jedan termin jednostavno može pomoći provjeriti tvoju tehniku, procijeniti oporavak i naučiti pravilno napredovati.',
+
+    s11Heading: 'Oporavak koji traje',
+    s11Body1:
+      'Nakon porođaja normalno je da odmah ne povratiš iste osjete ili snagu mišića koje si imala prije trudnoće.',
+    s11Body2:
+      'Cilj nije izvesti što više stezanja. Prije se radi o postupnom ponovnom stjecanju dobre koordinacije između stezanja i opuštanja, a zatim o prirodnom korištenju tih mišića u svakodnevnim aktivnostima.',
+    s11HighlightTitle: 'Mali napredak je pravi napredak',
+    s11HighlightText:
+      'Bolja svijest o pokretu, nekoliko sekundi duže stezanje ili smanjenje curenja već su ohrabrujući znakovi.',
+
+    s12Heading: 'Ključne poruke',
+    summaryTitle: 'Najvažnije',
+    summaryItems: [
+      'Trudnoća i porođaj znatno opterećuju dno zdjelice.',
+      'Postupan oporavak nakon porođaja je normalan.',
+      'U vježbama kvaliteta pokreta ima prednost pred snagom.',
+      'Disanje i opuštanje jednako su važni kao stezanje.',
+      'Mokraćna curenja, težina ili dugotrajna bol zaslužuju stručno mišljenje.',
+      'Rehabilitacija s babicom ili fizioterapeutom može ti pomoći povratiti bolju kontrolu.',
+      'Povratak sportu treba biti postupan, osobito kod aktivnosti s jakim udarcima.',
+    ],
+
+    finalTipTitle: 'Daj si vremena za oporavak',
+    finalTipText:
+      'Nakon porođaja tvoje je tijelo prošlo mnoge promjene. Perineum zaslužuje jednaku pozornost kao ostatak tvog tijela: postupno, redovito i bez pritiska.',
+
+    disclaimerText:
+      'Ovaj je članak samo informativne naravi i ne zamjenjuje individualni medicinski savjet. Ako osjećaš bol, imaš dugotrajne simptome ili brigu o oporavku, zatraži savjet zdravstvenog radnika.',
+  },
+  sl: {
+    badge: 'PO PORODU • OKREVANJE',
+    title: 'Krepitev mišic medeničnega dna\npo porodu',
+    metaDuration: '8 min branja',
+    metaType: 'Vodnik',
+    metaLevel: 'Začetnica',
+    metaValidated: 'Preverjena vsebina',
+    intro:
+      'Po nosečnosti in porodu medenično dno potrebuje čas za okrevanje. Preproste, redne in postopne vaje ti lahko pomagajo povrniti moč, nadzor in zaupanje, brez hitenja.',
+    contentsTitle: 'V tem članku',
+    topics: [
+      'Razumevanje vloge presredka',
+      'Zakaj ga porod obremeni',
+      'Kdaj začeti rehabilitacijo medeničnega dna',
+      'Učenje pravilnega stiskanja',
+      'Gradnja postopne rutine',
+      'Napake, ki se jim je treba izogibati',
+      'Kdaj poiskati pomoč',
+      'Postopen povratek k športu',
+      'Priprava na pregled',
+      'Ključna sporočila',
+    ],
+    shareMessage: 'Krepitev mišic medeničnega dna po porodu — AWA',
+
+    s1Heading: 'Razumevanje vloge presredka',
+    s1Body1:
+      'Presredek, imenovan tudi medenično dno, je skupina mišic, ki se nahajajo na dnu medenice. Ima vlogo pri nadzoru mehurja in črevesja ter pomaga podpirati medenične organe.',
+    s1Body2:
+      'Med nosečnostjo morajo te mišice več mesecev nositi dodatno težo. Tudi med porodom so pod veliko obremenitvijo.',
+    s1HighlightTitle: 'Diskretna, a bistvena mišica',
+    s1HighlightText:
+      'Medenično dno sodeluje v več vsakdanjih funkcijah: zadrževanju seča in blata, nadzoru vetrov, podpiranju medeničnih organov in vlogi pri določenih spolnih funkcijah.',
+
+    benefitsHeading: 'Prednosti močnejšega medeničnega dna',
+    benefitsIntro:
+      'Postopno in pravilno izvajano krepljenje lahko pomaga izboljšati nadzor in podporo medeničnega dna.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Boljši nadzor mehurja',
+        text: 'Medenično dno ima vlogo pri nadzoru mehurja. Postopno krepljenje lahko pomaga zmanjšati določeno uhajanje seča.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Podpora delovanju črevesja',
+        text: 'Te mišice pomagajo tudi pri nadzoru vetrov in blata ter prispevajo k podpiranju medeničnih organov.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Podpiranje medeničnih organov',
+        text: 'Medenično dno tvori pravo mišično podlago, ki pomaga podpirati mehur, maternico in črevo.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Postopna vrnitev občutka',
+        text: 'Primerna rehabilitacija ti lahko pomaga tudi bolje občutiti in nadzorovati to območje.',
+      },
+    ],
+
+    s2Heading: 'Zakaj ga nosečnost in porod obremenita',
+    s2Body1:
+      'Nosečnost postopoma povečuje pritisk na medenično dno. Vaginalni porod lahko nato močno raztegne mišice in tkiva tega območja.',
+    s2Body2:
+      'Tudi carski rez medeničnega dna ne prizanese povsem: tudi sama nosečnost ostaja pomembno obdobje za te mišice.',
+    s2Body3:
+      'Po porodu je zato normalno, da okrevanje traja. Nekatere ženske simptomov skoraj ne čutijo, druge lahko opazijo uhajanje, občutek teže ali zmanjšan nadzor mišic.',
+    s2TipTitle: 'Vsako okrevanje je drugačno',
+    s2TipText:
+      'Vrsta poroda, raztrganina ali epiziotomija, prisotnost bolečine in tvoje splošno stanje po porodu lahko vplivajo na okrevanje.',
+
+    s3Heading: 'Kdaj začeti rehabilitacijo medeničnega dna?',
+    s3Body1:
+      'Po nezapletenem porodu se nežna stiskanja medeničnega dna običajno lahko postopoma nadaljujejo. Ostaja pomembno vaje prilagoditi svoji situaciji in poiskati nasvet, če si imela zaplet, hudo bolečino ali poseben poseg.',
+    s3Body2:
+      'Če imaš urinski kateter, nekatera priporočila svetujejo počakati, da se odstrani in se vzpostavi normalno uriniranje, preden začneš z vajami presredka.',
+    s3AlertTitle: 'Ne forsiraj bolečine',
+    s3AlertText:
+      'Huda bolečina, poslabšanje simptomov, rana, ki slabo celi, ali katera koli posebna zaskrbljenost zahtevajo nasvet babice, zdravnika ali strokovnjaka za rehabilitacijo.',
+
+    s4Heading: 'Učenje pravilnega stiskanja',
+    s4Body1:
+      'Za prepoznavanje gibanja si predstavljaj, da hkrati poskušaš zadržati vetrove in nagon na uriniranje. Gibanje, ki ga iščeš, je občutek stiskanja in dvigovanja navznoter.',
+    s4Body2:
+      'Cilj ni močno napeti celotnega telesa. Zadnjica, stegna in trebušne mišice naj ostanejo čim bolj sproščene, medtem ko se dihanje nadaljuje normalno.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Dihanje'},
+      {icon: 'human-handsup', label: 'Nežno stiskanje'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Dolgo stiskanje'},
+      {icon: 'gesture-tap-button', label: 'Hitra stiskanja'},
+    ],
+    s4HighlightTitle: 'Sproščanje je enako pomembno',
+    s4HighlightText:
+      'Po vsakem stiskanju pusti, da se mišice popolnoma sprostijo. Dobra rehabilitacija ne pomeni držati presredka stisnjenega ves dan.',
+
+    s5Heading: 'Gradnja postopne rutine',
+    s5Body1:
+      'Na začetku je najpomembneje naučiti se prepoznati mišice in pravilno izvesti gib. Doslednost je pomembnejša od intenzivnosti.',
+    s5h3a: 'Dolga stiskanja',
+    s5Body2:
+      'Nežno stisni medenično dno, nato zadrži stiskanje nekaj sekund, ne da bi zadrževala dih. Nato popolnoma spusti, preden začneš znova.',
+    s5h3b: 'Kratka stiskanja',
+    s5Body3:
+      'Ko gib obvladaš, se lahko dodajo majhna hitra stiskanja. Pomagajo vaditi zmožnost hitrega stiskanja mišic, ko se poveča trebušni tlak, na primer tik pred kašljanjem ali kihanjem.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Poveži vaje z vsakodnevno navado'},
+      {icon: 'human-sitting', label: 'Začni v udobnem položaju'},
+      {icon: 'weather-windy', label: 'Normalno diši med stiskanjem'},
+      {icon: 'sleep', label: 'Spoštuj faze sproščanja'},
+      {icon: 'chart-line', label: 'Postopoma povečuj težavnost'},
+      {icon: 'doctor', label: 'Poišči nasvet, če nisi prepričana'},
+    ],
+    s5TipTitle: 'Predvsem doslednost',
+    s5TipText:
+      'Povezovanje vaj z navado, ki je že del tvojega dne, lahko olajša doslednost: po podoju, po pranju zob ali ob drugem primernem času.',
+
+    s6Heading: 'Pogoste napake, ki se jim je treba izogibati',
+    s6Body1:
+      'Vaje presredka so lahko videti preproste, vendar je zlahka nadomestiti z drugimi mišicami ali preveč forsirati.',
+    commonMistakes: [
+      'Napenjanje zadnjice ali stegen namesto medeničnega dna',
+      'Zadrževanje diha med stiskanjem',
+      'Stalno držanje mišic stisnjenih brez sproščanja',
+      'Vadba le nekaj dni, nato prenehanje',
+      'Namerno prekinjanje curka seča za preverjanje stiskanja',
+    ],
+    s6TipTitle: 'Česa ne početi',
+    s6TipText:
+      'Ne priporoča se vaditi z namernim prekinjanjem curka seča. Ta metoda ne vadi presredka pravilno in lahko moti normalno delovanje mehurja.',
+
+    s7Heading: 'Kateri simptomi naj sprožijo posvet?',
+    s7Body1:
+      'Manjše uhajanje ali nenavaden občutek se lahko včasih pojavi po porodu. Vendar jih ne smemo zanemariti, če vztrajajo, se poslabšajo ali motijo tvoje vsakdanje življenje.',
+    warningSigns: [
+      'Uhajanje seča pri kašljanju, kihanju, smejanju ali naprezanju',
+      'Občutek teže ali pritiska v spodnjem delu medenice',
+      'Občutek, da se bulica ali nekaj spušča v nožnico',
+      'Težave pri zadrževanju vetrov ali blata',
+      'Dolgotrajna bolečina v presredku',
+      'Bolečina med spolnim odnosom ali po njem',
+      'Težave pri prepoznavanju ali pravilnem stiskanju mišic presredka',
+    ],
+    consultLabel: 'Kdaj poiskati nasvet?',
+    s7Body2:
+      'Babica, zdravnik ali fizioterapevt, specializiran za rehabilitacijo medeničnega dna, lahko preveri delovanje mišic in predlaga primeren program.',
+
+    s8Heading: 'In po raztrganini, epiziotomiji ali carskem rezu?',
+    s8Body1:
+      'Raztrganina ali epiziotomija zahteva posebno nego med celjenjem. Nadaljevanje dejavnosti naj upošteva bolečino, stanje brazgotine in navodila, prejeta po porodu.',
+    s8Body2:
+      'Po carskem rezu okrevanje vključuje tudi trebušno steno in brazgotino. Tudi če porod ni bil vaginalen, je sama nosečnost vseeno obremenila medenično dno.',
+    s8HighlightTitle: 'Personalizirana oskrba lahko pomaga',
+    s8HighlightText:
+      'V primeru večje raztrganine, bolečine, urinskih ali črevesnih simptomov ali trajnih težav je ocena z zdravstvenim delavcem lahko še posebej koristna.',
+
+    s9Heading: 'Postopen povratek k športu',
+    s9Body1:
+      'Nadaljevanje gibanja po porodu naj bo postopno. Hoja in nežna gibanja se na splošno lahko nadaljujejo glede na tvoje počutje, dejavnosti z močnimi udarci pa zahtevajo več previdnosti.',
+    s9Body2:
+      'Pred nadaljevanjem teka, skakanja ali zelo intenzivnega treninga je najbolje oceniti okrevanje medeničnega dna in upoštevati vse simptome.',
+    s9AlertTitle: 'Ne hiti s fazami',
+    s9AlertText:
+      'Uhajanje, občutek teže ali bolečina med vadbo ali po njej so znaki, da moraš upočasniti in poiskati nasvet, preden povečaš intenzivnost.',
+
+    s10Heading: 'Kdaj obiskati specialista?',
+    s10Body1:
+      'Rehabilitacija medeničnega dna z babico ali fizioterapevtom je lahko koristna, če nisi prepričana, ali pravilno stiskaš, če simptomi vztrajajo ali če želiš z zaupanjem nadaljevati določene telesne dejavnosti.',
+    questionCardTitle: 'Koristna vprašanja za postavitev',
+    appointmentQuestions: [
+      'Ali so moji simptomi skladni s šibkostjo medeničnega dna?',
+      'Ali stiskanja izvajam pravilno?',
+      'Koliko ponovitev naj naredim vsak dan?',
+      'Ali se lahko vrnem k teku, športu ali vajam z močnimi udarci?',
+      'Ali potrebujem rehabilitacijo z babico ali fizioterapevtom?',
+      'Ali moja brazgotina, raztrganina ali carski rez zahtevajo posebne previdnostne ukrepe?',
+    ],
+    s10TipTitle: 'Vredno vedeti',
+    s10TipText:
+      'Obisk strokovnjaka ne pomeni nujno, da je kaj narobe. En termin ti lahko preprosto pomaga preveriti tehniko, oceniti okrevanje in se naučiti pravilno napredovati.',
+
+    s11Heading: 'Okrevanje, ki traja',
+    s11Body1:
+      'Po porodu je normalno, da ne povrneš takoj istih občutkov ali moči mišic, ki si jih imela pred nosečnostjo.',
+    s11Body2:
+      'Cilj ni izvesti čim več stiskanj. Prej gre za postopno ponovno pridobivanje dobre koordinacije med stiskanjem in sproščanjem, nato pa za naravno uporabo teh mišic v vsakdanjih dejavnostih.',
+    s11HighlightTitle: 'Majhen napredek je pravi napredek',
+    s11HighlightText:
+      'Boljše zavedanje gibanja, nekaj sekund daljše stiskanje ali zmanjšanje uhajanja so že spodbudni znaki.',
+
+    s12Heading: 'Ključna sporočila',
+    summaryTitle: 'Najpomembnejše',
+    summaryItems: [
+      'Nosečnost in porod močno obremenita medenično dno.',
+      'Postopno okrevanje po porodu je normalno.',
+      'Pri vajah ima kakovost gibanja prednost pred močjo.',
+      'Dihanje in sproščanje sta enako pomembna kot stiskanje.',
+      'Uhajanje seča, teža ali dolgotrajna bolečina si zaslužijo strokovno mnenje.',
+      'Rehabilitacija z babico ali fizioterapevtom ti lahko pomaga povrniti boljši nadzor.',
+      'Povratek k športu naj bo postopen, zlasti pri dejavnostih z močnimi udarci.',
+    ],
+
+    finalTipTitle: 'Daj si časa za okrevanje',
+    finalTipText:
+      'Po porodu je tvoje telo prestalo veliko sprememb. Presredek si zasluži enako pozornost kot preostanek tvojega telesa: postopno, redno in brez pritiska.',
+
+    disclaimerText:
+      'Ta članek je samo informativne narave in ne nadomešča osebnega zdravniškega nasveta. Če čutiš bolečino, imaš dolgotrajne simptome ali skrb glede okrevanja, poišči nasvet zdravstvenega delavca.',
+  },
+  ne: {
+    badge: 'सुत्केरीपछि • स्वास्थ्यलाभ',
+    title: 'प्रसवपछि आफ्नो पेल्भिक फ्लोर\nबलियो बनाउनुहोस्',
+    metaDuration: '8 मिनेट पढाइ',
+    metaType: 'मार्गदर्शन',
+    metaLevel: 'सुरुवाती',
+    metaValidated: 'समीक्षा गरिएको सामग्री',
+    intro:
+      'गर्भावस्था र प्रसवपछि, पेल्भिक फ्लोरलाई निको हुन समय चाहिन्छ। सरल, नियमित र क्रमिक व्यायामहरूले हतार गर्न नखोजी तपाईंलाई बल, नियन्त्रण र आत्मविश्वास फिर्ता पाउन मद्दत गर्न सक्छन्।',
+    contentsTitle: 'यो लेखमा',
+    topics: [
+      'पेरिनियमको भूमिका बुझ्ने',
+      'प्रसवले यसमा किन तनाव पार्छ',
+      'पेल्भिक फ्लोर पुनर्स्थापना कहिले सुरु गर्ने',
+      'सही तरिकाले खुम्चन सिक्ने',
+      'क्रमिक दिनचर्या निर्माण गर्ने',
+      'जोगिनुपर्ने गल्तीहरू',
+      'मद्दत कहिले माग्ने',
+      'क्रमशः खेलकुद फेरि सुरु गर्ने',
+      'भेटघाटको तयारी',
+      'मुख्य कुराहरू',
+    ],
+    shareMessage: 'प्रसवपछि आफ्नो पेल्भिक फ्लोर बलियो बनाउनुहोस् — AWA',
+
+    s1Heading: 'पेरिनियमको भूमिका बुझ्ने',
+    s1Body1:
+      'पेरिनियम, जसलाई पेल्भिक फ्लोर पनि भनिन्छ, पेल्भिसको आधारमा रहेका मांसपेशीहरूको समूह हो। यसले मूत्राशय र आन्द्राको नियन्त्रणमा भूमिका खेल्छ र पेल्भिक अङ्गहरूलाई सहारा दिन मद्दत गर्छ।',
+    s1Body2:
+      'गर्भावस्थाको क्रममा, यी मांसपेशीहरूले धेरै महिनासम्म अतिरिक्त तौल बोक्नुपर्छ। प्रसवको समयमा पनि तिनीहरू ठूलो तनावमा पर्छन्।',
+    s1HighlightTitle: 'एउटा गोप्य तर आवश्यक मांसपेशी',
+    s1HighlightText:
+      'पेल्भिक फ्लोर धेरै दैनिक कार्यमा संलग्न हुन्छ: पिसाब र दिसा रोक्ने, ग्यास नियन्त्रण गर्ने, पेल्भिक अङ्गहरूलाई सहारा दिने, र केही यौन कार्यमा भूमिका खेल्ने।',
+
+    benefitsHeading: 'बलियो पेल्भिक फ्लोरका फाइदाहरू',
+    benefitsIntro:
+      'क्रमिक, सही तरिकाले गरिएको बलियो बनाउने अभ्यासले पेल्भिक फ्लोरको नियन्त्रण र सहारा सुधार्न मद्दत गर्न सक्छ।',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'राम्रो मूत्राशय नियन्त्रण',
+        text: 'पेल्भिक फ्लोरले मूत्राशयको नियन्त्रणमा भूमिका खेल्छ। यसलाई बिस्तारै बलियो बनाउनाले केही पिसाब चुहिने कम गर्न मद्दत गर्न सक्छ।',
+      },
+      {
+        icon: 'toilet',
+        title: 'आन्द्राको कार्यलाई साथ दिने',
+        text: 'यी मांसपेशीहरूले ग्यास र दिसा नियन्त्रण गर्न पनि मद्दत गर्छन् र पेल्भिक अङ्गहरूलाई सहारा दिन योगदान पुर्‍याउँछन्।',
+      },
+      {
+        icon: 'human-female',
+        title: 'पेल्भिक अङ्गहरूलाई सहारा दिने',
+        text: 'पेल्भिक फ्लोरले वास्तविक मांसपेशीय आधार बनाउँछ जसले मूत्राशय, गर्भाशय र आन्द्रालाई सहारा दिन मद्दत गर्छ।',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'बिस्तारै संवेदना फिर्ता पाउने',
+        text: 'उपयुक्त पुनर्स्थापनाले तपाईंलाई यस भागको राम्रो सचेतना र नियन्त्रण फिर्ता पाउन पनि मद्दत गर्न सक्छ।',
+      },
+    ],
+
+    s2Heading: 'गर्भावस्था र प्रसवले यसमा किन तनाव पार्छ',
+    s2Body1:
+      'गर्भावस्थाले बिस्तारै पेल्भिक फ्लोरमा बढी दबाब थप्छ। योनिमार्गबाट प्रसवले त्यसपछि यस भागका मांसपेशी र तन्तुहरूलाई उल्लेखनीय रूपमा तान्न सक्छ।',
+    s2Body2:
+      'सिजेरियनले पनि पेल्भिक फ्लोरलाई पूर्ण रूपमा बचाउँदैन: गर्भावस्था आफैँ यी मांसपेशीहरूका लागि एउटा महत्त्वपूर्ण अवधि रहन्छ।',
+    s2Body3:
+      'प्रसवपछि, त्यसैले स्वास्थ्यलाभले समय लिनु सामान्य हो। केही महिलाले लगभग कुनै लक्षण महसुस गर्दैनन्, जबकि अरूले चुहिने, भारीपनको अनुभूति, वा मांसपेशीको नियन्त्रणमा कमी देख्न सक्छन्।',
+    s2TipTitle: 'हरेक स्वास्थ्यलाभ फरक हुन्छ',
+    s2TipText:
+      'प्रसवको प्रकार, च्यातिने वा एपिसियोटोमी, दुखाइको उपस्थिति, र प्रसवपछि तपाईंको सामान्य अवस्थाले स्वास्थ्यलाभलाई प्रभाव पार्न सक्छन्।',
+
+    s3Heading: 'पेल्भिक फ्लोर पुनर्स्थापना कहिले सुरु गर्ने?',
+    s3Body1:
+      'जटिलताबिनाको प्रसवपछि, पेल्भिक फ्लोरको कोमल खुम्चाइ सामान्यतया बिस्तारै फेरि सुरु गर्न सकिन्छ। अभ्यासहरू तपाईंको अवस्थाअनुसार मिलाउनु र तपाईंलाई जटिलता, ठूलो दुखाइ वा कुनै विशेष प्रक्रिया भएको थियो भने सल्लाह लिनु महत्त्वपूर्ण रहन्छ।',
+    s3Body2:
+      'तपाईंसँग मूत्र क्याथेटर छ भने, केही सिफारिसले पेरिनियमका अभ्यास सुरु गर्नुअघि यो हटाइएको र सामान्य पिसाब फेरि सुरु भएको पर्खन सुझाउँछन्।',
+    s3AlertTitle: 'दुखाइ सहेर नगर्नुहोस्',
+    s3AlertText:
+      'ठूलो दुखाइ, बिग्रँदो लक्षण, राम्ररी निको नभएको घाउ, वा कुनै विशेष चिन्ताले सुँडेनी, चिकित्सक वा पुनर्स्थापना व्यावसायिकको सल्लाह चाहिन्छ।',
+
+    s4Heading: 'सही तरिकाले खुम्चन सिक्ने',
+    s4Body1:
+      'चाल पहिचान गर्न, एकसाथ ग्यास र पिसाब आउने इच्छालाई रोक्न खोजेको कल्पना गर्नुहोस्। तपाईंले खोजेको चाल भित्रतिर खुम्चिने र माथि तानिने अनुभूति हो।',
+    s4Body2:
+      'लक्ष्य तपाईंको पूरै शरीरलाई कसिलो पार्नु होइन। सास सामान्य रूपमा चलिरहँदा, तपाईंका नितम्ब, तिघ्रा र पेटका मांसपेशीहरू सकेसम्म आरामदायी रहनुपर्छ।',
+    exercises: [
+      {icon: 'weather-windy', label: 'सास फेर्ने'},
+      {icon: 'human-handsup', label: 'कोमल खुम्चाइ'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'लामो खुम्चाइ'},
+      {icon: 'gesture-tap-button', label: 'छिटो खुम्चाइहरू'},
+    ],
+    s4HighlightTitle: 'आराम गर्नु पनि उत्तिकै महत्त्वपूर्ण छ',
+    s4HighlightText:
+      'हरेक खुम्चाइपछि, मांसपेशीहरूलाई पूर्ण रूपमा आराम गर्न दिनुहोस्। राम्रो पुनर्स्थापनाको अर्थ दिनभर पेरिनियमलाई खुम्च्याइराख्नु होइन।',
+
+    s5Heading: 'क्रमिक दिनचर्या निर्माण गर्ने',
+    s5Body1:
+      'सुरुमा, सबैभन्दा महत्त्वपूर्ण कुरा मांसपेशीहरू पहिचान गर्न र चाल सही तरिकाले गर्न सिक्नु हो। तीव्रताभन्दा निरन्तरता महत्त्वपूर्ण हुन्छ।',
+    s5h3a: 'लामो खुम्चाइहरू',
+    s5Body2:
+      'पेल्भिक फ्लोरलाई कोमलतापूर्वक खुम्च्याउनुहोस्, त्यसपछि सास नरोकी केही सेकेन्डसम्म खुम्चाइ समात्नुहोस्। त्यसपछि फेरि सुरु गर्नुअघि पूर्ण रूपमा छोड्नुहोस्।',
+    s5h3b: 'छोटो खुम्चाइहरू',
+    s5Body3:
+      'चाल सिकिसकेपछि, साना छिटो खुम्चाइहरू थप्न सकिन्छ। तिनले पेटमा दबाब बढ्दा, उदाहरणका लागि खोक्ने वा हाच्छ्युँ गर्नुअघि, मांसपेशीहरू छिटो खुम्च्याउने तपाईंको क्षमतालाई तालिम दिन मद्दत गर्छन्।',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'अभ्यासहरूलाई दैनिक बानीसँग जोड्नुहोस्'},
+      {icon: 'human-sitting', label: 'सहज अवस्थाबाट सुरु गर्नुहोस्'},
+      {icon: 'weather-windy', label: 'खुम्चाइको समयमा सामान्य रूपमा सास फेर्नुहोस्'},
+      {icon: 'sleep', label: 'आरामका चरणहरूको सम्मान गर्नुहोस्'},
+      {icon: 'chart-line', label: 'बिस्तारै कठिनाइ बढाउनुहोस्'},
+      {icon: 'doctor', label: 'अनिश्चित भए सल्लाह लिनुहोस्'},
+    ],
+    s5TipTitle: 'सबैभन्दा पहिले निरन्तरता',
+    s5TipText:
+      'अभ्यासहरूलाई तपाईंको दिनमा पहिल्यै रहेको बानीसँग जोड्दा निरन्तरता कायम राख्न सजिलो हुन सक्छ: दूध खुवाइपछि, दाँत माझेपछि, वा तपाईंलाई उपयुक्त अर्को समयमा।',
+
+    s6Heading: 'जोगिनुपर्ने सामान्य गल्तीहरू',
+    s6Body1:
+      'पेरिनियमका अभ्यासहरू सरल देखिन सक्छन्, तर अन्य मांसपेशीहरूले क्षतिपूर्ति गर्न वा धेरै जोडले धकेल्न सजिलो हुन्छ।',
+    commonMistakes: [
+      'पेल्भिक फ्लोरको सट्टा नितम्ब वा तिघ्राहरू कसिलो पार्ने',
+      'खुम्चाइको समयमा सास रोक्ने',
+      'मांसपेशीहरूलाई आराम गर्न नदिई निरन्तर खुम्च्याइराख्ने',
+      'केही दिन मात्र अभ्यास गरेर रोक्ने',
+      'खुम्चाइ जाँच्न जानाजानी पिसाबको धार रोक्ने',
+    ],
+    s6TipTitle: 'के नगर्ने',
+    s6TipText:
+      'जानाजानी पिसाबको धार रोकेर अभ्यास गर्न सिफारिस गरिँदैन। यो विधिले पेरिनियमलाई सही तरिकाले तालिम दिँदैन र मूत्राशयको सामान्य कार्यमा बाधा पुर्‍याउन सक्छ।',
+
+    s7Heading: 'कुन लक्षणहरूले परामर्श गर्न प्रेरित गर्नुपर्छ?',
+    s7Body1:
+      'साना चुहिने वा असामान्य अनुभूति कहिलेकाहीँ प्रसवपछि देखिन सक्छ। तथापि, ती रहिरहे, बिग्रे, वा तपाईंको दैनिक जीवनमा बाधा पुर्‍याएमा बेवास्ता गर्नु हुँदैन।',
+    warningSigns: [
+      'खोक्दा, हाच्छ्युँ गर्दा, हाँस्दा वा जोड गर्दा पिसाब चुहिने',
+      'तल्लो पेल्भिसमा भारीपन वा दबाबको अनुभूति',
+      'योनिमा कुनै डल्लो वा केही झर्दै गरेको अनुभूति',
+      'ग्यास वा दिसा रोक्न कठिनाइ',
+      'पेरिनियममा लगातार दुखाइ',
+      'यौन सम्पर्कको समयमा वा पछि दुखाइ',
+      'पेरिनियमका मांसपेशीहरू पहिचान गर्न वा सही रूपमा खुम्च्याउन कठिनाइ',
+    ],
+    consultLabel: 'सल्लाह कहिले लिने?',
+    s7Body2:
+      'पेल्भिक फ्लोर पुनर्स्थापनामा विशेषज्ञ सुँडेनी, चिकित्सक वा फिजियोथेरापिस्टले मांसपेशीको कार्य जाँच्न र उपयुक्त कार्यक्रम सुझाउन सक्छन्।',
+
+    s8Heading: 'च्यातिएपछि, एपिसियोटोमी वा सिजेरियनपछि के?',
+    s8Body1:
+      'च्यातिने वा एपिसियोटोमीले निको हुने क्रममा विशेष ध्यान चाहिन्छ। गतिविधि फेरि सुरु गर्दा दुखाइ, डामको अवस्था, र प्रसवपछि दिइएको मार्गदर्शनलाई ध्यानमा राख्नुपर्छ।',
+    s8Body2:
+      'सिजेरियनपछि, स्वास्थ्यलाभमा पेटको भित्ता र डाम पनि संलग्न हुन्छन्। प्रसव योनिमार्गबाट नभए पनि, गर्भावस्थाले आफैँ पेल्भिक फ्लोरमा तनाव पारेकै थियो।',
+    s8HighlightTitle: 'व्यक्तिगत हेरचाहले मद्दत गर्न सक्छ',
+    s8HighlightText:
+      'ठूलो च्यातिने, दुखाइ, पिसाब वा आन्द्रासम्बन्धी लक्षण, वा लगातार कठिनाइहरूको अवस्थामा, स्वास्थ्यकर्मीसँगको मूल्याङ्कन विशेष रूपमा मद्दतकारी हुन सक्छ।',
+
+    s9Heading: 'क्रमशः खेलकुद फेरि सुरु गर्ने',
+    s9Body1:
+      'प्रसवपछि चाल फेरि सुरु गर्नु क्रमिक हुनुपर्छ। हिँडाइ र कोमल चालहरू सामान्यतया तपाईंलाई कस्तो लाग्छ त्यसअनुसार फेरि सुरु गर्न सकिन्छ, जबकि उच्च-प्रभावका गतिविधिहरूमा बढी सावधानी चाहिन्छ।',
+    s9Body2:
+      'दौड, उफ्रने वा निकै तीव्र प्रशिक्षण फेरि सुरु गर्नुअघि, पेल्भिक फ्लोरको स्वास्थ्यलाभको मूल्याङ्कन गर्नु र कुनै लक्षणहरूलाई ध्यानमा राख्नु उत्तम हुन्छ।',
+    s9AlertTitle: 'चरणहरूमा हतार नगर्नुहोस्',
+    s9AlertText:
+      'व्यायामको समयमा वा पछि चुहिने, भारीपनको अनुभूति वा दुखाइ तपाईंले ढिलो गर्नुपर्छ र तीव्रता बढाउनुअघि सल्लाह लिनुपर्छ भन्ने संकेत हुन्।',
+
+    s10Heading: 'विशेषज्ञलाई कहिले देखाउने?',
+    s10Body1:
+      'तपाईं सही रूपमा खुम्चिरहेको छु कि छैन भन्नेमा अनिश्चित हुनुहुन्छ, तपाईंका लक्षणहरू रहिरहेका छन्, वा तपाईं आत्मविश्वासका साथ केही शारीरिक गतिविधिहरू फेरि सुरु गर्न चाहनुहुन्छ भने सुँडेनी वा फिजियोथेरापिस्टसँग पेल्भिक फ्लोर पुनर्स्थापना मद्दतकारी हुन सक्छ।',
+    questionCardTitle: 'सोध्न उपयोगी प्रश्नहरू',
+    appointmentQuestions: [
+      'के मेरा लक्षणहरू पेल्भिक फ्लोरको कमजोरीसँग मेल खान्छन्?',
+      'के म खुम्चाइहरू सही तरिकाले गरिरहेको छु?',
+      'मैले हरेक दिन कति पटक दोहोर्‍याउनुपर्छ?',
+      'के म दौड, खेलकुद वा उच्च-प्रभावको व्यायाममा फर्कन सक्छु?',
+      'के मलाई सुँडेनी वा फिजियोथेरापिस्टसँग पुनर्स्थापना चाहिन्छ?',
+      'के मेरो डाम, च्यातिएको ठाउँ वा सिजेरियनले कुनै विशेष सावधानी चाहिन्छ?',
+    ],
+    s10TipTitle: 'जान्न लायक',
+    s10TipText:
+      'व्यावसायिकलाई भेट्नुको अर्थ केही गडबड छ भन्ने अनिवार्य होइन। एउटा सत्रले तपाईंको प्रविधि जाँच्न, स्वास्थ्यलाभको मूल्याङ्कन गर्न र सही रूपमा प्रगति गर्न सिक्न मद्दत गर्न सक्छ।',
+
+    s11Heading: 'समय लाग्ने स्वास्थ्यलाभ',
+    s11Body1:
+      'प्रसवपछि, गर्भावस्थाअघि भएको उस्तै संवेदना वा मांसपेशीको बल तुरुन्तै फिर्ता नपाउनु सामान्य हो।',
+    s11Body2:
+      'लक्ष्य सकेसम्म धेरै खुम्चाइ गर्नु होइन। यो खुम्चाइ र आरामबीच राम्रो समन्वय बिस्तारै फिर्ता पाउनु, र त्यसपछि दैनिक गतिविधिमा यी मांसपेशीहरू स्वाभाविक रूपमा प्रयोग गर्न सक्षम हुनु बढी हो।',
+    s11HighlightTitle: 'साना प्रगति नै वास्तविक प्रगति हुन्',
+    s11HighlightText:
+      'चालको राम्रो सचेतना, खुम्चाइमा केही सेकेन्ड थप, वा चुहिने कम हुनु पहिल्यै प्रोत्साहन दिने संकेतहरू हुन्।',
+
+    s12Heading: 'मुख्य कुराहरू',
+    summaryTitle: 'आवश्यक कुराहरू',
+    summaryItems: [
+      'गर्भावस्था र प्रसवले पेल्भिक फ्लोरमा ठूलो तनाव पार्छन्।',
+      'प्रसवपछि क्रमिक स्वास्थ्यलाभ सामान्य हो।',
+      'अभ्यासहरूमा बलभन्दा चालको गुणस्तरलाई प्राथमिकता दिनुपर्छ।',
+      'सास र आराम खुम्चाइजत्तिकै महत्त्वपूर्ण छन्।',
+      'पिसाब चुहिने, भारीपन वा लगातार दुखाइले व्यावसायिक रायको आवश्यकता पर्छ।',
+      'सुँडेनी वा फिजियोथेरापिस्टसँगको पुनर्स्थापनाले तपाईंलाई राम्रो नियन्त्रण फिर्ता पाउन मद्दत गर्न सक्छ।',
+      'खेलकुदमा फर्कनु क्रमिक हुनुपर्छ, विशेष गरी उच्च-प्रभावका गतिविधिहरूका लागि।',
+    ],
+
+    finalTipTitle: 'निको हुन समय लिनुहोस्',
+    finalTipText:
+      'प्रसवपछि, तपाईंको शरीर धेरै परिवर्तनबाट गुज्रिएको छ। पेरिनियमले तपाईंको बाँकी शरीरजत्तिकै ध्यान पाउन लायक छ: बिस्तारै, नियमित रूपमा, र दबाबबिना।',
+
+    disclaimerText:
+      'यो लेख केवल जानकारीका लागि हो र व्यक्तिगत चिकित्सकीय सल्लाहको स्थान लिँदैन। तपाईंलाई दुखाइ, लगातार लक्षण वा आफ्नो स्वास्थ्यलाभबारे कुनै चिन्ता छ भने, स्वास्थ्यकर्मीसँग सल्लाह लिनुहोस्।',
+  },
+  si: {
+    badge: 'ප්‍රසූතියෙන් පසු • යථා තත්ත්වයට පැමිණීම',
+    title: 'ප්‍රසූතියෙන් පසු ඔබේ ශ්‍රෝණි පතුල\nශක්තිමත් කිරීම',
+    metaDuration: 'කියවීමට මිනිත්තු 8',
+    metaType: 'මාර්ගෝපදේශය',
+    metaLevel: 'ආරම්භක',
+    metaValidated: 'සමාලෝචනය කළ අන්තර්ගතය',
+    intro:
+      'ගර්භණී කාලයෙන් සහ ප්‍රසූතියෙන් පසු, ශ්‍රෝණි පතුලට යථා තත්ත්වයට පැමිණීමට කාලය අවශ්‍යයි. සරල, නිතිපතා සහ ක්‍රමානුකූල ව්‍යායාම, දේවල් ඉක්මන් කිරීමට උත්සාහ නොකර, ශක්තිය, පාලනය සහ විශ්වාසය නැවත ලබා ගැනීමට ඔබට උපකාරී විය හැක.',
+    contentsTitle: 'මෙම ලිපියේ',
+    topics: [
+      'පෙරිනියමයේ කාර්යභාරය තේරුම් ගැනීම',
+      'ප්‍රසූතිය එයට ආතතියක් ඇති කරන්නේ ඇයි',
+      'ශ්‍රෝණි පතුල් පුනරුත්ථාපනය ආරම්භ කළ යුත්තේ කවදාද',
+      'නිවැරදිව සංකෝචනය කිරීමට ඉගෙනීම',
+      'ක්‍රමානුකූල පුරුද්දක් ගොඩනැගීම',
+      'වළක්වා ගත යුතු වැරදි',
+      'උදව් ඉල්ලිය යුත්තේ කවදාද',
+      'ක්‍රීඩා ක්‍රමයෙන් නැවත ආරම්භ කිරීම',
+      'හමුවීමකට සූදානම් වීම',
+      'ප්‍රධාන කරුණු',
+    ],
+    shareMessage: 'ප්‍රසූතියෙන් පසු ඔබේ ශ්‍රෝණි පතුල ශක්තිමත් කිරීම — AWA',
+
+    s1Heading: 'පෙරිනියමයේ කාර්යභාරය තේරුම් ගැනීම',
+    s1Body1:
+      'ශ්‍රෝණි පතුල ලෙසද හැඳින්වෙන පෙරිනියම යනු ශ්‍රෝණියේ පාදයේ පිහිටි මාංශ පේශි සමූහයකි. එය මුත්‍රාශය සහ බඩවැල් පාලනයේ කාර්යභාරයක් ඉටු කරන අතර ශ්‍රෝණි අවයව ආධාර කිරීමට උපකාරී වේ.',
+    s1Body2:
+      'ගර්භණී කාලය තුළ, මෙම මාංශ පේශිවලට මාස කිහිපයක් අමතර බරක් දැරීමට සිදුවේ. ප්‍රසූතියේදීද ඒවා සැලකිය යුතු ආතතියකට ලක් වේ.',
+    s1HighlightTitle: 'රහසිගත නමුත් අත්‍යවශ්‍ය මාංශ පේශියක්',
+    s1HighlightText:
+      'ශ්‍රෝණි පතුල එදිනෙදා කාර්යයන් කිහිපයකට සම්බන්ධ වේ: මුත්‍රා සහ මළ ද්‍රව්‍ය රඳවා ගැනීම, වායු පාලනය, ශ්‍රෝණි අවයව ආධාර කිරීම, සහ සමහර ලිංගික කාර්යයන්හි කාර්යභාරයක් ඉටු කිරීම.',
+
+    benefitsHeading: 'ශක්තිමත් ශ්‍රෝණි පතුලක ප්‍රතිලාභ',
+    benefitsIntro:
+      'ක්‍රමානුකූල, නිවැරදිව සිදු කළ ශක්තිමත් කිරීම ශ්‍රෝණි පතුල් පාලනය සහ ආධාරය වැඩිදියුණු කිරීමට උපකාරී විය හැක.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'වඩා හොඳ මුත්‍රාශ පාලනය',
+        text: 'ශ්‍රෝණි පතුල මුත්‍රාශ පාලනයේ කාර්යභාරයක් ඉටු කරයි. එය ක්‍රමයෙන් ශක්තිමත් කිරීම සමහර මුත්‍රා කාන්දු වීම් අඩු කිරීමට උපකාරී විය හැක.',
+      },
+      {
+        icon: 'toilet',
+        title: 'බඩවැල් ක්‍රියාකාරිත්වයට සහාය වීම',
+        text: 'මෙම මාංශ පේශි වායු සහ මළ ද්‍රව්‍ය පාලනයටද උපකාරී වන අතර ශ්‍රෝණි අවයව ආධාර කිරීමට දායක වේ.',
+      },
+      {
+        icon: 'human-female',
+        title: 'ශ්‍රෝණි අවයවවලට සහාය වීම',
+        text: 'ශ්‍රෝණි පතුල මුත්‍රාශය, ගර්භාෂය සහ බඩවැල ආධාර කිරීමට උපකාරී වන සැබෑ මාංශ පේශි පදනමක් සාදයි.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'සංවේදනය ක්‍රමයෙන් නැවත ලබා ගැනීම',
+        text: 'සුදුසු පුනරුත්ථාපනය මෙම ප්‍රදේශය පිළිබඳ වඩා හොඳ දැනුවත්භාවයක් සහ පාලනයක් නැවත ලබා ගැනීමටද උපකාරී විය හැක.',
+      },
+    ],
+
+    s2Heading: 'ගර්භණී කාලය සහ ප්‍රසූතිය එයට ආතතියක් ඇති කරන්නේ ඇයි',
+    s2Body1:
+      'ගර්භණී කාලය ක්‍රමයෙන් ශ්‍රෝණි පතුලට වැඩි පීඩනයක් යොදයි. යෝනි මාර්ගයෙන් ප්‍රසූතිය එවිට මෙම ප්‍රදේශයේ මාංශ පේශි සහ පටක සැලකිය යුතු ලෙස දිගු කළ හැක.',
+    s2Body2:
+      'සීසර් සැත්කමකින් ද ශ්‍රෝණි පතුල සම්පූර්ණයෙන් බේරා නොගනී: ගර්භණී කාලයම මෙම මාංශ පේශි සඳහා සැලකිය යුතු කාලයක් ලෙස පවතී.',
+    s2Body3:
+      'ප්‍රසූතියෙන් පසු, එබැවින් යථා තත්ත්වයට පැමිණීමට කාලය ගැනීම සාමාන්‍යයි. සමහර කාන්තාවන්ට රෝග ලක්ෂණ ආසන්න වශයෙන් නොදැනෙන අතර, අනෙක් අයට කාන්දු වීම්, බරක් දැනීමක්, හෝ අඩු මාංශ පේශි පාලනයක් දැකිය හැක.',
+    s2TipTitle: 'සෑම යථා තත්ත්වයට පැමිණීමක්ම වෙනස්',
+    s2TipText:
+      'ප්‍රසූත වර්ගය, ඉරීමක් හෝ එපිසියෝටෝමියක්, වේදනාවක් තිබීම, සහ ප්‍රසූතියෙන් පසු ඔබේ සාමාන්‍ය තත්ත්වය සියල්ලම යථා තත්ත්වයට පැමිණීමට බලපෑ හැක.',
+
+    s3Heading: 'ශ්‍රෝණි පතුල් පුනරුත්ථාපනය ආරම්භ කළ යුත්තේ කවදාද?',
+    s3Body1:
+      'සංකූලතා රහිත ප්‍රසූතියකින් පසු, මෘදු ශ්‍රෝණි පතුල් සංකෝචන සාමාන්‍යයෙන් ක්‍රමයෙන් නැවත ආරම්භ කළ හැක. ඔබ සංකූලතාවයක්, සැලකිය යුතු වේදනාවක්, හෝ නිශ්චිත ක්‍රියාපටිපාටියක් අත්විඳ ඇත්නම්, ව්‍යායාම ඔබේ තත්ත්වයට සකස් කිරීම සහ උපදෙස් ලබා ගැනීම වැදගත් ලෙස පවතී.',
+    s3Body2:
+      'ඔබට මුත්‍රා කැතීටරයක් තිබේ නම්, සමහර නිර්දේශ පෙරිනියම් ව්‍යායාම ආරම්භ කිරීමට පෙර එය ඉවත් කර සාමාන්‍ය මුත්‍රා කිරීම නැවත ආරම්භ වන තුරු බලා සිටීමට යෝජනා කරයි.',
+    s3AlertTitle: 'වේදනාව හරහා බල නොකරන්න',
+    s3AlertText:
+      'සැලකිය යුතු වේදනාව, නරක අතට හැරෙන රෝග ලක්ෂණ, නරක ලෙස සුවවන තුවාලයක්, හෝ කිසියම් විශේෂ කනස්සල්ලක් ප්‍රසව හෙදියකගෙන්, වෛද්‍යවරයෙකුගෙන් හෝ පුනරුත්ථාපන වෘත්තිකයෙකුගෙන් උපදෙස් ඉල්ලා සිටී.',
+
+    s4Heading: 'නිවැරදිව සංකෝචනය කිරීමට ඉගෙනීම',
+    s4Body1:
+      'චලනය හඳුනාගැනීමට, එකවරම වායු සහ මුත්‍රා කිරීමේ ආශාව රඳවා ගැනීමට උත්සාහ කරන බව සිතන්න. ඔබ සොයන චලනය සංකෝචනයේ සහ ඇතුළතට එසවීමේ සංවේදනයකි.',
+    s4Body2:
+      'අරමුණ ඔබේ මුළු ශරීරයම තදින් ආතතියට පත් කිරීම නොවේ. ඔබේ උකුල්, කලවා සහ උදර මාංශ පේශි හැකි තරම් ලිහිල්ව පැවතිය යුතු අතර, හුස්ම ගැනීම සාමාන්‍ය ලෙස දිගටම පවතී.',
+    exercises: [
+      {icon: 'weather-windy', label: 'හුස්ම ගැනීම'},
+      {icon: 'human-handsup', label: 'මෘදු සංකෝචනය'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'දිගු සංකෝචනය'},
+      {icon: 'gesture-tap-button', label: 'ඉක්මන් සංකෝචන'},
+    ],
+    s4HighlightTitle: 'ලිහිල් වීමද එතරම්ම වැදගත්',
+    s4HighlightText:
+      'සෑම සංකෝචනයකින් පසුවම, මාංශ පේශි සම්පූර්ණයෙන්ම ලිහිල් වීමට ඉඩ දෙන්න. හොඳ පුනරුත්ථාපනය යනු දවස පුරා පෙරිනියම සංකෝචනය කර තබාගැනීම අදහස් නොවේ.',
+
+    s5Heading: 'ක්‍රමානුකූල පුරුද්දක් ගොඩනැගීම',
+    s5Body1:
+      'මුලදී, වැදගත්ම දේ නම් මාංශ පේශි හඳුනාගෙන චලනය නිවැරදිව ඉටු කිරීමට ඉගෙනීමයි. තීව්‍රතාවට වඩා ස්ථාවර බව වැදගත්.',
+    s5h3a: 'දිගු සංකෝචන',
+    s5Body2:
+      'ශ්‍රෝණි පතුල මෘදුවට සංකෝචනය කර, ඉන්පසු ඔබේ හුස්ම නොරඳවා තත්පර කිහිපයක් සඳහා සංකෝචනය රඳවා ගන්න. ඉන්පසු නැවත ආරම්භ කිරීමට පෙර සම්පූර්ණයෙන්ම මුදාහරින්න.',
+    s5h3b: 'කෙටි සංකෝචන',
+    s5Body3:
+      'චලනය ප්‍රගුණ කළ පසු, කුඩා ඉක්මන් සංකෝචන එකතු කළ හැක. උදර පීඩනය වැඩි වන විට, උදාහරණයක් ලෙස කැස්සට හෝ කිවිසුමට මොහොතකට පෙර, මාංශ පේශි ඉක්මනින් සංකෝචනය කිරීමේ ඔබේ හැකියාව පුහුණු කිරීමට ඒවා උපකාරී වේ.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'ව්‍යායාම එදිනෙදා පුරුද්දක් සමඟ ඒකාබද්ධ කරන්න'},
+      {icon: 'human-sitting', label: 'සුවපහසු ඉරියව්වකින් ආරම්භ කරන්න'},
+      {icon: 'weather-windy', label: 'සංකෝචන අතරතුර සාමාන්‍ය ලෙස හුස්ම ගන්න'},
+      {icon: 'sleep', label: 'ලිහිල් වීමේ අවධීන්ට ගරු කරන්න'},
+      {icon: 'chart-line', label: 'දුෂ්කරතාව ක්‍රමයෙන් වැඩි කරන්න'},
+      {icon: 'doctor', label: 'ඔබට විශ්වාස නැත්නම් උපදෙස් ඉල්ලන්න'},
+    ],
+    s5TipTitle: 'සියල්ලටම වඩා ස්ථාවර බව',
+    s5TipText:
+      'ව්‍යායාම ඔබේ දවසේ දැනටමත් කොටසක් වන පුරුද්දක් සමඟ ඒකාබද්ධ කිරීම ස්ථාවරව සිටීමට පහසු කළ හැක: කිරි පෙවීමකින් පසු, දත් මැදීමෙන් පසු, හෝ ඔබට ගැළපෙන වෙනත් වේලාවක.',
+
+    s6Heading: 'වළක්වා ගත යුතු පොදු වැරදි',
+    s6Body1:
+      'පෙරිනියම් ව්‍යායාම සරල ලෙස පෙනෙන්නට පුළුවන, නමුත් වෙනත් මාංශ පේශි සමඟ වන්දි ගෙවීම හෝ අධික ලෙස තල්ලු කිරීම පහසුයි.',
+    commonMistakes: [
+      'ශ්‍රෝණි පතුලට වඩා උකුල් හෝ කලවා ආතතියට පත් කිරීම',
+      'සංකෝචනය අතරතුර ඔබේ හුස්ම රඳවා ගැනීම',
+      'ලිහිල් වීමට ඉඩ නොදී මාංශ පේශි නිරන්තරයෙන් සංකෝචනය කර තබා ගැනීම',
+      'දින කිහිපයක් පමණක් ව්‍යායාම කර පසුව නතර කිරීම',
+      'සංකෝචනය පරීක්ෂා කිරීමට හිතාමතාම මුත්‍රා ගලනය නැවැත්වීම',
+    ],
+    s6TipTitle: 'නොකළ යුතු දේ',
+    s6TipText:
+      'හිතාමතාම ඔබේ මුත්‍රා ගලනය නැවැත්වීමෙන් ව්‍යායාම පුහුණු කිරීම නිර්දේශ නොකෙරේ. මෙම ක්‍රමය පෙරිනියම නිවැරදිව පුහුණු නොකරන අතර සාමාන්‍ය මුත්‍රාශ ක්‍රියාකාරිත්වයට බාධා කළ හැක.',
+
+    s7Heading: 'කුමන රෝග ලක්ෂණ උපදේශනයක් අවශ්‍ය කළ යුතුද?',
+    s7Body1:
+      'සුළු කාන්දු වීම් හෝ අසාමාන්‍ය සංවේදනයක් සමහර විට ප්‍රසූතියෙන් පසු දිස්විය හැක. කෙසේ වෙතත්, ඒවා දිගටම පවතී නම්, නරක අතට හැරේ නම්, හෝ ඔබේ එදිනෙදා ජීවිතයට බාධා කරන්නේ නම් ඒවා නොසලකා නොහැරිය යුතුයි.',
+    warningSigns: [
+      'ඔබ කැස්සේදී, කිවිසුම් යාමේදී, සිනාසෙන විට, හෝ වෙහෙසෙන විට මුත්‍රා කාන්දු වීම්',
+      'පහළ ශ්‍රෝණියේ බරක් හෝ පීඩනයක් දැනීම',
+      'ගැටියක් හෝ යමක් යෝනි මාර්ගයට බැස යන බවක් දැනීම',
+      'වායු හෝ මළ ද්‍රව්‍ය රඳවා ගැනීමේ අපහසුව',
+      'පෙරිනියමයේ දිගටම පවතින වේදනාව',
+      'ලිංගික සංසර්ගය අතරතුර හෝ පසුව වේදනාව',
+      'පෙරිනියම් මාංශ පේශි හඳුනාගැනීමේ හෝ නිවැරදිව සංකෝචනය කිරීමේ අපහසුව',
+    ],
+    consultLabel: 'උපදෙස් ඉල්ලිය යුත්තේ කවදාද?',
+    s7Body2:
+      'ශ්‍රෝණි පතුල් පුනරුත්ථාපනයේ විශේෂඥ ප්‍රසව හෙදියකට, වෛද්‍යවරයෙකුට, හෝ භෞත චිකිත්සකයෙකුට මාංශ පේශි ක්‍රියාකාරිත්වය පරීක්ෂා කර සුදුසු වැඩසටහනක් යෝජනා කළ හැක.',
+
+    s8Heading: 'ඉරීමකින්, එපිසියෝටෝමියකින්, හෝ සීසර් සැත්කමකින් පසු කුමක්ද?',
+    s8Body1:
+      'ඉරීමකට හෝ එපිසියෝටෝමියකට සුවවීමේදී විශේෂ සැලකිල්ලක් අවශ්‍යයි. ක්‍රියාකාරකම් නැවත ආරම්භ කිරීමේදී වේදනාව, කැළැල්ලේ තත්ත්වය සහ ප්‍රසූතියෙන් පසු ලබා දුන් මඟපෙන්වීම සැලකිල්ලට ගත යුතුයි.',
+    s8Body2:
+      'සීසර් සැත්කමකින් පසු, යථා තත්ත්වයට පැමිණීම උදර බිත්තියට සහ කැළැල්ලටද සම්බන්ධ වේ. ප්‍රසූතිය යෝනි මාර්ගයෙන් නොවූවත්, ගර්භණී කාලයම තවමත් ශ්‍රෝණි පතුලට ආතතියක් යොදා ඇත.',
+    s8HighlightTitle: 'පුද්ගලීකරණය කළ සත්කාර උපකාරී විය හැක',
+    s8HighlightText:
+      'සැලකිය යුතු ඉරීමක්, වේදනාවක්, මුත්‍රා හෝ බඩවැල් රෝග ලක්ෂණ, හෝ දිගටම පවතින දුෂ්කරතා ඇති අවස්ථාවකදී, සෞඛ්‍ය වෘත්තිකයෙකු සමඟ තක්සේරුවක් විශේෂයෙන් උපකාරී විය හැක.',
+
+    s9Heading: 'ක්‍රීඩා ක්‍රමයෙන් නැවත ආරම්භ කිරීම',
+    s9Body1:
+      'ප්‍රසූතියෙන් පසු චලනය නැවත ආරම්භ කිරීම ක්‍රමානුකූල විය යුතුයි. ඇවිදීම සහ මෘදු චලන ඔබට දැනෙන ආකාරය අනුව සාමාන්‍යයෙන් නැවත ආරම්භ කළ හැකි අතර, ඉහළ බලපෑම් ක්‍රියාකාරකම්වලට වැඩි ප්‍රවේශමක් අවශ්‍යයි.',
+    s9Body2:
+      'දිවීම, පැනීම, හෝ ඉතා දැඩි පුහුණුව නැවත ආරම්භ කිරීමට පෙර, ශ්‍රෝණි පතුල යථා තත්ත්වයට පැමිණීම තක්සේරු කර ඕනෑම රෝග ලක්ෂණ සැලකිල්ලට ගැනීම වඩා හොඳයි.',
+    s9AlertTitle: 'අවධීන් ඉක්මන් නොකරන්න',
+    s9AlertText:
+      'කාන්දු වීම්, බරක් දැනීම, හෝ ව්‍යායාම අතරතුර හෝ පසුව වේදනාව යනු ඔබ සෙමින් ගොස් තීව්‍රතාව වැඩි කිරීමට පෙර උපදෙස් ඉල්ලිය යුතු බවට සලකුණු වේ.',
+
+    s10Heading: 'විශේෂඥයෙකු හමුවිය යුත්තේ කවදාද?',
+    s10Body1:
+      'ඔබ නිවැරදිව සංකෝචනය කරන්නේදැයි විශ්වාස නැත්නම්, ඔබේ රෝග ලක්ෂණ දිගටම පවතී නම්, හෝ ඔබට විශ්වාසයෙන් යම් ශාරීරික ක්‍රියාකාරකම් නැවත ආරම්භ කිරීමට අවශ්‍ය නම්, ප්‍රසව හෙදියක් හෝ භෞත චිකිත්සකයෙකු සමඟ ශ්‍රෝණි පතුල් පුනරුත්ථාපනය උපකාරී විය හැක.',
+    questionCardTitle: 'ඇසිය යුතු ප්‍රයෝජනවත් ප්‍රශ්න',
+    appointmentQuestions: [
+      'මගේ රෝග ලක්ෂණ ශ්‍රෝණි පතුලේ දුර්වලතාවයට අනුකූලද?',
+      'මම සංකෝචන නිවැරදිව ඉටු කරනවාද?',
+      'මම දිනකට කී වතාවක් නැවත නැවත කළ යුතුද?',
+      'මට දිවීම, ක්‍රීඩා, හෝ ඉහළ බලපෑම් ව්‍යායාම වෙත ආපසු යා හැකිද?',
+      'මට ප්‍රසව හෙදියක් හෝ භෞත චිකිත්සකයෙකු සමඟ පුනරුත්ථාපනයක් අවශ්‍යද?',
+      'මගේ කැළැල, ඉරීම, හෝ සීසර් සැත්කමට විශේෂ පූර්වාරක්ෂාවන් අවශ්‍යද?',
+    ],
+    s10TipTitle: 'දැනගත යුතු දේ',
+    s10TipText:
+      'වෘත්තිකයෙකු හමුවීම යමක් වැරදී ඇති බව අනිවාර්යයෙන්ම අදහස් නොවේ. සැසියකට ඔබේ ශිල්පීය ක්‍රමය පරීක්ෂා කිරීමට, ඔබේ යථා තත්ත්වයට පැමිණීම තක්සේරු කිරීමට සහ නිවැරදිව ප්‍රගතියක් ලැබීමට ඉගෙනීමට සරලව උපකාරී විය හැක.',
+
+    s11Heading: 'කාලය ගත වන යථා තත්ත්වයට පැමිණීමක්',
+    s11Body1:
+      'ප්‍රසූතියෙන් පසු, ගර්භණී කාලයට පෙර ඔබට තිබූ එම සංවේදනයන් හෝ මාංශ පේශි ශක්තිය වහාම නැවත ලබා නොගැනීම සාමාන්‍යයි.',
+    s11Body2:
+      'අරමුණ හැකි තරම් සංකෝචන කිරීම නොවේ. එය වඩාත් සංකෝචනය සහ ලිහිල් වීම අතර හොඳ සම්බන්ධීකරණයක් ක්‍රමයෙන් නැවත ලබා ගැනීම සහ පසුව එදිනෙදා ක්‍රියාකාරකම්වලදී මෙම මාංශ පේශි ස්වභාවිකව භාවිතා කිරීමට හැකි වීමයි.',
+    s11HighlightTitle: 'කුඩා ප්‍රගතිය සැබෑ ප්‍රගතියයි',
+    s11HighlightText:
+      'චලනය පිළිබඳ වඩා හොඳ දැනුවත්භාවය, සංකෝචනයේ අමතර තත්පර කිහිපයක්, හෝ කාන්දු වීම් අඩුවීමක් දැනටමත් දිරිගැන්වෙන සලකුණු වේ.',
+
+    s12Heading: 'ප්‍රධාන කරුණු',
+    summaryTitle: 'අත්‍යවශ්‍ය දේ',
+    summaryItems: [
+      'ගර්භණී කාලය සහ ප්‍රසූතිය ශ්‍රෝණි පතුලට සැලකිය යුතු ආතතියක් ඇති කරයි.',
+      'ප්‍රසූතියෙන් පසු ක්‍රමානුකූල යථා තත්ත්වයට පැමිණීම සාමාන්‍යයි.',
+      'ව්‍යායාම ශක්තියට වඩා චලනයේ ගුණාත්මකභාවයට ප්‍රමුඛත්වය දිය යුතුයි.',
+      'හුස්ම ගැනීම සහ ලිහිල් වීම සංකෝචනය තරමටම වැදගත්.',
+      'මුත්‍රා කාන්දු වීම්, බරක් දැනීම, හෝ දිගටම පවතින වේදනාවට වෘත්තීය මතයක් සුදුසුයි.',
+      'ප්‍රසව හෙදියක් හෝ භෞත චිකිත්සකයෙකු සමඟ පුනරුත්ථාපනය වඩා හොඳ පාලනයක් නැවත ලබා ගැනීමට ඔබට උපකාරී විය හැක.',
+      'ක්‍රීඩාවට ආපසු යාම ක්‍රමානුකූල විය යුතුයි, විශේෂයෙන් ඉහළ බලපෑම් ක්‍රියාකාරකම් සඳහා.',
+    ],
+
+    finalTipTitle: 'යථා තත්ත්වයට පැමිණීමට කාලය ගන්න',
+    finalTipText:
+      'ප්‍රසූතියෙන් පසු, ඔබේ ශරීරය බොහෝ වෙනස්කම් හරහා ගමන් කර ඇත. පෙරිනියමට ඔබේ ශරීරයේ ඉතිරි කොටස මෙන්ම අවධානය ලැබිය යුතුයි: ක්‍රමයෙන්, නිතිපතා සහ පීඩනයකින් තොරව.',
+
+    disclaimerText:
+      'මෙම ලිපිය තොරතුරු සඳහා පමණි, පුද්ගලීකරණය කළ වෛද්‍ය උපදෙස් වෙනුවට නොපවතී. ඔබට වේදනාව, දිගටම පවතින රෝග ලක්ෂණ හෝ ඔබේ යථා තත්ත්වයට පැමිණීම ගැන කනස්සල්ලක් ඇත්නම්, සෞඛ්‍ය වෘත්තිකයෙකුගෙන් උපදෙස් ලබා ගන්න.',
+  },
+  th: {
+    badge: 'หลังคลอด • การฟื้นตัว',
+    title: 'เสริมสร้างกล้ามเนื้ออุ้งเชิงกราน\nหลังคลอด',
+    metaDuration: 'อ่าน 8 นาที',
+    metaType: 'คู่มือ',
+    metaLevel: 'เริ่มต้น',
+    metaValidated: 'เนื้อหาที่ผ่านการตรวจสอบ',
+    intro:
+      'หลังตั้งครรภ์และคลอด กล้ามเนื้ออุ้งเชิงกรานต้องใช้เวลาฟื้นตัว การออกกำลังที่เรียบง่าย สม่ำเสมอ และทีละน้อยช่วยให้คุณกลับมามีกำลัง การควบคุม และความมั่นใจ โดยไม่ต้องเร่งรีบ',
+    contentsTitle: 'ในบทความนี้',
+    topics: [
+      'ทำความเข้าใจบทบาทของกล้ามเนื้อฝีเย็บ',
+      'ทำไมการคลอดจึงทำให้ตึงเครียด',
+      'เมื่อไรควรเริ่มฟื้นฟูกล้ามเนื้ออุ้งเชิงกราน',
+      'เรียนรู้การหดตัวอย่างถูกต้อง',
+      'สร้างกิจวัตรทีละน้อย',
+      'ข้อผิดพลาดที่ควรหลีกเลี่ยง',
+      'เมื่อไรควรขอความช่วยเหลือ',
+      'กลับมาเล่นกีฬาทีละน้อย',
+      'เตรียมตัวสำหรับการนัดหมาย',
+      'ประเด็นสำคัญ',
+    ],
+    shareMessage: 'เสริมสร้างกล้ามเนื้ออุ้งเชิงกรานหลังคลอด — AWA',
+
+    s1Heading: 'ทำความเข้าใจบทบาทของกล้ามเนื้อฝีเย็บ',
+    s1Body1:
+      'กล้ามเนื้อฝีเย็บ หรือที่เรียกว่ากล้ามเนื้ออุ้งเชิงกราน คือกลุ่มกล้ามเนื้อที่อยู่ที่ฐานของอุ้งเชิงกราน มีบทบาทในการควบคุมกระเพาะปัสสาวะและลำไส้ และช่วยพยุงอวัยวะในอุ้งเชิงกราน',
+    s1Body2:
+      'ระหว่างตั้งครรภ์ กล้ามเนื้อเหล่านี้ต้องรับน้ำหนักเพิ่มเป็นเวลาหลายเดือน และยังตึงเครียดอย่างมากระหว่างการคลอด',
+    s1HighlightTitle: 'กล้ามเนื้อที่เงียบแต่จำเป็น',
+    s1HighlightText:
+      'กล้ามเนื้ออุ้งเชิงกรานเกี่ยวข้องกับการทำงานในชีวิตประจำวันหลายอย่าง: กลั้นปัสสาวะและอุจจาระ ควบคุมแก๊ส พยุงอวัยวะในอุ้งเชิงกราน และมีบทบาทในการทำงานทางเพศบางอย่าง',
+
+    benefitsHeading: 'ประโยชน์ของกล้ามเนื้ออุ้งเชิงกรานที่แข็งแรงขึ้น',
+    benefitsIntro:
+      'การเสริมสร้างทีละน้อยที่ทำอย่างถูกต้องช่วยปรับปรุงการควบคุมและการพยุงของกล้ามเนื้ออุ้งเชิงกรานได้',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'ควบคุมกระเพาะปัสสาวะได้ดีขึ้น',
+        text: 'กล้ามเนื้ออุ้งเชิงกรานมีบทบาทในการควบคุมกระเพาะปัสสาวะ การเสริมสร้างทีละน้อยอาจช่วยลดอาการปัสสาวะเล็ดบางอย่าง',
+      },
+      {
+        icon: 'toilet',
+        title: 'สนับสนุนการทำงานของลำไส้',
+        text: 'กล้ามเนื้อเหล่านี้ยังช่วยควบคุมแก๊สและอุจจาระ และมีส่วนช่วยพยุงอวัยวะในอุ้งเชิงกราน',
+      },
+      {
+        icon: 'human-female',
+        title: 'พยุงอวัยวะในอุ้งเชิงกราน',
+        text: 'กล้ามเนื้ออุ้งเชิงกรานเป็นฐานกล้ามเนื้อที่แท้จริงซึ่งช่วยพยุงกระเพาะปัสสาวะ มดลูก และลำไส้',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'ค่อย ๆ กลับมารู้สึก',
+        text: 'การฟื้นฟูที่เหมาะสมยังช่วยให้คุณกลับมารับรู้และควบคุมบริเวณนี้ได้ดีขึ้น',
+      },
+    ],
+
+    s2Heading: 'ทำไมการตั้งครรภ์และการคลอดจึงทำให้ตึงเครียด',
+    s2Body1:
+      'การตั้งครรภ์ค่อย ๆ เพิ่มแรงกดดันต่อกล้ามเนื้ออุ้งเชิงกราน การคลอดทางช่องคลอดอาจยืดกล้ามเนื้อและเนื้อเยื่อบริเวณนี้อย่างมาก',
+    s2Body2:
+      'การผ่าคลอดก็ไม่ได้ช่วยให้กล้ามเนื้ออุ้งเชิงกรานรอดพ้นไปทั้งหมด: การตั้งครรภ์เองยังคงเป็นช่วงสำคัญสำหรับกล้ามเนื้อเหล่านี้',
+    s2Body3:
+      'หลังคลอด จึงเป็นเรื่องปกติที่การฟื้นตัวต้องใช้เวลา ผู้หญิงบางคนแทบไม่มีอาการ ขณะที่บางคนอาจสังเกตเห็นปัสสาวะเล็ด ความรู้สึกหน่วง หรือการควบคุมกล้ามเนื้อลดลง',
+    s2TipTitle: 'การฟื้นตัวของแต่ละคนต่างกัน',
+    s2TipText:
+      'ประเภทของการคลอด การฉีกขาดหรือการตัดฝีเย็บ การมีอาการปวด และสภาพทั่วไปของคุณหลังคลอด ล้วนมีอิทธิพลต่อการฟื้นตัวได้',
+
+    s3Heading: 'เมื่อไรควรเริ่มฟื้นฟูกล้ามเนื้ออุ้งเชิงกราน?',
+    s3Body1:
+      'หลังคลอดที่ไม่มีภาวะแทรกซ้อน โดยทั่วไปกลับมาหดกล้ามเนื้ออุ้งเชิงกรานเบา ๆ ทีละน้อยได้ สิ่งสำคัญคือปรับการออกกำลังให้เหมาะกับสถานการณ์ของคุณ และขอคำแนะนำหากคุณมีภาวะแทรกซ้อน ปวดมาก หรือมีหัตถการเฉพาะ',
+    s3Body2:
+      'หากคุณใส่สายสวนปัสสาวะ คำแนะนำบางอย่างแนะนำให้รอจนเอาออกและปัสสาวะได้ตามปกติก่อนเริ่มออกกำลังกล้ามเนื้อฝีเย็บ',
+    s3AlertTitle: 'อย่าฝืนเมื่อเจ็บ',
+    s3AlertText:
+      'อาการปวดมาก อาการที่แย่ลง แผลที่หายไม่ดี หรือความกังวลใด ๆ ต้องขอคำแนะนำจากผดุงครรภ์ แพทย์ หรือผู้เชี่ยวชาญด้านการฟื้นฟู',
+
+    s4Heading: 'เรียนรู้การหดตัวอย่างถูกต้อง',
+    s4Body1:
+      'เพื่อระบุการเคลื่อนไหว ให้ลองจินตนาการว่ากำลังกลั้นแก๊สและความรู้สึกอยากปัสสาวะไปพร้อมกัน การเคลื่อนไหวที่คุณมองหาคือความรู้สึกหดและยกขึ้นเข้าด้านใน',
+    s4Body2:
+      'เป้าหมายไม่ใช่การเกร็งทั้งตัว บั้นท้าย ต้นขา และหน้าท้องควรผ่อนคลายที่สุดเท่าที่ทำได้ ขณะที่หายใจต่อไปตามปกติ',
+    exercises: [
+      {icon: 'weather-windy', label: 'การหายใจ'},
+      {icon: 'human-handsup', label: 'การหดเบา ๆ'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'การหดนาน'},
+      {icon: 'gesture-tap-button', label: 'การหดเร็ว'},
+    ],
+    s4HighlightTitle: 'การผ่อนคลายสำคัญไม่แพ้กัน',
+    s4HighlightText:
+      'หลังหดแต่ละครั้ง ปล่อยให้กล้ามเนื้อผ่อนคลายอย่างสมบูรณ์ การฟื้นฟูที่ดีไม่ได้หมายถึงการหดกล้ามเนื้อฝีเย็บตลอดทั้งวัน',
+
+    s5Heading: 'สร้างกิจวัตรทีละน้อย',
+    s5Body1:
+      'ในตอนแรก สิ่งสำคัญที่สุดคือเรียนรู้ที่จะระบุกล้ามเนื้อและทำการเคลื่อนไหวให้ถูกต้อง ความสม่ำเสมอสำคัญกว่าความหนัก',
+    s5h3a: 'การหดนาน',
+    s5Body2:
+      'หดกล้ามเนื้ออุ้งเชิงกรานเบา ๆ แล้วค้างไว้สองสามวินาทีโดยไม่กลั้นหายใจ จากนั้นปล่อยอย่างสมบูรณ์ก่อนเริ่มใหม่',
+    s5h3b: 'การหดเร็ว',
+    s5Body3:
+      'เมื่อทำการเคลื่อนไหวได้คล่องแล้ว เพิ่มการหดเร็วเล็ก ๆ ได้ ช่วยฝึกความสามารถในการหดกล้ามเนื้ออย่างรวดเร็วเมื่อแรงดันในช่องท้องเพิ่มขึ้น เช่น ก่อนไอหรือจาม',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'จับคู่การออกกำลังกับนิสัยประจำวัน'},
+      {icon: 'human-sitting', label: 'เริ่มในท่าที่สบาย'},
+      {icon: 'weather-windy', label: 'หายใจตามปกติระหว่างหด'},
+      {icon: 'sleep', label: 'เคารพช่วงผ่อนคลาย'},
+      {icon: 'chart-line', label: 'ค่อย ๆ เพิ่มความยาก'},
+      {icon: 'doctor', label: 'ขอคำแนะนำหากไม่แน่ใจ'},
+    ],
+    s5TipTitle: 'ความสม่ำเสมอเหนือสิ่งอื่นใด',
+    s5TipText:
+      'การจับคู่การออกกำลังกับนิสัยที่มีอยู่แล้วในแต่ละวันช่วยให้สม่ำเสมอได้ง่ายขึ้น: หลังให้นม หลังแปรงฟัน หรือเวลาอื่นที่เหมาะกับคุณ',
+
+    s6Heading: 'ข้อผิดพลาดที่พบบ่อยที่ควรหลีกเลี่ยง',
+    s6Body1:
+      'การออกกำลังกล้ามเนื้อฝีเย็บอาจดูง่าย แต่เป็นเรื่องง่ายที่จะใช้กล้ามเนื้ออื่นชดเชยหรือออกแรงมากเกินไป',
+    commonMistakes: [
+      'เกร็งบั้นท้ายหรือต้นขาแทนกล้ามเนื้ออุ้งเชิงกราน',
+      'กลั้นหายใจระหว่างหด',
+      'หดกล้ามเนื้อค้างตลอดโดยไม่ปล่อยให้ผ่อนคลาย',
+      'ออกกำลังเพียงไม่กี่วันแล้วหยุด',
+      'จงใจหยุดการไหลของปัสสาวะเพื่อตรวจการหด',
+    ],
+    s6TipTitle: 'สิ่งที่ไม่ควรทำ',
+    s6TipText:
+      'ไม่แนะนำให้ฝึกด้วยการจงใจหยุดการไหลของปัสสาวะ วิธีนี้ไม่ฝึกกล้ามเนื้อฝีเย็บอย่างถูกต้องและอาจรบกวนการทำงานปกติของกระเพาะปัสสาวะ',
+
+    s7Heading: 'อาการใดที่ควรไปปรึกษา?',
+    s7Body1:
+      'ปัสสาวะเล็ดเล็กน้อยหรือความรู้สึกผิดปกติอาจปรากฏบางครั้งหลังคลอด อย่างไรก็ตาม ไม่ควรเพิกเฉยหากคงอยู่ แย่ลง หรือรบกวนชีวิตประจำวัน',
+    warningSigns: [
+      'ปัสสาวะเล็ดเมื่อไอ จาม หัวเราะ หรือเบ่ง',
+      'รู้สึกหน่วงหรือกดที่อุ้งเชิงกรานส่วนล่าง',
+      'รู้สึกว่ามีก้อนหรือสิ่งใดหย่อนลงในช่องคลอด',
+      'กลั้นแก๊สหรืออุจจาระได้ยาก',
+      'ปวดบริเวณฝีเย็บต่อเนื่อง',
+      'ปวดระหว่างหรือหลังมีเพศสัมพันธ์',
+      'ระบุหรือหดกล้ามเนื้อฝีเย็บอย่างถูกต้องได้ยาก',
+    ],
+    consultLabel: 'เมื่อไรควรขอคำแนะนำ?',
+    s7Body2:
+      'ผดุงครรภ์ แพทย์ หรือนักกายภาพบำบัดที่เชี่ยวชาญด้านการฟื้นฟูกล้ามเนื้ออุ้งเชิงกราน ตรวจการทำงานของกล้ามเนื้อและแนะนำโปรแกรมที่เหมาะสมได้',
+
+    s8Heading: 'แล้วหลังฉีกขาด ตัดฝีเย็บ หรือผ่าคลอดล่ะ?',
+    s8Body1:
+      'การฉีกขาดหรือการตัดฝีเย็บต้องดูแลเป็นพิเศษระหว่างการสมานแผล การกลับมาทำกิจกรรมควรคำนึงถึงอาการปวด สภาพแผล และคำแนะนำที่ได้รับหลังคลอด',
+    s8Body2:
+      'หลังผ่าคลอด การฟื้นตัวยังเกี่ยวข้องกับผนังหน้าท้องและแผลผ่าตัด แม้การคลอดไม่ใช่ทางช่องคลอด การตั้งครรภ์เองก็ยังทำให้กล้ามเนื้ออุ้งเชิงกรานตึงเครียด',
+    s8HighlightTitle: 'การดูแลเฉพาะบุคคลช่วยได้',
+    s8HighlightText:
+      'ในกรณีฉีกขาดมาก ปวด มีอาการทางปัสสาวะหรือลำไส้ หรือมีความยากลำบากต่อเนื่อง การประเมินกับบุคลากรทางการแพทย์มีประโยชน์เป็นพิเศษ',
+
+    s9Heading: 'กลับมาเล่นกีฬาทีละน้อย',
+    s9Body1:
+      'การกลับมาเคลื่อนไหวหลังคลอดควรทำทีละน้อย การเดินและการเคลื่อนไหวเบา ๆ โดยทั่วไปกลับมาทำได้ตามความรู้สึกของคุณ ขณะที่กิจกรรมที่มีแรงกระแทกสูงต้องระมัดระวังมากขึ้น',
+    s9Body2:
+      'ก่อนกลับมาวิ่ง กระโดด หรือฝึกที่หนักมาก ควรประเมินการฟื้นตัวของกล้ามเนื้ออุ้งเชิงกรานและคำนึงถึงอาการใด ๆ',
+    s9AlertTitle: 'อย่ารีบข้ามขั้นตอน',
+    s9AlertText:
+      'ปัสสาวะเล็ด ความรู้สึกหน่วง หรืออาการปวดระหว่างหรือหลังออกกำลังกาย เป็นสัญญาณว่าคุณควรชะลอและขอคำแนะนำก่อนเพิ่มความหนัก',
+
+    s10Heading: 'เมื่อไรควรพบผู้เชี่ยวชาญ?',
+    s10Body1:
+      'การฟื้นฟูกล้ามเนื้ออุ้งเชิงกรานกับผดุงครรภ์หรือนักกายภาพบำบัดมีประโยชน์หากคุณไม่แน่ใจว่าหดถูกต้องหรือไม่ หากอาการคงอยู่ หรือหากคุณอยากกลับมาทำกิจกรรมทางกายบางอย่างด้วยความมั่นใจ',
+    questionCardTitle: 'คำถามที่เป็นประโยชน์ที่ควรถาม',
+    appointmentQuestions: [
+      'อาการของฉันสอดคล้องกับกล้ามเนื้ออุ้งเชิงกรานอ่อนแอหรือไม่?',
+      'ฉันหดกล้ามเนื้ออย่างถูกต้องหรือไม่?',
+      'ฉันควรทำกี่ครั้งต่อวัน?',
+      'ฉันกลับมาวิ่ง เล่นกีฬา หรือออกกำลังกายที่มีแรงกระแทกสูงได้หรือยัง?',
+      'ฉันต้องฟื้นฟูกับผดุงครรภ์หรือนักกายภาพบำบัดหรือไม่?',
+      'แผล รอยฉีกขาด หรือแผลผ่าคลอดของฉันต้องระมัดระวังเป็นพิเศษหรือไม่?',
+    ],
+    s10TipTitle: 'ควรรู้',
+    s10TipText:
+      'การพบผู้เชี่ยวชาญไม่ได้หมายความว่ามีอะไรผิดปกติเสมอไป การพบสักครั้งอาจช่วยตรวจเทคนิคของคุณ ประเมินการฟื้นตัว และเรียนรู้ที่จะก้าวหน้าอย่างถูกต้อง',
+
+    s11Heading: 'การฟื้นตัวที่ต้องใช้เวลา',
+    s11Body1:
+      'หลังคลอด เป็นเรื่องปกติที่จะไม่กลับมารู้สึกหรือมีกำลังกล้ามเนื้อเท่าเดิมก่อนตั้งครรภ์ทันที',
+    s11Body2:
+      'เป้าหมายไม่ใช่การหดให้ได้มากครั้งที่สุด แต่เป็นการค่อย ๆ กลับมามีการประสานงานที่ดีระหว่างการหดและการผ่อนคลาย แล้วใช้กล้ามเนื้อเหล่านี้ได้ตามธรรมชาติในกิจกรรมประจำวัน',
+    s11HighlightTitle: 'ความก้าวหน้าเล็ก ๆ คือความก้าวหน้าจริง',
+    s11HighlightText:
+      'การรับรู้การเคลื่อนไหวได้ดีขึ้น การหดนานขึ้นอีกสองสามวินาที หรือการเล็ดลดลง ล้วนเป็นสัญญาณที่น่ายินดี',
+
+    s12Heading: 'ประเด็นสำคัญ',
+    summaryTitle: 'สาระสำคัญ',
+    summaryItems: [
+      'การตั้งครรภ์และการคลอดทำให้กล้ามเนื้ออุ้งเชิงกรานตึงเครียดอย่างมาก',
+      'การฟื้นตัวทีละน้อยเป็นเรื่องปกติหลังคลอด',
+      'การออกกำลังควรให้ความสำคัญกับคุณภาพของการเคลื่อนไหวมากกว่ากำลัง',
+      'การหายใจและการผ่อนคลายสำคัญไม่แพ้การหด',
+      'ปัสสาวะเล็ด ความรู้สึกหน่วง หรืออาการปวดต่อเนื่อง ควรได้รับความเห็นจากผู้เชี่ยวชาญ',
+      'การฟื้นฟูกับผดุงครรภ์หรือนักกายภาพบำบัดช่วยให้คุณกลับมาควบคุมได้ดีขึ้น',
+      'การกลับมาเล่นกีฬาควรทำทีละน้อย โดยเฉพาะกิจกรรมที่มีแรงกระแทกสูง',
+    ],
+
+    finalTipTitle: 'ใช้เวลาฟื้นตัว',
+    finalTipText:
+      'หลังคลอด ร่างกายของคุณผ่านการเปลี่ยนแปลงมากมาย กล้ามเนื้อฝีเย็บสมควรได้รับความใส่ใจเท่ากับส่วนอื่นของร่างกาย: ทีละน้อย สม่ำเสมอ และโดยไม่กดดัน',
+
+    disclaimerText:
+      'บทความนี้เพื่อให้ข้อมูลเท่านั้น และไม่ได้ทดแทนคำแนะนำทางการแพทย์เฉพาะบุคคล หากคุณมีอาการปวด อาการที่คงอยู่ หรือมีข้อกังวลเกี่ยวกับการฟื้นตัวของคุณ โปรดขอคำแนะนำจากบุคลากรทางการแพทย์',
+  },
+  vi: {
+    badge: 'SAU SINH • HỒI PHỤC',
+    title: 'Tăng cường sàn chậu\nsau khi sinh',
+    metaDuration: '8 phút đọc',
+    metaType: 'Hướng dẫn',
+    metaLevel: 'Cơ bản',
+    metaValidated: 'Nội dung đã được thẩm định',
+    intro:
+      'Sau thai kỳ và sinh nở, sàn chậu cần thời gian để hồi phục. Những bài tập đơn giản, đều đặn và tăng dần có thể giúp bạn lấy lại sức mạnh, khả năng kiểm soát và sự tự tin, mà không cố gắng vội vàng.',
+    contentsTitle: 'Trong bài viết này',
+    topics: [
+      'Hiểu vai trò của tầng sinh môn',
+      'Tại sao sinh nở gây áp lực lên nó',
+      'Khi nào nên bắt đầu phục hồi sàn chậu',
+      'Học cách co đúng cách',
+      'Xây dựng một thói quen tăng dần',
+      'Những sai lầm cần tránh',
+      'Khi nào nên nhờ giúp đỡ',
+      'Tiếp tục thể thao dần dần',
+      'Chuẩn bị cho một buổi hẹn',
+      'Những điểm chính cần nhớ',
+    ],
+    shareMessage: 'Tăng cường sàn chậu sau khi sinh — AWA',
+
+    s1Heading: 'Hiểu vai trò của tầng sinh môn',
+    s1Body1:
+      'Tầng sinh môn, còn gọi là sàn chậu, là một nhóm cơ nằm ở đáy khung chậu. Nó đóng vai trò trong việc kiểm soát bàng quang và ruột và giúp nâng đỡ các cơ quan vùng chậu.',
+    s1Body2:
+      'Trong thai kỳ, những cơ này phải gánh thêm trọng lượng trong nhiều tháng. Chúng cũng chịu áp lực đáng kể trong lúc sinh.',
+    s1HighlightTitle: 'Một nhóm cơ kín đáo nhưng thiết yếu',
+    s1HighlightText:
+      'Sàn chậu tham gia vào nhiều chức năng hằng ngày: giữ nước tiểu và phân, kiểm soát hơi, nâng đỡ các cơ quan vùng chậu và đóng vai trò trong một số chức năng tình dục.',
+
+    benefitsHeading: 'Lợi ích của sàn chậu khỏe hơn',
+    benefitsIntro:
+      'Việc tăng cường dần dần, thực hiện đúng cách có thể giúp cải thiện khả năng kiểm soát và nâng đỡ của sàn chậu.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Kiểm soát bàng quang tốt hơn',
+        text: 'Sàn chậu đóng vai trò trong việc kiểm soát bàng quang. Tăng cường nó dần dần có thể giúp giảm một số trường hợp són tiểu.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Hỗ trợ chức năng ruột',
+        text: 'Những cơ này cũng giúp kiểm soát hơi và phân và góp phần nâng đỡ các cơ quan vùng chậu.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Nâng đỡ các cơ quan vùng chậu',
+        text: 'Sàn chậu tạo thành một nền cơ thực sự giúp nâng đỡ bàng quang, tử cung và ruột.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Dần lấy lại cảm giác',
+        text: 'Việc phục hồi phù hợp cũng có thể giúp bạn có nhận thức và khả năng kiểm soát vùng này tốt hơn.',
+      },
+    ],
+
+    s2Heading: 'Tại sao thai kỳ và sinh nở gây áp lực lên nó',
+    s2Body1:
+      'Thai kỳ dần tạo thêm áp lực lên sàn chậu. Sinh thường qua đường âm đạo sau đó có thể làm căng đáng kể các cơ và mô ở vùng này.',
+    s2Body2:
+      'Mổ lấy thai cũng không hoàn toàn bảo vệ sàn chậu: bản thân thai kỳ vẫn là một giai đoạn đáng kể đối với những cơ này.',
+    s2Body3:
+      'Sau khi sinh, việc hồi phục cần thời gian là điều bình thường. Một số phụ nữ gần như không cảm thấy triệu chứng nào, trong khi người khác có thể nhận thấy són tiểu, cảm giác nặng nề hoặc giảm khả năng kiểm soát cơ.',
+    s2TipTitle: 'Mỗi quá trình hồi phục đều khác nhau',
+    s2TipText:
+      'Hình thức sinh, vết rách hoặc cắt tầng sinh môn, tình trạng đau và tình trạng chung của bạn sau sinh đều có thể ảnh hưởng đến quá trình hồi phục.',
+
+    s3Heading: 'Khi nào nên bắt đầu phục hồi sàn chậu?',
+    s3Body1:
+      'Sau một cuộc sinh không biến chứng, thường có thể dần dần tiếp tục các động tác co nhẹ sàn chậu. Điều quan trọng vẫn là điều chỉnh bài tập cho phù hợp với tình huống của bạn và tìm lời khuyên nếu bạn gặp biến chứng, đau đáng kể hoặc đã trải qua một thủ thuật cụ thể.',
+    s3Body2:
+      'Nếu bạn có đặt ống thông tiểu, một số khuyến nghị cho rằng nên chờ đến khi rút ống và đi tiểu bình thường trở lại rồi mới bắt đầu các bài tập tầng sinh môn.',
+    s3AlertTitle: 'Đừng cố chịu đau',
+    s3AlertText:
+      'Đau đáng kể, triệu chứng nặng lên, vết thương lành kém hoặc bất kỳ lo lắng đặc biệt nào cần lời khuyên của nữ hộ sinh, bác sĩ hoặc chuyên gia phục hồi chức năng.',
+
+    s4Heading: 'Học cách co đúng cách',
+    s4Body1:
+      'Để nhận biết động tác, hãy tưởng tượng bạn đang cố nhịn hơi và nhịn tiểu cùng lúc. Động tác bạn đang tìm là cảm giác co và nâng lên vào bên trong.',
+    s4Body2:
+      'Mục tiêu không phải là gồng cứng toàn bộ cơ thể. Mông, đùi và cơ bụng nên được giữ thư giãn nhất có thể, trong khi hơi thở vẫn tiếp tục bình thường.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Hít thở'},
+      {icon: 'human-handsup', label: 'Co nhẹ'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Co kéo dài'},
+      {icon: 'gesture-tap-button', label: 'Co nhanh'},
+    ],
+    s4HighlightTitle: 'Thư giãn cũng quan trọng không kém',
+    s4HighlightText:
+      'Sau mỗi lần co, hãy để các cơ thư giãn hoàn toàn. Phục hồi tốt không có nghĩa là giữ tầng sinh môn co suốt cả ngày.',
+
+    s5Heading: 'Xây dựng một thói quen tăng dần',
+    s5Body1:
+      'Lúc đầu, điều quan trọng nhất là học cách nhận biết các cơ và thực hiện động tác đúng. Sự đều đặn quan trọng hơn cường độ.',
+    s5h3a: 'Co kéo dài',
+    s5Body2:
+      'Nhẹ nhàng co sàn chậu, rồi giữ sự co trong vài giây mà không nín thở. Sau đó thả lỏng hoàn toàn trước khi bắt đầu lại.',
+    s5h3b: 'Co ngắn',
+    s5Body3:
+      'Khi đã thành thạo động tác, có thể thêm những lần co nhanh nhỏ. Chúng giúp rèn khả năng co cơ nhanh khi áp lực ổ bụng tăng lên, ví dụ ngay trước khi ho hoặc hắt hơi.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Kết hợp bài tập với một thói quen hằng ngày'},
+      {icon: 'human-sitting', label: 'Bắt đầu ở tư thế thoải mái'},
+      {icon: 'weather-windy', label: 'Thở bình thường trong lúc co'},
+      {icon: 'sleep', label: 'Tôn trọng các giai đoạn thư giãn'},
+      {icon: 'chart-line', label: 'Tăng độ khó dần dần'},
+      {icon: 'doctor', label: 'Hỏi lời khuyên nếu bạn chưa chắc'},
+    ],
+    s5TipTitle: 'Trên hết là sự đều đặn',
+    s5TipText:
+      'Kết hợp bài tập với một thói quen vốn đã có trong ngày của bạn có thể giúp dễ duy trì hơn: sau khi cho bú, sau khi đánh răng hoặc vào một thời điểm khác phù hợp với bạn.',
+
+    s6Heading: 'Những sai lầm thường gặp cần tránh',
+    s6Body1:
+      'Bài tập tầng sinh môn có vẻ đơn giản, nhưng rất dễ bù trừ bằng các cơ khác hoặc dùng sức quá mạnh.',
+    commonMistakes: [
+      'Gồng mông hoặc đùi thay vì sàn chậu',
+      'Nín thở trong lúc co',
+      'Giữ các cơ co liên tục mà không để chúng thư giãn',
+      'Chỉ tập vài ngày rồi dừng',
+      'Cố ý ngắt dòng tiểu để kiểm tra động tác co',
+    ],
+    s6TipTitle: 'Điều không nên làm',
+    s6TipText:
+      'Không nên tập bằng cách cố ý ngắt dòng tiểu. Phương pháp này không rèn luyện tầng sinh môn đúng cách và có thể làm rối loạn chức năng bình thường của bàng quang.',
+
+    s7Heading: 'Những triệu chứng nào nên khiến bạn đi khám?',
+    s7Body1:
+      'Són tiểu nhẹ hoặc cảm giác bất thường đôi khi có thể xuất hiện sau khi sinh. Tuy nhiên, không nên bỏ qua chúng nếu chúng kéo dài, nặng thêm hoặc ảnh hưởng đến cuộc sống hằng ngày của bạn.',
+    warningSigns: [
+      'Són tiểu khi ho, hắt hơi, cười hoặc rặn',
+      'Cảm giác nặng hoặc tức ở vùng chậu dưới',
+      'Cảm giác có khối hoặc vật gì đó đang sa xuống âm đạo',
+      'Khó nhịn hơi hoặc phân',
+      'Đau kéo dài ở tầng sinh môn',
+      'Đau trong hoặc sau khi quan hệ tình dục',
+      'Khó nhận biết hoặc co đúng các cơ tầng sinh môn',
+    ],
+    consultLabel: 'Khi nào nên tìm lời khuyên?',
+    s7Body2:
+      'Nữ hộ sinh, bác sĩ hoặc nhà vật lý trị liệu chuyên về phục hồi sàn chậu có thể kiểm tra chức năng cơ và đề xuất một chương trình phù hợp.',
+
+    s8Heading: 'Còn sau khi bị rách, cắt tầng sinh môn hoặc mổ lấy thai thì sao?',
+    s8Body1:
+      'Vết rách hoặc vết cắt tầng sinh môn cần chăm sóc đặc biệt trong lúc lành. Việc tiếp tục các hoạt động nên cân nhắc cơn đau, tình trạng vết thương và hướng dẫn được đưa ra sau khi sinh.',
+    s8Body2:
+      'Sau khi mổ lấy thai, quá trình hồi phục cũng liên quan đến thành bụng và vết mổ. Dù cuộc sinh không qua đường âm đạo, bản thân thai kỳ vẫn gây áp lực lên sàn chậu.',
+    s8HighlightTitle: 'Sự chăm sóc cá nhân hóa có thể giúp ích',
+    s8HighlightText:
+      'Trong trường hợp bị rách đáng kể, đau, có triệu chứng tiết niệu hoặc ruột, hoặc khó khăn kéo dài, một buổi đánh giá với nhân viên y tế có thể đặc biệt hữu ích.',
+
+    s9Heading: 'Tiếp tục thể thao dần dần',
+    s9Body1:
+      'Việc vận động trở lại sau sinh nên diễn ra từ từ. Đi bộ và các động tác nhẹ nhàng nhìn chung có thể tiếp tục tùy theo cảm giác của bạn, trong khi các hoạt động va đập mạnh cần thận trọng hơn.',
+    s9Body2:
+      'Trước khi tiếp tục chạy, nhảy hoặc tập luyện rất cường độ cao, tốt nhất nên đánh giá sự hồi phục của sàn chậu và cân nhắc mọi triệu chứng.',
+    s9AlertTitle: 'Đừng vội vàng các giai đoạn',
+    s9AlertText:
+      'Són tiểu, cảm giác nặng nề hoặc đau trong hoặc sau khi tập là dấu hiệu cho thấy bạn nên chậm lại và tìm lời khuyên trước khi tăng cường độ.',
+
+    s10Heading: 'Khi nào nên gặp chuyên gia?',
+    s10Body1:
+      'Phục hồi sàn chậu với nữ hộ sinh hoặc nhà vật lý trị liệu có thể hữu ích nếu bạn không chắc mình đang co đúng cách, nếu triệu chứng kéo dài hoặc nếu bạn muốn tự tin tiếp tục một số hoạt động thể chất.',
+    questionCardTitle: 'Những câu hỏi hữu ích nên hỏi',
+    appointmentQuestions: [
+      'Triệu chứng của tôi có phù hợp với sàn chậu yếu không?',
+      'Tôi có đang thực hiện các động tác co đúng cách không?',
+      'Tôi nên lặp lại bao nhiêu lần mỗi ngày?',
+      'Tôi có thể quay lại chạy bộ, thể thao hoặc tập luyện va đập mạnh không?',
+      'Tôi có cần phục hồi chức năng với nữ hộ sinh hoặc nhà vật lý trị liệu không?',
+      'Vết mổ, vết rách hoặc vết mổ lấy thai của tôi có cần các biện pháp phòng ngừa đặc biệt nào không?',
+    ],
+    s10TipTitle: 'Nên biết',
+    s10TipText:
+      'Gặp một chuyên gia không nhất thiết có nghĩa là có điều gì sai. Một buổi có thể đơn giản giúp kiểm tra kỹ thuật của bạn, đánh giá sự hồi phục và học cách tiến bộ đúng cách.',
+
+    s11Heading: 'Một quá trình hồi phục cần thời gian',
+    s11Body1:
+      'Sau khi sinh, việc không lấy lại ngay những cảm giác hoặc sức mạnh cơ như trước thai kỳ là điều bình thường.',
+    s11Body2:
+      'Mục tiêu không phải là thực hiện càng nhiều lần co càng tốt. Quan trọng hơn là dần lấy lại sự phối hợp tốt giữa co và thư giãn, rồi có thể dùng những cơ này một cách tự nhiên trong các hoạt động hằng ngày.',
+    s11HighlightTitle: 'Tiến bộ nhỏ cũng là tiến bộ thực sự',
+    s11HighlightText:
+      'Nhận thức tốt hơn về động tác, giữ co thêm vài giây hoặc giảm số lần són tiểu đã là những dấu hiệu đáng khích lệ.',
+
+    s12Heading: 'Những điểm chính cần nhớ',
+    summaryTitle: 'Điều thiết yếu',
+    summaryItems: [
+      'Thai kỳ và sinh nở tạo áp lực đáng kể lên sàn chậu.',
+      'Việc hồi phục dần dần là bình thường sau khi sinh.',
+      'Các bài tập nên ưu tiên chất lượng động tác hơn sức mạnh.',
+      'Hít thở và thư giãn cũng quan trọng không kém việc co.',
+      'Són tiểu, cảm giác nặng nề hoặc đau kéo dài đáng được chuyên gia cho ý kiến.',
+      'Phục hồi chức năng với nữ hộ sinh hoặc nhà vật lý trị liệu có thể giúp bạn lấy lại khả năng kiểm soát tốt hơn.',
+      'Việc quay lại thể thao nên diễn ra từ từ, đặc biệt với các hoạt động va đập mạnh.',
+    ],
+
+    finalTipTitle: 'Hãy dành thời gian để hồi phục',
+    finalTipText:
+      'Sau khi sinh, cơ thể bạn đã trải qua rất nhiều thay đổi. Tầng sinh môn xứng đáng được quan tâm như phần còn lại của cơ thể bạn: dần dần, đều đặn và không áp lực.',
+
+    disclaimerText:
+      'Bài viết này chỉ mang tính thông tin và không thay thế lời khuyên y khoa cá nhân hóa. Nếu bạn bị đau, có triệu chứng kéo dài hoặc có bất kỳ lo lắng nào về quá trình hồi phục, hãy tìm lời khuyên từ nhân viên y tế.',
+  },
+  uz: {
+    badge: 'TUGʻRUQDAN KEYIN • TIKLANISH',
+    title: 'Tugʻruqdan keyin chanoq tubini\nmustahkamlash',
+    metaDuration: '8 daq oʻqish',
+    metaType: 'Qoʻllanma',
+    metaLevel: 'Boshlangʻich',
+    metaValidated: 'Tasdiqlangan kontent',
+    intro:
+      'Homiladorlik va tugʻruqdan keyin chanoq tubiga tiklanish uchun vaqt kerak. Oddiy, muntazam va bosqichma-bosqich mashqlar ishlarni shoshirmasdan kuch, nazorat va ishonchni qaytarishga yordam beradi.',
+    contentsTitle: 'Ushbu maqolada',
+    topics: [
+      'Oraliq (perineum) rolini tushunish',
+      'Tugʻruq nima uchun uni zoʻriqtiradi',
+      'Chanoq tubini tiklashni qachon boshlash kerak',
+      'Toʻgʻri qisqartirishni oʻrganish',
+      'Bosqichma-bosqich tartib tuzish',
+      'Oldini olish kerak boʻlgan xatolar',
+      'Qachon yordam soʻrash kerak',
+      'Sport bilan asta-sekin shugʻullanishni qayta boshlash',
+      'Qabulga tayyorgarlik',
+      'Asosiy xulosalar',
+    ],
+    shareMessage: 'Tugʻruqdan keyin chanoq tubini mustahkamlash — AWA',
+
+    s1Heading: 'Oraliq (perineum) rolini tushunish',
+    s1Body1:
+      'Oraliq, chanoq tubi deb ham ataladi, chanoq asosida joylashgan mushaklar guruhi. U siydik pufagi va ichak nazoratida rol oʻynaydi va chanoq aʼzolarini qoʻllab-quvvatlashga yordam beradi.',
+    s1Body2:
+      'Homiladorlik davomida bu mushaklar bir necha oy qoʻshimcha ogʻirlikni koʻtarishi kerak. Ular tugʻruq paytida ham katta zoʻriqishga uchraydi.',
+    s1HighlightTitle: 'Sezdirmaydigan, ammo muhim mushak',
+    s1HighlightText:
+      'Chanoq tubi bir nechta kundalik funksiyada ishtirok etadi: siydik va najasni ushlab turish, gazlarni nazorat qilish, chanoq aʼzolarini qoʻllab-quvvatlash va baʼzi jinsiy funksiyalarda rol oʻynash.',
+
+    benefitsHeading: 'Mustahkamroq chanoq tubining foydalari',
+    benefitsIntro:
+      'Bosqichma-bosqich, toʻgʻri bajarilgan mustahkamlash chanoq tubi nazorati va qoʻllab-quvvatlashini yaxshilashga yordam beradi.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Siydik pufagi nazoratining yaxshilanishi',
+        text: 'Chanoq tubi siydik pufagi nazoratida rol oʻynaydi. Uni asta-sekin mustahkamlash baʼzi siydik oqishlarini kamaytirishga yordam berishi mumkin.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Ichak funksiyasini qoʻllab-quvvatlash',
+        text: 'Bu mushaklar gaz va najasni nazorat qilishga ham yordam beradi va chanoq aʼzolarini qoʻllab-quvvatlashga hissa qoʻshadi.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Chanoq aʼzolarini qoʻllab-quvvatlash',
+        text: 'Chanoq tubi siydik pufagi, bachadon va ichakni qoʻllab-quvvatlashga yordam beradigan haqiqiy mushak asosini tashkil qiladi.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Sezgilarni asta-sekin qaytarish',
+        text: 'Mos tiklanish bu sohani yaxshiroq anglash va nazorat qilishni qaytarishga ham yordam berishi mumkin.',
+      },
+    ],
+
+    s2Heading: 'Homiladorlik va tugʻruq nima uchun uni zoʻriqtiradi',
+    s2Body1:
+      'Homiladorlik chanoq tubiga asta-sekin koʻproq bosim oʻtkazadi. Tabiiy tugʻruq esa bu sohadagi mushak va toʻqimalarni sezilarli choʻzishi mumkin.',
+    s2Body2:
+      'Kesarcha kesish ham chanoq tubini toʻliq asramaydi: homiladorlikning oʻzi bu mushaklar uchun muhim davr boʻlib qoladi.',
+    s2Body3:
+      'Tugʻruqdan keyin tiklanish vaqt olishi shuning uchun normal. Baʼzi ayollar deyarli hech qanday alomatni sezmaydi, boshqalari esa siydik oqishi, ogʻirlik hissi yoki mushak nazoratining pasayishini sezishi mumkin.',
+    s2TipTitle: 'Har bir tiklanish boshqacha',
+    s2TipText:
+      'Tugʻruq turi, yirtilish yoki epiziotomiya, ogʻriqning mavjudligi va tugʻruqdan keyingi umumiy holatingiz tiklanishga taʼsir qilishi mumkin.',
+
+    s3Heading: 'Chanoq tubini tiklashni qachon boshlash kerak?',
+    s3Body1:
+      'Asoratsiz tugʻruqdan keyin chanoq tubining yengil qisqartirishlarini odatda asta-sekin davom ettirish mumkin. Mashqlarni vaziyatingizga moslashtirish va agar asorat, sezilarli ogʻriq yoki maxsus muolaja boʻlgan boʻlsa, maslahat olish muhim boʻlib qoladi.',
+    s3Body2:
+      'Agar siydik kateteringiz boʻlsa, baʼzi tavsiyalar oraliq mashqlarini boshlashdan oldin uni olib tashlanishini va normal siyish tiklanishini kutishni taklif qiladi.',
+    s3AlertTitle: 'Ogʻriqqa qaramay davom etmang',
+    s3AlertText:
+      'Sezilarli ogʻriq, yomonlashayotgan alomatlar, yomon bitayotgan yara yoki har qanday alohida xavotir doya, shifokor yoki tiklanish mutaxassisidan maslahat olishni talab qiladi.',
+
+    s4Heading: 'Toʻgʻri qisqartirishni oʻrganish',
+    s4Body1:
+      'Harakatni aniqlash uchun bir vaqtning oʻzida gaz va siyishga boʻlgan ehtiyojni ushlab turishga harakat qilayotganingizni tasavvur qiling. Siz izlayotgan harakat — ichkariga qarab qisqarish va koʻtarilish hissi.',
+    s4Body2:
+      'Maqsad butun tanani qattiq taranglashtirish emas. Dumbalar, sonlar va qorin mushaklari imkon qadar boʻsh qolishi kerak, nafas olish esa odatdagidek davom etadi.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Nafas olish'},
+      {icon: 'human-handsup', label: 'Yengil qisqartirish'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Uzoq qisqartirish'},
+      {icon: 'gesture-tap-button', label: 'Tez qisqartirishlar'},
+    ],
+    s4HighlightTitle: 'Boʻshashish ham xuddi shunday muhim',
+    s4HighlightText:
+      'Har bir qisqartirishdan keyin mushaklarni toʻliq boʻshashtiring. Yaxshi tiklanish oraliqni kun boʻyi qisqargan holda saqlashni anglatmaydi.',
+
+    s5Heading: 'Bosqichma-bosqich tartib tuzish',
+    s5Body1:
+      'Dastlab eng muhimi — mushaklarni aniqlash va harakatni toʻgʻri bajarishni oʻrganish. Izchillik shiddatdan muhimroq.',
+    s5h3a: 'Uzoq qisqartirishlar',
+    s5Body2:
+      'Chanoq tubini muloyim qisqartiring, keyin nafasni ushlamasdan qisqartirishni bir necha soniya ushlab turing. Keyin qaytadan boshlashdan oldin toʻliq boʻshating.',
+    s5h3b: 'Qisqa qisqartirishlar',
+    s5Body3:
+      'Harakat oʻzlashtirilgandan keyin, mayda tez qisqartirishlarni qoʻshish mumkin. Ular qorin ichi bosimi ortganda, masalan, yoʻtalish yoki aksirishdan oldin mushaklarni tez qisqartirish qobiliyatini mashq qildiradi.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Mashqlarni kundalik odat bilan bogʻlang'},
+      {icon: 'human-sitting', label: 'Qulay holatdan boshlang'},
+      {icon: 'weather-windy', label: 'Qisqartirish paytida odatdagidek nafas oling'},
+      {icon: 'sleep', label: 'Boʻshashish bosqichlariga rioya qiling'},
+      {icon: 'chart-line', label: 'Murakkablikni asta-sekin oshiring'},
+      {icon: 'doctor', label: 'Ishonchingiz komil boʻlmasa, maslahat soʻrang'},
+    ],
+    s5TipTitle: 'Eng avvalo izchillik',
+    s5TipText:
+      'Mashqlarni kuningizning allaqachon bir qismi boʻlgan odat bilan bogʻlash izchillikni saqlashni osonlashtirishi mumkin: emizishdan keyin, tish yuvgandan keyin yoki sizga mos boshqa vaqtda.',
+
+    s6Heading: 'Oldini olish kerak boʻlgan keng tarqalgan xatolar',
+    s6Body1:
+      'Oraliq mashqlari oddiy koʻrinishi mumkin, ammo boshqa mushaklar bilan kompensatsiya qilish yoki haddan tashqari zoʻr berish oson.',
+    commonMistakes: [
+      'Chanoq tubi oʻrniga dumba yoki sonlarni taranglashtirish',
+      'Qisqartirish paytida nafasni ushlash',
+      'Mushaklarni boʻshashtirmasdan doimiy qisqargan holda saqlash',
+      'Mashqlarni faqat bir necha kun bajarib, keyin toʻxtatish',
+      'Qisqartirishni tekshirish uchun siydik oqimini ataylab toʻxtatish',
+    ],
+    s6TipTitle: 'Nima qilmaslik kerak',
+    s6TipText:
+      'Mashqlarni siydik oqimini ataylab toʻxtatish orqali bajarish tavsiya etilmaydi. Bu usul oraliqni toʻgʻri mashq qildirmaydi va siydik pufagining normal ishini buzishi mumkin.',
+
+    s7Heading: 'Qaysi alomatlar konsultatsiyaga sabab boʻlishi kerak?',
+    s7Body1:
+      'Tugʻruqdan keyin yengil siydik oqishi yoki odatdan tashqari sezgi paydo boʻlishi mumkin. Biroq ular saqlanib qolsa, yomonlashsa yoki kundalik hayotingizga xalaqit bersa, eʼtiborsiz qoldirmaslik kerak.',
+    warningSigns: [
+      'Yoʻtalganda, aksirganda, kulganda yoki zoʻriqqanda siydik oqishi',
+      'Pastki chanoqda ogʻirlik yoki bosim hissi',
+      'Qinga nimadir yoki biror boʻrtma tushayotgandek his',
+      'Gaz yoki najasni ushlab turishda qiyinchilik',
+      'Oraliqda doimiy ogʻriq',
+      'Jinsiy aloqa paytida yoki undan keyin ogʻriq',
+      'Oraliq mushaklarini aniqlash yoki toʻgʻri qisqartirishda qiyinchilik',
+    ],
+    consultLabel: 'Qachon maslahat olish kerak?',
+    s7Body2:
+      'Chanoq tubini tiklashga ixtisoslashgan doya, shifokor yoki fizioterapevt mushak ishini tekshirib, mos dasturni taklif qilishi mumkin.',
+
+    s8Heading: 'Yirtilish, epiziotomiya yoki kesarcha kesishdan keyin-chi?',
+    s8Body1:
+      'Yirtilish yoki epiziotomiya bitish davomida alohida parvarishni talab qiladi. Faoliyatni qayta boshlashda ogʻriq, chandiq holati va tugʻruqdan keyin berilgan yoʻl-yoʻriq hisobga olinishi kerak.',
+    s8Body2:
+      'Kesarcha kesishdan keyin tiklanish qorin devori va chandiqni ham oʻz ichiga oladi. Tugʻruq tabiiy boʻlmasa ham, homiladorlikning oʻzi baribir chanoq tubini zoʻriqtirgan.',
+    s8HighlightTitle: 'Shaxsiy yordam foydali boʻlishi mumkin',
+    s8HighlightText:
+      'Sezilarli yirtilish, ogʻriq, siydik yoki ichak alomatlari yoki doimiy qiyinchiliklar boʻlsa, sogʻliqni saqlash mutaxassisi bilan baholash ayniqsa foydali boʻlishi mumkin.',
+
+    s9Heading: 'Sport bilan asta-sekin shugʻullanishni qayta boshlash',
+    s9Body1:
+      'Tugʻruqdan keyin harakatni qayta boshlash bosqichma-bosqich boʻlishi kerak. Piyoda yurish va yengil harakatlarni odatda oʻzingizni qanday his qilishingizga qarab davom ettirish mumkin, yuqori zarbali faollik esa koʻproq ehtiyotkorlikni talab qiladi.',
+    s9Body2:
+      'Yugurish, sakrash yoki juda intensiv mashgʻulotlarni qayta boshlashdan oldin chanoq tubining tiklanishini baholash va har qanday alomatlarni hisobga olish maʼqul.',
+    s9AlertTitle: 'Bosqichlarni shoshirmang',
+    s9AlertText:
+      'Mashq paytida yoki undan keyin siydik oqishi, ogʻirlik hissi yoki ogʻriq — sekinlashish va shiddatni oshirishdan oldin maslahat olish kerakligini bildiradi.',
+
+    s10Heading: 'Qachon mutaxassisga borish kerak?',
+    s10Body1:
+      'Doya yoki fizioterapevt bilan chanoq tubini tiklash, agar toʻgʻri qisqartirayotganingizga ishonchingiz komil boʻlmasa, alomatlaringiz saqlanib qolsa yoki baʼzi jismoniy faoliyatni ishonch bilan davom ettirmoqchi boʻlsangiz, foydali boʻlishi mumkin.',
+    questionCardTitle: 'Berish foydali boʻlgan savollar',
+    appointmentQuestions: [
+      'Alomatlarim chanoq tubining zaiflashishiga mos keladimi?',
+      'Men qisqartirishlarni toʻgʻri bajaryapmanmi?',
+      'Kuniga necha marta takrorlashim kerak?',
+      'Yugurish, sport yoki yuqori zarbali mashqlarga qaytsam boʻladimi?',
+      'Menga doya yoki fizioterapevt bilan tiklanish kerakmi?',
+      'Mening chandiqim, yirtilishim yoki kesarcha kesishim alohida ehtiyot choralarini talab qiladimi?',
+    ],
+    s10TipTitle: 'Bilish foydali',
+    s10TipText:
+      'Mutaxassisga borish albatta nimadir notoʻgʻriligini anglatmaydi. Seans shunchaki texnikangizni tekshirishga, tiklanishingizni baholashga va toʻgʻri rivojlanishni oʻrganishga yordam berishi mumkin.',
+
+    s11Heading: 'Vaqt oladigan tiklanish',
+    s11Body1:
+      'Tugʻruqdan keyin homiladorlikdan oldingi sezgi yoki mushak kuchini darhol qaytarib olmaslik normal.',
+    s11Body2:
+      'Maqsad iloji boricha koʻproq qisqartirish qilish emas. Bu koʻproq qisqartirish va boʻshashish oʻrtasidagi yaxshi muvofiqlikni asta-sekin tiklash, keyin bu mushaklardan kundalik faoliyatda tabiiy foydalana olishdir.',
+    s11HighlightTitle: 'Kichik muvaffaqiyat — haqiqiy muvaffaqiyat',
+    s11HighlightText:
+      'Harakatni yaxshiroq anglash, qisqartirishni bir necha soniya koʻproq ushlab turish yoki siydik oqishining kamayishi allaqachon umidli belgilar.',
+
+    s12Heading: 'Asosiy xulosalar',
+    summaryTitle: 'Asosiy jihatlar',
+    summaryItems: [
+      'Homiladorlik va tugʻruq chanoq tubiga sezilarli zoʻriqish beradi.',
+      'Tugʻruqdan keyin bosqichma-bosqich tiklanish normal.',
+      'Mashqlarda kuchdan koʻra harakat sifatiga ustuvorlik berilishi kerak.',
+      'Nafas olish va boʻshashish qisqartirish kabi muhim.',
+      'Siydik oqishi, ogʻirlik yoki doimiy ogʻriq mutaxassis fikriga arziydi.',
+      'Doya yoki fizioterapevt bilan tiklanish nazoratni yaxshiroq qaytarishga yordam beradi.',
+      'Sportga qaytish bosqichma-bosqich boʻlishi kerak, ayniqsa yuqori zarbali faollik uchun.',
+    ],
+
+    finalTipTitle: 'Tiklanish uchun vaqt ajrating',
+    finalTipText:
+      'Tugʻruqdan keyin tanangiz koʻp oʻzgarishlarni boshdan kechirdi. Oraliq tananing qolgan qismi kabi eʼtiborga loyiq: asta-sekin, muntazam va bosimsiz.',
+
+    disclaimerText:
+      'Bu maqola faqat maʼlumot uchun va shaxsiy tibbiy maslahatni almashtirmaydi. Agar ogʻriq, doimiy alomatlar boʻlsa yoki tiklanishingiz haqida xavotir boʻlsa, sogʻliqni saqlash mutaxassisidan maslahat oling.',
+  },
+  az: {
+    badge: 'DOĞUŞDAN SONRA • BƏRPA',
+    title: 'Doğuşdan sonra çanaq\ndibini gücləndirmək',
+    metaDuration: '8 dəq oxu',
+    metaType: 'Bələdçi',
+    metaLevel: 'Başlanğıc',
+    metaValidated: 'Yoxlanılmış məzmun',
+    intro:
+      'Hamiləlikdən və doğuşdan sonra çanaq dibinin bərpa olunmaq üçün vaxta ehtiyacı var. Sadə, müntəzəm və tədricən məşqlər prosesi sürətləndirməyə çalışmadan gücü, nəzarəti və özünəinamı bərpa etməyə kömək edə bilər.',
+    contentsTitle: 'Bu məqalədə',
+    topics: [
+      'Perineumun rolunu anlamaq',
+      'Doğuş onu nə üçün gərginləşdirir',
+      'Çanaq dibinin reabilitasiyasına nə vaxt başlamaq lazımdır',
+      'Düzgün yığılmağı öyrənmək',
+      'Tədricən rutin qurmaq',
+      'Qarşısını almaq lazım olan səhvlər',
+      'Nə vaxt kömək istəmək lazımdır',
+      'İdmana tədricən qayıtmaq',
+      'Qəbula hazırlıq',
+      'Əsas nəticələr',
+    ],
+    shareMessage: 'Doğuşdan sonra çanaq dibini gücləndirmək — AWA',
+
+    s1Heading: 'Perineumun rolunu anlamaq',
+    s1Body1:
+      'Çanaq dibi də adlanan perineum çanağın əsasında yerləşən əzələ qrupudur. O, sidik kisəsinə və bağırsağa nəzarətdə rol oynayır və çanaq orqanlarını dəstəkləməyə kömək edir.',
+    s1Body2:
+      'Hamiləlik zamanı bu əzələlər bir neçə ay əlavə çəki daşımalıdır. Doğuş zamanı da onlar xeyli gərginliyə məruz qalır.',
+    s1HighlightTitle: 'Diskret, lakin vacib əzələ',
+    s1HighlightText:
+      'Çanaq dibi bir neçə gündəlik funksiyada iştirak edir: sidiyi və nəcisi saxlamaq, qazlara nəzarət etmək, çanaq orqanlarını dəstəkləmək və bəzi cinsi funksiyalarda rol oynamaq.',
+
+    benefitsHeading: 'Daha güclü çanaq dibinin faydaları',
+    benefitsIntro:
+      'Tədricən və düzgün aparılan möhkəmləndirmə çanaq dibinə nəzarəti və dəstəyi yaxşılaşdırmağa kömək edə bilər.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Sidik kisəsinə daha yaxşı nəzarət',
+        text: 'Çanaq dibi sidik kisəsinə nəzarətdə rol oynayır. Onu tədricən gücləndirmək bəzi sidik sızmalarını azaltmağa kömək edə bilər.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Bağırsaq funksiyasını dəstəkləmək',
+        text: 'Bu əzələlər həm də qazlara və nəcisə nəzarət etməyə kömək edir və çanaq orqanlarını dəstəkləməyə töhfə verir.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Çanaq orqanlarını dəstəkləmək',
+        text: 'Çanaq dibi sidik kisəsinə, uşaqlığa və bağırsağa dəstək olmağa kömək edən həqiqi əzələ əsası təşkil edir.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Hissiyatı tədricən bərpa etmək',
+        text: 'Uyğun reabilitasiya bu nahiyənin daha yaxşı dərk edilməsini və nəzarətini bərpa etməyə də kömək edə bilər.',
+      },
+    ],
+
+    s2Heading: 'Hamiləlik və doğuş onu nə üçün gərginləşdirir',
+    s2Body1:
+      'Hamiləlik çanaq dibinə tədricən daha çox təzyiq göstərir. Vaginal doğuş isə bu nahiyənin əzələlərini və toxumalarını xeyli dartır.',
+    s2Body2:
+      'Kesar kəsiyi də çanaq dibini tam qorumur: hamiləliyin özü bu əzələlər üçün əhəmiyyətli dövr olaraq qalır.',
+    s2Body3:
+      'Doğuşdan sonra bərpanın vaxt aparması buna görə normaldır. Bəzi qadınlar demək olar ki, heç bir simptom hiss etmir, digərləri isə sızma, ağırlıq hissi və ya əzələ nəzarətinin azalmasını hiss edə bilər.',
+    s2TipTitle: 'Hər bərpa fərqlidir',
+    s2TipText:
+      'Doğuşun növü, yırtıq və ya epiziotomiya, ağrının olması və doğuşdan sonrakı ümumi vəziyyətiniz bərpaya təsir edə bilər.',
+
+    s3Heading: 'Çanaq dibinin reabilitasiyasına nə vaxt başlamaq lazımdır?',
+    s3Body1:
+      'Fəsadsız doğuşdan sonra çanaq dibinin mülayim yığılmalarını adətən tədricən bərpa etmək olar. Məşqləri vəziyyətinizə uyğunlaşdırmaq və fəsad, əhəmiyyətli ağrı və ya xüsusi müdaxilə yaşamısınızsa, məsləhət almaq vacib olaraq qalır.',
+    s3Body2:
+      'Sidik kateteriniz varsa, bəzi tövsiyələr perineum məşqlərinə başlamazdan əvvəl onun çıxarılmasını və normal sidik ifrazının bərpa olunmasını gözləməyi təklif edir.',
+    s3AlertTitle: 'Ağrıya baxmayaraq davam etməyin',
+    s3AlertText:
+      'Əhəmiyyətli ağrı, pisləşən simptomlar, pis sağalan yara və ya hər hansı xüsusi narahatlıq mama, həkim və ya reabilitasiya mütəxəssisinin məsləhətini tələb edir.',
+
+    s4Heading: 'Düzgün yığılmağı öyrənmək',
+    s4Body1:
+      'Hərəkəti müəyyən etmək üçün eyni zamanda qazı və sidik ifrazı istəyini saxlamağa çalışdığınızı təsəvvür edin. Axtardığınız hərəkət yığılma və içəriyə qaldırma hissidir.',
+    s4Body2:
+      'Məqsəd bütün bədəni sıx gərmək deyil. Nəfəs normal davam edərkən omba, bud və qarın əzələləri mümkün qədər rahat qalmalıdır.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Nəfəs'},
+      {icon: 'human-handsup', label: 'Mülayim yığılma'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Uzun yığılma'},
+      {icon: 'gesture-tap-button', label: 'Sürətli yığılmalar'},
+    ],
+    s4HighlightTitle: 'Rahatlamaq da eyni dərəcədə vacibdir',
+    s4HighlightText:
+      'Hər yığılmadan sonra əzələlərin tam rahatlaşmasına icazə verin. Yaxşı reabilitasiya perineumu gün boyu yığılmış saxlamaq demək deyil.',
+
+    s5Heading: 'Tədricən rutin qurmaq',
+    s5Body1:
+      'Əvvəlcə ən vacib məsələ əzələləri müəyyən etməyi və hərəkəti düzgün yerinə yetirməyi öyrənməkdir. Müntəzəmlik intensivlikdən daha vacibdir.',
+    s5h3a: 'Uzun yığılmalar',
+    s5Body2:
+      'Çanaq dibini mülayim yığın, sonra nəfəsi tutmadan yığılmanı bir neçə saniyə saxlayın. Sonra yenidən başlamazdan əvvəl tam buraxın.',
+    s5h3b: 'Qısa yığılmalar',
+    s5Body3:
+      'Hərəkət mənimsənildikdən sonra kiçik sürətli yığılmalar əlavə edilə bilər. Onlar qarın təzyiqi artdıqda, məsələn, öskürmədən və ya asqırmadan əvvəl əzələləri sürətlə yığmaq qabiliyyətini məşq etdirir.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Məşqləri gündəlik vərdişlə birləşdirin'},
+      {icon: 'human-sitting', label: 'Rahat vəziyyətdə başlayın'},
+      {icon: 'weather-windy', label: 'Yığılmalar zamanı normal nəfəs alın'},
+      {icon: 'sleep', label: 'Rahatlama fazalarına riayət edin'},
+      {icon: 'chart-line', label: 'Çətinliyi tədricən artırın'},
+      {icon: 'doctor', label: 'Əmin deyilsinizsə, məsləhət alın'},
+    ],
+    s5TipTitle: 'Hər şeydən əvvəl müntəzəmlik',
+    s5TipText:
+      'Məşqləri günün artıq bir hissəsi olan vərdişlə birləşdirmək müntəzəm qalmağı asanlaşdıra bilər: əmizdirmədən sonra, dişləri fırçalayandan sonra və ya sizə uyğun başqa vaxtda.',
+
+    s6Heading: 'Qarşısını almaq lazım olan geniş yayılmış səhvlər',
+    s6Body1:
+      'Perineum məşqləri sadə görünə bilər, lakin digər əzələlərlə kompensasiya etmək və ya həddindən artıq zorlamaq asandır.',
+    commonMistakes: [
+      'Çanaq dibi əvəzinə omba və ya bud əzələlərini gərmək',
+      'Yığılma zamanı nəfəsi tutmaq',
+      'Əzələləri rahatlamağa icazə vermədən daim yığılmış saxlamaq',
+      'Məşqləri yalnız bir neçə gün etmək, sonra dayandırmaq',
+      'Yığılmanı yoxlamaq üçün sidik axınını qəsdən dayandırmaq',
+    ],
+    s6TipTitle: 'Nə etməmək lazımdır',
+    s6TipText:
+      'Məşqləri sidik axınını qəsdən dayandırmaqla həyata keçirmək tövsiyə edilmir. Bu üsul perineumu düzgün məşq etdirmir və sidik kisəsinin normal funksiyasını poza bilər.',
+
+    s7Heading: 'Hansı simptomlar konsultasiyaya səbəb olmalıdır?',
+    s7Body1:
+      'Doğuşdan sonra bəzən kiçik sızmalar və ya qeyri-adi hiss görünə bilər. Lakin onlar davam edərsə, pisləşərsə və ya gündəlik həyatınıza mane olarsa, nəzərə alınmamalıdır.',
+    warningSigns: [
+      'Öskürəndə, asqıranda, gülərkən və ya zorlananda sidik sızması',
+      'Aşağı çanaqda ağırlıq və ya təzyiq hissi',
+      'Vaginaya bir şişin və ya nəyinsə düşdüyü hissi',
+      'Qazı və ya nəcisi saxlamaqda çətinlik',
+      'Perineumda davamlı ağrı',
+      'Cinsi əlaqə zamanı və ya sonra ağrı',
+      'Perineum əzələlərini müəyyən etməkdə və ya düzgün yığmaqda çətinlik',
+    ],
+    consultLabel: 'Nə vaxt məsləhət almaq lazımdır?',
+    s7Body2:
+      'Çanaq dibinin reabilitasiyası üzrə ixtisaslaşmış mama, həkim və ya fizioterapevt əzələ funksiyasını yoxlaya və uyğun proqram təklif edə bilər.',
+
+    s8Heading: 'Bəs yırtıqdan, epiziotomiyadan və ya kesar kəsiyindən sonra?',
+    s8Body1:
+      'Yırtıq və ya epiziotomiya sağalma zamanı xüsusi qayğı tələb edir. Fəaliyyətlərin bərpası ağrını, çapığın vəziyyətini və doğuşdan sonra verilən tövsiyələri nəzərə almalıdır.',
+    s8Body2:
+      'Kesar kəsiyindən sonra bərpa qarın divarını və çapığı da əhatə edir. Doğuş vaginal olmasa belə, hamiləliyin özü çanaq dibinə yük qoymuşdur.',
+    s8HighlightTitle: 'Fərdiləşdirilmiş qayğı kömək edə bilər',
+    s8HighlightText:
+      'Əhəmiyyətli yırtıq, ağrı, sidik və ya bağırsaq simptomları və ya davamlı çətinliklər olduqda, tibb işçisi ilə qiymətləndirmə xüsusilə faydalı ola bilər.',
+
+    s9Heading: 'İdmana tədricən qayıtmaq',
+    s9Body1:
+      'Doğuşdan sonra hərəkətə qayıtmaq tədricən olmalıdır. Gəzinti və mülayim hərəkətlər adətən özünüzü necə hiss etdiyinizə uyğun bərpa oluna bilər, yüksək təsirli fəaliyyətlər isə daha çox ehtiyatlılıq tələb edir.',
+    s9Body2:
+      'Qaçışı, tullanmağı və ya çox intensiv məşqi bərpa etməzdən əvvəl çanaq dibinin bərpasını qiymətləndirmək və hər hansı simptomları nəzərə almaq daha yaxşıdır.',
+    s9AlertTitle: 'Mərhələləri tələsdirməyin',
+    s9AlertText:
+      'Sızmalar, ağırlıq hissi və ya məşq zamanı və ya sonra ağrı intensivliyi artırmazdan əvvəl yavaşlamalı və məsləhət almalı olduğunuzun əlamətləridir.',
+
+    s10Heading: 'Nə vaxt mütəxəssisə müraciət etmək lazımdır?',
+    s10Body1:
+      'Mama və ya fizioterapevtlə çanaq dibi reabilitasiyası düzgün yığılıb-yığılmadığınızdan əmin olmadıqda, simptomlarınız davam etdikdə və ya bəzi fiziki fəaliyyətləri əminliklə bərpa etmək istədikdə faydalı ola bilər.',
+    questionCardTitle: 'Verməyə dəyər faydalı suallar',
+    appointmentQuestions: [
+      'Simptomlarım çanaq dibinin zəifliyinə uyğundurmu?',
+      'Yığılmaları düzgün yerinə yetirirəmmi?',
+      'Gündə neçə təkrar etməliyəm?',
+      'Qaçışa, idmana və ya yüksək təsirli məşqə qayıda bilərəmmi?',
+      'Mama və ya fizioterapevtlə reabilitasiyaya ehtiyacım varmı?',
+      'Çapığım, yırtığım və ya kesar kəsiyim hər hansı xüsusi ehtiyat tədbirləri tələb edirmi?',
+    ],
+    s10TipTitle: 'Bilmək faydalıdır',
+    s10TipText:
+      'Mütəxəssisə müraciət etmək mütləq nəsə səhv olduğu demək deyil. Seans sadəcə texnikanızı yoxlamağa, bərpanızı qiymətləndirməyə və düzgün irəliləməyi öyrənməyə kömək edə bilər.',
+
+    s11Heading: 'Vaxt aparan bərpa',
+    s11Body1:
+      'Doğuşdan sonra hamiləlikdən əvvəl olan eyni hissləri və ya əzələ gücünü dərhal bərpa etməmək normaldır.',
+    s11Body2:
+      'Məqsəd mümkün qədər çox yığılma etmək deyil. Məsələ daha çox yığılma ilə rahatlama arasında yaxşı koordinasiyanı tədricən bərpa etmək və sonra bu əzələlərdən gündəlik fəaliyyətlərdə təbii şəkildə istifadə edə bilməkdir.',
+    s11HighlightTitle: 'Kiçik irəliləyiş də real irəliləyişdir',
+    s11HighlightText:
+      'Hərəkətin daha yaxşı dərk edilməsi, yığılmanın bir neçə əlavə saniyəsi və ya sızmaların azalması artıq ruhlandırıcı əlamətlərdir.',
+
+    s12Heading: 'Əsas nəticələr',
+    summaryTitle: 'Əsas məsələlər',
+    summaryItems: [
+      'Hamiləlik və doğuş çanaq dibinə əhəmiyyətli yük qoyur.',
+      'Doğuşdan sonra tədricən bərpa normaldır.',
+      'Məşqlərdə güc deyil, hərəkətin keyfiyyəti üstün tutulmalıdır.',
+      'Nəfəs və rahatlama yığılma qədər vacibdir.',
+      'Sidik sızması, ağırlıq hissi və ya davamlı ağrı mütəxəssisin rəyinə layiqdir.',
+      'Mama və ya fizioterapevtlə reabilitasiya daha yaxşı nəzarəti bərpa etməyə kömək edə bilər.',
+      'İdmana qayıdış tədricən olmalıdır, xüsusilə yüksək təsirli fəaliyyətlər üçün.',
+    ],
+
+    finalTipTitle: 'Bərpa olunmaq üçün vaxt ayırın',
+    finalTipText:
+      'Doğuşdan sonra bədəniniz çoxlu dəyişikliklərdən keçib. Perineum də bədəninizin qalan hissəsi qədər diqqətə layiqdir: tədricən, müntəzəm və təzyiqsiz.',
+
+    disclaimerText:
+      'Bu məqalə yalnız məlumat məqsədilə təqdim olunur və fərdi tibbi məsləhəti əvəz etmir. Ağrı, davamlı simptomlar yaşayırsınızsa və ya bərpanızla bağlı narahatlığınız varsa, tibb işçisindən məsləhət alın.',
+  },
+  ka: {
+    badge: 'მშობიარობის შემდგომი პერიოდი • გამოჯანმრთელება',
+    title: 'მენჯის ფსკერის გაძლიერება\nმშობიარობის შემდეგ',
+    metaDuration: '8 წთ საკითხავი',
+    metaType: 'გზამკვლევი',
+    metaLevel: 'დამწყები',
+    metaValidated: 'გადამოწმებული შინაარსი',
+    intro:
+      'ორსულობისა და მშობიარობის შემდეგ მენჯის ფსკერს გამოჯანმრთელებისთვის დრო სჭირდება. მარტივ, რეგულარულ და ეტაპობრივ ვარჯიშებს შეუძლია დაგეხმაროთ ძალის, კონტროლისა და თავდაჯერებულობის დაბრუნებაში, საქმეების აჩქარების გარეშე.',
+    contentsTitle: 'ამ სტატიაში',
+    topics: [
+      'პერინეუმის როლის გაგება',
+      'რატომ ხდება მშობიარობისას მასზე დატვირთვა',
+      'როდის დავიწყოთ მენჯის ფსკერის რეაბილიტაცია',
+      'სწორად შეკუმშვის სწავლა',
+      'ეტაპობრივი რუტინის აგება',
+      'შეცდომები, რომლებიც თავიდან უნდა ავიცილოთ',
+      'როდის ვითხოვოთ დახმარება',
+      'სპორტის ეტაპობრივი განახლება',
+      'ვიზიტისთვის მომზადება',
+      'მთავარი დასკვნები',
+    ],
+    shareMessage: 'მენჯის ფსკერის გაძლიერება მშობიარობის შემდეგ — AWA',
+
+    s1Heading: 'პერინეუმის როლის გაგება',
+    s1Body1:
+      'პერინეუმი, რომელსაც მენჯის ფსკერსაც უწოდებენ, მენჯის ძირში მდებარე კუნთების ჯგუფია. ის მონაწილეობს შარდის ბუშტისა და ნაწლავის კონტროლში და მენჯის ორგანოების მხარდაჭერაში გეხმარებათ.',
+    s1Body2:
+      'ორსულობის დროს ეს კუნთები რამდენიმე თვის განმავლობაში დამატებით წონას უნდა ატარებდეს. მშობიარობის დროსაც მათზე მნიშვნელოვანი დატვირთვა მოდის.',
+    s1HighlightTitle: 'დისკრეტული, მაგრამ არსებითი კუნთი',
+    s1HighlightText:
+      'მენჯის ფსკერი რამდენიმე ყოველდღიურ ფუნქციაში მონაწილეობს: შარდისა და განავლის შეკავებაში, აირების კონტროლში, მენჯის ორგანოების მხარდაჭერაში და გარკვეულ სექსუალურ ფუნქციებში.',
+
+    benefitsHeading: 'მენჯის ფსკერის გაძლიერების სარგებელი',
+    benefitsIntro:
+      'ეტაპობრივმა, სწორად შესრულებულმა გაძლიერებამ შეიძლება მენჯის ფსკერის კონტროლისა და მხარდაჭერის გაუმჯობესებაში დაგეხმაროთ.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'შარდის ბუშტის უკეთესი კონტროლი',
+        text: 'მენჯის ფსკერი შარდის ბუშტის კონტროლში მონაწილეობს. მისმა ეტაპობრივმა გაძლიერებამ შეიძლება შარდის გარკვეული გაჟონვა შეამციროს.',
+      },
+      {
+        icon: 'toilet',
+        title: 'ნაწლავის ფუნქციის მხარდაჭერა',
+        text: 'ეს კუნთები ასევე აირებისა და განავლის კონტროლში გეხმარებათ და მენჯის ორგანოების მხარდაჭერას უწყობს ხელს.',
+      },
+      {
+        icon: 'human-female',
+        title: 'მენჯის ორგანოების მხარდაჭერა',
+        text: 'მენჯის ფსკერი ნამდვილ კუნთოვან საფუძველს ქმნის, რომელიც შარდის ბუშტის, საშვილოსნოსა და ნაწლავის მხარდაჭერაში გეხმარებათ.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'შეგრძნების ეტაპობრივი დაბრუნება',
+        text: 'სათანადო რეაბილიტაციას ასევე შეუძლია ამ უბნის უკეთესი გაცნობიერებისა და კონტროლის დაბრუნებაში დაგეხმაროთ.',
+      },
+    ],
+
+    s2Heading: 'რატომ ხდება ორსულობისა და მშობიარობისას მასზე დატვირთვა',
+    s2Body1:
+      'ორსულობა მენჯის ფსკერზე ეტაპობრივად მეტ წნევას ქმნის. ვაგინალურ მშობიარობას შეუძლია ამ უბნის კუნთებისა და ქსოვილების მნიშვნელოვანი გაჭიმვა.',
+    s2Body2:
+      'საკეისრო კვეთაც მენჯის ფსკერს სრულად არ ზოგავს: თავად ორსულობა ამ კუნთებისთვის მნიშვნელოვანი პერიოდი რჩება.',
+    s2Body3:
+      'მშობიარობის შემდეგ ამიტომ ნორმალურია, რომ გამოჯანმრთელებას დრო სჭირდება. ზოგი ქალი თითქმის არანაირ სიმპტომს არ გრძნობს, სხვებმა კი შეიძლება გაჟონვა, სიმძიმის შეგრძნება ან კუნთების შემცირებული კონტროლი შეამჩნიონ.',
+    s2TipTitle: 'ყოველი გამოჯანმრთელება განსხვავებულია',
+    s2TipText:
+      'მშობიარობის ტიპმა, გახევამ ან ეპიზიოტომიამ, ტკივილის არსებობამ და მშობიარობის შემდეგ თქვენმა საერთო მდგომარეობამ შეიძლება გამოჯანმრთელებაზე იმოქმედოს.',
+
+    s3Heading: 'როდის დავიწყოთ მენჯის ფსკერის რეაბილიტაცია?',
+    s3Body1:
+      'გართულების გარეშე მშობიარობის შემდეგ მენჯის ფსკერის რბილი შეკუმშვები, როგორც წესი, ეტაპობრივად შეიძლება განახლდეს. მნიშვნელოვანი რჩება ვარჯიშების თქვენს სიტუაციაზე მორგება და რჩევის ძიება, თუ გართულება, მნიშვნელოვანი ტკივილი ან კონკრეტული პროცედურა გქონდათ.',
+    s3Body2:
+      'თუ შარდის კათეტერი გაქვთ, ზოგი რეკომენდაცია გვთავაზობს დაელოდოთ მის მოხსნას და ნორმალური შარდვის განახლებას, სანამ პერინეუმის ვარჯიშებს დაიწყებთ.',
+    s3AlertTitle: 'ტკივილის მიუხედავად ნუ გააგრძელებთ',
+    s3AlertText:
+      'მნიშვნელოვანი ტკივილი, გაუარესებული სიმპტომები, ცუდად შეხორცებადი ჭრილობა ან ნებისმიერი განსაკუთრებული შეშფოთება ბებიაქალის, ექიმის ან რეაბილიტაციის სპეციალისტის რჩევას მოითხოვს.',
+
+    s4Heading: 'სწორად შეკუმშვის სწავლა',
+    s4Body1:
+      'მოძრაობის გამოსავლენად წარმოიდგინეთ, რომ ერთდროულად აირების და შარდვის სურვილის შეკავებას ცდილობთ. მოძრაობა, რომელსაც ეძებთ, შეკუმშვისა და შიგნით აწევის შეგრძნებაა.',
+    s4Body2:
+      'მიზანი არ არის მთელი სხეულის მკაცრად დაძაბვა. თქვენი დუნდულები, თეძოები და მუცლის კუნთები რაც შეიძლება მოდუნებული უნდა დარჩეს, სუნთქვა კი ნორმალურად გაგრძელდეს.',
+    exercises: [
+      {icon: 'weather-windy', label: 'სუნთქვა'},
+      {icon: 'human-handsup', label: 'რბილი შეკუმშვა'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'ხანგრძლივი შეკუმშვა'},
+      {icon: 'gesture-tap-button', label: 'სწრაფი შეკუმშვები'},
+    ],
+    s4HighlightTitle: 'მოდუნებაც ისეთივე მნიშვნელოვანია',
+    s4HighlightText:
+      'ყოველი შეკუმშვის შემდეგ კუნთები სრულად მოადუნეთ. კარგი რეაბილიტაცია არ ნიშნავს პერინეუმის მთელი დღის განმავლობაში შეკუმშულად დაჭერას.',
+
+    s5Heading: 'ეტაპობრივი რუტინის აგება',
+    s5Body1:
+      'დასაწყისში ყველაზე მნიშვნელოვანი კუნთების ამოცნობის და მოძრაობის სწორად შესრულების სწავლაა. თანმიმდევრულობა ინტენსივობაზე მნიშვნელოვანია.',
+    s5h3a: 'ხანგრძლივი შეკუმშვები',
+    s5Body2:
+      'ნაზად შეკუმშეთ მენჯის ფსკერი, შემდეგ შეკუმშვა რამდენიმე წამს დაიჭირეთ სუნთქვის შეკავების გარეშე. შემდეგ სრულად მოდუნდით, სანამ თავიდან დაიწყებთ.',
+    s5h3b: 'მოკლე შეკუმშვები',
+    s5Body3:
+      'მოძრაობის ათვისების შემდეგ შეიძლება პატარა სწრაფი შეკუმშვების დამატება. ისინი კუნთების სწრაფად შეკუმშვის უნარს ავარჯიშებს, როცა მუცლის წნევა იზრდება, მაგალითად ხველებამდე ან ცემინებამდე ცოტა ხნით ადრე.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'დააკავშირეთ ვარჯიშები ყოველდღიურ ჩვევას'},
+      {icon: 'human-sitting', label: 'დაიწყეთ კომფორტულ პოზაში'},
+      {icon: 'weather-windy', label: 'შეკუმშვისას ნორმალურად ისუნთქეთ'},
+      {icon: 'sleep', label: 'დაიცავით მოდუნების ფაზები'},
+      {icon: 'chart-line', label: 'ეტაპობრივად გაზარდეთ სირთულე'},
+      {icon: 'doctor', label: 'თუ დარწმუნებული არ ხართ, ჰკითხეთ რჩევა'},
+    ],
+    s5TipTitle: 'ყველაფერზე მეტად თანმიმდევრულობა',
+    s5TipText:
+      'ვარჯიშების თქვენი დღის უკვე არსებულ ჩვევასთან დაკავშირებამ შეიძლება თანმიმდევრულობის შენარჩუნება გაგიადვილოთ: კვების შემდეგ, კბილების გახეხვის შემდეგ ან სხვა დროს, რომელიც თქვენთვის მოსახერხებელია.',
+
+    s6Heading: 'გავრცელებული შეცდომები, რომლებიც თავიდან უნდა ავიცილოთ',
+    s6Body1:
+      'პერინეუმის ვარჯიშები შეიძლება მარტივი ჩანდეს, მაგრამ ადვილია სხვა კუნთებით კომპენსაცია ან ზედმეტად ძლიერ დაძაბვა.',
+    commonMistakes: [
+      'დუნდულების ან თეძოების დაძაბვა მენჯის ფსკერის ნაცვლად',
+      'სუნთქვის შეკავება შეკუმშვისას',
+      'კუნთების მუდმივად შეკუმშულად დაჭერა მათი მოდუნების გარეშე',
+      'ვარჯიშების მხოლოდ რამდენიმე დღით გაკეთება და შემდეგ შეწყვეტა',
+      'შარდის ნაკადის განზრახ შეჩერება შეკუმშვის შესამოწმებლად',
+    ],
+    s6TipTitle: 'რა არ უნდა გააკეთოთ',
+    s6TipText:
+      'ვარჯიშების შარდის ნაკადის განზრახ შეჩერებით ვარჯიში რეკომენდებული არ არის. ეს მეთოდი პერინეუმს სწორად არ ავარჯიშებს და შარდის ბუშტის ნორმალური ფუნქცია შეიძლება დაარღვიოს.',
+
+    s7Heading: 'რომელმა სიმპტომებმა უნდა გამოიწვიოს კონსულტაცია?',
+    s7Body1:
+      'მშობიარობის შემდეგ ზოგჯერ შეიძლება მცირე გაჟონვა ან უჩვეულო შეგრძნება გამოჩნდეს. თუმცა მათი უგულებელყოფა არ შეიძლება, თუ ისინი გრძელდება, უარესდება ან ყოველდღიურ ცხოვრებას ხელს უშლის.',
+    warningSigns: [
+      'შარდის გაჟონვა ხველებისას, ცემინებისას, სიცილისას ან დაძაბვისას',
+      'სიმძიმის ან წნევის შეგრძნება მენჯის ქვედა ნაწილში',
+      'შეგრძნება, რომ რაღაც ბურთულა ან რაღაც ვაგინაში ეშვება',
+      'აირებისა და განავლის შეკავების სირთულე',
+      'მუდმივი ტკივილი პერინეუმში',
+      'ტკივილი სქესობრივი კავშირის დროს ან მის შემდეგ',
+      'პერინეუმის კუნთების ამოცნობის ან სწორად შეკუმშვის სირთულე',
+    ],
+    consultLabel: 'როდის უნდა ითხოვოთ რჩევა?',
+    s7Body2:
+      'ბებიაქალს, ექიმს ან მენჯის ფსკერის რეაბილიტაციაში სპეციალიზებულ ფიზიოთერაპევტს შეუძლია კუნთების ფუნქციის შემოწმება და შესაფერისი პროგრამის შეთავაზება.',
+
+    s8Heading: 'და გახევის, ეპიზიოტომიის ან საკეისრო კვეთის შემდეგ?',
+    s8Body1:
+      'გახევა ან ეპიზიოტომია შეხორცებისას განსაკუთრებულ მოვლას მოითხოვს. აქტივობების განახლებამ უნდა გაითვალისწინოს ტკივილი, ნაიარევის მდგომარეობა და მშობიარობის შემდეგ მიღებული მითითებები.',
+    s8Body2:
+      'საკეისრო კვეთის შემდეგ გამოჯანმრთელება ასევე მუცლის კედელსა და ნაიარევს მოიცავს. მაშინაც კი, თუ მშობიარობა ვაგინალური არ იყო, თავად ორსულობა მაინც ქმნიდა დატვირთვას მენჯის ფსკერზე.',
+    s8HighlightTitle: 'პერსონალიზებულ მკურნალობას შეუძლია დახმარება',
+    s8HighlightText:
+      'მნიშვნელოვანი გახევის, ტკივილის, შარდის ან ნაწლავის სიმპტომების ან გაგრძელებული სირთულეების შემთხვევაში ჯანდაცვის სპეციალისტთან შეფასება განსაკუთრებით სასარგებლო შეიძლება იყოს.',
+
+    s9Heading: 'სპორტის ეტაპობრივი განახლება',
+    s9Body1:
+      'მშობიარობის შემდეგ მოძრაობის განახლება ეტაპობრივი უნდა იყოს. სიარული და რბილი მოძრაობები, როგორც წესი, თვითგრძნობის მიხედვით შეიძლება განახლდეს, მაღალი დარტყმის აქტივობები კი მეტ სიფრთხილეს მოითხოვს.',
+    s9Body2:
+      'სირბილის, ხტუნვის ან ძალიან ინტენსიური ვარჯიშის განახლებამდე უმჯობესია მენჯის ფსკერის გამოჯანმრთელების შეფასება და ნებისმიერი სიმპტომის გათვალისწინება.',
+    s9AlertTitle: 'ნუ აჩქარებთ ეტაპებს',
+    s9AlertText:
+      'გაჟონვა, სიმძიმის შეგრძნება ან ტკივილი ვარჯიშის დროს ან მის შემდეგ იმის ნიშნებია, რომ ტემპი უნდა შეანელოთ და ინტენსივობის გაზრდამდე რჩევა ითხოვოთ.',
+
+    s10Heading: 'როდის მივმართოთ სპეციალისტს?',
+    s10Body1:
+      'მენჯის ფსკერის რეაბილიტაცია ბებიაქალთან ან ფიზიოთერაპევტთან სასარგებლო შეიძლება იყოს, თუ არ ხართ დარწმუნებული, რომ სწორად იკუმშებით, თუ თქვენი სიმპტომები რჩება, ან თუ გარკვეული ფიზიკური აქტივობების თავდაჯერებით განახლება გსურთ.',
+    questionCardTitle: 'სასარგებლო კითხვები დასასმელად',
+    appointmentQuestions: [
+      'ჩემი სიმპტომები მენჯის ფსკერის სისუსტეს შეესაბამება?',
+      'სწორად ვასრულებ შეკუმშვებს?',
+      'რამდენი გამეორება უნდა გავაკეთო ყოველდღე?',
+      'შემიძლია სირბილის, სპორტის ან მაღალი დარტყმის ვარჯიშის განახლება?',
+      'მჭირდება რეაბილიტაცია ბებიაქალთან ან ფიზიოთერაპევტთან?',
+      'მოითხოვს ჩემი ნაიარევი, გახევა ან საკეისრო კვეთა რაიმე განსაკუთრებულ სიფრთხილეს?',
+    ],
+    s10TipTitle: 'კარგია ვიცოდეთ',
+    s10TipText:
+      'სპეციალისტთან მისვლა აუცილებლად არ ნიშნავს, რომ რაღაც არასწორია. სესიას უბრალოდ შეუძლია თქვენი ტექნიკის შემოწმება, გამოჯანმრთელების შეფასება და სწორად წინსვლის სწავლა.',
+
+    s11Heading: 'გამოჯანმრთელება, რომელსაც დრო სჭირდება',
+    s11Body1:
+      'მშობიარობის შემდეგ ნორმალურია, რომ დაუყოვნებლივ არ დაუბრუნდეთ იმავე შეგრძნებებსა და კუნთების ძალას, რაც ორსულობამდე გქონდათ.',
+    s11Body2:
+      'მიზანი რაც შეიძლება მეტი შეკუმშვის გაკეთება არ არის. ის უფრო შეკუმშვასა და მოდუნებას შორის კარგი კოორდინაციის ეტაპობრივ დაბრუნებას ეხება და შემდეგ ამ კუნთების ბუნებრივად გამოყენების უნარს ყოველდღიურ საქმიანობაში.',
+    s11HighlightTitle: 'პატარა პროგრესი რეალური პროგრესია',
+    s11HighlightText:
+      'მოძრაობის უკეთესი გაცნობიერება, შეკუმშვის რამდენიმე დამატებითი წამი ან გაჟონვის შემცირება უკვე წამახალისებელი ნიშნებია.',
+
+    s12Heading: 'მთავარი დასკვნები',
+    summaryTitle: 'მთავარი',
+    summaryItems: [
+      'ორსულობა და მშობიარობა მენჯის ფსკერზე მნიშვნელოვან დატვირთვას ქმნის.',
+      'მშობიარობის შემდეგ ეტაპობრივი გამოჯანმრთელება ნორმალურია.',
+      'ვარჯიშებმა უპირატესობა მოძრაობის ხარისხს უნდა მიანიჭოს და არა ძალას.',
+      'სუნთქვა და მოდუნება ისეთივე მნიშვნელოვანია, როგორც შეკუმშვა.',
+      'შარდის გაჟონვა, სიმძიმე ან გაგრძელებული ტკივილი პროფესიულ აზრს იმსახურებს.',
+      'რეაბილიტაციას ბებიაქალთან ან ფიზიოთერაპევტთან შეუძლია უკეთესი კონტროლის დაბრუნებაში დაგეხმაროთ.',
+      'სპორტზე დაბრუნება ეტაპობრივი უნდა იყოს, განსაკუთრებით მაღალი დარტყმის აქტივობებისთვის.',
+    ],
+
+    finalTipTitle: 'მიეცით თავს გამოჯანმრთელების დრო',
+    finalTipText:
+      'მშობიარობის შემდეგ თქვენი სხეული ბევრ ცვლილებას გაუძლო. პერინეუმი იმავე ყურადღებას იმსახურებს, რასაც თქვენი სხეულის დანარჩენი ნაწილი: ეტაპობრივად, რეგულარულად და ზეწოლის გარეშე.',
+
+    disclaimerText:
+      'ეს სტატია მხოლოდ საინფორმაციოა და პერსონალიზებულ სამედიცინო რჩევას არ ანაცვლებს. თუ ტკივილი, გაგრძელებული სიმპტომები გაქვთ ან თქვენი გამოჯანმრთელებასთან დაკავშირებით რაიმე შეშფოთება გაქვთ, მიმართეთ ჯანდაცვის სპეციალისტს.',
+  },
+  hy: {
+    badge: 'ՀԵՏԾՆՆԴՅԱՆ ՇՐՋԱՆ • ՎԵՐԱԿԱՆԳՆՈՒՄ',
+    title: 'Կոնքի հատակի ամրացում\nծննդաբերությունից հետո',
+    metaDuration: '8 ր կարդալու համար',
+    metaType: 'Ուղեցույց',
+    metaLevel: 'Սկսնակ',
+    metaValidated: 'Վերանայված բովանդակություն',
+    intro:
+      'Հղիությունից և ծննդաբերությունից հետո կոնքի հատակը ժամանակի կարիք ունի վերականգնվելու համար: Պարզ, կանոնավոր և աստիճանական վարժությունները կարող են օգնել վերականգնել ուժը, վերահսկողությունը և վստահությունը՝ առանց շտապելու փորձի:',
+    contentsTitle: 'Այս հոդվածում',
+    topics: [
+      'Հասկանալ պերինեումի դերը',
+      'Ինչու է ծննդաբերությունը այն լարում',
+      'Երբ սկսել կոնքի հատակի վերականգնումը',
+      'Սովորել ճիշտ կծկվել',
+      'Աստիճանական ռեժիմի կառուցում',
+      'Սխալներ, որոնցից պետք է խուսափել',
+      'Երբ օգնություն խնդրել',
+      'Սպորտի աստիճանական վերսկսում',
+      'Նախապատրաստվել այցին',
+      'Հիմնական եզրակացություններ',
+    ],
+    shareMessage: 'Կոնքի հատակի ամրացում ծննդաբերությունից հետո — AWA',
+
+    s1Heading: 'Հասկանալ պերինեումի դերը',
+    s1Body1:
+      'Պերինեումը, որը կոչվում է նաև կոնքի հատակ, մկանների խումբ է, որը գտնվում է կոնքի հիմքում: Այն դեր է խաղում միզապարկի և աղիքների վերահսկման մեջ և օգնում է պահել կոնքի օրգանները:',
+    s1Body2:
+      'Հղիության ընթացքում այս մկանները պետք է մի քանի ամիս կրեն լրացուցիչ քաշ: Դրանք նաև զգալի լարվածության են ենթարկվում ծննդաբերության ժամանակ:',
+    s1HighlightTitle: 'Աննկատ, բայց էական մկան',
+    s1HighlightText:
+      'Կոնքի հատակը ներգրավված է մի քանի առօրյա գործառույթների մեջ. մեզը և կղանքը պահելը, գազերի վերահսկումը, կոնքի օրգանների պահպանումը և որոշ սեռական գործառույթներում դեր խաղալը:',
+
+    benefitsHeading: 'Կոնքի ավելի ուժեղ հատակի օգուտները',
+    benefitsIntro:
+      'Աստիճանական, ճիշտ կատարվող ամրացումը կարող է օգնել բարելավել կոնքի հատակի վերահսկումը և պահպանումը:',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Միզապարկի ավելի լավ վերահսկում',
+        text: 'Կոնքի հատակը դեր է խաղում միզապարկի վերահսկման մեջ: Այն աստիճանաբար ամրացնելը կարող է օգնել նվազեցնել մեզի որոշ արտահոսքեր:',
+      },
+      {
+        icon: 'toilet',
+        title: 'Աղիքների գործառույթի աջակցություն',
+        text: 'Այս մկանները նաև օգնում են վերահսկել գազերը և կղանքը և նպաստում են կոնքի օրգանների պահպանմանը:',
+      },
+      {
+        icon: 'human-female',
+        title: 'Կոնքի օրգանների պահպանում',
+        text: 'Կոնքի հատակը կազմում է իսկական մկանային հիմք, որը օգնում է պահել միզապարկը, արգանդը և աղիքը:',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Զգացողության աստիճանական վերականգնում',
+        text: 'Համապատասխան վերականգնումը կարող է նաև օգնել վերագտնել այս շրջանի ավելի լավ գիտակցությունն ու վերահսկումը:',
+      },
+    ],
+
+    s2Heading: 'Ինչու են հղիությունն ու ծննդաբերությունը այն լարում',
+    s2Body1:
+      'Հղիությունը աստիճանաբար ավելի շատ ճնշում է գործադրում կոնքի հատակի վրա: Հեշտոցային ծննդաբերությունը կարող է այնուհետև զգալիորեն ձգել այս հատվածի մկաններն ու հյուսվածքները:',
+    s2Body2:
+      'Կեսարյան հատումը նույնպես լիովին չի խնայում կոնքի հատակը. հղիությունն ինքնին այս մկանների համար նշանակալի շրջան է մնում:',
+    s2Body3:
+      'Ծննդաբերությունից հետո, հետևաբար, նորմալ է, որ վերականգնումը ժամանակ է պահանջում: Որոշ կանայք գրեթե ոչ մի ախտանիշ չեն զգում, մյուսները կարող են նկատել արտահոսքեր, ծանրության զգացում կամ մկանների նվազած վերահսկում:',
+    s2TipTitle: 'Յուրաքանչյուր վերականգնում տարբեր է',
+    s2TipText:
+      'Ծննդաբերության տեսակը, պատռվածքը կամ էպիզիոտոմիան, ցավի առկայությունը և ծննդաբերությունից հետո ձեր ընդհանուր վիճակը կարող են ազդել վերականգնման վրա:',
+
+    s3Heading: 'Ե՞րբ սկսել կոնքի հատակի վերականգնումը',
+    s3Body1:
+      'Բարդություններ չունեցող ծննդաբերությունից հետո կոնքի հատակի մեղմ կծկումները սովորաբար կարելի է աստիճանաբար վերսկսել: Կարևոր է մնում վարժությունները հարմարեցնել ձեր իրավիճակին և խորհուրդ հարցնել, եթե բարդություն, զգալի ցավ կամ որևէ հատուկ միջամտություն եք ունեցել:',
+    s3Body2:
+      'Եթե ունեք միզային կաթետեր, որոշ խորհուրդներ առաջարկում են սպասել մինչև այն հեռացվի և նորմալ միզարձակումը վերսկսվի՝ պերինեումի վարժություններ սկսելուց առաջ:',
+    s3AlertTitle: 'Ցավը ուժով մի հաղթահարեք',
+    s3AlertText:
+      'Զգալի ցավը, վատացող ախտանիշները, վատ ապաքինվող վերքը կամ որևէ հատուկ անհանգստություն պահանջում են մանկաբարձուհու, բժշկի կամ վերականգնողական մասնագետի խորհուրդ:',
+
+    s4Heading: 'Սովորել ճիշտ կծկվել',
+    s4Body1:
+      'Շարժումը ճանաչելու համար պատկերացրեք, թե փորձում եք միաժամանակ պահել գազերը և միզելու ցանկությունը: Այն շարժումը, որ փնտրում եք, կծկման և ներս բարձրացման զգացում է:',
+    s4Body2:
+      'Նպատակը ամբողջ մարմինը ուժեղ լարելը չէ: Ձեր հետույքը, ազդրերը և որովայնի մկանները պետք է մնան հնարավորինս թուլացած, մինչ շնչառությունը շարունակվում է նորմալ:',
+    exercises: [
+      {icon: 'weather-windy', label: 'Շնչառություն'},
+      {icon: 'human-handsup', label: 'Մեղմ կծկում'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Երկար կծկում'},
+      {icon: 'gesture-tap-button', label: 'Արագ կծկումներ'},
+    ],
+    s4HighlightTitle: 'Թուլանալը նույնքան կարևոր է',
+    s4HighlightText:
+      'Յուրաքանչյուր կծկումից հետո թող մկանները լիովին թուլանան: Լավ վերականգնումը չի նշանակում պերինեումը ամբողջ օրը կծկված պահել:',
+
+    s5Heading: 'Աստիճանական ռեժիմի կառուցում',
+    s5Body1:
+      'Սկզբում ամենակարևորը մկանները ճանաչել սովորելն է և շարժումը ճիշտ կատարելը: Հետևողականությունը ավելի կարևոր է, քան ինտենսիվությունը:',
+    s5h3a: 'Երկար կծկումներ',
+    s5Body2:
+      'Մեղմորեն կծկեք կոնքի հատակը, ապա պահեք կծկումը մի քանի վայրկյան՝ առանց շունչ պահելու: Այնուհետև լիովին թուլացեք, նախքան նորից սկսելը:',
+    s5h3b: 'Կարճ կծկումներ',
+    s5Body3:
+      'Երբ շարժումը յուրացված է, կարելի է ավելացնել փոքր արագ կծկումներ: Դրանք օգնում են վարժեցնել մկանները արագ կծկելու կարողությունը, երբ որովայնի ճնշումն ավելանում է, օրինակ՝ հազալուց կամ փռշտալուց անմիջապես առաջ:',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Վարժությունները կապեք ամենօրյա սովորության հետ'},
+      {icon: 'human-sitting', label: 'Սկսեք հարմար դիրքից'},
+      {icon: 'weather-windy', label: 'Կծկումների ժամանակ շնչեք նորմալ'},
+      {icon: 'sleep', label: 'Հարգեք թուլացման փուլերը'},
+      {icon: 'chart-line', label: 'Աստիճանաբար ավելացրեք դժվարությունը'},
+      {icon: 'doctor', label: 'Խորհուրդ հարցրեք, եթե վստահ չեք'},
+    ],
+    s5TipTitle: 'Առաջին հերթին՝ հետևողականություն',
+    s5TipText:
+      'Վարժությունները արդեն ձեր օրվա մաս հանդիսացող սովորության հետ կապելը կարող է հեշտացնել հետևողական մնալը. կերակրումից հետո, ատամները լվանալուց հետո կամ ձեզ հարմար այլ ժամանակ:',
+
+    s6Heading: 'Տարածված սխալներ, որոնցից պետք է խուսափել',
+    s6Body1:
+      'Պերինեումի վարժությունները կարող են պարզ թվալ, սակայն հեշտ է փոխհատուցել այլ մկաններով կամ չափազանց ուժեղ ճնշել:',
+    commonMistakes: [
+      'Կոնքի հատակի փոխարեն հետույքը կամ ազդրերը լարելը',
+      'Կծկման ժամանակ շունչը պահելը',
+      'Մկանները անընդհատ կծկված պահելը՝ առանց թուլանալու թույլ տալու',
+      'Վարժություններ անելը միայն մի քանի օր, ապա դադարեցնելը',
+      'Մեզի հոսքը միտումնավոր կանգնեցնելը՝ կծկումը ստուգելու համար',
+    ],
+    s6TipTitle: 'Ինչ չանել',
+    s6TipText:
+      'Խորհուրդ չի տրվում վարժությունները կատարել մեզի հոսքը միտումնավոր կանգնեցնելով: Այս մեթոդը պերինեումը ճիշտ չի վարժեցնում և կարող է խաթարել միզապարկի նորմալ գործառույթը:',
+
+    s7Heading: 'Ի՞նչ ախտանիշներ պետք է հանգեցնեն խորհրդատվության',
+    s7Body1:
+      'Ծննդաբերությունից հետո երբեմն կարող են հայտնվել աննշան արտահոսքեր կամ անսովոր զգացողություն: Այդուհանդերձ, դրանք չպետք է անտեսվեն, եթե շարունակվում են, վատանում են կամ խանգարում են ձեր առօրյային:',
+    warningSigns: [
+      'Մեզի արտահոսքեր հազալիս, փռշտալիս, ծիծաղելիս կամ լարվելիս',
+      'Ծանրության կամ ճնշման զգացում կոնքի ստորին հատվածում',
+      'Զգացում, որ գունդ կամ ինչ-որ բան իջնում է հեշտոց',
+      'Գազերը կամ կղանքը պահելու դժվարություն',
+      'Շարունակական ցավ պերինեումում',
+      'Ցավ սեռական հարաբերության ժամանակ կամ դրանից հետո',
+      'Պերինեումի մկանները ճանաչելու կամ ճիշտ կծկելու դժվարություն',
+    ],
+    consultLabel: 'Ե՞րբ խորհուրդ հարցնել',
+    s7Body2:
+      'Մանկաբարձուհին, բժիշկը կամ կոնքի հատակի վերականգնման մասնագետ ֆիզիոթերապևտը կարող է ստուգել մկանների գործառույթը և առաջարկել համապատասխան ծրագիր:',
+
+    s8Heading: 'Իսկ պատռվածքից, էպիզիոտոմիայից կամ կեսարյան հատումից հետո',
+    s8Body1:
+      'Պատռվածքը կամ էպիզիոտոմիան պահանջում են առանձնահատուկ խնամք ապաքինման ընթացքում: Գործունեության վերսկսումը պետք է հաշվի առնի ցավը, սպիի վիճակը և ծննդաբերությունից հետո տրված ուղեցույցը:',
+    s8Body2:
+      'Կեսարյան հատումից հետո վերականգնումը ներառում է նաև որովայնի պատը և սպին: Նույնիսկ եթե ծննդաբերությունը հեշտոցային չի եղել, հղիությունն ինքնին դեռ լարում է առաջացրել կոնքի հատակի վրա:',
+    s8HighlightTitle: 'Անհատականացված խնամքը կարող է օգնել',
+    s8HighlightText:
+      'Զգալի պատռվածքի, ցավի, միզային կամ աղիքային ախտանիշների կամ շարունակական դժվարությունների դեպքում առողջապահության մասնագետի գնահատումը կարող է հատկապես օգտակար լինել:',
+
+    s9Heading: 'Սպորտի աստիճանական վերսկսում',
+    s9Body1:
+      'Ծննդաբերությունից հետո շարժման վերսկսումը պետք է լինի աստիճանական: Քայլքը և մեղմ շարժումները սովորաբար կարելի է վերսկսել ըստ ինքնազգացողության, մինչդեռ բարձր հարվածային ակտիվությունները պահանջում են ավելի շատ զգուշություն:',
+    s9Body2:
+      'Վազքը, ցատկերը կամ շատ ինտենսիվ մարզումները վերսկսելուց առաջ ավելի լավ է գնահատել կոնքի հատակի վերականգնումը և հաշվի առնել ցանկացած ախտանիշ:',
+    s9AlertTitle: 'Մի շտապեք փուլերը',
+    s9AlertText:
+      'Արտահոսքերը, ծանրության զգացումը կամ ցավը վարժության ժամանակ կամ դրանից հետո նշաններ են, որ պետք է դանդաղեցնել և խորհուրդ հարցնել՝ նախքան ինտենսիվությունը մեծացնելը:',
+
+    s10Heading: 'Ե՞րբ դիմել մասնագետի',
+    s10Body1:
+      'Կոնքի հատակի վերականգնումը մանկաբարձուհու կամ ֆիզիոթերապևտի հետ կարող է օգտակար լինել, եթե վստահ չեք՝ ճիշտ եք կծկվում, եթե ձեր ախտանիշները շարունակվում են կամ եթե ցանկանում եք վստահությամբ վերսկսել որոշ ֆիզիկական ակտիվություններ:',
+    questionCardTitle: 'Օգտակար հարցեր',
+    appointmentQuestions: [
+      'Իմ ախտանիշները համահունչ ե՞ն կոնքի հատակի թուլության հետ:',
+      'Կծկումները ճի՞շտ եմ կատարում:',
+      'Օրական քանի՞ կրկնություն պետք է անեմ:',
+      'Կարո՞ղ եմ վերադառնալ վազքին, սպորտին կամ բարձր հարվածային վարժություններին:',
+      'Ինձ վերականգնում մանկաբարձուհու կամ ֆիզիոթերապևտի հետ պե՞տք է:',
+      'Իմ սպին, պատռվածքը կամ կեսարյան հատումը որևէ հատուկ զգուշություն պահանջո՞ւմ է:',
+    ],
+    s10TipTitle: 'Լավ է իմանալ',
+    s10TipText:
+      'Մասնագետի մոտ գնալը պարտադիր չէ նշանակի, որ ինչ-որ բան այն չէ: Սեանսը կարող է պարզապես օգնել ստուգել ձեր տեխնիկան, գնահատել ձեր վերականգնումը և սովորել ճիշտ առաջընթաց ունենալ:',
+
+    s11Heading: 'Վերականգնում, որը ժամանակ է պահանջում',
+    s11Body1:
+      'Ծննդաբերությունից հետո նորմալ է անմիջապես չվերագտնել այն նույն զգացողությունները կամ մկանային ուժը, որ ունեիք հղիությունից առաջ:',
+    s11Body2:
+      'Նպատակը հնարավորինս շատ կծկումներ անելը չէ: Ավելի շուտ դա կծկման և թուլացման միջև լավ համակարգումը աստիճանաբար վերագտնելն է, ապա այս մկանները առօրյա գործունեության մեջ բնականորեն օգտագործել կարողանալը:',
+    s11HighlightTitle: 'Փոքր առաջընթացը իրական առաջընթաց է',
+    s11HighlightText:
+      'Շարժման ավելի լավ գիտակցումը, կծկման մի քանի լրացուցիչ վայրկյանը կամ արտահոսքերի նվազումը արդեն խրախուսող նշաններ են:',
+
+    s12Heading: 'Հիմնական եզրակացություններ',
+    summaryTitle: 'Էականը',
+    summaryItems: [
+      'Հղիությունն ու ծննդաբերությունը զգալի լարում են առաջացնում կոնքի հատակի վրա:',
+      'Ծննդաբերությունից հետո աստիճանական վերականգնումը նորմալ է:',
+      'Վարժություններում նախապատվությունը պետք է տրվի շարժման որակին, այլ ոչ թե ուժին:',
+      'Շնչառությունն ու թուլացումը նույնքան կարևոր են, որքան կծկումը:',
+      'Մեզի արտահոսքերը, ծանրությունը կամ շարունակական ցավը արժանի են մասնագիտական կարծիքի:',
+      'Մանկաբարձուհու կամ ֆիզիոթերապևտի հետ վերականգնումը կարող է օգնել վերագտնել ավելի լավ վերահսկողություն:',
+      'Սպորտին վերադարձը պետք է լինի աստիճանական, հատկապես բարձր հարվածային ակտիվությունների համար:',
+    ],
+
+    finalTipTitle: 'Ժամանակ տվեք վերականգնվելու համար',
+    finalTipText:
+      'Ծննդաբերությունից հետո ձեր մարմինը անցել է բազմաթիվ փոփոխությունների միջով: Պերինեումը արժանի է նույն ուշադրությանը, ինչ ձեր մարմնի մնացած մասը. աստիճանաբար, կանոնավոր և առանց ճնշման:',
+
+    disclaimerText:
+      'Այս հոդվածը միայն տեղեկատվական նպատակով է և չի փոխարինում անհատականացված բժշկական խորհրդատվությանը: Եթե ցավ, շարունակական ախտանիշներ կամ ձեր վերականգնման վերաբերյալ որևէ անհանգստություն ունեք, խորհուրդ հարցրեք առողջապահության մասնագետից:',
+  },
+  tg: {
+    badge: 'ДАВРАИ БАЪДИЗОӢ • БАРҚАРОРШАВӢ',
+    title: 'Тақвияти мушакҳои қаъри косаи хурд\nпас аз таваллуд',
+    metaDuration: '8 дақ барои хондан',
+    metaType: 'Роҳнамо',
+    metaLevel: 'Ибтидоӣ',
+    metaValidated: 'Мазмуни баррасишуда',
+    intro:
+      'Пас аз ҳомиладорӣ ва таваллуд қаъри косаи хурд барои барқароршавӣ вақт мехоҳад. Машқҳои оддӣ, мунтазам ва тадриҷӣ метавонанд ба шумо кумак кунанд қувват, назорат ва эътимодро бозёбед, бидуни кӯшиши шитобондани корҳо.',
+    contentsTitle: 'Дар ин мақола',
+    topics: [
+      'Фаҳмидани нақши перинеум',
+      'Чаро таваллуд ба он фишор меорад',
+      'Барқарорсозии қаъри косаи хурдро кай оғоз кардан лозим аст',
+      'Омӯхтани дуруст кашиш додан',
+      'Сохтани тартиби тадриҷӣ',
+      'Хатоҳое, ки бояд пешгирӣ кард',
+      'Кай кумак пурсидан лозим аст',
+      'Тадриҷан аз сар гирифтани варзиш',
+      'Омодагӣ ба қабул',
+      'Хулосаҳои асосӣ',
+    ],
+    shareMessage: 'Тақвияти мушакҳои қаъри косаи хурд пас аз таваллуд — AWA',
+
+    s1Heading: 'Фаҳмидани нақши перинеум',
+    s1Body1:
+      'Перинеум, ки қаъри косаи хурд низ номида мешавад, гурӯҳи мушакҳоест, ки дар асоси коса ҷойгиранд. Он дар назорати масона ва рӯда нақш мебозад ва ба дастгирии узвҳои коса кумак мекунад.',
+    s1Body2:
+      'Ҳангоми ҳомиладорӣ ин мушакҳо бояд якчанд моҳ вазни иловагиро бардоранд. Онҳо инчунин ҳангоми таваллуд зери фишори зиёд қарор мегиранд.',
+    s1HighlightTitle: 'Мушаки номаълум, вале муҳим',
+    s1HighlightText:
+      'Қаъри косаи хурд дар якчанд вазифаи ҳаррӯза иштирок мекунад: нигоҳ доштани пешоб ва наҷосат, назорати гази рӯда, дастгирии узвҳои коса ва нақш дар баъзе вазифаҳои ҷинсӣ.',
+
+    benefitsHeading: 'Манфиатҳои қаъри косаи хурди қавитар',
+    benefitsIntro:
+      'Тақвияти тадриҷӣ ва дуруст иҷрошуда метавонад ба беҳтар кардани назорат ва дастгирии қаъри косаи хурд кумак кунад.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Назорати беҳтари масона',
+        text: 'Қаъри косаи хурд дар назорати масона нақш дорад. Тадриҷан тақвият додани он метавонад ба кам кардани баъзе рехтани пешоб кумак кунад.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Дастгирии фаъолияти рӯда',
+        text: 'Ин мушакҳо инчунин ба назорати гази рӯда ва наҷосат кумак мекунанд ва ба дастгирии узвҳои коса мусоидат менамоянд.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Дастгирии узвҳои коса',
+        text: 'Қаъри косаи хурд асоси воқеии мушакӣ ташкил медиҳад, ки ба дастгирии масона, бачадон ва рӯда кумак мекунад.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Тадриҷан бозгашти эҳсос',
+        text: 'Барқарорсозии мувофиқ инчунин метавонад ба шумо кумак кунад огоҳӣ ва назорати беҳтари ин минтақаро бозёбед.',
+      },
+    ],
+
+    s2Heading: 'Чаро ҳомиладорӣ ва таваллуд ба он фишор меоранд',
+    s2Body1:
+      'Ҳомиладорӣ тадриҷан фишори бештарро ба қаъри косаи хурд меоварад. Таваллуди табиӣ сипас метавонад мушакҳо ва бофтаҳои ин минтақаро ба таври назаррас кашад.',
+    s2Body2:
+      'Ҷарроҳии кесарӣ низ қаъри косаи хурдро комилан эмин намедорад: худи ҳомиладорӣ барои ин мушакҳо давраи назаррас боқӣ мемонад.',
+    s2Body3:
+      'Пас аз таваллуд аз ин рӯ муқаррарӣ аст, ки барқароршавӣ вақт мегирад. Баъзе занон қариб ягон нишонаро эҳсос намекунанд, дигарон метавонанд рехтан, эҳсоси вазнинӣ ё кам шудани назорати мушакро мушоҳида кунанд.',
+    s2TipTitle: 'Ҳар барқароршавӣ гуногун аст',
+    s2TipText:
+      'Навъи таваллуд, дарридагӣ ё эпизиотомия, мавҷудияти дард ва ҳолати умумии шумо пас аз таваллуд ҳама метавонанд ба барқароршавӣ таъсир расонанд.',
+
+    s3Heading: 'Барқарорсозии қаъри косаи хурдро кай оғоз кардан лозим аст?',
+    s3Body1:
+      'Пас аз таваллуди бе мушкил кашиши нарми қаъри косаи хурд одатан метавонад тадриҷан аз сар гирифта шавад. Муҳим боқӣ мемонад, ки машқҳоро ба вазъияти худ мутобиқ кунед ва агар мушкил, дарди назаррас ё амали махсусро аз сар гузаронида бошед, маслиҳат пурсед.',
+    s3Body2:
+      'Агар катетери пешоб дошта бошед, баъзе тавсияҳо пешниҳод мекунанд, ки пеш аз оғози машқҳои перинеум интизор шавед, то он хориҷ шавад ва пешобкунии муқаррарӣ аз сар гирифта шавад.',
+    s3AlertTitle: 'Бо дард кор накунед',
+    s3AlertText:
+      'Дарди назаррас, бадтар шудани нишонаҳо, ҷароҳате, ки бад шифо меёбад, ё ҳар нигаронии махсус маслиҳати доя, табиб ё мутахассиси барқарорсозиро талаб мекунад.',
+
+    s4Heading: 'Омӯхтани дуруст кашиш додан',
+    s4Body1:
+      'Барои муайян кардани ҳаракат тасаввур кунед, ки кӯшиш мекунед гази рӯда ва хоҳиши пешобкуниро ҳамзамон нигоҳ доред. Ҳаракате, ки меҷӯед, эҳсоси кашиш ва боло рафтан ба дарун аст.',
+    s4Body2:
+      'Мақсад ин нест, ки тамоми баданро сахт қулфӣ кунед. Думба, рон ва мушакҳои шикам бояд то ҳадди имкон ором бимонанд, дар ҳоле ки нафаскашӣ муқаррарӣ идома меёбад.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Нафаскашӣ'},
+      {icon: 'human-handsup', label: 'Кашиши нарм'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Кашиши дароз'},
+      {icon: 'gesture-tap-button', label: 'Кашишҳои зуд'},
+    ],
+    s4HighlightTitle: 'Ором шудан ба қадри кашиш муҳим аст',
+    s4HighlightText:
+      'Пас аз ҳар кашиш мушакҳоро комилан ором кунед. Барқарорсозии хуб маънои тамоми рӯз кашида нигоҳ доштани перинеумро надорад.',
+
+    s5Heading: 'Сохтани тартиби тадриҷӣ',
+    s5Body1:
+      'Дар аввал муҳимтарин чиз омӯхтани муайян кардани мушакҳо ва дуруст иҷро кардани ҳаракат аст. Мунтазамӣ аз шиддат муҳимтар аст.',
+    s5h3a: 'Кашишҳои дароз',
+    s5Body2:
+      'Қаъри косаи хурдро нарм кашед, сипас кашишро чанд сония нигоҳ доред, бидуни нигоҳ доштани нафас. Сипас пеш аз аз нав оғоз кардан комилан озод кунед.',
+    s5h3b: 'Кашишҳои кӯтоҳ',
+    s5Body3:
+      'Вақте ки ҳаракат азхуд шуд, кашишҳои зуди хурд илова карда метавонанд. Онҳо қобилияти зуд кашидани мушакҳоро ҳангоми афзоиши фишори шикам, масалан, дарҳол пеш аз сулфа ё атса, машқ медиҳанд.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Машқҳоро бо одати ҳаррӯза пайваст кунед'},
+      {icon: 'human-sitting', label: 'Аз вазъияти роҳат оғоз кунед'},
+      {icon: 'weather-windy', label: 'Ҳангоми кашиш муқаррарӣ нафас кашед'},
+      {icon: 'sleep', label: 'Марҳилаҳои ором шуданро эҳтиром кунед'},
+      {icon: 'chart-line', label: 'Тадриҷан мушкилиро зиёд кунед'},
+      {icon: 'doctor', label: 'Агар мутмаин набошед, маслиҳат пурсед'},
+    ],
+    s5TipTitle: 'Пеш аз ҳама мунтазамӣ',
+    s5TipText:
+      'Пайваст кардани машқҳо бо одате, ки аллакай қисми рӯзи шумост, метавонад мунтазам мондани шуморо осонтар кунад: пас аз ширдиҳӣ, пас аз тоза кардани дандонҳо ё дар вақти дигаре, ки ба шумо мувофиқ аст.',
+
+    s6Heading: 'Хатоҳои маъмуле, ки бояд пешгирӣ кард',
+    s6Body1:
+      'Машқҳои перинеум метавонанд оддӣ ба назар расанд, вале ҷуброн кардан бо мушакҳои дигар ё хеле сахт фишор овардан осон аст.',
+    commonMistakes: [
+      'Сахт кардани думба ё рон ба ҷои қаъри косаи хурд',
+      'Нигоҳ доштани нафас ҳангоми кашиш',
+      'Пайваста кашида нигоҳ доштани мушакҳо бидуни ором шуданашон',
+      'Танҳо чанд рӯз машқ кардан ва сипас қатъ кардан',
+      'Ба таври қасдӣ қатъ кардани ҷараёни пешоб барои санҷидани кашиш',
+    ],
+    s6TipTitle: 'Чӣ карданӣ нест',
+    s6TipText:
+      'Тавсия дода намешавад, ки машқҳоро бо қатъи қасдии ҷараёни пешоб иҷро кунед. Ин усул перинеумро дуруст машқ намедиҳад ва метавонад фаъолияти муқаррарии масонаро вайрон кунад.',
+
+    s7Heading: 'Кадом нишонаҳо бояд боиси машварат шаванд?',
+    s7Body1:
+      'Рехтани андаки пешоб ё эҳсоси ғайриоддӣ баъзан метавонад пас аз таваллуд пайдо шавад. Бо вуҷуди ин, онҳоро набояд нодида гирифт, агар идома ёбанд, бадтар шаванд ё ба ҳаёти ҳаррӯзаи шумо халал расонанд.',
+    warningSigns: [
+      'Рехтани пешоб ҳангоми сулфа, атса, хандидан ё кӯшиш',
+      'Эҳсоси вазнинӣ ё фишор дар поёни коса',
+      'Эҳсосе, ки гирае ё чизе ба маҳбал фуромада истодааст',
+      'Душворӣ дар нигоҳ доштани гази рӯда ё наҷосат',
+      'Дарди доимӣ дар перинеум',
+      'Дард ҳангоми наздикии ҷинсӣ ё пас аз он',
+      'Душворӣ дар муайян ё дуруст кашидани мушакҳои перинеум',
+    ],
+    consultLabel: 'Кай маслиҳат пурсидан лозим аст?',
+    s7Body2:
+      'Доя, табиб ё физиотерапевт, ки дар барқарорсозии қаъри косаи хурд тахассус дорад, метавонад фаъолияти мушакро санҷад ва барномаи мувофиқро пешниҳод кунад.',
+
+    s8Heading: 'Ва пас аз дарридагӣ, эпизиотомия ё кесарӣ?',
+    s8Body1:
+      'Дарридагӣ ё эпизиотомия ҳангоми шифо ёфтан нигоҳубини махсусро талаб мекунад. Аз сар гирифтани фаъолият бояд дард, ҳолати чандро ва роҳнамоии пас аз таваллуд додашударо ба назар гирад.',
+    s8Body2:
+      'Пас аз кесарӣ барқароршавӣ инчунин деворҳои шикам ва чандро дар бар мегирад. Ҳатто агар таваллуд табиӣ набошад ҳам, худи ҳомиладорӣ ба қаъри косаи хурд фишор овард.',
+    s8HighlightTitle: 'Нигоҳубини шахсӣ метавонад кумак кунад',
+    s8HighlightText:
+      'Дар ҳолати дарридагии назаррас, дард, нишонаҳои пешоб ё рӯда ё душвориҳои доимӣ арзёбӣ бо мутахассиси соҳаи тиб метавонад махсусан муфид бошад.',
+
+    s9Heading: 'Тадриҷан аз сар гирифтани варзиш',
+    s9Body1:
+      'Аз сар гирифтани ҳаракат пас аз таваллуд бояд тадриҷӣ бошад. Пиёдагардӣ ва ҳаракатҳои нарм одатан метавонанд мувофиқи эҳсоси шумо аз сар гирифта шаванд, дар ҳоле ки фаъолиятҳои бо зарбаи баланд эҳтиёти бештарро талаб мекунанд.',
+    s9Body2:
+      'Пеш аз аз сар гирифтани давидан, ҷаҳидан ё машқҳои хеле шадид беҳтар аст барқароршавии қаъри косаи хурдро арзёбӣ кунед ва ҳар нишонаро ба назар гиред.',
+    s9AlertTitle: 'Марҳилаҳоро шитоб накунед',
+    s9AlertText:
+      'Рехтан, эҳсоси вазнинӣ ё дард ҳангоми машқ ё пас аз он нишонаҳое мебошанд, ки бояд суръатро суст кунед ва пеш аз зиёд кардани шиддат маслиҳат пурсед.',
+
+    s10Heading: 'Кай ба мутахассис муроҷиат кардан лозим аст?',
+    s10Body1:
+      'Барқарорсозии қаъри косаи хурд бо доя ё физиотерапевт метавонад муфид бошад, агар мутмаин набошед, ки дуруст мекашед, агар нишонаҳои шумо идома ёбанд ё агар мехоҳед бо боварӣ баъзе фаъолиятҳои ҷисмониро аз сар гиред.',
+    questionCardTitle: 'Саволҳои муфид барои пурсидан',
+    appointmentQuestions: [
+      'Оё нишонаҳои ман бо заъфи қаъри косаи хурд мувофиқанд?',
+      'Оё ман кашишҳоро дуруст иҷро мекунам?',
+      'Ҳар рӯз чанд такрор бояд иҷро кунам?',
+      'Оё ман метавонам ба давидан, варзиш ё машқи бо зарбаи баланд баргардам?',
+      'Оё ба барқарорсозӣ бо доя ё физиотерапевт ниёз дорам?',
+      'Оё чандҳо, дарридагӣ ё кесарии ман эҳтиёти махсусро талаб мекунад?',
+    ],
+    s10TipTitle: 'Донистан хуб аст',
+    s10TipText:
+      'Муроҷиат ба мутахассис ҳатман маънои нодурустии чизеро надорад. Як машғулият метавонад танҳо ба санҷидани техникаи шумо, арзёбии барқароршавии шумо ва омӯхтани дуруст пеш рафтан кумак кунад.',
+
+    s11Heading: 'Барқароршавие, ки вақт мегирад',
+    s11Body1:
+      'Пас аз таваллуд муқаррарӣ аст, ки фавран ҳамон эҳсосот ё қуввати мушакеро, ки пеш аз ҳомиладорӣ доштед, барнагардонед.',
+    s11Body2:
+      'Мақсад иҷрои ҳарчи бештари кашишҳо нест. Бештар бозгашти тадриҷии ҳамоҳангии хуб байни кашиш ва ором шудан аст ва сипас қобилияти ба таври табиӣ истифода бурдани ин мушакҳо дар фаъолиятҳои ҳаррӯза.',
+    s11HighlightTitle: 'Пешрафти хурд пешрафти воқеӣ аст',
+    s11HighlightText:
+      'Огоҳии беҳтар аз ҳаракат, чанд сонияи иловагии кашиш ё кам шудани рехтан аллакай нишонаҳои рағбатбахшанд.',
+
+    s12Heading: 'Хулосаҳои асосӣ',
+    summaryTitle: 'Муҳимтарин чизҳо',
+    summaryItems: [
+      'Ҳомиладорӣ ва таваллуд ба қаъри косаи хурд фишори назаррас меоранд.',
+      'Барқароршавии тадриҷӣ пас аз таваллуд муқаррарӣ аст.',
+      'Машқҳо бояд сифати ҳаракатро аз қувват афзал донанд.',
+      'Нафаскашӣ ва ором шудан ба қадри кашиш муҳиманд.',
+      'Рехтани пешоб, вазнинӣ ё дарди доимӣ назари мутахассисро сазоворанд.',
+      'Барқарорсозӣ бо доя ё физиотерапевт метавонад ба шумо кумак кунад назорати беҳтарро бозёбед.',
+      'Бозгашт ба варзиш бояд тадриҷӣ бошад, хусусан барои фаъолиятҳои бо зарбаи баланд.',
+    ],
+
+    finalTipTitle: 'Барои барқароршавӣ вақт ҷудо кунед',
+    finalTipText:
+      'Пас аз таваллуд бадани шумо тағйироти зиёдро аз сар гузаронд. Перинеум ҳамон қадар таваҷҷӯҳро сазовор аст, ки қисми боқимондаи бадани шумо: тадриҷан, мунтазам ва бе фишор.',
+
+    disclaimerText:
+      'Ин мақола танҳо барои иттилоъ аст ва маслиҳати шахсии тиббиро иваз намекунад. Агар дард, нишонаҳои доимӣ эҳсос кунед ё дар бораи барқароршавии худ нигарон бошед, аз мутахассиси соҳаи тиб маслиҳат пурсед.',
+  },
+  ky: {
+    badge: 'ТӨРӨТТӨН КИЙИН • КАЛЫБЫНА КЕЛҮҮ',
+    title: 'Төрөттөн кийин жамбаш түбүн\nбекемдөө',
+    metaDuration: '8 мүн окуу',
+    metaType: 'Колдонмо',
+    metaLevel: 'Баштоочу',
+    metaValidated: 'Текшерилген мазмун',
+    intro:
+      'Курсактуулуктан жана төрөттөн кийин жамбаш түбүнө калыбына келүү үчүн убакыт керек. Жөнөкөй, үзгүлтүксүз жана акырындык менен жасалган көнүгүүлөр иштерди шаштырууга аракет кылбастан күчтү, көзөмөлдү жана ишенимди кайра табууга жардам бериши мүмкүн.',
+    contentsTitle: 'Бул макалада',
+    topics: [
+      'Аралыктын ролун түшүнүү',
+      'Төрөт аны эмне үчүн чыңалтат',
+      'Жамбаш түбүн калыбына келтирүүнү качан баштоо керек',
+      'Туура чыңалтууну үйрөнүү',
+      'Акырындык менен тартип түзүү',
+      'Болтурбоого тийиш болгон каталар',
+      'Жардамды качан сурап кайрылуу керек',
+      'Спортко акырындык менен кайтуу',
+      'Кабыл алууга даярдануу',
+      'Негизги жыйынтыктар',
+    ],
+    shareMessage: 'Төрөттөн кийин жамбаш түбүн бекемдөө — AWA',
+
+    s1Heading: 'Аралыктын ролун түшүнүү',
+    s1Body1:
+      'Аралык, ошондой эле жамбаш түбү деп аталат, жамбаштын түбүндө жайгашкан булчуңдар тобу. Ал табарсыкты жана ичегини көзөмөлдөөдө роль ойнойт жана жамбаш органдарын колдоого жардам берет.',
+    s1Body2:
+      'Курсактуулук убагында бул булчуңдар бир нече ай бою кошумча салмакты көтөрүшү керек. Алар ошондой эле төрөт убагында олуттуу чыңалууга дуушар болот.',
+    s1HighlightTitle: 'Көзгө урунбаган, бирок маанилүү булчуң',
+    s1HighlightText:
+      'Жамбаш түбү бир нече күнүмдүк функцияга катышат: заараны жана заңды кармоо, газдарды көзөмөлдөө, жамбаш органдарын колдоо жана айрым жыныстык функцияларда роль ойноо.',
+
+    benefitsHeading: 'Күчтүү жамбаш түбүнүн пайдасы',
+    benefitsIntro:
+      'Акырындык менен жана туура аткарылган бекемдөө жамбаш түбүнүн көзөмөлүн жана колдоосун жакшыртууга жардам бериши мүмкүн.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Табарсыкты жакшыраак көзөмөлдөө',
+        text: 'Жамбаш түбү табарсыкты көзөмөлдөөдө роль ойнойт. Аны акырындык менен бекемдөө айрым заара агып кетүүлөрдү азайтууга жардам бериши мүмкүн.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Ичеги функциясын колдоо',
+        text: 'Бул булчуңдар ошондой эле газдарды жана заңды көзөмөлдөөгө жардам берет жана жамбаш органдарын колдоого салым кошот.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Жамбаш органдарын колдоо',
+        text: 'Жамбаш түбү табарсыкты, жатынды жана ичегини колдоого жардам берген чыныгы булчуң негизин түзөт.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Сезимди акырындап кайтаруу',
+        text: 'Ылайыктуу калыбына келтирүү ошондой эле бул аймакты жакшыраак сезүүгө жана көзөмөлдөөгө жардам бериши мүмкүн.',
+      },
+    ],
+
+    s2Heading: 'Курсактуулук жана төрөт аны эмне үчүн чыңалтат',
+    s2Body1:
+      'Курсактуулук жамбаш түбүнө акырындап көбүрөөк басым түшүрөт. Табигый төрөт андан кийин бул аймактын булчуңдарын жана ткандарын олуттуу созушу мүмкүн.',
+    s2Body2:
+      'Кесарево кесүү да жамбаш түбүн толугу менен аябайт: курсактуулуктун өзү бул булчуңдар үчүн олуттуу мезгил бойдон калат.',
+    s2Body3:
+      'Төрөттөн кийин калыбына келүүнүн убакыт алышы ошондуктан кадимки көрүнүш. Айрым аялдар дээрлик эч кандай белгини сезбейт, башкалары агып кетүүнү, оордук сезимин же булчуң көзөмөлүнүн азайышын байкашы мүмкүн.',
+    s2TipTitle: 'Ар бир калыбына келүү ар башка',
+    s2TipText:
+      'Төрөттүн түрү, жыртылуу же эпизиотомия, оорунун болушу жана төрөттөн кийинки жалпы абалыңыз калыбына келүүгө таасир этиши мүмкүн.',
+
+    s3Heading: 'Жамбаш түбүн калыбына келтирүүнү качан баштоо керек?',
+    s3Body1:
+      'Татаалдашуусуз төрөттөн кийин жамбаш түбүнүн жумшак чыңалтуулары адатта акырындык менен улантылышы мүмкүн. Көнүгүүлөрдү абалыңызга ыңгайлаштыруу жана татаалдашууну, олуттуу ооруну же белгилүү процедураны башыңыздан өткөрсөңүз, кеңеш сурап кайрылуу маанилүү бойдон калат.',
+    s3Body2:
+      'Эгер заара катетериңиз болсо, айрым сунуштар аралык көнүгүүлөрүн баштоодон мурун аны алып салганга чейин жана нормалдуу заара кылуу кайра башталганга чейин күтүүнү сунуштайт.',
+    s3AlertTitle: 'Ооруну жеңүүгө аракет кылбаңыз',
+    s3AlertText:
+      'Олуттуу оору, начарлаган белгилер, жаман айыгып жаткан жара же ар кандай өзгөчө тынчсыздануу акушеркадан, дарыгерден же калыбына келтирүү адисинен кеңеш алууну талап кылат.',
+
+    s4Heading: 'Туура чыңалтууну үйрөнүү',
+    s4Body1:
+      'Кыймылды аныктоо үчүн газды жана заара кылуу каалоосун бир эле учурда кармоого аракет кылгандай элестетиңиз. Издеген кыймылыңыз — ичке карай чыңалуу жана көтөрүлүү сезими.',
+    s4Body2:
+      'Максат — бүт денени катуу чыңалтуу эмес. Жамбаштарыңыз, санданыңыз жана курсак булчуңдарыңыз мүмкүн болушунча бошоң бойдон калышы керек, ал эми дем алуу кадимкидей уланат.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Дем алуу'},
+      {icon: 'human-handsup', label: 'Жумшак чыңалтуу'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Узак чыңалтуу'},
+      {icon: 'gesture-tap-button', label: 'Тез чыңалтуулар'},
+    ],
+    s4HighlightTitle: 'Бошоңдоо да ошончолук маанилүү',
+    s4HighlightText:
+      'Ар бир чыңалтуудан кийин булчуңдарга толугу менен бошоңдоого мүмкүнчүлүк бериңиз. Жакшы калыбына келтирүү аралыкты күн бою чыңалган кармоону билдирбейт.',
+
+    s5Heading: 'Акырындык менен тартип түзүү',
+    s5Body1:
+      'Башында эң маанилүүсү — булчуңдарды аныктоону жана кыймылды туура аткарууну үйрөнүү. Интенсивдүүлүктөн көрө үзгүлтүксүздүк маанилүү.',
+    s5h3a: 'Узак чыңалтуулар',
+    s5Body2:
+      'Жамбаш түбүн акырын чыңалтыңыз, анан дем алууну кармабай бир нече секунд чыңалууну кармап туруңуз. Андан кийин кайра баштоодон мурун толугу менен бошоңдоңуз.',
+    s5h3b: 'Кыска чыңалтуулар',
+    s5Body3:
+      'Кыймыл өздөштүрүлгөндөн кийин, кичинекей тез чыңалтууларды кошсо болот. Алар курсак басымы жогорулаганда, мисалы жөтөлгөнгө же чүчкүргөнгө дейре булчуңдарды тез чыңалтуу жөндөмүн машыктырууга жардам берет.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Көнүгүүлөрдү күнүмдүк адат менен байланыштырыңыз'},
+      {icon: 'human-sitting', label: 'Ыңгайлуу абалдан баштаңыз'},
+      {icon: 'weather-windy', label: 'Чыңалтуулар учурунда кадимкидей дем алыңыз'},
+      {icon: 'sleep', label: 'Бошоңдоо фазаларын сактаңыз'},
+      {icon: 'chart-line', label: 'Кыйынчылыкты акырындык менен көбөйтүңүз'},
+      {icon: 'doctor', label: 'Ишенбесеңиз, кеңеш сураңыз'},
+    ],
+    s5TipTitle: 'Баарынан мурда үзгүлтүксүздүк',
+    s5TipText:
+      'Көнүгүүлөрдү күнүңүздө буга чейин бар адат менен байланыштыруу үзгүлтүксүз болууну жеңилдетиши мүмкүн: эмизгенден кийин, тиш жуугандан кийин же өзүңүзгө ылайыктуу башка убакта.',
+
+    s6Heading: 'Болтурбоого тийиш болгон кеңири таралган каталар',
+    s6Body1:
+      'Аралык көнүгүүлөрү жөнөкөй көрүнүшү мүмкүн, бирок башка булчуңдар менен компенсациялоо же өтө катуу басуу оңой.',
+    commonMistakes: [
+      'Жамбаш түбүнүн ордуна жамбаштарды же санды чыңалтуу',
+      'Чыңалтуу учурунда дем алууну кармоо',
+      'Булчуңдарды бошоңдотпой үзгүлтүксүз чыңалган кармоо',
+      'Көнүгүүлөрдү бир нече күн гана жасап, андан кийин токтотуу',
+      'Чыңалтууну текшерүү үчүн заара агымын атайылап токтотуу',
+    ],
+    s6TipTitle: 'Эмне кылбоо керек',
+    s6TipText:
+      'Көнүгүүлөрдү заара агымын атайылап токтотуу аркылуу жасоо сунушталбайт. Бул ыкма аралыкты туура машыктырбайт жана табарсыктын кадимки иштешин бузушу мүмкүн.',
+
+    s7Heading: 'Кайсы белгилер консультацияга түртүшү керек?',
+    s7Body1:
+      'Майда агып кетүүлөр же адаттан тыш сезим төрөттөн кийин кээде пайда болушу мүмкүн. Бирок алар улана берсе, начарласа же күнүмдүк жашооңузга тоскоол болсо, аларга көңүл бурбай коюуга болбойт.',
+    warningSigns: [
+      'Жөтөлгөндө, чүчкүргөндө, күлгөндө же күч түшүргөндө заара агып кетүү',
+      'Жамбаштын ылдый жагында оордук же басым сезими',
+      'Кынапка шишик же бир нерсе түшүп жаткандай сезим',
+      'Газдарды же заңды кармоодогу кыйынчылык',
+      'Аралыктагы улана берген оору',
+      'Жыныстык катнаш учурунда же андан кийин оору',
+      'Аралык булчуңдарын аныктоодогу же туура чыңалтуудагы кыйынчылык',
+    ],
+    consultLabel: 'Кеңешти качан сурап кайрылуу керек?',
+    s7Body2:
+      'Акушерка, дарыгер же жамбаш түбүн калыбына келтирүү боюнча адистештирилген физиотерапевт булчуң иштешин текшерип, ылайыктуу программаны сунуштай алат.',
+
+    s8Heading: 'Жыртылуудан, эпизиотомиядан же кесарево кесүүдөн кийин эмне?',
+    s8Body1:
+      'Жыртылуу же эпизиотомия айыгуу учурунда өзгөчө кам көрүүнү талап кылат. Иш-аракеттерди улантуу оорууну, тырыктын абалын жана төрөттөн кийин берилген көрсөтмөнү эске алышы керек.',
+    s8Body2:
+      'Кесарево кесүүдөн кийин калыбына келүү курсак дубалын жана тырыкты да камтыйт. Төрөт табигый болбосо да, курсактуулуктун өзү жамбаш түбүнө дагы эле чыңалуу келтирген.',
+    s8HighlightTitle: 'Жекелештирилген кам көрүү жардам бере алат',
+    s8HighlightText:
+      'Олуттуу жыртылууда, оорууда, заара же ичеги белгилеринде же улана берген кыйынчылыктарда ден соолук сактоо адиси менен баа берүү өзгөчө пайдалуу болушу мүмкүн.',
+
+    s9Heading: 'Спортко акырындык менен кайтуу',
+    s9Body1:
+      'Төрөттөн кийин кыймылды улантуу акырындык менен болушу керек. Басуу жана жумшак кыймылдар жалпысынан өзүңүздү кандай сезгениңизге жараша улантылышы мүмкүн, ал эми жогорку соккулуу активдүүлүк көбүрөөк сак болууну талап кылат.',
+    s9Body2:
+      'Чуркоону, секирүүнү же абдан интенсивдүү машыгууну улантуудан мурун жамбаш түбүнүн калыбына келүүсүн баалап, ар кандай белгилерди эске алган жакшы.',
+    s9AlertTitle: 'Этаптарды шаштырбаңыз',
+    s9AlertText:
+      'Агып кетүүлөр, оордук сезими же көнүгүү учурунда же андан кийин оору — интенсивдүүлүктү көбөйтүүдөн мурун жайлатуу жана кеңеш алуу керек экенинин белгилери.',
+
+    s10Heading: 'Адиске качан барыш керек?',
+    s10Body1:
+      'Акушерка же физиотерапевт менен жамбаш түбүн калыбына келтирүү туура чыңалтып жатканыңызга ишенбесеңиз, белгилериңиз улана берсе же айрым физикалык иш-аракеттерди ишеним менен улантууну кааласаңыз пайдалуу болушу мүмкүн.',
+    questionCardTitle: 'Берүүгө пайдалуу суроолор',
+    appointmentQuestions: [
+      'Белгилерим жамбаш түбүнүн алсыздыгына шайкеш келеби?',
+      'Чыңалтууларды туура аткарып жатамбы?',
+      'Күнүнө канча кайталоо жасашым керек?',
+      'Чуркоого, спортко же жогорку соккулуу көнүгүүгө кайтсам болобу?',
+      'Акушерка же физиотерапевт менен калыбына келтирүү керекпи?',
+      'Тырыгым, жыртылуум же кесарево кесүүм кандайдыр бир өзгөчө сактык чараларын талап кылабы?',
+    ],
+    s10TipTitle: 'Билүү пайдалуу',
+    s10TipText:
+      'Адис менен көрүшүү сөзсүз бир нерсе туура эмес дегенди билдирбейт. Сессия техникаңызды текшерүүгө, калыбына келүүңүздү баалоого жана туура өнүгүүнү үйрөнүүгө жөн гана жардам бериши мүмкүн.',
+
+    s11Heading: 'Убакыт талап кылган калыбына келүү',
+    s11Body1:
+      'Төрөттөн кийин курсактуулуктан мурунку сезимдерди же булчуң күчүн дароо кайра таппоо кадимки көрүнүш.',
+    s11Body2:
+      'Максат — мүмкүн болушунча көп чыңалтуу жасоо эмес. Бул көбүрөөк чыңалтуу менен бошоңдоонун ортосундагы жакшы координацияны акырындап кайра табуу жана андан кийин бул булчуңдарды күнүмдүк иш-аракеттерде табигый колдоно алуу.',
+    s11HighlightTitle: 'Кичинекей прогресс — чыныгы прогресс',
+    s11HighlightText:
+      'Кыймылды жакшыраак сезүү, чыңалтууга бир нече секунд кошумча же агып кетүүлөрдүн азайышы буга чейин эле шыктандыруучу белгилер.',
+
+    s12Heading: 'Негизги жыйынтыктар',
+    summaryTitle: 'Эң негизгиси',
+    summaryItems: [
+      'Курсактуулук жана төрөт жамбаш түбүнө олуттуу чыңалуу келтирет.',
+      'Төрөттөн кийин акырындап калыбына келүү кадимки көрүнүш.',
+      'Көнүгүүлөр күчтөн мурда кыймылдын сапатына артыкчылык бериши керек.',
+      'Дем алуу жана бошоңдоо чыңалтуу сыяктуу эле маанилүү.',
+      'Заара агып кетүү, оордук же улана берген оору адистин пикирине татыйт.',
+      'Акушерка же физиотерапевт менен калыбына келтирүү жакшыраак көзөмөлдү кайра табууга жардам бериши мүмкүн.',
+      'Спортко кайтуу акырындык менен болушу керек, айрыкча жогорку соккулуу активдүүлүктөр үчүн.',
+    ],
+
+    finalTipTitle: 'Калыбына келүүгө убакыт бөлүңүз',
+    finalTipText:
+      'Төрөттөн кийин денеңиз көптөгөн өзгөрүүлөрдү башынан өткөрдү. Аралык денеңиздин калган бөлүгүндөй эле көңүл бурууга татыйт: акырындык менен, үзгүлтүксүз жана кысымсыз.',
+
+    disclaimerText:
+      'Бул макала маалымат берүү максатында гана жазылган жана жекелештирилген медициналык кеңешти алмаштырбайт. Оору, улана берген белгилер сезсеңиз же калыбына келүүңүз боюнча кандайдыр бир тынчсыздануу болсо, ден соолук сактоо адисинен кеңеш сураңыз.',
+  },
+  tk: {
+    badge: 'DOGRANDAN SOŇ • DIKELIŞ',
+    title: 'Dograndan soň çanak düýbüni\nberkitmek',
+    metaDuration: '8 min okamak',
+    metaType: 'Gollanma',
+    metaLevel: 'Başlaýjy',
+    metaValidated: 'Barlanan mazmun',
+    intro:
+      'Göwrelilikden we dograndan soň çanak düýbüniň dikelmek üçin wagta mätäçligi bar. Ýönekeý, yzygiderli we ädimme-ädim maşklar işleri howlukdyrmaga synanyşmazdan, güýji, dolandyryşy we ynamy täzeden gazanmaga kömek edip biler.',
+    contentsTitle: 'Bu makalada',
+    topics: [
+      'Aralygyň rolyny düşünmek',
+      'Dogrum ony näme üçin agyr ýagdaýa goýýar',
+      'Çanak düýbüni dikeltmegi haçan başlamaly',
+      'Dogry gysmagy öwrenmek',
+      'Ädimme-ädim tertip gurmak',
+      'Gaça durmaly ýalňyşlyklar',
+      'Kömegi haçan soramaly',
+      'Sporty ýuwaş-ýuwaşdan täzeden başlamak',
+      'Kabul edişe taýýarlanmak',
+      'Esasy netijeler',
+    ],
+    shareMessage: 'Dograndan soň çanak düýbüni berkitmek — AWA',
+
+    s1Heading: 'Aralygyň rolyny düşünmek',
+    s1Body1:
+      'Aralyk, çanak düýbi diýlip hem atlandyrylýar, çanagyň düýbünde ýerleşen myşsalar toparydyr. Ol sidik haltasyny we içegäni dolandyrmakda rol oýnaýar we çanak agzalaryna goldaw bermäge kömek edýär.',
+    s1Body2:
+      'Göwreli wagtynda bu myşsalar birnäçe aý goşmaça agyrlygy göterýär. Olar dogrum wagtynda hem ep-esli agyr ýagdaýa goýulýar.',
+    s1HighlightTitle: 'Ýaşyryn, ýöne zerur myşsa',
+    s1HighlightText:
+      'Çanak düýbi birnäçe gündelik funksiýada gatnaşýar: sidigi we nejasaty saklamak, gazlary dolandyrmak, çanak agzalaryna goldaw bermek we käbir jynsy funksiýalarda rol oýnamak.',
+
+    benefitsHeading: 'Has güýçli çanak düýbüniň peýdalary',
+    benefitsIntro:
+      'Ädimme-ädim, dogry ýerine ýetirilen güýçlendirme çanak düýbüniň dolandyryşyny we goldawyny gowulandyrmaga kömek edip biler.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Sidik haltasynyň has gowy dolandyryşy',
+        text: 'Çanak düýbi sidik haltasynyň dolandyryşynda rol oýnaýar. Ony ýuwaş-ýuwaşdan güýçlendirmek käbir sidik akyşlaryny azaltmaga kömek edip biler.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Içegäniň işine goldaw bermek',
+        text: 'Bu myşsalar şeýle hem gazlary we nejasaty dolandyrmaga kömek edýär we çanak agzalaryna goldaw bermäge goşant goşýar.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Çanak agzalaryna goldaw bermek',
+        text: 'Çanak düýbi sidik haltasyna, ýatga we içegä goldaw bermäge kömek edýän hakyky myşsa esasyny emele getirýär.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Duýgyny ýuwaş-ýuwaşdan gaýtadan gazanmak',
+        text: 'Laýyk dikeldiş şeýle hem bu ýeriň has gowy aňyna we dolandyryşyna ýetmäge kömek edip biler.',
+      },
+    ],
+
+    s2Heading: 'Göwrelilik we dogrum ony näme üçin agyr ýagdaýa goýýar',
+    s2Body1:
+      'Göwrelilik çanak düýbüne ýuwaş-ýuwaşdan has köp basyş goýýar. Waginal dogrum soňra bu ýeriň myşsalaryny we dokumalaryny ep-esli uzaldyp biler.',
+    s2Body2:
+      'Keýsar kesimi hem çanak düýbüni doly gutarmaýar: göwrelilik özi bu myşsalar üçin möhüm döwür bolup galýar.',
+    s2Body3:
+      'Dograndan soň, dikelişiň wagt almagy şonuň üçin adaty zat. Käbir aýallar diýen ýaly alamat duýmaýar, beýlekiler bolsa sidik akyşlaryny, agyrlyk duýgusyny ýa-da myşsa dolandyryşynyň azalmagyny görüp biler.',
+    s2TipTitle: 'Her dikeliş dürli',
+    s2TipText:
+      'Dogrumyň görnüşi, ýyrtylma ýa-da epiziotomiýa, agyrynyň barlygy we dograndan soňky umumy ýagdaýyňyz dikelişe täsir edip biler.',
+
+    s3Heading: 'Çanak düýbüni dikeltmegi haçan başlamaly?',
+    s3Body1:
+      'Kynçylyksyz dogrumdan soň, ýumşak çanak düýbi gysmalary adatça ýuwaş-ýuwaşdan täzeden başlap bolýar. Maşklary ýagdaýyňyza uýgunlaşdyrmak we çylşyrymlylyk, möhüm agyry ýa-da belli bir amal başdan geçiren bolsaňyz maslahat almak möhümligini saklaýar.',
+    s3Body2:
+      'Sidik kateteriňiz bar bolsa, käbir maslahatlar aralyk maşklaryny başlamazdan öň ol aýrylýança we adaty sidik çykaryş täzeden başlanýança garaşmagy teklip edýär.',
+    s3AlertTitle: 'Agyrynyň üstünden geçmäň',
+    s3AlertText:
+      'Möhüm agyry, erbetleşýän alamatlar, erbet bejerilýän ýara ýa-da islendik aýratyn alada akuşerkanyň, lukmanyň ýa-da dikeldiş hünärmeniniň maslahatyny talap edýär.',
+
+    s4Heading: 'Dogry gysmagy öwrenmek',
+    s4Body1:
+      'Hereketi kesgitlemek üçin gazy we sidik çykarmak islegini bir wagtda saklamaga synanyşýandygyňyzy göz öňüne getiriň. Gözleýän hereketiňiz içe tarap gysmak we galdyrmak duýgusy.',
+    s4Body2:
+      'Maksat bütin bedeniňizi berk dartmak däl. Dem alyş adaty ýagdaýda dowam edýärkä, kebeleklerigiziz, bagryňyz we garyn myşsalaryňyz mümkin boldugyça rahat galmaly.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Dem alyş'},
+      {icon: 'human-handsup', label: 'Ýumşak gysmak'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Uzak gysmak'},
+      {icon: 'gesture-tap-button', label: 'Çalt gysmalar'},
+    ],
+    s4HighlightTitle: 'Rahatlanmak hem şonça-da möhüm',
+    s4HighlightText:
+      'Her gysmadan soň myşsalary doly rahatlandyryň. Gowy dikeldiş aralygy bütin gün gysylan saklamagy aňlatmaýar.',
+
+    s5Heading: 'Ädimme-ädim tertip gurmak',
+    s5Body1:
+      'Başda iň möhümi myşsalary kesgitlemegi we hereketi dogry ýerine ýetirmegi öwrenmek. Yzygiderlilik intensiwlikden has möhüm.',
+    s5h3a: 'Uzak gysmalar',
+    s5Body2:
+      'Çanak düýbüni ýuwaşlyk bilen gysyň, soňra demi saklamazdan gysmany birnäçe sekunt saklaň. Soňra täzeden başlamazdan öň doly goýberiň.',
+    s5h3b: 'Gysga gysmalar',
+    s5Body3:
+      'Hereket özleşdirilenden soň, kiçijik çalt gysmalary goşup bolýar. Olar garyn basyşy artanda, meselem, üsgürmezden ýa-da asgyrmazdan öň, myşsalary çalt gysmak ukybyňyzy ýaýdyrmaga kömek edýär.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Maşklary gündelik endik bilen utgaşdyryň'},
+      {icon: 'human-sitting', label: 'Rahat ýagdaýdan başlaň'},
+      {icon: 'weather-windy', label: 'Gysmalar wagtynda adaty dem alyň'},
+      {icon: 'sleep', label: 'Rahatlanma tapgyrlaryna hormat goýuň'},
+      {icon: 'chart-line', label: 'Kynlygy ýuwaş-ýuwaşdan artdyryň'},
+      {icon: 'doctor', label: 'Ynamsyz bolsaňyz maslahat soraň'},
+    ],
+    s5TipTitle: 'Ilki bilen yzygiderlilik',
+    s5TipText:
+      'Maşklary gününiň eýýäm bir bölegi bolan endik bilen utgaşdyrmak yzygiderli galmagy aňsatlaşdyryp biler: emdirmeden soň, diş ýuwandan soň ýa-da size laýyk başga wagtda.',
+
+    s6Heading: 'Gaça durmaly umumy ýalňyşlyklar',
+    s6Body1:
+      'Aralyk maşklary ýönekeý görünip biler, ýöne beýleki myşsalar bilen öwezini dolmak ýa-da aşa güýçli itekläp bolmak aňsat.',
+    commonMistakes: [
+      'Çanak düýbüniň ýerine kebeleklerigizi ýa-da bagryňyzy gysmak',
+      'Gysma wagtynda demi saklamak',
+      'Myşsalary rahatlanmaga ýol bermän yzygiderli gysylan saklamak',
+      'Maşklary diňe birnäçe gün etmek we soňra bes etmek',
+      'Gysmany barlamak üçin sidik akymyny bilkastlaýyn saklamak',
+    ],
+    s6TipTitle: 'Nämäni etmeli däl',
+    s6TipText:
+      'Maşklary sidik akymyny bilkastlaýyn saklamak arkaly etmek maslahat berilmeýär. Bu usul aralygy dogry türgenleşdirmeýär we sidik haltasynyň adaty işini bozup biler.',
+
+    s7Heading: 'Haýsy alamatlar maslahatlaşmaga itergi bermeli?',
+    s7Body1:
+      'Ownuk akyşlar ýa-da adaty däl duýgy käwagt dograndan soň peýda bolup biler. Şeýle-de bolsa, olar dowam etse, erbetleşse ýa-da gündelik durmuşyňyza päsgel berse, äsgermezlik edilmeli däl.',
+    warningSigns: [
+      'Üsgüreniňizde, asgyranyňyzda, güleniňizde ýa-da dartanyňyzda sidik akyşlary',
+      'Aşaky çanakda agyrlyk ýa-da basyş duýgusy',
+      'Waginanyň içine bir düwün ýa-da bir zadyň düşýän duýgusy',
+      'Gazy ýa-da nejasaty saklamakda kynçylyk',
+      'Aralykda dowamly agyry',
+      'Jynsy gatnaşyk wagtynda ýa-da soň agyry',
+      'Aralyk myşsalaryny kesgitlemekde ýa-da dogry gysmakda kynçylyk',
+    ],
+    consultLabel: 'Maslahaty haçan soramaly?',
+    s7Body2:
+      'Çanak düýbüni dikeltmek boýunça hünärmen akuşerka, lukman ýa-da fizioterapewt myşsa işini barlap, laýyk programmany teklip edip biler.',
+
+    s8Heading: 'Ýyrtylmadan, epiziotomiýadan ýa-da keýsar kesimden soň?',
+    s8Body1:
+      'Ýyrtylma ýa-da epiziotomiýa bejerilişi wagtynda aýratyn ideg talap edýär. Işjeňlikleri täzeden başlamak agyrylary, çyzyň ýagdaýyny we dograndan soň berlen görkezmeleri hasaba almaly.',
+    s8Body2:
+      'Keýsar kesimden soň dikeliş garyn diwaryna we çyza hem degişli. Dogrum waginal bolmasa-da, göwrelilik özi çanak düýbüne henizem agyrlyk saldy.',
+    s8HighlightTitle: 'Şahsylaşdyrylan ideg kömek edip biler',
+    s8HighlightText:
+      'Möhüm ýyrtylma, agyry, sidik ýa-da içegä degişli alamatlar ýa-da dowamly kynçylyklar ýagdaýynda, saglyk hünärmeni bilen barlag aýratyn peýdaly bolup biler.',
+
+    s9Heading: 'Sporty ýuwaş-ýuwaşdan täzeden başlamak',
+    s9Body1:
+      'Dograndan soň hereketi täzeden başlamak ädimme-ädim bolmaly. Ýöremek we ýumşak hereketleri umuman duýgyňyza görä täzeden başlap bolýar, uly täsirli işjeňlikler has köp seresaplylygy talap edýär.',
+    s9Body2:
+      'Ylgamagy, bökmegi ýa-da gaty güýçli türgenleşigi täzeden başlamazdan öň, çanak düýbüniň dikelişini bahalamak we islendik alamaty hasaba almak has gowy.',
+    s9AlertTitle: 'Tapgyrlary howlukdyrmaň',
+    s9AlertText:
+      'Maşk wagtynda ýa-da soň akyşlar, agyrlyk duýgusy ýa-da agyry intensiwligi artdyrmazdan öň haýallamalydygyňyzy we maslahat almalydygyňyzy görkezýän alamatlar.',
+
+    s10Heading: 'Hünärmene haçan ýüz tutmaly?',
+    s10Body1:
+      'Akuşerka ýa-da fizioterapewt bilen çanak düýbüni dikeltmek dogry gysýandygyňyza ynamsyz bolsaňyz, alamatlaryňyz dowam etse ýa-da käbir fiziki işjeňlikleri ynam bilen täzeden başlamak isleseňiz peýdaly bolup biler.',
+    questionCardTitle: 'Bermäge peýdaly soraglar',
+    appointmentQuestions: [
+      'Alamatlarym çanak düýbüniň ejizligine gabat gelýärmi?',
+      'Gysmalary dogry ýerine ýetirýärinmi?',
+      'Gün üçin näçe gaýtalama etmeli?',
+      'Ylgamaga, sporta ýa-da uly täsirli maşklara gaýdyp bilerinmi?',
+      'Akuşerka ýa-da fizioterapewt bilen dikeldiş gerekmi?',
+      'Çyzym, ýyrtylmam ýa-da keýsar kesimim aýratyn seresaplylyk çärelerini talap edýärmi?',
+    ],
+    s10TipTitle: 'Bilmek peýdaly',
+    s10TipText:
+      'Hünärmen bilen görüşmek nämedir bir zadyň nädogrydygyny hökman aňlatmaýar. Bir sessiýa diňe tehnikaňyzy barlamaga, dikelişiňizi bahalamaga we dogry öňe gitmegi öwrenmäge kömek edip biler.',
+
+    s11Heading: 'Wagt alýan dikeliş',
+    s11Body1:
+      'Dograndan soň göwrelilikden öňki ýaly duýgulary ýa-da myşsa güýjüni derrew gaýtadan gazanmazlyk adaty zat.',
+    s11Body2:
+      'Maksat mümkin boldugyça köp gysma etmek däl. Has köp gysma bilen rahatlanmanyň arasynda gowy utgaşmany ýuwaş-ýuwaşdan gaýtadan gazanmak we soňra bu myşsalary gündelik işjeňliklerde tebigy ulanyp bilmek.',
+    s11HighlightTitle: 'Kiçijik ösüş hakyky ösüş',
+    s11HighlightText:
+      'Hereketi has gowy aňlamak, gysmanyň birnäçe goşmaça sekundy ýa-da akyşlaryň azalmagy eýýäm ruhlandyryjy alamatlar.',
+
+    s12Heading: 'Esasy netijeler',
+    summaryTitle: 'Esasy zatlar',
+    summaryItems: [
+      'Göwrelilik we dogrum çanak düýbüne möhüm agyrlyk salýar.',
+      'Dograndan soň ýuwaş-ýuwaşdan dikeliş adaty zat.',
+      'Maşklar güýçden has köp hereketiň hiline artykmaçlyk bermeli.',
+      'Dem alyş we rahatlanmak gysmak ýaly möhüm.',
+      'Sidik akyşlary, agyrlyk ýa-da dowamly agyry hünärmeniň pikirine mynasyp.',
+      'Akuşerka ýa-da fizioterapewt bilen dikeldiş has gowy dolandyryşy gaýtadan gazanmaga kömek edip biler.',
+      'Sporta gaýdyp gelmek, aýratyn-da uly täsirli işjeňlikler üçin, ädimme-ädim bolmaly.',
+    ],
+
+    finalTipTitle: 'Dikelmäge wagt beriň',
+    finalTipText:
+      'Dograndan soň bedeniňiz köp üýtgeşmeden geçdi. Aralyk bedeniňiziň galan bölegi ýaly üns almaga mynasyp: ädimme-ädim, yzygiderli we basyşsyz.',
+
+    disclaimerText:
+      'Bu makala diňe maglumat maksatly we şahsylaşdyrylan lukmançylyk maslahatyny çalyşmaýar. Agyry, dowamly alamatlar başdan geçirseňiz ýa-da dikelişiňiz barada islendik aladaňyz bolsa, saglyk hünärmeninden maslahat soraň.',
   },
 } as const);
 
