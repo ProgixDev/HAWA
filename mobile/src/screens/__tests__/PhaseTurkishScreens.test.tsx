@@ -153,11 +153,11 @@ describe('language selector — Türkçe among five options', () => {
     }
   });
 
-  it('exactly sixteen language options are offered (한국어 is the thirteenth language, Português (Portugal) / (Brasil) the fourteenth, বাংলা the fifteenth) and no "System default" option', async () => {
+  it('all 41 language options are offered and no "System default" option', async () => {
     const {renderer} = await renderScreen(AppearanceScreen as never);
     await open(renderer);
     const labels = new Set(renderer.root.findAll(node => node.props.accessibilityRole === 'radio').map(node => node.props.accessibilityLabel));
-    expect(labels).toEqual(new Set(['English', 'Français', 'Español', 'Italiano', 'Türkçe', 'Русский', 'Deutsch', '简体中文', 'Bahasa Indonesia', 'हिन्दी', 'বাংলা', 'Shqip', '日本語', '한국어', 'Português (Portugal)', 'Português (Brasil)']));
+    expect(labels).toEqual(new Set(['English', 'Français', 'Español', 'Italiano', 'Türkçe', 'Русский', 'Deutsch', '简体中文', 'Bahasa Indonesia', 'हिन्दी', 'বাংলা', 'Shqip', '日本語', '한국어', 'Português (Portugal)', 'Português (Brasil)', 'Dansk', 'Svenska', 'Norsk bokmål', 'Polski', 'Українська', 'Čeština', 'Slovenčina', 'Magyar', 'Română', 'Български', 'Српски', 'Hrvatski', 'Bosanski', 'Slovenščina', 'नेपाली', 'සිංහල', 'ไทย', 'Tiếng Việt', 'Oʻzbekcha', 'Azərbaycanca', 'ქართული', 'Հայերեն', 'Тоҷикӣ', 'Кыргызча', 'Türkmençe']));
   });
 
   it('selecting Türkçe and pressing Apply switches the mounted screen to Turkish and persists it', async () => {
