@@ -59,7 +59,7 @@ const DICTIONARIES = {fr, en, es, it: itDictionary, tr, ru, de, zh, id, hi, sq, 
 const LANGUAGES = Object.keys(DICTIONARIES) as AwaAppLanguage[];
 const TAB_KEYS = ['all', 'medical', 'religious', 'featured'] as const;
 const labelsOf = (language: AwaAppLanguage): string[] =>
-  TAB_KEYS.map(key => (DICTIONARIES[language] as unknown as {library: {screen: {tabs: Record<string, string>}}}).library.screen.tabs[key]);
+  TAB_KEYS.map(key => ((DICTIONARIES as Record<string, unknown>)[language] as {library: {screen: {tabs: Record<string, string>}}}).library.screen.tabs[key]);
 
 /* ------------------------------------------------------------------ planner */
 
