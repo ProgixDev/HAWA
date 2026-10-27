@@ -695,45 +695,6 @@ const CONTENT = withBrazilianPortuguese('MedicalExams', {
     tipText: 'Tøv ikke med at skrive dine spørgsmål ned inden hver aftale, så du ikke glemmer noget i øjeblikket: intet spørgsmål er for lille at stille.',
     shareMessage: 'Kalender over graviditetsundersøgelser — AWA',
   },
-  da: {
-    badge: 'GRAVIDITET • MEDICINSK OPFÖLGNING',
-    title: 'Kalender over\ngraviditetsundersögelser',
-    metaDuration: '6 min läsning',
-    metaType: 'Guide',
-    metaLevel: 'Grundläggende',
-    metaValidated: 'Gennemgået indhold',
-    intro: 'Ultralyd och vigtige undersögelser i hvert trimester.',
-    contentsTitle: 'I denne artikel',
-    topics: [
-      'Opfölgende ultralyd',
-      'Vigtige blodpröver',
-      'Forberedelse till hver aftale',
-      'Vigtige bemärkninger',
-      'Vigtige pointer',
-    ],
-    body1: 'Under graviditeten foretages der typisk tre större ultralyd, én pr. trimester, och hver har sit eget formål.',
-    ultrasounds: [
-      '1. trimester: fastsättelse av gestationsalder och nakkefoldsmåling',
-      '2. trimester: morfologisk ultralyd (strukturscan)',
-      '3. trimester: väkst och barnets stilling',
-    ],
-    body2: 'Regelmässige blodpröver overvåger flere nögleparametre gennem hele graviditeten:',
-    bloodTests: [
-      'Jernniveau for att opdage eventuel blodmangel',
-      'Screening for svangerskabsdiabetes, typisk omkring 2. trimester',
-      'Blodtype och screening for uregelmässige antistoffer',
-      'Serologi (toxoplasmose, röde hunde) afhängigt av din immunstatus',
-    ],
-    prepTips: [
-      'Skriv dina spörgsmål ned, så snart du tänker på dem, så du inte glemmer dem',
-      'Tag din graviditetsopfölgningsbog med till hver aftale',
-      'Nävn alla nye symtom, selv dem der virker ubetydelige',
-    ],
-    neutralText: 'Det nöjagtige antal undersögelser och tidspunkter kan variere afhängigt av din halsasordning, risikoniveau och ditt lands eller udbyders praksis.',
-    tipTitle: 'Godt at vide',
-    tipText: 'Töv inte med at skrive dina spörgsmål ned inden hver aftale, så du inte glemmer noget i öjeblikket: intet spörgsmål ar for lille at stille.',
-    shareMessage: 'Kalender over graviditetsundersögelser — AWA',
-  },
   sv: {
     badge: 'GRAVIDITET • MEDICINSK OPFÖLGNING',
     title: 'Kalender over\ngraviditetsundersögelser',
@@ -772,6 +733,995 @@ const CONTENT = withBrazilianPortuguese('MedicalExams', {
     tipTitle: 'Godt at vide',
     tipText: 'Töv inte med at skrive dina spörgsmål ned inden hver aftale, så du inte glemmer noget i öjeblikket: intet spörgsmål ar for lille at stille.',
     shareMessage: 'Kalender over graviditetsundersögelser — AWA',
+  },
+  nb: {
+    badge: 'SVANGERSKAP • MEDISINSK OPPFØLGING',
+    title: 'Oversikt over\nsvangerskapskontrollene',
+    metaDuration: '6 min lesing',
+    metaType: 'Veiledning',
+    metaLevel: 'Nybegynner',
+    metaValidated: 'Gjennomgått innhold',
+    intro: 'Ultralyd og viktige prøver, trimester for trimester.',
+    contentsTitle: 'I denne artikkelen',
+    topics: [
+      'Ultralyd under oppfølgingen',
+      'Viktige blodprøver',
+      'Forberede hver time',
+      'Verdt å merke seg',
+      'Det viktigste å huske',
+    ],
+    body1:
+      'Et svangerskap omfatter vanligvis tre hovedultralyder, én per trimester, hver med et ulikt formål.',
+    ultrasounds: [
+      '1. trimester: datering og nakkeoppklaring',
+      '2. trimester: morfologisk ultralyd',
+      '3. trimester: vekst og babyens leie',
+    ],
+    body2:
+      'Regelmessige blodprøver følger flere viktige markører gjennom svangerskapet:',
+    bloodTests: [
+      'Jernnivå, for å oppdage mulig blodmangel',
+      'Screening for svangerskapsdiabetes, vanligvis rundt 2. trimester',
+      'Blodtype og screening for irregulære antistoffer',
+      'Serologiske prøver (toksoplasmose, røde hunder) avhengig av immunstatusen din',
+    ],
+    prepTips: [
+      'Skriv ned spørsmålene dine etter hvert som de dukker opp, før du glemmer dem',
+      'Ta med svangerskapskortet til hver time',
+      'Nevn ethvert nytt symptom, selv om det virker lite',
+    ],
+    neutralText:
+      'Det nøyaktige antallet og tidspunktet for undersøkelsene kan variere avhengig av oppfølgingen din, risikoprofilen din og praksisen i landet eller hos behandleren din.',
+    tipTitle: 'Godt å vite',
+    tipText:
+      'Ikke nøl med å skrive ned spørsmålene dine før hver time, slik at du ikke glemmer noe i øyeblikket: ingen spørsmål er for små til å stille.',
+    shareMessage: 'Oversikt over svangerskapskontrollene – AWA',
+  },
+  pl: {
+    badge: 'CIĄŻA • OPIEKA MEDYCZNA',
+    title: 'Kalendarz badań\nw ciąży',
+    metaDuration: '6 min czytania',
+    metaType: 'Poradnik',
+    metaLevel: 'Początkujący',
+    metaValidated: 'Treść zweryfikowana',
+    intro: 'USG i podstawowe badania, trymestr po trymestrze.',
+    contentsTitle: 'W tym artykule',
+    topics: [
+      'Kontrolne badania USG',
+      'Podstawowe badania krwi',
+      'Przygotowanie do każdej wizyty',
+      'Warto wiedzieć',
+      'Najważniejsze wnioski',
+    ],
+    body1:
+      'Ciąża obejmuje zazwyczaj trzy główne badania USG, po jednym w każdym trymestrze, każde z innym celem.',
+    ultrasounds: [
+      '1. trymestr: datowanie ciąży i przezierność karkowa',
+      '2. trymestr: USG połówkowe',
+      '3. trymestr: wzrost i ułożenie dziecka',
+    ],
+    body2:
+      'Regularne badania krwi monitorują kilka kluczowych parametrów przez całą ciążę:',
+    bloodTests: [
+      'Poziom żelaza, aby wykryć ewentualną anemię',
+      'Badanie w kierunku cukrzycy ciążowej, zwykle około 2. trymestru',
+      'Grupa krwi i badanie przeciwciał odpornościowych',
+      'Badania serologiczne (toksoplazmoza, różyczka) w zależności od Twojej odporności',
+    ],
+    prepTips: [
+      'Zapisuj pytania, gdy tylko przyjdą Ci do głowy, zanim je zapomnisz',
+      'Zabieraj na każdą wizytę kartę przebiegu ciąży',
+      'Wspominaj o każdym nowym objawie, nawet jeśli wydaje się błahy',
+    ],
+    neutralText:
+      'Dokładna liczba i harmonogram badań mogą się różnić w zależności od opieki, profilu ryzyka oraz praktyk w Twoim kraju lub placówce.',
+    tipTitle: 'Warto wiedzieć',
+    tipText:
+      'Nie wahaj się zapisywać pytań przed każdą wizytą, by niczego nie zapomnieć: żadne pytanie nie jest zbyt małe.',
+    shareMessage: 'Kalendarz badań w ciąży — AWA',
+  },
+  uk: {
+    badge: 'ВАГІТНІСТЬ • МЕДИЧНИЙ НАГЛЯД',
+    title: 'Календар обстежень\nпід час вагітності',
+    metaDuration: '6 хв читання',
+    metaType: 'Посібник',
+    metaLevel: 'Початковий',
+    metaValidated: 'Перевірений вміст',
+    intro: 'УЗД та основні аналізи, триместр за триместром.',
+    contentsTitle: 'У цій статті',
+    topics: [
+      'Контрольні УЗД',
+      'Основні аналізи крові',
+      'Підготовка до кожного візиту',
+      'Варто знати',
+      'Головні висновки',
+    ],
+    body1:
+      'Вагітність зазвичай включає три основні УЗД, по одному в кожному триместрі, кожне з іншою метою.',
+    ultrasounds: [
+      '1-й триместр: датування та комірцевий простір',
+      '2-й триместр: УЗД анатомії плода',
+      '3-й триместр: ріст і положення дитини',
+    ],
+    body2:
+      'Регулярні аналізи крові стежать за кількома ключовими показниками протягом вагітності:',
+    bloodTests: [
+      'Рівень заліза — для виявлення можливої анемії',
+      'Скринінг гестаційного діабету, зазвичай близько 2-го триместру',
+      'Група крові та скринінг нерегулярних антитіл',
+      'Серологічні аналізи (токсоплазмоз, краснуха) залежно від вашого імунного статусу',
+    ],
+    prepTips: [
+      'Записуйте запитання, щойно вони виникають, поки не забули',
+      'Беріть на кожен візит обмінну карту вагітної',
+      'Згадуйте про будь-який новий симптом, навіть якщо він здається незначним',
+    ],
+    neutralText:
+      'Точна кількість і графік обстежень можуть відрізнятися залежно від вашого догляду, профілю ризику та практики у вашій країні чи закладі.',
+    tipTitle: 'Варто знати',
+    tipText:
+      'Не вагайтеся записувати запитання перед кожним візитом, щоб нічого не забути в потрібну мить: жодне запитання не буває надто малим.',
+    shareMessage: 'Календар обстежень під час вагітності — AWA',
+  },
+  cs: {
+    badge: 'TĚHOTENSTVÍ • LÉKAŘSKÉ SLEDOVÁNÍ',
+    title: 'Kalendář těhotenských\nprohlídek',
+    metaDuration: '6 min čtení',
+    metaType: 'Průvodce',
+    metaLevel: 'Začátečník',
+    metaValidated: 'Ověřený obsah',
+    intro: 'Ultrazvuky a základní testy, trimestr po trimestru.',
+    contentsTitle: 'V tomto článku',
+    topics: [
+      'Kontrolní ultrazvuky',
+      'Základní krevní testy',
+      'Příprava na jednotlivé návštěvy',
+      'Stojí za zmínku',
+      'Hlavní poznatky',
+    ],
+    body1:
+      'Těhotenství obecně zahrnuje tři hlavní ultrazvuky, jeden za trimestr, z nichž každý má jiný účel.',
+    ultrasounds: [
+      '1. trimestr: datování a nuchální translucence',
+      '2. trimestr: morfologický ultrazvuk',
+      '3. trimestr: růst a poloha miminka',
+    ],
+    body2:
+      'Pravidelné krevní testy sledují během těhotenství několik klíčových ukazatelů:',
+    bloodTests: [
+      'Hladina železa, ke zjištění možné anémie',
+      'Screening těhotenské cukrovky, obecně kolem 2. trimestru',
+      'Krevní skupina a screening nepravidelných protilátek',
+      'Sérologické testy (toxoplazmóza, zarděnky) podle vašeho imunitního stavu',
+    ],
+    prepTips: [
+      'Zapisujte si otázky, jakmile vás napadnou, než na ně zapomenete',
+      'Na každou návštěvu noste těhotenskou průkazku',
+      'Zmiňte každý nový příznak, i když se zdá nepodstatný',
+    ],
+    neutralText:
+      'Přesný počet a rozvrh vyšetření se může lišit podle vaší péče, rizikového profilu a praxe ve vaší zemi nebo u vašeho poskytovatele péče.',
+    tipTitle: 'Stojí za to vědět',
+    tipText:
+      'Neváhejte si před každou návštěvou zapsat otázky, abyste na nic nezapomněla: žádná otázka není příliš malá.',
+    shareMessage: 'Kalendář těhotenských prohlídek — AWA',
+  },
+  sk: {
+    badge: 'TEHOTENSTVO • LEKÁRSKE SLEDOVANIE',
+    title: 'Kalendár vyšetrení\nv tehotenstve',
+    metaDuration: '6 min čítania',
+    metaType: 'Sprievodca',
+    metaLevel: 'Začiatočník',
+    metaValidated: 'Overený obsah',
+    intro: 'Ultrazvuky a základné vyšetrenia, trimester po trimestri.',
+    contentsTitle: 'V tomto článku',
+    topics: [
+      'Kontrolné ultrazvuky',
+      'Základné krvné testy',
+      'Príprava na každú návštevu',
+      'Stojí za povšimnutie',
+      'Hlavné body',
+    ],
+    body1:
+      'Tehotenstvo zvyčajne zahŕňa tri hlavné ultrazvuky, jeden v každom trimestri, každý s iným účelom.',
+    ultrasounds: [
+      '1. trimester: určenie veku tehotenstva a nuchálna translucencia',
+      '2. trimester: morfologický ultrazvuk',
+      '3. trimester: rast a poloha bábätka',
+    ],
+    body2:
+      'Pravidelné krvné testy sledujú počas tehotenstva niekoľko kľúčových ukazovateľov:',
+    bloodTests: [
+      'Hladina železa, na odhalenie možnej anémie',
+      'Skríning gestačného diabetu, zvyčajne okolo druhého trimestra',
+      'Krvná skupina a skríning nepravidelných protilátok',
+      'Sérologické testy (toxoplazmóza, rubeola) podľa vášho imunitného stavu',
+    ],
+    prepTips: [
+      'Zapisujte si otázky hneď, ako vás napadnú, kým na ne nezabudnete',
+      'Na každú návštevu si vezmite tehotenskú knižku',
+      'Spomeňte každý nový príznak, aj keď sa zdá nepodstatný',
+    ],
+    neutralText:
+      'Presný počet a rozvrh vyšetrení sa môže líšiť podľa vašej starostlivosti, rizikového profilu a praxe vašej krajiny alebo poskytovateľa starostlivosti.',
+    tipTitle: 'Stojí za to vedieť',
+    tipText:
+      'Neváhajte si pred každou návštevou zapísať otázky, aby ste v danej chvíli na nič nezabudli: žiadna otázka nie je príliš malá.',
+    shareMessage: 'Kalendár vyšetrení v tehotenstve — AWA',
+  },
+  hu: {
+    badge: 'TERHESSÉG • ORVOSI KÖVETÉS',
+    title: 'A terhességi vizsgálatok\nnaptára',
+    metaDuration: '6 perc olvasás',
+    metaType: 'Útmutató',
+    metaLevel: 'Kezdő',
+    metaValidated: 'Ellenőrzött tartalom',
+    intro: 'Ultrahangok és alapvető vizsgálatok, trimeszterről trimeszterre.',
+    contentsTitle: 'Ebben a cikkben',
+    topics: [
+      'Kontroll ultrahangok',
+      'Alapvető vérvizsgálatok',
+      'Felkészülés minden időpontra',
+      'Érdemes megjegyezni',
+      'Legfontosabb tudnivalók',
+    ],
+    body1:
+      'A terhesség általában három fő ultrahangot tartalmaz, trimeszterenként egyet, amelyek mindegyikének más a célja.',
+    ultrasounds: [
+      '1. trimeszter: életkor-meghatározás és tarkóredő-vizsgálat',
+      '2. trimeszter: morfológiai ultrahang',
+      '3. trimeszter: növekedés és a baba elhelyezkedése',
+    ],
+    body2:
+      'A rendszeres vérvizsgálatok a terhesség során több kulcsfontosságú mutatót követnek:',
+    bloodTests: [
+      'Vasszint, a lehetséges vérszegénység szűrésére',
+      'Terhességi cukorbetegség szűrése, általában a 2. trimeszter körül',
+      'Vércsoport és rendellenes ellenanyagok szűrése',
+      'Szerológiai vizsgálatok (toxoplazmózis, rubeola) az immunstátuszodtól függően',
+    ],
+    prepTips: [
+      'Írd fel a kérdéseidet, ahogy eszedbe jutnak, mielőtt elfelejtenéd őket',
+      'Vidd magaddal a terhesgondozási könyvedet minden időpontra',
+      'Említs meg minden új tünetet, még ha jelentéktelennek is tűnik',
+    ],
+    neutralText:
+      'A vizsgálatok pontos száma és ütemezése a gondozásodtól, a kockázati profilodtól, valamint az országod vagy az ellátód gyakorlatától függően eltérhet.',
+    tipTitle: 'Érdemes tudni',
+    tipText:
+      'Ne habozz felírni a kérdéseidet minden időpont előtt, hogy a pillanatban semmiről ne feledkezz meg: egyetlen kérdés sem túl kicsi ahhoz, hogy feltedd.',
+    shareMessage: 'A terhességi vizsgálatok naptára — AWA',
+  },
+  ro: {
+    badge: 'SARCINĂ • URMĂRIRE MEDICALĂ',
+    title: 'Calendarul controalelor\ndin sarcină',
+    metaDuration: '6 min de citit',
+    metaType: 'Ghid',
+    metaLevel: 'Începător',
+    metaValidated: 'Conținut revizuit',
+    intro: 'Ecografiile și analizele esențiale, trimestru după trimestru.',
+    contentsTitle: 'În acest articol',
+    topics: [
+      'Ecografiile de urmărire',
+      'Analizele de sânge esențiale',
+      'Pregătirea pentru fiecare consultație',
+      'De reținut',
+      'Ce să reții',
+    ],
+    body1:
+      'O sarcină include în general trei ecografii principale, câte una pe trimestru, fiecare cu un scop diferit.',
+    ultrasounds: [
+      'Trimestrul 1: datarea și translucența nucală',
+      'Trimestrul 2: ecografia morfologică',
+      'Trimestrul 3: creșterea și poziția bebelușului',
+    ],
+    body2:
+      'Analizele de sânge regulate urmăresc mai mulți markeri-cheie pe parcursul sarcinii:',
+    bloodTests: [
+      'Nivelul de fier, pentru depistarea unei posibile anemii',
+      'Depistarea diabetului gestațional, în general în jurul trimestrului 2',
+      'Grupa sanguină și depistarea anticorpilor neregulați',
+      'Teste serologice (toxoplasmoză, rubeolă), în funcție de statutul tău imunitar',
+    ],
+    prepTips: [
+      'Notează-ți întrebările pe măsură ce îți vin, înainte să le uiți',
+      'Adu carnetul de urmărire a sarcinii la fiecare consultație',
+      'Menționează orice simptom nou, chiar dacă pare minor',
+    ],
+    neutralText:
+      'Numărul și calendarul exact al controalelor pot varia în funcție de îngrijirea ta, de profilul tău de risc și de practicile din țara ta sau ale furnizorului de îngrijiri.',
+    tipTitle: 'Bine de știut',
+    tipText:
+      'Nu ezita să-ți notezi întrebările înainte de fiecare consultație ca să nu uiți nimic pe moment: nicio întrebare nu este prea mică pentru a fi pusă.',
+    shareMessage: 'Calendarul controalelor din sarcină — AWA',
+  },
+  bg: {
+    badge: 'БРЕМЕННОСТ • МЕДИЦИНСКО ПРОСЛЕДЯВАНЕ',
+    title: 'Календар на прегледите\nпо време на бременност',
+    metaDuration: '6 мин четене',
+    metaType: 'Ръководство',
+    metaLevel: 'Начинаещ',
+    metaValidated: 'Проверено съдържание',
+    intro: 'Основните ехографии и изследвания, триместър по триместър.',
+    contentsTitle: 'В тази статия',
+    topics: [
+      'Проследяващи ехографии',
+      'Основни кръвни изследвания',
+      'Подготовка за всеки преглед',
+      'Важно е да се отбележи',
+      'Какво да запомниш',
+    ],
+    body1:
+      'Бременността обикновено включва три основни ехографии, по една на триместър, всяка с различна цел.',
+    ultrasounds: [
+      '1-ви триместър: датиране и нухална транслуценция',
+      '2-ри триместър: морфологична ехография',
+      '3-ти триместър: растеж и положение на бебето',
+    ],
+    body2:
+      'Редовните кръвни изследвания следят няколко ключови показателя през цялата бременност:',
+    bloodTests: [
+      'Нивото на желязо, за откриване на възможна анемия',
+      'Скрининг за гестационен диабет, обикновено около втория триместър',
+      'Кръвна група и скрининг за нередовни антитела',
+      'Серологични изследвания (токсоплазмоза, рубеола), според имунния ти статус',
+    ],
+    prepTips: [
+      'Записвай си въпросите, когато ти хрумнат, преди да ги забравиш',
+      'Носи бременната си книжка на всеки преглед',
+      'Спомени всеки нов симптом, дори да изглежда незначителен',
+    ],
+    neutralText:
+      'Точният брой и график на прегледите могат да варират според грижите ти, рисковия ти профил и практиките на държавата ти или на доставчика на здравни грижи.',
+    tipTitle: 'Добре е да знаеш',
+    tipText:
+      'Не се колебай да си записваш въпросите преди всеки преглед, за да не забравиш нищо в момента: никой въпрос не е твърде малък, за да бъде зададен.',
+    shareMessage: 'Календар на прегледите по време на бременност — AWA',
+  },
+  sr: {
+    badge: 'ТРУДНОЋА • МЕДИЦИНСКО ПРАЋЕЊЕ',
+    title: 'Календар прегледа\nу трудноћи',
+    metaDuration: '6 мин читања',
+    metaType: 'Водич',
+    metaLevel: 'Почетник',
+    metaValidated: 'Проверен садржај',
+    intro: 'Ултразвуци и основне анализе, триместар по триместар.',
+    contentsTitle: 'У овом чланку',
+    topics: [
+      'Ултразвуци за праћење',
+      'Основне анализе крви',
+      'Припрема за сваки преглед',
+      'Вреди напоменути',
+      'Шта да запамтиш',
+    ],
+    body1:
+      'Трудноћа обично укључује три главна ултразвука, по један у сваком триместру, сваки са другачијом сврхом.',
+    ultrasounds: [
+      '1. триместар: датирање и нухална провидност',
+      '2. триместар: морфолошки ултразвук',
+      '3. триместар: раст и положај бебе',
+    ],
+    body2:
+      'Редовне анализе крви прате неколико кључних показатеља током целе трудноће:',
+    bloodTests: [
+      'Ниво гвожђа, ради откривања могуће анемије',
+      'Скрининг на гестациони дијабетес, обично око другог триместра',
+      'Крвна група и скрининг на нередовна антитела',
+      'Серолошке анализе (токсоплазмоза, рубеола), зависно од твог имунолошког статуса',
+    ],
+    prepTips: [
+      'Записуј питања како ти падају на памет, пре него што их заборавиш',
+      'Носи књижицу трудноће на сваки преглед',
+      'Спомени сваки нови симптом, чак и ако делује безначајно',
+    ],
+    neutralText:
+      'Тачан број и распоред прегледа могу варирати зависно од твоје неге, профила ризика и праксе твоје државе или пружаоца здравствене заштите.',
+    tipTitle: 'Добро је знати',
+    tipText:
+      'Не оклевај да запишеш питања пре сваког прегледа да у тренутку ништа не заборавиш: ниједно питање није премало да би се поставило.',
+    shareMessage: 'Календар прегледа у трудноћи — AWA',
+  },
+  hr: {
+    badge: 'TRUDNOĆA • MEDICINSKO PRAĆENJE',
+    title: 'Kalendar pretraga\ntijekom trudnoće',
+    metaDuration: '6 min čitanja',
+    metaType: 'Vodič',
+    metaLevel: 'Početnica',
+    metaValidated: 'Provjeren sadržaj',
+    intro: 'Ultrazvuci i ključne pretrage, trimestar po trimestar.',
+    contentsTitle: 'U ovom članku',
+    topics: [
+      'Kontrolni ultrazvuci',
+      'Ključne krvne pretrage',
+      'Priprema za svaki pregled',
+      'Vrijedi napomenuti',
+      'Ključne poruke',
+    ],
+    body1:
+      'Trudnoća općenito uključuje tri glavna ultrazvuka, po jedan u svakom trimestru, svaki s drugačijom svrhom.',
+    ultrasounds: [
+      '1. trimestar: datiranje i nuhalna translucencija',
+      '2. trimestar: morfološki ultrazvuk',
+      '3. trimestar: rast i položaj bebe',
+    ],
+    body2:
+      'Redovite krvne pretrage prate nekoliko ključnih pokazatelja tijekom trudnoće:',
+    bloodTests: [
+      'Razina željeza, radi probira na moguću anemiju',
+      'Probir na gestacijski dijabetes, općenito oko drugog trimestra',
+      'Krvna grupa i probir na nepravilna protutijela',
+      'Serološke pretrage (toksoplazmoza, rubeola) ovisno o imunosnom statusu',
+    ],
+    prepTips: [
+      'Zapiši pitanja čim ti padnu na pamet, prije nego što ih zaboraviš',
+      'Na svaki pregled ponesi trudničku knjižicu',
+      'Spomeni svaki novi simptom, čak i ako se čini beznačajnim',
+    ],
+    neutralText:
+      'Točan broj i raspored pretraga može se razlikovati ovisno o skrbi koju primaš, tvom profilu rizika i praksi tvoje države ili pružatelja skrbi.',
+    tipTitle: 'Dobro je znati',
+    tipText:
+      'Ne oklijevaj zapisati pitanja prije svakog pregleda kako ne bi ništa zaboravila u trenutku: nijedno pitanje nije premalo da bi se postavilo.',
+    shareMessage: 'Kalendar pretraga tijekom trudnoće — AWA',
+  },
+  bs: {
+    badge: 'TRUDNOĆA • MEDICINSKO PRAĆENJE',
+    title: 'Kalendar pretraga\ntijekom trudnoće',
+    metaDuration: '6 min čitanja',
+    metaType: 'Vodič',
+    metaLevel: 'Početnica',
+    metaValidated: 'Provjeren sadržaj',
+    intro: 'Ultrazvuci i ključne pretrage, trimestar po trimestar.',
+    contentsTitle: 'U ovom članku',
+    topics: [
+      'Kontrolni ultrazvuci',
+      'Ključne krvne pretrage',
+      'Priprema za svaki pregled',
+      'Vrijedi napomenuti',
+      'Ključne poruke',
+    ],
+    body1:
+      'Trudnoća općenito uključuje tri glavna ultrazvuka, po jedan u svakom trimestru, svaki s drugačijom svrhom.',
+    ultrasounds: [
+      '1. trimestar: datiranje i nuhalna translucencija',
+      '2. trimestar: morfološki ultrazvuk',
+      '3. trimestar: rast i položaj bebe',
+    ],
+    body2:
+      'Redovite krvne pretrage prate nekoliko ključnih pokazatelja tokom trudnoće:',
+    bloodTests: [
+      'Razina željeza, radi probira na moguću anemiju',
+      'Probir na gestacijski dijabetes, općenito oko drugog trimestra',
+      'Krvna grupa i probir na nepravilna protutijela',
+      'Serološke pretrage (toksoplazmoza, rubeola) ovisno o imunosnom statusu',
+    ],
+    prepTips: [
+      'Zapiši pitanja čim ti padnu na pamet, prije nego što ih zaboraviš',
+      'Na svaki pregled ponesi trudničku knjižicu',
+      'Spomeni svaki novi simptom, čak i ako se čini beznačajnim',
+    ],
+    neutralText:
+      'Točan broj i raspored pretraga može se razlikovati ovisno o skrbi koju primaš, tvom profilu rizika i praksi tvoje države ili pružatelja skrbi.',
+    tipTitle: 'Dobro je znati',
+    tipText:
+      'Ne oklijevaj zapisati pitanja prije svakog pregleda kako ne bi ništa zaboravila u trenutku: nijedno pitanje nije premalo da bi se postavilo.',
+    shareMessage: 'Kalendar pretraga tokom trudnoće — AWA',
+  },
+  sl: {
+    badge: 'NOSEČNOST • ZDRAVNIŠKO SPREMLJANJE',
+    title: 'Koledar preiskav\nmed nosečnostjo',
+    metaDuration: '6 min branja',
+    metaType: 'Vodnik',
+    metaLevel: 'Začetnica',
+    metaValidated: 'Preverjena vsebina',
+    intro: 'Ultrazvoki in ključne preiskave, trimesečje za trimesečjem.',
+    contentsTitle: 'V tem članku',
+    topics: [
+      'Kontrolni ultrazvoki',
+      'Ključne krvne preiskave',
+      'Priprava na vsak pregled',
+      'Vredno omeniti',
+      'Ključna sporočila',
+    ],
+    body1:
+      'Nosečnost na splošno vključuje tri glavne ultrazvoke, po enega v vsakem trimesečju, vsak z drugačnim namenom.',
+    ultrasounds: [
+      '1. trimesečje: datiranje in nuhalna svetlina',
+      '2. trimesečje: morfološki ultrazvok',
+      '3. trimesečje: rast in položaj dojenčka',
+    ],
+    body2:
+      'Redne krvne preiskave spremljajo več ključnih kazalnikov skozi nosečnost:',
+    bloodTests: [
+      'Raven železa, za presejanje morebitne slabokrvnosti',
+      'Presejanje za gestacijski diabetes, na splošno okoli drugega trimesečja',
+      'Krvna skupina in presejanje za nepravilna protitelesa',
+      'Serološke preiskave (toksoplazmoza, rdečke) glede na imunski status',
+    ],
+    prepTips: [
+      'Vprašanja si zapiši, takoj ko ti pridejo na misel, preden jih pozabiš',
+      'Na vsak pregled vzemi nosečniško knjižico',
+      'Omeni vsak nov simptom, tudi če se zdi nepomemben',
+    ],
+    neutralText:
+      'Natančno število in razpored preiskav se lahko razlikuje glede na oskrbo, ki jo prejemaš, tvoj profil tveganja in prakso tvoje države ali izvajalca oskrbe.',
+    tipTitle: 'Vredno vedeti',
+    tipText:
+      'Ne oklevaj zapisati vprašanj pred vsakim pregledom, da ne pozabiš ničesar v trenutku: nobeno vprašanje ni premajhno, da bi ga postavila.',
+    shareMessage: 'Koledar preiskav med nosečnostjo — AWA',
+  },
+  ne: {
+    badge: 'गर्भावस्था • चिकित्सकीय अनुगमन',
+    title: 'गर्भावस्थाको जाँचको\nपात्रो',
+    metaDuration: '6 मिनेट पढाइ',
+    metaType: 'मार्गदर्शन',
+    metaLevel: 'सुरुवाती',
+    metaValidated: 'समीक्षा गरिएको सामग्री',
+    intro: 'त्रैमासिकअनुसार अल्ट्रासाउन्ड र आवश्यक परीक्षणहरू।',
+    contentsTitle: 'यो लेखमा',
+    topics: [
+      'अनुगमनका अल्ट्रासाउन्डहरू',
+      'आवश्यक रगत परीक्षणहरू',
+      'हरेक भेटघाटको तयारी',
+      'ध्यान दिन लायक',
+      'मुख्य कुराहरू',
+    ],
+    body1:
+      'गर्भावस्थामा सामान्यतया तीन मुख्य अल्ट्रासाउन्ड हुन्छन्, हरेक त्रैमासिकमा एउटा, जसमध्ये हरेकको फरक उद्देश्य हुन्छ।',
+    ultrasounds: [
+      'पहिलो त्रैमासिक: मिति निर्धारण र नुकल ट्रान्सल्युसेन्सी',
+      'दोस्रो त्रैमासिक: आकारिकीय अल्ट्रासाउन्ड',
+      'तेस्रो त्रैमासिक: वृद्धि र शिशुको स्थिति',
+    ],
+    body2:
+      'नियमित रगत परीक्षणहरूले गर्भावस्थाभर धेरै मुख्य सूचकहरू निगरानी गर्छन्:',
+    bloodTests: [
+      'सम्भावित रक्तअल्पता जाँच्न आइरनको स्तर',
+      'गर्भकालीन मधुमेहको जाँच, सामान्यतया दोस्रो त्रैमासिकतिर',
+      'रक्त समूह र अनियमित एन्टिबडीको जाँच',
+      'तपाईंको प्रतिरक्षा अवस्थाअनुसार सेरोलोजी परीक्षणहरू (टक्सोप्लाज्मोसिस, रुबेला)',
+    ],
+    prepTips: [
+      'आफ्ना प्रश्नहरू मनमा आउनेबित्तिकै बिर्सनुअघि लेख्नुहोस्',
+      'हरेक भेटघाटमा आफ्नो गर्भावस्था अनुगमन पुस्तिका ल्याउनुहोस्',
+      'कुनै नयाँ लक्षण, सानो जस्तो लागे पनि, उल्लेख गर्नुहोस्',
+    ],
+    neutralText:
+      'जाँचहरूको सही सङ्ख्या र तालिका तपाईंको हेरचाह, जोखिमको प्रोफाइल र तपाईंको देश वा हेरचाह प्रदायकका अभ्यासअनुसार फरक हुन सक्छ।',
+    tipTitle: 'जान्न लायक',
+    tipText:
+      'हरेक भेटघाटअघि आफ्ना प्रश्नहरू लेख्न नहिच्किचाउनुहोस् ताकि क्षणमा केही नबिर्सनुहोस्: सोध्नका लागि कुनै प्रश्न धेरै सानो हुँदैन।',
+    shareMessage: 'गर्भावस्थाको जाँचको पात्रो — AWA',
+  },
+  si: {
+    badge: 'ගර්භණී කාලය • වෛද්‍ය පසු විපරම',
+    title: 'ගර්භණී පරීක්ෂණ\nදින දර්ශනය',
+    metaDuration: 'කියවීමට මිනිත්තු 6',
+    metaType: 'මාර්ගෝපදේශය',
+    metaLevel: 'ආරම්භක',
+    metaValidated: 'සමාලෝචනය කළ අන්තර්ගතය',
+    intro: 'ත්‍රෛමාසිකයෙන් ත්‍රෛමාසිකය අල්ට්‍රාසවුන්ඩ් සහ අත්‍යවශ්‍ය පරීක්ෂණ.',
+    contentsTitle: 'මෙම ලිපියේ',
+    topics: [
+      'පසු විපරම් අල්ට්‍රාසවුන්ඩ්',
+      'අත්‍යවශ්‍ය රුධිර පරීක්ෂණ',
+      'සෑම හමුවීමකටම සූදානම් වීම',
+      'සටහන් කිරීම වටී',
+      'ප්‍රධාන කරුණු',
+    ],
+    body1:
+      'ගර්භණී කාලයට සාමාන්‍යයෙන් ප්‍රධාන අල්ට්‍රාසවුන්ඩ් තුනක් ඇතුළත් වේ, ත්‍රෛමාසිකයකට එකක්, සෑම එකකටම වෙනස් අරමුණක් ඇත.',
+    ultrasounds: [
+      '1 වන ත්‍රෛමාසිකය: දිනනිර්ණය සහ නීකල් පාරභාසකතාව',
+      '2 වන ත්‍රෛමාසිකය: ආකෘති විද්‍යා අල්ට්‍රාසවුන්ඩ්',
+      '3 වන ත්‍රෛමාසිකය: වර්ධනය සහ දරුවාගේ ඉරියව්ව',
+    ],
+    body2:
+      'නිතිපතා රුධිර පරීක්ෂණ ගර්භණී කාලය පුරා ප්‍රධාන දර්ශක කිහිපයක් නිරීක්ෂණය කරයි:',
+    bloodTests: [
+      'ඇතිවිය හැකි රක්තහීනතාව පරීක්ෂා කිරීමට යකඩ මට්ටම්',
+      'ගර්භණී දියවැඩියාව පරීක්ෂාව, සාමාන්‍යයෙන් 2 වන ත්‍රෛමාසිකය වටා',
+      'රුධිර වර්ගය සහ අක්‍රමවත් ප්‍රතිදේහ පරීක්ෂාව',
+      'ඔබේ ප්‍රතිශක්ති තත්ත්වය අනුව සෙරොලොජි පරීක්ෂණ (ටොක්සොප්ලාස්මෝසිස්, රුබෙල්ලා)',
+    ],
+    prepTips: [
+      'ඔබේ ප්‍රශ්න අමතක වීමට පෙර, ඒවා ඔබට සිහිපත් වන විට ලියා තබන්න',
+      'සෑම හමුවීමකටම ඔබේ ගර්භණී පසු විපරම් පොත රැගෙන එන්න',
+      'සුළු සේ පෙනුණත්, ඕනෑම නව රෝග ලක්ෂණයක් සඳහන් කරන්න',
+    ],
+    neutralText:
+      'පරීක්ෂණවල නිශ්චිත ගණන සහ කාලසටහන ඔබේ සත්කාරය, ඔබේ අවදානම් පැතිකඩ සහ ඔබේ රටේ හෝ සත්කාර සපයන්නාගේ පුරුදු අනුව වෙනස් විය හැක.',
+    tipTitle: 'දැනගත යුතු දේ',
+    tipText:
+      'එම මොහොතේ කිසිවක් අමතක නොවන පරිදි සෑම හමුවීමකටම පෙර ඔබේ ප්‍රශ්න ලියා තැබීමට මැළි නොවන්න: අසන්නට නොහැකි තරම් කුඩා ප්‍රශ්නයක් නැත.',
+    shareMessage: 'ගර්භණී පරීක්ෂණ දින දර්ශනය — AWA',
+  },
+  th: {
+    badge: 'การตั้งครรภ์ • การติดตามทางการแพทย์',
+    title: 'ปฏิทินการตรวจ\nครรภ์',
+    metaDuration: 'อ่าน 6 นาที',
+    metaType: 'คู่มือ',
+    metaLevel: 'เริ่มต้น',
+    metaValidated: 'เนื้อหาที่ผ่านการตรวจสอบ',
+    intro: 'อัลตราซาวนด์และการตรวจที่จำเป็น ในแต่ละไตรมาส',
+    contentsTitle: 'ในบทความนี้',
+    topics: [
+      'อัลตราซาวนด์ติดตามผล',
+      'การตรวจเลือดที่จำเป็น',
+      'เตรียมตัวสำหรับการนัดหมายแต่ละครั้ง',
+      'ข้อควรทราบ',
+      'ประเด็นสำคัญ',
+    ],
+    body1:
+      'โดยทั่วไปการตั้งครรภ์มีอัลตราซาวนด์หลักสามครั้ง ไตรมาสละหนึ่งครั้ง แต่ละครั้งมีวัตถุประสงค์ต่างกัน',
+    ultrasounds: [
+      'ไตรมาสที่ 1: การกำหนดอายุครรภ์และการวัดความหนาของเนื้อเยื่อท้ายทอย',
+      'ไตรมาสที่ 2: อัลตราซาวนด์ดูรูปร่างทารก',
+      'ไตรมาสที่ 3: การเติบโตและท่าของทารก',
+    ],
+    body2:
+      'การตรวจเลือดเป็นประจำเฝ้าติดตามตัวชี้วัดสำคัญหลายอย่างตลอดการตั้งครรภ์:',
+    bloodTests: [
+      'ระดับธาตุเหล็ก เพื่อคัดกรองภาวะโลหิตจางที่อาจเกิดขึ้น',
+      'การคัดกรองเบาหวานขณะตั้งครรภ์ โดยทั่วไปราวไตรมาสที่ 2',
+      'หมู่เลือดและการคัดกรองแอนติบอดีที่ผิดปกติ',
+      'การตรวจทางซีรั่มวิทยา (toxoplasmosis, หัดเยอรมัน) ตามสถานะภูมิคุ้มกันของคุณ',
+    ],
+    prepTips: [
+      'จดคำถามไว้เมื่อนึกขึ้นได้ ก่อนจะลืม',
+      'นำสมุดบันทึกสุขภาพแม่และเด็กไปทุกครั้งที่นัดหมาย',
+      'แจ้งอาการใหม่ใด ๆ แม้ดูเล็กน้อย',
+    ],
+    neutralText:
+      'จำนวนและตารางการตรวจที่แน่นอนอาจแตกต่างกันไปตามการดูแล ระดับความเสี่ยงของคุณ และแนวปฏิบัติของประเทศหรือผู้ให้บริการของคุณ',
+    tipTitle: 'ควรรู้',
+    tipText:
+      'อย่าลังเลที่จะจดคำถามก่อนการนัดหมายแต่ละครั้งเพื่อไม่ให้ลืมอะไรในขณะนั้น: ไม่มีคำถามใดเล็กเกินไปที่จะถาม',
+    shareMessage: 'ปฏิทินการตรวจครรภ์ — AWA',
+  },
+  vi: {
+    badge: 'THAI KỲ • THEO DÕI Y TẾ',
+    title: 'Lịch khám\nthai kỳ',
+    metaDuration: '6 phút đọc',
+    metaType: 'Hướng dẫn',
+    metaLevel: 'Cơ bản',
+    metaValidated: 'Nội dung đã được thẩm định',
+    intro: 'Các lần siêu âm và xét nghiệm thiết yếu, theo từng tam cá nguyệt.',
+    contentsTitle: 'Trong bài viết này',
+    topics: [
+      'Siêu âm theo dõi',
+      'Xét nghiệm máu thiết yếu',
+      'Chuẩn bị cho từng buổi hẹn',
+      'Điều đáng lưu ý',
+      'Điều cần nhớ',
+    ],
+    body1:
+      'Thai kỳ thường gồm ba lần siêu âm chính, mỗi tam cá nguyệt một lần, mỗi lần có một mục đích khác nhau.',
+    ultrasounds: [
+      'Tam cá nguyệt 1: xác định tuổi thai và đo độ mờ da gáy',
+      'Tam cá nguyệt 2: siêu âm hình thái',
+      'Tam cá nguyệt 3: sự tăng trưởng và tư thế của em bé',
+    ],
+    body2:
+      'Các xét nghiệm máu định kỳ theo dõi một số chỉ số quan trọng trong suốt thai kỳ:',
+    bloodTests: [
+      'Nồng độ sắt, để tầm soát thiếu máu có thể có',
+      'Tầm soát tiểu đường thai kỳ, thường vào khoảng tam cá nguyệt 2',
+      'Nhóm máu và tầm soát kháng thể bất thường',
+      'Các xét nghiệm huyết thanh (toxoplasma, rubella) tùy theo tình trạng miễn dịch của bạn',
+    ],
+    prepTips: [
+      'Ghi lại các câu hỏi khi chúng nảy ra, trước khi bạn quên',
+      'Mang sổ theo dõi thai kỳ đến mỗi buổi hẹn',
+      'Nói với bác sĩ về mọi triệu chứng mới, dù có vẻ nhỏ',
+    ],
+    neutralText:
+      'Số lượng và lịch trình chính xác của các lần khám có thể khác nhau tùy theo việc chăm sóc của bạn, mức độ nguy cơ và thực hành của quốc gia hay cơ sở y tế của bạn.',
+    tipTitle: 'Nên biết',
+    tipText:
+      'Đừng ngần ngại ghi lại các câu hỏi trước mỗi buổi hẹn để không quên điều gì vào lúc đó: không có câu hỏi nào là quá nhỏ để hỏi.',
+    shareMessage: 'Lịch khám thai kỳ — AWA',
+  },
+  uz: {
+    badge: 'HOMILADORLIK • TIBBIY NAZORAT',
+    title: 'Homiladorlikni tekshirish\ntaqvimi',
+    metaDuration: '6 daq oʻqish',
+    metaType: 'Qoʻllanma',
+    metaLevel: 'Boshlangʻich',
+    metaValidated: 'Tasdiqlangan kontent',
+    intro: 'Muhim UZI va tahlillar, trimestrma-trimestr.',
+    contentsTitle: 'Ushbu maqolada',
+    topics: [
+      'Nazorat UZI tekshiruvlari',
+      'Muhim qon tahlillari',
+      'Har bir qabulga tayyorgarlik',
+      'Eʼtiborga loyiq jihatlar',
+      'Asosiy xulosalar',
+    ],
+    body1:
+      'Homiladorlik odatda uchta asosiy UZI ni oʻz ichiga oladi, har trimestrda bittadan, ularning har biri turli maqsadga ega.',
+    ultrasounds: [
+      '1-trimestr: muddatni aniqlash va yoqa boʻshligʻi qalinligi',
+      '2-trimestr: morfologik UZI',
+      '3-trimestr: oʻsish va chaqaloqning holati',
+    ],
+    body2:
+      'Muntazam qon tahlillari homiladorlik davomida bir nechta asosiy koʻrsatkichni kuzatadi:',
+    bloodTests: [
+      'Mumkin boʻlgan kamqonlikni aniqlash uchun temir darajasi',
+      'Gestatsion diabet skrining, odatda 2-trimestr atrofida',
+      'Qon guruhi va notekis antitelalar skrining',
+      'Immunitet holatingizga qarab serologik tahlillar (toksoplazmoz, qizilcha)',
+    ],
+    prepTips: [
+      'Savollaringizni, ular esingizga kelganda, unutmasdan oldin yozib qoʻying',
+      'Har bir qabulga homiladorlik nazorati daftarchasini olib boring',
+      'Har qanday yangi alomatni, kichik tuyulsa ham, ayting',
+    ],
+    neutralText:
+      'Tekshiruvlarning aniq soni va jadvali parvarishingizga, xavf profilingizga va mamlakatingiz yoki tibbiy xizmat koʻrsatuvchining amaliyotiga qarab farq qilishi mumkin.',
+    tipTitle: 'Bilish foydali',
+    tipText:
+      'Muhim narsani unutmaslik uchun har bir qabuldan oldin savollaringizni yozib qoʻyishdan tortinmang: hech bir savol soʻrash uchun juda kichik emas.',
+    shareMessage: 'Homiladorlikni tekshirish taqvimi — AWA',
+  },
+  az: {
+    badge: 'HAMİLƏLİK • TİBBİ NƏZARƏT',
+    title: 'Hamiləlik müayinələrinin\ntəqvimi',
+    metaDuration: '6 dəq oxu',
+    metaType: 'Bələdçi',
+    metaLevel: 'Başlanğıc',
+    metaValidated: 'Yoxlanılmış məzmun',
+    intro: 'Trimestrdən trimestrə ultrasəslər və vacib testlər.',
+    contentsTitle: 'Bu məqalədə',
+    topics: [
+      'Nəzarət ultrasəsləri',
+      'Vacib qan testləri',
+      'Hər qəbula hazırlıq',
+      'Qeyd etməyə dəyər',
+      'Əsas nəticələr',
+    ],
+    body1:
+      'Hamiləlik adətən hər trimestrə bir olmaqla üç əsas ultrasəsi ehtiva edir və hər birinin fərqli məqsədi var.',
+    ultrasounds: [
+      '1-ci trimestr: tarixləndirmə və boyun qatı qalınlığı',
+      '2-ci trimestr: morfoloji ultrasəs',
+      '3-cü trimestr: böyümə və körpənin vəziyyəti',
+    ],
+    body2:
+      'Müntəzəm qan testləri hamiləlik boyu bir neçə əsas göstəricini izləyir:',
+    bloodTests: [
+      'Mümkün anemiyanı aşkar etmək üçün dəmir səviyyəsi',
+      'Gestasion diabet skrininqi, adətən 2-ci trimestr ətrafında',
+      'Qan qrupu və qeyri-müntəzəm anticisimlərin skrininqi',
+      'İmmun vəziyyətinizdən asılı olaraq serologiya testləri (toksoplazmoz, qırmızıyanaq)',
+    ],
+    prepTips: [
+      'Suallarınızı yadınıza düşdükcə, unutmamış yazın',
+      'Hər qəbula hamiləlik nəzarət kitabçanızı gətirin',
+      'Hər yeni simptomu, cüzi görünsə də, qeyd edin',
+    ],
+    neutralText:
+      'Müayinələrin dəqiq sayı və cədvəli qayğınızdan, risk profilinizdən və ölkənizin və ya tibb müəssisənizin təcrübəsindən asılı olaraq dəyişə bilər.',
+    tipTitle: 'Bilmək faydalıdır',
+    tipText:
+      'Həmin anda heç nəyi unutmamaq üçün suallarınızı hər qəbuldan əvvəl yazmaqdan çəkinməyin: verilməyəcək qədər kiçik sual yoxdur.',
+    shareMessage: 'Hamiləlik müayinələrinin təqvimi — AWA',
+  },
+  ka: {
+    badge: 'ორსულობა • სამედიცინო მეთვალყურეობა',
+    title: 'ორსულობის გამოკვლევების\nკალენდარი',
+    metaDuration: '6 წთ საკითხავი',
+    metaType: 'გზამკვლევი',
+    metaLevel: 'დამწყები',
+    metaValidated: 'გადამოწმებული შინაარსი',
+    intro: 'ულტრაბგერები და აუცილებელი ანალიზები, ტრიმესტრების მიხედვით.',
+    contentsTitle: 'ამ სტატიაში',
+    topics: [
+      'მეთვალყურეობის ულტრაბგერები',
+      'აუცილებელი სისხლის ანალიზები',
+      'თითოეული ვიზიტისთვის მომზადება',
+      'აღსანიშნავია',
+      'მთავარი დასკვნები',
+    ],
+    body1:
+      'ორსულობა ზოგადად სამ ძირითად ულტრაბგერას მოიცავს, თითო ტრიმესტრში, რომელთაგან თითოეულს განსხვავებული დანიშნულება აქვს.',
+    ultrasounds: [
+      'I ტრიმესტრი: დათარიღება და კეფის ნაკეცის გამჭვირვალობა',
+      'II ტრიმესტრი: მორფოლოგიური ულტრაბგერა',
+      'III ტრიმესტრი: ზრდა და ბავშვის მდებარეობა',
+    ],
+    body2:
+      'სისხლის რეგულარული ანალიზები ორსულობის განმავლობაში რამდენიმე ძირითად მარკერს აკონტროლებს:',
+    bloodTests: [
+      'რკინის დონე, შესაძლო ანემიის გამოსავლენად',
+      'გესტაციური დიაბეტის სკრინინგი, ზოგადად II ტრიმესტრის გარშემო',
+      'სისხლის ჯგუფისა და არარეგულარული ანტისხეულების სკრინინგი',
+      'სეროლოგიური ტესტები (ტოქსოპლაზმოზი, წითელა) თქვენი იმუნური სტატუსის მიხედვით',
+    ],
+    prepTips: [
+      'ჩაიწერეთ თქვენი კითხვები, როგორც კი გაგიჩნდებათ, სანამ დაგავიწყდებათ',
+      'ყოველ ვიზიტზე თან წაიღეთ თქვენი ორსულობის მეთვალყურეობის წიგნაკი',
+      'ახსენეთ ნებისმიერი ახალი სიმპტომი, თუნდაც უმნიშვნელოდ ჩანდეს',
+    ],
+    neutralText:
+      'გამოკვლევების ზუსტი რაოდენობა და განრიგი შეიძლება განსხვავდებოდეს თქვენი მკურნალობის, რისკის პროფილისა და თქვენი ქვეყნის ან სამედიცინო დაწესებულების პრაქტიკის მიხედვით.',
+    tipTitle: 'კარგია ვიცოდეთ',
+    tipText:
+      'ნუ დააყოვნებთ თქვენი კითხვების ჩაწერას ყოველი ვიზიტის წინ, რომ ამ მომენტში არაფერი დაგავიწყდეთ: არცერთი კითხვა არ არის ისე პატარა, რომ დასმა არ ღირდეს.',
+    shareMessage: 'ორსულობის გამოკვლევების კალენდარი — AWA',
+  },
+  hy: {
+    badge: 'ՀՂԻՈՒԹՅՈՒՆ • ԲԺՇԿԱԿԱՆ ՀՍԿՈՂՈՒԹՅՈՒՆ',
+    title: 'Հղիության հետազոտությունների\nօրացույց',
+    metaDuration: '6 ր կարդալու համար',
+    metaType: 'Ուղեցույց',
+    metaLevel: 'Սկսնակ',
+    metaValidated: 'Վերանայված բովանդակություն',
+    intro: 'Ուլտրաձայնային և էական հետազոտություններ՝ եռամսյակ առ եռամսյակ:',
+    contentsTitle: 'Այս հոդվածում',
+    topics: [
+      'Հսկողության ուլտրաձայնային հետազոտություններ',
+      'Էական արյան անալիզներ',
+      'Նախապատրաստվել յուրաքանչյուր այցին',
+      'Հարկ է նշել',
+      'Հիմնական եզրակացություններ',
+    ],
+    body1:
+      'Հղիությունը սովորաբար ներառում է երեք հիմնական ուլտրաձայնային հետազոտություն՝ մեկական յուրաքանչյուր եռամսյակում, յուրաքանչյուրը տարբեր նպատակով:',
+    ultrasounds: [
+      '1-ին եռամսյակ. ժամկետի որոշում և օձիքային տարածության հաստություն',
+      '2-րդ եռամսյակ. ձևաբանական ուլտրաձայնային հետազոտություն',
+      '3-րդ եռամսյակ. աճ և երեխայի դիրք',
+    ],
+    body2:
+      'Արյան կանոնավոր անալիզները հղիության ընթացքում վերահսկում են մի քանի հիմնական ցուցանիշ.',
+    bloodTests: [
+      'Երկաթի մակարդակ՝ հնարավոր սակավարյունությունը հայտնաբերելու համար',
+      'Հղիության շաքարախտի սկրինինգ, սովորաբար 2-րդ եռամսյակի շուրջ',
+      'Արյան խումբ և անկանոն հակամարմինների սկրինինգ',
+      'Շճաբանական անալիզներ (տոքսոպլազմոզ, կարմրուկ)՝ կախված ձեր իմունային կարգավիճակից',
+    ],
+    prepTips: [
+      'Գրեք ձեր հարցերը, երբ դրանք գալիս են ձեր մտքին, նախքան մոռանալը',
+      'Բերեք հղիության հսկողության գրքույկը յուրաքանչյուր այցին',
+      'Նշեք ցանկացած նոր ախտանիշ, նույնիսկ եթե այն աննշան է թվում',
+    ],
+    neutralText:
+      'Հետազոտությունների ճշգրիտ քանակը և ժամանակացույցը կարող են տարբերվել՝ կախված ձեր խնամքից, վտանգի պրոֆիլից և ձեր երկրի կամ խնամք տրամադրողի պրակտիկայից:',
+    tipTitle: 'Լավ է իմանալ',
+    tipText:
+      'Մի տատանվեք յուրաքանչյուր այցից առաջ գրել ձեր հարցերը, որպեսզի այդ պահին ոչինչ չմոռանաք. չկա հարց, որը չափազանց փոքր է տալու համար:',
+    shareMessage: 'Հղիության հետազոտությունների օրացույց — AWA',
+  },
+  tg: {
+    badge: 'ҲОМИЛАДОРӢ • НАЗОРАТИ ТИББӢ',
+    title: 'Тақвими муоинаҳои\nҳомиладорӣ',
+    metaDuration: '6 дақ барои хондан',
+    metaType: 'Роҳнамо',
+    metaLevel: 'Ибтидоӣ',
+    metaValidated: 'Мазмуни баррасишуда',
+    intro: 'Ултрасадо ва санҷишҳои муҳим, триместр ба триместр.',
+    contentsTitle: 'Дар ин мақола',
+    topics: [
+      'Ултрасадоҳои назоратӣ',
+      'Санҷишҳои асосии хун',
+      'Омодагӣ ба ҳар қабул',
+      'Қобили қайд',
+      'Хулосаҳои асосӣ',
+    ],
+    body1:
+      'Ҳомиладорӣ одатан се ултрасадои асосиро дар бар мегирад, яке барои ҳар триместр, ки ҳар кадом мақсади гуногун дорад.',
+    ultrasounds: [
+      'Триместри 1: муайян кардани мӯҳлат ва шаффофии гарданӣ',
+      'Триместри 2: ултрасадои морфологӣ',
+      'Триместри 3: рушд ва вазъияти тифл',
+    ],
+    body2:
+      'Санҷишҳои мунтазами хун якчанд нишондиҳандаи асосиро дар давоми ҳомиладорӣ назорат мекунанд:',
+    bloodTests: [
+      'Сатҳи оҳан, барои ошкор кардани камхунии эҳтимолӣ',
+      'Ташхиси диабети ҳомиладорӣ, одатан дар атрофи триместри 2',
+      'Гурӯҳи хун ва ташхиси антителоҳои номунтазам',
+      'Санҷишҳои серологӣ (токсоплазмоз, сурхча) вобаста ба ҳолати масунияти шумо',
+    ],
+    prepTips: [
+      'Саволҳои худро ҳангоми пайдо шуданашон нависед, пеш аз он ки фаромӯш кунед',
+      'Дафтарчаи назорати ҳомиладориро ба ҳар қабул биёред',
+      'Ҳар нишонаи навро, ҳатто агар хурд ба назар расад, зикр кунед',
+    ],
+    neutralText:
+      'Шумора ва ҷадвали дақиқи муоинаҳо метавонад вобаста ба нигоҳубини шумо, профили хатар ва расму оини кишвар ё муассисаи тиббии шумо фарқ кунад.',
+    tipTitle: 'Донистан хуб аст',
+    tipText:
+      'Пеш аз ҳар қабул саволҳои худро навиштан шарм надоред, то дар лаҳза чизеро фаромӯш накунед: ягон савол барои пурсидан хурд нест.',
+    shareMessage: 'Тақвими муоинаҳои ҳомиладорӣ — AWA',
+  },
+  ky: {
+    badge: 'КУРСАКТУУЛУК • МЕДИЦИНАЛЫК КӨЗӨМӨЛ',
+    title: 'Курсактуулук текшерүү\nкалендары',
+    metaDuration: '6 мүн окуу',
+    metaType: 'Колдонмо',
+    metaLevel: 'Баштоочу',
+    metaValidated: 'Текшерилген мазмун',
+    intro: 'Триместр боюнча УЗИ жана маанилүү анализдер.',
+    contentsTitle: 'Бул макалада',
+    topics: [
+      'Көзөмөл УЗИлери',
+      'Маанилүү кан анализдери',
+      'Ар бир кабыл алууга даярдануу',
+      'Эске алуу керек',
+      'Негизги жыйынтыктар',
+    ],
+    body1:
+      'Курсактуулук адатта үч негизги УЗИни камтыйт, ар бир триместрде бирден, алардын ар биринин башка максаты бар.',
+    ultrasounds: [
+      '1-триместр: мөөнөттү аныктоо жана моюн алдындагы тунуктук',
+      '2-триместр: морфологиялык УЗИ',
+      '3-триместр: өсүү жана ымыркайдын абалы',
+    ],
+    body2:
+      'Үзгүлтүксүз кан анализдери курсактуулук бою бир нече негизги көрсөткүчтү көзөмөлдөйт:',
+    bloodTests: [
+      'Мүмкүн болгон аз канды аныктоо үчүн темирдин деңгээли',
+      'Курсактуулук диабетин скринингдөө, адатта 2-триместрдин тегерегинде',
+      'Кан тобун жана туура эмес антителолорду скринингдөө',
+      'Иммундук абалыңызга жараша серологиялык тесттер (токсоплазмоз, кызылча)',
+    ],
+    prepTips: [
+      'Суроолорду унутуп калганга чейин, пайда болгон сайын жазып коюңуз',
+      'Ар бир кабыл алууга курсактуулук көзөмөл китепчеңизди алып барыңыз',
+      'Ар кандай жаңы белгини, майда көрүнсө да, айтыңыз',
+    ],
+    neutralText:
+      'Текшерүүлөрдүн так саны жана графиги кам көрүүңүзгө, коркунуч профилиңизге жана өлкөңүздүн же медициналык мекемеңиздин тажрыйбасына жараша айырмаланышы мүмкүн.',
+    tipTitle: 'Билүү пайдалуу',
+    tipText:
+      'Ошол учурда эч нерсени унутпоо үчүн суроолоруңузду ар бир кабыл алуу алдында жазып коюудан тартынбаңыз: берүүгө өтө кичинекей суроо жок.',
+    shareMessage: 'Курсактуулук текшерүү календары — AWA',
+  },
+  tk: {
+    badge: 'GÖWRELILIK • LUKMANÇYLYK YZARLAMASY',
+    title: 'Göwrelilik barlaglarynyň\nsenenamasy',
+    metaDuration: '6 min okamak',
+    metaType: 'Gollanma',
+    metaLevel: 'Başlaýjy',
+    metaValidated: 'Barlanan mazmun',
+    intro: 'Trimestrme-trimestr UZI we esasy synaglar.',
+    contentsTitle: 'Bu makalada',
+    topics: [
+      'Yzarlaýjy UZI barlaglary',
+      'Esasy gan synaglary',
+      'Her kabul edişe taýýarlanmak',
+      'Bellemäge mynasyp zatlar',
+      'Esasy netijeler',
+    ],
+    body1:
+      'Göwrelilik adatça üç esasy UZI-ni, her trimestrde birini öz içine alýar, olaryň her biriniň dürli maksady bar.',
+    ultrasounds: [
+      '1-nji trimestr: wagtyny kesgitlemek we boýun görnüşi (nuchal translucency)',
+      '2-nji trimestr: morfologiýa UZI-si',
+      '3-nji trimestr: ösüş we bäbegiň ýagdaýy',
+    ],
+    body2:
+      'Yzygiderli gan synaglary göwrelilik dowamynda birnäçe esasy görkezijini yzarlaýar:',
+    bloodTests: [
+      'Mümkin kemganlygy anyklamak üçin demir derejesi',
+      'Göwreliligiň şekerli diabeti barlagy, adatça 2-nji trimestriň töwereginde',
+      'Gan toparyny we düzgünsiz antitelleri barlamak',
+      'Immun ýagdaýyňyza görä serologiýa synaglary (toksoplazmoz, gyzamyk)',
+    ],
+    prepTips: [
+      'Soraglaryňyz ýadyňyza düşende, ýatdan çykarmanka ýazyp goýuň',
+      'Her kabul edişe göwrelilik yzarlama depderçäňizi alyp geliň',
+      'Islendik täze alamaty, hatda ol ownuk bolup görünse-de, aýdyň',
+    ],
+    neutralText:
+      'Barlaglaryň takyk sany we tertibi idegiňize, howp profiliňize we ülkäňiziň ýa-da lukmançylyk edarasynyň tejribesine görä tapawutlanyp biler.',
+    tipTitle: 'Bilmek peýdaly',
+    tipText:
+      'Pursatda hiç zady ýatdan çykarmazlyk üçin soraglaryňyzy her kabul edişden öň ýazyp goýmakdan çekinmäň: soramak üçin aşa kiçijik sorag ýok.',
+    shareMessage: 'Göwrelilik barlaglarynyň senenamasy — AWA',
   },
 } as const);
 

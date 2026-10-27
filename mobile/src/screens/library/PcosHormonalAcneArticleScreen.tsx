@@ -1277,77 +1277,6 @@ const CONTENT = withBrazilianPortuguese('PcosHormonalAcne', {
     finalNoteText: 'Denne artikel er udelukkende til generel information og er ikke et alternativ til medicinsk rådgivning. Hvis du er i tvivl eller symptomerne fortsætter, bør du konsultere en sundhedsperson.',
     shareMessage: 'Forstå hormonel akne — AWA',
   },
-  da: {
-    badge: 'PCOS • Hormonel akne',
-    title: 'Forstå hormonel\nakne',
-    metaDuration: '7 minutters läsning',
-    metaType: 'Guide',
-    metaLevel: 'For begyndere',
-    metaValidated: 'Uddannelsesmässigt indhold',
-    intro: 'Hvorfor hormonel akne kan opstå med PCOS, hvordan du genkender den, och hvilke lösninger der kan hjälpe med at holde den under kontrol.',
-    introSecondary: 'Det påvirker mange kvinnor och ar hverken et tegn på manglende hygiejne eller uundgåeligt: at forstå årsagen gör det lettere at håndtere det bedre.',
-    contentsTitle: 'I denne artikel',
-    topics: [
-      'Hvad ar hormonel akne?',
-      'Hvorfor kan PCOS forårsage akne?',
-      'Sådan genkender du hormonel akne',
-      'Hormonel akne och menstruationscyklussen',
-      'Hvad der kan hjälpe',
-      'Hvornår bör du söge läge?',
-      'Det vigtigste',
-    ],
-    h1: 'Hvad ar hormonel akne?',
-    body1a: 'Hormonel akne ar en type akne, der ar direkte forbundet med hormonelle udsving eller ubalancer, särligt androgener. I modsätning till typisk teenageakne opstår den ofta hos voksne kvinnor och kan fortsätte eller opstå igen efter den alder.',
-    body1b: 'Den adskiller sig også ved sin placering, dybde och tendens till at vende tilbage på de samme steder, selv når man fölger en god hudplejerutine.',
-    tip1Title: 'Godt at vide',
-    tip1Text: 'Hormonel akne ar inte relateret till manglende hygiejne: at vaske ansigtet hyppigere löser det inte — det kan tvärtimod irritere huden.',
-    h2Title: 'Hvorfor kan PCOS forårsage akne?',
-    body2: 'Ved PCOS kan en relativ overvägt av androgener stimulere talgkirtlerne till at producere mere talg. Noget hud ar også mere fölsom over for disse hormoner, hvilket kan forklare, at aknen ar tydelig, selv uden en markant ubalance i laboratoriepröverne.',
-    neutralText: 'Det handler inte om viljestyrke: denne fölsomhed varierer fran person till person och afhänger inte av dina livsstilsvaner.',
-    h3Title: 'Sådan genkender du hormonel akne',
-    body3: 'Visse karakteristika ses ofte, om end inte altid:',
-    recognizeSigns: [
-      'Den nedre del av ansigtet: käbe, hage',
-      'Dybere, nogle gange smertefulde bumps',
-      'Vender ofta tilbage på de samme steder',
-      'Rödme eller pletter der bliver',
-    ],
-    h4Title: 'Hormonel akne och menstruationscyklussen',
-    body4: 'Hormonel akne kan variere gennem cyklussen. Mange kvinnor oplever en forvärring av aknen i dagene op till menstruation, når progesteron stiger och derefter falder brat, hvilket midlertidigt öger talgproduktionen.',
-    highlightTitle: 'Notér hvornår din akne forvärres',
-    highlightText: 'At notere hvornår aknen opstår i forhold till din cyklus giver dig och din dermatolog mulighed for bedre at forstå forbindelsen till hormonerne.',
-    h5Title: 'Hvad der kan hjälpe',
-    body5a: 'Visse enkle plejervaner kan hjälpe med at begränse forvärringer, men de fjerner inte aknen fuldständigt på egen hånd:',
-    careHabits: [
-      'Rengör huden forsigtigt morgen och aften',
-      'Undgå hårde eller udtörrende produkter',
-      'Beskyt huden mod solen hver dag',
-      'Undgå at klemme på eller irritere bumps',
-    ],
-    body5b: 'Afhängigt av situationen kan en dermatolog eller gynäkolog anbefale lokal behandling (creme, gel) eller om nödvendigt en passende hormonel behandling.',
-    alertTitle: 'Ingen selvmedicinering',
-    alertText: 'Behandling av hormonel akne (lokal eller hormonel) skal alltid gives och overvåges av en halsasperson, särligt hvis du håber at blive gravid.',
-    h6Title: 'Hvornår bör du söge läge?',
-    body6: 'I visse situationer ar medicinsk rådgivning särligt nyttig:',
-    consultReasons: [
-      'Akne der fortsätter trods passende pleje',
-      'Smertefulde eller dybe bumps (knuder, cyster)',
-      'Kraftig akne eller akne der forvärres hurtigt',
-      'Ar eller pletter der ar ved at blive permanente',
-    ],
-    h7Title: 'Det vigtigste',
-    summaryTitle: 'Hovedpunkter',
-    keyPoints: [
-      'Hormonel akne har en identificerbar årsag relateret till androgener.',
-      'Den sidder ofta i den nedre del av ansigtet och kan forvärres för menstruation.',
-      'Det ar hverken manglende hygiejne eller uundgåeligt.',
-      'Mild pleje och om nödvendigt passende behandling kan forbedre tilstanden.',
-      'En dermatolog eller gynäkolog kan hjälpe dig, hvis aknen fortsätter.',
-    ],
-    finalNoteTitle: 'En guide till bedre forståelse',
-    finalNoteText: 'Denne artikel ar udelukkende till generel information och ar inte et alternativ till medicinsk rådgivning. Hvis du ar i tvivl eller symtomne fortsätter, bör du konsultere en halsasperson.',
-    shareMessage: 'Forstå hormonel akne — AWA',
-  },
   sv: {
     badge: 'PCOS • Hormonel akne',
     title: 'Forstå hormonel\nakne',
@@ -1418,6 +1347,1984 @@ const CONTENT = withBrazilianPortuguese('PcosHormonalAcne', {
     finalNoteTitle: 'En guide till bedre forståelse',
     finalNoteText: 'Denne artikel ar udelukkende till generel information och ar inte et alternativ till medicinsk rådgivning. Hvis du ar i tvivl eller symtomne fortsätter, bör du konsultere en halsasperson.',
     shareMessage: 'Forstå hormonel akne — AWA',
+  },
+  nb: {
+    badge: 'PCOS • HORMONELL AKNE',
+    title: 'Forstå\nhormonell akne',
+    metaDuration: '7 min lesing',
+    metaType: 'Veiledning',
+    metaLevel: 'Nybegynner',
+    metaValidated: 'Pedagogisk innhold',
+    intro:
+      'Hvorfor hormonell akne kan oppstå med PCOS, hvordan du kjenner den igjen, og hvilke løsninger som kan hjelpe med å håndtere den.',
+    introSecondary:
+      'Den rammer mange kvinner og skyldes verken dårlig hygiene eller er uunngåelig: å forstå opphavet hjelper deg å håndtere den bedre.',
+    contentsTitle: 'I denne artikkelen',
+    topics: [
+      'Hva er hormonell akne?',
+      'Hvorfor kan PCOS gi akne?',
+      'Hvordan du kjenner igjen hormonell akne',
+      'Hormonell akne og menstruasjonssyklusen',
+      'Hva som kan hjelpe',
+      'Når bør du gå til lege?',
+      'Det viktigste å huske',
+    ],
+    h1: 'Hva er hormonell akne?',
+    body1a:
+      'Hormonell akne er en form for akne som henger direkte sammen med hormonelle svingninger eller en ubalanse, særlig i androgener. I motsetning til den mer typiske aknen i tenårene rammer den ofte voksne kvinner og kan vedvare eller dukke opp etter den perioden.',
+    body1b:
+      'Den kjennetegnes også av plasseringen, dybden og tendensen til å komme tilbake på de samme stedene til tross for en godt fulgt regelmessig hudpleierutine.',
+    tip1Title: 'Godt å vite',
+    tip1Text:
+      'Hormonell akne henger ikke sammen med dårlig hygiene: å vaske ansiktet oftere får den ikke til å forsvinne, og kan til og med irritere huden.',
+    h2Title: 'Hvorfor kan PCOS gi akne?',
+    body2:
+      'Ved PCOS stimulerer et relativt overskudd av androgener talgkjertlene, som da produserer mer talg. Noen har også hud som er mer følsom for disse hormonene, noe som forklarer hvorfor akne kan være uttalt selv uten en stor ubalanse målt i laboratoriet.',
+    neutralText:
+      'Dette handler ikke om viljestyrke: denne følsomheten varierer fra person til person og avhenger ikke av livsstilsvanene dine.',
+    h3Title: 'Hvordan du kjenner igjen hormonell akne',
+    body3:
+      'Visse trekk går ofte igjen, men ikke systematisk:',
+    recognizeSigns: [
+      'Nedre del av ansiktet: kjevelinjen, haken',
+      'Dypere, noen ganger smertefulle utbrudd',
+      'Kommer ofte tilbake på de samme stedene',
+      'Rødhet eller merker som vedvarer',
+    ],
+    h4Title: 'Hormonell akne og menstruasjonssyklusen',
+    body4:
+      'Hormonell akne kan svinge gjennom syklusen. Mange kvinner merker en oppblomstring dagene før mensen, når progesteron stiger og deretter faller kraftig, noe som midlertidig stimulerer talgproduksjonen.',
+    highlightTitle: 'Følge oppblomstringene dine',
+    highlightText:
+      'Å notere når utbruddene kommer i forhold til syklusen, kan hjelpe deg og hudlegen din å forstå den hormonelle sammenhengen bedre.',
+    h5Title: 'Hva som kan hjelpe',
+    body5a:
+      'Noen enkle pleievaner kan bidra til å begrense oppblomstringer, uten å fjerne dem helt alene:',
+    careHabits: [
+      'Rens huden forsiktig morgen og kveld',
+      'Unngå sterke eller uttørkende produkter',
+      'Beskytt huden mot sola hver dag',
+      'Unngå å klemme eller plukke på kviser',
+    ],
+    body5b:
+      'Avhengig av situasjonen kan en hudlege eller gynekolog foreslå lokalbehandling (kremer, geler) eller, ved behov, en egnet hormonbehandling.',
+    alertTitle: 'Ingen egenbehandling',
+    alertText:
+      'Behandlinger mot hormonell akne (lokale eller hormonelle) må forskrives og følges opp av helsepersonell, særlig hvis du håper å bli gravid.',
+    h6Title: 'Når bør du gå til lege?',
+    body6:
+      'Medisinsk råd er særlig nyttig i visse situasjoner:',
+    consultReasons: [
+      'Akne som vedvarer til tross for egnet pleie',
+      'Smertefulle eller dype utbrudd (knuter, cyster)',
+      'Alvorlig akne eller akne som raskt blir verre',
+      'Merker eller arr som setter seg',
+    ],
+    h7Title: 'Det viktigste å huske',
+    summaryTitle: 'De viktigste punktene',
+    keyPoints: [
+      'Hormonell akne har en identifiserbar årsak, knyttet til androgener.',
+      'Den rammer ofte nedre del av ansiktet og kan bli verre før mensen.',
+      'Den skyldes verken dårlig hygiene eller er uunngåelig.',
+      'Mild pleie og, ved behov, en egnet behandling kan bedre den.',
+      'En hudlege eller gynekolog kan støtte deg hvis den vedvarer.',
+    ],
+    finalNoteTitle: 'En veiledning for bedre forståelse',
+    finalNoteText:
+      'Denne artikkelen er kun til generell informasjon og erstatter ikke en medisinsk konsultasjon. Ved tvil eller hvis symptomene vedvarer, bør du søke råd hos helsepersonell.',
+    shareMessage: 'Forstå hormonell akne – AWA',
+  },
+  pl: {
+    badge: 'PCOS • TRĄDZIK HORMONALNY',
+    title: 'Zrozumieć\ntrądzik hormonalny',
+    metaDuration: '7 min czytania',
+    metaType: 'Poradnik',
+    metaLevel: 'Początkujący',
+    metaValidated: 'Treść edukacyjna',
+    intro:
+      'Dlaczego trądzik hormonalny może pojawiać się przy PCOS, jak go rozpoznać i jakie rozwiązania mogą pomóc go opanować.',
+    introSecondary:
+      'Dotyka wielu kobiet i nie jest ani wynikiem braku higieny, ani nieuniknioną koniecznością: zrozumienie jego źródła pomaga lepiej sobie z nim radzić.',
+    contentsTitle: 'W tym artykule',
+    topics: [
+      'Czym jest trądzik hormonalny?',
+      'Dlaczego PCOS może powodować trądzik?',
+      'Jak rozpoznać trądzik hormonalny',
+      'Trądzik hormonalny a cykl menstruacyjny',
+      'Co może pomóc',
+      'Kiedy zgłosić się do lekarza?',
+      'Najważniejsze wnioski',
+    ],
+    h1: 'Czym jest trądzik hormonalny?',
+    body1a:
+      'Trądzik hormonalny to postać trądziku bezpośrednio związana z wahaniami lub zaburzeniem równowagi hormonalnej, zwłaszcza androgenów. W przeciwieństwie do typowego trądziku okresu dojrzewania często dotyka dorosłych kobiet i może się utrzymywać lub pojawiać po tym okresie.',
+    body1b:
+      'Wyróżnia się również lokalizacją, głębokością i skłonnością do nawrotów w tych samych miejscach, mimo prawidłowo stosowanej regularnej pielęgnacji skóry.',
+    tip1Title: 'Warto wiedzieć',
+    tip1Text:
+      'Trądzik hormonalny nie jest związany z brakiem higieny: częstsze mycie twarzy go nie usuwa, a może nawet podrażniać skórę.',
+    h2Title: 'Dlaczego PCOS może powodować trądzik?',
+    body2:
+      'W PCOS względny nadmiar androgenów pobudza gruczoły łojowe, które wytwarzają wtedy więcej łoju. Niektóre rodzaje skóry są też bardziej wrażliwe na te hormony, co wyjaśnia, dlaczego trądzik może być nasilony nawet bez dużego zaburzenia stwierdzonego w badaniach laboratoryjnych.',
+    neutralText:
+      'To nie kwestia silnej woli: ta wrażliwość jest różna u poszczególnych osób i nie zależy od Twoich nawyków stylu życia.',
+    h3Title: 'Jak rozpoznać trądzik hormonalny',
+    body3:
+      'Niektóre cechy często się powtarzają, choć nie zawsze:',
+    recognizeSigns: [
+      'Dolna część twarzy: linia żuchwy, broda',
+      'Głębsze, czasem bolesne zmiany',
+      'Często nawraca w tych samych miejscach',
+      'Zaczerwienienia lub ślady, które się utrzymują',
+    ],
+    h4Title: 'Trądzik hormonalny a cykl menstruacyjny',
+    body4:
+      'Trądzik hormonalny może się zmieniać w trakcie cyklu. Wiele kobiet zauważa zaostrzenie w dniach przed miesiączką, gdy progesteron rośnie, a potem gwałtownie spada, tymczasowo pobudzając produkcję łoju.',
+    highlightTitle: 'Śledzenie zaostrzeń',
+    highlightText:
+      'Zapisywanie, kiedy pojawiają się zmiany w stosunku do cyklu, może pomóc Tobie i dermatologowi lepiej zrozumieć związek hormonalny.',
+    h5Title: 'Co może pomóc',
+    body5a:
+      'Kilka prostych nawyków pielęgnacyjnych może pomóc ograniczyć zaostrzenia, choć same ich w pełni nie usuną:',
+    careHabits: [
+      'Delikatnie oczyszczaj skórę rano i wieczorem',
+      'Unikaj ostrych lub wysuszających produktów',
+      'Codziennie chroń skórę przed słońcem',
+      'Unikaj wyciskania i dłubania w zmianach',
+    ],
+    body5b:
+      'W zależności od sytuacji dermatolog lub ginekolog może zaproponować leczenie miejscowe (kremy, żele) lub, w razie potrzeby, odpowiednie leczenie hormonalne.',
+    alertTitle: 'Bez samoleczenia',
+    alertText:
+      'Leczenie trądziku hormonalnego (miejscowe lub hormonalne) musi być przepisane i nadzorowane przez specjalistę, zwłaszcza jeśli starasz się o dziecko.',
+    h6Title: 'Kiedy zgłosić się do lekarza?',
+    body6:
+      'Porada medyczna jest szczególnie pomocna w niektórych sytuacjach:',
+    consultReasons: [
+      'Trądzik utrzymuje się mimo odpowiedniej pielęgnacji',
+      'Bolesne lub głębokie zmiany (guzki, torbiele)',
+      'Ciężki trądzik lub trądzik, który szybko się nasila',
+      'Utrwalające się ślady lub blizny',
+    ],
+    h7Title: 'Najważniejsze wnioski',
+    summaryTitle: 'Najważniejsze punkty',
+    keyPoints: [
+      'Trądzik hormonalny ma dającą się określić przyczynę, związaną z androgenami.',
+      'Często dotyka dolnej części twarzy i może nasilać się przed miesiączką.',
+      'Nie jest ani wynikiem braku higieny, ani nieuniknioną koniecznością.',
+      'Delikatna pielęgnacja i, w razie potrzeby, odpowiednie leczenie mogą go poprawić.',
+      'Dermatolog lub ginekolog może Cię wesprzeć, jeśli się utrzymuje.',
+    ],
+    finalNoteTitle: 'Przewodnik do lepszego zrozumienia',
+    finalNoteText:
+      'Ten artykuł ma charakter wyłącznie informacyjny i nie zastępuje wizyty lekarskiej. W razie wątpliwości lub utrzymujących się objawów zasięgnij porady specjalisty.',
+    shareMessage: 'Zrozumieć trądzik hormonalny — AWA',
+  },
+  uk: {
+    badge: 'СПКЯ • ГОРМОНАЛЬНЕ АКНЕ',
+    title: 'Розуміння\nгормонального акне',
+    metaDuration: '7 хв читання',
+    metaType: 'Посібник',
+    metaLevel: 'Початковий',
+    metaValidated: 'Навчальний вміст',
+    intro:
+      'Чому гормональне акне може з’являтися при СПКЯ, як його розпізнати і які рішення можуть допомогти його контролювати.',
+    introSecondary:
+      'Воно торкається багатьох жінок і не є ні наслідком недостатньої гігієни, ні неминучістю: розуміння його походження допомагає краще з ним справлятися.',
+    contentsTitle: 'У цій статті',
+    topics: [
+      'Що таке гормональне акне?',
+      'Чому СПКЯ може спричиняти акне?',
+      'Як розпізнати гормональне акне',
+      'Гормональне акне та менструальний цикл',
+      'Що може допомогти',
+      'Коли звертатися до лікаря?',
+      'Головні висновки',
+    ],
+    h1: 'Що таке гормональне акне?',
+    body1a:
+      'Гормональне акне — форма акне, безпосередньо пов’язана з гормональними коливаннями або дисбалансом, зокрема андрогенів. На відміну від типовішого акне підліткового віку, воно часто торкається дорослих жінок і може зберігатися або з’являтися після цього періоду.',
+    body1b:
+      'Воно також відрізняється розташуванням, глибиною та схильністю з’являтися знову на тих самих місцях попри правильно дотримуваний регулярний догляд за шкірою.',
+    tip1Title: 'Варто знати',
+    tip1Text:
+      'Гормональне акне не пов’язане з недостатньою гігієною: частіше вмивання його не усуває й може навіть подразнювати шкіру.',
+    h2Title: 'Чому СПКЯ може спричиняти акне?',
+    body2:
+      'При СПКЯ відносний надлишок андрогенів стимулює сальні залози, які починають виробляти більше шкірного сала. Деякі типи шкіри також чутливіші до цих гормонів, що пояснює, чому акне може бути виразним навіть без значного дисбалансу, виміряного в лабораторії.',
+    neutralText:
+      'Це не питання сили волі: ця чутливість різниться в різних людей і не залежить від ваших звичок способу життя.',
+    h3Title: 'Як розпізнати гормональне акне',
+    body3:
+      'Певні ознаки часто повторюються, хоча й не завжди:',
+    recognizeSigns: [
+      'Нижня частина обличчя: лінія щелепи, підборіддя',
+      'Глибші, іноді болісні висипання',
+      'Часто з’являється знову на тих самих місцях',
+      'Почервоніння або сліди, що зберігаються',
+    ],
+    h4Title: 'Гормональне акне та менструальний цикл',
+    body4:
+      'Гормональне акне може змінюватися протягом циклу. Багато жінок помічають загострення в дні перед менструацією, коли прогестерон зростає, а потім різко знижується, тимчасово стимулюючи вироблення шкірного сала.',
+    highlightTitle: 'Відстеження загострень',
+    highlightText:
+      'Записування того, коли з’являються висипання відносно циклу, може допомогти вам і дерматологу краще зрозуміти гормональний зв’язок.',
+    h5Title: 'Що може допомогти',
+    body5a:
+      'Кілька простих звичок догляду можуть допомогти обмежити загострення, хоча самі їх повністю не усунуть:',
+    careHabits: [
+      'М’яко очищайте шкіру вранці та ввечері',
+      'Уникайте агресивних або знежирювальних засобів',
+      'Щодня захищайте шкіру від сонця',
+      'Не видавлюйте та не колупайте висипання',
+    ],
+    body5b:
+      'Залежно від ситуації дерматолог або гінеколог може запропонувати місцеве лікування (креми, гелі) або, за потреби, відповідне гормональне лікування.',
+    alertTitle: 'Жодного самолікування',
+    alertText:
+      'Лікування гормонального акне (місцеве чи гормональне) має призначатися й контролюватися медичним фахівцем, особливо якщо ви сподіваєтеся завагітніти.',
+    h6Title: 'Коли звертатися до лікаря?',
+    body6:
+      'Медична порада особливо корисна в певних ситуаціях:',
+    consultReasons: [
+      'Акне зберігається попри відповідний догляд',
+      'Болісні або глибокі висипання (вузли, кісти)',
+      'Важке акне або таке, що швидко погіршується',
+      'Сліди або рубці, що закріплюються',
+    ],
+    h7Title: 'Головні висновки',
+    summaryTitle: 'Основні моменти',
+    keyPoints: [
+      'Гормональне акне має визначну причину, пов’язану з андрогенами.',
+      'Воно часто торкається нижньої частини обличчя і може посилюватися перед менструацією.',
+      'Воно не є ні наслідком недостатньої гігієни, ні неминучістю.',
+      'Ніжний догляд і, за потреби, відповідне лікування можуть його покращити.',
+      'Дерматолог або гінеколог можуть підтримати вас, якщо воно зберігається.',
+    ],
+    finalNoteTitle: 'Посібник для кращого розуміння',
+    finalNoteText:
+      'Ця стаття має виключно загальноінформаційний характер і не замінює медичної консультації. У разі сумнівів або якщо симптоми зберігаються, зверніться за порадою до медичного фахівця.',
+    shareMessage: 'Розуміння гормонального акне — AWA',
+  },
+  cs: {
+    badge: 'PCOS • HORMONÁLNÍ AKNÉ',
+    title: 'Pochopení\nhormonálního akné',
+    metaDuration: '7 min čtení',
+    metaType: 'Průvodce',
+    metaLevel: 'Začátečník',
+    metaValidated: 'Vzdělávací obsah',
+    intro:
+      'Proč se hormonální akné může objevit při PCOS, jak ho rozpoznat a jaká řešení mohou pomoci s jeho zvládáním.',
+    introSecondary:
+      'Postihuje mnoho žen a není ani nedostatkem hygieny, ani nevyhnutelností: porozumění jeho původu pomáhá lépe ho zvládat.',
+    contentsTitle: 'V tomto článku',
+    topics: [
+      'Co je hormonální akné?',
+      'Proč může PCOS způsobovat akné?',
+      'Jak hormonální akné rozpoznat',
+      'Hormonální akné a menstruační cyklus',
+      'Co může pomoci',
+      'Kdy navštívit lékaře?',
+      'Hlavní poznatky',
+    ],
+    h1: 'Co je hormonální akné?',
+    body1a:
+      'Hormonální akné je forma akné přímo související s hormonálním kolísáním nebo nerovnováhou, zejména androgenů. Na rozdíl od typičtějšího akné v dospívání často postihuje dospělé ženy a může přetrvávat nebo se objevit až po tomto období.',
+    body1b:
+      'Vyznačuje se také umístěním, hloubkou a sklonem znovu se objevovat na stejných místech navzdory správně dodržované pravidelné péči o pleť.',
+    tip1Title: 'Stojí za to vědět',
+    tip1Text:
+      'Hormonální akné nesouvisí s nedostatkem hygieny: častější mytí obličeje ho neodstraní a může dokonce dráždit pleť.',
+    h2Title: 'Proč může PCOS způsobovat akné?',
+    body2:
+      'Při PCOS relativní nadbytek androgenů stimuluje mazové žlázy, které pak produkují více mazu. Některá pleť je také citlivější na tyto hormony, což vysvětluje, proč může být akné výrazné i bez zásadní nerovnováhy změřené v laboratoři.',
+    neutralText:
+      'Nejde o otázku vůle: tato citlivost se u každé ženy liší a nezávisí na vašich životních návycích.',
+    h3Title: 'Jak hormonální akné rozpoznat',
+    body3:
+      'Některé rysy se často opakují, i když ne vždy:',
+    recognizeSigns: [
+      'Dolní část obličeje: linie čelisti, brada',
+      'Hlubší, někdy bolestivé pupínky',
+      'Často se znovu objevuje na stejných místech',
+      'Zarudnutí nebo stopy, které přetrvávají',
+    ],
+    h4Title: 'Hormonální akné a menstruační cyklus',
+    body4:
+      'Hormonální akné může v průběhu cyklu kolísat. Mnoho žen si všimne vzplanutí ve dnech před menstruací, kdy progesteron stoupne a pak prudce klesne, což dočasně stimuluje tvorbu mazu.',
+    highlightTitle: 'Sledování vzplanutí',
+    highlightText:
+      'Zapisování, kdy se pupínky objevují vzhledem k vašemu cyklu, může pomoci vám i vašemu dermatologovi lépe pochopit hormonální souvislost.',
+    h5Title: 'Co může pomoci',
+    body5a:
+      'Několik jednoduchých návyků péče může pomoci omezit vzplanutí, aniž by je samo úplně odstranilo:',
+    careHabits: [
+      'Jemně čistěte pleť ráno a večer',
+      'Vyhýbejte se agresivním nebo vysušujícím přípravkům',
+      'Denně chraňte pleť před sluncem',
+      'Nemačkejte ani nevymačkávejte pupínky',
+    ],
+    body5b:
+      'Podle situace může dermatolog nebo gynekolog navrhnout lokální léčbu (krémy, gely) nebo v případě potřeby vhodnou hormonální léčbu.',
+    alertTitle: 'Žádná samoléčba',
+    alertText:
+      'Léčbu hormonálního akné (lokální či hormonální) musí předepisovat a sledovat zdravotnický pracovník, zejména pokud doufáte v otěhotnění.',
+    h6Title: 'Kdy navštívit lékaře?',
+    body6:
+      'Lékařská rada je obzvlášť užitečná v určitých situacích:',
+    consultReasons: [
+      'Akné, které přetrvává navzdory vhodné péči',
+      'Bolestivé nebo hluboké pupínky (uzly, cysty)',
+      'Těžké akné nebo akné, které se rychle zhoršuje',
+      'Stopy nebo jizvy, které se usazují',
+    ],
+    h7Title: 'Hlavní poznatky',
+    summaryTitle: 'Podstatné body',
+    keyPoints: [
+      'Hormonální akné má rozpoznatelnou příčinu související s androgeny.',
+      'Často postihuje dolní část obličeje a může se před menstruací zhoršit.',
+      'Není ani nedostatkem hygieny, ani nevyhnutelností.',
+      'Jemná péče a v případě potřeby vhodná léčba ho mohou zlepšit.',
+      'Dermatolog nebo gynekolog vás může podpořit, pokud přetrvává.',
+    ],
+    finalNoteTitle: 'Průvodce pro lepší porozumění',
+    finalNoteText:
+      'Tento článek je určen k obecnému informování a nenahrazuje lékařskou konzultaci. V případě pochybností nebo přetrvávajících příznaků požádejte o radu zdravotnického pracovníka.',
+    shareMessage: 'Pochopení hormonálního akné — AWA',
+  },
+  sk: {
+    badge: 'PCOS • HORMONÁLNE AKNÉ',
+    title: 'Pochopenie\nhormonálneho akné',
+    metaDuration: '7 min čítania',
+    metaType: 'Sprievodca',
+    metaLevel: 'Začiatočník',
+    metaValidated: 'Vzdelávací obsah',
+    intro:
+      'Prečo sa pri PCOS môže objaviť hormonálne akné, ako ho rozpoznať a aké riešenia môžu pomôcť ho zvládať.',
+    introSecondary:
+      'Postihuje mnohé ženy a nie je ani nedostatkom hygieny, ani nevyhnutnosťou: pochopenie jeho pôvodu pomáha lepšie ho zvládať.',
+    contentsTitle: 'V tomto článku',
+    topics: [
+      'Čo je hormonálne akné?',
+      'Prečo môže PCOS spôsobovať akné?',
+      'Ako rozpoznať hormonálne akné',
+      'Hormonálne akné a menštruačný cyklus',
+      'Čo môže pomôcť',
+      'Kedy navštíviť lekára?',
+      'Hlavné body',
+    ],
+    h1: 'Čo je hormonálne akné?',
+    body1a:
+      'Hormonálne akné je forma akné priamo súvisiaca s hormonálnym kolísaním alebo nerovnováhou, najmä androgénov. Na rozdiel od typickejšieho akné v dospievaní často postihuje dospelé ženy a môže pretrvávať alebo sa objaviť po tomto období.',
+    body1b:
+      'Odlišuje sa aj svojím umiestnením, hĺbkou a tendenciou opätovne sa objavovať na tých istých miestach napriek dobre dodržiavanej pravidelnej starostlivosti o pleť.',
+    tip1Title: 'Stojí za to vedieť',
+    tip1Text:
+      'Hormonálne akné nesúvisí s nedostatkom hygieny: častejšie umývanie tváre ho neodstráni a môže pleť dokonca podráždiť.',
+    h2Title: 'Prečo môže PCOS spôsobovať akné?',
+    body2:
+      'Pri PCOS relatívny nadbytok androgénov stimuluje mazové žľazy, ktoré potom produkujú viac mazu. Niektorá pleť je tiež citlivejšia na tieto hormóny, čo vysvetľuje, prečo môže byť akné výrazné aj bez významnej nerovnováhy zmeranej v laboratóriu.',
+    neutralText:
+      'Nejde o otázku sily vôle: táto citlivosť sa líši od ženy k žene a nezávisí od vašich návykov životného štýlu.',
+    h3Title: 'Ako rozpoznať hormonálne akné',
+    body3:
+      'Niektoré črty sa často opakujú, hoci nie systematicky:',
+    recognizeSigns: [
+      'Spodná časť tváre: línia sánky, brada',
+      'Hlbšie, niekedy bolestivé vyrážky',
+      'Často sa znovu objavuje na tých istých miestach',
+      'Začervenanie alebo škvrny, ktoré pretrvávajú',
+    ],
+    h4Title: 'Hormonálne akné a menštruačný cyklus',
+    body4:
+      'Hormonálne akné môže počas cyklu kolísať. Mnohé ženy si všimnú zhoršenie v dňoch pred menštruáciou, keď progesterón stúpa a potom prudko klesá, čím dočasne stimuluje tvorbu mazu.',
+    highlightTitle: 'Sledovanie zhoršení',
+    highlightText:
+      'Zaznamenávanie, kedy sa vyrážky objavia vzhľadom na cyklus, môže vám a vášmu dermatológovi pomôcť lepšie pochopiť hormonálnu súvislosť.',
+    h5Title: 'Čo môže pomôcť',
+    body5a:
+      'Niekoľko jednoduchých návykov starostlivosti môže pomôcť obmedziť zhoršenia, bez toho, aby ich samotné úplne odstránili:',
+    careHabits: [
+      'Jemne čistite pleť ráno a večer',
+      'Vyhnite sa agresívnym alebo vysúšajúcim prípravkom',
+      'Denne chráňte pleť pred slnkom',
+      'Vyrážky nevytláčajte ani neškriabte',
+    ],
+    body5b:
+      'Podľa situácie môže dermatológ alebo gynekológ navrhnúť lokálne liečby (krémy, gély) alebo v prípade potreby vhodnú hormonálnu liečbu.',
+    alertTitle: 'Žiadna samoliečba',
+    alertText:
+      'Liečby hormonálneho akné (lokálne alebo hormonálne) musí predpisovať a sledovať zdravotnícky pracovník, najmä ak dúfate v počatie.',
+    h6Title: 'Kedy navštíviť lekára?',
+    body6:
+      'Lekárska rada je užitočná najmä v určitých situáciách:',
+    consultReasons: [
+      'Akné, ktoré pretrváva napriek vhodnej starostlivosti',
+      'Bolestivé alebo hlboké vyrážky (uzly, cysty)',
+      'Ťažké akné alebo akné, ktoré sa rýchlo zhoršuje',
+      'Škvrny alebo jazvy, ktoré sa usadzujú',
+    ],
+    h7Title: 'Hlavné body',
+    summaryTitle: 'Podstatné body',
+    keyPoints: [
+      'Hormonálne akné má identifikovateľnú príčinu súvisiacu s androgénmi.',
+      'Často postihuje spodnú časť tváre a môže sa zhoršiť pred menštruáciou.',
+      'Nie je ani nedostatkom hygieny, ani nevyhnutnosťou.',
+      'Jemná starostlivosť a v prípade potreby vhodná liečba ho môžu zlepšiť.',
+      'Dermatológ alebo gynekológ vás môže podporiť, ak pretrváva.',
+    ],
+    finalNoteTitle: 'Sprievodca pre lepšie porozumenie',
+    finalNoteText:
+      'Tento článok je iba na všeobecné informovanie a nenahrádza lekársku konzultáciu. V prípade pochybností alebo pretrvávajúcich príznakov sa poraďte so zdravotníckym pracovníkom.',
+    shareMessage: 'Pochopenie hormonálneho akné — AWA',
+  },
+  hu: {
+    badge: 'PCOS • HORMONÁLIS AKNÉ',
+    title: 'A hormonális akné\nmegértése',
+    metaDuration: '7 perc olvasás',
+    metaType: 'Útmutató',
+    metaLevel: 'Kezdő',
+    metaValidated: 'Ismeretterjesztő tartalom',
+    intro:
+      'Miért jelenhet meg hormonális akné PCOS esetén, hogyan ismerd fel, és milyen megoldások segíthetnek a kezelésében.',
+    introSecondary:
+      'Sok nőt érint, és sem nem a higiénia hiánya, sem nem elkerülhetetlenség: az eredetének megértése segít jobban kezelni.',
+    contentsTitle: 'Ebben a cikkben',
+    topics: [
+      'Mi a hormonális akné?',
+      'Miért okozhat a PCOS aknét?',
+      'Hogyan ismerd fel a hormonális aknét',
+      'Hormonális akné és a menstruációs ciklus',
+      'Ami segíthet',
+      'Mikor menj orvoshoz?',
+      'Legfontosabb tudnivalók',
+    ],
+    h1: 'Mi a hormonális akné?',
+    body1a:
+      'A hormonális akné az akné olyan formája, amely közvetlenül a hormonális ingadozásokhoz vagy egyensúlyzavarhoz, különösen az androgénekéhez kapcsolódik. A serdülőkor tipikusabb aknéjától eltérően gyakran érinti a felnőtt nőket, és fennmaradhat vagy megjelenhet ezen időszak után.',
+    body1b:
+      'Az elhelyezkedése, a mélysége és az a hajlam is megkülönbözteti, hogy a jól követett rendszeres bőrápolási rutin ellenére is ugyanazokon a helyeken tér vissza.',
+    tip1Title: 'Érdemes tudni',
+    tip1Text:
+      'A hormonális akné nem a higiénia hiányához kapcsolódik: az arc gyakoribb mosása nem szünteti meg, sőt irritálhatja a bőrt.',
+    h2Title: 'Miért okozhat a PCOS aknét?',
+    body2:
+      'PCOS esetén az androgének relatív fölöslege serkenti a faggyúmirigyeket, amelyek ezután több faggyút termelnek. Egyes bőrtípusok érzékenyebbek is ezekre a hormonokra, ami megmagyarázza, miért lehet az akné kifejezett még laboratóriumilag mért jelentős egyensúlyzavar nélkül is.',
+    neutralText:
+      'Ez nem az akaraterő kérdése: ez az érzékenység nőnként eltér, és nem függ az életmódbeli szokásaidtól.',
+    h3Title: 'Hogyan ismerd fel a hormonális aknét',
+    body3:
+      'Bizonyos jellemzők gyakran, bár nem rendszeresen ismétlődnek:',
+    recognizeSigns: [
+      'Az arc alsó része: állvonal, áll',
+      'Mélyebb, néha fájdalmas kiütések',
+      'Gyakran ugyanazokon a helyeken tér vissza',
+      'Vörösség vagy foltok, amelyek megmaradnak',
+    ],
+    h4Title: 'Hormonális akné és a menstruációs ciklus',
+    body4:
+      'A hormonális akné a ciklus során ingadozhat. Sok nő a menstruáció előtti napokban tapasztal fellángolást, amikor a progeszteron emelkedik, majd hirtelen esik, átmenetileg serkentve a faggyútermelést.',
+    highlightTitle: 'A fellángolások követése',
+    highlightText:
+      'Ha feljegyzed, mikor jelennek meg a kiütések a ciklusodhoz viszonyítva, az segíthet neked és a bőrgyógyászodnak jobban megérteni a hormonális összefüggést.',
+    h5Title: 'Ami segíthet',
+    body5a:
+      'Néhány egyszerű ápolási szokás segíthet korlátozni a fellángolásokat, anélkül hogy önmagában teljesen megszüntetné őket:',
+    careHabits: [
+      'Kíméletesen tisztítsd a bőrödet reggel és este',
+      'Kerüld az agresszív vagy kiszárító termékeket',
+      'Naponta védd a bőrödet a naptól',
+      'Ne nyomkodd és ne piszkáld a kiütéseket',
+    ],
+    body5b:
+      'A helyzettől függően bőrgyógyász vagy nőgyógyász helyi kezeléseket (krémek, gélek) vagy szükség esetén megfelelő hormonális kezelést javasolhat.',
+    alertTitle: 'Nincs öngyógyítás',
+    alertText:
+      'A hormonális akné kezeléseit (helyi vagy hormonális) egészségügyi szakembernek kell felírnia és ellenőriznie, különösen ha babát szeretnél.',
+    h6Title: 'Mikor menj orvoshoz?',
+    body6:
+      'Az orvosi tanács különösen hasznos bizonyos helyzetekben:',
+    consultReasons: [
+      'Akné, amely megfelelő ápolás ellenére is fennáll',
+      'Fájdalmas vagy mély kiütések (csomók, ciszták)',
+      'Súlyos akné vagy gyorsan romló akné',
+      'Foltok vagy hegek, amelyek megtelepednek',
+    ],
+    h7Title: 'Legfontosabb tudnivalók',
+    summaryTitle: 'A lényeges pontok',
+    keyPoints: [
+      'A hormonális aknénak azonosítható oka van, amely az androgénekhez kapcsolódik.',
+      'Gyakran érinti az arc alsó részét, és a menstruáció előtt rosszabbodhat.',
+      'Sem nem a higiénia hiánya, sem nem elkerülhetetlenség.',
+      'A kíméletes ápolás és — szükség esetén — megfelelő kezelés javíthat rajta.',
+      'Egy bőrgyógyász vagy nőgyógyász támogathat, ha fennmarad.',
+    ],
+    finalNoteTitle: 'Útmutató a jobb megértéshez',
+    finalNoteText:
+      'Ez a cikk kizárólag általános tájékoztatásra szolgál, és nem helyettesíti az orvosi konzultációt. Kétség esetén vagy ha a tünetek fennmaradnak, kérj tanácsot egészségügyi szakembertől.',
+    shareMessage: 'A hormonális akné megértése — AWA',
+  },
+  ro: {
+    badge: 'SOP • ACNEE HORMONALĂ',
+    title: 'Înțelegerea\nacneei hormonale',
+    metaDuration: '7 min de citit',
+    metaType: 'Ghid',
+    metaLevel: 'Începător',
+    metaValidated: 'Conținut educativ',
+    intro:
+      'De ce poate apărea acneea hormonală în SOP, cum o recunoști și ce soluții pot ajuta la gestionarea ei.',
+    introSecondary:
+      'Afectează multe femei și nu este nici o lipsă de igienă, nici o fatalitate: înțelegerea originii ei ajută la o mai bună gestionare.',
+    contentsTitle: 'În acest articol',
+    topics: [
+      'Ce este acneea hormonală?',
+      'De ce poate SOP să provoace acnee?',
+      'Cum recunoști acneea hormonală',
+      'Acneea hormonală și ciclul menstrual',
+      'Ce poate ajuta',
+      'Când să mergi la medic?',
+      'Ce să reții',
+    ],
+    h1: 'Ce este acneea hormonală?',
+    body1a:
+      'Acneea hormonală este o formă de acnee legată direct de fluctuații sau dezechilibre hormonale, în special ale androgenilor. Spre deosebire de acneea mai tipică a adolescenței, ea afectează adesea femeile adulte și poate persista sau apărea după acea perioadă.',
+    body1b:
+      'Se deosebește și prin localizare, prin profunzime și prin tendința de a reapărea în aceleași locuri în ciuda unei rutine regulate de îngrijire bine urmate.',
+    tip1Title: 'Bine de știut',
+    tip1Text:
+      'Acneea hormonală nu este legată de o lipsă de igienă: spălatul mai des pe față nu o face să dispară și poate chiar irita pielea.',
+    h2Title: 'De ce poate SOP să provoace acnee?',
+    body2:
+      'În SOP, un exces relativ de androgeni stimulează glandele sebacee, care produc atunci mai mult sebum. Unele tipuri de piele sunt și mai sensibile la acești hormoni, ceea ce explică de ce acneea poate fi pronunțată chiar și fără un dezechilibru major măsurat în laborator.',
+    neutralText:
+      'Nu este o chestiune de voință: această sensibilitate variază de la o persoană la alta și nu depinde de obiceiurile tale de viață.',
+    h3Title: 'Cum recunoști acneea hormonală',
+    body3:
+      'Anumite trăsături se repetă adesea, deși nu în mod sistematic:',
+    recognizeSigns: [
+      'Partea inferioară a feței: linia maxilarului, bărbia',
+      'Erupții mai profunde, uneori dureroase',
+      'Reapare adesea în aceleași locuri',
+      'Roșeață sau urme care persistă',
+    ],
+    h4Title: 'Acneea hormonală și ciclul menstrual',
+    body4:
+      'Acneea hormonală poate fluctua pe parcursul ciclului. Multe femei observă o acutizare în zilele dinaintea menstruației, când progesteronul crește și apoi scade brusc, stimulând temporar producția de sebum.',
+    highlightTitle: 'Urmărirea acutizărilor',
+    highlightText:
+      'Notarea momentului în care apar erupțiile în raport cu ciclul tău vă poate ajuta, pe tine și pe dermatologul tău, să înțelegeți mai bine legătura hormonală.',
+    h5Title: 'Ce poate ajuta',
+    body5a:
+      'Câteva obiceiuri simple de îngrijire pot ajuta la limitarea acutizărilor, fără a o face să dispară complet de la sine:',
+    careHabits: [
+      'Curăță-ți blând pielea dimineața și seara',
+      'Evită produsele agresive sau decapante',
+      'Protejează-ți zilnic pielea de soare',
+      'Evită să strângi sau să scobești erupțiile',
+    ],
+    body5b:
+      'În funcție de situație, un dermatolog sau un ginecolog poate propune tratamente locale (creme, geluri) sau, la nevoie, un tratament hormonal potrivit.',
+    alertTitle: 'Fără automedicație',
+    alertText:
+      'Tratamentele pentru acneea hormonală (locale sau hormonale) trebuie prescrise și monitorizate de un profesionist din domeniul sănătății, mai ales dacă speri să rămâi însărcinată.',
+    h6Title: 'Când să mergi la medic?',
+    body6:
+      'Un sfat medical este deosebit de util în anumite situații:',
+    consultReasons: [
+      'Acnee care persistă în ciuda unei îngrijiri potrivite',
+      'Erupții dureroase sau profunde (noduli, chisturi)',
+      'Acnee severă sau care se agravează rapid',
+      'Urme sau cicatrici care se instalează',
+    ],
+    h7Title: 'Ce să reții',
+    summaryTitle: 'Punctele esențiale',
+    keyPoints: [
+      'Acneea hormonală are o cauză identificabilă, legată de androgeni.',
+      'Afectează adesea partea inferioară a feței și se poate agrava înainte de menstruație.',
+      'Nu este nici o lipsă de igienă, nici o fatalitate.',
+      'O îngrijire blândă și, la nevoie, un tratament potrivit o pot îmbunătăți.',
+      'Un dermatolog sau un ginecolog te poate sprijini dacă persistă.',
+    ],
+    finalNoteTitle: 'Un ghid pentru o mai bună înțelegere',
+    finalNoteText:
+      'Acest articol are doar caracter informativ general și nu înlocuiește o consultație medicală. Dacă ai îndoieli sau simptomele persistă, cere sfatul unui profesionist din domeniul sănătății.',
+    shareMessage: 'Înțelegerea acneei hormonale — AWA',
+  },
+  bg: {
+    badge: 'СПКЯ • ХОРМОНАЛНО АКНЕ',
+    title: 'Разбиране на\nхормоналното акне',
+    metaDuration: '7 мин четене',
+    metaType: 'Ръководство',
+    metaLevel: 'Начинаещ',
+    metaValidated: 'Образователно съдържание',
+    intro:
+      'Защо хормоналното акне може да се появи при СПКЯ, как да го разпознаеш и какви решения могат да помогнат да се справиш с него.',
+    introSecondary:
+      'Засяга много жени и не е нито липса на хигиена, нито неизбежност: разбирането на произхода му помага да се справяш по-добре.',
+    contentsTitle: 'В тази статия',
+    topics: [
+      'Какво е хормонално акне?',
+      'Защо СПКЯ може да причини акне?',
+      'Как да разпознаеш хормоналното акне',
+      'Хормонално акне и менструален цикъл',
+      'Какво може да помогне',
+      'Кога да посетиш лекар?',
+      'Какво да запомниш',
+    ],
+    h1: 'Какво е хормонално акне?',
+    body1a:
+      'Хормоналното акне е форма на акне, пряко свързана с хормонални колебания или дисбаланс, особено на андрогените. За разлика от по-типичното акне в юношеството, то често засяга възрастни жени и може да персистира или да се появи след този период.',
+    body1b:
+      'Отличава се и с местоположението си, дълбочината си и склонността си да се появява отново на същите места въпреки добре следвана редовна грижа за кожата.',
+    tip1Title: 'Добре е да знаеш',
+    tip1Text:
+      'Хормоналното акне не е свързано с липса на хигиена: по-честото миене на лицето не го премахва и дори може да раздразни кожата.',
+    h2Title: 'Защо СПКЯ може да причини акне?',
+    body2:
+      'При СПКЯ относителният излишък на андрогени стимулира мастните жлези, които тогава произвеждат повече себум. Някои кожи са и по-чувствителни към тези хормони, което обяснява защо акнето може да е изразено дори без голям дисбаланс, измерен в лаборатория.',
+    neutralText:
+      'Това не е въпрос на силна воля: тази чувствителност варира от човек на човек и не зависи от навиците ти на живот.',
+    h3Title: 'Как да разпознаеш хормоналното акне',
+    body3:
+      'Някои характеристики често се повтарят, макар и не системно:',
+    recognizeSigns: [
+      'Долната част на лицето: челюстна линия, брадичка',
+      'По-дълбоки, понякога болезнени пъпки',
+      'Често се появява отново на същите места',
+      'Зачервяване или следи, които се задържат',
+    ],
+    h4Title: 'Хормонално акне и менструален цикъл',
+    body4:
+      'Хормоналното акне може да се колебае през цикъла. Много жени забелязват обостряне в дните преди менструацията, когато прогестеронът се покачва и после рязко пада, временно стимулирайки производството на себум.',
+    highlightTitle: 'Проследяване на обострянията',
+    highlightText:
+      'Отбелязването кога се появяват пъпките спрямо цикъла ти може да помогне на теб и на дерматолога ти да разберете по-добре хормоналната връзка.',
+    h5Title: 'Какво може да помогне',
+    body5a:
+      'Няколко прости навика на грижа могат да помогнат да се ограничат обострянията, без да ги премахнат напълно сами по себе си:',
+    careHabits: [
+      'Почиствай кожата си нежно сутрин и вечер',
+      'Избягвай груби или пресушаващи продукти',
+      'Предпазвай кожата си от слънцето всеки ден',
+      'Избягвай да стискаш или късаш пъпките',
+    ],
+    body5b:
+      'Според ситуацията дерматолог или гинеколог може да предложи локални лечения (кремове, гелове) или, при нужда, подходящо хормонално лечение.',
+    alertTitle: 'Без самолечение',
+    alertText:
+      'Лечението на хормоналното акне (локално или хормонално) трябва да се предписва и наблюдава от здравен специалист, особено ако се надяваш да зачена.',
+    h6Title: 'Кога да посетиш лекар?',
+    body6:
+      'Медицинският съвет е особено полезен в някои ситуации:',
+    consultReasons: [
+      'Акне, което упорито остава въпреки подходяща грижа',
+      'Болезнени или дълбоки пъпки (възли, кисти)',
+      'Тежко акне или акне, което бързо се влошава',
+      'Следи или белези, които се установяват',
+    ],
+    h7Title: 'Какво да запомниш',
+    summaryTitle: 'Основните точки',
+    keyPoints: [
+      'Хормоналното акне има разпознаваема причина, свързана с андрогените.',
+      'Често засяга долната част на лицето и може да се влоши преди менструация.',
+      'То не е нито липса на хигиена, нито неизбежност.',
+      'Нежната грижа и при нужда подходящо лечение могат да го подобрят.',
+      'Дерматолог или гинеколог може да те подкрепи, ако продължава.',
+    ],
+    finalNoteTitle: 'Ръководство за по-добро разбиране',
+    finalNoteText:
+      'Тази статия е само за обща информация и не замества медицинска консултация. При съмнение или ако симптомите продължават, потърси съвет от здравен специалист.',
+    shareMessage: 'Разбиране на хормоналното акне — AWA',
+  },
+  sr: {
+    badge: 'ПЦОС • ХОРМОНСКЕ АКНЕ',
+    title: 'Разумевање\nхормонских акни',
+    metaDuration: '7 мин читања',
+    metaType: 'Водич',
+    metaLevel: 'Почетник',
+    metaValidated: 'Образовни садржај',
+    intro:
+      'Зашто се хормонске акне могу појавити уз ПЦОС, како их препознати и која решења могу помоћи да се њима управља.',
+    introSecondary:
+      'Погађају многе жене и нису ни недостатак хигијене ни неизбежност: разумевање њиховог порекла помаже да се боље њима управља.',
+    contentsTitle: 'У овом чланку',
+    topics: [
+      'Шта су хормонске акне?',
+      'Зашто ПЦОС може изазвати акне?',
+      'Како препознати хормонске акне',
+      'Хормонске акне и менструални циклус',
+      'Шта може помоћи',
+      'Када посетити лекара?',
+      'Шта да запамтиш',
+    ],
+    h1: 'Шта су хормонске акне?',
+    body1a:
+      'Хормонске акне су облик акни директно повезан са хормонским колебањима или дисбалансом, нарочито андрогена. За разлику од типичнијих акни у адолесценцији, оне често погађају одрасле жене и могу трајати или се појавити после тог периода.',
+    body1b:
+      'Одликују се и локацијом, дубином и склоношћу да се појаве на истим местима упркос добро праћеној редовној нези коже.',
+    tip1Title: 'Добро је знати',
+    tip1Text:
+      'Хормонске акне нису повезане са недостатком хигијене: чешће прање лица их не уклања и може чак иритирати кожу.',
+    h2Title: 'Зашто ПЦОС може изазвати акне?',
+    body2:
+      'Код ПЦОС-а релативни вишак андрогена стимулише лојне жлезде, које тада производе више себума. Нека кожа је и осетљивија на ове хормоне, што објашњава зашто акне могу бити изражене чак и без великог дисбаланса измереног у лабораторији.',
+    neutralText:
+      'То није питање воље: ова осетљивост варира од особе до особе и не зависи од твојих навика у начину живота.',
+    h3Title: 'Како препознати хормонске акне',
+    body3:
+      'Одређене карактеристике се често понављају, мада не системски:',
+    recognizeSigns: [
+      'Доњи део лица: линија вилице, брадичка',
+      'Дубљи, понекад болни пришти',
+      'Често се понављају на истим местима',
+      'Црвенило или трагови који трају',
+    ],
+    h4Title: 'Хормонске акне и менструални циклус',
+    body4:
+      'Хормонске акне могу флуктуирати током циклуса. Многе жене примећују погоршање у данима пре менструације, када прогестерон расте, а затим нагло пада, привремено стимулишући производњу себума.',
+    highlightTitle: 'Праћење погоршања',
+    highlightText:
+      'Бележење када се пришти појављују у односу на твој циклус може помоћи теби и твом дерматологу да боље разумете хормонску везу.',
+    h5Title: 'Шта може помоћи',
+    body5a:
+      'Неколико једноставних навика неге може помоћи да се ограниче погоршања, без потпуног уклањања самих по себи:',
+    careHabits: [
+      'Нежно чисти кожу ујутру и увече',
+      'Избегавај оштре или исушујуће производе',
+      'Штити кожу од сунца свакодневно',
+      'Избегавај стискање или чачкање пришти',
+    ],
+    body5b:
+      'Зависно од ситуације, дерматолог или гинеколог може предложити локалне терапије (креме, гелове) или, по потреби, одговарајућу хормонску терапију.',
+    alertTitle: 'Без самолечења',
+    alertText:
+      'Лечење хормонских акни (локално или хормонско) мора да пропише и прати здравствени радник, нарочито ако се надаш да затрудниш.',
+    h6Title: 'Када посетити лекара?',
+    body6:
+      'Медицински савет је посебно користан у одређеним ситуацијама:',
+    consultReasons: [
+      'Акне које трају упркос одговарајућој нези',
+      'Болни или дубоки пришти (чворови, цисте)',
+      'Тешке акне или акне које се брзо погоршавају',
+      'Трагови или ожиљци који се установљују',
+    ],
+    h7Title: 'Шта да запамтиш',
+    summaryTitle: 'Основне тачке',
+    keyPoints: [
+      'Хормонске акне имају препознатљив узрок, повезан са андрогенима.',
+      'Често погађају доњи део лица и могу се погоршати пре менструације.',
+      'Оне нису ни недостатак хигијене ни неизбежност.',
+      'Нежна нега и, по потреби, одговарајућа терапија могу их побољшати.',
+      'Дерматолог или гинеколог може те подржати ако трају.',
+    ],
+    finalNoteTitle: 'Водич за боље разумевање',
+    finalNoteText:
+      'Овај чланак је само за општу информацију и не замењује лекарску консултацију. При сумњи или ако симптоми трају, потражи савет од здравственог радника.',
+    shareMessage: 'Разумевање хормонских акни — AWA',
+  },
+  hr: {
+    badge: 'PCOS • HORMONSKE AKNE',
+    title: 'Razumijevanje\nhormonskih akni',
+    metaDuration: '7 min čitanja',
+    metaType: 'Vodič',
+    metaLevel: 'Početnica',
+    metaValidated: 'Edukativni sadržaj',
+    intro:
+      'Zašto se hormonske akne mogu pojaviti uz PCOS, kako ih prepoznati i koja rješenja mogu pomoći u njihovu zbrinjavanju.',
+    introSecondary:
+      'Pogađaju mnoge žene i nisu ni nedostatak higijene ni neizbježnost: razumijevanje njihova podrijetla pomaže ih bolje zbrinjavati.',
+    contentsTitle: 'U ovom članku',
+    topics: [
+      'Što su hormonske akne?',
+      'Zašto PCOS može uzrokovati akne?',
+      'Kako prepoznati hormonske akne',
+      'Hormonske akne i menstrualni ciklus',
+      'Što može pomoći',
+      'Kada posjetiti liječnika?',
+      'Ključne poruke',
+    ],
+    h1: 'Što su hormonske akne?',
+    body1a:
+      'Hormonske akne oblik su akni izravno povezan s hormonskim fluktuacijama ili neravnotežom, osobito androgena. Za razliku od tipičnijih akni adolescencije, često pogađaju odrasle žene i mogu potrajati ili se pojaviti nakon tog razdoblja.',
+    body1b:
+      'Također se razlikuju po lokaciji, dubini i sklonosti ponovnom pojavljivanju na istim mjestima unatoč dobro provođenoj redovitoj njezi kože.',
+    tip1Title: 'Dobro je znati',
+    tip1Text:
+      'Hormonske akne nisu povezane s nedostatkom higijene: češće pranje lica ne uklanja ih, a može i iritirati kožu.',
+    h2Title: 'Zašto PCOS može uzrokovati akne?',
+    body2:
+      'Kod PCOS-a relativni višak androgena potiče lojne žlijezde, koje tada stvaraju više sebuma. Neka je koža i osjetljivija na te hormone, što objašnjava zašto akne mogu biti izražene i bez velike neravnoteže izmjerene u laboratoriju.',
+    neutralText:
+      'To nije pitanje snage volje: ta osjetljivost razlikuje se od osobe do osobe i ne ovisi o tvojim životnim navikama.',
+    h3Title: 'Kako prepoznati hormonske akne',
+    body3:
+      'Određena obilježja često se ponavljaju, iako ne sustavno:',
+    recognizeSigns: [
+      'Donji dio lica: linija čeljusti, brada',
+      'Dublje, ponekad bolne upale',
+      'Često se ponovno pojavljuju na istim mjestima',
+      'Crvenilo ili tragovi koji ostaju',
+    ],
+    h4Title: 'Hormonske akne i menstrualni ciklus',
+    body4:
+      'Hormonske akne mogu se mijenjati tijekom ciklusa. Mnoge žene primjećuju pogoršanje u danima prije menstruacije, kad progesteron raste, a zatim naglo pada, privremeno potičući stvaranje sebuma.',
+    highlightTitle: 'Praćenje pogoršanja',
+    highlightText:
+      'Bilježenje kada se upale javljaju u odnosu na ciklus može pomoći tebi i tvom dermatologu da bolje razumijete hormonsku vezu.',
+    h5Title: 'Što može pomoći',
+    body5a:
+      'Nekoliko jednostavnih navika njege može pomoći ograničiti pogoršanja, iako ih same ne uklanjaju u potpunosti:',
+    careHabits: [
+      'Nježno čisti kožu ujutro i navečer',
+      'Izbjegavaj oštre proizvode ili one koji isušuju',
+      'Svakodnevno štiti kožu od sunca',
+      'Izbjegavaj cijeđenje i čačkanje upala',
+    ],
+    body5b:
+      'Ovisno o situaciji, dermatolog ili ginekolog može predložiti lokalne terapije (kreme, gelove) ili, ako je potrebno, prikladnu hormonsku terapiju.',
+    alertTitle: 'Bez samoliječenja',
+    alertText:
+      'Terapije za hormonske akne (lokalne ili hormonske) mora propisati i pratiti zdravstveni djelatnik, osobito ako se nadaš začeću.',
+    h6Title: 'Kada posjetiti liječnika?',
+    body6:
+      'Liječnički savjet osobito je koristan u određenim situacijama:',
+    consultReasons: [
+      'Akne koje traju unatoč prikladnoj njezi',
+      'Bolne ili duboke upale (čvorovi, ciste)',
+      'Teške akne ili akne koje se brzo pogoršavaju',
+      'Tragovi ili ožiljci koji se uspostavljaju',
+    ],
+    h7Title: 'Ključne poruke',
+    summaryTitle: 'Bitne točke',
+    keyPoints: [
+      'Hormonske akne imaju prepoznatljiv uzrok, povezan s androgenima.',
+      'Često pogađaju donji dio lica i mogu se pogoršati prije menstruacije.',
+      'Nisu ni nedostatak higijene ni neizbježnost.',
+      'Nježna njega i, ako je potrebno, prikladna terapija mogu ih poboljšati.',
+      'Dermatolog ili ginekolog može te podržati ako potraju.',
+    ],
+    finalNoteTitle: 'Vodič za bolje razumijevanje',
+    finalNoteText:
+      'Ovaj je članak samo opće informativne naravi i ne zamjenjuje liječnički pregled. U slučaju nedoumice ili ako simptomi potraju, zatraži savjet zdravstvenog djelatnika.',
+    shareMessage: 'Razumijevanje hormonskih akni — AWA',
+  },
+  bs: {
+    badge: 'PCOS • HORMONSKE AKNE',
+    title: 'Razumijevanje\nhormonskih akni',
+    metaDuration: '7 min čitanja',
+    metaType: 'Vodič',
+    metaLevel: 'Početnica',
+    metaValidated: 'Edukativni sadržaj',
+    intro:
+      'Zašta se hormonske akne mogu pojaviti uz PCOS, kako ih prepoznati i koja rješenja mogu pomoći u njihovu zbrinjavanju.',
+    introSecondary:
+      'Pogađaju mnoge žene i nisu ni nedostatak higijene ni neizbježnost: razumijevanje njihova podrijetla pomaže ih bolje zbrinjavati.',
+    contentsTitle: 'U ovom članku',
+    topics: [
+      'Što su hormonske akne?',
+      'Zašta PCOS može uzrokovati akne?',
+      'Kako prepoznati hormonske akne',
+      'Hormonske akne i menstrualni ciklus',
+      'Što može pomoći',
+      'Kada posjetiti ljekara?',
+      'Ključne poruke',
+    ],
+    h1: 'Što su hormonske akne?',
+    body1a:
+      'Hormonske akne oblik su akni izravno povezan s hormonskim fluktuacijama ili neravnotežom, osobito androgena. Za razliku od tipičnijih akni adolescencije, često pogađaju odrasle žene i mogu potrajati ili se pojaviti nakon tog razdoblja.',
+    body1b:
+      'Također se razlikuju po lokaciji, dubini i sklonosti ponovnom pojavljivanju na istim mjestima unatoč dobro provođenoj redovitoj njezi kože.',
+    tip1Title: 'Dobro je znati',
+    tip1Text:
+      'Hormonske akne nisu povezane s nedostatkom higijene: češće pranje lica ne uklanja ih, a može i iritirati kožu.',
+    h2Title: 'Zašta PCOS može uzrokovati akne?',
+    body2:
+      'Kod PCOS-a relativni višak androgena potiče lojne žlijezde, koje tada stvaraju više sebuma. Neka je koža i osjetljivija na te hormone, što objašnjava zašta akne mogu biti izražene i bez velike neravnoteže izmjerene u laboratoriju.',
+    neutralText:
+      'To nije pitanje snage volje: ta osjetljivost razlikuje se od osobe do osobe i ne ovisi o tvojim životnim navikama.',
+    h3Title: 'Kako prepoznati hormonske akne',
+    body3:
+      'Određena obilježja često se ponavljaju, iako ne sistemno:',
+    recognizeSigns: [
+      'Donji dio lica: linija čeljusti, brada',
+      'Dublje, ponekad bolne upale',
+      'Često se ponovno pojavljuju na istim mjestima',
+      'Crvenilo ili tragovi koji ostaju',
+    ],
+    h4Title: 'Hormonske akne i menstrualni ciklus',
+    body4:
+      'Hormonske akne mogu se mijenjati tokom ciklusa. Mnoge žene primjećuju pogoršanje u danima prije menstruacije, kad progesteron raste, a zatim naglo pada, privremeno potičući stvaranje sebuma.',
+    highlightTitle: 'Praćenje pogoršanja',
+    highlightText:
+      'Bilježenje kada se upale javljaju u odnosu na ciklus može pomoći tebi i tvom dermatologu da bolje razumijete hormonsku vezu.',
+    h5Title: 'Što može pomoći',
+    body5a:
+      'Nekoliko jednostavnih navika njege može pomoći ograničiti pogoršanja, iako ih same ne uklanjaju u potpunosti:',
+    careHabits: [
+      'Nježno čisti kožu ujutro i navečer',
+      'Izbjegavaj oštre proizvode ili one koji isušuju',
+      'Svakodnevno štiti kožu od sunca',
+      'Izbjegavaj cijeđenje i čačkanje upala',
+    ],
+    body5b:
+      'Ovisno o situaciji, dermatolog ili ginekolog može predložiti lokalne terapije (kreme, gelove) ili, ako je potrebno, prikladnu hormonsku terapiju.',
+    alertTitle: 'Bez samoliječenja',
+    alertText:
+      'Terapije za hormonske akne (lokalne ili hormonske) mora propisati i pratiti zdravstveni radnik, osobito ako se nadaš začeću.',
+    h6Title: 'Kada posjetiti ljekara?',
+    body6:
+      'Ljekarski savjet osobito je koristan u određenim situacijama:',
+    consultReasons: [
+      'Akne koje traju unatoč prikladnoj njezi',
+      'Bolne ili duboke upale (čvorovi, ciste)',
+      'Teške akne ili akne koje se brzo pogoršavaju',
+      'Tragovi ili ožiljci koji se uspostavljaju',
+    ],
+    h7Title: 'Ključne poruke',
+    summaryTitle: 'Bitne tačke',
+    keyPoints: [
+      'Hormonske akne imaju prepoznatljiv uzrok, povezan s androgenima.',
+      'Često pogađaju donji dio lica i mogu se pogoršati prije menstruacije.',
+      'Nisu ni nedostatak higijene ni neizbježnost.',
+      'Nježna njega i, ako je potrebno, prikladna terapija mogu ih poboljšati.',
+      'Dermatolog ili ginekolog može te podržati ako potraju.',
+    ],
+    finalNoteTitle: 'Vodič za bolje razumijevanje',
+    finalNoteText:
+      'Ovaj je članak samo opće informativne naravi i ne zamjenjuje ljekarski pregled. U slučaju nedoumice ili ako simptomi potraju, zatraži savjet zdravstvenog radnika.',
+    shareMessage: 'Razumijevanje hormonskih akni — AWA',
+  },
+  sl: {
+    badge: 'PCOS • HORMONSKE AKNE',
+    title: 'Razumevanje\nhormonskih akn',
+    metaDuration: '7 min branja',
+    metaType: 'Vodnik',
+    metaLevel: 'Začetnica',
+    metaValidated: 'Izobraževalna vsebina',
+    intro:
+      'Zakaj se hormonske akne lahko pojavijo ob PCOS, kako jih prepoznati in katere rešitve lahko pomagajo pri njihovem obvladovanju.',
+    introSecondary:
+      'Prizadenejo mnoge ženske in niso niti pomanjkanje higiene niti neizogibnost: razumevanje njihovega izvora pomaga jih bolje obvladovati.',
+    contentsTitle: 'V tem članku',
+    topics: [
+      'Kaj so hormonske akne?',
+      'Zakaj lahko PCOS povzroči akne?',
+      'Kako prepoznati hormonske akne',
+      'Hormonske akne in menstrualni cikel',
+      'Kaj lahko pomaga',
+      'Kdaj obiskati zdravnika?',
+      'Ključna sporočila',
+    ],
+    h1: 'Kaj so hormonske akne?',
+    body1a:
+      'Hormonske akne so oblika akn, neposredno povezana s hormonskimi nihanji ali neravnovesjem, zlasti androgenov. Za razliko od tipičnejših akn adolescence pogosto prizadenejo odrasle ženske in lahko trajajo ali se pojavijo po tem obdobju.',
+    body1b:
+      'Razlikujejo se tudi po lokaciji, globini in nagnjenosti k ponovnemu pojavljanju na istih mestih kljub dobro izvajani redni negi kože.',
+    tip1Title: 'Vredno vedeti',
+    tip1Text:
+      'Hormonske akne niso povezane s pomanjkanjem higiene: pogostejše umivanje obraza jih ne odpravi, lahko pa celo draži kožo.',
+    h2Title: 'Zakaj lahko PCOS povzroči akne?',
+    body2:
+      'Pri PCOS relativni presežek androgenov spodbuja lojne žleze, ki nato proizvajajo več loja. Nekatera koža je tudi občutljivejša na te hormone, kar pojasnjuje, zakaj so akne lahko izrazite tudi brez velikega neravnovesja, izmerjenega v laboratoriju.',
+    neutralText:
+      'To ni vprašanje moči volje: ta občutljivost se razlikuje od osebe do osebe in ni odvisna od tvojih življenjskih navad.',
+    h3Title: 'Kako prepoznati hormonske akne',
+    body3:
+      'Določene značilnosti se pogosto ponavljajo, čeprav ne sistematično:',
+    recognizeSigns: [
+      'Spodnji del obraza: linija čeljusti, brada',
+      'Globlja, včasih boleča vnetja',
+      'Pogosto se ponovno pojavijo na istih mestih',
+      'Rdečina ali sledi, ki ostanejo',
+    ],
+    h4Title: 'Hormonske akne in menstrualni cikel',
+    body4:
+      'Hormonske akne se lahko spreminjajo skozi cikel. Mnoge ženske opazijo poslabšanje v dneh pred menstruacijo, ko progesteron raste, nato pa naglo pade, kar začasno spodbuja nastajanje loja.',
+    highlightTitle: 'Spremljanje poslabšanj',
+    highlightText:
+      'Beleženje, kdaj se vnetja pojavljajo glede na cikel, lahko pomaga tebi in tvojemu dermatologu bolje razumeti hormonsko povezavo.',
+    h5Title: 'Kaj lahko pomaga',
+    body5a:
+      'Nekaj preprostih navad nege lahko pomaga omejiti poslabšanja, čeprav jih same ne odpravijo povsem:',
+    careHabits: [
+      'Nežno čisti kožo zjutraj in zvečer',
+      'Izogibaj se ostrim izdelkom ali tistim, ki izsušujejo',
+      'Vsak dan zaščiti kožo pred soncem',
+      'Izogibaj se ožemanju in praskanju vnetij',
+    ],
+    body5b:
+      'Glede na situacijo lahko dermatolog ali ginekolog predlaga lokalna zdravljenja (kreme, gele) ali, če je potrebno, primerno hormonsko zdravljenje.',
+    alertTitle: 'Brez samozdravljenja',
+    alertText:
+      'Zdravljenja hormonskih akn (lokalna ali hormonska) mora predpisati in spremljati zdravstveni delavec, zlasti če upaš na zanositev.',
+    h6Title: 'Kdaj obiskati zdravnika?',
+    body6:
+      'Zdravniški nasvet je še posebej koristen v določenih situacijah:',
+    consultReasons: [
+      'Akne, ki trajajo kljub ustrezni negi',
+      'Boleča ali globoka vnetja (vozli, ciste)',
+      'Hude akne ali akne, ki se hitro poslabšujejo',
+      'Sledi ali brazgotine, ki se vzpostavljajo',
+    ],
+    h7Title: 'Ključna sporočila',
+    summaryTitle: 'Bistvene točke',
+    keyPoints: [
+      'Hormonske akne imajo prepoznaven vzrok, povezan z androgeni.',
+      'Pogosto prizadenejo spodnji del obraza in se lahko poslabšajo pred menstruacijo.',
+      'Niso niti pomanjkanje higiene niti neizogibnost.',
+      'Nežna nega in, če je potrebno, primerno zdravljenje jih lahko izboljšata.',
+      'Dermatolog ali ginekolog te lahko podpre, če vztrajajo.',
+    ],
+    finalNoteTitle: 'Vodnik za boljše razumevanje',
+    finalNoteText:
+      'Ta članek je samo splošne informativne narave in ne nadomešča zdravniškega pregleda. V primeru dvoma ali če simptomi vztrajajo, poišči nasvet zdravstvenega delavca.',
+    shareMessage: 'Razumevanje hormonskih akn — AWA',
+  },
+  ne: {
+    badge: 'PCOS • हर्मोनल पिम्पल',
+    title: 'हर्मोनल पिम्पल\nबुझ्नुहोस्',
+    metaDuration: '7 मिनेट पढाइ',
+    metaType: 'मार्गदर्शन',
+    metaLevel: 'सुरुवाती',
+    metaValidated: 'शैक्षिक सामग्री',
+    intro:
+      'PCOS मा हर्मोनल पिम्पल किन देखिन सक्छ, यसलाई कसरी चिन्ने, र व्यवस्थापन गर्न कुन समाधानहरूले मद्दत गर्न सक्छन्।',
+    introSecondary:
+      'यसले धेरै महिलालाई असर गर्छ र यो न त सरसफाइको कमी हो न त अनिवार्यता: यसको उत्पत्ति बुझ्नाले यसलाई राम्ररी व्यवस्थापन गर्न मद्दत गर्छ।',
+    contentsTitle: 'यो लेखमा',
+    topics: [
+      'हर्मोनल पिम्पल के हो?',
+      'PCOS ले पिम्पल किन निम्त्याउन सक्छ?',
+      'हर्मोनल पिम्पल कसरी चिन्ने',
+      'हर्मोनल पिम्पल र मासिक चक्र',
+      'के मद्दत गर्न सक्छ',
+      'चिकित्सकलाई कहिले देखाउने?',
+      'मुख्य कुराहरू',
+    ],
+    h1: 'हर्मोनल पिम्पल के हो?',
+    body1a:
+      'हर्मोनल पिम्पल पिम्पलको एउटा रूप हो जुन हर्मोनल उतारचढाव वा असन्तुलन, विशेष गरी एन्ड्रोजनमा, सँग सिधै जोडिएको हुन्छ। किशोरावस्थाको अझ सामान्य पिम्पलभन्दा फरक, यसले प्रायः वयस्क महिलालाई असर गर्छ र त्यो अवधिपछि पनि रहिरहन वा देखिन सक्छ।',
+    body1b:
+      'यसलाई यसको स्थान, गहिराइ, र राम्ररी पछ्याइएको नियमित छाला हेरचाहको दिनचर्या हुँदाहुँदै पनि उही ठाउँमा फेरि देखिने प्रवृत्तिले पनि छुट्ट्याउँछ।',
+    tip1Title: 'जान्न लायक',
+    tip1Text:
+      'हर्मोनल पिम्पल सरसफाइको कमीसँग जोडिएको हुँदैन: अनुहार बढी पटक धुँदा यो हराउँदैन, र छालामा जलन पनि गराउन सक्छ।',
+    h2Title: 'PCOS ले पिम्पल किन निम्त्याउन सक्छ?',
+    body2:
+      'PCOS मा, एन्ड्रोजनको सापेक्षिक अधिकताले सेबेसियस ग्रन्थिहरूलाई उत्तेजित गर्छ, जसले त्यसपछि बढी सेबम उत्पादन गर्छन्। केही छाला यी हर्मोनहरूप्रति बढी संवेदनशील पनि हुन्छ, जसले प्रयोगशालामा नापिएको ठूलो असन्तुलनबिना पनि पिम्पल किन स्पष्ट हुन सक्छ भन्ने व्याख्या गर्छ।',
+    neutralText:
+      'यो इच्छाशक्तिको कुरा होइन: यो संवेदनशीलता व्यक्तिपिच्छे फरक हुन्छ र तपाईंको जीवनशैलीका बानीमा निर्भर गर्दैन।',
+    h3Title: 'हर्मोनल पिम्पल कसरी चिन्ने',
+    body3:
+      'केही विशेषताहरू प्रायः दोहोरिन्छन्, व्यवस्थित रूपमा नभए पनि:',
+    recognizeSigns: [
+      'तल्लो अनुहार: बङ्गारा, चिउँडो',
+      'गहिरा, कहिलेकाहीँ दुखाइसहितका फोका',
+      'प्रायः उही ठाउँमा फेरि देखिन्छ',
+      'रातोपन वा दाग जो रहिरहन्छ',
+    ],
+    h4Title: 'हर्मोनल पिम्पल र मासिक चक्र',
+    body4:
+      'हर्मोनल पिम्पल चक्रभरि उतारचढाव हुन सक्छ। धेरै महिलाले महिनावारीअघिका दिनहरूमा प्रकोप देख्छन्, जब प्रोजेस्टेरोन बढ्छ र त्यसपछि तीव्र रूपमा घट्छ, अस्थायी रूपमा सेबमको उत्पादन उत्तेजित गर्दै।',
+    highlightTitle: 'आफ्ना प्रकोपहरू अनुगमन गर्ने',
+    highlightText:
+      'तपाईंको चक्रको तुलनामा फोकाहरू कहिले देखिन्छन् टिप्नाले तपाईं र तपाईंको छाला रोग विशेषज्ञलाई हर्मोनल सम्बन्ध राम्ररी बुझ्न मद्दत गर्न सक्छ।',
+    h5Title: 'के मद्दत गर्न सक्छ',
+    body5a:
+      'केही सरल हेरचाहका बानीहरूले प्रकोपहरू सीमित गर्न मद्दत गर्न सक्छन्, आफैँ पूर्ण रूपमा नहटाई:',
+    careHabits: [
+      'बिहान र साँझ आफ्नो छाला कोमलतापूर्वक सफा गर्नुहोस्',
+      'कडा वा छाला सुकाउने उत्पादनहरूबाट जोगिनुहोस्',
+      'दैनिक आफ्नो छालालाई घामबाट जोगाउनुहोस्',
+      'फोकाहरू निचोर्न वा कोट्याउनबाट जोगिनुहोस्',
+    ],
+    body5b:
+      'अवस्थाअनुसार, छाला रोग विशेषज्ञ वा स्त्रीरोग विशेषज्ञले स्थानीय उपचार (क्रिम, जेल) वा, आवश्यक परे, उपयुक्त हर्मोनल उपचार सुझाउन सक्छन्।',
+    alertTitle: 'आफैँ औषधि नलिनुहोस्',
+    alertText:
+      'हर्मोनल पिम्पलका उपचारहरू (स्थानीय वा हर्मोनल) स्वास्थ्यकर्मीद्वारा निर्धारित र निगरानी गरिनुपर्छ, विशेष गरी तपाईं गर्भधारणको आशा गर्दै हुनुहुन्छ भने।',
+    h6Title: 'चिकित्सकलाई कहिले देखाउने?',
+    body6:
+      'चिकित्सकीय सल्लाह केही अवस्थाहरूमा विशेष रूपमा मद्दतकारी हुन्छ:',
+    consultReasons: [
+      'उपयुक्त हेरचाह गर्दा पनि रहिरहने पिम्पल',
+      'दुखाइसहितका वा गहिरा फोकाहरू (नोड्युल, सिस्ट)',
+      'गम्भीर वा छिटो बिग्रँदै जाने पिम्पल',
+      'बस्दै गएका दाग वा डाम',
+    ],
+    h7Title: 'मुख्य कुराहरू',
+    summaryTitle: 'आवश्यक बुँदाहरू',
+    keyPoints: [
+      'हर्मोनल पिम्पलको एन्ड्रोजनसँग जोडिएको पहिचान गर्न सकिने कारण हुन्छ।',
+      'यसले प्रायः तल्लो अनुहारलाई असर गर्छ र महिनावारीअघि बिग्रन सक्छ।',
+      'यो न त सरसफाइको कमी हो न त अनिवार्यता।',
+      'कोमल हेरचाह र, आवश्यक परे, उपयुक्त उपचारले यसलाई सुधार्न सक्छ।',
+      'यो रहिरहे छाला रोग विशेषज्ञ वा स्त्रीरोग विशेषज्ञले तपाईंलाई साथ दिन सक्छन्।',
+    ],
+    finalNoteTitle: 'राम्ररी बुझ्न मद्दत गर्ने मार्गदर्शन',
+    finalNoteText:
+      'यो लेख केवल सामान्य जानकारीका लागि हो र चिकित्सकीय परामर्शको स्थान लिँदैन। शङ्का भए वा लक्षणहरू रहिरहे स्वास्थ्यकर्मीसँग सल्लाह लिनुहोस्।',
+    shareMessage: 'हर्मोनल पिम्पल बुझ्नुहोस् — AWA',
+  },
+  si: {
+    badge: 'PCOS • හෝමෝන කුරුලෑ',
+    title: 'හෝමෝන කුරුලෑ\nතේරුම් ගැනීම',
+    metaDuration: 'කියවීමට මිනිත්තු 7',
+    metaType: 'මාර්ගෝපදේශය',
+    metaLevel: 'ආරම්භක',
+    metaValidated: 'අධ්‍යාපනික අන්තර්ගතය',
+    intro:
+      'PCOS සමඟ හෝමෝන කුරුලෑ ඇතිවිය හැක්කේ ඇයි, ඒවා හඳුනාගන්නේ කෙසේද, සහ කළමනාකරණයට උපකාරී විය හැකි විසඳුම් මොනවාද.',
+    introSecondary:
+      'එය බොහෝ කාන්තාවන්ට බලපාන අතර සනීපාරක්ෂාව නොමැතිකමක් හෝ අනිවාර්ය දෙයක් නොවේ: එහි මූලාශ්‍රය තේරුම් ගැනීම එය වඩා හොඳින් කළමනාකරණය කිරීමට උපකාරී වේ.',
+    contentsTitle: 'මෙම ලිපියේ',
+    topics: [
+      'හෝමෝන කුරුලෑ යනු කුමක්ද?',
+      'PCOS කුරුලෑ ඇති කළ හැක්කේ ඇයි?',
+      'හෝමෝන කුරුලෑ හඳුනාගන්නේ කෙසේද',
+      'හෝමෝන කුරුලෑ සහ ඔසප් චක්‍රය',
+      'උපකාරී විය හැක්කේ කුමක්ද',
+      'වෛද්‍යවරයෙකු හමුවිය යුත්තේ කවදාද?',
+      'ප්‍රධාන කරුණු',
+    ],
+    h1: 'හෝමෝන කුරුලෑ යනු කුමක්ද?',
+    body1a:
+      'හෝමෝන කුරුලෑ යනු හෝමෝන උච්චාවචනයට හෝ අසමතුලිතතාවකට, විශේෂයෙන් ඇන්ඩ්‍රජන්වලට, කෙලින්ම සම්බන්ධ කුරුලෑ වර්ගයකි. නව යොවුන් විය තුළ පොදු වන කුරුලෑවලට වෙනස්ව, එය බොහෝ විට වැඩිහිටි කාන්තාවන්ට බලපාන අතර ඉන්පසු පවතිය හැකි හෝ දිස්විය හැක.',
+    body1b:
+      'එය එහි පිහිටීම, එහි ගැඹුර සහ හොඳින් අනුගමනය කරන නිතිපතා සම් රැකවරණ පුරුද්දක් තිබියදීත් එම ස්ථානවලම නැවත දිස්වීමේ නැඹුරුව මගින්ද වෙන්කර හඳුනාගත හැක.',
+    tip1Title: 'දැනගත යුතු දේ',
+    tip1Text:
+      'හෝමෝන කුරුලෑ සනීපාරක්ෂාව නොමැතිකමට සම්බන්ධ නොවේ: ඔබේ මුහුණ වඩා නිතර සෝදා ගැනීම එය නැති කරන්නේ නැති අතර, සමට කෝපනයක්ද කළ හැක.',
+    h2Title: 'PCOS කුරුලෑ ඇති කළ හැක්කේ ඇයි?',
+    body2:
+      'PCOS හිදී, ඇන්ඩ්‍රජන්වල සාපේක්ෂ අතිරික්තයක් සෙබේසියස් ග්‍රන්ථි උත්තේජනය කරන අතර, ඒවා එවිට වැඩි සීබම් නිපදවයි. සමහර සම මෙම හෝමෝනවලට වැඩි සංවේදී වන අතර, රසායනාගාරයේ මනින ලද විශාල අසමතුලිතතාවක් නොමැතිවත් කුරුලෑ කැපී පෙනෙන්නේ ඇයිදැයි එය පැහැදිලි කරයි.',
+    neutralText:
+      'මෙය කැමැත්ත පිළිබඳ කාරණයක් නොවේ: මෙම සංවේදීතාව පුද්ගලයාගෙන් පුද්ගලයාට වෙනස් වන අතර ඔබේ ජීවන රටා පුරුදු මත රඳා නොපවතී.',
+    h3Title: 'හෝමෝන කුරුලෑ හඳුනාගන්නේ කෙසේද',
+    body3:
+      'සමහර ලක්ෂණ බොහෝ විට නැවත නැවත දිස්වේ, ක්‍රමානුකූල නොවුනත්:',
+    recognizeSigns: [
+      'පහළ මුහුණ: හකු රේඛාව, නිකට',
+      'ගැඹුරු, සමහර විට වේදනාකාරී පුපුරා යාම්',
+      'බොහෝ විට එම ස්ථානවලම නැවත දිස්වේ',
+      'රතු පැහැය හෝ දිගටම පවතින සලකුණු',
+    ],
+    h4Title: 'හෝමෝන කුරුලෑ සහ ඔසප් චක්‍රය',
+    body4:
+      'හෝමෝන කුරුලෑ චක්‍රය පුරා උච්චාවචනය විය හැක. බොහෝ කාන්තාවන් ඔවුන්ගේ ඔසප්වලට පෙර දිනවල, ප්‍රොජෙස්ටරෝන් ඉහළ ගොස් පසුව තියුනු ලෙස පහත වැටෙන විට, සීබම් නිෂ්පාදනය තාවකාලිකව උත්තේජනය කරමින්, දැඩි වීමක් දකිති.',
+    highlightTitle: 'ඔබේ දැඩි වීම් නිරීක්ෂණය කිරීම',
+    highlightText:
+      'ඔබේ චක්‍රයට සාපේක්ෂව පුපුරා යාම් දිස්වන විට සටහන් කිරීම ඔබටත් ඔබේ සමේ වෛද්‍යවරයාටත් හෝමෝන සම්බන්ධය වඩා හොඳින් තේරුම් ගැනීමට උපකාරී විය හැක.',
+    h5Title: 'උපකාරී විය හැක්කේ කුමක්ද',
+    body5a:
+      'සරල රැකවරණ පුරුදු කිහිපයකට දැඩි වීම් සීමා කිරීමට උපකාරී විය හැක, ඒවා තනිවම සම්පූර්ණයෙන් ඉවත් නොකළත්:',
+    careHabits: [
+      'උදෑසන සහ සවස ඔබේ සම මෘදුවට පිරිසිදු කරන්න',
+      'දැඩි හෝ ඉවත් කරන නිෂ්පාදන වළක්වන්න',
+      'දිනපතා හිරු එළියෙන් ඔබේ සම ආරක්ෂා කරන්න',
+      'පුපුරා යාම් මිරිකීම හෝ සීරීම වළක්වන්න',
+    ],
+    body5b:
+      'තත්ත්වය අනුව, සමේ වෛද්‍යවරයෙකුට හෝ නාරිවේද වෛද්‍යවරයෙකුට ස්ථානීය ප්‍රතිකාර (ක්‍රීම්, ජෙල්) හෝ, අවශ්‍ය නම්, සුදුසු හෝමෝන ප්‍රතිකාරයක් යෝජනා කළ හැක.',
+    alertTitle: 'ස්වයං ප්‍රතිකාර නැත',
+    alertText:
+      'හෝමෝන කුරුලෑ සඳහා ප්‍රතිකාර (ස්ථානීය හෝ හෝමෝන) සෞඛ්‍ය වෘත්තිකයෙකු විසින් නියම කර අධීක්ෂණය කළ යුතුයි, විශේෂයෙන් ඔබ ගැබ්ගැනීමට බලාපොරොත්තු වන්නේ නම්.',
+    h6Title: 'වෛද්‍යවරයෙකු හමුවිය යුත්තේ කවදාද?',
+    body6:
+      'ඇතැම් අවස්ථාවලදී වෛද්‍ය උපදෙස් විශේෂයෙන් ප්‍රයෝජනවත්:',
+    consultReasons: [
+      'සුදුසු රැකවරණය තිබියදීත් දිගටම පවතින කුරුලෑ',
+      'වේදනාකාරී හෝ ගැඹුරු පුපුරා යාම් (ගැටිති, කෝෂිකා)',
+      'දැඩි කුරුලෑ හෝ වේගයෙන් නරක අතට හැරෙන කුරුලෑ',
+      'ස්ථාපිත වන සලකුණු හෝ කැළැල්',
+    ],
+    h7Title: 'ප්‍රධාන කරුණු',
+    summaryTitle: 'අත්‍යවශ්‍ය කරුණු',
+    keyPoints: [
+      'හෝමෝන කුරුලෑවලට ඇන්ඩ්‍රජන් සමඟ සම්බන්ධ හඳුනාගත හැකි හේතුවක් ඇත.',
+      'එය බොහෝ විට පහළ මුහුණට බලපාන අතර ඔබේ ඔසප්වලට පෙර නරක අතට හැරිය හැක.',
+      'එය සනීපාරක්ෂාව නොමැතිකමක් හෝ අනිවාර්ය දෙයක් නොවේ.',
+      'මෘදු රැකවරණය සහ, අවශ්‍ය නම්, සුදුසු ප්‍රතිකාරයක් එය වැඩිදියුණු කළ හැක.',
+      'එය දිගටම පවතී නම් සමේ වෛද්‍යවරයෙකුට හෝ නාරිවේද වෛද්‍යවරයෙකුට ඔබට සහාය විය හැක.',
+    ],
+    finalNoteTitle: 'වඩා හොඳින් තේරුම් ගැනීමට මාර්ගෝපදේශයක්',
+    finalNoteText:
+      'මෙම ලිපිය සාමාන්‍ය තොරතුරු සඳහා පමණක් වන අතර වෛද්‍ය උපදේශනයක් වෙනුවට නොපවතී. සැකයක් ඇත්නම් හෝ රෝග ලක්ෂණ දිගටම පවතී නම්, සෞඛ්‍ය වෘත්තිකයෙකුගෙන් උපදෙස් ලබා ගන්න.',
+    shareMessage: 'හෝමෝන කුරුලෑ තේරුම් ගැනීම — AWA',
+  },
+  th: {
+    badge: 'PCOS • สิวฮอร์โมน',
+    title: 'ทำความเข้าใจ\nสิวฮอร์โมน',
+    metaDuration: 'อ่าน 7 นาที',
+    metaType: 'คู่มือ',
+    metaLevel: 'เริ่มต้น',
+    metaValidated: 'เนื้อหาเพื่อการเรียนรู้',
+    intro:
+      'ทำไมสิวฮอร์โมนอาจเกิดขึ้นเมื่อเป็น PCOS สังเกตอย่างไร และวิธีแก้ที่อาจช่วยจัดการได้',
+    introSecondary:
+      'เกิดกับผู้หญิงจำนวนมาก และไม่ใช่เพราะขาดความสะอาดหรือสิ่งที่หลีกเลี่ยงไม่ได้: การเข้าใจที่มาช่วยให้จัดการได้ดีขึ้น',
+    contentsTitle: 'ในบทความนี้',
+    topics: [
+      'สิวฮอร์โมนคืออะไร?',
+      'ทำไม PCOS จึงทำให้เกิดสิวได้?',
+      'วิธีสังเกตสิวฮอร์โมน',
+      'สิวฮอร์โมนกับรอบเดือน',
+      'สิ่งที่ช่วยได้',
+      'เมื่อไรควรพบแพทย์?',
+      'ประเด็นสำคัญ',
+    ],
+    h1: 'สิวฮอร์โมนคืออะไร?',
+    body1a:
+      'สิวฮอร์โมนคือสิวรูปแบบหนึ่งที่เกี่ยวข้องโดยตรงกับความผันผวนหรือความไม่สมดุลของฮอร์โมน โดยเฉพาะแอนโดรเจน ต่างจากสิวทั่วไปในวัยรุ่น มักเกิดกับผู้หญิงวัยผู้ใหญ่และอาจคงอยู่หรือปรากฏหลังช่วงวัยนั้น',
+    body1b:
+      'ยังแตกต่างที่ตำแหน่ง ความลึก และแนวโน้มที่จะกลับมาที่จุดเดิม แม้จะดูแลผิวตามปกติอย่างสม่ำเสมอ',
+    tip1Title: 'ควรรู้',
+    tip1Text:
+      'สิวฮอร์โมนไม่เกี่ยวกับการขาดความสะอาด: การล้างหน้าบ่อยขึ้นไม่ได้ทำให้สิวหาย และอาจระคายเคืองผิว',
+    h2Title: 'ทำไม PCOS จึงทำให้เกิดสิวได้?',
+    body2:
+      'ใน PCOS การมีแอนโดรเจนมากเกินไปเมื่อเทียบกัน กระตุ้นต่อมไขมัน ซึ่งผลิตไขมันมากขึ้น ผิวบางคนยังไวต่อฮอร์โมนเหล่านี้มากกว่า ซึ่งอธิบายว่าทำไมสิวจึงอาจเด่นชัดแม้ไม่มีความไม่สมดุลมากที่วัดได้ในห้องปฏิบัติการ',
+    neutralText:
+      'นี่ไม่ใช่เรื่องของความตั้งใจ: ความไวนี้แตกต่างกันในแต่ละคนและไม่ขึ้นกับนิสัยในวิถีชีวิตของคุณ',
+    h3Title: 'วิธีสังเกตสิวฮอร์โมน',
+    body3:
+      'ลักษณะบางอย่างมักเกิดซ้ำ แม้ไม่ได้เป็นทุกครั้ง:',
+    recognizeSigns: [
+      'ใบหน้าส่วนล่าง: แนวกราม คาง',
+      'สิวที่ลึกกว่า บางครั้งเจ็บ',
+      'มักกลับมาที่จุดเดิม',
+      'รอยแดงหรือรอยที่คงอยู่',
+    ],
+    h4Title: 'สิวฮอร์โมนกับรอบเดือน',
+    body4:
+      'สิวฮอร์โมนอาจผันผวนตลอดรอบเดือน ผู้หญิงหลายคนสังเกตเห็นว่าสิวขึ้นมากในวันก่อนมีประจำเดือน เมื่อโปรเจสเตอโรนสูงขึ้นแล้วลดลงอย่างรวดเร็ว กระตุ้นการผลิตไขมันชั่วคราว',
+    highlightTitle: 'ติดตามช่วงที่สิวกำเริบ',
+    highlightText:
+      'การจดว่าสิวขึ้นเมื่อไรเทียบกับรอบเดือนช่วยให้คุณและแพทย์ผิวหนังเข้าใจความเชื่อมโยงของฮอร์โมนได้ดีขึ้น',
+    h5Title: 'สิ่งที่ช่วยได้',
+    body5a:
+      'นิสัยการดูแลง่าย ๆ ไม่กี่อย่างช่วยจำกัดการกำเริบได้ โดยไม่ได้ทำให้หายสนิทด้วยตัวเอง:',
+    careHabits: [
+      'ทำความสะอาดผิวอย่างอ่อนโยนเช้าและเย็น',
+      'หลีกเลี่ยงผลิตภัณฑ์ที่แรงหรือทำให้ผิวแห้ง',
+      'ปกป้องผิวจากแสงแดดทุกวัน',
+      'หลีกเลี่ยงการบีบหรือแกะสิว',
+    ],
+    body5b:
+      'ตามสถานการณ์ แพทย์ผิวหนังหรือสูตินรีแพทย์อาจแนะนำการรักษาเฉพาะที่ (ครีม เจล) หรือหากจำเป็น การรักษาด้วยฮอร์โมนที่เหมาะสม',
+    alertTitle: 'อย่ารักษาตัวเอง',
+    alertText:
+      'การรักษาสิวฮอร์โมน (เฉพาะที่หรือฮอร์โมน) ต้องได้รับการสั่งและติดตามโดยบุคลากรทางการแพทย์ โดยเฉพาะหากคุณหวังจะตั้งครรภ์',
+    h6Title: 'เมื่อไรควรพบแพทย์?',
+    body6:
+      'คำแนะนำทางการแพทย์มีประโยชน์เป็นพิเศษในบางสถานการณ์:',
+    consultReasons: [
+      'สิวที่คงอยู่แม้ดูแลอย่างเหมาะสม',
+      'สิวที่เจ็บหรือลึก (สิวหัวช้าง ถุงสิว)',
+      'สิวรุนแรงหรือแย่ลงอย่างรวดเร็ว',
+      'รอยหรือแผลเป็นที่เริ่มคงอยู่',
+    ],
+    h7Title: 'ประเด็นสำคัญ',
+    summaryTitle: 'ประเด็นสำคัญ',
+    keyPoints: [
+      'สิวฮอร์โมนมีสาเหตุที่ระบุได้ เกี่ยวข้องกับแอนโดรเจน',
+      'มักเกิดที่ใบหน้าส่วนล่างและอาจแย่ลงก่อนมีประจำเดือน',
+      'ไม่ใช่เพราะขาดความสะอาดหรือสิ่งที่หลีกเลี่ยงไม่ได้',
+      'การดูแลอย่างอ่อนโยนและหากจำเป็น การรักษาที่เหมาะสม ช่วยให้ดีขึ้นได้',
+      'แพทย์ผิวหนังหรือสูตินรีแพทย์สนับสนุนคุณได้หากยังคงอยู่',
+    ],
+    finalNoteTitle: 'คู่มือเพื่อความเข้าใจที่ดียิ่งขึ้น',
+    finalNoteText:
+      'บทความนี้เพื่อให้ข้อมูลทั่วไปเท่านั้นและไม่ได้ทดแทนการปรึกษาแพทย์ หากมีข้อสงสัยหรืออาการยังคงอยู่ โปรดขอคำแนะนำจากบุคลากรทางการแพทย์',
+    shareMessage: 'ทำความเข้าใจสิวฮอร์โมน — AWA',
+  },
+  vi: {
+    badge: 'PCOS • MỤN DO NỘI TIẾT',
+    title: 'Hiểu về\nmụn do nội tiết',
+    metaDuration: '7 phút đọc',
+    metaType: 'Hướng dẫn',
+    metaLevel: 'Cơ bản',
+    metaValidated: 'Nội dung giáo dục',
+    intro:
+      'Tại sao mụn do nội tiết có thể xuất hiện khi bị PCOS, cách nhận biết và những giải pháp có thể giúp kiểm soát nó.',
+    introSecondary:
+      'Nó ảnh hưởng đến nhiều phụ nữ và không phải do thiếu vệ sinh cũng không phải điều không thể tránh: hiểu nguồn gốc của nó giúp kiểm soát tốt hơn.',
+    contentsTitle: 'Trong bài viết này',
+    topics: [
+      'Mụn do nội tiết là gì?',
+      'Tại sao PCOS có thể gây mụn?',
+      'Cách nhận biết mụn do nội tiết',
+      'Mụn do nội tiết và chu kỳ kinh nguyệt',
+      'Điều gì có thể giúp ích',
+      'Khi nào nên đi khám bác sĩ?',
+      'Những điểm chính cần nhớ',
+    ],
+    h1: 'Mụn do nội tiết là gì?',
+    body1a:
+      'Mụn do nội tiết là một dạng mụn liên quan trực tiếp đến dao động hoặc mất cân bằng nội tiết, đặc biệt là androgen. Khác với mụn điển hình hơn của tuổi thiếu niên, nó thường ảnh hưởng đến phụ nữ trưởng thành và có thể kéo dài hoặc xuất hiện sau giai đoạn đó.',
+    body1b:
+      'Nó cũng được phân biệt bởi vị trí, độ sâu và xu hướng tái xuất hiện ở cùng những chỗ dù đã thực hiện đều đặn quy trình chăm sóc da.',
+    tip1Title: 'Nên biết',
+    tip1Text:
+      'Mụn do nội tiết không liên quan đến việc thiếu vệ sinh: rửa mặt nhiều hơn không làm nó biến mất, thậm chí còn có thể làm da kích ứng.',
+    h2Title: 'Tại sao PCOS có thể gây mụn?',
+    body2:
+      'Ở PCOS, sự dư thừa tương đối của androgen kích thích tuyến bã nhờn, khiến chúng sản xuất nhiều bã nhờn hơn. Một số làn da cũng nhạy cảm hơn với các hormone này, điều đó giải thích tại sao mụn có thể rõ rệt ngay cả khi không có sự mất cân bằng lớn được đo trong phòng xét nghiệm.',
+    neutralText:
+      'Đây không phải là vấn đề của ý chí: sự nhạy cảm này khác nhau giữa từng người và không phụ thuộc vào thói quen sinh hoạt của bạn.',
+    h3Title: 'Cách nhận biết mụn do nội tiết',
+    body3:
+      'Một số đặc điểm thường lặp lại, dù không phải lúc nào cũng vậy:',
+    recognizeSigns: [
+      'Phần dưới khuôn mặt: đường viền hàm, cằm',
+      'Mụn sâu hơn, đôi khi đau',
+      'Thường tái xuất hiện ở cùng những chỗ',
+      'Đỏ hoặc vết thâm kéo dài',
+    ],
+    h4Title: 'Mụn do nội tiết và chu kỳ kinh nguyệt',
+    body4:
+      'Mụn do nội tiết có thể dao động trong suốt chu kỳ. Nhiều phụ nữ nhận thấy mụn bùng phát trong những ngày trước kỳ kinh, khi progesterone tăng lên rồi giảm mạnh, tạm thời kích thích sản xuất bã nhờn.',
+    highlightTitle: 'Theo dõi các đợt bùng phát',
+    highlightText:
+      'Ghi lại thời điểm mụn xuất hiện so với chu kỳ có thể giúp bạn và bác sĩ da liễu hiểu rõ hơn mối liên hệ nội tiết.',
+    h5Title: 'Điều gì có thể giúp ích',
+    body5a:
+      'Một vài thói quen chăm sóc đơn giản có thể giúp hạn chế các đợt bùng phát, nhưng tự chúng không làm hết hoàn toàn:',
+    careHabits: [
+      'Làm sạch da nhẹ nhàng sáng và tối',
+      'Tránh các sản phẩm mạnh hoặc gây khô da',
+      'Bảo vệ da khỏi ánh nắng mỗi ngày',
+      'Tránh nặn hoặc cậy mụn',
+    ],
+    body5b:
+      'Tùy tình huống, bác sĩ da liễu hoặc bác sĩ phụ khoa có thể đề xuất các phương pháp điều trị tại chỗ (kem, gel) hoặc, nếu cần, một phương pháp điều trị nội tiết phù hợp.',
+    alertTitle: 'Không tự ý dùng thuốc',
+    alertText:
+      'Các phương pháp điều trị mụn do nội tiết (bôi ngoài da hoặc nội tiết) phải do nhân viên y tế kê đơn và theo dõi, đặc biệt nếu bạn đang mong muốn thụ thai.',
+    h6Title: 'Khi nào nên đi khám bác sĩ?',
+    body6:
+      'Lời khuyên y khoa đặc biệt hữu ích trong một số tình huống:',
+    consultReasons: [
+      'Mụn kéo dài dù đã chăm sóc phù hợp',
+      'Mụn đau hoặc sâu (mụn bọc, mụn nang)',
+      'Mụn nặng hoặc xấu đi nhanh chóng',
+      'Vết thâm hoặc sẹo đang hình thành',
+    ],
+    h7Title: 'Những điểm chính cần nhớ',
+    summaryTitle: 'Những điểm thiết yếu',
+    keyPoints: [
+      'Mụn do nội tiết có nguyên nhân có thể xác định, liên quan đến androgen.',
+      'Nó thường ảnh hưởng đến phần dưới khuôn mặt và có thể nặng hơn trước kỳ kinh.',
+      'Nó không phải do thiếu vệ sinh cũng không phải điều không thể tránh.',
+      'Chăm sóc nhẹ nhàng và, nếu cần, một phương pháp điều trị phù hợp có thể cải thiện tình trạng này.',
+      'Bác sĩ da liễu hoặc bác sĩ phụ khoa có thể hỗ trợ bạn nếu mụn kéo dài.',
+    ],
+    finalNoteTitle: 'Một hướng dẫn để hiểu rõ hơn',
+    finalNoteText:
+      'Bài viết này chỉ nhằm cung cấp thông tin chung và không thay thế buổi khám y tế. Nếu có nghi ngờ hoặc triệu chứng kéo dài, hãy tìm lời khuyên từ nhân viên y tế.',
+    shareMessage: 'Hiểu về mụn do nội tiết — AWA',
+  },
+  uz: {
+    badge: 'PCOS • GORMONAL HUSNBUZAR',
+    title: 'Gormonal husnbuzarni\ntushunish',
+    metaDuration: '7 daq oʻqish',
+    metaType: 'Qoʻllanma',
+    metaLevel: 'Boshlangʻich',
+    metaValidated: 'Taʼlimiy kontent',
+    intro:
+      'Nima uchun PCOS bilan gormonal husnbuzar paydo boʻlishi mumkin, uni qanday tanish va qanday yechimlar uni boshqarishga yordam berishi mumkin.',
+    introSecondary:
+      'U koʻp ayollarga taʼsir qiladi va gigiyena yetishmasligi ham, muqarrarlik ham emas: uning kelib chiqishini tushunish uni yaxshiroq boshqarishga yordam beradi.',
+    contentsTitle: 'Ushbu maqolada',
+    topics: [
+      'Gormonal husnbuzar nima?',
+      'PCOS nima uchun husnbuzarga sabab boʻlishi mumkin?',
+      'Gormonal husnbuzarni qanday tanish mumkin',
+      'Gormonal husnbuzar va hayz sikli',
+      'Nima yordam berishi mumkin',
+      'Qachon shifokorga borish kerak?',
+      'Asosiy xulosalar',
+    ],
+    h1: 'Gormonal husnbuzar nima?',
+    body1a:
+      'Gormonal husnbuzar — gormonal tebranishlar yoki muvozanat buzilishi, ayniqsa androgenlar bilan bevosita bogʻliq husnbuzar shakli. Oʻsmirlikdagi odatiy husnbuzardan farqli ravishda, u koʻpincha kattalar ayollarga taʼsir qiladi va shu davrdan keyin saqlanib qolishi yoki paydo boʻlishi mumkin.',
+    body1b:
+      'U, shuningdek, joylashuvi, chuqurligi va muntazam teri parvarishiga qaramay bir xil joylarda qayta paydo boʻlish moyilligi bilan ajralib turadi.',
+    tip1Title: 'Bilish foydali',
+    tip1Text:
+      'Gormonal husnbuzar gigiyena yetishmasligi bilan bogʻliq emas: yuzni tez-tez yuvish uni yoʻqotmaydi va hatto terini tirnashi mumkin.',
+    h2Title: 'PCOS nima uchun husnbuzarga sabab boʻlishi mumkin?',
+    body2:
+      'PCOS da androgenlarning nisbiy ortiqchaligi yogʻ bezlarini ragʻbatlantiradi va ular koʻproq yogʻ ishlab chiqaradi. Baʼzi teri bu gormonlarga sezgirroq boʻladi, bu laboratoriyada oʻlchangan jiddiy muvozanat buzilishisiz ham husnbuzar yaqqol boʻlishi mumkinligini tushuntiradi.',
+    neutralText:
+      'Bu irodaga bogʻliq emas: bu sezgirlik odamdan odamga farq qiladi va turmush tarzi odatlaringizga bogʻliq emas.',
+    h3Title: 'Gormonal husnbuzarni qanday tanish mumkin',
+    body3:
+      'Baʼzi xususiyatlar koʻpincha, lekin har doim emas, takrorlanadi:',
+    recognizeSigns: [
+      'Yuzning pastki qismi: jagʻ chizigʻi, iyak',
+      'Chuqurroq, baʼzan ogʻriqli toshmalar',
+      'Koʻpincha bir xil joylarda qayta paydo boʻladi',
+      'Saqlanib qoladigan qizarish yoki dogʻlar',
+    ],
+    h4Title: 'Gormonal husnbuzar va hayz sikli',
+    body4:
+      'Gormonal husnbuzar sikl davomida oʻzgarib turishi mumkin. Koʻp ayollar hayzdan oldingi kunlarda, progesteron koʻtarilib, keyin keskin pasayganda, yogʻ ishlab chiqarilishi vaqtincha ragʻbatlantirilganda kuchayishni sezadi.',
+    highlightTitle: 'Kuchayishlarni kuzatish',
+    highlightText:
+      'Toshmalar siklingizga nisbatan qachon paydo boʻlishini yozib borish sizga va dermatologingizga gormonal bogʻliqlikni yaxshiroq tushunishga yordam beradi.',
+    h5Title: 'Nima yordam berishi mumkin',
+    body5a:
+      'Bir nechta oddiy parvarish odatlari kuchayishlarni cheklashga yordam beradi, ammo ularni yakka oʻzi toʻliq yoʻqotmaydi:',
+    careHabits: [
+      'Terini ertalab va kechqurun muloyim tozalang',
+      'Qattiq yoki terini quritadigan vositalardan saqlaning',
+      'Terini har kuni quyoshdan himoya qiling',
+      'Toshmalarni siqish yoki kovlashdan saqlaning',
+    ],
+    body5b:
+      'Vaziyatga qarab, dermatolog yoki ginekolog mahalliy davolanishlarni (kremlar, gellar) yoki kerak boʻlsa, mos gormonal davolanishni taklif qilishi mumkin.',
+    alertTitle: 'Oʻzboshimchalik bilan davolanmang',
+    alertText:
+      'Gormonal husnbuzar davolanishlari (mahalliy yoki gormonal) sogʻliqni saqlash mutaxassisi tomonidan buyurilishi va nazorat qilinishi kerak, ayniqsa homilador boʻlishni umid qilsangiz.',
+    h6Title: 'Qachon shifokorga borish kerak?',
+    body6:
+      'Tibbiy maslahat baʼzi vaziyatlarda ayniqsa foydali:',
+    consultReasons: [
+      'Mos parvarishga qaramay saqlanib qolayotgan husnbuzar',
+      'Ogʻriqli yoki chuqur toshmalar (tugunlar, kistalar)',
+      'Ogʻir yoki tez yomonlashayotgan husnbuzar',
+      'Joylashib qolayotgan dogʻlar yoki chandiqlar',
+    ],
+    h7Title: 'Asosiy xulosalar',
+    summaryTitle: 'Muhim nuqtalar',
+    keyPoints: [
+      'Gormonal husnbuzarning androgenlar bilan bogʻliq aniqlanadigan sababi bor.',
+      'U koʻpincha yuzning pastki qismiga taʼsir qiladi va hayzdan oldin kuchayishi mumkin.',
+      'U gigiyena yetishmasligi ham, muqarrarlik ham emas.',
+      'Muloyim parvarish va kerak boʻlsa, mos davolanish uni yaxshilashi mumkin.',
+      'U saqlanib qolsa, dermatolog yoki ginekolog sizni qoʻllab-quvvatlashi mumkin.',
+    ],
+    finalNoteTitle: 'Yaxshiroq tushunishga yordam beradigan qoʻllanma',
+    finalNoteText:
+      'Bu maqola faqat umumiy maʼlumot uchun va tibbiy konsultatsiyani almashtirmaydi. Shubha boʻlsa yoki alomatlar saqlanib qolsa, sogʻliqni saqlash mutaxassisidan maslahat oling.',
+    shareMessage: 'Gormonal husnbuzarni tushunish — AWA',
+  },
+  az: {
+    badge: 'PKOS • HORMONAL SIZANAQ',
+    title: 'Hormonal sızanağı\nanlamaq',
+    metaDuration: '7 dəq oxu',
+    metaType: 'Bələdçi',
+    metaLevel: 'Başlanğıc',
+    metaValidated: 'Təhsil məzmunu',
+    intro:
+      'Hormonal sızanaq PKOS zamanı nə üçün görünə bilər, onu necə tanımaq olar və hansı həllər onu idarə etməyə kömək edə bilər.',
+    introSecondary:
+      'O, bir çox qadına təsir edir və nə gigiyena çatışmazlığıdır, nə də qaçılmazlıq: onun mənşəyini anlamaq onu daha yaxşı idarə etməyə kömək edir.',
+    contentsTitle: 'Bu məqalədə',
+    topics: [
+      'Hormonal sızanaq nədir?',
+      'PKOS nə üçün sızanağa səbəb ola bilər?',
+      'Hormonal sızanağı necə tanımaq olar',
+      'Hormonal sızanaq və menstrual dövr',
+      'Nə kömək edə bilər',
+      'Nə vaxt həkimə müraciət etmək lazımdır?',
+      'Əsas nəticələr',
+    ],
+    h1: 'Hormonal sızanaq nədir?',
+    body1a:
+      'Hormonal sızanaq hormonal dalğalanmalarla və ya xüsusilə androgenlərdəki disbalansla birbaşa bağlı sızanaq formasıdır. Yeniyetməlik dövrünün daha tipik sızanağından fərqli olaraq, o, çox vaxt yetkin qadınlara təsir edir və həmin dövrdən sonra davam edə və ya görünə bilər.',
+    body1b:
+      'O, həm də yerləşməsi, dərinliyi və yaxşı izlənilən müntəzəm dəri qulluğuna baxmayaraq eyni yerlərdə yenidən görünməyə meyli ilə seçilir.',
+    tip1Title: 'Bilmək faydalıdır',
+    tip1Text:
+      'Hormonal sızanaq gigiyena çatışmazlığı ilə bağlı deyil: üzü daha tez-tez yumaq onu aradan qaldırmır və hətta dərini qıcıqlandıra bilər.',
+    h2Title: 'PKOS nə üçün sızanağa səbəb ola bilər?',
+    body2:
+      'PKOS-da androgenlərin nisbi artıqlığı piy vəzilərini stimullaşdırır və onlar daha çox piy istehsal edir. Bəzi dəri bu hormonlara daha həssasdır ki, bu da laboratoriyada ölçülən böyük disbalans olmadan belə sızanağın nə üçün bariz ola biləcəyini izah edir.',
+    neutralText:
+      'Bu, iradə məsələsi deyil: bu həssaslıq şəxsdən şəxsə dəyişir və həyat tərzi vərdişlərinizdən asılı deyil.',
+    h3Title: 'Hormonal sızanağı necə tanımaq olar',
+    body3:
+      'Bəzi xüsusiyyətlər çox vaxt, lakin sistematik olmayaraq təkrarlanır:',
+    recognizeSigns: [
+      'Üzün aşağı hissəsi: çənə xətti, çənə',
+      'Daha dərin, bəzən ağrılı səpgilər',
+      'Çox vaxt eyni yerlərdə yenidən görünür',
+      'Davam edən qızartı və ya izlər',
+    ],
+    h4Title: 'Hormonal sızanaq və menstrual dövr',
+    body4:
+      'Hormonal sızanaq dövr boyu dəyişə bilər. Bir çox qadın aybaşıdan əvvəlki günlərdə, progesteron yüksəlib sonra kəskin düşəndə, piy istehsalını müvəqqəti stimullaşdıran dövrdə alovlanma hiss edir.',
+    highlightTitle: 'Alovlanmalarınızı izləmək',
+    highlightText:
+      'Səpgilərin dövrünüzə nisbətən nə vaxt göründüyünü qeyd etmək sizə və dermatoloqunuza hormonal əlaqəni daha yaxşı anlamağa kömək edə bilər.',
+    h5Title: 'Nə kömək edə bilər',
+    body5a:
+      'Bir neçə sadə qulluq vərdişi alovlanmaları məhdudlaşdırmağa kömək edə bilər, lakin tək başına onları tam aradan qaldırmır:',
+    careHabits: [
+      'Dərinizi səhər və axşam mülayim təmizləyin',
+      'Sərt və ya qurudan vasitələrdən qaçının',
+      'Dərinizi hər gün günəşdən qoruyun',
+      'Səpgiləri sıxmaqdan və ya qopartmaqdan çəkinin',
+    ],
+    body5b:
+      'Vəziyyətdən asılı olaraq dermatoloq və ya ginekoloq topikal müalicələr (kremlər, geller) və ya lazım gələrsə, uyğun hormonal müalicə təklif edə bilər.',
+    alertTitle: 'Özünüzü müalicə etməyin',
+    alertText:
+      'Hormonal sızanaq müalicələri (topikal və ya hormonal) tibb işçisi tərəfindən təyin edilməli və izlənməlidir, xüsusilə hamilə qalmaq istəyirsinizsə.',
+    h6Title: 'Nə vaxt həkimə müraciət etmək lazımdır?',
+    body6:
+      'Tibbi məsləhət müəyyən vəziyyətlərdə xüsusilə faydalıdır:',
+    consultReasons: [
+      'Uyğun qulluğa baxmayaraq davam edən sızanaq',
+      'Ağrılı və ya dərin səpgilər (düyünlər, kistalar)',
+      'Şiddətli və ya sürətlə pisləşən sızanaq',
+      'Qalıcı olan izlər və ya çapıqlar',
+    ],
+    h7Title: 'Əsas nəticələr',
+    summaryTitle: 'Əsas məqamlar',
+    keyPoints: [
+      'Hormonal sızanağın androgenlərlə bağlı müəyyən edilə bilən səbəbi var.',
+      'O, çox vaxt üzün aşağı hissəsinə təsir edir və aybaşıdan əvvəl pisləşə bilər.',
+      'O, nə gigiyena çatışmazlığıdır, nə də qaçılmazlıq.',
+      'Mülayim qulluq və lazım gələrsə, uyğun müalicə onu yaxşılaşdıra bilər.',
+      'Davam edərsə, dermatoloq və ya ginekoloq sizi dəstəkləyə bilər.',
+    ],
+    finalNoteTitle: 'Daha yaxşı anlamaq üçün bələdçi',
+    finalNoteText:
+      'Bu məqalə yalnız ümumi məlumat üçündür və tibbi konsultasiyanı əvəz etmir. Şübhə olarsa və ya simptomlar davam edərsə, tibb işçisindən məsləhət alın.',
+    shareMessage: 'Hormonal sızanağı anlamaq — AWA',
+  },
+  ka: {
+    badge: 'PCOS • ჰორმონული აკნე',
+    title: 'ჰორმონული აკნეს\nგაგება',
+    metaDuration: '7 წთ საკითხავი',
+    metaType: 'გზამკვლევი',
+    metaLevel: 'დამწყები',
+    metaValidated: 'საგანმანათლებლო შინაარსი',
+    intro:
+      'რატომ შეიძლება ჰორმონული აკნე PCOS-ის დროს გამოჩნდეს, როგორ ამოვიცნოთ იგი და რა გადაწყვეტილებებმა შეიძლება მისი მართვა გაგვიადვილოს.',
+    introSecondary:
+      'ის ბევრ ქალს ეხება და არც ჰიგიენის ნაკლებობაა და არც გარდაუვალობა: მისი წარმოშობის გაგება მისი უკეთ მართვაში გეხმარებათ.',
+    contentsTitle: 'ამ სტატიაში',
+    topics: [
+      'რა არის ჰორმონული აკნე?',
+      'რატომ შეიძლება PCOS-მა აკნე გამოიწვიოს?',
+      'როგორ ამოვიცნოთ ჰორმონული აკნე',
+      'ჰორმონული აკნე და მენსტრუაციული ციკლი',
+      'რა შეიძლება დაგეხმაროთ',
+      'როდის მივმართოთ ექიმს?',
+      'მთავარი დასკვნები',
+    ],
+    h1: 'რა არის ჰორმონული აკნე?',
+    body1a:
+      'ჰორმონული აკნე აკნეს ფორმაა, რომელიც პირდაპირ ჰორმონულ ცვალებადობას ან დისბალანსს უკავშირდება, განსაკუთრებით ანდროგენების მხრივ. მოზარდობის უფრო ტიპური აკნესგან განსხვავებით, ის ხშირად ზრდასრულ ქალებს ეხება და შეიძლება გაგრძელდეს ან ამ პერიოდის შემდეგ გამოჩნდეს.',
+    body1b:
+      'ის ასევე გამოირჩევა თავისი მდებარეობით, სიღრმით და იმავე ადგილებზე ხელახლა გაჩენის ტენდენციით, კარგად დაცული რეგულარული კანის მოვლის რუტინის მიუხედავად.',
+    tip1Title: 'კარგია ვიცოდეთ',
+    tip1Text:
+      'ჰორმონული აკნე ჰიგიენის ნაკლებობას არ უკავშირდება: სახის უფრო ხშირად დაბანა მას არ აქრობს და შეიძლება კანი გააღიზიანოს კიდეც.',
+    h2Title: 'რატომ შეიძლება PCOS-მა აკნე გამოიწვიოს?',
+    body2:
+      'PCOS-ის დროს ანდროგენების შეფარდებითი სიჭარბე ასტიმულირებს ცხიმოვან ჯირკვლებს, რომლებიც შემდეგ მეტ ცხიმს გამოიმუშავებს. ზოგი კანი ასევე უფრო მგრძნობიარეა ამ ჰორმონების მიმართ, რაც ხსნის, რატომ შეიძლება აკნე გამოხატული იყოს ლაბორატორიულად გაზომილი მნიშვნელოვანი დისბალანსის გარეშეც.',
+    neutralText:
+      'ეს ნებისყოფის საკითხი არ არის: ეს მგრძნობელობა ადამიანიდან ადამიანამდე განსხვავდება და თქვენი ცხოვრების წესის ჩვევებზე არ არის დამოკიდებული.',
+    h3Title: 'როგორ ამოვიცნოთ ჰორმონული აკნე',
+    body3:
+      'გარკვეული თავისებურებები ხშირად მეორდება, თუმცა არა სისტემატურად:',
+    recognizeSigns: [
+      'სახის ქვედა ნაწილი: ყბის ხაზი, ნიკაპი',
+      'უფრო ღრმა, ზოგჯერ მტკივნეული გამონაყარი',
+      'ხშირად იმავე ადგილებზე ხელახლა ჩნდება',
+      'სიწითლე ან ლაქები, რომლებიც რჩება',
+    ],
+    h4Title: 'ჰორმონული აკნე და მენსტრუაციული ციკლი',
+    body4:
+      'ჰორმონული აკნე ციკლის განმავლობაში შეიძლება ცვალებადობდეს. ბევრი ქალი მენსტრუაციის წინა დღეებში გამწვავებას ამჩნევს, როცა პროგესტერონი იზრდება და შემდეგ მკვეთრად ეცემა, რაც დროებით ცხიმის გამომუშავებას ასტიმულირებს.',
+    highlightTitle: 'თქვენი გამწვავებების კონტროლი',
+    highlightText:
+      'იმის აღნიშვნამ, როდის ჩნდება გამონაყარი თქვენს ციკლთან მიმართებით, შეიძლება დაგეხმაროთ თქვენ და თქვენს დერმატოლოგს ჰორმონული კავშირის უკეთ გაგებაში.',
+    h5Title: 'რა შეიძლება დაგეხმაროთ',
+    body5a:
+      'რამდენიმე მარტივ ჩვევას შეუძლია გამწვავებების შეზღუდვა, თავისთავად მათი სრული გაქრობის გარეშე:',
+    careHabits: [
+      'ნაზად გაწმინდეთ კანი დილით და საღამოს',
+      'აარიდეთ თავი მკაცრ ან გამომშრობ საშუალებებს',
+      'ყოველდღე დაიცავით კანი მზისგან',
+      'არ გამოწურათ გამონაყარი და არ მოწყვიტოთ',
+    ],
+    body5b:
+      'სიტუაციის მიხედვით, დერმატოლოგმა ან გინეკოლოგმა შეიძლება შემოგთავაზოთ ადგილობრივი მკურნალობა (კრემები, გელები) ან, საჭიროების შემთხვევაში, შესაფერისი ჰორმონული მკურნალობა.',
+    alertTitle: 'თვითმკურნალობის გარეშე',
+    alertText:
+      'ჰორმონული აკნეს მკურნალობა (ადგილობრივი ან ჰორმონული) ჯანდაცვის სპეციალისტმა უნდა დანიშნოს და აკონტროლოს, განსაკუთრებით თუ ჩასახვას გეგმავთ.',
+    h6Title: 'როდის მივმართოთ ექიმს?',
+    body6:
+      'სამედიცინო რჩევა განსაკუთრებით სასარგებლოა გარკვეულ სიტუაციებში:',
+    consultReasons: [
+      'აკნე, რომელიც შესაფერისი მოვლის მიუხედავად რჩება',
+      'მტკივნეული ან ღრმა გამონაყარი (კვანძები, ცისტები)',
+      'მძიმე აკნე ან აკნე, რომელიც სწრაფად უარესდება',
+      'ლაქები ან ნაიარევები, რომლებიც მკვიდრდება',
+    ],
+    h7Title: 'მთავარი დასკვნები',
+    summaryTitle: 'ძირითადი საკითხები',
+    keyPoints: [
+      'ჰორმონულ აკნეს აქვს ანდროგენებთან დაკავშირებული, ამოცნობადი მიზეზი.',
+      'ის ხშირად სახის ქვედა ნაწილს ეხება და მენსტრუაციამდე შეიძლება გაუარესდეს.',
+      'ის არც ჰიგიენის ნაკლებობაა და არც გარდაუვალობა.',
+      'რბილ მოვლასა და, საჭიროების შემთხვევაში, შესაფერის მკურნალობას მისი გაუმჯობესება შეუძლია.',
+      'დერმატოლოგს ან გინეკოლოგს შეუძლია დაგიჭიროთ მხარი, თუ ის რჩება.',
+    ],
+    finalNoteTitle: 'გზამკვლევი უკეთ გასაგებად',
+    finalNoteText:
+      'ეს სტატია მხოლოდ ზოგადი ინფორმაციისთვისაა და სამედიცინო კონსულტაციას არ ანაცვლებს. ეჭვის შემთხვევაში ან თუ სიმპტომები რჩება, მიმართეთ ჯანდაცვის სპეციალისტს.',
+    shareMessage: 'ჰორმონული აკნეს გაგება — AWA',
+  },
+  hy: {
+    badge: 'PCOS • ՀՈՐՄՈՆԱԼ ԱԿՆԵ',
+    title: 'Հասկանալ\nհորմոնալ ակնեն',
+    metaDuration: '7 ր կարդալու համար',
+    metaType: 'Ուղեցույց',
+    metaLevel: 'Սկսնակ',
+    metaValidated: 'Կրթական բովանդակություն',
+    intro:
+      'Ինչու կարող է հորմոնալ ակնեն առաջանալ PCOS-ի դեպքում, ինչպես այն ճանաչել և ինչ լուծումներ կարող են օգնել այն կառավարելուն:',
+    introSecondary:
+      'Այն ազդում է շատ կանանց վրա և ոչ հիգիենայի պակաս է, ոչ անխուսափելիություն. դրա ծագումը հասկանալը օգնում է ավելի լավ կառավարել այն:',
+    contentsTitle: 'Այս հոդվածում',
+    topics: [
+      'Ի՞նչ է հորմոնալ ակնեն',
+      'Ինչու կարող է PCOS-ը ակնե առաջացնել',
+      'Ինչպես ճանաչել հորմոնալ ակնեն',
+      'Հորմոնալ ակնե և դաշտանային ցիկլ',
+      'Ինչը կարող է օգնել',
+      'Ե՞րբ դիմել բժշկի',
+      'Հիմնական եզրակացություններ',
+    ],
+    h1: 'Ի՞նչ է հորմոնալ ակնեն',
+    body1a:
+      'Հորմոնալ ակնեն ակնեի ձև է, որն ուղղակիորեն կապված է հորմոնալ տատանումների կամ անհավասարակշռության հետ, մասնավորապես անդրոգենների: Ի տարբերություն դեռահասության ավելի բնորոշ ակնեի՝ այն հաճախ ազդում է չափահաս կանանց վրա և կարող է պահպանվել կամ հայտնվել այդ շրջանից հետո:',
+    body1b:
+      'Այն նաև առանձնանում է իր տեղակայմամբ, խորությամբ և նույն վայրերում կրկին հայտնվելու հակումով՝ չնայած լավ կատարվող կանոնավոր մաշկի խնամքին:',
+    tip1Title: 'Լավ է իմանալ',
+    tip1Text:
+      'Հորմոնալ ակնեն կապված չէ հիգիենայի պակասի հետ. դեմքը ավելի հաճախ լվանալը չի վերացնում այն և նույնիսկ կարող է գրգռել մաշկը:',
+    h2Title: 'Ինչու կարող է PCOS-ը ակնե առաջացնել',
+    body2:
+      'PCOS-ի դեպքում անդրոգենների հարաբերական ավելցուկը խթանում է ճարպագեղձերը, որոնք այնուհետև արտադրում են ավելի շատ ճարպ: Որոշ մաշկ նաև ավելի զգայուն է այս հորմոնների նկատմամբ, ինչը բացատրում է, թե ինչու ակնեն կարող է արտահայտված լինել նույնիսկ լաբորատորիայում չափված մեծ անհավասարակշռության բացակայության դեպքում:',
+    neutralText:
+      'Սա կամքի հարց չէ. այս զգայունությունը տարբերվում է մարդուց մարդ և կախված չէ ձեր ապրելակերպի սովորություններից:',
+    h3Title: 'Ինչպես ճանաչել հորմոնալ ակնեն',
+    body3:
+      'Որոշ առանձնահատկություններ հաճախ կրկնվում են, թեև ոչ համակարգված.',
+    recognizeSigns: [
+      'Դեմքի ստորին հատված՝ ծնոտի գիծ, կզակ',
+      'Ավելի խորը, երբեմն ցավոտ ցանավորումներ',
+      'Հաճախ կրկին հայտնվում է նույն վայրերում',
+      'Կարմրություն կամ հետքեր, որոնք պահպանվում են',
+    ],
+    h4Title: 'Հորմոնալ ակնե և դաշտանային ցիկլ',
+    body4:
+      'Հորմոնալ ակնեն կարող է տատանվել ցիկլի ընթացքում: Շատ կանայք նկատում են սրացում դաշտանից առաջ օրերին, երբ պրոգեստերոնը բարձրանում է, ապա կտրուկ իջնում՝ ժամանակավորապես խթանելով ճարպի արտադրությունը:',
+    highlightTitle: 'Հետևել ձեր սրացումներին',
+    highlightText:
+      'Գրանցել, թե երբ են ցանավորումները հայտնվում ձեր ցիկլի նկատմամբ, կարող է օգնել ձեզ և ձեր մաշկաբանին ավելի լավ հասկանալ հորմոնալ կապը:',
+    h5Title: 'Ինչը կարող է օգնել',
+    body5a:
+      'Մաշկի խնամքի մի քանի պարզ սովորություն կարող է օգնել սահմանափակել սրացումները՝ առանց դրանք ինքնուրույն լիովին վերացնելու.',
+    careHabits: [
+      'Մեղմ մաքրեք ձեր մաշկը առավոտյան և երեկոյան',
+      'Խուսափեք կոշտ կամ չորացնող միջոցներից',
+      'Ամեն օր պաշտպանեք ձեր մաշկը արևից',
+      'Խուսափեք ցանավորումները սեղմելուց կամ քերելուց',
+    ],
+    body5b:
+      'Կախված իրավիճակից՝ մաշկաբանը կամ գինեկոլոգը կարող է առաջարկել տեղային բուժումներ (քսուքներ, գելեր) կամ, անհրաժեշտության դեպքում, համապատասխան հորմոնալ բուժում:',
+    alertTitle: 'Ինքնաբուժում չանել',
+    alertText:
+      'Հորմոնալ ակնեի բուժումները (տեղային կամ հորմոնալ) պետք է նշանակվեն և վերահսկվեն առողջապահության մասնագետի կողմից, մասնավորապես եթե հույս ունեք հղիանալ:',
+    h6Title: 'Ե՞րբ դիմել բժշկի',
+    body6:
+      'Բժշկական խորհրդատվությունը հատկապես օգտակար է որոշ իրավիճակներում.',
+    consultReasons: [
+      'Ակնե, որը պահպանվում է՝ չնայած համապատասխան խնամքին',
+      'Ցավոտ կամ խորը ցանավորումներ (հանգույցներ, կիստաներ)',
+      'Ծանր ակնե կամ ակնե, որն արագ վատանում է',
+      'Հետքեր կամ սպիներ, որոնք հաստատվում են',
+    ],
+    h7Title: 'Հիմնական եզրակացություններ',
+    summaryTitle: 'Էական կետերը',
+    keyPoints: [
+      'Հորմոնալ ակնեն ունի բացահայտելի պատճառ, կապված անդրոգենների հետ:',
+      'Այն հաճախ ազդում է դեմքի ստորին հատվածի վրա և կարող է վատանալ դաշտանից առաջ:',
+      'Այն ոչ հիգիենայի պակաս է, ոչ անխուսափելիություն:',
+      'Մեղմ խնամքը և, անհրաժեշտության դեպքում, համապատասխան բուժումը կարող են բարելավել այն:',
+      'Մաշկաբանը կամ գինեկոլոգը կարող է աջակցել ձեզ, եթե այն շարունակվում է:',
+    ],
+    finalNoteTitle: 'Ուղեցույց՝ ավելի լավ հասկանալու համար',
+    finalNoteText:
+      'Այս հոդվածը միայն ընդհանուր տեղեկատվության համար է և չի փոխարինում բժշկական խորհրդատվությանը: Կասկածի դեպքում կամ եթե ախտանիշները շարունակվում են, խորհուրդ հարցրեք առողջապահության մասնագետից:',
+    shareMessage: 'Հասկանալ հորմոնալ ակնեն — AWA',
+  },
+  tg: {
+    badge: 'PCOS • ДОНАЧАҲОИ ГОРМОНӢ',
+    title: 'Фаҳмидани\nдоначаҳои гормонӣ',
+    metaDuration: '7 дақ барои хондан',
+    metaType: 'Роҳнамо',
+    metaLevel: 'Ибтидоӣ',
+    metaValidated: 'Мазмуни таълимӣ',
+    intro:
+      'Чаро доначаҳои гормонӣ метавонанд бо PCOS пайдо шаванд, чӣ тавр онҳоро шинохтан мумкин аст ва кадом роҳҳо метавонанд ба идораи онҳо кумак кунанд.',
+    introSecondary:
+      'Он бисёр занонро фаро мегирад ва на нокофии гигиена ва на ногузир аст: фаҳмидани манбаи он ба идораи беҳтари он кумак мекунад.',
+    contentsTitle: 'Дар ин мақола',
+    topics: [
+      'Доначаҳои гормонӣ чист?',
+      'Чаро PCOS метавонад доначаҳои рӯй ба вуҷуд орад?',
+      'Чӣ тавр доначаҳои гормониро шинохтан',
+      'Доначаҳои гормонӣ ва давраи ҳайз',
+      'Чӣ метавонад кумак кунад',
+      'Кай ба табиб муроҷиат кардан лозим аст?',
+      'Хулосаҳои асосӣ',
+    ],
+    h1: 'Доначаҳои гормонӣ чист?',
+    body1a:
+      'Доначаҳои гормонӣ шакли доначаҳои рӯй аст, ки бевосита бо тағйироти гормонӣ ё номутавозунӣ, хусусан дар андрогенҳо, алоқаманд аст. Бар хилофи доначаҳои маъмулии наврасӣ, он аксар вақт занони калонсолро фаро мегирад ва метавонад пас аз он давра идома ёбад ё пайдо шавад.',
+    body1b:
+      'Он инчунин бо ҷойгиршавӣ, чуқурӣ ва майли аз нав пайдо шудан дар як ҷойҳо бо вуҷуди тартиби мунтазами хуб пайравишудаи нигоҳубини пӯст фарқ мекунад.',
+    tip1Title: 'Донистан хуб аст',
+    tip1Text:
+      'Доначаҳои гормонӣ ба нокофии гигиена вобаста нестанд: бештар шустани рӯй онро аз байн намебарад ва ҳатто метавонад пӯстро асабонӣ кунад.',
+    h2Title: 'Чаро PCOS метавонад доначаҳои рӯй ба вуҷуд орад?',
+    body2:
+      'Дар PCOS зиёдии нисбии андрогенҳо ғадудҳои чарбро ҳавасманд мекунад, ки он гоҳ чарби бештар тавлид мекунанд. Баъзе пӯстҳо инчунин ба ин гормонҳо ҳассостаранд, ки шарҳ медиҳад, чаро доначаҳои рӯй метавонанд ҳатто бе номутавозунии калони дар озмоишгоҳ андозашуда зоҳир шаванд.',
+    neutralText:
+      'Ин масъалаи иродае нест: ин ҳассосият аз шахс ба шахс фарқ мекунад ва ба одатҳои тарзи зиндагии шумо вобаста нест.',
+    h3Title: 'Чӣ тавр доначаҳои гормониро шинохтан',
+    body3:
+      'Баъзе хусусиятҳо аксар вақт такрор мешаванд, гарчанде на мунтазам:',
+    recognizeSigns: [
+      'Қисми поёни рӯй: хат ва манаҳ',
+      'Доначаҳои чуқуртар, баъзан дардманд',
+      'Аксар вақт дар як ҷойҳо аз нав пайдо мешавад',
+      'Сурхшавӣ ё доғҳое, ки идома меёбанд',
+    ],
+    h4Title: 'Доначаҳои гормонӣ ва давраи ҳайз',
+    body4:
+      'Доначаҳои гормонӣ дар давоми давра метавонанд тағйир ёбанд. Бисёр занон дар рӯзҳои пеш аз ҳайз, вақте ки прогестерон боло меравад ва сипас якбора паст мешавад, ҳамлаи онро мушоҳида мекунанд, ки муваққатан тавлиди чарбро ҳавасманд мекунад.',
+    highlightTitle: 'Пайгирии авҷҳои шумо',
+    highlightText:
+      'Қайд кардани он ки доначаҳо нисбат ба давраи шумо кай пайдо мешаванд, метавонад ба шумо ва пӯстшиноси шумо кумак кунад пайванди гормониро беҳтар бифаҳмед.',
+    h5Title: 'Чӣ метавонад кумак кунад',
+    body5a:
+      'Чанд одати оддии нигоҳубин метавонад ба маҳдуд кардани авҷҳо кумак кунад, бидуни он ки худ ба худ онҳоро комилан аз байн баранд:',
+    careHabits: [
+      'Пӯсти худро субҳу шом нарм тоза кунед',
+      'Аз маҳсулоти сахт ё хушккунанда худдорӣ кунед',
+      'Ҳар рӯз пӯсти худро аз офтоб муҳофизат кунед',
+      'Доначаҳоро фишор надиҳед ва нахоред',
+    ],
+    body5b:
+      'Вобаста ба вазъият, пӯстшинос ё занбемор метавонад табобатҳои маҳаллӣ (кремҳо, гелҳо) ё, агар лозим бошад, табобати гормонии мувофиқро пешниҳод кунад.',
+    alertTitle: 'Худтабобат накунед',
+    alertText:
+      'Табобатҳои доначаҳои гормонӣ (маҳаллӣ ё гормонӣ) бояд аз ҷониби мутахассиси соҳаи тиб таъйин ва назорат карда шаванд, хусусан агар ба ҳомиладор шудан умед дошта бошед.',
+    h6Title: 'Кай ба табиб муроҷиат кардан лозим аст?',
+    body6:
+      'Маслиҳати тиббӣ дар баъзе вазъиятҳо махсусан муфид аст:',
+    consultReasons: [
+      'Доначаҳое, ки бо вуҷуди нигоҳубини мувофиқ идома меёбанд',
+      'Доначаҳои дардманд ё чуқур (гиреҳҳо, кистаҳо)',
+      'Доначаҳои шадид ё зуд бадтаршаванда',
+      'Доғҳо ё доғҳои чандмонде, ки ҷой мегиранд',
+    ],
+    h7Title: 'Хулосаҳои асосӣ',
+    summaryTitle: 'Нуктаҳои асосӣ',
+    keyPoints: [
+      'Доначаҳои гормонӣ сабаби муайяншаванда доранд, ки бо андрогенҳо алоқаманд аст.',
+      'Онҳо аксар вақт қисми поёни рӯйро фаро мегиранд ва метавонанд пеш аз ҳайз бадтар шаванд.',
+      'Онҳо на нокофии гигиена ва на ногузиранд.',
+      'Нигоҳубини нарм ва, агар лозим бошад, табобати мувофиқ метавонад онҳоро беҳтар кунад.',
+      'Пӯстшинос ё занбемор метавонад шуморо дастгирӣ кунад, агар онҳо идома ёбанд.',
+    ],
+    finalNoteTitle: 'Роҳнамо барои фаҳмиши беҳтар',
+    finalNoteText:
+      'Ин мақола танҳо барои иттилооти умумӣ аст ва машварати тиббиро иваз намекунад. Дар сурати шубҳа ё идомаи нишонаҳо аз мутахассиси соҳаи тиб маслиҳат пурсед.',
+    shareMessage: 'Фаҳмидани доначаҳои гормонӣ — AWA',
+  },
+  ky: {
+    badge: 'PCOS • ГОРМОНДУК БЕЗЕТКИЛЕР',
+    title: 'Гормондук безеткилерди\nтүшүнүү',
+    metaDuration: '7 мүн окуу',
+    metaType: 'Колдонмо',
+    metaLevel: 'Баштоочу',
+    metaValidated: 'Билим берүүчү мазмун',
+    intro:
+      'Гормондук безеткилер PCOS менен эмне үчүн пайда болушу мүмкүн, аларды кантип таануу керек жана кандай чечимдер аларды башкарууга жардам бериши мүмкүн.',
+    introSecondary:
+      'Ал көптөгөн аялдарга таасир этет жана гигиенанын жетишсиздиги да, сөзсүз болуучу нерсе да эмес: анын келип чыгышын түшүнүү аны жакшыраак башкарууга жардам берет.',
+    contentsTitle: 'Бул макалада',
+    topics: [
+      'Гормондук безеткилер деген эмне?',
+      'PCOS эмне үчүн безеткилерди жаратышы мүмкүн?',
+      'Гормондук безеткилерди кантип таануу керек',
+      'Гормондук безеткилер жана етек кирим цикли',
+      'Эмне жардам бериши мүмкүн',
+      'Дарыгерге качан барыш керек?',
+      'Негизги жыйынтыктар',
+    ],
+    h1: 'Гормондук безеткилер деген эмне?',
+    body1a:
+      'Гормондук безеткилер — гормондук термелүүлөр же тең салмактуулуктун бузулушу, айрыкча андрогендер менен түздөн-түз байланышкан безеткилердин бир түрү. Өспүрүмдүк мезгилдин типтүү безеткилеринен айырмаланып, ал көбүнчө бойго жеткен аялдарга таасир этет жана ал мезгилден кийин сакталышы же пайда болушу мүмкүн.',
+    body1b:
+      'Ал ошондой эле жайгашкан жери, тереңдиги жана үзгүлтүксүз тери кам көрүүсүн туура аткарганына карабастан бир эле жерлерде кайра пайда болуу тенденциясы менен айырмаланат.',
+    tip1Title: 'Билүү пайдалуу',
+    tip1Text:
+      'Гормондук безеткилер гигиенанын жетишсиздиги менен байланышкан эмес: бетти жыш жуу аны кетирбейт, ал тургай терини дүүлүктүрүшү мүмкүн.',
+    h2Title: 'PCOS эмне үчүн безеткилерди жаратышы мүмкүн?',
+    body2:
+      'PCOSто андрогендердин салыштырмалуу ашыкчасы май бездерин стимулдайт, алар андан кийин көбүрөөк май өндүрөт. Айрым тери бул гормондорго сезгичирээк, бул лабораторияда өлчөнгөн олуттуу тең салмактуулуктун бузулушусуз да безеткилердин айкын болушу мүмкүн экенин түшүндүрөт.',
+    neutralText:
+      'Бул эрк күчүнүн маселеси эмес: бул сезгичтик адамдан адамга айырмаланат жана жашоо образыңыздын адаттарына көз каранды эмес.',
+    h3Title: 'Гормондук безеткилерди кантип таануу керек',
+    body3:
+      'Айрым белгилер көбүнчө кайталанат, бирок системалуу эмес:',
+    recognizeSigns: [
+      'Беттин ылдый жагы: жаак, ээк',
+      'Тереңирээк, кээде оорутуучу безеткилер',
+      'Көбүнчө бир эле жерлерде кайра пайда болот',
+      'Кызаруу же сакталган таптар',
+    ],
+    h4Title: 'Гормондук безеткилер жана етек кирим цикли',
+    body4:
+      'Гормондук безеткилер цикл бою термелиши мүмкүн. Көптөгөн аялдар етек киримден мурунку күндөрдө, прогестерон көтөрүлүп, андан кийин кескин түшкөндө, убактылуу май өндүрүүнү стимулдаганда, күчөөнү байкайт.',
+    highlightTitle: 'Күчөөлөрүңүздү көзөмөлдөө',
+    highlightText:
+      'Безеткилер циклге карата качан пайда болорун жазып туруу сизге жана дерматологуңузга гормондук байланышты жакшыраак түшүнүүгө жардам бериши мүмкүн.',
+    h5Title: 'Эмне жардам бериши мүмкүн',
+    body5a:
+      'Бир нече жөнөкөй кам көрүү адаты күчөөлөрдү чектөөгө жардам бериши мүмкүн, бирок алар өзү толугу менен тазалабайт:',
+    careHabits: [
+      'Терини эртең менен жана кечинде жумшак тазалаңыз',
+      'Катуу же кургаткан каражаттардан сактаныңыз',
+      'Терини күн сайын күндөн коргоңуз',
+      'Безеткилерди кысуудан же тытуудан сактаныңыз',
+    ],
+    body5b:
+      'Абалга жараша дерматолог же гинеколог жергиликтүү дарылоолорду (кремдер, гелдер) же керек болсо ылайыктуу гормондук дарылоону сунуштай алат.',
+    alertTitle: 'Өз алдынча дарылоого болбойт',
+    alertText:
+      'Гормондук безеткилерди дарылоо (жергиликтүү же гормондук) ден соолук сактоо адиси тарабынан дайындалып, көзөмөлдөнүшү керек, айрыкча боюна бүтүүнү үмүттөнүп жатсаңыз.',
+    h6Title: 'Дарыгерге качан барыш керек?',
+    body6:
+      'Медициналык кеңеш айрым абалдарда өзгөчө пайдалуу:',
+    consultReasons: [
+      'Ылайыктуу кам көрүүгө карабастан улана берген безеткилер',
+      'Оорутуучу же терең безеткилер (түйүндөр, кисталар)',
+      'Катуу безеткилер же тез начарлаган безеткилер',
+      'Орнотулуп жаткан таптар же тырыктар',
+    ],
+    h7Title: 'Негизги жыйынтыктар',
+    summaryTitle: 'Негизги учурлар',
+    keyPoints: [
+      'Гормондук безеткилердин андрогендер менен байланышкан аныкталуучу себеби бар.',
+      'Алар көбүнчө беттин ылдый жагына таасир этет жана етек киримден мурун күчөшү мүмкүн.',
+      'Ал гигиенанын жетишсиздиги да, сөзсүз болуучу нерсе да эмес.',
+      'Жумшак кам көрүү жана керек болсо ылайыктуу дарылоо аны жакшырта алат.',
+      'Улана берсе, дерматолог же гинеколог сизди колдой алат.',
+    ],
+    finalNoteTitle: 'Жакшыраак түшүнүүгө колдонмо',
+    finalNoteText:
+      'Бул макала жалпы маалымат үчүн гана жазылган жана медициналык консультацияны алмаштырбайт. Күмөн болсо же белгилер улана берсе, ден соолук сактоо адисинен кеңеш сураңыз.',
+    shareMessage: 'Гормондук безеткилерди түшүнүү — AWA',
+  },
+  tk: {
+    badge: 'PCOS • GORMONAL AKNE',
+    title: 'Gormonal akneni\ndüşünmek',
+    metaDuration: '7 min okamak',
+    metaType: 'Gollanma',
+    metaLevel: 'Başlaýjy',
+    metaValidated: 'Bilim beriji mazmun',
+    intro:
+      'Gormonal akne PCOS bilen näme üçin peýda bolup biler, ony nähili tanamaly we ony dolandyrmaga haýsy çözgütler kömek edip biler.',
+    introSecondary:
+      'Ol köp aýala täsir edýär we ne arassaçylyk ýetmezçiligi, ne-de gaçyp bolmajak zat: onuň gelip çykyşyny düşünmek ony has gowy dolandyrmaga kömek edýär.',
+    contentsTitle: 'Bu makalada',
+    topics: [
+      'Gormonal akne näme?',
+      'PCOS näme üçin akne döredip biler?',
+      'Gormonal akneni nähili tanamaly',
+      'Gormonal akne we aýbaşy sikli',
+      'Näme kömek edip biler',
+      'Lukmana haçan ýüz tutmaly?',
+      'Esasy netijeler',
+    ],
+    h1: 'Gormonal akne näme?',
+    body1a:
+      'Gormonal akne gormonal yrgyldylar ýa-da deňagramsyzlyk, aýratyn-da androgenlerde, bilen göni baglanyşykly akneniň bir görnüşi. Ýetginjeklik döwrüniň has adaty akneinden tapawutlylykda, ol köplenç uly aýallara täsir edýär we şondan soň dowam edip ýa-da peýda bolup biler.',
+    body1b:
+      'Ol şeýle hem ýerleşişi, çuňlugy we gowy ýerine ýetirilýän yzygiderli deri idegine garamazdan şol bir ýerlerde gaýdyp peýda bolmaga ýykgyn edýändigi bilen tapawutlanýar.',
+    tip1Title: 'Bilmek peýdaly',
+    tip1Text:
+      'Gormonal akne arassaçylyk ýetmezçiligi bilen baglanyşykly däl: ýüzüňizi has ýygy ýuwmak ony ýok etmeýär we hatda derini gyjyndyryp biler.',
+    h2Title: 'PCOS näme üçin akne döredip biler?',
+    body2:
+      'PCOS-da androgenleriň otnositel artykmaçlygy ýag mäzlerini höweslendirýär, olar soňra has köp sebum öndürýär. Käbir deri hem bu gormonlara has duýgur, bu laboratoriýada ölçelen uly deňagramsyzlyk bolmazdan hem akneniň aýdyň bolup biljekdigini düşündirýär.',
+    neutralText:
+      'Bu erk güýjüniň meselesi däl: bu duýgurlyk adamdan adama tapawutlanýar we durmuş ýörelgesi endiklerigize bagly däl.',
+    h3Title: 'Gormonal akneni nähili tanamaly',
+    body3:
+      'Käbir aýratynlyklar köplenç gaýtalanýar, ýöne yzygiderli däl:',
+    recognizeSigns: [
+      'Ýüzüň aşaky bölegi: eňek, gabak',
+      'Has çuň, käwagt agyryly döremeler',
+      'Köplenç şol bir ýerlerde gaýdyp peýda bolýar',
+      'Dowam edýän gyzarma ýa-da yzlar',
+    ],
+    h4Title: 'Gormonal akne we aýbaşy sikli',
+    body4:
+      'Gormonal akne sikl dowamynda üýtgäp biler. Köp aýal aýbaşydan öňki günlerde, progesteron ýokarlanyp soňra ýiti peselende, wagtlaýyn sebum öndürilişini höweslendirýän ýagdaýda, ýaramazlaşmany görýär.',
+    highlightTitle: 'Ýaramazlaşmalaryňyzy yzarlamak',
+    highlightText:
+      'Döremeleriň sikliňize görä haçan peýda bolýandygyny bellemek sizi we dermatologyňyzy gormonal baglanyşygy has gowy düşünmäge kömek edip biler.',
+    h5Title: 'Näme kömek edip biler',
+    body5a:
+      'Birnäçe ýönekeý ideg endigi ýaramazlaşmalary çäklemäge kömek edip biler, ýöne ýeke özi olary doly arassalamaýar:',
+    careHabits: [
+      'Derini irden we agşam ýumşak arassalaň',
+      'Gaty ýa-da derini gurak edýän önümlerden gaça duruň',
+      'Derini her gün günden goraň',
+      'Döremeleri gysmakdan ýa-da çokmakdan gaça duruň',
+    ],
+    body5b:
+      'Ýagdaýa görä, dermatolog ýa-da ginekolog ýerli bejergileri (kremler, gelleri) ýa-da zerur bolsa laýyk gormonal bejergini teklip edip biler.',
+    alertTitle: 'Özbaşdak bejergi etmäň',
+    alertText:
+      'Gormonal akne bejergileri (ýerli ýa-da gormonal) saglyk hünärmeni tarapyndan bellenilmeli we gözegçilik edilmeli, aýratyn-da göwreli bolmagy umyt edýän bolsaňyz.',
+    h6Title: 'Lukmana haçan ýüz tutmaly?',
+    body6:
+      'Lukmançylyk maslahaty käbir ýagdaýlarda aýratyn peýdaly:',
+    consultReasons: [
+      'Laýyk ideg bilen hem dowam edýän akne',
+      'Agyryly ýa-da çuň döremeler (düwünler, kistalar)',
+      'Agyr akne ýa-da çalt erbetleşýän akne',
+      'Ornaşýan yzlar ýa-da çyzlar',
+    ],
+    h7Title: 'Esasy netijeler',
+    summaryTitle: 'Esasy nokatlar',
+    keyPoints: [
+      'Gormonal akneniň androgenler bilen baglanyşykly kesgitlenip bolýan sebäbi bar.',
+      'Ol köplenç ýüzüň aşaky böleginde bolýar we aýbaşydan öň erbetleşip biler.',
+      'Ol ne arassaçylyk ýetmezçiligi, ne-de gaçyp bolmajak zat.',
+      'Ýumşak ideg we zerur bolsa laýyk bejergi ony gowulandyryp biler.',
+      'Dowam etse, dermatolog ýa-da ginekolog size goldaw berip biler.',
+    ],
+    finalNoteTitle: 'Has gowy düşünmek üçin gollanma',
+    finalNoteText:
+      'Bu makala diňe umumy maglumat üçin we lukmançylyk maslahatlaşmagyny çalyşmaýar. Şübhe bolsa ýa-da alamatlar dowam etse, saglyk hünärmeninden maslahat soraň.',
+    shareMessage: 'Gormonal akneni düşünmek — AWA',
   },
 } as const);
 
