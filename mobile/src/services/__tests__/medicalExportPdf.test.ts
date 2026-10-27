@@ -123,7 +123,7 @@ describe('generateMedicalExportPdfBase64 — Unicode behaviour (M45)', () => {
 
   it('emoji, ZWJ sequences and other non-WinAnsi scripts do not throw and are marked', async () => {
     const text = await extractPdfText(
-      await generateMedicalExportPdfBase64(modelWith(['Humeur 😊 ok', 'famille 👩‍👧 !', 'עברית', 'ภาษาไทย'])),
+      await generateMedicalExportPdfBase64(modelWith(['Humeur 😊 ok', 'famille 👩‍👧 !', 'ภาษาไทย'])),
     );
     expect(text).toContain(`Humeur ${M} ok`);
     expect(text).toContain(`famille ${M} !`);
