@@ -4720,6 +4720,2267 @@ const CONTENT = withBrazilianPortuguese('BabyBlues', {
     shareMessage:
       'Bäbek blýuzy we dograndan soňky duýgusal saglyk — AWA\n\nDograndan soň giňden ýaýran duýgusal üýtgeşmeleri düşünmäge niýetlenen gollanma.',
   },
+  ms: {
+    badgeText: 'SELEPAS BERSALIN • KESIHATAN EMOSI',
+    title: 'Baby blues dan kesihatan emosi\nselepas bersalin',
+    subtitle:
+      'Memahami apa yang boleh berubah secara emosi selepas bersalin dan mengetahui bila untuk mendapatkan sokongan.',
+    metaItems: ['10 min bacaan', 'Artikel', 'Permulaan', 'Kandungan disemak'],
+    introTitle: 'Elok diketahui',
+    introText:
+      'Selepas bersalin, adalah lazim untuk melalui tempoh kepekaan emosi yang meningkat. Baby blues biasanya bersifat sementara, tetapi kesusahan yang berterusan atau bertambah teruk memerlukan perhatian profesional.',
+    contentsEyebrow: 'PANDUAN',
+    contentsTitle: 'Dalam artikel ini',
+    contents: [
+      'Memahami baby blues',
+      'Tanda yang paling lazim',
+      'Apa yang membantu dari hari ke hari',
+      'Baby blues atau kemurungan selepas bersalin?',
+      'Bila untuk meminta bantuan',
+      'Perkara penting untuk diingat',
+    ],
+    section1Kicker: 'MEMAHAMI',
+    section1Title: 'Apakah baby blues?',
+    section1Body1:
+      'Baby blues ialah tempoh perubahan emosi yang boleh berlaku dalam beberapa hari pertama selepas bersalin. Perubahan hormon, keletihan, kurang tidur dan menyesuaikan diri dengan peringkat baharu ini semuanya boleh menyumbang kepada kepekaan ini.',
+    section1Body2:
+      'Ini bukan satu kegagalan dan ia tidak bermakna anda ibu yang tidak baik. Setiap orang melalui hari-hari pertama selepas bersalin dengan cara masing-masing.',
+    statTitle: 'Pengalaman yang lazim',
+    statText:
+      'Baby blues adalah lazim selepas bersalin dan cenderung pulih sendiri dalam beberapa hari.',
+    section2Kicker: 'TANDA-TANDA',
+    section2Title: 'Apa yang mungkin anda rasa',
+    section2Body:
+      'Apa yang dialami berbeza-beza. Sesetengah orang terutamanya berasa letih dan sensitif, manakala yang lain mungkin mengalami perubahan emosi yang lebih ketara.',
+    commonSigns: [
+      {
+        title: 'Mudah beremosi',
+        description: 'Lebih mudah menangis atau berasa sangat sensitif.',
+      },
+      {
+        title: 'Terlalu peka',
+        description: 'Emosi boleh terasa lebih kuat dan berubah dengan cepat.',
+      },
+      {
+        title: 'Emosi berubah-ubah',
+        description:
+          'Rasa rapuh boleh berselang-seli dengan saat-saat berasa sejahtera.',
+      },
+      {
+        title: 'Keletihan',
+        description: 'Keletihan pada hari-hari pertama boleh menguatkan emosi.',
+      },
+    ],
+    section3Kicker: 'DARI HARI KE HARI',
+    section3Title: 'Apa yang boleh membantu',
+    section3Body:
+      'Dalam tempoh ini, keperluan untuk berehat adalah besar. Perkara kecil dan mudah boleh menjadikan hari-hari lebih selesa.',
+    dailySupport: [
+      {
+        title: 'Berehat',
+        description: 'Menggunakan setiap detik terluang untuk memulihkan tenaga.',
+      },
+      {
+        title: 'Menerima bantuan',
+        description: 'Jangan teragak-agak meminta sokongan daripada orang di sekeliling anda.',
+      },
+      {
+        title: 'Minum secara tetap',
+        description: 'Kekal terhidrat secukupnya sepanjang hari.',
+      },
+      {
+        title: 'Makan secukupnya',
+        description: 'Utamakan hidangan yang tetap dan ringkas.',
+      },
+    ],
+    quoteText:
+      '“Meminta bantuan semasa selepas bersalin ialah satu cara menjaga diri anda dan bayi anda.”',
+    section4Kicker: 'MEMBEZAKANNYA',
+    section4Title: 'Baby blues atau kemurungan selepas bersalin?',
+    section4Body:
+      'Baby blues biasanya singkat dan beransur pulih. Kemurungan selepas bersalin berbeza: ia boleh lebih berpanjangan, lebih kuat dan memberi kesan besar kepada kehidupan seharian.',
+    compareTitle: 'Dua keadaan yang perlu dibezakan',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Selalunya singkat, dengan pemulihan beransur-ansur dalam hari-hari berikutnya.',
+    comparePostpartumTitle: 'Kemurungan selepas bersalin',
+    comparePostpartumText:
+      'Boleh berlarutan lebih lama, bertambah kuat dan memerlukan sokongan profesional.',
+    section5Kicker: 'KEKAL BERWASPADA',
+    section5Title: 'Bila untuk meminta bantuan?',
+    section5Body:
+      'Adalah penting untuk berbincang dengan pengamal penjagaan kesihatan jika kesusahan emosi tidak pulih, menjadi lebih kuat atau mula menyukarkan kehidupan seharian.',
+    attentionTitle: 'Tanda amaran yang perlu diperhatikan',
+    attentionSubtitle: 'Berbincanglah dengan pengamal profesional jika…',
+    attentionSigns: [
+      'Simptom berlarutan lebih daripada dua minggu.',
+      'Kesedihan atau keresahan menjadi lebih kuat.',
+      'Menjadi sukar untuk menjaga diri anda atau bayi anda.',
+      'Muncul rasa tertekan yang ketara.',
+    ],
+    professionalTitle: 'Sokongan tersedia',
+    professionalText:
+      'Bidan, doktor, ahli psikologi atau pengamal penjagaan kesihatan lain boleh mendengar, menilai keadaan dan menawarkan sokongan yang sesuai.',
+    tipTitle: 'Elok diketahui',
+    tipText:
+      'Emosi selepas bersalin bukan ukuran betapa baiknya anda sebagai ibu. Anda berhak memerlukan rehat, didengari dan disokong.',
+    section6Kicker: 'PERKARA UTAMA',
+    section6Title: 'Perkara penting untuk diingat',
+    takeaways: [
+      'Baby blues adalah lazim selepas bersalin.',
+      'Keletihan dan perubahan hormon boleh menjejaskan emosi.',
+      'Sokongan daripada orang di sekeliling anda boleh memudahkan tempoh ini.',
+      'Kesusahan yang berterusan atau ketara memerlukan penilaian profesional.',
+    ],
+    disclaimerText:
+      'Artikel ini bertujuan memberi maklumat dan tidak menggantikan nasihat perubatan yang diperibadikan. Jika ragu-ragu atau mengalami kesusahan yang ketara, berbincanglah dengan pengamal penjagaan kesihatan.',
+    endText: 'Menjaga diri sendiri juga sebahagian daripada tempoh selepas bersalin.',
+    shareTitle: 'Baby blues dan kesihatan emosi selepas bersalin',
+    shareMessage:
+      'Baby blues dan kesihatan emosi selepas bersalin — AWA\n\nPanduan untuk memahami perubahan emosi yang lazim selepas bersalin.',
+  },
+  so: {
+    badgeText: 'DHALMADA KA DIB • CAAFIMAADKA DAREENKA',
+    title: 'Baby blues iyo caafimaadka dareenka\ndhalmada ka dib',
+    subtitle:
+      'Fahamka waxa dareenka ahaan isbeddeli kara dhalmada ka dib iyo ogaanshaha goorta taageero la raadsado.',
+    metaItems: ['10 daq akhris', 'Maqaal', 'Bilow', 'Macluumaad la dib-u-eegay'],
+    introTitle: 'Waxtar leh in la ogaado',
+    introText:
+      'Dhalmada ka dib, waa caadi in la maro muddo dareen-xanaaq oo kordhay. Baby blues inta badan waa ku meel gaar, laakiin walaac sii socda ama sii xoogaysta wuxuu mudan yahay feejignaan xirfadle.',
+    contentsEyebrow: 'HAGE',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    contents: [
+      'Fahamka baby blues',
+      'Calaamadaha ugu badan',
+      'Waxa caawiya maalin kasta',
+      'Baby blues mise niyad-jab dhalmada ka dib?',
+      'Goorta caawimaad la weydiisto',
+      'Qodobbada muhiimka ah',
+    ],
+    section1Kicker: 'FAHAM',
+    section1Title: 'Waa maxay baby blues?',
+    section1Body1:
+      'Baby blues waa muddo isbeddello dareen ah oo dhici kara maalmaha ugu horreeya ee dhalmada ka dib. Isbeddelada hormoonka, daal, hurdo la’aan, iyo la qabsiga heerkan cusub dhammaantood waxay gacan ka geysan karaan dareen-xanaaqan.',
+    section1Body2:
+      'Tani ma aha guuldarro, macnaheeduna maaha inaad tahay hooyo xun. Qof walba wuxuu maalmaha ugu horreeya ee dhalmada ka dib ku maraa si u gaar ah.',
+    statTitle: 'Khibrad caadi ah',
+    statText:
+      'Baby blues waa caadi dhalmada ka dib wuxuuna u badan yahay inuu iskiis u hagaajiyo dhowr maalmood gudahood.',
+    section2Kicker: 'CALAAMADAHA',
+    section2Title: 'Waxa aad dareemi kartid',
+    section2Body:
+      'Waxa dadku dareemaan way kala duwan yihiin. Qaarkood waxay inta badan dareemaan daal iyo dareen-xanaaq, kuwo kale na waxay yeelan karaan isbeddello niyadeed oo muuqda.',
+    commonSigns: [
+      {
+        title: 'Dareen-badnaan',
+        description: 'Ooyid si fudud ama dareen-xanaaq gaar ah.',
+      },
+      {
+        title: 'Dareen-xanaaq xad dhaaf ah',
+        description: 'Dareennadu way xoogaysan karaan oo si degdeg ah ayay isu beddelaan.',
+      },
+      {
+        title: 'Isbeddelka niyadda',
+        description:
+          'Dareen jilicsanaan ayaa ku beddelan kara wakhtiyo fayoobaan.',
+      },
+      {
+        title: 'Daal',
+        description: 'Daalka maalmaha hore wuxuu kordhin karaa dareennada.',
+      },
+    ],
+    section3Kicker: 'MAALIN KASTA',
+    section3Title: 'Waxa caawin kara',
+    section3Body:
+      'Muddadan, baahida nasashadu waa weyn tahay. Waxyaabo yaryar oo fudud ayaa maalmaha ka dhigi kara kuwo raaxo badan.',
+    dailySupport: [
+      {
+        title: 'Nasasho',
+        description: 'Ka faa’iidayso wakhti kasta oo madhan si aad u bogsato.',
+      },
+      {
+        title: 'Aqbalidda caawimaad',
+        description: 'Ha ka waaban inaad weydiisato taageero dadka kuu dhow.',
+      },
+      {
+        title: 'Cabbid joogto ah',
+        description: 'Biyo ku filan cab maalinta oo dhan.',
+      },
+      {
+        title: 'Cunto ku filan',
+        description: 'Door bid cunto joogto ah oo fudud.',
+      },
+    ],
+    quoteText:
+      '“Weydiisashada caawimaad dhalmada ka dib waa hab aad naftaada iyo ilmahaaga ku daryeesho.”',
+    section4Kicker: 'KALA SAARIDDA',
+    section4Title: 'Baby blues mise niyad-jab dhalmada ka dib?',
+    section4Body:
+      'Baby blues inta badan waa gaaban oo tartiib ayuu u hagaagaa. Niyad-jabka dhalmada ka dib way ka duwan yahay: wuu sii socon karaa, xoog badnaan karaa, wuxuuna saameyn weyn ku yeelan karaa nolol-maalmeedka.',
+    compareTitle: 'Laba xaaladood oo la kala saaro',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Inta badan waa gaaban, oo tartiib ayuu u hagaagaa maalmaha xiga.',
+    comparePostpartumTitle: 'Niyad-jab dhalmada ka dib',
+    comparePostpartumText:
+      'Wuu sii socon karaa, xoog badnaan karaa, wuxuuna u baahan karaa taageero xirfadle.',
+    section5Kicker: 'FEEJIGNAAN',
+    section5Title: 'Goorma caawimaad la weydiistaa?',
+    section5Body:
+      'Waa muhiim in lala hadlo xirfadle caafimaad haddii dhibka dareenku aanu hagaagin, uu xoogaysto, ama uu bilaabo inuu nolol-maalmeedka adkeeyo.',
+    attentionTitle: 'Calaamadaha digniinta ee la eego',
+    attentionSubtitle: 'La hadal xirfadle haddii…',
+    attentionSigns: [
+      'Astaamuhu ka badan yihiin laba toddobaad.',
+      'Murugada ama walaaca ayaa xoogaysta.',
+      'Waxay adkaataa inaad naftaada ama ilmahaaga daryeesho.',
+      'Dareen dhib weyn ayaa soo baxa.',
+    ],
+    professionalTitle: 'Taageero way jirtaa',
+    professionalText:
+      'Umulisada, dhakhtarka, saykolajiga, ama xirfadle kale oo caafimaad ayaa dhegeysan kara, qiimeyn kara xaaladda, oo bixin kara taageero ku habboon.',
+    tipTitle: 'Waxtar leh in la ogaado',
+    tipText:
+      'Dareennada dhalmada ka dib ma aha cabbir ku saabsan sida hooyo fiican aad tahay. Waxaad xaq u leedahay inaad u baahato nasasho, in lagu dhegeysto, iyo in lagu taageero.',
+    section6Kicker: 'QODOBBO MUHIIM AH',
+    section6Title: 'Qodobbada muhiimka ah',
+    takeaways: [
+      'Baby blues waa caadi dhalmada ka dib.',
+      'Daalka iyo isbeddelada hormoonku waxay saameyn karaan niyadda.',
+      'Taageerada dadka kuu dhow waxay fududayn kartaa muddadan.',
+      'Dhibka sii socda ama weyn wuxuu mudan yahay qiimeyn xirfadle.',
+    ],
+    disclaimerText:
+      'Maqaalkan waa macluumaad oo keliya mana bedelo talo caafimaad oo shakhsi ah. Haddii aad shaki qabto ama aad dareento dhib weyn, la hadal xirfadle caafimaad.',
+    endText: 'Naftaada daryeelkeedu sidoo kale wuxuu qayb ka yahay dhalmada ka dib.',
+    shareTitle: 'Baby blues iyo caafimaadka dareenka dhalmada ka dib',
+    shareMessage:
+      'Baby blues iyo caafimaadka dareenka dhalmada ka dib — AWA\n\nHage lagu fahmo isbeddelada dareenka ee caadiga ah dhalmada ka dib.',
+  },
+  sw: {
+    badgeText: 'BAADA YA KUJIFUNGUA • AFYA YA HISIA',
+    title: 'Baby blues na afya ya hisia\nbaada ya kujifungua',
+    subtitle:
+      'Kuelewa kinachoweza kubadilika kihisia baada ya kujifungua na kujua wakati wa kutafuta msaada.',
+    metaItems: ['Dakika 10 za kusoma', 'Makala', 'Mwanzo', 'Maudhui yaliyokaguliwa'],
+    introTitle: 'Vyema kujua',
+    introText:
+      'Baada ya kujifungua, ni kawaida kupitia kipindi cha hisia kali zaidi. Baby blues kwa kawaida ni ya muda mfupi, lakini dhiki inayoendelea au kuongezeka inastahili uangalizi wa kitaalamu.',
+    contentsEyebrow: 'MWONGOZO',
+    contentsTitle: 'Katika makala hii',
+    contents: [
+      'Kuelewa baby blues',
+      'Dalili za kawaida zaidi',
+      'Kinachosaidia kila siku',
+      'Baby blues au msongo wa mawazo baada ya kujifungua?',
+      'Wakati wa kuomba msaada',
+      'Mambo muhimu ya kukumbuka',
+    ],
+    section1Kicker: 'KUELEWA',
+    section1Title: 'Baby blues ni nini?',
+    section1Body1:
+      'Baby blues ni kipindi cha mabadiliko ya hisia kinachoweza kutokea katika siku chache za kwanza baada ya kujifungua. Mabadiliko ya homoni, uchovu, ukosefu wa usingizi, na kuzoea hatua hii mpya vyote vinaweza kuchangia hali hii ya kuwa na hisia kali.',
+    section1Body2:
+      'Hii si kushindwa na haimaanishi wewe ni mama mbaya. Kila mtu hupitia siku za kwanza baada ya kujifungua kwa njia yake mwenyewe.',
+    statTitle: 'Uzoefu wa kawaida',
+    statText:
+      'Baby blues ni ya kawaida baada ya kujifungua na huelekea kuimarika yenyewe ndani ya siku chache.',
+    section2Kicker: 'DALILI',
+    section2Title: 'Unachoweza kuhisi',
+    section2Body:
+      'Wanachopitia watu hutofautiana. Wengine huhisi hasa uchovu na unyeti, huku wengine wakiwa na mabadiliko ya hali ya moyo yanayoonekana zaidi.',
+    commonSigns: [
+      {
+        title: 'Hisia kali',
+        description: 'Kulia kwa urahisi zaidi au kuhisi unyeti wa kipekee.',
+      },
+      {
+        title: 'Unyeti uliopitiliza',
+        description: 'Hisia zinaweza kuhisiwa kuwa kali zaidi na kubadilika haraka.',
+      },
+      {
+        title: 'Mabadiliko ya hali ya moyo',
+        description:
+          'Hisia ya udhaifu inaweza kubadilishana na nyakati za ustawi.',
+      },
+      {
+        title: 'Uchovu',
+        description: 'Uchovu wa siku za kwanza unaweza kukuza hisia.',
+      },
+    ],
+    section3Kicker: 'KILA SIKU',
+    section3Title: 'Kinachoweza kusaidia',
+    section3Body:
+      'Katika kipindi hiki, hitaji la kupumzika ni kubwa. Mambo madogo na rahisi yanaweza kufanya siku ziwe za faraja zaidi.',
+    dailySupport: [
+      {
+        title: 'Kupumzika',
+        description: 'Kutumia kila wakati wa ziada kupata nafuu.',
+      },
+      {
+        title: 'Kukubali msaada',
+        description: 'Usisite kuomba msaada kutoka kwa wanaokuzunguka.',
+      },
+      {
+        title: 'Kunywa mara kwa mara',
+        description: 'Kubaki na maji ya kutosha mwilini siku nzima.',
+      },
+      {
+        title: 'Kula vya kutosha',
+        description: 'Kupendelea milo ya mara kwa mara na rahisi.',
+      },
+    ],
+    quoteText:
+      '“Kuomba msaada baada ya kujifungua ni njia ya kujijali wewe na mtoto wako.”',
+    section4Kicker: 'KUTOFAUTISHA',
+    section4Title: 'Baby blues au msongo wa mawazo baada ya kujifungua?',
+    section4Body:
+      'Baby blues kwa kawaida ni ya muda mfupi na huimarika polepole. Msongo wa mawazo baada ya kujifungua ni tofauti: unaweza kudumu zaidi, kuwa mkali zaidi, na kuwa na athari kubwa kwa maisha ya kila siku.',
+    compareTitle: 'Hali mbili za kutofautisha',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Mara nyingi ni fupi, na huimarika polepole katika siku zinazofuata.',
+    comparePostpartumTitle: 'Msongo wa mawazo baada ya kujifungua',
+    comparePostpartumText:
+      'Unaweza kudumu zaidi, kuongezeka, na kuhitaji msaada wa kitaalamu.',
+    section5Kicker: 'KUWA MAKINI',
+    section5Title: 'Wakati wa kuomba msaada?',
+    section5Body:
+      'Ni muhimu kuzungumza na mtaalamu wa afya ikiwa dhiki ya hisia haiimarishi, inakuwa kali zaidi, au inaanza kufanya maisha ya kila siku kuwa magumu zaidi.',
+    attentionTitle: 'Dalili za tahadhari za kuzingatia',
+    attentionSubtitle: 'Zungumza na mtaalamu ikiwa…',
+    attentionSigns: [
+      'Dalili zinadumu zaidi ya wiki mbili.',
+      'Huzuni au wasiwasi unaongezeka.',
+      'Inakuwa vigumu kujijali wewe au mtoto wako.',
+      'Hisia kubwa ya dhiki inaonekana.',
+    ],
+    professionalTitle: 'Msaada unapatikana',
+    professionalText:
+      'Mkunga, daktari, mwanasaikolojia, au mtaalamu mwingine wa afya anaweza kusikiliza, kutathmini hali, na kutoa msaada unaofaa.',
+    tipTitle: 'Vyema kujua',
+    tipText:
+      'Hisia za baada ya kujifungua si kipimo cha jinsi ulivyo mama mzuri. Una haki ya kuhitaji kupumzika, kusikilizwa, na kusaidiwa.',
+    section6Kicker: 'MAMBO MUHIMU',
+    section6Title: 'Mambo muhimu ya kukumbuka',
+    takeaways: [
+      'Baby blues ni ya kawaida baada ya kujifungua.',
+      'Uchovu na mabadiliko ya homoni vinaweza kuathiri hali ya moyo.',
+      'Msaada kutoka kwa wanaokuzunguka unaweza kurahisisha kipindi hiki.',
+      'Dhiki inayoendelea au kubwa inastahili tathmini ya kitaalamu.',
+    ],
+    disclaimerText:
+      'Makala hii ni kwa madhumuni ya taarifa na haichukui nafasi ya ushauri wa kitabibu uliobinafsishwa. Ukiwa na shaka au unapitia dhiki kubwa, zungumza na mtaalamu wa afya.',
+    endText: 'Kujijali pia ni sehemu ya kipindi cha baada ya kujifungua.',
+    shareTitle: 'Baby blues na afya ya hisia baada ya kujifungua',
+    shareMessage:
+      'Baby blues na afya ya hisia baada ya kujifungua — AWA\n\nMwongozo wa kuelewa mabadiliko ya hisia ambayo ni ya kawaida baada ya kujifungua.',
+  },
+  kk: {
+    badgeText: 'БОСАНҒАННАН КЕЙІН • ЭМОЦИЯЛЫҚ ДЕНСАУЛЫҚ',
+    title: 'Бэби-блюз және босанғаннан кейінгі\nэмоциялық денсаулық',
+    subtitle:
+      'Босанғаннан кейін эмоциялық тұрғыда не өзгеруі мүмкін екенін түсіну және қолдауды қашан іздеу керектігін білу.',
+    metaItems: ['10 мин оқу', 'Мақала', 'Бастауыш', 'Тексерілген мазмұн'],
+    introTitle: 'Білуге тиісті',
+    introText:
+      'Босанғаннан кейін эмоциялық сезімталдықтың артқан кезеңін бастан өткеру қалыпты жағдай. Бэби-блюз әдетте уақытша болады, бірақ жалғасатын немесе күшейетін күйзеліс кәсіби назарға тұрарлық.',
+    contentsEyebrow: 'НҰСҚАУЛЫҚ',
+    contentsTitle: 'Осы мақалада',
+    contents: [
+      'Бэби-блюзді түсіну',
+      'Ең жиі кездесетін белгілер',
+      'Күнделікті не көмектеседі',
+      'Бэби-блюз бе, әлде босанғаннан кейінгі депрессия ма?',
+      'Көмекті қашан сұрау керек',
+      'Негізгі қорытындылар',
+    ],
+    section1Kicker: 'ТҮСІНУ',
+    section1Title: 'Бэби-блюз дегеніміз не?',
+    section1Body1:
+      'Бэби-блюз — босанғаннан кейінгі алғашқы күндерде болуы мүмкін эмоциялық өзгерістер кезеңі. Гормондардың өзгеруі, шаршау, ұйқының жетіспеуі және осы жаңа кезеңге бейімделу осы сезімталдыққа ықпал етуі мүмкін.',
+    section1Body2:
+      'Бұл сәтсіздік емес және сіздің жаман ана екеніңізді білдірмейді. Әркім босанғаннан кейінгі алғашқы күндерді өзінше бастан өткереді.',
+    statTitle: 'Жиі кездесетін жағдай',
+    statText:
+      'Бэби-блюз босанғаннан кейін жиі кездеседі және әдетте бірнеше күн ішінде өздігінен жақсарады.',
+    section2Kicker: 'БЕЛГІЛЕР',
+    section2Title: 'Нені сезінуіңіз мүмкін',
+    section2Body:
+      'Адамдар сезінетін нәрсе әртүрлі. Кейбіреулері негізінен шаршау мен сезімталдықты сезінеді, ал басқаларында көңіл-күйдің өзгеруі анығырақ болуы мүмкін.',
+    commonSigns: [
+      {
+        title: 'Эмоционалдылық',
+        description: 'Оңай жылап жіберу немесе ерекше сезімтал болу.',
+      },
+      {
+        title: 'Шамадан тыс сезімталдық',
+        description: 'Эмоциялар күштірек сезілуі және тез ауысуы мүмкін.',
+      },
+      {
+        title: 'Көңіл-күйдің ауытқуы',
+        description:
+          'Нәзіктік сезімі әл-ауқат сәттерімен кезектесуі мүмкін.',
+      },
+      {
+        title: 'Шаршау',
+        description: 'Алғашқы күндердегі шаршау эмоцияларды күшейтуі мүмкін.',
+      },
+    ],
+    section3Kicker: 'КҮНДЕЛІКТІ',
+    section3Title: 'Не көмектесе алады',
+    section3Body:
+      'Бұл кезеңде демалысқа деген қажеттілік жоғары. Кішкентай, қарапайым нәрселер күндерді жайлырақ ете алады.',
+    dailySupport: [
+      {
+        title: 'Демалу',
+        description: 'Қалпына келу үшін әрбір бос сәтті пайдалану.',
+      },
+      {
+        title: 'Көмекті қабылдау',
+        description: 'Айналаңыздағылардан қолдау сұраудан тартынбаңыз.',
+      },
+      {
+        title: 'Үнемі су ішу',
+        description: 'Күні бойы жеткілікті су ішіп отыру.',
+      },
+      {
+        title: 'Жеткілікті тамақтану',
+        description: 'Тұрақты, қарапайым тамақты жөн көру.',
+      },
+    ],
+    quoteText:
+      '“Босанғаннан кейін көмек сұрау — өзіңізге де, нәрестеңізге де қамқор болудың бір жолы.”',
+    section4Kicker: 'АЖЫРАТУ',
+    section4Title: 'Бэби-блюз бе, әлде босанғаннан кейінгі депрессия ма?',
+    section4Body:
+      'Бэби-блюз әдетте қысқа болады және біртіндеп жақсарады. Босанғаннан кейінгі депрессия басқаша: ол ұзағырақ, қарқындырақ болуы және күнделікті өмірге айтарлықтай әсер етуі мүмкін.',
+    compareTitle: 'Ажырату керек екі жағдай',
+    compareBabyBluesTitle: 'Бэби-блюз',
+    compareBabyBluesText:
+      'Көбіне қысқа, келесі күндерде біртіндеп жақсарады.',
+    comparePostpartumTitle: 'Босанғаннан кейінгі депрессия',
+    comparePostpartumText:
+      'Ұзағырақ созылуы, күшеюі және кәсіби қолдауды қажет етуі мүмкін.',
+    section5Kicker: 'САҚ БОЛУ',
+    section5Title: 'Көмекті қашан сұрау керек?',
+    section5Body:
+      'Эмоциялық күйзеліс жақсармаса, күшейсе немесе күнделікті өмірді қиындата бастаса, медицина маманымен сөйлесу маңызды.',
+    attentionTitle: 'Назар аударатын ескерту белгілері',
+    attentionSubtitle: 'Мына жағдайда маманмен сөйлесіңіз…',
+    attentionSigns: [
+      'Белгілер екі аптадан астам созылса.',
+      'Мұң немесе алаңдаушылық күшейсе.',
+      'Өзіңізге немесе нәрестеңізге қамқор болу қиындаса.',
+      'Айтарлықтай күйзеліс сезімі пайда болса.',
+    ],
+    professionalTitle: 'Қолдау қолжетімді',
+    professionalText:
+      'Акушер, дәрігер, психолог немесе басқа медицина маманы тыңдап, жағдайды бағалап, тиісті қолдау көрсете алады.',
+    tipTitle: 'Білуге тиісті',
+    tipText:
+      'Босанғаннан кейінгі эмоциялар сіздің қандай жақсы ана екеніңіздің өлшемі емес. Демалуға, тыңдалуға және қолдау табуға қажеттілік сізде заңды.',
+    section6Kicker: 'НЕГІЗГІ ТҮЙІНДЕР',
+    section6Title: 'Негізгі қорытындылар',
+    takeaways: [
+      'Бэби-блюз босанғаннан кейін жиі кездеседі.',
+      'Шаршау мен гормондық өзгерістер көңіл-күйге әсер етуі мүмкін.',
+      'Айналаңыздағылардың қолдауы бұл кезеңді жеңілдетуі мүмкін.',
+      'Жалғасатын немесе айтарлықтай күйзеліс кәсіби бағалауға тұрарлық.',
+    ],
+    disclaimerText:
+      'Бұл мақала ақпараттық мақсатқа арналған және жекелендірілген медициналық кеңестің орнын баспайды. Күмән туындаса немесе айтарлықтай күйзеліс сезінсеңіз, медицина маманымен сөйлесіңіз.',
+    endText: 'Өзіңізге қамқор болу — босанғаннан кейінгі кезеңнің бір бөлігі.',
+    shareTitle: 'Бэби-блюз және босанғаннан кейінгі эмоциялық денсаулық',
+    shareMessage:
+      'Бэби-блюз және босанғаннан кейінгі эмоциялық денсаулық — AWA\n\nБосанғаннан кейін жиі кездесетін эмоциялық өзгерістерді түсінуге арналған нұсқаулық.',
+  },
+  wo: {
+    badgeText: 'GINNAAW JUR • WÉR CI XOL',
+    title: 'Baby blues ak wér ci xol\nginnaaw jur',
+    subtitle:
+      'Xam li mën a soppiku ci xol ginnaaw jur te xam kañ ngay ñaan dimbali.',
+    metaItems: ['10 simili jàng', 'Bind', 'Tàmbali', 'Mbind bu ñu seetlu'],
+    introTitle: 'Lu baax a xam',
+    introText:
+      'Ginnaaw jur, daa jub nga jàll ci jamono ju xol di nooy lool. Baby blues daa gàtt, waaye tiis bu sax walla bu di yokku war na ñu ko jëfandikoo ak doktoor.',
+    contentsEyebrow: 'NDIGAL',
+    contentsTitle: 'Ci bind bii',
+    contents: [
+      'Xam baby blues',
+      'Màndarga yi gëna bari',
+      'Li di dimbli bés bu nekk',
+      'Baby blues walla depresiyoŋ ginnaaw jur?',
+      'Kañ ngay ñaan dimbali',
+      'Li am solo',
+    ],
+    section1Kicker: 'XAM',
+    section1Title: 'Lan mooy baby blues?',
+    section1Body1:
+      'Baby blues mooy diir bu xol di soppiku ci fan yu njëkk ginnaaw jur. Soppi yu hormon, sonn, ñàkk nelaw ak bokk ak ñaar fuñ bu bees mën nañu yokk nooy bii.',
+    section1Body2:
+      'Loolu du tooñ te du wone ne yaw ndey bu bon nga. Ku nekk dafay dund fan yu njëkk ginnaaw jur ci sa anam.',
+    statTitle: 'Dund bu bari',
+    statText:
+      'Baby blues dafa bari ginnaaw jur te daa wér ci boppam ci ay fan.',
+    section2Kicker: 'MÀNDARGA YI',
+    section2Title: 'Li nga mën a dégg',
+    section2Body:
+      'Li nit ñi di dégg wuute na. Yenn dañuy dégg sonn ak nooy rekk, yeneen mën nañu gis soppi ci xol yu gën a feeñ.',
+    commonSigns: [
+      {
+        title: 'Xol bu nooy',
+        description: 'Jooy ci yomb walla nekk bu nooy lool.',
+      },
+      {
+        title: 'Nooy bu bari',
+        description: 'Dégg yi mën nañu gën a dëgër te soppiku ci gaaw.',
+      },
+      {
+        title: 'Soppi ci xol',
+        description:
+          'Dégg ci ndaw mën na dikk ak jamono yu ñuy dégg baax.',
+      },
+      {
+        title: 'Sonn',
+        description: 'Sonn bu fan yu njëkk mën na yokk dégg yi.',
+      },
+    ],
+    section3Kicker: 'BÉS BU NEKK',
+    section3Title: 'Li mën a dimbli',
+    section3Body:
+      'Ci jamono jii, soxlaay noppalu mag na. Ay yoon yu ndaw yu yomb mën nañu def fan yi gën a neex.',
+    dailySupport: [
+      {
+        title: 'Noppalu',
+        description: 'Jëfandikoo jamono yu amul lenn ngir wér.',
+      },
+      {
+        title: 'Nangu dimbali',
+        description: 'Bu ñaaw a ñaan dimbali ci ñi ngay dund ak ñoom.',
+      },
+      {
+        title: 'Naan ndox bu sax',
+        description: 'Naan ndox bu doy bés bi gépp.',
+      },
+      {
+        title: 'Lekk bu doy',
+        description: 'Tànn lekk yu yomb te sax.',
+      },
+    ],
+    quoteText:
+      '“Ñaan dimbali ginnaaw jur mooy yër sa bopp ak sa doom.”',
+    section4Kicker: 'WUUTE',
+    section4Title: 'Baby blues walla depresiyoŋ ginnaaw jur?',
+    section4Body:
+      'Baby blues daa gàtt te daa wér tuuti-tuuti. Depresiyoŋ ginnaaw jur wuute na: mën na yàgg, gën a dëgër te jëm lool ci dund bu bés.',
+    compareTitle: 'Ñaari mbir yu war a séddale',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Daa gàtt, te daa wér tuuti-tuuti ci fan yu toftal.',
+    comparePostpartumTitle: 'Depresiyoŋ ginnaaw jur',
+    comparePostpartumText:
+      'Mën na yàgg, gën a dëgër te soxla dimbali bu liggéeykat.',
+    section5Kicker: 'TEGU',
+    section5Title: 'Kañ ngay ñaan dimbali?',
+    section5Body:
+      'Am solo na nga wax ak benn liggéeykatu wér bu tiis bi wérul, bu mu gën a dëgër walla bu muy def dund bu bés gën a jafe.',
+    attentionTitle: 'Màndarga yu war a teg',
+    attentionSubtitle: 'Wax ak benn liggéeykat bu…',
+    attentionSigns: [
+      'Màndarga yi yàgg ci kaw ñaari ayu-bés.',
+      'Nooy walla tiitaange di gën a dëgër.',
+      'Jafe na nga yër sa bopp walla sa doom.',
+      'Benn dégg bu tiis bu bari feeñ na.',
+    ],
+    professionalTitle: 'Dimbali am na',
+    professionalText:
+      'Benn ndey-jur, doktoor, psikolog walla beneen liggéeykatu wér mën na la déglu, seetlu sa mbir te joxe la dimbali bu méngoo.',
+    tipTitle: 'Lu baax a xam',
+    tipText:
+      'Dégg yi ginnaaw jur du natt kàttanu sa ndey. Am nga yoon ngir soxla noppalu, ñu déglu la te dimbli la.',
+    section6Kicker: 'LI AM SOLO',
+    section6Title: 'Li am solo',
+    takeaways: [
+      'Baby blues dafa bari ginnaaw jur.',
+      'Sonn ak soppi yu hormon mën nañu jëm ci xol.',
+      'Dimbali bu ñi la wër mën na def jamono jii gën a yomb.',
+      'Tiis bu sax walla bu bari war na ñu ko seetlu ak liggéeykat.',
+    ],
+    disclaimerText:
+      'Bind bii ngir xibaar la te du wuutu ndigalu doktoor bu sa bopp. Bu am nga xel-ñaar walla tiis bu bari, wax ak benn liggéeykatu wér.',
+    endText: 'Yër sa bopp bokk na ci jamono ginnaaw jur.',
+    shareTitle: 'Baby blues ak wér ci xol ginnaaw jur',
+    shareMessage:
+      'Baby blues ak wér ci xol ginnaaw jur — AWA\n\nBenn ndigal ngir xam soppi yu xol yu daa am ginnaaw jur.',
+  },
+  ha: {
+    badgeText: 'BAYAN HAIHUWA • LAFIYAR ZUCIYA',
+    title: 'Baby blues da lafiyar zuciya\nbayan haihuwa',
+    subtitle:
+      'Fahimtar abin da zai iya sauyawa a zuciya bayan haihuwa da sanin lokacin da za a nemi tallafi.',
+    metaItems: ['karatun minti 10', 'Labari', 'Mafari', 'Abun da aka duba'],
+    introTitle: 'Abin da ya kamata ki sani',
+    introText:
+      'Bayan haihuwa, abu ne na yau da kullum a shiga wani lokaci na rashin ƙarfin zuciya. Baby blues yawanci na ɗan lokaci ne, amma damuwa da ke ci gaba ko ta ƙaru ta cancanci kulawar ƙwararre.',
+    contentsEyebrow: 'JAGORA',
+    contentsTitle: 'A cikin wannan labari',
+    contents: [
+      'Fahimtar baby blues',
+      'Alamomin da suka fi yawa',
+      'Abin da ke taimakawa kullum',
+      'Baby blues ko baƙin ciki bayan haihuwa?',
+      'Lokacin neman taimako',
+      'Muhimman abubuwa',
+    ],
+    section1Kicker: 'FAHIMTA',
+    section1Title: 'Menene baby blues?',
+    section1Body1:
+      'Baby blues wani lokaci ne na sauyin zuciya da zai iya faruwa a kwanakin farko bayan haihuwa. Sauyin hormone, gajiya, rashin barci, da daidaitawa da wannan sabon mataki duk suna iya ƙara wannan rauni.',
+    section1Body2:
+      'Wannan ba kasawa ba ce kuma ba ya nufin ke uwa ce mara kyau. Kowa yana rayuwar kwanakin farko na bayan haihuwa ta hanyarta.',
+    statTitle: 'Abin da ya zama ruwan dare',
+    statText:
+      'Baby blues ya zama ruwan dare bayan haihuwa kuma yakan inganta da kansa cikin ’yan kwanaki.',
+    section2Kicker: 'ALAMOMI',
+    section2Title: 'Abin da za ki iya ji',
+    section2Body:
+      'Abin da mutane ke ji ya bambanta. Wasu galibi suna jin gajiya da rauni, wasu kuma za su iya samun sauyin yanayi mai bayyana sosai.',
+    commonSigns: [
+      {
+        title: 'Saurin kuka',
+        description: 'Yin kuka cikin sauƙi ko jin rauni sosai.',
+      },
+      {
+        title: 'Hankali sosai',
+        description: 'Ji na iya zama masu ƙarfi su kuma sauya da sauri.',
+      },
+      {
+        title: 'Sauyin yanayi',
+        description:
+          'Jin rauni na iya musanyawa da lokutan jin daɗi.',
+      },
+      {
+        title: 'Gajiya',
+        description: 'Gajiyar kwanakin farko na iya ƙara ji.',
+      },
+    ],
+    section3Kicker: 'KULLUM',
+    section3Title: 'Abin da zai iya taimakawa',
+    section3Body:
+      'A wannan lokaci, bukatar hutu tana da girma. Ƙananan abubuwa masu sauƙi na iya sa kwanaki su fi dacewa.',
+    dailySupport: [
+      {
+        title: 'Hutawa',
+        description: 'Yin amfani da duk lokutan hutu don samun lafiya.',
+      },
+      {
+        title: 'Karɓar taimako',
+        description: 'Kada ki yi jinkirin neman tallafi daga na kusa da ke.',
+      },
+      {
+        title: 'Shan ruwa akai-akai',
+        description: 'Ci gaba da shan isasshen ruwa a duk rana.',
+      },
+      {
+        title: 'Cin abinci sosai',
+        description: 'Fifita abinci na yau da kullum masu sauƙi.',
+      },
+    ],
+    quoteText:
+      '“Neman taimako bayan haihuwa wata hanya ce ta kula da kanki da jaririnki.”',
+    section4Kicker: 'BAMBANTA',
+    section4Title: 'Baby blues ko baƙin ciki bayan haihuwa?',
+    section4Body:
+      'Baby blues yawanci gajere ne kuma yana inganta a hankali. Baƙin ciki bayan haihuwa ya bambanta: zai iya dawwama, ya fi ƙarfi, kuma ya shafi rayuwar yau da kullum sosai.',
+    compareTitle: 'Yanayi biyu da za a bambanta',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Yawanci gajere, tare da ingantuwa a hankali a kwanakin da suka biyo baya.',
+    comparePostpartumTitle: 'Baƙin ciki bayan haihuwa',
+    comparePostpartumText:
+      'Zai iya ɗaukar lokaci mai tsawo, ya ƙaru, kuma ya buƙaci tallafin ƙwararre.',
+    section5Kicker: 'KULA',
+    section5Title: 'Yaushe za a nemi taimako?',
+    section5Body:
+      'Yana da muhimmanci a yi magana da ma’aikacin lafiya idan baƙin cikin bai inganta ba, ya ƙaru, ko ya fara sa rayuwar yau da kullum ta yi wahala.',
+    attentionTitle: 'Alamomin da za a lura da su',
+    attentionSubtitle: 'Yi magana da ƙwararre idan…',
+    attentionSigns: [
+      'Alamomin sun fi mako biyu.',
+      'Baƙin ciki ko fargaba ya ƙaru.',
+      'Kula da kanki ko jaririnki ya zama da wahala.',
+      'Jin damuwa mai yawa ya bayyana.',
+    ],
+    professionalTitle: 'Akwai tallafi',
+    professionalText:
+      'Ungozoma, likita, masanin halayyar ɗan adam, ko wani ma’aikacin lafiya zai iya saurarenki, ya tantance yanayin, ya kuma ba da tallafi mai dacewa.',
+    tipTitle: 'Abin da ya kamata ki sani',
+    tipText:
+      'Ji bayan haihuwa ba ma’auni ba ne na yadda kike uwa mai kyau. Kina da ’yancin bukatar hutu, a saurare ki, kuma a tallafa miki.',
+    section6Kicker: 'MUHIMMAN ABUBUWA',
+    section6Title: 'Muhimman abubuwa',
+    takeaways: [
+      'Baby blues ya zama ruwan dare bayan haihuwa.',
+      'Gajiya da sauyin hormone na iya shafar yanayi.',
+      'Tallafin na kusa da ke na iya sauƙaƙa wannan lokaci.',
+      'Damuwa mai ɗorewa ko mai yawa ta cancanci a tantance ta a wurin ƙwararre.',
+    ],
+    disclaimerText:
+      'Wannan labari don bayani ne kuma ba ya maye gurbin shawarar likita ta keɓaɓɓiya. Idan kina cikin shakka ko damuwa mai yawa, yi magana da ma’aikacin lafiya.',
+    endText: 'Kula da kanki ma wani ɓangare ne na bayan haihuwa.',
+    shareTitle: 'Baby blues da lafiyar zuciya bayan haihuwa',
+    shareMessage:
+      'Baby blues da lafiyar zuciya bayan haihuwa — AWA\n\nJagora don fahimtar sauye-sauyen zuciya da suka zama ruwan dare bayan haihuwa.',
+  },
+  am: {
+    badgeText: 'ከወሊድ በኋላ • ስሜታዊ ጤና',
+    title: 'ቤቢ ብሉስ እና ከወሊድ በኋላ\nስሜታዊ ጤና',
+    subtitle:
+      'ከወሊድ በኋላ በስሜት ላይ ሊለወጥ የሚችለውን መረዳት እና ድጋፍ መቼ መፈለግ እንዳለብሽ ማወቅ።',
+    metaItems: ['10 ደቂቃ ንባብ', 'ጽሑፍ', 'ጀማሪ', 'የተረጋገጠ ይዘት'],
+    introTitle: 'ማወቅ ጠቃሚ ነው',
+    introText:
+      'ከወሊድ በኋላ ለተወሰነ ጊዜ ስሜት ከመጠን በላይ መጨመሩ የተለመደ ነው። ቤቢ ብሉስ ብዙውን ጊዜ ጊዜያዊ ነው፣ ነገር ግን የሚቀጥል ወይም የሚጨምር ሐዘን የባለሙያ ትኩረት ይገባዋል።',
+    contentsEyebrow: 'መመሪያ',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    contents: [
+      'ቤቢ ብሉስን መረዳት',
+      'በጣም የተለመዱ ምልክቶች',
+      'በየቀኑ የሚረዳው',
+      'ቤቢ ብሉስ ወይስ ከወሊድ በኋላ ድብርት?',
+      'እርዳታ መቼ መጠየቅ',
+      'ዋና ዋና ነጥቦች',
+    ],
+    section1Kicker: 'መረዳት',
+    section1Title: 'ቤቢ ብሉስ ምንድን ነው?',
+    section1Body1:
+      'ቤቢ ብሉስ ከወለድሽ በኋላ በመጀመሪያዎቹ ጥቂት ቀናት ሊከሰት የሚችል የስሜት ለውጥ ጊዜ ነው። የሆርሞን ለውጦች፣ ድካም፣ የእንቅልፍ እጦት እና ከዚህ አዲስ ደረጃ ጋር መላመድ ሁሉም ለዚህ ስሜታዊነት አስተዋጽኦ ሊያደርጉ ይችላሉ።',
+    section1Body2:
+      'ይህ ውድቀት አይደለም እንዲሁም መጥፎ እናት ነሽ ማለት አይደለም። እያንዳንዱ ሰው የከወሊድ በኋላ የመጀመሪያ ቀናትን በራሱ መንገድ ያሳልፋል።',
+    statTitle: 'የተለመደ ተሞክሮ',
+    statText:
+      'ቤቢ ብሉስ ከወሊድ በኋላ የተለመደ ሲሆን በጥቂት ቀናት ውስጥ በራሱ የመሻሻል ዝንባሌ አለው።',
+    section2Kicker: 'ምልክቶቹ',
+    section2Title: 'ምን ሊሰማሽ ይችላል',
+    section2Body:
+      'ሰዎች የሚሰማቸው ይለያያል። አንዳንዶች በዋናነት ድካምና ስሜታዊነት ይሰማቸዋል፣ ሌሎች ደግሞ ይበልጥ የሚታይ የስሜት ለውጥ ሊኖራቸው ይችላል።',
+    commonSigns: [
+      {
+        title: 'ስሜታዊነት',
+        description: 'በቀላሉ ማልቀስ ወይም በተለይ ስሜታዊ መሆን።',
+      },
+      {
+        title: 'ከልክ ያለፈ ስሜታዊነት',
+        description: 'ስሜቶች ይበልጥ ጠንካራ ሊሰማቸው እና በፍጥነት ሊለዋወጡ ይችላሉ።',
+      },
+      {
+        title: 'የስሜት መለዋወጥ',
+        description:
+          'የመሰበር ስሜት ከደህንነት አፍታዎች ጋር ሊፈራረቅ ይችላል።',
+      },
+      {
+        title: 'ድካም',
+        description: 'ከመጀመሪያዎቹ ቀናት የሚመጣ ድካም ስሜቶችን ሊያጎላ ይችላል።',
+      },
+    ],
+    section3Kicker: 'በየቀኑ',
+    section3Title: 'ምን ሊረዳ ይችላል',
+    section3Body:
+      'በዚህ ጊዜ የእረፍት ፍላጎት ከፍተኛ ነው። ትናንሽ፣ ቀላል ነገሮች ቀናትን ይበልጥ ምቹ ሊያደርጉ ይችላሉ።',
+    dailySupport: [
+      {
+        title: 'ማረፍ',
+        description: 'ለማገገም ማንኛውንም ነፃ ጊዜ መጠቀም።',
+      },
+      {
+        title: 'እርዳታ መቀበል',
+        description: 'በአካባቢሽ ካሉ ሰዎች ድጋፍ ለመጠየቅ አትዘገዪ።',
+      },
+      {
+        title: 'በየጊዜው ውሃ መጠጣት',
+        description: 'በቀኑ ውስጥ በቂ ውሃ መጠጣት።',
+      },
+      {
+        title: 'በቂ መብላት',
+        description: 'መደበኛና ቀላል ምግቦችን መምረጥ።',
+      },
+    ],
+    quoteText:
+      '“ከወሊድ በኋላ እርዳታ መጠየቅ ራስሽንና ሕፃንሽን የመንከባከብ መንገድ ነው።”',
+    section4Kicker: 'መለየት',
+    section4Title: 'ቤቢ ብሉስ ወይስ ከወሊድ በኋላ ድብርት?',
+    section4Body:
+      'ቤቢ ብሉስ ብዙውን ጊዜ አጭር ሲሆን ቀስ በቀስ ይሻሻላል። ከወሊድ በኋላ ድብርት የተለየ ነው፦ ይበልጥ ሊቆይ፣ ይበልጥ ጠንካራ ሊሆን እና በዕለት ሕይወት ላይ ከፍተኛ ተጽእኖ ሊኖረው ይችላል።',
+    compareTitle: 'ልንለያቸው የሚገቡ ሁለት ሁኔታዎች',
+    compareBabyBluesTitle: 'ቤቢ ብሉስ',
+    compareBabyBluesText:
+      'ብዙውን ጊዜ አጭር፣ በሚቀጥሉት ቀናት ቀስ በቀስ ከሚሻሻል ጋር።',
+    comparePostpartumTitle: 'ከወሊድ በኋላ ድብርት',
+    comparePostpartumText:
+      'ረዘም ሊል፣ ሊጠናከር እና የባለሙያ ድጋፍ ሊያስፈልግ ይችላል።',
+    section5Kicker: 'ንቁ መሆን',
+    section5Title: 'እርዳታ መቼ መጠየቅ?',
+    section5Body:
+      'የስሜት ሐዘኑ ካልተሻሻለ፣ ከጠነከረ ወይም የዕለት ሕይወትን ማከበድ ከጀመረ የጤና ባለሙያ ጋር መነጋገር አስፈላጊ ነው።',
+    attentionTitle: 'ልብ ልትይው የሚገቡ የማስጠንቀቂያ ምልክቶች',
+    attentionSubtitle: 'ከባለሙያ ጋር ተነጋገሪ ከሆነ…',
+    attentionSigns: [
+      'ምልክቶች ከሁለት ሳምንት በላይ ቢቆዩ።',
+      'ሐዘን ወይም ጭንቀት ቢጠነክር።',
+      'ራስሽን ወይም ሕፃንሽን መንከባከብ ቢከብድ።',
+      'ከፍተኛ የሐዘን ስሜት ቢመጣ።',
+    ],
+    professionalTitle: 'ድጋፍ አለ',
+    professionalText:
+      'ሚድዋይፍ፣ ሐኪም፣ ሳይኮሎጂስት ወይም ሌላ የጤና ባለሙያ ሊያዳምጥሽ፣ ሁኔታውን ሊገመግምና ተገቢ ድጋፍ ሊሰጥ ይችላል።',
+    tipTitle: 'ማወቅ ጠቃሚ ነው',
+    tipText:
+      'ከወሊድ በኋላ ያሉ ስሜቶች ምን ያህል ጥሩ እናት እንደሆንሽ መለኪያ አይደሉም። እረፍት የመፈለግ፣ የመደመጥና የመደገፍ መብት አለሽ።',
+    section6Kicker: 'ዋና ነጥቦች',
+    section6Title: 'ዋና ዋና ነጥቦች',
+    takeaways: [
+      'ቤቢ ብሉስ ከወሊድ በኋላ የተለመደ ነው።',
+      'ድካምና የሆርሞን ለውጦች ስሜትን ሊነኩ ይችላሉ።',
+      'በአካባቢሽ ካሉ ሰዎች የሚገኝ ድጋፍ ይህን ጊዜ ሊያቀልል ይችላል።',
+      'የሚቀጥል ወይም ከፍተኛ ሐዘን የባለሙያ ግምገማ ይገባዋል።',
+    ],
+    disclaimerText:
+      'ይህ ጽሑፍ ለመረጃ ነው እና የግል የሕክምና ምክርን አይተካም። ጥርጣሬ ካለሽ ወይም ከፍተኛ ሐዘን ከተሰማሽ ከጤና ባለሙያ ጋር ተነጋገሪ።',
+    endText: 'ራስን መንከባከብም የከወሊድ በኋላ አካል ነው።',
+    shareTitle: 'ቤቢ ብሉስ እና ከወሊድ በኋላ ስሜታዊ ጤና',
+    shareMessage:
+      'ቤቢ ብሉስ እና ከወሊድ በኋላ ስሜታዊ ጤና — AWA\n\nከወሊድ በኋላ የተለመዱ የስሜት ለውጦችን ለመረዳት መመሪያ።',
+  },
+  nl: {
+    badgeText: 'NA DE BEVALLING • EMOTIONELE GEZONDHEID',
+    title: 'Babyblues en emotionele\ngezondheid na de bevalling',
+    subtitle:
+      'Begrijpen wat er na de bevalling emotioneel kan veranderen en weten wanneer je steun moet zoeken.',
+    metaItems: ['10 min lezen', 'Artikel', 'Beginner', 'Gecontroleerde inhoud'],
+    introTitle: 'Goed om te weten',
+    introText:
+      'Na de bevalling is het gebruikelijk een periode van verhoogde emotionele gevoeligheid door te maken. De babyblues is meestal tijdelijk, maar aanhoudend of toenemend ongemak verdient professionele aandacht.',
+    contentsEyebrow: 'GIDS',
+    contentsTitle: 'In dit artikel',
+    contents: [
+      'De babyblues begrijpen',
+      'De meest voorkomende tekenen',
+      'Wat dagelijks helpt',
+      'Babyblues of postnatale depressie?',
+      'Wanneer je hulp moet vragen',
+      'Belangrijkste punten',
+    ],
+    section1Kicker: 'BEGRIJPEN',
+    section1Title: 'Wat is de babyblues?',
+    section1Body1:
+      'De babyblues is een periode van emotionele veranderingen die in de eerste dagen na de bevalling kan optreden. Hormonale veranderingen, vermoeidheid, slaapgebrek en het wennen aan deze nieuwe fase kunnen allemaal bijdragen aan deze gevoeligheid.',
+    section1Body2:
+      'Dit is geen falen en het betekent niet dat je een slechte moeder bent. Iedereen beleeft de eerste dagen na de bevalling op zijn of haar eigen manier.',
+    statTitle: 'Een veelvoorkomende ervaring',
+    statText:
+      'De babyblues komt vaak voor na een bevalling en verbetert meestal vanzelf binnen enkele dagen.',
+    section2Kicker: 'DE TEKENEN',
+    section2Title: 'Wat je kunt voelen',
+    section2Body:
+      'Wat mensen ervaren verschilt. Sommigen voelen vooral vermoeidheid en gevoeligheid, anderen hebben meer merkbare stemmingswisselingen.',
+    commonSigns: [
+      {
+        title: 'Emotioneel zijn',
+        description: 'Sneller huilen of je bijzonder gevoelig voelen.',
+      },
+      {
+        title: 'Overgevoeligheid',
+        description: 'Emoties kunnen sterker aanvoelen en snel wisselen.',
+      },
+      {
+        title: 'Stemmingswisselingen',
+        description:
+          'Een gevoel van kwetsbaarheid kan worden afgewisseld met momenten van welzijn.',
+      },
+      {
+        title: 'Vermoeidheid',
+        description: 'Vermoeidheid van de eerste dagen kan emoties versterken.',
+      },
+    ],
+    section3Kicker: 'DAGELIJKS',
+    section3Title: 'Wat kan helpen',
+    section3Body:
+      'In deze periode is de behoefte aan rust groot. Kleine, eenvoudige dingen kunnen de dagen aangenamer maken.',
+    dailySupport: [
+      {
+        title: 'Rusten',
+        description: 'Gebruik elk vrij moment om te herstellen.',
+      },
+      {
+        title: 'Hulp aannemen',
+        description: 'Aarzel niet om steun te vragen aan mensen om je heen.',
+      },
+      {
+        title: 'Regelmatig drinken',
+        description: 'Zorg dat je de hele dag voldoende vocht binnenkrijgt.',
+      },
+      {
+        title: 'Voldoende eten',
+        description: 'Geef de voorkeur aan regelmatige, eenvoudige maaltijden.',
+      },
+    ],
+    quoteText:
+      '“Om hulp vragen na de bevalling is een manier om voor jezelf en je baby te zorgen.”',
+    section4Kicker: 'HET ONDERSCHEID',
+    section4Title: 'Babyblues of postnatale depressie?',
+    section4Body:
+      'De babyblues is meestal kort en verbetert geleidelijk. Een postnatale depressie is anders: die kan aanhoudender en intenser zijn en een grote impact hebben op het dagelijks leven.',
+    compareTitle: 'Twee situaties om te onderscheiden',
+    compareBabyBluesTitle: 'Babyblues',
+    compareBabyBluesText:
+      'Vaak kort, met geleidelijke verbetering in de dagen erna.',
+    comparePostpartumTitle: 'Postnatale depressie',
+    comparePostpartumText:
+      'Kan langer duren, erger worden en professionele ondersteuning vereisen.',
+    section5Kicker: 'ALERT BLIJVEN',
+    section5Title: 'Wanneer hulp vragen?',
+    section5Body:
+      'Het is belangrijk om met een zorgverlener te praten als het emotionele ongemak niet verbetert, heviger wordt of het dagelijks leven moeilijker begint te maken.',
+    attentionTitle: 'Waarschuwingssignalen om op te letten',
+    attentionSubtitle: 'Praat met een professional als…',
+    attentionSigns: [
+      'De symptomen langer dan twee weken duren.',
+      'Verdriet of angst heviger wordt.',
+      'Het moeilijk wordt om voor jezelf of je baby te zorgen.',
+      'Er een sterk gevoel van onwel zijn ontstaat.',
+    ],
+    professionalTitle: 'Er is steun beschikbaar',
+    professionalText:
+      'Een verloskundige, huisarts, psycholoog of andere zorgverlener kan luisteren, de situatie beoordelen en passende ondersteuning bieden.',
+    tipTitle: 'Goed om te weten',
+    tipText:
+      'Emoties na de bevalling zeggen niets over wat voor moeder je bent. Je hebt het recht om rust nodig te hebben, gehoord te worden en ondersteund te worden.',
+    section6Kicker: 'BELANGRIJKE PUNTEN',
+    section6Title: 'Belangrijkste punten',
+    takeaways: [
+      'De babyblues komt vaak voor na een bevalling.',
+      'Vermoeidheid en hormonale veranderingen kunnen je stemming beïnvloeden.',
+      'Steun van mensen om je heen kan deze periode gemakkelijker maken.',
+      'Aanhoudend of ernstig ongemak verdient een professionele beoordeling.',
+    ],
+    disclaimerText:
+      'Dit artikel is bedoeld ter informatie en vervangt geen persoonlijk medisch advies. Bij twijfel of ernstig ongemak: praat met een zorgverlener.',
+    endText: 'Goed voor jezelf zorgen hoort ook bij de periode na de bevalling.',
+    shareTitle: 'Babyblues en emotionele gezondheid na de bevalling',
+    shareMessage:
+      'Babyblues en emotionele gezondheid na de bevalling — AWA\n\nEen gids om de emotionele veranderingen te begrijpen die vaak voorkomen na de bevalling.',
+  },
+  fi: {
+    badgeText: 'SYNNYTYKSEN JÄLKEEN • HENKINEN TERVEYS',
+    title: 'Baby blues ja synnytyksen jälkeinen\nhenkinen terveys',
+    subtitle:
+      'Ymmärrä, mikä voi muuttua henkisesti synnytyksen jälkeen, ja tiedä, milloin hakea tukea.',
+    metaItems: ['10 min lukuaika', 'Artikkeli', 'Aloittelija', 'Tarkistettu sisältö'],
+    introTitle: 'Hyvä tietää',
+    introText:
+      'Synnytyksen jälkeen on tavallista käydä läpi jakso, jolloin tunneherkkyys on tavallista suurempi. Baby blues on yleensä ohimenevä, mutta aiheuttama ahdistus, joka jatkuu tai voimistuu, ansaitsee ammattilaisen huomion.',
+    contentsEyebrow: 'OPAS',
+    contentsTitle: 'Tässä artikkelissa',
+    contents: [
+      'Baby bluesin ymmärtäminen',
+      'Yleisimmät merkit',
+      'Mikä auttaa arjessa',
+      'Baby blues vai synnytyksen jälkeinen masennus?',
+      'Milloin pyytää apua',
+      'Tärkeimmät asiat',
+    ],
+    section1Kicker: 'YMMÄRTÄMINEN',
+    section1Title: 'Mikä on baby blues?',
+    section1Body1:
+      'Baby blues on tunteiden muutosten jakso, jota voi esiintyä ensimmäisinä päivinä synnytyksen jälkeen. Hormonaaliset muutokset, väsymys, unen puute ja sopeutuminen tähän uuteen vaiheeseen voivat kaikki edistää tätä herkkyyttä.',
+    section1Body2:
+      'Tämä ei ole epäonnistuminen, eikä se tarkoita, että olisit huono äiti. Jokainen kokee synnytyksen jälkeiset ensimmäiset päivät omalla tavallaan.',
+    statTitle: 'Yleinen kokemus',
+    statText:
+      'Baby blues on yleinen synnytyksen jälkeen, ja se yleensä helpottaa itsestään muutaman päivän kuluessa.',
+    section2Kicker: 'MERKIT',
+    section2Title: 'Mitä saatat tuntea',
+    section2Body:
+      'Kokemukset vaihtelevat. Jotkut tuntevat lähinnä väsymystä ja herkkyyttä, kun taas toisilla mielialan muutokset voivat olla selvempiä.',
+    commonSigns: [
+      {
+        title: 'Tunteellisuus',
+        description: 'Itkuherkkyys tai erityinen herkkyys.',
+      },
+      {
+        title: 'Yliherkkyys',
+        description: 'Tunteet voivat tuntua voimakkaammilta ja vaihtua nopeasti.',
+      },
+      {
+        title: 'Mielialan vaihtelut',
+        description:
+          'Haurauden tunne voi vuorotella hyvinvoinnin hetkien kanssa.',
+      },
+      {
+        title: 'Väsymys',
+        description: 'Ensimmäisten päivien väsymys voi vahvistaa tunteita.',
+      },
+    ],
+    section3Kicker: 'ARJESSA',
+    section3Title: 'Mikä voi auttaa',
+    section3Body:
+      'Tänä aikana levon tarve on suuri. Pienet, yksinkertaiset asiat voivat tehdä päivistä miellyttävämpiä.',
+    dailySupport: [
+      {
+        title: 'Lepääminen',
+        description: 'Hyödynnä kaikki vapaat hetket palautumiseen.',
+      },
+      {
+        title: 'Avun vastaanottaminen',
+        description: 'Älä epäröi pyytää tukea läheisiltäsi.',
+      },
+      {
+        title: 'Säännöllinen juominen',
+        description: 'Pysy riittävän nesteytettynä koko päivän.',
+      },
+      {
+        title: 'Riittävä syöminen',
+        description: 'Suosi säännöllisiä, yksinkertaisia aterioita.',
+      },
+    ],
+    quoteText:
+      '“Avun pyytäminen synnytyksen jälkeen on tapa pitää huolta itsestäsi ja vauvastasi.”',
+    section4Kicker: 'EROTTAMINEN',
+    section4Title: 'Baby blues vai synnytyksen jälkeinen masennus?',
+    section4Body:
+      'Baby blues on yleensä lyhytkestoinen ja helpottaa vähitellen. Synnytyksen jälkeinen masennus on erilainen: se voi olla pitkäkestoisempi, voimakkaampi ja vaikuttaa merkittävästi arkeen.',
+    compareTitle: 'Kaksi erotettavaa tilannetta',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Usein lyhytkestoinen, ja se helpottaa vähitellen seuraavien päivien aikana.',
+    comparePostpartumTitle: 'Synnytyksen jälkeinen masennus',
+    comparePostpartumText:
+      'Voi kestää pidempään, voimistua ja vaatia ammattilaisen tukea.',
+    section5Kicker: 'VALPPAANA PYSYMINEN',
+    section5Title: 'Milloin pyytää apua?',
+    section5Body:
+      'On tärkeää puhua terveydenhuollon ammattilaisen kanssa, jos henkinen ahdistus ei helpotu, muuttuu voimakkaammaksi tai alkaa vaikeuttaa arkea.',
+    attentionTitle: 'Huomioitavat varoitusmerkit',
+    attentionSubtitle: 'Puhu ammattilaiselle, jos…',
+    attentionSigns: [
+      'Oireet kestävät yli kaksi viikkoa.',
+      'Suru tai ahdistus voimistuu.',
+      'Itsestä tai vauvasta huolehtiminen käy vaikeaksi.',
+      'Ilmaantuu merkittävä ahdistuksen tunne.',
+    ],
+    professionalTitle: 'Tukea on saatavilla',
+    professionalText:
+      'Kätilö, lääkäri, psykologi tai muu terveydenhuollon ammattilainen voi kuunnella, arvioida tilannetta ja tarjota sopivaa tukea.',
+    tipTitle: 'Hyvä tietää',
+    tipText:
+      'Synnytyksen jälkeiset tunteet eivät mittaa sitä, kuinka hyvä äiti olet. Sinulla on oikeus tarvita lepoa, tulla kuulluksi ja saada tukea.',
+    section6Kicker: 'TÄRKEÄT KOHDAT',
+    section6Title: 'Tärkeimmät asiat',
+    takeaways: [
+      'Baby blues on yleinen synnytyksen jälkeen.',
+      'Väsymys ja hormonaaliset muutokset voivat vaikuttaa mielialaan.',
+      'Läheisten tuki voi helpottaa tätä jaksoa.',
+      'Jatkuva tai merkittävä ahdistus ansaitsee ammattilaisen arvion.',
+    ],
+    disclaimerText:
+      'Tämä artikkeli on tarkoitettu tiedoksi eikä korvaa henkilökohtaista lääketieteellistä neuvontaa. Jos olet epävarma tai koet merkittävää ahdistusta, puhu terveydenhuollon ammattilaisen kanssa.',
+    endText: 'Itsestäsi huolehtiminen kuuluu myös synnytyksen jälkeiseen aikaan.',
+    shareTitle: 'Baby blues ja synnytyksen jälkeinen henkinen terveys',
+    shareMessage:
+      'Baby blues ja synnytyksen jälkeinen henkinen terveys — AWA\n\nOpas synnytyksen jälkeisten tavallisten tunnemuutosten ymmärtämiseen.',
+  },
+  el: {
+    badgeText: 'ΛΟΧΕΙΑ • ΣΥΝΑΙΣΘΗΜΑΤΙΚΗ ΥΓΕΙΑ',
+    title: 'Baby blues και συναισθηματική\nυγεία μετά τον τοκετό',
+    subtitle:
+      'Κατανόησε τι μπορεί να αλλάξει συναισθηματικά μετά τον τοκετό και μάθε πότε να ζητήσεις στήριξη.',
+    metaItems: ['10 λεπτά ανάγνωσης', 'Άρθρο', 'Αρχάριο', 'Ελεγμένο περιεχόμενο'],
+    introTitle: 'Καλό είναι να γνωρίζεις',
+    introText:
+      'Μετά τον τοκετό είναι συνηθισμένο να περνάς μια περίοδο αυξημένης συναισθηματικής ευαισθησίας. Το baby blues είναι συνήθως παροδικό, αλλά η δυσφορία που επιμένει ή εντείνεται αξίζει την προσοχή ενός επαγγελματία.',
+    contentsEyebrow: 'ΟΔΗΓΟΣ',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    contents: [
+      'Κατανοώντας το baby blues',
+      'Τα πιο συχνά σημάδια',
+      'Τι βοηθά στην καθημερινότητα',
+      'Baby blues ή λοχειακή κατάθλιψη;',
+      'Πότε να ζητήσεις βοήθεια',
+      'Βασικά συμπεράσματα',
+    ],
+    section1Kicker: 'ΚΑΤΑΝΟΗΣΗ',
+    section1Title: 'Τι είναι το baby blues;',
+    section1Body1:
+      'Το baby blues είναι μια περίοδος συναισθηματικών αλλαγών που μπορεί να εμφανιστεί τις πρώτες ημέρες μετά τον τοκετό. Οι ορμονικές μεταβολές, η κόπωση, η έλλειψη ύπνου και η προσαρμογή σε αυτό το νέο στάδιο μπορούν να συμβάλλουν σε αυτή την ευαισθησία.',
+    section1Body2:
+      'Αυτό δεν είναι αποτυχία και δεν σημαίνει ότι είσαι κακή μητέρα. Καθεμία βιώνει τις πρώτες ημέρες της λοχείας με τον δικό της τρόπο.',
+    statTitle: 'Μια συχνή εμπειρία',
+    statText:
+      'Το baby blues είναι συχνό μετά τον τοκετό και τείνει να υποχωρεί από μόνο του μέσα σε λίγες ημέρες.',
+    section2Kicker: 'ΤΑ ΣΗΜΑΔΙΑ',
+    section2Title: 'Τι μπορεί να νιώθεις',
+    section2Body:
+      'Όσα βιώνει κανείς διαφέρουν. Ορισμένες γυναίκες νιώθουν κυρίως κόπωση και ευαισθησία, ενώ άλλες μπορεί να έχουν πιο έντονες αλλαγές διάθεσης.',
+    commonSigns: [
+      {
+        title: 'Συναισθηματική φόρτιση',
+        description: 'Να κλαις πιο εύκολα ή να νιώθεις ιδιαίτερα ευαίσθητη.',
+      },
+      {
+        title: 'Υπερευαισθησία',
+        description: 'Τα συναισθήματα μπορεί να φαίνονται πιο έντονα και να αλλάζουν γρήγορα.',
+      },
+      {
+        title: 'Εναλλαγές διάθεσης',
+        description:
+          'Ένα αίσθημα ευθραυστότητας μπορεί να εναλλάσσεται με στιγμές ευεξίας.',
+      },
+      {
+        title: 'Κόπωση',
+        description: 'Η κόπωση των πρώτων ημερών μπορεί να ενισχύσει τα συναισθήματα.',
+      },
+    ],
+    section3Kicker: 'ΚΑΘΗΜΕΡΙΝΟΤΗΤΑ',
+    section3Title: 'Τι μπορεί να βοηθήσει',
+    section3Body:
+      'Σε αυτή την περίοδο η ανάγκη για ξεκούραση είναι μεγάλη. Μικρά, απλά πράγματα μπορούν να κάνουν τις ημέρες πιο άνετες.',
+    dailySupport: [
+      {
+        title: 'Ξεκούραση',
+        description: 'Εκμεταλλεύσου κάθε ελεύθερη στιγμή για να αναρρώσεις.',
+      },
+      {
+        title: 'Αποδοχή βοήθειας',
+        description: 'Μην διστάσεις να ζητήσεις στήριξη από τους γύρω σου.',
+      },
+      {
+        title: 'Τακτική πρόσληψη υγρών',
+        description: 'Να παραμένεις επαρκώς ενυδατωμένη κατά τη διάρκεια της ημέρας.',
+      },
+      {
+        title: 'Επαρκής διατροφή',
+        description: 'Προτίμησε τακτικά, απλά γεύματα.',
+      },
+    ],
+    quoteText:
+      '«Το να ζητάς βοήθεια στη λοχεία είναι ένας τρόπος να φροντίζεις τον εαυτό σου και το μωρό σου.»',
+    section4Kicker: 'ΔΙΑΧΩΡΙΣΜΟΣ',
+    section4Title: 'Baby blues ή λοχειακή κατάθλιψη;',
+    section4Body:
+      'Το baby blues είναι συνήθως σύντομο και βελτιώνεται σταδιακά. Η λοχειακή κατάθλιψη είναι διαφορετική: μπορεί να είναι πιο επίμονη, πιο έντονη και να επηρεάζει σημαντικά την καθημερινή ζωή.',
+    compareTitle: 'Δύο καταστάσεις που πρέπει να ξεχωρίζεις',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Συχνά σύντομο, με σταδιακή βελτίωση τις επόμενες ημέρες.',
+    comparePostpartumTitle: 'Λοχειακή κατάθλιψη',
+    comparePostpartumText:
+      'Μπορεί να διαρκέσει περισσότερο, να εντείνεται και να χρειάζεται επαγγελματική στήριξη.',
+    section5Kicker: 'ΠΑΡΑΜΕΝΟΝΤΑΣ ΕΠΑΓΡΥΠΝΗ',
+    section5Title: 'Πότε να ζητήσεις βοήθεια;',
+    section5Body:
+      'Είναι σημαντικό να μιλήσεις με έναν επαγγελματία υγείας αν η συναισθηματική δυσφορία δεν βελτιώνεται, γίνεται πιο έντονη ή αρχίζει να δυσκολεύει την καθημερινή ζωή.',
+    attentionTitle: 'Προειδοποιητικά σημάδια που πρέπει να προσέξεις',
+    attentionSubtitle: 'Μίλησε με έναν επαγγελματία αν…',
+    attentionSigns: [
+      'Τα συμπτώματα διαρκούν περισσότερο από δύο εβδομάδες.',
+      'Η λύπη ή το άγχος γίνεται πιο έντονο.',
+      'Γίνεται δύσκολο να φροντίσεις τον εαυτό σου ή το μωρό σου.',
+      'Εμφανίζεται ένα έντονο αίσθημα δυσφορίας.',
+    ],
+    professionalTitle: 'Υπάρχει στήριξη',
+    professionalText:
+      'Μια μαία, ένας γιατρός, ένας ψυχολόγος ή άλλος επαγγελματίας υγείας μπορεί να σε ακούσει, να αξιολογήσει την κατάσταση και να προτείνει κατάλληλη στήριξη.',
+    tipTitle: 'Καλό είναι να γνωρίζεις',
+    tipText:
+      'Τα συναισθήματα της λοχείας δεν αποτελούν μέτρο του πόσο καλή μητέρα είσαι. Έχεις δικαίωμα να χρειάζεσαι ξεκούραση, να σε ακούνε και να σε στηρίζουν.',
+    section6Kicker: 'ΒΑΣΙΚΑ ΣΗΜΕΙΑ',
+    section6Title: 'Βασικά συμπεράσματα',
+    takeaways: [
+      'Το baby blues είναι συχνό μετά τον τοκετό.',
+      'Η κόπωση και οι ορμονικές αλλαγές μπορούν να επηρεάσουν τη διάθεση.',
+      'Η στήριξη των γύρω σου μπορεί να κάνει αυτή την περίοδο ευκολότερη.',
+      'Η επίμονη ή έντονη δυσφορία αξίζει επαγγελματική αξιολόγηση.',
+    ],
+    disclaimerText:
+      'Αυτό το άρθρο είναι ενημερωτικό και δεν αντικαθιστά εξατομικευμένη ιατρική συμβουλή. Αν έχεις αμφιβολίες ή νιώθεις έντονη δυσφορία, μίλησε με έναν επαγγελματία υγείας.',
+    endText: 'Το να φροντίζεις τον εαυτό σου είναι επίσης μέρος της λοχείας.',
+    shareTitle: 'Baby blues και συναισθηματική υγεία μετά τον τοκετό',
+    shareMessage:
+      'Baby blues και συναισθηματική υγεία μετά τον τοκετό — AWA\n\nΈνας οδηγός για να κατανοήσεις τις συναισθηματικές αλλαγές που είναι συχνές μετά τον τοκετό.',
+  },
+  fil: {
+    badgeText: 'PAGKATAPOS MANGANAK • EMOSYONAL NA KALUSUGAN',
+    title: 'Baby blues at emosyonal na\nkalusugan pagkatapos manganak',
+    subtitle:
+      'Unawain ang maaaring magbago sa damdamin pagkatapos manganak at alamin kung kailan hihingi ng suporta.',
+    metaItems: ['10 min na babasahin', 'Artikulo', 'Baguhan', 'Sinuring nilalaman'],
+    introTitle: 'Mabuting malaman',
+    introText:
+      'Pagkatapos manganak, karaniwan ang makaranas ng panahon ng mas matinding emosyonal na pagiging sensitibo. Karaniwang pansamantala lamang ang baby blues, ngunit karapat-dapat sa atensyon ng propesyonal ang paghihirap na nagpapatuloy o lumalala.',
+    contentsEyebrow: 'GABAY',
+    contentsTitle: 'Sa artikulong ito',
+    contents: [
+      'Pag-unawa sa baby blues',
+      'Ang mga pinakakaraniwang senyales',
+      'Ang nakakatulong sa araw-araw',
+      'Baby blues o postpartum depression?',
+      'Kailan hihingi ng tulong',
+      'Mahahalagang tandaan',
+    ],
+    section1Kicker: 'PAG-UNAWA',
+    section1Title: 'Ano ang baby blues?',
+    section1Body1:
+      'Ang baby blues ay panahon ng mga pagbabago sa damdamin na maaaring mangyari sa mga unang araw pagkatapos manganak. Maaaring mag-ambag sa pagiging sensitibong ito ang mga pagbabago sa hormone, pagod, kakulangan sa tulog, at pag-aangkop sa bagong yugtong ito.',
+    section1Body2:
+      'Hindi ito pagkabigo at hindi ito nangangahulugang masama kang ina. Iba-iba ang pagdanas ng bawat babae sa mga unang araw pagkatapos manganak.',
+    statTitle: 'Isang karaniwang karanasan',
+    statText:
+      'Karaniwan ang baby blues pagkatapos manganak at kusang gumagaling sa loob ng ilang araw.',
+    section2Kicker: 'ANG MGA SENYALES',
+    section2Title: 'Ang maaari mong maramdaman',
+    section2Body:
+      'Nag-iiba ang nararanasan ng bawat isa. May ilang pangunahing pagod at pagiging sensitibo ang nararamdaman, habang ang iba ay maaaring may mas kapansin-pansing pagbabago ng mood.',
+    commonSigns: [
+      {
+        title: 'Pagiging emosyonal',
+        description: 'Mas madaling umiyak o pakiramdam na lalo kang sensitibo.',
+      },
+      {
+        title: 'Labis na pagiging sensitibo',
+        description: 'Maaaring mas matindi ang pakiramdam ng mga damdamin at mabilis magbago.',
+      },
+      {
+        title: 'Pabago-bagong mood',
+        description:
+          'Maaaring salitan ng mga sandali ng ginhawa ang pakiramdam ng pagiging marupok.',
+      },
+      {
+        title: 'Pagod',
+        description: 'Maaaring palakasin ng pagod sa mga unang araw ang mga damdamin.',
+      },
+    ],
+    section3Kicker: 'ARAW-ARAW',
+    section3Title: 'Ang makakatulong',
+    section3Body:
+      'Sa panahong ito, malaki ang pangangailangan sa pahinga. Makakapagpagaan ng mga araw ang maliliit at simpleng bagay.',
+    dailySupport: [
+      {
+        title: 'Pagpapahinga',
+        description: 'Samantalahin ang anumang libreng sandali para gumaling.',
+      },
+      {
+        title: 'Pagtanggap ng tulong',
+        description: 'Huwag mag-atubiling humingi ng suporta sa mga nasa paligid mo.',
+      },
+      {
+        title: 'Regular na pag-inom',
+        description: 'Manatiling sapat ang hydration sa buong araw.',
+      },
+      {
+        title: 'Sapat na pagkain',
+        description: 'Piliin ang regular at simpleng mga pagkain.',
+      },
+    ],
+    quoteText:
+      '“Ang paghingi ng tulong pagkatapos manganak ay paraan ng pag-aalaga sa sarili at sa iyong sanggol.”',
+    section4Kicker: 'PAGKAKAIBA',
+    section4Title: 'Baby blues o postpartum depression?',
+    section4Body:
+      'Karaniwang maikli ang baby blues at unti-unting gumagaling. Iba ang postpartum depression: maaari itong mas matagal, mas matindi, at may malaking epekto sa pang-araw-araw na buhay.',
+    compareTitle: 'Dalawang kalagayang dapat paghiwalayin',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Madalas maikli, na may unti-unting paggaling sa mga sumunod na araw.',
+    comparePostpartumTitle: 'Postpartum depression',
+    comparePostpartumText:
+      'Maaaring mas matagal, lumala, at mangailangan ng propesyonal na suporta.',
+    section5Kicker: 'PANANATILING MAPAGMASID',
+    section5Title: 'Kailan hihingi ng tulong?',
+    section5Body:
+      'Mahalagang kausapin ang isang propesyonal sa kalusugan kung hindi gumagaling ang emosyonal na paghihirap, lumalala, o nagsisimulang pahirapan ang pang-araw-araw na buhay.',
+    attentionTitle: 'Mga babalang senyales na dapat bantayan',
+    attentionSubtitle: 'Makipag-usap sa isang propesyonal kung…',
+    attentionSigns: [
+      'Tumatagal nang higit sa dalawang linggo ang mga sintomas.',
+      'Lumalala ang lungkot o pagkabalisa.',
+      'Nagiging mahirap alagaan ang sarili o ang iyong sanggol.',
+      'Lumilitaw ang matinding pakiramdam ng paghihirap.',
+    ],
+    professionalTitle: 'May magagamit na suporta',
+    professionalText:
+      'Maaaring makinig, suriin ang sitwasyon, at mag-alok ng angkop na suporta ang isang komadrona, doktor, psychologist, o ibang propesyonal sa kalusugan.',
+    tipTitle: 'Mabuting malaman',
+    tipText:
+      'Hindi sukatan ng kung gaano ka kahusay na ina ang mga damdamin pagkatapos manganak. May karapatan kang mangailangan ng pahinga, pakinggan, at suportahan.',
+    section6Kicker: 'MAHAHALAGANG PUNTO',
+    section6Title: 'Mahahalagang tandaan',
+    takeaways: [
+      'Karaniwan ang baby blues pagkatapos manganak.',
+      'Maaaring makaapekto sa mood ang pagod at mga pagbabago sa hormone.',
+      'Makapagpapagaan ng panahong ito ang suporta ng mga nasa paligid mo.',
+      'Karapat-dapat sa propesyonal na pagsusuri ang patuloy o matinding paghihirap.',
+    ],
+    disclaimerText:
+      'Impormasyon lamang ang artikulong ito at hindi nito pinapalitan ang personalisadong medikal na payo. Kung may alinlangan o nakararanas ng matinding paghihirap, kumausap ng propesyonal sa kalusugan.',
+    endText: 'Bahagi rin ng panahon pagkatapos manganak ang pag-aalaga sa sarili.',
+    shareTitle: 'Baby blues at emosyonal na kalusugan pagkatapos manganak',
+    shareMessage:
+      'Baby blues at emosyonal na kalusugan pagkatapos manganak — AWA\n\nIsang gabay para maunawaan ang mga pagbabago sa damdamin na karaniwan pagkatapos manganak.',
+  },
+  ta: {
+    badgeText: 'பிரசவத்திற்குப் பின் • உணர்வு ஆரோக்கியம்',
+    title: 'பேபி ப்ளூஸும் பிரசவத்துக்குப் பிந்தைய\nஉணர்வு ஆரோக்கியமும்',
+    subtitle:
+      'பிரசவத்துக்குப் பின் உணர்வுரீதியாக என்ன மாறக்கூடும் என்பதைப் புரிந்துகொள்ளுதல், ஆதரவை எப்போது தேடுவது என்பதை அறிதல்.',
+    metaItems: ['10 நிமிடம் படிக்க', 'கட்டுரை', 'தொடக்க நிலை', 'சரிபார்க்கப்பட்ட உள்ளடக்கம்'],
+    introTitle: 'தெரிந்துகொள்ளுங்கள்',
+    introText:
+      'பிரசவத்துக்குப் பின், உணர்வுகள் அதிகம் உணர்திறன் பெறும் காலத்தைக் கடந்து செல்வது பொதுவானது. பேபி ப்ளூஸ் பொதுவாகத் தற்காலிகமானது, ஆனால் தொடரும் அல்லது தீவிரமாகும் மனவேதனை தொழில்முறைக் கவனத்துக்கு உரியது.',
+    contentsEyebrow: 'வழிகாட்டி',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    contents: [
+      'பேபி ப்ளூஸைப் புரிந்துகொள்ளுதல்',
+      'மிகப் பொதுவான அறிகுறிகள்',
+      'அன்றாடம் உதவுவது என்ன',
+      'பேபி ப்ளூஸா அல்லது பிரசவத்துக்குப் பிந்தைய மனச்சோர்வா?',
+      'உதவியை எப்போது கேட்பது',
+      'முக்கியக் குறிப்புகள்',
+    ],
+    section1Kicker: 'புரிந்துகொள்ளுதல்',
+    section1Title: 'பேபி ப்ளூஸ் என்றால் என்ன?',
+    section1Body1:
+      'பேபி ப்ளூஸ் என்பது பிரசவத்துக்குப் பின் முதல் சில நாட்களில் ஏற்படக்கூடிய உணர்வு மாற்றங்களின் காலம். ஹார்மோன் மாற்றங்கள், சோர்வு, உறக்கமின்மை மற்றும் இந்தப் புதிய கட்டத்துக்கு ஏற்ப மாறுதல் ஆகியவை இந்த உணர்திறனுக்குக் காரணமாகலாம்.',
+    section1Body2:
+      'இது தோல்வி அல்ல, நீங்கள் ஒரு மோசமான தாய் என்றும் பொருள் அல்ல. பிரசவத்துக்குப் பிந்தைய முதல் நாட்களை ஒவ்வொருவரும் தம் சொந்த வழியில் அனுபவிக்கிறார்கள்.',
+    statTitle: 'ஒரு பொதுவான அனுபவம்',
+    statText:
+      'பேபி ப்ளூஸ் பிரசவத்துக்குப் பின் பொதுவாக ஏற்படுகிறது, சில நாட்களுக்குள் தானாகவே மேம்படும்.',
+    section2Kicker: 'அறிகுறிகள்',
+    section2Title: 'நீங்கள் உணரக்கூடியவை',
+    section2Body:
+      'மக்களின் அனுபவம் வேறுபடும். சிலர் முக்கியமாகச் சோர்வையும் உணர்திறனையும் உணர்கிறார்கள், மற்றவர்களுக்கு மனநிலை மாற்றங்கள் அதிகம் தெரியலாம்.',
+    commonSigns: [
+      {
+        title: 'உணர்ச்சிவசம்',
+        description: 'எளிதில் அழுவது அல்லது குறிப்பாக உணர்திறனுடன் இருப்பது.',
+      },
+      {
+        title: 'மிகை உணர்திறன்',
+        description: 'உணர்வுகள் வலிமையாகத் தோன்றலாம், விரைவாக மாறலாம்.',
+      },
+      {
+        title: 'மனநிலை ஏற்ற இறக்கங்கள்',
+        description:
+          'பலவீனமான உணர்வு, நலமான தருணங்களுடன் மாறி மாறி வரலாம்.',
+      },
+      {
+        title: 'சோர்வு',
+        description: 'முதல் நாட்களின் சோர்வு உணர்வுகளைப் பெருக்கக்கூடும்.',
+      },
+    ],
+    section3Kicker: 'அன்றாடம்',
+    section3Title: 'உதவக்கூடியவை',
+    section3Body:
+      'இந்தக் காலத்தில் ஓய்வின் தேவை பெரிது. சிறிய, எளிய விஷயங்கள் நாட்களை இன்னும் வசதியாக்கலாம்.',
+    dailySupport: [
+      {
+        title: 'ஓய்வெடுத்தல்',
+        description: 'குணமடைய கிடைக்கும் ஒவ்வொரு ஓய்வு நேரத்தையும் பயன்படுத்துதல்.',
+      },
+      {
+        title: 'உதவியை ஏற்றல்',
+        description: 'உங்களைச் சுற்றியுள்ளவர்களிடம் ஆதரவு கேட்கத் தயங்காதீர்கள்.',
+      },
+      {
+        title: 'தொடர்ந்து நீர் அருந்துதல்',
+        description: 'நாள் முழுவதும் போதுமான அளவு நீர்ச்சத்துடன் இருத்தல்.',
+      },
+      {
+        title: 'போதுமான அளவு உண்ணுதல்',
+        description: 'ஒழுங்கான, எளிய உணவுகளுக்கு முன்னுரிமை கொடுத்தல்.',
+      },
+    ],
+    quoteText:
+      '“பிரசவத்துக்குப் பின் உதவி கேட்பது உங்களையும் உங்கள் குழந்தையையும் கவனித்துக்கொள்ளும் ஒரு வழி.”',
+    section4Kicker: 'வேறுபடுத்துதல்',
+    section4Title: 'பேபி ப்ளூஸா அல்லது பிரசவத்துக்குப் பிந்தைய மனச்சோர்வா?',
+    section4Body:
+      'பேபி ப்ளூஸ் பொதுவாகச் சுருக்கமானது, படிப்படியாக மேம்படும். பிரசவத்துக்குப் பிந்தைய மனச்சோர்வு வேறுபட்டது: அது அதிக நீடித்ததாகவும், அதிகத் தீவிரமானதாகவும், அன்றாட வாழ்க்கையில் குறிப்பிடத்தக்க தாக்கத்தை ஏற்படுத்துவதாகவும் இருக்கலாம்.',
+    compareTitle: 'வேறுபடுத்த வேண்டிய இரண்டு நிலைகள்',
+    compareBabyBluesTitle: 'பேபி ப்ளூஸ்',
+    compareBabyBluesText:
+      'பெரும்பாலும் சுருக்கமானது, அடுத்த நாட்களில் படிப்படியான முன்னேற்றத்துடன்.',
+    comparePostpartumTitle: 'பிரசவத்துக்குப் பிந்தைய மனச்சோர்வு',
+    comparePostpartumText:
+      'நீண்ட காலம் நீடிக்கலாம், தீவிரமாகலாம், தொழில்முறை ஆதரவு தேவைப்படலாம்.',
+    section5Kicker: 'விழிப்புடன் இருத்தல்',
+    section5Title: 'உதவியை எப்போது கேட்பது?',
+    section5Body:
+      'உணர்வுரீதியான மனவேதனை மேம்படாவிட்டால், தீவிரமானால், அல்லது அன்றாட வாழ்க்கையைக் கடினமாக்கத் தொடங்கினால், சுகாதார நிபுணரிடம் பேசுவது முக்கியம்.',
+    attentionTitle: 'கவனிக்க வேண்டிய எச்சரிக்கை அறிகுறிகள்',
+    attentionSubtitle: 'ஒரு நிபுணரிடம் பேசுங்கள்…',
+    attentionSigns: [
+      'அறிகுறிகள் இரண்டு வாரங்களுக்கு மேல் நீடிக்கின்றன.',
+      'சோகம் அல்லது பதற்றம் அதிகத் தீவிரமாகிறது.',
+      'உங்களையோ உங்கள் குழந்தையையோ கவனித்துக்கொள்வது கடினமாகிறது.',
+      'குறிப்பிடத்தக்க மனவேதனை உணர்வு தோன்றுகிறது.',
+    ],
+    professionalTitle: 'ஆதரவு கிடைக்கிறது',
+    professionalText:
+      'ஒரு மருத்துவச்சி, மருத்துவர், உளவியலாளர் அல்லது பிற சுகாதார நிபுணர் உங்களுக்குச் செவிகொடுத்து, நிலைமையை மதிப்பிட்டு, பொருத்தமான ஆதரவை வழங்க முடியும்.',
+    tipTitle: 'தெரிந்துகொள்ளுங்கள்',
+    tipText:
+      'பிரசவத்துக்குப் பிந்தைய உணர்வுகள் நீங்கள் எவ்வளவு நல்ல தாய் என்பதன் அளவீடு அல்ல. உங்களுக்கு ஓய்வு தேவைப்படவும், கேட்கப்படவும், ஆதரிக்கப்படவும் உரிமை உண்டு.',
+    section6Kicker: 'முக்கியப் புள்ளிகள்',
+    section6Title: 'முக்கியக் குறிப்புகள்',
+    takeaways: [
+      'பேபி ப்ளூஸ் பிரசவத்துக்குப் பின் பொதுவானது.',
+      'சோர்வும் ஹார்மோன் மாற்றங்களும் மனநிலையைப் பாதிக்கலாம்.',
+      'உங்களைச் சுற்றியுள்ளவர்களின் ஆதரவு இந்தக் காலத்தை எளிதாக்கலாம்.',
+      'தொடரும் அல்லது குறிப்பிடத்தக்க மனவேதனை தொழில்முறை மதிப்பீட்டுக்கு உரியது.',
+    ],
+    disclaimerText:
+      'இந்தக் கட்டுரை தகவலுக்கானது, தனிப்பயன் மருத்துவ ஆலோசனைக்கு மாற்றல்ல. சந்தேகம் இருந்தால் அல்லது குறிப்பிடத்தக்க மனவேதனை இருந்தால், சுகாதார நிபுணரிடம் பேசுங்கள்.',
+    endText: 'உங்களைக் கவனித்துக்கொள்வதும் பிரசவத்துக்குப் பிந்தைய காலத்தின் ஒரு பகுதியே.',
+    shareTitle: 'பேபி ப்ளூஸும் பிரசவத்துக்குப் பிந்தைய உணர்வு ஆரோக்கியமும்',
+    shareMessage:
+      'பேபி ப்ளூஸும் பிரசவத்துக்குப் பிந்தைய உணர்வு ஆரோக்கியமும் — AWA\n\nபிரசவத்துக்குப் பின் பொதுவாக ஏற்படும் உணர்வு மாற்றங்களைப் புரிந்துகொள்ள ஒரு வழிகாட்டி.',
+  },
+  te: {
+    badgeText: 'ప్రసవానంతరం • భావోద్వేగ ఆరోగ్యం',
+    title: 'బేబీ బ్లూస్ & ప్రసవానంతర\nభావోద్వేగ ఆరోగ్యం',
+    subtitle:
+      'ప్రసవం తర్వాత భావోద్వేగపరంగా ఏమి మారవచ్చో అర్థం చేసుకోవడం, ఎప్పుడు ఆదరణ కోరాలో తెలుసుకోవడం.',
+    metaItems: ['10 నిమిషాల పఠనం', 'వ్యాసం', 'ప్రారంభ స్థాయి', 'మదింపు చేసిన కంటెంట్'],
+    introTitle: 'తెలుసుకోవాల్సినవి',
+    introText:
+      'ప్రసవం తర్వాత భావోద్వేగ సున్నితత్వం పెరిగే కాలాన్ని దాటడం సాధారణం. బేబీ బ్లూస్ సాధారణంగా తాత్కాలికం, కానీ కొనసాగే లేదా తీవ్రమయ్యే బాధకు నిపుణుల శ్రద్ధ అవసరం.',
+    contentsEyebrow: 'గైడ్',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    contents: [
+      'బేబీ బ్లూస్‌ను అర్థం చేసుకోవడం',
+      'అత్యంత సాధారణ సంకేతాలు',
+      'రోజువారీ జీవితంలో ఏది సహాయపడుతుంది',
+      'బేబీ బ్లూస్ లేదా ప్రసవానంతర కుంగుబాటు?',
+      'సహాయాన్ని ఎప్పుడు కోరాలి',
+      'ముఖ్యాంశాలు',
+    ],
+    section1Kicker: 'అర్థం చేసుకోవడం',
+    section1Title: 'బేబీ బ్లూస్ అంటే ఏమిటి?',
+    section1Body1:
+      'బేబీ బ్లూస్ అనేది ప్రసవం తర్వాత మొదటి కొన్ని రోజుల్లో సంభవించగల భావోద్వేగ మార్పుల కాలం. హార్మోన్ల మార్పులు, అలసట, నిద్ర లేమి, ఈ కొత్త దశకు అలవాటు పడటం ఈ సున్నితత్వానికి కారణమవుతాయి.',
+    section1Body2:
+      'ఇది వైఫల్యం కాదు, మీరు చెడ్డ తల్లి అని కూడా అర్థం కాదు. ప్రసవానంతర మొదటి రోజులను ప్రతి ఒక్కరూ తమదైన రీతిలో అనుభవిస్తారు.',
+    statTitle: 'ఒక సాధారణ అనుభవం',
+    statText:
+      'బేబీ బ్లూస్ ప్రసవం తర్వాత సాధారణం, కొన్ని రోజుల్లో తనంతట తానే మెరుగవుతుంది.',
+    section2Kicker: 'సంకేతాలు',
+    section2Title: 'మీకు అనిపించగలవి',
+    section2Body:
+      'అనుభవాలు మారుతూ ఉంటాయి. కొందరు ప్రధానంగా అలసటను, సున్నితత్వాన్ని అనుభవిస్తారు, మరికొందరికి మరింత స్పష్టమైన మానసిక స్థితి మార్పులు ఉండవచ్చు.',
+    commonSigns: [
+      {
+        title: 'భావోద్వేగం',
+        description: 'సులభంగా ఏడవడం లేదా ప్రత్యేకంగా సున్నితంగా అనిపించడం.',
+      },
+      {
+        title: 'అతి సున్నితత్వం',
+        description: 'భావోద్వేగాలు బలంగా అనిపించి వేగంగా మారవచ్చు.',
+      },
+      {
+        title: 'మానసిక స్థితి ఊగిసలాట',
+        description:
+          'బలహీనత భావన, శ్రేయస్సు క్షణాలతో మారి మారి రావచ్చు.',
+      },
+      {
+        title: 'అలసట',
+        description: 'మొదటి రోజుల అలసట భావోద్వేగాలను పెంచవచ్చు.',
+      },
+    ],
+    section3Kicker: 'రోజువారీ జీవితం',
+    section3Title: 'ఏది సహాయపడగలదు',
+    section3Body:
+      'ఈ కాలంలో విశ్రాంతి అవసరం ఎక్కువగా ఉంటుంది. చిన్న, సరళమైన విషయాలు రోజులను మరింత సౌకర్యంగా మార్చగలవు.',
+    dailySupport: [
+      {
+        title: 'విశ్రాంతి తీసుకోవడం',
+        description: 'కోలుకోవడానికి ఏ ఖాళీ క్షణాన్నైనా ఉపయోగించుకోవడం.',
+      },
+      {
+        title: 'సహాయాన్ని అంగీకరించడం',
+        description: 'మీ చుట్టూ ఉన్నవారి తోడ్పాటును కోరడానికి వెనుకాడకండి.',
+      },
+      {
+        title: 'క్రమం తప్పకుండా నీరు తాగడం',
+        description: 'రోజంతా తగినంతగా నీటి శాతాన్ని కాపాడుకోవడం.',
+      },
+      {
+        title: 'తగినంత తినడం',
+        description: 'క్రమమైన, సరళమైన భోజనాలకు ప్రాధాన్యం ఇవ్వడం.',
+      },
+    ],
+    quoteText:
+      '“ప్రసవానంతర కాలంలో సహాయం కోరడం మిమ్మల్ని, మీ శిశువును మీరు చూసుకునే ఒక మార్గం.”',
+    section4Kicker: 'వేరుచేసి చూడటం',
+    section4Title: 'బేబీ బ్లూస్ లేదా ప్రసవానంతర కుంగుబాటు?',
+    section4Body:
+      'బేబీ బ్లూస్ సాధారణంగా కొద్దికాలమే ఉండి క్రమంగా మెరుగవుతుంది. ప్రసవానంతర కుంగుబాటు భిన్నమైనది: అది ఎక్కువ కాలం కొనసాగవచ్చు, మరింత తీవ్రంగా ఉండవచ్చు, రోజువారీ జీవితంపై గణనీయమైన ప్రభావం చూపవచ్చు.',
+    compareTitle: 'వేరుచేసి చూడాల్సిన రెండు పరిస్థితులు',
+    compareBabyBluesTitle: 'బేబీ బ్లూస్',
+    compareBabyBluesText:
+      'తరచుగా కొద్దికాలమే, తర్వాతి రోజుల్లో క్రమంగా మెరుగుపడుతుంది.',
+    comparePostpartumTitle: 'ప్రసవానంతర కుంగుబాటు',
+    comparePostpartumText:
+      'ఎక్కువ కాలం కొనసాగవచ్చు, తీవ్రమవ్వచ్చు, నిపుణుల తోడ్పాటు అవసరం కావచ్చు.',
+    section5Kicker: 'అప్రమత్తంగా ఉండటం',
+    section5Title: 'సహాయాన్ని ఎప్పుడు కోరాలి?',
+    section5Body:
+      'భావోద్వేగ బాధ మెరుగుపడకపోతే, మరింత తీవ్రమైతే లేదా రోజువారీ జీవితాన్ని కష్టతరం చేయడం మొదలుపెడితే ఒక ఆరోగ్య నిపుణుడితో మాట్లాడటం ముఖ్యం.',
+    attentionTitle: 'గమనించాల్సిన హెచ్చరిక సంకేతాలు',
+    attentionSubtitle: 'ఇవి ఉంటే ఒక నిపుణుడితో మాట్లాడండి…',
+    attentionSigns: [
+      'లక్షణాలు రెండు వారాలకు మించి కొనసాగుతున్నాయి.',
+      'విచారం లేదా ఆందోళన మరింత తీవ్రమవుతోంది.',
+      'మిమ్మల్ని లేదా మీ శిశువును చూసుకోవడం కష్టంగా మారుతోంది.',
+      'తీవ్రమైన బాధ భావన కలుగుతోంది.',
+    ],
+    professionalTitle: 'తోడ్పాటు అందుబాటులో ఉంది',
+    professionalText:
+      'ఒక మంత్రసాని, వైద్యులు, మనస్తత్వవేత్త లేదా ఇతర ఆరోగ్య నిపుణులు మీ మాట వినగలరు, పరిస్థితిని మదింపు చేయగలరు, తగిన తోడ్పాటును అందించగలరు.',
+    tipTitle: 'తెలుసుకోవాల్సినవి',
+    tipText:
+      'ప్రసవానంతర భావోద్వేగాలు మీరు ఎంత మంచి తల్లి అనేదానికి కొలమానం కాదు. మీకు విశ్రాంతి అవసరం కావడానికి, మీ మాట వినబడటానికి, మీకు తోడ్పాటు లభించడానికి మీకు హక్కు ఉంది.',
+    section6Kicker: 'ముఖ్యాంశాలు',
+    section6Title: 'ముఖ్యమైన విషయాలు',
+    takeaways: [
+      'బేబీ బ్లూస్ ప్రసవం తర్వాత సాధారణం.',
+      'అలసట, హార్మోన్ల మార్పులు మానసిక స్థితిని ప్రభావితం చేయవచ్చు.',
+      'మీ చుట్టూ ఉన్నవారి తోడ్పాటు ఈ కాలాన్ని సులభతరం చేయగలదు.',
+      'కొనసాగే లేదా గణనీయమైన బాధకు నిపుణుల మదింపు అవసరం.',
+    ],
+    disclaimerText:
+      'ఈ వ్యాసం సమాచారం కోసం మాత్రమే, వ్యక్తిగత వైద్య సలహాకు ప్రత్యామ్నాయం కాదు. సందేహం ఉంటే లేదా గణనీయమైన బాధను అనుభవిస్తే, ఒక ఆరోగ్య నిపుణుడితో మాట్లాడండి.',
+    endText: 'మిమ్మల్ని మీరు చూసుకోవడం కూడా ప్రసవానంతర కాలంలో భాగమే.',
+    shareTitle: 'బేబీ బ్లూస్ & ప్రసవానంతర భావోద్వేగ ఆరోగ్యం',
+    shareMessage:
+      'బేబీ బ్లూస్ & ప్రసవానంతర భావోద్వేగ ఆరోగ్యం — AWA\n\nప్రసవం తర్వాత సాధారణంగా కనిపించే భావోద్వేగ మార్పులను అర్థం చేసుకోవడానికి ఒక గైడ్.',
+  },
+  mr: {
+    badgeText: 'प्रसूतीनंतर • भावनिक आरोग्य',
+    title: 'बेबी ब्लूज आणि प्रसूतीनंतरचे\nभावनिक आरोग्य',
+    subtitle:
+      'प्रसूतीनंतर भावनिकदृष्ट्या काय बदलू शकते ते समजून घेणे आणि आधार केव्हा घ्यावा हे जाणणे.',
+    metaItems: ['10 मिनिटे वाचन', 'लेख', 'प्रारंभ स्तर', 'पुनरावलोकन केलेला मजकूर'],
+    introTitle: 'हे जाणून घ्या',
+    introText:
+      'बाळाला जन्म दिल्यानंतर भावनिक संवेदनशीलता वाढण्याचा काळ येणे सामान्य आहे. बेबी ब्लूज सहसा तात्पुरते असते, पण कायम राहणाऱ्या किंवा वाढत जाणाऱ्या त्रासाकडे व्यावसायिकांनी लक्ष देणे गरजेचे आहे.',
+    contentsEyebrow: 'मार्गदर्शक',
+    contentsTitle: 'या लेखात',
+    contents: [
+      'बेबी ब्लूज समजून घेणे',
+      'सर्वात सामान्य चिन्हे',
+      'रोजच्या जीवनात काय मदत करते',
+      'बेबी ब्लूज की प्रसूतीनंतरचे नैराश्य?',
+      'मदत केव्हा मागावी',
+      'मुख्य मुद्दे',
+    ],
+    section1Kicker: 'समजून घेणे',
+    section1Title: 'बेबी ब्लूज म्हणजे काय?',
+    section1Body1:
+      'बेबी ब्लूज म्हणजे बाळाला जन्म दिल्यानंतरच्या पहिल्या काही दिवसांत येऊ शकणारा भावनिक बदलांचा काळ. हार्मोनल बदल, थकवा, झोपेची कमतरता आणि या नव्या टप्प्याशी जुळवून घेणे या सर्वांमुळे ही संवेदनशीलता वाढू शकते.',
+    section1Body2:
+      'हे अपयश नाही आणि तुम्ही वाईट आई आहात असा याचा अर्थ नाही. प्रत्येकजण प्रसूतीनंतरचे पहिले दिवस आपापल्या पद्धतीने अनुभवतो.',
+    statTitle: 'एक सामान्य अनुभव',
+    statText:
+      'बाळंतपणानंतर बेबी ब्लूज सामान्य आहे आणि ते काही दिवसांत आपोआप कमी होण्याकडे कल असतो.',
+    section2Kicker: 'चिन्हे',
+    section2Title: 'तुम्हाला काय जाणवू शकते',
+    section2Body:
+      'लोकांचा अनुभव वेगवेगळा असतो. काहींना प्रामुख्याने थकवा आणि संवेदनशीलता जाणवते, तर इतरांना मनःस्थितीतील अधिक ठळक बदल जाणवू शकतात.',
+    commonSigns: [
+      {
+        title: 'भावूकपणा',
+        description: 'सहज रडू येणे किंवा विशेष संवेदनशील वाटणे.',
+      },
+      {
+        title: 'अतिसंवेदनशीलता',
+        description: 'भावना अधिक तीव्र वाटू शकतात आणि झपाट्याने बदलू शकतात.',
+      },
+      {
+        title: 'मनःस्थितीतील चढ-उतार',
+        description:
+          'नाजूकपणाची भावना आणि बरे वाटण्याचे क्षण आलटून पालटून येऊ शकतात.',
+      },
+      {
+        title: 'थकवा',
+        description: 'पहिल्या दिवसांचा थकवा भावना आणखी वाढवू शकतो.',
+      },
+    ],
+    section3Kicker: 'रोजच्या जीवनात',
+    section3Title: 'काय मदत करू शकते',
+    section3Body:
+      'या काळात विश्रांतीची गरज मोठी असते. छोट्या, साध्या गोष्टी दिवस अधिक आरामदायी करू शकतात.',
+    dailySupport: [
+      {
+        title: 'विश्रांती घेणे',
+        description: 'मिळणाऱ्या प्रत्येक मोकळ्या क्षणाचा बरे होण्यासाठी उपयोग करणे.',
+      },
+      {
+        title: 'मदत स्वीकारणे',
+        description: 'आजूबाजूच्या लोकांकडे आधार मागायला संकोच करू नका.',
+      },
+      {
+        title: 'नियमित पाणी पिणे',
+        description: 'दिवसभर पुरेसे पाणी पित राहणे.',
+      },
+      {
+        title: 'पुरेसे खाणे',
+        description: 'नियमित, साध्या जेवणांना प्राधान्य देणे.',
+      },
+    ],
+    quoteText:
+      '“प्रसूतीनंतर मदत मागणे हा स्वतःची आणि तुमच्या बाळाची काळजी घेण्याचा एक मार्ग आहे.”',
+    section4Kicker: 'फरक ओळखणे',
+    section4Title: 'बेबी ब्लूज की प्रसूतीनंतरचे नैराश्य?',
+    section4Body:
+      'बेबी ब्लूज सहसा थोडक्या काळाचे असते आणि हळूहळू सुधारते. प्रसूतीनंतरचे नैराश्य वेगळे असते: ते अधिक काळ टिकणारे, अधिक तीव्र असू शकते आणि रोजच्या जीवनावर लक्षणीय परिणाम करू शकते.',
+    compareTitle: 'ओळखायच्या दोन परिस्थिती',
+    compareBabyBluesTitle: 'बेबी ब्लूज',
+    compareBabyBluesText:
+      'बहुतेकदा थोडक्या काळाचे, पुढील दिवसांत हळूहळू सुधारणा होणारे.',
+    comparePostpartumTitle: 'प्रसूतीनंतरचे नैराश्य',
+    comparePostpartumText:
+      'अधिक काळ टिकू शकते, तीव्र होऊ शकते आणि व्यावसायिक आधाराची गरज भासू शकते.',
+    section5Kicker: 'सजग राहणे',
+    section5Title: 'मदत केव्हा मागावी?',
+    section5Body:
+      'भावनिक त्रास कमी होत नसेल, अधिक तीव्र होत असेल किंवा रोजचे जीवन कठीण करू लागला असेल, तर आरोग्य व्यावसायिकाशी बोलणे महत्त्वाचे आहे.',
+    attentionTitle: 'लक्षात ठेवायची धोक्याची चिन्हे',
+    attentionSubtitle: 'यापैकी काही असल्यास तज्ज्ञाशी बोला…',
+    attentionSigns: [
+      'लक्षणे दोन आठवड्यांपेक्षा जास्त टिकतात.',
+      'दुःख किंवा चिंता अधिक तीव्र होते.',
+      'स्वतःची किंवा बाळाची काळजी घेणे कठीण होते.',
+      'त्रासाची लक्षणीय भावना निर्माण होते.',
+    ],
+    professionalTitle: 'आधार उपलब्ध आहे',
+    professionalText:
+      'दाई, डॉक्टर, मानसशास्त्रज्ञ किंवा इतर आरोग्य व्यावसायिक तुमचे ऐकू शकतात, परिस्थितीचे मूल्यांकन करू शकतात आणि योग्य आधार देऊ शकतात.',
+    tipTitle: 'हे जाणून घ्या',
+    tipText:
+      'प्रसूतीनंतरच्या भावना तुम्ही किती चांगली आई आहात याचे मोजमाप नाहीत. तुम्हाला विश्रांतीची गरज असण्याचा, ऐकले जाण्याचा आणि आधार मिळण्याचा हक्क आहे.',
+    section6Kicker: 'मुख्य मुद्दे',
+    section6Title: 'मुख्य मुद्दे',
+    takeaways: [
+      'बाळाला जन्म दिल्यानंतर बेबी ब्लूज सामान्य आहे.',
+      'थकवा आणि हार्मोनल बदल मनःस्थितीवर परिणाम करू शकतात.',
+      'आजूबाजूच्या लोकांचा आधार हा काळ सोपा करू शकतो.',
+      'कायम राहणाऱ्या किंवा लक्षणीय त्रासाचे व्यावसायिक मूल्यांकन होणे गरजेचे आहे.',
+    ],
+    disclaimerText:
+      'हा लेख माहितीसाठी आहे आणि वैयक्तिक वैद्यकीय सल्ल्याची जागा घेत नाही. शंका असल्यास किंवा लक्षणीय त्रास होत असल्यास, आरोग्य व्यावसायिकाशी बोला.',
+    endText: 'स्वतःची काळजी घेणे हा देखील प्रसूतीनंतरचा भाग आहे.',
+    shareTitle: 'बेबी ब्लूज आणि प्रसूतीनंतरचे भावनिक आरोग्य',
+    shareMessage:
+      'बेबी ब्लूज आणि प्रसूतीनंतरचे भावनिक आरोग्य — AWA\n\nबाळाला जन्म दिल्यानंतर सामान्य असलेले भावनिक बदल समजून घेण्यासाठी एक मार्गदर्शक.',
+  },
+  gu: {
+    badgeText: 'પ્રસૂતિ પછી • ભાવનાત્મક સ્વાસ્થ્ય',
+    title: 'બેબી બ્લૂઝ અને પ્રસૂતિ પછીનું\nભાવનાત્મક સ્વાસ્થ્ય',
+    subtitle:
+      'પ્રસૂતિ પછી ભાવનાત્મક રીતે શું બદલાઈ શકે છે તે સમજવું અને ક્યારે મદદ લેવી તે જાણવું.',
+    metaItems: ['10 મિનિટ વાંચન', 'લેખ', 'પ્રારંભિક સ્તર', 'પુનરાવલોકન કરેલી સામગ્રી'],
+    introTitle: 'જાણવા જેવું',
+    introText:
+      'બાળકને જન્મ આપ્યા પછી થોડો સમય લાગણીઓ વધુ સંવેદનશીલ બને તે સામાન્ય છે. બેબી બ્લૂઝ સામાન્ય રીતે કામચલાઉ હોય છે, પરંતુ જે તકલીફ ચાલુ રહે કે વધતી જાય તેના માટે વ્યાવસાયિક ધ્યાન જરૂરી છે.',
+    contentsEyebrow: 'માર્ગદર્શિકા',
+    contentsTitle: 'આ લેખમાં',
+    contents: [
+      'બેબી બ્લૂઝને સમજવું',
+      'સૌથી સામાન્ય લક્ષણો',
+      'રોજિંદા જીવનમાં શું મદદ કરે છે',
+      'બેબી બ્લૂઝ કે પ્રસૂતિ પછીનો હતાશા?',
+      'ક્યારે મદદ માગવી',
+      'મુખ્ય મુદ્દા',
+    ],
+    section1Kicker: 'સમજણ',
+    section1Title: 'બેબી બ્લૂઝ એટલે શું?',
+    section1Body1:
+      'બેબી બ્લૂઝ એ પ્રસૂતિ પછીના પહેલા થોડા દિવસોમાં થઈ શકતા ભાવનાત્મક ફેરફારોનો સમયગાળો છે. હોર્મોનમાં ફેરફાર, થાક, ઊંઘની ઉણપ અને જીવનના આ નવા તબક્કા સાથે ગોઠવાવું, આ બધું આ સંવેદનશીલતામાં ફાળો આપી શકે છે.',
+    section1Body2:
+      'આ કોઈ નિષ્ફળતા નથી અને તેનો અર્થ એવો નથી કે તમે સારી માતા નથી. પ્રસૂતિ પછીના પહેલા દિવસો દરેક સ્ત્રી પોતાની રીતે અનુભવે છે.',
+    statTitle: 'એક સામાન્ય અનુભવ',
+    statText:
+      'પ્રસૂતિ પછી બેબી બ્લૂઝ સામાન્ય છે અને સામાન્ય રીતે થોડા દિવસોમાં જાતે સુધરી જાય છે.',
+    section2Kicker: 'લક્ષણો',
+    section2Title: 'તમે શું અનુભવી શકો',
+    section2Body:
+      'અનુભવ દરેકનો અલગ હોય છે. કેટલીક સ્ત્રીઓને મુખ્યત્વે થાક અને સંવેદનશીલતા લાગે છે, જ્યારે બીજી સ્ત્રીઓમાં મૂડમાં વધુ નોંધપાત્ર ફેરફારો જોવા મળી શકે છે.',
+    commonSigns: [
+      {
+        title: 'ભાવુકતા',
+        description: 'વધુ સહેલાઈથી રડવું કે ખાસ સંવેદનશીલ લાગવું.',
+      },
+      {
+        title: 'અતિસંવેદનશીલતા',
+        description: 'લાગણીઓ વધુ તીવ્ર લાગી શકે અને ઝડપથી બદલાઈ શકે.',
+      },
+      {
+        title: 'મૂડમાં ઉતાર-ચઢાવ',
+        description:
+          'નાજુકતાની લાગણી અને સારું લાગવાની ક્ષણો વારાફરતી આવી શકે.',
+      },
+      {
+        title: 'થાક',
+        description: 'પહેલા દિવસોનો થાક લાગણીઓને વધુ તીવ્ર બનાવી શકે.',
+      },
+    ],
+    section3Kicker: 'રોજિંદા જીવનમાં',
+    section3Title: 'શું મદદ કરી શકે',
+    section3Body:
+      'આ સમયગાળામાં આરામની જરૂર ઘણી વધારે હોય છે. નાની અને સરળ બાબતો દિવસોને વધુ સહ્ય બનાવી શકે છે.',
+    dailySupport: [
+      {
+        title: 'આરામ કરવો',
+        description: 'ખાલી સમય મળે ત્યારે સ્વસ્થ થવા માટે તેનો લાભ લેવો.',
+      },
+      {
+        title: 'મદદ સ્વીકારવી',
+        description: 'આસપાસના લોકો પાસે સહારો માગતા અચકાશો નહીં.',
+      },
+      {
+        title: 'નિયમિત પાણી પીવું',
+        description: 'આખા દિવસ દરમિયાન પૂરતું પાણી પીતા રહેવું.',
+      },
+      {
+        title: 'પૂરતું ખાવું',
+        description: 'નિયમિત અને સાદા ભોજનને પ્રાથમિકતા આપવી.',
+      },
+    ],
+    quoteText:
+      '“પ્રસૂતિ પછી મદદ માગવી એ તમારી અને તમારા બાળકની કાળજી લેવાનો એક રસ્તો છે.”',
+    section4Kicker: 'તફાવત ઓળખવો',
+    section4Title: 'બેબી બ્લૂઝ કે પ્રસૂતિ પછીનો હતાશા?',
+    section4Body:
+      'બેબી બ્લૂઝ સામાન્ય રીતે ટૂંકા સમયનો હોય છે અને ધીમે ધીમે સુધરે છે. પ્રસૂતિ પછીનો હતાશા અલગ છે: તે વધુ લાંબો ચાલી શકે, વધુ તીવ્ર હોઈ શકે અને રોજિંદા જીવન પર નોંધપાત્ર અસર કરી શકે.',
+    compareTitle: 'ફરક કરવા જેવી બે પરિસ્થિતિઓ',
+    compareBabyBluesTitle: 'બેબી બ્લૂઝ',
+    compareBabyBluesText:
+      'ઘણી વાર ટૂંકા સમયનો, પછીના દિવસોમાં ધીમે ધીમે સુધારા સાથે.',
+    comparePostpartumTitle: 'પ્રસૂતિ પછીનો હતાશા',
+    comparePostpartumText:
+      'વધુ લાંબો ચાલી શકે, તીવ્ર બની શકે અને વ્યાવસાયિક સહાયની જરૂર પડી શકે.',
+    section5Kicker: 'સજાગ રહેવું',
+    section5Title: 'ક્યારે મદદ માગવી?',
+    section5Body:
+      'જો ભાવનાત્મક તકલીફ સુધરતી ન હોય, વધુ તીવ્ર બને અથવા રોજિંદા જીવનને મુશ્કેલ બનાવવા લાગે, તો આરોગ્ય વ્યાવસાયિક સાથે વાત કરવી મહત્વપૂર્ણ છે.',
+    attentionTitle: 'ધ્યાન આપવા જેવા ચેતવણીના સંકેતો',
+    attentionSubtitle: 'આ સ્થિતિમાં વ્યાવસાયિક સાથે વાત કરો…',
+    attentionSigns: [
+      'લક્ષણો બે અઠવાડિયાથી વધુ ચાલે.',
+      'ઉદાસી કે ચિંતા વધુ તીવ્ર બને.',
+      'તમારી પોતાની કે બાળકની સંભાળ રાખવી મુશ્કેલ બને.',
+      'ભારે તકલીફની લાગણી ઊભી થાય.',
+    ],
+    professionalTitle: 'સહાય ઉપલબ્ધ છે',
+    professionalText:
+      'મિડવાઇફ, ડૉક્ટર, મનોવૈજ્ઞાનિક કે અન્ય આરોગ્ય વ્યાવસાયિક તમને સાંભળી શકે, પરિસ્થિતિનું મૂલ્યાંકન કરી શકે અને યોગ્ય સહાય આપી શકે.',
+    tipTitle: 'જાણવા જેવું',
+    tipText:
+      'પ્રસૂતિ પછીની લાગણીઓ તમે કેટલી સારી માતા છો તેનું માપ નથી. તમને આરામની, સાંભળવામાં આવવાની અને સહારો મળવાની જરૂર હોવાનો હક છે.',
+    section6Kicker: 'મુખ્ય બિંદુઓ',
+    section6Title: 'મુખ્ય મુદ્દા',
+    takeaways: [
+      'પ્રસૂતિ પછી બેબી બ્લૂઝ સામાન્ય છે.',
+      'થાક અને હોર્મોનમાં ફેરફાર મૂડ પર અસર કરી શકે છે.',
+      'આસપાસના લોકોનો સહારો આ સમયગાળાને સરળ બનાવી શકે છે.',
+      'સતત રહેતી કે ભારે તકલીફનું વ્યાવસાયિક મૂલ્યાંકન કરાવવું જોઈએ.',
+    ],
+    disclaimerText:
+      'આ લેખ માહિતી માટે છે અને તે વ્યક્તિગત તબીબી સલાહનું સ્થાન લેતો નથી. શંકા હોય અથવા ભારે તકલીફ અનુભવાતી હોય તો આરોગ્ય વ્યાવસાયિક સાથે વાત કરો.',
+    endText: 'તમારી પોતાની કાળજી લેવી એ પણ પ્રસૂતિ પછીના સમયનો એક ભાગ છે.',
+    shareTitle: 'બેબી બ્લૂઝ અને પ્રસૂતિ પછીનું ભાવનાત્મક સ્વાસ્થ્ય',
+    shareMessage:
+      'બેબી બ્લૂઝ અને પ્રસૂતિ પછીનું ભાવનાત્મક સ્વાસ્થ્ય — AWA\n\nપ્રસૂતિ પછી સામાન્ય રીતે થતા ભાવનાત્મક ફેરફારોને સમજવા માટેની માર્ગદર્શિકા.',
+  },
+  pa: {
+    badgeText: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ • ਭਾਵਨਾਤਮਕ ਸਿਹਤ',
+    title: 'ਬੇਬੀ ਬਲੂਜ਼ ਅਤੇ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ\nਭਾਵਨਾਤਮਕ ਸਿਹਤ',
+    subtitle:
+      'ਸਮਝੋ ਕਿ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਭਾਵਨਾਵਾਂ ਵਿੱਚ ਕੀ ਬਦਲ ਸਕਦਾ ਹੈ ਅਤੇ ਸਹਾਰਾ ਕਦੋਂ ਲੈਣਾ ਚਾਹੀਦਾ ਹੈ।',
+    metaItems: ['10 ਮਿੰਟ ਪੜ੍ਹਨ', 'ਲੇਖ', 'ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ', 'ਸਮੀਖਿਆ ਕੀਤੀ ਸਮੱਗਰੀ'],
+    introTitle: 'ਜਾਣਨ ਯੋਗ',
+    introText:
+      'ਬੱਚੇ ਨੂੰ ਜਨਮ ਦੇਣ ਤੋਂ ਬਾਅਦ ਕੁਝ ਸਮੇਂ ਲਈ ਭਾਵਨਾਵਾਂ ਵਧੇਰੇ ਨਾਜ਼ੁਕ ਹੋ ਜਾਣਾ ਆਮ ਗੱਲ ਹੈ। ਬੇਬੀ ਬਲੂਜ਼ ਆਮ ਤੌਰ ’ਤੇ ਅਸਥਾਈ ਹੁੰਦਾ ਹੈ, ਪਰ ਜੋ ਪਰੇਸ਼ਾਨੀ ਬਣੀ ਰਹੇ ਜਾਂ ਵਧਦੀ ਜਾਵੇ, ਉਸ ਵੱਲ ਮਾਹਿਰ ਦਾ ਧਿਆਨ ਜ਼ਰੂਰੀ ਹੈ।',
+    contentsEyebrow: 'ਗਾਈਡ',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    contents: [
+      'ਬੇਬੀ ਬਲੂਜ਼ ਨੂੰ ਸਮਝਣਾ',
+      'ਸਭ ਤੋਂ ਆਮ ਲੱਛਣ',
+      'ਰੋਜ਼ਾਨਾ ਕੀ ਮਦਦ ਕਰਦਾ ਹੈ',
+      'ਬੇਬੀ ਬਲੂਜ਼ ਜਾਂ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦੀ ਉਦਾਸੀ?',
+      'ਮਦਦ ਕਦੋਂ ਮੰਗਣੀ ਹੈ',
+      'ਮੁੱਖ ਨੁਕਤੇ',
+    ],
+    section1Kicker: 'ਸਮਝ',
+    section1Title: 'ਬੇਬੀ ਬਲੂਜ਼ ਕੀ ਹੈ?',
+    section1Body1:
+      'ਬੇਬੀ ਬਲੂਜ਼ ਭਾਵਨਾਵਾਂ ਵਿੱਚ ਤਬਦੀਲੀਆਂ ਦਾ ਇੱਕ ਦੌਰ ਹੈ ਜੋ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਪਹਿਲੇ ਕੁਝ ਦਿਨਾਂ ਵਿੱਚ ਆ ਸਕਦਾ ਹੈ। ਹਾਰਮੋਨ ਵਿੱਚ ਬਦਲਾਅ, ਥਕਾਵਟ, ਨੀਂਦ ਦੀ ਕਮੀ ਅਤੇ ਇਸ ਨਵੇਂ ਪੜਾਅ ਨਾਲ ਤਾਲਮੇਲ ਬਿਠਾਉਣਾ, ਇਹ ਸਭ ਇਸ ਨਾਜ਼ੁਕ ਅਵਸਥਾ ਵਿੱਚ ਹਿੱਸਾ ਪਾ ਸਕਦੇ ਹਨ।',
+    section1Body2:
+      'ਇਹ ਕੋਈ ਅਸਫਲਤਾ ਨਹੀਂ ਹੈ ਅਤੇ ਇਸ ਦਾ ਇਹ ਮਤਲਬ ਨਹੀਂ ਕਿ ਤੁਸੀਂ ਮਾੜੀ ਮਾਂ ਹੋ। ਹਰ ਔਰਤ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦੇ ਪਹਿਲੇ ਦਿਨ ਆਪਣੇ ਢੰਗ ਨਾਲ ਗੁਜ਼ਾਰਦੀ ਹੈ।',
+    statTitle: 'ਇੱਕ ਆਮ ਅਨੁਭਵ',
+    statText:
+      'ਬੇਬੀ ਬਲੂਜ਼ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਆਮ ਹੈ ਅਤੇ ਕੁਝ ਦਿਨਾਂ ਵਿੱਚ ਆਪਣੇ ਆਪ ਠੀਕ ਹੋ ਜਾਂਦਾ ਹੈ।',
+    section2Kicker: 'ਲੱਛਣ',
+    section2Title: 'ਤੁਸੀਂ ਕੀ ਮਹਿਸੂਸ ਕਰ ਸਕਦੇ ਹੋ',
+    section2Body:
+      'ਹਰ ਕਿਸੇ ਦਾ ਅਨੁਭਵ ਵੱਖਰਾ ਹੁੰਦਾ ਹੈ। ਕੁਝ ਨੂੰ ਮੁੱਖ ਤੌਰ ’ਤੇ ਥਕਾਵਟ ਅਤੇ ਨਾਜ਼ੁਕਤਾ ਮਹਿਸੂਸ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ ਹੋਰਨਾਂ ਦੇ ਮੂਡ ਵਿੱਚ ਵਧੇਰੇ ਸਾਫ਼ ਤਬਦੀਲੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ।',
+    commonSigns: [
+      {
+        title: 'ਭਾਵੁਕਤਾ',
+        description: 'ਆਸਾਨੀ ਨਾਲ ਰੋ ਪੈਣਾ ਜਾਂ ਖ਼ਾਸ ਤੌਰ ’ਤੇ ਨਾਜ਼ੁਕ ਮਹਿਸੂਸ ਕਰਨਾ।',
+      },
+      {
+        title: 'ਬਹੁਤ ਜ਼ਿਆਦਾ ਸੰਵੇਦਨਸ਼ੀਲਤਾ',
+        description: 'ਭਾਵਨਾਵਾਂ ਵਧੇਰੇ ਤੇਜ਼ ਲੱਗ ਸਕਦੀਆਂ ਹਨ ਅਤੇ ਜਲਦੀ ਬਦਲ ਸਕਦੀਆਂ ਹਨ।',
+      },
+      {
+        title: 'ਮੂਡ ਦਾ ਉਤਾਰ-ਚੜ੍ਹਾਅ',
+        description:
+          'ਕਮਜ਼ੋਰੀ ਦਾ ਅਹਿਸਾਸ ਅਤੇ ਚੰਗਾ ਮਹਿਸੂਸ ਕਰਨ ਦੇ ਪਲ ਵਾਰੀ-ਵਾਰੀ ਆ ਸਕਦੇ ਹਨ।',
+      },
+      {
+        title: 'ਥਕਾਵਟ',
+        description: 'ਪਹਿਲੇ ਦਿਨਾਂ ਦੀ ਥਕਾਵਟ ਭਾਵਨਾਵਾਂ ਨੂੰ ਹੋਰ ਵਧਾ ਸਕਦੀ ਹੈ।',
+      },
+    ],
+    section3Kicker: 'ਰੋਜ਼ਾਨਾ',
+    section3Title: 'ਕੀ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ',
+    section3Body:
+      'ਇਸ ਦੌਰ ਵਿੱਚ ਆਰਾਮ ਦੀ ਲੋੜ ਬਹੁਤ ਹੁੰਦੀ ਹੈ। ਛੋਟੀਆਂ ਅਤੇ ਸਾਦੀਆਂ ਗੱਲਾਂ ਦਿਨਾਂ ਨੂੰ ਵਧੇਰੇ ਸੁਖਾਲਾ ਬਣਾ ਸਕਦੀਆਂ ਹਨ।',
+    dailySupport: [
+      {
+        title: 'ਆਰਾਮ ਕਰਨਾ',
+        description: 'ਹਰ ਵਿਹਲੇ ਪਲ ਦਾ ਫ਼ਾਇਦਾ ਲੈ ਕੇ ਤਾਕਤ ਮੁੜ ਹਾਸਲ ਕਰਨਾ।',
+      },
+      {
+        title: 'ਮਦਦ ਸਵੀਕਾਰ ਕਰਨਾ',
+        description: 'ਆਪਣੇ ਆਲੇ-ਦੁਆਲੇ ਦੇ ਲੋਕਾਂ ਤੋਂ ਸਹਾਰਾ ਮੰਗਣ ਵਿੱਚ ਝਿਜਕ ਨਾ ਕਰੋ।',
+      },
+      {
+        title: 'ਨਿਯਮਿਤ ਤੌਰ ’ਤੇ ਪਾਣੀ ਪੀਣਾ',
+        description: 'ਦਿਨ ਭਰ ਸਰੀਰ ਵਿੱਚ ਪਾਣੀ ਦੀ ਕਾਫ਼ੀ ਮਾਤਰਾ ਬਣਾਈ ਰੱਖਣਾ।',
+      },
+      {
+        title: 'ਕਾਫ਼ੀ ਖਾਣਾ',
+        description: 'ਨਿਯਮਿਤ ਅਤੇ ਸਾਦੇ ਭੋਜਨ ਨੂੰ ਤਰਜੀਹ ਦੇਣਾ।',
+      },
+    ],
+    quoteText:
+      '“ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਮਦਦ ਮੰਗਣਾ ਆਪਣੀ ਅਤੇ ਆਪਣੇ ਬੱਚੇ ਦੀ ਦੇਖਭਾਲ ਕਰਨ ਦਾ ਇੱਕ ਤਰੀਕਾ ਹੈ।”',
+    section4Kicker: 'ਫ਼ਰਕ ਪਛਾਣਨਾ',
+    section4Title: 'ਬੇਬੀ ਬਲੂਜ਼ ਜਾਂ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦੀ ਉਦਾਸੀ?',
+    section4Body:
+      'ਬੇਬੀ ਬਲੂਜ਼ ਆਮ ਤੌਰ ’ਤੇ ਥੋੜ੍ਹੇ ਸਮੇਂ ਦਾ ਹੁੰਦਾ ਹੈ ਅਤੇ ਹੌਲੀ-ਹੌਲੀ ਠੀਕ ਹੋ ਜਾਂਦਾ ਹੈ। ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦੀ ਉਦਾਸੀ ਵੱਖਰੀ ਹੈ: ਇਹ ਵਧੇਰੇ ਲੰਮੀ, ਵਧੇਰੇ ਤੀਬਰ ਹੋ ਸਕਦੀ ਹੈ ਅਤੇ ਰੋਜ਼ਾਨਾ ਜ਼ਿੰਦਗੀ ’ਤੇ ਵੱਡਾ ਅਸਰ ਪਾ ਸਕਦੀ ਹੈ।',
+    compareTitle: 'ਦੋ ਹਾਲਾਤ ਜਿਨ੍ਹਾਂ ਵਿੱਚ ਫ਼ਰਕ ਕਰਨਾ ਹੈ',
+    compareBabyBluesTitle: 'ਬੇਬੀ ਬਲੂਜ਼',
+    compareBabyBluesText:
+      'ਅਕਸਰ ਥੋੜ੍ਹੇ ਸਮੇਂ ਦਾ, ਅਗਲੇ ਦਿਨਾਂ ਵਿੱਚ ਹੌਲੀ-ਹੌਲੀ ਸੁਧਾਰ ਨਾਲ।',
+    comparePostpartumTitle: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦੀ ਉਦਾਸੀ',
+    comparePostpartumText:
+      'ਇਹ ਵੱਧ ਸਮਾਂ ਰਹਿ ਸਕਦੀ ਹੈ, ਵਧ ਸਕਦੀ ਹੈ ਅਤੇ ਮਾਹਿਰ ਦੇ ਸਹਾਰੇ ਦੀ ਲੋੜ ਪੈ ਸਕਦੀ ਹੈ।',
+    section5Kicker: 'ਸੁਚੇਤ ਰਹਿਣਾ',
+    section5Title: 'ਮਦਦ ਕਦੋਂ ਮੰਗਣੀ ਚਾਹੀਦੀ ਹੈ?',
+    section5Body:
+      'ਜੇ ਭਾਵਨਾਤਮਕ ਪਰੇਸ਼ਾਨੀ ਠੀਕ ਨਹੀਂ ਹੁੰਦੀ, ਵਧੇਰੇ ਤੀਬਰ ਹੋ ਜਾਂਦੀ ਹੈ ਜਾਂ ਰੋਜ਼ਾਨਾ ਜ਼ਿੰਦਗੀ ਨੂੰ ਔਖਾ ਬਣਾਉਣ ਲੱਗਦੀ ਹੈ, ਤਾਂ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰਨਾ ਜ਼ਰੂਰੀ ਹੈ।',
+    attentionTitle: 'ਧਿਆਨ ਦੇਣ ਯੋਗ ਚੇਤਾਵਨੀ ਦੇ ਸੰਕੇਤ',
+    attentionSubtitle: 'ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰੋ ਜੇ…',
+    attentionSigns: [
+      'ਲੱਛਣ ਦੋ ਹਫ਼ਤਿਆਂ ਤੋਂ ਵੱਧ ਰਹਿਣ।',
+      'ਉਦਾਸੀ ਜਾਂ ਚਿੰਤਾ ਹੋਰ ਤੀਬਰ ਹੋ ਜਾਵੇ।',
+      'ਆਪਣੀ ਜਾਂ ਆਪਣੇ ਬੱਚੇ ਦੀ ਦੇਖਭਾਲ ਕਰਨਾ ਔਖਾ ਹੋ ਜਾਵੇ।',
+      'ਪਰੇਸ਼ਾਨੀ ਦਾ ਡੂੰਘਾ ਅਹਿਸਾਸ ਪੈਦਾ ਹੋਵੇ।',
+    ],
+    professionalTitle: 'ਸਹਾਰਾ ਮੌਜੂਦ ਹੈ',
+    professionalText:
+      'ਮਿਡਵਾਈਫ਼, ਡਾਕਟਰ, ਮਨੋਵਿਗਿਆਨੀ ਜਾਂ ਕੋਈ ਹੋਰ ਸਿਹਤ ਮਾਹਿਰ ਤੁਹਾਨੂੰ ਸੁਣ ਸਕਦਾ ਹੈ, ਹਾਲਾਤ ਦਾ ਜਾਇਜ਼ਾ ਲੈ ਸਕਦਾ ਹੈ ਅਤੇ ਢੁਕਵਾਂ ਸਹਾਰਾ ਦੇ ਸਕਦਾ ਹੈ।',
+    tipTitle: 'ਜਾਣਨ ਯੋਗ',
+    tipText:
+      'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦੀਆਂ ਭਾਵਨਾਵਾਂ ਇਹ ਨਹੀਂ ਮਾਪਦੀਆਂ ਕਿ ਤੁਸੀਂ ਕਿੰਨੀ ਚੰਗੀ ਮਾਂ ਹੋ। ਤੁਹਾਨੂੰ ਆਰਾਮ ਦੀ ਲੋੜ ਹੋਣ, ਸੁਣੇ ਜਾਣ ਅਤੇ ਸਹਾਰਾ ਮਿਲਣ ਦਾ ਪੂਰਾ ਹੱਕ ਹੈ।',
+    section6Kicker: 'ਅਹਿਮ ਗੱਲਾਂ',
+    section6Title: 'ਮੁੱਖ ਨੁਕਤੇ',
+    takeaways: [
+      'ਬੇਬੀ ਬਲੂਜ਼ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਆਮ ਹੈ।',
+      'ਥਕਾਵਟ ਅਤੇ ਹਾਰਮੋਨ ਦੀਆਂ ਤਬਦੀਲੀਆਂ ਮੂਡ ’ਤੇ ਅਸਰ ਪਾ ਸਕਦੀਆਂ ਹਨ।',
+      'ਆਲੇ-ਦੁਆਲੇ ਦੇ ਲੋਕਾਂ ਦਾ ਸਹਾਰਾ ਇਸ ਦੌਰ ਨੂੰ ਸੌਖਾ ਬਣਾ ਸਕਦਾ ਹੈ।',
+      'ਲਗਾਤਾਰ ਜਾਂ ਡੂੰਘੀ ਪਰੇਸ਼ਾਨੀ ਦਾ ਮਾਹਿਰ ਵੱਲੋਂ ਜਾਇਜ਼ਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।',
+    ],
+    disclaimerText:
+      'ਇਹ ਲੇਖ ਜਾਣਕਾਰੀ ਲਈ ਹੈ ਅਤੇ ਨਿੱਜੀ ਡਾਕਟਰੀ ਸਲਾਹ ਦੀ ਥਾਂ ਨਹੀਂ ਲੈਂਦਾ। ਸ਼ੱਕ ਹੋਣ ’ਤੇ ਜਾਂ ਡੂੰਘੀ ਪਰੇਸ਼ਾਨੀ ਮਹਿਸੂਸ ਹੋਣ ’ਤੇ ਕਿਸੇ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰੋ।',
+    endText: 'ਆਪਣਾ ਖ਼ਿਆਲ ਰੱਖਣਾ ਵੀ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦੇ ਦੌਰ ਦਾ ਹਿੱਸਾ ਹੈ।',
+    shareTitle: 'ਬੇਬੀ ਬਲੂਜ਼ ਅਤੇ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਭਾਵਨਾਤਮਕ ਸਿਹਤ',
+    shareMessage:
+      'ਬੇਬੀ ਬਲੂਜ਼ ਅਤੇ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਭਾਵਨਾਤਮਕ ਸਿਹਤ — AWA\n\nਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਆਮ ਤੌਰ ’ਤੇ ਹੋਣ ਵਾਲੀਆਂ ਭਾਵਨਾਤਮਕ ਤਬਦੀਲੀਆਂ ਨੂੰ ਸਮਝਣ ਲਈ ਇੱਕ ਗਾਈਡ।',
+  },
+  my: {
+    badgeText: 'ကလေးမွေးပြီးနောက် • စိတ်ခံစားမှု ကျန်းမာရေး',
+    title: 'မီးဖွားပြီး စိတ်ဓာတ်ကျခြင်းနှင့်\nမီးဖွားပြီးနောက် စိတ်ခံစားမှု ကျန်းမာရေး',
+    subtitle:
+      'ကလေးမွေးပြီးနောက် စိတ်ခံစားမှုတွင် ပြောင်းလဲနိုင်သည့်အရာများကို နားလည်ပြီး အကူအညီမည်သည့်အချိန်တွင် ရှာသင့်သည်ကို သိရှိရန်။',
+    metaItems: ['ဖတ်ချိန် 10 မိနစ်', 'ဆောင်းပါး', 'အခြေခံအဆင့်', 'ပြန်လည်သုံးသပ်ပြီး အကြောင်းအရာ'],
+    introTitle: 'သိထားသင့်သည်',
+    introText:
+      'ကလေးမွေးပြီးနောက် စိတ်ခံစားမှု ပိုမိုထိခိုက်လွယ်သော ကာလကို ကြုံတွေ့ရတတ်ခြင်းမှာ အဖြစ်များသည်။ မီးဖွားပြီး စိတ်ဓာတ်ကျခြင်းသည် များသောအားဖြင့် ယာယီသာဖြစ်သော်လည်း ဆက်လက်ဖြစ်နေသော သို့မဟုတ် ပိုမိုပြင်းထန်လာသော စိတ်ဆင်းရဲမှုကို ပညာရှင်၏ ဂရုစိုက်မှု လိုအပ်သည်။',
+    contentsEyebrow: 'လမ်းညွှန်',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    contents: [
+      'မီးဖွားပြီး စိတ်ဓာတ်ကျခြင်းကို နားလည်ခြင်း',
+      'အဖြစ်အများဆုံး လက္ခဏာများ',
+      'နေ့စဉ်ဘဝတွင် အထောက်အကူဖြစ်သည့်အရာများ',
+      'မီးဖွားပြီး စိတ်ဓာတ်ကျခြင်းလား၊ မီးဖွားပြီးနောက် စိတ်ကျဆင်းရောဂါလား။',
+      'အကူအညီကို မည်သည့်အချိန်တွင် တောင်းသင့်သနည်း',
+      'အဓိကအချက်များ',
+    ],
+    section1Kicker: 'နားလည်ခြင်း',
+    section1Title: 'မီးဖွားပြီး စိတ်ဓာတ်ကျခြင်းဆိုသည်မှာ အဘယ်နည်း။',
+    section1Body1:
+      'မီးဖွားပြီး စိတ်ဓာတ်ကျခြင်းသည် ကလေးမွေးပြီးနောက် ပထမရက်အနည်းငယ်အတွင်း ဖြစ်ပေါ်နိုင်သော စိတ်ခံစားမှု ပြောင်းလဲမှုကာလ ဖြစ်သည်။ ဟော်မုန်း ပြောင်းလဲမှု၊ ပင်ပန်းနွမ်းနယ်ခြင်း၊ အိပ်ရေးမဝခြင်းနှင့် ဤအဆင့်သစ်သို့ လိုက်လျောညီထွေ ပြောင်းလဲရခြင်းတို့အားလုံးသည် ဤထိခိုက်လွယ်မှုကို ဖြစ်စေနိုင်သည်။',
+    section1Body2:
+      'ဤအရာသည် ကျရှုံးမှု မဟုတ်သလို သင်သည် မကောင်းသော မိခင်ဖြစ်သည်ဟုလည်း မဆိုလိုပါ။ ကလေးမွေးပြီးနောက် ပထမရက်များကို လူတိုင်း ကိုယ်ပိုင်နည်းလမ်းဖြင့် ကြုံတွေ့ရသည်။',
+    statTitle: 'အဖြစ်များသော အတွေ့အကြုံ',
+    statText:
+      'မီးဖွားပြီး စိတ်ဓာတ်ကျခြင်းသည် ကလေးမွေးဖွားပြီးနောက် အဖြစ်များပြီး ရက်အနည်းငယ်အတွင်း ကိုယ်တိုင် သက်သာလာတတ်သည်။',
+    section2Kicker: 'လက္ခဏာများ',
+    section2Title: 'သင်ခံစားရနိုင်သည့်အရာများ',
+    section2Body:
+      'လူတစ်ဦးချင်း ကြုံတွေ့ရပုံ ကွာခြားသည်။ အချို့မှာ အဓိကအားဖြင့် ပင်ပန်းနွမ်းနယ်ခြင်းနှင့် ထိခိုက်လွယ်ခြင်းကို ခံစားရပြီး အချို့မှာ ပိုမိုသိသာသော စိတ်ခံစားမှု ပြောင်းလဲမှုများ ရှိနိုင်သည်။',
+    commonSigns: [
+      {
+        title: 'စိတ်လှုပ်ရှားလွယ်ခြင်း',
+        description: 'ပိုမိုလွယ်ကူစွာ ငိုမိခြင်း သို့မဟုတ် အထူးထိခိုက်လွယ်သလို ခံစားရခြင်း။',
+      },
+      {
+        title: 'အလွန်ထိခိုက်လွယ်ခြင်း',
+        description: 'စိတ်ခံစားမှုများ ပိုပြင်းထန်ပြီး လျင်မြန်စွာ ပြောင်းလဲသလို ခံစားရနိုင်သည်။',
+      },
+      {
+        title: 'စိတ်ခံစားမှု အတက်အကျ',
+        description:
+          'ကြေကွဲလွယ်သည့် ခံစားချက်သည် စိတ်ချမ်းသာသည့် အချိန်များနှင့် အလှည့်ကျ ဖြစ်ပေါ်နိုင်သည်။',
+      },
+      {
+        title: 'ပင်ပန်းနွမ်းနယ်ခြင်း',
+        description: 'ပထမရက်များမှ ပင်ပန်းနွမ်းနယ်မှုသည် စိတ်ခံစားမှုများကို ပိုမိုပြင်းထန်စေနိုင်သည်။',
+      },
+    ],
+    section3Kicker: 'နေ့စဉ်ဘဝ',
+    section3Title: 'အထောက်အကူဖြစ်နိုင်သည့်အရာများ',
+    section3Body:
+      'ဤကာလတွင် အနားယူရန် လိုအပ်မှုမှာ များပြားသည်။ ရိုးရှင်းသော အရာငယ်လေးများက နေ့ရက်များကို ပိုမိုသက်သောင့်သက်သာ ဖြစ်စေနိုင်သည်။',
+    dailySupport: [
+      {
+        title: 'အနားယူခြင်း',
+        description: 'အားလပ်ချိန်ရှိတိုင်း ပြန်လည်ကောင်းမွန်လာရန် အသုံးချခြင်း။',
+      },
+      {
+        title: 'အကူအညီကို လက်ခံခြင်း',
+        description: 'ပတ်ဝန်းကျင်ရှိ လူများထံမှ အထောက်အပံ့ တောင်းခံရန် မတွန့်တိုပါနှင့်။',
+      },
+      {
+        title: 'ပုံမှန်သောက်ခြင်း',
+        description: 'တစ်နေ့တာလုံး ရေလုံလောက်စွာ သောက်ခြင်း။',
+      },
+      {
+        title: 'လုံလောက်စွာ စားခြင်း',
+        description: 'ပုံမှန်ဆန်ပြီး ရိုးရှင်းသော အစားအစာများကို ရွေးချယ်ခြင်း။',
+      },
+    ],
+    quoteText:
+      '“ကလေးမွေးပြီးနောက် အကူအညီတောင်းခြင်းသည် ကိုယ့်ကိုယ်ကိုယ်နှင့် သင့်ကလေးကို စောင့်ရှောက်ခြင်း၏ နည်းလမ်းတစ်ခု ဖြစ်သည်။”',
+    section4Kicker: 'ခွဲခြားသိရှိခြင်း',
+    section4Title: 'မီးဖွားပြီး စိတ်ဓာတ်ကျခြင်းလား၊ မီးဖွားပြီးနောက် စိတ်ကျဆင်းရောဂါလား။',
+    section4Body:
+      'မီးဖွားပြီး စိတ်ဓာတ်ကျခြင်းသည် များသောအားဖြင့် ကာလတိုပြီး တဖြည်းဖြည်း သက်သာလာသည်။ မီးဖွားပြီးနောက် စိတ်ကျဆင်းရောဂါမှာ ကွဲပြားသည်။ ပိုမိုကြာရှည်နိုင်ပြီး ပိုပြင်းထန်နိုင်ကာ နေ့စဉ်ဘဝကို သိသိသာသာ ထိခိုက်စေနိုင်သည်။',
+    compareTitle: 'ခွဲခြားရမည့် အခြေအနေနှစ်ခု',
+    compareBabyBluesTitle: 'မီးဖွားပြီး စိတ်ဓာတ်ကျခြင်း',
+    compareBabyBluesText:
+      'မကြာခဏ ကာလတိုဖြစ်ပြီး နောက်လာမည့်ရက်များတွင် တဖြည်းဖြည်း သက်သာလာသည်။',
+    comparePostpartumTitle: 'မီးဖွားပြီးနောက် စိတ်ကျဆင်းရောဂါ',
+    comparePostpartumText:
+      'ပိုကြာရှည်နိုင်ပြီး ပိုပြင်းထန်လာနိုင်ကာ ပညာရှင်၏ အထောက်အပံ့ လိုအပ်နိုင်သည်။',
+    section5Kicker: 'သတိထားခြင်း',
+    section5Title: 'အကူအညီကို မည်သည့်အချိန်တွင် တောင်းသင့်သနည်း။',
+    section5Body:
+      'စိတ်ခံစားမှု ဆင်းရဲခြင်း မသက်သာပါက၊ ပိုပြင်းထန်လာပါက သို့မဟုတ် နေ့စဉ်ဘဝကို ပိုခက်ခဲစေပါက ကျန်းမာရေးပညာရှင်နှင့် ပြောဆိုခြင်းသည် အရေးကြီးသည်။',
+    attentionTitle: 'သတိထားရမည့် သတိပေးလက္ခဏာများ',
+    attentionSubtitle: 'အောက်ပါအခြေအနေများတွင် ပညာရှင်နှင့် ပြောဆိုပါ…',
+    attentionSigns: [
+      'လက္ခဏာများ နှစ်ပတ်ထက်ပိုကြာခြင်း။',
+      'ဝမ်းနည်းမှု သို့မဟုတ် စိုးရိမ်ပူပန်မှု ပိုပြင်းထန်လာခြင်း။',
+      'ကိုယ့်ကိုယ်ကိုယ် သို့မဟုတ် သင့်ကလေးကို စောင့်ရှောက်ရန် ခက်ခဲလာခြင်း။',
+      'သိသာသော စိတ်ဆင်းရဲမှု ခံစားချက် ပေါ်လာခြင်း။',
+    ],
+    professionalTitle: 'အထောက်အပံ့ ရရှိနိုင်သည်',
+    professionalText:
+      'သားဖွားဆရာမ၊ ဆရာဝန်၊ စိတ်ပညာရှင် သို့မဟုတ် အခြားကျန်းမာရေးပညာရှင်တစ်ဦးက နားထောင်ပေးနိုင်ပြီး အခြေအနေကို အကဲဖြတ်ကာ သင့်လျော်သော အထောက်အပံ့ ပေးနိုင်သည်။',
+    tipTitle: 'သိထားသင့်သည်',
+    tipText:
+      'ကလေးမွေးပြီးနောက် စိတ်ခံစားမှုများသည် သင်မည်မျှကောင်းသော မိခင်ဖြစ်သည်ကို တိုင်းတာခြင်း မဟုတ်ပါ။ သင်သည် အနားယူရန်၊ နားထောင်ခံရရန်နှင့် အထောက်အပံ့ရရန် လိုအပ်ခွင့် ရှိသည်။',
+    section6Kicker: 'အဓိကအချက်များ',
+    section6Title: 'အဓိကအချက်များ',
+    takeaways: [
+      'မီးဖွားပြီး စိတ်ဓာတ်ကျခြင်းသည် ကလေးမွေးပြီးနောက် အဖြစ်များသည်။',
+      'ပင်ပန်းနွမ်းနယ်ခြင်းနှင့် ဟော်မုန်း ပြောင်းလဲမှုများက စိတ်ခံစားမှုကို သက်ရောက်နိုင်သည်။',
+      'ပတ်ဝန်းကျင်လူများ၏ အထောက်အပံ့သည် ဤကာလကို ပိုလွယ်ကူစေနိုင်သည်။',
+      'ဆက်လက်ဖြစ်နေသော သို့မဟုတ် သိသာသော စိတ်ဆင်းရဲမှုကို ပညာရှင်၏ အကဲဖြတ်မှု လိုအပ်သည်။',
+    ],
+    disclaimerText:
+      '၎င်းသည် အချက်အလက်ပေးရန်ဖြစ်ပြီး ကိုယ်ပိုင်ဆေးဘက်ဆိုင်ရာ အကြံပြုချက်ကို အစားထိုးခြင်းမရှိပါ။ သံသယရှိပါက သို့မဟုတ် သိသာသော စိတ်ဆင်းရဲမှု ခံစားရပါက ကျန်းမာရေးပညာရှင်နှင့် ပြောဆိုပါ။',
+    endText: 'ကိုယ့်ကိုယ်ကိုယ် စောင့်ရှောက်ခြင်းသည်လည်း ကလေးမွေးပြီးနောက်ကာလ၏ အစိတ်အပိုင်းတစ်ခု ဖြစ်သည်။',
+    shareTitle: 'မီးဖွားပြီး စိတ်ဓာတ်ကျခြင်းနှင့် မီးဖွားပြီးနောက် စိတ်ခံစားမှု ကျန်းမာရေး',
+    shareMessage:
+      'မီးဖွားပြီး စိတ်ဓာတ်ကျခြင်းနှင့် မီးဖွားပြီးနောက် စိတ်ခံစားမှု ကျန်းမာရေး — AWA\n\nကလေးမွေးပြီးနောက် အဖြစ်များသော စိတ်ခံစားမှု ပြောင်းလဲမှုများကို နားလည်ရန် လမ်းညွှန်။',
+  },
+  km: {
+    badgeText: 'ក្រោយសម្រាលកូន • សុខភាពផ្លូវអារម្មណ៍',
+    title: 'ទុក្ខព្រួយក្រោយសម្រាល និងសុខភាព\nផ្លូវអារម្មណ៍ក្រោយសម្រាលកូន',
+    subtitle:
+      'ស្វែងយល់ពីអ្វីដែលអាចផ្លាស់ប្តូរផ្នែកអារម្មណ៍ក្រោយសម្រាលកូន និងដឹងពេលណាគួរស្វែងរកការគាំទ្រ។',
+    metaItems: ['អាន 10 នាទី', 'អត្ថបទ', 'កម្រិតដំបូង', 'មាតិកាបានពិនិត្យ'],
+    introTitle: 'គួរដឹង',
+    introText:
+      'ក្រោយសម្រាលកូន វាជារឿងធម្មតាដែលឆ្លងកាត់រយៈពេលមួយដែលមានភាពរសើបផ្លូវអារម្មណ៍កើនឡើង។ ទុក្ខព្រួយក្រោយសម្រាលជាធម្មតាមានតែបណ្តោះអាសន្ន ប៉ុន្តែការឈឺចិត្តដែលនៅបន្ត ឬកាន់តែខ្លាំង គួរតែទទួលបានការយកចិត្តទុកដាក់ពីអ្នកជំនាញ។',
+    contentsEyebrow: 'មគ្គុទ្ទេសក៍',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    contents: [
+      'ស្វែងយល់ពីទុក្ខព្រួយក្រោយសម្រាល',
+      'សញ្ញាទូទៅបំផុត',
+      'អ្វីដែលជួយក្នុងជីវិតប្រចាំថ្ងៃ',
+      'ទុក្ខព្រួយក្រោយសម្រាល ឬជំងឺធ្លាក់ទឹកចិត្តក្រោយសម្រាល?',
+      'ពេលណាគួរស្នើសុំជំនួយ',
+      'ចំណុចសំខាន់ៗ',
+    ],
+    section1Kicker: 'ការស្វែងយល់',
+    section1Title: 'តើទុក្ខព្រួយក្រោយសម្រាលជាអ្វី?',
+    section1Body1:
+      'ទុក្ខព្រួយក្រោយសម្រាលគឺជារយៈពេលនៃការប្រែប្រួលផ្លូវអារម្មណ៍ ដែលអាចកើតឡើងក្នុងរយៈពេលពីរបីថ្ងៃដំបូងក្រោយសម្រាលកូន។ ការប្រែប្រួលនៃអរម៉ូន ការអស់កម្លាំង ការខ្វះដំណេក និងការសម្របខ្លួនទៅនឹងដំណាក់កាលថ្មីនេះ អាចរួមចំណែកដល់ភាពរសើបនេះទាំងអស់។',
+    section1Body2:
+      'នេះមិនមែនជាការបរាជ័យទេ ហើយក៏មិនមានន័យថាអ្នកជាម្តាយមិនល្អនោះដែរ។ មនុស្សគ្រប់គ្នាឆ្លងកាត់ថ្ងៃដំបូងនៃការក្រោយសម្រាលតាមរបៀបរៀងៗខ្លួន។',
+    statTitle: 'បទពិសោធន៍ទូទៅ',
+    statText:
+      'ទុក្ខព្រួយក្រោយសម្រាលជារឿងទូទៅក្រោយការសម្រាលកូន ហើយមាននិន្នាការប្រសើរឡើងដោយខ្លួនឯងក្នុងរយៈពេលពីរបីថ្ងៃ។',
+    section2Kicker: 'សញ្ញា',
+    section2Title: 'អ្វីដែលអ្នកអាចមានអារម្មណ៍',
+    section2Body:
+      'អ្វីដែលមនុស្សជួបប្រទះមានភាពខុសគ្នា។ អ្នកខ្លះមានអារម្មណ៍អស់កម្លាំង និងរសើបជាសំខាន់ ចំណែកអ្នកខ្លះទៀតអាចមានការប្រែប្រួលអារម្មណ៍ដែលច្បាស់ជាង។',
+    commonSigns: [
+      {
+        title: 'ងាយរំជួលចិត្ត',
+        description: 'យំកាន់តែងាយ ឬមានអារម្មណ៍រសើបជាពិសេស។',
+      },
+      {
+        title: 'រសើបហួសប្រមាណ',
+        description: 'អារម្មណ៍អាចមានអារម្មណ៍ខ្លាំងជាងមុន ហើយប្រែប្រួលយ៉ាងឆាប់រហ័ស។',
+      },
+      {
+        title: 'អារម្មណ៍ឡើងចុះ',
+        description:
+          'អារម្មណ៍ងាយបាក់ទឹកចិត្តអាចជំនួសគ្នាជាមួយនឹងពេលវេលាដែលមានសុខុមាលភាព។',
+      },
+      {
+        title: 'អស់កម្លាំង',
+        description: 'ភាពអស់កម្លាំងពីថ្ងៃដំបូងអាចបង្កើនអារម្មណ៍កាន់តែខ្លាំង។',
+      },
+    ],
+    section3Kicker: 'ជីវិតប្រចាំថ្ងៃ',
+    section3Title: 'អ្វីដែលអាចជួយបាន',
+    section3Body:
+      'ក្នុងរយៈពេលនេះ តម្រូវការសម្រាកមានច្រើនណាស់។ រឿងតូចៗ និងសាមញ្ញអាចធ្វើឱ្យថ្ងៃទាំងនោះស្រួលជាងមុន។',
+    dailySupport: [
+      {
+        title: 'សម្រាក',
+        description: 'ទាញយកប្រយោជន៍ពីគ្រប់ពេលទំនេរដើម្បីងើបឡើងវិញ។',
+      },
+      {
+        title: 'ទទួលយកជំនួយ',
+        description: 'កុំស្ទាក់ស្ទើរក្នុងការសុំការគាំទ្រពីមនុស្សជុំវិញអ្នក។',
+      },
+      {
+        title: 'ផឹកទឹកឱ្យទៀងទាត់',
+        description: 'ផឹកទឹកឱ្យបានគ្រប់គ្រាន់ពេញមួយថ្ងៃ។',
+      },
+      {
+        title: 'បរិភោគឱ្យបានគ្រប់គ្រាន់',
+        description: 'ជ្រើសរើសអាហារសាមញ្ញៗ ដែលទៀងទាត់។',
+      },
+    ],
+    quoteText:
+      '“ការស្នើសុំជំនួយក្នុងអំឡុងពេលក្រោយសម្រាលកូន គឺជាវិធីមួយនៃការថែទាំខ្លួនអ្នក និងទារករបស់អ្នក។”',
+    section4Kicker: 'ការញែកភាពខុសគ្នា',
+    section4Title: 'ទុក្ខព្រួយក្រោយសម្រាល ឬជំងឺធ្លាក់ទឹកចិត្តក្រោយសម្រាល?',
+    section4Body:
+      'ទុក្ខព្រួយក្រោយសម្រាលជាធម្មតាមានរយៈពេលខ្លី ហើយប្រសើរឡើងបន្តិចម្តងៗ។ ជំងឺធ្លាក់ទឹកចិត្តក្រោយសម្រាលមានភាពខុសគ្នា៖ វាអាចនៅបន្តយូរជាង ខ្លាំងជាង និងមានផលប៉ះពាល់ខ្លាំងដល់ជីវិតប្រចាំថ្ងៃ។',
+    compareTitle: 'ស្ថានភាពពីរដែលត្រូវញែកឱ្យដាច់',
+    compareBabyBluesTitle: 'ទុក្ខព្រួយក្រោយសម្រាល',
+    compareBabyBluesText:
+      'ជាញឹកញាប់មានរយៈពេលខ្លី ហើយប្រសើរឡើងបន្តិចម្តងៗក្នុងរយៈពេលពីរបីថ្ងៃបន្ទាប់។',
+    comparePostpartumTitle: 'ជំងឺធ្លាក់ទឹកចិត្តក្រោយសម្រាល',
+    comparePostpartumText:
+      'អាចមានរយៈពេលយូរជាង កាន់តែខ្លាំង និងត្រូវការការគាំទ្រពីអ្នកជំនាញ។',
+    section5Kicker: 'ការប្រុងប្រយ័ត្ន',
+    section5Title: 'ពេលណាគួរស្នើសុំជំនួយ?',
+    section5Body:
+      'វាសំខាន់ក្នុងការនិយាយជាមួយអ្នកជំនាញសុខាភិបាល ប្រសិនបើការឈឺចិត្តមិនប្រសើរឡើង កាន់តែខ្លាំង ឬចាប់ផ្តើមធ្វើឱ្យជីវិតប្រចាំថ្ងៃកាន់តែលំបាក។',
+    attentionTitle: 'សញ្ញាព្រមានដែលត្រូវសង្កេត',
+    attentionSubtitle: 'និយាយជាមួយអ្នកជំនាញ ប្រសិនបើ…',
+    attentionSigns: [
+      'រោគសញ្ញាមានរយៈពេលលើសពីពីរសប្តាហ៍។',
+      'ភាពសោកសៅ ឬការថប់បារម្ភកាន់តែខ្លាំង។',
+      'វាក្លាយជាការលំបាកក្នុងការថែទាំខ្លួនអ្នក ឬទារករបស់អ្នក។',
+      'មានអារម្មណ៍ឈឺចិត្តយ៉ាងខ្លាំង។',
+    ],
+    professionalTitle: 'មានការគាំទ្រសម្រាប់អ្នក',
+    professionalText:
+      'ឆ្មប វេជ្ជបណ្ឌិត អ្នកចិត្តវិទ្យា ឬអ្នកជំនាញសុខាភិបាលផ្សេងទៀត អាចស្តាប់ វាយតម្លៃស្ថានភាព និងផ្តល់ការគាំទ្រសមស្រប។',
+    tipTitle: 'គួរដឹង',
+    tipText:
+      'អារម្មណ៍ក្រោយសម្រាលកូនមិនមែនជារង្វាស់នៃភាពល្អរបស់អ្នកជាម្តាយនោះទេ។ អ្នកមានសិទ្ធិត្រូវការសម្រាក ត្រូវបានគេស្តាប់ និងត្រូវបានគេគាំទ្រ។',
+    section6Kicker: 'ចំណុចសំខាន់',
+    section6Title: 'ចំណុចសំខាន់ៗ',
+    takeaways: [
+      'ទុក្ខព្រួយក្រោយសម្រាលជារឿងទូទៅក្រោយសម្រាលកូន។',
+      'ភាពអស់កម្លាំង និងការប្រែប្រួលអរម៉ូនអាចប៉ះពាល់ដល់អារម្មណ៍។',
+      'ការគាំទ្រពីមនុស្សជុំវិញអាចធ្វើឱ្យរយៈពេលនេះស្រួលជាងមុន។',
+      'ការឈឺចិត្តដែលនៅបន្ត ឬខ្លាំង គួរទទួលបានការវាយតម្លៃពីអ្នកជំនាញ។',
+    ],
+    disclaimerText:
+      'អត្ថបទនេះមានគោលបំណងផ្តល់ព័ត៌មាន ហើយមិនជំនួសដំបូន្មានពេទ្យផ្ទាល់ខ្លួនទេ។ ប្រសិនបើមានការសង្ស័យ ឬមានការឈឺចិត្តយ៉ាងខ្លាំង សូមនិយាយជាមួយអ្នកជំនាញសុខាភិបាល។',
+    endText: 'ការថែទាំខ្លួនអ្នកក៏ជាផ្នែកមួយនៃការក្រោយសម្រាលកូនដែរ។',
+    shareTitle: 'ទុក្ខព្រួយក្រោយសម្រាល និងសុខភាពផ្លូវអារម្មណ៍ក្រោយសម្រាលកូន',
+    shareMessage:
+      'ទុក្ខព្រួយក្រោយសម្រាល និងសុខភាពផ្លូវអារម្មណ៍ក្រោយសម្រាលកូន — AWA\n\nមគ្គុទ្ទេសក៍សម្រាប់ស្វែងយល់ពីការប្រែប្រួលផ្លូវអារម្មណ៍ដែលជារឿងទូទៅក្រោយសម្រាលកូន។',
+  },
+  lo: {
+    badgeText: 'ຫຼັງຄອດ • ສຸຂະພາບທາງອາລົມ',
+    title: 'ອາລົມເສົ້າຫຼັງຄອດ ແລະ\nສຸຂະພາບທາງອາລົມຫຼັງຄອດ',
+    subtitle:
+      'ເຂົ້າໃຈສິ່ງທີ່ອາດປ່ຽນແປງທາງອາລົມຫຼັງການເກີດລູກ ແລະ ຮູ້ວ່າເມື່ອໃດຄວນຂໍຄວາມຊ່ວຍເຫຼືອ.',
+    metaItems: ['ອ່ານ 10 ນາທີ', 'ບົດຄວາມ', 'ລະດັບເລີ່ມຕົ້ນ', 'ເນື້ອຫາທີ່ຜ່ານການກວດສອບ'],
+    introTitle: 'ຄວນຮູ້',
+    introText:
+      'ຫຼັງຈາກເກີດລູກ ເປັນເລື່ອງທົ່ວໄປທີ່ຈະຜ່ານໄລຍະທີ່ອາລົມອ່ອນໄຫວຫຼາຍຂຶ້ນ. ອາລົມເສົ້າຫຼັງຄອດມັກເປັນຊົ່ວຄາວ ແຕ່ຄວາມທຸກໃຈທີ່ຍັງຄົງຢູ່ ຫຼື ຮຸນແຮງຂຶ້ນ ຄວນໄດ້ຮັບການດູແລຈາກຜູ້ຊ່ຽວຊານ.',
+    contentsEyebrow: 'ຄູ່ມື',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    contents: [
+      'ເຂົ້າໃຈອາລົມເສົ້າຫຼັງຄອດ',
+      'ອາການທີ່ພົບເລື້ອຍທີ່ສຸດ',
+      'ສິ່ງທີ່ຊ່ວຍໄດ້ໃນແຕ່ລະວັນ',
+      'ອາລົມເສົ້າຫຼັງຄອດ ຫຼື ພາວະຊຶມເສົ້າຫຼັງຄອດ?',
+      'ເມື່ອໃດຄວນຂໍຄວາມຊ່ວຍເຫຼືອ',
+      'ຈຸດສຳຄັນ',
+    ],
+    section1Kicker: 'ຄວາມເຂົ້າໃຈ',
+    section1Title: 'ອາລົມເສົ້າຫຼັງຄອດແມ່ນຫຍັງ?',
+    section1Body1:
+      'ອາລົມເສົ້າຫຼັງຄອດແມ່ນໄລຍະທີ່ອາລົມປ່ຽນແປງ ເຊິ່ງອາດເກີດຂຶ້ນໃນສອງສາມມື້ທຳອິດຫຼັງການເກີດລູກ. ການປ່ຽນແປງຂອງຮໍໂມນ, ຄວາມອ່ອນເພຍ, ການນອນບໍ່ພຽງພໍ ແລະ ການປັບຕົວເຂົ້າກັບຊ່ວງຊີວິດໃໝ່ນີ້ ລ້ວນອາດເຮັດໃຫ້ອ່ອນໄຫວງ່າຍ.',
+    section1Body2:
+      'ນີ້ບໍ່ແມ່ນຄວາມລົ້ມເຫຼວ ແລະ ບໍ່ໄດ້ໝາຍຄວາມວ່າທ່ານເປັນແມ່ທີ່ບໍ່ດີ. ທຸກຄົນມີປະສົບການໃນສອງສາມມື້ທຳອິດຫຼັງຄອດແຕກຕ່າງກັນ.',
+    statTitle: 'ປະສົບການທີ່ພົບທົ່ວໄປ',
+    statText:
+      'ອາລົມເສົ້າຫຼັງຄອດພົບໄດ້ທົ່ວໄປຫຼັງການເກີດລູກ ແລະ ມັກດີຂຶ້ນເອງພາຍໃນສອງສາມມື້.',
+    section2Kicker: 'ອາການ',
+    section2Title: 'ສິ່ງທີ່ທ່ານອາດຮູ້ສຶກ',
+    section2Body:
+      'ປະສົບການຂອງແຕ່ລະຄົນແຕກຕ່າງກັນ. ບາງຄົນຮູ້ສຶກອ່ອນເພຍ ແລະ ອ່ອນໄຫວເປັນຫຼັກ ໃນຂະນະທີ່ບາງຄົນອາດມີອາລົມປ່ຽນແປງຊັດເຈນກວ່າ.',
+    commonSigns: [
+      {
+        title: 'ອາລົມຄວາມຮູ້ສຶກຫຼາຍຂຶ້ນ',
+        description: 'ຮ້ອງໄຫ້ງ່າຍຂຶ້ນ ຫຼື ຮູ້ສຶກອ່ອນໄຫວເປັນພິເສດ.',
+      },
+      {
+        title: 'ອ່ອນໄຫວເກີນປົກກະຕິ',
+        description: 'ອາລົມອາດຮູ້ສຶກແຮງຂຶ້ນ ແລະ ປ່ຽນແປງໄວ.',
+      },
+      {
+        title: 'ອາລົມປ່ຽນແປງງ່າຍ',
+        description:
+          'ຄວາມຮູ້ສຶກບອບບາງອາດສະຫຼັບກັບຊ່ວງເວລາທີ່ຮູ້ສຶກດີ.',
+      },
+      {
+        title: 'ອ່ອນເພຍ',
+        description: 'ຄວາມອ່ອນເພຍໃນສອງສາມມື້ທຳອິດອາດເຮັດໃຫ້ອາລົມແຮງຂຶ້ນ.',
+      },
+    ],
+    section3Kicker: 'ໃນແຕ່ລະວັນ',
+    section3Title: 'ສິ່ງທີ່ອາດຊ່ວຍໄດ້',
+    section3Body:
+      'ໃນໄລຍະນີ້ ຄວາມຕ້ອງການພັກຜ່ອນມີຫຼາຍ. ສິ່ງນ້ອຍໆທີ່ງ່າຍໆອາດເຮັດໃຫ້ແຕ່ລະມື້ສະບາຍຂຶ້ນ.',
+    dailySupport: [
+      {
+        title: 'ພັກຜ່ອນ',
+        description: 'ໃຊ້ທຸກຊ່ວງເວລາວ່າງເພື່ອຟື້ນຟູຮ່າງກາຍ.',
+      },
+      {
+        title: 'ຍອມຮັບການຊ່ວຍເຫຼືອ',
+        description: 'ຢ່າລັງເລທີ່ຈະຂໍການສະໜັບສະໜູນຈາກຄົນອ້ອມຂ້າງ.',
+      },
+      {
+        title: 'ດື່ມນ້ຳເປັນປະຈຳ',
+        description: 'ດື່ມນ້ຳໃຫ້ພຽງພໍຕະຫຼອດມື້.',
+      },
+      {
+        title: 'ກິນອາຫານໃຫ້ພຽງພໍ',
+        description: 'ເລືອກອາຫານງ່າຍໆທີ່ກິນເປັນປະຈຳ.',
+      },
+    ],
+    quoteText:
+      '“ການຂໍຄວາມຊ່ວຍເຫຼືອໃນໄລຍະຫຼັງຄອດ ແມ່ນວິທີໜຶ່ງໃນການດູແລຕົນເອງ ແລະ ລູກນ້ອຍຂອງທ່ານ.”',
+    section4Kicker: 'ແຍກຄວາມແຕກຕ່າງ',
+    section4Title: 'ອາລົມເສົ້າຫຼັງຄອດ ຫຼື ພາວະຊຶມເສົ້າຫຼັງຄອດ?',
+    section4Body:
+      'ອາລົມເສົ້າຫຼັງຄອດມັກເກີດຂຶ້ນໄລຍະສັ້ນ ແລະ ດີຂຶ້ນເທື່ອລະໜ້ອຍ. ພາວະຊຶມເສົ້າຫຼັງຄອດແຕກຕ່າງກັນ: ອາດຍາວນານກວ່າ, ຮຸນແຮງກວ່າ ແລະ ສົ່ງຜົນຕໍ່ຊີວິດປະຈຳວັນຢ່າງຫຼວງຫຼາຍ.',
+    compareTitle: 'ສອງສະຖານະການທີ່ຄວນແຍກໃຫ້ອອກ',
+    compareBabyBluesTitle: 'ອາລົມເສົ້າຫຼັງຄອດ',
+    compareBabyBluesText:
+      'ມັກເກີດໄລຍະສັ້ນ ແລະ ດີຂຶ້ນເທື່ອລະໜ້ອຍໃນສອງສາມມື້ຕໍ່ມາ.',
+    comparePostpartumTitle: 'ພາວະຊຶມເສົ້າຫຼັງຄອດ',
+    comparePostpartumText:
+      'ອາດຍາວນານກວ່າ, ຮຸນແຮງຂຶ້ນ ແລະ ຕ້ອງການການດູແລຈາກຜູ້ຊ່ຽວຊານ.',
+    section5Kicker: 'ເຝົ້າລະວັງ',
+    section5Title: 'ເມື່ອໃດຄວນຂໍຄວາມຊ່ວຍເຫຼືອ?',
+    section5Body:
+      'ສຳຄັນທີ່ຈະປຶກສາຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ ຖ້າຄວາມທຸກໃຈທາງອາລົມບໍ່ດີຂຶ້ນ, ຮຸນແຮງຂຶ້ນ ຫຼື ເລີ່ມເຮັດໃຫ້ຊີວິດປະຈຳວັນຍາກຂຶ້ນ.',
+    attentionTitle: 'ສັນຍານເຕືອນທີ່ຄວນສັງເກດ',
+    attentionSubtitle: 'ປຶກສາຜູ້ຊ່ຽວຊານ ຖ້າ…',
+    attentionSigns: [
+      'ອາການຕໍ່ເນື່ອງເກີນສອງອາທິດ.',
+      'ຄວາມໂສກເສົ້າ ຫຼື ຄວາມກັງວົນຮຸນແຮງຂຶ້ນ.',
+      'ເລີ່ມຍາກທີ່ຈະດູແລຕົນເອງ ຫຼື ລູກນ້ອຍ.',
+      'ມີຄວາມຮູ້ສຶກທຸກໃຈຢ່າງຫຼວງຫຼາຍ.',
+    ],
+    professionalTitle: 'ມີການສະໜັບສະໜູນພ້ອມໃຫ້',
+    professionalText:
+      'ໝໍຕຳແຍ, ແພດ, ນັກຈິດຕະສາດ ຫຼື ຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບຄົນອື່ນ ສາມາດຮັບຟັງ, ປະເມີນສະຖານະການ ແລະ ໃຫ້ການສະໜັບສະໜູນທີ່ເໝາະສົມ.',
+    tipTitle: 'ຄວນຮູ້',
+    tipText:
+      'ອາລົມຫຼັງຄອດບໍ່ແມ່ນເຄື່ອງວັດວ່າທ່ານເປັນແມ່ທີ່ດີຫຼາຍປານໃດ. ທ່ານມີສິດຕ້ອງການພັກຜ່ອນ, ໄດ້ຮັບການຮັບຟັງ ແລະ ໄດ້ຮັບການສະໜັບສະໜູນ.',
+    section6Kicker: 'ຈຸດສຳຄັນ',
+    section6Title: 'ຈຸດສຳຄັນ',
+    takeaways: [
+      'ອາລົມເສົ້າຫຼັງຄອດພົບໄດ້ທົ່ວໄປຫຼັງການເກີດລູກ.',
+      'ຄວາມອ່ອນເພຍ ແລະ ການປ່ຽນແປງຂອງຮໍໂມນອາດສົ່ງຜົນຕໍ່ອາລົມ.',
+      'ການສະໜັບສະໜູນຈາກຄົນອ້ອມຂ້າງຊ່ວຍໃຫ້ໄລຍະນີ້ງ່າຍຂຶ້ນ.',
+      'ຄວາມທຸກໃຈທີ່ຍັງຄົງຢູ່ ຫຼື ຮຸນແຮງ ຄວນໄດ້ຮັບການປະເມີນຈາກຜູ້ຊ່ຽວຊານ.',
+    ],
+    disclaimerText:
+      'ບົດຄວາມນີ້ແມ່ນຂໍ້ມູນທົ່ວໄປ ແລະ ບໍ່ແທນຄຳແນະນຳທາງການແພດສະເພາະບຸກຄົນ. ຖ້າມີຂໍ້ສົງໄສ ຫຼື ມີຄວາມທຸກໃຈຢ່າງຫຼວງຫຼາຍ ກະລຸນາປຶກສາຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ.',
+    endText: 'ການດູແລຕົນເອງກໍເປັນສ່ວນໜຶ່ງຂອງໄລຍະຫຼັງຄອດ.',
+    shareTitle: 'ອາລົມເສົ້າຫຼັງຄອດ ແລະ ສຸຂະພາບທາງອາລົມຫຼັງຄອດ',
+    shareMessage:
+      'ອາລົມເສົ້າຫຼັງຄອດ ແລະ ສຸຂະພາບທາງອາລົມຫຼັງຄອດ — AWA\n\nຄູ່ມືເພື່ອເຂົ້າໃຈການປ່ຽນແປງທາງອາລົມທີ່ພົບທົ່ວໄປຫຼັງການເກີດລູກ.',
+  },
 } as const);
 
 /* -------------------------------------------------------------------------- */

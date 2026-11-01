@@ -1723,6 +1723,823 @@ const CONTENT = withBrazilianPortuguese('MedicalExams', {
       'Pursatda hiç zady ýatdan çykarmazlyk üçin soraglaryňyzy her kabul edişden öň ýazyp goýmakdan çekinmäň: soramak üçin aşa kiçijik sorag ýok.',
     shareMessage: 'Göwrelilik barlaglarynyň senenamasy — AWA',
   },
+  ms: {
+    badge: 'KEHAMILAN • SUSULAN PERUBATAN',
+    title: 'Kalendar pemeriksaan\nkehamilan',
+    metaDuration: '6 min bacaan',
+    metaType: 'Panduan',
+    metaLevel: 'Permulaan',
+    metaValidated: 'Kandungan disemak',
+    intro: 'Ultrasound dan ujian penting, trimester demi trimester.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Ultrasound susulan',
+      'Ujian darah penting',
+      'Bersedia untuk setiap temu janji',
+      'Perkara yang patut diambil perhatian',
+      'Perkara penting untuk diingat',
+    ],
+    body1:
+      'Kehamilan biasanya merangkumi tiga ultrasound utama, satu bagi setiap trimester, masing-masing dengan tujuan yang berbeza.',
+    ultrasounds: [
+      'Trimester ke-1: penentuan tarikh dan kelegapan nuchal',
+      'Trimester ke-2: ultrasound morfologi',
+      'Trimester ke-3: pertumbuhan dan posisi bayi',
+    ],
+    body2:
+      'Ujian darah yang tetap memantau beberapa penanda utama sepanjang kehamilan:',
+    bloodTests: [
+      'Tahap zat besi, untuk menyaring kemungkinan anemia',
+      'Saringan diabetes semasa hamil, biasanya sekitar trimester ke-2',
+      'Jenis darah dan saringan antibodi yang tidak lazim',
+      'Ujian serologi (toksoplasmosis, rubela) bergantung pada status imun anda',
+    ],
+    prepTips: [
+      'Catat soalan anda apabila ia terlintas di fikiran, sebelum anda terlupa',
+      'Bawa buku susulan kehamilan anda ke setiap temu janji',
+      'Sebutkan sebarang simptom baharu, walaupun nampaknya kecil',
+    ],
+    neutralText:
+      'Bilangan dan jadual pemeriksaan yang tepat boleh berbeza bergantung pada penjagaan anda, profil risiko anda dan amalan negara atau penyedia penjagaan anda.',
+    tipTitle: 'Elok diketahui',
+    tipText:
+      'Jangan teragak-agak mencatat soalan anda sebelum setiap temu janji supaya anda tidak terlupa apa-apa pada ketika itu: tiada soalan yang terlalu kecil untuk ditanya.',
+    shareMessage: 'Kalendar pemeriksaan kehamilan — AWA',
+  },
+  so: {
+    badge: 'UUR • LA SOCOD CAAFIMAAD',
+    title: 'Jadwalka baaritaannada\nuurka',
+    metaDuration: '6 daq akhris',
+    metaType: 'Hage',
+    metaLevel: 'Bilow',
+    metaValidated: 'Macluumaad la dib-u-eegay',
+    intro: 'Ultrasaawn iyo baaritaanno muhiim ah, saddex-bille saddex-bille.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Ultrasaawnka la socodka',
+      'Baaritaannada dhiigga ee muhiimka ah',
+      'U diyaargarowga ballan kasta',
+      'Mudan in la xuso',
+      'Qodobbada muhiimka ah',
+    ],
+    body1:
+      'Uurku guud ahaan wuxuu ka kooban yahay saddex ultrasaawn oo waaweyn, mid saddex-bille kasta, mid kastaana wuxuu leeyahay ujeeddo ka duwan.',
+    ultrasounds: [
+      'Saddex-billaha 1aad: taariikhaynta iyo nuchal translucency',
+      'Saddex-billaha 2aad: ultrasaawnka qaab-dhismeedka',
+      'Saddex-billaha 3aad: koritaanka iyo jagada ilmaha',
+    ],
+    body2:
+      'Baaritaannada dhiigga ee joogtada ahi waxay la socdaan dhowr tilmaame oo muhiim ah uurka oo dhan:',
+    bloodTests: [
+      'Heerarka birta, si loo baaro dhiig-yari suurtagal ah',
+      'Baaritaanka sonkorowga uurka, guud ahaan ku dhawaad saddex-billaha 2aad',
+      'Nooca dhiigga iyo baaritaanka unugyada caabbinta aan caadiga ahayn',
+      'Baaritaannada serology (toxoplasmosis, rubella) iyadoo ku xiran heerka difaaca jidhkaaga',
+    ],
+    prepTips: [
+      'Qor su’aalahaaga marka ay kuu yimaaddaan, ka hor intaadan illoobin',
+      'U keen buugga la socodka uurkaaga ballan kasta',
+      'Xus astaan kasta oo cusub, xataa haddii ay u muuqato mid yar',
+    ],
+    neutralText:
+      'Tirada saxda ah iyo jadwalka baaritaannadu way ku kala duwanaan karaan iyadoo ku xiran daryeelkaaga, qaabka khatarta, iyo dhaqamada waddankaaga ama bixiyaha daryeelka.',
+    tipTitle: 'Waxtar leh in la ogaado',
+    tipText:
+      'Ha ka waaban inaad qorto su’aalahaaga ka hor ballan kasta si aanad waxba u illoobin wakhtigaas: su’aal aad u yar ma jirto oo aan la weydiin karin.',
+    shareMessage: 'Jadwalka baaritaannada uurka — AWA',
+  },
+  sw: {
+    badge: 'UJAUZITO • UFUATILIAJI WA KITABIBU',
+    title: 'Kalenda ya vipimo\nvya ujauzito',
+    metaDuration: 'Dakika 6 za kusoma',
+    metaType: 'Mwongozo',
+    metaLevel: 'Mwanzo',
+    metaValidated: 'Maudhui yaliyokaguliwa',
+    intro: 'Ultrasound na vipimo muhimu, trimesta kwa trimesta.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Ultrasound za ufuatiliaji',
+      'Vipimo muhimu vya damu',
+      'Kujiandaa kwa kila miadi',
+      'Yanayostahili kuzingatiwa',
+      'Mambo muhimu ya kukumbuka',
+    ],
+    body1:
+      'Ujauzito kwa kawaida hujumuisha ultrasound tatu kuu, moja kwa kila trimesta, kila moja ikiwa na madhumuni tofauti.',
+    ultrasounds: [
+      'Trimesta ya 1: kupanga tarehe na unene wa sehemu ya shingo ya kijusi (nuchal translucency)',
+      'Trimesta ya 2: ultrasound ya umbo la viungo',
+      'Trimesta ya 3: ukuaji na mkao wa mtoto',
+    ],
+    body2:
+      'Vipimo vya mara kwa mara vya damu hufuatilia viashiria kadhaa muhimu katika ujauzito wote:',
+    bloodTests: [
+      'Viwango vya chuma, kuchunguza upungufu wa damu unaowezekana',
+      'Uchunguzi wa kisukari cha ujauzito, kwa kawaida karibu na trimesta ya 2',
+      'Kundi la damu na uchunguzi wa kingamwili zisizo za kawaida',
+      'Vipimo vya serolojia (toksoplasmosisi, rubela) kulingana na hali yako ya kinga',
+    ],
+    prepTips: [
+      'Andika maswali yako yanapokujia, kabla ya kuyasahau',
+      'Beba kijitabu chako cha ufuatiliaji wa ujauzito kwenye kila miadi',
+      'Taja dalili yoyote mpya, hata ikiwa inaonekana ndogo',
+    ],
+    neutralText:
+      'Idadi kamili na ratiba ya vipimo vinaweza kutofautiana kulingana na huduma yako, kiwango chako cha hatari, na desturi za nchi yako au mtoa huduma wako.',
+    tipTitle: 'Vyema kujua',
+    tipText:
+      'Usisite kuandika maswali yako kabla ya kila miadi ili usisahau chochote wakati huo: hakuna swali dogo mno la kuuliza.',
+    shareMessage: 'Kalenda ya vipimo vya ujauzito — AWA',
+  },
+  kk: {
+    badge: 'ЖҮКТІЛІК • МЕДИЦИНАЛЫҚ БАҚЫЛАУ',
+    title: 'Жүктілік тексерулерінің\nкүнтізбесі',
+    metaDuration: '6 мин оқу',
+    metaType: 'Нұсқаулық',
+    metaLevel: 'Бастауыш',
+    metaValidated: 'Тексерілген мазмұн',
+    intro: 'Ультрадыбыстық зерттеулер мен маңызды тесттер, триместр бойынша.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'Бақылау ультрадыбыстық зерттеулері',
+      'Маңызды қан тесттері',
+      'Әр қабылдауға дайындалу',
+      'Назар аударатын мәселелер',
+      'Негізгі қорытындылар',
+    ],
+    body1:
+      'Жүктілік әдетте үш негізгі ультрадыбыстық зерттеуді, әр триместрге біреуден, қамтиды, әрқайсысының мақсаты әртүрлі.',
+    ultrasounds: [
+      '1-ші триместр: мерзімді анықтау және мойын қатпарының қалыңдығы',
+      '2-ші триместр: морфологиялық ультрадыбыстық зерттеу',
+      '3-ші триместр: өсу және нәрестенің орналасуы',
+    ],
+    body2:
+      'Тұрақты қан тесттері жүктілік бойы бірнеше негізгі көрсеткішті бақылайды:',
+    bloodTests: [
+      'Ықтимал анемияны анықтау үшін темір деңгейі',
+      'Жүктілік диабетіне скрининг, әдетте 2-ші триместрдің айналасында',
+      'Қан тобы және тұрақсыз антиденелерді скринингтеу',
+      'Иммундық күйіңізге байланысты серологиялық тесттер (токсоплазмоз, қызамық)',
+    ],
+    prepTips: [
+      'Сұрақтарыңыз ойыңызға келген сайын, ұмытып қалмас бұрын жазып қойыңыз',
+      'Әр қабылдауға жүктілік бақылау кітапшасын алып жүріңіз',
+      'Кез келген жаңа белгіні, тіпті шамалы болса да, айтыңыз',
+    ],
+    neutralText:
+      'Тексерулердің нақты саны мен кестесі күтіміңізге, қауіп профиліңізге және еліңіздің немесе қызмет көрсетушіңіздің тәжірибесіне байланысты өзгеруі мүмкін.',
+    tipTitle: 'Білуге тиісті',
+    tipText:
+      'Сол сәтте ештеңені ұмытпау үшін әр қабылдау алдында сұрақтарыңызды жазып қоюдан тартынбаңыз: қоюға болмайтындай кішкентай сұрақ жоқ.',
+    shareMessage: 'Жүктілік тексерулерінің күнтізбесі — AWA',
+  },
+  wo: {
+    badge: 'ËMB • TOPP BU WÉR',
+    title: 'Arminaatu seetlu\nëmb',
+    metaDuration: '6 simili jàng',
+    metaType: 'Ndigal',
+    metaLevel: 'Tàmbali',
+    metaValidated: 'Mbind bu ñu seetlu',
+    intro: 'Ekografi ak tès yu am solo, trimestr ak trimestr.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Ekografi yu topp',
+      'Tès deret yu am solo',
+      'Waajal ndaje bu nekk',
+      'Lu baax a teg',
+      'Li am solo',
+    ],
+    body1:
+      'Ëmb daa am ñetti ekografi yu mag, benn ci trimestr bu nekk, te bu nekk am na jëmam.',
+    ultrasounds: [
+      'Trimestr bu njëkk: bind bés ak seetlu nday bu bopp',
+      'Trimestr bu ñaareel: ekografi bu anam',
+      'Trimestr bu ñetteel: màgg ak anamu doom bi',
+    ],
+    body2:
+      'Tès deret yu ñuy def ci yoon dañuy topp ay màndarga yu am solo ci ëmb gépp:',
+    bloodTests: [
+      'Dayoy weñ, ngir seet anemi bu mën a am',
+      'Seetlu diyabet bu ëmb, ci wetu trimestr bu ñaareel',
+      'Xeetu deret ak seetlu antikoor yu jubul',
+      'Tèsu serolosi (toksoplasmos, rubeol) ci sa anamu aar',
+    ],
+    prepTips: [
+      'Bind say laaj bu ñu di dikk, balaa nga ko fàtte',
+      'Yóbbu sa kayitu topp ëmb ci ndaje bu nekk',
+      'Wax benn màndarga bu bees, lu mu mën a doon bu ndaw',
+    ],
+    neutralText:
+      'Limu tès yi ak seen tëralin mën nañu wuute ci sa topp, sa anamu ndiggal ak yoon yu sa réew walla sa bérëbu wér.',
+    tipTitle: 'Lu baax a xam',
+    tipText:
+      'Bu ñaaw a bind say laaj balaa ndaje bu nekk ngir bañ a fàtte lenn ci jamono: amul laaj bu ndaw lool ngir ñu laaj ko.',
+    shareMessage: 'Arminaatu seetlu ëmb — AWA',
+  },
+  ha: {
+    badge: 'CIKI • BIBIYAR LAFIYA',
+    title: 'Kalandar gwaje-gwajen\nciki',
+    metaDuration: 'karatun minti 6',
+    metaType: 'Jagora',
+    metaLevel: 'Mafari',
+    metaValidated: 'Abun da aka duba',
+    intro: 'Ultrasound da muhimman gwaje-gwaje, kashi bayan kashi.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Ultrasound na bibiya',
+      'Muhimman gwajin jini',
+      'Shirya wa kowace ganawa',
+      'Abin da ya dace a lura',
+      'Muhimman abubuwa',
+    ],
+    body1:
+      'Ciki yawanci yana ƙunshe da manyan ultrasound uku, ɗaya a kowane kashi, kowanne da manufa daban.',
+    ultrasounds: [
+      'Kashi na 1: tantance shekarun ciki da nuchal translucency',
+      'Kashi na 2: ultrasound na siffar jiki',
+      'Kashi na 3: girma da matsayin jariri',
+    ],
+    body2:
+      'Gwajin jini na yau da kullum yana lura da muhimman alamomi da dama a duk cikin:',
+    bloodTests: [
+      'Matakin ƙarfe, don tantance yiwuwar rashin jini',
+      'Gwajin ciwon sukari na ciki, yawanci a kusa da kashi na 2',
+      'Rukunin jini da gwajin ƙwayoyin kariya marasa tsari',
+      'Gwajin serology (toxoplasmosis, rubella) bisa matsayin kariyarki',
+    ],
+    prepTips: [
+      'Rubuta tambayoyinki yayin da suke zuwa miki, kafin ki manta da su',
+      'Kawo littafin bibiyar cikinki zuwa kowace ganawa',
+      'Faɗi duk wata sabuwar alama, ko da tana da ƙarami',
+    ],
+    neutralText:
+      'Ainihin adadi da jadawalin gwaje-gwaje na iya bambanta bisa kulawarki, yanayin haɗarinki, da ayyukan ƙasarki ko mai ba da kulawa.',
+    tipTitle: 'Abin da ya dace a sani',
+    tipText:
+      'Kada ki yi jinkirin rubuta tambayoyinki kafin kowace ganawa don kada ki manta da komai a lokacin: babu tambayar da ta yi ƙanƙanta da za a yi.',
+    shareMessage: 'Kalandar gwaje-gwajen ciki — AWA',
+  },
+  am: {
+    badge: 'እርግዝና • የሕክምና ክትትል',
+    title: 'የእርግዝና ምርመራ\nቀን መቁጠሪያ',
+    metaDuration: '6 ደቂቃ ንባብ',
+    metaType: 'መመሪያ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'የተረጋገጠ ይዘት',
+    intro: 'አልትራሳውንዶችና አስፈላጊ ምርመራዎች፣ ሶስት ወር ከሶስት ወር።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'የክትትል አልትራሳውንዶች',
+      'አስፈላጊ የደም ምርመራዎች',
+      'ለእያንዳንዱ ቀጠሮ መዘጋጀት',
+      'ልብ ሊባል የሚገባው',
+      'ዋና ዋና ነጥቦች',
+    ],
+    body1:
+      'እርግዝና በአጠቃላይ ሶስት ዋና አልትራሳውንዶችን ያካትታል፣ በእያንዳንዱ ሶስት ወር አንድ፣ እያንዳንዱ የተለየ ዓላማ ያለው።',
+    ultrasounds: [
+      '1ኛ ሶስት ወር፦ የእርግዝና ዕድሜ ማስላትና nuchal translucency',
+      '2ኛ ሶስት ወር፦ የሕፃኑ ቅርጽ አልትራሳውንድ',
+      '3ኛ ሶስት ወር፦ እድገትና የሕፃኑ አቀማመጥ',
+    ],
+    body2:
+      'መደበኛ የደም ምርመራዎች በእርግዝና ሁሉ በርካታ ቁልፍ አመልካቾችን ይከታተላሉ፦',
+    bloodTests: [
+      'ሊኖር የሚችል የደም ማነስን ለመመርመር የብረት መጠን',
+      'የእርግዝና የስኳር ህመም ምርመራ፣ በአጠቃላይ በ2ኛው ሶስት ወር አካባቢ',
+      'የደም ዓይነት እና ያልተለመዱ ፀረ እንግዳ አካላት ምርመራ',
+      'እንደ የበሽታ መከላከያ ሁኔታሽ የሴሮሎጂ ምርመራዎች (ቶክሶፕላዝሞሲስ፣ ሩቤላ)',
+    ],
+    prepTips: [
+      'ጥያቄዎችሽ ሲመጡሽ ሳትረሺ ጻፊአቸው',
+      'የእርግዝና ክትትል ደብተርሽን ወደ እያንዳንዱ ቀጠሮ አምጪ',
+      'ማንኛውንም አዲስ ምልክት፣ ትንሽ ቢመስልም፣ ጥቀሺ',
+    ],
+    neutralText:
+      'የምርመራዎቹ ትክክለኛ ብዛትና ሰሌዳ በእንክብካቤሽ፣ በአደጋ መገለጫሽ እና በአገርሽ ወይም በእንክብካቤ ሰጪሽ አሠራር መሠረት ሊለያይ ይችላል።',
+    tipTitle: 'ማወቅ ጠቃሚ ነው',
+    tipText:
+      'በወቅቱ ምንም እንዳትረሺ ከእያንዳንዱ ቀጠሮ በፊት ጥያቄዎችሽን ለመጻፍ አትዘገዪ፦ ለመጠየቅ በጣም ትንሽ የሆነ ጥያቄ የለም።',
+    shareMessage: 'የእርግዝና ምርመራ ቀን መቁጠሪያ — AWA',
+  },
+  nl: {
+    badge: 'ZWANGERSCHAP • MEDISCHE OPVOLGING',
+    title: 'De kalender van\nzwangerschapsonderzoeken',
+    metaDuration: '6 min lezen',
+    metaType: 'Gids',
+    metaLevel: 'Beginner',
+    metaValidated: 'Gecontroleerde inhoud',
+    intro: 'Echo’s en essentiële tests, trimester voor trimester.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'Controle-echo’s',
+      'Essentiële bloedonderzoeken',
+      'Je voorbereiden op elke afspraak',
+      'Goed om te weten',
+      'Belangrijkste punten',
+    ],
+    body1:
+      'Een zwangerschap omvat over het algemeen drie belangrijke echo’s, één per trimester, elk met een ander doel.',
+    ultrasounds: [
+      '1e trimester: datering en nekplooimeting',
+      '2e trimester: structurele echo (20-wekenecho)',
+      '3e trimester: groei en de positie van de baby',
+    ],
+    body2:
+      'Regelmatige bloedonderzoeken controleren gedurende de zwangerschap verschillende belangrijke waarden:',
+    bloodTests: [
+      'IJzerwaarden, om mogelijke bloedarmoede op te sporen',
+      'Screening op zwangerschapsdiabetes, over het algemeen rond het 2e trimester',
+      'Bloedgroep en screening op irregulaire antistoffen',
+      'Serologische tests (toxoplasmose, rodehond) afhankelijk van je immuunstatus',
+    ],
+    prepTips: [
+      'Schrijf je vragen op zodra ze bij je opkomen, voordat je ze vergeet',
+      'Neem bij elke afspraak je zwangerschapsboekje mee',
+      'Vermeld elk nieuw symptoom, ook als het onbelangrijk lijkt',
+    ],
+    neutralText:
+      'Het exacte aantal en schema van onderzoeken kan verschillen afhankelijk van je zorg, je risicoprofiel en de praktijken van je land of zorgverlener.',
+    tipTitle: 'Goed om te weten',
+    tipText:
+      'Aarzel niet om je vragen vóór elke afspraak op te schrijven zodat je op het moment zelf niets vergeet: geen enkele vraag is te klein om te stellen.',
+    shareMessage: 'De kalender van zwangerschapsonderzoeken — AWA',
+  },
+  fi: {
+    badge: 'RASKAUS • LÄÄKETIETEELLINEN SEURANTA',
+    title: 'Raskauden\ntutkimuskalenteri',
+    metaDuration: '6 min lukuaika',
+    metaType: 'Opas',
+    metaLevel: 'Aloittelija',
+    metaValidated: 'Tarkistettu sisältö',
+    intro: 'Ultraäänet ja olennaiset tutkimukset kolmanneksittain.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Seurantaultraäänet',
+      'Olennaiset verikokeet',
+      'Valmistautuminen jokaiseen vastaanottoon',
+      'Huomionarvoista',
+      'Tärkeimmät asiat',
+    ],
+    body1:
+      'Raskauteen kuuluu yleensä kolme pääultraääntä, yksi kolmannesta kohden, joilla kullakin on eri tarkoitus.',
+    ultrasounds: [
+      '1. kolmannes: ajoitus ja niskaturvotus',
+      '2. kolmannes: rakenneultraääni',
+      '3. kolmannes: kasvu ja vauvan asento',
+    ],
+    body2:
+      'Säännölliset verikokeet seuraavat useita keskeisiä merkkiaineita koko raskauden ajan:',
+    bloodTests: [
+      'Rautataso mahdollisen anemian seulontaan',
+      'Raskausdiabeteksen seulonta, yleensä toisen kolmanneksen tienoilla',
+      'Veriryhmä ja epäsäännöllisten vasta-aineiden seulonta',
+      'Serologiset testit (toksoplasmoosi, vihurirokko) immuunitilasi mukaan',
+    ],
+    prepTips: [
+      'Kirjaa kysymyksesi ylös sitä mukaa kun ne tulevat mieleen ennen kuin unohdat ne',
+      'Ota raskausseurantavihkosi mukaan jokaiselle vastaanotolle',
+      'Mainitse kaikki uudet oireet, vaikka ne vaikuttaisivat vähäisiltä',
+    ],
+    neutralText:
+      'Tutkimusten tarkka määrä ja aikataulu voivat vaihdella hoitosi, riskiprofiilisi sekä maasi tai hoitajasi käytäntöjen mukaan.',
+    tipTitle: 'Hyvä tietää',
+    tipText:
+      'Älä epäröi kirjata kysymyksiäsi ennen jokaista vastaanottoa, jotta mitään ei unohdu hetkessä: yksikään kysymys ei ole liian pieni kysyttäväksi.',
+    shareMessage: 'Raskauden tutkimuskalenteri — AWA',
+  },
+  el: {
+    badge: 'ΕΓΚΥΜΟΣΥΝΗ • ΙΑΤΡΙΚΗ ΠΑΡΑΚΟΛΟΥΘΗΣΗ',
+    title: 'Το πρόγραμμα εξετάσεων\nτης εγκυμοσύνης',
+    metaDuration: '6 λεπτά ανάγνωσης',
+    metaType: 'Οδηγός',
+    metaLevel: 'Αρχάριο',
+    metaValidated: 'Ελεγμένο περιεχόμενο',
+    intro: 'Υπερηχογραφήματα και βασικές εξετάσεις, τρίμηνο με το τρίμηνο.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Υπερηχογραφήματα παρακολούθησης',
+      'Βασικές εξετάσεις αίματος',
+      'Προετοιμασία για κάθε ραντεβού',
+      'Αξίζει να σημειωθεί',
+      'Βασικά συμπεράσματα',
+    ],
+    body1:
+      'Η εγκυμοσύνη περιλαμβάνει γενικά τρία κύρια υπερηχογραφήματα, ένα ανά τρίμηνο, καθένα με διαφορετικό σκοπό.',
+    ultrasounds: [
+      '1ο τρίμηνο: χρονολόγηση και αυχενική διαφάνεια',
+      '2ο τρίμηνο: υπερηχογράφημα μορφολογίας',
+      '3ο τρίμηνο: ανάπτυξη και θέση του μωρού',
+    ],
+    body2:
+      'Οι τακτικές εξετάσεις αίματος παρακολουθούν αρκετούς βασικούς δείκτες σε όλη τη διάρκεια της εγκυμοσύνης:',
+    bloodTests: [
+      'Επίπεδα σιδήρου, για τον έλεγχο πιθανής αναιμίας',
+      'Έλεγχος για διαβήτη κύησης, γενικά γύρω στο 2ο τρίμηνο',
+      'Ομάδα αίματος και έλεγχος για ακανόνιστα αντισώματα',
+      'Ορολογικές εξετάσεις (τοξοπλάσμωση, ερυθρά) ανάλογα με την ανοσολογική σου κατάσταση',
+    ],
+    prepTips: [
+      'Σημείωσε τις ερωτήσεις σου όπως σου έρχονται, πριν τις ξεχάσεις',
+      'Φέρνε το βιβλιάριο παρακολούθησης της εγκυμοσύνης σε κάθε ραντεβού',
+      'Ανάφερε κάθε νέο σύμπτωμα, ακόμη κι αν φαίνεται ήσσονος σημασίας',
+    ],
+    neutralText:
+      'Ο ακριβής αριθμός και το πρόγραμμα των εξετάσεων μπορεί να διαφέρουν ανάλογα με τη φροντίδα σου, το προφίλ κινδύνου σου και τις πρακτικές της χώρας ή του φορέα παροχής φροντίδας.',
+    tipTitle: 'Καλό είναι να γνωρίζεις',
+    tipText:
+      'Μην διστάζεις να σημειώνεις τις ερωτήσεις σου πριν από κάθε ραντεβού ώστε να μην ξεχνάς τίποτα εκείνη τη στιγμή: καμία ερώτηση δεν είναι πολύ μικρή για να τη θέσεις.',
+    shareMessage: 'Το πρόγραμμα εξετάσεων της εγκυμοσύνης — AWA',
+  },
+  fil: {
+    badge: 'PAGBUBUNTIS • MEDIKAL NA PAGSUBAYBAY',
+    title: 'Ang kalendaryo ng mga eksaminasyon\nsa pagbubuntis',
+    metaDuration: '6 min na babasahin',
+    metaType: 'Gabay',
+    metaLevel: 'Baguhan',
+    metaValidated: 'Sinuring nilalaman',
+    intro: 'Mga ultrasound at mahahalagang test, trimester kada trimester.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Mga ultrasound sa pagsubaybay',
+      'Mahahalagang pagsusuri ng dugo',
+      'Paghahanda para sa bawat appointment',
+      'Dapat tandaan',
+      'Mahahalagang tandaan',
+    ],
+    body1:
+      'Karaniwang kasama sa pagbubuntis ang tatlong pangunahing ultrasound, isa kada trimester, bawat isa ay may iba’t ibang layunin.',
+    ultrasounds: [
+      '1st trimester: pagtatakda ng petsa at nuchal translucency',
+      '2nd trimester: ultrasound ng morpolohiya',
+      '3rd trimester: paglaki at posisyon ng sanggol',
+    ],
+    body2:
+      'Sinusubaybayan ng regular na pagsusuri ng dugo ang ilang pangunahing marker sa buong pagbubuntis:',
+    bloodTests: [
+      'Antas ng iron, upang masuri ang posibleng anemia',
+      'Pag-screen para sa gestational diabetes, karaniwang sa paligid ng 2nd trimester',
+      'Uri ng dugo at pag-screen para sa irregular antibodies',
+      'Mga serology test (toxoplasmosis, rubella) depende sa iyong immune status',
+    ],
+    prepTips: [
+      'Isulat ang iyong mga tanong habang pumapasok sa isip mo, bago mo makalimutan',
+      'Dalhin ang iyong booklet sa pagsubaybay ng pagbubuntis sa bawat appointment',
+      'Banggitin ang anumang bagong sintomas, kahit tila maliit',
+    ],
+    neutralText:
+      'Maaaring mag-iba ang eksaktong bilang at iskedyul ng mga eksaminasyon depende sa iyong pangangalaga, profile ng panganib, at gawi ng iyong bansa o tagapagbigay ng pangangalaga.',
+    tipTitle: 'Mabuting malaman',
+    tipText:
+      'Huwag mag-atubiling isulat ang iyong mga tanong bago ang bawat appointment para wala kang makalimutan sa sandaling iyon: walang tanong na masyadong maliit para itanong.',
+    shareMessage: 'Ang kalendaryo ng mga eksaminasyon sa pagbubuntis — AWA',
+  },
+  ta: {
+    badge: 'கர்ப்பம் • மருத்துவக் கண்காணிப்பு',
+    title: 'கர்ப்பகால மருத்துவப் பரிசோதனை\nநாட்காட்டி',
+    metaDuration: '6 நிமிடம் படிக்க',
+    metaType: 'வழிகாட்டி',
+    metaLevel: 'தொடக்க நிலை',
+    metaValidated: 'சரிபார்க்கப்பட்ட உள்ளடக்கம்',
+    intro: 'அல்ட்ராசவுண்ட்களும் அத்தியாவசியப் பரிசோதனைகளும், மும்மாதம் மும்மாதமாக.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'கண்காணிப்பு அல்ட்ராசவுண்ட்கள்',
+      'அத்தியாவசிய இரத்தப் பரிசோதனைகள்',
+      'ஒவ்வொரு சந்திப்புக்கும் தயாராதல்',
+      'கவனிக்க வேண்டியவை',
+      'முக்கியக் குறிப்புகள்',
+    ],
+    body1:
+      'கர்ப்பத்தில் பொதுவாக மூன்று முக்கிய அல்ட்ராசவுண்ட்கள் உள்ளன, ஒவ்வொரு மும்மாதத்துக்கும் ஒன்று, ஒவ்வொன்றும் வேறுபட்ட நோக்கத்துடன்.',
+    ultrasounds: [
+      '1-ஆம் மும்மாதம்: தேதி நிர்ணயம் மற்றும் நியூக்கல் ட்ரான்ஸ்லூசென்சி',
+      '2-ஆம் மும்மாதம்: உருவவியல் அல்ட்ராசவுண்ட்',
+      '3-ஆம் மும்மாதம்: வளர்ச்சியும் குழந்தையின் நிலையும்',
+    ],
+    body2:
+      'தொடர்ந்த இரத்தப் பரிசோதனைகள் கர்ப்பம் முழுவதும் பல முக்கிய குறிப்பான்களைக் கண்காணிக்கின்றன:',
+    bloodTests: [
+      'சாத்தியமான இரத்தசோகையைக் கண்டறிய இரும்புச்சத்து அளவுகள்',
+      'கர்ப்பகால நீரிழிவுப் பரிசோதனை, பொதுவாக 2-ஆம் மும்மாதத்தை ஒட்டி',
+      'இரத்த வகையும் ஒழுங்கற்ற எதிர்ப்புப்பொருள் பரிசோதனையும்',
+      'உங்கள் நோயெதிர்ப்பு நிலையைப் பொறுத்து செரோலஜி பரிசோதனைகள் (டோக்சோபிளாஸ்மோசிஸ், ரூபெல்லா)',
+    ],
+    prepTips: [
+      'உங்கள் கேள்விகள் மனதில் தோன்றும்போதே மறப்பதற்கு முன் எழுதி வையுங்கள்',
+      'ஒவ்வொரு சந்திப்புக்கும் உங்கள் கர்ப்பக் கண்காணிப்புச் சிறு புத்தகத்தைக் கொண்டு வாருங்கள்',
+      'எந்தப் புதிய அறிகுறியையும், சிறிதாகத் தோன்றினாலும், குறிப்பிடுங்கள்',
+    ],
+    neutralText:
+      'பரிசோதனைகளின் சரியான எண்ணிக்கையும் அட்டவணையும் உங்கள் பராமரிப்பு, அபாய விவரம் மற்றும் உங்கள் நாடு அல்லது பராமரிப்பு வழங்குநரின் நடைமுறைகளைப் பொறுத்து மாறுபடலாம்.',
+    tipTitle: 'தெரிந்துகொள்ளுங்கள்',
+    tipText:
+      'அந்தத் தருணத்தில் எதையும் மறந்துவிடாமல் இருக்க ஒவ்வொரு சந்திப்புக்கும் முன் உங்கள் கேள்விகளை எழுதி வைக்கத் தயங்காதீர்கள்: கேட்க முடியாத அளவுக்குச் சிறிய கேள்வி என்று எதுவும் இல்லை.',
+    shareMessage: 'கர்ப்பகால மருத்துவப் பரிசோதனை நாட்காட்டி — AWA',
+  },
+  te: {
+    badge: 'గర్భం • వైద్య పర్యవేక్షణ',
+    title: 'గర్భధారణ పరీక్షల\nక్యాలెండర్',
+    metaDuration: '6 నిమిషాల పఠనం',
+    metaType: 'గైడ్',
+    metaLevel: 'ప్రారంభ స్థాయి',
+    metaValidated: 'మదింపు చేసిన కంటెంట్',
+    intro: 'త్రైమాసికం వారీగా అల్ట్రాసౌండ్‌లు, అవసరమైన పరీక్షలు.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'పర్యవేక్షణ అల్ట్రాసౌండ్‌లు',
+      'అవసరమైన రక్త పరీక్షలు',
+      'ప్రతి అపాయింట్‌మెంట్‌కు సిద్ధమవ్వడం',
+      'గమనించదగినవి',
+      'ముఖ్యాంశాలు',
+    ],
+    body1:
+      'గర్భధారణలో సాధారణంగా మూడు ప్రధాన అల్ట్రాసౌండ్‌లు ఉంటాయి, ప్రతి త్రైమాసికానికి ఒకటి, ప్రతిదానికి వేరే ప్రయోజనం.',
+    ultrasounds: [
+      '1వ త్రైమాసికం: తేదీ నిర్ణయం, నూకల్ ట్రాన్స్‌లూసెన్సీ',
+      '2వ త్రైమాసికం: ఆకృతి అల్ట్రాసౌండ్',
+      '3వ త్రైమాసికం: ఎదుగుదల, శిశువు స్థానం',
+    ],
+    body2:
+      'క్రమమైన రక్త పరీక్షలు గర్భధారణ అంతటా అనేక కీలక సూచికలను పర్యవేక్షిస్తాయి:',
+    bloodTests: [
+      'సాధ్యమైన రక్తహీనతను స్క్రీనింగ్ చేయడానికి ఐరన్ స్థాయిలు',
+      'గర్భకాల మధుమేహ స్క్రీనింగ్, సాధారణంగా 2వ త్రైమాసికం చుట్టూ',
+      'రక్త గ్రూపు, అసాధారణ యాంటీబాడీల స్క్రీనింగ్',
+      'మీ రోగనిరోధక స్థితిని బట్టి సెరాలజీ పరీక్షలు (టాక్సోప్లాస్మోసిస్, రుబెల్లా)',
+    ],
+    prepTips: [
+      'మీ ప్రశ్నలు మర్చిపోకముందే అవి వచ్చినప్పుడు రాసుకోండి',
+      'ప్రతి అపాయింట్‌మెంట్‌కు మీ గర్భధారణ పర్యవేక్షణ పుస్తకాన్ని తీసుకురండి',
+      'ఏ కొత్త లక్షణాన్నైనా, చిన్నదిగా అనిపించినా, ప్రస్తావించండి',
+    ],
+    neutralText:
+      'పరీక్షల ఖచ్చితమైన సంఖ్య, షెడ్యూల్ మీ సంరక్షణ, మీ ప్రమాద ప్రొఫైల్, మీ దేశం లేదా సంరక్షణ అందించేవారి పద్ధతులను బట్టి మారవచ్చు.',
+    tipTitle: 'తెలుసుకోవాల్సినవి',
+    tipText:
+      'ఆ క్షణంలో ఏదీ మర్చిపోకుండా ఉండటానికి ప్రతి అపాయింట్‌మెంట్‌కు ముందు మీ ప్రశ్నలను రాసుకోవడానికి వెనుకాడకండి: అడగడానికి ఏ ప్రశ్నా చాలా చిన్నది కాదు.',
+    shareMessage: 'గర్భధారణ పరీక్షల క్యాలెండర్ — AWA',
+  },
+  mr: {
+    badge: 'गर्भारपण • वैद्यकीय पाठपुरावा',
+    title: 'गर्भारपणाच्या तपासण्यांचे\nवेळापत्रक',
+    metaDuration: '6 मिनिटे वाचन',
+    metaType: 'मार्गदर्शक',
+    metaLevel: 'प्रारंभ स्तर',
+    metaValidated: 'पुनरावलोकन केलेला मजकूर',
+    intro: 'सोनोग्राफी आणि आवश्यक चाचण्या, तिमाहीनुसार.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'पाठपुरावा सोनोग्राफी',
+      'आवश्यक रक्त चाचण्या',
+      'प्रत्येक भेटीची तयारी',
+      'लक्षात घेण्यासारखे',
+      'मुख्य मुद्दे',
+    ],
+    body1:
+      'गर्भारपणात साधारणपणे तीन मुख्य सोनोग्राफी असतात, प्रत्येक तिमाहीत एक, आणि प्रत्येकीचा उद्देश वेगळा असतो.',
+    ultrasounds: [
+      'पहिली तिमाही: तारीख निश्चित करणे आणि मानेमागील जाडी (न्यूकल ट्रान्सल्युसेन्सी)',
+      'दुसरी तिमाही: रचना सोनोग्राफी (मॉर्फोलॉजी)',
+      'तिसरी तिमाही: वाढ आणि बाळाची स्थिती',
+    ],
+    body2:
+      'नियमित रक्त चाचण्या गर्भारपणभर अनेक महत्त्वाच्या निर्देशकांवर लक्ष ठेवतात:',
+    bloodTests: [
+      'लोहाची पातळी, संभाव्य अ‍ॅनिमिया तपासण्यासाठी',
+      'गर्भकालीन मधुमेहाची तपासणी, साधारणपणे दुसऱ्या तिमाहीच्या सुमारास',
+      'रक्तगट आणि अनियमित प्रतिपिंडांची तपासणी',
+      'तुमच्या रोगप्रतिकारक स्थितीनुसार सेरोलॉजी चाचण्या (टॉक्सोप्लाझ्मोसिस, रुबेला)',
+    ],
+    prepTips: [
+      'तुम्हाला प्रश्न सुचतील तसे ते विसरण्यापूर्वी लिहून ठेवा',
+      'प्रत्येक भेटीला तुमचे गर्भारपणाचे नोंदपुस्तक सोबत आणा',
+      'एखादे नवीन लक्षण, किरकोळ वाटले तरी, सांगा',
+    ],
+    neutralText:
+      'तपासण्यांची नेमकी संख्या आणि वेळापत्रक तुमच्या काळजीनुसार, तुमच्या धोक्याच्या प्रोफाइलनुसार आणि तुमच्या देशातील किंवा तुमच्या आरोग्यसेवा पुरवठादाराच्या पद्धतींनुसार बदलू शकते.',
+    tipTitle: 'हे जाणून घ्या',
+    tipText:
+      'प्रत्येक भेटीपूर्वी तुमचे प्रश्न लिहून ठेवायला संकोच करू नका, म्हणजे त्या क्षणी काहीही विसरणार नाही: कोणताही प्रश्न विचारायला खूप छोटा नसतो.',
+    shareMessage: 'गर्भारपणाच्या तपासण्यांचे वेळापत्रक — AWA',
+  },
+  gu: {
+    badge: 'ગર્ભાવસ્થા • તબીબી ફોલો-અપ',
+    title: 'ગર્ભાવસ્થાની તપાસોનું\nકેલેન્ડર',
+    metaDuration: '6 મિનિટ વાંચન',
+    metaType: 'માર્ગદર્શિકા',
+    metaLevel: 'પ્રારંભિક સ્તર',
+    metaValidated: 'પુનરાવલોકન કરેલી સામગ્રી',
+    intro: 'ત્રિમાસિક પ્રમાણે સોનોગ્રાફી અને જરૂરી પરીક્ષણો.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'ફોલો-અપ સોનોગ્રાફી',
+      'જરૂરી લોહીની તપાસ',
+      'દરેક મુલાકાત માટે તૈયારી',
+      'નોંધવા જેવું',
+      'મુખ્ય મુદ્દા',
+    ],
+    body1:
+      'ગર્ભાવસ્થામાં સામાન્ય રીતે ત્રણ મુખ્ય સોનોગ્રાફી થાય છે, દરેક ત્રિમાસિકમાં એક, અને દરેકનો હેતુ અલગ હોય છે.',
+    ultrasounds: [
+      'પહેલું ત્રિમાસિક: ગર્ભાવસ્થાની તારીખ નક્કી કરવી અને નક્યુલ ટ્રાન્સલ્યુસન્સી',
+      'બીજું ત્રિમાસિક: શરીરરચનાની સોનોગ્રાફી',
+      'ત્રીજું ત્રિમાસિક: વૃદ્ધિ અને બાળકની સ્થિતિ',
+    ],
+    body2:
+      'નિયમિત લોહીની તપાસ આખી ગર્ભાવસ્થા દરમિયાન ઘણા મુખ્ય સૂચકો પર નજર રાખે છે:',
+    bloodTests: [
+      'આયર્નનું સ્તર, સંભવિત એનિમિયા તપાસવા માટે',
+      'ગર્ભાવસ્થાના ડાયાબિટીસની તપાસ, સામાન્ય રીતે બીજા ત્રિમાસિકની આસપાસ',
+      'લોહીનું જૂથ અને અનિયમિત એન્ટિબોડીની તપાસ',
+      'તમારી રોગપ્રતિકારક સ્થિતિ પ્રમાણે સીરોલોજી પરીક્ષણો (ટોક્સોપ્લાઝ્મોસિસ, રૂબેલા)',
+    ],
+    prepTips: [
+      'તમને પ્રશ્નો સૂઝે તેમ તરત લખી લો, ભૂલી જાઓ તે પહેલાં',
+      'દરેક મુલાકાતમાં તમારી ગર્ભાવસ્થાની ફોલો-અપ પુસ્તિકા સાથે લાવો',
+      'કોઈપણ નવું લક્ષણ જણાવો, ભલે તે નાનું લાગતું હોય',
+    ],
+    neutralText:
+      'તપાસોની ચોક્કસ સંખ્યા અને સમયપત્રક તમારી સારવાર, જોખમની સ્થિતિ, અને તમારા દેશ કે સારવાર આપનારની પદ્ધતિઓ પ્રમાણે બદલાઈ શકે છે.',
+    tipTitle: 'જાણવા જેવું',
+    tipText:
+      'દરેક મુલાકાત પહેલાં તમારા પ્રશ્નો લખી લેવામાં અચકાશો નહીં, જેથી તે સમયે કંઈ ભૂલી ન જાઓ: કોઈ પ્રશ્ન પૂછવા માટે નાનો હોતો નથી.',
+    shareMessage: 'ગર્ભાવસ્થાની તપાસોનું કેલેન્ડર — AWA',
+  },
+  pa: {
+    badge: 'ਗਰਭ-ਅਵਸਥਾ • ਡਾਕਟਰੀ ਜਾਂਚ-ਪੜਤਾਲ',
+    title: 'ਗਰਭ-ਅਵਸਥਾ ਦੀਆਂ ਜਾਂਚਾਂ\nਦਾ ਕੈਲੰਡਰ',
+    metaDuration: '6 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਗਾਈਡ',
+    metaLevel: 'ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ',
+    metaValidated: 'ਸਮੀਖਿਆ ਕੀਤੀ ਸਮੱਗਰੀ',
+    intro: 'ਅਲਟਰਾਸਾਊਂਡ ਅਤੇ ਜ਼ਰੂਰੀ ਟੈਸਟ, ਤਿਮਾਹੀ ਦਰ ਤਿਮਾਹੀ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'ਫ਼ਾਲੋ-ਅੱਪ ਅਲਟਰਾਸਾਊਂਡ',
+      'ਜ਼ਰੂਰੀ ਖ਼ੂਨ ਦੇ ਟੈਸਟ',
+      'ਹਰ ਮੁਲਾਕਾਤ ਦੀ ਤਿਆਰੀ',
+      'ਧਿਆਨ ਦੇਣ ਯੋਗ',
+      'ਮੁੱਖ ਨੁਕਤੇ',
+    ],
+    body1:
+      'ਗਰਭ-ਅਵਸਥਾ ਵਿੱਚ ਆਮ ਤੌਰ ਤੇ ਤਿੰਨ ਮੁੱਖ ਅਲਟਰਾਸਾਊਂਡ ਹੁੰਦੇ ਹਨ, ਹਰ ਤਿਮਾਹੀ ਵਿੱਚ ਇੱਕ, ਅਤੇ ਹਰ ਇੱਕ ਦਾ ਮਕਸਦ ਵੱਖਰਾ ਹੁੰਦਾ ਹੈ।',
+    ultrasounds: [
+      'ਪਹਿਲੀ ਤਿਮਾਹੀ: ਗਰਭ ਦੀ ਮਿਆਦ ਦਾ ਅੰਦਾਜ਼ਾ ਅਤੇ ਗਰਦਨ ਦੀ ਪਾਰਦਰਸ਼ਤਾ ਦੀ ਮਾਪ',
+      'ਦੂਜੀ ਤਿਮਾਹੀ: ਸਰੀਰਕ ਬਣਤਰ ਦਾ ਅਲਟਰਾਸਾਊਂਡ',
+      'ਤੀਜੀ ਤਿਮਾਹੀ: ਵਾਧਾ ਅਤੇ ਬੱਚੇ ਦੀ ਸਥਿਤੀ',
+    ],
+    body2:
+      'ਗਰਭ-ਅਵਸਥਾ ਦੌਰਾਨ ਨਿਯਮਿਤ ਖ਼ੂਨ ਦੇ ਟੈਸਟ ਕਈ ਮੁੱਖ ਸੂਚਕਾਂ ਦੀ ਨਿਗਰਾਨੀ ਕਰਦੇ ਹਨ:',
+    bloodTests: [
+      'ਆਇਰਨ ਦਾ ਪੱਧਰ, ਖ਼ੂਨ ਦੀ ਸੰਭਾਵਿਤ ਕਮੀ ਦੀ ਜਾਂਚ ਲਈ',
+      'ਗਰਭ-ਅਵਸਥਾ ਦੀ ਸ਼ੂਗਰ ਦੀ ਜਾਂਚ, ਆਮ ਤੌਰ ਤੇ ਦੂਜੀ ਤਿਮਾਹੀ ਦੇ ਆਸ-ਪਾਸ',
+      'ਖ਼ੂਨ ਦਾ ਗਰੁੱਪ ਅਤੇ ਅਨਿਯਮਿਤ ਐਂਟੀਬਾਡੀਆਂ ਦੀ ਜਾਂਚ',
+      'ਤੁਹਾਡੀ ਰੋਗ-ਰੋਕੂ ਸਥਿਤੀ ਅਨੁਸਾਰ ਸੀਰੋਲੋਜੀ ਟੈਸਟ (ਟੌਕਸੋਪਲਾਜ਼ਮੋਸਿਸ, ਰੂਬੈਲਾ)',
+    ],
+    prepTips: [
+      'ਆਪਣੇ ਸਵਾਲ ਜਿਵੇਂ-ਜਿਵੇਂ ਮਨ ਵਿੱਚ ਆਉਣ, ਭੁੱਲਣ ਤੋਂ ਪਹਿਲਾਂ ਲਿਖ ਲਓ',
+      'ਹਰ ਮੁਲਾਕਾਤ ਤੇ ਗਰਭ-ਅਵਸਥਾ ਦੀ ਫ਼ਾਲੋ-ਅੱਪ ਕਿਤਾਬਚੀ ਨਾਲ ਲੈ ਕੇ ਜਾਓ',
+      'ਕੋਈ ਵੀ ਨਵਾਂ ਲੱਛਣ ਦੱਸੋ, ਭਾਵੇਂ ਉਹ ਮਾਮੂਲੀ ਲੱਗੇ',
+    ],
+    neutralText:
+      'ਜਾਂਚਾਂ ਦੀ ਸਹੀ ਗਿਣਤੀ ਅਤੇ ਸਮਾਂ-ਸਾਰਣੀ ਤੁਹਾਡੀ ਦੇਖਭਾਲ, ਜੋਖ਼ਮ ਦੀ ਸਥਿਤੀ ਅਤੇ ਤੁਹਾਡੇ ਦੇਸ਼ ਜਾਂ ਸਿਹਤ ਸੇਵਾ ਦੇਣ ਵਾਲੇ ਦੇ ਤੌਰ-ਤਰੀਕਿਆਂ ਅਨੁਸਾਰ ਵੱਖਰੀ ਹੋ ਸਕਦੀ ਹੈ।',
+    tipTitle: 'ਜਾਣਨ ਯੋਗ',
+    tipText:
+      'ਹਰ ਮੁਲਾਕਾਤ ਤੋਂ ਪਹਿਲਾਂ ਆਪਣੇ ਸਵਾਲ ਲਿਖਣ ਤੋਂ ਨਾ ਝਿਜਕੋ ਤਾਂ ਜੋ ਮੌਕੇ ਤੇ ਕੁਝ ਵੀ ਨਾ ਭੁੱਲੇ: ਕੋਈ ਵੀ ਸਵਾਲ ਪੁੱਛਣ ਲਈ ਛੋਟਾ ਨਹੀਂ ਹੁੰਦਾ।',
+    shareMessage: 'ਗਰਭ-ਅਵਸਥਾ ਦੀਆਂ ਜਾਂਚਾਂ ਦਾ ਕੈਲੰਡਰ — AWA',
+  },
+  my: {
+    badge: 'ကိုယ်ဝန်ဆောင်ခြင်း • ဆေးဘက်ဆိုင်ရာ စောင့်ကြည့်မှု',
+    title: 'ကိုယ်ဝန်ဆောင်ချိန်\nစစ်ဆေးမှု ပြက္ခဒိန်',
+    metaDuration: 'ဖတ်ချိန် 6 မိနစ်',
+    metaType: 'လမ်းညွှန်',
+    metaLevel: 'အခြေခံအဆင့်',
+    metaValidated: 'ပြန်လည်သုံးသပ်ပြီး အကြောင်းအရာ',
+    intro: 'သုံးလပတ်အလိုက် အယ်ထရာဆောင်းများနှင့် မရှိမဖြစ် စစ်ဆေးမှုများ။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'စောင့်ကြည့်ရန် အယ်ထရာဆောင်းများ',
+      'မရှိမဖြစ် သွေးစစ်ဆေးမှုများ',
+      'ရက်ချိန်းတစ်ခုစီအတွက် ပြင်ဆင်ခြင်း',
+      'မှတ်သားသင့်သည်များ',
+      'အဓိကအချက်များ',
+    ],
+    body1:
+      'ကိုယ်ဝန်ဆောင်ချိန်တွင် ယေဘုယျအားဖြင့် သုံးလပတ်တစ်ခုလျှင် တစ်ကြိမ်ဖြင့် အဓိက အယ်ထရာဆောင်း သုံးကြိမ် ပါဝင်ပြီး တစ်ခုစီတွင် ရည်ရွယ်ချက် မတူညီပါ။',
+    ultrasounds: [
+      'ပထမသုံးလပတ်။ ကိုယ်ဝန်အရွယ်တွက်ချက်ခြင်းနှင့် လည်ပင်းနောက်ပိုင်း အရည်ထုထည် တိုင်းတာခြင်း',
+      'ဒုတိယသုံးလပတ်။ ကိုယ်ထည်ဖွဲ့စည်းပုံ အယ်ထရာဆောင်း',
+      'တတိယသုံးလပတ်။ ကြီးထွားမှုနှင့် ကလေး၏ အနေအထား',
+    ],
+    body2:
+      'ကိုယ်ဝန်ဆောင်ချိန်တစ်လျှောက်လုံး ပုံမှန်သွေးစစ်ဆေးမှုများသည် အဓိကညွှန်းကိန်းများစွာကို စောင့်ကြည့်ပေးသည်။',
+    bloodTests: [
+      'သွေးအားနည်းနိုင်ခြင်းကို စစ်ဆေးရန် သံဓာတ်ပမာဏ',
+      'ကိုယ်ဝန်ဆောင်ချိန် ဆီးချိုရောဂါ စစ်ဆေးမှု၊ ယေဘုယျအားဖြင့် ဒုတိယသုံးလပတ်ဝန်းကျင်တွင်',
+      'သွေးအုပ်စုနှင့် ပုံမှန်မဟုတ်သော ပဋိပစ္စည်း စစ်ဆေးမှု',
+      'သင်၏ ကိုယ်ခံအားအခြေအနေပေါ် မူတည်၍ ဆီရိုလိုဂျီ စစ်ဆေးမှုများ (တိုက်ဆိုပလာစမိုစစ်၊ ဂျာမန်ဝက်သက်)',
+    ],
+    prepTips: [
+      'မေ့မသွားစေရန် မေးခွန်းများ ရောက်လာသည်နှင့် ချက်ချင်း ချရေးထားပါ',
+      'ရက်ချိန်းတိုင်းသို့ ကိုယ်ဝန်စောင့်ကြည့်မှု စာအုပ်ကို ယူလာပါ',
+      'သေးငယ်သည်ဟု ထင်ရသော လက္ခဏာအသစ်ဖြစ်စေ မည်သည့်အရာကိုမဆို ပြောပြပါ',
+    ],
+    neutralText:
+      'စစ်ဆေးမှုများ၏ အတိအကျ အရေအတွက်နှင့် အချိန်ဇယားသည် သင်၏ ပြုစုစောင့်ရှောက်မှု၊ အန္တရာယ်အခြေအနေနှင့် သင့်နိုင်ငံ သို့မဟုတ် ပြုစုစောင့်ရှောက်သူ၏ လေ့ကျင့်မှုများပေါ် မူတည်၍ ကွဲပြားနိုင်သည်။',
+    tipTitle: 'သိထားသင့်သည်',
+    tipText:
+      'ထိုအချိန်တွင် မေ့မသွားစေရန် ရက်ချိန်းတိုင်းမတိုင်မီ မေးခွန်းများကို ချရေးထားရန် မတွန့်ဆုတ်ပါနှင့်။ မေးရန် အလွန်သေးငယ်သော မေးခွန်းဟူ၍ မရှိပါ။',
+    shareMessage: 'ကိုယ်ဝန်ဆောင်ချိန် စစ်ဆေးမှု ပြက္ခဒိန် — AWA',
+  },
+  km: {
+    badge: 'ការមានផ្ទៃពោះ • ការតាមដានវេជ្ជសាស្ត្រ',
+    title: 'ប្រតិទិនការពិនិត្យ\nក្នុងការមានផ្ទៃពោះ',
+    metaDuration: 'អាន 6 នាទី',
+    metaType: 'មគ្គុទ្ទេសក៍',
+    metaLevel: 'កម្រិតដំបូង',
+    metaValidated: 'មាតិកាបានពិនិត្យ',
+    intro: 'អ៊ុលត្រាសោន និងការធ្វើតេស្តសំខាន់ៗ តាមត្រីមាសនីមួយៗ។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'អ៊ុលត្រាសោនតាមដាន',
+      'ការធ្វើតេស្តឈាមសំខាន់ៗ',
+      'ការរៀបចំសម្រាប់ការណាត់ជួបនីមួយៗ',
+      'គួរកត់សម្គាល់',
+      'ចំណុចសំខាន់ៗ',
+    ],
+    body1:
+      'ការមានផ្ទៃពោះជាទូទៅរួមមានអ៊ុលត្រាសោនសំខាន់ៗចំនួនបី មួយក្នុងមួយត្រីមាស ដែលនីមួយៗមានគោលបំណងខុសគ្នា។',
+    ultrasounds: [
+      'ត្រីមាសទី 1៖ ការកំណត់អាយុផ្ទៃពោះ និងកម្រាស់ស្បែកក្រោយក',
+      'ត្រីមាសទី 2៖ អ៊ុលត្រាសោនរូបរាង',
+      'ត្រីមាសទី 3៖ ការលូតលាស់ និងទីតាំងរបស់ទារក',
+    ],
+    body2:
+      'ការធ្វើតេស្តឈាមទៀងទាត់តាមដានសូចនាករសំខាន់ៗជាច្រើនក្នុងអំឡុងពេលមានផ្ទៃពោះ៖',
+    bloodTests: [
+      'កម្រិតជាតិដែក ដើម្បីពិនិត្យរកភាពស្លេកស្លាំងដែលអាចមាន',
+      'ការពិនិត្យរកជំងឺទឹកនោមផ្អែមពេលមានផ្ទៃពោះ ជាទូទៅនៅជុំវិញត្រីមាសទី 2',
+      'ក្រុមឈាម និងការពិនិត្យរកអង់ទីករមិនទៀងទាត់',
+      'ការធ្វើតេស្តសេរ៉ូឡូស៊ី (ជំងឺតូស៊ូផ្លាស្មូស រូបេអូល) អាស្រ័យលើស្ថានភាពភាពស៊ាំរបស់អ្នក',
+    ],
+    prepTips: [
+      'សរសេរសំណួររបស់អ្នកនៅពេលវាមកដល់អ្នក មុនពេលអ្នកភ្លេច',
+      'យកសៀវភៅតាមដានការមានផ្ទៃពោះរបស់អ្នកទៅគ្រប់ការណាត់ជួបទាំងអស់',
+      'ប្រាប់អំពីរោគសញ្ញាថ្មីណាមួយ ទោះបីវាហាក់ដូចជាតិចតួចក៏ដោយ',
+    ],
+    neutralText:
+      'ចំនួន និងកាលវិភាគច្បាស់លាស់នៃការពិនិត្យអាចប្រែប្រួលតាមការថែទាំរបស់អ្នក កម្រិតហានិភ័យរបស់អ្នក និងការអនុវត្តរបស់ប្រទេស ឬអ្នកផ្តល់ការថែទាំរបស់អ្នក។',
+    tipTitle: 'គួរដឹង',
+    tipText:
+      'កុំស្ទាក់ស្ទើរក្នុងការសរសេរសំណួររបស់អ្នកមុនការណាត់ជួបនីមួយៗ ដើម្បីកុំឱ្យភ្លេចអ្វីនៅពេលនោះ៖ គ្មានសំណួរណាតូចពេកក្នុងការសួរទេ។',
+    shareMessage: 'ប្រតិទិនការពិនិត្យក្នុងការមានផ្ទៃពោះ — AWA',
+  },
+  lo: {
+    badge: 'ການຖືພາ • ການຕິດຕາມທາງການແພດ',
+    title: 'ປະຕິທິນການກວດ\nໃນການຖືພາ',
+    metaDuration: 'ອ່ານ 6 ນາທີ',
+    metaType: 'ຄູ່ມື',
+    metaLevel: 'ລະດັບເລີ່ມຕົ້ນ',
+    metaValidated: 'ເນື້ອຫາທີ່ຜ່ານການກວດສອບ',
+    intro: 'ການກວດອັນຕຣາຊາວ ແລະ ການກວດທີ່ຈຳເປັນ ແຕ່ລະໄຕມາດ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ການກວດອັນຕຣາຊາວເພື່ອຕິດຕາມ',
+      'ການກວດເລືອດທີ່ຈຳເປັນ',
+      'ການກະກຽມສຳລັບແຕ່ລະການນັດ',
+      'ສິ່ງທີ່ຄວນສັງເກດ',
+      'ຈຸດສຳຄັນ',
+    ],
+    body1:
+      'ໂດຍທົ່ວໄປການຖືພາມີການກວດອັນຕຣາຊາວຫຼັກສາມຄັ້ງ ໄຕມາດລະຄັ້ງ ແຕ່ລະຄັ້ງມີຈຸດປະສົງແຕກຕ່າງກັນ.',
+    ultrasounds: [
+      'ໄຕມາດທີ 1: ການກຳນົດອາຍຸຄັນ ແລະ ການວັດຄວາມໜາຂອງເຍື່ອຫຸ້ມຄໍ',
+      'ໄຕມາດທີ 2: ການກວດອັນຕຣາຊາວເບິ່ງຮູບຮ່າງ',
+      'ໄຕມາດທີ 3: ການເຕີບໂຕ ແລະ ທ່າຂອງລູກນ້ອຍ',
+    ],
+    body2:
+      'ການກວດເລືອດເປັນປະຈຳຕິດຕາມຕົວຊີ້ວັດສຳຄັນຫຼາຍຢ່າງຕະຫຼອດການຖືພາ:',
+    bloodTests: [
+      'ລະດັບທາດເຫຼັກ ເພື່ອຄັດກອງພາວະເລືອດຈາງທີ່ອາດເກີດຂຶ້ນ',
+      'ການຄັດກອງເບົາຫວານໃນການຖືພາ ໂດຍທົ່ວໄປປະມານໄຕມາດທີ 2',
+      'ການກວດກຸ່ມເລືອດ ແລະ ການຄັດກອງແອນຕິບໍດີທີ່ຜິດປົກກະຕິ',
+      'ການກວດເລືອດຫາພູມຕ້ານທານ (ໂທກໂຊພລາສໂມຊິສ, ຫັດເຢຍລະມັນ) ຕາມສະຖານະພູມຕ້ານທານຂອງທ່ານ',
+    ],
+    prepTips: [
+      'ຈົດຄຳຖາມຂອງທ່ານເມື່ອນຶກໄດ້ ກ່ອນທີ່ຈະລືມ',
+      'ເອົາສະໝຸດຕິດຕາມການຖືພາຂອງທ່ານໄປນຳທຸກການນັດ',
+      'ບອກອາການໃໝ່ທຸກຢ່າງ ເຖິງວ່າຈະເບິ່ງຄືເລັກນ້ອຍກໍຕາມ',
+    ],
+    neutralText:
+      'ຈຳນວນ ແລະ ກຳນົດເວລາທີ່ແນ່ນອນຂອງການກວດອາດແຕກຕ່າງກັນໄປຕາມການດູແລຂອງທ່ານ, ລະດັບຄວາມສ່ຽງຂອງທ່ານ ແລະ ການປະຕິບັດຂອງປະເທດ ຫຼື ຜູ້ໃຫ້ບໍລິການດູແລຂອງທ່ານ.',
+    tipTitle: 'ຄວນຮູ້',
+    tipText:
+      'ຢ່າລັງເລທີ່ຈະຈົດຄຳຖາມກ່ອນແຕ່ລະການນັດ ເພື່ອບໍ່ໃຫ້ລືມສິ່ງໃດໃນຕອນນັ້ນ: ບໍ່ມີຄຳຖາມໃດນ້ອຍເກີນໄປທີ່ຈະຖາມ.',
+    shareMessage: 'ປະຕິທິນການກວດໃນການຖືພາ — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

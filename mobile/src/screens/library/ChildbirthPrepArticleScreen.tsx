@@ -1731,6 +1731,823 @@ const CONTENT = withBrazilianPortuguese('ChildbirthPrep', {
       'Taýýarlanmak hemme zady dolandyrmak diýmek däl: bu esasan uly güne has ynam bilen we az näbelliligi bilen ýakynlaşmak üçin özüňize mümkinçilik bermek.',
     shareMessage: 'Dogruma asudalyk bilen taýýarlanmak — AWA',
   },
+  ms: {
+    badge: 'KEHAMILAN • BERSALIN',
+    title: 'Bersedia dengan tenang\nuntuk bersalin',
+    metaDuration: '7 min bacaan',
+    metaType: 'Panduan',
+    metaLevel: 'Permulaan',
+    metaValidated: 'Kandungan disemak',
+    intro: 'Tiga tonggak untuk menghadapi hari yang besar dengan lebih yakin.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Bersedia dalam 3 langkah',
+      'Beg hospital anda',
+      'Menulis pelan kelahiran anda',
+      'Perkara yang patut diambil perhatian',
+      'Apa yang perlu diingat',
+    ],
+    prepSteps: [
+      'Kelas persediaan bersalin',
+      'Teknik pernafasan dan relaksasi',
+      'Beg hospital siap menjelang bulan ke-8',
+    ],
+    body1:
+      'Kelas persediaan bersalin membantu anda memahami peringkat bersalin dan teknik pernafasan yang akan menyokong anda pada hari yang besar.',
+    body2:
+      'Menyediakan beg hospital menjelang bulan ke-8 menjimatkan anda daripada tekanan saat-saat akhir. Biasanya ia mengandungi:',
+    bagItems: [
+      'Dokumen pengenalan dan buku rekod kehamilan anda',
+      'Pakaian yang selesa untuk anda dan bayi',
+      'Barangan mandian dan tuala wanita selepas bersalin',
+      'Pakaian untuk bayi dipakai semasa pulang ke rumah',
+    ],
+    birthPlanPoints: [
+      'Pilihan anda untuk menguruskan kesakitan',
+      'Siapa yang anda mahu hadir semasa bersalin',
+      'Jangkaan anda tentang sentuhan kulit ke kulit',
+    ],
+    neutralText:
+      'Pelan kelahiran yang ringkas membantu anda menyampaikan hasrat anda kepada pasukan perubatan, sambil kekal berfikiran terbuka: perjalanan sebenar boleh berubah bergantung pada keadaan.',
+    tipTitle: 'Elok diketahui',
+    tipText:
+      'Bersedia tidak bermakna mengawal segala-galanya: ia terutamanya tentang memberi diri anda cara untuk menghadapi hari yang besar dengan lebih yakin dan kurang ketidakpastian.',
+    shareMessage: 'Bersedia dengan tenang untuk bersalin — AWA',
+  },
+  so: {
+    badge: 'UUR • DHALMO',
+    title: 'U diyaargarowga dhalmada\nsi degan',
+    metaDuration: '7 daq akhris',
+    metaType: 'Hage',
+    metaLevel: 'Bilow',
+    metaValidated: 'Macluumaad la dib-u-eegay',
+    intro: 'Saddex tiir oo lagu dhowaado maalinta weyn kalsooni badan.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Diyaargarow 3 tallaabo ah',
+      'Bacaadkaaga isbitaalka',
+      'Qorista qorshahaaga dhalmada',
+      'Mudan in la xuso',
+      'Waxa la xasuusto',
+    ],
+    prepSteps: [
+      'Fasallada u diyaargarowga dhalmada',
+      'Farsamooyinka neefsashada iyo nasashada',
+      'Bacaadka isbitaalka oo diyaar ah bisha 8aad',
+    ],
+    body1:
+      'Fasallada u diyaargarowga dhalmadu waxay kaa caawiyaan inaad fahanto heerarka foosha iyo farsamooyinka neefsashada ee kuu taageeri doona maalinta weyn.',
+    body2:
+      'Diyaarinta bacaadkaaga isbitaalka bisha 8aad waxay ku badbaadisaa walaac wakhtiga ugu dambeeya. Inta badan wuxuu ka kooban yahay:',
+    bagItems: [
+      'Dukumiintiyada aqoonsiga iyo buugga diiwaanka uurkaaga',
+      'Dharka raaxada leh adiga iyo ilmaha',
+      'Alaabta nadaafadda iyo tuwaalaha dhalmada ka dib',
+      'Dhar ilmaha lagu geeyo guriga',
+    ],
+    birthPlanPoints: [
+      'Doorbidyadaada maamulka xanuunka',
+      'Cidda aad rabto inay joogto inta foosha jirto',
+      'Filashooyinkaaga ku saabsan taabasho maqaar-ilaa-maqaar',
+    ],
+    neutralText:
+      'Qorshe dhalmo oo fudud wuxuu kaa caawiyaa inaad la wadaagto rabitaankaaga kooxda caafimaadka, adigoo isla markaa maskax furan haysta: socodka dhabta ahi wuu isbeddeli karaa iyadoo ku xiran xaaladda.',
+    tipTitle: 'Waxtar leh in la ogaado',
+    tipText:
+      'Diyaargarowgu macnaheedu maaha inaad wax walba xakameyso: wuxuu inta badan ku saabsan yahay inaad naftaada siiso hab aad ku dhowaato maalinta weyn kalsooni badan iyo shaki yar.',
+    shareMessage: 'U diyaargarowga dhalmada si degan — AWA',
+  },
+  sw: {
+    badge: 'UJAUZITO • KUJIFUNGUA',
+    title: 'Kujiandaa kwa utulivu\nkwa kujifungua',
+    metaDuration: 'Dakika 7 za kusoma',
+    metaType: 'Mwongozo',
+    metaLevel: 'Mwanzo',
+    metaValidated: 'Maudhui yaliyokaguliwa',
+    intro: 'Nguzo tatu za kukaribia siku kuu kwa kujiamini zaidi.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Kujiandaa kwa hatua 3',
+      'Begi lako la hospitali',
+      'Kuandika mpango wako wa kujifungua',
+      'Yanayostahili kuzingatiwa',
+      'Cha kukumbuka',
+    ],
+    prepSteps: [
+      'Madarasa ya maandalizi ya kujifungua',
+      'Mbinu za kupumua na kutuliza mwili',
+      'Begi la hospitali liwe tayari kufikia mwezi wa 8',
+    ],
+    body1:
+      'Madarasa ya maandalizi ya kujifungua yanakusaidia kuelewa hatua za uchungu wa kujifungua na mbinu za kupumua zitakazokusaidia siku kuu.',
+    body2:
+      'Kupakia begi lako la hospitali kufikia mwezi wa 8 kunakuepusha na msongo wa dakika za mwisho. Kwa kawaida lina:',
+    bagItems: [
+      'Hati za utambulisho na kitabu chako cha rekodi za ujauzito',
+      'Nguo za starehe kwa ajili yako na mtoto',
+      'Vifaa vya usafi binafsi na pedi za baada ya kujifungua',
+      'Vazi la mtoto la kurudi nalo nyumbani',
+    ],
+    birthPlanPoints: [
+      'Mapendeleo yako ya kudhibiti maumivu',
+      'Nani ungependa awepo wakati wa uchungu',
+      'Matarajio yako kuhusu kugusana ngozi kwa ngozi',
+    ],
+    neutralText:
+      'Mpango rahisi wa kujifungua unakusaidia kushiriki matakwa yako na timu ya madaktari, huku ukibaki na mawazo wazi: mwenendo halisi wa mambo unaweza kubadilika kulingana na hali.',
+    tipTitle: 'Vyema kujua',
+    tipText:
+      'Kujiandaa hakumaanishi kudhibiti kila kitu: ni hasa kujipa njia za kukaribia siku kuu kwa kujiamini zaidi na kutokuwa na uhakika kidogo.',
+    shareMessage: 'Kujiandaa kwa utulivu kwa kujifungua — AWA',
+  },
+  kk: {
+    badge: 'ЖҮКТІЛІК • БОСАНУ',
+    title: 'Босануға\nтыныштықпен дайындалу',
+    metaDuration: '7 мин оқу',
+    metaType: 'Нұсқаулық',
+    metaLevel: 'Бастауыш',
+    metaValidated: 'Тексерілген мазмұн',
+    intro: 'Үлкен күнге сенімдірек жақындауға арналған үш тірек.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      '3 қадаммен дайындалу',
+      'Аурухана сөмкеңіз',
+      'Босану жоспарыңызды жазу',
+      'Назар аударатын мәселелер',
+      'Нені есте сақтау керек',
+    ],
+    prepSteps: [
+      'Босануға дайындық сабақтары',
+      'Тыныс алу және босаңсу техникалары',
+      'Аурухана сөмкесі 8-ші айға дейін дайын',
+    ],
+    body1:
+      'Босануға дайындық сабақтары толғақтың кезеңдерін және үлкен күні сізді қолдайтын тыныс алу техникаларын түсінуге көмектеседі.',
+    body2:
+      'Аурухана сөмкесін 8-ші айға дейін жинау соңғы минуттағы күйзелістен құтқарады. Оған әдетте мыналар кіреді:',
+    bagItems: [
+      'Жеке куәлік құжаттары және жүктілік жазбалар кітапшасы',
+      'Өзіңізге және нәрестеге арналған ыңғайлы киім',
+      'Жеке гигиена құралдары және босанғаннан кейінгі прокладкалар',
+      'Нәрестенің үйге қайтуына арналған киімі',
+    ],
+    birthPlanPoints: [
+      'Ауруды басқару бойынша қалауларыңыз',
+      'Толғақ кезінде жаныңызда кімнің болғанын қалайтыныңыз',
+      'Теріден теріге жанасуға қатысты күтулеріңіз',
+    ],
+    neutralText:
+      'Қарапайым босану жоспары қалауларыңызбен медициналық топты таныстыруға көмектеседі, сонымен бірге ашық болып қалыңыз: оқиғалардың нақты барысы жағдайға қарай өзгеруі мүмкін.',
+    tipTitle: 'Білуге тиісті',
+    tipText:
+      'Дайындалу бәрін бақылауды білдірмейді: бұл негізінен үлкен күнге сенімдірек және белгісіздігі азырақ жақындауға мүмкіндік беру.',
+    shareMessage: 'Босануға тыныштықпен дайындалу — AWA',
+  },
+  wo: {
+    badge: 'ËMB • JUR',
+    title: 'Waajal jur\nak jàmm',
+    metaDuration: '7 simili jàng',
+    metaType: 'Ndigal',
+    metaLevel: 'Tàmbali',
+    metaValidated: 'Mbind bu ñu seetlu',
+    intro: 'Ñetti jumtukaay ngir dikk bés bi mag ak kóolute bu gën a bari.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Waajal ci 3 ñaar fuñ',
+      'Sa saakoo bu opitaal',
+      'Bind sa pexe jur',
+      'Li am solo',
+      'Li war a fàttaliku',
+    ],
+    prepSteps: [
+      'Njàngum waajal jur',
+      'Anam yu noppiku ak noppalu',
+      'Saakoo bu opitaal waajal ci weer wu juróom-ñett',
+    ],
+    body1:
+      'Njàngum waajal jur dañuy dimbli nga xam ñaar fuñ yu jur ak anam yu noppiku yi di la dimbli bés bi mag.',
+    body2:
+      'Waajal sa saakoo bu opitaal ci weer wu juróom-ñett dafay la tee tiitaange bu mujj-mujj. Dafay boole saa su ne:',
+    bagItems: [
+      'Kayit yu ID ak sa kayitu ëmb',
+      'Yérey neex ngir yaw ak doom bi',
+      'Jumtukaay yu set ak pad yu ginnaaw jur',
+      'Benn yéré ngir doom bi ngir dellu kër',
+    ],
+    birthPlanPoints: [
+      'Sa bëgg-bëgg ci yor metit',
+      'Ki nga bëgg a nekk fa ci jur',
+      'Li nga xaar ci laal yaram ak yaram',
+    ],
+    neutralText:
+      'Benn pexe jur bu yomb dafay dimbli nga wax sa bëgg-bëgg ak ekipu doktoor yi, te des ci xel mu ubbiku: jëf bi mën na soppiku ci mbir bi.',
+    tipTitle: 'Lu baax a xam',
+    tipText:
+      'Waajal du tekki yor lépp: dafay joxe la jumtukaay yi ngir dikk bés bi mag ak kóolute bu gën a bari te xel-ñaar bu gën a ndaw.',
+    shareMessage: 'Waajal jur ak jàmm — AWA',
+  },
+  ha: {
+    badge: 'CIKI • HAIHUWA',
+    title: 'Shirya wa haihuwa\ncikin natsuwa',
+    metaDuration: 'karatun minti 7',
+    metaType: 'Jagora',
+    metaLevel: 'Mafari',
+    metaValidated: 'Abun da aka duba',
+    intro: 'Ginshiƙai uku don kusantar babbar ranar da ƙarin kwarin gwiwa.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Shirye-shirye a matakai 3',
+      'Jakarki ta asibiti',
+      'Rubuta shirin haihuwarki',
+      'Abin da ya cancanci a lura',
+      'Abin da za a tuna',
+    ],
+    prepSteps: [
+      'Darussan shirya wa haihuwa',
+      'Dabarun numfashi da hutu',
+      'Jakar asibiti a shirye kafin wata na 8',
+    ],
+    body1:
+      'Darussan shirya wa haihuwa suna taimaka miki ki fahimci matakan nakuda da dabarun numfashi da za su tallafa miki a babbar ranar.',
+    body2:
+      'Shirya jakarki ta asibiti kafin wata na 8 yana ceton ki daga damuwar minti na ƙarshe. Yawanci ta ƙunshi:',
+    bagItems: [
+      'Takardun shaida da littafin lafiyar cikinki',
+      'Tufafi masu daɗi gare ki da jariri',
+      'Kayayyakin tsabta da audugar bayan haihuwa',
+      'Tufafin jariri don komawa gida',
+    ],
+    birthPlanPoints: [
+      'Abin da kike so game da magance ciwo',
+      'Wanda kike so ya kasance yayin nakuda',
+      'Abin da kike tsammani game da taɓa fata da fata',
+    ],
+    neutralText:
+      'Shirin haihuwa mai sauƙi yana taimaka miki ki sanar da ƙungiyar likitoci abin da kike so, tare da kasancewa mai buɗaɗɗen zuciya: yadda abubuwa ke gudana na iya sauyawa bisa yanayi.',
+    tipTitle: 'Abin da ya kamata ki sani',
+    tipText:
+      'Shiri ba ya nufin sarrafa komai: galibi game da ba kanki hanyoyin kusantar babbar ranar da ƙarin kwarin gwiwa da ƙarancin rashin tabbas ne.',
+    shareMessage: 'Shirya wa haihuwa cikin natsuwa — AWA',
+  },
+  am: {
+    badge: 'እርግዝና • ወሊድ',
+    title: 'ለወሊድ በሰላም\nመዘጋጀት',
+    metaDuration: '7 ደቂቃ ንባብ',
+    metaType: 'መመሪያ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'የተረጋገጠ ይዘት',
+    intro: 'ታላቁን ቀን በበለጠ በራስ መተማመን ለመቅረብ ሶስት ምሰሶዎች።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'በ3 ደረጃዎች መዘጋጀት',
+      'የሆስፒታል ቦርሳሽ',
+      'የወሊድ እቅድሽን መጻፍ',
+      'ልብ ሊባል የሚገባው',
+      'ማስታወስ ያለብሽ',
+    ],
+    prepSteps: [
+      'የወሊድ ዝግጅት ክፍሎች',
+      'የአተነፋፈስና የመዝናናት ዘዴዎች',
+      'ከ8ኛው ወር በፊት የሆስፒታል ቦርሳ ዝግጁ',
+    ],
+    body1:
+      'የወሊድ ዝግጅት ክፍሎች የምጥ ደረጃዎችን እና በታላቁ ቀን የሚደግፉሽን የአተነፋፈስ ዘዴዎች እንድትረጂ ይረዱሻል።',
+    body2:
+      'የሆስፒታል ቦርሳሽን ከ8ኛው ወር በፊት ማዘጋጀት የመጨረሻ ደቂቃ ውጥረትን ያስቀርልሻል። ብዙውን ጊዜ የሚከተሉትን ይይዛል፦',
+    bagItems: [
+      'መታወቂያ ሰነዶች እና የእርግዝና መዝገብ ደብተርሽ',
+      'ለአንቺና ለሕፃኑ ምቹ ልብሶች',
+      'የንጽሕና ዕቃዎች እና ከወሊድ በኋላ የሚጠቀሙ ሞዴሶች',
+      'ሕፃኑ ወደ ቤት የሚሄድበት ልብስ',
+    ],
+    birthPlanPoints: [
+      'ህመምን ስለመቆጣጠር ምርጫዎችሽ',
+      'በምጥ ጊዜ እንዲገኝ የምትፈልጊው ሰው',
+      'ስለ ቆዳ ለቆዳ መገናኘት የሚጠብቂው',
+    ],
+    neutralText:
+      'ቀላል የወሊድ እቅድ ፍላጎቶችሽን ለሕክምና ቡድኑ ለማካፈል ይረዳል፣ እንዲሁም ክፍት አእምሮ እንድትይዢ፦ ትክክለኛው ሂደት እንደ ሁኔታው ሊለወጥ ይችላል።',
+    tipTitle: 'ማወቅ ጠቃሚ ነው',
+    tipText:
+      'መዘጋጀት ሁሉንም መቆጣጠር ማለት አይደለም፦ በዋናነት ታላቁን ቀን በበለጠ በራስ መተማመንና በትንሽ ጥርጣሬ ለመቅረብ መንገዶችን ለራስሽ መስጠት ነው።',
+    shareMessage: 'ለወሊድ በሰላም መዘጋጀት — AWA',
+  },
+  nl: {
+    badge: 'ZWANGERSCHAP • BEVALLING',
+    title: 'Rustig voorbereiden\nop de bevalling',
+    metaDuration: '7 min lezen',
+    metaType: 'Gids',
+    metaLevel: 'Beginner',
+    metaValidated: 'Gecontroleerde inhoud',
+    intro: 'Drie pijlers om de grote dag met meer vertrouwen tegemoet te gaan.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'Voorbereiden in 3 stappen',
+      'Je ziekenhuistas',
+      'Je geboorteplan opstellen',
+      'Goed om te weten',
+      'Wat je moet onthouden',
+    ],
+    prepSteps: [
+      'Zwangerschapscursus ter voorbereiding op de bevalling',
+      'Ademhalings- en ontspanningstechnieken',
+      'Ziekenhuistas klaar in maand 8',
+    ],
+    body1:
+      'Een zwangerschapscursus helpt je de fasen van de bevalling te begrijpen en de ademhalingstechnieken die je op de grote dag zullen ondersteunen.',
+    body2:
+      'Je ziekenhuistas in maand 8 inpakken bespaart je stress op het laatste moment. Meestal bevat ze:',
+    bagItems: [
+      'Identiteitsbewijzen en je zwangerschapsdossier',
+      'Comfortabele kleding voor jou en de baby',
+      'Toiletartikelen en kraamverband',
+      'Een outfit voor de baby om naar huis te gaan',
+    ],
+    birthPlanPoints: [
+      'Je voorkeuren voor pijnbestrijding',
+      'Wie je tijdens de bevalling erbij wilt hebben',
+      'Je verwachtingen rond huid-op-huidcontact',
+    ],
+    neutralText:
+      'Een eenvoudig geboorteplan helpt je je wensen met het medische team te delen, terwijl je open blijft staan: het werkelijke verloop kan veranderen afhankelijk van de situatie.',
+    tipTitle: 'Goed om te weten',
+    tipText:
+      'Voorbereiden betekent niet alles controleren: het gaat er vooral om jezelf de middelen te geven om de grote dag met meer vertrouwen en minder onzekerheid tegemoet te gaan.',
+    shareMessage: 'Rustig voorbereiden op de bevalling — AWA',
+  },
+  fi: {
+    badge: 'RASKAUS • SYNNYTYS',
+    title: 'Rauhallinen valmistautuminen\nsynnytykseen',
+    metaDuration: '7 min lukuaika',
+    metaType: 'Opas',
+    metaLevel: 'Aloittelija',
+    metaValidated: 'Tarkistettu sisältö',
+    intro: 'Kolme peruspilaria, joiden avulla lähestyt suurta päivää luottavaisemmin.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Valmistautuminen kolmessa vaiheessa',
+      'Sairaalalaukkusi',
+      'Synnytyssuunnitelman kirjoittaminen',
+      'Huomionarvoista',
+      'Mitä muistaa',
+    ],
+    prepSteps: [
+      'Synnytysvalmennus',
+      'Hengitys- ja rentoutustekniikat',
+      'Sairaalalaukku valmiina kahdeksanteen kuukauteen mennessä',
+    ],
+    body1:
+      'Synnytysvalmennus auttaa ymmärtämään synnytyksen vaiheet ja hengitystekniikat, jotka tukevat sinua suurena päivänä.',
+    body2:
+      'Sairaalalaukun pakkaaminen kahdeksanteen kuukauteen mennessä säästää viime hetken stressiltä. Se sisältää yleensä:',
+    bagItems: [
+      'Henkilöllisyysasiakirjat ja äitiyskortti',
+      'Mukavat vaatteet sinulle ja vauvalle',
+      'Hygieniatarvikkeet ja synnytyksen jälkeiset siteet',
+      'Vauvalle asu kotiinlähtöä varten',
+    ],
+    birthPlanPoints: [
+      'Toiveesi kivunhoidosta',
+      'Ketkä haluat paikalle synnytyksen aikana',
+      'Odotuksesi ihokontaktista',
+    ],
+    neutralText:
+      'Yksinkertainen synnytyssuunnitelma auttaa kertomaan toiveesi hoitohenkilökunnalle pysyen silti avoimena: todellinen kulku voi muuttua tilanteen mukaan.',
+    tipTitle: 'Hyvä tietää',
+    tipText:
+      'Valmistautuminen ei tarkoita kaiken hallintaa: kyse on ennen kaikkea siitä, että annat itsellesi keinot lähestyä suurta päivää luottavaisemmin ja vähemmän epävarmuutta tuntien.',
+    shareMessage: 'Rauhallinen valmistautuminen synnytykseen — AWA',
+  },
+  el: {
+    badge: 'ΕΓΚΥΜΟΣΥΝΗ • ΤΟΚΕΤΟΣ',
+    title: 'Προετοιμασία για τον τοκετό\nμε ηρεμία',
+    metaDuration: '7 λεπτά ανάγνωσης',
+    metaType: 'Οδηγός',
+    metaLevel: 'Αρχάριο',
+    metaValidated: 'Ελεγμένο περιεχόμενο',
+    intro: 'Τρεις πυλώνες για να προσεγγίσεις τη μεγάλη ημέρα με περισσότερη αυτοπεποίθηση.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Προετοιμασία σε 3 βήματα',
+      'Η βαλίτσα του μαιευτηρίου',
+      'Συντάσσοντας το σχέδιο τοκετού',
+      'Αξίζει να σημειωθεί',
+      'Τι να θυμάσαι',
+    ],
+    prepSteps: [
+      'Μαθήματα προετοιμασίας για τον τοκετό',
+      'Τεχνικές αναπνοής και χαλάρωσης',
+      'Η βαλίτσα του μαιευτηρίου έτοιμη μέχρι τον 8ο μήνα',
+    ],
+    body1:
+      'Τα μαθήματα προετοιμασίας για τον τοκετό σε βοηθούν να κατανοήσεις τα στάδια του τοκετού και τις τεχνικές αναπνοής που θα σε στηρίξουν τη μεγάλη ημέρα.',
+    body2:
+      'Το να ετοιμάσεις τη βαλίτσα του μαιευτηρίου μέχρι τον 8ο μήνα σου γλιτώνει το άγχος της τελευταίας στιγμής. Συνήθως περιλαμβάνει:',
+    bagItems: [
+      'Έγγραφα ταυτότητας και το βιβλιάριο της εγκυμοσύνης σου',
+      'Άνετα ρούχα για σένα και για το μωρό',
+      'Είδη υγιεινής και σερβιέτες λοχείας',
+      'Ένα ντύσιμο για να φύγει το μωρό από το μαιευτήριο',
+    ],
+    birthPlanPoints: [
+      'Οι προτιμήσεις σου για τη διαχείριση του πόνου',
+      'Ποιον θα ήθελες να έχεις δίπλα σου στον τοκετό',
+      'Οι προσδοκίες σου για την επαφή δέρμα με δέρμα',
+    ],
+    neutralText:
+      'Ένα απλό σχέδιο τοκετού σε βοηθά να μοιραστείς τις επιθυμίες σου με την ιατρική ομάδα, παραμένοντας ανοιχτή: η πραγματική εξέλιξη μπορεί να αλλάξει ανάλογα με την κατάσταση.',
+    tipTitle: 'Καλό είναι να γνωρίζεις',
+    tipText:
+      'Η προετοιμασία δεν σημαίνει ότι ελέγχεις τα πάντα: σημαίνει κυρίως ότι δίνεις στον εαυτό σου τα μέσα να προσεγγίσει τη μεγάλη ημέρα με περισσότερη αυτοπεποίθηση και λιγότερη αβεβαιότητα.',
+    shareMessage: 'Προετοιμασία για τον τοκετό με ηρεμία — AWA',
+  },
+  fil: {
+    badge: 'PAGBUBUNTIS • PANGANGANAK',
+    title: 'Mahinahong paghahanda\nsa panganganak',
+    metaDuration: '7 min na babasahin',
+    metaType: 'Gabay',
+    metaLevel: 'Baguhan',
+    metaValidated: 'Sinuring nilalaman',
+    intro: 'Tatlong haligi para harapin ang malaking araw nang may mas malaking kumpiyansa.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Paghahanda sa 3 hakbang',
+      'Ang iyong bag sa ospital',
+      'Pagsulat ng iyong birth plan',
+      'Karapat-dapat tandaan',
+      'Ang dapat tandaan',
+    ],
+    prepSteps: [
+      'Mga klase sa paghahanda sa panganganak',
+      'Mga pamamaraan sa paghinga at pagrerelaks',
+      'Handa na ang bag sa ospital pagsapit ng ika-8 buwan',
+    ],
+    body1:
+      'Tinutulungan ka ng mga klase sa paghahanda sa panganganak na maunawaan ang mga yugto ng labor at ang mga pamamaraan sa paghinga na susuporta sa iyo sa malaking araw.',
+    body2:
+      'Ang paghahanda ng bag sa ospital pagsapit ng ika-8 buwan ay nagliligtas sa iyo sa stress sa huling minuto. Karaniwan itong naglalaman ng:',
+    bagItems: [
+      'Mga dokumento ng pagkakakilanlan at ang iyong librong pangsubaybay sa pagbubuntis',
+      'Komportableng damit para sa iyo at sa sanggol',
+      'Mga gamit sa kalinisan at pad pagkatapos manganak',
+      'Isang damit na susuotin ng sanggol pag-uwi',
+    ],
+    birthPlanPoints: [
+      'Ang iyong mga kagustuhan sa pangangasiwa ng sakit',
+      'Sino ang gusto mong kasama habang nasa labor',
+      'Ang iyong mga inaasahan tungkol sa skin-to-skin contact',
+    ],
+    neutralText:
+      'Nakakatulong ang simpleng birth plan na maibahagi mo ang iyong mga nais sa medikal na koponan, habang nananatiling bukas: maaaring magbago ang aktwal na takbo ayon sa sitwasyon.',
+    tipTitle: 'Mabuting malaman',
+    tipText:
+      'Hindi nangangahulugan ang paghahanda na kontrolado mo ang lahat: higit sa lahat, binibigyan mo ang sarili mo ng paraan para harapin ang malaking araw nang may mas malaking kumpiyansa at mas kaunting kawalang-katiyakan.',
+    shareMessage: 'Mahinahong paghahanda sa panganganak — AWA',
+  },
+  ta: {
+    badge: 'கர்ப்பம் • பிரசவம்',
+    title: 'பிரசவத்துக்கு அமைதியாகத்\nதயாராதல்',
+    metaDuration: '7 நிமிடம் படிக்க',
+    metaType: 'வழிகாட்டி',
+    metaLevel: 'தொடக்க நிலை',
+    metaValidated: 'சரிபார்க்கப்பட்ட உள்ளடக்கம்',
+    intro: 'அந்தப் பெரிய நாளை அதிக நம்பிக்கையுடன் அணுக மூன்று தூண்கள்.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      '3 படிகளில் தயாராதல்',
+      'உங்கள் மருத்துவமனைப் பை',
+      'உங்கள் பிரசவத் திட்டத்தை எழுதுதல்',
+      'கவனிக்க வேண்டியவை',
+      'நினைவில் கொள்ள வேண்டியவை',
+    ],
+    prepSteps: [
+      'பிரசவத் தயாரிப்பு வகுப்புகள்',
+      'மூச்சு மற்றும் தளர்வு நுட்பங்கள்',
+      '8-ஆம் மாதத்துக்குள் தயாரான மருத்துவமனைப் பை',
+    ],
+    body1:
+      'பிரசவத் தயாரிப்பு வகுப்புகள் பிரசவ வலியின் கட்டங்களையும், அந்தப் பெரிய நாளில் உங்களுக்குத் துணையாக இருக்கும் மூச்சு நுட்பங்களையும் புரிந்துகொள்ள உதவுகின்றன.',
+    body2:
+      '8-ஆம் மாதத்துக்குள் உங்கள் மருத்துவமனைப் பையைத் தயார் செய்வது கடைசி நிமிட அழுத்தத்தைத் தவிர்க்கிறது. அதில் பொதுவாக இவை அடங்கும்:',
+    bagItems: [
+      'அடையாள ஆவணங்களும் உங்கள் கர்ப்பப் பதிவுப் புத்தகமும்',
+      'உங்களுக்கும் குழந்தைக்கும் வசதியான ஆடைகள்',
+      'கழிப்பறைப் பொருட்களும் பிரசவத்துக்குப் பிந்தைய நாப்கின்களும்',
+      'வீட்டுக்குச் செல்லும்போது குழந்தைக்கான ஓர் ஆடை',
+    ],
+    birthPlanPoints: [
+      'வலியை நிர்வகிப்பதில் உங்கள் விருப்பங்கள்',
+      'பிரசவ வலியின்போது யாரை உடன் இருக்க விரும்புகிறீர்கள்',
+      'தோலோடு தோல் தொடர்பு குறித்த உங்கள் எதிர்பார்ப்புகள்',
+    ],
+    neutralText:
+      'ஓர் எளிய பிரசவத் திட்டம் உங்கள் விருப்பங்களை மருத்துவக் குழுவுடன் பகிர உதவுகிறது, அதே நேரம் திறந்த மனதுடன் இருக்கவும் உதவுகிறது: சூழ்நிலைக்கு ஏற்ப உண்மையான நிகழ்வுகள் மாறலாம்.',
+    tipTitle: 'தெரிந்துகொள்ளுங்கள்',
+    tipText:
+      'தயாராதல் என்பது அனைத்தையும் கட்டுப்படுத்துவது அல்ல: அந்தப் பெரிய நாளை அதிக நம்பிக்கையுடனும் குறைவான நிச்சயமின்மையுடனும் அணுக உங்களுக்கு வழிவகைகளைத் தருவதே முக்கியமாகும்.',
+    shareMessage: 'பிரசவத்துக்கு அமைதியாகத் தயாராதல் — AWA',
+  },
+  te: {
+    badge: 'గర్భం • ప్రసవం',
+    title: 'ప్రశాంతంగా ప్రసవానికి\nసిద్ధమవ్వడం',
+    metaDuration: '7 నిమిషాల పఠనం',
+    metaType: 'గైడ్',
+    metaLevel: 'ప్రారంభ స్థాయి',
+    metaValidated: 'మదింపు చేసిన కంటెంట్',
+    intro: 'ఆ గొప్ప రోజును మరింత ఆత్మవిశ్వాసంతో ఎదుర్కోవడానికి మూడు ఆధారాలు.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      '3 దశల్లో సిద్ధమవ్వడం',
+      'మీ ఆసుపత్రి బ్యాగ్',
+      'మీ ప్రసవ ప్రణాళికను రాయడం',
+      'గమనించదగినవి',
+      'గుర్తుంచుకోవాల్సినవి',
+    ],
+    prepSteps: [
+      'ప్రసవ సన్నద్ధత తరగతులు',
+      'శ్వాస, తేలికపరిచే పద్ధతులు',
+      '8వ నెలకల్లా సిద్ధమైన ఆసుపత్రి బ్యాగ్',
+    ],
+    body1:
+      'ప్రసవ సన్నద్ధత తరగతులు ప్రసవ వేదన దశలను, ఆ గొప్ప రోజున మీకు తోడ్పడే శ్వాస పద్ధతులను అర్థం చేసుకోవడానికి సహాయపడతాయి.',
+    body2:
+      '8వ నెలకల్లా మీ ఆసుపత్రి బ్యాగ్‌ను సర్దుకోవడం చివరి నిమిషం ఒత్తిడిని తప్పిస్తుంది. అందులో సాధారణంగా ఇవి ఉంటాయి:',
+    bagItems: [
+      'గుర్తింపు పత్రాలు, మీ గర్భధారణ రికార్డ్ పుస్తకం',
+      'మీకు, శిశువుకు సౌకర్యవంతమైన దుస్తులు',
+      'టాయిలెట్ సామగ్రి, ప్రసవానంతర ప్యాడ్లు',
+      'ఇంటికి వెళ్లడానికి శిశువుకు ఒక దుస్తుల జత',
+    ],
+    birthPlanPoints: [
+      'నొప్పి నిర్వహణపై మీ ప్రాధాన్యతలు',
+      'ప్రసవ వేదన సమయంలో మీరు ఎవరు ఉండాలని కోరుకుంటారు',
+      'చర్మానికి చర్మం తాకడం గురించి మీ అంచనాలు',
+    ],
+    neutralText:
+      'ఒక సరళమైన ప్రసవ ప్రణాళిక మీ కోరికలను వైద్య బృందంతో పంచుకోవడానికి సహాయపడుతుంది, అదే సమయంలో ఓపెన్ మైండ్‌తో ఉండండి: వాస్తవ గమనం పరిస్థితిని బట్టి మారవచ్చు.',
+    tipTitle: 'తెలుసుకోవాల్సినవి',
+    tipText:
+      'సిద్ధమవ్వడం అంటే ప్రతిదాన్నీ నియంత్రించడం కాదు: ఆ గొప్ప రోజును మరింత ఆత్మవిశ్వాసంతో, తక్కువ అనిశ్చితితో ఎదుర్కోవడానికి మీకు మీరు సాధనాలు ఇచ్చుకోవడమే ప్రధానం.',
+    shareMessage: 'ప్రశాంతంగా ప్రసవానికి సిద్ధమవ్వడం — AWA',
+  },
+  mr: {
+    badge: 'गर्भारपण • प्रसूती',
+    title: 'प्रसूतीची शांतपणे\nतयारी',
+    metaDuration: '7 मिनिटे वाचन',
+    metaType: 'मार्गदर्शक',
+    metaLevel: 'प्रारंभ स्तर',
+    metaValidated: 'पुनरावलोकन केलेला मजकूर',
+    intro: 'मोठ्या दिवसाला अधिक आत्मविश्वासाने सामोरे जाण्यासाठी तीन आधारस्तंभ.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      '3 पायऱ्यांत तयारी',
+      'तुमची रुग्णालयाची बॅग',
+      'तुमची प्रसूती योजना लिहिणे',
+      'लक्षात घेण्यासारखे',
+      'लक्षात ठेवायचे',
+    ],
+    prepSteps: [
+      'प्रसूतीपूर्व तयारीचे वर्ग',
+      'श्वासोच्छ्वास आणि विश्रांतीची तंत्रे',
+      '8व्या महिन्यापर्यंत रुग्णालयाची बॅग तयार',
+    ],
+    body1:
+      'प्रसूतीपूर्व तयारीचे वर्ग तुम्हाला प्रसूतीवेदनांचे टप्पे आणि मोठ्या दिवशी तुम्हाला साथ देणारी श्वासोच्छ्वासाची तंत्रे समजण्यास मदत करतात.',
+    body2:
+      '8व्या महिन्यापर्यंत रुग्णालयाची बॅग भरल्याने शेवटच्या क्षणाचा ताण वाचतो. त्यात सहसा हे असते:',
+    bagItems: [
+      'ओळखपत्रे आणि तुमचे गर्भारपणाचे नोंदपुस्तक',
+      'तुमच्यासाठी आणि बाळासाठी आरामदायी कपडे',
+      'प्रसाधनाचे सामान आणि प्रसूतीनंतरचे पॅड',
+      'बाळाला घरी नेण्यासाठी एक पोशाख',
+    ],
+    birthPlanPoints: [
+      'वेदना सांभाळण्याबद्दल तुमच्या पसंती',
+      'प्रसूतीवेदनांदरम्यान तुम्हाला कोण उपस्थित हवे',
+      'त्वचेशी त्वचेच्या संपर्काबद्दल तुमच्या अपेक्षा',
+    ],
+    neutralText:
+      'एक साधी प्रसूती योजना तुम्हाला तुमच्या इच्छा वैद्यकीय पथकाला सांगण्यास मदत करते, आणि तरीही खुले मन ठेवते: प्रत्यक्ष घटनाक्रम परिस्थितीनुसार बदलू शकतो.',
+    tipTitle: 'हे जाणून घ्या',
+    tipText:
+      'तयारी करणे म्हणजे सर्व काही नियंत्रित करणे नव्हे: मुख्यतः मोठ्या दिवसाला अधिक आत्मविश्वासाने आणि कमी अनिश्चिततेने सामोरे जाण्याची साधने स्वतःला देणे हे आहे.',
+    shareMessage: 'प्रसूतीची शांतपणे तयारी — AWA',
+  },
+  gu: {
+    badge: 'ગર્ભાવસ્થા • પ્રસૂતિ',
+    title: 'પ્રસૂતિ માટે શાંતિથી\nતૈયારી',
+    metaDuration: '7 મિનિટ વાંચન',
+    metaType: 'માર્ગદર્શિકા',
+    metaLevel: 'પ્રારંભિક સ્તર',
+    metaValidated: 'પુનરાવલોકન કરેલી સામગ્રી',
+    intro: 'એ મોટા દિવસનો વધુ આત્મવિશ્વાસથી સામનો કરવા માટેના ત્રણ આધારસ્તંભો.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      '3 પગલાંમાં તૈયારી',
+      'તમારી હૉસ્પિટલ બેગ',
+      'તમારી પ્રસૂતિ યોજના લખવી',
+      'નોંધવા જેવું',
+      'શું યાદ રાખવું',
+    ],
+    prepSteps: [
+      'પ્રસૂતિની તૈયારીના વર્ગો',
+      'શ્વાસ અને શિથિલીકરણની તકનીકો',
+      '8મા મહિના સુધીમાં હૉસ્પિટલ બેગ તૈયાર',
+    ],
+    body1:
+      'પ્રસૂતિની તૈયારીના વર્ગો તમને પ્રસૂતિની પીડાના તબક્કાઓ અને એ મોટા દિવસે તમને સહારો આપતી શ્વાસની તકનીકો સમજવામાં મદદ કરે છે.',
+    body2:
+      '8મા મહિના સુધીમાં હૉસ્પિટલ બેગ તૈયાર રાખવાથી છેલ્લી ઘડીનો તણાવ બચે છે. તેમાં સામાન્ય રીતે આ હોય છે:',
+    bagItems: [
+      'ઓળખના દસ્તાવેજો અને તમારી ગર્ભાવસ્થાની નોંધપોથી',
+      'તમારા અને બાળક માટે આરામદાયક કપડાં',
+      'સ્વચ્છતાની વસ્તુઓ અને પ્રસૂતિ પછીના પેડ',
+      'ઘરે જતી વખતે બાળક માટે પહેરવાનો પોશાક',
+    ],
+    birthPlanPoints: [
+      'દુખાવાના વ્યવસ્થાપન અંગે તમારી પસંદગીઓ',
+      'પ્રસૂતિ દરમિયાન તમે કોને હાજર રાખવા ઇચ્છો છો',
+      'ત્વચા-થી-ત્વચાના સંપર્ક અંગે તમારી અપેક્ષાઓ',
+    ],
+    neutralText:
+      'એક સરળ પ્રસૂતિ યોજના તમને તમારી ઇચ્છાઓ તબીબી ટીમ સાથે વહેંચવામાં મદદ કરે છે, સાથે ખુલ્લું મન પણ રાખવામાં: વાસ્તવિક ઘટનાક્રમ પરિસ્થિતિ પ્રમાણે બદલાઈ શકે છે.',
+    tipTitle: 'જાણવા જેવું',
+    tipText:
+      'તૈયારીનો અર્થ બધું નિયંત્રિત કરવું એવો નથી: તે મુખ્યત્વે એ મોટા દિવસનો વધુ આત્મવિશ્વાસ અને ઓછી અનિશ્ચિતતા સાથે સામનો કરવાનાં સાધનો પોતાને આપવા વિશે છે.',
+    shareMessage: 'પ્રસૂતિ માટે શાંતિથી તૈયારી — AWA',
+  },
+  pa: {
+    badge: 'ਗਰਭ-ਅਵਸਥਾ • ਜਣੇਪਾ',
+    title: 'ਜਣੇਪੇ ਲਈ ਸ਼ਾਂਤੀ ਨਾਲ\nਤਿਆਰੀ ਕਰਨਾ',
+    metaDuration: '7 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਗਾਈਡ',
+    metaLevel: 'ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ',
+    metaValidated: 'ਸਮੀਖਿਆ ਕੀਤੀ ਸਮੱਗਰੀ',
+    intro: 'ਵੱਡੇ ਦਿਨ ਦਾ ਵਧੇਰੇ ਭਰੋਸੇ ਨਾਲ ਸਾਹਮਣਾ ਕਰਨ ਲਈ ਤਿੰਨ ਥੰਮ੍ਹ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      '3 ਕਦਮਾਂ ਵਿੱਚ ਤਿਆਰੀ',
+      'ਤੁਹਾਡਾ ਹਸਪਤਾਲ ਦਾ ਬੈਗ',
+      'ਆਪਣੀ ਜਣੇਪੇ ਦੀ ਯੋਜਨਾ ਲਿਖਣਾ',
+      'ਧਿਆਨ ਦੇਣ ਯੋਗ ਗੱਲ',
+      'ਕੀ ਯਾਦ ਰੱਖਣਾ ਹੈ',
+    ],
+    prepSteps: [
+      'ਜਣੇਪੇ ਦੀ ਤਿਆਰੀ ਦੀਆਂ ਕਲਾਸਾਂ',
+      'ਸਾਹ ਅਤੇ ਆਰਾਮ ਦੀਆਂ ਤਕਨੀਕਾਂ',
+      'ਅੱਠਵੇਂ ਮਹੀਨੇ ਤੱਕ ਹਸਪਤਾਲ ਦਾ ਬੈਗ ਤਿਆਰ',
+    ],
+    body1:
+      'ਜਣੇਪੇ ਦੀ ਤਿਆਰੀ ਦੀਆਂ ਕਲਾਸਾਂ ਤੁਹਾਨੂੰ ਜਣੇਪੇ ਦੀਆਂ ਪੀੜਾਂ ਦੇ ਪੜਾਅ ਅਤੇ ਸਾਹ ਦੀਆਂ ਉਨ੍ਹਾਂ ਤਕਨੀਕਾਂ ਨੂੰ ਸਮਝਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀਆਂ ਹਨ ਜੋ ਵੱਡੇ ਦਿਨ ਤੁਹਾਡਾ ਸਹਾਰਾ ਬਣਨਗੀਆਂ।',
+    body2:
+      'ਅੱਠਵੇਂ ਮਹੀਨੇ ਤੱਕ ਆਪਣਾ ਹਸਪਤਾਲ ਦਾ ਬੈਗ ਤਿਆਰ ਕਰ ਲੈਣ ਨਾਲ ਆਖ਼ਰੀ ਸਮੇਂ ਦਾ ਤਣਾਅ ਬਚ ਜਾਂਦਾ ਹੈ। ਇਸ ਵਿੱਚ ਆਮ ਤੌਰ ’ਤੇ ਇਹ ਸ਼ਾਮਲ ਹੁੰਦਾ ਹੈ:',
+    bagItems: [
+      'ਪਛਾਣ ਦੇ ਕਾਗਜ਼ ਅਤੇ ਤੁਹਾਡੀ ਗਰਭ-ਅਵਸਥਾ ਦੀ ਰਿਕਾਰਡ ਕਿਤਾਬ',
+      'ਤੁਹਾਡੇ ਅਤੇ ਬੱਚੇ ਲਈ ਆਰਾਮਦਾਇਕ ਕੱਪੜੇ',
+      'ਸਫ਼ਾਈ ਦਾ ਸਮਾਨ ਅਤੇ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਵਾਲੇ ਪੈਡ',
+      'ਘਰ ਜਾਣ ਲਈ ਬੱਚੇ ਦਾ ਇੱਕ ਜੋੜਾ ਕੱਪੜੇ',
+    ],
+    birthPlanPoints: [
+      'ਦਰਦ ਦੇ ਪ੍ਰਬੰਧ ਬਾਰੇ ਤੁਹਾਡੀਆਂ ਤਰਜੀਹਾਂ',
+      'ਜਣੇਪੇ ਦੌਰਾਨ ਤੁਸੀਂ ਕਿਸ ਨੂੰ ਆਪਣੇ ਕੋਲ ਚਾਹੁੰਦੇ ਹੋ',
+      'ਚਮੜੀ ਨਾਲ ਚਮੜੀ ਦੇ ਸੰਪਰਕ ਬਾਰੇ ਤੁਹਾਡੀਆਂ ਉਮੀਦਾਂ',
+    ],
+    neutralText:
+      'ਇੱਕ ਸਾਦੀ ਜਣੇਪੇ ਦੀ ਯੋਜਨਾ ਤੁਹਾਨੂੰ ਆਪਣੀਆਂ ਇੱਛਾਵਾਂ ਮੈਡੀਕਲ ਟੀਮ ਨਾਲ ਸਾਂਝੀਆਂ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ, ਨਾਲ ਹੀ ਖੁੱਲ੍ਹੇ ਮਨ ਨਾਲ ਰਹਿਣ ਵਿੱਚ ਵੀ: ਹਾਲਾਤ ਅਨੁਸਾਰ ਅਸਲ ਕਾਰਵਾਈ ਬਦਲ ਸਕਦੀ ਹੈ।',
+    tipTitle: 'ਜਾਣਨ ਯੋਗ',
+    tipText:
+      'ਤਿਆਰੀ ਕਰਨ ਦਾ ਮਤਲਬ ਹਰ ਚੀਜ਼ ਨੂੰ ਕਾਬੂ ਵਿੱਚ ਰੱਖਣਾ ਨਹੀਂ ਹੈ: ਇਹ ਮੁੱਖ ਤੌਰ ’ਤੇ ਆਪਣੇ ਆਪ ਨੂੰ ਇਹ ਸਾਧਨ ਦੇਣਾ ਹੈ ਕਿ ਤੁਸੀਂ ਵੱਡੇ ਦਿਨ ਦਾ ਵਧੇਰੇ ਭਰੋਸੇ ਅਤੇ ਘੱਟ ਅਨਿਸ਼ਚਿਤਤਾ ਨਾਲ ਸਾਹਮਣਾ ਕਰ ਸਕੋ।',
+    shareMessage: 'ਜਣੇਪੇ ਲਈ ਸ਼ਾਂਤੀ ਨਾਲ ਤਿਆਰੀ ਕਰਨਾ — AWA',
+  },
+  my: {
+    badge: 'ကိုယ်ဝန်ဆောင်ခြင်း • ကလေးမွေးဖွားခြင်း',
+    title: 'ကလေးမွေးဖွားခြင်းအတွက်\nတည်ငြိမ်စွာ ပြင်ဆင်ခြင်း',
+    metaDuration: 'ဖတ်ချိန် 7 မိနစ်',
+    metaType: 'လမ်းညွှန်',
+    metaLevel: 'အခြေခံအဆင့်',
+    metaValidated: 'ပြန်လည်သုံးသပ်ပြီး အကြောင်းအရာ',
+    intro: 'အရေးကြီးသောနေ့ကို ပိုမိုယုံကြည်မှုရှိရှိ ရင်ဆိုင်ရန် တိုင်သုံးခု။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'အဆင့် 3 ဆင့်ဖြင့် ပြင်ဆင်ခြင်း',
+      'သင်၏ ဆေးရုံသွားအိတ်',
+      'သင်၏ မီးဖွားရေးအစီအစဉ် ရေးဆွဲခြင်း',
+      'သတိပြုသင့်သည့်အချက်',
+      'မှတ်ထားရမည့်အရာများ',
+    ],
+    prepSteps: [
+      'ကလေးမွေးဖွားခြင်း ပြင်ဆင်ရေး သင်တန်းများ',
+      'အသက်ရှူခြင်းနှင့် စိတ်လျှော့ချခြင်း နည်းစနစ်များ',
+      'လ 8 တွင် ဆေးရုံသွားအိတ် အဆင်သင့်ဖြစ်ခြင်း',
+    ],
+    body1:
+      'ကလေးမွေးဖွားခြင်း ပြင်ဆင်ရေး သင်တန်းများက အရေးကြီးသောနေ့တွင် သင့်ကို ပံ့ပိုးပေးမည့် ဆက်ဆံရေးအဆင့်များနှင့် အသက်ရှူနည်းစနစ်များကို နားလည်ရန် ကူညီသည်။',
+    body2:
+      'လ 8 တွင် ဆေးရုံသွားအိတ်ကို ထုပ်ပိုးခြင်းက နောက်ဆုံးအချိန် စိတ်ဖိစီးမှုကို လျော့ပေးသည်။ ၎င်းတွင် များသောအားဖြင့် အောက်ပါအရာများ ပါဝင်သည်။',
+    bagItems: [
+      'မှတ်ပုံတင်စာရွက်စာတမ်းများနှင့် သင့်ကိုယ်ဝန်ဆောင်မှတ်တမ်းစာအုပ်',
+      'သင်နှင့်ကလေးအတွက် သက်သောင့်သက်သာရှိသော အဝတ်အစားများ',
+      'ကိုယ်ရေးသန့်ရှင်းရေးပစ္စည်းများနှင့် ကလေးမွေးပြီးနောက်သုံး အနှီးစည်းများ',
+      'အိမ်ပြန်ချိန်တွင် ကလေးဝတ်ရန် အဝတ်စုံတစ်စုံ',
+    ],
+    birthPlanPoints: [
+      'နာကျင်မှုကို စီမံခန့်ခွဲရန် သင့်ဦးစားပေးရွေးချယ်မှုများ',
+      'ကလေးမွေးဖွားချိန်တွင် သင်ရှိစေလိုသူများ',
+      'အသားချင်းထိတွေ့မှုနှင့်ပတ်သက်သော သင့်မျှော်လင့်ချက်များ',
+    ],
+    neutralText:
+      'ရိုးရှင်းသော မီးဖွားရေးအစီအစဉ်က သင့်ဆန္ဒများကို ဆေးဘက်ဆိုင်ရာအဖွဲ့နှင့် မျှဝေရန် ကူညီပေးပြီး စိတ်ကို ပွင့်လင်းစွာထားရန် လိုသည်။ အမှန်တကယ်ဖြစ်စဉ်သည် အခြေအနေပေါ်မူတည်၍ ပြောင်းလဲနိုင်သည်။',
+    tipTitle: 'သိထားသင့်သည်',
+    tipText:
+      'ပြင်ဆင်ခြင်းဆိုသည်မှာ အရာအားလုံးကို ထိန်းချုပ်ခြင်း မဟုတ်ပါ။ အရေးကြီးသောနေ့ကို ပိုမိုယုံကြည်မှုရှိရှိနှင့် မသေချာမှုနည်းနည်းဖြင့် ရင်ဆိုင်နိုင်ရန် ကိုယ့်ကိုယ်ကိုယ် နည်းလမ်းပေးခြင်းသာ ဖြစ်သည်။',
+    shareMessage: 'ကလေးမွေးဖွားခြင်းအတွက် တည်ငြိမ်စွာ ပြင်ဆင်ခြင်း — AWA',
+  },
+  km: {
+    badge: 'ការមានផ្ទៃពោះ • ការសម្រាលកូន',
+    title: 'ការរៀបចំខ្លួនដោយស្ងប់ស្ងាត់\nសម្រាប់ការសម្រាលកូន',
+    metaDuration: 'អាន 7 នាទី',
+    metaType: 'មគ្គុទ្ទេសក៍',
+    metaLevel: 'កម្រិតដំបូង',
+    metaValidated: 'មាតិកាបានពិនិត្យ',
+    intro: 'សសរស្តម្ភបីសម្រាប់ទទួលយកថ្ងៃធំដោយទំនុកចិត្តកាន់តែច្រើន។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'ការរៀបចំក្នុង 3 ជំហាន',
+      'កាបូបសម្រាប់មន្ទីរពេទ្យរបស់អ្នក',
+      'ការសរសេរផែនការសម្រាលរបស់អ្នក',
+      'ចំណុចគួរកត់សម្គាល់',
+      'អ្វីដែលត្រូវចងចាំ',
+    ],
+    prepSteps: [
+      'ថ្នាក់រៀបចំសម្រាលកូន',
+      'បច្ចេកទេសដកដង្ហើម និងបន្ធូរអារម្មណ៍',
+      'កាបូបមន្ទីរពេទ្យរួចរាល់មុនខែទី 8',
+    ],
+    body1:
+      'ថ្នាក់រៀបចំសម្រាលកូនជួយអ្នកឱ្យយល់ពីដំណាក់កាលនៃការឈឺចាប់សម្រាល និងបច្ចេកទេសដកដង្ហើមដែលនឹងជួយគាំទ្រអ្នកនៅថ្ងៃធំ។',
+    body2:
+      'ការរៀបចំកាបូបមន្ទីរពេទ្យមុនខែទី 8 ជួយសន្សំសំចៃភាពតានតឹងនៅនាទីចុងក្រោយ។ ជាធម្មតាវារួមមាន៖',
+    bagItems: [
+      'ឯកសារអត្តសញ្ញាណ និងសៀវភៅតាមដានផ្ទៃពោះរបស់អ្នក',
+      'សម្លៀកបំពាក់ស្រួលសម្រាប់អ្នក និងទារក',
+      'ឧបករណ៍អនាម័យផ្ទាល់ខ្លួន និងបន្ទះអនាម័យក្រោយសម្រាល',
+      'ឈុតមួយសម្រាប់ទារកពាក់ត្រឡប់ទៅផ្ទះ',
+    ],
+    birthPlanPoints: [
+      'ចំណូលចិត្តរបស់អ្នកក្នុងការគ្រប់គ្រងការឈឺចាប់',
+      'អ្នកដែលអ្នកចង់ឱ្យនៅជាមួយអំឡុងពេលឈឺចាប់សម្រាល',
+      'ការរំពឹងទុករបស់អ្នកអំពីការប៉ះស្បែកទល់នឹងស្បែក',
+    ],
+    neutralText:
+      'ផែនការសម្រាលសាមញ្ញមួយជួយអ្នកចែករំលែកបំណងប្រាថ្នារបស់អ្នកជាមួយក្រុមពេទ្យ ទន្ទឹមនឹងការរក្សាចិត្តទូលាយ៖ ដំណើរការពិតប្រាកដអាចផ្លាស់ប្តូរទៅតាមស្ថានភាព។',
+    tipTitle: 'គួរដឹង',
+    tipText:
+      'ការរៀបចំមិនមែនមានន័យថាត្រួតត្រាអ្វីៗទាំងអស់ទេ៖ វាគឺជាការផ្តល់មធ្យោបាយដល់ខ្លួនអ្នកដើម្បីទទួលយកថ្ងៃធំដោយទំនុកចិត្តកាន់តែច្រើន និងភាពមិនប្រាកដប្រជាតិចជាងមុន។',
+    shareMessage: 'ការរៀបចំខ្លួនដោយស្ងប់ស្ងាត់សម្រាប់ការសម្រាលកូន — AWA',
+  },
+  lo: {
+    badge: 'ການຖືພາ • ການເກີດລູກ',
+    title: 'ກຽມພ້ອມຢ່າງສະຫງົບ\nສຳລັບການເກີດລູກ',
+    metaDuration: 'ອ່ານ 7 ນາທີ',
+    metaType: 'ຄູ່ມື',
+    metaLevel: 'ລະດັບເລີ່ມຕົ້ນ',
+    metaValidated: 'ເນື້ອຫາທີ່ຜ່ານການກວດສອບ',
+    intro: 'ສາມເສົາຫຼັກເພື່ອຮັບມືກັບວັນສຳຄັນດ້ວຍຄວາມໝັ້ນໃຈຫຼາຍຂຶ້ນ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ກຽມພ້ອມໃນ 3 ຂັ້ນຕອນ',
+      'ກະເປົ໋າໄປໂຮງໝໍຂອງທ່ານ',
+      'ການຂຽນແຜນການເກີດລູກ',
+      'ສິ່ງທີ່ຄວນສັງເກດ',
+      'ສິ່ງທີ່ຄວນຈື່',
+    ],
+    prepSteps: [
+      'ຫ້ອງຮຽນກຽມພ້ອມສຳລັບການເກີດລູກ',
+      'ເຕັກນິກການຫາຍໃຈ ແລະ ຜ່ອນຄາຍ',
+      'ກະເປົ໋າໄປໂຮງໝໍກຽມພ້ອມພາຍໃນເດືອນທີ 8',
+    ],
+    body1:
+      'ຫ້ອງຮຽນກຽມພ້ອມສຳລັບການເກີດລູກຊ່ວຍໃຫ້ທ່ານເຂົ້າໃຈຂັ້ນຕອນຂອງການເຈັບທ້ອງຄອດ ແລະ ເຕັກນິກການຫາຍໃຈທີ່ຈະຊ່ວຍທ່ານໃນວັນສຳຄັນ.',
+    body2:
+      'ການຈັດກະເປົ໋າໄປໂຮງໝໍພາຍໃນເດືອນທີ 8 ຊ່ວຍໃຫ້ທ່ານບໍ່ຕ້ອງເຄັ່ງຄຽດໃນນາທີສຸດທ້າຍ. ໂດຍປົກກະຕິມີ:',
+    bagItems: [
+      'ເອກະສານປະຈຳຕົວ ແລະ ປຶ້ມບັນທຶກການຖືພາຂອງທ່ານ',
+      'ເຄື່ອງນຸ່ງທີ່ສະບາຍສຳລັບທ່ານ ແລະ ລູກນ້ອຍ',
+      'ເຄື່ອງໃຊ້ສ່ວນຕົວ ແລະ ຜ້າອະນາໄມຫຼັງຄອດ',
+      'ຊຸດສຳລັບລູກນ້ອຍໃສ່ກັບບ້ານ',
+    ],
+    birthPlanPoints: [
+      'ຄວາມຕ້ອງການຂອງທ່ານໃນການຈັດການກັບຄວາມເຈັບປວດ',
+      'ຜູ້ທີ່ທ່ານຢາກໃຫ້ຢູ່ນຳໃນຂະນະເຈັບທ້ອງຄອດ',
+      'ຄວາມຄາດຫວັງຂອງທ່ານກ່ຽວກັບການແນບຜິວໜັງກັບລູກ',
+    ],
+    neutralText:
+      'ແຜນການເກີດລູກແບບງ່າຍໆຊ່ວຍໃຫ້ທ່ານບອກຄວາມຕ້ອງການຂອງທ່ານກັບທີມແພດ ໃນຂະນະທີ່ຍັງເປີດໃຈ: ເຫດການຈິງອາດປ່ຽນແປງຕາມສະຖານະການ.',
+    tipTitle: 'ຄວນຮູ້',
+    tipText:
+      'ການກຽມພ້ອມບໍ່ໄດ້ໝາຍເຖິງການຄວບຄຸມທຸກຢ່າງ: ສ່ວນໃຫຍ່ແມ່ນການໃຫ້ຕົນເອງມີວິທີຮັບມືກັບວັນສຳຄັນດ້ວຍຄວາມໝັ້ນໃຈຫຼາຍຂຶ້ນ ແລະ ຄວາມບໍ່ແນ່ນອນໜ້ອຍລົງ.',
+    shareMessage: 'ກຽມພ້ອມຢ່າງສະຫງົບສຳລັບການເກີດລູກ — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

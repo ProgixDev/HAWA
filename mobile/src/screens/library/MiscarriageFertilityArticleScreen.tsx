@@ -2944,6 +2944,1431 @@ const CONTENT = withBrazilianPortuguese('MiscarriageFertility', {
       'Maglumat berýän mazmun. Bu makala şahsylaşdyrylan lukmançylyk maslahatyny çalyşmaýar. Lukmanyňyz ýa-da akuşerkaňyz ýagdaýyňyz üçin esasy çeşme bolup galýar.',
     shareMessage: 'Ýitgiden soň göwreli bolmak ukyby we täzeden synanyşmak — AWA',
   },
+  ms: {
+    badge: 'SELEPAS KEGUGURAN • KESUBURAN',
+    title: 'Kesuburan dan mencuba semula selepas kehilangan',
+    metaDuration: '6 min bacaan',
+    metaType: 'Panduan',
+    metaLevel: 'Pertengahan',
+    metaValidated: 'Kandungan maklumat',
+    intro:
+      'Bila dan bagaimana memikirkan untuk mencuba semula, mengikut rentak anda sendiri dan dengan penuh keyakinan.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Kembalinya kesuburan',
+      'Apa yang biasanya dikatakan oleh pengamal profesional',
+      'Berasa bersedia, mengikut rentak anda',
+      'Penjagaan susulan yang boleh menenangkan anda',
+      'Perkara penting untuk diingat',
+    ],
+    body1:
+      'Kesuburan biasanya kembali seawal kitaran selepas keguguran awal. Ovulasi malah boleh berlaku sebelum haid anda kembali dengan jelas.',
+    infoTitle: 'Perkara penting',
+    infoText:
+      'Bergantung pada peringkat kehilangan, masa pemulihan fizikal boleh berbeza sedikit dari satu keadaan ke keadaan yang lain.',
+    body2:
+      'Ramai pengamal profesional berpendapat bahawa tidak perlu menunggu beberapa kitaran sebelum mencuba semula, melainkan doktor atau bidan anda menasihatkan sebaliknya.',
+    compareEarlyTitle: 'Kehilangan awal',
+    compareEarlyText:
+      'Kesuburan selalunya kembali dengan cepat, seawal kitaran seterusnya.',
+    compareLateTitle: 'Kehilangan yang lebih lewat',
+    compareLateText:
+      'Masa pemulihan yang sedikit lebih lama mungkin disyorkan oleh pasukan perubatan.',
+    body3:
+      'Berasa bersedia, dari segi fizikal dan emosi, kekal sebagai panduan yang paling penting — jauh lebih daripada sebarang tempoh teori.',
+    readinessPoints: [
+      {
+        title: 'Dari segi emosi',
+        text: 'Berasa bersedia dalam diri sendiri sama pentingnya dengan pemulihan fizikal.',
+      },
+      {
+        title: 'Dari segi fizikal',
+        text: 'Kitaran yang tetap dan rasa sejahtera ialah penunjuk yang baik.',
+      },
+      {
+        title: 'Sebagai pasangan atau dengan sokongan',
+        text: 'Berbincang tentangnya dengan pasangan anda boleh membantu anda melangkah dengan kadar yang sama.',
+      },
+    ],
+    body4:
+      'Sebelum mencuba semula, temu janji perubatan boleh membantu anda melangkah dengan lebih tenang:',
+    followUpSteps: [
+      {
+        title: 'Menilai keadaan',
+        text: 'Perbualan dengan pengamal profesional membolehkan anda menyemak semula apa yang berlaku.',
+      },
+      {
+        title: 'Penilaian jika perlu',
+        text: 'Bergantung pada keadaan, ujian tambahan mungkin ditawarkan.',
+      },
+      {
+        title: 'Percubaan baharu',
+        text: 'Penjagaan susulan kemudiannya boleh menyokong anda dengan tenang semasa anda mencuba semula.',
+      },
+    ],
+    tipTitle: 'Elok diketahui',
+    tipText:
+      'Keguguran yang terpencil biasanya tidak menunjukkan masalah kesuburan. Pasukan perubatan anda kekal paling sesuai untuk menjawab soalan peribadi anda.',
+    summaryPoints: [
+      'Kesuburan biasanya kembali seawal kitaran selepas keguguran awal.',
+      'Ramai pengamal profesional berpendapat bahawa tidak perlu menunggu beberapa kitaran, melainkan dinasihatkan sebaliknya.',
+      'Berasa bersedia, dari segi fizikal dan emosi, kekal sebagai panduan yang paling penting.',
+      'Susulan perubatan boleh menyokong dan menenangkan anda sebelum mencuba semula.',
+    ],
+    disclaimerText:
+      'Kandungan bersifat maklumat. Artikel ini tidak menggantikan nasihat perubatan yang diperibadikan. Doktor atau bidan anda kekal sebagai rujukan bagi keadaan anda.',
+    shareMessage: 'Kesuburan dan mencuba semula selepas kehilangan — AWA',
+  },
+  so: {
+    badge: 'UUR-LUMIS KA DIB • BACRIMIN',
+    title: 'Bacrimin iyo isku day mar kale lumis ka dib',
+    metaDuration: '6 daq akhris',
+    metaType: 'Hage',
+    metaLevel: 'Dhexdhexaad',
+    metaValidated: 'Macluumaad',
+    intro:
+      'Goorta iyo sida loo fikiro isku day mar kale, xawaarahaaga iyo kalsooni buuxda.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Soo noqoshada bacriminta',
+      'Waxa xirfadlayaashu guud ahaan sheegaan',
+      'Dareenka diyaar garowga, xawaarahaaga',
+      'Daryeel la socod ah oo kuu degsan karo',
+      'Qodobbada muhiimka ah',
+    ],
+    body1:
+      'Bacrimintu inta badan waxay soo noqotaa isla wareegga ka dib uur-lumis hore. Ukun-sii-deyntu waxay xataa dhici kartaa ka hor intaysan caadadaadu muuqan.',
+    infoTitle: 'Qodob muhiim ah',
+    infoText:
+      'Iyadoo ku xiran heerka lumista, waqtiga bogsiinta jidhku wuxuu xoogaa ku kala duwanaan karaa xaalad ilaa xaalad.',
+    body2:
+      'Xirfadlayaal badan ayaa u tixgeliya inaan loo baahnayn in la sugo dhowr wareeg ka hor intaan mar kale la isku dayin, marka laga reebo haddii dhakhtarkaaga ama umulistaadu ku talin si ka duwan.',
+    compareEarlyTitle: 'Lumis hore',
+    compareEarlyText:
+      'Bacrimintu inta badan dhaqso ayay soo noqotaa, isla wareegga xiga.',
+    compareLateTitle: 'Lumis dambe',
+    compareLateText:
+      'Waqti bogsiin oo xoogaa dheer ayaa laga yaabaa in kooxda caafimaadku ku talin.',
+    body3:
+      'Dareenka diyaar garowga, jidh ahaan iyo dareen ahaan, wuxuu weli yahay hagaha ugu muhiimsan — aad uga muhiim badan muddo aragtiyeed kasta.',
+    readinessPoints: [
+      {
+        title: 'Dareen ahaan',
+        text: 'Dareenka diyaar garow naftaada gudaheeda waa u muhiim sida bogsiinta jidhka.',
+      },
+      {
+        title: 'Jidh ahaan',
+        text: 'Wareeg joogto ah iyo dareen fayoobaan waa tilmaamayaal wanaagsan.',
+      },
+      {
+        title: 'Lammaane ahaan ama taageero leh',
+        text: 'La hadalka lammaanahaaga ayaa kaa caawin kara inaad isla xawaare horumarisaan.',
+      },
+    ],
+    body4:
+      'Ka hor intaadan mar kale isku dayin, ballan caafimaad ayaa kaa caawin kara inaad horumar ku samayso nabad badan:',
+    followUpSteps: [
+      {
+        title: 'Qiimeyn',
+        text: 'Wada hadal xirfadle ayaa kuu oggolaanaya inaad dib u eegto waxa dhacay.',
+      },
+      {
+        title: 'Baaritaan haddii loo baahdo',
+        text: 'Iyadoo ku xiran xaaladda, baaritaanno dheeraad ah ayaa la bixin karaa.',
+      },
+      {
+        title: 'Isku day cusub',
+        text: 'Daryeelka la socodku wuxuu markaas si degan kuu taageeri karaa marka aad mar kale isku dayayso.',
+      },
+    ],
+    tipTitle: 'Waxtar leh in la ogaado',
+    tipText:
+      'Uur-lumis go’doon ah guud ahaan ma muujiyo dhibaato bacrimin. Kooxdaada caafimaadku waa tan ugu habboon ee ka jawaabi karta su’aalahaaga shakhsi ahaaneed.',
+    summaryPoints: [
+      'Bacrimintu inta badan waxay soo noqotaa isla wareegga ka dib uur-lumis hore.',
+      'Xirfadlayaal badan ayaa u tixgeliya inaan loo baahnayn in la sugo dhowr wareeg, marka laga reebo haddii si kale lagula taliyo.',
+      'Dareenka diyaar garowga, jidh ahaan iyo dareen ahaan, wuxuu weli yahay hagaha ugu muhiimsan.',
+      'La socodka caafimaadku wuu kuu taageeri karaa oo kugu degsan karaa ka hor intaadan mar kale isku dayin.',
+    ],
+    disclaimerText:
+      'Macluumaad. Maqaalkan ma beddelo talo caafimaad oo shakhsi ah. Dhakhtarkaaga ama umulistaadu waa tixraaca xaaladdaada.',
+    shareMessage: 'Bacrimin iyo isku day mar kale lumis ka dib — AWA',
+  },
+  sw: {
+    badge: 'BAADA YA KUHARIBIKA KWA MIMBA • RUTUBA',
+    title: 'Rutuba na kujaribu tena baada ya kupoteza mimba',
+    metaDuration: 'Dakika 6 za kusoma',
+    metaType: 'Mwongozo',
+    metaLevel: 'Wastani',
+    metaValidated: 'Maudhui ya taarifa',
+    intro:
+      'Wakati na jinsi ya kufikiria kujaribu tena, kwa mwendo wako mwenyewe na kwa kujiamini kikamilifu.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Kurejea kwa rutuba',
+      'Wataalamu kwa kawaida husema nini',
+      'Kujisikia tayari, kwa mwendo wako mwenyewe',
+      'Huduma za ufuatiliaji zinazoweza kukutuliza',
+      'Mambo muhimu ya kukumbuka',
+    ],
+    body1:
+      'Rutuba kwa kawaida hurejea mapema kama mzunguko unaofuata kuharibika kwa mimba mapema. Utoaji wa yai unaweza hata kutokea kabla hedhi yako haijarejea kwa wazi.',
+    infoTitle: 'Jambo kuu la kukumbuka',
+    infoText:
+      'Kulingana na hatua ya kupoteza mimba, muda wa kupona kimwili unaweza kutofautiana kidogo kutoka hali moja hadi nyingine.',
+    body2:
+      'Wataalamu wengi wanaona kwamba hakuna haja ya kusubiri mizunguko kadhaa kabla ya kujaribu tena, isipokuwa daktari au mkunga wako akishauri vinginevyo.',
+    compareEarlyTitle: 'Kupoteza mimba mapema',
+    compareEarlyText:
+      'Rutuba mara nyingi hurejea haraka, mapema kama mzunguko unaofuata.',
+    compareLateTitle: 'Kupoteza mimba baadaye',
+    compareLateText:
+      'Muda mrefu zaidi kidogo wa kupona unaweza kupendekezwa na timu ya madaktari.',
+    body3:
+      'Kujisikia tayari, kimwili na kihisia, kunabaki kuwa mwongozo muhimu zaidi — zaidi sana ya muda wowote wa nadharia.',
+    readinessPoints: [
+      {
+        title: 'Kihisia',
+        text: 'Kujisikia tayari ndani yako ni muhimu sawa na kupona kimwili.',
+      },
+      {
+        title: 'Kimwili',
+        text: 'Mzunguko wa mpangilio na hisia ya ustawi ni viashiria vizuri.',
+      },
+      {
+        title: 'Kama wenzi au kwa msaada',
+        text: 'Kuzungumza na mwenzi wako kunaweza kukusaidia kusonga mbele kwa mwendo mmoja.',
+      },
+    ],
+    body4:
+      'Kabla ya kujaribu tena, miadi ya kitabibu inaweza kukusaidia kusonga mbele kwa amani zaidi ya akili:',
+    followUpSteps: [
+      {
+        title: 'Kufanya tathmini',
+        text: 'Mazungumzo na mtaalamu yanakuwezesha kurejea kilichotokea.',
+      },
+      {
+        title: 'Uchunguzi ikiwa inahitajika',
+        text: 'Kulingana na hali, vipimo vya ziada vinaweza kutolewa.',
+      },
+      {
+        title: 'Jaribio jipya',
+        text: 'Huduma za ufuatiliaji zinaweza basi kukusaidia kwa utulivu unapojaribu tena.',
+      },
+    ],
+    tipTitle: 'Vyema kujua',
+    tipText:
+      'Kuharibika kwa mimba mara moja kwa kawaida hakuashirii tatizo la rutuba. Timu yako ya madaktari inabaki ndiyo iliyo katika nafasi bora ya kujibu maswali yako binafsi.',
+    summaryPoints: [
+      'Rutuba kwa kawaida hurejea mapema kama mzunguko unaofuata kuharibika kwa mimba mapema.',
+      'Wataalamu wengi wanaona kwamba hakuna haja ya kusubiri mizunguko kadhaa, isipokuwa ukishauriwa vinginevyo.',
+      'Kujisikia tayari, kimwili na kihisia, kunabaki kuwa mwongozo muhimu zaidi.',
+      'Ufuatiliaji wa kitabibu unaweza kukusaidia na kukutuliza kabla ya kujaribu tena.',
+    ],
+    disclaimerText:
+      'Maudhui ya taarifa. Makala hii haichukui nafasi ya ushauri wa kitabibu uliobinafsishwa. Daktari au mkunga wako anabaki kuwa rejeo kwa hali yako.',
+    shareMessage: 'Rutuba na kujaribu tena baada ya kupoteza mimba — AWA',
+  },
+  kk: {
+    badge: 'ТҮСІКТЕН КЕЙІН • ҚҰНАРЛЫЛЫҚ',
+    title: 'Жоғалтқаннан кейінгі құнарлылық және қайта тырысу',
+    metaDuration: '6 мин оқу',
+    metaType: 'Нұсқаулық',
+    metaLevel: 'Орташа',
+    metaValidated: 'Ақпараттық мазмұн',
+    intro:
+      'Қайта тырысу туралы қашан және қалай ойлау керек, өз қарқыныңызбен және толық сеніммен.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'Құнарлылықтың қайта оралуы',
+      'Мамандар әдетте не дейді',
+      'Өз қарқыныңызбен дайын болу',
+      'Көңіліңізді тыныштандыра алатын бақылау күтімі',
+      'Негізгі қорытындылар',
+    ],
+    body1:
+      'Құнарлылық әдетте ерте түсіктен кейінгі циклде-ақ қайта оралады. Овуляция етеккіріңіз көрінетіндей қайта келмей тұрып-ақ болуы мүмкін.',
+    infoTitle: 'Негізгі қорытынды',
+    infoText:
+      'Жоғалтудың кезеңіне байланысты дене қалпына келу уақыты бір жағдайдан екіншісіне сәл өзгеруі мүмкін.',
+    body2:
+      'Көптеген мамандар дәрігеріңіз немесе акушеріңіз басқаша кеңес бермесе, қайта тырысудан бұрын бірнеше цикл күтудің қажеті жоқ деп есептейді.',
+    compareEarlyTitle: 'Ерте жоғалту',
+    compareEarlyText:
+      'Құнарлылық көбіне тез, келесі циклде-ақ қайта оралады.',
+    compareLateTitle: 'Кейінгі жоғалту',
+    compareLateText:
+      'Медициналық топ сәл ұзағырақ қалпына келу уақытын ұсынуы мүмкін.',
+    body3:
+      'Дене және эмоциялық тұрғыдан дайын болу ең маңызды нұсқаулық болып қала береді — кез келген теориялық мерзімнен әлдеқайда маңызды.',
+    readinessPoints: [
+      {
+        title: 'Эмоциялық тұрғыдан',
+        text: 'Өз ішіңде дайын болу дене қалпына келуі сияқты маңызды.',
+      },
+      {
+        title: 'Дене тұрғысынан',
+        text: 'Тұрақты цикл және әл-ауқат сезімі жақсы көрсеткіштер.',
+      },
+      {
+        title: 'Жұп ретінде немесе қолдаумен',
+        text: 'Серіктесіңізбен сөйлесу бірдей қарқынмен алға жылжуға көмектесе алады.',
+      },
+    ],
+    body4:
+      'Қайта тырысудан бұрын медициналық қабылдау тыныштықпен алға жылжуға көмектесе алады:',
+    followUpSteps: [
+      {
+        title: 'Қорытынды жасау',
+        text: 'Маманмен әңгіме болған жағдайға қайта оралуға мүмкіндік береді.',
+      },
+      {
+        title: 'Қажет болса, тексеру',
+        text: 'Жағдайға байланысты қосымша тесттер ұсынылуы мүмкін.',
+      },
+      {
+        title: 'Жаңа әрекет',
+        text: 'Бақылау күтімі содан кейін қайта тырысқанда сізді тыныш қолдай алады.',
+      },
+    ],
+    tipTitle: 'Білуге тиісті',
+    tipText:
+      'Жеке түсік әдетте құнарлылық проблемасын көрсетпейді. Медициналық тобыңыз жеке сұрақтарыңызға жауап беруге ең қолайлы.',
+    summaryPoints: [
+      'Құнарлылық әдетте ерте түсіктен кейінгі циклде-ақ қайта оралады.',
+      'Көптеген мамандар басқаша кеңес берілмесе, бірнеше цикл күтудің қажеті жоқ деп есептейді.',
+      'Дене және эмоциялық тұрғыдан дайын болу ең маңызды нұсқаулық болып қала береді.',
+      'Медициналық бақылау қайта тырысудан бұрын сізді қолдап, көңіліңізді тыныштандыра алады.',
+    ],
+    disclaimerText:
+      'Ақпараттық мазмұн. Бұл мақала жекелендірілген медициналық кеңестің орнын баспайды. Дәрігеріңіз немесе акушеріңіз жағдайыңыз үшін анықтама болып қала береді.',
+    shareMessage: 'Жоғалтқаннан кейінгі құнарлылық және қайта тырысу — AWA',
+  },
+  wo: {
+    badge: 'GINNAAW ËMB BU REES • BINDEEF',
+    title: 'Bindeef ak jéemaat ginnaaw ëmb bu rees',
+    metaDuration: '6 simili jàng',
+    metaType: 'Ndigal',
+    metaLevel: 'Digg-dóomu',
+    metaValidated: 'Mbind ngir xibaar',
+    intro:
+      'Kañ ak naka ngay xalaat jéemaat, ci sa ritm te ak kóolute bu mat.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Dellusig bindeef',
+      'Li liggéeykat yi di wax ci yoon',
+      'Dégg nga waajal, ci sa ritm',
+      'Topp yu mën a dalal sa xel',
+      'Li am solo',
+    ],
+    body1:
+      'Bindeef daa dellusi ci wërsëg bi toftal ëmb bu rees bu jëkk. Ovilasiyoŋ mën na am balaa sa règle di dellusi ci kaw.',
+    infoTitle: 'Li am solo',
+    infoText:
+      'Ci anamu rees bi, jamonoy wér ci yaram mën na wuute tuuti ci mbir ak mbir.',
+    body2:
+      'Bari ci liggéeykat yi dañuy jàpp ne soxlawul xaar ay wërsëg balaa jéemaat, lu dul ndigalu doktoor walla ndey-jur wuute.',
+    compareEarlyTitle: 'Rees bu jëkk',
+    compareEarlyText:
+      'Bindeef daa dellusi ci gaaw, ba ci wërsëg bi toftal.',
+    compareLateTitle: 'Rees bu gën a yeex',
+    compareLateText:
+      'Jamonoy wér bu gën a gudd tuuti mën na ko digal ekipu doktoor yi.',
+    body3:
+      'Dégg nga waajal, ci yaram ak ci xol, des na ndigal bi gëna am solo — lool ba lu mu mën a doon diir bu leer.',
+    readinessPoints: [
+      {
+        title: 'Ci xol',
+        text: 'Dégg ne waajal nga ci sa biir am na solo ni wér ci yaram.',
+      },
+      {
+        title: 'Ci yaram',
+        text: 'Wërsëg bu jub ak dégg wér ay màndarga yu baax la.',
+      },
+      {
+        title: 'Ci ñaar ñi walla ak dimbali',
+        text: 'Wax ko ak sa jëkkër mën na dimbli ngeen demal ak benn ritm.',
+      },
+    ],
+    body4:
+      'Balaa nga jéemaat, benn ndaje ak doktoor mën na dimbli nga dem kanam ak jàmm bu gën a bari:',
+    followUpSteps: [
+      {
+        title: 'Seetlu',
+        text: 'Benn waxtaan ak liggéeykat mën na la may nga dellu ci li xewoon.',
+      },
+      {
+        title: 'Benn natt bu soxla',
+        text: 'Ci sa mbir, mën nañu la joxe tès yu yokk.',
+      },
+      {
+        title: 'Benn jéem bu bees',
+        text: 'Topp bi mën na la dimbli ci jéemaat ak dal.',
+      },
+    ],
+    tipTitle: 'Lu baax a xam',
+    tipText:
+      'Ëmb bu rees bu neen du wone ne am na jafe-jafe ci bindeef. Sa ekipu doktoor des na bu gëna baax ngir tontu say laaj yu sa bopp.',
+    summaryPoints: [
+      'Bindeef daa dellusi ci wërsëg bi toftal ëmb bu rees bu jëkk.',
+      'Bari ci liggéeykat dañuy jàpp ne soxlawul xaar ay wërsëg, lu dul ñu digal leen ko.',
+      'Dégg nga waajal, ci yaram ak ci xol, des na ndigal bi gëna am solo.',
+      'Topp bu doktoor mën na la dimbli te dalal sa xel balaa nga jéemaat.',
+    ],
+    disclaimerText:
+      'Mbind ngir xibaar. Bind bii du wuutu ndigalu doktoor bu sa bopp. Sa doktoor walla sa ndey-jur des na li ñuy jëfandikoo ngir sa mbir.',
+    shareMessage: 'Bindeef ak jéemaat ginnaaw ëmb bu rees — AWA',
+  },
+  ha: {
+    badge: 'BAYAN ZUBAR DA CIKI • HAIHUWA',
+    title: 'Haihuwa da sake gwadawa bayan rasa ciki',
+    metaDuration: 'karatun minti 6',
+    metaType: 'Jagora',
+    metaLevel: 'Matsakaici',
+    metaValidated: 'Abun bayani',
+    intro:
+      'Yaushe da yadda za a yi tunanin sake gwadawa, bisa saurinki kuma da cikakken kwarin gwiwa.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Dawowar haihuwa',
+      'Abin da ƙwararru yawanci ke faɗi',
+      'Jin shirin, bisa saurinki',
+      'Kulawar bibiya da za ta iya kwantar da hankalinki',
+      'Muhimman abubuwa',
+    ],
+    body1:
+      'Haihuwa yawanci tana dawowa tun daga zagayen da ya biyo bayan zubar da ciki na farko. Fitar ƙwai ma na iya faruwa kafin hailarki ta dawo a bayyane.',
+    infoTitle: 'Muhimmin abu',
+    infoText:
+      'Bisa matakin rashin, lokacin murmurewar jiki na iya bambanta kaɗan daga yanayi zuwa yanayi.',
+    body2:
+      'Ƙwararru da dama suna ganin babu bukatar jira zagaye da dama kafin sake gwadawa, sai dai idan likitanki ko ungozoma ta ba da shawara akasin haka.',
+    compareEarlyTitle: 'Rashin da wuri',
+    compareEarlyText:
+      'Haihuwa galibi tana dawowa da sauri, tun daga zagaye na gaba.',
+    compareLateTitle: 'Rashin daga baya',
+    compareLateText:
+      'Ƙungiyar likitoci na iya ba da shawarar ɗan tsawon lokacin murmurewa.',
+    body3:
+      'Jin shirin, ta jiki da ta zuciya, ya ci gaba da zama mafi muhimmin jagora — fiye da kowane lokaci na hasashe.',
+    readinessPoints: [
+      {
+        title: 'Ta zuciya',
+        text: 'Jin shirin a cikin kanki yana da muhimmanci daidai da murmurewar jiki.',
+      },
+      {
+        title: 'Ta jiki',
+        text: 'Zagaye mai tsari da jin daɗi alamomi ne masu kyau.',
+      },
+      {
+        title: 'A matsayin ma’aurata ko tare da tallafi',
+        text: 'Magana game da shi da abokin zamanki na iya taimaka muku ku ci gaba cikin sauri ɗaya.',
+      },
+    ],
+    body4:
+      'Kafin sake gwadawa, ganawa da likita na iya taimaka miki ki ci gaba da ƙarin kwanciyar hankali:',
+    followUpSteps: [
+      {
+        title: 'Duba halin da ake ciki',
+        text: 'Tattaunawa da ƙwararre tana ba ki damar sake duba abin da ya faru.',
+      },
+      {
+        title: 'Bincike idan ya zama dole',
+        text: 'Bisa yanayin, ana iya ba da shawarar ƙarin gwaje-gwaje.',
+      },
+      {
+        title: 'Sabon yunƙuri',
+        text: 'Kulawar bibiya sai ta iya tallafa miki cikin natsuwa yayin da kike sake gwadawa.',
+      },
+    ],
+    tipTitle: 'Abin da ya dace a sani',
+    tipText:
+      'Zubar da ciki ɗaya kaɗai yawanci ba ya nuna matsalar haihuwa. Ƙungiyar likitocinki ta fi dacewa ta amsa tambayoyinki na kanki.',
+    summaryPoints: [
+      'Haihuwa yawanci tana dawowa tun daga zagayen da ya biyo bayan zubar da ciki na farko.',
+      'Ƙwararru da dama suna ganin babu bukatar jira zagaye da dama, sai dai idan an ba da shawara akasin haka.',
+      'Jin shirin, ta jiki da ta zuciya, ya ci gaba da zama mafi muhimmin jagora.',
+      'Bibiyar likita na iya tallafa miki kuma ta kwantar miki da hankali kafin sake gwadawa.',
+    ],
+    disclaimerText:
+      'Abun bayani. Wannan labari ba ya maye gurbin shawarar likita ta keɓaɓɓiya. Likitanki ko ungozoma ita ce mafi dogaro ga yanayinki.',
+    shareMessage: 'Haihuwa da sake gwadawa bayan rasa ciki — AWA',
+  },
+  am: {
+    badge: 'ከእርግዝና መጥፋት በኋላ • የመውለድ ችሎታ',
+    title: 'የመውለድ ችሎታ እና ከመጥፋት በኋላ እንደገና መሞከር',
+    metaDuration: '6 ደቂቃ ንባብ',
+    metaType: 'መመሪያ',
+    metaLevel: 'መካከለኛ',
+    metaValidated: 'የመረጃ ይዘት',
+    intro:
+      'እንደገና መሞከርን መቼ እና እንዴት እንደምታስቢ፣ በራስሽ ፍጥነት እና በሙሉ በራስ መተማመን።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'የመውለድ ችሎታ መመለስ',
+      'ባለሙያዎች በአጠቃላይ የሚሉት',
+      'ዝግጁ መሆን፣ በራስሽ ፍጥነት',
+      'ልብሽን ሊያሳርፍ የሚችል የክትትል እንክብካቤ',
+      'ዋና ዋና ነጥቦች',
+    ],
+    body1:
+      'የመውለድ ችሎታ ብዙውን ጊዜ ከቅድመ እርግዝና መጥፋት በኋላ በሚቀጥለው ዑደት ይመለሳል። እንቁላል መልቀቅ የወር አበባሽ በግልጽ ከመመለሱ በፊት እንኳን ሊከሰት ይችላል።',
+    infoTitle: 'ዋና ነጥብ',
+    infoText:
+      'እንደ መጥፋቱ ደረጃ፣ የአካል ማገገም ጊዜ ከሁኔታ ወደ ሁኔታ በትንሹ ሊለያይ ይችላል።',
+    body2:
+      'ብዙ ባለሙያዎች ሐኪምሽ ወይም ሚድዋይፍ ካልመከሩ በስተቀር እንደገና ከመሞከር በፊት በርካታ ዑደቶችን መጠበቅ አያስፈልግም ብለው ያስባሉ።',
+    compareEarlyTitle: 'ቀደምት መጥፋት',
+    compareEarlyText:
+      'የመውለድ ችሎታ ብዙውን ጊዜ በፍጥነት፣ ከሚቀጥለው ዑደት ጀምሮ ይመለሳል።',
+    compareLateTitle: 'ዘግይቶ መጥፋት',
+    compareLateText:
+      'የሕክምና ቡድኑ ትንሽ ረዘም ያለ የማገገም ጊዜ ሊመክር ይችላል።',
+    body3:
+      'በአካልም በስሜትም ዝግጁ መሆን ከማንኛውም የንድፈ ሐሳብ ጊዜ ገደብ በእጅጉ በላይ በጣም አስፈላጊው መመሪያ ሆኖ ይቆያል።',
+    readinessPoints: [
+      {
+        title: 'በስሜት',
+        text: 'በውስጥሽ ዝግጁ መሆን ከአካል ማገገም እኩል አስፈላጊ ነው።',
+      },
+      {
+        title: 'በአካል',
+        text: 'ወጥ ዑደት እና የደህንነት ስሜት ጥሩ አመልካቾች ናቸው።',
+      },
+      {
+        title: 'እንደ ጥንዶች ወይም በድጋፍ',
+        text: 'ከአጋርሽ ጋር ስለሱ መነጋገር በተመሳሳይ ፍጥነት ወደ ፊት እንድትሄዱ ሊረዳችሁ ይችላል።',
+      },
+    ],
+    body4:
+      'እንደገና ከመሞከርሽ በፊት የሕክምና ቀጠሮ በበለጠ ሰላም ወደ ፊት እንድትሄጂ ሊረዳሽ ይችላል፦',
+    followUpSteps: [
+      {
+        title: 'ሁኔታን መገምገም',
+        text: 'ከባለሙያ ጋር የሚደረግ ውይይት የተከሰተውን እንደገና እንድትመለከቺ ያስችልሻል።',
+      },
+      {
+        title: 'ካስፈለገ ግምገማ',
+        text: 'እንደ ሁኔታው ተጨማሪ ምርመራዎች ሊቀርቡ ይችላሉ።',
+      },
+      {
+        title: 'አዲስ ሙከራ',
+        text: 'የክትትል እንክብካቤ እንደገና ስትሞክሪ በእርጋታ ሊደግፍሽ ይችላል።',
+      },
+    ],
+    tipTitle: 'ማወቅ ጠቃሚ ነው',
+    tipText:
+      'አንድ የተለየ የእርግዝና መጥፋት በአጠቃላይ የመውለድ ችሎታ ችግርን አያመለክትም። የሕክምና ቡድንሽ የግል ጥያቄዎችሽን ለመመለስ ምርጥ ቦታ ላይ ይገኛል።',
+    summaryPoints: [
+      'የመውለድ ችሎታ ብዙውን ጊዜ ከቅድመ እርግዝና መጥፋት በኋላ በሚቀጥለው ዑደት ይመለሳል።',
+      'ብዙ ባለሙያዎች ካልተመከረ በስተቀር በርካታ ዑደቶችን መጠበቅ አያስፈልግም ብለው ያስባሉ።',
+      'በአካልም በስሜትም ዝግጁ መሆን በጣም አስፈላጊው መመሪያ ሆኖ ይቆያል።',
+      'የሕክምና ክትትል እንደገና ከመሞከርሽ በፊት ሊደግፍሽና ሊያሳርፍሽ ይችላል።',
+    ],
+    disclaimerText:
+      'የመረጃ ይዘት። ይህ ጽሑፍ የግል የሕክምና ምክርን አይተካም። ሐኪምሽ ወይም ሚድዋይፍሽ ለሁኔታሽ ማመሳከሪያ ሆነው ይቆያሉ።',
+    shareMessage: 'የመውለድ ችሎታ እና ከመጥፋት በኋላ እንደገና መሞከር — AWA',
+  },
+  nl: {
+    badge: 'NA EEN MISKRAAM • VRUCHTBAARHEID',
+    title: 'Vruchtbaarheid en opnieuw proberen na een verlies',
+    metaDuration: '6 min lezen',
+    metaType: 'Gids',
+    metaLevel: 'Gevorderd',
+    metaValidated: 'Informatieve inhoud',
+    intro:
+      'Wanneer en hoe je erover kunt nadenken opnieuw te proberen, in je eigen tempo en in alle vertrouwen.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'De terugkeer van de vruchtbaarheid',
+      'Wat professionals over het algemeen zeggen',
+      'Je er klaar voor voelen, in je eigen tempo',
+      'Opvolging die je kan geruststellen',
+      'Belangrijkste punten',
+    ],
+    body1:
+      'De vruchtbaarheid keert meestal al terug in de cyclus na een vroege miskraam. De eisprong kan zelfs plaatsvinden voordat je menstruatie zichtbaar terugkeert.',
+    infoTitle: 'Belangrijk punt',
+    infoText:
+      'Afhankelijk van het stadium van het verlies kan de lichamelijke hersteltijd iets verschillen van de ene situatie tot de andere.',
+    body2:
+      'Veel professionals vinden dat je niet meerdere cycli hoeft te wachten voordat je opnieuw probeert, tenzij je huisarts of verloskundige anders adviseert.',
+    compareEarlyTitle: 'Vroeg verlies',
+    compareEarlyText:
+      'De vruchtbaarheid keert vaak snel terug, al in de volgende cyclus.',
+    compareLateTitle: 'Later verlies',
+    compareLateText:
+      'Het medische team kan een iets langere hersteltijd aanbevelen.',
+    body3:
+      'Je er lichamelijk en emotioneel klaar voor voelen blijft de belangrijkste gids — veel meer dan welke theoretische termijn ook.',
+    readinessPoints: [
+      {
+        title: 'Emotioneel',
+        text: 'Je er in jezelf klaar voor voelen is net zo belangrijk als lichamelijk herstel.',
+      },
+      {
+        title: 'Lichamelijk',
+        text: 'Een regelmatige cyclus en een gevoel van welzijn zijn goede indicatoren.',
+      },
+      {
+        title: 'Als koppel of met steun',
+        text: 'Erover praten met je partner kan je helpen in hetzelfde tempo vooruit te gaan.',
+      },
+    ],
+    body4:
+      'Voordat je opnieuw probeert, kan een medische afspraak je helpen met meer gemoedsrust verder te gaan:',
+    followUpSteps: [
+      {
+        title: 'Een balans opmaken',
+        text: 'Een gesprek met een professional laat je terugkomen op wat er is gebeurd.',
+      },
+      {
+        title: 'Zo nodig een onderzoek',
+        text: 'Afhankelijk van de situatie kunnen aanvullende tests worden voorgesteld.',
+      },
+      {
+        title: 'Een nieuwe poging',
+        text: 'Opvolging kan je dan rustig begeleiden wanneer je opnieuw probeert.',
+      },
+    ],
+    tipTitle: 'Goed om te weten',
+    tipText:
+      'Een op zichzelf staande miskraam duidt over het algemeen niet op een vruchtbaarheidsprobleem. Je medische team blijft het best in staat je persoonlijke vragen te beantwoorden.',
+    summaryPoints: [
+      'De vruchtbaarheid keert meestal al terug in de cyclus na een vroege miskraam.',
+      'Veel professionals vinden dat je niet meerdere cycli hoeft te wachten, tenzij anders geadviseerd.',
+      'Je er lichamelijk en emotioneel klaar voor voelen blijft de belangrijkste gids.',
+      'Medische opvolging kan je ondersteunen en geruststellen voordat je opnieuw probeert.',
+    ],
+    disclaimerText:
+      'Informatieve inhoud. Dit artikel vervangt geen persoonlijk medisch advies. Je huisarts of verloskundige blijft de referentie voor jouw situatie.',
+    shareMessage: 'Vruchtbaarheid en opnieuw proberen na een verlies — AWA',
+  },
+  fi: {
+    badge: 'KESKENMENON JÄLKEEN • HEDELMÄLLISYYS',
+    title: 'Hedelmällisyys ja uusi yritys menetyksen jälkeen',
+    metaDuration: '6 min lukuaika',
+    metaType: 'Opas',
+    metaLevel: 'Keskitaso',
+    metaValidated: 'Tiedoksi tarkoitettua sisältöä',
+    intro:
+      'Milloin ja miten uutta yritystä voi harkita, omaan tahtiisi ja täydellä luottamuksella.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Hedelmällisyyden palautuminen',
+      'Mitä ammattilaiset yleensä sanovat',
+      'Valmiuden tunne omaan tahtiisi',
+      'Seuranta, joka voi rauhoittaa',
+      'Tärkeimmät asiat',
+    ],
+    body1:
+      'Hedelmällisyys palautuu yleensä jo varhaisen keskenmenon jälkeisessä kierrossa. Ovulaatio voi tapahtua jopa ennen kuin kuukautiset näkyvästi palaavat.',
+    infoTitle: 'Tärkein asia',
+    infoText:
+      'Menetyksen vaiheesta riippuen fyysisen toipumisen aika voi vaihdella hieman tilanteesta toiseen.',
+    body2:
+      'Monet ammattilaiset katsovat, ettei useita kiertoja tarvitse odottaa ennen uutta yritystä, ellei lääkärisi tai kätilösi neuvo toisin.',
+    compareEarlyTitle: 'Varhainen menetys',
+    compareEarlyText:
+      'Hedelmällisyys palautuu usein nopeasti, jo seuraavassa kierrossa.',
+    compareLateTitle: 'Myöhäisempi menetys',
+    compareLateText:
+      'Hoitotiimi voi suositella hieman pidempää toipumisaikaa.',
+    body3:
+      'Valmiuden tunne, fyysisesti ja henkisesti, on edelleen tärkein ohjenuora — paljon tärkeämpi kuin mikään teoreettinen aikaraja.',
+    readinessPoints: [
+      {
+        title: 'Henkisesti',
+        text: 'Valmiuden tunne itsessäsi on yhtä tärkeää kuin fyysinen toipuminen.',
+      },
+      {
+        title: 'Fyysisesti',
+        text: 'Säännöllinen kierto ja hyvinvoinnin tunne ovat hyviä merkkejä.',
+      },
+      {
+        title: 'Parina tai tuen kanssa',
+        text: 'Asiasta puhuminen kumppanin kanssa voi auttaa etenemään samaa tahtia.',
+      },
+    ],
+    body4:
+      'Ennen uutta yritystä vastaanotto voi auttaa etenemään rauhallisemmin mielin:',
+    followUpSteps: [
+      {
+        title: 'Tilanteen läpikäynti',
+        text: 'Keskustelu ammattilaisen kanssa antaa mahdollisuuden palata tapahtuneeseen.',
+      },
+      {
+        title: 'Tarvittaessa tutkimukset',
+        text: 'Tilanteesta riippuen voidaan tarjota lisätutkimuksia.',
+      },
+      {
+        title: 'Uusi yritys',
+        text: 'Seuranta voi sitten tukea sinua rauhallisesti uuden yrityksen aikana.',
+      },
+    ],
+    tipTitle: 'Hyvä tietää',
+    tipText:
+      'Yksittäinen keskenmeno ei yleensä viittaa hedelmällisyysongelmaan. Hoitotiimisi on edelleen parhaiten tilanteessa vastaamaan henkilökohtaisiin kysymyksiisi.',
+    summaryPoints: [
+      'Hedelmällisyys palautuu yleensä jo varhaisen keskenmenon jälkeisessä kierrossa.',
+      'Monet ammattilaiset katsovat, ettei useita kiertoja tarvitse odottaa, ellei toisin neuvota.',
+      'Valmiuden tunne, fyysisesti ja henkisesti, on edelleen tärkein ohjenuora.',
+      'Lääketieteellinen seuranta voi tukea ja rauhoittaa sinua ennen uutta yritystä.',
+    ],
+    disclaimerText:
+      'Tiedoksi tarkoitettua sisältöä. Tämä artikkeli ei korvaa henkilökohtaista lääketieteellistä neuvontaa. Lääkärisi tai kätilösi on edelleen tilanteesi ratkaiseva taho.',
+    shareMessage: 'Hedelmällisyys ja uusi yritys menetyksen jälkeen — AWA',
+  },
+  el: {
+    badge: 'ΜΕΤΑ ΑΠΟ ΑΠΟΒΟΛΗ • ΓΟΝΙΜΟΤΗΤΑ',
+    title: 'Γονιμότητα και νέα προσπάθεια μετά από απώλεια',
+    metaDuration: '6 λεπτά ανάγνωσης',
+    metaType: 'Οδηγός',
+    metaLevel: 'Μεσαίο',
+    metaValidated: 'Ενημερωτικό περιεχόμενο',
+    intro:
+      'Πότε και πώς να σκεφτείς μια νέα προσπάθεια, με τον δικό σου ρυθμό και με πλήρη εμπιστοσύνη.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Η επιστροφή της γονιμότητας',
+      'Τι λένε γενικά οι επαγγελματίες',
+      'Νιώθοντας έτοιμη, με τον δικό σου ρυθμό',
+      'Παρακολούθηση που μπορεί να σε καθησυχάσει',
+      'Βασικά συμπεράσματα',
+    ],
+    body1:
+      'Η γονιμότητα επιστρέφει συνήθως ήδη από τον κύκλο μετά από μια πρώιμη αποβολή. Η ωορρηξία μπορεί μάλιστα να συμβεί πριν επιστρέψει ορατά η περίοδός σου.',
+    infoTitle: 'Βασικό συμπέρασμα',
+    infoText:
+      'Ανάλογα με το στάδιο της απώλειας, ο χρόνος σωματικής ανάρρωσης μπορεί να διαφέρει ελαφρά από περίπτωση σε περίπτωση.',
+    body2:
+      'Πολλοί επαγγελματίες θεωρούν ότι δεν χρειάζεται να περιμένεις αρκετούς κύκλους πριν προσπαθήσεις ξανά, εκτός αν ο γιατρός ή η μαία σου συμβουλεύσει διαφορετικά.',
+    compareEarlyTitle: 'Πρώιμη απώλεια',
+    compareEarlyText:
+      'Η γονιμότητα επιστρέφει συχνά γρήγορα, ήδη από τον επόμενο κύκλο.',
+    compareLateTitle: 'Μεταγενέστερη απώλεια',
+    compareLateText:
+      'Η ιατρική ομάδα μπορεί να συστήσει έναν ελαφρά μεγαλύτερο χρόνο ανάρρωσης.',
+    body3:
+      'Το να νιώθεις έτοιμη, σωματικά και συναισθηματικά, παραμένει ο πιο σημαντικός οδηγός — πολύ περισσότερο από οποιοδήποτε θεωρητικό χρονικό περιθώριο.',
+    readinessPoints: [
+      {
+        title: 'Συναισθηματικά',
+        text: 'Το να νιώθεις έτοιμη μέσα σου έχει τόση σημασία όση και η σωματική ανάρρωση.',
+      },
+      {
+        title: 'Σωματικά',
+        text: 'Ένας κανονικός κύκλος και ένα αίσθημα ευεξίας είναι καλοί δείκτες.',
+      },
+      {
+        title: 'Ως ζευγάρι ή με στήριξη',
+        text: 'Η συζήτηση με τον/την σύντροφό σου μπορεί να σε βοηθήσει να προχωρήσετε με τον ίδιο ρυθμό.',
+      },
+    ],
+    body4:
+      'Πριν προσπαθήσεις ξανά, ένα ιατρικό ραντεβού μπορεί να σε βοηθήσει να προχωρήσεις με περισσότερη ηρεμία:',
+    followUpSteps: [
+      {
+        title: 'Απολογισμός',
+        text: 'Μια συζήτηση με έναν επαγγελματία σου επιτρέπει να ξαναδείς όσα συνέβησαν.',
+      },
+      {
+        title: 'Έλεγχος αν χρειάζεται',
+        text: 'Ανάλογα με την περίπτωση, μπορεί να προταθούν επιπλέον εξετάσεις.',
+      },
+      {
+        title: 'Μια νέα προσπάθεια',
+        text: 'Η παρακολούθηση μπορεί τότε να σε στηρίξει ήρεμα καθώς προσπαθείς ξανά.',
+      },
+    ],
+    tipTitle: 'Καλό είναι να γνωρίζεις',
+    tipText:
+      'Μια μεμονωμένη αποβολή γενικά δεν υποδεικνύει πρόβλημα γονιμότητας. Η ιατρική σου ομάδα παραμένει η καλύτερη για να απαντήσει στις προσωπικές σου ερωτήσεις.',
+    summaryPoints: [
+      'Η γονιμότητα επιστρέφει συνήθως ήδη από τον κύκλο μετά από μια πρώιμη αποβολή.',
+      'Πολλοί επαγγελματίες θεωρούν ότι δεν χρειάζεται να περιμένεις αρκετούς κύκλους, εκτός αν συμβουλευτείς διαφορετικά.',
+      'Το να νιώθεις έτοιμη, σωματικά και συναισθηματικά, παραμένει ο πιο σημαντικός οδηγός.',
+      'Η ιατρική παρακολούθηση μπορεί να σε στηρίξει και να σε καθησυχάσει πριν προσπαθήσεις ξανά.',
+    ],
+    disclaimerText:
+      'Ενημερωτικό περιεχόμενο. Αυτό το άρθρο δεν αντικαθιστά εξατομικευμένη ιατρική συμβουλή. Ο γιατρός ή η μαία σου παραμένει η αναφορά για την κατάστασή σου.',
+    shareMessage: 'Γονιμότητα και νέα προσπάθεια μετά από απώλεια — AWA',
+  },
+  fil: {
+    badge: 'PAGKATAPOS NG PAGKALAGLAG • PAGKAMAYABONG',
+    title: 'Pagkamayabong at muling pagsubok pagkatapos ng pagkawala',
+    metaDuration: '6 min na babasahin',
+    metaType: 'Gabay',
+    metaLevel: 'Katamtaman',
+    metaValidated: 'Impormatibong nilalaman',
+    intro:
+      'Kailan at paano pag-isipan ang muling pagsubok, sa sarili mong bilis at may buong kumpiyansa.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Ang pagbabalik ng pagkamayabong',
+      'Ang karaniwang sinasabi ng mga propesyonal',
+      'Pakiramdam na handa ka na, sa sarili mong bilis',
+      'Pagsubaybay na maaaring magpanatag sa iyo',
+      'Mahahalagang tandaan',
+    ],
+    body1:
+      'Karaniwang bumabalik ang pagkamayabong sa mismong siklong kasunod ng maagang pagkalaglag. Maaaring mangyari pa nga ang obulasyon bago kapansin-pansing bumalik ang iyong regla.',
+    infoTitle: 'Mahalagang tandaan',
+    infoText:
+      'Depende sa yugto ng pagkawala, maaaring bahagyang mag-iba ang tagal ng pisikal na paggaling mula sa isang sitwasyon hanggang sa iba.',
+    body2:
+      'Maraming propesyonal ang naniniwalang hindi na kailangang maghintay ng ilang siklo bago muling sumubok, maliban kung ipayo ng iyong doktor o midwife ang kabaligtaran.',
+    compareEarlyTitle: 'Maagang pagkawala',
+    compareEarlyText:
+      'Madalas na mabilis bumalik ang pagkamayabong, sa pinakamaaga ay sa susunod na siklo.',
+    compareLateTitle: 'Mas huling pagkawala',
+    compareLateText:
+      'Maaaring irekomenda ng pangkat medikal ang bahagyang mas mahabang panahon ng paggaling.',
+    body3:
+      'Ang pakiramdam na handa ka na, sa pisikal at emosyonal na aspeto, ang nananatiling pinakamahalagang gabay — higit pa sa anumang teoretikal na takdang panahon.',
+    readinessPoints: [
+      {
+        title: 'Sa emosyonal na aspeto',
+        text: 'Kasing-halaga ng pisikal na paggaling ang pakiramdam na handa ka na sa sarili mo.',
+      },
+      {
+        title: 'Sa pisikal na aspeto',
+        text: 'Mabuting indikasyon ang regular na siklo at pakiramdam ng kagalingan.',
+      },
+      {
+        title: 'Bilang mag-asawa o may suporta',
+        text: 'Ang pag-uusap tungkol dito kasama ang iyong kapareha ay makakatulong na sabay kayong sumulong.',
+      },
+    ],
+    body4:
+      'Bago muling sumubok, makakatulong ang medikal na appointment para sumulong nang may mas payapang kalooban:',
+    followUpSteps: [
+      {
+        title: 'Pagsusuri ng sitwasyon',
+        text: 'Ang pakikipag-usap sa propesyonal ay nagpapahintulot na balikan ang nangyari.',
+      },
+      {
+        title: 'Pagsusuri kung kinakailangan',
+        text: 'Depende sa sitwasyon, maaaring ialok ang karagdagang mga test.',
+      },
+      {
+        title: 'Isang bagong pagsubok',
+        text: 'Mahinahon kang masusuportahan ng pagsubaybay habang muling sumusubok.',
+      },
+    ],
+    tipTitle: 'Mabuting malaman',
+    tipText:
+      'Karaniwang hindi nagpapahiwatig ng problema sa pagkamayabong ang nag-iisang pagkalaglag. Ang iyong pangkat medikal ang pinakamainam na makasagot sa iyong mga personal na tanong.',
+    summaryPoints: [
+      'Karaniwang bumabalik ang pagkamayabong sa mismong siklong kasunod ng maagang pagkalaglag.',
+      'Maraming propesyonal ang naniniwalang hindi na kailangang maghintay ng ilang siklo, maliban kung ipayo ang kabaligtaran.',
+      'Ang pakiramdam na handa ka na, sa pisikal at emosyonal na aspeto, ang nananatiling pinakamahalagang gabay.',
+      'Ang medikal na pagsubaybay ay maaaring sumuporta at magpanatag sa iyo bago muling sumubok.',
+    ],
+    disclaimerText:
+      'Impormatibong nilalaman. Hindi pumapalit ang artikulong ito sa personalisadong payong medikal. Ang iyong doktor o midwife ang nananatiling sanggunian para sa iyong sitwasyon.',
+    shareMessage: 'Pagkamayabong at muling pagsubok pagkatapos ng pagkawala — AWA',
+  },
+  ta: {
+    badge: 'கருச்சிதைவுக்குப் பின் • கருவுறுதிறன்',
+    title: 'இழப்புக்குப் பின் கருவுறுதிறனும் மீண்டும் முயற்சியும்',
+    metaDuration: '6 நிமிடம் படிக்க',
+    metaType: 'வழிகாட்டி',
+    metaLevel: 'இடைநிலை',
+    metaValidated: 'தகவல் உள்ளடக்கம்',
+    intro:
+      'மீண்டும் முயல்வதைப் பற்றி எப்போது, எப்படிச் சிந்திப்பது, உங்கள் சொந்த வேகத்தில், முழு நம்பிக்கையுடன்.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'கருவுறுதிறன் திரும்புதல்',
+      'நிபுணர்கள் பொதுவாகச் சொல்வது',
+      'தயாராக உணருதல், உங்கள் சொந்த வேகத்தில்',
+      'உங்களுக்கு ஆறுதல் தரக்கூடிய பின்தொடர்தல் பராமரிப்பு',
+      'முக்கியக் குறிப்புகள்',
+    ],
+    body1:
+      'கருவுறுதிறன் பொதுவாக ஆரம்பக் கருச்சிதைவுக்குப் பின் வரும் சுழற்சியிலேயே திரும்புகிறது. உங்கள் மாதவிடாய் கண்கூடாகத் திரும்புவதற்கு முன்பே அண்டவிடுப்பு நிகழக்கூடும்.',
+    infoTitle: 'முக்கியக் குறிப்பு',
+    infoText:
+      'இழப்பின் கட்டத்தைப் பொறுத்து, உடல் மீட்சிக் காலம் ஒரு சூழ்நிலையிலிருந்து மற்றொன்றுக்குச் சிறிது மாறுபடலாம்.',
+    body2:
+      'உங்கள் மருத்துவர் அல்லது மருத்துவச்சி வேறுவிதமாக ஆலோசனை கூறாத வரை, மீண்டும் முயல்வதற்கு முன் பல சுழற்சிகள் காத்திருக்கத் தேவையில்லை என்று பல நிபுணர்கள் கருதுகிறார்கள்.',
+    compareEarlyTitle: 'ஆரம்ப இழப்பு',
+    compareEarlyText:
+      'கருவுறுதிறன் பெரும்பாலும் விரைவாக, அடுத்த சுழற்சியிலேயே திரும்புகிறது.',
+    compareLateTitle: 'பிந்தைய இழப்பு',
+    compareLateText:
+      'சற்று நீண்ட மீட்சிக் காலத்தை மருத்துவக் குழு பரிந்துரைக்கலாம்.',
+    body3:
+      'உடலளவிலும் உணர்வளவிலும் தயாராக உணர்வதே மிக முக்கியமான வழிகாட்டியாக இருக்கும் — எந்தக் கோட்பாட்டுக் கால அளவையும் விட மிக அதிகமாக.',
+    readinessPoints: [
+      {
+        title: 'உணர்வளவில்',
+        text: 'உங்களுக்குள் தயாராக உணர்வது உடல் மீட்சியைப் போலவே முக்கியம்.',
+      },
+      {
+        title: 'உடலளவில்',
+        text: 'ஒழுங்கான சுழற்சியும் நலம் குறித்த உணர்வும் நல்ல குறிகாட்டிகள்.',
+      },
+      {
+        title: 'தம்பதியாக அல்லது ஆதரவுடன்',
+        text: 'உங்கள் துணையுடன் இதைப் பற்றிப் பேசுவது ஒரே வேகத்தில் முன்னேற உங்களுக்கு உதவலாம்.',
+      },
+    ],
+    body4:
+      'மீண்டும் முயல்வதற்கு முன், ஒரு மருத்துவ சந்திப்பு அதிக மன அமைதியுடன் முன்னேற உங்களுக்கு உதவலாம்:',
+    followUpSteps: [
+      {
+        title: 'நிலையை மதிப்பிடுதல்',
+        text: 'ஒரு நிபுணருடனான உரையாடல் நடந்ததை மீண்டும் பார்க்க உங்களை அனுமதிக்கிறது.',
+      },
+      {
+        title: 'தேவைப்பட்டால் ஒரு மதிப்பீடு',
+        text: 'சூழ்நிலையைப் பொறுத்து, கூடுதல் பரிசோதனைகள் வழங்கப்படலாம்.',
+      },
+      {
+        title: 'ஒரு புதிய முயற்சி',
+        text: 'பின்தொடர்தல் பராமரிப்பு பின்னர் நீங்கள் மீண்டும் முயலும்போது அமைதியாக உங்களுக்குத் துணையாக இருக்கலாம்.',
+      },
+    ],
+    tipTitle: 'தெரிந்துகொள்ளுங்கள்',
+    tipText:
+      'ஒரு தனிப்பட்ட கருச்சிதைவு பொதுவாக கருவுறுதிறன் பிரச்சினையைக் குறிப்பதில்லை. உங்கள் தனிப்பட்ட கேள்விகளுக்குப் பதிலளிக்க உங்கள் மருத்துவக் குழுவே சிறந்த நிலையில் உள்ளது.',
+    summaryPoints: [
+      'கருவுறுதிறன் பொதுவாக ஆரம்பக் கருச்சிதைவுக்குப் பின் வரும் சுழற்சியிலேயே திரும்புகிறது.',
+      'வேறுவிதமாக ஆலோசனை கூறப்படாத வரை, பல சுழற்சிகள் காத்திருக்கத் தேவையில்லை என்று பல நிபுணர்கள் கருதுகிறார்கள்.',
+      'உடலளவிலும் உணர்வளவிலும் தயாராக உணர்வதே மிக முக்கியமான வழிகாட்டியாக இருக்கிறது.',
+      'மீண்டும் முயல்வதற்கு முன் மருத்துவப் பின்தொடர்தல் உங்களுக்குத் துணையாகவும் ஆறுதலாகவும் இருக்கலாம்.',
+    ],
+    disclaimerText:
+      'தகவல் உள்ளடக்கம். இந்தக் கட்டுரை தனிப்பயன் மருத்துவ ஆலோசனைக்கு மாற்றல்ல. உங்கள் சூழ்நிலைக்கு உங்கள் மருத்துவர் அல்லது மருத்துவச்சியே சான்றாக இருக்கிறார்.',
+    shareMessage: 'இழப்புக்குப் பின் கருவுறுதிறனும் மீண்டும் முயற்சியும் — AWA',
+  },
+  te: {
+    badge: 'గర్భస్రావం తర్వాత • సారవంతత',
+    title: 'గర్భస్రావం తర్వాత సారవంతత & మళ్లీ ప్రయత్నించడం',
+    metaDuration: '6 నిమిషాల పఠనం',
+    metaType: 'గైడ్',
+    metaLevel: 'మధ్యస్థ స్థాయి',
+    metaValidated: 'సమాచార కంటెంట్',
+    intro:
+      'మళ్లీ ప్రయత్నించడం గురించి ఎప్పుడు, ఎలా ఆలోచించాలి, మీ సొంత వేగంలో, పూర్తి నమ్మకంతో.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'సారవంతత తిరిగి రావడం',
+      'నిపుణులు సాధారణంగా ఏం చెబుతారు',
+      'మీ సొంత వేగంలో సిద్ధంగా అనిపించడం',
+      'మీకు ధైర్యం ఇవ్వగల తదుపరి పర్యవేక్షణ',
+      'ముఖ్యాంశాలు',
+    ],
+    body1:
+      'ప్రారంభ గర్భస్రావం తర్వాతి చక్రం నుండే సారవంతత సాధారణంగా తిరిగి వస్తుంది. నెలసరి స్పష్టంగా తిరిగి రాకముందే అండోత్సర్గం కూడా జరగవచ్చు.',
+    infoTitle: 'ముఖ్య సారాంశం',
+    infoText:
+      'నష్టం జరిగిన దశను బట్టి, శారీరక కోలుకునే సమయం ఒక పరిస్థితి నుండి మరొకదానికి కొద్దిగా మారవచ్చు.',
+    body2:
+      'మీ వైద్యులు లేదా మంత్రసాని వేరుగా సలహా ఇస్తే తప్ప, మళ్లీ ప్రయత్నించే ముందు అనేక చక్రాలు వేచి ఉండాల్సిన అవసరం లేదని చాలా మంది నిపుణులు భావిస్తారు.',
+    compareEarlyTitle: 'ప్రారంభ నష్టం',
+    compareEarlyText:
+      'సారవంతత తరచుగా వేగంగా, తర్వాతి చక్రం నుండే తిరిగి వస్తుంది.',
+    compareLateTitle: 'తర్వాతి దశలో నష్టం',
+    compareLateText:
+      'వైద్య బృందం కొద్దిగా ఎక్కువ కోలుకునే సమయాన్ని సిఫార్సు చేయవచ్చు.',
+    body3:
+      'శారీరకంగా, భావోద్వేగపరంగా సిద్ధంగా అనిపించడమే అత్యంత ముఖ్యమైన మార్గదర్శకం — ఏ సైద్ధాంతిక కాలపరిమితి కంటే చాలా ఎక్కువగా.',
+    readinessPoints: [
+      {
+        title: 'భావోద్వేగపరంగా',
+        text: 'మీలో మీరు సిద్ధంగా అనిపించడం శారీరక కోలుకోవడంతో సమానంగా ముఖ్యం.',
+      },
+      {
+        title: 'శారీరకంగా',
+        text: 'క్రమబద్ధమైన చక్రం, శ్రేయస్సు భావన మంచి సూచికలు.',
+      },
+      {
+        title: 'దంపతులుగా లేదా తోడ్పాటుతో',
+        text: 'మీ భాగస్వామితో దీని గురించి మాట్లాడటం ఒకే వేగంలో ముందుకు సాగడానికి సహాయపడగలదు.',
+      },
+    ],
+    body4:
+      'మళ్లీ ప్రయత్నించే ముందు, ఒక వైద్య అపాయింట్‌మెంట్ మరింత మనశ్శాంతితో ముందుకు సాగడానికి సహాయపడగలదు:',
+    followUpSteps: [
+      {
+        title: 'సమీక్షించుకోవడం',
+        text: 'ఒక నిపుణుడితో సంభాషణ జరిగిన దాన్ని తిరిగి చూసుకోవడానికి మీకు వీలు కల్పిస్తుంది.',
+      },
+      {
+        title: 'అవసరమైతే ఒక మదింపు',
+        text: 'పరిస్థితిని బట్టి, అదనపు పరీక్షలు సూచించబడవచ్చు.',
+      },
+      {
+        title: 'ఒక కొత్త ప్రయత్నం',
+        text: 'అప్పుడు తదుపరి పర్యవేక్షణ మీరు మళ్లీ ప్రయత్నిస్తున్నప్పుడు ప్రశాంతంగా మీకు తోడ్పడగలదు.',
+      },
+    ],
+    tipTitle: 'తెలుసుకోవాల్సినవి',
+    tipText:
+      'ఒక వేరు గర్భస్రావం సాధారణంగా సారవంతత సమస్యను సూచించదు. మీ వ్యక్తిగత ప్రశ్నలకు సమాధానం చెప్పడానికి మీ వైద్య బృందమే ఉత్తమ స్థానంలో ఉంది.',
+    summaryPoints: [
+      'ప్రారంభ గర్భస్రావం తర్వాతి చక్రం నుండే సారవంతత సాధారణంగా తిరిగి వస్తుంది.',
+      'వేరుగా సలహా ఇవ్వకపోతే, అనేక చక్రాలు వేచి ఉండాల్సిన అవసరం లేదని చాలా మంది నిపుణులు భావిస్తారు.',
+      'శారీరకంగా, భావోద్వేగపరంగా సిద్ధంగా అనిపించడమే అత్యంత ముఖ్యమైన మార్గదర్శకం.',
+      'వైద్య పర్యవేక్షణ మళ్లీ ప్రయత్నించే ముందు మీకు తోడ్పడి ధైర్యం ఇవ్వగలదు.',
+    ],
+    disclaimerText:
+      'సమాచార కంటెంట్. ఈ వ్యాసం వ్యక్తిగత వైద్య సలహాకు ప్రత్యామ్నాయం కాదు. మీ పరిస్థితికి మీ వైద్యులు లేదా మంత్రసానియే ప్రమాణం.',
+    shareMessage: 'గర్భస్రావం తర్వాత సారవంతత & మళ్లీ ప్రయత్నించడం — AWA',
+  },
+  mr: {
+    badge: 'गर्भपातानंतर • सुपीकता',
+    title: 'नुकसानानंतर सुपीकता आणि पुन्हा प्रयत्न',
+    metaDuration: '6 मिनिटे वाचन',
+    metaType: 'मार्गदर्शक',
+    metaLevel: 'मध्यम स्तर',
+    metaValidated: 'माहितीपर मजकूर',
+    intro:
+      'पुन्हा प्रयत्न करण्याचा विचार केव्हा आणि कसा करावा, तुमच्या गतीने आणि पूर्ण आत्मविश्वासाने.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'सुपीकता परत येणे',
+      'तज्ज्ञ साधारणपणे काय सांगतात',
+      'तुमच्या गतीने तयार वाटणे',
+      'तुम्हाला दिलासा देऊ शकणारा पाठपुरावा',
+      'मुख्य मुद्दे',
+    ],
+    body1:
+      'लवकरच्या गर्भपातानंतरच्या पाळीतच सुपीकता सहसा परत येते. तुमची पाळी स्पष्टपणे परत येण्यापूर्वीही बीजोत्सर्जन होऊ शकते.',
+    infoTitle: 'मुख्य मुद्दा',
+    infoText:
+      'नुकसानाच्या टप्प्यानुसार, शारीरिक पुनर्प्राप्तीचा कालावधी एका परिस्थितीपासून दुसऱ्या परिस्थितीपर्यंत थोडा बदलू शकतो.',
+    body2:
+      'तुमचे डॉक्टर किंवा दाई वेगळा सल्ला देत नाहीत तोपर्यंत, पुन्हा प्रयत्न करण्यापूर्वी अनेक पाळ्या थांबण्याची गरज नाही असे अनेक तज्ज्ञ मानतात.',
+    compareEarlyTitle: 'लवकरचे नुकसान',
+    compareEarlyText:
+      'सुपीकता बहुतेकदा लवकर, पुढच्याच पाळीत परत येते.',
+    compareLateTitle: 'नंतरचे नुकसान',
+    compareLateText:
+      'वैद्यकीय पथक थोडा जास्त पुनर्प्राप्तीचा कालावधी सुचवू शकते.',
+    body3:
+      'शारीरिक आणि भावनिकदृष्ट्या तयार वाटणे हाच सर्वात महत्त्वाचा मार्गदर्शक राहतो — कोणत्याही सैद्धांतिक कालमर्यादेपेक्षा खूप जास्त.',
+    readinessPoints: [
+      {
+        title: 'भावनिकदृष्ट्या',
+        text: 'आतून तयार वाटणे शारीरिक पुनर्प्राप्तीइतकेच महत्त्वाचे आहे.',
+      },
+      {
+        title: 'शारीरिकदृष्ट्या',
+        text: 'नियमित पाळी आणि सुदृढतेची भावना ही चांगली निर्देशक आहेत.',
+      },
+      {
+        title: 'जोडपे म्हणून किंवा आधारासह',
+        text: 'जोडीदाराशी याबद्दल बोलल्याने तुम्हाला एकाच गतीने पुढे जाण्यास मदत होऊ शकते.',
+      },
+    ],
+    body4:
+      'पुन्हा प्रयत्न करण्यापूर्वी, वैद्यकीय भेट तुम्हाला अधिक निश्चिंत मनाने पुढे जाण्यास मदत करू शकते:',
+    followUpSteps: [
+      {
+        title: 'आढावा घेणे',
+        text: 'तज्ज्ञासोबतचे संभाषण तुम्हाला जे घडले त्याकडे पुन्हा पाहण्याची संधी देते.',
+      },
+      {
+        title: 'गरज असल्यास तपासणी',
+        text: 'परिस्थितीनुसार, अतिरिक्त चाचण्या सुचवल्या जाऊ शकतात.',
+      },
+      {
+        title: 'नवीन प्रयत्न',
+        text: 'पाठपुरावा मग तुम्ही पुन्हा प्रयत्न करताना शांतपणे तुम्हाला साथ देऊ शकतो.',
+      },
+    ],
+    tipTitle: 'हे जाणून घ्या',
+    tipText:
+      'एकच गर्भपात सहसा सुपीकतेची समस्या दर्शवत नाही. तुमचे वैद्यकीय पथक तुमच्या वैयक्तिक प्रश्नांची उत्तरे देण्यासाठी सर्वोत्तम स्थानी असते.',
+    summaryPoints: [
+      'लवकरच्या गर्भपातानंतरच्या पाळीतच सुपीकता सहसा परत येते.',
+      'वेगळा सल्ला न मिळाल्यास, अनेक पाळ्या थांबण्याची गरज नाही असे अनेक तज्ज्ञ मानतात.',
+      'शारीरिक आणि भावनिकदृष्ट्या तयार वाटणे हाच सर्वात महत्त्वाचा मार्गदर्शक राहतो.',
+      'पुन्हा प्रयत्न करण्यापूर्वी वैद्यकीय पाठपुरावा तुम्हाला साथ आणि दिलासा देऊ शकतो.',
+    ],
+    disclaimerText:
+      'माहितीपर मजकूर. हा लेख वैयक्तिक वैद्यकीय सल्ल्याची जागा घेत नाही. तुमची परिस्थिती समजण्यासाठी तुमचे डॉक्टर किंवा दाई हाच संदर्भ राहतो.',
+    shareMessage: 'नुकसानानंतर सुपीकता आणि पुन्हा प्रयत्न — AWA',
+  },
+  gu: {
+    badge: 'ગર્ભપાત પછી • ફળદ્રુપતા',
+    title: 'ગર્ભાવસ્થાના નુકસાન પછી ફળદ્રુપતા અને ફરી પ્રયત્ન',
+    metaDuration: '6 મિનિટ વાંચન',
+    metaType: 'માર્ગદર્શિકા',
+    metaLevel: 'મધ્યમ સ્તર',
+    metaValidated: 'માહિતી માટેની સામગ્રી',
+    intro:
+      'ફરી પ્રયત્ન કરવા વિશે ક્યારે અને કેવી રીતે વિચારવું, તમારી પોતાની ગતિએ અને પૂરા વિશ્વાસ સાથે.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'ફળદ્રુપતાનું પાછું આવવું',
+      'વ્યાવસાયિકો સામાન્ય રીતે શું કહે છે',
+      'તૈયાર લાગવું, તમારી પોતાની ગતિએ',
+      'ફોલો-અપ સંભાળ જે તમને આશ્વાસન આપી શકે',
+      'મુખ્ય મુદ્દા',
+    ],
+    body1:
+      'શરૂઆતના ગર્ભપાત પછી ફળદ્રુપતા સામાન્ય રીતે પછીના જ ચક્રમાં પાછી આવી શકે છે. તમારું માસિક દેખીતી રીતે પાછું આવે તે પહેલાં પણ અંડોત્સર્જન થઈ શકે છે.',
+    infoTitle: 'મુખ્ય મુદ્દો',
+    infoText:
+      'નુકસાનના તબક્કા પ્રમાણે, શારીરિક રીતે સ્વસ્થ થવાનો સમય એક પરિસ્થિતિથી બીજી પરિસ્થિતિમાં થોડો અલગ હોઈ શકે છે.',
+    body2:
+      'ઘણા વ્યાવસાયિકો માને છે કે ફરી પ્રયત્ન કરતા પહેલાં ઘણા ચક્ર રાહ જોવાની જરૂર નથી, સિવાય કે તમારા ડૉક્ટર કે મિડવાઇફ બીજી સલાહ આપે.',
+    compareEarlyTitle: 'શરૂઆતનું નુકસાન',
+    compareEarlyText:
+      'ફળદ્રુપતા ઘણી વાર ઝડપથી, પછીના જ ચક્રમાં પાછી આવે છે.',
+    compareLateTitle: 'પાછળથી થયેલું નુકસાન',
+    compareLateText:
+      'તબીબી ટીમ થોડો વધુ સ્વસ્થ થવાનો સમય સૂચવી શકે છે.',
+    body3:
+      'શારીરિક અને ભાવનાત્મક રીતે તૈયાર લાગવું એ સૌથી મહત્વનું માર્ગદર્શક છે — કોઈપણ સૈદ્ધાંતિક સમયમર્યાદા કરતાં ઘણું વધુ.',
+    readinessPoints: [
+      {
+        title: 'ભાવનાત્મક રીતે',
+        text: 'અંદરથી તૈયાર લાગવું એ શારીરિક રીતે સ્વસ્થ થવા જેટલું જ મહત્વનું છે.',
+      },
+      {
+        title: 'શારીરિક રીતે',
+        text: 'નિયમિત ચક્ર અને સારું લાગવું એ સારા સંકેતો છે.',
+      },
+      {
+        title: 'દંપતી તરીકે અથવા સહાય સાથે',
+        text: 'તમારા જીવનસાથી સાથે તેના વિશે વાત કરવાથી તમે એક જ ગતિએ આગળ વધી શકો છો.',
+      },
+    ],
+    body4:
+      'ફરી પ્રયત્ન કરતા પહેલાં, તબીબી મુલાકાત તમને વધુ મનની શાંતિ સાથે આગળ વધવામાં મદદ કરી શકે છે:',
+    followUpSteps: [
+      {
+        title: 'સ્થિતિ સમજવી',
+        text: 'વ્યાવસાયિક સાથેની વાતચીત તમને જે બન્યું તેને ફરી સમજવાની તક આપે છે.',
+      },
+      {
+        title: 'જરૂર પડે તો તપાસ',
+        text: 'પરિસ્થિતિ પ્રમાણે, વધારાના પરીક્ષણો સૂચવવામાં આવી શકે છે.',
+      },
+      {
+        title: 'નવો પ્રયત્ન',
+        text: 'ત્યારપછી ફોલો-અપ સંભાળ તમે ફરી પ્રયત્ન કરો ત્યારે શાંતિથી તમને સાથ આપી શકે છે.',
+      },
+    ],
+    tipTitle: 'જાણવા જેવું',
+    tipText:
+      'એકલ ગર્ભપાત સામાન્ય રીતે ફળદ્રુપતાની સમસ્યા દર્શાવતો નથી. તમારા વ્યક્તિગત પ્રશ્નોના જવાબ આપવા માટે તમારી તબીબી ટીમ સૌથી યોગ્ય છે.',
+    summaryPoints: [
+      'શરૂઆતના ગર્ભપાત પછી ફળદ્રુપતા સામાન્ય રીતે પછીના જ ચક્રમાં પાછી આવી શકે છે.',
+      'ઘણા વ્યાવસાયિકો માને છે કે સિવાય કે અન્ય સલાહ મળે, ઘણા ચક્ર રાહ જોવાની જરૂર નથી.',
+      'શારીરિક અને ભાવનાત્મક રીતે તૈયાર લાગવું એ સૌથી મહત્વનું માર્ગદર્શક રહે છે.',
+      'ફરી પ્રયત્ન કરતા પહેલાં તબીબી ફોલો-અપ તમને સાથ અને આશ્વાસન આપી શકે છે.',
+    ],
+    disclaimerText:
+      'માહિતી માટેની સામગ્રી. આ લેખ વ્યક્તિગત તબીબી સલાહનું સ્થાન લેતો નથી. તમારી પરિસ્થિતિ માટે તમારા ડૉક્ટર કે મિડવાઇફ જ સંદર્ભ રહે છે.',
+    shareMessage: 'ગર્ભાવસ્થાના નુકસાન પછી ફળદ્રુપતા અને ફરી પ્રયત્ન — AWA',
+  },
+  pa: {
+    badge: 'ਗਰਭਪਾਤ ਤੋਂ ਬਾਅਦ • ਉਪਜਾਊ ਸ਼ਕਤੀ',
+    title: 'ਨੁਕਸਾਨ ਤੋਂ ਬਾਅਦ ਉਪਜਾਊ ਸ਼ਕਤੀ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨਾ',
+    metaDuration: '6 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਗਾਈਡ',
+    metaLevel: 'ਦਰਮਿਆਨਾ ਪੱਧਰ',
+    metaValidated: 'ਜਾਣਕਾਰੀ ਵਾਲੀ ਸਮੱਗਰੀ',
+    intro:
+      'ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਬਾਰੇ ਕਦੋਂ ਅਤੇ ਕਿਵੇਂ ਸੋਚਣਾ ਹੈ, ਆਪਣੀ ਰਫ਼ਤਾਰ ਨਾਲ ਅਤੇ ਪੂਰੇ ਭਰੋਸੇ ਨਾਲ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'ਉਪਜਾਊ ਸ਼ਕਤੀ ਦਾ ਮੁੜ ਆਉਣਾ',
+      'ਮਾਹਿਰ ਆਮ ਤੌਰ ਤੇ ਕੀ ਕਹਿੰਦੇ ਹਨ',
+      'ਤਿਆਰ ਮਹਿਸੂਸ ਕਰਨਾ, ਆਪਣੀ ਰਫ਼ਤਾਰ ਨਾਲ',
+      'ਫ਼ਾਲੋ-ਅੱਪ ਦੇਖਭਾਲ ਜੋ ਤੁਹਾਨੂੰ ਤਸੱਲੀ ਦੇ ਸਕਦੀ ਹੈ',
+      'ਮੁੱਖ ਨੁਕਤੇ',
+    ],
+    body1:
+      'ਉਪਜਾਊ ਸ਼ਕਤੀ ਆਮ ਤੌਰ ਤੇ ਸ਼ੁਰੂਆਤੀ ਗਰਭਪਾਤ ਤੋਂ ਬਾਅਦ ਅਗਲੇ ਚੱਕਰ ਵਿੱਚ ਹੀ ਮੁੜ ਆ ਜਾਂਦੀ ਹੈ। ਓਵੂਲੇਸ਼ਨ ਤਾਂ ਮਾਹਵਾਰੀ ਦੇ ਸਾਫ਼ ਮੁੜ ਆਉਣ ਤੋਂ ਪਹਿਲਾਂ ਵੀ ਹੋ ਸਕਦਾ ਹੈ।',
+    infoTitle: 'ਮੁੱਖ ਨੁਕਤਾ',
+    infoText:
+      'ਨੁਕਸਾਨ ਦੇ ਪੜਾਅ ਅਨੁਸਾਰ, ਸਰੀਰਕ ਤੌਰ ਤੇ ਠੀਕ ਹੋਣ ਦਾ ਸਮਾਂ ਇੱਕ ਸਥਿਤੀ ਤੋਂ ਦੂਜੀ ਵਿੱਚ ਥੋੜ੍ਹਾ ਵੱਖਰਾ ਹੋ ਸਕਦਾ ਹੈ।',
+    body2:
+      'ਬਹੁਤ ਸਾਰੇ ਮਾਹਿਰ ਮੰਨਦੇ ਹਨ ਕਿ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਕਈ ਚੱਕਰ ਉਡੀਕਣ ਦੀ ਲੋੜ ਨਹੀਂ, ਜਦੋਂ ਤੱਕ ਤੁਹਾਡਾ ਡਾਕਟਰ ਜਾਂ ਮਿਡਵਾਈਫ਼ ਹੋਰ ਸਲਾਹ ਨਾ ਦੇਵੇ।',
+    compareEarlyTitle: 'ਸ਼ੁਰੂਆਤੀ ਨੁਕਸਾਨ',
+    compareEarlyText:
+      'ਉਪਜਾਊ ਸ਼ਕਤੀ ਅਕਸਰ ਜਲਦੀ ਮੁੜ ਆ ਜਾਂਦੀ ਹੈ, ਅਗਲੇ ਚੱਕਰ ਵਿੱਚ ਹੀ।',
+    compareLateTitle: 'ਬਾਅਦ ਦੇ ਪੜਾਅ ਦਾ ਨੁਕਸਾਨ',
+    compareLateText:
+      'ਡਾਕਟਰੀ ਟੀਮ ਠੀਕ ਹੋਣ ਲਈ ਥੋੜ੍ਹਾ ਲੰਮਾ ਸਮਾਂ ਸੁਝਾ ਸਕਦੀ ਹੈ।',
+    body3:
+      'ਸਰੀਰਕ ਅਤੇ ਭਾਵਨਾਤਮਕ ਤੌਰ ਤੇ ਤਿਆਰ ਮਹਿਸੂਸ ਕਰਨਾ ਸਭ ਤੋਂ ਮਹੱਤਵਪੂਰਨ ਮਾਰਗਦਰਸ਼ਕ ਰਹਿੰਦਾ ਹੈ — ਕਿਸੇ ਵੀ ਸਿਧਾਂਤਕ ਸਮਾਂ-ਸੀਮਾ ਨਾਲੋਂ ਕਿਤੇ ਵੱਧ।',
+    readinessPoints: [
+      {
+        title: 'ਭਾਵਨਾਤਮਕ ਤੌਰ ਤੇ',
+        text: 'ਆਪਣੇ ਅੰਦਰੋਂ ਤਿਆਰ ਮਹਿਸੂਸ ਕਰਨਾ ਸਰੀਰਕ ਤੌਰ ਤੇ ਠੀਕ ਹੋਣ ਜਿੰਨਾ ਹੀ ਮਾਇਨੇ ਰੱਖਦਾ ਹੈ।',
+      },
+      {
+        title: 'ਸਰੀਰਕ ਤੌਰ ਤੇ',
+        text: 'ਨਿਯਮਿਤ ਚੱਕਰ ਅਤੇ ਤੰਦਰੁਸਤੀ ਦਾ ਅਹਿਸਾਸ ਚੰਗੇ ਸੰਕੇਤ ਹਨ।',
+      },
+      {
+        title: 'ਜੋੜੇ ਵਜੋਂ ਜਾਂ ਸਹਾਰੇ ਨਾਲ',
+        text: 'ਆਪਣੇ ਸਾਥੀ ਨਾਲ ਇਸ ਬਾਰੇ ਗੱਲ ਕਰਨ ਨਾਲ ਤੁਸੀਂ ਇੱਕੋ ਰਫ਼ਤਾਰ ਨਾਲ ਅੱਗੇ ਵਧ ਸਕਦੇ ਹੋ।',
+      },
+    ],
+    body4:
+      'ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ, ਡਾਕਟਰੀ ਮੁਲਾਕਾਤ ਤੁਹਾਨੂੰ ਵਧੇਰੇ ਮਨ ਦੀ ਸ਼ਾਂਤੀ ਨਾਲ ਅੱਗੇ ਵਧਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ:',
+    followUpSteps: [
+      {
+        title: 'ਹਾਲਾਤ ਦਾ ਜਾਇਜ਼ਾ',
+        text: 'ਕਿਸੇ ਮਾਹਿਰ ਨਾਲ ਗੱਲਬਾਤ ਤੁਹਾਨੂੰ ਜੋ ਵਾਪਰਿਆ ਉਸ ਨੂੰ ਮੁੜ ਵੇਖਣ ਦਾ ਮੌਕਾ ਦਿੰਦੀ ਹੈ।',
+      },
+      {
+        title: 'ਲੋੜ ਪੈਣ ਤੇ ਜਾਂਚ',
+        text: 'ਸਥਿਤੀ ਅਨੁਸਾਰ, ਵਾਧੂ ਟੈਸਟ ਸੁਝਾਏ ਜਾ ਸਕਦੇ ਹਨ।',
+      },
+      {
+        title: 'ਨਵੀਂ ਕੋਸ਼ਿਸ਼',
+        text: 'ਫ਼ਾਲੋ-ਅੱਪ ਦੇਖਭਾਲ ਫਿਰ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਦਿਆਂ ਸ਼ਾਂਤੀ ਨਾਲ ਤੁਹਾਡਾ ਸਾਥ ਦੇ ਸਕਦੀ ਹੈ।',
+      },
+    ],
+    tipTitle: 'ਜਾਣਨ ਯੋਗ',
+    tipText:
+      'ਇੱਕ ਇਕੱਲਾ ਗਰਭਪਾਤ ਆਮ ਤੌਰ ਤੇ ਉਪਜਾਊ ਸ਼ਕਤੀ ਦੀ ਸਮੱਸਿਆ ਨੂੰ ਨਹੀਂ ਦਰਸਾਉਂਦਾ। ਤੁਹਾਡੇ ਨਿੱਜੀ ਸਵਾਲਾਂ ਦੇ ਜਵਾਬ ਦੇਣ ਲਈ ਤੁਹਾਡੀ ਡਾਕਟਰੀ ਟੀਮ ਸਭ ਤੋਂ ਵਧੀਆ ਥਾਂ ਤੇ ਹੈ।',
+    summaryPoints: [
+      'ਉਪਜਾਊ ਸ਼ਕਤੀ ਆਮ ਤੌਰ ਤੇ ਸ਼ੁਰੂਆਤੀ ਗਰਭਪਾਤ ਤੋਂ ਬਾਅਦ ਅਗਲੇ ਚੱਕਰ ਵਿੱਚ ਹੀ ਮੁੜ ਆ ਜਾਂਦੀ ਹੈ।',
+      'ਬਹੁਤ ਸਾਰੇ ਮਾਹਿਰ ਮੰਨਦੇ ਹਨ ਕਿ ਕਈ ਚੱਕਰ ਉਡੀਕਣ ਦੀ ਲੋੜ ਨਹੀਂ, ਜਦੋਂ ਤੱਕ ਹੋਰ ਸਲਾਹ ਨਾ ਦਿੱਤੀ ਜਾਵੇ।',
+      'ਸਰੀਰਕ ਅਤੇ ਭਾਵਨਾਤਮਕ ਤੌਰ ਤੇ ਤਿਆਰ ਮਹਿਸੂਸ ਕਰਨਾ ਸਭ ਤੋਂ ਮਹੱਤਵਪੂਰਨ ਮਾਰਗਦਰਸ਼ਕ ਰਹਿੰਦਾ ਹੈ।',
+      'ਡਾਕਟਰੀ ਫ਼ਾਲੋ-ਅੱਪ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਤੁਹਾਨੂੰ ਸਹਾਰਾ ਅਤੇ ਤਸੱਲੀ ਦੇ ਸਕਦਾ ਹੈ।',
+    ],
+    disclaimerText:
+      'ਇਹ ਜਾਣਕਾਰੀ ਲਈ ਹੈ ਅਤੇ ਨਿੱਜੀ ਡਾਕਟਰੀ ਸਲਾਹ ਦੀ ਥਾਂ ਨਹੀਂ ਲੈਂਦੀ। ਤੁਹਾਡੀ ਸਥਿਤੀ ਲਈ ਤੁਹਾਡਾ ਡਾਕਟਰ ਜਾਂ ਮਿਡਵਾਈਫ਼ ਹੀ ਹਵਾਲਾ ਰਹਿੰਦਾ ਹੈ।',
+    shareMessage: 'ਨੁਕਸਾਨ ਤੋਂ ਬਾਅਦ ਉਪਜਾਊ ਸ਼ਕਤੀ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨਾ — AWA',
+  },
+  my: {
+    badge: 'ကိုယ်ဝန်ပျက်ကျပြီးနောက် • သန္ဓေတည်နိုင်စွမ်း',
+    title: 'ဆုံးရှုံးပြီးနောက် သန္ဓေတည်နိုင်စွမ်းနှင့် ပြန်လည်ကြိုးစားခြင်း',
+    metaDuration: 'ဖတ်ချိန် 6 မိနစ်',
+    metaType: 'လမ်းညွှန်',
+    metaLevel: 'အလယ်အလတ်အဆင့်',
+    metaValidated: 'အချက်အလက်ပေးသော အကြောင်းအရာ',
+    intro:
+      'ပြန်လည်ကြိုးစားခြင်းအကြောင်း မည်သည့်အချိန်နှင့် မည်သို့စဉ်းစားရမည်ကို သင့်ကိုယ်ပိုင်အရှိန်ဖြင့် အပြည့်အဝယုံကြည်စိတ်ချစွာ။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'သန္ဓေတည်နိုင်စွမ်း ပြန်လာခြင်း',
+      'ပညာရှင်များ ယေဘုယျပြောဆိုသည်များ',
+      'သင့်ကိုယ်ပိုင်အရှိန်ဖြင့် အဆင်သင့်ဖြစ်ကြောင်း ခံစားရခြင်း',
+      'သင့်ကို စိတ်ချမ်းသာစေနိုင်သော နောက်ဆက်တွဲစောင့်ရှောက်မှု',
+      'အဓိကအချက်များ',
+    ],
+    body1:
+      'အစောပိုင်းကိုယ်ဝန်ပျက်ကျပြီးနောက် ရာသီစက်ဝန်းတွင်ပင် သန္ဓေတည်နိုင်စွမ်း ပြန်လာလေ့ရှိသည်။ သင့်ရာသီ မြင်သာစွာမပြန်လာမီပင် မျိုးဥကြွေခြင်း ဖြစ်ပေါ်နိုင်သည်။',
+    infoTitle: 'အဓိကအချက်',
+    infoText:
+      'ဆုံးရှုံးမှုအဆင့်အလိုက် ရုပ်ပိုင်းဆိုင်ရာ ပြန်လည်နာလန်ထူချိန်သည် အခြေအနေတစ်ခုနှင့်တစ်ခု အနည်းငယ် ကွာခြားနိုင်သည်။',
+    body2:
+      'သင့်ဆရာဝန် သို့မဟုတ် သားဖွားဆရာမက အခြားနည်းဖြင့် အကြံမပြုလျှင် ပြန်လည်မကြိုးစားမီ ရာသီစက်ဝန်းများစွာ စောင့်ရန် မလိုဟု ပညာရှင်များစွာက ယူဆကြသည်။',
+    compareEarlyTitle: 'အစောပိုင်းဆုံးရှုံးမှု',
+    compareEarlyText:
+      'သန္ဓေတည်နိုင်စွမ်းသည် မကြာခဏ လျင်မြန်စွာ၊ နောက်ရာသီစက်ဝန်းတွင်ပင် ပြန်လာတတ်သည်။',
+    compareLateTitle: 'နောက်ပိုင်းဆုံးရှုံးမှု',
+    compareLateText:
+      'ဆေးဘက်ဆိုင်ရာအဖွဲ့က ပြန်လည်နာလန်ထူချိန် အနည်းငယ်ပိုကြာရန် အကြံပြုနိုင်သည်။',
+    body3:
+      'ရုပ်ပိုင်းနှင့် စိတ်ပိုင်းဆိုင်ရာ အဆင်သင့်ဖြစ်ကြောင်း ခံစားရခြင်းသည် သီအိုရီအရ အချိန်ကာလတစ်ခုထက် များစွာပိုမို အရေးပါသော လမ်းညွှန်ချက် ဖြစ်နေဆဲဖြစ်သည်။',
+    readinessPoints: [
+      {
+        title: 'စိတ်ပိုင်းဆိုင်ရာအရ',
+        text: 'သင့်ကိုယ်တိုင် အဆင်သင့်ဖြစ်ကြောင်း ခံစားရခြင်းသည် ရုပ်ပိုင်းဆိုင်ရာ ပြန်လည်နာလန်ထူခြင်းကဲ့သို့ပင် အရေးကြီးသည်။',
+      },
+      {
+        title: 'ရုပ်ပိုင်းဆိုင်ရာအရ',
+        text: 'ပုံမှန်ရာသီစက်ဝန်းနှင့် ကျန်းမာသာယာသည့် ခံစားချက်တို့သည် ကောင်းမွန်သော ညွှန်ပြချက်များဖြစ်သည်။',
+      },
+      {
+        title: 'စုံတွဲအနေဖြင့် သို့မဟုတ် ပံ့ပိုးမှုဖြင့်',
+        text: 'သင့်ခင်ပွန်းနှင့် ဆွေးနွေးခြင်းက တူညီသောအရှိန်ဖြင့် ရှေ့ဆက်နိုင်ရန် ကူညီနိုင်သည်။',
+      },
+    ],
+    body4:
+      'ပြန်လည်မကြိုးစားမီ ဆေးဘက်ဆိုင်ရာ ရက်ချိန်းတစ်ခုက သင့်ကို စိတ်ချမ်းသာစွာ ရှေ့ဆက်နိုင်ရန် ကူညီနိုင်သည်။',
+    followUpSteps: [
+      {
+        title: 'ပြန်လည်သုံးသပ်ခြင်း',
+        text: 'ပညာရှင်တစ်ဦးနှင့် ဆွေးနွေးခြင်းဖြင့် ဖြစ်ပျက်ခဲ့သည်များကို ပြန်လည်ဆန်းစစ်နိုင်သည်။',
+      },
+      {
+        title: 'လိုအပ်ပါက စစ်ဆေးမှု',
+        text: 'အခြေအနေအရ ထပ်ဆောင်းစစ်ဆေးမှုများ ကမ်းလှမ်းနိုင်သည်။',
+      },
+      {
+        title: 'ပြန်လည်ကြိုးစားခြင်း',
+        text: 'သင်ပြန်လည်ကြိုးစားသည့်အခါ နောက်ဆက်တွဲစောင့်ရှောက်မှုက တည်ငြိမ်စွာ ပံ့ပိုးပေးနိုင်သည်။',
+      },
+    ],
+    tipTitle: 'သိထားသင့်သည်',
+    tipText:
+      'တစ်ကြိမ်တည်းသော ကိုယ်ဝန်ပျက်ကျခြင်းသည် ယေဘုယျအားဖြင့် သန္ဓေတည်နိုင်စွမ်း ပြဿနာကို မညွှန်ပြပါ။ သင့်ကိုယ်ပိုင်မေးခွန်းများကို ဖြေဆိုရာတွင် သင့်ဆေးဘက်ဆိုင်ရာအဖွဲ့သည် အသင့်တော်ဆုံးဖြစ်နေဆဲဖြစ်သည်။',
+    summaryPoints: [
+      'အစောပိုင်းကိုယ်ဝန်ပျက်ကျပြီးနောက် ရာသီစက်ဝန်းတွင်ပင် သန္ဓေတည်နိုင်စွမ်း ပြန်လာလေ့ရှိသည်။',
+      'အခြားနည်းဖြင့် အကြံမပြုလျှင် ရာသီစက်ဝန်းများစွာ စောင့်ရန်မလိုဟု ပညာရှင်များစွာက ယူဆကြသည်။',
+      'ရုပ်ပိုင်းနှင့် စိတ်ပိုင်းဆိုင်ရာ အဆင်သင့်ဖြစ်ကြောင်း ခံစားရခြင်းသည် အရေးကြီးဆုံး လမ်းညွှန်ချက် ဖြစ်နေဆဲဖြစ်သည်။',
+      'ဆေးဘက်ဆိုင်ရာ နောက်ဆက်တွဲစောင့်ရှောက်မှုက ပြန်လည်မကြိုးစားမီ သင့်ကို ပံ့ပိုးပေးပြီး စိတ်ချမ်းသာစေနိုင်သည်။',
+    ],
+    disclaimerText:
+      '၎င်းသည် အချက်အလက်ပေးရန်ဖြစ်ပြီး ကိုယ်ပိုင်ဆေးဘက်ဆိုင်ရာ အကြံပြုချက်ကို အစားထိုးခြင်းမရှိပါ။ သင့်အခြေအနေအတွက် သင့်ဆရာဝန် သို့မဟုတ် သားဖွားဆရာမသည် ကိုးကားရာအရင်းအမြစ် ဖြစ်နေဆဲဖြစ်သည်။',
+    shareMessage: 'ဆုံးရှုံးပြီးနောက် သန္ဓေတည်နိုင်စွမ်းနှင့် ပြန်လည်ကြိုးစားခြင်း — AWA',
+  },
+  km: {
+    badge: 'ក្រោយការរលូតកូន • ភាពមានកូន',
+    title: 'ភាពមានកូន និងការព្យាយាមម្តងទៀតក្រោយការបាត់បង់',
+    metaDuration: 'អាន 6 នាទី',
+    metaType: 'មគ្គុទ្ទេសក៍',
+    metaLevel: 'កម្រិតមធ្យម',
+    metaValidated: 'មាតិកាព័ត៌មាន',
+    intro:
+      'ពេលណា និងរបៀបគិតអំពីការព្យាយាមម្តងទៀត តាមល្បឿនរបស់អ្នកផ្ទាល់ និងដោយទំនុកចិត្តពេញលេញ។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'ការត្រឡប់មកវិញនៃភាពមានកូន',
+      'អ្វីដែលអ្នកជំនាញនិយាយជាទូទៅ',
+      'ការមានអារម្មណ៍ត្រៀមខ្លួន តាមល្បឿនរបស់អ្នកផ្ទាល់',
+      'ការតាមដានថែទាំដែលអាចធ្វើឱ្យអ្នកធូរចិត្ត',
+      'ចំណុចសំខាន់ៗ',
+    ],
+    body1:
+      'ភាពមានកូនជាធម្មតាត្រឡប់មកវិញនៅវដ្តបន្ទាប់ពីការរលូតកូនដំបូង។ ការបញ្ចេញពងអូវុលថែមទាំងអាចកើតឡើងមុនរដូវត្រឡប់មកវិញយ៉ាងជាក់ស្តែងទៀតផង។',
+    infoTitle: 'ចំណុចសំខាន់',
+    infoText:
+      'អាស្រ័យលើដំណាក់កាលនៃការបាត់បង់ ពេលវេលានៃការជាសះស្បើយខាងរាងកាយអាចខុសគ្នាបន្តិចពីស្ថានភាពមួយទៅស្ថានភាពមួយទៀត។',
+    body2:
+      'អ្នកជំនាញជាច្រើនយល់ថា មិនចាំបាច់រង់ចាំច្រើនវដ្តមុនព្យាយាមម្តងទៀតទេ លើកលែងតែវេជ្ជបណ្ឌិត ឬឆ្មបរបស់អ្នកណែនាំផ្សេង។',
+    compareEarlyTitle: 'ការបាត់បង់ដំបូង',
+    compareEarlyText:
+      'ភាពមានកូនជាញឹកញាប់ត្រឡប់មកវិញយ៉ាងឆាប់ ចាប់ពីវដ្តបន្ទាប់។',
+    compareLateTitle: 'ការបាត់បង់ក្រោយៗ',
+    compareLateText:
+      'ក្រុមវេជ្ជសាស្ត្រអាចណែនាំរយៈពេលជាសះស្បើយវែងជាងបន្តិច។',
+    body3:
+      'ការមានអារម្មណ៍ត្រៀមខ្លួន ទាំងខាងរាងកាយ និងអារម្មណ៍ នៅតែជាមគ្គុទ្ទេសក៍សំខាន់បំផុត — លើសពីរយៈពេលតាមទ្រឹស្តីណាមួយ។',
+    readinessPoints: [
+      {
+        title: 'ខាងអារម្មណ៍',
+        text: 'ការមានអារម្មណ៍ត្រៀមខ្លួននៅក្នុងខ្លួនអ្នក សំខាន់ដូចការជាសះស្បើយខាងរាងកាយដែរ។',
+      },
+      {
+        title: 'ខាងរាងកាយ',
+        text: 'វដ្តរដូវទៀងទាត់ និងអារម្មណ៍សុខស្រួល គឺជាសូចនាករល្អ។',
+      },
+      {
+        title: 'ជាគូស្វាមីភរិយា ឬជាមួយការគាំទ្រ',
+        text: 'ការនិយាយអំពីរឿងនេះជាមួយដៃគូរបស់អ្នក អាចជួយឱ្យអ្នកឈានទៅមុខក្នុងល្បឿនដូចគ្នា។',
+      },
+    ],
+    body4:
+      'មុនព្យាយាមម្តងទៀត ការណាត់ជួបវេជ្ជបណ្ឌិតអាចជួយអ្នកឈានទៅមុខដោយមានចិត្តស្ងប់ស្ងាត់ជាងមុន៖',
+    followUpSteps: [
+      {
+        title: 'ការពិនិត្យឡើងវិញ',
+        text: 'ការសន្ទនាជាមួយអ្នកជំនាញអនុញ្ញាតឱ្យអ្នកពិនិត្យឡើងវិញអំពីអ្វីដែលបានកើតឡើង។',
+      },
+      {
+        title: 'ការវាយតម្លៃប្រសិនបើចាំបាច់',
+        text: 'អាស្រ័យលើស្ថានភាព ការធ្វើតេស្តបន្ថែមអាចត្រូវបានស្នើឡើង។',
+      },
+      {
+        title: 'ការព្យាយាមថ្មី',
+        text: 'បន្ទាប់មក ការតាមដានថែទាំអាចគាំទ្រអ្នកដោយស្ងប់ស្ងាត់ នៅពេលអ្នកព្យាយាមម្តងទៀត។',
+      },
+    ],
+    tipTitle: 'គួរដឹង',
+    tipText:
+      'ការរលូតកូនតែម្តងជាទូទៅមិនបង្ហាញពីបញ្ហាភាពមានកូនទេ។ ក្រុមវេជ្ជសាស្ត្ររបស់អ្នកនៅតែជាអ្នកដែលស័ក្តិសមបំផុតក្នុងការឆ្លើយសំណួរផ្ទាល់ខ្លួនរបស់អ្នក។',
+    summaryPoints: [
+      'ភាពមានកូនជាធម្មតាត្រឡប់មកវិញនៅវដ្តបន្ទាប់ពីការរលូតកូនដំបូង។',
+      'អ្នកជំនាញជាច្រើនយល់ថា មិនចាំបាច់រង់ចាំច្រើនវដ្តទេ លើកលែងតែមានការណែនាំផ្សេង។',
+      'ការមានអារម្មណ៍ត្រៀមខ្លួន ទាំងខាងរាងកាយ និងអារម្មណ៍ នៅតែជាមគ្គុទ្ទេសក៍សំខាន់បំផុត។',
+      'ការតាមដានខាងវេជ្ជសាស្ត្រអាចគាំទ្រ និងធ្វើឱ្យអ្នកធូរចិត្តមុនព្យាយាមម្តងទៀត។',
+    ],
+    disclaimerText:
+      'មាតិកាព័ត៌មាន។ អត្ថបទនេះមិនជំនួសដំបូន្មានវេជ្ជសាស្ត្រផ្ទាល់ខ្លួនទេ។ វេជ្ជបណ្ឌិត ឬឆ្មបរបស់អ្នកនៅតែជាអ្នកយោងសម្រាប់ស្ថានភាពរបស់អ្នក។',
+    shareMessage: 'ភាពមានកូន និងការព្យាយាមម្តងទៀតក្រោយការបាត់បង់ — AWA',
+  },
+  lo: {
+    badge: 'ຫຼັງການແທ້ງລູກ • ຄວາມສາມາດໃນການຕັ້ງຄັນ',
+    title: 'ຄວາມສາມາດໃນການຕັ້ງຄັນ ແລະ ການລອງໃໝ່ຫຼັງການສູນເສຍ',
+    metaDuration: 'ອ່ານ 6 ນາທີ',
+    metaType: 'ຄູ່ມື',
+    metaLevel: 'ລະດັບກາງ',
+    metaValidated: 'ເນື້ອຫາທົ່ວໄປ',
+    intro:
+      'ເວລາໃດ ແລະ ຄິດເລື່ອງການລອງໃໝ່ແນວໃດ ຕາມຈັງຫວະຂອງທ່ານເອງ ແລະ ດ້ວຍຄວາມໝັ້ນໃຈເຕັມທີ່.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ການກັບຄືນຂອງຄວາມສາມາດໃນການຕັ້ງຄັນ',
+      'ສິ່ງທີ່ຜູ້ຊ່ຽວຊານມັກເວົ້າ',
+      'ຮູ້ສຶກພ້ອມ ຕາມຈັງຫວະຂອງທ່ານເອງ',
+      'ການຕິດຕາມດູແລທີ່ຊ່ວຍໃຫ້ທ່ານສະບາຍໃຈ',
+      'ຈຸດສຳຄັນ',
+    ],
+    body1:
+      'ຄວາມສາມາດໃນການຕັ້ງຄັນມັກກັບຄືນມາໄວສຸດໃນຮອບເດືອນຕໍ່ຈາກການແທ້ງລູກໃນໄລຍະຕົ້ນ. ການຕົກໄຂ່ອາດເກີດຂຶ້ນກ່ອນທີ່ປະຈຳເດືອນຈະກັບມາໃຫ້ເຫັນຊັດເຈນດ້ວຍຊ້ຳ.',
+    infoTitle: 'ຈຸດສຳຄັນ',
+    infoText:
+      'ຂຶ້ນກັບຂັ້ນຕອນຂອງການສູນເສຍ ໄລຍະເວລາຟື້ນຕົວທາງກາຍອາດແຕກຕ່າງກັນເລັກນ້ອຍໃນແຕ່ລະສະຖານະການ.',
+    body2:
+      'ຜູ້ຊ່ຽວຊານຫຼາຍຄົນເຫັນວ່າບໍ່ຈຳເປັນຕ້ອງລໍຖ້າຫຼາຍຮອບເດືອນກ່ອນລອງໃໝ່ ເວັ້ນແຕ່ແພດ ຫຼື ໝໍຕຳແຍຂອງທ່ານຈະແນະນຳເປັນອື່ນ.',
+    compareEarlyTitle: 'ການສູນເສຍໃນໄລຍະຕົ້ນ',
+    compareEarlyText:
+      'ຄວາມສາມາດໃນການຕັ້ງຄັນມັກກັບຄືນມາໄວ ຕັ້ງແຕ່ຮອບເດືອນຕໍ່ໄປ.',
+    compareLateTitle: 'ການສູນເສຍໃນໄລຍະຕໍ່ມາ',
+    compareLateText:
+      'ທີມແພດອາດແນະນຳໃຫ້ໃຊ້ເວລາຟື້ນຕົວດົນຂຶ້ນເລັກນ້ອຍ.',
+    body3:
+      'ການຮູ້ສຶກພ້ອມ ທັງທາງກາຍ ແລະ ທາງອາລົມ ຍັງເປັນຕົວຊີ້ນຳທີ່ສຳຄັນທີ່ສຸດ — ສຳຄັນກວ່າໄລຍະເວລາຕາມທິດສະດີໃດໆ.',
+    readinessPoints: [
+      {
+        title: 'ທາງອາລົມ',
+        text: 'ການຮູ້ສຶກພ້ອມຈາກພາຍໃນຕົວທ່ານເອງສຳຄັນເທົ່າກັບການຟື້ນຕົວທາງກາຍ.',
+      },
+      {
+        title: 'ທາງຮ່າງກາຍ',
+        text: 'ຮອບເດືອນທີ່ສະໝ່ຳສະເໝີ ແລະ ຄວາມຮູ້ສຶກສະບາຍດີເປັນຕົວຊີ້ບອກທີ່ດີ.',
+      },
+      {
+        title: 'ໃນຖານະຄູ່ ຫຼື ກັບຜູ້ສະໜັບສະໜູນ',
+        text: 'ການລົມເລື່ອງນີ້ກັບຄູ່ຂອງທ່ານສາມາດຊ່ວຍໃຫ້ກ້າວໄປຂ້າງໜ້າດ້ວຍຈັງຫວະດຽວກັນ.',
+      },
+    ],
+    body4:
+      'ກ່ອນລອງໃໝ່ ການພົບແພດສາມາດຊ່ວຍໃຫ້ທ່ານກ້າວໄປຂ້າງໜ້າດ້ວຍຄວາມສະຫງົບໃຈຫຼາຍຂຶ້ນ:',
+    followUpSteps: [
+      {
+        title: 'ທົບທວນສະຖານະການ',
+        text: 'ການສົນທະນາກັບຜູ້ຊ່ຽວຊານຊ່ວຍໃຫ້ທ່ານກັບມາເບິ່ງສິ່ງທີ່ເກີດຂຶ້ນ.',
+      },
+      {
+        title: 'ການກວດປະເມີນຖ້າຈຳເປັນ',
+        text: 'ຂຶ້ນກັບສະຖານະການ ອາດມີການສະເໜີໃຫ້ກວດເພີ່ມເຕີມ.',
+      },
+      {
+        title: 'ການລອງໃໝ່',
+        text: 'ຈາກນັ້ນການຕິດຕາມດູແລສາມາດຊ່ວຍສະໜັບສະໜູນທ່ານຢ່າງສະຫງົບໃນຂະນະທີ່ລອງໃໝ່.',
+      },
+    ],
+    tipTitle: 'ຄວນຮູ້',
+    tipText:
+      'ການແທ້ງລູກຄັ້ງດຽວໂດຍທົ່ວໄປບໍ່ໄດ້ບົ່ງບອກເຖິງບັນຫາຄວາມສາມາດໃນການຕັ້ງຄັນ. ທີມແພດຂອງທ່ານຍັງເປັນຜູ້ທີ່ຕອບຄຳຖາມສ່ວນຕົວຂອງທ່ານໄດ້ດີທີ່ສຸດ.',
+    summaryPoints: [
+      'ຄວາມສາມາດໃນການຕັ້ງຄັນມັກກັບຄືນມາໄວສຸດໃນຮອບເດືອນຕໍ່ຈາກການແທ້ງລູກໃນໄລຍະຕົ້ນ.',
+      'ຜູ້ຊ່ຽວຊານຫຼາຍຄົນເຫັນວ່າບໍ່ຈຳເປັນຕ້ອງລໍຖ້າຫຼາຍຮອບເດືອນ ເວັ້ນແຕ່ໄດ້ຮັບຄຳແນະນຳເປັນອື່ນ.',
+      'ການຮູ້ສຶກພ້ອມ ທັງທາງກາຍ ແລະ ທາງອາລົມ ຍັງເປັນຕົວຊີ້ນຳທີ່ສຳຄັນທີ່ສຸດ.',
+      'ການຕິດຕາມທາງການແພດສາມາດຊ່ວຍສະໜັບສະໜູນ ແລະ ເຮັດໃຫ້ທ່ານສະບາຍໃຈກ່ອນລອງໃໝ່.',
+    ],
+    disclaimerText:
+      'ນີ້ແມ່ນຂໍ້ມູນທົ່ວໄປ. ບົດຄວາມນີ້ບໍ່ແທນຄຳແນະນຳທາງການແພດສະເພາະບຸກຄົນ. ແພດ ຫຼື ໝໍຕຳແຍຂອງທ່ານຍັງເປັນຜູ້ອ້າງອີງສຳລັບສະຖານະການຂອງທ່ານ.',
+    shareMessage: 'ຄວາມສາມາດໃນການຕັ້ງຄັນ ແລະ ການລອງໃໝ່ຫຼັງການສູນເສຍ — AWA',
+  },
 } as const);
 
 /* -------------------------------------------------------------------------- */

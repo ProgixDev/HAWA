@@ -2141,6 +2141,1032 @@ const CONTENT = withBrazilianPortuguese('RegularIrregularCycle', {
     ],
     shareMessage: 'Yzygiderli ýa-da düzgünsiz sikl: tapawudy näme? — AWA',
   },
+  ms: {
+    badge: 'KITARAN & HAID',
+    title: 'Kitaran teratur atau tidak teratur:\napa bezanya?',
+    metaDuration: '5 min bacaan',
+    metaValidated: 'Kandungan disemak',
+    intro:
+      'Setiap kitaran haid adalah unik. Memahami apa yang dianggap “normal” boleh membantu anda menjejaki kesihatan anda dengan lebih teliti dan mengesan kemungkinan ketidakseimbangan.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Kitaran haid yang teratur: apakah itu?',
+      'Kitaran tidak teratur: apa maksudnya?',
+      'Kemungkinan punca kitaran tidak teratur',
+      'Bila anda patut berjumpa doktor?',
+      'Petua untuk kitaran yang lebih seimbang',
+    ],
+    section1Body:
+      'Kitaran dianggap teratur apabila tempohnya berbeza antara 21 dan 35 hari, dengan perbezaan kurang daripada 7 hari dari satu kitaran ke kitaran berikutnya.',
+    section1VisualTitle: 'Rentak yang agak stabil',
+    section1VisualText:
+      'Yang paling penting ialah memerhati rentak anda sendiri sepanjang bulan.',
+    tip1Title: 'Elok diketahui',
+    tip1Text:
+      'Setiap wanita berbeza. Yang penting ialah mengetahui rentak anda sendiri dan perubahan normalnya.',
+    section2Body:
+      'Kitaran dianggap tidak teratur apabila tempohnya kerap atau tidak dapat diramal berubah (perbezaan lebih daripada 7 hari). Ini boleh muncul sebagai kitaran yang sangat pendek, kitaran yang sangat panjang atau ketiadaan ovulasi.',
+    section2VisualTitle: 'Perubahan yang lebih ketara',
+    section2VisualText:
+      'Perbezaan ini boleh bersifat sementara atau berterusan sepanjang beberapa kitaran.',
+    alertTitle: 'Sila ambil perhatian',
+    alertText:
+      'Ketidakteraturan sementara boleh menjadi normal (tekanan, perubahan hormon, keletihan…). Tetapi jika ia berterusan, adalah penting untuk menyiasat puncanya.',
+    causes: [
+      'Tekanan & keresahan',
+      'Ketidakseimbangan hormon',
+      'Kurang tidur & keletihan',
+      'Berat badan terlalu rendah atau terlalu tinggi',
+      'PCOS atau keadaan perubatan lain',
+    ],
+    checklist: [
+      'Tiada haid selama lebih daripada 3 bulan (di luar kehamilan/penyusuan)',
+      'Kitaran yang sangat panjang (lebih daripada 90 hari) atau sangat pendek (kurang daripada 21 hari)',
+      'Sakit yang kuat yang menghalang anda hidup seperti biasa',
+      'Pendarahan yang sangat banyak atau tidak teratur',
+      'Jika anda cuba hamil dan ovulasi nampaknya tiada',
+    ],
+    advice: [
+      'Pemakanan seimbang',
+      'Hidrasi yang mencukupi',
+      'Aktiviti fizikal',
+      'Pengurusan tekanan',
+      'Tidur yang berkualiti',
+    ],
+    shareMessage: 'Kitaran teratur atau tidak teratur: apa bezanya? — AWA',
+  },
+  so: {
+    badge: 'WAREEG & CAADO',
+    title: 'Wareeg joogto ah ama aan joogto ahayn:\nmaxay kala duwan yihiin?',
+    metaDuration: '5 daq akhris',
+    metaValidated: 'Macluumaad la dib-u-eegay',
+    intro:
+      'Wareeg caado kastaa waa mid gaar ah. Fahamka waxa loo tixgeliyo “caadi” ayaa kaa caawin kara inaad si ka dhow u la socoto caafimaadkaaga oo aad aqoonsato dheelitir la’aan suurtagal ah.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Wareegga caadada joogtada ah: waa maxay?',
+      'Wareeg aan joogto ahayn: maxaa macnaheedu yahay?',
+      'Sababaha suurtagalka ah ee wareeg aan joogto ahayn',
+      'Goorta dhakhtar la arko?',
+      'Talooyin wareeg dheelitiran',
+    ],
+    section1Body:
+      'Wareeg waxaa loo tixgeliyaa mid joogto ah marka dhererkiisu u dhexeeyo 21 iyo 35 maalmood, isagoo leh farqi ka yar 7 maalmood wareeg ilaa wareeg.',
+    section1VisualTitle: 'Xawaare si dhexdhexaad ah degan',
+    section1VisualText:
+      'Waxa ugu muhiimsan waa indho-indheynta xawaarahaaga gaarka ah bilaha gudahood.',
+    tip1Title: 'Waxtar leh in la ogaado',
+    tip1Text:
+      'Naag kastaa waa kala duwan tahay. Waxa muhiimka ah waa ogaanshaha xawaarahaaga gaarka ah iyo kala duwanaanshihiisa caadiga ah.',
+    section2Body:
+      'Wareeg waxaa loo tixgeliyaa mid aan joogto ahayn marka dhererkiisu si joogto ah ama aan la saadaalin karin u kala duwan yahay (farqi ka badan 7 maalmood). Tani waxay ku muuqan kartaa wareegyo aad u gaaban, wareegyo aad u dheer, ama ukun-sii-deyn la’aan.',
+    section2VisualTitle: 'Kala duwanaansho ka muuqda',
+    section2VisualText:
+      'Farqiyadani way noqon karaan kuwo ku meel gaar ah ama sii socon karaan dhowr wareeg.',
+    alertTitle: 'Fadlan ogow',
+    alertText:
+      'Aan-joogtayn ku meel gaar ah waxay noqon kartaa caadi (walaac, isbeddelada hormoonka, daal…). Laakiin haddii ay sii socoto, waa muhiim in la baaro sababta.',
+    causes: [
+      'Walaac & nafsi-murugo',
+      'Dheelitir la’aan hormoon',
+      'Hurdo la’aan & daal',
+      'Miisaan aad u hooseeya ama aad u sarreeya',
+      'PCOS ama xaalado caafimaad oo kale',
+    ],
+    checklist: [
+      'Caado la’aan in ka badan 3 bilood (uur/nuujin ka baxsan)',
+      'Wareegyo aad u dhaadheer (in ka badan 90 maalmood) ama wareegyo aad u gaaban (wax ka yar 21 maalmood)',
+      'Xanuun xoog badan oo ku joojiya inaad caadi u noolaato',
+      'Dhiigbax aad u culus ama aan joogto ahayn',
+      'Haddii aad isku daydayso inaad uur yeelato oo ukun-sii-deyn u muuqato inay maqan tahay',
+    ],
+    advice: [
+      'Cunto dheelitiran',
+      'Biyo-cabbid ku filan',
+      'Firfircooni jidheed',
+      'Maamulka walaaca',
+      'Hurdo tayo leh',
+    ],
+    shareMessage: 'Wareeg joogto ah ama aan joogto ahayn: maxay kala duwan yihiin? — AWA',
+  },
+  sw: {
+    badge: 'MZUNGUKO NA HEDHI',
+    title: 'Mzunguko wa mpangilio au usio wa mpangilio:\nkuna tofauti gani?',
+    metaDuration: 'Dakika 5 za kusoma',
+    metaValidated: 'Maudhui yaliyokaguliwa',
+    intro:
+      'Kila mzunguko wa hedhi ni wa kipekee. Kuelewa kinachochukuliwa kuwa “cha kawaida” kunaweza kukusaidia kufuatilia afya yako kwa karibu zaidi na kutambua kutokuwa na usawa kunakowezekana.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Mzunguko wa hedhi wa mpangilio: ni nini?',
+      'Mzunguko usio wa mpangilio: unamaanisha nini?',
+      'Sababu zinazowezekana za mzunguko usio wa mpangilio',
+      'Wakati gani umwone daktari?',
+      'Vidokezo vya mzunguko wenye usawa zaidi',
+    ],
+    section1Body:
+      'Mzunguko unachukuliwa kuwa wa mpangilio urefu wake unapotofautiana kati ya siku 21 na 35, kwa tofauti ya chini ya siku 7 kutoka mzunguko mmoja hadi unaofuata.',
+    section1VisualTitle: 'Mdundo wa kiasi thabiti',
+    section1VisualText:
+      'Kinachojalisha zaidi ni kuchunguza mdundo wako mwenyewe katika miezi.',
+    tip1Title: 'Vyema kujua',
+    tip1Text:
+      'Kila mwanamke ni tofauti. Kinachojalisha ni kujua mdundo wako mwenyewe na tofauti zake za kawaida.',
+    section2Body:
+      'Mzunguko unachukuliwa kuwa si wa mpangilio urefu wake unapotofautiana mara nyingi au bila kutabirika (tofauti ya zaidi ya siku 7). Hili linaweza kujitokeza kama mizunguko mifupi sana, mizunguko mirefu sana, au kukosekana kwa utoaji wa yai.',
+    section2VisualTitle: 'Tofauti zinazoonekana zaidi',
+    section2VisualText:
+      'Tofauti hizi zinaweza kuwa za muda au kudumu katika mizunguko kadhaa.',
+    alertTitle: 'Tafadhali zingatia',
+    alertText:
+      'Kutokuwa na mpangilio kwa muda kunaweza kuwa kawaida (msongo wa mawazo, mabadiliko ya homoni, uchovu…). Lakini kukiendelea, ni muhimu kuchunguza sababu.',
+    causes: [
+      'Msongo wa mawazo na wasiwasi',
+      'Kutokuwa na usawa wa homoni',
+      'Ukosefu wa usingizi na uchovu',
+      'Uzito mdogo sana au mkubwa sana',
+      'PCOS au hali nyingine za kitabibu',
+    ],
+    checklist: [
+      'Hakuna hedhi kwa zaidi ya miezi 3 (nje ya ujauzito/kunyonyesha)',
+      'Mizunguko mirefu sana (zaidi ya siku 90) au mifupi sana (chini ya siku 21)',
+      'Maumivu makali yanayokuzuia kuishi kawaida',
+      'Kutokwa damu nyingi sana au kusiko kwa mpangilio',
+      'Ikiwa unajaribu kupata ujauzito na utoaji wa yai unaonekana kukosekana',
+    ],
+    advice: [
+      'Lishe yenye usawa',
+      'Kunywa maji ya kutosha',
+      'Shughuli za mwili',
+      'Kudhibiti msongo wa mawazo',
+      'Usingizi bora',
+    ],
+    shareMessage: 'Mzunguko wa mpangilio au usio wa mpangilio: kuna tofauti gani? — AWA',
+  },
+  kk: {
+    badge: 'ЦИКЛ ЖӘНЕ ЕТЕККІР',
+    title: 'Тұрақты немесе тұрақсыз цикл:\nайырмашылығы неде?',
+    metaDuration: '5 мин оқу',
+    metaValidated: 'Тексерілген мазмұн',
+    intro:
+      'Әр етеккір циклі бірегей. Нені “қалыпты” деп санайтынын түсіну денсаулығыңызды жақынырақ бақылауға және ықтимал тепе-теңсіздіктерді байқауға көмектесе алады.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'Тұрақты етеккір циклі: ол не?',
+      'Тұрақсыз цикл: бұл нені білдіреді?',
+      'Тұрақсыз циклдің мүмкін себептері',
+      'Дәрігерге қашан бару керек?',
+      'Теңгерімдірек цикл үшін кеңестер',
+    ],
+    section1Body:
+      'Цикл ұзақтығы 21-ден 35 күнге дейін өзгерсе және бір циклден екіншісіне 7 күннен аз айырмашылық болса, тұрақты деп есептеледі.',
+    section1VisualTitle: 'Біршама тұрақты ырғақ',
+    section1VisualText:
+      'Ең бастысы — өз ырғағыңызды айлар бойы бақылау.',
+    tip1Title: 'Білуге тиісті',
+    tip1Text:
+      'Әр әйел әртүрлі. Маңыздысы — өз ырғағыңызды және оның қалыпты ауытқуларын білу.',
+    section2Body:
+      'Цикл ұзақтығы жиі немесе болжанбайтындай (7 күннен астам айырмашылық) өзгерсе, ол тұрақсыз деп есептеледі. Бұл өте қысқа циклдер, өте ұзақ циклдер немесе овуляцияның болмауы ретінде көрінуі мүмкін.',
+    section2VisualTitle: 'Айқынырақ ауытқулар',
+    section2VisualText:
+      'Бұл айырмашылықтар уақытша болуы немесе бірнеше циклде сақталуы мүмкін.',
+    alertTitle: 'Назар аударыңыз',
+    alertText:
+      'Уақытша тұрақсыздық қалыпты болуы мүмкін (күйзеліс, гормондық өзгерістер, шаршау…). Бірақ ол сақталса, себебін зерттеу маңызды.',
+    causes: [
+      'Күйзеліс және алаңдаушылық',
+      'Гормондық тепе-теңсіздіктер',
+      'Ұйқының жетіспеуі және шаршау',
+      'Тым төмен немесе тым жоғары салмақ',
+      'ПКЯС немесе басқа медициналық жағдайлар',
+    ],
+    checklist: [
+      '3 айдан астам етеккір болмауы (жүктілік/емізуден тыс)',
+      'Өте ұзақ циклдер (90 күннен астам) немесе өте қысқа циклдер (21 күннен аз)',
+      'Қалыпты өмір сүруге кедергі келтіретін қатты ауыру',
+      'Өте мол немесе тұрақсыз қан кету',
+      'Жүкті болуға тырысып жатсаңыз және овуляция жоқ сияқты көрінсе',
+    ],
+    advice: [
+      'Теңгерімді тамақтану',
+      'Жеткілікті су ішу',
+      'Дене белсенділігі',
+      'Күйзелісті басқару',
+      'Сапалы ұйқы',
+    ],
+    shareMessage: 'Тұрақты немесе тұрақсыз цикл: айырмашылығы неде? — AWA',
+  },
+  wo: {
+    badge: 'WËRSËG AK RÈGLE',
+    title: 'Wërsëg bu jub walla bu jubul:\nlan mooy wuute?',
+    metaDuration: '5 simili jàng',
+    metaValidated: 'Mbind bu ñu seetlu',
+    intro:
+      'Wërsëgu weer bu nekk am na ritmam. Xam li ñuy woowe “cosaan” mën na dimbli nga gën a topp sa wér te gis jubul yu mën a am.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Wërsëgu weer bu jub: lan mooy?',
+      'Wërsëg bu jubul: lan la tekki?',
+      'Sabab yu mën a am ci wërsëg bu jubul',
+      'Kañ ngay seet doktoor?',
+      'Ndigal ngir wërsëg bu gën a jubloo',
+    ],
+    section1Body:
+      'Wërsëg dañu koy jàppe ni bu jub bu diiram nekk diggante 21 ak 35 fan, ak wuute bu ndaw 7 fan ci wërsëg ak wërsëg.',
+    section1VisualTitle: 'Benn ritm bu sax',
+    section1VisualText:
+      'Li am solo mooy seetlu sa ritm bu sa bopp ci weer yi.',
+    tip1Title: 'Lu baax a xam',
+    tip1Text:
+      'Jigéen ju nekk wuute na. Li am solo mooy xam sa ritm ak soppi yi cosaan ci ngir yaw.',
+    section2Body:
+      'Wërsëg dañu koy jàppe ni bu jubul bu diiram di soppiku ci yoon walla ci anam bu xaarul (wuute bu ëpp 7 fan). Mën na feeñ ni wërsëg yu gàtt lool, yu gudd lool walla amul ovilasiyoŋ.',
+    section2VisualTitle: 'Soppi yu gëna gis',
+    section2VisualText:
+      'Wuute yii mën nañu nekk yu gàtt walla sax ci ay wërsëg.',
+    alertTitle: 'Teg',
+    alertText:
+      'Jubul bu gàtt mën na nekk lu cosaan (coono, soppi yu hormon, sonn…). Waaye bu mu sax, am solo na nga seet sabab bi.',
+    causes: [
+      'Coono ak tiitaange',
+      'Jubul yu hormon',
+      'Ñàkk nelaw ak sonn',
+      'Yenn bu ndaw lool walla bu kawe lool',
+      'PCOS walla yeneen feebar',
+    ],
+    checklist: [
+      'Amul règle ci kaw 3 weer (ci biti ëmb/nàmm)',
+      'Wërsëg yu gudd lool (ci kaw 90 fan) walla yu gàtt lool (ci suuf 21 fan)',
+      'Metit bu metti bu tee nga dund ni cosaan',
+      'Deret bu bari lool walla bu jubul',
+      'Bu nga di jéem a ëmb te ovilasiyoŋ mel ni amul',
+    ],
+    advice: [
+      'Lekk bu jubloo',
+      'Naan ndox bu doy',
+      'Jëfu yaram',
+      'Yor coono',
+      'Nelaw bu baax',
+    ],
+    shareMessage: 'Wërsëg bu jub walla bu jubul: lan mooy wuute? — AWA',
+  },
+  ha: {
+    badge: 'ZAGAYE & HAILA',
+    title: 'Zagaye mai tsari ko mara tsari:\nmenene bambancin?',
+    metaDuration: 'karatun minti 5',
+    metaValidated: 'Abun da aka duba',
+    intro:
+      'Kowane zagayen haila na musamman ne. Fahimtar abin da ake ɗauka “na al’ada” na iya taimaka miki ki bi lafiyarki sosai kuma ki gano yiwuwar rashin daidaito.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Zagayen haila mai tsari: menene shi?',
+      'Zagaye mara tsari: me yake nufi?',
+      'Yiwuwar dalilan zagaye mara tsari',
+      'Yaushe ya kamata ki ga likita?',
+      'Shawarwari don zagaye mafi daidaito',
+    ],
+    section1Body:
+      'Ana ɗaukar zagaye a matsayin mai tsari idan tsawonsa ya bambanta tsakanin kwana 21 zuwa 35, da bambanci na ƙasa da kwana 7 daga zagaye zuwa zagaye.',
+    section1VisualTitle: 'Tsari mai tsayayye',
+    section1VisualText:
+      'Abin da ya fi muhimmanci shi ne lura da tsarinki na kanki a cikin watanni.',
+    tip1Title: 'Abin da ya dace a sani',
+    tip1Text:
+      'Kowace mace daban ce. Abin da ya fi muhimmanci shi ne sanin tsarinki da bambance-bambancensa na al’ada.',
+    section2Body:
+      'Ana ɗaukar zagaye a matsayin mara tsari idan tsawonsa ya bambanta akai-akai ko ba tare da hasashe ba (bambanci fiye da kwana 7). Wannan na iya bayyana a matsayin zagaye gajeru sosai, dogaye sosai, ko rashin fitar ƙwai.',
+    section2VisualTitle: 'Bambance-bambance masu bayyana sosai',
+    section2VisualText:
+      'Waɗannan bambance-bambance na iya zama na ɗan lokaci ko su dawwama a zagaye da dama.',
+    alertTitle: 'Ki lura',
+    alertText:
+      'Rashin tsari na ɗan lokaci na iya zama na al’ada (damuwa, sauye-sauyen hormone, gajiya…). Amma idan ya dawwama, yana da muhimmanci a bincika dalilin.',
+    causes: [
+      'Damuwa & fargaba',
+      'Rashin daidaiton hormone',
+      'Rashin barci & gajiya',
+      'Nauyi ƙasa ko sama sosai',
+      'PCOS ko wasu yanayin lafiya',
+    ],
+    checklist: [
+      'Babu haila na fiye da watanni 3 (a wajen ciki/shayarwa)',
+      'Zagaye dogaye sosai (fiye da kwana 90) ko gajeru sosai (ƙasa da kwana 21)',
+      'Ciwo mai tsanani da ke hana ki rayuwa yadda ya kamata',
+      'Zubar jini mai yawa sosai ko mara tsari',
+      'Idan kina neman ciki kuma fitar ƙwai kamar ba ta faruwa',
+    ],
+    advice: [
+      'Daidaitaccen abinci',
+      'Isasshen shan ruwa',
+      'Motsa jiki',
+      'Sarrafa damuwa',
+      'Barci mai inganci',
+    ],
+    shareMessage: 'Zagaye mai tsari ko mara tsari: menene bambancin? — AWA',
+  },
+  am: {
+    badge: 'ዑደት እና የወር አበባ',
+    title: 'መደበኛ ወይም መደበኛ ያልሆነ ዑደት፦\nልዩነቱ ምንድን ነው?',
+    metaDuration: '5 ደቂቃ ንባብ',
+    metaValidated: 'የተገመገመ ይዘት',
+    intro:
+      'እያንዳንዱ የወር አበባ ዑደት ልዩ ነው። “መደበኛ” ተብሎ የሚቆጠረውን መረዳት ጤናሽን በቅርበት እንድትከታተዪ እና ሊኖሩ የሚችሉ አለመመጣጠኖችን እንድትለዪ ሊረዳሽ ይችላል።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'መደበኛ የወር አበባ ዑደት፦ ምንድን ነው?',
+      'መደበኛ ያልሆነ ዑደት፦ ምን ማለት ነው?',
+      'የመደበኛ አለመሆን ሊሆኑ የሚችሉ መንስኤዎች',
+      'ሐኪም መቼ ማየት አለብሽ?',
+      'የበለጠ ሚዛናዊ ዑደት ምክሮች',
+    ],
+    section1Body:
+      'ዑደት ርዝመቱ በ21 እና 35 ቀናት መካከል ሲለያይ እና ከአንዱ ዑደት ወደ ሌላው ከ7 ቀናት ያነሰ ልዩነት ሲኖር መደበኛ ተብሎ ይቆጠራል።',
+    section1VisualTitle: 'በአንጻራዊ ሁኔታ የተረጋጋ ሪትም',
+    section1VisualText:
+      'ከሁሉም በላይ አስፈላጊው በወራት ውስጥ የራስሽን ሪትም መታዘብ ነው።',
+    tip1Title: 'ማወቅ ጠቃሚ ነው',
+    tip1Text:
+      'እያንዳንዷ ሴት የተለየች ናት። አስፈላጊው የራስሽን ሪትም እና መደበኛ ልዩነቶቹን ማወቅ ነው።',
+    section2Body:
+      'ዑደት ርዝመቱ ብዙ ጊዜ ወይም ባልተጠበቀ መንገድ ሲለያይ (ከ7 ቀናት በላይ ልዩነት) መደበኛ ያልሆነ ተብሎ ይቆጠራል። ይህ በጣም አጭር ዑደቶች፣ በጣም ረዥም ዑደቶች ወይም የእንቁላል መልቀቅ አለመኖር ሊሆን ይችላል።',
+    section2VisualTitle: 'ይበልጥ የሚታዩ ልዩነቶች',
+    section2VisualText:
+      'እነዚህ ልዩነቶች ጊዜያዊ ሊሆኑ ወይም በበርካታ ዑደቶች ሊቀጥሉ ይችላሉ።',
+    alertTitle: 'ልብ በይ',
+    alertText:
+      'ጊዜያዊ መደበኛ አለመሆን የተለመደ ሊሆን ይችላል (ጭንቀት፣ የሆርሞን ለውጦች፣ ድካም…)። ነገር ግን ከቀጠለ መንስኤውን መመርመር አስፈላጊ ነው።',
+    causes: [
+      'ጭንቀትና ሥጋት',
+      'የሆርሞን አለመመጣጠኖች',
+      'የእንቅልፍ እጦትና ድካም',
+      'በጣም ዝቅተኛ ወይም ከፍተኛ ክብደት',
+      'ፒሲኦኤስ ወይም ሌሎች የሕክምና ሁኔታዎች',
+    ],
+    checklist: [
+      'ከ3 ወራት በላይ የወር አበባ አለመኖር (ከእርግዝና/ጡት ማጥባት ውጭ)',
+      'በጣም ረዥም ዑደቶች (ከ90 ቀናት በላይ) ወይም በጣም አጭር ዑደቶች (ከ21 ቀናት በታች)',
+      'በመደበኛነት እንዳትኖሪ የሚያደርግ ከባድ ህመም',
+      'በጣም ብዙ ወይም መደበኛ ያልሆነ ደም መፍሰስ',
+      'ለመፀነስ እየሞከርሽ ከሆነና እንቁላል መልቀቅ የሌለ ከመሰለ',
+    ],
+    advice: [
+      'ሚዛናዊ አመጋገብ',
+      'በቂ ውሃ መጠጣት',
+      'የአካል እንቅስቃሴ',
+      'የጭንቀት አስተዳደር',
+      'ጥራት ያለው እንቅልፍ',
+    ],
+    shareMessage: 'መደበኛ ወይም መደበኛ ያልሆነ ዑደት፦ ልዩነቱ ምንድን ነው? — AWA',
+  },
+  nl: {
+    badge: 'CYCLUS & MENSTRUATIE',
+    title: 'Regelmatige of onregelmatige cyclus:\nwat is het verschil?',
+    metaDuration: '5 min lezen',
+    metaValidated: 'Gecontroleerde inhoud',
+    intro:
+      'Elke menstruatiecyclus is uniek. Begrijpen wat als “normaal” wordt beschouwd kan je helpen je gezondheid beter op te volgen en mogelijke onevenwichtigheden op te merken.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'Regelmatige menstruatiecyclus: wat is dat?',
+      'Onregelmatige cyclus: wat betekent dat?',
+      'Mogelijke oorzaken van een onregelmatige cyclus',
+      'Wanneer moet je een arts raadplegen?',
+      'Tips voor een evenwichtigere cyclus',
+    ],
+    section1Body:
+      'Een cyclus wordt als regelmatig beschouwd wanneer de lengte tussen 21 en 35 dagen ligt, met minder dan 7 dagen verschil van de ene cyclus tot de volgende.',
+    section1VisualTitle: 'Een tamelijk stabiel ritme',
+    section1VisualText:
+      'Het belangrijkste is je eigen ritme over de maanden heen te observeren.',
+    tip1Title: 'Goed om te weten',
+    tip1Text:
+      'Elke vrouw is anders. Het belangrijkste is je eigen ritme en de normale variaties ervan te kennen.',
+    section2Body:
+      'Een cyclus wordt als onregelmatig beschouwd wanneer de lengte vaak of onvoorspelbaar varieert (een verschil van meer dan 7 dagen). Dat kan zich uiten in zeer korte cycli, zeer lange cycli of het uitblijven van de eisprong.',
+    section2VisualTitle: 'Meer merkbare variaties',
+    section2VisualText:
+      'Deze verschillen kunnen tijdelijk zijn of over meerdere cycli aanhouden.',
+    alertTitle: 'Let op',
+    alertText:
+      'Tijdelijke onregelmatigheid kan normaal zijn (stress, hormonale veranderingen, vermoeidheid…). Maar als ze aanhoudt, is het belangrijk de oorzaak te onderzoeken.',
+    causes: [
+      'Stress & angst',
+      'Hormonale onevenwichtigheden',
+      'Slaaptekort & vermoeidheid',
+      'Te laag of te hoog gewicht',
+      'PCOS of andere medische aandoeningen',
+    ],
+    checklist: [
+      'Langer dan 3 maanden geen menstruatie (buiten zwangerschap/borstvoeding)',
+      'Zeer lange cycli (meer dan 90 dagen) of zeer korte cycli (minder dan 21 dagen)',
+      'Hevige pijn die je belet normaal te leven',
+      'Zeer hevig of onregelmatig bloedverlies',
+      'Als je zwanger probeert te worden en de eisprong lijkt uit te blijven',
+    ],
+    advice: [
+      'Evenwichtige voeding',
+      'Voldoende hydratatie',
+      'Lichaamsbeweging',
+      'Stressbeheersing',
+      'Kwaliteitsslaap',
+    ],
+    shareMessage: 'Regelmatige of onregelmatige cyclus: wat is het verschil? — AWA',
+  },
+  fi: {
+    badge: 'KIERTO JA KUUKAUTISET',
+    title: 'Säännöllinen vai epäsäännöllinen kierto:\nmikä ero?',
+    metaDuration: '5 min lukuaika',
+    metaValidated: 'Tarkistettu sisältö',
+    intro:
+      'Jokainen kuukautiskierto on ainutlaatuinen. Sen ymmärtäminen, mitä pidetään “normaalina”, voi auttaa seuraamaan terveyttäsi tarkemmin ja huomaamaan mahdolliset epätasapainot.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Säännöllinen kuukautiskierto: mitä se on?',
+      'Epäsäännöllinen kierto: mitä se tarkoittaa?',
+      'Epäsäännöllisen kierron mahdolliset syyt',
+      'Milloin pitäisi mennä lääkäriin?',
+      'Vinkkejä tasapainoisempaan kiertoon',
+    ],
+    section1Body:
+      'Kiertoa pidetään säännöllisenä, kun sen pituus vaihtelee 21 ja 35 päivän välillä ja ero kierrosta toiseen on alle 7 päivää.',
+    section1VisualTitle: 'Melko vakaa rytmi',
+    section1VisualText:
+      'Tärkeintä on havainnoida omaa rytmiäsi kuukausien kuluessa.',
+    tip1Title: 'Hyvä tietää',
+    tip1Text:
+      'Jokainen nainen on erilainen. Tärkeintä on tuntea oma rytmisi ja sen normaalit vaihtelut.',
+    section2Body:
+      'Kiertoa pidetään epäsäännöllisenä, kun sen pituus vaihtelee usein tai ennalta arvaamattomasti (yli 7 päivän ero). Se voi ilmetä hyvin lyhyinä kiertoina, hyvin pitkinä kiertoina tai ovulaation puuttumisena.',
+    section2VisualTitle: 'Selvemmät vaihtelut',
+    section2VisualText:
+      'Nämä erot voivat olla tilapäisiä tai jatkua usean kierron ajan.',
+    alertTitle: 'Huomaa',
+    alertText:
+      'Tilapäinen epäsäännöllisyys voi olla normaalia (stressi, hormonaaliset muutokset, väsymys…). Mutta jos se jatkuu, on tärkeää tutkia syy.',
+    causes: [
+      'Stressi ja ahdistus',
+      'Hormonaaliset epätasapainot',
+      'Unen puute ja väsymys',
+      'Liian matala tai korkea paino',
+      'PCOS tai muut sairaudet',
+    ],
+    checklist: [
+      'Ei kuukautisia yli 3 kuukauteen (raskauden/imetyksen ulkopuolella)',
+      'Hyvin pitkät kierrot (yli 90 päivää) tai hyvin lyhyet kierrot (alle 21 päivää)',
+      'Voimakas kipu, joka estää sinua elämästä normaalisti',
+      'Hyvin runsas tai epäsäännöllinen vuoto',
+      'Jos yrität tulla raskaaksi ja ovulaatio näyttää puuttuvan',
+    ],
+    advice: [
+      'Tasapainoinen ruokavalio',
+      'Riittävä nesteytys',
+      'Liikunta',
+      'Stressinhallinta',
+      'Laadukas uni',
+    ],
+    shareMessage: 'Säännöllinen vai epäsäännöllinen kierto: mikä ero? — AWA',
+  },
+  el: {
+    badge: 'ΚΥΚΛΟΣ ΚΑΙ ΠΕΡΙΟΔΟΙ',
+    title: 'Κανονικός ή ακανόνιστος κύκλος:\nποια η διαφορά;',
+    metaDuration: '5 λεπτά ανάγνωσης',
+    metaValidated: 'Ελεγμένο περιεχόμενο',
+    intro:
+      'Κάθε έμμηνος κύκλος είναι μοναδικός. Η κατανόηση του τι θεωρείται «φυσιολογικό» μπορεί να σε βοηθήσει να παρακολουθείς πιο προσεκτικά την υγεία σου και να εντοπίζεις πιθανές ανισορροπίες.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Κανονικός έμμηνος κύκλος: τι είναι;',
+      'Ακανόνιστος κύκλος: τι σημαίνει;',
+      'Πιθανές αιτίες ενός ακανόνιστου κύκλου',
+      'Πότε πρέπει να επισκεφθείς γιατρό;',
+      'Συμβουλές για πιο ισορροπημένο κύκλο',
+    ],
+    section1Body:
+      'Ένας κύκλος θεωρείται κανονικός όταν η διάρκειά του κυμαίνεται ανάμεσα σε 21 και 35 ημέρες, με διαφορά μικρότερη από 7 ημέρες από τον έναν κύκλο στον επόμενο.',
+    section1VisualTitle: 'Ένας αρκετά σταθερός ρυθμός',
+    section1VisualText:
+      'Αυτό που μετράει περισσότερο είναι να παρατηρείς τον δικό σου ρυθμό με την πάροδο των μηνών.',
+    tip1Title: 'Καλό είναι να γνωρίζεις',
+    tip1Text:
+      'Κάθε γυναίκα είναι διαφορετική. Αυτό που μετράει είναι να γνωρίζεις τον δικό σου ρυθμό και τις φυσιολογικές διακυμάνσεις του.',
+    section2Body:
+      'Ένας κύκλος θεωρείται ακανόνιστος όταν η διάρκειά του μεταβάλλεται συχνά ή απρόβλεπτα (διαφορά μεγαλύτερη από 7 ημέρες). Αυτό μπορεί να εκδηλωθεί ως πολύ σύντομοι κύκλοι, πολύ μεγάλοι κύκλοι ή απουσία ωορρηξίας.',
+    section2VisualTitle: 'Πιο αισθητές διακυμάνσεις',
+    section2VisualText:
+      'Αυτές οι διαφορές μπορεί να είναι προσωρινές ή να επιμένουν σε αρκετούς κύκλους.',
+    alertTitle: 'Σημείωση',
+    alertText:
+      'Η προσωρινή ακανονιστία μπορεί να είναι φυσιολογική (άγχος, ορμονικές αλλαγές, κόπωση…). Αλλά αν επιμένει, είναι σημαντικό να διερευνηθεί η αιτία.',
+    causes: [
+      'Άγχος και ανησυχία',
+      'Ορμονικές ανισορροπίες',
+      'Έλλειψη ύπνου και κόπωση',
+      'Πολύ χαμηλό ή πολύ υψηλό βάρος',
+      'PCOS ή άλλες ιατρικές παθήσεις',
+    ],
+    checklist: [
+      'Καμία περίοδος για περισσότερους από 3 μήνες (εκτός εγκυμοσύνης/θηλασμού)',
+      'Πολύ μεγάλοι κύκλοι (πάνω από 90 ημέρες) ή πολύ σύντομοι κύκλοι (κάτω από 21 ημέρες)',
+      'Έντονος πόνος που σε εμποδίζει να ζεις κανονικά',
+      'Πολύ έντονη ή ακανόνιστη αιμορραγία',
+      'Αν προσπαθείς να συλλάβεις και η ωορρηξία φαίνεται να απουσιάζει',
+    ],
+    advice: [
+      'Ισορροπημένη διατροφή',
+      'Επαρκής ενυδάτωση',
+      'Σωματική δραστηριότητα',
+      'Διαχείριση του άγχους',
+      'Ποιοτικός ύπνος',
+    ],
+    shareMessage: 'Κανονικός ή ακανόνιστος κύκλος: ποια η διαφορά; — AWA',
+  },
+  fil: {
+    badge: 'SIKLO AT REGLA',
+    title: 'Regular o hindi regular na siklo:\nano ang pagkakaiba?',
+    metaDuration: '5 min na babasahin',
+    metaValidated: 'Sinuring nilalaman',
+    intro:
+      'Natatangi ang bawat siklo ng regla. Ang pag-unawa sa itinuturing na “normal” ay makakatulong na mas masubaybayan ang iyong kalusugan at mapansin ang posibleng hindi balanse.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Regular na siklo ng regla: ano ito?',
+      'Hindi regular na siklo: ano ang ibig sabihin?',
+      'Mga posibleng sanhi ng hindi regular na siklo',
+      'Kailan dapat magpatingin sa doktor?',
+      'Payo para sa mas balanseng siklo',
+    ],
+    section1Body:
+      'Itinuturing na regular ang siklo kapag nag-iiba ang haba nito sa pagitan ng 21 at 35 araw, na may mas mababa sa 7 araw na pagkakaiba mula sa isang siklo hanggang sa susunod.',
+    section1VisualTitle: 'Isang medyo matatag na ritmo',
+    section1VisualText:
+      'Ang pinakamahalaga ay obserbahan ang sarili mong ritmo sa paglipas ng mga buwan.',
+    tip1Title: 'Mabuting malaman',
+    tip1Text:
+      'Iba-iba ang bawat babae. Ang mahalaga ay malaman ang sarili mong ritmo at ang mga normal na pagbabago nito.',
+    section2Body:
+      'Itinuturing na hindi regular ang siklo kapag madalas o hindi mahulaan ang pagbabago ng haba nito (pagkakaibang higit sa 7 araw). Maaari itong lumitaw bilang napakaikling mga siklo, napakahabang mga siklo, o kawalan ng obulasyon.',
+    section2VisualTitle: 'Mas kapansin-pansing mga pagbabago',
+    section2VisualText:
+      'Ang mga pagkakaibang ito ay maaaring pansamantala o magpatuloy sa ilang siklo.',
+    alertTitle: 'Pakitandaan',
+    alertText:
+      'Maaaring normal ang pansamantalang iregularidad (stress, hormonal na pagbabago, pagod…). Ngunit kung nagpapatuloy ito, mahalagang siyasatin ang sanhi.',
+    causes: [
+      'Stress at pagkabalisa',
+      'Hormonal na hindi balanse',
+      'Kakulangan sa tulog at pagod',
+      'Timbang na masyadong mababa o masyadong mataas',
+      'PCOS o iba pang kondisyong medikal',
+    ],
+    checklist: [
+      'Walang regla nang higit sa 3 buwan (maliban sa pagbubuntis/pagpapasuso)',
+      'Napakahabang mga siklo (higit sa 90 araw) o napakaikling mga siklo (wala pang 21 araw)',
+      'Matinding sakit na pumipigil sa iyong mamuhay nang normal',
+      'Napakalakas o hindi regular na pagdurugo',
+      'Kung sinusubukan mong magbuntis at tila walang obulasyon',
+    ],
+    advice: [
+      'Balanseng pagkain',
+      'Sapat na hydration',
+      'Pisikal na aktibidad',
+      'Pangangasiwa ng stress',
+      'De-kalidad na tulog',
+    ],
+    shareMessage: 'Regular o hindi regular na siklo: ano ang pagkakaiba? — AWA',
+  },
+  ta: {
+    badge: 'சுழற்சியும் மாதவிடாயும்',
+    title: 'ஒழுங்கான அல்லது ஒழுங்கற்ற சுழற்சி:\nவேறுபாடு என்ன?',
+    metaDuration: '5 நிமிடம் படிக்க',
+    metaValidated: 'மதிப்பாய்வு செய்யப்பட்ட உள்ளடக்கம்',
+    intro:
+      'ஒவ்வொரு மாதவிடாய்ச் சுழற்சியும் தனித்துவமானது. “இயல்பானது” எனக் கருதப்படுவதைப் புரிந்துகொள்வது உங்கள் ஆரோக்கியத்தை நெருக்கமாகக் கண்காணிக்கவும் சாத்தியமான சமநிலையின்மைகளைக் கண்டறியவும் உதவலாம்.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'ஒழுங்கான மாதவிடாய்ச் சுழற்சி: அது என்ன?',
+      'ஒழுங்கற்ற சுழற்சி: இதன் பொருள் என்ன?',
+      'ஒழுங்கற்ற சுழற்சியின் சாத்தியமான காரணங்கள்',
+      'மருத்துவரை எப்போது பார்க்க வேண்டும்?',
+      'மேலும் சமநிலையான சுழற்சிக்கான குறிப்புகள்',
+    ],
+    section1Body:
+      'ஒரு சுழற்சியின் நீளம் 21 முதல் 35 நாட்களுக்கு இடையே இருந்து, ஒரு சுழற்சிக்கும் அடுத்ததற்கும் 7 நாட்களுக்குக் குறைவான வேறுபாடு இருந்தால் அது ஒழுங்கானதாகக் கருதப்படுகிறது.',
+    section1VisualTitle: 'ஓரளவு நிலையான தாளம்',
+    section1VisualText:
+      'மாதங்களில் உங்கள் சொந்தத் தாளத்தைக் கவனிப்பதே மிக முக்கியம்.',
+    tip1Title: 'தெரிந்துகொள்ளுங்கள்',
+    tip1Text:
+      'ஒவ்வொரு பெண்ணும் வேறுபட்டவர். உங்கள் சொந்தத் தாளத்தையும் அதன் இயல்பான மாறுபாடுகளையும் அறிவதே முக்கியம்.',
+    section2Body:
+      'ஒரு சுழற்சியின் நீளம் அடிக்கடி அல்லது கணிக்க முடியாத விதத்தில் மாறினால் (7 நாட்களுக்கு மேல் வேறுபாடு) அது ஒழுங்கற்றதாகக் கருதப்படுகிறது. இது மிகக் குறுகிய சுழற்சிகள், மிக நீண்ட சுழற்சிகள் அல்லது அண்டவிடுப்பு இல்லாததாக வெளிப்படலாம்.',
+    section2VisualTitle: 'அதிகக் கவனிக்கத்தக்க மாறுபாடுகள்',
+    section2VisualText:
+      'இந்த வேறுபாடுகள் தற்காலிகமாக இருக்கலாம் அல்லது பல சுழற்சிகளில் நீடிக்கலாம்.',
+    alertTitle: 'கவனத்தில் கொள்ளவும்',
+    alertText:
+      'தற்காலிக ஒழுங்கின்மை இயல்பாக இருக்கலாம் (மன அழுத்தம், ஹார்மோன் மாற்றங்கள், சோர்வு…). ஆனால் அது நீடித்தால், காரணத்தை ஆராய்வது முக்கியம்.',
+    causes: [
+      'மன அழுத்தமும் பதற்றமும்',
+      'ஹார்மோன் சமநிலையின்மைகள்',
+      'உறக்கக் குறைவும் சோர்வும்',
+      'மிகக் குறைவான அல்லது மிக அதிகமான எடை',
+      'PCOS அல்லது பிற மருத்துவ நிலைகள்',
+    ],
+    checklist: [
+      '3 மாதங்களுக்கு மேல் மாதவிடாய் இல்லை (கர்ப்பம்/தாய்ப்பாலூட்டுதல் தவிர)',
+      'மிக நீண்ட சுழற்சிகள் (90 நாட்களுக்கு மேல்) அல்லது மிகக் குறுகிய சுழற்சிகள் (21 நாட்களுக்குக் குறைவு)',
+      'நீங்கள் இயல்பாக வாழ்வதைத் தடுக்கும் தீவிர வலி',
+      'மிகக் கடுமையான அல்லது ஒழுங்கற்ற இரத்தப்போக்கு',
+      'நீங்கள் கருத்தரிக்க முயன்று, அண்டவிடுப்பு இல்லாதது போல் தோன்றினால்',
+    ],
+    advice: [
+      'சமச்சீர் உணவு',
+      'போதுமான நீர்ச்சத்து',
+      'உடல் செயல்பாடு',
+      'மன அழுத்த மேலாண்மை',
+      'தரமான உறக்கம்',
+    ],
+    shareMessage: 'ஒழுங்கான அல்லது ஒழுங்கற்ற சுழற்சி: வேறுபாடு என்ன? — AWA',
+  },
+  te: {
+    badge: 'చక్రం & నెలసరి',
+    title: 'క్రమబద్ధ లేదా అస్తవ్యస్త చక్రం:\nతేడా ఏమిటి?',
+    metaDuration: '5 నిమిషాల పఠనం',
+    metaValidated: 'మదింపు చేసిన కంటెంట్',
+    intro:
+      'ప్రతి నెలసరి చక్రం ప్రత్యేకమైనది. “సాధారణం” అని పరిగణించబడేదాన్ని అర్థం చేసుకోవడం మీ ఆరోగ్యాన్ని మరింత దగ్గరగా ట్రాక్ చేయడానికి, సాధ్యమైన అసమతుల్యతలను గుర్తించడానికి సహాయపడగలదు.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'క్రమబద్ధ నెలసరి చక్రం: అది ఏమిటి?',
+      'అస్తవ్యస్త చక్రం: దాని అర్థం ఏమిటి?',
+      'అస్తవ్యస్త చక్రం యొక్క సాధ్యమైన కారణాలు',
+      'వైద్యుడిని ఎప్పుడు కలవాలి?',
+      'మరింత సమతుల్య చక్రం కోసం చిట్కాలు',
+    ],
+    section1Body:
+      'ఒక చక్రం నిడివి 21 నుండి 35 రోజుల మధ్య మారుతూ, ఒక చక్రానికి, తర్వాతి చక్రానికి మధ్య 7 రోజుల కంటే తక్కువ తేడా ఉన్నప్పుడు అది క్రమబద్ధంగా పరిగణించబడుతుంది.',
+    section1VisualTitle: 'ఓ మోస్తరు స్థిరమైన లయ',
+    section1VisualText:
+      'నెలల్లో మీ సొంత లయను గమనించడమే అత్యంత ముఖ్యం.',
+    tip1Title: 'తెలుసుకోవాల్సినవి',
+    tip1Text:
+      'ప్రతి మహిళ భిన్నమైనది. మీ సొంత లయను, దాని సాధారణ మార్పులను తెలుసుకోవడమే ముఖ్యం.',
+    section2Body:
+      'ఒక చక్రం నిడివి తరచుగా లేదా ఊహించలేని రీతిలో మారితే (7 రోజుల కంటే ఎక్కువ తేడా) అది అస్తవ్యస్తంగా పరిగణించబడుతుంది. ఇది చాలా చిన్న చక్రాలు, చాలా పొడవైన చక్రాలు లేదా అండోత్సర్గం లేకపోవడంగా వ్యక్తమవవచ్చు.',
+    section2VisualTitle: 'మరింత గమనించదగిన మార్పులు',
+    section2VisualText:
+      'ఈ తేడాలు తాత్కాలికంగా ఉండవచ్చు లేదా అనేక చక్రాల్లో కొనసాగవచ్చు.',
+    alertTitle: 'గమనించండి',
+    alertText:
+      'తాత్కాలిక అస్తవ్యస్తత సహజంగా ఉండవచ్చు (ఒత్తిడి, హార్మోన్ మార్పులు, అలసట…). కానీ అది కొనసాగితే, కారణాన్ని ఆరా తీయడం ముఖ్యం.',
+    causes: [
+      'ఒత్తిడి & ఆందోళన',
+      'హార్మోన్ అసమతుల్యతలు',
+      'నిద్ర లేమి & అలసట',
+      'మరీ తక్కువ లేదా మరీ ఎక్కువ బరువు',
+      'PCOS లేదా ఇతర వైద్య పరిస్థితులు',
+    ],
+    checklist: [
+      '3 నెలల కంటే ఎక్కువ నెలసరి లేదు (గర్భం/తల్లిపాలు ఇవ్వడం తప్ప)',
+      'చాలా పొడవైన చక్రాలు (90 రోజుల కంటే ఎక్కువ) లేదా చాలా చిన్న చక్రాలు (21 రోజుల కంటే తక్కువ)',
+      'మీరు సాధారణంగా జీవించడాన్ని అడ్డుకునే తీవ్రమైన నొప్పి',
+      'చాలా ఎక్కువ లేదా అస్తవ్యస్త రక్తస్రావం',
+      'మీరు గర్భం కోసం ప్రయత్నిస్తూ, అండోత్సర్గం లేనట్లు కనిపిస్తే',
+    ],
+    advice: [
+      'సమతుల్య ఆహారం',
+      'తగినంత నీటి శాతం',
+      'శారీరక కార్యకలాపం',
+      'ఒత్తిడి నిర్వహణ',
+      'నాణ్యమైన నిద్ర',
+    ],
+    shareMessage: 'క్రమబద్ధ లేదా అస్తవ్యస్త చక్రం: తేడా ఏమిటి? — AWA',
+  },
+  mr: {
+    badge: 'पाळी आणि मासिक पाळी',
+    title: 'नियमित की अनियमित पाळी:\nफरक काय?',
+    metaDuration: '5 मिनिटे वाचन',
+    metaValidated: 'पुनरावलोकन केलेला मजकूर',
+    intro:
+      'प्रत्येक मासिक पाळी अद्वितीय असते. “सामान्य” काय मानले जाते हे समजून घेतल्याने तुम्हाला तुमच्या आरोग्याचा अधिक जवळून मागोवा घेण्यास आणि संभाव्य असंतुलन ओळखण्यास मदत होऊ शकते.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'नियमित मासिक पाळी: ती काय आहे?',
+      'अनियमित पाळी: याचा अर्थ काय?',
+      'अनियमित पाळीची संभाव्य कारणे',
+      'डॉक्टरांना केव्हा भेटावे?',
+      'अधिक संतुलित पाळीसाठी टिपा',
+    ],
+    section1Body:
+      'पाळीचा कालावधी 21 ते 35 दिवसांदरम्यान बदलत असेल, आणि एका पाळीपासून दुसऱ्या पाळीपर्यंत 7 दिवसांपेक्षा कमी फरक असेल, तर ती नियमित मानली जाते.',
+    section1VisualTitle: 'बऱ्यापैकी स्थिर लय',
+    section1VisualText:
+      'महिन्यांमध्ये तुमची स्वतःची लय पाहणे हेच सर्वात महत्त्वाचे आहे.',
+    tip1Title: 'हे जाणून घ्या',
+    tip1Text:
+      'प्रत्येक स्त्री वेगळी असते. तुमची स्वतःची लय आणि तिचे सामान्य बदल जाणून घेणे महत्त्वाचे आहे.',
+    section2Body:
+      'पाळीचा कालावधी वारंवार किंवा अप्रत्याशितपणे बदलत असेल (7 दिवसांपेक्षा जास्त फरक), तर ती अनियमित मानली जाते. हे खूप लहान पाळीचक्रे, खूप मोठी पाळीचक्रे किंवा बीजोत्सर्जन नसणे अशा स्वरूपात दिसू शकते.',
+    section2VisualTitle: 'अधिक ठळक बदल',
+    section2VisualText:
+      'हे फरक तात्पुरते असू शकतात किंवा अनेक पाळीचक्रांत कायम राहू शकतात.',
+    alertTitle: 'कृपया लक्षात घ्या',
+    alertText:
+      'तात्पुरती अनियमितता सामान्य असू शकते (ताण, हार्मोनल बदल, थकवा…). पण ती कायम राहिल्यास, कारण शोधणे महत्त्वाचे आहे.',
+    causes: [
+      'ताण आणि चिंता',
+      'हार्मोनल असंतुलन',
+      'झोपेची कमतरता आणि थकवा',
+      'खूप कमी किंवा खूप जास्त वजन',
+      'PCOS किंवा इतर वैद्यकीय स्थिती',
+    ],
+    checklist: [
+      '3 महिन्यांपेक्षा जास्त काळ पाळी नाही (गर्भारपण/स्तनपान वगळता)',
+      'खूप मोठी पाळीचक्रे (90 दिवसांपेक्षा जास्त) किंवा खूप लहान पाळीचक्रे (21 दिवसांपेक्षा कमी)',
+      'तुम्हाला सामान्यपणे जगू न देणारी तीव्र वेदना',
+      'खूप जास्त किंवा अनियमित रक्तस्राव',
+      'तुम्ही गर्भधारणेचा प्रयत्न करत असाल आणि बीजोत्सर्जन होत नसल्यासारखे वाटत असेल तर',
+    ],
+    advice: [
+      'संतुलित आहार',
+      'पुरेसे पाण्याचे सेवन',
+      'शारीरिक हालचाल',
+      'ताणाचे व्यवस्थापन',
+      'दर्जेदार झोप',
+    ],
+    shareMessage: 'नियमित की अनियमित पाळी: फरक काय? — AWA',
+  },
+  gu: {
+    badge: 'ચક્ર અને માસિક',
+    title: 'નિયમિત કે અનિયમિત ચક્ર:\nતફાવત શું છે?',
+    metaDuration: '5 મિનિટ વાંચન',
+    metaValidated: 'પુનરાવલોકન કરેલી સામગ્રી',
+    intro:
+      'દરેક માસિક ચક્ર અનોખું હોય છે. “સામાન્ય” ગણાતું શું છે તે સમજવાથી તમે તમારા આરોગ્ય પર વધુ નજીકથી ધ્યાન રાખી શકો અને સંભવિત અસંતુલન ઓળખી શકો.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'નિયમિત માસિક ચક્ર: તે શું છે?',
+      'અનિયમિત ચક્ર: તેનો અર્થ શું છે?',
+      'અનિયમિત ચક્રનાં સંભવિત કારણો',
+      'ડૉક્ટરને ક્યારે મળવું જોઈએ?',
+      'વધુ સંતુલિત ચક્ર માટેની સલાહ',
+    ],
+    section1Body:
+      'ચક્ર ત્યારે નિયમિત ગણાય છે જ્યારે તેની લંબાઈ 21 થી 35 દિવસ વચ્ચે રહે, અને એક ચક્રથી બીજા ચક્રમાં 7 દિવસથી ઓછો તફાવત હોય.',
+    section1VisualTitle: 'એકદમ સ્થિર લય',
+    section1VisualText:
+      'સૌથી મહત્ત્વનું એ છે કે મહિનાઓ સુધી તમારી પોતાની લય પર ધ્યાન રાખવું.',
+    tip1Title: 'જાણવા જેવું',
+    tip1Text:
+      'દરેક સ્ત્રી અલગ હોય છે. મહત્ત્વનું એ છે કે તમારી પોતાની લય અને તેના સામાન્ય ફેરફારો જાણવા.',
+    section2Body:
+      'ચક્ર ત્યારે અનિયમિત ગણાય છે જ્યારે તેની લંબાઈ વારંવાર કે અણધારી રીતે બદલાય (7 દિવસથી વધુનો તફાવત). તે ખૂબ ટૂંકાં ચક્રો, ખૂબ લાંબાં ચક્રો કે અંડોત્સર્જનની ગેરહાજરી તરીકે દેખાઈ શકે.',
+    section2VisualTitle: 'વધુ નોંધપાત્ર ફેરફારો',
+    section2VisualText:
+      'આ તફાવતો અસ્થાયી હોઈ શકે અથવા ઘણાં ચક્રો સુધી ચાલુ રહી શકે.',
+    alertTitle: 'કૃપા કરીને નોંધો',
+    alertText:
+      'અસ્થાયી અનિયમિતતા સામાન્ય હોઈ શકે (તણાવ, હોર્મોનમાં ફેરફાર, થાક…). પરંતુ જો તે ચાલુ રહે, તો તેનું કારણ તપાસવું મહત્ત્વનું છે.',
+    causes: [
+      'તણાવ અને ચિંતા',
+      'હોર્મોનનું અસંતુલન',
+      'ઊંઘની ઓછપ અને થાક',
+      'ખૂબ ઓછું કે ખૂબ વધુ વજન',
+      'PCOS કે અન્ય તબીબી સ્થિતિઓ',
+    ],
+    checklist: [
+      '3 મહિનાથી વધુ સમય માસિક ન આવવું (ગર્ભાવસ્થા/સ્તનપાન સિવાય)',
+      'ખૂબ લાંબાં ચક્રો (90 દિવસથી વધુ) કે ખૂબ ટૂંકાં ચક્રો (21 દિવસથી ઓછાં)',
+      'તીવ્ર દુખાવો જે તમને સામાન્ય રીતે જીવવા ન દે',
+      'ખૂબ વધુ કે અનિયમિત રક્તસ્રાવ',
+      'જો તમે ગર્ભધારણનો પ્રયાસ કરતા હો અને અંડોત્સર્જન ન થતું હોય તેવું લાગે',
+    ],
+    advice: [
+      'સંતુલિત આહાર',
+      'પૂરતું પાણી પીવું',
+      'શારીરિક પ્રવૃત્તિ',
+      'તણાવનું વ્યવસ્થાપન',
+      'સારી ઊંઘ',
+    ],
+    shareMessage: 'નિયમિત કે અનિયમિત ચક્ર: તફાવત શું છે? — AWA',
+  },
+  pa: {
+    badge: 'ਚੱਕਰ ਅਤੇ ਮਾਹਵਾਰੀ',
+    title: 'ਨਿਯਮਿਤ ਜਾਂ ਬੇਨਿਯਮਾ ਚੱਕਰ:\nਕੀ ਫ਼ਰਕ ਹੈ?',
+    metaDuration: '5 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaValidated: 'ਸਮੀਖਿਆ ਕੀਤੀ ਸਮੱਗਰੀ',
+    intro:
+      'ਹਰ ਮਾਹਵਾਰੀ ਚੱਕਰ ਵਿਲੱਖਣ ਹੁੰਦਾ ਹੈ। ਇਹ ਸਮਝਣਾ ਕਿ “ਆਮ” ਕੀ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ, ਤੁਹਾਨੂੰ ਆਪਣੀ ਸਿਹਤ ਦਾ ਹੋਰ ਧਿਆਨ ਨਾਲ ਰਿਕਾਰਡ ਰੱਖਣ ਅਤੇ ਸੰਭਵ ਅਸੰਤੁਲਨ ਪਛਾਣਨ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'ਨਿਯਮਿਤ ਮਾਹਵਾਰੀ ਚੱਕਰ: ਇਹ ਕੀ ਹੈ?',
+      'ਬੇਨਿਯਮਾ ਚੱਕਰ: ਇਸ ਦਾ ਕੀ ਮਤਲਬ ਹੈ?',
+      'ਬੇਨਿਯਮੇ ਚੱਕਰ ਦੇ ਸੰਭਵ ਕਾਰਨ',
+      'ਡਾਕਟਰ ਨੂੰ ਕਦੋਂ ਮਿਲਣਾ ਚਾਹੀਦਾ ਹੈ?',
+      'ਵਧੇਰੇ ਸੰਤੁਲਿਤ ਚੱਕਰ ਲਈ ਸੁਝਾਅ',
+    ],
+    section1Body:
+      'ਚੱਕਰ ਨੂੰ ਨਿਯਮਿਤ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ ਜਦੋਂ ਉਸ ਦੀ ਲੰਬਾਈ 21 ਅਤੇ 35 ਦਿਨਾਂ ਦੇ ਵਿਚਕਾਰ ਰਹੇ, ਅਤੇ ਇੱਕ ਚੱਕਰ ਤੋਂ ਦੂਜੇ ਤੱਕ 7 ਦਿਨਾਂ ਤੋਂ ਘੱਟ ਦਾ ਫ਼ਰਕ ਹੋਵੇ।',
+    section1VisualTitle: 'ਕਾਫ਼ੀ ਸਥਿਰ ਰਫ਼ਤਾਰ',
+    section1VisualText:
+      'ਸਭ ਤੋਂ ਜ਼ਰੂਰੀ ਗੱਲ ਮਹੀਨਿਆਂ ਦੌਰਾਨ ਆਪਣੀ ਰਫ਼ਤਾਰ ਨੂੰ ਵੇਖਣਾ ਹੈ।',
+    tip1Title: 'ਜਾਣਨ ਯੋਗ',
+    tip1Text:
+      'ਹਰ ਔਰਤ ਵੱਖਰੀ ਹੁੰਦੀ ਹੈ। ਜ਼ਰੂਰੀ ਇਹ ਹੈ ਕਿ ਤੁਸੀਂ ਆਪਣੀ ਰਫ਼ਤਾਰ ਅਤੇ ਉਸ ਦੇ ਆਮ ਉਤਰਾਅ-ਚੜ੍ਹਾਅ ਨੂੰ ਜਾਣੋ।',
+    section2Body:
+      'ਚੱਕਰ ਨੂੰ ਬੇਨਿਯਮਾ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ ਜਦੋਂ ਉਸ ਦੀ ਲੰਬਾਈ ਅਕਸਰ ਜਾਂ ਅਣਕਿਆਸੇ ਢੰਗ ਨਾਲ ਬਦਲੇ (7 ਦਿਨਾਂ ਤੋਂ ਵੱਧ ਦਾ ਫ਼ਰਕ)। ਇਹ ਬਹੁਤ ਛੋਟੇ ਚੱਕਰਾਂ, ਬਹੁਤ ਲੰਮੇ ਚੱਕਰਾਂ ਜਾਂ ਓਵੂਲੇਸ਼ਨ ਦੀ ਗ਼ੈਰਹਾਜ਼ਰੀ ਦੇ ਰੂਪ ਵਿੱਚ ਦਿਸ ਸਕਦਾ ਹੈ।',
+    section2VisualTitle: 'ਵਧੇਰੇ ਸਾਫ਼ ਦਿਸਣ ਵਾਲੇ ਬਦਲਾਅ',
+    section2VisualText:
+      'ਇਹ ਫ਼ਰਕ ਅਸਥਾਈ ਹੋ ਸਕਦੇ ਹਨ ਜਾਂ ਕਈ ਚੱਕਰਾਂ ਤੱਕ ਬਣੇ ਰਹਿ ਸਕਦੇ ਹਨ।',
+    alertTitle: 'ਕਿਰਪਾ ਕਰਕੇ ਧਿਆਨ ਦਿਓ',
+    alertText:
+      'ਅਸਥਾਈ ਬੇਨਿਯਮੀ ਆਮ ਹੋ ਸਕਦੀ ਹੈ (ਤਣਾਅ, ਹਾਰਮੋਨ ਦੇ ਬਦਲਾਅ, ਥਕਾਵਟ…)। ਪਰ ਜੇ ਇਹ ਬਣੀ ਰਹੇ, ਤਾਂ ਇਸ ਦੇ ਕਾਰਨ ਦੀ ਜਾਂਚ ਕਰਨੀ ਜ਼ਰੂਰੀ ਹੈ।',
+    causes: [
+      'ਤਣਾਅ ਅਤੇ ਚਿੰਤਾ',
+      'ਹਾਰਮੋਨ ਦਾ ਅਸੰਤੁਲਨ',
+      'ਨੀਂਦ ਦੀ ਕਮੀ ਅਤੇ ਥਕਾਵਟ',
+      'ਭਾਰ ਬਹੁਤ ਘੱਟ ਜਾਂ ਬਹੁਤ ਵੱਧ ਹੋਣਾ',
+      'PCOS ਜਾਂ ਹੋਰ ਡਾਕਟਰੀ ਸਮੱਸਿਆਵਾਂ',
+    ],
+    checklist: [
+      '3 ਮਹੀਨਿਆਂ ਤੋਂ ਵੱਧ ਮਾਹਵਾਰੀ ਨਾ ਆਉਣਾ (ਗਰਭ-ਅਵਸਥਾ/ਛਾਤੀ ਦਾ ਦੁੱਧ ਪਿਲਾਉਣ ਤੋਂ ਬਾਹਰ)',
+      'ਬਹੁਤ ਲੰਮੇ ਚੱਕਰ (90 ਦਿਨਾਂ ਤੋਂ ਵੱਧ) ਜਾਂ ਬਹੁਤ ਛੋਟੇ ਚੱਕਰ (21 ਦਿਨਾਂ ਤੋਂ ਘੱਟ)',
+      'ਤੇਜ਼ ਦਰਦ ਜੋ ਤੁਹਾਨੂੰ ਆਮ ਜ਼ਿੰਦਗੀ ਜਿਉਣ ਤੋਂ ਰੋਕੇ',
+      'ਬਹੁਤ ਜ਼ਿਆਦਾ ਜਾਂ ਬੇਨਿਯਮਾ ਖ਼ੂਨ ਵਹਿਣਾ',
+      'ਜੇ ਤੁਸੀਂ ਗਰਭ ਧਾਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰ ਰਹੇ ਹੋ ਅਤੇ ਓਵੂਲੇਸ਼ਨ ਗ਼ੈਰਹਾਜ਼ਰ ਜਾਪਦਾ ਹੈ',
+    ],
+    advice: [
+      'ਸੰਤੁਲਿਤ ਖ਼ੁਰਾਕ',
+      'ਪਾਣੀ ਦੀ ਢੁੱਕਵੀਂ ਮਾਤਰਾ',
+      'ਸਰੀਰਕ ਸਰਗਰਮੀ',
+      'ਤਣਾਅ ਦਾ ਪ੍ਰਬੰਧ',
+      'ਚੰਗੀ ਨੀਂਦ',
+    ],
+    shareMessage: 'ਨਿਯਮਿਤ ਜਾਂ ਬੇਨਿਯਮਾ ਚੱਕਰ: ਕੀ ਫ਼ਰਕ ਹੈ? — AWA',
+  },
+  my: {
+    badge: 'ရာသီစက်ဝန်းနှင့် ရာသီလာခြင်း',
+    title: 'ပုံမှန် သို့မဟုတ် မပုံမှန်သော ရာသီစက်ဝန်း -\nကွာခြားချက်ကား အဘယ်နည်း။',
+    metaDuration: 'ဖတ်ချိန် 5 မိနစ်',
+    metaValidated: 'ပြန်လည်သုံးသပ်ပြီး အကြောင်းအရာ',
+    intro:
+      'ရာသီစက်ဝန်းတိုင်းသည် ထူးခြားသည်။ “ပုံမှန်” ဟု သတ်မှတ်ထားသည်ကို နားလည်ခြင်းက သင့်ကျန်းမာရေးကို ပိုနီးကပ်စွာ မှတ်သားရန်နှင့် မညီမျှမှုများကို သတိပြုမိရန် ကူညီနိုင်သည်။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'ပုံမှန်ရာသီစက်ဝန်း - ၎င်းကား အဘယ်နည်း။',
+      'မပုံမှန်သော ရာသီစက်ဝန်း - ဆိုလိုသည်မှာ အဘယ်နည်း။',
+      'မပုံမှန်သော ရာသီစက်ဝန်း၏ ဖြစ်နိုင်ခြေရှိသော အကြောင်းရင်းများ',
+      'ဆရာဝန်ကို ဘယ်အချိန်ပြသင့်သလဲ။',
+      'ပိုမိုမျှတသော ရာသီစက်ဝန်းအတွက် အကြံပြုချက်များ',
+    ],
+    section1Body:
+      'ရာသီစက်ဝန်းတစ်ခု၏ ကြာချိန်သည် 21 ရက်မှ 35 ရက်အကြား ကွာခြားပြီး ရာသီစက်ဝန်းတစ်ခုမှ နောက်တစ်ခုသို့ ကွာခြားချက် 7 ရက်ထက်နည်းပါက ပုံမှန်ဟု သတ်မှတ်သည်။',
+    section1VisualTitle: 'အတော်လေး တည်ငြိမ်သော အရှိန်',
+    section1VisualText:
+      'အရေးကြီးဆုံးမှာ လများတစ်လျှောက် သင့်ကိုယ်ပိုင်အရှိန်ကို စောင့်ကြည့်ခြင်းဖြစ်သည်။',
+    tip1Title: 'သိထားသင့်သည်',
+    tip1Text:
+      'အမျိုးသမီးတိုင်း မတူပါ။ အရေးကြီးသည်မှာ သင့်ကိုယ်ပိုင်အရှိန်နှင့် ၎င်း၏ ပုံမှန်ပြောင်းလဲမှုများကို သိထားခြင်းဖြစ်သည်။',
+    section2Body:
+      'ရာသီစက်ဝန်း၏ ကြာချိန်သည် မကြာခဏ သို့မဟုတ် ခန့်မှန်း၍မရအောင် ကွာခြားလျှင် (ကွာခြားချက် 7 ရက်ထက်များလျှင်) မပုံမှန်ဟု သတ်မှတ်သည်။ ၎င်းသည် အလွန်တိုသော ရာသီစက်ဝန်းများ၊ အလွန်ရှည်သော ရာသီစက်ဝန်းများ သို့မဟုတ် မျိုးဥကြွေခြင်း မရှိခြင်းအဖြစ် ပေါ်လာနိုင်သည်။',
+    section2VisualTitle: 'ပိုသိသာသော ကွာခြားမှုများ',
+    section2VisualText:
+      'ဤကွာခြားချက်များသည် ယာယီဖြစ်နိုင်သည် သို့မဟုတ် ရာသီစက်ဝန်းအကြိမ်များစွာ ဆက်ရှိနိုင်သည်။',
+    alertTitle: 'ကျေးဇူးပြု၍ သတိပြုပါ',
+    alertText:
+      'ယာယီမပုံမှန်ခြင်းသည် ပုံမှန်ဖြစ်နိုင်သည် (စိတ်ဖိစီးမှု၊ ဟော်မုန်းပြောင်းလဲမှု၊ ပင်ပန်းနွမ်းနယ်ခြင်း…)။ သို့သော် ဆက်ရှိနေပါက အကြောင်းရင်းကို စုံစမ်းရန် အရေးကြီးသည်။',
+    causes: [
+      'စိတ်ဖိစီးမှုနှင့် စိုးရိမ်ပူပန်မှု',
+      'ဟော်မုန်း မညီမျှမှုများ',
+      'အိပ်ရေးပျက်ခြင်းနှင့် ပင်ပန်းနွမ်းနယ်ခြင်း',
+      'ကိုယ်အလေးချိန် နည်းလွန်းခြင်း သို့မဟုတ် များလွန်းခြင်း',
+      'PCOS သို့မဟုတ် အခြားဆေးဘက်ဆိုင်ရာ အခြေအနေများ',
+    ],
+    checklist: [
+      'ရာသီ 3 လကျော် မလာခြင်း (ကိုယ်ဝန်ဆောင်ခြင်း/နို့တိုက်ခြင်း မဟုတ်ပါက)',
+      'အလွန်ရှည်သော ရာသီစက်ဝန်းများ (90 ရက်ကျော်) သို့မဟုတ် အလွန်တိုသော ရာသီစက်ဝန်းများ (21 ရက်အောက်)',
+      'ပုံမှန်နေထိုင်ရန် အဟန့်အတားဖြစ်စေသော ပြင်းထန်သည့် နာကျင်မှု',
+      'အလွန်များပြားသော သို့မဟုတ် မပုံမှန်သော သွေးထွက်ခြင်း',
+      'သန္ဓေတည်ရန် ကြိုးစားနေပြီး မျိုးဥကြွေခြင်း မရှိဟု ထင်ရလျှင်',
+    ],
+    advice: [
+      'မျှတသော အစားအသောက်',
+      'လုံလောက်သော ရေသောက်မှု',
+      'ကိုယ်လက်လှုပ်ရှားမှု',
+      'စိတ်ဖိစီးမှု စီမံခြင်း',
+      'အရည်အသွေးကောင်းသော အိပ်စက်ခြင်း',
+    ],
+    shareMessage: 'ပုံမှန် သို့မဟုတ် မပုံမှန်သော ရာသီစက်ဝန်း - ကွာခြားချက်ကား အဘယ်နည်း။ — AWA',
+  },
+  km: {
+    badge: 'វដ្តរដូវ និងរដូវ',
+    title: 'វដ្តរដូវទៀងទាត់ ឬមិនទៀងទាត់៖\nតើមានអ្វីខុសគ្នា?',
+    metaDuration: 'អាន 5 នាទី',
+    metaValidated: 'មាតិកាបានពិនិត្យ',
+    intro:
+      'វដ្តរដូវនីមួយៗមានលក្ខណៈប្លែកពីគេ។ ការយល់ដឹងអំពីអ្វីដែលត្រូវបានចាត់ទុកថា “ធម្មតា” អាចជួយអ្នកតាមដានសុខភាពរបស់អ្នកឱ្យកាន់តែជិតស្និទ្ធ និងសម្គាល់ភាពមិនស្មើគ្នាដែលអាចកើតមាន។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'វដ្តរដូវទៀងទាត់៖ តើវាជាអ្វី?',
+      'វដ្តមិនទៀងទាត់៖ តើវាមានន័យយ៉ាងណា?',
+      'មូលហេតុដែលអាចបណ្តាលឱ្យវដ្តមិនទៀងទាត់',
+      'តើពេលណាគួរជួបវេជ្ជបណ្ឌិត?',
+      'គន្លឹះសម្រាប់វដ្តដែលមានតុល្យភាពជាងមុន',
+    ],
+    section1Body:
+      'វដ្តមួយត្រូវបានចាត់ទុកថាទៀងទាត់ នៅពេលដែលរយៈពេលរបស់វាប្រែប្រួលរវាង 21 ដល់ 35 ថ្ងៃ ដោយមានភាពខុសគ្នាតិចជាង 7 ថ្ងៃពីវដ្តមួយទៅវដ្តមួយទៀត។',
+    section1VisualTitle: 'ចង្វាក់ដែលមានស្ថិរភាពសមរម្យ',
+    section1VisualText:
+      'អ្វីដែលសំខាន់បំផុតគឺការសង្កេតចង្វាក់ផ្ទាល់ខ្លួនរបស់អ្នកក្នុងរយៈពេលជាច្រើនខែ។',
+    tip1Title: 'គួរដឹង',
+    tip1Text:
+      'ស្ត្រីម្នាក់ៗខុសគ្នា។ អ្វីដែលសំខាន់គឺដឹងពីចង្វាក់ផ្ទាល់ខ្លួនរបស់អ្នក និងការប្រែប្រួលធម្មតារបស់វា។',
+    section2Body:
+      'វដ្តមួយត្រូវបានចាត់ទុកថាមិនទៀងទាត់ នៅពេលដែលរយៈពេលរបស់វាប្រែប្រួលញឹកញាប់ ឬមិនអាចទាយទុកបាន (ភាពខុសគ្នាលើសពី 7 ថ្ងៃ)។ នេះអាចបង្ហាញជាវដ្តខ្លីខ្លាំង វដ្តវែងខ្លាំង ឬគ្មានការបញ្ចេញពងអូវុល។',
+    section2VisualTitle: 'ការប្រែប្រួលដែលកាន់តែច្បាស់',
+    section2VisualText:
+      'ភាពខុសគ្នាទាំងនេះអាចជាបណ្តោះអាសន្ន ឬបន្តកើតមានក្នុងវដ្តជាច្រើន។',
+    alertTitle: 'សូមកត់សម្គាល់',
+    alertText:
+      'ភាពមិនទៀងទាត់បណ្តោះអាសន្នអាចជារឿងធម្មតា (ភាពតានតឹង ការផ្លាស់ប្តូរអរម៉ូន ការអស់កម្លាំង…)។ ប៉ុន្តែប្រសិនបើវាបន្តកើតមាន វាជារឿងសំខាន់ក្នុងការស្វែងរកមូលហេតុ។',
+    causes: [
+      'ភាពតានតឹង និងការថប់បារម្ភ',
+      'ភាពមិនស្មើគ្នានៃអរម៉ូន',
+      'ខ្វះដំណេក និងអស់កម្លាំង',
+      'ទម្ងន់ទាបពេក ឬខ្ពស់ពេក',
+      'PCOS ឬស្ថានភាពវេជ្ជសាស្ត្រផ្សេងទៀត',
+    ],
+    checklist: [
+      'គ្មានរដូវលើសពី 3 ខែ (ក្រៅពីពេលមានផ្ទៃពោះ/បំបៅដោះ)',
+      'វដ្តវែងខ្លាំង (លើសពី 90 ថ្ងៃ) ឬវដ្តខ្លីខ្លាំង (តិចជាង 21 ថ្ងៃ)',
+      'ការឈឺចាប់ខ្លាំងដែលរារាំងអ្នកពីការរស់នៅជាធម្មតា',
+      'ការហូរឈាមច្រើនខ្លាំង ឬមិនទៀងទាត់',
+      'ប្រសិនបើអ្នកកំពុងព្យាយាមមានផ្ទៃពោះ ហើយការបញ្ចេញពងអូវុលហាក់ដូចជាមិនមាន',
+    ],
+    advice: [
+      'របបអាហារមានតុល្យភាព',
+      'ការផឹកទឹកឱ្យគ្រប់គ្រាន់',
+      'សកម្មភាពរាងកាយ',
+      'ការគ្រប់គ្រងភាពតានតឹង',
+      'ដំណេកប្រកបដោយគុណភាព',
+    ],
+    shareMessage: 'វដ្តរដូវទៀងទាត់ ឬមិនទៀងទាត់៖ តើមានអ្វីខុសគ្នា? — AWA',
+  },
+  lo: {
+    badge: 'ຮອບເດືອນ ແລະ ປະຈຳເດືອນ',
+    title: 'ຮອບເດືອນປົກກະຕິ ຫຼື ບໍ່ປົກກະຕິ:\nແຕກຕ່າງກັນແນວໃດ?',
+    metaDuration: 'ອ່ານ 5 ນາທີ',
+    metaValidated: 'ເນື້ອຫາທີ່ຜ່ານການກວດສອບ',
+    intro:
+      'ຮອບເດືອນຂອງແຕ່ລະຄົນເປັນເອກະລັກ. ການເຂົ້າໃຈວ່າແນວໃດຖືວ່າ “ປົກກະຕິ” ຈະຊ່ວຍໃຫ້ທ່ານຕິດຕາມສຸຂະພາບໄດ້ໃກ້ຊິດຂຶ້ນ ແລະ ສັງເກດເຫັນຄວາມບໍ່ສົມດຸນທີ່ອາດເກີດຂຶ້ນ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ຮອບເດືອນປົກກະຕິ: ແມ່ນຫຍັງ?',
+      'ຮອບເດືອນບໍ່ປົກກະຕິ: ໝາຍຄວາມວ່າແນວໃດ?',
+      'ສາເຫດທີ່ອາດເຮັດໃຫ້ຮອບເດືອນບໍ່ປົກກະຕິ',
+      'ເມື່ອໃດຄວນພົບແພດ?',
+      'ຄຳແນະນຳເພື່ອຮອບເດືອນທີ່ສົມດຸນຂຶ້ນ',
+    ],
+    section1Body:
+      'ຮອບເດືອນຖືວ່າປົກກະຕິເມື່ອຄວາມຍາວຂອງມັນຢູ່ລະຫວ່າງ 21 ຫາ 35 ມື້ ໂດຍຄວາມແຕກຕ່າງລະຫວ່າງຮອບໜຶ່ງກັບອີກຮອບໜຶ່ງຕ່ຳກວ່າ 7 ມື້.',
+    section1VisualTitle: 'ຈັງຫວະທີ່ຄ່ອນຂ້າງສະໝ່ຳສະເໝີ',
+    section1VisualText:
+      'ສິ່ງສຳຄັນທີ່ສຸດແມ່ນການສັງເກດຈັງຫວະຂອງທ່ານເອງຕະຫຼອດຫຼາຍເດືອນ.',
+    tip1Title: 'ຄວນຮູ້',
+    tip1Text:
+      'ແມ່ຍິງແຕ່ລະຄົນບໍ່ຄືກັນ. ສິ່ງສຳຄັນແມ່ນການຮູ້ຈັກຈັງຫວະຂອງຕົນເອງ ແລະ ຄວາມແປຜັນປົກກະຕິຂອງມັນ.',
+    section2Body:
+      'ຮອບເດືອນຖືວ່າບໍ່ປົກກະຕິເມື່ອຄວາມຍາວຂອງມັນແປຜັນເລື້ອຍໆ ຫຼື ຄາດເດົາບໍ່ໄດ້ (ແຕກຕ່າງກັນຫຼາຍກວ່າ 7 ມື້). ອາດສະແດງອອກເປັນຮອບເດືອນທີ່ສັ້ນຫຼາຍ, ຍາວຫຼາຍ ຫຼື ບໍ່ມີການຕົກໄຂ່.',
+    section2VisualTitle: 'ຄວາມແປຜັນທີ່ເດັ່ນຊັດຂຶ້ນ',
+    section2VisualText:
+      'ຄວາມແຕກຕ່າງເຫຼົ່ານີ້ອາດເປັນພຽງຊົ່ວຄາວ ຫຼື ຍັງຄົງຢູ່ຫຼາຍຮອບເດືອນ.',
+    alertTitle: 'ກະລຸນາສັງເກດ',
+    alertText:
+      'ຄວາມບໍ່ປົກກະຕິຊົ່ວຄາວອາດເປັນເລື່ອງປົກກະຕິ (ຄວາມຕຶງຄຽດ, ການປ່ຽນແປງຂອງຮໍໂມນ, ຄວາມອ່ອນເພຍ…). ແຕ່ຖ້າຍັງຄົງຢູ່ ສິ່ງສຳຄັນແມ່ນຕ້ອງຄົ້ນຫາສາເຫດ.',
+    causes: [
+      'ຄວາມຕຶງຄຽດ ແລະ ຄວາມກັງວົນ',
+      'ຄວາມບໍ່ສົມດຸນຂອງຮໍໂມນ',
+      'ນອນບໍ່ພໍ ແລະ ອ່ອນເພຍ',
+      'ນ້ຳໜັກຕ່ຳ ຫຼື ສູງເກີນໄປ',
+      'PCOS ຫຼື ພາວະທາງການແພດອື່ນໆ',
+    ],
+    checklist: [
+      'ບໍ່ມີປະຈຳເດືອນເກີນ 3 ເດືອນ (ນອກຈາກໄລຍະຖືພາ/ລ້ຽງລູກດ້ວຍນົມແມ່)',
+      'ຮອບເດືອນຍາວຫຼາຍ (ເກີນ 90 ມື້) ຫຼື ສັ້ນຫຼາຍ (ຕ່ຳກວ່າ 21 ມື້)',
+      'ເຈັບປວດຮຸນແຮງຈົນໃຊ້ຊີວິດປົກກະຕິບໍ່ໄດ້',
+      'ເລືອດອອກຫຼາຍຫຼາຍ ຫຼື ບໍ່ສະໝ່ຳສະເໝີ',
+      'ຖ້າທ່ານກຳລັງພະຍາຍາມຕັ້ງຄັນ ແລະ ເບິ່ງຄືວ່າບໍ່ມີການຕົກໄຂ່',
+    ],
+    advice: [
+      'ອາຫານທີ່ສົມດຸນ',
+      'ການດື່ມນ້ຳໃຫ້ພຽງພໍ',
+      'ກິດຈະກຳທາງກາຍ',
+      'ການຈັດການຄວາມຕຶງຄຽດ',
+      'ການນອນທີ່ມີຄຸນນະພາບ',
+    ],
+    shareMessage: 'ຮອບເດືອນປົກກະຕິ ຫຼື ບໍ່ປົກກະຕິ: ແຕກຕ່າງກັນແນວໃດ? — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<

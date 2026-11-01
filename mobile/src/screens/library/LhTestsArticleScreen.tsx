@@ -2453,6 +2453,1184 @@ const CONTENT = withBrazilianPortuguese('LhTests', {
       'Maglumat berýän mazmun. Bu makala şahsylaşdyrylan lukmançylyk maslahatyny çalyşmaýar. Şübhe bolsa, saglyk hünärmeninden ugrukdyrma soraň.',
     shareMessage: 'Ovulýasiýa synaglaryny (LH) düşünmek — AWA',
   },
+  ms: {
+    badge: 'KESUBURAN • UJIAN OVULASI',
+    title: 'Memahami ujian\novulasi (LH)',
+    metaDuration: '6 min bacaan',
+    metaType: 'Panduan',
+    metaLevel: 'Pertengahan',
+    metaValidated: 'Kandungan disemak',
+    intro: 'Bagaimana jalur ujian ini berfungsi, dan bila untuk menggunakannya.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Apakah LH?',
+      'Bagaimana ujian ini berfungsi',
+      'Bila untuk mula menguji',
+      'Mentafsir keputusan',
+      'Positif palsu dan batasan',
+      'Menggabungkannya dengan tanda lain',
+      'Perkara penting untuk diingat',
+    ],
+    section1Body:
+      'LH (hormon peluteinan) dihasilkan oleh otak dan mengawal bagaimana ovari berfungsi. Ujian ovulasi mengesan lonjakan hormon ini, yang mencetuskan pelepasan sel telur 24 hingga 36 jam kemudian.',
+    section2Body:
+      'Jalur ujian air kencing mengukur tahap LH: garisan ujian yang sama gelap atau lebih gelap daripada garisan kawalan menunjukkan lonjakan.',
+    section3Body:
+      'Adalah disyorkan untuk mula menguji beberapa hari sebelum tarikh ovulasi yang dianggarkan daripada kitaran anda.',
+    testingTips: [
+      {
+        title: 'Berdasarkan kitaran anda',
+        text: 'Mulakan beberapa hari sebelum tarikh ovulasi yang dianggarkan daripada purata tempoh kitaran anda.',
+      },
+      {
+        title: 'Uji pada waktu yang sama setiap hari',
+        text: 'Sebaik-baiknya sekitar tengah hari, mengelakkan air kencing pertama pada waktu pagi.',
+      },
+      {
+        title: 'Elakkan mencairkan air kencing anda',
+        text: 'Hadkan jumlah cecair yang banyak dalam beberapa jam sebelum ujian.',
+      },
+    ],
+    section4Body:
+      'Keputusan positif menandakan waktu paling subur untuk hubungan intim dalam 1 hingga 2 hari berikutnya. Keputusan negatif hanya bermakna lonjakan belum berlaku.',
+    limitations: [
+      'PCOS boleh menyebabkan tahap LH yang lebih tinggi secara semula jadi, yang boleh mengaburkan bacaan',
+      'Rawatan kesuburan tertentu boleh menjejaskan keputusan',
+      'Air kencing yang sangat cair boleh memberikan negatif palsu',
+      'Ujian yang berkualiti lebih rendah mungkin kurang boleh dipercayai',
+    ],
+    infoTitle: 'Perlu diingat',
+    infoText:
+      'Lonjakan LH menunjukkan isyarat hormon yang mencetuskan, tetapi dengan sendirinya ia tidak menjamin bahawa sel telur benar-benar dilepaskan.',
+    tipTitle: 'Elok diketahui',
+    tipText:
+      'Menggabungkan ujian ovulasi dengan suhu badan basal atau pemerhatian lendir serviks anda memberikan gambaran kitaran anda yang lebih lengkap.',
+    summaryPoints: [
+      'Ujian ovulasi mengesan lonjakan LH, yang mencetuskan pelepasan sel telur 24 hingga 36 jam kemudian.',
+      'Adalah disyorkan untuk mula menguji beberapa hari sebelum tarikh ovulasi yang dianggarkan daripada kitaran anda.',
+      'Keputusan positif menandakan waktu paling subur untuk hubungan intim dalam 1 hingga 2 hari berikutnya.',
+      'Lonjakan LH dengan sendirinya tidak menjamin bahawa ovulasi benar-benar berlaku.',
+    ],
+    disclaimerText:
+      'Kandungan bersifat maklumat. Artikel ini tidak menggantikan nasihat perubatan yang diperibadikan. Jika ragu-ragu, dapatkan panduan daripada pengamal penjagaan kesihatan.',
+    shareMessage: 'Memahami ujian ovulasi (LH) — AWA',
+  },
+  so: {
+    badge: 'BACRIMIN • BAARITAANNADA UKUN-SII-DEYNTA',
+    title: 'Fahamka baaritaannada\nukun-sii-deynta (LH)',
+    metaDuration: '6 daq akhris',
+    metaType: 'Hage',
+    metaLevel: 'Dhexdhexaad',
+    metaValidated: 'Macluumaad la dib-u-eegay',
+    intro: 'Sida xargahan baaritaanku u shaqeeyaan, iyo goorta la isticmaalo.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Waa maxay LH?',
+      'Sida baaritaannadan u shaqeeyaan',
+      'Goorta la bilaabo baaritaanka',
+      'Fasiraadda natiijada',
+      'Natiijo togan oo been ah iyo xaddidaado',
+      'Isku-darkooda calaamado kale',
+      'Qodobbada muhiimka ah',
+    ],
+    section1Body:
+      'LH (luteinizing hormone) waxaa soo saara maskaxda wuxuuna xukumaa sida ukun-sidayaashu u shaqeeyaan. Baaritaannada ukun-sii-deyntu waxay ogaadaan kor u kaca hormoonkan, kaasoo kiciya sii deynta ukunta 24 ilaa 36 saac ka dib.',
+    section2Body:
+      'Xarig baaritaan kaadi ah ayaa cabbira heerarka LH: xariiq baaritaan oo la mid ah ama ka madow xariiqda xakameynta waxay muujisaa kor u kac.',
+    section3Body:
+      'Waxaa lagula talinayaa in la bilaabo baaritaanka dhowr maalmood ka hor taariikhda ukun-sii-deynta ee laga qiyaasay wareeggaaga.',
+    testingTips: [
+      {
+        title: 'U salay wareeggaaga',
+        text: 'Bilow dhowr maalmood ka hor taariikhda ukun-sii-deynta ee laga qiyaasay celceliska dhererka wareegyadaada.',
+      },
+      {
+        title: 'Baaritaan isla waqti maalin kasta',
+        text: 'Ugu fiican qiyaastii duhurkii, adigoo ka fogaanaya kaadidaada ugu horreysa subaxda.',
+      },
+      {
+        title: 'Ka fogow khafiifinta kaadidaada',
+        text: 'Yaree xaddi weyn oo dareere ah saacadaha ka horreeya baaritaanka.',
+      },
+    ],
+    section4Body:
+      'Natiijo togan waxay muujisaa wakhtiga ugu bacrimsan ee galmada 1 ilaa 2 maalmood ee xiga. Natiijo taban macnaheedu waa si fudud in kor u kacu weli ma dhicin.',
+    limitations: [
+      'PCOS wuxuu keeni karaa heerarka LH oo si dabiici ah sare u ah, taasoo ceejin karta akhriska',
+      'Daaweynnada bacriminta qaarkood waxay saameyn karaan natiijada',
+      'Kaadi aad u khafiif ah ayaa bixin karta natiijo taban oo been ah',
+      'Baaritaan tayo hoose leh wuu ka yar yahay la isku halleyn karo',
+    ],
+    infoTitle: 'Maskaxda ku hay',
+    infoText:
+      'Kor u kaca LH wuxuu muujiyaa calaamad hormoon oo kicinaysa, laakiin keligiis ma dammaanad qaado in ukunta runtii la sii daayay.',
+    tipTitle: 'Waxtar leh in la ogaado',
+    tipText:
+      'Isku-darka baaritaannada ukun-sii-deynta iyo heerkulkaaga aasaasiga ah ee jidhka ama indho-indheynta dheecaanka afka ilmo-galeenka wuxuu bixiyaa sawir buuxa oo wareeggaaga ah.',
+    summaryPoints: [
+      'Baaritaannada ukun-sii-deyntu waxay ogaadaan kor u kaca LH, kaasoo kiciya sii deynta ukunta 24 ilaa 36 saac ka dib.',
+      'Waxaa lagula talinayaa in la bilaabo baaritaanka dhowr maalmood ka hor taariikhda ukun-sii-deynta ee laga qiyaasay wareeggaaga.',
+      'Natiijo togan waxay muujisaa wakhtiga ugu bacrimsan ee galmada 1 ilaa 2 maalmood ee xiga.',
+      'Kor u kaca LH keligiis ma dammaanad qaado in ukun-sii-deyn dhab ahaan dhacday.',
+    ],
+    disclaimerText:
+      'Macluumaad. Maqaalkan ma beddelo talo caafimaad oo shakhsi ah. Haddii aad shaki qabto, hel hagid xirfadle caafimaad.',
+    shareMessage: 'Fahamka baaritaannada ukun-sii-deynta (LH) — AWA',
+  },
+  sw: {
+    badge: 'RUTUBA • VIPIMO VYA UTOAJI WA YAI',
+    title: 'Kuelewa vipimo vya\nutoaji wa yai (LH)',
+    metaDuration: 'Dakika 6 za kusoma',
+    metaType: 'Mwongozo',
+    metaLevel: 'Wastani',
+    metaValidated: 'Maudhui yaliyokaguliwa',
+    intro: 'Jinsi vipande hivi vinavyofanya kazi, na wakati wa kuvitumia.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'LH ni nini?',
+      'Jinsi vipimo hivi vinavyofanya kazi',
+      'Wakati wa kuanza kupima',
+      'Kutafsiri matokeo',
+      'Matokeo chanya ya uongo na mipaka',
+      'Kuvichanganya na dalili nyingine',
+      'Mambo muhimu ya kukumbuka',
+    ],
+    section1Body:
+      'LH (homoni ya luteinizing) hutengenezwa na ubongo na hudhibiti jinsi ovari zinavyofanya kazi. Vipimo vya utoaji wa yai hugundua ongezeko la ghafla la homoni hii, linalosababisha kutolewa kwa yai baada ya saa 24 hadi 36.',
+    section2Body:
+      'Kipande cha kupima mkojo hupima viwango vya LH: mstari wa kipimo ulio mweusi sawa na mstari wa udhibiti au mweusi zaidi unaonyesha ongezeko hilo.',
+    section3Body:
+      'Inapendekezwa kuanza kupima siku chache kabla ya tarehe ya utoaji wa yai inayokadiriwa kutoka mzunguko wako.',
+    testingTips: [
+      {
+        title: 'Anzia kwenye mzunguko wako',
+        text: 'Anza siku chache kabla ya tarehe ya utoaji wa yai inayokadiriwa kutokana na urefu wa wastani wa mizunguko yako.',
+      },
+      {
+        title: 'Pima kwa wakati ule ule kila siku',
+        text: 'Ikiwezekana karibu na adhuhuri, ukiepuka mkojo wako wa kwanza wa asubuhi.',
+      },
+      {
+        title: 'Epuka kupunguza ukali wa mkojo wako',
+        text: 'Punguza kiasi kikubwa cha vimiminika katika saa kabla ya kipimo.',
+      },
+    ],
+    section4Body:
+      'Matokeo chanya yanaashiria wakati wenye rutuba zaidi kwa tendo la ndoa katika siku 1 hadi 2 zinazofuata. Matokeo hasi yanamaanisha tu kuwa ongezeko hilo bado halijatokea.',
+    limitations: [
+      'PCOS inaweza kusababisha viwango vya LH vilivyo juu kiasili, jambo linaloweza kufifisha usomaji',
+      'Matibabu fulani ya rutuba yanaweza kuathiri matokeo',
+      'Mkojo uliopunguzwa ukali sana unaweza kutoa matokeo hasi ya uongo',
+      'Kipimo cha ubora wa chini kinaweza kuwa cha kuaminika kidogo',
+    ],
+    infoTitle: 'Kumbuka',
+    infoText:
+      'Ongezeko la ghafla la LH linaonyesha ishara ya homoni inayochochea, lakini peke yake haihakikishi kwamba yai kweli limetolewa.',
+    tipTitle: 'Vyema kujua',
+    tipText:
+      'Kuchanganya vipimo vya utoaji wa yai na joto lako la msingi la mwili au uchunguzi wa ute wa shingo ya kizazi kunatoa picha kamili zaidi ya mzunguko wako.',
+    summaryPoints: [
+      'Vipimo vya utoaji wa yai hugundua ongezeko la ghafla la LH, linalosababisha kutolewa kwa yai baada ya saa 24 hadi 36.',
+      'Inapendekezwa kuanza kupima siku chache kabla ya tarehe ya utoaji wa yai inayokadiriwa kutoka mzunguko wako.',
+      'Matokeo chanya yanaashiria wakati wenye rutuba zaidi kwa tendo la ndoa katika siku 1 hadi 2 zinazofuata.',
+      'Ongezeko la LH peke yake halihakikishi kwamba utoaji wa yai ulitokea kweli.',
+    ],
+    disclaimerText:
+      'Maudhui ya taarifa. Makala hii haichukui nafasi ya ushauri wa kitabibu uliobinafsishwa. Ukiwa na shaka, tafuta mwongozo wa mtaalamu wa afya.',
+    shareMessage: 'Kuelewa vipimo vya utoaji wa yai (LH) — AWA',
+  },
+  kk: {
+    badge: 'ҚҰНАРЛЫЛЫҚ • ОВУЛЯЦИЯ ТЕСТТЕРІ',
+    title: 'Овуляция тесттерін (LH)\nтүсіну',
+    metaDuration: '6 мин оқу',
+    metaType: 'Нұсқаулық',
+    metaLevel: 'Орташа',
+    metaValidated: 'Тексерілген мазмұн',
+    intro: 'Бұл жолақтар қалай жұмыс істейді және оларды қашан қолдану керек.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'LH дегеніміз не?',
+      'Бұл тесттер қалай жұмыс істейді',
+      'Тестілеуді қашан бастау керек',
+      'Нәтижені түсіндіру',
+      'Жалған оң нәтижелер және шектеулер',
+      'Оларды басқа белгілермен біріктіру',
+      'Негізгі қорытындылар',
+    ],
+    section1Body:
+      'LH (лютеиндеуші гормон) мида түзіледі және аналық бездердің жұмысын басқарады. Овуляция тесттері осы гормонның күрт артуын анықтайды, ол 24-тен 36 сағаттан кейін жұмыртқа жасушасының шығуын тудырады.',
+    section2Body:
+      'Зәр тест жолағы LH деңгейін өлшейді: тест сызығы бақылау сызығындай немесе одан қою болса, бұл артуды көрсетеді.',
+    section3Body:
+      'Цикліңізден болжанған овуляция күнінен бірнеше күн бұрын тестілеуді бастау ұсынылады.',
+    testingTips: [
+      {
+        title: 'Циклыңызға сүйеніңіз',
+        text: 'Циклдарыңыздың орташа ұзақтығынан болжанған овуляция күнінен бірнеше күн бұрын бастаңыз.',
+      },
+      {
+        title: 'Күн сайын бір уақытта тестілеңіз',
+        text: 'Мүмкіндігінше түске таман, таңертеңгі алғашқы зәріңізден аулақ болыңыз.',
+      },
+      {
+        title: 'Зәріңізді сұйылтпаңыз',
+        text: 'Тесттен бірнеше сағат бұрын көп сұйықтық ішуді шектеңіз.',
+      },
+    ],
+    section4Body:
+      'Оң нәтиже келесі 1-2 күнде жыныстық қатынас үшін ең құнарлы уақытты көрсетеді. Теріс нәтиже жай ғана артудың әлі болмағанын білдіреді.',
+    limitations: [
+      'ПКЯС табиғи түрде жоғары LH деңгейін тудыруы мүмкін, бұл көрсеткішті бұлыңғырлата алады',
+      'Кейбір құнарлылық емдеулері нәтижеге әсер етуі мүмкін',
+      'Өте сұйылтылған зәр жалған теріс нәтиже беруі мүмкін',
+      'Сапасы төмен тест сенімділігі аздау болуы мүмкін',
+    ],
+    infoTitle: 'Есте сақтаңыз',
+    infoText:
+      'LH артуы іске қосатын гормондық сигналды көрсетеді, бірақ өзі жұмыртқа жасушасының шын мәнінде шыққанына кепілдік бермейді.',
+    tipTitle: 'Білуге тиісті',
+    tipText:
+      'Овуляция тесттерін базальды дене температурасымен немесе жатыр мойны шырышын бақылаумен біріктіру циклыңыздың толығырақ суретін береді.',
+    summaryPoints: [
+      'Овуляция тесттері LH артуын анықтайды, ол 24-тен 36 сағаттан кейін жұмыртқа жасушасының шығуын тудырады.',
+      'Цикліңізден болжанған овуляция күнінен бірнеше күн бұрын тестілеуді бастау ұсынылады.',
+      'Оң нәтиже келесі 1-2 күнде жыныстық қатынас үшін ең құнарлы уақытты көрсетеді.',
+      'Тек LH артуы овуляцияның шын мәнінде болғанына кепілдік бермейді.',
+    ],
+    disclaimerText:
+      'Ақпараттық мазмұн. Бұл мақала жекелендірілген медициналық кеңестің орнын баспайды. Күмән туындаса, медицина маманынан бағыт сұраңыз.',
+    shareMessage: 'Овуляция тесттерін (LH) түсіну — AWA',
+  },
+  wo: {
+    badge: 'BINDEEF • TÈSU OVILASIYOŊ',
+    title: 'Xam tèsu\novilasiyoŋ (LH)',
+    metaDuration: '6 simili jàng',
+    metaType: 'Ndigal',
+    metaLevel: 'Digg-dóomu',
+    metaValidated: 'Mbind bu ñu seetlu',
+    intro: 'Naka tèsu yii di dem, ak kañ ñuy jëfandikoo leen.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Lan mooy LH?',
+      'Naka tès yii di dem',
+      'Kañ ngay tàmbali tès',
+      'Tekki benn njeexital',
+      'Positif yu neen ak dayo',
+      'Boole leen ak yeneen màndarga',
+      'Li am solo',
+    ],
+    section1Body:
+      'LH (hormon bu luteinisaŋ) xel mi moo ko di def te dafay yor jëfu ovèr yi. Tèsu ovilasiyoŋ dañuy gis yokkute bu hormon bii, mu di tax génnee nen bi ginnaaw 24 ba 36 waxtu.',
+    section2Body:
+      'Benn bànd bu tès ci pis dafay natt dayoy LH: benn rëdd bu tès bu ñuul niki rëdd bu seetlu walla bu gëna ñuul dafay wone yokkute.',
+    section3Body:
+      'Digal nañu nga tàmbali tès ay fan balaa bésu ovilasiyoŋ bu ñu xayma ci sa wërsëg.',
+    testingTips: [
+      {
+        title: 'Sukkandiku ci sa wërsëg',
+        text: 'Tàmbali ay fan balaa bésu ovilasiyoŋ bu ñu xayma ci diiru sa wërsëg yu digg-dóomu.',
+      },
+      {
+        title: 'Def tès ci waxtu bu bokk bés bu nekk',
+        text: 'Gëna baax ci digg-bés, te moytu pisu suba bu njëkk.',
+      },
+      {
+        title: 'Bu ñaawal sa pis',
+        text: 'Wàññi naan yu bari ci waxtu yi balaa tès bi.',
+      },
+    ],
+    section4Body:
+      'Njeexital bu positif dafay wone jamono ju gëna bind ngir jaam ci 1 ba 2 fan yu toftal. Njeexital bu negatif dafay wone rekk ne yokkute bi am na ba tey.',
+    limitations: [
+      'PCOS mën na def LH gën a kawe ci natural, mu ñaawal gis bi',
+      'Yenn garabu bindeef mën nañu jëm ci njeexital bi',
+      'Pis bu soof lool mën na joxe benn negatif bu neen',
+      'Benn tès bu kàttan gën a ndaw mën na gën a ñàkk wóor',
+    ],
+    infoTitle: 'Fàttaliku',
+    infoText:
+      'Yokkutey LH dafay wone benn màndargay hormon bu tax, waaye ci boppam du wóorlu ne nen bi génn na dëgg.',
+    tipTitle: 'Lu baax a xam',
+    tipText:
+      'Boole tèsu ovilasiyoŋ ak sa tàngoor yaram bu njëkk walla seetlu sa ndox mu bërëb jëmm dafay joxe benn gis bu gën a mat ci sa wërsëg.',
+    summaryPoints: [
+      'Tèsu ovilasiyoŋ dañuy gis yokkutey LH, mu di tax génnee nen bi ginnaaw 24 ba 36 waxtu.',
+      'Digal nañu nga tàmbali tès ay fan balaa bésu ovilasiyoŋ bu ñu xayma ci sa wërsëg.',
+      'Njeexital bu positif dafay wone jamono ju gëna bind ngir jaam ci 1 ba 2 fan yu toftal.',
+      'Yokkutey LH ci boppam du wóorlu ne ovilasiyoŋ am na dëgg.',
+    ],
+    disclaimerText:
+      'Mbind ngir xibaar. Bind bii du wuutu ndigalu doktoor bu sa bopp. Bu am nga xel-ñaar, laajal benn liggéeykatu wér.',
+    shareMessage: 'Xam tèsu ovilasiyoŋ (LH) — AWA',
+  },
+  ha: {
+    badge: 'HAIHUWA • GWAJIN FITAR ƘWAI',
+    title: 'Fahimtar gwajin\nfitar ƙwai (LH)',
+    metaDuration: 'karatun minti 6',
+    metaType: 'Jagora',
+    metaLevel: 'Matsakaici',
+    metaValidated: 'Abun da aka duba',
+    intro: 'Yadda waɗannan tsirrai ke aiki, da lokacin amfani da su.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Menene LH?',
+      'Yadda waɗannan gwaje-gwaje ke aiki',
+      'Yaushe za a fara gwaji',
+      'Fassarar sakamako',
+      'Sakamako na ƙarya da iyaka',
+      'Haɗa su da wasu alamomi',
+      'Muhimman abubuwa',
+    ],
+    section1Body:
+      'LH (luteinizing hormone) kwakwalwa ce ke samar da shi kuma yana sarrafa yadda ovaries ke aiki. Gwajin fitar ƙwai yana gano hawan wannan hormone, wanda ke jawo sakin ƙwai bayan awanni 24 zuwa 36.',
+    section2Body:
+      'Tsiri na gwajin fitsari yana auna matakin LH: layin gwaji mai duhu daidai ko fiye da layin sarrafawa yana nuna hawan.',
+    section3Body:
+      'Ana ba da shawarar fara gwaji kwanaki kaɗan kafin ranar fitar ƙwai da aka ƙiyasta daga zagayenki.',
+    testingTips: [
+      {
+        title: 'Dogara ga zagayenki',
+        text: 'Fara kwanaki kaɗan kafin ranar fitar ƙwai da aka ƙiyasta daga matsakaicin tsawon zagayenki.',
+      },
+      {
+        title: 'Yi gwaji a lokaci ɗaya kowace rana',
+        text: 'Zai fi kyau da tsakar rana, ba da fitsarin farko na safe ba.',
+      },
+      {
+        title: 'Guje wa tsamiyar fitsari',
+        text: 'Rage shan ruwa mai yawa a sa’o’in da suka gabaci gwajin.',
+      },
+    ],
+    section4Body:
+      'Sakamako mai kyau (positive) yana nuna lokacin da ya fi haihuwa don kusanci a kwanaki 1 zuwa 2 masu zuwa. Sakamako marar kyau (negative) yana nufin kawai hawan bai faru ba tukuna.',
+    limitations: [
+      'PCOS na iya haifar da matakin LH mafi girma ta halitta, wanda zai iya dagula karatu',
+      'Wasu magungunan haihuwa na iya shafar sakamakon',
+      'Fitsari mai tsami sosai na iya ba da sakamako na ƙarya marar kyau',
+      'Gwaji maras inganci na iya zama maras tabbas',
+    ],
+    infoTitle: 'Ki tuna',
+    infoText:
+      'Hawan LH yana nuna alamar hormone mai jawo, amma shi kaɗai ba ya tabbatar da cewa an saki ƙwai da gaske.',
+    tipTitle: 'Abin da ya dace a sani',
+    tipText:
+      'Haɗa gwajin fitar ƙwai da zafin jikinki na asali ko lura da majinar mahaifa yana ba da cikakken hoto na zagayenki.',
+    summaryPoints: [
+      'Gwajin fitar ƙwai yana gano hawan LH, wanda ke jawo sakin ƙwai bayan awanni 24 zuwa 36.',
+      'Ana ba da shawarar fara gwaji kwanaki kaɗan kafin ranar fitar ƙwai da aka ƙiyasta daga zagayenki.',
+      'Sakamako mai kyau yana nuna lokacin da ya fi haihuwa don kusanci a kwanaki 1 zuwa 2 masu zuwa.',
+      'Hawan LH shi kaɗai ba ya tabbatar da cewa fitar ƙwai ta faru da gaske.',
+    ],
+    disclaimerText:
+      'Abun bayani. Wannan labari ba ya maye gurbin shawarar likita ta keɓaɓɓiya. Idan kina cikin shakka, nemi jagora daga ma’aikacin lafiya.',
+    shareMessage: 'Fahimtar gwajin fitar ƙwai (LH) — AWA',
+  },
+  am: {
+    badge: 'የመውለድ ችሎታ • የእንቁላል መልቀቅ ምርመራዎች',
+    title: 'የእንቁላል መልቀቅ (LH)\nምርመራዎችን መረዳት',
+    metaDuration: '6 ደቂቃ ንባብ',
+    metaType: 'መመሪያ',
+    metaLevel: 'መካከለኛ',
+    metaValidated: 'የተረጋገጠ ይዘት',
+    intro: 'እነዚህ የምርመራ ወረቀቶች እንዴት እንደሚሠሩ፣ እና መቼ እንደሚጠቀሙ።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'LH ምንድን ነው?',
+      'እነዚህ ምርመራዎች እንዴት እንደሚሠሩ',
+      'ምርመራ መቼ መጀመር',
+      'ውጤትን መተርጎም',
+      'የሐሰት አዎንታዊ ውጤቶችና ገደቦች',
+      'ከሌሎች ምልክቶች ጋር ማጣመር',
+      'ዋና ዋና ነጥቦች',
+    ],
+    section1Body:
+      'LH (ሉቲኒዚንግ ሆርሞን) በአንጎል የሚመነጭ ሲሆን ኦቫሪዎች እንዴት እንደሚሠሩ ይቆጣጠራል። የእንቁላል መልቀቅ ምርመራዎች የዚህን ሆርሞን ጭማሪ ይለያሉ፣ ይህም ከ24 እስከ 36 ሰዓት በኋላ እንቁላል እንዲለቀቅ ያደርጋል።',
+    section2Body:
+      'የሽንት ምርመራ ወረቀት የLH መጠንን ይለካል፦ ከቁጥጥሩ መስመር እኩል ወይም የጠቆረ የምርመራ መስመር ጭማሪን ያመለክታል።',
+    section3Body:
+      'ከዑደትሽ በተገመተው የእንቁላል መልቀቅ ቀን ጥቂት ቀናት በፊት ምርመራ መጀመር ይመከራል።',
+    testingTips: [
+      {
+        title: 'በዑደትሽ ላይ ተመሥረቺ',
+        text: 'ከዑደቶችሽ አማካይ ርዝመት ከተገመተው የእንቁላል መልቀቅ ቀን ጥቂት ቀናት በፊት ጀምሪ።',
+      },
+      {
+        title: 'በየቀኑ በተመሳሳይ ሰዓት ተመርመሪ',
+        text: 'ተስማሚው ቀትር አካባቢ ነው፣ የጠዋቱን የመጀመሪያ ሽንት በማስወገድ።',
+      },
+      {
+        title: 'ሽንትሽን ማሟሟት አስወግጂ',
+        text: 'ከምርመራው በፊት ባሉት ሰዓታት ብዙ ፈሳሽ መጠጣትን ገድቢ።',
+      },
+    ],
+    section4Body:
+      'አዎንታዊ ውጤት ለሚቀጥሉት 1 እስከ 2 ቀናት ለግንኙነት በጣም ለም ጊዜን ያመለክታል። አሉታዊ ውጤት ጭማሪው ገና አልተከሰተም ማለት ብቻ ነው።',
+    limitations: [
+      'PCOS በተፈጥሮ ከፍተኛ የLH መጠንን ሊያስከትል ይችላል፣ ይህም ንባቡን ሊያደበዝዝ ይችላል',
+      'አንዳንድ የመውለድ ችሎታ ሕክምናዎች ውጤቱን ሊነኩ ይችላሉ',
+      'በጣም የተሟሟ ሽንት የሐሰት አሉታዊ ውጤት ሊሰጥ ይችላል',
+      'ዝቅተኛ ጥራት ያለው ምርመራ ያነሰ አስተማማኝ ሊሆን ይችላል',
+    ],
+    infoTitle: 'ልብ በይ',
+    infoText:
+      'የLH ጭማሪ የሚቀሰቅስ የሆርሞን ምልክትን ያመለክታል፣ ነገር ግን በራሱ እንቁላሉ በእውነት እንደተለቀቀ አያረጋግጥም።',
+    tipTitle: 'ማወቅ ጠቃሚ ነው',
+    tipText:
+      'የእንቁላል መልቀቅ ምርመራዎችን ከመሠረታዊ የሰውነት ሙቀትሽ ወይም ከማህፀን በር ንፋጭ ምልከታ ጋር ማጣመር የዑደትሽን የተሟላ ምስል ይሰጣል።',
+    summaryPoints: [
+      'የእንቁላል መልቀቅ ምርመራዎች የLH ጭማሪን ይለያሉ፣ ይህም ከ24 እስከ 36 ሰዓት በኋላ እንቁላል እንዲለቀቅ ያደርጋል።',
+      'ከዑደትሽ በተገመተው የእንቁላል መልቀቅ ቀን ጥቂት ቀናት በፊት ምርመራ መጀመር ይመከራል።',
+      'አዎንታዊ ውጤት ለሚቀጥሉት 1 እስከ 2 ቀናት ለግንኙነት በጣም ለም ጊዜን ያመለክታል።',
+      'የLH ጭማሪ ብቻውን እንቁላል መልቀቅ በእውነት እንደተከሰተ አያረጋግጥም።',
+    ],
+    disclaimerText:
+      'የመረጃ ይዘት። ይህ ጽሑፍ የግል የሕክምና ምክርን አይተካም። ጥርጣሬ ካለሽ የጤና ባለሙያን መመሪያ ጠይቂ።',
+    shareMessage: 'የእንቁላል መልቀቅ (LH) ምርመራዎችን መረዳት — AWA',
+  },
+  nl: {
+    badge: 'VRUCHTBAARHEID • OVULATIETESTS',
+    title: 'Ovulatietests (LH)\nbegrijpen',
+    metaDuration: '6 min lezen',
+    metaType: 'Gids',
+    metaLevel: 'Gevorderd',
+    metaValidated: 'Gecontroleerde inhoud',
+    intro: 'Hoe deze strips werken en wanneer je ze gebruikt.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'Wat is LH?',
+      'Hoe deze tests werken',
+      'Wanneer je begint met testen',
+      'Een resultaat interpreteren',
+      'Fout-positieven en beperkingen',
+      'Combineren met andere tekenen',
+      'Belangrijkste punten',
+    ],
+    section1Body:
+      'LH (luteïniserend hormoon) wordt door de hersenen geproduceerd en stuurt de werking van de eierstokken aan. Ovulatietests detecteren de piek van dit hormoon, die 24 tot 36 uur later het vrijkomen van de eicel in gang zet.',
+    section2Body:
+      'Een urineteststrip meet het LH-niveau: een testlijn die even donker of donkerder is dan de controlelijn wijst op een piek.',
+    section3Body:
+      'Het wordt aanbevolen enkele dagen vóór de uit je cyclus geschatte datum van de eisprong te beginnen met testen.',
+    testingTips: [
+      {
+        title: 'Baseer je op je cyclus',
+        text: 'Begin enkele dagen vóór de datum van de eisprong die is geschat op basis van de gemiddelde duur van je cycli.',
+      },
+      {
+        title: 'Test elke dag op hetzelfde tijdstip',
+        text: 'Bij voorkeur rond het middaguur, en vermijd je eerste urine van de ochtend.',
+      },
+      {
+        title: 'Voorkom het verdunnen van je urine',
+        text: 'Beperk grote hoeveelheden vocht in de uren vóór de test.',
+      },
+    ],
+    section4Body:
+      'Een positief resultaat wijst op het meest vruchtbare moment voor gemeenschap in de volgende 1 tot 2 dagen. Een negatief resultaat betekent simpelweg dat de piek nog niet heeft plaatsgevonden.',
+    limitations: [
+      'PCOS kan van nature hogere LH-niveaus veroorzaken, wat de uitlezing kan vertekenen',
+      'Bepaalde vruchtbaarheidsbehandelingen kunnen het resultaat beïnvloeden',
+      'Zeer verdunde urine kan een fout-negatief resultaat geven',
+      'Een test van mindere kwaliteit kan minder betrouwbaar zijn',
+    ],
+    infoTitle: 'Om in gedachten te houden',
+    infoText:
+      'Een LH-piek duidt op een hormonaal startsignaal, maar garandeert op zichzelf niet dat de eicel daadwerkelijk is vrijgekomen.',
+    tipTitle: 'Goed om te weten',
+    tipText:
+      'Het combineren van ovulatietests met je basale lichaamstemperatuur of de observatie van baarmoederhalsslijm geeft een completer beeld van je cyclus.',
+    summaryPoints: [
+      'Ovulatietests detecteren de LH-piek, die 24 tot 36 uur later het vrijkomen van de eicel in gang zet.',
+      'Het wordt aanbevolen enkele dagen vóór de uit je cyclus geschatte datum van de eisprong te beginnen met testen.',
+      'Een positief resultaat wijst op het meest vruchtbare moment voor gemeenschap in de volgende 1 tot 2 dagen.',
+      'Een LH-piek alleen garandeert niet dat de eisprong daadwerkelijk heeft plaatsgevonden.',
+    ],
+    disclaimerText:
+      'Informatieve inhoud. Dit artikel vervangt geen persoonlijk medisch advies. Vraag bij twijfel advies aan een zorgverlener.',
+    shareMessage: 'Ovulatietests (LH) begrijpen — AWA',
+  },
+  fi: {
+    badge: 'HEDELMÄLLISYYS • OVULAATIOTESTIT',
+    title: 'Ovulaatiotestien (LH)\nymmärtäminen',
+    metaDuration: '6 min lukuaika',
+    metaType: 'Opas',
+    metaLevel: 'Keskitaso',
+    metaValidated: 'Tarkistettu sisältö',
+    intro: 'Miten nämä testiliuskat toimivat ja milloin niitä käytetään.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Mitä LH on?',
+      'Miten nämä testit toimivat',
+      'Milloin aloittaa testaus',
+      'Tuloksen tulkinta',
+      'Vääriä positiivisia tuloksia ja rajoituksia',
+      'Yhdistäminen muihin merkkeihin',
+      'Tärkeimmät asiat',
+    ],
+    section1Body:
+      'LH (luteinisoiva hormoni) on aivojen tuottama hormoni, joka ohjaa munasarjojen toimintaa. Ovulaatiotestit havaitsevat tämän hormonin piikin, joka laukaisee munasolun vapautumisen 24–36 tunnin kuluttua.',
+    section2Body:
+      'Virtsatestiliuska mittaa LH-tasoa: kontrolliviivaa yhtä tumma tai tummempi testiviiva osoittaa piikin.',
+    section3Body:
+      'Testaus kannattaa aloittaa muutamaa päivää ennen kiertosi perusteella arvioitua ovulaatiopäivää.',
+    testingTips: [
+      {
+        title: 'Perustu kiertoosi',
+        text: 'Aloita muutamaa päivää ennen kiertojesi keskimääräisestä pituudesta arvioitua ovulaatiopäivää.',
+      },
+      {
+        title: 'Testaa joka päivä samaan aikaan',
+        text: 'Mieluiten keskipäivällä, välttäen aamun ensimmäistä virtsaa.',
+      },
+      {
+        title: 'Vältä virtsan laimentamista',
+        text: 'Rajoita suuria nestemääriä testiä edeltävinä tunteina.',
+      },
+    ],
+    section4Body:
+      'Positiivinen tulos osoittaa yhdynnän kannalta hedelmällisimmän ajan seuraavien 1–2 päivän ajalle. Negatiivinen tulos tarkoittaa yksinkertaisesti, ettei piikki ole vielä tapahtunut.',
+    limitations: [
+      'PCOS voi aiheuttaa luonnostaan korkeampia LH-tasoja, mikä voi hämärtää lukemaa',
+      'Tietyt hedelmällisyyshoidot voivat vaikuttaa tulokseen',
+      'Hyvin laimea virtsa voi antaa väärän negatiivisen tuloksen',
+      'Heikompilaatuinen testi voi olla vähemmän luotettava',
+    ],
+    infoTitle: 'Pidä mielessä',
+    infoText:
+      'LH-piikki osoittaa laukaisevan hormonaalisen signaalin, mutta yksinään se ei takaa, että munasolu todella vapautui.',
+    tipTitle: 'Hyvä tietää',
+    tipText:
+      'Ovulaatiotestien yhdistäminen perusruumiinlämpöön tai kohdunkaulan liman havainnointiin antaa täydellisemmän kuvan kierrostasi.',
+    summaryPoints: [
+      'Ovulaatiotestit havaitsevat LH-piikin, joka laukaisee munasolun vapautumisen 24–36 tunnin kuluttua.',
+      'Testaus kannattaa aloittaa muutamaa päivää ennen kiertosi perusteella arvioitua ovulaatiopäivää.',
+      'Positiivinen tulos osoittaa yhdynnän kannalta hedelmällisimmän ajan seuraavien 1–2 päivän ajalle.',
+      'LH-piikki yksinään ei takaa, että ovulaatio todella tapahtui.',
+    ],
+    disclaimerText:
+      'Tiedoksi tarkoitettua sisältöä. Tämä artikkeli ei korvaa henkilökohtaista lääketieteellistä neuvontaa. Epäselvässä tilanteessa pyydä ohjausta terveydenhuollon ammattilaiselta.',
+    shareMessage: 'Ovulaatiotestien (LH) ymmärtäminen — AWA',
+  },
+  el: {
+    badge: 'ΓΟΝΙΜΟΤΗΤΑ • ΤΕΣΤ ΩΟΡΡΗΞΙΑΣ',
+    title: 'Κατανοώντας τα τεστ\nωορρηξίας (LH)',
+    metaDuration: '6 λεπτά ανάγνωσης',
+    metaType: 'Οδηγός',
+    metaLevel: 'Μεσαίο',
+    metaValidated: 'Ελεγμένο περιεχόμενο',
+    intro: 'Πώς λειτουργούν αυτές οι ταινίες και πότε να τις χρησιμοποιείς.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Τι είναι η LH;',
+      'Πώς λειτουργούν αυτά τα τεστ',
+      'Πότε να αρχίσεις τη διενέργεια τεστ',
+      'Ερμηνεύοντας ένα αποτέλεσμα',
+      'Ψευδώς θετικά αποτελέσματα και περιορισμοί',
+      'Συνδυασμός με άλλα σημάδια',
+      'Βασικά συμπεράσματα',
+    ],
+    section1Body:
+      'Η LH (ωχρινοτρόπος ορμόνη) παράγεται από τον εγκέφαλο και ελέγχει τη λειτουργία των ωοθηκών. Τα τεστ ωορρηξίας ανιχνεύουν την απότομη αύξηση αυτής της ορμόνης, η οποία πυροδοτεί την απελευθέρωση του ωαρίου 24 έως 36 ώρες αργότερα.',
+    section2Body:
+      'Μια ταινία τεστ ούρων μετρά τα επίπεδα LH: μια γραμμή τεστ εξίσου σκούρα ή σκουρότερη από τη γραμμή ελέγχου υποδεικνύει απότομη αύξηση.',
+    section3Body:
+      'Συνιστάται να αρχίσεις τη διενέργεια τεστ λίγες ημέρες πριν την ημερομηνία ωορρηξίας που εκτιμάται από τον κύκλο σου.',
+    testingTips: [
+      {
+        title: 'Βάσισε το τεστ στον κύκλο σου',
+        text: 'Ξεκίνα λίγες ημέρες πριν την ημερομηνία ωορρηξίας που εκτιμάται από τη μέση διάρκεια των κύκλων σου.',
+      },
+      {
+        title: 'Κάνε το τεστ την ίδια ώρα κάθε ημέρα',
+        text: 'Ιδανικά γύρω στο μεσημέρι, αποφεύγοντας τα πρωινά πρώτα ούρα.',
+      },
+      {
+        title: 'Απόφυγε να αραιώσεις τα ούρα σου',
+        text: 'Περιόρισε τις μεγάλες ποσότητες υγρών τις ώρες πριν το τεστ.',
+      },
+    ],
+    section4Body:
+      'Ένα θετικό αποτέλεσμα σηματοδοτεί την πιο γόνιμη στιγμή για σεξουαλική επαφή τις επόμενες 1 έως 2 ημέρες. Ένα αρνητικό αποτέλεσμα σημαίνει απλώς ότι η απότομη αύξηση δεν έχει συμβεί ακόμη.',
+    limitations: [
+      'Το PCOS μπορεί να προκαλέσει φυσικά υψηλότερα επίπεδα LH, κάτι που μπορεί να θολώσει την ανάγνωση',
+      'Ορισμένες θεραπείες γονιμότητας μπορούν να επηρεάσουν το αποτέλεσμα',
+      'Πολύ αραιωμένα ούρα μπορούν να δώσουν ψευδώς αρνητικό αποτέλεσμα',
+      'Ένα τεστ χαμηλότερης ποιότητας μπορεί να είναι λιγότερο αξιόπιστο',
+    ],
+    infoTitle: 'Να το έχεις υπόψη',
+    infoText:
+      'Η απότομη αύξηση της LH δείχνει ένα ορμονικό σήμα εκκίνησης, αλλά από μόνη της δεν εγγυάται ότι το ωάριο απελευθερώθηκε πραγματικά.',
+    tipTitle: 'Καλό είναι να γνωρίζεις',
+    tipText:
+      'Ο συνδυασμός των τεστ ωορρηξίας με τη βασική θερμοκρασία σώματος ή την παρατήρηση της τραχηλικής βλέννας δίνει μια πληρέστερη εικόνα του κύκλου σου.',
+    summaryPoints: [
+      'Τα τεστ ωορρηξίας ανιχνεύουν την απότομη αύξηση της LH, η οποία πυροδοτεί την απελευθέρωση του ωαρίου 24 έως 36 ώρες αργότερα.',
+      'Συνιστάται να αρχίσεις τη διενέργεια τεστ λίγες ημέρες πριν την ημερομηνία ωορρηξίας που εκτιμάται από τον κύκλο σου.',
+      'Ένα θετικό αποτέλεσμα σηματοδοτεί την πιο γόνιμη στιγμή για σεξουαλική επαφή τις επόμενες 1 έως 2 ημέρες.',
+      'Η απότομη αύξηση της LH από μόνη της δεν εγγυάται ότι έγινε πραγματικά ωορρηξία.',
+    ],
+    disclaimerText:
+      'Ενημερωτικό περιεχόμενο. Αυτό το άρθρο δεν αντικαθιστά εξατομικευμένη ιατρική συμβουλή. Αν έχεις αμφιβολίες, ζήτησε καθοδήγηση από έναν επαγγελματία υγείας.',
+    shareMessage: 'Κατανοώντας τα τεστ ωορρηξίας (LH) — AWA',
+  },
+  fil: {
+    badge: 'PAGKAMAYABONG • MGA TEST SA OBULASYON',
+    title: 'Pag-unawa sa mga test\nsa obulasyon (LH)',
+    metaDuration: '6 min na babasahin',
+    metaType: 'Gabay',
+    metaLevel: 'Katamtaman',
+    metaValidated: 'Sinuring nilalaman',
+    intro: 'Paano gumagana ang mga strip na ito, at kailan gagamitin ang mga ito.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Ano ang LH?',
+      'Paano gumagana ang mga test na ito',
+      'Kailan magsisimulang mag-test',
+      'Pagbasa ng resulta',
+      'Mga maling positibo at limitasyon',
+      'Pagsasama sa iba pang senyales',
+      'Mahahalagang tandaan',
+    ],
+    section1Body:
+      'Ang LH (luteinizing hormone) ay ginagawa ng utak at kinokontrol ang paggana ng mga obaryo. Nade-detect ng mga test sa obulasyon ang pagtaas ng hormone na ito, na nag-uudyok ng paglabas ng itlog pagkalipas ng 24 hanggang 36 na oras.',
+    section2Body:
+      'Sinusukat ng urine test strip ang antas ng LH: ang test line na kasing-dilim o mas madilim kaysa sa control line ay nagpapahiwatig ng pagtaas.',
+    section3Body:
+      'Inirerekomendang magsimulang mag-test ilang araw bago ang petsa ng obulasyong tinatayang batay sa iyong siklo.',
+    testingTips: [
+      {
+        title: 'Ibatay ito sa iyong siklo',
+        text: 'Magsimula ilang araw bago ang petsa ng obulasyong tinatayang batay sa average na haba ng iyong mga siklo.',
+      },
+      {
+        title: 'Mag-test sa parehong oras araw-araw',
+        text: 'Mainam sa tanghali, iwasan ang una mong ihi sa umaga.',
+      },
+      {
+        title: 'Iwasang palabnawin ang iyong ihi',
+        text: 'Limitahan ang maraming likido sa mga oras bago ang test.',
+      },
+    ],
+    section4Body:
+      'Ang positibong resulta ay nagpapahiwatig ng pinakamayabong na panahon para sa pakikipagtalik sa susunod na 1 hanggang 2 araw. Ang negatibong resulta ay nangangahulugan lamang na hindi pa nangyayari ang pagtaas.',
+    limitations: [
+      'Ang PCOS ay maaaring magdulot ng natural na mas mataas na antas ng LH, na maaaring magpalabo ng pagbasa',
+      'Ang ilang paggamot sa pagkamayabong ay maaaring makaapekto sa resulta',
+      'Ang napakalabnaw na ihi ay maaaring magbigay ng maling negatibo',
+      'Ang test na mas mababa ang kalidad ay maaaring hindi gaanong maaasahan',
+    ],
+    infoTitle: 'Tandaan',
+    infoText:
+      'Ang pagtaas ng LH ay nagpapahiwatig ng hormonal na hudyat, ngunit sa sarili nito ay hindi ito garantiya na talagang nailabas na ang itlog.',
+    tipTitle: 'Mabuting malaman',
+    tipText:
+      'Ang pagsasama ng mga test sa obulasyon sa iyong basal body temperature o pagmamasid sa cervical mucus ay nagbibigay ng mas buong larawan ng iyong siklo.',
+    summaryPoints: [
+      'Nade-detect ng mga test sa obulasyon ang pagtaas ng LH, na nag-uudyok ng paglabas ng itlog pagkalipas ng 24 hanggang 36 na oras.',
+      'Inirerekomendang magsimulang mag-test ilang araw bago ang petsa ng obulasyong tinatayang batay sa iyong siklo.',
+      'Ang positibong resulta ay nagpapahiwatig ng pinakamayabong na panahon para sa pakikipagtalik sa susunod na 1 hanggang 2 araw.',
+      'Ang pagtaas ng LH sa sarili nito ay hindi garantiya na talagang nangyari ang obulasyon.',
+    ],
+    disclaimerText:
+      'Impormatibong nilalaman. Hindi pumapalit ang artikulong ito sa personalisadong payong medikal. Kung nag-aalinlangan, humingi ng gabay sa propesyonal sa kalusugan.',
+    shareMessage: 'Pag-unawa sa mga test sa obulasyon (LH) — AWA',
+  },
+  ta: {
+    badge: 'கருவுறுதிறன் • அண்டவிடுப்புப் பரிசோதனைகள்',
+    title: 'அண்டவிடுப்புப் பரிசோதனைகளைப்\nபுரிந்துகொள்ளுதல் (LH)',
+    metaDuration: '6 நிமிடம் படிக்க',
+    metaType: 'வழிகாட்டி',
+    metaLevel: 'இடைநிலை',
+    metaValidated: 'சரிபார்க்கப்பட்ட உள்ளடக்கம்',
+    intro: 'இந்தப் பட்டைகள் எப்படிச் செயல்படுகின்றன, எப்போது பயன்படுத்துவது.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'LH என்றால் என்ன?',
+      'இந்தப் பரிசோதனைகள் எப்படிச் செயல்படுகின்றன',
+      'எப்போது பரிசோதிக்கத் தொடங்குவது',
+      'ஒரு முடிவை விளக்குதல்',
+      'தவறான நேர்மறை முடிவுகளும் வரம்புகளும்',
+      'மற்ற அறிகுறிகளுடன் இணைத்தல்',
+      'முக்கியக் குறிப்புகள்',
+    ],
+    section1Body:
+      'LH (லூட்டினைசிங் ஹார்மோன்) மூளையால் உற்பத்தி செய்யப்படுகிறது, அண்டகங்கள் செயல்படும் விதத்தைக் கட்டுப்படுத்துகிறது. அண்டவிடுப்புப் பரிசோதனைகள் இந்த ஹார்மோனின் திடீர் உயர்வைக் கண்டறிகின்றன, இது 24 முதல் 36 மணிநேரத்துக்குப் பின் முட்டையின் வெளியீட்டைத் தூண்டுகிறது.',
+    section2Body:
+      'சிறுநீர்ப் பரிசோதனைப் பட்டை LH அளவுகளை அளவிடுகிறது: கட்டுப்பாட்டுக் கோட்டைப் போலவே அல்லது அதை விடக் கருமையான பரிசோதனைக் கோடு ஓர் உயர்வைக் குறிக்கிறது.',
+    section3Body:
+      'உங்கள் சுழற்சியிலிருந்து மதிப்பிடப்பட்ட அண்டவிடுப்புத் தேதிக்குச் சில நாட்களுக்கு முன் பரிசோதிக்கத் தொடங்க பரிந்துரைக்கப்படுகிறது.',
+    testingTips: [
+      {
+        title: 'உங்கள் சுழற்சியை அடிப்படையாகக் கொள்ளுங்கள்',
+        text: 'உங்கள் சுழற்சிகளின் சராசரி நீளத்திலிருந்து மதிப்பிடப்பட்ட அண்டவிடுப்புத் தேதிக்குச் சில நாட்களுக்கு முன் தொடங்குங்கள்.',
+      },
+      {
+        title: 'தினமும் ஒரே நேரத்தில் பரிசோதியுங்கள்',
+        text: 'முடிந்தால் நண்பகலில், காலையின் முதல் சிறுநீரைத் தவிர்த்து.',
+      },
+      {
+        title: 'உங்கள் சிறுநீரை நீர்த்துப்போகச் செய்வதைத் தவிருங்கள்',
+        text: 'பரிசோதனைக்கு முந்தைய மணிநேரங்களில் அதிக அளவு திரவங்களைக் குறையுங்கள்.',
+      },
+    ],
+    section4Body:
+      'நேர்மறை முடிவு அடுத்த 1 முதல் 2 நாட்களில் உடலுறவுக்கு மிகக் கருவுறும் நேரத்தைக் குறிக்கிறது. எதிர்மறை முடிவு உயர்வு இன்னும் நிகழவில்லை என்பதை மட்டுமே குறிக்கிறது.',
+    limitations: [
+      'PCOS இயல்பாகவே அதிக LH அளவுகளை ஏற்படுத்தலாம், இது வாசிப்பைக் குழப்பலாம்',
+      'சில கருவுறுதிறன் சிகிச்சைகள் முடிவைப் பாதிக்கலாம்',
+      'மிகவும் நீர்த்த சிறுநீர் தவறான எதிர்மறை முடிவைத் தரலாம்',
+      'குறைவான தரமுள்ள பரிசோதனை குறைவான நம்பகத்தன்மை கொண்டதாக இருக்கலாம்',
+    ],
+    infoTitle: 'மனதில் வைத்துக்கொள்ளுங்கள்',
+    infoText:
+      'LH உயர்வு ஒரு தூண்டும் ஹார்மோன் சமிக்ஞையைக் குறிக்கிறது, ஆனால் தனியாக அது முட்டை உண்மையில் வெளியிடப்பட்டது என்பதற்கு உத்தரவாதம் அல்ல.',
+    tipTitle: 'தெரிந்துகொள்ளுங்கள்',
+    tipText:
+      'அண்டவிடுப்புப் பரிசோதனைகளை உங்கள் அடிப்படை உடல் வெப்பநிலையுடன் அல்லது கருப்பைவாய் சளி கவனிப்புடன் இணைப்பது உங்கள் சுழற்சியின் முழுமையான படத்தைத் தருகிறது.',
+    summaryPoints: [
+      'அண்டவிடுப்புப் பரிசோதனைகள் LH உயர்வைக் கண்டறிகின்றன, இது 24 முதல் 36 மணிநேரத்துக்குப் பின் முட்டையின் வெளியீட்டைத் தூண்டுகிறது.',
+      'உங்கள் சுழற்சியிலிருந்து மதிப்பிடப்பட்ட அண்டவிடுப்புத் தேதிக்குச் சில நாட்களுக்கு முன் பரிசோதிக்கத் தொடங்க பரிந்துரைக்கப்படுகிறது.',
+      'நேர்மறை முடிவு அடுத்த 1 முதல் 2 நாட்களில் உடலுறவுக்கு மிகக் கருவுறும் நேரத்தைக் குறிக்கிறது.',
+      'LH உயர்வு மட்டும் தனியாக அண்டவிடுப்பு உண்மையில் நிகழ்ந்தது என்பதற்கு உத்தரவாதம் அல்ல.',
+    ],
+    disclaimerText:
+      'தகவல் உள்ளடக்கம். இந்தக் கட்டுரை தனிப்பயன் மருத்துவ ஆலோசனைக்கு மாற்றல்ல. சந்தேகம் இருந்தால், ஒரு சுகாதார நிபுணரிடம் வழிகாட்டுதல் கேளுங்கள்.',
+    shareMessage: 'அண்டவிடுப்புப் பரிசோதனைகளைப் புரிந்துகொள்ளுதல் (LH) — AWA',
+  },
+  te: {
+    badge: 'సారవంతత • అండోత్సర్గ పరీక్షలు',
+    title: 'అండోత్సర్గ (LH)\nపరీక్షలను అర్థం చేసుకోవడం',
+    metaDuration: '6 నిమిషాల పఠనం',
+    metaType: 'గైడ్',
+    metaLevel: 'మధ్యస్థ స్థాయి',
+    metaValidated: 'మదింపు చేసిన కంటెంట్',
+    intro: 'ఈ స్ట్రిప్‌లు ఎలా పనిచేస్తాయి, వాటిని ఎప్పుడు ఉపయోగించాలి.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'LH అంటే ఏమిటి?',
+      'ఈ పరీక్షలు ఎలా పనిచేస్తాయి',
+      'పరీక్షలు ఎప్పుడు మొదలుపెట్టాలి',
+      'ఫలితాన్ని వ్యాఖ్యానించడం',
+      'తప్పుడు పాజిటివ్‌లు, పరిమితులు',
+      'ఇతర సంకేతాలతో కలపడం',
+      'ముఖ్యాంశాలు',
+    ],
+    section1Body:
+      'LH (ల్యూటినైజింగ్ హార్మోన్) మెదడులో ఉత్పత్తి అవుతుంది, అండాశయాల పనితీరును నియంత్రిస్తుంది. అండోత్సర్గ పరీక్షలు ఈ హార్మోన్ పెరుగుదలను గుర్తిస్తాయి, ఇది 24 నుండి 36 గంటల తర్వాత అండం విడుదలను ప్రేరేపిస్తుంది.',
+    section2Body:
+      'ఒక మూత్ర పరీక్ష స్ట్రిప్ LH స్థాయిలను కొలుస్తుంది: నియంత్రణ రేఖ అంత ముదురుగా లేదా అంతకంటే ముదురుగా ఉన్న పరీక్ష రేఖ పెరుగుదలను సూచిస్తుంది.',
+    section3Body:
+      'మీ చక్రం నుండి అంచనా వేసిన అండోత్సర్గ తేదీకి కొన్ని రోజుల ముందు పరీక్షలు మొదలుపెట్టాలని సిఫార్సు చేయబడింది.',
+    testingTips: [
+      {
+        title: 'మీ చక్రం ఆధారంగా మొదలుపెట్టండి',
+        text: 'మీ చక్రాల సగటు నిడివి నుండి అంచనా వేసిన అండోత్సర్గ తేదీకి కొన్ని రోజుల ముందు మొదలుపెట్టండి.',
+      },
+      {
+        title: 'ప్రతి రోజూ ఒకే సమయంలో పరీక్షించండి',
+        text: 'వీలైతే మధ్యాహ్నం వేళ, ఉదయపు మొదటి మూత్రాన్ని తప్పించుకుంటూ.',
+      },
+      {
+        title: 'మీ మూత్రాన్ని పలుచబడనీయకండి',
+        text: 'పరీక్షకు ముందు గంటల్లో ఎక్కువ మొత్తంలో ద్రవాలను పరిమితం చేయండి.',
+      },
+    ],
+    section4Body:
+      'పాజిటివ్ ఫలితం తర్వాతి 1 నుండి 2 రోజులు సంభోగానికి అత్యంత సారవంతమైన సమయాన్ని సూచిస్తుంది. నెగెటివ్ ఫలితం పెరుగుదల ఇంకా జరగలేదని మాత్రమే అర్థం.',
+    limitations: [
+      'PCOS సహజంగా ఎక్కువ LH స్థాయిలకు కారణమై రీడింగ్‌ను అస్పష్టం చేయవచ్చు',
+      'కొన్ని సారవంతత చికిత్సలు ఫలితాన్ని ప్రభావితం చేయవచ్చు',
+      'చాలా పలుచబడిన మూత్రం తప్పుడు నెగెటివ్‌ను ఇవ్వవచ్చు',
+      'తక్కువ నాణ్యత గల పరీక్ష తక్కువ నమ్మదగినది కావచ్చు',
+    ],
+    infoTitle: 'గుర్తుంచుకోండి',
+    infoText:
+      'LH పెరుగుదల ప్రేరేపించే హార్మోన్ సంకేతాన్ని సూచిస్తుంది, కానీ అది స్వయంగా అండం నిజంగా విడుదలైందని హామీ ఇవ్వదు.',
+    tipTitle: 'తెలుసుకోవాల్సినవి',
+    tipText:
+      'అండోత్సర్గ పరీక్షలను మీ బేసల్ శరీర ఉష్ణోగ్రతతో లేదా గర్భాశయ ముఖద్వార స్రావ పరిశీలనతో కలపడం మీ చక్రం గురించి మరింత పూర్తి చిత్రాన్ని ఇస్తుంది.',
+    summaryPoints: [
+      'అండోత్సర్గ పరీక్షలు LH పెరుగుదలను గుర్తిస్తాయి, ఇది 24 నుండి 36 గంటల తర్వాత అండం విడుదలను ప్రేరేపిస్తుంది.',
+      'మీ చక్రం నుండి అంచనా వేసిన అండోత్సర్గ తేదీకి కొన్ని రోజుల ముందు పరీక్షలు మొదలుపెట్టాలని సిఫార్సు చేయబడింది.',
+      'పాజిటివ్ ఫలితం తర్వాతి 1 నుండి 2 రోజులు సంభోగానికి అత్యంత సారవంతమైన సమయాన్ని సూచిస్తుంది.',
+      'LH పెరుగుదల ఒక్కటే అండోత్సర్గం నిజంగా జరిగిందని హామీ ఇవ్వదు.',
+    ],
+    disclaimerText:
+      'సమాచార కంటెంట్. ఈ వ్యాసం వ్యక్తిగత వైద్య సలహాకు ప్రత్యామ్నాయం కాదు. సందేహం ఉంటే, ఒక ఆరోగ్య నిపుణుడి మార్గదర్శకత్వాన్ని కోరండి.',
+    shareMessage: 'అండోత్సర్గ (LH) పరీక్షలను అర్థం చేసుకోవడం — AWA',
+  },
+  mr: {
+    badge: 'सुपीकता • बीजोत्सर्जन चाचण्या',
+    title: 'बीजोत्सर्जन चाचण्या\n(LH) समजून घेणे',
+    metaDuration: '6 मिनिटे वाचन',
+    metaType: 'मार्गदर्शक',
+    metaLevel: 'मध्यम स्तर',
+    metaValidated: 'पुनरावलोकन केलेला मजकूर',
+    intro: 'या पट्ट्या कशा काम करतात आणि त्या केव्हा वापराव्यात.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'LH म्हणजे काय?',
+      'या चाचण्या कशा काम करतात',
+      'चाचणी केव्हा सुरू करावी',
+      'निकालाचा अर्थ लावणे',
+      'चुकीचे सकारात्मक निकाल आणि मर्यादा',
+      'इतर चिन्हांशी जोडणे',
+      'मुख्य मुद्दे',
+    ],
+    section1Body:
+      'LH (ल्युटेनायझिंग हार्मोन) मेंदूद्वारे तयार होतो आणि अंडाशयांच्या कार्यावर नियंत्रण ठेवतो. बीजोत्सर्जन चाचण्या या हार्मोनमधील वाढ ओळखतात, जी 24 ते 36 तासांनी बीजांड सोडले जाण्यास कारणीभूत ठरते.',
+    section2Body:
+      'लघवीची चाचणी पट्टी LH पातळी मोजते: चाचणी रेषा नियंत्रण रेषेइतकी किंवा त्याहून गडद असल्यास ती वाढ दर्शवते.',
+    section3Body:
+      'तुमच्या पाळीवरून अंदाजे ठरलेल्या बीजोत्सर्जनाच्या तारखेच्या काही दिवस आधी चाचणी सुरू करण्याची शिफारस केली जाते.',
+    testingTips: [
+      {
+        title: 'तुमच्या पाळीवर आधारित ठरवा',
+        text: 'तुमच्या पाळीच्या सरासरी कालावधीवरून अंदाजे ठरलेल्या बीजोत्सर्जनाच्या तारखेच्या काही दिवस आधी सुरुवात करा.',
+      },
+      {
+        title: 'रोज एकाच वेळी चाचणी करा',
+        text: 'आदर्शतः दुपारच्या सुमारास, सकाळची पहिली लघवी टाळून.',
+      },
+      {
+        title: 'लघवी पातळ होऊ देऊ नका',
+        text: 'चाचणीच्या आधीच्या तासांत भरपूर द्रव पदार्थ पिणे मर्यादित करा.',
+      },
+    ],
+    section4Body:
+      'सकारात्मक निकाल पुढील 1 ते 2 दिवसांत शारीरिक संबंधासाठी सर्वात सुपीक वेळ असल्याचे दर्शवतो. नकारात्मक निकालाचा अर्थ फक्त एवढाच की वाढ अजून झालेली नाही.',
+    limitations: [
+      'PCOS मुळे नैसर्गिकपणे LH पातळी जास्त असू शकते, ज्यामुळे वाचन अस्पष्ट होऊ शकते',
+      'काही सुपीकता उपचार निकालावर परिणाम करू शकतात',
+      'खूप पातळ लघवीमुळे चुकीचा नकारात्मक निकाल येऊ शकतो',
+      'कमी दर्जाची चाचणी कमी विश्वासार्ह असू शकते',
+    ],
+    infoTitle: 'लक्षात ठेवा',
+    infoText:
+      'LH वाढ हा सुरू करणारा हार्मोनल संकेत दर्शवते, पण एकट्याने ती बीजांड खरोखर सोडले गेल्याची हमी देत नाही.',
+    tipTitle: 'हे जाणून घ्या',
+    tipText:
+      'बीजोत्सर्जन चाचण्या तुमच्या बेसल शरीराच्या तापमानाशी किंवा गर्भाशयमुखाच्या स्रावाच्या निरीक्षणाशी जोडल्याने तुमच्या पाळीचे अधिक पूर्ण चित्र मिळते.',
+    summaryPoints: [
+      'बीजोत्सर्जन चाचण्या LH वाढ ओळखतात, जी 24 ते 36 तासांनी बीजांड सोडले जाण्यास कारणीभूत ठरते.',
+      'तुमच्या पाळीवरून अंदाजे ठरलेल्या बीजोत्सर्जनाच्या तारखेच्या काही दिवस आधी चाचणी सुरू करण्याची शिफारस केली जाते.',
+      'सकारात्मक निकाल पुढील 1 ते 2 दिवसांत शारीरिक संबंधासाठी सर्वात सुपीक वेळ असल्याचे दर्शवतो.',
+      'फक्त LH वाढ बीजोत्सर्जन प्रत्यक्षात झाल्याची हमी देत नाही.',
+    ],
+    disclaimerText:
+      'माहितीपर मजकूर. हा लेख वैयक्तिक वैद्यकीय सल्ल्याची जागा घेत नाही. शंका असल्यास, मार्गदर्शनासाठी आरोग्य व्यावसायिकाला विचारा.',
+    shareMessage: 'बीजोत्सर्जन चाचण्या (LH) समजून घेणे — AWA',
+  },
+  gu: {
+    badge: 'ફળદ્રુપતા • અંડોત્સર્જન પરીક્ષણો',
+    title: 'અંડોત્સર્જન પરીક્ષણો\n(LH) સમજો',
+    metaDuration: '6 મિનિટ વાંચન',
+    metaType: 'માર્ગદર્શિકા',
+    metaLevel: 'મધ્યમ સ્તર',
+    metaValidated: 'પુનરાવલોકન કરેલી સામગ્રી',
+    intro: 'આ પટ્ટીઓ કેવી રીતે કામ કરે છે, અને ક્યારે વાપરવી.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'LH એટલે શું?',
+      'આ પરીક્ષણો કેવી રીતે કામ કરે છે',
+      'પરીક્ષણ ક્યારે શરૂ કરવું',
+      'પરિણામનું અર્થઘટન',
+      'ખોટાં પોઝિટિવ પરિણામ અને મર્યાદાઓ',
+      'અન્ય સંકેતો સાથે જોડવું',
+      'મુખ્ય મુદ્દા',
+    ],
+    section1Body:
+      'LH (લ્યુટિનાઇઝિંગ હોર્મોન) મગજ દ્વારા બને છે અને અંડાશય કેવી રીતે કામ કરે છે તેને નિયંત્રિત કરે છે. અંડોત્સર્જન પરીક્ષણો આ હોર્મોનના ઉછાળાને શોધે છે, જે 24 થી 36 કલાક પછી અંડકોષને છૂટો પાડે છે.',
+    section2Body:
+      'પેશાબની પરીક્ષણ પટ્ટી LH નું સ્તર માપે છે: જો પરીક્ષણ રેખા નિયંત્રણ રેખા જેટલી અથવા તેનાથી વધુ ઘેરી હોય, તો તે ઉછાળો દર્શાવે છે.',
+    section3Body:
+      'તમારા ચક્ર પરથી અંદાજિત અંડોત્સર્જનની તારીખના થોડા દિવસ પહેલાં પરીક્ષણ શરૂ કરવાની ભલામણ કરવામાં આવે છે.',
+    testingTips: [
+      {
+        title: 'તમારા ચક્ર પર આધાર રાખો',
+        text: 'તમારા ચક્રની સરેરાશ લંબાઈ પરથી અંદાજિત અંડોત્સર્જનની તારીખના થોડા દિવસ પહેલાં શરૂ કરો.',
+      },
+      {
+        title: 'રોજ એક જ સમયે પરીક્ષણ કરો',
+        text: 'આદર્શ રીતે બપોરની આસપાસ, સવારના પહેલા પેશાબને ટાળીને.',
+      },
+      {
+        title: 'પેશાબને પાતળો ન કરો',
+        text: 'પરીક્ષણ પહેલાંના કલાકોમાં વધુ પ્રમાણમાં પ્રવાહી પીવાનું ઓછું કરો.',
+      },
+    ],
+    section4Body:
+      'પોઝિટિવ પરિણામ આગામી 1 થી 2 દિવસ માટે સંભોગ માટેનો સૌથી ફળદ્રુપ સમય સૂચવે છે. નેગેટિવ પરિણામનો અર્થ ફક્ત એટલો કે ઉછાળો હજી આવ્યો નથી.',
+    limitations: [
+      'PCOS માં કુદરતી રીતે LH નું સ્તર વધુ હોઈ શકે છે, જે પરિણામને અસ્પષ્ટ કરી શકે છે',
+      'ફળદ્રુપતાની કેટલીક સારવાર પરિણામને અસર કરી શકે છે',
+      'ખૂબ પાતળો પેશાબ ખોટું નેગેટિવ પરિણામ આપી શકે છે',
+      'ઓછી ગુણવત્તાનું પરીક્ષણ ઓછું વિશ્વસનીય હોઈ શકે છે',
+    ],
+    infoTitle: 'યાદ રાખો',
+    infoText:
+      'LH નો ઉછાળો હોર્મોનલ સંકેત દર્શાવે છે, પરંતુ એકલો તે ખાતરી આપતો નથી કે અંડકોષ ખરેખર છૂટો પડ્યો છે.',
+    tipTitle: 'જાણવા જેવું',
+    tipText:
+      'અંડોત્સર્જન પરીક્ષણોને તમારા બેઝલ શરીરના તાપમાન અથવા ગર્ભાશયમુખના સ્રાવના અવલોકન સાથે જોડવાથી તમારા ચક્રનું વધુ પૂર્ણ ચિત્ર મળે છે.',
+    summaryPoints: [
+      'અંડોત્સર્જન પરીક્ષણો LH નો ઉછાળો શોધે છે, જે 24 થી 36 કલાક પછી અંડકોષને છૂટો પાડે છે.',
+      'તમારા ચક્ર પરથી અંદાજિત અંડોત્સર્જનની તારીખના થોડા દિવસ પહેલાં પરીક્ષણ શરૂ કરવાની ભલામણ કરવામાં આવે છે.',
+      'પોઝિટિવ પરિણામ આગામી 1 થી 2 દિવસ માટે સંભોગ માટેનો સૌથી ફળદ્રુપ સમય સૂચવે છે.',
+      'LH નો ઉછાળો એકલો ખાતરી આપતો નથી કે અંડોત્સર્જન ખરેખર થયું છે.',
+    ],
+    disclaimerText:
+      'માહિતી માટેની સામગ્રી. આ લેખ વ્યક્તિગત તબીબી સલાહનું સ્થાન લેતો નથી. શંકા હોય તો આરોગ્ય વ્યાવસાયિકનું માર્ગદર્શન લો.',
+    shareMessage: 'અંડોત્સર્જન પરીક્ષણો (LH) સમજો — AWA',
+  },
+  pa: {
+    badge: 'ਉਪਜਾਊ ਸ਼ਕਤੀ • ਓਵੂਲੇਸ਼ਨ ਟੈਸਟ',
+    title: 'ਓਵੂਲੇਸ਼ਨ ਟੈਸਟਾਂ\n(LH) ਨੂੰ ਸਮਝਣਾ',
+    metaDuration: '6 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਗਾਈਡ',
+    metaLevel: 'ਦਰਮਿਆਨਾ ਪੱਧਰ',
+    metaValidated: 'ਸਮੀਖਿਆ ਕੀਤੀ ਸਮੱਗਰੀ',
+    intro: 'ਇਹ ਪੱਟੀਆਂ ਕਿਵੇਂ ਕੰਮ ਕਰਦੀਆਂ ਹਨ, ਅਤੇ ਇਨ੍ਹਾਂ ਨੂੰ ਕਦੋਂ ਵਰਤਣਾ ਹੈ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'LH ਕੀ ਹੈ?',
+      'ਇਹ ਟੈਸਟ ਕਿਵੇਂ ਕੰਮ ਕਰਦੇ ਹਨ',
+      'ਟੈਸਟ ਕਦੋਂ ਸ਼ੁਰੂ ਕਰਨਾ ਹੈ',
+      'ਨਤੀਜੇ ਦੀ ਵਿਆਖਿਆ',
+      'ਗ਼ਲਤ ਪਾਜ਼ਿਟਿਵ ਨਤੀਜੇ ਅਤੇ ਸੀਮਾਵਾਂ',
+      'ਹੋਰ ਸੰਕੇਤਾਂ ਨਾਲ ਮਿਲਾ ਕੇ ਵੇਖਣਾ',
+      'ਮੁੱਖ ਨੁਕਤੇ',
+    ],
+    section1Body:
+      'LH (ਲਿਊਟੀਨਾਈਜ਼ਿੰਗ ਹਾਰਮੋਨ) ਦਿਮਾਗ਼ ਵੱਲੋਂ ਬਣਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਅੰਡਕੋਸ਼ਾਂ ਦੇ ਕੰਮ ਨੂੰ ਕਾਬੂ ਕਰਦਾ ਹੈ। ਓਵੂਲੇਸ਼ਨ ਟੈਸਟ ਇਸ ਹਾਰਮੋਨ ਦੇ ਅਚਾਨਕ ਵਧਣ ਨੂੰ ਫੜਦੇ ਹਨ, ਜਿਸ ਤੋਂ 24 ਤੋਂ 36 ਘੰਟੇ ਬਾਅਦ ਅੰਡਾ ਨਿਕਲਦਾ ਹੈ।',
+    section2Body:
+      'ਪਿਸ਼ਾਬ ਦੀ ਟੈਸਟ ਪੱਟੀ LH ਦੇ ਪੱਧਰ ਨੂੰ ਮਾਪਦੀ ਹੈ: ਜੇ ਟੈਸਟ ਦੀ ਲਕੀਰ ਕੰਟਰੋਲ ਲਕੀਰ ਜਿੰਨੀ ਜਾਂ ਉਸ ਤੋਂ ਗੂੜ੍ਹੀ ਹੋਵੇ ਤਾਂ ਇਹ ਹਾਰਮੋਨ ਦੇ ਵਧਣ ਦਾ ਸੰਕੇਤ ਹੈ।',
+    section3Body:
+      'ਤੁਹਾਡੇ ਚੱਕਰ ਤੋਂ ਅੰਦਾਜ਼ਾ ਲਾਈ ਓਵੂਲੇਸ਼ਨ ਦੀ ਤਾਰੀਖ਼ ਤੋਂ ਕੁਝ ਦਿਨ ਪਹਿਲਾਂ ਟੈਸਟ ਸ਼ੁਰੂ ਕਰਨ ਦੀ ਸਿਫ਼ਾਰਸ਼ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।',
+    testingTips: [
+      {
+        title: 'ਆਪਣੇ ਚੱਕਰ ਨੂੰ ਆਧਾਰ ਬਣਾਓ',
+        text: 'ਆਪਣੇ ਚੱਕਰਾਂ ਦੀ ਔਸਤ ਲੰਬਾਈ ਤੋਂ ਅੰਦਾਜ਼ਾ ਲਾਈ ਓਵੂਲੇਸ਼ਨ ਦੀ ਤਾਰੀਖ਼ ਤੋਂ ਕੁਝ ਦਿਨ ਪਹਿਲਾਂ ਸ਼ੁਰੂ ਕਰੋ।',
+      },
+      {
+        title: 'ਹਰ ਰੋਜ਼ ਇੱਕੋ ਸਮੇਂ ਟੈਸਟ ਕਰੋ',
+        text: 'ਆਦਰਸ਼ ਤੌਰ ਤੇ ਦੁਪਹਿਰ ਦੇ ਆਸ-ਪਾਸ, ਸਵੇਰ ਦਾ ਪਹਿਲਾ ਪਿਸ਼ਾਬ ਛੱਡ ਕੇ।',
+      },
+      {
+        title: 'ਪਿਸ਼ਾਬ ਨੂੰ ਪਤਲਾ ਹੋਣ ਤੋਂ ਬਚਾਓ',
+        text: 'ਟੈਸਟ ਤੋਂ ਕੁਝ ਘੰਟੇ ਪਹਿਲਾਂ ਬਹੁਤ ਜ਼ਿਆਦਾ ਤਰਲ ਪਦਾਰਥ ਪੀਣ ਤੋਂ ਬਚੋ।',
+      },
+    ],
+    section4Body:
+      'ਪਾਜ਼ਿਟਿਵ ਨਤੀਜਾ ਅਗਲੇ 1 ਤੋਂ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਹਿਵਾਸ ਲਈ ਸਭ ਤੋਂ ਉਪਜਾਊ ਸਮੇਂ ਦਾ ਸੰਕੇਤ ਦਿੰਦਾ ਹੈ। ਨੈਗੇਟਿਵ ਨਤੀਜੇ ਦਾ ਸਿਰਫ਼ ਇਹ ਮਤਲਬ ਹੈ ਕਿ ਹਾਰਮੋਨ ਦਾ ਵਾਧਾ ਹਾਲੇ ਨਹੀਂ ਹੋਇਆ।',
+    limitations: [
+      'PCOS ਕਾਰਨ LH ਦਾ ਪੱਧਰ ਕੁਦਰਤੀ ਤੌਰ ਤੇ ਵੱਧ ਹੋ ਸਕਦਾ ਹੈ, ਜਿਸ ਨਾਲ ਨਤੀਜਾ ਧੁੰਦਲਾ ਹੋ ਸਕਦਾ ਹੈ',
+      'ਕੁਝ ਉਪਜਾਊ ਸ਼ਕਤੀ ਦੇ ਇਲਾਜ ਨਤੀਜੇ ਤੇ ਅਸਰ ਪਾ ਸਕਦੇ ਹਨ',
+      'ਬਹੁਤ ਪਤਲਾ ਪਿਸ਼ਾਬ ਗ਼ਲਤ ਨੈਗੇਟਿਵ ਨਤੀਜਾ ਦੇ ਸਕਦਾ ਹੈ',
+      'ਘੱਟ ਗੁਣਵੱਤਾ ਵਾਲਾ ਟੈਸਟ ਘੱਟ ਭਰੋਸੇਯੋਗ ਹੋ ਸਕਦਾ ਹੈ',
+    ],
+    infoTitle: 'ਧਿਆਨ ਰੱਖੋ',
+    infoText:
+      'LH ਦਾ ਵਾਧਾ ਹਾਰਮੋਨ ਵੱਲੋਂ ਦਿੱਤੇ ਸ਼ੁਰੂਆਤੀ ਸੰਕੇਤ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ, ਪਰ ਇਕੱਲਾ ਇਹ ਗਾਰੰਟੀ ਨਹੀਂ ਦਿੰਦਾ ਕਿ ਅੰਡਾ ਸੱਚਮੁੱਚ ਨਿਕਲ ਗਿਆ ਹੈ।',
+    tipTitle: 'ਜਾਣਨ ਯੋਗ',
+    tipText:
+      'ਓਵੂਲੇਸ਼ਨ ਟੈਸਟਾਂ ਨੂੰ ਆਪਣੇ ਆਰਾਮ ਵੇਲੇ ਦੇ ਸਰੀਰਕ ਤਾਪਮਾਨ ਜਾਂ ਬੱਚੇਦਾਨੀ ਦੇ ਮੂੰਹ ਦੇ ਰਿਸਾਅ ਦੇ ਅਵਲੋਕਨ ਨਾਲ ਮਿਲਾ ਕੇ ਵੇਖਣ ਨਾਲ ਤੁਹਾਡੇ ਚੱਕਰ ਦੀ ਪੂਰੀ ਤਸਵੀਰ ਮਿਲਦੀ ਹੈ।',
+    summaryPoints: [
+      'ਓਵੂਲੇਸ਼ਨ ਟੈਸਟ LH ਦੇ ਵਾਧੇ ਨੂੰ ਫੜਦੇ ਹਨ, ਜਿਸ ਤੋਂ 24 ਤੋਂ 36 ਘੰਟੇ ਬਾਅਦ ਅੰਡਾ ਨਿਕਲਦਾ ਹੈ।',
+      'ਤੁਹਾਡੇ ਚੱਕਰ ਤੋਂ ਅੰਦਾਜ਼ਾ ਲਾਈ ਓਵੂਲੇਸ਼ਨ ਦੀ ਤਾਰੀਖ਼ ਤੋਂ ਕੁਝ ਦਿਨ ਪਹਿਲਾਂ ਟੈਸਟ ਸ਼ੁਰੂ ਕਰਨ ਦੀ ਸਿਫ਼ਾਰਸ਼ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।',
+      'ਪਾਜ਼ਿਟਿਵ ਨਤੀਜਾ ਅਗਲੇ 1 ਤੋਂ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਹਿਵਾਸ ਲਈ ਸਭ ਤੋਂ ਉਪਜਾਊ ਸਮੇਂ ਦਾ ਸੰਕੇਤ ਦਿੰਦਾ ਹੈ।',
+      'ਇਕੱਲਾ LH ਦਾ ਵਾਧਾ ਇਸ ਗੱਲ ਦੀ ਗਾਰੰਟੀ ਨਹੀਂ ਦਿੰਦਾ ਕਿ ਓਵੂਲੇਸ਼ਨ ਸੱਚਮੁੱਚ ਹੋਇਆ।',
+    ],
+    disclaimerText:
+      'ਇਹ ਜਾਣਕਾਰੀ ਲਈ ਹੈ ਅਤੇ ਨਿੱਜੀ ਡਾਕਟਰੀ ਸਲਾਹ ਦੀ ਥਾਂ ਨਹੀਂ ਲੈਂਦੀ। ਸ਼ੱਕ ਹੋਣ ਤੇ ਕਿਸੇ ਸਿਹਤ ਮਾਹਿਰ ਤੋਂ ਸੇਧ ਲਓ।',
+    shareMessage: 'ਓਵੂਲੇਸ਼ਨ ਟੈਸਟਾਂ (LH) ਨੂੰ ਸਮਝਣਾ — AWA',
+  },
+  my: {
+    badge: 'သန္ဓေတည်နိုင်စွမ်း • မျိုးဥကြွေခြင်း စမ်းသပ်မှုများ',
+    title: 'မျိုးဥကြွေခြင်း\nစမ်းသပ်မှုများ (LH) ကို နားလည်ခြင်း',
+    metaDuration: 'ဖတ်ချိန် 6 မိနစ်',
+    metaType: 'လမ်းညွှန်',
+    metaLevel: 'အလယ်အလတ်အဆင့်',
+    metaValidated: 'ပြန်လည်သုံးသပ်ပြီး အကြောင်းအရာ',
+    intro: 'ဤစမ်းသပ်ချောင်းများ မည်သို့အလုပ်လုပ်သည်နှင့် မည်သည့်အချိန်တွင် သုံးသင့်သည်ကို ဖော်ပြထားသည်။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'LH ဆိုတာ ဘာလဲ။',
+      'ဤစမ်းသပ်မှုများ မည်သို့အလုပ်လုပ်သနည်း',
+      'စမ်းသပ်မှု စတင်ရန် အချိန်',
+      'ရလဒ်ကို အဓိပ္ပာယ်ဖော်ခြင်း',
+      'မှားယွင်းသော အပြုသဘောရလဒ်များနှင့် ကန့်သတ်ချက်များ',
+      'အခြားလက္ခဏာများနှင့် ပေါင်းစပ်ခြင်း',
+      'အဓိကအချက်များ',
+    ],
+    section1Body:
+      'LH (လူတီနိုက်ဇင်း ဟော်မုန်း) ကို ဦးနှောက်က ထုတ်လုပ်ပြီး သားဥအိမ်များ၏ လုပ်ဆောင်ချက်ကို ထိန်းချုပ်သည်။ မျိုးဥကြွေခြင်း စမ်းသပ်မှုများသည် ဤဟော်မုန်း၏ ရုတ်တရက်တက်လာမှုကို သိရှိစေပြီး ၎င်းသည် နာရီ 24 မှ 36 အကြာတွင် မျိုးဥကို ထွက်ပေါ်စေသည်။',
+    section2Body:
+      'ဆီးစမ်းသပ်ချောင်းသည် LH ပမာဏကို တိုင်းတာသည်။ စမ်းသပ်မျဉ်းသည် ထိန်းညှိမျဉ်းနှင့် တူညီစွာ သို့မဟုတ် ပိုမှောင်နေပါက ဟော်မုန်း ရုတ်တရက်တက်လာမှုကို ညွှန်ပြသည်။',
+    section3Body:
+      'သင်၏ ရာသီစက်ဝန်းမှ ခန့်မှန်းထားသော မျိုးဥကြွေရက်မတိုင်မီ ရက်အနည်းငယ်အလိုတွင် စမ်းသပ်မှု စတင်ရန် အကြံပြုသည်။',
+    testingTips: [
+      {
+        title: 'သင်၏ ရာသီစက်ဝန်းအပေါ် အခြေခံပါ',
+        text: 'သင်၏ ရာသီစက်ဝန်းများ၏ ပျမ်းမျှကြာချိန်မှ ခန့်မှန်းထားသော မျိုးဥကြွေရက်မတိုင်မီ ရက်အနည်းငယ်အလိုတွင် စတင်ပါ။',
+      },
+      {
+        title: 'နေ့တိုင်း တစ်ချိန်တည်းတွင် စမ်းသပ်ပါ',
+        text: 'နံနက်ပိုင်း ပထမဆုံးဆီးကို ရှောင်၍ မွန်းတည့်ချိန်ဝန်းကျင်တွင် စမ်းသပ်ခြင်းသည် အကောင်းဆုံးဖြစ်သည်။',
+      },
+      {
+        title: 'ဆီးကို ရောနှောမပျော့စေပါနှင့်',
+        text: 'စမ်းသပ်မှုမတိုင်မီ နာရီအနည်းငယ်အတွင်း အရည်များစွာ သောက်ခြင်းကို ကန့်သတ်ပါ။',
+      },
+    ],
+    section4Body:
+      'အပြုသဘောရလဒ်သည် နောက်လာမည့် 1 မှ 2 ရက်အတွင်း ဇနီးမောင်နှံဆက်ဆံရန် သန္ဓေတည်လွယ်ဆုံးအချိန်ကို ညွှန်ပြသည်။ အနုတ်သဘောရလဒ်ဆိုသည်မှာ ဟော်မုန်း ရုတ်တရက်တက်လာမှု မဖြစ်သေးကြောင်းသာ ဆိုလိုသည်။',
+    limitations: [
+      'PCOS သည် သဘာဝအတိုင်း LH ပမာဏ ပိုမြင့်စေနိုင်ပြီး ရလဒ်ကို မရှင်းလင်းစေနိုင်သည်',
+      'အချို့သော သန္ဓေတည်နိုင်စွမ်း ကုသမှုများသည် ရလဒ်ကို သက်ရောက်နိုင်သည်',
+      'အလွန်ပျော့နေသော ဆီးသည် မှားယွင်းသော အနုတ်သဘောရလဒ်ကို ပေးနိုင်သည်',
+      'အရည်အသွေးနိမ့်သော စမ်းသပ်ချောင်းသည် ယုံကြည်ရမှု ပိုနည်းနိုင်သည်',
+    ],
+    infoTitle: 'သတိရပါ',
+    infoText:
+      'LH ရုတ်တရက်တက်လာမှုသည် ဟော်မုန်းဆိုင်ရာ ဖြစ်ပေါ်စေသည့် အချက်ပြမှုကို ညွှန်ပြသော်လည်း ၎င်းတစ်ခုတည်းဖြင့် မျိုးဥ အမှန်တကယ် ကြွေကျကြောင်း အာမမခံနိုင်ပါ။',
+    tipTitle: 'သိထားသင့်သည်',
+    tipText:
+      'မျိုးဥကြွေခြင်း စမ်းသပ်မှုများကို သင်၏ အခြေခံ ကိုယ်အပူချိန် သို့မဟုတ် သားအိမ်ခေါင်းအချွဲ စောင့်ကြည့်မှုနှင့် ပေါင်းစပ်ခြင်းဖြင့် သင်၏ ရာသီစက်ဝန်းကို ပိုမိုပြည့်စုံစွာ မြင်နိုင်သည်။',
+    summaryPoints: [
+      'မျိုးဥကြွေခြင်း စမ်းသပ်မှုများသည် LH ရုတ်တရက်တက်လာမှုကို သိရှိစေပြီး ၎င်းသည် နာရီ 24 မှ 36 အကြာတွင် မျိုးဥကို ထွက်ပေါ်စေသည်။',
+      'သင်၏ ရာသီစက်ဝန်းမှ ခန့်မှန်းထားသော မျိုးဥကြွေရက်မတိုင်မီ ရက်အနည်းငယ်အလိုတွင် စမ်းသပ်မှု စတင်ရန် အကြံပြုသည်။',
+      'အပြုသဘောရလဒ်သည် နောက်လာမည့် 1 မှ 2 ရက်အတွင်း ဇနီးမောင်နှံဆက်ဆံရန် သန္ဓေတည်လွယ်ဆုံးအချိန်ကို ညွှန်ပြသည်။',
+      'LH ရုတ်တရက်တက်လာမှုတစ်ခုတည်းဖြင့် မျိုးဥကြွေခြင်း အမှန်တကယ် ဖြစ်ပေါ်ကြောင်း အာမမခံနိုင်ပါ။',
+    ],
+    disclaimerText:
+      '၎င်းသည် အချက်အလက်ပေးရန်ဖြစ်ပြီး ကိုယ်ပိုင်ဆေးဘက်ဆိုင်ရာ အကြံပြုချက်ကို အစားထိုးခြင်းမရှိပါ။ သံသယရှိပါက ကျန်းမာရေးပညာရှင်၏ လမ်းညွှန်မှုကို ရယူပါ။',
+    shareMessage: 'မျိုးဥကြွေခြင်း စမ်းသပ်မှုများ (LH) ကို နားလည်ခြင်း — AWA',
+  },
+  km: {
+    badge: 'ភាពមានកូន • ការធ្វើតេស្តពងអូវុល',
+    title: 'ស្វែងយល់អំពីការធ្វើតេស្ត\nពងអូវុល (LH)',
+    metaDuration: 'អាន 6 នាទី',
+    metaType: 'មគ្គុទ្ទេសក៍',
+    metaLevel: 'កម្រិតមធ្យម',
+    metaValidated: 'មាតិកាបានពិនិត្យ',
+    intro: 'របៀបដែលបន្ទះតេស្តទាំងនេះដំណើរការ និងពេលណាគួរប្រើវា។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'LH គឺជាអ្វី?',
+      'របៀបដែលការធ្វើតេស្តទាំងនេះដំណើរការ',
+      'ពេលណាគួរចាប់ផ្តើមធ្វើតេស្ត',
+      'ការបកស្រាយលទ្ធផល',
+      'លទ្ធផលវិជ្ជមានមិនពិត និងដែនកំណត់',
+      'ការផ្សំជាមួយសញ្ញាផ្សេងទៀត',
+      'ចំណុចសំខាន់ៗ',
+    ],
+    section1Body:
+      'LH (អរម៉ូនលូទីនីហ្សីង) ត្រូវបានផលិតដោយខួរក្បាល ហើយគ្រប់គ្រងរបៀបដែលពងអូវែដំណើរការ។ ការធ្វើតេស្តពងអូវុលរកឃើញការកើនឡើងយ៉ាងខ្លាំងនៃអរម៉ូននេះ ដែលជំរុញឱ្យមានការបញ្ចេញពងអូវុលក្រោយមក 24 ដល់ 36 ម៉ោង។',
+    section2Body:
+      'បន្ទះតេស្តទឹកនោមវាស់កម្រិត LH៖ បន្ទាត់តេស្តដែលងងឹតដូច ឬងងឹតជាងបន្ទាត់បញ្ជាក់ បង្ហាញពីការកើនឡើងយ៉ាងខ្លាំង។',
+    section3Body:
+      'ត្រូវបានណែនាំឱ្យចាប់ផ្តើមធ្វើតេស្តប៉ុន្មានថ្ងៃមុនថ្ងៃបញ្ចេញពងអូវុលដែលប៉ាន់ស្មានពីវដ្តរដូវរបស់អ្នក។',
+    testingTips: [
+      {
+        title: 'ផ្អែកលើវដ្តរដូវរបស់អ្នក',
+        text: 'ចាប់ផ្តើមប៉ុន្មានថ្ងៃមុនថ្ងៃបញ្ចេញពងអូវុលដែលប៉ាន់ស្មានពីរយៈពេលជាមធ្យមនៃវដ្តរដូវរបស់អ្នក។',
+      },
+      {
+        title: 'ធ្វើតេស្តនៅម៉ោងដដែលរាល់ថ្ងៃ',
+        text: 'ល្អបំផុតនៅជុំវិញពេលថ្ងៃត្រង់ ដោយជៀសវាងទឹកនោមដំបូងនៃពេលព្រឹក។',
+      },
+      {
+        title: 'ជៀសវាងការធ្វើឱ្យទឹកនោមរាវពេក',
+        text: 'កំណត់ការផឹកទឹកច្រើនក្នុងរយៈពេលជាច្រើនម៉ោងមុនពេលធ្វើតេស្ត។',
+      },
+    ],
+    section4Body:
+      'លទ្ធផលវិជ្ជមានបង្ហាញពីពេលវេលាដែលមានកូនងាយបំផុតសម្រាប់ការរួមភេទក្នុងរយៈពេល 1 ដល់ 2 ថ្ងៃបន្ទាប់។ លទ្ធផលអវិជ្ជមានមានន័យត្រឹមតែថា ការកើនឡើងយ៉ាងខ្លាំងមិនទាន់កើតឡើងនៅឡើយ។',
+    limitations: [
+      'PCOS អាចធ្វើឱ្យកម្រិត LH ខ្ពស់ជាងធម្មតាតាមធម្មជាតិ ដែលអាចធ្វើឱ្យការអានលទ្ធផលមិនច្បាស់',
+      'ការព្យាបាលភាពមានកូនមួយចំនួនអាចប៉ះពាល់ដល់លទ្ធផល',
+      'ទឹកនោមរាវខ្លាំងពេកអាចផ្តល់លទ្ធផលអវិជ្ជមានមិនពិត',
+      'ការធ្វើតេស្តដែលមានគុណភាពទាបជាងអាចមានភាពអាចទុកចិត្តបានតិចជាង',
+    ],
+    infoTitle: 'សូមចងចាំ',
+    infoText:
+      'ការកើនឡើងយ៉ាងខ្លាំងនៃ LH បង្ហាញពីសញ្ញាអរម៉ូនដែលជំរុញ ប៉ុន្តែដោយខ្លួនឯង វាមិនធានាថាពងអូវុលត្រូវបានបញ្ចេញពិតប្រាកដនោះទេ។',
+    tipTitle: 'គួរដឹង',
+    tipText:
+      'ការផ្សំការធ្វើតេស្តពងអូវុលជាមួយសីតុណ្ហភាពរាងកាយមូលដ្ឋាន ឬការសង្កេតទឹករំអិលមាត់ស្បូនរបស់អ្នក ផ្តល់រូបភាពពេញលេញជាងអំពីវដ្តរដូវរបស់អ្នក។',
+    summaryPoints: [
+      'ការធ្វើតេស្តពងអូវុលរកឃើញការកើនឡើងយ៉ាងខ្លាំងនៃ LH ដែលជំរុញឱ្យមានការបញ្ចេញពងអូវុលក្រោយមក 24 ដល់ 36 ម៉ោង។',
+      'ត្រូវបានណែនាំឱ្យចាប់ផ្តើមធ្វើតេស្តប៉ុន្មានថ្ងៃមុនថ្ងៃបញ្ចេញពងអូវុលដែលប៉ាន់ស្មានពីវដ្តរដូវរបស់អ្នក។',
+      'លទ្ធផលវិជ្ជមានបង្ហាញពីពេលវេលាដែលមានកូនងាយបំផុតសម្រាប់ការរួមភេទក្នុងរយៈពេល 1 ដល់ 2 ថ្ងៃបន្ទាប់។',
+      'ការកើនឡើងយ៉ាងខ្លាំងនៃ LH ដោយខ្លួនឯងមិនធានាថាការបញ្ចេញពងអូវុលបានកើតឡើងពិតប្រាកដទេ។',
+    ],
+    disclaimerText:
+      'នេះជាព័ត៌មានទូទៅ ហើយមិនជំនួសដំបូន្មានពីវេជ្ជបណ្ឌិតទេ។ អត្ថបទនេះមិនជំនួសដំបូន្មានវេជ្ជសាស្ត្រផ្ទាល់ខ្លួនទេ។ ប្រសិនបើមានការសង្ស័យ សូមស្វែងរកការណែនាំពីអ្នកជំនាញសុខាភិបាល។',
+    shareMessage: 'ស្វែងយល់អំពីការធ្វើតេស្តពងអូវុល (LH) — AWA',
+  },
+  lo: {
+    badge: 'ຄວາມສາມາດໃນການຕັ້ງຄັນ • ການທົດສອບການຕົກໄຂ່',
+    title: 'ເຂົ້າໃຈການທົດສອບ\nການຕົກໄຂ່ (LH)',
+    metaDuration: 'ອ່ານ 6 ນາທີ',
+    metaType: 'ຄູ່ມື',
+    metaLevel: 'ລະດັບກາງ',
+    metaValidated: 'ເນື້ອຫາທີ່ຜ່ານການກວດສອບ',
+    intro: 'ແຖບທົດສອບເຫຼົ່ານີ້ເຮັດວຽກແນວໃດ ແລະ ຄວນໃຊ້ເມື່ອໃດ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'LH ແມ່ນຫຍັງ?',
+      'ການທົດສອບເຫຼົ່ານີ້ເຮັດວຽກແນວໃດ',
+      'ເວລາໃດຄວນເລີ່ມທົດສອບ',
+      'ການແປຜົນ',
+      'ຜົນບວກປອມ ແລະ ຂໍ້ຈຳກັດ',
+      'ການໃຊ້ຮ່ວມກັບສັນຍານອື່ນ',
+      'ຈຸດສຳຄັນ',
+    ],
+    section1Body:
+      'LH (ຮໍໂມນລູທີໄນຊິງ) ຜະລິດໂດຍສະໝອງ ແລະ ຄວບຄຸມການເຮັດວຽກຂອງຮັງໄຂ່. ການທົດສອບການຕົກໄຂ່ຈະກວດຈັບການພຸ່ງສູງຂອງຮໍໂມນນີ້ ເຊິ່ງກະຕຸ້ນໃຫ້ໄຂ່ຖືກປ່ອຍອອກມາຫຼັງຈາກນັ້ນ 24 ຫາ 36 ຊົ່ວໂມງ.',
+    section2Body:
+      'ແຖບທົດສອບຍ່ຽວວັດລະດັບ LH: ຖ້າເສັ້ນທົດສອບເຂັ້ມເທົ່າ ຫຼື ເຂັ້ມກວ່າເສັ້ນຄວບຄຸມ ໝາຍເຖິງມີການພຸ່ງສູງ.',
+    section3Body:
+      'ແນະນຳໃຫ້ເລີ່ມທົດສອບກ່ອນວັນຕົກໄຂ່ທີ່ຄາດຄະເນຈາກຮອບເດືອນຂອງທ່ານຫຼາຍມື້.',
+    testingTips: [
+      {
+        title: 'ອີງຕາມຮອບເດືອນຂອງທ່ານ',
+        text: 'ເລີ່ມກ່ອນວັນຕົກໄຂ່ທີ່ຄາດຄະເນຈາກຄວາມຍາວສະເລ່ຍຂອງຮອບເດືອນຂອງທ່ານຫຼາຍມື້.',
+      },
+      {
+        title: 'ທົດສອບໃນເວລາດຽວກັນທຸກມື້',
+        text: 'ດີທີ່ສຸດປະມານທ່ຽງ ແລະ ຫຼີກເວັ້ນຍ່ຽວຄັ້ງທຳອິດຂອງຕອນເຊົ້າ.',
+      },
+      {
+        title: 'ຫຼີກເວັ້ນການເຮັດໃຫ້ຍ່ຽວຈາງ',
+        text: 'ຈຳກັດການດື່ມນ້ຳຫຼາຍໆໃນຊົ່ວໂມງກ່ອນການທົດສອບ.',
+      },
+    ],
+    section4Body:
+      'ຜົນບວກສະແດງເຖິງໄລຍະທີ່ມີໂອກາດຕັ້ງຄັນສູງທີ່ສຸດສຳລັບການມີເພດສຳພັນໃນ 1 ຫາ 2 ມື້ຕໍ່ມາ. ຜົນລົບໝາຍຄວາມພຽງວ່າການພຸ່ງສູງຍັງບໍ່ເກີດຂຶ້ນ.',
+    limitations: [
+      'PCOS ອາດເຮັດໃຫ້ລະດັບ LH ສູງຕາມທຳມະຊາດ ເຊິ່ງອາດເຮັດໃຫ້ການອ່ານຜົນບໍ່ຊັດເຈນ',
+      'ການຮັກສາຄວາມສາມາດໃນການຕັ້ງຄັນບາງຢ່າງອາດມີຜົນຕໍ່ຜົນທົດສອບ',
+      'ຍ່ຽວທີ່ຈາງຫຼາຍອາດໃຫ້ຜົນລົບປອມ',
+      'ຊຸດທົດສອບທີ່ມີຄຸນນະພາບຕ່ຳກວ່າອາດເຊື່ອຖືໄດ້ໜ້ອຍກວ່າ',
+    ],
+    infoTitle: 'ຄວນຈື່ໄວ້',
+    infoText:
+      'ການພຸ່ງສູງຂອງ LH ເປັນສັນຍານຮໍໂມນທີ່ກະຕຸ້ນ ແຕ່ຕົວມັນເອງບໍ່ໄດ້ຮັບປະກັນວ່າໄຂ່ໄດ້ຖືກປ່ອຍອອກມາແທ້ຈິງ.',
+    tipTitle: 'ຄວນຮູ້',
+    tipText:
+      'ການໃຊ້ການທົດສອບການຕົກໄຂ່ຮ່ວມກັບອຸນຫະພູມຮ່າງກາຍພື້ນຖານ ຫຼື ການສັງເກດເມືອກປາກມົດລູກ ຈະໃຫ້ພາບຮອບເດືອນຂອງທ່ານທີ່ຄົບຖ້ວນຂຶ້ນ.',
+    summaryPoints: [
+      'ການທົດສອບການຕົກໄຂ່ກວດຈັບການພຸ່ງສູງຂອງ LH ເຊິ່ງກະຕຸ້ນໃຫ້ໄຂ່ຖືກປ່ອຍອອກມາຫຼັງຈາກນັ້ນ 24 ຫາ 36 ຊົ່ວໂມງ.',
+      'ແນະນຳໃຫ້ເລີ່ມທົດສອບກ່ອນວັນຕົກໄຂ່ທີ່ຄາດຄະເນຈາກຮອບເດືອນຂອງທ່ານຫຼາຍມື້.',
+      'ຜົນບວກສະແດງເຖິງໄລຍະທີ່ມີໂອກາດຕັ້ງຄັນສູງທີ່ສຸດສຳລັບການມີເພດສຳພັນໃນ 1 ຫາ 2 ມື້ຕໍ່ມາ.',
+      'ການພຸ່ງສູງຂອງ LH ຢ່າງດຽວບໍ່ໄດ້ຮັບປະກັນວ່າການຕົກໄຂ່ເກີດຂຶ້ນແທ້ຈິງ.',
+    ],
+    disclaimerText:
+      'ນີ້ແມ່ນຂໍ້ມູນທົ່ວໄປ ແລະ ບໍ່ແທນຄຳແນະນຳຂອງແພດ. ບົດຄວາມນີ້ບໍ່ແທນຄຳແນະນຳທາງການແພດສ່ວນບຸກຄົນ. ຖ້າມີຂໍ້ສົງໄສ ໃຫ້ຂໍຄຳແນະນຳຈາກຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ.',
+    shareMessage: 'ເຂົ້າໃຈການທົດສອບການຕົກໄຂ່ (LH) — AWA',
+  },
 } as const);
 
 /* -------------------------------------------------------------------------- */

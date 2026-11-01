@@ -1617,6 +1617,785 @@ const CONTENT = withBrazilianPortuguese('Ovulation', {
       'Hiç bir ýeke alamat ýeke özi doly ygtybarly däl: olary utgaşdyrmak göwreli bolmaga iň amatly wagtyňyz barada has gowy düşünje berýär.',
     shareMessage: 'Ovulýasiýany düşünmek — AWA',
   },
+  ms: {
+    badge: 'OVULASI',
+    title: 'Memahami\novulasi',
+    metaDuration: '6 min bacaan',
+    metaType: 'Panduan',
+    metaLevel: 'Permulaan',
+    metaValidated: 'Kandungan disemak',
+    intro: 'Detik utama kitaran anda, dan bagaimana mengenalinya.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Apakah ovulasi?',
+      'Tanda yang mungkin menyertainya',
+      'Mengenali rentak anda sendiri',
+      'Perkara penting untuk diingat',
+    ],
+    body1:
+      'Ovulasi ialah pelepasan sel telur oleh salah satu ovari. Ia biasanya berlaku kira-kira 14 hari sebelum haid anda yang seterusnya, tanpa mengira jumlah tempoh kitaran anda.',
+    tip1Title: 'Elok diketahui',
+    tip1Text:
+      'Tarikh haid anda yang seterusnya yang berbeza dari seorang wanita ke seorang wanita, jauh lebih daripada masa antara ovulasi dan kedatangannya.',
+    body2:
+      'Tanda fizikal tertentu boleh menyertai menghampirnya ovulasi, pada tahap yang berbeza bergantung pada wanita itu.',
+    visualTitle: 'Lendir serviks yang lebih cair',
+    visualText:
+      'Apabila ovulasi menghampiri, lendir serviks menjadi lebih jernih, lebih kenyal dan lebih elastik.',
+    otherSigns: [
+      'Sakit ringan pada satu sisi perut bawah ("mittelschmerz")',
+      'Payudara sakit',
+      'Kenaikan sedikit suhu badan basal selepas ovulasi',
+      'Lonjakan tenaga pada sesetengah wanita',
+    ],
+    body3:
+      'Memerhati tanda-tanda ini sepanjang beberapa kitaran membantu anda mengenali rentak anda sendiri, yang boleh berbeza daripada purata umum.',
+    alertTitle: 'Sila ambil perhatian',
+    alertText:
+      'Kitaran tanpa ovulasi kadangkala boleh berlaku, tanpa ini semestinya menjadi punca kebimbangan. Jika haid anda tiada untuk tempoh yang lama atau anda tidak pasti, nasihat perubatan disyorkan.',
+    tip2Title: 'Elok diketahui',
+    tip2Text:
+      'Tiada satu tanda pun yang sepenuhnya boleh dipercayai dengan sendirinya: menggabungkannya memberikan gambaran yang lebih baik tentang waktu paling subur anda.',
+    shareMessage: 'Memahami ovulasi — AWA',
+  },
+  so: {
+    badge: 'UKUN-SII-DEYN',
+    title: 'Fahamka\nukun-sii-deynta',
+    metaDuration: '6 daq akhris',
+    metaType: 'Hage',
+    metaLevel: 'Bilow',
+    metaValidated: 'Macluumaad la dib-u-eegay',
+    intro: 'Daqiiqadda ugu muhiimsan ee wareeggaaga, iyo sida loo aqoonsado.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Waa maxay ukun-sii-deyn?',
+      'Calaamadaha ku iman kara',
+      'Aqoonsiga xawaarahaaga gaarka ah',
+      'Qodobbada muhiimka ah',
+    ],
+    body1:
+      'Ukun-sii-deyn waa sii deynta ukun ay sameyso mid ka mid ah ukun-sidayaasha. Inta badan waxay dhacdaa qiyaastii 14 maalmood ka hor caadadaada xigta, dhererka guud ee wareeggaaga wuu kasta ha ahaadee.',
+    tip1Title: 'Waxtar leh in la ogaado',
+    tip1Text:
+      'Waa taariikhda caadadaada xigta ee ku kala duwan naag ilaa naag, wax badan ka badan waqtiga u dhexeeya ukun-sii-deynta iyo imaatinkeeda.',
+    body2:
+      'Calaamado jidheed qaar ayaa la socon kara soo dhowaanshaha ukun-sii-deynta, heerar kala duwan iyadoo ku xiran naagta.',
+    visualTitle: 'Dheecaan afka ilmo-galeenka oo ka dareere ah',
+    visualText:
+      'Marka ukun-sii-deyntu soo dhowaato, dheecaanka afka ilmo-galeenku wuxuu noqdaa mid ka cad, ka is-dheeraada, oo ka jilicsan.',
+    otherSigns: [
+      'Xanuun khafiif ah oo hal dhinac ah oo calooshaada hoose ah (“mittelschmerz”)',
+      'Xanuunka naasaha',
+      'Kor u kac yar oo heerkulka aasaasiga ah ee jidhka ukun-sii-deynta ka dib',
+      'Kor u kac tamar oo dumarka qaar ah',
+    ],
+    body3:
+      'Indho-indheynta calaamadahan dhowr wareeg waxay kaa caawinaysaa inaad barato xawaarahaaga gaarka ah, kaasoo ka duwan kara celcelisyada guud.',
+    alertTitle: 'Fadlan ogow',
+    alertText:
+      'Wareeg ukun-sii-deyn la’aan ah ayaa mararka qaarkood dhici kara, iyadoo aan lagama maarmaan ahayn inay sabab walaac tahay. Haddii caadadaadu waqti dheer maqan tahay ama aadan hubin, talo caafimaad ayaa lagula talinayaa.',
+    tip2Title: 'Waxtar leh in la ogaado',
+    tip2Text:
+      'Calaamad midna keligeed si buuxda uma la isku halleyn karo: isku-darkoodu wuxuu bixiyaa fikrad ka wanaagsan wakhtigaaga ugu bacrimsan.',
+    shareMessage: 'Fahamka ukun-sii-deynta — AWA',
+  },
+  sw: {
+    badge: 'UTOAJI WA YAI',
+    title: 'Kuelewa\nutoaji wa yai',
+    metaDuration: 'Dakika 6 za kusoma',
+    metaType: 'Mwongozo',
+    metaLevel: 'Mwanzo',
+    metaValidated: 'Maudhui yaliyokaguliwa',
+    intro: 'Wakati muhimu wa mzunguko wako, na jinsi ya kuutambua.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Utoaji wa yai ni nini?',
+      'Dalili zinazoweza kuambatana nao',
+      'Kutambua mdundo wako mwenyewe',
+      'Mambo muhimu ya kukumbuka',
+    ],
+    body1:
+      'Utoaji wa yai ni kutolewa kwa yai na mojawapo ya ovari. Kwa kawaida hutokea takriban siku 14 kabla ya hedhi yako ijayo, bila kujali urefu wa jumla wa mzunguko wako.',
+    tip1Title: 'Vyema kujua',
+    tip1Text:
+      'Ni tarehe ya hedhi yako ijayo inayotofautiana kati ya mwanamke na mwanamke, zaidi sana kuliko muda kati ya utoaji wa yai na kufika kwake.',
+    body2:
+      'Dalili fulani za mwili zinaweza kuambatana na kukaribia kwa utoaji wa yai, kwa viwango tofauti kulingana na mwanamke.',
+    visualTitle: 'Ute wa shingo ya kizazi wenye majimaji zaidi',
+    visualText:
+      'Utoaji wa yai unapokaribia, ute wa shingo ya kizazi unakuwa safi zaidi, wenye kunyooka zaidi, na wa kunyumbulika zaidi.',
+    otherSigns: [
+      'Maumivu hafifu upande mmoja wa tumbo la chini ("mittelschmerz")',
+      'Maumivu ya matiti',
+      'Ongezeko dogo la joto la msingi la mwili baada ya utoaji wa yai',
+      'Msukumo wa nguvu kwa baadhi ya wanawake',
+    ],
+    body3:
+      'Kuchunguza dalili hizi katika mizunguko kadhaa kunakusaidia kujua mdundo wako mwenyewe, unaoweza kutofautiana na wastani wa jumla.',
+    alertTitle: 'Tafadhali zingatia',
+    alertText:
+      'Mzunguko usio na utoaji wa yai unaweza kutokea mara kwa mara, bila hili kuwa lazima sababu ya wasiwasi. Ikiwa hedhi yako haipo kwa muda mrefu au huna uhakika, ushauri wa kitabibu unapendekezwa.',
+    tip2Title: 'Vyema kujua',
+    tip2Text:
+      'Hakuna dalili moja inayoaminika kikamilifu peke yake: kuziunganisha kunatoa wazo bora la wakati wako wenye rutuba zaidi.',
+    shareMessage: 'Kuelewa utoaji wa yai — AWA',
+  },
+  kk: {
+    badge: 'ОВУЛЯЦИЯ',
+    title: 'Овуляцияны\nтүсіну',
+    metaDuration: '6 мин оқу',
+    metaType: 'Нұсқаулық',
+    metaLevel: 'Бастауыш',
+    metaValidated: 'Тексерілген мазмұн',
+    intro: 'Циклыңыздың негізгі сәті және оны қалай тануға болады.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'Овуляция дегеніміз не?',
+      'Онымен бірге жүруі мүмкін белгілер',
+      'Өз ырғағыңызды тану',
+      'Негізгі қорытындылар',
+    ],
+    body1:
+      'Овуляция — аналық бездердің бірінен жұмыртқа жасушасының шығуы. Ол әдетте циклыңыздың жалпы ұзақтығына қарамастан, келесі етеккіріңізден шамамен 14 күн бұрын болады.',
+    tip1Title: 'Білуге тиісті',
+    tip1Text:
+      'Овуляция мен етеккірдің келуі арасындағы уақытқа қарағанда, әйелден әйелге айтарлықтай өзгеретіні — келесі етеккіріңіздің күні.',
+    body2:
+      'Кейбір дене белгілері овуляцияның жақындауымен бірге жүруі мүмкін, әйелге байланысты әртүрлі деңгейде.',
+    visualTitle: 'Сұйығырақ жатыр мойны шырышы',
+    visualText:
+      'Овуляция жақындаған кезде жатыр мойны шырышы мөлдірірек, созылғышырақ және серпімдірек болады.',
+    otherSigns: [
+      'Іштің төменгі жағының бір жағындағы жеңіл ауыру ("миттельшмерц")',
+      'Емшектің ауыруы',
+      'Овуляциядан кейін базальды дене температурасының шамалы көтерілуі',
+      'Кейбір әйелдерде қуаттың артуы',
+    ],
+    body3:
+      'Бұл белгілерді бірнеше цикл бойы бақылау жалпы орташа мәндерден өзгеше болуы мүмкін өз ырғағыңызды білуге көмектеседі.',
+    alertTitle: 'Назар аударыңыз',
+    alertText:
+      'Овуляциясыз цикл анда-санда болуы мүмкін, бұл міндетті түрде алаңдауға себеп емес. Етеккіріңіз ұзақ уақыт болмаса немесе сенімсіз болсаңыз, медициналық кеңес ұсынылады.',
+    tip2Title: 'Білуге тиісті',
+    tip2Text:
+      'Ешбір белгі жалғыз өзі мінсіз сенімді емес: оларды біріктіру ең құнарлы уақытыңыз туралы жақсырақ түсінік береді.',
+    shareMessage: 'Овуляцияны түсіну — AWA',
+  },
+  wo: {
+    badge: 'OVILASIYOŊ',
+    title: 'Xam\novilasiyoŋ',
+    metaDuration: '6 simili jàng',
+    metaType: 'Ndigal',
+    metaLevel: 'Tàmbali',
+    metaValidated: 'Mbind bu ñu seetlu',
+    intro: 'Jamono bi gëna am solo ci sa wërsëg, ak naka ngay xam ko.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Lan mooy ovilasiyoŋ?',
+      'Màndarga yi mën a ànd ak ko',
+      'Xam sa ritm',
+      'Li am solo',
+    ],
+    body1:
+      'Ovilasiyoŋ mooy génnee nen bi bu benn ci ovèr yi. Daa am ci wetu 14 fan balaa sa règle bu toftal, lu mu mën a doon diiru sa wërsëg bu mat.',
+    tip1Title: 'Lu baax a xam',
+    tip1Text:
+      'Bésu sa règle bu toftal moo wuute ci jigéen ak jigéen, bu gën a bari ci diir bi diggante ovilasiyoŋ ak ayyuwaam.',
+    body2:
+      'Yenn màndargay yaram mën nañu ànd ak jegewaayu ovilasiyoŋ, ci dayo yu wuute ci jigéen ak jigéen.',
+    visualTitle: 'Ndox mu bërëb jëmm bu gën a daw',
+    visualText:
+      'Ba ovilasiyoŋ di jege, ndox mu bërëb jëmm dafay gën a leer, gën a xëtt te gën a delloo.',
+    otherSigns: [
+      'Metit bu neex ci benn wet ci suufu biir ("mittelschmerz")',
+      'Nàmm yu metti',
+      'Yokkute bu tuuti ci tàngoor yaram bu njëkk ginnaaw ovilasiyoŋ',
+      'Benn yokkute doole ci yenn jigéen',
+    ],
+    body3:
+      'Seetlu màndarga yii ci ay wërsëg dafay dimbli nga xam sa ritm, mu mën a wuute ak digg-dóomu yu yaatu.',
+    alertTitle: 'Teg',
+    alertText:
+      'Benn wërsëg bu amul ovilasiyoŋ mën na am yenn saa, te loolu du saa su ne lu tiital. Bu amul sa règle lu yàgg walla bu nga am xel-ñaar, ndigalu doktoor des na.',
+    tip2Title: 'Lu baax a xam',
+    tip2Text:
+      'Amul benn màndarga bu wóor lu mat ci boppam: boole leen dafay joxe benn gis bu gën a baax ci sa jamono ju gëna bind.',
+    shareMessage: 'Xam ovilasiyoŋ — AWA',
+  },
+  ha: {
+    badge: 'FITAR ƘWAI',
+    title: 'Fahimtar\nfitar ƙwai',
+    metaDuration: 'karatun minti 6',
+    metaType: 'Jagora',
+    metaLevel: 'Mafari',
+    metaValidated: 'Abun da aka duba',
+    intro: 'Mafi muhimmin lokaci na zagayenki, da yadda za a gane shi.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Menene fitar ƙwai?',
+      'Alamomin da za su iya biyo bayanta',
+      'Gane tsarinki na kanki',
+      'Muhimman abubuwa',
+    ],
+    body1:
+      'Fitar ƙwai ita ce sakin ƙwai ta ɗaya daga cikin ovaries. Yawanci tana faruwa kusan kwanaki 14 kafin hailarki ta gaba, ko da menene jimillar tsawon zagayenki.',
+    tip1Title: 'Abin da ya dace a sani',
+    tip1Text:
+      'Ranar hailarki ta gaba ce ke bambanta daga mace zuwa mace, fiye da lokacin tsakanin fitar ƙwai da zuwanta.',
+    body2:
+      'Wasu alamomin jiki na iya biyo bayan kusantowar fitar ƙwai, da bambancin matakai bisa mace.',
+    visualTitle: 'Majinar mahaifa mai ruwa-ruwa',
+    visualText:
+      'Yayin da fitar ƙwai ke gabatowa, majinar mahaifa tana zama mai haske, mai mikewa, kuma mai ɗaurewa.',
+    otherSigns: [
+      'Ƙaramin ciwo a gefe ɗaya na ƙasan ciki ("mittelschmerz")',
+      'Ciwon nono',
+      'Ɗan hawan zafin jiki na asali bayan fitar ƙwai',
+      'Ƙarin kuzari a wasu mata',
+    ],
+    body3:
+      'Lura da waɗannan alamomi a zagaye da dama yana taimaka miki ki san tsarinki na kanki, wanda zai iya bambanta da matsakaicin gama gari.',
+    alertTitle: 'Ki lura',
+    alertText:
+      'Zagaye ba tare da fitar ƙwai ba na iya faruwa wani lokaci, ba tare da wannan lallai ya zama dalilin damuwa ba. Idan hailarki ba ta zo na dogon lokaci ba ko kina cikin shakka, ana ba da shawarar shawarar likita.',
+    tip2Title: 'Abin da ya dace a sani',
+    tip2Text:
+      'Babu alama guda ɗaya da ta dogara gaba ɗaya ita kaɗai: haɗa su yana ba da ingantaccen ra’ayi na lokacinki mafi haihuwa.',
+    shareMessage: 'Fahimtar fitar ƙwai — AWA',
+  },
+  am: {
+    badge: 'እንቁላል መልቀቅ',
+    title: 'እንቁላል መልቀቅን\nመረዳት',
+    metaDuration: '6 ደቂቃ ንባብ',
+    metaType: 'መመሪያ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'የተረጋገጠ ይዘት',
+    intro: 'የዑደትሽ ቁልፍ ጊዜ፣ እና እንዴት እንደምትለዪው።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'እንቁላል መልቀቅ ምንድን ነው?',
+      'ሊያጅቡት የሚችሉ ምልክቶች',
+      'የራስሽን ሪትም መለየት',
+      'ዋና ዋና ነጥቦች',
+    ],
+    body1:
+      'እንቁላል መልቀቅ ከአንዱ ኦቫሪ እንቁላል መልቀቅ ነው። የዑደትሽ ጠቅላላ ርዝመት ምንም ይሁን ብዙውን ጊዜ ከሚቀጥለው የወር አበባሽ በ14 ቀናት አካባቢ በፊት ይከሰታል።',
+    tip1Title: 'ማወቅ ጠቃሚ ነው',
+    tip1Text:
+      'ከሴት ወደ ሴት የሚለያየው በእንቁላል መልቀቅና በወር አበባ መምጣት መካከል ካለው ጊዜ ይልቅ የሚቀጥለው የወር አበባሽ ቀን ነው።',
+    body2:
+      'አንዳንድ የአካል ምልክቶች የእንቁላል መልቀቅን መቃረብ ሊያጅቡ ይችላሉ፣ እንደ ሴቲቱ በተለያየ መጠን።',
+    visualTitle: 'ይበልጥ ፈሳሽ የሆነ የማህፀን በር ንፋጭ',
+    visualText:
+      'እንቁላል መልቀቅ ሲቃረብ የማህፀን በር ንፋጭ ይበልጥ ጥርት ያለ፣ ተለጣጭና የሚሰፋ ይሆናል።',
+    otherSigns: [
+      'በታችኛው ሆድ በአንድ ጎን ቀላል ህመም (“ሚተልሽመርዝ”)',
+      'የጡት ህመም',
+      'ከእንቁላል መልቀቅ በኋላ የመሠረታዊ የሰውነት ሙቀት ትንሽ ጭማሪ',
+      'በአንዳንድ ሴቶች የጉልበት መጨመር',
+    ],
+    body3:
+      'እነዚህን ምልክቶች በበርካታ ዑደቶች መታዘብ ከአጠቃላይ አማካዮች ሊለይ የሚችለውን የራስሽን ሪትም እንድታውቂ ይረዳሻል።',
+    alertTitle: 'ልብ በይ',
+    alertText:
+      'እንቁላል መልቀቅ የሌለበት ዑደት አልፎ አልፎ ሊከሰት ይችላል፣ ይህ የግድ የመጨነቂያ ምክንያት ሳይሆን። የወር አበባሽ ለረዥም ጊዜ ከቀረ ወይም እርግጠኛ ካልሆንሽ የሕክምና ምክር ይመከራል።',
+    tip2Title: 'ማወቅ ጠቃሚ ነው',
+    tip2Text:
+      'ምንም አንድ ምልክት ብቻውን ፍጹም አስተማማኝ አይደለም፦ ማጣመር የበለጠ ለም ጊዜሽን የተሻለ ሐሳብ ይሰጣል።',
+    shareMessage: 'እንቁላል መልቀቅን መረዳት — AWA',
+  },
+  nl: {
+    badge: 'EISPRONG',
+    title: 'De eisprong\nbegrijpen',
+    metaDuration: '6 min lezen',
+    metaType: 'Gids',
+    metaLevel: 'Beginner',
+    metaValidated: 'Gecontroleerde inhoud',
+    intro: 'Het sleutelmoment van je cyclus en hoe je het herkent.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'Wat is de eisprong?',
+      'De tekenen die erbij kunnen horen',
+      'Je eigen ritme herkennen',
+      'Belangrijkste punten',
+    ],
+    body1:
+      'De eisprong is het vrijkomen van een eicel uit een van de eierstokken. Ze vindt meestal ongeveer 14 dagen vóór je volgende menstruatie plaats, ongeacht de totale duur van je cyclus.',
+    tip1Title: 'Goed om te weten',
+    tip1Text:
+      'Het is de datum van je volgende menstruatie die van vrouw tot vrouw verschilt, veel meer dan de tijd tussen de eisprong en het begin ervan.',
+    body2:
+      'Bepaalde lichamelijke tekenen kunnen het naderen van de eisprong vergezellen, in verschillende mate afhankelijk van de vrouw.',
+    visualTitle: 'Vloeibaarder baarmoederhalsslijm',
+    visualText:
+      'Als de eisprong nadert, wordt het baarmoederhalsslijm helderder, rekbaarder en elastischer.',
+    otherSigns: [
+      'Lichte pijn aan één kant van de onderbuik ("mittelschmerz")',
+      'Gevoelige borsten',
+      'Een lichte stijging van de basale lichaamstemperatuur na de eisprong',
+      'Een energieboost bij sommige vrouwen',
+    ],
+    body3:
+      'Deze tekenen over meerdere cycli observeren helpt je je eigen ritme te leren kennen, dat kan verschillen van de algemene gemiddelden.',
+    alertTitle: 'Let op',
+    alertText:
+      'Een cyclus zonder eisprong kan af en toe voorkomen, zonder dat dit per se een reden tot bezorgdheid is. Als je menstruatie lang uitblijft of je het niet zeker weet, wordt medisch advies aanbevolen.',
+    tip2Title: 'Goed om te weten',
+    tip2Text:
+      'Geen enkel teken is op zichzelf volkomen betrouwbaar: ze combineren geeft een beter beeld van je meest vruchtbare tijd.',
+    shareMessage: 'De eisprong begrijpen — AWA',
+  },
+  fi: {
+    badge: 'OVULAATIO',
+    title: 'Ovulaation\nymmärtäminen',
+    metaDuration: '6 min lukuaika',
+    metaType: 'Opas',
+    metaLevel: 'Aloittelija',
+    metaValidated: 'Tarkistettu sisältö',
+    intro: 'Kiertosi ratkaiseva hetki ja miten sen tunnistaa.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Mikä on ovulaatio?',
+      'Merkit, jotka voivat liittyä siihen',
+      'Oman rytmisi tunnistaminen',
+      'Tärkeimmät asiat',
+    ],
+    body1:
+      'Ovulaatio on munasolun vapautuminen toisesta munasarjasta. Se tapahtuu yleensä noin 14 päivää ennen seuraavia kuukautisia riippumatta kiertosi kokonaispituudesta.',
+    tip1Title: 'Hyvä tietää',
+    tip1Text:
+      'Juuri seuraavien kuukautisten ajankohta vaihtelee naisesta toiseen, paljon enemmän kuin ovulaation ja niiden alkamisen välinen aika.',
+    body2:
+      'Tietyt fyysiset merkit voivat liittyä ovulaation lähestymiseen vaihtelevassa määrin naisesta riippuen.',
+    visualTitle: 'Juoksevampi kohdunkaulan lima',
+    visualText:
+      'Ovulaation lähestyessä kohdunkaulan lima muuttuu kirkkaammaksi, venyvämmäksi ja joustavammaksi.',
+    otherSigns: [
+      'Lievä kipu alavatsan toisella puolella (ovulaatiokipu)',
+      'Rintojen arkuus',
+      'Perusruumiinlämmön lievä nousu ovulaation jälkeen',
+      'Energian lisääntyminen joillakin naisilla',
+    ],
+    body3:
+      'Näiden merkkien havainnointi usean kierron ajan auttaa tuntemaan oman rytmisi, joka voi poiketa yleisistä keskiarvoista.',
+    alertTitle: 'Huomaa',
+    alertText:
+      'Kierto ilman ovulaatiota voi satunnaisesti tapahtua ilman, että se välttämättä on syy huoleen. Jos kuukautisesi puuttuvat pitkään tai olet epävarma, lääketieteellistä neuvontaa suositellaan.',
+    tip2Title: 'Hyvä tietää',
+    tip2Text:
+      'Mikään yksittäinen merkki ei ole täysin luotettava yksinään: niiden yhdistäminen antaa paremman kuvan hedelmällisimmästä ajastasi.',
+    shareMessage: 'Ovulaation ymmärtäminen — AWA',
+  },
+  el: {
+    badge: 'ΩΟΡΡΗΞΙΑ',
+    title: 'Κατανοώντας\nτην ωορρηξία',
+    metaDuration: '6 λεπτά ανάγνωσης',
+    metaType: 'Οδηγός',
+    metaLevel: 'Αρχάριο',
+    metaValidated: 'Ελεγμένο περιεχόμενο',
+    intro: 'Η καθοριστική στιγμή του κύκλου σου και πώς να την αναγνωρίσεις.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Τι είναι η ωορρηξία;',
+      'Τα σημάδια που μπορεί να τη συνοδεύουν',
+      'Αναγνωρίζοντας τον δικό σου ρυθμό',
+      'Βασικά συμπεράσματα',
+    ],
+    body1:
+      'Η ωορρηξία είναι η απελευθέρωση ενός ωαρίου από μία από τις ωοθήκες. Συμβαίνει συνήθως περίπου 14 ημέρες πριν την επόμενη περίοδό σου, ανεξάρτητα από τη συνολική διάρκεια του κύκλου σου.',
+    tip1Title: 'Καλό είναι να γνωρίζεις',
+    tip1Text:
+      'Είναι η ημερομηνία της επόμενης περιόδου σου που διαφέρει από γυναίκα σε γυναίκα, πολύ περισσότερο από τον χρόνο ανάμεσα στην ωορρηξία και την άφιξή της.',
+    body2:
+      'Ορισμένα σωματικά σημάδια μπορεί να συνοδεύουν την προσέγγιση της ωορρηξίας, σε διαφορετικό βαθμό ανάλογα με τη γυναίκα.',
+    visualTitle: 'Πιο ρευστή τραχηλική βλέννα',
+    visualText:
+      'Καθώς πλησιάζει η ωορρηξία, η τραχηλική βλέννα γίνεται πιο διαυγής, πιο ελαστική και τεντώνεται περισσότερο.',
+    otherSigns: [
+      'Ήπιος πόνος στη μία πλευρά της κάτω κοιλιάς («mittelschmerz»)',
+      'Ευαισθησία στο στήθος',
+      'Ελαφριά άνοδος της βασικής θερμοκρασίας σώματος μετά την ωορρηξία',
+      'Έξαρση ενέργειας σε ορισμένες γυναίκες',
+    ],
+    body3:
+      'Η παρατήρηση αυτών των σημαδιών σε αρκετούς κύκλους σε βοηθά να γνωρίσεις τον δικό σου ρυθμό, που μπορεί να διαφέρει από τους γενικούς μέσους όρους.',
+    alertTitle: 'Σημείωση',
+    alertText:
+      'Ένας κύκλος χωρίς ωορρηξία μπορεί περιστασιακά να συμβεί, χωρίς αυτό να αποτελεί αναγκαστικά λόγο ανησυχίας. Αν η περίοδός σου απουσιάζει για πολύ καιρό ή δεν είσαι σίγουρη, συνιστάται ιατρική συμβουλή.',
+    tip2Title: 'Καλό είναι να γνωρίζεις',
+    tip2Text:
+      'Κανένα μεμονωμένο σημάδι δεν είναι απόλυτα αξιόπιστο από μόνο του: ο συνδυασμός τους δίνει καλύτερη εικόνα της πιο γόνιμης περιόδου σου.',
+    shareMessage: 'Κατανοώντας την ωορρηξία — AWA',
+  },
+  fil: {
+    badge: 'OBULASYON',
+    title: 'Pag-unawa sa\nobulasyon',
+    metaDuration: '6 min na babasahin',
+    metaType: 'Gabay',
+    metaLevel: 'Baguhan',
+    metaValidated: 'Sinuring nilalaman',
+    intro: 'Ang pinakamahalagang sandali ng iyong siklo, at kung paano ito makilala.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Ano ang obulasyon?',
+      'Ang mga senyales na maaaring kasama nito',
+      'Pagkilala sa sarili mong ritmo',
+      'Mahahalagang tandaan',
+    ],
+    body1:
+      'Ang obulasyon ay ang paglabas ng itlog mula sa isa sa mga obaryo. Karaniwan itong nangyayari humigit-kumulang 14 na araw bago ang susunod mong regla, anuman ang kabuuang haba ng iyong siklo.',
+    tip1Title: 'Mabuting malaman',
+    tip1Text:
+      'Ang petsa ng susunod mong regla ang nag-iiba sa bawat babae, higit na mas marami kaysa sa pagitan ng obulasyon at ng pagdating nito.',
+    body2:
+      'Ang ilang pisikal na senyales ay maaaring kasama ng paglapit ng obulasyon, sa iba’t ibang antas depende sa babae.',
+    visualTitle: 'Mas malikot na cervical mucus',
+    visualText:
+      'Habang papalapit ang obulasyon, nagiging mas malinaw, mas nababanat, at mas elastiko ang cervical mucus.',
+    otherSigns: [
+      'Banayad na sakit sa isang panig ng ibabang tiyan ("mittelschmerz")',
+      'Pananakit ng dibdib',
+      'Bahagyang pagtaas ng basal body temperature pagkatapos ng obulasyon',
+      'Pagdami ng enerhiya sa ilang babae',
+    ],
+    body3:
+      'Ang pagmamasid sa mga senyales na ito sa loob ng ilang siklo ay tumutulong na makilala ang sarili mong ritmo, na maaaring magkaiba sa mga pangkalahatang average.',
+    alertTitle: 'Pakitandaan',
+    alertText:
+      'Paminsan-minsan ay maaaring mangyari ang siklong walang obulasyon, nang hindi kinakailangang ikabahala. Kung matagal na walang regla o kung hindi ka sigurado, inirerekomenda ang payong medikal.',
+    tip2Title: 'Mabuting malaman',
+    tip2Text:
+      'Walang iisang senyales na ganap na maaasahan sa sarili nito: ang pagsasama-sama ng mga ito ay nagbibigay ng mas magandang ideya ng iyong pinakamayabong na panahon.',
+    shareMessage: 'Pag-unawa sa obulasyon — AWA',
+  },
+  ta: {
+    badge: 'அண்டவிடுப்பு',
+    title: 'அண்டவிடுப்பைப்\nபுரிந்துகொள்ளுதல்',
+    metaDuration: '6 நிமிடம் படிக்க',
+    metaType: 'வழிகாட்டி',
+    metaLevel: 'தொடக்க நிலை',
+    metaValidated: 'சரிபார்க்கப்பட்ட உள்ளடக்கம்',
+    intro: 'உங்கள் சுழற்சியின் முக்கியத் தருணம், அதை எப்படி அடையாளம் காண்பது.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'அண்டவிடுப்பு என்றால் என்ன?',
+      'அதனுடன் சேர்ந்து வரக்கூடிய அறிகுறிகள்',
+      'உங்கள் சொந்தத் தாளத்தை அடையாளம் காணுதல்',
+      'முக்கியக் குறிப்புகள்',
+    ],
+    body1:
+      'அண்டவிடுப்பு என்பது அண்டகங்களில் ஒன்றால் ஒரு முட்டை வெளியிடப்படுவது. உங்கள் சுழற்சியின் மொத்த நீளத்தைப் பொருட்படுத்தாமல், இது பொதுவாக உங்கள் அடுத்த மாதவிடாய்க்கு ஏறக்குறைய 14 நாட்களுக்கு முன் நிகழ்கிறது.',
+    tip1Title: 'தெரிந்துகொள்ளுங்கள்',
+    tip1Text:
+      'அண்டவிடுப்புக்கும் அதன் வருகைக்கும் இடையிலான நேரத்தை விட, ஒரு பெண்ணுக்கு மற்றொரு பெண்ணிடமிருந்து மாறுபடுவது உங்கள் அடுத்த மாதவிடாயின் தேதியே.',
+    body2:
+      'சில உடல் அறிகுறிகள் அண்டவிடுப்பு நெருங்குவதுடன் சேர்ந்து வரலாம், பெண்ணைப் பொறுத்து வெவ்வேறு அளவுகளில்.',
+    visualTitle: 'மேலும் திரவமான கருப்பைவாய் சளி',
+    visualText:
+      'அண்டவிடுப்பு நெருங்கும்போது, கருப்பைவாய் சளி தெளிவாக, இழுபடுவதாக, நெகிழ்வாக மாறுகிறது.',
+    otherSigns: [
+      'அடிவயிற்றின் ஒரு பக்கத்தில் லேசான வலி ("மிட்டல்ஷ்மெர்ஸ்")',
+      'மார்பக வலி',
+      'அண்டவிடுப்புக்குப் பின் அடிப்படை உடல் வெப்பநிலையில் சிறிது உயர்வு',
+      'சில பெண்களில் ஆற்றல் அதிகரிப்பு',
+    ],
+    body3:
+      'பல சுழற்சிகளில் இந்த அறிகுறிகளைக் கவனிப்பது, பொதுவான சராசரிகளிலிருந்து வேறுபடக்கூடிய உங்கள் சொந்தத் தாளத்தை அறிய உதவுகிறது.',
+    alertTitle: 'கவனத்தில் கொள்ளவும்',
+    alertText:
+      'அண்டவிடுப்பு இல்லாத சுழற்சி எப்போதாவது நிகழலாம், இது கட்டாயம் கவலைக்கான காரணம் அல்ல. உங்கள் மாதவிடாய் நீண்ட காலம் இல்லாவிட்டால் அல்லது உங்களுக்கு உறுதியில்லாவிட்டால், மருத்துவ ஆலோசனை பரிந்துரைக்கப்படுகிறது.',
+    tip2Title: 'தெரிந்துகொள்ளுங்கள்',
+    tip2Text:
+      'எந்த ஒரு அறிகுறியும் தனியாக முழுமையாக நம்பகமானதல்ல: அவற்றை இணைப்பது உங்கள் மிகக் கருவுறும் நேரத்தைப் பற்றிய சிறந்த கருத்தைத் தருகிறது.',
+    shareMessage: 'அண்டவிடுப்பைப் புரிந்துகொள்ளுதல் — AWA',
+  },
+  te: {
+    badge: 'అండోత్సర్గం',
+    title: 'అండోత్సర్గాన్ని\nఅర్థం చేసుకోవడం',
+    metaDuration: '6 నిమిషాల పఠనం',
+    metaType: 'గైడ్',
+    metaLevel: 'ప్రారంభ స్థాయి',
+    metaValidated: 'మదింపు చేసిన కంటెంట్',
+    intro: 'మీ చక్రంలో కీలక క్షణం, దాన్ని ఎలా గుర్తించాలి.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'అండోత్సర్గం అంటే ఏమిటి?',
+      'దానితో కలిసి రాగల సంకేతాలు',
+      'మీ సొంత లయను గుర్తించడం',
+      'ముఖ్యాంశాలు',
+    ],
+    body1:
+      'అండోత్సర్గం అంటే రెండు అండాశయాల్లో ఒకటి అండాన్ని విడుదల చేయడం. మీ చక్రం మొత్తం నిడివి ఎంతైనా, ఇది సాధారణంగా మీ తర్వాతి నెలసరికి సుమారు 14 రోజుల ముందు జరుగుతుంది.',
+    tip1Title: 'తెలుసుకోవాల్సినవి',
+    tip1Text:
+      'అండోత్సర్గానికి, నెలసరి రాకకు మధ్య సమయం కంటే, ఒక మహిళ నుండి మరొకరికి మారేది మీ తర్వాతి నెలసరి తేదీ.',
+    body2:
+      'కొన్ని శారీరక సంకేతాలు అండోత్సర్గం దగ్గరపడటంతో కలిసి రావచ్చు, మహిళను బట్టి వివిధ స్థాయిల్లో.',
+    visualTitle: 'మరింత ద్రవంగా ఉండే గర్భాశయ ముఖద్వార స్రావం',
+    visualText:
+      'అండోత్సర్గం దగ్గరపడుతున్నప్పుడు, గర్భాశయ ముఖద్వార స్రావం మరింత స్పష్టంగా, సాగేలా, స్థితిస్థాపకంగా మారుతుంది.',
+    otherSigns: [
+      'కింది పొట్టలో ఒక వైపు స్వల్ప నొప్పి ("మిట్టెల్‌ష్మెర్జ్")',
+      'రొమ్ము నొప్పి',
+      'అండోత్సర్గం తర్వాత బేసల్ శరీర ఉష్ణోగ్రతలో స్వల్ప పెరుగుదల',
+      'కొందరు మహిళల్లో శక్తి ఉత్సాహం',
+    ],
+    body3:
+      'అనేక చక్రాలలో ఈ సంకేతాలను గమనించడం మీ సొంత లయను తెలుసుకోవడానికి సహాయపడుతుంది, ఇది సాధారణ సగటులకు భిన్నంగా ఉండవచ్చు.',
+    alertTitle: 'గమనించండి',
+    alertText:
+      'అండోత్సర్గం లేని చక్రం అప్పుడప్పుడూ జరగవచ్చు, ఇది తప్పనిసరిగా ఆందోళనకు కారణం కాకుండా. మీ నెలసరి చాలా కాలం లేకపోతే లేదా మీకు ఖచ్చితంగా తెలియకపోతే, వైద్య సలహా సిఫార్సు చేయబడుతుంది.',
+    tip2Title: 'తెలుసుకోవాల్సినవి',
+    tip2Text:
+      'ఏ ఒక్క సంకేతమూ స్వయంగా పూర్తిగా నమ్మదగినది కాదు: వాటిని కలపడం మీ అత్యంత సారవంతమైన సమయం గురించి మంచి ఆలోచన ఇస్తుంది.',
+    shareMessage: 'అండోత్సర్గాన్ని అర్థం చేసుకోవడం — AWA',
+  },
+  mr: {
+    badge: 'बीजोत्सर्जन',
+    title: 'बीजोत्सर्जन\nसमजून घेणे',
+    metaDuration: '6 मिनिटे वाचन',
+    metaType: 'मार्गदर्शक',
+    metaLevel: 'प्रारंभ स्तर',
+    metaValidated: 'पुनरावलोकन केलेला मजकूर',
+    intro: 'तुमच्या पाळीचा महत्त्वाचा क्षण आणि तो कसा ओळखावा.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'बीजोत्सर्जन म्हणजे काय?',
+      'त्यासोबत येऊ शकणारी चिन्हे',
+      'तुमची स्वतःची लय ओळखणे',
+      'मुख्य मुद्दे',
+    ],
+    body1:
+      'बीजोत्सर्जन म्हणजे अंडाशयांपैकी एकाकडून बीजांड सोडले जाणे. तुमच्या पाळीचक्राच्या एकूण कालावधीची पर्वा न करता, ते साधारणपणे तुमच्या पुढील पाळीच्या सुमारे 14 दिवस आधी होते.',
+    tip1Title: 'हे जाणून घ्या',
+    tip1Text:
+      'एका स्त्रीपासून दुसऱ्या स्त्रीपर्यंत तुमच्या पुढील पाळीची तारीख बदलते, बीजोत्सर्जन आणि तिचे आगमन यामधील वेळेपेक्षा खूपच जास्त.',
+    body2:
+      'काही शारीरिक चिन्हे बीजोत्सर्जन जवळ येण्यासोबत असू शकतात, स्त्रीनुसार कमी-अधिक प्रमाणात.',
+    visualTitle: 'अधिक पातळ गर्भाशयमुखाचा स्राव',
+    visualText:
+      'बीजोत्सर्जन जवळ येताना गर्भाशयमुखाचा स्राव अधिक स्वच्छ, अधिक ताणला जाणारा आणि अधिक लवचिक होतो.',
+    otherSigns: [
+      'पोटाच्या खालच्या भागात एका बाजूला सौम्य वेदना ("मिटेलश्मर्ट्झ")',
+      'स्तनांची संवेदनशीलता',
+      'बीजोत्सर्जनानंतर बेसल शरीराच्या तापमानात थोडी वाढ',
+      'काही स्त्रियांमध्ये ऊर्जेची वाढ',
+    ],
+    body3:
+      'अनेक पाळीचक्रांमध्ये ही चिन्हे पाहिल्याने तुम्हाला तुमची स्वतःची लय जाणून घेण्यास मदत होते, जी सर्वसाधारण सरासरीपेक्षा वेगळी असू शकते.',
+    alertTitle: 'कृपया लक्षात घ्या',
+    alertText:
+      'बीजोत्सर्जनाशिवाय पाळी कधी कधी येऊ शकते, आणि ते चिंतेचे कारण असतेच असे नाही. तुमची पाळी बराच काळ न आल्यास किंवा तुम्हाला खात्री नसल्यास, वैद्यकीय सल्ला घेण्याची शिफारस केली जाते.',
+    tip2Title: 'हे जाणून घ्या',
+    tip2Text:
+      'कोणतेही एक चिन्ह एकट्याने पूर्णपणे विश्वासार्ह नसते: त्यांना एकत्र केल्याने तुमच्या सर्वात सुपीक काळाची चांगली कल्पना येते.',
+    shareMessage: 'बीजोत्सर्जन समजून घेणे — AWA',
+  },
+  gu: {
+    badge: 'અંડોત્સર્જન',
+    title: 'અંડોત્સર્જનને\nસમજવું',
+    metaDuration: '6 મિનિટ વાંચન',
+    metaType: 'માર્ગદર્શિકા',
+    metaLevel: 'પ્રારંભિક સ્તર',
+    metaValidated: 'પુનરાવલોકન કરેલી સામગ્રી',
+    intro: 'તમારા ચક્રનો મુખ્ય ક્ષણ, અને તેને કેવી રીતે ઓળખવી.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'અંડોત્સર્જન શું છે?',
+      'તેની સાથે આવી શકે તેવા સંકેતો',
+      'તમારી પોતાની લય ઓળખવી',
+      'મુખ્ય મુદ્દા',
+    ],
+    body1:
+      'અંડોત્સર્જન એટલે એક અંડાશયમાંથી અંડકોષનું મુક્ત થવું. તમારા ચક્રની કુલ લંબાઈ ગમે તેટલી હોય, તે સામાન્ય રીતે તમારા આગામી માસિકના લગભગ 14 દિવસ પહેલાં થાય છે.',
+    tip1Title: 'જાણવા જેવું',
+    tip1Text:
+      'અંડોત્સર્જન અને માસિક આવવા વચ્ચેના સમય કરતાં, આગામી માસિકની તારીખ સ્ત્રીએ સ્ત્રીએ વધુ બદલાય છે.',
+    body2:
+      'કેટલાક શારીરિક સંકેતો અંડોત્સર્જન નજીક આવતાં સાથે જોવા મળી શકે છે, સ્ત્રી પ્રમાણે ઓછા-વત્તા અંશે.',
+    visualTitle: 'વધુ પ્રવાહી ગર્ભાશયમુખનો સ્રાવ',
+    visualText:
+      'અંડોત્સર્જન નજીક આવતાં ગર્ભાશયમુખનો સ્રાવ વધુ સ્વચ્છ, ખેંચાય તેવો અને સ્થિતિસ્થાપક બને છે.',
+    otherSigns: [
+      'નીચલા પેટની એક બાજુ હળવો દુખાવો ("મિટલશ્મર્ત્સ")',
+      'સ્તનમાં સંવેદનશીલતા',
+      'અંડોત્સર્જન પછી બેઝલ શરીરના તાપમાનમાં હળવો વધારો',
+      'કેટલીક સ્ત્રીઓમાં ઊર્જામાં વધારો',
+    ],
+    body3:
+      'આ સંકેતોનું ઘણા ચક્રો સુધી અવલોકન કરવાથી તમે તમારી પોતાની લય ઓળખી શકો છો, જે સામાન્ય સરેરાશ કરતાં અલગ હોઈ શકે છે.',
+    alertTitle: 'કૃપા કરીને નોંધો',
+    alertText:
+      'ક્યારેક અંડોત્સર્જન વિનાનું ચક્ર થઈ શકે છે, અને તે જરૂરી નથી કે ચિંતાનું કારણ હોય. જો તમારું માસિક લાંબા સમય સુધી ન આવે અથવા તમને ખાતરી ન હોય, તો તબીબી સલાહની ભલામણ છે.',
+    tip2Title: 'જાણવા જેવું',
+    tip2Text:
+      'કોઈ એક સંકેત એકલો પૂર્ણપણે વિશ્વસનીય નથી: તેમને ભેગા કરવાથી તમારા સૌથી ફળદ્રુપ સમયનો વધુ સારો અંદાજ મળે છે.',
+    shareMessage: 'અંડોત્સર્જનને સમજવું — AWA',
+  },
+  pa: {
+    badge: 'ਓਵੂਲੇਸ਼ਨ',
+    title: 'ਓਵੂਲੇਸ਼ਨ ਨੂੰ\nਸਮਝੋ',
+    metaDuration: '6 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਗਾਈਡ',
+    metaLevel: 'ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ',
+    metaValidated: 'ਸਮੀਖਿਆ ਕੀਤੀ ਸਮੱਗਰੀ',
+    intro: 'ਤੁਹਾਡੇ ਚੱਕਰ ਦਾ ਅਹਿਮ ਪਲ, ਅਤੇ ਇਸ ਨੂੰ ਕਿਵੇਂ ਪਛਾਣਨਾ ਹੈ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'ਓਵੂਲੇਸ਼ਨ ਕੀ ਹੈ?',
+      'ਇਸ ਦੇ ਨਾਲ ਆ ਸਕਣ ਵਾਲੇ ਸੰਕੇਤ',
+      'ਆਪਣੀ ਲੈਅ ਨੂੰ ਪਛਾਣਨਾ',
+      'ਮੁੱਖ ਨੁਕਤੇ',
+    ],
+    body1:
+      'ਓਵੂਲੇਸ਼ਨ (ਅੰਡਾ ਨਿਕਲਣਾ) ਦਾ ਮਤਲਬ ਹੈ ਕਿਸੇ ਇੱਕ ਅੰਡਕੋਸ਼ ਵੱਲੋਂ ਅੰਡੇ ਦਾ ਛੱਡਿਆ ਜਾਣਾ। ਇਹ ਆਮ ਤੌਰ \'ਤੇ ਤੁਹਾਡੀ ਅਗਲੀ ਮਾਹਵਾਰੀ ਤੋਂ ਲਗਭਗ 14 ਦਿਨ ਪਹਿਲਾਂ ਹੁੰਦਾ ਹੈ, ਭਾਵੇਂ ਤੁਹਾਡੇ ਚੱਕਰ ਦੀ ਕੁੱਲ ਲੰਬਾਈ ਕੁਝ ਵੀ ਹੋਵੇ।',
+    tip1Title: 'ਜਾਣਨ ਯੋਗ',
+    tip1Text:
+      'ਹਰ ਔਰਤ ਵਿੱਚ ਅਗਲੀ ਮਾਹਵਾਰੀ ਦੀ ਤਾਰੀਖ਼ ਹੀ ਬਦਲਦੀ ਹੈ, ਓਵੂਲੇਸ਼ਨ ਅਤੇ ਇਸ ਦੇ ਆਉਣ ਵਿਚਕਾਰ ਦੇ ਸਮੇਂ ਨਾਲੋਂ ਕਿਤੇ ਵੱਧ।',
+    body2:
+      'ਕੁਝ ਸਰੀਰਕ ਸੰਕੇਤ ਓਵੂਲੇਸ਼ਨ ਦੇ ਨੇੜੇ ਆਉਣ ਦੇ ਨਾਲ ਹੋ ਸਕਦੇ ਹਨ, ਜੋ ਔਰਤ ਮੁਤਾਬਕ ਵੱਧ-ਘੱਟ ਹੁੰਦੇ ਹਨ।',
+    visualTitle: 'ਵਧੇਰੇ ਤਰਲ ਰਿਸਾਅ',
+    visualText:
+      'ਜਿਵੇਂ-ਜਿਵੇਂ ਓਵੂਲੇਸ਼ਨ ਨੇੜੇ ਆਉਂਦਾ ਹੈ, ਬੱਚੇਦਾਨੀ ਦੇ ਮੂੰਹ ਦਾ ਰਿਸਾਅ ਵਧੇਰੇ ਸਾਫ਼, ਲਚਕੀਲਾ ਅਤੇ ਖਿੱਚਣ ਯੋਗ ਹੋ ਜਾਂਦਾ ਹੈ।',
+    otherSigns: [
+      'ਹੇਠਲੇ ਪੇਟ ਦੇ ਇੱਕ ਪਾਸੇ ਹਲਕਾ ਦਰਦ ("ਮਿਟੇਲਸ਼ਮਰਟਸ")',
+      'ਛਾਤੀਆਂ ਵਿੱਚ ਨਰਮੀ ਜਾਂ ਦਰਦ',
+      'ਓਵੂਲੇਸ਼ਨ ਤੋਂ ਬਾਅਦ ਆਰਾਮ ਵੇਲੇ ਦੇ ਸਰੀਰਕ ਤਾਪਮਾਨ ਵਿੱਚ ਹਲਕਾ ਵਾਧਾ',
+      'ਕੁਝ ਔਰਤਾਂ ਵਿੱਚ ਊਰਜਾ ਦਾ ਵਧਣਾ',
+    ],
+    body3:
+      'ਕਈ ਚੱਕਰਾਂ ਦੌਰਾਨ ਇਨ੍ਹਾਂ ਸੰਕੇਤਾਂ ਨੂੰ ਦੇਖਣ ਨਾਲ ਤੁਸੀਂ ਆਪਣੀ ਲੈਅ ਨੂੰ ਜਾਣ ਸਕਦੇ ਹੋ, ਜੋ ਆਮ ਔਸਤਾਂ ਤੋਂ ਵੱਖ ਹੋ ਸਕਦੀ ਹੈ।',
+    alertTitle: 'ਕਿਰਪਾ ਕਰਕੇ ਧਿਆਨ ਦਿਓ',
+    alertText:
+      'ਓਵੂਲੇਸ਼ਨ ਤੋਂ ਬਿਨਾਂ ਚੱਕਰ ਕਦੇ-ਕਦੇ ਹੋ ਸਕਦਾ ਹੈ, ਅਤੇ ਇਹ ਜ਼ਰੂਰੀ ਨਹੀਂ ਕਿ ਚਿੰਤਾ ਦਾ ਕਾਰਨ ਹੋਵੇ। ਜੇ ਤੁਹਾਡੀ ਮਾਹਵਾਰੀ ਲੰਮੇ ਸਮੇਂ ਤੱਕ ਨਾ ਆਵੇ ਜਾਂ ਤੁਹਾਨੂੰ ਯਕੀਨ ਨਾ ਹੋਵੇ, ਤਾਂ ਡਾਕਟਰੀ ਸਲਾਹ ਲੈਣ ਦੀ ਸਿਫ਼ਾਰਸ਼ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।',
+    tip2Title: 'ਜਾਣਨ ਯੋਗ',
+    tip2Text:
+      'ਕੋਈ ਇੱਕ ਸੰਕੇਤ ਇਕੱਲਾ ਪੂਰੀ ਤਰ੍ਹਾਂ ਭਰੋਸੇਯੋਗ ਨਹੀਂ ਹੁੰਦਾ: ਉਨ੍ਹਾਂ ਨੂੰ ਮਿਲਾ ਕੇ ਦੇਖਣ ਨਾਲ ਤੁਹਾਡੇ ਸਭ ਤੋਂ ਉਪਜਾਊ ਸਮੇਂ ਦਾ ਬਿਹਤਰ ਅੰਦਾਜ਼ਾ ਮਿਲਦਾ ਹੈ।',
+    shareMessage: 'ਓਵੂਲੇਸ਼ਨ ਨੂੰ ਸਮਝੋ — AWA',
+  },
+  my: {
+    badge: 'မျိုးဥကြွေခြင်း',
+    title: 'မျိုးဥကြွေခြင်းကို\nနားလည်ခြင်း',
+    metaDuration: 'ဖတ်ချိန် 6 မိနစ်',
+    metaType: 'လမ်းညွှန်',
+    metaLevel: 'အခြေခံအဆင့်',
+    metaValidated: 'ပြန်လည်သုံးသပ်ပြီး အကြောင်းအရာ',
+    intro: 'သင့်ရာသီစက်ဝန်း၏ အဓိကအချိန်နှင့် ၎င်းကို မည်သို့ သိရှိနိုင်သနည်း။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'မျိုးဥကြွေခြင်းဆိုသည်မှာ အဘယ်နည်း။',
+      'အတူတကွ ဖြစ်ပေါ်နိုင်သော လက္ခဏာများ',
+      'သင့်ကိုယ်ပိုင်စည်းချက်ကို သိရှိခြင်း',
+      'အဓိကအချက်များ',
+    ],
+    body1:
+      'မျိုးဥကြွေခြင်းဆိုသည်မှာ သားဥအိမ်တစ်ခုမှ မျိုးဥ ထွက်လာခြင်းဖြစ်သည်။ သင့်ရာသီစက်ဝန်း၏ စုစုပေါင်းအရှည်မည်သို့ပင်ရှိစေ၊ ၎င်းသည် များသောအားဖြင့် သင့်နောက်ရာသီမလာမီ 14 ရက်ခန့်တွင် ဖြစ်ပေါ်သည်။',
+    tip1Title: 'သိထားသင့်သည်',
+    tip1Text:
+      'မျိုးဥကြွေခြင်းနှင့် ရာသီရောက်ရှိခြင်းကြား အချိန်ထက် သင့်နောက်ရာသီလာမည့်ရက်စွဲသည် အမျိုးသမီးတစ်ဦးနှင့်တစ်ဦး အများကြီး ကွဲပြားသည်။',
+    body2:
+      'အချို့သော ခန္ဓာကိုယ်လက္ခဏာများသည် အမျိုးသမီးအလိုက် ကွဲပြားသော အတိုင်းအတာဖြင့် မျိုးဥကြွေချိန် နီးကပ်လာသည်နှင့်အတူ ဖြစ်ပေါ်နိုင်သည်။',
+    visualTitle: 'ပိုပျော့ပျောင်းသော သားအိမ်ခေါင်းအချွဲ',
+    visualText:
+      'မျိုးဥကြွေချိန် နီးကပ်လာသည်နှင့်အမျှ သားအိမ်ခေါင်းအချွဲသည် ပိုကြည်လင်လာပြီး ပိုဆန့်လာကာ ပိုပျော့ပျောင်းလာသည်။',
+    otherSigns: [
+      'အောက်ဗိုက်တစ်ဖက်တွင် ပေါ့ပါးသော နာကျင်မှု ("mittelschmerz")',
+      'ရင်သားနာကျင်ခြင်း',
+      'မျိုးဥကြွေပြီးနောက် အခြေခံ ကိုယ်အပူချိန် အနည်းငယ်တက်ခြင်း',
+      'အမျိုးသမီးအချို့တွင် စွမ်းအင် တက်ကြွလာခြင်း',
+    ],
+    body3:
+      'ဤလက္ခဏာများကို ရာသီစက်ဝန်းများစွာတွင် လေ့လာခြင်းက ယေဘုယျပျမ်းမျှတန်ဖိုးများနှင့် ကွဲပြားနိုင်သော သင့်ကိုယ်ပိုင်စည်းချက်ကို သိရှိစေသည်။',
+    alertTitle: 'ကျေးဇူးပြု၍ သတိပြုပါ',
+    alertText:
+      'မျိုးဥမကြွေသော ရာသီစက်ဝန်းသည် တခါတရံ ဖြစ်နိုင်ပြီး ၎င်းသည် စိုးရိမ်ရန် အကြောင်းရင်းဖြစ်ရန် မလိုပါ။ သင့်ရာသီ ကြာရှည်စွာ မလာလျှင် သို့မဟုတ် မသေချာလျှင် ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ်ကို အကြံပြုသည်။',
+    tip2Title: 'သိထားသင့်သည်',
+    tip2Text:
+      'မည်သည့်လက္ခဏာတစ်ခုမျှ သူ့ဘာသာ လုံးဝယုံကြည်စိတ်ချရခြင်းမရှိပါ- ၎င်းတို့ကို ပေါင်းစပ်ခြင်းက သင့်သန္ဓေတည်လွယ်ဆုံးအချိန်ကို ပိုကောင်းစွာ သိစေသည်။',
+    shareMessage: 'မျိုးဥကြွေခြင်းကို နားလည်ခြင်း — AWA',
+  },
+  km: {
+    badge: 'ការបញ្ចេញពងអូវុល',
+    title: 'ការយល់ដឹងអំពី\nការបញ្ចេញពងអូវុល',
+    metaDuration: 'អាន 6 នាទី',
+    metaType: 'មគ្គុទ្ទេសក៍',
+    metaLevel: 'កម្រិតដំបូង',
+    metaValidated: 'មាតិកាបានពិនិត្យ',
+    intro: 'ពេលវេលាសំខាន់នៃវដ្តរដូវរបស់អ្នក និងរបៀបស្គាល់វា។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'ការបញ្ចេញពងអូវុលជាអ្វី?',
+      'សញ្ញាដែលអាចកើតមានជាមួយ',
+      'ការស្គាល់ចង្វាក់ផ្ទាល់ខ្លួនរបស់អ្នក',
+      'ចំណុចសំខាន់ៗ',
+    ],
+    body1:
+      'ការបញ្ចេញពងអូវុលគឺជាការបញ្ចេញពងមួយដោយពងអូវែមួយ។ ជាធម្មតាវាកើតឡើងប្រហែល 14 ថ្ងៃមុនរដូវបន្ទាប់របស់អ្នក ដោយមិនគិតពីរយៈពេលសរុបនៃវដ្តរដូវរបស់អ្នកឡើយ។',
+    tip1Title: 'គួរដឹង',
+    tip1Text:
+      'កាលបរិច្ឆេទនៃរដូវបន្ទាប់របស់អ្នកទេដែលខុសគ្នាពីស្ត្រីម្នាក់ទៅម្នាក់ ច្រើនជាងរយៈពេលរវាងការបញ្ចេញពងអូវុល និងការមកដល់នៃរដូវ។',
+    body2:
+      'សញ្ញារាងកាយមួយចំនួនអាចកើតមានជាមួយនឹងការខិតជិតនៃការបញ្ចេញពងអូវុល ក្នុងកម្រិតខុសៗគ្នាអាស្រ័យលើស្ត្រីម្នាក់ៗ។',
+    visualTitle: 'ទឹករំអិលមាត់ស្បូនកាន់តែរាវ',
+    visualText:
+      'នៅពេលការបញ្ចេញពងអូវុលខិតជិត ទឹករំអិលមាត់ស្បូនកាន់តែថ្លា កាន់តែលាតបាន និងកាន់តែយឺត។',
+    otherSigns: [
+      'ការឈឺស្រាលៗនៅម្ខាងនៃផ្នែកខាងក្រោមពោះ ("mittelschmerz")',
+      'ការឈឺដោះ',
+      'សីតុណ្ហភាពរាងកាយមូលដ្ឋានកើនឡើងបន្តិចក្រោយការបញ្ចេញពងអូវុល',
+      'ថាមពលកើនឡើងចំពោះស្ត្រីមួយចំនួន',
+    ],
+    body3:
+      'ការសង្កេតសញ្ញាទាំងនេះក្នុងរយៈពេលជាច្រើនវដ្តរដូវ ជួយឲ្យអ្នកស្គាល់ចង្វាក់ផ្ទាល់ខ្លួន ដែលអាចខុសពីមធ្យមភាគទូទៅ។',
+    alertTitle: 'សូមកត់សម្គាល់',
+    alertText:
+      'វដ្តរដូវដែលគ្មានការបញ្ចេញពងអូវុលអាចកើតឡើងម្តងម្កាល ដោយមិនចាំបាច់ជាមូលហេតុដែលគួរព្រួយបារម្ភទេ។ ប្រសិនបើអ្នកអត់មានរដូវយូរ ឬមិនប្រាកដ ត្រូវបានណែនាំឲ្យសុំដំបូន្មានវេជ្ជសាស្ត្រ។',
+    tip2Title: 'គួរដឹង',
+    tip2Text:
+      'គ្មានសញ្ញាតែមួយណាអាចទុកចិត្តបានទាំងស្រុងដោយខ្លួនឯងឡើយ៖ ការផ្សំសញ្ញាទាំងនេះផ្តល់គំនិតកាន់តែប្រសើរអំពីពេលដែលអ្នកមានកូនងាយបំផុត។',
+    shareMessage: 'ការយល់ដឹងអំពីការបញ្ចេញពងអូវុល — AWA',
+  },
+  lo: {
+    badge: 'ການຕົກໄຂ່',
+    title: 'ເຂົ້າໃຈ\nການຕົກໄຂ່',
+    metaDuration: 'ອ່ານ 6 ນາທີ',
+    metaType: 'ຄູ່ມື',
+    metaLevel: 'ລະດັບເລີ່ມຕົ້ນ',
+    metaValidated: 'ເນື້ອຫາທີ່ຜ່ານການກວດສອບ',
+    intro: 'ຊ່ວງເວລາສຳຄັນຂອງຮອບເດືອນ ແລະ ວິທີຮັບຮູ້ມັນ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ການຕົກໄຂ່ແມ່ນຫຍັງ?',
+      'ສັນຍານທີ່ອາດເກີດຂຶ້ນພ້ອມກັນ',
+      'ການຮັບຮູ້ຈັງຫວະຂອງຕົນເອງ',
+      'ຈຸດສຳຄັນ',
+    ],
+    body1:
+      'ການຕົກໄຂ່ແມ່ນການປ່ອຍໄຂ່ຈາກຮັງໄຂ່ຂ້າງໃດຂ້າງໜຶ່ງ. ໂດຍປົກກະຕິເກີດຂຶ້ນປະມານ 14 ວັນກ່ອນມີປະຈຳເດືອນຄັ້ງຕໍ່ໄປ, ບໍ່ວ່າຮອບເດືອນຂອງທ່ານຈະຍາວເທົ່າໃດ.',
+    tip1Title: 'ຄວນຮູ້',
+    tip1Text:
+      'ວັນທີ່ປະຈຳເດືອນຄັ້ງຕໍ່ໄປມາແມ່ນສິ່ງທີ່ແຕກຕ່າງກັນໃນແຕ່ລະຄົນ, ຫຼາຍກວ່າເວລາລະຫວ່າງການຕົກໄຂ່ກັບການມາຂອງປະຈຳເດືອນ.',
+    body2:
+      'ສັນຍານທາງຮ່າງກາຍບາງຢ່າງອາດເກີດຂຶ້ນພ້ອມກັບການໃກ້ຕົກໄຂ່, ໃນລະດັບທີ່ແຕກຕ່າງກັນຕາມແຕ່ລະຄົນ.',
+    visualTitle: 'ເມືອກປາກມົດລູກທີ່ໄຫຼລື່ນຂຶ້ນ',
+    visualText:
+      'ເມື່ອໃກ້ການຕົກໄຂ່, ເມືອກປາກມົດລູກຈະໃສຂຶ້ນ, ຍືດໄດ້ຫຼາຍຂຶ້ນ ແລະ ມີຄວາມຢືດຢຸ່ນ.',
+    otherSigns: [
+      'ອາການເຈັບເບົາໆຂ້າງໃດຂ້າງໜຶ່ງຂອງທ້ອງນ້ອຍ ("mittelschmerz")',
+      'ອາການເຈັບເຕົ້ານົມເວລາຖືກສຳຜັດ',
+      'ອຸນຫະພູມຮ່າງກາຍພື້ນຖານສູງຂຶ້ນເລັກນ້ອຍຫຼັງການຕົກໄຂ່',
+      'ມີພະລັງງານເພີ່ມຂຶ້ນໃນຜູ້ຍິງບາງຄົນ',
+    ],
+    body3:
+      'ການສັງເກດສັນຍານເຫຼົ່ານີ້ຕະຫຼອດຫຼາຍຮອບເດືອນຊ່ວຍໃຫ້ທ່ານຮູ້ຈັກຈັງຫວະຂອງຕົນເອງ, ເຊິ່ງອາດແຕກຕ່າງຈາກຄ່າສະເລ່ຍທົ່ວໄປ.',
+    alertTitle: 'ກະລຸນາສັງເກດ',
+    alertText:
+      'ບາງຄັ້ງຮອບເດືອນທີ່ບໍ່ມີການຕົກໄຂ່ກໍອາດເກີດຂຶ້ນ, ໂດຍບໍ່ຈຳເປັນຕ້ອງເປັນສາເຫດຂອງຄວາມກັງວົນ. ຖ້າປະຈຳເດືອນຂາດໄປດົນ ຫຼື ທ່ານບໍ່ແນ່ໃຈ, ແນະນຳໃຫ້ຂໍຄຳແນະນຳທາງການແພດ.',
+    tip2Title: 'ຄວນຮູ້',
+    tip2Text:
+      'ບໍ່ມີສັນຍານດຽວທີ່ເຊື່ອຖືໄດ້ຢ່າງສົມບູນດ້ວຍຕົວມັນເອງ: ການລວມສັນຍານເຂົ້າກັນໃຫ້ພາບທີ່ດີກວ່າກ່ຽວກັບຊ່ວງເວລາທີ່ມີໂອກາດຕັ້ງຄັນສູງສຸດຂອງທ່ານ.',
+    shareMessage: 'ເຂົ້າໃຈການຕົກໄຂ່ — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

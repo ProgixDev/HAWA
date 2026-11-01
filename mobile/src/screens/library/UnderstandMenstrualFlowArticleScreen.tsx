@@ -2530,6 +2530,1108 @@ const CONTENT = withBrazilianPortuguese('UnderstandMenstrualFlow', {
       'Dynç, ýylylyk we ýumşak işjeňlik kömek edip biler. Agyry gaty güýçli ýa-da adaty däl bolup galsa, lukmançylyk maslahatyny soraň.',
     shareMessage: 'Aýbaşyňyzy düşünmek: hakykatdan näme bolýar — AWA',
   },
+  ms: {
+    badge: 'KITARAN HAID',
+    title: 'Memahami haid anda:\napa yang sebenarnya berlaku',
+    metaDuration: '5 min bacaan',
+    metaValidated: 'Kandungan disemak',
+    intro:
+      'Haid anda ialah sebahagian daripada proses semula jadi yang penting bagi kesihatan hormon dan pembiakan. Memahami apa yang berlaku dalam tubuh anda boleh membantu anda berasa lebih tenang dengan setiap kitaran.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Apakah haid?',
+      'Bagaimana haid anda berlangsung',
+      'Apa yang normal (dan apa yang tidak)',
+      'Melegakan sakit secara semula jadi',
+    ],
+    body1:
+      'Haid ialah pengguguran lapisan rahim apabila tiada persenyawaan berlaku. Ini berlaku secara purata sekali sebulan.',
+    knowTitle: 'Elok diketahui',
+    knowText:
+      'Setiap wanita adalah unik: tempoh, keamatan dan sensasi boleh berbeza dari satu kitaran ke kitaran berikutnya.',
+    body2:
+      'Aliran tidak sama sepanjang haid anda. Ia biasanya berubah dari hari ke hari, dari segi keamatan, warna dan tekstur.',
+    flowSteps: [
+      {title: 'Permulaan haid anda', text: 'Aliran selalunya lebih banyak dalam beberapa hari pertama.'},
+      {title: 'Pertengahan haid anda', text: 'Aliran biasanya mula berkurangan secara beransur-ansur.'},
+      {title: 'Penghujung haid anda', text: 'Aliran menjadi lebih ringan dan mungkin berwarna lebih gelap.'},
+    ],
+    softInfoTitle: 'Perlu diingat',
+    softInfoText:
+      'Ini boleh berbeza dari satu kitaran ke kitaran lain. Yang paling penting ialah mengetahui rentak biasa anda sendiri.',
+    body3:
+      'Sesetengah perubahan lazim semasa haid anda. Tanda lain wajar mendapat lebih perhatian, terutamanya apabila ia baharu atau sangat kuat.',
+    normalSigns: [
+      {title: 'Tempoh', text: 'Haid yang biasanya berlangsung beberapa hari.'},
+      {title: 'Aliran yang berubah-ubah', text: 'Aliran lebih banyak pada mulanya, kemudian lebih ringan.'},
+      {title: 'Warna', text: 'Daripada merah terang kepada merah gelap atau perang menjelang penghujung haid anda.'},
+      {title: 'Sensasi', text: 'Kekejangan ringan hingga sederhana mungkin dirasai.'},
+    ],
+    warningTitle: 'Bila untuk mendapatkan nasihat perubatan?',
+    warningSigns: [
+      'Sakit yang sangat kuat atau luar biasa',
+      'Pendarahan yang menyerap tuala wanita atau tampon dengan sangat cepat',
+      'Keletihan yang ketara, rasa hendak pengsan atau pening',
+      'Perubahan secara tiba-tiba dan berterusan daripada corak biasa anda',
+    ],
+    body4:
+      'Tabiat yang mudah boleh membantu melegakan ketidakselesaan dan menjadikan hari-hari pertama haid anda lebih selesa.',
+    tipsTitle: 'Petua praktikal',
+    tips: [
+      'Minum air\nsecukupnya untuk\nmembantu mengehadkan\nkeletihan.',
+      'Letakkan haba\npada perut bawah\njika perlu.',
+      'Cuba aktiviti yang\nlembut: berjalan,\nyoga, regangan.',
+      'Beri diri anda\nrehat dan tidur\nyang berkualiti.',
+    ],
+    reliefTitle: 'Dengarlah tubuh anda',
+    reliefText:
+      'Rehat, kehangatan dan aktiviti yang lembut boleh membantu. Jika sakit kekal sangat kuat atau luar biasa, dapatkan nasihat perubatan.',
+    shareMessage: 'Memahami haid anda: apa yang sebenarnya berlaku — AWA',
+  },
+  so: {
+    badge: 'WAREEGGA CAADADA',
+    title: 'Fahamka caadadaada:\nwaxa runtii dhacaya',
+    metaDuration: '5 daq akhris',
+    metaValidated: 'Macluumaad la dib-u-eegay',
+    intro:
+      'Caadadaadu waxay qayb ka tahay habraac dabiici ah oo muhiim u ah caafimaadka hormoonka iyo taranka. Fahamka waxa jidhkaaga ka dhacaya ayaa kaa caawin kara inaad raaxo dareento wareeg kasta.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Waa maxay caado?',
+      'Sida caadadaadu u socoto',
+      'Waxa caadi ah (iyo waxa aan ahayn)',
+      'Yareynta xanuunka si dabiici ah',
+    ],
+    body1:
+      'Caado waa saaridda dahaarka ilmo-galeenka marka aan bacrimin dhicin. Tani waxay dhacdaa celcelis ahaan hal mar bishii.',
+    knowTitle: 'Waxtar leh in la ogaado',
+    knowText:
+      'Naag kastaa waa mid gaar ah: muddada, xoogga, iyo dareennadu way kala duwanaan karaan wareeg ilaa wareeg.',
+    body2:
+      'Socodku isku mid ma aha caadadaada oo dhan. Inta badan wuu isbeddelaa maalin ilaa maalin, xoog ahaan, midab ahaan, iyo dhumuc ahaan.',
+    flowSteps: [
+      {title: 'Bilowga caadadaada', text: 'Socodku inta badan wuu ka culus yahay maalmaha ugu horreeya.'},
+      {title: 'Bartamaha caadadaada', text: 'Socodku guud ahaan wuxuu bilaabaa inuu tartiib u yaraado.'},
+      {title: 'Dhammaadka caadadaada', text: 'Socodku wuxuu noqdaa mid khafiif ah wuxuuna qaadan karaa midab ka madow.'},
+    ],
+    softInfoTitle: 'Maskaxda ku hay',
+    softInfoText:
+      'Tani way ku kala duwanaan kartaa wareeg ilaa wareeg. Waxa ugu muhiimsan waa ogaanshaha xawaarahaaga caadiga ah.',
+    body3:
+      'Kala duwanaansho qaar waa caadi inta caadadu jirto. Calaamado kale ayaa mudan feejignaan dheeraad ah, gaar ahaan marka ay cusub yihiin ama aad u xoog badan yihiin.',
+    normalSigns: [
+      {title: 'Muddo', text: 'Caado caadi ahaan socota dhowr maalmood.'},
+      {title: 'Socod kala duwan', text: 'Socod ka culus bilowga, ka dibna ka khafiif.'},
+      {title: 'Midab', text: 'Laga bilaabo casaan dhalaalaya ilaa casaan madow ama bunni dhammaadka caadadaada.'},
+      {title: 'Dareenno', text: 'Qallal khafiif ah ilaa dhexdhexaad ah ayaa la dareemi karaa.'},
+    ],
+    warningTitle: 'Goorma talo caafimaad la raadsadaa?',
+    warningSigns: [
+      'Xanuun aad u xoog badan ama aan caadi ahayn',
+      'Dhiigbax si aad u dhaqso ah u qoysiya tuwaal ama tampoon',
+      'Daal weyn, dareenka suuxdin, ama meemis',
+      'Isbeddel lama filaan ah oo sii socda oo ka duwan qaabkaaga caadiga ah',
+    ],
+    body4:
+      'Caadooyin fudud ayaa caawin kara fududaynta raaxo-darrada oo ka dhigi kara maalmaha ugu horreeya ee caadadaada kuwo raaxo badan.',
+    tipsTitle: 'Talooyin ficil ah',
+    tips: [
+      'Cab biyo\nku filan si loo\nyareeyo daalka.',
+      'Dheji kulayl\ncalooshaada hoose\nhaddii loo baahdo.',
+      'Isku day hawl\njilicsan: socod,\nyoga, kala-qaadid.',
+      'Naftaada siiso\nnasasho iyo hurdo\ntayo leh.',
+    ],
+    reliefTitle: 'U dhegeyso jidhkaaga',
+    reliefText:
+      'Nasasho, kulayl, iyo firfircooni jilicsan ayaa caawin kara. Haddii xanuunku weli aad u xoog badan yahay ama aanu caadi ahayn, talo caafimaad raadso.',
+    shareMessage: 'Fahamka caadadaada: waxa runtii dhacaya — AWA',
+  },
+  sw: {
+    badge: 'MZUNGUKO WA HEDHI',
+    title: 'Kuelewa hedhi yako:\nkinachotokea kwa kweli',
+    metaDuration: 'Dakika 5 za kusoma',
+    metaValidated: 'Maudhui yaliyokaguliwa',
+    intro:
+      'Hedhi yako ni sehemu ya mchakato wa asili ulio muhimu kwa afya ya homoni na uzazi. Kuelewa kinachotokea mwilini mwako kunaweza kukusaidia kujisikia huru zaidi katika kila mzunguko.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Hedhi ni nini?',
+      'Jinsi hedhi yako inavyoendelea',
+      'Kilicho cha kawaida (na kisicho cha kawaida)',
+      'Kupunguza maumivu kwa njia za asili',
+    ],
+    body1:
+      'Hedhi ni kumwagwa kwa utando wa mji wa uzazi pale utungisho haujatokea. Hili hutokea kwa wastani mara moja kwa mwezi.',
+    knowTitle: 'Vyema kujua',
+    knowText:
+      'Kila mwanamke ni wa kipekee: muda, ukali, na hisia vinaweza kutofautiana kutoka mzunguko mmoja hadi mwingine.',
+    body2:
+      'Mtiririko si sawa katika hedhi yako yote. Kwa kawaida hubadilika siku hadi siku, kwa ukali, rangi, na umbile.',
+    flowSteps: [
+      {title: 'Mwanzo wa hedhi yako', text: 'Mtiririko mara nyingi ni mzito zaidi katika siku chache za kwanza.'},
+      {title: 'Katikati ya hedhi yako', text: 'Mtiririko kwa ujumla huanza kupungua polepole.'},
+      {title: 'Mwisho wa hedhi yako', text: 'Mtiririko unakuwa mwepesi zaidi na unaweza kuchukua rangi nyeusi zaidi.'},
+    ],
+    softInfoTitle: 'Kumbuka',
+    softInfoText:
+      'Hili linaweza kutofautiana kutoka mzunguko mmoja hadi mwingine. Kinachojalisha zaidi ni kujua mdundo wako wa kawaida mwenyewe.',
+    body3:
+      'Tofauti fulani ni za kawaida wakati wa hedhi yako. Dalili nyingine zinastahili uangalizi zaidi, hasa zinapokuwa mpya au kali sana.',
+    normalSigns: [
+      {title: 'Muda', text: 'Hedhi inayodumu kwa kawaida siku chache.'},
+      {title: 'Mtiririko unaotofautiana', text: 'Mtiririko mzito zaidi mwanzoni, kisha mwepesi.'},
+      {title: 'Rangi', text: 'Kutoka nyekundu angavu hadi nyekundu iliyokolea au kahawia kuelekea mwisho wa hedhi yako.'},
+      {title: 'Hisia', text: 'Mikakamao hafifu hadi ya wastani inaweza kuhisiwa.'},
+    ],
+    warningTitle: 'Wakati wa kutafuta ushauri wa kitabibu?',
+    warningSigns: [
+      'Maumivu makali sana au yasiyo ya kawaida',
+      'Kutokwa damu kunakolowesha pedi au tamponi haraka sana',
+      'Uchovu mkubwa, kuhisi kuzimia, au kizunguzungu',
+      'Badiliko la ghafla na la kudumu kutoka mtindo wako wa kawaida',
+    ],
+    body4:
+      'Tabia rahisi zinaweza kusaidia kupunguza usumbufu na kufanya siku za kwanza za hedhi yako ziwe na faraja zaidi.',
+    tipsTitle: 'Vidokezo vya vitendo',
+    tips: [
+      'Kunywa maji\nya kutosha ili\nkupunguza uchovu.',
+      'Weka joto\nkwenye tumbo lako\nla chini ikihitajika.',
+      'Jaribu shughuli\nya upole: kutembea,\nyoga, kunyoosha mwili.',
+      'Jipe kupumzika\nna usingizi\nbora.',
+    ],
+    reliefTitle: 'Sikiliza mwili wako',
+    reliefText:
+      'Kupumzika, joto, na shughuli za upole vinaweza kusaidia. Maumivu yakibaki makali sana au yasiyo ya kawaida, tafuta ushauri wa kitabibu.',
+    shareMessage: 'Kuelewa hedhi yako: kinachotokea kwa kweli — AWA',
+  },
+  kk: {
+    badge: 'ЕТЕККІР ЦИКЛІ',
+    title: 'Етеккіріңізді түсіну:\nшын мәнінде не болып жатыр',
+    metaDuration: '5 мин оқу',
+    metaValidated: 'Тексерілген мазмұн',
+    intro:
+      'Етеккіріңіз гормондық және репродуктивті денсаулық үшін маңызды табиғи процестің бір бөлігі. Денеңізде не болып жатқанын түсіну әр циклде өзіңізді жайлырақ сезінуге көмектесе алады.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'Етеккір дегеніміз не?',
+      'Етеккіріңіз қалай өтеді',
+      'Не қалыпты (және не қалыпты емес)',
+      'Ауыруды табиғи жолмен жеңілдету',
+    ],
+    body1:
+      'Етеккір — ұрықтану болмаған кезде жатыр қабатының тасталуы. Бұл орта есеппен айына бір рет болады.',
+    knowTitle: 'Білуге тиісті',
+    knowText:
+      'Әр әйел бірегей: ұзақтығы, қарқындылығы және сезімдер бір циклден екіншісіне өзгеруі мүмкін.',
+    body2:
+      'Көлем етеккірдің бүкіл кезеңінде бірдей емес. Ол әдетте күн сайын қарқындылығы, түсі және құрылымы бойынша өзгереді.',
+    flowSteps: [
+      {title: 'Етеккірдің басы', text: 'Көлем алғашқы күндері көбіне мол болады.'},
+      {title: 'Етеккірдің ортасы', text: 'Көлем әдетте біртіндеп азая бастайды.'},
+      {title: 'Етеккірдің соңы', text: 'Көлем жеңілдеп, қоюырақ түске ие болуы мүмкін.'},
+    ],
+    softInfoTitle: 'Есте сақтаңыз',
+    softInfoText:
+      'Бұл бір циклден екіншісіне өзгеруі мүмкін. Ең бастысы — өз әдеттегі ырғағыңызды білу.',
+    body3:
+      'Етеккір кезінде кейбір өзгерістер жиі кездеседі. Басқа белгілер көбірек назарды қажет етеді, әсіресе олар жаңа немесе өте қарқынды болғанда.',
+    normalSigns: [
+      {title: 'Ұзақтығы', text: 'Әдетте бірнеше күнге созылатын етеккір.'},
+      {title: 'Өзгеретін көлем', text: 'Басында мол, содан кейін жеңілірек көлем.'},
+      {title: 'Түсі', text: 'Ашық қызылдан етеккір соңына қарай қою қызылға немесе қоңырға дейін.'},
+      {title: 'Сезімдер', text: 'Жеңілден орташаға дейінгі құрысулар сезілуі мүмкін.'},
+    ],
+    warningTitle: 'Медициналық кеңесті қашан сұрау керек?',
+    warningSigns: [
+      'Өте қатты немесе әдеттен тыс ауыру',
+      'Прокладканы немесе тампонды өте тез суландыратын қан кету',
+      'Айтарлықтай шаршау, талу сезімі немесе бас айналу',
+      'Әдеттегі үлгіңізден кенеттен және тұрақты өзгеріс',
+    ],
+    body4:
+      'Қарапайым әдеттер жайсыздықты жеңілдетуге және етеккіріңіздің алғашқы күндерін жайлырақ етуге көмектесе алады.',
+    tipsTitle: 'Практикалық кеңестер',
+    tips: [
+      'Шаршауды шектеуге\nкөмектесу үшін жеткілікті\nсу ішіңіз.',
+      'Қажет болса,\nтөменгі құрсағыңызға\nжылу қойыңыз.',
+      'Жұмсақ белсенділікті\nбайқап көріңіз: серуендеу,\nйога, созылу жаттығулары.',
+      'Өзіңізге демалыс\nпен сапалы\nұйқы беріңіз.',
+    ],
+    reliefTitle: 'Денеңізді тыңдаңыз',
+    reliefText:
+      'Демалыс, жылу және жұмсақ белсенділік көмектесе алады. Ауыру өте қатты немесе әдеттен тыс болып қалса, медициналық кеңес сұраңыз.',
+    shareMessage: 'Етеккіріңізді түсіну: шын мәнінде не болып жатыр — AWA',
+  },
+  wo: {
+    badge: 'WËRSËGU WEER',
+    title: 'Xam sa règle:\nlan la dëgg-dëgg',
+    metaDuration: '5 simili jàng',
+    metaValidated: 'Mbind bu ñu seetlu',
+    intro:
+      'Sa règle bokk na ci benn jëf bu natural bu am solo ngir wér bu hormon ak bu bindeef. Xam li am ci sa yaram mën na dimbli nga gën a nekk ci neex ci wërsëg bu nekk.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Lan mooy règle?',
+      'Naka sa règle di dem',
+      'Li daa jub (te li jubul)',
+      'Dalal metit ci natural',
+    ],
+    body1:
+      'Règle mooy tëxu bérëbu ndey bu bindeef amul. Loolu daa am benn yoon ci weer, ci digg-dóomu.',
+    knowTitle: 'Lu baax a xam',
+    knowText:
+      'Jigéen ju nekk wuute na: diir, dayo ak dégg yi mën nañu wuute ci wërsëg ak wërsëg.',
+    body2:
+      'Deret bi du bokk ci règle bépp. Daa soppiku bés ak bés ci dayo, kuloor ak anam.',
+    flowSteps: [
+      {title: 'Tàmbalig sa règle', text: 'Deret bi daa bari ci fan yu njëkk.'},
+      {title: 'Digg sa règle', text: 'Deret bi daa tàmbali wàññiku tuuti-tuuti.'},
+      {title: 'Jeexu sa règle', text: 'Deret bi daa gën a neex te mën na jël kuloor bu gën a lëndëm.'},
+    ],
+    softInfoTitle: 'Fàttaliku',
+    softInfoText:
+      'Loolu mën na wuute ci wërsëg ak wërsëg. Li gëna am solo mooy xam sa ritm bu cosaan.',
+    body3:
+      'Yenn wuute daa am ci jamonoy règle. Yeneen màndarga soxla teg bu gëna bari, lool bu ñu bees walla bu ñu metti lool.',
+    normalSigns: [
+      {title: 'Diir', text: 'Benn règle bu daa yàgg ay fan.'},
+      {title: 'Deret bu soppiku', text: 'Deret bu bari ci njëkk, ginnaaw bu gën a neex.'},
+      {title: 'Kuloor', text: 'Jóge ci xonq bu leer ba xonq bu lëndëm walla ñuul-xonq ci jeexu règle.'},
+      {title: 'Dégg yi', text: 'Mën nga dégg metit bu neex ba bu digg-dóomu ci biir.'},
+    ],
+    warningTitle: 'Kañ ngay seet ndigalu doktoor?',
+    warningSigns: [
+      'Metit bu metti lool walla bu cosaanul',
+      'Deret bu di soof pad walla tampoŋ ci gaaw lool',
+      'Sonn bu am solo, dégg ne dinga ŋàbbu walla doxandéem',
+      'Benn soppi bu gaaw te bu sax ci sa yoon bu cosaan',
+    ],
+    body4:
+      'Yoon yu yomb mën nañu dimbli nga dalal tiis te def fan yu njëkk ci sa règle gën a neex.',
+    tipsTitle: 'Ndigal yu jëfandikoo',
+    tips: [
+      'Naan ndox bu doy\nngir dimbli wàññi\nsonn.',
+      'Tegal tàngoor\nci suufu biir bu\nsoxlaa.',
+      'Jéem benn jëf\nbu lewet: dox,\nyoga, xëtt.',
+      'Joxe sa bopp\nnoppalu ak nelaw\nbu baax.',
+    ],
+    reliefTitle: 'Déglul sa yaram',
+    reliefText:
+      'Noppalu, tàngoor ak jëf bu lewet mën nañu dimbli. Bu metit bi des metti lool walla cosaanul, seet ndigalu doktoor.',
+    shareMessage: 'Xam sa règle: lan la dëgg-dëgg — AWA',
+  },
+  ha: {
+    badge: 'ZAGAYEN HAILA',
+    title: 'Fahimtar hailarki:\nabin da ke faruwa da gaske',
+    metaDuration: 'karatun minti 5',
+    metaValidated: 'Abun da aka duba',
+    intro:
+      'Hailarki wani ɓangare ne na tsari na halitta mai muhimmanci ga lafiyar hormone da haihuwa. Fahimtar abin da ke faruwa a jikinki na iya taimaka miki ki ji daɗi da kowane zagaye.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Menene haila?',
+      'Yadda hailarki ke gudana',
+      'Abin da ke na al’ada (da abin da ba haka ba)',
+      'Rage ciwo ta halitta',
+    ],
+    body1:
+      'Haila ita ce zubar da bangon mahaifa lokacin da hadi bai faru ba. Wannan yana faruwa a matsakaici sau ɗaya a wata.',
+    knowTitle: 'Abin da ya dace a sani',
+    knowText:
+      'Kowace mace ta musamman ce: tsawo, ƙarfi, da ji na iya bambanta daga zagaye zuwa zagaye.',
+    body2:
+      'Jinin bai zama iri ɗaya ba a duk hailarki. Yawanci yana canzawa daga rana zuwa rana, a ƙarfi, launi, da yanayi.',
+    flowSteps: [
+      {title: 'Farkon hailarki', text: 'Jini galibi yana da yawa a kwanakin farko.'},
+      {title: 'Tsakiyar hailarki', text: 'Jini yawanci yana fara raguwa a hankali.'},
+      {title: 'Ƙarshen hailarki', text: 'Jini yana zama mai sauƙi kuma yana iya ɗaukar launi mai duhu.'},
+    ],
+    softInfoTitle: 'Ki tuna',
+    softInfoText:
+      'Wannan na iya bambanta daga zagaye zuwa zagaye. Abin da ya fi muhimmanci shi ne sanin tsarinki na yau da kullum.',
+    body3:
+      'Wasu bambance-bambance sun zama ruwan dare lokacin hailarki. Sauran alamomi sun cancanci ƙarin kulawa, musamman idan sababbi ne ko masu tsanani sosai.',
+    normalSigns: [
+      {title: 'Tsawo', text: 'Haila da yawanci take ɗaukar kwanaki kaɗan.'},
+      {title: 'Jini mai canzawa', text: 'Jini mai yawa da farko, sannan ya zama mai sauƙi.'},
+      {title: 'Launi', text: 'Daga ja mai haske zuwa ja mai duhu ko launin ruwan ƙasa a ƙarshen hailarki.'},
+      {title: 'Ji', text: 'Ana iya jin murɗawar ciki mai sauƙi zuwa matsakaici.'},
+    ],
+    warningTitle: 'Yaushe za a nemi shawarar likita?',
+    warningSigns: [
+      'Ciwo mai tsanani sosai ko ba na al’ada ba',
+      'Zubar jini da ke jika audugar haila ko tampon da sauri sosai',
+      'Gajiya mai yawa, jin kamar za a suma, ko jiri',
+      'Sauyi kwatsam kuma mai dawwama daga tsarinki na yau da kullum',
+    ],
+    body4:
+      'Dabi’u masu sauƙi na iya taimakawa rage rashin jin daɗi kuma su sa kwanakin farko na hailarki su fi daɗi.',
+    tipsTitle: 'Shawarwari masu amfani',
+    tips: [
+      'Sha isasshen\nruwa don taimakawa\nrage gajiya.',
+      'Sa zafi a\nƙasan cikinki\nidan ya zama dole.',
+      'Gwada aiki\nmai laushi: tafiya,\nyoga, miƙa jiki.',
+      'Ba kanki hutu\nda barci mai\ninganci.',
+    ],
+    reliefTitle: 'Saurari jikinki',
+    reliefText:
+      'Hutu, zafi, da aiki mai laushi na iya taimakawa. Idan ciwon ya ci gaba da kasancewa mai tsanani sosai ko ba na al’ada ba, nemi shawarar likita.',
+    shareMessage: 'Fahimtar hailarki: abin da ke faruwa da gaske — AWA',
+  },
+  am: {
+    badge: 'የወር አበባ ዑደት',
+    title: 'የወር አበባሽን መረዳት፦\nበእውነት ምን እየሆነ ነው',
+    metaDuration: '5 ደቂቃ ንባብ',
+    metaValidated: 'የተገመገመ ይዘት',
+    intro:
+      'የወር አበባሽ ለሆርሞንና ለመራቢያ ጤና አስፈላጊ የሆነ ተፈጥሯዊ ሂደት አካል ነው። በሰውነትሽ ውስጥ ምን እየሆነ እንደሆነ መረዳት በእያንዳንዱ ዑደት ይበልጥ ዘና እንድትዪ ሊረዳሽ ይችላል።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'የወር አበባ ምንድን ነው?',
+      'የወር አበባሽ እንዴት ይሄዳል',
+      'የተለመደው ምንድን ነው (እና ያልሆነው)',
+      'ህመምን በተፈጥሮ ማቃለል',
+    ],
+    body1:
+      'የወር አበባ ፍሬ ሳይፈጠር ሲቀር የማህፀን ሽፋን መውጣት ነው። ይህ በአማካይ በወር አንድ ጊዜ ይከሰታል።',
+    knowTitle: 'ማወቅ ጠቃሚ ነው',
+    knowText:
+      'እያንዳንዷ ሴት ልዩ ናት፦ ቆይታ፣ ጥንካሬና ስሜቶች ከአንዱ ዑደት ወደ ሌላው ሊለያዩ ይችላሉ።',
+    body2:
+      'ፍሰቱ በወር አበባሽ ሁሉ አንድ አይደለም። ብዙውን ጊዜ ከቀን ወደ ቀን በጥንካሬ፣ በቀለምና በይዘት ይለወጣል።',
+    flowSteps: [
+      {title: 'የወር አበባሽ መጀመሪያ', text: 'ፍሰቱ በመጀመሪያዎቹ ጥቂት ቀናት ብዙ ጊዜ ይበልጥ ይበዛል።'},
+      {title: 'የወር አበባሽ መካከል', text: 'ፍሰቱ በአጠቃላይ ቀስ በቀስ መቀነስ ይጀምራል።'},
+      {title: 'የወር አበባሽ መጨረሻ', text: 'ፍሰቱ ይቀላል እና ጠቆር ያለ ቀለም ሊይዝ ይችላል።'},
+    ],
+    softInfoTitle: 'አስታውሺ',
+    softInfoText:
+      'ይህ ከአንዱ ዑደት ወደ ሌላው ሊለያይ ይችላል። ከሁሉም በላይ አስፈላጊው የራስሽን የተለመደ ሪትም ማወቅ ነው።',
+    body3:
+      'በወር አበባሽ ጊዜ አንዳንድ ልዩነቶች የተለመዱ ናቸው። ሌሎች ምልክቶች የበለጠ ትኩረት ይገባቸዋል፣ በተለይ አዲስ ወይም በጣም ከባድ ሲሆኑ።',
+    normalSigns: [
+      {title: 'ቆይታ', text: 'በተለምዶ ጥቂት ቀናት የሚቆይ የወር አበባ።'},
+      {title: 'የሚለዋወጥ ፍሰት', text: 'መጀመሪያ ላይ ብዙ ፍሰት፣ ከዚያ ቀለል ያለ።'},
+      {title: 'ቀለም', text: 'ከደማቅ ቀይ እስከ ጥቁር ቀይ ወይም ቡናማ በወር አበባሽ መጨረሻ።'},
+      {title: 'ስሜቶች', text: 'ቀላል እስከ መካከለኛ ቁርጠት ሊሰማ ይችላል።'},
+    ],
+    warningTitle: 'የሕክምና ምክር መቼ መፈለግ?',
+    warningSigns: [
+      'በጣም ከባድ ወይም ያልተለመደ ህመም',
+      'ፓድን ወይም ታምፖንን በጣም በፍጥነት የሚያጠግብ ደም መፍሰስ',
+      'ከፍተኛ ድካም፣ የመውደቅ ስሜት ወይም ማዞር',
+      'ከተለመደው ዘይቤሽ ድንገተኛ እና የሚቆይ ለውጥ',
+    ],
+    body4:
+      'ቀላል ልማዶች ምቾት ማጣትን ለማቃለል እና የወር አበባሽን የመጀመሪያ ቀናት ይበልጥ ምቹ ለማድረግ ሊረዱ ይችላሉ።',
+    tipsTitle: 'ተግባራዊ ምክሮች',
+    tips: [
+      'ድካምን ለመገደብ\nበቂ ውሃ\nጠጪ።',
+      'ካስፈለገ\nበታችኛው ሆድሽ ላይ\nሙቀት ተጠቀሚ።',
+      'ለስላሳ እንቅስቃሴ\nሞክሪ፦ የእግር ጉዞ፣\nዮጋ፣ መሳብ።',
+      'እረፍት እና\nጥራት ያለው\nእንቅልፍ ስጪ።',
+    ],
+    reliefTitle: 'ሰውነትሽን አዳምጪ',
+    reliefText:
+      'እረፍት፣ ሙቀት እና ለስላሳ እንቅስቃሴ ሊረዱ ይችላሉ። ህመሙ በጣም ከባድ ወይም ያልተለመደ ሆኖ ከቀጠለ የሕክምና ምክር ፈልጊ።',
+    shareMessage: 'የወር አበባሽን መረዳት፦ በእውነት ምን እየሆነ ነው — AWA',
+  },
+  nl: {
+    badge: 'MENSTRUATIECYCLUS',
+    title: 'Je menstruatie begrijpen:\nwat er echt gebeurt',
+    metaDuration: '5 min lezen',
+    metaValidated: 'Gecontroleerde inhoud',
+    intro:
+      'Je menstruatie maakt deel uit van een natuurlijk proces dat essentieel is voor de hormonale en voortplantingsgezondheid. Begrijpen wat er in je lichaam gebeurt kan je helpen je bij elke cyclus meer op je gemak te voelen.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'Wat is een menstruatie?',
+      'Hoe je menstruatie verloopt',
+      'Wat normaal is (en wat niet)',
+      'Pijn op natuurlijke wijze verlichten',
+    ],
+    body1:
+      'Een menstruatie is het afstoten van het baarmoederslijmvlies wanneer er geen bevruchting heeft plaatsgevonden. Dit gebeurt gemiddeld eens per maand.',
+    knowTitle: 'Goed om te weten',
+    knowText:
+      'Elke vrouw is uniek: duur, intensiteit en gewaarwordingen kunnen van cyclus tot cyclus verschillen.',
+    body2:
+      'Het bloedverlies is niet de hele menstruatie hetzelfde. Het verandert meestal van dag tot dag, in intensiteit, kleur en structuur.',
+    flowSteps: [
+      {title: 'Begin van je menstruatie', text: 'Het bloedverlies is vaak heviger tijdens de eerste dagen.'},
+      {title: 'Midden van je menstruatie', text: 'Het bloedverlies begint over het algemeen geleidelijk af te nemen.'},
+      {title: 'Einde van je menstruatie', text: 'Het bloedverlies wordt lichter en kan een donkerdere kleur krijgen.'},
+    ],
+    softInfoTitle: 'Houd in gedachten',
+    softInfoText:
+      'Dit kan van cyclus tot cyclus variëren. Het belangrijkste is je eigen gebruikelijke ritme te kennen.',
+    body3:
+      'Sommige variaties komen vaak voor tijdens je menstruatie. Andere tekenen verdienen meer aandacht, vooral wanneer ze nieuw of zeer intens zijn.',
+    normalSigns: [
+      {title: 'Duur', text: 'Een menstruatie die gewoonlijk een paar dagen duurt.'},
+      {title: 'Wisselend bloedverlies', text: 'Eerst heviger bloedverlies, daarna lichter.'},
+      {title: 'Kleur', text: 'Van helderrood tot donkerrood of bruin tegen het einde van je menstruatie.'},
+      {title: 'Gewaarwordingen', text: 'Lichte tot matige krampen kunnen worden gevoeld.'},
+    ],
+    warningTitle: 'Wanneer medisch advies vragen?',
+    warningSigns: [
+      'Zeer hevige of ongewone pijn',
+      'Bloedverlies dat heel snel door een maandverband of tampon heen komt',
+      'Aanzienlijke vermoeidheid, een flauw gevoel of duizeligheid',
+      'Een plotselinge en aanhoudende verandering ten opzichte van je gebruikelijke patroon',
+    ],
+    body4:
+      'Eenvoudige gewoonten kunnen helpen ongemak te verlichten en de eerste dagen van je menstruatie comfortabeler te maken.',
+    tipsTitle: 'Praktische tips',
+    tips: [
+      'Drink voldoende\nwater om vermoeidheid\nte helpen beperken.',
+      'Leg zo nodig warmte\nop je onderbuik.',
+      'Probeer een zachte\nactiviteit: wandelen,\nyoga, rekoefeningen.',
+      'Gun jezelf rust en\nslaap van goede\nkwaliteit.',
+    ],
+    reliefTitle: 'Luister naar je lichaam',
+    reliefText:
+      'Rust, warmte en zachte activiteit kunnen helpen. Als de pijn zeer intens of ongewoon blijft, vraag dan medisch advies.',
+    shareMessage: 'Je menstruatie begrijpen: wat er echt gebeurt — AWA',
+  },
+  fi: {
+    badge: 'KUUKAUTISKIERTO',
+    title: 'Kuukautistesi ymmärtäminen:\nmitä todella tapahtuu',
+    metaDuration: '5 min lukuaika',
+    metaValidated: 'Tarkistettu sisältö',
+    intro:
+      'Kuukautisesi ovat osa luonnollista prosessia, joka on olennainen hormonaaliselle ja lisääntymisterveydelle. Sen ymmärtäminen, mitä kehossasi tapahtuu, voi auttaa tuntemaan olosi rauhallisemmaksi jokaisessa kierrossa.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Mitä kuukautiset ovat?',
+      'Miten kuukautisesi etenevät',
+      'Mikä on normaalia (ja mikä ei)',
+      'Kivun lievittäminen luonnollisesti',
+    ],
+    body1:
+      'Kuukautiset ovat kohdun limakalvon poistumista silloin, kun hedelmöittymistä ei ole tapahtunut. Tämä tapahtuu keskimäärin kerran kuukaudessa.',
+    knowTitle: 'Hyvä tietää',
+    knowText:
+      'Jokainen nainen on ainutlaatuinen: kesto, voimakkuus ja tuntemukset voivat vaihdella kierrosta toiseen.',
+    body2:
+      'Vuoto ei ole sama koko kuukautisten ajan. Se muuttuu yleensä päivästä toiseen voimakkuudeltaan, väriltään ja rakenteeltaan.',
+    flowSteps: [
+      {title: 'Kuukautisten alku', text: 'Vuoto on usein runsaampaa ensimmäisinä päivinä.'},
+      {title: 'Kuukautisten keskivaihe', text: 'Vuoto alkaa yleensä vähentyä asteittain.'},
+      {title: 'Kuukautisten loppu', text: 'Vuoto muuttuu niukemmaksi ja voi saada tummemman värin.'},
+    ],
+    softInfoTitle: 'Pidä mielessä',
+    softInfoText:
+      'Tämä voi vaihdella kierrosta toiseen. Tärkeintä on tuntea oma tavanomainen rytmisi.',
+    body3:
+      'Jotkin vaihtelut ovat yleisiä kuukautisten aikana. Muut merkit ansaitsevat enemmän huomiota, erityisesti kun ne ovat uusia tai hyvin voimakkaita.',
+    normalSigns: [
+      {title: 'Kesto', text: 'Kuukautiset, jotka yleensä kestävät muutaman päivän.'},
+      {title: 'Vaihteleva vuoto', text: 'Ensin runsaampaa, sitten niukempaa.'},
+      {title: 'Väri', text: 'Kirkkaanpunaisesta tummanpunaiseen tai ruskeaan kuukautisten lopussa.'},
+      {title: 'Tuntemukset', text: 'Lieviä tai kohtalaisia kramppeja voi tuntua.'},
+    ],
+    warningTitle: 'Milloin hakea lääketieteellistä neuvoa?',
+    warningSigns: [
+      'Hyvin voimakas tai epätavallinen kipu',
+      'Vuoto, joka kastelee siteen tai tamponin hyvin nopeasti',
+      'Merkittävä väsymys, pyörtymisen tunne tai huimaus',
+      'Äkillinen ja pitkäkestoinen muutos tavanomaiseen kaavaasi',
+    ],
+    body4:
+      'Yksinkertaiset tavat voivat auttaa lievittämään epämukavuutta ja tekemään kuukautisten ensimmäisistä päivistä mukavampia.',
+    tipsTitle: 'Käytännön vinkit',
+    tips: [
+      'Juo riittävästi\nvettä väsymyksen\nrajoittamiseksi.',
+      'Laita tarvittaessa lämpöä\nalavatsalle.',
+      'Kokeile lempeää\ntoimintaa: kävelyä,\njoogaa, venyttelyä.',
+      'Anna itsellesi lepoa ja\nlaadukasta unta.',
+    ],
+    reliefTitle: 'Kuuntele kehoasi',
+    reliefText:
+      'Lepo, lämpö ja lempeä liikunta voivat auttaa. Jos kipu pysyy hyvin voimakkaana tai epätavallisena, hae lääketieteellistä neuvontaa.',
+    shareMessage: 'Kuukautistesi ymmärtäminen: mitä todella tapahtuu — AWA',
+  },
+  el: {
+    badge: 'ΕΜΜΗΝΟΣ ΚΥΚΛΟΣ',
+    title: 'Κατανοώντας την περίοδό σου:\nτι συμβαίνει πραγματικά',
+    metaDuration: '5 λεπτά ανάγνωσης',
+    metaValidated: 'Ελεγμένο περιεχόμενο',
+    intro:
+      'Η περίοδός σου αποτελεί μέρος μιας φυσικής διαδικασίας ουσιαστικής για την ορμονική και αναπαραγωγική υγεία. Η κατανόηση του τι συμβαίνει στο σώμα σου μπορεί να σε βοηθήσει να νιώθεις πιο άνετα με κάθε κύκλο.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Τι είναι η περίοδος;',
+      'Πώς εξελίσσεται η περίοδός σου',
+      'Τι είναι φυσιολογικό (και τι όχι)',
+      'Ανακούφιση του πόνου με φυσικό τρόπο',
+    ],
+    body1:
+      'Η περίοδος είναι η αποβολή του επιθηλίου της μήτρας όταν δεν έχει γίνει γονιμοποίηση. Αυτό συμβαίνει κατά μέσο όρο μία φορά τον μήνα.',
+    knowTitle: 'Καλό είναι να γνωρίζεις',
+    knowText:
+      'Κάθε γυναίκα είναι μοναδική: η διάρκεια, η ένταση και οι αισθήσεις μπορεί να διαφέρουν από τον έναν κύκλο στον άλλο.',
+    body2:
+      'Η ροή δεν είναι η ίδια σε όλη την περίοδο. Συνήθως αλλάζει από μέρα σε μέρα, σε ένταση, χρώμα και υφή.',
+    flowSteps: [
+      {title: 'Αρχή της περιόδου', text: 'Η ροή είναι συχνά πιο έντονη τις πρώτες ημέρες.'},
+      {title: 'Μέση της περιόδου', text: 'Η ροή αρχίζει γενικά να μειώνεται σταδιακά.'},
+      {title: 'Τέλος της περιόδου', text: 'Η ροή γίνεται πιο ελαφριά και μπορεί να αποκτήσει πιο σκούρο χρώμα.'},
+    ],
+    softInfoTitle: 'Να το έχεις υπόψη',
+    softInfoText:
+      'Αυτό μπορεί να διαφέρει από κύκλο σε κύκλο. Αυτό που μετράει περισσότερο είναι να γνωρίζεις τον δικό σου συνηθισμένο ρυθμό.',
+    body3:
+      'Ορισμένες διακυμάνσεις είναι συχνές κατά την περίοδο. Άλλα σημάδια αξίζουν περισσότερη προσοχή, ιδίως όταν είναι νέα ή πολύ έντονα.',
+    normalSigns: [
+      {title: 'Διάρκεια', text: 'Μια περίοδος που διαρκεί συνήθως λίγες ημέρες.'},
+      {title: 'Μεταβαλλόμενη ροή', text: 'Πιο έντονη ροή στην αρχή και στη συνέχεια πιο ελαφριά.'},
+      {title: 'Χρώμα', text: 'Από έντονο κόκκινο έως σκούρο κόκκινο ή καφέ προς το τέλος της περιόδου.'},
+      {title: 'Αισθήσεις', text: 'Μπορεί να νιώθεις ήπιες έως μέτριες κράμπες.'},
+    ],
+    warningTitle: 'Πότε να ζητήσεις ιατρική συμβουλή;',
+    warningSigns: [
+      'Πολύ έντονος ή ασυνήθιστος πόνος',
+      'Αιμορραγία που διαποτίζει πολύ γρήγορα μια σερβιέτα ή ένα ταμπόν',
+      'Σημαντική κόπωση, αίσθημα λιποθυμίας ή ζάλη',
+      'Μια ξαφνική και επίμονη αλλαγή από το συνηθισμένο σου μοτίβο',
+    ],
+    body4:
+      'Απλές συνήθειες μπορούν να βοηθήσουν να ανακουφιστεί η δυσφορία και να γίνουν πιο άνετες οι πρώτες ημέρες της περιόδου σου.',
+    tipsTitle: 'Πρακτικές συμβουλές',
+    tips: [
+      'Πίνε αρκετό\nνερό για να βοηθήσεις\nνα περιοριστεί η κόπωση.',
+      'Εφάρμοσε θερμότητα\nστην κάτω κοιλιά\nαν χρειάζεται.',
+      'Δοκίμασε μια ήπια\nδραστηριότητα: περπάτημα,\nγιόγκα, διατάσεις.',
+      'Δώσε στον εαυτό σου\nξεκούραση και\nποιοτικό ύπνο.',
+    ],
+    reliefTitle: 'Άκου το σώμα σου',
+    reliefText:
+      'Η ξεκούραση, η θερμότητα και η ήπια δραστηριότητα μπορούν να βοηθήσουν. Αν ο πόνος παραμένει πολύ έντονος ή ασυνήθιστος, ζήτησε ιατρική συμβουλή.',
+    shareMessage: 'Κατανοώντας την περίοδό σου: τι συμβαίνει πραγματικά — AWA',
+  },
+  fil: {
+    badge: 'SIKLO NG REGLA',
+    title: 'Pag-unawa sa iyong regla:\nang tunay na nangyayari',
+    metaDuration: '5 min na babasahin',
+    metaValidated: 'Sinuring nilalaman',
+    intro:
+      'Bahagi ng natural na prosesong mahalaga sa hormonal at reproductive na kalusugan ang iyong regla. Ang pag-unawa sa nangyayari sa iyong katawan ay makakatulong na mas maging panatag ka sa bawat siklo.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Ano ang regla?',
+      'Paano umuusad ang iyong regla',
+      'Ano ang normal (at ano ang hindi)',
+      'Natural na pagpapaginhawa ng sakit',
+    ],
+    body1:
+      'Ang regla ay ang pagtatanggal ng lining ng matris kapag walang naganap na fertilization. Nangyayari ito sa average nang isang beses kada buwan.',
+    knowTitle: 'Mabuting malaman',
+    knowText:
+      'Natatangi ang bawat babae: maaaring mag-iba mula isang siklo hanggang sa susunod ang tagal, tindi, at mga pakiramdam.',
+    body2:
+      'Hindi pareho ang daloy sa buong tagal ng iyong regla. Karaniwang nagbabago ito araw-araw, sa tindi, kulay, at tekstura.',
+    flowSteps: [
+      {title: 'Simula ng iyong regla', text: 'Madalas na mas marami ang daloy sa unang ilang araw.'},
+      {title: 'Kalagitnaan ng iyong regla', text: 'Karaniwang nagsisimulang unti-unting bumaba ang daloy.'},
+      {title: 'Katapusan ng iyong regla', text: 'Nagiging mas magaan ang daloy at maaaring maging mas madilim ang kulay.'},
+    ],
+    softInfoTitle: 'Tandaan',
+    softInfoText:
+      'Maaari itong mag-iba mula isang siklo hanggang sa isa pa. Ang pinakamahalaga ay malaman ang sarili mong karaniwang ritmo.',
+    body3:
+      'Karaniwan ang ilang pagbabago habang may regla. Ang iba pang senyales ay nararapat bigyan ng mas maraming atensyon, lalo na kapag bago o napakatindi.',
+    normalSigns: [
+      {title: 'Tagal', text: 'Regla na karaniwang tumatagal nang ilang araw.'},
+      {title: 'Nag-iiba-ibang daloy', text: 'Mas marami ang daloy sa simula, pagkatapos ay gumagaan.'},
+      {title: 'Kulay', text: 'Mula matingkad na pula hanggang madilim na pula o kayumanggi patungo sa katapusan ng iyong regla.'},
+      {title: 'Mga pakiramdam', text: 'Maaaring maramdaman ang banayad hanggang katamtamang pulikat.'},
+    ],
+    warningTitle: 'Kailan hihingi ng payong medikal?',
+    warningSigns: [
+      'Napakatindi o hindi pangkaraniwang sakit',
+      'Pagdurugong mabilis na bumabasa sa napkin o tampon',
+      'Malaking pagod, pakiramdam na mahihimatay, o pagkahilo',
+      'Biglaan at patuloy na pagbabago mula sa karaniwan mong pattern',
+    ],
+    body4:
+      'Ang simpleng mga gawi ay makakatulong na maibsan ang kakulangan sa ginhawa at gawing mas komportable ang unang mga araw ng iyong regla.',
+    tipsTitle: 'Praktikal na payo',
+    tips: [
+      'Uminom ng sapat\nna tubig para makatulong\nna limitahan ang pagod.',
+      'Maglagay ng init\nsa ibabang tiyan\nkung kinakailangan.',
+      'Subukan ang banayad\nna aktibidad: paglalakad,\nyoga, stretching.',
+      'Bigyan ang sarili\nng pahinga at de-\nkalidad na tulog.',
+    ],
+    reliefTitle: 'Pakinggan ang iyong katawan',
+    reliefText:
+      'Makakatulong ang pahinga, init, at banayad na aktibidad. Kung nananatiling napakatindi o hindi pangkaraniwan ang sakit, humingi ng payong medikal.',
+    shareMessage: 'Pag-unawa sa iyong regla: ang tunay na nangyayari — AWA',
+  },
+  ta: {
+    badge: 'மாதவிடாய்ச் சுழற்சி',
+    title: 'உங்கள் மாதவிடாயைப் புரிந்துகொள்ளுதல்:\nஉண்மையில் என்ன நடக்கிறது',
+    metaDuration: '5 நிமிடம் படிக்க',
+    metaValidated: 'மதிப்பாய்வு செய்யப்பட்ட உள்ளடக்கம்',
+    intro:
+      'உங்கள் மாதவிடாய் ஹார்மோன் மற்றும் இனப்பெருக்க ஆரோக்கியத்துக்கு அவசியமான ஓர் இயற்கையான செயல்முறையின் பகுதி. உங்கள் உடலில் என்ன நடக்கிறது என்பதைப் புரிந்துகொள்வது ஒவ்வொரு சுழற்சியிலும் நீங்கள் நிம்மதியாக உணர உதவலாம்.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'மாதவிடாய் என்றால் என்ன?',
+      'உங்கள் மாதவிடாய் எப்படி நடைபெறுகிறது',
+      'எது இயல்பு (எது இல்லை)',
+      'வலியை இயற்கையாகத் தணித்தல்',
+    ],
+    body1:
+      'மாதவிடாய் என்பது கருக்கட்டல் நிகழாதபோது கருப்பை உள்படலம் வெளியேறுவது. இது சராசரியாக மாதத்துக்கு ஒரு முறை நிகழ்கிறது.',
+    knowTitle: 'தெரிந்துகொள்ளுங்கள்',
+    knowText:
+      'ஒவ்வொரு பெண்ணும் தனித்துவமானவர்: கால அளவு, தீவிரம் மற்றும் உணர்வுகள் ஒரு சுழற்சியிலிருந்து மற்றொன்றுக்கு மாறுபடலாம்.',
+    body2:
+      'உங்கள் மாதவிடாய் முழுவதும் இரத்தப்போக்கு ஒரே மாதிரி இருப்பதில்லை. இது பொதுவாக நாளுக்கு நாள், தீவிரம், நிறம் மற்றும் தன்மையில் மாறுகிறது.',
+    flowSteps: [
+      {title: 'மாதவிடாயின் தொடக்கம்', text: 'முதல் சில நாட்களில் இரத்தப்போக்கு பெரும்பாலும் அதிகமாக இருக்கும்.'},
+      {title: 'மாதவிடாயின் நடுப்பகுதி', text: 'இரத்தப்போக்கு பொதுவாகப் படிப்படியாகக் குறையத் தொடங்குகிறது.'},
+      {title: 'மாதவிடாயின் முடிவு', text: 'இரத்தப்போக்கு இலேசாகி, அடர் நிறத்தைப் பெறலாம்.'},
+    ],
+    softInfoTitle: 'நினைவில் கொள்ளுங்கள்',
+    softInfoText:
+      'இது ஒரு சுழற்சியிலிருந்து மற்றொன்றுக்கு மாறுபடலாம். உங்களுக்கு வழக்கமான தாளத்தை அறிவதே மிக முக்கியம்.',
+    body3:
+      'உங்கள் மாதவிடாயின்போது சில மாறுபாடுகள் பொதுவானவை. பிற அறிகுறிகள் அதிகக் கவனத்துக்கு உரியவை, குறிப்பாக அவை புதியதாக அல்லது மிகத் தீவிரமாக இருக்கும்போது.',
+    normalSigns: [
+      {title: 'கால அளவு', text: 'பொதுவாக சில நாட்கள் நீடிக்கும் மாதவிடாய்.'},
+      {title: 'மாறுபடும் இரத்தப்போக்கு', text: 'முதலில் அதிகமாகவும் பின்னர் இலேசாகவும் இரத்தப்போக்கு.'},
+      {title: 'நிறம்', text: 'மாதவிடாயின் முடிவை நோக்கிப் பிரகாசமான சிவப்பிலிருந்து அடர் சிவப்பு அல்லது பழுப்பு வரை.'},
+      {title: 'உணர்வுகள்', text: 'லேசானது முதல் மிதமான பிடிப்புகள் உணரப்படலாம்.'},
+    ],
+    warningTitle: 'மருத்துவ ஆலோசனையை எப்போது நாட வேண்டும்?',
+    warningSigns: [
+      'மிகத் தீவிரமான அல்லது வழக்கத்துக்கு மாறான வலி',
+      'நாப்கினை அல்லது டாம்பனை மிக விரைவாக நனைக்கும் இரத்தப்போக்கு',
+      'குறிப்பிடத்தக்க சோர்வு, மயக்க உணர்வு அல்லது தலைச்சுற்றல்',
+      'உங்கள் வழக்கமான முறையிலிருந்து திடீரென நீடிக்கும் மாற்றம்',
+    ],
+    body4:
+      'எளிய பழக்கங்கள் அசௌகரியத்தைத் தணித்து, உங்கள் மாதவிடாயின் முதல் நாட்களை மேலும் வசதியாக்க உதவலாம்.',
+    tipsTitle: 'நடைமுறைக் குறிப்புகள்',
+    tips: [
+      'சோர்வைக் குறைக்க\nபோதுமான நீர்\nஅருந்துங்கள்.',
+      'தேவைப்பட்டால்\nஅடிவயிற்றில்\nவெப்பம் வையுங்கள்.',
+      'மென்மையான செயல்பாட்டை\nமுயலுங்கள்: நடை,\nயோகா, நீட்சி.',
+      'ஓய்வும் தரமான\nஉறக்கமும்\nஉங்களுக்கு அளியுங்கள்.',
+    ],
+    reliefTitle: 'உங்கள் உடலைக் கேளுங்கள்',
+    reliefText:
+      'ஓய்வு, வெப்பம் மற்றும் மென்மையான செயல்பாடு உதவலாம். வலி மிகத் தீவிரமாகவோ வழக்கத்துக்கு மாறாகவோ தொடர்ந்தால், மருத்துவ ஆலோசனை பெறுங்கள்.',
+    shareMessage: 'உங்கள் மாதவிடாயைப் புரிந்துகொள்ளுதல்: உண்மையில் என்ன நடக்கிறது — AWA',
+  },
+  te: {
+    badge: 'నెలసరి చక్రం',
+    title: 'మీ నెలసరిని అర్థం చేసుకోవడం:\nనిజంగా ఏమి జరుగుతోంది',
+    metaDuration: '5 నిమిషాల పఠనం',
+    metaValidated: 'మదింపు చేసిన కంటెంట్',
+    intro:
+      'మీ నెలసరి హార్మోన్, ప్రత్యుత్పత్తి ఆరోగ్యానికి అవసరమైన సహజ ప్రక్రియలో భాగం. మీ శరీరంలో ఏమి జరుగుతోందో అర్థం చేసుకోవడం ప్రతి చక్రంతో మరింత సౌకర్యంగా ఉండటానికి సహాయపడగలదు.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'నెలసరి అంటే ఏమిటి?',
+      'మీ నెలసరి ఎలా సాగుతుంది',
+      'ఏది సాధారణం (ఏది కాదు)',
+      'నొప్పిని సహజంగా తగ్గించుకోవడం',
+    ],
+    body1:
+      'నెలసరి అంటే ఫలదీకరణం జరగనప్పుడు గర్భాశయ పొర రాలిపోవడం. ఇది సగటున నెలకు ఒకసారి జరుగుతుంది.',
+    knowTitle: 'తెలుసుకోవాల్సినవి',
+    knowText:
+      'ప్రతి మహిళ ప్రత్యేకమైనది: వ్యవధి, తీవ్రత, అనుభూతులు ఒక చక్రం నుండి మరొక చక్రానికి మారవచ్చు.',
+    body2:
+      'మీ నెలసరి అంతటా రక్తస్రావం ఒకేలా ఉండదు. ఇది సాధారణంగా రోజు రోజుకు తీవ్రతలో, రంగులో, ఆకృతిలో మారుతుంది.',
+    flowSteps: [
+      {title: 'నెలసరి ఆరంభం', text: 'మొదటి కొన్ని రోజుల్లో రక్తస్రావం తరచుగా ఎక్కువగా ఉంటుంది.'},
+      {title: 'నెలసరి మధ్యలో', text: 'రక్తస్రావం సాధారణంగా క్రమంగా తగ్గడం మొదలవుతుంది.'},
+      {title: 'నెలసరి చివర్లో', text: 'రక్తస్రావం తేలికగా మారి, ముదురు రంగును సంతరించుకోవచ్చు.'},
+    ],
+    softInfoTitle: 'గుర్తుంచుకోండి',
+    softInfoText:
+      'ఇది ఒక చక్రం నుండి మరొక చక్రానికి మారవచ్చు. మీ సొంత సాధారణ లయను తెలుసుకోవడమే అత్యంత ముఖ్యం.',
+    body3:
+      'మీ నెలసరి సమయంలో కొన్ని మార్పులు సాధారణం. ఇతర సంకేతాలు, ముఖ్యంగా కొత్తవి లేదా చాలా తీవ్రమైనవి అయినప్పుడు, ఎక్కువ శ్రద్ధకు అర్హమైనవి.',
+    normalSigns: [
+      {title: 'వ్యవధి', text: 'సాధారణంగా కొన్ని రోజులు ఉండే నెలసరి.'},
+      {title: 'మారే రక్తస్రావం', text: 'మొదట ఎక్కువ రక్తస్రావం, తర్వాత తేలికగా.'},
+      {title: 'రంగు', text: 'నెలసరి చివరకు ప్రకాశవంతమైన ఎరుపు నుండి ముదురు ఎరుపు లేదా గోధుమ రంగు వరకు.'},
+      {title: 'అనుభూతులు', text: 'తేలికపాటి నుండి మధ్యస్థ నొప్పి (క్రాంప్స్) అనిపించవచ్చు.'},
+    ],
+    warningTitle: 'వైద్య సలహా ఎప్పుడు కోరాలి?',
+    warningSigns: [
+      'చాలా తీవ్రమైన లేదా అసాధారణ నొప్పి',
+      'ప్యాడ్ లేదా టాంపూన్‌ను చాలా త్వరగా తడిపేసే రక్తస్రావం',
+      'గణనీయమైన అలసట, తలతిరుగుడు లేదా కళ్లు తిరగడం',
+      'మీ సాధారణ తీరు నుండి అకస్మాత్తుగా, కొనసాగే మార్పు',
+    ],
+    body4:
+      'సరళమైన అలవాట్లు అసౌకర్యాన్ని తగ్గించి, మీ నెలసరి మొదటి రోజులను మరింత సౌకర్యవంతంగా చేయడానికి సహాయపడతాయి.',
+    tipsTitle: 'ఆచరణాత్మక చిట్కాలు',
+    tips: [
+      'అలసటను\nతగ్గించుకోవడానికి\nతగినంత నీరు తాగండి.',
+      'అవసరమైతే\nకింది పొత్తికడుపుపై\nవేడి పెట్టండి.',
+      'మృదువైన కార్యకలాపం\nప్రయత్నించండి: నడక,\nయోగా, సాగతీత.',
+      'విశ్రాంతి తీసుకోండి,\nనాణ్యమైన నిద్ర\nపొందండి.',
+    ],
+    reliefTitle: 'మీ శరీరాన్ని వినండి',
+    reliefText:
+      'విశ్రాంతి, వేడి, మృదువైన కార్యకలాపం సహాయపడగలవు. నొప్పి చాలా తీవ్రంగా లేదా అసాధారణంగా ఉంటే, వైద్య సలహా కోరండి.',
+    shareMessage: 'మీ నెలసరిని అర్థం చేసుకోవడం: నిజంగా ఏమి జరుగుతోంది — AWA',
+  },
+  mr: {
+    badge: 'मासिक पाळी',
+    title: 'तुमची पाळी समजून घेणे:\nप्रत्यक्षात काय घडत आहे',
+    metaDuration: '5 मिनिटे वाचन',
+    metaValidated: 'पुनरावलोकन केलेला मजकूर',
+    intro:
+      'तुमची पाळी हार्मोनल आणि प्रजनन आरोग्यासाठी आवश्यक असलेल्या नैसर्गिक प्रक्रियेचा भाग आहे. तुमच्या शरीरात काय घडत आहे ते समजून घेतल्याने तुम्हाला प्रत्येक पाळीसोबत अधिक सहज वाटण्यास मदत होऊ शकते.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'पाळी म्हणजे काय?',
+      'तुमची पाळी कशी चालते',
+      'काय सामान्य आहे (आणि काय नाही)',
+      'वेदना नैसर्गिकरीत्या कमी करणे',
+    ],
+    body1:
+      'पाळी म्हणजे फलन न झाल्यास गर्भाशयाच्या पटलाचे बाहेर पडणे. हे सरासरी महिन्यातून एकदा घडते.',
+    knowTitle: 'हे जाणून घ्या',
+    knowText:
+      'प्रत्येक स्त्री अद्वितीय आहे: कालावधी, तीव्रता आणि जाणिवा एका पाळीपासून दुसऱ्या पाळीपर्यंत बदलू शकतात.',
+    body2:
+      'तुमच्या पाळीभर स्राव एकसारखा नसतो. तो सहसा दिवसेंदिवस तीव्रतेत, रंगात आणि पोतात बदलतो.',
+    flowSteps: [
+      {title: 'पाळीची सुरुवात', text: 'पहिल्या काही दिवसांत स्राव बहुतेकदा जास्त असतो.'},
+      {title: 'पाळीच्या मध्यभागी', text: 'स्राव साधारणपणे हळूहळू कमी होऊ लागतो.'},
+      {title: 'पाळीच्या शेवटी', text: 'स्राव हलका होतो आणि गडद रंगाचा होऊ शकतो.'},
+    ],
+    softInfoTitle: 'लक्षात ठेवा',
+    softInfoText:
+      'हे एका पाळीपासून दुसऱ्या पाळीपर्यंत बदलू शकते. तुमची स्वतःची नेहमीची लय जाणून घेणे सर्वात महत्त्वाचे आहे.',
+    body3:
+      'तुमच्या पाळीदरम्यान काही बदल सामान्य आहेत. इतर चिन्हे, विशेषतः ती नवीन किंवा खूप तीव्र असताना, अधिक लक्षास पात्र आहेत.',
+    normalSigns: [
+      {title: 'कालावधी', text: 'सहसा काही दिवस चालणारी पाळी.'},
+      {title: 'बदलता स्राव', text: 'आधी जास्त स्राव, मग हलका.'},
+      {title: 'रंग', text: 'चमकदार लालपासून गडद लाल किंवा तपकिरीपर्यंत, पाळीच्या शेवटाकडे.'},
+      {title: 'जाणिवा', text: 'सौम्य ते मध्यम पेटके जाणवू शकतात.'},
+    ],
+    warningTitle: 'वैद्यकीय सल्ला केव्हा घ्यावा?',
+    warningSigns: [
+      'खूप तीव्र किंवा असामान्य वेदना',
+      'पॅड किंवा टॅम्पॉन खूप लवकर भिजवणारा रक्तस्राव',
+      'लक्षणीय थकवा, चक्कर येऊन पडल्यासारखे वाटणे किंवा चक्कर',
+      'तुमच्या नेहमीच्या नमुन्यातून अचानक आणि कायम राहणारा बदल',
+    ],
+    body4:
+      'साध्या सवयी अस्वस्थता कमी करण्यास आणि तुमच्या पाळीचे पहिले दिवस अधिक आरामदायी करण्यास मदत करू शकतात.',
+    tipsTitle: 'व्यावहारिक टिपा',
+    tips: [
+      'थकवा मर्यादित\nठेवण्यासाठी पुरेसे\nपाणी प्या.',
+      'गरज असल्यास\nपोटाच्या खालच्या\nभागावर ऊब द्या.',
+      'हलकी हालचाल\nकरून पाहा: चालणे,\nयोग, स्ट्रेचिंग.',
+      'विश्रांती घ्या आणि\nदर्जेदार झोप\nघ्या.',
+    ],
+    reliefTitle: 'तुमच्या शरीराचे ऐका',
+    reliefText:
+      'विश्रांती, ऊब आणि हलकी हालचाल मदत करू शकतात. वेदना खूप तीव्र किंवा असामान्य राहिल्यास, वैद्यकीय सल्ला घ्या.',
+    shareMessage: 'तुमची पाळी समजून घेणे: प्रत्यक्षात काय घडत आहे — AWA',
+  },
+  gu: {
+    badge: 'માસિક ચક્ર',
+    title: 'તમારું માસિક સમજવું:\nખરેખર શું થાય છે',
+    metaDuration: '5 મિનિટ વાંચન',
+    metaValidated: 'પુનરાવલોકન કરેલી સામગ્રી',
+    intro:
+      'તમારું માસિક એક કુદરતી પ્રક્રિયાનો ભાગ છે જે હોર્મોન અને પ્રજનન આરોગ્ય માટે આવશ્યક છે. તમારા શરીરમાં શું થાય છે તે સમજવાથી દરેક ચક્રમાં તમે વધુ સહજ અનુભવી શકો.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'માસિક શું છે?',
+      'તમારું માસિક કેવી રીતે ચાલે છે',
+      'શું સામાન્ય છે (અને શું નથી)',
+      'દુખાવામાં કુદરતી રીતે રાહત',
+    ],
+    body1:
+      'માસિક એટલે જ્યારે ફળદ્રુપતા ન થઈ હોય ત્યારે ગર્ભાશયના અસ્તરનું ખરી પડવું. આ સરેરાશ મહિનામાં એક વાર થાય છે.',
+    knowTitle: 'જાણવા જેવું',
+    knowText:
+      'દરેક સ્ત્રી અનોખી હોય છે: સમયગાળો, તીવ્રતા અને અનુભવો એક ચક્રથી બીજા ચક્રમાં અલગ હોઈ શકે.',
+    body2:
+      'આખા માસિક દરમિયાન સ્રાવ એકસરખો હોતો નથી. તે સામાન્ય રીતે દિવસે દિવસે તીવ્રતા, રંગ અને બનાવટમાં બદલાય છે.',
+    flowSteps: [
+      {title: 'માસિકની શરૂઆત', text: 'શરૂઆતના થોડા દિવસોમાં સ્રાવ ઘણી વાર વધુ હોય છે.'},
+      {title: 'માસિકની વચ્ચે', text: 'સ્રાવ સામાન્ય રીતે ધીમે ધીમે ઘટવા લાગે છે.'},
+      {title: 'માસિકનો અંત', text: 'સ્રાવ હળવો થાય છે અને ઘેરો રંગ ધારણ કરી શકે.'},
+    ],
+    softInfoTitle: 'યાદ રાખો',
+    softInfoText:
+      'આ એક ચક્રથી બીજા ચક્રમાં બદલાઈ શકે. સૌથી મહત્ત્વનું એ છે કે તમારી પોતાની સામાન્ય લય જાણવી.',
+    body3:
+      'માસિક દરમિયાન કેટલાક ફેરફારો સામાન્ય છે. બીજાં ચિહ્નો વધુ ધ્યાન માગે છે, ખાસ કરીને જ્યારે તે નવાં હોય કે ખૂબ તીવ્ર હોય.',
+    normalSigns: [
+      {title: 'સમયગાળો', text: 'માસિક જે સામાન્ય રીતે થોડા દિવસ ચાલે છે.'},
+      {title: 'બદલાતો સ્રાવ', text: 'શરૂઆતમાં વધુ સ્રાવ, પછી હળવો.'},
+      {title: 'રંગ', text: 'માસિકના અંત તરફ ચળકતા લાલથી ઘેરા લાલ કે બદામી સુધી.'},
+      {title: 'અનુભવો', text: 'હળવું થી મધ્યમ ખેંચાણ અનુભવાઈ શકે.'},
+    ],
+    warningTitle: 'તબીબી સલાહ ક્યારે લેવી?',
+    warningSigns: [
+      'ખૂબ તીવ્ર કે અસામાન્ય દુખાવો',
+      'રક્તસ્રાવ જે પેડ કે ટેમ્પોનને ખૂબ ઝડપથી ભીંજવી દે',
+      'નોંધપાત્ર થાક, બેભાન થઈ જવાની લાગણી કે ચક્કર',
+      'તમારી સામાન્ય રીતમાં અચાનક અને સતત ફેરફાર',
+    ],
+    body4:
+      'સરળ ટેવો અસ્વસ્થતા ઓછી કરવામાં અને માસિકના પહેલા દિવસો વધુ આરામદાયક બનાવવામાં મદદ કરી શકે.',
+    tipsTitle: 'વ્યવહારુ સલાહ',
+    tips: [
+      'પૂરતું પાણી\nપીઓ જેથી\nથાક ઓછો રહે.',
+      'જરૂર પડે તો\nપેટના નીચેના\nભાગે ગરમી આપો.',
+      'હળવી પ્રવૃત્તિ\nકરી જુઓ: ચાલવું,\nયોગ, સ્ટ્રેચિંગ.',
+      'પોતાને આરામ\nઅને સારી ગુણવત્તાની\nઊંઘ આપો.',
+    ],
+    reliefTitle: 'તમારા શરીરને સાંભળો',
+    reliefText:
+      'આરામ, ગરમી અને હળવી પ્રવૃત્તિ મદદ કરી શકે. જો દુખાવો ખૂબ તીવ્ર કે અસામાન્ય રહે, તો તબીબી સલાહ લો.',
+    shareMessage: 'તમારું માસિક સમજવું: ખરેખર શું થાય છે — AWA',
+  },
+  pa: {
+    badge: 'ਮਾਹਵਾਰੀ ਚੱਕਰ',
+    title: 'ਆਪਣੀ ਮਾਹਵਾਰੀ ਨੂੰ ਸਮਝਣਾ:\nਅਸਲ ਵਿੱਚ ਕੀ ਹੋ ਰਿਹਾ ਹੈ',
+    metaDuration: '5 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaValidated: 'ਸਮੀਖਿਆ ਕੀਤੀ ਸਮੱਗਰੀ',
+    intro:
+      'ਤੁਹਾਡੀ ਮਾਹਵਾਰੀ ਇੱਕ ਕੁਦਰਤੀ ਪ੍ਰਕਿਰਿਆ ਦਾ ਹਿੱਸਾ ਹੈ ਜੋ ਹਾਰਮੋਨ ਅਤੇ ਪ੍ਰਜਨਨ ਸਿਹਤ ਲਈ ਜ਼ਰੂਰੀ ਹੈ। ਇਹ ਸਮਝਣਾ ਕਿ ਤੁਹਾਡੇ ਸਰੀਰ ਵਿੱਚ ਕੀ ਹੋ ਰਿਹਾ ਹੈ, ਹਰ ਚੱਕਰ ਨਾਲ ਤੁਹਾਨੂੰ ਵਧੇਰੇ ਸਹਿਜ ਮਹਿਸੂਸ ਕਰਵਾ ਸਕਦਾ ਹੈ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'ਮਾਹਵਾਰੀ ਕੀ ਹੈ?',
+      'ਤੁਹਾਡੀ ਮਾਹਵਾਰੀ ਕਿਵੇਂ ਚੱਲਦੀ ਹੈ',
+      'ਕੀ ਆਮ ਹੈ (ਅਤੇ ਕੀ ਨਹੀਂ)',
+      'ਦਰਦ ਨੂੰ ਕੁਦਰਤੀ ਤਰੀਕੇ ਨਾਲ ਘਟਾਉਣਾ',
+    ],
+    body1:
+      'ਮਾਹਵਾਰੀ ਬੱਚੇਦਾਨੀ ਦੀ ਅੰਦਰਲੀ ਪਰਤ ਦਾ ਝੜਨਾ ਹੈ ਜਦੋਂ ਕੋਈ ਗਰਭ ਧਾਰਨ ਨਹੀਂ ਹੋਇਆ ਹੁੰਦਾ। ਇਹ ਔਸਤਨ ਮਹੀਨੇ ਵਿੱਚ ਇੱਕ ਵਾਰ ਹੁੰਦਾ ਹੈ।',
+    knowTitle: 'ਜਾਣਨ ਯੋਗ',
+    knowText:
+      'ਹਰ ਔਰਤ ਵਿਲੱਖਣ ਹੈ: ਮਿਆਦ, ਤੀਬਰਤਾ ਅਤੇ ਅਹਿਸਾਸ ਇੱਕ ਚੱਕਰ ਤੋਂ ਦੂਜੇ ਤੱਕ ਵੱਖਰੇ ਹੋ ਸਕਦੇ ਹਨ।',
+    body2:
+      'ਪੂਰੀ ਮਾਹਵਾਰੀ ਦੌਰਾਨ ਵਹਾਅ ਇੱਕੋ ਜਿਹਾ ਨਹੀਂ ਹੁੰਦਾ। ਇਹ ਆਮ ਤੌਰ ਉੱਤੇ ਦਿਨੋ-ਦਿਨ ਤੀਬਰਤਾ, ਰੰਗ ਅਤੇ ਬਣਤਰ ਵਿੱਚ ਬਦਲਦਾ ਹੈ।',
+    flowSteps: [
+      {title: 'ਮਾਹਵਾਰੀ ਦੀ ਸ਼ੁਰੂਆਤ', text: 'ਪਹਿਲੇ ਕੁਝ ਦਿਨਾਂ ਵਿੱਚ ਵਹਾਅ ਅਕਸਰ ਵਧੇਰੇ ਹੁੰਦਾ ਹੈ।'},
+      {title: 'ਮਾਹਵਾਰੀ ਦਾ ਵਿਚਕਾਰਲਾ ਸਮਾਂ', text: 'ਵਹਾਅ ਆਮ ਤੌਰ ਉੱਤੇ ਹੌਲੀ-ਹੌਲੀ ਘਟਣ ਲੱਗਦਾ ਹੈ।'},
+      {title: 'ਮਾਹਵਾਰੀ ਦਾ ਅੰਤ', text: 'ਵਹਾਅ ਹਲਕਾ ਹੋ ਜਾਂਦਾ ਹੈ ਅਤੇ ਗਹਿਰੇ ਰੰਗ ਦਾ ਹੋ ਸਕਦਾ ਹੈ।'},
+    ],
+    softInfoTitle: 'ਯਾਦ ਰੱਖੋ',
+    softInfoText:
+      'ਇਹ ਇੱਕ ਚੱਕਰ ਤੋਂ ਦੂਜੇ ਤੱਕ ਵੱਖਰਾ ਹੋ ਸਕਦਾ ਹੈ। ਸਭ ਤੋਂ ਜ਼ਰੂਰੀ ਗੱਲ ਆਪਣੀ ਆਮ ਰਫ਼ਤਾਰ ਨੂੰ ਜਾਣਨਾ ਹੈ।',
+    body3:
+      'ਮਾਹਵਾਰੀ ਦੌਰਾਨ ਕੁਝ ਫ਼ਰਕ ਆਮ ਹੁੰਦੇ ਹਨ। ਹੋਰ ਸੰਕੇਤਾਂ ਵੱਲ ਵਧੇਰੇ ਧਿਆਨ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ, ਖ਼ਾਸ ਕਰਕੇ ਜਦੋਂ ਉਹ ਨਵੇਂ ਹੋਣ ਜਾਂ ਬਹੁਤ ਤੇਜ਼ ਹੋਣ।',
+    normalSigns: [
+      {title: 'ਮਿਆਦ', text: 'ਮਾਹਵਾਰੀ ਜੋ ਆਮ ਤੌਰ ਉੱਤੇ ਕੁਝ ਦਿਨ ਚੱਲਦੀ ਹੈ।'},
+      {title: 'ਬਦਲਦਾ ਵਹਾਅ', text: 'ਸ਼ੁਰੂ ਵਿੱਚ ਵਧੇਰੇ ਵਹਾਅ, ਫਿਰ ਹਲਕਾ।'},
+      {title: 'ਰੰਗ', text: 'ਚਮਕਦਾਰ ਲਾਲ ਤੋਂ ਗਹਿਰੇ ਲਾਲ ਜਾਂ ਮਾਹਵਾਰੀ ਦੇ ਅੰਤ ਵੱਲ ਭੂਰਾ।'},
+      {title: 'ਅਹਿਸਾਸ', text: 'ਹਲਕੀ ਤੋਂ ਦਰਮਿਆਨੀ ਮਰੋੜ ਮਹਿਸੂਸ ਹੋ ਸਕਦੀ ਹੈ।'},
+    ],
+    warningTitle: 'ਡਾਕਟਰੀ ਸਲਾਹ ਕਦੋਂ ਲੈਣੀ ਹੈ?',
+    warningSigns: [
+      'ਬਹੁਤ ਤੇਜ਼ ਜਾਂ ਅਸਾਧਾਰਨ ਦਰਦ',
+      'ਖ਼ੂਨ ਜੋ ਪੈਡ ਜਾਂ ਟੈਮਪੂਨ ਨੂੰ ਬਹੁਤ ਜਲਦੀ ਭਿਉਂ ਦੇਵੇ',
+      'ਕਾਫ਼ੀ ਥਕਾਵਟ, ਬੇਹੋਸ਼ੀ ਮਹਿਸੂਸ ਹੋਣਾ ਜਾਂ ਚੱਕਰ ਆਉਣਾ',
+      'ਤੁਹਾਡੇ ਆਮ ਢੰਗ ਤੋਂ ਅਚਾਨਕ ਅਤੇ ਲਗਾਤਾਰ ਬਦਲਾਅ',
+    ],
+    body4:
+      'ਸਾਧਾਰਨ ਆਦਤਾਂ ਬੇਆਰਾਮੀ ਨੂੰ ਘਟਾਉਣ ਅਤੇ ਮਾਹਵਾਰੀ ਦੇ ਪਹਿਲੇ ਦਿਨਾਂ ਨੂੰ ਵਧੇਰੇ ਆਰਾਮਦਾਇਕ ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀਆਂ ਹਨ।',
+    tipsTitle: 'ਵਿਹਾਰਕ ਸੁਝਾਅ',
+    tips: [
+      'ਕਾਫ਼ੀ ਪਾਣੀ ਪੀਓ\nਤਾਂ ਜੋ ਥਕਾਵਟ\nਘੱਟ ਰਹੇ।',
+      'ਲੋੜ ਪੈਣ ਉੱਤੇ\nਹੇਠਲੇ ਪੇਟ ਉੱਤੇ\nਗਰਮਾਹਟ ਲਾਓ।',
+      'ਕੋਈ ਹਲਕੀ ਸਰਗਰਮੀ\nਅਜ਼ਮਾਓ: ਸੈਰ,\nਯੋਗ, ਖਿੱਚਣਾ।',
+      'ਆਪਣੇ ਆਪ ਨੂੰ\nਆਰਾਮ ਅਤੇ ਚੰਗੀ\nਨੀਂਦ ਦਿਓ।',
+    ],
+    reliefTitle: 'ਆਪਣੇ ਸਰੀਰ ਦੀ ਸੁਣੋ',
+    reliefText:
+      'ਆਰਾਮ, ਗਰਮਾਹਟ ਅਤੇ ਹਲਕੀ ਸਰਗਰਮੀ ਮਦਦ ਕਰ ਸਕਦੇ ਹਨ। ਜੇ ਦਰਦ ਬਹੁਤ ਤੇਜ਼ ਜਾਂ ਅਸਾਧਾਰਨ ਰਹੇ, ਤਾਂ ਡਾਕਟਰੀ ਸਲਾਹ ਲਵੋ।',
+    shareMessage: 'ਆਪਣੀ ਮਾਹਵਾਰੀ ਨੂੰ ਸਮਝਣਾ: ਅਸਲ ਵਿੱਚ ਕੀ ਹੋ ਰਿਹਾ ਹੈ — AWA',
+  },
+  my: {
+    badge: 'ရာသီစက်ဝန်း',
+    title: 'သင့်ရာသီကို နားလည်ခြင်း -\nအမှန်တကယ် ဘာဖြစ်နေသလဲ',
+    metaDuration: 'ဖတ်ချိန် 5 မိနစ်',
+    metaValidated: 'ပြန်လည်သုံးသပ်ပြီး အကြောင်းအရာ',
+    intro:
+      'သင့်ရာသီသည် ဟော်မုန်းနှင့် မျိုးပွားကျန်းမာရေးအတွက် မရှိမဖြစ်လိုအပ်သော သဘာဝလုပ်ငန်းစဉ်၏ အစိတ်အပိုင်းဖြစ်သည်။ သင့်ခန္ဓာကိုယ်တွင် ဘာဖြစ်နေသည်ကို နားလည်ခြင်းက ရာသီစက်ဝန်းတိုင်းတွင် ပိုသက်တောင့်သက်သာ ခံစားရစေနိုင်သည်။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'ရာသီဆိုတာ ဘာလဲ။',
+      'သင့်ရာသီ ဖြစ်ပျက်ပုံ',
+      'ဘာတွေ ပုံမှန်ဖြစ်သလဲ (ဘာတွေ မဟုတ်သလဲ)',
+      'နာကျင်မှုကို သဘာဝနည်းဖြင့် သက်သာစေခြင်း',
+    ],
+    body1:
+      'ရာသီသည် သန္ဓေအောင်မြင်ခြင်း မဖြစ်ပေါ်သည့်အခါ သားအိမ်အတွင်းနံရံ ကွာကျခြင်းဖြစ်သည်။ ၎င်းသည် ပျမ်းမျှတစ်လတစ်ကြိမ် ဖြစ်ပေါ်သည်။',
+    knowTitle: 'သိထားသင့်သည်',
+    knowText:
+      'အမျိုးသမီးတိုင်း ထူးခြားသည်။ ကြာချိန်၊ ပြင်းထန်မှုနှင့် ခံစားချက်များသည် ရာသီစက်ဝန်းတစ်ခုမှ နောက်တစ်ခုသို့ ကွာခြားနိုင်သည်။',
+    body2:
+      'သွေးထွက်ပမာဏသည် သင့်ရာသီတစ်လျှောက်လုံး မတူညီပါ။ ၎င်းသည် များသောအားဖြင့် နေ့စဉ်ပြောင်းလဲပြီး ပမာဏ၊ အရောင်နှင့် ဖွဲ့စည်းပုံတို့တွင် ကွာခြားသည်။',
+    flowSteps: [
+      {title: 'ရာသီစတင်ချိန်', text: 'ပထမရက်အနည်းငယ်တွင် သွေးထွက်ပမာဏသည် မကြာခဏ ပိုများသည်။'},
+      {title: 'ရာသီအလယ်', text: 'သွေးထွက်ပမာဏသည် ယေဘုယျအားဖြင့် တဖြည်းဖြည်း လျော့စပြုသည်။'},
+      {title: 'ရာသီအဆုံး', text: 'သွေးထွက်ပမာဏ ပိုပေါ့ပါးလာပြီး အရောင်ပိုမှောင်လာနိုင်သည်။'},
+    ],
+    softInfoTitle: 'စိတ်ထဲမှတ်ထားပါ',
+    softInfoText:
+      'ဤသည်မှာ ရာသီစက်ဝန်းတစ်ခုမှ တစ်ခုသို့ ကွာခြားနိုင်သည်။ အရေးကြီးဆုံးမှာ သင့်ကိုယ်ပိုင်ပုံမှန်အရှိန်ကို သိရှိခြင်းဖြစ်သည်။',
+    body3:
+      'ရာသီလာချိန်တွင် အချို့ပြောင်းလဲမှုများ ဖြစ်လေ့ရှိသည်။ အခြားလက္ခဏာများသည် အထူးသဖြင့် အသစ်ဖြစ်သည့်အခါ သို့မဟုတ် အလွန်ပြင်းထန်သည့်အခါ ပိုမိုဂရုစိုက်ရန် လိုအပ်သည်။',
+    normalSigns: [
+      {title: 'ကြာချိန်', text: 'များသောအားဖြင့် ရက်အနည်းငယ်ကြာသော ရာသီ။'},
+      {title: 'ပြောင်းလဲသော သွေးထွက်ပမာဏ', text: 'အစတွင် ပိုများပြီး နောက်ပိုင်း ပိုပေါ့ပါးသည်။'},
+      {title: 'အရောင်', text: 'ရာသီအဆုံးတွင် အနီရောင်စင်းမှ အနီရင့်ရောင် သို့မဟုတ် ညိုရောင်အထိ။'},
+      {title: 'ခံစားချက်များ', text: 'ပေါ့ပါးမှ အလယ်အလတ် ဝမ်းဗိုက်နာခြင်းကို ခံစားရနိုင်သည်။'},
+    ],
+    warningTitle: 'ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ်ကို ဘယ်အချိန်မေးသင့်သလဲ။',
+    warningSigns: [
+      'အလွန်ပြင်းထန်သော သို့မဟုတ် ထူးဆန်းသော နာကျင်မှု',
+      'ပက်ဒ် သို့မဟုတ် တမ်ပွန်ကို အလွန်မြန်မြန် စိုရွှဲစေသော သွေးထွက်ခြင်း',
+      'သိသာသော ပင်ပန်းနွမ်းနယ်ခြင်း၊ မူးမေ့ချင်သလိုခံစားရခြင်း သို့မဟုတ် ခေါင်းမူးခြင်း',
+      'သင့်ပုံမှန်ပုံစံမှ ရုတ်တရက်နှင့် ဆက်ရှိနေသော ပြောင်းလဲမှု',
+    ],
+    body4:
+      'ရိုးရှင်းသော အကျင့်များက မသက်မသာခံစားရမှုကို သက်သာစေပြီး ရာသီ၏ ပထမရက်များကို ပိုသက်တောင့်သက်သာ ဖြစ်စေနိုင်သည်။',
+    tipsTitle: 'လက်တွေ့ကျသော အကြံပြုချက်များ',
+    tips: [
+      'ပင်ပန်းနွမ်းနယ်မှုကို\nလျှော့ရန် ရေ\nလုံလောက်စွာ သောက်ပါ။',
+      'လိုအပ်ပါက ဗိုက်အောက်ပိုင်းကို\nအပူပေးပါ။',
+      'ညင်သာသော လှုပ်ရှားမှု\nစမ်းကြည့်ပါ - လမ်းလျှောက်ခြင်း၊\nယောဂ၊ ကိုယ်လက်ဆန့်ခြင်း။',
+      'ကိုယ့်ကိုယ်ကို အနားပေးပြီး\nအရည်အသွေးကောင်းသော\nအိပ်စက်ခြင်း ပေးပါ။',
+    ],
+    reliefTitle: 'သင့်ခန္ဓာကိုယ်ကို နားထောင်ပါ',
+    reliefText:
+      'အနားယူခြင်း၊ အပူပေးခြင်းနှင့် ညင်သာသော လှုပ်ရှားမှုက ကူညီနိုင်သည်။ နာကျင်မှုသည် အလွန်ပြင်းထန်နေဆဲ သို့မဟုတ် ထူးဆန်းနေပါက ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ်ကို မေးပါ။',
+    shareMessage: 'သင့်ရာသီကို နားလည်ခြင်း - အမှန်တကယ် ဘာဖြစ်နေသလဲ — AWA',
+  },
+  km: {
+    badge: 'វដ្តរដូវ',
+    title: 'ស្វែងយល់អំពីរដូវរបស់អ្នក៖\nអ្វីដែលកំពុងកើតឡើងពិតប្រាកដ',
+    metaDuration: 'អាន 5 នាទី',
+    metaValidated: 'មាតិកាបានពិនិត្យ',
+    intro:
+      'រដូវរបស់អ្នកគឺជាផ្នែកមួយនៃដំណើរការធម្មជាតិដែលចាំបាច់សម្រាប់សុខភាពអរម៉ូន និងសុខភាពបន្តពូជ។ ការយល់ដឹងអំពីអ្វីដែលកំពុងកើតឡើងក្នុងរាងកាយរបស់អ្នក អាចជួយឱ្យអ្នកមានអារម្មណ៍ស្រួលជាងមុនក្នុងវដ្តរដូវនីមួយៗ។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'តើរដូវជាអ្វី?',
+      'រដូវរបស់អ្នកដំណើរការយ៉ាងដូចម្តេច',
+      'អ្វីជារឿងធម្មតា (និងអ្វីមិនមែន)',
+      'បំបាត់ការឈឺចាប់តាមធម្មជាតិ',
+    ],
+    body1:
+      'រដូវគឺជាការជ្រុះនៃស្រទាប់ស្បូន នៅពេលដែលមិនមានការបង្កកំណើតកើតឡើង។ នេះកើតឡើងជាមធ្យមម្តងក្នុងមួយខែ។',
+    knowTitle: 'គួរដឹង',
+    knowText:
+      'ស្ត្រីម្នាក់ៗមានលក្ខណៈពិសេសរៀងខ្លួន៖ រយៈពេល កម្រិត និងអារម្មណ៍អាចខុសគ្នាពីវដ្តរដូវមួយទៅមួយទៀត។',
+    body2:
+      'បរិមាណឈាមរដូវមិនដូចគ្នាពេញមួយរដូវទេ។ ជាធម្មតាវាប្រែប្រួលពីថ្ងៃមួយទៅថ្ងៃមួយ ទាំងកម្រិត ពណ៌ និងសភាព។',
+    flowSteps: [
+      {title: 'ដើមរដូវរបស់អ្នក', text: 'បរិមាណឈាមរដូវជាញឹកញាប់ច្រើនជាងក្នុងរយៈពេលពីរបីថ្ងៃដំបូង។'},
+      {title: 'កណ្តាលរដូវរបស់អ្នក', text: 'ជាទូទៅបរិមាណឈាមរដូវចាប់ផ្តើមថយចុះបន្តិចម្តងៗ។'},
+      {title: 'ចុងរដូវរបស់អ្នក', text: 'បរិមាណឈាមរដូវស្រាលជាងមុន ហើយអាចមានពណ៌ខ្មៅជាង។'},
+    ],
+    softInfoTitle: 'សូមចងចាំ',
+    softInfoText:
+      'នេះអាចខុសគ្នាពីវដ្តរដូវមួយទៅមួយទៀត។ អ្វីដែលសំខាន់បំផុតគឺដឹងពីចង្វាក់ធម្មតារបស់ខ្លួនអ្នក។',
+    body3:
+      'ការប្រែប្រួលមួយចំនួនជារឿងទូទៅក្នុងអំឡុងពេលរដូវរបស់អ្នក។ សញ្ញាផ្សេងទៀតគួរតែយកចិត្តទុកដាក់ច្រើនជាង ជាពិសេសនៅពេលវាថ្មី ឬខ្លាំងខ្លាំង។',
+    normalSigns: [
+      {title: 'រយៈពេល', text: 'រដូវដែលជាធម្មតាមានរយៈពេលពីរបីថ្ងៃ។'},
+      {title: 'បរិមាណឈាមរដូវប្រែប្រួល', text: 'ច្រើនជាងនៅដំបូង បន្ទាប់មកស្រាលជាង។'},
+      {title: 'ពណ៌', text: 'ពីពណ៌ក្រហមភ្លឺ ទៅក្រហមខ្មៅ ឬត្នោតនៅជិតចុងរដូវរបស់អ្នក។'},
+      {title: 'អារម្មណ៍', text: 'អាចមានអារម្មណ៍ឈឺពោះស្រាលទៅមធ្យម។'},
+    ],
+    warningTitle: 'ពេលណាត្រូវសុំដំបូន្មានផ្នែកពេទ្យ?',
+    warningSigns: [
+      'ឈឺខ្លាំងខ្លាំង ឬមិនធម្មតា',
+      'ការហូរឈាមដែលជោកបន្ទះអនាម័យ ឬតាំពុងយ៉ាងលឿន',
+      'អស់កម្លាំងខ្លាំង មានអារម្មណ៍ងងឹតមុខ ឬវិលមុខ',
+      'ការផ្លាស់ប្តូរភ្លាមៗ និងជាប់ជានិច្ចពីលំនាំធម្មតារបស់អ្នក',
+    ],
+    body4:
+      'ទម្លាប់សាមញ្ញៗអាចជួយបន្ថយភាពមិនស្រួល ហើយធ្វើឱ្យថ្ងៃដំបូងៗនៃរដូវរបស់អ្នកស្រួលជាងមុន។',
+    tipsTitle: 'គន្លឹះជាក់ស្តែង',
+    tips: [
+      'ផឹកទឹកឱ្យបានគ្រប់គ្រាន់\nដើម្បីជួយ\nកាត់បន្ថយអស់កម្លាំង។',
+      'ដាក់កម្តៅលើ\nពោះក្រោមរបស់អ្នក\nប្រសិនបើចាំបាច់។',
+      'សាកល្បងសកម្មភាព\nទន់ភ្លន់៖ ដើរ\nយូហ្គា លាតសន្ធឹង។',
+      'ផ្តល់ពេលឱ្យខ្លួនឯង\nសម្រាក និងដំណេក\nមានគុណភាពល្អ។',
+    ],
+    reliefTitle: 'ស្តាប់រាងកាយរបស់អ្នក',
+    reliefText:
+      'ការសម្រាក កម្តៅ និងសកម្មភាពទន់ភ្លន់អាចជួយបាន។ ប្រសិនបើការឈឺចាប់នៅតែខ្លាំងខ្លាំង ឬមិនធម្មតា សូមសុំដំបូន្មានផ្នែកពេទ្យ។',
+    shareMessage: 'ស្វែងយល់អំពីរដូវរបស់អ្នក៖ អ្វីដែលកំពុងកើតឡើងពិតប្រាកដ — AWA',
+  },
+  lo: {
+    badge: 'ຮອບເດືອນ',
+    title: 'ເຂົ້າໃຈປະຈຳເດືອນຂອງທ່ານ:\nສິ່ງທີ່ເກີດຂຶ້ນແທ້ໆ',
+    metaDuration: 'ອ່ານ 5 ນາທີ',
+    metaValidated: 'ເນື້ອຫາທີ່ຜ່ານການກວດສອບ',
+    intro:
+      'ປະຈຳເດືອນເປັນສ່ວນໜຶ່ງຂອງຂະບວນການທຳມະຊາດທີ່ຈຳເປັນຕໍ່ສຸຂະພາບຮໍໂມນ ແລະ ລະບົບສືບພັນ. ການເຂົ້າໃຈສິ່ງທີ່ເກີດຂຶ້ນໃນຮ່າງກາຍຂອງທ່ານສາມາດຊ່ວຍໃຫ້ທ່ານສະບາຍໃຈຂຶ້ນໃນແຕ່ລະຮອບເດືອນ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ປະຈຳເດືອນແມ່ນຫຍັງ?',
+      'ປະຈຳເດືອນດຳເນີນໄປແນວໃດ',
+      'ສິ່ງທີ່ເປັນປົກກະຕິ (ແລະ ສິ່ງທີ່ບໍ່ປົກກະຕິ)',
+      'ບັນເທົາອາການເຈັບຕາມທຳມະຊາດ',
+    ],
+    body1:
+      'ປະຈຳເດືອນແມ່ນການຫຼຸດລອກຂອງເຍື່ອບຸມົດລູກເມື່ອບໍ່ມີການປະສົມຂອງໄຂ່. ໂດຍສະເລ່ຍເກີດຂຶ້ນເດືອນລະເທື່ອ.',
+    knowTitle: 'ຄວນຮູ້',
+    knowText:
+      'ແມ່ຍິງແຕ່ລະຄົນມີເອກະລັກ: ໄລຍະເວລາ ຄວາມຮຸນແຮງ ແລະ ຄວາມຮູ້ສຶກອາດແຕກຕ່າງກັນຈາກຮອບເດືອນໜຶ່ງໄປອີກຮອບໜຶ່ງ.',
+    body2:
+      'ປະລິມານເລືອດປະຈຳເດືອນບໍ່ເທົ່າກັນຕະຫຼອດ. ໂດຍປົກກະຕິມັນປ່ຽນໄປແຕ່ລະມື້ ທັງຄວາມເຂັ້ມ ສີ ແລະ ລັກສະນະ.',
+    flowSteps: [
+      {title: 'ຕົ້ນປະຈຳເດືອນ', text: 'ປະລິມານເລືອດມັກຫຼາຍກວ່າໃນສອງສາມມື້ທຳອິດ.'},
+      {title: 'ກາງປະຈຳເດືອນ', text: 'ປະລິມານເລືອດໂດຍທົ່ວໄປເລີ່ມຄ່ອຍໆຫຼຸດລົງ.'},
+      {title: 'ທ້າຍປະຈຳເດືອນ', text: 'ປະລິມານເລືອດເບົາລົງ ແລະ ອາດມີສີເຂັ້ມຂຶ້ນ.'},
+    ],
+    softInfoTitle: 'ຄວນຈື່ໄວ້',
+    softInfoText:
+      'ສິ່ງນີ້ອາດແຕກຕ່າງກັນຈາກຮອບເດືອນໜຶ່ງໄປອີກຮອບໜຶ່ງ. ສິ່ງທີ່ສຳຄັນທີ່ສຸດແມ່ນການຮູ້ຈັກຈັງຫວະປົກກະຕິຂອງຕົນເອງ.',
+    body3:
+      'ການປ່ຽນແປງບາງຢ່າງພົບໄດ້ທົ່ວໄປໃນລະຫວ່າງມີປະຈຳເດືອນ. ອາການອື່ນຄວນໄດ້ຮັບຄວາມເອົາໃຈໃສ່ຫຼາຍຂຶ້ນ ໂດຍສະເພາະເມື່ອເປັນອາການໃໝ່ ຫຼື ຮຸນແຮງຫຼາຍ.',
+    normalSigns: [
+      {title: 'ໄລຍະເວລາ', text: 'ປະຈຳເດືອນທີ່ໂດຍປົກກະຕິດົນສອງສາມມື້.'},
+      {title: 'ປະລິມານເລືອດທີ່ປ່ຽນແປງ', text: 'ຫຼາຍໃນຕອນເລີ່ມ ແລ້ວເບົາລົງ.'},
+      {title: 'ສີ', text: 'ຈາກສີແດງສົດເຖິງສີແດງເຂັ້ມ ຫຼື ສີນ້ຳຕານໃນທ້າຍປະຈຳເດືອນ.'},
+      {title: 'ຄວາມຮູ້ສຶກ', text: 'ອາດຮູ້ສຶກເຈັບທ້ອງເລັກນ້ອຍເຖິງປານກາງ.'},
+    ],
+    warningTitle: 'ເມື່ອໃດຄວນຂໍຄຳແນະນຳທາງການແພດ?',
+    warningSigns: [
+      'ເຈັບຫຼາຍ ຫຼື ຜິດປົກກະຕິ',
+      'ເລືອດອອກຊຶມຜ້າອະນາໄມ ຫຼື ທຳປອນໄວຫຼາຍ',
+      'ອ່ອນເພຍຫຼາຍ ຮູ້ສຶກຈະເປັນລົມ ຫຼື ວິນຫົວ',
+      'ການປ່ຽນແປງຢ່າງກະທັນຫັນ ແລະ ຍັງຄົງຢູ່ຈາກແບບແຜນປົກກະຕິຂອງທ່ານ',
+    ],
+    body4:
+      'ນິໄສງ່າຍໆສາມາດຊ່ວຍບັນເທົາຄວາມບໍ່ສະບາຍ ແລະ ເຮັດໃຫ້ສອງສາມມື້ທຳອິດຂອງປະຈຳເດືອນສະບາຍຂຶ້ນ.',
+    tipsTitle: 'ຄຳແນະນຳທີ່ປະຕິບັດໄດ້',
+    tips: [
+      'ດື່ມນ້ຳໃຫ້ພຽງພໍ\nເພື່ອຊ່ວຍຈຳກັດ\nອາການອ່ອນເພຍ.',
+      'ປະຄົບຄວາມຮ້ອນ\nທີ່ທ້ອງນ້ອຍ\nຖ້າຈຳເປັນ.',
+      'ລອງກິດຈະກຳເບົາໆ:\nຍ່າງ ໂຍຄະ\nຢຽດກ້າມເນື້ອ.',
+      'ໃຫ້ເວລາຕົນເອງພັກຜ່ອນ\nແລະ ນອນຫຼັບ\nໃຫ້ມີຄຸນນະພາບ.',
+    ],
+    reliefTitle: 'ຮັບຟັງຮ່າງກາຍຂອງທ່ານ',
+    reliefText:
+      'ການພັກຜ່ອນ ຄວາມຮ້ອນ ແລະ ກິດຈະກຳເບົາໆສາມາດຊ່ວຍໄດ້. ຖ້າອາການເຈັບຍັງຮຸນແຮງຫຼາຍ ຫຼື ຜິດປົກກະຕິ ໃຫ້ຂໍຄຳແນະນຳທາງການແພດ.',
+    shareMessage: 'ເຂົ້າໃຈປະຈຳເດືອນຂອງທ່ານ: ສິ່ງທີ່ເກີດຂຶ້ນແທ້ໆ — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<

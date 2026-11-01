@@ -2143,6 +2143,880 @@ const CONTENT = withBrazilianPortuguese('Pms', {
       'Alamatlar gaty güýçli bolup, gündelik durmuşyňyza täsir edýän bolsa, bu aýbaşydan öňki disforik bozulma (AÖDB) bolup biler. Saglyk hünärmeni bilen maslahatlaşmakdan çekinmäň.',
     shareMessage: 'Aýbaşydan öňki sindrom (AÖS): ony has gowy düşünmek — AWA',
   },
+  ms: {
+    badge: 'KITARAN & KESEJAHTERAAN',
+    title: 'Sindrom pramenstruasi (PMS):\nmemahaminya dengan lebih baik',
+    metaDuration: '4 min bacaan',
+    metaValidated: 'Kandungan disemak',
+    intro:
+      'PMS menjejaskan sehingga 8 daripada 10 wanita. Keletihan, mudah marah, kembung… Memahami puncanya dan mengamalkan tabiat yang betul boleh menambah baik masa ini dalam sebulan dengan ketara.',
+    contentsTitle: 'Dalam artikel ini',
+    contents: [
+      'Apakah PMS?',
+      'Simptom yang lazim',
+      'Kemungkinan punca',
+      'Petua untuk berasa lebih baik',
+      'Bila untuk berjumpa doktor?',
+    ],
+    section1Body:
+      'Sindrom pramenstruasi menghimpunkan simptom fizikal dan emosi yang biasanya muncul 5 hingga 10 hari sebelum haid anda dan hilang pada permulaan kitaran haid.',
+    visual1Title: 'Fasa yang terikat pada kitaran anda',
+    visual1Text:
+      'Simptom muncul sebelum haid anda dan biasanya reda sebaik sahaja ia bermula.',
+    tip1Title: 'Elok diketahui',
+    tip1Text:
+      'Keamatan dan jenis simptom boleh berbeza dengan ketara dari seorang wanita ke seorang wanita, dan dari satu kitaran ke kitaran berikutnya.',
+    symptoms: [
+      {title: 'Emosi', text: 'Mudah marah, keresahan, kesedihan, emosi berubah-ubah'},
+      {title: 'Fizikal', text: 'Kembung, sakit, keletihan, sakit kepala'},
+      {title: 'Tingkah laku', text: 'Mengidam gula, perubahan selera makan, keletihan'},
+      {title: 'Tidur', text: 'Sukar tidur atau tidur yang kurang nyenyak'},
+    ],
+    section3Body:
+      'Perubahan hormon, terutamanya progesteron dan estrogen, menjejaskan neurotransmitter otak (serotonin, dopamin), yang mungkin menjelaskan simptom emosi dan fizikal PMS.',
+    tip2Title: 'Hormon memainkan peranan utama',
+    tip2Text:
+      'Perubahan hormon boleh menjejaskan emosi, tenaga, tidur dan sesetengah sensasi fizikal.',
+    tips: [
+      {title: 'Kekal terhidrat', text: 'Minum air secukupnya membantu mengurangkan kembung.'},
+      {title: 'Makan pemakanan seimbang', text: 'Utamakan makanan yang kaya dengan magnesium, omega-3 dan vitamin B.'},
+      {title: 'Kekal aktif', text: 'Aktiviti fizikal membebaskan endorfin dan mengurangkan tekanan.'},
+      {title: 'Uruskan tekanan anda', text: 'Latihan pernafasan, meditasi, menulis jurnal… Cari apa yang sesuai untuk anda.'},
+      {title: 'Tidur secukupnya', text: 'Tidur yang berkualiti menyokong keseimbangan hormon.'},
+    ],
+    consultTitle: 'Bila anda patut meminta nasihat perubatan?',
+    consultText:
+      'Jika simptom sangat kuat dan menjejaskan kehidupan seharian anda, ia mungkin gangguan disforik pramenstruasi (PMDD). Jangan teragak-agak berjumpa pengamal penjagaan kesihatan.',
+    shareMessage: 'Sindrom pramenstruasi (PMS): memahaminya dengan lebih baik — AWA',
+  },
+  so: {
+    badge: 'WAREEG & FAYOOBAAN',
+    title: 'Syndrome-ka caadada ka hor (PMS):\nsi wanaagsan u fahamka',
+    metaDuration: '4 daq akhris',
+    metaValidated: 'Macluumaad la dib-u-eegay',
+    intro:
+      'PMS wuxuu saameeyaa ilaa 8 naagood oo 10-kii ka mid ah. Daal, cadho degdeg ah, calool-barar… Fahamka sababihiisa iyo qaadashada caadooyinka saxda ah ayaa si weyn u hagaajin kara waqtigan bisha.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    contents: [
+      'Waa maxay PMS?',
+      'Astaamaha caadiga ah',
+      'Sababaha suurtagalka ah',
+      'Talooyin lagu dareemo fiicnaan',
+      'Goorta dhakhtar la arko?',
+    ],
+    section1Body:
+      'Syndrome-ka caadada ka hor wuxuu isu keenaa astaamo jidheed iyo dareen oo caadi ahaan soo muuqda 5 ilaa 10 maalmood ka hor caadadaada oo libdhaan bilowga wareegga caadada.',
+    visual1Title: 'Marxalad ku xidhan wareeggaaga',
+    visual1Text:
+      'Astaamuhu waxay soo muuqdaan ka hor caadadaada inta badan way fududaadaan marka ay bilaabato.',
+    tip1Title: 'Waxtar leh in la ogaado',
+    tip1Text:
+      'Xoogga iyo nooca astaamuhu aad ayay ugu kala duwanaan karaan naag ilaa naag, iyo wareeg ilaa wareeg.',
+    symptoms: [
+      {title: 'Dareenno', text: 'Cadho degdeg ah, walaac, murugo, isbeddelka niyadda'},
+      {title: 'Jidheed', text: 'Calool-barar, xanuun, daal, madax-xanuun'},
+      {title: 'Dabeecad', text: 'Rabitaan sonkor, isbeddelka rabitaanka cuntada, daal'},
+      {title: 'Hurdo', text: 'Dhib hurdo ama hurdo aan nasasho badan lahayn'},
+    ],
+    section3Body:
+      'Kala duwanaanshaha hormoonka, gaar ahaan progesterone iyo estrogen, ayaa saameeya neurotransmitters-ka maskaxda (serotonin, dopamine), taasoo sharxi karta astaamaha dareenka iyo jidheed ee PMS.',
+    tip2Title: 'Hormoonnadu waxay leeyihiin door muhiim ah',
+    tip2Text:
+      'Kala duwanaanshaha hormoonku waxay saameyn karaan niyadda, tamarta, hurdada, iyo dareenno jidheed oo qaar.',
+    tips: [
+      {title: 'Biyo ku filan cab', text: 'Cabbidda biyo ku filan ayaa caawisa yareynta calool-barar.'},
+      {title: 'Cun cunto dheelitiran', text: 'Door bid cuntooyin hodan ku ah magnesium, omega-3, iyo fiitamiinnada B.'},
+      {title: 'Ahaw mid firfircoon', text: 'Firfircoonida jidheedku waxay sii daysaa endorphins wuxuuna yareeyaa walaaca.'},
+      {title: 'Maamul walaacaaga', text: 'Layliyo neefsasho, fikir-dheer, qorista buug… Hel waxa kuu shaqeeya.'},
+      {title: 'Hurdo ku filan hel', text: 'Hurdo tayo leh ayaa taageerta dheelitirka hormoonka.'},
+    ],
+    consultTitle: 'Goorma ayaa talo caafimaad la raadsadaa?',
+    consultText:
+      'Haddii astaamuhu aad u xoog badan yihiin oo ay saameeyaan nolol-maalmeedkaaga, waxay noqon karaan khalkhal niyadeed ka hor caadada (PMDD). Ha ka waaban inaad la tashato xirfadle caafimaad.',
+    shareMessage: 'Syndrome-ka caadada ka hor (PMS): si wanaagsan u fahamka — AWA',
+  },
+  sw: {
+    badge: 'MZUNGUKO NA USTAWI',
+    title: 'Ugonjwa wa kabla ya hedhi (PMS):\nkuuelewa vizuri zaidi',
+    metaDuration: 'Dakika 4 za kusoma',
+    metaValidated: 'Maudhui yaliyokaguliwa',
+    intro:
+      'PMS huathiri hadi wanawake 8 kati ya 10. Uchovu, hasira, tumbo kujaa gesi… Kuelewa sababu zake na kuwa na tabia sahihi kunaweza kuboresha sana kipindi hiki cha mwezi.',
+    contentsTitle: 'Katika makala hii',
+    contents: [
+      'PMS ni nini?',
+      'Dalili za kawaida',
+      'Sababu zinazowezekana',
+      'Vidokezo vya kujisikia vizuri',
+      'Wakati wa kumwona daktari?',
+    ],
+    section1Body:
+      'Ugonjwa wa kabla ya hedhi unaleta pamoja dalili za kimwili na kihisia ambazo kwa kawaida huonekana siku 5 hadi 10 kabla ya hedhi yako na kuisha mwanzoni mwa mzunguko wa hedhi.',
+    visual1Title: 'Awamu inayohusiana na mzunguko wako',
+    visual1Text:
+      'Dalili huonekana kabla ya hedhi yako na kwa kawaida hupungua inapoanza.',
+    tip1Title: 'Vyema kujua',
+    tip1Text:
+      'Ukali na aina ya dalili vinaweza kutofautiana sana kati ya mwanamke na mwanamke, na kutoka mzunguko mmoja hadi mwingine.',
+    symptoms: [
+      {title: 'Hisia', text: 'Hasira, wasiwasi, huzuni, mabadiliko ya hali ya moyo'},
+      {title: 'Za kimwili', text: 'Tumbo kujaa gesi, maumivu, uchovu, maumivu ya kichwa'},
+      {title: 'Tabia', text: 'Hamu ya sukari, mabadiliko ya hamu ya kula, uchovu'},
+      {title: 'Usingizi', text: 'Shida ya kulala au usingizi usio wa kupumzisha'},
+    ],
+    section3Body:
+      'Mabadiliko ya homoni, hasa ya projesteroni na estrojeni, huathiri visambazaji vya neva vya ubongo (serotonini, dopamini), jambo linaloweza kueleza dalili za kihisia na kimwili za PMS.',
+    tip2Title: 'Homoni zina nafasi kuu',
+    tip2Text:
+      'Mabadiliko ya homoni yanaweza kuathiri hali ya moyo, nguvu, usingizi, na hisia fulani za mwili.',
+    tips: [
+      {title: 'Kaa na maji ya kutosha mwilini', text: 'Kunywa maji ya kutosha husaidia kupunguza tumbo kujaa gesi.'},
+      {title: 'Kula lishe yenye usawa', text: 'Pendelea vyakula vyenye magnesiamu, omega-3, na vitamini B kwa wingi.'},
+      {title: 'Endelea kuwa mchangamfu', text: 'Shughuli za mwili hutoa endorufini na hupunguza msongo wa mawazo.'},
+      {title: 'Dhibiti msongo wako wa mawazo', text: 'Mazoezi ya kupumua, kutafakari, kuandika shajara… Tafuta kinachokufaa.'},
+      {title: 'Pata usingizi wa kutosha', text: 'Usingizi bora unasaidia usawa wa homoni.'},
+    ],
+    consultTitle: 'Wakati gani utafute ushauri wa kitabibu?',
+    consultText:
+      'Ikiwa dalili ni kali sana na zinaathiri maisha yako ya kila siku, huenda ikawa ugonjwa mkali wa kabla ya hedhi (PMDD). Usisite kuwasiliana na mtaalamu wa afya.',
+    shareMessage: 'Ugonjwa wa kabla ya hedhi (PMS): kuuelewa vizuri zaidi — AWA',
+  },
+  kk: {
+    badge: 'ЦИКЛ ЖӘНЕ ӘЛ-АУҚАТ',
+    title: 'Етеккір алдындағы синдром (ЕАС):\nоны жақсырақ түсіну',
+    metaDuration: '4 мин оқу',
+    metaValidated: 'Тексерілген мазмұн',
+    intro:
+      'ЕАС 10 әйелдің 8-ге дейінгісіне әсер етеді. Шаршау, ашушаңдық, іштің кебуі… Оның себептерін түсіну және дұрыс әдеттерді қалыптастыру айдың осы уақытын айтарлықтай жақсарта алады.',
+    contentsTitle: 'Осы мақалада',
+    contents: [
+      'ЕАС дегеніміз не?',
+      'Жиі кездесетін белгілер',
+      'Мүмкін себептер',
+      'Өзіңізді жақсы сезінуге арналған кеңестер',
+      'Дәрігерге қашан бару керек?',
+    ],
+    section1Body:
+      'Етеккір алдындағы синдром әдетте етеккірден 5-тен 10 күн бұрын пайда болып, етеккір циклінің басында жоғалатын дене және эмоциялық белгілерді біріктіреді.',
+    visual1Title: 'Циклыңызбен байланысты фаза',
+    visual1Text:
+      'Белгілер етеккірден бұрын пайда болады және ол басталғаннан кейін әдетте басылады.',
+    tip1Title: 'Білуге тиісті',
+    tip1Text:
+      'Белгілердің қарқындылығы мен түрі әйелден әйелге және бір циклден екіншісіне айтарлықтай әртүрлі болуы мүмкін.',
+    symptoms: [
+      {title: 'Эмоциялар', text: 'Ашушаңдық, алаңдаушылық, мұң, көңіл-күйдің ауытқуы'},
+      {title: 'Дене', text: 'Іштің кебуі, ауыру, шаршау, бас ауыруы'},
+      {title: 'Мінез-құлық', text: 'Қантқа құштарлық, тәбеттің өзгеруі, шаршау'},
+      {title: 'Ұйқы', text: 'Ұйықтау қиындығы немесе жайсыз ұйқы'},
+    ],
+    section3Body:
+      'Гормондық ауытқулар, әсіресе прогестерон мен эстрогенде, ми нейротрансмиттерлеріне (серотонин, дофамин) әсер етеді, бұл ЕАС-тың эмоциялық және дене белгілерін түсіндіруі мүмкін.',
+    tip2Title: 'Гормондар негізгі рөл атқарады',
+    tip2Text:
+      'Гормондық ауытқулар көңіл-күйге, қуатқа, ұйқыға және кейбір дене сезімдеріне әсер етуі мүмкін.',
+    tips: [
+      {title: 'Су жеткілікті ішіңіз', text: 'Жеткілікті су ішу іштің кебуін азайтуға көмектеседі.'},
+      {title: 'Теңгерімді тамақтаныңыз', text: 'Магний, омега-3 және В дәрумендеріне бай тағамдарды жөн көріңіз.'},
+      {title: 'Белсенді болыңыз', text: 'Дене белсенділігі эндорфиндерді бөліп, күйзелісті азайтады.'},
+      {title: 'Күйзелісіңізді басқарыңыз', text: 'Тыныс алу жаттығулары, медитация, күнделік жүргізу… Өзіңізге қолайлысын табыңыз.'},
+      {title: 'Жеткілікті ұйықтаңыз', text: 'Сапалы ұйқы гормондық тепе-теңдікті қолдайды.'},
+    ],
+    consultTitle: 'Медициналық кеңесті қашан сұрау керек?',
+    consultText:
+      'Белгілер өте қатты болып, күнделікті өміріңізге әсер етсе, бұл етеккір алдындағы дисфориялық бұзылыс (ЕАДБ) болуы мүмкін. Медицина маманына бару үшін тартынбаңыз.',
+    shareMessage: 'Етеккір алдындағы синдром (ЕАС): оны жақсырақ түсіну — AWA',
+  },
+  wo: {
+    badge: 'WËRSËG AK WÉR',
+    title: 'Sendromu balaa règle (SPM):\nxam ko bu gëna baax',
+    metaDuration: '4 simili jàng',
+    metaValidated: 'Mbind bu ñu seetlu',
+    intro:
+      'SPM mën na jëm ci ba ci 8 ci 10 jigéen. Sonn, mer, tuuru ndey… Xam ay sabab yi te jëfandikoo yoon yu baax mën na dimbli lool jamono jii ci weer wi.',
+    contentsTitle: 'Ci bind bii',
+    contents: [
+      'Lan mooy SPM?',
+      'Màndarga yu bari',
+      'Sabab yu mën a am',
+      'Ndigal ngir nekk ci neex',
+      'Kañ ngay seet doktoor?',
+    ],
+    section1Body:
+      'Sendromu balaa règle dafay boole màndarga yu yaram ak yu xol yu di feeñ ci 5 ba 10 fan balaa sa règle te di dem ci tàmbalig wërsëgu weer.',
+    visual1Title: 'Benn jamono bu jëm ci sa wërsëg',
+    visual1Text:
+      'Màndarga yi dañuy feeñ balaa sa règle te di wàññiku bu mu tàmbalee.',
+    tip1Title: 'Lu baax a xam',
+    tip1Text:
+      'Dayo ak xeetu màndarga yi mën nañu wuute lool ci jigéen ak jigéen, ak ci wërsëg ak wërsëg.',
+    symptoms: [
+      {title: 'Xol', text: 'Mer, tiitaange, naqar, soppi ci xol'},
+      {title: 'Yaram', text: 'Tuuru ndey, metit, sonn, bopp bu metti'},
+      {title: 'Jëf', text: 'Bëgg suukar, soppi ci xiif, sonn'},
+      {title: 'Nelaw', text: 'Jafe nelaw walla nelaw bu amul noppalu'},
+    ],
+    section3Body:
+      'Yëngu yu hormon, lool ci progesteron ak estrojen, dañuy jëm ci jëmmi xel yi (serotonin, dopamin), mu mën a leeral màndargay xol ak yaram yu SPM.',
+    tip2Title: 'Hormon am nañu rol bu am solo',
+    tip2Text:
+      'Yëngu yu hormon mën nañu jëm ci xol, doole, nelaw ak yenn dégg yu yaram.',
+    tips: [
+      {title: 'Nekk ak ndox bu doy', text: 'Naan ndox bu doy dafay dimbli wàññi tuuru ndey.'},
+      {title: 'Lekk bu jubloo', text: 'Jëkk lekk yu fees ci magnesiyom, omega-3 ak witamin B.'},
+      {title: 'Nekk ci jëf', text: 'Jëfu yaram dafay génne endorfin te wàññi coono.'},
+      {title: 'Yor sa coono', text: 'Noppiku, meditasiyoŋ, bind… Gis li la méngoo.'},
+      {title: 'Nelaw bu doy', text: 'Nelaw bu baax dafay dimbli jubluñu hormon.'},
+    ],
+    consultTitle: 'Kañ ngay seet ndigalu doktoor?',
+    consultText:
+      'Bu màndarga yi metti lool te jëm ci sa dund bu bés, mën na nekk dysforik balaa règle (TDPM). Bu ñaaw a seet benn liggéeykatu wér.',
+    shareMessage: 'Sendromu balaa règle (SPM): xam ko bu gëna baax — AWA',
+  },
+  ha: {
+    badge: 'ZAGAYE & JIN DAƊI',
+    title: 'Ciwon kafin haila (PMS):\nfahimtar shi da kyau',
+    metaDuration: 'karatun minti 4',
+    metaValidated: 'Abun da aka duba',
+    intro:
+      'PMS yana shafar har mata 8 cikin 10. Gajiya, fushi, kumburin ciki… Fahimtar dalilansa da bin dabi’u masu kyau na iya inganta wannan lokaci na wata sosai.',
+    contentsTitle: 'A cikin wannan labari',
+    contents: [
+      'Menene PMS?',
+      'Alamomin da suka fi yawa',
+      'Yiwuwar dalilai',
+      'Shawarwari don jin daɗi',
+      'Yaushe za a ga likita?',
+    ],
+    section1Body:
+      'Ciwon kafin haila yana haɗa alamomin jiki da na zuciya waɗanda yawanci ke bayyana kwanaki 5 zuwa 10 kafin hailarki kuma suna ɓacewa a farkon zagayen haila.',
+    visual1Title: 'Mataki da ke da alaƙa da zagayenki',
+    visual1Text:
+      'Alamomi suna bayyana kafin hailarki kuma yawanci suna sauƙaƙa da zarar ta fara.',
+    tip1Title: 'Abin da ya dace a sani',
+    tip1Text:
+      'Ƙarfi da nau’in alamomi na iya bambanta sosai daga mace zuwa mace, da daga zagaye zuwa zagaye.',
+    symptoms: [
+      {title: 'Ji', text: 'Fushi, damuwa, baƙin ciki, sauyin yanayi'},
+      {title: 'Jiki', text: 'Kumburin ciki, ciwo, gajiya, ciwon kai'},
+      {title: 'Hali', text: 'Sha’awar sukari, sauyin sha’awar abinci, gajiya'},
+      {title: 'Barci', text: 'Wahalar barci ko barci maras natsuwa'},
+    ],
+    section3Body:
+      'Sauye-sauyen hormone, musamman na progesterone da estrogen, suna shafar neurotransmitters na kwakwalwa (serotonin, dopamine), wanda zai iya bayyana alamomin zuciya da na jiki na PMS.',
+    tip2Title: 'Hormone suna taka muhimmiyar rawa',
+    tip2Text:
+      'Sauye-sauyen hormone na iya shafar yanayi, kuzari, barci, da wasu ji na jiki.',
+    tips: [
+      {title: 'Ci gaba da shan ruwa', text: 'Shan isasshen ruwa yana taimakawa rage kumburin ciki.'},
+      {title: 'Ci abinci mai daidaito', text: 'Fifita abinci mai wadatar magnesium, omega-3, da bitamin B.'},
+      {title: 'Ci gaba da motsa jiki', text: 'Motsa jiki yana sakin endorphins kuma yana rage damuwa.'},
+      {title: 'Sarrafa damuwarki', text: 'Atisayen numfashi, tunani, rubuta littafi… Nemo abin da ke aiki a gare ki.'},
+      {title: 'Samun isasshen barci', text: 'Barci mai inganci yana tallafa wa daidaiton hormone.'},
+    ],
+    consultTitle: 'Yaushe ya kamata ki nemi shawarar likita?',
+    consultText:
+      'Idan alamomi suna da tsanani sosai kuma suna shafar rayuwarki ta yau da kullum, yana iya zama premenstrual dysphoric disorder (PMDD). Kada ki yi jinkirin tuntuɓar ma’aikacin lafiya.',
+    shareMessage: 'Ciwon kafin haila (PMS): fahimtar shi da kyau — AWA',
+  },
+  am: {
+    badge: 'ዑደት እና ደህንነት',
+    title: 'ከወር አበባ በፊት ሲንድሮም (PMS)፦\nበተሻለ መረዳት',
+    metaDuration: '4 ደቂቃ ንባብ',
+    metaValidated: 'የተገመገመ ይዘት',
+    intro:
+      'ፒኤምኤስ እስከ 10 ሴቶች 8ቱን ይነካል። ድካም፣ ብስጭት፣ እብጠት… መንስኤዎቹን መረዳት እና ትክክለኛ ልማዶችን መከተል የወሩን ይህን ጊዜ በእጅጉ ሊያሻሽል ይችላል።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    contents: [
+      'ፒኤምኤስ ምንድን ነው?',
+      'የተለመዱ ምልክቶች',
+      'ሊሆኑ የሚችሉ መንስኤዎች',
+      'የተሻለ ስሜት እንዲሰማሽ ምክሮች',
+      'ሐኪም መቼ ማየት?',
+    ],
+    section1Body:
+      'ከወር አበባ በፊት ሲንድሮም ብዙውን ጊዜ ከወር አበባሽ ከ5 እስከ 10 ቀናት በፊት የሚታዩ እና በወር አበባ ዑደት መጀመሪያ የሚጠፉ የአካልና የስሜት ምልክቶችን ያሰባስባል።',
+    visual1Title: 'ከዑደትሽ ጋር የተያያዘ ደረጃ',
+    visual1Text:
+      'ምልክቶቹ ከወር አበባሽ በፊት ይታያሉ እና ብዙውን ጊዜ ከጀመረ በኋላ ይቃለላሉ።',
+    tip1Title: 'ማወቅ ጠቃሚ ነው',
+    tip1Text:
+      'የምልክቶቹ ጥንካሬና ዓይነት ከአንዲት ሴት ወደ ሌላዋ እና ከአንዱ ዑደት ወደ ሌላው በጣም ሊለያይ ይችላል።',
+    symptoms: [
+      {title: 'ስሜቶች', text: 'ብስጭት፣ ጭንቀት፣ ሐዘን፣ የስሜት መለዋወጥ'},
+      {title: 'አካላዊ', text: 'እብጠት፣ ህመም፣ ድካም፣ ራስ ምታት'},
+      {title: 'ባህሪ', text: 'የስኳር ፍላጎት፣ የምግብ ፍላጎት ለውጥ፣ ድካም'},
+      {title: 'እንቅልፍ', text: 'የመተኛት ችግር ወይም ያነሰ የሚያረካ እንቅልፍ'},
+    ],
+    section3Body:
+      'የሆርሞን መለዋወጥ፣ በተለይ የፕሮጄስትሮንና የኢስትሮጅን፣ የአንጎል ኒውሮትራንስሚተሮችን (ሴሮቶኒን፣ ዶፓሚን) ይነካል፤ ይህም የፒኤምኤስን የስሜትና የአካል ምልክቶች ሊያስረዳ ይችላል።',
+    tip2Title: 'ሆርሞኖች ቁልፍ ሚና ይጫወታሉ',
+    tip2Text:
+      'የሆርሞን መለዋወጥ ስሜትን፣ ጉልበትን፣ እንቅልፍን እና አንዳንድ የአካል ስሜቶችን ሊነካ ይችላል።',
+    tips: [
+      {title: 'በቂ ውሃ ጠጪ', text: 'በቂ ውሃ መጠጣት እብጠትን ለመቀነስ ይረዳል።'},
+      {title: 'ሚዛናዊ አመጋገብ ተመገቢ', text: 'በማግኒዚየም፣ በኦሜጋ-3 እና በቢ ቫይታሚኖች የበለጸጉ ምግቦችን ምረጪ።'},
+      {title: 'ንቁ ሁኚ', text: 'የአካል እንቅስቃሴ ኢንዶርፊኖችን ይለቃል እና ጭንቀትን ይቀንሳል።'},
+      {title: 'ጭንቀትሽን አስተዳድሪ', text: 'የአተነፋፈስ ልምምዶች፣ ማሰላሰል፣ ማስታወሻ መጻፍ… ለአንቺ የሚሠራውን ፈልጊ።'},
+      {title: 'በቂ እንቅልፍ ተኚ', text: 'ጥራት ያለው እንቅልፍ የሆርሞን ሚዛንን ይደግፋል።'},
+    ],
+    consultTitle: 'የሕክምና ምክር መቼ መፈለግ አለብሽ?',
+    consultText:
+      'ምልክቶቹ በጣም ከባድ ከሆኑ እና የዕለት ሕይወትሽን ከነኩ፣ ከወር አበባ በፊት የሚከሰት ዳይስፎሪክ ዲስኦርደር (PMDD) ሊሆን ይችላል። የጤና ባለሙያ ለማማከር አትዘገዪ።',
+    shareMessage: 'ከወር አበባ በፊት ሲንድሮም (PMS)፦ በተሻለ መረዳት — AWA',
+  },
+  nl: {
+    badge: 'CYCLUS & WELZIJN',
+    title: 'Premenstrueel syndroom (PMS):\nbeter begrijpen',
+    metaDuration: '4 min lezen',
+    metaValidated: 'Gecontroleerde inhoud',
+    intro:
+      'PMS treft tot 8 op de 10 vrouwen. Vermoeidheid, prikkelbaarheid, een opgeblazen gevoel… De oorzaken begrijpen en de juiste gewoonten aannemen kan deze periode van de maand sterk verbeteren.',
+    contentsTitle: 'In dit artikel',
+    contents: [
+      'Wat is PMS?',
+      'Veelvoorkomende symptomen',
+      'Mogelijke oorzaken',
+      'Tips om je beter te voelen',
+      'Wanneer een arts raadplegen?',
+    ],
+    section1Body:
+      'Het premenstrueel syndroom omvat lichamelijke en emotionele symptomen die meestal 5 tot 10 dagen voor je menstruatie beginnen en verdwijnen aan het begin van de menstruatiecyclus.',
+    visual1Title: 'Een fase die aan je cyclus gekoppeld is',
+    visual1Text:
+      'De symptomen verschijnen vóór je menstruatie en nemen meestal af zodra die begint.',
+    tip1Title: 'Goed om te weten',
+    tip1Text:
+      'De intensiteit en het type symptomen kunnen sterk verschillen van vrouw tot vrouw en van cyclus tot cyclus.',
+    symptoms: [
+      {title: 'Emoties', text: 'Prikkelbaarheid, angst, verdriet, stemmingswisselingen'},
+      {title: 'Lichamelijk', text: 'Opgeblazen gevoel, pijn, vermoeidheid, hoofdpijn'},
+      {title: 'Gedrag', text: 'Trek in suiker, veranderingen in eetlust, vermoeidheid'},
+      {title: 'Slaap', text: 'Moeite met slapen of minder rustgevende slaap'},
+    ],
+    section3Body:
+      'Hormonale schommelingen, vooral van progesteron en oestrogeen, beïnvloeden de neurotransmitters in de hersenen (serotonine, dopamine), wat de emotionele en lichamelijke symptomen van PMS kan verklaren.',
+    tip2Title: 'Hormonen spelen een sleutelrol',
+    tip2Text:
+      'Hormonale schommelingen kunnen invloed hebben op stemming, energie, slaap en bepaalde lichamelijke gewaarwordingen.',
+    tips: [
+      {title: 'Blijf gehydrateerd', text: 'Voldoende water drinken helpt een opgeblazen gevoel te verminderen.'},
+      {title: 'Eet evenwichtig', text: 'Kies voor voedingsmiddelen rijk aan magnesium, omega-3 en B-vitamines.'},
+      {title: 'Blijf actief', text: 'Lichaamsbeweging geeft endorfines vrij en vermindert stress.'},
+      {title: 'Beheers je stress', text: 'Ademhalingsoefeningen, meditatie, dagboek schrijven… Zoek wat bij jou past.'},
+      {title: 'Slaap voldoende', text: 'Kwaliteitsslaap ondersteunt het hormonale evenwicht.'},
+    ],
+    consultTitle: 'Wanneer moet je medisch advies vragen?',
+    consultText:
+      'Als de symptomen zeer intens zijn en je dagelijks leven beïnvloeden, kan het om premenstruele dysfore stoornis (PMDD) gaan. Aarzel niet een zorgprofessional te raadplegen.',
+    shareMessage: 'Premenstrueel syndroom (PMS): beter begrijpen — AWA',
+  },
+  fi: {
+    badge: 'KIERTO JA HYVINVOINTI',
+    title: 'Kuukautisia edeltävä oireyhtymä (PMS):\nparempi ymmärtäminen',
+    metaDuration: '4 min lukuaika',
+    metaValidated: 'Tarkistettu sisältö',
+    intro:
+      'PMS koskettaa jopa 8:aa naista 10:stä. Väsymys, ärtyisyys, turvotus… Syiden ymmärtäminen ja oikeiden tapojen omaksuminen voi parantaa tätä kuukauden aikaa suuresti.',
+    contentsTitle: 'Tässä artikkelissa',
+    contents: [
+      'Mikä on PMS?',
+      'Yleiset oireet',
+      'Mahdolliset syyt',
+      'Vinkkejä paremman olon saavuttamiseen',
+      'Milloin mennä lääkäriin?',
+    ],
+    section1Body:
+      'Kuukautisia edeltävä oireyhtymä kokoaa yhteen fyysisiä ja henkisiä oireita, jotka ilmaantuvat yleensä 5–10 päivää ennen kuukautisia ja häviävät kuukautiskierron alussa.',
+    visual1Title: 'Kiertoosi sidottu vaihe',
+    visual1Text:
+      'Oireet ilmaantuvat ennen kuukautisia ja helpottavat yleensä niiden alettua.',
+    tip1Title: 'Hyvä tietää',
+    tip1Text:
+      'Oireiden voimakkuus ja tyyppi voivat vaihdella paljon naisesta toiseen ja kierrosta toiseen.',
+    symptoms: [
+      {title: 'Tunteet', text: 'Ärtyisyys, ahdistus, suru, mielialan vaihtelut'},
+      {title: 'Fyysiset', text: 'Turvotus, kipu, väsymys, päänsärky'},
+      {title: 'Käyttäytyminen', text: 'Sokerinhimo, ruokahalun muutokset, väsymys'},
+      {title: 'Uni', text: 'Univaikeudet tai vähemmän virkistävä uni'},
+    ],
+    section3Body:
+      'Hormonaaliset vaihtelut, erityisesti progesteronin ja estrogeenin, vaikuttavat aivojen välittäjäaineisiin (serotoniini, dopamiini), mikä voi selittää PMS:n tunne- ja fyysisiä oireita.',
+    tip2Title: 'Hormoneilla on keskeinen rooli',
+    tip2Text:
+      'Hormonaaliset vaihtelut voivat vaikuttaa mielialaan, energiaan, uneen ja tiettyihin fyysisiin tuntemuksiin.',
+    tips: [
+      {title: 'Pysy nesteytettynä', text: 'Riittävä veden juominen auttaa vähentämään turvotusta.'},
+      {title: 'Syö tasapainoisesti', text: 'Suosi magnesium-, omega-3- ja B-vitamiinipitoisia ruokia.'},
+      {title: 'Pysy aktiivisena', text: 'Liikunta vapauttaa endorfiineja ja vähentää stressiä.'},
+      {title: 'Hallitse stressiäsi', text: 'Hengitysharjoitukset, meditaatio, päiväkirjan kirjoittaminen… Löydä sinulle sopiva.'},
+      {title: 'Nuku riittävästi', text: 'Laadukas uni tukee hormonitasapainoa.'},
+    ],
+    consultTitle: 'Milloin pitäisi hakea lääketieteellistä neuvoa?',
+    consultText:
+      'Jos oireet ovat hyvin voimakkaita ja vaikuttavat arkeesi, kyseessä voi olla kuukautisia edeltävä dysforinen häiriö (PMDD). Älä epäröi kääntyä terveydenhuollon ammattilaisen puoleen.',
+    shareMessage: 'Kuukautisia edeltävä oireyhtymä (PMS): parempi ymmärtäminen — AWA',
+  },
+  el: {
+    badge: 'ΚΥΚΛΟΣ ΚΑΙ ΕΥΕΞΙΑ',
+    title: 'Προεμμηνορροϊκό σύνδρομο (PMS):\nκατανοώντας το καλύτερα',
+    metaDuration: '4 λεπτά ανάγνωσης',
+    metaValidated: 'Ελεγμένο περιεχόμενο',
+    intro:
+      'Το PMS επηρεάζει έως και 8 στις 10 γυναίκες. Κόπωση, ευερεθιστότητα, φούσκωμα… Η κατανόηση των αιτιών του και η υιοθέτηση των σωστών συνηθειών μπορεί να βελτιώσει σημαντικά αυτή την περίοδο του μήνα.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    contents: [
+      'Τι είναι το PMS;',
+      'Συχνά συμπτώματα',
+      'Πιθανές αιτίες',
+      'Συμβουλές για να νιώθεις καλύτερα',
+      'Πότε να επισκεφθείς γιατρό;',
+    ],
+    section1Body:
+      'Το προεμμηνορροϊκό σύνδρομο συγκεντρώνει σωματικά και συναισθηματικά συμπτώματα που εμφανίζονται συνήθως 5 έως 10 ημέρες πριν την περίοδό σου και υποχωρούν στην αρχή του έμμηνου κύκλου.',
+    visual1Title: 'Μια φάση που συνδέεται με τον κύκλο σου',
+    visual1Text:
+      'Τα συμπτώματα εμφανίζονται πριν την περίοδό σου και συνήθως υποχωρούν μόλις αυτή ξεκινήσει.',
+    tip1Title: 'Καλό είναι να γνωρίζεις',
+    tip1Text:
+      'Η ένταση και το είδος των συμπτωμάτων μπορεί να διαφέρουν πολύ από γυναίκα σε γυναίκα και από κύκλο σε κύκλο.',
+    symptoms: [
+      {title: 'Συναισθήματα', text: 'Ευερεθιστότητα, άγχος, λύπη, εναλλαγές διάθεσης'},
+      {title: 'Σωματικά', text: 'Φούσκωμα, πόνος, κόπωση, πονοκέφαλοι'},
+      {title: 'Συμπεριφορά', text: 'Λαχτάρα για ζάχαρη, αλλαγές στην όρεξη, κόπωση'},
+      {title: 'Ύπνος', text: 'Δυσκολία στον ύπνο ή λιγότερο αναζωογονητικός ύπνος'},
+    ],
+    section3Body:
+      'Οι ορμονικές διακυμάνσεις, ιδίως της προγεστερόνης και του οιστρογόνου, επηρεάζουν τους νευροδιαβιβαστές του εγκεφάλου (σεροτονίνη, ντοπαμίνη), κάτι που μπορεί να εξηγεί τα συναισθηματικά και σωματικά συμπτώματα του PMS.',
+    tip2Title: 'Οι ορμόνες παίζουν βασικό ρόλο',
+    tip2Text:
+      'Οι ορμονικές διακυμάνσεις μπορούν να επηρεάσουν τη διάθεση, την ενέργεια, τον ύπνο και ορισμένες σωματικές αισθήσεις.',
+    tips: [
+      {title: 'Μείνε ενυδατωμένη', text: 'Η επαρκής πρόσληψη νερού βοηθά να μειωθεί το φούσκωμα.'},
+      {title: 'Τρώε ισορροπημένα', text: 'Προτίμησε τρόφιμα πλούσια σε μαγνήσιο, ωμέγα-3 και βιταμίνες Β.'},
+      {title: 'Μείνε δραστήρια', text: 'Η σωματική δραστηριότητα απελευθερώνει ενδορφίνες και μειώνει το άγχος.'},
+      {title: 'Διαχειρίσου το άγχος σου', text: 'Ασκήσεις αναπνοής, διαλογισμός, ημερολόγιο… Βρες τι σου ταιριάζει.'},
+      {title: 'Κοιμήσου αρκετά', text: 'Ο ποιοτικός ύπνος στηρίζει την ορμονική ισορροπία.'},
+    ],
+    consultTitle: 'Πότε πρέπει να ζητήσεις ιατρική συμβουλή;',
+    consultText:
+      'Αν τα συμπτώματα είναι πολύ έντονα και επηρεάζουν την καθημερινή σου ζωή, μπορεί να πρόκειται για προεμμηνορροϊκή δυσφορική διαταραχή (PMDD). Μην διστάσεις να συμβουλευτείς έναν επαγγελματία υγείας.',
+    shareMessage: 'Προεμμηνορροϊκό σύνδρομο (PMS): κατανοώντας το καλύτερα — AWA',
+  },
+  fil: {
+    badge: 'SIKLO AT KAGINHAWAAN',
+    title: 'Premenstrual syndrome (PMS):\nmas pag-unawa rito',
+    metaDuration: '4 min na babasahin',
+    metaValidated: 'Sinuring nilalaman',
+    intro:
+      'Nakakaapekto ang PMS sa hanggang 8 sa 10 babae. Pagod, pagiging mainitin ang ulo, pamamaga ng tiyan… Ang pag-unawa sa mga sanhi nito at pagkakaroon ng tamang mga gawi ay lubos na makakapagpabuti sa panahong ito ng buwan.',
+    contentsTitle: 'Sa artikulong ito',
+    contents: [
+      'Ano ang PMS?',
+      'Mga karaniwang sintomas',
+      'Mga posibleng sanhi',
+      'Payo para gumaan ang pakiramdam',
+      'Kailan magpapatingin sa doktor?',
+    ],
+    section1Body:
+      'Pinagsasama ng premenstrual syndrome ang mga pisikal at emosyonal na sintomas na karaniwang lumilitaw 5 hanggang 10 araw bago ang iyong regla at nawawala sa simula ng siklo ng regla.',
+    visual1Title: 'Isang yugtong nakatali sa iyong siklo',
+    visual1Text:
+      'Lumilitaw ang mga sintomas bago ang iyong regla at karaniwang gumagaan kapag nagsimula na ito.',
+    tip1Title: 'Mabuting malaman',
+    tip1Text:
+      'Maaaring lubhang mag-iba ang tindi at uri ng mga sintomas mula sa isang babae hanggang sa iba, at mula sa isang siklo hanggang sa susunod.',
+    symptoms: [
+      {title: 'Emosyon', text: 'Pagiging mainitin ang ulo, pagkabalisa, kalungkutan, pabago-bagong mood'},
+      {title: 'Pisikal', text: 'Pamamaga ng tiyan, sakit, pagod, pananakit ng ulo'},
+      {title: 'Pag-uugali', text: 'Pagnanasa sa matamis, pagbabago ng gana, pagod'},
+      {title: 'Tulog', text: 'Hirap makatulog o hindi gaanong mapayapang tulog'},
+    ],
+    section3Body:
+      'Nakakaapekto ang mga hormonal na pagbabago-bago, partikular sa progesterone at estrogen, sa mga neurotransmitter ng utak (serotonin, dopamine), na maaaring magpaliwanag sa mga emosyonal at pisikal na sintomas ng PMS.',
+    tip2Title: 'Malaki ang papel ng mga hormone',
+    tip2Text:
+      'Ang mga hormonal na pagbabago-bago ay maaaring makaapekto sa mood, enerhiya, tulog, at ilang pisikal na pakiramdam.',
+    tips: [
+      {title: 'Manatiling hydrated', text: 'Ang pag-inom ng sapat na tubig ay tumutulong na bawasan ang pamamaga ng tiyan.'},
+      {title: 'Kumain ng balanseng pagkain', text: 'Paboran ang mga pagkaing mayaman sa magnesium, omega-3, at B vitamins.'},
+      {title: 'Manatiling aktibo', text: 'Naglalabas ng endorphins ang pisikal na aktibidad at nagpapababa ng stress.'},
+      {title: 'Pangasiwaan ang iyong stress', text: 'Mga ehersisyo sa paghinga, meditasyon, pagsusulat sa journal… Hanapin kung ano ang gumagana sa iyo.'},
+      {title: 'Matulog nang sapat', text: 'Sinusuportahan ng de-kalidad na tulog ang hormonal na balanse.'},
+    ],
+    consultTitle: 'Kailan dapat humingi ng payong medikal?',
+    consultText:
+      'Kung napakatindi ng mga sintomas at nakakaapekto sa iyong pang-araw-araw na buhay, maaaring premenstrual dysphoric disorder (PMDD) ito. Huwag mag-atubiling kumonsulta sa propesyonal sa kalusugan.',
+    shareMessage: 'Premenstrual syndrome (PMS): mas pag-unawa rito — AWA',
+  },
+  ta: {
+    badge: 'சுழற்சியும் நலமும்',
+    title: 'மாதவிடாய்க்கு முந்தைய நோய்த்தொகுப்பு (PMS):\nநன்கு புரிந்துகொள்ளுதல்',
+    metaDuration: '4 நிமிடம் படிக்க',
+    metaValidated: 'மதிப்பாய்வு செய்யப்பட்ட உள்ளடக்கம்',
+    intro:
+      'PMS பத்தில் எட்டுப் பெண்கள் வரை பாதிக்கிறது. சோர்வு, எரிச்சல், வயிறு உப்புசம்… அதன் காரணங்களைப் புரிந்துகொண்டு சரியான பழக்கங்களைக் கடைப்பிடிப்பது மாதத்தின் இந்த நேரத்தைப் பெரிதும் மேம்படுத்தலாம்.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    contents: [
+      'PMS என்றால் என்ன?',
+      'பொதுவான அறிகுறிகள்',
+      'சாத்தியமான காரணங்கள்',
+      'நன்றாக உணரச் சில குறிப்புகள்',
+      'மருத்துவரை எப்போது பார்ப்பது?',
+    ],
+    section1Body:
+      'மாதவிடாய்க்கு முந்தைய நோய்த்தொகுப்பு என்பது பொதுவாக மாதவிடாய்க்கு 5 முதல் 10 நாட்கள் முன்பு தோன்றி, மாதவிடாய்ச் சுழற்சியின் தொடக்கத்தில் மறையும் உடல் மற்றும் உணர்வு அறிகுறிகளின் தொகுப்பு.',
+    visual1Title: 'உங்கள் சுழற்சியுடன் இணைந்த ஒரு கட்டம்',
+    visual1Text:
+      'அறிகுறிகள் உங்கள் மாதவிடாய்க்கு முன் தோன்றி, அது தொடங்கியதும் பொதுவாகத் தணிகின்றன.',
+    tip1Title: 'தெரிந்துகொள்ளுங்கள்',
+    tip1Text:
+      'அறிகுறிகளின் தீவிரமும் வகையும் ஒரு பெண்ணிலிருந்து மற்றொருவருக்கும், ஒரு சுழற்சியிலிருந்து மற்றொன்றுக்கும் மிகவும் மாறுபடலாம்.',
+    symptoms: [
+      {title: 'உணர்வுகள்', text: 'எரிச்சல், பதற்றம், சோகம், மனநிலை மாற்றங்கள்'},
+      {title: 'உடல்', text: 'வயிறு உப்புசம், வலி, சோர்வு, தலைவலி'},
+      {title: 'நடத்தை', text: 'இனிப்பு ஆசை, பசி மாற்றங்கள், சோர்வு'},
+      {title: 'உறக்கம்', text: 'உறங்குவதில் சிரமம் அல்லது குறைவான நிம்மதியான உறக்கம்'},
+    ],
+    section3Body:
+      'ஹார்மோன் ஏற்ற இறக்கங்கள், குறிப்பாக புரோஜெஸ்டிரோன் மற்றும் ஈஸ்ட்ரோஜனில், மூளையின் நரம்பியல் கடத்திகளை (செரடோனின், டோபமைன்) பாதிக்கின்றன, இது PMS-இன் உணர்வு மற்றும் உடல் அறிகுறிகளை விளக்கலாம்.',
+    tip2Title: 'ஹார்மோன்கள் முக்கியப் பங்கு வகிக்கின்றன',
+    tip2Text:
+      'ஹார்மோன் ஏற்ற இறக்கங்கள் மனநிலை, ஆற்றல், உறக்கம் மற்றும் சில உடல் உணர்வுகளைப் பாதிக்கலாம்.',
+    tips: [
+      {title: 'நீர்ச்சத்துடன் இருங்கள்', text: 'போதுமான நீர் அருந்துவது வயிறு உப்புசத்தைக் குறைக்க உதவுகிறது.'},
+      {title: 'சமச்சீர் உணவை உண்ணுங்கள்', text: 'மெக்னீசியம், ஒமேகா-3 மற்றும் B வைட்டமின்கள் நிறைந்த உணவுகளுக்கு முன்னுரிமை கொடுங்கள்.'},
+      {title: 'சுறுசுறுப்பாக இருங்கள்', text: 'உடல் செயல்பாடு எண்டோர்பின்களை வெளியிட்டு மன அழுத்தத்தைக் குறைக்கிறது.'},
+      {title: 'மன அழுத்தத்தை நிர்வகியுங்கள்', text: 'சுவாசப் பயிற்சிகள், தியானம், நாட்குறிப்பு எழுதுதல்… உங்களுக்கு எது பொருந்துகிறது என்று கண்டறியுங்கள்.'},
+      {title: 'போதுமான உறக்கம் பெறுங்கள்', text: 'தரமான உறக்கம் ஹார்மோன் சமநிலையை ஆதரிக்கிறது.'},
+    ],
+    consultTitle: 'மருத்துவ ஆலோசனையை எப்போது நாட வேண்டும்?',
+    consultText:
+      'அறிகுறிகள் மிகத் தீவிரமாக இருந்து உங்கள் அன்றாட வாழ்க்கையைப் பாதித்தால், அது மாதவிடாய்க்கு முந்தைய டிஸ்ஃபோரிக் கோளாறாக (PMDD) இருக்கலாம். ஒரு சுகாதார நிபுணரிடம் ஆலோசனை பெறத் தயங்காதீர்கள்.',
+    shareMessage: 'மாதவிடாய்க்கு முந்தைய நோய்த்தொகுப்பு (PMS): நன்கு புரிந்துகொள்ளுதல் — AWA',
+  },
+  te: {
+    badge: 'చక్రం & శ్రేయస్సు',
+    title: 'నెలసరికి ముందు సిండ్రోమ్ (PMS):\nమరింత బాగా అర్థం చేసుకోవడం',
+    metaDuration: '4 నిమిషాల పఠనం',
+    metaValidated: 'మదింపు చేసిన కంటెంట్',
+    intro:
+      'PMS పది మంది మహిళల్లో ఎనిమిది మంది వరకు ప్రభావితం చేస్తుంది. అలసట, చిరాకు, ఉబ్బరం… దాని కారణాలను అర్థం చేసుకుని సరైన అలవాట్లను పాటించడం నెల యొక్క ఈ సమయాన్ని బాగా మెరుగుపరచగలదు.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    contents: [
+      'PMS అంటే ఏమిటి?',
+      'సాధారణ లక్షణాలు',
+      'సాధ్యమైన కారణాలు',
+      'బాగా అనిపించడానికి చిట్కాలు',
+      'వైద్యుడిని ఎప్పుడు కలవాలి?',
+    ],
+    section1Body:
+      'నెలసరికి ముందు సిండ్రోమ్ అనేది సాధారణంగా మీ నెలసరికి 5 నుండి 10 రోజుల ముందు కనిపించి నెలసరి చక్రం ఆరంభంలో పోయే శారీరక, భావోద్వేగ లక్షణాల సమ్మేళనం.',
+    visual1Title: 'మీ చక్రంతో ముడిపడిన ఒక దశ',
+    visual1Text:
+      'లక్షణాలు మీ నెలసరికి ముందు కనిపించి అది మొదలైన తర్వాత సాధారణంగా తగ్గుతాయి.',
+    tip1Title: 'తెలుసుకోవాల్సినవి',
+    tip1Text:
+      'లక్షణాల తీవ్రత, రకం ఒక మహిళ నుండి మరొకరికి, ఒక చక్రం నుండి మరొక చక్రానికి చాలా మారవచ్చు.',
+    symptoms: [
+      {title: 'భావోద్వేగాలు', text: 'చిరాకు, ఆందోళన, విచారం, మానసిక స్థితి ఊగిసలాటలు'},
+      {title: 'శారీరకం', text: 'ఉబ్బరం, నొప్పి, అలసట, తలనొప్పులు'},
+      {title: 'ప్రవర్తన', text: 'తీపి కోరికలు, ఆకలి మార్పులు, అలసట'},
+      {title: 'నిద్ర', text: 'నిద్రపోవడంలో కష్టం లేదా తక్కువ విశ్రాంతికరమైన నిద్ర'},
+    ],
+    section3Body:
+      'హార్మోన్ ఊగిసలాటలు, ముఖ్యంగా ప్రొజెస్టిరోన్, ఈస్ట్రోజెన్‌లో, మెదడు నరాల రసాయనాలను (సెరోటోనిన్, డోపమైన్) ప్రభావితం చేస్తాయి, ఇది PMS యొక్క భావోద్వేగ, శారీరక లక్షణాలను వివరించవచ్చు.',
+    tip2Title: 'హార్మోన్లు కీలక పాత్ర పోషిస్తాయి',
+    tip2Text:
+      'హార్మోన్ ఊగిసలాటలు మానసిక స్థితిని, శక్తిని, నిద్రను, కొన్ని శారీరక అనుభూతులను ప్రభావితం చేయగలవు.',
+    tips: [
+      {title: 'నీటి శాతాన్ని కాపాడుకోండి', text: 'తగినంత నీరు తాగడం ఉబ్బరాన్ని తగ్గించడానికి సహాయపడుతుంది.'},
+      {title: 'సమతుల్య ఆహారం తినండి', text: 'మెగ్నీషియం, ఒమేగా-3లు, B విటమిన్లు సమృద్ధిగా ఉన్న ఆహారాలకు ప్రాధాన్యం ఇవ్వండి.'},
+      {title: 'చురుకుగా ఉండండి', text: 'శారీరక కార్యకలాపం ఎండోర్ఫిన్లను విడుదల చేసి ఒత్తిడిని తగ్గిస్తుంది.'},
+      {title: 'మీ ఒత్తిడిని నిర్వహించండి', text: 'శ్వాస వ్యాయామాలు, ధ్యానం, జర్నల్ రాయడం… మీకు ఏది సరిపోతుందో కనుగొనండి.'},
+      {title: 'తగినంత నిద్రపోండి', text: 'నాణ్యమైన నిద్ర హార్మోన్ సమతుల్యతకు తోడ్పడుతుంది.'},
+    ],
+    consultTitle: 'వైద్య సలహాను ఎప్పుడు కోరాలి?',
+    consultText:
+      'లక్షణాలు చాలా తీవ్రంగా ఉండి మీ రోజువారీ జీవితాన్ని ప్రభావితం చేస్తే, అది నెలసరికి ముందు డిస్ఫోరిక్ రుగ్మత (PMDD) కావచ్చు. ఒక ఆరోగ్య నిపుణుడిని సంప్రదించడానికి వెనుకాడకండి.',
+    shareMessage: 'నెలసరికి ముందు సిండ్రోమ్ (PMS): మరింత బాగా అర్థం చేసుకోవడం — AWA',
+  },
+  mr: {
+    badge: 'पाळी आणि सुदृढता',
+    title: 'मासिकपूर्व सिंड्रोम (PMS):\nअधिक चांगले समजून घेणे',
+    metaDuration: '4 मिनिटे वाचन',
+    metaValidated: 'पुनरावलोकन केलेला मजकूर',
+    intro:
+      'PMS 10 पैकी 8 स्त्रियांपर्यंत परिणाम करतो. थकवा, चिडचिड, पोट फुगणे… त्याची कारणे समजून घेणे आणि योग्य सवयी अंगीकारणे महिन्याचा हा काळ खूप सुधारू शकते.',
+    contentsTitle: 'या लेखात',
+    contents: [
+      'PMS म्हणजे काय?',
+      'सामान्य लक्षणे',
+      'संभाव्य कारणे',
+      'बरे वाटण्यासाठी टिपा',
+      'डॉक्टरांना केव्हा भेटावे?',
+    ],
+    section1Body:
+      'मासिकपूर्व सिंड्रोममध्ये शारीरिक आणि भावनिक लक्षणे एकत्र येतात जी सहसा तुमच्या पाळीच्या 5 ते 10 दिवस आधी दिसतात आणि पाळीच्या चक्राच्या सुरुवातीला निघून जातात.',
+    visual1Title: 'तुमच्या पाळीशी जोडलेला टप्पा',
+    visual1Text:
+      'लक्षणे तुमच्या पाळीपूर्वी दिसतात आणि सहसा ती सुरू झाल्यावर कमी होतात.',
+    tip1Title: 'हे जाणून घ्या',
+    tip1Text:
+      'लक्षणांची तीव्रता आणि प्रकार एका स्त्रीपासून दुसऱ्या स्त्रीपर्यंत आणि एका पाळीपासून दुसऱ्या पाळीपर्यंत खूप बदलू शकतात.',
+    symptoms: [
+      {title: 'भावना', text: 'चिडचिड, चिंता, दुःख, मनःस्थितीतील चढ-उतार'},
+      {title: 'शारीरिक', text: 'पोट फुगणे, वेदना, थकवा, डोकेदुखी'},
+      {title: 'वर्तन', text: 'साखरेची इच्छा, भूकेतील बदल, थकवा'},
+      {title: 'झोप', text: 'झोप लागण्यात अडचण किंवा कमी विश्रांती देणारी झोप'},
+    ],
+    section3Body:
+      'हार्मोनल चढ-उतार, विशेषतः प्रोजेस्टेरॉन आणि इस्ट्रोजेनमधील, मेंदूतील न्यूरोट्रान्समीटर्सवर (सेरोटोनिन, डोपामिन) परिणाम करतात, जे PMS ची भावनिक आणि शारीरिक लक्षणे स्पष्ट करू शकतात.',
+    tip2Title: 'हार्मोन्सची मुख्य भूमिका असते',
+    tip2Text:
+      'हार्मोनल चढ-उतार मनःस्थिती, ऊर्जा, झोप आणि काही शारीरिक जाणिवांवर परिणाम करू शकतात.',
+    tips: [
+      {title: 'पुरेसे पाणी प्या', text: 'पुरेसे पाणी प्यायल्याने पोट फुगणे कमी होण्यास मदत होते.'},
+      {title: 'संतुलित आहार घ्या', text: 'मॅग्नेशियम, ओमेगा-3 आणि ब जीवनसत्त्वांनी समृद्ध पदार्थांना प्राधान्य द्या.'},
+      {title: 'सक्रिय राहा', text: 'शारीरिक हालचाल एंडॉर्फिन्स सोडते आणि ताण कमी करते.'},
+      {title: 'तुमचा ताण सांभाळा', text: 'श्वासाचे व्यायाम, ध्यान, नोंद लिहिणे… तुम्हाला काय जुळते ते शोधा.'},
+      {title: 'पुरेशी झोप घ्या', text: 'दर्जेदार झोप हार्मोनल संतुलनाला आधार देते.'},
+    ],
+    consultTitle: 'वैद्यकीय सल्ला केव्हा घ्यावा?',
+    consultText:
+      'लक्षणे खूप तीव्र असल्यास आणि तुमच्या रोजच्या जीवनावर परिणाम करत असल्यास, तो मासिकपूर्व डिसफोरिक डिसऑर्डर (PMDD) असू शकतो. आरोग्य व्यावसायिकाचा सल्ला घ्यायला संकोच करू नका.',
+    shareMessage: 'मासिकपूर्व सिंड्रोम (PMS): अधिक चांगले समजून घेणे — AWA',
+  },
+  gu: {
+    badge: 'ચક્ર અને સુખાકારી',
+    title: 'માસિક પૂર્વેનું સિન્ડ્રોમ (PMS):\nવધુ સારી રીતે સમજવું',
+    metaDuration: '4 મિનિટ વાંચન',
+    metaValidated: 'પુનરાવલોકન કરેલી સામગ્રી',
+    intro:
+      'PMS દર 10 માંથી 8 સુધી સ્ત્રીઓને અસર કરે છે. થાક, ચીડિયાપણું, પેટનું ફૂલવું… તેનાં કારણો સમજવાથી અને યોગ્ય ટેવો અપનાવવાથી મહિનાનો આ સમય ઘણો સારો બની શકે છે.',
+    contentsTitle: 'આ લેખમાં',
+    contents: [
+      'PMS શું છે?',
+      'સામાન્ય લક્ષણો',
+      'સંભવિત કારણો',
+      'સારું અનુભવવા માટેનાં સૂચનો',
+      'ક્યારે ડૉક્ટરને મળવું?',
+    ],
+    section1Body:
+      'માસિક પૂર્વેનું સિન્ડ્રોમ શારીરિક અને ભાવનાત્મક લક્ષણોને એકસાથે લાવે છે, જે સામાન્ય રીતે તમારા માસિકના 5 થી 10 દિવસ પહેલાં દેખાય છે અને માસિક ચક્રની શરૂઆતમાં દૂર થઈ જાય છે.',
+    visual1Title: 'તમારા ચક્ર સાથે જોડાયેલો એક તબક્કો',
+    visual1Text:
+      'લક્ષણો તમારા માસિક પહેલાં દેખાય છે અને માસિક શરૂ થયા પછી સામાન્ય રીતે ઓછાં થાય છે.',
+    tip1Title: 'જાણવા જેવું',
+    tip1Text:
+      'લક્ષણોની તીવ્રતા અને પ્રકાર એક સ્ત્રીથી બીજી સ્ત્રીમાં, અને એક ચક્રથી બીજા ચક્રમાં ઘણા બદલાઈ શકે છે.',
+    symptoms: [
+      {title: 'લાગણીઓ', text: 'ચીડિયાપણું, ચિંતા, ઉદાસી, મૂડમાં ઉતાર-ચઢાવ'},
+      {title: 'શારીરિક', text: 'પેટનું ફૂલવું, દુખાવો, થાક, માથાનો દુખાવો'},
+      {title: 'વર્તન', text: 'ગળ્યું ખાવાની ઇચ્છા, ભૂખમાં ફેરફાર, થાક'},
+      {title: 'ઊંઘ', text: 'ઊંઘવામાં મુશ્કેલી અથવા ઓછી આરામદાયક ઊંઘ'},
+    ],
+    section3Body:
+      'હોર્મોનના ઉતાર-ચઢાવ, ખાસ કરીને પ્રોજેસ્ટેરોન અને એસ્ટ્રોજનના, મગજના ન્યુરોટ્રાન્સમિટર (સેરોટોનિન, ડોપામિન) પર અસર કરે છે, જે PMS નાં ભાવનાત્મક અને શારીરિક લક્ષણો સમજાવી શકે છે.',
+    tip2Title: 'હોર્મોન મુખ્ય ભૂમિકા ભજવે છે',
+    tip2Text:
+      'હોર્મોનના ઉતાર-ચઢાવ મૂડ, ઊર્જા, ઊંઘ અને કેટલીક શારીરિક સંવેદનાઓને અસર કરી શકે છે.',
+    tips: [
+      {title: 'પૂરતું પાણી પીવો', text: 'પૂરતું પાણી પીવાથી પેટનું ફૂલવું ઘટાડવામાં મદદ મળે છે.'},
+      {title: 'સંતુલિત આહાર લો', text: 'મેગ્નેશિયમ, ઓમેગા-3 અને વિટામિન B થી ભરપૂર ખોરાકને પ્રાધાન્ય આપો.'},
+      {title: 'સક્રિય રહો', text: 'શારીરિક પ્રવૃત્તિ એન્ડોર્ફિન મુક્ત કરે છે અને તણાવ ઘટાડે છે.'},
+      {title: 'તમારા તણાવનું સંચાલન કરો', text: 'શ્વાસની કસરતો, ધ્યાન, ડાયરી લખવી… તમને શું અનુકૂળ આવે છે તે શોધો.'},
+      {title: 'પૂરતી ઊંઘ લો', text: 'ગુણવત્તાવાળી ઊંઘ હોર્મોનના સંતુલનને ટેકો આપે છે.'},
+    ],
+    consultTitle: 'ક્યારે તબીબી સલાહ લેવી જોઈએ?',
+    consultText:
+      'જો લક્ષણો ખૂબ તીવ્ર હોય અને તમારા રોજિંદા જીવનને અસર કરતાં હોય, તો તે માસિક પૂર્વેનો ડિસ્ફોરિક ડિસઓર્ડર (PMDD) હોઈ શકે છે. આરોગ્ય વ્યાવસાયિકની સલાહ લેવામાં અચકાશો નહીં.',
+    shareMessage: 'માસિક પૂર્વેનું સિન્ડ્રોમ (PMS): વધુ સારી રીતે સમજવું — AWA',
+  },
+  pa: {
+    badge: 'ਚੱਕਰ ਅਤੇ ਤੰਦਰੁਸਤੀ',
+    title: 'ਮਾਹਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਦਾ ਸਿੰਡਰੋਮ (PMS):\nਇਸਨੂੰ ਬਿਹਤਰ ਸਮਝਣਾ',
+    metaDuration: '4 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaValidated: 'ਸਮੀਖਿਆ ਕੀਤੀ ਸਮੱਗਰੀ',
+    intro:
+      'PMS 10 ਵਿੱਚੋਂ 8 ਔਰਤਾਂ ਤੱਕ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰਦਾ ਹੈ। ਥਕਾਵਟ, ਚਿੜਚਿੜਾਪਣ, ਪੇਟ ਫੁੱਲਣਾ… ਇਸਦੇ ਕਾਰਨਾਂ ਨੂੰ ਸਮਝਣਾ ਅਤੇ ਸਹੀ ਆਦਤਾਂ ਅਪਣਾਉਣਾ ਮਹੀਨੇ ਦੇ ਇਸ ਸਮੇਂ ਨੂੰ ਬਹੁਤ ਬਿਹਤਰ ਬਣਾ ਸਕਦਾ ਹੈ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    contents: [
+      'PMS ਕੀ ਹੈ?',
+      'ਆਮ ਲੱਛਣ',
+      'ਸੰਭਾਵੀ ਕਾਰਨ',
+      'ਬਿਹਤਰ ਮਹਿਸੂਸ ਕਰਨ ਦੇ ਸੁਝਾਅ',
+      'ਡਾਕਟਰ ਨੂੰ ਕਦੋਂ ਮਿਲਣਾ ਹੈ?',
+    ],
+    section1Body:
+      'ਮਾਹਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਦਾ ਸਿੰਡਰੋਮ ਸਰੀਰਕ ਅਤੇ ਭਾਵਨਾਤਮਕ ਲੱਛਣਾਂ ਨੂੰ ਇਕੱਠਾ ਕਰਦਾ ਹੈ ਜੋ ਆਮ ਤੌਰ \'ਤੇ ਮਾਹਵਾਰੀ ਤੋਂ 5 ਤੋਂ 10 ਦਿਨ ਪਹਿਲਾਂ ਦਿਖਾਈ ਦਿੰਦੇ ਹਨ ਅਤੇ ਮਾਹਵਾਰੀ ਚੱਕਰ ਦੀ ਸ਼ੁਰੂਆਤ \'ਤੇ ਖ਼ਤਮ ਹੋ ਜਾਂਦੇ ਹਨ।',
+    visual1Title: 'ਤੁਹਾਡੇ ਚੱਕਰ ਨਾਲ ਜੁੜਿਆ ਇੱਕ ਪੜਾਅ',
+    visual1Text:
+      'ਲੱਛਣ ਮਾਹਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਦਿਖਾਈ ਦਿੰਦੇ ਹਨ ਅਤੇ ਆਮ ਤੌਰ \'ਤੇ ਇਸਦੇ ਸ਼ੁਰੂ ਹੁੰਦੇ ਹੀ ਘਟ ਜਾਂਦੇ ਹਨ।',
+    tip1Title: 'ਜਾਣਨ ਯੋਗ',
+    tip1Text:
+      'ਲੱਛਣਾਂ ਦੀ ਤੀਬਰਤਾ ਅਤੇ ਕਿਸਮ ਇੱਕ ਔਰਤ ਤੋਂ ਦੂਜੀ ਵਿੱਚ, ਅਤੇ ਇੱਕ ਚੱਕਰ ਤੋਂ ਦੂਜੇ ਵਿੱਚ ਬਹੁਤ ਵੱਖਰੀ ਹੋ ਸਕਦੀ ਹੈ।',
+    symptoms: [
+      {title: 'ਭਾਵਨਾਵਾਂ', text: 'ਚਿੜਚਿੜਾਪਣ, ਚਿੰਤਾ, ਉਦਾਸੀ, ਮੂਡ ਵਿੱਚ ਉਤਰਾਅ-ਚੜ੍ਹਾਅ'},
+      {title: 'ਸਰੀਰਕ', text: 'ਪੇਟ ਫੁੱਲਣਾ, ਦਰਦ, ਥਕਾਵਟ, ਸਿਰ ਦਰਦ'},
+      {title: 'ਵਿਹਾਰ', text: 'ਮਿੱਠੇ ਦੀ ਤਲਬ, ਭੁੱਖ ਵਿੱਚ ਬਦਲਾਅ, ਥਕਾਵਟ'},
+      {title: 'ਨੀਂਦ', text: 'ਸੌਣ ਵਿੱਚ ਮੁਸ਼ਕਲ ਜਾਂ ਘੱਟ ਆਰਾਮਦਾਇਕ ਨੀਂਦ'},
+    ],
+    section3Body:
+      'ਹਾਰਮੋਨਾਂ ਵਿੱਚ ਉਤਰਾਅ-ਚੜ੍ਹਾਅ, ਖ਼ਾਸ ਕਰਕੇ ਪ੍ਰੋਜੈਸਟ੍ਰੋਨ ਅਤੇ ਐਸਟ੍ਰੋਜਨ ਵਿੱਚ, ਦਿਮਾਗ਼ ਦੇ ਨਿਊਰੋਟ੍ਰਾਂਸਮੀਟਰਾਂ (ਸੇਰੋਟੋਨਿਨ, ਡੋਪਾਮੀਨ) ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰਦੇ ਹਨ, ਜੋ PMS ਦੇ ਭਾਵਨਾਤਮਕ ਅਤੇ ਸਰੀਰਕ ਲੱਛਣਾਂ ਦੀ ਵਿਆਖਿਆ ਕਰ ਸਕਦਾ ਹੈ।',
+    tip2Title: 'ਹਾਰਮੋਨ ਦੀ ਅਹਿਮ ਭੂਮਿਕਾ ਹੁੰਦੀ ਹੈ',
+    tip2Text:
+      'ਹਾਰਮੋਨਾਂ ਵਿੱਚ ਉਤਰਾਅ-ਚੜ੍ਹਾਅ ਮੂਡ, ਊਰਜਾ, ਨੀਂਦ ਅਤੇ ਕੁਝ ਸਰੀਰਕ ਅਹਿਸਾਸਾਂ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰ ਸਕਦੇ ਹਨ।',
+    tips: [
+      {title: 'ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਬਣਾਈ ਰੱਖੋ', text: 'ਕਾਫ਼ੀ ਪਾਣੀ ਪੀਣਾ ਪੇਟ ਫੁੱਲਣ ਨੂੰ ਘਟਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।'},
+      {title: 'ਸੰਤੁਲਿਤ ਖ਼ੁਰਾਕ ਲਓ', text: 'ਮੈਗਨੀਸ਼ੀਅਮ, ਓਮੇਗਾ-3 ਅਤੇ ਬੀ ਵਿਟਾਮਿਨਾਂ ਨਾਲ ਭਰਪੂਰ ਭੋਜਨ ਨੂੰ ਤਰਜੀਹ ਦਿਓ।'},
+      {title: 'ਸਰਗਰਮ ਰਹੋ', text: 'ਸਰੀਰਕ ਸਰਗਰਮੀ ਐਂਡੋਰਫ਼ਿਨ ਛੱਡਦੀ ਹੈ ਅਤੇ ਤਣਾਅ ਘਟਾਉਂਦੀ ਹੈ।'},
+      {title: 'ਆਪਣੇ ਤਣਾਅ ਦਾ ਪ੍ਰਬੰਧ ਕਰੋ', text: 'ਸਾਹ ਦੀਆਂ ਕਸਰਤਾਂ, ਧਿਆਨ, ਡਾਇਰੀ ਲਿਖਣਾ… ਉਹ ਲੱਭੋ ਜੋ ਤੁਹਾਡੇ ਲਈ ਕੰਮ ਕਰੇ।'},
+      {title: 'ਕਾਫ਼ੀ ਨੀਂਦ ਲਓ', text: 'ਚੰਗੀ ਨੀਂਦ ਹਾਰਮੋਨਾਂ ਦੇ ਸੰਤੁਲਨ ਨੂੰ ਸਹਾਰਾ ਦਿੰਦੀ ਹੈ।'},
+    ],
+    consultTitle: 'ਡਾਕਟਰੀ ਸਲਾਹ ਕਦੋਂ ਲੈਣੀ ਚਾਹੀਦੀ ਹੈ?',
+    consultText:
+      'ਜੇ ਲੱਛਣ ਬਹੁਤ ਤੇਜ਼ ਹੋਣ ਅਤੇ ਤੁਹਾਡੀ ਰੋਜ਼ਾਨਾ ਜ਼ਿੰਦਗੀ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰਨ, ਤਾਂ ਇਹ ਮਾਹਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਦਾ ਡਿਸਫ਼ੋਰਿਕ ਵਿਕਾਰ (PMDD) ਹੋ ਸਕਦਾ ਹੈ। ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰਨ ਵਿੱਚ ਝਿਜਕ ਨਾ ਕਰੋ।',
+    shareMessage: 'ਮਾਹਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਦਾ ਸਿੰਡਰੋਮ (PMS): ਇਸਨੂੰ ਬਿਹਤਰ ਸਮਝਣਾ — AWA',
+  },
+  my: {
+    badge: 'ရာသီစက်ဝန်းနှင့် ကျန်းမာချမ်းသာမှု',
+    title: 'ရာသီမလာမီ ရောဂါလက္ခဏာစု (PMS)\nကို ပိုမိုနားလည်ခြင်း',
+    metaDuration: 'ဖတ်ချိန် 4 မိနစ်',
+    metaValidated: 'ပြန်လည်သုံးသပ်ပြီး အကြောင်းအရာ',
+    intro:
+      'PMS သည် အမျိုးသမီး 10 ဦးတွင် 8 ဦးအထိ ဖြစ်ပွားနိုင်သည်။ ပင်ပန်းနွမ်းနယ်ခြင်း၊ စိတ်တိုလွယ်ခြင်း၊ ဗိုက်ရောင်ခြင်း… ၎င်း၏ အကြောင်းရင်းများကို နားလည်ပြီး သင့်လျော်သော အကျင့်များကို လက်ခံကျင့်သုံးခြင်းဖြင့် လ၏ ဤအချိန်ကို အလွန်တိုးတက်စေနိုင်သည်။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    contents: [
+      'PMS ဆိုတာ ဘာလဲ။',
+      'အဖြစ်များသော ရောဂါလက္ခဏာများ',
+      'ဖြစ်နိုင်သော အကြောင်းရင်းများ',
+      'ပိုကောင်းလာစေရန် အကြံပြုချက်များ',
+      'ဆရာဝန်ကို ဘယ်အချိန်ပြသင့်သလဲ။',
+    ],
+    section1Body:
+      'ရာသီမလာမီ ရောဂါလက္ခဏာစုတွင် ရာသီမလာမီ 5 ရက်မှ 10 ရက်အလိုတွင် များသောအားဖြင့် ပေါ်လာပြီး ရာသီစက်ဝန်း စတင်ချိန်တွင် ပျောက်သွားသော ကိုယ်ခန္ဓာနှင့် စိတ်ခံစားမှုဆိုင်ရာ ရောဂါလက္ခဏာများ စုပေါင်းပါဝင်သည်။',
+    visual1Title: 'သင့်ရာသီစက်ဝန်းနှင့် ဆက်စပ်သော ကာလတစ်ခု',
+    visual1Text:
+      'ရောဂါလက္ခဏာများသည် ရာသီမလာမီ ပေါ်လာပြီး ရာသီစတင်သည်နှင့် များသောအားဖြင့် သက်သာသွားသည်။',
+    tip1Title: 'သိထားသင့်သည်',
+    tip1Text:
+      'ရောဂါလက္ခဏာများ၏ ပြင်းထန်မှုနှင့် အမျိုးအစားသည် အမျိုးသမီးတစ်ဦးနှင့်တစ်ဦးကြား၊ ရာသီစက်ဝန်းတစ်ခုနှင့်တစ်ခုကြား ကျယ်ပြန့်စွာ ကွာခြားနိုင်သည်။',
+    symptoms: [
+      {title: 'စိတ်ခံစားမှုများ', text: 'စိတ်တိုလွယ်ခြင်း၊ စိုးရိမ်ပူပန်ခြင်း၊ ဝမ်းနည်းခြင်း၊ စိတ်ခံစားမှု အတက်အကျ'},
+      {title: 'ကိုယ်ခန္ဓာဆိုင်ရာ', text: 'ဗိုက်ရောင်ခြင်း၊ နာကျင်ခြင်း၊ ပင်ပန်းနွမ်းနယ်ခြင်း၊ ခေါင်းကိုက်ခြင်း'},
+      {title: 'အပြုအမူ', text: 'သကြားစားချင်စိတ်၊ စားချင်စိတ် ပြောင်းလဲခြင်း၊ ပင်ပန်းနွမ်းနယ်ခြင်း'},
+      {title: 'အိပ်စက်ခြင်း', text: 'အိပ်ရခက်ခြင်း သို့မဟုတ် အိပ်စက်မှု ငြိမ်းချမ်းမှုနည်းခြင်း'},
+    ],
+    section3Body:
+      'ဟော်မုန်းအတက်အကျများ၊ အထူးသဖြင့် ပရိုဂျက်စတီရုန်းနှင့် အက်စ်ထရိုဂျင်တို့သည် ဦးနှောက်၏ အာရုံကြောပေးပို့ဓာတ်များ (ဆီရိုတိုနင်၊ ဒိုပါမင်း) ကို သက်ရောက်ပြီး PMS ၏ စိတ်ခံစားမှုနှင့် ကိုယ်ခန္ဓာဆိုင်ရာ ရောဂါလက္ခဏာများကို ရှင်းပြနိုင်ခြေရှိသည်။',
+    tip2Title: 'ဟော်မုန်းများက အဓိကအခန်းကဏ္ဍမှ ပါဝင်သည်',
+    tip2Text:
+      'ဟော်မုန်းအတက်အကျများသည် စိတ်ခံစားမှု၊ စွမ်းအင်၊ အိပ်စက်ခြင်းနှင့် ကိုယ်ခန္ဓာဆိုင်ရာ ခံစားချက်အချို့ကို သက်ရောက်နိုင်သည်။',
+    tips: [
+      {title: 'ရေဓာတ်ပြည့်ဝစေပါ', text: 'ရေလုံလောက်စွာ သောက်ခြင်းသည် ဗိုက်ရောင်ခြင်းကို လျော့စေရန် ကူညီသည်။'},
+      {title: 'ဟန်ချက်ညီသော အစားအသောက် စားပါ', text: 'မဂ္ဂနီဆီယမ်၊ အိုမီဂါ-3 နှင့် ဘီဗီတာမင်များ ကြွယ်ဝသော အစားအစာများကို ဦးစားပေးပါ။'},
+      {title: 'လှုပ်ရှားနေပါ', text: 'ကာယလှုပ်ရှားမှုသည် အင်ဒေါဖင်များကို ထုတ်လွှတ်ပြီး စိတ်ဖိစီးမှုကို လျော့စေသည်။'},
+      {title: 'စိတ်ဖိစီးမှုကို စီမံပါ', text: 'အသက်ရှူလေ့ကျင့်ခန်း၊ တရားထိုင်ခြင်း၊ နေ့စဉ်မှတ်တမ်းရေးခြင်း… သင့်အတွက် အဆင်ပြေသည်ကို ရှာပါ။'},
+      {title: 'လုံလောက်စွာ အိပ်ပါ', text: 'အရည်အသွေးရှိသော အိပ်စက်ခြင်းသည် ဟော်မုန်းဟန်ချက်ကို ထောက်ပံ့ပေးသည်။'},
+    ],
+    consultTitle: 'ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ်ကို ဘယ်အချိန်တောင်းသင့်သလဲ။',
+    consultText:
+      'ရောဂါလက္ခဏာများ အလွန်ပြင်းထန်ပြီး နေ့စဉ်ဘဝကို ထိခိုက်လျှင် ရာသီမလာမီ စိတ်ခံစားမှု ဖောက်ပြန်ခြင်း (PMDD) ဖြစ်နိုင်သည်။ ကျန်းမာရေးပညာရှင်နှင့် မတုံ့ဆိုင်းဘဲ ပြသပါ။',
+    shareMessage: 'ရာသီမလာမီ ရောဂါလက္ခဏာစု (PMS) ကို ပိုမိုနားလည်ခြင်း — AWA',
+  },
+  km: {
+    badge: 'វដ្តរដូវ និងសុខុមាលភាព',
+    title: 'រោគសញ្ញាមុនរដូវ (PMS)៖\nយល់ឱ្យកាន់តែច្បាស់',
+    metaDuration: 'អាន 4 នាទី',
+    metaValidated: 'មាតិកាបានពិនិត្យ',
+    intro:
+      'PMS ប៉ះពាល់ដល់ស្ត្រីរហូតដល់ 8 នាក់ក្នុងចំណោម 10 នាក់។ អស់កម្លាំង ឆាប់ខឹង ហើមពោះ… ការយល់ដឹងអំពីមូលហេតុ និងការអនុវត្តទម្លាប់ត្រឹមត្រូវ អាចធ្វើឱ្យអំឡុងពេលនេះនៃខែប្រសើរឡើងយ៉ាងខ្លាំង។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    contents: [
+      'តើ PMS ជាអ្វី?',
+      'រោគសញ្ញាទូទៅ',
+      'មូលហេតុដែលអាចកើតមាន',
+      'គន្លឹះដើម្បីមានអារម្មណ៍ល្អប្រសើរ',
+      'ពេលណាគួរជួបវេជ្ជបណ្ឌិត?',
+    ],
+    section1Body:
+      'រោគសញ្ញាមុនរដូវ រួមមានរោគសញ្ញាផ្នែករាងកាយ និងអារម្មណ៍ ដែលជាទូទៅលេចឡើងមុនរដូវ 5 ដល់ 10 ថ្ងៃ ហើយបាត់ទៅនៅដើមវដ្តរដូវ។',
+    visual1Title: 'ដំណាក់កាលដែលទាក់ទងនឹងវដ្តរបស់អ្នក',
+    visual1Text:
+      'រោគសញ្ញាលេចឡើងមុនរដូវ ហើយជាទូទៅបន្ធូរបន្ថយនៅពេលរដូវចាប់ផ្តើម។',
+    tip1Title: 'គួរដឹង',
+    tip1Text:
+      'កម្រិត និងប្រភេទនៃរោគសញ្ញាអាចខុសគ្នាខ្លាំងពីស្ត្រីម្នាក់ទៅម្នាក់ទៀត និងពីវដ្តមួយទៅវដ្តមួយ។',
+    symptoms: [
+      {title: 'អារម្មណ៍', text: 'ឆាប់ខឹង ថប់បារម្ភ ក្តុកក្តួល អារម្មណ៍ប្រែប្រួល'},
+      {title: 'រាងកាយ', text: 'ហើមពោះ ឈឺចាប់ អស់កម្លាំង ឈឺក្បាល'},
+      {title: 'អាកប្បកិរិយា', text: 'ចង់ញ៉ាំស្ករ ការប្រែប្រួលនៃចំណង់អាហារ អស់កម្លាំង'},
+      {title: 'ដំណេក', text: 'ពិបាកគេង ឬគេងមិនសូវស្កប់ស្កល់'},
+    ],
+    section3Body:
+      'ការប្រែប្រួលនៃអរម្មូន ជាពិសេសប្រូសេស្តេរ៉ូន និងអ៊ែស្ត្រូសែន ប៉ះពាល់ដល់សារធាតុបញ្ជូនប្រសាទក្នុងខួរក្បាល (សេរ៉ូតូនីន ដូផាមីន) ដែលអាចពន្យល់អំពីរោគសញ្ញាផ្នែកអារម្មណ៍ និងរាងកាយនៃ PMS។',
+    tip2Title: 'អរម៉ូនមានតួនាទីសំខាន់',
+    tip2Text:
+      'ការប្រែប្រួលនៃអរម៉ូនអាចប៉ះពាល់ដល់អារម្មណ៍ ថាមពល ដំណេក និងអារម្មណ៍រាងកាយមួយចំនួន។',
+    tips: [
+      {title: 'ផឹកទឹកឱ្យគ្រប់គ្រាន់', text: 'ការផឹកទឹកឱ្យគ្រប់គ្រាន់ជួយកាត់បន្ថយការហើមពោះ។'},
+      {title: 'ញ៉ាំអាហារមានតុល្យភាព', text: 'ជ្រើសរើសអាហារដែលសម្បូរម៉ាញ៉េស្យូម អូមេហ្គា-3 និងវីតាមីន B។'},
+      {title: 'រក្សាសកម្មភាពរាងកាយ', text: 'សកម្មភាពរាងកាយបញ្ចេញអ៊ិនដូហ្វីន និងកាត់បន្ថយភាពតានតឹង។'},
+      {title: 'គ្រប់គ្រងភាពតានតឹង', text: 'លំហាត់ដកដង្ហើម សមាធិ ការសរសេរកំណត់ហេតុ… សូមរកអ្វីដែលសមស្របនឹងអ្នក។'},
+      {title: 'គេងឱ្យបានគ្រប់គ្រាន់', text: 'ដំណេកដែលមានគុណភាពជួយគាំទ្រតុល្យភាពអរម៉ូន។'},
+    ],
+    consultTitle: 'ពេលណាគួរសុំដំបូន្មានពីវេជ្ជបណ្ឌិត?',
+    consultText:
+      'ប្រសិនបើរោគសញ្ញាខ្លាំងណាស់ ហើយប៉ះពាល់ដល់ជីវិតប្រចាំថ្ងៃរបស់អ្នក វាអាចជាជំងឺធ្លាក់ទឹកចិត្តមុនរដូវ (PMDD)។ សូមកុំស្ទាក់ស្ទើរក្នុងការពិគ្រោះជាមួយអ្នកជំនាញសុខាភិបាល។',
+    shareMessage: 'រោគសញ្ញាមុនរដូវ (PMS)៖ យល់ឱ្យកាន់តែច្បាស់ — AWA',
+  },
+  lo: {
+    badge: 'ຮອບເດືອນ ແລະ ສຸຂະພາບດີ',
+    title: 'ອາການກ່ອນມີປະຈຳເດືອນ (PMS):\nເຂົ້າໃຈມັນໃຫ້ດີຂຶ້ນ',
+    metaDuration: 'ອ່ານ 4 ນາທີ',
+    metaValidated: 'ເນື້ອຫາທີ່ຜ່ານການກວດສອບ',
+    intro:
+      'PMS ສົ່ງຜົນຕໍ່ແມ່ຍິງເຖິງ 8 ໃນ 10 ຄົນ. ອ່ອນເພຍ, ໃຈຮ້ອນ, ທ້ອງອືດ… ການເຂົ້າໃຈສາເຫດ ແລະ ປະຕິບັດນິໄສທີ່ເໝາະສົມສາມາດເຮັດໃຫ້ຊ່ວງເວລານີ້ຂອງເດືອນດີຂຶ້ນຫຼາຍ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    contents: [
+      'PMS ແມ່ນຫຍັງ?',
+      'ອາການທີ່ພົບເລື້ອຍ',
+      'ສາເຫດທີ່ເປັນໄປໄດ້',
+      'ເຄັດລັບເພື່ອໃຫ້ຮູ້ສຶກດີຂຶ້ນ',
+      'ເວລາໃດຄວນໄປພົບແພດ?',
+    ],
+    section1Body:
+      'ອາການກ່ອນມີປະຈຳເດືອນລວມເອົາອາການທາງກາຍ ແລະ ອາລົມ ທີ່ມັກປາກົດ 5 ຫາ 10 ວັນກ່ອນມີປະຈຳເດືອນ ແລະ ຫາຍໄປເມື່ອເລີ່ມຮອບເດືອນ.',
+    visual1Title: 'ໄລຍະທີ່ກ່ຽວຂ້ອງກັບຮອບເດືອນຂອງທ່ານ',
+    visual1Text:
+      'ອາການປາກົດກ່ອນມີປະຈຳເດືອນ ແລະ ມັກຜ່ອນລົງເມື່ອປະຈຳເດືອນມາ.',
+    tip1Title: 'ຄວນຮູ້',
+    tip1Text:
+      'ຄວາມຮຸນແຮງ ແລະ ຊະນິດຂອງອາການອາດແຕກຕ່າງກັນຫຼາຍຈາກແມ່ຍິງຄົນໜຶ່ງໄປອີກຄົນໜຶ່ງ ແລະ ຈາກຮອບເດືອນໜຶ່ງໄປອີກຮອບໜຶ່ງ.',
+    symptoms: [
+      {title: 'ອາລົມ', text: 'ໃຈຮ້ອນ, ກັງວົນ, ເສົ້າ, ອາລົມປ່ຽນແປງງ່າຍ'},
+      {title: 'ທາງກາຍ', text: 'ທ້ອງອືດ, ເຈັບປວດ, ອ່ອນເພຍ, ເຈັບຫົວ'},
+      {title: 'ພຶດຕິກຳ', text: 'ຢາກກິນຂອງຫວານ, ຄວາມຢາກອາຫານປ່ຽນແປງ, ອ່ອນເພຍ'},
+      {title: 'ການນອນ', text: 'ນອນຫຼັບຍາກ ຫຼື ນອນບໍ່ຫຼັບສະບາຍ'},
+    ],
+    section3Body:
+      'ການປ່ຽນແປງຂອງຮໍໂມນ ໂດຍສະເພາະໂປຣເຈສເຕໂຣນ ແລະ ເອສໂຕຣເຈັນ ມີຜົນຕໍ່ສານສື່ປະສາດໃນສະໝອງ (ເຊໂຣໂທນິນ, ໂດປາມີນ) ເຊິ່ງອາດອະທິບາຍອາການທາງອາລົມ ແລະ ທາງກາຍຂອງ PMS.',
+    tip2Title: 'ຮໍໂມນມີບົດບາດສຳຄັນ',
+    tip2Text:
+      'ການປ່ຽນແປງຂອງຮໍໂມນສາມາດສົ່ງຜົນຕໍ່ອາລົມ, ພະລັງງານ, ການນອນ ແລະ ຄວາມຮູ້ສຶກທາງກາຍບາງຢ່າງ.',
+    tips: [
+      {title: 'ດື່ມນ້ຳໃຫ້ພຽງພໍ', text: 'ການດື່ມນ້ຳໃຫ້ພຽງພໍຊ່ວຍຫຼຸດອາການທ້ອງອືດ.'},
+      {title: 'ກິນອາຫານທີ່ສົມດຸນ', text: 'ເລືອກອາຫານທີ່ອຸດົມດ້ວຍແມັກນີຊຽມ, ໂອເມກາ-3 ແລະ ວິຕາມິນ B.'},
+      {title: 'ຮັກສາຄວາມຄຶກຄັກ', text: 'ການເຄື່ອນໄຫວຮ່າງກາຍຊ່ວຍຫຼັ່ງເອັນດອກຟິນ ແລະ ຫຼຸດຄວາມຕຶງຄຽດ.'},
+      {title: 'ຈັດການຄວາມຕຶງຄຽດ', text: 'ການຝຶກຫາຍໃຈ, ການນັ່ງສະມາທິ, ການຂຽນບັນທຶກ… ຊອກຫາສິ່ງທີ່ເໝາະກັບທ່ານ.'},
+      {title: 'ນອນໃຫ້ພຽງພໍ', text: 'ການນອນທີ່ມີຄຸນນະພາບຊ່ວຍຮັກສາຄວາມສົມດຸນຂອງຮໍໂມນ.'},
+    ],
+    consultTitle: 'ເວລາໃດຄວນຂໍຄຳແນະນຳທາງການແພດ?',
+    consultText:
+      'ຖ້າອາການຮຸນແຮງຫຼາຍ ແລະ ກະທົບຊີວິດປະຈຳວັນ ອາດເປັນພາວະຊຶມເສົ້າກ່ອນມີປະຈຳເດືອນ (PMDD). ຢ່າລັງເລທີ່ຈະປຶກສາຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ.',
+    shareMessage: 'ອາການກ່ອນມີປະຈຳເດືອນ (PMS): ເຂົ້າໃຈມັນໃຫ້ດີຂຶ້ນ — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<
