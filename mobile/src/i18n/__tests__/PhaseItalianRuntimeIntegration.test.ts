@@ -334,14 +334,14 @@ describe('editorial content: explicit English fallback, never French or Spanish'
 
   it('pregnancy week data for an unrecognized language is the English content — never French, Spanish or Italian', () => {
     for (const week of [4, 12, 20, 40]) {
-      for (const invalid of ['nl', 'IT', 'it-IT', '', undefined, null]) {
+      for (const invalid of ['af', 'IT', 'it-IT', '', undefined, null]) {
         expect(getPregnancyWeekData(week, invalid as never)).toEqual(getPregnancyWeekData(week, 'en'));
       }
     }
   });
 
   it('legal documents have no Italian text yet — the screen resolves Italian to English (TERMS/PRIVACY only have fr/en/es/tr/ru/de/zh/id)', () => {
-    expect(Object.keys(TERMS).sort()).toEqual(['az', 'bg', 'bn', 'bs', 'cs', 'da', 'de', 'en', 'es', 'fr', 'hi', 'hr', 'hu', 'hy', 'id', 'ja', 'ka', 'ko', 'ky', 'nb', 'ne', 'pl', 'pt-BR', 'pt-PT', 'ro', 'ru', 'si', 'sk', 'sl', 'sq', 'sr', 'sv', 'tg', 'th', 'tk', 'tr', 'uk', 'uz', 'vi', 'zh']);
-    expect(Object.keys(PRIVACY).sort()).toEqual(['az', 'bg', 'bn', 'bs', 'cs', 'da', 'de', 'en', 'es', 'fr', 'hi', 'hr', 'hu', 'hy', 'id', 'ja', 'ka', 'ko', 'ky', 'nb', 'ne', 'pl', 'pt-BR', 'pt-PT', 'ro', 'ru', 'si', 'sk', 'sl', 'sq', 'sr', 'sv', 'tg', 'th', 'tk', 'tr', 'uk', 'uz', 'vi', 'zh']);
+    expect(Object.keys(TERMS).sort()).toEqual(['am', 'az', 'bg', 'bn', 'bs', 'cs', 'da', 'de', 'el', 'en', 'es', 'fi', 'fil', 'fr', 'gu', 'ha', 'hi', 'hr', 'hu', 'hy', 'id', 'ja', 'ka', 'kk', 'km', 'ko', 'ky', 'lo', 'mr', 'ms', 'my', 'nb', 'ne', 'nl', 'pa', 'pl', 'pt-BR', 'pt-PT', 'ro', 'ru', 'si', 'sk', 'sl', 'so', 'sq', 'sr', 'sv', 'sw', 'ta', 'te', 'tg', 'th', 'tk', 'tr', 'uk', 'uz', 'vi', 'wo', 'zh']);
+    expect(Object.keys(PRIVACY).sort()).toEqual(['am', 'az', 'bg', 'bn', 'bs', 'cs', 'da', 'de', 'el', 'en', 'es', 'fi', 'fil', 'fr', 'gu', 'ha', 'hi', 'hr', 'hu', 'hy', 'id', 'ja', 'ka', 'kk', 'km', 'ko', 'ky', 'lo', 'mr', 'ms', 'my', 'nb', 'ne', 'nl', 'pa', 'pl', 'pt-BR', 'pt-PT', 'ro', 'ru', 'si', 'sk', 'sl', 'so', 'sq', 'sr', 'sv', 'sw', 'ta', 'te', 'tg', 'th', 'tk', 'tr', 'uk', 'uz', 'vi', 'wo', 'zh']);
   });
 });

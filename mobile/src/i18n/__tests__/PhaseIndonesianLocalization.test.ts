@@ -150,8 +150,8 @@ describe('registration and normalisation', () => {
     expect(languageFromLocaleTag(value)).toBe('id');
   });
 
-  it('does not confuse other languages: Malay, Javanese and Italian stay what they are', () => {
-    expect(languageFromLocaleTag('ms-MY')).toBeNull();
+  it('does not confuse other languages: Malay (its own language), Javanese and Italian stay what they are', () => {
+    expect(languageFromLocaleTag('ms-MY')).toBe('ms');
     expect(languageFromLocaleTag('jv-ID')).toBeNull();
     expect(languageFromLocaleTag('it-IT')).toBe('it');
   });
@@ -160,8 +160,8 @@ describe('registration and normalisation', () => {
     expect(resolveEditorialLanguage('id')).toBe('id');
     expect(resolveEditorialLanguage('id-ID')).toBe('id');
     expect(resolveEditorialLanguage('in')).toBe('id');
-    expect(resolveEditorialLanguage('ms')).toBe('en');
-    expect(resolveEditorialLanguage('ms-MY')).toBe('en');
+    expect(resolveEditorialLanguage('af')).toBe('en');
+    expect(resolveEditorialLanguage('ms-MY')).toBe('ms');
   });
 
   it('Indonesian has the single plural category "other" in the on-device PluralRules fallback', () => {

@@ -447,7 +447,7 @@ describe('editorial content: library articles, pregnancy weeks, legal text', () 
     for (const language of ['fr', 'es', 'it', 'tr', 'ru', 'de', 'en']) {
       expect(resolveEditorialLanguage(language)).toBe(language);
     }
-    for (const other of ['nl', '', null, undefined, 'zh-TW', 'zh-Hant']) {
+    for (const other of ['af', '', null, undefined, 'zh-TW', 'zh-Hant']) {
       expect(resolveEditorialLanguage(other as string | null | undefined)).toBe('en');
     }
   });
@@ -545,8 +545,8 @@ describe('editorial content: library articles, pregnancy weeks, legal text', () 
   });
 
   it('legal placeholder text exists in Chinese with the same sections as English', () => {
-    expect(Object.keys(TERMS).sort()).toEqual(['az', 'bg', 'bn', 'bs', 'cs', 'da', 'de', 'en', 'es', 'fr', 'hi', 'hr', 'hu', 'hy', 'id', 'ja', 'ka', 'ko', 'ky', 'nb', 'ne', 'pl', 'pt-BR', 'pt-PT', 'ro', 'ru', 'si', 'sk', 'sl', 'sq', 'sr', 'sv', 'tg', 'th', 'tk', 'tr', 'uk', 'uz', 'vi', 'zh']);
-    expect(Object.keys(PRIVACY).sort()).toEqual(['az', 'bg', 'bn', 'bs', 'cs', 'da', 'de', 'en', 'es', 'fr', 'hi', 'hr', 'hu', 'hy', 'id', 'ja', 'ka', 'ko', 'ky', 'nb', 'ne', 'pl', 'pt-BR', 'pt-PT', 'ro', 'ru', 'si', 'sk', 'sl', 'sq', 'sr', 'sv', 'tg', 'th', 'tk', 'tr', 'uk', 'uz', 'vi', 'zh']);
+    expect(Object.keys(TERMS).sort()).toEqual(['am', 'az', 'bg', 'bn', 'bs', 'cs', 'da', 'de', 'el', 'en', 'es', 'fi', 'fil', 'fr', 'gu', 'ha', 'hi', 'hr', 'hu', 'hy', 'id', 'ja', 'ka', 'kk', 'km', 'ko', 'ky', 'lo', 'mr', 'ms', 'my', 'nb', 'ne', 'nl', 'pa', 'pl', 'pt-BR', 'pt-PT', 'ro', 'ru', 'si', 'sk', 'sl', 'so', 'sq', 'sr', 'sv', 'sw', 'ta', 'te', 'tg', 'th', 'tk', 'tr', 'uk', 'uz', 'vi', 'wo', 'zh']);
+    expect(Object.keys(PRIVACY).sort()).toEqual(['am', 'az', 'bg', 'bn', 'bs', 'cs', 'da', 'de', 'el', 'en', 'es', 'fi', 'fil', 'fr', 'gu', 'ha', 'hi', 'hr', 'hu', 'hy', 'id', 'ja', 'ka', 'kk', 'km', 'ko', 'ky', 'lo', 'mr', 'ms', 'my', 'nb', 'ne', 'nl', 'pa', 'pl', 'pt-BR', 'pt-PT', 'ro', 'ru', 'si', 'sk', 'sl', 'so', 'sq', 'sr', 'sv', 'sw', 'ta', 'te', 'tg', 'th', 'tk', 'tr', 'uk', 'uz', 'vi', 'wo', 'zh']);
     expect(TERMS.zh).toHaveLength(TERMS.en.length);
     expect(PRIVACY.zh).toHaveLength(PRIVACY.en.length);
     TERMS.zh.concat(PRIVACY.zh).forEach(section => {

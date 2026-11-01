@@ -219,7 +219,7 @@ describe('registration and normalisation', () => {
   });
 
   it('does not confuse other languages: Serbian, Bosnian, Macedonian, Greek, Italian (Arbëresh region) and Turkish stay what they are', () => {
-    for (const tag of ['mk-MK', 'el-GR', 'nl-NL', 'ms-MY', 'he-IL', 'ku-TR']) {
+    for (const tag of ['mk-MK', 'af-ZA', 'he-IL', 'ku-TR']) {
       expect([tag, languageFromLocaleTag(tag)]).toEqual([tag, null]);
     }
     // Serbian, Bosnian, Croatian, Romanian and Bulgarian are supported languages of their own, never Albanian
@@ -231,7 +231,7 @@ describe('registration and normalisation', () => {
   it('picks Albanian from a phone list, English for an unsupported one', () => {
     expect(pickSupportedLanguage(['sq-AL', 'en-GB'])).toBe('sq');
     expect(pickSupportedLanguage(['mk-MK', 'sq-XK'])).toBe('sq');
-    expect(pickSupportedLanguage(['el-GR', 'mk-MK'])).toBe('en');
+    expect(pickSupportedLanguage(['af-ZA', 'mk-MK'])).toBe('en');
     expect(pickSupportedLanguage(['en-GB', 'sq-AL'])).toBe('en'); // the phone's first supported language wins
   });
 
