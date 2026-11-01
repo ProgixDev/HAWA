@@ -11,11 +11,11 @@
 /** The languages the map labels and the geocoder are asked for: AWA's fourteen languages (themePreferences.AwaAppLanguage; both Portuguese variants are the provider's single `pt`) plus
  * Arabic (supported by the provider; AWA has no Arabic interface yet). Anything else is NOT sent to the provider: the MapTiler
  * geocoder answers an unknown `language` with HTTP 400. */
-export const MAP_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt', 'bn', 'ar', 'da', 'sv', 'no', 'pl', 'uk', 'cs', 'sk', 'hu', 'ro', 'bg', 'sr', 'hr', 'bs', 'sl', 'vi', 'uz', 'az', 'ka', 'hy', 'tg', 'ky', 'tk'] as const;
+export const MAP_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt', 'bn', 'ar', 'da', 'sv', 'no', 'pl', 'uk', 'cs', 'sk', 'hu', 'ro', 'bg', 'sr', 'hr', 'bs', 'sl', 'vi', 'uz', 'az', 'ka', 'hy', 'tg', 'ky', 'tk', 'ms', 'so', 'sw', 'kk'] as const;
 export type MapLanguage = (typeof MAP_LANGUAGES)[number];
 
 // Languages written in a non-Latin script: when a label has no translation they keep the LOCAL name rather than a Latin transliteration.
-const NON_LATIN_SCRIPT: ReadonlySet<MapLanguage> = new Set<MapLanguage>(['ru', 'zh', 'ja', 'ko', 'hi', 'ar', 'bg', 'sr', 'ka', 'hy', 'tg', 'ky']);
+const NON_LATIN_SCRIPT: ReadonlySet<MapLanguage> = new Set<MapLanguage>(['ru', 'zh', 'ja', 'ko', 'hi', 'ar', 'bg', 'sr', 'ka', 'hy', 'tg', 'ky', 'kk']);
 
 // Languages whose script MapLibre Native cannot shape. Its Android library has no text-shaping engine (no HarfBuzz; glyphs are per-code-point SDF ranges),
 // so Bengali conjuncts (ক্ষ, ন্দ …), pre-base vowel signs (ি ে ৈ) and split vowels (ো ৌ) would be drawn as loose, mis-ordered letters. For them the map NEVER
