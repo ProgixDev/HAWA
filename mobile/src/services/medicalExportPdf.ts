@@ -26,12 +26,21 @@ import {NOTO_SANS_JP_BOLD_SUBSET_BASE64, NOTO_SANS_JP_REGULAR_SUBSET_BASE64} fro
 import {NOTO_SANS_KR_BOLD_SUBSET_BASE64, NOTO_SANS_KR_REGULAR_SUBSET_BASE64} from './pdfKoreanFont';
 import {NOTO_SANS_DEVANAGARI_BOLD_SUBSET_BASE64, NOTO_SANS_DEVANAGARI_REGULAR_SUBSET_BASE64} from './pdfDevanagariFont';
 import {NOTO_SANS_BENGALI_BOLD_SUBSET_BASE64, NOTO_SANS_BENGALI_REGULAR_SUBSET_BASE64} from './pdfBengaliFont';
+import {NOTO_SANS_TAMIL_BOLD_SUBSET_BASE64, NOTO_SANS_TAMIL_REGULAR_SUBSET_BASE64} from './pdfTamilFont';
+import {NOTO_SANS_TELUGU_BOLD_SUBSET_BASE64, NOTO_SANS_TELUGU_REGULAR_SUBSET_BASE64} from './pdfTeluguFont';
+import {NOTO_SANS_GUJARATI_BOLD_SUBSET_BASE64, NOTO_SANS_GUJARATI_REGULAR_SUBSET_BASE64} from './pdfGujaratiFont';
+import {NOTO_SANS_GURMUKHI_BOLD_SUBSET_BASE64, NOTO_SANS_GURMUKHI_REGULAR_SUBSET_BASE64} from './pdfGurmukhiFont';
+import {NOTO_SANS_MYANMAR_BOLD_SUBSET_BASE64, NOTO_SANS_MYANMAR_REGULAR_SUBSET_BASE64} from './pdfMyanmarFont';
+import {NOTO_SANS_LAO_BOLD_SUBSET_BASE64, NOTO_SANS_LAO_REGULAR_SUBSET_BASE64} from './pdfLaoFont';
+import {NOTO_SANS_KHMER_BOLD_SUBSET_BASE64, NOTO_SANS_KHMER_REGULAR_SUBSET_BASE64} from './pdfKhmerFont';
 import {NOTO_SANS_SINHALA_BOLD_SUBSET_BASE64, NOTO_SANS_SINHALA_REGULAR_SUBSET_BASE64} from './pdfSinhalaFont';
 import {NOTO_SANS_THAI_BOLD_SUBSET_BASE64, NOTO_SANS_THAI_REGULAR_SUBSET_BASE64} from './pdfThaiFont';
 import {NOTO_SANS_GEORGIAN_BOLD_SUBSET_BASE64, NOTO_SANS_GEORGIAN_REGULAR_SUBSET_BASE64} from './pdfGeorgianFont';
 import {NOTO_SANS_ARMENIAN_BOLD_SUBSET_BASE64, NOTO_SANS_ARMENIAN_REGULAR_SUBSET_BASE64} from './pdfArmenianFont';
+import {NOTO_SANS_ETHIOPIC_BOLD_SUBSET_BASE64, NOTO_SANS_ETHIOPIC_REGULAR_SUBSET_BASE64} from './pdfEthiopicFont';
+import {NOTO_SANS_GREEK_BOLD_SUBSET_BASE64, NOTO_SANS_GREEK_REGULAR_SUBSET_BASE64} from './pdfGreekFont';
 import {NOTO_SANS_VIETNAMESE_BOLD_SUBSET_BASE64, NOTO_SANS_VIETNAMESE_REGULAR_SUBSET_BASE64} from './pdfVietnameseFont';
-import {applyFontkitOpenTypeFixes, FixableFont} from './fontkitOpenTypeFixes';
+import {applyFontkitOpenTypeFixes, FixableFont, skipMissingBaseAnchors, tolerateGposLookupErrors} from './fontkitOpenTypeFixes';
 import i18n from '../i18n';
 
 // Local, on-device PDF generation for the Medical Export "Rapport de suivi" —
@@ -118,6 +127,26 @@ const AZERBAIJANI_SCHWA_RE = /[əƏ]/;
 
 export const containsAzerbaijaniSchwa = (text: string): boolean => AZERBAIJANI_SCHWA_RE.test(text);
 
+/** The Wolof eng Ŋ ŋ (U+014A, U+014B, in Latin Extended-A): not in WinAnsi, so it routes to the embedded Noto Sans subset (pdfVietnameseFont.ts, which includes Latin Extended-A and draws ñ ë too). */
+const WOLOF_ENG_RE = /[ŋŊ]/;
+
+export const containsWolofEng = (text: string): boolean => WOLOF_ENG_RE.test(text);
+
+/** The Hausa hooked letters ɓ Ɓ ɗ Ɗ ƙ Ƙ ƴ Ƴ (U+0253, 0181, 0257, 018A, 0199, 0198, 01B4, 01B3): not in WinAnsi, so they route to the embedded Noto Sans subset (pdfVietnameseFont.ts), which carries all eight. */
+const HAUSA_HOOKED_RE = /[ɓƁɗƊƙƘƴƳ]/;
+
+export const containsHausaHookedLetter = (text: string): boolean => HAUSA_HOOKED_RE.test(text);
+
+/** The Ethiopic blocks (Ethiopic, Ethiopic Supplement, Ethiopic Extended, Ethiopic Extended-A): drawn with Noto Sans Ethiopic (pdfEthiopicFont.ts). Ethiopic is a syllabary with one glyph per syllable and no reordering, so the run is drawn by pdf-lib directly (no fontkit shaping step). */
+const ETHIOPIC_RE = /[ሀ-᎟ⶀ-⷟꬀-꬯]/;
+export const containsEthiopic = (text: string): boolean => ETHIOPIC_RE.test(text);
+const isEthiopicChar = (codePoint: number): boolean => (codePoint >= 0x1200 && codePoint <= 0x139f) || (codePoint >= 0x2d80 && codePoint <= 0x2ddf) || (codePoint >= 0xab00 && codePoint <= 0xab2f);
+
+/** The Greek and Coptic block (U+0370-03FF) and Greek Extended (U+1F00-1FFF): drawn with Noto Sans Greek (pdfGreekFont.ts). Greek is an unjoined alphabet with precomposed accented letters, so the run is drawn by pdf-lib directly (no fontkit shaping step). */
+const GREEK_RE = /[Ͱ-Ͽἀ-῿]/;
+export const containsGreek = (text: string): boolean => GREEK_RE.test(text);
+const isGreekChar = (codePoint: number): boolean => (codePoint >= 0x0370 && codePoint <= 0x03ff) || (codePoint >= 0x1f00 && codePoint <= 0x1fff);
+
 /** CJK ideographs (+ extension A, compatibility), CJK symbols & punctuation, hiragana/katakana and the fullwidth forms:
  * what a Simplified Chinese report is made of. Noto Sans SC (pdfChineseFont.ts) draws them. */
 const CHINESE_RE = /[\u3040-\u30FF\u3130-\u318F\u3400-\u4DBF\u4E00-\u9FFF\uAC00-\uD7AF\uF900-\uFAFF\uFF00-\uFFEF]/;
@@ -135,6 +164,35 @@ export const containsBengali = (text: string): boolean => BENGALI_RE.test(text);
 /** The danda and double danda (U+0964-0965) live in the Devanagari block but are the Bengali full stop too: the Bengali face has them. */
 const isBengaliChar = (codePoint: number): boolean =>
   (codePoint >= 0x0980 && codePoint <= 0x09ff) || codePoint === 0x0964 || codePoint === 0x0965 || codePoint === 0x200c || codePoint === 0x200d;
+/** The Tamil block (Tamil): drawn with Noto Sans Tamil, shaped by fontkit's Indic shaper like Devanagari (see drawShapedRun). Every distinct Tamil word of the app was
+ * compared with HarfBuzz (glyph ids and advances): no difference, so no fontkit fix is needed for this face. The face has no Latin: Latin text stays on Helvetica. */
+const TAMIL_RE = /[஀-௿]/;
+export const containsTamil = (text: string): boolean => TAMIL_RE.test(text);
+const isTamilChar = (codePoint: number): boolean => (codePoint >= 0x0b80 && codePoint <= 0x0bff) || codePoint === 0x200c || codePoint === 0x200d;
+/** The Telugu block (Telugu): drawn with Noto Sans Telugu, shaped by fontkit's Indic shaper (see createTeluguFace). The face has no Latin: Latin text stays on Helvetica. */
+const TELUGU_RE = /[ఀ-౿]/;
+export const containsTelugu = (text: string): boolean => TELUGU_RE.test(text);
+const isTeluguChar = (codePoint: number): boolean => (codePoint >= 0x0c00 && codePoint <= 0x0c7f) || codePoint === 0x200c || codePoint === 0x200d;
+/** The Gujarati block: drawn with Noto Sans Gujarati, shaped by fontkit's Indic shaper (see createGujaratiFace). The face has no Latin: Latin text stays on Helvetica. */
+const GUJARATI_RE = /[઀-૿]/;
+export const containsGujarati = (text: string): boolean => GUJARATI_RE.test(text);
+const isGujaratiChar = (codePoint: number): boolean => (codePoint >= 0x0a80 && codePoint <= 0x0aff) || codePoint === 0x200c || codePoint === 0x200d;
+/** The Gurmukhi block: drawn with Noto Sans Gurmukhi, shaped by fontkit's Indic shaper (see createGurmukhiFace). The face has no Latin: Latin text stays on Helvetica. */
+const GURMUKHI_RE = /[਀-੿]/;
+export const containsGurmukhi = (text: string): boolean => GURMUKHI_RE.test(text);
+const isGurmukhiChar = (codePoint: number): boolean => (codePoint >= 0x0a00 && codePoint <= 0x0a7f) || codePoint === 0x0964 || codePoint === 0x0965 || codePoint === 0x200c || codePoint === 0x200d;
+/** The Myanmar block: drawn with Noto Sans Myanmar, shaped by fontkit's Indic shaper (see createMyanmarFace). The face has no Latin: Latin text stays on Helvetica. */
+const MYANMAR_RE = /[က-႟]/;
+export const containsMyanmar = (text: string): boolean => MYANMAR_RE.test(text);
+const isMyanmarChar = (codePoint: number): boolean => (codePoint >= 0x1000 && codePoint <= 0x109f) || (codePoint >= 0xa9e0 && codePoint <= 0xa9ff) || (codePoint >= 0xaa60 && codePoint <= 0xaa7f) || codePoint === 0x200c || codePoint === 0x200d;
+/** The Lao block: drawn with Noto Sans Lao, shaped by fontkit's default shaper (mark positioning via GPOS) (see createLaoFace). The face has no Latin: Latin text stays on Helvetica. */
+const LAO_RE = /[຀-໿]/;
+export const containsLao = (text: string): boolean => LAO_RE.test(text);
+const isLaoChar = (codePoint: number): boolean => (codePoint >= 0x0e80 && codePoint <= 0x0eff) || codePoint === 0x200c || codePoint === 0x200d;
+/** The Khmer block: drawn with Noto Sans Khmer, shaped by fontkit's Indic shaper (see createKhmerFace). The face has no Latin: Latin text stays on Helvetica. */
+const KHMER_RE = /[ក-៿]/;
+export const containsKhmer = (text: string): boolean => KHMER_RE.test(text);
+const isKhmerChar = (codePoint: number): boolean => (codePoint >= 0x1780 && codePoint <= 0x17ff) || (codePoint >= 0x19e0 && codePoint <= 0x19ff) || codePoint === 0x200c || codePoint === 0x200d;
 /** The Sinhala block (Sinhala): drawn with Noto Sans Sinhala, shaped by fontkit's universal shaper (see createSinhalaFace). */
 const SINHALA_RE = /[඀-෿]/;
 export const containsSinhala = (text: string): boolean => SINHALA_RE.test(text);
@@ -207,6 +265,20 @@ type Fonts = {
   devanagari?: DevanagariFaces | null;
   /** Set only for a report that contains Bengali text. */
   bengali?: DevanagariFaces | null;
+  /** Set only for a report that contains Tamil text. */
+  tamil?: DevanagariFaces | null;
+  /** Set only for a report that contains Telugu text. */
+  telugu?: DevanagariFaces | null;
+  /** Set only for a report that contains Gujarati text. */
+  gujarati?: DevanagariFaces | null;
+  /** Set only for a report that contains Gurmukhi text. */
+  gurmukhi?: DevanagariFaces | null;
+  /** Set only for a report that contains Myanmar text. */
+  myanmar?: DevanagariFaces | null;
+  /** Set only for a report that contains Lao text. */
+  lao?: DevanagariFaces | null;
+  /** Set only for a report that contains Khmer text. */
+  khmer?: DevanagariFaces | null;
   /** Set only for a report that contains Sinhala text. */
   sinhala?: DevanagariFaces | null;
   /** Set only for a report that contains Thai text. */
@@ -215,6 +287,10 @@ type Fonts = {
   georgian?: DevanagariFaces | null;
   /** Set only for a report that contains Armenian text (an unshaped face: Armenian needs no complex shaping). */
   armenian?: DevanagariFaces | null;
+  /** Set only for a report that contains Ethiopic text (an unshaped face: Ethiopic needs no complex shaping). */
+  ethiopic?: DevanagariFaces | null;
+  /** Set only for a report that contains Greek text (an unshaped face: Greek needs no complex shaping). */
+  greek?: DevanagariFaces | null;
 };
 
 type Cursor = {doc: PDFDocument; page: PDFPage; y: number; fonts: Fonts; support: PdfCharSupport};
@@ -348,6 +424,143 @@ export function createBengaliFace(base64: string): ShapingFont {
   const face = fontkit.create(decodeFromBase64(base64)) as unknown as FixableFont & ShapingFont;
   applyFontkitOpenTypeFixes(face);
   return {unitsPerEm: face.unitsPerEm, layout: (text: string) => face.layout(guardBengaliSyllables(text)) as ShapedGlyphRun};
+}
+
+/** A Telugu fontkit face that shapes like HarfBuzz: the OpenType gaps fixed for this face only (fontkitOpenTypeFixes.ts), and the zero-width glyph fontkit
+ * leaves for a ZWNJ / ZWJ (HarfBuzz drops it) removed, so it is never drawn as a box. Measuring and drawing share this layout. */
+export function createTeluguFace(base64: string): ShapingFont {
+  const face = fontkit.create(decodeFromBase64(base64)) as unknown as FixableFont & ShapingFont;
+  applyFontkitOpenTypeFixes(face);
+  skipMissingBaseAnchors(face, 'క');
+  return {
+    unitsPerEm: face.unitsPerEm,
+    layout: (text: string) => {
+      const run = face.layout(text) as ShapedGlyphRun;
+      const keep = run.glyphs.map((glyph, index) => glyph.id !== 0 || run.positions[index].xAdvance !== 0);
+      return {glyphs: run.glyphs.filter((_, index) => keep[index]), positions: run.positions.filter((_, index) => keep[index])};
+    },
+  };
+}
+
+/** A Gujarati fontkit face with the same OpenType fixes and zero-width-glyph filtering as the Telugu one (see createTeluguFace). */
+export function createGujaratiFace(base64: string): ShapingFont {
+  const face = fontkit.create(decodeFromBase64(base64)) as unknown as FixableFont & ShapingFont;
+  applyFontkitOpenTypeFixes(face);
+  skipMissingBaseAnchors(face, 'ક');
+  return {
+    unitsPerEm: face.unitsPerEm,
+    layout: (text: string) => {
+      const run = face.layout(text) as ShapedGlyphRun;
+      const keep = run.glyphs.map((glyph, index) => glyph.id !== 0 || run.positions[index].xAdvance !== 0);
+      return {glyphs: run.glyphs.filter((_, index) => keep[index]), positions: run.positions.filter((_, index) => keep[index])};
+    },
+  };
+}
+
+/** A Gurmukhi fontkit face with the same OpenType fixes and zero-width-glyph filtering as the Telugu one (see createTeluguFace). */
+export function createGurmukhiFace(base64: string): ShapingFont {
+  const face = fontkit.create(decodeFromBase64(base64)) as unknown as FixableFont & ShapingFont;
+  applyFontkitOpenTypeFixes(face);
+  skipMissingBaseAnchors(face, 'ਕ');
+  return {
+    unitsPerEm: face.unitsPerEm,
+    layout: (text: string) => {
+      const run = face.layout(text) as ShapedGlyphRun;
+      const keep = run.glyphs.map((glyph, index) => glyph.id !== 0 || run.positions[index].xAdvance !== 0);
+      return {glyphs: run.glyphs.filter((_, index) => keep[index]), positions: run.positions.filter((_, index) => keep[index])};
+    },
+  };
+}
+
+/** Myanmar syllable reordering that fontkit lacks (it only runs the GSUB/GPOS features): HarfBuzz stable-sorts every syllable by position, which moves the
+ * pre-base vowel sign ေ (U+1031) and the medial ra ြ (U+103C) in front of the base consonant. Without it the vowel is drawn AFTER the consonant it belongs
+ * before ("နောက်" shown as "နေ်ာက"), and the pre-base glyph forms the font's later features expect never form. The base is the first consonant of a syllable,
+ * i.e. one not preceded by a virama; the stack/medial/vowel order after it is left to the font. */
+const MYANMAR_FEATURES = ['abvs', 'blws']; // the font's mym2 features fontkit's default plan omits; adding blwf (or the rest of the Indic set) makes fontkit loop forever on some words
+const MYANMAR_PRE_BASE_VOWEL = 0x1031;
+const MYANMAR_MEDIAL_RA = 0x103c;
+const isMyanmarConsonant = (cp: number): boolean => (cp >= 0x1000 && cp <= 0x1021) || (cp >= 0x1023 && cp <= 0x1027) || cp === 0x1029 || cp === 0x102a || cp === 0x103f || (cp >= 0x1050 && cp <= 0x1055) || cp === 0x104e;
+export function reorderMyanmar(text: string): string {
+  // ု (U+102F) then ံ (U+1036) is drawn as ံ then ု, like HarfBuzz's position sort does; the font's rules only match that order
+  const cps = Array.from(text.replace(/ုံ/g, 'ံု')).map(char => char.codePointAt(0) as number);
+  const out: number[] = [];
+  let start = -1; // index in `out` of the current syllable's base consonant
+  let pre = 0; // number of pre-base signs already placed in front of it
+  cps.forEach((cp, index) => {
+    const afterVirama = index > 0 && cps[index - 1] === 0x1039;
+    if (isMyanmarConsonant(cp) && !afterVirama) {
+      start = out.length;
+      pre = 0;
+      out.push(cp);
+      return;
+    }
+    if (start >= 0 && cp === MYANMAR_MEDIAL_RA) {
+      out.splice(start + pre, 0, cp);
+      pre += 1;
+      return;
+    }
+    if (start >= 0 && cp === MYANMAR_PRE_BASE_VOWEL) {
+      out.splice(start, 0, cp);
+      start += 1;
+      pre += 1;
+      return;
+    }
+    if (!(cp >= 0x1000 && cp <= 0x109f) || cp === 0x104a || cp === 0x104b) {
+      start = -1; // a space, punctuation or another script ends the syllable
+    }
+    out.push(cp);
+  });
+  return String.fromCodePoint(...out);
+}
+
+/** A Myanmar fontkit face with the same OpenType fixes and zero-width-glyph filtering as the Telugu one (see createTeluguFace). */
+export function createMyanmarFace(base64: string): ShapingFont {
+  const face = fontkit.create(decodeFromBase64(base64)) as unknown as FixableFont & ShapingFont & {_glyphs: Record<number, unknown>};
+  applyFontkitOpenTypeFixes(face);
+  skipMissingBaseAnchors(face, 'က');
+  return {
+    unitsPerEm: face.unitsPerEm,
+    layout: (text: string) => {
+      face._glyphs = {}; // fontkit reuses its cached Glyph objects between runs and its shapers mutate them: reset so one word cannot change the next (see createKhmerFace)
+      const run = (face as unknown as {layout: (text: string, features: string[]) => ShapedGlyphRun}).layout(reorderMyanmar(text), MYANMAR_FEATURES);
+      const keep = run.glyphs.map((glyph, index) => glyph.id !== 0 || run.positions[index].xAdvance !== 0);
+      return {glyphs: run.glyphs.filter((_, index) => keep[index]), positions: run.positions.filter((_, index) => keep[index])};
+    },
+  };
+}
+
+/** A Khmer fontkit face with the same OpenType fixes and zero-width-glyph filtering as the Telugu one (see createTeluguFace). */
+export function createKhmerFace(base64: string): ShapingFont {
+  const face = fontkit.create(decodeFromBase64(base64)) as unknown as FixableFont & ShapingFont & {_glyphs: Record<number, unknown>};
+  applyFontkitOpenTypeFixes(face);
+  skipMissingBaseAnchors(face, 'ក');
+  tolerateGposLookupErrors(face, 'ក');
+  return {
+    unitsPerEm: face.unitsPerEm,
+    layout: (text: string) => {
+      face._glyphs = {}; // fontkit reuses its cached Glyph objects between runs and the Khmer shaper mutates them: a pre-base vowel left a stray extra "េ" in the NEXT word
+      const run = face.layout(text) as ShapedGlyphRun;
+      const keep = run.glyphs.map((glyph, index) => glyph.id !== 0 || run.positions[index].xAdvance !== 0);
+      return {glyphs: run.glyphs.filter((_, index) => keep[index]), positions: run.positions.filter((_, index) => keep[index])};
+    },
+  };
+}
+
+/** A Lao fontkit face with the same OpenType fixes and zero-width-glyph filtering as the Telugu one (see createTeluguFace). */
+export function createLaoFace(base64: string): ShapingFont {
+  const face = fontkit.create(decodeFromBase64(base64)) as unknown as FixableFont & ShapingFont & {_glyphs: Record<number, unknown>};
+  applyFontkitOpenTypeFixes(face);
+  skipMissingBaseAnchors(face, 'ກ');
+  tolerateGposLookupErrors(face, 'ກ');
+  return {
+    unitsPerEm: face.unitsPerEm,
+    layout: (text: string) => {
+      face._glyphs = {}; // fontkit reuses its cached Glyph objects between runs and its shapers mutate them: reset so one word cannot change the next (see createKhmerFace)
+      const run = face.layout(text.replace(/([່-໋])ຳ/g, 'ໍ$1າ')) as ShapedGlyphRun; // HarfBuzz's Lao shaper decomposes AM and puts the nikhahit before the tone mark so the font's ligature forms
+      const keep = run.glyphs.map((glyph, index) => glyph.id !== 0 || run.positions[index].xAdvance !== 0);
+      return {glyphs: run.glyphs.filter((_, index) => keep[index]), positions: run.positions.filter((_, index) => keep[index])};
+    },
+  };
 }
 
 type SinhalaFontkit = {
@@ -490,7 +703,7 @@ export function layoutLineRuns(line: string, paraLevel: 0 | 1, fonts: Fonts, bol
   const latinFont = bold ? fonts.latinBold : fonts.latin;
   // A line takes this path when it holds Devanagari / Bengali OR any character only an Indic face has (a wrapped line that is just
   // '₹500' must not reach Helvetica, which cannot encode the rupee sign).
-  const indicFaces = [fonts.bengali, fonts.devanagari, fonts.sinhala, fonts.thai, fonts.georgian, fonts.armenian].filter((faces): faces is DevanagariFaces => Boolean(faces));
+  const indicFaces = [fonts.bengali, fonts.tamil, fonts.telugu, fonts.gujarati, fonts.gurmukhi, fonts.myanmar, fonts.khmer, fonts.lao, fonts.devanagari, fonts.sinhala, fonts.thai, fonts.georgian, fonts.armenian, fonts.ethiopic, fonts.greek].filter((faces): faces is DevanagariFaces => Boolean(faces));
   if (indicFaces.length && !containsArabicScript(line) && indicFaces.some(faces => needsIndicFace(line, faces))) {
     return indicRuns(line, indicFaces, latinFont, bold);
   }
@@ -599,14 +812,14 @@ const NO_LINE_END = new Set(Array.from('（“‘【《〈『「([{［｛〔'));
 
 /** The units a too-long token may be broken between: single characters, except in Indic scripts where a base letter keeps its combining marks and a
  * virama (conjunct) keeps the letter it joins, so a break never separates a vowel sign from its consonant. */
-const INDIC_TOKEN_RE = /[\u0900-\u097F\u0980-\u09FF]/;
+const INDIC_TOKEN_RE = /[\u0900-\u097F\u0980-\u09FF\u0A80-\u0AFF\u0A00-\u0A7F\u1000-\u109F\u1780-\u17FF\u0E80-\u0EFF]/;
 function breakUnits(word: string): string[] {
   const chars = Array.from(word);
   if (!INDIC_TOKEN_RE.test(word)) {return chars;}
   const units: string[] = [];
   chars.forEach((char, index) => {
     const previous = chars[index - 1];
-    const joins = units.length > 0 && (/[\p{M}\u200c\u200d]/u.test(char) || previous === '\u094d' || previous === '\u09cd' || previous === '\u200d');
+    const joins = units.length > 0 && (/[\u0EB3\u0EBD]/.test(char) || (previous !== undefined && /[\u0EC0-\u0EC4]/.test(previous)) || /[\p{M}\u200c\u200d]/u.test(char) || previous === '\u094d' || previous === '\u0acd' || previous === '\u0a4d' || previous === '\u1039' || previous === '\u17d2' || previous === '\u09cd' || previous === '\u200d');
     if (joins) {units[units.length - 1] += char;} else {units.push(char);}
   });
   return units;
@@ -745,7 +958,7 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   // A Polish report (ą ć ę ł ń ś ź ż) uses the same embedded DejaVu face: its subset includes Latin Extended-A.
   // A Vietnamese report (ạ ả ấ ơ ư đ …), or an Uzbek one (ʻ ʼ), is drawn entirely with an embedded Noto Sans Regular + Bold subset (pdfVietnameseFont.ts); it takes precedence over the Polish /
   // Romanian test below because ă is shared and the DejaVu subset has no Vietnamese tone letters.
-  const needsVietnamese = !needsChinese && !needsCyrillic && strings.some(text => containsVietnameseSpecificLetter(text) || containsUzbekModifierLetter(text) || containsAzerbaijaniSchwa(text));
+  const needsVietnamese = !needsChinese && !needsCyrillic && strings.some(text => containsVietnameseSpecificLetter(text) || containsUzbekModifierLetter(text) || containsAzerbaijaniSchwa(text) || containsWolofEng(text) || containsHausaHookedLetter(text));
   const needsPolish = !needsChinese && !needsCyrillic && !needsVietnamese && strings.some(containsPolishSpecificLetter);
   // A Hindi report keeps Helvetica for Latin text and adds Noto Sans Devanagari for the Devanagari runs (the face has no Latin); a Bengali report does the
   // same with Noto Sans Bengali for the Bengali runs.
@@ -806,6 +1019,83 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
     shapedFaces.set(boldFace, createBengaliFace(NOTO_SANS_BENGALI_BOLD_SUBSET_BASE64));
     bengali = {regular, bold: boldFace, support: pdfCharSupport(regular), latinSupport: new Set<number>(), isScript: isBengaliChar};
   }
+  const needsTamil = strings.some(containsTamil);
+  let tamil: DevanagariFaces | null = null;
+  if (needsTamil) {
+    ensureShapingRuntime();
+    doc.registerFontkit(fontkit);
+    const regular = await doc.embedFont(NOTO_SANS_TAMIL_REGULAR_SUBSET_BASE64, {subset: false});
+    const boldFace = await doc.embedFont(NOTO_SANS_TAMIL_BOLD_SUBSET_BASE64, {subset: false});
+    shapedFaces.set(regular, fontkit.create(decodeFromBase64(NOTO_SANS_TAMIL_REGULAR_SUBSET_BASE64)) as unknown as ShapingFont);
+    shapedFaces.set(boldFace, fontkit.create(decodeFromBase64(NOTO_SANS_TAMIL_BOLD_SUBSET_BASE64)) as unknown as ShapingFont);
+    tamil = {regular, bold: boldFace, support: pdfCharSupport(regular), latinSupport: new Set<number>(), isScript: isTamilChar};
+  }
+  const needsTelugu = strings.some(containsTelugu);
+  let telugu: DevanagariFaces | null = null;
+  if (needsTelugu) {
+    ensureShapingRuntime();
+    doc.registerFontkit(fontkit);
+    const regular = await doc.embedFont(NOTO_SANS_TELUGU_REGULAR_SUBSET_BASE64, {subset: false});
+    const boldFace = await doc.embedFont(NOTO_SANS_TELUGU_BOLD_SUBSET_BASE64, {subset: false});
+    shapedFaces.set(regular, createTeluguFace(NOTO_SANS_TELUGU_REGULAR_SUBSET_BASE64));
+    shapedFaces.set(boldFace, createTeluguFace(NOTO_SANS_TELUGU_BOLD_SUBSET_BASE64));
+    telugu = {regular, bold: boldFace, support: pdfCharSupport(regular), latinSupport: new Set<number>(), isScript: isTeluguChar};
+  }
+  const needsGujarati = strings.some(containsGujarati);
+  let gujarati: DevanagariFaces | null = null;
+  if (needsGujarati) {
+    ensureShapingRuntime();
+    doc.registerFontkit(fontkit);
+    const regular = await doc.embedFont(NOTO_SANS_GUJARATI_REGULAR_SUBSET_BASE64, {subset: false});
+    const boldFace = await doc.embedFont(NOTO_SANS_GUJARATI_BOLD_SUBSET_BASE64, {subset: false});
+    shapedFaces.set(regular, createGujaratiFace(NOTO_SANS_GUJARATI_REGULAR_SUBSET_BASE64));
+    shapedFaces.set(boldFace, createGujaratiFace(NOTO_SANS_GUJARATI_BOLD_SUBSET_BASE64));
+    gujarati = {regular, bold: boldFace, support: pdfCharSupport(regular), latinSupport: new Set<number>(), isScript: isGujaratiChar};
+  }
+  const needsGurmukhi = strings.some(containsGurmukhi);
+  let gurmukhi: DevanagariFaces | null = null;
+  if (needsGurmukhi) {
+    ensureShapingRuntime();
+    doc.registerFontkit(fontkit);
+    const regular = await doc.embedFont(NOTO_SANS_GURMUKHI_REGULAR_SUBSET_BASE64, {subset: false});
+    const boldFace = await doc.embedFont(NOTO_SANS_GURMUKHI_BOLD_SUBSET_BASE64, {subset: false});
+    shapedFaces.set(regular, createGurmukhiFace(NOTO_SANS_GURMUKHI_REGULAR_SUBSET_BASE64));
+    shapedFaces.set(boldFace, createGurmukhiFace(NOTO_SANS_GURMUKHI_BOLD_SUBSET_BASE64));
+    gurmukhi = {regular, bold: boldFace, support: pdfCharSupport(regular), latinSupport: new Set<number>(), isScript: isGurmukhiChar};
+  }
+  const needsMyanmar = strings.some(containsMyanmar);
+  let myanmar: DevanagariFaces | null = null;
+  if (needsMyanmar) {
+    ensureShapingRuntime();
+    doc.registerFontkit(fontkit);
+    const regular = await doc.embedFont(NOTO_SANS_MYANMAR_REGULAR_SUBSET_BASE64, {subset: false});
+    const boldFace = await doc.embedFont(NOTO_SANS_MYANMAR_BOLD_SUBSET_BASE64, {subset: false});
+    shapedFaces.set(regular, createMyanmarFace(NOTO_SANS_MYANMAR_REGULAR_SUBSET_BASE64));
+    shapedFaces.set(boldFace, createMyanmarFace(NOTO_SANS_MYANMAR_BOLD_SUBSET_BASE64));
+    myanmar = {regular, bold: boldFace, support: pdfCharSupport(regular), latinSupport: new Set<number>(), isScript: isMyanmarChar};
+  }
+  const needsKhmer = strings.some(containsKhmer);
+  let khmer: DevanagariFaces | null = null;
+  if (needsKhmer) {
+    ensureShapingRuntime();
+    doc.registerFontkit(fontkit);
+    const regular = await doc.embedFont(NOTO_SANS_KHMER_REGULAR_SUBSET_BASE64, {subset: false});
+    const boldFace = await doc.embedFont(NOTO_SANS_KHMER_BOLD_SUBSET_BASE64, {subset: false});
+    shapedFaces.set(regular, createKhmerFace(NOTO_SANS_KHMER_REGULAR_SUBSET_BASE64));
+    shapedFaces.set(boldFace, createKhmerFace(NOTO_SANS_KHMER_BOLD_SUBSET_BASE64));
+    khmer = {regular, bold: boldFace, support: pdfCharSupport(regular), latinSupport: new Set<number>(), isScript: isKhmerChar};
+  }
+  const needsLao = strings.some(containsLao);
+  let lao: DevanagariFaces | null = null;
+  if (needsLao) {
+    ensureShapingRuntime();
+    doc.registerFontkit(fontkit);
+    const regular = await doc.embedFont(NOTO_SANS_LAO_REGULAR_SUBSET_BASE64, {subset: false});
+    const boldFace = await doc.embedFont(NOTO_SANS_LAO_BOLD_SUBSET_BASE64, {subset: false});
+    shapedFaces.set(regular, createLaoFace(NOTO_SANS_LAO_REGULAR_SUBSET_BASE64));
+    shapedFaces.set(boldFace, createLaoFace(NOTO_SANS_LAO_BOLD_SUBSET_BASE64));
+    lao = {regular, bold: boldFace, support: pdfCharSupport(regular), latinSupport: new Set<number>(), isScript: isLaoChar};
+  }
   const needsSinhala = strings.some(containsSinhala);
   let sinhala: DevanagariFaces | null = null;
   if (needsSinhala) {
@@ -846,6 +1136,24 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
     const boldFace = await doc.embedFont(NOTO_SANS_ARMENIAN_BOLD_SUBSET_BASE64, {subset: true});
     armenian = {regular, bold: boldFace, support: pdfCharSupport(regular), latinSupport: new Set<number>(), isScript: isArmenianChar};
   }
+  const needsEthiopic = strings.some(containsEthiopic);
+  let ethiopic: DevanagariFaces | null = null;
+  if (needsEthiopic) {
+    // Ethiopic (Ge'ez) is a syllabary with one glyph per syllable: the faces are NOT registered in shapedFaces, so pdf-lib measures and draws them directly.
+    doc.registerFontkit(fontkit);
+    const regular = await doc.embedFont(NOTO_SANS_ETHIOPIC_REGULAR_SUBSET_BASE64, {subset: true});
+    const boldFace = await doc.embedFont(NOTO_SANS_ETHIOPIC_BOLD_SUBSET_BASE64, {subset: true});
+    ethiopic = {regular, bold: boldFace, support: pdfCharSupport(regular), latinSupport: new Set<number>(), isScript: isEthiopicChar};
+  }
+  const needsGreek = strings.some(containsGreek);
+  let greek: DevanagariFaces | null = null;
+  if (needsGreek) {
+    // Greek has no reordering, conjuncts or joining: the faces are NOT registered in shapedFaces, so pdf-lib measures and draws them directly.
+    doc.registerFontkit(fontkit);
+    const regular = await doc.embedFont(NOTO_SANS_GREEK_REGULAR_SUBSET_BASE64, {subset: true});
+    const boldFace = await doc.embedFont(NOTO_SANS_GREEK_BOLD_SUBSET_BASE64, {subset: true});
+    greek = {regular, bold: boldFace, support: pdfCharSupport(regular), latinSupport: new Set<number>(), isScript: isGreekChar};
+  }
   // A Turkish report is drawn entirely with Cairo (Regular for body text, an embedded Cairo Bold subset with the same
   // code points for titles / headings / dates / category labels), so that no word is split between two typefaces and
   // the heading hierarchy survives. Every other report keeps Helvetica / Helvetica-Bold and never embeds the bold face.
@@ -856,13 +1164,22 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   const arabicSupport: PdfCharSupport = arabic ? pdfCharSupport(arabic) : new Set<number>();
   if (devanagari) {devanagari.latinSupport = pdfCharSupport(latin);}
   if (bengali) {bengali.latinSupport = pdfCharSupport(latin);}
+  if (tamil) {tamil.latinSupport = pdfCharSupport(latin);}
+  if (telugu) {telugu.latinSupport = pdfCharSupport(latin);}
+  if (gujarati) {gujarati.latinSupport = pdfCharSupport(latin);}
+  if (gurmukhi) {gurmukhi.latinSupport = pdfCharSupport(latin);}
+  if (myanmar) {myanmar.latinSupport = pdfCharSupport(latin);}
+  if (lao) {lao.latinSupport = pdfCharSupport(latin);}
+  if (khmer) {khmer.latinSupport = pdfCharSupport(latin);}
   if (sinhala) {sinhala.latinSupport = pdfCharSupport(latin);}
   if (thai) {thai.latinSupport = pdfCharSupport(latin);}
   if (georgian) {georgian.latinSupport = pdfCharSupport(latin);}
   if (armenian) {armenian.latinSupport = pdfCharSupport(latin);}
-  const fonts: Fonts = {latin, latinBold, arabic, arabicSupport, probe: needsArabic ? probe : null, devanagari, bengali, sinhala, thai, georgian, armenian};
+  if (ethiopic) {ethiopic.latinSupport = pdfCharSupport(latin);}
+  if (greek) {greek.latinSupport = pdfCharSupport(latin);}
+  const fonts: Fonts = {latin, latinBold, arabic, arabicSupport, probe: needsArabic ? probe : null, devanagari, bengali, tamil, telugu, gujarati, gurmukhi, myanmar, khmer, lao, sinhala, thai, georgian, armenian, ethiopic, greek};
   // Bold shares the regular face's character set, so one check covers both.
-  const support: PdfCharSupport = new Set<number>([...pdfCharSupport(latin), ...arabicSupport, ...(devanagari ? devanagari.support : []), ...(bengali ? bengali.support : []), ...(sinhala ? sinhala.support : []), ...(thai ? thai.support : []), ...(georgian ? georgian.support : []), ...(armenian ? armenian.support : [])]);
+  const support: PdfCharSupport = new Set<number>([...pdfCharSupport(latin), ...arabicSupport, ...(devanagari ? devanagari.support : []), ...(bengali ? bengali.support : []), ...(tamil ? tamil.support : []), ...(telugu ? telugu.support : []), ...(gujarati ? gujarati.support : []), ...(gurmukhi ? gurmukhi.support : []), ...(myanmar ? myanmar.support : []), ...(khmer ? khmer.support : []), ...(lao ? lao.support : []), ...(sinhala ? sinhala.support : []), ...(thai ? thai.support : []), ...(georgian ? georgian.support : []), ...(armenian ? armenian.support : []), ...(ethiopic ? ethiopic.support : []), ...(greek ? greek.support : [])]);
   const cursor: Cursor = {doc, page: newPage(doc), y: PAGE_HEIGHT - MARGIN, fonts, support};
 
   drawParagraph(cursor, 'AWA', {size: 22, bold: true, color: TITLE_COLOR, gapAfter: 2});
