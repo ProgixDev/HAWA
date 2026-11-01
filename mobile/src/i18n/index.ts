@@ -43,6 +43,25 @@ import {hy} from './locales/hy';
 import {tg} from './locales/tg';
 import {ky} from './locales/ky';
 import {tk} from './locales/tk';
+import {ms} from './locales/ms';
+import {so} from './locales/so';
+import {sw} from './locales/sw';
+import {kk} from './locales/kk';
+import {wo} from './locales/wo';
+import {ha} from './locales/ha';
+import {am} from './locales/am';
+import {nl} from './locales/nl';
+import {fi} from './locales/fi';
+import {el} from './locales/el';
+import {fil} from './locales/fil';
+import {ta} from './locales/ta';
+import {te} from './locales/te';
+import {mr} from './locales/mr';
+import {gu} from './locales/gu';
+import {pa} from './locales/pa';
+import {my} from './locales/my';
+import {km} from './locales/km';
+import {lo} from './locales/lo';
 import './pluralRules';
 
 // Centralized localization (i18next + react-i18next) — imported once, as a
@@ -125,6 +144,25 @@ i18n.use(initReactI18next).init({
     tg: {translation: tg},
     ky: {translation: ky},
     tk: {translation: tk},
+    ms: {translation: ms},
+    so: {translation: so},
+    sw: {translation: sw},
+    kk: {translation: kk},
+    wo: {translation: wo},
+    ha: {translation: ha},
+    am: {translation: am},
+    nl: {translation: nl},
+    fi: {translation: fi},
+    el: {translation: el},
+    fil: {translation: fil},
+    ta: {translation: ta},
+    te: {translation: te},
+    mr: {translation: mr},
+    gu: {translation: gu},
+    pa: {translation: pa},
+    my: {translation: my},
+    km: {translation: km},
+    lo: {translation: lo},
   },
   lng: getAppLanguage(),
   // pt-BR reads key by key: Brazilian overlay → Portugal dictionary → English. Every other language falls back to English only.

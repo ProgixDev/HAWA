@@ -137,11 +137,12 @@ class AwaPluralRules {
     if (this.language === 'sr' || this.language === 'hr' || this.language === 'bs') {return southSlavicCardinal(value);}
     if (this.language === 'sl') {return slovenianCardinal(value);}
     // Chinese has no grammatical number: CLDR has the single category "other".
-    if (this.language === 'zh' || this.language === 'id' || this.language === 'ja' || this.language === 'ko' || this.language === 'th' || this.language === 'vi') {return 'other';}
+    if (this.language === 'zh' || this.language === 'id' || this.language === 'ja' || this.language === 'ko' || this.language === 'th' || this.language === 'vi' || this.language === 'ms' || this.language === 'wo' || this.language === 'my' || this.language === 'km' || this.language === 'lo') {return 'other';}
     // Indonesian, Japanese and Korean likewise have no grammatical number (CLDR: only "other").
     // Hindi (CLDR): one = integer part 0, or exactly 1 (0, 0.5, 1 → one; 1.5, 2 → other).
+    // Gujarati (CLDR) follows the same rule as Hindi and Bengali.
     // Bengali (CLDR) follows the same rule as Hindi: one = integer part 0, or exactly 1 (0, 0.5, 1 → one; 1.5, 2 → other).
-    if (this.language === 'hi' || this.language === 'bn') {return hindiCardinal(value);}
+    if (this.language === 'hi' || this.language === 'bn' || this.language === 'gu' || this.language === 'pa') {return hindiCardinal(value);}
     if (this.language === 'si') {return sinhalaCardinal(value);}
     // Armenian (CLDR): one = integer part 0 or 1 (see armenianCardinal).
     if (this.language === 'hy') {return armenianCardinal(value);}
@@ -154,7 +155,7 @@ class AwaPluralRules {
     return {
       locale: this.language,
       pluralCategories:
-        this.language === 'ru' || this.language === 'uk' || this.language === 'pl' || this.language === 'cs' || this.language === 'sk' ? ['one', 'few', 'many', 'other'] : this.language === 'ro' || this.language === 'sr' || this.language === 'hr' || this.language === 'bs' ? ['one', 'few', 'other'] : this.language === 'sl' ? ['one', 'two', 'few', 'other'] : this.language === 'he' || this.language === 'iw' ? ['one', 'two', 'other'] : this.language === 'zh' || this.language === 'id' || this.language === 'ja' || this.language === 'ko' || this.language === 'th' || this.language === 'vi' ? ['other'] : ['one', 'other'],
+        this.language === 'ru' || this.language === 'uk' || this.language === 'pl' || this.language === 'cs' || this.language === 'sk' ? ['one', 'few', 'many', 'other'] : this.language === 'ro' || this.language === 'sr' || this.language === 'hr' || this.language === 'bs' ? ['one', 'few', 'other'] : this.language === 'sl' ? ['one', 'two', 'few', 'other'] : this.language === 'he' || this.language === 'iw' ? ['one', 'two', 'other'] : this.language === 'zh' || this.language === 'id' || this.language === 'ja' || this.language === 'ko' || this.language === 'th' || this.language === 'vi' || this.language === 'ms' || this.language === 'wo' || this.language === 'my' || this.language === 'km' || this.language === 'lo' ? ['other'] : ['one', 'other'],
     };
   }
 
