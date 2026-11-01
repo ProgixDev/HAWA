@@ -24,6 +24,8 @@ type ProcessorLike = {
   applyFeatures: (features: unknown, glyphs: GlyphLike[], positions: unknown) => unknown;
   __reverseBacktrack?: boolean;
   __ligatureComponentFixed?: boolean;
+  __nullAnchorGuarded?: boolean;
+  applyAnchor?: (markRecord: unknown, baseAnchor: unknown, baseGlyphIndex: number) => void;
 };
 type OpenTypeProto = {
   match: (this: ProcessorLike, index: number, sequence: unknown[], fn: unknown, matched?: unknown) => unknown;
@@ -121,4 +123,45 @@ export function applyFontkitOpenTypeFixes(font: FixableFont): void {
       };
     }
   }
+}
+
+/** A fifth gap, used by the Telugu face only (Bengali is deliberately left as it was): a mark-to-base lookup whose base glyph has no anchor for
+ * the mark's class (a NULL anchor offset in the font) makes fontkit throw "Cannot read properties of null (reading 'xCoordinate')", which would
+ * fail the whole export for any word with a ప్ర-like conjunct. The mark is simply left unattached, which is what HarfBuzz does for that subtable. */
+export function skipMissingBaseAnchors(font: FixableFont, sample: string): void {
+  font.layout(sample); // fontkit builds its processors lazily
+  const gpos = font._layoutEngine.engine.GPOSProcessor;
+  if (!gpos || gpos.__nullAnchorGuarded || !gpos.applyAnchor) {
+    return;
+  }
+  gpos.__nullAnchorGuarded = true;
+  const applyAnchor = gpos.applyAnchor.bind(gpos);
+  gpos.applyAnchor = (markRecord, baseAnchor, baseGlyphIndex) => {
+    if (baseAnchor) {
+      applyAnchor(markRecord, baseAnchor, baseGlyphIndex);
+    }
+  };
+}
+
+/** fontkit's mark-to-ligature lookup indexes `ligatureArray[i][component]` without checking that the ligature glyph has that many components, so a Khmer
+ * word with a repetition sign after a ligature cluster (…ន្តិចម្តងៗ) throws "Cannot read properties of undefined (reading '1')" and would fail the whole
+ * export. A lookup that cannot be applied leaves the mark unattached (HarfBuzz skips a lookup it cannot apply too): the text is still drawn. */
+export function tolerateGposLookupErrors(font: FixableFont, sample: string): void {
+  font.layout(sample); // fontkit builds its processors lazily
+  const gpos = font._layoutEngine.engine.GPOSProcessor as unknown as {applyLookup?: (...args: unknown[]) => boolean; __lookupGuarded?: boolean} | undefined;
+  if (!gpos || gpos.__lookupGuarded || !gpos.applyLookup) {
+    return;
+  }
+  gpos.__lookupGuarded = true;
+  const applyLookup = gpos.applyLookup.bind(gpos);
+  gpos.applyLookup = (...args: unknown[]) => {
+    try {
+      return applyLookup(...args);
+    } catch (error) {
+      if (error instanceof TypeError) {
+        return false;
+      }
+      throw error;
+    }
+  };
 }
