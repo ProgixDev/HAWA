@@ -17,6 +17,9 @@ import {STRUCTURED_KEY_SERVICE, isStructuredEnvelope} from '../../services/struc
 
 type Secure = typeof import('../../services/secureAsyncStorage');
 
+// The first case pays the one-time cold load of the store modules (and, through them, the 60 language dictionaries): the default 5 s is not enough on a loaded machine.
+jest.setTimeout(60000);
+
 const M = {
   secure: () => require('../../services/secureAsyncStorage') as Secure,
   recovery: () => require('../../services/structuredKeyRecovery') as typeof import('../../services/structuredKeyRecovery'),
