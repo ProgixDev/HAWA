@@ -43,7 +43,7 @@ describe('app language — fresh installation and saved values', () => {
     expect(await languageAfterLaunch()).toBe(expected);
   });
 
-  it.each(['nl', 'IT', 'it-IT', 'ita', '', 'pseudo', 'null', '  it  '])(
+  it.each(['af', 'IT', 'it-IT', 'ita', '', 'pseudo', 'null', '  it  '])(
     'invalid saved value %j falls back to English',
     async invalid => {
       await AsyncStorage.setItem(LANGUAGE_KEY, invalid);
