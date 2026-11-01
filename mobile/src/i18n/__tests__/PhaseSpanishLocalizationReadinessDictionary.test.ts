@@ -85,10 +85,10 @@ describe('TEST — Spanish dictionary leaf-key parity with fr/en (cases 16-18)',
     // endonym 日本語) to every dictionary (6243). The Korean integration then added appearance.language.koreanName (the endonym 한국어)
     // to every dictionary (6244). The Portuguese integration then added appearance.language.portugueseName and portugueseBrazilName (the
     // endonyms Português (Portugal) / Português (Brasil)) to every dictionary (6246). The Bengali integration then added
-    // appearance.language.bengaliName (the endonym বাংলা) to every dictionary (6247).
-    expect(esPaths.length).toBe(6272);
-    expect(frPaths.length).toBe(6272);
-    expect(enPaths.length).toBe(6272);
+    // appearance.language.bengaliName (the endonym বাংলা) to every dictionary (6247). The later language integrations (through the 48-language release) added their own name keys, bringing every dictionary to 6291 leaves.
+    expect(esPaths.length).toBe(6291);
+    expect(frPaths.length).toBe(6291);
+    expect(enPaths.length).toBe(6291);
 
     const missingFromEsVsFr = frPaths.filter(p => !esPathSet.has(p));
     const extraInEsVsFr = esPaths.filter(p => !frPathSet.has(p));

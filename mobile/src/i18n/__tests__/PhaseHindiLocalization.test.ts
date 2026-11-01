@@ -207,7 +207,7 @@ describe('registration and normalisation', () => {
   });
 
   it('does not confuse other languages: Hindi in Roman letters, Marathi, Nepali, Urdu and Bengali are not Hindi (Bengali is its own language, bn)', () => {
-    for (const tag of ['hi-Latn', 'hi-Latn-IN', 'mr-IN', 'ur-IN', 'pa-IN', 'ta-IN']) {
+    for (const tag of ['hi-Latn', 'hi-Latn-IN', 'ur-IN']) {
       expect([tag, languageFromLocaleTag(tag)]).toEqual([tag, null]);
     }
     expect(languageFromLocaleTag('ne-NP')).toBe('ne'); // Nepali is a supported language of its own
@@ -218,8 +218,8 @@ describe('registration and normalisation', () => {
 
   it('picks Hindi from a phone list, English for an unsupported one', () => {
     expect(pickSupportedLanguage(['hi-IN', 'en-IN'])).toBe('hi');
-    expect(pickSupportedLanguage(['mr-IN', 'hi-IN'])).toBe('hi');
-    expect(pickSupportedLanguage(['mr-IN', 'ta-IN'])).toBe('en');
+    expect(pickSupportedLanguage(['af-ZA', 'hi-IN'])).toBe('hi');
+    expect(pickSupportedLanguage(['af-ZA', 'af-ZA'])).toBe('en');
     expect(pickSupportedLanguage(['hi-Latn-IN'])).toBe('en');
   });
 
@@ -228,7 +228,7 @@ describe('registration and normalisation', () => {
       expect([value, resolveEditorialLanguage(value)]).toEqual([value, 'hi']);
     }
     expect(resolveEditorialLanguage('hi-Latn')).toBe('en');
-    expect(resolveEditorialLanguage('mr')).toBe('en');
+    expect(resolveEditorialLanguage('af')).toBe('en');
     expect(resolveEditorialLanguage(undefined)).toBe('en');
     // the other nine are untouched
     expect(ALL_LANGUAGES.filter(language => language !== 'hi').map(language => resolveEditorialLanguage(language))).toEqual(['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id']);

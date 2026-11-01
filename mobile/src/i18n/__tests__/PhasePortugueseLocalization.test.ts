@@ -97,7 +97,7 @@ describe('Portugal dictionary integrity (pt-PT)', () => {
   it('ptPT.ts has exactly the same leaf paths as every other dictionary — fifteen-language parity, no missing, no extra', () => {
     const paths = (dictionary: AnyRecord) => leaves(dictionary).map(([keyPath]) => keyPath).sort();
     const reference = paths(en as AnyRecord);
-    expect(reference.length).toBe(6272);
+    expect(reference.length).toBe(6291);
     expect(paths(ptPT as AnyRecord)).toEqual(reference);
     for (const dictionary of [fr, es, itDictionary, tr, de, zh, id, hi, sq, ja, ko, bn]) {
       expect(paths(dictionary as AnyRecord)).toEqual(reference);
@@ -316,7 +316,7 @@ describe('registration and normalisation', () => {
   });
 
   it('does not confuse other languages: Spanish, Galician, Italian, Catalan, Tagalog and the others stay what they are', () => {
-    for (const tag of ['gl-ES', 'ca-ES', 'tl-PH', 'tpi', 'ptx']) {
+    for (const tag of ['gl-ES', 'ca-ES', 'xx-XX', 'tpi', 'ptx']) {
       expect([tag, languageFromLocaleTag(tag)]).toEqual([tag, null]);
     }
     expect(languageFromLocaleTag('es-ES')).toBe('es');
@@ -328,8 +328,8 @@ describe('registration and normalisation', () => {
   it("picks the phone's first supported language: Portuguese variants included, English for an unsupported list", () => {
     expect(pickSupportedLanguage(['pt-BR', 'en-GB'])).toBe('pt-BR');
     expect(pickSupportedLanguage(['pt-PT', 'pt-BR'])).toBe('pt-PT');
-    expect(pickSupportedLanguage(['ms-MY', 'pt-BR', 'fr-FR'])).toBe('pt-BR');
-    expect(pickSupportedLanguage(['ms-MY', 'tl-PH'])).toBe('en');
+    expect(pickSupportedLanguage(['af-ZA', 'pt-BR', 'fr-FR'])).toBe('pt-BR');
+    expect(pickSupportedLanguage(['af-ZA', 'xx-XX'])).toBe('en');
     expect(pickSupportedLanguage(['en-GB', 'pt-BR'])).toBe('en'); // the phone's first supported language wins
   });
 
@@ -340,7 +340,7 @@ describe('registration and normalisation', () => {
     for (const value of ['pt-BR', 'pt_BR', 'PT-br', 'pt-Latn-BR', 'pt-BR-u-nu-latn']) {
       expect([value, resolveEditorialLanguage(value)]).toEqual([value, 'pt-BR']);
     }
-    expect(resolveEditorialLanguage('ms')).toBe('en');
+    expect(resolveEditorialLanguage('af')).toBe('en');
     expect(resolveEditorialLanguage('ptx')).toBe('en');
     expect(resolveEditorialLanguage(undefined)).toBe('en');
     expect(ALL_LANGUAGES.map(language => resolveEditorialLanguage(language))).toEqual(['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'bn', 'da']);

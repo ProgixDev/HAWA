@@ -156,7 +156,7 @@ describe('registration and normalisation', () => {
   });
 
   it('does not confuse other languages: Norwegian, Swedish, Finnish, Icelandic are not Danish', () => {
-    for (const tag of ['nn', 'fi', 'is', 'nl']) {
+    for (const tag of ['nn', 'is', 'af']) {
       expect([tag, languageFromLocaleTag(tag)]).toEqual([tag, null]);
     }
   });
@@ -164,14 +164,14 @@ describe('registration and normalisation', () => {
   it('picks Danish from a phone language list, English for unsupported', () => {
     expect(pickSupportedLanguage(['da-DK', 'en-DK'])).toBe('da');
     expect(pickSupportedLanguage(['da-DK'])).toBe('da');
-    expect(pickSupportedLanguage(['fi-FI', 'is-IS'])).toBe('en');
+    expect(pickSupportedLanguage(['af-ZA', 'is-IS'])).toBe('en');
   });
 
   it('editorial content resolves da, da-DK, da-FO to the Danish block', () => {
     for (const value of ['da', 'da-DK', 'da-FO', 'da-GL', 'DA', 'da-dk']) {
       expect([value, resolveEditorialLanguage(value)]).toEqual([value, 'da']);
     }
-    expect(resolveEditorialLanguage('fi')).toBe('en');
+    expect(resolveEditorialLanguage('af')).toBe('en');
     expect(resolveEditorialLanguage('is')).toBe('en');
     expect(resolveEditorialLanguage(undefined)).toBe('en');
     // other sixteen codes pass through untouched
